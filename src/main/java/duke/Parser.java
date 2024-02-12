@@ -8,7 +8,7 @@ import java.time.format.DateTimeParseException;
  */
 public class Parser {
     private String command = "";
-    private String secondaryInput = "";
+    private TaskList taskList;
 
     /**
      * Constructor for the Parser Class.
@@ -21,82 +21,144 @@ public class Parser {
      * Method is responsible for interpreting commands send by the user and handling invalid commands.
      * @param commandInput
      * @param duke
-     * @param taskList
+     * @param taskListInput
      */
-    public String input(String commandInput, Duke duke, TaskList taskList) {
-        boolean isCommandValid = false;
-        this.command = "";
-        this.secondaryInput = "";
+    public String checkInput(String commandInput, Duke duke, TaskList taskListInput) {
+        this.command = commandInput;
+        this.taskList = taskListInput;
 
         if (commandInput.equals("save")) {
-            this.command = commandInput;
-            isCommandValid = true;
-            return duke.exit();
-        } else if (commandInput.equals("date")) {
-            return "Maybe another time ><\n";
-        } else if (commandInput.equals("whoami")) {
-            return "You are ZGMF X10A Freedom!\n"
-                    + "How could you forget? O_o\n";
-        } else if (commandInput.equals("hello")) {
-            return "HELLO FREEDOM!! c:";
+            return duke.save();
+        } else if (commandInput.equals("date") || (commandInput.equals("hello"))
+                || (commandInput.equals("whoami"))) {
+            return duke.ui.miscCommands(commandInput);
+        } else if (commandInput.equals("bye")) {
+            return duke.ui.bye();
         } else if (commandInput.equals("list")) {
-            this.command = commandInput;
-            isCommandValid = true;
             return taskList.listTask();
+        } else if (commandInput.startsWith("find")) {
+            return checkFind();
+        } else if (commandInput.startsWith("mark")) {
+            return checkMark();
+        } else if (commandInput.startsWith("unmark")) {
+            return checkUnmark();
+        } else if (commandInput.startsWith("delete")) {
+            return checkDelete();
+        } else if (commandInput.startsWith("todo")) {
+            return checkTodo();
+        } else if (commandInput.startsWith("deadline")) {
+            return checkDeadline();
+        } else if (commandInput.startsWith("event")) {
+            return checkEvent();
         } else {
-            String[] inputSplit = commandInput.split(" ", 2);
-            this.command = inputSplit[0];
-
-            if (this.command.equals("find")) {
-                isCommandValid = true;
-                return taskList.findTask(inputSplit[1]);
-            }
-
-            try {
-                if (this.command.equals("mark")) {
-                    isCommandValid = true;
-                    return taskList.markTask(Integer.valueOf(inputSplit[1]) - 1);
-                } else if (this.command.equals("unmark")) {
-                    isCommandValid = true;
-                    return taskList.unmarkTask(Integer.valueOf((inputSplit[1])) - 1);
-                } else if (this.command.equals("delete")) {
-                    isCommandValid = true;
-                    return taskList.deleteTask(Integer.valueOf((inputSplit[1])) - 1);
-                }
-            } catch (IndexOutOfBoundsException e) {
-                if (taskList.getSize() == 0) {
-                    return "You have no task to mark,unmark or delete!\n";
-                } else {
-                    return "You only have " + taskList.getSize() + " tasks!\n"
-                            + "Select a number from 1 to " + taskList.getSize() + ".\n";
-                }
-            } catch (NumberFormatException e) {
-                return "Please input a number.\n";
-            }
-
-            try {
-                if ((this.command.equals("todo")) || (this.command.equals("deadline"))
-                        || (this.command.equals("event"))) {
-                    this.secondaryInput = inputSplit[1];
-                    isCommandValid = true;
-                    return taskList.addTask(this.command, this.secondaryInput);
-                }
-            } catch (ArrayIndexOutOfBoundsException e) {
-                if (this.command.equals("deadline")) {
-                    return "Please input a date or time with a / in front.\n";
-                } else if (this.command.equals("event")) {
-                    return "Please input a start and end time "
-                            + "or date with a / in front of both periods.\n";
-                }
-            } catch (DateTimeParseException e) {
-                return "Invalid DateTime Format. Please input as follows:\n"
-                        + "dd-mm-yyyy hh:mm";
-            }
+            return "I don't understand :/";
         }
+    }
 
-        if (!isCommandValid) {
-            return "No such command or too many parameters. Please try again\n";
+    private String checkFind() {
+        String[] inputSplit = this.command.split(" ", 2);
+        try {
+            String taskdesc = inputSplit[1];
+            return taskList.findTask(taskdesc);
+        } catch (NullPointerException e) {
+            return "Please input a Task Description to find";
         }
-        return "";
+    }
+
+    private String checkMark() {
+        try {
+            String[] inputSplit = this.command.split(" ", 2);
+            Integer taskIndex = Integer.valueOf(inputSplit[1]) - 1;
+            return taskList.markTask(taskIndex);
+        } catch (IndexOutOfBoundsException e) {
+            if (taskList.getSize() == 0) {
+                return "You have no task to mark!\n";
+            } else {
+                return "You only have " + taskList.getSize() + " tasks!\n"
+                        + "Select a number from 1 to " + taskList.getSize() + ".\n";
+            }
+        } catch (NumberFormatException e) {
+            return "Please input a number.\n";
+        } catch (NullPointerException e) {
+            return "Please input a Task Index to mark";
+        }
+    }
+
+    private String checkUnmark() {
+        try {
+            String[] inputSplit = this.command.split(" ", 2);
+            Integer taskIndex = Integer.valueOf(inputSplit[1]) - 1;
+            return taskList.unmarkTask(taskIndex);
+        } catch (IndexOutOfBoundsException e) {
+            if (taskList.getSize() == 0) {
+                return "You have no task to unmark!\n";
+            } else {
+                return "You only have " + taskList.getSize() + " tasks!\n"
+                        + "Select a number from 1 to " + taskList.getSize() + ".\n";
+            }
+        } catch (NumberFormatException e) {
+            return "Please input a number.\n";
+        } catch (NullPointerException e) {
+            return "Please input a Task Index to unmark";
+        }
+    }
+
+    private String checkDelete() {
+        try {
+            String[] inputSplit = this.command.split(" ", 2);
+            Integer taskIndex = Integer.valueOf(inputSplit[1]) - 1;
+            return taskList.deleteTask(taskIndex);
+        } catch (IndexOutOfBoundsException e) {
+            if (taskList.getSize() == 0) {
+                return "You have no task to delete!\n";
+            } else {
+                return "You only have " + taskList.getSize() + " tasks!\n"
+                        + "Select a number from 1 to " + taskList.getSize() + ".\n";
+            }
+        } catch (NumberFormatException e) {
+            return "Please input a number.\n";
+        } catch (NullPointerException e) {
+            return "Please input a Task Index to delete";
+        }
+    }
+
+    private String checkTodo() {
+        String[] inputSplit = this.command.split(" ", 2);
+        try {
+            String taskdesc = inputSplit[1];
+            return taskList.addTask("todo", taskdesc);
+        } catch (NullPointerException e) {
+            return "Please input a Task Description.";
+        } catch (DateTimeParseException e) {
+            return "Invalid DateTime Format. Please input as follows:\n"
+                    + "dd-mm-yyyy hh:mm";
+        }
+    }
+
+    private String checkDeadline() {
+        String[] inputSplit = this.command.split(" ", 2);
+        try {
+            String taskdesc = inputSplit[1];
+            return taskList.addTask("deadline", taskdesc);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return "Please input a date or time with a / in front.\n";
+        } catch (DateTimeParseException e) {
+            return "Invalid DateTime Format. Please input as follows:\n"
+                    + "dd-mm-yyyy hh:mm";
+        }
+    }
+
+    private String checkEvent() {
+        String[] inputSplit = this.command.split(" ", 2);
+        try {
+            String taskdesc = inputSplit[1];
+            return taskList.addTask("event", taskdesc);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return "Please input a start and end time "
+                    + "or date with a / in front of both periods.\n";
+        } catch (DateTimeParseException e) {
+            return "Invalid DateTime Format. Please input as follows:\n"
+                    + "dd-mm-yyyy hh:mm";
+        }
     }
 }

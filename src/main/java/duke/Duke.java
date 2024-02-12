@@ -9,6 +9,7 @@ import java.util.Scanner;
  * by the user. Available commands include todo, event, deadline, mark, unmark, delete.
  */
 public class Duke {
+    protected Ui ui = new Ui();
     private Storage storage;
     private TaskList taskList;
     private Parser parser = new Parser();
@@ -27,7 +28,7 @@ public class Duke {
     /**
      * Terminates the Duke program.
      */
-    public String exit() {
+    public String save() {
         this.storage.saveFile(this.taskList);
         this.isEnded = true;
         return "Tasks Saved!";
@@ -38,7 +39,7 @@ public class Duke {
      */
     public void parse() {
         String commandInput = scanner.nextLine();
-        this.parser.input(commandInput, this, this.taskList);
+        this.parser.checkInput(commandInput, this, this.taskList);
     }
 
     /**
@@ -53,6 +54,6 @@ public class Duke {
     }
 
     public String getResponse(String commandInput) {
-        return this.parser.input(commandInput, this, this.taskList);
+        return this.parser.checkInput(commandInput, this, this.taskList);
     }
 }

@@ -36,6 +36,6 @@ public class Main extends Application {
     }
 
     public void save() {
-        this.duke.exit();
+        this.duke.save();
     }
 }

@@ -7,7 +7,7 @@ public class ToDo extends Task {
 
     /**
      * Constructor for ToDo Class
-     * @param Task
+     * @param task
      * @param taskType
      */
     public ToDo(String task, String taskType) {
