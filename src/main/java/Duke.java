@@ -35,12 +35,12 @@ public class Duke {
 
         //Execute Inputs
         boolean isExit = false;
-        while (!isExit){
+        while (!isExit) {
             int index;
             String[] inputs = ui.readCommand();
             Parser.Command command = parser.parse(inputs[0]);
-            try{
-                switch (command){
+            try {
+                switch (command) {
                     case BYE:
                         ui.printGoodbye();
                         isExit = true;
@@ -63,39 +63,39 @@ public class Duke {
                     case TODO:
                         Todo newTodo = new Todo(inputs[1]);
                         tasks.add(newTodo);
-                        ui.printTodo(newTodo,tasks);
+                        ui.printTodo(newTodo, tasks);
                         storage.saveTasks(tasks);
                         break;
                     case DEADLINE:
                         String[] deadlineSplit = inputs[1].split(" /by ");
                         Deadline newDeadline = new Deadline(deadlineSplit[0], deadlineSplit[1]);
                         tasks.add(newDeadline);
-                        ui.printDeadline(newDeadline,tasks);
+                        ui.printDeadline(newDeadline, tasks);
                         storage.saveTasks(tasks);
                         break;
                     case EVENT:
                         String[] eventSplit = inputs[1].split(" /from | /to ");
                         Event newEvent = new Event(eventSplit[0], eventSplit[1], eventSplit[2]);
                         tasks.add(newEvent);
-                        ui.printEvent(newEvent,tasks);
+                        ui.printEvent(newEvent, tasks);
                         storage.saveTasks(tasks);
                         break;
                     case DELETE:
                         index = Integer.parseInt(inputs[1]) - 1;
                         Task toDelete = tasks.get(index);
                         tasks.remove(toDelete);
-                        ui.printDelete(toDelete,tasks);
+                        ui.printDelete(toDelete, tasks);
                         storage.saveTasks(tasks);
                         break;
                     case FIND:
-                        ui.findTasks(inputs[1],tasks);
+                        ui.findTasks(inputs[1], tasks);
                         break;
                     default:
                         ui.printError("Command not found!");
                         break;
                 }
 
-            } catch (ArrayIndexOutOfBoundsException e){
+            } catch (ArrayIndexOutOfBoundsException e) {
                 ui.printError("Error! Description to command not found!");
             }
 
