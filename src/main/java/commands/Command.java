@@ -1,6 +1,8 @@
 package commands;
 
 import TaskList.TaskList;
+import exceptions.LoadCacheException;
+import storage.Storage;
 
 import java.io.IOException;
 
@@ -12,13 +14,15 @@ import java.io.IOException;
 public abstract class Command {
 
     protected TaskList taskList;
+    protected Storage storage;
 
     /**
      * Sets the task list to be used by the command.
      * @param taskList the task list to be used by the command
      */
-    public void setData(TaskList taskList) {
+    public void setData(TaskList taskList, Storage storage) {
         this.taskList = taskList;
+        this.storage = storage;
     }
 
     /**
@@ -26,5 +30,5 @@ public abstract class Command {
      * @return a string representing the result of executing the command
      * @throws IOException if an I/O error occurs
      */
-    abstract public String execute() throws IOException;
+    abstract public String execute() throws IOException, Exceptions.InvalidInputException, LoadCacheException;
 }

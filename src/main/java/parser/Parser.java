@@ -25,7 +25,7 @@ public class Parser {
         }
 
         final String commandWord = matcher.group("commandWord");
-        final String arguments = matcher.group("arguments");
+        final String arguments = matcher.group("arguments").trim();
 
         switch (commandWord) {
 
@@ -58,6 +58,16 @@ public class Parser {
 
             case FindCommand.COMMAND_WORD:
                 return new FindCommand(arguments);
+
+            case ChangeDirCommand.COMMAND_WORD:
+                return new ChangeDirCommand(arguments);
+
+            case CreateDirCommand.COMMAND_WORD:
+                return new CreateDirCommand(arguments);
+
+            case ListDirCommand.COMMAND_WORD:
+                return new ListDirCommand();
+
 
             default:
                 return new InvalidCommand("Invalid command!");

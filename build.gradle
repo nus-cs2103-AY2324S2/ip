@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("Iris")
+    mainClass.set("Launcher")
 }
 
 shadowJar {
@@ -54,4 +54,5 @@ shadowJar {
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }

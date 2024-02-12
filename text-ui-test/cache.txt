@@ -1,0 +1,7 @@
+todo  borrow book
+deadline return book /by 02-02-2024 0000
+event project meeting /from 03-02-2024 1400 /to 03-02-2024 1600
+todo  wash dishes
+event coldplay concert /from 03-02-2024 1900 /to 03-02-2024 2100
+deadline CS2109S assignment /by 05-02-2024 2359
+completed 1 2 4
