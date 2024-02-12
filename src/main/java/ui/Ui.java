@@ -23,7 +23,7 @@ public class Ui {
      * @param task The task that has been added.
      */
     public String triggerAddMessage(Task task) {
-        return "Added task:\n" + task.getDescription();
+        return "Added task:\n" + task;
     }
 
     /**
@@ -32,6 +32,6 @@ public class Ui {
      * @param task The task that has been deleted.
      */
     public String triggerDeleteMessage(Task task) {
-        return "Okay, I'll stop yapping about this task:\n" + task.getDescription();
+        return "Okay, I'll stop yapping about this task:\n" + task;
     }
 }

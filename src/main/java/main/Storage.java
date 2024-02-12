@@ -93,6 +93,7 @@ public class Storage {
      * @param tasks The TaskList containing the tasks to be saved.
      */
     public void saveTasks(TaskList tasks) {
+        assert tasks != null;
         try {
             PrintWriter pw = new PrintWriter(filePath);
             for (Task task : tasks.getTasks()) {
