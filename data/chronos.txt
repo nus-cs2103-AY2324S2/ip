@@ -1,4 +1,3 @@
-E | 1 | concert | 16 Feb 2024 18:00 | 16 Feb 2024 20:00
+E | 0 | concert | 16 Feb 2024 18:00 | 16 Feb 2024 20:00
 T | 0 | complete assignment | 
-D | 1 | submit project | 21 Feb 2024 18:00
-T | 0 | return library book | 
+D | 0 | submit project | 21 Feb 2024 18:00

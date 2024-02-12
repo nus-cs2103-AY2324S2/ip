@@ -13,7 +13,6 @@ import task.Deadline;
 import task.Event;
 import task.Task;
 import task.Todo;
-import tool.TaskList;
 
 /**
  * Represents the hard drive storage for tasks.
@@ -70,9 +69,11 @@ public class Storage {
         String taskStatus = Integer.toString(currentTask.getStatusInt());
         String taskDescription = currentTask.getDescription();
         String date = "";
+
         if (!taskCode.equals("T")) {
             date = currentTask.getDate();
         }
+
         return taskCode + " | " + taskStatus + " | " + taskDescription + " | " + date;
     }
 
@@ -115,10 +116,12 @@ public class Storage {
      */
     public void saveTasksToFile(TaskList tasks) throws IOException {
         FileWriter fw = new FileWriter(filePath);
+
         for (int i = 1; i < tasks.size() + 1; i++) {
             Task currentTask = tasks.getTask(i - 1);
             fw.write(convertTaskToSave(currentTask) + "\n");
         }
+
         fw.close();
     }
 }

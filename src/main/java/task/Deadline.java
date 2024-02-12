@@ -1,7 +1,5 @@
 package task;
 
-import task.Task;
-
 /**
  * Represents a task with a specified deadline.
  */

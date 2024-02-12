@@ -1,7 +1,5 @@
 package task;
 
-import task.Task;
-
 /**
  * Represents an event with a start and end date.
  */
