@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -20,7 +21,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Parser parser = new Parser();
+
+    private Stage stage;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/wojak.jpeg"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/chad.jpeg"));
@@ -31,8 +34,8 @@ public class MainWindow extends AnchorPane {
         greet();
     }
 
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setStage(Stage s) {
+        stage = s;
     }
 
     /**
@@ -42,12 +45,15 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = parser.interpret(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
+        if (input.equals("bye")) {
+            stage.close();
+        }
     }
     private void greet() {
         String greetings ="Hello! I'm Dukey." + "\n" + "What can I do for you?";

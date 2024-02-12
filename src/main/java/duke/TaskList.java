@@ -7,13 +7,11 @@ import java.util.ArrayList;
  */
 public class TaskList {
     private ArrayList<Task> taskList = new ArrayList<>();
-    private int length = 0;
     /**
      * Clears the tasklist
      */
     public void clear() {
         taskList.clear();
-        length = 0;
     }
     /**
      * Adds a task to the list
@@ -21,7 +19,6 @@ public class TaskList {
      */
     public void add(Task t) {
         taskList.add(t);
-        length = length + 1;
     }
     /**
      * Deletes a task from the list
@@ -29,9 +26,8 @@ public class TaskList {
      * @returns task that was deleted
      */
     public Task delete(int numberToDelete) {
-        if (numberToDelete < length && numberToDelete >= 0) {
+        if (numberToDelete < taskList.size() && numberToDelete >= 0) {
             Task t = taskList.remove(numberToDelete);
-            length = length - 1;
             return t;
         }
         return null;
@@ -42,7 +38,7 @@ public class TaskList {
      * @returns the task that was found
      */
     public Task get(int numberToGet) {
-        if (numberToGet < length && numberToGet >= 0) {
+        if (numberToGet < taskList.size() && numberToGet >= 0) {
             return taskList.get(numberToGet);
         }
         return null;
@@ -52,7 +48,7 @@ public class TaskList {
      * @returns length of list
      */
     public int getLength() {
-        return length;
+        return taskList.size();
     }
     /**
      * returns an arraylist of all tasks found that contains the input String L
@@ -61,7 +57,7 @@ public class TaskList {
      */
     public ArrayList<Task> find(String L) {
         ArrayList<Task> tasks = new ArrayList<>();
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             Task t = taskList.get(i);
             String action = t.toString();
             String export = t.export();

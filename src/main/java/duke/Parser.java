@@ -12,7 +12,6 @@ import java.util.ArrayList;
  */
 public class Parser {
     private TaskList taskList = new TaskList();
-    private Ui screen = new Ui();
     private Storage storage = new Storage();
     /**
      * Constructor for parser checks for the storage file/folder existence then moves information to tasklist
@@ -46,7 +45,6 @@ public class Parser {
                 try {
                     ldt = LocalDateTime.parse(dL, formatter);
                 } catch (DateTimeParseException e) {
-                    screen.display("error in deadline");
                 }
                 String newInput = currentLine.substring(currentLine.indexOf("deadline") + 7, currentLine.indexOf("/by"));
 
@@ -74,7 +72,6 @@ public class Parser {
                     ldt = LocalDateTime.parse(subFrom, formatter);
                     ldt2 = LocalDateTime.parse(subTo, formatter);
                 } catch (DateTimeParseException e) {
-                    screen.display("error in event");
                 }
                 if (mMarked.find()) {
                     Event n = new Event(newInput, true, ldt, ldt2);
