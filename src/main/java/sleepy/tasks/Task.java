@@ -1,28 +1,24 @@
 package sleepy.tasks;
 
-import sleepy.tools.ResponseHandler;
-
 /**
  * This class is an abstract class for the tasks in the list.
  *
  * @author kjw142857
  */
 public abstract class Task {
+    // Offset of the task description to exclude whether it is done, i.e. "[ ]" and "[X]".
+    public static final int TASK_DESCRIPTION_OFFSET = 4;
     // Description of the task (without timings).
     private String description;
-    // Raw description of the task with all details included.
-    private String rawDescription;
 
-    private boolean isDone = false;
+    private Boolean isDone = false;
 
     /**
      * Constructor for the abstract class Task (will only be invoked by subclasses).
      *
-     * @param rawDescription Full description of the task (including labels and timings).
      * @param description Description of the task details.
      */
-    public Task(String rawDescription, String description) {
-        this.rawDescription = rawDescription;
+    public Task(String description) {
         this.description = description;
     }
 
@@ -31,8 +27,6 @@ public abstract class Task {
      */
     public void markAsDone() {
         isDone = true;
-        ResponseHandler.appendLineToResponse("Nice! I've marked this task as done:");
-        ResponseHandler.appendLineToResponse(this.getDescription());
     }
 
     /**
@@ -40,8 +34,6 @@ public abstract class Task {
      */
     public void markAsUndone() {
         isDone = false;
-        ResponseHandler.appendLineToResponse("OK, I've marked this task as not done yet:");
-        ResponseHandler.appendLineToResponse(this.getDescription());
     }
 
     /**
@@ -57,11 +49,18 @@ public abstract class Task {
     }
 
     /**
+     * Returns whether this task is done.
+     *
+     * @return Whether this task is done, converted to a string.
+     */
+    public String isDone() {
+        return isDone.toString();
+    }
+
+    /**
      * Returns the raw description of this task.
      *
      * @return Raw description of this task.
      */
-    public String getRawDescription() {
-        return this.rawDescription;
-    }
+    public abstract String getRawDescription();
 }

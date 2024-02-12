@@ -17,12 +17,11 @@ public class Deadline extends Task {
     /**
      * Constructor for the Deadline class.
      *
-     * @param rawDescription Full description of the deadline, including labels and timing.
      * @param description Description of the deadline details.
      * @param givenDeadline When the given deadline is.
      */
-    public Deadline(String rawDescription, String description, String givenDeadline) {
-        super(rawDescription, description);
+    public Deadline(String description, String givenDeadline) {
+        super(description);
         this.givenDeadline = givenDeadline;
         try {
             formattedDate = LocalDate.parse(givenDeadline);
@@ -41,5 +40,16 @@ public class Deadline extends Task {
         String deadlineDate = formattedDate == null
                 ? givenDeadline : formattedDate.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
         return "[D]" + super.getDescription() + " (by: " + deadlineDate + ")";
+    }
+
+    /**
+     * Returns the raw description of this deadline (as it was added by the user).
+     *
+     * @return Raw description of this deadline.
+     */
+    @Override
+    public String getRawDescription() {
+        String details = super.getDescription().substring(TASK_DESCRIPTION_OFFSET);
+        return "deadline " + details + "/by " + givenDeadline;
     }
 }

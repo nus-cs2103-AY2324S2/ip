@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javafx.util.Pair;
 import sleepy.tasks.Task;
 import sleepy.tools.ResponseHandler;
 
@@ -39,16 +40,21 @@ public class Storage {
     }
 
     /**
-     * Returns the tasks read from the file as an ArrayList of strings.
+     * Returns the tasks read from the file as an ArrayList of pairs.
+     * Each pair contains the string description of the task,
+     * and a boolean indicating if it is done.
      *
      * @return Tasks read from the file.
      */
-    public ArrayList<String> readFile() {
-        ArrayList<String> readTasks = new ArrayList<>();
+    public ArrayList<Pair<String, Boolean>> readFile() {
+        ArrayList<Pair<String, Boolean>> readTasks = new ArrayList<>();
         try {
             Scanner scanner = new Scanner(hardDiskFile);
             while (scanner.hasNextLine()) {
-                readTasks.add(scanner.nextLine());
+                String taskDescription = scanner.nextLine();
+                Boolean isDone = Boolean.valueOf(scanner.nextLine());
+                Pair<String, Boolean> nextTask = new Pair<>(taskDescription, isDone);
+                readTasks.add(nextTask);
             }
         } catch (FileNotFoundException f) {
             ResponseHandler.appendLineToResponse("Sleepy encountered a bug and could not recover your data!");
@@ -65,7 +71,10 @@ public class Storage {
         try {
             FileWriter fileWriter = new FileWriter(hardDiskFile, false);
             for (Task task : tasks) {
+                // Write description of task
                 fileWriter.write(task.getRawDescription() + "\n");
+                // Write whether task is done
+                fileWriter.write(task.isDone() + "\n");
             }
             fileWriter.flush();
             fileWriter.close();

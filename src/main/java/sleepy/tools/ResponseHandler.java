@@ -19,11 +19,11 @@ public class ResponseHandler {
     }
 
     /**
-     * Prints an error message.
+     * Appends an error message.
      *
      * @param error Error which occurred.
      */
-    public static void printError(String error) {
+    public static void appendError(String error) {
         ResponseHandler.appendLineToResponse(error + " Nice try, you won't catch me sleeping :p");
     }
 

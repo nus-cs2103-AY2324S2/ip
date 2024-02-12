@@ -1,6 +1,7 @@
 package sleepy;
 
 import sleepy.taskstorage.TaskList;
+import sleepy.tools.Parser;
 import sleepy.tools.ResponseHandler;
 
 /**
@@ -18,7 +19,7 @@ public class Sleepy {
      * Constructor for the Sleepy class.
      */
     public Sleepy() {
-        String filePath = "./src/main/java/sleepy/taskstorage/HardDiskStorage.txt";
+        String filePath = "./storage/HardDiskStorage.txt";
         // Retrieve saved data
         taskList = new TaskList(filePath);
         isInExitState = false;
@@ -31,12 +32,18 @@ public class Sleepy {
      * @return Response from Sleepy.
      */
     public String getResponse(String input) {
-        String nextUserCommand = input.toLowerCase();
-        if (nextUserCommand.equals("bye")) {
-            isInExitState = true;
-            return "Bye. Gonna go back to sleep now *yawn*";
+        try {
+            String[] parsedCommand = Parser.parse(input);
+            if (parsedCommand[0].equals("bye")) {
+                isInExitState = true;
+            } else {
+                taskList.access(parsedCommand);
+            }
+        } catch (NumberFormatException n) {
+            ResponseHandler.appendError("Zzz... The target task number must be an integer!");
+        } catch (IllegalArgumentException i) {
+            ResponseHandler.appendError(i.getMessage());
         }
-        taskList.access(nextUserCommand);
         return ResponseHandler.returnResponse();
     }
 
