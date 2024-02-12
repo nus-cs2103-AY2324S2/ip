@@ -24,8 +24,8 @@ import javafx.stage.Stage;
  */
 public class Ui extends Application {
 
-    private final String LOKI_FILE_PATH = "/images/Loki.png";
-    private final String THOR_FILE_PATH = "/images/Thor.png";
+    private final String lokiFilePath = "/images/Loki.png";
+    private final String thorFilePath = "/images/Thor.png";
 
     private ScrollPane scrollPane;
     private VBox dialogContainer;
@@ -36,11 +36,18 @@ public class Ui extends Application {
     private Image thor;
     private Consumer<String> commandHandler;
 
+    /**
+     * Constructor for Ui.
+     */
     public Ui() {
-        this.loki = getImageFromPath(LOKI_FILE_PATH);
-        this.thor = getImageFromPath(THOR_FILE_PATH);
+        this.loki = getImageFromPath(lokiFilePath);
+        this.thor = getImageFromPath(thorFilePath);
     }
 
+    /**
+     * Constructor for Ui.
+     * @param commandHandler The command handler to handle the user input.
+     */
     public Ui(Consumer<String> commandHandler) {
         this();
         this.commandHandler = commandHandler;
