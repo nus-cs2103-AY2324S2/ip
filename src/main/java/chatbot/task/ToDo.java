@@ -24,7 +24,7 @@ public final class ToDo extends Task {
     /**
      * Constructor for this to-do.
      *
-     * @param name the name of this to-do
+     * @param name The name of this to-do.
      */
     public ToDo(String name) {
         super(name);
@@ -33,8 +33,8 @@ public final class ToDo extends Task {
     /**
      * Constructor for this to-do.
      *
-     * @param matcher the matcher that has the relevant captured groups
-     * @throws InvalidTaskStringException If the regex doesn't match the pattern
+     * @param matcher The matcher that has the relevant captured groups.
+     * @throws InvalidTaskStringException If the regex doesn't match the pattern.
      */
     public ToDo(Matcher matcher) throws InvalidTaskStringException {
         super(matcher);
@@ -43,25 +43,24 @@ public final class ToDo extends Task {
     /**
      * Parses a to-do from a human-readable string.
      *
-     * @param readableString the to-do as a human-readable string
-     * @return the to-do
-     * @throws InvalidTaskStringException If the regex doesn't match the pattern
+     * @param readableString The to-do as a human-readable string.
+     * @return The to-do.
+     * @throws InvalidTaskStringException If the regex doesn't match the pattern.
      */
     public static ToDo parseToDo(String readableString) throws InvalidTaskStringException {
         Matcher matcher = REGEX_PATTERN.matcher(readableString);
 
-        if (matcher.find()) {
-            return new ToDo(matcher);
-        } else {
+        if (!matcher.find()) {
             throw new InvalidTaskStringException();
         }
+
+        return new ToDo(matcher);
     }
 
     /**
      * Checks if the format of a string matches with the pattern.
      *
-     * @param matchingString the string
-     * @return true if it matches, otherwise false.
+     * @return True if it matches, otherwise false.
      */
     public static boolean isMatchingToDo(String matchingString) {
         return REGEX_PATTERN.matcher(matchingString).find();

@@ -25,11 +25,11 @@ public abstract class Action {
     /**
      * Constructor for this action, which validates that it's {@link Argument}(s) are valid.
      *
-     * @param command the {@link Command} associated with this action
-     * @param suppliedArguments the {@link Argument}(s) supplied with the command
+     * @param command The {@link Command} associated with this action.
+     * @param suppliedArguments The {@link Argument}(s) supplied with the command.
      * @throws ActionException If the action fails has unrecognizable or missing {@link Argument}(s).
      */
-    public Action(Command command, Argument... suppliedArguments) throws ActionException {
+    Action(Command command, Argument... suppliedArguments) throws ActionException {
         this.command = command;
         this.suppliedArguments = suppliedArguments;
         command.validateSuppliedArguments(suppliedArguments);
@@ -38,9 +38,9 @@ public abstract class Action {
     /**
      * Factory method to create an action instance.
      *
-     * @param command the {@link Command} as a string
-     * @param parsedArguments the {@link Argument}(s), parsed from the input
-     * @return the action instance
+     * @param command The {@link Command} as a string.
+     * @param parsedArguments The {@link Argument}(s), parsed from the input.
+     * @return The action instance.
      * @throws ActionException If the {@link Command} or {@link Argument}(s) are not one of the expected values.
      */
     public static Action of(String command, Argument[] parsedArguments) throws ActionException {
@@ -70,7 +70,7 @@ public abstract class Action {
     /**
      * Gets the {@link Command} of this action.
      *
-     * @return the {@link Command} associated with this action
+     * @return The {@link Command} associated with this action.
      */
     final Command getCommand() {
         return command;
@@ -79,8 +79,8 @@ public abstract class Action {
     /**
      * Finds the value of this action's {@link Argument} by the {@link Argument} name.
      *
-     * @param name the non-null name of the {@link Argument} to find
-     * @return the value of the {@link Argument} with that name, or null if not found
+     * @param name The non-null name of the {@link Argument} to find.
+     * @return The value of the {@link Argument} with that name, or null if not found.
      */
     final StringValue findArgument(String name) {
         for (Argument arg : suppliedArguments) {
@@ -98,18 +98,19 @@ public abstract class Action {
     /**
      * Finds the default {@link Argument} of this action.
      *
-     * @return the value of the default {@link Argument}
+     * @return The value of the default {@link Argument}.
      */
     final StringValue findDefaultArgument() {
         return findArgument(command.getName());
     }
 
     /**
-     * Executes this action, which may modify the state of stored {@link Task}(s),
-     * and may print to the console.
+     * Executes this action, which performs the behaviour associated with the {@link Command}.
+     * <p>
+     * This may modify the state of stored {@link Task}(s), and may print to the console.
      *
-     * @param taskList the {@link TaskList} that is used with the chatbot
-     * @return the success message from performing the action
+     * @param taskList The {@link TaskList} that is used with the chatbot.
+     * @return The success message from performing the action.
      * @throws ActionException If the action fails certain validation checks due to invalid input.
      */
     public abstract String execute(TaskList taskList) throws ActionException;

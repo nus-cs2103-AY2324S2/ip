@@ -14,9 +14,11 @@ public final class PrintFormatter {
     private static final Queue<String> FORMATTER_QUEUE = new LinkedList<>();
 
     /**
-     * Prints multiple lines of indented messages to the console.
+     * Gets multiple lines of indented messages from a queue and the arguments.
+     * <p>
+     * If there are no arguments, the messages stored in the queue would be returned.
      *
-     * @param messages the messages, separated by lines
+     * @param messages The messages, separated by lines.
      */
     public static String formatMessages(String... messages) {
         StringBuilder formattedMessage = new StringBuilder();
@@ -34,10 +36,11 @@ public final class PrintFormatter {
     }
 
     /**
-     * Add messages to printing queue for printing with the chat message later.
+     * Adds messages to printing queue for printing with the chat message later.
+     * <p>
      * The messages are printed when {@link #formatMessages} is called.
      *
-     * @param messages the messages, separated by lines
+     * @param messages The messages, separated by lines.
      */
     public static void addToFormatterQueue(String... messages) {
         FORMATTER_QUEUE.addAll(Arrays.asList(messages));

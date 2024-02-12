@@ -25,7 +25,7 @@ public final class AddDeadlineAction extends Action {
     /**
      * Constructor for this add deadline action.
      *
-     * @param arguments the {@link Argument}(s) supplied with the command
+     * @param arguments The {@link Argument}(s) supplied with the command.
      * @throws ActionException If the action fails has unrecognizable or missing {@link Argument}(s).
      */
     public AddDeadlineAction(Argument[] arguments) throws ActionException {
@@ -33,10 +33,10 @@ public final class AddDeadlineAction extends Action {
     }
 
     /**
-     * Add a {@link Deadline} to the user's list.
+     * Adds a {@link Deadline} to the user's list.
      *
-     * @param taskList the {@link TaskList} to modify
-     * @return the success message from performing the action
+     * @param taskList The {@link TaskList} to modify.
+     * @return The success message from performing the action.
      */
     @Override
     public String execute(TaskList taskList) {

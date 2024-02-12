@@ -15,7 +15,7 @@ public final class ExpectedArgument extends Argument {
     /**
      * Constructor for this {@link Argument} without a value.
      *
-     * @param name the name of this argument, which should not be null
+     * @param name The name of this argument, which should not be null.
      */
     public ExpectedArgument(String name) {
         super(name);
@@ -24,8 +24,8 @@ public final class ExpectedArgument extends Argument {
     /**
      * Constructor for this {@link Argument} with a value and name.
      *
-     * @param name  the name of this argument, which should not be null
-     * @param valueUsageName the value of this argument, as a descriptive name of its purpose
+     * @param name The name of this argument, which should not be null.
+     * @param valueUsageName The value of this argument, as a descriptive name of its purpose.
      */
     public ExpectedArgument(String name, String valueUsageName) {
         super(name, valueUsageName);
@@ -36,8 +36,8 @@ public final class ExpectedArgument extends Argument {
      * <p>
      * If this value is null, then no value is expected.
      *
-     * @param command the {@link Command} with that supplied {@link Argument}
-     * @param suppliedArgument the other {@link Argument} to compare with
+     * @param command The {@link Command} with that supplied {@link Argument}.
+     * @param suppliedArgument The other {@link Argument} to compare with.
      * @throws ActionException If the {@link Argument} has a missing or unexpected value.
      */
     public void validateArgument(Command command, Argument suppliedArgument) throws ActionException {
@@ -47,6 +47,7 @@ public final class ExpectedArgument extends Argument {
             } else if (getValue() == null && suppliedArgument.getValue() != null) {
                 throw new UnexpectedArgumentValueException(command, suppliedArgument);
             }
+            // else argument is valid and we do nothing
         }
     }
 }

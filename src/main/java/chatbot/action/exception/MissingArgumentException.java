@@ -17,8 +17,8 @@ public final class MissingArgumentException extends ActionException {
     /**
      * Constructor for this {@link ActionException} with a missing {@link Argument}.
      *
-     * @param command the associated {@link Command}
-     * @param missingArg the missing {@link Argument}
+     * @param command The associated {@link Command} with the argument.
+     * @param missingArg The missing {@link Argument}.
      */
     public MissingArgumentException(Command command, Argument missingArg) {
         this.command = command;

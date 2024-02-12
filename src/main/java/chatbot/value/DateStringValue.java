@@ -36,7 +36,7 @@ public final class DateStringValue extends StringValue {
     /**
      * Takes in a string, but tries to convert it to a {@link LocalDate}.
      *
-     * @param value the value as a {@link String}
+     * @param value The value as a {@link String}.
      */
     public DateStringValue(String value) {
         super(value);
@@ -45,7 +45,7 @@ public final class DateStringValue extends StringValue {
         try {
             date = LocalDate.parse(super.toString(), DATE_TIME_FORMATTER);
         } catch (DateTimeParseException e) {
-            // invalid date
+            // invalid date, but this is expected if the string is not a date, so we do nothing
         } finally {
             this.dateValue = date;
         }
@@ -54,7 +54,7 @@ public final class DateStringValue extends StringValue {
     /**
      * Takes in a {@link StringValue}, but tries to convert it to a {@link LocalDate}.
      *
-     * @param value the value as a {@link StringValue}
+     * @param value The value as a {@link StringValue}.
      */
     public DateStringValue(StringValue value) {
         this(value.toString());

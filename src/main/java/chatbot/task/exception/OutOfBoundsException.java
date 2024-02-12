@@ -10,23 +10,20 @@ import chatbot.task.TaskList;
  */
 public final class OutOfBoundsException extends ChatBotException {
     /** Stores the index. */
-    private final int index;
+    private final int outOfBoundsIndex;
 
     /** Stores the reason. */
-    private final String reason;
+    private final String outOfBoundsReason;
     /**
      * Constructor for this exception that is an index of a {@link TaskList} being out of range.
-     *
-     * @param index the index
-     * @param reason the reason
      */
-    public OutOfBoundsException(int index, String reason) {
-        this.index = index;
-        this.reason = reason;
+    public OutOfBoundsException(int outOfBoundsIndex, String outOfBoundsReason) {
+        this.outOfBoundsIndex = outOfBoundsIndex;
+        this.outOfBoundsReason = outOfBoundsReason;
     }
 
     @Override
     public String getMessage() {
-        return String.format("`%s` is out of bounds. %s", index, reason);
+        return String.format("`%s` is out of bounds. %s", outOfBoundsIndex, outOfBoundsReason);
     }
 }

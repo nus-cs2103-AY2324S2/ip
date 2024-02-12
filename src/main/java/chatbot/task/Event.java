@@ -31,9 +31,9 @@ public final class Event extends Task {
     /**
      * Constructor for this event.
      *
-     * @param name the name of this event
-     * @param startDateTime the starting date/time of this event
-     * @param endDateTime the ending date/time of this event
+     * @param name The name of this event.
+     * @param startDateTime The starting date/time of this event.
+     * @param endDateTime The ending date/time of this event.
      */
     public Event(String name, DateStringValue startDateTime, DateStringValue endDateTime) {
         super(name);
@@ -44,8 +44,8 @@ public final class Event extends Task {
     /**
      * Constructor for this event.
      *
-     * @param matcher the matcher that has the relevant captured groups
-     * @throws InvalidTaskStringException If the regex doesn't match the pattern
+     * @param matcher The matcher that has the relevant captured groups.
+     * @throws InvalidTaskStringException If the regex doesn't match the pattern.
      */
     public Event(Matcher matcher) throws InvalidTaskStringException {
         super(matcher);
@@ -56,25 +56,24 @@ public final class Event extends Task {
     /**
      * Parses an event from a human-readable string.
      *
-     * @param readableString the event as a human-readable string
-     * @return the event
-     * @throws InvalidTaskStringException If the regex doesn't match the pattern
+     * @param readableString The event as a human-readable string.
+     * @return The event.
+     * @throws InvalidTaskStringException If the regex doesn't match the pattern.
      */
     public static Event parseEvent(String readableString) throws InvalidTaskStringException {
         Matcher matcher = REGEX_PATTERN.matcher(readableString);
 
-        if (matcher.find()) {
-            return new Event(matcher);
-        } else {
+        if (!matcher.find()) {
             throw new InvalidTaskStringException();
         }
+
+        return new Event(matcher);
     }
 
     /**
      * Checks if the format of a string matches with the pattern.
      *
-     * @param matchingString the string
-     * @return true if it matches, otherwise false.
+     * @return True if it matches, otherwise false.
      */
     public static boolean isMatchingEvent(String matchingString) {
         return REGEX_PATTERN.matcher(matchingString).find();
