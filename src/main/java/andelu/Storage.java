@@ -49,10 +49,12 @@ public class Storage {
             if (!Files.exists(DIRECTORY_PATH)) {
                 Files.createDirectories(DIRECTORY_PATH);
             }
+            assert Files.exists(DIRECTORY_PATH) : "Error: Directory not found.";
 
             if (!Files.exists(filePath)) {
                 Files.createFile(filePath);
             }
+            assert Files.exists(filePath) : "Error: file not found.";
         } catch (IOException io) {
             Ui ui = new Ui();
             ui.printAnyStatement("There is an error when creating file. The error is " + io.getMessage());
@@ -67,6 +69,7 @@ public class Storage {
      */
     public void writeArrayListToFile(ArrayList<Task> tasks, boolean isOverwrite) {
         try {
+            assert Files.exists(filePath) : "Error: file not found when writing.";
             if (isOverwrite) {
                 Files.write(filePath,
                         convertTasksToString(tasks).getBytes(),

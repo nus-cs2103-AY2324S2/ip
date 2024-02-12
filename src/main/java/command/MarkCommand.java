@@ -37,6 +37,7 @@ public class MarkCommand extends Command {
      */
     @Override
     public String executeCommand(TaskList tasks, Ui ui, Storage storage) throws AndeluException {
+        assert input != null : "input should not be null";
         String[] splitInput = input.split(" ");
 
         if (tasks.getTasks().size() == 0) {
