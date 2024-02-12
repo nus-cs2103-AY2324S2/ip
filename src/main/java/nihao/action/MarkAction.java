@@ -8,11 +8,7 @@ import nihao.handler.DataHandler;
  * Represents a mark action.
  */
 public class MarkAction implements Action{
-    private final int index;
-
-    /**
-     * Constructor that specifies the index of the Task to be mark as completed.
-     */
+    private int index;
     public MarkAction(String index) {
         this.index = Integer.parseInt(index);
     }
