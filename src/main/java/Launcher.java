@@ -1,5 +1,3 @@
-package ui;
-
 import javafx.application.Application;
 
 /**

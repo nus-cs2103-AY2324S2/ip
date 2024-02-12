@@ -10,16 +10,13 @@ import tasks.Task;
  */
 public class Ui {
 
-    private Scanner sc;
 
     /*
      * Constructor for Ui class.
      * It initializes the scanner object to read user input.
      * It also prints a greeting message to the user.
      */
-    public Ui() {
-        sc = new Scanner(System.in);
-    }
+    public Ui() {}
 
     /*
      * Prints a greeting message to the user when the application starts.
@@ -34,21 +31,11 @@ public class Ui {
     /*
      * Prints a message to the user when the application stops.
      */
-    public void exit() {
+    public String exit() {
         String bye = "█▀▀ █▀█ █▀█ █▀▄ █▄▄ █▄█ █▀▀ █\n"
                 + "█▄█ █▄█ █▄█ █▄▀ █▄█ ░█░ ██▄ ▄\n";
 
-        System.out.println("Stoppin' the YAP...\n" + bye);
-        sc.close();
-    }
-
-    /**
-     * Reads the next line of input from the user.
-     *
-     * @return The user input as a String.
-     */
-    public String readCommand() {
-        return sc.nextLine();
+        return "Stoppin' the YAP...\n" + bye;
     }
 
     /**
@@ -56,11 +43,8 @@ public class Ui {
      *
      * @param task The task that has been added.
      */
-    public void triggerAddMessage(Task task) {
-        if (task == null) {
-            return;
-        }
-        System.out.println("Added task:\n" + task);
+    public String triggerAddMessage(Task task) {
+        return "Added task:\n" + task.getDescription();
     }
 
     /**
@@ -68,10 +52,7 @@ public class Ui {
      *
      * @param task The task that has been deleted.
      */
-    public void triggerDeleteMessage(Task task) {
-        if (task == null) {
-            return;
-        }
-        System.out.println("Okay, I'll stop yapping about this task:\n" + task);
+    public String triggerDeleteMessage(Task task) {
+        return "Okay, I'll stop yapping about this task:\n" + task.getDescription();
     }
 }

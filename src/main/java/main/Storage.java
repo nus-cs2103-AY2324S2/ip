@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import exceptions.DukeException;
 import tasks.Task;
 import tasks.TaskList;
 import tasks.ToDo;
@@ -35,7 +36,7 @@ public class Storage {
      *
      * @return An ArrayList of Task objects loaded from the file.
      */
-    public ArrayList<Task> loadTasks() {
+    public ArrayList<Task> loadTasks() throws DukeException {
         File file = new File(filePath);
         ArrayList<Task> taskList = new ArrayList<>();
         try {
@@ -70,15 +71,15 @@ public class Storage {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Error reading the datafile, it might be corrupted. Creating a new database with any salvaged data");
             TaskList salvagedTasks = new TaskList(taskList);
             this.saveTasks(salvagedTasks);
             file.delete();
             try {
                 file.createNewFile();
             } catch (IOException ioException) {
-                System.out.println("Failed to create a new blank file: " + ioException.getMessage());
+                throw new DukeException("Failed to create a new blank file: " + ioException.getMessage());
             }
+            throw new DukeException("Error reading the datafile, it might be corrupted. Creating a new database with any salvaged data");
         }
         return taskList;
     }

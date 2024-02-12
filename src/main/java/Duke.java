@@ -1,10 +1,9 @@
-package main;
-
 import commands.Command;
 import commands.Parser;
 
 import exceptions.DukeException;
 
+import main.Storage;
 import tasks.TaskList;
 
 import ui.Ui;
@@ -27,57 +26,26 @@ public class Duke {
      */
     public Duke(String filePath) {
         ui = new Ui();
-        ui.greet();
-        storage = new Storage(filePath);
-        taskList = new TaskList(storage.loadTasks());
-        run();
-
-    }
-
-    public Duke() {}
-
-    /**
-     * Starts the application and enters the command processing loop.
-     * The loop reads commands from the user, parses them, and executes them
-     * until the user issues the bye command.
-     */
-    public void run() {
-        boolean isRunning = true;
-        while (isRunning) {
-            String userInput = ui.readCommand();
-            try {
-                Command c = Parser.parse(userInput);
-                c.execute(taskList, ui, storage, userInput);
-                if (c.equals(Command.BYE)) {
-                    break;
-                }
-            } catch (DukeException e) {
+        try {
+            storage = new Storage(filePath);
+            taskList = new TaskList(storage.loadTasks());
+        } catch (DukeException e) {
             System.out.println(e.getMessage());
-            } catch (IndexOutOfBoundsException e) {
-            System.out.println("Quit yappin, that task does not exist");
         }
-
-
-        }
-        ui.exit();
-    }
-
-    /**
-     * The main entry point for the application.
-     * Creates a new Duke instance and starts the application.
-     *
-     * @param args Command line arguments, not used in this application.
-     */
-    public static void main(String[] args) {
-        new Duke("./data/taskyapper.txt");
-
     }
 
     /**
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    public String getResponse(String input) {
-        return "Duke heard: " + input;
+    public String getResponse(String userInput) {
+        try {
+            Command c = Parser.parse(userInput);
+            return c.execute(taskList, ui, storage, userInput);
+        } catch (DukeException e) {
+            return e.getMessage();
+        } catch (IndexOutOfBoundsException e) {
+            return "Quit yappin, that task does not exist";
+        }
     }
 }

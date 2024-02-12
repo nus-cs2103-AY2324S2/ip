@@ -35,13 +35,15 @@ public class TaskList {
      * Displays all tasks in the list.
      * If the list is empty, it prints a message indicating there are no tasks.
      */
-    public void yapTasks() {
-        if (taskList.size() == 0) {
-            System.out.println("Nothin' to yap...");
+    public String yapTasks() {
+        if (taskList.isEmpty()) {
+            return "Nothin' to yap...";
         }
+        String output = "";
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.println((i+1)+". "+taskList.get(i));
+            output += (i+1)+". "+taskList.get(i) + "\n";
         }
+        return output;
     }
 
     /**
@@ -49,9 +51,9 @@ public class TaskList {
      *
      * @param index The index of the task in the list to be marked as done, starting from 1.
      */
-    public void markTaskAsDone(int index) {
+    public String markTaskAsDone(int index) {
         Task task = taskList.get(index - 1);
-        task.markDone(false);
+        return task.markDone(false);
     }
 
     /**
@@ -59,9 +61,9 @@ public class TaskList {
      *
      * @param index The index of the task in the list to be marked as done, starting from 1.
      */
-    public void unmarkTaskAsDone(int index) {
+    public String unmarkTaskAsDone(int index) {
         Task task = taskList.get(index - 1);
-        task.unmarkDone();
+        return task.unmarkDone();
     }
 
     /**

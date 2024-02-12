@@ -6,8 +6,6 @@ import main.Storage;
 import tasks.Task;
 import tasks.TaskList;
 
-import java.util.ArrayList;
-
 /**
  * Defines the set of commands that can be executed within the Duke application.
  * Each enum constant represents a distinct command and defines its own execution behavior.
@@ -19,8 +17,12 @@ public enum Command {
      */
     BYE {
         @Override
-        public void execute(TaskList tasks, Ui ui, Storage storage, String message) {
+        public String execute(TaskList tasks, Ui ui, Storage storage, String message) {
             storage.saveTasks(tasks);
+            String bye = "█▀▀ █▀█ █▀█ █▀▄ █▄▄ █▄█ █▀▀ █\n"
+                    + "█▄█ █▄█ █▄█ █▄▀ █▄█ ░█░ ██▄ ▄\n";
+
+            return "Stoppin' the YAP...\n" + bye;
         }
     },
     /**
@@ -28,8 +30,8 @@ public enum Command {
      */
     YAP {
         @Override
-        public void execute(TaskList tasks, Ui ui, Storage storage, String message) {
-            tasks.yapTasks();
+        public String execute(TaskList tasks, Ui ui, Storage storage, String message) {
+            return tasks.yapTasks();
         }
     },
     /**
@@ -37,12 +39,12 @@ public enum Command {
      */
     MARK {
         @Override
-        public void execute(TaskList tasks, Ui ui, Storage storage, String message) {
+        public String execute(TaskList tasks, Ui ui, Storage storage, String message) {
             // Extract task index from argument and mark the task as done
             String[] inputs = message.split(" ");
             int index = Integer.parseInt(inputs[1]);
-            tasks.markTaskAsDone(index);
             storage.saveTasks(tasks);
+            return tasks.markTaskAsDone(index);
         }
     },
     /**
@@ -50,12 +52,12 @@ public enum Command {
      */
     UNMARK {
         @Override
-        public void execute(TaskList tasks, Ui ui, Storage storage, String message) {
+        public String execute(TaskList tasks, Ui ui, Storage storage, String message) {
             // Extract task index from argument and mark the task as not done
             String[] inputs = message.split(" ");
             int index = Integer.parseInt(inputs[1]);
-            tasks.unmarkTaskAsDone(index);
             storage.saveTasks(tasks);
+            return tasks.unmarkTaskAsDone(index);
         }
     },
     /**
@@ -63,12 +65,12 @@ public enum Command {
      */
     ADD_TODO {
         @Override
-        public void execute(TaskList tasks, Ui ui, Storage storage, String message) {
+        public String execute(TaskList tasks, Ui ui, Storage storage, String message) {
             // Create a new tasks.ToDo task and add it to the task list
             Task task = tasks.initTask(message, "todo");
             tasks.addTasktoTaskList(task);
-            ui.triggerAddMessage(task);
             storage.saveTasks(tasks);
+            return ui.triggerAddMessage(task);
         }
     },
     /**
@@ -76,12 +78,12 @@ public enum Command {
      */
     ADD_DEADLINE {
         @Override
-        public void execute(TaskList tasks, Ui ui, Storage storage, String message) {
+        public String execute(TaskList tasks, Ui ui, Storage storage, String message) {
             // Create a new tasks.Deadline task and add it to the task list
             Task task = tasks.initTask(message, "deadline");
             tasks.addTasktoTaskList(task);
-            ui.triggerAddMessage(task);
             storage.saveTasks(tasks);
+            return ui.triggerAddMessage(task);
         }
     },
     /**
@@ -89,12 +91,12 @@ public enum Command {
      */
     ADD_EVENT {
         @Override
-        public void execute(TaskList tasks, Ui ui, Storage storage, String message) {
+        public String execute(TaskList tasks, Ui ui, Storage storage, String message) {
             // Create a new tasks.Event task and add it to the task list
             Task task = tasks.initTask(message, "event");
             tasks.addTasktoTaskList(task);
-            ui.triggerAddMessage(task);
             storage.saveTasks(tasks);
+            return ui.triggerAddMessage(task);
         }
     },
 
@@ -103,22 +105,21 @@ public enum Command {
      */
     DELETE {
         @Override
-        public void execute(TaskList tasks, Ui ui, Storage storage, String message) {
+        public String execute(TaskList tasks, Ui ui, Storage storage, String message) {
             String[] inputs = message.split(" ");
             int index = Integer.parseInt(inputs[1]);
             Task task = tasks.removeTaskfromTaskList(index);
-            ui.triggerDeleteMessage(task);
             storage.saveTasks(tasks);
+            return ui.triggerDeleteMessage(task);
         }
     },
     FIND {
         @Override
-        public void execute(TaskList tasks, Ui ui, Storage storage, String message) {
+        public String execute(TaskList tasks, Ui ui, Storage storage, String message) {
             String[] inputs = message.split(" ");
             String queryString = inputs[1];
-            ArrayList<Task> tempList = new ArrayList<>();
             TaskList tempTaskList = tasks.filter(queryString);
-            tempTaskList.yapTasks();
+            return tempTaskList.yapTasks();
         }
     }
     ;
@@ -133,7 +134,7 @@ public enum Command {
      * @param storage The storage instance for saving and loading tasks.
      * @param message The additional message or data required for command execution.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage, String message) {
+    public String execute(TaskList tasks, Ui ui, Storage storage, String message) {
         throw new UnsupportedOperationException("This command does not take any arguments.");
     }
 

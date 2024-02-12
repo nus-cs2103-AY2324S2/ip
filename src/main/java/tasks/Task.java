@@ -62,32 +62,28 @@ public class Task {
      *
      * @param start Indicates whether the marking is being done at the start (initial loading).
      */
-    public void markDone(boolean start) {
+    public String markDone(boolean start) {
         if (this.isDone) {
-            System.out.println("Stop yappin' bruh... tasks.Task is already marked as done");
+            return "Stop yappin' bruh... tasks. Task is already marked as done" + this.description;
         } else {
             this.isDone = true;
             if (!start) {
-            System.out.println("Good job Yapper! I've marked this task as done:");
+                return "Good job Yapper! I've marked this task as done:" + this.description;
             }
-        }
-        if (!start) {
-            System.out.println(this);
-        }
+        } return "";
     }
 
     /**
      * Unmarks the task as done, setting its status to incomplete.
      * Prints a message indicating the action taken.
      */
-    public void unmarkDone() {
+    public String unmarkDone() {
         if (!this.isDone) {
-            System.out.println("Stop yappin' bruh... tasks.Task remains incomplete");
+            return "Stop yappin' bruh... tasks.Task remains incomplete" + this.getDescription();
         } else {
             this.isDone = false;
-            System.out.println("YAPYAP! I've unmarked this task...");
+            return "YAPYAP! I've unmarked this task..." + this.getDescription();
         }
-        System.out.println(this);
     }
 
     /**
