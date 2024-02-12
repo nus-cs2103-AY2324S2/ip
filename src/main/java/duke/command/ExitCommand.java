@@ -6,7 +6,8 @@ import duke.ui.Ui;
 
 public class ExitCommand implements Command {
 
-    public void execute(TaskList tasks, Ui ui) throws DukeException {
+    public String execute(TaskList tasks, Ui ui) throws DukeException {
+        return "";
     }
 
     public boolean isExit() {

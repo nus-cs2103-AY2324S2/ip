@@ -19,13 +19,13 @@ public class DeleteCommand implements Command {
      * @param ui the UI that will be used to display the message
      * @throws DukeException if index is greater than the amount of Task in the TaskList
      */
-    public void execute(TaskList tasks, Ui ui) throws DukeException {
+    public String execute(TaskList tasks, Ui ui) throws DukeException {
         if (index + 1 > tasks.size()) {
             throw new DukeException("You only have " + tasks.size() + " tasks in the list.");
         }
         Task task = tasks.get(index);
         tasks.remove(index);
-        ui.deleteMessage(task.toString(), tasks.size());
+        return ui.deleteMessage(task.toString(), tasks.size());
     }
 
     public boolean isExit() {

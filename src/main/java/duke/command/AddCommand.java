@@ -23,16 +23,13 @@ public class AddCommand implements Command {
      * @param ui the UI that will be used to display the message
      * @throws DukeException if format of the description does not match.
      */
-    public void execute(TaskList tasks, Ui ui) throws DukeException {
+    public String execute(TaskList tasks, Ui ui) throws DukeException {
         Task task;
         String[] stringSplit;
-        switch (commandWord) {
-        case "todo":
+        if (commandWord.equals("todo")) {
             task = new ToDo(description.trim());
             tasks.add(task);
-            ui.addMessage(task.toString(), tasks.size());
-            break;
-        case "deadline":
+        } else if (commandWord.equals("deadline")) {
             stringSplit = description.split("/by");
             if (stringSplit.length < 2) {
                 throw new DukeException("Deadline /by cannot be empty!");
@@ -42,9 +39,7 @@ public class AddCommand implements Command {
             // Create Task and add to list
             task = new Deadline(description.trim(), by.trim());
             tasks.add(task);
-            ui.addMessage(task.toString(), tasks.size());
-            break;
-        case "event":
+        } else {
             stringSplit = description.split("/from");
             if (stringSplit.length < 2) {
                 throw new DukeException("Event /from cannot be empty!");
@@ -59,9 +54,8 @@ public class AddCommand implements Command {
             // Create Task and add to list
             task = new Event(description.trim(), from.trim(), to.trim());
             tasks.add(task);
-            ui.addMessage(task.toString(), tasks.size());
-            break;
         }
+        return ui.addMessage(task.toString(), tasks.size());
     }
 
     public boolean isExit() {
