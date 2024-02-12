@@ -61,7 +61,7 @@ public class Ui {
      */
     public String showTaskAdded(TaskList tasks) {
         ArrayList<Task> al = tasks.getTasks();
-        assert al.isEmpty() : "Task list should not be empty after adding";
+        assert !al.isEmpty() : "Task list should not be empty after adding";
         return ("Got it. I've added this task:\n  " + al.get(al.size() - 1));
 
     }
