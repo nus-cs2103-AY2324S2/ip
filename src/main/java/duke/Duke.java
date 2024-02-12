@@ -2,9 +2,11 @@ package duke;
 
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
+import java.util.Timer;
 import java.util.function.Consumer;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -30,18 +32,12 @@ public class Duke extends Application {
     private Image duke = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/louie.jpg")));
 
     private final Ui ui = new Ui();
-    private boolean done = false;
     private final CommandList commands = new CommandList();
     private TaskList tasks = new TaskList();
     private final Storage st = new Storage("data.txt");
 
 
     public Duke() {
-    }
-
-    public void exit() {
-        // duke.Duke will exit at the end of the loop
-        done = true;
     }
 
     public void addCommand(String name, Consumer<Parser> executor) {
@@ -57,34 +53,6 @@ public class Duke extends Application {
                 .add(DialogBox.createDukeDialog
                         (new Label(msg), new ImageView(duke)));
 
-    }
-
-    public static void main(String[] mainArgs) {
-
-        Duke duke = new Duke();
-
-        duke.initCommands();
-
-        try {
-            duke.tasks = duke.st.loadTasks();
-        } catch (DukeException e) {
-            duke.print(String.format
-                    ("Error loading task data: %s"
-                            + "\n\nPlease delete 'data.txt' and try again. Bye bye...", e.getMessage()));
-            System.exit(1);
-        }
-
-        duke.print("Hello, my name is... Louie!!!!\n" +
-                   "What can I do for you today?");
-        while (!duke.done) {
-            String str = duke.ui.readInput();
-            Parser parser = new Parser(str);
-            try {
-                duke.commands.get(parser.next()).run(parser);
-            } catch (DukeCommandNotFoundException | DukeOptionParsingException e) {
-                duke.print("no matching command...");
-            }
-        }
     }
 
     private void initCommands() {
@@ -103,7 +71,7 @@ public class Duke extends Application {
             try {
                 args.assertEnd();
                 this.print("Ok, going to sleep...");
-                this.exit();
+                Platform.exit();
             } catch (DukeOptionParsingException e) {
                 this.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
