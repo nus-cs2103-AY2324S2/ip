@@ -2,6 +2,9 @@ package lex;
 
 import javafx.application.Application;
 
+/**
+ * Represents the main class of the Lex chatbot.
+ */
 public class Main {
 
     /**
@@ -11,6 +14,5 @@ public class Main {
      */
     public static void main(String[] args) {
         Application.launch(Lex.class, args);
-        // new Lex("./data.json").run();
     }
 }
