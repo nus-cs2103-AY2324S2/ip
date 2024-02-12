@@ -5,6 +5,9 @@ import andelu.Storage;
 import andelu.TaskList;
 import andelu.Ui;
 
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 /**
  * A ListCommand to list down the current list of tasks.
  * A subclass of Command class.
@@ -23,6 +26,7 @@ public class ListCommand extends Command {
      */
     @Override
     public String executeCommand(TaskList tasks, Ui ui, Storage storage) throws AndeluException {
+        /*
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Here are the tasks in your list:\n");
         ui.printAnyStatement("Here are the tasks in your list:");
@@ -33,7 +37,11 @@ public class ListCommand extends Command {
             System.out.println("      " + (i + 1) + "." + tasks.getTasks().get(i).toString());
             stringBuilder.append((i + 1) + "." + tasks.getTasks().get(i).toString() + "\n");
         }
+        */
 
-        return stringBuilder.toString();
+        String tasksString = IntStream.range(0, tasks.getTasks().size()).mapToObj(i -> String.format("%d. %s", (i + 1), tasks.getTasks().get(i).toString())).collect(Collectors.joining("\n"));
+        String result = "Here are the tasks in your list:\n" + tasksString;
+
+        return result;
     }
 }
