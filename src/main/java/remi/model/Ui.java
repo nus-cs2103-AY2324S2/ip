@@ -31,19 +31,43 @@ public class Ui {
      * Initializes the io loop of the chatbot. This includes loading the storage and running the message event loop.
      */
     public void doIoLoop() {
-        Outputter.outputMessage(new Message("Hello! I'm Remi\n" + "What can I do for you?"));
-        Storage.get();
+        initialize();
 
         while (!exitLoop) {
-            try {
-                Message input = Inputter.inputMessage();
-                Message output = parser.parseAndRun(input);
-                Outputter.outputMessage(output);
-                if (exitLoop)
-                    break;
-            } catch (RemiError err) {
-                Outputter.outputMessage(new Message(err.getMessage()));
+            doOnce();
+            if (exitLoop) {
+                break;
             }
+        }
+    }
+
+    /**
+     * Does the first step in initializing the IO loop.
+     */
+    public void initialize() {
+        Outputter.outputMessage(new Message("Hello! I'm Remi\n" + "What can I do for you?"));
+    }
+
+    /**
+     * Does one iteration of the io loop. Gets input from stdin.
+     */
+    public void doOnce() {
+        Message input = Inputter.inputMessage();
+        Message output = doOnce(input);
+        Outputter.outputMessage(output);
+    }
+
+    /**
+     * Does one iteration of the io loop. Receives input as a parameter.
+     *
+     * @param input the input in the Message format.
+     * @return the message to be outputted.
+     */
+    public Message doOnce(Message input) {
+        try {
+            return parser.parseAndRun(input);
+        } catch (RemiError err) {
+            return new Message(err.getMessage());
         }
     }
 
