@@ -120,16 +120,18 @@ public class Storage {
                 result.append(System.getProperty("line.separator"));
             } else if (task instanceof Deadline) {
                 result.append("D | ");
-                result.append(task.getStatusIcon().equals("X") ? "1 | " : "0 | ");
-                result.append(task.getDescription() + " | ");
-                result.append(((Deadline) task).getBy());
+                Deadline deadlineTask = (Deadline) task;
+                result.append(deadlineTask.getStatusIcon().equals("X") ? "1 | " : "0 | ");
+                result.append(deadlineTask.getDescription() + " | ");
+                result.append(deadlineTask.getBy());
                 result.append(System.getProperty("line.separator"));
-            } else {
+            } else if (task instanceof Event) {
+                Event eventTask = (Event) task;
                 result.append("E | ");
-                result.append(task.getStatusIcon().equals("X") ? "1 | " : "0 | ");
-                result.append(task.getDescription() + " | ");
-                result.append(((Event) task).getStart() + " | ");
-                result.append(((Event) task).getEnd());
+                result.append(eventTask.getStatusIcon().equals("X") ? "1 | " : "0 | ");
+                result.append(eventTask.getDescription() + " | ");
+                result.append(eventTask.getStart() + " | ");
+                result.append(eventTask.getEnd());
                 result.append(System.getProperty("line.separator"));
             }
 

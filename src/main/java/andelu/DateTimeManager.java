@@ -10,6 +10,9 @@ import java.util.List;
  * A DateTimeManager to convert between String and LocalDateTime.
  */
 public class DateTimeManager {
+    private static List<DateTimeFormatter> formatters = Arrays.asList(
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"),
+            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
 
     /**
      * Coverts the String to LocalDateTime type.
@@ -19,10 +22,6 @@ public class DateTimeManager {
      * @throws AndeluException If none of the timeString matches the formatter.
      */
     public static LocalDateTime convertStringToLocalDateTime(String timeString) throws AndeluException {
-        List<DateTimeFormatter> formatters = Arrays.asList(
-                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"),
-                DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")
-        );
         for (DateTimeFormatter formatter : formatters) {
             try {
                 return LocalDateTime.parse(timeString, formatter);
@@ -43,10 +42,6 @@ public class DateTimeManager {
      * @throws AndeluException If none of the formatter matches the LocalDateTime.
      */
     public static String convertLocalDateTimeToString(LocalDateTime dt) throws AndeluException {
-        List<DateTimeFormatter> formatters = Arrays.asList(
-                DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"),
-                DateTimeFormatter.ofPattern("MMM dd yyyy'T'HH:mm")
-        );
 
         for (DateTimeFormatter formatter : formatters) {
             try {
