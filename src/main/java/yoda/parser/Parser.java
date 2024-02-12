@@ -24,7 +24,6 @@ public class Parser {
      * @param input The input string provided by the user.
      * @throws Exception if an error occurs during command execution.
      */
-
     public String parseAndExecute(String input) {
         String[] parts = input.trim().split("\\s+", 2);
         Command command;
