@@ -1,23 +1,52 @@
 public class Task {
     private String what;
-    private String done;
+    private String status;
 
-    public Task(String what) {
+    /**
+     * Constructor for Task object.
+     *
+     * @param what description of the task
+     */
+    public Task(String what, String status) {
         this.what = what;
-        this.done = "[ ]";
+        if (status.equals("t")) {
+            this.status = "[X]";
+        } else {
+            this.status = "[ ]";
+        }
     }
 
+    /**
+     * Returns string showing task details.
+     *
+     * @return string of marked/unmarked status and task description
+     */
     public String showAll() {
-        return this.done + " " + this.what;
+        return this.status + " " + this.what;
     }
 
-    public void mark() {
-        this.done = "[X]";
-        System.out.println("Nice! I've marked this task as done:");
+    /**
+     * Marks tasks as done or undone.
+     *
+     * @param status completion status of task
+     */
+    public void changeStatus(String status) {
+        if (status.equals("mark")) {
+            this.status = "[X]";
+            System.out.println("Nice! I've marked this task as done:");
+        } else if (status.equals("unmark")) {
+            this.status = "[ ]";
+            System.out.println("OK, I've marked this task as not done yet:");
+        }
     }
 
-    public void unmark() {
-        this.done = "[ ]";
-        System.out.println("OK, I've marked this task as not done yet:");
+    /**
+     * Returns task details in table row form
+     *
+     * @return String representation of Task to be saved into txt file
+     */
+    @Override
+    public String toString() {
+        return (this.status.equals("[X]") ? "t" : "f") + " / " + this.what;
     }
 }

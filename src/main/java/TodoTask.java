@@ -27,7 +27,7 @@ public class TodoTask extends Task {
      *
      * @return string of task type, marked/unmarked status, description and deadline
      */
-    
+
     public String showAll() {
         return this.type + super.showAll();
     }
