@@ -1,5 +1,1 @@
-D | not done | deadline1 (by: 12 Dec 2020)
-T | not done | newthing
-T | not done | thing2
-T | not done | newTodo
-D | not done | newdeadline (by: 8 Feb 2024)
+T | done | task1
