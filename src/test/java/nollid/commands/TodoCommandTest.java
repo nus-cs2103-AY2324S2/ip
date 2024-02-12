@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -36,6 +37,12 @@ public class TodoCommandTest {
         Files.deleteIfExists(testFile);
         this.storage = new Storage(testFile);
         this.tasks = new TaskList(this.storage.load());
+    }
+
+    @AfterEach
+    public void cleanup() throws IOException {
+        Path testFile = Paths.get("./data/tests/commands/todocommand_test.json");
+        Files.deleteIfExists(testFile);
     }
 
     @Test
