@@ -40,7 +40,7 @@ public class Aurora {
      */
     public Aurora() {
         this.ui = new Ui();
-        this.storage = new Storage("./data/duke.txt");
+        this.storage = new Storage("./data/aurora.txt");
         try {
             ArrayList<Task> taskList = storage.loadTasks();
             this.taskList = new TaskList(taskList);
@@ -82,8 +82,10 @@ public class Aurora {
                 String command = this.ui.nextCommand();
                 Command commandObj = this.parser.parseCommand(command);
                 String resultString = commandObj.handle();
+                this.ui.printALine();
                 System.out.println(resultString);
-                isBye = commandObj.isBye();
+                this.ui.printALine();
+                isBye = commandObj.isByeCommand();
             } catch (AuroraException exception) {
                 String exceptionMessage = exception.getExceptionMessage();
                 this.ui.printALine();

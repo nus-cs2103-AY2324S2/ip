@@ -11,6 +11,9 @@ public class Task {
     /** Description of the task. */
     private String description;
 
+    private static final String DONE_BRACKET = "[X]";
+    private static final String NOT_DONE_BRACKET = "[ ]";
+
     /**
      * Constructor for the Task class.
      *
@@ -64,9 +67,9 @@ public class Task {
     public String toString() {
         String statusBracket;
         if(this.getStatus()) {
-            statusBracket = "[X]";
+            statusBracket = DONE_BRACKET;
         } else {
-            statusBracket = "[ ]";
+            statusBracket = NOT_DONE_BRACKET;
         }
         String taskString = statusBracket + " " + this.description;
         return taskString;

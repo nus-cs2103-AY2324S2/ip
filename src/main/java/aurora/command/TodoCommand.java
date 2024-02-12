@@ -45,8 +45,7 @@ public class TodoCommand extends Command {
         String message = "Command not executed.";
         String[] descriptionSplit = Parser.splitAtFirstBlank(this.command);
         if (descriptionSplit.length < 2) {
-            throw new AuroraException("Invalid number of arguments!\n" +
-                    "Make sure to enter todo, then specify the task.");
+            throw new AuroraException(AuroraException.INVALID_TODO_FORMAT);
         } else {
             this.taskList.addTodo(descriptionSplit[1]);
             message = this.ui.getEchoAddTaskString(this.taskList);
@@ -57,11 +56,6 @@ public class TodoCommand extends Command {
             message =  "Unable to save todo to file: " + exception.getMessage();
         }
         return message;
-    }
-
-    @Override
-    public boolean isBye() {
-        return false;
     }
 
 }

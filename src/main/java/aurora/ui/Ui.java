@@ -15,6 +15,17 @@ public class Ui {
     /** Scanner to be used for inputs. */
     private final Scanner scanner;
 
+    private static final String OPENING_MESSAGE = "How are you feeling? " +
+            "I'm Aurora, your personal schedule assistant. \n"
+            + "What can I do for you?";
+
+    private static final String EXIT_MESSAGE = "Thank you for consulting with me, have a good day. " +
+            "Exiting application in 3 seconds.";
+
+    private static final String TASK_LIST_STRING = "These are the tasks in your list:\n";
+
+    private static final String FIND_LIST_STRING = "Here are the matching tasks in your list:\n";
+
     /**
      * Constructor for the Ui class.
      */
@@ -36,9 +47,7 @@ public class Ui {
      */
     public void printOpeningMessage() {
         printALine();
-        String openingMessage = "How are you feeling? I'm Aurora, your personal schedule assistant. \n"
-                + "What can I do for you?";
-        System.out.println(openingMessage);
+        System.out.println(OPENING_MESSAGE);
         printALine();
     }
 
@@ -57,11 +66,8 @@ public class Ui {
      *
      * @return A string containing the opening message.
      */
-    public String getOpeningMessage() {
-        StringBuilder message = new StringBuilder();
-        message.append("How are you feeling? I'm Aurora, your personal schedule assistant. \n")
-                .append("What can I do for you?");
-        return message.toString();
+    public static String getOpeningMessage() {
+        return OPENING_MESSAGE;
     }
 
 
@@ -70,8 +76,8 @@ public class Ui {
      *
      * @return A string containing the exit message.
      */
-    public String getExitMessage() {
-        return "Thank you for consulting with me, have a good day. Exiting application in 3 seconds.";
+    public static String getExitMessage() {
+        return EXIT_MESSAGE;
     }
 
 
@@ -83,7 +89,7 @@ public class Ui {
      */
     public String getTaskListString(ArrayList<Task> taskList) {
         StringBuilder message = new StringBuilder();
-        message.append("These are the tasks in your list:\n");
+        message.append(TASK_LIST_STRING);
         for(int i = 0; i < taskList.size(); i++) {
             message.append(i + 1).append(". ").append(taskList.get(i).toString()).append("\n");
         }
@@ -99,7 +105,7 @@ public class Ui {
      */
     public String getFoundListString(ArrayList<Task> taskList) {
         StringBuilder message = new StringBuilder();
-        message.append("Here are the matching tasks in your list:\n");
+        message.append(FIND_LIST_STRING);
         for(int i = 0; i < taskList.size(); i++) {
             message.append(i + 1).append(". ").append(taskList.get(i).toString()).append("\n");
         }

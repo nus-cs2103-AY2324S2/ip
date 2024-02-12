@@ -36,9 +36,4 @@ public class ListCommand extends Command {
         return message;
     }
 
-    @Override
-    public boolean isBye() {
-        return false;
-    }
-
 }

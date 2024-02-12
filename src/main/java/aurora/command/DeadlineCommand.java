@@ -47,19 +47,12 @@ public class DeadlineCommand extends Command {
         String message = "Command not executed.";
         String[] descriptionAndDateSplit = Parser.splitAtFirstBlank(this.command);
         if (descriptionAndDateSplit.length < 2) {
-            throw new AuroraException("Invalid number of arguments!\n" +
-                    "Make sure to enter deadline, " +
-                    "then specify the description of the task followed by the deadline.\n"
-                    +
-                    "These two fields should be separated with /by.");
+            throw new AuroraException(AuroraException.INVALID_DEADLINE_FORMAT);
         }
         String descriptionAndDate = descriptionAndDateSplit[1];
         String[] splitVariables = Parser.splitAtFirstBy(descriptionAndDate);
         if (splitVariables.length < 2) {
-            throw new AuroraException("Invalid number of arguments!\n" +
-                    "Make sure to enter deadline, " +
-                    "then specify the description of the task followed by the deadline.\n" +
-                    "These two fields should be separated with /by.");
+            throw new AuroraException(AuroraException.INVALID_DEADLINE_FORMAT);
         } else {
             String description = splitVariables[0];
             String dateString = splitVariables[1];
@@ -68,7 +61,7 @@ public class DeadlineCommand extends Command {
                 this.taskList.addDeadline(description, dateLdt);
                 message = this.ui.getEchoAddTaskString(this.taskList);
             } catch (DateTimeParseException e) {
-                throw new AuroraException("Invalid date format. Please use dd/MM/yyyy HHmm format for deadlines.");
+                throw new AuroraException(AuroraException.INVALID_DATE_FORMAT);
             }
         }
         try {
@@ -78,11 +71,6 @@ public class DeadlineCommand extends Command {
             return message;
         }
         return message;
-    }
-
-    @Override
-    public boolean isBye() {
-        return false;
     }
 
 }

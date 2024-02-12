@@ -47,41 +47,24 @@ public class EventCommand extends Command {
         String message = "Command not executed.";
         String[] descriptionAndDateSplit = Parser.splitAtFirstBlank(this.command);
         if (descriptionAndDateSplit.length < 2) {
-            throw new AuroraException("Invalid number of arguments!\n" +
-                    "Make sure to enter event, " +
-                    "then specify the description of the task followed by the start and end " +
-                    "dates.\n" +
-                    "The start date should be preceded with /from, " +
-                    "while the end date should be preceded with /to.");
+            throw new AuroraException(AuroraException.INVALID_EVENT_FORMAT);
         }
         String descriptionAndDate = descriptionAndDateSplit[1];
         String[] descriptionSplit = Parser.splitAtFirstFrom(descriptionAndDate);
         if (descriptionSplit.length != 2) {
-            throw new AuroraException("Invalid number of arguments!\n" +
-                    "Make sure to enter event, " +
-                    "then specify the description of the task followed by the start and end " +
-                    "dates.\n" +
-                    "The start date should be preceded with /from, " +
-                    "while the end date should be preceded with /to.");
+            throw new AuroraException(AuroraException.INVALID_EVENT_FORMAT);
         }
-        String description = descriptionSplit[0];
         String startEnd = descriptionSplit[1];
         String[] startEndSplit = Parser.splitAtFirstTo(startEnd);
         if (startEndSplit.length != 2) {
-            throw new AuroraException("Invalid number of arguments!\n" +
-                    "Make sure to enter event, " +
-                    "then specify the description of the task followed by the start and end " +
-                    "dates.\n" +
-                    "The start date should be preceded with /from, " +
-                    "while the end date should be preceded with /to.");
+            throw new AuroraException(AuroraException.INVALID_EVENT_FORMAT);
         } else {
             try {
-                LocalDateTime startLdt = Parser.parseDate(startEndSplit[0].trim());
-                LocalDateTime endLdt = Parser.parseDate(startEndSplit[1].trim());
-                this.taskList.addEvent(description, startLdt, endLdt);
+                this.taskList.addEvent(descriptionSplit[0], Parser.parseDate(startEndSplit[0].trim()),
+                        Parser.parseDate(startEndSplit[1].trim()));
                 message = this.ui.getEchoAddTaskString(this.taskList);
             } catch (DateTimeParseException e) {
-                throw new AuroraException("Invalid date format. Please use dd/MM/yyyy HHmm format for events.");
+                throw new AuroraException(AuroraException.INVALID_DATE_FORMAT);
             }
         }
         try {
@@ -90,11 +73,6 @@ public class EventCommand extends Command {
             message = "Unable to save event to file: " + exception.getMessage();
         }
         return message;
-    }
-
-    @Override
-    public boolean isBye() {
-        return false;
     }
 
 }

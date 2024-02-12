@@ -16,6 +16,11 @@ public class TaskList {
     /** TaskList of tasks */
     private ArrayList<Task> taskList;
 
+    private static final String MARK_DONE = "I've marked this task as done: \n";
+    private static final String UNMARK_DONE = "I've marked this task as not done yet: \n";
+    private static final String DELETE_TASK = "I've removed this task as you instructed: \n";
+    private static final String NUMBER_OF_TASKS = "\nNumber of tasks in the list: ";
+
     /**
      * Constructor for the TaskList class.
      *
@@ -66,7 +71,7 @@ public class TaskList {
      */
     public String markTaskGui(int taskIndex) {
         this.taskList.get(taskIndex).setDone();
-        return "I've marked this task as done: \n" + this.taskList.get(taskIndex).toString();
+        return MARK_DONE + this.taskList.get(taskIndex).toString();
     }
 
     /**
@@ -77,7 +82,7 @@ public class TaskList {
      */
     public String unmarkTaskGui(int taskIndex) {
         this.taskList.get(taskIndex).setNotDone();
-        return "I've marked this task as not done yet: \n" + this.taskList.get(taskIndex).toString();
+        return UNMARK_DONE + this.taskList.get(taskIndex).toString();
     }
 
     /**
@@ -89,8 +94,8 @@ public class TaskList {
     public String deleteTaskGui(int taskIndex) {
         String taskString = this.taskList.get(taskIndex).toString();
         this.taskList.remove(taskIndex);
-        return "I've removed this task as you instructed: \n" + taskString +
-                "\nNumber of tasks in the list: " + this.taskList.size();
+        return DELETE_TASK + taskString +
+                NUMBER_OF_TASKS + this.taskList.size();
     }
 
     /**

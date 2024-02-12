@@ -41,8 +41,7 @@ public class FindCommand extends Command {
     public String handle() throws AuroraException {
         String message = "Command not executed.";
         if (this.splitCommands.length != 2) {
-            throw new AuroraException("Invalid number of arguments!\n" +
-                    "Make sure to enter find, then the keyword you wish to search for in the task list.");
+            throw new AuroraException(AuroraException.INVALID_FIND_FORMAT);
         } else {
             String keyword = this.splitCommands[1].toLowerCase();
             ArrayList<Task> tasks = this.taskList.getTaskList();
@@ -58,7 +57,4 @@ public class FindCommand extends Command {
         return message;
     }
 
-    public boolean isBye() {
-        return false;
-    }
 }

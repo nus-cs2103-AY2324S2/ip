@@ -11,6 +11,9 @@ public class Deadline extends Task{
     /** Date at which the deadline expires. */
     private LocalDateTime date;
 
+    private static final String TASK_TYPE_FOR_FILE = "D";
+    private static final String TASK_TYPE = "[D]";
+
     /**
      * Constructor of deadline
      *
@@ -43,18 +46,16 @@ public class Deadline extends Task{
 
     @Override
     public String toFileString() {
-        String taskType = "D";
         String isDone = this.getStatus() ? "1" : "0";
         String description = super.toFileString();
         String formattedDate = dateToString();
-        return taskType + " | " + isDone + " | " + description + " | " + formattedDate;
+        return TASK_TYPE_FOR_FILE + " | " + isDone + " | " + description + " | " + formattedDate;
     }
 
     @Override
     public String toString() {
-        String taskType = "[D]";
         String formattedDate = dateToString();
-        String deadlineString = taskType + super.toString() + " (by: " + formattedDate + ")";
+        String deadlineString = TASK_TYPE + super.toString() + " (by: " + formattedDate + ")";
         return deadlineString;
     }
 }

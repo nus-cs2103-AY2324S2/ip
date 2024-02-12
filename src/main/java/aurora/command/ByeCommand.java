@@ -25,7 +25,7 @@ public class ByeCommand extends Command {
     }
 
     @Override
-    public boolean isBye() {
+    public boolean isByeCommand() {
         return true;
     }
 

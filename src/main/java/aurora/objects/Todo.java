@@ -5,6 +5,9 @@ package aurora.objects;
  */
 public class Todo extends Task {
 
+    private static final String TASK_TYPE_FOR_FILE = "T";
+    private static final String TASK_TYPE = "[T]";
+
     /**
      * Constructor for the ToDo class.
      *
@@ -16,16 +19,14 @@ public class Todo extends Task {
 
     @Override
     public String toFileString() {
-        String taskType = "T";
         String isDone = this.getStatus() ? "1" : "0";
         String description = super.toFileString();
-        return taskType + " | " + isDone + " | " + description;
+        return TASK_TYPE_FOR_FILE + " | " + isDone + " | " + description;
     }
 
     @Override
     public String toString() {
-        String taskType = "[T]";
-        String toDoString = taskType + super.toString();
+        String toDoString = TASK_TYPE + super.toString();
         return toDoString;
     }
 }

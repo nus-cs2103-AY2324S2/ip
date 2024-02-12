@@ -2,6 +2,7 @@ package aurora.gui;
 
 import aurora.Aurora;
 
+import aurora.ui.Ui;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
@@ -56,8 +57,7 @@ public class Window extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        String greeting = "How are you feeling? I'm Aurora, your personal schedule assistant. \n"
-                + "What can I do for you?";
+        String greeting = Ui.getOpeningMessage();
         dialogContainer.getChildren().addAll(DialogBox.getAuroraResponse(greeting, auroraImage));
     }
 
@@ -77,7 +77,7 @@ public class Window extends AnchorPane {
     private void handleUserInput() {
         String userText = userInput.getText();
         String response = getResponse(userInput.getText());
-        String exitString = "Thank you for consulting with me, have a good day. Exiting application in 3 seconds.";
+        String exitString = Ui.getExitMessage();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, userImage),
                 DialogBox.getAuroraResponse(response, auroraImage)

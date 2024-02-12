@@ -37,8 +37,7 @@ public class DeleteCommand extends Command {
     public String handle() throws AuroraException {
         String message = "Command not executed.";
         if (this.splitCommands.length != 2) {
-            throw new AuroraException("Invalid number of arguments!\n" +
-                    "Make sure to enter unmark, then the number of the task you want to delete.");
+            throw new AuroraException(AuroraException.INVALID_DELETE_FORMAT);
             // Solution adapted from https://www.baeldung.com/java-check-string-number
         } else if (!this.splitCommands[1].matches("-?\\d+(\\.\\d+)?")) {
             throw new AuroraException("Please enter an integer as the second input.");
@@ -56,11 +55,6 @@ public class DeleteCommand extends Command {
             message = "Unable to save edits: " + exception.getMessage();
         }
         return message;
-    }
-
-    @Override
-    public boolean isBye() {
-        return false;
     }
 
 }
