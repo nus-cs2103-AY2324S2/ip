@@ -14,6 +14,7 @@ public class Task {
      * @param description The description of the task.
      */
     public Task(String description) {
+        assert description != null;
         this.description = description;
         this.isDone = false;
     }
@@ -80,10 +81,10 @@ public class Task {
      */
     public String unmarkDone() {
         if (!this.isDone) {
-            return "Stop yappin' bruh... tasks.Task remains incomplete" + this.getDescription();
+            return "Stop yappin' bruh... tasks.Task remains incomplete" + this;
         } else {
             this.isDone = false;
-            return "YAPYAP! I've unmarked this task..." + this.getDescription();
+            return "YAPYAP! I've unmarked this task..." + this;
         }
     }
 

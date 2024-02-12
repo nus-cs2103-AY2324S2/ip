@@ -80,6 +80,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        assert input != null;
         String response = duke.getResponse(input);
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
         if (input.equals("bye")) {
