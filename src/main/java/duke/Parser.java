@@ -33,7 +33,7 @@ public class Parser {
      *
      * @return True if the program should continue processing commands, false if the program should exit.
      */
-    public boolean parseCommand() {
+    public String parseCommand() {
 
         // Split input into "command" and "parameters"
         String[] parts = userInput.split(" ", 2);
@@ -43,45 +43,42 @@ public class Parser {
 
         if (command.equals("list")) {
             TaskList taskList = new TaskList(myList);
-            taskList.list();
-            return true;
+            return taskList.list();
+
 
         } else if (command.equals("bye")) {
 
-            return false;
+
 
         } else if (command.equals("find")) {
 
             TaskList taskList = new TaskList(myList);
-            taskList.find(parts);
-            return true;
+            return taskList.find(parts);
+
 
         } else if (parts.length == 1) {
 
-            ui.commandError();
-            return true;
+            return ui.commandError();
 
         } else if (command.equals("unmark")) {
 
             TaskList taskList = new TaskList(myList);
-            taskList.unmarkList(parts);
-            return true;
+            return taskList.unmarkList(parts);
+
 
         } else if (command.equals("mark")) {
             TaskList taskList = new TaskList(myList);
-            taskList.markList(parts);
-            return true;
+            return taskList.markList(parts);
 
         } else if (command.equals("delete")) {
             TaskList taskList = new TaskList(myList);
-            taskList.remove(parts);
-            return true;
+            return taskList.remove(parts);
 
         } else {
             TaskList taskList = new TaskList(myList);
-            taskList.add(command, restOfInputs);
-            return true;
+            return taskList.add(command, restOfInputs);
 
         }
+        return ui.blank();
     }
 }

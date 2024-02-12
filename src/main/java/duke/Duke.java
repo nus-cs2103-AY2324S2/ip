@@ -1,5 +1,7 @@
 package duke;
 
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -7,11 +9,16 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.scene.control.Label;
 
-import java.util.ArrayList;
 
+
+/**
+ * Represents the main class for the Duke program, a task management application.
+ */
 public class Duke extends Application {
     private Storage storage;
     private ArrayList<Task> tasks;
@@ -21,17 +28,21 @@ public class Duke extends Application {
     private VBox dialogContainer;
     private TextField userInput;
     private Button sendButton;
+    private Scene scene;
     private Image userImage = new Image(getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Initializes Duke with storage and other components.
+     */
     public Duke() {
-        // Initialize storage and other components
         storage = new Storage("./data/duke.txt");
         tasks = Storage.loadTasks();
         if (tasks == null) {
             tasks = new ArrayList<>();
         }
         ui = new Ui();
+
     }
 
     public static void main(String[] args) {
@@ -40,51 +51,120 @@ public class Duke extends Application {
 
     @Override
     public void start(Stage stage) {
-        AnchorPane mainLayout = new AnchorPane();
+        //Step 1. Setting up required components
+
+        //The container for the content of the chat to scroll.
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
+        scrollPane.setContent(dialogContainer);
+
         userInput = new TextField();
         sendButton = new Button("Send");
 
-        dialogContainer.prefWidthProperty().bind(scrollPane.widthProperty());
-        scrollPane.setContent(dialogContainer);
-        scrollPane.setFitToWidth(true);
-
+        AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-        Scene scene = new Scene(mainLayout, 400, 600);
+
+        scene = new Scene(mainLayout);
+
+        // Set the background color of the root node (mainLayout) using CSS
+        mainLayout.setStyle("-fx-background-color: lightpink;");
 
         stage.setScene(scene);
-        stage.setTitle("Duke");
-        stage.setResizable(false);
         stage.show();
 
-        sendButton.setOnAction(event -> handleUserInput());
-        userInput.setOnAction(event -> handleUserInput());
 
+        //Step 2. Formatting the window to look as expected
+        stage.setTitle("Duke");
+        stage.setResizable(false);
+        stage.setMinHeight(600.0);
+        stage.setMinWidth(400.0);
+
+        mainLayout.setPrefSize(400.0, 600.0);
+
+        scrollPane.setPrefSize(385, 535);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+
+        scrollPane.setVvalue(1.0);
+        scrollPane.setFitToWidth(true);
+
+        //You will need to import `javafx.scene.layout.Region` for this.
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+
+        userInput.setPrefWidth(325.0);
+
+        sendButton.setPrefWidth(55.0);
+
+        AnchorPane.setTopAnchor(scrollPane, 1.0);
+
+        AnchorPane.setBottomAnchor(sendButton, 1.0);
+        AnchorPane.setRightAnchor(sendButton, 1.0);
+
+        AnchorPane.setLeftAnchor(userInput, 1.0);
+        AnchorPane.setBottomAnchor(userInput, 1.0);
+
+        //Step 3. Add functionality to handle user input.
+        sendButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
+
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+        });
+
+        //Scroll down to the end every time dialogContainer's height changes.
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
         displayWelcomeMessage();
     }
 
-    private void displayWelcomeMessage() {
+    /**
+     * Iteration 1:
+     * Creates a label with the specified text and adds it to the dialog container.
+     *
+     * @param text String containing text to add
+     * @return a label with the specified text that has word wrap enabled.
+     */
+    private Label getDialogLabel(String text) {
+        // You will need to import `javafx.scene.control.Label`.
+        Label textToAdd = new Label(text);
+        textToAdd.setWrapText(true);
+
+        return textToAdd;
+    }
+
+    /**
+     * Displays the welcome message when Duke starts.
+     */
+    public void displayWelcomeMessage() {
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(ui.message(), dukeImage));
     }
 
+    /**
+     * Handles user input and displays responses accordingly.
+     */
     private void handleUserInput() {
         String input = userInput.getText();
-        dialogContainer.getChildren().add(DialogBox.getUserDialog(input, userImage));
-        String response = String.valueOf(getResponse(input));
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(response, dukeImage));
+        boolean result = true;
+        while (result) {
+            getResponse(input);
+        }
         userInput.clear();
     }
 
-    boolean getResponse(String input) {
+    /**
+     * Processes user input and returns a boolean indicating whether to continue accepting input.
+     *
+     *
+     * @return True to continue accepting input, false otherwise.
+     */
+    public String getResponse(String input) {
         Parser parser = new Parser(input, tasks);
-        boolean isSuccess = parser.parseCommand();
-        if (isSuccess) {
-            Storage.saveTasks(tasks);
-            ui.finalMessage();
-        } else {
-            ui.errorMessage();
+        String result = parser.parseCommand();
+        Storage.saveTasks(tasks);
+
+        if (input.equals("bye")) {
+            return ui.finalMessage();
         }
-        return isSuccess;
+        return result;
     }
 }

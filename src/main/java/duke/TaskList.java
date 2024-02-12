@@ -25,7 +25,7 @@ public class TaskList {
      *
      * @param parts An array containing the command and task number.
      */
-    public void markList(String[] parts) {
+    public String markList(String[] parts) {
         //System.out.println("");
         int index = Integer.parseInt(parts[1]) - 1;
         Ui ui = new Ui();
@@ -33,10 +33,10 @@ public class TaskList {
         if (index >= 0 && index < myList.size()) {
             Task task = myList.get(index);
             task.markAsDone();
-            ui.markInfo(task);
+            return ui.markInfo(task);
 
         } else {
-            ui.invalidNum();
+            return ui.invalidNum();
         }
     }
 
@@ -45,7 +45,7 @@ public class TaskList {
      *
      * @param parts An array containing the command and task number.
      */
-    public void unmarkList(String[] parts) {
+    public String unmarkList(String[] parts) {
         //System.out.println("");
         int index = Integer.parseInt(parts[1]) - 1;
         Ui ui = new Ui();
@@ -53,10 +53,10 @@ public class TaskList {
         if (index >= 0 && index < myList.size()) {
             Task task = myList.get(index);
             task.markAsNotDone();
-            ui.unmarkInfo(task);
+            return ui.unmarkInfo(task);
 
         } else {
-            ui.invalidNum();
+            return ui.invalidNum();
         }
 
     }
@@ -64,14 +64,17 @@ public class TaskList {
     /**
      * Lists all tasks in the current list.
      */
-    public void list() {
+    public String list() {
         Ui ui = new Ui();
-        ui.listDetails();
-
+        StringBuilder result = new StringBuilder(ui.listDetails()); // Start with the UI details
+        result.append(ui.separationLine());
         for (Task task : myList) {
-            System.out.println((myList.indexOf(task) + 1) + "." + task);
+            // Append each item from the loop to the result string
+            result.append((myList.indexOf(task) + 1)).append(".").append(task).append("\n");
         }
-        ui.separationLine();
+        result.append(ui.separationLine()); // Append the separation line
+
+        return result.toString(); // Convert StringBuilder to String and return
     }
 
     /**
@@ -79,16 +82,15 @@ public class TaskList {
      *
      * @param parts An array containing the command and the task number.
      */
-    public void remove(String[] parts) {
+    public String remove(String[] parts) {
         int removed = Integer.parseInt(parts[1]) - 1;
         Ui ui = new Ui();
         if (removed >= 0 && removed < myList.size()) {
             Task item = myList.get(removed);
-            ui.removeTop(item);
             myList.remove(removed);
-            ui.removeBottom(myList.size());
+            return ui.removeTop(item) + ui.removeBottom(myList.size());
         } else {
-            ui.invalidNum();
+            return ui.invalidNum();
         }
     }
 
@@ -96,29 +98,29 @@ public class TaskList {
      * Finds tasks containing a specified keyword and prints them to the console.
      * @param parts An array containing the command and the keyword to search for.
      */
-    public void find(String[] parts) {
-
+    public String find(String[] parts) {
         Ui ui = new Ui();
-        ui.findListDetails();
+        StringBuilder result = new StringBuilder(ui.findListDetails()); // Start with the UI details
 
         String keyword = parts[1];
 
         for (Task task : myList) {
-
             if (task.getDescription().contains(keyword)) {
-                System.out.println((myList.indexOf(task) + 1) + "." + task);
+                result.append((myList.indexOf(task) + 1)).append(".").append(task).append("\n"); // Append each item from the loop to the result string
             }
         }
+        result.append(ui.separationLine()); // Append the separation line
 
-        ui.separationLine();
+        return result.toString(); // Convert StringBuilder to String and return
     }
+
 
     /**
      * Adds a new task to the task list based on the provided command and input.
      * @param command The command indicating the type of task to add (e.g., "todo", "deadline", "event").
      * @param restOfInputs The rest of the user input containing task details (e.g., task description, deadline).
      */
-    public void add(String command, String restOfInputs) {
+    public String add(String command, String restOfInputs) {
         Ui ui = new Ui();
 
         try {
@@ -133,7 +135,7 @@ public class TaskList {
                         myList.add(newTodo);
                         int size = myList.size();
 
-                        ui.todoInfo(newTodo, size);
+                        return ui.todoInfo(newTodo, size);
                     }
 
                 } catch (DukeException e) {
@@ -157,7 +159,7 @@ public class TaskList {
                         myList.add(newDeadline);
                         int size = myList.size();
 
-                        ui.deadlineInfo(newDeadline, size);
+                        return ui.deadlineInfo(newDeadline, size);
                     }
 
                 } catch (DukeException e) {
@@ -183,7 +185,7 @@ public class TaskList {
                         myList.add(newEvent);
                         int size = myList.size();
 
-                        ui.eventInfo(newEvent, size);
+                        return ui.eventInfo(newEvent, size);
                     }
 
                 } catch (DukeException e) {
@@ -197,5 +199,6 @@ public class TaskList {
         } catch (DukeException e) {
             ui.errorEncounter(e);
         }
+        return ui.blank();
     }
 }

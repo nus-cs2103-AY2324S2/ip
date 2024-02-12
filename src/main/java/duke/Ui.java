@@ -17,7 +17,8 @@ public class Ui {
         String logo = " KASSIM ";
         System.out.println("YOO I AM " + logo);
         System.out.println("What can I do for you?");
-        return logo;
+        //return logo;
+        return "YOO I AM " + logo + "\nWhat can I do for you?";
     }
 
     /**
@@ -52,8 +53,9 @@ public class Ui {
     /**
      * i an error message for an unrecognized command.
      */
-    public void commandError() {
-        System.out.println("SORRY! but are you sure you enter the correct command? please check!");
+    public String commandError() {
+        //System.out.println("SORRY! but are you sure you enter the correct command? please check!");
+        return "SORRY! but are you sure you enter the correct command? please check!";
     }
 
     /**
@@ -61,11 +63,12 @@ public class Ui {
      *
      * @param task The task that has been marked as done.
      */
-    public void markInfo(Task task) {
-        System.out.println("------------------------------------------------------------");
+    public String markInfo(Task task) {
+        /*System.out.println("------------------------------------------------------------");
         System.out.println("Nice! I've marked this task as done: ");
         System.out.println(task);
-        System.out.println("------------------------------------------------------------");
+        System.out.println("------------------------------------------------------------");*/
+        return "Nice! I've marked this task as done: \n" + task;
     }
 
     /**
@@ -73,34 +76,39 @@ public class Ui {
      *
      * @param task The task that has been marked as not done.
      */
-    public void unmarkInfo(Task task) {
-        System.out.println("------------------------------------------------------------");
+    public String unmarkInfo(Task task) {
+        /*System.out.println("------------------------------------------------------------");
         System.out.println("Ok, I've marked this task as not done yet: ");
         System.out.println(task);
-        System.out.println("------------------------------------------------------------");
+        System.out.println("------------------------------------------------------------");*/
+        return "Ok, I've marked this task as not done yet: \n" + task;
     }
 
     /**
      * Displays a message for an invalid task number.
      */
-    public void invalidNum() {
-        System.out.println("Invalid task number.");
+    public String invalidNum() {
+        //System.out.println("Invalid task number.");
+        return "Invalid task number.";
     }
 
     /**
      * Displays the header for the list of tasks.
      */
-    public void listDetails() {
-        System.out.println("------------------------------------------------------------");
-        System.out.println("Here are the tasks in your list: ");
+    public String listDetails() {
+        //System.out.println("------------------------------------------------------------");
+        //System.out.println("Here are the tasks in your list: ");
+        return "Here are the tasks in your list: \n";
     }
 
     /**
      * Prints a header indicating the start of the list of matching tasks.
      */
-    public void findListDetails() {
-        System.out.println("------------------------------------------------------------");
-        System.out.println("Here are the matching tasks in your list: ");
+    public String findListDetails() {
+        //System.out.println("------------------------------------------------------------");
+        //System.out.println("Here are the matching tasks in your list: ");
+
+        return "Here are the matching tasks in your list: ";
     }
 
 
@@ -110,10 +118,11 @@ public class Ui {
      * @param task The task that has been removed.
      */
 
-    public void removeTop(Task task) {
-        System.out.println("------------------------------------------------------------");
-        System.out.println("Noted. I've removed this task: ");
-        System.out.println(task);
+    public String removeTop(Task task) {
+        //.out.println("------------------------------------------------------------");
+        //System.out.println("Noted. I've removed this task: ");
+        //System.out.println(task);
+        return "Noted. I've removed this task: \n" + task;
     }
 
     /**
@@ -121,9 +130,10 @@ public class Ui {
      *
      * @param size The updated size of the task list.
      */
-    public void removeBottom(int size) {
-        System.out.println("Now you have " + size + " tasks in the list.");
-        System.out.println("------------------------------------------------------------");
+    public String removeBottom(int size) {
+        //System.out.println("Now you have " + size + " tasks in the list.");
+        //.out.println("------------------------------------------------------------");
+        return "\nNow you have " + size + " tasks in the list.";
     }
 
     /**
@@ -131,13 +141,16 @@ public class Ui {
      *
      * @param newTodo The new to-do task that has been added.
      * @param size    The updated size of the task list.
+     * @return
      */
-    public void todoInfo(Todo newTodo, int size) {
-        System.out.println("------------------------------------------------------------");
+    public String todoInfo(Todo newTodo, int size) {
+        /*System.out.println("------------------------------------------------------------");
         System.out.println("Got it. I've added this task: ");
         System.out.println(newTodo);
         System.out.println("Now you have " + size + " tasks in the list.");
-        System.out.println("------------------------------------------------------------");
+        System.out.println("------------------------------------------------------------");*/
+        return "Got it. I've added this task:\n" + newTodo
+                + "\nNow you have " + size + " tasks in the list.";
     }
 
     /**
@@ -146,12 +159,14 @@ public class Ui {
      * @param newDeadline The new deadline task that has been added.
      * @param size        The updated size of the task list.
      */
-    public void deadlineInfo(Deadline newDeadline, int size) {
-        System.out.println("------------------------------------------------------------");
+    public String deadlineInfo(Deadline newDeadline, int size) {
+        /*System.out.println("------------------------------------------------------------");
         System.out.println("Got it. I've added this task: ");
         System.out.println(newDeadline);
         System.out.println("Now you have " + size + " tasks in the list.");
-        System.out.println("------------------------------------------------------------");
+        System.out.println("------------------------------------------------------------");*/
+        return "Got it. I've added this task: \n" + newDeadline
+                + "\nNow you have " + size + " tasks in the list.";
     }
 
     /**
@@ -160,33 +175,39 @@ public class Ui {
      * @param newEvent The new event task that had been added.
      * @param size     The updated size of the task list.
      */
-    public void eventInfo(Event newEvent, int size) {
-        System.out.println("------------------------------------------------------------");
+    public String eventInfo(Event newEvent, int size) {
+        /*System.out.println("------------------------------------------------------------");
         System.out.println("Got it. I've added this task: ");
         System.out.println(newEvent);
         System.out.println("Now you have " + size + " tasks in the list.");
-        System.out.println("------------------------------------------------------------");
+        System.out.println("------------------------------------------------------------");*/
+        return "Got it. I've added this task: \n" + newEvent
+                + "\nNow you have " + size + " tasks in the list.";
     }
 
     /**
      * Displays a final goodbye message when the user exits the Duke program.
+     *
+     * @return
      */
-    public void finalMessage() {
+    public String finalMessage() {
         System.out.println("------------------------------------------------------------");
-        System.out.println("Bye! Hope to see you again!!");
+        return "Bye! Hope to see you again!!";
     }
 
     /**
      * Prints a blank line.
      */
-    public void blank() {
-        System.out.print(" ");
+    public String blank() {
+        //System.out.print(" ");
+        return "what?";
     }
 
     /**
      * Prints a separation line to visually separate different sections of output.
      */
-    public void separationLine() {
-        System.out.println("------------------------------------------------------------");
+    public String separationLine() {
+        //System.out.println("------------------------------------------------------------");
+        return "------------------------------------------------------------";
     }
 }
