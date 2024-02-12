@@ -55,6 +55,21 @@ public class Ui {
     }
 
     /**
+     * Prints filtered task list.
+     *
+     * @param tasks List of tasks with the specific keyword.
+     */
+    public void printFilteredTasks(TaskList tasks) {
+        System.out.println(DIVIDER);
+        System.out.println("        Here are the matching tasks in your list:");
+        for (int i = 1; i < tasks.size() + 1; i++) {
+            task.Task currentTask = tasks.getTask(i - 1);
+            System.out.println("        " + i + ". " + currentTask.toString());
+        }
+        System.out.println(DIVIDER);
+    }
+
+    /**
      * Prints no outstanding tasks and list of commands.
      */
     public void printNoOutstandingTasks() {
