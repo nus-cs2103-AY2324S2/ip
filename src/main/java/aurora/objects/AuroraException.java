@@ -34,6 +34,15 @@ public class AuroraException extends Exception {
             "then specify the description of the task followed by the deadline.\n" +
             "These two fields should be separated with /by.";
 
+    public static final String INVALID_DOAFTER_FORMAT = "Invalid command!\n" +
+            "Make sure to enter doafter, " +
+            "then specify the description of the task followed by" +
+            "either the date and time in dd/MM/yyyy HHmm format " +
+            "or \n" +
+            "integer representing the task (in the list) this doAfter needs to be " +
+            "performed after.\n" +
+            "These two fields should be separated by /after.";
+
     public static final String INVALID_COMMAND = "I am unable to understand this command, please kindly try again.";
 
     public static final String INVALID_DATE_FORMAT = "Invalid date format. " +

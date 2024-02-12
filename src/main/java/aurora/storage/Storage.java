@@ -13,6 +13,7 @@ import java.util.List;
 
 import aurora.objects.Deadline;
 import aurora.objects.AuroraException;
+import aurora.objects.DoAfter;
 import aurora.objects.Event;
 import aurora.objects.Task;
 import aurora.objects.Todo;
@@ -56,6 +57,16 @@ public class Storage {
                     }
                 } catch (AuroraException e) {
                     throw new AuroraException("Corrupted line in data file: " + line);
+                }
+            }
+        }
+
+        for (Task task : taskList) {
+            if (task instanceof DoAfter) {
+                int prevTaskNumber = ((DoAfter) task).getTaskNumber();
+                if (prevTaskNumber != -1) {
+                    Task prevTask = taskList.get(prevTaskNumber);
+                    ((DoAfter) task).setTask(prevTask);
                 }
             }
         }
@@ -105,6 +116,8 @@ public class Storage {
                 return fileLineToDeadline(components, description, isDone);
             case "E":
                 return fileLineToEvent(components, description, isDone);
+            case "DA":
+                return fileLineToDoAfter(components, description, isDone);
             default:
                 throw new AuroraException("Unknown task type.");
             }
@@ -178,6 +191,35 @@ public class Storage {
     }
 
     /**
+     * Converts a fileLine to a doAfter
+     *
+     * @param components Component array of the file line.
+     * @param description Description of the doAfter
+     * @param isDone status of the doAfter
+     * @return an doAfter object
+     */
+    private DoAfter fileLineToDoAfter(String[] components, String description, boolean isDone) throws AuroraException {
+        if (components.length < 5) {
+            throw new AuroraException("Invalid format for a doAfter.");
+        }
+        DoAfter doAfter;
+        int typeOfDoAfter = Integer.parseInt(components[3].trim());
+        if (typeOfDoAfter == 1) {
+            LocalDateTime timeAfter = Parser.parseDateFromStorage(components[4].trim());
+            doAfter = new DoAfter(description, timeAfter);
+        } else {
+            int taskNumber = Integer.parseInt(components[4].trim());
+            doAfter = new DoAfter(description, taskNumber);
+        }
+
+        if (isDone) {
+            doAfter.setDone();
+        }
+
+        return doAfter;
+    }
+
+    /**
      *  Converts a task to a fileLine to ba saved into the txt file.
      *
      * @param task Task to be converted into a fileLine
@@ -190,8 +232,11 @@ public class Storage {
         } else if (task instanceof Deadline) {
             Deadline currTask = (Deadline) task;
             return currTask.toFileString();
-        } else {
+        } else if (task instanceof Event) {
             Event currTask = (Event) task;
+            return currTask.toFileString();
+        } else {
+            DoAfter currTask = (DoAfter) task;
             return currTask.toFileString();
         }
     }

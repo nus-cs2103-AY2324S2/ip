@@ -3,17 +3,7 @@ package aurora.parser;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import aurora.command.ByeCommand;
-import aurora.command.Command;
-import aurora.command.DeadlineCommand;
-import aurora.command.DeleteCommand;
-import aurora.command.EventCommand;
-import aurora.command.FindCommand;
-import aurora.command.InvalidCommand;
-import aurora.command.ListCommand;
-import aurora.command.MarkCommand;
-import aurora.command.TodoCommand;
-import aurora.command.UnmarkCommand;
+import aurora.command.*;
 import aurora.storage.Storage;
 import aurora.tasklist.TaskList;
 import aurora.ui.Ui;
@@ -69,6 +59,8 @@ public class Parser {
             return new DeadlineCommand(this.taskList, this.ui, this.storage, command);
         } else if (mainC.equalsIgnoreCase("event")) {
             return new EventCommand(this.taskList, this.ui, this.storage, command);
+        } else if (mainC.equalsIgnoreCase("doafter")) {
+            return new DoAfterCommand(this.taskList, this.ui, this.storage, command);
         } else if (mainC.equalsIgnoreCase("delete")) {
             return new DeleteCommand(this.taskList, this.storage, splitCommands);
         } else if (mainC.equalsIgnoreCase("find")) {
@@ -128,6 +120,16 @@ public class Parser {
      */
     public static String[] splitAtFirstTo(String command) {
         return command.split(" /to ", 2);
+    }
+
+    /**
+     * Splits a command string into 2 at the "/after"
+     *
+     * @param command Command string.
+     * @return The string array containing the split command.
+     */
+    public static String[] splitAtFirstAfter(String command) {
+        return command.split(" /after ", 2);
     }
 
     /**

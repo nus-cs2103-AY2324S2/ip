@@ -3,10 +3,7 @@ package aurora.tasklist;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import aurora.objects.Deadline;
-import aurora.objects.Event;
-import aurora.objects.Task;
-import aurora.objects.Todo;
+import aurora.objects.*;
 
 /**
  * The TaskList class is used to represent the list of tasks used in the application.
@@ -60,6 +57,30 @@ public class TaskList {
      */
     public void addEvent(String description, LocalDateTime start, LocalDateTime end) {
         Event newTask = new Event(description, start, end);
+        this.taskList.add(newTask);
+    }
+
+    /**
+     * Method to add a doAfter (after a date) to the taskList.
+     *
+     * @param description DoAfter description
+     * @param date Date after which the task should be performed
+     */
+    public void addDoAfter(String description, LocalDateTime date) {
+        DoAfter newTask = new DoAfter(description, date);
+        this.taskList.add(newTask);
+    }
+
+    /**
+     * Method to add a doAfter (after a task) to the taskList.
+     *
+     * @param description DoAfter description
+     * @param taskNumber Integer representing the task after which this task should be performed
+     */
+    public void addDoAfter(String description,int taskNumber) {
+        Task previousTask = this.taskList.get(taskNumber);
+        DoAfter newTask = new DoAfter(description, taskNumber);
+        newTask.setTask(previousTask);
         this.taskList.add(newTask);
     }
 
