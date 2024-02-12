@@ -5,15 +5,12 @@ import duke.parser.Parser;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
-import duke.ui.UI;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
-
-import java.util.Scanner;
 
 
 /**
@@ -40,16 +37,8 @@ public class Duke {
 
     protected void linkMainWindow(MainWindow mw) {
         this.mainWindow = mw;
-        mw.addDukeMessage("How can I help you today?");
-    }
-    /**
-     * Main Function that controls the ChatBot
-     */
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        UI ui = new UI(sc);
-        ui.showWelcome();
-        lst = storage.loadTasks();
+        String logo = "        _  _        \n  __ _ | || | _   _ \n / _` || || || | | |\n| (_| || || || |_| |\n \\__,_||_||_| \\__, |\n              |___/ \n";
+        mw.addDukeMessage("Hello from" + "\n" + logo + "\n" + "How can I help you today?");
     }
 
     protected String getResponse(String s) {
