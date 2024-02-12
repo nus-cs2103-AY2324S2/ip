@@ -1,12 +1,12 @@
 package aurora.command;
 
+import java.util.ArrayList;
+
 import aurora.objects.AuroraException;
 import aurora.objects.Task;
 import aurora.storage.Storage;
 import aurora.tasklist.TaskList;
 import aurora.ui.Ui;
-
-import java.util.ArrayList;
 
 /**
  * The FindCommand class handles the "find" command.

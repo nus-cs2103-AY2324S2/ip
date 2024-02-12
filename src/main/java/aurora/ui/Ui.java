@@ -1,10 +1,10 @@
 package aurora.ui;
 
-import aurora.objects.Task;
-import aurora.tasklist.TaskList;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import aurora.objects.Task;
+import aurora.tasklist.TaskList;
 
 /**
  * The Ui class is used to represent the user interface, including the scanner of the application.

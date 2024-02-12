@@ -1,11 +1,12 @@
 package aurora.command;
 
+import java.io.IOException;
+
 import aurora.objects.AuroraException;
 import aurora.storage.Storage;
 import aurora.tasklist.TaskList;
 import aurora.ui.Ui;
 
-import java.io.IOException;
 /**
  * The DeleteCommand class handles the "unmark" command.
  */

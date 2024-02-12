@@ -1,7 +1,5 @@
 package aurora.gui;
 
-import aurora.Aurora;
-
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -10,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
+import aurora.Aurora;
 
 /**
  * The Main class is the graphics interface for the Aurora application.

@@ -1,5 +1,8 @@
 package aurora.parser;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import aurora.command.ByeCommand;
 import aurora.command.Command;
 import aurora.command.DeadlineCommand;
@@ -14,10 +17,6 @@ import aurora.command.UnmarkCommand;
 import aurora.storage.Storage;
 import aurora.tasklist.TaskList;
 import aurora.ui.Ui;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 
 /**
  * Parser that helps to split the command string into chunks that can then be processed by the application.
