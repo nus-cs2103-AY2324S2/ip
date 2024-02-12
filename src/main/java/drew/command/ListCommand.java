@@ -24,4 +24,9 @@ public class ListCommand extends Command {
 
         return reply;
     }
+
+    public static boolean isListCommand(int inputLength, String input) {
+        return inputLength == 4 && input.substring(0, 4).equalsIgnoreCase("list");
+    }
+
 }

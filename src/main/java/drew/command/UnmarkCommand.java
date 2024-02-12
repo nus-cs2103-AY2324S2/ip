@@ -1,6 +1,5 @@
 package drew.command;
 
-import drew.exceptions.InsufficientArgumentsException;
 import drew.storage.TaskList;
 import drew.task.Task;
 
@@ -30,5 +29,9 @@ public class UnmarkCommand extends Command {
                 ls.get(taskIndex - 1).toStatusString();
 
         return reply;
+    }
+
+    public static boolean isUnmarkCommand(int inputLength, String input) {
+        return inputLength >= 6 && input.substring(0, 6).equalsIgnoreCase("unmark");
     }
 }

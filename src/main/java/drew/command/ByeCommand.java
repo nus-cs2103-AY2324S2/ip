@@ -22,4 +22,8 @@ public class ByeCommand extends Command {
         return "Bye";
     }
 
+    public static boolean isByeCommand(int inputLength, String input) {
+        return inputLength == 3 && input.substring(0, 3).equalsIgnoreCase("bye");
+    }
+
 }

@@ -1,6 +1,5 @@
 package drew.command;
 
-import drew.exceptions.InsufficientArgumentsException;
 import drew.storage.TaskList;
 import drew.task.Deadline;
 import drew.task.Task;
@@ -37,5 +36,9 @@ public class DeadlineCommand extends Command {
         reply = reply + String.format("Now you have %d task(s) in the list.", listLength);
 
         return reply;
+    }
+
+    public static boolean isDeadlineCommand(int inputLength, String input) {
+        return inputLength >= 8 && input.substring(0, 8).equalsIgnoreCase("deadline");
     }
 }

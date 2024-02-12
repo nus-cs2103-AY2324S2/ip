@@ -1,6 +1,5 @@
 package drew.command;
 
-import drew.exceptions.InsufficientArgumentsException;
 import drew.storage.TaskList;
 import drew.task.Task;
 import drew.task.Todo;
@@ -29,5 +28,9 @@ public class TodoCommand extends Command {
         reply = reply + String.format("Now you have %d task(s) in the list.", listLength);
 
         return reply;
+    }
+
+    public static boolean isTodoCommand(int inputLength, String input) {
+        return inputLength >= 4 && input.substring(0, 4).equalsIgnoreCase("todo");
     }
 }

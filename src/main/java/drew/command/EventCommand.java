@@ -42,4 +42,8 @@ public class EventCommand extends Command {
 
         return reply;
     }
+
+    public static boolean isEventCommand(int inputLength, String input) {
+        return inputLength >= 5 && input.substring(0, 5).equalsIgnoreCase("event");
+    }
 }

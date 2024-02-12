@@ -1,6 +1,5 @@
 package drew.command;
 
-import drew.exceptions.InsufficientArgumentsException;
 import drew.storage.TaskList;
 import drew.task.Task;
 
@@ -31,5 +30,9 @@ public class DeleteCommand extends Command {
         reply = reply + String.format("Now you have %d task(s) in the list.", listLength);
 
         return reply;
+    }
+
+    public static boolean isDeleteCommand(int inputLength, String input) {
+        return inputLength >= 6 && input.substring(0, 6).equalsIgnoreCase("delete");
     }
 }

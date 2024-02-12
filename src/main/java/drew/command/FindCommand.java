@@ -34,4 +34,8 @@ public class FindCommand extends Command {
 
         return reply;
     }
+
+    public static boolean isFindCommand(int inputLength, String input) {
+        return inputLength >= 4 && input.substring(0, 4).equalsIgnoreCase("find");
+    }
 }

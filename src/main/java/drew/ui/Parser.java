@@ -1,17 +1,19 @@
 package drew.ui;
 
-import drew.command.*;
 import drew.exceptions.InsufficientArgumentsException;
 import drew.exceptions.UnknownCommandException;
-import drew.storage.TaskList;
-import drew.task.Deadline;
-import drew.task.Event;
-import drew.task.Task;
-import drew.task.Todo;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
+import drew.command.Command;
+import drew.command.ByeCommand;
+import drew.command.DeadlineCommand;
+import drew.command.DeleteCommand;
+import drew.command.EventCommand;
+import drew.command.FindCommand;
+import drew.command.ListCommand;
+import drew.command.MarkCommand;
+import drew.command.TodoCommand;
+import drew.command.UnmarkCommand;
+import drew.command.UnknownCommand;
 
 /**
  * This class handles the interpretation and execution of user input.
@@ -31,23 +33,23 @@ public class Parser {
 
         int inputLength = input.length();
         Command userCommand;
-        if (inputLength == 3 && input.substring(0, 3).equalsIgnoreCase("bye")) {
+        if (ByeCommand.isByeCommand(inputLength, input)) {
             userCommand = ByeCommand.getByeCommand();
-        } else if (inputLength == 4 && input.substring(0, 4).equalsIgnoreCase("list")) {
+        } else if (ListCommand.isListCommand(inputLength, input)) {
             userCommand = new ListCommand(input);
-        } else if (inputLength >= 4 && input.substring(0, 4).equalsIgnoreCase("mark")) {
+        } else if (MarkCommand.isMarkCommand(inputLength, input)) {
             userCommand = new MarkCommand(input);
-        } else if (inputLength >= 6 && input.substring(0, 6).equalsIgnoreCase("unmark")) {
+        } else if (UnmarkCommand.isUnmarkCommand(inputLength, input)) {
             userCommand = new UnmarkCommand(input);
-        } else if (inputLength >= 6 && input.substring(0, 6).equalsIgnoreCase("delete")) {
+        } else if (DeleteCommand.isDeleteCommand(inputLength, input)) {
             userCommand = new DeleteCommand(input);
-        } else if (inputLength >= 4 && input.substring(0, 4).equalsIgnoreCase("todo")) {
+        } else if (TodoCommand.isTodoCommand(inputLength, input)) {
             userCommand = new TodoCommand(input);
-        } else if (inputLength >= 8 && input.substring(0, 8).equalsIgnoreCase("deadline")) {
+        } else if (DeadlineCommand.isDeadlineCommand(inputLength, input)) {
             userCommand = new DeadlineCommand(input);
-        } else if (inputLength >= 5 && input.substring(0, 5).equalsIgnoreCase("event")) {
+        } else if (EventCommand.isEventCommand(inputLength, input)) {
             userCommand = new EventCommand(input);
-        } else if (inputLength >= 4 && input.substring(0, 4).equalsIgnoreCase("find")){
+        } else if (FindCommand.isFindCommand(inputLength, input)) {
             userCommand = new FindCommand(input);
         } else {
             userCommand = UnknownCommand.getUnkownCommand();
