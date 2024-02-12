@@ -80,6 +80,9 @@ public class Storage implements Serializable {
             return null;
         }
 
+        //Storage should either have been created or loaded
+        assert storage != null;
+
         return storage;
     }
 
