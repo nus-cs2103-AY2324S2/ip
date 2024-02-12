@@ -12,12 +12,24 @@ public class TaskList {
         size = (taskList.size());
     }
 
+    /**
+     * Updates the size of array and
+     * returns the size of array
+     * @return size  of array
+     */
     public int getSize() {
+        size = taskList.size();
         return size;
     }
     public ArrayList<Task> getTaskList() {
         return taskList;
     }
+
+    /**
+     * Finds tasks with description containing the string to find
+     * @param taskToFind the user input string of task
+     * @return an arraylist of the task that matches
+     */
     public ArrayList<Task> findTask(String taskToFind) {
         ArrayList<Task> taskArray = new ArrayList<>();
         for (int i = 0; i < getSize(); i++) {
@@ -50,20 +62,22 @@ public class TaskList {
      * Prints the task when it is marked
      * @param ui the ui
      * @param num the index for the task
+     * @return the marked task string
      */
-    public void printTaskMarked(Ui ui, int num) {
+    public String printTaskMarked(Ui ui, int num) {
         Task task = taskList.get(num);
-        ui.printTaskMarked(task.toString());
+        return ui.printTaskMarked(task.toString());
     }
 
     /**
      * Prints the task when it is unmarked
      * @param ui the ui
      * @param num the index for the task
+     * @return the unmarked task string
      */
-    public void printTaskUnMarked(Ui ui, int num) {
+    public String printTaskUnMarked(Ui ui, int num) {
         Task task = taskList.get(num);
-        ui.printTaskUnMarked(task.toString());
+        return ui.printTaskUnMarked(task.toString());
     }
 
     /**
@@ -71,17 +85,19 @@ public class TaskList {
      * print to user
      * @param ui the ui
      * @param num the index of the task
+     * @return the deleted task
      */
-    public void deleteTask(Ui ui, int num) {
+    public String deleteTask(Ui ui, int num) {
         Task task = taskList.get(num);
         taskList.remove(num);
         String taskString = task.toString();
-        ui.printDeletedTask(taskString);
+        String output = ui.printDeletedTask(taskString);
         if (taskList.isEmpty()) {
-            ui.printEmptyTaskList();
+            output += "\n" + ui.printEmptyTaskList();
         } else {
-            ui.printNumberOfTasks(getSize());
+            output += "\n" + ui.printNumberOfTasks(getSize());
         }
+        return output;
     }
     public TaskList() {
         this.taskList = new ArrayList<>();
@@ -95,9 +111,10 @@ public class TaskList {
      * @param ui the ui
      * @param typeOfTask the type of task
      * @param task the task information to add
+     * @return the task added
      * @throws JuxException
      */
-    public void addTask(Ui ui, String typeOfTask, String task) throws JuxException {
+    public String addTask(Ui ui, String typeOfTask, String task) throws JuxException {
         if (typeOfTask.equals(Parser.TASK_TODO)) {
             addTodo(task);
         } else if (typeOfTask.equals(Parser.TASK_DEADLINE)) {
@@ -108,8 +125,9 @@ public class TaskList {
         } else {
             throw new JuxException("SORRY I DO NOT KNOW WHAT THAT MEANS, PLEASE TRY AGAIN!");
         }
-        ui.printTaskAfterword(task);
-        ui.printNumberOfTasks(getSize());
+        String output = ui.printTaskAfterword(task);
+        output += "\n" + ui.printNumberOfTasks(this.getSize());
+        return output;
 
     }
     public void addTodo(String task) throws JuxException {
@@ -124,10 +142,10 @@ public class TaskList {
         String[] args = Parser.parseEvent(task);
         taskList.add(new Event(args[0],args[1],args[2]));
     }
-    public void showList(Ui ui) {
-        ui.printList(taskList);
+    public String showList(Ui ui) {
+        return ui.printList(taskList);
     }
-    public void showListWithIndexing(Ui ui) {
-        ui.printListWithIndexing(taskList);
+    public String showListWithIndexing(Ui ui) {
+        return ui.printListWithIndexing(taskList);
     }
 }
