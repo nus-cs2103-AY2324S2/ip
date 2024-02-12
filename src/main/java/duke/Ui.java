@@ -22,7 +22,20 @@ public class Ui {
     /**
      * Method that bids farewell to the user upon terminating Duke.
      */
-    public void bye() {
-        System.out.println("\tSee you next time!");
+    public String bye() {
+        return "See you next time! Close the tab to terminate!";
+    }
+
+    public String miscCommands(String command) {
+        if (command.equals("date")) {
+            return "Maybe another time ><\n";
+        } else if (command.equals("whoami")) {
+            return "You are ZGMF X10A Freedom!\n"
+                    + "How could you forget? O_o\n";
+        } else if (command.equals("hello")) {
+            return "HELLO FREEDOM!! c:";
+        } else {
+            return "I do not understand";
+        }
     }
 }

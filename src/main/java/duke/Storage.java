@@ -41,18 +41,25 @@ public class Storage {
             String[] inputComponents = inputLine.split("\\|", 5);
 
             Task currentTask = null;
-            if (inputComponents[0].equals("T")) {
-                currentTask = new ToDo(inputComponents[2], inputComponents[0]);
-            } else if (inputComponents[0].equals("D")) {
-                currentTask = new Deadline(inputComponents[2], inputComponents[0], inputComponents[3]);
-            } else if (inputComponents[0].equals("E")) {
-                currentTask = new Event(inputComponents[2], inputComponents[0],
-                        inputComponents[3], inputComponents[4]);
+            String tasktype = inputComponents[0];
+            String markStatus = inputComponents[1];
+            String taskdesc = inputComponents[2];
+
+            if (tasktype.equals("T")) {
+                currentTask = new ToDo(taskdesc, tasktype);
+            } else if (tasktype.equals("D")) {
+                String dateTime = inputComponents[3];
+                currentTask = new Deadline(taskdesc, tasktype, dateTime);
+            } else if (tasktype.equals("E")) {
+                String startDateTime = inputComponents[3];
+                String endDateTime = inputComponents[4];
+                currentTask = new Event(taskdesc, tasktype,
+                        startDateTime, endDateTime);
             } else {
                 System.out.println("What is this nonsense. Failure to load object.");
             }
 
-            if (inputComponents[1].equals("1")) {
+            if (markStatus.equals("1")) {
                 currentTask.mark();
             }
             taskListInput.getTaskList().add(currentTask);
