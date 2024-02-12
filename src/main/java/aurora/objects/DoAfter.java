@@ -92,6 +92,15 @@ public class DoAfter extends Task {
         }
     }
 
+    /**
+     * Getter for the task
+     *
+     * @return Task associated with the doAfter.
+     */
+    public Task getTask() {
+        return this.task;
+    }
+
     @Override
     public String toFileString() {
         String isDone = this.getStatus() ? "1" : "0";
