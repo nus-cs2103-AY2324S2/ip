@@ -303,6 +303,10 @@ public class Parser {
 
             String info = "You can ask me to do the following quests for you m8 :"
                     + System.lineSeparator()
+                    + System.lineSeparator()
+                    + "hello: I will aptly reply !"
+                    + System.lineSeparator()
+                    + System.lineSeparator()
                     + "list: I will print the list of tasks you have at the moment sire..."
                     + System.lineSeparator()
                     + System.lineSeparator()
