@@ -8,11 +8,25 @@ public class EventTask extends Task {
      *
      * @param what description of the task
      */
-    public EventTask(String what, String start, String end) {
+    private EventTask(String what, String start, String end) {
         super(what);
         this.type = "[E]";
         this.start = start;
         this.end = end;
+    }
+
+    /**
+     * Factory method for EventTask object
+     *
+     * @param arr String array with task details
+     * @return EventTask object with task details in fields
+     */
+    public static EventTask of(String[] arr) {
+        String[] hasWhat = arr[1].split("/", 2);
+        String[] hasTimes = hasWhat[1].split("/", 2);
+        String[] hasStart = hasTimes[0].split(" ", 2);
+        String[] hasEnd = hasTimes[1].split(" ", 2);
+        return new EventTask(hasWhat[0], hasStart[1], hasEnd[1]);
     }
 
     /**

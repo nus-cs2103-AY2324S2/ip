@@ -19,7 +19,7 @@ public class Awex {
     public static void main(String[] args) {
         System.out.println("Hello! I'm AWEX!\nWhat can I do for you?");
         LinkedList<Task> list = new LinkedList<>();
-        // fill list with saved tasks
+        // fill list with saved tasks FOLLOW FORMAT
         Scanner sc = new Scanner(System.in);
         String next;
         String[] arr;
@@ -27,6 +27,7 @@ public class Awex {
             next = sc.nextLine();
             arr = next.split(" ");
             if (next.equals("bye")) {
+                // write to file BUT HOW
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
             } else if (next.equals("list")) {
@@ -41,7 +42,7 @@ public class Awex {
                         System.out.println(i + "." + list.get(i - 1).showAll());
                     }
                 }
-            } else if (arr[0].equals("mark") || arr[0].equals("unmark")) {
+            } else if (arr[0].equals("mark") || arr[0].equals("unmark") || arr[0].equals("delete")) {
                 String[] array = next.split(" ");
                 if (array.length != 2) {
                     System.out.println("Format should be '" + arr[0] + " <task number>'");
@@ -53,54 +54,42 @@ public class Awex {
                     } else if (i > len) {
                         System.out.println("List has only " + len + " tasks.");
                     } else {
-                        Task t = list.get(i - 1);
-                        t.changeStatus(arr[0]);
-                        System.out.println("  " + t.showAll());
-                    }
-                }
-            } else if (arr[0].equals("delete")) {
-                String[] array = next.split(" ");
-                if (array.length != 2) {
-                    System.out.println("Format should be 'delete <task number>'");
-                } else {
-                    int i = Integer.parseInt(array[1]);
-                    int len = list.size();
-                    if (i > len) {
-                        System.out.println("List has only " + len + " tasks.");
-                    } else {
-                        System.out.println("Noted. I've removed this task:");
-                        System.out.println("  " + list.remove(i - 1).showAll());
-                        System.out.println("Now you have " + list.size() + " tasks in the list.");
+                        if (arr[0].equals("delete")) {
+                            System.out.println("Noted. I've removed this task:");
+                            System.out.println("  " + list.remove(i - 1).showAll());
+                            System.out.println("Now you have " + list.size() + " tasks in the list.");
+                        } else {
+                            Task t = list.get(i - 1);
+                            t.changeStatus(arr[0]);
+                            System.out.println("  " + t.showAll());
+                        }
                     }
                 }
             } else {
-                Task t = null;
+                Task t;
                 if (arr[0].equals("todo")) {
-                    if (arr.length > 1) {
-                        t = new TodoTask(arr[1]);
-                    } else {
+                    if (arr.length == 1) {
                         System.out.println("Format should be 'todo <task>'");
+                        continue;
                     }
+                    t = new TodoTask(arr[1]);
                 } else if (arr[0].equals("deadline")) {
                     String[] array = next.split("/");
                     if (array.length != 2) {
                         System.out.println("Format should be 'deadline <task> /by <deadline>'");
+                        continue;
                     }
-                    String[] hasWhat = arr[1].split("/", 2);
-                    String[] hasTime = hasWhat[1].split(" ", 2);
-                    t = new DeadlineTask(hasWhat[0], hasTime[1]);
+                    t = DeadlineTask.of(arr);
                 } else if (arr[0].equals("event")){
                     String[] array = next.split("/");
                     if (array.length != 3) {
                         System.out.println("Format should be 'event <task> /from <start> /to <end>'");
+                        continue;
                     }
-                    String[] hasWhat = arr[1].split("/", 2);
-                    String[] hasTimes = hasWhat[1].split("/", 2);
-                    String[] hasStart = hasTimes[0].split(" ", 2);
-                    String[] hasEnd = hasTimes[1].split(" ", 2);
-                    t = new EventTask(hasWhat[0], hasStart[1], hasEnd[1]);
+                    t = EventTask.of(arr);
                 } else {
                     message();
+                    continue;
                 }
                 list.add(t);
                 System.out.println("Got it. I've added this task:");

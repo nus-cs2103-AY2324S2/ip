@@ -7,10 +7,22 @@ public class DeadlineTask extends Task {
      *
      * @param what description of the task
      */
-    public DeadlineTask(String what, String deadline) {
+    private DeadlineTask(String what, String deadline) {
         super(what);
         this.type = "[D]";
         this.deadline = deadline;
+    }
+
+    /**
+     * Factory method for DeadlineTask object
+     *
+     * @param arr String array with task details
+     * @return DeadlineTask object with task details in fields
+     */
+    public static DeadlineTask of(String[] arr) {
+        String[] hasWhat = arr[1].split("/", 2);
+        String[] hasTime = hasWhat[1].split(" ", 2);
+        return new DeadlineTask(hasWhat[0], hasTime[1]);
     }
 
     /**
