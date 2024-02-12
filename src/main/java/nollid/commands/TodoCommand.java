@@ -1,6 +1,7 @@
 package nollid.commands;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import nollid.Storage;
 import nollid.TaskList;
@@ -12,6 +13,7 @@ import nollid.tasks.Todo;
  * TodoCommand class represents a command to add a new ToDo task.
  */
 public class TodoCommand extends Command {
+    private static final String USAGE_HINT = "Usage: todo task_description {/tags tag1,tag2,tag3,...}";
     /**
      * ArrayList containing command arguments.
      */
@@ -32,28 +34,73 @@ public class TodoCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws NollidException {
-        if (argsList.size() == 1) {
-            throw new InvalidArgumentException("Todo description cannot be empty!\n"
-                    + "Usage: todo [task description]");
-        }
+        verifyArguments();
 
-        StringBuilder taskDescription = new StringBuilder();
-        for (int i = 1; i < argsList.size(); i++) {
-            if (i != argsList.size() - 1) {
-                taskDescription.append(argsList.get(i)).append(" ");
-            } else {
-                taskDescription.append(argsList.get(i));
-            }
-        }
+        String taskDescription = getTaskDescription();
 
-        Todo task = new Todo(taskDescription.toString());
+        ArrayList<String> tags = getTags();
+        Todo task = new Todo(taskDescription, tags);
 
         tasks.add(task);
+        storage.update(tasks);
 
         String message = "Alright, added:\n" + "\t" + task + "\n";
         message += tasks.summary();
-        storage.update(tasks);
-
         return message;
+    }
+
+    private String getTaskDescription() throws InvalidArgumentException {
+        StringBuilder taskDescription = new StringBuilder();
+
+        // Get text from after command until the first option. (/tags, /deadline, etc.)
+        for (int i = 1; i < argsList.size(); i++) {
+            if (!argsList.get(i).matches("/\\w+")) {
+                taskDescription.append(argsList.get(i)).append(" ");
+            } else {
+                break;
+            }
+        }
+
+        checkDescriptionNotEmpty(taskDescription.toString());
+
+        return taskDescription.toString();
+    }
+
+    private void verifyArguments() throws InvalidArgumentException {
+        if (argsList.size() == 1) {
+            throw new InvalidArgumentException("Todo description cannot be empty!\n"
+                    + USAGE_HINT);
+        }
+
+        if (argsList.indexOf("/tags") == 1) {
+            throw new InvalidArgumentException("Todo description cannot be empty!\n"
+                    + USAGE_HINT);
+        }
+
+        boolean tagKeywordDetectedButNoTagsProvided = argsList.indexOf("/tags") == argsList.size() - 1;
+        if (tagKeywordDetectedButNoTagsProvided) {
+            throw new InvalidArgumentException("Did you forget to include some tags?\n"
+                    + USAGE_HINT);
+        }
+    }
+
+    private ArrayList<String> getTags() {
+        int tagKeywordIndex = this.argsList.indexOf("/tags");
+
+        // If user did not use "/tags" keyword, return empty list
+        if (tagKeywordIndex == -1) {
+            return new ArrayList<>();
+        }
+
+        int tagsIndex = tagKeywordIndex + 1;
+        ArrayList<String> tags = new ArrayList<>(Arrays.asList(argsList.get(tagsIndex).split(",")));
+        return tags;
+    }
+
+    private void checkDescriptionNotEmpty(String description) throws InvalidArgumentException {
+        if (description.isEmpty()) {
+            throw new InvalidArgumentException("Todo description cannot be empty!\n"
+                    + USAGE_HINT);
+        }
     }
 }
