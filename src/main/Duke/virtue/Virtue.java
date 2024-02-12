@@ -1,5 +1,7 @@
 package virtue;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Virtue {
@@ -55,13 +57,14 @@ public class Virtue {
             if (currentCommand.isBye()) {
                 break;
             } else {
-                taskList.handleCommand(currentCommand);
+                taskList.executeCommand(currentCommand);
             }
         }
     }
 
     // Runs the chatbot.
     private void run() {
+        taskList = VirtueFileReader.initializeTaskList();
         greet();
         takeInputsUntilBye();
         bye();

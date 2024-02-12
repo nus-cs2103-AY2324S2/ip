@@ -104,7 +104,7 @@ public class VirtueTaskList {
         Virtue.printHorizontalLine();
     }
 
-    public void handleCommand(Command command) {
+    public void executeCommand(Command command) {
         switch (command.type) {
             case LIST:
                 printOut();
@@ -126,6 +126,27 @@ public class VirtueTaskList {
                 break;
             case EVENT:
                 addEvent(command.description, command.from, command.to);
+        }
+    }
+
+    public void addFromFile(String str) {
+        String taskType = str.split(" \\| ")[0];
+        String description = str.split(" \\| ")[2];
+        int marked = Integer.parseInt(str.split(" \\| ")[1]);
+
+        switch (taskType) {
+            case "T":
+                taskList.add(new Todo(description));
+                break;
+            case "D":
+                taskList.add(new Deadline(description, str.split(" \\| ")[3]));
+                break;
+            case "E":
+                taskList.add(new Event(description, str.split(" \\| ")[3], str.split(" \\| ")[4]));
+        }
+
+        if (marked == 1) {
+            getTask(numTasks()).markAsDone();
         }
     }
 }
