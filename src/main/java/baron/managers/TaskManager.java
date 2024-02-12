@@ -132,7 +132,7 @@ public class TaskManager {
         List<Task> filteredTasks = new ArrayList<>();
         for (int i = 0; i < this.tasks.size(); i++) {
             Task task = this.tasks.get(i);
-            if (task.getName().contains(term)) {
+            if (task.getName().toLowerCase().contains(term)) {
                 filteredTasks.add(task);
             }
         }
