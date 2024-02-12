@@ -40,7 +40,8 @@ public class Deadline extends Task {
      */
     public String updateDeadlineText(int isCompleted) {
         String text = "";
-        text += "deadline | " + isCompleted + " | " + this.description + " | " + this.by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
+        text += "deadline | " + isCompleted + " | " + this.description + " | "
+                + this.by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
         return text;
     }
 
@@ -61,6 +62,7 @@ public class Deadline extends Task {
         }
 
         Deadline otherDeadline = (Deadline) obj;
-        return this.description.equals(otherDeadline.description) && this.by.equals(otherDeadline.by);
+        return this.description.equals(otherDeadline.description)
+                && this.by.equals(otherDeadline.by);
     }
 }

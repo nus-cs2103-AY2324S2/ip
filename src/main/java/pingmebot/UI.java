@@ -86,7 +86,7 @@ public class UI {
     public void additionToTasksText(Task task, TaskList allTasks) {
         String toUserUponAddition = "";
         toUserUponAddition += ("\n" + "Got it. I've added this task:");
-        toUserUponAddition += "\n"  + "  " + task.toString();
+        toUserUponAddition += "\n" + "  " + task.toString();
         toUserUponAddition += "\n" + "Now you have " + allTasks.getTaskSize() + " tasks in the list.";
         System.out.println(toUserUponAddition);
         response.add(toUserUponAddition);
@@ -101,7 +101,7 @@ public class UI {
     public void deletionToTasksText(int taskNumber, TaskList allTasks) {
         String toUserUponDeletion = "";
         toUserUponDeletion += "Noted. I've removed this task:";
-        toUserUponDeletion += "\n"  + "  " + allTasks.taskToString(taskNumber);
+        toUserUponDeletion += "\n" + "  " + allTasks.taskToString(taskNumber);
         allTasks.removeTask(taskNumber);
         toUserUponDeletion += "\n" + "Now you have " + allTasks.getTaskSize() + " tasks in the list.";
         System.out.println(toUserUponDeletion);

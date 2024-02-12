@@ -41,7 +41,7 @@ public class DialogBox extends HBox {
 
         displayPicture.setImage(img);
         content.setText(text);
-        double heightOfText  = content.getBoundsInLocal().getHeight();
+        double heightOfText = content.getBoundsInLocal().getHeight();
         setPrefHeight(heightOfText);
 
     }

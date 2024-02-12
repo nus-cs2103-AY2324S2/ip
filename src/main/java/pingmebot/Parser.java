@@ -25,7 +25,7 @@ public class Parser {
      *
      * @param userInput User's inputs.
      */
-    public Parser (String userInput) {
+    public Parser (String userInput){
         this.userInput = userInput;
         this.words = new ArrayList<>(Arrays.asList(userInput.split(" ")));
     }
@@ -34,7 +34,8 @@ public class Parser {
      * Creates an AddCommand object with a task with specified task description.
      *
      * @return A AddCommand object with a task with specified task description.
-     * @throws PingMeException If the user did not specify any task description or when the user command is not understood.
+     * @throws PingMeException If the user did not specify any task description or
+     *                         when the user command is not understood.
      */
     public AddCommand parseToDoCommand() throws PingMeException {
         try {
@@ -59,7 +60,8 @@ public class Parser {
      * Creates an AddCommand object a Deadline object with  specified task description and a datetime to do the task by.
      *
      * @return An AddCommand object with a specified Deadline object.
-     * @throws PingMeException If the user did not specify any task description or datetime to finish the task, or when the user command is not understood.
+     * @throws PingMeException If the user did not specify any task description or datetime to finish the task,
+     *                         or when the user command is not understood.
      */
     public AddCommand parseDeadlineCommand() throws PingMeException {
         StringBuilder description = new StringBuilder();
@@ -71,7 +73,8 @@ public class Parser {
             }
 
         } else {
-            throw new PingMeException("I don't understand your command. Try writing: deadline (task description) /by (d/m/yyyy HHmm format)");
+            throw new PingMeException("I don't understand your command. "
+                    + "Try writing: deadline (task description) /by (d/m/yyyy HHmm format)");
         }
 
         for (int i = 2; i < words.size(); i++) {
@@ -89,12 +92,14 @@ public class Parser {
             try {
                 parsedDateTime = LocalDateTime.parse(by.toString().trim(), formatter);
             } catch (DateTimeParseException e) {
-                throw new PingMeException("I don't understand your command. Try writing: deadline (task description) /by (d/m/yyyy HHmm format)");
+                throw new PingMeException("I don't understand your command. "
+                        + "Try writing: deadline (task description) /by (d/m/yyyy HHmm format)");
             }
             return new AddCommand(new Deadline(description.toString(), parsedDateTime));
 
         } else {
-            throw new PingMeException("You have missing fields! You need a task description & a deadline to finish your task, try again!");
+            throw new PingMeException("You have missing fields! "
+                    + "You need a task description & a deadline to finish your task, try again!");
         }
     }
 
@@ -102,7 +107,8 @@ public class Parser {
      * Creates an AddCommand object with an Events with a task description, start and end date or time of the event.
      *
      * @return An AddCommand object with a specified Events object.
-     * @throws PingMeException If the user did not specify any task description, start and end date or time of the event or when the user command is not understood.
+     * @throws PingMeException If the user did not specify any task description,
+     *                         start and end date or time of the event or when the user command is not understood.
      */
     public AddCommand parseEventsCommand() throws PingMeException {
         StringBuilder description = new StringBuilder();
@@ -112,7 +118,8 @@ public class Parser {
         int indexOfTo = this.words.indexOf("/to");
 
         if (indexOfFrom == -1 || indexOfTo == -1) {
-            throw new PingMeException("I don't understand your command. Try writing: event (task description) /from (date/time) /to (date/time)");
+            throw new PingMeException("I don't understand your command. "
+                    + "Try writing: event (task description) /from (date/time) /to (date/time)");
 
         } else {
             if (indexOfFrom == 1 || indexOfTo == 1) {} else {
@@ -132,8 +139,10 @@ public class Parser {
             }
         }
 
-        if (description.toString().isEmpty() || start.toString().isEmpty() || end.toString().isEmpty()) {
-            throw new PingMeException("You having missing fields! You need a task description, start and end date/time for your task, try again!");
+        if (description.toString().isEmpty() || start.toString().isEmpty()
+                || end.toString().isEmpty()) {
+            throw new PingMeException("You having missing fields! "
+                    + "You need a task description, start and end date/time for your task, try again!");
 
         } else {
             return new AddCommand(new Events(description.toString(), start.toString(), end.toString()));
@@ -151,8 +160,10 @@ public class Parser {
     public MarkCommand parseMarkCommand(int currentNumOfTask) throws PingMeException {
         try {
             if (!this.words.get(1).isEmpty()) {
-                if (Integer.parseInt(this.words.get(1)) > currentNumOfTask || Integer.parseInt(this.words.get(1)) <= 0) {
-                    throw new PingMeException("You have currently " + currentNumOfTask + " tasks. You cannot mark task larger or smaller than this!");
+                if (Integer.parseInt(this.words.get(1)) > currentNumOfTask
+                        || Integer.parseInt(this.words.get(1)) <= 0) {
+                    throw new PingMeException("You have currently " + currentNumOfTask + " tasks. "
+                            + "You cannot mark task larger or smaller than this!");
 
                 } else {
                     return new MarkCommand(Integer.parseInt(this.words.get(1)) - 1);
@@ -163,7 +174,8 @@ public class Parser {
             }
 
         } catch (IndexOutOfBoundsException e) {
-            throw new PingMeException("I'm not sure which task you wish to mark. Please specify the task you wish to mark and try again!");
+            throw new PingMeException("I'm not sure which task you wish to mark. "
+                    + "Please specify the task you wish to mark and try again!");
         }
     }
 
@@ -178,8 +190,10 @@ public class Parser {
     public UnmarkCommand parseUnmarkCommand(int currentNumOfTask) throws PingMeException {
         try {
             if (!this.words.get(1).isEmpty()) {
-                if (Integer.parseInt(this.words.get(1)) > currentNumOfTask || Integer.parseInt(this.words.get(1)) <= 0) {
-                    throw new PingMeException("You have currently " + currentNumOfTask + " tasks. You cannot un-mark task larger or smaller than this!");
+                if (Integer.parseInt(this.words.get(1)) > currentNumOfTask
+                        || Integer.parseInt(this.words.get(1)) <= 0) {
+                    throw new PingMeException("You have currently " + currentNumOfTask + " tasks. "
+                            + "You cannot un-mark task larger or smaller than this!");
 
                 } else {
                     return new UnmarkCommand(Integer.parseInt(this.words.get(1)) - 1);
@@ -190,7 +204,8 @@ public class Parser {
             }
 
         } catch (IndexOutOfBoundsException e) {
-            throw new PingMeException("I'm not sure which task you wish to un-mark. Please specify the task you wish to un-mark and try again!");
+            throw new PingMeException("I'm not sure which task you wish to un-mark. "
+                    + "Please specify the task you wish to un-mark and try again!");
         }
     }
 
@@ -205,8 +220,10 @@ public class Parser {
     public DeleteCommand parseDeleteCommand(int currentNumOfTask) throws PingMeException {
         try {
             if (!this.words.get(1).isEmpty()) {
-                if (Integer.parseInt(this.words.get(1)) > currentNumOfTask || Integer.parseInt(this.words.get(1)) <= 0) {
-                    throw new PingMeException("You have currently " + currentNumOfTask + " tasks. You cannot delete task larger or smaller than this!");
+                if (Integer.parseInt(this.words.get(1)) > currentNumOfTask
+                        || Integer.parseInt(this.words.get(1)) <= 0) {
+                    throw new PingMeException("You have currently " + currentNumOfTask + " tasks. "
+                            + "You cannot delete task larger or smaller than this!");
 
                 } else {
                     return new DeleteCommand(Integer.parseInt(this.words.get(1)) - 1);
@@ -217,7 +234,8 @@ public class Parser {
             }
 
         } catch (IndexOutOfBoundsException e) {
-            throw new PingMeException("I'm not sure which task you wish to delete. Please specify the task you want to delete and try again!");
+            throw new PingMeException("I'm not sure which task you wish to delete. Please specify the task "
+                    + "you want to delete and try again!");
         }
     }
 
@@ -235,7 +253,8 @@ public class Parser {
                 throw new IndexOutOfBoundsException();
             }
         } catch (IndexOutOfBoundsException e) {
-            throw new PingMeException("I'm not sure what you are trying to find. Please specify a keyword and try again!");
+            throw new PingMeException("I'm not sure what you are trying to find. "
+                    + "Please specify a keyword and try again!");
         }
     }
 }
