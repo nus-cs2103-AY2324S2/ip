@@ -50,10 +50,33 @@ public class BotChat {
             return tasks.deleteTask(input);
         case FIND:
             return tasks.findTasks(input);
+        case HELP:
+            return showHelpMessage();
         case UNKNOWN:
             throw new BotChatException("Sorry, I do not understand that command. Please try again.");
         default:
             return "";
         }
+    }
+
+    /**
+     * Displays a help message with available commands.
+     *
+     * @return The help message.
+     */
+    private String showHelpMessage() {
+        StringBuilder helpMessage = new StringBuilder("=== Help ===\n");
+        helpMessage.append("Here are the available commands:\n");
+        helpMessage.append("/bye - Exit the application\n");
+        helpMessage.append("/list - List all tasks\n");
+        helpMessage.append("/mark [taskIndex] - Mark a task as done\n");
+        helpMessage.append("/unmark [taskIndex] - Mark a task as undone\n");
+        helpMessage.append("/event [event details] /from [start] /to [end] - Add an event task\n");
+        helpMessage.append("/deadline [deadline details] /by [date/time] - Add a deadline task\n");
+        helpMessage.append("/todo [task details] - Add a todo task\n");
+        helpMessage.append("/delete [taskIndex] - Delete a task\n");
+        helpMessage.append("/find [keyword] - Find tasks containing a keyword\n");
+        helpMessage.append("/help - Display this help message\n");
+        return helpMessage.toString();
     }
 }
