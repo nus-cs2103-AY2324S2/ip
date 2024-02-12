@@ -25,6 +25,14 @@ public class Task implements Serializable { // adapted skeleton from cs2103t cou
         return (isDone ? "[X] " : "[ ] "); // mark done task with X
     }
 
+    public void markAsDone() {
+        this.isDone = true;
+    }
+
+    public void markAsNotDone() {
+        this.isDone = false;
+    }
+
     @Override
     public String toString() {
         return getStatusIcon() + description;

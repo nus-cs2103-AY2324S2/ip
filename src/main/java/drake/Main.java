@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Drake duke = new Drake();
+    private final Drake drake = new Drake();
 
     @Override
     public void start(Stage stage) {
@@ -22,7 +22,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setDuke(drake);
             stage.setTitle("Drake");
             stage.show();
             fxmlLoader.<MainWindow>getController().setWelcomeMessage(Ui.showWelcome());

@@ -1,7 +1,8 @@
 package drake;
 
+import java.util.Objects;
+
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -12,19 +13,19 @@ import javafx.scene.layout.VBox;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
+    private static final String USER_PATH = "/images/user.jpeg";
+    private static final String DRAKE_PATH = "/images/drake.jpeg";
     @FXML
     private ScrollPane scrollPane;
     @FXML
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
 
     private Drake drake;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.jpeg"));
-    private Image drakeImage = new Image(this.getClass().getResourceAsStream("/images/drake.jpeg"));
+    private final Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(USER_PATH)));
+    private final Image drakeImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(DRAKE_PATH)));
 
     @FXML
     public void initialize() {

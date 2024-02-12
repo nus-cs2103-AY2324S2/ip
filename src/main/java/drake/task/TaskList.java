@@ -88,7 +88,8 @@ public class TaskList {
      */
     public void markTask(int index) throws IndexOutOfBoundsException {
         assert index >= 0 && index < tasks.size() : "Task index is out of bounds.";
-        getTask(index).isDone = true;
+        Task task = getTask(index);
+        task.markAsDone();
     }
 
     /**
@@ -99,7 +100,8 @@ public class TaskList {
      */
     public void unmarkTask(int index) throws IndexOutOfBoundsException {
         assert index >= 0 && index < tasks.size() : "Task index is out of bounds.";
-        getTask(index).isDone = false;
+        Task task = getTask(index);
+        task.markAsNotDone();
     }
 
     /**
