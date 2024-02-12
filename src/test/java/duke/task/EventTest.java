@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EventTest {
     @Test
-    public void getEventFromForDisplayTest(){
+    public void getEventFromForDisplay_validFormat_returnsFormattedDateTime(){
         String content = "Project";
         String from = "2022-12-31 12:31";
         String to = "2023-01-02 03:04";
@@ -21,7 +21,7 @@ public class EventTest {
     }
 
     @Test
-    public void getEventToForDisplayTest(){
+    public void getEventToForDisplay_validFormat_returnsFormattedDateTime(){
         String content = "Project";
         String from = "2022-12-31 12:31";
         String to = "2023-01-02 03:04";
