@@ -11,13 +11,14 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(Storage storage, Ui ui, TaskList taskList) {
+    public String execute(Storage storage, Ui ui, TaskList taskList) {
         try {
             Task task = taskList.deleteTask(parameters);
-            ui.showDeletedTask(task);
-            ui.showTaskListStatus(taskList);
+            String outputString = ui.showDeletedTask(task);
+            outputString += ui.showTaskListStatus(taskList);
+            return outputString;
         } catch (Exception e) {
-            ui.showError(e.getMessage());
+            return ui.showError(e.getMessage());
         }
     }
 }

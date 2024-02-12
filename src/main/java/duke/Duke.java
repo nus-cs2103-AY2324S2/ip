@@ -25,24 +25,24 @@ public class Duke {
         try {
             storage.loadTasksFromFileToTaskList(tasks);
         } catch (ChatBotParameterException | IOException e) {
-            ui.showLoadingError();
+            System.out.println(ui.showLoadingError());
         }
     }
 
     public void run() {
-        ui.showWelcome();
+        System.out.println(ui.showWelcome());
         boolean isExit = false;
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                ui.showLine(); // show the divider line ("_______")
+                System.out.println(ui.showLine()); // show the divider line ("_______")
                 Command c = Parser.parseCommand(fullCommand);
-                c.execute(storage, ui, tasks);
+                System.out.print(c.execute(storage, ui, tasks));
                 isExit = c.isExit();
             } catch (ChatBotCommandException | ChatBotParameterException e) {
-                ui.showError(e.getMessage());
+                System.out.println(ui.showError(e.getMessage()));
             } finally {
-                ui.showLine();
+                System.out.println(ui.showLine());
             }
         }
     }

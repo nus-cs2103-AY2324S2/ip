@@ -13,8 +13,9 @@ public class AddCommand extends Command{
     }
     
     @Override
-    public void execute(Storage storage, Ui ui, TaskList taskList) {
+    public String execute(Storage storage, Ui ui, TaskList taskList) {
         Task task;
+        String outputString = "";
         try {
             switch (this.keyword) {
             case "todo":
@@ -27,12 +28,13 @@ public class AddCommand extends Command{
                 task = taskList.addEvent(this.parameters);
                 break;
             default:
-                return;
+                return "";
             }
-            ui.showAddedTask(task);
-            ui.showTaskListStatus(taskList);
+            outputString += ui.showAddedTask(task);
+            outputString += ui.showTaskListStatus(taskList);
+            return outputString;
         } catch (ChatBotParameterException e) {
-            ui.showError(e.getMessage());
+            return ui.showError(e.getMessage());
         }
     }
 }

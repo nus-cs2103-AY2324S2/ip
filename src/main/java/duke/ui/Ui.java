@@ -27,11 +27,11 @@ public class Ui {
     );
 
     private static final List<String> FAREWELLS = List.of(
-            "Farewell, it was fun to meet you! Take care, see you later, and may you find many new treasures",
-            "Farewell, until we meet again!",
-            "Safe travels, and take care!",
-            "Good luck! And don't spend all your Mora in one place.",
-            "Adios!"
+            "Farewell, it was fun to meet you! Take care, see you later, and may you find many new treasures\n",
+            "Farewell, until we meet again!\n",
+            "Safe travels, and take care!\n",
+            "Good luck! And don't spend all your Mora in one place.\n",
+            "Adios!\n"
     );
     private final Scanner scanner;
 
@@ -43,18 +43,18 @@ public class Ui {
             "___________________________________________________________________________";
 
     /**
-     * Print a Horizontal Line in console
+     * @return String of Horizontal Line
      */
-    public void showLine() {
-        System.out.println(HORIZONTAL_LINE);
+    public String showLine() {
+        return HORIZONTAL_LINE;
     }
 
     /**
      * Print error messages.
      * @param errorMessage String error messages generated from Exceptions, etc...
      */
-    public void showError(String errorMessage) {
-        System.out.println(errorMessage);
+    public String showError(String errorMessage) {
+        return errorMessage;
     }
 
     /**
@@ -65,70 +65,76 @@ public class Ui {
         return scanner.nextLine();
     }
 
+    public String readCommand(String command) {
+        return command;
+    }
+
     /**
      * Print ChatBot logo and greeting message.
      */
-    public void showWelcome() {
-        System.out.println(LOGO);
-        System.out.println(GREETINGS.get(1));
+    public String showWelcome() {
+        String outputString = LOGO;
+        outputString += GREETINGS.get(1);
+        return outputString;
     }
 
     /**
      * Close the initiated scanner and print farewell message.
      */
-    public void showFarewell() {
+    public String showFarewell() {
         this.scanner.close();
-        System.out.println(FAREWELLS.get(1));
+        return FAREWELLS.get(1);
     }
 
     /**
      * Print the numbered full list of task in TaskList.
      * @param taskList TaskList to be displayed.
      */
-    public void showTaskList(TaskList taskList) {
-        this.showTaskListStatus(taskList);
+    public String showTaskList(TaskList taskList) {
+        String outputString = this.showTaskListStatus(taskList);
         int count = 1;
         for (Task task : taskList) {
-            System.out.printf("%d. %s\n", count, task);
+            outputString += String.format("%d. %s\n", count, task);
             count++;
         }
+        return outputString;
     }
 
     /**
      * Print success status when adding a task into TaskList.
      * @param task Task to be added.
      */
-    public void showAddedTask(Task task) {
-        System.out.println("Got it. I've added this task: \n" + task.toString());
+    public String showAddedTask(Task task) {
+        return ("Got it. I've added this task: \n" + task.toString());
     }
 
     /**
      * Print the number of tasks inside the TaskList.
      * @param taskList TaskList to be printed.
      */
-    public void showTaskListStatus(TaskList taskList) {
-        System.out.printf("Now you have %d tasks in the list.%n", taskList.size());
+    public String showTaskListStatus(TaskList taskList) {
+        return String.format("Now you have %d tasks in the list.%n", taskList.size());
     }
     /**
      * Print success status when marking a task as Done status in TaskList.
      * @param task Task to be marked as Done.
      */
-    public void showMarkedTask(Task task) {
-        System.out.println("Nice! I've marked this task as done: \n" + task.toString());
+    public String showMarkedTask(Task task) {
+        return ("Nice! I've marked this task as done: \n" + task.toString());
     }
     /**
      * Print success status when unmarking a task into Undone status in TaskList.
      * @param task Task to be marked as Undone.
      */
-    public void showUnmarkedTask(Task task) {
-        System.out.println("OK, I've marked this task as not done yet: \n" + task.toString());
+    public String showUnmarkedTask(Task task) {
+        return ("OK, I've marked this task as not done yet: \n" + task.toString());
     }
     /**
      * Print success status when deleting a task from TaskList.
      * @param task Task to be deleted.
      */
-    public void showDeletedTask(Task task) {
-        System.out.println("Noted. I've removed this task: \n" + task.toString());
+    public String showDeletedTask(Task task) {
+        return ("Noted. I've removed this task: \n" + task.toString());
     }
 
 
@@ -136,23 +142,23 @@ public class Ui {
      * Print the list of task containing a certain keyword.
      * @param taskListSearchResult List of Task to be printed.
      */
-    public void showFindResult(List<Task> taskListSearchResult) {
+    public String showFindResult(List<Task> taskListSearchResult) {
         if (taskListSearchResult.isEmpty()) {
-            System.out.println("There are no matching tasks in your list.");
-            return;
+            return ("There are no matching tasks in your list.");
         }
-        System.out.println("Here are the matching tasks in your list:");
+        String outputString = ("Here are the matching tasks in your list:");
         int count = 1;
         for (Task task : taskListSearchResult) {
-            System.out.printf("%d. %s\n", count, task);
+            outputString += String.format("%d. %s\n", count, task);
             count++;
         }
+        return outputString;
     }
 
     /**
      * Show Date Loading Error.
      */
-    public void showLoadingError() {
-        System.out.println("Loading data from file error.");
+    public String showLoadingError() {
+        return ("Loading data from file error.");
     }
 }

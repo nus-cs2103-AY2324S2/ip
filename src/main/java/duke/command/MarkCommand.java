@@ -11,12 +11,12 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(Storage storage, Ui ui, TaskList taskList) {
+    public String execute(Storage storage, Ui ui, TaskList taskList) {
         try {
             Task task = taskList.markTaskAsDone(parameters);
-            ui.showMarkedTask(task);
+            return ui.showMarkedTask(task);
         } catch (Exception e) {
-            ui.showError(e.getMessage());
+            return ui.showError(e.getMessage());
         }
     }
 }
