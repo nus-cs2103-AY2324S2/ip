@@ -1,8 +1,8 @@
 package rick.tasks;
 
 public interface Item {
-    public String name = "";
-    public String status = "[ ]";
+    String name = "";
+    String status = "[ ]";
 
     public void mark();
     public void unmark();
