@@ -1,6 +1,7 @@
 package duke;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.IntStream;
 
 import duke.task.Task;
 import duke.task.TaskList;
@@ -86,9 +87,13 @@ public class IOHandler {
             return "I couldn't find any matching tasks in your lists.";
         }
         result.append("Here are the matching tasks in your list: \n");
-        for (int i = 0; i < list.size(); i++) {
-            result.append(i + 1).append(".").append(list.get(i)).append("\n");
-        }
+//        for (int i = 0; i < list.size(); i++) {
+//            result.append(i + 1).append(".").append(list.get(i)).append("\n");
+//        }
+
+        IntStream.range(0, list.size())
+                .forEach(i -> result.append(i + 1).append(".").append(list.get(i)).append("\n"));
+
         return result.toString();
     }
 
