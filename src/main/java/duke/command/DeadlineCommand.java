@@ -32,13 +32,17 @@ public class DeadlineCommand implements Command {
     public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
         String[] task = input.split("/by");
         try {
-            Task t = new Deadline(task[0].substring(9).trim(), task[1].trim());
+            Task t = createTask(task);
             list.add(t);
             storage.writeToFile(list);
             return ui.showAdded(t, list);
         } catch (DateTimeParseException e) {
             throw new DukeException(e.getMessage());
         }
+    }
+    private Task createTask(String[] task) {
+        Task t = new Deadline(task[0].substring(9).trim(), task[1].trim());
+        return t;
     }
 
     @Override

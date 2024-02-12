@@ -70,15 +70,11 @@ public class TaskList {
      * @return String of all Tasks in list.
      */
     public String print() {
-        int count = 1;
         if (this.isEmpty()) {
             return "No task in list.";
         }
         StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
-        for (int i = 0; i < list.size(); i++) {
-            sb.append(count + "." + list.get(i).printTask() + (i == list.size() - 1 ? "" : "\n"));
-            count++;
-        }
+        printTasksInList(sb);
         return sb.toString();
     }
 
@@ -106,12 +102,17 @@ public class TaskList {
      * @return String of all tasks in list.
      */
     public String printFound() {
-        int count = 1;
         StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
+        printTasksInList(sb);
+        return sb.toString();
+    }
+
+    private void printTasksInList(StringBuilder sb) {
+        int count = 1;
         for (int i = 0; i < list.size(); i++) {
-            sb.append(count + "." + list.get(i).printTask() + (i == list.size() - 1 ? "" : "\n"));
+            String nextLine = i == list.size() - 1 ? "" : "\n";
+            sb.append(count + "." + list.get(i).printTask() + nextLine);
             count++;
         }
-        return sb.toString();
     }
 }

@@ -29,13 +29,12 @@ public class DeleteCommand implements Command {
     public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
         String[] s = input.split("\\s");
         int num = Integer.parseInt(s[1]);
-        if (num <= list.getSize() && num >= 1) {
-            Task t = list.delete(num - 1);
-            storage.writeToFile(list);
-            return ui.showDeleted(t, list);
-        } else {
+        if (num > list.getSize() || num < 1) {
             throw new DukeException("Task (" + num + ") not found.\n" + list.print());
         }
+        Task t = list.delete(num - 1);
+        storage.writeToFile(list);
+        return ui.showDeleted(t, list);
     }
 
     @Override

@@ -117,9 +117,8 @@ public class Ui {
     public String showTasks(TaskList list) {
         if (list.getSize() == 0) {
             return "OOPS!!! No task in list." + "\nYou may add task with keywords: todo, deadline, event.";
-        } else {
-            return list.print();
         }
+        return list.print();
     }
 
     /**
@@ -130,9 +129,11 @@ public class Ui {
      * @return Success message.
      */
     public String showDeleted(Task t, TaskList list) {
+        String multiplicity = list.getSize() > 1 ? " tasks" : " task";
         return "Noted I've removed this task:" + "\n\t" + t.printTask()
-                + "\nNow you have " + list.getSize() + (list.getSize() > 1 ? " tasks" : " task") + " in the list.";
+                + "\nNow you have " + list.getSize() + multiplicity + " in the list.";
     }
+
 
     /**
      * Returns exit message.
@@ -152,8 +153,7 @@ public class Ui {
     public String showMatchedTasks(TaskList list) {
         if (list.getSize() == 0) {
             return "OOPS!!! No task matches you search.";
-        } else {
-            return list.printFound();
         }
+        return list.printFound();
     }
 }

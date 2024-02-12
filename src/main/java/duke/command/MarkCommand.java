@@ -39,19 +39,22 @@ public class MarkCommand implements Command {
     public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
         String[] s = input.split("\\s");
         int num = Integer.parseInt(s[1]);
-        if (num <= list.getSize() && num >= 1) {
-            Task t = list.getTask(num - 1);
-            if (this.toMark) {
-                t.done();
-                storage.writeToFile(list);
-                return ui.showMarked(t);
-            } else {
-                t.undo();
-                storage.writeToFile(list);
-                return ui.showUnmarked(t);
-            }
-        } else {
+        if (num > list.getSize() || num < 1) {
             throw new DukeException("Task (" + num + ") not found.\n" + list.print());
+        }
+        Task t = list.getTask(num - 1);
+        String message = markTask(ui, t);
+        storage.writeToFile(list);
+        return message;
+    }
+
+    private String markTask(Ui ui, Task t) {
+        if (this.toMark) {
+            t.done();
+            return ui.showMarked(t);
+        } else {
+            t.undo();
+            return ui.showUnmarked(t);
         }
     }
 
