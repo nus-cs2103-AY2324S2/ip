@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -12,7 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.control.Label;
+
 
 
 
@@ -155,7 +156,7 @@ public class Duke extends Application {
      * Processes user input and returns a boolean indicating whether to continue accepting input.
      *
      *
-     * @return True to continue accepting input, false otherwise.
+     * @return true to continue accepting input, false otherwise.
      */
     public String getResponse(String input) {
         Parser parser = new Parser(input, tasks);

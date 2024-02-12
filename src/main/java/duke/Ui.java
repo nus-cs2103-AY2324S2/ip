@@ -10,7 +10,7 @@ public class Ui {
     /**
      * Displays the Duke logo and an initial message to the user.
      *
-     * @return
+     * @return The initial message to the user.
      */
     public String message() {
         // Displaying Duke logo and initial message
@@ -51,7 +51,8 @@ public class Ui {
     }
 
     /**
-     * i an error message for an unrecognized command.
+     * Displays an error message for an unrecognized command.
+     * @return The error message for an unrecognized command.
      */
     public String commandError() {
         //System.out.println("SORRY! but are you sure you enter the correct command? please check!");
@@ -62,6 +63,7 @@ public class Ui {
      * Displays information that a task has been marked as done
      *
      * @param task The task that has been marked as done.
+     * @return A message indicating the task has been marked as done.
      */
     public String markInfo(Task task) {
         /*System.out.println("------------------------------------------------------------");
@@ -75,6 +77,7 @@ public class Ui {
      * Displays information that a task has been marked as not done.
      *
      * @param task The task that has been marked as not done.
+     * @return A message indicating the task has been marked as not done.
      */
     public String unmarkInfo(Task task) {
         /*System.out.println("------------------------------------------------------------");
@@ -86,6 +89,7 @@ public class Ui {
 
     /**
      * Displays a message for an invalid task number.
+     * @return The error message for an invalid task number.
      */
     public String invalidNum() {
         //System.out.println("Invalid task number.");
@@ -94,6 +98,7 @@ public class Ui {
 
     /**
      * Displays the header for the list of tasks.
+     * @return A message indicating the list of tasks is shown.
      */
     public String listDetails() {
         //System.out.println("------------------------------------------------------------");
@@ -103,6 +108,7 @@ public class Ui {
 
     /**
      * Prints a header indicating the start of the list of matching tasks.
+     * @return A message indicating the list of tasks user are finding.
      */
     public String findListDetails() {
         //System.out.println("------------------------------------------------------------");
@@ -116,6 +122,7 @@ public class Ui {
      * Displays information about the removal of a task.
      *
      * @param task The task that has been removed.
+     * @return A message indicating the task removed.
      */
 
     public String removeTop(Task task) {
@@ -129,6 +136,7 @@ public class Ui {
      * Displays information about the updated task list size after task removal.
      *
      * @param size The updated size of the task list.
+     * @return A message indicating the number of tasks left in the list.
      */
     public String removeBottom(int size) {
         //System.out.println("Now you have " + size + " tasks in the list.");
@@ -141,7 +149,7 @@ public class Ui {
      *
      * @param newTodo The new to-do task that has been added.
      * @param size    The updated size of the task list.
-     * @return
+     * @return A message indicating what todo task is added into the task and the number of tasks left in the list.
      */
     public String todoInfo(Todo newTodo, int size) {
         /*System.out.println("------------------------------------------------------------");
@@ -158,6 +166,7 @@ public class Ui {
      *
      * @param newDeadline The new deadline task that has been added.
      * @param size        The updated size of the task list.
+     * @return A message indicating what deadline task is added into the task and the number of task left in the list.
      */
     public String deadlineInfo(Deadline newDeadline, int size) {
         /*System.out.println("------------------------------------------------------------");
@@ -174,6 +183,7 @@ public class Ui {
      *
      * @param newEvent The new event task that had been added.
      * @param size     The updated size of the task list.
+     * @return A message indicating what event task is added into the task and the number of task left in the list.
      */
     public String eventInfo(Event newEvent, int size) {
         /*System.out.println("------------------------------------------------------------");
@@ -188,7 +198,7 @@ public class Ui {
     /**
      * Displays a final goodbye message when the user exits the Duke program.
      *
-     * @return
+     * @return Last message for the user before they exit the program.
      */
     public String finalMessage() {
         System.out.println("------------------------------------------------------------");
@@ -197,6 +207,7 @@ public class Ui {
 
     /**
      * Prints a blank line.
+     * @return A message indicating user enter a blank command.
      */
     public String blank() {
         //System.out.print(" ");
@@ -205,6 +216,7 @@ public class Ui {
 
     /**
      * Prints a separation line to visually separate different sections of output.
+     * @return A separation line to separate the section.
      */
     public String separationLine() {
         //System.out.println("------------------------------------------------------------");

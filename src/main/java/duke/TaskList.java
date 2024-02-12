@@ -24,6 +24,7 @@ public class TaskList {
      * Marks a specified task in the list as done.
      *
      * @param parts An array containing the command and task number.
+     * @return A string representing the information about the marked task.
      */
     public String markList(String[] parts) {
         //System.out.println("");
@@ -44,6 +45,7 @@ public class TaskList {
      * Marks a specified task in the list as not done.
      *
      * @param parts An array containing the command and task number.
+     * @return A string representing the information about the unmarked.
      */
     public String unmarkList(String[] parts) {
         //System.out.println("");
@@ -63,6 +65,7 @@ public class TaskList {
 
     /**
      * Lists all tasks in the current list.
+     * @return A string representing the list of tasks.
      */
     public String list() {
         Ui ui = new Ui();
@@ -81,6 +84,7 @@ public class TaskList {
      * Removes a specified task from the list.
      *
      * @param parts An array containing the command and the task number.
+     * @return A string representing the information about the removed task.
      */
     public String remove(String[] parts) {
         int removed = Integer.parseInt(parts[1]) - 1;
@@ -97,6 +101,7 @@ public class TaskList {
     /**
      * Finds tasks containing a specified keyword and prints them to the console.
      * @param parts An array containing the command and the keyword to search for.
+     * @return A string representing the list of tasks containing the keyword.
      */
     public String find(String[] parts) {
         Ui ui = new Ui();
@@ -106,7 +111,8 @@ public class TaskList {
 
         for (Task task : myList) {
             if (task.getDescription().contains(keyword)) {
-                result.append((myList.indexOf(task) + 1)).append(".").append(task).append("\n"); // Append each item from the loop to the result string
+                result.append((myList.indexOf(task) + 1))
+                        .append(".").append(task).append("\n"); // Append each item from the loop to the result string
             }
         }
         result.append(ui.separationLine()); // Append the separation line
@@ -119,6 +125,7 @@ public class TaskList {
      * Adds a new task to the task list based on the provided command and input.
      * @param command The command indicating the type of task to add (e.g., "todo", "deadline", "event").
      * @param restOfInputs The rest of the user input containing task details (e.g., task description, deadline).
+     * @return A string representing the information about the added task.
      */
     public String add(String command, String restOfInputs) {
         Ui ui = new Ui();
