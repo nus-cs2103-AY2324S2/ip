@@ -1,11 +1,11 @@
 package luke;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.io.IOException;
 
 public class Storage implements Serializable {
 
@@ -32,6 +32,55 @@ public class Storage implements Serializable {
         } catch (IOException e) {
             System.out.println("IO exception");
         }
+    }
+
+    public static File getHistoryFile() {
+        String workingDirectory = System.getProperty("user.dir");
+        Path historyPath = Paths.get(workingDirectory, "data", "history.txt");
+        File historyFile = new File(String.valueOf(historyPath));
+        return historyFile;
+    }
+
+    public static Storage loadHistory() {
+        String workingDirectory = System.getProperty("user.dir");
+        Path directoryPath = Paths.get(workingDirectory,  "data");
+        Path historyPath = Paths.get(workingDirectory, "data", "history.txt");
+        //create directory (if it does not already exist)
+        try {
+            Files.createDirectory(directoryPath);
+        } catch (FileAlreadyExistsException e) {
+            //directory already exists.
+        } catch (IOException e) {
+            System.out.println("Failed to create directory");
+        }
+        //create file (if it does not already exist)
+        try {
+            Files.createFile(historyPath);
+        } catch (FileAlreadyExistsException e) {
+            //file already exists.
+        } catch (IOException e) {
+            //should (by right) never happen!
+            System.out.println("Failed to create file");
+            return null;
+        }
+
+        //load the file if there is save data (reference: https://www.baeldung.com/java-serialization)
+        //otherwise, create a new History object.
+        Storage storage;
+        File historyFile = new File(String.valueOf(historyPath));
+        try {
+            ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(historyFile));
+            storage = (Storage) inputStream.readObject();
+        } catch (IOException e) {
+            //System.out.println("No save data found, creating new save.");
+            storage = new Storage();
+        } catch (ClassNotFoundException e) {
+            //should (by right) never happen!
+            System.out.println("Class not found");
+            return null;
+        }
+
+        return storage;
     }
 
     /**
