@@ -90,6 +90,7 @@ public class UnmarkCommand extends Command {
         } catch (IOException exception) {
             message = "Unable to save edits: " + exception.getMessage();
         }
+        assert !(message.equals("Command not executed.")) : "Unmark command not executed.";
         return message;
     }
 

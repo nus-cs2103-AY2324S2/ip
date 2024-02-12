@@ -79,6 +79,7 @@ public class FindCommand extends Command {
             }
             message = this.ui.getFoundListString(this.foundList);
         }
+        assert !(message.equals("Command not executed.")) : "Find command not executed.";
         return message;
     }
 

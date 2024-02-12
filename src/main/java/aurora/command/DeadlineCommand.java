@@ -105,7 +105,9 @@ public class DeadlineCommand extends Command {
         } catch (IOException exception) {
             return "Unable to save deadline to file: " + exception.getMessage();
         }
-        return this.ui.getEchoAddTaskString(this.taskList);
+        message = this.ui.getEchoAddTaskString(this.taskList);
+        assert !(message.equals("Command not executed.")) : "Deadline command not executed.";
+        return message;
     }
 
     @Override

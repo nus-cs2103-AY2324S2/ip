@@ -125,6 +125,7 @@ public class EventCommand extends Command {
         } catch (IOException exception) {
             message = "Unable to save event to file: " + exception.getMessage();
         }
+        assert !(message.equals("Command not executed.")) : "Event command not executed.";
         return message;
     }
 

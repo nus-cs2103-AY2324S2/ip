@@ -85,6 +85,7 @@ public class DeleteCommand extends Command {
         } catch (IOException exception) {
             message = "Unable to save edits: " + exception.getMessage();
         }
+        assert !(message.equals("Command not executed.")) : "Delete command not executed.";
         return message;
     }
 
