@@ -4,8 +4,6 @@ package exception;
  * Represents the custom exceptions thrown in Chronos Task Management System.
  */
 public abstract class ChronosException extends Exception {
-    private static final String DIVIDER = "------------------------------------------------------------";
-
     /**
      * Constructs a ChronosException with the specified error message.
      *
@@ -13,6 +11,15 @@ public abstract class ChronosException extends Exception {
      */
     public ChronosException(String message) {
         super(message);
+    }
+
+    /**
+     * Constructs a InvalidByeException with the specified error message.
+     *
+     * @return InvalidByeException.
+     */
+    public static ChronosException createInvalidByeException() {
+        return new InvalidByeException("Invalid command. To exit the program, please key in bye.");
     }
 
     /**

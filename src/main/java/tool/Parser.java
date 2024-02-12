@@ -48,8 +48,20 @@ public class Parser {
         String[] token = command.split(" ", 2);
 
         if (token[0].equals("bye")) {
-            Ui.bidGoodbye();
-            return 0;
+            try {
+                if (token.length != 1) {
+                    throw ChronosException.createInvalidByeException();
+                } else {
+                    Ui.bidGoodbye();
+                    return 0;
+                }
+            } catch (exception.InvalidByeException e) {
+                ui.showDivider();
+                System.out.println("\t\t" + e.getMessage());
+                ui.showDivider();
+            }
+            return 1;
+            // Fallthrough
         } else {
             switch(token[0]) {
             case "help":
