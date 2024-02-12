@@ -139,6 +139,7 @@ public class Parser {
         String[] inputSplit = this.command.split(" ", 2);
         try {
             String taskdesc = inputSplit[1];
+            assert taskdesc.contains("/") : "input should contain /";
             return taskList.addTask("deadline", taskdesc);
         } catch (ArrayIndexOutOfBoundsException e) {
             return "Please input a date or time with a / in front.\n";
@@ -152,6 +153,7 @@ public class Parser {
         String[] inputSplit = this.command.split(" ", 2);
         try {
             String taskdesc = inputSplit[1];
+            assert taskdesc.contains("/") : "input should contain /";
             return taskList.addTask("event", taskdesc);
         } catch (ArrayIndexOutOfBoundsException e) {
             return "Please input a start and end time "
