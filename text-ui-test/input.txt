@@ -1,0 +1,10 @@
+hi
+list
+deadline homework /by tomorrow
+mark 1
+list
+unmark 1
+list
+mark 2
+event a
+bye
