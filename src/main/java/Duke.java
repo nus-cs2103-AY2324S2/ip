@@ -43,8 +43,6 @@ public class Duke {
             return c.execute(taskList, ui, storage, userInput);
         } catch (DukeException e) {
             return e.getMessage();
-        } catch (IndexOutOfBoundsException e) {
-            return "Quit yappin, that task does not exist";
         }
     }
 }

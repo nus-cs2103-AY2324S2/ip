@@ -7,6 +7,7 @@ import tasks.Task;
 import tasks.TaskList;
 import ui.Ui;
 
+
 /**
  * Defines the set of commands that can be executed within the Duke application.
  * Each enum constant represents a distinct command and defines its own execution behavior.
@@ -37,10 +38,16 @@ public enum Command {
      */
     MARK {
         @Override
-        public String execute(TaskList tasks, Ui ui, Storage storage, String message) {
-            // Extract task index from argument and mark the task as done
+        public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws DukeException {
             String[] inputs = message.split(" ");
-            int index = Integer.parseInt(inputs[1]);
+            int index;
+            try {
+                index = Integer.parseInt(inputs[1]);
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("You didn't specify an input integer yapper");
+            } catch (NumberFormatException e) {
+                throw new DukeException("Input has to be an integer value, yapper");
+            }
             storage.saveTasks(tasks);
             return tasks.markTaskAsDone(index);
         }
@@ -50,10 +57,17 @@ public enum Command {
      */
     UNMARK {
         @Override
-        public String execute(TaskList tasks, Ui ui, Storage storage, String message) {
+        public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws DukeException {
             // Extract task index from argument and mark the task as not done
             String[] inputs = message.split(" ");
-            int index = Integer.parseInt(inputs[1]);
+            int index;
+            try {
+                index = Integer.parseInt(inputs[1]);
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("You didn't specify an input integer yapper");
+            } catch (NumberFormatException e) {
+                throw new DukeException("Provide an integer value, yapper");
+            }
             storage.saveTasks(tasks);
             return tasks.unmarkTaskAsDone(index);
         }
@@ -103,9 +117,16 @@ public enum Command {
      */
     DELETE {
         @Override
-        public String execute(TaskList tasks, Ui ui, Storage storage, String message) {
+        public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws DukeException {
             String[] inputs = message.split(" ");
-            int index = Integer.parseInt(inputs[1]);
+            int index;
+            try {
+                index = Integer.parseInt(inputs[1]);
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("You didn't specify an input integer yapper");
+            } catch (NumberFormatException e) {
+                throw new DukeException("Provide an integer value, yapper");
+            }
             Task task = tasks.removeTaskfromTaskList(index);
             storage.saveTasks(tasks);
             return ui.triggerDeleteMessage(task);
@@ -113,11 +134,28 @@ public enum Command {
     },
     FIND {
         @Override
-        public String execute(TaskList tasks, Ui ui, Storage storage, String message) {
-            String[] inputs = message.split(" ");
-            String queryString = inputs[1];
-            TaskList tempTaskList = tasks.filter(queryString);
-            return tempTaskList.yapTasks();
+        public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws DukeException {
+            try {
+                String[] inputs = message.split(" ");
+                String queryString = inputs[1];
+                TaskList tempTaskList = tasks.filterByString(queryString);
+                return tempTaskList.yapTasks();
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("Provide a suitable keyword/phrase");
+            }
+        }
+    },
+    SCHEDULE {
+        @Override
+        public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws DukeException {
+            try {
+                String[] inputs = message.split(" ");
+                String queryString = inputs[1];
+                TaskList tempTaskList = tasks.filterByDate(queryString);
+                return tempTaskList.yapTasks();
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("Provide a suitable keyword/phrase");
+            }
         }
     };
 

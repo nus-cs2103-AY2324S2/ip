@@ -32,9 +32,9 @@ public class Parser {
             return Command.BYE;
         } else if (message.equals("yap")) {
             return Command.YAP;
-        } else if (message.startsWith("mark ")) {
+        } else if (message.startsWith("mark")) {
             return Command.MARK;
-        } else if (message.startsWith("unmark ")) {
+        } else if (message.startsWith("unmark")) {
             return Command.UNMARK;
         } else if (message.startsWith("todo")) {
             return Command.ADD_TODO;
@@ -46,6 +46,8 @@ public class Parser {
             return Command.DELETE;
         } else if (message.startsWith("find")) {
             return Command.FIND;
+        } else if (message.startsWith("schedule")) {
+            return Command.SCHEDULE;
         } else {
             throw new DukeException("What's YAPpening??!! Please yap your instruction more clearly");
         }
