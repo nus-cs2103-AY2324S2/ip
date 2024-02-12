@@ -1,9 +1,11 @@
 package duke;
 
+import javafx.application.Platform;
 import java.util.ArrayList;
-import java.util.LinkedList;
+//import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
+//import java.util.Queue;
+
 
 import duke.task.Task;
 
@@ -14,48 +16,13 @@ import duke.task.Task;
  */
 public class Ui {
 
-    private GuiObserver guiObserver;
-    private Queue<String> messageHistory = new LinkedList<>(); // Stores recent messages
-
-
-    /**
-     * Sets the GuiObserver for this Ui instance.
-     * The GuiObserver is used to display messages in the user interface.
-     *
-     * @param guiObserver The GuiObserver to be set.
-     */
-    public void setGuiObserver(GuiObserver guiObserver) {
-        this.guiObserver = guiObserver;
-    }
-
-    /**
-     * Displays a message to the user. If a GuiObserver is set, the message is displayed in the GUI.
-     * Otherwise, it is printed to the console.
-     *
-     * @param message The message to be displayed.
-     */
-    public void showMessage(String message) {
-        if (guiObserver != null) {
-            guiObserver.showMessage(message);
-            messageHistory.add(message); // Capture the message
-            while (messageHistory.size() > 10) { // Keep only the 10 most recent messages
-                messageHistory.remove();
-            }
-        } else {
-            System.out.println("GUI Observer not set: " + message);
-        }
-    }
-
-    public String getLastMessage() {
-        return messageHistory.peek();
-    }
-
+    private StringBuilder response = new StringBuilder();
 
     /**
      * Displays a welcome message to the user.
      */
-    public void showWelcome() {
-        showMessage("Hello! I'm Duke\nWhat can I do for you?");
+    public String showWelcome() {
+        return "Hello! I'm Duke\nWhat can I do for you?";
     }
 
     /**
@@ -63,22 +30,22 @@ public class Ui {
      *
      * @param errorMessage The error message to be displayed.
      */
-    public void showError(String errorMessage) {
-        showMessage("Error: " + errorMessage);
+    public String showError(String errorMessage) {
+        return "Error: " + errorMessage;
     }
 
     /**
      * Displays a message indicating an error loading tasks from file.
      */
-    public void showLoadingError() {
-        showMessage("Error loading tasks from file. Starting with an empty task list.");
+    public String showLoadingError() {
+        return "Error loading tasks from file. Starting with an empty task list.";
     }
 
     /**
      * Displays an exit message to the user.
      */
-    public void showExitMessage() {
-        showMessage("Bye. Hope to see you again soon!");
+    public String showExitMessage() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -86,16 +53,16 @@ public class Ui {
      *
      * @param tasks The TaskList containing the tasks to be displayed.
      */
-    public void showTaskList(TaskList tasks) {
+    public String showTaskList(TaskList tasks) {
         ArrayList<Task> taskArrayList = tasks.getTasks();
         if (taskArrayList.isEmpty()) {
-            showMessage("The task list is empty.");
+            return "The task list is empty.";
         } else {
             StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
             for (int i = 0; i < taskArrayList.size(); i++) {
                 sb.append(" ").append(i + 1).append(". ").append(taskArrayList.get(i)).append("\n");
             }
-            showMessage(sb.toString().trim());
+            return sb.toString().trim();
         }
     }
 
@@ -104,15 +71,15 @@ public class Ui {
      *
      * @param tasks The list of tasks that match the search query.
      */
-    public void showTaskList(List<Task> tasks) {
+    public String showTaskList(List<Task> tasks) {
         if (tasks.isEmpty()) {
-            showMessage("No matching tasks found.");
+            return "No matching tasks found.";
         } else {
             StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
             for (int i = 0; i < tasks.size(); i++) {
                 sb.append(i + 1).append(".").append(tasks.get(i)).append("\n");
             }
-            showMessage(sb.toString().trim());
+            return sb.toString().trim();
         }
     }
 
@@ -121,8 +88,8 @@ public class Ui {
      *
      * @param tasks The TaskList whose size is to be displayed.
      */
-    public void showNumTasks(TaskList tasks) {
-        showMessage("Now you have " + tasks.getTasksSize() + " tasks in the list.");
+    public String showNumTasks(TaskList tasks) {
+        return "Now you have " + tasks.getTasksSize() + " tasks in the list.";
     }
 
     /**
@@ -130,8 +97,8 @@ public class Ui {
      *
      * @param task The task that has been marked as done.
      */
-    public void showMarkAsDoneMessage(Task task) {
-        showMessage("Nice! I've marked this task as done:\n" + task);
+    public String showMarkAsDoneMessage(Task task) {
+        return "Nice! I've marked this task as done:\n" + task;
     }
 
     /**
@@ -150,9 +117,11 @@ public class Ui {
      * @param removedTask The task that has been deleted.
      * @param tasks The updated TaskList after the task has been deleted.
      */
-    public void showDeleteMessage(Task removedTask, TaskList tasks) {
-        showMessage("Noted. I've removed this task:\n" + removedTask.toString());
-        showNumTasks(tasks);
+    public String showDeleteMessage(Task removedTask, TaskList tasks) {
+        String deleteTaskMessage = "Noted. I've removed this task:\n" + removedTask.toString();
+        String numOfTasksMessage = showNumTasks(tasks);
+        return deleteTaskMessage + ". \n" + numOfTasksMessage;
+
     }
 
     /**
@@ -161,8 +130,9 @@ public class Ui {
      * @param newTask The task that has been added.
      * @param tasks The updated TaskList after the task has been deleted.
      */
-    public void showAddTaskMessage(Task newTask, TaskList tasks) {
-        showMessage("Got it. I've added this task:\n " + newTask.toString());
-        showNumTasks(tasks);
+    public String showAddTaskMessage(Task newTask, TaskList tasks) {
+        String addTaskMessage = "Got it. I've added this task:\n " + newTask.toString();
+        String numOfTasksMessage = showNumTasks(tasks);
+        return addTaskMessage + ". \n" + numOfTasksMessage;
     }
 }

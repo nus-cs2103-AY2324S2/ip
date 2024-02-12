@@ -34,9 +34,9 @@ public class AddTaskCommand extends Command {
      * @throws IOException If there is an error while saving the task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws JamieException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws JamieException {
         tasks.addTask(taskToAdd);
         storage.save(tasks);
-        ui.showAddTaskMessage(taskToAdd, tasks);
+        return ui.showAddTaskMessage(taskToAdd, tasks);
     }
 }

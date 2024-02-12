@@ -1,9 +1,7 @@
 package duke;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+//import java.io.BufferedReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -41,14 +39,14 @@ public class Storage {
      * @throws JamieException If an error occurs while parsing the file data.
      */
     public ArrayList<Task> load() throws FileNotFoundException, JamieException {
-        File file = new File(this.file);
+        //File file = new File(this.file);
         ArrayList<Task> loadedTasks = new ArrayList<>();
 
-        if (!file.exists()) {
-            return loadedTasks; // Return an empty list if the file doesn't exist
-        }
+//        if (!file.exists()) {
+//            return loadedTasks; // Return an empty list if the file doesn't exist
+//        }
 
-        Scanner scanner = new Scanner(file);
+        Scanner scanner = new Scanner(new BufferedReader(new FileReader(FILE_PATH)));
         while (scanner.hasNextLine()) {
             String taskString = scanner.nextLine();
             String[] splits = taskString.split(" \\| "); // Splitting each part of the task
@@ -88,28 +86,14 @@ public class Storage {
      * @throws IOException If an I/O error occurs while writing to the file.
      */
     public void save(TaskList tasks) {
-        try (FileWriter writer = new FileWriter(FILE_PATH)) {
-            String textToAdd = convertToString((tasks.getTasks()));
-            writer.write(textToAdd);
-            writer.close();
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
+            for (Task task : tasks.getTasks()) {
+                writer.write(task.toFileString());
+                writer.newLine();
+            }
         } catch (IOException e) {
-            System.out.println("Error!");
+            System.out.println("Error saving tasks to file: " + e.getMessage());
         }
     }
 
-    /**
-     * Converts a list of tasks into a string format suitable for file storage.
-     *
-     * @param taskList The list of Task objects to be converted.
-     * @return A string representation of the task list for file storage.
-     */
-    public String convertToString(ArrayList<Task> taskList) {
-        StringBuilder textToAdd = new StringBuilder();
-        for (Task curr : taskList) {
-            if (curr instanceof ToDo) {
-                textToAdd.append(curr.toFileString()).append("\n");
-            }
-        }
-        return textToAdd.toString();
-    }
 }

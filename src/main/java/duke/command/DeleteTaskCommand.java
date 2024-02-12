@@ -34,14 +34,14 @@ public class DeleteTaskCommand extends Command {
      * @return
      * @throws IOException If there is an error while saving the task list.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws JamieException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws JamieException {
         assert this.taskNum > 0 : "Input task number cannot be less than 1";
         assert this.taskNum <= tasks.getTasksSize()
                 : "Input task number cannot be more than total number of tasks.";
         Task toDelete = tasks.getTask(this.taskNum - 1);
         tasks.deleteTask(this.taskNum - 1);
         storage.save(tasks);
-        ui.showDeleteMessage(toDelete, tasks);
+        return ui.showDeleteMessage(toDelete, tasks);
     }
 }
 

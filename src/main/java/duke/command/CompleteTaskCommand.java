@@ -32,9 +32,9 @@ public class CompleteTaskCommand extends Command {
      * @throws IOException If there is an error while saving the task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws JamieException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws JamieException {
         tasks.completeTask(this.taskIndex - 1);
         storage.save(tasks);
-        ui.showMarkAsDoneMessage(tasks.getTask(this.taskIndex - 1));
+        return ui.showMarkAsDoneMessage(tasks.getTask(this.taskIndex - 1));
     }
 }

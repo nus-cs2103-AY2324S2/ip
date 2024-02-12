@@ -1,1 +1,3 @@
-T | 0 | reaf
+T | 0 | read
+T | 0 | read book
+T | 0 | sleep

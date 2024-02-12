@@ -22,7 +22,7 @@ public abstract class Command {
      * @return
      * @throws JamieException If there is an error while executing the command.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws JamieException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws JamieException;
 
     /**
      * Marks the command as an exit command.

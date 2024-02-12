@@ -14,7 +14,7 @@ import javafx.scene.text.Text;
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
-public class MainWindow extends AnchorPane implements GuiObserver {
+public class MainWindow extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -37,27 +37,29 @@ public class MainWindow extends AnchorPane implements GuiObserver {
         duke = d;
     }
 
-    @Override
-    public void showMessage(String message) {
-        Platform.runLater(() -> {
-            dialogContainer.getChildren().add(new Text(message));
-        });
-    }
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
-        Ui ui = duke.getUi();
-
         String input = userInput.getText();
+        String response = duke.getResponse(input);
+        //Ui ui = duke.getUi();
+        //String lastMessage = ui.getLastMessage();
 
-        dialogContainer.getChildren().add(DialogBox.getUserDialog(input, userImage));
-        duke.processUserInput(input); // This should trigger a response from Duke
-        // Assuming processUserInput updates `lastMessage` in Ui
-        String dukeResponse = duke.getUi().getLastMessage();
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(dukeResponse, dukeImage));
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getDukeDialog(response, dukeImage));
+
         userInput.clear();
+        if (input.equalsIgnoreCase("bye")) {
+            closeMainWindow();
+        }
+    }
+
+    private void closeMainWindow() {
+        Platform.exit();
     }
 }
+
