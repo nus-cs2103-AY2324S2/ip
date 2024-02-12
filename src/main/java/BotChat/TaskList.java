@@ -1,7 +1,6 @@
 package BotChat;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -19,6 +18,12 @@ public class TaskList {
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
+
+    /**
+     * Retrieves the list of tasks.
+     *
+     * @return The list of tasks.
+     */
     public ArrayList<Task> getTasks() {
         return tasks;
     }
@@ -31,16 +36,16 @@ public class TaskList {
      * @throws BotChatException If the task list is full or if there's an error during the addition process.
      */
     public String addTask(Task task) throws BotChatException {
-        // Assert that task is not null
-        assert task != null : "Task should not be null";
-
-        if (tasks.size() < MAX_TASKS) {
-            tasks.add(task);
-            return "Okay! Added to your list:\n" + task
-                    + "\nNow you have " + tasks.size() + " tasks in your list.";
-        } else {
-            throw new BotChatException("Ohno :( Your task list is full. Complete some tasks first.");
+        if (task == null) {
+            throw new BotChatException("Task cannot be null.");
         }
+
+        if (tasks.size() >= MAX_TASKS) {
+            throw new BotChatException("Your task list is full. Complete some tasks first.");
+        }
+
+        tasks.add(task);
+        return "Okay! Added to your list:\n" + task + "\nNow you have " + tasks.size() + " tasks in your list.";
     }
 
     /**
@@ -51,17 +56,10 @@ public class TaskList {
      * @throws BotChatException If there's an error during the deletion process.
      */
     public String deleteTask(String input) throws BotChatException {
-        try {
-            int taskIndex = Integer.parseInt(input.substring(7)) - 1;
-            // Assert that taskIndex is within valid range
-            assert taskIndex >= 0 && taskIndex < tasks.size() : "Invalid task index";
-
-            Task removedTask = tasks.remove(taskIndex);
-            return "Okay. This task has been removed:\n" + removedTask
-                    + "\nNow you have " + tasks.size() + " tasks in your list.";
-        } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
-            throw new BotChatException("Invalid task index inputted. Please try again.");
-        }
+        int taskIndex = getTaskIndex(input.substring(7));
+        Task removedTask = tasks.remove(taskIndex);
+        return "Okay. This task has been removed:\n" + removedTask + "\nNow you have "
+                + tasks.size() + " tasks in your list.";
     }
 
     /**
@@ -72,13 +70,13 @@ public class TaskList {
     public String listTasks() {
         if (tasks.isEmpty()) {
             return "Your task list is empty!";
-        } else {
-            StringBuilder response = new StringBuilder("Here are your tasks:\n");
-            for (int i = 0; i < tasks.size(); i++) {
-                response.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
-            }
-            return response.toString();
         }
+
+        StringBuilder response = new StringBuilder("Here are your tasks:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            response.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
+        }
+        return response.toString();
     }
 
     /**
@@ -89,17 +87,9 @@ public class TaskList {
      * @throws BotChatException If there's an error during the marking process.
      */
     public String markTask(String input) throws BotChatException {
-        try {
-            int taskIndex = Integer.parseInt(input.substring(5)) - 1;
-            if (taskIndex >= 0 && taskIndex < tasks.size()) {
-                tasks.get(taskIndex).mark();
-                return "Nice! This task has been marked as done:\n" + tasks.get(taskIndex);
-            } else {
-                throw new BotChatException("Invalid task index inputted. Please try again.");
-            }
-        } catch (StringIndexOutOfBoundsException e) {
-            throw new BotChatException("Please indicate the task number you want to mark complete.");
-        }
+        int taskIndex = getTaskIndex(input.substring(5));
+        tasks.get(taskIndex).mark();
+        return "Nice! This task has been marked as done:\n" + tasks.get(taskIndex);
     }
 
     /**
@@ -110,17 +100,9 @@ public class TaskList {
      * @throws BotChatException If there's an error during the unmarking process.
      */
     public String unmarkTask(String input) throws BotChatException {
-        try {
-            int taskIndex = Integer.parseInt(input.substring(7)) - 1;
-            if (taskIndex >= 0 && taskIndex < tasks.size()) {
-                tasks.get(taskIndex).unmark();
-                return "Okay. This task has been unmarked:\n" + tasks.get(taskIndex);
-            } else {
-                throw new BotChatException("Invalid task index inputted. Please try again.");
-            }
-        } catch (StringIndexOutOfBoundsException e) {
-            throw new BotChatException("Please indicate the task number you want to unmark.");
-        }
+        int taskIndex = getTaskIndex(input.substring(7));
+        tasks.get(taskIndex).unmark();
+        return "Okay. This task has been unmarked:\n" + tasks.get(taskIndex);
     }
 
     /**
@@ -132,21 +114,21 @@ public class TaskList {
      */
     public String addEventTask(String input) throws BotChatException {
         String[] parts = input.split("/", 3);
-        if (parts.length == 3) {
-            String description = parts[0].substring(5);
-            String from = parts[1].substring(5).trim();
-            String to = parts[2].substring(3);
-
-            if (!description.isEmpty()) {
-                Event eventTask = createEventTask(description, from, to);
-                return addTask(eventTask);
-            } else {
-                throw new BotChatException("Please provide a valid description of the task.");
-            }
-        } else {
+        if (parts.length != 3) {
             throw new BotChatException("Invalid format of Event task. Please try again with the correct format.\n"
                     + " event (event name) /from (start) /to (end)");
         }
+
+        String description = parts[0].substring(5);
+        String from = parts[1].substring(5).trim();
+        String to = parts[2].substring(3);
+
+        if (description.isEmpty()) {
+            throw new BotChatException("Please provide a valid description of the task.");
+        }
+
+        Event eventTask = createEventTask(description, from, to);
+        return addTask(eventTask);
     }
 
     /**
@@ -162,8 +144,8 @@ public class TaskList {
         try {
             return new Event(description, from, to);
         } catch (Exception e) {
-            throw new BotChatException("Invalid date format. Please use yyyy-MM-dd or yyyy-MM-dd HHmm "
-                    + "format for the event.");
+            throw new BotChatException("Invalid date format. Please use yyyy-MM-dd or "
+                    + "yyyy-MM-dd HHmm format for the event.");
         }
     }
 
@@ -176,20 +158,20 @@ public class TaskList {
      */
     public String addDeadlineTask(String input) throws BotChatException {
         String[] parts = input.split("/", 2);
-        if (parts.length == 2) {
-            String description = parts[0].substring(8);
-            String by = parts[1].substring(3);
-
-            if (!description.isEmpty()) {
-                Deadline deadlineTask = createDeadlineTask(description, by);
-                return addTask(deadlineTask);
-            } else {
-                throw new BotChatException("Please provide a valid description of the task.");
-            }
-        } else {
+        if (parts.length != 2) {
             throw new BotChatException("Invalid format of Deadline task. Please try again with the correct format.\n"
                     + "deadline (event name) /by (deadline)");
         }
+
+        String description = parts[0].substring(8);
+        String by = parts[1].substring(3);
+
+        if (description.isEmpty()) {
+            throw new BotChatException("Please provide a valid description of the task.");
+        }
+
+        Deadline deadlineTask = createDeadlineTask(description, by);
+        return addTask(deadlineTask);
     }
 
     /**
@@ -201,12 +183,12 @@ public class TaskList {
      * @throws BotChatException If there's an error during the creation process.
      */
     private Deadline createDeadlineTask(String description, String by) throws BotChatException {
-        if (isValidDateFormat(by)) {
-            return new Deadline(description, by);
-        } else {
-            throw new BotChatException("Invalid date format. Please use yyyy-mm-dd or yyyy-mm-dd HHmm "
-                    + "format for the deadline.");
+        if (!isValidDateFormat(by)) {
+            throw new BotChatException("Invalid date format. Please use yyyy-MM-dd or "
+                    + "yyyy-MM-dd HHmm format for the deadline.");
         }
+
+        return new Deadline(description, by);
     }
 
     /**
@@ -221,7 +203,7 @@ public class TaskList {
             return true;
         } catch (DateTimeParseException e) {
             try {
-                LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                LocalDate.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
                 return true;
             } catch (DateTimeParseException ex) {
                 return false;
@@ -230,19 +212,20 @@ public class TaskList {
     }
 
     /**
-     * Adds a tod0 task to the task list based on the user input.
+     * Adds a todo task to the task list based on the user input.
      *
-     * @param input The user input containing the tod0 task details.
+     * @param input The user input containing the todo task details.
      * @return A response message or status.
      * @throws BotChatException If there's an error during the addition process.
      */
     public String addTodoTask(String input) throws BotChatException {
-        if (!input.substring(4).isEmpty()) {
-            Task task = new Todo(input.substring(4));
-            return addTask(task);
-        } else {
+        String description = input.substring(4).trim();
+        if (description.isEmpty()) {
             throw new BotChatException("Please provide a valid description of the task.");
         }
+
+        Task task = new Todo(description);
+        return addTask(task);
     }
 
     /**
@@ -255,8 +238,9 @@ public class TaskList {
         StringBuilder response = new StringBuilder();
         ArrayList<Task> matchingTasks = new ArrayList<>();
 
+        String keyword = input.substring(5).toLowerCase();
         for (Task task : tasks) {
-            if (task.getDescription().toLowerCase().contains(input.substring(5).toLowerCase())) {
+            if (task.getDescription().toLowerCase().contains(keyword)) {
                 matchingTasks.add(task);
             }
         }
@@ -270,5 +254,17 @@ public class TaskList {
             }
         }
         return response.toString();
+    }
+
+    private int getTaskIndex(String input) throws BotChatException {
+        try {
+            int taskIndex = Integer.parseInt(input) - 1;
+            if (taskIndex < 0 || taskIndex >= tasks.size()) {
+                throw new BotChatException("Invalid task index inputted. Please try again.");
+            }
+            return taskIndex;
+        } catch (NumberFormatException e) {
+            throw new BotChatException("Invalid task index inputted. Please try again.");
+        }
     }
 }
