@@ -25,6 +25,10 @@ public class Task {
         this.isDone = isDone;
     }
 
+    public boolean getStatus() {
+        return isDone;
+    }
+
     /**
      * Transforms the task in the task list to a string for storage.
      *

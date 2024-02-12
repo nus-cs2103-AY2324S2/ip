@@ -39,6 +39,7 @@ public class TaskList {
      */
     public String addTask(Task task) {
         this.tasks.add(task);
+        assert tasks.contains(task);
         String response = ">w< Got it. I've added this task:\n";
         response += ("  " + task + "\n");
         response += ("Now you have " + getSize() + " task(s) in the list.\n");
@@ -70,6 +71,7 @@ public class TaskList {
 
             for (int idToInt : idsToInt) {
                 Task removedTask = tasks.remove(idToInt);
+                assert !tasks.contains(removedTask);
                 response += ("  " + removedTask + "\n");
             }
             response += ("Now you have " + tasks.size() + " task(s) in the list.\n");
@@ -104,6 +106,7 @@ public class TaskList {
             for (int idToInt : idsToInt) {
                 Task taskToMark = tasks.get(idToInt);
                 taskToMark.setStatus(true);
+                assert taskToMark.getStatus();
                 response += ("  " + taskToMark + "\n");
             }
             updateStorage();
@@ -137,6 +140,7 @@ public class TaskList {
             for (int idToInt : idsToInt) {
                 Task taskToUnmark = tasks.get(idToInt);
                 taskToUnmark.setStatus(false);
+                assert !taskToUnmark.getStatus();
                 response += ("  " + taskToUnmark + "\n");
             }
             updateStorage();
