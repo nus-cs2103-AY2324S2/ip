@@ -14,8 +14,13 @@ import java.io.FileWriter;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
 import java.util.ArrayList;
 
+
+/**
+ * The Storage class handles the reading from and writing to tasks lists in storage
+ */
 public class Storage {
 
     private static String workingDirectory = System.getProperty("user.dir");

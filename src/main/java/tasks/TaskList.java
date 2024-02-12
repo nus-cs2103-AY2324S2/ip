@@ -1,10 +1,14 @@
 package tasks;
 
 import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * The TaskList class is a class representing a collection of Task objects
+ */
 public class TaskList {
 
     private static String dividerText = "____________________________________________________________\n";

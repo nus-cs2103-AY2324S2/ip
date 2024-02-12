@@ -5,6 +5,9 @@ import ui.Ui;
 
 import java.util.Scanner;
 
+/**
+ * The Tam class is the main class from which Tam the Task Manager is launched.
+ */
 public class Tam {
     private static TaskList taskListObj;
     private static Scanner scannerObj = new Scanner(System.in);

@@ -1,5 +1,9 @@
 package tasks;
 
+/**
+ * The Todo class is a subclass of the Task class and represents
+ * a task with no date and time constraint
+ */
 public class Todo extends Task {
 
     /**

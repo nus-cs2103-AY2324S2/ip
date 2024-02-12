@@ -3,6 +3,10 @@ package tasks;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The Event class is a subclass of the Task class and represents
+ * a task with a from date and a to date
+ */
 public class Event extends Task {
     LocalDate fromDate;
     LocalDate toDate;

@@ -1,4 +1,8 @@
 package tasks;
+
+/**
+ * The Task class is the superclass of all specific Task subclasses
+ */
 public abstract class Task {
     protected String description;
 

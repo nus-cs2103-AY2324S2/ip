@@ -1,4 +1,8 @@
 package ui;
+
+/**
+ * The Ui class is a class which handles the printing of default messages to the user
+ */
 public class Ui {
 
     private static String dividerText = "____________________________________________________________\n";

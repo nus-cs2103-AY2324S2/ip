@@ -5,6 +5,9 @@ import tasks.TaskList;
 
 import java.time.LocalDate;
 
+/**
+ * The Parser class parses user input (a command) and executes the command accordingly
+ */
 public class Parser {
 
     private static String dividerText = "____________________________________________________________\n";
