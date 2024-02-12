@@ -58,7 +58,24 @@ public class Mike {
         Ui.display("Session terminated: data saved successfully.");
     }
 
-    public void end() {
-        ui.close();
+    /**
+     * Saves the tasklist into file.
+     */
+    public void save() {
+        // ui.close();
+        storage.writeToFile(taskList);
+    }
+
+    public String getResponse(String userInput) {
+        try {
+            List<Token> tokens = new CommandScanner(userInput).scanTokens();
+            Command command = new CommandParser(tokens).parse();
+            String response = command.execute(taskList);
+            return response;
+        } catch (MikeException e) {
+            return e.getMessage();
+        } catch (NullPointerException e) {
+            return e.getMessage();
+        }
     }
 }
