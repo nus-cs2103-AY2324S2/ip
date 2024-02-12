@@ -69,6 +69,9 @@ public class Ui {
         showLine();
     }
 
+    // The methods below all display the result of a command.
+    // As we have more and more commands, it might be better to have CommandResult classes that encapsulates
+    // whatever is to be displayed after each command.
     public void showAdd(Task task, int numberOfTasks) {
         show(new String[] {
                 ADD_HEADER,
