@@ -1,7 +1,5 @@
 package bob;
 
-import java.util.Scanner;
-
 /**
  * The main ChatBot class which contains the entry point of the program.
  */

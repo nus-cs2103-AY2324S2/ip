@@ -95,4 +95,15 @@ public class BobUI {
     public String getFindCommandText() {
         return "Here are the matching tasks in your list:";
     }
+
+    public String getSortedMessage(boolean isSortByAscending) {
+
+        if (isSortByAscending) {
+            return "You have successfully sorted the "
+                    + "list by ascending description order.";
+        }
+
+        return "You have successfully sorted the "
+                + "list by descending description order.";
+    }
 }
