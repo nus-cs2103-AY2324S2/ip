@@ -1,7 +1,5 @@
 package rick;
 
-import rick.RickException;
-import rick.Storage;
 import rick.tasks.Deadline;
 import rick.tasks.Event;
 import rick.tasks.Item;
@@ -13,7 +11,7 @@ public class TaskList {
     private ArrayList<Item> items;
 
     public TaskList () {
-        this.items = new ArrayList<Item>();
+        this.items = new ArrayList<>();
     }
     public TaskList (ArrayList<Item> list) {
         this.items = list;
@@ -21,7 +19,7 @@ public class TaskList {
     public String list() {
         StringBuilder string = new StringBuilder();
         String divider = "____________________________________________________________";
-        string.append(divider + "\n");;
+        string.append(divider + "\n");
         for (int i = 0; i < items.size(); i++) {
             string.append((i+1) + ". " + items.get(i) + "\n");
         }
@@ -30,17 +28,19 @@ public class TaskList {
     }
 
     public String addToList (String arg, Storage storage) throws RickException {
-        Item new_item;
+        Item newItem;
         String[] splited = arg.split("\\s+");
         int last = splited.length - 1;
         if (splited.length == 1) {
             throw new RickException("What THING do you want to do...");
         }
         try {
-            if (splited[0].equals("todo")) {
-                new_item = new ToDo(arg.substring(5), "[ ]");
-                this.items.add(new_item);
-            } else if (splited[0].equals("deadline")) {
+            switch (splited[0]) {
+            case "todo":
+                newItem = new ToDo(arg.substring(5), "[ ]");
+                this.items.add(newItem);
+                break;
+            case "deadline": {
                 if (!arg.contains(" /by ") || splited[last].equals("/by")) {
                     throw new RickException("When is it due? You haven't told me!");
                 }
@@ -50,9 +50,11 @@ public class TaskList {
                 int i = arg.indexOf("/by");
                 String ddl = arg.substring(i + 4);
                 String name = arg.substring(9, i - 1);
-                new_item = new Deadline(name, "[ ]", ddl);
-                this.items.add(new_item);
-            } else if (splited[0].equals("event")) {
+                newItem = new Deadline(name, "[ ]", ddl);
+                this.items.add(newItem);
+                break;
+            }
+            case "event": {
                 if (!arg.contains(" /from ") || !arg.contains(" /to ") || splited[last].equals("/to") || splited[last].equals("/from")) {
                     throw new RickException("WHEN is the event?");
                 }
@@ -61,13 +63,15 @@ public class TaskList {
                 }
                 int i = arg.indexOf("/from ");
                 int j = arg.indexOf("/to ");
-                String name = arg.substring(6, i-1);
+                String name = arg.substring(6, i - 1);
 
-                String from = arg.substring(i + 6, j-1);
+                String from = arg.substring(i + 6, j - 1);
                 String to = arg.substring(j + 4);
-                new_item = new Event(name, "[ ]", from, to);
-                this.items.add(new_item);
-            } else {
+                newItem = new Event(name, "[ ]", from, to);
+                this.items.add(newItem);
+                break;
+            }
+            default:
                 throw new RickException("It seems that you are missing the space in your instruction. Homesick alien?");
             }
         } catch (RickException e) {
@@ -77,10 +81,9 @@ public class TaskList {
                     "Report this issue here: https://forms.gle/hnnDTA7qYMnhJvQ46.");
         }
         storage.update();
-        String output = "Got it. I've added this task:\n" +
-                new_item +
+        return "Got it. I've added this task:\n" +
+                newItem +
                 "\nNow you have " + items.size() + " tasks in the list.";
-        return output;
     }
 
     public String mark(String arg, Storage storage) throws RickException {
@@ -95,8 +98,7 @@ public class TaskList {
             Item item = this.items.get(i);
             item.mark();
             storage.update();
-            String output = "Nice! I've marked this task as done:\n"+ item;
-            return output;
+            return "Nice! I've marked this task as done:\n"+ item;
         }
     }
 
@@ -112,8 +114,7 @@ public class TaskList {
             Item item = this.items.get(i);
             item.unmark();
             storage.update();
-            String output = "OK, I've marked this task as not done yet:\n"+ item;
-            return output;
+            return "OK, I've marked this task as not done yet:\n"+ item;
         }
     }
 
@@ -126,10 +127,9 @@ public class TaskList {
         try {
             Item item = this.items.remove(i);
             storage.update();
-            String output = "Noted. I've removed this task:\n" +
+            return  "Noted. I've removed this task:\n" +
                     item +
                     "\nNow you have " + this.items.size() + " tasks in the list.";
-            return(output);
         } catch (Exception e) {
             throw new RickException("Index wrong lah! :(");
         }

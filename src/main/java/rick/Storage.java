@@ -1,6 +1,5 @@
 package rick;
 
-import rick.RickException;
 import rick.tasks.Deadline;
 import rick.tasks.Event;
 import rick.tasks.Item;
@@ -17,7 +16,7 @@ import java.util.ArrayList;
 public class Storage {
     private Path directoryPath;
     private Path filePath;
-    private ArrayList<Item> list = new ArrayList<>();
+    private ArrayList<Item> items = new ArrayList<>();
 
     public Storage (String filePath) {
         this.filePath = Paths.get(filePath);
@@ -46,32 +45,30 @@ public class Storage {
                 case ("T"):
                     if (splited.length != 3) {
                         throw new Exception("T length wrong");}
-                    this.list.add(new ToDo(splited[2], splited[1]));
+                    this.items.add(new ToDo(splited[2], splited[1]));
                     break;
                 case ("D"):
                     if (splited.length != 4) {throw new Exception("D length wrong");}
-                    this.list.add(new Deadline(splited[2], splited[1], splited[3]));
+                    this.items.add(new Deadline(splited[2], splited[1], splited[3]));
                     break;
                 case ("E"):
                     if (splited.length != 5) {throw new Exception("E length wrong");}
-                    this.list.add(new Event(splited[2], splited[1], splited[3], splited[4]));
+                    this.items.add(new Event(splited[2], splited[1], splited[3], splited[4]));
                     break;
                 default:
                     throw new Exception("starting letter wrong");
                 }
             }
         } catch (Exception e) {
-            throw new RickException(e.getMessage());
-            //TODO switch error message (for developer)
-            //throw new rick.RickException("There's something wrong with your local data... You might want to [check the file], " +
-            //"or [clear local data]");
+            throw new rick.RickException("There's something wrong with your local data... You might want to [check the file], " +
+            "or [clear local data]");
         }
-        return this.list;
+        return this.items;
     }
     public void update() throws RickException {
         try {
             BufferedWriter writer = Files.newBufferedWriter(filePath);
-            for (Item i : list) {
+            for (Item i : items) {
                 writer.write(i.store());
                 writer.newLine();
             }

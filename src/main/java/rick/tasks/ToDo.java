@@ -1,4 +1,5 @@
 package rick.tasks;
+
 import rick.RickException;
 
 public class ToDo implements Item {

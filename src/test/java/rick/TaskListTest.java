@@ -1,7 +1,8 @@
 package rick;
 
 import org.junit.jupiter.api.Test;
-import rick.tasks.*;
+import rick.tasks.Item;
+import rick.tasks.ToDo;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

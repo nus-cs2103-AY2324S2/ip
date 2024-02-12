@@ -25,9 +25,11 @@ public class Event implements Item {
             this.name = name;
             this.status = status;
             this.includeTime = !(from.length() == 10 && to.length() == 10);
-            this.from = from.length() == 10 ? LocalDateTime.parse(from + "T00:00:00")
+            this.from = from.length() == 10
+                    ? LocalDateTime.parse(from + "T00:00:00")
                     : LocalDateTime.parse(from);
-            this.to = to.length() == 10 ? LocalDateTime.parse(to + "T00:00:00")
+            this.to = to.length() == 10
+                    ? LocalDateTime.parse(to + "T00:00:00")
                     : LocalDateTime.parse(to);
         } catch (Exception e) {
             throw new RickException("Something wrong with your input! " +

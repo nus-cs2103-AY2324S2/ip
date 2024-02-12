@@ -8,8 +8,8 @@ import java.time.format.DateTimeFormatter;
 public class Deadline implements Item {
     private String name;
     private String status;
-    private LocalDateTime ddl;
-    private boolean includeTime;
+    private LocalDateTime dueDateTime;
+    private boolean includesTime;
 
     public Deadline(String name, String status, String ddl) throws RickException {
         try {
@@ -20,8 +20,9 @@ public class Deadline implements Item {
                 throw new RickException("due when?");
             }
             this.name = name;
-            this.includeTime = !(ddl.length() == 10);
-            this.ddl = ddl.length() == 10 ? LocalDateTime.parse(ddl + "T00:00:00")
+            this.includesTime = !(ddl.length() == 10);
+            this.dueDateTime = ddl.length() == 10
+                    ? LocalDateTime.parse(ddl + "T00:00:00")
                     : LocalDateTime.parse(ddl);
             this.status = status;
         } catch (Exception e) {
@@ -31,12 +32,12 @@ public class Deadline implements Item {
     }
     @Override
     public String toString(){
-        if (this.includeTime) {
+        if (this.includesTime) {
             return "[D]" + this.status + " " + this.name + " (by: " +
-                    this.ddl.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm:ss")) + ")";
+                    this.dueDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm:ss")) + ")";
         } else {
             return "[D]" + this.status + " " + this.name + " (by: " +
-                    this.ddl.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+                    this.dueDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
         }
 
     }
@@ -47,6 +48,6 @@ public class Deadline implements Item {
         this.status = "[ ]";
     }
     public String store() {
-        return "D|" + this.status + "|" + this.name + "|" + this.ddl;
+        return "D|" + this.status + "|" + this.name + "|" + this.dueDateTime;
     }
 }
