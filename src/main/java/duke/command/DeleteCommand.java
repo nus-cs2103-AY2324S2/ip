@@ -28,6 +28,7 @@ public class DeleteCommand implements Command {
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
         String[] s = input.split("\\s");
+        assert (s.length == 2) : "Delete command cannot be split at space";
         int num = Integer.parseInt(s[1]);
         if (num <= list.getSize() && num >= 1) {
             Task t = list.delete(num - 1);

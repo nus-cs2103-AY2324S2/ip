@@ -31,6 +31,7 @@ public class DeadlineCommand implements Command {
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
         String[] task = input.split("/by");
+        assert (task.length == 2) : "Deadline command cannot be split at /by";
         try {
             Task t = new Deadline(task[0].substring(9).trim(), task[1].trim());
             list.add(t);

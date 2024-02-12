@@ -40,7 +40,7 @@ public class MarkCommandTest {
     public void execute_unmark_success() {
         MarkCommand mc = new MarkCommand("mark 2", false);
         Deadline dl = new Deadline("return book", "20-12-2020 10:01");
-        dl.done();
+        dl.markAsNotDone();
         Todo t = new Todo("read book");
         ArrayList<Task> arr = new ArrayList<Task>();
         arr.add(t);
