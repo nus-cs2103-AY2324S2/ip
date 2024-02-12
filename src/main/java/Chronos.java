@@ -41,13 +41,16 @@ public class Chronos {
     public void runProgram() throws IOException, ChronosException {
         ui.greetUser();
         Scanner sc = new Scanner(System.in);
+
         while (sc.hasNextLine()) {
             String fullCommand = ui.readCommand(sc);
             int statusCode = Parser.processCommand(fullCommand, ui, storage, tasks);
+
             if (statusCode == 0) {
                 break;
             }
         }
+
         sc.close();
     }
 
