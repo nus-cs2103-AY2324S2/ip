@@ -37,6 +37,7 @@ public class TaskList {
 
     }
 
+
     /**
      * Gets all tasks in the task list.
      *
@@ -61,6 +62,9 @@ public class TaskList {
         return tasks.get(index);
     }
 
+    public void removeTask(Task task) {
+        tasks.remove(task);
+    }
 
     /**
      * Gets the number of tasks in the task list.

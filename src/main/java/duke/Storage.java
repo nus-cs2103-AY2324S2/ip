@@ -103,7 +103,7 @@ public class Storage {
                 writer.write(System.lineSeparator());
             }
         } catch (IOException e) {
-            
+
             throw new DukeException("Error saving tasks to file: " + e.getMessage());
         }
     }

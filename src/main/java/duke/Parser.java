@@ -10,6 +10,7 @@ import duke.Command.UnmarkCommand;
 import duke.Command.DeleteCommand;
 import duke.Command.DeadlineCommand;
 import duke.Command.FindCommand;
+import duke.Command.DetectCommand;
 
 import java.util.Arrays;
 
@@ -33,6 +34,8 @@ public class Parser {
         switch (command) {
             case "bye":
                 return new ExitCommand();
+            case "detect":
+                return new DetectCommand();
             case "list":
                 return new ListCommand();
             case "mark":
