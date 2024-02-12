@@ -48,6 +48,10 @@ public enum Command {
      * Command to find a task.
      */
     FIND,
+    /**
+     * Command to display all possible commands.
+     */
+    HELP,
 
     /**
      * Unknown or unsupported command.
