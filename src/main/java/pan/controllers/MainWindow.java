@@ -7,12 +7,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
 import pan.Pan;
-import pan.Ui;
 import pan.Storage;
 import pan.TaskList;
+import pan.Ui;
 
+/**
+ * MainWindow - Represents the MainWindow Class responsible with loading individual FXML elements.
+ * @author Jerome Goh
+ */
 public class MainWindow extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;

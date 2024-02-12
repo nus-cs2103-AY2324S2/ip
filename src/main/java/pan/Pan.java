@@ -83,5 +83,5 @@ public class Pan {
     public String getResponse(String input) {
         return "Pan replied: " + input;
     }
-    
+
 }
