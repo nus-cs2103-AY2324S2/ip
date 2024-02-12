@@ -32,6 +32,7 @@ public class Parser {
     public static final DateTimeFormatter DATE_INPUT_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy");
     public static final DateTimeFormatter DATE_OUTPUT_FORMAT = DateTimeFormatter.ofPattern("d MMM yyyy");
     public static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("HH:mm");
+    public static final String OPTION_REGEX = "/\\w+";
 
     /**
      * Parses the full user command and returns the appropriate Command object.
@@ -126,7 +127,7 @@ public class Parser {
 
         // Get text from after command until the first option. (/tags, /deadline, etc.)
         for (int i = 1; i < argsList.size(); i++) {
-            if (!argsList.get(i).matches("/\\w+")) {
+            if (!argsList.get(i).matches(OPTION_REGEX)) {
                 taskDescription.append(argsList.get(i)).append(" ");
             } else {
                 break;

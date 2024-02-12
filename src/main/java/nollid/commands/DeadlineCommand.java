@@ -98,7 +98,7 @@ public class DeadlineCommand extends Command {
 
         StringBuilder deadlineString = new StringBuilder();
         for (int i = byIndex + 1; i < this.argsList.size(); i++) {
-            if (!argsList.get(i).matches("/\\w+")) {
+            if (!argsList.get(i).matches(Parser.OPTION_REGEX)) {
                 deadlineString.append(argsList.get(i)).append(" ");
             } else {
                 break;
