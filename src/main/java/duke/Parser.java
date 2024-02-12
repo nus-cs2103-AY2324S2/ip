@@ -50,6 +50,8 @@ public class Parser {
             return checkDeadline();
         } else if (commandInput.startsWith("event")) {
             return checkEvent();
+        } else if(commandInput.startsWith("postpone")) {
+            return checkPostpone();
         } else {
             return "I don't understand :/";
         }
@@ -60,7 +62,7 @@ public class Parser {
         try {
             String taskdesc = inputSplit[1];
             return taskList.findTask(taskdesc);
-        } catch (NullPointerException e) {
+        } catch (IndexOutOfBoundsException e) {
             return "Please input a Task Description to find";
         }
     }
@@ -79,8 +81,6 @@ public class Parser {
             }
         } catch (NumberFormatException e) {
             return "Please input a number.\n";
-        } catch (NullPointerException e) {
-            return "Please input a Task Index to mark";
         }
     }
 
@@ -98,8 +98,6 @@ public class Parser {
             }
         } catch (NumberFormatException e) {
             return "Please input a number.\n";
-        } catch (NullPointerException e) {
-            return "Please input a Task Index to unmark";
         }
     }
 
@@ -118,7 +116,7 @@ public class Parser {
         } catch (NumberFormatException e) {
             return "Please input a number.\n";
         } catch (NullPointerException e) {
-            return "Please input a Task Index to delete";
+            return "Please input a Task Index to delete.";
         }
     }
 
@@ -127,7 +125,7 @@ public class Parser {
         try {
             String taskdesc = inputSplit[1];
             return taskList.addTask("todo", taskdesc);
-        } catch (NullPointerException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             return "Please input a Task Description.";
         } catch (DateTimeParseException e) {
             return "Invalid DateTime Format. Please input as follows:\n"
@@ -161,6 +159,16 @@ public class Parser {
         } catch (DateTimeParseException e) {
             return "Invalid DateTime Format. Please input as follows:\n"
                     + "dd-mm-yyyy hh:mm";
+        }
+    }
+
+    private String checkPostpone() {
+        try {
+            String[] inputSplit = this.command.split(" ", 2);
+            String taskdesc = inputSplit[1];
+            return this.taskList.postponeTask(taskdesc);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return "Please enter a task description.";
         }
     }
 }

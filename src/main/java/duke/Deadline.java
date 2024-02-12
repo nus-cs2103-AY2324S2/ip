@@ -60,4 +60,10 @@ public class Deadline extends Task {
     public String dateToString() {
         return this.deadline.format(formatter).replace("T", " ");
     }
+
+    public String postpone(String input) {
+        this.deadline = LocalDateTime.parse(input, formatter);
+        return this.getTask() + " has been postponed to "
+                + this.deadline.format(formatter).replace("T", " ");
+    }
 }

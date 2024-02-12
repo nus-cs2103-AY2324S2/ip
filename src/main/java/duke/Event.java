@@ -73,4 +73,14 @@ public class Event extends Task {
     public String endDateToString() {
         return this.end.format(formatter).replace("T", " ");
     }
+
+    public String postpone(String start, String end) {
+        this.start = LocalDateTime.parse(start, formatter);
+        this.end = LocalDateTime.parse(end, formatter);
+        return this.getTask() + " has been postponed to a new period from \n"
+                + this.start.format(formatter).replace("T", " ")
+                + " to "
+                + this.end.format(formatter).replace("T", " ")
+                + ".";
+    }
 }

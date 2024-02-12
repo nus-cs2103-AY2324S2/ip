@@ -1,5 +1,7 @@
 package duke;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
@@ -162,5 +164,70 @@ public class TaskList {
      */
     public Task getTask(int index) {
         return taskList.get(index);
+    }
+
+    public int getTaskIndex(String taskDesc) {
+        for (int i = 0; i < this.taskList.size(); i++) {
+            Task current = this.taskList.get(i);
+            if (current.getTask().equals(taskDesc)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public String postponeTask(String input) {
+        String substrings[] = input.split(" /",2);
+        String taskDesc = substrings[0];
+
+        int taskIndex = getTaskIndex(taskDesc);
+        if (taskIndex == -1) {
+            return "No such task to postpone.";
+        }
+
+        Task currentTask = getTask(taskIndex);
+
+        if (currentTask instanceof ToDo) {
+            return "ToDo task cannot be snoozed or postponed!";
+        } else if (currentTask instanceof Deadline) {
+            try {
+                return postponeDeadline((Deadline)currentTask, substrings[1]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return "Deadline requires a Date and Time!";
+            }
+        } else if (currentTask instanceof Event) {
+            try {
+                return postponeEvent((Event)currentTask, substrings[1]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return "Events require a start/end Date and Time!";
+            }
+        }
+        return "No such task to postpone!";
+    }
+
+    private String postponeEvent(Event event, String dateTimeInput) {
+        String[] inputSplit = dateTimeInput.split(" /", 2);
+        try {
+            String start = inputSplit[0];
+            String end = inputSplit[1];
+            return event.postpone(start, end);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return "Please input a start and end time "
+                    + "or date with a / in front of both periods.\n";
+        } catch (DateTimeParseException e) {
+            return "Invalid DateTime Format. Please input as follows:\n"
+                    + "dd-mm-yyyy hh:mm";
+        }
+    }
+
+    private String postponeDeadline(Deadline deadline, String dateTimeInput) {
+        try {
+            return deadline.postpone(dateTimeInput);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return "Please input a date or time with a / in front.\n";
+        } catch (DateTimeParseException e) {
+            return "Invalid DateTime Format. Please input as follows:\n"
+                    + "dd-mm-yyyy hh:mm";
+        }
     }
 }
