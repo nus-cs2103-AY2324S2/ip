@@ -1,17 +1,21 @@
 package lex;
 
-import java.util.Scanner;
-
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import lex.parser.Parser;
 import lex.parser.command.Command;
 import lex.storage.Storage;
 import lex.tasks.TaskList;
+import lex.ui.MainWindow;
 import lex.ui.Ui;
 
 /**
  * Represents the main class of the Lex chatbot.
  */
-public class Lex {
+public class Lex extends Application {
     private final Parser parser;
     private final Ui ui;
 
@@ -21,7 +25,7 @@ public class Lex {
      * @param filePath The file path of the data file.
      */
     public Lex(String filePath) {
-        ui = new Ui(new Scanner(System.in));
+        ui = new Ui(new StringBuffer());
         Storage storage = new Storage(filePath);
 
         TaskList tasks;
@@ -35,34 +39,34 @@ public class Lex {
         parser = new Parser(tasks, ui, storage);
     }
 
-    /**
-     * Runs the Lex chatbot.
-     */
-    public void run() {
-        ui.welcome();
-
-        while (true) {
-            try {
-                String input = ui.read();
-                Command command = parser.parse(input);
-
-                if (command.execute()) {
-                    break;
-                }
-            } catch (Exception e) {
-                ui.print(e.getMessage());
-            }
-        }
-
-        ui.dispose();
+    public Lex() {
+        this("./data.json");
     }
 
     /**
-     * The main method.
-     *
-     * @param args The command line arguments.
+     * Runs the Lex chatbot.
      */
-    public static void main(String[] args) {
-        new Lex("./data.json").run();
+    public String run(String input) {
+        try {
+            Command command = parser.parse(input);
+
+            if (command.execute()) {
+                System.exit(0);
+            }
+
+            return ui.flush();
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+        AnchorPane ap = fxmlLoader.load();
+        Scene scene = new Scene(ap);
+        stage.setScene(scene);
+        fxmlLoader.<MainWindow>getController().setLex(this);
+        stage.show();
     }
 }

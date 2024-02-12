@@ -1,33 +1,18 @@
 package lex.ui;
 
-import java.util.Scanner;
-
 /**
  * Represents the user interface.
  */
 public class Ui {
-    /**
-     * The separator constant.
-     */
-    public static final String SEPARATOR = "____________________________________________________________";
-
-    private final Scanner scanner;
+    private final StringBuffer buffer;
 
     /**
      * Constructor for the Ui class.
      *
-     * @param scanner The scanner.
+     * @param buffer The buffer.
      */
-    public Ui(Scanner scanner) {
-        this.scanner = scanner;
-    }
-
-    /**
-     * Prints the welcome message.
-     */
-    public void welcome() {
-        print(SEPARATOR);
-        print("Hello! I'm lex.Lex\nWhat can I do for you?\n");
+    public Ui(StringBuffer buffer) {
+        this.buffer = buffer;
     }
 
     /**
@@ -36,23 +21,17 @@ public class Ui {
      * @param message The message.
      */
     public void print(String message) {
-        System.out.println(message);
+        buffer.append(message).append("\n");
     }
 
     /**
-     * Reads the user input.
+     * Returns the buffer and clears it.
      *
-     * @return The user input.
+     * @return The String currently in the buffer.
      */
-    public String read() {
-        print(SEPARATOR);
-        return scanner.nextLine();
-    }
-
-    /**
-     * Dispose resources.
-     */
-    public void dispose() {
-        scanner.close();
+    public String flush() {
+        var value = buffer.toString();
+        buffer.setLength(0);
+        return value;
     }
 }
