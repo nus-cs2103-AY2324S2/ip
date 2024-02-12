@@ -10,6 +10,7 @@ import java.util.ArrayList;
  * Represents a collection of tasks in the botChat application.
  */
 public class TaskList {
+    private static final int MAX_TASKS = 100;
     private ArrayList<Task> tasks;
 
     /**
@@ -30,7 +31,10 @@ public class TaskList {
      * @throws BotChatException If the task list is full or if there's an error during the addition process.
      */
     public String addTask(Task task) throws BotChatException {
-        if (tasks.size() < 100) {
+        // Assert that task is not null
+        assert task != null : "Task should not be null";
+
+        if (tasks.size() < MAX_TASKS) {
             tasks.add(task);
             return "Okay! Added to your list:\n" + task
                     + "\nNow you have " + tasks.size() + " tasks in your list.";
@@ -49,16 +53,14 @@ public class TaskList {
     public String deleteTask(String input) throws BotChatException {
         try {
             int taskIndex = Integer.parseInt(input.substring(7)) - 1;
-            if (taskIndex >= 0 && taskIndex < tasks.size()) {
-                Task removedTask = tasks.get(taskIndex);
-                tasks.remove(taskIndex);
-                return "Okay. This task has been removed:\n" + removedTask
-                        + "\nNow you have " + tasks.size() + " tasks in your list.";
-            } else {
-                throw new BotChatException("Invalid task index inputted. Please try again.");
-            }
-        } catch (StringIndexOutOfBoundsException e) {
-            throw new BotChatException("Please indicate the task number you want to delete.");
+            // Assert that taskIndex is within valid range
+            assert taskIndex >= 0 && taskIndex < tasks.size() : "Invalid task index";
+
+            Task removedTask = tasks.remove(taskIndex);
+            return "Okay. This task has been removed:\n" + removedTask
+                    + "\nNow you have " + tasks.size() + " tasks in your list.";
+        } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
+            throw new BotChatException("Invalid task index inputted. Please try again.");
         }
     }
 
