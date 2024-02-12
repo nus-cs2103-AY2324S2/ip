@@ -63,6 +63,8 @@ public class Storage {
                         event.setDone(isDone);
                         taskList.add(event);
                         break;
+                    default:
+                        assert false : "File contents are incorrect";
                     }
                 }
             }

@@ -123,6 +123,7 @@ public class Parser {
                 throw new BuddyException("Not a valid command!");
             }
         }
+        assert c != null; // variable c must be a valid Command object
         return c;
     }
 
