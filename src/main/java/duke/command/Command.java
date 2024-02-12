@@ -28,5 +28,5 @@ public abstract class Command {
      * @param ui Ui for certain commands to read from console and print to console
      * @param taskList TaskList to save information of tasks
      */
-    abstract public void execute(Storage storage, Ui ui, TaskList taskList) throws ChatBotParameterException;
+    abstract public String execute(Storage storage, Ui ui, TaskList taskList) throws ChatBotParameterException;
 }

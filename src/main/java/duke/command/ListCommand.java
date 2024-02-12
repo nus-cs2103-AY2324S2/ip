@@ -10,7 +10,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void execute(Storage storage, Ui ui, TaskList taskList) {
-        ui.showTaskList(taskList);
+    public String execute(Storage storage, Ui ui, TaskList taskList) {
+        return ui.showTaskList(taskList);
     }
 }

@@ -14,8 +14,8 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(Storage storage, Ui ui, TaskList taskList) throws ChatBotParameterException {
+    public String execute(Storage storage, Ui ui, TaskList taskList) throws ChatBotParameterException {
         List<Task> taskListSearchResult = taskList.findFromKeyword(parameters);
-        ui.showFindResult(taskListSearchResult);
+        return ui.showFindResult(taskListSearchResult);
     }
 }

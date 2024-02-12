@@ -11,12 +11,12 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(Storage storage, Ui ui, TaskList taskList)  {
+    public String execute(Storage storage, Ui ui, TaskList taskList)  {
         try {
             Task task = taskList.markTaskAsUndone(parameters);
-            ui.showUnmarkedTask(task);
+            return ui.showUnmarkedTask(task);
         } catch (Exception e) {
-            ui.showError(e.getMessage());
+            return ui.showError(e.getMessage());
         }
     }
 }

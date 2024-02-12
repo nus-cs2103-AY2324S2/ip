@@ -19,8 +19,8 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public void execute(Storage storage, Ui ui, TaskList taskList) {
+    public String execute(Storage storage, Ui ui, TaskList taskList) {
         storage.saveTaskListToFile(taskList);
-        ui.showFarewell();
+        return ui.showFarewell();
     }
 }
