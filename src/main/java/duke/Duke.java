@@ -1,7 +1,7 @@
 package duke;
 
 import java.io.IOException;
-//import java.util.Scanner;
+import java.util.Scanner;
 
 import duke.command.Command;
 import javafx.application.Application;
@@ -32,7 +32,7 @@ public class Duke extends Application {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-    private String lastMessage;
+    public String lastMessage;
     private final Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private final Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
     private GuiObserver guiObserver;
@@ -65,39 +65,36 @@ public class Duke extends Application {
         }
     }
 
-//    /**
-//     * Runs the main loop of the application.
-//     * Reads user input and executes commands until the user exits.
-//     */
-//
-//    public void run() {
-//        ui.showWelcome();
-//        Scanner scanner = new Scanner(System.in);
-//        boolean isExit = false;
-//        while (!isExit) {
-//            String userInput = scanner.nextLine();
-//            try {
-//                Command command = Parser.parse(userInput);
-//                command.execute(tasks, ui, storage);
-//                isExit = command.isExit();
-//            } catch (JamieException e) {
-//                ui.showError(e.getMessage());
-//            }
-//        }
-//        ui.showExitMessage();
-//        scanner.close();
-//    }
+    /**
+     * Runs the main loop of the application.
+     * Reads user input and executes commands until the user exits.
+     */
+    public void run() {
+        ui.showWelcome();
+        Scanner scanner = new Scanner(System.in);
+        boolean isExit = false;
+        while (!isExit) {
+            String userInput = scanner.nextLine();
+            try {
+                Command command = Parser.parse(userInput);
+                command.execute(tasks, ui, storage);
+                isExit = command.isExit();
+            } catch (JamieException e) {
+                ui.showError(e.getMessage());
+            }
+        }
+        ui.showExitMessage();
+        scanner.close();
+    }
 
-//    /**
-//     * The entry point of the application.
-//     *
-//     * @param args The command-line arguments.
-//     */
-//    public static void main(String[] args) {
-////        new Duke("data/Jamie.txt").run();
-//        Application.launch(Duke.class, args);
-//
-//    }
+    /**
+     * The entry point of the application.
+     *
+     * @param args The command-line arguments.
+     */
+    public static void main(String[] args) {
+        new Duke("data/Jamie.txt").run();
+    }
 
     @Override
     public void start(Stage stage) {
@@ -228,7 +225,9 @@ public class Duke extends Application {
         try {
             Command command = Parser.parse(input);
             command.execute(tasks, ui, storage);
+            // Now get the last message for any post-processing or additional actions
             this.lastMessage = ui.getLastMessage();
+            // Do something with lastMessage, like logging or conditional logic
         } catch (JamieException e) {
             ui.showError(e.getMessage());
 >>>>>>> branch-Level-10
@@ -243,4 +242,3 @@ public class Duke extends Application {
         return this.ui;
     }
 }
-
