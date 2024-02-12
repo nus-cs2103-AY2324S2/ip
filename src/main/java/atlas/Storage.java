@@ -33,6 +33,12 @@ public class Storage {
     public void load() {
         File file = new File(filePath);
         ensureFileExists();
+        loadIntoFile(file);
+
+
+    }
+
+    private void loadIntoFile(File file) {
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
@@ -44,8 +50,6 @@ public class Storage {
         } catch (FileNotFoundException e) {
             System.err.println("Unable to load tasks: " + e.getMessage());
         }
-
-
     }
 
     /**
