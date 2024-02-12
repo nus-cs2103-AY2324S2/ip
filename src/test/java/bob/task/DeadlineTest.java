@@ -26,15 +26,42 @@ public class DeadlineTest {
 
     @Test
     public void isOccurringOn_differentDate_false() {
-        Deadline deadline = new Deadline("",
-                LocalDateTime.of(2024, Month.FEBRUARY, 12, 19, 37, 0));
-        assertFalse(deadline.isOccurringOn(LocalDate.of(2024, Month.FEBRUARY, 11)));
+        assertFalse(new Deadline("",
+                LocalDateTime.of(2024, Month.FEBRUARY, 12, 19, 37, 0))
+                .isOccurringOn(LocalDate.of(2024, Month.FEBRUARY, 11)));
     }
 
     @Test
     public void isOccurringOn_sameDate_true() {
-        Deadline deadline = new Deadline("",
-                LocalDateTime.of(2024, Month.FEBRUARY, 12, 19, 37, 0));
-        assertTrue(deadline.isOccurringOn(LocalDate.of(2024, Month.FEBRUARY, 12)));
+        assertTrue(new Deadline("",
+                LocalDateTime.of(2024, Month.FEBRUARY, 12, 19, 37, 0))
+                .isOccurringOn(LocalDate.of(2024, Month.FEBRUARY, 12)));
+    }
+
+    @Test
+    public void isDueIn_moreThanDays_false() {
+        assertFalse(new Deadline("", LocalDateTime.now().plusDays(9)).isDueIn(7));
+    }
+
+    @Test
+    public void isDueIn_afterBy_false() {
+        assertFalse(new Deadline("", LocalDateTime.now().minusDays(1)).isDueIn(0));
+    }
+
+    @Test
+    public void isDueIn_negativeDays_false() {
+        assertFalse(new Deadline("",
+                LocalDateTime.of(2024, Month.FEBRUARY, 12, 19, 37, 0))
+                .isDueIn(-1));
+    }
+
+    @Test
+    public void isDueIn_todayNotDueYet_true() {
+        assertTrue(new Deadline("", LocalDateTime.now().plusHours(1)).isDueIn(0));
+    }
+
+    @Test
+    public void isDueIn_todayDue_false() {
+        assertFalse(new Deadline("", LocalDateTime.now().minusHours(1)).isDueIn(0));
     }
 }
