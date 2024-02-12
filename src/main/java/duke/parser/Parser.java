@@ -74,14 +74,14 @@ public class Parser {
         case "find":
             return parseFind(fullCmd);
         default:
-            throw new DukeException("\tSorry, what do you mean?\n");
+            throw new DukeException("Sorry, what do you mean?\n");
         }
     }
 
     private static MarkCommand parseMark(String fullCmd, boolean isComplete)
             throws DukeException {
-        String markFormTxt = "\tSorry! To mark or unmark tasks, please do\n"
-                + "\t\t(un)mark (number)\n";
+        String markFormTxt = "Sorry! To mark or unmark tasks, please do\n"
+                + "\t(un)mark (number)\n";
         if (fullCmd.split(" ")[1].trim().isEmpty()) {
             throw new DukeException(markFormTxt);
         }
@@ -90,9 +90,9 @@ public class Parser {
     }
 
     private static AddCommand parseDeadline(String fullCmd) throws DukeException {
-        String deadlineFormTxt = "\tSorry! Please use the given format for deadline tasks:\n"
-                + "\t\tdeadline (description) /by DD/MM/YYYY hhmm\n"
-                + "\t\teg. deadline homework /by 30/01/2023 1800\n";
+        String deadlineFormTxt = "Sorry! Please use the given format for deadline tasks:\n"
+                + "\tdeadline (description) /by DD/MM/YYYY hhmm\n"
+                + "\teg. deadline homework /by 30/01/2023 1800\n";
 
         try {
             String[] fullCmdArr = fullCmd.split("/", 2);
@@ -120,9 +120,9 @@ public class Parser {
     }
 
     private static AddCommand parseEvent(String fullCmd) throws DukeException {
-        String eventFormTxt = "\tSorry! Please use the given format for event tasks:\n"
-                + "\t\tevent (description) /from DD/MM/YYYY hhmm /to DD/MM/YYYY hhmm\n"
-                + "\t\teg. event assignment /from 30/01/2023 1200 /to 12/02/2023 2359\n";
+        String eventFormTxt = "Sorry! Please use the given format for event tasks:\n"
+                + "\tevent (description) /from DD/MM/YYYY hhmm /to DD/MM/YYYY hhmm\n"
+                + "\teg. event assignment /from 30/01/2023 1200 /to 12/02/2023 2359\n";
 
         try {
             String[] fullCmdArr = fullCmd.split("/from ");
@@ -161,8 +161,8 @@ public class Parser {
     }
 
     private static DeleteCommand parseDelete(String fullCmd) throws DukeException {
-        String deleteFormTxt = "\tDid you mean to delete the task? Please do this:\n"
-                + "\t\tdelete (number)\n";
+        String deleteFormTxt = "Did you mean to delete the task? Please do this:\n"
+                + "\tdelete (number)\n";
         try {
             if (fullCmd.split(" ")[1].trim().isEmpty()) {
                 throw new DukeException(deleteFormTxt);
@@ -176,7 +176,7 @@ public class Parser {
 
     private static FindCommand parseFind(String fullCmd)
             throws DukeException {
-        String findFormTxt = "\tPlease specify the keyword you wish to find!\n";
+        String findFormTxt = "Please specify the keyword you wish to find!\n";
         try {
             if (fullCmd.split(" ", 2)[1].trim().isEmpty()) {
                 throw new DukeException(findFormTxt);

@@ -16,11 +16,11 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         try {
             tasks.addTask(newTask);
-            ui.addTask(newTask, tasks.getNumTasks());
             storage.saveTasks(tasks);
+            return ui.addTask(newTask, tasks.getNumTasks());
         } catch (Exception e) {
             throw new DukeException(e.getMessage());
         }
