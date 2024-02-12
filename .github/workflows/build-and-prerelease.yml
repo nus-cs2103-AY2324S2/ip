@@ -4,6 +4,8 @@ on:
   push:
     tags:
       - 'v0.*'
+    branches:
+      - master
 
 jobs:
   build:
@@ -17,17 +19,23 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Validate Gradle Wrapper
-        uses: gradle/wrapper-validation-action@v1
+        uses: gradle/wrapper-validation-action@v2
 
       - name: Setup JDK 11
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v4
         with:
-          distribution: 'adopt'
+          distribution: 'zulu'
           java-version: '11'
+          java-package: jdk+fx
 
-      - name: Run Clean Unit Tests
-        run: ./gradlew clean test
+      - name: Run Clean Checks
+        run: ./gradlew clean check
 
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Build Jar
         run: ./gradlew clean shadowJar
 
