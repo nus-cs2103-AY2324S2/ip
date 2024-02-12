@@ -1,7 +1,6 @@
 package duke.ui;
 
-import java.util.Scanner;
-import java.util.function.Function;
+import java.util.function.Consumer;
 
 import duke.DukeException;
 import duke.task.Task;
@@ -19,6 +18,9 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * Represents the user interface of Fluffy.
+ */
 public class Ui extends Application {
 
     private ScrollPane scrollPane;
@@ -29,12 +31,12 @@ public class Ui extends Application {
     private Image loki = new Image(this.getClass().getResourceAsStream("/images/Loki.png"));
     private Image thor = new Image(this.getClass().getResourceAsStream("/images/Thor.png"));
 
-    private Function<String, String> commandHandler;
+    private Consumer<String> commandHandler;
 
     public Ui() {
     }
 
-    public Ui(Function<String, String> commandHandler) {
+    public Ui(Consumer<String> commandHandler) {
         this.commandHandler = commandHandler;
     }
 
@@ -112,8 +114,10 @@ public class Ui extends Application {
      */
     public void handleUserInput() {
         String userInputString = userInput.getText();
+
         userSpeak(userInputString);
-        fluffySpeak(getResponse(userInputString));
+        commandHandler.accept(userInputString);
+
         userInput.clear();
     }
 
@@ -124,7 +128,7 @@ public class Ui extends Application {
     public void userSpeak(String message) {
         Label response = new Label(message);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(response, new ImageView(loki))
+            DialogBox.getUserDialog(response, new ImageView(loki))
         );
     }
 
@@ -135,91 +139,73 @@ public class Ui extends Application {
     public void fluffySpeak(String message) {
         Label response = new Label(message);
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(response, new ImageView(thor))
+            DialogBox.getDukeDialog(response, new ImageView(thor))
         );
-    }
-
-    private String getResponse(String input) {
-        return commandHandler.apply(input);
     }
 
     public void showWelcome() {
         fluffySpeak("Hello! I'm Fluffy, \nWhat can I do for you?");
     }
 
-    public void setCommandHandler(Function<String, String> commandHandler) {
-        this.commandHandler = commandHandler;
-    }
-
-    public void showLine() {
-        System.out.println("____________________________________________________________");
-    }
-
     public void showGoodbye() {
-        System.out.println("Bye. Hope to see you again soon!");
+        fluffySpeak("Bye. Hope to see you again soon!");
     }
 
     public void showError(String errorMessage) {
-        System.out.println("OOPS!!! " + errorMessage);
+        fluffySpeak("OOPS!!! " + errorMessage);
     }
 
     public void showLoadingError() {
-        System.out.println("Error loading file. Creating new file...");
+        fluffySpeak("Error loading file. Creating new file...");
     }
 
     public void showMessage(String message) {
-        System.out.println(message);
+        fluffySpeak(message);
     }
 
     /**
-     * Shows all tasks.
-     * @param tasks tasks to show.
+     * Displays the list of tasks.
+     * @param tasks The list of tasks.
      */
     public void showTaskList(TaskList tasks) {
-        System.out.println("Here are the tasks in your list:");
+        StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.getSize(); i++) {
             try {
-                System.out.println((i + 1) + ". " + tasks.getTask(i));
+                sb.append((i + 1))
+                    .append(". ")
+                    .append(tasks.getTask(i))
+                    .append("\n");
             } catch (DukeException e) {
                 showError(e.getMessage());
             }
         }
+        fluffySpeak(sb.toString());
     }
 
     /**
-     * Shows the tasks that match the search keyword.
-     * @param tasks The list of tasks that match the search keyword.
+     * Displays the list of found tasks.
+     * @param tasks The list of found tasks.
      */
     public void showFoundTasks(TaskList tasks) {
-        System.out.println("Here are the matching tasks in your list:");
+        StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
         for (int i = 0; i < tasks.getSize(); i++) {
             try {
-                System.out.println((i + 1) + ". " + tasks.getTask(i));
+                sb.append((i + 1))
+                    .append(". ")
+                    .append(tasks.getTask(i))
+                    .append("\n");
             } catch (DukeException e) {
                 showError(e.getMessage());
             }
         }
+        fluffySpeak(sb.toString());
     }
 
-    /**
-     * Shows the task that was added to the task list.
-     * @param task The task that was added to the task list.
-     * @param newSize The new size of the task list.
-     */
     public void showTaskAdded(Task task, int newSize) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + newSize + " tasks in the list.");
+        fluffySpeak("Got it. I've added this task:\n" + task + "\nNow you have " + newSize + " tasks in the list.");
     }
 
-    /**
-     * Shows a deleted task.
-     * @param task The task that was deleted.
-     * @param newSize The new size of the task list.
-     */
     public void showTaskDeleted(Task task, int newSize) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + newSize + " tasks in the list.");
+        fluffySpeak("Noted. I've removed this task:\n" + task + "\nNow you have " + newSize + " tasks in the list.");
     }
 }

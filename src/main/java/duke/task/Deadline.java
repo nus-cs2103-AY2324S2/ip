@@ -1,9 +1,6 @@
 package duke.task;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-
-import duke.DukeException;
 
 /**
  * Represents a deadline task.
@@ -11,23 +8,6 @@ import duke.DukeException;
 public class Deadline extends Task {
 
     protected LocalDate by;
-    private final String TYPE = "D";
-
-    /**
-     * Constructor for Deadline.
-     * @param description The description of the deadline.
-     * @param by The date of the deadline.
-     * @throws DukeException If the date is not in the correct format.
-     */
-    public Deadline(String description, String by) throws DukeException {
-        super(description);
-        try {
-            this.by = LocalDate.parse(by);
-        } catch (DateTimeParseException e) {
-            throw new DukeException("Please enter a valid date in the format yyyy-mm-dd");
-        }
-    }
-
     /**
      * Constructor for Deadline.
      * @param description The description of the deadline.
@@ -51,7 +31,7 @@ public class Deadline extends Task {
 
     @Override
     public String getType() {
-        return TYPE;
+        return "D";
     }
 
     /**
@@ -60,7 +40,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[" + TYPE + "]" + super.toString() + " (by: " + by.format(Task.DATE_TIME_FORMATTER) + ")";
+        return "[" + getType() + "]" + super.toString() + " (by: " + by.format(Task.DATE_TIME_FORMATTER) + ")";
     }
 
     /**
@@ -69,7 +49,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        return TYPE + " | " + (isDone ? "1" : "0") + " | " + description + " | " + by;
+        return getType() + " | " + (isDone ? "1" : "0") + " | " + description + " | " + by;
     }
 
     /**

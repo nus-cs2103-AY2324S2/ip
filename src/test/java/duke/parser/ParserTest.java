@@ -1,14 +1,14 @@
 package duke.parser;
 
+import static duke.parser.Parser.parse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
 import duke.DukeException;
 import duke.command.Command;
 import duke.command.EventCommand;
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
-
-import static duke.parser.Parser.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class ParserTest {
 
@@ -41,10 +41,10 @@ public class ParserTest {
         assertThrows(DukeException.class, () -> Parser.parseEventCommand(commandParts));
     }
 
-   @Test
-   public void parseEventCommand_validCommand_eventCommandReturned() throws DukeException {
-       String[] commandParts = new String[]{"event", "description /from 2022-01-01 /to 2023-01-01"};
-       Command actual = Parser.parseEventCommand(commandParts);
-       assertInstanceOf(EventCommand.class, actual);
-   }
+    @Test
+    public void parseEventCommand_validCommand_eventCommandReturned() throws DukeException {
+        String[] commandParts = new String[]{"event", "description /from 2022-01-01 /to 2023-01-01"};
+        Command actual = Parser.parseEventCommand(commandParts);
+        assertInstanceOf(EventCommand.class, actual);
+    }
 }
