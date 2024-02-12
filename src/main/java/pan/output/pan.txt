@@ -1,2 +1,2 @@
-[T][X] eat breakfast
-[D][ ] do homework (by: Feb 06 2024)
+[T][ ] smurf
+[T][ ] pan

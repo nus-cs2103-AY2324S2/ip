@@ -32,7 +32,7 @@ public class Pan {
     public String parseInput(String instruction) {
         try {
             if (instruction.equals("list")) {
-                return taskList.list();
+                return taskList.list(taskList.getTasks());
             } else if (instruction.equals(Commands.BYE.name().toLowerCase())) {
                 return ui.bye();
             } else if (instruction.matches("(mark) \\d+")) {
@@ -65,6 +65,8 @@ public class Pan {
             } else if (instruction.matches("\\bfind\\s(.+)")) {
                 String searchKeyword = instruction.substring(4).trim();
                 return taskList.find(searchKeyword);
+            } else if (instruction.equals("sort")) {
+                return taskList.sort();
             } else {
                 // catch other test cases
                 InternalTestCases.testMissingParameters(instruction);
