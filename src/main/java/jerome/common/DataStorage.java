@@ -39,6 +39,11 @@ public class DataStorage {
         this.taskCount = 0;
         this.file = new File(fileName);
 
+        this.createNewFileOrOpenExisting();
+
+    }
+
+    private void createNewFileOrOpenExisting() {
         // Solution below adapted from https://www.w3schools.com/java/java_files_create.asp
         try {
             if (!this.file.createNewFile()) {
@@ -52,7 +57,6 @@ public class DataStorage {
                     + "please check that there is at least 100 MB of free disk space.");
             System.exit(1); // Exit the program. Non-zero indicates abnormal termination.
         }
-
     }
 
     /**
@@ -116,20 +120,7 @@ public class DataStorage {
         ArrayList<Task> tasksList = new ArrayList<>();
 
         try {
-            FileReader fileReader = new FileReader(this.file);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-
-            String line;
-
-            // Continuously read until the end of file.
-            while ((line = bufferedReader.readLine()) != null) {
-                Task task = parseTaskStoredInFile(line);
-                tasksList.add(task);
-                this.taskCount++;
-            }
-
-            bufferedReader.close();
-            fileReader.close();
+            this.appendReadTasksIntoList(tasksList);
 
         } catch (FileNotFoundException e) {
             System.out.println("The file was not found.");
@@ -142,32 +133,61 @@ public class DataStorage {
         return tasksList;
     }
 
+    private void appendReadTasksIntoList(ArrayList<Task> tasksList) throws IOException, MalformedUserInputException {
+        FileReader fileReader = new FileReader(this.file);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+        String line;
+
+        // Continuously read until the end of file.
+        while ((line = bufferedReader.readLine()) != null) {
+            Task task = parseTaskStoredInFile(line);
+            tasksList.add(task);
+            this.taskCount++;
+        }
+
+        bufferedReader.close();
+        fileReader.close();
+    }
+
     private Task parseTaskStoredInFile(String line) throws MalformedUserInputException {
         String[] splitTask = line.split(" \\| ");
         int length = splitTask.length;
 
         // TODO: Handle a dirty input.
         if (line.startsWith("T")) {
-            // then it is a task
-            if (length != 3) {
-                throw new MalformedUserInputException("Your database is corrupted.");
-            }
-            return new Todo(splitTask[1], Boolean.valueOf(splitTask[2]));
+            return this.getTodoTaskFromDatabase(length, splitTask);
         } else if (line.startsWith("D")) {
-            // then it is a deadline
-            if (length != 4) {
-                throw new MalformedUserInputException("Your database is corrupted.");
-            }
-            return new Deadline(splitTask[1], splitTask[3], Boolean.valueOf(splitTask[2]));
+            return this.getDeadlineTaskFromDatabase(length, splitTask);
         } else if (line.startsWith("E")) {
-            // then it is an event
-            if (length != 5) {
-                throw new MalformedUserInputException("Your database is corrupted.");
-            }
-            return new Event(splitTask[1], splitTask[3], splitTask[4], Boolean.valueOf(splitTask[2]));
+            return this.getEventTaskFromDatabase(length, splitTask);
         } else {
             throw new MalformedUserInputException("Your database is potentially corrupted");
         }
+    }
+
+    private static Event getEventTaskFromDatabase(int length, String[] splitTask) throws MalformedUserInputException {
+        // then it is an event
+        if (length != 5) {
+            throw new MalformedUserInputException("Your database is corrupted.");
+        }
+        return new Event(splitTask[1], splitTask[3], splitTask[4], Boolean.valueOf(splitTask[2]));
+    }
+
+    private static Deadline getDeadlineTaskFromDatabase(int length, String[] splitTask) throws MalformedUserInputException {
+        // then it is a deadline
+        if (length != 4) {
+            throw new MalformedUserInputException("Your database is corrupted.");
+        }
+        return new Deadline(splitTask[1], splitTask[3], Boolean.valueOf(splitTask[2]));
+    }
+
+    private static Todo getTodoTaskFromDatabase(int length, String[] splitTask) throws MalformedUserInputException {
+        // then it is a task
+        if (length != 3) {
+            throw new MalformedUserInputException("Your database is corrupted.");
+        }
+        return new Todo(splitTask[1], Boolean.valueOf(splitTask[2]));
     }
 
 
