@@ -1,53 +1,104 @@
 package duke;
 
 import java.time.format.DateTimeParseException;
+import java.util.Objects;
 import java.util.function.Consumer;
 
-public class Duke {
-    
-    private static final Ui ui = new Ui();
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
-    private static boolean done = false;
-    
-    private static final CommandList commands = new CommandList();
-    
-    private static TaskList tasks = new TaskList();
 
-    private static final Storage st = new Storage("data.txt");
+public class Duke extends Application {
 
-    public static void exit() {
+    private ScrollPane scrollPane;
+    private VBox dialogContainer;
+    private TextField userInput;
+    private Button sendButton;
+    private Scene scene;
+
+    private Image user = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/user.jpg")));
+    private Image duke = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/louie.jpg")));
+
+    private final Ui ui = new Ui();
+    private boolean done = false;
+    private final CommandList commands = new CommandList();
+    private TaskList tasks = new TaskList();
+    private final Storage st = new Storage("data.txt");
+
+
+    public Duke() {
+    }
+
+    public void exit() {
         // duke.Duke will exit at the end of the loop
         done = true;
     }
 
-    public static void addCommand(String name, Consumer<Parser> executor) {
+    public void addCommand(String name, Consumer<Parser> executor) {
         commands.put(name, new Command(name, executor));
     }
 
     public static void main(String[] mainArgs) {
-        
-        // initialisation
-        Duke.addCommand("list", (args) -> {
+
+        Duke duke = new Duke();
+
+        duke.initCommands();
+
+        try {
+            duke.tasks = duke.st.loadTasks();
+        } catch (DukeException e) {
+            duke.ui.print(String.format
+                    ("Error loading task data: %s"
+                            + "\n\nPlease delete 'data.txt' and try again. Goodbye...", e.getMessage()));
+            System.exit(1);
+        }
+
+        duke.ui.print("Hello, my name is... Louie!!!!\n" +
+                   "What can I do for you today?");
+        while (!duke.done) {
+            String str = duke.ui.readInput();
+            Parser parser = new Parser(str);
+            try {
+                duke.commands.get(parser.next()).run(parser);
+            } catch (DukeCommandNotFoundException | DukeOptionParsingException e) {
+                duke.ui.print("no matching command...");
+            }
+        }
+    }
+
+    private void initCommands() {
+        // initialise commands
+        this.addCommand("list", (args) -> {
             try {
                 args.assertEnd();
-                ui.print("Here's what you've done today...\n" + tasks.toDisplayString());
+                ui.print("Here's what you've done today...\n" + this.tasks.toDisplayString());
                 
             } catch (DukeOptionParsingException e) {
                 ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
         });
-        
-        Duke.addCommand("bye", (args) -> {
+
+        this.addCommand("bye", (args) -> {
             try {
                 args.assertEnd();
                 ui.print("Ok, going to sleep...");
-                Duke.exit();
+                this.exit();
             } catch (DukeOptionParsingException e) {
                 ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
         });
-        
-        Duke.addCommand("mark", (args) -> {
+
+        this.addCommand("mark", (args) -> {
             try {
                 int index;
                 Task t;
@@ -65,20 +116,20 @@ public class Duke {
                 args.assertEnd();
                 
                 try { 
-                    t = tasks.get(index - 1);
+                    t = this.tasks.get(index - 1);
                 } catch (IndexOutOfBoundsException e) {
                     throw new DukeException(String.format("You tried to access an invalid task index: %d", index));
                 }
                 
                 t.mark();
                 ui.print("CONGRATULATION!!!!!! you completed this task:\n" + t.describe());
-                Duke.st.writeTasks(tasks);
+                this.st.writeTasks(this.tasks);
             } catch (DukeException e) {
                 ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
         });
-        
-        Duke.addCommand("unmark", (args) -> {
+
+        this.addCommand("unmark", (args) -> {
             try {
                 int index;
                 Task t;
@@ -97,7 +148,7 @@ public class Duke {
                 args.assertEnd();
                 
                 try { 
-                    t = tasks.get(index - 1);
+                    t = this.tasks.get(index - 1);
                 } catch (IndexOutOfBoundsException e) {
                     throw new DukeException
                             (String.format("You tried to access an invalid task index: %d", index));
@@ -105,26 +156,26 @@ public class Duke {
                 
                 t.unmark();
                 ui.print("CONGRATULATION!!!!!! you un completed this task:\n" + t.describe());
-                Duke.st.writeTasks(tasks);
+                this.st.writeTasks(this.tasks);
             } catch (DukeException e) {
                 ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
         });
 
-        Duke.addCommand("todo", (args) -> {
+        this.addCommand("todo", (args) -> {
             
             try {
                 String str = args.rest();
                 Task t = new ToDo(str);
                 ui.print(String.format("Ok, I've added a new todo...\n  %s", t.describe()));
-                tasks.add(t);
-                Duke.st.writeTasks(tasks);
+                this.tasks.add(t);
+                this.st.writeTasks(this.tasks);
             } catch (DukeException e) {
                 ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
         });
-        
-        Duke.addCommand("deadline", (args) -> {
+
+        this.addCommand("deadline", (args) -> {
             StringBuilder by = new StringBuilder();
             StringBuilder name = new StringBuilder();
             Task t;
@@ -175,16 +226,16 @@ public class Duke {
                 }
                 
                 ui.print(String.format("Ok, I've added a new deadline...\n  %s", t.describe()));
-                tasks.add(t);
-                Duke.st.writeTasks(tasks);
+                this.tasks.add(t);
+                this.st.writeTasks(this.tasks);
             } catch (DukeException e) {
                 ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
             
             
         });
-        
-        Duke.addCommand("event", (args) -> {
+
+        this.addCommand("event", (args) -> {
             StringBuilder from = new StringBuilder();
             StringBuilder to = new StringBuilder();
             StringBuilder name = new StringBuilder();
@@ -259,14 +310,14 @@ public class Duke {
                 }
 
                 ui.print(String.format("Ok, I've added a new event...\n  %s", t.describe()));
-                tasks.add(t);
-                Duke.st.writeTasks(tasks);
+                this.tasks.add(t);
+                this.st.writeTasks(this.tasks);
             } catch (DukeException e) {
                 ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
         });
-        
-        Duke.addCommand("delete", (args) -> {
+
+        this.addCommand("delete", (args) -> {
             try {
                 int index;
                 Task t;
@@ -285,50 +336,119 @@ public class Duke {
                 args.assertEnd();
 
                 try {
-                    t = tasks.get(index - 1);
+                    t = this.tasks.get(index - 1);
                 } catch (IndexOutOfBoundsException e) {
                     throw new DukeException
                             (String.format("You tried to access an invalid task index: %d", index));
                 }
-                tasks.remove(index);
+                this.tasks.remove(index);
                 ui.print("I'm deleting this task. bye...\n" + t.describe());
-                Duke.st.writeTasks(tasks);
+                this.st.writeTasks(this.tasks);
             } catch (DukeException e) {
                 ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
         });
-        
-        Duke.addCommand("find", (psr) -> {
+
+        this.addCommand("find", (psr) -> {
             try {
                 String toFind = psr.rest();
                 ui.print(String.format("I found the following tasks with names that match '%s':\n%s", 
                         toFind, 
-                        tasks.filterSubString(toFind)));
+                        this.tasks.filterSubString(toFind)));
             } catch (DukeOptionParsingException e) {
                 ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
         });
-        
-        try {
-            tasks = Duke.st.loadTasks();
-        } catch (DukeException e) {
-            ui.print(String.format
-                    ("Error loading task data: %s"
-                            + "\n\nPlease delete 'data.txt' and try again. Goodbye...", e.getMessage()));
-            System.exit(1);
-        }
-        
-        ui.print("Hello, my name is... Louie!!!!\n" + 
-                   "What can I do for you today?");
-        while (!done) {
-            String str = ui.readInput();
-            Parser parser = new Parser(str);
-            try {
-                commands.get(parser.next()).run(parser);
-            } catch (DukeCommandNotFoundException | DukeOptionParsingException e) {
-                ui.print("no matching command...");
-            }
-        }
+    }
+
+
+    @Override
+    public void start(Stage stage) {
+        //Step 1. Setting up required components
+
+
+
+        //The container for the content of the chat to scroll.
+        scrollPane = new ScrollPane();
+        dialogContainer = new VBox();
+        scrollPane.setContent(dialogContainer);
+
+        userInput = new TextField();
+        sendButton = new Button("Send");
+
+        AnchorPane mainLayout = new AnchorPane();
+        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+
+        scene = new Scene(mainLayout);
+
+        stage.setScene(scene);
+        stage.show();
+
+        //More code to be added here later
+        //Step 2. Formatting the window to look as expected
+        stage.setTitle("Duke");
+        stage.setResizable(false);
+        stage.setMinHeight(600.0);
+        stage.setMinWidth(400.0);
+
+        mainLayout.setPrefSize(400.0, 600.0);
+
+        scrollPane.setPrefSize(385, 535);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+
+        scrollPane.setVvalue(1.0);
+        scrollPane.setFitToWidth(true);
+
+        //You will need to import `javafx.scene.layout.Region` for this.
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+
+        userInput.setPrefWidth(325.0);
+
+        sendButton.setPrefWidth(55.0);
+
+        AnchorPane.setTopAnchor(scrollPane, 1.0);
+
+        AnchorPane.setBottomAnchor(sendButton, 1.0);
+        AnchorPane.setRightAnchor(sendButton, 1.0);
+
+        AnchorPane.setLeftAnchor(userInput , 1.0);
+        AnchorPane.setBottomAnchor(userInput, 1.0);
+
+        //Part 3. Add functionality to handle user input.
+        sendButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
+
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+        });
+
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+    }
+
+
+    /**
+     * Iteration 2:
+     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * the dialog container. Clears the user input after processing.
+     */
+    private void handleUserInput() {
+        Label userText = new Label(userInput.getText());
+        Label dukeText = new Label(getResponse(userInput.getText()));
+        dialogContainer.getChildren().addAll(
+                DialogBox.createUserDialog(userText, new ImageView(user)),
+                DialogBox.createDukeDialog(dukeText, new ImageView(duke))
+        );
+        userInput.clear();
+    }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    private String getResponse(String input) {
+        return "Duke heard: " + input;
     }
 
 }
