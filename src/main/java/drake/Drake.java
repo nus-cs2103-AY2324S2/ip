@@ -3,6 +3,7 @@ package drake;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import drake.contact.Contact;
 import drake.task.Deadline;
 import drake.task.Event;
 import drake.task.Task;
@@ -11,7 +12,7 @@ import drake.task.Todo;
 import javafx.application.Application;
 
 enum Command {
-    BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID, FIND;
+    BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID, FIND, ADD_CONTACT, SHOW_CONTACTS;
     public static Command fromString(String commandString) {
         switch (commandString.toLowerCase()) {
         case "bye":
@@ -32,6 +33,10 @@ enum Command {
             return DELETE;
         case "find":
             return FIND;
+        case "add-contact":
+            return ADD_CONTACT;
+        case "list-contacts":
+            return SHOW_CONTACTS;
         default:
             return INVALID;
         }
@@ -47,6 +52,7 @@ public class Drake {
     private final Ui ui;
     private final Storage storage;
     private final TaskList tasks;
+    private ArrayList<Contact> contacts;
 
     /**
      * Constructs a new instance of the Drake application.
@@ -55,6 +61,7 @@ public class Drake {
         ui = new Ui();
         storage = new Storage("./list.dat");
         tasks = new TaskList(storage.loadTasks());
+        contacts = new ArrayList<>();
     }
 
     /**
@@ -87,6 +94,10 @@ public class Drake {
                 return handleDelete(input);
             case FIND:
                 return handleFind(input);
+            case ADD_CONTACT:
+                return handleContactAdd(input);
+            case SHOW_CONTACTS:
+                return showContacts();
             default:
                 throw new NotValidCommand("That's not a valid command!");
             }
@@ -99,6 +110,19 @@ public class Drake {
     private String handleBye() {
         storage.saveTasks(tasks.getTasks());
         return ui.showGoodbye();
+    }
+
+    private String handleContactAdd(String input) {
+        String[] result = Parser.parseContactAdd(input);
+        String contactName = result[0];
+        String contactDescription = result[1];
+        Contact newContact = new Contact(contactName, contactDescription);
+        contacts.add(newContact);
+        return ui.showContactAdd(newContact, contacts.size());
+    }
+
+    private String showContacts() {
+        return ui.showContacts(contacts);
     }
 
     private String handleList() {

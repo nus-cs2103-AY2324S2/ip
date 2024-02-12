@@ -1,6 +1,7 @@
 package drake;
 import java.util.ArrayList;
 
+import drake.contact.Contact;
 import drake.task.Task;
 import drake.task.TaskList;
 
@@ -100,6 +101,23 @@ public class Ui {
         sb.append("Here are the matching tasks in your list:\n");
         for (int i = 0; i < matchingTasks.size(); i++) {
             sb.append(i + 1).append(". ").append(matchingTasks.get(i)).append("\n");
+        }
+        sb.append(DASHED_LINE);
+        return sb.toString();
+    }
+
+    public String showContactAdd(Contact contact, int size) {
+        assert contact != null : "Task object cannot be null.";
+        return DASHED_LINE + "Got it. I've added this contact:\n" + contact + "\n" + "Now you have " + size
+                + " contacts in your Contact List.\n" + DASHED_LINE;
+    }
+
+    public String showContacts(ArrayList<Contact> contacts) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(DASHED_LINE);
+        sb.append("You asked for the contacts in your list? Here:\n");
+        for (int i = 0; i < contacts.size(); i++) {
+            sb.append(i + 1).append(". ").append(contacts.get(i)).append("\n");
         }
         sb.append(DASHED_LINE);
         return sb.toString();
