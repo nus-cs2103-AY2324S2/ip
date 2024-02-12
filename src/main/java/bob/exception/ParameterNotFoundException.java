@@ -1,4 +1,4 @@
-package bob;
+package bob.exception;
 
 public class ParameterNotFoundException extends BobException {
     private static final String MESSAGE = "tell me what's your %s";

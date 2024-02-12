@@ -1,4 +1,4 @@
-package bob;
+package bob.exception;
 
 public class EmptyDescriptionException extends BobException {
     private static final String MESSAGE = "%s what";

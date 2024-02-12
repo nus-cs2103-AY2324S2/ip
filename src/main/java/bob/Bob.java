@@ -1,5 +1,7 @@
-// TODO: divide into multiple packages
 package bob;
+
+import bob.command.Command;
+import bob.exception.BobException;
 
 public class Bob {
     private final Storage storage;

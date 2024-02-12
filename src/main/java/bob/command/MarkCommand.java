@@ -1,4 +1,11 @@
-package bob;
+package bob.command;
+
+import bob.Storage;
+import bob.TaskList;
+import bob.Ui;
+import bob.exception.InvalidTaskIndexException;
+import bob.exception.SavingException;
+import bob.task.Task;
 
 public class MarkCommand extends Command {
     int taskIndex;

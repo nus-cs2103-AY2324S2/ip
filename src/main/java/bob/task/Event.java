@@ -1,8 +1,11 @@
-package bob;
+package bob.task;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+
+import bob.Storage;
+import bob.Ui;
 
 public class Event extends Task {
     public static final String STORAGE_INDICATOR = "E";

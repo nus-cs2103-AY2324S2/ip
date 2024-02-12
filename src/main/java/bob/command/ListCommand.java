@@ -1,6 +1,8 @@
-package bob;
+package bob.command;
 
-import java.util.function.Predicate;
+import bob.Storage;
+import bob.TaskList;
+import bob.Ui;
 
 public class ListCommand extends Command {
     @Override

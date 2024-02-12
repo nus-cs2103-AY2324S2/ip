@@ -1,4 +1,4 @@
-package bob;
+package bob.task;
 
 public class Todo extends Task {
     public static final String STORAGE_INDICATOR = "T";

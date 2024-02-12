@@ -1,4 +1,4 @@
-package bob;
+package bob.task;
 
 import java.time.LocalDate;
 

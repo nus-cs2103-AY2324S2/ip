@@ -1,10 +1,17 @@
-package bob;
+package bob.command;
+
+import bob.exception.InvalidEventException;
+import bob.Storage;
+import bob.exception.SavingException;
+import bob.task.Task;
+import bob.TaskList;
+import bob.Ui;
 
 import java.time.LocalDateTime;
 
 public class AddEventCommand extends AddCommand {
-    private LocalDateTime from;
-    private LocalDateTime to;
+    private final LocalDateTime from;
+    private final LocalDateTime to;
 
     public AddEventCommand(String description, LocalDateTime from, LocalDateTime to) {
         super(description);

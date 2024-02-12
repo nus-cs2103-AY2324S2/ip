@@ -5,6 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import bob.task.Task;
+
 public class Ui {
     private final Scanner scanner;
 

@@ -1,4 +1,4 @@
-package bob;
+package bob.exception;
 
 public class InvalidCommandException extends BobException {
     private static final String MESSAGE = "what";

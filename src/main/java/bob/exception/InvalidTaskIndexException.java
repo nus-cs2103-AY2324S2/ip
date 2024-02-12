@@ -1,4 +1,4 @@
-package bob;
+package bob.exception;
 
 public class InvalidTaskIndexException extends BobException {
     private static final String MESSAGE_NAN = "%s? that's not even a number";

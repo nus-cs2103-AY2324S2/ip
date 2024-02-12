@@ -1,4 +1,8 @@
-package bob;
+package bob.command;
+
+import bob.Storage;
+import bob.TaskList;
+import bob.Ui;
 
 public class ExitCommand extends Command {
     @Override

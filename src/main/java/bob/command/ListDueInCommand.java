@@ -1,7 +1,11 @@
-package bob;
+package bob.command;
+
+import bob.Storage;
+import bob.TaskList;
+import bob.Ui;
 
 public class ListDueInCommand extends ListCommand {
-    private int days;
+    private final int days;
 
     public ListDueInCommand(int days) {
         this.days = days;

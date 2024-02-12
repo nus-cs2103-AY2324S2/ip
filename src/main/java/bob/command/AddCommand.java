@@ -1,4 +1,4 @@
-package bob;
+package bob.command;
 
 public abstract class AddCommand extends Command {
     protected String description;

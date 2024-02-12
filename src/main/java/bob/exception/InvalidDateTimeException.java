@@ -1,4 +1,4 @@
-package bob;
+package bob.exception;
 
 public class InvalidDateTimeException extends BobException {
     private static final String MESSAGE = "i only understand %s, but you gave me %s";

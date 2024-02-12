@@ -1,4 +1,4 @@
-package bob;
+package bob.exception;
 
 public class InvalidDaysException extends BobException {
     private static final String MESSAGE = "how many days is %s days???";
