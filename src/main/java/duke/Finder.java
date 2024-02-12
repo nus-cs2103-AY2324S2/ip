@@ -21,7 +21,7 @@ public class Finder {
      * @return String response from Duke
      */
     String find(String s) {
-        boolean found  = false;
+        boolean found = false;
         StringBuilder sb = new StringBuilder();
         int ctr = 1;
         TaskList resultList = new TaskList();
