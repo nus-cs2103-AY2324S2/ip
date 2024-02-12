@@ -8,7 +8,6 @@ import tyler.task.TaskList;
  * Represents a command.
  */
 public abstract class Command {
-
     /**
      * Determine this command whether is Exit or not.
      *

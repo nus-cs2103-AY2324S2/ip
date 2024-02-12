@@ -1,9 +1,6 @@
 package tyler.storage;
-import tyler.task.Todo;
-import tyler.task.TaskList;
-import tyler.task.Deadline;
-import tyler.task.Event;
-import tyler.task.Task;
+
+import tyler.task.*;
 
 import java.io.IOException;
 import java.io.File;
@@ -37,9 +34,9 @@ public class Storage {
         ArrayList<Task> loadTask = new ArrayList<>();
         try {
             File file = new File(this.filePath);
-            File parentD = file.getParentFile();
-            if (!parentD.exists()) {
-                parentD.mkdirs();
+            File parentDirectory = file.getParentFile();
+            if (!parentDirectory.exists()) {
+                parentDirectory.mkdirs();
             }
             Scanner load = new Scanner(file);
             while (load.hasNextLine()) {
