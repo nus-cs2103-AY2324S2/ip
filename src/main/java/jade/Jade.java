@@ -1,6 +1,7 @@
 package jade;
 
 import jade.commands.Command;
+import jade.data.Task;
 import jade.data.TaskList;
 import jade.exception.JadeException;
 import jade.parser.Parser;
@@ -17,21 +18,21 @@ import jade.ui.Ui;
  */
 public class Jade {
     private static final String USER_TASKS_FILE_PATH = "data/jadeList.txt";
-    private TaskList taskList; // list that stores all user tasks
+    private TaskList<Task> taskList; // list that stores all user tasks
     private final Storage storage; // storage object to load from and save to local file
     private boolean shouldExit;
     /**
      * Class constructor.
      */
     public Jade() {
-        this.taskList = new TaskList();
+        this.taskList = new TaskList<>();
         this.storage = new Storage(USER_TASKS_FILE_PATH);
         this.shouldExit = false;
         try {
-            this.taskList = new TaskList(storage.load());
+            this.taskList = new TaskList<>(storage.load());
         } catch (JadeException e) {
             System.out.print(Ui.LOADING_ERROR_MESSAGE);
-            this.taskList = new TaskList();
+            this.taskList = new TaskList<>();
         }
     }
     /**

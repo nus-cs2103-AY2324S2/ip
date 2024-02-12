@@ -15,5 +15,5 @@ public class Ui {
             + "Start by adding reminders for your tasks.\n\n"
             + "To check how I could assist you, access the help page by entering 'help'.", LOGO);
     public static final String LOADING_ERROR_MESSAGE = "\t[There's no file under current "
-             + "storage path, a new task file has been created.]";
+             + "storage path, a new task file has been created.]\n";
 }

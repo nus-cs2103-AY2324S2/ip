@@ -35,7 +35,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * @inheritDoc This implementation checks whether the deadline date equals to the date.
+     * @inheritDoc This implementation checks whether the deadline date equals to the given date.
      */
     @Override
     public boolean isSameDate(LocalDate date) {

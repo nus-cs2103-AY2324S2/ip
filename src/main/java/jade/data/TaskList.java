@@ -6,8 +6,8 @@ import java.util.List;
 /**
  * The <code>TaskList</code> object represents a list consists of user tasks.
  */
-public class TaskList {
-    private final List<Task> taskList;
+public class TaskList<T extends Task> {
+    private final List<T> taskList;
 
     /**
      * A Class constructor initializing an empty list to save user tasks.
@@ -19,7 +19,7 @@ public class TaskList {
     /**
      * Another Class constructor specifying the list that saves all user tasks.
      */
-    public TaskList(List<Task> taskList) {
+    public TaskList(List<T> taskList) {
         this.taskList = taskList;
     }
 
@@ -33,7 +33,7 @@ public class TaskList {
     /**
      * Adds the task to the list.
      */
-    public void add(Task task) {
+    public void add(T task) {
         taskList.add(task);
     }
 
@@ -70,7 +70,7 @@ public class TaskList {
     /**
      * Returns the Task at the specified index.
      */
-    public Task get(int index) {
+    public T get(int index) {
         return taskList.get(index);
     }
 

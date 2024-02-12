@@ -5,14 +5,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * The <code>Event</code> object represents a user task with a start DateTime and an end DateTime.
+ * The <code>Event</code> object represents a user task with a start dateTime and an end dateTime.
  */
 public class Event extends Task {
     protected LocalDateTime startDateTime;
     protected LocalDateTime endDateTime;
 
     /**
-     * Class constructor specifying the event description, start DateTime, and end DateTime.
+     * Class constructor specifying the event description, start dateTime, and end dateTime.
      */
     public Event(String description, LocalDateTime startDateTime, LocalDateTime endDateTime) {
         super(description);
@@ -22,7 +22,7 @@ public class Event extends Task {
 
     /**
      * Another Event constructor.
-     * Specifying the deadline description, start DateTime, end DateTime, and the completion status.
+     * Specifying the deadline description, start dateTime, end dateTime, and the completion status.
      */
     public Event(String description, LocalDateTime startDateTime, LocalDateTime endDateTime, boolean isDone) {
         super(description, isDone);
@@ -39,13 +39,13 @@ public class Event extends Task {
     }
 
     /**
-     * @inheritDoc This implementation checks whether the event DateTimes include the DateTime,
+     * @inheritDoc This implementation checks whether the event dateTimes include the given date,
      *      both startDateTime and endDateTime inclusively.
      */
     @Override
-    public boolean isSameDate(LocalDate dateTime) {
-        return (dateTime.isBefore(endDateTime.toLocalDate()) && dateTime.isAfter(startDateTime.toLocalDate()))
-                || dateTime.equals(startDateTime.toLocalDate()) || dateTime.equals(endDateTime.toLocalDate());
+    public boolean isSameDate(LocalDate date) {
+        return (date.isBefore(endDateTime.toLocalDate()) && date.isAfter(startDateTime.toLocalDate()))
+                || date.equals(startDateTime.toLocalDate()) || date.equals(endDateTime.toLocalDate());
     }
 
     @Override
@@ -55,7 +55,7 @@ public class Event extends Task {
     }
 
     /**
-     * @inheritDoc Adds the start DateTime and end DateTime at the end.
+     * @inheritDoc Adds the start dateTime and end dateTime at the end.
      */
     @Override
     public String taskFormatter() {
