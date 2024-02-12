@@ -4,12 +4,12 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import bob.task.Task;
+import bob.task.TaskStub;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -17,10 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import bob.exception.BobException;
-import bob.task.Deadline;
-import bob.task.Event;
-import bob.task.Task;
-import bob.task.Todo;
 
 public class StorageTest {
     @TempDir
@@ -116,119 +112,18 @@ public class StorageTest {
     }
 
     @Test
-    public void saveTask_todoUndone_success() throws IOException {
+    public void testSaveTask() throws IOException {
         Path dataPath = sharedTempDir.resolve("bob.txt");
 
         try {
             Storage storage = new Storage();
             storage.load(dataPath.toString());
 
-            storage.saveTask(new Todo("a"));
+            Task task = new TaskStub("a");
+            storage.saveTask(task);
 
             Scanner s = new Scanner(dataPath.toFile());
-            assertEquals("T | false | a", s.nextLine());
-            s.close();
-        } catch (BobException e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void saveTask_todoDone_success() throws IOException {
-        Path dataPath = sharedTempDir.resolve("bob.txt");
-
-        try {
-            Storage storage = new Storage();
-            storage.load(dataPath.toString());
-
-            Todo todo = new Todo("a");
-            todo.setDone(true);
-            storage.saveTask(todo);
-
-            Scanner s = new Scanner(dataPath.toFile());
-            assertEquals("T | true | a", s.nextLine());
-            s.close();
-        } catch (BobException e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void saveTask_deadlineUndone_success() throws IOException {
-        Path dataPath = sharedTempDir.resolve("bob.txt");
-
-        try {
-            Storage storage = new Storage();
-            storage.load(dataPath.toString());
-
-            storage.saveTask(new Deadline("a",
-                    LocalDateTime.of(2024, Month.FEBRUARY, 12, 19, 37, 0)));
-
-            Scanner s = new Scanner(dataPath.toFile());
-            assertEquals("D | false | a | 2024-02-12T19:37:00", s.nextLine());
-            s.close();
-        } catch (BobException e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void saveTask_deadlineDone_success() throws IOException {
-        Path dataPath = sharedTempDir.resolve("bob.txt");
-
-        try {
-            Storage storage = new Storage();
-            storage.load(dataPath.toString());
-
-            Deadline deadline = new Deadline("a",
-                    LocalDateTime.of(2024, Month.FEBRUARY, 12, 19, 37, 0));
-            deadline.setDone(true);
-            storage.saveTask(deadline);
-
-            Scanner s = new Scanner(dataPath.toFile());
-            assertEquals("D | true | a | 2024-02-12T19:37:00", s.nextLine());
-            s.close();
-        } catch (BobException e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void saveTask_eventUndone_success() throws IOException {
-        Path dataPath = sharedTempDir.resolve("bob.txt");
-
-        try {
-            Storage storage = new Storage();
-            storage.load(dataPath.toString());
-
-            storage.saveTask(new Event("a",
-                    LocalDateTime.of(2024, Month.FEBRUARY, 11, 19, 37, 0),
-                    LocalDateTime.of(2024, Month.FEBRUARY, 12, 19, 37, 0)));
-
-            Scanner s = new Scanner(dataPath.toFile());
-            assertEquals("E | false | a | 2024-02-11T19:37:00 | 2024-02-12T19:37:00", s.nextLine());
-            s.close();
-        } catch (BobException e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void saveTask_eventDone_success() throws IOException {
-        Path dataPath = sharedTempDir.resolve("bob.txt");
-
-        try {
-            Storage storage = new Storage();
-            storage.load(dataPath.toString());
-
-            Event event = new Event("a",
-                    LocalDateTime.of(2024, Month.FEBRUARY, 11, 19, 37, 0),
-                    LocalDateTime.of(2024, Month.FEBRUARY, 12, 19, 37, 0));
-            event.setDone(true);
-            storage.saveTask(event);
-
-            Scanner s = new Scanner(dataPath.toFile());
-            assertEquals("E | true | a | 2024-02-11T19:37:00 | 2024-02-12T19:37:00", s.nextLine());
+            assertEquals("storage format", s.nextLine());
             s.close();
         } catch (BobException e) {
             fail();
@@ -239,33 +134,27 @@ public class StorageTest {
     public void testRefresh() throws IOException {
         Path dataPath = sharedTempDir.resolve("bob.txt");
 
-        ArrayList<Task> tasks = new ArrayList<>(Arrays.asList(
-                new Todo("a"),
-                new Todo("a"),
-                new Deadline("a",
-                        LocalDateTime.of(2024, Month.FEBRUARY, 12, 19, 37, 0)),
-                new Deadline("a",
-                        LocalDateTime.of(2024, Month.FEBRUARY, 12, 19, 37, 0)),
-                new Event("a",
-                        LocalDateTime.of(2024, Month.FEBRUARY, 11, 19, 37, 0),
-                        LocalDateTime.of(2024, Month.FEBRUARY, 12, 19, 37, 0)),
-                new Event("a",
-                        LocalDateTime.of(2024, Month.FEBRUARY, 11, 19, 37, 0),
-                        LocalDateTime.of(2024, Month.FEBRUARY, 12, 19, 37, 0))
-        ));
-
-        tasks.get(1).setDone(true);
-        tasks.get(3).setDone(true);
-        tasks.get(5).setDone(true);
-
-        String[] expected = new String[] {
+        String[] fileContents = new String[] {
                 "T | false | a",
                 "T | true | a",
-                "D | false | a | 2024-02-12T19:37:00",
-                "D | true | a | 2024-02-12T19:37:00",
-                "E | false | a | 2024-02-11T19:37:00 | 2024-02-12T19:37:00",
-                "E | true | a | 2024-02-11T19:37:00 | 2024-02-12T19:37:00"
+                "D | false | a | 2024-02-12T23:12:00",
+                "D | true | a | 2024-02-12T23:12:00",
+                "E | false | a | 2024-02-11T23:12:00 | 2024-02-12T23:12:00",
+                "E | true | a | 2024-02-11T23:12:00 | 2024-02-12T23:12:00"
         };
+
+        ArrayList<Task> tasks = new ArrayList<>(Arrays.asList(
+                new TaskStub("a"),
+                new TaskStub("a"),
+                new TaskStub("a")));
+
+        BufferedWriter bw = new BufferedWriter(new FileWriter(dataPath.toFile().getAbsoluteFile()));
+        for (String fileContent : fileContents) {
+            bw.write(fileContent);
+            bw.newLine();
+        }
+        bw.flush();
+        bw.close();
 
         try {
             Storage storage = new Storage();
@@ -273,8 +162,8 @@ public class StorageTest {
             storage.refresh(tasks);
 
             Scanner s = new Scanner(dataPath.toFile());
-            for (int i = 0; s.hasNext(); i++) {
-                assertEquals(expected[i], s.nextLine());
+            while (s.hasNext()) {
+                assertEquals("storage format", s.nextLine());
             }
             s.close();
         } catch (BobException e) {
