@@ -65,4 +65,21 @@ public class EventTest {
                 LocalDateTime.of(2024, Month.FEBRUARY, 13, 19, 37, 0));
         assertFalse(event.isOccurringOn(LocalDate.of(2024, Month.FEBRUARY, 14)));
     }
+
+    @Test
+    public void toString_notDone_success() {
+        assertEquals("[E][ ] a (from: Feb 11 2024 1937 to: Feb 12 2024 1937)", new Event("a",
+                LocalDateTime.of(2024, Month.FEBRUARY, 11, 19, 37, 0),
+                LocalDateTime.of(2024, Month.FEBRUARY, 12, 19, 37, 0))
+                .toString());
+    }
+
+    @Test
+    public void toString_done_success() {
+        Event event = new Event("a",
+                LocalDateTime.of(2024, Month.FEBRUARY, 11, 19, 37, 0),
+                LocalDateTime.of(2024, Month.FEBRUARY, 12, 19, 37, 0));
+        event.setDone(true);
+        assertEquals("[E][X] a (from: Feb 11 2024 1937 to: Feb 12 2024 1937)", event.toString());
+    }
 }

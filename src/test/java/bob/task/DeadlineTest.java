@@ -64,4 +64,19 @@ public class DeadlineTest {
     public void isDueIn_todayDue_false() {
         assertFalse(new Deadline("", LocalDateTime.now().minusHours(1)).isDueIn(0));
     }
+
+    @Test
+    public void toString_notDone_success() {
+        assertEquals("[D][ ] a (by: Feb 12 2024 1937)", new Deadline("a",
+                LocalDateTime.of(2024, Month.FEBRUARY, 12, 19, 37, 0))
+                .toString());
+    }
+
+    @Test
+    public void toString_done_success() {
+        Deadline deadline = new Deadline("a",
+                LocalDateTime.of(2024, Month.FEBRUARY, 12, 19, 37, 0));
+        deadline.setDone(true);
+        assertEquals("[D][X] a (by: Feb 12 2024 1937)", deadline.toString());
+    }
 }
