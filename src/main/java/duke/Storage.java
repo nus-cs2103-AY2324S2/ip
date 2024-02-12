@@ -142,17 +142,17 @@ public class Storage {
                                 Task newTask = new Event(content, isDone, parsedFromDateTime, parsedToDateTime);
                                 items.add(newTask);
                             } else if (splitedFrom.length == 2 && splitedTo.length == 1) {
-                                DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                                DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                                LocalDateTime parsedFromDateTime = LocalDateTime.parse(from, formatter1);
-                                LocalDate parsedToDate = LocalDate.parse(to, formatter2);
+                                DateTimeFormatter formatterDateTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                                DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                                LocalDateTime parsedFromDateTime = LocalDateTime.parse(from, formatterDateTime);
+                                LocalDate parsedToDate = LocalDate.parse(to, formatterDate);
                                 Task newTask = new Event(content, isDone, parsedFromDateTime, parsedToDate);
                                 items.add(newTask);
                             } else if (splitedFrom.length == 1 && splitedTo.length == 2) {
-                                DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                                DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                                LocalDate parsedFromDate = LocalDate.parse(from, formatter2);
-                                LocalDateTime parsedToDateTime = LocalDateTime.parse(to, formatter1);
+                                DateTimeFormatter formatterDateTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                                DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                                LocalDate parsedFromDate = LocalDate.parse(from, formatterDate);
+                                LocalDateTime parsedToDateTime = LocalDateTime.parse(to, formatterDateTime);
                                 Task newTask = new Event(content, isDone, parsedFromDate, parsedToDateTime);
                                 items.add(newTask);
                             } else {
