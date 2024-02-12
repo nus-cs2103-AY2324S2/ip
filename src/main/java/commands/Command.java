@@ -19,10 +19,7 @@ public enum Command {
         @Override
         public String execute(TaskList tasks, Ui ui, Storage storage, String message) {
             storage.saveTasks(tasks);
-            String bye = "█▀▀ █▀█ █▀█ █▀▄ █▄▄ █▄█ █▀▀ █\n"
-                    + "█▄█ █▄█ █▄█ █▄▀ █▄█ ░█░ ██▄ ▄\n";
-
-            return "Stoppin' the YAP...\n" + bye;
+            return "Stoppin' the YAP...\n";
         }
     },
     /**
