@@ -33,7 +33,8 @@ public class DeleteCommand extends Command {
         try {
             Task task = tasks.getTask(taskIndex);
             tasks.deleteTask(task);
-            response += "I've deleted the following task:\n" + task + "You have " + tasks.size() + " tasks remaining!";
+            response += "I've deleted the following task:\n" + task + "\nYou have " + tasks.size()
+                    + " tasks remaining!";
             return response;
         } catch (IndexOutOfBoundsException ioobe) {
             throw new BuddyException("Not a valid task number buddy!");

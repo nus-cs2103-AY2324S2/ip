@@ -23,12 +23,11 @@ public class Event extends Task {
     }
 
     @Override
-    public String writeTask() {
-        return "E | " + super.writeTask() + " | "
+    public String toWritableString() {
+        return "E | " + super.toWritableString() + " | "
                 + from.format(DATE_TIME_STRING_FORMAT) + " | "
                         + to.format(DATE_TIME_STRING_FORMAT);
     }
-    
     @Override
     public String toString() {
         return "[E]" + super.toString()
