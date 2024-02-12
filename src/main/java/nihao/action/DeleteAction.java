@@ -6,7 +6,7 @@ import nihao.handler.DataHandler;
 import nihao.handler.PrintHandler;
 
 public class DeleteAction implements Action{
-    private final int index;
+    private int index;
     private boolean isAll;
     public DeleteAction(String index) {
         if (index.equals("all")) {
