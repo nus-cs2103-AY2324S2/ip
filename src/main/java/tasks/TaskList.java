@@ -98,48 +98,43 @@ public class TaskList {
      * @param taskType The type of the task (e.g., "todo", "deadline", "event").
      * @return The initialized task, or null if the task could not be created due to invalid input.
      */
-    public Task initTask(String message, String taskType) {
+    public Task initTask(String message, String taskType) throws DukeException {
         Task task;
-        try {
-            switch (taskType) {
-            case "todo":
-                try {
-                    String[] inputs = message.split("todo ");
-                    task = new ToDo(inputs[1]);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new DukeException("Whats the task, yapper???");
-                }
-                break;
-            case "deadline":
-                try {
-                    message = message.substring("deadline ".length());
-                    String[] inputs = message.split("/by");
-                    task = new Deadline(inputs[0].trim(), inputs[1].trim());
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new DukeException("Deadlines need a deadline, yapper!");
-                } catch (StringIndexOutOfBoundsException e) {
-                    throw new DukeException("Whats the task, yapper???");
-                }
-                break;
-            case "event":
-                try {
-                    message = message.substring("event ".length());
-                    String[] inputs = message.split("/from");
-                    String[] innerInputs = inputs[1].split("/to");
-                    task = new Event(inputs[0].trim(), innerInputs[0].trim(), innerInputs[1].trim());
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new DukeException("YAPYAP, What time is your from and to?");
-                } catch (StringIndexOutOfBoundsException e) {
-                    throw new DukeException("Whats the task, yapper???");
-                }
-                break;
-            default:
-                //should not reach here because of filter in main logic
-                task = new Task(message);
+        switch (taskType) {
+        case "todo":
+            try {
+                String[] inputs = message.split("todo ");
+                task = new ToDo(inputs[1]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new DukeException("Whats the task, yapper???");
             }
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
-            return null;
+            break;
+        case "deadline":
+            try {
+                message = message.substring("deadline ".length());
+                String[] inputs = message.split("/by");
+                task = new Deadline(inputs[0].trim(), inputs[1].trim());
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new DukeException("Deadlines need a deadline, yapper!");
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new DukeException("Whats the task, yapper???");
+            }
+            break;
+        case "event":
+            try {
+                message = message.substring("event ".length());
+                String[] inputs = message.split("/from");
+                String[] innerInputs = inputs[1].split("/to");
+                task = new Event(inputs[0].trim(), innerInputs[0].trim(), innerInputs[1].trim());
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new DukeException("YAPYAP, What time is your from and to?");
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new DukeException("Whats the task, yapper???");
+            }
+            break;
+        default:
+            //should not reach here because of filter in main logic
+            task = new Task(message);
         }
         return task;
     }
