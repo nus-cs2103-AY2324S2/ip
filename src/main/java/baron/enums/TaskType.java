@@ -10,13 +10,13 @@ public enum TaskType {
     DEADLINE("deadline"),
     EVENT("event");
 
-    private final String command;
+    private final String taskType;
 
-    TaskType(String command) {
-        this.command = command;
+    TaskType(String taskType) {
+        this.taskType = taskType;
     }
 
-    public String getCommand() {
-        return command;
+    public String getTaskType() {
+        return taskType;
     }
 }

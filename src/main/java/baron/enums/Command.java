@@ -3,7 +3,7 @@ package baron.enums;
 /**
  * Handles different types of user commands and input.
  */
-public enum Commands {
+public enum Command {
     LIST("list"),
     FIND("find"),
     MARK("mark"),
@@ -14,7 +14,7 @@ public enum Commands {
 
     private final String command;
 
-    Commands(String command) {
+    Command(String command) {
         this.command = command;
     }
 
