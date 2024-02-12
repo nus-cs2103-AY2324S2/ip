@@ -43,11 +43,11 @@ test {
 }
 
 application {
-    mainClass.set("atlas.Atlas")
+    mainClass.set("atlas.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "launcher"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
