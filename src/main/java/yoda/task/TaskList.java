@@ -26,22 +26,26 @@ public class TaskList {
         }
     }
 
-    public void findTasks(String keyword) {
+    public String findTasks(String keyword) {
         List<Task> foundTasks = new ArrayList<>();
         for (Task task : TASKS) {
             if (task.getDescription().contains(keyword)) {
                 foundTasks.add(task);
             }
         }
+
+        StringBuilder response = new StringBuilder();
         if (foundTasks.isEmpty()) {
-            System.out.println("No tasks found with the keyword: " + keyword);
+            response.append("No tasks found with the keyword: ").append(keyword);
         } else {
-            System.out.println("Tasks found with the keyword: " + keyword);
+            response.append("Tasks found with the keyword: ").append(keyword).append("\n");
             for (int i = 0; i < foundTasks.size(); i++) {
-                System.out.println(i + 1 + "." + foundTasks.get(i));
+                response.append(i + 1).append(".").append(foundTasks.get(i).toString()).append("\n");
             }
         }
+        return response.toString();
     }
+
 
     /**
      * Deletes a task from the list.
@@ -127,24 +131,6 @@ public class TaskList {
             response.append(i + 1).append(".").append(TASKS.get(i)).append("\n");
         }
         return response.toString().trim();
-    }
-
-
-    /**
-     * Prints a message wrapped with lines for better readability.
-     * @param message The message to be printed.
-     */
-    public void printMessage(String message) {
-        printLine();
-        System.out.println(message);
-        printLine();
-    }
-
-    /**
-     * Prints a line for visual separation in the console output.
-     */
-    private void printLine() {
-        System.out.println("________________________________________________________");
     }
 
 }

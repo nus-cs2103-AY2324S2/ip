@@ -44,13 +44,13 @@ public class YodaUI {
      * Delegates to TaskList to mark a task as done.
      * @param taskNumber The number of the task to mark as done.
      */
-    public void markTaskAsDone(int taskNumber) {
+    public String markTaskAsDone(int taskNumber) {
         try {
             TASKLIST.markTaskAsDone(taskNumber);
             Task task = TASKLIST.getTask(taskNumber);
-            printMessage("Done, this task is:\n" + task);
+            return "Done, this task is:\n" + task;
         } catch (Exception e) {
-            printMessage(e.getMessage());
+            return e.getMessage();
         }
     }
 
@@ -68,13 +68,13 @@ public class YodaUI {
      * Delegates to TaskList to mark a task as undone.
      * @param taskNumber The number of the task to mark as not done.
      */
-    public void markTaskAsUndone(int taskNumber) {
+    public String markTaskAsUndone(int taskNumber) {
         try {
             TASKLIST.markTaskAsUndone(taskNumber);
             Task task = TASKLIST.getTask(taskNumber);
-            printMessage("Undone, this task remains:\n" + task);
+            return "Undone, this task remains:\n" + task;
         } catch (Exception e) {
-            printMessage(e.getMessage());
+            return e.getMessage();
         }
     }
 
@@ -83,8 +83,8 @@ public class YodaUI {
      * Delegates to TaskList to find tasks.
      * @param searchTerm The search term to match tasks against.
      */
-    public void findTasks(String searchTerm) {
-        TASKLIST.findTasks(searchTerm);
+    public String findTasks(String searchTerm) {
+        return TASKLIST.findTasks(searchTerm);
     }
 
     /**
@@ -92,12 +92,12 @@ public class YodaUI {
      * Delegates to TaskList to delete a task.
      * @param taskNumber The number of the task to be deleted.
      */
-    public void deleteTask(int taskNumber) {
+    public String deleteTask(int taskNumber) {
         try {
             TASKLIST.deleteTask(taskNumber);
-            printMessage("Removed, this task has been:\nNow you have " + TASKLIST.size() + " tasks in the list.");
+            return "Removed, this task has been:\nNow you have " + TASKLIST.size() + " tasks in the list.";
         } catch (Exception e) {
-            printMessage(e.getMessage());
+            return e.getMessage();
         }
     }
 
@@ -106,53 +106,37 @@ public class YodaUI {
      * Delegates to TaskList to add a new task.
      * @param task The task to be added.
      */
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         TASKLIST.addTask(task);
-        printMessage("Hmm, added this task, I have:\n" + task + "\nTasks in the list, now you have " + TASKLIST.size() + ", hmm.");
+        return "Hmm, added this task, I have:\n" + task + "\nTasks in the list, now you have " + TASKLIST.size() + ", hmm.";
     }
 
     /**
      * Displays all the tasks in the list.
      * Delegates to TaskList to get the string representation of tasks.
      */
-    public void showTasks() {
-        printMessage(TASKLIST.toString());
+    public String showTasks() {
+        return TASKLIST.toString();
     }
 
-    public void saveTasks(TaskList taskList) {
+    public String saveTasks(TaskList taskList) {
         try {
             STORAGE.saveTasks(taskList);
-            printMessage("Saved, your task list has been.");
+            return "Saved, your task list has been.";
         } catch (IOException e) {
-            printMessage("Error saving tasks: " + e.getMessage());
+            return "Error saving tasks: " + e.getMessage();
         }
     }
 
 
     /**
-     * Prints a message wrapped with lines for better readability.
-     * @param message The message to be printed.
+     * Constructs a greeting message when the chatbot starts.
+     *
+     * @return A string containing the formatted greeting message.
      */
-    public void printMessage(String message) {
-        printLine();
-        System.out.println(message);
-        printLine();
+    public String printGreeting() {
+        return "Greetings! " + CHATBOT_NAME + ", I am\nAssist you, may I?";
     }
 
-    /**
-     * Prints a line for visual separation in the console output.
-     */
-    private void printLine() {
-        System.out.println("________________________________________________________");
-    }
-
-    /**
-     * Prints a greeting message when the chatbot starts.
-     */
-    public void printGreeting() {
-        printLine();
-        System.out.println("Greetings! " + CHATBOT_NAME + ", I am\nAssist you, may I?");
-        printLine();
-    }
 
 }

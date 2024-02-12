@@ -1,13 +1,13 @@
 package yoda.gui;
 
-
-import java.io.IOException;
-import yoda.Yoda;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import yoda.Yoda;
+
+import java.io.IOException;
 
 public class Main extends Application {
 
@@ -20,11 +20,19 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.setClassLoader(Main.class.getClassLoader());
-            stage.setTitle("Yoda");
+
+            MainWindow controller = fxmlLoader.getController();
+            controller.setYoda(yoda);
+
+            stage.setTitle("Yoda Chatbot");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 }
+

@@ -24,53 +24,50 @@ public class Parser {
      * @param input The input string provided by the user.
      * @throws Exception if an error occurs during command execution.
      */
-    public void parseAndExecute(String input) throws Exception {
-        String[] parts = input.split("\\s+", 2);
-        Command command = Command.fromString(parts[0]);
+
+    public String parseAndExecute(String input) {
+        String[] parts = input.trim().split("\\s+", 2);
+        Command command;
+        try {
+            command = Command.fromString(parts[0].toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return "Unknown command. Try again, you must.";
+        }
 
         try {
             switch (command) {
-            case BYE:
-                YODA_UI.printMessage("Farewell. See you again, I hope!");
-                YODA_UI.stopChatting();
-                break;
-            case LIST:
-                YODA_UI.showTasks();
-                break;
-            case SAVE:
-                TaskList taskList = YODA_UI.getTaskList();
-                YODA_UI.saveTasks(taskList);
-                break;
-            case DELETE:
-                performTaskOperation(parts, YODA_UI::deleteTask);
-                break;
-            case FIND:
-                if (parts.length > 1) {
-                    YODA_UI.findTasks(parts[1]);
-                } else {
-                    throw new Exception("Search term, provide you must.");
-                }
-                break;
-            case MARK:
-                performTaskOperation(parts, YODA_UI::markTaskAsDone);
-                break;
-            case UNMARK:
-                performTaskOperation(parts, YODA_UI::markTaskAsUndone);
-                break;
-            case TODO:
-                YODA_UI.addTask(new Todo(parts[1]));
-                break;
-            case DEADLINE:
-                addTaskWithDateTime(parts, Command.DEADLINE);
-                break;
-            case EVENT:
-                addTaskWithDateTime(parts, Command.EVENT);
-                break;
-            default:
-                YODA_UI.printMessage("Sorry, I am. What that means, I do not know :-(");
+                case BYE:
+                    YODA_UI.stopChatting();
+                    return "Farewell. See you again, I hope!";
+                case LIST:
+                    return YODA_UI.showTasks();
+                case SAVE:
+                    TaskList taskList = YODA_UI.getTaskList();
+                    YODA_UI.saveTasks(taskList);
+                    return "Saved your tasks, I have.";
+                case DELETE:
+                    performTaskOperation(parts, YODA_UI::deleteTask);
+                case FIND:
+                    if (parts.length > 1) {
+                        return YODA_UI.findTasks(parts[1]);
+                    } else {
+                        return "Search term, provide you must.";
+                    }
+                case MARK:
+                    return performTaskOperation(parts, YODA_UI::markTaskAsDone);
+                case UNMARK:
+                    return performTaskOperation(parts, YODA_UI::markTaskAsUndone);
+                case TODO:
+                    return YODA_UI.addTask(new Todo(parts[1]));
+                case DEADLINE:
+                    return addTaskWithDateTime(parts, Command.DEADLINE);
+                case EVENT:
+                    return addTaskWithDateTime(parts, Command.EVENT);
+                default:
+                    return "Sorry, I am. What that means, I do not know :-(";
             }
         } catch (Exception e) {
-            YODA_UI.printMessage(e.getMessage());
+            return "Error occurred: " + e.getMessage();
         }
     }
 
@@ -80,7 +77,7 @@ public class Parser {
      * @param commandType The type of task to add (deadline or event).
      * @throws Exception if the task description or time is missing.
      */
-    private void addTaskWithDateTime(String[] parts, Command commandType) throws Exception {
+    private String addTaskWithDateTime(String[] parts, Command commandType) throws Exception {
         if (parts.length < 2) {
             throw new Exception("Required, a task description and time are, hmm.");
         }
@@ -93,7 +90,7 @@ public class Parser {
         try {
             if (commandType == Command.DEADLINE) {
                 LocalDateTime by = DateTimeUtil.parseDateTime(taskParts[1]);
-                YODA_UI.addTask(new Deadline(taskParts[0], by));
+                return YODA_UI.addTask(new Deadline(taskParts[0], by));
             } else if (commandType == Command.EVENT) {
                 String[] timeParts = taskParts[1].split(" /to ", 2);
                 if (timeParts.length < 2) {
@@ -101,12 +98,14 @@ public class Parser {
                 }
                 LocalDateTime from = DateTimeUtil.parseDateTime(timeParts[0]);
                 LocalDateTime to = DateTimeUtil.parseDateTime(timeParts[1]);
-                YODA_UI.addTask(new Event(taskParts[0], from, to));
+                return YODA_UI.addTask(new Event(taskParts[0], from, to));
             }
         } catch (DateTimeParseException e) {
             throw new Exception("Invalid, the date format is. Use one of the accepted formats, you must.");
         }
+        return "Unexpected error occurred.";
     }
+
 
     /**
      * Parses the task number from the user input.
@@ -132,21 +131,22 @@ public class Parser {
      * @param operation The operation to be performed on the task.
      * @throws Exception if the task number is invalid.
      */
-    private void performTaskOperation(String[] parts, TaskOperation operation) throws Exception {
+    private String performTaskOperation(String[] parts, TaskOperation operation) throws Exception {
         if (parts.length > 1) {
             int taskNumber = this.parseTaskNumber(parts[1]);
-            operation.perform(taskNumber);
+            return operation.perform(taskNumber); // Assume this now returns a String.
         } else {
             throw new Exception("Specify a task number, you must.");
         }
     }
+
 
     /**
      * Functional interface for task operations like delete, mark, and unmark.
      */
     @FunctionalInterface
     private interface TaskOperation {
-        void perform(int taskNumber) throws Exception;
+        String perform(int taskNumber) throws Exception;
     }
 
 }
