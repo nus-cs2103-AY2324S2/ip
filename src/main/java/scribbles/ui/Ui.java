@@ -16,8 +16,9 @@ public class Ui {
     /**
      * Prints the greeting message of the chatbot.
      */
-    public void greet() {
-        System.out.print("Hello! I'm Scribbles :) What can I do for you?\n");
+    public String greet() {
+        return ("Hello! I'm Scribbles :) What can I do for you?\n"
+                + "(input commands or type help for guide)");
     }
 
     /**
