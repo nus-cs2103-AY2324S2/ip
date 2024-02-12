@@ -6,6 +6,7 @@ import java.io.IOException;
 
 
 import parser.Parser;
+import processor.Factory;
 import processor.Processor;
 import tasks.TaskList;
 import ui.Ui;
@@ -15,7 +16,7 @@ import ui.Ui;
     public class Duke {
         private final Ui chatbotUi;
         private final TaskList taskList;
-        private final Processor processor;
+        private final Factory factory;
         private final Parser parser;
         /**
          * Constructs a Duke object with the specified Ui, TaskList, Processor, and Parser.
@@ -23,8 +24,8 @@ import ui.Ui;
         public Duke() {
             chatbotUi = new Ui();
             taskList = new TaskList();
-            processor = new Processor(taskList, chatbotUi);
-            parser = new Parser(processor);
+            factory = new Factory(taskList, chatbotUi);
+            parser = new Parser(factory);
         }
         /**
          * Executes the chatbot.

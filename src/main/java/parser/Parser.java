@@ -2,22 +2,31 @@ package parser;
 
 import java.io.IOException;
 
-import processor.Processor;
+import processor.*;
 
 /**
  * The Parser class is responsible for processing user commands and delegating them
  * to the appropriate methods in the Processor class.
  */
 public class Parser {
-
-    private final Processor processor;
     
-    /**
-     * * Constructs a Parser object with the specified Processor.
-     * @param processor the Processor object to be used for processing user commands
-     */
-    public Parser(Processor processor) {
-        this.processor = processor;
+    private final Factory factory;
+    private final AddTaskProcessor addTaskProcessor;
+    private final DeleteTaskProcessor deleteTaskProcessor;
+    //private final ExitProcessor exitProcessor;
+    private final FindTaskProcessor findTaskProcessor;
+    private final ListTasksProcessor listTasksProcessor;
+    private final MarkUnMarkTaskProcessor markTaskProcessor;
+
+    public Parser(Factory factory) {
+        this.factory = factory;
+        this.addTaskProcessor = factory.createAddTaskProcessor();
+        this.deleteTaskProcessor = factory.createDeleteTaskProcessor();
+        // Uncomment the following line when you have implemented createExitProcessor
+        // this.exitProcessor = factory.createExitProcessor();
+        this.findTaskProcessor = factory.createFindTaskProcessor();
+        this.listTasksProcessor = factory.createListTasksProcessor();
+        this.markTaskProcessor = factory.createMarkUnmarkTaskProcessor();
     }
 
     /**
@@ -28,15 +37,15 @@ public class Parser {
     public void processCommand(String userInput) throws IOException {
 
         if (userInput.startsWith("find")) {
-            processor.userInputFindTask(userInput);
+            findTaskProcessor.processCommand(userInput);
         } else if (userInput.startsWith("delete")) {
-            processor.userInputDeleteTask(userInput);
+            deleteTaskProcessor.processCommand(userInput);
         } else if (userInput.startsWith("mark") || userInput.startsWith("unmark")) {
-            processor.userInputProcessMarkUnmark(userInput);
+            markTaskProcessor.processCommand(userInput);
         } else if (userInput.equals("list")) {
-            processor.userInputListTasks();
+            listTasksProcessor.processCommand(userInput);
         } else {
-            processor.userInputAddTask(userInput);
+            addTaskProcessor.processCommand(userInput);
         }
     }
 }
