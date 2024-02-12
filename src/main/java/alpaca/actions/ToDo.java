@@ -12,7 +12,7 @@ import alpaca.exceptions.InvalidInput;
 public abstract class ToDo extends Template {
     protected static String trigger = "todo";
 
-    protected static Boolean isTrigger(String input, String trigger) {
+    protected static boolean isTrigger(String input, String trigger) {
         return input.toLowerCase().replaceAll(" ", "").replaceAll("[0-9]", "").equals(trigger);
     }
 
@@ -28,9 +28,12 @@ public abstract class ToDo extends Template {
      * @throws InvalidInput                   If the information following the
      *                                        command is not comprehesible
      **/
-    public static Boolean run(String input, ArrayList<Task> list) throws ArrayIndexOutOfBoundsException, ValueNotFound, InvalidInput {
-        if (isTrigger(input, trigger)) throw new ValueNotFound("You need to provide a value for todo");
-        if (!isTriggerPrefix(input, trigger)) return false;
+    public static boolean run(String input, ArrayList<Task> list)
+            throws ArrayIndexOutOfBoundsException, ValueNotFound, InvalidInput {
+        if (isTrigger(input, trigger))
+            throw new ValueNotFound("You need to provide a value for todo");
+        if (!isTriggerPrefix(input, trigger))
+            return false;
         Task task = new alpaca.tasks.ToDo(removePrefix(input, trigger));
         list.add(task);
         System.out.println("Got it. I've added this task:");

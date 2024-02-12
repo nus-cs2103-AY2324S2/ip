@@ -9,7 +9,7 @@ import java.time.format.DateTimeParseException;
 
 public abstract class Task {
     private String name;
-    private Boolean done;
+    private boolean done;
     private String type;
     private ArrayList<LocalDate> dates;
 
@@ -28,7 +28,7 @@ public abstract class Task {
         return type;
     }
 
-    public Boolean isDone() {
+    public boolean isDone() {
         return this.done;
     }
 
@@ -46,7 +46,8 @@ public abstract class Task {
 
     private void processDates() {
         this.dates = new ArrayList<>();
-        Pattern pattern = Pattern.compile("\\d{4}-\\d{1,2}-\\d{1,2}|\\d{1,2}-\\d{1,2}-\\d{4}|\\d{4}\\/\\d{1,2}\\/\\d{1,2}|\\d{1,2}\\/\\d{1,2}\\/\\d{4}");
+        Pattern pattern = Pattern.compile(
+                "\\d{4}-\\d{1,2}-\\d{1,2}|\\d{1,2}-\\d{1,2}-\\d{4}|\\d{4}\\/\\d{1,2}\\/\\d{1,2}|\\d{1,2}\\/\\d{1,2}\\/\\d{4}");
         Matcher matcher = pattern.matcher(this.name);
         while (matcher.find()) {
             try {
@@ -61,16 +62,19 @@ public abstract class Task {
             } catch (DateTimeParseException e) {
                 System.out.println(e);
             }
-        };
+        }
+        ;
     }
 
     private void processParams() {
         Pattern pattern = Pattern.compile("^[^\\/]+");
         Matcher matcher = pattern.matcher(this.name);
-        if (!matcher.find()) return;
+        if (!matcher.find())
+            return;
         String result = matcher.group();
         String tmp = this.name.replaceFirst("^[^/]+", "");
-        if (tmp.equals("")) return;
+        if (tmp.equals(""))
+            return;
         tmp = tmp.replaceAll("(/)([a-zA-Z]+)(\\s|$)", "$2:$3");
         this.name = result + "(" + tmp + ")";
     }
@@ -79,10 +83,10 @@ public abstract class Task {
         String type = "[" + this.getType() + "]";
         String mark = "[" + (this.isDone() ? "X" : " ") + "]";
         String content = this.name;
-        for (LocalDate date: dates) {
+        for (LocalDate date : dates) {
             content = content.replaceFirst("~", date.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
         }
-        return type + mark + " " +  content;
+        return type + mark + " " + content;
     }
 
     public String toStringAlt() {

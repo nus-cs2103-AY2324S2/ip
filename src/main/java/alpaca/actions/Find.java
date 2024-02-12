@@ -26,7 +26,7 @@ public abstract class Find extends Template {
      * @throws InvalidInput                   If the information following the
      *                                        command is not comprehesible
      **/
-    public static Boolean run(String input, ArrayList<Task> list)
+    public static boolean run(String input, ArrayList<Task> list)
             throws ValueNotFound, InvalidInput {
         if (isTrigger(input, trigger)) {
             throw new ValueNotFound("You need to provide a value for find");

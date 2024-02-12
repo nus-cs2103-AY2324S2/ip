@@ -20,7 +20,7 @@ public class ToDo extends Task {
      * @param done If the task should be
      * @param name What the task is named
      **/
-    public ToDo(Boolean done, String name) {
+    public ToDo(boolean done, String name) {
         super(name);
         setType("T");
         if (done) {

@@ -9,11 +9,11 @@ import alpaca.exceptions.ValueNotFound;
 import alpaca.exceptions.InvalidInput;
 
 public abstract class Template {
-    protected static Boolean isTrigger(String input, String trigger) {
+    protected static boolean isTrigger(String input, String trigger) {
         return input.toLowerCase().replaceAll(" ", "").equals(trigger);
     }
 
-    protected static Boolean isTriggerPrefix(String input, String trigger) {
+    protected static boolean isTriggerPrefix(String input, String trigger) {
         Pattern pattern = Pattern.compile("^" + trigger + " .+");
         Matcher matcher = pattern.matcher(input.toLowerCase());
         return matcher.find();
@@ -31,7 +31,7 @@ public abstract class Template {
         return input.replaceFirst("^(?i)" + prefix + " ", "");
     }
 
-    protected static Boolean isValidIndex(int index, ArrayList<Task> list) throws ArrayIndexOutOfBoundsException {
+    protected static boolean isValidIndex(int index, ArrayList<Task> list) throws ArrayIndexOutOfBoundsException {
         if (index > 0 && index <= list.size())
             return true;
         throw new ArrayIndexOutOfBoundsException("That task is not available. Please try that on a valid index.");
@@ -45,7 +45,7 @@ public abstract class Template {
         System.out.println("Now you have " + list.size() + " task" + (list.size() == 1 ? "" : "s") + " in the list.");
     }
 
-    public static Boolean run(String input, ArrayList<Task> list)
+    public static boolean run(String input, ArrayList<Task> list)
             throws ArrayIndexOutOfBoundsException, ValueNotFound, InvalidInput {
         throw new ValueNotFound("Don't call template");
     }

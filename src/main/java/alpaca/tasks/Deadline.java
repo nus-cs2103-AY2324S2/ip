@@ -20,7 +20,7 @@ public class Deadline extends Task {
      * @param done If the task should be
      * @param name What the task is named
      **/
-    public Deadline(Boolean done, String name) {
+    public Deadline(boolean done, String name) {
         super(name);
         setType("D");
         if (done) {

@@ -3,7 +3,7 @@ package alpaca.tasks;
 /**
  * A type of task which signifies a period of time you will be busy
  **/
-public class Event extends Task{
+public class Event extends Task {
     /**
      * Creates a Event object
      * 
@@ -20,7 +20,7 @@ public class Event extends Task{
      * @param done If the task should be
      * @param name What the task is named
      **/
-    public Event(Boolean done, String name) {
+    public Event(boolean done, String name) {
         super(name);
         setType("E");
         if (done) {

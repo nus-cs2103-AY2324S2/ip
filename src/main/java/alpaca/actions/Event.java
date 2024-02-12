@@ -12,7 +12,7 @@ import alpaca.exceptions.InvalidInput;
 public abstract class Event extends Template {
     protected static String trigger = "event";
 
-    protected static Boolean isTrigger(String input, String trigger) {
+    protected static boolean isTrigger(String input, String trigger) {
         return input.toLowerCase().replaceAll(" ", "").replaceAll("[0-9]", "").equals(trigger);
     }
 
@@ -28,7 +28,7 @@ public abstract class Event extends Template {
      * @throws InvalidInput                   If the information following the
      *                                        command is not comprehesible
      **/
-    public static Boolean run(String input, ArrayList<Task> list)
+    public static boolean run(String input, ArrayList<Task> list)
             throws ArrayIndexOutOfBoundsException, ValueNotFound, InvalidInput {
         if (isTrigger(input, trigger)) {
             throw new ValueNotFound("You need to provide a value for event");
