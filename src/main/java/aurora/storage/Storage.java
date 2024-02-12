@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import aurora.objects.Deadline;
@@ -72,7 +73,7 @@ public class Storage {
         file.getParentFile().mkdirs();
         FileWriter fileWriter = new FileWriter(file);
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-
+        assert !taskList.isEmpty() : "Nothing to save";
         for (Task task : taskList) {
             bufferedWriter.write(taskToFileLine(task) + "\n");
         }
@@ -92,7 +93,6 @@ public class Storage {
         if (components.length < 3) {
             throw new AuroraException("Invalid line");
         }
-
         String type = components[0];
         boolean isDone = components[1].trim().equals("1");
         String description = components[2].trim();

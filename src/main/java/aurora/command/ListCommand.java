@@ -33,6 +33,7 @@ public class ListCommand extends Command {
         String message = "Command not executed.";
         ArrayList<Task> arrayFormList = this.taskList.getTaskList();
         message = this.ui.getTaskListString(arrayFormList);
+        assert !(message.equals("Command not executed.")) : "List command not executed.";
         return message;
     }
 

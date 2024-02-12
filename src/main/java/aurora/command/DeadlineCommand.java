@@ -70,6 +70,7 @@ public class DeadlineCommand extends Command {
             message = "Unable to save deadline to file: " + exception.getMessage();
             return message;
         }
+        assert !(message.equals("Command not executed.")) : "Deadline command not executed.";
         return message;
     }
 
