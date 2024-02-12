@@ -11,7 +11,7 @@ repositories {
 
 javafx {
     version = "17.0.7"
-    modules = [ 'javafx.controls' ]
+    modules = [ 'javafx.controls' , 'javafx.fxml']
 }
 
 dependencies {
@@ -49,12 +49,11 @@ test {
 }
 
 application {
-    mainClass.set("luke.Luke")
+    mainClass.set("luke.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "luke"
-    archiveClassifier = null
+    archiveFileName = 'luke.jar'
     dependsOn("distZip", "distTar")
 }
 
