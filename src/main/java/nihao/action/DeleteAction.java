@@ -5,9 +5,16 @@ import nihao.exception.IndexOutOfBoundsException;
 import nihao.handler.DataHandler;
 import nihao.handler.PrintHandler;
 
+/**
+ * Represents the delete action.
+ */
 public class DeleteAction implements Action{
     private final int index;
     private boolean isAll;
+
+    /**
+     * Constructor that specifies the index of the Task to be deleted.
+     */
     public DeleteAction(String index) {
         if (index.equals("all")) {
             this.index = -1;
@@ -18,6 +25,11 @@ public class DeleteAction implements Action{
         }
     }
 
+    /**
+     * Deletes the Task at the given index and prints a notification.
+     *
+     * @throws IndexOutOfBoundsException When the index provided is more than the length of tasks.
+     */
     @Override
     public void execute() throws IndexOutOfBoundsException {
         if (isAll) {

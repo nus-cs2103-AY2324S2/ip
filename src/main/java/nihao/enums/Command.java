@@ -1,5 +1,8 @@
 package nihao.enums;
 
+/**
+ * Represents a collection of accepted commands.
+ */
 public enum Command {
     BYE,
     LIST,
@@ -10,6 +13,10 @@ public enum Command {
     DEADLINE,
     EVENT,
     UNKNOWN;
+
+    /**
+     * Takes in a String and returns the matching command.
+     */
     public static Command getEnum(String str) {
         switch (str) {
         case "bye":

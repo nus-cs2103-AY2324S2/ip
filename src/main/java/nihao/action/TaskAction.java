@@ -2,16 +2,26 @@ package nihao.action;
 import nihao.action.task.Task;
 import nihao.handler.PrintHandler;
 import nihao.handler.DataHandler;
+
+/**
+ * Represents an action to add a Task to the tasks ArrayList.
+ */
 public class TaskAction implements Action{
     public Task task;
 
+    /**
+     * Constructor the specifies the Task to be added.
+     */
     public TaskAction(Task task) {
         this.task = task;
     }
 
+    /**
+     * Adds the Task to the tasks ArrayList.
+     */
     @Override
     public void execute() {
-        DataHandler.handleData(task);
+        DataHandler.addTask(task);
         int noOfTasks = DataHandler.size();
         PrintHandler.printWithDivider("Ok.. I've added this task to your list:\n" +
                 "   " + task.toString() + "\n" +

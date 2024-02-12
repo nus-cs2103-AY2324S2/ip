@@ -21,6 +21,10 @@ public class Task {
     public void unmark() {
         isCompleted = false;
     }
+
+    /**
+     * Returns the String representation of the task.
+     */
     @Override
     public String toString() {
         String isCompleted = this.isCompleted ? "X" : " ";
