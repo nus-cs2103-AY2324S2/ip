@@ -11,6 +11,13 @@ import earl.tasks.TaskType;
  */
 public class TaskStorageParser extends StorageParser<Task> {
 
+    /**
+     * Returns a {@code Task} object based on the stored string.
+     *
+     * @param entry           storage entry string
+     * @return                a {@code Task} object
+     * @throws EarlException  if the storage entry is incomprehensible
+     */
     public static Task parse(String entry) throws EarlException {
         try {
             String[] data = entry.split(",");
