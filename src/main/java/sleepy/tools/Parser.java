@@ -32,6 +32,8 @@ public class Parser {
             // Fallthrough
         case "deadline":
             // Fallthrough
+        case "plan":
+            // Fallthrough
         case "event":
             throw new IllegalArgumentException("You forgot to include the description of your task at all!");
         case "list":
@@ -71,6 +73,8 @@ public class Parser {
             // Fallthrough
         case "deadline":
             // Fallthrough
+        case "plan":
+            // Fallthrough
         case "event":
             return parseTask(command, arguments);
         default:
@@ -92,6 +96,8 @@ public class Parser {
             return parseTodo(details);
         case "deadline":
             return parseDeadline(details);
+        case "plan":
+            return parsePlan(details);
         case "event":
             return parseEvent(details);
         default:
@@ -128,6 +134,25 @@ public class Parser {
         String deadlineDescription = details[0].trim();
         String deadlineTiming = details[1].trim();
         return new String[]{ "deadline", deadlineDescription, deadlineTiming };
+    }
+
+    /**
+     * Parses the given plan.
+     *
+     * @param planDetails Task of type Plan, as a string.
+     * @return Parsed plan, as an array of strings.
+     * @throws IllegalArgumentException If the string is of an invalid format.
+     */
+    public static String[] parsePlan(String planDetails) throws IllegalArgumentException {
+        String[] details = planDetails.split("(?i)/after ");
+        if (details.length == 1) {
+            throw new IllegalArgumentException("Missing the task description or the '/after' field! Try again.");
+        } else if (details.length >= 3) {
+            throw new IllegalArgumentException("You can only have one '/after' field! Try again.");
+        }
+        String planDescription = details[0].trim();
+        String planTiming = details[1].trim();
+        return new String[]{ "plan", planDescription, planTiming };
     }
 
     /**

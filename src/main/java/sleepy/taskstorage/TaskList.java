@@ -3,10 +3,7 @@ package sleepy.taskstorage;
 import java.util.ArrayList;
 
 import javafx.util.Pair;
-import sleepy.tasks.Deadline;
-import sleepy.tasks.Event;
-import sleepy.tasks.Task;
-import sleepy.tasks.ToDo;
+import sleepy.tasks.*;
 import sleepy.tools.Parser;
 import sleepy.tools.ResponseHandler;
 
@@ -78,6 +75,8 @@ public class TaskList {
             // Fallthrough
         case "deadline":
             // Fallthrough
+        case "plan":
+            // Fallthrough
         case "event":
             addTask(parsedCommand);
             break;
@@ -144,6 +143,9 @@ public class TaskList {
             break;
         case "deadline":
             createdTask = new Deadline(parsedTask[1], parsedTask[2]);
+            break;
+        case "plan":
+            createdTask = new Plan(parsedTask[1], parsedTask[2]);
             break;
         case "event":
             createdTask = new Event(parsedTask[1], parsedTask[2], parsedTask[3]);

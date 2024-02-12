@@ -11,7 +11,6 @@ import java.time.format.DateTimeParseException;
  */
 public class Deadline extends Task {
     private String givenDeadline;
-
     private LocalDate formattedDate;
 
     /**
