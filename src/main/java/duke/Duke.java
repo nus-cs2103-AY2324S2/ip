@@ -11,6 +11,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.io.IOException;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -264,10 +265,11 @@ public class Duke extends Application {
      */
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
+        String responseString = getResponse(userInput.getText());
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
+                DialogBox.getDukeDialog(new Label(responseString), new ImageView(duke))
         );
         userInput.clear();
     }
@@ -277,7 +279,132 @@ public class Duke extends Application {
      * Replace this stub with your completed method.
      */
     private String getResponse(String input) {
-        return "Duke heard: " + input;
+        StringBuilder responseString = new StringBuilder();
+        String command;
+        String keyword;
+        Task task;
+        int idx;
+
+        try {
+
+            command = Parser.parse(input);
+            switch (command) {
+                case ("bye"):
+                    responseString.append("\tBye. Hope to see you again soon!");
+                    Platform.exit();
+                    System.exit(0);
+                case ("list"):
+                    for (int i = 0; i < this.todo.getList().size(); i++) {
+                        responseString.append(String.format("\t%d. %s", i + 1, this.todo.getList().get(i)));
+                    }
+                    break;
+                case("mark"):
+                    try {
+                        idx = Parser.parse_mark(input);
+                        task = todo.mark(idx);
+                        responseString.append("\tNice! I've marked this task as done:");
+                        responseString.append(String.format("\t\t%s\n", task));
+                        break;
+                    } catch (DukeException err) {
+                        responseString.append(err.getMessage());
+                        break;
+                    }
+                case("unmark"):
+                    try {
+                        idx = Parser.parse_unmark(input);
+                        task = todo.unmark(idx);
+                        responseString.append("\tI've unmarked this task as done:");
+                        responseString.append(String.format("\t\t%s\n", task));
+
+                        break;
+                    } catch (DukeException err) {
+                        responseString.append(err.getMessage());
+                        break;
+                    }
+                case ("todo"):
+
+                    try {
+                        // calling the method
+                        task = Parser.parse_todo(input);
+                        todo.addTask(task);
+                        responseString.append("\tGot it. I've added this task:");
+                        responseString.append(String.format("\t\t%s\n", task));
+                        responseString.append(String.format("\tNow you have %d tasks in the list.\n", todo.size()));
+
+                        break;
+                    } catch (DukeException err) {
+                        responseString.append(err.getMessage());
+                        break;
+                    }
+
+                case ("deadline"):
+
+                    try {
+                        task = Parser.parse_deadline(input);
+                        todo.addTask(task);
+                        responseString.append("\tGot it. I've added this task:");
+                        responseString.append(String.format("\t\t%s\n", task));
+                        responseString.append(String.format("\tNow you have %d tasks in the list.\n", todo.size()));
+
+                        break;
+                    } catch (DukeException err) {
+                        responseString.append(err.getMessage());
+                        break;
+                    } catch (DateTimeParseException err) {
+                        responseString.append("\tPlease write your data in d/m/yyyy T format");
+                        break;
+                    }
+                case ("event"):
+
+                    try {
+                        task = Parser.parse_event(input);
+                        todo.addTask(task);
+                        responseString.append("\tGot it. I've added this task:");
+                        responseString.append(String.format("\t\t%s\n", task));
+                        responseString.append(String.format("\tNow you have %d tasks in the list.\n", todo.size()));
+                        break;
+                    } catch (DukeException err) {
+                        responseString.append(err.getMessage());
+                        break;
+                    }
+
+                case("delete"):
+                    try {
+                        idx = Parser.parse_delete(input);
+                        responseString.append("\tNoted. I've removed this task:");
+                        responseString.append(String.format("\t\t%s\n", todo.deleteTask(idx)));
+                        responseString.append(String.format("\tNow you have %d tasks in the list.\n", todo.size()));
+                        break;
+                    } catch (DukeException err) {
+                        responseString.append(err.getMessage());
+                        break;
+                    }
+                case("find"):
+                    try {
+                        keyword = Parser.parse_find(input);
+                        for (int i = 0; i < todo.size(); i++) {
+                            if (todo.getList().get(i).getName().contains(keyword)) {
+                                responseString.append(String.format("\t%d. %s", i + 1, todo.getList().get(i)));
+                            }
+                        }
+                        responseString.append("\tHere are the matching tasks in your list:");
+                        break;
+                    } catch (DukeException err) {
+                        responseString.append(err.getMessage());
+                        break;
+                    }
+
+                default:
+                    throw new DukeException("\tSorry, I did not understand the command!");
+
+            }
+
+            storage.writeFile(todo.getList());
+        } catch (DukeException | IOException err) {
+            responseString.append(err.getMessage());
+
+        }
+        return responseString.toString();
     }
 //    public static void main(String[] args) throws IOException, DukeException {
 //        new Duke().run();
