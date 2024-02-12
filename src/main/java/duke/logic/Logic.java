@@ -5,6 +5,7 @@ import java.util.Scanner;
 import duke.command.Command;
 import duke.command.CommandProcessor;
 import duke.exceptions.HalException;
+import duke.history.HistoryManager;
 import duke.storage.Storage;
 import javafx.application.Platform;
 
@@ -24,10 +25,12 @@ public class Logic {
     public Logic() {
         try {
             scan = new Scanner(System.in);
-            String fileDirectory = "./data/";
-            String fileName = "savefile.txt";
-            Storage storage = new Storage(fileDirectory, fileName);
-            cmd = new CommandProcessor(storage);
+            String dataFileDirectory = "./data/";
+            String saveFileName = "savefile.txt";
+            String historyFileName = "history.txt";
+            Storage storage = new Storage(dataFileDirectory, saveFileName);
+            HistoryManager historyManager = new HistoryManager(dataFileDirectory, historyFileName);
+            cmd = new CommandProcessor(storage, historyManager);
             isStartUpSuccess = true;
         } catch (HalException e) {
             System.out.println(e.getMessage());
@@ -58,7 +61,7 @@ public class Logic {
     public String getResponse(String input) {
         if (!isStartUpSuccess) {
             startUpFailure();
-            return "";
+            return "Hi, you failed to start up properly! Sorry, please close the application";
         }
 
         try {
@@ -71,6 +74,7 @@ public class Logic {
                 return cmd.processData(command, input);
             }
         } catch (HalException e) {
+            e.printStackTrace();
             return e.getMessage();
         }
     }

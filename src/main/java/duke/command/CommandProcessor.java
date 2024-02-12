@@ -5,6 +5,8 @@ import java.time.format.DateTimeParseException;
 import duke.codec.TimeProcessor;
 import duke.exceptions.InputException;
 import duke.exceptions.ProcessingException;
+import duke.history.HistoryManager;
+import duke.history.State;
 import duke.storage.Storage;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
@@ -17,9 +19,15 @@ import duke.tasks.Todo;
  */
 public class CommandProcessor {
     private final Storage storage;
+    private final HistoryManager historyManager;
 
-    public CommandProcessor(Storage storage) {
+    /**
+     * @param storage placeholder
+     * @param historyManager placeholder
+     */
+    public CommandProcessor(Storage storage, HistoryManager historyManager) {
         this.storage = storage;
+        this.historyManager = historyManager;
     }
 
     /**
@@ -67,11 +75,22 @@ public class CommandProcessor {
             result = storage.displaySearchList(processFind(input));
             break;
 
+        case UNDO:
+            result = historyManager.undo(storage);
+            break;
+
+        case REDO:
+            result = historyManager.redo(storage);
+            break;
+
         default:
             assert false : command;
             break;
         }
-        storage.update();
+
+        State currState = storage.update(command);
+        System.out.println(currState);
+        historyManager.updateHistory(currState);
         return result;
     }
 

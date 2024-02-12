@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.StringJoiner;
 import java.util.stream.Stream;
 
+import org.apache.commons.lang3.SerializationUtils;
+
 import duke.codec.Codec;
 import duke.command.Command;
 import duke.exceptions.ProcessingException;
 import duke.search.Search;
 import duke.tasks.Task;
+
 
 /**
  * The `TempStorage` class is responsible for temporary storage and management of tasks in memory.
@@ -17,7 +20,7 @@ import duke.tasks.Task;
  */
 public class TempStorage {
     private final Codec codec;
-    private final ArrayList<Task> list;
+    private ArrayList<Task> list;
 
     /**
      * Initializes a new `TempStorage` object with an empty task list and a `Codec` for encoding and decoding tasks.
@@ -56,7 +59,7 @@ public class TempStorage {
                 task.markDone();
                 return String.format("I have marked this:\n%s\n", task);
             } else {
-                return String.format("%s is already marked!\n", task);
+                throw new ProcessingException(String.format("%s is already marked!\n", task));
             }
         } catch (IndexOutOfBoundsException e) {
             throw ProcessingException.exceptionCommandExecution(Command.MARK, e);
@@ -156,5 +159,11 @@ public class TempStorage {
             joiner.add(String.format("%d. %s", i + 1, task));
         }
         return joiner.toString();
+    }
+    public void restore(ArrayList<Task> newList) {
+        list = newList;
+    }
+    public ArrayList<Task> getCurrentList() {
+        return SerializationUtils.clone(list);
     }
 }

@@ -12,16 +12,42 @@ public enum Command {
             return true;
         }
     },
-    TODO,
     DEADLINE,
+    DELETE,
     EVENT,
-    LIST,
+    FIND {
+        @Override
+        public boolean isIgnoredHistory() {
+            return true;
+        }
+    },
+    LIST {
+        @Override
+        public boolean isIgnoredHistory() {
+            return true;
+        }
+    },
     MARK,
+    TODO,
+    UNDO {
+        @Override
+        public boolean isIgnoredHistory() {
+            return true;
+        }
+    },
     UNMARK,
-    FIND,
-    DELETE;
+    REDO {
+        @Override
+        public boolean isIgnoredHistory() {
+            return true;
+        }
+    };
 
     public boolean isExit() {
+        return false;
+    }
+
+    public boolean isIgnoredHistory() {
         return false;
     }
 
@@ -35,7 +61,7 @@ public enum Command {
     public static Command processCommand(String input) throws InputException {
         try {
             String commandString = input.split(" ")[0];
-            if (!input.toLowerCase().equals(input)) {
+            if (!commandString.toLowerCase().equals(commandString)) {
                 throw new InputException("Your command should be in all lower case!\n" + commandString);
             }
             return Command.valueOf(commandString.toUpperCase());

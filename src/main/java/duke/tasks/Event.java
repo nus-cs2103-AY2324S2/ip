@@ -8,6 +8,7 @@ import duke.codec.TimeProcessor;
  * It extends the `Task` class and inherits its properties and methods.
  */
 public class Event extends Task {
+    private static final long serialVersionUID = 3L;
     private final LocalDateTime from;
     private final LocalDateTime to;
 
