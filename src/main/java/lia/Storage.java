@@ -51,21 +51,21 @@ public class Storage {
                     String description = parts[2];
 
                     switch (type) {
-                        case "T": 
-                            tasks.add(new Todo(description, isDone));
-                            break;
-                        case "D":
-                            String by = parts[3];
-                            tasks.add(new Deadline(description, by, isDone));
-                            break;
-                        case "E":
-                            String start = parts[3];
-                            String end = parts[4];
-                            tasks.add(new Event(description, start, end, isDone));
-                            break;
-                        default:
-                            System.out.println("Unknown task type: " + type);
-                            break;
+                    case "T":
+                        tasks.add(new Todo(description, isDone));
+                        break;
+                    case "D":
+                        String by = parts[3];
+                        tasks.add(new Deadline(description, by, isDone));
+                        break;
+                    case "E":
+                        String start = parts[3];
+                        String end = parts[4];
+                        tasks.add(new Event(description, start, end, isDone));
+                        break;
+                    default:
+                        System.out.println("Unknown task type: " + type);
+                        break;
                     }
                 }
             }
