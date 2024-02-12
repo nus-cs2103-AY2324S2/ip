@@ -8,10 +8,19 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ChangeDataSource implements Command{
+/**
+ * Class for change data source
+ */
+public class ChangeDataSource implements Command {
     private boolean status = true;
     private String filePath;
 
+    /**
+     * Constructor
+     * @param filePath file path
+     * @param storage the current storage
+     * @param tasks current task list
+     */
     public ChangeDataSource(String filePath, Storage storage, TaskList tasks) {
         this.filePath = filePath;
         storage.resetStorage(filePath);
@@ -24,6 +33,10 @@ public class ChangeDataSource implements Command{
         }
     }
 
+    /**
+     * In case the new file path is incorrect
+     * @param filePath file path
+     */
     private void handleFileNotFound(String filePath) {
         String[] pathStep = filePath.split("/");
         String progressivePath = "";
@@ -44,12 +57,16 @@ public class ChangeDataSource implements Command{
         }
     }
 
+    /**
+     * Reply
+     * @return reply
+     */
     @Override
     public String reply() {
         if (status) {
             return String.format("Dear sir, your data source has been changed to %s\n.", this.filePath);
         }
-        return "Sir a bad news, file not found. But the good news is we create one for you!\n" +
-                "Please feel free to add task now\n";
+        return "Sir a bad news, file not found. But the good news is we create one for you!\n"
+                + "Please feel free to add task now\n";
     }
 }

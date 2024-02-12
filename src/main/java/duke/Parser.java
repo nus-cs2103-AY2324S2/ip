@@ -67,8 +67,8 @@ class Parser {
         }
         if (inputs[0].equals("update")) {
             if (inputs.length > 4) {
-                for (int i=4; i < inputs.length; i++) {
-                    inputs[3]+=" "+inputs[i];
+                for (int i = 4; i < inputs.length; i++) {
+                    inputs[3] += " " + inputs[i];
                 }
             }
             return new Update(Integer.parseInt(inputs[1]) - 1, inputs[2], inputs[3], tasks);
