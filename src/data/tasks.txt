@@ -1,1 +1,1 @@
-[T][ ] Sample Todo
+[T][X] Sample Task
