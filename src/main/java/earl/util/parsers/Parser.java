@@ -7,3 +7,4 @@ package earl.util.parsers;
  */
 public interface Parser<T> {
 }
+

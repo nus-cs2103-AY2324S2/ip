@@ -25,7 +25,7 @@ public class Earl {
     public Earl(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        tasks = new TaskList(storage.load(new TaskStorageParser()));
+        tasks = new TaskList(storage.load(TaskStorageParser::parse));
         if (!storage.wasLoadSuccessful()) {
             ui.makeResponse("Failed to read from storage.",
                     "Starting with empty file...");

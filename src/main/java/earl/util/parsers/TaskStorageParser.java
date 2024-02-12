@@ -11,8 +11,7 @@ import earl.tasks.TaskType;
  */
 public class TaskStorageParser extends StorageParser<Task> {
 
-    @Override
-    public Task parse(String entry) throws EarlException {
+    public static Task parse(String entry) throws EarlException {
         try {
             String[] data = entry.split(",");
             String type = data[0];

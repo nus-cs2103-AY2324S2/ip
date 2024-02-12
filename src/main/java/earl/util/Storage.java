@@ -8,7 +8,7 @@ import java.nio.file.Files;
 import java.util.stream.Stream;
 
 import earl.exceptions.EarlException;
-import earl.util.parsers.StorageParser;
+import earl.util.parsers.ParseFunction;
 
 /**
  * Class responsible for reading and writing data to disk.
@@ -32,9 +32,10 @@ public class Storage {
      * Attempts to find the storage file at the given file path.
      * Starts with an empty file if no existing file is found.
      *
-     * @return  a {@code Stream} of {@code T} read
+     * @param parse  a {@code ParseFunction} functional interface
+     * @return       a {@code Stream} of {@code T} read
      */
-    public <T> Stream<T> load(StorageParser<T> parser) {
+    public <T> Stream<T> load(ParseFunction<T> parse) {
         try {
             File file = new File(filePath);
             boolean isFolderMade = file.getParentFile().mkdirs();
@@ -44,9 +45,9 @@ public class Storage {
                 return Stream.empty();
             }
             Stream<T> result = Files.lines(file.toPath())
-                    .map((x) -> {
+                    .map((str) -> {
                         try {
-                            return parser.parse(x);
+                            return parse.apply(str);
                         } catch (EarlException e) {
                             throw new RuntimeException(e.getMessage());
                         }
