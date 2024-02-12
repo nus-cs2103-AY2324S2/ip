@@ -19,14 +19,13 @@ public class Event extends Task {
     /**
      * Constructor for the Event class.
      *
-     * @param rawDescription Full description for the Event, including labels and timings.
      * @param description Description of the event details.
      * @param start When the event starts.
      * @param end When the event ends.
      */
 
-    public Event(String rawDescription, String description, String start, String end) {
-        super(rawDescription, description);
+    public Event(String description, String start, String end) {
+        super(description);
         this.start = start;
         this.end = end;
         try {
@@ -53,5 +52,16 @@ public class Event extends Task {
         String endDate = formattedToDate == null
                 ? end : formattedToDate.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
         return "[E]" + super.getDescription() + " (from: " + startDate + " to: " + endDate + ")";
+    }
+
+    /**
+     * Returns the raw description of this event (as it was added by the user).
+     *
+     * @return Raw description of this event.
+     */
+    @Override
+    public String getRawDescription() {
+        String details = super.getDescription().substring(TASK_DESCRIPTION_OFFSET);
+        return "event " + details + "/from " + start + "/to " + end;
     }
 }

@@ -10,12 +10,16 @@ public class Parser {
     /**
      * Parses the given command.
      *
-     * @param command Command from the user to be parsed.
+     * @param input Input from the user to be parsed.
      * @return Parsed command, as an array of strings.
      * @throws IllegalArgumentException If the command is of an invalid form.
      */
-    public static String[] parse(String command) throws IllegalArgumentException {
-        switch (command) {
+    public static String[] parse(String input) throws IllegalArgumentException {
+        String filteredInput = input.trim();
+        switch (filteredInput.toLowerCase()) {
+        case "bye":
+            ResponseHandler.appendLineToResponse("Bye. Gonna go back to sleep now *yawn*");
+            return new String[]{ filteredInput };
         case "mark":
             // Fallthrough
         case "unmark":
@@ -31,19 +35,46 @@ public class Parser {
         case "event":
             throw new IllegalArgumentException("You forgot to include the description of your task at all!");
         case "list":
-            return new String[]{"list"};
+            return new String[] { "list" };
         default:
-            if (command.startsWith("mark ")) {
-                return new String[]{ "mark", command.substring(5) };
-            } else if (command.startsWith("unmark ")) {
-                return new String[]{ "unmark", command.substring(7) };
-            } else if (command.startsWith("delete ")) {
-                return new String[]{"delete", command.substring(7)};
-            } else if (command.startsWith("find ")) {
-                return new String[]{"find", command.substring(5)};
-            } else {
-                return new String[]{"add", command};
+            String[] splitInput = filteredInput.split(" ", 2);
+            if (splitInput.length < 2) {
+                throw new IllegalArgumentException("Invalid user input!");
             }
+            String command = splitInput[0].trim().toLowerCase();
+            String arguments = splitInput[1].trim();
+            return evaluate(command, arguments);
+        }
+    }
+
+    /**
+     * Evaluates the user input, according to the command and other arguments.
+     *
+     * @param command Command type to be evaluated.
+     * @param arguments Arguments passed to the command.
+     * @return Identified and evaluated command, with the arguments parsed.
+     * @throws IllegalArgumentException If the arguments are invalid for the command type.
+     */
+    public static String[] evaluate(String command, String arguments) throws IllegalArgumentException {
+        switch (command) {
+        case "mark":
+            // Fallthrough
+        case "unmark":
+            // Fallthrough
+        case "delete":
+            // To detect if task number is invalid, will throw NumberFormatException otherwise
+            Integer.parseInt(arguments);
+            return new String[]{ command, arguments };
+        case "find":
+            return new String[]{ command, arguments };
+        case "todo":
+            // Fallthrough
+        case "deadline":
+            // Fallthrough
+        case "event":
+            return parseTask(command, arguments);
+        default:
+            throw new IllegalArgumentException("Invalid command type!");
         }
     }
 
@@ -51,42 +82,79 @@ public class Parser {
      * Parses the given task.
      *
      * @param task Task of type ToDo, Deadline or Event to be parsed, as a string.
+     * @param details Details of the task.
      * @return Parsed task, as an array of strings.
      * @throws IllegalArgumentException If the string is of an invalid format.
      */
-    public static String[] parseTask(String task) throws IllegalArgumentException {
-        boolean isToDo = task.startsWith("todo ");
-        boolean isDeadline = task.startsWith("deadline ");
-        boolean isEvent = task.startsWith("event ");
-        if (isToDo) {
-            return new String[]{ "todo", task.substring(5) };
-        } else if (isDeadline) {
-            String[] details = task.substring(9).split(" /by ");
-            if (details.length == 1) {
-                throw new IllegalArgumentException("Missing the task description or the '/by' field! Try again.");
-            } else if (details.length >= 3) {
-                throw new IllegalArgumentException("You can only have one '/by' field! Try again.");
-            } else {
-                return new String[]{ "deadline", details[0], details[1] };
-            }
-        } else if (isEvent) {
-            String[] firstSplit = task.substring(6).split(" /from ");
-            if (firstSplit.length == 1) {
-                throw new IllegalArgumentException("Missing the task description or the '/from' field! Try again.");
-            } else if (firstSplit.length >= 3) {
-                throw new IllegalArgumentException("You can only have one '/from' field! Try again.");
-            }
-            String[] secondSplit = firstSplit[1].split(" /to ");
-            if (secondSplit.length == 1) {
-                throw new IllegalArgumentException("Your 'to' field is missing "
-                        + "or before your 'from' field! Try again.");
-            } else if (secondSplit.length >= 3) {
-                throw new IllegalArgumentException("You can only have one '/to' field! Try again.");
-            } else {
-                return new String[]{ "event", firstSplit[0], secondSplit[0], secondSplit[1] };
-            }
-        } else {
-            throw new IllegalArgumentException("This is not a task!");
+    public static String[] parseTask(String task, String details) throws IllegalArgumentException {
+        switch (task) {
+        case "todo":
+            return parseTodo(details);
+        case "deadline":
+            return parseDeadline(details);
+        case "event":
+            return parseEvent(details);
+        default:
+            // Should never reach here as the evaluate function should have handled invalid tasks
+            throw new IllegalArgumentException("Invalid task type!");
         }
+    }
+
+    /**
+     * Parses the given toDo.
+     *
+     * @param toDoDetails Task of type ToDo, as a string.
+     * @return Parsed toDo, as an array of strings.
+     * @throws IllegalArgumentException If the string is of an invalid format.
+     */
+    public static String[] parseTodo(String toDoDetails) throws IllegalArgumentException {
+        return new String[]{ "todo", toDoDetails };
+    }
+
+    /**
+     * Parses the given deadline.
+     *
+     * @param deadlineDetails Task of type Deadline, as a string.
+     * @return Parsed deadline, as an array of strings.
+     * @throws IllegalArgumentException If the string is of an invalid format.
+     */
+    public static String[] parseDeadline(String deadlineDetails) throws IllegalArgumentException {
+        String[] details = deadlineDetails.split("(?i)/by ");
+        if (details.length == 1) {
+            throw new IllegalArgumentException("Missing the task description or the '/by' field! Try again.");
+        } else if (details.length >= 3) {
+            throw new IllegalArgumentException("You can only have one '/by' field! Try again.");
+        }
+        String deadlineDescription = details[0].trim();
+        String deadlineTiming = details[1].trim();
+        return new String[]{ "deadline", deadlineDescription, deadlineTiming };
+    }
+
+    /**
+     * Parses the given event.
+     *
+     * @param eventDetails Task of type Event, as a string.
+     * @return Parsed event, as an array of strings.
+     * @throws IllegalArgumentException If the string is of an invalid format.
+     */
+    public static String[] parseEvent(String eventDetails) throws IllegalArgumentException {
+        String[] firstSplit = eventDetails.split("(?i)/from ");
+        if (firstSplit.length == 1) {
+            throw new IllegalArgumentException("Missing the task description or the '/from' field! Try again.");
+        }
+        if (firstSplit.length >= 3) {
+            throw new IllegalArgumentException("You can only have one '/from' field! Try again.");
+        }
+        String[] secondSplit = firstSplit[1].split("(?i)/to ");
+        if (secondSplit.length == 1) {
+            throw new IllegalArgumentException("Your 'to' field is missing "
+                    + "or before your 'from' field! Try again.");
+        } else if (secondSplit.length >= 3) {
+            throw new IllegalArgumentException("You can only have one '/to' field! Try again.");
+        }
+        String eventDescription = firstSplit[0].trim();
+        String eventStartTiming = secondSplit[0].trim();
+        String eventEndTiming = secondSplit[1].trim();
+        return new String[]{ "event", eventDescription, eventStartTiming, eventEndTiming };
     }
 }
