@@ -33,6 +33,7 @@ public class ResponseHandler {
     public static String returnResponse() {
         String response = responseString.toString();
         responseString.setLength(0);
+        assert responseString.length() == 0 : "Chatbot cache should be cleared after responding";
         return response;
     }
 }

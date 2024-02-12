@@ -67,6 +67,7 @@ public class TaskList {
                 break;
             case "find":
                 String keywords = parsedCommand[1];
+                assert !keywords.isEmpty() : "Empty find field was not detected by parser";
                 ResponseHandler.appendLineToResponse("Here are the matching tasks in your list:");
                 int i = 1;
                 for (Task task: tasks) {
@@ -80,6 +81,8 @@ public class TaskList {
                 addTask(accessCommand);
                 break;
             default:
+                // Should never reach here
+                assert false : "Parser did not parse command correctly";
                 throw new IllegalArgumentException("Invalid command!");
             }
         } catch (NumberFormatException n) {

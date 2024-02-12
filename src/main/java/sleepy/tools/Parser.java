@@ -10,11 +10,12 @@ public class Parser {
     /**
      * Parses the given command.
      *
-     * @param command Command from the user to be parsed.
+     * @param input Input from the user to be parsed.
      * @return Parsed command, as an array of strings.
      * @throws IllegalArgumentException If the command is of an invalid form.
      */
-    public static String[] parse(String command) throws IllegalArgumentException {
+    public static String[] parse(String input) throws IllegalArgumentException {
+        String command = input.trim();
         switch (command) {
         case "mark":
             // Fallthrough
@@ -34,12 +35,16 @@ public class Parser {
             return new String[]{"list"};
         default:
             if (command.startsWith("mark ")) {
+                assert command.startsWith("mark ") : "Command should start with 'mark '";
                 return new String[]{ "mark", command.substring(5) };
             } else if (command.startsWith("unmark ")) {
+                assert command.startsWith("unmark ") : "Command should start with 'unmark '";
                 return new String[]{ "unmark", command.substring(7) };
             } else if (command.startsWith("delete ")) {
+                assert command.startsWith("delete ") : "Command should start with 'delete '";
                 return new String[]{"delete", command.substring(7)};
             } else if (command.startsWith("find ")) {
+                assert command.startsWith("find ") : "Command should start with 'find '";
                 return new String[]{"find", command.substring(5)};
             } else {
                 return new String[]{"add", command};
@@ -59,8 +64,10 @@ public class Parser {
         boolean isDeadline = task.startsWith("deadline ");
         boolean isEvent = task.startsWith("event ");
         if (isToDo) {
+            assert task.startsWith("todo ") : "Task should start with 'todo '";
             return new String[]{ "todo", task.substring(5) };
         } else if (isDeadline) {
+            assert task.startsWith("deadline ") : "Task should start with 'deadline '";
             String[] details = task.substring(9).split(" /by ");
             if (details.length == 1) {
                 throw new IllegalArgumentException("Missing the task description or the '/by' field! Try again.");
@@ -70,6 +77,7 @@ public class Parser {
                 return new String[]{ "deadline", details[0], details[1] };
             }
         } else if (isEvent) {
+            assert task.startsWith("event ") : "Task should start with 'event '";
             String[] firstSplit = task.substring(6).split(" /from ");
             if (firstSplit.length == 1) {
                 throw new IllegalArgumentException("Missing the task description or the '/from' field! Try again.");
