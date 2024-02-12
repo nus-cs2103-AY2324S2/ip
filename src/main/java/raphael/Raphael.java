@@ -1,6 +1,8 @@
 package raphael;
 
+import javafx.application.Platform;
 import raphael.command.Command;
+import raphael.exception.RaphaelException;
 import raphael.parser.Parser;
 import raphael.storage.Storage;
 import raphael.task.TaskList;
@@ -33,39 +35,30 @@ public class Raphael {
         this.storage = new Storage(filePath);
         try {
             this.tasks = new TaskList(this.storage.load());
-        } catch (raphael.exception.RaphaelException e) {
+        } catch (RaphaelException e) {
             ui.showLoadingError();
             this.tasks = new TaskList();
         }
     }
-
+    public Raphael() {
+        this.tasks = new TaskList();
+        this.ui = new Ui();
+        this.storage = new Storage("./data/tasks.txt");
+    }
     /**
-     * Activates Raphael.
+     * Get response from Raphael
      */
-    private void run() {
-        this.ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (raphael.exception.RaphaelException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            c.execute(tasks, ui, storage);
+            if (c.isExit()) {
+                Platform.exit();
             }
+            return ui.getOutput();
+        } catch (RaphaelException e) {
+            return e.getMessage();
         }
     }
 
-    /**
-     * Serves as the entry point of the whole program.
-     *
-     * @param args the command line argument upon running the binary file.
-     */
-    public static void main(String[] args) {
-        new Raphael("./data/tasks.txt").run();
-    }
 }
