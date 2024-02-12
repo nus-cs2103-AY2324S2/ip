@@ -21,6 +21,8 @@ public class Ui {
      * @param message The message.
      */
     public void print(String message) {
+        assert message != null : "Message should not be null";
+
         buffer.append(message).append("\n");
     }
 
@@ -30,6 +32,8 @@ public class Ui {
      * @return The String currently in the buffer.
      */
     public String flush() {
+        assert buffer != null : "Buffer should not be null";
+
         var value = buffer.toString();
         buffer.setLength(0);
         return value;
