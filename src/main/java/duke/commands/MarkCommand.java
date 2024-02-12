@@ -4,7 +4,6 @@ import duke.exceptions.DukeException;
 import duke.storage.Storage;
 import duke.storage.TaskList;
 import duke.tasks.Task;
-import duke.ui.Ui;
 
 /**
  * MarkCommand class represents a command to mark or unmark a task as done.
@@ -30,22 +29,23 @@ public class MarkCommand extends Command {
      * Executes the mark or unmark command by marking or unmarking the specified task as done.
      *
      * @param taskList The list of tasks.
-     * @param ui       The user interface (not used in this command).
      * @param storage  The storage handler (not used in this command).
      * @throws DukeException If an error occurs during command execution.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList taskList, Storage storage) throws DukeException {
         if (taskList.size() == 0) {
-            throw new DukeException(String.format("OOPS!!! There are no tasks to %s.", this.command));
+            throw new DukeException(String.format("OOPS!!! There are no tasks to %s.", command));
         }
-        Task target = taskList.get(this.index);
-        if (this.command.equals("mark")) {
+        Task target = taskList.get(index);
+        if (command.equals("mark")) {
             target.markDone();
         } else {
             target.unmarkDone();
         }
         System.out.printf("Nice! I've %sed this task as done:%n", this.command);
         System.out.println("  " + target);
+
+        return String.format("Nice! I've %sed this task as done:%n\n", command) + "  " + target;
     }
 }

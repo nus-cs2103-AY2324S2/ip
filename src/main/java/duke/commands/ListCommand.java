@@ -2,7 +2,6 @@ package duke.commands;
 
 import duke.storage.Storage;
 import duke.storage.TaskList;
-import duke.ui.Ui;
 
 /**
  * ListCommand class represents a command to list all tasks in the task list.
@@ -14,16 +13,17 @@ public class ListCommand extends Command {
      * If the task list is empty, it displays a message indicating no tasks.
      *
      * @param taskList The list of tasks to display.
-     * @param ui       The user interface (not used in this command).
      * @param storage  The storage handler (not used in this command).
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) {
         if (taskList.size() == 0) {
-            System.out.println("Yay! You have no tasks!");
+            return "Yay! You have no tasks!";
         } else {
             System.out.println("Here are the tasks in your list:");
             System.out.println(taskList);
+
+            return "Here are the tasks in your list:\n" + taskList;
         }
     }
 }

@@ -8,7 +8,6 @@ import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.Todo;
-import duke.ui.Ui;
 
 /**
  * AddCommand class represents a command to add a new task to the task list.
@@ -67,11 +66,10 @@ public class AddCommand extends Command {
      * Executes the add command by creating the corresponding task and adding it to the task list.
      *
      * @param taskList The list of tasks.
-     * @param ui       The user interface.
      * @param storage  The storage handler.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) {
         Task task = null;
         if (this.taskType.equals("todo")) {
             task = new Todo(this.taskDescription);
@@ -81,8 +79,11 @@ public class AddCommand extends Command {
             task = new Event(this.taskDescription, this.eventStart, this.eventEnd);
         }
         taskList.add(task);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
-        System.out.printf("Now you have %d tasks in the list.%n", taskList.size());
+
+        String consoleText = "Got it. I've added this task:\n"
+                + "  " + task + "\n"
+                + String.format("Now you have %d tasks in the list.%n", taskList.size());
+
+        return consoleText;
     }
 }

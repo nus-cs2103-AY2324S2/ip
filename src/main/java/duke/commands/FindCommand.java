@@ -4,7 +4,6 @@ import duke.exceptions.DukeException;
 import duke.storage.Storage;
 import duke.storage.TaskList;
 import duke.tasks.Task;
-import duke.ui.Ui;
 
 /**
  * FindCommand class represents a command to search for tasks containing a specific keyword.
@@ -28,12 +27,11 @@ public class FindCommand extends Command {
      * Displays the matching tasks, if any, or a message if no matches are found.
      *
      * @param taskList The list of tasks to search.
-     * @param ui       The user interface (not used in this command).
      * @param storage  The storage handler (not used in this command).
      * @throws DukeException If an error occurs during command execution.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList taskList, Storage storage) throws DukeException {
         TaskList searchResults = new TaskList();
         for (int i = 0; i < taskList.size(); i++) {
             Task currTask = taskList.get(i);
@@ -43,9 +41,9 @@ public class FindCommand extends Command {
         }
 
         if (searchResults.size() != 0) {
-            System.out.println(searchResults);
+            return searchResults.toString();
         } else {
-            System.out.println("Sorry, there are no matching entries.");
+            return "Sorry, there are no matching entries.";
         }
     }
 }
