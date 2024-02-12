@@ -113,21 +113,34 @@ public class Duke {
     }
 
     private static void markTask(String arguments) throws DukeException {
-        int taskNum = parser.parseTaskIndex(arguments);
-        taskList.markTask(taskNum);
-        ui.printDivider();
-        ui.printMarkTaskSuccess();
-        System.out.println(taskList.getTask(taskNum).toString() + "\n");
-        ui.printDivider();
+        try {
+            int taskNum = parser.parseTaskIndex(arguments);
+            taskList.markTask(taskNum);
+            ui.printDivider();
+            ui.printMarkTaskSuccess();
+            System.out.println(taskList.getTask(taskNum).toString() + "\n");
+            ui.printDivider();
+        } catch (IndexOutOfBoundsException e) {
+            ui.printDivider();
+            System.out.println("Invalid task index provided.\nPlease provide a valid task index.\n");
+            ui.printDivider();
+        }
+
     }
 
     private static void unmarkTask(String arguments) throws DukeException {
-        int taskNum = parser.parseTaskIndex(arguments);
-        taskList.unmarkTask(taskNum);
-        ui.printDivider();
-        ui.printUnmarkTaskSuccess();
-        System.out.println(taskList.getTask(taskNum).toString() + "\n");
-        ui.printDivider();
+        try {
+            int taskNum = parser.parseTaskIndex(arguments);
+            taskList.unmarkTask(taskNum);
+            ui.printDivider();
+            ui.printUnmarkTaskSuccess();
+            System.out.println(taskList.getTask(taskNum).toString() + "\n");
+            ui.printDivider();
+        } catch (IndexOutOfBoundsException e) {
+            ui.printDivider();
+            System.out.println("Invalid task index provided.\nPlease provide a valid task index.\n");
+            ui.printDivider();
+        }
     }
 
     private static void createToDoTask(String arguments) throws DukeException {
@@ -178,12 +191,19 @@ public class Duke {
     }
 
     private static void deleteTask(String arguments) throws DukeException {
-        int delIndex = parser.parseTaskIndex(arguments);
-        Task toDelete = taskList.getTask(delIndex);
-        taskList.deleteTask(delIndex);
-        ui.printDivider();
-        ui.printDeleteTaskSuccess();
-        System.out.println(toDelete.toString() + "\n");
-        ui.printDivider();
+        try {
+            int delIndex = parser.parseTaskIndex(arguments);
+            Task toDelete = taskList.getTask(delIndex);
+            taskList.deleteTask(delIndex);
+            ui.printDivider();
+            ui.printDeleteTaskSuccess();
+            System.out.println(toDelete.toString() + "\n");
+            ui.printDivider();
+        } catch (IndexOutOfBoundsException e) {
+            ui.printDivider();
+            System.out.println("Invalid task index provided.\nPlease provide a valid task index.\n");
+            ui.printDivider();
+        }
+
     }
 }
