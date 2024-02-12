@@ -1,7 +1,8 @@
-package jiayou;
+package jiayou.function;
 
 import java.time.LocalDate;
 
+import jiayou.exception.JiayouException;
 import jiayou.task.Deadline;
 import jiayou.task.Event;
 import jiayou.task.TaskList;

@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import jiayou.JiayouException;
-import jiayou.Storage;
+import jiayou.exception.JiayouException;
+import jiayou.function.Storage;
 
 /**
  * Represents a task list to store all the tasks of the chatbot.
@@ -156,19 +156,25 @@ public class TaskList {
      */
     public String searchByDate(LocalDate date) {
         String response = "Here are the task(s) on " + date + " in your list:\n";
+        int count = 0;
         for (int i = 0; i < this.tasks.size(); i++) {
             Task task = this.tasks.get(i);
             if (task instanceof Event) {
                 if (date.equals(((Event) task).getFrom())
                         | date.equals((((Event) task).getTo()))
                         | (date.isAfter((((Event) task).getFrom())) & date.isBefore(((Event) task).getTo()))) {
+                    count += 1;
                     response += ((i + 1) + "." + task.toString() + "\n");
                 }
             } else if (task instanceof Deadline) {
                 if (date.equals(((Deadline) task).getByTime())) {
+                    count += 1;
                     response += ((i + 1) + "." + task.toString() + "\n");
                 }
             }
+        }
+        if (count == 0) {
+            return "I am sorry.\nThere is no task on " + date + ".\nTry some other dates! > <";
         }
         return response;
     }
@@ -181,11 +187,16 @@ public class TaskList {
      */
     public String searchByKeyword(String keyword) {
         String response = "Here are the task(s) with the keyword " + keyword + " in your list:\n";
+        int count = 0;
         for (int i = 0; i < this.tasks.size(); i++) {
             Task task = this.tasks.get(i);
             if (task.getDescription().contains(keyword)) {
+                count += 1;
                 response += ((i + 1) + "." + task.toString() + "\n");
             }
+        }
+        if (count == 0) {
+            return "I am sorry.\nThere is no task with the keyword you want.\nTry some other keywords! > <";
         }
         return response;
     }
@@ -200,6 +211,9 @@ public class TaskList {
      * @return a response message.
      */
     public String printList() {
+        if (this.tasks.size() == 0) {
+            return "Your list is empty now!\nPlease add some new tasks > <";
+        }
         String response = "Here are the task(s) in your list:\n";
         for (int i = 0; i < this.tasks.size(); i++) {
             Task task = this.tasks.get(i);

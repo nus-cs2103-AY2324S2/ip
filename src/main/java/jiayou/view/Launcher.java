@@ -1,4 +1,4 @@
-package jiayou;
+package jiayou.view;
 
 import javafx.application.Application;
 

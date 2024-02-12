@@ -1,4 +1,4 @@
-package jiayou;
+package jiayou.exception;
 
 /**
  * Represents a customized exception for the chatbot jiayou.

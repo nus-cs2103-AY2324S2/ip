@@ -1,4 +1,4 @@
-package jiayou;
+package jiayou.function;
 
 import java.io.BufferedWriter;
 import java.io.IOException;

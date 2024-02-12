@@ -47,7 +47,7 @@ application {
 
 shadowJar {
     archiveBaseName = "jiayou"
-    archiveClassifier = "0.5"
+    archiveClassifier = "0.4"
     dependsOn("distZip", "distTar")
     from 'src/main/resources'
 }

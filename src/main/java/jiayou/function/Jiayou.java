@@ -1,4 +1,4 @@
-package jiayou;
+package jiayou.function;
 
 import jiayou.task.TaskList;
 
