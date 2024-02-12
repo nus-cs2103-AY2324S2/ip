@@ -1,33 +1,33 @@
 package Duke.task;
-import java.util.Locale;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import Duke.command.*;
+import java.util.Locale;
 
-public class Deadline extends task {
-    LocalDate date = null;
-    String date1;
-    public Deadline(String message, LocalDate toDate){
+public class Deadline extends Task {
+    private LocalDate dueDate = null;
+    private String dueDateString;
+    public Deadline(String message, LocalDate dueDate) {
         super(message);
-        this.date = toDate;
+        this.dueDate = dueDate;
     }
-    public Deadline(String message, String toDate){
+    public Deadline(String message, String dueDate) {
         super(message);
-        this.date1 = toDate;
+        this.dueDateString = dueDate;
     }
     @Override
-    public String toString(){
-        String msg;
-        if (access_state()){
-            msg = "[D][X] "+ access_message();
+    public String toString() {
+        String taskInfo;
+        if (isCompleted()) {
+            taskInfo = "[D][X] " + getMessage();
+        } else {
+            taskInfo = "[D][ ] " + getMessage();
         }
-        else{
-            msg = "[D][ ] "+ access_message();
-        }
-        if (date != null){
-            return msg+" (by: "+date.format(DateTimeFormatter.ofPattern("MMM dd yyyy").withLocale(Locale.ENGLISH))+")";
-        }else{
-            return msg+" (by: "+date1+")";
+        if (dueDate != null) {
+            return taskInfo + " (by: "
+                    + dueDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy").withLocale(Locale.ENGLISH))
+                    + ")";
+        } else {
+            return taskInfo + " (by: " + dueDateString + ")";
         }
     }
 }

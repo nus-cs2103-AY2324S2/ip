@@ -6,31 +6,33 @@ import Duke.task.*;
  * Represent the command of adding a task to the task list
  */
 public class AddCommand extends Command {
-    private task tsk;
+    private Task task;
 
     /**
      * Construct a command to add task into the task list
      *
-     * @param tsk the task to be added
+     * @param task the task to be added
      */
-    public AddCommand(task tsk){
-        this.tsk = tsk;
+    public AddCommand(Task task) {
+        this.task = task;
     }
 
     /**
      * Execute the command of adding a task to the task list.
      *
-     * @param tsks the List of tasks the task will be added to
+     * @param taskList the List of tasks the task will be added to
      * @param ui show the deleting result to the user
      * @param storage store the product of execution locally.
      */
     @Override
-    public void execute(TaskList tsks, Ui ui, Storage storage){
-        tsks.insert(this.tsk);
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
+        taskList.insert(this.task);
         Ui.print_message("Got it. I've added this task:\n  "
-                +tsk.toString()+"\n "+
-                "Now you have "+tsks.accessNumberTask()+" tasks in the list.");
-        storage.writeDisk(tsks.accessList());
+                + task.toString() + "\n "
+                + "Now you have "
+                + taskList.accessNumberTask()
+                + " tasks in the list.");
+        storage.writeDisk(taskList.accessList());
     }
 
     /**
@@ -39,7 +41,7 @@ public class AddCommand extends Command {
      * @return false, because this is not an exit command
      */
     @Override
-    public boolean isExit(){
+    public boolean isExit() {
         return false;
     }
 }

@@ -1,15 +1,14 @@
 package Duke;
 import Duke.command.*;
-import Duke.task.*;
 
 /**
  * The main class of the application. This class initialize the application,
  * receive commands from users, process commands, and provide user feedbacks
  */
 public class Duke {
-    private Storage storage;
-    private TaskList tasks;
-    private Ui ui;
+    private final Storage storage;
+    private final TaskList tasks;
+    private final Ui ui;
 
     /**
      * Construct Duke instance, initialize application's components.
@@ -35,7 +34,7 @@ public class Duke {
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (Exception e) {
-                ui.print_message(e.getMessage());
+                Ui.print_message(e.getMessage());
             }
         }
     }

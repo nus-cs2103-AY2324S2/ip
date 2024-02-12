@@ -1,15 +1,13 @@
 package Duke;
-import Duke.task.*;
-import Duke.command.*;
 import java.io.*;
 import java.util.ArrayList;
-import Duke.command.*;
+
 import Duke.task.*;
 
 /**
  * Class responsible for storing task information locally and restoring the chat from local
  */
-public class Storage{
+public class Storage {
     private String filePath;
 
     /**
@@ -17,25 +15,25 @@ public class Storage{
      *
      * @param filePath the filepath the data is stored and retrieved.
      */
-    Storage(String filePath){
+    Storage(String filePath) {
         this.filePath = filePath;
     }
 
     /**
      * Writing the list of task into the file specified by filePath
      *
-     * @param strList the list containing task information
+     * @param tasksList the list containing task information
      */
-    public void writeDisk(ArrayList<task> strList) {
+    public void writeDisk(ArrayList<Task> tasksList) {
         try {
-            FileOutputStream file = new FileOutputStream(filePath);
-            ObjectOutputStream out = new ObjectOutputStream(file);
-            out.writeObject(strList);
-            out.close();
-            file.close();
-        }catch(IOException e){
+            FileOutputStream fileOutputStream = new FileOutputStream(filePath);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(tasksList);
+            objectOutputStream.close();
+            fileOutputStream.close();
+        } catch (IOException e) {
             System.out.println("Problem writing to hard disk.");
-//            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 
@@ -45,15 +43,15 @@ public class Storage{
      * @return An Arraylist containing the information of task stored by user previously
      */
     @SuppressWarnings("unchecked")
-    public ArrayList<task> load() {
+    public ArrayList<Task> load() {
         try {
             FileInputStream file = new FileInputStream(filePath);
             ObjectInputStream in = new ObjectInputStream(file);
-            ArrayList<task> strlist = (ArrayList<task>) in.readObject();
+            ArrayList<Task> tasksList = (ArrayList<Task>) in.readObject();
             in.close();
             file.close();
-            return strlist;
-        } catch (Exception e){
+            return tasksList;
+        } catch (Exception e) {
             return new ArrayList<>();
         }
     }
