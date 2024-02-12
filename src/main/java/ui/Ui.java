@@ -5,20 +5,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 public class Ui {
     private static final String ALLTASKSHEADER = "Here are the tasks in your list!";
+
+    /**
+     * Ui class that contains the strings to be printed in the Gui
+     */
     public Ui() {
     }
     public void showLoadingError(String error) {
         System.out.println(error);
-    }
-
-    /**
-     * Print welcome message upon running the program
-     */
-    public String showWelcome() {
-        String message = "____________________________________________________________\n" +
-                "Hello! I'm Jux\n" +
-                "What can I do for you?\n";
-        return message;
     }
 
     /**
@@ -58,7 +52,7 @@ public class Ui {
      */
     public String printList(ArrayList<Task> taskList) {
         String output = "";
-        for (int i = 0; i < taskList.size();i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             output += (taskList.get(i)) + "\n";
         }
         return output;
@@ -124,6 +118,9 @@ public class Ui {
             int j = i + 1;
             output +="\n" + j + "." +  taskList.get(i);
 
+        }
+        if (taskList.isEmpty()) {
+            return printEmptyTaskList();
         }
         return output;
     }

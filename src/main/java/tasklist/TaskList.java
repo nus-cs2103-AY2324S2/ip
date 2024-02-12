@@ -12,6 +12,11 @@ public class TaskList {
         size = (taskList.size());
     }
 
+    /**
+     * Updates the size of array and
+     * returns the size of array
+     * @return size  of array
+     */
     public int getSize() {
         size = taskList.size();
         return size;
@@ -19,6 +24,12 @@ public class TaskList {
     public ArrayList<Task> getTaskList() {
         return taskList;
     }
+
+    /**
+     * Finds tasks with description containing the string to find
+     * @param taskToFind the user input string of task
+     * @return an arraylist of the task that matches
+     */
     public ArrayList<Task> findTask(String taskToFind) {
         ArrayList<Task> taskArray = new ArrayList<>();
         for (int i = 0; i < getSize(); i++) {
@@ -131,8 +142,8 @@ public class TaskList {
         String[] args = Parser.parseEvent(task);
         taskList.add(new Event(args[0],args[1],args[2]));
     }
-    public void showList(Ui ui) {
-        ui.printList(taskList);
+    public String showList(Ui ui) {
+        return ui.printList(taskList);
     }
     public String showListWithIndexing(Ui ui) {
         return ui.printListWithIndexing(taskList);

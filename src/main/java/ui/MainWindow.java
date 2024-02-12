@@ -24,11 +24,8 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-    @FXML
-    private HBox startDialog;
 
     private Jux jux;
-    private Ui ui;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/cat.png"));
     private Image juxImage = new Image(this.getClass().getResourceAsStream("/images/dog.png"));
@@ -36,11 +33,6 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-
-        welcomeMessage();
-
-        this.ui = new Ui();
-
 
     }
 
@@ -52,15 +44,16 @@ public class MainWindow extends AnchorPane {
      * Creates the initial dialog box by Jux, only contains the welcome message then
      * appends to the dialog container. Located as a child in the fxml file
      */
-    @FXML
-    private void welcomeMessage(){
-        String message = "Hello! I'm Jux\n" +
-                "What can I do for you?\n";
-        //message += jux.getStorageList(); whats up with this?
-        startDialog = DialogBox.getJuxDialog(message, juxImage);
-        dialogContainer.getChildren().addAll(
-                startDialog
-        );
+
+    public void welcomeMessage(){
+        String message = "Previously on Jux...." + "\n";
+        message += jux.getStorageList();
+        if (jux.isNewStart()) {
+            message = "Hello! I'm Jux\n" +
+                    "What can I do for you?\n";
+        }
+
+        dialogContainer.getChildren().add(DialogBox.getJuxDialog(message, juxImage));
     }
 
     /**

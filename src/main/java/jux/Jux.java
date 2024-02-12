@@ -9,32 +9,30 @@ import ui.Ui;
 
 
 /**
- * main chatbot class
+ * main chatbot class that contains the logic for the chatbot
  */
 public class Jux{
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    /**
-     * No arg constructor for application instance
-     */
-    public Jux() {
+    private boolean isNewStart = true;
 
-    }
     public Jux(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
+            isNewStart = tasks.isEmpty();
         } catch (FileNotFoundException e) {
             ui.showLoadingError(e.getMessage());
             tasks = new TaskList();
         }
     }
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Response to user Input
+     * @param input user input
+     * @return  the response
      */
     @FXML
     public String getResponse(String input) {
@@ -53,39 +51,15 @@ public class Jux{
     }
     @FXML
     public String getStorageList() {
-        return ui.printList(tasks.getTaskList());
+        return tasks.showListWithIndexing(ui);
     }
+
     /**
-     * Runs the program when user runs the file
+     * Returns whether the chatbot's history is empty or not
+     * @return boolean value of chatbot's history
      */
-//    public void run() {
-//
-//        if (!tasks.isEmpty()) {
-//            ui.printList(tasks.getTaskList());
-//        }
-//        ui.showWelcome();
-//            while(true) {
-//            try {
-//                String input = ui.takeInput();
-//                if (Parser.isExit(input)) {
-//                    ui.showGoodbye();
-//                    break;
-//                }
-//                Parser.parsingInput(input, tasks, ui);
-//                storage.saveFile(tasks.getTaskList());
-//                } catch (JuxException e) {
-//                System.err.println(e.getMessage());
-//            }
-//
-//
-//        }
-//
-//
-//
-//    }
-//
-//    public static void main(String[] args) {
-//        new Jux("data/Jux.txt").run();
-//    }
+    public boolean isNewStart() {
+        return this.isNewStart;
+    }
 }
 

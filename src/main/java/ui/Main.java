@@ -24,6 +24,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setJux(jux);
+            fxmlLoader.<MainWindow>getController().welcomeMessage(); // initialise the task list here instead of main window
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
