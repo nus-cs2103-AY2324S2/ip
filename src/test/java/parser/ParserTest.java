@@ -12,7 +12,7 @@ public class ParserTest {
         TaskList existingTaskList = new TaskList();
 
         try {
-            Parser.processCommand("event Sleep /from 14/09/2011 /to 15/4/2022",
+            Parser.parseAndExecuteCommand("event Sleep /from 14/09/2011 /to 15/4/2022",
                     existingTaskList);
         }
         catch (Exception e) {
@@ -26,7 +26,7 @@ public class ParserTest {
         TaskList existingTaskList = new TaskList();
 
         try {
-            Parser.processCommand("delete fifty", existingTaskList);
+            Parser.parseAndExecuteCommand("delete fifty", existingTaskList);
         }
         catch (NumberFormatException e) {
             thrown = true;
