@@ -17,7 +17,7 @@ public class Todo extends Task {
      * @return The status of task. ([taskType][isDone] taskname)
      */
     @Override
-    public String fullStatus() { //TODO: add type of task later
+    public String getFullStatus() { //TODO: add type of task later
         String checkbox;
         if (isDone) {
             checkbox = "[T][X] ";

@@ -6,6 +6,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class Parser {
+    public String QUIT_STRING = "QUIT";
     private File saveFile;
     private TaskList taskList;
     private Storage storage;
@@ -31,13 +32,12 @@ public class Parser {
      * @return The output of the command, if any.
      */
     public String parseCommand(String input) throws ParseCommandException, TasklistException {
-        String returnMessage = "uninitialized";
+        String returnMessage;
         String errorMessage;
         String trimmedLowercase = input.trim().toLowerCase();
-        //System.out.println(trimmedLowercase);
         if (trimmedLowercase.equals("bye")) {
             storage.saveHistory(saveFile, taskList.getTasks());
-                return "QUIT";
+            return QUIT_STRING;
         } else if (trimmedLowercase.equals("list")) {
             return taskList.listTasks();
         } else if (trimmedLowercase.split(" ")[0].trim().equals("delete")) {

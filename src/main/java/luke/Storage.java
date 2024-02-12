@@ -20,17 +20,17 @@ public class Storage implements Serializable {
      * History is saved when exiting the program normally, by using "bye" command.
      *
      * @param file File object to locate the save file.
-     * @param tasks An ArrayList of Tasks, as obtained from our TaskList.
+     * @param taskList An ArrayList of Tasks, as obtained from our TaskList.
      */
-    public void saveHistory(File file, ArrayList<Task> tasks) {
-        updateHistory(tasks);
+    public void saveHistory(File file, ArrayList<Task> taskList) {
+        updateHistory(taskList);
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(file));
             outputStream.writeObject(this);
             outputStream.flush();
             outputStream.close();
         } catch (IOException e) {
-            System.out.println("oops!!!");
+            System.out.println("IO exception");
         }
     }
 

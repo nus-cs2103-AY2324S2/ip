@@ -25,7 +25,7 @@ public class TaskList {
         String returnMessage = "";
         if (task != null) {
             tasks.add(task);
-            returnMessage = "I helped you add task '" + task.fullStatus() + "'. But do it yourself next time! Hmmph!" + "\n";
+            returnMessage = "I helped you add task '" + task.getFullStatus() + "'. But do it yourself next time! Hmmph!" + "\n";
         }
         return returnMessage;
     }
@@ -46,7 +46,7 @@ public class TaskList {
             throw new TasklistException(errorMessage);
         }
         returnMessage = "Good work, I guess.\n"
-                + (index + 1) + "." + tasks.get(index).fullStatus() + "\n";
+                + (index + 1) + "." + tasks.get(index).getFullStatus() + "\n";
         return returnMessage;
     }
 
@@ -65,7 +65,7 @@ public class TaskList {
             String taskName = task.getName();
             if (taskName.contains(keyword)) {
                 found = true;
-                returnMessage += num + ". " + task.fullStatus() + "\n";
+                returnMessage += num + ". " + task.getFullStatus() + "\n";
             }
             num += 1;
         }
@@ -89,9 +89,9 @@ public class TaskList {
         }
         for (Task s : tasks) {
             if (s.isDone()) {
-                returnMessage += num + "." + s.fullStatus() + "\n";
+                returnMessage += num + "." + s.getFullStatus() + "\n";
             } else {
-                returnMessage += num + "." + s.fullStatus() + "\n";
+                returnMessage += num + "." + s.getFullStatus() + "\n";
             }
             num += 1;
         }
@@ -108,7 +108,7 @@ public class TaskList {
         String errorMessage;
         String fullStatus;
         try {
-            fullStatus = tasks.get(index).fullStatus();
+            fullStatus = tasks.get(index).getFullStatus();
             tasks.remove(index);
         } catch (IndexOutOfBoundsException e) {
             errorMessage = "There's nothing there, dummy...\n"

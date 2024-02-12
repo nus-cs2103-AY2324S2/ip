@@ -13,8 +13,8 @@ public class TodoTest {
     public void testFullStatus() {
         Todo stuff = new Todo("stuff");
         Todo things = new Todo("things");
-        assertEquals(stuff.fullStatus(), "[T][ ] stuff");
-        assertEquals(things.fullStatus(), "[T][ ] things");
+        assertEquals(stuff.getFullStatus(), "[T][ ] stuff");
+        assertEquals(things.getFullStatus(), "[T][ ] things");
     }
 
     @Test
@@ -23,7 +23,7 @@ public class TodoTest {
         Todo things = new Todo("things");
         stuff.complete();
         things.complete();
-        assertEquals(stuff.fullStatus(), "[T][X] stuff");
-        assertEquals(things.fullStatus(), "[T][X] things");
+        assertEquals(stuff.getFullStatus(), "[T][X] stuff");
+        assertEquals(things.getFullStatus(), "[T][X] things");
     }
 }

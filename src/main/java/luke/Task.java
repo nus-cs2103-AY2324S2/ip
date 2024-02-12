@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Task implements Serializable {
     protected boolean isDone = false;
-    protected String name = "";
+    protected String name;
 
 
     /**
@@ -29,7 +29,6 @@ public class Task implements Serializable {
      */
     public void complete() {
         isDone = true;
-        //System.out.println("It's about time you got this done. ");
     }
 
     /**
@@ -37,7 +36,7 @@ public class Task implements Serializable {
      *
      * @return The status of task. ([isDone] taskname)
      */
-    public String fullStatus() { //TODO: add type of task later
+    public String getFullStatus() {
         String checkbox;
         if (isDone) {
             checkbox = "[X] ";
