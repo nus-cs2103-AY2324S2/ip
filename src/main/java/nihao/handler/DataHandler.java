@@ -15,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class DataHandler {
     private static final String DIRECTORY_PATH = "data/";
@@ -96,19 +97,29 @@ public class DataHandler {
     public static void deleteAll() {
         tasks = new ArrayList<>();
     }
-
     public static int size() {
         return tasks.size();
     }
-
-    public static ArrayList<Task> getData() {
-        return tasks;
-    }
-
     public static Task getTask(int index) throws IndexOutOfBoundsException{
         if (index > size() || index <= 0) {
             throw new IndexOutOfBoundsException(index, size());
         }
         return tasks.get(index - 1);
+    }
+    public static ArrayList<Task> getData() {
+        return tasks;
+    }
+
+    /**
+     * Returns an ArrayList of Tasks that contain the given keyword in their task names.
+     */
+    public static ArrayList<Task> findTasks(String keyword) {
+        ArrayList<Task> returnList = new ArrayList<>();
+        tasks.stream().forEach(e -> {
+            if (e.contains(keyword)) {
+                returnList.add(e);
+            }
+        });
+        return returnList;
     }
 }

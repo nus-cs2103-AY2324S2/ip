@@ -21,6 +21,13 @@ public class Task {
     public void unmark() {
         isCompleted = false;
     }
+
+    /**
+     * Returns if task name contains a given substring.
+     */
+    public boolean contains(String str) {
+        return taskName.contains(str);
+    }
     @Override
     public String toString() {
         String isCompleted = this.isCompleted ? "X" : " ";

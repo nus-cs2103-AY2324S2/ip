@@ -6,6 +6,7 @@ public enum Command {
     MARK,
     UNMARK,
     DELETE,
+    FIND,
     TODO,
     DEADLINE,
     EVENT,
@@ -22,6 +23,8 @@ public enum Command {
             return UNMARK;
         case "delete":
             return DELETE;
+        case "find":
+            return FIND;
         case "todo":
             return TODO;
         case "deadline":
