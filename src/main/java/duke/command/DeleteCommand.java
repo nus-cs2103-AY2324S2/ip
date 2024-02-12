@@ -46,8 +46,8 @@ public class DeleteCommand extends Command{
     }
 
     /**
-     * Returns False.
-
+     * Returns False to indicate don't exit program after this command.
+     *
      * @return False.
      */
     @Override
