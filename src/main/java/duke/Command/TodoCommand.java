@@ -51,7 +51,6 @@ public class TodoCommand extends Command {
         return addedMessage;
     }
 
-
     /**
      * Checks if the command is an exit command.
      *
