@@ -125,7 +125,10 @@ public class Handler {
 
         if (!isNewTask) {
             isDone = input.charAt(input.length() - 1);
+            assert isDone == '0' || isDone == '1' : "isDone must be '0' or '1'";
+
             input = input.substring(0, input.length() - 1);
+            assert input != "" : "input cannot be empty";
         }
 
         if (fromStart == -1 || toStart == -1 || fromStart >= toStart) {
@@ -175,7 +178,10 @@ public class Handler {
 
         if (!isNewTask) {
             isDone = input.charAt(input.length() - 1);
+            assert isDone == '0' || isDone == '1' : "isDone must be '0' or '1'";
             input = input.substring(0, input.length() - 1);
+            assert input != "" : "input cannot be empty";
+
         }
 
         if (byStart == -1) {
@@ -219,7 +225,9 @@ public class Handler {
 
         if (!isNewTask) {
             isDone = input.charAt(input.length() - 1);
+            assert isDone == '0' || isDone == '1' : "isDone must be '0' or '1'";
             input = input.substring(0, input.length() - 1);
+            assert input != "" : "input cannot be empty";
         }
 
         if (5 >= input.length()) {
@@ -245,9 +253,11 @@ public class Handler {
 
     public String handleFind(String[] parts, TaskList tasks, Ui ui) throws  InvalidDetailException {
         String output = "";
+
         if(parts.length != 2){
             throw new InvalidDetailException("Invalid detail after keyword. Please retry");
         } else {
+            assert parts[1] != null : "search term cannot be a null value";
             output = ui.printList(tasks.findSublist(parts[1]), "Here are the matching tasks in your list:");
         }
 
@@ -288,6 +298,7 @@ public class Handler {
             throw new InvalidDetailException("Invalid detail after delete. Please retry");
         } else {
             try {
+                assert parts[1] != null : "delete index cannot be a null value";
                 int num = Integer.parseInt(parts[1]);
                 Task t = tasks.getItem(num - 1);
                 tasks.delete(num - 1);
@@ -315,6 +326,7 @@ public class Handler {
             throw new InvalidDetailException("Invalid detail after mark. Please retry");
         } else {
             try {
+                assert parts[1] != null : "mark index cannot be a null value";
                 int idx = Integer.parseInt(parts[1]);
                 tasks.mark(idx - 1, true);
                 output = ui.printTaskMark(tasks.getItem(idx - 1), true);
@@ -341,6 +353,7 @@ public class Handler {
             throw new InvalidDetailException("Invalid detail after unmark. Please retry");
         } else {
             try {
+                assert parts[1] != null : "unmark index cannot be a null value";
                 int idx = Integer.parseInt(parts[1]);
                 tasks.mark(idx - 1, false);
                 output = ui.printTaskMark(tasks.getItem(idx - 1), false);
