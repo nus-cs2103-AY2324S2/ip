@@ -10,7 +10,8 @@ public class UiStub extends Ui {
     }
 
     @Override
-    public void printSuccessfulAdd(TaskList taskList, Task task) {
-        this.isPrintSuccessfulAddCalled = true;
+    public String printSuccessfulAdd(TaskList taskList, Task task) {
+        isPrintSuccessfulAddCalled = true;
+        return "";
     }
 }

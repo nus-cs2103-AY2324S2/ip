@@ -22,6 +22,7 @@ public abstract class Command {
      * @param taskList utilities.TaskList to be operated.
      * @param ui utilities.Ui that handles input and output.
      * @param storage utilities.Storage that handles operation with hard disk.
+     * @return Message of executing the command.
      */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage);
+    public abstract String execute(TaskList taskList, Ui ui, Storage storage);
 }
