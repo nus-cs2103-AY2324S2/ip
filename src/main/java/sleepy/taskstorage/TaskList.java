@@ -83,6 +83,7 @@ public class TaskList {
             break;
         default:
             // Should never reach here - parser should have caught invalid command
+            assert false : "Parser did not parse command correctly";
             throw new IllegalArgumentException("Incorrect command!");
         }
     }
@@ -94,14 +95,20 @@ public class TaskList {
      * @param taskNumber Task number to be handled.
      */
     public void handleTask(String operation, int taskNumber) throws IllegalArgumentException {
-        if (operation.equals("mark")) {
+        assert taskNumber >= 1 && taskNumber <= tasks.size() : "Invalid task number!";
+        switch (operation) {
+        case "mark":
             markTaskAsDone(taskNumber);
-        } else if (operation.equals("unmark")) {
+            break;
+        case "unmark":
             markTaskAsUndone(taskNumber);
-        } else if (operation.equals("delete")) {
+            break;
+        case "delete":
             deleteTask(taskNumber);
-        } else {
+            break;
+        default:
             // Should never reach here, parser should have detected invalid operation
+            assert false : "Parser did not parse command correctly";
             throw new IllegalArgumentException("Invalid operation on a task!");
         }
     }
@@ -143,6 +150,7 @@ public class TaskList {
             break;
         default:
             // Should never reach here - parser should have caught invalid task type
+            assert false : "Parser did not parse command correctly";
             throw new IllegalArgumentException("This is not a task!");
         }
         tasks.add(createdTask);
@@ -182,6 +190,7 @@ public class TaskList {
             ResponseHandler.appendLineToResponse("Nice! I've marked this task as done:");
             ResponseHandler.appendLineToResponse(targetTask.getDescription());
         }
+        assert targetTask.isDone() == "true" : "Task was not marked as done correctly!";
     }
 
     /**
@@ -197,6 +206,7 @@ public class TaskList {
             ResponseHandler.appendLineToResponse("OK, I've marked this task as not done yet:");
             ResponseHandler.appendLineToResponse(targetTask.getDescription());
         }
+        assert targetTask.isDone() == "false" : "Task was not marked as undone correctly!";
     }
 
     /**
