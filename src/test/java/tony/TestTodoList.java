@@ -21,7 +21,7 @@ public class TestTodoList {
     public void testAddTask() {
         Task task = new Todo("Example Task");
         todoList.add(task);
-        assertEquals(1, todoList.list.size());
+        assertEquals(1, todoList.size());
     }
 
     @Test
@@ -46,7 +46,7 @@ public class TestTodoList {
         Task task = new Todo("Example Task");
         todoList.add(task);
         todoList.delete("1");
-        assertEquals(0, todoList.list.size());
+        assertEquals(0, todoList.size());
     }
 
 }
