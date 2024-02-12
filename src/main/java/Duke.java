@@ -1,9 +1,14 @@
 import haro.Haro;
+
 /**
  * The Duke class represents the main entry point for the Duke application.
  *
  */
 public class Duke {
+    public Duke() {
+        // New duke instance
+    }
+
     /**
      * Main method to execute the Duke application.
      * Initializes the Duke application with an instance of the Haro class

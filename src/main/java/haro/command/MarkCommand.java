@@ -33,9 +33,9 @@ public class MarkCommand extends Command {
      * @throws InvalidArgsException If the provided task number is invalid
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws InvalidArgsException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws InvalidArgsException {
         Task currTask = taskList.markTask(this.taskNumber);
-        ui.printMarkTask(currTask);
+        return ui.printMarkTask(currTask);
     }
 
     /**

@@ -30,8 +30,8 @@ public class FindCommand extends Command {
      * @param storage  Storage instance for handling data storage
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         String searchTaskString = taskList.findTask(this.searchString);
-        ui.printSearch(searchTaskString);
+        return ui.printSearch(searchTaskString);
     }
 }

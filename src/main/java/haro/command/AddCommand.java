@@ -30,8 +30,8 @@ public class AddCommand extends Command {
      * @param storage  Storage for saving and loading task data
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         taskList.addTask(this.task);
-        ui.printAddTask(this.task, taskList.getSize());
+        return ui.printAddTask(this.task, taskList.getSize());
     }
 }

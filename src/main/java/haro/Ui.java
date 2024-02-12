@@ -12,16 +12,16 @@ import haro.task.Task;
  */
 public class Ui {
     private Scanner inputScanner;
-    private final String haroLogo = " ___  ___  ________  ________  ________\n"
+    private static final String haroLogo = " ___  ___  ________  ________  ________\n"
             + "|\\  \\|\\  \\|\\   __  \\|\\   __  \\|\\   __  \\\n"
             + "\\ \\  \\\\\\  \\ \\  \\|\\  \\ \\  \\|\\  \\ \\  \\|\\  \\\n"
             + " \\ \\   __  \\ \\   __  \\ \\   _  _\\ \\  \\\\\\  \\\n"
             + "  \\ \\  \\ \\  \\ \\  \\ \\  \\ \\  \\\\  \\\\ \\  \\\\\\  \\\n"
             + "   \\ \\__\\ \\__\\ \\__\\ \\__\\ \\__\\\\ _\\\\ \\_______\\\n"
             + "    \\|__|\\|__|\\|__|\\|__|\\|__|\\|__|\\|_______|\n";
-    private final String horizontalLine = "______________________________________________";
-    private String openingMsg = "Heya! I'm Haro!\n" + "What can I do for you today?";
-    private String closingMSg = "Bye. Hope to see you some time soon!";
+    private static final String horizontalLine = "______________________________________________";
+    private static String openingMsg = "Heya! I'm Haro!\n" + "What can I do for you today?";
+    private static String closingMSg = "Bye. Hope to see you some time soon!";
 
     /**
      * Constructs a Ui instance with a scanner for user input.
@@ -33,19 +33,15 @@ public class Ui {
     /**
      * Displays a greeting message with a Haro logo.
      */
-    public void greet() {
-        System.out.println(
-                "Greetings from\n" + haroLogo + "\n"
-                        + openingMsg + "\n" + horizontalLine);
+    public static String greet() {
+        return openingMsg;
     }
 
     /**
      * Displays a farewell message and that the task list has been saved.
      */
-    public void bye() {
-        System.out.println("List has been saved!");
-        System.out.println(closingMSg + "\n"
-                + horizontalLine);
+    public String bye() {
+        return "List has been saved!\n" + closingMSg;
     }
 
     /**
@@ -62,8 +58,8 @@ public class Ui {
      *
      * @param errorMsg Error message to be displayed
      */
-    public void showError(String errorMsg) {
-        System.out.println(errorMsg);
+    public String showError(String errorMsg) {
+        return errorMsg;
     }
 
     /**
@@ -71,13 +67,12 @@ public class Ui {
      *
      * @param tasks TaskList containing tasks to be printed
      */
-    public void printList(TaskList tasks) {
+    public String printList(TaskList tasks) {
         String taskString = tasks.tasksToString();
         if (taskString == "") {
-            System.out.println("The task list is currently empty! Add tasks!\n");
+            return "The task list is currently empty! Add tasks!\n";
         } else {
-            System.out.println("Here are the tasks in your list:");
-            System.out.println(taskString);
+            return "Here are the tasks in your list:\n" + taskString;
         }
     }
 
@@ -85,9 +80,8 @@ public class Ui {
      * Prints a message for marking a task as done.
      * @param task Task that has been marked
      */
-    public void printMarkTask(Task task) {
-        System.out.println("Nice! I've marked this task as done");
-        System.out.println(task.printTask() + "\n");
+    public String printMarkTask(Task task) {
+        return "Nice! I've marked this task as done\n" + task.printTask();
     }
 
     /**
@@ -95,9 +89,9 @@ public class Ui {
      *
      * @param task Task that has been unmarked
      */
-    public void printUnmarkTask(Task task) {
-        System.out.println("Alright, I've marked this task as not done yet");
-        System.out.println(task.printTask() + "\n");
+    public String printUnmarkTask(Task task) {
+        return "Alright, I've marked this task as not done yet\n"
+                + task.printTask();
     }
 
     /**
@@ -106,10 +100,10 @@ public class Ui {
      * @param task Task that has been added
      * @param taskListSize Current size of the task list after addition of task
      */
-    public void printAddTask(Task task, int taskListSize) {
-        System.out.println("Got it I've added this task:\n"
+    public String printAddTask(Task task, int taskListSize) {
+        return "Got it I've added this task:\n"
                 + task.printTask() + "\n"
-                + "You now have " + taskListSize + " tasks in the list\n");
+                + "You now have " + taskListSize + " tasks in the list\n";
     }
 
     /**
@@ -118,10 +112,9 @@ public class Ui {
      * @param task          Task that has been deleted
      * @param taskListSize  Current size of the task list after deletion of task
      */
-    public void printDeleteTask(Task task, int taskListSize) {
-        System.out.println("Noted. I've removed this task");
-        System.out.println(task.printTask() + "\n");
-        System.out.println("You now have " + taskListSize + " tasks in the list\n");
+    public String printDeleteTask(Task task, int taskListSize) {
+        return "Noted. I've removed this task\n" + task.printTask() + "\n"
+                + "You now have " + taskListSize + " tasks in the list\n";
     }
 
     /**
@@ -129,12 +122,11 @@ public class Ui {
      *
      * @param taskString String containing the matching tasks
      */
-    public void printSearch(String taskString) {
+    public String printSearch(String taskString) {
         if (taskString.equals("")) {
-            System.out.println("Sorry there are no current matches in your list! :(\n");
+            return "Sorry there are no current matches in your list! :(\n";
         } else {
-            System.out.println("Here are the matching tasks in your list:");
-            System.out.println(taskString);
+            return "Here are the matching tasks in your list:\n" + taskString;
         }
     }
 }

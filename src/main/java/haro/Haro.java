@@ -55,5 +55,14 @@ public class Haro {
 
         haroUi.bye();
     }
+
+    public String getResponse(String userInput) {
+        try {
+            Command c = Parser.parseCommand(userInput);
+            return c.execute(taskList, haroUi, haroStorage);
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
 }
 
