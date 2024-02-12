@@ -56,7 +56,7 @@ public class TaskListTest {
                 "[D][ ] wa1 (by: Feb 09 2024, 23:59:00)" +
                 "\nNow you have 2 tasks in the list.";
         String output3 = "Got it. I've added this task:\n" +
-                "[E][ ] meeting (from: Feb 09 2024, 00:00:00 to: Feb 10 2024, 00:00:00)" +
+                "[E][ ] meeting (from: Feb 09 2024 to: Feb 10 2024)" +
                 "\nNow you have 3 tasks in the list.";
         assertEquals(output1, out1);
         assertEquals(output2, out2);
