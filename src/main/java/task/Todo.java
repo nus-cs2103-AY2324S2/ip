@@ -38,4 +38,13 @@ public class Todo extends Task {
     public String toFileString() {
         return "T" + super.toFileString();
     }
+
+    /**
+     * Gets the description of the task.
+     * @return The task description.
+     */
+    @Override
+    public String descriptionToString() {
+        return super.descriptionToString();
+    }
 }

@@ -55,4 +55,14 @@ public class Deadline extends Task {
     public String toFileString() {
         return "D" + super.toFileString() + "|" + this.by;
     }
+
+    /**
+     * Gets the description and deadline of the task.
+     * @return The task description and deadline.
+     */
+    @Override
+    public String descriptionToString() {
+        return super.descriptionToString()
+                + " (by: " + this.deadline.formatDate() + "hrs)";
+    }
 }

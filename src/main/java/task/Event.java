@@ -69,4 +69,15 @@ public class Event extends Task {
     public String toFileString() {
         return "E" + super.toFileString() + "|" + this.from + "|" + this.to;
     }
+
+    /**
+     * Gets the description, start date and end date of the task.
+     * @return The task description, start date and end date.
+     */
+    @Override
+    public String descriptionToString() {
+        return super.descriptionToString()
+                + " (from: " + this.start.formatDate() + "hrs to: "
+                + this.end.formatDate() + "hrs)";
+    }
 }
