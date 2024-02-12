@@ -18,6 +18,7 @@ public class DeleteCommand extends Command {
      * @param TASK_INDEX The index of the task to be deleted.
      */
     public DeleteCommand(int TASK_INDEX) {
+        assert TASK_INDEX > 0 : "Task index must be greater than 0";
         this.index = TASK_INDEX;
     }
 
@@ -31,6 +32,8 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws DukeException {
+        assert tasks != null : "TaskList cannot be null";
+        assert storage != null : "Storage cannot be null";
         if (index < 1 || index > tasks.size()) {
             throw new DukeException("OOPS!!! duke.Tasks.Task index is out of range.");
         }

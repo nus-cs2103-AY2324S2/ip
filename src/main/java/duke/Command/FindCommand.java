@@ -19,6 +19,7 @@ public class FindCommand extends Command {
      * @param keyword The keyword to search for in tasks.
      */
     public FindCommand(String keyword) {
+        assert keyword != null && !keyword.isEmpty() : "Keyword cannot be null or empty";
         this.keyword = keyword;
     }
 
@@ -33,6 +34,9 @@ public class FindCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Storage storage) {
+        assert tasks != null : "TaskList cannot be null";
+        assert storage != null : "Storage cannot be null";
+
         List<Task> matchingTasks = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
         for (Task task : tasks.getAllTasks()) {

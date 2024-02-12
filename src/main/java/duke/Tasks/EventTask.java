@@ -25,8 +25,10 @@ public class EventTask extends Task {
      */
     public EventTask(String description, String startTimeString, String endTimeString) {
         super(description);
+        assert startTimeString != null && endTimeString != null : "Start time and end time strings cannot be null";
         this.startTime = parseDateTime(startTimeString);
         this.endTime = parseDateTime(endTimeString);
+        assert startTime != null && endTime != null : "Parsed LocalDateTime objects cannot be null";
     }
 
 
@@ -38,6 +40,7 @@ public class EventTask extends Task {
      * @throws DateTimeParseException If the time string cannot be parsed.
      */
     private LocalDateTime parseDateTime(String time) throws DateTimeParseException {
+        assert time != null : "Time string cannot be null";
         LocalDateTime dateTime = null;
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
@@ -75,6 +78,7 @@ public class EventTask extends Task {
             }
         }
 
+        assert dateTime != null : "Parsed LocalDateTime object cannot be null";
         return dateTime;
     }
 
@@ -86,6 +90,7 @@ public class EventTask extends Task {
      * @return The formatted string representing the date and time.
      */
     private String formatDateTime(LocalDateTime dateTime) {
+        assert dateTime != null : "LocalDateTime object cannot be null";
         DateTimeFormatter formatter;
         if (CHECK == 1 || CHECK == 2) {
             formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm", Locale.ENGLISH);

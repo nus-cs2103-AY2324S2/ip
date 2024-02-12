@@ -37,40 +37,41 @@ public class Storage {
         try {
             File file = new File(filePath);
 
-            if (file.exists()) {
-                Scanner scanner = new Scanner(file);
+            // Assert that the file exists before attempting to load tasks from it
+            assert file.exists() : "File does not exist: " + filePath;
 
-                while (scanner.hasNextLine()) {
-                    String line = scanner.nextLine();
-                    String[] parts = line.split(" \\| ");
+            Scanner scanner = new Scanner(file);
 
-                    if (parts.length >= 3) {
-                        Task task;
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split(" \\| ");
 
-                        switch (parts[0]) {
-                            case "T":
-                                task = new TodoTask(parts[2]);
-                                break;
-                            case "D":
-                                task = new DeadlineTaskLoad(parts[2], parts[3]);
-                                break;
-                            case "E":
-                                task = new EventTaskLoad(parts[2], parts[3]);
-                                break;
-                            default:
-                                continue;
+                // Assert that each line has at least 3 parts (task type, status, description)
+                assert parts.length >= 3 : "Invalid task format: " + line;
+
+                Task task;
+                switch (parts[0]) {
+                    case "T":
+                        task = new TodoTask(parts[2]);
+                        break;
+                    case "D":
+                        task = new DeadlineTaskLoad(parts[2], parts[3]);
+                        break;
+                    case "E":
+                        task = new EventTaskLoad(parts[2], parts[3]);
+                        break;
+                    default:
+                        continue;
                         }
 
                         if (parts[1].equals("1")) {
                             task.markDone();
                         }
-
                         tasks.add(task);
                     }
-                }
 
                 scanner.close();
-            }
+
         } catch (IOException e) {
             throw new DukeException("Error loading tasks from file: " + e.getMessage());
         }

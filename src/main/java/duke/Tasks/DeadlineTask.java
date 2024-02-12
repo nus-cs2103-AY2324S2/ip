@@ -22,7 +22,10 @@ public class DeadlineTask extends Task {
      */
     public DeadlineTask(String description, String deadlineStr) {
         super(description);
+        assert deadlineStr != null : "Deadline string cannot be null";
+
         this.deadline = parseDateTime(deadlineStr);
+        assert deadline != null : "Deadline LocalDateTime object cannot be null";
     }
 
 
@@ -34,6 +37,7 @@ public class DeadlineTask extends Task {
      * @throws DateTimeParseException If the deadline string cannot be parsed.
      */
     private LocalDateTime parseDateTime(String time) throws DateTimeParseException {
+        assert time != null : "Deadline string cannot be null";
         LocalDateTime dateTime = null;
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
@@ -69,7 +73,7 @@ public class DeadlineTask extends Task {
 
             }
         }
-
+        assert dateTime != null : "Parsed LocalDateTime object cannot be null";
         return dateTime;
     }
 
@@ -81,6 +85,7 @@ public class DeadlineTask extends Task {
      * @return The formatted string representing the deadline.
      */
     String formatDateTime(LocalDateTime dateTime) {
+        assert dateTime != null : "LocalDateTime object cannot be null";
         DateTimeFormatter formatter;
         if (CHECK == 1 || CHECK == 2) {
             formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm", Locale.ENGLISH);

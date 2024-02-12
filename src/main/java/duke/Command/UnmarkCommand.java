@@ -31,6 +31,9 @@ public class UnmarkCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Storage storage) throws DukeException {
+        assert tasks != null : "TaskList cannot be null";
+        assert storage != null : "Storage cannot be null";
+
         if (index < 1 || index > tasks.size()) {
             throw new DukeException("OOPS!!! duke.Tasks.Task index is out of range.");
         }

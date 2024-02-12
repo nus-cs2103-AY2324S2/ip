@@ -22,7 +22,11 @@ public class Parser {
      * @throws DukeException If the input cannot be parsed or an invalid command is entered.
      */
     public static Command parse(String input) throws DukeException {
+        assert input != null : "Input string cannot be null";
+
         String[] parts = input.split(" ", 2);
+
+        assert parts.length >= 1 : "Input string must contain at least one part";
 
         String command = parts[0].toLowerCase();
 
@@ -60,6 +64,8 @@ public class Parser {
      * @throws DukeException If the input cannot be parsed or an invalid command is entered.
      */
     private static Command parseMarkCommand(String[] parts) throws DukeException {
+        assert parts.length >= 2 : "Input parts must contain at least two elements";
+
         if (parts.length < 2) {
             throw new DukeException("OOPS!!! Please specify the task index to mark as done.");
         }

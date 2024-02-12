@@ -27,6 +27,10 @@ public class EventCommand extends Command {
      * @param endTime     The end time of the event task.
      */
     public EventCommand(String description, String startTime, String endTime) {
+        assert description != null && !description.isEmpty() : "Description cannot be null or empty";
+        assert startTime != null && !startTime.isEmpty() : "Start time cannot be null or empty";
+        assert endTime != null && !endTime.isEmpty() : "End time cannot be null or empty";
+
         this.description = description;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -42,6 +46,9 @@ public class EventCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws DukeException {
+        assert tasks != null : "TaskList cannot be null";
+        assert storage != null : "Storage cannot be null";
+
         Task task = new EventTask(description, startTime, endTime);
         tasks.addTask(task);
         int count = tasks.size();
