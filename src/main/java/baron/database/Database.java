@@ -1,8 +1,6 @@
 package baron.database;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -66,33 +64,6 @@ public class Database {
             System.err.println("Error occurred when writing to " + filePath);
         }
         return -1; // -1 indicates error
-    }
-
-    /**
-     * TODO: Currenlty unused, but will be used in Level-9
-     *
-     * @param filePath file name of the file
-     * @param id       the id to find. Does not refer to line number, but the actual id,
-     *                 which is the first number of each line
-     * @return Returns the line if it exists, or null otherwise
-     */
-    public static String findById(String filePath, int id) {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(filePath));
-            String line = reader.readLine();
-            do {
-                int lineId = findId(line);
-                if (lineId == id) {
-                    return line;
-                }
-                line = reader.readLine();
-            } while (line != null);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            System.err.println("Error occurred when writing to " + filePath);
-        } finally {
-            return null;
-        }
     }
 
     /**

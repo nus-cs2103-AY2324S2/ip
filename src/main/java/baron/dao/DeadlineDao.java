@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import baron.database.Database;
+import baron.enums.Argument;
 import baron.enums.TaskType;
 import baron.models.Deadline;
 import baron.utils.DateUtils;
@@ -17,8 +18,8 @@ import baron.utils.StringUtils;
  * Manages all DB operations for deadlines.
  */
 public class DeadlineDao extends TaskDao {
-    public static final String NAME = TaskType.DEADLINE.getCommand();
-    private static final String byString = "/by";
+    public static final String NAME = TaskType.DEADLINE.getTaskType();
+    private static final String ARG_BY = Argument.BY.getArg();
 
     /**
      * Creates a deadline object from the given input string
@@ -34,12 +35,12 @@ public class DeadlineDao extends TaskDao {
     }
 
     private static String getName(String input) {
-        String name = StringUtils.getValueOfCommand(input, DeadlineDao.NAME, byString);
+        String name = StringUtils.getValueOfCommand(input, DeadlineDao.NAME, ARG_BY);
         return name;
     }
 
     private static LocalDateTime getDeadline(String input) {
-        String deadlineString = StringUtils.getValueOfCommand(input, byString, null);
+        String deadlineString = StringUtils.getValueOfCommand(input, ARG_BY, null);
         LocalDateTime deadline = DateUtils.parseDate(deadlineString);
         return deadline;
     }

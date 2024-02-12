@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import baron.database.Database;
+import baron.enums.Argument;
 import baron.enums.TaskType;
 import baron.models.Event;
 import baron.utils.StringUtils;
@@ -15,9 +16,9 @@ import baron.utils.StringUtils;
  * Manages all DB operations for events
  */
 public class EventDao extends TaskDao {
-    public static final String NAME = TaskType.EVENT.getCommand();
-    private static final String FROM_STRING = "/from";
-    private static final String TO_STRING = "/to";
+    public static final String NAME = TaskType.EVENT.getTaskType();
+    private static final String ARG_FROM = Argument.FROM.getArg();
+    private static final String ARG_TO = Argument.BY.getArg();
 
     /**
      * Creates a event object from the given input string
@@ -34,15 +35,15 @@ public class EventDao extends TaskDao {
     }
 
     private static String getEventName(String input) {
-        return StringUtils.getValueOfCommand(input, EventDao.NAME, EventDao.FROM_STRING);
+        return StringUtils.getValueOfCommand(input, EventDao.NAME, EventDao.ARG_FROM);
     }
 
     private static String getEventFrom(String input) {
-        return StringUtils.getValueOfCommand(input, EventDao.FROM_STRING, EventDao.TO_STRING);
+        return StringUtils.getValueOfCommand(input, EventDao.ARG_FROM, EventDao.ARG_TO);
     }
 
     private static String getEventTo(String input) {
-        return StringUtils.getValueOfCommand(input, EventDao.TO_STRING, null);
+        return StringUtils.getValueOfCommand(input, EventDao.ARG_TO, null);
     }
 
     /**

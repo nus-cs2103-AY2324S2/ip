@@ -15,7 +15,7 @@ import baron.utils.StringUtils;
  * Manages all DB operations for Todos
  */
 public class TodoDao extends TaskDao {
-    public static final String NAME = TaskType.TODO.getCommand();
+    public static final String NAME = TaskType.TODO.getTaskType();
 
     /**
      * Creates a todo object from the given input string

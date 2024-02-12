@@ -7,7 +7,7 @@ import baron.dao.DeadlineDao;
 import baron.dao.EventDao;
 import baron.dao.TaskDao;
 import baron.dao.TodoDao;
-import baron.enums.Commands;
+import baron.enums.Command;
 import baron.enums.TaskType;
 import baron.models.Deadline;
 import baron.models.Event;
@@ -18,14 +18,14 @@ import baron.utils.StringUtils;
 // TODO: Stretch goal: add exceptions for marking and listing non-existent indexes
 
 /**
- * Manages response handling given user's input
+ * Manages response handling given user's input.
  */
 public class TaskManager {
 
     private final List<Task> tasks = new ArrayList<>();
 
     /**
-     * Initialises data from the different files so that it's all shown in 1 task list
+     * Initialises data from the different files so that it's all shown in 1 task list.
      */
     public TaskManager() {
         List<Todo> todos = TodoDao.getTodos();
@@ -36,22 +36,15 @@ public class TaskManager {
         tasks.addAll(events);
     }
 
-    protected static String getValue(String input) {
-        if (input.split(" ").length <= 1) {
-            throw new IllegalArgumentException("Value expected but not found");
-        }
-        return input.split(" ")[1];
-    }
-
     /**
-     * Handles user input
+     * Handles user input.
      *
      * @param input Input given by user
      */
     public String handleInput(String input) {
         try {
             input = input.trim();
-            String command = getCommand(input);
+            String command = StringUtils.getCommand(input);
             // Decided to pass the entire input instead because otherwise we would have to parse the input into
             // command and value which would not be appropriate here since it includes a list() function too
             if (command.equals(TodoDao.NAME)) {
@@ -60,18 +53,18 @@ public class TaskManager {
                 return addDeadline(input);
             } else if (command.equals(EventDao.NAME)) {
                 return addEvent(input);
-            } else if (command.equals(Commands.LIST.getCommand())) {
+            } else if (command.equals(Command.LIST.getCommand())) {
                 return UiManager.list(this.tasks);
-            } else if (command.equals(Commands.MARK.getCommand())) {
+            } else if (command.equals(Command.MARK.getCommand())) {
                 return mark(input, true);
-            } else if (command.equals(Commands.UNMARK.getCommand())) {
+            } else if (command.equals(Command.UNMARK.getCommand())) {
                 return mark(input, false);
-            } else if (command.equals(Commands.DELETE.getCommand())) {
+            } else if (command.equals(Command.DELETE.getCommand())) {
                 return delete(input);
-            } else if (command.equals(Commands.BYE.getCommand())) {
+            } else if (command.equals(Command.BYE.getCommand())) {
                 // Exits application
                 System.exit(0);
-            } else if (command.equals(Commands.FIND.getCommand())) {
+            } else if (command.equals(Command.FIND.getCommand())) {
                 return this.find(input);
             } else {
                 return "Command not recognized";
@@ -83,10 +76,7 @@ public class TaskManager {
         return "Something went wrong, please check the logs for details";
     }
 
-    protected static String getCommand(String input) {
-        return input.split(" ")[0];
-    }
-
+    // The below 3 functions help route task to the corresponding data files
     private String addTodo(String input) {
         Todo todo = TodoDao.getFrom(input);
         TaskDao.add(TodoDao.NAME, todo);
@@ -106,61 +96,79 @@ public class TaskManager {
     }
 
     private String mark(String input, boolean isDone) {
-        int taskIndex = Integer.parseInt(StringUtils.getValueOfCommand(input, Commands.MARK.getCommand(), null)) - 1;
+        int taskIndex = Integer.parseInt(StringUtils.getValueOfCommand(input, Command.MARK.getCommand(), null)) - 1;
         assert (taskIndex >= 0 && taskIndex < this.tasks.size()) : "Accessing a task that doesn't exist";
         Task task = this.get(taskIndex);
-        TaskType type = getTaskType(task.toString());
-        task = TaskDao.mark(task.getId(), type.getCommand(), task, isDone);
+        TaskType type = getTaskType(task);
+        task = TaskDao.mark(task.getId(), type.getTaskType(), task, isDone);
         return UiManager.mark(task, isDone);
     }
 
     protected String delete(String input) {
-        int i = Integer.parseInt(StringUtils.getValueOfCommand(input, Commands.DELETE.getCommand(), null)) - 1;
+        int i = Integer.parseInt(StringUtils.getValueOfCommand(input, Command.DELETE.getCommand(), null)) - 1;
         Task task = this.tasks.remove(i);
-        TaskType type = getTaskType(task.toString());
-        TaskDao.delete(type.getCommand(), task.getId());
+        TaskType type = getTaskType(task);
+        TaskDao.delete(type.getTaskType(), task.getId());
         return UiManager.delete(task, this.tasks.size());
     }
 
     /**
-     * Prints out a list of tasks that match the search term (fuzzy search)
+     * Prints out a list of tasks that match the search term (fuzzy search).
      *
      * @param input user input
      */
     private String find(String input) {
-        String term = StringUtils.getValueOfCommand(input, Commands.FIND.getCommand(), null);
+        String term = StringUtils.getValueOfCommand(input, Command.FIND.getCommand(), null);
         List<Task> filteredTasks = new ArrayList<>();
         for (int i = 0; i < this.tasks.size(); i++) {
             Task task = this.tasks.get(i);
-            if (task.getName().contains(term)) {
+            if (task.getName().toLowerCase().contains(term)) {
                 filteredTasks.add(task);
             }
         }
         return UiManager.find(filteredTasks);
     }
 
+    /**
+     * Adds a task to the task list and returns formatted output, does not actually add it to the database.
+     *
+     * @param task Task to aadd
+     * @return returns Bot response output
+     */
     protected String add(Task task) {
         tasks.add(task);
         return UiManager.add(task, tasks.size());
     }
 
+    /**
+     * Abstraction to get the task in the list.
+     * Useful for possible future if we want to change how we store our tasks in memory.
+     *
+     * @param i index of task to get
+     * @return Task object
+     */
     private Task get(int i) {
         return this.tasks.get(i);
     }
 
     /**
      * Determines type of task (todo, event) based off the command line string
-     * Very simplistic, TODO: Validate against inputs with [T[ to avoid invalid clasification
+     * and is used to determine which data file to modify
+     * Converts the task to its string representation and takes the first 3 characters of the task
+     * and thendetermines the type of task from this.
      *
-     * @param input the formatted line, e.g. [T][X} Wash dishes
+     * @param task Task to check type of, e.g. [T][X} Wash dishes
+     *              We take the string instead of task itself because
      * @return The type of task
      */
-    private TaskType getTaskType(String input) {
-        if (input.contains("[T]")) {
+    private TaskType getTaskType(Task task) {
+        String taskType = task.toString().substring(0, 3);
+        System.out.println(taskType);
+        if (taskType.equals("[T]")) {
             return TaskType.TODO;
-        } else if (input.contains("[D]")) {
+        } else if (taskType.equals("[D]")) {
             return TaskType.DEADLINE;
-        } else if (input.contains("[E]")) {
+        } else if (taskType.equals("[E]")) {
             return TaskType.EVENT;
         }
         return null;

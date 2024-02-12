@@ -58,6 +58,9 @@ public class UiManager {
      */
     public static String find(List<Task> tasks) {
         StringBuilder sb = new StringBuilder();
+        if (tasks.size() == 0) {
+            return formatOutput("No tasks found. Maybe try another term, peasant.");
+        }
         sb.append("Here are the matching tasks in your list:");
         sb.append("\n");
         for (int i = 0; i < tasks.size(); i++) {

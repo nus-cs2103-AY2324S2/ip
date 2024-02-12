@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Manages parsing and formatting of dates
+ * Manages parsing and formatting of dates.
  */
 public class DateUtils {
 
@@ -14,7 +14,8 @@ public class DateUtils {
     public static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("d/MM/yyyy, ha");
 
     /**
-     * Parses String and outputs a local datetime
+     * Parses String and outputs a local datetime.
+     *
      * @param dateString Takes in a datetime string with a format of d/M/yyy HHmm, e.g. 6/10/1999 2100
      * @return the parsed local datetime
      * @throws Exception when an invalid date string was given
@@ -30,7 +31,7 @@ public class DateUtils {
 
     /**
      * Formats date to specified format of 9/12/1999, 4PM. Used for human friendly date strings mainly.
-     * Dates are stored in a different format
+     * Dates are stored in a different format.
      *
      * @param dateTime date time to format to string
      * @return returns in format of d/MM/yyyy, ha (e.g. /12/1999, 4PM)
