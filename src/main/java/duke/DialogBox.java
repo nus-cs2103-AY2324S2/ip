@@ -18,8 +18,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
- * An example of a custom control using FXML.
- * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
+ * Represents a custom control using FXML, representing a dialog box.
+ * This control consists of an ImageView to represent the speaker's face and a label
  * containing text from the speaker.
  */
 public class DialogBox extends HBox {
@@ -28,6 +28,13 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Constructs a DialogBox with the specified text, image, and speaker type.
+     *
+     * @param text   The text content of the dialog.
+     * @param img    The image to be displayed.
+     * @param isUser A boolean indicating if the speaker is the user.
+     */
     private DialogBox(String text, Image img, boolean isUser) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -49,15 +56,27 @@ public class DialogBox extends HBox {
 
         dialog.setStyle("-fx-background-color: #efe6dc; "
                 + "-fx-background-radius: 10; "
-                + "-fx-padding: 10px; "
-                + "-fx-background-insets: 0;");
-
+                + "-fx-padding: 10px; ");
     }
 
+    /**
+     * Creates and returns a DialogBox representing a user message.
+     *
+     * @param text The text content of the user message.
+     * @param img The image to be displayed in the user's dialog box.
+     * @return A DialogBox instance representing the user message.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img, true);
     }
 
+    /**
+     * Creates and returns a DialogBox representing a message from the chatbot.
+     *
+     * @param text The text content of the chatbot message.
+     * @param img The image to be displayed in the chatbot's dialog box.
+     * @return A DialogBox instance representing the chatbot message.
+     */
     public static DialogBox getCookieDialog(String text, Image img) {
         var db = new DialogBox(text, img, false);
         return db;

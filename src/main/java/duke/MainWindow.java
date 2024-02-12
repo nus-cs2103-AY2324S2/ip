@@ -25,6 +25,10 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/sender.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/cookie.png"));
 
+    /**
+     * Initializes the controller after its root element has been completely processed.
+     * Sets up scrolling functionality for the dialog container and displays the initial welcome message.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -34,13 +38,20 @@ public class MainWindow extends AnchorPane {
 
     }
 
+    /**
+     * Sets the Duke instance associated with this MainWindow.
+     *
+     * @param d The Duke instance to be set.
+     */
     public void setDuke(Duke d) {
         duke = d;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Handles user input by processing it and displaying appropriate responses from Duke.
+     * Clears the user input field after processing.
+     *
+     * @throws DukeException If an error occurs during the Duke's response processing.
      */
     @FXML
     private void handleUserInput() throws DukeException {

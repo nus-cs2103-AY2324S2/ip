@@ -13,7 +13,6 @@ public class Duke {
     private Ui ui;
     private Storage storage;
     private TaskList tasks;
-
     protected boolean isExit = false;
 
     /**
@@ -27,8 +26,16 @@ public class Duke {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Processes the user input and generates a response.
+     *
+     * This method parses the user input, executes the corresponding command,
+     * and generates a response message based on the command execution.
+     * If the command indicates that the program should exit, it sets the {@code isExit}
+     * flag accordingly.
+     *
+     * @param input The user input to be processed.
+     * @return The response message generated based on the user input and command execution.
+     * @throws DukeException If an error occurs during command parsing or execution.
      */
     public String getResponse(String input) throws DukeException {
         try {
@@ -45,7 +52,7 @@ public class Duke {
      * Runs the Duke application.
      */
     public void run() {
-        ui.showWelcomeMessage();
+        System.out.println(ui.showWelcomeMessage());
     }
 
     /**

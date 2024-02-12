@@ -5,9 +5,18 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+/**
+ * Represents a command to mark a task as done in the task list.
+ */
 public class MarkCommand extends Command {
     int taskNum;
 
+    /**
+     * Constructs a MarkCommand with the specified input and task number.
+     *
+     * @param input    The input string associated with the command.
+     * @param taskNum  The number of the task to mark as done.
+     */
     public MarkCommand(String input, int taskNum) {
         super(input);
         this.taskNum = taskNum;

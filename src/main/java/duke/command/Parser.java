@@ -7,25 +7,23 @@ import duke.ui.Ui;
 import java.time.LocalDate;
 
 /**
- * The Parser class is responsible for parsing user input commands and it returns an array of
- * objects based on the command type. This returned array contains the relevant fields for the
- * particular command type and can be accessed to determine what is to be executed next.
+ * The Parser class is responsible for parsing user input commands and returning the appropriate Command object.
+ * It parses user commands and returns Command objects based on the command type and input parameters.
  */
 public class Parser {
 
     /**
-     * Parses the user input of String format and returns an array of Objects based on
-     * the command type.
+     * Parses the user input command and returns the corresponding Command object.
      *
      * @param input The user input command to be parsed.
-     * @return An array of Objects corresponding to the parsed command.
+     * @return A Command object representing the parsed command.
      * @throws DukeException If the input command is invalid or cannot be parsed.
      */
     public static Command parseCommand(String input) throws DukeException {
-        if (input.equals("bye")) {
+        if (input.trim().equals("bye")) {
             return new ByeCommand("bye");
 
-        } else if (input.equals("list")) {
+        } else if (input.trim().equals("list")) {
             return new ListCommand("list");
 
         } else if (input.startsWith("todo")) {
@@ -56,7 +54,6 @@ public class Parser {
         if (description.isEmpty()) {
             throw new DukeException("UH OH! Description for todo cannot be empty!");
         }
-        String[] todo = { "todo", "description" };
         return new TodoCommand("todo", description);
     }
 
