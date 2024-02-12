@@ -32,7 +32,6 @@ public class AddCommand implements Command {
         try {
             Task newTask = TaskFactory.createTask(userInput);
 
-            // Assert that newTask is not null after creation
             assert newTask != null : "Failed to create new task";
 
             // Check if the task description is null
@@ -51,10 +50,8 @@ public class AddCommand implements Command {
 
             return resultMessage;
         } catch (AssertionError e) {
-            // Handle assertion error
             throw new DukeException(e.getMessage());
         } catch (IOException e) {
-            // Handle or log the IOException as needed
             ui.showIoExceptionMessage();
             return "Error saving or loading tasks. Please check the file.";
         }
