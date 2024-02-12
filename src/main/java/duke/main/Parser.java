@@ -30,7 +30,7 @@ public class Parser {
      * @param input                   Takes in user input as a String
      * @throws UnknownInputException  Throws exception if input is in list of recognised commands
      */
-    public void parse(String input) throws UnknownInputException {
+    public String parse(String input) throws UnknownInputException {
         int taskEnd = input.indexOf(" ");
         String commandType = taskEnd > 0 ? input.substring(0, taskEnd) : "list";
         try {
@@ -40,64 +40,53 @@ public class Parser {
             switch (type) {
             case todo:
                 this.taskList.add(new ToDo(details));
-                this.ui.printOnAdd();
-                break;
+                return this.ui.printOnAdd();
             case deadline:
                 String[] d = details.split("/by ");
                 try {
                     this.taskList.add(new Deadline(d[0], d[1]));
                 } catch (DateFormatException dFE) {
-                    this.ui.printException(dFE);
+                    return this.ui.printException(dFE);
                 }
-                this.ui.printOnAdd();
-                break;
+                return this.ui.printOnAdd();
             case event:
                 String[] v1 = details.split("/from ");
                 String[] v2 = v1[1].split("/to ");
                 try {
                     this.taskList.add(new Event(v1[0], v2[0], v2[1]));
                 } catch (ArrayIndexOutOfBoundsException | DateFormatException formatException) {
-                    this.ui.printException(formatException);
+                    return this.ui.printException(formatException);
                 }
-                this.ui.printOnAdd();
-                break;
+                return this.ui.printOnAdd();
             case delete:
                 int deleteIndex = Integer.parseInt(details) - 1;
-                this.ui.printOnDelete(deleteIndex);
-                this.taskList.remove(deleteIndex);
-                this.ui.printTotal();
                 try {
                     this.ui.printOnDelete(deleteIndex);
                     this.taskList.remove(deleteIndex);
-                    this.ui.printTotal();
+                    return this.ui.printTotal();
                 } catch (ArrayIndexOutOfBoundsException arrIndexEx) {
                     throw new InvalidIndexException();
                 }
-                break;
             case mark:
                 int markIndex = Integer.parseInt(details) - 1;
                 try {
                     this.taskList.mark(markIndex);
-                    this.ui.printOnMark(markIndex);
+                    return this.ui.printOnMark(markIndex);
                 } catch (ArrayIndexOutOfBoundsException arrEx) {
                     throw new InvalidIndexException();
                 }
-                break;
             case unmark:
                 int unmarkIndex = Integer.parseInt(details) - 1;
                 try {
                     this.taskList.unmark(unmarkIndex);
-                    this.ui.printOnUnmark(unmarkIndex);
+                    return this.ui.printOnUnmark(unmarkIndex);
                 } catch (ArrayIndexOutOfBoundsException arrException) {
                     throw new InvalidIndexException();
                 }
-                break;
             case find:
-                this.ui.printOnFind(taskList.find(details));
-                break;
+                return this.ui.printOnFind(taskList.find(details));
             case list:
-                this.ui.printList(taskList);
-                break;
+                return this.ui.printList(taskList);
             default:
                 throw new UnknownInputException();
             }
