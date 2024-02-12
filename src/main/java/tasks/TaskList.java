@@ -1,8 +1,9 @@
 package tasks;
 
+import java.util.ArrayList;
+
 import exceptions.DukeException;
 
-import java.util.ArrayList;
 
 /**
  * Represents a list of tasks in the task management application.
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 public class TaskList {
 
 
-    private ArrayList<Task> taskList;// The list of tasks
+    private ArrayList<Task> taskList; // The list of tasks
 
     /**
      * Constructs a TaskList with the specified list of tasks.
@@ -41,7 +42,7 @@ public class TaskList {
         }
         String output = "";
         for (int i = 0; i < taskList.size(); i++) {
-            output += (i+1)+". "+taskList.get(i) + "\n";
+            output += (i + 1) + ". " + taskList.get(i) + "\n";
         }
         return output;
     }
@@ -116,7 +117,7 @@ public class TaskList {
                     task = new Deadline(inputs[0].trim(), inputs[1].trim());
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new DukeException("Deadlines need a deadline, yapper!");
-                } catch (StringIndexOutOfBoundsException e ) {
+                } catch (StringIndexOutOfBoundsException e) {
                     throw new DukeException("Whats the task, yapper???");
                 }
                 break;
@@ -143,6 +144,15 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Filters the current list of tasks, returning a new TaskList that contains only tasks
+     * whose descriptions contain the specified query string.
+     *
+     * @param queryString The string to search for within each task's description. The method
+     *                    performs a case-sensitive search.
+     * @return A new TaskList containing only the tasks that have the queryString in their
+     *         description. If no tasks match the criteria, an empty TaskList is returned.
+     */
     public TaskList filter(String queryString) {
         ArrayList<Task> newList = new ArrayList<>();
         for (Task task : this.taskList) {

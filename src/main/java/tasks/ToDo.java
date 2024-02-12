@@ -1,6 +1,6 @@
 package tasks;
 
-/*
+/**
  * Represents a to-do task.
  * A to-do is a task without any date/time associated with it.
  */

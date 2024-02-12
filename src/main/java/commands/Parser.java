@@ -2,6 +2,18 @@ package commands;
 
 import exceptions.DukeException;
 
+/**
+ * The {@code Parser} class is responsible for interpreting user input messages and converting them into
+ * command actions that the application can execute. It serves as a crucial component in the user command
+ * processing pipeline, mapping specific keywords or phrases to their corresponding command types.
+ *
+ * <p>The parser checks the input message against a predefined set of command patterns and, upon finding a match,
+ * returns the corresponding command type. If the input does not correspond to any recognized command pattern,
+ * the parser throws a {@link DukeException} to indicate the ambiguity or invalidity of the user's instruction.
+ *
+ * <p>This class is essential for enabling user interaction with the application by providing a way to understand
+ * and act upon user commands.
+ */
 public class Parser {
 
     /**

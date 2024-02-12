@@ -1,10 +1,9 @@
 package commands;
 
-import ui.Ui;
 import main.Storage;
-
 import tasks.Task;
 import tasks.TaskList;
+import ui.Ui;
 
 /**
  * Defines the set of commands that can be executed within the Duke application.
@@ -118,8 +117,7 @@ public enum Command {
             TaskList tempTaskList = tasks.filter(queryString);
             return tempTaskList.yapTasks();
         }
-    }
-    ;
+    };
 
 
     /**
