@@ -108,7 +108,7 @@ public class TaskList {
     /**
      * Prints out the tasks within a Task List to the user.
      */
-    public String list() {
+    public String list(List<Task> tasks) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
@@ -143,5 +143,16 @@ public class TaskList {
         // assuming that byDate is in yyyy-mm-dd
         String[] dateArr = dateStr.split("-");
         return LocalDate.of(Integer.parseInt(dateArr[0]), Integer.parseInt(dateArr[1]), Integer.parseInt(dateArr[2]));
+    }
+
+    /**
+     * Sorts the list in accordance to lexicographical order for each task's description.
+     *
+     * @return String representation of a sorted task list.
+     */
+    public String sort() {
+        List<Task> unsortedList = this.tasks;
+        unsortedList.sort((x, y) -> x.getDescription().compareTo(y.getDescription()));
+        return this.list(unsortedList);
     }
 }
