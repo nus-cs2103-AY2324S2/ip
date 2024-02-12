@@ -24,8 +24,8 @@ public class MainWindow extends AnchorPane {
 
     private Scribbles scribbles;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/cloud_bear_icon.png"));
-    private Image scribblesImage = new Image(this.getClass().getResourceAsStream("/images/doughnut_bear_icon.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private Image scribblesImage = new Image(this.getClass().getResourceAsStream("/images/scribbles.png"));
 
     @FXML
     public void initialize() {

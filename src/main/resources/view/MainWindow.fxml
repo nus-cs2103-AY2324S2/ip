@@ -8,21 +8,21 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scribbles.gui.MainWindow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scribbles.gui.MainWindow">
     <children>
-        <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="324.0" promptText="type 'help' for user guide." AnchorPane.bottomAnchor="1.0">
+        <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="400.0" promptText="type 'help' for user guide." AnchorPane.bottomAnchor="1.0">
          <font>
-            <Font name="Danielleescribbles Regular" size="18.0" />
+            <Font name="Andale Mono" size="11.0" />
          </font></TextField>
-        <Button fx:id="sendButton" contentDisplay="CENTER" layoutX="324.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="enter">
+        <Button fx:id="sendButton" contentDisplay="CENTER" layoutX="400.0" layoutY="658.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="100.0" text="enter">
          <font>
             <Font name="Danielleescribbles Regular" size="18.0" />
          </font></Button>
-        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="557.0" prefWidth="400.0" vvalue="1.0">
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="658.0" prefWidth="500.0" vvalue="1.0">
             <content>
-                <VBox fx:id="dialogContainer" prefHeight="552.0" prefWidth="388.0">
+                <VBox fx:id="dialogContainer" prefHeight="659.0" prefWidth="484.0">
                <padding>
-                  <Insets bottom="0.1" left="0.1" right="0.1" top="0.1" />
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding></VBox>
             </content>
         </ScrollPane>

@@ -7,11 +7,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="126.0" prefWidth="450.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <HBox>
-            <VBox>
-                <Label fx:id="nameLabel" text="You" wrapText="true">
+            <VBox alignment="TOP_RIGHT">
+                <Label fx:id="nameLabel" text="You" textAlignment="RIGHT" wrapText="true">
                     <font>
                         <Font name="Danielleescribbles Regular" size="18.0" />
                     </font>
@@ -23,7 +23,7 @@
             </Label>
             </VBox>
         </HBox>
-         <ImageView fx:id="displayPicture" fitHeight="66.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" />
+         <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />
     </children>
     <padding>
         <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
