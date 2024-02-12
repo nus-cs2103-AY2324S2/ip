@@ -77,18 +77,6 @@ public class DeadlineCommand extends Command {
     }
 
     /**
-     * Checks if a deadline description is provided.
-     *
-     * @throws InvalidArgumentException If the deadline description is empty.
-     */
-    private void checkDescriptionNotEmpty() throws EmptyDescriptionException {
-        int byIndex = this.argsList.indexOf("/by");
-        if (this.argsList.size() == 1 || byIndex == 1) {
-            throw new EmptyDescriptionException("Deadline description cannot be empty!\n" + USAGE_HINT);
-        }
-    }
-
-    /**
      * Checks if a deadline is provided after the "/by" argument.
      *
      * @throws InvalidArgumentException If the deadline is not provided.
