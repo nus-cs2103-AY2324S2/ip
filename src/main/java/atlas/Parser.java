@@ -31,6 +31,7 @@ public class Parser {
      */
     public static Command parse(String input, TaskList tasks, Ui ui, Storage storage) throws AtlasException {
         String[] parts = input.split(" ", 2);
+        assert parts.length > 0 : "Input command should not be empty";
         String command = parts[0];
         String details = parts.length > 1 ? parts[1] : null;
 
@@ -107,6 +108,7 @@ public class Parser {
         switch (type) {
         case "T":
             ToDo todo = new ToDo(description);
+            assert todo != null : "Task object should not be null";
             if (isDone) {
                 todo.toggle();
             }
@@ -114,7 +116,9 @@ public class Parser {
         case "D":
             try {
                 LocalDateTime by = LocalDateTime.parse(parts[3].trim());
+                assert by != null : "by should not be null";
                 Deadline deadline = new Deadline(description, by);
+                assert deadline != null : "Task object should not be null";
                 if (isDone) {
                     deadline.toggle();
                 }
@@ -126,8 +130,11 @@ public class Parser {
         case "E":
             try {
                 LocalDateTime start = LocalDateTime.parse(parts[3].trim());
+                assert start != null : "start should not be null";
                 LocalDateTime end = LocalDateTime.parse(parts[4].trim());
+                assert end != null : "end should not be null";
                 Event event = new Event(description, start, end);
+                assert event != null : "Task object should not be null";
                 if (isDone) {
                     event.toggle();
                 }
