@@ -1,13 +1,18 @@
 package asher;
 
-import asher.Commands.Parser;
-import asher.Commands.Storage;
-import asher.Tasks.TaskList;
-import asher.Ui.Ui;
-import java.util.Scanner;
-
 public class Asher {
-    private final Ui ui;
+    public Asher() {
+    }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        return "Asher heard: " + input;
+    }
+
+    /*private final Ui ui;
     private final Storage storage;
     private final TaskList tasks;
     private final Parser parser;
@@ -37,10 +42,5 @@ public class Asher {
         }
         storage.writeToFile(tasks);
         ui.showExitMessage();
-    }
-
-    public static void main(String[] args) {
-        String dataFile = "./taskLists.txt";
-        new Asher(dataFile).run();
-    }
+    }*/
 }
