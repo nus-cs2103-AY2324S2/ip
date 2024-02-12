@@ -13,7 +13,6 @@ import javafx.stage.Stage;
  * A GUI for Duchess using FXML.
  */
 public class Main extends Application {
-
     private Duchess duchess = new Duchess();
 
     @Override
