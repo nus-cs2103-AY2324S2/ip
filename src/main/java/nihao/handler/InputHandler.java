@@ -3,6 +3,7 @@ package nihao.handler;
 import nihao.action.Action;
 import nihao.action.DeleteAction;
 import nihao.action.ExitAction;
+import nihao.action.FindAction;
 import nihao.action.ListAction;
 import nihao.action.MarkAction;
 import nihao.action.TaskAction;
@@ -52,6 +53,11 @@ public class InputHandler {
                 throw new IllegalArgumentException("delete", 1);
             }
             return new DeleteAction(parsedInput[1]);
+        case FIND:
+            if (parsedInput.length != 2) {
+                throw new IllegalArgumentException("find", 1);
+            }
+            return new FindAction(parsedInput[1]);
         case TODO:
             if (parsedInput.length < 2) {
                 throw new IllegalArgumentException("todo requires at least 1 argument");

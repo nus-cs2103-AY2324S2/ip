@@ -23,6 +23,13 @@ public class Task {
     }
 
     /**
+     * Returns if task name contains a given substring.
+     */
+    public boolean contains(String str) {
+        return taskName.contains(str);
+    }
+
+    /**
      * Returns the String representation of the task.
      */
     @Override

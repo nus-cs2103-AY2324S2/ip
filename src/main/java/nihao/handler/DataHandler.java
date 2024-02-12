@@ -15,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * Manages all actions related to accessing runtime data and local data storage.
@@ -164,5 +165,18 @@ public class DataHandler {
             throw new IndexOutOfBoundsException(index, size());
         }
         return tasks.get(index - 1);
+    }
+
+    /**
+     * Returns an ArrayList of Tasks that contain the given keyword in their task names.
+     */
+    public static ArrayList<Task> findTasks(String keyword) {
+        ArrayList<Task> returnList = new ArrayList<>();
+        tasks.stream().forEach(e -> {
+            if (e.contains(keyword)) {
+                returnList.add(e);
+            }
+        });
+        return returnList;
     }
 }
