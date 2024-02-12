@@ -78,10 +78,10 @@ public class Parser {
      * @throws DukeException If the command is in an invalid format.
      */
     public int parseDelete() throws DukeException {
-        String[] part = command.split(" ");
+        String[] parts = command.split(" ");
 
-        if (part.length == 2) {
-            String index = part[1].trim();
+        if (parts.length == 2) {
+            String index = parts[1].trim();
 
             try {
                 return Integer.parseInt(index) - 1;
@@ -154,8 +154,8 @@ public class Parser {
                 return new Event(description, from, to);
             }
         }
-        throw new DukeException("Invalid format. Please use 'event <description> /from <datetime> /to <datetime>'.\n" +
-                " Datetime format: <yyyy-MM-dd HH:mm>.");
+        throw new DukeException("Invalid format. Please use 'event <description> /from <datetime> /to <datetime>'.\n"
+                + " Datetime format: <yyyy-MM-dd HH:mm>.");
     }
 
     /**
@@ -189,8 +189,8 @@ public class Parser {
             String by = input.substring(byIndex + 4).trim();
             return new Deadline(description, by);
         } else {
-            throw new DukeException("Invalid format. Please use 'deadline <description> /by <datetime>'.\n" +
-                    " Datetime format: <yyyy-MM-dd HH:mm>.");
+            throw new DukeException("Invalid format. Please use 'deadline <description> /by <datetime>'.\n"
+                    + " Datetime format: <yyyy-MM-dd HH:mm>.");
         }
     }
 }
