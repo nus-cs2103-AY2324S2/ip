@@ -57,6 +57,12 @@ public class Parser {
             }
             int index = Integer.parseInt(input[1]);
             return new DeleteCommand(index);
+        } else if (command.equals("find")) {
+            if (input.length < 2) {
+                throw new EmptyNameException();
+            }
+            String name = line.split(" ", 2)[1];
+            return new FindCommand(name);
         } else {
             throw new UndefinedActionException();
         }
