@@ -19,7 +19,7 @@ public class Parser {
         switch (filteredInput.toLowerCase()) {
         case "bye":
             ResponseHandler.appendLineToResponse("Bye. Gonna go back to sleep now *yawn*");
-            return new String[]{ filteredInput };
+            return new String[]{ "bye" };
         case "mark":
             // Fallthrough
         case "unmark":
