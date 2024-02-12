@@ -9,6 +9,7 @@ public class Task {
 
     protected String description;
     protected boolean isDone = false;
+    protected boolean isArchived = false;
 
     protected String uuid;
 
@@ -41,13 +42,22 @@ public class Task {
         return this;
     }
 
+    public void archiveTask() {
+        this.isArchived = true;
+    }
+
+    public Task setIsArchived(String archivedFlag) {
+        isArchived = archivedFlag.equals("true");
+        return this;
+    }
+
     @Override
     public String toString() {
         return description;
     }
 
     public String toSavableFormat() {
-        return uuid + "|T|" + description + "|" + isDone;
+        return isArchived + "|" + uuid + "|T|" + description + "|" + isDone;
     }
 
     public String getStatus() {

@@ -78,7 +78,7 @@ public class Deadline extends Task {
 
     @Override
     public String toSavableFormat() {
-        return uuid + "|D|" + description + "|" + isDone + "|" + deadline;
+        return isArchived + "|" + uuid + "|D|" + description + "|" + isDone + "|" + deadline;
     }
 
     @Override

@@ -16,6 +16,7 @@ public class BobUI {
     public String getTaskListText(boolean summarized, ArrayList<Task> list) {
 
         String listTexts = "";
+        int archivedCount = 0;
 
         if (!summarized) {
 
@@ -23,6 +24,9 @@ public class BobUI {
 
             for (int i = 0; i < list.size(); i++) {
                 Task task = list.get(i);
+                if (task.isArchived) {
+                    continue;
+                }
                 listTexts += (i + 1) + "." + task.getType()
                         + task.getStatus() + " " + task + "\r\n";
             }
@@ -105,5 +109,9 @@ public class BobUI {
 
         return "You have successfully sorted the "
                 + "list by descending description order.";
+    }
+
+    public String getArchivedMessage() {
+        return "Your task has been archived.";
     }
 }

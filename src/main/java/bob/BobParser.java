@@ -16,6 +16,7 @@ public class BobParser {
     public static final String DELETE_COMMAND = "delete";
     public static final String FIND_COMMAND = "find";
     public static final String SORT_COMMAND = "sort";
+    public static final String ARCHIVE_COMMAND = "archive";
 
     private BobUI ui;
     private BobTaskList taskList;
@@ -59,11 +60,16 @@ public class BobParser {
             case BobParser.SORT_COMMAND:
                 return taskList.handleSortTasks(input)
                         + " " + ui.getTaskListText(false, taskList.getList());
+            case BobParser.ARCHIVE_COMMAND:
+                return taskList.handleArchiveTask(input)
+                        + " " + ui.getTaskListText(false, taskList.getList());
             default:
                 throw new BobException.InvalidCommand(BobErrorMessages.UNKNOWN_COMMAND);
             }
         } catch (BobException e) {
             return ui.getErrorText(e);
+        } catch (IndexOutOfBoundsException e) {
+            return BobErrorMessages.INVALID_COMMAND_USAGE;
         }
     }
 }

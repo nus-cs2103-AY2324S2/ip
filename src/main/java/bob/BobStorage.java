@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Handles the saving of user tasks.
@@ -85,6 +86,7 @@ public class BobStorage {
 
             boolean isValidTaskType;
             boolean isValidTaskStatus;
+            boolean isValidArchiveStatus;
 
             boolean isInvalidTodoFormat;
             boolean isInvalidEventFormat;
@@ -93,12 +95,13 @@ public class BobStorage {
             while ((line = br.readLine()) != null) {
 
                 String[] properties = line.split("\\|");
-                String taskType = properties[1];
+                String taskType = properties[2];
 
                 isInvalidFile = properties.length < 4;
 
                 isValidTaskType = taskType.equals("T") || taskType.equals("E") || taskType.equals("D");
-                isValidTaskStatus = properties[3].equals("false") || properties[3].equals("true");
+                isValidTaskStatus = properties[4].equals("false") || properties[4].equals("true");
+                isValidArchiveStatus = properties[0].equals("false") || properties[0].equals("true");
 
                 isInvalidTodoFormat = taskType.equals("T") && properties.length < 4;
                 isInvalidEventFormat = taskType.equals("E") && properties.length < 6;
@@ -108,7 +111,8 @@ public class BobStorage {
                         || isInvalidEventFormat
                         || isInvalidDeadlineFormat;
 
-                if (!isValidTaskType || !isValidTaskStatus || isInvalidTaskFormat) {
+                if (!isValidTaskType || !isValidTaskStatus || isInvalidTaskFormat
+                        || !isValidArchiveStatus) {
                     isInvalidFile = true;
                 }
 
@@ -119,19 +123,22 @@ public class BobStorage {
 
                 switch (taskType) {
                 case "E":
-                    addItem(new Event(properties[2], properties[4], properties[5])
-                            .setUuid(properties[0])
-                            .updateStatus(properties[3].equals("true")), savedTasks);
+                    addItem(new Event(properties[3], properties[5], properties[6])
+                            .setUuid(properties[1])
+                            .updateStatus(properties[4].equals("true")), savedTasks)
+                            .setIsArchived(properties[0]);
                     break;
                 case "D":
-                    addItem(new Deadline(properties[2], properties[4])
-                            .setUuid(properties[0])
-                            .updateStatus(properties[3].equals("true")), savedTasks);
+                    addItem(new Deadline(properties[3], properties[5])
+                            .setUuid(properties[1])
+                            .updateStatus(properties[4].equals("true")), savedTasks)
+                            .setIsArchived(properties[0]);
                     break;
                 default:
-                    addItem(new Task(properties[2])
-                            .setUuid(properties[0])
-                            .updateStatus(properties[3].equals("true")), savedTasks);
+                    addItem(new Task(properties[3])
+                            .setUuid(properties[1])
+                            .updateStatus(properties[4].equals("true")), savedTasks)
+                            .setIsArchived(properties[0]);
                     break;
                 }
             }

@@ -61,7 +61,7 @@ public class BobTaskList {
      *
      * @param input User input when calling the command.
      */
-    public String handleTaskMarking(String input) throws BobException {
+    public String handleTaskMarking(String input) throws BobException, IndexOutOfBoundsException {
 
         String[] args = input.split("\\s+");
         int taskId = Integer.parseInt(args[1]) - 1;
@@ -147,8 +147,6 @@ public class BobTaskList {
         // Remove the command itself from the input.
         input = input.substring(BobParser.DEADLINE_COMMAND.length() + 1);
 
-        System.out.println(input);
-
         String[] split = input.split("/by");
         boolean hasInsufficientArgs = split.length < 2;
 
@@ -191,7 +189,7 @@ public class BobTaskList {
      *
      * @param input User input when calling the command.
      */
-    public String handleTaskDeletion(String input) throws BobException {
+    public String handleTaskDeletion(String input) throws BobException, IndexOutOfBoundsException {
 
         String[] args = input.split("\\s+");
         int taskId = Integer.parseInt(args[1]) - 1;
@@ -268,5 +266,24 @@ public class BobTaskList {
         }
 
         return ui.getSortedMessage(isSortByAscending);
+    }
+
+    public String handleArchiveTask(String input) throws BobException, IndexOutOfBoundsException {
+
+        String[] args = input.split("\\s+");
+        int taskId = Integer.parseInt(args[1]) - 1;
+
+        boolean isMissingTaskId = args.length < 2;
+        boolean isInvalidTaskId = !(taskId < list.size()) || taskId < 0;
+
+        if (isMissingTaskId || isInvalidTaskId) {
+            throw new BobException(
+                    BobErrorMessages.getValidTaskIdMessage(args[0]));
+        }
+
+        list.get(taskId).archiveTask();
+        storage.updateTaskList(list);
+
+        return ui.getArchivedMessage();
     }
 }

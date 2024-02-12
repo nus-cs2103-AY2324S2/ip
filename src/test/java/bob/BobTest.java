@@ -11,7 +11,7 @@ public class BobTest {
     public void todoTask_todoCreation_correctSaveFormat(){
         try {
             Task t = new Task("Homework");
-            assertEquals(t.uuid + "|T|Homework|false", t.toSavableFormat());
+            assertEquals("false|" + t.uuid + "|T|Homework|false", t.toSavableFormat());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

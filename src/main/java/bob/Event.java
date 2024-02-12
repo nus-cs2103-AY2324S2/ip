@@ -28,7 +28,7 @@ public class Event extends Task {
 
     @Override
     public String toSavableFormat() {
-        return uuid + "|E|" + description + "|" + isDone + "|" + start + "|" + end;
+        return isArchived + "|" + uuid + "|E|" + description + "|" + isDone + "|" + start + "|" + end;
     }
 
     @Override
