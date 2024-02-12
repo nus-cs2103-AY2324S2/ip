@@ -1,10 +1,7 @@
 package drake;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import drake.task.Deadline;
 import drake.task.Event;
@@ -12,17 +9,6 @@ import drake.task.Task;
 import drake.task.TaskList;
 import drake.task.Todo;
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 enum Command {
     BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID, FIND;
@@ -58,32 +44,9 @@ enum Command {
  * allows users to interact with their task list through various commands.
  */
 public class Drake {
-    private Ui ui;
-    private Storage storage;
-    private TaskList tasks;
-    private boolean isRunning;
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
-    private static final String USER_IMAGE_PATH = "/images/user.jpeg";
-    private static final String DRAKE_IMAGE_PATH = "/images/drake.jpeg";
-
-    private Image user = new Image(this.getClass().getResourceAsStream(USER_IMAGE_PATH));
-    private Image duke = new Image(this.getClass().getResourceAsStream(DRAKE_IMAGE_PATH));
-
-    /**
-     * Constructs a new instance of the Drake application.
-     *
-     * @param filePath The path to the file where tasks are stored and retrieved from.
-     */
-    public Drake(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
-        tasks = new TaskList(storage.loadTasks());
-        isRunning = true;
-    }
+    private final Ui ui;
+    private final Storage storage;
+    private final TaskList tasks;
 
     /**
      * Constructs a new instance of the Drake application.
@@ -92,7 +55,6 @@ public class Drake {
         ui = new Ui();
         storage = new Storage("./list.dat");
         tasks = new TaskList(storage.loadTasks());
-        isRunning = true;
     }
 
     /**
@@ -134,8 +96,7 @@ public class Drake {
             return ui.showError("An unexpected error occurred.");
         }
     }
-    private String handleBye() throws IOException {
-        isRunning = false;
+    private String handleBye() {
         storage.saveTasks(tasks.getTasks());
         return ui.showGoodbye();
     }
@@ -195,7 +156,7 @@ public class Drake {
         return ui.showMatchingTasks(matchingTasks);
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         Application.launch(Main.class, args);
     }
 }
