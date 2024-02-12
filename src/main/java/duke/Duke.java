@@ -48,6 +48,17 @@ public class Duke extends Application {
         commands.put(name, new Command(name, executor));
     }
 
+    /**
+     * Prints message to the chatbot GUI.
+     * @param msg the message to be printed.
+     */
+    public void print(String msg) {
+        dialogContainer.getChildren()
+                .add(DialogBox.createDukeDialog
+                        (new Label(msg), new ImageView(duke)));
+
+    }
+
     public static void main(String[] mainArgs) {
 
         Duke duke = new Duke();
@@ -57,13 +68,13 @@ public class Duke extends Application {
         try {
             duke.tasks = duke.st.loadTasks();
         } catch (DukeException e) {
-            duke.ui.print(String.format
+            duke.print(String.format
                     ("Error loading task data: %s"
                             + "\n\nPlease delete 'data.txt' and try again. Bye bye...", e.getMessage()));
             System.exit(1);
         }
 
-        duke.ui.print("Hello, my name is... Louie!!!!\n" +
+        duke.print("Hello, my name is... Louie!!!!\n" +
                    "What can I do for you today?");
         while (!duke.done) {
             String str = duke.ui.readInput();
@@ -71,7 +82,7 @@ public class Duke extends Application {
             try {
                 duke.commands.get(parser.next()).run(parser);
             } catch (DukeCommandNotFoundException | DukeOptionParsingException e) {
-                duke.ui.print("no matching command...");
+                duke.print("no matching command...");
             }
         }
     }
@@ -81,20 +92,20 @@ public class Duke extends Application {
         this.addCommand("list", (args) -> {
             try {
                 args.assertEnd();
-                ui.print("Here's what you've done today...\n" + this.tasks.toDisplayString());
+                this.print("Here's what you've done today...\n" + this.tasks.toDisplayString());
                 
             } catch (DukeOptionParsingException e) {
-                ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
+                this.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
         });
 
         this.addCommand("bye", (args) -> {
             try {
                 args.assertEnd();
-                ui.print("Ok, going to sleep...");
+                this.print("Ok, going to sleep...");
                 this.exit();
             } catch (DukeOptionParsingException e) {
-                ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
+                this.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
         });
 
@@ -122,10 +133,10 @@ public class Duke extends Application {
                 }
                 
                 t.mark();
-                ui.print("CONGRATULATION!!!!!! you completed this task:\n" + t.describe());
+                this.print("CONGRATULATION!!!!!! you completed this task:\n" + t.describe());
                 this.st.writeTasks(this.tasks);
             } catch (DukeException e) {
-                ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
+                this.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
         });
 
@@ -155,10 +166,10 @@ public class Duke extends Application {
                 }
                 
                 t.unmark();
-                ui.print("CONGRATULATION!!!!!! you un completed this task:\n" + t.describe());
+                this.print("CONGRATULATION!!!!!! you un completed this task:\n" + t.describe());
                 this.st.writeTasks(this.tasks);
             } catch (DukeException e) {
-                ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
+                this.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
         });
 
@@ -167,11 +178,11 @@ public class Duke extends Application {
             try {
                 String str = args.rest();
                 Task t = new ToDo(str);
-                ui.print(String.format("Ok, I've added a new todo...\n  %s", t.describe()));
+                this.print(String.format("Ok, I've added a new todo...\n  %s", t.describe()));
                 this.tasks.add(t);
                 this.st.writeTasks(this.tasks);
             } catch (DukeException e) {
-                ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
+                this.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
         });
 
@@ -225,11 +236,11 @@ public class Duke extends Application {
                     throw new DukeException("Couldn't parse the end date " + by);
                 }
                 
-                ui.print(String.format("Ok, I've added a new deadline...\n  %s", t.describe()));
+                this.print(String.format("Ok, I've added a new deadline...\n  %s", t.describe()));
                 this.tasks.add(t);
                 this.st.writeTasks(this.tasks);
             } catch (DukeException e) {
-                ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
+                this.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
             
             
@@ -309,11 +320,11 @@ public class Duke extends Application {
                             ("Couldn't parse the start/end date %s/%s", from, to));
                 }
 
-                ui.print(String.format("Ok, I've added a new event...\n  %s", t.describe()));
+                this.print(String.format("Ok, I've added a new event...\n  %s", t.describe()));
                 this.tasks.add(t);
                 this.st.writeTasks(this.tasks);
             } catch (DukeException e) {
-                ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
+                this.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
         });
 
@@ -342,21 +353,21 @@ public class Duke extends Application {
                             (String.format("You tried to access an invalid task index: %d", index));
                 }
                 this.tasks.remove(index);
-                ui.print("I'm deleting this task. bye...\n" + t.describe());
+                this.print("I'm deleting this task. bye...\n" + t.describe());
                 this.st.writeTasks(this.tasks);
             } catch (DukeException e) {
-                ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
+                this.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
         });
 
         this.addCommand("find", (psr) -> {
             try {
                 String toFind = psr.rest();
-                ui.print(String.format("I found the following tasks with names that match '%s':\n%s", 
+                this.print(String.format("I found the following tasks with names that match '%s':\n%s", 
                         toFind, 
                         this.tasks.filterSubString(toFind)));
             } catch (DukeOptionParsingException e) {
-                ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
+                this.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
         });
     }
@@ -425,6 +436,15 @@ public class Duke extends Application {
         });
 
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+
+        try {
+            this.tasks = this.st.loadTasks();
+        } catch (DukeException e) {
+            this.print(String.format
+                    ("Error loading task data: %s"
+                            + "\n\nPlease delete 'data.txt' and try again. Bye bye...", e.getMessage()));
+            System.exit(1);
+        }
         
         this.initCommands();
     }
@@ -444,7 +464,7 @@ public class Duke extends Application {
         try {
             this.commands.get(parser.next()).run(parser);
         } catch (DukeCommandNotFoundException | DukeOptionParsingException e) {
-            this.ui.print("no matching command...");
+            this.print("no matching command...");
         }
     }
 }
