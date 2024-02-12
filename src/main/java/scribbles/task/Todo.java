@@ -1,4 +1,4 @@
-package task;
+package scribbles.task;
 
 /**
  * This class represents a to-do task.

@@ -1,4 +1,4 @@
-package parser;
+package scribbles.parser;
 
 import org.junit.jupiter.api.Test;
 
