@@ -24,10 +24,10 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     private Jayne jayne;
     private boolean isEnd = false;
-    @FXML
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/SnowieeCrop.png"));
-    @FXML
-    private Image jayneImage = new Image(this.getClass().getResourceAsStream("/images/Jayne.png"));
+    private Image userImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/Images/SnowieeCrop.png")));
+    private Image jayneImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/Images/Jayne.png")));
     /**
      * Initializes the UI components for the application. This method binds the scroll pane's
      * vertical scroll property to the dialog container's height to ensure automatic scrolling
@@ -61,7 +61,7 @@ public class MainWindow extends AnchorPane {
         );
         if (Objects.equals(response, "Hey, Snowieeee, Go to sleep ok, stop bullying Slurpee")) {
             this.isEnd = true;
-            PauseTransition pause = new PauseTransition(Duration.seconds(1));
+            PauseTransition pause = new PauseTransition(Duration.seconds(2));
             pause.setOnFinished(event -> {
                 Stage stage = (Stage) userInput.getScene().getWindow();
                 stage.close();
