@@ -41,10 +41,13 @@ public class Storage {
                 String response = "";
                 response += myObj.getName() + " not found";
                 response += "\nFile created: " + myObj.getName() + "\n";
+              
                 fileIsOpen = true;
+              
                 throw new DuchessException(response);
             } else {
                 Scanner myReader = new Scanner(myObj);
+
                 while (myReader.hasNextLine()) {
                     String data = myReader.nextLine();
 
@@ -59,31 +62,37 @@ public class Storage {
 
                     if (type.equals("T")) {
                         Task task = new ToDo(description);
+
                         if (isDone.equals("X")) {
                             task.markAsDone();
                         }
+
                         list.add(task);
-                    }
-                    else if (type.equals("D")) {
+                    } else if (type.equals("D")) {
                         String[] descriptionArray = description.split(" \\(by: ");
                         String name = descriptionArray[0];
                         String by = LocalDate.parse(descriptionArray[1].substring(0, descriptionArray[1].length() - 1), DateTimeFormatter.ofPattern("MMM dd yyyy")).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
                         Task task = new Deadline(name, by);
+
                         if (isDone.equals("X")) {
                             task.markAsDone();
                         }
+
                         list.add(task);
-                    }
-                    else if (type.equals("E")) {
+                    } else if (type.equals("E")) {
                         String[] descriptionArray = description.split(" \\(from: ");
                         String name = descriptionArray[0];
                         String[] fromTo = descriptionArray[1].split(" to: ");
                         String from = LocalDate.parse(fromTo[0], DateTimeFormatter.ofPattern("MMM dd yyyy")).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                         String to = LocalDate.parse(fromTo[1].substring(0, fromTo[1].length() - 1), DateTimeFormatter.ofPattern("MMM dd yyyy")).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
                         Task task = new Event(name, from, to);
+
                         if (isDone.equals("X")) {
                             task.markAsDone();
                         }
+
                         list.add(task);
                     }
                 }
@@ -92,7 +101,9 @@ public class Storage {
         } catch (IOException e) {
             e.printStackTrace();
         }
+      
         fileIsOpen = true;
+
         return list;
     }
 
@@ -104,11 +115,13 @@ public class Storage {
      */
     public void save(ArrayList<Task> list) throws IOException {
         FileWriter myWriter = new FileWriter(filePath);
+
         for (int i = 1; i <= list.size(); i++) {
             Task t = list.get(i - 1);
             System.out.println(t);
             myWriter.write(t + "\n");
         }
+
         myWriter.close();
         fileIsOpen = false;
     }

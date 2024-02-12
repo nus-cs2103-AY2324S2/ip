@@ -20,12 +20,14 @@ public class Duchess {
         ui = new Ui();
         storage = new Storage("tasks.txt");
         parser = new Parser();
+
         try {
             tasks = new TaskList(storage.load());
         } catch (DuchessException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
+
     }
 
     /**
