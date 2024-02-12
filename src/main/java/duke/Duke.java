@@ -63,6 +63,7 @@ public class Duke {
                 Storage.saveTasks();
                 mainWindow.addDukeMessage("Bye. Hope to see you again soon!");
                 System.exit(0);
+                // will not faull through
             case MARK:
                 return lst.markComplete(Integer.parseInt(taskDetail.trim()));
             case UNMARK:
