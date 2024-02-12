@@ -66,5 +66,23 @@ public class TaskListTest {
         //TODO Testing for exceptions
     }
 
-
+    @Test
+    public void findTest () {
+        ArrayList<Item> arrayList = new ArrayList<>();
+        try {
+            arrayList.add(new ToDo("todo", "[ ]"));
+            arrayList.add(new ToDo("todo1", "[ ]"));
+            arrayList.add(new ToDo("todo2", "[ ]"));
+            arrayList.add(new ToDo("readbook", "[ ]"));
+        } catch (RickException e) {
+            System.out.println(e.getMessage());
+        }
+        TaskList taskList = new TaskList(arrayList);
+        String output = taskList.find("todo");
+        String expected = "Here are the matching tasks in your list:\n" +
+                "1. [T][ ] todo\n" +
+                "2. [T][ ] todo1\n" +
+                "3. [T][ ] todo2\n";
+        assertEquals(expected, output);
+    }
 }

@@ -134,4 +134,22 @@ public class TaskList {
             throw new RickException("Index wrong lah! :(");
         }
     }
+
+    public String find(String arg) {
+        StringBuilder results = new StringBuilder();
+        boolean isFound = false;
+        int counter = 0;
+        for (int i = 0; i < this.items.size(); i++) {
+            if (this.items.get(i).toString().contains(arg)) {
+                counter++;
+                results.append(counter + ". " + this.items.get(i) + "\n");
+                isFound = true;
+            }
+        }
+        if (isFound) {
+            return "Here are the matching tasks in your list:\n" + results;
+        } else {
+            return "OOPS! There's no matching result in your list. ";
+        }
+    }
 }
