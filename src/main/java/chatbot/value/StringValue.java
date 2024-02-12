@@ -12,16 +12,15 @@ public class StringValue {
     /**
      * Constructor for this.
      *
-     * @param value the value as a {@link String}, which is not null.
+     * @param value The value as a {@link String}, which is not null.
      */
     public StringValue(String value) {
+        assert value != null;
         this.stringValue = value.trim();
     }
 
     /**
      * Gets a human-readable {@link String} of this.
-     *
-     * @return the human-readable {@link String}
      */
     @Override
     public String toString() {

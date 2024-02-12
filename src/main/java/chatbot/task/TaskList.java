@@ -26,8 +26,8 @@ public final class TaskList {
     /**
      * Checks if the index is a valid index in this list.
      *
-     * @param index the index of in the task list
-     * @return true if the index is valid, otherwise false
+     * @param index The index of in the task list.
+     * @return True if the index is valid, otherwise false.
      */
     private boolean isValidIndex(int index) {
         return index >= 0 && index < tasks.size();
@@ -36,8 +36,8 @@ public final class TaskList {
     /**
      * Adds a {@link ToDo} to this list.
      *
-     * @param name the name of the {@link ToDo} to add
-     * @return the task that is added
+     * @param name The name of the {@link ToDo} to add.
+     * @return The task that is added.
      */
     public Task addTodo(String name) {
         return add(new ToDo(name));
@@ -46,9 +46,9 @@ public final class TaskList {
     /**
      * Adds a task to this list, saving the task list to local storage.
      *
-     * @param <T> the type of task to add
-     * @param task the task to add
-     * @return the task that is added
+     * @param <T> The type of task to add.
+     * @param task The task to add.
+     * @return The task that is added.
      */
     public <T extends Task> Task add(T task) {
         tasks.add(task);
@@ -57,53 +57,54 @@ public final class TaskList {
     }
 
     /**
-     * Add a {@link Deadline} to this list.
+     * Adds a {@link Deadline} to this list.
      *
-     * @param name the name of the {@link Deadline} to add
-     * @return the task that is added
+     * @param name The name of the {@link Deadline} to add.
+     * @return The task that is added.
      */
     public Task addDeadline(String name, DateStringValue by) {
         return add(new Deadline(name, by));
     }
 
     /**
-     * Add an {@link Event} to this list.
+     * Adds an {@link Event} to this list.
      *
-     * @param name the name of the {@link Event} to add
-     * @return the task that is added
+     * @param name The name of the {@link Event} to add.
+     * @return The task that is added.
      */
     public Task addEvent(String name, DateStringValue from, DateStringValue to) {
         return add(new Event(name, from, to));
     }
 
     /**
-     * Performs an operation on a {@link Task} in the list
+     * Performs an operation on a {@link Task} in the list.
      *
-     * @param index the index of the {@link Task}
-     * @param taskConsumer a {@link Consumer} that takes in a {@link Task}
-     * @return the task that the operation was performed on
-     * @throws OutOfBoundsException If the index is out of bounds.
+     * @param index The 0-indexed index of the {@link Task}.
+     * @param taskConsumer A {@link Consumer} that takes in a {@link Task}.
+     * @return The task that the operation was performed on.
+     * @throws OutOfBoundsException If the index is out of bounds. Note that one is added to this,
+     *     so that the message is consistent with the 1-indexed input from the user.
      */
     private Task performTask(int index, Consumer<Task> taskConsumer) throws OutOfBoundsException {
         if (isEmpty()) {
-            throw new OutOfBoundsException(index, "The task list is empty.");
+            throw new OutOfBoundsException(index + 1, "The task list is empty.");
         }
 
-        if (isValidIndex(index)) {
-            Task task = tasks.get(index);
-            taskConsumer.accept(task);
-            LocalStorage.saveTaskList(this);
-            return task;
+        if (!isValidIndex(index)) {
+            throw new OutOfBoundsException(index + 1, "The index must be between 1 and " + tasks.size() + ".");
         }
 
-        throw new OutOfBoundsException(index, "The index must be between 1 and " + tasks.size() + ".");
+        Task task = tasks.get(index);
+        taskConsumer.accept(task);
+        LocalStorage.saveTaskList(this);
+        return task;
     }
 
     /**
      * Marks the task as done.
      *
-     * @param index the index of the task (0-indexed)
-     * @return the task that is marked
+     * @param index The index of the task (0-indexed).
+     * @return The task that is marked.
      * @throws OutOfBoundsException If the index is out of bounds.
      */
     public Task markTask(int index) throws OutOfBoundsException {
@@ -114,8 +115,8 @@ public final class TaskList {
     /**
      * Marks the task as not done.
      *
-     * @param index the index of the task (0-indexed)
-     * @return the task that is marked
+     * @param index The index of the task (0-indexed).
+     * @return The task that is marked.
      * @throws OutOfBoundsException If the index is out of bounds.
      */
     public Task unmarkTask(int index) throws OutOfBoundsException {
@@ -125,8 +126,8 @@ public final class TaskList {
     /**
      * Deletes a task from the task list.
      *
-     * @param index the index of the task (0-indexed)
-     * @return the task that is marked
+     * @param index The index of the task (0-indexed).
+     * @return The task that is marked.
      * @throws OutOfBoundsException If the index is out of bounds.
      */
     public Task deleteTask(int index) throws OutOfBoundsException {
@@ -136,10 +137,10 @@ public final class TaskList {
     /**
      * Finds matching {@link Task}(s) that matches the pattern.
      *
-     * @param pattern the pattern to match with
-     * @return the indexes in the task list that matches the pattern
+     * @param pattern The pattern to match with.
+     * @return The sorted indexes in the task list that matches the pattern.
      */
-    public int[] findMatchingTasks(String pattern) {
+    public int[] findMatchingTaskIndices(String pattern) {
         return IntStream
                 .range(0, tasks.size())
                 .filter(i -> tasks.get(i).isContainingPattern(pattern))
@@ -148,9 +149,7 @@ public final class TaskList {
     }
 
     /**
-     * Gets a message regarding the size of this.
-     *
-     * @return a message containing information about the size of this
+     * Gets a message regarding the size of this {@link TaskList}.
      */
     public String getSizeMessage() {
         return String.format("Now you have %s task(s) in the list.", tasks.size());
@@ -159,16 +158,14 @@ public final class TaskList {
     /**
      * Checks if the task list is empty.
      *
-     * @return true if the task list is empty, otherwise false
+     * @return True if the task list is empty, otherwise false.
      */
     public boolean isEmpty() {
         return tasks.isEmpty();
     }
 
     /**
-     * Gets a human-readable description of this task list.
-     *
-     * @return this task list as a human-readable string
+     * Gets a human-readable description of this {@link TaskList}.
      */
     @Override
     public String toString() {
@@ -180,11 +177,10 @@ public final class TaskList {
     }
 
     /**
-     * Gets a human-readable description of this task list,
+     * Gets a human-readable description of this {@link TaskList},
      * filtered by indexes.
      *
-     * @param sortedIndexes a sorted array of indexes (0-indexed)
-     * @return this task list as a human-readable string
+     * @param sortedIndexes A sorted array of 0-indexed indexes.
      */
     public String toString(int[] sortedIndexes) {
         StringBuilder message = new StringBuilder();

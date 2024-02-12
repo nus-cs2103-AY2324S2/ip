@@ -28,7 +28,7 @@ public final class AddEventAction extends Action {
     /**
      * Constructor for this add event action.
      *
-     * @param arguments the {@link Argument}(s) supplied with the {@link Command}
+     * @param arguments The {@link Argument}(s) supplied with the {@link Command}.
      * @throws ActionException If the action fails has unrecognizable or missing {@link Argument}(s).
      */
     public AddEventAction(Argument[] arguments) throws ActionException {
@@ -36,10 +36,10 @@ public final class AddEventAction extends Action {
     }
 
     /**
-     * Add an {@link Event} to the {@link TaskList}.
+     * Adds an {@link Event} to the {@link TaskList}.
      *
-     * @param taskList the {@link TaskList} to modify
-     * @return the success message from performing the action
+     * @param taskList The {@link TaskList} to modify.
+     * @return The success message from performing the action.
      */
     @Override
     public String execute(TaskList taskList) {

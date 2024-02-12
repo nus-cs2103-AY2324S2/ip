@@ -33,16 +33,16 @@ import chatbot.ui.PrintFormatter;
  */
 public final class LocalStorage {
     /** The relative path from the project root where the save file is stored. */
-    public static final String RELATIVE_PATH = "data/";
+    private static final String RELATIVE_PATH = "data/";
 
     /** The name and format of the save file stored. */
-    public static final String SAVE_FILE_NAME = "save.txt";
+    private static final String SAVE_FILE_NAME = "save.txt";
 
     /**
      * Tries to save the task list into local storage,
      * overwriting the previous save file if any.
      *
-     * @param taskList the task list instance to save into local storage
+     * @param taskList The task list instance to save into local storage.
      */
     public static void saveTaskList(TaskList taskList) {
         hasCreatedSaveFile();
@@ -54,19 +54,21 @@ public final class LocalStorage {
             fw.write(taskList.toString());
             fw.close();
         } catch (IOException e) {
-            // don't write to save file
+            // don't write to save file if saving cannot happen
         }
     }
 
     /**
      * Creates the save file and folder if it doesn't exist.
      *
-     * @return true if the file is created, otherwise false
+     * @return True if the file is created, otherwise false.
      */
     private static boolean hasCreatedSaveFile() {
         File folder = new File(RELATIVE_PATH);
         if (!folder.exists()) {
-            folder.mkdirs();
+            if (!folder.mkdirs()) {
+                return false;
+            }
         }
 
         try {
@@ -80,7 +82,7 @@ public final class LocalStorage {
     /**
      * Loads the {@link TaskList} into the application.
      *
-     * @return the {@link TaskList} stored in local storage, or a new instance if none exists
+     * @return The {@link TaskList} stored in local storage, or a new instance if none exists.
      */
     public static TaskList loadTaskList() {
         if (hasCreatedSaveFile()) {
@@ -93,16 +95,18 @@ public final class LocalStorage {
     /**
      * Reads the save file and converts it to a {@link TaskList}.
      *
-     * @return the task list stored in local storage
+     * @return The task list stored in local storage.
      */
     private static TaskList readSaveFile() {
         TaskList taskList = new TaskList();
         Path path = Paths.get(RELATIVE_PATH, SAVE_FILE_NAME);
+
         try (BufferedReader br = Files.newBufferedReader(path)) {
             String line;
             while ((line = br.readLine()) != null) {
                 taskList.add(TaskParser.parseTaskListItem(line));
             }
+
             PrintFormatter.addToFormatterQueue("I have found and loaded a previous save file successfully!");
             return taskList;
         } catch (IOException e) {
@@ -110,6 +114,7 @@ public final class LocalStorage {
         } catch (InvalidTaskStringException e) {
             PrintFormatter.addToFormatterQueue("I cannot understand the save file! Invalid task format!");
         }
+
         return new TaskList();
     }
 }

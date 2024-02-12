@@ -19,8 +19,8 @@ public final class UnrecognizedArgumentException extends ActionException {
     /**
      * Constructor for this {@link ActionException} for unrecognized {@link Argument} names.
      *
-     * @param command the {@link Command}
-     * @param argument the name of the {@link Argument}
+     * @param command The associated {@link Command} with that argument.
+     * @param argument The {@link Argument} with the unrecognized name.
      */
     public UnrecognizedArgumentException(Command command, Argument argument) {
         this.argument = argument;

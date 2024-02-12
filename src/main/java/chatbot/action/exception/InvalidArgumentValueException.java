@@ -21,8 +21,8 @@ public final class InvalidArgumentValueException extends ActionException {
     /**
      * Constructor for this {@link ActionException} with an invalid {@link Argument} value.
      *
-     * @param command the associated {@link Command}
-     * @param invalidArg the invalid {@link Argument}
+     * @param command The associated {@link Command} with that argument.
+     * @param invalidArg The {@link Argument} with the invalid value.
      */
     public InvalidArgumentValueException(Command command, String invalidArg, String reason) {
         this.command = command;
