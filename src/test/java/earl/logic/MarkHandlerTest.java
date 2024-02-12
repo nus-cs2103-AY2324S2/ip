@@ -28,8 +28,9 @@ class MarkHandlerTest {
     void handle_normalCommand_success() throws Exception {
         Handler handler = HandlerType.mark.createHandler("1");
         handler.handle(new TaskListStub(), new UiStub());
-        assertEquals("Item(s) marked as done.\r\n"
-                + "1.[ ] TaskStub\r\n",
+        String newLine = System.lineSeparator();
+        assertEquals("Item(s) marked as done." + newLine
+                + "1.[ ] TaskStub" + newLine,
                 testingOut.toString());
     }
 
@@ -40,8 +41,8 @@ class MarkHandlerTest {
             handler.handle(new TaskListStub(), new UiStub());
             fail();
         } catch (Exception e) {
-            assertEquals("Error, indices format invalid.\n"
-                    + "\tExample format: 1 4-7 9-10", e.getMessage());
+            assertEquals("Error, indices format invalid."
+                    + " Example format: 1 4-7 9-10", e.getMessage());
         }
     }
 

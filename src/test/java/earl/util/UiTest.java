@@ -25,8 +25,11 @@ class UiTest {
     void makeResponse_multipleLines_success() {
         Ui ui = new Ui();
         ui.makeResponse("A", "B");
-        String divider = "    " + "_".repeat(60) + "\r\n";
-        String expected = divider + "    A\r\n    B\r\n" + divider;
+        String newLine = System.lineSeparator();
+        String padding = " ".repeat(4);
+        String divider = padding + "_".repeat(60) + newLine;
+        String expected = divider + padding + "A" + newLine
+                + padding + "B" + newLine + divider;
         assertEquals(expected, testingOut.toString());
     }
 
@@ -34,8 +37,10 @@ class UiTest {
     void getResponse_singleLine_success() {
         Ui ui = new Ui();
         ui.makeResponse("A");
-        String divider = "    " + "_".repeat(60) + "\n";
-        String expected = divider + "    A\n" + divider;
+        String newLine = System.lineSeparator();
+        String padding = " ".repeat(4);
+        String divider = padding + "_".repeat(60) + newLine;
+        String expected = divider + padding + "A" + newLine + divider;
         assertEquals(expected, ui.getResponse());
     }
 
