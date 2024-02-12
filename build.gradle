@@ -36,7 +36,7 @@ mainClassName = 'rick.Rick'
 shadowJar {
     archiveFileName = "Rick.jar"
     archiveBaseName = "rickChatBot"
-    archiveClassifier = null
+    archiveClassifier = "all"
     dependsOn("distZip", "distTar")
 }
 
