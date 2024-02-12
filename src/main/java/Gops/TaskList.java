@@ -113,8 +113,16 @@ public class TaskList {
     /**
      * Prints the task at the end of the list
      */
-    public void printNewestTask() {
-        taskList.get(taskList.size() - 1).Printer();
+    public String printNewestTask() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Got it. I've added this task:\n");
+        sb.append("------------------------------------------------------------------\n");
+        sb.append(taskList.get(taskList.size() - 1).stringPrinter());
+        sb.append("\n------------------------------------------------------------------\n");
+        sb.append("Now you have ").append(taskList.size()).append(" tasks in the list.");
+        String confirmationMessage = sb.toString();
+        return confirmationMessage;
+
     }
 
     /**
@@ -154,10 +162,15 @@ public class TaskList {
     /**
      * Prints string representation of task list
      */
-    public void listPrinter() {
+    public String listPrinter() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Here are the tasks in your list\n");
+        stringBuilder.append("------------------------------------------------------------------\n");
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.println(i + 1 + ") " + stringPrintTask(i));
+            stringBuilder.append(i + 1).append(") ").append(stringPrintTask(i)).append("\n");
         }
+        stringBuilder.append("------------------------------------------------------------------\n");
+        return stringBuilder.toString();
     }
     public void add(Todo task) {
         taskList.add(task);
@@ -171,4 +184,20 @@ public class TaskList {
         }
         return refinedList;
     }
+    public void clearList() {
+        this.taskList = new ArrayList<Todo>();
+    }
+
+    public String printTaskAsNotMarked(int index) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("OK! I've marked this task as not done yet:\n").append(taskList.get(index).stringPrinter());
+        return sb.toString();
+    }
+    public String printTaskAsMarked(int index) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("OK! I've marked this task as done:\n").append(taskList.get(index).stringPrinter());
+        return sb.toString();
+    }
+
+
 }

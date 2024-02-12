@@ -10,7 +10,7 @@ public class Ui {
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
-    public void uiCode() {
+    public TaskList uiCode() {
         Scanner inputTaker = new Scanner(System.in);
         TaskList taskList = new TaskList();
         int taskCount = 0;
@@ -30,6 +30,8 @@ public class Ui {
             taskList = Storage.readFromHardDisk(txtFile);
             taskCount = taskList.numberOfTasks();
         }
+        return taskList;
+        /*
         System.out.println("Hello! I'm Gops");
         System.out.println("What can I do for you?");
         String userReply = inputTaker.nextLine();
@@ -37,5 +39,6 @@ public class Ui {
         if (userReply.equals("bye")) {
             System.out.print("Bye. Hope to see you again soon!");
         }
+         */
     }
 }
