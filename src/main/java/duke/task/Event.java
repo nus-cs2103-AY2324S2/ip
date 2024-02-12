@@ -1,14 +1,14 @@
 package duke.task;
 
-import duke.exception.DukeException;
-import duke.exception.TimeFormatException;
-import duke.exception.TimeInconsistException;
-import duke.exception.WrongUsageException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+
+import duke.exception.DukeException;
+import duke.exception.TimeFormatException;
+import duke.exception.TimeInconsistException;
+import duke.exception.WrongUsageException;
 
 /**
  * Class for task start with event
@@ -30,6 +30,13 @@ public class Event extends Task {
         this.to = to;
     }
 
+    /**
+     * Constructor
+     * @param descrip description
+     * @param tags tags
+     * @param from from
+     * @param to to
+     */
     public Event(String descrip, ArrayList<String> tags, LocalDate from, LocalDate to) {
         super(descrip, tags);
         assert to.isAfter(from) || to.isEqual(from) : "to cannot before from";
@@ -54,6 +61,7 @@ public class Event extends Task {
     public String getTaskType() {
         return "event";
     }
+
     /**
      * Override the toString method
      * @return String representation of the task
@@ -95,13 +103,27 @@ public class Event extends Task {
         return current.compareTo(to) <= 0 && current.compareTo(from) >= 0;
     }
 
+    /**
+     * Getter for from.
+     * @return from
+     */
     public LocalDate getFromTime() {
         return this.from;
     }
 
+    /**
+     * Getter for to
+     * @return to
+     */
     public LocalDate getToTime() {
         return this.to;
     }
+
+    /**
+     * Compare the task
+     * @param obj a task
+     * @return whether to task are same
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Event) {
@@ -114,6 +136,11 @@ public class Event extends Task {
         return false;
     }
 
+    /**
+     * Compare the task
+     * @param otherTask the other task
+     * @return which task come first
+     */
     @Override
     public int compareTo(Task otherTask) {
         if (otherTask instanceof Todo) {
@@ -127,6 +154,12 @@ public class Event extends Task {
         return this.from.compareTo(temp.getFromTime());
     }
 
+    /**
+     * Update a task
+     * @param updateField the field to update
+     * @param updateInfo the value to update
+     * @throws WrongUsageException wrong format
+     */
     @Override
     public void updateTask(String updateField, String updateInfo) throws DukeException {
         if (updateField.equals("/des")) {
@@ -158,6 +191,11 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Time parser
+     * @param time time in sting
+     * @return time in string
+     */
     private String changeWordToDate(String time) {
         LocalDate currentTime = LocalDate.now();
         int todayDay = currentTime.getDayOfWeek().getValue();
@@ -192,6 +230,11 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Check time format
+     * @param time time in string
+     * @return whether it is in correct format
+     */
     private boolean checkTimeForm(String time) {
         try {
             LocalDate.parse(time);

@@ -129,7 +129,7 @@ public class Deadline extends Task {
     /**
      * Update a task
      * @param updateField the field to update
-     * @param updateValue the value to update
+     * @param updateInfo the value to update
      * @throws WrongUsageException wrong format
      */
     @Override
