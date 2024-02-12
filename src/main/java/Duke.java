@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.StringTokenizer;
 
 public class Duke {
-    private static HashSet<String> validCommands;
+    private static Parser parser;
     private static Storage storage;
     private static TaskList taskList;
     private static Ui ui;
@@ -21,9 +21,7 @@ public class Duke {
         while (true) {
             try {
                 String input = ui.getUserInput();
-                StringTokenizer st = new StringTokenizer(input);
-                String identifier = st.nextToken().toLowerCase();
-                if (validCommands.contains(identifier)) {
+                if (parser.checkValidCommand(input)) {
                     executeCommand(input);
                 } else {
                     throw new DukeException("I do not recognize that command.\n"
@@ -38,19 +36,11 @@ public class Duke {
     }
 
     private static void initialSetup() {
+        parser = new Parser();
         storage = new Storage("./src/main/data",
                 "./src/main/data/duke.txt");
         taskList = new TaskList();
         ui = new Ui();
-        validCommands = new HashSet<String>();
-        validCommands.addAll(Arrays.asList("bye",
-                "list",
-                "mark",
-                "unmark",
-                "todo",
-                "deadline",
-                "event",
-                "delete"));
         try {
             ArrayList<String> tasksFromFile = storage.readTaskListData();
             for (int i = 0; i < tasksFromFile.size(); i++) {
@@ -64,14 +54,9 @@ public class Duke {
         }
     }
 
-    private static void executeCommand(String command) throws DukeException {
-        StringTokenizer st = new StringTokenizer(command);
-        String identifier = st.nextToken().toLowerCase();
-        String arguments = "";
-        while(st.hasMoreTokens()) {
-            arguments += st.nextToken() + " ";
-        }
-        arguments = arguments.trim();
+    private static void executeCommand(String input) throws DukeException {
+        String identifier = parser.parseCommand(input);
+        String arguments = parser.parseArguments(input);
         switch (identifier) {
         case "bye":
             exitProgram();
@@ -126,7 +111,7 @@ public class Duke {
     }
 
     private static void markTask(String arguments) throws DukeException {
-        int taskNum = Integer.parseInt(arguments) - 1;
+        int taskNum = parser.parseTaskIndex(arguments);
         taskList.markTask(taskNum);
         ui.printDivider();
         ui.printMarkTaskSuccess();
@@ -135,7 +120,7 @@ public class Duke {
     }
 
     private static void unmarkTask(String arguments) throws DukeException {
-        int taskNum = Integer.parseInt(arguments) - 1;
+        int taskNum = parser.parseTaskIndex(arguments);
         taskList.unmarkTask(taskNum);
         ui.printDivider();
         ui.printUnmarkTaskSuccess();
@@ -159,21 +144,8 @@ public class Duke {
 
     private static void createDeadlineTask(String arguments) throws DukeException {
         if (!arguments.isEmpty()) {
-            String[] deadlineInfo = arguments.split("/");
-            StringTokenizer st = new StringTokenizer(deadlineInfo[0].trim());
-            String deadlineDesc = "";
-            while(st.hasMoreTokens()) {
-                deadlineDesc += st.nextToken() + " ";
-            }
-            deadlineDesc = deadlineDesc.trim();
-            st = new StringTokenizer(deadlineInfo[1].trim());
-            st.nextToken();
-            String by = "";
-            while(st.hasMoreTokens()) {
-                by += st.nextToken() + " ";
-            }
-            by = by.trim();
-            Deadline newDeadline = new Deadline(deadlineDesc, by);
+            String[] deadlineArgs = parser.parseDeadlineArguments(arguments);
+            Deadline newDeadline = new Deadline(deadlineArgs[0], deadlineArgs[1]);
             taskList.addTask(newDeadline);
             ui.printDivider();
             ui.printCreateTaskSuccess();
@@ -188,28 +160,8 @@ public class Duke {
 
     private static void createEventTask(String arguments) throws DukeException {
         if (!arguments.isEmpty()) {
-            String[] eventInfo = arguments.split("/");
-            StringTokenizer st = new StringTokenizer(eventInfo[0].trim());
-            String eventDesc = "";
-            while(st.hasMoreTokens()) {
-                eventDesc += st.nextToken() + " ";
-            }
-            eventDesc = eventDesc.trim();
-            st = new StringTokenizer(eventInfo[1].trim());
-            st.nextToken();
-            String from = "";
-            while (st.hasMoreTokens()) {
-                from += st.nextToken() + " ";
-            }
-            from = from.trim();
-            st = new StringTokenizer(eventInfo[2].trim());
-            st.nextToken();
-            String end = "";
-            while (st.hasMoreTokens()) {
-                end += st.nextToken() + " ";
-            }
-            end = end.trim();
-            Event newEvent = new Event(eventDesc, from, end);
+            String[] eventArgs = parser.parseEventArguments(arguments);
+            Event newEvent = new Event(eventArgs[0], eventArgs[1], eventArgs[2]);
             taskList.addTask(newEvent);
             ui.printDivider();
             ui.printCreateTaskSuccess();
@@ -224,7 +176,7 @@ public class Duke {
     }
 
     private static void deleteTask(String arguments) throws DukeException {
-        int delIndex = Integer.parseInt(arguments) - 1;
+        int delIndex = parser.parseTaskIndex(arguments);
         Task toDelete = taskList.getTask(delIndex);
         taskList.deleteTask(delIndex);
         ui.printDivider();
