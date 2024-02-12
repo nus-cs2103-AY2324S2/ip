@@ -6,8 +6,19 @@ import Aaron.Exception.ParsingException;
 import Aaron.Executer.Executer;
 import Aaron.Task.TaskList;
 import Aaron.UI.UI;
-
+/**
+ * Encapsulates main parser class, parses user input and obtains necessary information for executor to execute command
+ */
 public class Parser {
+
+    /**
+     * Method to parse user input and execute relevant command
+     * @param userInput user input
+     * @param taskList tasklist to be read from/modified (if necessary)
+     * @param ui UI to handle human interaction (if necessary)
+     * @return boolean value representing whether the command was a bye command (end execution cycle)
+     * @throws ParsingException if there is an error parsing the user input
+     */
     public static boolean parse(String userInput, TaskList taskList, UI ui) throws ParsingException{
         CommandType commandType;
         String[] TokenizedUserInputs;

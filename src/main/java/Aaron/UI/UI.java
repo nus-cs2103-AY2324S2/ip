@@ -56,6 +56,10 @@ public class UI {
         System.out.println(e);
     }
 
+    public void emptyListMessage() {
+        System.out.println("STUDENT!!!! Tasklist is empty so there is nothing to show :)");
+    }
+
     public void closeScanner() {
         scanner.close();
     }

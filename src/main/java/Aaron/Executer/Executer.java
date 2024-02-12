@@ -11,8 +11,19 @@ import Aaron.Exception.NonsenseCommandException;
 import Aaron.Task.TaskList;
 import Aaron.UI.UI;
 
+/**
+ * Class that represents an executer that executes commands based on parsed command 
+ */
 public class Executer {
-    
+
+    /**
+     * Method to execute command based on information parsed by parser
+     * @param commandType type of command to execute
+     * @param userCommand command description
+     * @param taskList tasklist to be modified/read from (if neccessary)
+     * @param ui UI to perform human interaction (if necessary)
+     * @return boolean to indicate whether the command was a bye command (end execution cycle)
+     */
     public static boolean execute(CommandType commandType, String userCommand, TaskList taskList, UI ui) {
         try {
             switch (commandType) {

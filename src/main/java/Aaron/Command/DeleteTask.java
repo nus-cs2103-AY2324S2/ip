@@ -6,6 +6,9 @@ import Aaron.Parser.IndexParser;
 import Aaron.Task.TaskList;
 import Aaron.UI.UI;
 
+/**
+ * Class that represents a delete task command
+ */
 public class DeleteTask extends Command {
     public DeleteTask(String userInput, CommandType commandType) throws AaronBotException {
         super(userInput, commandType);

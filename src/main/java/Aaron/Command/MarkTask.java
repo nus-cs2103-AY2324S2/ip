@@ -5,6 +5,9 @@ import Aaron.Parser.IndexParser;
 import Aaron.Task.TaskList;
 import Aaron.UI.UI;
 
+/**
+ * Class that represents a mark task command
+ */
 public class MarkTask extends Command {
     public MarkTask(String userInput, CommandType commandType) throws AaronBotException{
         super(userInput, commandType);

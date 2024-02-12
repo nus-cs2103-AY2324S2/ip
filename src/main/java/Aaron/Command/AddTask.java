@@ -8,6 +8,9 @@ import Aaron.Task.TaskList;
 import Aaron.Task.TaskType;
 import Aaron.UI.UI;
 
+/**
+ * class that represents a command to add a task to the tasklist
+ */
 public class AddTask extends Command {
     public AddTask(String userInput, CommandType commandType) throws AaronBotException{
         super(userInput, commandType);
@@ -44,6 +47,11 @@ public class AddTask extends Command {
         return false;
     }
 
+    /**
+     * Method to check if an add command is of the correct format
+     * @param userInputString
+     * @throws TaskNoNameException if the command is in incorrect format
+     */
     private static void taskPresenceCheck(String userInputString) throws TaskNoNameException {
         if (userInputString.split("\\s+").length <= 1) {
             throw new TaskNoNameException(userInputString);

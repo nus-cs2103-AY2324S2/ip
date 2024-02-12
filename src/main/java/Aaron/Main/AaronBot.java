@@ -15,6 +15,9 @@ import Aaron.UI.UI;
 public class AaronBot {
     public static final String TASKLIST_FILEPATH = "data/TaskList.txt";
     
+    /**
+     * Method to begin the execute cycle
+     */
     public static void execute() {
         TaskList taskList = new TaskList();
         boolean isBye = false;
