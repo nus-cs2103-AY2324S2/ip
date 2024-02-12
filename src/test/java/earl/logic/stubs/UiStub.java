@@ -2,6 +2,9 @@ package earl.logic.stubs;
 
 import earl.util.Ui;
 
+/**
+ * Class acting as a stub for {@code Ui}.
+ */
 public class UiStub extends Ui {
 
     @Override

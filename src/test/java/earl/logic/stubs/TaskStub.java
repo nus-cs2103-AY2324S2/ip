@@ -2,14 +2,19 @@ package earl.logic.stubs;
 
 import earl.tasks.Task;
 
+/**
+ * Class acting as a stub for {@code Task}.
+ */
 public class TaskStub extends Task {
 
     private int idx;
 
+    /** Sets description as TaskStub. */
     public TaskStub() {
         super("TaskStub");
     }
 
+    /** Constructor specifying index to later mark as done. */
     public TaskStub(int idx) {
         this();
         this.idx = idx;

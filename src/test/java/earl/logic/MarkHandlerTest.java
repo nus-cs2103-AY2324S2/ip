@@ -1,16 +1,17 @@
 package earl.logic;
 
-import earl.logic.stubs.TaskListStub;
-import earl.logic.stubs.UiStub;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import earl.logic.stubs.TaskListStub;
+import earl.logic.stubs.UiStub;
 
 class MarkHandlerTest {
 
