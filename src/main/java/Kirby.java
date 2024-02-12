@@ -1,8 +1,23 @@
+import java.util.Scanner;
+
 public class Kirby {
     public static void main(String[] args) {
         String message =
-                "____________________________________________________________\nHello! I'm Kirby\nWhat can I do for you?\n____________________________________________________________\nBye. Hope to see you again soon!\n____________________________________________________________";
+                "____________________________________________________________\nHiiiiii \uD83D\uDE00! I'm Kirby Yayyyyy \uD83C\uDF8C!\nWhat can I do for you?\n____________________________________________________________\n";
+
+        Scanner sc = new Scanner(System.in);
 
         System.out.println(message);
+
+        String var = sc.nextLine();
+
+        while(!var.equals("bye")){
+            System.out.println("____________________________________________________________");
+            System.out.println(var);
+            System.out.println("____________________________________________________________\n");
+            var = sc.nextLine();
+        }
+
+        System.out.println("Noooo \uD83E\uDD7A You are leaving already \uD83D\uDE16? Hope to see you again soon!\n____________________________________________________________");
     }
 }
