@@ -59,7 +59,7 @@ public class Duke extends Application {
         } catch (DukeException e) {
             duke.ui.print(String.format
                     ("Error loading task data: %s"
-                            + "\n\nPlease delete 'data.txt' and try again. Goodbye...", e.getMessage()));
+                            + "\n\nPlease delete 'data.txt' and try again. Bye bye...", e.getMessage()));
             System.exit(1);
         }
 
@@ -425,6 +425,8 @@ public class Duke extends Application {
         });
 
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+        
+        this.initCommands();
     }
 
 
@@ -435,20 +437,14 @@ public class Duke extends Application {
      */
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
-        dialogContainer.getChildren().addAll(
-                DialogBox.createUserDialog(userText, new ImageView(user)),
-                DialogBox.createDukeDialog(dukeText, new ImageView(duke))
-        );
+        dialogContainer.getChildren().add(DialogBox.createUserDialog(userText, new ImageView(user)));
+        Parser parser = new Parser(userInput.getText());
         userInput.clear();
+        
+        try {
+            this.commands.get(parser.next()).run(parser);
+        } catch (DukeCommandNotFoundException | DukeOptionParsingException e) {
+            this.ui.print("no matching command...");
+        }
     }
-
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
-    private String getResponse(String input) {
-        return "Duke heard: " + input;
-    }
-
 }
