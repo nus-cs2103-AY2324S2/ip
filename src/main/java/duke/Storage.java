@@ -80,6 +80,7 @@ public class Storage {
      * @throws DukeException If there is an error saving tasks to the file.
      */
     public void save(List<Task> tasks) throws DukeException {
+
         try (FileWriter writer = new FileWriter(filePath)) {
             for (Task task : tasks) {
                 String taskType;
@@ -102,6 +103,7 @@ public class Storage {
                 writer.write(System.lineSeparator());
             }
         } catch (IOException e) {
+            
             throw new DukeException("Error saving tasks to file: " + e.getMessage());
         }
     }
