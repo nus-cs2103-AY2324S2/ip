@@ -37,12 +37,14 @@ public class TaskList {
      * @throws AtlasException If the index is out of bounds.
      */
     public void deleteTask(int index) throws AtlasException {
-        // Implement deletion logic
+        checkBounds(index);
+        tasks.remove(index);
+    }
+
+    private void checkBounds(int index) throws AtlasException {
         if (index < 0 || index >= tasks.size()) {
             throw new AtlasException("Task number " + (index + 1) + " does not exist in the list.");
         }
-        tasks.remove(index);
-
     }
 
     /**
@@ -52,11 +54,8 @@ public class TaskList {
      * @throws AtlasException If the index is out of bounds.
      */
     public void markTask(int i) throws AtlasException {
-        if (i < 0 || i >= tasks.size()) {
-            throw new AtlasException("Task number " + (i + 1) + " does not exist.");
-        }
+        checkBounds(i);
         tasks.get(i).toggle();
-
     }
 
     /**
@@ -66,11 +65,8 @@ public class TaskList {
      * @throws AtlasException If the index is out of bounds.
      */
     public void unmarkTask(int i) throws AtlasException {
-        if (i < 0 || i >= tasks.size()) {
-            throw new AtlasException("Task number " + (i + 1) + " does not exist.");
-        }
+        checkBounds(i);
         tasks.get(i).toggle();
-
     }
 
     /**
@@ -91,13 +87,16 @@ public class TaskList {
                 Event event = (Event) task;
                 LocalDate startDate = event.getStart().toLocalDate();
                 LocalDate endDate = event.getEnd().toLocalDate();
-                if ((date.isEqual(startDate) || date.isAfter(startDate))
-                        && (date.isEqual(endDate) || date.isBefore(endDate))) {
+                if (checkDateWithinRange(date, startDate, endDate)) {
                     tasksOnDate.add(task);
                 }
             }
         }
         return tasksOnDate;
+    }
+
+    private static boolean checkDateWithinRange(LocalDate date, LocalDate startDate, LocalDate endDate) {
+        return !date.isBefore(startDate) && !date.isAfter(endDate);
     }
 
     /**
