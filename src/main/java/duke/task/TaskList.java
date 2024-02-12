@@ -96,23 +96,43 @@ public class TaskList {
         }
     }
 
-    public void findTaskWithKeyword(String keyword) {
-        filterListWithKeyword(tasks, keyword);
+
+    /**
+     * Search each keyword from keywords through the taskList.
+     * The taskList after operation would only contain tasks whose
+     * description contain all keywords specified,
+     * with possible overlapping and in no specific order.
+     * Tasks lacking any of the keyword specified will be filtered out.
+     *
+     * @param keywords keywords to search through the taskList with
+     */
+    public void findTaskWithKeyword(String[] keywords) {
+        filterListWithKeyword(tasks, keywords);
     }
 
     public void unfilterTasks() {
         isFiltered = false;
     }
 
-    private LinkedList<Task> filterListWithKeyword(LinkedList<Task> tasks, String keyword) {
+    private LinkedList<Task> filterListWithKeyword(LinkedList<Task> tasks, String ... keywords) {
+        if (keywords.length == 1) { // there is no keyword except "find"
+            return null;
+        }
         // Using Java 8 Streams and filter method
-        List<Task> filteredTasks = tasks.stream()
-                .filter(task -> task.description.contains(keyword))//.contains(keyword))
-                .collect(Collectors.toList());
+        List<Task> filteredTasks = tasks;
+
+        for (int i = 1; i < keywords.length; i++) {
+            filteredTasks = filterTasksWithOneKeyword(filteredTasks, keywords[i]);
+        }
 
         // Convert the filtered list back to a linked list
         lastFilteredTasks = new LinkedList<>(filteredTasks);
         isFiltered = true;
         return lastFilteredTasks;
+    }
+
+    private List<Task> filterTasksWithOneKeyword(List<Task> tasks, String keyword) {
+        return tasks.stream().filter(task -> task.description.contains(keyword))
+                .collect(Collectors.toList());
     }
 }

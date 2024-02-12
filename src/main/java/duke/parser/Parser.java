@@ -103,7 +103,7 @@ public class Parser {
         }
 
         if (words[0].equals("find")) {
-            taskList.findTaskWithKeyword(words[1]);
+            taskList.findTaskWithKeyword(words);
             ui.listFilteredTasks();
             return;
         }
@@ -135,7 +135,7 @@ public class Parser {
                         + "    "
                         + deletedTask
                         + "\n"
-                        + "Now you have " + taskList.getNumOfTasks() + " tasks in the list.";//input);
+                        + "Now you have " + taskList.getNumOfTasks() + " tasks in the list.";
             } else {
                 return "Action failed: task index input is not an integer";
             }
@@ -154,7 +154,7 @@ public class Parser {
                     + "    "
                     + newTask
                     + "\n"
-                    + "Now you have " + taskList.getNumOfTasks() + " tasks in the list.";//input);
+                    + "Now you have " + taskList.getNumOfTasks() + " tasks in the list.";
         }
 
 
@@ -174,7 +174,7 @@ public class Parser {
         }
 
         if (words[0].equals("find")) {
-            taskList.findTaskWithKeyword(words[1]);
+            taskList.findTaskWithKeyword(words);
             return ui.listFilteredTasksReturnString();
         }
 

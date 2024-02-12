@@ -52,7 +52,6 @@ public class Ui {
      */
     public void initUi() {
         taskList = TaskList.getInstance();
-        Greet();
     }
 
     public static String printTime(LocalDateTime localDateTime) {
@@ -73,8 +72,8 @@ public class Ui {
     /**
      *
      */
-    private void Greet() {
-        speak("Hello there, Liv here." + '\n' + "How may I help you?");
+    public String greet() {
+        return "Loong time no see! Liv is here at your service!";
     }
 
     /**
