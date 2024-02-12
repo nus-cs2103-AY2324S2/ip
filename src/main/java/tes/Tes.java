@@ -1,7 +1,8 @@
 package tes;
 
-import tes.command.Ui;
 import tes.command.Parser;
+import tes.command.Ui;
+
 /**
  * Represents the chatbot.
  */
@@ -14,7 +15,7 @@ public class Tes {
     /**
      * Constructs a chatbot.
      */
-    public Tes(){
+    public Tes() {
         this.ui = new Ui();
         this.parser = new Parser(ui);
     }
@@ -27,7 +28,7 @@ public class Tes {
 
         this.parser.parse();
     }
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Tes chatbot = new Tes();
         chatbot.run();
     }

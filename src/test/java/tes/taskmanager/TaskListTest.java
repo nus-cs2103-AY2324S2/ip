@@ -1,10 +1,11 @@
 package tes.taskmanager;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
 
 /**
  * Represents the testing class for the TaskList class.

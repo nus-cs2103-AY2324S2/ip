@@ -2,8 +2,8 @@ package tes.command;
 
 import java.util.Scanner;
 
-import tes.taskmanager.TaskList;
 import tes.taskmanager.Storage;
+import tes.taskmanager.TaskList;
 
 /**
  * Represents a class to deal with input and output of the chatbot system.
@@ -37,9 +37,9 @@ public class Ui {
     public void greet() {
         printLine();
         System.out.println(
-                "    Tes here.\n" +
-                "    huh? What you want from me?"
-                );
+                "    Tes here.\n"
+                + "    huh? What you want from me?"
+        );
         printLine();
     }
 
@@ -59,7 +59,7 @@ public class Ui {
         printLine();
         System.out.println(
                 "    Annoying brat (-.-)"
-                );
+        );
         printLine();
     }
 
