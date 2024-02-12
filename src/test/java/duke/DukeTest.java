@@ -11,13 +11,13 @@ public class DukeTest {
         assertEquals(2, 2);
     }
 
-    // @Test
-    // public void test_run_throws_exception() {
-    //     Duke duke = new Duke();
-    //     try {
-    //         duke.run();
-    //     } catch (Exception e) {
-    //         assertEquals("java.io.IOException", e.toString());
-    //     }
-    // }
+//     @Test
+//     public void test_run_throws_exception() {
+//         Duke duke = new Duke();
+//         try {
+//             duke.run();
+//         } catch (Exception e) {
+//             assertEquals("java.io.IOException", e.toString());
+//         }
+//     }
 }
