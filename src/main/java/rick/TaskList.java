@@ -25,11 +25,11 @@ public class TaskList {
         for (int i = 0; i < items.size(); i++) {
             string.append((i+1) + ". " + items.get(i) + "\n");
         }
-        string.append("\n" + divider);
+        string.append(divider);
         return string.toString();
     }
 
-    public String add_to_list(String arg, Storage storage) throws RickException {
+    public String addToList (String arg, Storage storage) throws RickException {
         Item new_item;
         String[] splited = arg.split("\\s+");
         int last = splited.length - 1;

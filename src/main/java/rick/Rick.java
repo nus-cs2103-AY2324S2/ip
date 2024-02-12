@@ -46,7 +46,7 @@ public class Rick {
                 } else if (input.startsWith("unmark")) {
                     this.ui.reply(tasks.unmark(input, storage));
                 } else if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
-                    this.ui.reply(tasks.add_to_list(input, storage));
+                    this.ui.reply(tasks.addToList(input, storage));
                 } else if (input.startsWith("delete")) {
                     this.ui.reply(tasks.delete(input, storage));
                 } else {

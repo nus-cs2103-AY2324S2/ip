@@ -1,7 +1,7 @@
 package rick;
 
 public class RickException extends Exception {
-    String message;
+    private String message;
     public RickException(String message) {
         this.message = message;
     }
