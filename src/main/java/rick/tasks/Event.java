@@ -29,7 +29,7 @@ public class Event implements Item {
                     : LocalDateTime.parse(to);
         } catch (Exception e) {
             throw new RickException("Something wrong with your input! " +
-                    "Follow 'deadline [ddl] /by yyyy-mm-ddTHH:mm:ss'");
+                    "Follow 'event [event] /by yyyy-mm-ddTHH:mm:ss'");
         }
     }
     @Override
