@@ -1,8 +1,3 @@
-/**
- * Represents the main class of the Duke application.
- * This class is responsible for initializing the application, handling user input,
- * and generating responses.
- */
 package duke;
 
 import java.io.IOException;
@@ -12,6 +7,11 @@ import duke.task.Parser;
 import duke.task.Storage;
 import duke.task.TaskList;
 
+/**
+ * Represents the main class of the Duke application.
+ * This class is responsible for initializing the application, handling user input,
+ * and generating responses.
+ */
 public class Duke {
     private Storage storage; // The storage handler for loading and saving tasks
     private TaskList tasks; // The list of tasks

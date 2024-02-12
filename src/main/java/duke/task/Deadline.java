@@ -11,6 +11,9 @@ import java.time.format.DateTimeFormatter;
 
 import duke.DukeException;
 
+/**
+ * Represents a deadline task in the Duke application.
+ */
 public class Deadline extends Task {
     protected LocalDateTime by;
 

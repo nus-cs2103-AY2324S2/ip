@@ -13,6 +13,9 @@ import duke.Ui;
 import duke.task.Storage;
 import duke.task.TaskList;
 
+/**
+ * Represents a command in the Duke application.
+ */
 public abstract class Command {
     /**
      * Executes the specific command and returns a response message as a String.

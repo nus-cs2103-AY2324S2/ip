@@ -14,7 +14,9 @@ import duke.task.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
 
-
+/**
+ * Represents a command to mark a task as done in the Duke application.
+ */
 public class MarkCommand extends Command {
     private final String fullCommand;
 

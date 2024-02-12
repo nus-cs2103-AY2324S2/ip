@@ -12,6 +12,9 @@ import java.time.format.DateTimeParseException;
 
 import duke.DukeException;
 
+/**
+ * Provides utility methods for parsing date-time strings in various formats.
+ */
 public class DateTimeUtil {
     /**
      * Parses a date-time string into a LocalDateTime object.

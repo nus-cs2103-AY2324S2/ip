@@ -11,6 +11,9 @@ import java.util.List;
 
 import duke.DukeException;
 
+/**
+ * Represents a list of tasks in the Duke application.
+ */
 public class TaskList {
     private final List<Task> tasks;
 

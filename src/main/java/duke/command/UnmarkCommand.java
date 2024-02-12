@@ -14,6 +14,9 @@ import duke.task.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
 
+/**
+ * Represents a command to unmark a task as not done in the Duke application.
+ */
 public class UnmarkCommand extends Command {
     private final String fullCommand;
 

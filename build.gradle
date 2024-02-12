@@ -2,12 +2,15 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
-    id 'checkstyle'
+//    id 'checkstyle'
 }
 
+/*
 checkstyle {
     toolVersion = '10.2'
 }
+*/
+
 
 repositories {
     mavenCentral()
@@ -33,17 +36,6 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
 }
 
-jar {
-    manifest {
-        attributes(
-                'Main-Class': 'duke.Duke'
-        )
-    }
-    from {
-        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-    }
-}
-
 test {
     useJUnitPlatform()
 
@@ -59,11 +51,13 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("duke.Launcher");
 }
+
 
 shadowJar {
     archiveBaseName = "duke"
+    archiveFileName = 'duke.jar'
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

@@ -9,6 +9,9 @@ package duke;
 import duke.task.Task;
 import duke.task.TaskList;
 
+/**
+ * Handles the user interface for the Duke application, including input and output.
+ */
 public class Ui {
 
     /**

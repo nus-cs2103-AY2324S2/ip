@@ -6,6 +6,9 @@
 
 package duke;
 
+/**
+ * Represents custom exceptions specific to the Duke application.
+ */
 public class DukeException extends Exception {
     /**
      * Creates a new DukeException with the specified error message.

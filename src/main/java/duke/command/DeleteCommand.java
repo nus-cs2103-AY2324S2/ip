@@ -14,7 +14,9 @@ import duke.task.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
 
-
+/**
+ * Represents a command to delete a task from the Duke application.
+ */
 public class DeleteCommand extends Command {
     private final String fullCommand;
 
