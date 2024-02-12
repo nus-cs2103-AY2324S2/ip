@@ -1,6 +1,7 @@
 package duke;
 
 import java.io.IOException;
+
 /**
  * Represents a command to add a new task to the task list.
  */
@@ -30,6 +31,15 @@ public class AddCommand implements Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         try {
             Task newTask = TaskFactory.createTask(userInput);
+
+            // Assert that newTask is not null after creation
+            assert newTask != null : "Failed to create new task";
+
+            // Check if the task description is null
+            if (newTask.getDescription().isEmpty()) {
+                throw new DukeException("Task description cannot be empty");
+            }
+
             tasks.addTask(newTask);
             ui.showConfirmationMessage(tasks.getTasks());
 
@@ -40,6 +50,9 @@ public class AddCommand implements Command {
             storage.saveTasksToFile(tasks);
 
             return resultMessage;
+        } catch (AssertionError e) {
+            // Handle assertion error
+            throw new DukeException(e.getMessage());
         } catch (IOException e) {
             // Handle or log the IOException as needed
             ui.showIoExceptionMessage();

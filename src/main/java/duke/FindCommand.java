@@ -25,6 +25,9 @@ public class FindCommand implements Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        // Assert that the keyword is not null
+        assert keyword != null : "Keyword should not be null";
+
         ui.findTasksByKeyword(keyword, tasks.getTasks());
         return tasks.findTasksByKeyword(keyword);
     }
