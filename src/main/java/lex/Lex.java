@@ -39,6 +39,9 @@ public class Lex extends Application {
         parser = new Parser(tasks, ui, storage);
     }
 
+    /**
+     * Constructor for the Lex class.
+     */
     public Lex() {
         this("./data.json");
     }
