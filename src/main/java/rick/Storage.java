@@ -19,10 +19,18 @@ public class Storage {
     private Path filePath;
     private ArrayList<Item> list = new ArrayList<>();
 
+    /**
+     * Creates a new instance of Storage with designated filePath.
+     * @param filePath the filePath to store local data.
+     */
     public Storage (String filePath) {
         this.filePath = Paths.get(filePath);
         this.directoryPath = this.filePath.getParent();
     }
+
+    /**
+     * Returns an ArrayList that contains the list of items stored in local data.
+     */
     public ArrayList<Item> load() throws RickException {
         try {
             //If directory data does not exist, create it
@@ -68,6 +76,11 @@ public class Storage {
         }
         return this.list;
     }
+
+    /**
+     * Updates the local data with the Items in the current list.
+     * @throws RickException when there is a problem with updating the local data.
+     */
     public void update() throws RickException {
         try {
             BufferedWriter writer = Files.newBufferedWriter(filePath);

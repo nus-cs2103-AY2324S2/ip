@@ -17,6 +17,10 @@ public class Rick {
     private static Path filePath = Paths.get("./data/rick.txt");
     private static Path directoryPath = Paths.get("./data");
 
+    /**
+     * Creates a new instance of the Rick chatbot with specified filePath to store data on hard drive.
+     * @param filePath filePath relative to the project directory, where local data is stored.
+     */
     public Rick(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -30,6 +34,9 @@ public class Rick {
         }
     }
 
+    /**
+     * Runs an instance of Rick.
+     */
     public void run() {
         this.ui.hello();
         Scanner scanner = new Scanner(System.in);
@@ -62,6 +69,10 @@ public class Rick {
         }
 
     }
+
+    /**
+     * Creates a new Rick instance and run it. Executes the programme.
+     */
     public static void main(String[] args) {
         new Rick("data/tasks.txt").run();
     }

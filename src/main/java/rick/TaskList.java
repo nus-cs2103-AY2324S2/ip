@@ -12,12 +12,25 @@ import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Item> items;
 
+    /**
+     * Creates a new instance of TaskList.
+     */
     public TaskList () {
         this.items = new ArrayList<Item>();
     }
+
+    /**
+     * Creates a new instance of TaskList with an existing ArrayList.
+     * @param list an ArrayList to be transformed into a TaskList.
+     */
     public TaskList (ArrayList<Item> list) {
         this.items = list;
     }
+
+    /**
+     * Returns a string representation of the current list.
+     * @return a user-friendly string representation of the current list.
+     */
     public String list() {
         StringBuilder string = new StringBuilder();
         String divider = "____________________________________________________________";
@@ -29,6 +42,13 @@ public class TaskList {
         return string.toString();
     }
 
+    /**
+     * Adds an item into the list based on given input and update the local data.
+     * @param arg the user input which specifies the type, name, date and time of the item.
+     * @param storage the storage item to be used for storing the new item into local data.
+     * @return a string that tells the user that the item has been added successfully.
+     * @throws RickException when there is an error with the input command.
+     */
     public String addToList (String arg, Storage storage) throws RickException {
         Item new_item;
         String[] splited = arg.split("\\s+");
@@ -83,6 +103,13 @@ public class TaskList {
         return output;
     }
 
+    /**
+     * Marks a specified item as done.
+     * @param arg the user input.
+     * @param storage the storage instance used to store the changes to local data.
+     * @return a string representation to tell user that the status has been updated successfully.
+     * @throws RickException if there is a problem with updating the specified item.
+     */
     public String mark(String arg, Storage storage) throws RickException {
         String[] splited = arg.split("\\s+");
         if (splited.length != 2 || !Character.isDigit(arg.charAt(5))) {
@@ -100,6 +127,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Unmarks a specified item as not done.
+     * @param arg the user input.
+     * @param storage the storage instance used to store the changes to local data.
+     * @return a string representation to tell user that the status has been updated successfully.
+     * @throws RickException if there is a problem with updating the specified item.
+     */
     public String unmark(String arg, Storage storage) throws RickException {
         String[] splited = arg.split("\\s+");
         if (splited.length != 2 || !Character.isDigit(arg.charAt(7))) {
@@ -117,6 +151,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a specified item as done.
+     * @param arg the user input.
+     * @param storage the storage instance used to store the changes to local data.
+     * @return a string representation to tell user that the item has been deleted successfully.
+     * @throws RickException if there is a problem with updating the specified item.
+     */
     public String delete(String arg, Storage storage) throws RickException {
         String[] splited = arg.split("\\s+");
         if (splited.length != 2 || !Character.isDigit(arg.charAt(7))) {

@@ -11,6 +11,14 @@ public class Event implements Item {
     private LocalDateTime to;
     private boolean includeTime;
 
+    /**
+     * Creates a new Event Item instance with specified name, status and date/time.
+     * @param name the name of the Item.
+     * @param status the status of the Item, either done or not done.
+     * @param from the starting date or time, written in specified string format.
+     * @param to the ending date or time, written in specified string format.
+     * @throws RickException when there is a problem with user input
+     */
     public Event(String name, String status, String from, String to) throws RickException {
         try {
             if (name.isBlank()) {
@@ -34,6 +42,11 @@ public class Event implements Item {
                     "Follow 'event [event] /by yyyy-mm-ddTHH:mm:ss'");
         }
     }
+
+    /**
+     * Returns the string representation for the Event item that is understandable for the user.
+     * @return a user-friendly string representation for the item.
+     */
     @Override
     public String toString(){
         if (this.includeTime) {
@@ -46,12 +59,25 @@ public class Event implements Item {
                     " to: " + this.to.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
         }
     }
+
+    /**
+     * Marks the item as done.
+     */
     public void mark() {
         this.status = "[X]";
     }
+
+    /**
+     * Unmarks the item as not yet done.
+     */
     public void unmark() {
         this.status = "[ ]";
     }
+
+    /**
+     * Returns the item in a string format that is compatible with the local data file.
+     * @return a string representation of the item in a particular format.
+     */
     public String store() {
         return "E|" + this.status + "|" + this.name + "|" + this.from + "|" + this.to;
     }
