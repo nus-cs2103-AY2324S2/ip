@@ -9,6 +9,8 @@ import victor.tasktype.Todo;
 import victor.ui.Ui;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
@@ -167,7 +169,12 @@ public class Parser {
                 String[] differentParts = inputList[1].split("/");
                 String[] startDate = differentParts[1].split(" ", 2);
                 String[] endDate = differentParts[2].split(" ", 2);
-                Event userTask = new Event(differentParts[0], false, startDate[1], endDate[1]);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                String trimStartDate = startDate[1].trim();
+                String trimEndDate = endDate[1].trim();
+                LocalDateTime startDT = LocalDateTime.parse(trimStartDate, formatter);
+                LocalDateTime endDT = LocalDateTime.parse(trimEndDate, formatter);
+                Event userTask = new Event(differentParts[0], false, trimStartDate, trimEndDate);
                 currentTasks.addTask(userTask);
                 ui.displayBarrier();
                 System.out.println(userTask.toString());
@@ -182,6 +189,12 @@ public class Parser {
                         + "add the necessary information.");
                 System.out.println("The format to schedule a event is: " + taskName.event
                         + " (Description) /from (Start date + time) /to (End date + time)");
+                ui.displayBarrier();
+            } catch (DateTimeParseException e) {
+                ui.displayBarrier();
+                System.out.println(e);
+                System.out.println("Incorrect Date format. Please insert format using yyyy-MM-dd HHmm.");
+                System.out.println("E.g. 2019-02-15 10:40 is 15 February 2019 10:40 am");
                 ui.displayBarrier();
             }
         }

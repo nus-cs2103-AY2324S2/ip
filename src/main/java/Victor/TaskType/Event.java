@@ -1,5 +1,8 @@
 package victor.tasktype;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * The Event class is a child class of the Task class.
  * It inherits the variables from the Task Class, along with their
@@ -16,9 +19,19 @@ public class Event extends Task {
     protected String from;
 
     /**
+     * The tempFrom variable is a LocalDateTime hold the end of the event in LocalDateTIme format.
+     */
+    protected LocalDateTime tempFrom;
+
+    /**
      * The to variable is a String to indicate the end date and time of the event.
      */
     protected String to;
+
+    /**
+     * The tempTo variable is a LocalDateTime hold the end of the event in LocalDateTIme format.
+     */
+    protected LocalDateTime tempTo;
 
     /**
      * The Event constructor takes in a String description and a boolean isDone
@@ -35,8 +48,14 @@ public class Event extends Task {
      */
     public Event(String description, boolean isDone, String from, String to) {
         super(description, isDone);
-        this.from = from;
-        this.to = to;
+        DateTimeFormatter formatter
+                = DateTimeFormatter.ofPattern(
+                "MMM dd yyyy HH:mm a");
+        DateTimeFormatter tempFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        this.tempFrom = LocalDateTime.parse(from,tempFormatter);
+        this.from = tempFrom.format(formatter);
+        this.tempTo = LocalDateTime.parse(to,tempFormatter);
+        this.to = tempTo.format(formatter);
     }
 
     /**
@@ -50,7 +69,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() +
-                " (from: " + from + "to: " + to + ")";
+                " (from: " + from + " to: " + to + ")";
     }
 
     /**
@@ -62,6 +81,6 @@ public class Event extends Task {
      */
     @Override
     public String saveInput() {
-        return "E | " + isDone + " | " + description + " | " + from + " | " + to;
+        return "E | " + isDone + " | " + description + " | " + tempFrom + " | " + tempTo;
     }
 }
