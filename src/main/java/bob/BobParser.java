@@ -35,6 +35,8 @@ public class BobParser {
      */
     public String processInput(String input) {
 
+        assert !input.trim().isEmpty(); // should not accept empty input.
+
         String command = input.split("\\s+")[0];
 
         try {

@@ -18,6 +18,9 @@ public class Task {
      * @param description Description of the task.
      */
     public Task(String description) {
+
+        assert !description.trim().isEmpty(); // description should not be empty.
+
         this.description = description;
         uuid = UUID.randomUUID().toString();
     }

@@ -57,6 +57,12 @@ public class Bob {
         BobTaskList taskList = new BobTaskList(storage, ui);
 
         Bob bob = new Bob(ui, storage, parser, taskList);
+
+        // Components should be initialized.
+        assert bob.ui != null;
+        assert bob.storage != null;
+        assert bob.parser != null;
+        assert bob.taskList != null;
         parser.setUi(ui).setTaskList(taskList);
 
         return bob;

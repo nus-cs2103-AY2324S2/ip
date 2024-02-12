@@ -1,7 +1,6 @@
 package bob;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Class that renders the user interface of the chat bot.
