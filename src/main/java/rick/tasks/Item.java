@@ -1,9 +1,6 @@
 package rick.tasks;
 
 public interface Item {
-    String name = "";
-    String status = "[ ]";
-
     /**
      * Marks the item as done.
      */
