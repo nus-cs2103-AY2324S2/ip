@@ -27,6 +27,12 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Initializes the main window of the application.
+     * Binds the scroll pane to the dialog container to automatically scroll to the bottom.
+     * Sets fonts for the send button and user input field.
+     * Displays a welcome message from Duke when the application starts.
+     */
     @FXML
     public void initialize() {
         // Bind scroll pane to dialog container to automatically scroll to the bottom

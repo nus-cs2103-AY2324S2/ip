@@ -16,6 +16,10 @@ public class AtsisBot {
     private static TaskList taskList;
     private static Storage storage;
 
+    /**
+     * Represents the AtsisBot chatbot.
+     * AtsisBot is responsible for managing tasks and interacting with the user.
+     */
     public AtsisBot() {
         storage = new Storage("data/tasks.txt");
         taskList = storage.loadData();
@@ -30,7 +34,7 @@ public class AtsisBot {
      *
      * @param args The command line arguments.
      */
-    public static void main(String[] args) {      
+    public static void main(String[] args) {
         Ui.printWelcomeMessage();
         String input = Ui.readCommand();
 
@@ -88,7 +92,7 @@ public class AtsisBot {
             }
         } catch (NumberFormatException e) {
             Ui.printInvalidTaskNumberMessage();
-        } 
+        }
 
         System.out.flush();
         System.setOut(previous);
