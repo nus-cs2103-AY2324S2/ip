@@ -69,6 +69,58 @@ public class MainWindow extends AnchorPane {
         aboutPopup.showAndWait();
     }
 
+    @FXML
+    private void handleHelp() {
+        Alert aboutPopup = new Alert(Alert.AlertType.INFORMATION);
+        aboutPopup.setTitle("Commands");
+        aboutPopup.setHeaderText("Tobias Bot");
+        String info = "You can ask me to do the following quests for you, mate:" +
+                "\n\n" +
+                "hello: I will aptly reply!" +
+                "\n\n" +
+                "list: I will print the list of tasks you have at the moment, sire..." +
+                "\n\n" +
+                "todo: I will create a todo:" +
+                "\n" +
+                "todo conquer the world" +
+                "\n\n" +
+                "deadline: I will create a deadline with, well... a deadline:" +
+                "\n" +
+                "deadline Issue a worldwide threat /by 15-02-2024 1600" +
+                "\n\n" +
+                "event: I will create an event with 'from' and 'to':" +
+                "\n" +
+                "event World Domination /from 11-02-2024 1000 /to 22-02-2030 2359" +
+                "\n\n" +
+                "mark: Suppose you finish a task, I can mark it if you give me the task index:" +
+                "\n" +
+                "mark 1" +
+                "\n\n" +
+                "unmark: Suppose you un-finished a task, I can unmark it if you give me the task index:" +
+                "\n" +
+                "unmark 1" +
+                "\n\n" +
+                "delete: If you want to ELIMINATE a task, give me the task index and watch it burn:" +
+                "\n" +
+                "delete 1" +
+                "\n\n" +
+                "find: Give me the task index and I will find it:" +
+                "\n" +
+                "find ham" +
+                "\n\n" +
+                "tag: You can add some unique tags to some tasks (you can use this command repeatedly for a task):" +
+                "\n" +
+                "tag 1 urgent" +
+                "\n\n" +
+                "untag: You can remove a tag of a task by providing the taskIndex followed by tagIndex:" +
+                "\n" +
+                "untag 1 2";
+
+        aboutPopup.setContentText(info);
+
+        aboutPopup.showAndWait();
+    }
+
     public void initialize() {
         showWelcomeMessage();
     }

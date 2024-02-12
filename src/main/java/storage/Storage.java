@@ -47,7 +47,7 @@ public class Storage {
     }
 
     /**
-     * Reads data of commands and adds them to the given TaskList.
+     * Reads data of commands from the local save file and adds them to the given TaskList.
      *
      * @param data String of commands.
      * @param tasks TaskList.

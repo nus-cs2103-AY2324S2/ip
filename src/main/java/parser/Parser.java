@@ -300,61 +300,8 @@ public class Parser {
                 throw new TobiasException("Invalid number provided! Please give a valid index from 1 to " + size +" !!");
             }
         } else {
-
-            String info = "You can ask me to do the following quests for you m8 :"
-                    + System.lineSeparator()
-                    + System.lineSeparator()
-                    + "hello: I will aptly reply !"
-                    + System.lineSeparator()
-                    + System.lineSeparator()
-                    + "list: I will print the list of tasks you have at the moment sire..."
-                    + System.lineSeparator()
-                    + System.lineSeparator()
-                    + "todo: I will create a todo :"
-                    + System.lineSeparator()
-                    + "todo conquer the world"
-                    + System.lineSeparator()
-                    + System.lineSeparator()
-                    + "deadline: I will create a deadline with well... a deadline :"
-                    + System.lineSeparator()
-                    + "deadline Issue a worldwide threat /by 15-02-2024 1600"
-                    + System.lineSeparator()
-                    + System.lineSeparator()
-                    + "event: I will create an event with from and to :"
-                    + System.lineSeparator()
-                    + "event World Domination /from 11-02-2024 1000 /to 22-02-2030 2359"
-                    + System.lineSeparator()
-                    + System.lineSeparator()
-                    + "mark: Suppose you finish a task, I can mark it if you give me the task index :"
-                    + System.lineSeparator()
-                    + "mark 1"
-                    + System.lineSeparator()
-                    + System.lineSeparator()
-                    + "unmark: Suppose you un-finished a task, I can unmark it if you give me the task index :"
-                    + System.lineSeparator()
-                    + "unmark 1"
-                    + System.lineSeparator()
-                    + System.lineSeparator()
-                    + "delete: If you want to ELIMINATE a task, give me the task index and watch it burn :"
-                    + System.lineSeparator()
-                    + "delete 1"
-                    + System.lineSeparator()
-                    + System.lineSeparator()
-                    + "find: Give me the task index and I will find it :"
-                    + System.lineSeparator()
-                    + "find ham"
-                    + System.lineSeparator()
-                    + System.lineSeparator()
-                    + "tag: You can add some unique tags to some tasks (you can use this command repeatedly for a task) :"
-                    + System.lineSeparator()
-                    + "tag 1 urgent"
-                    + System.lineSeparator()
-                    + System.lineSeparator()
-                    + "untag: You can remove a tag of a task by providing the taskIndex followed by tagIndex :"
-                    + System.lineSeparator()
-                    + "untag 1 2";
-
-            throw new TobiasException(info);
+            throw new TobiasException("I don't understand the words that are coming out of your mouth!!\n"
+                    + "Check the help menu to see what I am capable of...");
         }
     }
 }
