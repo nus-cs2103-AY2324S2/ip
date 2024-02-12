@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import nollid.Storage;
 import nollid.TaskList;
+import nollid.exceptions.EmptyDescriptionException;
 import nollid.exceptions.InvalidArgumentException;
 import nollid.exceptions.NollidException;
 import nollid.tasks.Todo;
@@ -49,7 +50,7 @@ public class TodoCommand extends Command {
         return message;
     }
 
-    private String getTaskDescription() throws InvalidArgumentException {
+    private String getTaskDescription() throws EmptyDescriptionException {
         StringBuilder taskDescription = new StringBuilder();
 
         // Get text from after command until the first option. (/tags, /deadline, etc.)
@@ -66,14 +67,14 @@ public class TodoCommand extends Command {
         return taskDescription.toString();
     }
 
-    private void verifyArguments() throws InvalidArgumentException {
+    private void verifyArguments() throws NollidException {
         if (argsList.size() == 1) {
-            throw new InvalidArgumentException("Todo description cannot be empty!\n"
+            throw new EmptyDescriptionException("Todo description cannot be empty!\n"
                     + USAGE_HINT);
         }
 
         if (argsList.indexOf("/tags") == 1) {
-            throw new InvalidArgumentException("Todo description cannot be empty!\n"
+            throw new EmptyDescriptionException("Todo description cannot be empty!\n"
                     + USAGE_HINT);
         }
 
@@ -97,9 +98,9 @@ public class TodoCommand extends Command {
         return tags;
     }
 
-    private void checkDescriptionNotEmpty(String description) throws InvalidArgumentException {
+    private void checkDescriptionNotEmpty(String description) throws EmptyDescriptionException {
         if (description.isEmpty()) {
-            throw new InvalidArgumentException("Todo description cannot be empty!\n"
+            throw new EmptyDescriptionException("Todo description cannot be empty!\n"
                     + USAGE_HINT);
         }
     }

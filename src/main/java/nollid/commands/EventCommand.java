@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import nollid.Parser;
 import nollid.Storage;
 import nollid.TaskList;
+import nollid.exceptions.EmptyDescriptionException;
 import nollid.exceptions.InvalidArgumentException;
 import nollid.exceptions.NollidException;
 import nollid.tasks.Event;
@@ -113,11 +114,11 @@ public class EventCommand extends Command {
      *
      * @param fromIndex The index of the "/from" argument.
      * @param toIndex   The index of the "/to" argument.
-     * @throws InvalidArgumentException If the event description is empty.
+     * @throws EmptyDescriptionException If the event description is empty.
      */
-    private void checkDescriptionNotEmpty(int fromIndex, int toIndex) throws InvalidArgumentException {
+    private void checkDescriptionNotEmpty(int fromIndex, int toIndex) throws EmptyDescriptionException {
         if (this.argsList.size() == 1 || fromIndex == 1 || toIndex == 1) {
-            throw new InvalidArgumentException("Event description cannot be empty!\n" + USAGE_HINT);
+            throw new EmptyDescriptionException("Event description cannot be empty!\n" + USAGE_HINT);
         }
     }
 

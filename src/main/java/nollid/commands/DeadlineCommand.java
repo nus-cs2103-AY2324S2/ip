@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import nollid.Parser;
 import nollid.Storage;
 import nollid.TaskList;
+import nollid.exceptions.EmptyDescriptionException;
 import nollid.exceptions.InvalidArgumentException;
 import nollid.exceptions.NollidException;
 import nollid.tasks.Deadline;
@@ -65,10 +66,10 @@ public class DeadlineCommand extends Command {
      *
      * @throws InvalidArgumentException If the deadline description is empty.
      */
-    private void checkDescriptionNotEmpty() throws InvalidArgumentException {
+    private void checkDescriptionNotEmpty() throws EmptyDescriptionException {
         int byIndex = this.argsList.indexOf("/by");
         if (this.argsList.size() == 1 || byIndex == 1) {
-            throw new InvalidArgumentException("Deadline description cannot be empty!\n" + USAGE_HINT);
+            throw new EmptyDescriptionException("Deadline description cannot be empty!\n" + USAGE_HINT);
         }
     }
 
