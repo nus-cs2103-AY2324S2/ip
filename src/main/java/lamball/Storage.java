@@ -18,8 +18,8 @@ import java.util.Scanner;
  */
 public class Storage {
 
-    protected String filePath = "src/main/java/data/list.txt";
-    protected String tempFilePath = "src/main/java/data/tempfile.txt";
+    protected static String filePath = "src/main/java/data/";
+    protected static String tempFilePath = "src/main/java/data/tempfile.txt";
 
     /**
      * Obtains and initializes list from saved text file locally.
@@ -30,13 +30,13 @@ public class Storage {
 
     public static String obtainSavedFile(Lamball lamb) {
         String returnVal = "";
-        File folder = new File("src/main/java/data");
+        File folder = new File(filePath);
         if (!folder.exists()) {
             System.out.println("Folder does not exist. Creating folder...");
             returnVal += "Folder does not exist. Creating folder...\n";
             folder.mkdirs();
         }
-        File savedList = new File("src/main/java/data/list.txt");
+        File savedList = new File(filePath + "/list.txt");
         try {
             // Try to create file
             if (savedList.createNewFile()) {
@@ -50,13 +50,13 @@ public class Storage {
         } catch (IOException e) {
             System.err.println("An error occurred while creating the file: " + e.getMessage());
             returnVal += "An error occurred while creating the file: " + e.getMessage();
-        } finally {
             return returnVal;
         }
+        return returnVal;
     }
 
     private static void initializeListFromText(File savedList, Lamball lamb) throws FileNotFoundException {
-        File tempFile = new File("src/main/java/data/tempfile.txt");
+        File tempFile = new File(tempFilePath);
         try {
             // Delete and creates a new tempfile
             tempFile.delete();
@@ -83,7 +83,7 @@ public class Storage {
                     lamb.initParse("mark " + count);
                 }
                 // If code reaches here, means that the line is valid - write to temp file
-                Storage.writeToFile("src/main/java/data/tempfile.txt", currLine);
+                Storage.writeToFile(tempFilePath, currLine);
 
 
             } catch (LamballParseException e) {
@@ -104,10 +104,9 @@ public class Storage {
      * @param index Index of line to replace.
      */
     public static void replaceLine(String toWrite, int index) {
-        String filePath = "src/main/java/data/list.txt";
         try {
             // Read all lines from the file
-            Path path = Paths.get(filePath);
+            Path path = Paths.get(filePath + "/list.txt");
             List<String> lines = Files.readAllLines(path);
 
             // Check if the index is valid
@@ -133,10 +132,9 @@ public class Storage {
      * @param index Index of line to delete.
      */
     public static void deleteLine(int index) {
-        String filePath = "src/main/java/data/list.txt";
         try {
             // Read all lines from the file
-            Path path = Paths.get(filePath);
+            Path path = Paths.get(filePath + "/list.txt");
             List<String> lines = Files.readAllLines(path);
 
             // Check if the index is valid
@@ -179,9 +177,8 @@ public class Storage {
      * @param toAdd Line to be appended to the text file.
      */
     public static void writeToFile(String toAdd) {
-        String filePath = "src/main/java/data/list.txt";
         try {
-            FileWriter fw = new FileWriter(filePath, true);
+            FileWriter fw = new FileWriter(filePath + "/list.txt", true);
             fw.write(toAdd + System.lineSeparator());
             fw.close();
         } catch (IOException e) {

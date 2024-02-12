@@ -1,12 +1,14 @@
 package lamball.command;
 
-import lamball.TaskList;
+/**
+ * Command task that will be told to run.
+ */
 public abstract class Command {
-    TaskList taskList;
 
-    public Command(TaskList taskList) {
-        this.taskList = taskList;
-    }
-
-    abstract public boolean run();
+    /**
+     * Runs the command.
+     *
+     * @return Boolean determining if the chatbot should be terminated.
+     */
+    public abstract boolean run();
 }

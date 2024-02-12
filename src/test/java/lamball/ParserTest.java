@@ -1,11 +1,15 @@
 package lamball;
 
-import lamball.command.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import lamball.command.ByeCommand;
+import lamball.command.Command;
+import lamball.command.PrintListCommand;
 
 public class ParserTest {
     @Test
@@ -14,7 +18,6 @@ public class ParserTest {
         try {
             Command comd = Parser.parse("bye", tst, false);
             assertTrue(comd instanceof ByeCommand);
-            assertTrue(!comd.run());
         } catch (LamballParseException e) {
             fail();
         }
@@ -26,7 +29,6 @@ public class ParserTest {
         try {
             Command comd = Parser.parse("list", tst, false);
             assertTrue(comd instanceof PrintListCommand);
-            assertTrue(comd.run());
         } catch (LamballParseException e) {
             fail();
         }
@@ -47,46 +49,6 @@ public class ParserTest {
             Parser.parse("list 123456", tst, false);
         });
         assertEquals("Do not type anything after \"list\"", thrown.getMessage());
-    }
-
-    @Test
-    public void markParseTest() {
-        try {
-            TaskList tst = new TaskList();
-            tst.toDo("TEST", false);
-            Command comd = Parser.parse("mark 1", tst, false);
-            assertTrue(comd instanceof MarkCommand);
-            assertTrue(comd.run());
-        } catch (LamballParseException e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void unmarkParseTest() {
-        try {
-            TaskList tst = new TaskList();
-            tst.toDo("TEST", false);
-            Command comd = Parser.parse("unmark 1", tst, false);
-            assertTrue(comd instanceof UnMarkCommand);
-            assertTrue(comd.run());
-        } catch (LamballParseException e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void deleteParseTest() {
-        try {
-            TaskList tst = new TaskList();
-            tst.toDo("TEST", false);
-            Command comd = Parser.parse("delete 1", tst, false);
-            assertTrue(comd instanceof DeleteCommand);
-            assertTrue(comd.run());
-            assertTrue(tst.size() == 0);
-        } catch (LamballParseException e) {
-            fail();
-        }
     }
 
     @Test

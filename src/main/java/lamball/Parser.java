@@ -1,6 +1,15 @@
 package lamball;
 
-import lamball.command.*;
+import lamball.command.ByeCommand;
+import lamball.command.Command;
+import lamball.command.DeadlineCommand;
+import lamball.command.DeleteCommand;
+import lamball.command.EventCommand;
+import lamball.command.FindCommand;
+import lamball.command.MarkCommand;
+import lamball.command.PrintListCommand;
+import lamball.command.ToDoCommand;
+import lamball.command.UnMarkCommand;
 
 /**
  *  Contains methods related to parsing user's inputs.
@@ -58,7 +67,7 @@ public class Parser {
             if (parts.length > 1) {
                 throw new LamballParseException("Do not type anything after \"" + parts[0] + "\"");
             }
-            return new ByeCommand(tasks);
+            return new ByeCommand();
         }
         case "list":
             if (parts.length > 1) {

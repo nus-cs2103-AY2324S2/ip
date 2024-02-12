@@ -1,10 +1,14 @@
 package lamball.command;
 
-import lamball.TaskList;
-
+/**
+ * Command that closes the window.
+ */
 public class ByeCommand extends Command {
-    public ByeCommand(TaskList tasks) {
-        super(tasks);
+    /**
+     * Constructor for command.
+     */
+    public ByeCommand() {
+
     }
 
     @Override public boolean run() {
