@@ -16,4 +16,16 @@ public class TodoTest {
         todo.setDone(true);
         assertEquals("T | true | a", todo.toStorageFormat());
     }
+
+    @Test
+    public void toString_notDone_success() {
+        assertEquals("[T][ ] a", new Todo("a").toString());
+    }
+
+    @Test
+    public void toString_done_success() {
+        Todo todo = new Todo("a");
+        todo.setDone(true);
+        assertEquals("[T][X] a", todo.toString());
+    }
 }

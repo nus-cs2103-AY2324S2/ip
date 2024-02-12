@@ -8,11 +8,11 @@ public class Bob {
     private TaskList tasks;
     private final Ui ui;
 
-    public Bob() {
+    public Bob(String dataPath) {
         ui = new Ui();
         storage = new Storage();
         try {
-            tasks = new TaskList(storage.load());
+            tasks = new TaskList(storage.load(dataPath));
         } catch (BobException e) {
             ui.showLoadingError(e.getMessage());
             tasks = new TaskList();
@@ -42,6 +42,6 @@ public class Bob {
     }
 
     public static void main(String[] args) {
-        new Bob().run();
+        new Bob(Storage.DATA_PATH).run();
     }
 }

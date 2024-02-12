@@ -7,6 +7,7 @@ public class Todo extends Task {
         super(description);
     }
 
+    @Override
     public String toStorageFormat() {
         return STORAGE_INDICATOR + " | " + super.toStorageFormat();
     }
