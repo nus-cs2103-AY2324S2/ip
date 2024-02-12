@@ -34,6 +34,7 @@ public class MainWindow extends AnchorPane {
 
     public void setDuchess(Duchess d) {
         duchess = d;
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getDuchessDialog(duchess.getWelcome(), duchessImage)
         );
@@ -47,10 +48,12 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = duchess.getResponse(input);
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDuchessDialog(response, duchessImage)
         );
+
         userInput.clear();
     }
 }
