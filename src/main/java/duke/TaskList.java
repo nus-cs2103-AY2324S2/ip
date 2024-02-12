@@ -67,4 +67,18 @@ public class TaskList {
         }
         return tasks;
     }
+
+    public String getList() {
+        if (taskList.size() == 0) {
+            return "You have no tasks in your list!";
+        } else {
+            String result = "Here are your tasks in your list:\n";
+            for (int x = 0; x < taskList.size(); x++) {
+                Task item = taskList.get(x);
+                int numeric = x + 1;
+                result = result + numeric + "." + item.toString() + "\n";
+            }
+            return result;
+        }
+    }
 }

@@ -21,12 +21,12 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Parser parser = new Parser();
+    private final Parser parser = new Parser();
 
     private Stage stage;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/wojak.jpeg"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/chad.jpeg"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/wojak.jpeg"));
+    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/chad.jpeg"));
 
     @FXML
     public void initialize() {
@@ -45,15 +45,17 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        if (input.equals("bye")) {
+            stage.close();
+        }
         String response = parser.interpret(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
-        if (input.equals("bye")) {
-            stage.close();
-        }
+
+
     }
     private void greet() {
         String greetings ="Hello! I'm Dukey." + "\n" + "What can I do for you?";
