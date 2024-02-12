@@ -1,3 +1,31 @@
-list /due_in 115
-list /due_in 116
+list
+list /on 6/6/2024
+list /on a
+list /due_in 300
+list /due_in 7
+list /due_in a
+list a
+todo
+todo test
+deadline
+deadline test
+deadline test /by a
+deadline test /by 12/2/2024 1123
+event
+event test
+event test /from 12/2/2024 1123
+event test /from 12/2/2024 1123 /to 11/2/2024 1123
+event test /from 11/2/2024 1123 /to 12/2/2024 1123
+mark 10
+mark -1
+mark a
+mark 5
+unmark 10
+unmark -1
+unmark a
+unmark 5
+delete 10
+delete -1
+delete a
+delete 5
 exit

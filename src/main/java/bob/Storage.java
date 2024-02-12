@@ -8,6 +8,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,7 +17,9 @@ public class Storage {
     private static final String DATA_DIR = "data";
     private static final String DATA_PATH = DATA_DIR + "/bob.txt";
 
-    private static File dataFile;
+    private static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+
+    private File dataFile;
 
     private static File createOrRetrieve() throws IOException {
         Path path = Paths.get(DATA_PATH);
@@ -28,58 +32,76 @@ public class Storage {
     }
 
     // TODO: Once extractParameter is more generalised, we can move this to Parser
-    private static void parseStorageLine(String line, int lineIndex) throws InvalidTaskIndexException {
+    private static Task parseStorageLine(String line) {
         String[] parameters = line.split(" \\| ");
+
         String taskType = parameters[0];
         boolean isDone = Boolean.parseBoolean(parameters[1]);
         String description = parameters[2];
+
+        Task task;
         switch (taskType) {
-            case Parser.TODO:
-                TaskList.addTodo(description);
+            case Todo.STORAGE_INDICATOR:
+                task = new Todo(description);
                 break;
-            case Parser.DEADLINE:
-                LocalDateTime by = LocalDateTime.parse(parameters[3], Parser.INPUT_DATETIME_FORMATTER);
-                TaskList.addDeadline(description, by);
+            case Deadline.STORAGE_INDICATOR:
+                LocalDateTime by = LocalDateTime.parse(parameters[3], DATETIME_FORMATTER);
+                task = new Deadline(description, by);
                 break;
             default:
-                LocalDateTime from = LocalDateTime.parse(parameters[3], Parser.INPUT_DATETIME_FORMATTER);
-                LocalDateTime to = LocalDateTime.parse(parameters[4], Parser.INPUT_DATETIME_FORMATTER);
-                TaskList.addEvent(description, from, to);
+                LocalDateTime from = LocalDateTime.parse(parameters[3], DATETIME_FORMATTER);
+                LocalDateTime to = LocalDateTime.parse(parameters[4], DATETIME_FORMATTER);
+                task = new Event(description, from, to);
         }
-        TaskList.mark(lineIndex, isDone);
+        task.setDone(isDone);
+        return task;
     }
 
-    public static void load() {
+    public static String formatDateTime(LocalDateTime dateTime) {
+        return dateTime.format(DATETIME_FORMATTER);
+    }
+
+    public ArrayList<Task> load() throws LoadingException {
         try {
             dataFile = createOrRetrieve();
             Scanner s = new Scanner(dataFile);
+            ArrayList<Task> tasks = new ArrayList<>();
 
-            for (int i = 0; s.hasNext(); i++) {
-                parseStorageLine(s.nextLine(), i);
+            while (s.hasNext()) {
+                tasks.add(parseStorageLine(s.nextLine()));
             }
+
+            return tasks;
         } catch (Exception e) {
-            // Regardless of what went wrong, print the exception name and message, then quit.
-            Ui.print(new String[] { Ui.LOADING_ERROR, e.getClass().getName() + ": " + e.getMessage() });
-            System.exit(-1);
+            // Any exception caught here should just be displayed as a server-side error
+            throw new LoadingException(e.getMessage());
         }
     }
 
-    public static void save(ArrayList<Task> tasks, boolean isAppend) {
+    public void saveTask(Task task) throws SavingException {
         try {
-            FileWriter fw = new FileWriter(dataFile.getAbsoluteFile(), isAppend);
+            FileWriter fw = new FileWriter(dataFile.getAbsoluteFile(), true);
             BufferedWriter bw = new BufferedWriter(fw);
-            if (isAppend) {
-                bw.write(tasks.get(tasks.size() - 1).toStorageFormat());
+            bw.write(task.toStorageFormat());
+            bw.newLine();
+        } catch (IOException e) {
+            // Any exception caught here should just be displayed as a server-side error
+            throw new SavingException(e.getMessage());
+        }
+    }
+
+    public void refresh(ArrayList<Task> tasks) throws SavingException {
+        try {
+            FileWriter fw = new FileWriter(dataFile.getAbsoluteFile());
+            BufferedWriter bw = new BufferedWriter(fw);
+            for (Task task : tasks) {
+                bw.write(task.toStorageFormat());
                 bw.newLine();
-            } else {
-                for (Task task : tasks) {
-                    bw.write(task.toStorageFormat());
-                    bw.newLine();
-                }
             }
             bw.flush();
         } catch (IOException e) {
-            Ui.print(new String[] { Ui.SAVING_ERROR, e.getMessage() });
+            // Any exception caught here should just be displayed as a server-side error
+            throw new SavingException(e.getMessage());
         }
     }
 }

@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
+    public static final String STORAGE_INDICATOR = "E";
+
     protected LocalDateTime from;
     protected LocalDateTime to;
 
@@ -16,8 +18,8 @@ public class Event extends Task {
 
     @Override
     public String toStorageFormat() {
-        return "event | " + super.toStorageFormat() + " | " + this.from.format(Parser.INPUT_DATETIME_FORMATTER)
-                + " | " + this.to.format(Parser.INPUT_DATETIME_FORMATTER);
+        return STORAGE_INDICATOR + " | " + super.toStorageFormat() + " | "
+                + Storage.formatDateTime(from) + " | " + Storage.formatDateTime(to);
     }
 
     @Override
@@ -27,7 +29,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from.format(Ui.OUTPUT_DATETIME_FORMATTER)
-                + " to: " + this.to.format(Ui.OUTPUT_DATETIME_FORMATTER) + ')';
+        return "[E]" + super.toString() + " (from: " + Ui.formatDateTime(from)
+                + " to: " + Ui.formatDateTime(to) + ')';
     }
 }

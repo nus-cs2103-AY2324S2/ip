@@ -1,12 +1,14 @@
 package bob;
 
 public class Todo extends Task {
+    public static final String STORAGE_INDICATOR = "T";
+
     public Todo(String description) {
         super(description);
     }
 
     public String toStorageFormat() {
-        return "todo | " + super.toStorageFormat();
+        return STORAGE_INDICATOR + " | " + super.toStorageFormat();
     }
 
     @Override

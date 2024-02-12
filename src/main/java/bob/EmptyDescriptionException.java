@@ -1,7 +1,9 @@
 package bob;
 
 public class EmptyDescriptionException extends BobException {
-    public EmptyDescriptionException(String taskType) {
-        super(String.format(Ui.EMPTY_DESCRIPTION, taskType));
+    private static final String MESSAGE = "%s what";
+
+    public EmptyDescriptionException(String command) {
+        super(String.format(MESSAGE, command));
     }
 }

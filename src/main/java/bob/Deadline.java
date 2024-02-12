@@ -6,6 +6,7 @@ import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 
 public class Deadline extends Task {
+    public static final String STORAGE_INDICATOR = "D";
 
     protected LocalDateTime by;
 
@@ -16,7 +17,8 @@ public class Deadline extends Task {
 
     @Override
     public String toStorageFormat() {
-        return "deadline | " + super.toStorageFormat() + " | " + this.by.format(Parser.INPUT_DATETIME_FORMATTER);
+        return STORAGE_INDICATOR + " | " + super.toStorageFormat() + " | "
+                + Storage.formatDateTime(by);
     }
 
     @Override
@@ -33,6 +35,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by.format(Ui.OUTPUT_DATETIME_FORMATTER) + ")";
+        return "[D]" + super.toString() + " (by: " + Ui.formatDateTime(by) + ")";
     }
 }

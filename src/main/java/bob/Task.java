@@ -18,12 +18,16 @@ public abstract class Task {
         return (isDone ? DONE_ICON : NOT_DONE_ICON);
     }
 
+    public boolean getDone() {
+        return isDone;
+    }
+
     public void setDone(boolean done) {
-        this.isDone = done;
+        isDone = done;
     }
 
     public String toStorageFormat() {
-        return (isDone ? "true" : "false") + " | " + this.description;
+        return (isDone ? "true" : "false") + " | " + description;
     }
 
     public boolean isOccurringOn(LocalDate date) {
@@ -36,6 +40,6 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return '[' + this.getStatusIcon() + "] " + this.description;
+        return '[' + getStatusIcon() + "] " + description;
     }
 }

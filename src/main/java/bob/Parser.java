@@ -1,30 +1,27 @@
 package bob;
 
-import java.lang.reflect.Parameter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 
 public class Parser {
-    private static final Scanner SCANNER = new Scanner(System.in);
-    public static final String EXIT = "exit";
-    public static final String LIST = "list";
-    public static final String MARK = "mark";
-    public static final String UNMARK = "unmark";
-    public static final String TODO = "todo";
-    public static final String DEADLINE = "deadline";
-    public static final String EVENT = "event";
-    public static final String DELETE = "delete";
+    private static final String EXIT = "exit";
+    private static final String LIST = "list";
+    private static final String MARK = "mark";
+    private static final String UNMARK = "unmark";
+    private static final String TODO = "todo";
+    private static final String DEADLINE = "deadline";
+    private static final String EVENT = "event";
+    private static final String DELETE = "delete";
 
-    public static final String INPUT_DATE_PATTERN = "d/M/yyyy";
-    public static final DateTimeFormatter INPUT_DATE_FORMATTER
-            = DateTimeFormatter.ofPattern(INPUT_DATE_PATTERN);
+    private static final String DATE_PATTERN = "d/M/yyyy";
+    private static final DateTimeFormatter DATE_FORMATTER
+            = DateTimeFormatter.ofPattern(DATE_PATTERN);
 
-    public static final String INPUT_DATETIME_PATTERN = INPUT_DATE_PATTERN + " HHmm";
-    public static final DateTimeFormatter INPUT_DATETIME_FORMATTER
-            = DateTimeFormatter.ofPattern(INPUT_DATETIME_PATTERN);
+    private static final String DATETIME_PATTERN = DATE_PATTERN + " HHmm";
+    private static final DateTimeFormatter DATETIME_FORMATTER
+            = DateTimeFormatter.ofPattern(DATETIME_PATTERN);
 
     private static String[] extractParameters(String parametersString,
                                              String[] parameters) throws ParameterNotFoundException {
@@ -49,10 +46,10 @@ public class Parser {
         return result;
     }
 
-    private static void parseList(
-            String[] commandArgs) throws DateTimeParseException, ParameterNotFoundException, NumberFormatException {
+    private static Command parseList(
+            String[] commandArgs) throws ParameterNotFoundException, InvalidDateTimeException, InvalidDaysException {
         if (commandArgs.length == 1) {
-            Bob.handleList();
+            return new ListCommand();
         } else {
             // TODO: use extractParameters once it has been generalised
             String remaining = commandArgs[1];
@@ -64,29 +61,43 @@ public class Parser {
             boolean hasDueIn = dueInSplit.length > 1;
 
             if (hasOn) {
-                LocalDate on = LocalDate.parse(onSplit[1], INPUT_DATE_FORMATTER);
-                Bob.handleListOnDate(on);
-                throw new ParameterNotFoundException(new String[] { "on", "due_in" });
+                try {
+                    LocalDate on = LocalDate.parse(onSplit[1], DATE_FORMATTER);
+                    return new ListOnDateCommand(on);
+                } catch (DateTimeParseException e) {
+                    throw new InvalidDateTimeException(DATE_PATTERN, e.getParsedString());
+                }
             } else if (hasDueIn) {
-                int days = Integer.parseInt(dueInSplit[1]);
-                Bob.handleListDueIn(days);
+                try {
+                    int days = Integer.parseInt(dueInSplit[1]);
+                    return new ListDueInCommand(days);
+                } catch (NumberFormatException e) {
+                    throw new InvalidDaysException(dueInSplit[1]);
+                }
             } else {
                 throw new ParameterNotFoundException(new String[] { "on", "due_in" });
             }
         }
     }
 
-    private static void parseDeleteOrMark(String[] commandArgs) throws NumberFormatException,
-            InvalidTaskIndexException, ArrayIndexOutOfBoundsException {
-        int taskIndex = Integer.parseInt(commandArgs[1]) - 1;
-        if (commandArgs[0].equals(Parser.DELETE)) {
-            Bob.handleDelete(taskIndex);
-        } else {
-            Bob.handleMark(taskIndex, commandArgs[0].equals(Parser.MARK));
+    private static Command parseDeleteOrMark(
+            String[] commandArgs) throws InvalidTaskIndexException, EmptyDescriptionException {
+        try {
+            int taskIndex = Integer.parseInt(commandArgs[1]) - 1;
+            if (commandArgs[0].equals(Parser.DELETE)) {
+                return new DeleteCommand(taskIndex);
+            } else {
+                return new MarkCommand(taskIndex, commandArgs[0].equals(Parser.MARK));
+            }
+        } catch (NumberFormatException e) {
+            throw new InvalidTaskIndexException(commandArgs[1]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new EmptyDescriptionException(commandArgs[0]);
         }
     }
 
-    private static void parseAdd(String[] commandArgs) throws EmptyDescriptionException, ParameterNotFoundException {
+    private static Command parseAdd(
+            String[] commandArgs) throws InvalidDateTimeException, EmptyDescriptionException, ParameterNotFoundException {
         if (commandArgs.length == 1) {
             throw new EmptyDescriptionException(commandArgs[0]);
         }
@@ -97,88 +108,56 @@ public class Parser {
         String taskType = commandArgs[0];
         String[] parameters;
         String description;
-        switch (taskType) {
-        case TODO:
-            parameters = Parser.extractParameters(commandArgs[1], new String[]{});
-            description = parameters[0];
-            Bob.handleAddTodo(description);
-            break;
-        case DEADLINE:
-            parameters = Parser.extractParameters(commandArgs[1], new String[]{ "by" });
-            description = parameters[0];
-            LocalDateTime by = LocalDateTime.parse(parameters[1], INPUT_DATETIME_FORMATTER);
-            Bob.handleAddDeadline(description, by);
-            break;
-        default:
-            parameters = Parser.extractParameters(commandArgs[1], new String[] { "from", "to" });
-            description = parameters[0];
-            LocalDateTime from = LocalDateTime.parse(parameters[1], INPUT_DATETIME_FORMATTER);
-            LocalDateTime to = LocalDateTime.parse(parameters[2], INPUT_DATETIME_FORMATTER);
-            Bob.handleAddEvent(description, from, to);
+
+        try {
+            switch (taskType) {
+            case TODO:
+                parameters = Parser.extractParameters(commandArgs[1], new String[]{});
+                description = parameters[0];
+                return new AddTodoCommand(description);
+            case DEADLINE:
+                parameters = Parser.extractParameters(commandArgs[1], new String[]{ "by" });
+                description = parameters[0];
+                LocalDateTime by = LocalDateTime.parse(parameters[1], DATETIME_FORMATTER);
+                return new AddDeadlineCommand(description, by);
+            default:
+                parameters = Parser.extractParameters(commandArgs[1], new String[] { "from", "to" });
+                description = parameters[0];
+                LocalDateTime from = LocalDateTime.parse(parameters[1], DATETIME_FORMATTER);
+                LocalDateTime to = LocalDateTime.parse(parameters[2], DATETIME_FORMATTER);
+                return new AddEventCommand(description, from, to);
+            }
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException(DATETIME_PATTERN, e.getParsedString());
         }
     }
 
-    public static boolean parse() {
-        String command = SCANNER.nextLine();
+    public static Command parse(String command) throws BobException {
         String[] commandArgs = command.split(" ", 2);
 
         command = commandArgs[0];
 
         if (command.equals(Parser.EXIT)) {
-            Ui.print(Ui.EXIT);
-            return false;
+            return new ExitCommand();
         }
 
         switch (command) {
         case Parser.LIST:
-            try {
-                parseList(commandArgs);
-            } catch (DateTimeParseException e) {
-                Ui.print(Ui.INVALID_DATE_FORMAT);
-            } catch (ParameterNotFoundException e) {
-                Ui.print(e.getMessage());
-            } catch (NumberFormatException e) {
-                Ui.print(Ui.INVALID_DAY + " " + e.getMessage());
-            }
-            break;
+            return parseList(commandArgs);
         case Parser.DELETE:
             // Fallthrough
         case Parser.UNMARK:
             // Fallthrough
         case Parser.MARK:
-            try {
-                parseDeleteOrMark(commandArgs);
-            } catch (NumberFormatException e) {
-                // The more "correct" way is to throw an InvalidTaskIndexException?
-                Ui.print(String.format(Ui.INVALID_TASK_INDEX, commandArgs[1]));
-            } catch (InvalidTaskIndexException e) {
-                Ui.print(String.format(e.getMessage(), commandArgs[1]));
-            } catch (ArrayIndexOutOfBoundsException e) {
-                // TODO: processParameterisedCommands, which is any command other than exit and list
-                Ui.print(String.format(Ui.EMPTY_DESCRIPTION, command));
-            }
-            break;
+            return parseDeleteOrMark(commandArgs);
         case Parser.TODO:
             // Fallthrough
         case Parser.DEADLINE:
             // Fallthrough
         case Parser.EVENT:
-            try {
-                parseAdd(commandArgs);
-            } catch (EmptyDescriptionException | ParameterNotFoundException e) {
-                Ui.print(e.getMessage());
-            } catch (DateTimeParseException e) {
-                Ui.print(Ui.INVALID_DATETIME_FORMAT);
-            }
-            break;
+            return parseAdd(commandArgs);
         default:
-            try {
-                throw new InvalidCommandException();
-            } catch (InvalidCommandException e) {
-                Ui.print(e.getMessage());
-            }
+            throw new InvalidCommandException();
         }
-
-        return true;
     }
 }

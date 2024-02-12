@@ -1,11 +1,13 @@
 package bob;
 
 public class ParameterNotFoundException extends BobException {
+    private static final String MESSAGE = "tell me what's your %s";
+
     public ParameterNotFoundException(String parameter) {
-        super(String.format(Ui.PARAMETER_NOT_FOUND, parameter));
+        super(String.format(MESSAGE, parameter));
     }
 
     public ParameterNotFoundException(String[] parameters) {
-        super(String.format(Ui.PARAMETER_NOT_FOUND, String.join(" or ", parameters)));
+        super(String.format(MESSAGE, String.join(" or ", parameters)));
     }
 }

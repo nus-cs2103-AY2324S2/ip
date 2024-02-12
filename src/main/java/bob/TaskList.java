@@ -6,77 +6,87 @@ import java.util.ArrayList;
 import java.util.function.Predicate;
 
 public class TaskList {
-    private static final ArrayList<Task> TASKS = new ArrayList<>();
+    private final ArrayList<Task> tasks;
 
-    public static int getSize() {
-        return TASKS.size();
+    public TaskList() {
+        tasks = new ArrayList<>();
     }
 
-    public static Task mark(int taskIndex, boolean isDone) throws InvalidTaskIndexException {
-        if (taskIndex < 0 || taskIndex >= TaskList.getSize()) {
-            throw new InvalidTaskIndexException();
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public int getSize() {
+        return tasks.size();
+    }
+
+    private ArrayList<Task> listWithFilter(Predicate<Task> filter) {
+        ArrayList<Task> filteredTask = new ArrayList<>();
+        for (Task task : tasks) {
+            if (filter.test(task)) {
+                filteredTask.add(task);
+            }
+        }
+        return filteredTask;
+    }
+
+    public ArrayList<Task> list() {
+        return listWithFilter(task -> true);
+    }
+
+    public ArrayList<Task> listOnDate(LocalDate date) {
+        return listWithFilter(task -> task.isOccurringOn(date));
+    }
+
+    public ArrayList<Task> listDueIn(int days) {
+        return listWithFilter(task -> task.isDueIn(days));
+    }
+
+    public Task addTodo(String description) {
+        Task task = new Todo(description);
+        tasks.add(task);
+        return task;
+    }
+
+    public Task addDeadline(String description, LocalDateTime by) {
+        Task task = new Deadline(description, by);
+        tasks.add(task);
+        return task;
+    }
+
+    public Task addEvent(String description, LocalDateTime from, LocalDateTime to) throws InvalidEventException {
+        if (to.isBefore(from)) {
+            throw new InvalidEventException();
         }
 
-        Task task = TASKS.get(taskIndex);
+        Task task = new Event(description, from, to);
+        tasks.add(task);
+        return task;
+    }
+
+    public Task mark(int taskIndex, boolean isDone) throws InvalidTaskIndexException {
+        if (taskIndex < 0 || taskIndex >= getSize()) {
+            throw new InvalidTaskIndexException(String.valueOf(taskIndex + 1), getSize());
+        }
+
+        Task task = tasks.get(taskIndex);
         task.setDone(isDone);
 
         return task;
     }
 
-    public static Task delete(int taskIndex) throws InvalidTaskIndexException {
-        if (taskIndex < 0 || taskIndex >= TaskList.getSize()) {
-            throw new InvalidTaskIndexException();
+    public Task delete(int taskIndex) throws InvalidTaskIndexException {
+        if (taskIndex < 0 || taskIndex >= getSize()) {
+            throw new InvalidTaskIndexException(String.valueOf(taskIndex + 1), getSize());
         }
 
-        Task task = TASKS.get(taskIndex);
-        TASKS.remove(taskIndex);
-
-        Storage.save(TASKS, false);
+        Task task = tasks.get(taskIndex);
+        tasks.remove(taskIndex);
 
         return task;
     }
 
-    private static void listWithFilter(Predicate<Task> filter) {
-        ArrayList<Task> filteredTask = new ArrayList<>();
-        for (Task task : TASKS) {
-            if (filter.test(task)) {
-                filteredTask.add(task);
-            }
-        }
-        Ui.list(filteredTask);
-    }
-
-    public static void list() {
-        listWithFilter(task -> true);
-    }
-
-    public static void listOnDate(LocalDate date) {
-        listWithFilter(task -> task.isOccurringOn(date));
-    }
-
-    public static void listDueIn(int days) {
-        listWithFilter(task -> task.isDueIn(days));
-    }
-
-    public static Task addTodo(String description) {
-        Task task = new Todo(description);
-        TASKS.add(task);
-        return task;
-    }
-
-    public static Task addDeadline(String description, LocalDateTime by) {
-        Task task = new Deadline(description, by);
-        TASKS.add(task);
-        return task;
-    }
-
-    public static Task addEvent(String description, LocalDateTime from, LocalDateTime to) {
-        Task task = new Event(description, from, to);
-        TASKS.add(task);
-        return task;
-    }
-
-    public static void save(boolean isAppend) {
-        Storage.save(TASKS, isAppend);
+    public void updateStorage(Storage storage) throws SavingException {
+        storage.refresh(tasks);
     }
 }
