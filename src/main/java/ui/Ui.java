@@ -9,6 +9,7 @@ import task.TaskList;
  * Responsible for interacting with the user through the command line interface.
  */
 public class Ui {
+    private StringBuilder output = new StringBuilder();
     /**
      * Method to read what the user inputs.
      * @return The next line of input by the user.
@@ -22,8 +23,7 @@ public class Ui {
      * Displays the welcome message.
      */
     public void showWelcome() {
-        System.out.println("Hello! I'm TodoPal!");
-        System.out.println("What can I do for you?");
+        output.append("Hello! I'm TodoPal!\nWhat can I do for you?");
     }
 
     /**
@@ -89,5 +89,17 @@ public class Ui {
                 System.out.println((i + 1) + "." + foundTasks.getTask(i).toString());
             }
         }
+    }
+
+    /**
+     * Returns the Ui response and resets the output String.
+     *
+     * @return String that is passed into GUI.
+     */
+    public String getOutput() {
+        String temp = output.toString();
+        assert !temp.equals("") : "Output should not be empty";
+        output = new StringBuilder();
+        return temp;
     }
 }

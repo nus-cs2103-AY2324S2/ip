@@ -1,5 +1,3 @@
-package duke;
-
 import command.Command;
 import exceptions.DukeException;
 import task.TaskList;
@@ -45,5 +43,10 @@ public class Duke {
         } catch (DukeException e) {
             return e.getMessage();
         }
+    }
+
+    public String getWelcome() {
+        ui.showWelcome();
+        return ui.getOutput();
     }
 }
