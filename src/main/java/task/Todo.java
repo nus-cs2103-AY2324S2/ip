@@ -1,7 +1,5 @@
 package task;
 
-import task.Task;
-
 /**
  * Represents a todo task.
  */

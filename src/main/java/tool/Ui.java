@@ -3,7 +3,6 @@ package tool;
 import java.util.Scanner;
 
 import task.Task;
-import tool.TaskList;
 
 /**
  * Represents the tool to deal with user interactions.

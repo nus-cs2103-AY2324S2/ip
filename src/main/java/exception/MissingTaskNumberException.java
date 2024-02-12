@@ -1,7 +1,5 @@
 package exception;
 
-import exception.ChronosException;
-
 /**
  * Represents the exception thrown when the task number is missing.
  */
