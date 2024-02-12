@@ -1,8 +1,8 @@
-package tasklist;
+package scribbles.tasklist;
 
 import java.util.ArrayList;
 
-import task.Task;
+import scribbles.task.Task;
 
 /**
  * This class represents the users task list.

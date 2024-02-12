@@ -1,11 +1,11 @@
-package parser;
+package scribbles.parser;
 
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import ui.Ui;
+import scribbles.ui.Ui;
 
 /**
  * This class deals with making sense of user commands.

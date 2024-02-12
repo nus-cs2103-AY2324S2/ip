@@ -1,4 +1,4 @@
-package storage;
+package scribbles.storage;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -11,11 +11,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.Todo;
-import tasklist.TaskList;
+import scribbles.task.Deadline;
+import scribbles.task.Event;
+import scribbles.task.Task;
+import scribbles.task.Todo;
+import scribbles.tasklist.TaskList;
 
 /**
  * This class deals with loading tasks from the file and saving task to the file.
@@ -23,9 +23,49 @@ import tasklist.TaskList;
 public class Storage {
 
     private String filePath;
+    private TaskList taskList;
 
-    public Storage(String filePath) {
+    public Storage(String filePath, TaskList taskList) {
         this.filePath = filePath;
+        this.taskList = taskList;
+        createFile();
+
+        try {
+            this.loadFileData(this.taskList);
+        } catch (FileNotFoundException e) {
+            System.out.println("File " + this.filePath + " not found. Unable to load data from file.");
+        }
+    }
+
+    /**
+     * Checks if file path exists.
+     * Creates file path if it does not exist.
+     */
+    public void createFile() {
+        File f = new File(this.filePath);
+
+        try {
+            // check if filePath directory exists
+            File directory = f.getParentFile();
+            if (!directory.exists()) {
+                boolean hasCreatedDirectory = directory.mkdir();
+                if (!hasCreatedDirectory) {
+                    System.out.println("Failed to create directory for file.\n");
+                }
+            }
+
+            // Check if filePath file exists
+            if (!f.exists()) {
+                boolean hasCreatedFile = f.createNewFile();
+                if (!hasCreatedFile) {
+                    System.out.println("Failed to create file.\n");
+                }
+            }
+
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+
     }
 
     /**

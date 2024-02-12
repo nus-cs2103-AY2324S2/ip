@@ -1,19 +1,17 @@
 package scribbles;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
-import parser.Parser;
-import storage.Storage;
-import task.Deadline;
-import task.Event;
-import task.Todo;
-import tasklist.TaskList;
-import ui.Ui;
+import scribbles.parser.Parser;
+import scribbles.storage.Storage;
+import scribbles.task.Deadline;
+import scribbles.task.Event;
+import scribbles.task.Todo;
+import scribbles.tasklist.TaskList;
+import scribbles.ui.Ui;
 
 /**
  * This class implements the chatbot Scribbles.
@@ -26,79 +24,15 @@ public class Scribbles {
     private TaskList taskList;
     private Ui ui;
     private String filePath;
-    private Scanner scanner;
 
     /**
      * Constructs a new Scribbles object with the specified file path.
-     *
-     * @param filePath the file path to be used to store and retrieve tasks from.
      */
     public Scribbles(String filePath) {
         this.filePath = filePath;
         ui = new Ui();
-        storage = new Storage(this.filePath);
         taskList = new TaskList();
-        scanner = new Scanner(System.in);
-    }
-
-    /**
-     * Checks if file path exists.
-     * Creates file path if it does not exist.
-     */
-    public void loadFileScribbles() {
-        File f = new File(this.filePath);
-
-        try {
-            // check if filePath directory exists
-            File directory = f.getParentFile();
-            if (!directory.exists()) {
-                boolean hasCreatedDirectory = directory.mkdir();
-                if (!hasCreatedDirectory) {
-                    System.out.println("Failed to create directory for file.\n");
-                }
-            }
-
-            // Check if filePath file exists
-            if (!f.exists()) {
-                boolean hasCreatedFile = f.createNewFile();
-                if (!hasCreatedFile) {
-                    System.out.println("Failed to create file.\n");
-                }
-            }
-
-        } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
-        }
-
-    }
-
-    /**
-     * Executes the chatbot Scribbles.
-     */
-    public void run() {
-        // load file for Scribbles
-        loadFileScribbles();
-
-        // load data from file into task list
-        try {
-            storage.loadFileData(taskList);
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found.\n");
-        }
-        //stopped here
-
-        // Greets the user
-        ui.greet();
-
-        boolean isByeCommand = false;
-        while (!isByeCommand) {
-            String input = scanner.nextLine();
-            isByeCommand = isParsedInput(input);
-        }
-        scanner.close();
-
-        // Exits
-        ui.exit();
+        storage = new Storage(this.filePath, taskList);
     }
 
     /**
@@ -107,88 +41,83 @@ public class Scribbles {
      * @param input The command input by user.
      * @return false if command is "bye", true otherwise.
      */
-    public boolean isParsedInput(String input) {
+    public String getResponse(String input) {
         Parser parsedInput = new Parser(input);
         String command = parsedInput.getCommand();
 
         switch (command) {
         case "bye":
-            return true;
+            return ui.printExitMessage();
         case "list":
-            ui.listTask(taskList);
-            break;
+            return ui.listTasks(taskList);
         case "mark":
             try {
                 int index = parsedInput.getIndex();
                 taskList.get(index - 1).markComplete();
-                ui.markCompletedMessage(index, taskList);
                 storage.saveFileData(taskList);
+                return ui.printMarkCompletedMessage(index, taskList);
             } catch (IndexOutOfBoundsException e) {
-                ui.invalidIndexMessage(taskList);
+                return ui.printInvalidIndexMessage(taskList);
             } catch (FileNotFoundException e) {
-                ui.fileNotFoundMessage();
+                return ui.printFileNotFoundMessage();
             }
-            break;
         case "unmark":
             try {
                 int index = parsedInput.getIndex();
                 taskList.get(index - 1).markIncomplete();
-                ui.markIncompleteMessage(index, taskList);
                 storage.saveFileData(taskList);
+                return ui.printMarkIncompleteMessage(index, taskList);
             } catch (IndexOutOfBoundsException e) {
-                ui.invalidIndexMessage(taskList);
+                return ui.printInvalidIndexMessage(taskList);
             } catch (FileNotFoundException e) {
-                ui.fileNotFoundMessage();
+                return ui.printFileNotFoundMessage();
             }
-            break;
         case "todo":
             try {
                 String description = parsedInput.getTodoDescription();
                 taskList.addTask(new Todo(description, false));
-                ui.confirmTaskAddition(taskList);
                 storage.saveFileData(taskList);
+                return ui.confirmTaskAddition(taskList);
             } catch (IndexOutOfBoundsException e) {
-                ui.taskMissingInformationMessage();
+                return ui.printTaskMissingInformationMessage();
             } catch (FileNotFoundException e) {
-                ui.fileNotFoundMessage();
+                return ui.printFileNotFoundMessage();
             }
-            break;
         case "deadline":
             if (parsedInput.isMissingDeadlineInformation()) {
-                ui.taskMissingInformationMessage();
+                return ui.printTaskMissingInformationMessage();
             } else {
                 try {
                     String description = parsedInput.getDeadlineDescription();
                     LocalDateTime by = parsedInput.getDeadlineBy();
                     taskList.addTask(new Deadline(description, false, by));
-                    ui.confirmTaskAddition(taskList);
                     storage.saveFileData(taskList);
+                    return ui.confirmTaskAddition(taskList);
                 } catch (IndexOutOfBoundsException e) {
-                    ui.taskMissingInformationMessage();
+                    return ui.printTaskMissingInformationMessage();
                 } catch (DateTimeParseException e) {
-                    ui.wrongDateTimeFormatMessage();
+                    return ui.printWrongDateTimeFormatMessage();
                 } catch (FileNotFoundException e) {
-                    ui.fileNotFoundMessage();
+                    return ui.printFileNotFoundMessage();
                 }
             }
-            break;
         case "event":
             if (parsedInput.isInvalidEvent()) {
-                ui.taskMissingInformationMessage();
+                ui.printTaskMissingInformationMessage();
             } else {
                 try {
                     String description = parsedInput.getEventDescription();
                     LocalDateTime start = parsedInput.getStartDateTime();
                     LocalDateTime end = parsedInput.getEndDateTime();
                     taskList.addTask(new Event(description, false, start, end));
-                    ui.confirmTaskAddition(taskList);
                     storage.saveFileData(taskList);
+                    return ui.confirmTaskAddition(taskList);
                 } catch (IndexOutOfBoundsException e) {
-                    ui.taskMissingInformationMessage();
+                    return ui.printTaskMissingInformationMessage();
                 } catch (DateTimeParseException e) {
-                    ui.wrongDateTimeFormatMessage();
+                    return ui.printWrongDateTimeFormatMessage();
                 } catch (FileNotFoundException e) {
-                    ui.fileNotFoundMessage();
+                    return ui.printFileNotFoundMessage();
                 }
             }
             break;
@@ -197,31 +126,25 @@ public class Scribbles {
                 int index = parsedInput.getIndex();
                 String taskRemoved = taskList.get(index - 1).toString();
                 taskList.deleteTask(index - 1);
-                ui.taskDeletionMessage(taskRemoved, taskList);
                 storage.saveFileData(taskList);
+                return ui.printTaskDeletionMessage(taskRemoved, taskList);
             } catch (IndexOutOfBoundsException e) {
-                ui.invalidIndexMessage(taskList);
+                return ui.printInvalidIndexMessage(taskList);
             } catch (FileNotFoundException e) {
-                ui.fileNotFoundMessage();
+                return ui.printFileNotFoundMessage();
             }
-            break;
         case "find":
             try {
                 String keyword = parsedInput.getFindKeyword();
-                ui.tasksWithKeyword(keyword, taskList);
+                return ui.printTasksWithKeyword(keyword, taskList);
             } catch (IndexOutOfBoundsException e) {
-                ui.missingKeywordMessage();
+                return ui.printMissingKeywordMessage();
             }
-            break;
+        case "help":
         default:
-            ui.invalidInputMessage();
+            return ui.printOtherInputMessage();
         }
-        return false;
-    }
-
-
-    public static void main(String[] args) {
-        new Scribbles("src/main/java/taskData.txt").run();
+        return ui.printOtherInputMessage();
     }
 
 }
