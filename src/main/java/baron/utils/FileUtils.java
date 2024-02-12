@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * In charge of managing simple file IO such as reading and writing
+ * In charge of managing simple file IO such as reading and writing.
  */
 public class FileUtils {
 
     /**
-     * Returns a list of strings from a given file path
+     * Returns a list of strings from a given file path.
      *
      * @param filePath path of file to read
      * @return A list of strings if the file exists, else, it's empty
@@ -29,7 +29,7 @@ public class FileUtils {
     }
 
     /**
-     * Wrties the given list of lines into a file. This is an overwrite operation, not append
+     * Wrties the given list of lines into a file. This is an overwrite operation, not append.
      *
      * @param filePath path of file to write
      * @param lines    list of strings to write to file.

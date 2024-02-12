@@ -2,10 +2,12 @@ package baron.utils;
 
 /**
  * Handles most String-related functions, such as parsing of input and extraction of values from
- * user input. Helps with catching common format exceptions
+ * user input. Helps with catching common format exceptions.
  */
 public class StringUtils {
-
+    public static String getCommand(String input) {
+        return input.split(" ")[0];
+    }
     /**
      * This function gets the value of a specified command string.
      *
@@ -38,7 +40,7 @@ public class StringUtils {
     }
 
     /**
-     * Main purpose of this function is to help us find the index of a given string, and offset it by a given amount
+     * Main purpose of this function is to help us find the index of a given string, and offset it by a given amount.
      *
      * @param input  The input to search
      * @param toFind The index of the string to find
@@ -54,7 +56,7 @@ public class StringUtils {
     }
 
     /**
-     * This function simply abstracts out the splitting logic of the data string
+     * This function simply abstracts out the splitting logic of the data string.
      *
      * @param data data to split by |
      * @return a array of the split up strings
