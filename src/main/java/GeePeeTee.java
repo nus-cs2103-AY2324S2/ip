@@ -1,10 +1,8 @@
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Scanner;
 
 import exception.GeePeeTeeException;
-import javafx.scene.image.Image;
 import parser.Parser;
 import storage.Storage;
 import tasklist.TaskList;
@@ -23,11 +21,9 @@ public class GeePeeTee {
 
     private TaskList taskList;
     private Storage storage;
+    private Parser parser;
     private Ui ui;
-
-    public static void main(String[] args) {
-        new GeePeeTee("GeePeeTee.txt").run();
-    }
+    private String initializationErrorMessage = null; // Field to store initialization error message
 
     /**
      * Constructs a new {@code GeePeeTee} instance with the specified file path.
@@ -39,34 +35,24 @@ public class GeePeeTee {
         try {
             storage = new Storage(filePath);
             taskList = new TaskList(storage.loadTaskList());
+            parser = new Parser(taskList, storage, ui);
         } catch (FileNotFoundException e) {
-            ui.showFileNotFoundError();
+            initializationErrorMessage = ui.getFileNotFoundErrorMessage();
         } catch (IOException e) {
-            ui.showLoadingError();
+            initializationErrorMessage = ui.getLoadingErrorMessage();
         } catch (GeePeeTeeException e) {
-            ui.showErrorMessage(e.getMessage());
+            initializationErrorMessage = ui.getErrorMessage(e.getMessage());
         }
     }
 
-    /**
-     * Runs the main loop of the application, processing user input and executing
-     * the corresponding commands.
-     */
-    public void run() {
-        String input = "";
-        ui.showWelcomeMessage();
-        Scanner scanner = new Scanner(System.in);
-        Parser parser = new Parser(taskList, storage, ui);
-        while (!input.equals("bye")) {
-            input = scanner.nextLine();
-            System.out.println("\n--------------------------------------------------");
-            if (input.equals("bye")) {
-                scanner.close();
-                ui.showGoodbyeMessage();
-            }
-            parser.parseInput(input);
+    public String getInitializationErrorMessage() {
+        return initializationErrorMessage;
+    }
 
-            System.out.println("--------------------------------------------------\n");
+    public String getResponse(String input) {
+        if (input.equals("bye")) {
+            return ui.getGoodbyeMessage();
         }
+        return parser.parseInput(input);
     }
 }
