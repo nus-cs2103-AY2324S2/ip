@@ -64,6 +64,7 @@ public class TaskList {
         if (tasks.isEmpty()) {
             return "Your task list is empty.";
         } else {
+            sortDeadlines();
             String taskWord = tasks.size() == 1 ? "task" : "tasks";
             StringBuilder message = new StringBuilder("Here are the " + taskWord + " in your list:");
             for (int i = 0; i < tasks.size(); i++) {
@@ -100,5 +101,20 @@ public class TaskList {
      */
     public Task getTask(int index) {
         return tasks.get(index);
+    }
+
+    /**
+     * Sorts the deadlines in the task list chronologically.
+     */
+    public void sortDeadlines() {
+        tasks.sort((t1, t2) -> {
+            if (t1 instanceof Deadline && t2 instanceof Deadline) {
+                Deadline d1 = (Deadline) t1;
+                Deadline d2 = (Deadline) t2;
+                return d1.getBy().compareTo(d2.getBy());
+            }
+
+            return (t1 instanceof Deadline) ? -1 : (t2 instanceof Deadline) ? 1 : 0;
+        });
     }
 }

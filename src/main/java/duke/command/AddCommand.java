@@ -24,6 +24,10 @@ import duke.task.Todo;
 public class AddCommand extends Command {
     private final String fullCommand;
 
+    /**
+     * Constructs a new AddCommand object with the provided full command string.
+     * @param fullCommand the full command string representing the add operation
+     */
     public AddCommand(String fullCommand) {
         assert fullCommand != null && !fullCommand.isEmpty() : "Full command cannot be null or empty";
         this.fullCommand = fullCommand;
@@ -60,14 +64,16 @@ public class AddCommand extends Command {
         return false;
     }
 
-    private String addTodoTask(TaskList tasks, Ui ui, Storage storage, String description) throws IOException {
+    private String addTodoTask(TaskList tasks, Ui ui, Storage storage,
+                               String description) throws IOException {
         tasks.add(new Todo(description));
         String response = ui.showAddedTask(tasks);
         storage.saveTasks(tasks);
         return response;
     }
 
-    private String addDeadlineTask(TaskList tasks, Ui ui, Storage storage, String description) throws DukeException, IOException {
+    private String addDeadlineTask(TaskList tasks, Ui ui, Storage storage,
+                                   String description) throws DukeException, IOException {
         String[] deadlineParts = description.split(" /by ");
         if (deadlineParts.length < 2 || deadlineParts[1].trim().isEmpty()) {
             throw new DukeException("The deadline time or task name is missing.");
@@ -79,7 +85,8 @@ public class AddCommand extends Command {
         return response;
     }
 
-    private String addEventTask(TaskList tasks, Ui ui, Storage storage, String description) throws DukeException, IOException {
+    private String addEventTask(TaskList tasks, Ui ui, Storage storage,
+                                String description) throws DukeException, IOException {
         String[] eventParts = description.split(" /from ", 2);
         if (eventParts.length < 2 || eventParts[1].trim().isEmpty()) {
             throw new DukeException("The event time details or event times are missing.");
