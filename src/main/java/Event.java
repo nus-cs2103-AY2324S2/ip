@@ -1,9 +1,15 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class Event extends Task {
     protected String from;
     protected String to;
 
+    protected LocalDateTime start;
+    protected LocalDateTime end;
 
-    public Event(String description, String from, String to) throws InvalidInputException{
+
+    public Event(String description, String from, String to) throws InvalidInputException, InvalidDateException {
         super(description);
         if (description.isEmpty()) {
             throw new InvalidInputException("OOPS!!! The description of a event cannot be empty.");
@@ -17,6 +23,24 @@ public class Event extends Task {
         else {
             this.from = cleanWhiteSpace(from);
             this.to = cleanWhiteSpace(to);
+            this.start = parseDate(this.from);
+            this.end = parseDate(this.to);
+        }
+    }
+
+    public LocalDateTime parseDate(String date) throws InvalidDateException {
+        String[] brokenStart = date.split("[\\s/-]+");
+
+        try {
+            int year = Integer.parseInt(brokenStart[2]);
+            int month = Integer.parseInt(brokenStart[1]);
+            int day = Integer.parseInt(brokenStart[0]);;
+            int hour = Integer.parseInt(brokenStart[3].substring(0, 2));
+            int minute = Integer.parseInt(brokenStart[3].substring(2));
+
+            return LocalDateTime.of(year, month, day, hour, minute);
+        } catch (Exception e) {
+            throw new InvalidDateException("Start/end date provided is not valid");
         }
     }
 

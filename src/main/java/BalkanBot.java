@@ -112,7 +112,7 @@ public class BalkanBot {
                         boolean foundDeadline = false;
                         for (String currentString : details) {
                             if (foundDeadline) {
-                                deadline.append(currentString);
+                                deadline.append(currentString).append(" ");
                             } else if (currentString.equals("/by")) {
                                 foundDeadline = true;
                             } else {
@@ -127,6 +127,9 @@ public class BalkanBot {
                         } catch (InvalidInputException e) {
                             System.out.println(e);
                             break;
+                        } catch (InvalidDateException e) {
+                            System.out.println(e);
+                            break;
                         }
                     }
                     case "event": {
@@ -137,7 +140,7 @@ public class BalkanBot {
                         boolean foundTo = false;
                         for (String currentString : details) {
                             if (foundTo) {
-                                to.append(currentString);
+                                to.append(currentString).append(" ");
                             } else if (foundFrom) {
                                 if (currentString.equals("/to")) {
                                     foundTo = true;
@@ -155,7 +158,7 @@ public class BalkanBot {
                             current++;
                             printComplexTask(listOfTasks, current);
                             break;
-                        } catch (InvalidInputException e) {
+                        } catch (InvalidInputException | InvalidDateException e) {
                             System.out.println(e);
                             break;
                         }

@@ -32,6 +32,14 @@ public class SaveAndLoad {
         }
     }
 
+    public String cleanWhiteSpace(String word) {
+        if (!word.isEmpty() && word.charAt(word.length() - 1) == ' ') {
+            return word.substring(0, word.length() - 1);
+        } else {
+            return word;
+        }
+    }
+
     public static void load(Task[] listOfTasks) {
         String[] textInput = new String[100];
         try {
@@ -113,7 +121,7 @@ public class SaveAndLoad {
                         boolean foundDeadline = false;
                         for (String currentString : details) {
                             if (foundDeadline) {
-                                deadline.append(currentString);
+                                deadline.append(currentString).append(" ");
                             } else if (currentString.equals("(by:")) {
                                 foundDeadline = true;
                             } else {
@@ -121,7 +129,7 @@ public class SaveAndLoad {
                             }
                         }
 
-                        String fixedDeadline = deadline.substring(0, deadline.toString().length() - 1);
+                        String fixedDeadline = deadline.substring(0, deadline.toString().length() - 2);
 
                         try {
                             listOfTasks[current] = new Deadline(taskDescription.toString(), fixedDeadline);
@@ -131,6 +139,8 @@ public class SaveAndLoad {
                         } catch (InvalidInputException e) {
                             System.out.println(e);
                             break;
+                        } catch (InvalidDateException e) {
+                            System.out.println(e);
                         }
                     }
                     case Event: {
@@ -141,7 +151,7 @@ public class SaveAndLoad {
                         boolean foundTo = false;
                         for (String currentString : details) {
                             if (foundTo) {
-                                to.append(currentString);
+                                to.append(currentString).append(" ");
                             } else if (foundFrom) {
                                 if (currentString.equals("to:")) {
                                     foundTo = true;
@@ -155,7 +165,7 @@ public class SaveAndLoad {
                             }
                         }
 
-                        String fixedTo = to.substring(0, to.toString().length() - 1);
+                        String fixedTo = to.substring(0, to.toString().length() - 2);
                         try {
                             listOfTasks[current] = new Event(taskDescription.toString(), from.toString(),
                                     fixedTo);
@@ -165,6 +175,8 @@ public class SaveAndLoad {
                         } catch (InvalidInputException e) {
                             System.out.println(e);
                             break;
+                        } catch (InvalidDateException e) {
+                            throw new RuntimeException(e);
                         }
                     }
                 }

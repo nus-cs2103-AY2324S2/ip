@@ -1,8 +1,13 @@
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.chrono.ChronoLocalDate;
+
 public class Deadline extends Task {
 
     protected String by;
+    protected LocalDateTime deadline;
 
-    public Deadline(String description, String by) throws InvalidInputException{
+    public Deadline(String description, String by) throws InvalidInputException, InvalidDateException {
         super(description);
         if (description.isEmpty()) {
             throw new InvalidInputException("OOPS!!! The description of a deadline cannot be empty.");
@@ -12,11 +17,27 @@ public class Deadline extends Task {
         }
         else {
             this.by = cleanWhiteSpace(by);
+            parseDate(this.by);
+        }
+    }
+
+    public void parseDate(String date) throws InvalidDateException {
+        String[] brokenDate = date.split("[\\s/-]+");
+        try {
+            int year = Integer.parseInt(brokenDate[2]);
+            int month = Integer.parseInt(brokenDate[1]);
+            int day = Integer.parseInt(brokenDate[0]);;
+            int hour = Integer.parseInt(brokenDate[3].substring(0, 2));
+            int minute = Integer.parseInt(brokenDate[3].substring(2));
+            deadline = LocalDateTime.of(year, month, day, hour, minute);
+        } catch (Exception e) {
+            throw new InvalidDateException("Date provided is not valid");
         }
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + deadline.getMonth() + " " + deadline.getDayOfMonth() + " " +
+                deadline.getYear()+ ")";
     }
 }
