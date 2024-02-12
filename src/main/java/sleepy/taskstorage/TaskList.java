@@ -2,6 +2,7 @@ package sleepy.taskstorage;
 
 import java.util.ArrayList;
 
+import javafx.util.Pair;
 import sleepy.tasks.Deadline;
 import sleepy.tasks.Event;
 import sleepy.tasks.Task;
@@ -28,90 +29,120 @@ public class TaskList {
      * @param filePath The data path to the file linked to this TaskList.
      */
     public TaskList(String filePath) {
-        storage = new Storage(filePath);
-        ArrayList<String> listOfTasks = storage.readFile();
-        for (String task : listOfTasks) {
-            addTask(task);
+        try {
+            storage = new Storage(filePath);
+            ArrayList<Pair<String, Boolean>> listOfTasks = storage.readFile();
+            for (Pair<String, Boolean> task : listOfTasks) {
+                String taskDescription = task.getKey();
+                boolean isDone = task.getValue();
+                addTask(Parser.parse(taskDescription));
+                if (isDone) {
+                    markTaskAsDone(tasks.size());
+                }
+            }
+            isStartingUp = false;
+        } catch (IllegalArgumentException i) {
+            ResponseHandler.appendLineToResponse("Sleepy encountered a problem upon startup!"
+                    + "Your saved data has unfortunately been lost.");
         }
-        isStartingUp = false;
     }
 
     /**
      * Determines the action to be applied on this TaskList according to the access command given.
      *
-     * @param accessCommand Access command given.
+     * @param parsedCommand Access command given.
+     * @throws IllegalArgumentException If the command format is invalid.
      */
-    public void access(String accessCommand) {
-        try {
-            String[] parsedCommand = Parser.parse(accessCommand);
-            switch (parsedCommand[0]) {
-            case "list":
-                printTasks();
-                break;
-            case "mark":
-                // Fallthrough
-            case "unmark":
-                // Fallthrough
-            case "delete":
-                int taskNumber = Integer.parseInt(parsedCommand[1]);
-                if (taskNumber < 1 || taskNumber > tasks.size()) {
-                    throw new IllegalArgumentException("Invalid task number!");
-                }
-                if (parsedCommand[0].equals("mark")) {
-                    markTaskAsDone(taskNumber);
-                } else if (parsedCommand[0].equals("unmark")) {
-                    markTaskAsUndone(taskNumber);
-                } else {
-                    deleteTask(taskNumber);
-                }
-                break;
-            case "find":
-                String keywords = parsedCommand[1];
-                assert !keywords.isEmpty() : "Empty find field was not detected by parser";
-                ResponseHandler.appendLineToResponse("Here are the matching tasks in your list:");
-                int i = 1;
-                for (Task task: tasks) {
-                    if (task.getDescription().contains(keywords)) {
-                        ResponseHandler.appendLineToResponse(i + "." + task.getDescription());
-                        i++;
-                    }
-                }
-                break;
-            case "add":
-                addTask(accessCommand);
-                break;
-            default:
-                // Should never reach here
-                assert false : "Parser did not parse command correctly";
-                throw new IllegalArgumentException("Invalid command!");
+    public void access(String[] parsedCommand) throws IllegalArgumentException {
+        String command = parsedCommand[0];
+        switch (command) {
+        case "list":
+            printTasks();
+            break;
+        case "mark":
+            // Fallthrough
+        case "unmark":
+            // Fallthrough
+        case "delete":
+            int taskNumber = Integer.parseInt(parsedCommand[1]);
+            if (taskNumber < 1 || taskNumber > tasks.size()) {
+                throw new IllegalArgumentException("Invalid task number!");
             }
-        } catch (NumberFormatException n) {
-            ResponseHandler.printError("Zzz... The target task must be an integer!");
-        } catch (IllegalArgumentException i) {
-            ResponseHandler.printError(i.getMessage());
+            handleTask(command, taskNumber);
+            break;
+        case "find":
+            String keywords = parsedCommand[1];
+            findTask(keywords);
+            break;
+        case "todo":
+            // Fallthrough
+        case "deadline":
+            // Fallthrough
+        case "event":
+            addTask(parsedCommand);
+            break;
+        default:
+            // Should never reach here - parser should have caught invalid command
+            throw new IllegalArgumentException("Incorrect command!");
+        }
+    }
+
+    /**
+     * Handles a task according to the operation type.
+     *
+     * @param operation Operation type.
+     * @param taskNumber Task number to be handled.
+     */
+    public void handleTask(String operation, int taskNumber) throws IllegalArgumentException {
+        if (operation.equals("mark")) {
+            markTaskAsDone(taskNumber);
+        } else if (operation.equals("unmark")) {
+            markTaskAsUndone(taskNumber);
+        } else if (operation.equals("delete")) {
+            deleteTask(taskNumber);
+        } else {
+            // Should never reach here, parser should have detected invalid operation
+            throw new IllegalArgumentException("Invalid operation on a task!");
+        }
+    }
+
+    /**
+     * Searches for a task in this list by keyword(s), and responds with the match(es).
+     *
+     * @param keywords Keyword(s) used for the search.
+     */
+    public void findTask(String keywords) {
+        ResponseHandler.appendLineToResponse("Here are the matching tasks in your list:");
+        int i = 1;
+        for (Task task: tasks) {
+            if (task.getDescription().contains(keywords)) {
+                ResponseHandler.appendLineToResponse(i + "." + task.getDescription());
+                i++;
+            }
         }
     }
 
     /**
      * Creates and adds a task to this list.
      *
-     * @param task Task to be added, in the form of a string.
+     * @param parsedTask Task to be added, in the form of a string.
      * @throws IllegalArgumentException If the string does not contain a task type.
      */
-    public void addTask(String task) throws IllegalArgumentException {
+    public void addTask(String[] parsedTask) throws IllegalArgumentException {
+        String taskType = parsedTask[0];
         Task createdTask = null;
-        String[] parsedTask = Parser.parseTask(task);
-        switch (parsedTask[0]) {
+        switch (taskType) {
         case "todo":
-            createdTask = new ToDo(task, parsedTask[1]);
+            createdTask = new ToDo(parsedTask[1]);
             break;
         case "deadline":
-            createdTask = new Deadline(task, parsedTask[1], parsedTask[2]);
+            createdTask = new Deadline(parsedTask[1], parsedTask[2]);
             break;
         case "event":
-            createdTask = new Event(task, parsedTask[1], parsedTask[2], parsedTask[3]);
+            createdTask = new Event(parsedTask[1], parsedTask[2], parsedTask[3]);
             break;
         default:
+            // Should never reach here - parser should have caught invalid task type
             throw new IllegalArgumentException("This is not a task!");
         }
         tasks.add(createdTask);
@@ -144,7 +175,13 @@ public class TaskList {
      * @param taskNumber Number (in this list) of the task to be marked.
      */
     public void markTaskAsDone(int taskNumber) {
-        tasks.get(taskNumber - 1).markAsDone();
+        Task targetTask = tasks.get(taskNumber - 1);
+        targetTask.markAsDone();
+        storage.saveTasks(tasks);
+        if (!isStartingUp) {
+            ResponseHandler.appendLineToResponse("Nice! I've marked this task as done:");
+            ResponseHandler.appendLineToResponse(targetTask.getDescription());
+        }
     }
 
     /**
@@ -153,7 +190,13 @@ public class TaskList {
      * @param taskNumber Number (in this list) of the task to be marked.
      */
     public void markTaskAsUndone(int taskNumber) {
-        tasks.get(taskNumber - 1).markAsUndone();
+        Task targetTask = tasks.get(taskNumber - 1);
+        targetTask.markAsUndone();
+        storage.saveTasks(tasks);
+        if (!isStartingUp) {
+            ResponseHandler.appendLineToResponse("OK, I've marked this task as not done yet:");
+            ResponseHandler.appendLineToResponse(targetTask.getDescription());
+        }
     }
 
     /**

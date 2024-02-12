@@ -11,7 +11,7 @@ public class ParserTest {
         String testEvent = "event 2103t lecture /from fri 1600 /to fri 1800";
         for (int i = 0; i < 4; i++) {
             assertEquals(new String[]{ "event", "2103t lecture", "fri 1600", "fri 1800" }[i],
-                    Parser.parseTask(testEvent)[i]);
+                    Parser.parse(testEvent)[i]);
         }
     }
     @Test
