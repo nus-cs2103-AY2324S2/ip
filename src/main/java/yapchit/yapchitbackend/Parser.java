@@ -39,6 +39,7 @@ public class Parser {
                     "Valid keywords are ['mark', 'unmark', 'deadline', 'todo', 'event', 'bye', 'list', 'delete']");
         }
 
+        assert k != null : "k must be an operation if it reaches this stage without error.";
         return k;
     }
 

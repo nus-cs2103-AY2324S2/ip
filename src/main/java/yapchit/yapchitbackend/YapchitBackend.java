@@ -61,6 +61,8 @@ public class YapchitBackend {
             retVal = e.getMessage();
         }
 
+        assert retVal != "" : "retVal should not be empty";
+
         return retVal;
     }
 
@@ -83,6 +85,9 @@ public class YapchitBackend {
     }
 
     public boolean checkIsBye(String input){
+
+        assert input instanceof String : "input should be a String";
+
         return handler.checkIsBye(input);
     }
 

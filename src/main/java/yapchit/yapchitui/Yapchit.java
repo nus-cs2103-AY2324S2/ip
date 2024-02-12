@@ -43,6 +43,7 @@ public class Yapchit extends Application {
 
     public Yapchit(){
         this.yapchitBackend= new YapchitBackend("./src/main/data/dataStore.txt");
+        assert yapchitBackend != null;
     }
 
     @Override
@@ -110,10 +111,6 @@ public class Yapchit extends Application {
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    private String getResponse(String input) {
-        return "bob";
-    }
-
     private void initialSetup(Stage stage){
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
