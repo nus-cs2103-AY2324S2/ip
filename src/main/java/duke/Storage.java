@@ -117,6 +117,12 @@ class TaskListEncoder {
         return encodedTasks;
     }
 
+    /**
+     * Encodes a single task into a string representation.
+     *
+     * @param task The task to encode.
+     * @return The encoded string representation of the task.
+     */
     private static String encodeTask(Task task) {
         if (task instanceof Todo) {
             return "T | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription();
@@ -161,7 +167,12 @@ class TaskListDecoder {
         return decodedTasks;
     }
 
-
+    /**
+     * Decodes a single string representation of a task into a Task object.
+     *
+     * @param line The string representation of the task.
+     * @return The decoded Task object.
+     */
     private static Task decodeTask(String line) {
         String[] parts = line.split(" \\| ");
         String taskType = parts[0];
@@ -192,7 +203,6 @@ class TaskListDecoder {
             newEvent.setDone(isDone);
             return newEvent;
         default:
-            // Handle other task types if needed
             return null;
         }
     }
