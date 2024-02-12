@@ -229,11 +229,11 @@ public class Event extends Task {
      */
     @Override
     public String[] getFields() {
-        String[] result = new String[4];
-        result[0] = this.description;
-        result[1] = this.isDone ? "Y" : "N";
-        result[2] = this.getEventFromForSave();
-        result[3] = this.getEventToForSave();
-        return result;
+        String[] results = new String[4];
+        results[0] = this.description;
+        results[1] = this.isDone ? "Y" : "N";
+        results[2] = this.getEventFromForSave();
+        results[3] = this.getEventToForSave();
+        return results;
     }
 }
