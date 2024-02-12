@@ -28,18 +28,19 @@ public class Parser {
 
     /**
      * Parses the user input - if it is valid, executes it; otherwise, throws an exception.
-     * @param input User input.
+     *
+     * @param input    User input.
      * @param taskList The list that contains the user's tasks. User can manipulate the tasks it contains.
-     * @param ui The ui that confirms the user's action.
-     * @param storage The storage that saves any change to the save file.
+     * @param ui       The ui that confirms the user's action.
+     * @param storage  The storage that saves any change to the save file.
      * @return Whether the program should exit; true if the command is "bye", false otherwise.
-     * @throws UnknownCommandException If the first word is not a valid command.
-     * @throws TaskNotFoundException If the task is not found, as the task number is out of bounds.
-     * @throws IOException As storage reads/writes save file.
-     * @throws InvalidSyntaxException If the command is valid, but not in the correct format.
+     * @throws UnknownCommandException  If the first word is not a valid command.
+     * @throws TaskNotFoundException    If the task is not found, as the task number is out of bounds.
+     * @throws IOException              As storage reads/writes save file.
+     * @throws InvalidSyntaxException   If the command is valid, but not in the correct format.
      * @throws InvalidDateTimeException If the date/time given is not in the correct format.
      */
-    public boolean parse(String input, List taskList, Ui ui, Storage storage) throws UnknownCommandException,
+    public String parse(String input, List taskList, Ui ui, Storage storage) throws UnknownCommandException,
             TaskNotFoundException, IOException, InvalidSyntaxException, InvalidDateTimeException {
         String command = input.split(" ")[0].toLowerCase();
         switch (command) {
@@ -47,29 +48,27 @@ public class Parser {
             if (!input.equalsIgnoreCase("bye")) {
                 throw new InvalidSyntaxException("bye");
             }
-            ui.sayGoodBye();
-            return true;
+            return ui.sayGoodBye();
         case "list":
             if (!input.equalsIgnoreCase("list")) {
                 throw new InvalidSyntaxException("list");
             }
-            ui.displayTasks(taskList);
-            break;
+            return ui.displayTasks(taskList);
         case "mark": {
             if (input.split(" ").length != 2) {
                 throw new InvalidSyntaxException("mark");
             }
             try {
                 Integer.parseInt(input.split(" ")[1]);
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
                 throw new InvalidSyntaxException("mark");
             }
             int taskNum = Integer.parseInt(input.split(" ")[1]);
             if (!taskList.isValidTaskNum(taskNum)) {
+//                return new TaskNotFoundException(taskList).toString();
                 throw new TaskNotFoundException(taskList);
             }
-            taskList.markTask(taskNum - 1, storage, ui);
-            break;
+            return taskList.markTask(taskNum - 1, storage, ui);
         }
         case "unmark": {
             if (input.split(" ").length != 2) {
@@ -77,22 +76,22 @@ public class Parser {
             }
             try {
                 Integer.parseInt(input.split(" ")[1]);
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
+//                InvalidSyntaxException exception = new InvalidSyntaxException("unmark");
+//                return exception.toString();
                 throw new InvalidSyntaxException("unmark");
             }
             int taskNum = Integer.parseInt(input.split(" ")[1]);
             if (!taskList.isValidTaskNum(taskNum)) {
                 throw new TaskNotFoundException(taskList);
             }
-            taskList.unmarkTask(taskNum - 1, storage, ui);
-            break;
+            return taskList.unmarkTask(taskNum - 1, storage, ui);
         }
         case "todo":
             if (input.split(" ").length <= 1) {
                 throw new InvalidSyntaxException("todo");
             }
-            taskList.addTask(new ToDo(input.substring(5)), storage, ui);
-            break;
+            return taskList.addTask(new ToDo(input.substring(5)), storage, ui);
         case "deadline": {
             if (!Pattern.matches("deadline .+ /by .+", input)
                     || input.split("/by").length != 2) {
@@ -105,8 +104,7 @@ public class Parser {
             }
             String description = input.substring(9).split(" /by")[0];
             String dueDate = input.split("/by ")[1];
-            taskList.addTask(new Deadline(description, toLocalDateTime(dueDate)), storage, ui);
-            break;
+            return taskList.addTask(new Deadline(description, toLocalDateTime(dueDate)), storage, ui);
         }
         case "event":
             if (!Pattern.matches("event .+ /from .+ /to .+", input)
@@ -123,33 +121,30 @@ public class Parser {
             String description = input.substring(6).split(" /from")[0];
             String startDate = input.split("/from ")[1].split(" /to")[0];
             String endDate = input.split("/to ")[1];
-            taskList.addTask(new Event(description, toLocalDateTime(startDate), toLocalDateTime(endDate)), storage, ui);
-            break;
+            return taskList.addTask(new Event(description, toLocalDateTime(startDate), toLocalDateTime(endDate)),
+                    storage, ui);
         case "delete":
             if (input.split(" ").length != 2) {
                 throw new InvalidSyntaxException("delete");
             }
             try {
                 Integer.parseInt(input.split(" ")[1]);
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
                 throw new InvalidSyntaxException("delete");
             }
             int taskNum = Integer.parseInt(input.split(" ")[1]);
             if (!taskList.isValidTaskNum(taskNum)) {
                 throw new TaskNotFoundException(taskList);
             }
-            taskList.deleteTask(taskNum - 1, storage, ui);
-            break;
+            return taskList.deleteTask(taskNum - 1, storage, ui);
         case "find":
             if (input.split(" ").length != 2) {
                 throw new InvalidSyntaxException("find");
             }
             String keywords = input.substring(5);
-            taskList.findTasks(keywords, ui);
-            break;
+            return taskList.findTasks(keywords, ui);
         default:
             throw new UnknownCommandException();
         }
-        return false;
     }
 }
