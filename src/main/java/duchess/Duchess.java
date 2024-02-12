@@ -73,6 +73,10 @@ public class Duchess {
         try {
             return parser.getAction(input, tasks, ui, storage);
         } catch (DuchessException e) {
+            e.printStackTrace(System.err);
+            return e.getMessage();
+        } catch (Exception e) {
+            e.printStackTrace(System.err);
             return e.getMessage();
         }
     }

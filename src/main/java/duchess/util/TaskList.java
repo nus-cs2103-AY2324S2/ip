@@ -116,7 +116,6 @@ public class TaskList {
      * @param keyword keyword to look for in Task objects
      */
     public String findTasks(String keyword) {
-        /**
         String response = "";
         response += LINE_BREAK;
         response += "\nHere are the matching tasks in your list: ";
@@ -130,8 +129,6 @@ public class TaskList {
         }
         response += LINE_BREAK;
         return response;
-        **/
-        return "HELLO";
     }
 
     /**

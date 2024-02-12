@@ -35,6 +35,13 @@ public class Ui {
      * Print menu of commands that can be used.
      */
     public String printMenu() {
+        String menu = "--------------How to Use Me--------------" +
+                "\n1. To create tasks: tasks" +
+                "\n2. To mark tasks: mark/unmark <item number in list>" +
+                "\n3. To view tasks: list" +
+                "\n4. To find task: find <keyword>" +
+                "\n5. To exit: bye";
+        /** OLD MENU
         String menu = "Hello! I'm Duchess" +
                 "\n--------------How to Use Me--------------" +
                 "\n1. To view list of tasks: list" +
@@ -46,6 +53,18 @@ public class Ui {
                 "\n7. To delete task: delete <item number in list>" +
                 "\n8. To find task: find <keyword>" +
                 "\n7. To exit: bye";
+         **/
         return menu;
+    }
+
+    /**
+     * Print menu of tasks that can be created.
+     */
+    public String printTasksMenu() {
+        String tasksMenu = "--------------Tasks--------------" +
+                "\n1. To Do: todo <description>" +
+                "\n2. Deadline: deadline <description> /by <by>" +
+                "\n3. Event: event <description> /from <from> /to <to>";
+        return tasksMenu;
     }
 }
