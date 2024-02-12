@@ -136,6 +136,7 @@ public class Parser {
             return parseLineToDeadline(parts, description, isDone);
         case "E":
             return parseLineToEvent(parts, description, isDone);
+
         default:
             assert false : "Line saved in data file cannot be parsed into task";
             return null;
