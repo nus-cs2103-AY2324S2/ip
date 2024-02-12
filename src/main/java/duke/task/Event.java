@@ -11,27 +11,22 @@ import duke.exception.DukeException;
  * The `Event` class represents a task that spans a specific duration in Duke.
  */
 public class Event extends Task {
-
     /**
      * The formatted string representation of the start time.
      */
     protected String from;
-
     /**
      * The formatted string representation of the end time.
      */
     protected String to;
-
     /**
      * The input date-time formatter.
      */
     protected DateTimeFormatter input = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
     /**
      * The output date-time formatter for display.
      */
     protected DateTimeFormatter output = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
-
     /**
      * Constructs an `Event` with the given description, start time, and end time.
      *
@@ -47,7 +42,6 @@ public class Event extends Task {
             LocalDateTime end1 = LocalDateTime.parse(to, input);
             this.from = date1.format(output);
             this.to = end1.format(output);
-
             if (!isBeforeDateTime(date1, end1)) {
                 throw new DukeException("Invalid date range. 'From' should be before 'To'.");
             }
@@ -55,7 +49,6 @@ public class Event extends Task {
             throw new DukeException("Invalid time format. Please use yyyy-MM-dd HH:mm.");
         }
     }
-
     /**
      * Checks if the start date and time is before or equal to the end date and time.
      *
@@ -66,7 +59,6 @@ public class Event extends Task {
     private boolean isBeforeDateTime(LocalDateTime from, LocalDateTime to) {
         return from.isBefore(to) || from.isEqual(to);
     }
-
     /**
      * Returns a string representation of the event task, including its status icon and the start and end times.
      *
@@ -76,7 +68,6 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
     }
-
     /**
      * Returns a formatted string for writing the event task to a file.
      *
@@ -87,7 +78,6 @@ public class Event extends Task {
         return "E" + super.toFileString() + " | " + LocalDateTime.parse(this.from, output).format(input) + " - "
                 + LocalDateTime.parse(this.to, output).format(input);
     }
-
     /**
      * Indicates whether some other object is "equal to" this one. Equality is based on task properties.
      *
@@ -108,7 +98,6 @@ public class Event extends Task {
                 && this.from.equals(event.from)
                 && this.to.equals(event.to);
     }
-
     /**
      * Returns a hash code value for the object.
      *

@@ -12,37 +12,28 @@ import duke.ui.Ui;
  * It handles user interactions, parses commands, and performs operations on tasks.
  */
 public class Duke {
-
+    /**
+     * The file path where tasks are stored.
+     */
+    private static final String FILEPATH = "./data/duke.txt";
     /**
      * Represents the storage component responsible for loading and saving tasks.
      */
     private final Storage storage;
-
     /**
      * Represents the list of tasks managed by Duke.
      */
     private TaskList tasks;
-
     /**
      * Represents the user interface component for interacting with the user.
      */
     private final Ui ui;
-
-    /**
-     * Enumeration representing valid commands for the Duke application.
-     */
-    public enum Command {
-        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, FIND
-    }
-
     /**
      * Constructs a `Duke` instance with the specified file path for storage.
-     *
-     * @param filePath The file path for storage.
      */
-    public Duke(String filePath) {
+    public Duke() {
         this.ui = new Ui();
-        this.storage = new Storage(filePath);
+        this.storage = new Storage(FILEPATH);
         try {
             this.tasks = new TaskList(storage.loadTasks());
         } catch (DukeException e) {
@@ -52,13 +43,26 @@ public class Duke {
     }
 
     /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        return "Duke heard: " + input;
+    }
+
+    /**
+     * Enumeration representing valid commands for the Duke application.
+     */
+    public enum Command {
+        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, FIND
+    }
+    /**
      * Main loop for processing user commands and executing corresponding actions.
      */
     public void echo() {
         while (ui.hasNext()) {
             String msg = ui.getInput();
             Parser parser = new Parser(msg);
-
             try {
                 if (msg.toUpperCase().startsWith(Command.BYE.name()) && parser.parseBye()) {
                     ui.formatReply(ui.exit());
@@ -105,10 +109,8 @@ public class Duke {
                 ui.displayError(e.getMessage());
             }
         }
-
         ui.closeScanner();
     }
-
     /**
      * Initializes the Duke application, greets the user, and starts command processing.
      */
@@ -116,13 +118,12 @@ public class Duke {
         ui.formatReply(ui.greetUser());
         this.echo();
     }
-
     /**
      * Main method to launch the Duke application.
      *
      * @param args Command-line arguments (not used in this application).
      */
     public static void main(String[] args) {
-        new Duke("./data/duke.txt").run();
+        new Duke().run();
     }
 }

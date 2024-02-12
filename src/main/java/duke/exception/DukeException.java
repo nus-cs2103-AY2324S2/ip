@@ -5,7 +5,6 @@ package duke.exception;
  * It extends the general `Exception` class to handle custom exceptions within Duke.
  */
 public class DukeException extends Exception {
-
     /**
      * Constructs a `DukeException` with the specified error message.
      *
