@@ -15,7 +15,7 @@ public class Ui {
                 + System.lineSeparator()
                 + "   Hello there! I'm " + BOTNAME
                 + System.lineSeparator()
-                + "   What can I do for you today ?"
+                + "   How can I be of service my lord ?"
                 + System.lineSeparator()
                 + DIVIDER;
 
