@@ -9,7 +9,7 @@ import earl.tasks.TaskType;
 /**
  * Class responsible for parsing stored entries of tasks.
  */
-public class TaskStorageParser extends StorageParser<Task> {
+public class TaskStorageParser implements StorageParser<Task> {
 
     /**
      * Returns a {@code Task} object based on the stored string.
