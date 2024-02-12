@@ -1,10 +1,13 @@
 import inputcommands.Command;
 import snomexceptions.InvalidCommandException;
-import snomparser.Parser;
 import SnomStorage.TaskStorage;
+import snomparser.Parser;
 import snomtasklist.TaskList;
 import snomui.Ui;
 
+/**
+ * Snom class implements the working body of SnomBot.
+ */
 public class Snom {
     private Ui ui;
     private TaskStorage data;

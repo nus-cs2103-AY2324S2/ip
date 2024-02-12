@@ -13,7 +13,7 @@ import snomtasklist.TaskList;
  * a task in the tasklist as done.
  *
  */
-class UnmarkTaskCommand extends Command{
+class UnmarkTaskCommand extends Command {
 
 
     protected UnmarkTaskCommand(String desc) {
