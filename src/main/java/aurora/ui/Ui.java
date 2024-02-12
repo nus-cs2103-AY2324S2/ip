@@ -43,59 +43,6 @@ public class Ui {
     }
 
     /**
-     * Method to print the exit message.
-     */
-    public void printExitMessage() {
-        printALine();
-        String exitMessage = "Thank you for consulting with me, have a good day.";
-        System.out.println(exitMessage);
-        printALine();
-    }
-
-    /**
-     * Method to print a task list.
-     *
-     * @param  taskList The taskList to be printed.
-     */
-    public void printTaskList(ArrayList<Task> taskList) {
-        printALine();
-        System.out.println("These are the tasks in your list:");
-        for(int i = 0; i < taskList.size(); i++) {
-            String taskString = (i+1) + ". " + taskList.get(i).toString();
-            System.out.println(taskString);
-        }
-        printALine();
-    }
-
-    /**
-     * Method to print a found task list.
-     *
-     * @param  taskList The taskList to be printed.
-     */
-    public void printFoundList(ArrayList<Task> taskList) {
-        printALine();
-        System.out.println("Here are the matching tasks in your list:");
-        for(int i = 0; i < taskList.size(); i++) {
-            String taskString = (i+1) + ". " + taskList.get(i).toString();
-            System.out.println(taskString);
-        }
-        printALine();
-    }
-
-    /**
-     * Method to echo an add command.
-     */
-    public void echoAddTask(TaskList taskList) {
-        ArrayList<Task> taskListArray = taskList.getTaskList();
-        int taskNumber = taskListArray.size();
-        printALine();
-        String echo =
-                "Added this task: \n" + taskListArray.get(taskNumber - 1) + "\nNumber of tasks in list: " + taskNumber;
-        System.out.println(echo);
-        printALine();
-    }
-
-    /**
      * Method to print a line for separation.
      */
     public void printALine() {

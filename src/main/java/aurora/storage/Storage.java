@@ -21,6 +21,7 @@ import aurora.parser.Parser;
  * Storage is a class that handles file storage and retrieval.
  */
 public class Storage {
+
     /** The filepath to store or load data from. */
     private String filePath;
 

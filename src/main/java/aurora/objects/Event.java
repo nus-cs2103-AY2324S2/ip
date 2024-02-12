@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
  * The event class is a representation of an event task with a start and end date & time.
  */
 public class Event extends Task{
+
     /** Starting time and date of the event. */
     private LocalDateTime startDate;
 

@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
  * Deadline is a task with a specified date set as the deadline.
  */
 public class Deadline extends Task{
+
     /** Date at which the deadline expires. */
     private LocalDateTime date;
 

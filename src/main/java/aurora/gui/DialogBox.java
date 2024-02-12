@@ -63,7 +63,7 @@ public class DialogBox extends HBox {
         }
 
         this.dialog.setText(text);
-        displayPicture.setImage(img);
+        this.displayPicture.setImage(img);
     }
 
     /**

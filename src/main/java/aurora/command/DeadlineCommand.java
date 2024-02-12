@@ -66,6 +66,7 @@ public class DeadlineCommand extends Command {
             try {
                 LocalDateTime dateLdt = Parser.parseDate(dateString.trim());
                 this.taskList.addDeadline(description, dateLdt);
+                message = this.ui.getEchoAddTaskString(this.taskList);
             } catch (DateTimeParseException e) {
                 throw new AuroraException("Invalid date format. Please use dd/MM/yyyy HHmm format for deadlines.");
             }
@@ -73,9 +74,10 @@ public class DeadlineCommand extends Command {
         try {
             this.storage.saveTasks(this.taskList.getTaskList());
         } catch (IOException exception) {
-            return "Unable to save deadline to file: " + exception.getMessage();
+            message = "Unable to save deadline to file: " + exception.getMessage();
+            return message;
         }
-        return this.ui.getEchoAddTaskString(this.taskList);
+        return message;
     }
 
     @Override

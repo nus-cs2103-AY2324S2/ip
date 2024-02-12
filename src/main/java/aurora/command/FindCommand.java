@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import aurora.objects.AuroraException;
 import aurora.objects.Task;
-import aurora.storage.Storage;
 import aurora.tasklist.TaskList;
 import aurora.ui.Ui;
 
@@ -18,9 +17,6 @@ public class FindCommand extends Command {
     /** Ui to interact with. */
     private Ui ui;
 
-    /** Storage to interact with. */
-    private Storage storage;
-
     /** Full command. */
     private String[] splitCommands;
 
@@ -30,15 +26,13 @@ public class FindCommand extends Command {
     /**
      * Constructor for the FindCommand class.
      *
-     * @param taskList TaskList to interact with.
-     * @param ui Ui to interact with.
-     * @param storage Storage to interact with.
+     * @param taskList      TaskList to interact with.
+     * @param ui            Ui to interact with.
      * @param splitCommands Full command from the input.
      */
-    public FindCommand(TaskList taskList, Ui ui, Storage storage, String[] splitCommands) {
+    public FindCommand(TaskList taskList, Ui ui, String[] splitCommands) {
         this.taskList = taskList;
         this.ui = ui;
-        this.storage = storage;
         this.splitCommands = splitCommands;
         this.foundList = new ArrayList<>();
     }

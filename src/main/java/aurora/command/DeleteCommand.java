@@ -5,7 +5,6 @@ import java.io.IOException;
 import aurora.objects.AuroraException;
 import aurora.storage.Storage;
 import aurora.tasklist.TaskList;
-import aurora.ui.Ui;
 
 /**
  * The DeleteCommand class handles the "unmark" command.
@@ -14,9 +13,6 @@ public class DeleteCommand extends Command {
 
     /** TaskList to interact with. */
     private TaskList taskList;
-
-    /** Ui to interact with. */
-    private Ui ui;
 
     /** Storage to interact with. */
     private Storage storage;
@@ -27,14 +23,12 @@ public class DeleteCommand extends Command {
     /**
      * Constructor for the UnmarkCommand class.
      *
-     * @param taskList TaskList to edit.
-     * @param ui Ui to interact with.
-     * @param storage Storage to interact with.
+     * @param taskList      TaskList to edit.
+     * @param storage       Storage to interact with.
      * @param splitCommands Full command input.
      */
-    public DeleteCommand(TaskList taskList, Ui ui, Storage storage, String[] splitCommands) {
+    public DeleteCommand(TaskList taskList, Storage storage, String[] splitCommands) {
         this.taskList = taskList;
-        this.ui = ui;
         this.storage = storage;
         this.splitCommands = splitCommands;
     }

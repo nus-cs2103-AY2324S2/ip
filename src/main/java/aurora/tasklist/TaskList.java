@@ -58,41 +58,6 @@ public class TaskList {
         this.taskList.add(newTask);
     }
 
-
-    /**
-     * Method to mark a task in the taskList as done.
-     *
-     * @param taskIndex Index of the task in the ArrayList
-     */
-    public void markTask(int taskIndex) {
-        this.taskList.get(taskIndex).setDone();
-        System.out.println("I've marked this task as done: \n" +
-                this.taskList.get(taskIndex).toString());
-    }
-
-    /**
-     * Method to unmark a task in the taskList.
-     *
-     * @param taskIndex Index of the task in the ArrayList
-     */
-    public void unmarkTask(int taskIndex) {
-        this.taskList.get(taskIndex).setNotDone();
-        System.out.println("I've marked this task as not done yet: \n" +
-                this.taskList.get(taskIndex).toString());
-    }
-
-    /**
-     * Method to delete a task in the taskList.
-     *
-     * @param taskIndex Index of the task in the ArrayList
-     */
-    public void deleteTask(int taskIndex) {
-        String taskString = this.taskList.get(taskIndex).toString();
-        this.taskList.remove(taskIndex);
-        System.out.println("I've removed this task as you instructed: \n" +
-                taskString + "\nNumber of tasks in the list: " + taskList.size());
-    }
-
     /**
      * Marks a task in the taskList as done and returns a confirmation message.
      *

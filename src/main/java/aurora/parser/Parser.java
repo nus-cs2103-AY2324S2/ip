@@ -56,16 +56,16 @@ public class Parser {
         String[] splitCommands = Parser.splitAtAllBlanks(command);
         String mainC = splitCommands[0];
         if (mainC.equalsIgnoreCase("bye")) {
-            ByeCommand byeCommand = new ByeCommand(this.taskList, this.ui, this.storage);
+            ByeCommand byeCommand = new ByeCommand(this.ui);
             return byeCommand;
         } else if (mainC.equalsIgnoreCase("list")) {
-            ListCommand listCommand = new ListCommand(this.taskList, this.ui, this.storage);
+            ListCommand listCommand = new ListCommand(this.taskList, this.ui);
             return listCommand;
         } else if (mainC.equalsIgnoreCase("mark")) {
-            MarkCommand markCommand = new MarkCommand(this.taskList, this.ui, this.storage, splitCommands);
+            MarkCommand markCommand = new MarkCommand(this.taskList, this.storage, splitCommands);
             return markCommand;
         } else if (mainC.equalsIgnoreCase("unmark")) {
-            UnmarkCommand unmarkCommand = new UnmarkCommand(this.taskList, this.ui, this.storage,
+            UnmarkCommand unmarkCommand = new UnmarkCommand(this.taskList, this.storage,
                     splitCommands);
             return unmarkCommand;
         } else if (mainC.equalsIgnoreCase("todo")) {
@@ -79,11 +79,11 @@ public class Parser {
             EventCommand eventCommand = new EventCommand(this.taskList, this.ui, this.storage, command);
             return eventCommand;
         } else if (mainC.equalsIgnoreCase("delete")) {
-            DeleteCommand deleteCommand = new DeleteCommand(this.taskList, this.ui, this.storage,
+            DeleteCommand deleteCommand = new DeleteCommand(this.taskList, this.storage,
                     splitCommands);
             return deleteCommand;
         } else if (mainC.equalsIgnoreCase("find")) {
-            FindCommand findCommand = new FindCommand(this.taskList, this.ui, this.storage, splitCommands);
+            FindCommand findCommand = new FindCommand(this.taskList, this.ui, splitCommands);
             return findCommand;
         } else {
             InvalidCommand invalidCommand = new InvalidCommand();
