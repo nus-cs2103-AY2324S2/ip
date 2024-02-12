@@ -20,7 +20,7 @@ public class TagCommand extends Command {
     }
 
     /**
-     * Deletes the task from the current TaskList.
+     * Adds a tag to the task from the current TaskList.
      *
      * @param tasks Current TaskList.
      * @param storage Current Storage.

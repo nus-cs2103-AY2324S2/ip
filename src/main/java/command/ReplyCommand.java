@@ -1,13 +1,24 @@
 package command;
 
 import storage.Storage;
+import task.Task;
 import task.TaskList;
 import ui.Ui;
 
-public class NoreplyCommand extends Command {
+public class ReplyCommand extends Command {
+    private String customMessage;
 
     /**
-     * A command that does nothing.
+     * Constructor for Reply Command.
+     *
+     * @param customMessage message to be returned.
+     * */
+    public ReplyCommand(String customMessage) {
+        this.customMessage = customMessage;
+    }
+
+    /**
+     * Returns the custom message as a String.
      *
      * @param tasks Current TaskList.
      * @param storage Current Storage.
@@ -15,7 +26,7 @@ public class NoreplyCommand extends Command {
      * */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        return "";
+        return customMessage;
     }
 
     /**

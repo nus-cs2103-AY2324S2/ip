@@ -35,7 +35,9 @@ public class Parser {
      * @return The relevant type of Command object.
      * */
     public static Command parseCommands(String command, TaskList tasks) throws TobiasException {
-        if(command.equals("list")) {
+        if (command.equals("hello")) {
+            return new ReplyCommand("Howdy there partner !");
+        } else if(command.equals("list")) {
             return new ListCommand();
         } else if (command.startsWith("todo")) {
             if (command.equals("todo")) {

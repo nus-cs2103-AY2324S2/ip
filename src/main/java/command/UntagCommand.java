@@ -10,7 +10,7 @@ public class UntagCommand extends Command {
     private int tagIndex;
 
     /**
-     * Constructor for Un-mark Command.
+     * Constructor for Un-tag Command.
      *
      * @param taskIndex The index of the task to be unmarked.
      * */
@@ -21,7 +21,7 @@ public class UntagCommand extends Command {
 
 
     /**
-     * Un-marks the task at taskIndex of tasks as done.
+     * Un-tags the tag at tagIndex of the task at taskIndex.
      *
      * @param tasks Current TaskList.
      * @param storage Current Storage.
