@@ -1,6 +1,7 @@
 package nollid.tasks;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import nollid.Parser;
 import nollid.exceptions.InvalidArgumentException;
@@ -30,6 +31,25 @@ public class Event extends Task {
      */
     public Event(String description, LocalDateTime from, LocalDateTime to) throws NollidException {
         super(description);
+
+        if (from.isAfter(to)) {
+            throw new InvalidArgumentException("Start time and date must be before end time and date.");
+        }
+        this.from = from;
+        this.to = to;
+    }
+
+    /**
+     * Creates a new Event with a specified description, start, and end time.
+     *
+     * @param description The description of the event.
+     * @param from        The start time of the event represented as LocalDateTime.
+     * @param to          The end time of the event represented as LocalDateTime.
+     * @throws NollidException if the end time is before the start time.
+     */
+    public Event(String description, LocalDateTime from, LocalDateTime to,
+                 ArrayList<String> tags) throws NollidException {
+        super(description, tags);
 
         if (from.isAfter(to)) {
             throw new InvalidArgumentException("Start time and date must be before end time and date.");
@@ -81,6 +101,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.getFromString() + " to: " + this.getToString() + ")";
+        return "[E]" + super.toString() + " (from: " + this.getFromString() + " to: " + this.getToString() + ")"
+                + getTagsString();
     }
 }

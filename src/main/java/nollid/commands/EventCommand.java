@@ -9,6 +9,7 @@ import nollid.Storage;
 import nollid.TaskList;
 import nollid.exceptions.EmptyDescriptionException;
 import nollid.exceptions.InvalidArgumentException;
+import nollid.exceptions.MissingTagsException;
 import nollid.exceptions.NollidException;
 import nollid.tasks.Event;
 
@@ -21,9 +22,7 @@ public class EventCommand extends Command {
      * Constant string providing usage hint for the EventCommand.
      */
     public static final String USAGE_HINT =
-            "Usage: event [task description] /from [d/m/yyyy] {hh:mm 24hr format} " + "/to [d/m/yyyy] {hh:mm 24hr "
-                    + "format}";
-
+            "Usage: event task_description /from d/m/yyyy [hh:mm] /to d/m/yyyy [hh:mm] [/tags tag1,tag2,...]";
     /**
      * ArrayList containing command arguments.
      */
@@ -44,22 +43,19 @@ public class EventCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws NollidException {
-        int fromIndex = this.argsList.indexOf("/from");
-        int toIndex = this.argsList.indexOf("/to");
+        String taskDescription;
+        try {
+            taskDescription = Parser.getDescription(argsList);
+        } catch (EmptyDescriptionException e) {
+            throw new EmptyDescriptionException(e.getMessage() + "\n" + USAGE_HINT);
+        }
 
-        checkDescriptionNotEmpty(fromIndex, toIndex);
-        checkStartNotEmpty(fromIndex, toIndex);
-        checkEndNotEmpty(fromIndex, toIndex);
-
-        StringBuilder taskDescription = new StringBuilder();
         StringBuilder from = new StringBuilder();
         StringBuilder to = new StringBuilder();
-
-        // Deal with the user sending "/from" before "/to" or vice versa
-        if (fromIndex < toIndex) {
-            extractEventInfo(this.argsList, fromIndex, toIndex, taskDescription, from, to);
-        } else {
-            extractEventInfo(this.argsList, toIndex, fromIndex, taskDescription, to, from);
+        try {
+            extractEventInfo(from, to);
+        } catch (InvalidArgumentException e) {
+            throw new InvalidArgumentException(e.getMessage() + "\n" + USAGE_HINT);
         }
 
         LocalDateTime fromDateTime;
@@ -71,41 +67,46 @@ public class EventCommand extends Command {
             throw new InvalidArgumentException("Unrecognized start/end format\n" + USAGE_HINT);
         }
 
-        Event task = new Event(taskDescription.toString(), fromDateTime, toDateTime);
+        ArrayList<String> tags;
+        try {
+            tags = Parser.getTags(argsList);
+        } catch (MissingTagsException e) {
+            throw new MissingTagsException(e.getMessage() + "\n" + USAGE_HINT);
+        }
+
+        Event task = new Event(taskDescription, fromDateTime, toDateTime, tags);
         tasks.add(task);
         String message = tasks.getAddSuccessMessage(task);
         storage.update(tasks);
         return message;
     }
 
-    /**
-     * Saves the appropriate data in the supplied StringBuilders, given the index of the '/from' and '/to' arguments
-     * in the user input.
-     */
-    private void extractEventInfo(ArrayList<String> userInputAsList, int fromIndex, int toIndex,
-                                  StringBuilder taskDescription, StringBuilder from, StringBuilder to) {
-        for (int i = 1; i < fromIndex; i++) {
-            if (i != fromIndex - 1) {
-                taskDescription.append(userInputAsList.get(i)).append(" ");
+    private void extractEventInfo(StringBuilder fromString, StringBuilder toString) throws InvalidArgumentException {
+        int fromIndex = this.argsList.indexOf("/from");
+        int toIndex = this.argsList.indexOf("/to");
+
+        for (int i = fromIndex + 1; i < argsList.size(); i++) {
+            if (!argsList.get(i).matches(Parser.OPTION_REGEX)) {
+                fromString.append(argsList.get(i)).append(" ");
             } else {
-                taskDescription.append(userInputAsList.get(i));
+                break;
             }
         }
 
-        for (int i = fromIndex + 1; i < toIndex; i++) {
-            if (i != toIndex - 1) {
-                from.append(userInputAsList.get(i)).append(" ");
+        if (fromString.length() == 0) {
+            throw new InvalidArgumentException("Start date cannot be empty.");
+        }
+
+        for (int i = toIndex + 1; i < argsList.size(); i++) {
+            if (!argsList.get(i).matches(Parser.OPTION_REGEX)) {
+                toString.append(argsList.get(i)).append(" ");
             } else {
-                from.append(userInputAsList.get(i));
+                break;
             }
         }
 
-        for (int i = toIndex + 1; i < userInputAsList.size(); i++) {
-            if (i != userInputAsList.size() - 1) {
-                to.append(userInputAsList.get(i)).append(" ");
-            } else {
-                to.append(userInputAsList.get(i));
-            }
+        if (toString.length() == 0) {
+            throw new InvalidArgumentException("End date cannot be empty.");
         }
     }
 
