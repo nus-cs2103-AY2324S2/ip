@@ -4,12 +4,15 @@ public class EventTask extends Task {
     private String end;
 
     /**
-     * Constructor for Task object of type "event".
+     * Constructor for EventTask object of type "event".
      *
-     * @param what description of the task
+     * @param what description of task
+     * @param status completion status of task
+     * @param start start time of task
+     * @param end end time of task
      */
-    private EventTask(String what, String start, String end) {
-        super(what);
+    public EventTask(String what, String status, String start, String end) {
+        super(what, status);
         this.type = "[E]";
         this.start = start;
         this.end = end;
@@ -26,7 +29,7 @@ public class EventTask extends Task {
         String[] hasTimes = hasWhat[1].split("/", 2);
         String[] hasStart = hasTimes[0].split(" ", 2);
         String[] hasEnd = hasTimes[1].split(" ", 2);
-        return new EventTask(hasWhat[0], hasStart[1], hasEnd[1]);
+        return new EventTask(hasWhat[0], "f", hasStart[1], hasEnd[1]);
     }
 
     /**
@@ -37,5 +40,15 @@ public class EventTask extends Task {
     public String showAll() {
         return this.type + super.showAll()
                 + "(from: " + this.start + " to: " + this.end + ")";
+    }
+
+    /**
+     * Returns EventTask details in table row form
+     *
+     * @return String representation of EventTask to be saved into txt file
+     */
+    @Override
+    public String toString() {
+        return "E / " + super.toString() + " / " + this.start + " / " + this.end;
     }
 }

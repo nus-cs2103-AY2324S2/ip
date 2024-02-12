@@ -7,9 +7,13 @@ public class Task {
      *
      * @param what description of the task
      */
-    public Task(String what) {
+    public Task(String what, String status) {
         this.what = what;
-        this.status = "[ ]";
+        if (status.equals("t")) {
+            this.status = "[X]";
+        } else {
+            this.status = "[ ]";
+        }
     }
 
     /**
@@ -34,5 +38,15 @@ public class Task {
             this.status = "[ ]";
             System.out.println("OK, I've marked this task as not done yet:");
         }
+    }
+
+    /**
+     * Returns task details in table row form
+     *
+     * @return String representation of Task to be saved into txt file
+     */
+    @Override
+    public String toString() {
+        return (this.status.equals("[X]") ? "t" : "f") + " / " + this.what;
     }
 }
