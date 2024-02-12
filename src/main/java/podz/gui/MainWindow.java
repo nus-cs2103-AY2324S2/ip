@@ -9,7 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
@@ -28,8 +27,6 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
     @FXML
     private ImageView imgTop;
-    @FXML
-    private HBox topHBox;
 
     private Podz podz;
 
@@ -44,10 +41,8 @@ public class MainWindow extends AnchorPane {
         view.setFitHeight(10);
         view.setFitWidth(15);
         sendButton.setGraphic(view);
-        // userInput.setStyle("-fx-text-inner-color: #FFFFFF;");
         Circle clip = new Circle(25, 25, 25);
         imgTop.setClip(clip);
-        // topHBox.setEffect(new DropShadow(8, Color.rgb(0, 0, 0, 0.8)));
     }
 
     public void setPodz(Podz p) {
