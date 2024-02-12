@@ -69,8 +69,19 @@ public class TaskList {
      * @param task new Task object.
      */
     public String createTask(Task task) {
-        taskList.add(task);
         String response = "";
+
+        for (int i = 1; i <= taskList.size(); i++) {
+            if (task.getDescription().equals(taskList.get(i - 1).getDescription())) {
+                response += LINE_BREAK;
+                response += "\nTask with the same description already exists.";
+                response += LINE_BREAK;
+                return response;
+            }
+        }
+
+        taskList.add(task);
+
         response += LINE_BREAK;
         response += "\nGot it. I've added this task: \n  " + task;
         response += "\nNow you have " + taskList.size() + " tasks in the list.";
