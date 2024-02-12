@@ -88,7 +88,7 @@ public class Task {
      * Method that informs the user task has been created.
      * @return String informing user that task has been created.
      */
-    public String announcement() {
+    public String getAnnouncement() {
         return "New task created!";
     }
 

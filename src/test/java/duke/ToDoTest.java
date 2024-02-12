@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ToDoTest {
     @Test
     public void announcement_success() {
-        assertEquals("New ToDo created!",new ToDo("Cook", "T").announcement());
+        assertEquals("New ToDo created!",new ToDo("Cook", "T").getAnnouncement());
     }
 
     @Test

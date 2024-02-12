@@ -45,7 +45,7 @@ public class Event extends Task {
      * Informs the user a new Event has been created.
      * @return String informing a new Event has been created.
      */
-    public String announcement() {
+    public String getAnnouncement() {
         return "New Event created!";
     }
 
@@ -74,6 +74,12 @@ public class Event extends Task {
         return this.end.format(formatter).replace("T", " ");
     }
 
+    /**
+     * Returns the updated Event after postponing.
+     * @param start
+     * @param end
+     * @return Updated Event after postponing.
+     */
     public String postpone(String start, String end) {
         this.start = LocalDateTime.parse(start, formatter);
         this.end = LocalDateTime.parse(end, formatter);

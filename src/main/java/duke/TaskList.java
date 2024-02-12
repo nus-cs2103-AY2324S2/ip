@@ -1,6 +1,5 @@
 package duke;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
@@ -81,34 +80,34 @@ public class TaskList {
     }
 
     /**
-     * Adds new task to the TaskListt.
-     * @param first
-     * @param second
+     * Adds new task to the TaskList.
+     * @param tasktype
+     * @param otherInfo
      */
 
-    public String addTask(String first, String second) {
+    public String addTask(String tasktype, String otherInfo) {
         Task newTask;
         String reply = "";
 
-        if (first.equals("todo")) {
-            newTask = new ToDo(second, "T");
+        if (tasktype.equals("todo")) {
+            newTask = new ToDo(otherInfo, "T");
             this.taskList.add(newTask);
-            reply += newTask.announcement() + "\n";
+            reply += newTask.getAnnouncement() + "\n";
             reply += newTask + "\n";
             return reply;
-        } else if (first.equals("deadline")) {
-            String[] secondaryInputSplit = second.split(" /");
+        } else if (tasktype.equals("deadline")) {
+            String[] secondaryInputSplit = otherInfo.split(" /");
             newTask = new Deadline(secondaryInputSplit[0], "D", secondaryInputSplit[1]);
             this.taskList.add(newTask);
-            reply += newTask.announcement() + "\n";
+            reply += newTask.getAnnouncement() + "\n";
             reply += newTask + "\n";
             return reply;
-        } else if (first.equals("event")) {
-            String[] secondaryInputSplit = second.split(" /");
+        } else if (tasktype.equals("event")) {
+            String[] secondaryInputSplit = otherInfo.split(" /");
             newTask = new Event(secondaryInputSplit[0], "E", secondaryInputSplit[1],
                     secondaryInputSplit[2]);
             this.taskList.add(newTask);
-            reply += newTask.announcement() + "\n";
+            reply += newTask.getAnnouncement() + "\n";
             reply += newTask + "\n";
             return reply;
         } else {
@@ -166,6 +165,20 @@ public class TaskList {
         return taskList.get(index);
     }
 
+    /**
+     * Method clears the tasklist.
+     * @return String that notifies the user tasklist has been cleared.
+     */
+    public String clear() {
+        this.taskList.clear();
+        return "TaskList has been cleared!";
+    }
+
+    /**
+     * Method returns the index of task required.
+     * @param taskDesc
+     * @return int index of task
+     */
     public int getTaskIndex(String taskDesc) {
         for (int i = 0; i < this.taskList.size(); i++) {
             Task current = this.taskList.get(i);
@@ -176,8 +189,13 @@ public class TaskList {
         return -1;
     }
 
+    /**
+     * Method checks the type of task before updating it.
+     * @param input
+     * @return String notification of updated task.
+     */
     public String postponeTask(String input) {
-        String substrings[] = input.split(" /",2);
+        String[] substrings = input.split(" /", 2);
         String taskDesc = substrings[0];
 
         int taskIndex = getTaskIndex(taskDesc);
@@ -191,15 +209,15 @@ public class TaskList {
             return "ToDo task cannot be snoozed or postponed!";
         } else if (currentTask instanceof Deadline) {
             try {
-                return postponeDeadline((Deadline)currentTask, substrings[1]);
+                return postponeDeadline((Deadline) currentTask, substrings[1]);
             } catch (ArrayIndexOutOfBoundsException e) {
                 return "Deadline requires a Date and Time!";
             }
         } else if (currentTask instanceof Event) {
             try {
-                return postponeEvent((Event)currentTask, substrings[1]);
+                return postponeEvent((Event) currentTask, substrings[1]);
             } catch (ArrayIndexOutOfBoundsException e) {
-                return "Events require a start/end Date and Time!";
+                return "Event requires a start/end Date and Time!";
             }
         }
         return "No such task to postpone!";

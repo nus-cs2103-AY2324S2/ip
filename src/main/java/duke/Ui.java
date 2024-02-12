@@ -23,9 +23,14 @@ public class Ui {
      * Method that bids farewell to the user upon terminating Duke.
      */
     public String bye() {
-        return "See you next time! Close the tab to terminate!";
+        return "See you next time! Close the tab to save and exit!";
     }
 
+    /**
+     * Method that returns a fixed response based on user input.
+     * @param command
+     * @return String response to the user.
+     */
     public String miscCommands(String command) {
         if (command.equals("date")) {
             return "Maybe another time ><\n";

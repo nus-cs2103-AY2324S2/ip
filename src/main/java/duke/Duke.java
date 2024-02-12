@@ -35,14 +35,6 @@ public class Duke {
     }
 
     /**
-     * Sends the commands input by the user to the Parser Class for processing.
-     */
-    public void parse() {
-        String commandInput = scanner.nextLine();
-        this.parser.checkInput(commandInput, this, this.taskList);
-    }
-
-    /**
      * Starts up and runs the Duke program.
      */
     public void run() {

@@ -40,7 +40,7 @@ public class Deadline extends Task {
      * Informs the user a new Deadline has been created.
      * @return String informing a new Deadline has been created.
      */
-    public String announcement() {
+    public String getAnnouncement() {
         return "New Deadline created!";
     }
 
@@ -61,6 +61,11 @@ public class Deadline extends Task {
         return this.deadline.format(formatter).replace("T", " ");
     }
 
+    /**
+     * Returns the updated Deadline after postponing.
+     * @param input
+     * @return Updated Deadline after postponing.
+     */
     public String postpone(String input) {
         this.deadline = LocalDateTime.parse(input, formatter);
         return this.getTask() + " has been postponed to "

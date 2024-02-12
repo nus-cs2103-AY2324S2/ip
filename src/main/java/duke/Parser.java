@@ -36,6 +36,8 @@ public class Parser {
             return duke.ui.bye();
         } else if (commandInput.equals("list")) {
             return taskList.listTask();
+        } else if (commandInput.equals("clear")) {
+            return taskList.clear();
         } else if (commandInput.startsWith("find")) {
             return checkFind();
         } else if (commandInput.startsWith("mark")) {
@@ -50,7 +52,7 @@ public class Parser {
             return checkDeadline();
         } else if (commandInput.startsWith("event")) {
             return checkEvent();
-        } else if(commandInput.startsWith("postpone")) {
+        } else if (commandInput.startsWith("postpone")) {
             return checkPostpone();
         } else {
             return "I don't understand :/";

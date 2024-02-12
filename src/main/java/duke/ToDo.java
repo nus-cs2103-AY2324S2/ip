@@ -18,7 +18,7 @@ public class ToDo extends Task {
      * Informs the user a new ToDo has been created.
      * @return String informing a new ToDo has been created.
      */
-    public String announcement() {
+    public String getAnnouncement() {
         return "New ToDo created!";
     }
 
