@@ -9,6 +9,7 @@ import raphael.task.TaskList;
  * The class for user interface.
  */
 public class Ui {
+    private String savedOutput = "stub";
     private static final String START_LINE = "----------------"
             + "------------[Rep"
             + "ort]------------"
@@ -86,9 +87,10 @@ public class Ui {
      * @param task the task that need to be added.
      */
     public void showAddOutput(TaskList tasks, Task task) {
-        System.out.printf("Roger that! I have added the following task into your list:\n"
-                + "\t%s\n", task);
-        System.out.println(tasks.getSize());
+        String output = String.format("Roger that! I have added the following task into your list:\n"
+                + "\t%s\n%s", task, tasks.getSize());
+        this.savedOutput = output;
+        System.out.println(output);
     }
 
     /**
@@ -97,6 +99,7 @@ public class Ui {
      * @param text the text to be print when find command is used.
      */
     public void showFindOutput(String text) {
+        this.savedOutput = text;
         System.out.println(text);
     }
 
@@ -106,8 +109,10 @@ public class Ui {
      * @param task the task to be deleted.
      */
     public void showDeleteOutput(Task task) {
-        System.out.printf("Alrigthy! I have deleted the following task for you:\n"
-                + "\t%s\n", task);
+        String output = String.format("Alrigthy! I have deleted the following task for you:\n"
+                + "\t%s", task);
+        this.savedOutput = output;
+        System.out.println(output);
     }
 
     /**
@@ -116,12 +121,15 @@ public class Ui {
      * @param text the text to be print when list command is used.
      */
     public void showListOutput(String text) {
+        this.savedOutput = text;
         System.out.println(text);
     }
     public void showMarkOutput(String text) {
+        this.savedOutput = text;
         System.out.println(text);
     }
     public void showUnmarkOutput(String text) {
+        this.savedOutput = text;
         System.out.println(text);
     }
     /**
@@ -141,5 +149,11 @@ public class Ui {
     public String readCommand() {
         Scanner sc = new Scanner(System.in);
         return sc.nextLine();
+    }
+    public void saveOutput(String output) {
+        this.savedOutput = output;
+    }
+    public String getOutput() {
+        return this.savedOutput;
     }
 }

@@ -1,9 +1,9 @@
 import javafx.application.Application;
 
-import raphael.Raphael;
+import raphael.Main;
 
 public class Launcher {
     public static void main(String[] args) {
-        Application.launch(Raphael.class, args);
+        Application.launch(Main.class, args);
     }
 }

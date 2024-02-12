@@ -17,7 +17,9 @@ public class ExitCommand extends Command {
      * @param storage the file I/O object
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {}
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
+        ui.saveOutput("Bye! It is an honor to serve you!");
+    }
 
     /**
      * Returns a boolean value indicating if the current command terminates the bot.
@@ -26,7 +28,6 @@ public class ExitCommand extends Command {
      */
     @Override
     public boolean isExit() {
-        System.out.println("Bye! It is an honor to serve you!");
         return true;
     }
 }
