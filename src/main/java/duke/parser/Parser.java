@@ -11,12 +11,10 @@ import duke.task.Todo;
  * It interprets commands and converts them into corresponding Duke actions.
  */
 public class Parser {
-
     /**
      * The command to be parsed.
      */
     private final String command;
-
     /**
      * Constructs a `Parser` with the given command.
      *
@@ -25,7 +23,6 @@ public class Parser {
     public Parser(String command) {
         this.command = command;
     }
-
     /**
      * Parses the "bye" command.
      *
@@ -40,7 +37,6 @@ public class Parser {
             throw new DukeException("Invalid format. Please use 'bye'.");
         }
     }
-
     /**
      * Parses the "list" command.
      *
@@ -55,7 +51,6 @@ public class Parser {
             throw new DukeException("Invalid format. Please use 'list'.");
         }
     }
-
     /**
      * Parses the "find" command to search for tasks with a keyword.
      *
@@ -63,14 +58,12 @@ public class Parser {
      * @throws DukeException If the command format is invalid.
      */
     public String parseFind() throws DukeException {
-
         String[] parts = command.split(" ", 2);
         if (parts.length < 2 || parts[1].isEmpty()) {
             throw new DukeException("Invalid format. Please use 'find <keyword>'.");
         }
         return parts[1].trim();
     }
-
     /**
      * Parses the delete command and returns the index of the task to be deleted.
      *
@@ -79,10 +72,8 @@ public class Parser {
      */
     public int parseDelete() throws DukeException {
         String[] parts = command.split(" ");
-
         if (parts.length == 2) {
             String index = parts[1].trim();
-
             try {
                 return Integer.parseInt(index) - 1;
             } catch (NumberFormatException e) {
@@ -92,7 +83,6 @@ public class Parser {
             throw new DukeException("Invalid format. Please use 'delete <index>'.");
         }
     }
-
     /**
      * Parses the mark command and returns the index of the task to be marked as done.
      *
@@ -101,7 +91,6 @@ public class Parser {
      */
     public int parseMark() throws DukeException {
         String[] part = command.split(" ");
-
         if (part.length == 2) {
             String index = part[1].trim();
             try {
@@ -113,7 +102,6 @@ public class Parser {
             throw new DukeException("Invalid format. Please use 'mark <index>'.");
         }
     }
-
     /**
      * Parses the unmark command and returns the index of the task to be marked as not done.
      *
@@ -122,7 +110,6 @@ public class Parser {
      */
     public int parseUnmark() throws DukeException {
         String[] part = command.split(" ");
-
         if (part.length == 2) {
             String index = part[1].trim();
             try {
@@ -134,7 +121,6 @@ public class Parser {
             throw new DukeException("Invalid format. Please use 'unmark <index>'.");
         }
     }
-
     /**
      * Parses the event command and returns the corresponding Event.
      *
@@ -157,7 +143,6 @@ public class Parser {
         throw new DukeException("Invalid format. Please use 'event <description> /from <datetime> /to <datetime>'.\n"
                 + " Datetime format: <yyyy-MM-dd HH:mm>.");
     }
-
     /**
      * Parses the todo command and returns the corresponding Todo.
      *
@@ -167,14 +152,11 @@ public class Parser {
     public Todo parseTodo() throws DukeException {
         String input = command.substring(Duke.Command.TODO.name().length()).trim();
         String description = input.trim();
-
         if (input.isEmpty()) {
             throw new DukeException("Invalid format. Please use 'todo <description>'.");
         }
-
         return new Todo(description);
     }
-
     /**
      * Parses the deadline command and returns the corresponding Deadline.
      *

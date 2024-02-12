@@ -9,12 +9,10 @@ import duke.storage.Storage;
  * The `TaskList` class represents a list of tasks in Duke.
  */
 public class TaskList {
-
     /**
      * The `ArrayList` that stores the tasks.
      */
     private final ArrayList<Task> tasks;
-
     /**
      * Constructs a `TaskList` with the given `ArrayList` of tasks.
      *
@@ -23,14 +21,12 @@ public class TaskList {
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
-
     /**
      * Constructs an empty `TaskList`.
      */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
-
     /**
      * Saves the tasks in the `TaskList` to the provided `Storage`.
      *
@@ -40,7 +36,6 @@ public class TaskList {
     public void saveToStorage(Storage storage) throws DukeException {
         storage.saveTasks(tasks);
     }
-
     /**
      * Retrieves the `ArrayList` of tasks from the `TaskList`.
      *
@@ -49,7 +44,6 @@ public class TaskList {
     public ArrayList<Task> getTasks() {
         return tasks;
     }
-
     /**
      * Finds tasks containing the specified keyword.
      *
@@ -65,7 +59,6 @@ public class TaskList {
         }
         return foundTasks;
     }
-
     /**
      * Adds a task to the `TaskList`.
      *
@@ -74,7 +67,6 @@ public class TaskList {
     public void addTask(Task task) {
         tasks.add(task);
     }
-
     /**
      * Deletes a task from the `TaskList` by index.
      *
@@ -89,7 +81,6 @@ public class TaskList {
             throw new DukeException("Task not found.");
         }
     }
-
     /**
      * Marks a task as done by index.
      *
@@ -106,7 +97,6 @@ public class TaskList {
             throw new DukeException("Task not found.");
         }
     }
-
     /**
      * Marks a task as not done by index.
      *

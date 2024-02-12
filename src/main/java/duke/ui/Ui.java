@@ -13,49 +13,27 @@ import duke.task.Task;
 public class Ui {
 
     /**
+     * Horizontal line used for formatting output.
+     */
+    private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
+    /**
      * Scanner object for reading user input.
      */
     private final Scanner scanner;
-
-    /**
-     * Horizontal line used for formatting output.
-     */
-    private final String horizontalLine = "____________________________________________________________\n";
-
     /**
      * Constructs an `Ui` object and initializes the Scanner for user input.
      */
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
-
-    /**
-     * Greets the user with an introductory message.
-     *
-     * @return A formatted greeting message.
-     */
-    public String greetUser() {
-        return "Hello! I'm Zenify\n" + " What can I do for you?";
-    }
-
-    /**
-     * Formats and prints a reply to the console.
-     *
-     * @param raw The raw message to be formatted and displayed.
-     */
-    public void formatReply(String raw) {
-        System.out.print(horizontalLine + " " + raw + "\n" + horizontalLine + "\n");
-    }
-
     /**
      * Formats and prints an error message to the console.
      *
      * @param raw The raw error message to be formatted and displayed.
      */
     public void formatError(String raw) {
-        System.err.println(this.horizontalLine + " " + raw + "\n" + this.horizontalLine);
+        System.err.println(HORIZONTAL_LINE + " " + raw + "\n" + HORIZONTAL_LINE);
     }
-
     /**
      * Displays a farewell message to the user upon exiting the application.
      *
@@ -64,7 +42,6 @@ public class Ui {
     public String exit() {
         return "Bye. Hope to see you again soon!";
     }
-
     /**
      * Generates a formatted string containing the matching tasks and returns the result.
      *
@@ -85,7 +62,6 @@ public class Ui {
         }
         return result.toString();
     }
-
     /**
      * Generates a formatted string containing the list of tasks and returns the result.
      *
@@ -106,7 +82,6 @@ public class Ui {
         }
         return result.toString();
     }
-
     /**
      * Generates a formatted string for marking a task as not done and returns the result.
      *
@@ -116,7 +91,6 @@ public class Ui {
     public String showUnmarkTaskMessage(Task task) {
         return "OK, I've marked this task as not done yet:\n" + "   " + task;
     }
-
     /**
      * Generates a formatted string for marking a task as done and returns the result.
      *
@@ -126,7 +100,6 @@ public class Ui {
     public String showMarkTaskMessage(Task task) {
         return "Nice! I've marked this task as done:\n" + "   " + task;
     }
-
     /**
      * Generates a formatted string for adding a task and returns the result.
      *
@@ -138,7 +111,6 @@ public class Ui {
         return "Got it. I've added this task:\n" + "   " + task + "\n"
                 + " Now you have " + taskCount + " task(s) in the list.";
     }
-
     /**
      * Generates a formatted string for deleting a task and returns the result.
      *
@@ -150,7 +122,6 @@ public class Ui {
         return "Noted. I've removed this task:\n" + "   " + task + "\n"
                 + " Now you have " + taskCount + " task(s) in the list.";
     }
-
     /**
      * Displays an error message to the user.
      *
@@ -159,7 +130,6 @@ public class Ui {
     public void displayError(String errorMessage) {
         this.formatError("Error: " + errorMessage);
     }
-
     /**
      * Retrieves user input from the console.
      *
@@ -167,21 +137,5 @@ public class Ui {
      */
     public String getInput() {
         return scanner.nextLine();
-    }
-
-    /**
-     * Checks if there is more input from the user.
-     *
-     * @return True if there is more input, false otherwise.
-     */
-    public boolean hasNext() {
-        return scanner.hasNextLine();
-    }
-
-    /**
-     * Closes the Scanner to release system resources.
-     */
-    public void closeScanner() {
-        scanner.close();
     }
 }

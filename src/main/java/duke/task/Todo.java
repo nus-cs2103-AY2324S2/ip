@@ -6,7 +6,6 @@ import java.util.Objects;
  * The `Todo` class represents a basic task without a specific deadline or duration in Duke.
  */
 public class Todo extends Task {
-
     /**
      * Constructs a `Todo` with the given description.
      *
@@ -15,7 +14,6 @@ public class Todo extends Task {
     public Todo(String description) {
         super(description);
     }
-
     /**
      * Returns a string representation of the todo task, including its status icon.
      *
@@ -25,7 +23,6 @@ public class Todo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
-
     /**
      * Returns a formatted string for writing the todo task to a file.
      *
@@ -35,7 +32,6 @@ public class Todo extends Task {
     public String toFileString() {
         return "T" + super.toFileString();
     }
-
     /**
      * Indicates whether some other object is "equal to" this one. Equality is based on task properties.
      *
@@ -55,7 +51,6 @@ public class Todo extends Task {
         return this.isDone == todo.isDone
                 && this.description.equals(todo.description);
     }
-
     /**
      * Returns a hash code value for the object.
      *

@@ -4,17 +4,14 @@ package duke.task;
  * The `Task` class represents a generic task in Duke.
  */
 public class Task {
-
     /**
      * The description of the task.
      */
     protected String description;
-
     /**
      * A flag indicating whether the task is done or not.
      */
     protected boolean isDone;
-
     /**
      * Constructs a `Task` with the given description.
      *
@@ -24,7 +21,6 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
-
     /**
      * Sets the task's done status.
      *
@@ -33,7 +29,6 @@ public class Task {
     public void setDone(boolean done) {
         this.isDone = done;
     }
-
     /**
      * Retrieves the status icon for the task.
      *
@@ -42,7 +37,6 @@ public class Task {
     private String getStatusIcon() {
         return (this.isDone ? "X" : " "); // mark done task with X
     }
-
     /**
      * Retrieves the status symbol for the task.
      *
@@ -51,7 +45,6 @@ public class Task {
     private String getStatusSymbol() {
         return (this.isDone ? "1" : "0");
     }
-
     /**
      * Retrieves the description of the task.
      *
@@ -60,7 +53,6 @@ public class Task {
     public String getDescription() {
         return this.description;
     }
-
     /**
      * Returns a string representation of the task for display.
      *
@@ -70,7 +62,6 @@ public class Task {
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
-
     /**
      * Returns a string representation of the task for storage in a file.
      *

@@ -19,17 +19,14 @@ import duke.task.Todo;
  * It interacts with the file system to store and retrieve tasks.
  */
 public class Storage {
-
     /**
      * The file path for storing tasks.
      */
     protected Path filePath;
-
     /**
      * Indicates whether the warning about potential overwriting has been printed.
      */
     private boolean isWarningPrinted = false;
-
     /**
      * Constructs a `Storage` with the given file path.
      *
@@ -38,7 +35,6 @@ public class Storage {
     public Storage(String filePath) {
         this.filePath = Paths.get(filePath);
     }
-
     /**
      * Prints a warning about potential overwriting of tasks.
      */
@@ -49,7 +45,6 @@ public class Storage {
             isWarningPrinted = true;
         }
     }
-
     /**
      * Prepares the task file by creating directories and the file if they do not exist.
      *
@@ -65,7 +60,6 @@ public class Storage {
             throw new DukeException("Unable to create task file in " + this.filePath);
         }
     }
-
     /**
      * Loads tasks from the task file.
      *
@@ -75,10 +69,8 @@ public class Storage {
     public ArrayList<Task> loadTasks() throws DukeException {
         prepareFile();
         ArrayList<Task> tasks = new ArrayList<>();
-
         try (Scanner myScannerObj = new Scanner(filePath)) {
             int lineNumber = 1;
-
             while (myScannerObj.hasNext()) {
                 String line = myScannerObj.nextLine();
                 try {
@@ -90,14 +82,11 @@ public class Storage {
                 }
                 lineNumber++;
             }
-
         } catch (IOException e) {
             throw new DukeException("Unable to load tasks from task file.");
         }
-
         return tasks;
     }
-
     /**
      * Saves tasks to the task file.
      *
@@ -116,7 +105,6 @@ public class Storage {
             throw new DukeException("Unable to save tasks to task file.");
         }
     }
-
     /**
      * Loads a task from a string representation.
      *
@@ -126,15 +114,12 @@ public class Storage {
      */
     public Task load(String line) throws DukeException {
         String[] parts = line.split(" \\| ");
-
         if (parts.length < 3 || !parts[1].matches("[01]")) {
             throw new DukeException("Invalid task format. Please check the task file.");
         }
-
         String taskType = parts[0];
         boolean isDone = Integer.parseInt(parts[1]) == 1;
         String description = parts[2];
-
         switch (taskType) {
         case "T":
             Task tT = new Todo(description);
@@ -150,7 +135,6 @@ public class Storage {
                 throw new DukeException("Invalid time format. "
                         + "Please use <datetime> - <datetime>");
             }
-
             Task tE = new Event(description, time[0], time[1]);
             tE.setDone(isDone);
             return tE;
