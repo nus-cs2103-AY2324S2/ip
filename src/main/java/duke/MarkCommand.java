@@ -28,6 +28,9 @@ public class MarkCommand implements Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        // Assert that task index is within valid range
+        assert taskIndex >= 0 && taskIndex < tasks.getTasks().size() : "Invalid task index";
+
         try {
             if (taskIndex >= 0 && taskIndex < (tasks.getTasks()).size()) {
                 Task markedTask = tasks.getTask(taskIndex);
