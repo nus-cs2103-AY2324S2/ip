@@ -41,4 +41,8 @@ public class MeanDuke {
             Ui.printSpacer();
         }
     }
+
+    public static String getResponse(String input) {
+        return "Duke heard: " + input;
+    }
 }
