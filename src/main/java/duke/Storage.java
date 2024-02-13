@@ -32,23 +32,22 @@ public class Storage {
         ArrayList<Task> tasksList = new ArrayList<Task>();
 
         File file = new File(filePath);
+        boolean isCreated = false;
         if (!file.exists()) {
-            boolean isCreated = false;
             isCreated = file.getParentFile().mkdirs();
             isCreated = file.createNewFile();
-
-            if (!isCreated) {
-                throw new DukeException("File could not be created.");
-            }
-        } else {
-            Scanner s = new Scanner(file);
-            while (s.hasNext()) {
-                String line = s.nextLine();
-                Task task = parseTasksFromString(line);
-                tasksList.add(task);
-            }
-            s.close();
         }
+        if (!isCreated) {
+            throw new DukeException("File could not be created.");
+        }
+
+        Scanner s = new Scanner(file);
+        while (s.hasNext()) {
+            String line = s.nextLine();
+            Task task = parseTasksFromString(line);
+            tasksList.add(task);
+        }
+        s.close();
 
         return tasksList;
     }
@@ -63,20 +62,23 @@ public class Storage {
 
         Task task = null;
         // class specific fields
-        if (taskType.equals("T")) {
+        switch (taskType) {
+        case "T":
             task = new Todo(description);
-        } else if (taskType.equals("D")) {
+            break;
+        case "D":
             String by = split[3];
             task = new Deadline(description, Task.getInputDateFormat(by));
-        } else if (taskType.equals("E")) {
+            break;
+        case "E":
             String from = split[3];
             String to = split[4];
             task = new Event(description, Task.getInputDateFormat(from), Task.getInputDateFormat(to));
-        }
-
-        if (task == null) {
+            break;
+        default:
             throw new DukeException("Invalid task type");
         }
+
         if (isDone) {
             task.markAsDone();
         }
@@ -108,6 +110,8 @@ public class Storage {
                     task.getTaskType() + " | " + (task.isDone ? "1" : "0") + " | "
                         + task.getDescription() + " | " + Task.getLocalDateOutputFormat(event.getFrom()) + " | "
                         + Task.getLocalDateOutputFormat(event.getTo()) + "\n");
+            } else {
+                throw new DukeException("Invalid task type");
             }
         }
         fileWriter.close();
