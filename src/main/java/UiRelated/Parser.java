@@ -37,6 +37,7 @@ public class Parser {
         String[] parts = input.trim().split("\\s+", 2);
         String command = parts[0].toLowerCase();
         int l = parts.length;
+        assert l >= 1 : "empty string handled";
         if (l == 1) {
             return commandWithNoIndex(command);
         }
@@ -66,13 +67,10 @@ public class Parser {
     /**
      * Checks if the input is an exit command.
      *
-     * @param s The input string to be checked.
+     * @param command The input string to be checked.
      * @return True if the input is an exit request, false otherwise.
      */
-    public static boolean isExitCommand(String s) {
 
-        return s.trim().toLowerCase().equals("bye");
-    }
     private static Command findCommand(String command) {
         return new FindCommand(command);
     }
