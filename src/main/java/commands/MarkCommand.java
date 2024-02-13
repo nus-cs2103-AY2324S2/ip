@@ -1,8 +1,8 @@
 package commands;
 
 import exceptions.LeluException;
-import tasksstorage.Storage;
-import tasksstorage.TaskList;
+import storage.Storage;
+import tasks.TaskList;
 import ui.Ui;
 
 /**
@@ -22,9 +22,9 @@ public class MarkCommand extends Command {
      * @throws LeluException If the input is invalid or with the wrong format.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage, String message) throws LeluException {
+    public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws LeluException {
         int i = Integer.parseInt(message.split(" ")[1]) - 1;
-        tasks.markTask(i);
+        return tasks.markTask(i);
     }
 
 }

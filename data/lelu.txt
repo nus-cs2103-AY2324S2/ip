@@ -1,2 +1,2 @@
-E | 0 | go there  | 2  | 3
-D | 0 | finish that | 2023-02-03 23:23
+T | 1 | sleep 
+D | 0 | eat | 2023-11-20 23:29

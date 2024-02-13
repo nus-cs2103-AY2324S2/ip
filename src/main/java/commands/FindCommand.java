@@ -2,8 +2,8 @@ package commands;
 
 import exceptions.InvalidFormatException;
 import exceptions.LeluException;
-import tasksstorage.Storage;
-import tasksstorage.TaskList;
+import storage.Storage;
+import tasks.TaskList;
 import ui.Ui;
 
 /**
@@ -22,7 +22,7 @@ public class FindCommand extends Command {
      * @throws LeluException If the input is in the wrong format.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage, String message) throws LeluException {
+    public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws LeluException {
         if (message.replaceAll(" ", "").equals("find")) {
             InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.FIND);
         } else if (message.replaceFirst("find ", "").split(" ").length > 1) {
@@ -30,7 +30,7 @@ public class FindCommand extends Command {
                     "   find <keyword>\n");
         }
         TaskList res = tasks.filter(message.replaceFirst("find ", ""));
-        System.out.println("   These are matching tasks in your list:\n   " + res.toString());
+        return "   These are matching tasks in your list:\n" + res.toString();
     }
 
 

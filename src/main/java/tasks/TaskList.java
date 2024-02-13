@@ -1,6 +1,4 @@
-package tasksstorage;
-
-import tasks.Task;
+package tasks;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -10,9 +8,9 @@ import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> tasks = new ArrayList<>();
 
-    public void addTask(Task t) {
+    public String addTask(Task t) {
         this.tasks.add(t);
-        System.out.printf("    Ok! I have added your task:\n      %s\n    You have %d task(s) in the "
+        return String.format("    Ok! I have added your task:\n      %s\n    You have %d task(s) in the "
                 + "list now.\n\n", t.toString(), this.tasks.size());
     }
 
@@ -20,23 +18,22 @@ public class TaskList {
         this.tasks.add(t);
     }
 
-    public void removeTask(int i) {
+    public String removeTask(int i) {
         Task t = this.tasks.get(i);
         this.tasks.remove(i);
-        System.out.printf(
-                "    Ok, I have removed your task:\n    %s\n    You have %d task(s) in the "
+        return String.format("    Ok, I have removed your task:\n    %s\n    You have %d task(s) in the "
                 + "list now.\n\n", t.toString(), this.tasks.size());
     }
 
-    public void markTask(int i) {
+    public String markTask(int i) {
         this.tasks.get(i).markTask();
-        System.out.printf(
+        return String.format(
                 "    Great job completing your task!\n      %s\n\n", this.tasks.get(i).toString());
     }
 
-    public void unmarkTask(int i) {
+    public String unmarkTask(int i) {
         this.tasks.get(i).unmarkTask();
-        System.out.printf(
+        return String.format(
                 "    Don't forget to complete your task soon...\n      %s\n\n", this.tasks.get(i).toString());
     }
     public void writeToFile(File file) throws IOException {

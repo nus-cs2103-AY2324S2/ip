@@ -1,6 +1,7 @@
-package tasksstorage;
+package storage;
 import tasks.Deadline;
 import org.junit.jupiter.api.Test;
+import tasks.TaskList;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;

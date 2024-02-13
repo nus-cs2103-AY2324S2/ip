@@ -1,8 +1,8 @@
 package commands;
 
 import exceptions.LeluException;
-import tasksstorage.Storage;
-import tasksstorage.TaskList;
+import storage.Storage;
+import tasks.TaskList;
 import ui.Ui;
 
 /**
@@ -22,7 +22,7 @@ public class ListCommand extends Command {
      * @throws LeluException If the input is invalid or with the wrong format.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage, String message) throws LeluException {
-        System.out.println(tasks.toString());
+    public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws LeluException {
+        return tasks.toString();
     }
 }

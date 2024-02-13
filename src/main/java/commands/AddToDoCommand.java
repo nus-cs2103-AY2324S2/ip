@@ -2,11 +2,9 @@ package commands;
 
 import exceptions.InvalidFormatException;
 import exceptions.LeluException;
-import tasks.Event;
-import tasks.Task;
 import tasks.ToDo;
-import tasksstorage.Storage;
-import tasksstorage.TaskList;
+import storage.Storage;
+import tasks.TaskList;
 import ui.Ui;
 
 /**
@@ -26,11 +24,11 @@ public class AddToDoCommand extends Command {
      * @throws LeluException If the input is invalid or with the wrong format.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage, String message) throws LeluException {
+    public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws LeluException {
         if (message.replaceAll(" ", "").equals("todo")) {
             InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.TODO);
         }
         String s = message.replaceFirst("todo ", "");
-        tasks.addTask(new ToDo(s));
+        return tasks.addTask(new ToDo(s));
     }
 }

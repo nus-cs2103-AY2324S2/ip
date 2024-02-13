@@ -3,10 +3,8 @@ package commands;
 import exceptions.InvalidFormatException;
 import exceptions.LeluException;
 import tasks.Event;
-import tasks.Task;
-import tasks.ToDo;
-import tasksstorage.Storage;
-import tasksstorage.TaskList;
+import storage.Storage;
+import tasks.TaskList;
 import ui.Ui;
 
 /**
@@ -27,7 +25,7 @@ public class AddEventCommand extends Command {
      * @throws LeluException If the input is invalid or with the wrong format.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage, String message) throws LeluException {
+    public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws LeluException {
         if (message.replaceAll(" ", "").equals("event")) {
             InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.EVENT);
         }
@@ -39,6 +37,6 @@ public class AddEventCommand extends Command {
         if (frTo.length < 2) {
             InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.EVENT);
         }
-        tasks.addTask(new Event(t[0], frTo[0], frTo[1]));
+        return tasks.addTask(new Event(t[0], frTo[0], frTo[1]));
     }
 }

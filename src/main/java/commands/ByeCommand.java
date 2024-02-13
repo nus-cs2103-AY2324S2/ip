@@ -1,9 +1,11 @@
 package commands;
 
 import exceptions.LeluException;
-import tasksstorage.Storage;
-import tasksstorage.TaskList;
+import storage.Storage;
+import tasks.TaskList;
+import ui.MainWindow;
 import ui.Ui;
+
 
 /**
  * This class represents a command for ending the conversation with the chatbot.
@@ -22,8 +24,9 @@ import ui.Ui;
      * @throws LeluException If the input is invalid or with the wrong format.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage, String message) throws LeluException {
-        ui.exit();
+    public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws LeluException {
         storage.save(tasks);
+        MainWindow.canExit = true;
+        return ui.exit();
     }
 }

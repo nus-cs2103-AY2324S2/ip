@@ -4,8 +4,8 @@ import exceptions.InvalidFormatException;
 import exceptions.LeluException;
 import tasks.Deadline;
 import tasks.Task;
-import tasksstorage.Storage;
-import tasksstorage.TaskList;
+import storage.Storage;
+import tasks.TaskList;
 import ui.Ui;
 
 /**
@@ -26,7 +26,7 @@ import ui.Ui;
      * @throws LeluException If the input is invalid or with the wrong format.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage, String message) throws LeluException {
+    public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws LeluException {
         if (message.replaceAll(" ", "").equals("deadline")) {
             InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.DEADLINE);
         }
@@ -35,6 +35,6 @@ import ui.Ui;
             InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.DEADLINE);
         }
         Task t = new Deadline(s[0].replaceAll("\\s+$", ""), s[1]);
-        tasks.addTask(t);
+        return tasks.addTask(t);
     }
 }
