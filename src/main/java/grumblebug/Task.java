@@ -59,7 +59,7 @@ public class Task {
      * @return X or no X, for doneness.
      */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return isDone ? "X" : " "; // mark done task with X
     }
 
     /**
