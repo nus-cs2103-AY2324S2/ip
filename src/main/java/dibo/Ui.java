@@ -1,7 +1,7 @@
 package dibo;
 
 /**
- * Class to deal with the interaction with users.
+ * Class to deal with the interaction with the users.
  */
 public class Ui {
     private final StringBuilder outputString;
@@ -15,7 +15,7 @@ public class Ui {
 
     /**
      * Takes in the string representation of the taskList
-     * and reports it to the user.
+     * and stores it in the StringBuilder object to be returned later.
      *
      * @param taskList The String representation of the taskList.
      */
@@ -24,64 +24,75 @@ public class Ui {
     }
 
     /**
-     * Reports to the user that the task has been successfully unmarked.
+     * Adds the successfully unmarked message into the
+     * StringBuilder object to be returned later.
      *
      * @param task The String representation of the task.
      */
     public void showUnmarked(String task) {
-        this.outputString.append("OK, I've marked this task as not done yet:\n");
+        String unmarkedMessage = "OK, I've marked this task as not done yet:\n";
+        this.outputString.append(unmarkedMessage);
         this.outputString.append(task);
     }
 
     /**
-     * Reports to the user that the task has been successfully marked.
+     * Adds the successfully marked message into the
+     * StringBuilder object to be returned later.
      *
      * @param task The String representation of the task.
      */
     public void showMarked(String task) {
-        this.outputString.append("OK, I've marked this task as done:\n");
+        String markedMessage = "OK, I've marked this task as done:\n";
+        this.outputString.append(markedMessage);
         this.outputString.append(task);
     }
 
     /**
-     * Reports to the user that the task has been successfully deleted.
+     * Adds the successfully deleted message into the
+     * StringBuilder object to be returned later.
      *
      * @param task The String representation of the task.
      * @param size The size of the taskList after the last action performed.
      */
     public void showDeleted(String task, int size) {
-        this.outputString.append("Noted. I'm removing this task:\n");
+        String deletedMessage = "Noted. I'm removing this task:\n";
+        this.outputString.append(deletedMessage);
         this.outputString.append(task);
         this.addSeparator();
         this.addTasksLeftMessage(size);
     }
 
     /**
-     * Reports to the user that the task has been successfully added.
+     * Adds the successfully added message into the
+     * StringBuilder object to be returned later.
      *
      * @param task The String representation of the task.
      * @param size The size of the taskList after the last action performed.
      */
     public void showAdded(String task, int size) {
-        this.outputString.append("Good news sir! I've added this task:\n");
+        String addedMessage = "Good news sir! I've added this task:\n";
+        this.outputString.append(addedMessage);
         this.outputString.append(task);
         this.addSeparator();
         this.addTasksLeftMessage(size);
     }
 
     /**
-     * Reports to the user that the task(s) have been found.
+     * Takes in the string representation of the tasks with the specified keyword(s)
+     * and stores it in the StringBuilder object to be returned later.
      *
-     * @param tasksWithKeyword The string representation of the tasks
+     * @param tasksWithKeywords The string representation of the tasks
      *                         that contains the specified keyword.
      */
-    public void showFound(String tasksWithKeyword) {
-        this.outputString.append("Good news sir! We've found the tasks in your list:\n");
-        this.outputString.append(tasksWithKeyword);
+    public void showFound(String tasksWithKeywords) {
+        String foundMessage = "Good news sir! We've found the tasks in your list:\n";
+        this.outputString.append(foundMessage);
+        this.outputString.append(tasksWithKeywords);
     }
 
     /**
-     * Says goodbye to the user.
+     * Adds the goodbye message into the
+     * StringBuilder object to be returned later.
      */
     public void sayBye() {
         String goodbyeMessage = "Bye sir! Always happy to assist you :D\nHope to see you again soon!";
@@ -100,7 +111,8 @@ public class Ui {
     }
 
     /**
-     * Returns the output of the command to the user.
+     * Returns the output of the command to the user
+     * and resets the StringBuilder object.
      */
     public String getOutput() {
         String output = this.outputString.toString();
