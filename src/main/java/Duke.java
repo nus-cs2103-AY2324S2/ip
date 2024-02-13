@@ -1,23 +1,25 @@
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.util.Scanner;
-
-
 public class Duke {
-    private Storage storage;
-    private TaskList taskList;
-    private Parser parser;
+    private final Storage storage;
+    private final TaskList taskList;
+    private final Ui ui;
 
     public Duke(String filePath) {
+        ui = new Ui();
         storage = new Storage(filePath);
         taskList = new TaskList();
         storage.load(taskList);
-        parser = new Parser(taskList);
     }
 
     public void run() {
-        parser.parse();
-        storage.store(taskList);
+        ui.showWelcomeMessage();
+        boolean isExit = false;
+        while (!isExit) {
+            String fullCommand = ui.readCommand();
+            Command command = Parser.parse(fullCommand);
+            command.execute(taskList, ui, storage);
+            isExit = command.isExit();
+        }
+
     }
 
     public static void main(String[] args) {

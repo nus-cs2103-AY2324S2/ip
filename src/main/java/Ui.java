@@ -1,5 +1,12 @@
+import java.util.Scanner;
+
 public class Ui {
     public Ui() {}
+
+    public String readCommand() {
+        Scanner sc = new Scanner(System.in);
+        return sc.nextLine();
+    }
 
     public void showWelcomeMessage() {
         System.out.println("Hello! I'm Blob.\nWhat can I do for you?\n");
