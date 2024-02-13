@@ -117,7 +117,7 @@ public class UiHandler {
      * @param task   The task whose status was updated.
      * @param isDone The new completion status of the task (true if done, false otherwise).
      */
-    public void markTaskResponse(Task task, boolean isDone) {
+    public void markTaskResponse(String taskString, boolean isDone) {
         if (isDone) {
             sendMessage("Okay Traveller, I've marked the task as done", taskString);
         } else {
