@@ -21,7 +21,7 @@ public class AaronBot {
         UI ui = new UI();
         try {
             taskList = new TaskList(Storage.loadFromFile(TASKLIST_FILEPATH));
-            ui.taskListLoadedMessage(taskList);
+            ui.taskListLoadedMessage(taskList, ui);
         } catch (FileNotFoundException e) {
             System.out.println(e);
         }

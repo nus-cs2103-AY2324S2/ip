@@ -22,10 +22,10 @@ public class UI {
         return userInput;
     }
 
-    public void taskListLoadedMessage(TaskList taskList) {
+    public void taskListLoadedMessage(TaskList taskList, UI ui) {
         if (taskList.getTasklistSize() > 0) {
             System.out.println("Tasklist successfully loaded.");
-            taskList.showList();
+            taskList.showList(ui);
         } else {
             System.out.println("Student, no previous tasklist found");
         }
@@ -62,6 +62,14 @@ public class UI {
 
     public void goodbyeMessage() {
         System.out.println("Goodbye student, HAND.");
+    }
+
+    /**
+     * Method to display a message to the user
+     * @param messageString message to be displayed
+     */
+    public void showMessage(String messageString) {
+        System.out.println(messageString);
     }
  
 }

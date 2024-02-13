@@ -1,4 +1,5 @@
 package Aaron.Task;
+
 import java.util.ArrayList;
 
 import Aaron.Exception.AaronBotException;
@@ -9,6 +10,7 @@ import Aaron.Exception.InvalidTaskTypeException;
 import Aaron.Exception.TaskErrorException;
 import Aaron.Exception.TaskListAddException;
 import Aaron.Exception.TaskListOutOfBoundsException;
+import Aaron.UI.UI;
 
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -21,50 +23,50 @@ public class TaskList {
         tasks = taskList;
     }
 
-    public void showList() {
+    public void showList(UI ui) {
         for (int x = 0; x < tasks.size(); x++) {
-            System.out.println((x + 1) + ". " + tasks.get(x));
+            ui.showMessage((x + 1) + ". " + tasks.get(x));
         }
     }
 
     public void addToList(TaskType taskType, String newTask) throws TaskErrorException {
         Task task;
-        switch(taskType) {
-        case TODO:
-            try {
-                task = new Todo(newTask);
-            } catch (AaronBotException e) {
-                throw new TaskErrorException(e.getMessage());
-            }
-            break;
-        case DEADLINE:
-            String[] tokenizedTask = newTask.split(" /by ", 2);
-            if (tokenizedTask.length < 2) {
-                throw new TaskErrorException("Invalid format: " + newTask);
-            }
-            try {
-                task = new Deadline(tokenizedTask[0], tokenizedTask[1]);
-            } catch (AaronBotException e) {
-                throw new TaskErrorException(e.getMessage());
-            }
-            break;
-        case EVENT:
-            String[] taskTimingSplit = newTask.split(" /from ", 2);
-            if (taskTimingSplit.length < 2) {
-                throw new TaskErrorException("Invalid format: " + newTask);
-            }
-            String[] startEndSplit = taskTimingSplit[1].split(" /to ", 2);
-            if (startEndSplit.length < 2) {
-                throw new TaskErrorException("Invalid format: " + newTask);
-            }
-            try {
-                task = new Event(taskTimingSplit[0], startEndSplit[0], startEndSplit[1]);
-            } catch (AaronBotException e) {
-                throw new TaskErrorException(e.getMessage());
-            }
-            break;
-        default:
-            throw new InvalidTaskTypeException("Invalid task type: " + taskType.toString());
+        switch (taskType) {
+            case TODO:
+                try {
+                    task = new Todo(newTask);
+                } catch (AaronBotException e) {
+                    throw new TaskErrorException(e.getMessage());
+                }
+                break;
+            case DEADLINE:
+                String[] tokenizedTask = newTask.split(" /by ", 2);
+                if (tokenizedTask.length < 2) {
+                    throw new TaskErrorException("Invalid format: " + newTask);
+                }
+                try {
+                    task = new Deadline(tokenizedTask[0], tokenizedTask[1]);
+                } catch (AaronBotException e) {
+                    throw new TaskErrorException(e.getMessage());
+                }
+                break;
+            case EVENT:
+                String[] taskTimingSplit = newTask.split(" /from ", 2);
+                if (taskTimingSplit.length < 2) {
+                    throw new TaskErrorException("Invalid format: " + newTask);
+                }
+                String[] startEndSplit = taskTimingSplit[1].split(" /to ", 2);
+                if (startEndSplit.length < 2) {
+                    throw new TaskErrorException("Invalid format: " + newTask);
+                }
+                try {
+                    task = new Event(taskTimingSplit[0], startEndSplit[0], startEndSplit[1]);
+                } catch (AaronBotException e) {
+                    throw new TaskErrorException(e.getMessage());
+                }
+                break;
+            default:
+                throw new InvalidTaskTypeException("Invalid task type: " + taskType.toString());
         }
         if (tasks.contains(task)) {
             throw new DuplicateTaskException("This task is already in the tasklist student");
@@ -116,12 +118,20 @@ public class TaskList {
         return tasks.size();
     }
 
-    public static void main(String[] args) {
-        TaskList taskList = new TaskList();
-        try {
-            taskList.addToList(TaskType.EVENT, "run");
-        } catch (Exception e) {
-            System.out.println(e);
+    /**
+     * Method to show all tasks in tasklist with selected user input
+     * 
+     * @param userInput user input
+     * @param ui        UI to handle user interaction
+     */
+    public void showKeywordTasklist(String userInput, UI ui) {
+        TaskList tempTaskList = new TaskList();
+        for (Task task : tasks) {
+            if (task.searchWord(userInput)) {
+                tempTaskList.tasks.add(task);
+            }
         }
+        tempTaskList.showList(ui);
     }
+
 }

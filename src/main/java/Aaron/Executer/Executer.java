@@ -4,6 +4,7 @@ import Aaron.Command.Bye;
 import Aaron.Command.CommandType;
 import Aaron.Command.DeleteTask;
 import Aaron.Command.MarkTask;
+import Aaron.Command.SearchCommand;
 import Aaron.Command.ShowList;
 import Aaron.Command.UnmarkTask;
 import Aaron.Exception.AaronBotException;
@@ -36,6 +37,10 @@ public class Executer {
                 DeleteTask deleteCommand = new DeleteTask(userCommand, commandType);
                 deleteCommand.run(taskList, ui);
                 return deleteCommand.isBye();
+            case SEARCH:
+                SearchCommand searchCommand = new SearchCommand(userCommand, commandType);
+                searchCommand.run(taskList, ui);
+                return searchCommand.isBye();
             case SHOW_LIST:
                 ShowList showCommand = new ShowList(userCommand, commandType);
                 showCommand.run(taskList, ui);
