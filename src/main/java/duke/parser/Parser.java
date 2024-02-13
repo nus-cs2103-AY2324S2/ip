@@ -71,12 +71,17 @@ public class Parser {
         }
     }
 
-    private void handleMarkUnmark(Ui ui, String details, boolean isMark, Tasklist todolist) {
-        int taskNumber = Integer.parseInt(details) - 1;
-        todolist.markTaskAsDone(taskNumber, isMark);
-        String statusMessage = isMark ? "Nice! I've marked this task as done:"
-                : "OK, I've marked this task as not done yet:";
-        ui.printMessage(statusMessage + "\n\t" + todolist.getTaskString(taskNumber));
+    private void handleMarkUnmark(Ui ui, String details,
+                                  boolean isMark, Tasklist todolist) throws DukeException {
+        try {
+            int taskNumber = Integer.parseInt(details) - 1;
+            todolist.markTaskAsDone(taskNumber, isMark);
+            String statusMessage = isMark ? "Nice! I've marked this task as done:"
+                    : "OK, I've marked this task as not done yet:";
+            ui.printMessage(statusMessage + "\n\t" + todolist.getTaskString(taskNumber));
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            throw new DukeException("Please provide a valid task number to mark or unmark.");
+        }
     }
 
     private void handleAddTask(Ui ui, Task task, Tasklist todolist) {
