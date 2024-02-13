@@ -47,9 +47,11 @@ shadowJar {
 // Configure run task settings
 run {
     standardInput = System.in
+    enableAssertions = true
 }
 runShadow {
     standardInput = System.in
+    enableAssertions = true
 }
 
 // Configure test task

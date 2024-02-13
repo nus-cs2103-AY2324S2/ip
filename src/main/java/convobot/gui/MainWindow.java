@@ -48,6 +48,7 @@ public class MainWindow extends AnchorPane {
         } catch (ExitException e) {
             Platform.exit();
         }
+        assert !response.isEmpty();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, convoImage)

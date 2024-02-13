@@ -148,6 +148,7 @@ public class Parser {
 
         default:
             // impossible to reach
+            assert false;
             break;
         }
         return command;
