@@ -12,15 +12,14 @@ import java.io.FileNotFoundException;
 public class Duke {
     private final seedu.duke.Storage storage;
     private TaskList tasks;
-    private final seedu.duke.Ui ui;
 
     /**
-     * Initialises new ui and storage objects, loads tasks into a new seedu.task list object.
+     * Initialises new ui and storage objects, loads tasks into a new task list object.
      *
-     * @param filePath of the saved seedu.task list
+     * @param filePath of the saved task list
      */
     public Duke(String filePath) {
-        ui = new Ui();
+        Ui ui = new Ui();
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
@@ -34,13 +33,13 @@ public class Duke {
      * Runs the chatbot program.
      */
     public void run() {
-        Parser parser = new Parser(this.tasks);
-        parser.parse();
+        Parser parser = new Parser();
+        parser.parse(this.tasks);
         storage.save(this.tasks);
     }
 
     /**
-     * Initialises and run seedu.duke program.
+     * Initialises and run duke program.
      *
      * @param args arguments
      */

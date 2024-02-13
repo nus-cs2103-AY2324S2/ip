@@ -1,10 +1,10 @@
 package seedu.task;
 
 /**
- * A Task.Task object contains the status of the seedu.task.
+ * A Task.Task object contains the status of the task.
  */
 public class Task {
-    // Whether the seedu.task is completed.
+    // Whether the task is completed.
     protected boolean isDone = false;
 
     /**
@@ -15,24 +15,24 @@ public class Task {
     /**
      * Constructor for loading from file.
      *
-     * @param b isDone
+     * @param isDone isDone
      */
-    public Task(boolean b) {
-        this.isDone = b;
+    public Task(boolean isDone) {
+        this.isDone = isDone;
     }
 
     /**
-     * Marks the seedu.task done.
+     * Marks the task done.
      */
     public void markDone() {
-        isDone = true;
+        this.isDone = true;
     }
 
     /**
-     * Unchecks the seedu.task.
+     * Unchecks the task.
      */
     public void markUndone() {
-        isDone = false;
+        this.isDone = false;
     }
 
     @Override

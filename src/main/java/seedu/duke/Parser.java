@@ -11,12 +11,9 @@ import java.util.Scanner;
  *  messages in the console to the user.
  */
 public class Parser extends Ui {
+    public Parser() { }
 
-    public Parser(TaskList tasks) {
-        super(tasks);
-    }
-
-    public void parse() {
+    public void parse(TaskList tasks) {
         super.printIntro();
         String userInput = "";
         Scanner scan = new Scanner(System.in);
@@ -33,25 +30,25 @@ public class Parser extends Ui {
                     super.printHelp();
                     break;
                 case "list":
-                    super.printList();
+                    super.printList(tasks);
                     break;
                 case "mark":
-                    super.printMark(userInput);
+                    super.printMark(userInput, tasks);
                     break;
                 case "unmark":
-                    super.printUnmark(userInput);
+                    super.printUnmark(userInput, tasks);
                     break;
                 case "delete":
-                    super.printDelete(userInput);
+                    super.printDelete(userInput, tasks);
                     break;
                 case "todo":
-                    super.printTodo(userInput);
+                    super.printTodo(userInput, tasks);
                     break;
                 case "deadline":
-                    super.printDeadline(userInput);
+                    super.printDeadline(userInput, tasks);
                     break;
                 case "event":
-                    super.printEvent(userInput);
+                    super.printEvent(userInput, tasks);
                     break;
                 default:
                     // if user entered input that cannot be recognised.

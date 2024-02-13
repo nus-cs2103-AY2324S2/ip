@@ -13,23 +13,23 @@ public class Deadline extends Task {
     /**
      * Constructor for a Taskline object.
      *
-     * @param name seedu.task name
-     * @param d    deadline
+     * @param name task name
+     * @param date deadline
      */
-    public Deadline(String name, LocalDate d) {
+    public Deadline(String name, LocalDate date) {
         super();
         this.name = name;
-        this.deadline = d;
+        this.deadline = date;
     }
 
     /**
      * Constructor for loading from file.
      *
-     * @param description of seedu.task
-     * @param b           isDone
+     * @param description of task
+     * @param isDone boolean
      */
-    public Deadline(String description, boolean b) {
-        super(b);
+    public Deadline(String description, boolean isDone) {
+        super(isDone);
         int idx = description.indexOf("(by: ");
         this.name = description.substring(0, idx - 1);
         String date = description.substring(idx + 5, description.length() - 1);

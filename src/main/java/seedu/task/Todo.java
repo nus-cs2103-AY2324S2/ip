@@ -9,7 +9,7 @@ public class Todo extends Task {
     /**
      * Constructor for a todo object.
      *
-     * @param name seedu.task name
+     * @param name task name
      */
     public Todo(String name) {
         super();
@@ -19,7 +19,7 @@ public class Todo extends Task {
     /**
      * Constructor for a loading from file.
      *
-     * @param name seedu.task name
+     * @param name task name
      * @param b isDone
      */
     public Todo(String name, boolean b) {
