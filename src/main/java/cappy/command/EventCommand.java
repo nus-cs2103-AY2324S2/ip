@@ -1,5 +1,9 @@
 package cappy.command;
 
+import static cappy.constant.Message.INVALID_DATETIME_FORMAT;
+import static cappy.constant.Message.MISSING_DESCRIPTION;
+import static cappy.constant.Message.MISSING_TO_FROM_DATETIME;
+
 import cappy.error.CappyException;
 import cappy.parser.ParsedInput;
 import cappy.parser.Parser;
@@ -14,6 +18,9 @@ import java.time.format.DateTimeParseException;
 
 /** Represents a command to add an Event task to the task list. */
 public class EventCommand extends Command {
+    private static final String PREFIX_FROM = "from";
+    private static final String PREFIX_TO = "to";
+
     /**
      * Adds a new Event task to the task list, and notify the user through the UI.
      *
@@ -28,15 +35,13 @@ public class EventCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage, ParsedInput input)
             throws CappyException, IOException {
         if (input.numberOfPositionalArguments() < 1) {
-            throw new CappyException("Please enter the task description.");
-        } else if (!input.hasNamedArgument("from") || !input.hasNamedArgument("to")) {
-            throw new CappyException(
-                    "Please specify the duration of the event using /from [Date Time] /to [Date"
-                            + " Time].");
+            throw new CappyException(MISSING_DESCRIPTION);
+        } else if (!input.hasNamedArgument(PREFIX_FROM) || !input.hasNamedArgument(PREFIX_TO)) {
+            throw new CappyException(MISSING_TO_FROM_DATETIME);
         }
         String description = String.join(" ", input.getPositionalArguments());
-        String fromString = input.getNamedArgument("from");
-        String toString = input.getNamedArgument("to");
+        String fromString = input.getNamedArgument(PREFIX_FROM);
+        String toString = input.getNamedArgument(PREFIX_TO);
         try {
             LocalDateTime from = Parser.parseDateTime(fromString);
             LocalDateTime to = Parser.parseDateTime(toString);
@@ -45,7 +50,7 @@ public class EventCommand extends Command {
             ui.showAddedTask(task, tasks);
             tasks.save();
         } catch (DateTimeParseException e) {
-            throw new CappyException("Please use the correct datetime format.");
+            throw new CappyException(INVALID_DATETIME_FORMAT);
         }
     }
 }

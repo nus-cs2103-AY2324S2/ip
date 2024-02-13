@@ -1,5 +1,7 @@
 package cappy.parser;
 
+import static cappy.constant.Message.INVALID_STORAGE_FORMAT;
+
 import cappy.command.CommandType;
 import cappy.error.CappyException;
 import cappy.task.Deadline;
@@ -105,10 +107,10 @@ public class Parser {
                 LocalDateTime to = parseDateTime(data[4]);
                 return new Event(description, isDone, from, to);
             } else {
-                throw new CappyException("Invalid Type");
+                throw new CappyException("Invalid Task Type detected in storage!");
             }
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
-            throw new CappyException("Invalid storage format!");
+            throw new CappyException(INVALID_STORAGE_FORMAT);
         }
     }
 }

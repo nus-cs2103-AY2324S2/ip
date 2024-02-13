@@ -1,5 +1,8 @@
 package cappy;
 
+import static cappy.constant.FilePath.MAIN_WINDOW_FXML;
+import static cappy.constant.FilePath.STORAGE_PATH;
+
 import cappy.command.CommandType;
 import cappy.controller.MainWindow;
 import cappy.error.CappyException;
@@ -24,7 +27,6 @@ import java.io.IOException;
  * application components and starts the main input loop to interact with the user.
  */
 public class Cappy extends Application {
-    private static final String STORAGE_PATH = "./cappy.csv";
     private static TaskList taskList;
     private static Storage storage;
     private MainWindow mainWindow;
@@ -41,8 +43,7 @@ public class Cappy extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader =
-                    new FXMLLoader(Cappy.class.getResource("/view/MainWindow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Cappy.class.getResource(MAIN_WINDOW_FXML));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);

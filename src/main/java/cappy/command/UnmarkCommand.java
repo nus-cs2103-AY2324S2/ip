@@ -1,5 +1,8 @@
 package cappy.command;
 
+import static cappy.constant.Message.INVALID_INDEX;
+import static cappy.constant.Message.MISSING_INDEX;
+
 import cappy.error.CappyException;
 import cappy.parser.ParsedInput;
 import cappy.storage.Storage;
@@ -25,13 +28,13 @@ public class UnmarkCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage, ParsedInput input)
             throws CappyException, IOException {
         if (input.numberOfPositionalArguments() < 1) {
-            throw new CappyException("Please enter an index.");
+            throw new CappyException(MISSING_INDEX);
         }
         String indexStr = input.getPositionalArgument(0);
         try {
             int index = Integer.parseInt(indexStr);
             if (!tasks.validIndex(index)) {
-                throw new CappyException("Please enter a valid index.");
+                throw new CappyException(INVALID_INDEX);
             }
             tasks.getTask(index).undone();
             String[] messages = {
@@ -40,7 +43,7 @@ public class UnmarkCommand extends Command {
             ui.show(messages);
             tasks.save();
         } catch (NumberFormatException e) {
-            throw new CappyException("Please enter a valid index.");
+            throw new CappyException(INVALID_INDEX);
         }
     }
 }
