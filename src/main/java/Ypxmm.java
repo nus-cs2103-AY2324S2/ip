@@ -1,14 +1,11 @@
 import java.util.ArrayList;
 
 import commands.Command;
-
+import exceptions.YpxmmException;
 import parsing.Parser;
-
 import utilities.Storage;
 import utilities.TaskList;
 import utilities.Ui;
-
-import exceptions.YpxmmException;
 
 /**
  * Main class for the Ypxmm application.
@@ -21,7 +18,11 @@ public class Ypxmm {
     /** The user interface. */
     private Ui ui;
 
-
+    /**
+     * Constructs a Ypxmm object. Initializes the user interface, storage, and tasks. It loads tasks from the
+     * storage into the task list. If an exception occurs during the initialization process, it handles the
+     * exception by displaying the error message in the user interface.
+     */
     public Ypxmm() {
         ui = new Ui();
         storage = new Storage("/data/Ypxmm.txt");
@@ -43,16 +44,10 @@ public class Ypxmm {
      */
     public String getResponse(String input) {
         try {
-            // Parse the input string
             ArrayList<String> parsed = Parser.parse(input);
-
-            // Identify the command to execute
             Command command = Command.valueOf(parsed.get(0).toUpperCase());
-
-            // Execute the command and return the response
             return command.execute(tasks, ui, storage, parsed);
         } catch (YpxmmException y) {
-            // Catch and handle YpxmmException
             return y.getMessage();
         }
     }
