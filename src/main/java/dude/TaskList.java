@@ -1,5 +1,6 @@
 package dude;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import dude.task.Task;
@@ -28,6 +29,7 @@ public class TaskList {
     /**
      * Adds task to list.
      * @param task Task to be added to list.
+     * @return Response string for Dude.
      */
     public String add(Task task) {
         storage.createRow(task);
@@ -37,6 +39,7 @@ public class TaskList {
 
     /**
      * Lists the current tasks.
+     * @return Response string for Dude.
      */
     public String list() {
         ArrayList<Task> tasks = storage.listRows();
@@ -54,6 +57,7 @@ public class TaskList {
     /**
      * Marks task at index as done.
      * @param index Task index to be marked as done.
+     * @return Response string for Dude.
      */
     public String mark(int index) {
         ArrayList<Task> tasks = storage.listRows();
@@ -70,6 +74,7 @@ public class TaskList {
     /**
      * Marks task at index as undone.
      * @param index Task index to be marked as undone.
+     * @return Response string for Dude.
      */
     public String unmark(int index) {
         ArrayList<Task> tasks = storage.listRows();
@@ -87,6 +92,7 @@ public class TaskList {
     /**
      * Deletes task at index.
      * @param index Index at which task is removed.
+     * @return Response string for Dude.
      */
     public String delete(int index) {
         ArrayList<Task> tasks = storage.listRows();
@@ -102,6 +108,7 @@ public class TaskList {
     /**
      * Finds tasks based on search keyword.
      * @param keyword Keyword to search for.
+     * @return Response string for Dude.
      */
     public String find(String keyword) {
         ArrayList<Task> tasks = storage.listRows();
@@ -114,6 +121,32 @@ public class TaskList {
                 count++;
             }
         }
+        if (listString.isEmpty()) {
+            return "No tasks found!";
+        }
         return "Here are the matching tasks in your list:\n" + listString;
+    }
+
+    /**
+     * Finds tasks scheduled on the given date.
+     * @param dateString Date to check schedule.
+     * @return Response string for Dude.
+     */
+    public String schedule(String dateString) {
+        LocalDate date = LocalDate.parse(dateString);
+        ArrayList<Task> tasks = storage.listRows();
+        String listString = "";
+        int count = 1;
+        for (int i = 1; i < tasks.size() + 1; i++) {
+            Task task = tasks.get(i - 1);
+            if (task.isOnDate(date)) {
+                listString += count + "." + task + "\n";
+                count++;
+            }
+        }
+        if (listString.isEmpty()) {
+            return "No tasks found!";
+        }
+        return "Here are the tasks happening on " + date + ":\n" + listString;
     }
 }

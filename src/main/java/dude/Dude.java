@@ -18,6 +18,7 @@ public class Dude {
             Map.entry("unmark", new String[]{"index"}),
             Map.entry("delete", new String[]{"index"}),
             Map.entry("find", new String[]{"keyword"}),
+            Map.entry("schedule", new String[]{"date"}),
             Map.entry("todo", new String[]{"description"}),
             Map.entry("deadline", new String[]{"description", "by"}),
             Map.entry("event", new String[]{"description", "from", "to"})
@@ -30,6 +31,7 @@ public class Dude {
             Map.entry("unmark", new Parser.ParameterTypes[]{Parser.ParameterTypes.INTEGER}),
             Map.entry("delete", new Parser.ParameterTypes[]{Parser.ParameterTypes.INTEGER}),
             Map.entry("find", new Parser.ParameterTypes[]{Parser.ParameterTypes.STRING}),
+            Map.entry("schedule", new Parser.ParameterTypes[]{Parser.ParameterTypes.DATE}),
             Map.entry("todo", new Parser.ParameterTypes[]{Parser.ParameterTypes.STRING}),
             Map.entry("deadline", new Parser.ParameterTypes[]{
                 Parser.ParameterTypes.STRING, Parser.ParameterTypes.DATE}),
@@ -92,6 +94,15 @@ public class Dude {
                 return parseResult;
             }
             return taskList.find((String) formattedParameters.get(0));
+        case "schedule":
+            parseResult = Parser.parse(
+                    formattedParameters, command, ipArgs,
+                    COMMAND_PARAMETERS.get("schedule"),
+                    COMMAND_PARAMETER_TYPES.get("schedule"));
+            if (parseResult != "success") {
+                return parseResult;
+            }
+            return taskList.schedule((String) formattedParameters.get(0));
         case "todo":
             parseResult = Parser.parse(
                     formattedParameters, command, ipArgs,

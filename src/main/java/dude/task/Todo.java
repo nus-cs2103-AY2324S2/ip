@@ -1,5 +1,7 @@
 package dude.task;
 
+import java.time.LocalDate;
+
 /**
  * Todo task.
  */
@@ -25,6 +27,11 @@ public class Todo extends Task {
     public String getStorageString() {
         return String.format("T | %s", super.getStorageString());
     }
+
+    @Override
+    public boolean isOnDate(LocalDate date) {
+        return false;
+    };
 
     @Override
     public String toString() {

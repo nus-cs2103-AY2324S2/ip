@@ -41,6 +41,13 @@ public class Event extends Task {
     }
 
     @Override
+    public boolean isOnDate(LocalDate date) {
+        boolean isAfterOrDuringFrom = date.isAfter(this.from) || date.isEqual(this.from);
+        boolean isBeforeOrDuringTo = date.isBefore(this.to) || date.isEqual(this.to);
+        return isAfterOrDuringFrom && isBeforeOrDuringTo;
+    };
+
+    @Override
     public String toString() {
         return "[E]" + super.toString()
                 + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))

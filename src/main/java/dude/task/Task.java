@@ -1,5 +1,7 @@
 package dude.task;
 
+import java.time.LocalDate;
+
 /**
  * Task parent class.
  */
@@ -34,6 +36,12 @@ public abstract class Task {
     public String getStorageString() {
         return String.format("%s | %s", this.isDone ? "1" : "0", this.name);
     };
+
+    /**
+     * Returns whether task is on the given date.
+     * @return Whether task is on the given date.
+     */
+    public abstract boolean isOnDate(LocalDate date);
 
     /**
      * Marks task as done.
