@@ -11,6 +11,7 @@ public class Duke {
     private Ui ui;
     private Storage storage;
     private Tasklist tasklist;
+    private Parser parser;
 
     /**
      * Constructor for the Duke class.
@@ -19,6 +20,7 @@ public class Duke {
         tasklist = new Tasklist();
         ui = new Ui();
         storage = new Storage();
+        parser = new Parser();
     }
 
     public static void main(String[] args) {
@@ -32,7 +34,6 @@ public class Duke {
      */
     public void run() {
         ui.printWelcomeMessage();
-        Parser parser = new Parser();
         boolean isBye = false;
         while (!isBye) {
             String command = ui.getCommand();
