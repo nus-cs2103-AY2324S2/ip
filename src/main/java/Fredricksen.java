@@ -1,6 +1,8 @@
 import java.io.IOException;
 import java.util.NoSuchElementException;
 
+import formatter.ParseInput;
+import commands.ByeCommand;
 import commands.Command;
 import storages.Storage;
 import tasks.TaskList;
@@ -23,9 +25,7 @@ public class Fredricksen {
     public void run() {
         System.out.println("");
         ui.showWelcome();
-        boolean isLoop = true;
-        // while loop
-        while (isLoop) {
+        while (true) {
             String task = "";
             try {
                 task = ui.readCommand();
@@ -33,14 +33,12 @@ public class Fredricksen {
                 System.out.println(e.getMessage());
                 break;
             }
-            String[] splitTask = task.split(" ");
-            if (splitTask[0].equals("bye")) {
-                isLoop = false;
-            } else {
-                ParseInput parseInput = new ParseInput();
-                Command executableCommand = parseInput.getCommand(task, this.list);
-                String response = executableCommand.execute();
-                System.out.println(response);
+            ParseInput parseInput = new ParseInput();
+            Command executableCommand = parseInput.getCommand(task, this.list);
+            String response = executableCommand.execute();
+            System.out.println(response);
+            if (executableCommand instanceof ByeCommand) {
+                break;
             }
         }
         store.updateFile(list);

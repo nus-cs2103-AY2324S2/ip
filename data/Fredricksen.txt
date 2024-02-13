@@ -1,1 +1,1 @@
-type: D isDone: false content: deadline project /by 2/12/2019
+type: T isDone: false content: todo laundry

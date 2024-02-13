@@ -1,3 +1,6 @@
+package formatter;
+
+import commands.ByeCommand;
 import commands.Command;
 import commands.DeadlineCommand;
 import commands.DeleteCommand;
@@ -35,6 +38,8 @@ public class ParseInput {
             return new FindCommand(userInput, inputCommand, tasks);
         case "help":
             return new HelpCommand();
+        case "bye":
+            return new ByeCommand();
         default:
             return new UnknownCommand();
         }

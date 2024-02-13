@@ -25,10 +25,6 @@ public class Ui {
         System.out.println(line);
     }
 
-    public void showLine() {
-        System.out.println(line);
-    }
-
     /**
      * Returns the content String passed as argument
      * in between 2 lines given by the line variable.
@@ -52,22 +48,5 @@ public class Ui {
      */
     public String readCommand() {
         return this.in.nextLine();
-    }
-
-    /**
-     * Prints to the console a list of valid commands
-     * and how to use them to get valid outputs.
-     */
-    public String listOfCommands() {
-        return "Below are the available commands and formats to follow!\n"
-                + "1. To view all your current task: list\n"
-                + "2. To add new task:\n"
-                + "    a. todos: todo <task>\n"
-                + "    b. deadlines: deadline <task> /by <deadline>\n"
-                + "    c. event: Event <event> /from <startDate, startTiming> /to <endDate, endTiming>\n"
-                + "3. To delete a task: delete <task number>\n"
-                + "4. To mark task as completed: mark <task number>\n"
-                + "5. To unmark completed task: unmark <task number>\n"
-                + "6. To exit program: bye\n";
     }
 }
