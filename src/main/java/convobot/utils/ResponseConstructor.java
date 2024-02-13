@@ -46,6 +46,7 @@ public class ResponseConstructor {
                 response.append(Integer.toString(index) + "." + tasks.getTaskString(i) + "\n");
             } catch (ConvoBotException e) {
                 // impossible to reach here
+                assert false;
             }
         }
     }
@@ -73,6 +74,7 @@ public class ResponseConstructor {
      * @param dbSize     the size of the task list after adding the task
      */
     public void showAdded(String taskString, int dbSize) {
+        assert dbSize >= 0;
         response.append("Got it. I've added this task:\n");
         response.append("   " + taskString + "\n");
         response.append("Now you have " + Integer.toString(dbSize) + " tasks in the list.\n");
@@ -85,6 +87,7 @@ public class ResponseConstructor {
      * @param dbSize     the size of the task list after removing the task
      */
     public void showRemoved(String taskString, int dbSize) {
+        assert dbSize >= 0;
         response.append("Noted. I've removed this task:\n");
         response.append("   " + taskString + "\n");
         response.append("Now you have " + Integer.toString(dbSize) + " tasks in the list.\n");

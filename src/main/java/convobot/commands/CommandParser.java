@@ -32,6 +32,7 @@ public class CommandParser {
         try {
             commandType = CommandType.valueOf(inputList.get(0).toUpperCase());
         } catch (IllegalArgumentException e) {
+            // use java steams to concat all commands into a string
             String strs = Arrays.stream(CommandType.values())
                                 .map(Enum::name)
                                 .collect(Collectors.joining(", "));
@@ -138,6 +139,7 @@ public class CommandParser {
 
         default:
             // impossible to reach
+            assert false;
             break;
         }
         return command;
