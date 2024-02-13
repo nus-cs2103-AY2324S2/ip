@@ -17,6 +17,18 @@ public class Ui {
         System.out.println(message);
     }
 
+    public static String showHelp() {
+        return "Here is the list of commands you can type in~\n\n"
+            + "list: list out all the tasks you have keyed in!\n\n"
+            + "todo [task]: adds a specific todo task!\n\n"
+            + "deadline [task] | yyyy-MM-dd: adds a deadline task\n\n"
+            + "event [task] | [date]: adds an event task!\n\n"
+            + "mark [index]: marks a specific task at that index as done!\n\n"
+            + "unmark [index]: unmarks a specific task at that index as not done!\n\n"
+            + "delete [index]: deletes a specific task at that index!\n\n"
+            + "find [keyword]: finds tasks containing the specific keywords!";
+    }
+
     /**
      * Displays farewell messages when chatbot is terminated.
      */

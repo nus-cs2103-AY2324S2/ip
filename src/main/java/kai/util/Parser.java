@@ -5,6 +5,7 @@ import kai.task.Todo;
 import kai.task.Deadline;
 import kai.task.TaskList;
 import kai.task.Event;
+import kai.ui.Ui;
 
 public class Parser {
     private static final String INDEX_ERROR = "OOPS!!! I'm sorry, but that task does not exist :-(";
@@ -67,6 +68,8 @@ public class Parser {
             } else if (inputCommand.startsWith("find")) {
                 String keyword = inputCommand.substring(FIND_COMMAND_INDEX);
                 result = tasklist.findTask(keyword);
+            } else if (inputCommand.startsWith("help")) {
+                result = Ui.showHelp();
             } else {
                 result = "OOPS!!! I'm sorry, but I don't know what that means :-(";
             }
