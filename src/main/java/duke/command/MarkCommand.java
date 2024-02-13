@@ -38,6 +38,7 @@ public class MarkCommand implements Command {
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
         String[] s = input.split("\\s");
+        assert (s.length == 2) : "Mark command cannot be split at space";
         int num = Integer.parseInt(s[1]);
         if (num > list.getSize() || num < 1) {
             throw new DukeException("Task (" + num + ") not found.\n" + list.print());
@@ -50,10 +51,10 @@ public class MarkCommand implements Command {
 
     private String markTask(Ui ui, Task t) {
         if (this.toMark) {
-            t.done();
+            t.markAsDone();
             return ui.showMarked(t);
         } else {
-            t.undo();
+            t.markAsNotDone();
             return ui.showUnmarked(t);
         }
     }

@@ -30,14 +30,14 @@ public abstract class Task {
     /**
      * Marks isDone as true.
      */
-    public void done() {
+    public void markAsDone() {
         this.isDone = true;
     }
 
     /**
      * Marks isDone as false.
      */
-    public void undo() {
+    public void markAsNotDone() {
         this.isDone = false;
     }
 

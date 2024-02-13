@@ -8,7 +8,7 @@ import java.time.format.DateTimeParseException;
  * Represents a deadline object.
  */
 public class Deadline extends Task {
-    private LocalDateTime date;
+    private LocalDateTime dueDate;
 
     /**
      * Constructs a Deadline object.
@@ -18,7 +18,7 @@ public class Deadline extends Task {
      */
     public Deadline(String task, String date) {
         super(task);
-        this.date = setDate(date);
+        this.dueDate = setDate(date);
     }
 
     /**
@@ -53,7 +53,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return String.format("D | %s | %s", super.toString(),
-                this.date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
+                this.dueDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
     }
 
     /**
@@ -63,6 +63,6 @@ public class Deadline extends Task {
      */
     private String printDate() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
-        return this.date.format(formatter);
+        return this.dueDate.format(formatter);
     }
 }

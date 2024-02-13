@@ -153,7 +153,7 @@ public class Parser {
             return new MarkCommand(input, toMark);
         } else {
             if (toMark) {
-                throw new DukeException("Your" + MARK + "instruction is unclear.\n"
+                throw new DukeException("Your " + MARK + " instruction is unclear.\n"
                         + "Try '" + MARK + " [task number to mark as done]'.");
             } else {
                 throw new DukeException("Your " + UNMARK + " instruction is unclear.\n"
@@ -194,7 +194,8 @@ public class Parser {
 
     private static Command parseEventCommand(String input) throws DukeException {
         String lowerInput = input.trim().toLowerCase();
-        if (Parser.matchPattern(lowerInput, "event" + SPACE_MORE + SPACE + "/from" + SPACE_MORE + SPACE + "/to" + SPACE_MORE)) {
+        if (Parser.matchPattern(lowerInput,
+                "event" + SPACE_MORE + SPACE + "/from" + SPACE_MORE + SPACE + "/to" + SPACE_MORE)) {
             return new EventCommand(input);
         } else {
             throw new DukeException("The description, start and end time of an event cannot be empty.\n"

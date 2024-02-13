@@ -99,6 +99,7 @@ public class Storage {
      */
     private Task read(String s) {
         String[] cols = s.split(" \\| ");
+        assert (cols.length <= 2 || cols.length > 5) : "Line read from file is not in correct format";
         Task t = null;
         String description = cols[2];
         if (cols.length == 3) {
@@ -109,9 +110,9 @@ public class Storage {
             t = new Event(description, cols[3], cols[4]);
         }
         if (cols[1].equals("1")) {
-            t.done();
+            t.markAsDone();
         } else {
-            t.undo();
+            t.markAsNotDone();
         }
 
         return t;

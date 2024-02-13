@@ -32,7 +32,9 @@ public class EventCommand implements Command {
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
         String[] task = input.split("/from");
+        assert (task.length == 2) : "Event command cannot be split at /from";
         String[] time = task[1].split("/to");
+        assert (time.length == 2) : "Event command cannot be split at /to";
         try {
             Task t = createTask(task, time);
             list.add(t);
