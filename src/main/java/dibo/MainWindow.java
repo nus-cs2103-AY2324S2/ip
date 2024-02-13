@@ -63,15 +63,16 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     private void sayHi() {
+        String helloMessage = "Hello sir! I'm Dibo.\nWhat can I do for you today?";
         dialogContainer.getChildren().addAll(
-                DialogBox.getDiboDialog("Hello sir! I'm Dibo.\nWhat can I do for you today?",
+                DialogBox.getDiboDialog(helloMessage,
                         diboImage)
         );
     }
 
     @FXML
     private void delayedExit() {
-        PauseTransition delay = new PauseTransition(Duration.seconds(5));
+        PauseTransition delay = new PauseTransition(Duration.seconds(3));
         delay.setOnFinished(event -> Platform.exit());
         delay.play();
     }

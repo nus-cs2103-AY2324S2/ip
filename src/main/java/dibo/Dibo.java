@@ -30,6 +30,7 @@ public class Dibo {
             this.tasks = new TaskList(new ArrayList<>());
         }
     }
+
     public String getResponse(String input) {
         try {
             Command command = Parser.parse(input);
@@ -43,7 +44,7 @@ public class Dibo {
     }
 
     /**
-     * Returns a boolean to signal if the bye command is used.
+     * Returns a boolean to signal if the bye command is called.
      */
     public boolean hasEnded() {
         return isBye;
