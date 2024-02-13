@@ -33,144 +33,172 @@ public class Parser {
         case "list":
             return new ListCommand();
         case "mark": {
-            if (arguments.length > 2) {
-                throw new CoDriverException("Error! You should only provide 1 argument for mark!");
-            } else if (arguments.length < 2) {
-                throw new CoDriverException("Error! You should provide an integer argument for mark!");
-            }
-            int index = Integer.parseInt(arguments[1]);
-            return new MarkCommand(index);
+            return getMarkCommand(arguments);
         }
         case "unmark": {
-            if (arguments.length > 2) {
-                throw new CoDriverException("Error! You should only provide 1 argument for unmark!");
-            } else if (arguments.length < 2) {
-                throw new CoDriverException("Error! You should provide an integer argument for unmark!");
-            }
-            int index = Integer.parseInt(arguments[1]);
-            return new UnmarkCommand(index);
+            return getUnmarkCommand(arguments);
         }
         case "todo":
-            if (arguments.length < 2) {
-                throw new CoDriverException("Error! You cannot provide a todo with no description!");
-            }
-            return new TodoCommand(commandLine.substring(5));
+            return getTodoCommand(commandLine, arguments);
         case "deadline": {
-            if (arguments.length < 2) {
-                throw new CoDriverException("Error! You cannot provide a deadline with no parameters!");
-            }
-
-            StringBuilder descriptionBuilder = new StringBuilder();
-            int i = 1;
-            for (; i < arguments.length; i++) {
-                if (arguments[i].equals("/by")) {
-                    break;
-                }
-                descriptionBuilder.append(arguments[i]).append(" ");
-            }
-            if (descriptionBuilder.length() == 0) {
-                throw new CoDriverException("Error! You cannot provide a deadline with no description!");
-            }
-
-            descriptionBuilder.deleteCharAt(descriptionBuilder.length() - 1); // remove the last space
-
-            if (i >= arguments.length - 1) { // if the last word is /by or there is no /by
-                throw new CoDriverException("Error! You must provide a /by date for a deadline!");
-            }
-
-            i++;
-            LocalDate date = null;
-            for (; i < arguments.length; i++) {
-                // check if in yyyy-mm-dd format
-                date = Parser.parseDate(arguments[i]);
-                if (date == null) {
-                    throw new CoDriverException("Error! The date provided must be in yyyy-mm-dd format!");
-                }
-            }
-            if (date == null) {
-                throw new CoDriverException("Error! You must provide a /by date for a deadline!");
-            }
-
-            return new DeadlineCommand(descriptionBuilder.toString(), date);
+            return getDeadlineCommand(arguments);
         }
         case "event": {
-            if (arguments.length < 2) {
-                throw new CoDriverException("Error! You cannot provide an event with no parameters!");
-            }
-
-            StringBuilder descriptionBuilder = new StringBuilder();
-            int i = 1;
-            for (; i < arguments.length; i++) {
-                if (arguments[i].equals("/from")) {
-                    break;
-                }
-                descriptionBuilder.append(arguments[i]).append(" ");
-            }
-            if (descriptionBuilder.length() == 0) {
-                throw new CoDriverException("Error! You cannot provide an event with no description!");
-            }
-
-            descriptionBuilder.deleteCharAt(descriptionBuilder.length() - 1); // remove the last space
-
-            if (i >= arguments.length - 1) { // if the last word is /from or there is no /from
-                throw new CoDriverException("Error! You must provide a /from date for an event!");
-            }
-
-            LocalDate fromDate = null;
-            i++;
-            for (; i < arguments.length; i++) {
-                if (arguments[i].equals("/to")) {
-                    break;
-                }
-                // check if in yyyy-mm-dd format
-                fromDate = Parser.parseDate(arguments[i]);
-                if (fromDate == null) {
-                    throw new CoDriverException("Error! The date provided must be in yyyy-mm-dd format!");
-                }
-            }
-            if (fromDate == null) { // if the /from field is empty
-                throw new CoDriverException("Error! The /from field is empty!");
-            }
-
-            if (i >= arguments.length - 1) { // if the last word is /to or there is no /to
-                throw new CoDriverException("Error! You must provide a /to date for an event!");
-            }
-
-            LocalDate toDate = null;
-            i++;
-            for (; i < arguments.length; i++) {
-                // check if in yyyy-mm-dd format
-                toDate = Parser.parseDate(arguments[i]);
-                if (toDate == null) {
-                    throw new CoDriverException("Error! The date provided must be in yyyy-mm-dd format!");
-                }
-            }
-            if (toDate == null) { // if the /to field is empty
-                throw new CoDriverException("Error! The /to field is empty!");
-            }
-
-            return new EventCommand(descriptionBuilder.toString(), fromDate, toDate);
+            return getEventCommand(arguments);
         }
         case "delete": {
-            if (arguments.length > 2) {
-                throw new CoDriverException("Error! You should only provide 1 argument for delete!");
-            } else if (arguments.length < 2) {
-                throw new CoDriverException("Error! You should provide an integer argument for delete!");
-            }
-            int index = Integer.parseInt(arguments[1]);
-            return new DeleteCommand(index);
+            return getDeleteCommand(arguments);
         }
         case "find": {
-            if (arguments.length < 2) {
-                throw new CoDriverException("Error! You cannot provide a find with no description!");
-            } else if (arguments.length > 2) {
-                throw new CoDriverException("Error! You cannot provide a find with more than 1 keyword!");
-            }
-            return new FindCommand(commandLine.substring(5));
+            return getFindCommand(commandLine, arguments);
         }
         default:
             return new UnknownCommand(arguments[0]);
         }
+    }
+
+    private static FindCommand getFindCommand(String commandLine, String[] arguments) throws CoDriverException {
+        if (arguments.length < 2) {
+            throw new CoDriverException("Error! You cannot provide a find with no description!");
+        } else if (arguments.length > 2) {
+            throw new CoDriverException("Error! You cannot provide a find with more than 1 keyword!");
+        }
+        return new FindCommand(commandLine.substring(5));
+    }
+
+    private static DeleteCommand getDeleteCommand(String[] arguments) throws CoDriverException {
+        if (arguments.length > 2) {
+            throw new CoDriverException("Error! You should only provide 1 argument for delete!");
+        } else if (arguments.length < 2) {
+            throw new CoDriverException("Error! You should provide an integer argument for delete!");
+        }
+        int index = Integer.parseInt(arguments[1]);
+        return new DeleteCommand(index);
+    }
+
+    private static EventCommand getEventCommand(String[] arguments) throws CoDriverException {
+        if (arguments.length < 2) {
+            throw new CoDriverException("Error! You cannot provide an event with no parameters!");
+        }
+
+        StringBuilder descriptionBuilder = new StringBuilder();
+        int i = 1;
+        for (; i < arguments.length; i++) {
+            if (arguments[i].equals("/from")) {
+                break;
+            }
+            descriptionBuilder.append(arguments[i]).append(" ");
+        }
+        if (descriptionBuilder.length() == 0) {
+            throw new CoDriverException("Error! You cannot provide an event with no description!");
+        }
+
+        descriptionBuilder.deleteCharAt(descriptionBuilder.length() - 1); // remove the last space
+
+        if (i >= arguments.length - 1) { // if the last word is /from or there is no /from
+            throw new CoDriverException("Error! You must provide a /from date for an event!");
+        }
+
+        LocalDate fromDate = null;
+        i++;
+        for (; i < arguments.length; i++) {
+            if (arguments[i].equals("/to")) {
+                break;
+            }
+            // check if in yyyy-mm-dd format
+            fromDate = Parser.parseDate(arguments[i]);
+            if (fromDate == null) {
+                throw new CoDriverException("Error! The date provided must be in yyyy-mm-dd format!");
+            }
+        }
+        if (fromDate == null) { // if the /from field is empty
+            throw new CoDriverException("Error! The /from field is empty!");
+        }
+
+        if (i >= arguments.length - 1) { // if the last word is /to or there is no /to
+            throw new CoDriverException("Error! You must provide a /to date for an event!");
+        }
+
+        LocalDate toDate = null;
+        i++;
+        for (; i < arguments.length; i++) {
+            // check if in yyyy-mm-dd format
+            toDate = Parser.parseDate(arguments[i]);
+            if (toDate == null) {
+                throw new CoDriverException("Error! The date provided must be in yyyy-mm-dd format!");
+            }
+        }
+        if (toDate == null) { // if the /to field is empty
+            throw new CoDriverException("Error! The /to field is empty!");
+        }
+
+        return new EventCommand(descriptionBuilder.toString(), fromDate, toDate);
+    }
+
+    private static DeadlineCommand getDeadlineCommand(String[] arguments) throws CoDriverException {
+        if (arguments.length < 2) {
+            throw new CoDriverException("Error! You cannot provide a deadline with no parameters!");
+        }
+
+        StringBuilder descriptionBuilder = new StringBuilder();
+        int i = 1;
+        for (; i < arguments.length; i++) {
+            if (arguments[i].equals("/by")) {
+                break;
+            }
+            descriptionBuilder.append(arguments[i]).append(" ");
+        }
+        if (descriptionBuilder.length() == 0) {
+            throw new CoDriverException("Error! You cannot provide a deadline with no description!");
+        }
+
+        descriptionBuilder.deleteCharAt(descriptionBuilder.length() - 1); // remove the last space
+
+        if (i >= arguments.length - 1) { // if the last word is /by or there is no /by
+            throw new CoDriverException("Error! You must provide a /by date for a deadline!");
+        }
+
+        i++;
+        LocalDate date = null;
+        for (; i < arguments.length; i++) {
+            // check if in yyyy-mm-dd format
+            date = Parser.parseDate(arguments[i]);
+            if (date == null) {
+                throw new CoDriverException("Error! The date provided must be in yyyy-mm-dd format!");
+            }
+        }
+        if (date == null) {
+            throw new CoDriverException("Error! You must provide a /by date for a deadline!");
+        }
+
+        return new DeadlineCommand(descriptionBuilder.toString(), date);
+    }
+
+    private static TodoCommand getTodoCommand(String commandLine, String[] arguments) throws CoDriverException {
+        if (arguments.length < 2) {
+            throw new CoDriverException("Error! You cannot provide a todo with no description!");
+        }
+        return new TodoCommand(commandLine.substring(5));
+    }
+
+    private static UnmarkCommand getUnmarkCommand(String[] arguments) throws CoDriverException {
+        if (arguments.length > 2) {
+            throw new CoDriverException("Error! You should only provide 1 argument for unmark!");
+        } else if (arguments.length < 2) {
+            throw new CoDriverException("Error! You should provide an integer argument for unmark!");
+        }
+        int index = Integer.parseInt(arguments[1]);
+        return new UnmarkCommand(index);
+    }
+
+    private static MarkCommand getMarkCommand(String[] arguments) throws CoDriverException {
+        if (arguments.length > 2) {
+            throw new CoDriverException("Error! You should only provide 1 argument for mark!");
+        } else if (arguments.length < 2) {
+            throw new CoDriverException("Error! You should provide an integer argument for mark!");
+        }
+        int index = Integer.parseInt(arguments[1]);
+        return new MarkCommand(index);
     }
 
     /**
