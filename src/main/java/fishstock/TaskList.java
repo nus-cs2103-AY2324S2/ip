@@ -60,7 +60,7 @@ class TaskList {
      * @throws FishStockException The exceptions while changing the mark.
      */
     private Task changeMark(Keyword keyword, String input) throws FishStockException {
-        Integer idx = Parser.getTaskFromIndex(input);
+        Integer idx = Parser.getIndexFromInput(input);
         try {
             Task task = list.get(idx);
             if (keyword == Keyword.MARK) {
@@ -82,7 +82,7 @@ class TaskList {
      * @throws FishStockException The exceptions while removing the Task.
      */
     protected Task deleteTask(String input) throws FishStockException {
-        Integer idx = Parser.getTaskFromIndex(input);
+        Integer idx = Parser.getIndexFromInput(input);
         try {
             Task task = list.get(idx);
             list.remove(task);

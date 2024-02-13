@@ -59,10 +59,11 @@ class Parser {
      * @return The resulting index number.
      * @throws FishStockException The exceptions while calculating the index number.
      */
-    protected static Integer getTaskFromIndex(String input) throws FishStockException {
+    protected static Integer getIndexFromInput(String input) throws FishStockException {
         try {
-            int num = Integer.parseInt(input.split(" ", 2)[1]);
-            return num - 1;
+            String numStr = input.split(" ", 2)[1];
+            int num = Integer.parseInt(numStr);
+            return num - 1; // Start from index 0
 
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new FishStockException("OH NOSE! Task number cannot be empty..");
