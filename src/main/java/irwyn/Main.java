@@ -24,9 +24,13 @@ public class Main extends Application {
     public void start(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/UiWindow.fxml"));
+            assert fxmlLoader != null : "Need FXML loader";
             AnchorPane ap = fxmlLoader.load();
+            assert ap != null : "Need Anchor Pane";
             Scene scene = new Scene(ap);
+            assert scene != null : "Need Scene";
             stage.setScene(scene);
+            assert stage != null : "Need Stage";
             fxmlLoader.<UiWindow>getController().setIrwyn(irwyn);
             stage.show();
         } catch (IOException e) {
