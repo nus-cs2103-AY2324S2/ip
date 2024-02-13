@@ -45,9 +45,9 @@ public class Storage {
      * @throws DukeIoException If an error occurs while reading the file.
      */
     public String loadFileData() {
-        Path p = Paths.get(path);
-        assert Files.exists(p) : "File for storage should exist at this path!";
+        assert Files.exists(Paths.get(path)) : "The storage file should be at this path!";
         try {
+            Path p = Paths.get(path);
             return Files.readString(p);
         } catch (IOException e) {
             throw new DukeIoException("Error locating file");
@@ -62,7 +62,7 @@ public class Storage {
      */
     public void saveToFile(String dataToSave) {
         Path p = Paths.get(path);
-        assert Files.exists(p) : "File for storage should exist at this path!";
+        assert Files.exists(p) : "The storage file should be at this path!";
         try {
             Files.writeString(p, dataToSave);
         } catch (IOException e) {
