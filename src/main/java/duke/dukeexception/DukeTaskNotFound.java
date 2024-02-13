@@ -8,6 +8,6 @@ public class DukeTaskNotFound extends DukeException {
     }
     @Override
     public String toString() {
-        return String.format("%s Task No. %d cannot be found!", super.toString(), this.index);
+        return String.format("%s Task No. %d cannot be found!", super.toString(), index);
     }
 }
