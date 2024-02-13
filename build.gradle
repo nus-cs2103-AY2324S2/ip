@@ -56,7 +56,7 @@ shadowJar {
 
 checkstyle {
     toolVersion = '10.2'
-    configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
+    configFile = file("./config/checkstyle/checkstyle.xml")
 //    configFile file("${project.rootDir}/config/checkstyle.xml")
 }
 

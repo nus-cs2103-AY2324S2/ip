@@ -50,7 +50,6 @@ public class Lamball extends Application {
     private String initialize() {
         ui.greetingMessage();
         String guiText = Storage.obtainSavedFile(this);
-
         return guiText;
     }
 
