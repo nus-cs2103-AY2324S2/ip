@@ -17,6 +17,7 @@ import jayne.task.Todo;
  * It acts as a bridge between the user interface and the data model.
  */
 public class Handler {
+    private static final int TARGET_LIMT = 2;
     /**
      * Handles the deletion of a task from the task list.
      *
@@ -25,9 +26,11 @@ public class Handler {
      * @throws JayneException if the task number is invalid or does not exist.
      */
     public static String handleDelete(String[] parts, TaskList taskList) throws JayneException {
+        String startText = "\nNoted. I've removed this task:\n  ";
+        String endText = " tasks in the list.\n";
         assert parts != null : "Input command parts cannot be null";
         assert taskList != null : "TaskList cannot be null";
-        if (parts.length < 2) {
+        if (parts.length < TARGET_LIMT) {
             throw JayneException.deleteEmptyException();
         }
         try {
@@ -37,8 +40,8 @@ public class Handler {
             }
             Task removedTask = taskList.deleteTask(taskNumber);
             assert removedTask != null : "Removed task should not be null";
-            return "\nNoted. I've removed this task:\n  " + removedTask + "\nNow you have "
-                    + taskList.getTaskCount() + " tasks in the list.\n";
+            return startText + removedTask + "\nNow you have "
+                    + taskList.getTaskCount() + endText;
         } catch (NumberFormatException e) {
             throw JayneException.deleteInvalidException();
         }
@@ -50,7 +53,7 @@ public class Handler {
      * @param taskList the TaskList containing the list of tasks.
      */
     public static String handleFind(String[] parts, TaskList taskList) throws JayneException {
-        if (parts.length < 2 || parts[1].isEmpty()) {
+        if (checkIsEmptyOrLessThanLimit(parts)) {
             throw new JayneException("The search keyword cannot be empty.");
         }
         return taskList.findTask(parts[1]);
@@ -63,7 +66,7 @@ public class Handler {
      * @throws JayneException if the task number is invalid or does not exist.
      */
     public static String handleUnmark(String[] parts, TaskList taskList) throws JayneException {
-        if (parts.length < 2) {
+        if (parts.length < TARGET_LIMT) {
             throw JayneException.unmarkEmptyException();
         }
         try {
@@ -88,11 +91,11 @@ public class Handler {
     public static String handleDeadline(String[] parts, TaskList taskList) throws JayneException {
         assert parts != null : "Input command parts cannot be null";
         assert taskList != null : "TaskList cannot be null";
-        if (parts.length < 2 || parts[1].isEmpty()) {
+        if (checkIsEmptyOrLessThanLimit(parts)) {
             throw new JayneException("The description of a deadline cannot be empty.");
         }
-        String[] deadlineParts = parts[1].split(" /by ", 2);
-        if (deadlineParts.length < 2 || deadlineParts[1].isEmpty()) {
+        String[] deadlineParts = parts[1].split(" /by ", TARGET_LIMT);
+        if (checkIsEmptyOrLessThanLimit(deadlineParts)) {
             throw JayneException.deadlineException();
         }
         try {
@@ -117,7 +120,7 @@ public class Handler {
     public static String handleTodo(String[] parts, TaskList taskList) throws JayneException {
         assert parts != null : "Input command parts cannot be null";
         assert taskList != null : "TaskList cannot be null";
-        if (parts.length < 2 || parts[1].isEmpty()) {
+        if (checkIsEmptyOrLessThanLimit(parts)) {
             throw JayneException.todoException();
         }
         Todo newTodo = new Todo(parts[1]);
@@ -135,15 +138,15 @@ public class Handler {
     public static String handleEvent(String[] parts, TaskList taskList) throws JayneException {
         assert parts != null : "Input command parts cannot be null";
         assert taskList != null : "TaskList cannot be null";
-        if (parts.length < 2 || parts[1].isEmpty()) {
+        if (checkIsEmptyOrLessThanLimit(parts)) {
             throw JayneException.emptyEventException();
         }
-        String[] eventParts = parts[1].split(" /from ", 2);
-        if (eventParts.length < 2 || eventParts[1].isEmpty()) {
+        String[] eventParts = parts[1].split(" /from ", TARGET_LIMT);
+        if (checkIsEmptyOrLessThanLimit(eventParts)) {
             throw JayneException.eventStartException();
         }
-        String[] times = eventParts[1].split(" /to ", 2);
-        if (times.length < 2 || times[1].isEmpty()) {
+        String[] times = eventParts[1].split(" /to ", TARGET_LIMT);
+        if (checkIsEmptyOrLessThanLimit(times)) {
             throw JayneException.eventEndException();
         }
         Event newEvent = new Event(eventParts[0], times[0], times[1]);
@@ -151,6 +154,9 @@ public class Handler {
         return "Got it. I've added this task:\n"
                 + "  " + newEvent
                 + "\nNow you have " + taskList.getTaskCount() + " tasks in the list.";
+    }
+    private static boolean checkIsEmptyOrLessThanLimit(String[] input) {
+        return input.length < TARGET_LIMT || input[1].isEmpty();
     }
     /**
      * Handles marking a task as done.
@@ -162,12 +168,14 @@ public class Handler {
     public static String handleMark(String[] parts, TaskList taskList) throws JayneException {
         assert parts != null : "Input command parts cannot be null";
         assert taskList != null : "TaskList cannot be null";
-        if (parts.length < 2) {
+        if (parts.length < TARGET_LIMT) {
             throw JayneException.markEmptyException();
         }
         try {
             int taskNumber = Integer.parseInt(parts[1]);
-            if (taskNumber <= 0 || taskNumber > taskList.getTaskCount()) {
+            boolean isLessThanZero = taskNumber <= 0;
+            boolean isOutOfRange = taskNumber > taskList.getTaskCount();
+            if (isLessThanZero || isOutOfRange) {
                 throw JayneException.markTaskExistException(taskNumber);
             }
             taskList.markTaskAsDone(taskNumber);

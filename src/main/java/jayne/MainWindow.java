@@ -16,6 +16,9 @@ import javafx.util.Duration;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
+    private static final String USER_IMAGE = "/Images/SnowieeCrop.png";
+    private static final String JAYNE_IMAGE = "/Images/Jayne.png";
+    private static final String BYE_CONFIRMATION_STRING = "Hey, Snowieeee, Go to sleep ok, stop bullying Slurpee";
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -23,11 +26,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TextField userInput;
     private Jayne jayne;
-    private boolean isEnd = false;
     private Image userImage = new Image(Objects.requireNonNull(
-            this.getClass().getResourceAsStream("/Images/SnowieeCrop.png")));
+            this.getClass().getResourceAsStream(USER_IMAGE)));
     private Image jayneImage = new Image(Objects.requireNonNull(
-            this.getClass().getResourceAsStream("/Images/Jayne.png")));
+            this.getClass().getResourceAsStream(JAYNE_IMAGE)));
     /**
      * Initializes the UI components for the application. This method binds the scroll pane's
      * vertical scroll property to the dialog container's height to ensure automatic scrolling
@@ -62,8 +64,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getJayneDialog(response, jayneImage)
         );
-        if (Objects.equals(response, "Hey, Snowieeee, Go to sleep ok, stop bullying Slurpee")) {
-            this.isEnd = true;
+        if (Objects.equals(response, BYE_CONFIRMATION_STRING)) {
             PauseTransition pause = new PauseTransition(Duration.seconds(2));
             pause.setOnFinished(event -> {
                 Stage stage = (Stage) userInput.getScene().getWindow();

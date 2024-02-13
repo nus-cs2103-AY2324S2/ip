@@ -1,7 +1,5 @@
 package jayne;
 
-import java.util.Objects;
-
 import jayne.task.TaskList;
 
 /**
@@ -10,7 +8,6 @@ import jayne.task.TaskList;
  * such as Ui, TaskList, and Storage, and contains the main program loop.
  */
 public class Jayne {
-    private boolean isEnd = true;
     private TaskList taskList;
     private Storage storage;
     /**
@@ -44,10 +41,7 @@ public class Jayne {
                 throw new JayneException("Input cannot be empty.");
             }
             msg = parser.parse(input);
-            if (Objects.equals(msg, "Go to sleep ok, stop bullying Slurpee")) {
-                this.isEnd = false;
-            }
-            return "Hey, Snowieeee, " + msg; //HERE
+            return "Hey, Snowieeee, " + msg;
         } catch (JayneException e) {
             return "Huh?!?!? " + e.getMessage() + "\n";
         }

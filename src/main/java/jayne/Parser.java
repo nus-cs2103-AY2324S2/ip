@@ -7,6 +7,8 @@ import jayne.task.TaskList;
  * It serves as an intermediary between the user interface and the task handler.
  */
 public class Parser {
+    private static final String ERROR_MESSAGE = "What are you typing. please include either bye, list, mark, "
+            + "umark, todo, deadline or event in your inputs please";
     //private String[] parts;
     private TaskList taskList;
 
@@ -50,8 +52,7 @@ public class Parser {
         case "delete":
             return Handler.handleDelete(parts, taskList);
         default:
-            return "What are you typing. please include either bye, list, mark, "
-                    + "umark, todo, deadline or event in your inputs please";
+            return ERROR_MESSAGE;
         }
     }
 }
