@@ -50,9 +50,9 @@ public class Task {
         //to help with saving and loading
         if (this.isDone) {
             return 1;
-        } else {
-            return 0;
         }
+
+        return 0;
     }
 
     /**
