@@ -76,7 +76,7 @@ public class Storage {
     public void save(TaskList taskList) {
         try {
             FileWriter fw = new FileWriter(this.listFile);
-            for (Task task : taskList.getTasks()) {
+            for (Task task : taskList.getTaskList()) {
                 fw.write(task.toString() + "\n");
             }
             fw.close();

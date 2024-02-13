@@ -18,23 +18,14 @@ public class TaskList {
     /**
      * Constructor for TaskList class with an existing task list.
      *
-     * @param tasks existing task list
+     * @param tasks An existing task list.
      */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
-    public ArrayList<Task> getTasks() {
+    public ArrayList<Task> getTaskList() {
         return this.tasks;
-    }
-
-    /**
-     * Checks if task list is empty.
-     *
-     * @return true if list is empty
-     */
-    public boolean isEmpty() {
-        return this.tasks.isEmpty();
     }
 
     public int getSize() {
@@ -46,10 +37,19 @@ public class TaskList {
     }
 
     /**
-     * Removes a task from the list and print out the details.
+     * Checks if task list is empty.
      *
-     * @param idx task number
-     * @return message to be printed by ui
+     * @return True if list is empty.
+     */
+    public boolean isEmpty() {
+        return this.tasks.isEmpty();
+    }
+
+    /**
+     * Removes a task from the list and returns the task details.
+     *
+     * @param idx The task number.
+     * @return The message to be printed by ui.
      */
     public String deleteTask(int idx) {
         int taskCount = this.getSize() - 1;
@@ -60,10 +60,10 @@ public class TaskList {
     }
 
     /**
-     * Adds a task to the list and print out the details.
+     * Adds a task to the list and returns the task details.
      *
-     * @param task new task to be added
-     * @return message to be printed by ui
+     * @param task The new task to be added.
+     * @return The message to be printed by ui.
      */
     public String addTask(Task task) {
         this.tasks.add(task);
@@ -72,10 +72,10 @@ public class TaskList {
     }
 
     /**
-     * Marks the task done and prints out that the user has completed the task.
+     * Marks the task done and returns the task details.
      *
-     * @param idx task number
-     * @return message to be printed by ui
+     * @param idx The task number.
+     * @return The message to be printed by ui.
      */
     public String markTask(int idx) {
         this.getTask(idx).markDone();
@@ -84,10 +84,10 @@ public class TaskList {
     }
 
     /**
-     * Marks the task done and prints out that the user has completed the task.
+     * Marks the task done and returns the task details.
      *
-     * @param idx task number
-     * @return message to be printed by ui
+     * @param idx The task number.
+     * @return The message to be printed by ui.
      */
     public String unmarkTask(int idx) {
         this.getTask(idx).markUndone();
