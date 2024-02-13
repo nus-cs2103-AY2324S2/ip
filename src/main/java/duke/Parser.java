@@ -79,7 +79,8 @@ public class Parser {
         } else if (input.startsWith("event")) {
             int fromIndex = input.indexOf(" /from");
             int toIndex = input.indexOf(" /to");
-            if (fromIndex != -1 && toIndex != -1 && fromIndex < toIndex && fromIndex >= 6 && toIndex >= fromIndex + 7 && input.length() >= toIndex + 5) {
+            if (fromIndex != -1 && toIndex != -1 && fromIndex < toIndex &&
+                    fromIndex >= 6 && toIndex >= fromIndex + 7 && input.length() >= toIndex + 5) {
                 String description = input.substring(6, fromIndex).trim();
                 String startTime = input.substring(fromIndex + 7, toIndex).trim();
                 String endTime = input.substring(toIndex + 5).trim();
@@ -144,7 +145,7 @@ public class Parser {
     }
     private void handleDelete(String input) {
         try {
-            int index = Integer.parseInt(input.substring(7).trim()) - 1; // Convert input string to task index
+            int index = Integer.parseInt(input.substring(7).trim()) - 1;
             Task task = tasks.deleteTask(index);
             ui.showRemovedTask(task.toString(), tasks.size());
             storage.save(tasks);
