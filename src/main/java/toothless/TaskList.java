@@ -40,6 +40,7 @@ public class TaskList {
      * @param index The index of the task to be removed.
      */
     public void removeTask(int index) {
+        assert index > 0;
         taskList.remove(index);
     }
 
@@ -49,6 +50,7 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task getTask(int index) {
+        assert index > 0;
         return taskList.get(index);
     }
 

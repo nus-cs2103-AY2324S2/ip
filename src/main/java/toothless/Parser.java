@@ -70,6 +70,7 @@ public class Parser {
             }
             return new DeadlineCommand(split[1]);
         default:
+            assert false : split[0].toUpperCase();
             throw new ToothlessException("Me dragon, no understand this action :P");
         }
     }
