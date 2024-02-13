@@ -91,6 +91,9 @@ public class Storage {
             parentDir.mkdirs();
             ui.print("Created data folder as none was found");
         }
+
+        assert parentDir.exists();
+        
         try {
             if (file.createNewFile()) {
                 ui.print("Created linus.txt to read files from");
