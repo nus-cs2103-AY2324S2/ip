@@ -3,6 +3,7 @@ package duke.command;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
@@ -28,9 +29,11 @@ public class DeleteCommandTest {
         arr.add(dl);
         TaskList list = new TaskList(arr);
         try {
-            dc.execute(list, new Ui("JavAssist", "", System.in), new StorageStub("", ""));
+            dc.execute(list, new Ui("JavAssist", "", System.in), new StorageStub(""));
             assertEquals(true, list.getList().isEmpty());
         } catch (DukeException e) {
+            fail();
+        } catch (IOException e) {
             fail();
         }
     }
@@ -43,11 +46,13 @@ public class DeleteCommandTest {
         arr.add(dl);
         TaskList list = new TaskList(arr);
         try {
-            dc.execute(list, new Ui("JavAssist", "", System.in), new StorageStub("", ""));
+            dc.execute(list, new Ui("JavAssist", "", System.in), new StorageStub(""));
             fail();
         } catch (DukeException e) {
             assertEquals("Task (-1) not found.\n" + "Here are the tasks in your list:\n1."
                     + dl.printTask(), e.getMessage());
+        } catch (IOException e) {
+            fail();
         }
     }
 
@@ -56,10 +61,12 @@ public class DeleteCommandTest {
         DeleteCommand dc = new DeleteCommand("delete 1");
         TaskList list = new TaskList();
         try {
-            dc.execute(list, new Ui("JavAssist", "", System.in), new StorageStub("", ""));
+            dc.execute(list, new Ui("JavAssist", "", System.in), new StorageStub(""));
             fail();
         } catch (DukeException e) {
             assertEquals("Task (1) not found.\nNo task in list.", e.getMessage());
+        } catch (IOException e) {
+            fail();
         }
     }
 }

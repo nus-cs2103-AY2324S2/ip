@@ -60,11 +60,6 @@ public class MarkCommand implements Command {
     }
 
     @Override
-    public boolean isExit() {
-        return false;
-    }
-
-    @Override
     public boolean equals(Object a) {
         MarkCommand mc = (MarkCommand) a;
         return (this.toMark == mc.toMark) && (this.input.equals(mc.input));

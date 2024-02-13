@@ -24,8 +24,4 @@ public class UnknownCommand implements Command {
                 + "Try keywords: todo, deadline, event, list, mark, unmark, delete, find.");
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

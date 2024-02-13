@@ -35,7 +35,9 @@ public class Ui {
      * @return Welcome message.
      */
     public String showWelcome() {
-        return "Hello! I'm " + this.name + "." + "\nWhat can I do for you?";
+        String instruction = "Try command keywords: todo, deadline, event, list, mark, unmark, delete, find.\n";
+        String joinInstruction = "To combine instructions in a single command, use ' || '";
+        return "Hello! I'm " + this.name + "." + "\nWhat can I do for you?\n\n" + instruction + joinInstruction;
     }
 
     /**

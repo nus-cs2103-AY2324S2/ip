@@ -1,11 +1,14 @@
 package duke;
 
+import java.io.IOException;
+
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.util.Parser;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
+
 
 /**
  * Represents a ChatBot.
@@ -21,13 +24,16 @@ public class Duke {
      * Reads from file to set up chatbot.
      *
      * @param file Name of file to save data and read from.
-     * @param fileParent Parent directory of file.
      * @param name Name of chatbot.
      * @param logo Logo of chatbot.
      */
-    public Duke(String file, String fileParent, String name, String logo) {
+    public Duke(String file, String name, String logo) {
         ui = new Ui(name, logo, System.in);
-        storage = new Storage(file, fileParent);
+        try {
+            storage = new Storage(file);
+        } catch (IOException e) {
+            ui.showError(e.getMessage());
+        }
         try {
             tasks = new TaskList(storage.readFromFile());
         } catch (DukeException e) {
@@ -41,7 +47,7 @@ public class Duke {
      */
     public void run() {
         ui.showWelcome();
-        boolean isExit = false;
+        isExit = false;
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
@@ -97,6 +103,6 @@ public class Duke {
                 + " .-_)( /(__)\\\\  //(__)\\ \\__ \\\\__ \\ _)(_ \\__ \\  )(\n\t"
                 + "\\____)(__)(__)\\/(__)(__)(___/(___/(____)(___/ (__)\n";
 
-        new Duke("Duke.txt", "./data", "JavAssist", logo).run();
+        new Duke("Duke.txt", "JavAssist", logo).run();
     }
 }

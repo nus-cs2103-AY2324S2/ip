@@ -39,11 +39,6 @@ public class DeleteCommand implements Command {
     }
 
     @Override
-    public boolean isExit() {
-        return false;
-    }
-
-    @Override
     public boolean equals(Object a) {
         DeleteCommand dc = (DeleteCommand) a;
         return this.input.equals(dc.input);

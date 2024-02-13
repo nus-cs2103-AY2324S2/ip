@@ -52,8 +52,4 @@ public class DeadlineCommand implements Command {
         return this.input.equals(dc.input);
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

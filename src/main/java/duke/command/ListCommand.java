@@ -28,8 +28,4 @@ public class ListCommand implements Command {
         return ui.showTasks(list);
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }
