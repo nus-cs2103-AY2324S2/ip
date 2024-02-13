@@ -20,6 +20,16 @@ public class Deadline extends Task {
     }
 
     /**
+     * Returns the type of the task.
+     *
+     * @return A string representing the type of the task.
+     */
+    @Override
+    public String getType() {
+        return "D";
+    }
+
+    /**
      * Retrieves the deadline time of the task.
      *
      * @return The deadline time of the task.
@@ -35,7 +45,12 @@ public class Deadline extends Task {
      */
     public String getByString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy HHmm");
-        return this.BY.format(formatter);
+        return getBy().format(formatter);
+    }
+
+    @Override
+    public String toFileFormatDetails() {
+        return getDescription() + " | " + getByString();
     }
 
 
@@ -48,6 +63,6 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
-        return "[D]" + super.toString() + " (by: " + BY.format(formatter) + ")";
+        return "[" + getType() + "]" + super.toString() + " (by: " + BY.format(formatter) + ")";
     }
 }

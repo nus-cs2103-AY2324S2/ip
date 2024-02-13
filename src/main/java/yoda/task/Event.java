@@ -23,6 +23,16 @@ public class Event extends Task {
     }
 
     /**
+     * Returns the type of the task.
+     *
+     * @return A string representing the type of the task.
+     */
+    @Override
+    public String getType() {
+        return "E";
+    }
+
+    /**
      * Retrieves the start time of the event.
      *
      * @return The start time of the event.
@@ -38,7 +48,7 @@ public class Event extends Task {
      */
     public String getFromString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy HHmm");
-        return this.FROM.format(formatter);
+        return getFrom().format(formatter);
     }
 
     /**
@@ -56,8 +66,19 @@ public class Event extends Task {
      */
     public String getToString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy HHmm");
-        return this.TO.format(formatter);
+        return getTo().format(formatter);
     }
+
+    /**
+     * Returns a string representation of the event, including its type,
+     * @return
+     */
+    @Override
+    public String toFileFormatDetails() {
+        // Event-specific format
+        return getDescription() + " | " + getFromString() + " to " + getToString();
+    }
+
     /**
      * Returns a string representation of the event.
      *
@@ -67,6 +88,6 @@ public class Event extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
-        return "[E]" + super.toString() + " (from: " + FROM.format(formatter) + " to: " + TO.format(formatter) + ")";
+        return "[" + getType() + "]" + super.toString() + " (from: " + FROM.format(formatter) + " to: " + TO.format(formatter) + ")";
     }
 }
