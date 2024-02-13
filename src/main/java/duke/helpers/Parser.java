@@ -1,16 +1,16 @@
 package duke.helpers;
 
-import duke.command.AddCommand;
 import duke.command.ByeCommand;
 import duke.command.CheckDateCommand;
 import duke.command.Command;
 import duke.command.CommandType;
-import duke.command.DeleteCommand;
-import duke.command.FindCommand;
-import duke.command.ListCommand;
-import duke.command.MarkCommand;
-import duke.command.PrintCommand;
-import duke.command.UnmarkCommand;
+import duke.command.TaskAddingCommand;
+import duke.command.TaskDeletingCommand;
+import duke.command.TaskFindingCommand;
+import duke.command.TaskListingCommand;
+import duke.command.TaskMarkingCommand;
+import duke.command.TaskUnmarkingCommand;
+import duke.command.TasksPrintingCommand;
 
 /**
  * Parser class
@@ -28,21 +28,21 @@ public class Parser {
         if (command.equals(CommandType.BYE.toString())) {
             return new ByeCommand();
         } else if (command.equals(CommandType.LISTCOMMANDS.toString())) {
-            return new PrintCommand();
+            return new TasksPrintingCommand();
         } else if (command.equals(CommandType.LIST.toString())) {
-            return new ListCommand();
+            return new TaskListingCommand();
         } else if (commandArr[0].equals(CommandType.CHECKDATE.toString())) {
             return new CheckDateCommand(commandArr);
         } else if (commandArr[0].equals(CommandType.MARK.toString())) {
-            return new MarkCommand(commandArr);
+            return new TaskMarkingCommand(commandArr);
         } else if (commandArr[0].equals(CommandType.UNMARK.toString())) {
-            return new UnmarkCommand(commandArr);
+            return new TaskUnmarkingCommand(commandArr);
         } else if (commandArr[0].equals(CommandType.DELETE.toString())) {
-            return new DeleteCommand(commandArr);
+            return new TaskDeletingCommand(commandArr);
         } else if (commandArr[0].equals(CommandType.FIND.toString())) {
-            return new FindCommand(commandArr);
+            return new TaskFindingCommand(commandArr);
         } else {
-            return new AddCommand(commandArr);
+            return new TaskAddingCommand(commandArr);
         }
     }
 }

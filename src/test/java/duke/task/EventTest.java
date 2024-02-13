@@ -1,18 +1,16 @@
 package duke.task;
 
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.time.LocalDateTime;
+
+import org.junit.jupiter.api.Test;
 
 public class EventTest {
     @Test
     public void createEventTest() {
-        LocalDateTime from = LocalDateTime.of(2021,1,8, 6, 30);
-        LocalDateTime to = LocalDateTime.of(2021,1,9, 6, 30);
+        LocalDateTime from = LocalDateTime.of(2021, 1, 8, 6, 30);
+        LocalDateTime to = LocalDateTime.of(2021, 1, 9, 6, 30);
         Event task = new Event("study", from, to);
         assertEquals("[E][ ] study (from: Jan 08, 2021 06:30 to: Jan 09, 2021 06:30)", task.toString());
 
@@ -25,8 +23,8 @@ public class EventTest {
 
     @Test
     public void storageEventTest() {
-        LocalDateTime from = LocalDateTime.of(2021,1,8, 6, 30);
-        LocalDateTime to = LocalDateTime.of(2021,1,9, 6, 30);
+        LocalDateTime from = LocalDateTime.of(2021, 1, 8, 6, 30);
+        LocalDateTime to = LocalDateTime.of(2021, 1, 9, 6, 30);
         Event task = new Event("study", from, to);
         assertEquals("event , 0 , study , 2021-01-08 , 06:30 , 2021-01-09 , 06:30", task.toStorageString());
 

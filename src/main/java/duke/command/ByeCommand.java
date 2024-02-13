@@ -1,31 +1,15 @@
 package duke.command;
 
-import duke.exception.DukeException;
-import duke.helpers.FileManaging;
 import duke.helpers.Storage;
 import duke.helpers.Ui;
 import duke.task.TaskList;
-
-import java.io.IOException;
 
 /**
  * ByeCommand class
  */
 public class ByeCommand extends Command {
-    /**
-     * Executes bye command.
-     *
-     * @param tasks List of tasks.
-     * @param ui Ui of ai chatbot.
-     * @param storage External storage in hard disk.
-     */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.displayToScreen("Bye. Hope to see you again soon!");
-    }
-
-    @Override
-    public String getExecuteMessage(TaskList tasks, Ui ui, Storage storage) {
+    public String getExecutionMessage(TaskList tasks, Ui ui, Storage storage) {
         return "Bye. Hope to see you again soon!";
     }
 
