@@ -20,6 +20,10 @@ public class Events extends Task implements Serializable {
      */
     public Events(String description, LocalDateTime start, LocalDateTime end) {
         super(description);
+        assert description != null && !description.isEmpty() : "Description cannot be null or empty";
+        assert start != null : "Start time cannot be null";
+        assert end != null : "End time cannot be null";
+        assert !end.isBefore(start) : "End time cannot be before start time";
         this.start = start;
         this.end = end;
     }
@@ -41,6 +45,7 @@ public class Events extends Task implements Serializable {
      */
     @Override
     public String getDescription() {
+        assert getDescription().contains("|") : "Description should contain the event times";
         return this.description + " | " + start + " " + end;
     }
 
