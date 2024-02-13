@@ -11,4 +11,9 @@ public class Deadline extends Task {
         String dueSplit[] = due.split(" ", 2);
         return "[D]" + super.toString() + "(" + dueSplit[0] + ": " + dueSplit[1] + ")";
     }
+
+    @Override
+    public String saveToFile() {
+        return "D!" + super.saveToFile() + "!" + due + "\n";
+    }
 }

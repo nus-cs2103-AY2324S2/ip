@@ -15,4 +15,9 @@ public class Event extends Task {
         return "[E]" + super.toString() + "(" + startSplit[0] + ": " + startSplit[1] +
                 endSplit[0] + ": " + endSplit[1] + ")";
     }
+
+    @Override
+    public String saveToFile() {
+        return "E!" + super.saveToFile() + "!" + start + "!" + end + "\n";
+    }
 }
