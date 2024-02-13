@@ -3,9 +3,7 @@ package duchess.ui;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import duchess.DuchessException;
 import duchess.TaskList;
-import duchess.storage.Storage;
 import duchess.task.Task;
 
 import javafx.util.Pair;
@@ -69,44 +67,91 @@ public class Ui {
         System.out.println();
     }
 
+    /**
+     * Displays the opening greeting message.
+     * @return The opening greeting message.
+     */
     public String showOpeningGreeting() {
         return "Hello, I'm Duchess. What can I do for you today?";
     }
 
+    /**
+     * Displays the closing farewell message.
+     * @return The closing farewell message.
+     */
     public String showClosingGreeting() {
         return "Farewell. Hope to see you again soon, my dear!";
     }
 
+    /**
+     * Displays a confirmation message after adding a task.
+     *
+     * @param task The task that was added.
+     * @param taskCount The total number of tasks.
+     * @param taskType The type of task added (e.g., todo, deadline, event).
+     * @return The confirmation message.
+     */
     public String showAdd(Task task, int taskCount, String taskType) {
         return String.format(
                 "Understood. I've added this " + taskType + " task:\n"
                         + task.toString() + "\n"
-                        + "Now you have " + taskCount + " tasks in the list." ) ;
+                        + "Now you have " + taskCount + " tasks in the list.");
     }
 
+    /**
+     * Displays the list of tasks.
+     *
+     * @param taskList The list of tasks to display.
+     * @return The list of tasks as a formatted String.
+     */
     public String showList(TaskList taskList) {
         return taskList.toString();
     }
 
+    /**
+     * Displays a confirmation message after deleting a task.
+     *
+     * @param task The task that was deleted.
+     * @param taskCount The total number of tasks after deletion.
+     * @return The confirmation message.
+     */
     public String showDelete(Task task, int taskCount) {
         return String.format(
                 "Understood. I've deleted this task:\n"
                         + task.toString() + "\n"
-                        + "Now you have " + taskCount + " tasks in the list." ) ;
+                        + "Now you have " + taskCount + " tasks in the list.");
     }
 
+    /**
+     * Displays a confirmation message after marking a task as done.
+     *
+     * @param task The task that was marked as done.
+     * @return The confirmation message.
+     */
     public String showMarked(Task task) {
         return String.format(
                 "Perfect! I've marked this task as done:\n"
                         + task.toString() + "\n");
     }
 
+    /**
+     * Displays a confirmation message after marking a task as not done yet.
+     *
+     * @param task The task that was marked as not done yet.
+     * @return The confirmation message.
+     */
     public String showUnmarked(Task task) {
         return String.format(
                 "Understood, I've marked this task as not done yet:\n"
                         + task.toString() + "\n");
     }
 
+    /**
+     * Displays the list of matching tasks found after a search.
+     *
+     * @param matchingTasks The list of matching tasks found.
+     * @return The list of matching tasks as a formatted String.
+     */
     public String showFind(ArrayList<Pair<Integer, Task>> matchingTasks) {
         StringBuilder sb = new StringBuilder();
 

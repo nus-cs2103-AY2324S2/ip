@@ -48,6 +48,13 @@ public class Parser {
         return task;
     }
 
+    /**
+     * Parses the user's input command to determine the command type.
+     *
+     * @param input the user's input command
+     * @return the CommandType enum value representing the command type
+     * @throws DuchessException if the input command is not recognized
+     */
     public static CommandType parseCommand(String input) throws DuchessException {
         // Normalize input (convert to lowercase and remove leading/trailing whitespace)
         input = input.trim().toLowerCase();

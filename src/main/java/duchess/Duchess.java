@@ -1,12 +1,11 @@
 package duchess;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
+import duchess.parser.Parser;
 import duchess.storage.Storage;
 import duchess.task.Task;
 import duchess.ui.Ui;
-import duchess.parser.Parser;
 import javafx.util.Pair;
 
 /**
@@ -108,6 +107,10 @@ public class Duchess {
         }
     }
 
+    /**
+     * Exits the Duchess program.
+     * Closes the scanner used for user input, saves the task list data, and sets the program state to not running.
+     */
     public void exit() {
         assert this.isRunning;
         this.ui.closeScanner();
