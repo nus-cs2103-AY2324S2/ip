@@ -29,7 +29,7 @@ public abstract class MassOperableHandler extends Handler {
      * @throws EarlException  if the user input is incomprehensible
      */
     protected Integer[] getValidIndices(TaskList tasks,
-                                      String args) throws EarlException {
+                                        String args) throws EarlException {
         return IntervalParser.parse(args)
                 .filter((idx) -> 0 <= idx && idx < tasks.getSize())
                 .toArray(Integer[]::new);
