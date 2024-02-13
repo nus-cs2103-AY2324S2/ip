@@ -9,8 +9,12 @@ class Todo extends Task {
      * Initialize Todo object manually.
      * @param description The task description.
      */
+    protected Todo(String description, boolean isDone) {
+        super(description, isDone);
+    }
+
     protected Todo(String description) {
-        super(description);
+        this(description, false);
     }
 
     private static void checkIsValid(String[] splitInput) throws FishStockException {
@@ -34,6 +38,11 @@ class Todo extends Task {
 
         String description = splitInput[0];
         return new Todo(description);
+    }
+
+    @Override
+    protected Task clone() {
+        return new Todo(this.getDescription(), this.getIsDone());
     }
 
     @Override

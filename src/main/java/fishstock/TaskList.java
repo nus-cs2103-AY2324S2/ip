@@ -1,6 +1,7 @@
 package fishstock;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 import fishstock.Command.CommandType;
 
@@ -9,7 +10,8 @@ import fishstock.Command.CommandType;
  * Handles all functions related to the array storing Tasks.
  */
 class TaskList {
-    protected final ArrayList<Task> list;
+    protected ArrayList<Task> list;
+    protected final Stack<ArrayList<Task>> history = new Stack<>();
 
     protected TaskList(ArrayList<Task> list) {
         this.list = list;
@@ -30,6 +32,22 @@ class TaskList {
             result += (i + 1) + "." + list.get(i) + "\n";
         }
         return result;
+    }
+
+    private void saveState() {
+        ArrayList<Task> savedList = new ArrayList<>();
+        for (Task task : list) {
+            savedList.add(task.clone());
+        }
+
+        history.add(savedList);
+    }
+
+    protected void restoreState() throws FishStockException {
+        if (history.isEmpty()) {
+            throw new FishStockException("OH NOSE! No more history to undo..");
+        }
+        list = history.pop();
     }
 
     /**
@@ -65,6 +83,7 @@ class TaskList {
         int idx = input.getIndex();
         try {
             Task task = list.get(idx);
+            saveState();
             if (commandType == CommandType.MARK) {
                 task.markAsDone();
             } else if (commandType == CommandType.UNMARK) {
@@ -87,6 +106,7 @@ class TaskList {
         int idx = input.getIndex();
         try {
             Task task = list.get(idx);
+            saveState();
             list.remove(task);
             return task;
 
@@ -120,6 +140,7 @@ class TaskList {
         default:
             // Not possible as assert statement checks for validity.
         }
+        saveState();
         list.add(task);
         return task;
     }

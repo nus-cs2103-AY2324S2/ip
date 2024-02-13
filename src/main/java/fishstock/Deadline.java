@@ -15,9 +15,13 @@ class Deadline extends Task {
      * @param description The task description.
      * @param by The deadline date.
      */
-    protected Deadline(String description, LocalDateTime by) {
-        super(description);
+    protected Deadline(String description, boolean isDone, LocalDateTime by) {
+        super(description, isDone);
         this.by = by;
+    }
+
+    protected Deadline(String description, LocalDateTime by) {
+        this(description, false, by);
     }
 
     private static void checkIsValid(String[] splitInput) throws FishStockException {
@@ -48,6 +52,11 @@ class Deadline extends Task {
         String description = splitInput[0];
         LocalDateTime by = Parser.parseDate(splitInput[1]);
         return new Deadline(description, by);
+    }
+
+    @Override
+    protected Task clone() {
+        return new Deadline(this.getDescription(), this.getIsDone(), by);
     }
 
     @Override

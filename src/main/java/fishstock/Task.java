@@ -7,9 +7,9 @@ abstract class Task {
     private String description;
     private boolean isDone;
 
-    protected Task(String description) {
+    protected Task(String description, boolean isDone) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     /**
@@ -45,6 +45,15 @@ abstract class Task {
         return description;
     }
 
+    protected boolean getIsDone() {
+        return isDone;
+    }
+
+    /**
+     * Makes a clone of the Task.
+     * @return The cloned Task.
+     */
+    protected abstract Task clone();
     @Override
     public String toString() {
         return "[" + (this.isDone ? "X" : " ") + "] " + this.description;
