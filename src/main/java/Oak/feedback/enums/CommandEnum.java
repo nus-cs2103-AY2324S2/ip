@@ -1,15 +1,15 @@
 package Oak.feedback.enums;
 
 public enum CommandEnum {
-    Bye("bye"),
-    Find("find"),
-    List("list"),
-    Mark("mark"),
-    Unmark("unmark"),
-    Delete("delete"),
-    Todo("todo"),
-    Deadline("deadline"),
-    Event("event");
+    BYE("bye"),
+    FIND("find"),
+    LIST("list"),
+    MARK("mark"),
+    UNMARK("unmark"),
+    DELETE("delete"),
+    TODO("todo"),
+    DEADLINE("deadline"),
+    EVENT("event");
     public final String commandValue;
 
     private CommandEnum(String commandValue) {

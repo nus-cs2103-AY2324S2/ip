@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
- * The type Terminal controller.
+ * The type Terminal controller, handles the listening of messages and printing of responses to the terminal
  */
 public class TerminalController {
     private FeedbackService feedbackService = new FeedbackService();
@@ -34,7 +34,7 @@ public class TerminalController {
         while (!stop) {
             String curInput = scanner.nextLine();
 
-            if (curInput.equals(CommandEnum.Bye.getCommandValue())) {
+            if (curInput.equals(CommandEnum.BYE.getCommandValue())) {
                 stop = true;
             }
 

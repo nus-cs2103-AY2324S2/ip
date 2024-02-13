@@ -39,70 +39,70 @@ public class FeedbackService {
         // TODO: Exception Handling for incorrect input
         //  - [ ] DateTimeParseException
         switch (curCommand) {
-            case Bye:
-                feedback = this.getExitMessage();
-                break;
-            case List:
-                feedback = this.taskService.getAllTasks();
-                break;
-            case Find:
-                String matchingValue = (this.parseFindInput(cur));
-                feedback = this.taskService.findTasks(matchingValue);
-                break;
-            case Mark:
-                if (cur.length <= 1) {
-                    throw new InvalidInputException.InvalidFormatException("No TaskId detected, please provide a TaskId", cur[0]);
-                }
+        case BYE:
+            feedback = this.getExitMessage();
+            break;
+        case LIST:
+            feedback = this.taskService.getAllTasks();
+            break;
+        case FIND:
+            String matchingValue = (this.parseFindInput(cur));
+            feedback = this.taskService.findTasks(matchingValue);
+            break;
+        case MARK:
+            if (cur.length <= 1) {
+                throw new InvalidInputException.InvalidFormatException("No TaskId detected, please provide a TaskId", cur[0]);
+            }
 
-                try {
-                    taskId = Integer.parseInt(cur[1]) - 1;
-                }
-                catch (NumberFormatException e) {
-                    throw new InvalidInputException.InvalidFormatException("Invalid TaskId detected, please provide the TaskId Number as seen in 'list' command", cur[0]);
-                }
+            try {
+                taskId = Integer.parseInt(cur[1]) - 1;
+            }
+            catch (NumberFormatException e) {
+                throw new InvalidInputException.InvalidFormatException("Invalid TaskId detected, please provide the TaskId Number as seen in 'list' command", cur[0]);
+            }
 
-                feedback = this.taskService.markTaskCompleted(taskId);
-                break;
-            case Unmark:
-                if (cur.length <= 1) {
-                    throw new InvalidInputException.InvalidFormatException("No TaskId detected, please provide a TaskId", cur[0]);
-                }
+            feedback = this.taskService.markTaskCompleted(taskId);
+            break;
+        case UNMARK:
+            if (cur.length <= 1) {
+                throw new InvalidInputException.InvalidFormatException("No TaskId detected, please provide a TaskId", cur[0]);
+            }
 
-                try {
-                    taskId = Integer.parseInt(cur[1]) - 1;
-                }
-                catch (NumberFormatException e) {
-                    throw new InvalidInputException.InvalidFormatException("Invalid TaskId detected, please provide the TaskId Number as seen in 'list' command", cur[0]);
-                }
+            try {
+                taskId = Integer.parseInt(cur[1]) - 1;
+            }
+            catch (NumberFormatException e) {
+                throw new InvalidInputException.InvalidFormatException("Invalid TaskId detected, please provide the TaskId Number as seen in 'list' command", cur[0]);
+            }
 
-                feedback = this.taskService.markTaskUncompleted(taskId);
-                break;
-            case Todo:
-                String taskName = this.parseTodoInput(cur);
-                feedback = this.taskService.addTodo(taskName);
-                break;
-            case Deadline:
-                String[] deadLineValues = this.parseDeadlineInput(cur);
-                feedback = this.taskService.addDeadline(deadLineValues[0], deadLineValues[1]);
-                break;
-            case Event:
-                String[] eventValues = this.parseEventInput(cur);
-                feedback = this.taskService.addEvent(eventValues[0], eventValues[1], eventValues[2]);
-                break;
-            case Delete:
-                if (cur.length <= 1) {
-                    throw new InvalidInputException.InvalidFormatException("No TaskId detected, please provide a TaskId", cur[0]);
-                }
+            feedback = this.taskService.markTaskUncompleted(taskId);
+            break;
+        case TODO:
+            String taskName = this.parseTodoInput(cur);
+            feedback = this.taskService.addTodo(taskName);
+            break;
+        case DEADLINE:
+            String[] deadLineValues = this.parseDeadlineInput(cur);
+            feedback = this.taskService.addDeadline(deadLineValues[0], deadLineValues[1]);
+            break;
+        case EVENT:
+            String[] eventValues = this.parseEventInput(cur);
+            feedback = this.taskService.addEvent(eventValues[0], eventValues[1], eventValues[2]);
+            break;
+        case DELETE:
+            if (cur.length <= 1) {
+                throw new InvalidInputException.InvalidFormatException("No TaskId detected, please provide a TaskId", cur[0]);
+            }
 
-                try {
-                    taskId = Integer.parseInt(cur[1]) - 1;
-                }
-                catch (NumberFormatException e) {
-                    throw new InvalidInputException.InvalidFormatException("Invalid TaskId detected, please provide the TaskId Number as seen in 'list' command", cur[0]);
-                }
+            try {
+                taskId = Integer.parseInt(cur[1]) - 1;
+            }
+            catch (NumberFormatException e) {
+                throw new InvalidInputException.InvalidFormatException("Invalid TaskId detected, please provide the TaskId Number as seen in 'list' command", cur[0]);
+            }
 
-                feedback = this.taskService.deleteTask(taskId);
-                break;
+            feedback = this.taskService.deleteTask(taskId);
+            break;
         }
 
         return feedback;
