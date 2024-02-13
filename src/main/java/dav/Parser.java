@@ -25,6 +25,9 @@ class Parser {
             } else if (input.startsWith("delete")) {
                 int taskIndex = Integer.parseInt(input.substring(6).trim());
                 tasks.deleteTask(taskIndex);
+            } else if (input.startsWith("find ")) {
+                String keyword = input.substring(5).trim();
+                tasks.findTasks(keyword);
             } else if (!input.equalsIgnoreCase("bye")) {
                 throw new IllegalArgumentException("Huh? what's that?");
             }
