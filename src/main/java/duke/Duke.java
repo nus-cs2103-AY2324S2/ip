@@ -1,4 +1,5 @@
-package duke.main;
+package duke;
+
 
 import duke.commands.Command;
 import duke.exceptions.DukeException;
