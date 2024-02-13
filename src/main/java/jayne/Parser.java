@@ -27,6 +27,7 @@ public class Parser {
      * @throws JayneException if the command is invalid or if any issues occur during command execution.
      */
     public String parse(String input) throws JayneException {
+        assert input != null : "Input cannot be null";
         String[] parts = input.split(" ", 2);
         String commandText = parts[0].toLowerCase();
         switch (commandText) {
