@@ -8,9 +8,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import me.ruibin.leto.tasklist.Deadline;
 import me.ruibin.leto.tasklist.Event;
@@ -36,16 +35,19 @@ public class Storage {
             File f = new File(PATH_TO_STORE);
             String absPath = f.getAbsolutePath();
             Ui.shortSay("File path: " + absPath);
-            Stream<String> s = br.lines();
-            List<String> l = s.collect(Collectors.toList());
-            for (String entry : l) {
-                readEntry(entry);
+            String entry = br.readLine();
+            List<Task> taskList = new ArrayList<>();
+            while (entry != null) {
+                taskList.add(readEntry(entry));
+                entry = br.readLine();
             }
-            Ui.shortSay("Import completed");
+            Task[] t = new Task[taskList.size()];
+            taskList.toArray(t);
+            TaskList.addToList(t);
         } catch (FileNotFoundException e) {
             Ui.letoSpeak("We did not find an existing file containing tasks"
                     + "\n  We will carry on without a blank list");
-        } catch (UncheckedIOException e) {
+        } catch (UncheckedIOException | IOException e) {
             Ui.letoSpeak("Blast! Ran into error while reading the file.\n"
                     + "We will proceed with an empty list.\n");
         } catch (InvalidTaskException e) {
@@ -55,27 +57,22 @@ public class Storage {
     }
 
     /**
-     * Read an entry from the file into a Task and add it to the list.
+     * Read an entry from the file into a Task and returns the task object.
      * Throws Error if entry is invalid.
      * If file is not found, will create one by default.
      *
+     * @return A task specified by the csv entry
      * @throws InvalidTaskException entry cannot be parsed.
      */
-    private static void readEntry(String entry) throws InvalidTaskException {
+    private static Task readEntry(String entry) throws InvalidTaskException {
         String[] parts = entry.split(",");
         switch (parts[0]) {
         case "T":
-            TaskList.addTaskToList(Todo.todoFromCsv(entry));
-            Ui.shortSay("Todo added");
-            break;
+            return Todo.todoFromCsv(entry);
         case "D":
-            TaskList.addTaskToList(Deadline.deadlineFromCsv(entry));
-            Ui.shortSay("Deadline added");
-            break;
+            return Deadline.deadlineFromCsv(entry);
         case "E":
-            TaskList.addTaskToList(Event.eventFromCsv(entry));
-            Ui.shortSay("Event added");
-            break;
+            return Event.eventFromCsv(entry);
         default:
             throw new InvalidTaskException("Bad command for creating new entry");
         }
