@@ -81,10 +81,9 @@ public class Storage {
      * @throws DukeException If the line format is invalid.
      */
     private static Task fileStringToTask(String line) throws DukeException {
-        // Convert a string from a file back to a task
         String[] parts = line.split(" \\| ");
         if (parts.length < 3) {
-            return null; // Not enough parts to construct a task
+            throw new DukeException("Unable to read some tasks!");
         }
         String type = parts[0];
         boolean isDone = "1".equals(parts[1]);
@@ -92,15 +91,15 @@ public class Storage {
 
         Task task = null;
         switch (type) {
-            case "T":
-                task = new ToDo(description);
-                break;
-            case "D":
-                task = new Deadline(description, parts.length > 3 ? parts[3] : "");
-                break;
-            case "E":
-                task = new Event(description, parts.length > 3 ? parts[3] : "", parts.length > 4 ? parts[4] : "");
-                break;
+        case "T":
+            task = new ToDo(description);
+            break;
+        case "D":
+            task = new Deadline(description, parts.length > 3 ? parts[3] : "");
+            break;
+        case "E":
+            task = new Event(description, parts.length > 3 ? parts[3] : "", parts.length > 4 ? parts[4] : "");
+            break;
         }
         if (task != null && isDone) {
             task.markAsDone();
