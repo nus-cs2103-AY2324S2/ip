@@ -4,11 +4,10 @@ import java.util.function.Function;
 
 import me.ruibin.leto.tasklist.TaskList;
 
-/** Save tasks and returns <code>Results.OK</code>*/
-public class SaveCommand implements Function<String, Results> {
+/** Save tasks and returns <code>ResultTypes.OK</code>*/
+public class SaveCommand implements Function<String, Result> {
     @Override
-    public Results apply(String s) {
-        TaskList.saveTasks();
-        return Results.OK;
+    public Result apply(String s) {
+        return TaskList.saveTasks();
     }
 }

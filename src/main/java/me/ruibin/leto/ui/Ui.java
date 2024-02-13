@@ -1,35 +1,49 @@
 package me.ruibin.leto.ui;
 
 import java.io.PrintWriter;
+import java.io.StringWriter;
 
 /** Wraps output with custom formatting before sending to stdout using PrintWriter. */
 public class Ui {
-    private static final PrintWriter pw = new PrintWriter(System.out);
+    private static final StringWriter sw = new StringWriter();
+    private static final PrintWriter pw = new PrintWriter(sw);
 
     /**
      * Prints message in multiple line. Auto indenting on linebreak.
      *
      * @param message Message to print.
+     * @return String printed.
      */
-    public static void letoSpeak(String message) {
+    public static String letoSpeak(String message) {
         pw.write("  << Duke Leto >>\n  > " + message.replaceAll("\n", "\n  > "));
         pw.println();
         pw.print("========================================\n");
         pw.flush();
+        String toReturn = sw.toString();
+        sw.getBuffer().setLength(0);
+        return toReturn;
     }
 
     /**
      * Prints message ine a single line.
      *
      * @param message To print.
+     * @return String printed.
      */
-    public static void shortSay(String message) {
+    public static String shortSay(String message) {
         pw.write("  << Duke Leto >> : " + message + "\n");
         pw.flush();
+        String toReturn = sw.toString();
+        sw.getBuffer().setLength(0);
+        return toReturn;
     }
 
-    /** Prints the logo. */
-    public static void letoLogo() {
+    /**
+     * Prints the logo.
+     *
+     * @return String printed.
+     */
+    public static String letoLogo() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -38,11 +52,17 @@ public class Ui {
         pw.write("Good day from\n" + logo);
         pw.print("========================================\n");
         pw.flush();
+        String toReturn = sw.toString();
+        sw.getBuffer().setLength(0);
+        return toReturn;
     }
 
-    /** Print the standard help message. */
-    public static void letoHelp() {
-        letoSpeak("Supported commands:\n"
+    /** Print the standard help message.
+     *
+     * @return String printed.
+     * */
+    public static String letoHelp() {
+        return letoSpeak("Supported commands:\n"
             + "list     -  list all tasks\n"
             + "mark     -  mark task as done\n"
             + "              usage: mark <index>\n"
@@ -60,6 +80,5 @@ public class Ui {
             + "                usage: event <keyword>\n"
             + "                case sensitive\n"
             + "bye      -  exit");
-
     }
 }

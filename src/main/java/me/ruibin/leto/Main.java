@@ -1,14 +1,34 @@
 package me.ruibin.leto;
 
-import me.ruibin.leto.parser.Parser;
-import me.ruibin.leto.tasklist.TaskList;
-import me.ruibin.leto.ui.Ui;
+import java.io.IOException;
 
-/** Main program for Leto. */
-public class Main {
-    public static void main(String[] args) {
-        Ui.letoLogo();
-        TaskList.initFromFile();
-        Parser.readCommandAndExecute();
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import me.ruibin.leto.ui.MainWindow;
+import me.ruibin.leto.Leto;
+
+/**
+ * A GUI for Duke using FXML.
+ */
+public class Main extends Application {
+
+    private Leto leto = Leto.getLeto();
+
+    @Override
+    public void start(Stage stage) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            stage.setScene(scene);
+            fxmlLoader.<MainWindow>getController().setDuke(leto);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
+

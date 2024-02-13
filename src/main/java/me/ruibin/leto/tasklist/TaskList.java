@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import me.ruibin.leto.parser.Result;
 import me.ruibin.leto.storage.Storage;
 import me.ruibin.leto.ui.Ui;
 
@@ -19,12 +20,13 @@ public class TaskList {
     }
 
     /** Save task list to csv file. */
-    public static void saveTasks() {
-        Storage.writeFile();
+    public static Result saveTasks() {
+        return Storage.writeFile();
     }
 
     /** In charge of reading inputs and adding the corresponding task to the list */
-    public static void addToList(String inputs) {
+    public static Result addToList(String inputs) {
+        Result r = Result.makeResultOk("");
         try {
             Task t = null;
             String typeOfTask = inputs.split(" ")[0];
@@ -42,11 +44,12 @@ public class TaskList {
                 throw new InvalidTaskException("This task does not fit known tasks (event, deadline, todo)");
             } // end switch for type of task
             TaskList.list.add(t);
-            Ui.letoSpeak("Task added, " + t
-                    + "\n  > You have " + TaskList.list.size() + " tasks.");
+            r.updateMessage(Ui.letoSpeak("Task added, " + t
+                    + "\n  > You have " + TaskList.list.size() + " tasks."));
         } catch (InvalidTaskException e) {
-            e.printException();
+            r.updateWithException(e.printException(), e);
         }
+        return r;
     }
 
     /**
@@ -64,9 +67,11 @@ public class TaskList {
      * From user input mark the task specified as completed.
      *
      * @param inputs Command from the user.
+     * @return Result of the task.
      */
-    public static void markTaskCompleted(String inputs) {
+    public static Result markTaskCompleted(String inputs) {
         Task temp;
+        Result r = Result.makeResultOk("");
         try {
             int index = getIndexFromInput(inputs);
             temp = TaskList.list.get(index);
@@ -78,10 +83,12 @@ public class TaskList {
                 throw new InvalidTaskException("Task already completed");
             } else {
                 temp.markCompleted();
-                Ui.letoSpeak("Task marked as completed! Congratulations");
+                r.updateMessage(Ui.letoSpeak("Task marked as completed! Congratulations"));
+                return r;
             }
         } catch (InvalidTaskException e) {
-            e.printException();
+            r.updateWithException(e.printException(), e);
+            return r;
         }
     }
 
@@ -89,9 +96,11 @@ public class TaskList {
      * From user input mark the task specified as uncompleted.
      *
      * @param inputs Command from the user.
+     * @return Result of the task.
      */
-    public static void markTaskUncompleted(String inputs) {
+    public static Result markTaskUncompleted(String inputs) {
         Task temp;
+        Result r = Result.makeResultOk("");
         try {
             int index = getIndexFromInput(inputs);
             temp = TaskList.list.get(index);
@@ -100,13 +109,16 @@ public class TaskList {
                 throw new InvalidTaskException("WARNING Task is null, try creating a task first!");
             }
             if (!temp.isCompleted()) {
-                Ui.letoSpeak("Task is already not completed :< ");
+                r.updateMessage(Ui.letoSpeak("Task is already not completed :< "));
             } else {
                 temp.markUncompleted();
-                Ui.letoSpeak("Task marked as uncompleted! Things happen, don't worry we account for it");
+                r.updateMessage(
+                        Ui.letoSpeak("Task marked as uncompleted! Things happen, don't worry we account for it"));
             }
+            return r;
         } catch (InvalidTaskException e) {
-            e.printException();
+            r.updateWithException(e.printException(), e);
+            return r;
         }
     }
 
@@ -114,17 +126,20 @@ public class TaskList {
      * From user input delete the task specified.
      *
      * @param inputs Command from the user.
+     * @return Result of the task.
      */
-    public static void deleteTask(String inputs) {
+    public static Result deleteTask(String inputs) {
+        Result r = Result.makeResultOk("");
         try {
             int index = getIndexFromInput(inputs);
             Task t = TaskList.list.get(index);
             TaskList.list.remove(index);
-            Ui.letoSpeak("Task deleted, [" + t.toString()
-                    + "]\n  > You have " + TaskList.list.size() + " tasks.");
+            r.updateMessage(Ui.letoSpeak("Task deleted, [" + t.toString()
+                    + "]\n  > You have " + TaskList.list.size() + " tasks."));
         } catch (InvalidTaskException e) {
-            e.printException();
+            r.updateWithException(e.printException(), e);
         }
+        return r;
     }
 
     /**
@@ -153,15 +168,19 @@ public class TaskList {
         }
     }
 
-    /** Convert tasks in the list to an output string and then call Ui print. */
-    public static void printList() {
+    /**
+     * Convert tasks in the list to an output string and then call Ui print.
+     *
+     * @return Result of the task.
+     */
+    public static Result printList() {
         StringBuilder toPrint = new StringBuilder(" < Task List >\n");
         for (int i = 0; i < TaskList.list.size(); i++) {
             toPrint.append(" ").append(i + 1).append(": ")
                     .append(TaskList.list.get(i).toString()).append("\n");
         }
         toPrint.append("\n < End of Task List >");
-        Ui.letoSpeak(toPrint.toString());
+        return Result.makeResultOk(Ui.letoSpeak(toPrint.toString()));
     }
 
     /**

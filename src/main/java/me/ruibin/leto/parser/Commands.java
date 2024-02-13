@@ -18,13 +18,13 @@ enum Commands {
     DEFAULT(new HelpCommand()),
     FIND(new FindCommand());
 
-    private Function<String, Results> commandAction;
-    private Commands(Function<String, Results> function) {
+    private final Function<String, Result> commandAction;
+    private Commands(Function<String, Result> function) {
         this.commandAction = function;
     }
 
     /** Run the specific command. */
-    public Results run(String inputs) {
+    public Result run(String inputs) {
         return this.commandAction.apply(inputs);
     }
 }

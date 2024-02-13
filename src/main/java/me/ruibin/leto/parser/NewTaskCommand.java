@@ -4,11 +4,10 @@ import java.util.function.Function;
 
 import me.ruibin.leto.tasklist.TaskList;
 
-/** Read input for new task to add to list and returns <code>Results.OK</code>*/
-public class NewTaskCommand implements Function<String, Results> {
+/** Read input for new task to add to list and returns <code>ResultTypes.OK</code>*/
+public class NewTaskCommand implements Function<String, Result> {
     @Override
-    public Results apply(String s) {
-        TaskList.addToList(s);
-        return Results.OK;
+    public Result apply(String s) {
+        return TaskList.addToList(s);
     }
 }
