@@ -1,3 +1,6 @@
+package duke;
+
+import duke.task.Task;
 import java.util.Scanner;
 
 public class Ui {
@@ -61,7 +64,7 @@ public class Ui {
         System.out.println("event <description> /from <start time> /to <end time>\n");
     }
 
-    public void showWrongCommand() {
+    public void showValidCommands() {
         System.out.println("You need to use 'todo', 'deadline' or 'event' command to add a task.");
         System.out.println("You can use 'list' to see all of your tasks.");
         System.out.println("Use 'mark' or 'unmark' for any of your tasks.\n");

@@ -1,6 +1,12 @@
-public class DeleteCommand extends Command {
+package duke.command;
+
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+
+public class MarkCommand extends Command {
     private final String message;
-    public DeleteCommand(String message) {
+    public MarkCommand(String message) {
         super();
         this.message = message;
     }
@@ -9,13 +15,13 @@ public class DeleteCommand extends Command {
         try {
             String number = message.split(" ")[1];
             int n = Integer.parseInt(number);
-            taskList.delete(n);
+            taskList.mark(n);
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.showForgetTaskNumber();
-            ui.showDeleteFormat();
+            ui.showMarkFormat();
         } catch (NumberFormatException e) {
             ui.showWrongFormat();
-            ui.showDeleteFormat();
+            ui.showMarkFormat();
         }
     }
     public  boolean isExit() {
