@@ -1,4 +1,8 @@
 package chatbot;
+
+/**
+ * Represents a task in the chatbot.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -26,6 +30,15 @@ public class Task {
     @Override
     public String toString() {
         return String.format("[%s] %s",this.getStatusIcon(), this.getDescription());
+    }
+
+    /**
+     * Returns true if the description contains the keyword.
+     * @param keyword the keyword to search for.
+     * @return true if the description contains the keyword.
+     */
+    public boolean descriptionContains(String keyword) {
+        return this.getDescription().contains(keyword);
     }
 }
 

@@ -1,14 +1,18 @@
 package chatbot;
 
 import java.time.LocalDateTime;
-public class Deadline extends chatbot.Task {
+
+/**
+ * Represents a deadline task.
+ */
+public class Deadline extends Task {
     protected LocalDateTime by;
 
     public Deadline(String description, java.time.LocalDateTime by) {
         super(description);
         this.by = by;
     }
-    public java.time.LocalDateTime getBy() {
+    public LocalDateTime getBy() {
         return this.by;
     }
     @Override
@@ -16,4 +20,14 @@ public class Deadline extends chatbot.Task {
         String formattedBy = by.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
         return String.format("[D]%s (by: %s)", super.toString(), formattedBy);
     }
+
+    /**
+     * Checks if the date is the same as the deadline.
+     * @param date The date to be checked.
+     * @return True if the date is the same as the deadline, false otherwise.
+     */
+    public Boolean isDueDate(LocalDateTime date) {
+        return this.by.equals(date);
+    }
+
 }

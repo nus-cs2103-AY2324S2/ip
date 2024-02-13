@@ -1,4 +1,2 @@
-T | 0 | return book
-D | 0 | return dog | 29 | 7 | 2002 | 0900
-E | 0 | return dog | 29 | 7 | 2002 | 0900 | 29 | 8 | 2003 | 0900
-E | 0 | return book | 12 | 12 | 2023 | 0900 | 12 | 12 | 2021 | 0900
+T | 1 | return dog
+T | 0 | return god

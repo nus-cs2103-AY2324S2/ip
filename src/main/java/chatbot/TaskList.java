@@ -1,5 +1,6 @@
 package chatbot;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -8,76 +9,16 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.format.DateTimeParseException;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 public class TaskList {
-    protected static ArrayList<Task> taskList = new ArrayList<Task>();
+    protected ArrayList<Task> taskList = new ArrayList<Task>();
     public TaskList() {
-    }
-    public ArrayList<Task> getTaskList() {
-        return taskList;
     }
     public enum TaskType {
         TODO, DEADLINE, EVENT
-    }
-    /**
-     * Processes the data from the file and adds the tasks to the task list.
-     * @param file The file to be processed.
-     * @throws FileNotFoundException If the file is not found.
-     */
-    public void processData(File file) throws FileNotFoundException {
-        Scanner sc = new Scanner(file);
-        while (sc.hasNextLine()) {
-            String input = sc.nextLine();
-            if (input.startsWith("T")) {
-                String[] splitResult = input.split("\\|", 3);
-                int toggle = Integer.parseInt(splitResult[1].trim());
-                String description = splitResult[2].trim();
-                ToDo todo = new ToDo(description);
-                if (toggle == 1) {
-                    todo.toggleDone();
-                }
-                taskList.add(todo);
-            } else if (input.startsWith("D")) {
-                String[] splitResult = input.split("\\|", 4);
-                int toggle = Integer.parseInt(splitResult[1].trim());
-                String description = splitResult[2].trim();
-                // Parsing LocalDateTime directly from splitResult
-                String[] dateParts = splitResult[3].split("\\|");
-                LocalDateTime by = parseTime(dateParts);
-                // Create Deadline object and add it to the list
-                Deadline deadline = new Deadline(description, by);
-                if (toggle == 1) {
-                    deadline.toggleDone();
-                }
-                taskList.add(deadline);
-            } else if (input.startsWith("E")) {
-                String[] splitResult = input.split("\\|", 4);
-                int toggle = Integer.parseInt(splitResult[1].trim());
-                String description = splitResult[2].trim();
-                String[] formattedBy = splitResult[3].split("\\|");
-                // Split the formattedBy array into two parts: start and end times
-                int halfLength = formattedBy.length / 2;
-                String[] startTimeParts = Arrays.copyOfRange(formattedBy, 0, halfLength);
-                String[] endTimeParts = Arrays.copyOfRange(formattedBy, halfLength, formattedBy.length);
-                LocalDateTime startTime = parseTime(startTimeParts);
-                LocalDateTime endTime = parseTime(endTimeParts);
-                Event event = new Event(description, startTime, endTime);
-                if (toggle == 1) {
-                    event.toggleDone();
-                }
-                taskList.add(event);
-            }
-        }
-    }
-    private LocalDateTime parseTime(String[] endTimeParts) {
-        int endDay = Integer.parseInt(endTimeParts[0].trim());
-        int endMonth = Integer.parseInt(endTimeParts[1].trim());
-        int endYear = Integer.parseInt(endTimeParts[2].trim());
-        String endTimeStr = endTimeParts[3].trim();
-        int endHour = Integer.parseInt(endTimeStr.substring(0, 2));
-        int endMinute = Integer.parseInt(endTimeStr.substring(2));
-        return LocalDateTime.of(endYear, endMonth, endDay, endHour, endMinute);
     }
     private TaskType determineTaskType(String input) throws AlfredException {
         if (input.startsWith("todo")) {
@@ -90,12 +31,15 @@ public class TaskList {
             throw new AlfredException("Sorry Master Bruce. I don't understand what you mean.");
         }
     }
+    public void addTask(Task task) {
+        this.taskList.add(task);
+    }
     /**
      * Adds a task to the task list.
      * @param input The input from the user.
      * @return The response to the user.
      */
-    public String addList(String input) {
+    public String addFromInput(String input) {
         try {
             TaskType taskType = determineTaskType(input);
             switch (taskType) {
@@ -192,17 +136,13 @@ public class TaskList {
      * @param index The index of the task to be marked as done.
      * @return The response to the user.
      */
-    public String markList(String index) {
-        int extractedIdx = validateAndExtractIndex(index);
-        if (extractedIdx == -1) {
-            return null;
+    public String markList(int index) throws AlfredException {
+        Task task = findIndex(index);
+        if (task.isDone()) {
+            throw new AlfredException("Sorry Master Bruce. This task has already been marked as done.");
         }
-        if (taskList.get(extractedIdx).isDone()) {
-            return ("Sorry Master Bruce. This task has already been marked as done.");
-
-        }
-        taskList.get(extractedIdx).toggleDone();
-        return ("Nice! I've marked this task as done:\n  " + taskList.get(extractedIdx).toString());
+        task.toggleDone();
+        return ("Nice! I've marked this task as done:\n  " + task.toString());
     }
 
     /**
@@ -210,16 +150,13 @@ public class TaskList {
      * @param index The index of the task to be marked as not done.
      * @return The response to the user.
      */
-    public String unmarkList(String index) {
-        int extractedIdx = validateAndExtractIndex(index);
-        if (extractedIdx == -1) {
-            return null;
+    public String unmarkList(int index) throws AlfredException{
+        Task task = findIndex(index);
+        if (!task.isDone()) {
+            throw new AlfredException("Sorry Master Bruce. This task has already been marked as not done.");
         }
-        if (!taskList.get(extractedIdx).isDone()) {
-            return ("Sorry Master Bruce. This task has already been marked as not done.");
-        }
-        taskList.get(extractedIdx).toggleDone();
-        return ("OK, I've marked this task as not done yet:\n  " + taskList.get(extractedIdx).toString());
+        task.toggleDone();
+        return ("OK, I've marked this task as not done yet:\n  " + task.toString());
     }
 
     /**
@@ -227,26 +164,42 @@ public class TaskList {
      * @param index The index of the task to be deleted.
      * @return The response to the user.
      */
-    public String deleteList(String index) {
-        int extractedIdx = validateAndExtractIndex(index);
-        if (extractedIdx == -1) {
-            return null;
-        }
-        String removedTask = taskList.get(extractedIdx).toString();
-        taskList.remove(extractedIdx);
+    public String deleteList(int index) throws AlfredException{
+        Task task = findIndex(index);
+        String removedTask = task.toString();
+        taskList.remove(index);
         return ("Noted. I've removed this task:\n  " + removedTask + "\nNow you have " + taskList.size() + " tasks in " +
                 "the list.");
     }
 
-    private int validateAndExtractIndex(String index) {
+    /**
+     * Applies a function to each element of the task list.
+     * @param mapper The function to apply to each element.
+     * @param <R> The type of elements returned by the function.
+     * @return A new TaskList containing the results of applying the function to each element.
+     */
+    public <R extends Task> TaskList map(Function<Task, R> mapper) {
+        TaskList result = new TaskList();
+        for (Task task : taskList) {
+            result.addTask(mapper.apply(task));
+        }
+        return result;
+    }
+
+    /**
+     * Performs the given action for each element of the task list until all elements have been processed or the action throws an exception.
+     * @param action The action to be performed for each element.
+     */
+    public void forEach(Consumer<Task> action) {
+        for (Task task : taskList) {
+            action.accept(task);
+        }
+    }
+    private Task findIndex(int index) throws AlfredException {
         try {
-            if (index.isEmpty()) {
-                throw new AlfredException("Please enter a number after the command.");
-            }
-            int extractedIdx = Integer.parseInt(index) - 1;
             if (taskList.isEmpty()) {
                 throw new AlfredException("Sorry Master Bruce. There are no tasks in the list.");
-            } else if (extractedIdx < 0 || extractedIdx >= taskList.size()) {
+            } else if (index < 0 || index >= taskList.size()) {
                 if (taskList.size() == 1) {
                     throw new AlfredException("Sorry Master Bruce. The task number you have entered is not in the list. There is only one item in the list.");
                 } else {
@@ -254,13 +207,10 @@ public class TaskList {
                             "Please enter a number in the range of 1 to " + taskList.size() + ".");
                 }
             }
-            return extractedIdx;
         } catch (NumberFormatException e) {
-            System.out.println("Sorry Master Bruce. Please enter a valid number.");
-        } catch (AlfredException e) {
-            e.printError();
+            throw new AlfredException("Sorry Master Bruce. Please enter a valid number.");
         }
-        return -1;
+        return taskList.get(index);
     }
 
     /**
@@ -268,18 +218,18 @@ public class TaskList {
      * @param dateTime The date and time to be searched for.
      * @return The list of tasks found.
      */
-    public ArrayList<Task> findByDate(LocalDateTime dateTime) {
-        ArrayList<Task> result = new ArrayList<Task>();
+    public TaskList findByDate(LocalDateTime dateTime) {
+        TaskList result = new TaskList();
         for (Task task : taskList) {
             if (task instanceof Deadline) {
                 Deadline deadline = (Deadline) task;
-                if (deadline.getBy().equals(dateTime)) {
-                    result.add(deadline);
+                if (deadline.isDueDate(dateTime)) {
+                    result.addTask(deadline);
                 }
             } else if (task instanceof Event) {
                 Event event = (Event) task;
-                if (event.getStartTime().equals(dateTime) || event.getEndTime().equals(dateTime)) {
-                    result.add(event);
+                if (event.isStartTime(dateTime) || event.isEndTime(dateTime)) {
+                    result.addTask(event);
                 }
             }
         }
@@ -291,13 +241,26 @@ public class TaskList {
      * @param keyword The keyword to be searched for.
      * @return The list of tasks found.
      */
-    public ArrayList<Task> findByKeyword(String keyword) {
-        ArrayList<Task> result = new ArrayList<Task>();
+    public TaskList findByKeyword(String keyword) {
+        TaskList result = new TaskList();
         for (Task task : taskList) {
-            if (task.getDescription().contains(keyword)) {
-                result.add(task);
+            if (task.descriptionContains((keyword))) {
+                result.addTask(task);
             }
         }
         return result;
     }
+
+    @Override
+    public String toString() {
+        String output = "";
+        for (int i = 0; i < taskList.size(); i++) {
+            output += String.format("%d. %s\n", i + 1, taskList.get(i).toString());
+        }
+        if (output.isEmpty()) {
+            return "Sorry Master Bruce. There are no tasks in the list.";
+        }
+        return output;
+    }
+
 }
