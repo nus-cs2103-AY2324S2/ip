@@ -1,0 +1,2 @@
+MainWindow.fxml and DialogBox.fxml in this folder are obtained from
+https://se-education.org/guides/tutorials/javaFxPart4.html.

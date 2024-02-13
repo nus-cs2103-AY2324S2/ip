@@ -23,6 +23,7 @@ public class Duke {
     private TaskList tasks;
     private Ui ui;
     private Storage storage;
+    private boolean isContinue;
 
     /**
     * Constructs a Duke object with the specified folder path and file name for storage.
@@ -36,28 +37,36 @@ public class Duke {
         try {
             tasks = new TaskList(storage.load());
         } catch (DukeException e) {
-            Ui.error(e.getMessage());
             tasks = new TaskList();
         }
     }
 
     /**
+     * @return Greeting message
+     */
+    public String greet() {
+        ui.greet();
+        return ui.flushBuffer();
+    }
+
+    public boolean isContinue() {
+        return isContinue;
+    }
+
+    /**
     * Runs the Duke chatbot application.
     */
-    public void run() {
-        Ui.greet();
-        boolean b = true;
-        do {
-            Ui.inputPrompt();
-            try {
-                String[] cmd = Parser.parseCommand(ui.getInput());
-                String command = cmd[0];
-                String[] arguments = Parser.range(cmd, 1, cmd.length);
-                b = ui.handleCommand(tasks, command, arguments);
-                storage.save(tasks.getStoredTasks());
-            } catch (DukeException e) {
-                Ui.inputPrompt();
-            }
-        } while (b);
+    public String getReply(String userInput) {
+        try {
+            String[] cmd = Parser.parseCommand(userInput);
+            String command = cmd[0];
+            String[] arguments = Parser.range(cmd, 1, cmd.length);
+            isContinue = ui.handleCommand(tasks, command, arguments);
+            storage.save(tasks.getStoredTasks());
+        } catch (DukeException e) {
+            ui.flushBuffer();
+            ui.error(e.getMessage());
+        }
+        return ui.flushBuffer();
     }
 }

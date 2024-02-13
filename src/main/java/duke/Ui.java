@@ -1,6 +1,7 @@
 package duke;
 
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
 * The Ui class manages the user interface for the Duke chatbot application.
@@ -30,29 +31,22 @@ public class Ui {
         "Now you have %s tasks in the list.";
 
     private static final String NAME = ">uwu<";
-    private Scanner scanner;
+
+    private List<String> buffer;
 
     /**
     * Constructs a Ui object, initializing the scanner for user input.
     */
     public Ui() {
-        scanner = new Scanner(System.in);
+        buffer = new ArrayList<String>();
     }
 
-    static void inputPrompt() {
-        System.out.print(">> ");
-    }
-
-    static void greet() {
+    void greet() {
         reply(String.format(GREET_FORMAT, NAME));
     }
 
-    static void error(String msg) {
+    void error(String msg) {
         reply(String.format("OOPS!! %s", msg));
-    }
-
-    String getInput() {
-        return scanner.nextLine();
     }
 
     /**
@@ -67,7 +61,6 @@ public class Ui {
     */
     boolean handleCommand(TaskList tasks, String command, String[] arguments)
             throws DukeException {
-        messageStart();
         switch (command) {
         case "end":
             bye();
@@ -157,16 +150,21 @@ public class Ui {
         }
     }
 
-    private static void reply(String s) {
-        System.out.println("  " + s);
+    private void reply(String s) {
+        buffer.add(s);
     }
 
-    private static void messageStart() {
-        reply("");
-        reply(MESSAGE_DELINEATOR);
+    /**
+     * Returns all buffered replies and clear buffer
+     * @return
+     */
+    public String flushBuffer() {
+        String ret = String.join("\n", buffer);
+        buffer.removeIf(t -> true);
+        return ret;
     }
 
-    private static void bye() {
+    private void bye() {
         reply(BYE_MESSAGE);
     }
 }
