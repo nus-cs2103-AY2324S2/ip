@@ -81,11 +81,30 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the user input or CSV representation of a recurring task and updates the Storage accordingly.
+     * Supports adding a new recurring task or loading an existing one from CSV.
+     * <p>
+     * For user input:
+     * Matches the input against the pattern for adding a new recurring task.
+     * If a match is found, sets the next refresh date and updates the input accordingly.
+     * <p>
+     * For CSV representation:
+     * Matches the input against the pattern for loading an existing recurring task from CSV.
+     * If a match is found, sets the description, recurring type, and next refresh date.
+     * <p>
+     * The expected formats are:
+     * - For user input: {@code "recur <desc> /every day|week|month"}
+     * - For CSV: {@code "recur <desc> /every day|week|month <nextRefresh>"}
+     *
+     * @param input The user input or CSV representation of a recurring task.
+     * @throws UkeCatException If the input format is incorrect.
+     */
     public static void parseRecurTask(String input) throws UkeCatException {
         // matching from user input
-        Pattern pattern_init = Pattern.compile("^recur\\s+(.+)\\s+/every\\s+(day|week|month)");
-        Matcher matcher_init = pattern_init.matcher(input);
-        if (matcher_init.matches()) {
+        Pattern patternInit = Pattern.compile("^recur\\s+(.+)\\s+/every\\s+(day|week|month)");
+        Matcher matcherInit = patternInit.matcher(input);
+        if (matcherInit.matches()) {
             LocalDate added = LocalDate.now().plusDays(2);
             Storage.setNextRefresh(added);
             input += (" " + added);
@@ -175,7 +194,7 @@ public class Parser {
         } else if (t instanceof Deadline) {
             Deadline x = (Deadline) t;
             return String.format("D,%s,%s,%s", t.getStatus(), t.getDescription(), x.getBy());
-        } else if (t instanceof Event){
+        } else if (t instanceof Event) {
             Event x = (Event) t;
             return String.format("E,%s,%s,%s,%s", t.getStatus(), t.getDescription(),
                     x.getStart(), x.getEnd());

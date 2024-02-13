@@ -3,12 +3,22 @@ package ukecat;
 import java.time.LocalDate;
 
 
-
+/**
+ * Represents a recurring task that inherits from the abstract Task class.
+ * It includes additional fields to manage recurrence, such as recurType and nextRefresh.
+ */
 public class RecurTask extends Task {
 
     private RecurType recurType;
     private LocalDate nextRefresh;
 
+    /**
+     * Constructor for creating a RecurTask with specified parameters.
+     *
+     * @param description The description of the task.
+     * @param recurType The type of recurrence (DAILY, WEEKLY, MONTHLY).
+     * @param nextRefresh The date for the next refresh.
+     */
     public RecurTask(String description, RecurType recurType, LocalDate nextRefresh) {
         super(description);
         this.recurType = recurType;
@@ -16,13 +26,13 @@ public class RecurTask extends Task {
 
         switch (recurType) {
         case DAILY:
-            this.nextRefresh= LocalDate.now();
+            this.nextRefresh = LocalDate.now();
             break;
         case WEEKLY:
-            this.nextRefresh= LocalDate.now().plusDays(6);
+            this.nextRefresh = LocalDate.now().plusDays(6);
             break;
         case MONTHLY:
-            this.nextRefresh= LocalDate.now().plusMonths(1).minusDays(1);
+            this.nextRefresh = LocalDate.now().plusMonths(1).minusDays(1);
             break;
         default:
             System.out.println("Error creating recurTask");
@@ -31,6 +41,14 @@ public class RecurTask extends Task {
     }
 
 
+    /**
+     * Constructor for creating a RecurTask with specified parameters including status.
+     *
+     * @param status The status of the task (NOT_DONE, COMPLETE).
+     * @param description The description of the task.
+     * @param recurType The type of recurrence (DAILY, WEEKLY, MONTHLY).
+     * @param nextRefresh The date for the next refresh.
+     */
     public RecurTask(TaskStatus status, String description, RecurType recurType, LocalDate nextRefresh) {
         super(status, description);
         this.recurType = recurType;
@@ -38,6 +56,9 @@ public class RecurTask extends Task {
         check();
     }
 
+    /**
+     * Checks and updates the task based on the recurrence type and next refresh date.
+     */
     public void check() {
         LocalDate now = LocalDate.now();
         switch (this.recurType) {
@@ -65,6 +86,11 @@ public class RecurTask extends Task {
         }
     }
 
+    /**
+     * Returns the string representation of the RecurTask.
+     *
+     * @return The formatted string with task details and recurrence information.
+     */
     @Override
     public String toString() {
         String info;
@@ -133,6 +159,11 @@ public class RecurTask extends Task {
         return null;
     }
 
+    /**
+     * Gets the string representation of the next refresh date.
+     *
+     * @return The string representation of the next refresh date.
+     */
     public String getNextRefresh() {
         return nextRefresh.toString();
     }
