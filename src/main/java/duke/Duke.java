@@ -2,7 +2,13 @@ package duke;
 
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+import java.io.IOException;
 
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import task.Deadline;
 import task.Event;
 import task.ToDo;
@@ -22,154 +28,161 @@ import util.Ui;
 
 public class Duke {
 
-    public static void main(String[] args) {
+
+    public String runDuke(String userInput) {
         Ui ui = new Ui();
         ui.printGreeting();
 
         Storage storage = new Storage();
         Parser parser = new Parser();
 
-        Scanner sc = new Scanner(System.in);
-
         TaskList taskList = storage.loadFile();
         boolean exit = false;
 
-        while (!exit) {
-            String fullCommand = sc.nextLine();
-            String[] commandArr = fullCommand.split(" ");
-            String command = commandArr[0].toLowerCase();
+        String fullCommand = userInput;
+        String[] commandArr = fullCommand.split(" ");
+        String command = commandArr[0].toLowerCase();
 
-            switch (command) {
-            case "bye": {
-                ui.printBye();
-                exit = true;
-                storage.saveToFile(taskList);
-                break;
-            }
-            case "list": {
-                ui.printLine();
-                taskList.printAllTasks();
-                ui.printLine();
-                break;
-            }
-            case "delete": {
-                ui.printLine();
-                try {
-                    int taskNo = Integer.parseInt(commandArr[1]);
-                    taskList.deleteTask(taskNo);
-                } catch (NumberFormatException | NullPointerException | IndexOutOfBoundsException e) {
-                    ui.printOperationError(e);
-                    break;
-                }
+        // return this string
+        String toPrint = "";
 
-                storage.saveToFile(taskList);
-                ui.printLine();
-                break;
-            }
-            case "find": {
-                try {
-                    ui.printLine();
-                    String keyWord = commandArr[1];
-                    taskList.findTask(keyWord);
-                    ui.printLine();
-                } catch (IllegalArgumentException e) {
-                    ui.printUnknown();
-                }
-
-                break;
-            }
-            case "mark": {
-                ui.printLine();
-                ui.printMark();
-                try {
-                    int taskNo = Integer.parseInt(commandArr[1]);
-                    taskList.markDoneAtInd(taskNo);
-                } catch (NumberFormatException | NullPointerException | IndexOutOfBoundsException e) {
-                    ui.printOperationError(e);
-                    break;
-                }
-
-                storage.saveToFile(taskList);
-                ui.printLine();
-                break;
-            }
-            case "unmark": {
-                ui.printLine();
-                ui.printUnmark();
-                try {
-                    int taskNo = Integer.parseInt(commandArr[1]);
-                    taskList.markNotDoneAtInd(taskNo);
-                } catch (NumberFormatException | NullPointerException | IndexOutOfBoundsException e) {
-                    ui.printOperationError(e);
-                    break;
-                }
-
-                storage.saveToFile(taskList);
-                ui.printLine();
-                break;
-            }
-            case "deadline": {
-                ui.printLine();
-                String[] splitCommand = parser.parseDeadline(fullCommand);
-                try {
-                    String taskDescription = splitCommand[0];
-                    if (taskDescription.isEmpty()) {
-                        ui.printEmptyDescription();
-                        break;
-                    }
-                    String byDate = splitCommand[1];
-                    Deadline dl = new Deadline(taskDescription, parser.parseDate(byDate));
-                    taskList.addTask(dl, false);
-                } catch (IndexOutOfBoundsException | IllegalArgumentException | DateTimeParseException e) {
-                    ui.printDeadlineError(e);
-                    break;
-                }
-
-                storage.saveToFile(taskList);
-                ui.printLine();
-                break;
-            }
-            case "event": {
-                ui.printLine();
-                String[] splitCommand = parser.parseEvent(fullCommand);
-                try {
-                    String taskDescription = splitCommand[0];
-                    if (taskDescription.isEmpty()) {
-                        ui.printEmptyDescription();
-                        break;
-                    }
-                    String from = splitCommand[1];
-                    String to = splitCommand[2];
-                    Event event = new Event(taskDescription, parser.parseDate(from), parser.parseDate(to));
-                    taskList.addTask(event, false);
-                } catch (IndexOutOfBoundsException | IllegalArgumentException | DateTimeParseException e) {
-                    ui.printEventError(e);
-                    break;
-                }
-
-                storage.saveToFile(taskList);
-                ui.printLine();
-                break;
-            }
-            case "todo": {
-                ui.printLine();
-                fullCommand = parser.parseToDo(fullCommand);
-                if (fullCommand.isEmpty()) {
-                    ui.printEmptyDescription();
-                    break;
-                }
-
-                ToDo toDo = new ToDo(fullCommand);
-                taskList.addTask(toDo, false);
-                storage.saveToFile(taskList);
-                ui.printLine();
-                break;
-            }
-            default: {
-                ui.printUnknown();
-            }
-            }
+        switch (command) {
+        case "bye": {
+            toPrint += ui.printBye();
+            storage.saveToFile(taskList);
+            break;
         }
+        case "list": {
+            toPrint += ui.printLine();
+            toPrint += taskList.printAllTasks();
+            toPrint += ui.printLine();
+            break;
+        }
+        case "delete": {
+            toPrint += ui.printLine();
+            try {
+                int taskNo = Integer.parseInt(commandArr[1]);
+                toPrint += taskList.deleteTask(taskNo);
+            } catch (NumberFormatException | NullPointerException | IndexOutOfBoundsException e) {
+                toPrint += ui.printOperationError(e);
+                break;
+            }
+
+            storage.saveToFile(taskList);
+            toPrint += ui.printLine();
+            break;
+        }
+        case "find": {
+            try {
+                toPrint += ui.printLine();
+                String keyWord = commandArr[1];
+                toPrint += taskList.findTask(keyWord);
+                toPrint += ui.printLine();
+            } catch (IllegalArgumentException e) {
+                toPrint += ui.printUnknown();
+            }
+
+            break;
+        }
+        case "mark": {
+            toPrint += ui.printLine();
+            toPrint += ui.printMark();
+            try {
+                int taskNo = Integer.parseInt(commandArr[1]);
+                toPrint += taskList.markDoneAtInd(taskNo);
+            } catch (NumberFormatException | NullPointerException | IndexOutOfBoundsException e) {
+                toPrint += ui.printOperationError(e);
+                break;
+            }
+
+            storage.saveToFile(taskList);
+            toPrint += ui.printLine();
+            break;
+        }
+        case "unmark": {
+            toPrint += ui.printLine();
+            toPrint += ui.printUnmark();
+            try {
+                int taskNo = Integer.parseInt(commandArr[1]);
+                toPrint += taskList.markNotDoneAtInd(taskNo);
+            } catch (NumberFormatException | NullPointerException | IndexOutOfBoundsException e) {
+                toPrint += ui.printOperationError(e);
+                break;
+            }
+
+            storage.saveToFile(taskList);
+            toPrint += ui.printLine();
+            break;
+        }
+        case "deadline": {
+            toPrint += ui.printLine();
+            String[] splitCommand = parser.parseDeadline(fullCommand);
+            try {
+                String taskDescription = splitCommand[0];
+                if (taskDescription.isEmpty()) {
+                    toPrint += ui.printEmptyDescription();
+                    break;
+                }
+                String byDate = splitCommand[1];
+                Deadline dl = new Deadline(taskDescription, parser.parseDate(byDate));
+                toPrint += taskList.addTask(dl, false);
+            } catch (IndexOutOfBoundsException | IllegalArgumentException | DateTimeParseException e) {
+                toPrint += ui.printDeadlineError(e);
+                break;
+            }
+
+            storage.saveToFile(taskList);
+            toPrint += ui.printLine();
+            break;
+        }
+        case "event": {
+            toPrint += ui.printLine();
+            String[] splitCommand = parser.parseEvent(fullCommand);
+            try {
+                String taskDescription = splitCommand[0];
+                if (taskDescription.isEmpty()) {
+                    toPrint += ui.printEmptyDescription();
+                    break;
+                }
+                String from = splitCommand[1];
+                String to = splitCommand[2];
+                Event event = new Event(taskDescription, parser.parseDate(from), parser.parseDate(to));
+                toPrint += taskList.addTask(event, false);
+            } catch (IndexOutOfBoundsException | IllegalArgumentException | DateTimeParseException e) {
+                toPrint += ui.printEventError(e);
+                break;
+            }
+
+            storage.saveToFile(taskList);
+            toPrint += ui.printLine();
+            break;
+        }
+        case "todo": {
+            toPrint += ui.printLine();
+            fullCommand = parser.parseToDo(fullCommand);
+            if (fullCommand.isEmpty()) {
+                toPrint += ui.printEmptyDescription();
+                break;
+            }
+
+            ToDo toDo = new ToDo(fullCommand);
+            toPrint += taskList.addTask(toDo, false);
+            storage.saveToFile(taskList);
+            toPrint += ui.printLine();
+            break;
+        }
+        default: {
+            toPrint += ui.printUnknown();
+        }
+        }
+
+        // After the switch-case, return the string
+        return toPrint;
+    }
+
+    public String getResponse(String input) {
+        String response = runDuke(input);
+        return "Duke : \n" + response;
     }
 
 }
