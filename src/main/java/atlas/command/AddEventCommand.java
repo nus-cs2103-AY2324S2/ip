@@ -14,6 +14,7 @@ public class AddEventCommand extends Command {
     private String description;
     private LocalDateTime start;
     private LocalDateTime end;
+    private int priority;
 
     /**
      * Constructs an {@code AddEventCommand} with the specified description and start and end times.
@@ -26,11 +27,12 @@ public class AddEventCommand extends Command {
      * @param end         The time which the task ends.
      */
     public AddEventCommand(TaskList tasks, Ui ui, Storage storage,
-                           String description, LocalDateTime start, LocalDateTime end) {
+                           String description, LocalDateTime start, LocalDateTime end, int priority) {
         super(tasks, ui, storage);
         this.description = description;
         this.start = start;
         this.end = end;
+        this.priority = priority;
     }
 
     /**
@@ -38,7 +40,7 @@ public class AddEventCommand extends Command {
      */
     @Override
     public String execute() {
-        Event event = new Event(description, start, end);
+        Event event = new Event(description, start, end, priority);
         tasks.addTask(event);
         return ui.showTaskAdded(tasks);
     }

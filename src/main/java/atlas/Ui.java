@@ -162,4 +162,14 @@ public class Ui {
         }
         return sb.toString();
     }
+
+    public String showTaskPriority(TaskList tasks, int taskIndex) {
+        ArrayList<Task> al = tasks.getTasks();
+        StringBuilder sb = new StringBuilder();
+        sb.append("OK! I've changed the priority of this task\n");
+        String str = al.get(taskIndex).toString();
+        sb.append(str);
+        return sb.toString();
+
+    }
 }

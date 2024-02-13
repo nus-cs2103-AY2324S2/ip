@@ -29,12 +29,21 @@ public class Parser {
      * @return Command The command that can be executed based on user input.
      * @throws AtlasException If the input string does not correspond to a valid command format.
      */
+
+    public static final int DEFAULT_PRIORITY = 3;
+
     public static Command parse(String input, TaskList tasks, Ui ui, Storage storage) throws AtlasException {
         String[] parts = input.split(" ", 2);
         assert parts.length > 0 : "Input command should not be empty";
         String command = parts[0];
+        int priority = DEFAULT_PRIORITY;
         String details = parts.length > 1 ? parts[1] : null;
-
+        if (details != null) {
+            if (details.split(" /priority ").length > 1) {
+                priority = Integer.parseInt(details.split(" /priority ")[1]);
+                details = details.split(" /priority ")[0];
+            }
+        }
         switch (command) {
         case "bye":
             return new ExitCommand(tasks, ui, storage);
@@ -47,15 +56,17 @@ public class Parser {
         case "delete":
             return createDeleteCommand(tasks, ui, storage, details);
         case "todo":
-            return new AddToDoCommand(tasks, ui, storage, details);
+            return new AddToDoCommand(tasks, ui, storage, details, priority);
         case "deadline":
-            return createAddDeadlineCommand(tasks, ui, storage, details);
+            return createAddDeadlineCommand(tasks, ui, storage, details, priority);
         case "event":
-            return createAddEventCommand(tasks, ui, storage, details);
+            return createAddEventCommand(tasks, ui, storage, details, priority);
         case "tasks_on":
             return createTasksOnDateCommand(tasks, ui, storage, details);
         case "find":
             return new FindCommand(tasks, ui, storage, details);
+        case "change_priority":
+            return createSetPriorityCommand(tasks, ui, storage, details);
         default:
             return new InvalidCommand(tasks, ui, storage);
         }
@@ -71,7 +82,7 @@ public class Parser {
         return new TasksOnDateCommand(tasks, ui, storage, date);
     }
 
-    private static AddEventCommand createAddEventCommand(TaskList tasks, Ui ui, Storage storage, String details) throws AtlasException {
+    private static AddEventCommand createAddEventCommand(TaskList tasks, Ui ui, Storage storage, String details, int priority) throws AtlasException {
         String[] eventParts = details.split(" /from | /to "); // Split by both "/from" and "/to"
         if (eventParts.length != 3) {
             throw new AtlasException("Invalid event format."
@@ -86,10 +97,10 @@ public class Parser {
         } catch (DateTimeParseException e) {
             throw new InvalidEventFormatException("Invalid date format for event. Please use 'yyyy-MM-dd HHmm'.");
         }
-        return new AddEventCommand(tasks, ui, storage, description, start, end);
+        return new AddEventCommand(tasks, ui, storage, description, start, end, priority);
     }
 
-    private static AddDeadlineCommand createAddDeadlineCommand(TaskList tasks, Ui ui, Storage storage, String details) throws InvalidDeadlineFormatException {
+    private static AddDeadlineCommand createAddDeadlineCommand(TaskList tasks, Ui ui, Storage storage, String details, int priority) throws InvalidDeadlineFormatException {
         String[] deadlineDetails = details.split(" /by ");
         LocalDateTime by;
         try {
@@ -97,7 +108,7 @@ public class Parser {
         } catch (DateTimeParseException e) {
             throw new InvalidDeadlineFormatException("Invalid date/time format. Please use 'yyyy-MM-dd HHmm'.\"");
         }
-        return new AddDeadlineCommand(tasks, ui, storage, deadlineDetails[0], by);
+        return new AddDeadlineCommand(tasks, ui, storage, deadlineDetails[0], by, priority);
     }
 
     private static DeleteCommand createDeleteCommand(TaskList tasks, Ui ui, Storage storage, String details) {
@@ -115,6 +126,11 @@ public class Parser {
         return new MarkCommand(tasks, ui, storage, taskIndex);
     }
 
+    private static SetPriorityCommand createSetPriorityCommand(TaskList tasks, Ui ui, Storage storage, String details) {
+        String[] parts = details.split(" ", 2);
+        return new SetPriorityCommand(tasks, ui, storage, Integer.parseInt(parts[0]) - 1, Integer.parseInt(parts[1]));
+    }
+
     /**
      * Converts a string from file format back into a Task object.
      *
@@ -126,16 +142,16 @@ public class Parser {
         String type = parts[0];
         boolean isDone = parts[1].trim().equals("1");
         String description = parts[2].trim();
-
+        int priority = Integer.parseInt(parts[(parts.length - 1)].trim());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
         switch (type) {
         case "T":
-            return parseLineToToDo(description, isDone);
+            return parseLineToToDo(description, isDone, priority);
         case "D":
-            return parseLineToDeadline(parts, description, isDone);
+            return parseLineToDeadline(parts, description, isDone, priority);
         case "E":
-            return parseLineToEvent(parts, description, isDone);
+            return parseLineToEvent(parts, description, isDone, priority);
 
         default:
             assert false : "Line saved in data file cannot be parsed into task";
@@ -143,13 +159,13 @@ public class Parser {
         }
     }
 
-    private static Event parseLineToEvent(String[] parts, String description, boolean isDone) {
+    private static Event parseLineToEvent(String[] parts, String description, boolean isDone, int priority) {
         try {
             LocalDateTime start = LocalDateTime.parse(parts[3].trim());
             assert start != null : "start should not be null";
             LocalDateTime end = LocalDateTime.parse(parts[4].trim());
             assert end != null : "end should not be null";
-            Event event = new Event(description, start, end);
+            Event event = new Event(description, start, end, priority);
             assert event != null : "Task object should not be null";
             if (isDone) {
                 event.toggle();
@@ -161,11 +177,11 @@ public class Parser {
         }
     }
 
-    private static Deadline parseLineToDeadline(String[] parts, String description, boolean isDone) {
+    private static Deadline parseLineToDeadline(String[] parts, String description, boolean isDone, int priority) {
         try {
             LocalDateTime by = LocalDateTime.parse(parts[3].trim());
             assert by != null : "by should not be null";
-            Deadline deadline = new Deadline(description, by);
+            Deadline deadline = new Deadline(description, by, priority);
             assert deadline != null : "Task object should not be null";
             if (isDone) {
                 deadline.toggle();
@@ -177,8 +193,8 @@ public class Parser {
         }
     }
 
-    private static ToDo parseLineToToDo(String description, boolean isDone) {
-        ToDo todo = new ToDo(description);
+    private static ToDo parseLineToToDo(String description, boolean isDone, int priority) {
+        ToDo todo = new ToDo(description, priority);
         assert todo != null : "Task object should not be null";
         if (isDone) {
             todo.toggle();

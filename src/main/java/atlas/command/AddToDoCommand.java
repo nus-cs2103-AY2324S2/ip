@@ -12,6 +12,7 @@ import atlas.task.ToDo;
 
 public class AddToDoCommand extends Command {
     private String description;
+    private int priority;
 
     /**
      * Constructs an {@code AddToDoCommand} with the specified description.
@@ -21,9 +22,10 @@ public class AddToDoCommand extends Command {
      * @param storage     The {@code Storage} instance for saving the updated task list.
      * @param description The description of the ToDo.
      */
-    public AddToDoCommand(TaskList tasks, Ui ui, Storage storage, String description) {
+    public AddToDoCommand(TaskList tasks, Ui ui, Storage storage, String description, int priority) {
         super(tasks, ui, storage);
         this.description = description;
+        this.priority = priority;
     }
 
     /**
@@ -31,7 +33,7 @@ public class AddToDoCommand extends Command {
      */
     @Override
     public String execute() {
-        ToDo todo = new ToDo(description);
+        ToDo todo = new ToDo(description, priority);
         tasks.addTask(todo);
         return ui.showTaskAdded(tasks);
     }

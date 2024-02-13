@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 public class AddDeadlineCommand extends Command {
     private String description;
     private LocalDateTime by;
+    private int priority;
 
     /**
      * Constructs an {@code AddDeadlineCommand} with the specified description and deadline time.
@@ -24,10 +25,11 @@ public class AddDeadlineCommand extends Command {
      * @param description The description of the deadline.
      * @param by          The time by which the task is due.
      */
-    public AddDeadlineCommand(TaskList tasks, Ui ui, Storage storage, String description, LocalDateTime by) {
+    public AddDeadlineCommand(TaskList tasks, Ui ui, Storage storage, String description, LocalDateTime by, int priority) {
         super(tasks, ui, storage);
         this.description = description;
         this.by = by;
+        this.priority = priority;
     }
 
     /**
@@ -35,7 +37,7 @@ public class AddDeadlineCommand extends Command {
      */
     @Override
     public String execute() {
-        Deadline deadline = new Deadline(description, by);
+        Deadline deadline = new Deadline(description, by, priority);
         tasks.addTask(deadline);
         return ui.showTaskAdded(tasks);
 
