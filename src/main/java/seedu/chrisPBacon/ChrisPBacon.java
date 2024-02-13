@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.chrisPBacon;
 
 import seedu.task.TaskList;
 
@@ -9,8 +9,8 @@ import java.io.FileNotFoundException;
  *  This class contains the main method for the chatbot, ChrisP Bacon.
  *  ChrisP Bacon is a chatbot that manages the user's list of tasks.
  */
-public class Duke {
-    private final seedu.duke.Storage storage;
+public class ChrisPBacon {
+    private final seedu.chrisPBacon.Storage storage;
     private TaskList tasks;
 
     /**
@@ -18,13 +18,13 @@ public class Duke {
      *
      * @param filePath of the saved task list
      */
-    public Duke(String filePath) {
+    public ChrisPBacon(String filePath) {
         Ui ui = new Ui();
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
         } catch (FileNotFoundException e) {
-            ui.printError("Oink! File not found :(");
+            ui.printError("Oink! File not found :(\n");
             tasks = new TaskList();
         }
     }
@@ -44,6 +44,6 @@ public class Duke {
      * @param args arguments
      */
     public static void main(String[] args) {
-        new Duke("data/list.txt").run();
+        new ChrisPBacon("data/list.txt").run();
     }
 }

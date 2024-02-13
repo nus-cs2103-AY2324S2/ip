@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.chrisPBacon;
 
 import seedu.exceptions.InvalidTaskNameException;
 import seedu.task.*;

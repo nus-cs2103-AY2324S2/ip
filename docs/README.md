@@ -1,4 +1,4 @@
-# seedu.duke.seedu.duke User Guide
+# seedu.chrisPBacon.seedu.chrisPBacon User Guide
 
 // Update the title above to match the actual product name
 

@@ -1,14 +1,8 @@
-package seedu.duke;
+package seedu.chrisPBacon;
 
 import org.junit.jupiter.api.Test;
 import seedu.exceptions.InvalidTaskNameException;
 import seedu.task.*;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
