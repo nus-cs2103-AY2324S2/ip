@@ -1,5 +1,7 @@
 package cappy.command;
 
+import static cappy.constant.Message.MISSING_DESCRIPTION;
+
 import cappy.error.CappyException;
 import cappy.parser.ParsedInput;
 import cappy.storage.Storage;
@@ -25,7 +27,7 @@ public class TodoCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage, ParsedInput input)
             throws CappyException, IOException {
         if (input.numberOfPositionalArguments() < 1) {
-            throw new CappyException("Please enter the task description.");
+            throw new CappyException(MISSING_DESCRIPTION);
         }
         String description = String.join(" ", input.getPositionalArguments());
         Todo task = new Todo(description);

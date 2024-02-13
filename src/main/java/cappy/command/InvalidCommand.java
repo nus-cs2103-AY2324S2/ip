@@ -1,5 +1,7 @@
 package cappy.command;
 
+import static cappy.constant.Message.INVALID_COMMAND;
+
 import cappy.error.CappyException;
 import cappy.parser.ParsedInput;
 import cappy.storage.Storage;
@@ -23,6 +25,6 @@ public class InvalidCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage, ParsedInput input)
             throws CappyException, IOException {
-        ui.show("Sorry I can't help with that :(");
+        ui.show(INVALID_COMMAND);
     }
 }

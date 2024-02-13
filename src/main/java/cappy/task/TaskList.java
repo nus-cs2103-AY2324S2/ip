@@ -106,6 +106,8 @@ public class TaskList {
         for (String line : csvLines) {
             if (!line.equals("")) {
                 taskList.addTask(Parser.parseCsvLine(line));
+            } else {
+                Logger.debug("Skipping empty line in storage.");
             }
         }
         Logger.debug("Loaded " + taskList.size() + " tasks from storage.");

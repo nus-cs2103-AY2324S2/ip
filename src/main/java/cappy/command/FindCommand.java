@@ -1,5 +1,8 @@
 package cappy.command;
 
+import static cappy.constant.Message.MISSING_KEYWORD;
+import static cappy.constant.Message.NO_MATCHES_FOUND;
+
 import cappy.error.CappyException;
 import cappy.parser.ParsedInput;
 import cappy.storage.Storage;
@@ -14,12 +17,12 @@ public class FindCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage, ParsedInput input)
             throws CappyException, IOException {
         if (input.numberOfPositionalArguments() < 1) {
-            throw new CappyException("Please enter a keyword.");
+            throw new CappyException(MISSING_KEYWORD);
         }
         String keyword = input.getPositionalArgument(0);
         TaskList results = tasks.search(keyword);
         if (results.size() == 0) {
-            ui.show("No matches found :(");
+            ui.show(NO_MATCHES_FOUND);
         } else {
             String[] messages = new String[results.size() + 1];
             messages[0] = " Here are the matching tasks in your list:";

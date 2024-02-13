@@ -1,5 +1,10 @@
 package cappy.controller;
 
+import static cappy.constant.FilePath.CAPPY_IMAGE_PATH;
+import static cappy.constant.FilePath.USER_IMAGE_PATH;
+import static cappy.constant.Message.GOODBYE;
+import static cappy.constant.Message.GREETING;
+
 import cappy.Cappy;
 import cappy.task.Task;
 import cappy.task.TaskList;
@@ -22,8 +27,8 @@ public class MainWindow extends AnchorPane implements Ui {
 
     private Cappy cappy;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Cappy.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream(USER_IMAGE_PATH));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream(CAPPY_IMAGE_PATH));
 
     @FXML
     public void initialize() {
@@ -93,12 +98,11 @@ public class MainWindow extends AnchorPane implements Ui {
 
     /** Shows a greeting message to the user. */
     public void showGreetings() {
-        String[] messages = {"Hello! I'm Cappy", "What can I do for you?"};
-        show(messages);
+        show(GREETING);
     }
 
     /** Shows a farewell message to the user. */
     public void showExit() {
-        show("Bye. Hope to see you again soon!");
+        show(GOODBYE);
     }
 }

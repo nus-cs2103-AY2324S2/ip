@@ -1,5 +1,9 @@
 package cappy.command;
 
+import static cappy.constant.Message.INVALID_DATETIME_FORMAT;
+import static cappy.constant.Message.MISSING_DESCRIPTION;
+import static cappy.constant.Message.MISSING_DUE_DATE;
+
 import cappy.error.CappyException;
 import cappy.parser.ParsedInput;
 import cappy.parser.Parser;
@@ -14,6 +18,8 @@ import java.time.format.DateTimeParseException;
 
 /** Represents a command to add a new Deadline task to the task list. */
 public class DeadlineCommand extends Command {
+    private static final String PREFIX_BY = "by";
+
     /**
      * Adds a new Deadline task to the task list, and notify the user through the UI.
      *
@@ -28,13 +34,12 @@ public class DeadlineCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage, ParsedInput input)
             throws CappyException, IOException {
         if (input.numberOfPositionalArguments() < 1) {
-            throw new CappyException("Please enter the task description.");
-        } else if (!input.hasNamedArgument("by")) {
-            throw new CappyException(
-                    "Please specify the due date of the deadline task using /by [Date Time].");
+            throw new CappyException(MISSING_DESCRIPTION);
+        } else if (!input.hasNamedArgument(PREFIX_BY)) {
+            throw new CappyException(MISSING_DUE_DATE);
         }
         String description = String.join(" ", input.getPositionalArguments());
-        String dueString = input.getNamedArgument("by");
+        String dueString = input.getNamedArgument(PREFIX_BY);
         try {
             LocalDateTime due = Parser.parseDateTime(dueString);
             Deadline task = new Deadline(description, due);
@@ -42,7 +47,7 @@ public class DeadlineCommand extends Command {
             ui.showAddedTask(task, tasks);
             tasks.save();
         } catch (DateTimeParseException e) {
-            throw new CappyException("Please use the correct datetime format.");
+            throw new CappyException(INVALID_DATETIME_FORMAT);
         }
     }
 }
