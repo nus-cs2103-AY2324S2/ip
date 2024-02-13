@@ -1,12 +1,16 @@
 package duke;
 
-import duke.tasks.TaskList;
-import duke.commands.Command;
-import duke.commands.Parser;
-
 import java.util.List;
 import java.util.Scanner;
 
+import duke.commands.Command;
+import duke.commands.Parser;
+import duke.tasks.TaskList;
+
+/**
+ * The Dino class is a Java program that acts as a task manager, allowing users to input commands to manage and
+ * manipulate a list of tasks.
+ */
 public class Duke {
 
     private static final String TASKS_CACHE_PATH = ".duke-cache";
@@ -34,7 +38,7 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
 
-        while(!input.equalsIgnoreCase("bye")) {
+        while (!input.equalsIgnoreCase("bye")) {
             System.out.println(HORIZONTAL_LINE);
             String messages = Duke.getResponse(input);
             System.out.println(messages);
@@ -49,7 +53,6 @@ public class Duke {
     /**
      * The function takes an input, processes it using a parser, executes a command on a list of tasks, saves the
      * tasks to storage, and returns a string representation of any messages generated during the process.
-     * 
      * @param input A string representing the user's input command.
      * @return string message to be print out later.
      */
