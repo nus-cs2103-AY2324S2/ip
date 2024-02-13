@@ -43,7 +43,7 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws NollidException {
-        checkDeadlineNotEmpty();
+        // checkDeadlineNotEmpty();
 
         String taskDescription;
         try {
@@ -64,7 +64,7 @@ public class DeadlineCommand extends Command {
         try {
             deadline = Parser.getLocalDateTimeFromString(deadlineString);
         } catch (DateTimeParseException e) {
-            throw new InvalidArgumentException("Unrecognized deadline format\n" + USAGE_HINT);
+            throw new InvalidArgumentException("Unrecognized deadline format.\n" + USAGE_HINT);
         }
 
         Deadline task = new Deadline(taskDescription, deadline, tags);
@@ -74,18 +74,6 @@ public class DeadlineCommand extends Command {
         storage.update(tasks);
 
         return returnMessage;
-    }
-
-    /**
-     * Checks if a deadline is provided after the "/by" argument.
-     *
-     * @throws InvalidArgumentException If the deadline is not provided.
-     */
-    private void checkDeadlineNotEmpty() throws InvalidArgumentException {
-        int byIndex = this.argsList.indexOf("/by");
-        if (byIndex == this.argsList.size() - 1 || byIndex == -1) {
-            throw new InvalidArgumentException("Please input a deadline!\n" + USAGE_HINT);
-        }
     }
 
     /**

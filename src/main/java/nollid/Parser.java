@@ -99,7 +99,8 @@ public class Parser {
     /**
      * Retrieves tags from the input arguments.
      *
-     * @return The list of tags, or an empty list if no tags are specified.
+     * @return The list of tags, or an empty list if the tag option is not used.
+     * @throws MissingTagsException If the tag option is detected but no tags are specified.
      */
     public static ArrayList<String> getTags(ArrayList<String> argsList) throws MissingTagsException {
         int tagKeywordIndex = argsList.indexOf("/tags");
