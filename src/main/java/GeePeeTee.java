@@ -35,8 +35,11 @@ public class GeePeeTee {
         ui = new Ui();
         try {
             storage = new Storage(filePath);
+            assert storage != null : "Storage was not initialised correctly";
             listOfTask = new TaskList(storage.loadTaskList());
+            assert listOfTask != null : "Task list was not initialised correctly";
             parser = new Parser(listOfTask, storage, ui);
+            assert parser != null : "Parser was not initialised correctly";
         } catch (FileNotFoundException e) {
             initializationErrorMessage = ui.getFileNotFoundErrorMessage();
         } catch (IOException e) {

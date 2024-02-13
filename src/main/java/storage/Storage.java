@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -31,14 +32,17 @@ public class Storage {
 
     /**
      * Constructs a new {@code Storage} instance with the specified file name.
+     * 
      * @param fileName The name of the file to be associated with the storage.
      * @throws FileNotFoundException If the file specified by the file name does not
      *                               exist and cannot be created.
      * @throws IOException           If an I/O error occurs while creating the file.
      */
     public Storage(String fileName) throws FileNotFoundException, IOException {
+        assert fileName != null : "File name cannot be null.";
         try {
             this.filePath = BASE_PATH + "/" + fileName;
+            assert Paths.get(this.filePath).isAbsolute() : "File path must be absolute.";
             File file = new File(this.filePath);
             if (!file.exists()) {
                 file.createNewFile();
@@ -52,6 +56,7 @@ public class Storage {
 
     /**
      * Loads the task list from the hard disk.
+     * 
      * @return The task list loaded from the hard disk.
      * @throws FileNotFoundException If the file specified by the file name does not
      *                               exist and cannot be created.
@@ -70,17 +75,17 @@ public class Storage {
             String description = parts[2];
             Task task;
             switch (type) {
-            case "T":
-                task = new ToDo(description);
-                break;
-            case "D":
-                task = new Deadline(description, LocalDate.parse(parts[3]));
-                break;
-            case "E":
-                task = new Event(description, LocalDate.parse(parts[3]), LocalDate.parse(parts[4]));
-                break;
-            default:
-                throw new GeePeeTeeException("File contains invalid task type.");
+                case "T":
+                    task = new ToDo(description);
+                    break;
+                case "D":
+                    task = new Deadline(description, LocalDate.parse(parts[3]));
+                    break;
+                case "E":
+                    task = new Event(description, LocalDate.parse(parts[3]), LocalDate.parse(parts[4]));
+                    break;
+                default:
+                    throw new GeePeeTeeException("File contains invalid task type.");
             }
             if (isDone) {
                 task.markAsDone();
