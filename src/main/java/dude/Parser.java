@@ -123,10 +123,6 @@ public class Parser {
     ) {
         ArrayList<String> parameters = new ArrayList<>();
         try {
-//            if (!Parser.getParameters(parameters, command, parameterNames, args)) {
-//                return false;
-//            }
-//            return Parser.formatParameters(formattedParameters, parameters, formats);
             Parser.getParameters(parameters, command, parameterNames, args);
             Parser.formatParameters(formattedParameters, parameters, formats);
             return "success";
