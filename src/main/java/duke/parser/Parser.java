@@ -28,7 +28,7 @@ public class Parser {
                                 Storage storage, Tasklist todolist) throws DukeException {
         String[] parts = input.trim().split(" ", 2);
         String command = parts[0];
-        String details = parts.length > 1 ? parts[1].trim() : "";
+        String details = parts.length > 1 ? parts[1].trim() : ""; // contains the details after command is issued
         switch (command) {
         case "list":
             handleList(ui, todolist, storage);
@@ -49,7 +49,11 @@ public class Parser {
         case "delete":
             handleDelete(ui, details, todolist);
             break;
+        case "find":
+            findTask(ui, details, todolist);
+            break;
         case "bye":
+            break;
         default:
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
@@ -103,5 +107,17 @@ public class Parser {
         int taskNumber = Integer.parseInt(details) - 1;
         Task removed = todolist.removeItem(taskNumber);
         ui.printMessage("Noted. I've removed this task: " + removed);
+    }
+
+    private void findTask(Ui ui, String details, Tasklist todolist) {
+        StringBuilder tasksWithKeyword = new StringBuilder();
+        int i = 1;
+        for (Task task : todolist.getTodolist()) {
+            if (task.getDescription().contains(details)) {
+                tasksWithKeyword.append(i).append(". ").append(task).append("\n");
+                i++;
+            }
+        }
+        ui.printMessage(tasksWithKeyword.toString().trim());
     }
 }
