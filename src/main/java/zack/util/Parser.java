@@ -14,6 +14,7 @@ import zack.commands.DeleteCommand;
 import zack.commands.FindCommand;
 import zack.commands.ListCommand;
 import zack.commands.MarkCommand;
+import zack.commands.SortCommand;
 
 /**
  * The Parser class is responsible for parsing user input and converting it into
@@ -81,6 +82,8 @@ public class Parser {
             return processDateCommand(sections);
         case FIND:
             return processFindCommand(sections);
+        case SORT:
+            return processSortCommand(sections);
         default:
             throw new ZackException("I'm sorry, but I don't know what that means :-(");
         }
@@ -201,6 +204,13 @@ public class Parser {
             throw new ZackException("No keyword provided. Please specify a keyword.");
         }
         return new FindCommand(sections[1]);
+    }
+
+    private static Command processSortCommand(String[] sections) throws ZackException {
+        if (sections.length < 2) {
+            throw new ZackException("No criteria provided. Please specify a criteria to sort by.");
+        }
+        return new SortCommand(sections[1]);
     }
 
     /**

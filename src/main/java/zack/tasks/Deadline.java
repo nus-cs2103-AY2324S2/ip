@@ -21,8 +21,8 @@ public class Deadline extends Task {
      * @param isDone      True if the task is marked as done, false otherwise.
      * @throws ZackException If there is an error in parsing the deadline or if the format is invalid.
      */
-    public Deadline(String description, String by, boolean isDone) throws ZackException {
-        super(description, isDone);
+    public Deadline(String description, String by, boolean isDone, LocalDateTime addedTime) throws ZackException {
+        super(description, isDone, addedTime);
         try {
             this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         } catch (DateTimeParseException e) {
@@ -40,6 +40,10 @@ public class Deadline extends Task {
         return by.toLocalDate().equals(date);
     }
 
+    public LocalDateTime getBy() {
+        return by;
+    }
+
     /**
      * Returns a string in a specific format for saving to a file.
      *
@@ -49,7 +53,7 @@ public class Deadline extends Task {
     public String toFileString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         String formattedBy = by.format(formatter);
-        return "D | " + (isDone ? 1 : 0) + " | " + description + " | " + formattedBy;
+        return "D | " + (isDone ? 1 : 0) + " | " + description + " | " + formattedBy + " | " + addedTime;
     }
 
     @Override

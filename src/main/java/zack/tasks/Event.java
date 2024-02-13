@@ -23,8 +23,9 @@ public class Event extends Task {
      * @param isDone      True if the event is marked as done, false otherwise.
      * @throws ZackException If there is an error in parsing the event times or if the format is invalid.
      */
-    public Event(String description, String from, String to, boolean isDone) throws ZackException {
-        super(description, isDone);
+    public Event(String description, String from, String to, boolean isDone, LocalDateTime addedTime)
+            throws ZackException {
+        super(description, isDone, addedTime);
         try {
             this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
             this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
@@ -53,7 +54,8 @@ public class Event extends Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         String formattedFrom = from.format(formatter);
         String formattedTo = to.format(formatter);
-        return "E | " + (isDone ? 1 : 0) + " | " + description + " | " + formattedFrom + " to " + formattedTo;
+        return "E | " + (isDone ? 1 : 0) + " | " + description + " | " + formattedFrom
+                + " to " + formattedTo + " | " + addedTime;
     }
 
     @Override
