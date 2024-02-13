@@ -7,8 +7,8 @@
 
 <fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <!-- Label should wrap text and be able to grow. The maxWidth is set to USE_PREF_SIZE to respect the preferred width if needed -->
-        <Label fx:id="dialog" text="Label" wrapText="true" HBox.hgrow="ALWAYS" maxWidth="1.7976931348623157E308"/>
+        <!-- Label with increased text size -->
+        <Label fx:id="dialog" text="Label" wrapText="true" HBox.hgrow="ALWAYS" maxWidth="1.7976931348623157E308" style="-fx-font-size: 16px;"/>
         <!-- ImageView will not grow and will have a fixed size -->
         <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER"/>
     </children>
