@@ -1,6 +1,5 @@
 package duke.commands;
 
-import duke.core.Ui;
 import duke.tasks.TaskList;
 
 /**
@@ -20,7 +19,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void execute() {
-        Ui.printMessage(this.taskList.toString());
+    public String execute() {
+        return this.taskList.toString();
     }
 }

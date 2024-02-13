@@ -3,7 +3,6 @@ package duke.commands;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import duke.core.Ui;
 import duke.tasks.Event;
 import duke.tasks.TaskList;
 
@@ -47,10 +46,10 @@ public class AddEventCommand extends AddCommand {
     }
 
     @Override
-    public void execute() {
+    public String execute() {
         super.getTaskList().add(new Event(description, false, fromDate, fromTime, toDate, toTime));
-        Ui.printMessage("Added Event task: " + description
+        return "Added Event task: " + description
                 + "\n(from: " + fromDate + (fromTime == null ? "" : " " + fromTime)
-                + "\n   to: " + toDate + (toTime == null ? "" : " " + toTime) + ")");
+                + "\n   to: " + toDate + (toTime == null ? "" : " " + toTime) + ")";
     }
 }

@@ -1,6 +1,5 @@
 package duke.commands;
 
-import duke.core.Ui;
 import duke.exceptions.MeanDukeException;
 
 /**
@@ -9,8 +8,8 @@ import duke.exceptions.MeanDukeException;
 public class ExitCommand extends Command {
 
     @Override
-    public void execute() throws MeanDukeException {
-        Ui.printOutro();
+    public String execute() throws MeanDukeException {
+        return "Finally you're finished, thought you would never stop yapping.";
     }
 
     @Override

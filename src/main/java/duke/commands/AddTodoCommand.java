@@ -1,6 +1,5 @@
 package duke.commands;
 
-import duke.core.Ui;
 import duke.tasks.TaskList;
 import duke.tasks.ToDo;
 
@@ -30,8 +29,8 @@ public class AddTodoCommand extends AddCommand {
     }
 
     @Override
-    public void execute() {
+    public String execute() {
         super.getTaskList().add(new ToDo(this.description));
-        Ui.printMessage("Added ToDo task: " + description);
+        return "Added ToDo task: " + description;
     }
 }

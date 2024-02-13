@@ -19,7 +19,7 @@ public abstract class Command {
      *
      * @throws MeanDukeException if execution issues occur.
      */
-    public abstract void execute() throws MeanDukeException;
+    public abstract String execute() throws MeanDukeException;
 
     /**
      * Returns if this Command is an ExitCommand.

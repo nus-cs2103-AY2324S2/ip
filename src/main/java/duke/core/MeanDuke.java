@@ -12,33 +12,22 @@ public class MeanDuke {
     //Creates an empty task list
     private static TaskList taskList = new TaskList();
 
-    /**
-     * Initialises the MeanDuke chatbot
-     *
-     * @param args The command line arguments
-     */
-    public static void main(String[] args) {
+    public static String initialise(MainWindow controller) {
+        taskList = Storage.load(controller);
+        return "What do you want this time?";
+    }
 
-        //Try to load Task List from hard disk. If missing or corrupted, create a new file
-        taskList = Storage.load();
-
-        //Prints intro
-        Ui.printIntro();
-
-        //Repeatedly take in input and processes it until "end" command is given
-        boolean isExit = false;
-        while (!isExit) {
-            String userInput = Ui.readInput();
-            Ui.printSpacer();
-            try {
-                Command cmd = Parser.parseUserInput(userInput, taskList);
-                cmd.execute();
-                Storage.save(taskList);
-                isExit = cmd.isExitCommand();
-            } catch (MeanDukeException e) {
-                Ui.printError(e);
+    public static String getResponse(String input, MainWindow controller) {
+        try {
+            Command cmd = Parser.parseUserInput(input, taskList);
+            String ret = cmd.execute();
+            Storage.save(taskList, controller);
+            if (cmd.isExitCommand()){
+                javafx.application.Platform.exit();
             }
-            Ui.printSpacer();
+            return ret;
+        } catch (MeanDukeException e) {
+            return e.getMessage();
         }
     }
 }
