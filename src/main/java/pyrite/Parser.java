@@ -3,6 +3,7 @@ package pyrite;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
+import java.util.stream.IntStream;
 
 import pyrite.command.AddCommand;
 import pyrite.command.Command;
@@ -31,14 +32,22 @@ public class Parser {
         return id;
     }
 
+    // Solution below reuses code from GitHub Copilot.
+    /**
+     * Finds the index of a string in an array.
+     * Used to find the index of a command in the user input.
+     *
+     * @param toSearch Array to search.
+     * @param toFind   String to find.
+     * @return Index of the string in the array.
+     */
     private static int findCommand(String[] toSearch, String toFind) {
-        for (int i = 0; i < toSearch.length; i++) {
-            if (toSearch[i].equals(toFind)) {
-                return i;
-            }
-        }
-        return -1;
+        return IntStream.range(0, toSearch.length)
+                .filter(i -> toSearch[i].equals(toFind))
+                .findFirst()
+                .orElse(-1);
     }
+
     // Solution below inspired by
     // https://stackoverflow.com/questions/31690570/java-scanner-command-system
     // https://stackoverflow.com/questions/4822256/java-is-there-an-easy-way-to-select-a-subset-of-an-array
