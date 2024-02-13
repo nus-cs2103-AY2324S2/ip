@@ -6,6 +6,7 @@ import lex.parser.command.DeadlineCommand;
 import lex.parser.command.DeleteCommand;
 import lex.parser.command.EventCommand;
 import lex.parser.command.FindCommand;
+import lex.parser.command.HelpCommand;
 import lex.parser.command.ListCommand;
 import lex.parser.command.MarkCommand;
 import lex.parser.command.TodoCommand;
@@ -69,6 +70,8 @@ public class Parser {
             return new DeleteCommand(inputs, tasks, ui);
         case FIND:
             return new FindCommand(inputs, tasks, ui);
+        case HELP:
+            return new HelpCommand(ui);
         case BYE:
             return new ByeCommand(tasks, ui, storage);
         default:
