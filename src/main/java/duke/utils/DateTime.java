@@ -73,4 +73,22 @@ public class DateTime {
             throw new DukeException("unable to print date!");
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof DateTime)) {
+            return false;
+        }
+        DateTime other = (DateTime) o;
+        if (other.datetime != null && this.datetime != null) {
+            return other.datetime.equals(this.datetime);
+        } else if (other.date != null && this.date != null) {
+            return other.date.equals(this.date);
+        } else {
+            return false;
+        }
+    }
 }
