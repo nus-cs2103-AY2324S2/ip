@@ -11,7 +11,6 @@ import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
 
-
 /**
  * To add Task into the ArrayList
  */
@@ -23,8 +22,8 @@ public class InsertTask {
      * No constructor needed
      */
     private InsertTask() {
-        // throw new AssertionError("Constructor is not allowed");
-        assert false : "Execution should never reach this point!";
+        throw new AssertionError("Constructor is not allowed");
+        // assert false : "Execution should never reach this point!";
     }
 
     /**
@@ -35,15 +34,19 @@ public class InsertTask {
      */
     public static String execInsertTask(String input, List<Task> taskList) throws TaylorException {
         String response = null;
-        // Split the UserInput to get the Action to be taken
-        String[] parts = input.split(" ", 2);
-        if (parts.length < 2 || parts[1].trim().isBlank()) {
+
+        int splitFirstWhitespace = 2;
+        int contentsIdx = 1;
+        int actionsIdx = 0;
+
+        String[] wordPartition = input.split(" ", splitFirstWhitespace);
+        boolean isContentEmpty = wordPartition[contentsIdx].trim().isBlank();
+        if (isContentEmpty) {
             throw new TaylorException("The description of the task is empty.");
         }
-        // Get the content after the action
-        String content = parts[1];
-        // Get Action to be taken
-        Type type = Type.valueOf(parts[0].toUpperCase());
+
+        String content = wordPartition[contentsIdx];
+        Type type = Type.valueOf(wordPartition[actionsIdx].toUpperCase());
 
         switch (type) {
         case TODO:
@@ -58,6 +61,7 @@ public class InsertTask {
         default:
             throw new TaylorException("Invalid Task Type");
         }
+
         return response;
     }
 
@@ -68,12 +72,14 @@ public class InsertTask {
      */
     public static String todoTask(String content, List<Task> taskList) {
         StringBuilder response = new StringBuilder();
-        response.append("Got it. I've added this task:\n");
+
         Todo task = new Todo(content);
-        // Add todoTask into ArrayList
         taskList.add(task);
         response.append(task).append("\n");
+
+        response.append("Got it. I've added this task:\n");
         response.append("Now you have ").append(taskList.size()).append(" tasks in the list.").append("\n");
+
         return response.toString();
     }
 
@@ -86,19 +92,23 @@ public class InsertTask {
     public static String deadlineTask(String content, List<Task> taskList) throws TaylorException {
         StringBuilder response = new StringBuilder();
         try {
-            // Given the content, get the Time
-            String[] splitter = content.split("/by");
-            // If there is no time, invalid format
-            if (splitter.length < 2 || splitter[0].trim().isBlank() || splitter[1].trim().isBlank()) {
+            String[] deadlineWordPartition = content.split("/by");
+            int actionIdx = 0;
+            int timeIdx = 1;
+            String action = deadlineWordPartition[actionIdx];
+            String time = deadlineWordPartition[timeIdx];
+            boolean isActionEmpty = action.trim().isBlank();
+            boolean isTimeEmpty = time.trim().isBlank();
+            if (isActionEmpty || isTimeEmpty) {
                 throw new TaylorException("Invalid format. Please type in the following format: "
                         + "deadline <action> /by <time>");
             }
-            // Get action and the time separately
-            Deadline dl = new Deadline(splitter[0], dateConversion(splitter[1].trim()));
-            response.append("Got it. I've added this task:\n");
-            // Add deadline Task into ArrayList
+
+            Deadline dl = new Deadline(action, dateConversion(time.trim()));
             taskList.add(dl);
             response.append(dl).append("\n");
+
+            response.append("Got it. I've added this task:\n");
             response.append("Now you have ").append(taskList.size()).append(" tasks in the list.").append("\n");
 
         } catch (ArrayIndexOutOfBoundsException err) {
@@ -118,24 +128,33 @@ public class InsertTask {
         StringBuilder response = new StringBuilder();
         try {
             // Separate the action and the 2 times
-            String[] splitter = content.split("/from");
-            // Invalid format if no action, or no time at the back
-            if (splitter.length < 2 || splitter[0].trim().isBlank() || splitter[1].trim().isBlank()) {
+            String[] eventWordPartition = content.split("/from");
+            int actionIdx = 0;
+            int timeIdx = 1;
+            String action = eventWordPartition[actionIdx];
+            String time = eventWordPartition[timeIdx];
+            boolean isActionEmpty = action.trim().isBlank();
+            boolean isTimeEmpty = time.trim().isBlank();
+            if (isActionEmpty || isTimeEmpty) {
                 throw new TaylorException("Invalid format. Please type in the following format: "
                         + "event <action> /from <time> /to <time>");
             }
 
             try {
-                // Get the from and to time separately
-                String[] splitter1 = splitter[1].split("/to");
-                // If no such time, invalid format
-                if (splitter1.length < 2 || splitter1[0].trim().isBlank() || splitter1[1].trim().isBlank()) {
-                    throw new TaylorException("Invalid format. Please type in the following format: "
-                            + "event <action> /from <time> /to <time>");
+                String[] timePartition = time.split("/to");
+                int fromIdx = 0;
+                int toIdx = 1;
+                String fromTime = timePartition[fromIdx];
+                String toTime = timePartition[toIdx];
+
+                LocalDateTime formattedFromTime = dateConversion(fromTime.trim());
+                LocalDateTime formattedToTime = dateConversion(toTime.trim());
+
+                if (formattedToTime.isBefore(formattedFromTime)) {
+                    throw new TaylorException("End time cannot be before start time!");
                 }
-                Event eve = new Event(splitter[0],
-                        dateConversion(splitter1[0].trim()), dateConversion(splitter1[1].trim()));
-                // Add event Task into ArrayList
+
+                Event eve = new Event(action, formattedFromTime, formattedToTime);
                 taskList.add(eve);
                 response.append(eve).append("\n");
                 response.append("Now you have ").append(taskList.size()).append(" tasks in the list.").append("\n");
@@ -159,17 +178,12 @@ public class InsertTask {
      */
     public static LocalDateTime dateConversion(String inputDate) throws TaylorException {
         try {
-            // Convert the Date Time Format
-            LocalDateTime date = LocalDateTime.parse(inputDate,
-                    DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm",
-                            Locale.ENGLISH));
-            if (date.isBefore(LocalDateTime.now())) {
-                throw new TaylorException("Date input is in the past");
-            }
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm",
+                    Locale.ENGLISH);
 
-            return date;
+            return LocalDateTime.parse(inputDate, formatter);
         } catch (Exception e) {
-            throw new TaylorException(e.getMessage());
+            throw new TaylorException("Please include <time> as: YYYY-MM-DD HHmm");
         }
     }
 }

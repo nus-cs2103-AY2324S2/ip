@@ -12,8 +12,8 @@ public class ListTask {
      * No constructor needed
      */
     private ListTask() {
-        // throw new AssertionError("Constructor is not allowed");
-        assert false : "Execution should never reach this point!";
+        throw new AssertionError("Constructor is not allowed");
+        // assert false : "Execution should never reach this point!";
     }
 
     /**

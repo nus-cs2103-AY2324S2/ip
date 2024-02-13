@@ -38,10 +38,14 @@ public class Parser {
      */
     public static String executeCommand(String input, List<Task> tasksList) {
         String response = null;
-        String[] userInputSplit = input.split(" ", 2);
-        String actionCalled = userInputSplit[0];
 
+        int splitFirstWhitespace = 2;
+        String[] userInputSplit = input.split(" ", splitFirstWhitespace);
+
+        int actionIdx = 0;
+        String actionCalled = userInputSplit[actionIdx];
         Commands cmd = getCommands(actionCalled);
+
         // Switch between different calls
         switch (cmd) {
         case BYE:
@@ -81,20 +85,20 @@ public class Parser {
             break;
         case SEARCH:
             try {
-                response = SearchTask.execSearchTask(userInputSplit[1], tasksList);
+                response = SearchTask.execSearchTask(input, tasksList);
             } catch (TaylorException err) {
                 response = Ui.printError(err);
             }
             break;
         case FIND:
             try {
-                response = FindTask.exec(userInputSplit[1], tasksList);
+                response = FindTask.exec(input, tasksList);
             } catch (TaylorException err) {
                 response = Ui.printError(err);
             }
             break;
         default:
-            assert false : "Invalid command";
+            // assert false : "Invalid command";
             response = Ui.invalidCommand();
             break;
         }
