@@ -53,6 +53,9 @@ public class Duke {
             response = e.getMessage();
         } catch (DukeException e) {
             response = e.getMessage();
+        } finally {
+            // Write tasks to storage regardless of whether an exception occurred
+            storage.writeTasks(tasks);
         }
 
         return response;

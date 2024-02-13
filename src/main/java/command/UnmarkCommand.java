@@ -5,21 +5,21 @@ import duke.Ui;
 import exception.DukeException;
 
 /**
- * Command to delete a specific task from the task list.
+ * Command to unmark a specific task in the task list.
  */
-public class DeleteCommand extends Command {
+public class UnmarkCommand extends Command {
+    private Storage storage;
     private TaskList taskList;
     private Ui ui;
-    private Storage storage;
 
     /**
-     * The constructor of deleteCommand.
+     * The constructor for UnmarkCommand
      *
      * @param taskList The task list which the command will modify.
      * @param ui The ui to get the input of the user.
-     * @throws Exception If input is not valid.
+     * @param storage The storage to write task into.
      */
-    public DeleteCommand(TaskList taskList, Ui ui, Storage storage) {
+    public UnmarkCommand(TaskList taskList, Ui ui, Storage storage) {
 
         super(taskList, ui, storage);
     }
@@ -29,7 +29,7 @@ public class DeleteCommand extends Command {
         String input = ui.getInput();
         String indexStr = input.split(" ")[1];
         int position = Integer.parseInt(indexStr) - 1;
-        String str = taskList.delete(position);
+        String str = taskList.unmark(position);
         storage.writeTasks(taskList);
         return str;
     }

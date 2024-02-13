@@ -49,17 +49,17 @@ public class TaskList {
      * To print the entire Task array.
      */
     public String showList() {
-        String str = Ui.INDENT_SEPERATOR;
+        String str = "";
         if (taskList.isEmpty()) {
             str = str + "There are currently no tasks in your list";
         } else {
-            str = str + Ui.INDENT + "Here are the tasks in your list:";
+            str = str + "Here are the tasks in your list:\n";
             for (int i = 0; i < taskList.size(); i++) {
                 Task t = taskList.get(i);
-                str = str + Ui.INDENT + (i + 1) + "." + t.toString();
+                String temp = (i + 1) + "." + t.toString();
+                str = str + temp + "\n";
             }
         }
-        str = str + Ui.INDENT_SEPERATOR;
         return str;
     }
 
@@ -74,20 +74,20 @@ public class TaskList {
         String str = "";
         // check for error
         if (position + 1 > taskList.size()) {
-            str = str + Ui.INDENT_SEPERATOR + Ui.INDENT + "Task does not exist";
+            str = str + "Task does not exist";
         } else if (position < 0) {
-            str = str + Ui.INDENT_SEPERATOR + Ui.INDENT + "Task does not exist";
+            str = str + "Task does not exist";
 
         } else {
-            str = str + Ui.INDENT_SEPERATOR;
             Task t = taskList.get(position);
             if (t.getStatusIcon().equals(" ")) {
-                str = str + Ui.INDENT + "Nice! I've marked this task as done:";
+                str = str + "Nice! I've marked this task as done:\n";
+            } else {
+                str = str + "This task is already done\n";
             }
             t.markAsDone();
-            str = str + Ui.INDENT + "  " + t.toString();
+            str = str + "  " + t.toString();
         }
-        str = str + Ui.INDENT_SEPERATOR;
         return str;
     }
 
@@ -102,20 +102,20 @@ public class TaskList {
         String str = "";
         // check for error
         if (position + 1 > taskList.size()) {
-            str = str + Ui.INDENT_SEPERATOR + Ui.INDENT + "Task does not exist";
+            str = str + "Task does not exist";
         } else if (position < 0) {
-            str = str + Ui.INDENT_SEPERATOR + Ui.INDENT + "Task does not exist";
+            str = str + "Task does not exist";
 
         } else {
-            str = str + Ui.INDENT_SEPERATOR;
             Task t = taskList.get(position);
             if (t.getStatusIcon().equals("X")) {
-                str = str + Ui.INDENT + "OK, I've marked this task as not done yet:";
+                str = str + "OK, I've marked this task as not done yet:\n";
+            } else {
+                str = str + "This task is not done yet\n";
             }
             t.markAsUndone();
-            str = str + Ui.INDENT + "  " + t.toString();
+            str = str + "  " + t.toString();
         }
-        str = str + Ui.INDENT_SEPERATOR;
         return str;
     }
 
@@ -126,11 +126,9 @@ public class TaskList {
      */
     public String todo(Todo t) {
         taskList.add(t);
-        String str = Ui.INDENT_SEPERATOR
-                + Ui.INDENT + "Got it. I've added this task:"
-                + Ui.INDENT + "  " + t.toString()
-                + Ui.INDENT + "Now you have " + taskList.size() + " tasks in the list."
-                + Ui.INDENT_SEPERATOR;
+        String str = "Got it. I've added this task:\n"
+                + t.toString()
+                + "\nNow you have " + taskList.size() + " tasks in the list.";
         return str;
     }
 
@@ -140,13 +138,10 @@ public class TaskList {
      * @param t New deadline to be added into taskList.
      */
     public String deadline(Deadline t) {
-        String str = Ui.INDENT_SEPERATOR;
         taskList.add(t);
-        str = str + Ui.INDENT + "Got it. I've added this task:"
-                + Ui.INDENT + "  " + t.toString()
-                + Ui.INDENT + "Now you have " + taskList.size() + " tasks in the list."
-                + Ui.INDENT_SEPERATOR;
-        return str;
+        return "Got it. I've added this task:\n"
+                + t.toString()
+                + "\nNow you have " + taskList.size() + " tasks in the list.";
     }
 
     /**
@@ -155,13 +150,10 @@ public class TaskList {
      * @param t New event to be added into taskList.
      */
     public String event(Event t) {
-        String str = Ui.INDENT_SEPERATOR;
         taskList.add(t);
-        str = str + Ui.INDENT + "Got it. I've added this task:"
-                + Ui.INDENT + "  " + t.toString()
-                + Ui.INDENT + "Now you have " + taskList.size() + " tasks in the list."
-                + Ui.INDENT_SEPERATOR;
-        return str;
+        return "Got it. I've added this task:\n"
+                + t.toString()
+                + "\nNow you have " + taskList.size() + " tasks in the list.";
     }
 
     /**
@@ -173,20 +165,18 @@ public class TaskList {
      */
     public String delete(int position) {
         String str = "";
-        Task t = taskList.get(position);
         // check for error
         if (position + 1 > taskList.size()) {
-            str = str + Ui.INDENT + "Task.Task does not exist";
+            str = str + "Task does not exist";
         } else if (position < 0) {
-            str = str + Ui.INDENT + "Task.Task does not exist";
+            str = str + "Task does not exist";
         } else {
+            Task t = taskList.get(position);
             taskList.remove(t);
-            str = str + Ui.INDENT_SEPERATOR
-                    + Ui.INDENT + "Noted. I've removed this task:"
-                    + Ui.INDENT + "  " + t.toString()
-                    + Ui.INDENT + "Now you have " + taskList.size() + " tasks in the list.";
+            str = str + "Noted. I've removed this task:\n"
+                    + t.toString()
+                    + "Now you have " + taskList.size() + " tasks in the list.";
         }
-        str = str + Ui.INDENT_SEPERATOR;
         return str;
     }
 
@@ -194,24 +184,23 @@ public class TaskList {
      * To print the tasks that contains the keyword.
      */
     public String find(String keyword) {
-        String str = Ui.INDENT_SEPERATOR;
+        String str = "";
 
         if (taskList.isEmpty()) {
             str = str + "There are currently no tasks in your list";
         } else {
             //System.out.println("keyword:" + keyword + "end");
-            str = str + Ui.INDENT + "Here are the matching tasks in your list:";
+            str = str + "Here are the matching tasks in your list:\n";
             int index = 1;
             for (int i = 0; i < taskList.size(); i++) {
                 Task t = taskList.get(i);
                 String description = t.getDescription();
                 if (description.contains(keyword)) {
-                    str = str + Ui.INDENT + index + "." + t.toString();
+                    str = str + index + "." + t.toString() + "\n";
                     index += 1;
                 }
             }
         }
-        str = str + Ui.INDENT_SEPERATOR;
         return str;
     }
 

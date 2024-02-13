@@ -5,33 +5,32 @@ import duke.Ui;
 import exception.DukeException;
 
 /**
- * Command to exit the program.
+ * Command to show user the full task list.
  */
-public class ByeCommand extends Command {
-
+public class ShowListCommand extends Command {
+    private Storage storage;
     private TaskList taskList;
     private Ui ui;
-    private Storage storage;
 
     /**
-     * The constructor of byeCommand.
+     * The constructor for ShowListCommand
      *
      * @param taskList The task list which the command will modify.
      * @param ui The ui to get the input of the user.
-     * @throws Exception If input is not valid.
+     * @param storage The storage to write task into.
      */
-    public ByeCommand(TaskList taskList, Ui ui, Storage storage) {
+    public ShowListCommand(TaskList taskList, Ui ui, Storage storage) {
 
         super(taskList, ui, storage);
     }
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-        return taskList.bye(ui);
+        return taskList.showList();
     }
 
     @Override
     public boolean isExit() {
-        return true;
+        return false;
     }
 }

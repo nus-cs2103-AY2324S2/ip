@@ -17,6 +17,7 @@ public class WelcomeCommand extends Command {
      *
      * @param taskList The task list which the command will modify.
      * @param ui The ui to get the input of the user.
+     * @param storage The storage to write task into.
      */
     public WelcomeCommand(TaskList taskList, Ui ui, Storage storage) {
 

@@ -10,56 +10,65 @@ import exception.EmptyInputException;
 import exception.EmptyTimeException;
 import exception.InvalidDateTimeException;
 import exception.InvalidFormatException;
-import task.Deadline;
+import task.Event;
 
 /**
- * Command to add a deadline into the task list.
+ * Command to add an event into the task list.
  */
-public class DeadlineCommand extends Command {
+public class EventCommand extends Command {
 
     private TaskList taskList;
     private Ui ui;
     private Storage storage;
 
     /**
-     * The constructor of deadlineCommand.
+     * The constructor of eventCommand.
      *
      * @param taskList The task list which the command will modify.
      * @param ui The ui to get the input of the user.
+     * @param storage The storage to write task into.
      * @throws EmptyInputException If user did not input description.
      * @throws EmptyTimeException If user did not input time.
      * @throws InvalidFormatException If user's input invalid format.
      * @throws InvalidDateTimeException If user input invalid date/time format.
      */
-    public DeadlineCommand(TaskList taskList, Ui ui, Storage storage) {
+    public EventCommand(TaskList taskList, Ui ui, Storage storage) {
+
         super(taskList, ui, storage);
     }
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws
             EmptyInputException, EmptyTimeException, InvalidFormatException, InvalidDateTimeException {
-        String str;
         String input = ui.getInput();
+        String str;
         if (input.split(" ").length == 1) {
-            throw new EmptyInputException("deadline");
-        } else if (!input.contains("/by")) {
-            throw new InvalidFormatException("deadline", "/by");
+            throw new EmptyInputException("event");
+        } else if (!input.contains("/from")) {
+            throw new InvalidFormatException("event", "/from");
+        } else if (!input.contains("/to")) {
+            throw new InvalidFormatException("event", "/to");
         } else {
-            input = input.substring(8);
-            String[] arrOfStr = input.split("/by");
+            String temp = input.substring(5);
+            String[] arrOfStr = temp.split("/");
             if (arrOfStr.length < 2) {
-                throw new EmptyTimeException("deadline", "end");
+                throw new EmptyTimeException("event", "start");
+            } else if (arrOfStr.length < 3) {
+                throw new EmptyTimeException("event", "end");
             } else {
                 try {
                     String description = arrOfStr[0].trim();
-                    String by = arrOfStr[1].trim();
-                    LocalDate date = LocalDate.parse(by.split(" ")[0].trim());
-                    LocalTime time = LocalTime.parse(by.split(" ")[1].trim());
-                    Deadline t = new Deadline(description, date, time);
-                    str = taskList.deadline(t);
+                    String start = arrOfStr[1].substring(4).trim();
+                    LocalDate startDate = LocalDate.parse(start.split(" ")[0].trim());
+                    LocalTime startTime = LocalTime.parse(start.split(" ")[1].trim());
+                    String end = arrOfStr[2].substring(2).trim();
+                    LocalDate endDate = LocalDate.parse(end.split(" ")[0].trim());
+                    LocalTime endTime = LocalTime.parse(end.split(" ")[1].trim());
+                    Event t = new Event(description, startDate, startTime, endDate, endTime);
+                    str = taskList.event(t);
                     storage.writeTasks(taskList);
                 } catch (DateTimeParseException e) {
-                    throw new InvalidDateTimeException("deadline");
+                    throw new InvalidDateTimeException("event");
                 }
             }
         }

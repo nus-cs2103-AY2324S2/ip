@@ -12,6 +12,14 @@ public class TodoCommand extends Command {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
+
+    /**
+     * The constructor for TodoCommand
+     *
+     * @param taskList The task list which the command will modify.
+     * @param ui The ui to get the input of the user.
+     * @param storage The storage to write task into.
+     */
     public TodoCommand(TaskList taskList, Ui ui, Storage storage) {
 
         super(taskList, ui, storage);
@@ -22,6 +30,7 @@ public class TodoCommand extends Command {
      *
      * @param taskList The task list which the command will modify.
      * @param ui The ui to get the input of the user.
+     * @param storage The storage to write task into.
      * @throws EmptyInputException If user did not input description.
      */
     public String execute(TaskList taskList, Ui ui, Storage storage) throws EmptyInputException {
@@ -37,6 +46,7 @@ public class TodoCommand extends Command {
         }
     }
 
+    @Override
     public boolean isExit() {
         return false;
     }

@@ -26,10 +26,9 @@ public class InvalidFormatException extends DukeException {
      */
     @Override
     public String getMessage() {
-        return "    Please provide the time for the "
+        return "Please provide the time for the "
                 + this.task
                 + " by adding it after \""
-                + this.time + "\".\n"
-                + "    ------------------------------------------------\n";
+                + this.time + "\".\n";
     }
 }

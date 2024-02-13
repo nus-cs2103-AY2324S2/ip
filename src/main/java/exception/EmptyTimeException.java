@@ -26,9 +26,8 @@ public class EmptyTimeException extends Exception {
      */
     @Override
     public String getMessage() {
-        return "    Please provide the "
+        return " Please provide the "
                 + time + " time for the "
-                + task + ".\n"
-                + "    ------------------------------------------------\n";
+                + task + ".\n";
     }
 }
