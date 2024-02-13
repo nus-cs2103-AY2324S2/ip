@@ -1,32 +1,31 @@
 package virtue;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
-public class VirtueFileReader {
+public class Storage {
+    private final File DIRECTORY = new File("data");
+    private final File FILE = new File("data/virtue.txt");
 
-    public static VirtueTaskList initializeTaskList() throws VirtueDateTimeException {
+    public VirtueTaskList loadTaskList() throws VirtueDateTimeException {
         VirtueTaskList taskList = new VirtueTaskList();
 
-        File directory = new File("data");
-        File file = new File("data/virtue.txt");
-
-        if (!directory.exists()) {
-            directory.mkdir();
+        if (!DIRECTORY.exists()) {
+            DIRECTORY.mkdir();
         }
 
-        if (!file.exists()) {
+        if (!FILE.exists()) {
             try {
-                file.createNewFile();
+                FILE.createNewFile();
             } catch (IOException e) {
                 System.out.println("OOPS! An error occurred while creating the file: " + e.getMessage());
             }
         }
 
         try {
-            Scanner sc = new Scanner(file);
+            Scanner sc = new Scanner(FILE);
             while (sc.hasNext()) {
                 taskList.addFromFile(sc.nextLine());
             }
@@ -35,5 +34,11 @@ public class VirtueFileReader {
         }
 
         return taskList;
+    }
+
+    public void saveToFile(VirtueTaskList taskList) throws IOException {
+        FileWriter fileWriter = new FileWriter(FILE);
+        fileWriter.write(taskList.fileFormat());
+        fileWriter.close();
     }
 }

@@ -33,7 +33,6 @@ public class Command {
         }
     }
 
-    private String command;
     protected CommandType type;
     protected int index;
     protected String description;
@@ -41,112 +40,29 @@ public class Command {
     protected VirtueDateTime from;
     protected VirtueDateTime to;
 
-    public Command(String command) throws VirtueException {
-        this.command = command;
-        this.type = getCommandType();
+    // Creates a command from the user input.
+    public Command(String input) throws VirtueException {
+        this.type = Parser.getCommandType(input);
 
         if (this.type.hasIndex) {
-            this.index = getIndex();
+            this.index = Parser.getIndex(input);
         }
 
         if (this.type.hasDescription) {
-            this.description = getDescription();
+            this.description = Parser.getDescription(input);
         }
 
         if (this.type == CommandType.DEADLINE) {
-            this.by = getBy();
+            this.by = Parser.getBy(input);
         }
 
         if (this.type == CommandType.EVENT) {
-            this.from = getFrom();
-            this.to = getTo();
+            this.from = Parser.getFrom(input);
+            this.to = Parser.getTo(input);
         }
     }
 
-    // Gets the type of the command, which is its first word.
-    private CommandType getCommandType() throws UnknownCommandTypeException {
-        String firstWord = command.split(" ", 2)[0];
-
-        for (CommandType type : CommandType.values()) {
-            if (firstWord.equals(type.toString())) {
-                return type;
-            }
-        }
-
-        throw new UnknownCommandTypeException();
-    }
-
-    // Gets the index input by the user for a mark/unmark/delete command.
-    private int getIndex() throws EmptyIndexException, IndexFormatException {
-        try {
-            return Integer.parseInt(command.split(" ", 2)[1]);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new EmptyIndexException(type.toString());
-        } catch (NumberFormatException e) {
-            throw new IndexFormatException(type.toString());
-        }
-    }
-
-    // Gets the description for a todo/deadline/event command.
-    private String getDescription() throws EmptyDescriptionException {
-        String description;
-        String firstWordRemoved;
-
-        try {
-            firstWordRemoved = command.split(" ", 2)[1];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new EmptyDescriptionException(type.toString());
-        }
-
-        switch (type) {
-            case DEADLINE:
-                description = firstWordRemoved.split("/by", 2)[0];
-                break;
-            case EVENT:
-                description = firstWordRemoved.split(" /from ", 2)[0];
-                break;
-            default: // case TODO
-                description = firstWordRemoved;
-        }
-
-        return description;
-    }
-
-    // Gets the deadline for a deadline command.
-    private VirtueDateTime getBy() throws VirtueDateTimeException {
-        String firstWordRemoved = command.split(" ", 2)[1];
-        String dateTimeStr = firstWordRemoved.split(" /by ", 2)[1];
-        try {
-            return new VirtueDateTime(dateTimeStr);
-        } catch (DateTimeParseException e) {
-            throw new VirtueDateTimeException("by", type.toString());
-        }
-    }
-
-    // Gets the start for a deadline command.
-    private VirtueDateTime getFrom() throws VirtueDateTimeException {
-        String firstWordRemoved = command.split(" ", 2)[1];
-        String fromAndTo = firstWordRemoved.split(" /from ", 2)[1];
-        String dateTimeStr = fromAndTo.split(" /to ", 2)[0];
-        try {
-            return new VirtueDateTime(dateTimeStr);
-        } catch (DateTimeParseException e) {
-            throw new VirtueDateTimeException("from", type.toString());
-        }
-    }
-
-    // Gets the end for a deadline command.
-    private VirtueDateTime getTo() throws VirtueDateTimeException {
-        String firstWordRemoved = command.split(" ", 2)[1];
-        String fromAndTo = firstWordRemoved.split(" /from ", 2)[1];
-        String dateTimeStr = fromAndTo.split(" /to ", 2)[1];
-        try {
-            return new VirtueDateTime(dateTimeStr);
-        } catch (DateTimeParseException e) {
-            throw new VirtueDateTimeException("to", type.toString());
-        }
-    }
-
+    // Checks if a command is of type "bye".
     public boolean isBye() {
         return type == CommandType.BYE;
     }
