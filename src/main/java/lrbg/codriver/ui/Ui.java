@@ -37,75 +37,56 @@ public class Ui {
     }
 
     /**
-     * Shows the greeting message.
-     */
-    public void showGreeting() {
-        showLine();
-        System.out.println("Hello! I'm CoDriver, your everyday AI companion!");
-        System.out.println("What can I do for you?");
-        showLine();
-    }
-
-    /**
-     * Shows the goodbye message.
-     */
-    public void showGoodbye() {
-        showLine();
-        System.out.println("Bye. Hope to see you again soon!");
-        showLine();
-    }
-
-    /**
      * Shows the message for adding a task.
      *
      * @param task The task to be added.
      * @param size The size of the task list.
+     * @return The message for adding a task.
      */
-    public void showAddTask(Task task, int size) {
-        showLine();
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + size  + " tasks in the list.");
-        showLine();
+    public String showAddTask(Task task, int size) {
+        return "Got it. I've added this task:\n" +
+                task + "\n" +
+                "Now you have " + size + " tasks in the list.\n";
     }
 
     /**
      * Shows the message for marking a task as done.
      *
      * @param task The task to be marked as done.
+     * @return The message for marking a task as done.
      */
-    public void showMarkTask(Task task) {
-        showLine();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task);
-        showLine();
+    public String showMarkTask(Task task) {
+        return "Nice! I've marked this task as done:\n" +
+                task + "\n";
     }
 
     /**
      * Shows the message for marking a task as not done.
      *
      * @param task The task to be marked as not done.
+     *
+     * @return The message for marking a task as not done.
      */
-    public void showUnmarkTask(Task task) {
-        showLine();
-        System.out.println("Ok, I've marked this task as not done yet:");
-        System.out.println(task);
-        showLine();
+    public String showUnmarkTask(Task task) {
+        return "Ok, I've marked this task as not done yet:\n" +
+                task + "\n";
     }
 
     /**
      * Shows the list of tasks.
      *
      * @param tasks The list of tasks.
+     *
+     * @return The list of tasks.
      */
-    public void showList(TaskList tasks) {
-        showLine();
-        System.out.println("Here are the tasks in your list:");
+    public String showList(TaskList tasks) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             int listIndex = i + 1;
-            System.out.println(listIndex + ". " + tasks.get(i));
+            sb.append(listIndex).append(". ").append(tasks.get(i)).append("\n");
         }
-        showLine();
+        return sb.toString();
     }
 
     /**
@@ -113,63 +94,65 @@ public class Ui {
      *
      * @param task The task to be deleted.
      * @param size The size of the task list.
+     *
+     * @return The message for deleting a task.
      */
-    public void showDeleteTask(Task task, int size) {
-        showLine();
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + size + " tasks in the list.");
-        showLine();
+    public String showDeleteTask(Task task, int size) {
+        return "Noted. I've removed this task:\n" +
+                task + "\n" +
+                "Now you have " + size + " tasks in the list.\n";
     }
 
     /**
      * Shows the tasks in the task list that match a keyword.
      * 
      * @param tasks The list of tasks that match the keyword.
+     *
+     * @return The tasks in the task list that match a keyword.
      */
-    public void showMatchingTasks(TaskList tasks) {
-        showLine();
-        System.out.println("Here are the matching tasks in your list:");
+    public String showMatchingTasks(TaskList tasks) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the matching tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             int listIndex = i + 1;
-            System.out.println(listIndex + ". " + tasks.get(i));
+            sb.append(listIndex).append(". ").append(tasks.get(i)).append("\n");
         }
-        showLine();
+        return sb.toString();
     }
 
     /**
      * Shows the given error.
      *
      * @param e The error to be shown.
+     *
+     * @return The given error.
      */
-    public void showError(CoDriverException e) {
-        showLine();
-        System.out.println(e.getMessage());
-        showLine();
+    public String showError(CoDriverException e) {
+        return e.getMessage();
     }
 
     /**
      * Shows a message for a number format error.
+     *
+     * @return The message for a number format error.
      */
-    public void showNumberFormatError() {
-        showLine();
-        System.out.println("Error! Argument provided must be a number!");
-        showLine();
+    public String showNumberFormatError() {
+        return "Error! Please enter a valid number!";
     }
 
     /**
      * Shows a message for a file loading error.
+     *
+     * @return The message for a file loading error.
      */
-    public void showFileLoadingError() {
-        showLine();
-        System.out.println("Error! Unable to load file!");
-        showLine();
+    public String showFileLoadingError() {
+        return "Error! Unable to load file!";
     }
 
     /**
      * Shows a line to separate lines in the terminal.
      */
-    public void showLine() {
-        System.out.println("------------------------------------------------");
+    public String showLine() {
+        return "------------------------------------------------\n";
     }
 }

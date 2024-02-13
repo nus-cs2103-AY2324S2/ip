@@ -26,9 +26,9 @@ public class FindCommand extends Command {
     /**
      * {@inheritDoc}
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws CoDriverException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws CoDriverException {
         TaskList matchingTasks = tasks.findTasks(this.keyword);
-        ui.showMatchingTasks(matchingTasks);
+        return ui.showMatchingTasks(matchingTasks);
     }
 
     /**

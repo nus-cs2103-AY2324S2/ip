@@ -1,5 +1,6 @@
 package lrbg.codriver.command;
 
+import lrbg.codriver.CoDriver;
 import lrbg.codriver.data.TaskList;
 import lrbg.codriver.storage.Storage;
 import lrbg.codriver.ui.Ui;
@@ -17,8 +18,8 @@ public class ByeCommand extends Command {
     /**
      * {@inheritDoc}
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showGoodbye();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return CoDriver.GOODBYE_MESSAGE;
     }
 
     /**

@@ -23,7 +23,7 @@ public class UnknownCommand extends Command {
     /**
      * {@inheritDoc}
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws CoDriverException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws CoDriverException {
         throw new CoDriverException("I'm sorry, but I don't understand this command: " + unknownCommand);
     }
 

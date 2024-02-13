@@ -20,10 +20,10 @@ public class EventCommand extends Command {
         this.toDate = toDate;
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws CoDriverException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws CoDriverException {
         Task newTask = new Event(this.description, this.fromDate, this.toDate);
         tasks.addTask(newTask);
-        ui.showAddTask(newTask, tasks.size());
+        return ui.showAddTask(newTask, tasks.size());
     }
 
     public boolean testEquals(Object obj) {
