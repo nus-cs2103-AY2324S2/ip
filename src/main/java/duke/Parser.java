@@ -31,6 +31,7 @@ public class Parser {
             throw new DukeException("Command cannot be empty.");
         }
         this.commandWord = input.split(" ")[0].trim();
+        assert commandWord != null : "Command word should not be null";
         return commandWord;
     }
 
@@ -74,6 +75,7 @@ public class Parser {
 
     private void formatCheck(String taskType) throws DukeException {
         String formatStringInfo = "Please use the following format:" + taskType + " <description>";
+
         switch (taskType) {
         case "todo":
             if (input.split(" ", 2).length == 1) {
@@ -101,13 +103,10 @@ public class Parser {
             }
             break;
         default:
+            assert taskType != null || !taskType.isEmpty() : "Task type should be null or empty";
             throw new DukeException("Invalid command. \n\t"
                 + formatStringInfo);
         }
-
-
-
-
     }
 
     /**

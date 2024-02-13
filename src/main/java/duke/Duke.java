@@ -43,6 +43,7 @@ public class Duke {
      */
     String getResponse(String input) {
         try {
+            assert input != null : "Input should not be null";
             Parser parser = new Parser(input);
 
             String commandWord = parser.getCommandWord();

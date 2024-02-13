@@ -73,6 +73,7 @@ public class Ui {
      * @param size the number of tasks in the task list after deletion.
      */
     public String showDelete(Task deleteTask, int size) {
+        assert size >= 0 : "Size should be greater than or equal to 0";
         return botHeader() + "Poof! I've removed this task:"
             + doubleTab() + deleteTask
             + "\n\t" + "Now you have " + size + " tasks in the list.";
@@ -85,6 +86,7 @@ public class Ui {
      * @param size the number of tasks in the task list after adding tasks.
      */
     public String showAddTask(Task task, int size) {
+        assert size >= 0 : "Size should be greater than or equal to 0";
         return botHeader() + "Got it. I've added this task:"
             + doubleTab() + task + "\n\t"
             + "Now you have " + size + " tasks in the list.";
