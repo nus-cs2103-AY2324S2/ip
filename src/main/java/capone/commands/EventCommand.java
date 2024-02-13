@@ -61,7 +61,9 @@ public class EventCommand extends Command {
                     + "Usage: event [description] /from [date] /to [date]");
         }
 
+        // The index of the word that is not found in a list would be -1.
         final int COMMAND_NOT_FOUND = -1;
+        // The index of the words that is last of the list.
         final int LAST_WORD = inputList.size() - 1;
         // Catch potential errors from date entry.
         if (fromNdx == COMMAND_NOT_FOUND || fromNdx == LAST_WORD || toNdx == LAST_WORD) {
@@ -69,7 +71,9 @@ public class EventCommand extends Command {
                     + "Usage: event [description] /from [date] /to [date]");
         }
 
+        // The starting index of the words that contain the description.
         final int STARTING_NDX_DESCRIPTION = 1;
+        // The ending index of the words that contain the description.
         final int ENDING_NDX_DESCRIPTION = fromNdx;
         String description = Parser.parseDescription(STARTING_NDX_DESCRIPTION, ENDING_NDX_DESCRIPTION, inputList);
 
