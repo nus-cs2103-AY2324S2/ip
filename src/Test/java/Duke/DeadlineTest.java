@@ -3,14 +3,8 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/**
- * JUnit test for Deadline class.
- */
 public class DeadlineTest {
 
-    /**
-     * Tests the toString method of Deadline.
-     */
     @Test
     public void testGetBy() {
         LocalDateTime dateTime = LocalDateTime.of(2024, 2, 8, 12, 0);
@@ -18,9 +12,6 @@ public class DeadlineTest {
         assertEquals(dateTime, deadline.getBy());
     }
 
-    /**
-     * Tests the toString method of Deadline.
-     */
     @Test
     public void testToString() {
         LocalDateTime dateTime = LocalDateTime.of(2024, 2, 8, 12, 0);

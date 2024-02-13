@@ -4,15 +4,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-/**
- * Represents the user interface of the Duke program.
- */
 public class Ui {
     Scanner inputs = new Scanner(System.in);
 
-    /**
-     * Shows the welcome message.
-     */
     public void welcomeMessage () {
         System.out.println("    ____________________________________________________________");
         System.out.println("     Hello! I'm TALKTOMEORILLDIE");
@@ -20,18 +14,11 @@ public class Ui {
         System.out.println("    ____________________________________________________________");
     }
 
-    /**
-     * Shows the goodbye message.
-     */
     public void goodbyeMessage () {
         System.out.println("    ____________________________________________________________");
         System.out.println("     Bye. Hope to see you again soon!");
         System.out.println("    ____________________________________________________________");
     }
-
-    /**
-     * Shows the task marked as done message.
-     */
     public void showMarkedAsDone (Task task){
         System.out.println("    ____________________________________________________________");
         System.out.println("     Nice! I've marked this task as done:");
@@ -39,9 +26,6 @@ public class Ui {
         System.out.println("    ____________________________________________________________");
     }
 
-    /**
-     * Shows the task marked as not done message.
-     */
     public void showMarkedAsNotDone (Task task){
         System.out.println("    ____________________________________________________________");
         System.out.println("     Nice! I've marked this task as not done:");
@@ -49,9 +33,6 @@ public class Ui {
         System.out.println("    ____________________________________________________________");
     }
 
-    /**
-     * Shows the added task message.
-     */
     public void showAddedTask (Task task,int taskNum){
         System.out.println("    ____________________________________________________________");
         System.out.println("     Got it. I've added this task:");
@@ -60,9 +41,6 @@ public class Ui {
         System.out.println("    ____________________________________________________________");
     }
 
-    /**
-     * Shows the deleted task message.
-     */
     public void showDeleteTask (Task task,int taskNum){
         System.out.println("    ____________________________________________________________");
         System.out.println("     Noted. I've removed this task:");
@@ -71,9 +49,6 @@ public class Ui {
         System.out.println("    ____________________________________________________________");
     }
 
-    /**
-     * Shows the tasks on a specific date.
-     */
     public void showDeadlinesEventsOnDate (Task[]tasks, int taskNum, LocalDate dateToCheck){
         System.out.println("    ____________________________________________________________");
         System.out.println("     Deadlines/Events occurring on " +
@@ -88,17 +63,11 @@ public class Ui {
         }
         System.out.println("    ____________________________________________________________");
     }
-
-    /**
-     * Shows the loading error message.
-     */
     public static void showLoadingError () {
         System.out.println("Error: Your file can't be loaded");
     }
 
-    /**
-     * Shows the tasks.
-     */
+
     public void showTasks(Task[] task,int taskNum){
         System.out.println("    _______________________________________________________");
         if (taskNum == 0) {
@@ -111,9 +80,6 @@ public class Ui {
         System.out.println("    _______________________________________________________");
     }
 
-    /**
-     * Shows the matching tasks.
-     */
     public void showMatchingTasks(TaskList tasks, String keyword) {
         System.out.println("    ____________________________________________________________");
         System.out.println("     Here are the matching tasks in your list:");
@@ -130,17 +96,10 @@ public class Ui {
         System.out.println("    ____________________________________________________________");
     }
 
-    /**
-     * Reads the input from the user.
-     * @return The input from the user.
-     */
     public String readInput() {
         return inputs.nextLine();
     }
 
-    /**
-     * Closes the scanner.
-     */
     public void closeScanner() {
         inputs.close();
     }

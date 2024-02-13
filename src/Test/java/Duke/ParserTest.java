@@ -1,17 +1,14 @@
 package Duke;
 import org.junit.jupiter.api.Test;
+import java.time.LocalDateTime;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/**
- * JUnit test for Parser class.
- */
 public class ParserTest {
 
-    /**
-     * Tests the parse method of Parser.
-     */
     @Test
-    public void testParseInvalidCommand() throws DukeException {
+    public void testParseInvalidCommand() {
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
         Storage storage = new Storage("test.txt");
@@ -21,11 +18,8 @@ public class ParserTest {
         assertEquals("Gurl I'm sorry, idk what that means :-(", result);
     }
 
-    /**
-     * Tests the parse method of Parser.
-     */
     @Test
-    public void testParseTodoCommand() throws DukeException {
+    public void testParseTodoCommand() {
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
         Storage storage = new Storage("test.txt");

@@ -2,14 +2,8 @@ package Duke;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/**
- * JUnit test for Task class.
- */
 public class TaskTest {
 
-    /**
-     * Tests the MarkAsDone toString method of Task.
-     */
     @Test
     public void testMarkAsDone() {
         Task task = new Task("Test Task");
@@ -17,9 +11,6 @@ public class TaskTest {
         assertEquals("[X] Test Task", task.toString());
     }
 
-    /**
-     * Tests the MarkAsNotDone toString method of Task.
-     */
     @Test
     public void testMarkAsNotDone() {
         Task task = new Task("Test Task");

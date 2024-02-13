@@ -12,16 +12,9 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/**
- * Represents the storage class of the Duke program.
- */
 public class Storage {
     private final String filePath;
 
-    /**
-     * Constructor for Storage.
-     * @param filePath The file path to store the tasks.
-     */
     public Storage(String filePath) {
         if(filePath == null) {
             throw new IllegalArgumentException("File path cannot be null");
@@ -29,11 +22,6 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    /**
-     * Saves the tasks to the file.
-     * @param tasks The tasks to be saved.
-     * @param taskNum The number of tasks to be saved.
-     */
     public void saveTasksToFile(Task[] tasks, int taskNum) {
         try {
             File fileReader = new File(filePath);
@@ -61,11 +49,6 @@ public class Storage {
         }
     }
 
-    /**
-     * Loads the tasks from the file.
-     * @return The tasks loaded from the file.
-     * @throws IOException If there is an error loading the tasks from the file.
-     */
     public Task[] loadTasks() throws IOException {
         Path file = Paths.get(filePath);
         if (!Files.exists(file)) {

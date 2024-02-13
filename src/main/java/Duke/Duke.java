@@ -2,18 +2,11 @@ package Duke;
 
 import java.io.*;
 
-/**
- * Represents the main class of the Duke program.
- */
 public class Duke {
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
 
-    /**
-     * Constructor for Duke.
-     * @param filePath The file path to store the tasks.
-     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -25,10 +18,6 @@ public class Duke {
         }
     }
 
-    /**
-     * Runs the Duke program.
-     * @throws DukeException If there is an error running the program.
-     */
     public void run() throws DukeException {
         ui.welcomeMessage();
         boolean isExit = false;
@@ -42,11 +31,6 @@ public class Duke {
         }
     }
 
-    /**
-     * Main method to run the Duke program.
-     * @param args The arguments to run the program.
-     * @throws DukeException If there is an error running the program.
-     */
     public static void main(String[] args) throws DukeException {
         new Duke("./data/duke.txt").run();
     }

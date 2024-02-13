@@ -3,14 +3,8 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/**
- * JUnit test for Storage class.
- */
 public class StorageTest {
 
-    /**
-     * Tests the loadTasks method of Storage.
-     */
     @Test
     public void testLoadTasks() {
         String filePath = "test.txt";

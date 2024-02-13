@@ -1,14 +1,9 @@
 package Duke;
 import org.junit.jupiter.api.Test;
 
-/**
- * JUnit test for Duke class.
- */
-public class DukeTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-    /**
-     * Tests the constructor of Duke.
-     */
+public class DukeTest {
     @Test
     public void dukeConstructorTest() {
         Duke duke = new Duke("./data/test.txt");

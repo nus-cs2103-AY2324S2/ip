@@ -4,20 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/**
- * Represents a parser for Duke.
- */
 public class Parser {
 
-    /**
-     * Parses the user input and returns the appropriate response.
-     * @param userInput User input.
-     * @param tasks Task list.
-     * @param ui User interface.
-     * @param storage Storage.
-     * @return Appropriate response to the user input.
-     * @throws DukeException If the user input is invalid.
-     */
     public static String parse(String userInput, TaskList tasks, Ui ui, Storage storage) throws DukeException {
         try {
             if (userInput.equals("bye") || userInput.equals("Bye")) {

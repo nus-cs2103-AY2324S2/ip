@@ -6,14 +6,8 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/**
- * JUnit test for Ui class.
- */
 public class UiTest {
 
-    /**
-     * Tests the readInput method of Ui.
-     */
     @Test
     public void testReadInput() {
         String input = "Test Input";
@@ -26,9 +20,6 @@ public class UiTest {
         System.setIn(System.in);
     }
 
-    /**
-     * Tests the showTasks method of Ui.
-     */
     @Test
     public void testShowTasks() {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
