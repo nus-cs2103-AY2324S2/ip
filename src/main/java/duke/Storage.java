@@ -12,13 +12,26 @@ import java.time.format.DateTimeParseException;
 
 import java.util.ArrayList;
 
+/**
+ * Handles the storage of tasks to and from a file.
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The file path for storing tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves the tasks to the file specified by the file path.
+     *
+     * @param tasks The list of tasks to be saved.
+     */
     public void saveTasksToFile(ArrayList<Task> tasks) {
         try {
             createDirectory(filePath); // Create directory if it doesn't exist
@@ -32,6 +45,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file specified by the file path and adds them to the given task list.
+     *
+     * @param tasks The task list to which tasks will be added.
+     */
     public void loadTasksFromFile(ArrayList<Task> tasks) {
         createDirectory(filePath);
 

@@ -3,26 +3,50 @@ package duke;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents the user interface for interacting with the Duke application.
+ */
 public class Ui {
     private static final Scanner SCANNER = new Scanner(System.in);
 
+    /**
+     * Reads user input from the console.
+     *
+     * @return The user input as a string.
+     */
     public static String getUserInput() {
         return SCANNER.nextLine().trim();
     }
 
+    /**
+     * Displays the welcome message to the user.
+     */
     public static void showWelcomeMessage() {
         System.out.println("Hello! I'm Georgie.");
         System.out.println("What can I do for you?");
     }
 
+    /**
+     * Displays the goodbye message to the user.
+     */
     public static void showGoodbye() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
+    /**
+     * Displays an error message to the user.
+     *
+     * @param errorMessage The error message to be displayed.
+     */
     public static void showError(String errorMessage) {
         System.out.println(errorMessage);
     }
 
+    /**
+     * Displays the list of tasks to the user.
+     *
+     * @param tasks The list of tasks to be displayed.
+     */
     public static void showTaskList(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
             System.out.println("There are no tasks in your list.");
@@ -34,6 +58,9 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays a message for an invalid command.
+     */
     public static void showInvalidCommand() {
         System.out.println("I don't understand what you mean :c");
     }

@@ -6,7 +6,17 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 
+/**
+ * Writes tasks to a file.
+ */
 public class TaskWriter {
+
+    /**
+     * Saves the tasks to the file specified by the file path.
+     *
+     * @param tasks    The list of tasks to be saved.
+     * @param filePath The file path for storing tasks.
+     */
     public static void saveTasksToFile(ArrayList<Task> tasks, String filePath) {
         try {
             createDirectory(filePath); // Create directory if it doesn't exist
