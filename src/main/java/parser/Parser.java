@@ -233,13 +233,14 @@ public class Parser {
             parsedFrom = LocalDate.parse(from, formatter);
             parsedTo = LocalDate.parse(to, formatter);
             if (parsedFrom.isBefore(LocalDate.now())) {
-                throw new InvalidDateException("The start date of an event cannot be in the past.");
+                return CommandResponse.error(ui.getErrorMessage("The start date of an event cannot be in the past."));
             }
             if (parsedTo.isBefore(LocalDate.now())) {
-                throw new InvalidDateException("The end date of an event cannot be in the past.");
+                return CommandResponse.error(ui.getErrorMessage("The end date of an event cannot be in the past."));
             }
             if (parsedTo.isBefore(parsedFrom)) {
-                throw new InvalidDateException("The end date of an event cannot be before the start date.");
+                return CommandResponse
+                        .error(ui.getErrorMessage("The end date of an event cannot be before the start date."));
             }
         } catch (DateTimeParseException e) {
             return CommandResponse.error(ui.getErrorMessage("Invalid date format. Please use 'yyyy-MM-dd'."));
@@ -289,7 +290,7 @@ public class Parser {
         try {
             parsedBy = LocalDate.parse(by, formatter);
             if (parsedBy.isBefore(LocalDate.now())) {
-                throw new InvalidDateException("The deadline of a task cannot be in the past.");
+                return CommandResponse.error(ui.getErrorMessage("The deadline of a task cannot be in the past."));
             }
         } catch (DateTimeParseException e) {
             return CommandResponse.error(ui.getErrorMessage("Invalid date format. Please use 'yyyy-MM-dd'."));
