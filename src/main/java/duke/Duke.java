@@ -31,20 +31,6 @@ public class Duke{
     //List<Task> list;
     TaskList tlist;
 
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-
-
-
-
-
-
-
     public String getResponse(String input) {
         return "Duke heard: " + input;
     }
