@@ -31,6 +31,7 @@ public class Storage {
 
     /**
      * Constructs a new {@code Storage} instance with the specified file name.
+     * 
      * @param fileName The name of the file to be associated with the storage.
      * @throws FileNotFoundException If the file specified by the file name does not
      *                               exist and cannot be created.
@@ -52,6 +53,7 @@ public class Storage {
 
     /**
      * Loads the task list from the hard disk.
+     * 
      * @return The task list loaded from the hard disk.
      * @throws FileNotFoundException If the file specified by the file name does not
      *                               exist and cannot be created.
@@ -70,17 +72,20 @@ public class Storage {
             String description = parts[2];
             Task task;
             switch (type) {
-            case "T":
-                task = new ToDo(description);
-                break;
-            case "D":
-                task = new Deadline(description, LocalDate.parse(parts[3]));
-                break;
-            case "E":
-                task = new Event(description, LocalDate.parse(parts[3]), LocalDate.parse(parts[4]));
-                break;
-            default:
-                throw new GeePeeTeeException("File contains invalid task type.");
+                case "T":
+                    task = new ToDo(description);
+                    break;
+                case "D":
+                    LocalDate deadlineDate = LocalDate.parse(parts[3]);
+                    task = new Deadline(description, deadlineDate);
+                    break;
+                case "E":
+                    LocalDate startDate = LocalDate.parse(parts[3]);
+                    LocalDate endDate = LocalDate.parse(parts[4]);
+                    task = new Event(description, startDate, endDate);
+                    break;
+                default:
+                    throw new GeePeeTeeException("File contains invalid task type.");
             }
             if (isDone) {
                 task.markAsDone();
