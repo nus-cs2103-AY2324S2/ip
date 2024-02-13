@@ -61,27 +61,28 @@ public class TaskList {
     }
 
     public String findMatches(String key) {
-        StringBuilder builder = new StringBuilder("Okay, here... \n");
+        StringBuilder matchesBuilder = new StringBuilder("Okay, here... \n");
         for (int i = 1; i <= this.size(); i++) {
             if (this.get(i).description.contains(key)) {
-                builder.append(i + this.get(i).description + "\n");
+                matchesBuilder.append(i + this.get(i).description + "\n");
             }
-            assert builder.length() <= this.size();
+            assert matchesBuilder.length() <= this.size();
         }
-        return builder.toString();
+        return matchesBuilder.toString();
     }
 
     public void addToDo(String desc) {
         Task t = new Task(false, desc);
         this.add(t);
     }
+
     public void addDeadline(String desc, LocalDate deadline) {
         Task t = new Task(false, desc, deadline);
         this.add(t);
     }
+
     public void addEvent(String desc, LocalDate start, LocalDate end) {
         Task t = new Task(false, desc, start, end);
         this.add(t);
     }
-
 }
