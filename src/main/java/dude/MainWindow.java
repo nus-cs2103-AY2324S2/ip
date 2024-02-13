@@ -42,6 +42,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = dude.getResponse(input);
+        assert response != null && !response.isEmpty() : "Empty response detected";
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dudeImage)
