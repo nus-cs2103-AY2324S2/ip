@@ -33,8 +33,8 @@ public class ChrisPBacon {
      * Runs the chatbot program.
      */
     public void run() {
-        Parser parser = new Parser();
-        parser.parse(this.tasks);
+        Parser parser = new Parser(this.tasks);
+        parser.parse();
         storage.save(this.tasks);
     }
 
