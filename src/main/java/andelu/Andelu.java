@@ -61,19 +61,6 @@ public class Andelu {
     }
     */
 
-
-    /**
-     * Runs the program.
-     * The main entry point of the program.
-     *
-     * @param args
-     */
-    public static void main(String[] args) {
-        /*
-        new Andelu(args[0]).run();
-        */
-    }
-
     /**
      * Returns the ui.
      *
@@ -100,12 +87,6 @@ public class Andelu {
     public Storage getStorage() {
         return storage;
     }
-
-
-
-
-
-
 
 }
 
