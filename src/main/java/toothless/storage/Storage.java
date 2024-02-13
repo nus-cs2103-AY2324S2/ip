@@ -25,7 +25,6 @@ public class Storage {
 
     /**
      * A public constructor to initialize storage.
-     *
      * @param filePath A String indicating the filepath where data would be stored.
      * @throws ToothlessException if file failed to be created.
      */
@@ -46,7 +45,6 @@ public class Storage {
 
     /**
      * Loads data from file into ArrayList of Task objects.
-     *
      * @return ArrayList of Task objects with data from file.
      * @throws ToothlessException if file is corrupted.
      */
@@ -55,9 +53,33 @@ public class Storage {
         try {
             Scanner tasklistScanner = new Scanner(this.file);
             while (tasklistScanner.hasNext()) {
-                String line = tasklistScanner.nextLine();
-                String[] taskArgs = line.split(" \\| ");
-                addTaskToTaskList(tasks, taskArgs);
+                try {
+                    String line = tasklistScanner.nextLine();
+                    String[] taskArgs = line.split(" \\| ");
+                    String taskType = taskArgs[0];
+                    boolean isDone = taskArgs[1].equals("0") ? false : true;
+                    String taskDescription = taskArgs[2];
+                    if (taskType.equals("T")) {
+                        ToDo newToDo = new ToDo(taskDescription, isDone);
+                        tasks.add(newToDo);
+                    } else if (taskType.equals("D")) {
+                        LocalDateTime deadlineBy = LocalDateTime.parse(taskArgs[3], DATETIME_PARSE_FORMATTER);
+                        Deadline newDeadline = new Deadline(taskDescription, isDone, deadlineBy);
+                        tasks.add(newDeadline);
+                    } else if (taskArgs[0].equals("E")) {
+                        LocalDateTime eventFrom = LocalDateTime.parse(taskArgs[3], DATETIME_PARSE_FORMATTER);
+                        LocalDateTime eventTo = LocalDateTime.parse(taskArgs[4], DATETIME_PARSE_FORMATTER);
+                        Event newEvent = new Event(taskDescription, isDone, eventFrom, eventTo);
+                        tasks.add(newEvent);
+                    } else {
+                        throw new ToothlessException("Sorry, tasklist.txt seems to contain a corrupted task type.");
+                    }
+                } catch (IndexOutOfBoundsException e) {
+                    throw new ToothlessException("Sorry, tasks seem to have missing arguments.");
+                } catch (DateTimeParseException e) {
+                    throw new ToothlessException("Sorry, task seems to have corrupted datetime. "
+                            + "The format should be yyyy-mm-dd hh:mm");
+                }
             }
             tasklistScanner.close();
         } catch (IOException e) {
@@ -67,53 +89,17 @@ public class Storage {
     }
 
     /**
-     * Adds task from storage to task list.
-     *
-     * @param tasks ArrayList of Task objects.
-     * @param taskArgs String array of task arguments.
-     * @throws ToothlessException if task arguments from file are corrupted.
-     */
-    private void addTaskToTaskList(ArrayList<Task> tasks, String[] taskArgs) throws ToothlessException {
-        try {
-            String taskType = taskArgs[0];
-            boolean isDone = taskArgs[1].equals("0") ? false : true;
-            String taskDescription = taskArgs[2];
-            if (taskType.equals("T")) {
-                ToDo newToDo = new ToDo(taskDescription, isDone);
-                tasks.add(newToDo);
-            } else if (taskType.equals("D")) {
-                LocalDateTime deadlineBy = LocalDateTime.parse(taskArgs[3], DATETIME_PARSE_FORMATTER);
-                Deadline newDeadline = new Deadline(taskDescription, isDone, deadlineBy);
-                tasks.add(newDeadline);
-            } else if (taskArgs[0].equals("E")) {
-                LocalDateTime eventFrom = LocalDateTime.parse(taskArgs[3], DATETIME_PARSE_FORMATTER);
-                LocalDateTime eventTo = LocalDateTime.parse(taskArgs[4], DATETIME_PARSE_FORMATTER);
-                Event newEvent = new Event(taskDescription, isDone, eventFrom, eventTo);
-                tasks.add(newEvent);
-            } else {
-                throw new ToothlessException("Sorry, tasklist.txt seems to contain a corrupted task type.");
-            }
-        } catch (IndexOutOfBoundsException e) {
-            throw new ToothlessException("Sorry, tasks seem to have missing arguments.");
-        } catch (DateTimeParseException e) {
-            throw new ToothlessException("Sorry, task seems to have corrupted datetime. "
-                    + "The format should be yyyy-mm-dd hh:mm");
-        }
-    }
-
-    /**
      * Saves data from ArrayList of Tasks to data file.
-     *
      * @param tasks ArrayList of Tasks to save into file.
      * @throws ToothlessException if saving failed.
      */
     public void saveToStorage(ArrayList<Task> tasks) throws ToothlessException {
         try {
-            FileWriter fileWriter = new FileWriter(this.filePath, false);
+            FileWriter fw = new FileWriter(this.filePath, false);
             for (Task t : tasks) {
-                fileWriter.write(t.toStorageString() + System.lineSeparator());
+                fw.write(t.toStorageString() + System.lineSeparator());
             }
-            fileWriter.close();
+            fw.close();
         } catch (IOException e) {
             throw new ToothlessException("Sorry, saving to tasklist.txt failed.");
         }

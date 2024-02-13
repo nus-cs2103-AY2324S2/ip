@@ -23,7 +23,6 @@ public class TaskList {
 
     /**
      * A public constructor to initialize new TaskList with given ArrayList.
-     *
      * @param taskArrayList ArrayList with Tasks.
      */
     public TaskList(ArrayList<Task> taskArrayList) {
@@ -32,16 +31,14 @@ public class TaskList {
 
     /**
      * Returns the number of tasks in the list.
-     *
      * @return integer of number of tasks in the list.
      */
-    public int getSize() {
+    public int size() {
         return tasks.size();
     }
 
     /**
      * Getter for ArrayList of Tasks.
-     *
      * @return ArrayList of Tasks.
      */
     public ArrayList<Task> getTasks() {
@@ -50,7 +47,6 @@ public class TaskList {
 
     /**
      * Marks a task in the list as done.
-     *
      * @param index Index of task to mark as done.
      * @return Marked task.
      */
@@ -62,7 +58,6 @@ public class TaskList {
 
     /**
      * Marks a task in the list as not done.
-     *
      * @param index Index of task to mark as not done.
      * @return Unmarked task.
      */
@@ -74,7 +69,6 @@ public class TaskList {
 
     /**
      * Deletes a task in the list.
-     *
      * @param index Index of task to delete.
      * @return Deleted task.
      */
@@ -86,7 +80,6 @@ public class TaskList {
 
     /**
      * Finds and returns a list of tasks with given keyword.
-     *
      * @param keyword A String to search in tasklist.
      * @return List of tasks with keyword.
      */
@@ -102,7 +95,6 @@ public class TaskList {
 
     /**
      * Adds ToDo task to list.
-     *
      * @param taskDescription String to describe the task.
      * @return New ToDo task.
      */
@@ -114,7 +106,6 @@ public class TaskList {
 
     /**
      * Adds Deadline task to list.
-     *
      * @param taskDescription String to describe the task.
      * @param by String for datetime deadline the task is due by.
      * @return New Deadline task.
@@ -128,13 +119,12 @@ public class TaskList {
             return newTask;
         } catch (DateTimeParseException e) {
             throw new ToothlessException("Sorry, /by field datetime should use the following format: "
-                    + "yyyy-mm-dd hh:mm");
+                    + "[yyyy-mm-dd hh:mm].");
         }
     }
 
     /**
      * Adds Event task to list.
-     *
      * @param taskDescription String to describe the task.
      * @param from String for datetime start of event.
      * @param to String for datetime end of event.
@@ -150,7 +140,7 @@ public class TaskList {
             return newTask;
         } catch (DateTimeParseException e) {
             throw new ToothlessException("Sorry, /from and /to field datetime should use the following format: "
-                    + "yyyy-mm-dd hh:mm");
+                    + "[yyyy-mm-dd hh:mm].");
         }
 
     }

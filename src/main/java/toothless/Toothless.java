@@ -23,7 +23,6 @@ public class Toothless {
 
     /**
      * Initializes Toothless.
-     *
      * @return String message in case of initialization error.
      */
     public String initialize() {
@@ -44,14 +43,13 @@ public class Toothless {
 
     /**
      * Get response to user input.
-     *
      * @param input User input from GUI.
      * @return String of Toothless' response.
      */
     public String getResponse(String input) {
         String response = "";
         try {
-            response += parser.parseInput(tasks, ui, input);
+            response += parser.parseInput(input, tasks, ui);
         } catch (ToothlessException e) {
             response += e.getMessage();
         }

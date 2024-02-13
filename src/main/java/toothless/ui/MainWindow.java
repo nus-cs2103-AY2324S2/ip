@@ -44,7 +44,6 @@ public class MainWindow extends AnchorPane {
 
     /**
      * Sets Toothless object.
-     *
      * @param t Toothless object.
      */
     public void setToothless(Toothless t) {

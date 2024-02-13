@@ -11,7 +11,6 @@ public class Deadline extends Task {
 
     /**
      * A public constructor to initialize a new Deadline.
-     *
      * @param description A String to describe the task.
      * @param by A LocalDateTime for the deadline due of the task.
      */
@@ -22,7 +21,6 @@ public class Deadline extends Task {
 
     /**
      * A public constructor to initialize a Deadline with an isDone value.
-     *
      * @param description A String to describe the task.
      * @param isDone A Boolean to describe if the task is done.
      * @param by A LocalDateTime for the deadline due of the task.

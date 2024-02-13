@@ -13,33 +13,50 @@ import toothless.ui.Ui;
 public class Parser {
     /**
      * The main method that parses user input.
-     *
-     * @param tasks TaskList that is operated on when user command is executed.
-     * @param ui Ui class used to print messages.
      * @param userInput User input string to be parsed.
+     * @param tasks TaskList class that is operated on when user command is executed.
+     * @param ui Ui class used to print messages.
      * @return String of response.
      * @throws ToothlessException if user input is invalid.
      */
-    public String parseInput(TaskList tasks, Ui ui, String userInput) throws ToothlessException {
+    public String parseInput(String userInput, TaskList tasks, Ui ui) throws ToothlessException {
         String response = "";
-        if (userInput.startsWith("list")) {
+        if (userInput.equals("bye")) {
+            response = "Bye. Purr-lease chat again soon!";
+        } else if (userInput.equals("list")) {
             response = ui.getListMessage(tasks.getTasks(),
                     "Oops! Looks like you haven't added any tasks yet!",
                     "Here are the tasks in your list:\n");
-        } else if (userInput.startsWith("mark")) {
-            response = parseIndexInput(tasks, ui, userInput, "mark");
-        } else if (userInput.startsWith("unmark")) {
-            response = parseIndexInput(tasks, ui, userInput, "unmark");
-        } else if (userInput.startsWith("delete")) {
-            response = parseIndexInput(tasks, ui, userInput, "delete");
-        } else if (userInput.startsWith("find")) {
-            response = parseFindInput(tasks, ui, userInput);
-        } else if (userInput.startsWith("todo")) {
-            response = parseToDoInput(tasks, ui, userInput);
-        } else if (userInput.startsWith("deadline")) {
-            response = parseDeadlineInput(tasks, ui, userInput);
-        } else if (userInput.startsWith("event")) {
-            response = parseEventInput(tasks, ui, userInput);
+        } else if (userInput.startsWith("mark ") || userInput.equals("mark")) {
+            int listIndex = validateListInput(userInput, "mark", tasks.size());
+            Task markedTask = tasks.markTask(listIndex);
+            response = ui.getMarkedTaskMessage(markedTask);
+        } else if (userInput.startsWith("unmark ") || userInput.equals("unmark")) {
+            int listIndex = validateListInput(userInput, "unmark", tasks.size());
+            Task unmarkedTask = tasks.unmarkTask(listIndex);
+            response = ui.getUnmarkedTaskMessage(unmarkedTask);
+        } else if (userInput.startsWith("todo ") || userInput.equals("todo")) {
+            String taskDescription = validateToDoInput(userInput);
+            Task newTask = tasks.addToDoToList(taskDescription);
+            response = ui.getNewTaskMessage(newTask, tasks.size());
+        } else if (userInput.startsWith("deadline ") || userInput.equals("deadline")) {
+            String[] deadlineAttributes = validateDeadlineInput(userInput);
+            Task newTask = tasks.addDeadlineToList(deadlineAttributes[0], deadlineAttributes[1]);
+            response = ui.getNewTaskMessage(newTask, tasks.size());
+        } else if (userInput.startsWith("event ") || userInput.equals("event")) {
+            String[] eventAttributes = validateEventInput(userInput);
+            Task newTask = tasks.addEventToList(eventAttributes[0], eventAttributes[1], eventAttributes[2]);
+            response = ui.getNewTaskMessage(newTask, tasks.size());
+        } else if (userInput.startsWith("delete ") || userInput.equals("delete")) {
+            int listIndex = validateListInput(userInput, "delete", tasks.size());
+            Task deletedTask = tasks.deleteTask(listIndex);
+            response = ui.getDeletedTaskMessage(deletedTask, tasks.size());
+        } else if (userInput.startsWith("find ") || userInput.equals("find")) {
+            String keyword = validateFindInput(userInput);
+            ArrayList<Task> keywordTasks = tasks.findKeyword(keyword);
+            response = ui.getListMessage(keywordTasks,
+                    "Oops! Looks like there are no tasks matching the keyword!",
+                    "Here are the meow-tching tasks in your list:\n");
         } else {
             throw new ToothlessException("Sorry, I don't understand what that means D:");
         }
@@ -47,132 +64,120 @@ public class Parser {
     }
 
     /**
-     * Validates the user input for commands dealing with list indexes.
-     *
-     * @param tasks TaskList that is operated on when user command is executed.
-     * @param ui Ui class used to print messages.
-     * @param indexInput User input string for list item to be validated.
+     * Validates the user input for commands dealing with list item.
+     * @param listInput User input string for list item to be validated.
      * @param command The user command that uses the list item.
-     * @return String of response to list item commands.
+     * @param taskListSize The size of the taskList.
+     * @return Integer of the list index to be retrieved.
      * @throws ToothlessException if user input is invalid or in the wrong format.
      */
-    public String parseIndexInput(TaskList tasks, Ui ui, String indexInput, String command) throws ToothlessException {
-        // check format
-        if (!indexInput.matches("(mark|unmark|delete)\\s\\d+")) {
-            throw new ToothlessException(
-                    String.format("Sorry, purr-lease use the format: %s listIndex", command));
+    public int validateListInput(String listInput, String command, int taskListSize) throws ToothlessException {
+        // split string by spaces
+        String[] markInputSplit = listInput.strip().split("\\s+");
+        try {
+            if (markInputSplit.length > 2) {
+                throw new ToothlessException(
+                        String.format("Sorry, purr-lease only include one numeric argument after %s.", command));
+            } else if (markInputSplit.length < 2 || markInputSplit[1].isBlank()) {
+                throw new ToothlessException(String.format("Sorry, purr-lease state a list index to %s.", command));
+            }
+            // try parsing integer
+            int listIndex = Integer.parseInt(markInputSplit[1]);
+            // check index bounds
+            if (listIndex < 1 || listIndex > taskListSize) {
+                throw new ToothlessException("Apurrlogies, there's no task at that index.");
+            }
+            return listIndex;
+        } catch (NumberFormatException e) {
+            throw new ToothlessException(String.format("Sorry, purr-lease use a numeric list index to %s.", command));
         }
-        // split input and get integer
-        String[] listInputSplit = indexInput.strip().split("\\s+");
-        int listIndex = Integer.parseInt(listInputSplit[1]);
-        // check if within list index
-        if (listIndex < 1 || listIndex > tasks.getSize()) {
-            throw new ToothlessException("Apurrlogies, there's no task at that index.");
-        }
-        // operate on tasklist according to command
-        switch (command) {
-        case "mark":
-            Task markedTask = tasks.markTask(listIndex);
-            return ui.getMarkedTaskMessage(markedTask);
-        case "unmark":
-            Task unmarkedTask = tasks.unmarkTask(listIndex);
-            return ui.getUnmarkedTaskMessage(unmarkedTask);
-        case "delete":
-            Task deletedTask = tasks.deleteTask(listIndex);
-            return ui.getDeletedTaskMessage(deletedTask, tasks.getSize());
-        default:
-            throw new ToothlessException("Sorry, I don't understand what that means D:");
-        }
-    }
-
-    /**
-     * Validates the user input for find command.
-     *
-     * @param tasks TaskList where keyword is to be searched.
-     * @param ui Ui class used to print messages.
-     * @param findInput The user input for find command.
-     * @return String response of find command.
-     * @throws ToothlessException if input is invalid or wrong format.
-     */
-    public String parseFindInput(TaskList tasks, Ui ui, String findInput) throws ToothlessException {
-        if (!findInput.matches("find\\s[^/]+")) {
-            throw new ToothlessException("Apurrlogies, please use the format: find keyword");
-        }
-        String keyword = findInput.replace("find", "").strip();
-        if (keyword.isBlank()) {
-            throw new ToothlessException("Sorry, keyword cannot be empty.");
-        }
-        ArrayList<Task> keywordTasks = tasks.findKeyword(keyword);
-        return ui.getListMessage(keywordTasks,
-                "Oops! Looks like there are no tasks matching the keyword!",
-                "Here are the meow-tching tasks in your list:\n");
     }
 
     /**
      * Validates the user input for todo command.
-     *
-     * @param tasks TaskList that new ToDo Task is added to.
-     * @param ui Ui class used to print messages.
      * @param toDoInput User input string for todo command.
-     * @return String response of todo command.
-     * @throws ToothlessException if user input is invalid or wrong format.
+     * @return The todo task description.
+     * @throws ToothlessException if task description is empty.
      */
-    public String parseToDoInput(TaskList tasks, Ui ui, String toDoInput) throws ToothlessException {
-        if (!toDoInput.matches("todo\\s[^/]+")) {
-            throw new ToothlessException("Apurrlogies, please use the format: todo description");
-        }
-        String taskDescription = toDoInput.replace("todo", "").strip();
+    public String validateToDoInput(String toDoInput) throws ToothlessException {
+        String taskDescription = toDoInput.replace("todo ", "").strip();
         if (taskDescription.isBlank()) {
-            throw new ToothlessException("Apurr-logies, task description cannot be empty.");
+            throw new ToothlessException("Apurrlogies, the task description cannot be empty.");
         }
-        Task newTask = tasks.addToDoToList(taskDescription);
-        return ui.getNewTaskMessage(newTask, tasks.getSize());
+        return taskDescription;
     }
 
     /**
      * Validates the user input for deadline command.
-     *
-     * @param tasks TaskList that new Deadline Task is added to.
-     * @param ui Ui class used to print messages.
      * @param deadlineInput User input string for deadline command.
-     * @return String response of deadline command.
+     * @return String array containing task description and /by field.
      * @throws ToothlessException if user input is invalid or in the wrong format.
      */
-    public String parseDeadlineInput(TaskList tasks, Ui ui, String deadlineInput) throws ToothlessException {
-        if (!deadlineInput.matches("deadline\\s[^/]+\\s/by\\s\\d{4}-\\d{2}-\\d{2}\\s\\d{2}:\\d{2}")) {
+    public String[] validateDeadlineInput(String deadlineInput) throws ToothlessException {
+        String[] deadlineAttributes = deadlineInput.replace("deadline ", "")
+                .strip().split("\\s+/by\\s+");
+
+        if (deadlineAttributes.length != 2) {
             throw new ToothlessException("Sorry, purr-lease use the format: "
                     + "deadline [description] /by [yyyy-mm-dd hh:mm].");
+        } else if (deadlineAttributes[0].isBlank()) {
+            throw new ToothlessException("Apurrlogies, the task description cannot be empty.");
+        } else if (deadlineAttributes[1].isBlank()) {
+            throw new ToothlessException("Apurrlogies, the /by field cannot be empty.");
         }
-        String[] deadlineAttributes = deadlineInput.replace("deadline", "")
-                .strip().split("\\s*/by\\s*");
-        if (deadlineAttributes[0].isBlank()) {
-            throw new ToothlessException("Sorry, task description cannot be empty.");
-        }
-        Task newTask = tasks.addDeadlineToList(deadlineAttributes[0], deadlineAttributes[1]);
-        return ui.getNewTaskMessage(newTask, tasks.getSize());
+
+        return deadlineAttributes;
     }
 
     /**
      * Validates the user input for event command.
-     *
-     * @param tasks TaskList that new Event Task is added to.
-     * @param ui Ui class used to print messages.
      * @param eventInput User input string for event command.
-     * @return String response of event command.
+     * @return String array containing task description, /from field and /to field.
      * @throws ToothlessException if user input is invalid or in the wrong format.
      */
-    public String parseEventInput(TaskList tasks, Ui ui, String eventInput) throws ToothlessException {
-        if (!eventInput.matches("event\\s[^/]+\\s/from\\s\\d{4}-\\d{2}-\\d{2}\\s\\d{2}:\\d{2}\\s"
-                + "/to\\s\\d{4}-\\d{2}-\\d{2}\\s\\d{2}:\\d{2}")) {
+    public String[] validateEventInput(String eventInput) throws ToothlessException {
+        String[] eventAttributes = new String[3];
+        String[] tempAttributes = eventInput.replace("event ", "")
+                .strip().split("\\s+/from\\s+|\\s+/to\\s+");
+
+        int fromIndex = eventInput.indexOf("/from");
+        int toIndex = eventInput.indexOf("/to");
+
+        if (tempAttributes.length != 3) {
             throw new ToothlessException("Sorry, purr-lease use the format: "
-                    + "event description /from yyyy-mm-dd hh:mm /to yyyy-mm-dd hh:mm");
-        }
-        String[] eventAttributes = eventInput.replace("event", "")
-                .strip().split("\\s*/from\\s*|\\s*/to\\s*");
-        if (eventAttributes[0].isBlank()) {
+                    + "event [description] /from [yyyy-mm-dd hh:mm] /to [yyyy-mm-dd hh:mm]");
+        } else if (fromIndex == -1 || toIndex == -1) {
+            throw new ToothlessException("Sorry, purr-lease remember to include the /from and /to fields.");
+        } else if (tempAttributes[0].isBlank()) {
             throw new ToothlessException("Apurrlogies, the task description cannot be empty.");
+        } else if (tempAttributes[1].isBlank() || tempAttributes[2].isBlank()) {
+            throw new ToothlessException(("Apurrlogies, the /from and /to fields cannot be empty."));
         }
-        Task newTask = tasks.addEventToList(eventAttributes[0], eventAttributes[1], eventAttributes[2]);
-        return ui.getNewTaskMessage(newTask, tasks.getSize());
+
+        eventAttributes[0] = tempAttributes[0];
+
+        if (fromIndex < toIndex) {
+            eventAttributes[1] = tempAttributes[1];
+            eventAttributes[2] = tempAttributes[2];
+        } else {
+            eventAttributes[1] = tempAttributes[2];
+            eventAttributes[2] = tempAttributes[1];
+        }
+
+        return eventAttributes;
+    }
+
+    /**
+     * Validates the user input for find command.
+     * @param findInput The user input for find command.
+     * @return The keyword to be found.
+     * @throws ToothlessException if keyword is blank.
+     */
+    public String validateFindInput(String findInput) throws ToothlessException {
+        String keyword = findInput.replace("find ", "").strip();
+        if (keyword.isBlank()) {
+            throw new ToothlessException("Apurrlogies, the keyword cannot be empty.");
+        }
+        return keyword;
     }
 }
