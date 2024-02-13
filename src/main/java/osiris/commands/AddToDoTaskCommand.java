@@ -1,6 +1,7 @@
 package osiris.commands;
 
 import osiris.exceptions.OsirisException;
+import osiris.task.Task;
 import osiris.task.TaskManager;
 import osiris.ui.Ui;
 
@@ -36,8 +37,11 @@ public class AddToDoTaskCommand extends Command {
     public String execute(TaskManager taskManager, Ui userInterface) {
         boolean isSuccess = taskManager.addToDoTask(taskName, false);
         if (isSuccess) {
-            return userInterface.displayToDoTaskAdditionNotification(taskManager.getTask(
-                    taskManager.getTotalTaskCount() - 1).toString(), taskManager.getTotalTaskCount());
+            int lastTaskIndex = taskManager.getTotalTaskCount() - 1;
+            Task lastTask = taskManager.getTask(lastTaskIndex);
+            String taskDetails = lastTask.toString();
+            int totalTasks = taskManager.getTotalTaskCount();
+            return userInterface.displayToDoTaskAdditionNotification(taskDetails, totalTasks);
         }
         throw new OsirisException("An error has occurred. Please try again.");
     }
