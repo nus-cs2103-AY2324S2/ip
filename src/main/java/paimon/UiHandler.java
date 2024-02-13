@@ -43,24 +43,27 @@ public class UiHandler {
                 "todo <task>: Adds a Task without any deadline\n" +
                 "deadline <task> /by <time>: Adds a task done before a time\n" +
                 "event<Task> /from <time> /to <time>: Adds a task with a time window\n" +
-                "mark/unmark <index>: Marks a Task as done. Index must be a number!\n" +
-                "unmark <index>: Mark a Task as not done. Index must be a number!\n" +
+                "mark/unmark <index>: Marks a Task as done. Index must be a number\n" +
+                "unmark <index>: Mark a Task as not done. Index must be a number\n" +
                 "delete <index>: Deletes a Task from your list!. Index must be a number\n" +
+                "find <keyword>: Lists tasks that contain keyword\n" +
                 "bye : Exits the program"
                 );
     }
-    public void addTaskResponse(Task task, int tasksLeft) {
-        sendMessage("Okay Traveller, I've added the following task!", task.getTask(), "You have " + tasksLeft + " tasks in your list");
+    public void addTaskResponse(String taskString, int tasksLeft) {
+        sendMessage("Okay Traveller, I've added the following task!", taskString, "You have " + tasksLeft + " tasks in your list");
     }
     public void deleteTaskResponse(int tasksLeft) {
         sendMessage("Okay Traveller, I've deleted the task! You now have " + tasksLeft + " tasks remaining.");
     }
-
-    public void markTaskResponse(Task task, boolean isDone) {
+    public void getFoundResponse(String taskString) {
+        sendMessage("Okay Traveller, here are the matching tasks", taskString);
+    }
+    public void markTaskResponse(String taskString, boolean isDone) {
         if (isDone) {
-            sendMessage("Okay Traveller, I've marked the task as done", task.getTask());
+            sendMessage("Okay Traveller, I've marked the task as done", taskString);
         } else {
-            sendMessage("Okay Traveller, I've unmarked this task", task.getTask());
+            sendMessage("Okay Traveller, I've unmarked this task", taskString);
         }
     }
     public void greetResponse() {

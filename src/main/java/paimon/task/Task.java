@@ -6,6 +6,7 @@ public abstract class Task {
     protected final static DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     protected String description;
     protected boolean isDone;
+
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -16,6 +17,10 @@ public abstract class Task {
     public abstract String toFileString();
     public void setTaskState(boolean isDone) {
         this.isDone = isDone;
+    }
+
+    public boolean containsKeyword(String keyword) {
+        return description.contains(keyword);
     }
 
 }

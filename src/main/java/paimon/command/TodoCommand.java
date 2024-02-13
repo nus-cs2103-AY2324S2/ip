@@ -17,7 +17,7 @@ public class TodoCommand extends Command {
     public void execute(TaskList taskList, UiHandler ui) throws ChatException {
         Task eventTask = new TodoTask(this.description);
         taskList.addTask(eventTask);
-        ui.addTaskResponse(eventTask, taskList.getSize());
+        ui.addTaskResponse(eventTask.getTask(), taskList.getSize());
     };
     public boolean isExit() {
         return false;

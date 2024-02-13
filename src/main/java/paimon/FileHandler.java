@@ -4,7 +4,6 @@ import paimon.task.*;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.io.FileWriter;
 
