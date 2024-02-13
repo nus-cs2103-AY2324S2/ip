@@ -42,8 +42,10 @@ test {
 }
 
 application {
-    mainClass.set("lrbg.codriver.CoDriver")
+//    mainClass.set("lrbg.codriver.CoDriver")
+    mainClass.set("lrbg.codriver.ui.Launcher")
 }
+
 
 shadowJar {
     archiveBaseName.set("codriver")
