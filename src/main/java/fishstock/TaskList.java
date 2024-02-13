@@ -105,7 +105,7 @@ class TaskList {
     protected Task addTask(CommandType commandType, UserInput input) throws FishStockException {
         assert commandType == CommandType.TODO || commandType == CommandType.DEADLINE
                 || commandType == CommandType.EVENT : "Attempted to add an invalid Task";
-        
+
         Task task = null;
         switch (commandType) {
         case TODO:
