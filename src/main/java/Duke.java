@@ -61,6 +61,7 @@ public class Duke {
     }
 
     public String getResponse(String userInput) {
+        assert userInput != null;
         Command command = Parser.parse(userInput);
         return command.getExecuteMessage(tasks, ui, storage);
     }
