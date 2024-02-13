@@ -35,7 +35,6 @@ public class Tyrone {
         } catch (StorageHelperException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     /**
@@ -50,6 +49,8 @@ public class Tyrone {
             Command command = new Parser().parseRawUserCommand(rawUserCommand);
             command.initData(this.taskList);
             CommandResult result = command.execute();
+
+            assert result != null : "result should not be null";
 
             if (command instanceof ByeCommand) {
                 this.isExit = true;
