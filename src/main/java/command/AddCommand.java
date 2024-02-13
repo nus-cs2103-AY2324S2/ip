@@ -23,7 +23,7 @@ public class AddCommand extends Command {
     public String execute(TaskList tasks, Storage storage) {
         tasks.addTask(this.task);
         String response = "";
-        response += "I've added the following task:\n" + task + "You have " + tasks.size() + " tasks";
+        response += "I've added the following task:\n" + task + "\nYou have " + tasks.size() + " tasks";
         return response;
     }
 

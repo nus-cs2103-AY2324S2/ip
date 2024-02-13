@@ -3,7 +3,7 @@ package task;
 /**
  * Represents a todo type task.
  */
-public class Todo extends Task{
+public class Todo extends Task {
     /**
      * Creates a Todo object with description.
      *
@@ -14,8 +14,8 @@ public class Todo extends Task{
     }
 
     @Override
-    public String writeTask() {
-        return "T | " + super.writeTask();
+    public String toWritableString() {
+        return "T | " + super.toWritableString();
     }
 
     @Override

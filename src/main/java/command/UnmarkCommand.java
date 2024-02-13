@@ -8,22 +8,21 @@ import task.TaskList;
 /**
  * Represents Command that marks or unmarks tasks.
  */
-public class MarkCommand extends Command {
+public class UnmarkCommand extends Command {
     private int taskIndex;
 
     /**
-     * Creates MarkCommand with specified task to mark or unmark.
+     * Creates UnmarkCommand with specified task to unmark.
      *
-     * @param taskIndex Task to be modified.
+     * @param taskIndex Task to be unmarked.
      */
-
-    public MarkCommand(int taskIndex) {
+    public UnmarkCommand(int taskIndex) {
         assert taskIndex > 0;
         this.taskIndex = taskIndex;
     }
 
     /**
-     * Marks tasks.
+     * Unmarks tasks.
      *
      * @param tasks TaskList consisting of Tasks.
      * @param storage Current Storage object used.
@@ -34,7 +33,7 @@ public class MarkCommand extends Command {
         String response = "I've updated the following task:\n";
         try {
             Task task = tasks.getTask(taskIndex);
-            task.setDone(true);
+            task.setDone(false);
             response += task;
             return response;
         } catch (IndexOutOfBoundsException ioobe) {
