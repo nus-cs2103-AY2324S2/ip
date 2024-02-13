@@ -44,12 +44,18 @@ public class TaskList {
 
     /**
      * Returns the task at index int.
+     * @param index The index of the task to be returned.
      * @return the task at index int.
      */
     public Task getTask(int index) {
         return list.get(index);
     }
 
+    /**
+     * Returns the list of duke tasks.
+     * @param search The search string to find tasks.
+     * @return The list of duke tasks.
+     */
     public TaskList findTasks(String search) {
         TaskList found = new TaskList();
         for (Task t : list) {
