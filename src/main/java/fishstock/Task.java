@@ -54,6 +54,7 @@ abstract class Task {
      * @return The cloned Task.
      */
     protected abstract Task clone();
+
     @Override
     public String toString() {
         return "[" + (this.isDone ? "X" : " ") + "] " + this.description;

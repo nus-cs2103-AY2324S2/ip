@@ -40,7 +40,7 @@ public class FishStock {
      */
     public void exit() {
         try {
-            storage.close();
+            storage.close(list);
         } catch (IOException e) {
             e.printStackTrace();
         }

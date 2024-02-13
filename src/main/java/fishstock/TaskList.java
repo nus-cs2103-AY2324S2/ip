@@ -3,7 +3,7 @@ package fishstock;
 import java.util.ArrayList;
 import java.util.Stack;
 
-import fishstock.Command.CommandType;
+import fishstock.Command.Keyword;
 
 /**
  * Encapsulates a TaskList object.
@@ -57,7 +57,7 @@ class TaskList {
      * @throws FishStockException The exceptions while changing the mark.
      */
     protected Task markTask(UserInput input) throws FishStockException {
-        return changeMark(CommandType.MARK, input);
+        return changeMark(Keyword.MARK, input);
     }
 
     /**
@@ -67,26 +67,26 @@ class TaskList {
      * @throws FishStockException The exceptions while changing the mark.
      */
     protected Task unmarkTask(UserInput input) throws FishStockException {
-        return changeMark(CommandType.UNMARK, input);
+        return changeMark(Keyword.UNMARK, input);
     }
 
     /**
      * Marks whether Task is done.
-     * @param commandType The type of command.
+     * @param keyword The type of command.
      * @param input The input from user.
      * @return The marked/unmarked Task.
      * @throws FishStockException The exceptions while changing the mark.
      */
-    private Task changeMark(CommandType commandType, UserInput input) throws FishStockException {
-        assert commandType == CommandType.MARK || commandType == CommandType.UNMARK : "Not a marking Command";
+    private Task changeMark(Keyword keyword, UserInput input) throws FishStockException {
+        assert keyword == Keyword.MARK || keyword == Keyword.UNMARK : "Not a marking Command";
 
         int idx = input.getIndex();
         try {
             Task task = list.get(idx);
             saveState();
-            if (commandType == CommandType.MARK) {
+            if (keyword == Keyword.MARK) {
                 task.markAsDone();
-            } else if (commandType == CommandType.UNMARK) {
+            } else if (keyword == Keyword.UNMARK) {
                 task.markAsUndone();
             }
             return task;
@@ -117,29 +117,12 @@ class TaskList {
 
     /**
      * Adds Task into array.
-     * @param commandType The type of command.
      * @param input The input from user.
      * @return The added Task.
      * @throws FishStockException The exceptions while adding the Task.
      */
-    protected Task addTask(CommandType commandType, UserInput input) throws FishStockException {
-        assert commandType == CommandType.TODO || commandType == CommandType.DEADLINE
-                || commandType == CommandType.EVENT : "Attempted to add an invalid Task";
-
-        Task task = null;
-        switch (commandType) {
-        case TODO:
-            task = Todo.of(input);
-            break;
-        case DEADLINE:
-            task = Deadline.of(input);
-            break;
-        case EVENT:
-            task = Event.of(input);
-            break;
-        default:
-            // Not possible as assert statement checks for validity.
-        }
+    protected Task addTask(UserInput input) throws FishStockException {
+        Task task = TaskFactory.of(input);
         saveState();
         list.add(task);
         return task;

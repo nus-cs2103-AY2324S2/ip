@@ -12,7 +12,6 @@ import java.util.Scanner;
  * Handles all storing/loading of save files.
  */
 class Storage {
-    protected final ArrayList<Task> list = new ArrayList<>();
     private final File db;
     private final String filePath;
 
@@ -28,65 +27,37 @@ class Storage {
     }
 
     /**
-     * Loads a single Task into array.
-     * @param line The task string.
-     * @throws FishStockException The exceptions while loading the task.
-     */
-    protected void loadTask(String line) throws FishStockException {
-        String[] arr = line.split("\\|");
-        String markStatus = arr[arr.length - 1];
-        Task task;
-
-        try {
-            if ("T".equals(arr[0])) {
-                task = new Todo(arr[1]);
-            } else if ("D".equals(arr[0])) {
-                task = new Deadline(arr[1], Parser.parseDate(arr[2]));
-            } else if ("E".equals(arr[0])) {
-                task = new Event(arr[1], Parser.parseDate(arr[2]), Parser.parseDate(arr[3]));
-            } else {
-                throw new FishStockException("Wrong format..");
-            }
-
-            if (markStatus.equals("1")) {
-                task.markAsDone();
-            } else if (markStatus.equals("0")) {
-                task.markAsUndone();
-            } else {
-                throw new FishStockException("Mark status corrupted..");
-            }
-        } catch (FishStockException e) {
-            throw new FishStockException("File corrupted!... Starting new session...\n");
-        }
-        list.add(task);
-    }
-
-    /**
      * Loads the entire save file into array.
      * @return The array with all Tasks.
      * @throws FishStockException The exceptions while loading all Tasks.
      */
     protected ArrayList<Task> load() throws FishStockException {
         try {
+            ArrayList<Task> list = new ArrayList<>();
             Scanner sc = new Scanner(db);
             while (sc.hasNext()) {
-                loadTask(sc.nextLine());
+                Task task = TaskFactory.fromStorageString(sc.nextLine());
+                list.add(task);
             }
+            return list;
+
         } catch (FileNotFoundException e) {
             String pathToDb = filePath.substring(0, filePath.lastIndexOf("/"));
             new File(pathToDb).mkdir();
             throw new FishStockException("File not found... Starting new session...\n");
+
+        } catch (FishStockException e) {
+            throw new FishStockException("File corrupted!... Starting new session...\n");
         }
-        return list;
     }
 
     /**
      * Saves all Tasks in array into save file.
      * @throws IOException The exceptions while saving all Tasks.
      */
-    protected void close() throws IOException {
+    protected void close(TaskList list) throws IOException {
         FileWriter fw = new FileWriter(db);
-        for (Task task : list) {
+        for (Task task : list.list) {
             fw.write(task.toSaveString());
         }
         fw.close();

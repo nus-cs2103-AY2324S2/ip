@@ -2,6 +2,8 @@ package fishstock;
 
 import java.time.LocalDateTime;
 
+import fishstock.Command.Keyword;
+
 /**
  * Encapsulates an Event Task.
  * This Task has a description, from date, and to date.
@@ -64,7 +66,7 @@ class Event extends Task {
      * @throws FishStockException The exceptions while creating the Event object.
      */
     protected static Event of(UserInput input) throws FishStockException {
-        assert input.getCommandType() == Command.CommandType.EVENT : "The input type is not Event";
+        assert input.getCommandType() == Command.Keyword.EVENT : "The input type is not Event";
 
         String[] splitInput = input.splitByKeywords(FROM_KEYWORD, TO_KEYWORD);
         checkIsValid(splitInput);
@@ -82,12 +84,13 @@ class Event extends Task {
 
     @Override
     protected String toSaveString() {
-        return "E|" + getDescription() + "|" + Parser.inDate(from) + "|" + Parser.inDate(to) + "|"
-                + toSaveIsDone() + System.lineSeparator();
+        return Keyword.EVENT.getShortened() + "|" + getDescription() + "|" + Parser.inDate(from) + "|"
+                + Parser.inDate(to) + "|" + toSaveIsDone() + System.lineSeparator();
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + Parser.outDate(from) + " to: " + Parser.outDate(to) + ")";
+        return "[" + Keyword.EVENT.getShortened() + "]" + super.toString() + " (from: " + Parser.outDate(from)
+                + " to: " + Parser.outDate(to) + ")";
     }
 }

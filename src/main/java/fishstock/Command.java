@@ -15,8 +15,29 @@ class Command {
     /**
      * List of keywords to run respective commands.
      */
-    public enum CommandType {
-        INVALID, BYE, LIST, MARK, UNMARK, DELETE, FIND, TODO, DEADLINE, EVENT, UNDO;
+    public enum Keyword {
+        INVALID, BYE, LIST, MARK, UNMARK, DELETE, FIND, UNDO,
+        TODO("T"), DEADLINE("D"), EVENT("E");
+
+        private String shortened;
+        Keyword() {
+        }
+        Keyword(String shortened) {
+            this.shortened = shortened;
+        }
+
+        public String getShortened() {
+            return shortened;
+        }
+
+        public static Keyword findShortened(String shortened) {
+            for (Keyword keyword : Keyword.values()) {
+                if (shortened.equals(keyword.shortened)) {
+                    return keyword;
+                }
+            }
+            return Keyword.INVALID;
+        }
     }
 
     /**
@@ -35,10 +56,10 @@ class Command {
      * @return The output from the command.
      */
     protected static String runCommand(TaskList list, UserInput input) {
-        CommandType commandType = input.getCommandType();
+        Keyword keyword = input.getCommandType();
 
         try {
-            switch (commandType) {
+            switch (keyword) {
             case BYE:
                 Platform.exit();
                 return ""; // Won't reach here
@@ -60,7 +81,7 @@ class Command {
             case DEADLINE:
                 // Fallthrough
             case EVENT:
-                return ADD_TASK_PREFIX + list.addTask(commandType, input) + getTaskCount(list);
+                return ADD_TASK_PREFIX + list.addTask(input) + getTaskCount(list);
             default:
                 return UNKNOWN_COMMAND;
             }
