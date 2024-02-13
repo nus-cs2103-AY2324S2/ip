@@ -83,19 +83,21 @@ public class TaskList {
      * Displays the list of tasks in a formatted manner.
      * If the list is empty, it shows an appropriate message.
      */
-    public void showList() {
+    public String showList() {
+        StringBuilder sb = new StringBuilder();
         try {
             DukeExceptions.checkListNotEmpty(this.tasks);
         } catch (DukeExceptions e) {
             System.out.println(e.getMessage());
+            sb.append(e.getMessage());
         }
 
-        Ui.showLine();
         for (int i = 0; i < tasks.size(); i++) {
             Task t = tasks.get(i);
             System.out.println((i + 1) + "." + t.toString());
+            sb.append((i + 1) + "." + t.toString() + "\n");
         }
-        Ui.showLine();
+        return sb.toString();
     }
 
     /**

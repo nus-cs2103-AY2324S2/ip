@@ -14,27 +14,34 @@ public class Ui {
     /**
      * Displays a welcome message when the application starts.
      */
-    public void showWelcome() {
+    public String showWelcome() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Hello! I'm AcademicWeapon\n");
+        sb.append("What can I do for you?\n");
+        System.out.println("Hello! I'm AcademicWeapon\n");
+        System.out.println("What can I do for you?\n");
         Ui.showLine();
-        System.out.println("Hello! I'm AcademicWeapon");
-        System.out.println("What can I do for you?");
-        Ui.showLine();
+        return (sb.toString());
     }
 
     /**
      * Displays a horizontal line as a separator in the console.
      */
-    public static void showLine() {
+    public static String showLine() {
+        StringBuilder sb = new StringBuilder();
         System.out.println("____________________________________________________________");
+        sb.append("____________________________________________________________\n");
+        return sb.toString();
     }
 
     /**
      * Displays an error message when there is an issue loading a file.
      */
-    public void showLoadingError() {
-        Ui.showLine();
+    public String showLoadingError() {
+        StringBuilder sb = new StringBuilder();
         System.out.println("Error loading file.");
-        Ui.showLine();
+        sb.append("Error loading file.\n");
+        return sb.toString();
     }
 
     /**
@@ -55,11 +62,13 @@ public class Ui {
      *
      * @param markTask The task that has been marked as done.
      */
-    public void printMarkDone(Task markTask) {
-        Ui.showLine();
+    public String printMarkDone(Task markTask) {
+        StringBuilder sb = new StringBuilder();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(markTask.toString());
-        Ui.showLine();
+        sb.append("Nice! I've marked this task as done:\n");
+        sb.append(markTask.toString());
+        return sb.toString();
     }
 
     /**
@@ -67,11 +76,13 @@ public class Ui {
      *
      * @param unmarkTask The task that has been marks as not done
      */
-    public void printUnmark(Task unmarkTask) {
-        Ui.showLine();
+    public String printUnmark(Task unmarkTask) {
+        StringBuilder sb = new StringBuilder();
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(unmarkTask.toString());
-        Ui.showLine();
+        sb.append("OK, I've marked this task as not done yet:\n");
+        sb.append(unmarkTask.toString());
+        return sb.toString();
     }
 
     /**
@@ -80,12 +91,15 @@ public class Ui {
      * @param addTask The task that has been added
      * @param size The current size of the task list
      */
-    public void printAddSuccessful(Task addTask, int size) {
-        Ui.showLine();
+    public String printAddSuccessful(Task addTask, int size) {
+        StringBuilder sb = new StringBuilder();
         System.out.println("Got it. I've added this task:");
         System.out.println(addTask.toString());
         System.out.println("Now you have " + size + " tasks in the list.");
-        Ui.showLine();
+        sb.append("Got it. I've added this task:\n");
+        sb.append(addTask.toString());
+        sb.append("Now you have " + size + " tasks in the list.\n");
+        return sb.toString();
     }
 
     /**
@@ -94,20 +108,24 @@ public class Ui {
      * @param toBeRemoved The task that has been removed
      * @param size The current size of the task list
      */
-    public void removeSuccessful(Task toBeRemoved, int size) {
-        Ui.showLine();
+    public String removeSuccessful(Task toBeRemoved, int size) {
+        StringBuilder sb = new StringBuilder();
         System.out.println("Noted. I've removed this task:");
         System.out.println(toBeRemoved.toString());
         System.out.println("Now you have " + size + " tasks in the list.");
-        Ui.showLine();
+        sb.append("Noted. I've removed this task:\n");
+        sb.append(toBeRemoved.toString());
+        sb.append("Now you have " + size + " tasks in the list.\n");
+        return sb.toString();
     }
 
     /**
      * Displays a goodbye message when the application is about to exit.
      */
-    public void showBye() {
-        Ui.showLine();
+    public String showBye() {
+        StringBuilder sb = new StringBuilder();
         System.out.println("Bye. Hope to see you again soon!");
-        Ui.showLine();
+        sb.append("Bye. Hope to see you again soon!\n");
+        return sb.toString();
     }
 }
