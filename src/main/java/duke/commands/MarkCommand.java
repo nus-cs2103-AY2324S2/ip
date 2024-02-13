@@ -34,16 +34,18 @@ public class MarkCommand extends Command {
 
         int taskIdx = task - 1;
         Task currTask = userTasks.getTask(taskIdx);
-        String response = "";
         if (cmd[0].equals("mark")) {
             currTask.markAsDone();
-            response = "    Nice! I have marked this task as done: \n"
+            String response = "    Nice! I have marked this task as done: \n"
                     + "        " + currTask;
+            return response;
         } else if (cmd[0].equals("unmark")) {
             currTask.markAsUndone();
-            response = "    Ok, I've marked this task as not done yet: \n"
+            String response = "    Ok, I've marked this task as not done yet: \n"
                     + "        " + currTask;
+            return response;
+        } else {
+            throw new DukeException("unknown command containing 'mark'. Perhaps try another keyword?");
         }
-        return response;
     }
 }

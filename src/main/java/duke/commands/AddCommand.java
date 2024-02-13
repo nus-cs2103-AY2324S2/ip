@@ -46,11 +46,10 @@ public class AddCommand extends Command {
             isAdded = true;
         }
 
-        String response;
         if (isAdded) {
             int numTasks = userTasks.getSize();
             Task addedTask = userTasks.getTask(numTasks - 1);
-            response = "    Got it. I've added this task:\n"
+            String response = "    Got it. I've added this task:\n"
                     + "        " + addedTask + "\n"
                     + "    Now you have " + numTasks + " tasks in the list.";
             return response;
