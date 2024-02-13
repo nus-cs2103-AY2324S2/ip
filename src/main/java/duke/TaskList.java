@@ -73,11 +73,8 @@ public class TaskList {
     public String mark(int position) {
         String str = "";
         // check for error
-        if (position + 1 > taskList.size()) {
+        if (position + 1 > taskList.size() || position < 0) {
             str = str + "Task does not exist";
-        } else if (position < 0) {
-            str = str + "Task does not exist";
-
         } else {
             Task t = taskList.get(position);
             if (t.getStatusIcon().equals(" ")) {
@@ -101,11 +98,8 @@ public class TaskList {
     public String unmark(int position) {
         String str = "";
         // check for error
-        if (position + 1 > taskList.size()) {
+        if (position + 1 > taskList.size() || position < 0) {
             str = str + "Task does not exist";
-        } else if (position < 0) {
-            str = str + "Task does not exist";
-
         } else {
             Task t = taskList.get(position);
             if (t.getStatusIcon().equals("X")) {
@@ -166,9 +160,7 @@ public class TaskList {
     public String delete(int position) {
         String str = "";
         // check for error
-        if (position + 1 > taskList.size()) {
-            str = str + "Task does not exist";
-        } else if (position < 0) {
+        if (position + 1 > taskList.size() || position < 0) {
             str = str + "Task does not exist";
         } else {
             Task t = taskList.get(position);

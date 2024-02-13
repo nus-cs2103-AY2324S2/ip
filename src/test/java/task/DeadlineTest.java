@@ -15,7 +15,7 @@ public class DeadlineTest {
 
     @Test
     public void testToString() {
-        LocalDate date = LocalDate.of(2022 , 2 , 2);
+        LocalDate date = LocalDate.of(2022, 2, 2);
         LocalTime time = LocalTime.of(10, 00);
 
         Deadline deadlineWithCorrectInput = new Deadline("test deadline description", date, time);

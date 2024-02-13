@@ -35,15 +35,14 @@ public class TodoCommand extends Command {
      */
     public String execute(TaskList taskList, Ui ui, Storage storage) throws EmptyInputException {
         String input = ui.getInput();
-        if (input.split(" ").length > 1) {
-            String description = input.substring(4).trim();
-            Todo t = new Todo(description);
-            String str = taskList.todo(t);
-            storage.writeTasks(taskList);
-            return str;
-        } else {
+        if (input.split(" ").length <= 1) {
             throw new EmptyInputException("todo");
         }
+        String description = input.substring(4).trim();
+        Todo t = new Todo(description);
+        String str = taskList.todo(t);
+        storage.writeTasks(taskList);
+        return str;
     }
 
     @Override
