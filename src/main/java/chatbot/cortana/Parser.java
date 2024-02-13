@@ -221,6 +221,7 @@ public class Parser {
      * @return the todo task
      */
     public static TodoTask parseTodoTask(String input) {
+        assert input.startsWith("todo") && input.length() > 4;
         return new TodoTask(input.substring(5));
     }
 
@@ -230,6 +231,7 @@ public class Parser {
      * @return the deadline task
      */
     public static DeadlineTask parseDeadlineTask(String input) {
+        assert input.startsWith("deadline") && input.length() > 8;
         String[] arr = input.substring(9).split("/by");
         LocalDateTime dateTime = parseDateTimeString(arr[1].trim());
         return new DeadlineTask(arr[0].trim(), dateTime);
@@ -241,6 +243,7 @@ public class Parser {
      * @return the event task
      */
     public static EventTask parseEventTask(String input) {
+        assert input.startsWith("event") && input.length() > 5;
         String[] arr = input.substring(6).split("/from");
         String[] arr2 = arr[1].split("/to");
         LocalDateTime startDateTime = parseDateTimeString(arr2[0].trim());
@@ -249,6 +252,7 @@ public class Parser {
     }
 
     public static String parseFindString(String input) {
+        assert input.startsWith("find") && input.length() > 4;
         return input.substring(5).trim();
     }
 
