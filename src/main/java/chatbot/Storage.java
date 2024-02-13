@@ -1,19 +1,25 @@
 package chatbot;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.io.FileWriter;
+import java.util.Arrays;
+import java.util.Scanner;
+
+
 
 /**
  * Represents the storage of the chatbot.
  */
 public class Storage {
     private File file;
+    /**
+     * Constructs the storage.
+     * @param filepath The filepath of the file.
+     */
     public Storage(String filepath) {
         try {
             this.file = new File(filepath);
@@ -112,7 +118,8 @@ public class Storage {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         switch (taskType) {
         case "chatbot.ToDo":
-            stringBuilder.append("T | ").append(task.isDone() ? 1 : 0).append(" | ").append(task.getDescription()).append("\n");
+            stringBuilder.append("T | ").append(task.isDone() ? 1 : 0).append(" | ")
+                    .append(task.getDescription()).append("\n");
             break;
         case "chatbot.Deadline":
             Deadline deadline = (Deadline) task;
@@ -125,7 +132,8 @@ public class Storage {
             int hour = by.getHour();
             int minute = by.getMinute();
             // Append the components to the StringBuilder
-            stringBuilder.append("D | ").append(task.isDone() ? 1 : 0).append(" | ").append(task.getDescription()).append(" | ")
+            stringBuilder.append("D | ").append(task.isDone() ? 1 : 0).append(" | ")
+                    .append(task.getDescription()).append(" | ")
                     .append(day).append(" | ").append(month).append(" | ").append(year).append(" | ")
                     .append(String.format("%02d%02d", hour, minute)).append("\n");
             break;
@@ -147,13 +155,16 @@ public class Storage {
             int endYear = endTime.getYear();
             int endHour = endTime.getHour();
             int endMinute = endTime.getMinute();
-
             // Append the components to the StringBuilder
-            stringBuilder.append("E | ").append(task.isDone() ? 1 : 0).append(" | ").append(task.getDescription()).append(" | ")
-                    .append(startDay).append(" | ").append(startMonth).append(" | ").append(startYear).append(" | ")
+            stringBuilder.append("E | ").append(task.isDone() ? 1 : 0).append(" | ")
+                    .append(task.getDescription()).append(" | ")
+                    .append(startDay).append(" | ").append(startMonth).append(" | ")
+                    .append(startYear).append(" | ")
                     .append(String.format("%02d%02d", startHour, startMinute)).append(" | ")
                     .append(endDay).append(" | ").append(endMonth).append(" | ").append(endYear).append(" | ")
                     .append(String.format("%02d%02d", endHour, endMinute)).append("\n");
+            break;
+        default:
             break;
         }
     }

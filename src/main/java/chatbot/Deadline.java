@@ -7,7 +7,11 @@ import java.time.LocalDateTime;
  */
 public class Deadline extends Task {
     protected LocalDateTime by;
-
+    /**
+     * Constructs a deadline task.
+     * @param description The description of the deadline.
+     * @param by The date and time of the deadline.
+     */
     public Deadline(String description, java.time.LocalDateTime by) {
         super(description);
         this.by = by;

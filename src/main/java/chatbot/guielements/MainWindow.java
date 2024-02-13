@@ -1,4 +1,4 @@
-package chatbot.guiElements;
+package chatbot.guielements;
 import chatbot.Alfred;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;

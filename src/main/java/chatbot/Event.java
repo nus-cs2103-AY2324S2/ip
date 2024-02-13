@@ -9,6 +9,12 @@ public class Event extends chatbot.Task {
     protected LocalDateTime startTime;
     protected LocalDateTime endTime;
 
+    /**
+     * Constructs an event.
+     * @param description The description of the event.
+     * @param startTime The start time of the event.
+     * @param endTime The end time of the event.
+     */
     public Event(String description, LocalDateTime startTime, LocalDateTime endTime) {
         super(description);
         this.startTime = startTime;

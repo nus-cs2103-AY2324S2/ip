@@ -22,6 +22,11 @@ public class Parser {
         return input.substring(input.indexOf(" ") + 1).trim();
     }
 
+    /**
+     * Parses the index from the input.
+     * @param index The index from the user.
+     * @return The index of the task.
+     */
     public int parseIndex(String index) throws AlfredException {
         int extractedIdx = -1;
         try {

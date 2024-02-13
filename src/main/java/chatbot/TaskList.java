@@ -1,22 +1,24 @@
 package chatbot;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList {
     protected ArrayList<Task> taskList = new ArrayList<Task>();
     public TaskList() {
     }
+    /**
+     * Represents the type of task.
+     */
     public enum TaskType {
         TODO, DEADLINE, EVENT
     }
@@ -56,7 +58,8 @@ public class TaskList {
                 break;
             case DEADLINE:
                 if (input.length() <= 9) {
-                    throw new AlfredException("Sorry Master Bruce. Please specify the description and due-date/time of the deadline by including /by.");
+                    throw new AlfredException("Sorry Master Bruce. "
+                            + "Please specify the description and due-date/time of the deadline by including /by.");
                 }
                 input = input.substring(9).trim();
                 String[] splitResult = input.split("/by", 2);
@@ -69,19 +72,21 @@ public class TaskList {
                     Deadline deadline = new Deadline(description, dateTime);
                     taskList.add(deadline);
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new AlfredException("Sorry Master Bruce. Please specify the due date or time by including /by due-date.");
+                    throw new AlfredException("Sorry Master Bruce. "
+                            + "Please specify the due date or time by including /by due-date.");
                 } catch (DateTimeParseException e) {
-                    throw new AlfredException("Sorry Master Bruce. Please specify the due date or time in the format of dd/MM/yyyy HHmm.");
+                    throw new AlfredException("Sorry Master Bruce. "
+                            + "Please specify the due date or time in the format of dd/MM/yyyy HHmm.");
                 }
                 if (description.isEmpty()) {
-                    throw new AlfredException("Sorry Master Bruce. The description of a deadline cannot be empty.");
-                } else if (by.isEmpty()) {
-                    throw new AlfredException("Sorry Master Bruce. Please specify the due date or time by including /by due-date.");
+                    throw new AlfredException("Sorry Master Bruce. "
+                            + "Please specify the due date or time by including /by due-date.");
                 }
                 break;
             case EVENT:
-                if (input.length() <= 6 || ! input.contains("/from") || ! input.contains("/to")) {
-                    throw new AlfredException("Sorry Master Bruce. Please specify the description, start time, and end time of the event by including /from start-time /to end-time.");
+                if (input.length() <= 6 || !input.contains("/from") || !input.contains("/to")) {
+                    throw new AlfredException("Sorry Master Bruce. Please specify the description, start time, "
+                            + "and end time of the event by including /from start-time /to end-time.");
                 }
                 input = input.substring(6).trim();
                 // Regular expression patterns
@@ -110,7 +115,8 @@ public class TaskList {
                 }
                 // Check if description, start time, and end time are found
                 if (descriptionEvent == null || startTime == null || endTime == null) {
-                    throw new AlfredException("Sorry Master Bruce. Please specify both description, start time, and end time.");
+                    throw new AlfredException("Sorry Master Bruce."
+                            + "Please specify both description, start time, and end time.");
                 }
                 // Parse start time and end time
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
@@ -123,10 +129,10 @@ public class TaskList {
             default:
                 throw new AlfredException("Sorry Master Bruce. I don't understand what you mean.");
             }
-        String singularTask = taskList.size() == 1 ? "task" : "tasks";
-        return (String.format("Got it. I've added this task:\n  %s\nNow you have %d %s in the list.",
+            String singularTask = taskList.size() == 1 ? "task" : "tasks";
+            return (String.format("Got it. I've added this task:\n  %s\nNow you have %d %s in the list.",
                 taskList.get(taskList.size() - 1).toString(), taskList.size(), singularTask));
-    } catch (AlfredException e) {
+        } catch (AlfredException e) {
             return e.toString();
         }
     }
@@ -150,7 +156,7 @@ public class TaskList {
      * @param index The index of the task to be marked as not done.
      * @return The response to the user.
      */
-    public String unmarkList(int index) throws AlfredException{
+    public String unmarkList(int index) throws AlfredException {
         Task task = findIndex(index);
         if (!task.isDone()) {
             throw new AlfredException("Sorry Master Bruce. This task has already been marked as not done.");
@@ -164,12 +170,12 @@ public class TaskList {
      * @param index The index of the task to be deleted.
      * @return The response to the user.
      */
-    public String deleteList(int index) throws AlfredException{
+    public String deleteList(int index) throws AlfredException {
         Task task = findIndex(index);
         String removedTask = task.toString();
         taskList.remove(index);
-        return ("Noted. I've removed this task:\n  " + removedTask + "\nNow you have " + taskList.size() + " tasks in " +
-                "the list.");
+        return ("Noted. I've removed this task:\n  " + removedTask + "\nNow you have "
+                + taskList.size() + " tasks in the list.");
     }
 
     /**
@@ -187,7 +193,8 @@ public class TaskList {
     }
 
     /**
-     * Performs the given action for each element of the task list until all elements have been processed or the action throws an exception.
+     * Performs the given action for each element of the task list until all elements have been processed
+     * or the action throws an exception.
      * @param action The action to be performed for each element.
      */
     public void forEach(Consumer<Task> action) {
@@ -201,10 +208,11 @@ public class TaskList {
                 throw new AlfredException("Sorry Master Bruce. There are no tasks in the list.");
             } else if (index < 0 || index >= taskList.size()) {
                 if (taskList.size() == 1) {
-                    throw new AlfredException("Sorry Master Bruce. The task number you have entered is not in the list. There is only one item in the list.");
+                    throw new AlfredException("Sorry Master Bruce. The task number you have entered is not in the list."
+                            + " There is only one item in the list.");
                 } else {
-                    throw new AlfredException("Sorry Master Bruce. The task number you have entered is not in the list. " +
-                            "Please enter a number in the range of 1 to " + taskList.size() + ".");
+                    throw new AlfredException("Sorry Master Bruce. The task number you have entered is not in the list."
+                            + " Please enter a number in the range of 1 to " + taskList.size() + ".");
                 }
             }
         } catch (NumberFormatException e) {

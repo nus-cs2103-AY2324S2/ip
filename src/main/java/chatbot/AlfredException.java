@@ -3,7 +3,7 @@ package chatbot;
 /**
  * Represents a task in the chatbot.
  */
-public class AlfredException extends Exception{
+public class AlfredException extends Exception {
     public AlfredException(String message) {
         super(message);
     }

@@ -1,4 +1,4 @@
-package chatbot.guiElements;
+package chatbot.guielements;
 
 import java.io.IOException;
 import java.util.Collections;
