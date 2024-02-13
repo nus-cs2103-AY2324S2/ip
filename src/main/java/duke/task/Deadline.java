@@ -34,7 +34,7 @@ public class Deadline extends Task {
         try {
             date = LocalDateTime.parse(s, formatter);
         } catch (DateTimeParseException e) {
-            throw new DateTimeParseException("Invalid start/end date. Specify date in format 'dd-MM-yyyy HH:mm'.",
+            throw new DateTimeParseException("Invalid due date. Specify date in format 'dd-MM-yyyy HH:mm'.",
                     e.getParsedString(), e.getErrorIndex());
         }
         return date;

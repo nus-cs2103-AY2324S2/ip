@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import duke.command.Command;
 import duke.exception.DukeException;
+import duke.util.ExpenseList;
 import duke.util.Parser;
 import duke.util.Storage;
 import duke.util.TaskList;
@@ -17,8 +18,10 @@ public class Duke {
 
     private Storage storage;
     private TaskList tasks;
+    private ExpenseList expenses;
     private Ui ui;
     private boolean isExit = false;
+
     /**
      * Constructs a new Duke instance to run.
      * Reads from file to set up chatbot.
@@ -27,10 +30,10 @@ public class Duke {
      * @param name Name of chatbot.
      * @param logo Logo of chatbot.
      */
-    public Duke(String file, String name, String logo) {
+    public Duke(String file, String expenseFile, String name, String logo) {
         ui = new Ui(name, logo, System.in);
         try {
-            storage = new Storage(file);
+            storage = new Storage(file, expenseFile);
         } catch (IOException e) {
             ui.showError(e.getMessage());
         }
@@ -39,6 +42,12 @@ public class Duke {
         } catch (DukeException e) {
             ui.showLoadingError();
             tasks = new TaskList();
+        }
+        try {
+            expenses = storage.readFromExpenseFile();
+        } catch (DukeException e) {
+            ui.showLoadingError();
+            expenses = new ExpenseList();
         }
     }
 
@@ -53,7 +62,11 @@ public class Duke {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
                 Command c = Parser.parseCommand(fullCommand);
-                c.execute(tasks, ui, storage);
+                if (c.isExpenseCommand()) {
+                    c.execute(expenses, ui, storage);
+                } else {
+                    c.execute(tasks, ui, storage);
+                }
                 isExit = c.isExit();
             } catch (DukeException e) {
                 ui.showError(e.getMessage());
@@ -73,7 +86,11 @@ public class Duke {
         try {
             Command c = Parser.parseCommand(input);
             isExit = c.isExit();
-            return c.execute(tasks, ui, storage);
+            if (c.isExpenseCommand()) {
+                return c.execute(expenses, ui, storage);
+            } else {
+                return c.execute(tasks, ui, storage);
+            }
         } catch (DukeException e) {
             return ui.showError(e.getMessage());
         }
@@ -103,6 +120,6 @@ public class Duke {
                 + " .-_)( /(__)\\\\  //(__)\\ \\__ \\\\__ \\ _)(_ \\__ \\  )(\n\t"
                 + "\\____)(__)(__)\\/(__)(__)(___/(___/(____)(___/ (__)\n";
 
-        new Duke("Duke.txt", "JavAssist", logo).run();
+        new Duke("./data/Duke.txt", "./data/DukeExpense.txt", "JavAssist", logo).run();
     }
 }

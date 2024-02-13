@@ -2,31 +2,31 @@ package duke.command;
 
 import duke.exception.DukeException;
 import duke.util.DukeList;
+import duke.util.ExpenseList;
 import duke.util.Storage;
-import duke.util.TaskList;
 import duke.util.Ui;
 
 /**
- * Represents a command to exit the program.
+ * Represents a command to sum expenses.
  */
-public class ExitCommand implements Command {
+public class SumExpenseCommand implements Command {
     /**
-     * Displays exit message.
+     * Sums up expenses in all categories.
      *
-     * @param dukeList Holds the tasks added.
-     * @param ui Display messages about executed operation.
+     * @param dukeList Holds the expenses added.
+     * @param ui Displays messages about executed operation.
      * @param storage Handles IO storage operation.
      * @return String of response of chatbot.
      * @throws DukeException Not thrown.
      */
     @Override
     public String execute(DukeList dukeList, Ui ui, Storage storage) throws DukeException {
-        TaskList list = (TaskList) dukeList;
-        return ui.showGoodbye();
+        ExpenseList list = (ExpenseList) dukeList;
+        return ui.showSumExpenses(list);
     }
 
     @Override
-    public boolean isExit() {
+    public boolean isExpenseCommand() {
         return true;
     }
 }

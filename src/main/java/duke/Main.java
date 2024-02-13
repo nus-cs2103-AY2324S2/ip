@@ -20,7 +20,7 @@ public class Main extends Application {
             + "\\____)(__)(__)\\/(__)(__)(___/(___/(____)(___/ (__)\n";
 
 
-    private Duke duke = new Duke("./data/Duke.txt", "JavAssist", logo);
+    private Duke duke = new Duke("./data/Duke.txt", "./data/DukeExpense.txt", "JavAssist", logo);
 
     @Override
     public void start(Stage stage) {

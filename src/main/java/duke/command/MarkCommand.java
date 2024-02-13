@@ -2,6 +2,7 @@ package duke.command;
 
 import duke.exception.DukeException;
 import duke.task.Task;
+import duke.util.DukeList;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
@@ -29,14 +30,15 @@ public class MarkCommand implements Command {
      * Sets task in TaskList as done or not done depending on boolean value of toMark,
      * where index is indicated in input.
      *
-     * @param list Holds the tasks added.
+     * @param dukeList Holds the tasks added.
      * @param ui Displays messages about executed operation.
      * @param storage Handles IO storage operation.
      * @return String of response of chatbot.
      * @throws DukeException If index given is not within range.
      */
     @Override
-    public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
+    public String execute(DukeList dukeList, Ui ui, Storage storage) throws DukeException {
+        TaskList list = (TaskList) dukeList;
         String[] s = input.split("\\s");
         assert (s.length == 2) : "Mark command cannot be split at space";
         int num = Integer.parseInt(s[1]);

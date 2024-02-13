@@ -5,6 +5,7 @@ import java.time.format.DateTimeParseException;
 import duke.exception.DukeException;
 import duke.task.Event;
 import duke.task.Task;
+import duke.util.DukeList;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
@@ -23,14 +24,15 @@ public class EventCommand implements Command {
     /**
      * Creates a new Event based on description, start and end date time extracted from input and adds to TaskList.
      *
-     * @param list Holds the tasks added.
+     * @param dukeList Holds the tasks added.
      * @param ui Display messages about executed operation.
      * @param storage Handles IO storage operation.
      * @return String of response of chatbot.
      * @throws DukeException If date time format is not valid.
      */
     @Override
-    public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
+    public String execute(DukeList dukeList, Ui ui, Storage storage) throws DukeException {
+        TaskList list = (TaskList) dukeList;
         String[] task = input.split("/from");
         assert (task.length == 2) : "Event command cannot be split at /from";
         String[] time = task[1].split("/to");

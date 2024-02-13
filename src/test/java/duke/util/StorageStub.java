@@ -11,7 +11,7 @@ import duke.task.Task;
  */
 public class StorageStub extends Storage {
     public StorageStub(String file) throws IOException {
-        super(file);
+        super(file, file);
     }
 
     @Override

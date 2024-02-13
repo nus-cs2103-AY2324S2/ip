@@ -2,14 +2,18 @@ package duke.util;
 
 import java.util.regex.Pattern;
 
+import duke.command.AddExpenseCommand;
 import duke.command.Command;
 import duke.command.DeadlineCommand;
+import duke.command.DeductExpenseCommand;
 import duke.command.DeleteCommand;
 import duke.command.EventCommand;
 import duke.command.ExitCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
+import duke.command.ListExpenseCommand;
 import duke.command.MarkCommand;
+import duke.command.SumExpenseCommand;
 import duke.command.TodoCommand;
 import duke.command.UnknownCommand;
 import duke.exception.DukeException;
@@ -37,7 +41,11 @@ public class Parser {
         DEADLINE,
         EVENT,
         FIND,
-        UNKNOWN
+        UNKNOWN,
+        EXPENSE,
+        DEDUCT_EXPENSE,
+        SUM_EXPENSE,
+        LIST_EXPENSE
     }
 
     /**
@@ -65,6 +73,14 @@ public class Parser {
             return InputType.EVENT;
         } else if (input.startsWith("find")) {
             return InputType.FIND;
+        } else if (input.startsWith("add")) {
+            return InputType.EXPENSE;
+        } else if (input.equals("total")) {
+            return InputType.SUM_EXPENSE;
+        } else if (input.equals("list_e")) {
+            return InputType.LIST_EXPENSE;
+        } else if (input.startsWith("deduct")) {
+            return InputType.DEDUCT_EXPENSE;
         } else {
             return InputType.UNKNOWN;
         }
@@ -137,16 +153,32 @@ public class Parser {
             } catch (DukeException e) {
                 throw e;
             }
+        case DEDUCT_EXPENSE:
+            try {
+                return parseDeductExpenseCommand(input);
+            } catch (DukeException e) {
+                throw e;
+            }
+        case EXPENSE:
+            try {
+                return parseAddExpenseCommand(input);
+            } catch (DukeException e) {
+                throw e;
+            }
         case BYE:
             return new ExitCommand();
         case UNKNOWN:
             return new UnknownCommand();
+        case LIST_EXPENSE:
+            return new ListExpenseCommand();
+        case SUM_EXPENSE:
+            return new SumExpenseCommand();
         default:
         }
         return null;
     }
 
-    private static Command parseMarkCommand(String input, boolean toMark) throws DukeException {
+    private static MarkCommand parseMarkCommand(String input, boolean toMark) throws DukeException {
         String lowerInput = input.trim().toLowerCase();
         if (matchPattern(lowerInput, MARK + SPACE_DIGIT + "|" + UNMARK + SPACE_DIGIT)) {
             return new MarkCommand(input, toMark);
@@ -217,6 +249,26 @@ public class Parser {
         } else {
             throw new DukeException("Specify 1 or more keyword/s to search.\n"
                     + "Try 'find [keywords]'.");
+        }
+    }
+
+    private static Command parseAddExpenseCommand(String input) throws DukeException {
+        String lowerInput = input.trim().toLowerCase();
+        if (Parser.matchPattern(lowerInput, "add" + SPACE_MORE + SPACE + "/amount" + SPACE + "(\\d+(\\.\\d+)?)")) {
+            return new AddExpenseCommand(input);
+        } else {
+            throw new DukeException("The category and amount of an expense cannot be empty.\n"
+                    + "Try 'add [category] /amount [expense]'.");
+        }
+    }
+
+    private static Command parseDeductExpenseCommand(String input) throws DukeException {
+        String lowerInput = input.trim().toLowerCase();
+        if (Parser.matchPattern(lowerInput, "deduct" + SPACE_MORE + SPACE + "/amount" + SPACE + "(\\d+(\\.\\d+)?)")) {
+            return new DeductExpenseCommand(input);
+        } else {
+            throw new DukeException("The category and amount of an expense to deduct cannot be empty.\n"
+                    + "Try 'deduct [category] /amount [expense]'.");
         }
     }
 
