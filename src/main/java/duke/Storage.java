@@ -6,13 +6,29 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents the file storage for Duke application, handling the loading and saving of tasks to a file.
+ *
+ * @author Qin Boan
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a Storage object.
+     *
+     * @param filePath The path of the file where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     * @throws DukeException If an error occurs during file processing.
+     */
     public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -37,6 +53,33 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the current list of tasks to the file.
+     *
+     * @param tasks The TaskList containing tasks to be saved.
+     * @throws DukeException If an error occurs during file processing.
+     */
+    public void save(TaskList tasks) throws DukeException {
+        try {
+            PrintWriter writer = new PrintWriter(filePath);
+
+            for (int i = 0; i < tasks.size(); i++) {
+                writer.println(taskToFileString(tasks.getTask(i)));
+            }
+
+            writer.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * Converts a line from the file to a Task object.
+     *
+     * @param line The line from the file to be converted into a Task.
+     * @return The Task object represented by the line.
+     * @throws DukeException If the line format is invalid.
+     */
     private static Task fileStringToTask(String line) throws DukeException {
         // Convert a string from a file back to a task
         String[] parts = line.split(" \\| ");
@@ -66,20 +109,12 @@ public class Storage {
         return task;
     }
 
-    public void save(TaskList tasks) throws DukeException {
-        try {
-            PrintWriter writer = new PrintWriter(filePath);
-
-            for (int i = 0; i < tasks.size(); i++) {
-                writer.println(taskToFileString(tasks.getTask(i)));
-            }
-
-            writer.close();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
+    /**
+     * Converts a Task object to a string for file storage.
+     *
+     * @param task The Task to be converted to a string.
+     * @return The string representation of the Task for file storage.
+     */
     private static String taskToFileString(Task task) {
         String type = task instanceof ToDo ? "T" :
                 task instanceof Deadline ? "D" :
