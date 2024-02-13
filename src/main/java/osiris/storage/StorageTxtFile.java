@@ -33,12 +33,10 @@ public class StorageTxtFile extends Storage {
             File file = new File(this.getFilepath());
             if (super.doesStorageFileExist()) {
                 System.out.println("Task Storage File: " + this.getFilepath());
+            } else if (file.createNewFile()) {
+                System.out.println("Created Task Storage File: " + this.getFilepath());
             } else {
-                if (file.createNewFile()) {
-                    System.out.println("Created Task Storage File: " + this.getFilepath());
-                } else {
-                    System.out.println("Failed to create Task Storage file: " + this.getFilepath());
-                }
+                System.out.println("Failed to create Task Storage file: " + this.getFilepath());
             }
         } catch (IOException e) {
             System.out.println("Error: Unable to create new Txt file for Task storage.");
@@ -53,10 +51,8 @@ public class StorageTxtFile extends Storage {
      * @throws OsirisStorageFileException If error reading the Txt storage file.
      */
     public ArrayList<String> readStorageTxtFile() {
-
         ArrayList<String> readContents = new ArrayList<>();
         Scanner scanner = null;
-
         try {
             File file = new File(this.getFilepath());
             scanner = new Scanner(file);

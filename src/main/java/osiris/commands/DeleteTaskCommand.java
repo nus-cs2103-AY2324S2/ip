@@ -37,7 +37,9 @@ public class DeleteTaskCommand extends Command {
     public String execute(TaskManager taskManager, Ui userInterface) {
         Task deletedTask = taskManager.deleteTask(taskIndex - 1);
         if (deletedTask != null) {
-            return userInterface.displayDeleteTaskNotification(deletedTask.toString(), taskManager.getTotalTaskCount());
+            String deletedTaskDetails = deletedTask.toString();
+            int totalTasks = taskManager.getTotalTaskCount();
+            return userInterface.displayDeleteTaskNotification(deletedTaskDetails, totalTasks);
         }
         throw new OsirisException("An error has occurred. Please try again.");
     }

@@ -3,6 +3,7 @@ package osiris.commands;
 import java.time.LocalDate;
 
 import osiris.exceptions.OsirisException;
+import osiris.task.Task;
 import osiris.task.TaskManager;
 import osiris.ui.Ui;
 
@@ -43,8 +44,11 @@ public class AddDeadlineTaskCommand extends Command {
     public String execute(TaskManager taskManager, Ui userInterface) {
         boolean isSuccess = taskManager.addDeadlineTask(taskName, false, deadline);
         if (isSuccess) {
-            return userInterface.displayDeadlineTaskAdditionNotification(taskManager.getTask(
-                    taskManager.getTotalTaskCount() - 1).toString(), taskManager.getTotalTaskCount());
+            int lastTaskIndex = taskManager.getTotalTaskCount() - 1;
+            Task lastTask = taskManager.getTask(lastTaskIndex);
+            String taskDetails = lastTask.toString();
+            int totalTasks = taskManager.getTotalTaskCount();
+            return userInterface.displayDeadlineTaskAdditionNotification(taskDetails, totalTasks);
         }
         throw new OsirisException("An error has occurred. Please try again.");
     }
