@@ -66,13 +66,9 @@ public class Task {
     public String markDone(boolean start) {
         if (this.isDone) {
             return "Stop yappin' bruh... tasks. Task is already marked as done" + this;
-        } else {
-            this.isDone = true;
-            if (!start) {
-                return "Good job Yapper! I've marked this task as done:" + this;
-            }
         }
-        return "";
+        this.isDone = true;
+        return "Good job Yapper! I've marked this task as done:" + this;
     }
 
     /**
@@ -81,11 +77,10 @@ public class Task {
      */
     public String unmarkDone() {
         if (!this.isDone) {
-            return "Stop yappin' bruh... tasks.Task remains incomplete" + this;
-        } else {
-            this.isDone = false;
-            return "YAPYAP! I've unmarked this task..." + this;
+            return "Stop yappin' bruh... tasks. Task remains incomplete" + this;
         }
+        this.isDone = false;
+        return "YAPYAP! I've unmarked this task..." + this;
     }
 
     /**
