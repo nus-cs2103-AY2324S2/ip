@@ -49,8 +49,7 @@ public class Task implements Serializable {
     public String toString() {
         if (isDone) {
             return "[X] " + description;
-        }
-        else {
+        } else {
             return "[ ] " + description;
         }
     }

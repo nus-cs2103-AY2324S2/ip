@@ -1,8 +1,8 @@
 package seedu.duke;
 
-import seedu.duke.task.Task;
-
 import java.util.ArrayList;
+
+import seedu.duke.task.Task;
 
 /**
  * Represents the <code>UI</code> that users see in response to
@@ -108,8 +108,7 @@ public class Ui {
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getStatus()) {
                 System.out.println(i + 1 + "." + list.get(i));
-            }
-            else {
+            } else {
                 System.out.println(i + 1 + "." + list.get(i));
             }
         }
