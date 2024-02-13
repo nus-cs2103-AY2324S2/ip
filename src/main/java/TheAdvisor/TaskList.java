@@ -2,6 +2,8 @@ package theadvisor;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The TaskList class represents a list of tasks and provides methods for managing tasks.
@@ -101,25 +103,6 @@ public class TaskList implements Serializable {
     }
 
     /**
-     * Gets the number of tasks in the list.
-     *
-     * @return The number of tasks in the list.
-     */
-    public int getSize() {
-        return this.taskList.size();
-    }
-
-    /**
-     * Gets a string representation of the task at the specified index.
-     *
-     * @param index The index of the task.
-     * @return A string representing the task.
-     */
-    public String getTask(int index) {
-        return taskList.get(index).toString();
-    }
-
-    /**
      * Checks if a task is already marked and throws an exception if it is.
      *
      * @param task The task to be checked.
@@ -168,23 +151,20 @@ public class TaskList implements Serializable {
      * @throws TheAdvisorException If no matching tasks are found.
      */
     public String findItem(String keyword) throws TheAdvisorException {
-        ArrayList<Integer> indexes = new ArrayList<>();
+        List<Task> matchingTasks = taskList.stream()
+                .filter(task -> task.getDescription().contains(keyword))
+                .collect(Collectors.toList());
 
-        for (int i = 0; i < taskList.size(); i++) {
-            if (taskList.get(i).getDescription().contains(keyword)) {
-                indexes.add(i);
-            }
-        }
-
-        if (indexes.size() == 0) {
+        if (matchingTasks.isEmpty()) {
             throw new TheAdvisorException("Sorry! There are no tasks that match your search criteria.");
         } else {
             StringBuilder toReturn = new StringBuilder("Here are the matching tasks in your list:\n");
-            for (int j = 0; j < indexes.size(); j++) {
-                Task task = taskList.get(indexes.get(j));
+            for (int j = 0; j < matchingTasks.size(); j++) {
+                Task task = matchingTasks.get(j);
                 toReturn.append(j + 1).append(". ").append(task.toString()).append("\n");
             }
             return toReturn.toString();
         }
     }
+
 }

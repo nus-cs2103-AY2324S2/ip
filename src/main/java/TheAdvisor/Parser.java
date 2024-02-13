@@ -52,7 +52,11 @@ public class Parser {
         /**
          * Prompt for finding tasks.
          */
-        FIND
+        FIND,
+        /**
+         * For handling wrong prompts.
+         */
+        WRONG
     }
 
     /**
@@ -60,14 +64,15 @@ public class Parser {
      *
      * @param prompt The user input.
      * @return The parsed prompt.
-     * @throws TheAdvisorException If the prompt is incorrect.
      */
-    public static Prompts parsePrompt(String prompt) throws TheAdvisorException {
+    public static Prompts parsePrompt(String prompt) {
+        if (prompt == null || prompt.trim().isEmpty()) {
+            return Prompts.WRONG;
+        }
         try {
-            return Prompts.valueOf(prompt.toUpperCase());
+            return Prompts.valueOf(prompt.toUpperCase().trim());
         } catch (IllegalArgumentException e) {
-            throw new TheAdvisorException("Incorrect prompt use. Please try again with these prompts: "
-                    + "todo, list, mark, unmark, bye, event, deadline, find");
+            return Prompts.WRONG;
         }
     }
 }
