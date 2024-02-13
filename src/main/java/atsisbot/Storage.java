@@ -84,28 +84,64 @@ public class Storage {
             task = new Todo(taskInfo[2]);
             break;
         case "D":
-            try {
-                LocalDateTime deadline = LocalDateTime.parse(taskInfo[3], Task.getDateTimeFormatter());
-                task = new Deadline(taskInfo[2], deadline);
-            } catch (DateTimeParseException e) {
-                System.out.println(
-                        "Invalid deadline format in the atsisbot.task list: " + e.getMessage());
-            }
+            task = processDeadline(taskInfo, task);
             break;
         case "E":
-            try {
-                LocalDateTime startDateTime = LocalDateTime.parse(taskInfo[3], Task.getDateTimeFormatter());
-                LocalDateTime endDateTime = LocalDateTime.parse(taskInfo[4], Task.getDateTimeFormatter());
-                task = new Event(taskInfo[2], startDateTime, endDateTime);
-            } catch (DateTimeParseException e) {
-                System.out.println("Invalid event format in the atsisbot.task list: " + e.getMessage());
-            }
+            task = processEvent(taskInfo, task);
             break;
         default:
             break;
         }
         if (taskInfo[1].equals("1")) {
             task.markAsDone();
+        }
+        return task;
+    }
+
+    /**
+     * Processes the task information for an Event task.
+     *
+     * This method takes in an array of task information and a Task object. It attempts to parse the start and
+     * end date/time from the task information and create a new Event task with the parsed date/time.
+     * If the date/time format is invalid, it catches the DateTimeParseException and prints an error message.
+     *
+     * @param taskInfo an array of Strings containing the task information
+     * @param task a Task object which will be replaced with a new Event task if the date/time parsing is successful
+     * @return the processed Task object, which will be an Event task if the date/time parsing is successful,
+     *     or the original Task object otherwise
+     * @throws DateTimeParseException if the date/time format in the task information is invalid
+     */
+    private static Task processEvent(String[] taskInfo, Task task) {
+        try {
+            LocalDateTime startDateTime = LocalDateTime.parse(taskInfo[3], Task.getDateTimeFormatter());
+            LocalDateTime endDateTime = LocalDateTime.parse(taskInfo[4], Task.getDateTimeFormatter());
+            task = new Event(taskInfo[2], startDateTime, endDateTime);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid event format in the atsisbot.task list: " + e.getMessage());
+        }
+        return task;
+    }
+
+    /**
+     * Processes the task information for a Deadline task.
+     *
+     * This method takes in an array of task information and a Task object. It attempts to parse the deadline
+     * from the task information and create a new Deadline task with the parsed deadline. If the deadline format
+     * is invalid, it catches the DateTimeParseException and prints an error message.
+     *
+     * @param taskInfo an array of Strings containing the task information
+     * @param task a Task object which will be replaced with a new Deadline task if the deadline parsing is successful
+     * @return the processed Task object, which will be a Deadline task if the deadline parsing is successful,
+     *     or the original Task object otherwise
+     * @throws DateTimeParseException if the deadline format in the task information is invalid
+     */
+    private static Task processDeadline(String[] taskInfo, Task task) {
+        try {
+            LocalDateTime deadline = LocalDateTime.parse(taskInfo[3], Task.getDateTimeFormatter());
+            task = new Deadline(taskInfo[2], deadline);
+        } catch (DateTimeParseException e) {
+            System.out.println(
+                    "Invalid deadline format in the atsisbot.task list: " + e.getMessage());
         }
         return task;
     }

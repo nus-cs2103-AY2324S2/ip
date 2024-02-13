@@ -48,6 +48,15 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(greeting, dukeImage));
     }
 
+    /**
+     * Sets the AtsisBot instance for this MainWindow.
+     *
+     * This method is used to set the AtsisBot instance that this MainWindow will use to process commands.
+     * It also includes an assertion to ensure that the AtsisBot instance is not null.
+     *
+     * @param atsisBot the AtsisBot instance to be set
+     * @throws AssertionError if the provided AtsisBot instance is null
+     */
     public void setAtsisBot(AtsisBot atsisBot) {
         assert atsisBot != null : "AtsisBot cannot be null";
         this.atsisBot = atsisBot;

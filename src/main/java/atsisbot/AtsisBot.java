@@ -36,6 +36,19 @@ public class AtsisBot {
      */
     public static void main(String[] args) {
         Ui.printWelcomeMessage();
+        processRequest();
+        Ui.printEndingMessage();
+        Ui.closeScanner();
+    }
+
+    /**
+     * Processes user requests until the user enters "bye".
+     *
+     * This method continuously reads user input, parses the input into a command and arguments,
+     * executes the command, saves the updated task list to storage, and then reads the next user input.
+     * This loop continues until the user input is "bye".
+     */
+    private static void processRequest() {
         String input = Ui.readCommand();
         assert input != null : "Input cannot be null";
 
@@ -46,9 +59,6 @@ public class AtsisBot {
             storage.saveList(taskList);
             input = Ui.readCommand();
         }
-
-        Ui.printEndingMessage();
-        Ui.closeScanner();
     }
 
     /**
@@ -65,6 +75,19 @@ public class AtsisBot {
         ByteArrayOutputStream outputs = new ByteArrayOutputStream();
         PrintStream previous = System.out;
         System.setOut(new PrintStream(outputs));
+        processCommand(commandEnum, args);
+        System.out.flush();
+        System.setOut(previous);
+        return outputs.toString().trim();
+    }
+
+    /**
+     * Processes the given command and executes the corresponding action.
+     *
+     * @param commandEnum the command enum representing the type of command to execute
+     * @param args        the arguments for the command
+     */
+    private static void processCommand(CommandEnum commandEnum, String args) {
         try {
             switch (commandEnum) {
             case LIST:
@@ -97,9 +120,5 @@ public class AtsisBot {
         } catch (NumberFormatException e) {
             Ui.printInvalidTaskNumberMessage();
         }
-
-        System.out.flush();
-        System.setOut(previous);
-        return outputs.toString().trim();
     }
 }
