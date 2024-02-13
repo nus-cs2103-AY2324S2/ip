@@ -18,6 +18,8 @@ public class Storage {
     private static LocalDate start;
     private static LocalDate end;
 
+    private static RecurType recurType;
+    private static LocalDate nextRefresh;
     private static int taskCount = 0;
     private static final ArrayList<Task> tasks = new ArrayList<>();
 
@@ -55,12 +57,20 @@ public class Storage {
                 t = new Event(getDesc(), getStart(), getEnd());
                 tasks.add(t);
                 break;
+            case "recur":
+                Parser.parseRecurTask(getInput());
+                System.out.println(Storage.getNextRefresh());
+                t = new RecurTask(getDesc(), getRecurType(), getNextRefresh());
+                System.out.println(t);
+                tasks.add(t);
+                break;
             default:
-                return "Invalid task type. Please provide a valid task type (todo, deadline, event).";
+                return "Invalid task type. Please provide a valid task type (todo, deadline, event, recur).";
             }
             setTaskCount(getTaskCount() + 1);
             String message = String.format("  Task added: %s%n%s", t, generateReport());
             FileManager.updateTasks();
+            System.out.println(message);
             return message;
         } catch (Exception e) {
             return "Error adding task: " + e.getMessage();
@@ -179,13 +189,17 @@ public class Storage {
                 Parser.parseEvent(getInput());
                 t = new Event(status, getDesc(), getStart(), getEnd());
                 break;
-
+            case "recur":
+                Parser.parseRecurTask(getInput());
+                t = new RecurTask(status, getDesc(), getRecurType(), getNextRefresh());
+                break;
             default:
                 System.out.println("Unknown task type: " + getWords()[0]);
             }
         } catch (UkeCatException e) {
             System.out.println(e.getMessage());
         }
+        System.out.println(t);
         return t;
     }
 
@@ -280,4 +294,47 @@ public class Storage {
     public static void setTaskCount(int taskCount) {
         Storage.taskCount = taskCount;
     }
+
+    public static RecurType getRecurType() {
+        return recurType;
+    }
+
+    public static String getRecurTypeString() {
+        switch (recurType) {
+        case DAILY:
+            return "day";
+        case WEEKLY:
+            return "week";
+        case MONTHLY:
+            return "month";
+        default:
+            return null;
+        }
+    }
+
+    public static void setRecurType(String s) {
+        switch (s) {
+        case "day":
+            Storage.recurType = RecurType.DAILY;
+            break;
+        case "week":
+            Storage.recurType = RecurType.WEEKLY;
+            break;
+        case "month":
+            Storage.recurType = RecurType.MONTHLY;
+            break;
+        default:
+            System.out.println("Error setting recurType");
+            break;
+        }
+    }
+
+    public static LocalDate getNextRefresh() {
+        return nextRefresh;
+    }
+
+    public static void setNextRefresh(LocalDate nextRefresh) {
+        Storage.nextRefresh = nextRefresh;
+    }
 }
+

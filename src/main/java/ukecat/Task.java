@@ -67,7 +67,7 @@ public abstract class Task {
      * @return The status icon for the task.
      */
     public String getStatusIcon() {
-        return status == TaskStatus.COMPLETE ? "[X] " : "[ ] ";
+        return status == TaskStatus.COMPLETE ? "[X]" : "[ ]";
     }
 
     /**
