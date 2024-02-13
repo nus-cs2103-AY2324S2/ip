@@ -29,24 +29,23 @@ public class Ui {
     public int[] analyseUserInput(String echo) {
         int[] results = new int[] {0, 0};
 
-
         if (echo.toLowerCase().equals("bye")) {
-            results[0] = 1;
+            results[0] = Duke.BYE_COMMAND;
         } else if (echo.toLowerCase().equals("list")) {
-            results[0] = 2;
+            results[0] = Duke.LIST_COMMAND;
         } else if (echo.matches("mark -?[0-9]*")) {
-            results[0] = 3;
+            results[0] = Duke.MARK_COMMAND;
             results[1] = parser.digOutInt(echo);
         } else if (echo.matches("unmark -?[0-9]*")) {
-            results[0] = 4;
+            results[0] = Duke.UNMARK_COMMAND;
             results[1] = parser.digOutInt(echo);
         } else if (echo.matches("delete -?[0-9]*")) {
-            results[0] = 5;
+            results[0] = Duke.DELETE_COMMAND;
             results[1] = parser.digOutInt(echo);
         } else if (echo.matches("find [a-zA-Z0-9]*")) {
-            results[0] = 6;
+            results[0] = Duke.FIND_COMMAND;
         } else {
-            results[0] = 7;
+            results[0] = Duke.TASK_COMMAND;
         }
 
         return results;

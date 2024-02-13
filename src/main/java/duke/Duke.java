@@ -16,6 +16,14 @@ public class Duke {
     private Storage storage;
     private TaskList tasks;
 
+    protected static final int BYE_COMMAND = 1;
+    protected static final int LIST_COMMAND = 2;
+    protected static final int MARK_COMMAND = 3;
+    protected static final int UNMARK_COMMAND = 4;
+    protected static final int DELETE_COMMAND = 5;
+    protected static final int FIND_COMMAND = 6;
+    protected static final int TASK_COMMAND = 7;
+
     /**
      * Constructor for a Duke instance (Different chatbot instances for different users)
      *
@@ -88,29 +96,29 @@ public class Duke {
             int[] result = ui.analyseUserInput(echo);
 
             switch (result[0]) {
-            case 1:
+            case BYE_COMMAND:
                 output = bye();
                 break;
-            case 2:
+            case LIST_COMMAND:
                 output = tasks.showTasks();
                 break;
-            case 3:
+            case MARK_COMMAND:
                 output = tasks.markMechanism(result[1]);
                 break;
-            case 4:
+            case UNMARK_COMMAND:
                 output = tasks.unmarkMechanism(result[1]);
                 break;
-            case 5:
+            case DELETE_COMMAND:
                 output = tasks.deleteMechanism(result[1]);
                 if (result[1] <= tasks.getSize() + 1) {
                     storage.updateFile(new Task("To Delete"), 1, result[1]);
                 }
                 break;
-            case 6:
+            case FIND_COMMAND:
                 String keywordToFind = ui.analyseFind(echo);
                 output = tasks.findMechanism(keywordToFind);
                 break;
-            case 7:
+            case TASK_COMMAND:
                 //tell ui to parse and return task to make
                 //pass to tasklist to add the task only, no other computation needed
                 Task taskToAdd = ui.analyseTask(echo);

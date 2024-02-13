@@ -86,7 +86,7 @@ public class TaskList {
      */
     public String unmarkMechanism(int num) throws DukeException {
         if (num <= tasks.size() && num > 0) {
-            return tasks.get(num - 1).unMarkTask();
+            return tasks.get(num - 1).unmarkTask();
         } else {
             throw new DukeException("Please mark a valid task!\n");
         }

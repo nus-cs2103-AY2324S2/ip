@@ -91,7 +91,7 @@ public class Task {
      * @return the description of the Task after being unmarked
      * @throws DukeException when task is already unmarked
      */
-    public String unMarkTask() throws DukeException {
+    public String unmarkTask() throws DukeException {
         if (this.isDone == false) {
             throw new DukeException("This task is already unmarked.\n");
         } else {
