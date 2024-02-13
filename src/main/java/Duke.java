@@ -1,4 +1,7 @@
+import java.io.File;
+import java.io.FileWriter;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -11,6 +14,8 @@ public class Duke {
         ArrayList<Task> listOfTasks = new ArrayList<>();
         boolean hasEnded = false;
         String botName = "Yube";
+        File file = new File("./yube.txt");
+        file.createNewFile();
 
         greet(botName);
         while (!(hasEnded)) {
@@ -18,6 +23,7 @@ public class Duke {
                 String input = reader.readLine();
                 if (input.equals("bye")) {
                     bye();
+                    writeArrayListToFile(listOfTasks, "./yube.txt");
                     hasEnded = true;
                 } else if (input.equals("list")) {
                     printList(listOfTasks);
@@ -70,6 +76,23 @@ public class Duke {
     public static void greet(String botName) {
         System.out.println(String.format(
                 "%s     Hello! I'm %s \n     What can I do for you? \n%s", LINE, botName, LINE));
+    }
+
+    /**
+     * Adds text into fileName
+     * 
+     * @param list     List of Task
+     * @param fileName Filename
+     */
+    public static void writeArrayListToFile(ArrayList<Task> list, String fileName) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            for (Task element : list) {
+                writer.write(element.toString());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
