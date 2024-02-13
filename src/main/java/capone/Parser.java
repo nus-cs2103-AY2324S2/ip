@@ -202,7 +202,7 @@ public class Parser {
             throws CaponeException {
         LocalDate date = null;
         LocalTime time = null;
-        for (int i = startNdx + 1; i < endNdx; i++) {
+        for (int i = startNdx; i < endNdx; i++) {
             if (Parser.isDateFormat(inputList.get(i))) {
                 date = Parser.parseDate(inputList.get(i));
             } else if (Parser.isTimeFormat(inputList.get(i))) {
@@ -225,7 +225,7 @@ public class Parser {
     public static String parseDescription(int startNdx, int endNdx, ArrayList<String> inputList) {
         StringBuilder description = new StringBuilder();
         for (int i = startNdx; i < endNdx; i++) {
-            if (i == endNdx) {
+            if (i == endNdx - 1) {
                 description.append(inputList.get(i));
                 break;
             }

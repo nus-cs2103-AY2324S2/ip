@@ -12,7 +12,6 @@ import capone.TaskList;
 import capone.exceptions.CaponeException;
 import capone.exceptions.InsufficientArgumentException;
 import capone.exceptions.InvalidCommandException;
-import capone.exceptions.InvalidDateException;
 import capone.tasks.Event;
 import capone.ui.Ui;
 
@@ -71,7 +70,7 @@ public class EventCommand extends Command {
         }
 
         final int STARTING_NDX_DESCRIPTION = 1;
-        final int ENDING_NDX_DESCRIPTION = fromNdx - 1;
+        final int ENDING_NDX_DESCRIPTION = fromNdx;
         String description = Parser.parseDescription(STARTING_NDX_DESCRIPTION, ENDING_NDX_DESCRIPTION, inputList);
 
         if (description.equalsIgnoreCase("")) {
