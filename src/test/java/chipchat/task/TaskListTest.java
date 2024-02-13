@@ -1,15 +1,23 @@
 package chipchat.task;
 
-import chipchat.parser.Parser;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
+import chipchat.parser.Parser;
+
+/**
+ * Represents a class that tests the functioning of TaskList.
+ */
 public class TaskListTest {
+
+    /**
+     * Tests whether the toString() methods of TaskList and all tasks returns the correct string.
+     */
     @Test
     public void toString_returnCorrectListOfString() {
         Task todo = new Todo("study", false);

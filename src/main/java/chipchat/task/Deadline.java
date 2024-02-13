@@ -1,10 +1,8 @@
 package chipchat.task;
 
-import chipchat.action.CommandType;
-
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+
+import chipchat.action.CommandType;
 
 /**
  * Represents a type of task with a deadline. Subclass of Task.

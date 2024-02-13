@@ -1,18 +1,32 @@
 package chipchat.parser;
 
-import chipchat.action.*;
-import chipchat.parser.Parser;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+
+import java.time.LocalDate;
+
+import org.junit.jupiter.api.Test;
+
+import chipchat.action.Action;
+import chipchat.action.AddTask;
+import chipchat.action.Bye;
+import chipchat.action.Delete;
+import chipchat.action.ListTasks;
+import chipchat.action.Mark;
+import chipchat.action.Unmark;
 import chipchat.task.Deadline;
 import chipchat.task.Event;
 import chipchat.task.Task;
 import chipchat.task.Todo;
-import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
-
-import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * Represents a class that tests the Parser.
+ */
 public class ParserTest {
+
+    /**
+     * Tests whether Parser::parseAction will return the correct Action class.
+     */
     @Test
     public void parseAction_feedUserInput_returnCorrectAction() {
         Action action;
@@ -42,6 +56,9 @@ public class ParserTest {
         assertInstanceOf(AddTask.class, action);
     }
 
+    /**
+     * Tests whether the correct task type is returned from Parser::parseLoadedTask.
+     */
     @Test
     public void parseLoadedTask_testInput_returnCorrectTask() {
         String input;

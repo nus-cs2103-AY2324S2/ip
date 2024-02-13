@@ -1,9 +1,8 @@
 package chipchat.task;
 
-import chipchat.action.CommandType;
-
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+
+import chipchat.action.CommandType;
 
 /**
  * Represents a type of task that is an event. Subclass of task.

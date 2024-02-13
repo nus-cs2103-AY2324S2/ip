@@ -1,5 +1,10 @@
 package chipchat.parser;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import chipchat.action.Action;
 import chipchat.action.AddTask;
 import chipchat.action.Bye;
@@ -16,11 +21,6 @@ import chipchat.task.Deadline;
 import chipchat.task.Event;
 import chipchat.task.Task;
 import chipchat.task.Todo;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Represents a utility class used to parse user inputs and data inputs given to the main Chipchat application.
@@ -56,8 +56,9 @@ public class Parser {
         case DEADLINE:
         case EVENT:
             return parseTask(command, tokens);
+        default:
+            return null;
         }
-        return null;
     }
 
     private static CommandType parseCommand(String command) throws InvalidArgumentException {
@@ -72,7 +73,8 @@ public class Parser {
         try {
             return Integer.parseInt(index);
         } catch (NumberFormatException exc) {
-            throw new InvalidArgumentException("Error: Please enter the index (number) of the task you would like to edit");
+            throw new InvalidArgumentException(
+                    "Error: Please enter the index (number) of the task you would like to edit");
         }
     }
 
@@ -95,14 +97,16 @@ public class Parser {
 
     private static Action parseFindAction(CommandType command, String[] tokens) {
         if (tokens.length < 2) {
-            throw new MissingArgumentException("Error: Missing query\nPlease enter the query (text) of the task to find");
+            throw new MissingArgumentException(
+                    "Error: Missing query\nPlease enter the query (text) of the task to find");
         }
         return new Find(tokens[1]);
     }
 
     private static Action parseEditAction(CommandType command, String[] tokens) {
         if (tokens.length < 2) {
-            throw new MissingArgumentException("Error: Missing Index\nPlease enter the index (number) of the task to edit");
+            throw new MissingArgumentException(
+                    "Error: Missing Index\nPlease enter the index (number) of the task to edit");
         }
 
         int index = parseIndex(tokens[1]);
@@ -113,13 +117,15 @@ public class Parser {
             return new Mark(index);
         case UNMARK:
             return new Unmark(index);
+        default:
+            return null;
         }
-        return null;
     }
 
     private static Action parseTask(CommandType command, String[] tokens) {
         if (tokens.length < 2) {
-            throw new MissingArgumentException("Error: Missing description\nPlease enter the description of the task to add");
+            throw new MissingArgumentException(
+                    "Error: Missing description\nPlease enter the description of the task to add");
         } else {
             tokens = Arrays.copyOfRange(tokens, 1, tokens.length);
         }
@@ -136,8 +142,9 @@ public class Parser {
             LocalDate dateFrom = parseDate(args.get(1));
             LocalDate dateTo = parseDate(args.get(2));
             return AddTask.addEvent(description, false, dateFrom, dateTo);
+        default:
+            return null;
         }
-        return null;
     }
 
     /**
@@ -163,8 +170,9 @@ public class Parser {
             LocalDate dateFrom = parseDate(args.get(2));
             LocalDate dateTo = parseDate(args.get(3));
             return new Event(description, isDone, dateFrom, dateTo);
+        default:
+            return null;
         }
-        return null;
     }
 
     /**

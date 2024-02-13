@@ -1,9 +1,5 @@
 package chipchat.storage;
 
-import chipchat.parser.Parser;
-import chipchat.task.Task;
-import chipchat.task.TaskList;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -13,7 +9,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+
+import chipchat.parser.Parser;
+import chipchat.task.Task;
+import chipchat.task.TaskList;
 
 /**
  * Represents the storage for Chipchat, used to read/write task data to storage files.
