@@ -48,12 +48,12 @@ test {
 }
 
 application {
-    mainClass.set("osiris.Main")
+    mainClass.set("osiris.Launcher")
 }
 
 shadowJar {
     archiveBaseName = "Osiris"
-    archiveClassifier = "1"
+    archiveClassifier = "2"
     dependsOn("distZip", "distTar")
 }
 

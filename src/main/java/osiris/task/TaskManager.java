@@ -15,7 +15,7 @@ import osiris.storage.StorageTxtFile;
 public class TaskManager {
 
     /** File path of where user tasks will be stored */
-    private static final String TASK_STORAGE_FILE_PATH = "src/main/java/Osiris/Storage/data/task.txt";
+    private static final String TASK_STORAGE_FILE_PATH = "./task.txt";
 
     /** List of user task. */
     private final ArrayList<Task> userTasks = new ArrayList<>();
