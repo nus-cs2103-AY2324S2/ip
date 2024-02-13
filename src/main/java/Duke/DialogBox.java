@@ -8,7 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 public class DialogBox extends HBox {
-
     final int imageWidth = 100;
     final int imageHeight = 100;
     public DialogBox(Label l, ImageView iv) {
@@ -19,8 +18,6 @@ public class DialogBox extends HBox {
         this.setAlignment(Pos.TOP_RIGHT);
         this.getChildren().addAll(l, iv);
     }
-
-
 
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
@@ -35,7 +32,6 @@ public class DialogBox extends HBox {
     public static DialogBox getUserDialog(Label l, ImageView iv) {
         return new DialogBox(l, iv);
     }
-
 
     public static DialogBox getShirminDialog(Label l, ImageView iv) {
         var db = new DialogBox(l, iv);

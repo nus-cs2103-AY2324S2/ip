@@ -68,7 +68,6 @@ public class Event extends Task {
         return this.from != null && this.to != null;
     }
 
-
     /**
      * Returns a string representation of the Event.
      * <p>

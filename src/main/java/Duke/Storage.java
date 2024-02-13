@@ -11,7 +11,6 @@ import java.util.ArrayList;
  * It interacts with the Ui component for error reporting and the Parser component for parsing tasks.
  */
 public class Storage {
-
     final Parser parser;
 
     /**
@@ -22,8 +21,6 @@ public class Storage {
     public Storage (Parser parser) {
         this.parser = parser;
     }
-
-
 
     /**
      * Saves a single Task object to the storage file.
@@ -42,9 +39,7 @@ public class Storage {
             fileWriter.write(taskLine + "\n");
             fileWriter.close();
         } catch (IOException ignored) {
-
         }
-
     }
 
     /**
@@ -64,7 +59,6 @@ public class Storage {
             }
             fileWriter.close();
         } catch (IOException ignored) {
-
         }
     }
 }

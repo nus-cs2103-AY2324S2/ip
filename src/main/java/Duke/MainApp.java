@@ -61,10 +61,8 @@ public class MainApp extends Application{
         scrollPane.setPrefSize(panePrefWidth, panePrefHeight);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
-
 
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
         userInput.setPrefWidth(userInputWidth);
@@ -84,8 +82,10 @@ public class MainApp extends Application{
 
     }
 
-    private final Image user = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/lulu.jpg")));
-    private final Image min = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/Shirmin.jpg")));
+    private final Image user = new Image(Objects.requireNonNull(this.getClass()
+            .getResourceAsStream("/images/lulu.jpg")));
+    private final Image min = new Image(Objects.requireNonNull(this.getClass()
+            .getResourceAsStream("/images/Shirmin.jpg")));
 
     /** Functions Status
      * 9/9 complete  hell yea        - retest whenever big changes are made
@@ -101,7 +101,6 @@ public class MainApp extends Application{
      */
     private void handleUserInput() {
         String input = userInput.getText();
-
         if (input.trim().equalsIgnoreCase("bye")) {
             sayGoodbye();
             return;
@@ -131,14 +130,12 @@ public class MainApp extends Application{
      * Handles non-bye inputs, encapsulating the previous logic for handling user inputs.
      * @param input The user input to handle.
      */
-
     private void handleOtherInputs(String input) {
         Label userText = new Label(input);
         ImageView userImageView = new ImageView(user);
         userImageView.setFitHeight(imageSize);
         userImageView.setFitWidth(imageSize);
         DialogBox userInputBox = DialogBox.getUserDialog(userText, userImageView);
-
 
         String response = shirmin.runCommand(input);
         Label shirminText = new Label(response);
@@ -149,8 +146,6 @@ public class MainApp extends Application{
 
         dialogContainer.getChildren().addAll(userInputBox, shirminResponseBox);
     }
-
-
 }
 
 

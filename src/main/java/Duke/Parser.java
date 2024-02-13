@@ -93,6 +93,7 @@ public class Parser {
             return null;
         }
     }
+
     /**
      * Formats a Task object into a string representation suitable for file storage.
      * <p>

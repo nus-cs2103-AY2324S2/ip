@@ -20,20 +20,15 @@ public class Shirmin {
         this.taskList = new TaskList(parser, storage);
     }
 
-
-
     /**
      * The entry point of the Duke application.
      * <p>
      * This main method initializes a new Duke instance and starts its execution.
      *
      */
-
     public String runCommand(String command) {
         // run a single command in TaskList
         return taskList.runCommand(command);
     }
-
-
 }
 

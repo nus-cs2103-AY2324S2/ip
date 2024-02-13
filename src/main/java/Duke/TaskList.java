@@ -168,7 +168,6 @@ public class TaskList {
         return "Added: " + newTask;
 
     }
-    
 
     private boolean isDuplicateTask(Task newTask) {
         for (Task task : taskList) {
@@ -178,9 +177,6 @@ public class TaskList {
         }
         return false;
     }
-
-
-
 
     enum TaskType {
         TODO, DEADLINE, EVENT
