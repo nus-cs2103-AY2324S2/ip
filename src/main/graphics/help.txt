@@ -1,0 +1,10 @@
+Below contains all the available commands:
+
+     |  help                                              |
+     |  todo <task>                                       |
+     |  deadline <task> /by <yyyy/MM/dd>                  |
+     |  event <task> /from <yyyy-MM-dd> /to <yyyy-MM-dd>  |
+     |  list                                              |
+     |  mark <task index>                                 |
+     |  unmark <task index>                               |
+     |  bye                                               |

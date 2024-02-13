@@ -1,58 +1,114 @@
+package mainUtils;
+
+import commands.*;
 import exceptions.*;
+import tasks.*;
+import fileUtils.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public final class Parser {
+    public static Command parseUserInput(String[] userInput) throws InvalidTaskException, InvalidDateException, InvalidIndexException, InvalidCommandException, StorageException {
+        String commandType = userInput[0].toUpperCase();
+        Command command;
 
-//    private static final List<DateTimeFormatter> DATETIMEFORMATTER = new ArrayList<>();
-//
-//    static {
-//        // Add DateTimeFormatters for different formats
-//        DATETIMEFORMATTER.add(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-//        DATETIMEFORMATTER.add(DateTimeFormatter.ofPattern("HH:mm:ss"));
-//        DATETIMEFORMATTER.add(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
-//    }
-    public static void parseUserInput(String[] userInput) throws InvalidTaskException, InvalidDateException, InvalidIndexException, InvalidCommandException, StorageException {
-        TaskList tasksList = TaskList.getInstance(null);
-
-        String firstWord = userInput[0].toUpperCase();
-        int index;
-        switch (firstWord) {
+        switch (commandType) {
             case "TODO":
-                tasksList.addTask(parseTodoTask(userInput));
+                command = new CreateTodoTask();
                 break;
+
             case "DEADLINE":
-                tasksList.addTask(Parser.parseDeadlineTask(userInput));
+                command = new CreateDeadlineTask();
                 break;
+
             case "EVENT":
-                tasksList.addTask(Parser.parseEventTask(userInput));
+                command = new CreateEventTask();
                 break;
+
             case "LIST":
-                if (userInput.length > 1) {
-                    throw new InvalidCommandException();
-                }
-                tasksList.displayTasks();
+                command = new ListTasks();
                 break;
+
             case "MARK":
-                index = Integer.parseInt(userInput[userInput.length - 1]) - 1;
-                tasksList.getTask(index).markDone();
+                command = new MarkTaskDone();
                 break;
+
             case "UNMARK":
-                index = Integer.parseInt(userInput[userInput.length - 1]) - 1;
-                tasksList.getTask(index).markNotDone();
+                command = new MarkTaskNotDone();
                 break;
+
             case "DELETE":
-                index = Integer.parseInt(userInput[userInput.length - 1]) - 1;
-                tasksList.deleteTask(index);
+                command = new DeleteTask();
+                break;
+
+            case "HELP":
+                command = new Help();
                 break;
             case "BYE":
+                command = new ExitProgram();
                 break;
+
             default:
                 throw new InvalidCommandException();
         }
+        return command;
+    }
+
+    public static Task parseSaveFile(String taskStringData) throws StorageException, InvalidDateException {
+        // Split taskStringData into array with sections {taskType, isDone, taskDescription, date etc}
+        String[] sectionedString = taskStringData.trim().split("\\|");
+        String taskType = sectionedString[0].trim().toUpperCase();
+        boolean isDone = sectionedString[1].trim().equals("[X]");
+        Task task;
+        Pattern pattern;
+        Matcher matcher;
+
+        switch (taskType) {
+            case ("T"):
+                task = new ToDoTask(sectionedString[2].trim());
+                if (isDone) {
+                    task.markDone();
+                }
+                break;
+
+            case ("D"):
+                pattern = Pattern.compile("\\(by: (.*?)\\)");
+                matcher = pattern.matcher(sectionedString[3].trim());
+                if (matcher.find()) {
+                    String deadline = matcher.group(1);
+                    task = new DeadlineTask(sectionedString[2].trim(), Parser.parseDateTime(deadline));
+                    if (isDone) {
+                        task.markDone();
+                    }
+                } else {
+                    throw new StorageException();
+                }
+                break;
+
+            case ("E"):
+                pattern = Pattern.compile("\\(from: (.*?) to: (.*?)\\)");
+                matcher = pattern.matcher(sectionedString[3].trim());
+                if (matcher.find()) {
+                    String startBy = matcher.group(1);
+                    String endBy = matcher.group(2);
+                    task = new EventTask(sectionedString[2].trim(), Parser.parseDateTime(startBy), Parser.parseDateTime(endBy));
+                    if (isDone) {
+                        task.markDone();
+                    }
+                } else {
+                    throw new StorageException();
+                }
+                break;
+
+            default:
+                throw new StorageException();
+        }
+        return task;
     }
 
     public static ToDoTask parseTodoTask(String[] details) throws InvalidTaskException {
@@ -62,6 +118,7 @@ public final class Parser {
         } else {
             throw new InvalidTaskException();
         }
+
         return new ToDoTask(description);
     }
 
@@ -87,6 +144,7 @@ public final class Parser {
         } else {
             throw new InvalidTaskException();
         }
+
         return new DeadlineTask(description, deadline);
     }
 
@@ -116,15 +174,15 @@ public final class Parser {
         } else {
             throw new InvalidTaskException();
         }
+
         return new EventTask(description, startBy, endBy);
     }
 
     public static LocalDate parseDateTime(String dateTimeString) throws InvalidDateException {
         try {
-            return LocalDate.parse(dateTimeString, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            return LocalDate.parse(dateTimeString, DateTimeFormatter.ISO_LOCAL_DATE);
         } catch (DateTimeParseException e) {
             throw new InvalidDateException();
         }
-
     }
 }

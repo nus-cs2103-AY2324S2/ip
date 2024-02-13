@@ -1,8 +1,10 @@
+package tasks;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
-public class EventTask extends Task{
+public class EventTask extends Task {
     protected LocalDate startBy;
     protected LocalDate endBy;
     public EventTask(String description, LocalDate startBy, LocalDate endBy) {
