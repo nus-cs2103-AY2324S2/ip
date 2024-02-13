@@ -22,7 +22,7 @@ public class Storage {
 
             reader.close();
             return str;
-        }catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println("whoops, file not found");
             return "";
         }
@@ -31,11 +31,9 @@ public class Storage {
     public static void writeToFile(TaskList taskList) throws IOException {
         FileWriter fileWriter = new FileWriter("./data.txt");
         PrintWriter printWriter = new PrintWriter(fileWriter);
-        for (int i = 0; i < taskList.getList().size() ; i++){
+        for (int i = 0; i < taskList.getList().size() ; i++) {
             printWriter.println(taskList.getList().get(i).toStringFile());
         }
         printWriter.close();
     }
-
-
 }

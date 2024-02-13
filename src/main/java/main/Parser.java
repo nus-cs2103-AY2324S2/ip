@@ -12,11 +12,11 @@ import java.util.Scanner;
 public class Parser {
     Storage storage;
 
-    public static void input(TaskList taskList){
+    public static void input(TaskList taskList) {
         Scanner sc = new Scanner(System.in);
         boolean isChanged = false;
         while (true) {
-            if(isChanged){
+            if(isChanged) {
                 try {
                     Storage.writeToFile(taskList);
                     isChanged = false;
@@ -48,12 +48,12 @@ public class Parser {
                     isChanged = true;
                     break;
                 case "todo":
-                    if (splitStr.length == 2){
+                    if (splitStr.length == 2) {
                         Task todo1 = new Todo(splitStr[1],false);
                         taskList.getList().add(todo1);
                         isChanged = true;
                         Ui.success(todo1);
-                    }else{
+                    } else {
                         Ui.error();
                     }
                     break;
@@ -66,10 +66,10 @@ public class Parser {
                             taskList.getList().add(deadline1);
                             isChanged = true;
                             Ui.success(deadline1);
-                        }else {
+                        } else {
                             Ui.deadlineError();
                         }
-                    }else{
+                    } else {
                         Ui.error();
                     }
                     break;
@@ -81,12 +81,11 @@ public class Parser {
                             taskList.getList().add(event1);
                             isChanged = true;
                             Ui.success(event1);
-                        }else{
+                        } else {
                             Ui.eventError();
                         }
-                    }else{
+                    } else {
                         Ui.error();
-
                     }
                     break;
                 default:

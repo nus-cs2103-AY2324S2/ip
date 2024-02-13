@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StorageTest {
     @Test
-    public void loadFromFile_exceptionThrown(){
+    public void loadFromFile_exceptionThrown() {
         try {
             Storage.loadFromFile("./asdfjkl.txt");
         } catch (Exception e) {
