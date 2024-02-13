@@ -1,3 +1,6 @@
 todo | 1 | a
 deadline | 0 | c | Jan 01 2019
 deadline | 0 | ps2 | Feb 27 2024
+todo | 0 | ps1
+todo | 0 | ps0
+todo | 0 | ps3

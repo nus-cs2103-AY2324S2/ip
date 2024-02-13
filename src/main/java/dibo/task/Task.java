@@ -1,5 +1,7 @@
 package dibo.task;
 
+import java.util.Arrays;
+
 /**
  * Class to represent a task.
  */
@@ -56,17 +58,15 @@ public abstract class Task {
     public boolean isDone() {
         return isDone;
     }
+
     /**
      * Returns true if the description contains the specified keywords.
+     *
      * @param keywords The specified keywords.
      * @return True if the description has all the keywords, false otherwise.
      */
     public boolean hasKeywords(String[] keywords) {
-        for (String keyword : keywords) {
-            if (!this.description.contains(keyword)) {
-                return false;
-            }
-        }
-        return true;
+        return Arrays.stream(keywords)
+                .allMatch(keyword -> this.description.contains(keyword));
     }
 }
