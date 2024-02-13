@@ -1,19 +1,18 @@
 package seedu.task;
 
 /**
- * Events are tasks that start at a specific date/time
- * and ends at a specific date/time.
+ * Events are tasks that start at a specific date/time and ends at a specific date/time.
  */
 public class Event extends Task {
     // Task.Task description consist of name, start and end of task.
     protected String[] description = new String[3];
 
     /**
-     * Constructor for an Task.Event object.
+     * Constructor for an Event object.
      *
-     * @param name task name
-     * @param from start of event
-     * @param to end of event
+     * @param name The task name.
+     * @param from The start of event.
+     * @param to The end of event.
      */
     public Event(String name, String from, String to) {
         super();
@@ -25,11 +24,11 @@ public class Event extends Task {
     /**
      * Constructor for loading from file.
      *
-     * @param description of event
-     * @param b isDone
+     * @param description of the event.
+     * @param isDone Whether the task is completed.
      */
-    public Event(String description, boolean b) {
-        super(b);
+    public Event(String description, boolean isDone) {
+        super(isDone);
         int fromIdx = description.indexOf("(from:");
         int toIdx = description.indexOf("to:");
         int len = description.length();
