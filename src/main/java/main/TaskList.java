@@ -8,6 +8,9 @@ import Objects.Todo;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * An object that has methods to change tasks in the list
+ */
 public class TaskList {
       ArrayList<Task> list = new ArrayList<Task>(100);;
 
@@ -18,6 +21,10 @@ public class TaskList {
     public TaskList() {
     }
 
+    /**
+     * Given a string, parses the tasks and adds it into a list
+     * @param str String read from file
+     */
     public void addList(String str){
 //        Objects.Task task = new Objects.Task(str,false);
 //        list.add(task);
@@ -53,6 +60,10 @@ public class TaskList {
         return list;
     }
 
+    /**
+     * Given an index, marks the task in the taskList
+     * @param index index of list
+     */
     public void mark(int index){
         try {
             Task curr = list.get(index);
@@ -65,6 +76,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Given an index, uncheck the task in the taskList
+     * @param index index of list
+     */
     public void unmark(int index){
         try {
             Task curr = list.get(index);
@@ -81,6 +96,10 @@ public class TaskList {
         return "You have "+list.size()+" tasks in the list";
     }
 
+    /**
+     * Given an index, remove the task from the taskList
+     * @param index index of list
+     */
     public void remove(int index){
         try {
             Task curr = list.get(index);

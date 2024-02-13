@@ -2,6 +2,9 @@ package main;
 
 import Objects.Task;
 
+/**
+ * Class that has all the methods for printing output purposes
+ */
 public class Ui {
     public void showLoadingError() {
     }

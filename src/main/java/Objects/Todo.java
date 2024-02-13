@@ -1,5 +1,8 @@
 package Objects;
 
+/**
+ * class which inherits tasks
+ */
 public class Todo extends Task {
     public Todo(String name,boolean mark) {
         super(name,mark);

@@ -3,6 +3,10 @@ package Objects;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Deadline class which inherits from task
+ * contains additional deadline
+ */
 public class Deadline extends Task {
     LocalDate deadline;
     public Deadline(String name, boolean mark, LocalDate deadline) {

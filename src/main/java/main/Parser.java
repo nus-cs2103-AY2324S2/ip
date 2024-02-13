@@ -9,8 +9,17 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+/**
+ * A parse class which makes sense of the input of user
+ */
 public class Parser {
     Storage storage;
+
+    /**
+     * takes in input using a scanner and identifies which actions to choose
+     *
+     * @param taskList list of present tasks
+     */
 
     public static void input(TaskList taskList){
         Scanner sc = new Scanner(System.in);
