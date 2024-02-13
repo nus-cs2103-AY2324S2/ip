@@ -1,4 +1,4 @@
-package paimon.task;
+package paimon;
 
 import paimon.ChatException;
 

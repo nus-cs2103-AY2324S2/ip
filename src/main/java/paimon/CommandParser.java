@@ -94,6 +94,16 @@ public class CommandParser {
                 } else {
                     throw new ChatException("Input does not match expected format: delete <number>");
                 }
+            case "find":
+                String findRegex = "^(\\w+)(\\s)(.+)";
+                Pattern findPattern = Pattern.compile(findRegex);
+                Matcher findMatcher = findPattern.matcher(input);
+                if (findMatcher.find()) {
+                    String keyword = findMatcher.group(3);
+                    return new FindCommand(keyword);
+                } else {
+                    throw new ChatException("Input does not match expected format: find <keyword>");
+                }
             default:
                 throw new ChatException("Command not found, type help for a list of commands");
         }

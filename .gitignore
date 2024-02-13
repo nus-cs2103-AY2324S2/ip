@@ -18,3 +18,4 @@ text-ui-test/EXPECTED-UNIX.TXT
 
 # Storage files
 data/
+data/paimon.txt

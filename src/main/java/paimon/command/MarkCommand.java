@@ -17,7 +17,7 @@ public class MarkCommand extends Command {
             if (markIndex >= 1 && markIndex <= taskList.getSize()) {
                 Task markTask = taskList.getTask(markIndex - 1);
                 if (taskList.markTask(markIndex - 1, true)) {
-                    ui.markTaskResponse(markTask, true);
+                    ui.markTaskResponse(markTask.getTask(), true);
                 } else {
                     System.out.println("Traveller, this task is already marked as done!");
                 }

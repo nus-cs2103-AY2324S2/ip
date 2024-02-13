@@ -1,6 +1,7 @@
 package paimon.task;
 
 import paimon.FileHandler;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -38,6 +39,7 @@ public class TaskList {
             return true;
         }
     }
+
     public String toString() {
         int size = this.list.size();
         String returnString = "";
@@ -45,12 +47,33 @@ public class TaskList {
             return returnString;
         }
         for (int i = 0; i < size; i++) {
-            String current = String.valueOf(i + 1);
+            String currentIndex = String.valueOf(i + 1);
             if (i == size - 1) {
-                returnString = returnString + current + ": " + this.list.get(i).getTask();
+                returnString = returnString + currentIndex + ": " + this.list.get(i).getTask();
             } else {
-                returnString = returnString + current + ": " + this.list.get(i).getTask() + "\n";
+                returnString = returnString + currentIndex + ": " + this.list.get(i).getTask() + "\n";
             }
+        }
+        return returnString;
+    }
+
+    public String getFoundString(String keyword) {
+        int size = this.list.size();
+        String returnString = "";
+        if (size == 0) {
+            return returnString;
+        }
+        for (int i = 0; i < size; i++) {
+            String currentIndex = String.valueOf(i + 1);
+            Task currentTask = this.list.get(i);
+            if (currentTask.containsKeyword(keyword)) {
+                if (i == size - 1) {
+                    returnString = returnString + currentIndex + ": " + this.list.get(i).getTask();
+                } else {
+                    returnString = returnString + currentIndex + ": " + this.list.get(i).getTask() + "\n";
+                }
+            }
+
         }
         return returnString;
     }

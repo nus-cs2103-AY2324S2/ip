@@ -2,7 +2,7 @@ package paimon.command;
 
 import paimon.ChatException;
 import paimon.UiHandler;
-import paimon.task.DateParser;
+import paimon.DateParser;
 import paimon.task.EventTask;
 import paimon.task.Task;
 import paimon.task.TaskList;
@@ -24,7 +24,7 @@ public class EventCommand extends Command {
             LocalDateTime endDate = DateParser.parseDate(endDateString);
             Task eventTask = new EventTask(this.description, startDate, endDate);
             tasks.addTask(eventTask);
-            ui.addTaskResponse(eventTask, tasks.getSize());
+            ui.addTaskResponse(eventTask.getTask(), tasks.getSize());
         } catch (ChatException e) {
             throw e;
         }
