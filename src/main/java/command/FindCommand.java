@@ -30,12 +30,11 @@ public class FindCommand extends Command {
     public String execute(TaskList taskList, Ui ui, Storage storage) throws EmptyInputException {
         String str;
         String input = ui.getInput();
-        if (input.length() > 4) {
-            String keyword = input.substring(5);
-            str = taskList.find(keyword);
-        } else {
+        if (input.length() < 4) {
             throw new EmptyInputException("find");
         }
+        String keyword = input.substring(5);
+        str = taskList.find(keyword);
         return str;
     }
 

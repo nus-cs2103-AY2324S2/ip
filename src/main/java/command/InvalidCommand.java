@@ -22,7 +22,6 @@ public class InvalidCommand extends Command {
      * @throws InvalidCommandException If input is not valid.
      */
     public InvalidCommand(TaskList taskList, Ui ui, Storage storage) {
-
         super(taskList, ui, storage);
     }
 
