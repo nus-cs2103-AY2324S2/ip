@@ -1,4 +1,4 @@
-package cowboy;
+package catchat;
 import java.util.Scanner;
 
 /**
@@ -13,6 +13,49 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Returns the greeting message
+     */
+    public String getGreeting() {
+        return "Chat with cats, it's CatChat!\n" + "What's up?";
+    }
+
+    /**
+     * Returns the exit message
+     */
+    public String getGoodbye() {
+        return "Talk with me again soon!";
+    }
+
+    /**
+     * Returns the list of available commands
+     */
+    public String getHelp() {
+        return "Help: \n"
+                + "DISPLAY LIST: list\n"
+                + "ADD TODO: todo <TASK NAME>\n"
+                + "ADD DEADLINE: deadline <TASK NAME> /by <DD/MM/YYYY>\n"
+                + "ADD EVENT: event <TASK NAME> /from <DD/MM/YYYY> /to <DD/MM/YYYY>\n"
+                + "MARK DONE: mark done <INDEX>\n"
+                + "MARK UNDONE: mark undone <INDEX>\n"
+                + "DELETE TASK: delete <INDEX>\n"
+                + "FIND TASK: find <KEYWORD>\n"
+                + "EXIT: bye";
+    }
+
+    /**
+     * Returns the message for an invalid task index
+     */
+    public String getInvalidTaskIndex() {
+        return "Oops, that wasn't a valid task index :P";
+    }
+
+    /**
+     * Returns the message for an invalid keyword
+     */
+    public String getInvalidKeyword() {
+        return "No tasks match that keyword :(";
+    }
     /**
      * Prints the greeting message
      */
@@ -35,7 +78,7 @@ public class Ui {
      * @return String user input
      */
     public String getUserInput() {
-        System.out.println("Enter a task below: ");
+        // System.out.println("Enter a task below: ");
         return scanner.nextLine();
     }
 

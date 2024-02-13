@@ -1,4 +1,4 @@
-package cowboy;
+package catchat;
 import java.util.ArrayList;
 
 import javafx.application.Application;
@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 /**
  * Main class
  */
-public class Cowboy extends Application {
+public class CatChat extends Application {
     private Storage storage;
     private ArrayList<Task> taskList = new ArrayList<>();
     private TaskList tasks;
@@ -34,7 +34,7 @@ public class Cowboy extends Application {
     /**
      * Constructor for Duke
      */
-    public Cowboy() {
+    public CatChat() {
         this.ui = new Ui();
         this.storage = new Storage(taskList);
         storage.loadTaskList();
@@ -88,7 +88,7 @@ public class Cowboy extends Application {
 
         //More code to be added here later
         //Step 2. Formatting the window to look as expected
-        stage.setTitle("Duke");
+        stage.setTitle("CatChat!");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
@@ -150,10 +150,11 @@ public class Cowboy extends Application {
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
+        String input = ui.getUserInput(); // Get user input using Ui class method
+        Label userText = new Label(input);
+        Label dukeText = new Label(getResponse(input));
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(user)),
+                DialogBox.getUserDialog(input, new ImageView(user)),
                 DialogBox.getDukeDialog(dukeText, new ImageView(duke))
         );
         userInput.clear();
@@ -163,7 +164,7 @@ public class Cowboy extends Application {
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    private String getResponse(String input) {
+    protected String getResponse(String input) {
         return "Duke heard: " + input;
     }
 
@@ -173,7 +174,7 @@ public class Cowboy extends Application {
      * @param args
      */
     public static void main(String[] args) {
-        Cowboy mainApp = new Cowboy();
+        CatChat mainApp = new CatChat();
         mainApp.start();
     }
 }

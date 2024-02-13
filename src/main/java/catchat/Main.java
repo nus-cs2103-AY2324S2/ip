@@ -1,4 +1,4 @@
-package cowboy;
+package catchat;
 
 import java.io.IOException;
 
@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke();
+    private CatChat duke = new CatChat();
 
     @Override
     public void start(Stage stage) {

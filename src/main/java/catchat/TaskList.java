@@ -1,4 +1,4 @@
-package cowboy;
+package catchat;
 import java.util.ArrayList;
 
 /**

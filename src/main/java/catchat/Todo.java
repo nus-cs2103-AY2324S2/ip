@@ -1,4 +1,4 @@
-package cowboy;
+package catchat;
 /**
  * Todo class handles the todo tasks of the application
  */
