@@ -55,6 +55,7 @@ public class TaskList {
      * @return Marked task.
      */
     public Task markTask(int index) {
+        assert index <= tasks.size() : "index should be less than or equal to size of tasks";
         Task task = tasks.get(index - 1);
         task.markAsDone();
         return task;
@@ -67,6 +68,7 @@ public class TaskList {
      * @return Unmarked task.
      */
     public Task unmarkTask(int index) {
+        assert index <= tasks.size() : "index should be less than or equal to size of tasks";
         Task task = tasks.get(index - 1);
         task.unmarkAsDone();
         return task;
@@ -79,6 +81,7 @@ public class TaskList {
      * @return Deleted task.
      */
     public Task deleteTask(int index) {
+        assert index <= tasks.size() : "index should be less than or equal to size of tasks";
         Task deletedTask = tasks.get(index - 1);
         tasks.remove(index - 1);
         return deletedTask;
@@ -91,6 +94,8 @@ public class TaskList {
      * @return List of tasks with keyword.
      */
     public ArrayList<Task> findKeyword(String keyword) {
+        assert keyword != null : "keyword should not be null";
+        assert !keyword.isBlank() : "keyword should not be an empty string";
         ArrayList<Task> keywordTasks = new ArrayList<>();
         for (Task currentTask : this.tasks) {
             if (currentTask.toString().contains(keyword)) {
@@ -107,6 +112,8 @@ public class TaskList {
      * @return New ToDo task.
      */
     public Task addToDoToList(String taskDescription) {
+        assert taskDescription != null : "taskDescription should not be null";
+        assert !taskDescription.isBlank() : "taskDescription should not be an empty string";
         Task newTask = new ToDo(taskDescription);
         tasks.add(newTask);
         return newTask;
@@ -121,6 +128,10 @@ public class TaskList {
      * @throws ToothlessException if datetime fails to parse.
      */
     public Task addDeadlineToList(String taskDescription, String by) throws ToothlessException {
+        assert taskDescription != null : "taskDescription should not be null";
+        assert !taskDescription.isBlank() : "taskDescription should not be an empty string";
+        assert by != null : "by should not be null";
+        assert !by.isBlank() : "by should not be an empty string";
         try {
             LocalDateTime deadlineBy = LocalDateTime.parse(by, DATETIME_PARSE_FORMATTER);
             Task newTask = new Deadline(taskDescription, deadlineBy);
@@ -142,6 +153,12 @@ public class TaskList {
      * @throws ToothlessException if datetime fails to parse.
      */
     public Task addEventToList(String taskDescription, String from, String to) throws ToothlessException {
+        assert taskDescription != null : "taskDescription should not be null";
+        assert !taskDescription.isBlank() : "taskDescription should not be an empty string";
+        assert from != null : "from should not be null";
+        assert !from.isBlank() : "from should not be an empty string";
+        assert to != null : "to should not be null";
+        assert !to.isBlank() : "to should not be an empty string";
         try {
             LocalDateTime eventFrom = LocalDateTime.parse(from, DATETIME_PARSE_FORMATTER);
             LocalDateTime eventTo = LocalDateTime.parse(to, DATETIME_PARSE_FORMATTER);
