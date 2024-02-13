@@ -22,8 +22,6 @@ public class HAssntDialogBox extends HBox {
     private static final String xmlPath = "/view/HAssntDialogBox.fxml";
     @FXML
     private Label dialog;
-    @FXML
-    private ImageView displayPicture;
 
     // TODO: change back to private or package private after packing boxes into a packege
     private HAssntDialogBox(String text, String path) {

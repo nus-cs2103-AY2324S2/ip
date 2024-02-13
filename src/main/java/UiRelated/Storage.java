@@ -45,6 +45,7 @@ public class Storage {
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             String[] components = line.split(Pattern.quote("|"));
+
             String type = components[0];
             String mark = components[1];
             String taskName = components[2];

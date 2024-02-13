@@ -31,7 +31,6 @@ public class Ui {
                                                 + "-- our date format "
                                                 + "starts with month "
                                                 + "instead of day (i.e., mm-dd) --";
-    private static final String GOODBYE_MESSAGE = "HASSNT:\n" + "Bye. Hope to see you again soon!";
     private final Scanner scanner;
 
 
@@ -51,23 +50,7 @@ public class Ui {
         System.out.println(WELCOME_MESSAGE);
     }
 
-    /**
-     * Displays the goodbye message.
-     */
-    public void displayByeMessage() {
 
-        System.out.println(GOODBYE_MESSAGE);
-    }
-
-    /**
-     * Displays an error message.
-     *
-     * @param errorMessage The error message to be displayed.
-     */
-    public void displayErrorMessage(String errorMessage) {
-
-        System.out.println(errorMessage);
-    }
 
 
     /**
