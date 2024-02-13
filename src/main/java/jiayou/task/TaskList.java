@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import jiayou.exception.JiayouException;
 import jiayou.function.Storage;
@@ -198,24 +200,19 @@ public class TaskList {
      * @return a response message.
      */
     public String searchByKeyword(String keyword) {
-        String response = "Here are the task(s) with the keyword " + keyword + " in your list:\n";
-        int count = 0;
+        List<String> matchedTasks = tasks.stream()
+                .filter(task -> task.getDescription().contains(keyword))
+                .map(task -> tasks.indexOf(task) + 1 + ". " + task.toString())
+                .collect(Collectors.toList());
 
-        for (int i = 0; i < this.tasks.size(); i++) {
-            Task task = this.tasks.get(i);
-            if (task.getDescription().contains(keyword)) {
-                count += 1;
-                response += ((i + 1) + "." + task.toString() + "\n");
-            }
+        if (matchedTasks.isEmpty()) {
+            return "I am sorry.\nThere is no task with the keyword " + keyword + ".\nTry some other keywords! > <";
+        } else {
+            return "Here are the task(s) with the keyword " + keyword + " in your list:\n"
+                    + String.join("\n", matchedTasks);
         }
-
-        if (count == 0) {
-            return "I am sorry.\nThere is no task with the keyword you want.\nTry some other keywords! > <";
-        }
-
-        return response;
     }
-
+    
     public int getSize() {
         return this.tasks.size();
     }
@@ -231,12 +228,10 @@ public class TaskList {
         }
 
         String response = "Here are the task(s) in your list:\n";
-        for (int i = 0; i < this.tasks.size(); i++) {
-            Task task = this.tasks.get(i);
-            response += ((i + 1) + ". " + task.toString() + "\n");
-        }
-
-        return response;
+        String taskListString = IntStream.range(0, tasks.size())
+                .mapToObj(i -> (i + 1) + ". " + tasks.get(i).toString())
+                .collect(Collectors.joining("\n"));
+        return response + taskListString;
     }
 
     public ArrayList<Task> getList() {
