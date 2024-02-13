@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -38,8 +39,10 @@ public class Storage {
      * @throws IOException           If an I/O error occurs while creating the file.
      */
     public Storage(String fileName) throws FileNotFoundException, IOException {
+        assert fileName != null : "File name cannot be null.";
         try {
             this.filePath = BASE_PATH + "/" + fileName;
+            assert Paths.get(this.filePath).isAbsolute() : "File path must be absolute.";
             File file = new File(this.filePath);
             if (!file.exists()) {
                 file.createNewFile();

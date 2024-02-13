@@ -24,9 +24,14 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
+            assert ap != null : "FXMLLoader failed to load AnchorPane";
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setGeePeeTee(geepeetee);
+            assert stage.getScene() != null : "Scene was not set correctly";
+            MainWindow controller = fxmlLoader.<MainWindow>getController();
+            assert controller != null : "FXMLLoader failed to load MainWindow controller";
+            assert geepeetee != null : "GeePeeTee was not initialised correctly";
+            controller.setGeePeeTee(geepeetee);
             String errorMessage = geepeetee.getInitializationErrorMessage();
             if (errorMessage != null) {
                 fxmlLoader.<MainWindow>getController().handleInitializationError(errorMessage);
