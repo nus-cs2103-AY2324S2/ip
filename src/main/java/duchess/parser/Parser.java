@@ -1,5 +1,6 @@
 package duchess.parser;
 
+import duchess.CommandType;
 import duchess.DuchessException;
 import duchess.task.Deadline;
 import duchess.task.Event;
@@ -19,7 +20,7 @@ public class Parser {
      * @return the Task object parsed from the line
      * @throws DuchessException if an error occurs during parsing
      */
-    public Task parseTaskFromFileString(String line) throws DuchessException {
+    public static Task parseTaskFromFileString(String line) throws DuchessException {
         Task task = null;
         // Parse the line and create task objects accordingly
         // Example line format: "T | 1 | read book"
@@ -45,5 +46,56 @@ public class Parser {
             System.out.println("Unknown task type: " + type);
         }
         return task;
+    }
+
+    /**
+     * Parses the user's input command to determine the command type.
+     *
+     * @param input the user's input command
+     * @return the CommandType enum value representing the command type
+     * @throws DuchessException if the input command is not recognized
+     */
+    public static CommandType parseCommand(String input) throws DuchessException {
+        // Normalize input (convert to lowercase and remove leading/trailing whitespace)
+        input = input.trim().toLowerCase();
+
+        if (input.equals("bye")) {
+            return CommandType.BYE;
+        } else if (input.equals("list")) {
+            return CommandType.LIST;
+        } else if (input.startsWith("todo")) {
+            return CommandType.TODO;
+        } else if (input.startsWith("event")) {
+            return CommandType.EVENT;
+        } else if (input.startsWith("deadline")) {
+            return CommandType.DEADLINE;
+        } else if (input.startsWith("delete")) {
+            return CommandType.DELETE;
+        } else if (input.startsWith("find")) {
+            return CommandType.FIND;
+        } else if (input.startsWith("mark")) {
+            return CommandType.MARK;
+        } else if (input.startsWith("unmark")) {
+            return CommandType.UNMARK;
+        } else {
+            // Unknown command
+            return CommandType.UNKNOWN;
+        }
+    }
+
+    /**
+     * Parses the arguments from the user's input command.
+     *
+     * @param input the user's input command
+     * @return the argument fields of the input command
+     * @throws DuchessException if the command requires argument(s) and it is missing
+     */
+    public static String parseArgs(String input) throws DuchessException {
+        try {
+            // Split the input command at the first space character and return the second part
+            return input.split(" ", 2)[1];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DuchessException("No arguments found.");
+        }
     }
 }

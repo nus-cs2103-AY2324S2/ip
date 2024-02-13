@@ -3,9 +3,7 @@ package duchess.ui;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import duchess.DuchessException;
 import duchess.TaskList;
-import duchess.storage.Storage;
 import duchess.task.Task;
 
 import javafx.util.Pair;
@@ -15,9 +13,18 @@ import javafx.util.Pair;
  * It provides methods for printing greetings, messages, and reading user input.
  */
 public class Ui {
-
-    // Declare the scanner as a static field in the class
     private static Scanner scanner = new Scanner(System.in);
+
+    public String nextLine() {
+        return scanner.nextLine();
+    }
+
+    /**
+     * Closes the scanner used for reading user input.
+     */
+    public void closeScanner() {
+        scanner.close();
+    }
 
     /**
      * Prints the opening greeting message when the program starts.
@@ -61,114 +68,104 @@ public class Ui {
     }
 
     /**
-     * Reads user input, processes commands, and interacts with the TaskList and Storage.
-     *
-     * @param taskList the TaskList object containing the list of tasks
-     * @param storage the Storage object for saving tasks to file
-     * @throws DuchessException if an error occurs during command processing
+     * Displays the opening greeting message.
+     * @return The opening greeting message.
      */
-    public void printEcho(TaskList taskList, Storage storage) throws DuchessException {
-        // Loop to read user input
-        while (true) {
-            String userInput = scanner.nextLine();
-
-            // Split user input into tokens
-            String[] tokens = userInput.split(" ");
-
-            // Based on user input, change output
-            switch (tokens[0].toLowerCase()) {
-            case "bye":
-                printClosingGreeting();
-                return;
-
-            case "list":
-                printHorizontalLine();
-                taskList.printTaskList();
-                break;
-
-            case "mark":
-                printHorizontalLine();
-                if (tokens.length > 1) {
-                    int taskIndexToMark = Integer.parseInt(tokens[1]) - 1; //Minus 1 to match zero-index
-                    taskList.markTaskAsDone(taskIndexToMark);
-                    storage.saveData(taskList);
-                } else {
-                    throw new DuchessException("Oh dear! That is an invalid command. Try: mark <taskIndex>");
-                }
-                break;
-
-            case "unmark":
-                printHorizontalLine();
-                if (tokens.length > 1) {
-                    int taskIndexToUnmark = Integer.parseInt(tokens[1]) - 1; //Minus 1 to match zero-index
-                    taskList.unmarkTaskAsDone(taskIndexToUnmark);
-                    storage.saveData(taskList);
-                } else {
-                    throw new DuchessException("Oh dear! That is an invalid command. Try: unmark <taskIndex>");
-                }
-                break;
-
-            case "todo":
-                printHorizontalLine();
-                taskList.addToDo(userInput);
-                storage.saveData(taskList);
-                break;
-
-            case "deadline":
-                printHorizontalLine();
-                taskList.addDeadline(userInput);
-                storage.saveData(taskList);
-                break;
-
-            case "event":
-                printHorizontalLine();
-                taskList.addEvent(userInput);
-                storage.saveData(taskList);
-                break;
-
-            case "delete":
-                printHorizontalLine();
-                if (tokens.length > 1) {
-                    int taskIndexToDelete = Integer.parseInt(tokens[1]) - 1; //Minus 1 to match zero-index
-                    taskList.deleteTask(taskIndexToDelete);
-                    storage.saveData(taskList);
-                } else {
-                    throw new DuchessException("Oh dear! That is an invalid command. Try: unmark <taskIndex>");
-                }
-                break;
-
-            case "find":
-                printHorizontalLine();
-                if (tokens.length > 1) {
-                    String keyword = tokens[1].toLowerCase();
-                    ArrayList<Pair<Integer, Task>> matchingTasks = taskList.findTasksByKeyword(keyword);
-                    if (!matchingTasks.isEmpty()) {
-                        System.out.println(" Here are the matching tasks in your list:");
-                        for (Pair<Integer, Task> pair : matchingTasks) {
-                            int originalIndex = pair.getKey() + 1; // Add 1 to match the original index
-                            Task task = pair.getValue();
-                            System.out.println(" " + originalIndex + "." + task.toString());
-                        }
-                    } else {
-                        System.out.println(" No matching tasks found.");
-                    }
-                } else {
-                    throw new DuchessException("Oh dear! Please provide a keyword to search for.");
-                }
-                break;
-
-
-            default:
-                throw new DuchessException("Oh dear, I can't make out what that is.");
-            }
-            printHorizontalLine();
-        }
+    public String showOpeningGreeting() {
+        return "Hello, I'm Duchess. What can I do for you today?";
     }
 
     /**
-     * Closes the scanner used for reading user input.
+     * Displays the closing farewell message.
+     * @return The closing farewell message.
      */
-    public void closeScanner() {
-        scanner.close();
+    public String showClosingGreeting() {
+        return "Farewell. Hope to see you again soon, my dear!";
+    }
+
+    /**
+     * Displays a confirmation message after adding a task.
+     *
+     * @param task The task that was added.
+     * @param taskCount The total number of tasks.
+     * @param taskType The type of task added (e.g., todo, deadline, event).
+     * @return The confirmation message.
+     */
+    public String showAdd(Task task, int taskCount, String taskType) {
+        return String.format(
+                "Understood. I've added this " + taskType + " task:\n"
+                        + task.toString() + "\n"
+                        + "Now you have " + taskCount + " tasks in the list.");
+    }
+
+    /**
+     * Displays the list of tasks.
+     *
+     * @param taskList The list of tasks to display.
+     * @return The list of tasks as a formatted String.
+     */
+    public String showList(TaskList taskList) {
+        return taskList.toString();
+    }
+
+    /**
+     * Displays a confirmation message after deleting a task.
+     *
+     * @param task The task that was deleted.
+     * @param taskCount The total number of tasks after deletion.
+     * @return The confirmation message.
+     */
+    public String showDelete(Task task, int taskCount) {
+        return String.format(
+                "Understood. I've deleted this task:\n"
+                        + task.toString() + "\n"
+                        + "Now you have " + taskCount + " tasks in the list.");
+    }
+
+    /**
+     * Displays a confirmation message after marking a task as done.
+     *
+     * @param task The task that was marked as done.
+     * @return The confirmation message.
+     */
+    public String showMarked(Task task) {
+        return String.format(
+                "Perfect! I've marked this task as done:\n"
+                        + task.toString() + "\n");
+    }
+
+    /**
+     * Displays a confirmation message after marking a task as not done yet.
+     *
+     * @param task The task that was marked as not done yet.
+     * @return The confirmation message.
+     */
+    public String showUnmarked(Task task) {
+        return String.format(
+                "Understood, I've marked this task as not done yet:\n"
+                        + task.toString() + "\n");
+    }
+
+    /**
+     * Displays the list of matching tasks found after a search.
+     *
+     * @param matchingTasks The list of matching tasks found.
+     * @return The list of matching tasks as a formatted String.
+     */
+    public String showFind(ArrayList<Pair<Integer, Task>> matchingTasks) {
+        StringBuilder sb = new StringBuilder();
+
+        if (!matchingTasks.isEmpty()) {
+            sb.append("Here are the matching tasks in your list:\n");
+            for (Pair<Integer, Task> pair : matchingTasks) {
+                int originalIndex = pair.getKey() + 1; // Add 1 to match the original index
+                Task task = pair.getValue();
+                sb.append(" ").append(originalIndex).append(". ").append(task.toString()).append("\n");;
+            }
+        } else {
+            sb.append("No matching tasks found.");
+        }
+
+        return sb.toString();
     }
 }
