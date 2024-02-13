@@ -59,7 +59,7 @@ public class Task {
      * @param keyword Keyword to search for.
      * @return True if the description contains the keyword, otherwise False.
      */
-    public boolean descriptionSearch(String keyword) {
+    public boolean containsDescription(String keyword) {
         return description.contains(keyword);
     }
 
@@ -68,7 +68,7 @@ public class Task {
      *
      * @return String of the task in the correct format to save.
      */    
-    public String toSave() {
+    public String formatTasksForSaving() {
         return " | " + (isDone ? "1" : "0") + " | " + description;
     }
 

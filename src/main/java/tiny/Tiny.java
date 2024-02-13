@@ -22,7 +22,7 @@ public class Tiny {
         ui = new Ui();
         storage = new Storage(FILE_PATH);
         try {
-            tasks = new TaskList(storage.load());
+            tasks = new TaskList(storage.loadData());
         } catch (TinyException e) {
             ui.showLoadingError();
             tasks = new TaskList();
@@ -40,7 +40,7 @@ public class Tiny {
             try {
                 String input = ui.readCommand();
                 printContent(parser.parse(input, tasks));
-                storage.save(tasks.toSave());
+                storage.saveData(tasks.formatTasksForSaving());
                 isExit = parser.isExit();
             } catch (TinyException e) {
                 assert isExit == false;
@@ -56,6 +56,7 @@ public class Tiny {
         try {
             String message = parser.parse(input, tasks);
             isExit = parser.isExit();
+            storage.saveData(tasks.formatTasksForSaving());
             return message;
         } catch (TinyException e) {
             return e.getMessage();            

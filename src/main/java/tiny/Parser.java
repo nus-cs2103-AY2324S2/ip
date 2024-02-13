@@ -29,19 +29,19 @@ public class Parser {
         try {
             if (input.equals("list")) {
                 return taskList.list();
-            } else if (checkCmd(input, "mark", 4)) {
+            } else if (isValidCommand(input, "mark", 4)) {
                 return mark();
-            } else if (checkCmd(input, "unmark", 6)) {
+            } else if (isValidCommand(input, "unmark", 6)) {
                 return unmark();
-            } else if (checkCmd(input, "todo", 4)) {
+            } else if (isValidCommand(input, "todo", 4)) {
                 return todo();
-            } else if (checkCmd(input, "deadline", 8)) {
+            } else if (isValidCommand(input, "deadline", 8)) {
                 return deadline();
-            } else if (checkCmd(input, "event", 5)) {
+            } else if (isValidCommand(input, "event", 5)) {
                 return event();
-            } else if (checkCmd(input, "delete", 6)) {
+            } else if (isValidCommand(input, "delete", 6)) {
                 return delete();
-            } else if (checkCmd(input, "find", 4)) {
+            } else if (isValidCommand(input, "find", 4)) {
                 return find();
             } else if (input.equals("bye")) {
                 isExit = true;
@@ -67,7 +67,7 @@ public class Parser {
     private String mark() throws TinyException {
         try {
             String[] s = input.split(" ");
-            if (s.length != 2 || !s[0].equals("mark")) {
+            if (isValidCode(s, 2, "mark")) {
                 return "OOPS! You need to type \"mark <number>\" to change the status to done!";
             }
             int ind = Integer.parseInt(s[1]);
@@ -92,7 +92,7 @@ public class Parser {
     private String unmark() throws TinyException {
         try {
             String[] s = input.split(" ");
-            if (s.length != 2 || !s[0].equals("unmark")) {
+            if (isValidCode(s, 2, "unmark")) {
                 return "OOPS! You need to type \"unmark <number>\" to change the status not done!";
             }
             int ind = Integer.parseInt(s[1]);
@@ -242,6 +242,10 @@ public class Parser {
         }
     }
 
+    private boolean isValidCode(String[] commandInput, int length, String command) {
+        return commandInput.length != length || !commandInput[0].equals(command);
+    }
+
     /**
      * Handles the “bye” command.
      *
@@ -266,7 +270,7 @@ public class Parser {
      * @return True if the command from the user is the same as expected, otherwise
      *         False.
      */
-    private boolean checkCmd(String input, String name, int len) {
+    private boolean isValidCommand(String input, String name, int len) {
         return input.length() >= len && input.substring(0, len).equals(name);
     }
 }

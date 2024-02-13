@@ -26,7 +26,6 @@ public class TaskList {
      * @param data The tasks to be added to the local tasks ArrayList.
      */
     public TaskList(ArrayList<String> datas) throws TinyException {
-        // Parse the data here.
         for (int i = 0; i < datas.size(); i++) {
             String[] entry = datas.get(i).split(" \\| ");
             if (entry[0].equals("T")) {
@@ -65,21 +64,21 @@ public class TaskList {
      * @return String of all of the tasks.
      */
     public String find(String keyword) {
-        int index = 1;
-        String output = "Here are the matching tasks in your list:";
+        int listIndex = 1;
+        String outputMessage = "Here are the matching tasks in your list:";
         for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).descriptionSearch(keyword)) {
-                output += "\n";
-                output += index + ". " + tasks.get(i);
-                index++;
+            if (tasks.get(i).containsDescription(keyword)) {
+                outputMessage += "\n";
+                outputMessage += listIndex + ". " + tasks.get(i);
+                listIndex++;
             }
         }
 
-        if (output.equals("Here are the matching tasks in your list:")) {
+        if (outputMessage.equals("Here are the matching tasks in your list:")) {
             return "No matching results.";
         }
 
-        return output;
+        return outputMessage;
     }
 
     /**
@@ -104,10 +103,10 @@ public class TaskList {
      *
      * @return ArrayList of tasks in the correct format to save.
      */
-    public ArrayList<String> toSave() {
+    public ArrayList<String> formatTasksForSaving() {
         ArrayList<String> tasksToSave = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
-            tasksToSave.add(tasks.get(i).toSave());
+            tasksToSave.add(tasks.get(i).formatTasksForSaving());
         }
         return tasksToSave;
     }
