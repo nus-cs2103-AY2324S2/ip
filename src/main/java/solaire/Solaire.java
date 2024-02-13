@@ -72,6 +72,7 @@ public class Solaire {
         } catch (IllegalArgumentException e) {
             solaireOutput = "I am not yet familiar with these commands";
         } finally {
+            Storage.write(taskList.getTaskList());
             return solaireOutput;
         }
     }
