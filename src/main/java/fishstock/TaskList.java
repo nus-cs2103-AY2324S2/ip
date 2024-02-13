@@ -102,14 +102,10 @@ class TaskList {
      * @return The added Task.
      * @throws FishStockException The exceptions while adding the Task.
      */
-<<<<<<< HEAD
-    protected Task addTask(Command command, String input) throws FishStockException {
-        assert command == Command.TODO || command == Command.DEADLINE
-                || command == Command.EVENT : "Attempted to add an invalid Task";
-
-=======
     protected Task addTask(CommandType commandType, UserInput input) throws FishStockException {
->>>>>>> master
+        assert commandType == CommandType.TODO || commandType == CommandType.DEADLINE
+                || commandType == CommandType.EVENT : "Attempted to add an invalid Task";
+        
         Task task = null;
         switch (commandType) {
         case TODO:
