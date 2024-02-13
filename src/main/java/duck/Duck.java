@@ -236,7 +236,6 @@ public class Duck extends Application {
     }
 }
 
-
 /**
  * Exception class representing a corrupted data file in Duke.
  */
