@@ -23,6 +23,7 @@ public class Parser {
     public static Command parse(String fullCommand) throws DukeInvalidCommand {
         String[] input = fullCommand.split(" ", 2);
         String command = input[0];
+
         if (command.equals("bye")) {
             return new ByeCommand();
         } else if (command.equals("list")) {

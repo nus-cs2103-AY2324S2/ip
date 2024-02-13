@@ -10,12 +10,13 @@ public class TodoCommand extends Command {
     private String inputs;
 
     public TodoCommand(String command) {
-        inputs = command;
+        this.inputs = command;
     }
     public String execute(TaskList tasks, Storage storage) throws DukeException {
         if (inputs.isEmpty()) {
             throw new DukeMissingArgument(1, "todo");
         }
+
         ToDos newTask = new ToDos(inputs, false);
         return tasks.add(newTask);
     }

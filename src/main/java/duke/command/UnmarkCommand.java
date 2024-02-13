@@ -10,12 +10,13 @@ public class UnmarkCommand extends Command {
     private String inputs;
 
     public UnmarkCommand(String command) {
-        inputs = command;
+        this.inputs = command;
     }
     public String execute(TaskList tasks, Storage storage) throws DukeException {
         if (inputs.isEmpty()) {
             throw new DukeMissingArgument(1, "unmark");
         }
+
         try {
             int index = Integer.valueOf(inputs);
             return tasks.unmark(index);

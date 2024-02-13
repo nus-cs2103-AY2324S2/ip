@@ -3,7 +3,7 @@ package duke.dukeexception;
 public class DukeInvalidArgument extends DukeException {
     private String args;
     public DukeInvalidArgument(String args) {
-        args = args;
+        this.args = args;
     }
     @Override
     public String toString() {

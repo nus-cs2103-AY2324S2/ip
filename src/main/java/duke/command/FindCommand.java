@@ -8,7 +8,7 @@ public class FindCommand extends Command {
 
     private String inputs;
     public FindCommand(String command) {
-        inputs = command;
+        this.inputs = command;
     }
     public String execute(TaskList tasks, Storage storage) throws DukeException {
         return tasks.find(inputs);

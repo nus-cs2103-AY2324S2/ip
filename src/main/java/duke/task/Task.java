@@ -89,6 +89,7 @@ public class Task {
         if (isDone) {
             throw new DukeCannotBeMarked();
         }
+
         isDone = true;
         return "Nice! I've marked this task as done:" + this.taskInfo();
     }
@@ -102,6 +103,7 @@ public class Task {
         if (!isDone) {
             throw new DukeCannotBeUnmarked();
         }
+
         isDone = false;
         return "OK, I've marked this task as not done yet:" + this.taskInfo();
     }

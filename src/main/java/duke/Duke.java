@@ -12,7 +12,7 @@ public class Duke {
 
 
     public Duke(String saveFile) {
-        storage = new Storage(saveFile);
+        this.storage = new Storage(saveFile);
     }
 
     public String load() {
