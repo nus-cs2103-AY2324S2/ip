@@ -47,6 +47,7 @@ public class TaskManager {
      * @return True if the task is added successfully, false otherwise.
      */
     public boolean addToDoTask(String taskName, boolean isCompleted) {
+        assert taskName != null : "Task name cannot be null";
         ToDoTask newTask = new ToDoTask(taskName, isCompleted);
         userTasks.add(newTask);
         return true;
@@ -61,6 +62,7 @@ public class TaskManager {
      * @return True if the task is added successfully, false otherwise.
      */
     public boolean addDeadlineTask(String taskName, boolean isCompleted, LocalDate deadline) {
+        assert taskName != null : "Task name cannot be null";
         DeadlineTask newTask = new DeadlineTask(taskName, isCompleted, deadline);
         userTasks.add(newTask);
         return true;
@@ -77,6 +79,7 @@ public class TaskManager {
      */
     public boolean addEventTask(String taskName, boolean isCompleted, LocalDateTime startDateTime,
                                 LocalDateTime endDateTime) {
+        assert taskName != null : "Task name cannot be null";
         EventTask newTask = new EventTask(taskName, isCompleted, startDateTime, endDateTime);
         userTasks.add(newTask);
         return true;
@@ -89,6 +92,7 @@ public class TaskManager {
      * @return The task at the specified index.
      */
     public Task getTask(int index) {
+        assert index >= 0 && index < userTasks.size() : "Invalid task index";
         return userTasks.get(index);
     }
 
@@ -109,6 +113,7 @@ public class TaskManager {
      * @throws OsirisInvalidIndexException If index provided is invalid.
      */
     public Task deleteTask(int index) {
+        assert index >= 0 && index < userTasks.size() : "Invalid task index";
         try {
             Task deletedTask = userTasks.get(index);
             userTasks.remove(index);
@@ -136,6 +141,7 @@ public class TaskManager {
      * @throws OsirisInvalidIndexException If index provided is invalid.
      */
     public boolean markTaskComplete(int index) {
+        assert index >= 0 && index < userTasks.size() : "Invalid task index";
         try {
             userTasks.get(index).markComplete();
             return true;
@@ -153,6 +159,7 @@ public class TaskManager {
      * @throws OsirisInvalidIndexException If index provided is invalid.
      */
     public boolean markTaskIncomplete(int index) {
+        assert index >= 0 && index < userTasks.size() : "Invalid task index";
         try {
             userTasks.get(index).markIncomplete();
             return true;
@@ -194,7 +201,6 @@ public class TaskManager {
         ArrayList<String> readContents = taskStorage.readStorageTxtFile();
         for (String readContentString : readContents) {
             String[] readContentWord = readContentString.split("\\|");
-
             if (readContentWord[0].trim().equals("T")) {
                 this.addToDoTask(readContentWord[2].trim(), readContentWord[1].trim().equals("Y"));
             } else if (readContentWord[0].trim().equals("D")) {

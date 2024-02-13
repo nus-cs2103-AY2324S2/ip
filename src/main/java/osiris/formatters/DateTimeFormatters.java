@@ -5,7 +5,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import osiris.exceptions.*;
+import osiris.exceptions.OsirisDateTimeException;
+import osiris.exceptions.OsirisParseDateException;
+import osiris.exceptions.OsirisParseDateTimeException;
+import osiris.exceptions.OsirisParseDateTimeRangeException;
+import osiris.exceptions.OsirisParseStoredDateTimeException;
 
 /**
  * A singleton class for date and time formatters used in the application.
@@ -38,6 +42,9 @@ public class DateTimeFormatters {
      * @throws OsirisParseDateException If the date string cannot be parsed.
      */
     public LocalDate formatUserInputDate(String dateStr) {
+
+        assert dateStr != null : "Date string must not be null";
+
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
         try {
@@ -57,6 +64,9 @@ public class DateTimeFormatters {
      * @throws OsirisDateTimeException If the date and time string cannot be parsed.
      */
     public LocalDateTime formatUserInputDateTime(String dateTimeStr) {
+
+        assert dateTimeStr != null : "DateTime string must not be null";
+
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
 
         try {
@@ -77,6 +87,9 @@ public class DateTimeFormatters {
      * @throws OsirisParseDateTimeRangeException If the date time range cannot be parsed.
      */
     public LocalDateTime[] formatUserInputDateTimeRange(String fromDateTimeStr, String toDateTimeStr) {
+
+        assert fromDateTimeStr != null && toDateTimeStr != null : "Date time strings must not be null";
+
         DateTimeFormatter startDateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
         DateTimeFormatter endDateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
 
@@ -99,6 +112,9 @@ public class DateTimeFormatters {
      * @throws OsirisParseStoredDateTimeException If the stored date string cannot be parsed.
      */
     public LocalDate formatStoredDate(String dateStr) {
+
+        assert dateStr != null : "Date string must not be null";
+
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM d yyyy");
 
         try {
@@ -117,6 +133,9 @@ public class DateTimeFormatters {
      * @throws OsirisParseStoredDateTimeException If the stored date and time string cannot be parsed.
      */
     public LocalDateTime formatStoredDateTime(String dateTimeStr) {
+
+        assert dateTimeStr != null : "DateTime string must not be null";
+
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM d yyyy h:mm a");
 
         try {
@@ -136,6 +155,9 @@ public class DateTimeFormatters {
      * @throws OsirisParseStoredDateTimeException If the stored date time range strings cannot be parsed.
      */
     public LocalDateTime[] formatStoredDateTimeRange(String fromDateTimeStr, String toDateTimeStr) {
+
+        assert fromDateTimeStr != null && toDateTimeStr != null : "Date time strings must not be null";
+
         DateTimeFormatter startDateTimeFormatter = DateTimeFormatter.ofPattern("MMM d yyyy h:mm a");
         DateTimeFormatter endDateTimeFormatter = DateTimeFormatter.ofPattern("MMM d yyyy h:mm a");
 
