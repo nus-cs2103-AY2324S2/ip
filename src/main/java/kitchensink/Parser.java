@@ -33,29 +33,22 @@ public class Parser {
      * @param taskList The list that contains the user's tasks. User can manipulate the tasks it contains.
      * @param ui       The ui that confirms the user's action.
      * @param storage  The storage that saves any change to the save file.
-     * @return Whether the program should exit; true if the command is "bye", false otherwise.
-     * @throws UnknownCommandException  If the first word is not a valid command.
-     * @throws TaskNotFoundException    If the task is not found, as the task number is out of bounds.
-     * @throws IOException              As storage reads/writes save file.
-     * @throws InvalidSyntaxException   If the command is valid, but not in the correct format.
-     * @throws InvalidDateTimeException If the date/time given is not in the correct format.
+     * @return String to output in UI.
+     * @throws IOException As storage reads/writes save file.
      */
-    public String parse(String input, List taskList, Ui ui, Storage storage) throws UnknownCommandException,
-            TaskNotFoundException, IOException, InvalidSyntaxException, InvalidDateTimeException {
+    public String parse(String input, List taskList, Ui ui, Storage storage) throws IOException {
         String command = input.split(" ")[0].toLowerCase();
         switch (command) {
         case "bye":
             if (!input.equalsIgnoreCase("bye")) {
-                assert !input.equals("bye ");
-                throw new InvalidSyntaxException("bye");
+                return new InvalidSyntaxException("bye").toString();
             }
             assert input.equals("bye") || input.equals("Bye") || input.equals("bYe") || input.equals("byE")
                     || input.equals("BYe") || input.equals("ByE") || input.equals("bYE") || input.equals("BYE");
             return ui.sayGoodBye();
         case "list":
             if (!input.equalsIgnoreCase("list")) {
-                assert input.equals("list ");
-                throw new InvalidSyntaxException("list");
+                return new InvalidSyntaxException("list").toString();
             }
             assert input.equals("list") || input.equals("List") || input.equals("lIst") || input.equals("liSt")
                     || input.equals("lisT") || input.equals("LIst") || input.equals("LiSt") || input.equals("LisT")
@@ -64,51 +57,48 @@ public class Parser {
             return ui.displayTasks(taskList);
         case "mark": {
             if (input.split(" ").length != 2) {
-                throw new InvalidSyntaxException("mark");
+                return new InvalidSyntaxException("mark").toString();
             }
             try {
                 Integer.parseInt(input.split(" ")[1]);
             } catch (NumberFormatException e) {
-                throw new InvalidSyntaxException("mark");
+                return new InvalidSyntaxException("mark").toString();
             }
             int taskNum = Integer.parseInt(input.split(" ")[1]);
             if (!taskList.isValidTaskNum(taskNum)) {
-//                return new TaskNotFoundException(taskList).toString();
-                throw new TaskNotFoundException(taskList);
+                return new TaskNotFoundException(taskList).toString();
             }
             return taskList.markTask(taskNum - 1, storage, ui);
         }
         case "unmark": {
             if (input.split(" ").length != 2) {
-                throw new InvalidSyntaxException("unmark");
+                return new InvalidSyntaxException("unmark").toString();
             }
             try {
                 Integer.parseInt(input.split(" ")[1]);
             } catch (NumberFormatException e) {
-//                InvalidSyntaxException exception = new InvalidSyntaxException("unmark");
-//                return exception.toString();
-                throw new InvalidSyntaxException("unmark");
+                return new InvalidSyntaxException("unmark").toString();
             }
             int taskNum = Integer.parseInt(input.split(" ")[1]);
             if (!taskList.isValidTaskNum(taskNum)) {
-                throw new TaskNotFoundException(taskList);
+                return new TaskNotFoundException(taskList).toString();
             }
             return taskList.unmarkTask(taskNum - 1, storage, ui);
         }
         case "todo":
             if (input.split(" ").length <= 1) {
-                throw new InvalidSyntaxException("todo");
+                return new InvalidSyntaxException("todo").toString();
             }
             return taskList.addTask(new ToDo(input.substring(5)), storage, ui);
         case "deadline": {
             if (!Pattern.matches("deadline .+ /by .+", input)
                     || input.split("/by").length != 2) {
-                throw new InvalidSyntaxException("deadline");
+                return new InvalidSyntaxException("deadline").toString();
             }
             try {
                 toLocalDateTime(input.split("/by ")[1]);
             } catch (Exception e) {
-                throw new InvalidDateTimeException();
+                return new InvalidDateTimeException().toString();
             }
             String description = input.substring(9).split(" /by")[0];
             String dueDate = input.split("/by ")[1];
@@ -118,13 +108,13 @@ public class Parser {
             if (!Pattern.matches("event .+ /from .+ /to .+", input)
                     || input.split("/from").length != 2
                     || input.split("/to").length != 2) {
-                throw new InvalidSyntaxException("event");
+                return new InvalidSyntaxException("event").toString();
             }
             try {
                 toLocalDateTime(input.split("/from ")[1].split(" /to")[0]);
                 toLocalDateTime(input.split("/to ")[1]);
             } catch (Exception e) {
-                throw new InvalidDateTimeException();
+                return new InvalidDateTimeException().toString();
             }
             String description = input.substring(6).split(" /from")[0];
             String startDate = input.split("/from ")[1].split(" /to")[0];
@@ -133,21 +123,21 @@ public class Parser {
                     storage, ui);
         case "delete":
             if (input.split(" ").length != 2) {
-                throw new InvalidSyntaxException("delete");
+                return new InvalidSyntaxException("delete").toString();
             }
             try {
                 Integer.parseInt(input.split(" ")[1]);
             } catch (NumberFormatException e) {
-                throw new InvalidSyntaxException("delete");
+                return new InvalidSyntaxException("delete").toString();
             }
             int taskNum = Integer.parseInt(input.split(" ")[1]);
             if (!taskList.isValidTaskNum(taskNum)) {
-                throw new TaskNotFoundException(taskList);
+                return new TaskNotFoundException(taskList).toString();
             }
             return taskList.deleteTask(taskNum - 1, storage, ui);
         case "find":
             if (input.split(" ").length != 2) {
-                throw new InvalidSyntaxException("find");
+                return new InvalidSyntaxException("find").toString();
             }
             String keywords = input.substring(5);
             return taskList.findTasks(keywords, ui);
@@ -155,7 +145,7 @@ public class Parser {
             assert !input.equals("bye") && !input.equals("list") && !input.equals("mark") && !input.equals("unmark")
                     && !input.equals("todo") && !input.equals("deadline") && !input.equals("event")
                     && !input.equals("delete") && !input.equals("find");
-            throw new UnknownCommandException();
+            return new UnknownCommandException().toString();
         }
     }
 }
