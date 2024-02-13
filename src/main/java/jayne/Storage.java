@@ -19,6 +19,7 @@ public class Storage {
      * If the file exists, it is renamed with a unique name to avoid overwriting.
      */
     public Storage(String filepath) {
+        assert filepath != null : "File path cannot be null";
         this.filepath = filepath;
     }
     /**
@@ -47,6 +48,7 @@ public class Storage {
      * @return a new file name that does not conflict with existing files.
      */
     public String getNewFileName(Path originalPath) {
+        assert originalPath != null : "input path cannot be null";
         int counter = 1;
         String originalFileName = originalPath.getFileName().toString();
         String fileWithoutExtension = originalFileName.replaceFirst("[.][^.]+$", "");

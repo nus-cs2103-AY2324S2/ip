@@ -20,6 +20,7 @@ public class Jayne {
      * @param filepath the path to the file where tasks are saved and loaded from.
      */
     public Jayne(String filepath) throws JayneException {
+        assert filepath != null : "File cannot be null";
         this.storage = new Storage(filepath);
         this.taskList = new TaskList(storage);
     }
@@ -34,6 +35,8 @@ public class Jayne {
      * @return A greeting followed by the command's execution result, or an error message.
      */
     public String run(String input) {
+        assert input != null : "Input cannot be null";
+        assert taskList != null : "TaskList cannot be null";
         Parser parser = new Parser(taskList);
         String msg = "";
         try {

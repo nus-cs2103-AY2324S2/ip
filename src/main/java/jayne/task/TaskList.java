@@ -24,6 +24,7 @@ public class TaskList {
     public TaskList(Storage storage) throws JayneException {
         this.taskArray = new ArrayList<>();
         this.storage = storage;
+        assert storage != null : "Storage should not be null";
         storage.renameFileIfExists();
         storage.loadTasks(taskArray);
     }

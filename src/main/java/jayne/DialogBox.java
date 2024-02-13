@@ -37,6 +37,8 @@ public class DialogBox extends HBox {
     private Circle circle;
 
     private DialogBox(String text, Image img) {
+        assert text != null : "Text parameter cannot be null";
+        assert img != null : "Image parameter cannot be null";
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -44,6 +46,7 @@ public class DialogBox extends HBox {
             fxmlLoader.load();
         } catch (IOException e) {
             e.printStackTrace();
+            assert false : "Failed to load FXML for DialogBox";
         }
 
         dialog.setText(text);

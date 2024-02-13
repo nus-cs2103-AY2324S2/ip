@@ -55,6 +55,9 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = jayne.run(input);
+        assert response != null : "Response cannot be null";
+        assert userImage != null : "User Image cannot be null";
+        assert jayneImage != null : "Jayne Image cannot be null";
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getJayneDialog(response, jayneImage)

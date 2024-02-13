@@ -25,6 +25,8 @@ public class Handler {
      * @throws JayneException if the task number is invalid or does not exist.
      */
     public static String handleDelete(String[] parts, TaskList taskList) throws JayneException {
+        assert parts != null : "Input command parts cannot be null";
+        assert taskList != null : "TaskList cannot be null";
         if (parts.length < 2) {
             throw JayneException.deleteEmptyException();
         }
@@ -34,6 +36,7 @@ public class Handler {
                 throw JayneException.deleteExistException(taskNumber);
             }
             Task removedTask = taskList.deleteTask(taskNumber);
+            assert removedTask != null : "Removed task should not be null";
             return "\nNoted. I've removed this task:\n  " + removedTask + "\nNow you have "
                     + taskList.getTaskCount() + " tasks in the list.\n";
         } catch (NumberFormatException e) {
@@ -83,6 +86,8 @@ public class Handler {
      * @throws JayneException if the deadline description or date is empty or in an invalid format.
      */
     public static String handleDeadline(String[] parts, TaskList taskList) throws JayneException {
+        assert parts != null : "Input command parts cannot be null";
+        assert taskList != null : "TaskList cannot be null";
         if (parts.length < 2 || parts[1].isEmpty()) {
             throw new JayneException("The description of a deadline cannot be empty.");
         }
@@ -110,6 +115,8 @@ public class Handler {
      * @throws JayneException if the todo description is empty.
      */
     public static String handleTodo(String[] parts, TaskList taskList) throws JayneException {
+        assert parts != null : "Input command parts cannot be null";
+        assert taskList != null : "TaskList cannot be null";
         if (parts.length < 2 || parts[1].isEmpty()) {
             throw JayneException.todoException();
         }
@@ -126,6 +133,8 @@ public class Handler {
      * @throws JayneException if the event description or time is empty or in an invalid format.
      */
     public static String handleEvent(String[] parts, TaskList taskList) throws JayneException {
+        assert parts != null : "Input command parts cannot be null";
+        assert taskList != null : "TaskList cannot be null";
         if (parts.length < 2 || parts[1].isEmpty()) {
             throw JayneException.emptyEventException();
         }
@@ -151,6 +160,8 @@ public class Handler {
      * @throws JayneException if the task number is invalid or does not exist.
      */
     public static String handleMark(String[] parts, TaskList taskList) throws JayneException {
+        assert parts != null : "Input command parts cannot be null";
+        assert taskList != null : "TaskList cannot be null";
         if (parts.length < 2) {
             throw JayneException.markEmptyException();
         }
