@@ -20,6 +20,7 @@ import solaire.data.task.Todo;
  */
 public class Storage {
     private static ArrayList<Task> taskList = new ArrayList<>();
+    private static final Path FILE_PATH = Paths.get("src", "main", "resources", "Solaire.txt");
 
     /**
      * Loads data from a pre-determined file path and generates a list of tasks for UI.
@@ -29,19 +30,15 @@ public class Storage {
     public static ArrayList<Task> loadFromLocal() {
         // Clear current tasklist
         taskList.clear();
-
-        // Read from target file
-        Path filePath = Paths.get("src", "main", "resources", "Solaire.txt");
         try {
-
-            Path directoryPath = filePath.getParent();
+            Path directoryPath = FILE_PATH.getParent();
             // Check if directory exists
             Files.createDirectories(directoryPath);
 
-            if (!Files.exists(filePath)) {
-                Files.createFile(filePath);
+            if (!Files.exists(FILE_PATH)) {
+                Files.createFile(FILE_PATH);
             }
-            List<String> lines = Files.readAllLines(filePath);
+            List<String> lines = Files.readAllLines(FILE_PATH);
 
             for (String line : lines) {
                 parseTasks(line);
@@ -61,13 +58,11 @@ public class Storage {
      * @param taskList an <code>ArrayList</code> of <code>Task</code> objects
      */
     public static void write(ArrayList<Task> taskList) {
-        Path filePath = Paths.get("src", "main", "resources", "Solaire.txt");
-
         try {
-            Files.createDirectories(filePath.getParent());
+            Files.createDirectories(FILE_PATH.getParent());
             Storage.taskList = taskList;
 
-            BufferedWriter bw = Files.newBufferedWriter(filePath);
+            BufferedWriter bw = Files.newBufferedWriter(FILE_PATH);
 
             for (Task task : taskList) {
                 String content = "";
