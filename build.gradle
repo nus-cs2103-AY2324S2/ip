@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("pyrite.Duke")
+    mainClass.set("pyrite.Launcher")
 }
 
 shadowJar {
