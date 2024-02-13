@@ -103,10 +103,14 @@ public class Parser {
         return new Event(parts[0].trim(), from, to, false);
     }
 
-    private void handleDelete(Ui ui, String details, Tasklist todolist) {
-        int taskNumber = Integer.parseInt(details) - 1;
-        Task removed = todolist.removeItem(taskNumber);
-        ui.printMessage("Noted. I've removed this task: " + removed);
+    private void handleDelete(Ui ui, String details, Tasklist todolist) throws DukeException {
+        try {
+            int taskNumber = Integer.parseInt(details) - 1;
+            Task removed = todolist.removeItem(taskNumber);
+            ui.printMessage("Noted. I've removed this task: " + removed);
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            throw new DukeException("Please provide a valid task number to delete.");
+        }
     }
 
     private void findTask(Ui ui, String details, Tasklist todolist) throws DukeException {
