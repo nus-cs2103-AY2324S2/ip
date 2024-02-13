@@ -13,8 +13,11 @@ import javafx.stage.Stage;
  * A GUI for Skibidi using FXML.
  */
 public class Main extends Application {
+    private static final String FILE_PATH = "/data/";
+    private static final String FILE_NAME = "duke.txt";
+
     /** Duke object that we will run the bot features from. */
-    private Duke duke = new Duke("/data/", "duke.txt");
+    private Duke duke = new Duke(FILE_PATH, FILE_NAME);
 
     @Override
     public void start(Stage stage) {
