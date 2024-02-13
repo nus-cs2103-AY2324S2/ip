@@ -24,7 +24,7 @@ public class Parser {
      * Represents the types of commands.
      */
     public enum CommandType {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID, FIND
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID, FIND,
     }
 
     /**
@@ -42,8 +42,7 @@ public class Parser {
     /**
      * Parses user input and executes corresponding commands.
      */
-    public void parse() {
-        String userInput = scanner.nextLine();
+    public String parse(String userInput) {
 
         // Checks for BYE command
         while (true) {
@@ -54,32 +53,23 @@ public class Parser {
                 System.exit(0);
                 break;
             case LIST:
-                tasks.printList();
-                break;
+                return tasks.printList();
             case MARK:
-                handleMarkTask(userInput, tasks);
-                break;
+                return handleMarkTask(userInput, tasks);
             case UNMARK:
-                handleUnmarkTask(userInput, tasks);
-                break;
+                return handleUnmarkTask(userInput, tasks);
             case TODO:
-                handleTodoTask(userInput, tasks);
-                break;
+                return handleTodoTask(userInput, tasks);
             case DEADLINE:
-                handleDeadlineTask(userInput, tasks);
-                break;
+                return handleDeadlineTask(userInput, tasks);
             case EVENT:
-                handleEventTask(userInput, tasks);
-                break;
+                return handleEventTask(userInput, tasks);
             case DELETE:
-                handleDeleteTask(userInput, tasks);
-                break;
+                return handleDeleteTask(userInput, tasks);
             case FIND:
-                handleFindTask(userInput, tasks);
-                break;
+                return handleFindTask(userInput, tasks);
             case INVALID:
-                handleInvalidCommand();
-                break;
+                return handleInvalidCommand();
             default:
                 break;
             }
@@ -96,89 +86,89 @@ public class Parser {
         }
     }
 
-    private static void handleMarkTask(String userInput, TaskList tasks) {
+    private static String handleMarkTask(String userInput, TaskList tasks) {
         try {
             int taskNumber = Integer.parseInt(userInput.split("\\s+")[1]);
-            tasks.markTask(taskNumber, true);
+            return tasks.markTask(taskNumber, true);
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            handleException("Please put a number. I can't count that!");
+            return handleException("Please put a number. I can't count that!");
         } catch (TheCountException e) {
-            handleException(e);
+            return handleException(e);
         }
     }
 
-    private static void handleUnmarkTask(String userInput, TaskList tasks) {
+    private static String handleUnmarkTask(String userInput, TaskList tasks) {
         try {
             int taskNumber = Integer.parseInt(userInput.split("\\s+")[1]);
-            tasks.unmarkTask(taskNumber, true);
+            return tasks.unmarkTask(taskNumber, true);
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            handleException("Please put a number. I can't count that!");
+            return handleException("Please put a number. I can't count that!");
         } catch (TheCountException e) {
-            handleException(e);
+            return handleException(e);
         }
     }
 
-    private static void handleTodoTask(String userInput, TaskList tasks) {
+    private static String handleTodoTask(String userInput, TaskList tasks) {
         try {
             String info = getTaskInfo(userInput, " ");
             ToDo todo = new ToDo(info);
             tasks.add(todo);
-            todo.displayMessage(tasks.length());
+            return todo.displayMessage(tasks.length());
         } catch (TheCountException e) {
-            handleException(e);
+            return handleException(e);
         }
     }
 
-    private static void handleDeadlineTask(String userInput, TaskList tasks) {
+    private static String handleDeadlineTask(String userInput, TaskList tasks) {
         try {
             String info = getTaskInfo(userInput, "/by");
             String deadlineTime = getTaskTime(userInput, "/by", "deadline");
             Deadline deadline = new Deadline(info, deadlineTime);
             tasks.add(deadline);
-            deadline.displayMessage(tasks.length());
+            return deadline.displayMessage(tasks.length());
         } catch (TheCountException e) {
-            handleException(e, "Example: deadline assignment /by 2pm");
+            return handleException(e, "Example: deadline assignment /by 2021-12-31");
         } catch (DateTimeParseException e) {
-            handleException("Please enter date in the format yyyy-MM-dd.");
+            return handleException("Please enter date in the format yyyy-MM-dd.");
         }
     }
 
-    private static void handleEventTask(String userInput, TaskList tasks) {
+    private static String handleEventTask(String userInput, TaskList tasks) {
         try {
             String info = getTaskInfo(userInput, "/from");
             String startTime = getStartTime(userInput);
             String endTime = getTaskTime(userInput, "/to", "end time");
             Event event = new Event(info, startTime, endTime);
             tasks.add(event);
-            event.displayMessage(tasks.length());
+            return event.displayMessage(tasks.length());
         } catch (TheCountException e) {
-            handleException(e, "Example: event meeting /from 2pm /to 4pm");
+            return handleException(e, "Example: event meeting /from 2pm /to 4pm");
         }
     }
 
-    private static void handleDeleteTask(String userInput, TaskList tasks) {
+    private static String handleDeleteTask(String userInput, TaskList tasks) {
         try {
             int taskNumber = Integer.parseInt(userInput.split("\\s+")[1]);
-            tasks.deleteTask(taskNumber);
+            return tasks.deleteTask(taskNumber);
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException | TheCountException e) {
-            handleException(e);
+            return handleException(e);
         }
     }
 
-    private static void handleInvalidCommand() {
+    private static String handleInvalidCommand() {
         try {
             throw new TheCountException("WHAT?! I can't count that! Try another command!");
         } catch (TheCountException e) {
-            handleException(e);
+            return handleException(e);
         }
     }
 
-    private static void handleFindTask(String userInput, TaskList tasks) {
+    private static String handleFindTask(String userInput, TaskList tasks) {
         try {
             String keyword = userInput.split("\\s+", 2)[1].trim();
-            tasks.findTask(keyword);
+            return tasks.findTask(keyword);
         } catch (ArrayIndexOutOfBoundsException e) {
-            handleException("Please enter a keyword to search for.");
+            return handleException("Please enter a keyword to search for.");
         }
     }
 
@@ -216,18 +206,18 @@ public class Parser {
         }
     }
 
-    private static void handleException(Exception e) {
+    private static String handleException(Exception e) {
         Reply errorMsg = new Reply(e.getMessage());
-        errorMsg.displayMessage();
+        return errorMsg.displayMessage();
     }
 
-    private static void handleException(Exception e, String additionalMessage) {
-        Reply errorMsg = new Reply(e.getMessage() + "\n      " + additionalMessage);
-        errorMsg.displayMessage();
+    private static String handleException(Exception e, String additionalMessage) {
+        Reply errorMsg = new Reply(e.getMessage() + "\n" + additionalMessage);
+        return errorMsg.displayMessage();
     }
 
-    private static void handleException(String additionalMessage) {
+    private static String handleException(String additionalMessage) {
         Reply errorMsg = new Reply(additionalMessage);
-        errorMsg.displayMessage();
+        return errorMsg.displayMessage();
     }
 }

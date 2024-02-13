@@ -24,14 +24,14 @@ public class PrintList extends Reply {
      * Displays the list of tasks.
      */
     @Override
-    public void displayMessage() {
+    public String displayMessage() {
         String message = "Here are the tasks in your list:";
         for (int i = 0; i < tasks.size(); i++) {
             String taskLine = (i + 1) + "." + tasks.get(i).toString();
-            message = message.concat("\n        " + taskLine);
+            message = message.concat("\n" + taskLine);
         }
         Reply replyToUser = new Reply(message);
-        replyToUser.displayMessage();
+        return replyToUser.displayMessage();
     }
 
     /**

@@ -23,8 +23,8 @@ public class Greeting extends Reply {
      */
     public Greeting() {
         super("Greetings. I am the Count.\n"
-                + "      They call me the Count,\n"
-                + "      because I LOVE to count... things.");
+                + "They call me the Count,\n"
+                + "because I LOVE to count... things.");
         displayAsciiArt();
     }
 

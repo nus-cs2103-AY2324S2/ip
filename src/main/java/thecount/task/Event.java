@@ -28,9 +28,9 @@ public class Event extends Task {
      *
      * @param currSize The current size of the list.
      */
-    public void displayMessage(int currSize) {
+    public String displayMessage(int currSize) {
         Reply replyToUser = new AddToListReply(this.toString(), currSize);
-        replyToUser.displayMessage();
+        return replyToUser.displayMessage();
     }
 
     /**

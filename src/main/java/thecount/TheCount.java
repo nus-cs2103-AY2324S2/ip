@@ -1,6 +1,7 @@
 package thecount;
 
 import thecount.exception.TheCountException;
+import thecount.parser.Parser;
 import thecount.storage.Storage;
 import thecount.task.TaskList;
 import thecount.ui.Ui;
@@ -13,6 +14,7 @@ public class TheCount {
 
     private Storage loader;
     private TaskList tasks;
+    private Parser parser;
     private Ui ui;
 
     /**
@@ -22,20 +24,12 @@ public class TheCount {
     public TheCount() {
         this.tasks = new TaskList();
         this.loader = new Storage(this.tasks);
-//        this.ui = new Ui(this.tasks, this.loader);
+        this.parser = new Parser(tasks, loader);
+        this.ui = new Ui(this.tasks, this.loader);
     }
 
-//    public String getResponse(String input) {
-//        try {
-//            Command c = Parser.parse(input);
-//            return c.execute(tasks, storage);
-//        } catch (TheCountException e) {
-//            return e.getMessage();
-//        }
-//    }
-
     public String getResponse(String input) {
-        return "Duke heard " + input;
+        return parser.parse(input);
     }
 
     /**
