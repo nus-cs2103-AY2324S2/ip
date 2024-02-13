@@ -1,6 +1,6 @@
 package duchess.launcher;
 
-import duchess.Duchess;
+import duchess.Main;
 import javafx.application.Application;
 
 /**
@@ -14,6 +14,6 @@ public class Launcher {
      * @param args The command-line arguments passed to the application.
      */
     public static void main(String[] args) {
-        Application.launch(Duchess.class, args);
+        Application.launch(Main.class, args);
     }
 }
