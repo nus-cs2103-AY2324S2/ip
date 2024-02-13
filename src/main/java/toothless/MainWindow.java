@@ -23,26 +23,26 @@ public class MainWindow extends AnchorPane {
     private Toothless toothless;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaToothless.png"));
+    private Image toothlessImage = new Image(this.getClass().getResourceAsStream("/images/DaToothless.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Toothless d) {
-        toothless = d;
+    public void setToothless(Toothless t) {
+        toothless = t;
     }
 
     public void startUp(){
         dialogContainer.getChildren().addAll(
-                DialogBox.getToothlessDialog(toothless.load(), dukeImage),
-                DialogBox.getToothlessDialog(toothless.greet(), dukeImage)
+                DialogBox.getToothlessDialog(toothless.load(), toothlessImage),
+                DialogBox.getToothlessDialog(toothless.greet(), toothlessImage)
         );
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Toothless' reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -51,7 +51,7 @@ public class MainWindow extends AnchorPane {
         String response = toothless.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getToothlessDialog(response, dukeImage)
+                DialogBox.getToothlessDialog(response, toothlessImage)
         );
         userInput.clear();
     }
