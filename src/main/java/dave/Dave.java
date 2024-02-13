@@ -11,7 +11,7 @@ public class Dave {
     /** The task list to record tasks. */
     private TaskList taskList;
     /** The UI to print feedback to user. */
-    private Ui dave;
+    private Ui daveUi;
 
     /**
      * Creates new Dave object.
@@ -20,7 +20,7 @@ public class Dave {
      * @param filepath File path to where tasks are stored for output.
      */
     public Dave(String filepath) {
-        dave = new Ui();
+        daveUi = new Ui();
         storage = new Storage(filepath);
         try {
             taskList = new TaskList(storage.load());
@@ -34,21 +34,21 @@ public class Dave {
      * Operations do not stop until the user has given the exit command, "bye".
      */
     public void run() {
-        dave.greet();
+        daveUi.sayHello();
         boolean isExit = false;
         if (taskList.getNumberOfTasks() != 0) {
-            dave.showLoadingSuccess(taskList.getNumberOfTasks());
+            daveUi.showLoadingSuccess(taskList.getNumberOfTasks());
         } else {
-            dave.showLoadingError();
+            daveUi.showLoadingError();
         }
         while (!isExit) {
             try {
-                String fullCommand = dave.readCommand();
+                String fullCommand = daveUi.readCommand();
                 Command c = Parser.parse(fullCommand);
-                c.execute(taskList, dave, storage);
+                c.execute(taskList, daveUi, storage);
                 isExit = c.isExit();
             } catch (ChatbotException exc) {
-                dave.showError(exc.getMessage());
+                daveUi.showError(exc.getMessage());
             }
         }
     }

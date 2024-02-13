@@ -30,7 +30,7 @@ public class Ui {
     /**
      * Welcomes the user with a message.
      */
-    public void greet() {
+    public void sayHello() {
         System.out.println(String.format("%s\n%s: Nice to meet you, I'm the ever-helpful %s!\nHow may I be of service today?\n%s",
         HORIZONTAL_LINE, NAME, NAME, HORIZONTAL_LINE));
         return;
@@ -95,8 +95,10 @@ public class Ui {
      * @param taskList Current task list.
      */
     public void showTaskDeleted(Task deletedTask, TaskList taskList) {
-        System.out.println(String.format("%s\nDave has removed the task:\n  %s", HORIZONTAL_LINE, deletedTask.toString()));
-        System.out.println(String.format("\nYou now have %d task(s).\n%s", taskList.getNumberOfTasks(), HORIZONTAL_LINE));
+        System.out.println(String.format("%s\nDave has removed the task:\n  %s", HORIZONTAL_LINE,
+            deletedTask.toString()));
+        System.out.println(String.format("\nYou now have %d task(s).\n%s", taskList.getNumberOfTasks(),
+            HORIZONTAL_LINE));
     }
 
     /**
