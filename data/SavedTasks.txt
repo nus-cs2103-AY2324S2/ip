@@ -1,5 +1,4 @@
 todo_read book_0
-deadline_ip /by 2024-02-08_1
-event_join zoom /from 3PM /to 5PM_0
-deadline_do ip /by 2024-02-08_0
+event_Tutorial /from 3PM /to 4PM_1
+todo_read book 2_0
 EOF
