@@ -1,7 +1,3 @@
-save 0 deadline hw44 /by 2 2 2044 1800
-save 0 todo hw
-save 0 todo me
-save 0 todo hw
-save 0 todo hw
-save 0 todo hw
-save 0 event fsfdsf /from 10/02/2044 /to 10/02/2045
+save 0 event hw /from 2/2/2025 /to 2/3/2025
+save 0 event hw /from 2/2/2025 1800 /to 2/3/2025 1700
+save 0 event hw /from 2/2/2025 1800 /to 2/3/2025 1700

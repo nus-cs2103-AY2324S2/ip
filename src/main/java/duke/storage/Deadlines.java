@@ -1,11 +1,5 @@
 package duke.storage;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.Optional;
-
 /**
  * The Deadlines class represents a deadline task in the Duke task manager, which is a subtype of the Task class.
  * It inherits properties and methods from the Task class and provides a specific implementation for deadline tasks
@@ -13,8 +7,8 @@ import java.util.Optional;
  */
 public class Deadlines extends Task {
 
-    protected LocalDate by;
-    protected LocalTime byTime;
+    protected String byDate = "";
+    protected String byTime = "";
 
     /**
      * Constructs a Deadlines object with the specified original command, description, and date-time details.
@@ -25,27 +19,17 @@ public class Deadlines extends Task {
      */
     public Deadlines(String originalCommand, String description, String dateTimeBy) {
         super(originalCommand, description);
+
         String[] splitBy = dateTimeBy.split("-");
         int lenBy = splitBy.length;
+        this.byDate = splitBy[0];
 
-        if (lenBy == 3) {
-            this.by = LocalDate.parse(String.join("-", splitBy));
-        } else if (lenBy == 4) {
-            this.by = LocalDate.parse(String.join("-", Arrays.copyOfRange(splitBy,
-                    1, lenBy)));
-
-            if (splitBy[0].length() < 5 && splitBy[0].indexOf(":") != -1) {
-                splitBy[0] = "0" + splitBy[0];
+        if (lenBy > 1) {
+            if (splitBy[1] != null) {
+                this.byTime = splitBy[1];
             }
-
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[HH:mm]" + "[HHmm]" + "[Hmm]");
-            this.byTime = LocalTime.parse(splitBy[0], formatter);
-        } else if (lenBy == 5) {
-            this.by = LocalDate.parse(String.join("-", Arrays.copyOfRange(splitBy,
-                    2, lenBy)));
-
-            this.byTime = LocalTime.parse(splitBy[1] + " " + splitBy[0], DateTimeFormatter.ofPattern("h:mm a"));
         }
+
     }
 
     /**
@@ -56,10 +40,10 @@ public class Deadlines extends Task {
      */
     @Override
     public String toString() {
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(" h:mm a");
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-
-        return "[D]" + super.toString() + "\n (by: " + dateFormatter.format(this.by)
-                + Optional.ofNullable(byTime).map(timeFormatter::format).orElse("") + ")";
+        return "[D]" + super.toString() + "\n ( by: "
+                + this.byDate
+                + " "
+                + (this.byTime == "" ? "" : this.byTime)
+                + ")";
     }
 }

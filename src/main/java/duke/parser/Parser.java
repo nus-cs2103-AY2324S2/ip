@@ -63,9 +63,8 @@ public class Parser {
     public Token parse() throws InvalidCommandException, MissingArgumentsException, WrongTimeFormatException {
         String[] split = this.input.split(" ");
         Token token;
-        Task task = null;
-        int flag;
-        int flag2;
+        Task task;
+
         switch (split[0]) {
         case "list":
             if (split.length != 1) {
@@ -73,46 +72,29 @@ public class Parser {
             }
             token = new Token(Command.LIST);
             break;
+
         case "bye":
             if (split.length != 1) {
                 throw new InvalidCommandException("InvalidCommandException");
             }
             token = new Token(Command.BYE);
             break;
+
         case "delete":
-            if (split.length != 2) {
-                throw new MissingArgumentsExceptionMarking(split[0]);
-            }
-            try {
-                Integer.parseInt(split[1]);
-            } catch (NumberFormatException e) {
-                throw new InvalidCommandException("InvalidCommandException");
-            }
+            checkDeleteMarkUnMark(split);
             token = new Token(Command.DELETE, Integer.parseInt(split[1]));
             break;
+
         case "unmark":
-            if (split.length != 2) {
-                throw new MissingArgumentsExceptionMarking(split[0]);
-            }
-            try {
-                Integer.parseInt(split[1]);
-            } catch (NumberFormatException e) {
-                throw new InvalidCommandException("InvalidCommandException");
-            }
+            checkDeleteMarkUnMark(split);
             token = new Token(Command.UNMARK, Integer.parseInt(split[1]));
             break;
-        case "mark":
-            if (split.length != 2) {
-                throw new MissingArgumentsExceptionMarking(split[0]);
-            }
-            try {
-                Integer.parseInt(split[1]);
-            } catch (NumberFormatException e) {
-                throw new InvalidCommandException("InvalidCommandException");
-            }
-            token = new Token(Command.MARK, Integer.parseInt(split[1]));
 
+        case "mark":
+            checkDeleteMarkUnMark(split);
+            token = new Token(Command.MARK, Integer.parseInt(split[1]));
             break;
+
         case "find":
             if (split.length == 1) {
                 throw new MissingArgumentsExceptionTodo("find");
@@ -121,6 +103,7 @@ public class Parser {
             token = new Token(Command.FIND);
             token.setSearchKey(this.input.substring(spaceInFindCmd + 1));
             break;
+
         case "todo":
             if (split.length == 1) {
                 throw new MissingArgumentsExceptionTodo("todo");
@@ -129,135 +112,56 @@ public class Parser {
             task = new Todos(this.input, this.input.substring(spaceInTodoCmd + 1));
             token = new Token(Command.TODO, task);
             break;
+
         case "event":
-            flag = Arrays.asList(split).indexOf("/from");
-            flag2 = Arrays.asList(split).indexOf("/to");
+            int positionOfFromInCmd = Arrays.asList(split).indexOf("/from");
+            int positionOfToInCmd = Arrays.asList(split).indexOf("/to");
+            boolean isPositionOfFromLessThanTwo = positionOfFromInCmd < 2;
+            boolean isPositionOfToLast = positionOfToInCmd == split.length - 1;
+            boolean isPositionOfFromAndToLessThanOne = positionOfToInCmd - positionOfFromInCmd <= 1;
+
             if (split.length < 5) {
                 throw new MissingArgumentsExceptionEvents("event");
-            } else if (flag < 2 || flag2 == split.length - 1 || flag2 - flag <= 1) {
+            } else if (isPositionOfFromLessThanTwo || isPositionOfToLast
+                    || isPositionOfFromAndToLessThanOne) {
                 throw new MissingArgumentsExceptionEvents("event");
             }
             int spaceInEventCmd = this.input.indexOf(" ");
-            int fromInEvenCmd = this.input.indexOf("/from");
+            int fromInEventCmd = this.input.indexOf("/from");
             int toInEvenCmd = this.input.indexOf("/to");
 
-            String fromDateTime;
-            String toDateTime;
-
-            // Processes From DateTime
-            try {
-                checkTimeFormat(this.input.substring(fromInEvenCmd + 5, toInEvenCmd).trim());
-
-                String[] temporaryArray = this.input.substring(fromInEvenCmd + 5, toInEvenCmd)
-                        .trim().split("[\\s/\\-]+");
-
-                int lenTemp = temporaryArray.length;
-
-                for (int i = 0; i < temporaryArray.length / 2; i++) {
-                    String temp = temporaryArray[i];
-                    temporaryArray[i] = temporaryArray[lenTemp - 1 - i];
-                    temporaryArray[lenTemp - 1 - i] = temp;
-                }
-
-                if (temporaryArray[lenTemp - 2].length() == 1) {
-                    temporaryArray[lenTemp - 2] = "0" + temporaryArray[lenTemp - 2];
-                }
-
-                if (temporaryArray[lenTemp - 1].length() == 1) {
-                    temporaryArray[lenTemp - 1] = "0" + temporaryArray[lenTemp - 1];
-                }
-
-                fromDateTime = String.join("-", temporaryArray);
-
-            } catch (WrongTimeFormatException exception) {
-                throw exception;
-            }
-            // Processes To DateTime
-            try {
-                checkTimeFormat(this.input.substring(toInEvenCmd + 3).trim());
-
-                String[] temporaryArray = this.input.substring(toInEvenCmd + 3)
-                        .trim().split("[\\s/\\-]+");
-
-                int lenTemp = temporaryArray.length;
-
-                for (int i = 0; i < temporaryArray.length / 2; i++) {
-                    String temp = temporaryArray[i];
-                    temporaryArray[i] = temporaryArray[lenTemp - 1 - i];
-                    temporaryArray[lenTemp - 1 - i] = temp;
-                }
-
-                if (temporaryArray[lenTemp - 1].length() == 1) {
-                    temporaryArray[lenTemp - 1] = "0" + temporaryArray[lenTemp - 1];
-                }
-
-                if (temporaryArray[lenTemp - 2].length() == 1) {
-                    temporaryArray[lenTemp - 2] = "0" + temporaryArray[lenTemp - 2];
-                }
-
-                toDateTime = String.join("-", temporaryArray);
-
-            } catch (WrongTimeFormatException exception) {
-                throw exception;
-            }
-
-            task = new Events(this.input, this.input.substring(spaceInEventCmd + 1, fromInEvenCmd)
+            String fromDateTime = checkEventFrom(fromInEventCmd, toInEvenCmd);
+            String toDateTime = checkEventTo(fromInEventCmd, toInEvenCmd);
+            task = new Events(this.input, this.input.substring(spaceInEventCmd + 1, fromInEventCmd)
                     .trim(), fromDateTime, toDateTime);
             token = new Token(Command.EVENT, task);
             break;
-        case "deadline":
-            flag = Arrays.asList(split).indexOf("/by");
 
+        case "deadline":
+            int positionOfByInCmd = Arrays.asList(split).indexOf("/by");
+            boolean isPositionOfByLessThanTwo = positionOfByInCmd < 2;
+            boolean isPositionOfByLast = positionOfByInCmd == split.length - 1;
             if (split.length < 4) {
                 throw new MissingArgumentsExceptionDeadlines("deadline");
-            } else if (flag < 2 || flag == split.length - 1) {
+            } else if (isPositionOfByLessThanTwo || isPositionOfByLast) {
                 throw new MissingArgumentsExceptionDeadlines("deadline");
-            } else {
-                int space = this.input.indexOf(" ");
-                int by = this.input.indexOf("/by");
-                String byDateTime;
-
-                try {
-                    checkTimeFormat(this.input.substring(by + 3).trim());
-
-                    String[] temporaryArray = this.input.substring(by + 3)
-                            .trim().split("[\\s/\\-]+");
-                    int lenTemp = temporaryArray.length;
-
-                    for (int i = 0; i < temporaryArray.length / 2; i++) {
-                        String temp = temporaryArray[i];
-                        temporaryArray[i] = temporaryArray[lenTemp - 1 - i];
-                        temporaryArray[lenTemp - 1 - i] = temp;
-                    }
-
-                    if (temporaryArray[lenTemp - 1].length() == 1) {
-                        temporaryArray[lenTemp - 1] = "0" + temporaryArray[lenTemp - 1];
-                    }
-
-                    if (temporaryArray[lenTemp - 2].length() == 1) {
-                        temporaryArray[lenTemp - 2] = "0" + temporaryArray[lenTemp - 2];
-                    }
-
-                    byDateTime = String.join("-", temporaryArray);
-                } catch (WrongTimeFormatException exception) {
-                    throw exception;
-                }
-
-                task = new Deadlines(this.input, this.input.substring(space + 1, by).trim(), byDateTime);
-                token = new Token(Command.DEADLINE, task);
             }
+            int spaceInDeadlineCmd = this.input.indexOf(" ");
+            int byInDeadlineCmd = this.input.indexOf("/by");
+
+            String byDateTime = checkDeadline();
+            task = new Deadlines(this.input, this.input.substring(spaceInDeadlineCmd + 1, byInDeadlineCmd)
+                    .trim(), byDateTime);
+            token = new Token(Command.DEADLINE, task);
             break;
+
         case "save":
             boolean marked = split[1].equals("1") ? true : false;
-
             this.input = String.join(" ", Arrays.copyOfRange(split, 2, split.length));
-
             token = this.parse();
-
             if (marked) {
                 token.getTask().mark();
             }
-
             token.setAsSaved();
             break;
         default:
@@ -267,18 +171,96 @@ public class Parser {
     }
 
     /**
-     * Checks the format of the provided time string and throws an exception if the format is incorrect.
+     * Checks if the delete, unmark, or mark command has the correct number of arguments and if the task ID is valid.
      *
-     * @param string The time string to be checked.
-     * @throws WrongTimeFormatException If the time format is incorrect or missing.
+     * @param split The array of split input tokens.
+     * @throws MissingArgumentsExceptionMarking If the number of arguments for marking a task is incorrect.
+     * @throws InvalidCommandException          If the command is invalid or the task ID is not a number.
      */
-    private void checkTimeFormat(String string) throws WrongTimeFormatException {
+    private void checkDeleteMarkUnMark(String[] split) throws MissingArgumentsExceptionMarking,
+            InvalidCommandException {
+        if (split.length != 2) {
+            throw new MissingArgumentsExceptionMarking(split[0]);
+        }
+        try {
+            Integer.parseInt(split[1]);
+        } catch (NumberFormatException e) {
+            throw new InvalidCommandException("InvalidCommandException");
+        }
+    }
+
+
+    /**
+     * Checks the deadline command for the correct format and returns the formatted deadline date-time string.
+     *
+     * @return The formatted deadline date-time string.
+     * @throws WrongTimeFormatException If the deadline format is incorrect or missing.
+     */
+    private String checkDeadline() throws WrongTimeFormatException {
+        int by = this.input.indexOf("/by");
+
+        try {
+            String[] dateTime = checkDateTimeFormat(this.input.substring(by + 3).trim());
+            return String.join("-", dateTime);
+
+        } catch (WrongTimeFormatException exception) {
+            throw exception;
+        }
+    }
+
+    /**
+     * Checks the event command's 'from' keyword for the correct format and returns the formatted 'from'
+     * date-time string.
+     *
+     * @param fromInEventCmd The index of the 'from' keyword in the input command.
+     * @param toInEventCmd   The index of the 'to' keyword in the input command.
+     * @return The formatted 'from' date-time string.
+     * @throws WrongTimeFormatException If the 'from' keyword format is incorrect or missing.
+     */
+    private String checkEventFrom(int fromInEventCmd, int toInEventCmd) throws WrongTimeFormatException {
+        try {
+            String[] dateTime = checkDateTimeFormat(this.input.substring(fromInEventCmd + 5, toInEventCmd).trim());
+            return String.join("-", dateTime);
+
+        } catch (WrongTimeFormatException exception) {
+            throw exception;
+        }
+    }
+
+    /**
+     * Checks the event command's 'to' keyword for the correct format and returns the formatted 'to'
+     * date-time string.
+     *
+     * @param fromInEvenCmd The index of the 'from' keyword in the input command.
+     * @param toInEventCmd  The index of the 'to' keyword in the input command.
+     * @return The formatted 'to' date-time string.
+     * @throws WrongTimeFormatException If the 'to' keyword format is incorrect or missing.
+     */
+    private String checkEventTo(int fromInEvenCmd, int toInEventCmd) throws WrongTimeFormatException {
+        try {
+            String[] dateTime = checkDateTimeFormat(this.input.substring(toInEventCmd + 3).trim());
+            return String.join("-", dateTime);
+
+        } catch (WrongTimeFormatException exception) {
+            throw exception;
+        }
+
+    }
+
+    /**
+     * Checks the format of the provided date and time string and returns a formatted date-time string.
+     *
+     * @param string The date and time string to be checked.
+     * @return The formatted date-time string.
+     * @throws WrongTimeFormatException If the date and time format is incorrect or missing.
+     */
+    private String[] checkDateTimeFormat(String string) throws WrongTimeFormatException {
         String[] splitString = string.split("[\\s/\\-]+");
+        String[] dateTime = new String[2];
 
         if (splitString.length < 3) {
             throw new WrongTimeFormatException("wrong time buddy");
         }
-
         if (splitString.length > 5) {
             throw new WrongTimeFormatException("Too many inputs");
         }
@@ -288,39 +270,39 @@ public class Parser {
             int month = Integer.parseInt(splitString[1]);
             int day = Integer.parseInt(splitString[0]);
 
-            checkRealDate(year, month, day);
+            dateTime[0] = checkRealDate(year, month, day);
         } catch (NumberFormatException e) {
             throw new WrongTimeFormatException("Use numerals for date");
         } catch (WrongTimeFormatException exception) {
             throw exception;
         }
 
-        if (splitString.length > 3) {
-            String twelveHourFormat = "";
-
-            if (splitString.length > 4) {
-                twelveHourFormat = splitString[4];
-            }
-
-            checkRealTime(splitString[3], twelveHourFormat);
+        if (splitString.length > 4) {
+            dateTime[1] = checkRealTime(splitString[3] + " " + splitString[4]);
+        } else if (splitString.length > 3) {
+            dateTime[1] = checkRealTime(splitString[3]);
         }
+
+        return dateTime;
     }
 
     /**
-     * Checks if the provided year, month, and day form a valid date and throws an exception if not.
+     * Checks if the provided year, month, and day form a valid date and returns a formatted date string.
      *
      * @param year  The year.
      * @param month The month.
      * @param day   The day.
+     * @return The formatted date string.
      * @throws WrongTimeFormatException If the date is invalid.
      */
-    private void checkRealDate(int year, int month, int day) throws WrongTimeFormatException {
+    private String checkRealDate(int year, int month, int day) throws WrongTimeFormatException {
         try {
             LocalDate dateToBeChecked = LocalDate.of(year, month, day);
-
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
             if (dateToBeChecked.isBefore(LocalDate.now())) {
                 throw new WrongTimeFormatException("Can't go back in time buddy");
             }
+            return dateToBeChecked.format(dateFormatter);
         } catch (DateTimeException e) {
             throw new WrongTimeFormatException("Date and time are impossible buddy");
         } catch (WrongTimeFormatException exception) {
@@ -329,31 +311,25 @@ public class Parser {
     }
 
     /**
-     * Checks if the provided time and twelve-hour format (AM/PM) form a valid time and throws an exception if not.
+     * Checks if the provided time and twelve-hour format (AM/PM) form a valid time and returns a formatted time string.
      *
-     * @param time             The time string.
-     * @param twelveHourFormat The twelve-hour format (AM/PM).
+     * @param time The time string.
+     * @return The formatted time string.
      * @throws WrongTimeFormatException If the time is invalid.
      */
-    private void checkRealTime(String time, String twelveHourFormat) throws WrongTimeFormatException {
-        if (twelveHourFormat.equals("")) {
-            if (time.length() < 5 && time.indexOf(":") != -1) {
-                time = "0" + time;
-            }
+    private String checkRealTime(String time) throws WrongTimeFormatException {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[HH:mm]"
+                    + "[HHmm]"
+                    + "[Hmm]"
+                    + "[h:mm a]"
+                    + "[hmm a]"
+                    + "[H:mm]");
+            DateTimeFormatter outPutFormatter = DateTimeFormatter.ofPattern("h:mm a");
 
-            try {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[HH:mm]" + "[HHmm]" + "[Hmm]");
-                LocalTime.parse(time, formatter);
-            } catch (DateTimeException exception) {
-                throw new WrongTimeFormatException("Date and time are impossible buddy");
-            }
-        } else if (twelveHourFormat.equals("PM") || twelveHourFormat.equals("pm") || twelveHourFormat.equals("Pm")
-                || twelveHourFormat.equals("pM")) {
-            try {
-                LocalTime.parse(time + " pm", DateTimeFormatter.ofPattern("h:mm a"));
-            } catch (DateTimeException exception) {
-                throw new WrongTimeFormatException("Date and time are impossible buddy");
-            }
+            return LocalTime.parse(time, formatter).format(outPutFormatter);
+        } catch (DateTimeException exception) {
+            throw new WrongTimeFormatException("Date and time are impossible buddy");
         }
     }
 
