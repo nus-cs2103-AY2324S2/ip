@@ -3,6 +3,7 @@ package commands;
 import java.util.ArrayList;
 
 import exceptions.ConvoBotException;
+import me.xdrop.fuzzywuzzy.FuzzySearch;
 import utils.ResponseConstructor;
 import utils.TaskList;
 
@@ -11,9 +12,8 @@ import utils.TaskList;
  */
 public class Find implements Command {
 
-    /**
-     * The query to be used for searching tasks. Case-insensitive.
-     */
+    private static final int FUZZY_RATIO_CUTOFF = 50;
+
     private final String query;
 
     /**
@@ -36,7 +36,8 @@ public class Find implements Command {
         ArrayList<String> matchingTaskStrings = new ArrayList<>();
         for (int i = 0; i < taskList.size(); i++) {
             String desc = taskList.getTaskDescription(i).toLowerCase(); // query is case-insensitive
-            if (desc.contains(query)) {
+            int fuzzyRatio = FuzzySearch.ratio(query, desc);
+            if (fuzzyRatio >= FUZZY_RATIO_CUTOFF || desc.contains(query)) {
                 matchingTaskStrings.add(taskList.getTaskString(i));
             }
         }
