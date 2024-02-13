@@ -22,9 +22,7 @@ public class Parser {
      */
     public String parseInput(TaskList tasks, Ui ui, String userInput) throws ToothlessException {
         String response = "";
-        if (userInput.startsWith("bye")) {
-            response = "Bye. Purr-lease chat again soon!";
-        } else if (userInput.startsWith("list")) {
+        if (userInput.startsWith("list")) {
             response = ui.getListMessage(tasks.getTasks(),
                     "Oops! Looks like you haven't added any tasks yet!",
                     "Here are the tasks in your list:\n");
@@ -97,7 +95,7 @@ public class Parser {
      * @throws ToothlessException if input is invalid or wrong format.
      */
     public String parseFindInput(TaskList tasks, Ui ui, String findInput) throws ToothlessException {
-        if (!findInput.matches("find\\s.+")) {
+        if (!findInput.matches("find\\s[^/]+")) {
             throw new ToothlessException("Apurrlogies, please use the format: find keyword");
         }
         String keyword = findInput.replace("find", "").strip();
@@ -120,7 +118,7 @@ public class Parser {
      * @throws ToothlessException if user input is invalid or wrong format.
      */
     public String parseToDoInput(TaskList tasks, Ui ui, String toDoInput) throws ToothlessException {
-        if (!toDoInput.matches("todo\\s.+")) {
+        if (!toDoInput.matches("todo\\s[^/]+")) {
             throw new ToothlessException("Apurrlogies, please use the format: todo description");
         }
         String taskDescription = toDoInput.replace("todo", "").strip();
@@ -141,12 +139,12 @@ public class Parser {
      * @throws ToothlessException if user input is invalid or in the wrong format.
      */
     public String parseDeadlineInput(TaskList tasks, Ui ui, String deadlineInput) throws ToothlessException {
-        if (!deadlineInput.matches("deadline\\s.+\\s/by\\s\\d{4}-\\d{2}-\\d{2}\\s\\d{2}:\\d{2}")) {
+        if (!deadlineInput.matches("deadline\\s[^/]+\\s/by\\s\\d{4}-\\d{2}-\\d{2}\\s\\d{2}:\\d{2}")) {
             throw new ToothlessException("Sorry, purr-lease use the format: "
                     + "deadline [description] /by [yyyy-mm-dd hh:mm].");
         }
         String[] deadlineAttributes = deadlineInput.replace("deadline", "")
-                .stripTrailing().split("\\s+/by\\s+");
+                .strip().split("\\s*/by\\s*");
         if (deadlineAttributes[0].isBlank()) {
             throw new ToothlessException("Sorry, task description cannot be empty.");
         }
@@ -164,13 +162,13 @@ public class Parser {
      * @throws ToothlessException if user input is invalid or in the wrong format.
      */
     public String parseEventInput(TaskList tasks, Ui ui, String eventInput) throws ToothlessException {
-        if (!eventInput.matches("event\\s.+\\s/from\\s\\d{4}-\\d{2}-\\d{2}\\s\\d{2}:\\d{2}\\s"
+        if (!eventInput.matches("event\\s[^/]+\\s/from\\s\\d{4}-\\d{2}-\\d{2}\\s\\d{2}:\\d{2}\\s"
                 + "/to\\s\\d{4}-\\d{2}-\\d{2}\\s\\d{2}:\\d{2}")) {
             throw new ToothlessException("Sorry, purr-lease use the format: "
                     + "event description /from yyyy-mm-dd hh:mm /to yyyy-mm-dd hh:mm");
         }
         String[] eventAttributes = eventInput.replace("event", "")
-                .stripTrailing().split("\\s+/from\\s+|\\s+/to\\s+");
+                .strip().split("\\s*/from\\s*|\\s*/to\\s*");
         if (eventAttributes[0].isBlank()) {
             throw new ToothlessException("Apurrlogies, the task description cannot be empty.");
         }

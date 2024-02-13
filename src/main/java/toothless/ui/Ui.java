@@ -16,10 +16,8 @@ public class Ui {
      * @return String message of new task.
      */
     public String getNewTaskMessage(Task newTask, int taskListSize) {
-        String message =
-                String.format("Got it. I've added this task:\n\t%s\nNya-ow you have %d tasks in the list.",
-                        newTask, taskListSize);
-        return message;
+        return String.format("Got it. I've added this task:\n\t%s\nNya-ow you have %d tasks in the list.",
+                newTask, taskListSize);
     }
 
     /**
@@ -30,10 +28,8 @@ public class Ui {
      * @return String message of deleted task.
      */
     public String getDeletedTaskMessage(Task deletedTask, int taskListSize) {
-        String message =
-                String.format("Noted. I've remeowved this task:\n\t%s\nNya-ow you have %d tasks in the list.",
-                        deletedTask, taskListSize);
-        return message;
+        return String.format("Noted. I've remeowved this task:\n\t%s\nNya-ow you have %d tasks in the list.",
+                deletedTask, taskListSize);
     }
 
     /**
