@@ -49,6 +49,7 @@ public class Parser {
     public static void initializeTask(String input, ArrayList<Task> taskList) {
         String[] data = input.split(" \\| ");
         Task task = new Task("");
+        assert(data[0].length() == 1);
         switch (data[0]) {
         case "T":
             task = new Todo(data[2]);
