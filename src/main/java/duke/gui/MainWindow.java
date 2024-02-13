@@ -63,10 +63,8 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            // Perform any necessary clean-up tasks here
             if (response.equals("    Bye. Hope to see you again soon!")) {
                 Platform.exit();
-                //System.exit(0);
             }
         }
         ));
