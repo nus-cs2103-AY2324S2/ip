@@ -31,6 +31,10 @@ public class TaskList {
         this.lastDoneTask = "";
     }
 
+    private void updateLastDoneTask(String toUpdate) {
+        this.lastDoneTask = toUpdate;
+    }
+
     /**
      * Returns size of task list.
      *
@@ -54,7 +58,7 @@ public class TaskList {
         for (int i = 0; i < lst.size(); i++) {
             listStr += "\n    " + (i + 1) + ". " + lst.get(i).toString() + "";
         }
-        lastDoneTask = listStr;
+        updateLastDoneTask(listStr);
     }
 
     /**
@@ -76,7 +80,7 @@ public class TaskList {
     public boolean mark(int idx, boolean isInit) {
         Task temp = tasks.get(idx);
         temp.mark();
-        lastDoneTask = "I have maaarked the task as done:\n" + "    " + temp.toString();
+        updateLastDoneTask("I have maaarked the task as done:\n" + "    " + temp.toString());
         if (!isInit) {
             Storage.replaceLine("1 | " + temp.command(), idx);
         }
@@ -92,7 +96,7 @@ public class TaskList {
     public boolean unMark(int idx) {
         Task temp = tasks.get(idx);
         temp.unMark();
-        lastDoneTask = "I have maaarked the task as undone:\n" + "    " + temp.toString();
+        updateLastDoneTask("I have maaarked the task as undone:\n" + "    " + temp.toString());
         Storage.replaceLine("0 | " + temp.command(), idx);
         return true;
     }
@@ -107,8 +111,8 @@ public class TaskList {
     public boolean toDo(String arg, boolean isInit) {
         Task temp = new ToDo(arg);
         tasks.add(temp);
-        lastDoneTask = "Added ToDo:\n        " + temp.toString() + "\n    Now you have " + tasks.size()
-                + " tasks in the list.";
+        updateLastDoneTask("Added ToDo:\n        " + temp.toString() + "\n    Now you have " + tasks.size()
+                + " tasks in the list.");
         if (!isInit) {
             Storage.writeToFile("0 | " + temp.command());
         }
@@ -126,14 +130,14 @@ public class TaskList {
         try {
             Task temp = new Deadline(furtherSplit[0], furtherSplit[1].replaceFirst("by ", ""));
             tasks.add(temp);
-            lastDoneTask = "Added Deadline:\n        " + temp.toString() + "\n    Now you have "
-                    + tasks.size() + " tasks in the list.";
+            updateLastDoneTask("Added Deadline:\n        " + temp.toString() + "\n    Now you have "
+                    + tasks.size() + " tasks in the list.");
             if (!isInit) {
                 Storage.writeToFile("0 | " + temp.command());
             }
         } catch (DateTimeParseException e) {
-            this.lastDoneTask = "Date is in the wrong formaaaaaaat, baa. :(\n    Correct fo" + "rmaaat is: "
-                    + "yyyy-mm-dd (e.g 2001-01-20)";
+            updateLastDoneTask("Date is in the wrong formaaaaaaat, baa. :(\n    Correct fo" + "rmaaat is: "
+                    + "yyyy-mm-dd (e.g 2001-01-20)");
             return true;
         }
         return true;
@@ -151,14 +155,14 @@ public class TaskList {
             Task temp = new Event(furtherSplit[0], furtherSplit[1].replaceFirst("from ", ""),
                     furtherSplit[2].replaceFirst("to ", ""));
             tasks.add(temp);
-            lastDoneTask = "Added Event:\n        " + temp.toString() + "\n    Now you have "
-                    + tasks.size() + " tasks in the list.";
+            updateLastDoneTask("Added Event:\n        " + temp.toString() + "\n    Now you have "
+                    + tasks.size() + " tasks in the list.");
             if (!isInit) {
                 Storage.writeToFile("0 | " + temp.command());
             }
         } catch (DateTimeParseException e) {
-            this.lastDoneTask = "Dates are in the wrong formaaaaaaat, baa. :(\n    Correct fo"
-                    + "rmaaat is: yyyy-mm-dd (e.g 2001-01-20)";
+            updateLastDoneTask("Dates are in the wrong formaaaaaaat, baa. :(\n    Correct fo"
+                    + "rmaaat is: yyyy-mm-dd (e.g 2001-01-20)");
             return true;
         }
         return true;
@@ -173,8 +177,8 @@ public class TaskList {
     public boolean deleteFromList(int idx) {
         Task temp = tasks.remove(idx);
         Storage.deleteLine(idx);
-        lastDoneTask = "I have removed this taaask:\n" + "        " + temp.toString() + "\n    Now you have "
-                + tasks.size() + " tasks in the list.";
+        updateLastDoneTask("I have removed this taaask:\n" + "        " + temp.toString() + "\n    Now you have "
+                + tasks.size() + " tasks in the list.");
         return true;
     }
 

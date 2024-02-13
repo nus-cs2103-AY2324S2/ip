@@ -7,6 +7,7 @@ package lamball;
  */
 
 public class Ui {
+    private static final String TAB_SPACES = "    ";
     private static final String WELCOME_MESSAGE =
             "     Hello! I'm Lamball, your helpful sheep!\n"
                     + "     Whaaat can I do for you?\n";
@@ -49,7 +50,7 @@ public class Ui {
      * @return Formatted error message for GUI processing.
      */
     public String displayError(Exception e) {
-        String returnVal = "    " + e.getMessage() + "\n";
+        String returnVal = TAB_SPACES + e.getMessage() + "\n";
         System.out.println(returnVal);
         return returnVal;
     }
@@ -61,7 +62,7 @@ public class Ui {
      * @return Formatted action for GUI processing.
      */
     public String displayAction(String msg) {
-        String returnVal = "    " + msg + "\n";
+        String returnVal = TAB_SPACES + msg + "\n";
         System.out.println(returnVal);
         return returnVal;
     }

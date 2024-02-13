@@ -20,7 +20,10 @@ import java.util.Scanner;
 public class Storage {
 
     protected static String filePath = "src/main/java/data/";
+    protected static String defaultFileName = "/list.txt";
     protected static String tempFilePath = "src/main/java/data/tempfile.txt";
+
+    private static final int ARGUMENTS = 2;
 
     /**
      * Obtains and initializes list from saved text file locally.
@@ -37,20 +40,24 @@ public class Storage {
             returnVal += "Folder does not exist. Creating folder...\n";
             folder.mkdirs();
         }
-        File savedList = new File(filePath + "/list.txt");
+        File savedList = new File(filePath + defaultFileName);
         try {
             // Try to create file
             if (savedList.createNewFile()) {
-                System.out.println("List created successfully at: " + savedList.getAbsolutePath());
-                returnVal += "List created successfully at: " + savedList.getAbsolutePath() + "\n";
+                String message = "List created successfully at: " + savedList.getAbsolutePath();
+                System.out.println(message);
+                returnVal += message + "\n";
             } else {
-                System.out.println("Seems like I haave helped you before, so no new list is needed!");
-                returnVal += "Seems like I haave helped you before, so no new list is needed!\n";
+                String message = "Seems like I haave helped you before, so no new list is needed!";
+                System.out.println(message);
+                returnVal += message + "\n";
             }
             initializeListFromText(savedList, lamb);
         } catch (IOException e) {
-            System.err.println("An error occurred while creating the file: " + e.getMessage());
-            returnVal += "An error occurred while creating the file: " + e.getMessage();
+            String errorMessage = "An error occurred while creating the file: " + e.getMessage();
+            System.err.println(errorMessage);
+            returnVal += errorMessage;
+            return returnVal;
         }
 
         assert returnVal != "" : "return value should not be empty";
@@ -77,7 +84,7 @@ public class Storage {
                 String currLine = scanner.nextLine();
                 String[] parts = currLine.split(" \\| ", 2);
                 // Means that it is not formatted correctly in the <0 or 1> | <command> format
-                if (parts.length != 2 || !(Integer.valueOf(parts[0]) == 1 || Integer.valueOf(parts[0]) == 0)) {
+                if (parts.length != ARGUMENTS || !(Integer.valueOf(parts[0]) == 1 || Integer.valueOf(parts[0]) == 0)) {
                     throw new LamballParseException("Corrupt format, ignoring...");
                 }
                 lamb.initParse(parts[1]);
@@ -111,7 +118,7 @@ public class Storage {
     public static void replaceLine(String toWrite, int index) {
         try {
             // Read all lines from the file
-            Path path = Paths.get(filePath + "/list.txt");
+            Path path = Paths.get(filePath + defaultFileName);
             List<String> lines = Files.readAllLines(path);
 
             // Check if the index is valid
@@ -139,18 +146,12 @@ public class Storage {
     public static void deleteLine(int index) {
         try {
             // Read all lines from the file
-            Path path = Paths.get(filePath + "/list.txt");
+            Path path = Paths.get(filePath + defaultFileName);
             List<String> lines = Files.readAllLines(path);
 
-            // Check if the index is valid
             if (index >= 0 && index < lines.size()) {
-                // Remove the line at the specified index
                 lines.remove(index);
-
-                // Write the modified content back to the file
                 Files.write(path, lines);
-
-                // System.out.println("Line " + index + " deleted successfully.");
             } else {
                 System.err.println("Invalid line number.");
             }
@@ -183,7 +184,7 @@ public class Storage {
      */
     public static void writeToFile(String toAdd) {
         try {
-            FileWriter fw = new FileWriter(filePath + "/list.txt", true);
+            FileWriter fw = new FileWriter(filePath + defaultFileName, true);
             fw.write(toAdd + System.lineSeparator());
             fw.close();
         } catch (IOException e) {
