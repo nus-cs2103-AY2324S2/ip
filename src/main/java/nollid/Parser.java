@@ -19,7 +19,9 @@ import nollid.commands.ListCommand;
 import nollid.commands.MarkCommand;
 import nollid.commands.TodoCommand;
 import nollid.commands.UnmarkCommand;
+import nollid.exceptions.EmptyDescriptionException;
 import nollid.exceptions.InvalidCommandException;
+import nollid.exceptions.MissingTagsException;
 
 /**
  * Parser class provides a static method to parse user input and return the corresponding Command object.
@@ -30,6 +32,7 @@ public class Parser {
     public static final DateTimeFormatter DATE_INPUT_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy");
     public static final DateTimeFormatter DATE_OUTPUT_FORMAT = DateTimeFormatter.ofPattern("d MMM yyyy");
     public static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("HH:mm");
+    public static final String OPTION_REGEX = "/\\w+";
 
     /**
      * Parses the full user command and returns the appropriate Command object.
@@ -91,5 +94,74 @@ public class Parser {
             LocalTime deadlineTime = LocalTime.parse(deadlineList.get(1), Parser.TIME_FORMAT);
             return LocalDateTime.of(deadlineDate, deadlineTime);
         }
+    }
+
+    /**
+     * Retrieves tags from the input arguments.
+     *
+     * @return The list of tags, or an empty list if the tag option is not used.
+     * @throws MissingTagsException If the tag option is detected but no tags are specified.
+     */
+    public static ArrayList<String> getTags(ArrayList<String> argsList) throws MissingTagsException {
+        int tagKeywordIndex = argsList.indexOf("/tags");
+        if (tagKeywordIndex == argsList.size() - 1) {
+            throw new MissingTagsException("No tags provided.");
+        }
+
+        // If user did not use "/tags" keyword, return empty list
+        if (tagKeywordIndex == -1) {
+            return new ArrayList<>();
+        }
+
+        int tagsIndex = tagKeywordIndex + 1;
+        return new ArrayList<>(Arrays.asList(argsList.get(tagsIndex).split(",")));
+    }
+
+    /**
+     * Retrieves the task description from the input arguments.
+     *
+     * @return The task description.
+     * @throws EmptyDescriptionException If the description is empty.
+     */
+    public static String getDescription(ArrayList<String> argsList) throws EmptyDescriptionException {
+        StringBuilder taskDescription = new StringBuilder();
+
+        // Get text from after command until the first option. (/tags, /deadline, etc.)
+        for (int i = 1; i < argsList.size(); i++) {
+            if (!argsList.get(i).matches(OPTION_REGEX)) {
+                taskDescription.append(argsList.get(i)).append(" ");
+            } else {
+                break;
+            }
+        }
+
+        if (taskDescription.length() == 0) {
+            throw new EmptyDescriptionException("Description of task is empty.");
+        }
+
+        // Remove trailing whitespace
+        taskDescription.deleteCharAt(taskDescription.length() - 1);
+
+        return taskDescription.toString();
+    }
+
+    /**
+     * Retrieves the deadline string from the input arguments.
+     *
+     * @return The deadline string.
+     */
+    public static String getDeadlineString(ArrayList<String> argsList) {
+        int byIndex = argsList.indexOf("/by");
+
+        StringBuilder deadlineString = new StringBuilder();
+        for (int i = byIndex + 1; i < argsList.size(); i++) {
+            if (!argsList.get(i).matches(Parser.OPTION_REGEX)) {
+                deadlineString.append(argsList.get(i)).append(" ");
+            } else {
+                break;
+            }
+        }
+
+        return deadlineString.toString();
     }
 }

@@ -2,9 +2,11 @@ package nollid.commands;
 
 import java.util.ArrayList;
 
+import nollid.Parser;
 import nollid.Storage;
 import nollid.TaskList;
-import nollid.exceptions.InvalidArgumentException;
+import nollid.exceptions.EmptyDescriptionException;
+import nollid.exceptions.MissingTagsException;
 import nollid.exceptions.NollidException;
 import nollid.tasks.Todo;
 
@@ -12,6 +14,7 @@ import nollid.tasks.Todo;
  * TodoCommand class represents a command to add a new ToDo task.
  */
 public class TodoCommand extends Command {
+    private static final String USAGE_HINT = "Usage: todo task_description [/tags tag1,tag2,...]";
     /**
      * ArrayList containing command arguments.
      */
@@ -32,28 +35,23 @@ public class TodoCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws NollidException {
-        if (argsList.size() == 1) {
-            throw new InvalidArgumentException("Todo description cannot be empty!\n"
-                    + "Usage: todo [task description]");
+        String taskDescription;
+        try {
+            taskDescription = Parser.getDescription(argsList);
+        } catch (EmptyDescriptionException e) {
+            throw new EmptyDescriptionException(e.getMessage() + "\n" + USAGE_HINT);
         }
 
-        StringBuilder taskDescription = new StringBuilder();
-        for (int i = 1; i < argsList.size(); i++) {
-            if (i != argsList.size() - 1) {
-                taskDescription.append(argsList.get(i)).append(" ");
-            } else {
-                taskDescription.append(argsList.get(i));
-            }
+        ArrayList<String> tags;
+        try {
+            tags = Parser.getTags(argsList);
+        } catch (MissingTagsException e) {
+            throw new MissingTagsException(e.getMessage() + "\n" + USAGE_HINT);
         }
 
-        Todo task = new Todo(taskDescription.toString());
-
+        Todo task = new Todo(taskDescription, tags);
         tasks.add(task);
-
-        String message = "Alright, added:\n" + "\t" + task + "\n";
-        message += tasks.summary();
         storage.update(tasks);
-
-        return message;
+        return tasks.getAddSuccessMessage(task);
     }
 }

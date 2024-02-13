@@ -96,21 +96,22 @@ public class Storage {
     private Task getTaskFromJsonObject(JSONObject jsonObject) throws NollidException {
         String taskType = jsonObject.getString("type");
         String description = jsonObject.getString("description");
+        ArrayList<String> tags = getTagsFromJsonObject(jsonObject);
 
         Task taskToAdd = null;
         switch (taskType) {
         case "todo":
-            taskToAdd = new Todo(description);
+            taskToAdd = new Todo(description, tags);
             break;
         case "deadline":
             LocalDateTime deadline = Parser.getLocalDateTimeFromString(jsonObject.getString("deadline"));
-            taskToAdd = new Deadline(description, deadline);
+            taskToAdd = new Deadline(description, deadline, tags);
             break;
         case "event":
             LocalDateTime from = Parser.getLocalDateTimeFromString(jsonObject.getString("from"));
             LocalDateTime to = Parser.getLocalDateTimeFromString(jsonObject.getString("to"));
             try {
-                taskToAdd = new Event(description, from, to);
+                taskToAdd = new Event(description, from, to, tags);
             } catch (NollidException e) {
                 e.printStackTrace();
             }
@@ -144,12 +145,15 @@ public class Storage {
             jsonObject.put("type", "todo");
             jsonObject.put("isDone", todo.isDone());
             jsonObject.put("description", todo.getDescription());
+            jsonObject.put("tags", todo.getTags());
         } else if (task instanceof Deadline) {
             Deadline deadline = (Deadline) task;
             jsonObject.put("type", "deadline");
             jsonObject.put("isDone", deadline.isDone());
             jsonObject.put("description", deadline.getDescription());
             jsonObject.put("deadline", deadline.getDeadline().format(Parser.SAVE_FORMAT));
+            jsonObject.put("tags", deadline.getTags());
+
         } else if (task instanceof Event) {
             Event event = (Event) task;
             jsonObject.put("type", "event");
@@ -157,6 +161,7 @@ public class Storage {
             jsonObject.put("description", event.getDescription());
             jsonObject.put("from", event.getFrom().format(Parser.SAVE_FORMAT));
             jsonObject.put("to", event.getTo().format(Parser.SAVE_FORMAT));
+            jsonObject.put("tags", event.getTags());
         }
 
         return jsonObject;
@@ -181,5 +186,30 @@ public class Storage {
         JSONTokener jsonTokener = new JSONTokener(Files.newInputStream(this.filePath));
 
         return new JSONArray(jsonTokener);
+    }
+
+    /**
+     * Retrieves tags from the JSONObject.
+     *
+     * @param jsonObject The JSONObject representing a Task.
+     * @return The list of tags.
+     */
+    private ArrayList<String> getTagsFromJsonObject(JSONObject jsonObject) {
+        JSONArray tagsArray;
+        ArrayList<String> tags = new ArrayList<>();
+        try {
+            tagsArray = jsonObject.getJSONArray("tags");
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return tags;
+        }
+
+        for (Object tag : tagsArray) {
+            if (tag instanceof String) {
+                tags.add((String) tag);
+            }
+        }
+
+        return tags;
     }
 }
