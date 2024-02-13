@@ -40,4 +40,14 @@ public class ToDoCommand extends Command {
         storage.addToWriteFile(newTask);
         return false;
     }
+
+    @Override
+    public String executeForString(TaskList tasks, UI ui, Storage storage) throws DukeException {
+        if (words.length == 1) {
+            throw new EmptyDescriptionException("todo");
+        }
+        Task newTask = new ToDo(words[1]);
+        storage.addToWriteFile(newTask);
+        return ui.addTaskMessage(tasks.addTask(newTask), tasks.getItems().size());
+    }
 }

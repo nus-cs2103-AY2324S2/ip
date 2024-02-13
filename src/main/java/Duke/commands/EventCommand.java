@@ -44,4 +44,24 @@ public class EventCommand extends Command {
         storage.addToWriteFile(newTask);
         return false;
     }
+    @Override
+    public String executeForString(TaskList tasks, UI ui, Storage storage) throws DukeException {
+        if (words.length == 1) {
+            throw new EmptyDescriptionException("event");
+        }
+        int startIdx = words[1].indexOf("/from");
+        int endIdx = words[1].indexOf("/to");
+        if (startIdx == -1 || endIdx == -1) {
+            throw new InvalidEventException();
+        }
+        String[] dates = words[1].substring(startIdx).split("/from | /to ");
+        if (dates.length != 3) {
+            throw new InvalidEventException();
+        }
+        Task newTask = new Event(words[1].substring(0, startIdx),
+                dates[1],
+                dates[2]);
+        storage.addToWriteFile(newTask);
+        return ui.addTaskMessage(tasks.addTask(newTask), tasks.getItems().size());
+    }
 }

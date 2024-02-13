@@ -1,5 +1,10 @@
 package duke.main;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import duke.commands.ByeCommand;
 import duke.commands.Command;
 import duke.commands.DateCommand;
@@ -9,6 +14,7 @@ import duke.commands.EventCommand;
 import duke.commands.FindCommand;
 import duke.commands.ListCommand;
 import duke.commands.MarkCommand;
+import duke.commands.NameCommand;
 import duke.commands.ToDoCommand;
 import duke.commands.UnMarkCommand;
 import duke.exceptions.DukeException;
@@ -22,10 +28,32 @@ import duke.util.UI;
  * It provides functionalities such as adding, deleting, listing, and marking tasks as done.
  */
 public class Duke {
-    private final Storage storage;
-    private final UI ui;
-    private final TaskList tasks;
+    private Storage storage;
+    private UI ui;
+    private TaskList tasks;
 
+    /**
+     * No argument constructor to be used in GUI
+     */
+    public Duke() {
+        try {
+            // Create directory if it does not exist
+            Path path = Paths.get("./data");
+            if (!Files.exists(path)) {
+                Files.createDirectory(path);
+            }
+            // Create data file if it does not exist
+            Path filePath = Paths.get("./data/duke.txt");
+            if (!Files.exists(filePath)) {
+                Files.createFile(filePath);
+            }
+            this.storage = new Storage(filePath.toString());
+            this.ui = new UI();
+            this.tasks = new TaskList(storage.readFile());
+        } catch (IOException e) {
+            System.out.println("An error occurred while reading file");
+        }
+    }
     /**
      * Constructs a Duke object with the specified file path.
      * @param filePath The file path to store task data.
@@ -35,11 +63,10 @@ public class Duke {
         this.ui = new UI();
         this.tasks = new TaskList(storage.readFile());
     }
-
     private static Command parseCommand(String s) throws IllegalArgumentException {
         String[] words = s.split(" ", 2);
         Command result;
-        switch (words[0]) {
+        switch (words[0].trim().toLowerCase()) {
         case "bye":
             result = new ByeCommand();
             break;
@@ -70,6 +97,9 @@ public class Duke {
         case "find":
             result = new FindCommand(words);
             break;
+        case "name":
+            result = new NameCommand(words);
+            break;
         default:
             throw new IllegalArgumentException();
         }
@@ -93,6 +123,26 @@ public class Duke {
                 this.ui.displayExceptionMsg(e);
             }
         }
+    }
+
+    /**
+     * Method to be called by GUI to respond to user message
+     * @param userInput message keyed in by user
+     * @return duke response to be displayed to user by gui
+     */
+    public String run(String userInput) {
+        try {
+            Command token = parseCommand(userInput.trim());
+            String result = token.executeForString(this.tasks, this.ui, this.storage);
+            return result;
+        } catch (IllegalArgumentException e) {
+            return new UnknownInputException().toString();
+        } catch (DukeException e) {
+            return ui.exceptionMsg(e);
+        }
+    }
+    public String getUserName() {
+        return ui.getName();
     }
 }
 

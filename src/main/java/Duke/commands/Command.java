@@ -21,5 +21,15 @@ public abstract class Command {
      * @throws DukeException exceptions specific to DUKE app
      */
     public abstract boolean execute(TaskList tasks, UI ui, Storage s) throws DukeException;
+
+    /**
+     * abstract method to return String to be displayed on GUI
+     * @param tasks Task Object holding all user-task
+     * @param ui UI that manages user interactions
+     * @param storage Storage that manages User file system
+     * @return String to be displayed on GUI
+     * @throws DukeException exceptions specific to DUKE app
+     */
+    public abstract String executeForString(TaskList tasks, UI ui, Storage storage) throws DukeException;
 }
 

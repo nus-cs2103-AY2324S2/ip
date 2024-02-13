@@ -5,12 +5,19 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import duke.ui.MainWindow;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+
 /**
  * The Main class is the entry point of the Duke application.
  * It initializes the necessary components and starts the application.
  */
-public class Main {
-
+public class Main extends Application {
+    private Duke duke = new Duke("./data/duke.txt");
     /**
      * The main method is the entry point of the Duke application.
      * It creates the necessary directory and file for storing task data,
@@ -36,9 +43,23 @@ public class Main {
             duke.run();
         } catch (IOException e) {
             System.out.println("An error occurred while reading file");
-        } catch (Exception e) {
-            System.out.println(e);
         }
     }
+    @Override
+    public void start(Stage stage) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            ap.getStylesheets().add(getClass().getResource("/view/MainWindow.css").toExternalForm());
+            Scene scene = new Scene(ap);
+            stage.setScene(scene);
+            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
 

@@ -25,4 +25,9 @@ public class ListCommand extends Command {
         ui.displayList(tasks.getItems());
         return false;
     }
+
+    @Override
+    public String executeForString(TaskList tasks, UI ui, Storage storage) {
+        return ui.displayListMessage(tasks.getItems());
+    }
 }

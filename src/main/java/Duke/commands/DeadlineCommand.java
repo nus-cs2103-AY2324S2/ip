@@ -48,4 +48,18 @@ public class DeadlineCommand extends Command {
         storage.addToWriteFile(newTask);
         return false;
     }
+    @Override
+    public String executeForString(TaskList tasks, UI ui, Storage storage) throws DukeException {
+        if (words.length == 1) {
+            throw new EmptyDescriptionException("deadline");
+        }
+        int deadlineStartIdx = words[1].indexOf("/by");
+        if (deadlineStartIdx == -1) {
+            throw new InvalidDeadlineException();
+        }
+        Task newTask = new Deadline(words[1].substring(0, deadlineStartIdx),
+                words[1].substring(deadlineStartIdx + 4));
+        storage.addToWriteFile(newTask);
+        return ui.addTaskMessage(tasks.addTask(newTask), tasks.getItems().size());
+    }
 }

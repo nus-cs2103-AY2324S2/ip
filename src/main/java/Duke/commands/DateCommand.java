@@ -69,4 +69,23 @@ public class DateCommand extends Command {
         ui.displayFoundList(tasks.findTaskWithDate(toFind));
         return false;
     }
+
+    @Override
+    public String executeForString(TaskList tasks, UI ui, Storage storage) throws DukeException {
+        if (words.length == 1) {
+            throw new EmptyDescriptionException("date command");
+        }
+        words[1] = words[1].trim();
+        if (!isValidDateFormat(words[1])) {
+            throw new InvalidDateFormatException();
+        }
+        String[] dateNumbers = words[1].split("[/ ]");
+        LocalDateTime toFind = LocalDateTime.of(
+                Integer.parseInt(dateNumbers[2]),
+                Integer.parseInt(dateNumbers[1]),
+                Integer.parseInt(dateNumbers[0]),
+                Integer.parseInt(dateNumbers[3].substring(0, 2)),
+                Integer.parseInt(dateNumbers[3].substring(2)));
+        return ui.foundListMessage(tasks.findTaskWithDate(toFind));
+    }
 }

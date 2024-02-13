@@ -3,6 +3,7 @@ package duke.commands;
 
 import duke.exceptions.DukeException;
 import duke.exceptions.InvalidTaskIndexException;
+import duke.tasks.Task;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.UI;
@@ -61,5 +62,20 @@ public class DeleteCommand extends Command {
         ui.displayDelete(tasks.delete(taskIdx2), currentIdx);
         s.rewriteFile(tasks.getItems());
         return false;
+    }
+    @Override
+    public String executeForString(TaskList tasks, UI ui, Storage s) throws DukeException {
+        int currentIdx = tasks.getItems().size();
+        if (words.length == 1 || !isNumeric(words[1])) {
+            throw new InvalidTaskIndexException(currentIdx);
+        }
+        int taskIdx2 = Integer.parseInt(words[1]) - 1;
+        if (taskIdx2 >= currentIdx || taskIdx2 < 0) {
+            throw new InvalidTaskIndexException(currentIdx);
+        }
+        currentIdx--;
+        Task deletedTask = tasks.delete(taskIdx2);
+        s.rewriteFile(tasks.getItems());
+        return ui.deleteMessage(deletedTask, currentIdx);
     }
 }

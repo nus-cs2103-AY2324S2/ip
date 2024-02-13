@@ -26,4 +26,8 @@ public class ByeCommand extends Command {
         ui.displayExit();
         return true;
     }
+    @Override
+    public String executeForString(TaskList tasks, UI ui, Storage storage) {
+        return ui.exitMessage();
+    }
 }

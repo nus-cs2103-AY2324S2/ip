@@ -2,6 +2,7 @@ package duke.commands;
 
 import duke.exceptions.DukeException;
 import duke.exceptions.InvalidTaskIndexException;
+import duke.tasks.Task;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.UI;
@@ -52,5 +53,19 @@ public class MarkCommand extends Command {
         ui.displayMark(tasks.markTask(taskIdx));
         storage.rewriteFile(tasks.getItems());
         return false;
+    }
+    @Override
+    public String executeForString(TaskList tasks, UI ui, Storage storage) throws DukeException {
+        int currentIdx = tasks.getItems().size();
+        if (words.length == 1 || !isNumeric(words[1])) {
+            throw new InvalidTaskIndexException(currentIdx);
+        }
+        int taskIdx = Integer.parseInt(words[1]) - 1;
+        if (taskIdx >= currentIdx || taskIdx < 0) {
+            throw new InvalidTaskIndexException(currentIdx);
+        }
+        Task markedTask = tasks.markTask(taskIdx);
+        storage.rewriteFile(tasks.getItems());
+        return ui.markMessage(markedTask);
     }
 }

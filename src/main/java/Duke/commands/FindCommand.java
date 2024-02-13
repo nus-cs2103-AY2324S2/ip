@@ -31,4 +31,9 @@ public class FindCommand extends Command {
         ui.displayFoundTask(tasks.findTasksWithString(words[1].trim()));
         return false;
     }
+
+    @Override
+    public String executeForString(TaskList tasks, UI ui, Storage storage) {
+        return ui.foundTaskMessage(tasks.findTasksWithString(words[1].trim()));
+    }
 }
