@@ -12,6 +12,7 @@ public class Event extends Task {
 
     /**
      * A public constructor to initialize a new Event.
+     *
      * @param description A String to describe the task.
      * @param from A LocalDateTime for the start of the Event.
      * @param to A LocalDateTime for the end of the Event.
@@ -24,6 +25,7 @@ public class Event extends Task {
 
     /**
      * A public constructor to initialize a new Event with an isDone value.
+     *
      * @param description A String to describe the task.
      * @param isDone A Boolean to describe if the task is done.
      * @param from A LocalDateTime for the start of the Event.

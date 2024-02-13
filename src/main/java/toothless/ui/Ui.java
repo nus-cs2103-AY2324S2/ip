@@ -10,7 +10,8 @@ import toothless.task.Task;
 public class Ui {
     /**
      * Returns new task message.
-     * @param newTask      New Task to be printed.
+     *
+     * @param newTask New Task to be printed.
      * @param taskListSize Size of tasklist.
      * @return String message of new task.
      */
@@ -23,7 +24,8 @@ public class Ui {
 
     /**
      * Returns deleted task message.
-     * @param deletedTask  Deleted Task to be printed.
+     *
+     * @param deletedTask Deleted Task to be printed.
      * @param taskListSize Size of tasklist.
      * @return String message of deleted task.
      */
@@ -36,6 +38,7 @@ public class Ui {
 
     /**
      * Returns marked task message.
+     *
      * @param markedTask Marked Task to be printed.
      * @return String message of marked task.
      */
@@ -45,6 +48,7 @@ public class Ui {
 
     /**
      * Returns unmarked task message.
+     *
      * @param unmarkedTask Unmarked Task to be printed.
      * @return String message of unmarked task.
      */
@@ -54,7 +58,10 @@ public class Ui {
 
     /**
      * Prints the TaskList in order.
+     *
      * @param taskArrayList The ArrayList of Tasks to be printed.
+     * @param noTasksMessage String message when there are no tasks in the list.
+     * @param introMessage String message before the list of tasks.
      * @return String message of list.
      */
     public String getListMessage(ArrayList<Task> taskArrayList, String noTasksMessage, String introMessage) {

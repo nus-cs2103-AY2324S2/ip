@@ -9,6 +9,7 @@ public abstract class Task {
 
     /**
      * A public constructor to initialize a new task.
+     *
      * @param description A String to describe the task.
      */
     public Task(String description) {
@@ -18,6 +19,7 @@ public abstract class Task {
 
     /**
      * A public constructor to initialize a task with an isDone value.
+     *
      * @param description A String to describe the task.
      * @param isDone A Boolean to describe if the task is done.
      */
@@ -28,14 +30,16 @@ public abstract class Task {
 
     /**
      * Returns the done status icon of the task.
+     *
      * @return The String indicating X if done, and nothing if not.
      */
     public String getStatusIcon() {
-        return (this.isDone ? "X" : " "); // mark done duke.task with X
+        return (this.isDone ? "X" : " ");
     }
 
     /**
      * Returns a binary of the done status of the task.
+     *
      * @return The String indicating 1 if done, and 0 if not.
      */
     public String getStatusBinary() {
@@ -58,6 +62,7 @@ public abstract class Task {
 
     /**
      * Returns a String representing the task formatted for storage in data file.
+     *
      * @return String representing the task formatted for storage in data file.
      */
     public String toStorageString() {
@@ -66,6 +71,7 @@ public abstract class Task {
 
     /**
      * Returns a String representing the task formatted for printing.
+     *
      * @return String representing the task formatted for printing.
      */
     @Override
