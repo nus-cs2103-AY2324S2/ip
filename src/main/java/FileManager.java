@@ -4,9 +4,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class FileManager {
     private String filePath;
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     public FileManager(String filePath) {
         this.filePath = filePath;
@@ -22,15 +25,21 @@ public class FileManager {
             }
             writer.close();
         } catch (IOException e) {
-            System.out.println("An unexpected error occured while saving tasks!");
+            System.out.println("An unexpected error occurred while saving tasks!");
         }
     }
 
     private String taskToFileFormat(Task task) {
         String type = task instanceof Todo ? "T" : task instanceof Deadline ? "D" : "E";
         String status = task.isDone() ? "1" : "0";
-        String details = task.getName(); // Assuming getName() method exists in Task
-        String time = task instanceof Deadline ? ((Deadline) task).getBy() : task instanceof Event ? ((Event) task).getTime() : "";
+        String details = task.getName();
+        String time = "";
+        if (task instanceof Deadline) {
+            LocalDateTime by = ((Deadline) task).getBy();
+            time = by.format(formatter);
+        } else if (task instanceof Event) {
+            time = ((Event) task).getTime();
+        }
         return type + " | " + status + " | " + details + (time.isEmpty() ? "" : " | " + time);
     }
 
@@ -55,7 +64,7 @@ public class FileManager {
 
     private Task parseTask(String data) {
         String[] parts = data.split(" \\| ");
-        if (parts.length < 3) return null; // Basic validation
+        if (parts.length < 3) return null;
 
         String type = parts[0];
         boolean isDone = parts[1].equals("1");
@@ -68,7 +77,8 @@ public class FileManager {
                 break;
             case "D":
                 if (parts.length >= 4) {
-                    String by = parts[3];
+                    String byString = parts[3];
+                    LocalDateTime by = LocalDateTime.parse(byString, formatter);
                     task = new Deadline(name, isDone, by);
                 }
                 break;

@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -127,10 +129,12 @@ public class Duke {
                         fileManager.saveTasks(tasks);
                     }
                     if (isDeadline) {
-                        int index = userInput.indexOf("/");
-                        String when = userInput.substring(index + 3);
+                        int index = userInput.indexOf("/by") + 4;
+                        String dateString = userInput.substring(index, userInput.length());
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                        LocalDateTime dateTime = LocalDateTime.parse(dateString, formatter);
                         String task = getTask(userInput);
-                        tasks.add(new Deadline(task, false, when));
+                        tasks.add(new Deadline(task, false, dateTime));
                         count++;
                         System.out.println(addComment(tasks.get(count - 1), count));
                         fileManager.saveTasks(tasks);
