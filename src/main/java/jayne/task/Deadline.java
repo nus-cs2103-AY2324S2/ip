@@ -24,6 +24,9 @@ public class Deadline extends Task {
         super(description);
         this.by = parseDate(by);
     }
+    public LocalDate getBy() {
+        return by;
+    }
     /**
      * Parses the date string to LocalDate.
      * If the date string is not in a valid format, prints an error message and returns null.

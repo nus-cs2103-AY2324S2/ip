@@ -33,6 +33,8 @@ public class Parser {
         String[] parts = input.split(" ", 2);
         String commandText = parts[0].toLowerCase();
         switch (commandText) {
+        case "sort":
+            return Handler.handleSort(parts, taskList);
         case "find":
             return Handler.handleFind(parts, taskList);
         case "bye":
