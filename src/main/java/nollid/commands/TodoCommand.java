@@ -50,12 +50,8 @@ public class TodoCommand extends Command {
         }
 
         Todo task = new Todo(taskDescription, tags);
-
         tasks.add(task);
         storage.update(tasks);
-
-        String message = "Alright, added:\n" + "\t" + task + "\n";
-        message += tasks.summary();
-        return message;
+        return tasks.getAddSuccessMessage(task);
     }
 }

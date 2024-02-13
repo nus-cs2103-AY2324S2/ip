@@ -43,8 +43,6 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws NollidException {
-        // checkDeadlineNotEmpty();
-
         String taskDescription;
         try {
             taskDescription = Parser.getDescription(argsList);
@@ -59,7 +57,7 @@ public class DeadlineCommand extends Command {
             throw new MissingTagsException(e.getMessage() + "\n" + USAGE_HINT);
         }
 
-        String deadlineString = getDeadlineString();
+        String deadlineString = Parser.getDeadlineString(argsList);
         LocalDateTime deadline;
         try {
             deadline = Parser.getLocalDateTimeFromString(deadlineString);
@@ -69,31 +67,8 @@ public class DeadlineCommand extends Command {
 
         Deadline task = new Deadline(taskDescription, deadline, tags);
         tasks.add(task);
-
-        String returnMessage = tasks.getAddSuccessMessage(task);
         storage.update(tasks);
-
-        return returnMessage;
-    }
-
-    /**
-     * Retrieves the deadline string from the input arguments.
-     *
-     * @return The deadline string.
-     */
-    private String getDeadlineString() {
-        int byIndex = this.argsList.indexOf("/by");
-
-        StringBuilder deadlineString = new StringBuilder();
-        for (int i = byIndex + 1; i < this.argsList.size(); i++) {
-            if (!argsList.get(i).matches(Parser.OPTION_REGEX)) {
-                deadlineString.append(argsList.get(i)).append(" ");
-            } else {
-                break;
-            }
-        }
-
-        return deadlineString.toString();
+        return tasks.getAddSuccessMessage(task);
     }
 }
 

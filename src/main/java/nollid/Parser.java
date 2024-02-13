@@ -144,4 +144,24 @@ public class Parser {
 
         return taskDescription.toString();
     }
+
+    /**
+     * Retrieves the deadline string from the input arguments.
+     *
+     * @return The deadline string.
+     */
+    public static String getDeadlineString(ArrayList<String> argsList) {
+        int byIndex = argsList.indexOf("/by");
+
+        StringBuilder deadlineString = new StringBuilder();
+        for (int i = byIndex + 1; i < argsList.size(); i++) {
+            if (!argsList.get(i).matches(Parser.OPTION_REGEX)) {
+                deadlineString.append(argsList.get(i)).append(" ");
+            } else {
+                break;
+            }
+        }
+
+        return deadlineString.toString();
+    }
 }

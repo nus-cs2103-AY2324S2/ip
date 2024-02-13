@@ -53,7 +53,7 @@ public class EventCommand extends Command {
         StringBuilder from = new StringBuilder();
         StringBuilder to = new StringBuilder();
         try {
-            extractEventInfo(from, to);
+            extractEventStartEnd(from, to);
         } catch (InvalidArgumentException e) {
             throw new InvalidArgumentException(e.getMessage() + "\n" + USAGE_HINT);
         }
@@ -76,18 +76,25 @@ public class EventCommand extends Command {
 
         Event task = new Event(taskDescription, fromDateTime, toDateTime, tags);
         tasks.add(task);
-        String message = tasks.getAddSuccessMessage(task);
         storage.update(tasks);
-        return message;
+        return tasks.getAddSuccessMessage(task);
     }
 
-    private void extractEventInfo(StringBuilder fromString, StringBuilder toString) throws InvalidArgumentException {
+    /**
+     * Extracts the start and end date strings from the input arguments.
+     *
+     * @param fromString The StringBuilder to store the start date string.
+     * @param toString   The StringBuilder to store the end date string.
+     * @throws InvalidArgumentException If the start or end date is empty.
+     */
+    private void extractEventStartEnd(StringBuilder fromString,
+                                      StringBuilder toString) throws InvalidArgumentException {
         int fromIndex = this.argsList.indexOf("/from");
         int toIndex = this.argsList.indexOf("/to");
 
-        for (int i = fromIndex + 1; i < argsList.size(); i++) {
-            if (!argsList.get(i).matches(Parser.OPTION_REGEX)) {
-                fromString.append(argsList.get(i)).append(" ");
+        for (int i = fromIndex + 1; i < this.argsList.size(); i++) {
+            if (!this.argsList.get(i).matches(Parser.OPTION_REGEX)) {
+                fromString.append(this.argsList.get(i)).append(" ");
             } else {
                 break;
             }
@@ -97,9 +104,9 @@ public class EventCommand extends Command {
             throw new InvalidArgumentException("Start date cannot be empty.");
         }
 
-        for (int i = toIndex + 1; i < argsList.size(); i++) {
-            if (!argsList.get(i).matches(Parser.OPTION_REGEX)) {
-                toString.append(argsList.get(i)).append(" ");
+        for (int i = toIndex + 1; i < this.argsList.size(); i++) {
+            if (!this.argsList.get(i).matches(Parser.OPTION_REGEX)) {
+                toString.append(this.argsList.get(i)).append(" ");
             } else {
                 break;
             }
@@ -107,45 +114,6 @@ public class EventCommand extends Command {
 
         if (toString.length() == 0) {
             throw new InvalidArgumentException("End date cannot be empty.");
-        }
-    }
-
-    /**
-     * Checks if the event description is provided.
-     *
-     * @param fromIndex The index of the "/from" argument.
-     * @param toIndex   The index of the "/to" argument.
-     * @throws EmptyDescriptionException If the event description is empty.
-     */
-    private void checkDescriptionNotEmpty(int fromIndex, int toIndex) throws EmptyDescriptionException {
-        if (this.argsList.size() == 1 || fromIndex == 1 || toIndex == 1) {
-            throw new EmptyDescriptionException("Event description cannot be empty!\n" + USAGE_HINT);
-        }
-    }
-
-    /**
-     * Checks if the start of the event is provided.
-     *
-     * @param fromIndex The index of the "/from" argument.
-     * @param toIndex   The index of the "/to" argument.
-     * @throws InvalidArgumentException If the event start is empty.
-     */
-    private void checkStartNotEmpty(int fromIndex, int toIndex) throws InvalidArgumentException {
-        if (fromIndex == -1 || fromIndex == this.argsList.size() - 1 || fromIndex == toIndex - 1) {
-            throw new InvalidArgumentException("Please enter the start of your event!\n" + USAGE_HINT);
-        }
-    }
-
-    /**
-     * Checks if the end of the event is provided.
-     *
-     * @param fromIndex The index of the "/from" argument.
-     * @param toIndex   The index of the "/to" argument.
-     * @throws InvalidArgumentException If the event start is empty.
-     */
-    private void checkEndNotEmpty(int fromIndex, int toIndex) throws InvalidArgumentException {
-        if (toIndex == -1 || toIndex == this.argsList.size() - 1 || toIndex == fromIndex - 1) {
-            throw new InvalidArgumentException("Please enter the end of your event!\n" + USAGE_HINT);
         }
     }
 }
