@@ -2,6 +2,7 @@ plugins {
     id("java")
     id 'com.github.johnrengelman.shadow' version '7.1.0'
     id 'checkstyle'
+    id 'application'
 }
 
 group = "org.example"
@@ -49,3 +50,8 @@ shadowJar {
     archiveBaseName = "theadvisor"
     archiveClassifier = null
 }
+
+application {
+    mainClass.set("theadvisor.Launcher")
+}
+
