@@ -4,6 +4,7 @@ package command;
 import java.util.ArrayList;
 
 import andelu.AndeluException;
+import andelu.PriorityLevel;
 import andelu.Storage;
 import andelu.TaskList;
 import andelu.Ui;
@@ -49,12 +50,28 @@ public class AddToDoCommand extends Command {
             throw new AndeluException("Missing the description!");
         }
 
-        String name = "";
-        for (int i = 1; i < splitInput.length; i++) {
-            name += splitInput[i] + " ";
+        String[] priorityStringSplit = input.split("/priority");
+        PriorityLevel priorityLevel = PriorityLevel.DEFAULT;
+        if (priorityStringSplit.length == 2) {
+            String priorityInput = priorityStringSplit[1].trim();
+            if (priorityInput.equalsIgnoreCase("Low")) {
+                priorityLevel = PriorityLevel.LOW;
+            } else if (priorityInput.equalsIgnoreCase("Medium")) {
+                priorityLevel = PriorityLevel.MEDIUM;
+            } else if (priorityInput.equalsIgnoreCase("High")) {
+                priorityLevel = PriorityLevel.HIGH;
+            } else {
+                throw new AndeluException("Please select the priority level: Low, Medium or High, if any.");
+            }
         }
 
-        ToDo newToDo = new ToDo(name.trim(), false);
+        String name = "";
+        String[] nameSplit = priorityStringSplit[0].split(" ");
+        for (int i = 1; i < nameSplit.length; i++) {
+            name += nameSplit[i] + " ";
+        }
+
+        ToDo newToDo = new ToDo(name.trim(), false, priorityLevel);
         tasks.addTask(newToDo);
         ArrayList<Task> newToDoList = new ArrayList<>();
         newToDoList.add(newToDo);

@@ -1,6 +1,8 @@
 package task;
 
 
+import andelu.PriorityLevel;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -28,8 +30,8 @@ public class Event extends Task {
      * @param start The start DateTime of the Event.
      * @param end The end DateTime of the Event.
      */
-    public Event(String description, boolean isDone, LocalDateTime start, LocalDateTime end) {
-        super(description, isDone);
+    public Event(String description, boolean isDone, PriorityLevel priorityLevel, LocalDateTime start, LocalDateTime end) {
+        super(description, isDone, priorityLevel);
         this.start = start;
         this.end = end;
     }
@@ -80,6 +82,7 @@ public class Event extends Task {
         return "[E][" + super.getStatusIcon() + "] "
                 + super.getDescription()
                 + " (from: " + startString + " to: "
-                + endString + ")";
+                + endString + ")"
+                + " (" + super.getPriorityLevel() + " priority)";
     }
 }

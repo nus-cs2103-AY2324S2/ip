@@ -1,5 +1,7 @@
 package task;
 
+import andelu.PriorityLevel;
+
 /**
  * A superclass for Task.
  */
@@ -11,15 +13,19 @@ public class Task {
     /** The status of completion for this task. */
     private boolean isDone;
 
+    private PriorityLevel priorityLevel;
+
     /**
      * A superclass constructor to create a Task.
      *
      * @param description The title of the Task.
      * @param isDone The status of the Task.
+     * @param isDone The priority level of the Task.
      */
-    public Task(String description, boolean isDone) {
+    public Task(String description, boolean isDone, PriorityLevel priorityLevel) {
         this.description = description;
         this.isDone = isDone;
+        this.priorityLevel = priorityLevel;
     }
 
     /**
@@ -54,5 +60,14 @@ public class Task {
      */
     public void markAsUndone() {
         this.isDone = false;
+    }
+
+    /**
+     * Returns the priority level of the Task.
+     *
+     * @return priority level of the task.
+     */
+    public PriorityLevel getPriorityLevel() {
+        return this.priorityLevel;
     }
 }
