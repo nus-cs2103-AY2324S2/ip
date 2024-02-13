@@ -50,7 +50,7 @@ public class UiHandler {
                 );
     }
     public void addTaskResponse(Task task, int tasksLeft) {
-        sendMessage("Okay Traveller, I've added the following task!", task.getTask(), "You now have " + tasksLeft + " tasks remaining.");
+        sendMessage("Okay Traveller, I've added the following task!", task.getTask(), "You have " + tasksLeft + " tasks in your list");
     }
     public void deleteTaskResponse(int tasksLeft) {
         sendMessage("Okay Traveller, I've deleted the task! You now have " + tasksLeft + " tasks remaining.");

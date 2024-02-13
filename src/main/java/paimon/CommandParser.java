@@ -32,7 +32,7 @@ public class CommandParser {
             case "help":
                 return new HelpCommand();
             case "todo":
-                String todoRegex = "^(\\w+)(\\s)(.*)";
+                String todoRegex = "^(\\w+)(\\s)(.+)";
                 Pattern todoPattern = Pattern.compile(todoRegex);
                 Matcher todoMatcher = todoPattern.matcher(input);
                 if (todoMatcher.find()) {
