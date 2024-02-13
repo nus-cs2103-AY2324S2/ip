@@ -9,11 +9,16 @@ import earl.util.TaskList;
 import earl.util.parsers.IntervalParser;
 
 /**
- * Interface representing a user command that can act on multiple entries.
+ * Abstract class representing handlers of mass operable commands.
  */
-public interface MassOperable {
+public abstract class MassOperableHandler extends Handler {
 
-    List<String> MODIFIED_ITEMS = new ArrayList<>();
+    protected final List<String> modifiedItems = new ArrayList<>();
+
+    /** Class constructor. */
+    public MassOperableHandler(String args) {
+        super(args);
+    }
 
     /**
      * Returns an array of unique valid indices in reverse sorted order.
@@ -23,21 +28,21 @@ public interface MassOperable {
      * @return                an array of valid indices
      * @throws EarlException  if the user input is incomprehensible
      */
-    default Integer[] getValidIndices(TaskList tasks,
+    protected Integer[] getValidIndices(TaskList tasks,
                                       String args) throws EarlException {
         return IntervalParser.parse(args)
                 .filter((idx) -> 0 <= idx && idx < tasks.getSize())
                 .toArray(Integer[]::new);
     }
 
-    default void addDisplayEntry(String entry) {
-        MODIFIED_ITEMS.add(entry);
+    protected void addDisplayEntry(String entry) {
+        modifiedItems.add(entry);
     }
 
-    default String[] getDisplay() {
-        Collections.reverse(MODIFIED_ITEMS);
-        String[] result = MODIFIED_ITEMS.toArray(String[]::new);
-        MODIFIED_ITEMS.clear();
+    protected String[] getDisplay() {
+        Collections.reverse(modifiedItems);
+        String[] result = modifiedItems.toArray(String[]::new);
+        modifiedItems.clear();
         return result;
     }
 }

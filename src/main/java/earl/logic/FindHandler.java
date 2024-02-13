@@ -8,7 +8,7 @@ import earl.util.Ui;
 /**
  * Class responsible for the find command.
  */
-public class FindHandler extends Handler {
+public class FindHandler extends MassOperableHandler {
 
     /** Class constructor. */
     public FindHandler(String args) {

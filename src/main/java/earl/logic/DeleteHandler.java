@@ -7,7 +7,7 @@ import earl.util.Ui;
 /**
  * Class responsible for the delete command.
  */
-public final class DeleteHandler extends Handler implements MassOperable {
+public final class DeleteHandler extends MassOperableHandler {
 
     /** Class constructor. */
     public DeleteHandler(String args) {

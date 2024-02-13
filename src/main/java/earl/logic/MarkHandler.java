@@ -7,7 +7,7 @@ import earl.util.Ui;
 /**
  * Class responsible for the mark command.
  */
-public final class MarkHandler extends Handler implements MassOperable {
+public final class MarkHandler extends MassOperableHandler {
 
     /**
      * Class constructor.

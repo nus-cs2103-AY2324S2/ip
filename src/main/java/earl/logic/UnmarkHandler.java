@@ -7,7 +7,7 @@ import earl.util.Ui;
 /**
  * Class responsible for the unmark command.
  */
-public final class UnmarkHandler extends Handler implements MassOperable {
+public final class UnmarkHandler extends MassOperableHandler {
 
     /** Class constructor. */
     public UnmarkHandler(String args) {
