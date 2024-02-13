@@ -11,8 +11,6 @@ import core.Ui;
 import data.Storage;
 import enums.TaskType;
 
-
-
 /**
  * The TaskList class manages a list of tasks and provides methods to manipulate them.
  */

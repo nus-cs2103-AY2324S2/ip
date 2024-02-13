@@ -3,13 +3,11 @@ package core;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
-import java.util.Scanner;
 
 /**
  * The Ui class handles user interaction and provides methods for displaying messages and reading input.
  */
 public class Ui {
-    private Scanner scanner;
     private String user = "Master";
     private String logo = " /$$$$$$$                            /$$           /$$ /$$\n"
             + "| $$__  $$                          | $$          | $$| $$\n"
@@ -24,10 +22,9 @@ public class Ui {
             + "                     \\______/\n";
 
     /**
-     * Constructs an Ui instance and initializes the scanner for user input.
+     * Constructs an Ui instance.
      */
     public Ui() {
-        scanner = new Scanner(System.in);
     }
 
     /**
@@ -48,14 +45,15 @@ public class Ui {
         return user;
     }
 
-    /**
+    /*
      * Reads a user command from the console input.
      *
      * @return The user-entered command as a String.
-     */
-    public String readCommand() {
-        return scanner.nextLine().trim();
+     *
+    public String readCommand(String input) {
+        return input;
     }
+    */
 
     /**
      * Displays a welcome message and the application logo.
@@ -203,12 +201,5 @@ public class Ui {
     public void showErrorCreatingFile() {
         System.out.println("An error occurred while creating the data folder or tasks.txt file!\n"
                 + " Killing Ragdoll...");
-    }
-
-    /**
-     * Closes the scanner used for input.
-     */
-    public void closeScanner() {
-        scanner.close();
     }
 }
