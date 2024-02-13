@@ -6,24 +6,26 @@ import java.io.*;
 
 public class Storage {
     String filePath;
-    public Storage(String filePath) {
-        this.filePath = filePath;
-    }
 
-    public static String loadFromFile() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader("./data.txt"));
+    public static String loadFromFile(String filePath) throws IOException {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(filePath));
 
-        String line = "";
-        String str ="";
+            String line = "";
+            String str = "";
 
-        while(line != null){
+            while (line != null) {
 //            addList(line);
-            str += line + "\n";
-            line = reader.readLine();
-        }
+                str += line + "\n";
+                line = reader.readLine();
+            }
 
-        reader.close();
-        return str;
+            reader.close();
+            return str;
+        }catch (FileNotFoundException e){
+            System.out.println("whoops, file not found");
+            return "";
+        }
     }
 
     public static void writeToFile(TaskList taskList) throws IOException {

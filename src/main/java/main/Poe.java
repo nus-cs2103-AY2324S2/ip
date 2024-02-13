@@ -27,7 +27,7 @@ public class Poe {
 
         Ui.greetings();
         try {
-            String data = Storage.loadFromFile();
+            String data = Storage.loadFromFile("./data.txt");
             TaskList taskList = new TaskList(data);
             taskList.printList();
             Parser.input(taskList);

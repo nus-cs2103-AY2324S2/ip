@@ -54,19 +54,27 @@ public class TaskList {
     }
 
     public void mark(int index){
-        Task curr = list.get(index);
-        curr.markMark();
-        Ui.showLine();
-        System.out.println("\nCongrats on completing the task!\n" + curr.toString()+"\n");
-        Ui.showLine();
+        try {
+            Task curr = list.get(index);
+            curr.markMark();
+            Ui.showLine();
+            System.out.println("\nCongrats on completing the task!\n" + curr.toString() + "\n");
+            Ui.showLine();
+        }catch (IndexOutOfBoundsException e){
+            System.out.println("Index out of bounds :(");
+        }
     }
 
     public void unmark(int index){
-        Task curr = list.get(index);
-        curr.unmarkMark();
-        Ui.showLine();
-        System.out.println("\nUnmarked the task, :(\n" + curr.toString()+"\n");
-        Ui.showLine();
+        try {
+            Task curr = list.get(index);
+            curr.unmarkMark();
+            Ui.showLine();
+            System.out.println("\nUnmarked the task, :(\n" + curr.toString() + "\n");
+            Ui.showLine();
+        }catch (IndexOutOfBoundsException e){
+            System.out.println("Index out of bounds :(");
+        }
     }
 
     public String noOfTask(){
@@ -74,11 +82,15 @@ public class TaskList {
     }
 
     public void remove(int index){
-        Task curr = list.get(index);
-        list.remove(index);
-        Ui.showLine();
-        System.out.println("byebye task! \n"+curr.toString()+"\n"+noOfTask()+"\n");
-        Ui.showLine();
+        try {
+            Task curr = list.get(index);
+            list.remove(index);
+            Ui.showLine();
+            System.out.println("byebye task! \n" + curr.toString() + "\n" + noOfTask() + "\n");
+            Ui.showLine();
+        }catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("Index out of bounds :(");
+        }
     }
 
 }
