@@ -1,13 +1,14 @@
 package atsisbot;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+import java.util.stream.Stream;
 
 import atsisbot.task.Deadline;
 import atsisbot.task.Event;
@@ -58,12 +59,9 @@ public class Storage {
         TaskList list = new TaskList();
         try {
             createFileIfNotExist();
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String line;
-            while ((line = br.readLine()) != null) {
-                list.addTask(readLine(line));
+            try (Stream<String> lines = Files.lines(Paths.get(file.getPath()))) {
+                lines.forEach(line -> list.addTask(readLine(line)));
             }
-            br.close();
         } catch (IOException e) {
             System.out.println("Error loading the atsisbot.task list: " + e.getMessage());
         }
