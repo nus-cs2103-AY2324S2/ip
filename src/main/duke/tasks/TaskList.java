@@ -66,22 +66,26 @@ public class TaskList {
      *
      * @param input The index of the task that should be marked as done.
      */
-    public String mark(String input) {
-        String s;
+    public String mark(String[] input) {
+        StringBuilder s = new StringBuilder();
+        String forPrintingError = "";
         try {
-            int i = Integer.parseInt(input);
-            Task t = Duke.tasks.get(i - 1);
-            t.markAsDone();
-            Duke.tasks.set(i - 1, t);
-            s = "Nice! I've marked this task as done:\n  " + t;
-
+            // Start at 1 beacuse indexes start at 1. Index 0 is "mark"
+            for (int i = 1; i < input.length; i++) {
+                forPrintingError = input[i];
+                int idx = Integer.parseInt(input[i]);
+                Task t = Duke.tasks.get(idx - 1);
+                t.markAsDone();
+                Duke.tasks.set(idx - 1, t);
+                s.append("Nice! I've marked this task as done:\n  ").append(t).append('\n');
+            }
         } catch (NumberFormatException e) {
-            s = "Not a valid number!\n";
+            s = new StringBuilder(forPrintingError + " is not a valid number!\n");
         } catch (IndexOutOfBoundsException e) {
-            s = "Sorry, index out of range!\n";
+            s = new StringBuilder(forPrintingError + "--> index out of range!\n");
         }
 
-        return s;
+        return s.toString();
     }
 
     /**
@@ -89,22 +93,26 @@ public class TaskList {
      *
      * @param input The index of the task that should be marked as not done.
      */
-    public String unmark(String input) {
-        String s;
+    public String unmark(String[] input) {
+        StringBuilder s = new StringBuilder();
+        String forPrintingError = "";
         try {
-            int i = Integer.parseInt(input);
-            Task t = Duke.tasks.get(i - 1);
-            t.markAsNotDone();
-            Duke.tasks.set(i - 1, t);
-            s = "OK, I've marked this task as not done yet:\n  " + t;
-
+            // Start at 1 beacuse indexes start at 1. Index 0 is "unmark"
+            for (int i = 1; i < input.length; i++) {
+                forPrintingError = input[i];
+                int idx = Integer.parseInt(input[i]);
+                Task t = Duke.tasks.get(idx - 1);
+                t.markAsNotDone();
+                Duke.tasks.set(idx - 1, t);
+                s.append("OK, I've marked this task as not done yet:\n  ").append(t).append('\n');
+            }
         } catch (NumberFormatException e) {
-            s = "Not a valid number!\n";
+            s = new StringBuilder(forPrintingError + " is not a valid number!\n");
         } catch (IndexOutOfBoundsException e) {
-            s = "Sorry, index out of range!\n";
+            s = new StringBuilder(forPrintingError + "--> index out of range!\n");
         }
 
-        return s;
+        return s.toString();
     }
 
     /**
@@ -112,21 +120,25 @@ public class TaskList {
      *
      * @param input The index of the task that should be deleted.
      */
-    public String delete(String input) {
-        String s;
+    public String delete(String[] input) {
+        StringBuilder s = new StringBuilder();
+        String forPrintingError = "";
         try {
-            int i = Integer.parseInt(input);
-            Task t = Duke.tasks.remove(i - 1);
-            s = "Noted. I've removed this task:\n  " + t;
-            s += String.format("\nNow you have %d tasks in the list.\n", Duke.tasks.size());
-
+            // Start at 1 beacuse indexes start at 1. Index 0 is "delete"
+            for (int i = 1; i < input.length; i++) {
+                forPrintingError = input[i];
+                int idx = Integer.parseInt(input[i]);
+                Task t = Duke.tasks.remove(idx - 1);
+                s.append("Noted. I've removed this task:\n  ").append(t);
+                s.append(String.format("Now you have %d tasks in the list.\n\n", Duke.tasks.size()));
+            }
         } catch (NumberFormatException e) {
-            s = "Not a valid number! Or perhaps add a ' '\n";
+            s = new StringBuilder(forPrintingError + " is not a valid number! Or perhaps add a ' '\n");
         } catch (IndexOutOfBoundsException e) {
-            s = "Sorry, index out of range!\n";
+            s = new StringBuilder(forPrintingError + "--> index out of range!\n");
         }
 
-        return s;
+        return s.toString();
     }
 
     /**

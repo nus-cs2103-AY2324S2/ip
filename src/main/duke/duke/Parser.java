@@ -78,13 +78,13 @@ public class Parser {
                 reply = Duke.storage.save(Duke.tasks);
                 break;
             case MARK:
-                reply = Duke.tasks.mark(inputParsed[1]); // mark(task number)
+                reply = Duke.tasks.mark(inputParsed); // mark(task number)
                 break;
             case UNMARK:
-                reply = Duke.tasks.unmark(inputParsed[1]); // unmark(task number)
+                reply = Duke.tasks.unmark(inputParsed); // unmark(task number)
                 break;
             case DELETE:
-                reply = Duke.tasks.delete(inputParsed[1]); // delete(task number)
+                reply = Duke.tasks.delete(inputParsed); // delete(task number)
                 break;
             case FIND:
                 reply = Duke.tasks.find(inputParsed[1]); // find(task name)
@@ -153,9 +153,13 @@ public class Parser {
 
     private void checkValidFormat(String[] inputs, Command command) {
         switch (command) {
-        case MARK: // Command: mark taskNumber
-        case UNMARK: // Command: unmark taskNumber
-        case DELETE:// Command: delete taskNumber
+        case MARK: // Command: mark listOfTaskNumbers
+        case UNMARK: // Command: unmark listOfTaskNumbers
+        case DELETE:// Command: delete listOfTaskNumbers
+            if (inputs.length < 2) {
+                throw new DukeEmptyArgumentException();
+            }
+            break;
         case FIND: // Command: find taskName
         case TODO: // Command: todo taskName
             if (inputs.length < 2) {
