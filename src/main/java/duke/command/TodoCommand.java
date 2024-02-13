@@ -3,6 +3,7 @@ package duke.command;
 import duke.exception.DukeException;
 import duke.task.Task;
 import duke.task.Todo;
+import duke.util.DukeList;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
@@ -21,14 +22,15 @@ public class TodoCommand implements Command {
     /**
      * Creates a new Todo based on description extracted from input and adds to TaskList.
      *
-     * @param list Holds the tasks added.
+     * @param dukeList Holds the tasks added.
      * @param ui Display messages about executed operation.
      * @param storage Handles IO storage operation.
      * @return String of response of chatbot.
      * @throws DukeException Not thrown.
      */
     @Override
-    public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
+    public String execute(DukeList dukeList, Ui ui, Storage storage) throws DukeException {
+        TaskList list = (TaskList) dukeList;
         Task t = new Todo(input.substring(5));
         list.add(t);
         storage.writeToFile(list);

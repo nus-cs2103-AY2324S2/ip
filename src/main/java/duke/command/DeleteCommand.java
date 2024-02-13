@@ -2,6 +2,7 @@ package duke.command;
 
 import duke.exception.DukeException;
 import duke.task.Task;
+import duke.util.DukeList;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
@@ -19,14 +20,15 @@ public class DeleteCommand implements Command {
     /**
      * Removes task in TaskList where index is indicated in input.
      *
-     * @param list Holds the existing tasks including task to be removed.
+     * @param dukeList Holds the existing tasks including task to be removed.
      * @param ui Displays messages about executed operation.
      * @param storage Handles IO storage operation.
      * @return String of response of chatbot.
      * @throws DukeException If index is not n range.
      */
     @Override
-    public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
+    public String execute(DukeList dukeList, Ui ui, Storage storage) throws DukeException {
+        TaskList list = (TaskList) dukeList;
         String[] s = input.split("\\s");
         assert (s.length == 2) : "Delete command cannot be split at space";
         int num = Integer.parseInt(s[1]);

@@ -7,7 +7,7 @@ import duke.task.Task;
 /**
  * Represents a list to hold all added tasks.
  */
-public class TaskList {
+public class TaskList implements DukeList {
     private ArrayList<Task> list;
 
     /**
@@ -69,6 +69,7 @@ public class TaskList {
      *
      * @return String of all Tasks in list.
      */
+    @Override
     public String print() {
         if (this.isEmpty()) {
             return "No task in list.";

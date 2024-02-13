@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import duke.exception.DukeException;
 import duke.task.Task;
+import duke.util.DukeList;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
@@ -22,14 +23,15 @@ public class FindCommand implements Command {
     /**
      * Searches through the list of tasks for matching keyword given in input.
      *
-     * @param list Holds all tasks added.
+     * @param dukeList Holds all tasks added.
      * @param ui Displays message of operation.
      * @param storage Handles IO operations.
      * @return String of response of chatbot.
      * @throws DukeException No thrown.
      */
     @Override
-    public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
+    public String execute(DukeList dukeList, Ui ui, Storage storage) throws DukeException {
+        TaskList list = (TaskList) dukeList;
         ArrayList<Task> arr = findTasks(list, keywords);
         return ui.showMatchedTasks(new TaskList(arr));
     }

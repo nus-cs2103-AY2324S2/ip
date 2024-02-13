@@ -158,4 +158,49 @@ public class Ui {
         }
         return list.printFound();
     }
+
+    /**
+     * Returns notification on successful addition to expense.
+     *
+     * @param list List of expenses.
+     * @return Success message.
+     */
+    public String showAddedExpense(ExpenseList list) {
+        String message = "Expense incremented. Here's the list of updated expenses:\n";
+        return message + list.print();
+    }
+
+    /**
+     * Returns notification on successful deduction from expense.
+     *
+     * @param list List of expenses.
+     * @return Success message.
+     */
+    public String showDeductedExpense(ExpenseList list) {
+        String message = "Expense deducted. Here's the list of updated expenses:\n";
+        return message + list.print();
+    }
+
+    /**
+     * Returns sum of expenses.
+     *
+     * @param list List of expenses.
+     * @return String of message and sum.
+     */
+    public String showSumExpenses(ExpenseList list) {
+        String message = "Total expenses: $";
+        return message + list.calculateSum();
+    }
+
+    /**
+     * Returns a list of categories and expenses.
+     *
+     * @param list List of expenses.
+     * @return String of expenses.
+     */
+    public String printExpenses(ExpenseList list) {
+        return "Here are the expenses for each category:\n" + list.print();
+    }
+
+
 }

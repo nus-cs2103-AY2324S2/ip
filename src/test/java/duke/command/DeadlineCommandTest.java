@@ -40,7 +40,7 @@ public class DeadlineCommandTest {
             dc.execute(list, new Ui("JavAssist", "", System.in), new StorageStub(""));
             fail();
         } catch (DukeException e) {
-            assertEquals("Invalid start/end date. Specify date in format 'dd-MM-yyyy HH:mm'.", e.getMessage());
+            assertEquals("Invalid due date. Specify date in format 'dd-MM-yyyy HH:mm'.", e.getMessage());
         } catch (IOException e) {
             fail();
         }

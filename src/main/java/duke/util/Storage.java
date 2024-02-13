@@ -21,7 +21,10 @@ import duke.task.Todo;
  * Represents a storage mechanism.
  */
 public class Storage {
-    private File f;
+    private static final String SEPARATOR = " \\| ";
+    private File taskFile;
+
+    private File expenseFile;
     private FileWriter fw;
     private Scanner s;
 
@@ -30,19 +33,23 @@ public class Storage {
      *
      * @param file Name of file to write to.
      */
-    public Storage(String file) throws IOException {
-        f = new File(file);
-        Path path = Paths.get(file);
-        Path parentDir = path.getParent();
-        if (parentDir != null) {
-            if (!Files.exists(parentDir)) {
-                Files.createDirectories(parentDir);
-                System.out.println("Parent directory created: " + parentDir);
-            } else {
-                System.out.println("Parent directory already exists: " + parentDir);
+    public Storage(String file, String expenseFile) throws IOException {
+        this.taskFile = new File(file);
+        this.expenseFile = new File(expenseFile);
+        Path taskPath = Paths.get(file);
+        Path taskParentDir = taskPath.getParent();
+        if (taskParentDir != null) {
+            if (!Files.exists(taskParentDir)) {
+                Files.createDirectories(taskParentDir);
             }
-        } else {
-            System.out.println("Parent directory not specified in the file path.");
+        }
+
+        Path expensePath = Paths.get(expenseFile);
+        Path expenseParentDir = expensePath.getParent();
+        if (expenseParentDir != null) {
+            if (!Files.exists(expenseParentDir)) {
+                Files.createDirectories(expenseParentDir);
+            }
         }
     }
 
@@ -53,7 +60,7 @@ public class Storage {
      */
     public void writeToFile(TaskList list) {
         try {
-            this.fw = new FileWriter(f);
+            this.fw = new FileWriter(taskFile);
             String data = write(list);
             this.fw.write(data);
             this.fw.close();
@@ -81,6 +88,22 @@ public class Storage {
     }
 
     /**
+     * Writes String of expenses to file.
+     *
+     * @param list List of expenses to be written.
+     */
+    public void writeExpensesToFile(ExpenseList list) {
+        try {
+            this.fw = new FileWriter(expenseFile);
+            String data = list.toString();
+            this.fw.write(data);
+            this.fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Returns ArrayList of tasks read from file.
      *
      * @return ArrayList of Task.
@@ -88,9 +111,9 @@ public class Storage {
      */
     public ArrayList<Task> readFromFile() throws DukeException {
         ArrayList<Task> list = new ArrayList<Task>();
-        if (f.exists()) {
+        if (taskFile.exists()) {
             try {
-                this.s = new Scanner(this.f);
+                this.s = new Scanner(this.taskFile);
                 while (this.s.hasNext()) {
                     list.add(read(this.s.nextLine()));
                 }
@@ -108,7 +131,7 @@ public class Storage {
      * @return Task instance created based on s.
      */
     private Task read(String s) {
-        String[] cols = s.split(" \\| ");
+        String[] cols = s.split(SEPARATOR);
         assert (cols.length <= 2 || cols.length > 5) : "Line read from file is not in correct format";
         Task t = null;
         String description = cols[2];
@@ -128,4 +151,42 @@ public class Storage {
         return t;
     }
 
+    /**
+     * Returns ExpenseList of expenses read from file.
+     *
+     * @return ExpenseList.
+     * @throws DukeException If file not found due to no existing data saved.
+     */
+    public ExpenseList readFromExpenseFile() throws DukeException {
+        if (expenseFile.exists()) {
+            try {
+                this.s = new Scanner(this.expenseFile);
+                while (this.s.hasNext()) {
+                    return readExpense(this.s.nextLine());
+                }
+            } catch (FileNotFoundException e) {
+                throw new DukeException(e.getMessage());
+            }
+        }
+        return new ExpenseList();
+    }
+
+    /**
+     * Converts String into corresponding instances of ExpenseList.
+     *
+     * @param s Describes the expenses.
+     * @return ExpenseList instance created based on s.
+     */
+    public ExpenseList readExpense(String s) {
+        String[] amounts = s.split(SEPARATOR);
+        return new ExpenseList(
+                Float.parseFloat(amounts[0]),
+                Float.parseFloat(amounts[1]),
+                Float.parseFloat(amounts[2]),
+                Float.parseFloat(amounts[3]),
+                Float.parseFloat(amounts[4]),
+                Float.parseFloat(amounts[5]),
+                Float.parseFloat(amounts[6])
+        );
+    }
 }
