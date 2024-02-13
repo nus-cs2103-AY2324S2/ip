@@ -88,6 +88,11 @@ public class TaskList implements Iterable<Task> {
         return this.taskList.iterator();
     }
 
+    /**
+     * Checks if the task list is empty.
+     *
+     * @return true if the task list is empty, false otherwise.
+     */
     public boolean isEmpty() {
         return this.taskList.isEmpty();
     }

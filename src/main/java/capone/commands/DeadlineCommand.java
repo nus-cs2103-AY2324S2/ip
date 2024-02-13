@@ -1,8 +1,6 @@
 package capone.commands;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 import capone.Parser;
@@ -59,51 +57,22 @@ public class DeadlineCommand extends Command {
                     + "Usage: deadline [description] /by [date]");
         }
 
-        // Combine description of task into one string.
-        StringBuilder description = new StringBuilder();
-        for (int i = 1; i < byNdx; i++) {
-            if (i == byNdx - 1) {
-                description.append(inputList.get(i));
-                break;
-            }
-            description.append(inputList.get(i)).append(" ");
-        }
+        // The starting index of the words that contain the description.
+        final int STARTING_NDX_DESCRIPTION = 1;
+        // The ending index of the words that contain the description.
+        final int ENDING_NDX_DESCRIPTION = byNdx;
+        String description = Parser.parseDescription(STARTING_NDX_DESCRIPTION, ENDING_NDX_DESCRIPTION, inputList);
 
         if (description.toString().equalsIgnoreCase("")) {
             throw new InsufficientArgumentException("Insufficient arguments!\n"
                     + "Usage: deadline [description] /by [date]");
         }
 
-        LocalDate date = null;
-        LocalTime time = null;
-        // Process input for the deadline (i.e. after the /by command).
-        StringBuilder byDate = new StringBuilder();
-        for (int i = byNdx + 1; i < inputList.size(); i++) {
-            if (Parser.isDateFormat(inputList.get(i))) {
-                date = Parser.parseDate(inputList.get(i));
-                continue;
-            }
+        LocalDateTime byDateTime = Parser.parseDateTime(byNdx + 1, inputList.size(), inputList);
 
-            if (Parser.isTimeFormat(inputList.get(i))) {
-                time = Parser.parseTime(inputList.get(i));
-                continue;
-            }
+        assert byDateTime != null : "byDateTime should not be null";
 
-            // If this is the last word to be added.
-            if (i == inputList.size() - 1) {
-                byDate.append(inputList.get(i));
-            } else {
-                byDate.append(inputList.get(i)).append(" ");
-            }
-        }
-
-        LocalDateTime deadlineDateTime = Parser.processDateTime(date, time);
-
-        if (deadlineDateTime != null) {
-            taskList.addTask(new Deadline(description.toString(), false, deadlineDateTime));
-        } else {
-            taskList.addTask(new Deadline(description.toString(), false, byDate.toString()));
-        }
+        taskList.addTask(new Deadline(description, false, byDateTime));
 
         storage.writeTasksToJsonFile(taskList);
 

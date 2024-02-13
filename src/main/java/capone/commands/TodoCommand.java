@@ -2,6 +2,7 @@ package capone.commands;
 
 import java.util.ArrayList;
 
+import capone.Parser;
 import capone.Storage;
 import capone.TaskList;
 import capone.exceptions.CaponeException;
@@ -46,17 +47,11 @@ public class TodoCommand extends Command {
                     + "Usage: todo [description]");
         }
 
-        // Combine the remaining words into a single string.
-        StringBuilder description = new StringBuilder();
-        for (int i = 1; i < inputList.size(); i++) {
-            if (i == inputList.size() - 1) {
-                description.append(inputList.get(i));
-                break;
-            }
-            description.append(inputList.get(i)).append(" ");
-        }
+        // The starting index of the words that contain the description.
+        final int STARTING_NDX_DESCRIPTION = 1;
+        String description = Parser.parseDescription(STARTING_NDX_DESCRIPTION, inputList.size(), inputList);
 
-        ToDo newTodo = new ToDo(description.toString(), false);
+        ToDo newTodo = new ToDo(description, false);
         taskList.addTask(newTodo);
         storage.writeTasksToJsonFile(taskList);
 
