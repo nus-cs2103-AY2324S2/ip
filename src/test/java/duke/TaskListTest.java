@@ -1,5 +1,6 @@
 package duke;
 
+import duke.exceptions.InvalidMarkException;
 import duke.tasks.Task;
 import duke.tasks.TodoTask;
 import org.junit.jupiter.api.Test;
@@ -51,7 +52,12 @@ public class TaskListTest {
         TaskList taskList = new TaskList();
         Task task = new TodoTask("Sample Task");
         taskList.add(task);
-        Task markedTask = taskList.markTask(0);
-        assertTrue(markedTask.isDone());
+        try {
+            Task markedTask = taskList.markTask(0);
+            assertTrue(markedTask.isDone());
+        } catch (InvalidMarkException e) {
+            e.printStackTrace();
+            fail();
+        }
     }
 }

@@ -1,5 +1,7 @@
 package duke.tasks;
 
+import duke.TaskList;
+
 import java.time.LocalDateTime;
 
 /**
@@ -54,9 +56,10 @@ public class DeadlineTask extends Task {
     /**
      * Returns a string in a standardised format to represent the deadline task for saving to file.
      *
+     * @param tasks this param is not used in this method
      * @return a string in a standardised format representing the deadline task
      */
-    public String save() {
+    public String save(TaskList tasks) {
         String isDone = this.isDone() ? "1" : "0";
         return "D," + isDone + "," + this.getDesc() + "," + this.end;
     }

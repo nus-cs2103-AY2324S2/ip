@@ -3,13 +3,14 @@ package duke.parser;
 import duke.TaskList;
 import duke.TextTemplate;
 import duke.exceptions.InvalidInputException;
+import duke.exceptions.InvalidMarkException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class InputParserTest {
     @Test
-    public void processCommandBye() throws InvalidInputException {
+    public void processCommandBye() throws InvalidInputException, InvalidMarkException{
         InputParser ip = new InputParser();
         TaskList tasks = new TaskList();
         assertEquals(ip.processCommand("bye", tasks), TextTemplate.EXIT + "\n" + TextTemplate.LINE_BREAK);
@@ -17,7 +18,7 @@ public class InputParserTest {
     }
 
     @Test
-    public void processCommandDeadline() throws InvalidInputException {
+    public void processCommandDeadline() throws InvalidInputException, InvalidMarkException {
         InputParser ip = new InputParser();
         TaskList tasks = new TaskList();
         String actualResponse = ip.processCommand("deadline activity 1 /by 2024-12-01", tasks);
@@ -36,6 +37,9 @@ public class InputParserTest {
             fail("Expected InvalidInputException");
         } catch (InvalidInputException e) {
             assertEquals(TextTemplate.TODO_NO_DESC, e.getMessage());
+        } catch (InvalidMarkException e) {
+            e.printStackTrace();
+            fail();
         }
     }
 
@@ -48,6 +52,9 @@ public class InputParserTest {
             fail("Expected InvalidInputException");
         } catch (InvalidInputException e) {
             assertEquals(TextTemplate.INVALID_COMMAND, e.getMessage());
+        } catch (InvalidMarkException e) {
+            e.printStackTrace();
+            fail();
         }
     }
 
@@ -60,6 +67,9 @@ public class InputParserTest {
             fail("Expected InvalidInputException");
         } catch (InvalidInputException e) {
             assertEquals(TextTemplate.INVALID_DATETIME, e.getMessage());
+        } catch (InvalidMarkException e) {
+            e.printStackTrace();
+            fail();
         }
     }
 

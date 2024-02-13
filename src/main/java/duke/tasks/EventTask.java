@@ -1,5 +1,7 @@
 package duke.tasks;
 
+import duke.TaskList;
+
 import java.time.LocalDateTime;
 
 /**
@@ -61,9 +63,10 @@ public class EventTask extends Task {
     /**
      * Returns a string in the CSV format to represent the event task for saving to file.
      *
+     * @param tasks this param is not used in this method
      * @return a string in the CSV format representing the event task
      */
-    public String save() {
+    public String save(TaskList tasks) {
         String isDone = this.isDone() ? "1" : "0";
         return "E," + isDone + "," + this.getDesc() + "," + this.start + "," + this.end;
     }

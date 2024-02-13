@@ -2,6 +2,7 @@ package duke;
 
 import java.util.ArrayList;
 
+import duke.exceptions.InvalidMarkException;
 import duke.tasks.Task;
 
 /**
@@ -56,6 +57,7 @@ public class TaskList {
 
     /**
      * Removes and returns the task at the specified index in the TaskList.
+     * Updates all tasks, since a DoAfter Task could have its beforeTask removed.
      *
      * @param i the index of the task to remove
      * @return the task that was removed
@@ -63,7 +65,18 @@ public class TaskList {
     public Task remove(int i) {
         Task t = this.tasks.get(i);
         this.tasks.remove(i);
+        this.updateTasks();
         return t;
+    }
+
+    /**
+     * Returns the index of the specified task in the TaskList.
+     *
+     * @param task the task that the index should be found
+     * @return the index of the task
+     */
+    public int getIndex(Task task) {
+        return this.tasks.indexOf(task);
     }
 
     /**
@@ -85,14 +98,23 @@ public class TaskList {
     }
 
     /**
+     * Updates all tasks with their dependencies.
+     */
+    public void updateTasks() {
+        for (Task task: this.tasks) {
+            task.update(this);
+        }
+    }
+
+    /**
      * Marks the task at the specified index in the TaskList as done.
      *
      * @param taskNum the index of the task to mark as done
      * @return the task that was marked as done
      */
-    public Task markTask(int taskNum) {
+    public Task markTask(int taskNum) throws InvalidMarkException {
         Task t = this.tasks.get(taskNum);
-        t.maskAsDone();
+        t.markAsDone();
         return t;
     }
 
@@ -106,6 +128,13 @@ public class TaskList {
         Task t = this.tasks.get(taskNum);
         t.unmark();
         return t;
+    }
+
+    public boolean containsTask(Task task) {
+        if (this.tasks.contains(task)) {
+            return true;
+        }
+        return false;
     }
 
     private ArrayList<Task> find(String keyword) {
@@ -145,7 +174,7 @@ public class TaskList {
     public String toString() {
         StringBuilder s = new StringBuilder();
         for (Task t: this.tasks) {
-            s.append(t.save());
+            s.append(t.save(this));
             s.append("\n");
         }
         return s.toString();

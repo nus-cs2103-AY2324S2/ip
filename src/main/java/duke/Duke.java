@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import duke.exceptions.InvalidInputException;
+import duke.exceptions.InvalidMarkException;
 import duke.exceptions.StorageException;
 import duke.parser.InputParser;
 
@@ -15,7 +16,7 @@ public class Duke {
     private InputParser inputParser;
     private Ui ui;
     private Storage storage;
-    private boolean ready;
+    private boolean isReady;
 
     /**
      * Constructs a Duke object and initializes its components.
@@ -27,10 +28,11 @@ public class Duke {
         this.ui = new Ui();
         this.inputParser = new InputParser();
         this.storage = new Storage(filePath);
-        this.ready = true;
+        this.isReady = true;
 
         try {
             this.taskList = new TaskList(storage.loadFile());
+            this.taskList.updateTasks();
         } catch (FileNotFoundException e) {
             this.taskList = new TaskList();
         } catch (StorageException e) {
@@ -56,6 +58,8 @@ public class Duke {
                 if (!this.inputParser.isActive()) {
                     this.ui.exit();
                 }
+            } catch (InvalidMarkException e) {
+                this.ui.sendSystemMessage(e.getMessage(), TextTemplate.LINE_BREAK);
             } catch (InvalidInputException e) {
                 this.ui.sendSystemMessage(e.getMessage(), TextTemplate.LINE_BREAK);
             } catch (IOException e) {
@@ -74,6 +78,8 @@ public class Duke {
                 System.exit(0);
             }
             return response;
+        } catch (InvalidMarkException e) {
+            return e.getMessage();
         } catch (InvalidInputException e) {
             return e.getMessage();
         } catch (IOException e) {
@@ -83,7 +89,7 @@ public class Duke {
 
     public static void main(String[] args) {
         Duke duke = new Duke();
-        if (duke.ready) {
+        if (duke.isReady) {
             duke.run();
         }
     }

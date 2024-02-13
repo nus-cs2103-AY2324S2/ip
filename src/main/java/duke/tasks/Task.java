@@ -3,6 +3,9 @@ package duke.tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import duke.TaskList;
+import duke.exceptions.InvalidMarkException;
+
 /**
  * The Task class represents a generic task.
  */
@@ -77,6 +80,16 @@ public abstract class Task {
     }
 
     /**
+     * Returns the index of the task in the current TaskList.
+     *
+     * @return the index of the task in the current TaskList
+     */
+    public int getIndex(TaskList tasks) {
+        return tasks.getIndex(this);
+    }
+
+
+    /**
      * Returns the status icon of the task.
      *
      * @return the status icon of the task
@@ -84,9 +97,14 @@ public abstract class Task {
     public abstract String getStatusIcon();
 
     /**
+     * Updates the task to retrieve relevant information, only relevant for DoAfterTask.
+     */
+    public void update(TaskList tasks) {}
+
+    /**
      * Marks the task as done.
      */
-    public void maskAsDone() {
+    public void markAsDone() throws InvalidMarkException {
         this.isDone = true;
     }
 
@@ -107,7 +125,8 @@ public abstract class Task {
     /**
      * Returns a string in a standardised format to represent the task for saving to file.
      *
-     * @return a string in a standardised format to represent the task for saving to file.
+     * @param tasks the param is not used in this method
+     * @return a string in a standardised format to represent the task for saving to file
      */
-    public abstract String save();
+    public abstract String save(TaskList tasks);
 }

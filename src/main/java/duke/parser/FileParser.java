@@ -7,10 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import duke.tasks.DeadlineTask;
-import duke.tasks.EventTask;
-import duke.tasks.Task;
-import duke.tasks.TodoTask;
+import duke.tasks.*;
 
 /**
  * The FileParser class handles the parsing of a file containing task data.
@@ -60,6 +57,11 @@ public class FileParser {
                 assert parts.length == 5 : "Event task creation should have 5 parts";
                 Task e = new EventTask(parts[2], parts[1], parseDateTime(parts[3]), parseDateTime(parts[4]));
                 tasks.add(e);
+                break;
+            case "A":
+                assert parts.length == 4 : "DoAfter task creation should have 4 parts";
+                Task a = new DoAfterTask(parts[2], parts[1], Integer.valueOf(parts[3]));
+                tasks.add(a);
                 break;
             default:
                 break;

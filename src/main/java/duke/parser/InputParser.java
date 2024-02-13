@@ -9,10 +9,8 @@ import duke.TaskList;
 import duke.TextTemplate;
 import duke.exceptions.InvalidDateFormException;
 import duke.exceptions.InvalidInputException;
-import duke.tasks.DeadlineTask;
-import duke.tasks.EventTask;
-import duke.tasks.Task;
-import duke.tasks.TodoTask;
+import duke.exceptions.InvalidMarkException;
+import duke.tasks.*;
 
 /**
  * The InputParser class handles the parsing of user input and performs corresponding actions.
@@ -45,7 +43,7 @@ public class InputParser {
         return tasks.listTasks();
     }
 
-    private String markTask(String input, TaskList tasks) throws InvalidInputException {
+    private String markTask(String input, TaskList tasks) throws InvalidInputException, InvalidMarkException {
         String[] parts = input.split("\\s+");
         int taskNum = Integer.parseInt(parts[1]) - 1;
         assert taskNum >= 0 : "Task number should at least 1.";
@@ -118,6 +116,24 @@ public class InputParser {
         return TextTemplate.ADD_TASK + "\n" + event.toString() + "\n" + taskCounterMsg;
     }
 
+    private String addDoAfter(String s, TaskList tasks) {
+        String[] parts = s.split(" /after ", 2);
+        String[] firstPart = parts[0].split(" ", 2);
+        String desc = firstPart[1];
+        int beforeTaskIndex = Integer.valueOf(parts[1]);
+
+        Task beforeTask = null;
+        if (beforeTaskIndex > 0 && beforeTaskIndex <= tasks.size()) {
+            beforeTask = tasks.get(beforeTaskIndex - 1);
+        }
+
+        DoAfterTask doAfter = new DoAfterTask(desc, beforeTask);
+        tasks.add(doAfter);
+
+        String taskCounterMsg = String.format(TextTemplate.TASK_COUNT, tasks.size());
+        return TextTemplate.ADD_TASK + "\n" + doAfter.toString() + "\n" + taskCounterMsg;
+    }
+
     private String addDeadline(String s, TaskList tasks) {
         // 2 splits are necessary to split "deadline task 1 /by 2024-01-01 1600" into:
         // deadline, task 1, 2024-01-01 1600.
@@ -174,6 +190,9 @@ public class InputParser {
         if (Pattern.matches("todo .+", input)) {
             return Actions.TODO;
         }
+        if (Pattern.matches("doafter .+ /after \\d+", input)) {
+            return Actions.DOAFTER;
+        }
         if (Pattern.matches("deadline .+ /by .+", input)) {
             return Actions.DEADLINE;
         }
@@ -204,7 +223,7 @@ public class InputParser {
      * @return the response message after processing the input
      * @throws InvalidInputException if the input is invalid or does not match any known action
      */
-    public String processCommand(String input, TaskList tasks) throws InvalidInputException {
+    public String processCommand(String input, TaskList tasks) throws InvalidInputException, InvalidMarkException {
         Actions act = this.getAction(input);
         switch (act) {
         case BYE:
@@ -220,6 +239,8 @@ public class InputParser {
             return this.deleteTask(input, tasks);
         case TODO:
             return this.addTodo(input, tasks);
+        case DOAFTER:
+            return this.addDoAfter(input,tasks);
         case EVENT:
             return this.addEvent(input, tasks);
         case DEADLINE:
