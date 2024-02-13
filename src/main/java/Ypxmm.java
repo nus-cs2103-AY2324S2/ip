@@ -1,14 +1,14 @@
 import java.util.ArrayList;
 
-import Commands.Command;
+import commands.Command;
 
-import Parsing.Parser;
+import parsing.Parser;
 
-import Utilities.Storage;
-import Utilities.TaskList;
-import Utilities.Ui;
+import utilities.Storage;
+import utilities.TaskList;
+import utilities.Ui;
 
-import Exceptions.YpxmmException;
+import exceptions.YpxmmException;
 
 /**
  * Main class for the Ypxmm application.
@@ -28,7 +28,7 @@ public class Ypxmm {
         try {
             tasks = new TaskList(storage.loadTasksIntoTaskList());
         } catch (YpxmmException y) {
-            System.out.println(y.getMessage());
+            getResponse(y.getMessage());
         }
     }
 

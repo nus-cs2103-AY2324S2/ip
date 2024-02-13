@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
 }
 
 repositories {
@@ -46,12 +47,16 @@ application {
     mainClass.set("Ypxmm")
 }
 
+checkstyle {
+    toolVersion = '10.2'
+}
+
 shadowJar {
     archiveFileName = "Ypxmm.jar"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
 
-run{
+run {
     standardInput = System.in
 }

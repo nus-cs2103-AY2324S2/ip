@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 /**
  * Custom exception class for Ypxmm exceptions.

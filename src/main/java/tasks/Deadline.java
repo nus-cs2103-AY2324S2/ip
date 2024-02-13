@@ -1,6 +1,6 @@
-package Tasks;
+package tasks;
 
-import Parsing.DateTimeParser;
+import parsing.DateTimeParser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

@@ -1,7 +1,6 @@
-package Parsing;
+package parsing;
 
-import Exceptions.YpxmmException;
-
+import exceptions.YpxmmException;
 import java.util.ArrayList;
 
 /**
@@ -46,7 +45,8 @@ public class Parser {
             } catch (IndexOutOfBoundsException e) {
                 throw new YpxmmException("Brother, key in " + command + " <space> then a valid number");
             } catch (NumberFormatException n) {
-                throw new YpxmmException("You tell me now what task am I supposed to " + command + " if you don't provide me with a number?");
+                throw new YpxmmException("You tell me now what task am I supposed to "
+                        + command + " if you don't provide me with a number?");
             }
         case "todo":
             try {
@@ -58,7 +58,8 @@ public class Parser {
                 parsedResult.add(info[1].trim());
                 return parsedResult;
             } catch (IndexOutOfBoundsException e) {
-                throw new YpxmmException("You trying to test my patience ah? Type \"get commands\" if u blur and dunno how to use me properly.");
+                throw new YpxmmException("You trying to test my patience ah? Type \"get commands\" if"
+                        + "u blur and dunno how to use me properly.");
             }
         case "deadline":
             try {
@@ -71,8 +72,9 @@ public class Parser {
                 parsedResult.add(info[1].trim());
                 return parsedResult;
             } catch (IndexOutOfBoundsException e) {
-                throw new YpxmmException("You trying to test my patience ah? Check that u got key in the deadline lehhh\n" +
-                        "Type \"get commands\" if u blur and dunno how to use me properly.");
+                throw new YpxmmException("You trying to test my patience ah? Check that u got key"
+                        + "in the deadline lehhh\n Type \"get commands\" if u blur and dunno how"
+                        + "to use me properly.");
             }
         case "event":
             try {
@@ -86,11 +88,12 @@ public class Parser {
                 parsedResult.add(info[2].trim());
                 return parsedResult;
             } catch (IndexOutOfBoundsException e) {
-                throw new YpxmmException("Eh brother last warning ah. Check that u got key in the start and end time\n" +
-                        "Type \"get commands\" if u blur and dunno how to use me properly.");
+                throw new YpxmmException("Eh brother last warning ah. Check that u got key in the start and end time\n"
+                        + "Type \"get commands\" if u blur and dunno how to use me properly.");
             }
         default:
-            throw new YpxmmException("Sorry bro, idk what that means. You try type in \"getcommands\" then see if got what u want.");
+            throw new YpxmmException("Sorry bro, idk what that means. You try type in \"getcommands\" then see"
+                    + "if got what u want.");
         }
     }
 }

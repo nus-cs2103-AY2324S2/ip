@@ -1,4 +1,4 @@
-package Parsing;
+package parsing;
 
 /**
  * A stub class for parsing user input into command arguments.
