@@ -17,12 +17,6 @@ import duke.ui.Ui;
  * Represents a parser that parses user input and executes the corresponding commands.
  */
 public class Parser {
-    protected Tasklist todolist;
-
-    public Parser() {
-        todolist = new Tasklist();
-    }
-
     /**
      * Parses the user input and executes the corresponding commands.
      *
@@ -31,11 +25,11 @@ public class Parser {
      * @param storage The storage for the tasklist.
      * @return True if the user input is "bye", false otherwise.
      */
-    public boolean parseCommand(String input, Ui ui, Storage storage) {
+    public boolean parseCommand(String input, Ui ui, Storage storage, Tasklist todolist) {
         String[] parts = input.split(" ", 2);
         String command = parts[0];
         String details = parts.length > 1 ? parts[1] : "";
-        String output = "";
+        String output;
         int taskNumber;
 
         switch (command) {

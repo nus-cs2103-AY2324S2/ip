@@ -10,14 +10,14 @@ import duke.ui.Ui;
 public class Duke {
     private Ui ui;
     private Storage storage;
-    private Tasklist tasklist;
+    private Tasklist todolist;
     private Parser parser;
 
     /**
      * Constructor for the Duke class.
      */
     public Duke() {
-        tasklist = new Tasklist();
+        todolist = new Tasklist();
         ui = new Ui();
         storage = new Storage();
         parser = new Parser();
@@ -37,7 +37,7 @@ public class Duke {
         boolean isBye = false;
         while (!isBye) {
             String command = ui.getCommand();
-            isBye = parser.parseCommand(command, ui, storage);
+            isBye = parser.parseCommand(command, ui, storage, todolist);
         }
         ui.printByeMessage();
     }
