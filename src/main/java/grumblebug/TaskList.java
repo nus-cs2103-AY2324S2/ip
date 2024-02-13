@@ -22,7 +22,7 @@ public class TaskList {
     public String getTasks() {
         StringBuilder builder = new StringBuilder("Okay, here... \n");
         for (int i = 1; i <= this.size(); i++) {
-            builder.append(this.get(i).description + "\n");
+            builder.append(this.get(i).getFullStatus() + "\n");
         }
         return builder.toString();
     }
@@ -64,8 +64,9 @@ public class TaskList {
         StringBuilder builder = new StringBuilder("Okay, here... \n");
         for (int i = 1; i <= this.size(); i++) {
             if (this.get(i).description.contains(key)) {
-                builder.append(this.get(i).description + "\n");
+                builder.append(i + this.get(i).description + "\n");
             }
+            assert builder.length() <= this.size();
         }
         return builder.toString();
     }

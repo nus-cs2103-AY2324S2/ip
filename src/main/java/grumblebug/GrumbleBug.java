@@ -10,6 +10,8 @@ import javafx.scene.layout.Region;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.time.format.DateTimeParseException;
+
 
 /**
  * Represents the overall chatbot object, with text input/output capabilities.
@@ -57,6 +59,7 @@ public class GrumbleBug extends Application {
                 return taskList.getTasks();
             } else if (input.startsWith("mark")) {
                 String[] words = input.split(" ", 2);
+                assert words.length < 3;
                 try {
                     int i = Integer.parseInt(words[1]);
                     taskList.mark(i);
@@ -66,6 +69,7 @@ public class GrumbleBug extends Application {
                 }
             } else if (input.startsWith("unmark")) {
                 String[] words = input.split(" ", 2);
+                assert words.length < 3;
                 try {
                     int i = Integer.parseInt(words[1]);
                     taskList.unmark(i);
@@ -75,23 +79,36 @@ public class GrumbleBug extends Application {
                 }
             } else if (input.startsWith("find")) {
                 String[] words = input.split(" ", 2);
+                assert words.length < 3;
                 return taskList.findMatches(words[1]);
             } else if (input.startsWith("todo")) { // add to list
                 String[] words = input.split(" ", 2);
+                assert words.length < 3;
                 taskList.addToDo(words[1]);
                 return "k";
 
             } else if (input.startsWith("deadline")) { // add to list
                 String[] words = input.split(" ", 3);
-                taskList.addDeadline(words[1], parserInput.parse(words[2]));
-                return "k";
+                assert words.length < 4;
+                try {
+                    taskList.addDeadline(words[1], parserInput.parse(words[2]));
+                    return "k";
+                } catch (DateTimeParseException e) {
+                    return "I don't get it. Date should be in yyyy-MM-dd format...";
+                }
 
             } else if (input.startsWith("event")) { // add to list
                 String[] words = input.split(" ", 4);
-                taskList.addEvent(words[1], parserInput.parse(words[2]), parserInput.parse(words[3]));
-                return "k";
+                assert words.length < 5;
+                try {
+                    taskList.addEvent(words[1], parserInput.parse(words[2]), parserInput.parse(words[3]));
+                    return "k";
+                } catch (DateTimeParseException e) {
+                    return "I don't get it. Date should be in yyyy-MM-dd format...";
+                }
             } else if (input.startsWith("delete")) {
                 String[] words = input.split(" ", 2);
+                assert words.length < 3;
                 try {
                     int i = Integer.parseInt(words[1]);
                     taskList.delete(i);

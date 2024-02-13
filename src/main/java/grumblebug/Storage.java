@@ -7,10 +7,10 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 /**
+ * This class is deprecated since GUI is introduced.
  * Class represents the object used to deal with storage into and out of the local file.
  */
 public class Storage {
-    // load data from hard disk
 
     /**
      * Load any previously stored task data into the current taskList.
