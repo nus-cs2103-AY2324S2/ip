@@ -2,7 +2,6 @@ package fishstock;
 
 import java.io.IOException;
 
-import fishstock.Command.CommandType;
 import javafx.application.Application;
 
 /**
@@ -28,11 +27,11 @@ public class FishStock {
 
     /**
      * The response to user input.
-     * @param input The user input.
+     * @param inputStr The user input.
      */
-    public String getResponse(String input) {
-        CommandType commandType = Parser.parse(input);
-        String response = Command.runCommand(list, commandType, input);
+    public String getResponse(String inputStr) {
+        UserInput input = new UserInput(inputStr);
+        String response = Command.runCommand(list, input);
         return response;
     }
 

@@ -38,7 +38,7 @@ class TaskList {
      * @return The marked Task.
      * @throws FishStockException The exceptions while changing the mark.
      */
-    protected Task markTask(String input) throws FishStockException {
+    protected Task markTask(UserInput input) throws FishStockException {
         return changeMark(CommandType.MARK, input);
     }
 
@@ -48,7 +48,7 @@ class TaskList {
      * @return The unmarked Task.
      * @throws FishStockException The exceptions while changing the mark.
      */
-    protected Task unmarkTask(String input) throws FishStockException {
+    protected Task unmarkTask(UserInput input) throws FishStockException {
         return changeMark(CommandType.UNMARK, input);
     }
 
@@ -59,8 +59,8 @@ class TaskList {
      * @return The marked/unmarked Task.
      * @throws FishStockException The exceptions while changing the mark.
      */
-    private Task changeMark(CommandType commandType, String input) throws FishStockException {
-        Integer idx = Parser.getIndexFromInput(input);
+    private Task changeMark(CommandType commandType, UserInput input) throws FishStockException {
+        int idx = input.getIndex();
         try {
             Task task = list.get(idx);
             if (commandType == CommandType.MARK) {
@@ -81,8 +81,8 @@ class TaskList {
      * @return The removed Task.
      * @throws FishStockException The exceptions while removing the Task.
      */
-    protected Task deleteTask(String input) throws FishStockException {
-        Integer idx = Parser.getIndexFromInput(input);
+    protected Task deleteTask(UserInput input) throws FishStockException {
+        int idx = input.getIndex();
         try {
             Task task = list.get(idx);
             list.remove(task);
@@ -95,12 +95,12 @@ class TaskList {
 
     /**
      * Adds Task into array.
-     * @param commandType The command.
+     * @param commandType The type of command.
      * @param input The input from user.
      * @return The added Task.
      * @throws FishStockException The exceptions while adding the Task.
      */
-    protected Task addTask(CommandType commandType, String input) throws FishStockException {
+    protected Task addTask(CommandType commandType, UserInput input) throws FishStockException {
         Task task = null;
         switch (commandType) {
         case TODO:
@@ -125,12 +125,13 @@ class TaskList {
      * @return The Tasks that were found.
      * @throws FishStockException The exceptions while finding Tasks.
      */
-    protected String findTasks(String input) throws FishStockException {
-        if (input.length() < 6) {
+    protected String findTasks(UserInput input) throws FishStockException {
+        String[] splitInput = input.splitByKeywords();
+        if (splitInput[0].isEmpty()) {
             throw new FishStockException("OH NOSE! The match word is empty..");
         }
 
-        String match = input.substring(5);
+        String match = splitInput[0];
 
         int count = 0;
         String result = "";

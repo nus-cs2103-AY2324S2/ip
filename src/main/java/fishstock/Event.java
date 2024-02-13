@@ -2,16 +2,13 @@ package fishstock;
 
 import java.time.LocalDateTime;
 
-import fishstock.Command.CommandType;
-
 /**
  * Encapsulates an Event Task.
  * This Task has a description, from date, and to date.
  */
 class Event extends Task {
-    protected static final String COMMAND = CommandType.EVENT.keyword;
-    private static final String FROM_KEYWORD = " /from ";
-    private static final String TO_KEYWORD = " /to ";
+    private static final String FROM_KEYWORD = "/from";
+    private static final String TO_KEYWORD = "/to";
     private LocalDateTime from;
     private LocalDateTime to;
 
@@ -31,26 +28,23 @@ class Event extends Task {
         this.to = to;
     }
 
-    private static void checkIsValid(String input, int fromIdx, int toIdx) throws FishStockException {
-        if (!Parser.startsWith(COMMAND, input)) {
-            throw new FishStockException("OH NOSE! This input is not event..");
-        }
-        if (fromIdx == -1) {
-            throw new FishStockException("OH NOSE! \"" + FROM_KEYWORD + "\" not found..");
-        }
-        if (COMMAND.length() + 1 > fromIdx) {
+    private static void checkIsValid(String[] splitInput) throws FishStockException {
+        if (splitInput[0].isEmpty()) {
             throw new FishStockException("OH NOSE! The description of event cannot be empty..");
         }
-        if (toIdx == -1) {
-            throw new FishStockException("OH NOSE! \"" + TO_KEYWORD + "\" not found..");
+        if (splitInput[1] == null) {
+            throw new FishStockException("OH NOSE! \"" + FROM_KEYWORD + "\" not found..");
         }
-        if (fromIdx > toIdx) {
+        if (splitInput[0].contains(TO_KEYWORD)) {
             throw new FishStockException("OH NOSE! The from-date must be put first..");
         }
-        if (fromIdx + FROM_KEYWORD.length() > toIdx) {
+        if (splitInput[2] == null) {
+            throw new FishStockException("OH NOSE! \"" + TO_KEYWORD + "\" not found..");
+        }
+        if (splitInput[1].isEmpty()) {
             throw new FishStockException("OH NOSE! The from-date cannot be empty..");
         }
-        if (toIdx + TO_KEYWORD.length() == input.length()) {
+        if (splitInput[2].isEmpty()) {
             throw new FishStockException("OH NOSE! The to-date cannot be empty..");
         }
     }
@@ -62,16 +56,13 @@ class Event extends Task {
      * @return The generated Event object.
      * @throws FishStockException The exceptions while creating the Event object.
      */
-    protected static Event of(String input) throws FishStockException {
-        int fromIdx = input.indexOf(FROM_KEYWORD);
-        int toIdx = input.indexOf(TO_KEYWORD);
-        checkIsValid(input, fromIdx, toIdx);
+    protected static Event of(UserInput input) throws FishStockException {
+        String[] splitInput = input.splitByKeywords(FROM_KEYWORD, TO_KEYWORD);
+        checkIsValid(splitInput);
 
-        String description = input.substring(COMMAND.length() + 1, fromIdx);
-        String fromStr = input.substring(fromIdx + FROM_KEYWORD.length(), toIdx);
-        String toStr = input.substring(toIdx + TO_KEYWORD.length());
-        LocalDateTime from = Parser.parseDate(fromStr);
-        LocalDateTime to = Parser.parseDate(toStr);
+        String description = splitInput[0];
+        LocalDateTime from = Parser.parseDate(splitInput[1]);
+        LocalDateTime to = Parser.parseDate(splitInput[2]);
         return new Event(description, from, to);
     }
 

@@ -37,11 +37,12 @@ class Command {
     /**
      * Executes the command.
      * @param list The list of Tasks to execute on.
-     * @param commandType The command.
      * @param input The user input.
      * @return The output from the command.
      */
-    protected static String runCommand(TaskList list, CommandType commandType, String input) {
+    protected static String runCommand(TaskList list, UserInput input) {
+        CommandType commandType = input.getCommandType();
+
         try {
             switch (commandType) {
             case BYE:

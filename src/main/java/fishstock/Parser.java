@@ -14,48 +14,17 @@ class Parser {
     protected static final DateTimeFormatter OUT_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
 
     /**
-     * Check if given input starts with a command.
-     * @param command The command.
-     * @param input The input to compare.
-     * @return The check result.
+     * Parses command type from input.
+     * @param commandStr The string command.
+     * @return The command type.
      */
-    protected static boolean startsWith(String command, String input) {
-        return input.length() >= command.length() && command.equals(input.substring(0, command.length()));
-    }
-
-    /**
-     * Parses input into their respective commands.
-     * @param input The input that starts with the command.
-     * @return The command.
-     */
-    protected static CommandType parse(String input) {
+    protected static CommandType parseCommandType(String commandStr) {
         for (CommandType commandType : CommandType.values()) {
-            if (startsWith(commandType.keyword, input)) {
+            if (commandStr.equals(commandType.keyword)) {
                 return commandType;
             }
         }
         return CommandType.INVALID;
-    }
-
-    /**
-     * Gets index number from input string.
-     * Has the format "[command] [task_number]".
-     * Subtracts 1 from task_number to obtain index number for array.
-     * @param input The input from user.
-     * @return The resulting index number.
-     * @throws FishStockException The exceptions while calculating the index number.
-     */
-    protected static Integer getIndexFromInput(String input) throws FishStockException {
-        try {
-            String numStr = input.split(" ", 2)[1];
-            int num = Integer.parseInt(numStr);
-            return num - 1; // Start from index 0
-
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new FishStockException("OH NOSE! Task number cannot be empty..");
-        } catch (NumberFormatException e) {
-            throw new FishStockException("OH NOSE! Task number has to be an integer..");
-        }
     }
 
     /**

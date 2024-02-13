@@ -5,33 +5,33 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-public class ParserTest {
+public class UserInputTest {
     @Test
-    public void getTaskFromIndex_oneInteger_success() throws Exception {
-        assertEquals(0, Parser.getIndexFromInput("mark 1"));
-        assertEquals(0, Parser.getIndexFromInput("mark 001"));
-        assertEquals(99, Parser.getIndexFromInput("unmark 100"));
-        assertEquals(-1, Parser.getIndexFromInput("unmark 0"));
+    public void getIndex_oneInteger_success() throws Exception {
+        assertEquals(0, new UserInput("mark 1").getIndex());
+        assertEquals(0, new UserInput("mark 001").getIndex());
+        assertEquals(99, new UserInput("unmark 100").getIndex());
+        assertEquals(-1, new UserInput("unmark 0").getIndex());
     }
 
     @Test
-    public void getTaskFromIndex_multiOrNonInteger_exceptionThrown() {
+    public void getIndex_multiOrNonInteger_exceptionThrown() {
         try {
-            assertEquals(0, Parser.getIndexFromInput("mark 1 2 3 4"));
+            assertEquals(0, new UserInput("mark 1 2 3 4").getIndex());
             fail();
         } catch (Exception e) {
             assertEquals("OH NOSE! Task number has to be an integer..", e.getMessage());
         }
 
         try {
-            assertEquals(1, Parser.getIndexFromInput("mark 2.0"));
+            assertEquals(1, new UserInput("mark 2.0").getIndex());
             fail();
         } catch (Exception e) {
             assertEquals("OH NOSE! Task number has to be an integer..", e.getMessage());
         }
 
         try {
-            assertEquals(0, Parser.getIndexFromInput("mark abc"));
+            assertEquals(0, new UserInput("mark abc").getIndex());
             fail();
         } catch (Exception e) {
             assertEquals("OH NOSE! Task number has to be an integer..", e.getMessage());
@@ -39,23 +39,23 @@ public class ParserTest {
     }
 
     @Test
-    public void getTaskFromIndex_noSpaces_exceptionThrown() {
+    public void getIndex_noSpaces_exceptionThrown() {
         try {
-            assertEquals(0, Parser.getIndexFromInput("mark"));
+            assertEquals(0, new UserInput("mark").getIndex());
             fail();
         } catch (Exception e) {
             assertEquals("OH NOSE! Task number cannot be empty..", e.getMessage());
         }
 
         try {
-            assertEquals(0, Parser.getIndexFromInput("unmark1"));
+            assertEquals(0, new UserInput("unmark1").getIndex());
             fail();
         } catch (Exception e) {
             assertEquals("OH NOSE! Task number cannot be empty..", e.getMessage());
         }
 
         try {
-            assertEquals(0, Parser.getIndexFromInput("1"));
+            assertEquals(0, new UserInput("1").getIndex());
             fail();
         } catch (Exception e) {
             assertEquals("OH NOSE! Task number cannot be empty..", e.getMessage());

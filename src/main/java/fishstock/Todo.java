@@ -1,14 +1,10 @@
 package fishstock;
 
-import fishstock.Command.CommandType;
-
 /**
  * Encapsulates Todo Task.
  * This Task only has a description.
  */
 class Todo extends Task {
-    protected static final String COMMAND = CommandType.TODO.keyword;
-
     /**
      * Initialize Todo object manually.
      * @param description The task description.
@@ -17,11 +13,8 @@ class Todo extends Task {
         super(description);
     }
 
-    private static void checkIsValid(String input) throws FishStockException {
-        if (!Parser.startsWith(COMMAND, input)) {
-            throw new FishStockException("OH NOSE! This input is not todo..");
-        }
-        if (COMMAND.length() + 1 >= input.length()) {
+    private static void checkIsValid(String[] splitInput) throws FishStockException {
+        if (splitInput[0].isEmpty()) {
             throw new FishStockException("OH NOSE! The description of todo cannot be empty..");
         }
     }
@@ -33,9 +26,12 @@ class Todo extends Task {
      * @return The generated Todo object.
      * @throws FishStockException The exceptions while creating the Todo object.
      */
-    protected static Todo of(String input) throws FishStockException {
-        checkIsValid(input);
-        return new Todo(input.substring(COMMAND.length() + 1));
+    protected static Todo of(UserInput input) throws FishStockException {
+        String[] splitInput = input.splitByKeywords();
+        checkIsValid(splitInput);
+
+        String description = splitInput[0];
+        return new Todo(description);
     }
 
     @Override
