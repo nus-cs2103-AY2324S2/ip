@@ -53,9 +53,9 @@ class TaskListTest {
         Event event = new Event("task3", "2024-01-01", "2024-01-02");
         List<Task> lst = new ArrayList<>(Arrays.asList(todo, deadline, event));
         TaskList tl = new TaskList(lst);
-        List<String> str = new ArrayList<>(Arrays.asList(todo.toSavedString(),
-                deadline.toSavedString(),
-                event.toSavedString()));
+        List<String> str = new ArrayList<>(Arrays.asList(todo.taskToSavedString(),
+                deadline.taskToSavedString(),
+                event.taskToSavedString()));
         assertEquals(tl.taskToSavedString(), str);
     }
 

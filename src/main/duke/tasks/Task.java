@@ -49,8 +49,14 @@ public abstract class Task {
      *
      * @return The string of the saved object.
      */
-    public abstract String toSavedString();
+    public abstract String taskToSavedString();
 
+    /**
+     * A method that determines if a string exists in the name of this task.
+     *
+     * @param toFind A substring to be found in name.
+     * @return True if toFind is a substring of name.
+     */
     public boolean has(String toFind) {
         return this.name.contains(toFind);
     }

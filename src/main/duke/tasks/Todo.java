@@ -24,7 +24,7 @@ public class Todo extends Task {
     }
 
     @Override
-    public String toSavedString() {
+    public String taskToSavedString() {
         return String.format("T,%s,%s",
                 this.done ? '1' : '0',
                 this.name);
@@ -39,9 +39,7 @@ public class Todo extends Task {
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;
-        }
-
-        if (obj.getClass() != this.getClass()) {
+        } else if (obj.getClass() != this.getClass()) {
             return false;
         }
 

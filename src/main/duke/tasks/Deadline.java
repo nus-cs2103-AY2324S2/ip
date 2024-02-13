@@ -34,7 +34,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String toSavedString() {
+    public String taskToSavedString() {
         return String.format("D,%s,%s,%s",
                 this.done ? '1' : '0',
                 this.name,

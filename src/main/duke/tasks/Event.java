@@ -49,7 +49,7 @@ public class Event extends Task {
     }
 
     @Override
-    public String toSavedString() {
+    public String taskToSavedString() {
         return String.format("E,%s,%s,%s,%s",
                 this.done ? '1' : '0',
                 this.name,

@@ -64,12 +64,12 @@ public class TaskList {
     /**
      * Marks a task as done.
      *
-     * @param in The index of the task that should be marked as done.
+     * @param input The index of the task that should be marked as done.
      */
-    public String mark(String in) {
+    public String mark(String input) {
         String s;
         try {
-            int i = Integer.parseInt(in);
+            int i = Integer.parseInt(input);
             Task t = Duke.tasks.get(i - 1);
             t.markAsDone();
             Duke.tasks.set(i - 1, t);
@@ -87,12 +87,12 @@ public class TaskList {
     /**
      * Marks a task as not done.
      *
-     * @param in The index of the task that should be marked as not done.
+     * @param input The index of the task that should be marked as not done.
      */
-    public String unmark(String in) {
+    public String unmark(String input) {
         String s;
         try {
-            int i = Integer.parseInt(in);
+            int i = Integer.parseInt(input);
             Task t = Duke.tasks.get(i - 1);
             t.markAsNotDone();
             Duke.tasks.set(i - 1, t);
@@ -110,12 +110,12 @@ public class TaskList {
     /**
      * Deletes a task from the list.
      *
-     * @param in The index of the task that should be deleted.
+     * @param input The index of the task that should be deleted.
      */
-    public String delete(String in) {
-        String s = "";
+    public String delete(String input) {
+        String s;
         try {
-            int i = Integer.parseInt(in);
+            int i = Integer.parseInt(input);
             Task t = Duke.tasks.remove(i - 1);
             s = "Noted. I've removed this task:\n  " + t;
             s += String.format("\nNow you have %d tasks in the list.\n", Duke.tasks.size());
@@ -136,20 +136,20 @@ public class TaskList {
      */
     public List<String> taskToSavedString() {
         return list.stream()
-                .map(Task::toSavedString)
+                .map(Task::taskToSavedString)
                 .collect(Collectors.toList());
     }
 
     /**
      * Finds if the substring is in the name of th list of tasks and print it if there is.
      *
-     * @param in A string in the format of "find x" where x is the substring to find.
+     * @param input A string in the format of "find x" where x is the substring to find.
      */
-    public String find(String in) {
+    public String find(String input) {
         StringBuilder s = new StringBuilder("Here are the matching tasks in your list:\n");
         int number = 1;
         for (Task t : Duke.tasks.getList()) {
-            if (t.has(in)) {
+            if (t.has(input)) {
                 s.append(String.format("%d. %s", number, t));
                 number++;
             }
@@ -162,15 +162,12 @@ public class TaskList {
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;
-        }
-
-        if (obj.getClass() != this.getClass()) {
+        } else if (obj.getClass() != this.getClass()) {
             return false;
         }
 
         TaskList tl = (TaskList) obj;
-
-        return Duke.tasks.equals(tl.list);
+        return this.list.equals(tl.list);
     }
 
 }
