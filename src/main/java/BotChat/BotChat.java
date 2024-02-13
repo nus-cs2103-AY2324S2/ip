@@ -76,7 +76,7 @@ public class BotChat {
         helpMessage.append("   /bye - Exit the application\n");
         helpMessage.append("   /list - List all tasks\n");
         helpMessage.append("   /mark [taskIndex] - Mark a task as done\n");
-        helpMessage.append("   /unmark [taskIndex] - Mark a task as undone\n");
+        helpMessage.append("   /unmark [taskIndex] - Unmark a task as undone\n");
         helpMessage.append("   /event [event details] /from [start] /to [end] - Add an event task\n");
         helpMessage.append("   /deadline [deadline details] /by [date/time] - Add a deadline task\n");
         helpMessage.append("   /todo [task details] - Add a todo task\n");
