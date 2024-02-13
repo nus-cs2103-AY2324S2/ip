@@ -49,7 +49,8 @@ public class Storage {
             List<Task> list = read.stream()
                     .map(this::stringToTask)
                     .collect(Collectors.toList());
-            Duke.tasks = new TaskList(list); // Set the TaskList store in duke if it exists
+
+            Duke.tasks = new TaskList(list); // TaskList stored in static Duke because there is only one TaskList
             s = "Your current list:\n";
             s += Duke.tasks.printList();
 
@@ -70,13 +71,13 @@ public class Storage {
         List<String> taskLst = Arrays.asList(s.split(","));
         Task t = null;
         switch (taskLst.get(0)) {
-        case "T":
+        case "T": // Using todo constructor Todo(done, name)
             t = new Todo(taskLst.get(1).equals("1"), taskLst.get(2));
             break;
-        case "D":
+        case "D": // Using deadline constructor Deadline(done, name, by)
             t = new Deadline(taskLst.get(1).equals("1"), taskLst.get(2), taskLst.get(3));
             break;
-        case "E":
+        case "E": // Using event constructor Event(done, name, from, to)
             t = new Event(taskLst.get(1).equals("1"), taskLst.get(2), taskLst.get(3), taskLst.get(4));
             break;
         default:
@@ -104,17 +105,17 @@ public class Storage {
      * @throws IOException If directory or file at the paths do not exist.
      */
     public String save(TaskList tl) throws IOException {
-        // Check if the directory exists
+        // Create directory if it does not exist
         if (!Files.exists(pathDir)) {
             Files.createDirectories(pathDir);
         }
-        // Check if the save file exists
+        // Delete file if exists because we want to write fresh
         if (Files.exists(pathFile)) {
             Files.delete(pathFile);
         }
         Files.createFile(pathFile);
         // Writing to the file
         writeToFile(pathFile, tl);
-        return "Your list has been saved to " + pathFile;
+        return "Your list has been saved to\n" + pathFile;
     }
 }

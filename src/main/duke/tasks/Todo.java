@@ -24,7 +24,7 @@ public class Todo extends Task {
     }
 
     @Override
-    public String toSavedString() {
+    public String taskToSavedString() {
         return String.format("T,%s,%s",
                 this.done ? '1' : '0',
                 this.name);
