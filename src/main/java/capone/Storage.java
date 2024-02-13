@@ -109,6 +109,9 @@ public class Storage {
         try {
             this.initFileIfNotExist();
 
+            assert (new String(Files.readAllBytes(Paths.get(this.getFullPath()))).equals("[]")) :
+                    "New task file created is not initialised properly (i.e. does not contain '[]'`)";
+
             String jsonContent = new String(Files.readAllBytes(Paths.get(this.getFullPath())));
             JSONArray jsonArray = new JSONArray(jsonContent);
 
