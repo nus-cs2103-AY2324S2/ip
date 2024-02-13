@@ -19,43 +19,46 @@ public class Parser {
     /**
      * Parses the user input and returns the appropriate command object.
      *
-     * @param input The user input to be parsed.
+     * @param inputs The user input to be parsed.
      * @return A command object based on the parsed input.
      */
-    public static Command parse(String input) {
-        String[] parts = input.split(" ", 2);
+    public static Command parse(String... inputs) {
+        for (String input : inputs) {
+            String[] parts = input.split(" ", 2);
 
-        try {
-            Commands commandEnum = Commands.valueOf(parts[0].toUpperCase());
+            try {
+                Commands commandEnum = Commands.valueOf(parts[0].toUpperCase());
 
-            switch(commandEnum) {
-            case BYE:
-                return new ExitCommand();
-            case LIST:
-                return new ListCommand();
-            case FIND:
-                return new FindCommand(input);
-            case MARK:
-                return new MarkCommand(input);
-            case UNMARK:
-                return new UnmarkCommand(input);
-            case DELETE:
-                return new DeleteCommand(input);
-            case TODO:
-                // Fallthrough
-            case DEADLINE:
-                // Fallthrough
-            case EVENT:
-                return new AddCommand(input);
-            case DATE:
-                // Fallthrough
-            case TIME:
-                return new ShowTimeCommand();
-            default:
+                switch (commandEnum) {
+                case BYE:
+                    return new ExitCommand();
+                case LIST:
+                    return new ListCommand();
+                case FIND:
+                    return new FindCommand(input);
+                case MARK:
+                    return new MarkCommand(input);
+                case UNMARK:
+                    return new UnmarkCommand(input);
+                case DELETE:
+                    return new DeleteCommand(input);
+                case TODO:
+                    // Fallthrough
+                case DEADLINE:
+                    // Fallthrough
+                case EVENT:
+                    return new AddCommand(input);
+                case DATE:
+                    // Fallthrough
+                case TIME:
+                    return new ShowTimeCommand();
+                default:
+                    return new UnknownCommand();
+                }
+            } catch (IllegalArgumentException e) {
                 return new UnknownCommand();
             }
-        } catch (IllegalArgumentException e) {
-            return new UnknownCommand();
         }
+        return null;
     }
 }

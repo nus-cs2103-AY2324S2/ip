@@ -89,10 +89,12 @@ public class Ui {
     /**
      * Displays a generic message.
      *
-     * @param message The message to display.
+     * @param messages The message to display.
      */
-    public void showMessage(String message) {
-        System.out.println(message);
+    public void showMessage(String... messages) {
+        for (String message: messages) {
+            System.out.println(message);
+        }
     }
 
     /**
