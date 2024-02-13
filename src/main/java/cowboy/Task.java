@@ -1,4 +1,4 @@
-package bebot;
+package cowboy;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;

@@ -1,4 +1,4 @@
-package bebot;
+package cowboy;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

@@ -1,4 +1,4 @@
-package bebot;
+package cowboy;
 import java.util.ArrayList;
 
 /**
@@ -51,7 +51,7 @@ public class TaskList {
                 System.out.println("\t" + "Invalid input. Please enter a valid task index.");
             }
             break;
-        default:  // UNKNOWN TaskType
+        default: // UNKNOWN TaskType
             System.out.println("\t" + "Sorry, that's not a command. Enter 'help' for instructions.");
         }
         ui.printLine();

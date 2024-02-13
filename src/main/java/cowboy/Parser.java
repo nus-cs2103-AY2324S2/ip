@@ -1,4 +1,4 @@
-package bebot;
+package cowboy;
 
 /**
  * Parser class deals with making sense of the user command

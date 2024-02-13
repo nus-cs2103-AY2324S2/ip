@@ -1,4 +1,4 @@
-package bebot;
+package cowboy;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;

@@ -1,10 +1,14 @@
-package bebot;
+package cowboy;
 import java.util.ArrayList;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 /**
  * Main class
  */
-public class CowboyBebot {
+public class Cowboy extends Application {
     private Storage storage;
     private ArrayList<Task> taskList = new ArrayList<>();
     private TaskList tasks;
@@ -13,7 +17,7 @@ public class CowboyBebot {
     /**
      * Constructor for Duke
      */
-    public CowboyBebot() {
+    public Cowboy() {
         this.ui = new Ui();
         this.storage = new Storage(taskList);
         storage.loadTaskList();
@@ -45,13 +49,22 @@ public class CowboyBebot {
         ui.closeScanner();
     }
 
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
+    }
+
     /**
      * Main method
      *
      * @param args
      */
     public static void main(String[] args) {
-        CowboyBebot mainApp = new CowboyBebot();
+        Cowboy mainApp = new Cowboy();
         mainApp.start();
     }
 }
