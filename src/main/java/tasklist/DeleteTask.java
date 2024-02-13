@@ -13,7 +13,8 @@ public class DeleteTask {
      * No constructor needed
      */
     private DeleteTask() {
-        throw new AssertionError("Constructor is not allowed");
+        // throw new AssertionError("Constructor is not allowed");
+        assert false : "Execution should never reach this point!";
     }
 
     /**
@@ -30,12 +31,15 @@ public class DeleteTask {
             // Then split to get x
             String[] parts = input.split(" ", 2);
             int pos = Integer.parseInt(parts[1]);
+
             // If x is negative or x is less than total no. of Task, throw error
             if (pos > taskList.size() || pos <= 0) {
                 throw new TaylorException("Invalid task number");
             }
+
+            Task taskRemoved = taskList.get(pos - 1);
             response.append("Noted. I've removed this tasks:\n");
-            response.append(taskList.get(pos - 1)).append("\n");
+            response.append(taskRemoved).append("\n");
             taskList.remove(pos - 1);
             response.append("Now you have ").append(taskList.size()).append(" tasks in the list.").append("\n");
 

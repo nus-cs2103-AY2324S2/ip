@@ -15,7 +15,8 @@ public class FindTask {
      * No constructor needed
      */
     private FindTask() {
-        throw new AssertionError("Constructor is not allowed");
+        // throw new AssertionError("Constructor is not allowed");
+        assert false : "Execution should never reach this point!";
     }
 
     /**

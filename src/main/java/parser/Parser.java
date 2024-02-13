@@ -27,7 +27,8 @@ public class Parser {
      * No constructor needed
      */
     private Parser() {
-        throw new AssertionError("Constructor is not allowed");
+        // throw new AssertionError("Constructor is not allowed");
+        assert false : "Execution should never reach this point!";
     }
 
     /**
@@ -93,6 +94,7 @@ public class Parser {
             }
             break;
         default:
+            assert false : "Invalid command";
             response = Ui.invalidCommand();
             break;
         }
