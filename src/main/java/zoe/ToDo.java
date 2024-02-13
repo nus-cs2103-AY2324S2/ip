@@ -13,7 +13,9 @@ public class ToDo extends Task {
     public ToDo(String description, String isDoneNumber) {
         super(description);
         this.type = "T";
-        this.isDone = isDoneNumber.equals("1");
+        assert Integer.parseInt(isDoneNumber) < 2 : "Data file corrupted, invalid state";
+        assert Integer.parseInt(isDoneNumber) >= 0 : "Data file corrupted, invalid state";
+        this.isDone = isDoneNumber.equals(DoneStates.Done);
     }
 
     @Override

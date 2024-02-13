@@ -1,4 +1,6 @@
 todo_read book_0
-event_Tutorial /from 3PM /to 4PM_1
-todo_read book 2_0
+event_Tutorial /from 3PM /to 4PM_0
+todo_read book 3_0
+todo_read book 4_0
+event_ipMeeting /from 2pm /to 4pm_0
 EOF
