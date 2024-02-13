@@ -47,15 +47,6 @@ public class Parser {
     }
 
     /**
-     * Reads a line of user input from the console.
-     *
-     * @return The user input as a String.
-     */
-    public static String readUserInput() {
-        return Parser.scanner.nextLine();
-    }
-
-    /**
      * Processes user inputs and returns the appropriate
      * Command instance based on the first word of the input.
      *
