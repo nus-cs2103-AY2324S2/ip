@@ -2,6 +2,9 @@ package dude;
 
 import javafx.application.Application;
 
+/**
+ * Starting point for the Dude program
+ */
 public class Launcher {
 
     /**
