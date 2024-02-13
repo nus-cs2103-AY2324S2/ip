@@ -61,18 +61,6 @@ public class Parser {
      *
      * @return Command object corresponding to the user input.
      */
-    public static Command processInputs() {
-        Parser.inputList = Parser.splitInput(Parser.readUserInput());
-        String firstWord = inputList.get(0);
-        return Parser.findCommand(firstWord);
-    }
-
-    /**
-     * Processes user inputs and returns the appropriate
-     * Command instance based on the first word of the input.
-     *
-     * @return Command object corresponding to the user input.
-     */
     public static Command processInputs(String input) {
         Parser.inputList = Parser.splitInput(input);
         String firstWord = inputList.get(0);
