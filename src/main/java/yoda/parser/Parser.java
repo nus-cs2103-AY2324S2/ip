@@ -78,7 +78,9 @@ public class Parser {
      * @return The split input string.
      */
     private static String[] getSplit(String input) {
-        return input.trim().split("\\s+", 2);
+        String[] parts = input.trim().split("\\s+", 2);
+        assert parts.length > 0 : "Input should be split into at least one part";
+        return parts;
     }
 
     /**
@@ -131,7 +133,9 @@ public class Parser {
      * @return The task description and time parts.
      */
     private static String[] getTaskParts(String[] parts) {
-        return parts[1].split(" /by | /from ", 2);
+        String[] taskParts = parts[1].split(" /by | /from ", 2);
+        assert taskParts.length == 2 : "Task description and time should be present";
+        return taskParts;
     }
 
 
@@ -144,7 +148,9 @@ public class Parser {
     private int parseTaskNumber(String input) throws InvalidTaskException {
         try {
             int taskNumber = Integer.parseInt(input);
-            if (taskNumber <= 0 || taskNumber > YODA_UI.getTaskListSize()) {
+            assert taskNumber > 0 : "Task number should be positive";
+            boolean b = taskNumber > YODA_UI.getTaskListSize();
+            if (b) {
                 throw new InvalidTaskException();
             }
             return taskNumber;
@@ -152,6 +158,7 @@ public class Parser {
             throw new InvalidTaskException();
         }
     }
+
 
     /**
      * Performs a task operation (delete, mark, unmark) based on the user input.
