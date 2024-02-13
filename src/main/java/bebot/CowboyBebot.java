@@ -151,7 +151,15 @@ public class CowboyBebot extends Application {
             handleUserInput();
         });
 
-        ui.showGreeting(dialogContainer);
+        showGreeting(dialogContainer);
+    }
+
+    /**
+     * Displays a greeting message in the GUI
+     */
+    public void showGreeting(VBox dialogContainer) {
+        Label greetingLabel = new Label("Hello! I'm BEBOT. How can I assist you today?");
+        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(greetingLabel, new ImageView(duke)));
     }
 
     /**
@@ -174,11 +182,13 @@ public class CowboyBebot extends Application {
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
+        String input = userInput.getText();
+        String response = getResponse(input);
+        Label userText = new Label(input);
+        Label dukeText = new Label(response);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
+                DialogBox.getUserDialog(input, user),
+                DialogBox.getDukeDialog(response, user)
         );
         userInput.clear();
     }

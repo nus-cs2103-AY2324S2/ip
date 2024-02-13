@@ -20,10 +20,24 @@ import javafx.scene.layout.HBox;
  * containing text from the speaker.
  */
 public class DialogBox extends HBox {
+    private Label text;
     @FXML
     private Label dialog;
     @FXML
     private ImageView displayPicture;
+    
+
+    // public DialogBox(Label l, ImageView iv) {
+    //     text = l;
+    //     displayPicture = iv;
+
+    //     text.setWrapText(true);
+    //     displayPicture.setFitWidth(100.0);
+    //     displayPicture.setFitHeight(100.0);
+
+    //     this.setAlignment(Pos.TOP_RIGHT);
+    //     this.getChildren().addAll(text, displayPicture);
+    // }
 
     private DialogBox(String text, Image img) {
         try {

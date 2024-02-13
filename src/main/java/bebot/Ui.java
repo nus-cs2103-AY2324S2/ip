@@ -31,26 +31,10 @@ public class Ui {
     }
 
     /**
-     * Displays a greeting message in the GUI
-     */
-    public void showGreeting(VBox dialogContainer) {
-        Label greetingLabel = new Label("Hello! I'm BEBOT. How can I assist you today?");
-        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(greetingLabel, new ImageView(duke)));
-    }
-
-    /**
      * Prints the exit message
      */
     public void showGoodbye() {
         System.out.println("\t" + "Bye. Hope to see you again soon!");
-    }
-
-    /**
-     * Displays a goodbye message in the GUI
-     */
-    public void showGoodbye(VBox dialogContainer) {
-        Label goodbyeLabel = new Label("Bye. Hope to see you again soon!");
-        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(goodbyeLabel, new ImageView(duke)));
     }
 
     /**
@@ -61,13 +45,6 @@ public class Ui {
     public String getUserInput() {
         System.out.println("Enter a task below: ");
         return scanner.nextLine();
-    }
-
-    /**
-     * Handles user input events in the GUI
-     */
-    public String getUserInput(TextField userInput) {
-        return userInput.getText();
     }
 
     /**
