@@ -31,9 +31,6 @@ public class Dibo {
         }
     }
     public String getResponse(String input) {
-        if (isBye) {
-            return "";
-        }
         try {
             Command command = Parser.parse(input);
             command.run(tasks, ui, storage);
@@ -43,6 +40,13 @@ public class Dibo {
             return e.getMessage();
         }
 
+    }
+
+    /**
+     * Returns a boolean to signal if the bye command is used.
+     */
+    public boolean hasEnded() {
+        return isBye;
     }
 
 }

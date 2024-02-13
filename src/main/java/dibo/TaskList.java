@@ -10,16 +10,17 @@ import dibo.task.Task;
  */
 public class TaskList {
     private final ArrayList<Task> tasks;
-    private int count;
+    private int size;
 
     /**
      * Constructs the TaskList class.
      *
-     * @param storage The ArrayList returned from loading from the text file.
+     * @param storage The ArrayList returned from loading the text file.
      */
     public TaskList(ArrayList<Task> storage) {
+        assert storage != null : "The ArrayList should not be null";
         this.tasks = storage;
-        this.count = storage.size();
+        this.size = storage.size();
     }
 
     /**
@@ -29,7 +30,8 @@ public class TaskList {
      */
     public void addTask(Task task) {
         this.tasks.add(task);
-        this.count++;
+        this.size++;
+        assert this.tasks.contains(task) : "The taskList should contain the added task";
     }
 
     /**
@@ -37,11 +39,11 @@ public class TaskList {
      */
     public String getDisplayFormat() {
         StringBuilder list = new StringBuilder("Here are the tasks in your list:\n");
-        for (int i = 0; i < count; ++i) {
-            list.append((i + 1));
-            list.append(".");
-            list.append(tasks.get(i).toString());
-            list.append("\n");
+        for (int i = 0; i < size; ++i) {
+            int taskIndex = i + 1;
+            String taskToString = tasks.get(i).toString();
+            String task = String.format("%d.%s\n", taskIndex, taskToString);
+            list.append(task);
         }
         return list.toString();
     }
@@ -51,7 +53,7 @@ public class TaskList {
      */
     public String getSaveFormat() {
         StringBuilder list = new StringBuilder();
-        for (int i = 0; i < count; ++i) {
+        for (int i = 0; i < size; ++i) {
             Task task = tasks.get(i);
             list.append(task.getSaveFormat());
             list.append("\n");
@@ -67,19 +69,20 @@ public class TaskList {
     public String getTasksWithKeyword(String[] keywords) throws DiboException {
         StringBuilder list = new StringBuilder();
         int taskCount = 0;
-        for (int i = 0; i < count; ++i) {
+        for (int i = 0; i < size; ++i) {
             Task task = tasks.get(i);
             if (task.hasKeywords(keywords)) {
                 taskCount++;
-                list.append(taskCount);
-                list.append(".");
-                list.append(task.toString());
-                list.append("\n");
+                String taskToString = tasks.get(i).toString();
+                String taskString = String.format("%d.%s\n", taskCount, taskToString);
+                list.append(taskString);
             }
         }
+
         if (taskCount == 0) {
-            throw new DiboException("Oh no sir! We cannot find any task with the specified keyword :(");
+            throw new DiboException("Oh no sir! We cannot find any task with the specified keywords :(");
         }
+
         return list.toString();
     }
 
@@ -92,11 +95,13 @@ public class TaskList {
      * @throws DiboException if there is no such task with the index.
      */
     public String markTask(int i) throws DiboException {
-        if (i - 1 >= this.count) {
+        int taskIndex = i - 1;
+        if (taskIndex >= this.size || taskIndex < 0) {
             throw new DiboException("Oh no sir! The index you provided is out of bounds");
         }
-        Task task = tasks.get(i - 1);
+        Task task = tasks.get(taskIndex);
         task.markAsDone();
+        assert task.isDone() : "This task should be marked as done.";
         return task.toString();
     }
 
@@ -109,11 +114,13 @@ public class TaskList {
      * @throws DiboException if there is no such task with the index.
      */
     public String unmarkTask(int i) throws DiboException {
-        if (i - 1 >= this.count) {
+        int taskIndex = i - 1;
+        if (taskIndex >= this.size || taskIndex < 0) {
             throw new DiboException("Oh no sir! The index you provided is out of bounds");
         }
-        Task task = tasks.get(i - 1);
+        Task task = tasks.get(taskIndex);
         task.markAsNotDone();
+        assert !task.isDone() : "This task should not be marked as done.";
         return task.toString();
     }
 
@@ -126,12 +133,14 @@ public class TaskList {
      * @throws DiboException if there is no such task with the index.
      */
     public String deleteTask(int i) throws DiboException {
-        if (i - 1 >= this.count) {
+        int taskIndex = i - 1;
+        if (taskIndex >= this.size || taskIndex < 0) {
             throw new DiboException("Oh no sir! The index you provided is out of bounds");
         }
-        Task task = tasks.get(i - 1);
+        Task task = tasks.get(taskIndex);
         tasks.remove(i - 1);
-        this.count--;
+        this.size--;
+        assert !this.tasks.contains(task) : "The taskList should not longer contain the added task";
         return task.toString();
     }
 
@@ -139,6 +148,6 @@ public class TaskList {
      * Returns the size of the TaskList to be shown to the user.
      */
     public int getSize() {
-        return this.count;
+        return this.size;
     }
 }

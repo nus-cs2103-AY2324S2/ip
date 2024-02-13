@@ -9,7 +9,7 @@ import dibo.exception.DiboException;
  * Class to handle a command which finds tasks with a specified keyword.
  */
 public class FindCommand extends Command {
-    private String[] keywords;
+    private final String[] keywords;
 
     /**
      * Constructor for the FindCommand class.

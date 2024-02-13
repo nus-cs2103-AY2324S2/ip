@@ -52,6 +52,7 @@ public abstract class Task {
     public String getSaveFormat() {
         return (this.isDone ? "1 | " : "0 | ") + this.description;
     }
+
     public boolean isDone() {
         return isDone;
     }

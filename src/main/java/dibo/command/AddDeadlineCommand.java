@@ -13,11 +13,11 @@ import dibo.task.Deadline;
  * Class to handle the command which adds a deadline task.
  */
 public class AddDeadlineCommand extends Command {
-    private String description;
-    private LocalDate by;
+    private final String description;
+    private final LocalDate by;
 
     /**
-     * Constructor for the AddDeadlineCommand class.
+     * Constructs the AddDeadlineCommand class.
      *
      * @param description The description of deadline task.
      * @param by The LocalDate object of the deadline of the task.
@@ -28,7 +28,7 @@ public class AddDeadlineCommand extends Command {
     }
 
     /**
-     * Run the add deadline task command.
+     * Runs the add deadline task command.
      *
      * @param taskList The TaskList object which contains all the tasks.
      * @param ui The Ui object which is responsible for printing the added message.

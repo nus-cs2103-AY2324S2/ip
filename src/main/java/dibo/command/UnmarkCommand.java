@@ -9,7 +9,7 @@ import dibo.exception.DiboException;
  * Class to handle a command which mark a task as not done.
  */
 public class UnmarkCommand extends Command {
-    private int taskId;
+    private final int taskId;
 
     /**
      * Constructor for the UnmarkCommand class.

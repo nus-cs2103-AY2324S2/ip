@@ -1,5 +1,7 @@
 package dibo;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -24,8 +27,8 @@ public class MainWindow extends AnchorPane {
 
     private Dibo dibo;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image diboImage = new Image(this.getClass().getResourceAsStream("/images/DaDibo.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private final Image diboImage = new Image(this.getClass().getResourceAsStream("/images/DaDibo.png"));
 
     /**
      * Initialize the MainWindow Controller.
@@ -52,6 +55,9 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDiboDialog(response, diboImage)
         );
+        if (dibo.hasEnded()) {
+            delayedExit();
+        }
         userInput.clear();
     }
 
@@ -61,6 +67,13 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDiboDialog("Hello sir! I'm Dibo.\nWhat can I do for you today?",
                         diboImage)
         );
+    }
+
+    @FXML
+    private void delayedExit() {
+        PauseTransition delay = new PauseTransition(Duration.seconds(5));
+        delay.setOnFinished(event -> Platform.exit());
+        delay.play();
     }
 }
 

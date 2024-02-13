@@ -4,7 +4,7 @@ package dibo;
  * Class to deal with the interaction with users.
  */
 public class Ui {
-    private StringBuilder outputString;
+    private final StringBuilder outputString;
 
     /**
      * Constructs the Ui class.
@@ -14,7 +14,8 @@ public class Ui {
     }
 
     /**
-     * Takes in the string representation of the taskList and reports it to the user.
+     * Takes in the string representation of the taskList
+     * and reports it to the user.
      *
      * @param taskList The String representation of the taskList.
      */
@@ -23,7 +24,7 @@ public class Ui {
     }
 
     /**
-     * Sends the message to show that the task has been successfully unmarked.
+     * Reports to the user that the task has been successfully unmarked.
      *
      * @param task The String representation of the task.
      */
@@ -33,7 +34,7 @@ public class Ui {
     }
 
     /**
-     * Sends the message to show that the task has been successfully marked.
+     * Reports to the user that the task has been successfully marked.
      *
      * @param task The String representation of the task.
      */
@@ -43,7 +44,7 @@ public class Ui {
     }
 
     /**
-     * Sends the message to show that the task has been successfully deleted.
+     * Reports to the user that the task has been successfully deleted.
      *
      * @param task The String representation of the task.
      * @param size The size of the taskList after the last action performed.
@@ -52,14 +53,11 @@ public class Ui {
         this.outputString.append("Noted. I'm removing this task:\n");
         this.outputString.append(task);
         this.addSeparator();
-        this.outputString.append("Now you have ");
-        this.outputString.append(size);
-        this.outputString.append(size > 1 ? " tasks " : " task ");
-        this.outputString.append("left in the list.\n");
+        this.addTasksLeftMessage(size);
     }
 
     /**
-     * Sends the message to show that the task has been successfully added.
+     * Reports to the user that the task has been successfully added.
      *
      * @param task The String representation of the task.
      * @param size The size of the taskList after the last action performed.
@@ -68,41 +66,37 @@ public class Ui {
         this.outputString.append("Good news sir! I've added this task:\n");
         this.outputString.append(task);
         this.addSeparator();
-        this.outputString.append("Now you have ");
-        this.outputString.append(size);
-        this.outputString.append(size > 1 ? " tasks " : " task ");
-        this.outputString.append("in the list.\n");
+        this.addTasksLeftMessage(size);
     }
 
     /**
-     * Sends the message to show that the task has been found.
+     * Reports to the user that the task(s) have been found.
      *
-     * @param tasksWithKeyword The string representation of the tasks that contains the specified keyword.
+     * @param tasksWithKeyword The string representation of the tasks
+     *                         that contains the specified keyword.
      */
     public void showFound(String tasksWithKeyword) {
         this.outputString.append("Good news sir! We've found the tasks in your list:\n");
         this.outputString.append(tasksWithKeyword);
     }
 
-
     /**
-     * Sends the error message.
-     *
-     * @param errorMessage The string representation of the error.
-     */
-    public void showError(String errorMessage) {
-        this.outputString.append(errorMessage);
-    }
-
-    /**
-     * Sends a goodbye message to the user.
+     * Says goodbye to the user.
      */
     public void sayBye() {
-        this.outputString.append("Bye sir! Always happy to assist you :D\n");
-        this.outputString.append("Hope to see you again soon!");
+        String goodbyeMessage = "Bye sir! Always happy to assist you :D\nHope to see you again soon!";
+        this.outputString.append(goodbyeMessage);
     }
+
     private void addSeparator() {
         this.outputString.append("\n");
+    }
+
+    private void addTasksLeftMessage(int size) {
+        this.outputString.append("Now you have ");
+        this.outputString.append(size);
+        this.outputString.append(size > 1 ? " tasks " : " task ");
+        this.outputString.append("in the list.\n");
     }
 
     /**
@@ -111,6 +105,7 @@ public class Ui {
     public String getOutput() {
         String output = this.outputString.toString();
         this.outputString.setLength(0);
+        assert this.outputString.length() == 0 : "The output string should be empty";
         return output;
     }
 }

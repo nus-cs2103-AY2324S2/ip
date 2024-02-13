@@ -9,7 +9,7 @@ import dibo.exception.DiboException;
  * Class to handle a command which deletes a task.
  */
 public class DeleteCommand extends Command {
-    private int taskId;
+    private final int taskId;
 
     /**
      * Constructor for the DeleteCommand class.

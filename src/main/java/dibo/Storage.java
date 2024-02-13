@@ -21,7 +21,7 @@ import dibo.task.ToDo;
  */
 public class Storage {
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
-    private String filePath;
+    private final String filePath;
 
     /**
      * Constructs the Storage class.
@@ -53,19 +53,19 @@ public class Storage {
                 Task task;
                 switch (type) {
                 case "todo":
-                    String description1 = details[2];
-                    task = new ToDo(description1);
+                    String descriptionToDo = details[2];
+                    task = new ToDo(descriptionToDo);
                     break;
                 case "deadline":
-                    String description2 = details[2];
+                    String descriptionDeadline = details[2];
                     String by = details[3].trim();
-                    task = new Deadline(description2, convertToLocalDate(by));
+                    task = new Deadline(descriptionDeadline, convertToLocalDate(by));
                     break;
                 case "event":
-                    String description3 = details[2];
+                    String descriptionEvent = details[2];
                     String start = details[3].trim();
                     String end = details[4].trim();
-                    task = new Event(description3, convertToLocalDate(start), convertToLocalDate(end));
+                    task = new Event(descriptionEvent, convertToLocalDate(start), convertToLocalDate(end));
                     break;
                 default:
                     throw new DiboException("Sorry sir! Unfortunately the loaded text file "
@@ -84,9 +84,9 @@ public class Storage {
                 System.out.println("Hi sir! We have just created a new text file "
                         + "for you to store your task list :D");
             } else {
-                throw new DiboException("Sorry sir! We tried a new text file "
+                throw new DiboException("Sorry sir! We tried to add new text file "
                         + "for you to store your task list but was unable to do so.\n"
-                        + "Please do us a favour and check the path name:D");
+                        + "Please do us a favour and check the path name :D");
             }
         } catch (DateTimeParseException e) {
             throw new DiboException("Oh no sir! The file seems to be corrupted :O "

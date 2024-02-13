@@ -10,7 +10,7 @@ import dibo.task.ToDo;
  * Class to handle the command which adds a to-do task.
  */
 public class AddToDoCommand extends Command {
-    private String description;
+    private final String description;
 
     /**
      * Constructor for the AddToDoCommand class.
