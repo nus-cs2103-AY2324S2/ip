@@ -63,7 +63,6 @@ public class TaskList {
      * @param index the given index of the task to be marked.
      */
     public Task markList(int index) {
-        assert(index > 0);
         this.listItems.get(index - 1).mark();
         storage.modifyStateRecord(true, index - 1);
         return listItems.get(index - 1);
@@ -74,7 +73,6 @@ public class TaskList {
      * @param index the given index of the task to be marked.
      */
     public Task unmarkList(int index) {
-        assert(index > 0);
         this.listItems.get(index - 1).unmark();
         storage.modifyStateRecord(false, index - 1);
         return listItems.get(index - 1);
@@ -85,7 +83,6 @@ public class TaskList {
      * @param index the given index of the task to be marked.
      */
     public Task deleteList(int index) {
-        assert (index > 0);
         Task task = listItems.remove(index - 1);
         storage.removeListStateRecord(index - 1);
         return task;
