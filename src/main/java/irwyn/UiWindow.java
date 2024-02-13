@@ -12,7 +12,7 @@ import javafx.scene.layout.VBox;
  * This is for the MainWindow. Provides the layout for the other controls.
  */
 public class UiWindow extends AnchorPane {
-    public Button sendButton;
+    private Button sendButton;
     @FXML
     private ScrollPane scrollPane;
     @FXML

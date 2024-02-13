@@ -34,7 +34,7 @@ public class Deadline extends Task {
      * @param dateTime The string to be converted into a LocalDateTime object.
      * @return A LocalDateTime object that represents the date and time specified by the input string.
      */
-    private LocalDateTime stringToDateTime (String dateTime) {
+    private LocalDateTime stringToDateTime(String dateTime) {
         if (dateTime.length() <= 10) {
             return LocalDateTime.parse(dateTime + "T00:00:00", DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         } else if (dateTime.contains("T")) {

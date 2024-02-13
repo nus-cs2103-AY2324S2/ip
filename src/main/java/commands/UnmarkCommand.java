@@ -18,7 +18,7 @@ public class UnmarkCommand extends Command {
      * Constructor for a Unmark Command object.
      * @param input The input by the user to parse into a command.
      */
-    UnmarkCommand (String input) {
+    UnmarkCommand(String input) {
         super(false);
         unmark = Integer.parseInt(input.split(" ")[1]) - 1;
     }

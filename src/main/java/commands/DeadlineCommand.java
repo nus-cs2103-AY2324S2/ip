@@ -1,12 +1,12 @@
 package commands;
 
+import java.time.format.DateTimeParseException;
+
 import irwyn.exceptions.CommandException;
-import misc.StorageManager;
-import misc.Ui;
 import irwyn.tasks.Deadline;
 import irwyn.tasks.TaskList;
-
-import java.time.format.DateTimeParseException;
+import misc.StorageManager;
+import misc.Ui;
 
 /**
  * This class encapsulates the class DeadlineCommand.
@@ -66,12 +66,12 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public String execute(StorageManager storageManager, Ui ui, TaskList taskList) {
-            String description = this.deadline[0];
-            String by = this.deadline[1];
-            Deadline deadline = new Deadline(description, by);
-            taskList.addTask(deadline);
-            storageManager.save(taskList.getTasks());
-            return ui.getReply(deadline.replyString(taskList.getTasksSize()));
+        String description = this.deadline[0];
+        String by = this.deadline[1];
+        Deadline deadline = new Deadline(description, by);
+        taskList.addTask(deadline);
+        storageManager.save(taskList.getTasks());
+        return ui.getReply(deadline.replyString(taskList.getTasksSize()));
     }
 }
 

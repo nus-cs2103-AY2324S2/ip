@@ -1,8 +1,9 @@
 package commands;
 
 import irwyn.tasks.TaskList;
-import misc.Ui;
 import misc.StorageManager;
+import misc.Ui;
+
 
 /**
  * This is an abstract class for all Commands used in the chatbot.
@@ -11,7 +12,7 @@ import misc.StorageManager;
  * @version Week-3
  */
 public abstract class Command {
-    boolean isExit;
+    private final boolean isExit;
 
     /**
      * Constructor for a Command.

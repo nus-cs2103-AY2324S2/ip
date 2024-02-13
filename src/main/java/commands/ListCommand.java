@@ -1,10 +1,11 @@
 package commands;
 
+import java.util.ArrayList;
+
+import irwyn.tasks.Task;
 import irwyn.tasks.TaskList;
 import misc.StorageManager;
 import misc.Ui;
-import irwyn.tasks.Task;
-import java.util.ArrayList;
 
 /**
  * This class encapsulates the class ListCommand.
@@ -18,7 +19,7 @@ public class ListCommand extends Command {
     /**
      * Constructor for a ListCommand object.
      */
-    ListCommand () {
+    ListCommand() {
         super(false);
     }
 

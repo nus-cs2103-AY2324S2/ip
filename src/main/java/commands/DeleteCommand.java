@@ -18,7 +18,7 @@ public class DeleteCommand extends Command {
      * Constructor for a DeleteCommand object.
      * @param input The input by the user to parse into a command.
      */
-    public DeleteCommand (String input) {
+    public DeleteCommand(String input) {
         super(false);
         delete = Integer.parseInt(input.split(" ")[1]) - 1;
     }
@@ -35,9 +35,10 @@ public class DeleteCommand extends Command {
     public void execute(TaskList taskList, Ui ui, StorageManager storageManager) {
         Task t = taskList.delete(delete);
         storageManager.save(taskList.getTasks());
-        String reply = "Noted. I've removed this task:\n" +
-                t.toString() + "\n" +
-                "Now you have " + taskList.getTasksSize() + " tasks in the list.\n";
+        String reply = "Noted. I've removed this task:\n"
+                + t.toString() + "\n"
+                + "Now you have " + taskList.getTasksSize()
+                + " tasks in the list.\n";
         ui.reply(reply);
     }
 
@@ -54,9 +55,11 @@ public class DeleteCommand extends Command {
     public String execute(StorageManager storageManager, Ui ui, TaskList taskList) {
         Task t = taskList.delete(delete);
         storageManager.save(taskList.getTasks());
-        String reply = "Noted. I've removed this task:\n" +
-                t.toString() + "\n" +
-                "Now you have " + taskList.getTasksSize() + " tasks in the list.\n";
+        String reply = "Noted. I've removed this task:\n"
+                + t.toString() + "\n"
+                + "Now you have "
+                + taskList.getTasksSize()
+                + " tasks in the list.\n";
         return ui.getReply(reply);
     }
 }

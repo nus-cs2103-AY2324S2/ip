@@ -19,7 +19,7 @@ public class Event extends Task {
      * @param start The start of the event.
      * @param end The end of the event.
      */
-    public Event (String description, String start, String end) {
+    public Event(String description, String start, String end) {
         super(description, TaskType.EVENT);
         this.start = start;
         this.end = end;

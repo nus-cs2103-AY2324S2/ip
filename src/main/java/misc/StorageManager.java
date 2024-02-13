@@ -1,12 +1,11 @@
 package misc;
 
-import irwyn.tasks.Task;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.util.ArrayList;
+
+import irwyn.tasks.Task;
 
 /**
  * This class encapsulates the StorageManager class.
@@ -56,8 +55,9 @@ public class StorageManager {
     public void save(ArrayList<Task> tasks) {
         try {
             FileWriter fw = new FileWriter(this.filePath);
-            for(Task t : tasks) {
-                fw.write(t.toFileFormat()+ "\n");
+            for (Task t : tasks) {
+                fw.write(t.toFileFormat()
+                        + "\n");
             }
             fw.close();
         } catch (IOException e) {
