@@ -82,10 +82,18 @@ public class TaskList {
 
     /**
      * Adds a task to the list.
+     *
      * @param task The task to be added.
+     * @return True if the task was added successfully.
      */
-    public void addTask(Task task) {
+    public boolean addTask(Task task) {
+        for (Task t : this.tasks) {
+            if (t.equals(task)) {
+                return false;
+            }
+        }
         this.tasks.add(task);
+        return true;
     }
 
 /**

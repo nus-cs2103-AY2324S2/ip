@@ -24,4 +24,21 @@ public class Todo extends Task {
     public String toFileSaveString() {
         return "T|" + super.toFileSaveString();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } else if (obj instanceof Todo) {
+            Todo other = (Todo) obj;
+            return other.getDescription().equals(this.getDescription());
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return this.getDescription().hashCode();
+    }
 }
