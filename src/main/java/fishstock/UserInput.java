@@ -15,7 +15,7 @@ class UserInput {
      */
     protected UserInput(String input) {
         assert input != null : "User input should not be null";
-        
+
         String[] splitInput = input.split(" ", 2);
         commandType = Parser.parseCommandType(splitInput[0]);
 

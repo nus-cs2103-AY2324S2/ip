@@ -19,12 +19,11 @@ class Parser {
      * @return The command type.
      */
     protected static CommandType parseCommandType(String commandStr) {
-        for (CommandType commandType : CommandType.values()) {
-            if (commandStr.equals(commandType.keyword)) {
-                return commandType;
-            }
+        try {
+            return CommandType.valueOf(commandStr.toUpperCase());
+        } catch (java.lang.IllegalArgumentException e) {
+            return CommandType.INVALID;
         }
-        return CommandType.INVALID;
     }
 
     /**

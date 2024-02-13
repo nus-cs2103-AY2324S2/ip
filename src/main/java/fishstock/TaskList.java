@@ -61,7 +61,7 @@ class TaskList {
      */
     private Task changeMark(CommandType commandType, UserInput input) throws FishStockException {
         assert commandType == CommandType.MARK || commandType == CommandType.UNMARK : "Not a marking Command";
-        
+
         int idx = input.getIndex();
         try {
             Task task = list.get(idx);
