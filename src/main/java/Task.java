@@ -13,19 +13,32 @@ public class Task {
     }
 
     public String mark() {
-        this.isDone = true;
+        setDone();
         System.out.println("Nice! I've marked this task as done:");
         return this.toString();
     }
 
+    public void setDone() {
+        this.isDone = true;
+    }
+
     public String unmark() {
         System.out.println("OK, I've marked this task as not done yet:");
-        this.isDone = false;
+        setUndone();
         return this.toString();
+    }
+
+    public void setUndone() {
+        this.isDone = false;
     }
 
     @Override
     public String toString() {
         return getStatusIcon() + this.description;
+    }
+
+    public String saveToFile() {
+        return (this.isDone ? "1" : "0")
+                + "!" + this.description;
     }
 }

@@ -1,11 +1,11 @@
 Hello from
-  LLLLL      IIIIIIIII  TTTTTTTTTT  EEEEEEEEEE  
-  LLLLL         III         TTT     EEEEEEEEEE  
-  LLLLL         III         TTT     EEE         
-  LLLLL         III         TTT     EEEEEEEE   
-  LLLLL         III         TTT     EEEEEEEE   
-  LLLLL         III         TTT     EEE        
-  LLLLLLLLL  IIIIIIIII      TTT     EEEEEEEEEE  
+  LLLLL      IIIIIIIII  TTTTTTTTTT  EEEEEEEEEE
+  LLLLL         III         TTT     EEEEEEEEEE
+  LLLLL         III         TTT     EEE
+  LLLLL         III         TTT     EEEEEEEE
+  LLLLL         III         TTT     EEEEEEEE
+  LLLLL         III         TTT     EEE
+  LLLLLLLLL  IIIIIIIII      TTT     EEEEEEEEEE
 
 ____________________________________________________________
  Hello! I'm LITE
