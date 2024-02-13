@@ -37,8 +37,8 @@ public class MainWindow extends AnchorPane {
 
     public void startUp(){
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(toothless.load(), dukeImage),
-                DialogBox.getDukeDialog(toothless.greet(), dukeImage)
+                DialogBox.getToothlessDialog(toothless.load(), dukeImage),
+                DialogBox.getToothlessDialog(toothless.greet(), dukeImage)
         );
     }
 
@@ -52,7 +52,7 @@ public class MainWindow extends AnchorPane {
         String response = toothless.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getToothlessDialog(response, dukeImage)
         );
         userInput.clear();
     }

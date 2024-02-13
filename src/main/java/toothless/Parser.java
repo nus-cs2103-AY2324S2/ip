@@ -29,7 +29,8 @@ public class Parser {
      */
     public static Command parseCommand(String input) throws ToothlessException {
         String[] split = input.split(" ", 2);
-        switch (split[0].toUpperCase()) {
+        String commandType = split[0].toUpperCase();
+        switch (commandType) {
         case "BYE":
             return new ByeCommand();
         case "LIST":
@@ -40,37 +41,51 @@ public class Parser {
             }
             return new FindCommand(split[1]);
         case "MARK":
-            if (split.length < 2) {
-                throw new ToothlessException("Input number pls");
-            }
-            return new MarkCommand(split[1]);
         case "UNMARK":
-            if (split.length < 2) {
-                throw new ToothlessException("Input number pls");
-            }
-            return new UnmarkCommand(split[1]);
         case "DELETE":
-            if (split.length < 2) {
-                throw new ToothlessException("Input number pls");
-            }
-            return new DeleteCommand(split[1]);
+            return parseUpdateCommand(split);
         case "TODO":
-            if (split.length < 2) {
-                throw new ToothlessException("Input description @_@");
-            }
-            return new TodoCommand(split[1]);
         case "EVENT":
-            if (split.length < 2) {
-                throw new ToothlessException("Input description @_@");
-            }
-            return new EventCommand(split[1]);
         case "DEADLINE":
-            if (split.length < 2) {
-                throw new ToothlessException("Input description @_@");
-            }
-            return new DeadlineCommand(split[1]);
+            return parseTaskCommand(split);
         default:
             throw new ToothlessException("Me dragon, no understand this action :P");
+        }
+    }
+
+    private static Command parseTaskCommand(String[] split) throws ToothlessException{
+        if (split.length < 2) {
+            throw new ToothlessException("Input description @_@");
+        }
+        String taskType = split[0].toUpperCase();
+        switch (taskType) {
+        case "TODO":
+            return new TodoCommand(split[1]);
+        case "EVENT":
+            return new EventCommand(split[1]);
+        case "DEADLINE":
+            return new DeadlineCommand(split[1]);
+        default:
+            assert false : taskType;
+            throw new ToothlessException("Invalid Task Command");
+        }
+    }
+
+    private static Command parseUpdateCommand(String[] split) throws ToothlessException {
+        if (split.length < 2) {
+            throw new ToothlessException("Input number pls");
+        }
+        String updateType = split[0].toUpperCase();
+        switch (updateType) {
+        case "MARK":
+            return new MarkCommand(split[1]);
+        case "UNMARK":
+            return new UnmarkCommand(split[1]);
+        case "DELETE":
+            return new DeleteCommand(split[1]);
+        default:
+            assert false : updateType;
+            throw new ToothlessException("Invalid Update Command");
         }
     }
 }
