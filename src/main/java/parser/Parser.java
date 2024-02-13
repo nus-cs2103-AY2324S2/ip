@@ -4,17 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import actions.Action;
-import actions.Bye;
-import actions.CreateDeadline;
-import actions.CreateEvent;
-import actions.CreateTodo;
-import actions.Delete;
-import actions.DisplayList;
-import actions.Find;
-import actions.InvalidAction;
-import actions.Mark;
-import actions.Unmark;
+import actions.*;
 import exceptionhandling.DukeException;
 
 /**
@@ -34,6 +24,8 @@ public class Parser {
         String[] splitCommand = command.split(" ", 2);
         String method = splitCommand[0];
         switch (method) {
+        case "hi" :
+            return new Greet();
         case "list":
             return new DisplayList();
         case "bye":

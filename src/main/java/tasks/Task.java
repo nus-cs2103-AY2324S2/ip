@@ -35,18 +35,18 @@ public class Task {
     /**
      * Marks the task as done and prints a message indicating the completion.
      */
-    public void markAsDone() {
+    public String markAsDone() {
         this.isDone = true;
-        System.out.println(String.format("Congratulations! Task completed:\n [%s] %s", this.getStatusIcon(),
+        return (String.format("Congratulations! Task completed:\n [%s] %s", this.getStatusIcon(),
                 this.getDescription()));
     }
 
     /**
      * Marks the task as undone and prints a message indicating the change.
      */
-    public void maskAsUndone() {
+    public String maskAsUndone() {
         this.isDone = false;
-        System.out.println(String.format("Task marked as undone:\n [%s] %s", this.getStatusIcon(),
+        return (String.format("Task marked as undone:\n [%s] %s", this.getStatusIcon(),
                 this.getDescription()));
     }
 

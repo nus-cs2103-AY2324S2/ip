@@ -26,12 +26,13 @@ public class CreateTodo implements Action {
      * The new task is then added to the task list of the Duke chatbot.
      *
      * @param bot The Duke chatbot on which the action is to be executed.
+     * @return A message indicating the result of the createTodo action.
      */
     @Override
-    public void execute(Duke bot) {
+    public String execute(Duke bot) {
         Todo task = new Todo(desc);
         bot.getTaskList().addToList(task);
-        System.out.println("Task successfully added!");
+        return ("Task successfully added!");
     }
 }
 

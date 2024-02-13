@@ -4,5 +4,5 @@ import ui.Duke;
 
 
 public interface Action {
-    public void execute(Duke bot);
+    public String execute(Duke bot);
 }

@@ -35,11 +35,12 @@ public class CreateEvent implements Action {
      * The new task is then added to the task list of the Duke chatbot.
      *
      * @param bot The Duke chatbot on which the action is to be executed.
+     * @return A message indicating the result of the createevent action.
      */
     @Override
-    public void execute(Duke bot) {
+    public String execute(Duke bot) {
         Event e = new Event(desc, from, to);
         bot.getTaskList().addToList(e);
-        System.out.println("Event successfully added!");
+        return ("Event successfully added!");
     }
 }

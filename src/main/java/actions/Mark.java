@@ -23,10 +23,11 @@ public class Mark implements Action {
      * Executes the mark action by marking the task at the stored index as done in the task list of the Duke chatbot.
      *
      * @param bot The Duke chatbot on which the action is to be executed.
+     * @return A message indicating the result of the mark action.
      */
     @Override
-    public void execute(Duke bot) {
-        bot.getTaskList().markTask(index);
+    public String execute(Duke bot) {
+        return bot.getTaskList().markTask(index);
     }
 }
 

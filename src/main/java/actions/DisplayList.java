@@ -12,10 +12,11 @@ public class DisplayList implements Action {
      * Executes the display list action by printing the tasks in the task list of the Duke chatbot.
      *
      * @param bot The Duke chatbot on which the action is to be executed.
+     * @return A message indicating the result of the display list action.
      */
     @Override
-    public void execute(Duke bot) {
-        bot.getTaskList().displayList();
+    public String execute(Duke bot) {
+        return bot.getTaskList().displayList();
     }
 }
 

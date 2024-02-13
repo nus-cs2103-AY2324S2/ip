@@ -34,11 +34,12 @@ public class CreateDeadline implements Action {
      * The new task is then added to the task list of the Duke chatbot.
      *
      * @param bot The Duke chatbot on which the action is to be executed.
+     * @return A message indicating the result of the createdeadline action.
      */
     @Override
-    public void execute(Duke bot) {
+    public String execute(Duke bot) {
         Deadline d = new Deadline(desc, deadline);
         bot.getTaskList().addToList(d);
-        System.out.println("Deadline successfully added!");
+        return ("Deadline successfully added!");
     }
 }

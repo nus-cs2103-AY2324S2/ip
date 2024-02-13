@@ -36,6 +36,7 @@ public class TaskList {
      *
      * @return A clone of the task list.
      */
+    @SuppressWarnings("unchecked")
     public ArrayList<Task> getList() {
         return (ArrayList<Task>) this.list.clone();
     }
@@ -57,26 +58,32 @@ public class TaskList {
 
     /**
      * Displays the tasks in the task list, including their index, type, status, and description.
+     *
+     * @return A string representation of the tasks in the task list,
+     * formatted with their index, type, status, and description.
      */
-    public void displayList() {
+    public String displayList() {
         int index = 1;
+        StringBuilder list = new StringBuilder();
         for (Task task : this.list) {
-            System.out.println(String.format("%d. [%s] [%s] %s", index, task.getTypeIcon(), task.getStatusIcon(),
+            list.append(String.format("%d. [%s] [%s] %s\n", index, task.getTypeIcon(), task.getStatusIcon(),
                     task.getDescription()));
             index++;
         }
+        return list.toString();
     }
 
     /**
      * Marks a task as done based on its index in the task list.
      *
      * @param index The index of the task to be marked as done.
+     * @return A message indicating the result of marking the task as done.
      */
-    public void markTask(int index) {
+    public String markTask(int index) {
         try {
-            this.list.get(index - 1).markAsDone();
+            return this.list.get(index - 1).markAsDone();
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("No task at that index! You fool!");
+            return ("No task at that index!\n");
         }
     }
 
@@ -84,12 +91,13 @@ public class TaskList {
      * Unmarks a task as done based on its index in the task list.
      *
      * @param index The index of the task to be unmarked.
+     * @return A message indicating the result of unmarking the task.
      */
-    public void unmarkTask(int index) {
+    public String unmarkTask(int index) {
         try {
-            this.list.get(index - 1).maskAsUndone();
+            return this.list.get(index - 1).maskAsUndone();
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("No task at that index! You fool!");
+            return ("No task at that index!\n");
         }
     }
 
@@ -97,17 +105,20 @@ public class TaskList {
      * Deletes a task based on its index in the task list.
      *
      * @param index The index of the task to be deleted.
+     * @return A message indicating the result of deleting the task.
      */
-    public void deleteTask(int index) {
+    public String deleteTask(int index) {
         try {
             Task t = this.list.remove(index - 1);
-            System.out.println("Noted. The following task is removed, you careless human being!");
-            System.out.println(String.format("[%s] [%s] %s\n", t.getTypeIcon(),
+            StringBuilder remark = new StringBuilder();
+            remark.append("Noted. The following task is removed!\n");
+            remark.append(String.format("[%s] [%s] %s\n", t.getTypeIcon(),
                     t.getStatusIcon(), t.getDescription()));
-            System.out.println(String.format("Now you only have %d tasks left. %s",
+            remark.append(String.format("Now you only have %d tasks left. %s\n",
                     this.getListSize(), this.getListUpdate()));
+            return remark.toString();
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("No task at that index! You fool!");
+            return ("No task at that index!\n");
         }
     }
 
@@ -115,9 +126,10 @@ public class TaskList {
      * Adds a task to the task list.
      *
      * @param t The task to be added.
+     * @return A message indicating the result of adding the task.
      */
-    public void addToList(Task t) {
+    public String addToList(Task t) {
         this.list.add(t);
-        System.out.println(String.format("Added: %s", t.getDescription()));
+        return (String.format("Added: %s\n", t.getDescription()));
     }
 }

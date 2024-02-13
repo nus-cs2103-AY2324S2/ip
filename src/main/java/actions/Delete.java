@@ -23,9 +23,10 @@ public class Delete implements Action {
      * Executes the delete action by removing the task at the stored index from the task list of the Duke chatbot.
      *
      * @param bot The Duke chatbot on which the action is to be executed.
+     * @return A message indicating the result of the delete action.
      */
     @Override
-    public void execute(Duke bot) {
-        bot.getTaskList().deleteTask(index);
+    public String execute(Duke bot) {
+        return bot.getTaskList().deleteTask(index);
     }
 }

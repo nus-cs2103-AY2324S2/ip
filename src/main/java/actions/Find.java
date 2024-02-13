@@ -13,7 +13,7 @@ public class Find implements Action {
     }
 
     @Override
-    public void execute(Duke bot) {
+    public String execute(Duke bot) {
         ArrayList<Task> list = bot.getTaskList().getList();
         ArrayList<Task> matches = new ArrayList<>();
 
@@ -24,15 +24,16 @@ public class Find implements Action {
         }
 
         if (matches.size() > 0) {
-            System.out.println("Here are the matching tasks in your list:");
+            StringBuilder stringOfMatches = new StringBuilder("Here are the matching tasks in your list:");
             int index = 1;
             for (Task task : matches) {
-                System.out.println(String.format("%d. [%s] [%s] %s", index, task.getTypeIcon(), task.getStatusIcon(),
+                stringOfMatches.append(String.format("%d. [%s] [%s] %s", index, task.getTypeIcon(), task.getStatusIcon(),
                         task.getDescription()));
                 index++;
             }
+            return stringOfMatches.toString();
         } else {
-            System.out.println("No matches found!");
+            return ("No matches found!");
         }
     }
 }

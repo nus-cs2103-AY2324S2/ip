@@ -7,7 +7,7 @@ public class InvalidAction implements Action {
     }
 
     @Override
-    public void execute(Duke bot) {
-        System.out.println("Command does not exist");
+    public String execute(Duke bot) {
+        return ("Command does not exist");
     }
 }
