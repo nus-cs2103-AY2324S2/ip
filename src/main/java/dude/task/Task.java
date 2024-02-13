@@ -4,7 +4,7 @@ package dude.task;
  * Task parent class.
  */
 public abstract class Task {
-    private boolean done = false;
+    private boolean isDone = false;
     private final String name;
 
     /**
@@ -19,12 +19,12 @@ public abstract class Task {
     /**
      * Creates task object.
      * @param name Name of task.
-     * @param done Whether task is done.
+     * @param isDone Whether task is done.
      */
-    public Task(String name, boolean done) {
+    public Task(String name, boolean isDone) {
 
         this.name = name;
-        this.done = done;
+        this.isDone = isDone;
     }
 
     /**
@@ -32,21 +32,21 @@ public abstract class Task {
      * @return String to be used in the storage file.
      */
     public String getStorageString() {
-        return String.format("%s | %s", this.done ? "1" : "0", this.name);
+        return String.format("%s | %s", this.isDone ? "1" : "0", this.name);
     };
 
     /**
      * Marks task as done.
      */
     public void mark() {
-        this.done = true;
+        this.isDone = true;
     }
 
     /**
      * Marks task as undone.
      */
     public void unmark() {
-        this.done = false;
+        this.isDone = false;
     }
 
     public boolean contains(String keyword) {
@@ -55,7 +55,7 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        String checkbox = "[" + (this.done ? "x" : " ") + "] ";
+        String checkbox = "[" + (this.isDone ? "x" : " ") + "] ";
         return checkbox + this.name;
     }
 }
