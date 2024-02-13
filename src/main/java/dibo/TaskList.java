@@ -69,7 +69,7 @@ public class TaskList {
     /**
      * Returns the string representation of the tasks with the specified keyword(s).
      *
-     * @throws DiboException if there is no such task with the specified keyword(s).
+     * @throws DiboException If there is no such task with the specified keyword(s).
      */
     public String getTasksWithKeywords(String[] keywords) throws DiboException {
         StringBuilder list = new StringBuilder();
@@ -99,7 +99,7 @@ public class TaskList {
      * and returns the string representation of that task.
      *
      * @param i The index of the task, based 1.
-     * @throws DiboException if there is no such task with the index.
+     * @throws DiboException If there is no such task with the index.
      */
     public String markTask(int i) throws DiboException {
         int taskIndex = i - 1;
@@ -119,7 +119,7 @@ public class TaskList {
      * and returns the string representation of that task.
      *
      * @param i The index of the task, based 1.
-     * @throws DiboException if there is no such task with the index.
+     * @throws DiboException If there is no such task with the index.
      */
     public String unmarkTask(int i) throws DiboException {
         int taskIndex = i - 1;
@@ -139,7 +139,7 @@ public class TaskList {
      * and returns the string representation of that task.
      *
      * @param i The index of the task, based 1.
-     * @throws DiboException if there is no such task with the index.
+     * @throws DiboException If there is no such task with the index.
      */
     public String deleteTask(int i) throws DiboException {
         int taskIndex = i - 1;

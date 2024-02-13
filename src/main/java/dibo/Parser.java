@@ -3,6 +3,7 @@ package dibo;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 import dibo.command.AddDeadlineCommand;
 import dibo.command.AddEventCommand;
@@ -26,90 +27,132 @@ public class Parser {
      * Takes in the command and tries to make sense of it.
      * Returns a Command object which can be run at the end.
      *
-     * @return A Command object to be run.
      * @throws DiboException If an error occurs when parsing.
      */
     public static Command parse(String fullCommand) throws DiboException {
         String[] commandDetails = fullCommand.split(" ");
         switch (commandDetails[0]) {
         case "list":
-            return new ListCommand();
+            return parseListCommand();
         case "unmark":
-            try {
-                int taskId = Integer.parseInt(commandDetails[1]);
-                return new UnmarkCommand(taskId);
-            } catch (NumberFormatException e) {
-                throw new DiboException("Oh no sir! You have to unmark the items based on their index.\n"
-                        + "If you are not sure of the index, enter 'list' to check it out :D");
-            }
+            return parseUnmarkCommand(commandDetails);
         case "mark":
-            try {
-                int taskId = Integer.parseInt(commandDetails[1]);
-                return new MarkCommand(taskId);
-            } catch (NumberFormatException e) {
-                throw new DiboException("Oh no sir! You have to Mark the items based on their index.\n"
-                        + "If you are not sure of the index, enter 'list' to check it out :D");
-            }
+            return parseMarkCommand(commandDetails);
         case "delete":
-            try {
-                int taskId = Integer.parseInt(commandDetails[1]);
-                return new DeleteCommand(taskId);
-            } catch (NumberFormatException e) {
-                throw new DiboException("Oh no sir! You have to delete the items based on their index."
-                        + "If you are not sure of the index, enter 'list' to check it out :D");
-            }
+            return parseDeleteCommand(commandDetails);
         case "find":
-            if (!hasDescription(fullCommand)) {
-                throw new DiboException("Oh no sir! We need a keyword to search.");
-            }
-            String keyword = commandDetails[1];
-            return new FindCommand(keyword);
+            return parseFindCommand(commandDetails);
         case "bye":
-            return new ByeCommand();
+            return parseByeCommand();
         case "todo":
-            if (!hasDescription(fullCommand)) {
-                throw new DiboException("Oh no sir! We need a description for your task. "
-                        + "This will enable us to better keep track of your tasks.");
-            }
-            String descriptionToDo = getDescription(fullCommand, "todo");
-            return new AddToDoCommand(descriptionToDo);
+            return parseAddToDoCommand(fullCommand);
         case "deadline":
-            if (!hasDescription(fullCommand)) {
-                throw new DiboException("Oh no sir! We need a description for your task. "
-                        + "This will enable us to better keep track of your tasks.");
-            }
-
-            try {
-                String descriptionDeadline = getDescription(fullCommand, "deadline");
-                LocalDate byDate = getByDate(fullCommand);
-                return new AddDeadlineCommand(descriptionDeadline, byDate);
-            } catch (IndexOutOfBoundsException e) {
-                throw new DiboException("Oh no sir! Please state the deadline of the task :D");
-            } catch (DateTimeParseException e) {
-                throw new DiboException("Oh no sir! Please state the deadline of the task "
-                        + "in this format: yyyy-mm-dd");
-            }
+            return parseAddDeadlineCommand(fullCommand);
         case "event":
-            if (!hasDescription(fullCommand)) {
-                throw new DiboException("Oh no sir! We need a description for your task. "
-                        + "This will enable us to better keep track of your tasks.");
-            }
-            try {
-                String descriptionEvent = getDescription(fullCommand, "event");
-                LocalDate startDate = getStartDate(fullCommand);
-                LocalDate endDate = getEndDate(fullCommand);
-                if (!startDate.isBefore(endDate)) {
-                    throw new DiboException("Oh no sir! Your start date must be before your end date :(");
-                }
-                return new AddEventCommand(descriptionEvent, startDate, endDate);
-            } catch (IndexOutOfBoundsException e) {
-                throw new DiboException("Oh no sir! Please state the start and end of the task :D");
-            } catch (DateTimeParseException e) {
-                throw new DiboException("Oh no sir! Please state the deadline of the task "
-                        + "in this format: yyyy-mm-dd");
-            }
+            return parseAddEventCommand(fullCommand);
         default:
             throw new DiboException("Oh no sir! There is no such task type :(");
+        }
+    }
+
+    private static ListCommand parseListCommand() {
+        return new ListCommand();
+    }
+
+
+    private static UnmarkCommand parseUnmarkCommand(String[] commandDetails) throws DiboException {
+        try {
+            int taskId = Integer.parseInt(commandDetails[1]);
+            return new UnmarkCommand(taskId);
+        } catch (NumberFormatException e) {
+            throw new DiboException("Oh no sir! You have to unmark the items based on their index.\n"
+                    + "If you are not sure of the index, enter 'list' to check it out :D");
+        }
+    }
+
+    private static MarkCommand parseMarkCommand(String[] commandDetails) throws DiboException {
+        try {
+            int taskId = Integer.parseInt(commandDetails[1]);
+            return new MarkCommand(taskId);
+        } catch (NumberFormatException e) {
+            throw new DiboException("Oh no sir! You have to mark the items based on their index.\n"
+                    + "If you are not sure of the index, enter 'list' to check it out :D");
+        }
+    }
+
+    private static DeleteCommand parseDeleteCommand(String[] commandDetails) throws DiboException {
+        try {
+            int taskId = Integer.parseInt(commandDetails[1]);
+            return new DeleteCommand(taskId);
+        } catch (NumberFormatException e) {
+            throw new DiboException("Oh no sir! You have to delete the items based on their index."
+                    + "If you are not sure of the index, enter 'list' to check it out :D");
+        }
+    }
+
+    private static FindCommand parseFindCommand(String[] commandDetails) throws DiboException {
+        if (commandDetails.length < 1) {
+            throw new DiboException("Oh no sir! We need at least a keyword to search.");
+        }
+        ArrayList<String> keywordsArrayList = new ArrayList<>();
+        for (int i = 1; i < commandDetails.length; ++i) {
+            String keyword = commandDetails[i];
+            keywordsArrayList.add(keyword);
+        }
+
+        String[] keywordsArray = keywordsArrayList.toArray(new String[0]);
+        return new FindCommand(keywordsArray);
+    }
+
+    private static ByeCommand parseByeCommand() {
+        return new ByeCommand();
+    }
+
+    private static AddToDoCommand parseAddToDoCommand(String fullCommand) throws DiboException {
+        if (!hasDescription(fullCommand)) {
+            throw new DiboException("Oh no sir! We need a description for your task. "
+                    + "This will enable us to better keep track of your tasks.");
+        }
+        String descriptionToDo = getDescription(fullCommand, "todo");
+        return new AddToDoCommand(descriptionToDo);
+    }
+
+    private static AddDeadlineCommand parseAddDeadlineCommand(String fullCommand) throws DiboException {
+        if (!hasDescription(fullCommand)) {
+            throw new DiboException("Oh no sir! We need a description for your task. "
+                    + "This will enable us to better keep track of your tasks.");
+        }
+
+        try {
+            String descriptionDeadline = getDescription(fullCommand, "deadline");
+            LocalDate byDate = getByDate(fullCommand);
+            return new AddDeadlineCommand(descriptionDeadline, byDate);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DiboException("Oh no sir! Please state the deadline of the task :D");
+        } catch (DateTimeParseException e) {
+            throw new DiboException("Oh no sir! Please state the deadline of the task "
+                    + "in this format: yyyy-mm-dd");
+        }
+    }
+
+    private static AddEventCommand parseAddEventCommand(String fullCommand) throws DiboException {
+        if (!hasDescription(fullCommand)) {
+            throw new DiboException("Oh no sir! We need a description for your task. "
+                    + "This will enable us to better keep track of your tasks.");
+        }
+        try {
+            String descriptionEvent = getDescription(fullCommand, "event");
+            LocalDate startDate = getStartDate(fullCommand);
+            LocalDate endDate = getEndDate(fullCommand);
+            if (!startDate.isBefore(endDate)) {
+                throw new DiboException("Oh no sir! Your start date must be before your end date :(");
+            }
+            return new AddEventCommand(descriptionEvent, startDate, endDate);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DiboException("Oh no sir! Please state the start and end of the task :D");
+        } catch (DateTimeParseException e) {
+            throw new DiboException("Oh no sir! Please state the deadline of the task "
+                    + "in this format: yyyy-mm-dd");
         }
     }
 
