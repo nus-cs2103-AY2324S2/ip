@@ -55,7 +55,6 @@ public class Parser {
         switch (command) {
             case "help":
                 return ui.getListOfCommandsMessage();
-            case "bye":
             case "list":
                 return taskList.printList();
             case "mark":

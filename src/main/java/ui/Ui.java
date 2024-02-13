@@ -136,8 +136,7 @@ public class Ui {
     }
 
     /**
-     * Returns the string representation of the number of tasks remaining in the
-     * task list.
+     * Displaysthe number of tasks remaining in the task list.
      * 
      * @param taskCount The number of tasks in the list
      * @return The string representation of the number of remaining tasks

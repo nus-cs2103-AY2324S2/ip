@@ -13,6 +13,11 @@ public class Main extends Application {
 
     private GeePeeTee geepeetee = new GeePeeTee("GeePeeTee.txt");
 
+    /**
+     * Starts the application.
+     * 
+     * @param stage The stage to be used to start the application
+     */
     @Override
     public void start(Stage stage) {
         try {

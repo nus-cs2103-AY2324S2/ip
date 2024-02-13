@@ -45,14 +45,22 @@ public class GeePeeTee {
         }
     }
 
+    /**
+     * Gets the error message that occurred during initialization.
+     * 
+     * @return The error message that occurred during initialization
+     */
     public String getInitializationErrorMessage() {
         return initializationErrorMessage;
     }
 
+    /**
+     * Processes the user input and returns the response.
+     * 
+     * @param input The user input to be processed
+     * @return The response to the user input
+     */
     public String getResponse(String input) {
-        if (input.equals("bye")) {
-            return ui.getGoodbyeMessage();
-        }
         return parser.parseInput(input);
     }
 }
