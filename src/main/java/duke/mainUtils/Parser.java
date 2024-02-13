@@ -1,10 +1,6 @@
 package duke.mainUtils;
 
 import duke.commands.*;
-<<<<<<< HEAD
-=======
-import duke.commands.commands.*;
->>>>>>> branch-A-Packages
 import duke.exceptions.*;
 import duke.tasks.*;
 
@@ -16,7 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public final class Parser {
-    public static Command parseUserInput(String[] userInput) throws InvalidTaskException, InvalidDateException, InvalidIndexException, InvalidCommandException, StorageException {
+    public static Command parseUserInput(String[] userInput) throws InvalidCommandException {
         String commandType = userInput[0].toUpperCase();
         Command command;
 
@@ -65,8 +61,14 @@ public final class Parser {
     public static Task parseSaveFile(String taskStringData) throws StorageException, InvalidDateException {
         // Split taskStringData into array with sections {taskType, isDone, taskDescription, date etc.}
         String[] sectionedString = taskStringData.trim().split("\\|");
-        String taskType = sectionedString[0].trim().toUpperCase();
-        boolean isDone = sectionedString[1].trim().equals("[X]");
+        String taskType;
+        boolean isDone;
+        try {
+            taskType = sectionedString[0].trim().toUpperCase();
+            isDone = sectionedString[1].trim().equals("[X]");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new StorageException();
+        }
         Task task;
         Pattern pattern;
         Matcher matcher;
