@@ -1,4 +1,5 @@
-import java.util.ArrayList;
+package Luke;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -136,7 +137,7 @@ public class Ui {
     public void inputError(String type) {
         switch (type) {
             case "taskNumberInvalid":
-                System.out.println("Task does not exist. Please give a valid task number.");
+                System.out.println("Luke.Task does not exist. Please give a valid task number.");
             case "descriptionEmpty":
                 System.out.println("Invalid command. The description cannot be empty.");
             case "deadlineEmpty":

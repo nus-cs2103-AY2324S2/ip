@@ -1,3 +1,5 @@
+package Luke;
+
 public class LukeException extends Exception {
     public enum ExceptionType {
 
