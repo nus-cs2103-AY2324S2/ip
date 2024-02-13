@@ -23,14 +23,6 @@ public class TaskList {
         Storage.writeFile();
     }
 
-    /**
-     * Provides a way to add a task to task list.
-     * For example in Storage class readEntry.
-     * */
-    public static void addTaskToList(Task t) {
-        list.add(t);
-    }
-
     /** In charge of reading inputs and adding the corresponding task to the list */
     public static void addToList(String inputs) {
         try {
@@ -54,6 +46,17 @@ public class TaskList {
                     + "\n  > You have " + TaskList.list.size() + " tasks.");
         } catch (InvalidTaskException e) {
             e.printException();
+        }
+    }
+
+    /**
+     * Takes in a list of tasks as varargs to add to the task list.
+     *
+     * @param tasks Array containing Tasks.
+     */
+    public static void addToList(Task... tasks) {
+        for (Task t : tasks) {
+            list.add(t);
         }
     }
 
