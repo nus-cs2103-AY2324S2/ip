@@ -80,6 +80,9 @@ public class Parser {
         case "find":
             msg = handleFindCommand(remaining);
             break;
+        case "help":
+            msg = handleHelpCommand();
+            break;
         default:
             throw new CampusException("Sorry, I don't understand that command,"
                     + " please check for potential spelling errors");
@@ -87,6 +90,24 @@ public class Parser {
         this.storage.updateFileFromList(this.taskList);
         assert (msg != null);
         return msg;
+    }
+
+    private String handleHelpCommand() {
+        String message = "CampusBot's Full Command List\n"
+                + "The following commands are used to manipulate entries in the list of tasks:\n"
+                + "'mark' - marks a particular task as complete\n"
+                + "'unmark' - unmarks a particular task as incomplete\n"
+                + "'delete' - deletes a particular task\n"
+                + "The following commands are used to create a new entry in the list of tasks:\n"
+                + "'todo' - creates a new todo task in the list\n"
+                + "'deadline' - creates a new deadline task in the list\n"
+                + "'event' - creates a new event task in the list\n"
+                + "The following commands are admin related commands used to navigate the ChatBot\n"
+                + "'list' - displays the current list of tasks\n"
+                + "'find' - searches for a task in the list by the keyword that proceeds the find command\n"
+                + "'help' - displays the help page, the one you are seeing now :)\n"
+                + "'bye' - exits the ChatBot\n";
+        return message;
     }
 
     private String handleTaskCommand(String command, String details) throws CampusException {
@@ -113,9 +134,9 @@ public class Parser {
 
     /**
      * Handles the commands for mark, unmark and delete - passes it to the taskList object which contains methods
-     * to deal with manipulation of the task
-     * @param command mark/unmark/delete
-     * @param userInput the index of the list
+     * to deal with manipulation of the task.
+     * @param command mark/unmark/delete.
+     * @param userInput the index of the list.
      */
     public String handleUpdateCommands(String command, String userInput) {
         Task task = this.taskList.getIthTaskString(userInput);

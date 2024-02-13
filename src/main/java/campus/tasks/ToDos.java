@@ -1,9 +1,7 @@
 package campus.tasks;
 
-import campus.tasks.Task;
-
 /**
- * Contains the logic for the ToDos Class which extends the abstract Task Class
+ * Contains the logic for the ToDos Class which extends the abstract Task Class.
  */
 public class ToDos extends Task {
     public ToDos(String TodoTask) {
@@ -16,10 +14,12 @@ public class ToDos extends Task {
         this.completed = completed;
     }
 
+    @Override
     public void markComplete() {
         this.completed = true;
     }
 
+    @Override
     public void markIncomplete() {
         this.completed = false;
     }
@@ -30,6 +30,7 @@ public class ToDos extends Task {
         return String.format("[T] %s %s", xMarker, this.taskName);
     }
 
+    @Override
     public String toDBFormat() {
         String completed = this.completed ? "1" : "0";
         return String.format("T | %s | %s", completed, this.taskName);
