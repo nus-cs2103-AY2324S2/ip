@@ -176,8 +176,8 @@ public class TaskList {
      * Returns string when marks a task as done.
      *
      * @param input index of the task to be marked as done.
-     * @throws DukeException If input task number is not in storage range.
      * @return String of action.
+     * @throws DukeException If input task number is not in storage range.
      */
     public String markDone(String input) throws DukeException {
         try {

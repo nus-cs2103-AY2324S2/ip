@@ -1,12 +1,8 @@
 package duke.command;
 
-import duke.exception.DukeException;
-import duke.helpers.FileManaging;
 import duke.helpers.Storage;
 import duke.helpers.Ui;
 import duke.task.TaskList;
-
-import java.io.IOException;
 
 /**
  * CheckDateCommand class

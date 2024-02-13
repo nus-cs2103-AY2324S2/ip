@@ -26,7 +26,7 @@ public class TaskDeletingCommand extends Command {
     @Override
     public String getExecutionMessage(TaskList tasks, Ui ui, Storage storage) {
         try {
-            String output = tasks.addTask(commandArr[0], commandArr.length > 1 ? commandArr[1] : "");
+            String output = tasks.deleteTask(commandArr.length > 1 ? commandArr[1] : "");
             FileManaging.writeToFile(CommandType.FILEPATH.toString(), tasks);
             return output;
         } catch (DukeException e) {
