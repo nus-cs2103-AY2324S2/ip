@@ -17,5 +17,3 @@ bin/
 text-ui-test/EXPECTED-UNIX.TXT
 /src/main/java/data/list.txt
 text-ui-test/src/main/java/data/list.txt
-config/checkstyle/checkstyle.xml
-config/checkstyle/suppressions.xml
