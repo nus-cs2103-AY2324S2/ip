@@ -32,22 +32,26 @@ class Storage {
      */
     protected void loadTask(String line) throws FishStockException {
         String[] arr = line.split("\\|");
+        String markStatus = arr[arr.length - 1];
         Task task;
+
         try {
-            if ("T".equals(arr[0])) { // Todo
+            if ("T".equals(arr[0])) {
                 task = new Todo(arr[1]);
-            } else if ("D".equals(arr[0])) { // Deadline
+            } else if ("D".equals(arr[0])) {
                 task = new Deadline(arr[1], Parser.parseDate(arr[2]));
-            } else if ("E".equals(arr[0])) { // Event
+            } else if ("E".equals(arr[0])) {
                 task = new Event(arr[1], Parser.parseDate(arr[2]), Parser.parseDate(arr[3]));
             } else {
                 throw new FishStockException("Wrong format..");
             }
 
-            if (arr[arr.length - 1].equals("1")) {
+            if (markStatus.equals("1")) {
                 task.markAsDone();
-            } else if (!arr[arr.length - 1].equals("0")) {
-                throw new FishStockException("Mark corrupted..");
+            } else if (markStatus.equals("0")) {
+                task.markAsUndone();
+            } else {
+                throw new FishStockException("Mark status corrupted..");
             }
         } catch (FishStockException e) {
             throw new FishStockException("File corrupted!... Starting new session...\n");

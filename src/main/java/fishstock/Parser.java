@@ -4,71 +4,27 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import fishstock.FishStock.Command;
+import fishstock.Command.CommandType;
 
 /**
  * Encapsulates parsing methods.
  */
 class Parser {
-    protected static DateTimeFormatter inDateFormat = DateTimeFormatter.ofPattern("d/M/yyyy H:m");
-    protected static DateTimeFormatter outDateFormat = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
+    protected static final DateTimeFormatter IN_DATE_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy H:m");
+    protected static final DateTimeFormatter OUT_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
 
     /**
-     * Check if given input starts with a command.
-     * @param command The command.
-     * @param input The input to compare.
-     * @return The check result.
+     * Parses command type from input.
+     * @param commandStr The string command.
+     * @return The command type.
      */
-    protected static boolean startsWith(String command, String input) {
-        return input.length() >= command.length() && command.equals(input.substring(0, command.length()));
-    }
-
-    /**
-     * Parses input into their respective commands.
-     * @param input The input that starts with the command.
-     * @return The command.
-     */
-    protected static Command parse(String input) {
-        if (startsWith("bye", input)) {
-            return Command.BYE;
-        } else if (startsWith("list", input)) {
-            return Command.LIST;
-        } else if (startsWith("mark", input)) {
-            return Command.MARK;
-        } else if (startsWith("unmark", input)) {
-            return Command.UNMARK;
-        } else if (startsWith("delete", input)) {
-            return Command.DELETE;
-        } else if (startsWith("find", input)) {
-            return Command.FIND;
-        } else if (startsWith(Todo.COMMAND, input)) {
-            return Command.TODO;
-        } else if (startsWith(Deadline.COMMAND, input)) {
-            return Command.DEADLINE;
-        } else if (startsWith(Event.COMMAND, input)) {
-            return Command.EVENT;
+    protected static CommandType parseCommandType(String commandStr) {
+        for (CommandType commandType : CommandType.values()) {
+            if (commandStr.equals(commandType.keyword)) {
+                return commandType;
+            }
         }
-        return Command.INVALID;
-    }
-
-    /**
-     * Gets index number from input string.
-     * Has the format "[command] [task_number]".
-     * Subtracts 1 from task_number to obtain index number for array.
-     * @param input The input from user.
-     * @return The resulting index number.
-     * @throws FishStockException The exceptions while calculating the index number.
-     */
-    protected static Integer getTaskFromIndex(String input) throws FishStockException {
-        try {
-            int num = Integer.parseInt(input.split(" ", 2)[1]);
-            return num - 1;
-
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new FishStockException("OH NOSE! Task number cannot be empty..");
-        } catch (NumberFormatException e) {
-            throw new FishStockException("OH NOSE! Task number has to be an integer..");
-        }
+        return CommandType.INVALID;
     }
 
     /**
@@ -80,7 +36,7 @@ class Parser {
      */
     protected static LocalDateTime parseDate(String date) throws FishStockException {
         try {
-            return LocalDateTime.parse(date, inDateFormat);
+            return LocalDateTime.parse(date, IN_DATE_FORMAT);
         } catch (DateTimeParseException e) {
             throw new FishStockException("OH NOSE! Dates should be of the format <dd/mm/yyyy hh:mm>");
         }
@@ -92,7 +48,7 @@ class Parser {
      * @return The String with input format.
      */
     protected static String inDate(LocalDateTime date) {
-        return date.format(inDateFormat);
+        return date.format(IN_DATE_FORMAT);
     }
 
     /**
@@ -101,6 +57,6 @@ class Parser {
      * @return The String with output format.
      */
     protected static String outDate(LocalDateTime date) {
-        return date.format(outDateFormat);
+        return date.format(OUT_DATE_FORMAT);
     }
 }

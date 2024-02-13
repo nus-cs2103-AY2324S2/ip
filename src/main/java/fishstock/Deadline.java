@@ -7,8 +7,7 @@ import java.time.LocalDateTime;
  * This Task has a description and deadline date.
  */
 class Deadline extends Task {
-    protected static final String COMMAND = "deadline";
-    private static final String BY_KEYWORD = " /by ";
+    private static final String BY_KEYWORD = "/by";
     private LocalDateTime by;
 
     /**
@@ -21,6 +20,18 @@ class Deadline extends Task {
         this.by = by;
     }
 
+    private static void checkIsValid(String[] splitInput) throws FishStockException {
+        if (splitInput[0].isEmpty()) {
+            throw new FishStockException("OH NOSE! The description of deadline cannot be empty..");
+        }
+        if (splitInput[1] == null) {
+            throw new FishStockException("OH NOSE! \"" + BY_KEYWORD + "\" not found..");
+        }
+        if (splitInput[1].isEmpty()) {
+            throw new FishStockException("OH NOSE! The by-date cannot be empty..");
+        }
+    }
+
     /**
      * Initialize Deadline object from input.
      * Has format "deadline [description] /by [date]".
@@ -28,23 +39,12 @@ class Deadline extends Task {
      * @return The generated Deadline object.
      * @throws FishStockException The exceptions while creating the Deadline object.
      */
-    protected static Deadline of(String input) throws FishStockException {
-        if (!Parser.startsWith(COMMAND, input)) {
-            throw new FishStockException("OH NOSE! This input is not deadline..");
-        }
-        int byIdx = input.indexOf(BY_KEYWORD);
-        if (byIdx == -1) {
-            throw new FishStockException("OH NOSE! \"" + BY_KEYWORD + "\" not found..");
-        }
-        if (COMMAND.length() + 1 > byIdx) {
-            throw new FishStockException("OH NOSE! The description of deadline cannot be empty..");
-        }
-        if (byIdx + BY_KEYWORD.length() == input.length()) {
-            throw new FishStockException("OH NOSE! The by-date cannot be empty..");
-        }
-        String description = input.substring(COMMAND.length() + 1, byIdx);
-        String byStr = input.substring(byIdx + BY_KEYWORD.length());
-        LocalDateTime by = Parser.parseDate(byStr);
+    protected static Deadline of(UserInput input) throws FishStockException {
+        String[] splitInput = input.splitByKeywords(BY_KEYWORD);
+        checkIsValid(splitInput);
+
+        String description = splitInput[0];
+        LocalDateTime by = Parser.parseDate(splitInput[1]);
         return new Deadline(description, by);
     }
 
