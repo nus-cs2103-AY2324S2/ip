@@ -47,6 +47,9 @@ public class Parser {
         String[] userInputSplit = userInput.split(" ", 2);
         ArrayList<String> userInputList = new ArrayList<>(Arrays.asList(userInputSplit));
         userInputList.add("");
+
+        assert userInputList.size() >= 2: "There should be a user input here";
+
         String userCommand = userInputList.get(0).toLowerCase();
         String description = userInputList.get(1);
         parseUserInput(userCommand, description);
