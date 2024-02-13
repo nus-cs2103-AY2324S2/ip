@@ -14,6 +14,10 @@ import lite.util.LiteException;
 public class Storage {
     private static final String PATH = "./lite.txt";
 
+    /**
+     * Saves the TaskList into a file
+     * @param tasks TaskList to be saved
+     */
     public static void save(ArrayList<Task> tasks) {
         try {
             File file = new File(PATH);
@@ -31,6 +35,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the saved tasks into the chatbot
+     * @return The TaskList
+     * @throws IOException Error message if failed to read from file
+     */
     public static ArrayList<Task> load() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(PATH);

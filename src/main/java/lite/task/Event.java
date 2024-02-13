@@ -10,6 +10,11 @@ public class Event extends Task {
         this.end = end;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * Date is displayed in format: (from: Monday 2pm to: Tuesday 4pm)
+     */
     @Override
     public String toString() {
         String startSplit[] = start.split(" ", 2);
@@ -18,6 +23,9 @@ public class Event extends Task {
                 endSplit[0] + ": " + endSplit[1] + ")";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String saveToFile() {
         return "E!" + super.saveToFile() + "!" + start + "!" + end + "\n";

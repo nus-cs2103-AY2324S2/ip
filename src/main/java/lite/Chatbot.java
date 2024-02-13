@@ -18,6 +18,9 @@ public class Chatbot {
         this.isBye = false;
     }
 
+    /**
+     * Starts the chatbot
+     */
     public void start() {
         try {
             this.tasks = new TaskList(Storage.load());
@@ -33,6 +36,9 @@ public class Chatbot {
         }
     }
 
+    /**
+     * Outputs a greeting message
+     */
     private void greetings() {
         Printer.printHorizontalLine();
         String msg = " Hello! I'm LITE\n" +
@@ -41,6 +47,9 @@ public class Chatbot {
         Printer.printHorizontalLine();
     }
 
+    /**
+     * Terminates the program
+     */
     private void exit() {
         Printer.printHorizontalLine();
         String msg = " Bye. Hope to see you again soon!";
