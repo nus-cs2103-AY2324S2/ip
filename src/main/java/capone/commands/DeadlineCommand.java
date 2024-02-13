@@ -58,10 +58,10 @@ public class DeadlineCommand extends Command {
         }
 
         // The starting index of the words that contain the description.
-        final int STARTING_NDX_DESCRIPTION = 1;
+        final int startingNdxDescription = 1;
         // The ending index of the words that contain the description.
-        final int ENDING_NDX_DESCRIPTION = byNdx;
-        String description = Parser.parseDescription(STARTING_NDX_DESCRIPTION, ENDING_NDX_DESCRIPTION, inputList);
+        final int endingNdxDescription = byNdx;
+        String description = Parser.parseDescription(startingNdxDescription, endingNdxDescription, inputList);
 
         if (description.toString().equalsIgnoreCase("")) {
             throw new InsufficientArgumentException("Insufficient arguments!\n"

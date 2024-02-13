@@ -52,14 +52,14 @@ public class UpdateCommand extends Command {
         // Mark task as done.
         try {
             // Index of the task in the TaskList object (zero-indexed).
-            final int TASK_INDEX = Integer.parseInt(inputList.get(1)) - 1;
-            Task newTaskDesc = taskList.getTask(TASK_INDEX);
+            final int taskIndex = Integer.parseInt(inputList.get(1)) - 1;
+            Task newTaskDesc = taskList.getTask(taskIndex);
 
             // The starting index of the words that contain the description.
-            final int DESC_NDX = 2;
+            final int descNdx = 2;
 
             // Get the new description from the user and update the task's description.
-            String newDescription = Parser.parseDescription(DESC_NDX, inputList.size(), inputList);
+            String newDescription = Parser.parseDescription(descNdx, inputList.size(), inputList);
             newTaskDesc.setDescription(newDescription);
 
             // Update the task list file.

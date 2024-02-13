@@ -59,20 +59,20 @@ public class EventCommand extends Command {
         }
 
         // The index of the word that is not found in a list would be -1.
-        final int COMMAND_NOT_FOUND = -1;
+        final int commandNotFound = -1;
         // The index of the words that is last of the list.
-        final int LAST_WORD = inputList.size() - 1;
+        final int lastWord = inputList.size() - 1;
         // Catch potential errors from date entry.
-        if (fromNdx == COMMAND_NOT_FOUND || fromNdx == LAST_WORD || toNdx == LAST_WORD) {
+        if (fromNdx == commandNotFound || fromNdx == lastWord || toNdx == lastWord) {
             throw new InsufficientArgumentException("Please enter a start and end date!\n"
                     + "Usage: event [description] /from [date] /to [date]");
         }
 
         // The starting index of the words that contain the description.
-        final int STARTING_NDX_DESCRIPTION = 1;
+        final int startingNdxDescription = 1;
         // The ending index of the words that contain the description.
-        final int ENDING_NDX_DESCRIPTION = fromNdx;
-        String description = Parser.parseDescription(STARTING_NDX_DESCRIPTION, ENDING_NDX_DESCRIPTION, inputList);
+        final int endingNdxDescription = fromNdx;
+        String description = Parser.parseDescription(startingNdxDescription, endingNdxDescription, inputList);
 
         if (description.equalsIgnoreCase("")) {
             throw new InsufficientArgumentException("Insufficient arguments!\n"
