@@ -46,6 +46,8 @@ public class ConvoBot {
             return rc.getResponse();
         }
 
+        assert c != null;
+
         try {
             c.execute(tasks, rc);
         } catch (ConvoBotException e) {
