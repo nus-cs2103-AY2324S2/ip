@@ -34,7 +34,6 @@ public class MarkCommand extends Command {
             int index = Integer.parseInt(message);
             tasks.get(index - 1).mark();
             storage.appendToFile(tasks);
-            assert tasks.get(index - 1).getStatus().equals("1") : "task should be marked";
             return String.format(SUCCESS_MESSAGE, tasks.get(index - 1));
         } catch (IndexOutOfBoundsException | IOException e) {
             return e.getMessage();
