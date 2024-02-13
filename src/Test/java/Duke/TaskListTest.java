@@ -2,8 +2,14 @@ package Duke;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * JUnit test for TaskList class.
+ */
 public class TaskListTest {
 
+    /**
+     * Tests the addTask method of TaskList.
+     */
     @Test
     public void testAddTask() {
         TaskList taskList = new TaskList();
@@ -13,6 +19,9 @@ public class TaskListTest {
         assertEquals(task, TaskList.getTasks()[0]);
     }
 
+    /**
+     * Tests the removeTask method of TaskList.
+     */
     @Test
     public void testRemoveTask() {
         TaskList taskList = new TaskList();
