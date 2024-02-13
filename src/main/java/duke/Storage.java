@@ -75,6 +75,8 @@ public class Storage {
                         td.markAsDone();
                     }
                     tasks.addTask(td);
+                } else {
+                    throw new DukeException("Task unable to be loaded; Task type not found");
                 }
             }
             s.close();
