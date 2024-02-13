@@ -3,8 +3,9 @@ package jivox;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import jivox.task.Task;
 import jivox.task.TaskList;
@@ -38,7 +39,7 @@ public class Ui {
      * Prints a greeting message.
      */
     public String greet() {
-        return String.format("Hello! I'm Jivox \n What can I do for you?");
+        return "Hello! I'm Jivox \n What can I do for you?";
     }
 
     /**
@@ -95,7 +96,6 @@ public class Ui {
             for (int i = 0; i < list.getLength(); i++) {
                 sb.append(String.format("%d. %s\n", (i + 1), list.getTask(i)));
             }
-            addDivider();
             return "You have Following tasks in your List:- \n" + sb;
         }
     }
@@ -108,37 +108,16 @@ public class Ui {
      */
 
     public String showFind(TaskList list, String input) {
-        StringBuilder str = new StringBuilder();
-        addDivider();
-        if (list.getLength() == 0) {
-            return "You have No Task in your list";
+        List<Task> matchedTasks = list.getTasks().stream().filter(t -> t.contains(input)).collect( Collectors.toList());
+
+        if (matchedTasks.isEmpty()) {
+            return "No Matching tasks found in the list!";
         } else {
-            TaskList matchedTask = new TaskList(new ArrayList<>());
-            for (int i = 0; i < list.getLength(); i++) {
-                Task t = list.getTask(i);
-                if (t.contains(input)) {
-                    matchedTask.add(t);
-                }
-            }
-
-            if (matchedTask.getLength() == 0) {
-                return "No Matching tasks found in the list!";
-            } else {
-                for (int i = 0; i < matchedTask.getLength(); i++) {
-                    str.append(String.format("%s \n", matchedTask.getTask(i)));
-                }
-            }
+            return "Following are Matching tasks in your list:-\n" +
+                    matchedTasks.stream()
+                            .map(Task::toString) // Map tasks to their string representation
+                            .collect(Collectors.joining("\n"));
         }
-        return "Following are Matching tasks in your list:-\n" + str;
-    }
-
-    /**
-     * Shows a divider.
-     *
-     * @return
-     */
-    public String addDivider() {
-        return "============================================================";
     }
 
     /**
@@ -165,8 +144,6 @@ public class Ui {
                 }
             }
         }
-        addDivider();
-
         return "You have following Task due on "
                 + time.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + ":-\n" + sb;
     }

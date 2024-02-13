@@ -4,6 +4,7 @@ package jivox;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 import jivox.exception.DataHandlerException;
 import jivox.exception.JivoxException;
@@ -203,8 +204,14 @@ public class Jivox {
             case LIST:
                 return this.ui.showTasks(this.tasks);
             case SHOW:
+                if (input.length == 1){
+                    throw new JivoxException("Please Provide a Date to show Tasks!");
+                }
                 return this.show(input[1]);
             case FIND:
+                if (input.length == 1){
+                    throw new JivoxException("Please Provide a Keyword for find!");
+                }
                 return this.find(input[1]);
             default:
                 throw new JivoxException("Sorry ! , I can't Understand your Command");
