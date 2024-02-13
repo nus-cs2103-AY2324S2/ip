@@ -1,6 +1,10 @@
 package yoda.parser;
 import yoda.constants.Replies;
-import yoda.exceptions.*;
+import yoda.exceptions.DescriptionAndTimeMissingException;
+import yoda.exceptions.UnknownCommandException;
+import yoda.exceptions.InvalidTaskException;
+import yoda.exceptions.InvalidDateTimeFormatException;
+import yoda.exceptions.TimeMissingException;
 import yoda.yodaUI.YodaUI;
 import yoda.task.Deadline;
 import yoda.task.Event;
@@ -9,6 +13,8 @@ import yoda.task.Todo;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import yoda.datetimeutil.DateTimeUtil;
+
+
 public class Parser {
 
     private final YodaUI YODA_UI;
@@ -27,45 +33,43 @@ public class Parser {
      * @throws Exception if an error occurs during command execution.
      */
     public String parseAndExecute(String input) throws Exception {
-        String[] parts = getSplit(input);
+        String[] parts = getSplitParts(input);
         Command command;
         try {
             command = Command.fromString(parts[0].toUpperCase());
         } catch (IllegalArgumentException e) {
-            return "Unknown command. Try again, you must.";
+            throw new UnknownCommandException();
         }
 
         try {
             switch (command) {
-                case BYE:
-                    YODA_UI.stopChatting();
-                    return Replies.BYE;
-                case LIST:
-                    return YODA_UI.showTasks();
-                case SAVE:
-                    TaskList taskList = YODA_UI.getTaskList();
-                    YODA_UI.saveTasks(taskList);
-                    return Replies.TASKS_SAVED;
-                case DELETE:
-                    performTaskOperation(parts, YODA_UI::deleteTask);
-                case FIND:
-                    if (parts.length > 1) {
-                        return YODA_UI.findTasks(parts[1]);
-                    } else {
-                        return Replies.UNKNOWN_SEARCH_TERM;
-                    }
-                case MARK:
-                    return performTaskOperation(parts, YODA_UI::markTaskAsDone);
-                case UNMARK:
-                    return performTaskOperation(parts, YODA_UI::markTaskAsUndone);
-                case TODO:
-                    return YODA_UI.addTask(new Todo(parts[1]));
-                case DEADLINE:
-                    return addTaskWithDateTime(parts, Command.DEADLINE);
-                case EVENT:
-                    return addTaskWithDateTime(parts, Command.EVENT);
-                default:
-                    return Replies.UNKNOWN_COMMAND;
+            case BYE:
+                return Replies.BYE;
+            case LIST:
+                return YODA_UI.showTasks();
+            case SAVE:
+                TaskList taskList = YODA_UI.getTaskList();
+                return YODA_UI.saveTasks(taskList);
+            case DELETE:
+                performTaskOperation(parts, YODA_UI::deleteTask);
+            case FIND:
+                if (parts.length > 1) {
+                    return YODA_UI.findTasks(parts[1]);
+                } else {
+                    return Replies.UNKNOWN_SEARCH_TERM;
+                }
+            case MARK:
+                return performTaskOperation(parts, YODA_UI::markTaskAsDone);
+            case UNMARK:
+                return performTaskOperation(parts, YODA_UI::markTaskAsUndone);
+            case TODO:
+                return YODA_UI.addTask(new Todo(parts[1]));
+            case DEADLINE:
+                return addTaskWithDateTime(parts, Command.DEADLINE);
+            case EVENT:
+                return addTaskWithDateTime(parts, Command.EVENT);
+            default:
+                return Replies.UNKNOWN_COMMAND;
             }
         } catch (Exception e) {
             return "Error occurred: " + e.getMessage();
@@ -77,7 +81,7 @@ public class Parser {
      * @param input The input string to be split.
      * @return The split input string.
      */
-    private static String[] getSplit(String input) {
+    private static String[] getSplitParts(String input) {
         String[] parts = input.trim().split("\\s+", 2);
         assert parts.length > 0 : "Input should be split into at least one part";
         return parts;
@@ -99,24 +103,58 @@ public class Parser {
             throw new TimeMissingException();
         }
 
+        switch (commandType) {
+        case DEADLINE:
+            return addDeadlineTask(taskParts);
+        case EVENT:
+            return addEventTask(taskParts);
+        default:
+            throw new UnknownCommandException();
+        }
+    }
+
+    /**
+     * Parses the date and time from the input.
+     * @param dateTimeStr The date and time string to be parsed.
+     * @return The parsed date and time.
+     * @throws InvalidDateTimeFormatException if the date and time string is invalid.
+     */
+    private LocalDateTime parseDateTime(String dateTimeStr) throws InvalidDateTimeFormatException {
         try {
-            if (commandType == Command.DEADLINE) {
-                LocalDateTime by = DateTimeUtil.parseDateTime(taskParts[1]);
-                return YODA_UI.addTask(new Deadline(taskParts[0], by));
-            } else if (commandType == Command.EVENT) {
-                String[] timeParts = getTimeParts(taskParts);
-                if (timeParts.length < 2) {
-                    throw new TimeMissingException("Required, the event end time is, yes.");
-                }
-                LocalDateTime from = DateTimeUtil.parseDateTime(timeParts[0]);
-                LocalDateTime to = DateTimeUtil.parseDateTime(timeParts[1]);
-                return YODA_UI.addTask(new Event(taskParts[0], from, to));
-            }
+            return DateTimeUtil.parseDateTime(dateTimeStr);
         } catch (DateTimeParseException e) {
             throw new InvalidDateTimeFormatException();
         }
-        return "Unexpected error occurred.";
     }
+
+    /**
+     * Adds a deadline task to the task list.
+     * @param taskParts The split input containing the task description and time.
+     * @return The task description and time parts.
+     * @throws Exception if the task description or time is missing.
+     */
+    private String addDeadlineTask(String[] taskParts) throws Exception {
+        LocalDateTime by = parseDateTime(taskParts[1]);
+        return YODA_UI.addTask(new Deadline(taskParts[0], by));
+    }
+
+    /**
+     * Adds an event task to the task list.
+     * @param taskParts The split input containing the task description and time.
+     * @return The task description and time parts.
+     * @throws Exception if the task description or time is missing.
+     */
+    private String addEventTask(String[] taskParts) throws Exception {
+        String[] timeParts = getTimeParts(taskParts);
+        if (timeParts.length < 2) {
+            throw new TimeMissingException("Required, the event end time is, yes.");
+        }
+        LocalDateTime from = parseDateTime(timeParts[0]);
+        LocalDateTime to = parseDateTime(timeParts[1]);
+        return YODA_UI.addTask(new Event(taskParts[0], from, to));
+    }
+
+
 
     /**
      * Parses the time parts from the input.
@@ -149,8 +187,8 @@ public class Parser {
         try {
             int taskNumber = Integer.parseInt(input);
             assert taskNumber > 0 : "Task number should be positive";
-            boolean b = taskNumber > YODA_UI.getTaskListSize();
-            if (b) {
+            boolean taskLargerThanSize = taskNumber > YODA_UI.getTaskListSize();
+            if (taskLargerThanSize) {
                 throw new InvalidTaskException();
             }
             return taskNumber;

@@ -70,7 +70,6 @@ public abstract class Task {
 
     /**
      * Returns a string representation of the event, including its type,
-     * @return
      */
     public abstract String toFileFormatDetails();
 

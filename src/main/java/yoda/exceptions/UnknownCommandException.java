@@ -6,13 +6,9 @@ package yoda.exceptions;
 public class UnknownCommandException extends Exception {
 
     /**
-     * Constructs an UnknownCommandException with a detailed message.
-     * The message usually indicates that the user input did not match any known command.
-     *
-     * @param message A string detailing the reason for the exception,
-     *                such as "Unknown command entered".
+     * Constructor for UnknownCommandException.
      */
-    public UnknownCommandException(String message) {
-        super(message); // Call to the superclass (Exception) constructor with the detailed message
+    public UnknownCommandException() {
+        super("Unknown command. Try again, you must.");
     }
 }
