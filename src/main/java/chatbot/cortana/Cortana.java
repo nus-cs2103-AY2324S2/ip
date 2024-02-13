@@ -16,7 +16,7 @@ public class Cortana {
 
     private static final String DATA_FOLDER = "data";
     private static final String SAVE_FILENAME = "tasks.csv";
-    private String name = "Cortana";
+    private static final String NAME = "Cortana";
     private TaskList taskList;
     private final String baseDir;
     private final String saveDirPath;
@@ -31,6 +31,10 @@ public class Cortana {
         this.saveDirPath = java.nio.file.Paths.get(this.baseDir, DATA_FOLDER).toString();
         this.storage = new Storage(saveDirPath, SAVE_FILENAME);
         this.taskList = new TaskList();
+    }
+
+    public String getGreetString() {
+        return Ui.greet(Cortana.NAME);
     }
 
     public String getResponse(String input) {

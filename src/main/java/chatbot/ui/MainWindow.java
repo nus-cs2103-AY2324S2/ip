@@ -27,13 +27,29 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/chief.png"));
     private Image chatbotImage = new Image(this.getClass().getResourceAsStream("/images/cortana.jpeg"));
 
+    /**
+     * Initializes the MainWindow and greets the user.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Sets the chatbot for the MainWindow.
+     * @param d The chatbot to be set.
+     */
     public void setChatbot(Cortana d) {
         cortana = d;
+    }
+
+    /**
+     * Greets the user.
+     */
+    public void greetUser() {
+        dialogContainer.getChildren().add(
+                DialogBox.getChatbotDialog(cortana.getGreetString(), chatbotImage)
+        );
     }
 
     /**
