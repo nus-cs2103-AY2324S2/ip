@@ -22,11 +22,9 @@ public class CommandList extends Command {
     @Override
     public void execute(String description) {
         ArrayList<Task> list = taskList.getList();
-        ui.add("Here are the tasks in your list:");
+        ui.beginToPrintTaskList();
         for (int i = 0; i < list.size(); i++) {
-            ui.add(String.format("%d. %s",
-                    i + 1,
-                    list.get(i)));
+            ui.printTaskInListWithIndex(list.get(i).toString(), i+1);
         }
     }
     

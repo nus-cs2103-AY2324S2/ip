@@ -5,6 +5,7 @@ package duke.tasks;
  */
 public class Deadline extends Task {
     protected DateTask by;
+    protected String TASKTYPE = "Deadline";
 
     public Deadline(String description, String by) {
         this(description, by, false);
@@ -13,6 +14,14 @@ public class Deadline extends Task {
     public Deadline(String description, String by, boolean isDone) {
         super(description, isDone);
         this.by = new DateTask(by);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getTaskType() {
+        return TASKTYPE;
     }
 
     /**

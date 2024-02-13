@@ -12,7 +12,7 @@ import duke.commands.CommandList;
 import duke.commands.CommandMark;
 import duke.commands.CommandToDo;
 import duke.commands.CommandUnmark;
-
+import duke.exceptions.DukeCeption;
 import duke.commands.CommandFind;
 import duke.tasks.TaskList;
 
@@ -90,9 +90,11 @@ public class Parser {
                 case EVENT:
                     command = new CommandEvent(taskList, ui);
                     break;
-                default: // find
+                case FIND:
                     command = new CommandFind(taskList, ui);
                     break;
+                default: // find
+                    throw new DukeCeption("Sorry I don't recognize that command :/");
             }
             command.execute(description);
         } catch (IllegalArgumentException e) {

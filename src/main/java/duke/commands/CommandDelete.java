@@ -23,8 +23,7 @@ public class CommandDelete extends Command {
     public void execute(String taskNumber) {
         try {
             Task task = taskList.delete(taskNumber);
-            ui.add("Okay! this task is now removed:");
-            ui.add(task.toString());
+            ui.deleteTask(task.toString());
         } catch (DukeCeption e) {
             ui.add(e.getMessage());
         }

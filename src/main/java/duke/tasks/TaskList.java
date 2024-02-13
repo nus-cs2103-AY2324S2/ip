@@ -79,38 +79,51 @@ public class TaskList {
      * Loads the list from text that was initially from the file
      * @param dataStrings ArrayList of data in String form
      */
-    public void loadList(ArrayList<String> dataStrings) {
-        for (String line : dataStrings) {
-            this.textToTask(line);
+    public void loadList(ArrayList<String> dataStrings) throws DukeCeption {
+        try {
+            for (String line : dataStrings) {
+                this.textToTask(line);
+            }
+        } catch (DukeCeption e) {
+            throw e;
         }
+        
     }
 
     /**
      * Parse data texts from file and add task into Task List
      * @param line String of Task data
      */
-    public void textToTask(String line) {
-        String[] separate = line.split(";;");
-        String taskType = separate[0];
-        boolean isDone = separate[1].equals("1") ? true : false;
-        String description = separate[2];
-        Task task;
-
-        switch (taskType) {
-            case "T":
-                task = new ToDo(description, isDone);
-                break;
-            case "D":
-                String by = separate[3];
-                task = new Deadline(description, by, isDone);
-                break;
-            default:
-                String from = separate[3];
-                String to = separate[4];
-                task = new Event(description, from, to, isDone);
-                break;
+    public void textToTask(String line) throws DukeCeption {
+        try {
+            String[] separate = line.split(";;");
+            String taskType = separate[0];
+            boolean isDone = separate[1].equals("1") ? true : false;
+            String description = separate[2];
+            Task task;
+    
+            switch (taskType) {
+                case "T":
+                    task = new ToDo(description, isDone);
+                    break;
+                case "D":
+                    String by = separate[3];
+                    task = new Deadline(description, by, isDone);
+                    break;
+                case "E":
+                    String from = separate[3];
+                    String to = separate[4];
+                    task = new Event(description, from, to, isDone);
+                    break;
+                default:
+                    throw new DukeCeption("Task not recognized");
+    
+            }
+            list.add(task);
+        } catch (DukeCeption e) {
+            throw e;
         }
-        list.add(task);
+        
     }
 
     /**

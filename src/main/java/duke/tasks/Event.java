@@ -7,6 +7,8 @@ public class Event extends Task {
     protected DateTask from;
     protected DateTask to;
 
+    private final String TASKTYPE = "Event";
+
     public Event(String description, String from, String to) {
         this(description, from, to , false);
     }
@@ -15,6 +17,14 @@ public class Event extends Task {
         super(description, isDone);
         this.from = new DateTask(from);
         this.to = new DateTask(to);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getTaskType() {
+        return TASKTYPE;
     }
 
     /**

@@ -9,6 +9,8 @@ public class Duke {
 
     private final String FILE_PATH = "./data/linus.txt";
 
+    private final String NAME = "Linus";
+
     private Ui ui;
 
     private TaskList taskList;
@@ -28,11 +30,21 @@ public class Duke {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * 
+     * @param input String of user input
+     * @return String response from the chatbot
      */
     public String getResponse(String input) {
         parser.readUserInput(input);
+        return ui.toString();
+    }
+
+    /**
+     * Greets the user
+     * @return String response of greeting
+     */
+    public String greeting() {
+        ui.greeting(NAME);
         return ui.toString();
     }
 
