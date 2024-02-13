@@ -9,8 +9,8 @@ import java.time.format.DateTimeParseException;
  */
 public class Deadline extends Task {
 
-    protected LocalDateTime by;
-    protected String byInput;
+    protected LocalDateTime byDateTime;
+    protected String byString;
 
     /**
      * Constructs a Deadline object with the specified description and deadline.
@@ -21,8 +21,8 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) throws DateTimeParseException {
         super(description);
-        this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
-        this.byInput = by;
+        this.byDateTime = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+        this.byString = by;
     }
 
     /**
@@ -32,7 +32,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        String byString = this.by.format(DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a"));
+        String byString = this.byDateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a"));
         return String.format("[D][%s] %s (by: %s)", this.getStatusIcon(), this.description, byString);
     }
 
@@ -43,7 +43,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toStorageString() {
-        return String.format("D | %d | %s | %s", this.isDone ? 1 : 0, this.description, this.byInput);
+        return String.format("D | %d | %s | %s", this.isDone ? 1 : 0, this.description, this.byString);
     }
 
     /**
@@ -61,6 +61,13 @@ public class Deadline extends Task {
             return false;
         }
         Deadline d = (Deadline) o;
-        return this.description.equals(d.description) && this.byInput.equals(d.byInput);
+        return this.description.equals(d.description) && this.byString.equals(d.byString);
+    }
+
+    @Override
+    public Deadline copy() {
+        Deadline copy = new Deadline(this.description, this.byString);
+        copy.isDone = this.isDone;
+        return copy;
     }
 }

@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 /**
  * Represents a collection of tasks and provides methods for managing them.
@@ -18,6 +19,7 @@ public class TaskList {
     protected static final String UNMARK_MESSAGE_START = "I've marked the following task(s) as not done:\n";
     protected static final String FIND_MESSAGE_START = "Here are the matching tasks in your list:\n";
     protected ArrayList<Task> tasks = new ArrayList<>();
+    protected ArrayList<Task> prevTasks;
 
     /**
      * Constructs an empty TaskList.
@@ -65,6 +67,7 @@ public class TaskList {
                 throw new WrongFormatException("Cannot load task from file");
             }
         }
+        this.prevTasks = this.tasks;
     }
 
     /**
@@ -93,6 +96,7 @@ public class TaskList {
      */
     public String delete(Storage storage, int... taskIndices) {
         String invalidTaskNumbers = getInvalidTaskNumbers(taskIndices);
+        this.prevTasks = new ArrayList<>(this.tasks); // Save state before the tasks are deleted
         String deletedTasks = getDeletedTasks(taskIndices);
         boolean hasDeletedTasks = !deletedTasks.equals(DELETE_MESSAGE_START);
 
@@ -159,6 +163,7 @@ public class TaskList {
      * @return A message to be displayed after adding the task.
      */
     public String updateTasks(Storage storage, Task task) {
+        this.prevTasks = new ArrayList<>(this.tasks); // Save state before the task is added
         this.tasks.add(task);
 
         // Update tasks in storage
@@ -181,6 +186,8 @@ public class TaskList {
      */
     public String mark(Storage storage, int... taskIndices) {
         String invalidTaskNumbers = getInvalidTaskNumbers(taskIndices);
+        // Save state before the tasks are marked
+        this.prevTasks = this.tasks.stream().map(Task::copy).collect(Collectors.toCollection(ArrayList::new));
         String markedTasks = getMarkedTasks(taskIndices);
         boolean hasMarkedTasks = !markedTasks.equals(MARK_MESSAGE_START);
 
@@ -228,6 +235,8 @@ public class TaskList {
      */
     public String unmark(Storage storage, int... taskIndices) {
         String invalidTaskNumbers = getInvalidTaskNumbers(taskIndices);
+        // Save state before the tasks are unmarked
+        this.prevTasks = this.tasks.stream().map(Task::copy).collect(Collectors.toCollection(ArrayList::new));
         String unmarkedTasks = getUnmarkedTasks(taskIndices);
         boolean hasUnmarkedTasks = !unmarkedTasks.equals(UNMARK_MESSAGE_START);
 
@@ -309,6 +318,18 @@ public class TaskList {
             message.append(String.format("%d. %s\n", i + 1, this.tasks.get(i)));
         }
         return message.toString();
+    }
+
+    public String undo(Storage storage) {
+        this.tasks = this.prevTasks;
+
+        // Update tasks in storage
+        try {
+            storage.writeToFile(this);
+        } catch (IOException e) {
+            return String.format("Something went wrong: %s\n", e.getMessage());
+        }
+        return "Your previous command has been undone.";
     }
 
 }
