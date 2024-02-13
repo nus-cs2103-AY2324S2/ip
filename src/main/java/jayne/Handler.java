@@ -52,6 +52,15 @@ public class Handler {
      * @param parts the array containing the input command and its parts.
      * @param taskList the TaskList containing the list of tasks.
      */
+    public static String handleSort(String[] parts, TaskList taskList) {
+        return taskList.sort(parts[1]);
+    }
+    /**
+     * Handles finding tasks by keyword.
+     *
+     * @param parts the array containing the input command and its parts.
+     * @param taskList the TaskList containing the list of tasks.
+     */
     public static String handleFind(String[] parts, TaskList taskList) throws JayneException {
         if (checkIsEmptyOrLessThanLimit(parts)) {
             throw new JayneException("The search keyword cannot be empty.");
@@ -148,6 +157,13 @@ public class Handler {
         String[] times = eventParts[1].split(" /to ", TARGET_LIMT);
         if (checkIsEmptyOrLessThanLimit(times)) {
             throw JayneException.eventEndException();
+        }
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
+            LocalDate.parse(times[0], formatter); // Validate start date
+            LocalDate.parse(times[1], formatter); // Validate end date
+        } catch (DateTimeParseException e) {
+            throw new JayneException("Event date is in the wrong format. Please use yyyy-mm-dd.");
         }
         Event newEvent = new Event(eventParts[0], times[0], times[1]);
         taskList.addTask(newEvent);

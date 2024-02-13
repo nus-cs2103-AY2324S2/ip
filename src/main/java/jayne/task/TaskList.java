@@ -1,6 +1,9 @@
 package jayne.task;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import jayne.JayneException;
@@ -28,6 +31,100 @@ public class TaskList {
         assert storage != null : "Storage should not be null";
         storage.renameFileIfExists();
         storage.loadTasks(taskArray);
+    }
+    /**
+     * Deletes the task at the specified position in the task list.
+     *
+     * @param sortCommand the type of sort user wants
+     * @return the entire sorted list by the type user wants.
+     */
+    public String sort(String sortCommand) {
+        String indent = "\n";
+        switch (sortCommand) {
+        case "type":
+            return indent + sortByType();
+        case "mark":
+            return indent + sortByMark();
+        case "date":
+            return indent + sortByDueDate();
+        default:
+            return "Invalid sort command, available commands date, mark, type";
+        }
+    }
+
+    private String sortByType() {
+        Collections.sort(taskArray, new Comparator<Task>() {
+            @Override
+            public int compare(Task t1, Task t2) {
+                return getTypePriority(t1) - getTypePriority(t2);
+            }
+
+            private int getTypePriority(Task task) {
+                if (task instanceof Todo) {
+                    return 1;
+                }
+                if (task instanceof Deadline) {
+                    return 2;
+                }
+                if (task instanceof Event) {
+                    return 3;
+                }
+                return Integer.MAX_VALUE;
+            }
+        });
+        return formatTaskList();
+    }
+
+    private String sortByMark() {
+        Collections.sort(taskArray, Comparator.comparing(Task::isCompleted));
+        return formatTaskList();
+    }
+
+    private String sortByDueDate() {
+        Collections.sort(taskArray, new Comparator<Task>() {
+            @Override
+            public int compare(Task t1, Task t2) {
+                LocalDate date1 = getDate(t1);
+                LocalDate date2 = getDate(t2);
+
+                // Handle Todo tasks and them at the end
+                if (date1 == null && date2 == null) {
+                    return 0; // Both are Todo tasks
+                }
+                if (date1 == null) {
+                    return 1; // Only t1 is Todo
+                }
+                if (date2 == null) {
+                    return -1; // Only t2 is Todo
+                }
+
+                // Compare dates for Deadline and Event tasks
+                return date1.compareTo(date2);
+            }
+
+            /**
+             * Extracts the date from Task, Deadline, or Event.
+             * Returns null for Todo tasks since they don't have a date.
+             */
+            private LocalDate getDate(Task task) {
+                if (task instanceof Deadline) {
+                    return ((Deadline) task).getBy();
+                } else if (task instanceof Event) {
+                    return ((Event) task).getEnd();
+                }
+                // Todo tasks or any other tasks without a specific date return null
+                return null;
+            }
+        });
+        return formatTaskList();
+    }
+
+    private String formatTaskList() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < taskArray.size(); i++) {
+            sb.append(i + 1).append(". ").append(taskArray.get(i)).append("\n");
+        }
+        return sb.toString();
     }
 
     public int getTaskCount() {
@@ -74,6 +171,7 @@ public class TaskList {
         storage.saveTasks(taskArray);
         return taskArray.remove(taskNumber - 1);
     }
+
     /**
      * Adds a task to the task list and saves the updated list to storage.
      *
@@ -84,6 +182,7 @@ public class TaskList {
         this.taskCount = taskCount + 1;
         storage.saveTasks(taskArray);
     }
+
     /**
      * Retrieves the task at the specified position in the task list.
      *
@@ -96,6 +195,7 @@ public class TaskList {
         }
         return null;
     }
+
     /**
      * Marks the task at the specified position in the task list as done and saves the updated list to storage.
      *
@@ -107,6 +207,7 @@ public class TaskList {
             storage.saveTasks(taskArray);
         }
     }
+
     /**
      * Marks the task at the specified position in the task list as not done and saves the updated list to storage.
      *
@@ -118,6 +219,7 @@ public class TaskList {
             storage.saveTasks(taskArray);
         }
     }
+
     /**
      * Displays all tasks in the task list to the user.
      */
