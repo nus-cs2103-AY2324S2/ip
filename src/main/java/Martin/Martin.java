@@ -4,11 +4,16 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.IOException;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
 /**
  * Represents the main class for the Martin application.
  * Martin is a chatbot that helps manage a todo list.
  */
-public class Martin {
+public class Martin extends Application{
     protected static ArrayList<Task> todoList = new ArrayList<>();
     private static String FILEPATH = "./data/martin.txt";
 
@@ -20,7 +25,8 @@ public class Martin {
 
     /**
      * Constructs a new Martin object.
-     * Initializes storage with a fixed file path, a new Ui object, and a new Parser object.
+     * Initializes storage with a fixed file path, a new Ui object, and a new Parser
+     * object.
      */
     public Martin() {
         this.storage = new Storage(FILEPATH); // fixed file path for now
@@ -28,10 +34,21 @@ public class Martin {
         this.parser = new Parser();
     }
 
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
+    }
+    
     /**
      * Runs the chatbot application.
-     * This method initializes the necessary components, such as the user interface, storage, and parser.
-     * It then enters a loop to continuously read user input and handle commands until the user exits.
+     * This method initializes the necessary components, such as the user interface,
+     * storage, and parser.
+     * It then enters a loop to continuously read user input and handle commands
+     * until the user exits.
      */
     public void run() {
         ui.sayGreeting();
