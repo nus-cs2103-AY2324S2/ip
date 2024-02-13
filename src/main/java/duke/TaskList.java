@@ -42,7 +42,7 @@ public class TaskList {
      * @param str The string representation of the event.
      */
     public String eventCase(String str) throws DukeException {
-        str = str.replace("event", "");
+        String parsedString = str.replace("event", "");
         //str = str.replace("from", "");
         //str = str.replace("to", "");
         String[] eventtokens = str.split(" ((/from)|(/to)) ");
