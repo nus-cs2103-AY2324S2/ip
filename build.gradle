@@ -40,8 +40,8 @@ test {
 }
 
 application {
-    mainClass.set("Duke")
-    mainClassName = 'Duke'
+    mainClass.set("Launcher")
+    mainClassName = 'Launcher'
 }
 
 shadowJar {
