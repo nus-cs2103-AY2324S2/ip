@@ -9,6 +9,21 @@ import exception.YapperException;
  * Main class for the Yapper program to run.
  */
 public class Yapper {
+
+    private final TaskList mainTasks;
+    private final Ui ui;
+    private final Parser parser;
+    private final FileManager fm;
+
+
+    public Yapper() {
+        mainTasks = new TaskList();
+        ui = new Ui(mainTasks);
+        parser = new Parser(mainTasks, ui);
+        fm = new FileManager(parser);
+        fm.loadTasks();
+    }
+
     /**
      * Enum for the different types of commands available for the user to use.
      */
@@ -41,35 +56,18 @@ public class Yapper {
         }
     }
 
-    /**
-     * Runs the main program flow of the Yapper program.
-     */
-    public static void run() {
-        Ui.hello();
-        TaskList mainTasks = new TaskList();
-        Ui ui = new Ui(mainTasks);
-        Parser parser = new Parser(mainTasks, ui);
-        FileManager fm = new FileManager(parser);
-        fm.loadTasks();
-        while (!ui.hasEnded()) {
-            try {
-                parser.parseCommand();
-            } catch (YapperException e) {
-                System.out.println(e.getMessage());
-            }
 
-            if (ui.hasEnded()) {
-                try {
-                    fm.saveTasks();
-                } catch (YapperException e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-            System.out.print(Ui.line());
+    public String getResponse(String input) {
+        try {
+            return parser.parseCommand(input);
+        } catch (YapperException y) {
+            return y.getMessage();
+        } catch (Exception e) {
+            return "unexpected exception in the getResponse function";
         }
     }
 
     public static void main(String[] args) {
-        Yapper.run();
+        Yapper yapper = new Yapper();
     }
 }

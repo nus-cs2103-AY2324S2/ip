@@ -11,7 +11,6 @@ import task.Todo;
 public class Ui {
     private static final String LINE = "    ____________________________________________________________\n";
     private static final String INDENT = "    ";
-    private boolean hasEnded;
     private final TaskList mainTasks;
 
     /**
@@ -22,7 +21,6 @@ public class Ui {
      */
     public Ui(TaskList mainTasks) {
         this.mainTasks = mainTasks;
-        hasEnded = false;
         mainTasks.setUi(this);
     }
 
@@ -37,7 +35,7 @@ public class Ui {
     /**
      * Greets the user with an introductory message.
      */
-    public static void hello() {
+    public static String helloMessage() {
         String logo =
                 "       :::   :::           :::        :::::::::       :::::::::       ::::::::::       :::::::::\n"
                 + "      :+:   :+:         :+: :+:      :+:    :+:      :+:    :+:      :+:              :+:    :+:\n"
@@ -46,37 +44,32 @@ public class Ui {
                 + "      +#+          +#+     +#+    +#+             +#+             +#+              +#+    +#+\n"
                 + "     #+#          #+#     #+#    #+#             #+#             #+#              #+#    #+#\n"
                 + "    ###          ###     ###    ###             ###             ##########       ###    ###\n\n";
-        System.out.print(LINE + "    What's poppin' fam, it's ya boi\n\n" + logo
-                + "    Hit me up with those deets and let's vibe together!\n" + LINE);
+        return LINE + "    What's poppin' fam, it's ya boi\n\n" + logo
+                + "    Hit me up with those deets and let's vibe together!\n" + LINE;
     }
 
     /**
      * Sends a message for terminating the program.
      * Terminates the program by setting a flag hasEnded.
      */
-    public void bye() {
-        System.out.print(INDENT + "Peace out, fam! Stay lit and keep those good vibes rollin'!\n");
-        hasEnded = true;
+    public String byeMessage() {
+        return "Peace out, fam! Stay lit and keep those good vibes rollin'!\n";
     }
 
-    public boolean hasEnded() {
-        return hasEnded;
+    public static String listMessage() {
+        return "I gotchu bruv. Here's your list:\n";
     }
 
-    public static void listMessage() {
-        System.out.println(INDENT + "I gotchu bruv. Here's your list:");
+    public String markMessage(Task task) {
+        return "Yasss King/Queen! This task is officially slayed:\n  " + task + "\n";
     }
 
-    public void markMessage(Task task) {
-        System.out.println(INDENT + "Yasss King/Queen! This task is officially slayed:\n  " + INDENT + task);
+    public String unmarkMessage(Task task) {
+        return "You forgor:\n  " + task + "\n";
     }
 
-    public void unmarkMessage(Task task) {
-        System.out.println(INDENT + "You forgor:\n  " + INDENT + task);
-    }
-
-    public void deleteMessage(Task task) {
-        System.out.println(INDENT + "Zamn! This task never happened:\n  " + INDENT + task);
+    public String deleteMessage(Task task) {
+        return "Zamn! This task never happened:\n  " + task + "\n";
     }
 
     /**
@@ -85,10 +78,9 @@ public class Ui {
      *
      * @param todo Todo task that was added into the {@link TaskList}.
      */
-    public void addTodoMessage(Todo todo) {
-        System.out.println(INDENT + "Ayo new task just dropped:\n  " + INDENT + todo);
-        System.out.println(INDENT + "Yo, we're " + mainTasks.listSize()
-                + " task(s) deep! Let's keep this SIGMA GRINDSET!");
+    public String addTodoMessage(Todo todo) {
+        return "Ayo new task just dropped:\n  " + todo
+                + "\nYo, we're " + mainTasks.listSize() + " task(s) deep! Let's keep this SIGMA GRINDSET!\n";
     }
 
     /**
@@ -97,10 +89,9 @@ public class Ui {
      *
      * @param deadline Deadline task that was added into the {@link TaskList}.
      */
-    public void addDeadlineMessage(Deadline deadline) {
-        System.out.println(INDENT + "Ayo new task just dropped:\n  " + INDENT + deadline);
-        System.out.println(INDENT + "Yo, we're " + mainTasks.listSize()
-                + " task(s) deep! Let's keep this SIGMA GRINDSET!");
+    public String addDeadlineMessage(Deadline deadline) {
+        return "Ayo new task just dropped:\n  " + deadline
+                + "\nYo, we're " + mainTasks.listSize() + " task(s) deep! Let's keep this SIGMA GRINDSET!\n";
     }
 
     /**
@@ -109,10 +100,9 @@ public class Ui {
      *
      * @param event Event task that was added into the {@link TaskList}.
      */
-    public void addEventMessage(Event event) {
-        System.out.println(INDENT + "Ayo new task just dropped:\n  " + INDENT + event);
-        System.out.print(INDENT + "Yo, we're " + mainTasks.listSize()
-                + " task(s) deep! Let's keep this SIGMA GRINDSET!\n");
+    public String addEventMessage(Event event) {
+        return "Ayo new task just dropped:\n  " + event
+                + "\nYo, we're " + mainTasks.listSize() + " task(s) deep! Let's keep this SIGMA GRINDSET!\n";
     }
 
     /**
@@ -120,14 +110,11 @@ public class Ui {
      *
      * @param searchedString {@link String} that user is finding.
      */
-    public static void findMessage(String searchedString) {
-        System.out.println(INDENT + "Aight imma look for: " + searchedString);
-        System.out.println(INDENT + ".");
-        System.out.println(INDENT + ".");
-        System.out.println(INDENT + ".");
+    public static String findMessage(String searchedString) {
+        return "Aight imma look for: " + searchedString + " ... ...\n";
     }
 
-    public static void foundNothingMessage() {
-        System.out.println(INDENT + "My bad G, I ain't found nothing");
+    public static String foundNothingMessage() {
+        return "My bad G, I ain't found nothing\n";
     }
 }

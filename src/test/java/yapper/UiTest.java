@@ -29,7 +29,7 @@ public class UiTest {
 
     @Test
     public void helloMessageTest() {
-        Ui.hello();
+        Ui.helloMessage();
         String expected = "    ____________________________________________________________\n"
                 + "    What's poppin' fam, it's ya boi\n\n"
                 + "       :::   :::           :::        :::::::::       :::::::::       ::::::::::       :::::::::\n"
@@ -46,9 +46,10 @@ public class UiTest {
 
     @Test
     public void byeTest() throws YapperException {
-        Ui.bye();
+        Ui ui = new Ui(new TaskList());
+        ui.bye();
         String expected = "    Peace out, fam! Stay lit and keep those good vibes rollin'!\n";
         assertEquals(expected, outputStreamCaptor.toString());
-        assertTrue(Ui.hasEnded());
+        assertTrue(ui.hasEnded());
     }
 }

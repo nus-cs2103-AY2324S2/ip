@@ -2,7 +2,6 @@ package yapper;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 
 import exception.YapperException;
 import task.Deadline;
@@ -14,10 +13,9 @@ import task.Todo;
  * Handles interpreting strings for commands and task list data.
  */
 public class Parser {
-    private static final String INDENT = Ui.indent();
-    private final Scanner in;
     private final TaskList mainTasks;
     private final Ui ui;
+    private FileManager fm;
 
     /**
      * Initialises a Parser that corresponds to a main {@link TaskList} and {@link Ui}.
@@ -26,20 +24,12 @@ public class Parser {
      * @param ui Corresponding {@link Ui}.
      */
     public Parser(TaskList mainTasks, Ui ui) {
-        in = new Scanner(System.in);
         this.mainTasks = mainTasks;
         this.ui = ui;
     }
 
-    /**
-     * Parses next line user input into command and arguments.
-     * Splits out the first word (separated by whitespace) as a command with everything else treated as an argument.
-     *
-     * @return String array where first String is the command and second String is argument.
-     */
-    public String[] parseInput() {
-        String input = in.nextLine().trim();
-        return input.split(" ", 2); // [command, arguments]
+    public void setFileManager(FileManager fileManager) {
+        fm = fileManager;
     }
 
     /**
@@ -48,33 +38,38 @@ public class Parser {
      *
      * @throws YapperException Thrown when invalid command, arguments, index or formatting detected.
      */
-    public void parseCommand() throws YapperException {
-        String[] cmdArg = parseInput();
+    public String parseCommand(String input) throws YapperException {
+        String[] cmdArg = input.trim().split(" ", 2); // [command, arguments]
         Yapper.Command cmd = Yapper.Command.valueOfCommandName(cmdArg[0]);
-
-        System.out.print(Ui.line());
+        String response = "";
 
         // invalid command
         if (cmd == null) {
-            throw (new YapperException(INDENT + "What is blud yappin'? Here's the legit commands:\n"
-                    + INDENT + "list, todo, deadline, event, mark, unmark, delete, find, bye"));
+            throw (new YapperException("What is blud yappin'? Here's the legit commands:\n"
+                    + "list, todo, deadline, event, mark, unmark, delete, find, bye"));
         }
 
         // Commands create a Command class in the future
         switch (cmd) {
         case BYE:
-            ui.bye();
+            try {
+                fm.saveTasks();
+            } catch (YapperException y) {
+                response = y.getMessage();
+            } finally {
+                response += ui.byeMessage();
+            }
             break;
         case LIST:
-            mainTasks.listTasks();
+            response = mainTasks.listTasks();
             break;
         case FIND:
             // empty find
             if (cmdArg.length != 2) {
-                throw (new YapperException(INDENT + "What is lil bro looking for?"));
+                throw (new YapperException("What is lil bro looking for?"));
             }
 
-            mainTasks.find(cmdArg[1]); // can be expanded to change current TaskList to look at found Task List
+            response = mainTasks.find(cmdArg[1]); // can be expanded to change current TaskList to look at found Task List
             break;
         case MARK:
             // Fallthrough
@@ -87,56 +82,56 @@ public class Parser {
 
                     // incorrect index
                     if (i > mainTasks.listSize()) {
-                        throw (new YapperException(INDENT + "You ain't got that many tasks bruh!"));
+                        throw (new YapperException("You ain't got that many tasks bruh!"));
                     } else if (i < 1) { // incorrect index
-                        throw (new YapperException(INDENT + "Start from task 1 lil bro!"));
+                        throw (new YapperException("Start from task 1 lil bro!"));
                     }
 
                     // Execute MARK/UNMARK/DELETE
                     if (cmdArg[0].equals("mark")) {
-                        mainTasks.markTask(i);
+                        response = mainTasks.markTask(i);
                     } else if (cmdArg[0].equals("unmark")) {
-                        mainTasks.unmarkTask(i);
+                        response = mainTasks.unmarkTask(i);
                     } else {
-                        mainTasks.deleteTask(i);
+                        response = mainTasks.deleteTask(i);
                     }
                 } catch (java.lang.NumberFormatException e) { // non number typed
-                    throw (new YapperException(INDENT
-                            + "Ain't no way! We lackin' just numbers after mark/unmark/delete.\n"
-                            + INDENT + "e.g. unmark 2"));
+                    throw (new YapperException("Ain't no way! We lackin' just numbers after mark/unmark/delete.\n"
+                            + "e.g. unmark 2"));
                 } catch (YapperException e) {
                     throw (e);
                 }
             } else { // no arguments
-                throw (new YapperException(INDENT + "Ain't no way! Which task in the list we vibin' with?\n"
-                        + INDENT + "e.g. mark/unmark/delete 1"));
+                throw (new YapperException("Ain't no way! Which task in the list we vibin' with?\n"
+                        + "e.g. mark/unmark/delete 1"));
             }
             break;
         case TODO:
             if (cmdArg.length != 2) { // no arguments
-                throw (new YapperException(INDENT + "Ain't no way! You got caught lackin' the format!\n"
-                        + INDENT + "e.g. todo <task>"));
+                throw (new YapperException("Ain't no way! You got caught lackin' the format!\n"
+                        + "e.g. todo <task>"));
             }
-            parseTask(cmdArg[1], Task.ID.TODO);
+            response = parseTask(cmdArg[1], Task.ID.TODO);
             break;
         case DEADLINE:
             if (cmdArg.length != 2) { // no arguments
-                throw (new YapperException(INDENT + "Ain't no way! You got caught lackin' the format!\n"
-                        + INDENT + "e.g. deadline <task> /by <date/time>"));
+                throw (new YapperException("Ain't no way! You got caught lackin' the format!\n"
+                        + "e.g. deadline <task> /by <date/time>"));
             }
-            parseTask(cmdArg[1], Task.ID.DEADLINE);
+            response = parseTask(cmdArg[1], Task.ID.DEADLINE);
             break;
         case EVENT:
             if (cmdArg.length != 2) { // no arguments
-                throw (new YapperException(INDENT + "Ain't no way! You got caught lackin' the format!\n"
-                        + INDENT + "e.g. event <task> /from <start date/time> /to <start date/time>"));
+                throw (new YapperException("Ain't no way! You got caught lackin' the format!\n"
+                        + "e.g. event <task> /from <start date/time> /to <start date/time>"));
             }
-            parseTask(cmdArg[1], Task.ID.EVENT);
+            response = parseTask(cmdArg[1], Task.ID.EVENT);
             break;
         default: // Shouldn't reach here, invalid commands should be null
-            throw (new YapperException(INDENT + "What is blud yappin'? Here's the legit commands:"
-                    + INDENT + "list, todo, deadline, event, mark, unmark, delete, find, bye"));
+            throw (new YapperException("What is blud yappin'? Here's the legit commands:"
+                    + "list, todo, deadline, event, mark, unmark, delete, find, bye"));
         }
+        return response;
     }
 
     /**
@@ -146,28 +141,29 @@ public class Parser {
      * @param id Type of {@link Task} identified.
      * @throws YapperException Incorrect types of formatting detected.
      */
-    public void parseTask(String arg, Task.ID id) throws YapperException {
+    public String parseTask(String arg, Task.ID id) throws YapperException {
+        String response;
         switch (id) {
         case TODO:
             Todo todo = new Todo(arg);
-            mainTasks.addTask(todo);
+            response = mainTasks.addTask(todo);
             break;
         case DEADLINE: {
             String[] descDate = arg.split(" /by ", 2); // [description, by]
             if (descDate.length != 2) { // incorrect formatting for /by
-                throw (new YapperException(INDENT + "When you wanna do this task by lil bro?\n"
-                        + INDENT + "type deadline <task> /by <yyyy-mm-dd>\n"
-                        + INDENT + "e.g. deadline hit the griddy by 2024-12-31"));
+                throw (new YapperException("When you wanna do this task by lil bro?\n"
+                        + "type deadline <task> /by <yyyy-mm-dd>\n"
+                        + "e.g. deadline hit the griddy by 2024-12-31"));
             }
 
             try {
                 LocalDate deadlineBy = LocalDate.parse(descDate[1]);
                 Deadline deadline = new Deadline(descDate[0], deadlineBy);
-                mainTasks.addTask(deadline);
+                response = mainTasks.addTask(deadline);
             } catch (DateTimeParseException e) { // incorrect formatting for date
-                throw (new YapperException(INDENT + "When you wanna do this task by lil bro?\n"
-                        + INDENT + "type deadline <task> /by <yyyy-mm-dd>\n"
-                        + INDENT + "e.g. deadline hit the griddy by 2024-12-31"));
+                throw (new YapperException("When you wanna do this task by lil bro?\n"
+                        + "type deadline <task> /by <yyyy-mm-dd>\n"
+                        + "e.g. deadline hit the griddy by 2024-12-31"));
             }
             break;
         }
@@ -176,35 +172,36 @@ public class Parser {
 
             // incorrect formatting for /from
             if (descDate.length != 2) {
-                throw (new YapperException(INDENT + "When does this event start lil bro?\n"
-                        + INDENT + "type event <task> /from <yyyy-mm-dd> /to <yyyy-mm-dd>\n"
-                        + INDENT + "e.g. event party rock /from <yyyy-mm-dd> /to <yyyy-mm-dd>"));
+                throw (new YapperException("When does this event start lil bro?\n"
+                        + "type event <task> /from <yyyy-mm-dd> /to <yyyy-mm-dd>\n"
+                        + "e.g. event party rock /from <yyyy-mm-dd> /to <yyyy-mm-dd>"));
             }
 
             String[] fromTo = descDate[1].split(" /to ", 2); // [from , to]
 
             // incorrect formatting for /to
             if (fromTo.length != 2) {
-                throw (new YapperException(INDENT + "When does this event end lil bro?\n"
-                        + INDENT + "type event <task> /from <yyyy-mm-dd> /to <yyyy-mm-dd>\n"
-                        + INDENT + "e.g. event party rock /from <yyyy-mm-dd> /to <yyyy-mm-dd>"));
+                throw (new YapperException("When does this event end lil bro?\n"
+                        + "type event <task> /from <yyyy-mm-dd> /to <yyyy-mm-dd>\n"
+                        + "e.g. event party rock /from <yyyy-mm-dd> /to <yyyy-mm-dd>"));
             }
 
             try {
                 LocalDate eventFrom = LocalDate.parse(fromTo[0]);
                 LocalDate eventTo = LocalDate.parse(fromTo[1]);
                 Event event = new Event(descDate[0], eventFrom, eventTo);
-                mainTasks.addTask(event);
+                response = mainTasks.addTask(event);
             } catch (DateTimeParseException e) {
-                throw (new YapperException(INDENT + "When does this event start/end lil bro?\n"
-                        + INDENT + "type event <task> /from <yyyy-mm-dd> /to <yyyy-mm-dd>\n"
-                        + INDENT + "e.g. event party rock /from <yyyy-mm-dd> /to <yyyy-mm-dd>"));
+                throw (new YapperException("When does this event start/end lil bro?\n"
+                        + "type event <task> /from <yyyy-mm-dd> /to <yyyy-mm-dd>\n"
+                        + "e.g. event party rock /from <yyyy-mm-dd> /to <yyyy-mm-dd>"));
             }
             break;
         }
         default: // Invalid Task ID
             throw (new YapperException("Invalid Task ID, user shouldn't reach here"));
         }
+        return response;
     }
 
     /**

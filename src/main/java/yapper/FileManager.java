@@ -14,8 +14,9 @@ import exception.YapperException;
  */
 public class FileManager {
     private final Parser parser;
-    public FileManager(Parser parser) {
-        this.parser = parser;
+    public FileManager(Parser p) {
+        parser = p;
+        parser.setFileManager(this);
     }
 
     /**
@@ -55,7 +56,7 @@ public class FileManager {
         try (FileWriter fw = new FileWriter("data/taskData.txt")) {
             fw.write(parser.parseToData());
         } catch (IOException e) {
-            throw (new YapperException("IO Exception when saving data"));
+            throw (new YapperException("IO Exception when saving data\n"));
         }
     }
 }
