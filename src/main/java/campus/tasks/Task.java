@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Class object which represents a Task, which has a name and a status completion
+ * Class object which represents a Task, which has a name and a status completion.
  */
 abstract public class Task {
     public boolean completed;
@@ -13,10 +13,10 @@ abstract public class Task {
     public DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HHmm dd/MM/yyyy");
 
     /**
-     * Checks to see if the input string is of the correct format pattern
-     * @param input timedate string
-     * @param formatter HHmm dd/MM/yyyy
-     * @return true if yes, false if no
+     * Checks to see if the input string is of the correct format pattern.
+     * @param input timedate string.
+     * @param formatter HHmm dd/MM/yyyy.
+     * @return true if yes, false if no.
      */
     public static boolean isValidDateTimeFormat(String input, DateTimeFormatter formatter) {
         try {
@@ -27,17 +27,9 @@ abstract public class Task {
         }
     }
 
-    public static void main(String[] args) {
+    abstract public void markComplete();
 
-    }
+    abstract public void markIncomplete();
 
-    public void markComplete() {
-    }
-
-    public void markIncomplete() {
-    }
-
-    public String toDBFormat() {
-        return "Abstract Class";
-    }
+    abstract public String toDBFormat();
 }

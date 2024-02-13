@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 /**
  * Contains logic for the Deadline class that extends the abstract Task Class
- * Only has an end time
+ * Only has an end time.
  */
 public class Deadline extends Task {
     LocalDateTime endDateTime;
@@ -32,10 +32,12 @@ public class Deadline extends Task {
         }
     }
 
+    @Override
     public void markComplete() {
         this.completed = true;
     }
 
+    @Override
     public void markIncomplete() {
         this.completed = false;
     }
@@ -46,6 +48,7 @@ public class Deadline extends Task {
         return String.format("[D] %s %s (by: %s)", xMarker, this.taskName, this.endDateTime.format(this.formatter));
     }
 
+    @Override
     public String toDBFormat() {
         String completed = this.completed ? "1" : "0";
         return String.format("D | %s | %s | %s", completed, this.taskName, this.endDateTime.format(this.formatter));

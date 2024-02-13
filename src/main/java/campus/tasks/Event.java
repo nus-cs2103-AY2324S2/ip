@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 /**
  * Contains the logic for Event that extends the abstract class Task
- * Has both a start and end time
+ * Has both a start and end time.
  */
 public class Event extends Task {
     LocalDateTime startDateTime;
@@ -40,10 +40,12 @@ public class Event extends Task {
         }
     }
 
+    @Override
     public void markComplete() {
         this.completed = true;
     }
 
+    @Override
     public void markIncomplete() {
         this.completed = false;
     }
@@ -54,6 +56,7 @@ public class Event extends Task {
         return String.format("[E] %s %s (from: %s to: %s)", xMarker, this.taskName, this.startDateTime.format(this.formatter), this.endDateTime.format(this.formatter));
     }
 
+    @Override
     public String toDBFormat() {
         String completed = this.completed ? "1" : "0";
         return String.format("E | %s | %s | %s | %s", completed, this.taskName, this.startDateTime.format(this.formatter), this.endDateTime.format(this.formatter));

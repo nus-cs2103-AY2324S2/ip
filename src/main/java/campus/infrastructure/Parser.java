@@ -113,9 +113,9 @@ public class Parser {
 
     /**
      * Handles the commands for mark, unmark and delete - passes it to the taskList object which contains methods
-     * to deal with manipulation of the task
-     * @param command mark/unmark/delete
-     * @param userInput the index of the list
+     * to deal with manipulation of the task.
+     * @param command mark/unmark/delete.
+     * @param userInput the index of the list.
      */
     public String handleUpdateCommands(String command, String userInput) {
         Task task = this.taskList.getIthTaskString(userInput);
