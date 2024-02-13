@@ -1,7 +1,6 @@
 package duke;
 
 import java.util.ArrayList;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
@@ -10,8 +9,8 @@ import java.util.stream.Stream;
  */
 public class TaskList {
 
-    private final ArrayList<Task> list = new ArrayList<>();
-    
+    private final ArrayList<Task> tasks = new ArrayList<>();
+
     /**
      * Returns a string representation of this list. Intended to be printed as the chatbot's response
      *
@@ -22,11 +21,11 @@ public class TaskList {
         var numBox = new Object() {
             int num = 1;
         };
-        return this.list.stream()
+        return this.tasks.stream()
                 .reduce(new StringBuilder(),
                         (curr, acc) -> {
                             curr.append(numBox.num).append(".").append(acc.describe());
-                            if (numBox.num < list.size()) {
+                            if (numBox.num < tasks.size()) {
                                 curr.append("\n");
                             }
                             numBox.num++;
@@ -44,12 +43,12 @@ public class TaskList {
     public String toStorageString() {
         StringBuilder sb = new StringBuilder();
 
-        for (Task t : this.list) {
+        for (Task t : this.tasks) {
             sb.append(t.toStorageString()).append('\n');
         }
         return sb.toString();
     }
-    
+
     /**
      * Retrieves the task at the specified zero-based index. similar to ArrayList::get
      *
@@ -58,7 +57,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If the index is out of bounds.
      */
     public Task get(int i) throws IndexOutOfBoundsException {
-        return this.list.get(i);
+        return this.tasks.get(i);
     }
 
     /**
@@ -67,11 +66,11 @@ public class TaskList {
      * @param t The task to be added to the list.
      */
     public void add(Task t) {
-        this.list.add(t);
+        this.tasks.add(t);
     }
 
     public int size() {
-        return this.list.size();
+        return this.tasks.size();
     }
 
     /**
@@ -82,17 +81,17 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If the index is out of bounds.
      */
     public void remove(int i) throws IndexOutOfBoundsException {
-        this.list.remove(i);
+        this.tasks.remove(i);
     }
 
     public String filterSubString(String toFind) {
-        return Stream.iterate(0, i -> i < this.list.size(), i -> i + 1)
-                .filter(i -> this.list.get(i).nameContains(toFind))
-                .reduce(new StringBuilder(), 
+        return Stream.iterate(0, i -> i < this.tasks.size(), i -> i + 1)
+                .filter(i -> this.tasks.get(i).nameContains(toFind))
+                .reduce(new StringBuilder(),
                         (sb, curr) -> sb
                                 .append(curr + 1).append(".")
-                                .append(this.list.get(curr).describe())
-                                .append(curr < list.size() - 1 ? "\n" : ""), 
+                                .append(this.tasks.get(curr).describe())
+                                .append(curr < tasks.size() - 1 ? "\n" : ""),
                         StringBuilder::append)
                 .toString();
     }

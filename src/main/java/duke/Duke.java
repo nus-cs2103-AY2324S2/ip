@@ -2,7 +2,6 @@ package duke;
 
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
-import java.util.Timer;
 import java.util.function.Consumer;
 
 import javafx.application.Application;

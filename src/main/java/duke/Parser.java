@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 public class Parser {
     private final String[] strs;
     private int cursor = 0;
-    
+
     /**
      * Constructs a Parser object with the provided input string. read operations on this parser reads tokens from the
      * String as if it were an array of space-separated strings.
@@ -19,17 +19,17 @@ public class Parser {
     public Parser(String str) {
         this.strs = str.split(" ");
     }
-    
+
     /**
-     * consumes a token and returns it.
+     * consumes a token from the string and returns it.
      *
      * @return The next string.
      * @throws DukeOptionParsingException If all tokens have been read from the input
      */
     public String next() throws DukeOptionParsingException {
-        String ret = this.peek();
+        String token = this.peek();
         cursor++;
-        return ret;
+        return token;
     }
 
     /**
