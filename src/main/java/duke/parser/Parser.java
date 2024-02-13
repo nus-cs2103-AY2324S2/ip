@@ -11,6 +11,7 @@ import duke.command.EventCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
+import duke.command.StatCommand;
 import duke.command.TodoCommand;
 import duke.command.UnmarkCommand;
 
@@ -27,6 +28,7 @@ public class Parser {
     private static final String DELETE_COMMAND = "delete";
     private static final String FIND_COMMAND = "find";
     private static final String BYE_COMMAND = "bye";
+    private static final String STAT_COMMAND = "stat";
 
     /**
      * Parses the user input and returns the corresponding command.
@@ -56,6 +58,8 @@ public class Parser {
             return new ByeCommand();
         case FIND_COMMAND:
             return new FindCommand(commandParts);
+        case STAT_COMMAND:
+            return new StatCommand();
         default:
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }

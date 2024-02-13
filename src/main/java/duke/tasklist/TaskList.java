@@ -1,6 +1,7 @@
 package duke.tasklist;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -90,5 +91,18 @@ public class TaskList {
      */
     public List<Task> getTasks() {
         return tasks;
+    }
+
+    /**
+     * Retrieves the breakdown of tasks by type.
+     * @return The breakdown of tasks by type.
+     */
+    public HashMap<String, Integer> getTaskBreakdown() {
+        HashMap<String, Integer> taskCount = new HashMap<>();
+        for (Task task : tasks) {
+            String taskType = task.getType();
+            taskCount.put(taskType, taskCount.getOrDefault(taskType, 0) + 1);
+        }
+        return taskCount;
     }
 }

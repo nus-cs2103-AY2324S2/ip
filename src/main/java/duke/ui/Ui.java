@@ -1,6 +1,8 @@
 package duke.ui;
 
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Consumer;
 
 import duke.DukeException;
@@ -8,6 +10,7 @@ import duke.task.Task;
 import duke.tasklist.TaskList;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -82,23 +85,27 @@ public class Ui extends Application {
 
         //Step 2. Formatting the window to look as expected
         stage.setTitle("Fluffy");
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
 
-        mainLayout.setPrefSize(400.0, 600.0);
+        mainLayout.prefWidthProperty().bind(scene.widthProperty());
+        mainLayout.prefHeightProperty().bind(scene.heightProperty());
 
-        scrollPane.setPrefSize(385, 535);
+        scrollPane.prefWidthProperty().bind(mainLayout.widthProperty());
+        scrollPane.prefHeightProperty().bind(mainLayout.heightProperty().subtract(35));
+
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
+        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
-        //You will need to import `javafx.scene.layout.Region` for this.
+        // You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
-        userInput.setPrefWidth(325.0);
+        userInput.prefWidthProperty().bind(mainLayout.widthProperty().subtract(55));
 
         sendButton.setPrefWidth(55.0);
 
@@ -237,5 +244,20 @@ public class Ui extends Application {
      */
     public void showTaskDeleted(Task task, int newSize) {
         fluffySpeak("Noted. I've removed this task:\n" + task + "\nNow you have " + newSize + " tasks in the list.");
+    }
+
+    /**
+     * Shows a piechart of the tasks.
+     */
+    public void showPieChart(HashMap<String, Integer> data) {
+        StringBuilder sb = new StringBuilder("Here is a pie chart of your tasks:\n");
+        PieChart pieChart = new PieChart();
+        for (Map.Entry<String, Integer> entry : data.entrySet()) {
+            pieChart.getData().add(new PieChart.Data(entry.getKey(), entry.getValue()));
+        }
+        fluffySpeak(sb.toString());
+        dialogContainer.getChildren().addAll(
+            pieChart
+        );
     }
 }
