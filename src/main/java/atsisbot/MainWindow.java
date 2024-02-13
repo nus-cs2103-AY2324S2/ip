@@ -49,6 +49,7 @@ public class MainWindow extends AnchorPane {
     }
 
     public void setAtsisBot(AtsisBot atsisBot) {
+        assert atsisBot != null : "AtsisBot cannot be null";
         this.atsisBot = atsisBot;
     }
 
