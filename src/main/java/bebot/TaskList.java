@@ -51,8 +51,8 @@ public class TaskList {
                 System.out.println("\t" + "Invalid input. Please enter a valid task index.");
             }
             break;
-        default:
-            System.out.println("\t" + "Sorry, that's not a command :( Enter 'help' for instructions.");
+        default:  // UNKNOWN TaskType
+            System.out.println("\t" + "Sorry, that's not a command. Enter 'help' for instructions.");
         }
         ui.printLine();
     }
@@ -165,8 +165,10 @@ public class TaskList {
             return TaskType.EVENT;
         } else if (task.equals("help")) {
             return TaskType.HELP;
-        } else { // if (task.startsWith("delete"))
+        } else if (task.equals("delete")) { // if (task.startsWith("delete"))
             return TaskType.DELETE;
+        } else {
+            return TaskType.UNKNOWN;
         }
     }
 

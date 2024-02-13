@@ -88,5 +88,6 @@ enum TaskType {
     DEADLINE,
     EVENT,
     HELP,
-    DELETE
+    DELETE,
+    UNKNOWN
 }

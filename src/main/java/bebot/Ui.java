@@ -1,13 +1,6 @@
 package bebot;
 import java.util.Scanner;
 
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
-
-
 /**
  * Ui class handles the user interactions of the application
  */
@@ -15,7 +8,6 @@ import javafx.scene.layout.VBox;
 public class Ui {
     private static final String LINE = "____________________________________________________________";
     private Scanner scanner;
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/HuhCatDuke.jpg"));
 
     public Ui() {
         this.scanner = new Scanner(System.in);

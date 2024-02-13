@@ -51,7 +51,7 @@ public class Parser {
             } catch (StringIndexOutOfBoundsException e) {
                 ui.printInvalidKeyword();
             }
-        } else {
+        } else { // else adds task
             taskList.addTask(input);
         }
         return true;
