@@ -124,4 +124,8 @@ public class TaskList {
         return matchingTasks;
     }
 
+    public void changeTaskPriority(int taskIndex, int priority) {
+        this.tasks.get(taskIndex).setPriority(priority);
+    }
+
 }

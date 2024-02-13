@@ -2,8 +2,8 @@ package atlas.task;
 
 public class ToDo extends Task{
 
-    public ToDo(String description) {
-        super(description);
+    public ToDo(String description, int priority) {
+        super(description, priority);
     }
 
     @Override
@@ -13,6 +13,6 @@ public class ToDo extends Task{
 
     @Override
     public String toFileFormat() {
-        return "T | " + (isDone ? "1" : "0") + " | " + description;
+        return "T | " + (isDone ? "1" : "0") + " | " + description + " | " + priority;
     }
 }

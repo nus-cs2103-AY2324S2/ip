@@ -9,8 +9,8 @@ public class Event extends Task {
     protected LocalDateTime start;
     protected LocalDateTime end;
 
-    public Event(String description, LocalDateTime start, LocalDateTime end) throws DateTimeParseException {
-        super(description);
+    public Event(String description, LocalDateTime start, LocalDateTime end, int priority) throws DateTimeParseException {
+        super(description, priority);
         this.start = start;
         this.end = end;
     }
@@ -22,7 +22,8 @@ public class Event extends Task {
 
     @Override
     public String toFileFormat() {
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + start.toString() + " | " + end.toString();
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + start.toString() + " | " + end.toString()
+                + " | " + priority;
     }
 
     public LocalDateTime getStart() {
