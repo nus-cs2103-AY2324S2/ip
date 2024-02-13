@@ -30,6 +30,7 @@ public class Storage {
     public static ArrayList<Task> loadFromLocal() {
         // Clear current tasklist
         taskList.clear();
+        assert taskList.isEmpty() : "Tasklist should be empty";
         try {
             Path directoryPath = FILE_PATH.getParent();
             // Check if directory exists
@@ -90,6 +91,7 @@ public class Storage {
     }
 
     private static void parseTasks(String line) throws SolaireException {
+        assert !line.isEmpty() : "Line should not be empty";
         String[] taskDetails = line.split(" \\| ");
         String taskType = taskDetails[0].trim();
         Boolean isComplete = taskDetails[1].trim().equals("1") ? true : false;

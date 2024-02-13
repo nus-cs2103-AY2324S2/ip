@@ -35,6 +35,7 @@ public class Solaire {
     public String processInput(String input) {
         String[] inputCommand = input.split(" ", 2);
         String solaireOutput = "";
+        assert inputCommand.length > 0 : "Input command should not be empty";
         try {
             UserCommands command = UserCommands.valueOf(inputCommand[0].toUpperCase());
             switch (command) {
