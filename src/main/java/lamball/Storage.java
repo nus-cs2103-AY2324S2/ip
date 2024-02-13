@@ -143,15 +143,9 @@ public class Storage {
             Path path = Paths.get(filePath + defaultFileName);
             List<String> lines = Files.readAllLines(path);
 
-            // Check if the index is valid
             if (index >= 0 && index < lines.size()) {
-                // Remove the line at the specified index
                 lines.remove(index);
-
-                // Write the modified content back to the file
                 Files.write(path, lines);
-
-                // System.out.println("Line " + index + " deleted successfully.");
             } else {
                 System.err.println("Invalid line number.");
             }
