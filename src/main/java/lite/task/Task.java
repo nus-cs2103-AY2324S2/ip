@@ -10,6 +10,15 @@ public class Task {
     }
 
     /**
+     * Returns true if input is within description
+     * @param input
+     * @return
+     */
+    public boolean contains (String input) {
+        return this.description.contains(input);
+    }
+
+    /**
      * Returns string representation of Task
      */
     public String getStatusIcon() {

@@ -9,6 +9,8 @@ import lite.task.TaskList;
 import lite.util.Printer;
 import lite.util.LiteException;
 
+import java.lang.reflect.Array;
+
 public class Ui {
     private String input;
 
@@ -43,10 +45,31 @@ public class Ui {
             this.addDeadline(instruction, tasks);
         } else if (instruction[0].equals("event")) {
             this.addEvent(instruction, tasks);
+        } else if (instruction[0].equals("find"))  {
+            this.find(instruction, tasks);
         } else {
             LiteException.invalidInput();
         }
         return false;
+    }
+
+    private void find (String instruction[], TaskList tasks) {
+        String description = instruction[1];
+        TaskList availableTasks = new TaskList();
+        boolean isContains = false;
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.contains(i, description)) {
+                availableTasks.add(tasks.get(i));
+                isContains = true;
+            }
+        }
+        Printer.printHorizontalLine();
+        if (isContains) {
+            Printer.successfulFind(availableTasks);
+        } else {
+            Printer.unsuccessfulFind();
+        }
+        Printer.printHorizontalLine();
     }
 
 
