@@ -1,7 +1,5 @@
-package Aaron.Exception;
-/**
- * Class that represents error during parsing user message
- */
+package aaron.exception;
+
 public class ParsingException extends AaronBotException {
     public ParsingException(String e) {
         super(e);

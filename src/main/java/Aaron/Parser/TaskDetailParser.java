@@ -1,6 +1,7 @@
-package Aaron.Parser;
-import Aaron.Exception.InvalidTaskTypeException;
-import Aaron.Task.TaskType;
+package aaron.parser;
+
+import aaron.exception.InvalidTaskTypeException;
+import aaron.task.TaskType;
 /**
  * Class that encapsulates means of obtaining task type and details from user input for an add task command
  */

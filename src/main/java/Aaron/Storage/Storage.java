@@ -1,4 +1,5 @@
-package Aaron.Storage;
+package aaron.storage;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -9,21 +10,22 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Aaron.Exception.AaronBotException;
-import Aaron.Task.Deadline;
-import Aaron.Task.Event;
-import Aaron.Task.Task;
-import Aaron.Task.TaskList;
-import Aaron.Task.Todo;
+import aaron.exception.AaronBotException;
+import aaron.task.Deadline;
+import aaron.task.Event;
+import aaron.task.Task;
+import aaron.task.TaskList;
+import aaron.task.Todo;
 
 /**
  * This class writes to and loads existing tasklist files for the aaronbot
+ * 
  * @param fileToPath
  * @param taskList
  * @throws IOException
  */
 public class Storage {
-    public static void writeToFile(String filePath, TaskList taskListWrite) throws IOException{
+    public static void writeToFile(String filePath, TaskList taskListWrite) throws IOException {
         Path path = Paths.get(filePath);
         Files.createDirectories(path.getParent());
         File prevTaskList = new File(filePath);
@@ -79,7 +81,7 @@ public class Storage {
                 }
                 break;
             default:
-                System.out.println(task);
+                throw new FileNotFoundException("File not found?");
             }
         }
         fileScanner.close();

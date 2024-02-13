@@ -1,20 +1,21 @@
-package Aaron.Task;
+package aaron.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import Aaron.Exception.AaronBotException;
-import Aaron.Exception.DateFormatException;
-import Aaron.Exception.DateMismatchException;
+import aaron.exception.AaronBotException;
+import aaron.exception.DateFormatException;
+import aaron.exception.DateMismatchException;
+
 /**
- * class that represents an event type task 
+ * class that represents an event type task
  */
-public class Event extends Task{
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = 
-            DateTimeFormatter.ofPattern("dd-MM-uuuu");
+public class Event extends Task {
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-uuuu");
     private LocalDate startTime;
     private LocalDate endTime;
-    
+
     public Event(String taskString, String startTime, String endTime) throws AaronBotException {
         super(taskString);
         try {
@@ -22,7 +23,7 @@ public class Event extends Task{
             this.endTime = LocalDate.parse(endTime, DATE_TIME_FORMATTER);
             if (this.startTime.isAfter(this.endTime)) {
                 throw new DateMismatchException("Mismatched date: " + startTime + " " +
-                        endTime);  
+                        endTime);
             }
         } catch (DateTimeParseException e) {
             throw new DateFormatException(startTime + " " +
@@ -30,14 +31,14 @@ public class Event extends Task{
         }
     }
 
-    public Event(String taskString, String startTime, String endTime, boolean isDone) throws AaronBotException{
+    public Event(String taskString, String startTime, String endTime, boolean isDone) throws AaronBotException {
         super(taskString, isDone);
         try {
             this.startTime = LocalDate.parse(startTime, DATE_TIME_FORMATTER);
             this.endTime = LocalDate.parse(endTime, DATE_TIME_FORMATTER);
             if (this.startTime.isAfter(this.endTime)) {
                 throw new DateMismatchException("Mismatched date: " + startTime + " " +
-                        endTime);   
+                        endTime);
             }
         } catch (DateTimeParseException e) {
             throw new DateFormatException(startTime + " " +
@@ -65,5 +66,5 @@ public class Event extends Task{
         return (super.equals(event) && this.startTime.equals(event.startTime)
                 && this.endTime.equals(event.endTime));
     }
-    
+
 }

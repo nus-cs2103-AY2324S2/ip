@@ -1,8 +1,9 @@
-package Aaron.Command;
-import Aaron.Exception.AaronBotException;
-import Aaron.Parser.TaskDetailParser;
-import Aaron.Task.TaskList;
-import Aaron.UI.UI;
+package aaron.command;
+
+import aaron.exception.AaronBotException;
+import aaron.parser.CommandDetailParser;
+import aaron.task.TaskList;
+import aaron.ui.UI;
 
 /**
  * Abstract class that represents a user command
@@ -11,7 +12,7 @@ public abstract class Command {
     public final String commandDetails;
     public final CommandType commandType;
 
-    public Command(String userInput, CommandType commandType) throws AaronBotException{
+    public Command(String userInput, CommandType commandType) throws AaronBotException {
         this.commandType = commandType;
         commandDetails = TaskDetailParser.getTaskDetails(userInput);
     }
@@ -26,7 +27,7 @@ public abstract class Command {
      * Method that returns whether the command is a bye command
      * @return boolean val representing whether the command is a bye command
      */
-    public abstract boolean isBye();
 
+    public abstract boolean returnIsBye();
 
 }

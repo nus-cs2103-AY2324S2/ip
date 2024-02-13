@@ -1,13 +1,13 @@
-package Aaron.Task;
+package aaron.task;
 
-import Aaron.Exception.AaronBotException;
+import aaron.exception.AaronBotException;
 
 /**
  * class that represents a todo type of task in aaronbot
  */
-public class Todo extends Task{
-    
-    public Todo(String taskString) throws AaronBotException{
+public class Todo extends Task {
+
+    public Todo(String taskString) throws AaronBotException {
         super(taskString);
     }
 
@@ -33,5 +33,5 @@ public class Todo extends Task{
         Todo todo = (Todo) obj;
         return (super.equals(todo));
     }
-    
+
 }

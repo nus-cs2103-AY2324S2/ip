@@ -1,8 +1,7 @@
-package Aaron.Command;
-import Aaron.Exception.NonsenseCommandException;
-/**
- * Enum representing different types of commands
- */
+package aaron.command;
+
+import aaron.exception.NonsenseCommandException;
+
 public enum CommandType {
     ADDTASK("add"),
     BYE("bye"),

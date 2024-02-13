@@ -1,13 +1,14 @@
-package Aaron.Command;
-import Aaron.Exception.AaronBotException;
-import Aaron.Task.TaskList;
-import Aaron.UI.UI;
+package aaron.command;
+
+import aaron.exception.AaronBotException;
+import aaron.task.TaskList;
+import aaron.ui.UI;
 
 /**
  * Class that represents a bye command
  */
 public class Bye extends Command {
-    public Bye(String userInput, CommandType commandType) throws AaronBotException{
+    public Bye(String userInput, CommandType commandType) throws AaronBotException {
         super(userInput, commandType);
     }
 
@@ -17,9 +18,8 @@ public class Bye extends Command {
     }
 
     @Override
-    public boolean isBye() {
+    public boolean returnIsBye() {
         return true;
     }
 
-    
 }

@@ -1,14 +1,13 @@
-package Aaron.Parser;
-import Aaron.Command.CommandType;
-import Aaron.Exception.InvalidCommandFormatException;
-import Aaron.Exception.NonsenseCommandException;
-import Aaron.Exception.ParsingException;
-import Aaron.Executer.Executer;
-import Aaron.Task.TaskList;
-import Aaron.UI.UI;
-/**
- * Encapsulates main parser class, parses user input and obtains necessary information for executor to execute command
- */
+package aaron.parser;
+
+import aaron.command.CommandType;
+import aaron.exception.InvalidCommandFormatException;
+import aaron.exception.NonsenseCommandException;
+import aaron.exception.ParsingException;
+import aaron.executer.Executer;
+import aaron.task.TaskList;
+import aaron.ui.UI;
+
 public class Parser {
 
     /**
@@ -38,9 +37,12 @@ public class Parser {
     }
 
     /**
-     * function that checks if the user input is >1 words (unless a 'bye' command is given)
+     * function that checks if the user input is >1 words (unless a 'bye' command is
+     * given)
+     * 
      * @param userInputString User input
-     * @throws InvalidCommandFormatException if user input is <=1 words unless the input is 'bye'
+     * @throws InvalidCommandFormatException if user input is <=1 words unless the
+     *                                       input is 'bye'
      */
     private static void commandLengthCheck(String userInputString) throws InvalidCommandFormatException {
         if (!(userInputString.equals("bye")) && userInputString.split("\\s+").length <= 1) {

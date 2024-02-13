@@ -1,8 +1,7 @@
-package Aaron.Parser;
-import Aaron.Exception.IndexFormatException;
-/**
- * Class that encapsulates means of obtaining numerical index based on user input for delete/mark/unmark operations
- */
+package aaron.parser;
+
+import aaron.exception.IndexFormatException;
+
 public class IndexParser {
 
     /**

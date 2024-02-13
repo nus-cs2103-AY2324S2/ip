@@ -1,11 +1,10 @@
-package Aaron.UI;
-import java.util.Scanner;
-import Aaron.Exception.AaronBotException;
-import Aaron.Task.TaskList;
+package aaron.ui;
 
-/**
- * Class that represents UI that interacts with the human
- */
+import java.util.Scanner;
+
+import aaron.exception.AaronBotException;
+import aaron.task.TaskList;
+
 public class UI {
     private static final Scanner scanner = new Scanner(System.in);
 
@@ -112,5 +111,5 @@ public class UI {
     public void goodbyeMessage() {
         System.out.println("Goodbye student, HAND.");
     }
- 
+
 }
