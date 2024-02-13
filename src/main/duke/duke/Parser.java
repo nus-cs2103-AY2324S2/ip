@@ -25,8 +25,8 @@ public class Parser {
         BYE, LIST, SAVE, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, FIND, UNKNOWN
     }
 
-    private Command parseUserMsg(String in) {
-        switch (in) {
+    private Command parseUserMsg(String input) {
+        switch (input) {
         case "bye":
             return Command.BYE;
         case "list":
@@ -55,16 +55,17 @@ public class Parser {
     /**
      * The main parsing logic. Takes the input and calls the relevant functions for the desired outputs.
      *
-     * @param in The string input that the user has passed into the program.
+     * @param input The string input that the user has passed into the program.
      * @return A TaskList that has been altered if there is a need to. The value is null if the command is 'bye'
      */
-    public String parse(String in) {
-        String[] inputParsed = in.split(" ");
+    public String parse(String input) {
+        String[] inputParsed = input.split(" ");
         Command command = parseUserMsg(inputParsed[0]);
 
-        String reply = "";
+        String reply;
 
         try {
+            checkValidFormat(inputParsed, command); // Throws various exceptions corresponding to foreseeable errors.
             switch (command) {
             case BYE:
                 reply = Skibidi.BYE;
@@ -76,16 +77,16 @@ public class Parser {
                 reply = Duke.storage.save(Duke.tasks);
                 break;
             case MARK:
-                reply = Duke.tasks.mark(inputParsed[1]);
+                reply = Duke.tasks.mark(inputParsed[1]); // mark(task number)
                 break;
             case UNMARK:
-                reply = Duke.tasks.unmark(inputParsed[1]);
+                reply = Duke.tasks.unmark(inputParsed[1]); // unmark(task number)
                 break;
             case DELETE:
-                reply = Duke.tasks.delete(inputParsed[1]);
+                reply = Duke.tasks.delete(inputParsed[1]); // delete(task number)
                 break;
             case FIND:
-                reply = Duke.tasks.find(inputParsed[1]);
+                reply = Duke.tasks.find(inputParsed[1]); // find(task name)
                 break;
             case UNKNOWN:
                 reply = "Unknown command\n";
@@ -103,8 +104,7 @@ public class Parser {
         } catch (DukeInvalidInputException e) {
             reply = "This is not a valid input!!!";
         } catch (DukeEmptyArgumentException e) {
-            reply = String.valueOf(inputParsed.length);
-            //reply = "There is an argument that is empty!!!";
+            reply = "There is an argument that is empty!!!";
         } catch (DukeErroneousArgumentException e) {
             reply = "There is an argument in the wrong format!!!";
         } catch (DateTimeException e) {
@@ -125,7 +125,6 @@ public class Parser {
      */
     public String addTask(String[] inputs, Command command) {
         String s;
-        checkValidFormat(inputs, command); // Throws various exceptions corresponding to some foreseeable errors.
 
         switch (command) {
         case TODO:
@@ -153,24 +152,27 @@ public class Parser {
 
     private void checkValidFormat(String[] inputs, Command command) {
         switch (command) {
-        // Command: todo taskname
-        case TODO:
+        case MARK: // Command: mark taskNumber
+        case UNMARK: // Command: unmark taskNumber
+        case DELETE:// Command: delete taskNumber
+        case FIND: // Command: find taskName
+        case TODO: // Command: todo taskName
             if (inputs.length < 2) {
                 throw new DukeEmptyArgumentException();
             } else if (inputs.length > 2) {
                 throw new DukeErroneousArgumentException();
             }
             break;
-        // Command: deadline taskname /by when
-        case DEADLINE:
+
+        case DEADLINE: // Command: deadline taskName /by when
             if (inputs.length < 4) {
                 throw new DukeEmptyArgumentException();
             } else if (!inputs[2].equals("/by") || inputs.length > 4) {
                 throw new DukeErroneousArgumentException();
             }
             break;
-        // Command: event taskname /from start /to end
-        case EVENT:
+
+        case EVENT: // Command: event taskName /from start /to end
             if (inputs.length < 6) {
                 throw new DukeEmptyArgumentException();
             } else if (inputs.length > 6 || !(inputs[2].equals("/from") && inputs[4].equals("/to"))) {
