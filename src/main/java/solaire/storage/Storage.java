@@ -102,29 +102,40 @@ public class Storage {
 
         switch (taskDetails.length) {
         case 3: {
-            Task newTask = new Todo(taskDescription);
-            if (isComplete) {
-                newTask.markAsDone();
-            }
+            Task newTask = getTodoTask(taskDescription, isComplete);
             taskList.add(newTask);
             break;
         }
         case 4: {
-            Task newTask;
-            if (taskType.trim().equals("D")) {
-                newTask = new Deadline(taskDescription, taskDetails[3]);
-            } else {
-                String[] timeDetails = taskDetails[3].split("\\-");
-                newTask = new Event(taskDescription, timeDetails[0], timeDetails[1]);
-            }
-            if (isComplete) {
-                newTask.markAsDone();
-            }
+            Task newTask = getTaskWithTimeLimit(taskType, taskDescription, taskDetails, isComplete);
             taskList.add(newTask);
             break;
         }
         default:
             throw new SolaireException("Invalid task format in local storage");
         }
+    }
+
+    private static Task getTaskWithTimeLimit(String taskType, String taskDescription, String[] taskDetails,
+                                             Boolean isComplete) throws SolaireException {
+        Task newTask;
+        if (taskType.trim().equals("D")) {
+            newTask = new Deadline(taskDescription, taskDetails[3]);
+        } else {
+            String[] timeDetails = taskDetails[3].split("\\-");
+            newTask = new Event(taskDescription, timeDetails[0], timeDetails[1]);
+        }
+        if (isComplete) {
+            newTask.markAsDone();
+        }
+        return newTask;
+    }
+
+    private static Task getTodoTask(String taskDescription, Boolean isComplete) {
+        Task newTask = new Todo(taskDescription);
+        if (isComplete) {
+            newTask.markAsDone();
+        }
+        return newTask;
     }
 }
