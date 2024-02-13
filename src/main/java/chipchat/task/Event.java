@@ -8,8 +8,8 @@ import chipchat.action.CommandType;
  * Represents a type of task that is an event. Subclass of task.
  */
 public class Event extends Task {
-    private LocalDate dateFrom;
-    private LocalDate dateTo;
+    private final LocalDate dateFrom;
+    private final LocalDate dateTo;
 
     /**
      * Constructor of Event. Takes in the starting date and ending date.

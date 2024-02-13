@@ -4,8 +4,8 @@ package chipchat.task;
  * Represents a task that can be managed by this chatbot.
  */
 public abstract class Task {
-    private String description;
-    private boolean isDone;
+    private final String description;
+    private final boolean isDone;
 
     /**
      * Constructor of Task.

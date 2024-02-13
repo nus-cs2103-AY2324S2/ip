@@ -8,7 +8,7 @@ import chipchat.action.CommandType;
  * Represents a type of task with a deadline. Subclass of Task.
  */
 public class Deadline extends Task {
-    private LocalDate dueBy;
+    private final LocalDate dueBy;
 
     /**
      * Constructor of Deadline that takes in a date.
