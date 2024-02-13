@@ -38,6 +38,8 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize(Duke duke, Ui ui) {
+        assert duke != null : "Duke object should not be null";
+        assert ui != null : "Ui object should not be null";
         this.duke = duke;
         DialogBox.getUserDialog(ui.showWelcome(), dukeImage);
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -52,6 +54,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = duke.getResponse(input);
+        assert response != null && !response.isEmpty() : "Response should not be null or empty";
         dialogContainer.getChildren().addAll(
             DialogBox.getUserDialog("User:\n\t" + input, userImage),
             DialogBox.getDukeDialog(response, dukeImage)

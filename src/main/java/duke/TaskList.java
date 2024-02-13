@@ -37,6 +37,7 @@ public class TaskList {
      * @return the task that is deleted
      */
     public Task deleteTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Index should be within the range of tasks";
         return tasks.remove(index);
     }
 
@@ -65,6 +66,7 @@ public class TaskList {
      * Marks a task as done.
      */
     public Task markDone(int index) {
+        assert index >= 0 && index < tasks.size() : "Index should be within the range of tasks";
         Task task = tasks.get(index);
         task.markAsDone();
         return task;
@@ -74,6 +76,7 @@ public class TaskList {
      * Marks a task as not done yet.
      */
     public Task unmarkDone(int index) {
+        assert index >= 0 && index < tasks.size() : "Index should be within the range of tasks";
         Task task = tasks.get(index);
         task.markAsUndone();
         return task;
@@ -86,6 +89,7 @@ public class TaskList {
      * @return a list of tasks that contain the description
      */
     public TaskList findTasks(String description) {
+        assert description != null : "Description should not be null";
         ArrayList<Task> filteredTasks = new ArrayList<Task>();
         for (Task task : tasks) {
             if (task.getDescription().contains(description)) {

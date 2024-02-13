@@ -41,6 +41,7 @@ public class Storage {
                 throw new DukeException("File could not be created.");
             }
         } else {
+            assert file.exists() : "File should exist";
             Scanner s = new Scanner(file);
             while (s.hasNext()) {
                 String line = s.nextLine();
@@ -54,6 +55,7 @@ public class Storage {
     }
 
     private Task parseTasksFromString(String line) throws DukeException {
+        assert line != null : "Line should not be null";
         String[] split = line.split(" \\| ");
 
         // common fields
@@ -91,6 +93,7 @@ public class Storage {
      * @throws IOException if there is an error writing to the file.
      */
     public void writeToFile(TaskList tasksList) throws DukeException, IOException {
+        assert filePath != null : "File path should not be null";
         FileWriter fileWriter = new FileWriter(filePath, false);
         for (int i = 0; i < tasksList.getSize(); i++) {
             Task task = tasksList.getTask(i);
@@ -108,6 +111,8 @@ public class Storage {
                     task.getTaskType() + " | " + (task.isDone ? "1" : "0") + " | "
                         + task.getDescription() + " | " + Task.getLocalDateOutputFormat(event.getFrom()) + " | "
                         + Task.getLocalDateOutputFormat(event.getTo()) + "\n");
+            } else {
+                throw new DukeException("Invalid task type");
             }
         }
         fileWriter.close();
