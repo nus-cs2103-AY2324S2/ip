@@ -1,3 +1,4 @@
+import duke.exception.DukeException;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.task.Tasklist;
@@ -17,10 +18,14 @@ public class Duke {
      * Constructor for the Duke class.
      */
     public Duke() {
-        todolist = new Tasklist();
-        ui = new Ui();
-        storage = new Storage();
-        parser = new Parser();
+        try {
+            todolist = new Tasklist();
+            ui = new Ui();
+            storage = new Storage();
+            parser = new Parser();
+        } catch (DukeException e) {
+            ui.printMessage(e.getMessage());
+        }
     }
 
     public static void main(String[] args) {
@@ -37,7 +42,11 @@ public class Duke {
         boolean isBye = false;
         while (!isBye) {
             String command = ui.getCommand();
-            isBye = parser.parseCommand(command, ui, storage, todolist);
+            try {
+                isBye = parser.parseCommand(command, ui, storage, todolist);
+            } catch (DukeException e) {
+                ui.printMessage(e.getMessage());
+            }
         }
         ui.printByeMessage();
     }

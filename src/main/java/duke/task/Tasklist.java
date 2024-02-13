@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import duke.exception.DukeException;
 import duke.storage.Storage;
 
 /**
@@ -14,7 +15,7 @@ import duke.storage.Storage;
 public class Tasklist {
     private List<Task> todolist = new ArrayList<>();
 
-    public Tasklist() {
+    public Tasklist() throws DukeException {
         restoreData();
     }
 
@@ -80,10 +81,8 @@ public class Tasklist {
 
     /**
      * Restores the data from existing file, if any.
-     *
-     * @throws IOException If an error occurs while writing to the file.
      */
-    public void restoreData() {
+    public void restoreData() throws DukeException {
         try {
             boolean isDone;
             List<String> tasks = Storage.loadData();
