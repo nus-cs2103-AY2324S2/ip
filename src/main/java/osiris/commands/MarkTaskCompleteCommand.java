@@ -37,7 +37,8 @@ public class MarkTaskCompleteCommand extends Command {
     public String execute(TaskManager taskManager, Ui userInterface) {
         boolean isSuccess = taskManager.markTaskComplete(taskIndex - 1);
         if (isSuccess) {
-            return userInterface.displayMarkTaskCompleteNotification(taskManager.getTask(taskIndex - 1).toString());
+            String taskDetails = taskManager.getTask(taskIndex - 1).toString();
+            return userInterface.displayMarkTaskCompleteNotification(taskDetails);
         }
         throw new OsirisException("An error has occurred. Please try again.");
     }

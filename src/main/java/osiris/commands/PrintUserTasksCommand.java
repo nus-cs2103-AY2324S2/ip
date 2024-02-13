@@ -24,8 +24,8 @@ public class PrintUserTasksCommand extends Command {
      */
     @Override
     public String execute(TaskManager taskManager, Ui userInterface) {
-        ArrayList<Task> taskList = taskManager.getUserTasks();
-        ArrayList<String> taskDetailsArrayList = taskList.stream().map(Task::toString)
+        ArrayList<Task> userTasksList = taskManager.getUserTasks();
+        ArrayList<String> taskDetailsArrayList = userTasksList.stream().map(Task::toString)
                 .collect(Collectors.toCollection(ArrayList::new));
         return userInterface.printUserTasks(taskDetailsArrayList);
     }
