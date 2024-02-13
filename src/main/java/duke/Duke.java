@@ -11,11 +11,6 @@ import java.util.Scanner;
  */
 public class Duke {
 
-
-    private Ui ui;
-    private Storage storage;
-    private TaskList tasks;
-
     protected static final int BYE_COMMAND = 1;
     protected static final int LIST_COMMAND = 2;
     protected static final int MARK_COMMAND = 3;
@@ -23,6 +18,12 @@ public class Duke {
     protected static final int DELETE_COMMAND = 5;
     protected static final int FIND_COMMAND = 6;
     protected static final int TASK_COMMAND = 7;
+
+    private Ui ui;
+    private Storage storage;
+    private TaskList tasks;
+
+
 
     /**
      * Constructor for a Duke instance (Different chatbot instances for different users)
