@@ -18,7 +18,7 @@ public class TaskListTest {
     public void addToDoTest() {
         TaskList taskList = new TaskList();
         try {
-            taskList.addToDo("todo buy groceries");
+            taskList.addToDo("buy groceries");
         } catch (DuchessException e) {
             System.out.println(e.getMessage());
         }
@@ -34,7 +34,7 @@ public class TaskListTest {
     public void deleteTaskTest() {
         TaskList taskList = new TaskList();
         try {
-            taskList.addToDo("todo buy groceries");
+            taskList.addToDo("buy groceries");
             assertEquals(1, taskList.getTasks().size());
             assertEquals("[T][ ] buy groceries", taskList.getTasks().get(0).toString());
             taskList.deleteTask(0);
