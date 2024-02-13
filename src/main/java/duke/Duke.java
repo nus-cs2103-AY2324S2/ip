@@ -10,6 +10,7 @@ import java.util.Scanner;
  * A simple task manager application.
  * Handles initial setup for components of the main application.
  */
+
 public class Duke {
     //    public static final String DATABASE_PATH = "../data/duke.txt";
     public static final String DATABASE_PATH = "data/duke.txt";

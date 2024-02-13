@@ -22,13 +22,13 @@ public class TaskList {
         DELETE
     }
 
-    // Todo representation - 0 means not done, 1 means done
+    // duke.Todo representation - 0 means not done, 1 means done
     // T | done? | desc
 
-    // Deadline representation
+    // duke.Deadline representation
     // D | done? | desc | by
 
-    // Event representation
+    // duke.Event representation
     // E | done? | desc | from | to
 
     /**
@@ -181,6 +181,7 @@ public class TaskList {
      * @return The Task object
      * @throws DukeBotException.UnknownCommandException if an unknown command is encountered while parsing the task
      */
+
     public static Task parseStringToTask(String dbTask) throws DukeBotException.UnknownCommandException {
         String[] params = dbTask.split(" \\| ");
         String type = params[0];

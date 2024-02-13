@@ -64,7 +64,7 @@ public class DeadlineTask extends Task {
      */
     public static DeadlineTask dbToDeadlineTask(String dbDeadline) {
         String[] params = dbDeadline.split(" \\| ");
-        Boolean isDone = params[1].equals("1");
+        Boolean isDone = params[1].equals("1") ? true : false;
         String desc = params[2];
         String deadline = params[3];
         return new DeadlineTask(desc, isDone, deadline);

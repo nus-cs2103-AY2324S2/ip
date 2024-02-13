@@ -1,10 +1,6 @@
-D | 1 | return library items | Friday
-T | 1 | say hello
-E | 1 | team brainstorming session  | 01 May 2024 09:00 | 01 May 2024 15:00
-T | 0 | purchase groceries
-T | 0 | start reading novel
-E | 0 | finish reading novel  | 01/01/2023 to | 01/02/2023 23:59
-D | 0 | complete assignment | tomorrow
-T | 0 | finish reading novel
-E | 0 | complete reading assignment  | 01 January 2022 10:00 | 01 February 2023 17:00
-
+D | 1 | watch movie | Sunday
+T | 1 | test
+T | 0 | test
+E | 1 | assignment  | 01 Jan 2020 00:01 | 01 May 2020 10:00
+T | 0 | sleep
+T | 0 | sleep

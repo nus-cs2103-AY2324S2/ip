@@ -47,7 +47,7 @@ public class Todo extends Task {
     public static Todo db2Todo(String dbTodo) {
         // T | 0 | Buy Bread
         String[] params = dbTodo.split(" \\| ");
-        Boolean isDone = params[1].equals("1"); // if "1", means isDone
+        Boolean isDone = params[1].equals("1") ? true : false; // if "1", means isDone
         String desc = params[2];
         return new Todo(desc, isDone);
     }

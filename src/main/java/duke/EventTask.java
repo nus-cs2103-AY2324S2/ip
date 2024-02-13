@@ -72,7 +72,7 @@ public class EventTask extends Task {
      */
     public static EventTask dbToEventTask(String dbEvent) {
         String[] params = dbEvent.split(" \\| ");
-        Boolean isDone = params[1].equals("1");
+        Boolean isDone = params[1].equals("1") ? true : false;
         String desc = params[2];
         String startTime = params[3];
         String endTime = params[4];
