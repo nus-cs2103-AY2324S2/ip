@@ -1,17 +1,35 @@
 package duke;
 
+/**
+ * Represents a parser in the Duke application that interprets and executes user commands.
+ *
+ * @author Qin Boan
+ */
 public class Parser {
 
     private TaskList tasks;
     private Ui ui;
     private Storage storage;
 
+    /**
+     * Constructs a Parser instance.
+     *
+     * @param tasks The list of tasks to manage.
+     * @param ui The user interface to interact with the user.
+     * @param storage The storage to save and load tasks.
+     */
     public Parser(TaskList tasks, Ui ui, Storage storage) {
         this.tasks = tasks;
         this.ui = ui;
         this.storage = storage;
     }
 
+    /**
+     * Parses and executes the given input command.
+     *
+     * @param input The user input command to parse.
+     * @throws DukeException If the command execution encounters any errors.
+     */
     public void parse(String input) throws DukeException {
 
         if ("bye".equals(input)) {
@@ -136,5 +154,4 @@ public class Parser {
             ui.showError(e.getMessage());
         }
     }
-
 }

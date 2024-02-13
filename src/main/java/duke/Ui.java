@@ -2,55 +2,93 @@ package duke;
 
 import java.util.Scanner;
 
+/**
+ * Represents the user interface for the Duke application.
+ * This class handles all user interactions.
+ *
+ * @author Qin Boan
+ */
 public class Ui {
     private Scanner scanner;
 
+    /**
+     * Constructs a new Ui object.
+     */
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
 
-    // Read input from the user
+    /**
+     * Reads the next command from the user input.
+     *
+     * @return The command entered by the user.
+     */
     public String readCommand() {
-        //System.out.print("Enter command: "); // Prompt for user input
         return scanner.nextLine();
     }
 
-    // Show welcome message
+    /**
+     * Shows the welcome message to the user.
+     */
     public void showWelcome() {
         System.out.println("Hello! I'm BBJSOBB");
         System.out.println("What can I do for you?");
     }
 
-    // Show error messages
+    /**
+     * Shows an error message to the user.
+     *
+     * @param message The error message to be displayed.
+     */
     public void showError(String message) {
         System.out.println("Error: " + message);
     }
 
-    // Show loading error
+    /**
+     * Shows a loading error message.
+     */
     public void showLoadingError() {
         showError("Could not load tasks from file.");
     }
 
-    // Show tasks to the user
+    /**
+     * Displays a task to the user.
+     *
+     * @param task The task to be displayed.
+     */
     public void showTask(String task) {
         System.out.println(task);
     }
 
-    // Show add task message
+    /**
+     * Shows a message indicating that a task has been added.
+     *
+     * @param task The task that has been added.
+     * @param taskCount The total number of tasks after adding.
+     */
     public void showAddedTask(String task, int taskCount) {
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
         System.out.println("Now you have " + taskCount + " tasks in the list.");
     }
 
-    // Show task removal message
+    /**
+     * Shows a message indicating that a task has been removed.
+     *
+     * @param task The task that has been removed.
+     * @param taskCount The total number of tasks after removal.
+     */
     public void showRemovedTask(String task, int taskCount) {
         System.out.println("Noted. I've removed this task:");
         System.out.println(task);
         System.out.println("Now you have " + taskCount + " tasks in the list.");
     }
 
-    // Show the list of tasks
+    /**
+     * Displays all tasks in the task list.
+     *
+     * @param tasks The TaskList containing tasks to be displayed.
+     */
     public void showTasks(TaskList tasks) {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
@@ -58,14 +96,17 @@ public class Ui {
         }
     }
 
-    // Show exit message
+    /**
+     * Shows the exit message to the user.
+     */
     public void showGoodbye() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    // Close the scanner when the UI is closing
+    /**
+     * Closes the scanner when the UI is closing.
+     */
     public void close() {
         scanner.close();
     }
 }
-
