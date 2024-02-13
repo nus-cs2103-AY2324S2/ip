@@ -1,17 +1,33 @@
 package dav;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+/**
+ * Represents a task that is an event with a specified start and end date/time.
+ */
 class EventTask extends Task {
 
     protected LocalDateTime fromDateTime;
     protected LocalDateTime toDateTime;
 
+    /**
+     * Constructs an EventTask with the specified description and date/time.
+     * @param description Description of the event task.
+     * @param fromDateTime Start date/time of the event.
+     * @param toDateTime End date/time of the event.
+     */
     public EventTask(String description, LocalDateTime fromDateTime, LocalDateTime toDateTime) {
         super(description);
         this.fromDateTime = fromDateTime;
         this.toDateTime = toDateTime;
     }
 
+    /**
+     * Constructs an EventTask with the specified description and date/time strings.
+     * @param description Description of the event task.
+     * @param from Start date/time of the event in string format.
+     * @param to End date/time of the event in string format.
+     */
     public EventTask(String description, String from, String to) {
         super(description);
         this.fromDateTime = parseDateTime(from);
@@ -22,6 +38,10 @@ class EventTask extends Task {
         return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
+    /**
+     * Converts the task to a string for data storage.
+     * @return Formatted string for data storage.
+     */
     @Override
     public String toDataString() {
         return "E | " + (isDone ? "1" : "0") + " | " + description +
@@ -29,6 +49,11 @@ class EventTask extends Task {
                 " | " + toDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
+    /**
+     * Parses task data string and returns an EventTask object.
+     * @param data Data string representing the task.
+     * @return EventTask object if parsing is successful, otherwise null.
+     */
     public static Task parseTask(String data) {
         String[] parts = data.split(" \\| ");
         if (parts.length == 5) {
@@ -43,6 +68,10 @@ class EventTask extends Task {
         return null;
     }
 
+    /**
+     * Converts the task to a string for display.
+     * @return Formatted string for display.
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() +

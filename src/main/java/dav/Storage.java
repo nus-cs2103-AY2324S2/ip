@@ -5,16 +5,28 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+/**
+ * Handles the loading and saving of tasks from/to a file.
+ */
 class Storage {
 
     private static final String FILE_PATH = "./data/dav.txt";
 
     private String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     * @param filePath The file path for loading and saving tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file specified in the constructor.
+     * @return List of tasks loaded from the file.
+     * @throws DukeException If there is an error loading tasks from the file.
+     */
     public List<Task> load() throws DukeException {
         try {
             List<Task> tasks = new ArrayList<>();
@@ -33,6 +45,11 @@ class Storage {
         }
     }
 
+    /**
+     * Saves the list of tasks to the file specified in the constructor.
+     * @param tasks List of tasks to be saved to the file.
+     * @throws DukeException If there is an error saving tasks to the file.
+     */
     public void save(List<Task> tasks) throws DukeException {
         try {
             Path filePath = Paths.get(FILE_PATH);
