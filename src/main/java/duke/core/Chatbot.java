@@ -1,9 +1,5 @@
 package duke.core;
 
-import java.io.InputStream;
-import java.io.PrintStream;
-import java.util.Scanner;
-
 import duke.task.TaskList;
 import duke.ui.Ui;
 
@@ -27,40 +23,30 @@ public class Chatbot {
     }
 
     /**
-     * Activates the chatbot to interact with different user commands
+     * Processes a single user input and returns the chatbot's response.
      *
-     * @param in  User input commands.
-     * @param out Chatbot replies.
+     * @param input the user input
+     * @return the response of the chatbot
      */
-    public void startChat(InputStream in, PrintStream out) {
-        Scanner scanner = new Scanner(in);
+    public String getResponse(String input) {
+        StringBuilder responseBuilder = new StringBuilder();
 
-        Ui.setOutputStream(out);
-        Ui.greet(name);
-
-        boolean isChatting = true;
-        while (isChatting) {
-            if (scanner.hasNextLine()) { // Make sure there's another line to read.
-                String input = scanner.nextLine();
-                if (input.equalsIgnoreCase("bye")) {
-                    Ui.bye(tasklist);
-                    isChatting = false;
-                } else if (input.contains("list")) {
-                    Ui.listTasks(tasklist);
-                } else if (input.contains("mark")) {
-                    String[] parts = input.split("\\s+", 2);
-                    Ui.mark(tasklist, (parts[1]), !parts[0].contains("un"));
-                } else if (input.contains("delete")) {
-                    String[] parts = input.split("\\s+", 2);
-                    Ui.delete(tasklist, parts[1]);
-                } else if (input.contains("find")) {
-                    String[] parts = input.split("\\s+", 2);
-                    Ui.find(tasklist, parts[1]);
-                } else {
-                    Ui.addTask(tasklist, input);
-                }
-            }
+        if (input.equalsIgnoreCase("bye")) {
+            responseBuilder.append(Ui.bye(tasklist));
+        } else if (input.contains("list")) {
+            responseBuilder.append(Ui.listTasks(tasklist));
+        } else if (input.contains("mark")) {
+            String[] parts = input.split("\\s+", 2);
+            responseBuilder.append(Ui.mark(tasklist, (parts[1]), !parts[0].contains("un")));
+        } else if (input.contains("delete")) {
+            String[] parts = input.split("\\s+", 2);
+            responseBuilder.append(Ui.delete(tasklist, parts[1]));
+        } else if (input.contains("find")) {
+            String[] parts = input.split("\\s+", 2);
+            responseBuilder.append(Ui.find(tasklist, parts[1]));
+        } else {
+            responseBuilder.append(Ui.addTask(tasklist, input));
         }
-        scanner.close();
+        return responseBuilder.toString();
     }
 }
