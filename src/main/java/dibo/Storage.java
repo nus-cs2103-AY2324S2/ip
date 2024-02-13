@@ -12,6 +12,7 @@ import java.util.Scanner;
 
 import dibo.exception.DiboException;
 import dibo.task.Deadline;
+import dibo.task.DoAfter;
 import dibo.task.Event;
 import dibo.task.Task;
 import dibo.task.ToDo;
@@ -57,6 +58,9 @@ public class Storage {
                     break;
                 case "deadline":
                     task = loadDeadline(details);
+                    break;
+                case "do-after":
+                    task = loadDoAfter(details);
                     break;
                 case "event":
                     task = loadEvent(details);
@@ -111,6 +115,13 @@ public class Storage {
         String by = details[3].trim();
         LocalDate byDate = convertToLocalDate(by);
         return new Deadline(descriptionDeadline, byDate);
+    }
+
+    private DoAfter loadDoAfter(String[] details) throws IndexOutOfBoundsException {
+        String descriptionDoAfter = details[2];
+        String after = details[3].trim();
+        LocalDate afterDate = convertToLocalDate(after);
+        return new DoAfter(descriptionDoAfter, afterDate);
     }
 
     private Event loadEvent(String[] details) throws IndexOutOfBoundsException {
