@@ -36,6 +36,7 @@ public class MainWindow extends AnchorPane implements Ui {
     }
 
     public void setCappy(Cappy c) {
+        assert c != null : "Cannot set cappy to be null!";
         cappy = c;
     }
 
