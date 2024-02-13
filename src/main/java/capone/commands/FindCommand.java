@@ -1,7 +1,6 @@
 package capone.commands;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import capone.Storage;
@@ -9,7 +8,6 @@ import capone.TaskList;
 import capone.exceptions.CaponeException;
 import capone.exceptions.InsufficientArgumentException;
 import capone.exceptions.InvalidCommandException;
-import capone.tasks.Task;
 import capone.ui.Ui;
 
 /**
