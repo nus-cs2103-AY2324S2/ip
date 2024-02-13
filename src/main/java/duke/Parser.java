@@ -34,7 +34,6 @@ public class Parser {
             return list.printList();
         } else if (str.equals("bye")) {
             return list.bye();
-            //System.exit(0);
         } else if (identifier.equals("mark")) {
            return list.markCase(tokens);
         } else if (identifier.equals("unmark")) {
