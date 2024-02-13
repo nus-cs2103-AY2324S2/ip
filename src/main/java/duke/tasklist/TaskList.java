@@ -44,6 +44,7 @@ public class TaskList {
      * @return a string representation of all the task in the TaskList.
      */
     public String list() {
+        assert (list.size() >= 0);
         if (list.size() == 0) {
             return "The list is empty\n";
         }
@@ -63,6 +64,7 @@ public class TaskList {
      */
     public String listStatus() {
         int length = list.size();
+        assert (list.size() >= 0);
         return "Now you have " + length + " task" + (length > 1 ? "s" : "") + " in the list.\n";
     }
 
