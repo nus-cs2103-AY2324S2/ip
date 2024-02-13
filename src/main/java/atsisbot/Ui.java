@@ -11,24 +11,24 @@ import atsisbot.task.TaskList;
  * displaying task lists.
  */
 public class Ui {
-    private static final String welcomeMessage = "Hello! I'm atsisbot.AtsisBot\n" + "What can I do for you?\n";
-    private static final String endingMessage = "Bye. Hope to see you again soon!\n";
-    private static final String listMessage = "Here are the tasks in your list:\n";
-    private static final String markMessage = "Nice! I've marked this atsisbot.task as done:\n";
-    private static final String unmarkMessage = "OK, I've marked this atsisbot.task as not done yet:\n";
-    private static final String addTaskMessage = "Got it. I've added this atsisbot.task:\n";
-    private static final String deleteTaskMessage = "Noted. I've removed this atsisbot.task:\n";
-    private static final String noDescriptionMessage = "The description of a %s cannot be empty.\n";
-    private static final String invalidDeadlineFormatMessage = "Invalid deadline format. Please use:"
+    private static final String WELCOME_MESSAGE = "Hello! I'm atsisbot.AtsisBot\n" + "What can I do for you?\n";
+    private static final String ENDING_MESSAGE = "Bye. Hope to see you again soon!\n";
+    private static final String LIST_MESSAGE = "Here are the tasks in your list:\n";
+    private static final String TASK_AS_DONE = "Nice! I've marked this atsisbot.task as done:\n";
+    private static final String TASK_AS_NOT_DONE_YET = "OK, I've marked this atsisbot.task as not done yet:\n";
+    private static final String ADDED_THIS_ATSISBOT_TASK = "Got it. I've added this atsisbot.task:\n";
+    private static final String REMOVED_THIS_ATSISBOT_TASK = "Noted. I've removed this atsisbot.task:\n";
+    private static final String NO_DESCRIPTION_MESSAGE = "The description of a %s cannot be empty.\n";
+    private static final String INVALID_DEADLINE_FORMAT_MESSAGE = "Invalid deadline format. Please use:"
         + " deadline <description> /by <date>\n";
-    private static final String invalidEventFormatMessage = "Invalid event format. Please use:"
+    private static final String INVALID_EVENT_FORMAT_MESSAGE = "Invalid event format. Please use:"
         + " event <description> /from <date> /to <date>\n";
-    private static final String invalidTaskNumberMessage = "Invalid atsisbot.task number."
+    private static final String INVALID_TASK_NUMBER_MESSAGE = "Invalid atsisbot.task number."
         + " Please enter a valid atsisbot.task number.\n";
-    private static final String invalidInputFormatMessage = "Invalid input format. Please use the correct format.\n";
-    private static final String unknownCommandMessage = "I'm sorry, but I don't understand that command.";
-    private static final String invalidFindMessage = "No matching tasks found.\n";
-    private static final String findMessage = "Here are the matching tasks in your list:\n";
+    private static final String INVALID_INPUT_FORMAT_MESSAGE = "Invalid input format. Please use the correct format.\n";
+    private static final String UNKNOWN_COMMAND_MESSAGE = "I'm sorry, but I don't understand that command.";
+    private static final String INVALID_FIND_MESSAGE = "No matching tasks found.\n";
+    private static final String FIND_MESSAGE = "Here are the matching tasks in your list:\n";
 
     private static Scanner sc = new Scanner(System.in);
 
@@ -47,21 +47,21 @@ public class Ui {
      * @param list The TaskList to be printed.
      */
     public static void printList(TaskList list) {
-        System.out.print(listMessage + list.getList());
+        System.out.print(LIST_MESSAGE + list.getList());
     }
 
     /**
      * Prints the welcome message to the console.
      */
     public static void printWelcomeMessage() {
-        System.out.println(welcomeMessage);
+        System.out.println(WELCOME_MESSAGE);
     }
 
     /**
      * Prints the ending message to the console.
      */
     public static void printEndingMessage() {
-        System.out.println(endingMessage);
+        System.out.println(ENDING_MESSAGE);
     }
 
     /**
@@ -70,7 +70,7 @@ public class Ui {
      * @param task The task to print the mark message for.
      */
     public static void printMarkMessage(Task task) {
-        System.out.print(markMessage + task.toString());
+        System.out.print(TASK_AS_DONE + task.toString());
     }
 
     /**
@@ -79,7 +79,7 @@ public class Ui {
      * @param task The task to be unmarked.
      */
     public static void printUnmarkMessage(Task task) {
-        System.out.print(unmarkMessage + task.toString());
+        System.out.print(TASK_AS_NOT_DONE_YET + task.toString());
     }
 
     /**
@@ -89,7 +89,7 @@ public class Ui {
      * @param taskList The task list containing the added task.
      */
     public static void printAddTaskMessage(Task task, TaskList taskList) {
-        System.out.println(addTaskMessage + "  " + task.toString() + taskList.getSize());
+        System.out.println(ADDED_THIS_ATSISBOT_TASK + "  " + task.toString() + taskList.getSize());
     }
 
     /**
@@ -99,21 +99,21 @@ public class Ui {
      * @param taskList The task list containing the deleted task.
      */
     public static void printDeleteTaskMessage(Task task, TaskList taskList) {
-        System.out.println(deleteTaskMessage + "  " + task.toString() + taskList.getSize());
+        System.out.println(REMOVED_THIS_ATSISBOT_TASK + "  " + task.toString() + taskList.getSize());
     }
 
     /**
      * Prints the message for an invalid task number.
      */
     public static void printInvalidTaskNumberMessage() {
-        System.out.println(invalidTaskNumberMessage);
+        System.out.println(INVALID_TASK_NUMBER_MESSAGE);
     }
 
     /**
      * Prints the unknown command message.
      */
     public static void printUnknownCommandMessage() {
-        System.out.println(unknownCommandMessage);
+        System.out.println(UNKNOWN_COMMAND_MESSAGE);
     }
 
     /**
@@ -123,21 +123,21 @@ public class Ui {
      * @param taskType the type of task
      */
     public static void printNoDescriptionMessage(String taskType) {
-        System.out.print(String.format(noDescriptionMessage, taskType));
+        System.out.print(String.format(NO_DESCRIPTION_MESSAGE, taskType));
     }
 
     /**
      * Prints the message for an invalid deadline format.
      */
     public static void printInvalidDeadlineFormatMessage() {
-        System.out.println(invalidDeadlineFormatMessage);
+        System.out.println(INVALID_DEADLINE_FORMAT_MESSAGE);
     }
 
     /**
      * Prints the invalid event format message.
      */
     public static void printInvalidEventFormatMessage() {
-        System.out.println(invalidEventFormatMessage);
+        System.out.println(INVALID_EVENT_FORMAT_MESSAGE);
     }
 
     /**
@@ -151,7 +151,7 @@ public class Ui {
      * Prints the invalid input format message.
      */
     public static void printInvalidInputFormatMessage() {
-        System.out.println(invalidInputFormatMessage);
+        System.out.println(INVALID_INPUT_FORMAT_MESSAGE);
     }
 
     /**
@@ -163,9 +163,9 @@ public class Ui {
      */
     public static void printFindMessage(String message) {
         if (message.equals("")) {
-            System.out.print(invalidFindMessage);
+            System.out.print(INVALID_FIND_MESSAGE);
             return;
         }
-        System.out.print(findMessage + message);
+        System.out.print(FIND_MESSAGE + message);
     }
 }
