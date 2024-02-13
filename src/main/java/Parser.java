@@ -142,7 +142,8 @@ public class Parser {
                                 }
                             }
                             current--;
-                            printDeletion(deletedTask, current);
+                            assert deletedTask != null;
+                            ui.printDeletion(deletedTask, current);
                         } catch (NumberFormatException e) {
                             System.out.println("OOPS!!! The input after the delete command has to be an integer.");
                         } catch (ArrayIndexOutOfBoundsException e) {
@@ -157,6 +158,8 @@ public class Parser {
                 }
             }
         }
+        taskList.updateTaskList(new TaskList(tasks));
+        return false;
     }
 
 }

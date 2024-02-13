@@ -21,8 +21,9 @@ public class BalkanBot {
     public void run() {
         ui.printWelcome();
         boolean isExit = false;
+        new Scanner()
         while (!isExit) {
-            String fullCommand = ui.readCommand();
+
             isExit = Parser.parse(fullCommand, tasks, ui);
         }
         storage.save(tasks);

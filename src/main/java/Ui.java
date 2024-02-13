@@ -5,22 +5,7 @@ import java.util.Scanner;
 public class Ui {
     private final String line = "------------------------------------------";
 
-    private final Scanner in;
-    private final PrintStream out;
-
     public Ui() {
-        this(System.in, System.out);
-    }
-
-    public Ui(InputStream in, PrintStream out) {
-        this.in = new Scanner(in);
-        this.out = out;
-    }
-
-    public String readCommand() {
-        String input = in.nextLine();
-
-        return input;
     }
 
     public void printWelcome() {
