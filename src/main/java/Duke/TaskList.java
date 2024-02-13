@@ -134,6 +134,7 @@ public class TaskList {
     private String handleAddTask(String details, TaskType type) {
         assert details != null : "Task details should not be null";
         assert type != null : "TaskType should not be null";
+
         Task newTask = null;
         switch (type) {
         case TODO:
@@ -157,10 +158,28 @@ public class TaskList {
         if (newTask == null) {
             return "Error creating task.";
         }
-        taskList.add(newTask);
-        storage.saveTaskToFile(newTask);
-        return "Added: " + newTask;
+
+        if (isDuplicateTask(newTask)) {
+            return "Error: Duplicate task already exists.";
+        } else {
+            taskList.add(newTask);
+            storage.saveTaskToFile(newTask);
+            return "Added: " + newTask;
+        }
     }
+    
+
+    private boolean isDuplicateTask(Task newTask) {
+        for (Task task : taskList) {
+            if (task.toString().equals(newTask.toString())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
 
     enum TaskType {
         TODO, DEADLINE, EVENT
