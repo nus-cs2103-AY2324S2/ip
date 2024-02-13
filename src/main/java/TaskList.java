@@ -6,10 +6,10 @@ public class TaskList {
     private int noTasks;
     TaskList(ArrayList<String> saveTaskList) {
         this.taskList = new ArrayList<>();
-        this.noTasks = 0;
         if (!saveTaskList.isEmpty()) {
             saveTaskList.forEach(this::loadToTaskList);
         }
+        this.noTasks = this.taskList.size();
     }
 
     TaskList() {
@@ -23,7 +23,6 @@ public class TaskList {
             case "T":
                 Todo todo = new Todo(taskString.substring(7).trim());
                 taskList.add(todo);
-                noTasks++;
                 break;
             case "D":
                 String[] deadlineSplit = taskString.split("by: ");
@@ -31,7 +30,6 @@ public class TaskList {
                 String by = deadlineSplit[1].substring(0, deadlineSplit[1].length() - 1).trim();
                 Deadline deadline = new Deadline(deadlineDescription, by);
                 taskList.add(deadline);
-                noTask++;
                 break;
             case "E":
                 String[] eventFirstSplit = taskString.split("from: ");
@@ -41,56 +39,47 @@ public class TaskList {
                 String to = eventSecondSplit[1].substring(0, eventSecondSplit[1].length() - 1).trim();
                 Event event = new Event(eventDescription, from, to);
                 taskList.add(event);
-                noTasks++;
                 break;
         }
     }
 
     public void markTask(int taskNo) {
-        taskList.get(taskNo - 1).setToDone();
+        taskList.get(taskNo).setToDone();
     }
 
     public void unmarkTask(int taskNo) {
-        taskList.get(taskNo - 1).setToNotDone();
+        taskList.get(taskNo).setToNotDone();
     }
 
     public void list() {
-        for (int i = 0; i < taskList.size(); i++) {
+        for (int i = 0; i < noTasks; i++) {
             System.out.println((i + 1) + ". " + taskList.get(i).toString());
         }
     }
 
-    public void addTodo(String input) {
-        Todo todo = new Todo(input.substring(5));
+    public void addTodo(String description) {
+        Todo todo = new Todo(description);
         taskList.add(todo);
         noTasks++;
     }
 
-    public void addDeadline(String input) {
-        String[] deadlineSplit = input.split("/by");
-        String deadlineDescription = deadlineSplit[0].substring(9).trim();
-        String by = deadlineSplit[1].trim();
-
+    public void addDeadline(String deadlineDescription, String by) {
         Deadline deadline = new Deadline(deadlineDescription, by);
         taskList.add(deadline);
         noTasks++;
     }
 
-    public void addEvent(String input) {
-        String[] eventSplitFrom = input.split("/from");
-        String eventDescription = eventSplitFrom[0].substring(6);
-        String[] eventSplitTo = eventSplitFrom[1].split("/to");
-        String from = eventSplitTo[0].trim();
-        String to = eventSplitTo[1].trim();
+    public void addEvent(String eventDescription, String from, String to) {
         Event event = new Event(eventDescription, from, to);
-
         taskList.add(event);
         noTasks++;
     }
 
-    public void deleteEvent(int taskNo) {
-        taskList.remove(taskNo - 1);
+    public Task deleteEvent(int taskNo) {
+        Task taskDeleted = taskList.get(taskNo);
+        taskList.remove(taskNo);
         noTasks--;
+        return taskDeleted;
     }
 
     public ArrayList<Task> getTaskList() {
@@ -100,4 +89,10 @@ public class TaskList {
     public int getNoTasks() {
         return noTasks;
     }
+
+    public Task getTask(int taskNo) {
+        return taskList.get(taskNo);
+    }
+
+    public Task getMostRecentTask() { return taskList.get(noTasks - 1); }
 }

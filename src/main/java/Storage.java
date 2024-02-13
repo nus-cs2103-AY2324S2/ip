@@ -6,10 +6,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    private String filepath;
-    private File file;
+    private final String filepath;
+    private final File file;
     Storage(String filepath) {
         this.filepath = filepath;
+        this.file = new File(filepath);
     }
 
     public ArrayList<String> loadFile() throws LukeException {

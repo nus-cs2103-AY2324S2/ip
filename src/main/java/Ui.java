@@ -5,40 +5,89 @@ public class Ui {
     protected String input;
 
     protected String command;
+
+    protected TaskList taskList;
     protected String[] validCommands = {"bye", "list", "unmark", "mark", "todo", "event", "deadline", "delete"};
 
     protected Parser parser;
     Ui() {
         this.input = "";
-        this.parser = new Parser(validCommands);
+        this.taskList = new TaskList();
+        this.parser = new Parser(validCommands, taskList);
+    }
+
+    Ui(TaskList taskList) {
+        this.input = "";
+        this.taskList = taskList;
+        this.parser = new Parser(validCommands, taskList);
     }
 
     protected void handleInput() {
         while (!this.command.equals("bye")) {
             try {
-                if (!parser.isInputValid(this.input)) {
-                    throw new LukeException("Invalid command/task type.");
-                }
-
+                parser.isInputValid(this.input);
+                this.command = parser.getCommand(this.input);
             } catch (LukeException e) {
-                System.out.println(e);
+                System.out.println(e.getMessage());
+                this.input = "";
+                this.command = "";
             }
             switch (this.command) {
                 case "list":
-                    list(Tasklist.getList());
+                    this.list();
+                    parser.commandList(taskList);
+                    break;
                 case "mark":
-                    mark(this.input);
+                    try {
+                        Task taskMarked = parser.commandMark(this.input);
+                        markSuccess(taskMarked);
+                    } catch (LukeException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
                 case "unmark":
-
+                    try {
+                        Task taskUnmarked = parser.commandUnmark(this.input);
+                        unmarkSuccess(taskUnmarked);
+                    } catch (LukeException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
                 case "delete":
-
+                    try {
+                        Task taskDeleted = parser.commandDelete(this.input);
+                        deleteSuccess(taskDeleted, taskList.getNoTasks());
+                    } catch (LukeException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
                 case "todo":
-
+                    try {
+                        Task todoAdded = parser.commandTodo(this.input);
+                        taskSuccessfullyAdded(todoAdded, taskList.getNoTasks());
+                    } catch (LukeException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
                 case "deadline":
-
+                    try {
+                        Task deadlineAdded = parser.commandDeadline(this.input);
+                        taskSuccessfullyAdded(deadlineAdded, taskList.getNoTasks());
+                    } catch (LukeException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
                 case "event":
+                    try {
+                        Task eventAdded = parser.commandEvent(this.input);
+                        taskSuccessfullyAdded(eventAdded, taskList.getNoTasks());
+                    } catch (LukeException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
             }
-
+            Scanner scanner = new Scanner (System.in);
+            this.input = scanner.nextLine();
         }
     }
 
@@ -50,18 +99,16 @@ public class Ui {
         System.out.println("Hello! I'm " + name + "\nWhat can I do for you?");
         Scanner scanner = new Scanner (System.in);
         this.input = scanner.nextLine();
-        if (parser.isInputValid(this.input)) {
+        try {
+            parser.isInputValid(this.input);
             this.command = parser.getCommand(input);
+        } catch (LukeException e){
+            System.out.println(e.getMessage());
         }
     }
 
-    private void list(ArrayList<Task> taskList) {
+    private void list() {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < taskList.size(); i++) {
-            System.out.println((i + 1) + ". " + taskList.get(i).toString());
-        }
-        Scanner scanner = new Scanner (System.in);
-        this.input = scanner.nextLine();
     }
 
     public void markSuccess(Task task) {
@@ -81,7 +128,7 @@ public class Ui {
     }
 
     public void taskSuccessfullyAdded(Task task, int noTasks) {
-        System.out.println("Noted. I've removed this task:");
+        System.out.println("I've added this task: ");
         System.out.println(task.toString());
         System.out.println("Now you have " + noTasks + " tasks in the list.");
     }
