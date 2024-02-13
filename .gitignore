@@ -37,3 +37,6 @@ src/main/resources/docs/
 .project
 .settings
 
+# Project specific
+cappy.csv
+
