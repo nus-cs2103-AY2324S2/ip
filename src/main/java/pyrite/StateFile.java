@@ -47,6 +47,7 @@ public class StateFile {
      * @return TaskList with loaded state.
      */
     public TaskList loadState(TaskList tasks) {
+        assert tasks != null : "Default TaskList cannot be null.";
         try {
             TaskList loadedTasks = this.loadObject();
             return loadedTasks;
@@ -65,6 +66,7 @@ public class StateFile {
      * @return Error message if any.
      */
     public String saveState(TaskList tasks) {
+        assert tasks != null : "TaskList to save cannot be null.";
         try {
             this.saveObject(tasks);
         } catch (IOException e) {
