@@ -13,8 +13,6 @@ import tsundere.ui.Parser;
  */
 public class TaskList {
     protected static ArrayList<Task> taskList = new ArrayList<>();
-    protected static String name = Parser.getName();
-
     private static final String INVALID_TASK_NUMBER_INPUTTED_MSG = "Im pretty sure that's the wrong task number! "
             + "Check again!";
 
@@ -30,7 +28,7 @@ public class TaskList {
             throw new GeneralException("What you tryna unmark huh?");
         }
         try {
-            Task t = TaskList.taskList.get(Integer.parseInt(TaskList.name.substring(7, 8)) - 1);
+            Task t = TaskList.taskList.get(Integer.parseInt(Parser.getName().substring(7, 8)) - 1);
             if (t.getStatusIcon().equals(" ")) {
                 return "You haven't even started this task dummy!";
             } else {
@@ -58,7 +56,7 @@ public class TaskList {
             throw new GeneralException("What you tryna mark huh?");
         }
         try {
-            Task t = TaskList.taskList.get(Integer.parseInt(TaskList.name.substring(5, 6)) - 1);
+            Task t = TaskList.taskList.get(Integer.parseInt(Parser.getName().substring(5, 6)) - 1);
             if (t.isDone) {
                 return "You already finished this!";
             } else {
@@ -87,7 +85,7 @@ public class TaskList {
         }
 
         try {
-            int idx = Integer.parseInt(TaskList.name.substring(7, 8)) - 1;
+            int idx = Integer.parseInt(Parser.getName().substring(7, 8)) - 1;
             Task t = TaskList.taskList.get(idx);
             TaskList.taskList.remove(idx);
             return getListSize("deleted", t);
@@ -129,7 +127,7 @@ public class TaskList {
     public static String addToDoTask() throws GeneralException {
 
         try {
-            String todo = TaskList.name.split(" ", 2)[1];
+            String todo = Parser.getName().split(" ", 2)[1];
 
             Task t = new ToDo(todo);
             TaskList.taskList.add(t);
@@ -150,7 +148,7 @@ public class TaskList {
     public static String addEventTask() throws GeneralException {
 
         try {
-            String event = TaskList.name.split(" ", 2)[1];
+            String event = Parser.getName().split(" ", 2)[1];
             String[] x = event.split(",");
 
             Task t = new Event(x[0], x[1].trim().split(" ", 2)[1], x[2].trim().split(" ", 2)[1]);
@@ -172,7 +170,7 @@ public class TaskList {
     public static String addDeadlineTask() throws GeneralException {
 
         try {
-            String deadline = TaskList.name.split(" ", 2)[1];
+            String deadline = Parser.getName().split(" ", 2)[1];
             String[] x = deadline.split(",");
             LocalDate d1 = LocalDate.parse(x[1].trim().split(" ", 2)[1]);
             String date = d1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
@@ -203,7 +201,7 @@ public class TaskList {
         StringBuilder response = new StringBuilder();
         try {
             int count = 0;
-            String keyword = TaskList.name.split(" ", 2)[1];
+            String keyword = Parser.getName().split(" ", 2)[1];
             for (int i = 0; i < size; i++) {
                 Task t = TaskList.taskList.get(i);
                 if (t.description.contains(keyword)) {
@@ -233,7 +231,7 @@ public class TaskList {
             throw new GeneralException("Theres's nothing to find here!");
         }
         try {
-            String[] x = TaskList.name.split(" ");
+            String[] x = Parser.getName().split(" ");
             int idx = Integer.parseInt(x[1]) - 1;
             String tag = x[2];
             Task t = TaskList.taskList.get(idx);
@@ -258,7 +256,7 @@ public class TaskList {
             throw new GeneralException("Theres's nothing to find here!");
         }
         try {
-            String[] x = TaskList.name.split(" ");
+            String[] x = Parser.getName().split(" ");
             int idx = Integer.parseInt(x[1]) - 1;
             String tag = x[2];
             Task t = TaskList.taskList.get(idx);
