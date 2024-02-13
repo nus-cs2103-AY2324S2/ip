@@ -1,34 +1,31 @@
 package utilities;
 
-import tasks.Task;
-
 import java.util.ArrayList;
-import java.util.Scanner;
+
+import tasks.Task;
 
 /**
  * Handles user interface interactions.
  */
 public class Ui {
-    /** Scanner object for user input. */
-    private Scanner sc;
 
     /**
      * Constructs a Ui object.
      */
     public Ui() {
-        this.sc = new Scanner(System.in);
     }
 
     /**
      * Displays available commands.
      */
     public String getCommands() {
-        return "Take note ah, enter all time based commands are in <dd-mm-yyyy HHmm> format:\n" +
-                "-todo <task> -> adds todo\n-deadline <task>/<by when> -> adds deadline\n" +
-                "-event <task>/<from when>/<to when> -> adds event\n-list -> lists out all tasks\n" +
-                "-mark <x> -> marks task x as done\n-unmark <x> -> unmarks task x as undone\n" +
-                "-delete <x> -> deletes task x from the list\n" +  "-find <thing to search> -> searches for tasks with the input word or phrase\n" +
-                "-bye -> exits app";
+        return "Take note ah, enter all time based commands are in <dd-mm-yyyy HHmm> format:\n"
+                + "-todo <task> -> adds todo\n-deadline <task>/<by when> -> adds deadline\n"
+                + "-event <task>/<from when>/<to when> -> adds event\n-list -> lists out all tasks\n"
+                + "-mark <x> -> marks task x as done\n-unmark <x> -> unmarks task x as undone\n"
+                + "-delete <x> -> deletes task x from the list\n"
+                + "-find <thing to search> -> searches for tasks with the input word or phrase\n"
+                + "-bye -> exits app";
     }
 
     /**
@@ -58,8 +55,9 @@ public class Ui {
      * @param tasklist the task list
      */
     public String addTaskMessage(Task task, TaskList tasklist) {
-       return "Ok I help you add this one liao:\n" + task.toString() +
-                "\nNow your list got " + tasklist.tasks.size() + ((tasklist.tasks.size() == 1) ? " task." : " tasks.");
+        return "Ok I help you add this one liao:\n" + task.toString()
+               + "\nNow your list got " + tasklist.getTasks().size()
+               + ((tasklist.getTasks().size() == 1) ? " task." : " tasks.");
     }
 
     /**
@@ -69,8 +67,8 @@ public class Ui {
      * @param tasklist the task list
      */
     public String deleteTaskMessage(Task task, TaskList tasklist) {
-        return"Ok deleted liao:\n" + task.toString() + "\nNow your list got " +
-                (tasklist.tasks.isEmpty() ? "no tasks." : tasklist.tasks.size() + " tasks left.");
+        return "Ok deleted liao:\n" + task.toString() + "\nNow your list got "
+                + (tasklist.getTasks().isEmpty() ? "no tasks." : tasklist.getTasks().size() + " tasks left.");
     }
 
     /**
@@ -79,8 +77,7 @@ public class Ui {
      * @param task the marked task
      */
     public String markMessage(Task task) {
-        return "Upz la, mark for you already!\n" +
-                task.toString();
+        return "Upz la, mark for you already!\n" + task.toString();
     }
 
     /**
@@ -89,8 +86,7 @@ public class Ui {
      * @param task the unmarked task
      */
     public String unmarkMessage(Task task) {
-        return "Eh wake up your idea, faster finish can or not?? Unmark for you already la!\n" +
-                task.toString();
+        return "Eh wake up your idea, faster finish can or not?? Unmark for you already la!\n" + task.toString();
     }
 
     /**

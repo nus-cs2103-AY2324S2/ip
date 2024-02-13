@@ -36,7 +36,7 @@ public enum Command {
          */
         @Override
         public String execute(TaskList tasklist, Ui ui, Storage storage, ArrayList<String> parsed) {
-            return ui.printList(tasklist.tasks).trim();
+            return ui.printList(tasklist.getTasks()).trim();
         }
     },
 
@@ -82,14 +82,14 @@ public enum Command {
                               ArrayList<String> parsed) throws YpxmmException {
             int index = Integer.parseInt(parsed.get(1));
             try {
-                Task task = tasklist.tasks.get(index - 1);
+                Task task = tasklist.getTasks().get(index - 1);
                 task.markTask();
                 storage.reWrite(tasklist);
                 return ui.markMessage(task);
             } catch (IndexOutOfBoundsException e) {
                 throw new YpxmmException("Eh u seh isit? Now your list got "
-                        + (tasklist.tasks.isEmpty() ? "no tasks to mark." : tasklist.tasks.size()
-                        + " tasks, enter any number from 1 to " + tasklist.tasks.size()));
+                        + (tasklist.getTasks().isEmpty() ? "no tasks to mark." : tasklist.getTasks().size()
+                        + " tasks, enter any number from 1 to " + tasklist.getTasks().size()));
             } catch (YpxmmException y) {
                 return y.getMessage();
             }
@@ -115,14 +115,14 @@ public enum Command {
                               ArrayList<String> parsed) throws YpxmmException {
             int index = Integer.parseInt(parsed.get(1));
             try {
-                Task task = tasklist.tasks.get(index - 1);
+                Task task = tasklist.getTasks().get(index - 1);
                 task.unmarkTask();
                 storage.reWrite(tasklist);
                 return ui.unmarkMessage(task);
             } catch (IndexOutOfBoundsException e) {
                 throw new YpxmmException("Eh u seh isit? Now your list got "
-                        + (tasklist.tasks.isEmpty() ? "no tasks to unmark." : tasklist.tasks.size()
-                        + " tasks, enter any number from 1 to " + tasklist.tasks.size()));
+                        + (tasklist.getTasks().isEmpty() ? "no tasks to unmark." : tasklist.getTasks().size()
+                        + " tasks, enter any number from 1 to " + tasklist.getTasks().size()));
             } catch (YpxmmException y) {
                 return y.getMessage();
             }
@@ -249,14 +249,14 @@ public enum Command {
                               ArrayList<String> parsed) throws YpxmmException {
             int index = Integer.parseInt(parsed.get(1));
             try {
-                Task task = tasklist.tasks.get(index - 1);
+                Task task = tasklist.getTasks().get(index - 1);
                 tasklist.deleteTask(index);
                 storage.reWrite(tasklist);
                 return ui.deleteTaskMessage(task, tasklist);
             } catch (IndexOutOfBoundsException e) {
                 throw new YpxmmException("Eh u seh isit? Now your list got "
-                        + (tasklist.tasks.isEmpty() ? "no tasks to delete." : tasklist.tasks.size()
-                        + " tasks, enter any number from 1 to " + tasklist.tasks.size()));
+                        + (tasklist.getTasks().isEmpty() ? "no tasks to delete." : tasklist.getTasks().size()
+                        + " tasks, enter any number from 1 to " + tasklist.getTasks().size()));
             } catch (YpxmmException y) {
                 return y.getMessage();
             }

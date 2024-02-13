@@ -1,18 +1,16 @@
 package utilities;
 
-import exceptions.YpxmmException;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
+import exceptions.YpxmmException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.ToDo;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-
-import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Handles reading from and writing to the storage file.
@@ -20,7 +18,7 @@ import java.util.Scanner;
 public class Storage {
 
     /** The file path of the storage file. */
-    public String filePath;
+    private String filePath;
 
     /**
      * Constructs a Storage object with the specified file path.
@@ -58,7 +56,7 @@ public class Storage {
         try {
             File file = new File(filePath);
             FileWriter fw = new FileWriter(file);
-            for (Task t : tasklist.tasks) {
+            for (Task t : tasklist.getTasks()) {
                 fw.write(t.toWrite() + "\n");
             }
             fw.close();
