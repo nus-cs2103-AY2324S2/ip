@@ -30,36 +30,40 @@ public class Ui {
     /**
      * Prints a goodbye message
      */
-    public void printBye() {
-        System.out.println("Goodbye! Till we meet again ~");
+    public String printBye() {
+        String bye = "Goodbye! Till we meet again ~ \n";
+        System.out.println(bye);
+        return bye;
     }
 
     /**
      * Prints a line separator.
      */
-    public void printLine() {
-        System.out.println("------------------------------------");
+    public String printLine() {
+        String line = "------------------------------------ \n";
+        System.out.println();
+        return line;
     }
 
     /**
      * Prints a message for marking tasks as done.
      */
-    public void printMark() {
-        System.out.println("Great job agent 47. Marking this task as DONE: ");
+    public String printMark() {
+        return("Great job agent 47. Marking this task as DONE: \n");
     }
 
     /**
      * Prints a message for marking tasks as not done.
      */
-    public void printUnmark() {
-        System.out.println("Alright, marking this task as NOT DONE :( : ");
+    public String printUnmark() {
+        return("Alright, marking this task as NOT DONE :( : \n");
     }
 
     /**
      * Prints an error message for unknown commands.
      */
-    public void printUnknown() {
-        System.out.println("Sorry, unknown command given. Please try again.");
+    public String printUnknown() {
+        return("Sorry, unknown command given. Please try again. \n");
     }
 
     /**
@@ -67,14 +71,16 @@ public class Ui {
      *
      * @param e The exception creating the error.
      */
-    public void printDeadlineError(Exception e) {
+    public String printDeadlineError(Exception e) {
+        String errorMsg = "";
         if (e instanceof IndexOutOfBoundsException) {
-            System.out.println("OH NOES!! Do enter the deadline(YYYY-MM-DD) correctly with: /by [DEADLINE]. ");
+            errorMsg += ("OH NOES!! Do enter the deadline(YYYY-MM-DD) correctly with: /by [DEADLINE]. \n");
         } else if (e instanceof IllegalArgumentException) {
-            System.out.println("Uh oh. Something went wrong with your input!");
+            errorMsg += ("Uh oh. Something went wrong with your input! \n");
         } else if (e instanceof DateTimeParseException) {
-            System.out.println("WOOPS! Enter the correct date format: YYYY-MM-DD");
+            errorMsg += ("WOOPS! Enter the correct date format: YYYY-MM-DD \n");
         }
+        return  errorMsg;
     }
 
     /**
@@ -82,22 +88,24 @@ public class Ui {
      *
      * @param e The exception creating the error.
      */
-    public void printEventError(Exception e) {
+    public String printEventError(Exception e) {
+        String errorMsg = "";
         if (e instanceof IndexOutOfBoundsException) {
-            System.out.println(
-                    "OH NOES!! Do enter the event dates(YYYY-MM-DD) correctly with: /from [start] /to [end]. ");
+            errorMsg += (
+                    "OH NOES!! Do enter the event dates(YYYY-MM-DD) correctly with: /from [start] /to [end]. \n");
         } else if (e instanceof IllegalArgumentException) {
-            System.out.println("Uh oh. Something went wrong with your input!");
+            errorMsg += ("Uh oh. Something went wrong with your input! \n");
         } else if (e instanceof DateTimeParseException) {
-            System.out.println("WOOPS! Enter the correct date format: YYYY-MM-DD");
+            errorMsg += ("WOOPS! Enter the correct date format: YYYY-MM-DD \n");
         }
+        return errorMsg;
     }
 
     /**
      * Prints an error message for empty task descriptions.
      */
-    public void printEmptyDescription() {
-        System.out.println("Oh dear! The description of task cannot be empty!");
+    public String printEmptyDescription() {
+        return "Oh dear! The description of task cannot be empty! \n";
     }
 
     /**
@@ -105,11 +113,13 @@ public class Ui {
      *
      * @param e The exception creating the error.
      */
-    public void printOperationError(Exception e) {
+    public String printOperationError(Exception e) {
+        String errorMsg = "";
         if (e instanceof NumberFormatException) {
-            System.out.println("Oh dear! Please enter a number instead ^.^");
+            errorMsg += ("Oh dear! Please enter a number instead ^.^ \n");
         } else if (e instanceof NullPointerException | e instanceof IndexOutOfBoundsException) {
-            System.out.println("Oopsies! Please enter a valid task number ^.^");
+            errorMsg += ("Oopsies! Please enter a valid task number ^.^ \n");
         }
+        return errorMsg;
     }
 }

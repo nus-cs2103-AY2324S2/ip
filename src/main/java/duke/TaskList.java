@@ -40,16 +40,18 @@ public class TaskList {
      * @param newTask The new task provided by the user.
      * @param loadTask Indicates whether task is being loaded by IO.
      */
-    public void addTask(Task newTask, boolean loadTask) {
+    public String addTask(Task newTask, boolean loadTask) {
         taskList.add(newTask);
         count++;
 
         if (!loadTask) {
-            System.out.println("Cool! Adding new task: ");
-            System.out.println(newTask.toString());
-            System.out.println("Now you have " + this.count
-                    + " tasks in your list.");
+            String printMessage = "Cool! Adding new task: \n";
+            printMessage += newTask.toString();
+            printMessage += "Now you have " + count + " tasks in your list.";
+
+            return printMessage;
         }
+        return "";
     }
 
     /**
@@ -57,14 +59,14 @@ public class TaskList {
      *
      * @param index The specified index given by the user.
      */
-    public void deleteTask(int index) {
+    public String deleteTask(int index) {
         Task removedTask = taskList.remove(index - 1);
         count--;
 
-        System.out.println("Okay. Deleting the task: ");
-        System.out.println(removedTask.toString());
-        System.out.println("Now you have " + count
-                + " tasks in your list.");
+        String printMessage = "Okay. Deleting the task: \n";
+        printMessage += removedTask.toString() + "\n";
+        printMessage += "Now you have " + count + " tasks in your list \n";
+        return printMessage;
     }
 
     /**
@@ -72,16 +74,17 @@ public class TaskList {
      *
      * @param keyWord The specified substring given by the user.
      */
-    public void findTask(String keyWord) {
-        System.out.println("Here are the matching tasks in your list: ");
+    public String findTask(String keyWord) {
+        String printMessage = "Here are the matching tasks in your list:  \n";
         int matchCount = 1;
         for (int i = 0; i < count; i++) {
             Task currentTask = taskList.get(i);
             if (currentTask.getDescription().contains(keyWord)) {
-                System.out.println(matchCount + ". " + currentTask);
+                printMessage += matchCount + ". " + currentTask;
                 matchCount++;
             }
         }
+        return printMessage;
     }
 
     /**
@@ -115,12 +118,12 @@ public class TaskList {
      *
      * @param taskNo The task number to retrieve the task.
      */
-    public void markDoneAtInd(int taskNo) {
+    public String markDoneAtInd(int taskNo) {
         Task currentTask = this.getTask(taskNo);
         currentTask.markAsDone();
         this.setTask(currentTask, taskNo);
 
-        System.out.println(currentTask.toString());
+        return(currentTask.toString());
     }
 
     /**
@@ -128,22 +131,23 @@ public class TaskList {
      *
      * @param taskNo The task number to retrieve the task.
      */
-    public void markNotDoneAtInd(int taskNo) {
+    public String markNotDoneAtInd(int taskNo) {
         Task currentTask = this.getTask(taskNo);
         currentTask.markAsNotDone();
         this.setTask(currentTask, taskNo);
 
-        System.out.println(currentTask.toString());
+        return(currentTask.toString());
     }
 
     /**
      * Prints all tasks currently in the taskList.
      */
-    public void printAllTasks() {
-        System.out.println("Here are all your tasks so far! ^.^ : ");
+    public String printAllTasks() {
+        String printMessage = "Here are all your tasks so far! ^.^ : \n";
         for (int i = 0; i < count; i++) {
             Task currentTask = taskList.get(i);
-            System.out.println((i + 1) + ". " + currentTask.toString());
+            printMessage += ((i + 1) + ". " + currentTask.toString() + "\n");
         }
+        return printMessage;
     }
 }
