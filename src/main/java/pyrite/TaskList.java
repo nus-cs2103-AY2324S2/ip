@@ -67,7 +67,9 @@ public class TaskList implements Serializable {
     public String filteredString(String keyword) {
         String output = "";
         for (Task t : this.tasks) {
-            if (t.toString().contains(keyword)) {
+            String taskString = t.toString().toLowerCase();
+            String keywordString = keyword.toLowerCase();
+            if (taskString.contains(keywordString)) {
                 output += (this.tasks.indexOf(t) + 1) + ". " + t.toString();
                 if (this.tasks.indexOf(t) == this.tasks.size() - 1) {
                     break;
