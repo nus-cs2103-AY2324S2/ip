@@ -9,36 +9,60 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns string representation of Task
+     */
     public String getStatusIcon() {
         String done = (this.isDone ? "X" : "");
         return "[" + done + "] ";
     }
 
+    /**
+     * Outputs a marked notification and outputs the string representation
+     * @return Task string representation
+     */
     public String mark() {
         setDone();
         System.out.println("Nice! I've marked this lite.task as done:");
         return this.toString();
     }
 
+    /**
+     * To set the Task to done
+     */
     public void setDone() {
         this.isDone = true;
     }
 
+    /**
+     * Outputs an unmarked notification and outputs the string representation
+     * @return Task string representation
+     */
     public String unmark() {
         System.out.println("OK, I've marked this lite.task as not done yet:");
         setUndone();
         return this.toString();
     }
 
+    /**
+     * To set the Task to undone
+     */
     public void setUndone() {
         this.isDone = false;
     }
 
+    /**
+     * Returns string representation of Task
+     */
     @Override
     public String toString() {
         return getStatusIcon() + this.description;
     }
 
+
+    /**
+     * Returns string representation when it is saved in a file
+     */
     public String saveToFile() {
         return (this.isDone ? "1" : "0")
                 + "!" + this.description;

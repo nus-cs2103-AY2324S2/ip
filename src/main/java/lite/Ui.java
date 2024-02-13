@@ -16,6 +16,11 @@ public class Ui {
         this.input = input;
     }
 
+    /**
+     * Parse the input
+     * @param tasks List of tasks
+     * @return True if it is a bye (terminating condition)
+     */
     public boolean parse(TaskList tasks) {
         if (this.input.equals("bye")) {
             return true;
@@ -45,6 +50,11 @@ public class Ui {
     }
 
 
+    /**
+     * Deletes a task from the taskList
+     * @param instruction Parsed input
+     * @param tasks List of tasks
+     */
     private void delete(String instruction[], TaskList tasks) {
         try {
             int index = Integer.parseInt(instruction[1]) - 1;
@@ -59,6 +69,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Creates a new ToDo Event
+     * @param instruction Parsed input
+     * @param tasks List of tasks
+     */
     private void addToDo(String instruction[], TaskList tasks) {
         try {
             String description = instruction[1];
@@ -74,6 +89,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Creates a new Deadline Task
+     * @param instruction Parsed input
+     * @param tasks List of tasks
+     */
     private void addDeadline(String instruction[], TaskList tasks) {
         try {
             String splits[] = instruction[1].split("/");
@@ -91,6 +111,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Creates a new Event Task
+     * @param instruction Parsed input
+     * @param tasks List of tasks
+     */
     private void addEvent(String[] instruction, TaskList tasks) {
         try {
             String splits[] = instruction[1].split("/");
@@ -108,6 +133,12 @@ public class Ui {
             Printer.printHorizontalLine();
         }
     }
+
+    /**
+     * Unmarks a task to be undone
+     * @param instruction Parsed input
+     * @param tasks List of tasks
+     */
     private void unmark(String instruction[], TaskList tasks) {
         try {
             int index = Integer.parseInt(instruction[1]) - 1;
@@ -121,6 +152,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Marks a task to be done
+     * @param instruction Parsed input
+     * @param tasks List of tasks
+     */
     private void mark(String instruction[], TaskList tasks) {
         try {
             int index = Integer.parseInt(instruction[1]) - 1;
