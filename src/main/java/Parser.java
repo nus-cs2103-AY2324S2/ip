@@ -5,13 +5,12 @@ public class Parser {
     protected static int current = 0;
 
     public static boolean parse(String input, TaskList taskList, Ui ui) {
-        String command = ui.readCommand();
         Task[] tasks = taskList.getTaskList();
 
-        if (command.equals("bye")) {
+        if (input.equals("bye")) {
             ui.printByeMessage();
             return true;
-        } else if (command.equals("list")) {
+        } else if (input.equals("list")) {
             StringBuilder listOutput = new StringBuilder();
             for (int i = 0; i < tasks.length; i++) {
                 if (tasks[i] == null) {
@@ -22,7 +21,7 @@ public class Parser {
             }
             ui.printTaskList(listOutput.toString());
         } else {
-            String[] brokenCommand = command.split("\\s+");
+            String[] brokenCommand = input.split("\\s+");
             String advancedCommand = brokenCommand[0];
             String[] details = Arrays.copyOfRange(brokenCommand, 1, brokenCommand.length);
             switch (advancedCommand) {
@@ -160,6 +159,10 @@ public class Parser {
         }
         taskList.updateTaskList(new TaskList(tasks));
         return false;
+    }
+
+    public static void updateCurrent(int current) {
+        Parser.current = current;
     }
 
 }

@@ -21,10 +21,10 @@ public class BalkanBot {
     public void run() {
         ui.printWelcome();
         boolean isExit = false;
-        new Scanner()
+        Scanner input = new Scanner(System.in);
         while (!isExit) {
-
-            isExit = Parser.parse(fullCommand, tasks, ui);
+            String command = input.nextLine();
+            isExit = Parser.parse(command, tasks, ui);
         }
         storage.save(tasks);
     }

@@ -184,6 +184,7 @@ public class Storage {
                 }
             }
         }
+        Parser.updateCurrent(current);
         return tasks;
     }
 }
