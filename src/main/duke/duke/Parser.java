@@ -63,6 +63,7 @@ public class Parser {
         Command command = parseUserMsg(inputParsed[0]);
 
         String reply = "";
+        assert command != null : "You are missing the command";
 
         try {
             switch (command) {
