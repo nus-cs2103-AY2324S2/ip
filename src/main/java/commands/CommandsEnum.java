@@ -1,11 +1,17 @@
 package commands;
 
-import java.util.ArrayList;
-
+/**
+ * Enum representing different commands available in the application.
+ */
 public enum CommandsEnum {
     bye, list, mark, unmark, todo, deadline, event, delete, find, help,
     update;
 
+    /**
+     * Get a string containing all possible commands.
+     *
+     * @return A string with a comma-separated list of all possible commands.
+     */
     public static String getAllCommands() {
         StringBuilder commandsString = new StringBuilder();
         commandsString.append("Possible commands are: \n");

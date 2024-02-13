@@ -1,4 +1,4 @@
-import java_fx.Main;
+import javafx.Main;
 import javafx.application.Application;
 
 /**

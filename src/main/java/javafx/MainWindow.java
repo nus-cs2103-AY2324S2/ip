@@ -1,4 +1,4 @@
-package java_fx;
+package javafx;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -29,6 +29,11 @@ public class MainWindow extends AnchorPane {
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/AlPacinoUser.png"));
     private final Image ryanGoslingImage = new Image(this.getClass().getResourceAsStream("/images/RyanGoslingBot.png"));
 
+    /**
+     * Initializes the JavaFX controller. Binds the vertical value property of the scroll pane to
+     * the height property of the dialog container. Adds the initial Duke dialog box with a greeting
+     * to the dialog container.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -50,8 +55,7 @@ public class MainWindow extends AnchorPane {
         String response = ryanGosling.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, ryanGoslingImage)
-                                            );
+                DialogBox.getDukeDialog(response, ryanGoslingImage));
         userInput.clear();
     }
 }

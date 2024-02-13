@@ -1,5 +1,9 @@
 package commands;
 
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import exceptions.RyanGoslingException;
 import tasks.Deadline;
 import tasks.Events;
@@ -8,13 +12,11 @@ import tasks.Todo;
 import utilities.Storage;
 import utilities.TaskList;
 
-import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 /**
- * The PatternParser class provides static methods for parsing different types of task commands using regular expressions.
- * It includes methods for parsing "todo," "deadline," "event," and "find" commands, as well as a utility method for adding tasks
+ * The PatternParser class provides static methods for parsing different types of task
+ * commands using regular expressions.
+ * It includes methods for parsing "todo," "deadline," "event," and "find" commands, as well as a utility
+ * method for adding tasks
  * to a list from a formatted string.
  */
 public class PatternParser {
@@ -27,7 +29,8 @@ public class PatternParser {
             + "\\|\\s*(\\S+)\\s*\\|\\"
             + "s*(\\S+)\\s*\\|\\s*(\\S+)\\s*$";
 
-    private static final String updatePattern = "^update\\s+(\\d+)\\s+(\\S+)\\s+(\\d{4}-\\d{2}-\\d{2}|NA)\\s+(\\d{4}-\\d{2}-"
+    private static final String updatePattern = "^update\\s+(\\d+)\\s+(\\S+)\\s+(\\d{4}-\\d{2}-\\d{2}|NA)"
+            + "\\s+(\\d{4}-\\d{2}-"
             + "\\d{2}|NA)\\s+(\\d{4}|NA)\\s+(\\d{4}|NA)$";
 
     /**
@@ -39,7 +42,8 @@ public class PatternParser {
      * @return A response message indicating the success or failure of the parsing operation.
      * @throws RyanGoslingException If the input string does not match the expected "todo" pattern.
      */
-    public static String todoParser(String taskToParse, TaskList taskListManager, Storage taskLoader) throws RyanGoslingException {
+    public static String todoParser(String taskToParse, TaskList taskListManager, Storage taskLoader)
+            throws RyanGoslingException {
         Matcher matcher = todoPattern.matcher(taskToParse);
         if (!matcher.matches()) {
             throw new RyanGoslingException("Incomplete todo command, todo <event>");
@@ -56,9 +60,10 @@ public class PatternParser {
      * @param taskListManager The TaskList instance managing the list of tasks.
      * @param taskLoader     The Storage instance responsible for loading and saving tasks.
      * @return A response message indicating the success or failure of the parsing operation.
-     * @throws RyanGoslingException If the input string does not match the expected "deadline" pattern.
+     * @throws RyanGoslingException If the input string does not match the expected pattern.
      */
-    public static String deadlineParser(String taskToParse, TaskList taskListManager, Storage taskLoader) throws RyanGoslingException {
+    public static String deadlineParser(String taskToParse, TaskList taskListManager, Storage taskLoader)
+            throws RyanGoslingException {
         Matcher matcher = deadlinePattern.matcher(taskToParse);
         if (!matcher.matches()) {
             throw new RyanGoslingException("Incomplete deadline command, " + "deadline <event> /by <date> <time> "
@@ -80,7 +85,8 @@ public class PatternParser {
      * @return A response message indicating the success or failure of the parsing operation.
      * @throws RyanGoslingException If the input string does not match the expected "event" pattern.
      */
-    public static String eventParser(String taskToParse, TaskList taskListManager, Storage taskLoader) throws RyanGoslingException {
+    public static String eventParser(String taskToParse, TaskList taskListManager, Storage taskLoader)
+            throws RyanGoslingException {
         Matcher matcher = eventPattern.matcher(taskToParse);
         if (!matcher.matches()) {
             throw new RyanGoslingException("Incomplete event command, "
@@ -149,7 +155,17 @@ public class PatternParser {
         }
     }
 
-    public static String updateTaskParser(TaskList taskListManager, String inputLine, Storage taskLoader) throws RyanGoslingException {
+    /**
+     * Parses and updates task information based on the provided input line.
+     *
+     * @param taskListManager The task list manager.
+     * @param inputLine       The input line containing the update information.
+     * @param taskLoader      The task loader for saving changes.
+     * @return A string indicating the result of the update operation.
+     * @throws RyanGoslingException If there is an issue with the update command or input.
+     */
+    public static String updateTaskParser(TaskList taskListManager, String inputLine, Storage taskLoader)
+            throws RyanGoslingException {
         Pattern pattern = Pattern.compile(updatePattern);
         Matcher matcher = pattern.matcher(inputLine);
         if (!matcher.matches()) {
@@ -164,7 +180,7 @@ public class PatternParser {
         String timeTo = handleNA(matcher.group(6));
 
         StringBuilder responseReturn = new StringBuilder();
-        int indexOfTask = Integer.parseInt(indexNumber)-1;
+        int indexOfTask = Integer.parseInt(indexNumber) - 1;
         if (!taskListManager.validateIndex(indexOfTask)) {
             throw new RyanGoslingException("Invalid range of index!");
         }
@@ -177,7 +193,7 @@ public class PatternParser {
         switch (taskType) {
         case "T":
             boolean doesTodoHaveInvalidDateTimeInput = !(dateFrom.equals("NA") && dateTo.equals("NA")
-                                  && timeFrom.equals("NA") && timeTo.equals("NA"));
+                                                                 && timeFrom.equals("NA") && timeTo.equals("NA"));
             if (doesTodoHaveInvalidDateTimeInput) {
                 throw new RyanGoslingException(responseReturn + "\nTodo cannot have any non NA time/date fields!");
             }
@@ -187,9 +203,11 @@ public class PatternParser {
             taskListManager.updateTimesOfTask(indexOfTask, new String[]{timeFrom, "NA"}, taskLoader);
             break;
         case "E":
-            taskListManager.updateDatesOfTask(indexOfTask, new String[] {dateFrom, dateTo}, taskLoader);
-            taskListManager.updateTimesOfTask(indexOfTask, new String[] {timeFrom, timeTo}, taskLoader);
+            taskListManager.updateDatesOfTask(indexOfTask, new String[]{dateFrom, dateTo}, taskLoader);
+            taskListManager.updateTimesOfTask(indexOfTask, new String[]{timeFrom, timeTo}, taskLoader);
             break;
+        default:
+
         }
         responseReturn.append("\nUpdated all fields (if any were input) successfully!");
         return responseReturn.toString();

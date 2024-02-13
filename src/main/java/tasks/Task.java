@@ -2,18 +2,35 @@ package tasks;
 
 import utilities.ResponseHandler;
 
+/**
+ * Represents a generic task with basic properties such as name, status, type, date, and time.
+ */
 public class Task {
     private String taskName;
     private boolean taskDone = false;
     private String typeOfTask;
 
-    private String[] dateFromAndTo = new String[] {"NA", "NA"};
-    private String[] timeFromAndTo = new String[] {"NA", "NA"};
+    // Represents the start and end dates of the task
+    private final String[] dateFromAndTo = new String[]{"NA", "NA"};
 
+    // Represents the start and end times of the task
+    private final String[] timeFromAndTo = new String[]{"NA", "NA"};
+
+    /**
+     * Constructs a Task object with the given task name.
+     *
+     * @param taskName The name of the task.
+     */
     public Task(String taskName) {
         this.taskName = taskName;
     }
 
+    /**
+     * Constructs a Task object with the given task name and type.
+     *
+     * @param taskName   The name of the task.
+     * @param typeOfTask The type of the task.
+     */
     public Task(String taskName, String typeOfTask) {
         this.taskName = taskName;
         this.typeOfTask = typeOfTask;
