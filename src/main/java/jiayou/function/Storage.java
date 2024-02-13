@@ -40,6 +40,7 @@ public class Storage {
             if (!Files.exists(filePath.getParent())) {
                 Files.createDirectories(filePath.getParent());
             }
+
             if (Files.exists(filePath)) {
                 List<String> lines = Files.readAllLines(filePath);
                 for (String line : lines) {
@@ -83,17 +84,10 @@ public class Storage {
             newTask = new ToDo(content);
             break;
         case "E":
-            String[] eventParts = content.split(" \\| ", 2);
-            String description = eventParts[0];
-            String datePart = eventParts[1];
-            String[] dates = datePart.split(" to ");
-            String startDate = dates[0].substring(dates[0].indexOf("from") + 5).trim();
-            String endDate = dates[1].trim();
-            newTask = new Event(description, startDate, endDate);
+            newTask = createEvent(content);
             break;
         case "D":
-            String[] deadlineParts = content.split(" \\| by");
-            newTask = new Deadline(deadlineParts[0], deadlineParts[1]);
+            newTask = createEvent(content);
             break;
         default:
             break;
@@ -101,6 +95,33 @@ public class Storage {
 
         newTask.setStatus((isDone.equals("1")));
         return newTask;
+    }
+
+    /**
+     * Creates a new Event object using the input string.
+     * @param input the string to be parsed.
+     * @return a new Event object.
+     */
+    private Event createEvent(String input) {
+        String[] eventParts = input.split(" \\| ", 2);
+        String description = eventParts[0];
+        String datePart = eventParts[1];
+        String[] dates = datePart.split(" to ");
+        String startDate = dates[0].substring(dates[0].indexOf("from") + 5).trim();
+        String endDate = dates[1].trim();
+        Event newEvent = new Event(description, startDate, endDate);
+        return newEvent;
+    }
+
+    /**
+     * Creates a new Deadline object using the input string.
+     * @param input the string to be parsed.
+     * @return a new Deadline object.
+     */
+    private Deadline createDeadline(String input) {
+        String[] deadlineParts = input.split(" \\| by");
+        Deadline newDeadline = new Deadline(deadlineParts[0], deadlineParts[1]);
+        return newDeadline;
     }
 }
 

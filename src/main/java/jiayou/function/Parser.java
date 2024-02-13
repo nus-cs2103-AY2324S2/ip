@@ -38,14 +38,7 @@ public class Parser {
                 response = tasks.printList();
                 break;
             case HELP:
-                response = "1. To get the whole list of tasks: list\n";
-                response += "2. To mark/unmark the task(s) with ids x, y and z: mark/unmark x y z\n";
-                response += "3. To delete the task(s) with ids x, y and z: delete x y z\n";
-                response += "4. To search tasks on a certain date: search_by_date YYYY-MM-DD\n";
-                response += "5. To search tasks with the keyword x: search_by_keyword x\n";
-                response += "6. To add a todo task: todo description\n";
-                response += "7. To add a deadline task: deadline description /by YYYY-MM-DD\n";
-                response += "8. To add an event task: event description /from YYYY-MM-DD /to YYYY-MM-DD";
+                response = getGuide();
                 break;
             case MARK:
                 if (content.isEmpty()) {
@@ -109,6 +102,23 @@ public class Parser {
         } catch (JiayouException e) {
             return e.getMessage();
         }
+        return response;
+    }
+
+    /**
+     * Provides an instruction on commands of the chatbot.
+     *
+     * @return a string containing all the command usages of the chatbot.
+     */
+    private String getGuide() {
+        String response = "1. To get the whole list of tasks: list\n";
+        response += "2. To mark/unmark the task(s) with ids x, y and z: mark/unmark x y z\n";
+        response += "3. To delete the task(s) with ids x, y and z: delete x y z\n";
+        response += "4. To search tasks on a certain date: search_by_date YYYY-MM-DD\n";
+        response += "5. To search tasks with the keyword x: search_by_keyword x\n";
+        response += "6. To add a todo task: todo description\n";
+        response += "7. To add a deadline task: deadline description /by YYYY-MM-DD\n";
+        response += "8. To add an event task: event description /from YYYY-MM-DD /to YYYY-MM-DD";
         return response;
     }
 }
