@@ -13,13 +13,13 @@ import misc.Ui;
  * @version Week-3
  */
 public class ToDoCommand extends Command {
-    String todoDescription;
+    private String todoDescription;
 
     /**
      * Constructor for a ToDoCommand object.
      * @param input The input by the user to parse into a command.
      */
-    ToDoCommand (String input) {
+    ToDoCommand(String input) {
         super(false);
         this.todoDescription = input.replaceFirst("todo ", "");
     }

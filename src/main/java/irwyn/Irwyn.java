@@ -1,5 +1,7 @@
 package irwyn;
 
+import java.util.Scanner;
+
 import commands.Command;
 import commands.CommandParser;
 import irwyn.exceptions.CommandException;
@@ -8,8 +10,6 @@ import irwyn.exceptions.TaskException;
 import irwyn.tasks.TaskList;
 import misc.StorageManager;
 import misc.Ui;
-
-import java.util.Scanner;
 
 /**
  * This class encapsulates Irwyn chatbot.
@@ -45,7 +45,7 @@ public class Irwyn {
     /**
      * Runs the Irwyn chatbot.
      */
-    public static void run(){
+    public static void run() {
         boolean isExit = false;
         while (!isExit) {
             try {

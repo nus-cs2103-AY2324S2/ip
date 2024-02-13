@@ -14,42 +14,7 @@ import java.util.Scanner;
  */
 
 public class TaskList {
-    ArrayList<Task> storage;
-
-    /**
-     * This method converts a string into a Task object.
-     * The string is expected to be in a specific format, with parts separated by " | ".
-     * Depending on the first part of the string, a different type of Task object is created.
-     * If the second part of the string is "1", the task is marked as done.
-     *
-     * @param data The string to be converted into a Task object.
-     * @return A Task object that represents the task specified by the input string. Returns null if the task type is not recognized.
-     */
-    private Task StringToTask(String data) {
-        String[] parts = data.split(" \\| ");
-        switch (parts[0]) {
-            case "T":
-                Task todo = new ToDo(parts[2]);
-                if (parts[1].equals("1")) {
-                    todo.mark();
-                }
-                return todo;
-            case "D":
-                Task deadline = new Deadline(parts[2], parts[3]);
-                if (parts[1].equals("1")) {
-                    deadline.mark();
-                }
-                return deadline;
-            case "E":
-                Task event = new Event(parts[2], parts[3], parts[4]);
-                if (parts[1].equals("1")) {
-                    event.mark();
-                }
-                return event;
-            default:
-                return null;
-        }
-    }
+    private final ArrayList<Task> storage;
 
     /**
      * Constructor for a TaskList object.
@@ -60,10 +25,10 @@ public class TaskList {
      */
     public TaskList(File filePath) {
         storage = new ArrayList<>();
-         try {
+        try {
             Scanner fileReader = new Scanner(filePath);
             while (fileReader.hasNextLine()) {
-                Task task = StringToTask(fileReader.nextLine());
+                Task task = stringToTask(fileReader.nextLine());
                 if (task != null) {
                     storage.add(task);
                 }
@@ -73,9 +38,43 @@ public class TaskList {
             System.out.println("An error occurred while loading tasks from file.\n");
         }
     }
+
+    /**
+     * This method converts a string into a Task object.
+     * The string is expected to be in a specific format, with parts separated by " | ".
+     * Depending on the first part of the string, a different type of Task object is created.
+     * If the second part of the string is "1", the task is marked as done.
+     *
+     * @param data The string to be converted into a Task object.
+     * @return A Task object that represents the task specified by the input string.
+     */
+    private Task stringToTask(String data) {
+        String[] parts = data.split(" \\| ");
+        switch (parts[0]) {
+        case "T":
+            Task todo = new ToDo(parts[2]);
+            if (parts[1].equals("1")) {
+                todo.mark();
+            }
+            return todo;
+        case "D":
+            Task deadline = new Deadline(parts[2], parts[3]);
+            if (parts[1].equals("1")) {
+                deadline.mark();
+            }
+            return deadline;
+        case "E":
+            Task event = new Event(parts[2], parts[3], parts[4]);
+            if (parts[1].equals("1")) {
+                event.mark();
+            }
+            return event;
+        default:
+            return null;
+        }
+    }
     /**
      * This method returns the list of tasks.
-     *
      * @return A list of Task objects that represents the tasks.
      */
     public ArrayList<Task> getTasks() {

@@ -11,8 +11,11 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    TaskType task;
+    private TaskType task;
 
+    /**
+     * List for different commands for a task.
+     */
     public enum TaskType {
         TODO,
         EVENT,
@@ -85,7 +88,7 @@ public class Task {
      * @param numberList The total number of tasks in the list.
      * @return A string that acknowledges the addition of the task.
      */
-    public String replyString (int numberList) {
+    public String replyString(int numberList) {
         return "Got it. I've added this task:\n  "
                 + this + "\n"
                 + "Now you have " + numberList + " tasks in the list.\n";
