@@ -5,12 +5,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 /**
  * An example of a custom control using FXML.
@@ -35,6 +37,19 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+        dialog.setPadding(new Insets(10, 0, 0, 10));
+        dialog.setAlignment(Pos.CENTER_LEFT);
+        makeImageCircular();
+    }
+
+
+    /**
+     * Applies a circular clip to the ImageView to display the image in a circular shape.
+     */
+    private void makeImageCircular() {
+        double radius = displayPicture.getFitWidth() / 2;
+        Circle clip = new Circle(radius, radius, radius);
+        displayPicture.setClip(clip);
     }
 
     /**

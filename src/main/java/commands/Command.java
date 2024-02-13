@@ -160,7 +160,7 @@ public class Command {
         String symbol = this.getTaskSymbol(command[0]);
         String output = "";
         if (command.length <= 1 && command[0].equals("help")) {
-            ui.listOfCommands();
+            output = ui.output(ui.listOfCommands());
         } else {
             switch (command[0]) {
             case "list":
@@ -196,6 +196,8 @@ public class Command {
                 TaskList matchList = getKeywordMatchList(tasks, keyWord);
                 output = ui.output(findCommand(matchList));
                 break;
+            case "help":
+                ui.output(ui.listOfCommands());
             default:
                 output = ui.output("Sorry Old Man Fredricksen don't recognise this input! Type \"help\" if you need a guide on input format!");
                 break;

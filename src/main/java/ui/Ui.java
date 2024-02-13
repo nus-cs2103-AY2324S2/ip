@@ -36,7 +36,7 @@ public class Ui {
      * @param content The String in between the 2 lines.
      */
     public String output(String content) {
-        return line + "\n" + content + "\n" + line + "\n";
+        return content + "\n";
     }
 
     /**
@@ -58,16 +58,16 @@ public class Ui {
      * Prints to the console a list of valid commands
      * and how to use them to get valid outputs.
      */
-    public void listOfCommands() {
-        System.out.println("Below are the available commands and formats to follow!");
-        System.out.println("1. To view all your current task: list");
-        System.out.println("2. To add new task:");
-        System.out.println("    a. todos: todo <task>");
-        System.out.println("    b. deadlines: deadline <task> /by <deadline>");
-        System.out.println("    c. event: Event <event> /from <startdate, starttiming> /to <enddate, endtiming>");
-        System.out.println("3. To delete a task: delete <task number>");
-        System.out.println("4. To mark task as completed: mark <task number>");
-        System.out.println("5. To unmark completed task: unmark <task number>");
-        System.out.println("6. To exit program: bye");
+    public String listOfCommands() {
+        return "Below are the available commands and formats to follow!\n"
+                + "1. To view all your current task: list\n"
+                + "2. To add new task:\n"
+                + "    a. todos: todo <task>\n"
+                + "    b. deadlines: deadline <task> /by <deadline>\n"
+                + "    c. event: Event <event> /from <startDate, startTiming> /to <endDate, endTiming>\n"
+                + "3. To delete a task: delete <task number>\n"
+                + "4. To mark task as completed: mark <task number>\n"
+                + "5. To unmark completed task: unmark <task number>\n"
+                + "6. To exit program: bye\n";
     }
 }
