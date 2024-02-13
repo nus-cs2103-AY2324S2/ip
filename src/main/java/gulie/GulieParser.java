@@ -28,7 +28,7 @@ public class GulieParser {
         case "list": {
             return new Command() {
                 @Override
-                public void run(GulieUi ui, GulieStorage storage, GulieTasklist tasklist) throws GulieException {
+                public void run(GulieTextUi ui, GulieStorage storage, GulieTasklist tasklist) throws GulieException {
                     if (!silent) {
                         ui.list(tasklist);
                     }
@@ -40,7 +40,7 @@ public class GulieParser {
                 final int index = Integer.parseInt(getArgument(input, "mark", "index")) - 1;
                 return new Command() {
                     @Override
-                    public void run(GulieUi ui, GulieStorage storage, GulieTasklist tasklist) throws GulieException {
+                    public void run(GulieTextUi ui, GulieStorage storage, GulieTasklist tasklist) throws GulieException {
                         tasklist.mark(index);
                         if (!silent) {
                             ui.mark(tasklist.get(index));
@@ -56,7 +56,7 @@ public class GulieParser {
                 final int index = Integer.parseInt(getArgument(input, "unmark", "index")) - 1;
                 return new Command() {
                     @Override
-                    public void run(GulieUi ui, GulieStorage storage, GulieTasklist tasklist) throws GulieException {
+                    public void run(GulieTextUi ui, GulieStorage storage, GulieTasklist tasklist) throws GulieException {
                         tasklist.unmark(index);
                         if (!silent) {
                             ui.unmark(tasklist.get(index));
@@ -71,7 +71,7 @@ public class GulieParser {
             final String name = getArgument(input, "todo", "name");
             return new Command() {
                 @Override
-                public void run(GulieUi ui, GulieStorage storage, GulieTasklist tasklist) throws GulieException {
+                public void run(GulieTextUi ui, GulieStorage storage, GulieTasklist tasklist) throws GulieException {
                     Todo todo = new Todo(name);
                     tasklist.add(todo);
                     if (!silent) {
@@ -86,7 +86,7 @@ public class GulieParser {
                 final LocalDateTime by = LocalDateTime.parse(getArgument(input, "/by"));
                 return new Command() {
                     @Override
-                    public void run(GulieUi ui, GulieStorage storage, GulieTasklist tasklist) throws GulieException {
+                    public void run(GulieTextUi ui, GulieStorage storage, GulieTasklist tasklist) throws GulieException {
                         Deadline deadline = new Deadline(name, by);
                         tasklist.add(deadline);
                         if (!silent) {
@@ -105,7 +105,7 @@ public class GulieParser {
                 final LocalDateTime to = LocalDateTime.parse(getArgument(input, "/to"));
                 return new Command() {
                     @Override
-                    public void run(GulieUi ui, GulieStorage storage, GulieTasklist tasklist) throws GulieException {
+                    public void run(GulieTextUi ui, GulieStorage storage, GulieTasklist tasklist) throws GulieException {
                         Event event = new Event(name, from, to);
                         tasklist.add(event);
                         if (!silent) {
@@ -122,7 +122,7 @@ public class GulieParser {
                 final int index = Integer.parseInt(getArgument(input, "delete", "index")) - 1;
                 return new Command() {
                     @Override
-                    public void run(GulieUi ui, GulieStorage storage, GulieTasklist tasklist) throws GulieException {
+                    public void run(GulieTextUi ui, GulieStorage storage, GulieTasklist tasklist) throws GulieException {
                         Task task = tasklist.delete(index);
                         if (!silent) {
                             ui.delete(task, tasklist.size());
@@ -137,7 +137,7 @@ public class GulieParser {
             final String keyword = getArgument(input, "find", "keyword");
             return new Command() {
                 @Override
-                public void run(GulieUi ui, GulieStorage storage, GulieTasklist tasklist) throws GulieException {
+                public void run(GulieTextUi ui, GulieStorage storage, GulieTasklist tasklist) throws GulieException {
                     ui.find(tasklist.find(keyword));
                 }
             };

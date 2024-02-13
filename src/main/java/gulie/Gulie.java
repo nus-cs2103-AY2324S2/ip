@@ -1,7 +1,8 @@
 package gulie;
 
-import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.Scanner;
 
 /**
  * A simple task manager.
@@ -9,12 +10,12 @@ import java.io.PrintStream;
 public class Gulie {
     private GulieTasklist tasklist;
     private final static String savepath = "./data/Gulie.txt";
-    private GulieUi ui;
+    private GulieTextUi ui;
     private GulieStorage storage;
     private GulieParser parser;
 
-    public Gulie(InputStream input, PrintStream output) {
-        ui = new GulieUi(input, output);
+    public Gulie(GulieInterface gulieInterface) {
+        ui = new GulieTextUi(gulieInterface);
         storage = new GulieStorage(ui, "./data/Gulie.txt");
         parser = new GulieParser();
         tasklist = storage.load();
@@ -44,6 +45,29 @@ public class Gulie {
     }
 
     public static void main(String[] args) {
-        new Gulie(System.in, System.out).run();
+        final Scanner in = new Scanner(System.in);
+        final PrintStream out = System.out;
+        new Gulie(new GulieInterface() {
+            @Override
+            public String getString() {
+                return in.nextLine();
+            }
+
+            @Override
+            public void print(String str) {
+                out.println(str);
+            }
+
+            @Override
+            public void close() {
+                in.close();
+                out.close();
+            }
+
+            @Override
+            public boolean isOpen() {
+                return in.hasNextLine();
+            }
+        }).run();
     }
 }
