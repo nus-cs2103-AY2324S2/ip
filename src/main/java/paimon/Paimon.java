@@ -1,11 +1,8 @@
-package main.java;
+package paimon;
 
-import main.java.command.Command;
-import main.java.task.*;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-import java.util.Scanner;
+import paimon.command.Command;
+import paimon.task.TaskList;
 
 public class Paimon {
 
