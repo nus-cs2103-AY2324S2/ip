@@ -46,13 +46,21 @@ public class Parser {
         switch (command) {
         case "bye":
             if (!input.equalsIgnoreCase("bye")) {
+                assert !input.equals("bye ");
                 throw new InvalidSyntaxException("bye");
             }
+            assert input.equals("bye") || input.equals("Bye") || input.equals("bYe") || input.equals("byE")
+                    || input.equals("BYe") || input.equals("ByE") || input.equals("bYE") || input.equals("BYE");
             return ui.sayGoodBye();
         case "list":
             if (!input.equalsIgnoreCase("list")) {
+                assert input.equals("list ");
                 throw new InvalidSyntaxException("list");
             }
+            assert input.equals("list") || input.equals("List") || input.equals("lIst") || input.equals("liSt")
+                    || input.equals("lisT") || input.equals("LIst") || input.equals("LiSt") || input.equals("LisT")
+                    || input.equals("lISt") || input.equals("lIsT") || input.equals("liST") || input.equals("LISt")
+                    || input.equals("LIsT") || input.equals("LiST") || input.equals("lIST") || input.equals("LIST");
             return ui.displayTasks(taskList);
         case "mark": {
             if (input.split(" ").length != 2) {
@@ -144,6 +152,9 @@ public class Parser {
             String keywords = input.substring(5);
             return taskList.findTasks(keywords, ui);
         default:
+            assert !input.equals("bye") && !input.equals("list") && !input.equals("mark") && !input.equals("unmark")
+                    && !input.equals("todo") && !input.equals("deadline") && !input.equals("event")
+                    && !input.equals("delete") && !input.equals("find");
             throw new UnknownCommandException();
         }
     }
