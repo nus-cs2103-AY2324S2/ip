@@ -13,8 +13,8 @@ public class DeleteTask {
      * No constructor needed
      */
     private DeleteTask() {
-        // throw new AssertionError("Constructor is not allowed");
-        assert false : "Execution should never reach this point!";
+        throw new AssertionError("Constructor is not allowed");
+        // assert false : "Execution should never reach this point!";
     }
 
     /**
@@ -27,20 +27,21 @@ public class DeleteTask {
     public static String execDeleteTask(String input, List<Task> taskList) throws TaylorException {
         StringBuilder response = new StringBuilder();
         try {
-            // Input will be 'delete x', where x is an int
-            // Then split to get x
-            String[] parts = input.split(" ", 2);
-            int pos = Integer.parseInt(parts[1]);
+            int splitWhiteSpace = 2;
+            String[] parts = input.split(" ", splitWhiteSpace);
 
-            // If x is negative or x is less than total no. of Task, throw error
+            int getDeleteIdx = 1;
+            int pos = Integer.parseInt(parts[getDeleteIdx]);
+
             if (pos > taskList.size() || pos <= 0) {
                 throw new TaylorException("Invalid task number");
             }
 
-            Task taskRemoved = taskList.get(pos - 1);
+            int idx = pos - 1;
+            Task taskRemoved = taskList.get(idx);
             response.append("Noted. I've removed this tasks:\n");
             response.append(taskRemoved).append("\n");
-            taskList.remove(pos - 1);
+            taskList.remove(idx);
             response.append("Now you have ").append(taskList.size()).append(" tasks in the list.").append("\n");
 
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException err) {

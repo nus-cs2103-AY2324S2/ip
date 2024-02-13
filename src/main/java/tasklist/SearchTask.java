@@ -13,12 +13,14 @@ import tasks.Task;
  * To search tasks based on Date and Time
  */
 public class SearchTask {
+    private static final int SPLIT_FIRST_WHITESPACE = 2;
+    private static final int CONTENT = 1;
     /**
      * No constructor needed
      */
     private SearchTask() {
-        // throw new AssertionError("Constructor is not allowed");
-        assert false : "Execution should never reach this point!";
+        throw new AssertionError("Constructor is not allowed");
+        // assert false : "Execution should never reach this point!";
     }
 
     /**
@@ -26,33 +28,33 @@ public class SearchTask {
      * @param input Date and Time to search
      * @param taskList ArrayList with Tasks
      */
-    public static String execSearchTask(String input, List<Task> taskList) {
+    public static String execSearchTask(String input, List<Task> taskList) throws TaylorException {
         StringBuilder response = new StringBuilder();
         try {
-            String[] parts = input.split(" ", 2);
-            if (parts.length < 2 || parts[1].trim().isBlank()) {
-                throw new TaylorException("The description of the task is empty.");
-            }
-            String content = parts[1];
+            String[] wordPartition = input.split(" ", SPLIT_FIRST_WHITESPACE);
+            String content = wordPartition[CONTENT];
+
             LocalDateTime searchDate = InsertTask.dateConversion(content);
             List<Task> output = new ArrayList<>();
 
             for (Task act : taskList) {
-                char whichTask = act.toString().charAt(1);
+                int taskTypeIdx = 1;
+                char taskType = act.toString().charAt(taskTypeIdx);
 
-                if (whichTask == 'D') {
+                if (taskType == 'D') {
                     Deadline task = (Deadline) act;
                     if (task.getBy().isEqual(searchDate)) {
                         output.add(act);
                     }
 
-                } else if (whichTask == 'E') {
+                } else if (taskType == 'E') {
                     Event task = (Event) act;
                     if (task.getFrom().isEqual(searchDate) || task.getTo().isEqual(searchDate)) {
                         output.add(act);
                     }
                 }
             }
+
             if (output.isEmpty()) {
                 response.append("No event on this date").append("\n");
             } else {
@@ -60,9 +62,13 @@ public class SearchTask {
                     response.append(act).append("\n");
                 }
             }
+
         } catch (TaylorException err) {
             throw new TaylorException(err.getMessage());
+        } catch (ArrayIndexOutOfBoundsException err) {
+            throw new TaylorException("Description is empty. (Format: SEARCH <YYYY-MM-DD HHmm>");
         }
+
         return response.toString();
     }
 }
