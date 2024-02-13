@@ -1,5 +1,6 @@
 package jivox.task;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * TaskList represents a list of tasks.
@@ -34,6 +35,15 @@ public class TaskList {
      */
     public int getLength() {
         return this.tasks.size();
+    }
+
+    /**
+     * returns the List of tasks available
+     *
+     * @return the List of tasks.
+     */
+    public List<Task> getTasks(){
+        return this.tasks;
     }
 
     /**
