@@ -21,6 +21,7 @@ import capone.commands.ListCommand;
 import capone.commands.MarkCommand;
 import capone.commands.TodoCommand;
 import capone.commands.UnmarkCommand;
+import capone.commands.UpdateCommand;
 import capone.exceptions.CaponeException;
 import capone.exceptions.InvalidDateException;
 import capone.exceptions.InvalidTimeException;
@@ -74,13 +75,15 @@ public class Parser {
         } else if (command.equalsIgnoreCase("todo")) {
             return new TodoCommand(Parser.inputList);
         } else if (command.equalsIgnoreCase("deadline")) {
-            return new DeadlineCommand(inputList);
+            return new DeadlineCommand(Parser.inputList);
         } else if (command.equalsIgnoreCase("event")) {
-            return new EventCommand(inputList);
+            return new EventCommand(Parser.inputList);
         } else if (command.equalsIgnoreCase("delete")) {
-            return new DeleteCommand(inputList);
+            return new DeleteCommand(Parser.inputList);
         } else if (command.equalsIgnoreCase("find")) {
-            return new FindCommand(inputList);
+            return new FindCommand(Parser.inputList);
+        } else if (command.equalsIgnoreCase("update")) {
+            return new UpdateCommand(Parser.inputList);
         } else if (command.equalsIgnoreCase("bye")) {
             return new ByeCommand(scanner);
         } else if (command.equalsIgnoreCase("help")) {

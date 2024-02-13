@@ -48,8 +48,8 @@ public class TodoCommand extends Command {
         }
 
         // The starting index of the words that contain the description.
-        final int STARTING_NDX_DESCRIPTION = 1;
-        String description = Parser.parseDescription(STARTING_NDX_DESCRIPTION, inputList.size(), inputList);
+        final int DESC_NDX = 1;
+        String description = Parser.parseDescription(DESC_NDX, inputList.size(), inputList);
 
         ToDo newTodo = new ToDo(description, false);
         taskList.addTask(newTodo);
