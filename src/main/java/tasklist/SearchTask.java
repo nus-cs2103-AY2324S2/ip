@@ -13,8 +13,6 @@ import tasks.Task;
  * To search tasks based on Date and Time
  */
 public class SearchTask {
-    private static final int SPLIT_FIRST_WHITESPACE = 2;
-    private static final int CONTENT = 1;
     /**
      * No constructor needed
      */
@@ -30,9 +28,11 @@ public class SearchTask {
      */
     public static String execSearchTask(String input, List<Task> taskList) throws TaylorException {
         StringBuilder response = new StringBuilder();
+        int splitFirstWhitespace = 2;
+        int contentIdx = 1;
         try {
-            String[] wordPartition = input.split(" ", SPLIT_FIRST_WHITESPACE);
-            String content = wordPartition[CONTENT];
+            String[] wordPartition = input.split(" ", splitFirstWhitespace);
+            String content = wordPartition[contentIdx];
 
             LocalDateTime searchDate = InsertTask.dateConversion(content);
             List<Task> output = new ArrayList<>();
