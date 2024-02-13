@@ -12,9 +12,9 @@ import dibo.task.Event;
  * Class to handle the command which adds a to-do task.
  */
 public class AddEventCommand extends Command {
-    private String description;
-    private LocalDate start;
-    private LocalDate end;
+    private final String description;
+    private final LocalDate start;
+    private final LocalDate end;
 
     /**
      * Constructor for the AddEventCommand class.

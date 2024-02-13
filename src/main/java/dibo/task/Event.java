@@ -7,8 +7,8 @@ import java.time.format.DateTimeFormatter;
  * Class to represent an event.
  */
 public class Event extends Task {
-    private LocalDate start;
-    private LocalDate end;
+    private final LocalDate start;
+    private final LocalDate end;
 
     /**
      * Constructor for the Event class.
