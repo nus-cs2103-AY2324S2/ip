@@ -7,14 +7,14 @@ import java.time.format.DateTimeFormatter;
  * Deadlines are tasks that need to be done before a specific date/time.
  */
 public class Deadline extends Task {
-    protected String name = "";
-    protected LocalDate deadline = null;
+    protected String name;
+    protected LocalDate deadline;
 
     /**
-     * Constructor for a Taskline object.
+     * Constructor for a task list object.
      *
-     * @param name task name
-     * @param date deadline
+     * @param name The task name.
+     * @param date The deadline.
      */
     public Deadline(String name, LocalDate date) {
         super();
@@ -25,8 +25,8 @@ public class Deadline extends Task {
     /**
      * Constructor for loading from file.
      *
-     * @param description of task
-     * @param isDone boolean
+     * @param description of the task.
+     * @param isDone Whether the task is completed.
      */
     public Deadline(String description, boolean isDone) {
         super(isDone);
