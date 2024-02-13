@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 
@@ -50,13 +51,16 @@ public class Storage {
         } catch (IOException e) {
             System.err.println("An error occurred while creating the file: " + e.getMessage());
             returnVal += "An error occurred while creating the file: " + e.getMessage();
-            return returnVal;
         }
+
+        assert returnVal != "";
         return returnVal;
     }
 
     private static void initializeListFromText(File savedList, Lamball lamb) throws FileNotFoundException {
         File tempFile = new File(tempFilePath);
+        assert (!Objects.isNull(tempFile));
+
         try {
             // Delete and creates a new tempfile
             tempFile.delete();
@@ -80,6 +84,7 @@ public class Storage {
                 count++;
                 // Marks task if first character is 1. Else does not.
                 if (Integer.valueOf(parts[0]) == 1) {
+                    assert count > 0;
                     lamb.initParse("mark " + count);
                 }
                 // If code reaches here, means that the line is valid - write to temp file

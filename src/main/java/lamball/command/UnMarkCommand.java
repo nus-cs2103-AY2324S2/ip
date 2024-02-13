@@ -22,6 +22,9 @@ public class UnMarkCommand extends Command {
 
     @Override
     public boolean run() {
+        assert idx > 0;
+        assert idx <= taskList.size();
+
         taskList.unMark(idx);
         return true;
     }

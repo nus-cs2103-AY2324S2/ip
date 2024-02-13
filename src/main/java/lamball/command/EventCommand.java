@@ -1,11 +1,14 @@
 package lamball.command;
 
+import java.util.Objects;
+
 import lamball.TaskList;
 
 /**
  * Command that creates an event.
  */
 public class EventCommand extends Command {
+    private static final int MINIMUM_ARG_COUNT = 3;
     private TaskList taskList;
     private String[] args;
     private boolean isInit;
@@ -25,7 +28,10 @@ public class EventCommand extends Command {
 
     @Override
     public boolean run() {
-        taskList.event(args, isInit);
+        assert (!Objects.isNull(this.args));
+        assert this.args.length >= MINIMUM_ARG_COUNT;
+
+        taskList.event(this.args, isInit);
         return true;
     }
 }

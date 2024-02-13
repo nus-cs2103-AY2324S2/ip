@@ -22,6 +22,9 @@ public class DeleteCommand extends Command {
 
     @Override
     public boolean run() {
+        assert idx > 0;
+        assert idx <= taskList.size();
+
         taskList.deleteFromList(idx);
         return true;
     }

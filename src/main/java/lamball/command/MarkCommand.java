@@ -25,6 +25,9 @@ public class MarkCommand extends Command {
 
     @Override
     public boolean run() {
+        assert idx > 0;
+        assert idx <= taskList.size();
+
         taskList.mark(idx, this.isInit);
         return true;
     }
