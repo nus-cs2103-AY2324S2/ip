@@ -20,6 +20,7 @@ import solaire.data.task.Todo;
  */
 public class Storage {
     private static ArrayList<Task> taskList = new ArrayList<>();
+    private static final Path FILE_PATH = Paths.get("src", "main", "resources", "Solaire.txt");
 
     /**
      * Loads data from a pre-determined file path and generates a list of tasks for UI.
@@ -30,18 +31,15 @@ public class Storage {
         // Clear current tasklist
         taskList.clear();
         assert taskList.isEmpty() : "Tasklist should be empty";
-        // Read from target file
-        Path filePath = Paths.get("src", "main", "resources", "Solaire.txt");
         try {
-
-            Path directoryPath = filePath.getParent();
+            Path directoryPath = FILE_PATH.getParent();
             // Check if directory exists
             Files.createDirectories(directoryPath);
 
-            if (!Files.exists(filePath)) {
-                Files.createFile(filePath);
+            if (!Files.exists(FILE_PATH)) {
+                Files.createFile(FILE_PATH);
             }
-            List<String> lines = Files.readAllLines(filePath);
+            List<String> lines = Files.readAllLines(FILE_PATH);
 
             for (String line : lines) {
                 parseTasks(line);
@@ -61,12 +59,11 @@ public class Storage {
      * @param taskList an <code>ArrayList</code> of <code>Task</code> objects
      */
     public static void write(ArrayList<Task> taskList) {
-        Path filePath = Paths.get("src", "main", "resources", "Solaire.txt");
         try {
-            Files.createDirectories(filePath.getParent());
+            Files.createDirectories(FILE_PATH.getParent());
             Storage.taskList = taskList;
 
-            BufferedWriter bw = Files.newBufferedWriter(filePath);
+            BufferedWriter bw = Files.newBufferedWriter(FILE_PATH);
 
             for (Task task : taskList) {
                 String content = "";
@@ -102,29 +99,40 @@ public class Storage {
 
         switch (taskDetails.length) {
         case 3: {
-            Task newTask = new Todo(taskDescription);
-            if (isComplete) {
-                newTask.markAsDone();
-            }
+            Task newTask = getTodoTask(taskDescription, isComplete);
             taskList.add(newTask);
             break;
         }
         case 4: {
-            Task newTask;
-            if (taskType.trim().equals("D")) {
-                newTask = new Deadline(taskDescription, taskDetails[3]);
-            } else {
-                String[] timeDetails = taskDetails[3].split("\\-");
-                newTask = new Event(taskDescription, timeDetails[0], timeDetails[1]);
-            }
-            if (isComplete) {
-                newTask.markAsDone();
-            }
+            Task newTask = getTaskWithTimeLimit(taskType, taskDescription, taskDetails, isComplete);
             taskList.add(newTask);
             break;
         }
         default:
             throw new SolaireException("Invalid task format in local storage");
         }
+    }
+
+    private static Task getTaskWithTimeLimit(String taskType, String taskDescription, String[] taskDetails,
+                                             Boolean isComplete) throws SolaireException {
+        Task newTask;
+        if (taskType.trim().equals("D")) {
+            newTask = new Deadline(taskDescription, taskDetails[3]);
+        } else {
+            String[] timeDetails = taskDetails[3].split("\\-");
+            newTask = new Event(taskDescription, timeDetails[0], timeDetails[1]);
+        }
+        if (isComplete) {
+            newTask.markAsDone();
+        }
+        return newTask;
+    }
+
+    private static Task getTodoTask(String taskDescription, Boolean isComplete) {
+        Task newTask = new Todo(taskDescription);
+        if (isComplete) {
+            newTask.markAsDone();
+        }
+        return newTask;
     }
 }
