@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents an task with start and end date-time.
+ * Represents a task with start and end date-time.
  * Extends the abstract base class Task.
  */
 public class Event extends Task {
@@ -33,9 +33,9 @@ public class Event extends Task {
     @Override
     public String toString() {
         DateTimeFormatter customFormatter = DateTimeFormatter.ofPattern("MMM d yyyy h:mma");
-        String formattedDateTime = this.start.format(customFormatter);
-        String formattedDateTime1 = this.end.format(customFormatter);
-        return "[E]" + super.toString() + " (from: " + formattedDateTime + " to: " + formattedDateTime1 + ")";
+        String startDateTime = this.start.format(customFormatter);
+        String endDateTime = this.end.format(customFormatter);
+        return "[E]" + super.toString() + " (from: " + startDateTime + " to: " + endDateTime + ")";
     }
 
     /**
@@ -47,8 +47,9 @@ public class Event extends Task {
     @Override
     public String toSave() {
         DateTimeFormatter customFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        String formattedDateTime = this.start.format(customFormatter);
-        String formattedDateTime1 = this.end.format(customFormatter);
-        return "E | " + (super.isDone ? "1" : "0") + " | " + super.description + " | " + formattedDateTime + " | " + formattedDateTime1;
+        String startDateTime = this.start.format(customFormatter);
+        String endDateTime = this.end.format(customFormatter);
+        return "E | " + (super.isDone ? "1" : "0") + " | " + super.description
+                + " | " + startDateTime + " | " + endDateTime;
     }
 }

@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
  */
 public class Storage {
     private File file;
-    private List<Task> items;
+    private List<Task> tasks;
 
     /**
      * Constructs a Storage instance with the specified file path.
@@ -21,7 +21,7 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.file = new File(filePath);
-        this.items = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
     /**
@@ -31,7 +31,7 @@ public class Storage {
      */
     public void save(MyList mylist) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, false))) {
-            for (Task t : mylist.getItemsForSaving()) {
+            for (Task t : mylist.getTasksForSaving()) {
                 writer.write(t.toSave());
                 writer.newLine();
             }
@@ -55,61 +55,67 @@ public class Storage {
         while ((line = reader.readLine()) != null) {
             String[] loadInput = line.split("\\|");
             String type = loadInput[0].trim();
-            String done = loadInput[1].trim();
-            String taskString, byString, dateTimePattern, fromString, toString;
+            String isDone = loadInput[1].trim();
+            String taskString;
+            String dateTimePattern;
+            String byString;
+            String fromString;
+            String toString;
             Task task;
 
             switch (type) {
-                case "T":
-                    taskString = loadInput[2].trim();
-                    task = new Todo(taskString);
+            case "T":
+                taskString = loadInput[2].trim();
+                task = new Todo(taskString);
 
-                    if (done.equals("1")) {
-                        task.markAsDone();
-                    }
+                if (isDone.equals("1")) {
+                    task.markAsDone();
+                }
 
-                    this.items.add(task);
-                    break;
-                case "D":
-                    taskString = loadInput[2].trim();
-                    byString = loadInput[3].trim();
-                    dateTimePattern = "\\d{4}-\\d{2}-\\d{2} \\d{4}";
+                this.tasks.add(task);
+                break;
+            case "D":
+                taskString = loadInput[2].trim();
+                byString = loadInput[3].trim();
+                dateTimePattern = "\\d{4}-\\d{2}-\\d{2} \\d{4}";
 
-                    if (Pattern.matches(dateTimePattern, byString)) {
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-                        LocalDateTime dateTime = LocalDateTime.parse(byString, formatter);
-                        task = new Deadline(taskString, dateTime);
-                        this.items.add(task);
-                    } else {
-                        throw new DukeException("Please enter date in the format (yyyy-mm-dd hhmm)");
-                    }
+                if (Pattern.matches(dateTimePattern, byString)) {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                    LocalDateTime dateTime = LocalDateTime.parse(byString, formatter);
+                    task = new Deadline(taskString, dateTime);
+                    this.tasks.add(task);
+                } else {
+                    throw new DukeException("Please enter date in the format (yyyy-mm-dd hhmm)");
+                }
 
-                    if (done.equals("1")) {
-                        task.markAsDone();
-                    }
-                    break;
-                case "E":
-                    taskString = loadInput[2].trim();
-                    fromString = loadInput[3].trim();
-                    toString = loadInput[4].trim();
-                    dateTimePattern = "\\d{4}-\\d{2}-\\d{2} \\d{4}";
+                if (isDone.equals("1")) {
+                    task.markAsDone();
+                }
+                break;
+            case "E":
+                taskString = loadInput[2].trim();
+                fromString = loadInput[3].trim();
+                toString = loadInput[4].trim();
+                dateTimePattern = "\\d{4}-\\d{2}-\\d{2} \\d{4}";
 
-                    if (Pattern.matches(dateTimePattern, fromString) && Pattern.matches(dateTimePattern, toString)) {
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-                        LocalDateTime dateTimeFrom = LocalDateTime.parse(fromString, formatter);
-                        LocalDateTime dateTimeTo = LocalDateTime.parse(toString, formatter);
-                        task = new Event(taskString, dateTimeFrom, dateTimeTo);
-                        this.items.add(task);
-                    } else {
-                        throw new DukeException("Please enter date in the format (yyyy-mm-dd hhmm)");
-                    }
+                if (Pattern.matches(dateTimePattern, fromString) && Pattern.matches(dateTimePattern, toString)) {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                    LocalDateTime dateTimeFrom = LocalDateTime.parse(fromString, formatter);
+                    LocalDateTime dateTimeTo = LocalDateTime.parse(toString, formatter);
+                    task = new Event(taskString, dateTimeFrom, dateTimeTo);
+                    this.tasks.add(task);
+                } else {
+                    throw new DukeException("Please enter date in the format (yyyy-mm-dd hhmm)");
+                }
 
-                    if (done.equals("1")) {
-                        task.markAsDone();
-                    }
-                    break;
+                if (isDone.equals("1")) {
+                    task.markAsDone();
+                }
+                break;
+            default:
+                throw new DukeException("Please check for a valid task type in the load file");
             }
         }
-        return this.items;
+        return this.tasks;
     }
 }
