@@ -109,14 +109,23 @@ public class Parser {
         ui.printMessage("Noted. I've removed this task: " + removed);
     }
 
-    private void findTask(Ui ui, String details, Tasklist todolist) {
+    private void findTask(Ui ui, String details, Tasklist todolist) throws DukeException {
+        if (details.isEmpty()) {
+            throw new DukeException("Please provide a keyword to search for.");
+        }
+
         StringBuilder tasksWithKeyword = new StringBuilder();
         int i = 1;
         for (Task task : todolist.getTodolist()) {
             if (task.getDescription().contains(details)) {
-                tasksWithKeyword.append(i).append(". ").append(task).append("\n");
+                tasksWithKeyword.append(i).append(". ").append(task).append("\n\t");
                 i++;
             }
+        }
+
+        if (tasksWithKeyword.length() == 0) {
+            ui.printMessage("No matching tasks found.");
+            return;
         }
         ui.printMessage(tasksWithKeyword.toString().trim());
     }
