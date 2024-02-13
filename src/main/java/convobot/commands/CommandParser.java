@@ -15,6 +15,22 @@ import utils.DateTime;
  */
 public class CommandParser {
 
+    private static int parseIndex(String input) throws ConvoBotException {
+        try {
+            return Integer.parseInt(inputList.get(1)) - 1;
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            throw new ConvoBotException("Invalid input. Wrong number format or index.");
+        }
+        assert false;
+        return -1;
+    }
+
+    private static void enforceArgumentCount(int a, int b) {
+        if (a != b) {
+            throw new ConvoBotException("Invalid input. Wrong number of arguments.");
+        }
+    }
+
     /**
      * Parses user input and returns the corresponding {@code Command} object.
      *
@@ -55,39 +71,20 @@ public class CommandParser {
             break;
 
         case MARK:
-            try {
-                i = Integer.parseInt(inputList.get(1)) - 1;
-            } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                throw new ConvoBotException("Invalid input. Wrong number format or index.");
-            }
-            if (inputList.size() != 2) {
-                throw new ConvoBotException("Invalid input. Wrong number of arguments.");
-            }
+            i = parseIndex(inputList.get(1));
+            enforceArgumentCount(inputList.size(), 2);
             command = new Mark(i);
             break;
 
         case UNMARK:
-            try {
-                i = Integer.parseInt(inputList.get(1)) - 1;
-            } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                throw new ConvoBotException("Invalid input. Wrong number format or index.");
-            }
-
-            if (inputList.size() != 2) {
-                throw new ConvoBotException("Invalid input. Wrong number of arguments.");
-            }
+            i = parseIndex(inputList.get(1));
+            enforceArgumentCount(inputList.size(), 2);
             command = new Unmark(i);
             break;
 
         case DELETE:
-            try {
-                i = Integer.parseInt(inputList.get(1)) - 1;
-            } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                throw new ConvoBotException("Invalid input. Wrong number format or index.");
-            }
-            if (inputList.size() != 2) {
-                throw new ConvoBotException("Invalid input. Wrong number of arguments.");
-            }
+            i = parseIndex(inputList.get(1));
+            enforceArgumentCount(inputList.size(), 2);
             command = new Delete(i);
             break;
 
