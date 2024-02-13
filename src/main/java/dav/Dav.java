@@ -1,4 +1,5 @@
 package dav;
+
 import java.util.Scanner;
 
 public class Dav {
@@ -28,7 +29,6 @@ public class Dav {
         do {
             userInput = ui.getUserInput(scanner);
             Parser.parseUserInput(userInput, tasks, ui, storage);
-
         } while (!userInput.equalsIgnoreCase("bye"));
 
         ui.exit();

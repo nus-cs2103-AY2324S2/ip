@@ -1,4 +1,5 @@
 package dav;
+
 class TodoTask extends Task {
 
     public TodoTask(String description) {

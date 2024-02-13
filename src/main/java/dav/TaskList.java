@@ -130,7 +130,8 @@ class TaskList {
 
     public void checkTasksOnDate(String dateString) {
         try {
-            LocalDateTime targetDate = LocalDateTime.parse(dateString + " 0000", DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            LocalDateTime targetDate = LocalDateTime.parse(dateString + " 0000",
+                                                            DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
             List<Task> tasksOnDate = new ArrayList<>();
 
             for (Task task : tasks) {

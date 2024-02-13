@@ -1,6 +1,8 @@
 package dav;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 class DeadlineTask extends Task {
 
     protected LocalDateTime byDateTime;
@@ -17,8 +19,8 @@ class DeadlineTask extends Task {
 
     @Override
     public String toDataString() {
-        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " +
-                byDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        return "D | " + (isDone ? "1" : "0") + " | " + description + " | "
+                + byDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
     public static Task parseTask(String data) {
@@ -36,7 +38,8 @@ class DeadlineTask extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + byDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm")) + ")";
+        return "[D]" + super.toString() + " (by: "
+                + byDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm")) + ")";
     }
 }
 

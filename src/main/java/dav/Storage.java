@@ -1,10 +1,12 @@
 package dav;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+
 class Storage {
 
     private static final String FILE_PATH = "./data/dav.txt";

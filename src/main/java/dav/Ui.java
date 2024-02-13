@@ -1,5 +1,7 @@
 package dav;
+
 import java.util.Scanner;
+
 class Ui {
 
     public void greetUser() {
