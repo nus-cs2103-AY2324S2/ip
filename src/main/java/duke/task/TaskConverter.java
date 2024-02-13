@@ -38,6 +38,7 @@ public class TaskConverter {
         try {
             for (String str : strings) {
                 String[] split = str.split("%");
+                assert split.length >= 3 : "Incorrect Task string format";
                 if (split[0].equals("[T]")) {
                     Task currTask = new Todo(split[2]);
                     currTask.setDone(Boolean.parseBoolean(split[1]));

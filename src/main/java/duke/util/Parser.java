@@ -52,6 +52,7 @@ public class Parser {
      * @throws TaskException If the request format is invalid or lacks necessary information.
      */
     public Task identify(String request) throws TaskException {
+        assert request != null && !request.isEmpty() : "request invalid";
         if (request.startsWith("todo")) {
             String[] reqList = request.split(" ");
             if (reqList.length < 2) {
@@ -136,7 +137,9 @@ public class Parser {
         } else {
             try {
                 Task newTask = identify(current);
+                int initial = tasks.size();
                 tasks.addTask(newTask);
+                assert tasks.size() == initial + 1 : "tasks size should increase by 1";
                 return ui.addTask(newTask, tasks);
             } catch (TaskException e) {
                 return ui.showError(e.getMessage());
