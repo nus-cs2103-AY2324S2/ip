@@ -43,6 +43,7 @@ public class Parser {
      * Parses user input and executes corresponding commands.
      */
     public String parse(String userInput) {
+        assert userInput != null : "User input must not be null";
 
         // Checks for BYE command
         while (true) {
@@ -87,6 +88,7 @@ public class Parser {
     }
 
     private static String handleMarkTask(String userInput, TaskList tasks) {
+        assert tasks != null : "TaskList (tasks) must not be null";
         try {
             int taskNumber = Integer.parseInt(userInput.split("\\s+")[1]);
             return tasks.markTask(taskNumber, true);
@@ -98,6 +100,7 @@ public class Parser {
     }
 
     private static String handleUnmarkTask(String userInput, TaskList tasks) {
+        assert tasks != null : "TaskList (tasks) must not be null";
         try {
             int taskNumber = Integer.parseInt(userInput.split("\\s+")[1]);
             return tasks.unmarkTask(taskNumber, true);
@@ -150,6 +153,7 @@ public class Parser {
     }
 
     private static String handleDeleteTask(String userInput, TaskList tasks) {
+        assert tasks != null : "TaskList (tasks) must not be null";
         try {
             int taskNumber = Integer.parseInt(userInput.split("\\s+")[1]);
             return tasks.deleteTask(taskNumber);
@@ -167,6 +171,7 @@ public class Parser {
     }
 
     private static String handleFindTask(String userInput, TaskList tasks) {
+        assert tasks != null : "TaskList (tasks) must not be null";
         try {
             String keyword = userInput.split("\\s+", 2)[1].trim();
             return tasks.findTask(keyword);

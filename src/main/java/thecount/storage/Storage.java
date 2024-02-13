@@ -75,6 +75,7 @@ public class Storage {
      * @param tasks The task list to load tasks into.
      */
     public void write(TaskList tasks) {
+        assert tasks != null : "TaskList (tasks) must not be null";
         try {
             FileWriter fw = new FileWriter(DATAFILE_PATH);
             fw.write(tasks.getListToWrite());
