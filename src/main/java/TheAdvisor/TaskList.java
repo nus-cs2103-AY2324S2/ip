@@ -45,129 +45,105 @@ public class TaskList implements Serializable {
      *
      * @param index The index of the task to be deleted.
      * @return The confirmation message.
-     * @throws TheAdvisorException If the index is out of bounds or the list is empty.
      */
-    public String deleteFromList(int index) throws TheAdvisorException {
-        try {
-            checkIndex(index);
+    public String deleteFromList(int index) {
+        if (checkIndex(index)) {
             Task task = this.taskList.get(index);
+            assert task != null : "Task to delete is not there";
             this.taskList.remove(index);
+            assert !this.taskList.contains(task) : "Task was not removed from the list";
             return "Noted. I've removed this task:\n" + task.toString() + "\n"
                     + "Now you have " + taskList.size() + " tasks in the list.";
-        } catch (IndexOutOfBoundsException e) {
-            throw new TheAdvisorException("We use 1-based indexing for deletion, marking and unmarking! "
-                    + "Do try again :)");
+        } else {
+            return "We use 1-based indexing for deletion, marking and unmarking! "
+                    + "Do try again :)";
         }
     }
 
     /**
-     * Marks a task as done based on the given index and prints a confirmation message.
+     * Marks a task at the specified index as done.
      *
-     * @param index The index of the task to be marked.
-     * @return The confirmation message.
-     * @throws TheAdvisorException If the index is out of bounds or the task is already marked.
+     * @param index The index of the task to be marked as done.
+     * @return A message indicating the successful marking of the task as done,
+     *      or a message indicating that the task has already been marked.
      */
-    public String markTask(int index) throws TheAdvisorException {
-        try {
-            checkIndex(index);
+    public String markTask(int index) {
+        if (checkIndex(index)) {
             Task task = this.taskList.get(index);
-            checkMarked(task);
-            task.markDone();
-            return "Nice! I've marked this task as done:\n" + task.toString();
-        } catch (IndexOutOfBoundsException e) {
-            throw new TheAdvisorException("We use 1-based indexing for deletion, marking, and unmarking! "
-                    + "Please try again :)");
+            assert task != null : "Task to mark is present";
+            if (!checkMarked(task)) {
+                task.markDone();
+                assert task.isDone : "Task is not marked as done after marking";
+                return "Nice! I've marked this task as done:\n" + task.toString();
+            } else {
+                return "The task is already marked! You can go ahead and mark/unmark other tasks :).";
+            }
+        } else {
+            return "Index is out of bounds! We use 1-based indexing here!";
         }
     }
+
 
     /**
      * Unmarks a task as done based on the given index and prints a confirmation message.
      *
      * @param index The index of the task to be unmarked.
      * @return The confirmation message.
-     * @throws TheAdvisorException If the index is out of bounds or the task is already unmarked.
      */
-    public String unmarkTask(int index) throws TheAdvisorException {
-        try {
-            checkIndex(index);
+    public String unmarkTask(int index) {
+        if (checkIndex(index)) {
             Task task = this.taskList.get(index);
-            checkUnmarked(task);
-            task.unmark();
-            return "OK, I've marked this task as not done yet:\n" + task.toString();
-        } catch (IndexOutOfBoundsException e) {
-            throw new TheAdvisorException("We use 1-based indexing for deletion, marking, and unmarking! "
-                    + "Please try again :)");
+            assert task != null : "Task to unmark is not present";
+            if (!checkUnmarked(task)) {
+                task.unmark();
+                assert !task.isDone : "Task is still marked as done after unmarking";
+                return "OK, I've marked this task as not done yet:\n" + task.toString();
+            } else {
+                return "The task is already unmarked! You can go ahead and mark/unmark other tasks :).";
+            }
+        } else {
+            return "Index is out of bounds! We use 1-based indexing here!";
         }
-    }
-
-    /**
-     * Gets the number of tasks in the list.
-     *
-     * @return The number of tasks in the list.
-     */
-    public int getSize() {
-        return this.taskList.size();
-    }
-
-    /**
-     * Gets a string representation of the task at the specified index.
-     *
-     * @param index The index of the task.
-     * @return A string representing the task.
-     */
-    public String getTask(int index) {
-        return taskList.get(index).toString();
     }
 
     /**
      * Checks if a task is already marked and throws an exception if it is.
      *
      * @param task The task to be checked.
-     * @throws TheAdvisorException If the task is already marked.
      */
-    public void checkMarked(Task task) throws TheAdvisorException {
-        if (task.isDone) {
-            throw new TheAdvisorException("The task is already marked! Carry on.");
-        }
+    public boolean checkMarked(Task task) {
+        return task.isDone;
     }
 
     /**
      * Checks if a task is already unmarked and throws an exception if it is.
      *
      * @param task The task to be checked.
-     * @throws TheAdvisorException If the task is already unmarked.
      */
-    public void checkUnmarked(Task task) throws TheAdvisorException {
-        if (!task.isDone) {
-            throw new TheAdvisorException("The task is already unmarked! Carry on.");
-        }
+    public boolean checkUnmarked(Task task) {
+        return !task.isDone;
     }
 
     /**
-     * Checks if the given index is valid for the list.
+     * Checks if the provided index is within the bounds of the task list.
      *
      * @param index The index to be checked.
-     * @throws TheAdvisorException If the index is out of bounds or the list is empty.
+     * @return True if the index is within bounds and the task list is not empty, false otherwise.
      */
-    public void checkIndex(int index) throws TheAdvisorException {
+    public boolean checkIndex(int index) {
+        assert index > 0 : "Index must be 1-based";
         int size = this.taskList.size();
-        if (index < 0) {
-            throw new TheAdvisorException("We use 1-indexing for marking. Please try again.");
-        } else if (index > size) {
-            throw new TheAdvisorException("Out of bounds. We use 1-indexing for marking. Please try again.");
-        } else if (size == 0) {
-            throw new TheAdvisorException("The list is empty! Start adding things :)");
-        }
+        return index < size && size != 0;
     }
+
 
     /**
      * Finds tasks in the list that match the given keyword.
      *
      * @param keyword The keyword to search for.
      * @return A string representation of matching tasks.
-     * @throws TheAdvisorException If no matching tasks are found.
      */
-    public String findItem(String keyword) throws TheAdvisorException {
+    public String findItem(String keyword) {
         ArrayList<Integer> indexes = new ArrayList<>();
 
         for (int i = 0; i < taskList.size(); i++) {
@@ -175,9 +151,8 @@ public class TaskList implements Serializable {
                 indexes.add(i);
             }
         }
-
         if (indexes.size() == 0) {
-            throw new TheAdvisorException("Sorry! There are no tasks that match your search criteria.");
+            return "Sorry! There are no tasks that match your search criteria.";
         } else {
             StringBuilder toReturn = new StringBuilder("Here are the matching tasks in your list:\n");
             for (int j = 0; j < indexes.size(); j++) {

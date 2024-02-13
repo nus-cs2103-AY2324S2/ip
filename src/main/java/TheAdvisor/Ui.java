@@ -35,7 +35,6 @@ public class Ui {
      */
     public String printList(TaskList taskList) {
         ArrayList<Task> tasks = taskList.getTaskList();
-        int counter = 1;
         if (tasks.size() == 0) {
             return "Sorry, there are no tasks in your list. Start adding them :)";
         } else {

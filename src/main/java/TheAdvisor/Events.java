@@ -8,20 +8,24 @@ import java.time.LocalDateTime;
  * Extends the Task class and implements Serializable for persistence.
  */
 public class Events extends Task implements Serializable {
-    protected final LocalDateTime start;
-    protected final LocalDateTime end;
+    protected final LocalDateTime startTime;
+    protected final LocalDateTime endTime;
 
     /**
      * Constructs a new Events instance with the given description, start time, and end time.
      *
      * @param description The description of the event.
-     * @param start The start time of the event.
-     * @param end The end time of the event.
+     * @param startTime The start time of the event.
+     * @param endTime The end time of the event.
      */
-    public Events(String description, LocalDateTime start, LocalDateTime end) {
+    public Events(String description, LocalDateTime startTime, LocalDateTime endTime) {
         super(description);
-        this.start = start;
-        this.end = end;
+        assert description != null && !description.isEmpty() : "Description cannot be null or empty";
+        assert startTime != null : "Start time cannot be null";
+        assert endTime != null : "End time cannot be null";
+        assert !endTime.isBefore(startTime) : "End time cannot be before start time";
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     /**
@@ -41,7 +45,8 @@ public class Events extends Task implements Serializable {
      */
     @Override
     public String getDescription() {
-        return this.description + " | " + start + " " + end;
+        assert getDescription().contains("|") : "Description should contain the event times";
+        return this.description + " | " + startTime + " " + endTime;
     }
 
     /**
@@ -51,7 +56,7 @@ public class Events extends Task implements Serializable {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + start.format(Task.OUTPUT_FORMAT) + "hrs to: "
-                + end.format(Task.OUTPUT_FORMAT) + "hrs)";
+        return "[E]" + super.toString() + " (from: " + startTime.format(Task.OUTPUT_FORMAT) + "hrs to: "
+                + endTime.format(Task.OUTPUT_FORMAT) + "hrs)";
     }
 }

@@ -21,8 +21,8 @@ public class EventsTest {
         Events events1 = new Events(eventArr1[0], start1, end1);
 
         assertEquals("Sleep", events1.description);
-        assertEquals(LocalDateTime.of(2024, 2, 1, 0, 0), events1.start);
-        assertEquals(LocalDateTime.of(2024, 2, 1, 9, 0), events1.end);
+        assertEquals(LocalDateTime.of(2024, 2, 1, 0, 0), events1.startTime);
+        assertEquals(LocalDateTime.of(2024, 2, 1, 9, 0), events1.endTime);
 
         String input2 = "Play /from 2024-02-02 1000 /to 2024-02-02 2000";
         String[] eventArr2 = input2.split(" /from ");
@@ -34,8 +34,8 @@ public class EventsTest {
         Events events2 = new Events(eventArr2[0], start2, end2);
 
         assertEquals("Play", events2.description);
-        assertEquals(LocalDateTime.of(2024, 2, 2, 10, 0), events2.start);
-        assertEquals(LocalDateTime.of(2024, 2, 2, 20, 0), events2.end);
+        assertEquals(LocalDateTime.of(2024, 2, 2, 10, 0), events2.startTime);
+        assertEquals(LocalDateTime.of(2024, 2, 2, 20, 0), events2.endTime);
     }
 
     @Test
