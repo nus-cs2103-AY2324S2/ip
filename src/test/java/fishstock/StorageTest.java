@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 public class StorageTest {
     @Test
     public void loadTask_validTask_success() throws Exception {
-        Storage storage = new Storage("");
+        Storage storage = new Storage("./test");
 
         storage.loadTask("T|borrow book|1");
         assertEquals("[T][X] borrow book", storage.list.get(0).toString());
@@ -23,7 +23,7 @@ public class StorageTest {
 
     @Test
     public void loadTask_invalidTask_exceptionThrown() {
-        Storage storage = new Storage("");
+        Storage storage = new Storage("./test");
 
         try {
             // Missing mark
