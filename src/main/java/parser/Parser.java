@@ -1,7 +1,11 @@
 package parser;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+import command.CommandResponse;
 import exception.GeePeeTeeException;
 import exception.InvalidDateException;
 import exception.InvalidTaskFormatException;
@@ -50,13 +54,13 @@ public class Parser {
      * 
      * @param input The user input to be parsed and executed.
      */
-    public String parseInput(String input) {
+    public CommandResponse parseInput(String input) {
         String command = input.split(" ")[0];
         switch (command) {
             case "help":
-                return ui.getListOfCommandsMessage();
+                return CommandResponse.success(ui.getListOfCommandsMessage());
             case "list":
-                return taskList.printList();
+                return CommandResponse.success(taskList.printList());
             case "mark":
                 return processMarkCommand(input);
             case "unmark":
@@ -72,7 +76,7 @@ public class Parser {
             case "find":
                 return processFindCommand(input);
             default:
-                return ui.getErrorMessage("I'm sorry, but I don't know what that means :-(");
+                return CommandResponse.error(ui.getErrorMessage("I'm sorry, but I don't know what that means :-("));
         }
     }
 
@@ -85,12 +89,17 @@ public class Parser {
      *                                   not exist.
      * @throws GeePeeTeeException        If an error occurs while marking the task.
      */
-    private String processMarkCommand(String input) {
+    private CommandResponse processMarkCommand(String input) {
         try {
             if (input.trim().equals("mark")) {
                 throw new InvalidTaskIndexException("The index of a task cannot be empty.");
             }
-            int markIndex = Integer.parseInt(input.split(" ")[1]);
+            int markIndex;
+            try {
+                markIndex = Integer.parseInt(input.split(" ")[1]);
+            } catch (NumberFormatException e) {
+                throw new InvalidTaskIndexException("The index of a task must be a number.");
+            }
             if (markIndex > taskList.getTaskCount()) {
                 throw new InvalidTaskIndexException("The index of a task cannot be greater than the number of tasks.");
             }
@@ -103,11 +112,11 @@ public class Parser {
             }
             taskToMark.markAsDone();
             storage.saveTaskList(taskList.getTasksList());
-            return ui.getTaskMarkedMessage(taskToMark);
+            return CommandResponse.success(ui.getTaskMarkedMessage(taskToMark));
         } catch (GeePeeTeeException e) {
-            return ui.getErrorMessage(e.getMessage());
+            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
         } catch (InvalidTaskIndexException e) {
-            return ui.getErrorMessage(e.getMessage());
+            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
         }
     }
 
@@ -121,12 +130,17 @@ public class Parser {
      * @throws GeePeeTeeException        If an error occurs while unmarking the
      *                                   task.
      */
-    private String processUnmarkCommand(String input) {
+    private CommandResponse processUnmarkCommand(String input) {
         try {
             if (input.trim().equals("unmark")) {
                 throw new InvalidTaskIndexException("The index of a task cannot be empty.");
             }
-            int unmarkIndex = Integer.parseInt(input.split(" ")[1]);
+            int unmarkIndex;
+            try {
+                unmarkIndex = Integer.parseInt(input.split(" ")[1]);
+            } catch (NumberFormatException e) {
+                throw new InvalidTaskIndexException("The index of a task must be a number.");
+            }
             if (unmarkIndex > taskList.getTaskCount()) {
                 throw new InvalidTaskIndexException("The index of a task cannot be greater than the number of tasks.");
             }
@@ -139,11 +153,11 @@ public class Parser {
             }
             taskToUnmark.unmarkAsDone();
             storage.saveTaskList(taskList.getTasksList());
-            return ui.getTaskUnmarkedMessage(taskToUnmark);
+            return CommandResponse.success(ui.getTaskUnmarkedMessage(taskToUnmark));
         } catch (GeePeeTeeException e) {
-            return ui.getErrorMessage(e.getMessage());
+            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
         } catch (InvalidTaskIndexException e) {
-            return ui.getErrorMessage(e.getMessage());
+            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
         }
     }
 
@@ -156,12 +170,17 @@ public class Parser {
      *                                   not exist.
      * @throws GeePeeTeeException        If an error occurs while deleting the task.
      */
-    private String processDeleteCommand(String input) {
+    private CommandResponse processDeleteCommand(String input) {
         try {
             if (input.trim().equals("delete")) {
                 throw new InvalidTaskIndexException("The index of a task cannot be empty.");
             }
-            int deleteIndex = Integer.parseInt(input.split(" ")[1]);
+            int deleteIndex;
+            try {
+                deleteIndex = Integer.parseInt(input.split(" ")[1]);
+            } catch (NumberFormatException e) {
+                throw new InvalidTaskIndexException("The index of a task must be a number.");
+            }
             if (deleteIndex > taskList.getTaskCount()) {
                 throw new InvalidTaskIndexException("The index of a task cannot be greater than the number of tasks.");
             }
@@ -174,11 +193,11 @@ public class Parser {
             }
             taskList.removeTask(deleteIndex);
             storage.saveTaskList(taskList.getTasksList());
-            return ui.getDeleteTaskMessage(taskToDelete, taskList.getTaskCount());
+            return CommandResponse.success(ui.getDeleteTaskMessage(taskToDelete, taskList.getTaskCount()));
         } catch (GeePeeTeeException e) {
-            return ui.getErrorMessage(e.getMessage());
+            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
         } catch (InvalidTaskIndexException e) {
-            return ui.getErrorMessage(e.getMessage());
+            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
         }
     }
 
@@ -193,18 +212,40 @@ public class Parser {
      * @throws GeePeeTeeException         If an error occurs while adding the event
      *                                    task.
      */
-    private String processEventCommand(String input) {
+    private CommandResponse processEventCommand(String input) {
         try {
-            Event newEvent = Event.createFromInput(input);
+            String[] parts = input.split(" /from | /to ", 3);
+            if (parts.length < 3) {
+                throw new InvalidTaskFormatException(
+                        "Invalid event format. Please use 'event description /from yyyy-MM-dd /to yyyy-MM-dd'.");
+            }
+            String description = parts[0].substring(parts[0].indexOf("event ") + "event ".length());
+            if (description.isEmpty()) {
+                throw new InvalidTaskFormatException("The description of an event cannot be empty.");
+            }
+            String from = parts[1];
+            String to = parts[2];
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate parsedFrom;
+            LocalDate parsedTo;
+
+            try {
+                parsedFrom = LocalDate.parse(from, formatter);
+                parsedTo = LocalDate.parse(to, formatter);
+            } catch (DateTimeParseException e) {
+                throw new InvalidDateException("Invalid date format. Please use 'yyyy-MM-dd'.");
+            }
+
+            Event newEvent = new Event(description, parsedFrom, parsedTo);
             taskList.addTask(newEvent);
             storage.saveTaskList(taskList.getTasksList());
-            return ui.getAddTaskMessage(newEvent, taskList.getTaskCount());
-        } catch (InvalidDateException e) {
-            return ui.getErrorMessage(e.getMessage());
-        } catch (InvalidTaskFormatException e) {
-            return ui.getErrorMessage(e.getMessage());
-        } catch (GeePeeTeeException e) {
-            return ui.getErrorMessage(e.getMessage());
+
+            return CommandResponse.success(ui.getAddTaskMessage(newEvent, taskList.getTaskCount()));
+        } catch (InvalidDateException | InvalidTaskFormatException e) {
+            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
+        } catch (Exception e) {
+            return CommandResponse
+                    .error(ui.getErrorMessage("An unexpected error occurred while processing the event command."));
         }
     }
 
@@ -219,18 +260,35 @@ public class Parser {
      * @throws GeePeeTeeException         If an error occurs while adding the
      *                                    deadline task.
      */
-    private String processDeadlineCommand(String input) {
+    private CommandResponse processDeadlineCommand(String input) {
         try {
-            Deadline newDeadline = Deadline.createFromInput(input);
+            String[] parts = input.split(" /by ", 2);
+            if (parts.length < 2) {
+                throw new InvalidTaskFormatException(
+                        "Invalid deadline format. Please use 'deadline description /by yyyy-MM-dd'.");
+            }
+            String description = parts[0].substring(parts[0].indexOf("deadline ") + "deadline ".length());
+            if (description.isEmpty()) {
+                throw new InvalidTaskFormatException("The description of a deadline cannot be empty.");
+            }
+            String by = parts[1];
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate parsedBy;
+
+            try {
+                parsedBy = LocalDate.parse(by, formatter);
+            } catch (DateTimeParseException e) {
+                throw new InvalidDateException("Invalid date format. Please use 'yyyy-MM-dd'.");
+            }
+            Deadline newDeadline = new Deadline(description, parsedBy);
             taskList.addTask(newDeadline);
             storage.saveTaskList(taskList.getTasksList());
-            return ui.getAddTaskMessage(newDeadline, taskList.getTaskCount());
-        } catch (InvalidDateException e) {
-            return ui.getErrorMessage(e.getMessage());
-        } catch (InvalidTaskFormatException e) {
-            return ui.getErrorMessage(e.getMessage());
-        } catch (GeePeeTeeException e) {
-            return ui.getErrorMessage(e.getMessage());
+            return CommandResponse.success(ui.getAddTaskMessage(newDeadline, taskList.getTaskCount()));
+        } catch (InvalidDateException | InvalidTaskFormatException e) {
+            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
+        } catch (Exception e) {
+            return CommandResponse
+                    .error(ui.getErrorMessage("An unexpected error occurred while processing the deadline command."));
         }
     }
 
@@ -244,16 +302,22 @@ public class Parser {
      * @throws GeePeeTeeException         If an error occurs while adding the todo
      *                                    task.
      */
-    private String processToDoCommand(String input) {
+    private CommandResponse processToDoCommand(String input) {
         try {
-            ToDo newToDo = ToDo.createFromInput(input);
+            String description;
+            try {
+                description = input.split("todo ")[1];
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new InvalidTaskFormatException("Invalid todo format. Please use 'todo description'.");
+            }
+            ToDo newToDo = new ToDo(description);
             taskList.addTask(newToDo);
             storage.saveTaskList(taskList.getTasksList());
-            return ui.getAddTaskMessage(newToDo, taskList.getTaskCount());
+            return CommandResponse.success(ui.getAddTaskMessage(newToDo, taskList.getTaskCount()));
         } catch (InvalidTaskFormatException e) {
-            return ui.getErrorMessage(e.getMessage());
+            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
         } catch (GeePeeTeeException e) {
-            return ui.getErrorMessage(e.getMessage());
+            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
         }
     }
 
@@ -262,9 +326,16 @@ public class Parser {
      * 
      * @param input The user input
      */
-    private String processFindCommand(String input) {
-        String keyword = input.split(" ")[1];
-        ArrayList<Task> result = taskList.findTasks(keyword);
-        return ui.getMatchingTasksMessage(result);
+    private CommandResponse processFindCommand(String input) {
+        try {
+            if (input.trim().split(" ").length < 2) {
+                throw new InvalidTaskFormatException("Please provide a keyword to find.");
+            }
+            String keyword = input.split(" ")[1];
+            ArrayList<Task> result = taskList.findTasks(keyword);
+            return CommandResponse.success(ui.getMatchingTasksMessage(result));
+        } catch (InvalidTaskFormatException e) {
+            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
+        }
     }
 }

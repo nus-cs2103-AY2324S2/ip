@@ -2,6 +2,7 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import command.CommandResponse;
 import exception.GeePeeTeeException;
 import parser.Parser;
 import storage.Storage;
@@ -19,7 +20,7 @@ import ui.Ui;
  */
 public class GeePeeTee {
 
-    private TaskList taskList;
+    private TaskList listOfTask;
     private Storage storage;
     private Parser parser;
     private Ui ui;
@@ -34,8 +35,8 @@ public class GeePeeTee {
         ui = new Ui();
         try {
             storage = new Storage(filePath);
-            taskList = new TaskList(storage.loadTaskList());
-            parser = new Parser(taskList, storage, ui);
+            listOfTask = new TaskList(storage.loadTaskList());
+            parser = new Parser(listOfTask, storage, ui);
         } catch (FileNotFoundException e) {
             initializationErrorMessage = ui.getFileNotFoundErrorMessage();
         } catch (IOException e) {
@@ -60,7 +61,7 @@ public class GeePeeTee {
      * @param input The user input to be processed
      * @return The response to the user input
      */
-    public String getResponse(String input) {
+    public CommandResponse getResponse(String input) {
         return parser.parseInput(input);
     }
 }

@@ -62,6 +62,9 @@ public class TaskList {
      * Prints the list of tasks.
      */
     public String printList() {
+        if (this.tasksList.size() == 0) {
+            return "There are no tasks in your list.";
+        }
         String listOutput = "";
         for (int i = 0; i < this.tasksList.size(); i++) {
             listOutput += (i + 1) + ". " + this.tasksList.get(i) + "\n";

@@ -128,6 +128,9 @@ public class Ui {
      * @param matchingTasks The list of tasks matching the keyword
      */
     public String getMatchingTasksMessage(ArrayList<Task> matchingTasks) {
+        if (matchingTasks.isEmpty()) {
+            return "There are no matching tasks in your list.";
+        }
         String matchingTasksOutput = "";
         for (int i = 0; i < matchingTasks.size(); i++) {
             matchingTasksOutput += (i + 1) + ". " + matchingTasks.get(i) + "\n";

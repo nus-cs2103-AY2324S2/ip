@@ -1,7 +1,5 @@
 package task;
 
-import exception.InvalidTaskFormatException;
-
 /**
  * Represents a to-do task.
  * <p>
@@ -14,6 +12,7 @@ public class ToDo extends Task {
 
     /**
      * Constructs a new {@code ToDo} instance with the specified description.
+     * 
      * @param description The description of the to-do task.
      */
     public ToDo(String description) {
@@ -21,20 +20,8 @@ public class ToDo extends Task {
     }
 
     /**
-     * Creates a new {@code ToDo} instance with the specified description.
-     * @param input The input string to be parsed into a to-do task.
-     */
-    public static ToDo createFromInput(String input) throws InvalidTaskFormatException {
-        try {
-            String description = input.split("todo ")[1];
-            return new ToDo(description);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new InvalidTaskFormatException("Invalid todo format. Please use 'todo description'.");
-        }
-    }
-
-    /**
      * Returs the string representation of the to-do task.
+     * 
      * @return The string representation of the to-do task.
      */
     @Override
@@ -44,6 +31,7 @@ public class ToDo extends Task {
 
     /**
      * Returns the string representation of the to-do task to be saved in the file.
+     * 
      * @return The string representation of the to-do task to be saved in the file.
      */
     @Override

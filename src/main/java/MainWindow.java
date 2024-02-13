@@ -1,3 +1,4 @@
+import command.CommandResponse;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -24,7 +25,9 @@ public class MainWindow extends AnchorPane {
     private GeePeeTee geepeetee;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image botImage = new Image(this.getClass().getResourceAsStream("/images/geepeetee.jpeg"));
+    private Image neutralImage = new Image(this.getClass().getResourceAsStream("/images/bot_neutral.jpeg"));
+    private Image happyImage = new Image(this.getClass().getResourceAsStream("/images/bot_happy.jpeg"));
+    private Image unhappyImage = new Image(this.getClass().getResourceAsStream("/images/bot_unhappy.jpeg"));
 
     /**
      * Initializes the main window.
@@ -33,13 +36,15 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren()
-                .add(DialogBox.getGeePeeTeeDialog("Hello! I'm GeePeeTee. How can I help you?", botImage));
+                .add(DialogBox.getGeePeeTeeDialog("Hello! I'm GeePeeTee. How can I help you?", neutralImage));
         // ScrollPane styling
         scrollPane.setStyle("-fx-background: #010101;");
         // DialogContainer styling
         dialogContainer.setStyle("-fx-background-color: #010101;");
+
         // UserInput styling
-        userInput.setStyle("-fx-background-color: #010101; -fx-text-fill: #ffffff;");
+        userInput.setStyle(
+                "-fx-background-color: #010101; -fx-text-fill: #ffffff; -fx-font-family: 'Monospaced'; -fx-font-size: 12pt");
     }
 
     /**
@@ -62,16 +67,19 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         if (input.equals("bye")) {
             dialogContainer.getChildren().addAll(
-                    DialogBox.getGeePeeTeeDialog("Bye. Hope to see you again soon!", botImage));
+                    DialogBox.getGeePeeTeeDialog("Bye. Hope to see you again soon!", happyImage));
             PauseTransition pause = new PauseTransition(Duration.seconds(1));
             pause.setOnFinished(event -> System.exit(0));
             pause.play();
 
         } else {
-            String response = geepeetee.getResponse(input);
+            CommandResponse response = geepeetee.getResponse(input);
+            String responseString = response.getMessage();
+            Boolean isError = response.isError();
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getGeePeeTeeDialog(response, botImage));
+                    isError ? DialogBox.getGeePeeTeeDialog(responseString, unhappyImage)
+                            : DialogBox.getGeePeeTeeDialog(responseString, happyImage));
             userInput.clear();
         }
     }
@@ -83,6 +91,6 @@ public class MainWindow extends AnchorPane {
      * @param errorMessage The error message to be displayed
      */
     public void handleInitializationError(String errorMessage) {
-        dialogContainer.getChildren().add(DialogBox.getGeePeeTeeDialog(errorMessage, botImage));
+        dialogContainer.getChildren().add(DialogBox.getGeePeeTeeDialog(errorMessage, unhappyImage));
     }
 }
