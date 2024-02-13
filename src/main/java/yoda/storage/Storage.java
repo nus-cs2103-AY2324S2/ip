@@ -56,9 +56,8 @@ public class Storage {
      * @throws IOException If an I/O error occurs.
      */
     private boolean isFileContentDifferent(List<String> taskStrings) throws IOException {
-        if (!Files.exists(PATH)) {
-            Files.createDirectories(PATH.getParent());
-            Files.createFile(PATH);
+        boolean isFileJustCreated = ensureFileExists();
+        if (isFileJustCreated) {
             return true;
         }
 
@@ -102,14 +101,8 @@ public class Storage {
      */
     public TaskList loadTasks() throws IOException {
         List<Task> loadedTasks = new ArrayList<>();
-        Path path = Paths.get(FILE_PATH);
-
-        if (!Files.exists(path)) {
-            Files.createDirectories(path.getParent());
-            Files.createFile(path);
-        }
-
-        try (BufferedReader reader = Files.newBufferedReader(path)) {
+        ensureFileExists();
+        try (BufferedReader reader = Files.newBufferedReader(PATH)) {
             String line;
             while ((line = reader.readLine()) != null) {
                 Task task = fileToTaskFormat(line);
@@ -120,6 +113,23 @@ public class Storage {
         }
         return new TaskList(loadedTasks);
     }
+
+    /**
+     * Ensures the file exists and creates it if it does not.
+     *
+     * @return true if the file was just created, false if it already existed.
+     * @throws IOException If an I/O error occurs.
+     */
+    private boolean ensureFileExists() throws IOException {
+        if (!Files.exists(PATH)) {
+            Files.createDirectories(PATH.getParent());
+            Files.createFile(PATH);
+            return true;
+        }
+        return false;
+    }
+
+
 
     /**
      * Converts a line from the file into a Task object.
@@ -139,10 +149,10 @@ public class Storage {
         case "T":
             return createTodoTask(isDone, description);
         case "D":
-            if (parts.length < 4) return null; // Additional validation for deadlines
+            if (parts.length < 4) return null;
             return createDeadlineTask(isDone, description, parts[3]);
         case "E":
-            if (parts.length < 5) return null; // Additional validation for events
+            if (parts.length < 5) return null;
             return createEventTask(isDone, description, parts[3], parts[4]);
         default:
             return null;

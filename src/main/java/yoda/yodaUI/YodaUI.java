@@ -1,4 +1,7 @@
 package yoda.yodaUI;
+
+
+import yoda.exceptions.InvalidTaskException;
 import yoda.task.Task;
 import yoda.task.TaskList;
 import yoda.storage.Storage;
@@ -8,33 +11,16 @@ import yoda.constants.Replies;
 
 public class YodaUI {
     private final TaskList TASKLIST;
-    private boolean isChatting;
     private final Storage STORAGE;
 
     /**
-     * Constructor to initialize the chatbot with a name, a TaskList, and a Storage.
+     * Constructor to initialize the chat bot with a TaskList, and a Storage.
      * @param taskList The TaskList object to manage tasks.
      * @param storage The Storage object for handling task persistence.
      */
     public YodaUI(TaskList taskList, Storage storage) {
-        this.isChatting = true;
         this.TASKLIST = taskList;
         this.STORAGE = storage;
-    }
-
-    /**
-     * Checks if the chatbot is currently chatting.
-     * @return true if chatting, false otherwise.
-     */
-    public boolean isChatting() {
-        return this.isChatting;
-    }
-
-    /**
-     * Stops the chatbot from chatting.
-     */
-    public void stopChatting() {
-        this.isChatting = false;
     }
 
     /**
@@ -44,21 +30,10 @@ public class YodaUI {
      */
     public String markTaskAsDone(int taskNumber) {
         try {
-            TASKLIST.markTaskAsDone(taskNumber);
-            Task task = TASKLIST.getTask(taskNumber);
-            return "Done, this task is:\n" + task;
-        } catch (Exception e) {
+            return TASKLIST.markTaskAsDone(taskNumber);
+        } catch (InvalidTaskException e) {
             return e.getMessage();
         }
-    }
-
-    public int getTaskListSize() {
-        return TASKLIST.size();
-    }
-
-    // Method to get the TaskList object
-    public TaskList getTaskList() {
-        return this.TASKLIST;
     }
 
     /**
@@ -68,13 +43,24 @@ public class YodaUI {
      */
     public String markTaskAsUndone(int taskNumber) {
         try {
-            TASKLIST.markTaskAsUndone(taskNumber);
-            Task task = TASKLIST.getTask(taskNumber);
-            return "Undone, this task remains:\n" + task;
-        } catch (Exception e) {
+            return TASKLIST.markTaskAsUndone(taskNumber);
+        } catch (InvalidTaskException e) {
             return e.getMessage();
         }
     }
+
+    /**
+     * Gets the number of tasks in the list.
+     * @return The number of tasks in the list.
+     */
+    public int getTaskListSize() {
+        return TASKLIST.getSize();
+    }
+
+    public TaskList getTaskList() {
+        return this.TASKLIST;
+    }
+
 
     /**
      * Finds tasks that match the search term.
@@ -92,21 +78,20 @@ public class YodaUI {
      */
     public String deleteTask(int taskNumber) {
         try {
-            TASKLIST.deleteTask(taskNumber);
-            return "Removed, this task has been:\nNow you have " + TASKLIST.size() + " tasks in the list.";
+            return TASKLIST.deleteTask(taskNumber);
         } catch (Exception e) {
             return e.getMessage();
         }
     }
 
     /**
-     * Adds a new task to the list.
-     * Delegates to TaskList to add a new task.
+     * Adds a task to the list.
+     * Delegates to TaskList to add a task.
      * @param task The task to be added.
      */
     public String addTask(Task task) {
         TASKLIST.addTask(task);
-        return "Hmm, added this task, I have:\n" + task + "\nTasks in the list, now you have " + TASKLIST.size() + ", hmm.";
+        return "Hmm, added this task, I have:\n" + task + "\nTasks in the list, now you have " + TASKLIST.getSize() + ", hmm.";
     }
 
     /**
@@ -117,10 +102,15 @@ public class YodaUI {
         return TASKLIST.toString();
     }
 
+    /**
+     * Saves the tasks to the file.
+     * Delegates to Storage to save the tasks.
+     * @param taskList The TaskList to be saved.
+     */
     public String saveTasks(TaskList taskList) {
         try {
             STORAGE.saveTasks(taskList);
-            return "Saved, your task list has been.";
+            return Replies.TASKS_SAVED;
         } catch (IOException e) {
             return "Error saving tasks: " + e.getMessage();
         }

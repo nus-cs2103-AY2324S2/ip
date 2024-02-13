@@ -2,6 +2,8 @@ package yoda.task;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
+import yoda.constants.Replies;
+import yoda.exceptions.InvalidTaskException;
 
 /**
  * Represents a list of tasks. It provides operations to add, delete, and retrieve tasks.
@@ -26,6 +28,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finds a task from the list.
+     * @param keyword The keyword to search for in the task descriptions.
+     * @return A string containing the tasks found with the keyword.
+     */
     public String findTasks(String keyword) {
         List<Task> foundTasks = new ArrayList<>();
         for (Task task : TASKS) {
@@ -52,46 +59,59 @@ public class TaskList {
      * @param taskNumber The number of the task to be deleted.
      * @throws Exception If the task number is invalid.
      */
-    public void deleteTask(int taskNumber) throws Exception {
+    public String deleteTask(int taskNumber) throws InvalidTaskException {
         if (taskNumber <= 0 || taskNumber > TASKS.size()) {
-            throw new Exception("Valid task number, provide you must.");
+            throw new InvalidTaskException();
         }
         TASKS.remove(taskNumber - 1);
+        return "Removed, this task has been:\nNow you have " + this.getSize() + " tasks in the list.";
     }
 
     /**
      * Marks a task as done.
      * @param taskNumber The number of the task to mark as done.
-     * @throws Exception If the task number is invalid.
+     * @throws InvalidTaskException If the task number is invalid.
      */
-    public void markTaskAsDone(int taskNumber) throws Exception {
+    public String markTaskAsDone(int taskNumber) throws InvalidTaskException {
         if (taskNumber <= 0 || taskNumber > TASKS.size()) {
-            throw new Exception("Valid task number, provide you must.");
+            throw new InvalidTaskException();
         }
-        TASKS.get(taskNumber - 1).markAsDone();
+        try {
+            Task task = this.getTask(taskNumber);
+            task.markAsDone();
+            return Replies.TASK_MARKED_DONE + "\n" + task;
+        } catch (InvalidTaskException e) {
+            return e.getMessage();
+        }
     }
 
     /**
-     * Marks a task as undone.
      * @param taskNumber The number of the task to mark as not done.
-     * @throws Exception If the task number is invalid.
+     * @return The response to marking a task as undone.
+     * @throws InvalidTaskException If the task number is invalid.
      */
-    public void markTaskAsUndone(int taskNumber) throws Exception {
+    public String markTaskAsUndone(int taskNumber) throws InvalidTaskException {
         if (taskNumber <= 0 || taskNumber > TASKS.size()) {
-            throw new Exception("Valid task number, provide you must.");
+            throw new InvalidTaskException();
         }
-        TASKS.get(taskNumber - 1).markAsUndone();
+        try {
+            Task task = this.getTask(taskNumber);
+            task.markAsUndone();
+            return Replies.TASK_MARKED_UNDONE + "\n" + task;
+        } catch (InvalidTaskException e) {
+            return e.getMessage();
+        }
     }
 
     /**
      * Retrieves a task from the list.
      * @param taskNumber The number of the task to retrieve.
      * @return The task at the specified position.
-     * @throws Exception If the task number is invalid.
+     * @throws InvalidTaskException If the task number is invalid.
      */
-    public Task getTask(int taskNumber) throws Exception {
+    public Task getTask(int taskNumber) throws InvalidTaskException {
         if (taskNumber <= 0 || taskNumber > TASKS.size()) {
-            throw new Exception("Valid task number, provide you must.");
+            throw new InvalidTaskException();
         }
         return TASKS.get(taskNumber - 1);
     }
@@ -100,7 +120,7 @@ public class TaskList {
      * Returns the number of tasks in the list.
      * @return The number of tasks in the list.
      */
-    public int size() {
+    public int getSize() {
         return TASKS.size();
     }
 
