@@ -6,6 +6,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import dibo.command.AddDeadlineCommand;
+import dibo.command.AddDoAfterCommand;
 import dibo.command.AddEventCommand;
 import dibo.command.AddToDoCommand;
 import dibo.command.ByeCommand;
@@ -48,6 +49,8 @@ public class Parser {
             return parseAddToDoCommand(fullCommand);
         case "deadline":
             return parseAddDeadlineCommand(fullCommand);
+        case "do-after":
+            return parseAddDoAfterCommand(fullCommand);
         case "event":
             return parseAddEventCommand(fullCommand);
         default:
@@ -135,6 +138,24 @@ public class Parser {
         }
     }
 
+    private static AddDoAfterCommand parseAddDoAfterCommand(String fullCommand) throws DiboException {
+        if (!hasDescription(fullCommand)) {
+            throw new DiboException("Oh no sir! We need a description for your task. "
+                    + "This will enable us to better keep track of your tasks.");
+        }
+
+        try {
+            String descriptionDoAfter = getDescription(fullCommand, "do-after");
+            LocalDate afterDate = getAfterDate(fullCommand);
+            return new AddDoAfterCommand(descriptionDoAfter, afterDate);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DiboException("Oh no sir! Please state the date this task needs to be done after :D");
+        } catch (DateTimeParseException e) {
+            throw new DiboException("Oh no sir! Please state the date this task needs to be done after "
+                    + "in this format: yyyy-mm-dd");
+        }
+    }
+
     private static AddEventCommand parseAddEventCommand(String fullCommand) throws DiboException {
         if (!hasDescription(fullCommand)) {
             throw new DiboException("Oh no sir! We need a description for your task. "
@@ -172,6 +193,13 @@ public class Parser {
         String[] details = fullCommand.split("/");
         String byString = details[1].substring(2).trim();
         return LocalDate.parse(byString, Parser.INPUT_FORMAT);
+    }
+
+    private static LocalDate getAfterDate(String fullCommand)
+            throws DateTimeParseException, IndexOutOfBoundsException {
+        String[] details = fullCommand.split("/");
+        String afterString = details[1].substring(5).trim();
+        return LocalDate.parse(afterString, Parser.INPUT_FORMAT);
     }
     private static LocalDate getStartDate(String fullCommand)
             throws DateTimeParseException, IndexOutOfBoundsException {
