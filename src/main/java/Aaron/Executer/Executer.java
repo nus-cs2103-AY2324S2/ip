@@ -5,6 +5,7 @@ import aaron.command.Bye;
 import aaron.command.CommandType;
 import aaron.command.DeleteTask;
 import aaron.command.MarkTask;
+import aaron.command.SearchCommand;
 import aaron.command.ShowList;
 import aaron.command.UnmarkTask;
 import aaron.exception.AaronBotException;

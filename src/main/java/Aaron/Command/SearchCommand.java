@@ -1,8 +1,8 @@
-package Aaron.Command;
+package aaron.command;
 
-import Aaron.Exception.AaronBotException;
-import Aaron.Task.TaskList;
-import Aaron.UI.UI;
+import aaron.exception.AaronBotException;
+import aaron.task.TaskList;
+import aaron.ui.UI;
 
 public class SearchCommand extends Command {
     public SearchCommand(String userInput, CommandType commandType) throws AaronBotException {
@@ -15,7 +15,7 @@ public class SearchCommand extends Command {
     }
 
     @Override
-    public boolean isBye() {
+    public boolean returnIsBye() {
         return false;
     }
 }

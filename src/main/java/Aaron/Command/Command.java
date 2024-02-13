@@ -1,7 +1,7 @@
 package aaron.command;
 
 import aaron.exception.AaronBotException;
-import aaron.parser.CommandDetailParser;
+import aaron.parser.TaskDetailParser;
 import aaron.task.TaskList;
 import aaron.ui.UI;
 
@@ -19,12 +19,15 @@ public abstract class Command {
 
     /**
      * Method that executes the command
+     * 
      * @param taskList tasklist that will be modified/read from
-     * @param ui UI that handles user interaction
+     * @param ui       UI that handles user interaction
      */
     public abstract void run(TaskList taskList, UI ui);
+
     /**
      * Method that returns whether the command is a bye command
+     * 
      * @return boolean val representing whether the command is a bye command
      */
 
