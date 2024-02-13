@@ -1,7 +1,6 @@
 package seedu.duke;
 
 import java.io.IOException;
-
 import java.util.Scanner;
 
 /**
@@ -37,36 +36,36 @@ public class Duke {
     public void run() {
         ui.openingMessage();
         Scanner sc = new Scanner(System.in);
-        String word = sc.nextLine();
-        while (!word.equals("bye")) {
+        String userInput = sc.nextLine();
+        while (!userInput.equals("bye")) {
             // command dependent logic
-            if (word.equals("list")) {
+            if (userInput.equals("list")) {
                 ui.printList(tasks.getList());
-                word = sc.nextLine();
-            } else if (word.startsWith("mark")) {
-                Parser.parseMark(word, tasks, ui);
-                word = sc.nextLine();
-            } else if (word.startsWith("unmark")) {
-                Parser.parseUnmark(word, tasks, ui);
-                word = sc.nextLine();
-            } else if (word.startsWith("deadline")) {
-                Parser.parseDeadline(word, tasks, ui);
-                word = sc.nextLine();
-            } else if (word.startsWith("todo")) {
-                Parser.parseTodo(word, tasks, ui);
-                word = sc.nextLine();
-            } else if (word.startsWith("event")) {
-                Parser.parseEvent(word, tasks, ui);
-                word = sc.nextLine();
-            } else if (word.startsWith("delete")) {
-                Parser.parseDelete(word, tasks, ui);
-                word = sc.nextLine();
+                userInput = sc.nextLine();
+            } else if (userInput.startsWith("mark")) {
+                Parser.parseMark(userInput, tasks, ui);
+                userInput = sc.nextLine();
+            } else if (userInput.startsWith("unmark")) {
+                Parser.parseUnmark(userInput, tasks, ui);
+                userInput = sc.nextLine();
+            } else if (userInput.startsWith("deadline")) {
+                Parser.parseDeadline(userInput, tasks, ui);
+                userInput = sc.nextLine();
+            } else if (userInput.startsWith("todo")) {
+                Parser.parseTodo(userInput, tasks, ui);
+                userInput = sc.nextLine();
+            } else if (userInput.startsWith("event")) {
+                Parser.parseEvent(userInput, tasks, ui);
+                userInput = sc.nextLine();
+            } else if (userInput.startsWith("delete")) {
+                Parser.parseDelete(userInput, tasks, ui);
+                userInput = sc.nextLine();
             } else {
                 try {
                     throw new DukeException("Sorry, I didn't understand that.");
                 } catch (DukeException d) {
                     ui.printError(d);
-                    word = sc.nextLine();
+                    userInput = sc.nextLine();
                 }
             }
         }

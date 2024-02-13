@@ -1,11 +1,11 @@
 package seedu.duke;
 
-import seedu.duke.task.Task;
+import java.time.LocalDate;
+
 import seedu.duke.task.Deadline;
 import seedu.duke.task.Event;
+import seedu.duke.task.Task;
 import seedu.duke.task.Todo;
-
-import java.time.LocalDate;
 
 /**
  * Represents <code>parsing</code> logic to interpret and execute
@@ -22,20 +22,20 @@ public class Parser {
      * @param ui <code>Ui</code> object for printing actions
      */
     public static void parseMark(String input, TaskList tasks, Ui ui) {
-        String[] split = input.split(" ");
+        String[] splitInput = input.split(" ");
         try {
-            if (split.length < 2) {
+            if (splitInput.length < 2) {
                 // for invalid entry: "mark"
                 throw new DukeException("Here's the format I require: mark [valid index]");
             }
-            int index = Integer.parseInt(split[1]) - 1;
+            int index = Integer.parseInt(splitInput[1]) - 1;
             if (index >= tasks.getSize()) {
                 // for invalid entry "mark [out of bounds]"
                 throw new DukeException("Here's the format I require: mark [valid index]");
             }
-            tasks.markTaskDone(Integer.parseInt(split[1]) - 1);
-            ui.showTaskDone(tasks.getTask(Integer.parseInt(split[1]) - 1));
-        } catch (DukeException d){
+            tasks.markTaskDone(Integer.parseInt(splitInput[1]) - 1);
+            ui.showTaskDone(tasks.getTask(Integer.parseInt(splitInput[1]) - 1));
+        } catch (DukeException d) {
             ui.printError(d);
         }
     }
@@ -49,20 +49,20 @@ public class Parser {
      * @param ui <code>Ui</code> object for printing actions
      */
     public static void parseUnmark(String input, TaskList tasks, Ui ui) {
-        String[] split = input.split(" ");
+        String[] splitInput = input.split(" ");
 
         try {
-            if (split.length < 2) { // for invalid entry: "unmark"
+            if (splitInput.length < 2) { // for invalid entry: "unmark"
                 throw new DukeException("Here's the format I require: unmark [valid index]");
             }
             // for invalid entry "unmark [out of bounds]"
-            int index = Integer.parseInt(split[1]) - 1;
+            int index = Integer.parseInt(splitInput[1]) - 1;
             if (index >= tasks.getSize()) {
                 throw new DukeException("Here's the format I require: unmark [valid index]");
             }
-            tasks.markTaskUndone(Integer.parseInt(split[1]) - 1);
-            ui.showTaskUndone(tasks.getTask(Integer.parseInt(split[1]) - 1));
-        } catch (DukeException d){
+            tasks.markTaskUndone(Integer.parseInt(splitInput[1]) - 1);
+            ui.showTaskUndone(tasks.getTask(Integer.parseInt(splitInput[1]) - 1));
+        } catch (DukeException d) {
             ui.printError(d);
         }
     }
@@ -76,13 +76,13 @@ public class Parser {
      * @param ui <code>Ui</code> object for printing actions
      */
     public static void parseDeadline(String input, TaskList tasks, Ui ui) {
-        String[] split = input.split(" /by ");
+        String[] splitInput = input.split(" /by ");
         try {
-            if (split.length < 2) {
+            if (splitInput.length < 2) {
                 throw new DukeException("Here's the format I require: deadline [name] /by [yyyy-mm-dd]");
             }
-            String[] splitAgain = split[0].split(" ", 2);
-            String dateline = split[1];
+            String[] splitAgain = splitInput[0].split(" ", 2);
+            String dateline = splitInput[1];
             LocalDate localDate = LocalDate.parse(dateline);
             Deadline deadline = new Deadline(splitAgain[1], localDate);
             tasks.addTask(deadline);
@@ -101,16 +101,16 @@ public class Parser {
      * @param ui <code>Ui</code> object for printing actions
      */
     public static void parseTodo(String input, TaskList tasks, Ui ui) {
-        String[] split = input.split(" ", 2);
+        String[] splitInput = input.split(" ", 2);
         try {
-            if (split.length < 2) {
+            if (splitInput.length < 2) {
                 throw new DukeException("Here's the format I require: todo [name]");
             }
-            String description = split[1];
+            String description = splitInput[1];
             Todo todo = new Todo(description);
             tasks.addTask(todo);
             ui.showTaskAdded(todo, tasks.getSize());
-        } catch (DukeException d){
+        } catch (DukeException d) {
             ui.printError(d);
         }
     }
@@ -125,15 +125,15 @@ public class Parser {
      * @param ui <code>Ui</code> object for printing actions
      */
     public static void parseEvent(String input, TaskList tasks, Ui ui) {
-        String[] split = input.split(" /from ");
+        String[] splitInput = input.split(" /from ");
         try {
-            if (split.length < 2) {
+            if (splitInput.length < 2) {
                 throw new DukeException("Here's the format I require: "
                         + "event [name] /from [yyyy-mm-dd] /by [yyyy-mm-dd]");
             }
-            String description = split[0].split(" ", 2)[1];
-            LocalDate from = LocalDate.parse(split[1].split(" /to ")[0]);
-            LocalDate to = LocalDate.parse(split[1].split(" /to ")[1]);
+            String description = splitInput[0].split(" ", 2)[1];
+            LocalDate from = LocalDate.parse(splitInput[1].split(" /to ")[0]);
+            LocalDate to = LocalDate.parse(splitInput[1].split(" /to ")[1]);
             Event event = new Event(description, from, to);
             tasks.addTask(event);
             ui.showTaskAdded(event, tasks.getSize());
@@ -151,17 +151,18 @@ public class Parser {
      * @param ui <code>Ui</code> object for printing actions
      */
     public static void parseDelete(String input, TaskList tasks, Ui ui) {
-        String[] split = input.split(" ");
+        String[] splitInput = input.split(" ");
         try {
-            if (split.length < 2) {
+            if (splitInput.length < 2) {
                 throw new DukeException("Which task number do you want to delete?");
             }
-            int number = Integer.parseInt(split[1]);
-            Task task = tasks.getTask(number -  1);
+            int number = Integer.parseInt(splitInput[1]);
+            Task task = tasks.getTask(number - 1);
             tasks.deleteTask(number - 1);
             ui.showTaskDeleted(task, tasks.getSize());
         } catch (DukeException d) {
             ui.printError(d);
+
         }
     }
 }
