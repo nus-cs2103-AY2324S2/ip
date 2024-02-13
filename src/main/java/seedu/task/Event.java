@@ -5,13 +5,13 @@ package seedu.task;
  * and ends at a specific date/time.
  */
 public class Event extends Task {
-    // Task.Task description consist of name, start and end of seedu.task.
+    // Task.Task description consist of name, start and end of task.
     protected String[] description = new String[3];
 
     /**
      * Constructor for an Task.Event object.
      *
-     * @param name seedu.task name
+     * @param name task name
      * @param from start of event
      * @param to end of event
      */
@@ -32,9 +32,10 @@ public class Event extends Task {
         super(b);
         int fromIdx = description.indexOf("(from:");
         int toIdx = description.indexOf("to:");
+        int len = description.length();
         this.description[0] = description.substring(0, fromIdx - 1);
         this.description[1] = description.substring(fromIdx + 7, toIdx - 1);
-        this.description[2] = description.substring(toIdx + 4);
+        this.description[2] = description.substring(toIdx + 4, len - 1);
     }
 
     @Override

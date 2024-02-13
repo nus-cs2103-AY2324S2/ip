@@ -24,7 +24,7 @@ public class Storage {
     }
 
     public ArrayList<Task> load() throws FileNotFoundException {
-        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Task> taskList = new ArrayList<>();
         Scanner s = new Scanner(this.file); // create a Scanner using the File as the source
         while (s.hasNext()) {
             String str = s.nextLine();
@@ -33,23 +33,23 @@ public class Storage {
             String task = str.substring(7);
             switch (type) {
                 case 'T':
-                    tasks.add(new Todo(task, isDone));
+                    taskList.add(new Todo(task, isDone));
                     break;
                 case 'D':
-                    tasks.add(new Deadline(task, isDone));
+                    taskList.add(new Deadline(task, isDone));
                     break;
                 case 'E':
-                    tasks.add(new Event(task, isDone));
+                    taskList.add(new Event(task, isDone));
                     break;
             }
         }
-        return tasks;
+        return taskList;
     }
 
-    public void save(TaskList tasks) {
+    public void save(TaskList taskList) {
         try {
             FileWriter fw = new FileWriter(file);
-            for (Task task : tasks.getTasks()) {
+            for (Task task : taskList.getTasks()) {
                 fw.write(task.toString() + "\n");
             }
             fw.close();
