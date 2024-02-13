@@ -2,12 +2,14 @@ package fishstock;
 
 import java.time.LocalDateTime;
 
+import fishstock.Command.CommandType;
+
 /**
  * Encapsulates an Event Task.
  * This Task has a description, from date, and to date.
  */
 class Event extends Task {
-    protected static final String COMMAND = "event";
+    protected static final String COMMAND = CommandType.EVENT.keyword;
     private static final String FROM_KEYWORD = " /from ";
     private static final String TO_KEYWORD = " /to ";
     private LocalDateTime from;

@@ -2,7 +2,7 @@ package fishstock;
 
 import java.io.IOException;
 
-import fishstock.Command.Keyword;
+import fishstock.Command.CommandType;
 import javafx.application.Application;
 
 /**
@@ -11,7 +11,6 @@ import javafx.application.Application;
 public class FishStock {
     private Storage storage;
     private TaskList list;
-    private boolean hasStopped = false;
 
     /**
      * Initializes a FishStock object.
@@ -32,8 +31,8 @@ public class FishStock {
      * @param input The user input.
      */
     public String getResponse(String input) {
-        Keyword keyword = Parser.parse(input);
-        String response = Command.runCommand(list, keyword, input);
+        CommandType commandType = Parser.parse(input);
+        String response = Command.runCommand(list, commandType, input);
         return response;
     }
 

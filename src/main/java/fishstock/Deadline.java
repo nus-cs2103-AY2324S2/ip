@@ -2,12 +2,14 @@ package fishstock;
 
 import java.time.LocalDateTime;
 
+import fishstock.Command.CommandType;
+
 /**
  * Encapsulates a Deadline Task.
  * This Task has a description and deadline date.
  */
 class Deadline extends Task {
-    protected static final String COMMAND = "deadline";
+    protected static final String COMMAND = CommandType.DEADLINE.keyword;
     private static final String BY_KEYWORD = " /by ";
     private LocalDateTime by;
 

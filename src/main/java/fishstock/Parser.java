@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import fishstock.Command.Keyword;
+import fishstock.Command.CommandType;
 
 /**
  * Encapsulates parsing methods.
@@ -28,27 +28,13 @@ class Parser {
      * @param input The input that starts with the command.
      * @return The command.
      */
-    protected static Keyword parse(String input) {
-        if (startsWith("bye", input)) {
-            return Keyword.BYE;
-        } else if (startsWith("list", input)) {
-            return Keyword.LIST;
-        } else if (startsWith("mark", input)) {
-            return Keyword.MARK;
-        } else if (startsWith("unmark", input)) {
-            return Keyword.UNMARK;
-        } else if (startsWith("delete", input)) {
-            return Keyword.DELETE;
-        } else if (startsWith("find", input)) {
-            return Keyword.FIND;
-        } else if (startsWith(Todo.COMMAND, input)) {
-            return Keyword.TODO;
-        } else if (startsWith(Deadline.COMMAND, input)) {
-            return Keyword.DEADLINE;
-        } else if (startsWith(Event.COMMAND, input)) {
-            return Keyword.EVENT;
+    protected static CommandType parse(String input) {
+        for (CommandType commandType : CommandType.values()) {
+            if (startsWith(commandType.keyword, input)) {
+                return commandType;
+            }
         }
-        return Keyword.INVALID;
+        return CommandType.INVALID;
     }
 
     /**

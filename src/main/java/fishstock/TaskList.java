@@ -2,7 +2,7 @@ package fishstock;
 
 import java.util.ArrayList;
 
-import fishstock.Command.Keyword;
+import fishstock.Command.CommandType;
 
 /**
  * Encapsulates a TaskList object.
@@ -39,7 +39,7 @@ class TaskList {
      * @throws FishStockException The exceptions while changing the mark.
      */
     protected Task markTask(String input) throws FishStockException {
-        return changeMark(Keyword.MARK, input);
+        return changeMark(CommandType.MARK, input);
     }
 
     /**
@@ -49,23 +49,23 @@ class TaskList {
      * @throws FishStockException The exceptions while changing the mark.
      */
     protected Task unmarkTask(String input) throws FishStockException {
-        return changeMark(Keyword.UNMARK, input);
+        return changeMark(CommandType.UNMARK, input);
     }
 
     /**
      * Marks whether Task is done.
-     * @param keyword The keyword command.
+     * @param commandType The type of command.
      * @param input The input from user.
      * @return The marked/unmarked Task.
      * @throws FishStockException The exceptions while changing the mark.
      */
-    private Task changeMark(Keyword keyword, String input) throws FishStockException {
+    private Task changeMark(CommandType commandType, String input) throws FishStockException {
         Integer idx = Parser.getIndexFromInput(input);
         try {
             Task task = list.get(idx);
-            if (keyword == Keyword.MARK) {
+            if (commandType == CommandType.MARK) {
                 task.markAsDone();
-            } else if (keyword == Keyword.UNMARK) {
+            } else if (commandType == CommandType.UNMARK) {
                 task.markAsUndone();
             }
             return task;
@@ -95,14 +95,14 @@ class TaskList {
 
     /**
      * Adds Task into array.
-     * @param keyword The command.
+     * @param commandType The command.
      * @param input The input from user.
      * @return The added Task.
      * @throws FishStockException The exceptions while adding the Task.
      */
-    protected Task addTask(Keyword keyword, String input) throws FishStockException {
+    protected Task addTask(CommandType commandType, String input) throws FishStockException {
         Task task = null;
-        switch (keyword) {
+        switch (commandType) {
         case TODO:
             task = Todo.of(input);
             break;

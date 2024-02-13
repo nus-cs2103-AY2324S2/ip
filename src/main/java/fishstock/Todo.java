@@ -1,11 +1,13 @@
 package fishstock;
 
+import fishstock.Command.CommandType;
+
 /**
  * Encapsulates Todo Task.
  * This Task only has a description.
  */
 class Todo extends Task {
-    protected static final String COMMAND = "todo";
+    protected static final String COMMAND = CommandType.TODO.keyword;
 
     /**
      * Initialize Todo object manually.
