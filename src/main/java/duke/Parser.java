@@ -1,5 +1,7 @@
 package duke;
 
+import java.util.ArrayList;
+
 /**
  * Represents a parser in the Duke application that interprets and executes user commands.
  *
@@ -96,9 +98,17 @@ public class Parser {
             } else {
                 System.out.println("That's not a valid Event!");
             }
+        } else if (input.startsWith("find ")){
+            String keyword = input.substring(5).trim();
+            handleFind(keyword);
         } else {
             System.out.println("That's not a valid task!\n");
         }
+    }
+
+    private void handleFind(String keyword) {
+        ArrayList<Task> matchingTasks = tasks.find(keyword);
+        ui.showMatchingTasks(matchingTasks);
     }
 
     private void handleExit() {

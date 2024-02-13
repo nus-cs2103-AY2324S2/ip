@@ -67,6 +67,17 @@ public class TaskList {
         return tasks;
     }
 
+    public ArrayList<Task> find(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
+    }
+
     /**
      * Gets the number of tasks in the list.
      *

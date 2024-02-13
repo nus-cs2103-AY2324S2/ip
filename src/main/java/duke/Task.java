@@ -35,6 +35,15 @@ public class Task {
     }
 
     /**
+     * Returns the description of the task.
+     *
+     * @return The description of the task.
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
      * Returns the status icon of the task.
      * The status icon is "[X]" if the task is done and "[ ]" if it is not done.
      *
