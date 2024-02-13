@@ -1,6 +1,7 @@
 package duke;
 
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
 * The Ui class manages the user interface for the Duke chatbot application.
@@ -30,29 +31,22 @@ public class Ui {
         "Now you have %s tasks in the list.";
 
     private static final String NAME = ">uwu<";
-    private Scanner scanner;
+
+    private List<String> buffer;
 
     /**
     * Constructs a Ui object, initializing the scanner for user input.
     */
     public Ui() {
-        scanner = new Scanner(System.in);
+        buffer = new ArrayList<String>();
     }
 
-    static void inputPrompt() {
-        System.out.print(">> ");
-    }
-
-    static void greet() {
+    void greet() {
         reply(String.format(GREET_FORMAT, NAME));
     }
 
-    static void error(String msg) {
+    void error(String msg) {
         reply(String.format("OOPS!! %s", msg));
-    }
-
-    String getInput() {
-        return scanner.nextLine();
     }
 
     /**
@@ -67,7 +61,6 @@ public class Ui {
     */
     boolean handleCommand(TaskList tasks, String command, String[] arguments)
             throws DukeException {
-        messageStart();
         switch (command) {
         case "end":
             bye();
@@ -79,8 +72,7 @@ public class Ui {
             }
             return true;
         case "mark":
-        case "unmark":
-        {
+        case "unmark": {
             boolean isMark = command.equals("mark");
             String ferr2 = "%s command: no such task numbered %s.";
             String idxString = arguments[0];
@@ -95,8 +87,7 @@ public class Ui {
             reply(String.format("  %s", tasks.peekTask(idx)));
             return true;
         }
-        case "todo":
-        {
+        case "todo": {
             String taskStr = arguments[0];
             Task task = TaskList.createTodo(taskStr, false);
             tasks.addTask(task);
@@ -105,8 +96,7 @@ public class Ui {
             reply(String.format(TASKS_SUMMARY_MESSAGE, tasks.numberOfTask()));
             return true;
         }
-        case "deadline":
-        {
+        case "deadline": {
             String taskStr = arguments[0];
             String deadline = arguments[1];
             Task task = TaskList.createDeadline(taskStr, deadline, false);
@@ -116,8 +106,7 @@ public class Ui {
             reply(String.format(TASKS_SUMMARY_MESSAGE, tasks.numberOfTask()));
             return true;
         }
-        case "event":
-        {
+        case "event": {
             String taskStr = arguments[0];
             String fromStr = arguments[1];
             String toStr = arguments[2];
@@ -128,8 +117,7 @@ public class Ui {
             reply(String.format(TASKS_SUMMARY_MESSAGE, tasks.numberOfTask()));
             return true;
         }
-        case "delete":
-        {
+        case "delete": {
             String ferr2 = "%s command: no such task numbered %s.";
             String idxString = arguments[0];
             int idx = Integer.parseInt(idxString) - 1;
@@ -144,8 +132,7 @@ public class Ui {
             reply(String.format(TASKS_SUMMARY_MESSAGE, tasks.numberOfTask()));
             return true;
         }
-        case "find":
-        {
+        case "find": {
             String query = arguments[0];
             reply(FIND_MESSAGE);
             int[] count = { 1 };
@@ -163,16 +150,21 @@ public class Ui {
         }
     }
 
-    private static void reply(String s) {
-        System.out.println("  " + s);
+    private void reply(String s) {
+        buffer.add(s);
     }
 
-    private static void messageStart() {
-        reply("");
-        reply(MESSAGE_DELINEATOR);
+    /**
+     * Returns all buffered replies and clear buffer
+     * @return
+     */
+    public String flushBuffer() {
+        String ret = String.join("\n", buffer);
+        buffer.removeIf(t -> true);
+        return ret;
     }
 
-    private static void bye() {
+    private void bye() {
         reply(BYE_MESSAGE);
     }
 }

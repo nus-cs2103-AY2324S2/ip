@@ -59,8 +59,7 @@ public class Parser {
             return new String[] { command };
         case "mark":
         case "unmark":
-        case "delete":
-        {
+        case "delete": {
             String ferr1 = "%s command: expected an integer argument.";
             if (cmdSplit.length != 2) {
                 throw new DukeException(String.format(ferr1, command));
@@ -72,8 +71,7 @@ public class Parser {
             return new String[] { command, idxString };
         }
         case "find":
-        case "todo":
-        {
+        case "todo": {
             String ferr1 = "%s command: %s cannot be empty.";
             if (cmdSplit.length < 2) {
                 throw new DukeException(String.format(
@@ -85,8 +83,7 @@ public class Parser {
             String argument = cmdJoin(range(cmdSplit, 1, cmdSplit.length));
             return new String[] { command, argument };
         }
-        case "deadline":
-        {
+        case "deadline": {
             List<String> cmds = Arrays.asList(cmdSplit);
             String ferr1 = "deadline command: expected `%s` argument.";
             String ferr2 = "deadline command: %s description cannot be empty.";
@@ -104,8 +101,7 @@ public class Parser {
             }
             return new String[] { command, taskStr, deadline };
         }
-        case "event":
-        {
+        case "event": {
             List<String> cmds = Arrays.asList(cmdSplit);
             String ferr1 = "event command: expected `%s` argument.";
             String ferr2 = "event command: %s description cannot be empty.";
