@@ -43,17 +43,12 @@ public class Storage {
                 System.out.println("Saving it to your already created directories");
             }
 
-            BufferedWriter writer = null; // Initialize writer outside try block
-            try {
-                writer = new BufferedWriter(new FileWriter(fileReader));
+            // Initialize writer outside try block
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileReader))) {
 
                 for (int i = 0; i < taskNum; i++) {
                     writer.write(tasks[i].toSaveString());
                     writer.newLine();
-                }
-            } finally {
-                if (writer != null) {
-                    writer.close();
                 }
             }
         } catch (IOException e) {
@@ -88,7 +83,8 @@ public class Storage {
                     loadedTasks[loadedTaskNum] = new Todo(description);
                 } else if (taskType == 'D') {
                     int Sep2 = line.indexOf(" | ", Sep1 + 3);
-                    String description = (Sep2 != -1) ? line.substring(Sep1 + 2, Sep2) : line.substring(Sep2 + 3);
+                    String description = (Sep2 != -1) ? line.substring(Sep1 + 2, Sep2) :
+                            line.substring(Sep2 + 3);
 
                     String dateString = line.substring(line.lastIndexOf("|") + 1).trim();
 
@@ -99,7 +95,8 @@ public class Storage {
                 } else if (taskType == 'E') {
                     int Sep2 = line.indexOf(" | ", Sep1 + 3);
                     int to = line.indexOf(" - ", Sep2 + 3);
-                    String description = (Sep2 != -1) ? line.substring(Sep1 + 2, Sep2) : line.substring(Sep2 + 3);
+                    String description = (Sep2 != -1) ? line.substring(Sep1 + 2, Sep2) :
+                            line.substring(Sep2 + 3);
                     String from = line.substring(Sep2 + 3, to);
                     String too = line.substring(to + 3);
                     loadedTasks[loadedTaskNum] = new Event(description, from, too);

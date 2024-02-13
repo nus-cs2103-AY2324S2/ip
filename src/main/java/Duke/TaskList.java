@@ -83,7 +83,6 @@ public class TaskList {
 
     /**
      * Returns the string representation of the list of tasks.
-     * @return The string representation of the list of tasks.
      */
     public void markTaskAsDone(int index) {
         tasks[index].markAsDone();

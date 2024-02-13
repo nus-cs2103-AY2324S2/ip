@@ -1,6 +1,6 @@
 package Duke;
 
-import java.io.*;
+import java.io.IOException;
 
 /**
  * Represents the main class of the Duke program.
@@ -35,7 +35,7 @@ public class Duke {
         while (!isExit) {
             String userInput = ui.readInput();
             String result = Parser.parse(userInput, tasks, ui, storage);
-            if (result != null && result.equals("1")) {
+            if (result.equals("1")) {
                 isExit = true;
                 ui.closeScanner();
             }

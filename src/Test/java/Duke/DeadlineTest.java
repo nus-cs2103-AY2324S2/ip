@@ -12,10 +12,10 @@ public class DeadlineTest {
      * Tests the toString method of Deadline.
      */
     @Test
-    public void testGetBy() {
+    public void testGetDate() {
         LocalDateTime dateTime = LocalDateTime.of(2024, 2, 8, 12, 0);
         Deadline deadline = new Deadline("Test Deadline", dateTime);
-        assertEquals(dateTime, deadline.getBy());
+        assertEquals(dateTime, deadline.getDate());
     }
 
     /**

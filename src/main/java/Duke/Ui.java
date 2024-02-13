@@ -81,7 +81,7 @@ public class Ui {
         for (int i = 0; i < taskNum; i++) {
             if (tasks[i] instanceof Deadline) {
                 Deadline deadline = (Deadline) tasks[i];
-                if (deadline.getBy().toLocalDate().isEqual(dateToCheck)) {
+                if (deadline.getDate().toLocalDate().isEqual(dateToCheck)) {
                     System.out.println("       " + tasks[i].toString());
                 }
             }
@@ -99,8 +99,8 @@ public class Ui {
     /**
      * Shows the tasks.
      */
-    public void showTasks(Task[] task,int taskNum){
-        System.out.println("    _______________________________________________________");
+    public void showTasks(Task[] task,int taskNum) {
+        System.out.println("    ____________________________________________________________");
         if (taskNum == 0) {
             System.out.println("     You are doing absolutely nothing, lazy :))");
         } else {
@@ -108,17 +108,17 @@ public class Ui {
                 System.out.println("     " + (i + 1) + ". " + task[i]);
             }
         }
-        System.out.println("    _______________________________________________________");
+        System.out.println("    ____________________________________________________________");
     }
 
     /**
      * Shows the matching tasks.
      */
-    public void showMatchingTasks(TaskList tasks, String keyword) {
+    public void showMatchingTasks(String keyword) {
         System.out.println("    ____________________________________________________________");
         System.out.println("     Here are the matching tasks in your list:");
         int matchCount = 0;
-        for (Task task : tasks.getTasks()) {
+        for (Task task : TaskList.getTasks()) {
             if (task != null && task.description.contains(keyword)) {
                 System.out.println("     " + (matchCount + 1) + "." + task);
                 matchCount++;

@@ -19,17 +19,21 @@ public class Parser {
      * @throws DukeException If the user input is invalid.
      */
     public static String parse(String userInput, TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        try {
-            if (userInput.equals("bye") || userInput.equals("Bye")) {
+        String[] words = userInput.split(" ");
+        String command = words[0].toLowerCase();
+
+        switch (command) {
+            case "bye":
                 storage.saveTasksToFile(TaskList.getTasks(), TaskList.getTaskNum());
                 ui.goodbyeMessage();
                 return "1";
-            } else if (userInput.equals("list") || userInput.equals("List")) {
+            case "list":
                 ui.showTasks(TaskList.getTasks(), TaskList.getTaskNum());
-            } else if (userInput.startsWith("mark") || userInput.startsWith("Mark")) {
-                int pos = userInput.indexOf(" ");
-                if (pos != -1 && pos + 1 < userInput.length()) {
-                    String taskStr = userInput.substring(pos + 1);
+                break;
+            case "mark":
+                int position = userInput.indexOf(" ");
+                if (position != -1 && position + 1 < userInput.length()) {
+                    String taskStr = userInput.substring(position + 1);
 
                     int taskNumber = Integer.parseInt(taskStr) - 1; // cause array
                     if (taskNumber >= 0 && taskNumber < TaskList.getTaskNum()) {
@@ -39,10 +43,11 @@ public class Parser {
                         throw new DukeException("Invalid task number >:((");
                     }
                 }
-            } else if (userInput.startsWith("unmark") || userInput.startsWith("Unmark")) {
-                int pos = userInput.indexOf(" ");
-                if (pos != -1 && pos + 1 < userInput.length()) {
-                    String taskStr = userInput.substring(pos + 1);
+                break;
+            case "unmark":
+                position = userInput.indexOf(" ");
+                if (position != -1 && position + 1 < userInput.length()) {
+                    String taskStr = userInput.substring(position + 1);
 
                     int taskNumber = Integer.parseInt(taskStr) - 1;
                     if (taskNumber >= 0 && taskNumber < TaskList.getTaskNum()) {
@@ -52,10 +57,11 @@ public class Parser {
                         throw new DukeException("Invalid task number >:((");
                     }
                 }
-            } else if (userInput.startsWith("todo") || userInput.startsWith("Duke.Todo")) {
-                int pos = userInput.indexOf(" ");
-                if (pos != -1 && pos + 1 < userInput.length()) {
-                    String taskStr = userInput.substring(pos + 1);
+                break;
+            case "todo":
+                position = userInput.indexOf(" ");
+                if (position != -1 && position + 1 < userInput.length()) {
+                    String taskStr = userInput.substring(position + 1);
 
                     if (taskStr.isEmpty()) {
                         throw new DukeException("Are you gonna be doing nothing?");
@@ -68,11 +74,13 @@ public class Parser {
                 } else {
                     throw new DukeException("Invalid command >:((");
                 }
-            } else if (userInput.startsWith("deadline") || userInput.startsWith("Duke.Deadline")) {
-                int pos = userInput.indexOf(" ");
+                break;
+            case "deadline":
+                position = userInput.indexOf(" ");
                 int posBy = userInput.indexOf("/by");
-                if (pos != -1 && pos + 1 < userInput.length() && posBy != -1 && posBy + 1 < userInput.length()) {
-                    String taskStr = userInput.substring(pos + 1, posBy - 1);
+                if (position != -1 && position + 1 < userInput.length() && posBy != -1 && posBy + 1
+                        < userInput.length()) {
+                    String taskStr = userInput.substring(position + 1, posBy - 1);
                     String taskStrBy = userInput.substring(posBy + 4);
 
                     if (taskStr.isEmpty() || taskStrBy.isEmpty()) {
@@ -89,13 +97,15 @@ public class Parser {
                 } else {
                     throw new DukeException("Invalid command >:((");
                 }
-            } else if (userInput.startsWith("event") || userInput.startsWith("Duke.Event")) {
-                int pos = userInput.indexOf(" ");
+                break;
+            case "event":
+                position = userInput.indexOf(" ");
                 int posFrom = userInput.indexOf("/from");
                 int posTo = userInput.indexOf("/to");
 
-                if (pos != -1 && pos + 1 < userInput.length() && posFrom != -1 && posFrom + 1 < userInput.length() && posTo != -1 && posTo + 1 < userInput.length()) {
-                    String taskStr = userInput.substring(pos + 1, posFrom - 1);
+                if (position != -1 && position + 1 < userInput.length() && posFrom != -1 && posFrom + 1
+                        < userInput.length() && posTo != -1 && posTo + 1 < userInput.length()) {
+                    String taskStr = userInput.substring(position + 1, posFrom - 1);
                     String taskStrFrom = userInput.substring(posFrom + 6, posTo - 1);
                     String taskStrTo = userInput.substring(posTo + 4);
 
@@ -110,10 +120,11 @@ public class Parser {
                 } else {
                     throw new DukeException("Invalid command >:(");
                 }
-            } else if (userInput.startsWith("delete") || userInput.startsWith("Delete")) {
-                int pos = userInput.indexOf(" ");
-                if (pos != -1 && pos + 1 < userInput.length()) {
-                    String taskStr = userInput.substring(pos + 1);
+                break;
+            case "delete":
+                position = userInput.indexOf(" ");
+                if (position != -1 && position + 1 < userInput.length()) {
+                    String taskStr = userInput.substring(position + 1);
                     int taskNumber = Integer.parseInt(taskStr) - 1;
 
                     if (taskStr.isEmpty()) {
@@ -121,16 +132,17 @@ public class Parser {
                     }
 
                     if (taskNumber >= 0 && taskNumber < TaskList.getTaskNum()) {
-                        tasks.removeTask(taskNumber);
                         ui.showDeleteTask(TaskList.getTask(taskNumber), taskNumber);
+                        tasks.removeTask(taskNumber);
                     } else {
                         throw new DukeException("Invalid command >:(");
                     }
                 }
-            } else if (userInput.startsWith("On") || userInput.startsWith("on")) {
-                int pos = userInput.indexOf(" ");
-                if (pos != -1 && pos + 1 < userInput.length()) {
-                    String dateStr = userInput.substring(pos + 1);
+                break;
+            case "on":
+                position = userInput.indexOf(" ");
+                if (position != -1 && position + 1 < userInput.length()) {
+                    String dateStr = userInput.substring(position + 1);
                     DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                     LocalDate dateToCheck = LocalDate.parse(dateStr, dateFormatter);
 
@@ -138,14 +150,18 @@ public class Parser {
                 } else {
                     throw new DukeException("Invalid command >:(");
                 }
-            } else if ((userInput.startsWith("Find") || userInput.startsWith("find"))) {
-                String keyword = userInput.substring(userInput.indexOf(" ") + 1).trim();
-                ui.showMatchingTasks(tasks, keyword);
-            }else {
+                break;
+            case "find":
+                position = userInput.indexOf(" ");
+                if (position != -1 && position + 1 < userInput.length()) {
+                    String keyword = userInput.substring(position + 1);
+                    ui.showMatchingTasks(keyword);
+                } else {
+                    throw new DukeException("Invalid command >:(");
+                }
+                break;
+            default:
                 throw new DukeException("Gurl I'm sorry, idk what that means :-(");
-            }
-        } catch (DukeException e) {
-            throw e;
         }
         return "I'm sorry, but I don't understand that command.";
     }

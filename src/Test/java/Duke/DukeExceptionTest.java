@@ -11,7 +11,7 @@ public class DukeExceptionTest {
      * Tests the DukeException message.
      */
     @Test
-    public void testDukeExceptionMessage() {
+    public void testDukeException() {
         DukeException dukeException = new DukeException("Test message");
         assertEquals("Test message", dukeException.getMessage());
     }

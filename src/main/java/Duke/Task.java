@@ -18,7 +18,6 @@ public class Task {
 
     /**
      * Returns the description of the task.
-     * @return Description of the task.
      */
     public void markAsDone() {
         this.isDone = true;
