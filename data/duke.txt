@@ -5,3 +5,4 @@ E | 0 | go to gym | 6pm - 7pm
 T | 0 | work
 T | 0 | deadline
 D | 0 | kiss tom cruise | tmw
+T | 0 | work

@@ -54,13 +54,15 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    //mainClass.set("seedu.duke.ui.Launcher") //mainClassName
+    mainClassName = "seedu.duke.ui.Launcher"
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "duke.ui.Launcher"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+    archiveFileName = 'duke.ui.Launcher.jar'
 }
 
 run{
