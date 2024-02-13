@@ -1,6 +1,7 @@
 package drew.command;
 
 import drew.exceptions.InsufficientArgumentsException;
+import drew.storage.Storage;
 import drew.storage.TaskList;
 import drew.task.Task;
 
@@ -12,7 +13,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks) throws IllegalArgumentException {
+    public String execute(TaskList tasks, Storage storage) throws IllegalArgumentException {
         String reply = "";
         ArrayList<Task> ls = tasks.getList();
         int listLength = ls.size();

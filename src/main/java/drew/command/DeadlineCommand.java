@@ -1,5 +1,6 @@
 package drew.command;
 
+import drew.storage.Storage;
 import drew.storage.TaskList;
 import drew.task.Deadline;
 import drew.task.Task;
@@ -14,7 +15,7 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks) throws IllegalArgumentException {
+    public String execute(TaskList tasks, Storage storage) throws IllegalArgumentException {
         String reply = "";
         ArrayList<Task> ls = tasks.getList();
         int listLength = ls.size();

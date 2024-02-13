@@ -39,28 +39,22 @@ public class Drew {
         }
     }
 
-    public void run() {
-        ui.greetUser();
-        boolean isExit = false;
-
-        while (true) {
-            String userInput = ui.readInput();
-            Command command = parser.checkCommandId(userInput);
-
-            isExit = command == ByeCommand.getByeCommand();
-            if (isExit) {
-                break;
-            }
-            
-            String reply = command.execute(tasks);
-            ui.reply(reply);
+    public String getResponse(String input) {
+        Command command = parser.checkCommandId(input);
+        String reply;
+        try {
+            reply = command.execute(tasks, storage);
+        } catch (IllegalArgumentException e) {
+            reply = e.getMessage();
         }
 
-        storage.save(tasks);
-        ui.bidFarewell();
+        return reply;
     }
+
+    public void saveTasks() {
+        storage.save(tasks);
+    }
+
     public static void main(String[] args) {
-        Drew drew = new Drew("save/tasks.txt");
-        drew.run();
     }
 }

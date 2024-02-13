@@ -1,5 +1,6 @@
 package drew.command;
 
+import drew.storage.Storage;
 import drew.storage.TaskList;
 
 public abstract class Command {
@@ -9,5 +10,5 @@ public abstract class Command {
         this.input = input;
     }
 
-    public abstract String execute(TaskList tasks) throws IllegalArgumentException;
+    public abstract String execute(TaskList tasks, Storage storage) throws IllegalArgumentException;
 }
