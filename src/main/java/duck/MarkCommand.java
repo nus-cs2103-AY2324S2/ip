@@ -49,4 +49,3 @@ public class MarkCommand implements Command {
         }
     }
 }
-
