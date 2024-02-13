@@ -35,9 +35,7 @@ public class Storage {
         try {
             f.getParentFile().mkdirs();
             boolean created = f.createNewFile();
-            if (!created) {
-                throw new StorageException("Failed to create file: " + f.getAbsolutePath());
-            }
+            assert created : "Failed to create file: " + f.getAbsolutePath();
         } catch (IOException e) {
             throw new StorageException("Error creating file: " + f.getAbsolutePath());
         }
@@ -53,15 +51,14 @@ public class Storage {
     public ArrayList<Task> loadFile() throws StorageException, FileNotFoundException {
         File f = new File(this.filePath);
         ArrayList<Task> tasks;
+
         if (!f.exists()) {
             this.createFile(f);
             throw new FileNotFoundException();
         }
-        try {
-            tasks = FileParser.readFile(f);
-        } catch (Exception e) {
-            throw new StorageException("Error reading file: " + f.getAbsolutePath());
-        }
+
+        assert f.exists() : "File does not exist: " + f.getAbsolutePath();
+        tasks = FileParser.readFile(f);
         return tasks;
     }
 

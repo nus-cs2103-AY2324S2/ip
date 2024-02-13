@@ -46,14 +46,17 @@ public class FileParser {
             String[] parts = s.split(separator);
             switch (parts[0]) {
             case "T":
+                assert parts.length == 3 : "Todo task creation should have 3 parts";
                 Task t = new TodoTask(parts[2], parts[1]);
                 tasks.add(t);
                 break;
             case "D":
+                assert parts.length == 4 : "Deadline task creation should have 4 parts";
                 Task d = new DeadlineTask(parts[2], parts[1], parseDateTime(parts[3]));
                 tasks.add(d);
                 break;
             case "E":
+                assert parts.length == 5 : "Event task creation should have 5 parts";
                 Task e = new EventTask(parts[2], parts[1], parseDateTime(parts[3]), parseDateTime(parts[4]));
                 tasks.add(e);
                 break;

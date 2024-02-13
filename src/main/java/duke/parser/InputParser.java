@@ -48,6 +48,7 @@ public class InputParser {
     private String markTask(String input, TaskList tasks) throws InvalidInputException {
         String[] parts = input.split("\\s+");
         int taskNum = Integer.parseInt(parts[1]) - 1;
+        assert taskNum >= 0 : "Task number should at least 1.";
         if (taskNum >= tasks.size()) {
             throw new InvalidInputException(TextTemplate.TASK_DOES_NOT_EXIST);
         }
@@ -58,6 +59,7 @@ public class InputParser {
     private String unmarkTask(String input, TaskList tasks) throws InvalidInputException {
         String[] parts = input.split("\\s+", 2);
         int taskNum = Integer.parseInt(parts[1]) - 1;
+        assert taskNum >= 0 : "Task number should at least 1.";
         if (taskNum >= tasks.size()) {
             throw new InvalidInputException(TextTemplate.TASK_DOES_NOT_EXIST);
         }
@@ -68,6 +70,7 @@ public class InputParser {
     private String deleteTask(String input, TaskList tasks) throws InvalidInputException {
         String[] parts = input.split("\\s+", 2);
         int taskNum = Integer.parseInt(parts[1]) - 1;
+        assert taskNum >= 0 : "Task number should at least 1.";
         if (taskNum >= tasks.size()) {
             throw new InvalidInputException(TextTemplate.TASK_DOES_NOT_EXIST);
         }
@@ -88,6 +91,7 @@ public class InputParser {
         String[] parts = input.split(" /from ", 2);
         String desc = parts[0].split(" ", 2)[1];
         String[] duration = parts[1].split(" /to ", 2);
+        assert duration.length == 2: "Event tasks should specify from and start time.";
         LocalDateTime start;
         LocalDateTime end;
 
