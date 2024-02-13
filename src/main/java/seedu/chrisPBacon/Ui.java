@@ -8,8 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- *  This UI class contains methods that print out chatbot
- *  messages in the console to the user.
+ *  This UI class contains methods that print out chatbot messages in the console to the user.
  */
 public class Ui {
     private final String line = "_____________________________________________________";
@@ -20,7 +19,7 @@ public class Ui {
     public Ui() { }
 
     /**
-     * printIntro() prints the introduction of the chatbot when the user
+     * Prints the introduction of the chatbot when the user
      * first enters the chatbot.
      */
     public void printIntro() {
@@ -39,14 +38,14 @@ public class Ui {
     }
 
     /**
-     * printBye() prints bye when the user exits the chatbot.
+     * Prints bye when the user exits the chatbot.
      */
     public void printBye() {
         System.out.println(line + "\n" + "Oink! Okie byee... See you soon! :)\n" + line);
     }
 
     /**
-     * printError() prints error message.
+     * Prints the error message.
      *
      * @param msg error message
      */
@@ -55,7 +54,7 @@ public class Ui {
     }
 
     /**
-     * printHelp() prints the list of commands available.
+     * Prints the list of commands available.
      */
     public void printHelp() {
         String help = "Oink! Here are the Command Words:\n'list' - displays the list of task\n"
@@ -67,97 +66,109 @@ public class Ui {
     }
 
     /**
-     * printList() prints the list of tasks.
+     * Iterates through the list and prints the tasks.
      *
      * @param tasks task list
      */
     public void printList(TaskList tasks) {
         System.out.println(line);
-        if (tasks.isEmpty()) {
-            System.out.println("Oink! There are no tasks! Yeehaww");
 
+        if (tasks.isEmpty()) {
+            // If the list is empty.
+            System.out.println("Oink! There are no tasks! Yeehaww");
         } else {
+            // If the list is not empty.
             System.out.println("Oink! Here are the tasks:");
             for (int i = 1; i <= tasks.getSize(); i++) {
                 System.out.println(i + ". " + tasks.getTask(i - 1));
             }
         }
+
         System.out.println(line);
     }
 
     /**
-     * printMark() prints the task marked completed.
+     * Prints the task marked completed.
      *
      * @param userInput a string
      * @param tasks task list
      */
     public void printMark(String userInput, TaskList tasks) throws InvalidTaskNameException {
         System.out.println(line);
+
         if (userInput.length() < 6) {
             throw new InvalidTaskNameException("Ooink oink! Please follow the format >.<\n"
                     + " >> mark <task no.>\n");
         }
+
         int idx = userInput.charAt(5) - '0' - 1;
         System.out.println(tasks.markTask(idx) + line);
     }
 
     /**
-     * printUnmark() prints the task unmarked completed.
+     * Prints the task unmarked completed.
      *
      * @param userInput a string
      * @param tasks task list
      */
     public void printUnmark(String userInput, TaskList tasks) throws InvalidTaskNameException {
         System.out.println(line);
+
         if (userInput.length() < 8) {
             throw new InvalidTaskNameException("Ooink oink! Please follow the format >.<\n"
                     + " >> unmark <task no.>\n");
         }
+
         int idx = userInput.charAt(7) - '0' - 1;
         System.out.println(tasks.unmarkTask(idx) + line);
     }
 
     /**
-     * printDelete() deletes and prints the deleted task.
+     * Deletes the task and prints the details of the deleted task.
      *
      * @param userInput a string
      * @param tasks task list
      */
     public void printDelete(String userInput, TaskList tasks) throws InvalidTaskNameException {
         System.out.println(line);
+
         if (userInput.length() < 8) {
             throw new InvalidTaskNameException("Ooink oink! Please follow the format >.<\n"
                     + " >> delete <task no.>\n");
         }
+
         int idx = userInput.charAt(7) - '0'- 1;
         System.out.println(tasks.deleteTask(idx) + line);
     }
 
     /**
-     * printTodo() adds a todo task and prints the new task.
+     * Adds a todo task and prints the details of the new task.
      *
      * @param userInput a string
      * @param tasks task list
      */
     public void printTodo(String userInput, TaskList tasks) throws InvalidTaskNameException {
         System.out.println(line);
+
         if (userInput.length() < 6) {
             // If user did not input task name.
             throw new InvalidTaskNameException("Ooink oink! What's the name of your task?\n"
                     + " >> todo ...\n");
         }
+
         Todo task = new Todo(userInput.substring(5));
         System.out.println(tasks.addTask(task) + line);
     }
 
     /**
-     * printDeadline() adds a deadline task and prints the new task.
+     * Adds a deadline task and prints the details of the new task.
      *
      * @param userInput a string
      * @param tasks task list
      */
     public void printDeadline(String userInput, TaskList tasks) throws InvalidTaskNameException {
         System.out.println(line);
+
         int len = userInput.length();
         int idx = userInput.indexOf("/by");
         boolean isWrongInput = len < 10 || idx < 0 || len < idx + 4;
@@ -166,6 +177,7 @@ public class Ui {
             throw new InvalidTaskNameException("Ooink oink! Please describe your deadline >.<\n"
                     + " >> deadline ... /by dd/MM/yyyy\n");
         }
+
         String name = userInput.substring(9, idx - 1);
         String date = userInput.substring(idx + 4);
         try {
@@ -179,13 +191,14 @@ public class Ui {
     }
 
     /**
-     * printEvent() adds an event and prints the new task.
+     * Adds an event and prints the details of the new task.
      *
      * @param userInput a string
      * @param tasks task list
      */
     public void printEvent(String userInput, TaskList tasks) throws InvalidTaskNameException {
         System.out.println(line);
+
         int len = userInput.length();
         int fromIdx = userInput.indexOf("/from");
         int toIdx = userInput.indexOf("/to");
@@ -196,10 +209,12 @@ public class Ui {
             throw new InvalidTaskNameException("Ooink oink! Please describe your event >.<\n"
                     + " >> event ... /from ... /to ...\n");
         }
+
         String name = userInput.substring(6, fromIdx - 1);
         String from = userInput.substring(fromIdx + 6, toIdx - 1);
         String to = userInput.substring(toIdx + 4);
         Event task = new Event(name, from, to);
+
         System.out.println(tasks.addTask(task) + line);
     }
 }
