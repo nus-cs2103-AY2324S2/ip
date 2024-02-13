@@ -44,7 +44,7 @@ public class Ui {
         } else if (instruction[0].equals("event")) {
             this.addEvent(instruction, tasks);
         } else {
-            LiteException.InvalidInput();
+            LiteException.invalidInput();
         }
         return false;
     }
