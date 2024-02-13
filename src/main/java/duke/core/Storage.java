@@ -28,7 +28,7 @@ public class Storage {
      *
      * @return The TaskList that was loaded from disk, or a new TaskList if loading fails.
      */
-    public static TaskList load() {
+    public static TaskList load(MainWindow controller) {
         try {
             TaskList taskList = new TaskList();
             Scanner s = new Scanner(savedTaskList);
@@ -60,10 +60,10 @@ public class Storage {
                     throw new NoSuchElementException(s.nextLine());
                 }
             }
-            Ui.printMessage("Successfully loaded save file.");
+            controller.showMessage("Successfully loaded save file.");
             return taskList;
         } catch (NoSuchElementException | FileNotFoundException | DateTimeParseException e) {
-            Ui.printMessage("Missing or corrupted save file. Creating new Task List");
+            controller.showMessage("Missing or corrupted save file. Creating new Task List");
             return new TaskList();
         }
     }
@@ -90,15 +90,15 @@ public class Storage {
      *
      * @param taskList The TaskList to be saved into disk in text form.
      */
-    public static void save(TaskList taskList) {
+    public static void save(TaskList taskList, MainWindow controller) {
         try {
             new File("./data").mkdir();
             FileWriter fw = new FileWriter(savedTaskList);
             fw.write(taskList.saveString());
             fw.close();
         } catch (IOException e) {
-            Ui.printMessage("An error has occurred during saving.");
-            Ui.printError(e);
+            controller.showMessage("An error has occurred during saving.");
+            controller.showMessage(e.getMessage());
         }
     }
 

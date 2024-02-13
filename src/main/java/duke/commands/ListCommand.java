@@ -20,7 +20,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void execute() {
-        Ui.printMessage(this.taskList.toString());
+    public String execute() {
+        return this.taskList.toString();
     }
 }

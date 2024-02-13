@@ -38,12 +38,12 @@ public class AddDeadlineCommand extends AddCommand {
     }
 
     @Override
-    public void execute() {
+    public String execute() {
         super.getTaskList().add(new Deadline(this.description,
                 false, this.deadlineDate, this.deadlineTime));
-        Ui.printMessage("Added Deadline task: " + description
+        return "Added Deadline task: " + description
                 + "(by: " + deadlineDate
                 + (deadlineTime == null ? "" : " " + deadlineTime)
-                + ")");
+                + ")";
     }
 }
