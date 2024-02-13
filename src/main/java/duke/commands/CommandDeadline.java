@@ -27,9 +27,8 @@ public class CommandDeadline extends Command {
         try {
             Task task = cleanUserInput(description);
             taskList.addNewTask(task);
-            ui.add("Okay! added this Deadline:");
-            ui.add(task.toString());
-            ui.add(String.format("Now you have %d tasks in the list.", taskList.getSize()));
+            String taskType = task.getTaskType();
+            ui.addNewTask(taskType, task.toString(), taskList.getSize());
         } catch (DukeCeption e) {
             ui.add(e.getMessage());
         }

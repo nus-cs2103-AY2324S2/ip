@@ -4,6 +4,7 @@ package duke.tasks;
  * Class for ToDo Task
  */
 public class ToDo extends Task {
+    private final String TASKTYPE = "ToDo";
     
     public ToDo(String description){
         super(description);
@@ -11,6 +12,11 @@ public class ToDo extends Task {
 
     public ToDo(String description, boolean isDone) {
         super(description, isDone);
+    }
+
+    @Override
+    public String getTaskType() {
+        return TASKTYPE;
     }
 
     /**

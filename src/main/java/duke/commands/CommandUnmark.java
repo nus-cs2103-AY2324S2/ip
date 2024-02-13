@@ -23,8 +23,7 @@ public class CommandUnmark extends Command {
         try {
             Task task = taskList.getTask(taskNumber);
             task.markAsNotDone();
-            ui.add("Alright! this task is now unmarked:");
-            ui.add(task.toString());
+            ui.markTaskAsNotDone(task.toString());
         } catch (DukeCeption e) {
             ui.add(e.getMessage());
         }

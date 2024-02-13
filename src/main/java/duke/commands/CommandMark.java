@@ -24,8 +24,7 @@ public class CommandMark extends Command {
         try {
             Task task = taskList.getTask(taskNumber);
             task.markAsDone();
-            ui.add("Great! I will mark this as done:");
-            ui.add(task.toString());
+            ui.markTaskAsDone(task.toString());
         } catch (DukeCeption e) {
             ui.add(e.getMessage());
         }

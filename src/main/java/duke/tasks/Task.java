@@ -4,7 +4,7 @@ package duke.tasks;
  * Parent class for task
  * @param description
  */
-public class Task {
+public abstract class Task {
     protected String description;
     protected Boolean isDone;
 
@@ -43,6 +43,12 @@ public class Task {
     public String getStatusIcon() {
         return (this.isDone ? "X" : " ");
     }
+
+    /**
+     * get the type of task
+     * @return String of the type of task
+     */
+    public abstract String getTaskType();
 
     /**
      * Mark task as done
