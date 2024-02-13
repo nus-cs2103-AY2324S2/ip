@@ -96,7 +96,7 @@ public class BotChat {
 
         Label helpLabel = new Label(showHelpMessage());
         VBox vbox = new VBox(helpLabel);
-        Scene scene = new Scene(vbox, 500, 300);
+        Scene scene = new Scene(vbox, 400, 300);
 
         helpStage.setScene(scene);
         helpStage.show();
