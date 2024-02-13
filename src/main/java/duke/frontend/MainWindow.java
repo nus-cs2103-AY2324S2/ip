@@ -60,8 +60,8 @@ public class MainWindow extends AnchorPane {
         String userText = userInput.getText();
         String dukeText = getResponse(userInput.getText());
         dialogContainer.getChildren().addAll(
-          DialogBox.getUserDialog(userText, userImage),
-          DialogBox.getDukeDialog(dukeText, dukeImage)
+            DialogBox.getUserDialog(userText, userImage),
+            DialogBox.getDukeDialog(dukeText, dukeImage)
         );
         try {
             isExit =
