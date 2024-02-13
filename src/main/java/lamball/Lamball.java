@@ -1,5 +1,7 @@
 package lamball;
 
+import static javafx.application.Platform.exit;
+
 import java.util.Scanner;
 
 import javafx.application.Application;
@@ -23,8 +25,10 @@ import lamball.ui.DialogBox;
  * @author ongzhili
  */
 public class Lamball extends Application {
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private static final String USER_PROMPT = "    You:";
+    private static final String EXIT_TEXT = "     See you again!\n";
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/User.png"));
+    private Image duke = new Image(this.getClass().getResourceAsStream("/images/Lamball.png"));
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
@@ -32,6 +36,7 @@ public class Lamball extends Application {
     private Scene scene;
     private TaskList tasks;
     private Ui ui;
+
 
     /**
      * Constructor for Lamball chatbot.
@@ -71,7 +76,7 @@ public class Lamball extends Application {
         this.initialize();
 
         while (isActive) {
-            System.out.print("    You:");
+            System.out.print(USER_PROMPT);
             String userInput = scanner.nextLine();
 
             // Echo the user's command
@@ -168,20 +173,6 @@ public class Lamball extends Application {
     }
 
     /**
-     * Iteration 1:
-     * Creates a label with the specified text and adds it to the dialog container.
-     * @param text String containing text to add
-     * @return a label with the specified text that has word wrap enabled.
-     */
-    private Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-
-        return textToAdd;
-    }
-
-    /**
      * Iteration 2:
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
@@ -193,6 +184,10 @@ public class Lamball extends Application {
                 DialogBox.getUserDialog(userText, new ImageView(user)),
                 DialogBox.getLamballDialog(lamballText, new ImageView(duke))
         );
+
+        if (lamballText.getText() == EXIT_TEXT) {
+            exit();
+        }
         userInput.clear();
     }
 
