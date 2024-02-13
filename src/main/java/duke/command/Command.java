@@ -9,16 +9,7 @@ import duke.task.TaskList;
  */
 public abstract class Command {
     /**
-     * Executes command.
-     *
-     * @param tasks List of tasks.
-     * @param ui Ui of ai chatbot.
-     * @param storage External storage in hard disk.
-     */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage);
-
-    /**
-     * Return command string.
+     * Return command string after executing current command.
      *
      * @param tasks List of tasks.
      * @param ui Ui of ai chatbot.
