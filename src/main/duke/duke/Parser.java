@@ -90,8 +90,13 @@ public class Parser {
             case UNKNOWN:
                 reply = "Unknown command\n";
                 break;
-            default:
+            case TODO:
+            case DEADLINE:
+            case EVENT:
                 reply = addTask(inputParsed, command);
+                break;
+            default:
+                reply = "Something has gone horribly wrong with your input!";
             }
         } catch (IOException e) {
             reply = "I/O Exception";
@@ -137,7 +142,7 @@ public class Parser {
             Duke.tasks.add(e);
             break;
         default:
-            return "Some catastrophic error has occurred!";
+            return "Some catastrophic error has occurred when adding tasks!";
         }
 
         s = "Got it added this task:\n  " + Duke.tasks.get(Duke.tasks.size() - 1);
