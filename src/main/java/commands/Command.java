@@ -22,8 +22,4 @@ public abstract class Command {
      * @throws UncleBobException If user input is not in the correct format.
      */
     public abstract String execute(TaskList tasks, Storage storage) throws UncleBobException;
-
-    public static boolean isExit(Command c) {
-        return c instanceof ExitCommand; // instanceof returns false if it is null
-    }
 }

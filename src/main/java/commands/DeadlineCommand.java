@@ -45,22 +45,19 @@ public class DeadlineCommand extends Command {
         String[] args = message.split("/by");
         if (args.length == 1 || args.length > 2) {
             throw new DeadlineFormatException();
-        } else {
-            String desc = args[0].trim();
-            String by = args[1].trim();
+        }
+        String desc = args[0].trim();
+        String by = args[1].trim();
 
-            try {
-                Task deadline = new Deadline(desc, LocalDate.parse(by));
-                tasks.addTasks(deadline);
-                try {
-                    storage.appendToFile(tasks);
-                } catch (IOException e) {
-                    return e.getMessage();
-                }
-                return String.format(SUCCESS_MESSAGE, deadline, tasks.numTasks());
-            } catch (DateTimeParseException e) {
-                throw new DeadlineFormatException();
-            }
+        try {
+            Task deadline = new Deadline(desc, LocalDate.parse(by));
+            tasks.addTasks(deadline);
+            storage.appendToFile(tasks);
+            return String.format(SUCCESS_MESSAGE, deadline, tasks.numTasks());
+        } catch (IOException e) {
+            return e.getMessage();
+        } catch (DateTimeParseException e) {
+            throw new DeadlineFormatException();
         }
     }
 }
