@@ -23,9 +23,13 @@ public class StorageHelper {
         File directory = new File(directoryPath);
         directory.mkdir();
 
+        assert directory.exists() : "directory should be created if not exist";
+
         // check if the file exists if not create it
         File file = new File(directoryPath + "/" + fileName);
         file.createNewFile();
+
+        assert file.exists() : "file should be created if not exist";
 
         return file;
     }
@@ -41,9 +45,13 @@ public class StorageHelper {
         File directory = new File(directoryPath);
         directory.mkdir();
 
+        assert directory.exists() : "directory should be created if not exist";
+
         // check if the file exists if not create it
         File file = new File(directoryPath + "/" + fileName);
         file.createNewFile();
+
+        assert file.exists() : "file should be created if not exist";
 
         // write into the file
         FileWriter fw = new FileWriter(file);

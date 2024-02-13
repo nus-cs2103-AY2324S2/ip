@@ -42,6 +42,7 @@ public class Parser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
         Command command;
         // execute cmd logic respectively
         switch (commandWord) {
