@@ -28,7 +28,10 @@ public class AddToListCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui) {
-        taskList.addToList(task);
+        int res = taskList.addToList(task);
+        if (res == -1) {
+            return ui.showMessages("This task has already been added. Type list to view the added tasks");
+        }
         return ui.showMessages("added:\n\t " + task.toString());
     }
 }

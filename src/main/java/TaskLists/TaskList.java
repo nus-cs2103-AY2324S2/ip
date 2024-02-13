@@ -1,6 +1,7 @@
 package TaskLists;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 
 import Tasks.Task;
@@ -11,6 +12,7 @@ import Tasks.Task;
  */
 public class TaskList implements Iterable<Task> {
     private final ArrayList<Task> tasks;
+    private final HashSet<String> duplicates = new HashSet<>();
 
     /**
      * Constructs a TaskList object with the specified list of tasks.
@@ -42,8 +44,16 @@ public class TaskList implements Iterable<Task> {
      *
      * @param t The task to be added.
      */
-    public void addToList(Task t) {
+    public int addToList(Task t) {
+        boolean isDuplicate = duplicates.contains(t.toString());
+        System.out.println(isDuplicate);
+        if (isDuplicate) {
+            System.out.println("duplcate detected");
+            return -1;
+        }
         tasks.add(t);
+        duplicates.add(t.toString());
+        return 0;
     }
 
     /**
@@ -55,6 +65,10 @@ public class TaskList implements Iterable<Task> {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             sb.append(i + 1).append('.').append("\t").append(tasks.get(i)).append("\n");
+            System.out.println(tasks.get(i));
+        }
+        for (String x : duplicates){
+            System.out.println(x);
         }
         return sb.toString();
     }
@@ -92,6 +106,7 @@ public class TaskList implements Iterable<Task> {
         } else {
             Task t = tasks.get(index - 1);
             tasks.remove(index - 1);
+            duplicates.remove(t);
             return t.toString();
         }
     }
@@ -153,5 +168,6 @@ public class TaskList implements Iterable<Task> {
 
     public void clearTask() {
         tasks.clear();
+        duplicates.clear();
     }
 }
