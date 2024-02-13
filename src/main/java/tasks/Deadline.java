@@ -1,9 +1,9 @@
 package tasks;
 
-import parsing.DateTimeParser;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import parsing.DateTimeParser;
 
 /**
  * Represents a task with a deadline.
@@ -32,7 +32,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + byWhen.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm")) + ")";
+        return "[D]" + super.toString() + " (by: "
+                + byWhen.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm")) + ")";
     }
 
     /**

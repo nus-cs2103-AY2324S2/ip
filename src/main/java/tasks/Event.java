@@ -1,9 +1,9 @@
 package tasks;
 
-import parsing.DateTimeParser;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import parsing.DateTimeParser;
 
 /**
  * Represents a task with an event.
@@ -46,7 +46,7 @@ public class Event extends Task {
      */
     @Override
     public String toWrite() {
-        return "E | " + super.toWrite() + " | " + fromWhen.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm")) +
-                " to " + toWhen.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
+        return "E | " + super.toWrite() + " | " + fromWhen.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"))
+                + " to " + toWhen.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
     }
 }

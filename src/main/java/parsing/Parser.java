@@ -1,7 +1,8 @@
 package parsing;
 
-import exceptions.YpxmmException;
 import java.util.ArrayList;
+
+import exceptions.YpxmmException;
 
 /**
  * Class for parsing user input into command arguments.
