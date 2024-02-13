@@ -2,6 +2,9 @@ package cro;
 
 import command.Parser;
 
+/**
+ * Represents a UI object in the program.
+ */
 public class Ui {
 
     private Parser parser;
