@@ -49,6 +49,7 @@ public class Parser {
         case "DEADLINE":
             return parseTaskCommand(split);
         default:
+            assert false : split[0].toUpperCase();
             throw new ToothlessException("Me dragon, no understand this action :P");
         }
     }
