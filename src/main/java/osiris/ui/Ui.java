@@ -17,15 +17,6 @@ public class Ui {
     }
 
     /**
-     * Prompts the user with the Osiris message prompt.
-     *
-     * @return The Osiris message prompt as a single string.
-     */
-    public String displayOsirisPromptMessage() {
-        return UiOutputs.MESSAGE_OSIRIS_PROMPT;
-    }
-
-    /**
      * Outputs a message for unsupported commands.
      *
      * @return The message for unsupported commands as a single string.
@@ -149,13 +140,6 @@ public class Ui {
             matchingTasks.append("    ").append(i + 1).append(". ").append(taskDetailsList.get(i)).append("\n");
         }
         return matchingTasks.toString();
-    }
-
-    /**
-     * Prints a separator line to the console.
-     */
-    private void printSeparator() {
-        System.out.println(UiOutputs.SEPARATOR);
     }
 
 }

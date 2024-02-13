@@ -194,7 +194,6 @@ public class TaskManager {
         ArrayList<String> readContents = taskStorage.readStorageTxtFile();
         for (String readContentString : readContents) {
             String[] readContentWord = readContentString.split("\\|");
-
             if (readContentWord[0].trim().equals("T")) {
                 this.addToDoTask(readContentWord[2].trim(), readContentWord[1].trim().equals("Y"));
             } else if (readContentWord[0].trim().equals("D")) {
