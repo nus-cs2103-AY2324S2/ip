@@ -32,7 +32,7 @@ public class Chatbot {
             tasks.saveFile();
             exit();
         } catch (IOException e) {
-            LiteException.LoadFileException();
+            LiteException.loadFileException();
         }
     }
 

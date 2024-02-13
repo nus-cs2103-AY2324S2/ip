@@ -31,7 +31,7 @@ public class Storage {
             }
             bw.close();
         } catch (IOException e) {
-            LiteException.SaveException(e);
+            LiteException.saveException(e);
         }
     }
 
