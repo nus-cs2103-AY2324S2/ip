@@ -1,6 +1,7 @@
 package zack.commands;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 import zack.Zack;
 import zack.ZackException;
@@ -43,14 +44,14 @@ public class AddTaskCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws ZackException, IOException {
         Task newTask;
         if (taskType == Zack.TaskType.TODO) {
-            newTask = new Todo(description, false);
+            newTask = new Todo(description, false, LocalDateTime.now());
         } else if (taskType == Zack.TaskType.DEADLINE) {
             String[] parts = description.split(" /by ");
             if (parts.length < 2 || parts[1].trim().isEmpty()) {
                 throw new ZackException("The deadline command is incomplete or incorrectly formatted. "
                         + "Please include the description, '/by', followed by the deadline.");
             }
-            newTask = new Deadline(parts[0], parts[1], false);
+            newTask = new Deadline(parts[0], parts[1], false, LocalDateTime.now());
         } else {
             // EVENT
             String[] parts = description.split(" /from ");
@@ -63,7 +64,7 @@ public class AddTaskCommand extends Command {
                 throw new ZackException("The event command is incomplete. "
                         + "Please include the description, '/from', '/to', followed by the end time.");
             }
-            newTask = new Event(parts[0], times[0], times[1], false);
+            newTask = new Event(parts[0], times[0], times[1], false, LocalDateTime.now());
         }
         tasks.addTask(newTask);
         storage.save(tasks.getAllTasks());
