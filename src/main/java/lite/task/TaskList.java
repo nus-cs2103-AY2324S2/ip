@@ -24,6 +24,15 @@ public class TaskList {
     }
 
     /**
+     * Returns true if input is within i-th task's input
+     * @param i Index we are looking for
+     * @param input Given input
+     */
+    public boolean contains(int i, String input) {
+        return tasks.get(i).contains(input);
+    }
+
+    /**
      * Returns the task at index i
      * @param i The index to get from
      */
@@ -48,7 +57,7 @@ public class TaskList {
     }
 
     /**
-     * Outputs the string representation of the TaskList
+     * Outputs the string representation of the TaskList when prompted with "list"
      */
     public void outputTasks() {
         Printer.printHorizontalLine();
@@ -57,6 +66,15 @@ public class TaskList {
             System.out.println((i+1) + ". " + this.tasks.get(i));
         }
         Printer.printHorizontalLine();
+    }
+
+    /**
+     * Outputs the string representation of the TaskList
+     */
+    public void taskString() {
+        for (int i = 0; i < this.tasks.size(); i++) {
+            System.out.println((i+1) + ". " + this.tasks.get(i));
+        }
     }
 
     /**

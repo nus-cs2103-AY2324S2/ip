@@ -103,4 +103,13 @@ public class Printer {
                 + "The correct format is mark <index>. \n"
                 + "The minimum index is 1 and the maximum index is " + tasks.size());
     }
+
+    public static void successfulFind(TaskList tasks) {
+        System.out.println("Here are the matching tasks in your list:");
+        tasks.taskString();
+    }
+
+    public static void unsuccessfulFind() {
+        System.out.println("There are no tasks that correspond with your input");
+    }
 }
