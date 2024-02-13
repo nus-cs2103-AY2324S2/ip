@@ -22,10 +22,10 @@ public class ChrisPBacon {
         Ui ui = new Ui();
         storage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.load());
+            this.tasks = new TaskList(storage.load());
         } catch (FileNotFoundException e) {
             ui.printError("Oink! File not found :(\n");
-            tasks = new TaskList();
+            this.tasks = new TaskList();
         }
     }
 
@@ -39,7 +39,7 @@ public class ChrisPBacon {
     }
 
     /**
-     * Initialises and run duke program.
+     * Initialises and run chris p bacon program.
      *
      * @param args arguments
      */
