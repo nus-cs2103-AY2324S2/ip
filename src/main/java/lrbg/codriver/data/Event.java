@@ -7,33 +7,33 @@ import java.time.LocalDate;
  */
 public class Event extends Task {
     /** The start date of the event. */
-    private final LocalDate from;
+    private final LocalDate startDate;
     /** The end date of the event. */
-    private final LocalDate to;
+    private final LocalDate endDate;
 
     /**
      * Constructor for Event.
      * @param description The description of the task.
-     * @param from The start date of the event.
-     * @param to The end date of the event.
+     * @param startDate The start date of the event.
+     * @param endDate The end date of the event.
      */
-    public Event(String description, LocalDate from, LocalDate to) {
+    public Event(String description, LocalDate startDate, LocalDate endDate) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from
-                + " to: " + this.to + ")";
+        return "[E]" + super.toString() + " (from: " + this.startDate
+                + " to: " + this.endDate + ")";
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public String toSaveString() {
-        return "E|" + super.toSaveString() + "|" + this.from + "~" + this.to;
+    public String toFileSaveString() {
+        return "E|" + super.toFileSaveString() + "|" + this.startDate + "~" + this.endDate;
     }
 }

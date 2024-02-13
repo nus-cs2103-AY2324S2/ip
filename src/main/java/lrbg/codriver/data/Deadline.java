@@ -30,7 +30,7 @@ public class Deadline extends Task {
      * {@inheritDoc}
      */
     @Override
-    public String toSaveString() {
-        return "D|" + super.toSaveString() + "|" + this.date;
+    public String toFileSaveString() {
+        return "D|" + super.toFileSaveString() + "|" + this.date;
     }
 }

@@ -16,6 +16,7 @@ public abstract class Command {
      * @param ui      The user interface.
      * @param storage The storage.
      * @throws CoDriverException If an error occurs during execution.
+     * @return The response to the user.
      */
     public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws CoDriverException;
 

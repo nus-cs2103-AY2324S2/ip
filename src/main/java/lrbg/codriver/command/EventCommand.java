@@ -23,7 +23,7 @@ public class EventCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws CoDriverException {
         Task newTask = new Event(this.description, this.fromDate, this.toDate);
         tasks.addTask(newTask);
-        return ui.showAddTask(newTask, tasks.size());
+        return ui.showAddTask(newTask, tasks.getSize());
     }
 
     public boolean testEquals(Object obj) {
