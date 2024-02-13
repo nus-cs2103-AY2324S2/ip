@@ -17,6 +17,7 @@ public enum CommandType {
     DELETE("delete", new DeleteCommand()),
     FIND("find", new FindCommand()),
     BYE("bye", new ByeCommand()),
+    HELP("help", new HelpCommand()),
     EMPTY("", new EmptyCommand()),
     INVALID("", new InvalidCommand());
 
