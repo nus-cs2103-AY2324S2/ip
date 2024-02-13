@@ -28,8 +28,8 @@ public class EventCommand extends Command {
 
     @Override
     public boolean run() {
-        assert (!Objects.isNull(this.args));
-        assert this.args.length >= MINIMUM_ARG_COUNT;
+        assert (!Objects.isNull(this.args)) : "Arguments should not be null";
+        assert this.args.length >= MINIMUM_ARG_COUNT : "There should be at least the minimum argument count";
 
         taskList.event(this.args, isInit);
         return true;
