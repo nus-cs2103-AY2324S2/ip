@@ -78,4 +78,13 @@ public abstract class Task {
     public boolean isDone() {
         return this.isDone;
     }
+
+    /**
+     * Returns whether the task is of the same type as the given task.
+     * @param task The task to compare with.
+     * @return Whether the task is of the same type as the given task.
+     */
+    public boolean isSameTaskType(Task task) {
+        return this.getType().equals(task.getType());
+    }
 }
