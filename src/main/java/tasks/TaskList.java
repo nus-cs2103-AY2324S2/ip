@@ -95,9 +95,13 @@ public class TaskList {
      * @param index The index of the task in the list to be removed, starting from 1.
      * @return The task that was removed.
      */
-    public Task removeTaskfromTaskList(int index) {
-        Task task = taskList.remove(index - 1);
-        return task;
+    public Task removeTaskfromTaskList(int index) throws DukeException {
+        try {
+            Task task = taskList.remove(index - 1);
+            return task;
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("Quit yappin, that task does not exist");
+        }
     }
 
     /**
