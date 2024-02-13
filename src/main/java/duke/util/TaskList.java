@@ -40,14 +40,6 @@ public class TaskList {
      * The process is done using loops to go through all the tasks.
      */
     public String showList() {
-//        System.out.println("\t____________________________________________________________");
-//        System.out.println("\tPer your request, I am outlining the tasks from your designated list:");
-//        int index = 1;
-//        for (Task item : this.listItems) {
-//            System.out.println("\t" + index + ". " + item);
-//            index++;
-//        }
-//        System.out.println("\t____________________________________________________________\n");
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Per your request, I am outlining the tasks from your designated list:\n");
         int index = 1;

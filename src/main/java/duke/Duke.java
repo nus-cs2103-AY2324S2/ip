@@ -25,32 +25,6 @@ public class Duke {
         this.taskList = new TaskList();
     }
 
-    /**
-     * Runs the Duke application.
-     * This method prompts the user with a greeting, accepts and processes user commands,
-     * and continues execution until the user enters the "bye" command.
-     * Handles invalid commands by informing the user.
-     */
-
-//    public void run() {
-//        this.ui.greet();
-//        Scanner scanner = new Scanner(System.in);
-//        try {
-//            Command command;
-//            do {
-//                command = this.parser.parse(scanner.nextLine());
-//                command.run(this.taskList);
-//            } while(!command.getType().equals(Parser.Cmd.bye));
-//        } catch (IllegalArgumentException e) {
-//            Ui.informInvalidCommand();
-//        }
-//    }
-
-//    public static void main(String[] args) {
-//        Duke alfred = new Duke();
-//        alfred.run();
-//    }
-
     public String getResponse(String input) {
         Command command;
         try{
@@ -60,6 +34,5 @@ public class Duke {
             return ui.getMessage();
         }
         return ui.getMessage();
-        //return "Duke heard: " + input;
     }
 }
