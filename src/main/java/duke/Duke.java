@@ -875,7 +875,7 @@ class FindCommand extends Command {
         return false;
     }
 
-    public String getKeyword() { //
+    public String getKeyword() {
         return keyword;
     }
 }
