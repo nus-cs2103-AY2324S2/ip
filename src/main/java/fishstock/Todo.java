@@ -27,6 +27,8 @@ class Todo extends Task {
      * @throws FishStockException The exceptions while creating the Todo object.
      */
     protected static Todo of(UserInput input) throws FishStockException {
+        assert input.getCommandType() == Command.CommandType.TODO : "The input type is not Todo";
+
         String[] splitInput = input.splitByKeywords();
         checkIsValid(splitInput);
 

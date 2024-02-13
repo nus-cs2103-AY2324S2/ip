@@ -57,6 +57,8 @@ class Event extends Task {
      * @throws FishStockException The exceptions while creating the Event object.
      */
     protected static Event of(UserInput input) throws FishStockException {
+        assert input.getCommandType() == Command.CommandType.EVENT : "The input type is not Event";
+
         String[] splitInput = input.splitByKeywords(FROM_KEYWORD, TO_KEYWORD);
         checkIsValid(splitInput);
 
