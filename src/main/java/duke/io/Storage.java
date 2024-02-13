@@ -32,7 +32,7 @@ public class Storage {
      * @param tasks ArrayList of tasks to be saved.
      */
     public static void saveTasks(ArrayList<Task> tasks) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILEPATH))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILEPATH, true))) {
             for (Task task : tasks) {
                 writer.write(task.toString());
                 writer.newLine();
@@ -50,12 +50,15 @@ public class Storage {
     public static void loadFile(ArrayList<Task> tasks) {
         File file = new File(FILEPATH);
         if (!file.exists()) {
+            System.out.println("File does not exist: " + FILEPATH);
             return;
         }
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
+                System.out.println("Loaded line: " + line);
+
                 tasks.add(new Task(line));
             }
         } catch (IOException e) {
