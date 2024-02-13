@@ -29,7 +29,7 @@ public class Storage {
     public static ArrayList<Task> loadFromLocal() {
         // Clear current tasklist
         taskList.clear();
-
+        assert taskList.isEmpty() : "Tasklist should be empty";
         // Read from target file
         Path filePath = Paths.get("src", "main", "resources", "Solaire.txt");
         try {
@@ -62,7 +62,6 @@ public class Storage {
      */
     public static void write(ArrayList<Task> taskList) {
         Path filePath = Paths.get("src", "main", "resources", "Solaire.txt");
-
         try {
             Files.createDirectories(filePath.getParent());
             Storage.taskList = taskList;
@@ -95,6 +94,7 @@ public class Storage {
     }
 
     private static void parseTasks(String line) throws SolaireException {
+        assert !line.isEmpty() : "Line should not be empty";
         String[] taskDetails = line.split(" \\| ");
         String taskType = taskDetails[0].trim();
         Boolean isComplete = taskDetails[1].trim().equals("1") ? true : false;
