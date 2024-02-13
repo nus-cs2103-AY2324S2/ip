@@ -19,7 +19,7 @@ then
     exit 1
 fi
 
-# run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
+# run the program, feed duke.duke.duke.commands.exceptions.duke.commands.exceptions.duke.duke.commands.commands from input.txt file and redirect the output to the ACTUAL.TXT
 java -classpath ../bin Duke < input.txt > ACTUAL.TXT
 
 # convert to UNIX format
