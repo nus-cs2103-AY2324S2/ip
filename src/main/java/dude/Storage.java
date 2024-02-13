@@ -135,7 +135,7 @@ public class Storage {
                     output.add(new Event(rowData[1], done, rowData[2], rowData[3]));
                     break;
                 default:
-                    System.out.println("Invalid task type found");
+                    assert false : String.format("Invalid task type %s", taskType);
                 }
             }
         } catch (IOException e) {

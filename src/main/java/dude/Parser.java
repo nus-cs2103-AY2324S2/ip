@@ -98,8 +98,10 @@ public class Parser {
                 } else {
                     throw new DudeParseException("Format of " + parameters.get(i) + " is not a date (yyyy-mm-dd)\n");
                 }
-            } else {
+            } else if (formats[i] == ParameterTypes.STRING) {
                 formattedParameters.add(parameters.get(i).stripTrailing());
+            } else {
+                assert false : String.format("Invalid parameter type %s", formats[i]);
             }
         }
         return true;

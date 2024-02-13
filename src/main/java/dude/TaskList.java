@@ -45,6 +45,9 @@ public class TaskList {
             Task task = tasks.get(i - 1);
             listString += i + "." + task + "\n";
         }
+        if (listString.isEmpty()) {
+            return "No tasks in list yet!";
+        }
         return listString;
     }
 
@@ -59,7 +62,8 @@ public class TaskList {
         }
         Task task = tasks.get(index);
         task.mark();
-        storage.createRows(tasks);
+        boolean isRowsCreated = storage.createRows(tasks);
+        assert isRowsCreated : "Rows not created";
         return "Nice! I've marked this task as done:\n" + task + "\n";
     }
 
@@ -74,7 +78,8 @@ public class TaskList {
         }
         Task task = tasks.get(index);
         task.unmark();
-        storage.createRows(tasks);
+        boolean isRowsCreated = storage.createRows(tasks);
+        assert isRowsCreated : "Rows not created";
         return "OK, I've marked this task as not done yet:\n" + task + "\n";
 
     }
@@ -89,7 +94,8 @@ public class TaskList {
             return "Invalid index range\n";
         }
         Task task = tasks.remove(index);
-        storage.createRows(tasks);
+        boolean isRowsCreated = storage.createRows(tasks);
+        assert isRowsCreated : "Rows not created";
         return "Noted. I've removed this task:\n" + task + "\nNow you have " + tasks.size() + " tasks in the list.\n";
     }
 
