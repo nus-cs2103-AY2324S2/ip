@@ -8,6 +8,7 @@ class Command {
     private static final String UNMARK_PREFIX = "I knew you didn't finish it! \uD83D\uDE0F:\n  ";
     private static final String DELETE_PREFIX = "This task has been removed:\n  ";
     private static final String FIND_PREFIX = "Here are the matching tasks in your list:\n";
+    private static final String UNDO_PREFIX = "List has been restored to the previous state:\n";
     private static final String ADD_TASK_PREFIX = "This task has been added:\n  ";
     private static final String UNKNOWN_COMMAND = "OH NOSE! Wakaranai... :(";
 
@@ -15,14 +16,7 @@ class Command {
      * List of keywords to run respective commands.
      */
     public enum CommandType {
-        INVALID("invalid"), BYE("bye"), LIST("list"), MARK("mark"), UNMARK("unmark"),
-                DELETE("delete"), FIND("find"), TODO("todo"), DEADLINE("deadline"), EVENT("event");
-
-        public final String keyword;
-
-        CommandType(String keyword) {
-            this.keyword = keyword;
-        }
+        INVALID, BYE, LIST, MARK, UNMARK, DELETE, FIND, TODO, DEADLINE, EVENT, UNDO;
     }
 
     /**
@@ -58,6 +52,9 @@ class Command {
                 return DELETE_PREFIX + list.deleteTask(input) + getTaskCount(list);
             case FIND:
                 return FIND_PREFIX + list.findTasks(input);
+            case UNDO:
+                list.restoreState();
+                return UNDO_PREFIX + list.toString();
             case TODO:
                 // Fallthrough
             case DEADLINE:

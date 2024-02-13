@@ -17,15 +17,15 @@ class Event extends Task {
      * @param description The task description.
      * @param from The from date.
      * @param to The to date.
-     * @throws FishStockException The exceptions while creating the Event object.
      */
-    protected Event(String description, LocalDateTime from, LocalDateTime to) throws FishStockException {
-        super(description);
-        if (from.isAfter(to) && !from.equals(to)) {
-            throw new FishStockException("OH NOSE! The from-date must be before the to-date..");
-        }
+    protected Event(String description, boolean isDone, LocalDateTime from, LocalDateTime to) {
+        super(description, isDone);
         this.from = from;
         this.to = to;
+    }
+
+    protected Event(String description, LocalDateTime from, LocalDateTime to) throws FishStockException {
+        this(description, false, from, to);
     }
 
     private static void checkIsValid(String[] splitInput) throws FishStockException {
@@ -47,6 +47,13 @@ class Event extends Task {
         if (splitInput[2].isEmpty()) {
             throw new FishStockException("OH NOSE! The to-date cannot be empty..");
         }
+
+        LocalDateTime from = Parser.parseDate(splitInput[1]);
+        LocalDateTime to = Parser.parseDate(splitInput[2]);
+
+        if (from.isAfter(to) && !from.equals(to)) {
+            throw new FishStockException("OH NOSE! The from-date must be before the to-date..");
+        }
     }
 
     /**
@@ -66,6 +73,11 @@ class Event extends Task {
         LocalDateTime from = Parser.parseDate(splitInput[1]);
         LocalDateTime to = Parser.parseDate(splitInput[2]);
         return new Event(description, from, to);
+    }
+
+    @Override
+    protected Task clone() {
+        return new Event(this.getDescription(), this.getIsDone(), from, to);
     }
 
     @Override
