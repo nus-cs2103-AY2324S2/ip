@@ -63,6 +63,7 @@ public class Parser {
         Command command = parseUserMsg(inputParsed[0]);
 
         String reply;
+        assert command != null : "You are missing the command";
 
         try {
             checkValidFormat(inputParsed, command); // Throws various exceptions corresponding to foreseeable errors.

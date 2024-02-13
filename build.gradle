@@ -47,12 +47,12 @@ test {
 }
 
 application {
-    mainClass.set("duke.Duke")
+    mainClass.set("duke.ui.Launcher")
 }
 
 shadowJar {
     archiveBaseName = "duke"
-    archiveVersion = "v0.1"
+    archiveVersion = "v0.2"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

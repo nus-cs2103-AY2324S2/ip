@@ -44,6 +44,7 @@ public class Storage {
      */
     public String load() {
         String s;
+        assert pathFile != null : "Your file directory is missing!";
         try {
             List<String> read = Files.readAllLines(pathFile);
             List<Task> list = read.stream()
@@ -105,14 +106,18 @@ public class Storage {
      * @throws IOException If directory or file at the paths do not exist.
      */
     public String save(TaskList tl) throws IOException {
+        assert pathDir != null : "Your directory is missing!";
         // Create directory if it does not exist
         if (!Files.exists(pathDir)) {
             Files.createDirectories(pathDir);
         }
+
+        assert pathFile != null : "Your file directory is missing!";
         // Delete file if exists because we want to write fresh
         if (Files.exists(pathFile)) {
             Files.delete(pathFile);
         }
+        
         Files.createFile(pathFile);
         // Writing to the file
         writeToFile(pathFile, tl);
