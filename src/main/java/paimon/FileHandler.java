@@ -50,7 +50,19 @@ public class FileHandler {
     public static TaskList loadTaskList() {
         try {
             File dataFile = new File(FILE_PATH);
-            if (dataFile.exists()) {
+            File directory = new File(dataFile.getParent());
+            if (!directory.exists()) {
+                if (!directory.mkdir()) {
+                    System.out.println("Error occurred when trying to create new directory");
+                    return new TaskList();
+                }
+            }
+            if (!dataFile.exists()) {
+                if (!dataFile.createNewFile()) {
+                    System.out.println("Error occurred when trying to create new file");
+                }
+                return new TaskList();
+            } else {
                 Scanner s = new Scanner(dataFile);
                 TaskList newTaskList = new TaskList();
                 while (s.hasNextLine()) {
@@ -60,11 +72,7 @@ public class FileHandler {
                 }
                 s.close();
                 return newTaskList;
-            } else {
-                if (!dataFile.createNewFile()) {
-                    System.out.println("Error occurred when trying to create new file");
-                }
-                return new TaskList();
+
             }
         } catch (IOException e) {
             // Default behaviour is to return normal TaskList, and continue as normal
