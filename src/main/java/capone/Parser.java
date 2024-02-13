@@ -21,6 +21,7 @@ import capone.commands.ListCommand;
 import capone.commands.MarkCommand;
 import capone.commands.TodoCommand;
 import capone.commands.UnmarkCommand;
+import capone.exceptions.CaponeException;
 import capone.exceptions.InvalidDateException;
 import capone.exceptions.InvalidTimeException;
 
@@ -186,5 +187,50 @@ public class Parser {
         } catch (DateTimeException e) {
             throw new InvalidTimeException("Oops! You have entered an invalid time. Please try again.");
         }
+    }
+
+    /**
+     * Parses string inputs into a LocalDateTime object.
+     *
+     * @param startNdx Starting index of the string to be parsed.
+     * @param endNdx Ending index of the string to be parsed.
+     * @param inputList List of strings to be parsed.
+     * @return LocalDateTime object parsed from the input.
+     * @throws InvalidDateException If the input string is not a valid Date or Time.
+     */
+    public static LocalDateTime parseDateTime(int startNdx, int endNdx, ArrayList<String> inputList)
+            throws CaponeException {
+        LocalDate date = null;
+        LocalTime time = null;
+        for (int i = startNdx + 1; i < endNdx; i++) {
+            if (Parser.isDateFormat(inputList.get(i))) {
+                date = Parser.parseDate(inputList.get(i));
+            } else if (Parser.isTimeFormat(inputList.get(i))) {
+                time = Parser.parseTime(inputList.get(i));
+            } else {
+                throw new InvalidDateException("Oops! You have entered an invalid date. Please try again.");
+            }
+        }
+        return Parser.processDateTime(date, time);
+    }
+
+    /**
+     * Parses string inputs into a task description.
+     *
+     * @param startNdx Starting index of the string to be parsed.
+     * @param endNdx Ending index of the string to be parsed.
+     * @param inputList List of strings to be parsed.
+     * @return String description parsed from the input.
+     */
+    public static String parseDescription(int startNdx, int endNdx, ArrayList<String> inputList) {
+        StringBuilder description = new StringBuilder();
+        for (int i = startNdx; i < endNdx; i++) {
+            if (i == endNdx) {
+                description.append(inputList.get(i));
+                break;
+            }
+            description.append(inputList.get(i)).append(" ");
+        }
+        return description.toString();
     }
 }
