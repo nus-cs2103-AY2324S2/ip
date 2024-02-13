@@ -21,6 +21,17 @@ import pyrite.task.ToDo;
  * Parses user input and returns a Command.
  */
 public class Parser {
+
+    public static final String EMPTY_DESCRIPTION_ERROR_MESSAGE = "The description cannot be empty. "
+            + "Add the description after the command.";
+    public static final String MISSING_DEADLINE_ERROR_MESSAGE = "Incomplete command. Add deadline using '/by'.";
+    public static final String INVALID_DATETIME_FORMAT_ERROR_MESSAGE = "Invalid datetime format. Use yyyy-mm-ddThh:mm.";
+    public static final String MISSING_START_OR_END_DATETIME_ERROR_MESSAGE = "Incomplete Command. "
+            + "Add start and end dates using '/from' and '/to'.";
+    public static final String UNKNOWN_COMMAND_ERROR_MESSAGE = "Unknown command. "
+            + "Valid commands are 'todo', 'deadline', 'event', 'mark', 'unmark', 'delete',"
+            + " 'bye'";
+
     private static int parseID(String[] parameters) {
         int id;
         try {
@@ -94,7 +105,7 @@ public class Parser {
             );
             if (description.equals("")) {
                 return new UnknownCommand(commandString,
-                        "The description cannot be empty. Add the description after the command.");
+                        EMPTY_DESCRIPTION_ERROR_MESSAGE);
             }
             switch (commandType) {
             case "todo":
@@ -102,7 +113,7 @@ public class Parser {
             case "deadline":
                 if (byID == -1) {
                     return new UnknownCommand(commandString,
-                            "Incomplete pyrite.command.Command. Add deadline using '/by'.");
+                            MISSING_DEADLINE_ERROR_MESSAGE);
                 }
                 String byString = String.join("",
                         Arrays.copyOfRange(parameters,
@@ -113,13 +124,13 @@ public class Parser {
                     by = LocalDateTime.parse(byString);
                 } catch (DateTimeParseException e) {
                     return new UnknownCommand(commandString,
-                            "Invalid datetime format. Use yyyy-mm-ddThh:mm." + e);
+                            INVALID_DATETIME_FORMAT_ERROR_MESSAGE);
                 }
                 return new AddCommand(new Deadline(description, by));
             case "event":
                 if (fromID == -1 | toID == -1) {
                     return new UnknownCommand(commandString,
-                            "Incomplete pyrite.command.Command. Add start and end dates using '/from' and '/to'.");
+                            MISSING_START_OR_END_DATETIME_ERROR_MESSAGE);
                 }
                 String fromString;
                 String toString;
@@ -149,19 +160,16 @@ public class Parser {
                     end = LocalDateTime.parse(toString);
                 } catch (DateTimeParseException e) {
                     return new UnknownCommand(commandString,
-                            "\"Invalid datetime format. Use yyyy-mm-ddThh:mm.\"");
+                            INVALID_DATETIME_FORMAT_ERROR_MESSAGE);
                 }
                 return new AddCommand(new Event(description, start, end));
             default:
                 return new UnknownCommand(commandString,
-                        "Unknown command. "
-                                + "Valid commands are 'todo', 'deadline', 'event', 'mark', 'unmark', 'delete',"
-                                + " 'bye'");
+                        UNKNOWN_COMMAND_ERROR_MESSAGE);
             }
         default:
             return new UnknownCommand(commandString,
-                    "Unknown command. "
-                            + "Valid commands are 'todo', 'deadline', 'event', 'mark', 'unmark', 'delete', 'bye'");
+                    UNKNOWN_COMMAND_ERROR_MESSAGE);
         }
     }
 }
