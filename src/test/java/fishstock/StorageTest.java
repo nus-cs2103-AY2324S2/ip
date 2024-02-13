@@ -42,8 +42,8 @@ public class StorageTest {
         }
 
         try {
-            // Dates swapped
-            storage.loadTask("E|project meeting|1/1/1998 22:00|1/1/1998 13:00|1");
+            // Invalid date format
+            storage.loadTask("E|project meeting|1/1/98 22:00|1/1/1998 13|1");
             fail();
         } catch (Exception e) {
             assertEquals("File corrupted!... Starting new session...\n", e.getMessage());
