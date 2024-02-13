@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Stream;
 
 import earl.exceptions.EarlException;
@@ -44,16 +46,14 @@ public class Storage {
             if (isFolderMade || isFileMade) {
                 return Stream.empty();
             }
-            Stream<T> result = Files.lines(file.toPath())
-                    .map((str) -> {
-                        try {
-                            return parse.apply(str);
-                        } catch (EarlException e) {
-                            throw new RuntimeException(e.getMessage());
-                        }
-                    });
+            Scanner sc = new Scanner(file);
+            List<T> result = new ArrayList<>();
+            while (sc.hasNext()) {
+                String entry = sc.nextLine();
+                result.add(parse.apply(entry));
+            }
             wasLoadSuccessful = true;
-            return result;
+            return result.stream();
         } catch (Exception e) {
             return Stream.empty();
         }
@@ -80,7 +80,7 @@ public class Storage {
                             throw new UncheckedIOException(e);
                         }
                     });
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new EarlException("Fatal error while saving to storage.");
         }
     }
