@@ -1,6 +1,6 @@
-package main.java.task;
+package paimon.task;
 
-import main.java.ChatException;
+import paimon.ChatException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

@@ -1,7 +1,8 @@
-package main.java;
+package paimon;
 
-import main.java.task.Task;
-import main.java.task.TaskList;
+
+import paimon.task.Task;
+import paimon.task.TaskList;
 
 import java.util.Scanner;
 
@@ -52,7 +53,7 @@ public class UiHandler {
         sendMessage("Okay Traveller, I've added the following task!", task.getTask(), "You now have " + tasksLeft + " tasks remaining.");
     }
     public void deleteTaskResponse(int tasksLeft) {
-        sendMessage("Okay Traveller, I've added the task! You now have " + tasksLeft + " tasks remaining.");
+        sendMessage("Okay Traveller, I've deleted the task! You now have " + tasksLeft + " tasks remaining.");
     }
 
     public void markTaskResponse(Task task, boolean isDone) {

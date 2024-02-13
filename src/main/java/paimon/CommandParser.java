@@ -1,6 +1,6 @@
-package main.java;
+package paimon;
 
-import main.java.command.*;
+import paimon.command.*;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -95,7 +95,7 @@ public class CommandParser {
                     throw new ChatException("Input does not match expected format: delete <number>");
                 }
             default:
-                return null;
+                throw new ChatException("Command not found, type help for a list of commands");
         }
     }
 }

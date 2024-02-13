@@ -1,4 +1,4 @@
-package main.java.task;
+package paimon.task;
 import java.time.LocalDateTime;
 public class EventTask extends Task {
     private LocalDateTime startDate;
