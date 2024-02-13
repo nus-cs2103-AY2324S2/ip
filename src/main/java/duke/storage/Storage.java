@@ -16,6 +16,7 @@ public class Storage {
     private static final Path path = Paths.get("data", "duke.txt");
     /**
      * Loads the data from the file.
+     * If the file does not exist, a new file will be created.
      *
      * @return The data from the file.
      * @throws IOException If an error occurs while reading from the file.
@@ -36,12 +37,12 @@ public class Storage {
      * @throws IOException If an error occurs while writing to the file.
      */
     public void saveData(List<Task> todolist) throws IOException {
-        String entry;
         Path dirPath = java.nio.file.Paths.get("data");
         Path fullPath = dirPath.resolve("duke.txt");
         Files.createDirectories(dirPath);
 
         try (FileWriter fw = new FileWriter(fullPath.toString(), false)) {
+            String entry;
             for (Task t : todolist) {
                 entry = t.getDataString() + "\n";
                 fw.write(entry);
