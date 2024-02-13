@@ -34,6 +34,10 @@ public class Parser {
             response = parseIndexInput(tasks, ui, userInput, "delete");
         } else if (userInput.startsWith("find")) {
             response = parseFindInput(tasks, ui, userInput);
+        } else if (userInput.startsWith("tag")) {
+            response = parseTagInput(tasks, ui, userInput, "tag");
+        } else if (userInput.startsWith("untag")) {
+            response = parseTagInput(tasks, ui, userInput, "untag");
         } else if (userInput.startsWith("todo")) {
             response = parseToDoInput(tasks, ui, userInput);
         } else if (userInput.startsWith("deadline")) {
@@ -47,7 +51,7 @@ public class Parser {
     }
 
     /**
-     * Validates the user input for commands dealing with list indexes.
+     * Parses the user input for commands dealing with list indexes.
      *
      * @param tasks TaskList that is operated on when user command is executed.
      * @param ui Ui class used to print messages.
@@ -86,7 +90,7 @@ public class Parser {
     }
 
     /**
-     * Validates the user input for find command.
+     * Parses the user input for find command.
      *
      * @param tasks TaskList where keyword is to be searched.
      * @param ui Ui class used to print messages.
@@ -106,6 +110,40 @@ public class Parser {
         return ui.getListMessage(keywordTasks,
                 "Oops! Looks like there are no tasks matching the keyword!",
                 "Here are the meow-tching tasks in your list:\n");
+    }
+
+    /**
+     * Parses the user input for tag and untag command.
+     *
+     * @param tasks TaskList where task tags operations are performed.
+     * @param ui Ui class used to print messages.
+     * @param tagInput The user input for tag commands.
+     * @param command The specific tag command.
+     * @return String response of tag or untag command.
+     * @throws ToothlessException if input is invalid or wrong format.
+     */
+    public String parseTagInput(TaskList tasks, Ui ui, String tagInput, String command) throws ToothlessException {
+        if (!tagInput.matches("(tag|untag)\\s\\d+\\s[^/]+")) {
+            throw new ToothlessException(
+                    String.format("Sorry, purr-lease use the format: %s taskListIndex tagLabel", command));
+        }
+        String[] tagInputSplit = tagInput.strip().split("\\s+");
+        int listIndex = Integer.parseInt(tagInputSplit[1]);
+        // check if within list index
+        if (listIndex < 1 || listIndex > tasks.getSize()) {
+            throw new ToothlessException("Apurrlogies, there's no task at that index.");
+        }
+        // operate on tasklist according to command
+        switch (command) {
+        case "tag":
+            Task taggedTask = tasks.addTaskTag(listIndex, tagInputSplit[2]);
+            return ui.getTaggedTaskMessage(taggedTask);
+        case "untag":
+            Task untaggedTask = tasks.untagTask(listIndex, tagInputSplit[2]);
+            return ui.getUntaggedTaskMessage(untaggedTask);
+        default:
+            throw new ToothlessException("Sorry, I don't understand what that means D:");
+        }
     }
 
     /**

@@ -53,6 +53,26 @@ public class Ui {
     }
 
     /**
+     * Returns tagged task message.
+     *
+     * @param taggedTask Tagged Task to be printed.
+     * @return String message of Tagged task.
+     */
+    public String getTaggedTaskMessage(Task taggedTask) {
+        return "Ameowzing! I've tagged this task:\n" + taggedTask;
+    }
+
+    /**
+     * Returns untagged task message.
+     *
+     * @param untaggedTask Untagged Task to be printed.
+     * @return String message of untagged task.
+     */
+    public String getUntaggedTaskMessage(Task untaggedTask) {
+        return "OK, I've removed the tag for this task:\n" + untaggedTask;
+    }
+
+    /**
      * Prints the TaskList in order.
      *
      * @param taskArrayList The ArrayList of Tasks to be printed.

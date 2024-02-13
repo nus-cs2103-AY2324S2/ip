@@ -12,6 +12,7 @@ import java.util.Scanner;
 import toothless.exception.ToothlessException;
 import toothless.task.Deadline;
 import toothless.task.Event;
+import toothless.task.Tag;
 import toothless.task.Task;
 import toothless.task.ToDo;
 
@@ -75,20 +76,30 @@ public class Storage {
      */
     private void addTaskToTaskList(ArrayList<Task> tasks, String[] taskArgs) throws ToothlessException {
         try {
+            // get task type, done status, description
             String taskType = taskArgs[0];
             boolean isDone = taskArgs[1].equals("0") ? false : true;
             String taskDescription = taskArgs[2];
+            // get tags
+            ArrayList<Tag> tags = new ArrayList<>();
+            if (!taskArgs[3].contains("NIL") || taskArgs[3].isBlank()) {
+                String[] tagLabelsArray = taskArgs[3].split(", ");
+                for (String label : tagLabelsArray) {
+                    tags.add(new Tag(label));
+                }
+            }
+            // add tasks by type
             if (taskType.equals("T")) {
-                ToDo newToDo = new ToDo(taskDescription, isDone);
+                ToDo newToDo = new ToDo(taskDescription, isDone, tags);
                 tasks.add(newToDo);
             } else if (taskType.equals("D")) {
-                LocalDateTime deadlineBy = LocalDateTime.parse(taskArgs[3], DATETIME_PARSE_FORMATTER);
-                Deadline newDeadline = new Deadline(taskDescription, isDone, deadlineBy);
+                LocalDateTime deadlineBy = LocalDateTime.parse(taskArgs[4], DATETIME_PARSE_FORMATTER);
+                Deadline newDeadline = new Deadline(taskDescription, isDone, tags, deadlineBy);
                 tasks.add(newDeadline);
-            } else if (taskArgs[0].equals("E")) {
-                LocalDateTime eventFrom = LocalDateTime.parse(taskArgs[3], DATETIME_PARSE_FORMATTER);
-                LocalDateTime eventTo = LocalDateTime.parse(taskArgs[4], DATETIME_PARSE_FORMATTER);
-                Event newEvent = new Event(taskDescription, isDone, eventFrom, eventTo);
+            } else if (taskType.equals("E")) {
+                LocalDateTime eventFrom = LocalDateTime.parse(taskArgs[4], DATETIME_PARSE_FORMATTER);
+                LocalDateTime eventTo = LocalDateTime.parse(taskArgs[5], DATETIME_PARSE_FORMATTER);
+                Event newEvent = new Event(taskDescription, isDone, tags, eventFrom, eventTo);
                 tasks.add(newEvent);
             } else {
                 throw new ToothlessException("Sorry, tasklist.txt seems to contain a corrupted task type.");

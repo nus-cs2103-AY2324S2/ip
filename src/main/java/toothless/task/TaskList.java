@@ -106,6 +106,40 @@ public class TaskList {
     }
 
     /**
+     * Adds Tag to a Task in TaskList.
+     *
+     * @param index Integer index of task to add tag to.
+     * @param label String label of tag to add to task.
+     * @return Task with new tag added.
+     * @throws ToothlessException if task already has tag with same label.
+     */
+    public Task addTaskTag(int index, String label) throws ToothlessException {
+        assert index <= tasks.size() : "index should be less than or equal to size of tasks";
+        assert label != null : "label should not be null";
+        assert !label.isBlank() : "label should not be an empty string";
+        Task task = tasks.get(index - 1);
+        task.addTag(label);
+        return task;
+    }
+
+    /**
+     * Deletes Tag from a Task in TaskList.
+     *
+     * @param index Integer index of task to delete tag from.
+     * @param label String label of tag to delete from task.
+     * @return Task with tag deleted.
+     * @throws ToothlessException if task does not have tag with given label.
+     */
+    public Task untagTask(int index, String label) throws ToothlessException {
+        assert index <= tasks.size() : "index should be less than or equal to size of tasks";
+        assert label != null : "label should not be null";
+        assert !label.isBlank() : "label should not be an empty string";
+        Task task = tasks.get(index - 1);
+        task.unTag(label);
+        return task;
+    }
+
+    /**
      * Adds ToDo task to list.
      *
      * @param taskDescription String to describe the task.
