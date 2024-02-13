@@ -104,6 +104,8 @@ public class Parser {
             break;
         default:
             assert taskType != null || !taskType.isEmpty() : "Task type should be null or empty";
+            throw new DukeException("Invalid command. \n\t"
+                + formatStringInfo);
         }
     }
 
