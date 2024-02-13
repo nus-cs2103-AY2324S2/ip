@@ -1,8 +1,6 @@
 package capone.commands;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 import capone.Parser;
@@ -60,95 +58,35 @@ public class EventCommand extends Command {
                     + "Usage: event [description] /from [date] /to [date]");
         }
 
+        // The index of the word that is not found in a list would be -1.
+        final int COMMAND_NOT_FOUND = -1;
+        // The index of the words that is last of the list.
+        final int LAST_WORD = inputList.size() - 1;
         // Catch potential errors from date entry.
-        if (fromNdx == -1 || toNdx == -1 || toNdx - fromNdx == 1 || fromNdx - toNdx == 1
-                || fromNdx == inputList.size() - 1 || toNdx == inputList.size() - 1) {
+        if (fromNdx == COMMAND_NOT_FOUND || fromNdx == LAST_WORD || toNdx == LAST_WORD) {
             throw new InsufficientArgumentException("Please enter a start and end date!\n"
                     + "Usage: event [description] /from [date] /to [date]");
         }
 
-        // Combine the task description into a single string.
-        StringBuilder description = new StringBuilder();
-        for (int i = 1; i < fromNdx; i++) {
-            if (i == fromNdx - 1) {
-                description.append(inputList.get(i));
-                break;
-            }
-            description.append(inputList.get(i)).append(" ");
-        }
+        // The starting index of the words that contain the description.
+        final int STARTING_NDX_DESCRIPTION = 1;
+        // The ending index of the words that contain the description.
+        final int ENDING_NDX_DESCRIPTION = fromNdx;
+        String description = Parser.parseDescription(STARTING_NDX_DESCRIPTION, ENDING_NDX_DESCRIPTION, inputList);
 
-        if (description.toString().equalsIgnoreCase("")) {
+        if (description.equalsIgnoreCase("")) {
             throw new InsufficientArgumentException("Insufficient arguments!\n"
                     + "Usage: event [description] /from [date] /to [date]");
         }
 
-        LocalDate fromDate = null;
-        LocalTime fromTime = null;
-        // Process input for the deadline (i.e. after the /by command).
-        StringBuilder fromDateString = new StringBuilder();
-        for (int i = fromNdx + 1; i < toNdx; i++) {
-            if (Parser.isDateFormat(inputList.get(i))) {
-                fromDate = Parser.parseDate(inputList.get(i));
-                continue;
-            }
+        LocalDateTime fromDateTime = Parser.parseDateTime(fromNdx + 1, toNdx, inputList);
+        LocalDateTime toDateTime = Parser.parseDateTime(toNdx + 1, inputList.size(), inputList);
 
-            if (Parser.isTimeFormat(inputList.get(i))) {
-                fromTime = Parser.parseTime(inputList.get(i));
-                continue;
-            }
+        assert (fromDateTime != null) && (toDateTime != null) : "/from and /to DateTime should not be null";
 
-            // If this is the last word to be added.
-            if (i == inputList.size() - 1) {
-                fromDateString.append(inputList.get(i));
-            } else {
-                fromDateString.append(inputList.get(i)).append(" ");
-            }
-        }
-
-        LocalDate toDate = null;
-        LocalTime toTime = null;
-        // Process input for the deadline (i.e. after the /by command).
-        StringBuilder toDateString = new StringBuilder();
-        for (int i = toNdx + 1; i < inputList.size(); i++) {
-            if (Parser.isDateFormat(inputList.get(i))) {
-                toDate = Parser.parseDate(inputList.get(i));
-                continue;
-            }
-
-            if (Parser.isTimeFormat(inputList.get(i))) {
-                toTime = Parser.parseTime(inputList.get(i));
-                continue;
-            }
-
-            // If this is the last word to be added, don't add trailing whitespace.
-            if (i == inputList.size() - 1) {
-                toDateString.append(inputList.get(i));
-            } else {
-                toDateString.append(inputList.get(i)).append(" ");
-            }
-        }
-
-        LocalDateTime fromDateTime = Parser.processDateTime(fromDate, fromTime);
-        LocalDateTime toDateTime = Parser.processDateTime(toDate, toTime);
-
-        // If user entered both valid date and time.
-        if (fromDateTime != null && toDateTime != null) {
-            taskList.addTask(new Event(description.toString(), false, fromDateTime, toDateTime));
-        } else if (fromDateTime != null || toDateTime != null) {
-            // If either fromDateTime or toDateTime is null but the other is not.
-            throw new InvalidCommandException("Oops! It seems like there is a format mismatch between"
-                    + "your start and dates and end dates.\nMake sure you enter both of them in the accepted "
-                    + "date format!\nAlternatively, you can specify a string for both your start and end dates.\n"
-                    + "Use the 'help' command for more information.");
-        } else {
-            assert (fromDateTime != null) && (toDateTime != null) : "User has at least one valid date entry."
-                    + "String entry should not be created for this task.";
-            taskList.addTask(new Event(description.toString(), false,
-                    fromDateString.toString(), toDateString.toString()));
-        }
+        taskList.addTask(new Event(description.toString(), false, fromDateTime, toDateTime));
 
         storage.writeTasksToJsonFile(taskList);
-
         return ui.sendEvent(taskList);
     }
 }
