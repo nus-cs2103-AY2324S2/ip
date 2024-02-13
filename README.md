@@ -19,11 +19,8 @@ And it is **FREE**!
 
 - [X] Managing tasks
 - [X] Managing deadlines 
-- [X]Managing events
+- [X] Managing events
 - [ ] Reminders (coming soon)
-
-> [!NOTE]
-> If you are a Java programmer, you can use it to practice Java too.
 
 If you are a Java programmer, you can use it to practice Java too. Here's the 'main' method::
 ```
