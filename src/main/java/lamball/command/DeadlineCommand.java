@@ -1,11 +1,15 @@
 package lamball.command;
 
+import java.util.Objects;
+
 import lamball.TaskList;
+
 
 /**
  * Command that creates a deadline.
  */
 public class DeadlineCommand extends Command {
+    private static final int MINIMUM_ARG_COUNT = 2;
     private TaskList taskList;
     private String[] args;
     private boolean isInit;
@@ -25,6 +29,9 @@ public class DeadlineCommand extends Command {
 
     @Override
     public boolean run() {
+        assert (!Objects.isNull(this.args)) : "Arguments should not be null";
+        assert this.args.length >= MINIMUM_ARG_COUNT : "There should be at least the minimum argument count";
+
         taskList.deadline(args, isInit);
         return true;
     }

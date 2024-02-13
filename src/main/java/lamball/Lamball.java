@@ -209,7 +209,7 @@ public class Lamball extends Application {
         } catch (LamballParseException e) {
             response = ui.displayError(e);
         }
-
+        assert response != "" : "response should not be empty";
         return response;
     }
 }

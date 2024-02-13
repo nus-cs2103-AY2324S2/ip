@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 
@@ -58,11 +59,15 @@ public class Storage {
             returnVal += errorMessage;
             return returnVal;
         }
+
+        assert returnVal != "" : "return value should not be empty";
         return returnVal;
     }
 
     private static void initializeListFromText(File savedList, Lamball lamb) throws FileNotFoundException {
         File tempFile = new File(tempFilePath);
+        assert (!Objects.isNull(tempFile)) : "there should be a file created";
+
         try {
             // Delete and creates a new tempfile
             tempFile.delete();
@@ -86,6 +91,7 @@ public class Storage {
                 count++;
                 // Marks task if first character is 1. Else does not.
                 if (Integer.valueOf(parts[0]) == 1) {
+                    assert count > 0 : "count should be a non-negative, non-zero value";
                     lamb.initParse("mark " + count);
                 }
                 // If code reaches here, means that the line is valid - write to temp file

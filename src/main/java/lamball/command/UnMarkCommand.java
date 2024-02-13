@@ -22,6 +22,9 @@ public class UnMarkCommand extends Command {
 
     @Override
     public boolean run() {
+        assert idx > 0 : "index should be non-negative and non-zero";
+        assert idx <= taskList.size() : "index should be within the bound of task list";
+
         taskList.unMark(idx);
         return true;
     }

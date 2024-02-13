@@ -25,6 +25,9 @@ public class MarkCommand extends Command {
 
     @Override
     public boolean run() {
+        assert idx > 0 : "index should be non-negative and non-zero";
+        assert idx <= taskList.size() : "index should be within the bound of task list";
+
         taskList.mark(idx, this.isInit);
         return true;
     }
