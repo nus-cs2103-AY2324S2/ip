@@ -9,7 +9,6 @@ import pyrite.task.Task;
  * Stores a list of tasks.
  */
 public class TaskList implements Serializable {
-    private ArrayList<Task> list = new ArrayList<>();
 
     /**
      * Returns index of a given task.
@@ -67,10 +66,10 @@ public class TaskList implements Serializable {
      */
     public String filteredString(String keyword) {
         String output = "";
-        for (Task t : this.list) {
+        for (Task t : this.tasks) {
             if (t.toString().contains(keyword)) {
-                output += (this.list.indexOf(t) + 1) + ". " + t.toString();
-                if (this.list.indexOf(t) == this.list.size() - 1) {
+                output += (this.tasks.indexOf(t) + 1) + ". " + t.toString();
+                if (this.tasks.indexOf(t) == this.tasks.size() - 1) {
                     break;
                 }
                 output += "\n";
