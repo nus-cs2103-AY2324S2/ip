@@ -139,9 +139,10 @@ public class TaskList {
     public TaskList findTasks(String keyword) {
         TaskList matchingTasks = new TaskList();
         for (Task t : this.tasks) {
-            if (t.getDescription().contains(keyword)) {
-                matchingTasks.addTask(t);
+            if (!t.getDescription().contains(keyword)) {
+                continue;
             }
+            matchingTasks.addTask(t);
         }
         return matchingTasks;
     }
