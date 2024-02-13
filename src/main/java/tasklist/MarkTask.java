@@ -13,7 +13,8 @@ public class MarkTask {
      * No constructor needed
      */
     private MarkTask() {
-        throw new AssertionError("Constructor is not allowed");
+        //throw new AssertionError("Constructor is not allowed");
+        assert false : "Execution should never reach this point!";
     }
 
     /**

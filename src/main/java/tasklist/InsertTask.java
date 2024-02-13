@@ -23,7 +23,8 @@ public class InsertTask {
      * No constructor needed
      */
     private InsertTask() {
-        throw new AssertionError("Constructor is not allowed");
+        // throw new AssertionError("Constructor is not allowed");
+        assert false : "Execution should never reach this point!";
     }
 
     /**
