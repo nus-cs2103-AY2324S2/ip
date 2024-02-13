@@ -43,4 +43,18 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof Event)) {
+            return false;
+        }
+        Event other = (Event) o;
+        return other.description.equals(this.description)
+                && other.from.equals(this.from)
+                && other.to.equals(this.to);
+    }
 }
