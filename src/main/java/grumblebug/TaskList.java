@@ -2,6 +2,7 @@ package grumblebug;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class TaskList {
     private ArrayList<Task> list;
@@ -60,11 +61,14 @@ public class TaskList {
         }
     }
 
-    public String findMatches(String key) {
+    public String findMatches(String query) {
         StringBuilder matchesBuilder = new StringBuilder("Okay, here... \n");
+        String[] queryTerms = query.split(" ");
         for (int i = 1; i <= this.size(); i++) {
-            if (this.get(i).description.contains(key)) {
-                matchesBuilder.append(i + this.get(i).description + "\n");
+            boolean anyMatches = Arrays.stream(queryTerms)
+                    .anyMatch(this.get(i).description::contains);
+            if (anyMatches) {
+                matchesBuilder.append(i + this.get(i).getFullStatus() + "\n");
             }
             assert matchesBuilder.length() <= this.size();
         }
