@@ -6,6 +6,7 @@ package toothless.exception;
 public class ToothlessException extends Exception {
     /**
      * A public constructor to initialize the exception.
+     *
      * @param message The message for the exception to be thrown.
      */
     public ToothlessException(String message) {

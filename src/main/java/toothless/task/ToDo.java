@@ -6,6 +6,7 @@ package toothless.task;
 public class ToDo extends Task {
     /**
      * A public constructor to initialize a new ToDo.
+     *
      * @param description A String to describe the task.
      */
     public ToDo(String description) {
@@ -14,6 +15,7 @@ public class ToDo extends Task {
 
     /**
      * A public constructor to initialize a ToDo with an isDone value.
+     *
      * @param description A String to describe the task.
      * @param isDone A Boolean to describe if the task is done.
      */

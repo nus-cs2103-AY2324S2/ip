@@ -22,7 +22,7 @@ public class TaskListTest {
             fail();
         } catch (Exception e) {
             assertEquals("Sorry, /from and /to field datetime should use the following format: "
-                    + "[yyyy-mm-dd hh:mm].", e.getMessage());
+                    + "yyyy-mm-dd hh:mm", e.getMessage());
         }
     }
 }
