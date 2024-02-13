@@ -57,7 +57,7 @@ public class BotChat {
             return tasks.findTasks(input);
         case HELP:
             showHelpWindow();
-            return "";
+            return "See help window!";
         case UNKNOWN:
             throw new BotChatException("Sorry, I do not understand that command. Please try again.");
         default:
