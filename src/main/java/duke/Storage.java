@@ -59,22 +59,13 @@ public class Storage {
 
                 if (cmd.equals("D")) {
                     Deadline dl = new Deadline(taskInput[2], taskInput[3]);
-                    if (taskInput[1].equals("1")) {
-                        dl.markAsDone();
-                    }
-                    tasks.addTask(dl);
+                    tasks.addTask(dl, taskInput[1].equals("1"));
                 } else if (cmd.equals("E")) {
                     Event evt = new Event(taskInput[2], taskInput[3], taskInput[4]);
-                    if (taskInput[1].equals("1")) {
-                        evt.markAsDone();
-                    }
-                    tasks.addTask(evt);
+                    tasks.addTask(evt, taskInput[1].equals("1"));
                 } else if (cmd.equals("T")) {
                     Todo td = new Todo(taskInput[2]);
-                    if (taskInput[1].equals("1")) {
-                        td.markAsDone();
-                    }
-                    tasks.addTask(td);
+                    tasks.addTask(td, taskInput[1].equals("1"));
                 } else {
                     throw new DukeException("Task unable to be loaded; Task type not found");
                 }
