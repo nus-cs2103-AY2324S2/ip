@@ -1,8 +1,5 @@
 package cro;
 
-/**
- * Represents the chatbot, Cro. Cro consists of a task list, a storage, and an ui to help you track your tasks.
- */
 public class Cro {
 
     public TaskList taskList;
@@ -18,10 +15,6 @@ public class Cro {
             taskList = new TaskList();
         }
     }
-
-    /**
-     * Returns nothing. Continuously reads the input from the user and parses it through the UI.
-     */
     public void run() {
         while (ui.reading()) {
         }

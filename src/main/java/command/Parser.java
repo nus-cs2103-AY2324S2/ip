@@ -10,28 +10,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- * Representation of a Parser to handle user input in the program.
- */
 public class Parser {
 
     Scanner scanner = new Scanner(System.in);
     DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy M d HH mm");
 
-    /**
-     * Constructor for a Parser object.
-     */
     public Parser() {
     }
 
-    /**
-     * Returns a List that specifies a Deadline task. This function parses the deadline in user
-     * input from [yyyy MM dd hh mm] to a common format for saving and reading within the
-     * program.
-     * @param splitStr A list of strings from the user's inputs that describes a Deadline.
-     * @return A list of strings that describes a Deadline with standardised time format.
-     * @throws CroException If any specifications of the deadline is missing.
-     */
     public List<String> convertDateDeadline(List<String> splitStr) throws CroException {
         int byIndex = splitStr.indexOf("/by");
         if (byIndex < 0) {
@@ -43,14 +29,6 @@ public class Parser {
         splitStr.add(time.toString());
         return splitStr;
     }
-    /**
-     * Returns a List that specifies an Event task. This function parses the deadline in user
-     * input from [yyyy MM dd hh mm] to a common format for saving and reading within the
-     * program.
-     * @param splitStr A list of strings from the user's inputs that describes an Event.
-     * @return A list of strings that describes a Deadline with standardised time format.
-     * @throws CroException If any specifications of the event is missing.
-     */
     public List<String> convertDateEvent(List<String> splitStr) throws CroException {
         int fromIndex = splitStr.indexOf("/from");
         int toIndex = splitStr.indexOf("/to");
@@ -69,12 +47,6 @@ public class Parser {
 
         return splitStr;
     }
-
-    /**
-     * Returns a boolean to indicate if the program is still accepting inputs.
-     * @param cro The chatbot that the Parser is parsing from.
-     * @return True if continuing to accept input, else False.
-     */
     public boolean handleInput(Cro cro) {
         String inText = scanner.nextLine();
         List<String> splitStr = new ArrayList<>(Arrays.asList(inText.trim().split("\\s+")));
