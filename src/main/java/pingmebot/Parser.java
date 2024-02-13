@@ -25,7 +25,7 @@ public class Parser {
      *
      * @param userInput User's inputs.
      */
-    public Parser (String userInput){
+    public Parser (String userInput) {
         this.userInput = userInput;
         this.words = new ArrayList<>(Arrays.asList(userInput.split(" ")));
     }
