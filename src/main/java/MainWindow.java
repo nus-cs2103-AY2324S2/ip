@@ -12,9 +12,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-
 /**
- * Controller for MainWindow. Provides the layout for the other controls.
+ * Controller class for the main window of the application. This class manages the layout and interaction
+ * of various GUI elements such as dialog containers, text fields, buttons, and scroll panes.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -33,6 +33,10 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Initializes the controller after its root element has been completely processed. This method is
+     * automatically called by the JavaFX framework after the FXML file has been loaded.
+     */
     @FXML
     public void initialize() {
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
@@ -40,10 +44,20 @@ public class MainWindow extends AnchorPane {
         sayHello();
     }
 
+    /**
+     * Sets the Ypxmm instance for this controller. This allows the controller to interact with the
+     * underlying logic and respond to user inputs appropriately.
+     * @param y The Ypxmm instance to be set.
+     */
     public void setYpxmm(Ypxmm y) {
         ypxmm = y;
     }
 
+    /**
+     * Sets the stage for this controller. The stage is necessary for certain operations such as closing
+     * the application window.
+     * @param stage The Stage instance to be set.
+     */
     public void setStage(Stage stage) {
         this.stage = stage;
     }
