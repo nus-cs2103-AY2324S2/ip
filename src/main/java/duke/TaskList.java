@@ -47,6 +47,10 @@ public class TaskList {
         }
     }
 
+    private void validateIndex(int index) {
+        assert index >= 0 && index < l.size() : "Index out of bounds";
+    }
+
 
     /**
      * Adds a new Event task to the task list.
@@ -166,7 +170,7 @@ public class TaskList {
      * @throws IOException If there is an error saving the updated task list to storage.
      */
     public String markTask(int index) throws IOException {
-        assert index >= 0 && index < l.size();
+        validateIndex(index);
         if (index >= 0 && index < l.size()) {
             Task task = l.get(index);
             task.markDone();
@@ -184,7 +188,7 @@ public class TaskList {
      * @throws IOException If there is an error saving the updated task list to storage.
      */
     public String unmarkTask(int index) throws IOException {
-        assert index >= 0 && index < l.size();
+        validateIndex(index);
         if (index >= 0 && index < l.size()) {
             Task task = l.get(index);
             task.mark_not_done();
