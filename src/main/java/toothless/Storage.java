@@ -57,6 +57,7 @@ public class Storage {
                     task = new Event(storedTask[2], storedTask[3], storedTask[4], storedTask[1].equals("1"));
                     break;
                 default:
+                    assert false : storedTask[0];
                     throw new ToothlessException("File corrupted O_O. Try again later.");
                 }
                 list.add(task);
