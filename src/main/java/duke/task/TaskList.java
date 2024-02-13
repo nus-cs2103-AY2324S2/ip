@@ -73,10 +73,12 @@ public class TaskList {
     /**
      * Lists all tasks stored in tasklist
      */
-    public void listTask() {
+    public String listTask() {
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasksCount; i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i).getDescription());
+            sb.append(i + 1).append(". ").append(tasks.get(i).getDescription()).append("\n");
         }
+        return sb.toString();
     }
 
     /**
@@ -94,19 +96,25 @@ public class TaskList {
      *
      * @param keyword User-specified keyword
      */
-    public void findTasks(String keyword) {
+    public String findTasks(String keyword) {
+        StringBuilder sb = new StringBuilder();
         ArrayList<Task> foundTasks = new ArrayList<>();
 
+        // Search for tasks containing the keyword
         for (Task task : tasks) {
             if (task.getInitialDesc().toLowerCase().contains(keyword.toLowerCase())) {
                 foundTasks.add(task);
             }
         }
 
+        // Build the string of found tasks
         for (int i = 0; i < foundTasks.size(); i++) {
-            System.out.println((i + 1) + ". " + foundTasks.get(i).getDescription());
+            sb.append(i + 1).append(". ").append(foundTasks.get(i).getDescription()).append("\n");
         }
+
+        return sb.toString();
     }
+
 
     public String getTaskDescription(int num) {
         return tasks.get(num).getDescription();
