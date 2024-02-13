@@ -24,7 +24,7 @@ public class TaskList {
      * @param i
      */
     public void delete(int i) {
-            tasks.remove(Integer.valueOf(i) - 1);
+        tasks.remove(Integer.valueOf(i) - 1);
     }
 
     /**
@@ -54,9 +54,4 @@ public class TaskList {
         return this.tasks.get(i - 1);
     }
 
-    /**
-     * Checks if a task exists in the list given an index when isValid(index) is called.
-     * @param i
-     * @return
-     */
 }
