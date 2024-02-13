@@ -69,6 +69,8 @@ public class Duke {
     public String getResponse(String fullCommand) throws DukeException {
         Command command = Parser.parse(fullCommand);
 
+        assert command != null : "Command must not be null";
+
         if (command.isExit()) {
             Platform.exit();
         }
