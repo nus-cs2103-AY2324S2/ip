@@ -44,6 +44,7 @@ public class FileParser {
         while (scanner.hasNext()) {
             String s = scanner.nextLine();
             String[] parts = s.split(separator);
+            // The first part of the line in the data file will indicate which task type it is.
             switch (parts[0]) {
             case "T":
                 assert parts.length == 3 : "Todo task creation should have 3 parts";

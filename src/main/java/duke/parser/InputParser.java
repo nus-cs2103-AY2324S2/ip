@@ -49,9 +49,11 @@ public class InputParser {
         String[] parts = input.split("\\s+");
         int taskNum = Integer.parseInt(parts[1]) - 1;
         assert taskNum >= 0 : "Task number should at least 1.";
+
         if (taskNum >= tasks.size()) {
             throw new InvalidInputException(TextTemplate.TASK_DOES_NOT_EXIST);
         }
+
         Task t = tasks.markTask(taskNum);
         return TextTemplate.MARK_TASK + "\n" + t.toString();
     }
@@ -60,9 +62,11 @@ public class InputParser {
         String[] parts = input.split("\\s+", 2);
         int taskNum = Integer.parseInt(parts[1]) - 1;
         assert taskNum >= 0 : "Task number should at least 1.";
+
         if (taskNum >= tasks.size()) {
             throw new InvalidInputException(TextTemplate.TASK_DOES_NOT_EXIST);
         }
+
         Task t = tasks.unmarkTask(taskNum);
         return TextTemplate.UNMARK_TASK + "\n" + t.toString();
     }
@@ -71,14 +75,17 @@ public class InputParser {
         String[] parts = input.split("\\s+", 2);
         int taskNum = Integer.parseInt(parts[1]) - 1;
         assert taskNum >= 0 : "Task number should at least 1.";
+
         if (taskNum >= tasks.size()) {
             throw new InvalidInputException(TextTemplate.TASK_DOES_NOT_EXIST);
         }
+
         Task t = tasks.remove(taskNum);
         return TextTemplate.DELETE_TASK + "\n" + t.toString();
     }
 
     private String addTodo(String input, TaskList tasks) {
+        // 1 split to split "todo task 1" into: todo, task1.
         String[] parts = input.split(" ", 2);
         TodoTask todo = new TodoTask(parts[1]);
         tasks.add(todo);
@@ -88,13 +95,15 @@ public class InputParser {
     }
 
     private String addEvent(String input, TaskList tasks) {
+        // 3 splits are necessary to split "event task 1 /from 2024-01-01 1600 /to 2024-01-02 1600" into:
+        // event, task 1, 2024-01-01 1600, 2024-01-02 1600.
         String[] parts = input.split(" /from ", 2);
         String desc = parts[0].split(" ", 2)[1];
         String[] duration = parts[1].split(" /to ", 2);
         assert duration.length == 2: "Event tasks should specify from and start time.";
+
         LocalDateTime start;
         LocalDateTime end;
-
         try {
             start = parseDateTime(duration[0]);
             end = parseDateTime(duration[1]);
@@ -110,12 +119,14 @@ public class InputParser {
     }
 
     private String addDeadline(String s, TaskList tasks) {
+        // 2 splits are necessary to split "deadline task 1 /by 2024-01-01 1600" into:
+        // deadline, task 1, 2024-01-01 1600.
         String[] parts = s.split(" /by ", 2);
         String[] firstPart = parts[0].split(" ", 2);
         String desc = firstPart[1];
         String end = parts[1];
-        LocalDateTime deadlineTime;
 
+        LocalDateTime deadlineTime;
         try {
             deadlineTime = parseDateTime(end);
         } catch (InvalidDateFormException e) {
@@ -137,14 +148,11 @@ public class InputParser {
     }
 
     private static LocalDateTime parseDateTime(String input) throws InvalidDateFormException {
-        // Parse the end string into LocalDateTime
         LocalDateTime dateTime;
         try {
             if (input.length() == 10) {
-                // If the end string is in the format yyyy-mm-dd
                 dateTime = LocalDateTime.parse(input + "T00:00:00");
             } else {
-                // If the end string is in the format yyyy-mm-dd HHmm
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
                 dateTime = LocalDateTime.parse(input, formatter);
             }
