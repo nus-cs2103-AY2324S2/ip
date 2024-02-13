@@ -31,8 +31,8 @@ public class Awex {
         System.out.println("  2. mark <task number>");
         System.out.println("  3. unmark <task number>");
         System.out.println("  4. todo <task>");
-        System.out.println("  5. deadline <task> /by <deadline>");
-        System.out.println("  6. event <task> /from <start> /to <end>");
+        System.out.println("  5. deadline <task> /by <YYYY-MM-DD hh:mm>");
+        System.out.println("  6. event <task> /from <YYYY-MM-DD hh:mm> /to <YYYY-MM-DD hh:mm>");
         System.out.println("  7. delete <task number>");
         System.out.println("Type 'bye' to exit.");
     }
@@ -110,17 +110,17 @@ public class Awex {
                     } else if (arr[0].equals("deadline")) {
                         String[] array = next.split("/");
                         if (array.length != 2) {
-                            System.out.println("Format should be 'deadline <task> /by <deadline>'");
+                            System.out.println("Format should be 'deadline <task> /by <YYYY-MM-DD hh:mm>'");
                             continue;
                         }
-                        t = DeadlineTask.of(arr);
+                        t = DeadlineTask.of(arr[1]);
                     } else if (arr[0].equals("event")){
                         String[] array = next.split("/");
                         if (array.length != 3) {
-                            System.out.println("Format should be 'event <task> /from <start> /to <end>'");
+                            System.out.println("Format should be 'event <task> /from <YYYY-MM-DD hh:mm> /to <YYYY-MM-DD hh:mm>'");
                             continue;
                         }
-                        t = EventTask.of(arr);
+                        t = EventTask.of(arr[1]);
                     } else {
                         message();
                         continue;

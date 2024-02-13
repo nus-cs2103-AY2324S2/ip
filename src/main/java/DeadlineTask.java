@@ -1,6 +1,7 @@
+import java.time.LocalDateTime;
+
 public class DeadlineTask extends Task {
-    private String type;
-    private String deadline;
+    private LocalDateTime deadline;
 
     /**
      * Constructor for Task object of type "deadline".
@@ -10,21 +11,21 @@ public class DeadlineTask extends Task {
      * @param deadline deadline of task
      */
     public DeadlineTask(String what, String status, String deadline) {
-        super(what, status);
-        this.type = "[D]";
-        this.deadline = deadline;
+        super(what, status, "[D]");
+        String[] arr = deadline.split(" ");
+        this.deadline = LocalDateTime.parse(arr[0] + "T" + arr[1] + ":00");
     }
 
     /**
      * Factory method for DeadlineTask object
      *
-     * @param arr String array with task details
+     * @param str String array with task details
      * @return DeadlineTask object with task details in fields
      */
-    public static DeadlineTask of(String[] arr) {
-        String[] hasWhat = arr[1].split("/", 2);
-        String[] hasTime = hasWhat[1].split(" ", 2);
-        return new DeadlineTask(hasWhat[0], "f", hasTime[1]);
+    public static DeadlineTask of(String str) {
+        String[] hasWhat = str.split("/", 2);
+        String[] hasWhen = hasWhat[1].split(" ", 2);
+        return new DeadlineTask(hasWhat[0], "f", hasWhen[1]);
     }
 
     /**
@@ -33,7 +34,8 @@ public class DeadlineTask extends Task {
      * @return string of task type, marked/unmarked status, description and deadline
      */
     public String showAll() {
-        return this.type + super.showAll() + "(by: " + this.deadline + ")";
+        String[] arr = this.deadline.toString().split("T");
+        return super.showAll() + "(by: " + arr[0] + " " + arr[1] + ")";
     }
 
     /**
@@ -43,6 +45,7 @@ public class DeadlineTask extends Task {
      */
     @Override
     public String toString() {
-        return "D / " + super.toString() + " / " + this.deadline;
+        String[] arr = this.deadline.toString().split("T");
+        return "D / " + super.toString() + " / " + arr[0] + " " + arr[1];
     }
 }

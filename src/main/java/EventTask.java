@@ -1,7 +1,9 @@
+import java.time.LocalDateTime;
+
 public class EventTask extends Task {
     private String type;
-    private String start;
-    private String end;
+    private LocalDateTime start;
+    private LocalDateTime end;
 
     /**
      * Constructor for EventTask object of type "event".
@@ -12,20 +14,21 @@ public class EventTask extends Task {
      * @param end end time of task
      */
     public EventTask(String what, String status, String start, String end) {
-        super(what, status);
-        this.type = "[E]";
-        this.start = start;
-        this.end = end;
+        super(what, status, "[E]");
+        String[] startArr = start.split(" ");
+        String[] endArr = end.split(" ");
+        this.start = LocalDateTime.parse(startArr[0] + "T" + startArr[1] + ":00");
+        this.end = LocalDateTime.parse(endArr[0] + "T" + endArr[1] + ":00");
     }
 
     /**
      * Factory method for EventTask object
      *
-     * @param arr String array with task details
+     * @param str String array with task details
      * @return EventTask object with task details in fields
      */
-    public static EventTask of(String[] arr) {
-        String[] hasWhat = arr[1].split("/", 2);
+    public static EventTask of(String str) {
+        String[] hasWhat = str.split("/", 2);
         String[] hasTimes = hasWhat[1].split("/", 2);
         String[] hasStart = hasTimes[0].split(" ", 2);
         String[] hasEnd = hasTimes[1].split(" ", 2);
@@ -38,8 +41,11 @@ public class EventTask extends Task {
      * @return string of task type, marked/unmarked status, description, and start and end times.
      */
     public String showAll() {
-        return this.type + super.showAll()
-                + "(from: " + this.start + " to: " + this.end + ")";
+        String[] startArr = this.start.toString().split("T");
+        String[] endArr = this.end.toString().split("T");
+        return super.showAll()
+                + "(from: " + startArr[0] + " " + startArr[1]
+                + " to: " + endArr[0] + " " + endArr[1] + ")";
     }
 
     /**
@@ -49,6 +55,10 @@ public class EventTask extends Task {
      */
     @Override
     public String toString() {
-        return "E / " + super.toString() + " / " + this.start + " / " + this.end;
+        String[] startArr = this.start.toString().split("T");
+        String[] endArr = this.end.toString().split("T");
+        return "E / " + super.toString()
+                + " / " + startArr[0] + " " + startArr[1]
+                + " / " + endArr[0] + " " + endArr[1];
     }
 }
