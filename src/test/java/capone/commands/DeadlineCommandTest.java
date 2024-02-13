@@ -15,7 +15,6 @@ import capone.TaskList;
 import capone.exceptions.CaponeException;
 import capone.exceptions.InsufficientArgumentException;
 import capone.ui.Ui;
-import capone.ui.cli.Cli;
 
 /**
  * Test class for the DeadlineCommand.
@@ -35,7 +34,7 @@ public class DeadlineCommandTest {
     public void initializeComponents() {
         this.storage = new Storage("./data/", "test.json");
         this.taskList = new TaskList();
-        this.ui = new Cli();
+        this.ui = new Ui();
         System.setOut(new PrintStream(stdoutMsg));
     }
 

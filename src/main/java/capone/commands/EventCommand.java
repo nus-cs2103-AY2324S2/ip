@@ -120,7 +120,7 @@ public class EventCommand extends Command {
                 continue;
             }
 
-            // If this is the last word to be added.
+            // If this is the last word to be added, don't add trailing whitespace.
             if (i == inputList.size() - 1) {
                 toDateString.append(inputList.get(i));
             } else {
@@ -131,6 +131,7 @@ public class EventCommand extends Command {
         LocalDateTime fromDateTime = Parser.processDateTime(fromDate, fromTime);
         LocalDateTime toDateTime = Parser.processDateTime(toDate, toTime);
 
+        // If user entered both valid date and time.
         if (fromDateTime != null && toDateTime != null) {
             taskList.addTask(new Event(description.toString(), false, fromDateTime, toDateTime));
         } else if (fromDateTime != null || toDateTime != null) {
@@ -140,6 +141,8 @@ public class EventCommand extends Command {
                     + "date format!\nAlternatively, you can specify a string for both your start and end dates.\n"
                     + "Use the 'help' command for more information.");
         } else {
+            assert (fromDateTime != null) && (toDateTime != null) : "User has at least one valid date entry."
+                    + "String entry should not be created for this task.";
             taskList.addTask(new Event(description.toString(), false,
                     fromDateString.toString(), toDateString.toString()));
         }

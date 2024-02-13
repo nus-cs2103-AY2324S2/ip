@@ -47,7 +47,7 @@ test {
 }
 
 application {
-    mainClass.set("capone.Capone")
+    mainClass.set("capone.ui.gui.Launcher")
 }
 
 shadowJar {
@@ -58,4 +58,5 @@ shadowJar {
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }
