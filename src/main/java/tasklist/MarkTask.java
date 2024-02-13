@@ -13,8 +13,8 @@ public class MarkTask {
      * No constructor needed
      */
     private MarkTask() {
-        //throw new AssertionError("Constructor is not allowed");
-        assert false : "Execution should never reach this point!";
+        throw new AssertionError("Constructor is not allowed");
+        // assert false : "Execution should never reach this point!";
     }
 
     /**
@@ -24,24 +24,26 @@ public class MarkTask {
      */
     public static String execMarkTask(String input, List<Task> taskList) {
         StringBuilder response = new StringBuilder();
-        String[] markWhat = input.split(" ");
-        String what = markWhat[0];
+        String[] wordPartition = input.split(" ");
+        int idxToGetTask = 0;
+        String action = wordPartition[idxToGetTask];
 
         try {
-            int num = Integer.parseInt(markWhat[1]) - 1;
+            int idxToGetTaskNo = 1;
+            int retrieverNum = Integer.parseInt(wordPartition[idxToGetTaskNo]) - 1;
 
-            if (num < 0 || num >= taskList.size()) {
+            if (retrieverNum < 0 || retrieverNum >= taskList.size()) {
                 throw new TaylorException("Invalid task number");
             }
 
-            if (what.equals("mark")) {
-                taskList.get(num).markIt();
+            if (action.equals("mark")) {
+                taskList.get(retrieverNum).markIt();
                 response.append("Nice! I've marked this task as done:\n");
-                response.append(taskList.get(num));
-            } else if (what.equals("unmark")) {
-                taskList.get(num).unMark();
+                response.append(taskList.get(retrieverNum));
+            } else if (action.equals("unmark")) {
+                taskList.get(retrieverNum).unMark();
                 response.append("OK, I've marked this task as not done yet:\n");
-                response.append(taskList.get(num));
+                response.append(taskList.get(retrieverNum));
             } else {
                 throw new TaylorException("Invalid command -  Only use mark/unmark");
             }
