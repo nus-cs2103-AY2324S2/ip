@@ -38,10 +38,8 @@ public class FindCommand implements Command {
         ArrayList<Task> arr = new ArrayList<>();
         for (String keyword : keywords) {
             for (Task t : list.getList()) {
-                if (t.getTask().contains(keyword)) {
-                    if (!arr.contains(t)) {
-                        arr.add(t);
-                    }
+                if (t.getTask().contains(keyword) && !arr.contains(t)) {
+                    arr.add(t);
                 }
             }
         }

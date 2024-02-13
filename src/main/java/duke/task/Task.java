@@ -23,26 +23,28 @@ public abstract class Task {
      * @return String with description of the Task for display.
      */
     public String printTask() {
-        return String.format("[" + (this.isDone ? "X" : " ") + "] " + this.task);
+        String doneStatus = this.isDone ? "X" : " ";
+        return String.format("[" + doneStatus + "] " + this.task);
     }
 
     /**
      * Marks isDone as true.
      */
-    public void done() {
+    public void markAsDone() {
         this.isDone = true;
     }
 
     /**
      * Marks isDone as false.
      */
-    public void undo() {
+    public void markAsNotDone() {
         this.isDone = false;
     }
 
     @Override
     public String toString() {
-        return String.format("%d | %s", (this.isDone ? 1 : 0), this.task);
+        int doneStatus = this.isDone ? 1 : 0;
+        return String.format("%d | %s", doneStatus, this.task);
     }
 
     public String getTask() {

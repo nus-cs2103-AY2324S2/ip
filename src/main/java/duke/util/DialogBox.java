@@ -28,6 +28,7 @@ public class DialogBox extends HBox {
     private Circle displayPicture;
 
     private DialogBox(String text, Image img) {
+        assert (img != null) : "Image is null";
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/views/DialogBox.fxml"));
             fxmlLoader.setController(this);

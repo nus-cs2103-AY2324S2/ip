@@ -24,9 +24,8 @@ public class ListCommand implements Command {
         if (list.isEmpty()) {
             throw new DukeException("No task in list.\n"
                     + "You may add task with keywords: todo, deadline, event.");
-        } else {
-            return ui.showTasks(list);
         }
+        return ui.showTasks(list);
     }
 
 }

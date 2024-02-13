@@ -66,7 +66,7 @@ public class Event extends Task {
      * @param date LocalDateTime to be formatted.
      * @return String of formatted localDateTime.
      */
-    public String printDate(LocalDateTime date) {
+    private String printDate(LocalDateTime date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
         return date.format(formatter);
     }

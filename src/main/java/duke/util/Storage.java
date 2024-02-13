@@ -109,19 +109,20 @@ public class Storage {
      */
     private Task read(String s) {
         String[] cols = s.split(" \\| ");
+        assert (cols.length <= 2 || cols.length > 5) : "Line read from file is not in correct format";
         Task t = null;
+        String description = cols[2];
         if (cols.length == 3) {
-            t = new Todo(cols[2]);
-
+            t = new Todo(description);
         } else if (cols.length == 4) {
-            t = new Deadline(cols[2], cols[3]);
+            t = new Deadline(description, cols[3]);
         } else if (cols.length == 5) {
-            t = new Event(cols[2], cols[3], cols[4]);
+            t = new Event(description, cols[3], cols[4]);
         }
         if (cols[1].equals("1")) {
-            t.done();
+            t.markAsDone();
         } else {
-            t.undo();
+            t.markAsNotDone();
         }
 
         return t;
