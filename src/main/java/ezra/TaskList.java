@@ -90,7 +90,7 @@ public class TaskList {
     /**
      * Deletes the tasks corresponding to the give task numbers.
      *
-     * @param storage The storage to update after deletion.
+     * @param storage The storage object that updates the saved tasks.
      * @param taskIndices The array of task indices to be deleted.
      * @return A message to be displayed after the delete operation.
      */
@@ -158,7 +158,7 @@ public class TaskList {
     /**
      * Updates the TaskList by adding a new task.
      *
-     * @param storage The storage to update after addition.
+     * @param storage The storage object that updates the saved tasks.
      * @param task The task to be added.
      * @return A message to be displayed after adding the task.
      */
@@ -180,7 +180,7 @@ public class TaskList {
     /**
      * Marks the tasks corresponding to the give task numbers as done.
      *
-     * @param storage The storage to update after marking.
+     * @param storage The storage object that updates the saved tasks.
      * @param taskIndices The array of task indices to be marked as done.
      * @return A message to be displayed after marking the task.
      */
@@ -230,7 +230,7 @@ public class TaskList {
      * Marks the tasks corresponding to the give task numbers as not done.
      *
      * @param taskIndices The array of task indices to be marked as not done.
-     * @param storage The storage to update after marking.
+     * @param storage The storage object that updates the saved tasks.
      * @return A message to be displayed after unmarking the task.
      */
     public String unmark(Storage storage, int... taskIndices) {
@@ -320,6 +320,12 @@ public class TaskList {
         return message.toString();
     }
 
+    /**
+     * Undoes the previous command by restoring the tasks to their previous state.
+     *
+     * @param storage The storage object that updates the saved tasks.
+     * @return A message indicating the result of the undo operation.
+     */
     public String undo(Storage storage) {
         this.tasks = this.prevTasks;
 
