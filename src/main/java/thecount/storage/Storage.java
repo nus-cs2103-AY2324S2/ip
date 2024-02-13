@@ -36,8 +36,11 @@ public class Storage {
      * @param tasks The task list to load tasks into.
      */
     public void load(TaskList tasks) {
+        createDir();
+        createFile(tasks);
+    }
 
-        // Directory creation
+    private void createDir() {
         try {
             File directory = new File(DIR_PATH);
             if (directory.mkdirs()) {
@@ -48,7 +51,9 @@ public class Storage {
         } catch (Exception e) {
             System.err.println(e);
         }
+    }
 
+    private void createFile(TaskList tasks) {
         // File creation
         try {
             File file = new File(DATAFILE_PATH);
@@ -90,40 +95,48 @@ public class Storage {
         Scanner s = new Scanner(file);
         while (s.hasNext()) {
             String line = s.nextLine();
-            String[] parts = line.split("\\|");
-            char index = parts[0].charAt(0);
-            String taskType = parts[1].trim();
-            String isTaskDone = parts[2].trim();
-            String info = parts[3].trim();
+            processLine(line, tasks);
+        }
+    }
 
-            switch (taskType) {
-            case "T":
-                tasks.add(new ToDo(info));
-                break;
-            case "D":
-                String deadlineTime = parts[4].trim();
-                try {
-                    tasks.add(new Deadline(info, deadlineTime));
-                } catch (DateTimeParseException e) {
-                    System.out.println(e);
-                }
-                break;
-            case "E":
-                String[] time = parts[4].trim().split("-");
-                String fromTime = time[0];
-                String toTime = time[1];
-                tasks.add(new Event(info, fromTime, toTime));
-                break;
-            default:
-                break;
-            }
-            if (isTaskDone.equals("1")) {
-                try {
-                    tasks.markTask(index - '0', false);
-                } catch (TheCountException e) {
-                    System.err.println(e);
-                }
+    private void handleTaskDone(TaskList tasks, String isTaskDone, char index) {
+        if (isTaskDone.equals("1")) {
+            try {
+                tasks.markTask(index - '0', false);
+            } catch (TheCountException e) {
+                System.err.println(e);
             }
         }
+    }
+
+    private void processLine(String line, TaskList tasks) {
+        String[] parts = line.split("\\|");
+        char index = parts[0].charAt(0);
+        String taskType = parts[1].trim();
+        String isTaskDone = parts[2].trim();
+        String info = parts[3].trim();
+
+        switch (taskType) {
+        case "T":
+            tasks.add(new ToDo(info));
+            break;
+        case "D":
+            String deadlineTime = parts[4].trim();
+            try {
+                tasks.add(new Deadline(info, deadlineTime));
+            } catch (DateTimeParseException e) {
+                System.out.println(e);
+            }
+            break;
+        case "E":
+            String[] time = parts[4].trim().split("-");
+            String fromTime = time[0];
+            String toTime = time[1];
+            tasks.add(new Event(info, fromTime, toTime));
+            break;
+        default:
+            break;
+        }
+        handleTaskDone(tasks, isTaskDone, index);
     }
 }

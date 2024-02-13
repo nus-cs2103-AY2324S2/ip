@@ -7,8 +7,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
 import thecount.ui.Greeting;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -27,6 +27,12 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/elmo.png"));
     private Image theCountImage = new Image(this.getClass().getResourceAsStream("/images/thecount.png"));
 
+    /**
+     * Initializes the controller after its root element has been completely processed.
+     * It binds the vertical value property of the scroll pane to the height property of the dialog container.
+     * Then, it retrieves a greeting message and adds a dialog box
+     * containing the message and an image to the dialog container.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -35,6 +41,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getCountDialog(response, theCountImage)
         );
     }
+
 
     public void setTheCount(TheCount tc) {
         theCount = tc;

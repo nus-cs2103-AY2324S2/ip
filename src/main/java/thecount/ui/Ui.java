@@ -35,6 +35,5 @@ public class Ui {
      */
     public String run() {
         return printGreeting();
-//        parser.parse();
     }
 }

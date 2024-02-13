@@ -112,6 +112,7 @@ public class Parser {
         try {
             String info = getTaskInfo(userInput, " ");
             ToDo todo = new ToDo(info);
+
             tasks.add(todo);
             return todo.displayMessage(tasks.length());
         } catch (TheCountException e) {
@@ -124,6 +125,7 @@ public class Parser {
             String info = getTaskInfo(userInput, "/by");
             String deadlineTime = getTaskTime(userInput, "/by", "deadline");
             Deadline deadline = new Deadline(info, deadlineTime);
+
             tasks.add(deadline);
             return deadline.displayMessage(tasks.length());
         } catch (TheCountException e) {
@@ -139,6 +141,7 @@ public class Parser {
             String startTime = getStartTime(userInput);
             String endTime = getTaskTime(userInput, "/to", "end time");
             Event event = new Event(info, startTime, endTime);
+
             tasks.add(event);
             return event.displayMessage(tasks.length());
         } catch (TheCountException e) {
@@ -175,6 +178,7 @@ public class Parser {
     private static String getTaskInfo(String userInput, String delimiter) throws TheCountException {
         try {
             String info;
+
             if (delimiter.equals(" ")) {
                 info = userInput.split("\\s+", 2)[1].trim();
             } else {

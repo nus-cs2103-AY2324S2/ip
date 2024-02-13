@@ -1,6 +1,5 @@
 package thecount;
 
-import thecount.exception.TheCountException;
 import thecount.parser.Parser;
 import thecount.storage.Storage;
 import thecount.task.TaskList;
