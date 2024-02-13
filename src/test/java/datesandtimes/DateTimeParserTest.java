@@ -1,12 +1,12 @@
 package datesandtimes;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for the DateTimeParser class.
@@ -31,23 +31,23 @@ public class DateTimeParserTest {
     @Test
     public void dateExceptionTest() {
         // Check invalid year
-        assertThrows(DateTimeException.class,
-                () -> DateTimeParser.parseDate(LocalDate.parse("20455-01-21")));
+        assertThrows(DateTimeException.class, ()
+                -> DateTimeParser.parseDate(LocalDate.parse("20455-01-21")));
 
         // Check invalid month
-        assertThrows(DateTimeException.class,
-                () -> DateTimeParser.parseDate(LocalDate.parse("2045-0-21")));
+        assertThrows(DateTimeException.class, ()
+                -> DateTimeParser.parseDate(LocalDate.parse("2045-0-21")));
 
         // Check invalid day
-        assertThrows(DateTimeException.class,
-                () -> DateTimeParser.parseDate(LocalDate.parse("2045-05-32")));
+        assertThrows(DateTimeException.class, ()
+                -> DateTimeParser.parseDate(LocalDate.parse("2045-05-32")));
 
         // Check mix of invalids
-        assertThrows(DateTimeException.class,
-                () -> DateTimeParser.parseDate(LocalDate.parse("20455-0-32")));
+        assertThrows(DateTimeException.class, ()
+                -> DateTimeParser.parseDate(LocalDate.parse("20455-0-32")));
 
         // Check logical date is wrong, no Feb 31st
-        assertThrows(DateTimeException.class,
-                () -> DateTimeParser.parseDate(LocalDate.parse("2045-02-31")));
+        assertThrows(DateTimeException.class, ()
+                -> DateTimeParser.parseDate(LocalDate.parse("2045-02-31")));
     }
 }

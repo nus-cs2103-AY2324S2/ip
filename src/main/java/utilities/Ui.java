@@ -1,25 +1,42 @@
 package utilities;
 
-import commands.CommandsParser;
-import exceptions.RyanGoslingException;
-import tasks.Task;
-
 import java.io.FileNotFoundException;
 import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import commands.CommandsParser;
+import exceptions.RyanGoslingException;
+import tasks.Task;
+
 /**
  * The Ui class handles the main chat listening and parsing of messages.
  */
 public class Ui {
+
+    /**
+     * Scanner for user input.
+     */
     private Scanner sc = new Scanner(System.in);
-    //Handles adding/removing to array of tasks
+
+    /**
+     * Handles adding/removing to an array of tasks.
+     */
     private TaskList taskList = new TaskList();
+
+    /**
+     * File path for task data storage.
+     */
     private String filePath = "data/task_lists.txt";
-    //Handles the loading and saving of tasks to text file
+
+    /**
+     * Handles the loading and saving of tasks to a text file.
+     */
     private Storage taskLoader = new Storage(filePath);
 
+    /**
+     * Loads all tasks from the data file during initialization.
+     */
     public void oneTimeLoadAllTasks() {
         try {
             ArrayList<Task> parsedTasks = this.taskLoader.parseAndLoadTasks();
@@ -30,6 +47,12 @@ public class Ui {
         }
     }
 
+    /**
+     * Performs a task based on the given user input.
+     *
+     * @param userInput The user input to be processed.
+     * @return The response string based on the executed task.
+     */
     public String performTaskFromSingleUserInput(String userInput) {
         CommandsParser commandsParser = new CommandsParser(this.taskList, this.filePath, this.taskLoader);
         try {
@@ -41,6 +64,5 @@ public class Ui {
         } catch (RyanGoslingException e) {
             return e.getMessage();
         }
-
     }
 }

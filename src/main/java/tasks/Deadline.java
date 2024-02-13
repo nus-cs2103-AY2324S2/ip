@@ -1,15 +1,16 @@
 package tasks;
 
-import datesandtimes.DateTimeParser;
 import java.time.LocalDate;
 import java.time.LocalTime;
+
+import datesandtimes.DateTimeParser;
 
 /**
  * Represents a task with a deadline, extending the base Task class.
  */
 public class Deadline extends Task {
-    private LocalDate dateBy;
-    private LocalTime timeBy;
+    private final LocalDate dateBy;
+    private final LocalTime timeBy;
 
     /**
      * Constructs a Deadline task with the specified task name, deadline date, and time.

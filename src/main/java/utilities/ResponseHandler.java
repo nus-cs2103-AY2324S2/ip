@@ -1,9 +1,8 @@
 package utilities;
 
-import tasks.Task;
-
 import java.util.ArrayList;
-import java.util.HashMap;
+
+import tasks.Task;
 
 /**
  * A utility class for returning responses as a String.
@@ -100,11 +99,9 @@ public class ResponseHandler {
      * @return A message with information about the removed task.
      */
     public static String removePrinter(Task task, int size) {
-        StringBuilder stringResponse = new StringBuilder();
-        stringResponse.append("Noted. I've removed this task:\n");
-        stringResponse.append(task +"\n");
-        stringResponse.append("Now you have " + size + " tasks in the list.");
-        return stringResponse.toString();
+        return "Noted. I've removed this task:\n"
+                + task + "\n"
+                + "Now you have " + size + " tasks in the list.";
     }
 
     /**
