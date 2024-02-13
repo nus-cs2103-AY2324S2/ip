@@ -9,7 +9,12 @@ public class Ui {
     }
 
     public void showWelcomeMessage() {
-        System.out.println("Hello! I'm Blob.\nWhat can I do for you?\n");
+        System.out.println("Hello! I'm Blob.");
+        System.out.println("What can I do for you?\n");
+    }
+
+    public void showWrongFormat() {
+        System.err.println("Wrong format! :(");
     }
 
     public void showTaskList(TaskList tasks) {
@@ -19,7 +24,7 @@ public class Ui {
     }
 
     public void showForgetTaskNumber() {
-        System.out.println("You forgot to type which task!");
+        System.err.println("You forgot to type which task!");
     }
 
     public void showMarkFormat() {
@@ -38,8 +43,7 @@ public class Ui {
     }
 
     public void showDateFormat() {
-        System.out.println("Wrong date format");
-        System.out.println("The correct format is: YYYY-MM-DD\n");
+        System.out.println("The correct date format is: YYYY-MM-DD\n");
     }
 
     public void showToDoFormat() {
@@ -58,7 +62,6 @@ public class Ui {
     }
 
     public void showWrongCommand() {
-        System.out.println("Sorry :(");
         System.out.println("You need to use 'todo', 'deadline' or 'event' command to add a task.");
         System.out.println("You can use 'list' to see all of your tasks.");
         System.out.println("Use 'mark' or 'unmark' for any of your tasks.\n");

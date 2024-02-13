@@ -14,6 +14,7 @@ public class MarkCommand extends Command {
             ui.showForgetTaskNumber();
             ui.showMarkFormat();
         } catch (NumberFormatException e) {
+            ui.showWrongFormat();
             ui.showMarkFormat();
         }
     }

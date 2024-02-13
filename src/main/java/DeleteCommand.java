@@ -14,6 +14,7 @@ public class DeleteCommand extends Command {
             ui.showForgetTaskNumber();
             ui.showDeleteFormat();
         } catch (NumberFormatException e) {
+            ui.showWrongFormat();
             ui.showDeleteFormat();
         }
     }

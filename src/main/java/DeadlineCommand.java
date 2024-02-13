@@ -17,12 +17,14 @@ public class DeadlineCommand extends Command {
             try {
                 byDate = LocalDate.parse(by);
             } catch (DateTimeParseException e) {
+                ui.showWrongFormat();
                 ui.showDateFormat();
             }
             if (byDate != null) {
                 taskList.createDeadline(description, byDate);
             }
         } catch (ArrayIndexOutOfBoundsException e) {
+            ui.showWrongFormat();
             ui.showDeadlineFormat();
         }
     }

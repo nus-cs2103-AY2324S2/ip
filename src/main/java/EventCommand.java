@@ -21,12 +21,14 @@ public class EventCommand extends Command {
                 fromDate = LocalDate.parse(from);
                 toDate = LocalDate.parse(to);
             } catch (DateTimeParseException e) {
+                ui.showWrongFormat();
                 ui.showDateFormat();
             }
             if (fromDate != null && toDate != null) {
                 taskList.createEvent(description, fromDate, toDate);
             }
         } catch (ArrayIndexOutOfBoundsException e) {
+            ui.showWrongFormat();
             ui.showEventFormat();
         }
     }
