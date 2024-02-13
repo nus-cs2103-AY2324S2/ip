@@ -4,7 +4,7 @@ package duke;
  * Represents the command to find a task given a keyword.
  */
 public class FindCommand extends Command {
-    String keyword;
+    private String keyword;
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }
