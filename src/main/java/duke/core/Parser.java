@@ -12,7 +12,7 @@ import duke.commands.Command;
 import duke.commands.DeleteCommand;
 import duke.commands.ExitCommand;
 import duke.commands.FindCommand;
-import duke.commands.InvalidCommandException;
+import duke.exceptions.InvalidCommandException;
 import duke.commands.ListCommand;
 import duke.commands.MarkCommand;
 import duke.commands.UnmarkCommand;

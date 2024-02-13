@@ -1,6 +1,4 @@
-package duke.commands;
-
-import duke.exceptions.MeanDukeException;
+package duke.exceptions;
 
 /**
  * Exception that is thrown when MeanDuke encounters an invalid user input.

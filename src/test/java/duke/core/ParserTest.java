@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Test;
 
 import duke.commands.AddCommand;
-import duke.commands.InvalidCommandException;
+import duke.exceptions.InvalidCommandException;
 import duke.tasks.TaskList;
 
 
