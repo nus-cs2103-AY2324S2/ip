@@ -13,23 +13,15 @@ repositories {
 
 // Define project dependencies
 dependencies {
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
-    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
-    testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.10.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+    testImplementation 'org.mockito:mockito-core:5.10.0'
 
     String javaFxVersion = '17.0.10'
-    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
-    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
-    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
-    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'win'
-    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'mac'
-    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'linux'
-    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'win'
-    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'mac'
-    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'linux'
-    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
-    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
-    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
+    String javaFxPlatform = getJavaFXPlatform()
+    implementation "org.openjfx:javafx-base:$javaFxVersion:$javaFxPlatform"
+    implementation "org.openjfx:javafx-controls:$javaFxVersion:$javaFxPlatform"
+    implementation "org.openjfx:javafx-fxml:$javaFxVersion:$javaFxPlatform"
+    implementation "org.openjfx:javafx-graphics:$javaFxVersion:$javaFxPlatform"
 
     implementation 'me.xdrop:fuzzywuzzy:1.4.0'
 }
@@ -80,3 +72,15 @@ checkstyle {
     toolVersion = '10.12.5'
 }
 build.dependsOn 'checkstyleMain', 'checkstyleTest'
+
+private static String getJavaFXPlatform() {
+    OperatingSystem currentOS = org.gradle.nativeplatform.platform.internal.DefaultNativePlatform.currentOperatingSystem
+    if (currentOS.isWindows()) {
+        return 'win'
+    } else if (currentOS.isLinux()) {
+        return 'linux'
+    } else if (currentOS.isMacOsX()) {
+        return 'mac'
+    }
+    return null
+}
