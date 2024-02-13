@@ -25,7 +25,7 @@ public class UnmarkCommand extends Command {
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws CoDriverException {
         tasks.unmarkTask(index);
-        return ui.showUnmarkTask(tasks.get(index - 1));
+        return ui.showUnmarkTask(tasks.getTask(index - 1));
     }
 
     /**

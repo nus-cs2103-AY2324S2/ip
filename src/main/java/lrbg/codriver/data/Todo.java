@@ -21,7 +21,7 @@ public class Todo extends Task {
      * {@inheritDoc}
      */
     @Override
-    public String toSaveString() {
-        return "T|" + super.toSaveString();
+    public String toFileSaveString() {
+        return "T|" + super.toFileSaveString();
     }
 }

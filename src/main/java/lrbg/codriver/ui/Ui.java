@@ -82,9 +82,9 @@ public class Ui {
     public String showList(TaskList tasks) {
         StringBuilder sb = new StringBuilder();
         sb.append("Here are the tasks in your list:\n");
-        for (int i = 0; i < tasks.size(); i++) {
+        for (int i = 0; i < tasks.getSize(); i++) {
             int listIndex = i + 1;
-            sb.append(listIndex).append(". ").append(tasks.get(i)).append("\n");
+            sb.append(listIndex).append(". ").append(tasks.getTask(i)).append("\n");
         }
         return sb.toString();
     }
@@ -113,9 +113,9 @@ public class Ui {
     public String showMatchingTasks(TaskList tasks) {
         StringBuilder sb = new StringBuilder();
         sb.append("Here are the matching tasks in your list:\n");
-        for (int i = 0; i < tasks.size(); i++) {
+        for (int i = 0; i < tasks.getSize(); i++) {
             int listIndex = i + 1;
-            sb.append(listIndex).append(". ").append(tasks.get(i)).append("\n");
+            sb.append(listIndex).append(". ").append(tasks.getTask(i)).append("\n");
         }
         return sb.toString();
     }
@@ -151,6 +151,8 @@ public class Ui {
 
     /**
      * Shows a line to separate lines in the terminal.
+     *
+     * @return The line to separate lines in the terminal.
      */
     public String showLine() {
         return "------------------------------------------------\n";
