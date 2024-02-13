@@ -1,4 +1,4 @@
-package Oak.utility;
+package oak.utility;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;

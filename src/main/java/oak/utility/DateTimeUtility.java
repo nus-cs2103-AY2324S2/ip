@@ -1,4 +1,4 @@
-package Oak.utility;
+package oak.utility;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -19,8 +19,7 @@ public class DateTimeUtility {
     public static LocalDateTime parseStringToLocalDateTime(String rawDateTime) {
         try {
             return LocalDateTime.parse(rawDateTime);
-        }
-        catch (DateTimeParseException e) {}
+        } catch (DateTimeParseException e) {  }
 
         // NOTE: We expect the user-input format to be: "<date> @ <time>"
         String[] rawDateTimeArr = rawDateTime.split("@");

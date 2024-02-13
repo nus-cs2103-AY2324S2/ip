@@ -1,12 +1,12 @@
-package Oak.feedback;
-
-import Oak.feedback.enums.CommandEnum;
-import Oak.exceptions.InvalidInputException;
-import Oak.task.TaskService;
+package oak.feedback;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.stream.Collectors;
+
+import oak.exceptions.InvalidInputException;
+import oak.feedback.enums.CommandEnum;
+import oak.task.TaskService;
 
 /**
  * The type Feedback service.
@@ -51,28 +51,30 @@ public class FeedbackService {
             break;
         case MARK:
             if (cur.length <= 1) {
-                throw new InvalidInputException.InvalidFormatException("No TaskId detected, please provide a TaskId", cur[0]);
+                throw new InvalidInputException.InvalidFormatException(
+                        "No TaskId detected, please provide a TaskId", cur[0]);
             }
 
             try {
                 taskId = Integer.parseInt(cur[1]) - 1;
-            }
-            catch (NumberFormatException e) {
-                throw new InvalidInputException.InvalidFormatException("Invalid TaskId detected, please provide the TaskId Number as seen in 'list' command", cur[0]);
+            } catch (NumberFormatException e) {
+                throw new InvalidInputException.InvalidFormatException(
+                        "Invalid TaskId detected, please provide the TaskId Number as seen in 'list' command", cur[0]);
             }
 
             feedback = this.taskService.markTaskCompleted(taskId);
             break;
         case UNMARK:
             if (cur.length <= 1) {
-                throw new InvalidInputException.InvalidFormatException("No TaskId detected, please provide a TaskId", cur[0]);
+                throw new InvalidInputException.InvalidFormatException(
+                        "No TaskId detected, please provide a TaskId", cur[0]);
             }
 
             try {
                 taskId = Integer.parseInt(cur[1]) - 1;
-            }
-            catch (NumberFormatException e) {
-                throw new InvalidInputException.InvalidFormatException("Invalid TaskId detected, please provide the TaskId Number as seen in 'list' command", cur[0]);
+            } catch (NumberFormatException e) {
+                throw new InvalidInputException.InvalidFormatException(
+                        "Invalid TaskId detected, please provide the TaskId Number as seen in 'list' command", cur[0]);
             }
 
             feedback = this.taskService.markTaskUncompleted(taskId);
@@ -91,18 +93,21 @@ public class FeedbackService {
             break;
         case DELETE:
             if (cur.length <= 1) {
-                throw new InvalidInputException.InvalidFormatException("No TaskId detected, please provide a TaskId", cur[0]);
+                throw new InvalidInputException.InvalidFormatException(
+                        "No TaskId detected, please provide a TaskId", cur[0]);
             }
 
             try {
                 taskId = Integer.parseInt(cur[1]) - 1;
-            }
-            catch (NumberFormatException e) {
-                throw new InvalidInputException.InvalidFormatException("Invalid TaskId detected, please provide the TaskId Number as seen in 'list' command", cur[0]);
+            } catch (NumberFormatException e) {
+                throw new InvalidInputException.InvalidFormatException(
+                        "Invalid TaskId detected, please provide the TaskId Number as seen in 'list' command", cur[0]);
             }
 
             feedback = this.taskService.deleteTask(taskId);
             break;
+        default:
+            throw new InvalidInputException.InvalidCommandException(cur[0]);
         }
 
         return feedback;
@@ -158,7 +163,8 @@ public class FeedbackService {
         String[] temp = fullInput.split("/by");
 
         if (temp.length <= 1) {
-            throw new InvalidInputException("No Due Date for Deadline detected. Please provide a Due Date by using '/by'");
+            throw new InvalidInputException(
+                    "No Due Date for Deadline detected. Please provide a Due Date by using '/by'");
         }
 
         return new String[] { temp[0].strip(), temp[1].strip() };
@@ -180,12 +186,14 @@ public class FeedbackService {
 
         String[] temp = fullInput.split("/from");
         if (temp.length <= 1) {
-            throw new InvalidInputException("No From Datetime for Event detected. Please provide a From Datetime by using '/from'");
+            throw new InvalidInputException(
+                    "No From Datetime for Event detected. Please provide a From Datetime by using '/from'");
         }
 
         String[] datetimes = temp[1].split("/to");
         if (datetimes.length <= 1) {
-            throw new InvalidInputException("No To Datetime for Event detected. Please provide a To Datetime by using '/to'");
+            throw new InvalidInputException(
+                    "No To Datetime for Event detected. Please provide a To Datetime by using '/to'");
         }
 
         return new String[] { temp[0].strip(), datetimes[0].strip(), datetimes[1].strip() };

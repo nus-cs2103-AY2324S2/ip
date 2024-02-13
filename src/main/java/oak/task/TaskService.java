@@ -1,15 +1,19 @@
-package Oak.task;
-
-import Oak.utility.FileUtility;
-import Oak.task.model.Deadline;
-import Oak.task.model.Event;
-import Oak.task.model.Task;
-import Oak.task.model.Todo;
+package oak.task;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import oak.task.model.Deadline;
+import oak.task.model.Event;
+import oak.task.model.Task;
+import oak.task.model.Todo;
+import oak.utility.FileUtility;
+
+
+/**
+ * The TaskService Class to handle all backend-related items to do with tasks
+ */
 public class TaskService {
     /** An Array of all the tasks in the system */
     private ArrayList<Task> tasks = new ArrayList<>();
@@ -25,15 +29,15 @@ public class TaskService {
     }
 
     /**
-     * Load tasks from the tasklist.txt (located at this.taskListFilePath), and calls a helper method, `parseTaskList` to parse each line to save it into this.tasks
+     * Load tasks from the tasklist.txt (located at this.taskListFilePath),
+     * and calls a helper method, `parseTaskList` to parse each line to save it into this.tasks
      */
     public void loadTasks() {
         ArrayList<String> fileData = new ArrayList<>();
 
         try {
             fileData = this.fileUtility.loadFile(this.tasklistFilePath);
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.out.println("Error reading file.. Unable to load tasks from " + this.tasklistFilePath);
         }
 
@@ -77,16 +81,13 @@ public class TaskService {
 
         Boolean isCompleted = task[1].equals("1");
 
-        if (task[0].equals(Todo.typeIcon)) {
+        if (task[0].equals(Todo.TODO_TYPEICON)) {
             newTask = new Todo(task[2], isCompleted);
-        }
-        else if (task[0].equals(Deadline.typeIcon)) {
+        } else if (task[0].equals(Deadline.DEADLINE_TYPEICON)) {
             newTask = new Deadline(task[2], isCompleted, task[3]);
-        }
-        else if (task[0].equals(Event.typeIcon)) {
+        } else if (task[0].equals(Event.EVENT_TYPEICON)) {
             newTask = new Event(task[2], isCompleted, task[3], task[4]);
-        }
-        else {
+        } else {
             // TODO: Throw invalid task Oak.type exception
             System.out.println("Invalid task detected");
         }
@@ -157,7 +158,10 @@ public class TaskService {
         Task removedTask = this.tasks.remove(taskId);
         this.removeTask(removedTask);
 
-        return String.format("Are you giving up? Or is this task no longer needed?\nHmmm.. I've deleted Task %s for you for now.\nBut, I'll be watching you.", taskId);
+        return String.format("Are you giving up? Or is this task no longer needed?\n" +
+                "Hmmm.. I've deleted Task %s for you for now.\nBut, I'll be watching you.",
+                taskId
+        );
     }
 
     /**
@@ -168,10 +172,10 @@ public class TaskService {
      */
     public String markTaskCompleted(int taskId) throws IOException {
         // TODO: Exception handling for if task does not exist
-        // TODO: Fix, should also update tasklist.txt
         String originalTaskString = this.tasks.get(taskId).toTaskListStringFormat();
         this.tasks.get(taskId).markTaskCompleted();
-        this.fileUtility.updateFile(this.tasklistFilePath, originalTaskString, this.tasks.get(taskId).toTaskListStringFormat());
+        this.fileUtility.updateFile(this.tasklistFilePath, originalTaskString,
+                this.tasks.get(taskId).toTaskListStringFormat());
 
         return "Ok! I've marked Task " + (taskId + 1) + " as completed!";
     }
@@ -186,10 +190,11 @@ public class TaskService {
         // TODO: Exception handling for if task does not exist
         String originalTaskString = this.tasks.get(taskId).toTaskListStringFormat();
         this.tasks.get(taskId).markTaskNotCompleted();
-        this.fileUtility.updateFile(this.tasklistFilePath, originalTaskString, this.tasks.get(taskId).toTaskListStringFormat());
+        this.fileUtility.updateFile(this.tasklistFilePath, originalTaskString,
+                this.tasks.get(taskId).toTaskListStringFormat());
 
         return "Hmmm, were you teasing me?\n" +
-                "Well, I've marked Task " + (taskId + 1) +  " as uncompleted,\n" +
+                "Well, I've marked Task " + (taskId + 1) + " as uncompleted,\n" +
                 "But don't do this again, you hear me?";
     }
 
@@ -223,7 +228,7 @@ public class TaskService {
         StringBuilder returnVal = new StringBuilder();
 
         for (int i = 0; i < this.tasks.size(); i++) {
-            if (this.tasks.get(i).name.contains(matchingValue)) {
+            if (this.tasks.get(i).getName().contains(matchingValue)) {
                 returnVal.append(String.format("%d. %s", i + 1, this.tasks.get(i)));
 
                 // Only add new line if its not the last task

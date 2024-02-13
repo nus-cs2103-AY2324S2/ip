@@ -1,11 +1,11 @@
-package Oak.controller;
-
-import Oak.exceptions.InvalidInputException;
-import Oak.feedback.FeedbackService;
-import Oak.feedback.enums.CommandEnum;
+package oak.controller;
 
 import java.io.IOException;
 import java.util.Scanner;
+
+import oak.exceptions.InvalidInputException;
+import oak.feedback.FeedbackService;
+import oak.feedback.enums.CommandEnum;
 
 /**
  * The type Terminal controller, handles the listening of messages and printing of responses to the terminal
@@ -40,8 +40,7 @@ public class TerminalController {
 
             try {
                 feedback = feedbackService.run(curInput);
-            }
-            catch (InvalidInputException | IOException e) {
+            } catch (InvalidInputException | IOException e) {
                 System.out.println(e.getMessage());
                 continue;
             }
