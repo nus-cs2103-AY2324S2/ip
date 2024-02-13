@@ -1,5 +1,6 @@
 package panda.command;
 import panda.component.*;
+import panda.exception.PandaException;
 public class ExitCommand extends Command {
 
     public void execute(TaskList tlist) {
@@ -17,6 +18,19 @@ public class ExitCommand extends Command {
         ui.showBye();
         return;
     }
+
+    /**
+     * Generates goodbye message
+     * 
+     * @param tlist the current TaskList. (unused)
+     * @param cacheFile the cache file. (unused)
+     * @return the goodbye message.
+     * @throws PandaException if an error occurs during execution.
+     */
+    public String execute(TaskList tlist, Storage cacheFile) throws PandaException {
+        return "Bye. Hope to see you again soon!";
+    }
+
 
     /**
      * Checks if the command is an exit command.

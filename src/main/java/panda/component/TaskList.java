@@ -79,8 +79,8 @@ public class TaskList {
      * @param idx the index of the task to return.
      * @return the string representation of the task.
      */
-    public String taskString(int idx) {
-        return tlist.get(idx).toString();
+    public String getTaskString(int idx) {
+        return tlist.get(idx - 1).toString();
     }
 
     /**
@@ -113,8 +113,8 @@ public class TaskList {
         }
 
         String result = "Here are the tasks in your list:";
-        for(int i = 0; i < tlist.size(); i++) {
-            result = result + "\n" + ((i + 1) + "." + taskString(i));
+        for(int i = 1; i <= tlist.size(); i++) {
+            result = result + "\n" + ((i) + "." + getTaskString(i));
         }
         return result;
     }

@@ -3,6 +3,7 @@ package panda.command;
 import panda.component.Storage;
 import panda.component.TaskList;
 import panda.component.Ui;
+import panda.exception.PandaException;
 
 public class FindCommand extends Command {
     private String fString;
@@ -35,6 +36,19 @@ public class FindCommand extends Command {
     public void execute(TaskList tlist, Ui ui, Storage cacheFile) {
         TaskList ftlist = tlist.find(fString);
         ui.showList(ftlist);
+    }
+
+    /**
+     * Finds tasks in the TaskList that contain the find string, saves changes to the cache file, and generate a reply.
+     * 
+     * @param tlist the TaskList on which the command is executed.
+     * @param cacheFile the current storage. (unused)
+     * @return the TaskList containing all matches
+     * @throws PandaException if an error occurs during execution.
+     */
+    public String execute(TaskList tlist, Storage cacheFile) throws PandaException {
+        TaskList filteredTasks = tlist.find(fString);
+        return filteredTasks.toString();
     }
 
     /**

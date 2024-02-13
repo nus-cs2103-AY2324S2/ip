@@ -54,8 +54,30 @@ public class AlterMarkCommand extends Command {
             tlist.unmark(idx);
         }
         cacheFile.save(tlist);
-        ui.showReply("Nice! I've marked this task as done:\n  " + tlist.taskString(idx));
+        ui.showReply("Nice! I've marked this task as done:\n  " + tlist.getTaskString(idx));
         return;
+    }
+
+    /**
+     * Executes the command on the given TaskList, saves changes to the cache file, and generate a reply.
+     * 
+     * @param tlist the TaskList on which the command is executed.
+     * @param cacheFile the cache file to save changes to.
+     * @return the reply generated from running the command
+     * @throws PandaException if an error occurs during execution.
+     */
+    public String execute(TaskList tlist, Storage cacheFile) throws PandaException {
+        if(idx - 1 >= tlist.size()) {
+            throw new OutOfBoundsException();
+        }
+        if(isMarked) {
+            tlist.mark(idx);
+        }
+        else {
+            tlist.unmark(idx);
+        }
+        cacheFile.save(tlist);
+        return "Nice! I've marked this task as done:\n  " + tlist.getTaskString(idx);
     }
 
     /**

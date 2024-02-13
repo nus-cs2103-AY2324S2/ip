@@ -40,13 +40,33 @@ public class DeleteCommand extends Command {
         if(idx >= tlist.size()) {
             throw new OutOfBoundsException();
         }
-        String tString = tlist.taskString(idx);
+        String tString = tlist.getTaskString(idx);
         tlist.remove(idx);
         cacheFile.save(tlist);
         ui.showReply("OK, I've deleted this task:" 
             + "\n  " + tString 
             + "\nNow you have " + tlist.size() + " tasks in the list.");
         return;
+    }
+
+    /**
+     * Deletes the task at the given index from the TaskList, saves changes to the cache file, and generate a reply.
+     * 
+     * @param tlist the TaskList from which the task is deleted.
+     * @param cacheFile the cache file to save changes to.
+     * @return the reply generated from deleting task
+     * @throws PandaException if an error occurs during execution.
+     */
+    public String execute(TaskList tlist, Storage cacheFile) throws PandaException {
+        if(idx >= tlist.size()) {
+            throw new OutOfBoundsException();
+        }
+        String tString = tlist.getTaskString(idx);
+        tlist.remove(idx);
+        cacheFile.save(tlist);
+        return "OK, I've deleted this task:" 
+                + "\n  " + tString 
+                + "\nNow you have " + tlist.size() + " tasks in the list.";
     }
 
     /**
