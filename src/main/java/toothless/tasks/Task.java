@@ -25,7 +25,7 @@ public abstract class Task {
      * @return A string "X" if the task is done, or a space " " if it is not done.
      */
     public String getStatusIcon() {
-        return isDone ? "X": " "; // mark done task with X
+        return isDone ? "X" : " "; // mark done task with X
     }
 
     /**

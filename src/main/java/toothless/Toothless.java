@@ -23,9 +23,12 @@ public class Toothless {
         return ui.showWelcome();
     }
 
+    public String loadingTasks() {
+        return ui.showLoadingTasks();
+    }
+
     public String load() {
         try {
-            ui.showLoadingTasks();
             tasks = new TaskList(storage.load());
             return ui.showIncompleteTask(tasks);
         } catch (ToothlessException e) {

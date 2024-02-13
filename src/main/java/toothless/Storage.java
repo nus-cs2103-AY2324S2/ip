@@ -44,28 +44,33 @@ public class Storage {
             this.file = new File(this.filepath);
             Scanner sc = new Scanner(file);
             while (sc.hasNext()) {
-                Task task;
                 String[] storedTask = sc.nextLine().split(" \\| ");
-                switch (storedTask[0]) {
-                case "T":
-                    task = new Todo(storedTask[2], storedTask[1].equals("1"));
-                    break;
-                case "D":
-                    task = new Deadline(storedTask[2], storedTask[3], storedTask[1].equals("1"));
-                    break;
-                case "E":
-                    task = new Event(storedTask[2], storedTask[3], storedTask[4], storedTask[1].equals("1"));
-                    break;
-                default:
-                    assert false : storedTask[0];
-                    throw new ToothlessException("File corrupted O_O. Try again later.");
-                }
+                Task task = parseTask(storedTask);
                 list.add(task);
             }
             return list;
         } catch (FileNotFoundException exception) {
             new File(this.filepath).getParentFile().mkdirs();
             return new ArrayList<>();
+        }
+    }
+
+    private Task parseTask(String[] storedTask) throws ToothlessException {
+        String taskType = storedTask[0];
+        String description = storedTask[2];
+        boolean isDone = storedTask[1].equals("1");
+        switch (taskType) {
+        case "T":
+            return new Todo(description, isDone);
+        case "D":
+            String date = storedTask[3];
+            return new Deadline(description, date, isDone);
+        case "E":
+            String startDate = storedTask[3];
+            String endDate = storedTask[4];
+            return new Event(description, startDate, endDate, isDone);
+        default:
+            throw new ToothlessException("File corrupted O_O. Try again later.");
         }
     }
 
@@ -79,7 +84,8 @@ public class Storage {
         try {
             FileWriter writer = new FileWriter(this.filepath);
             for (int i = 0; i < tasks.size(); i++){
-                writer.write(tasks.getTask(i).toWrite() + "\n");
+                Task task = tasks.getTask(i);
+                writer.write(task.toWrite() + "\n");
             }
             writer.close();
         } catch (IOException e){

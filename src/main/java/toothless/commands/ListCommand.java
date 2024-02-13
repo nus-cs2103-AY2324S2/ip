@@ -14,7 +14,6 @@ public class ListCommand extends Command {
     /**
      * Executes the command to list all tasks in the task list. If the list is empty, it throws an exception
      * to inform the user that there are no tasks to display.
-     *
      * @param ui The user interface to interact with.
      * @param taskList The task list whose tasks are to be displayed.
      * @param storage The storage system, not directly used by this command.

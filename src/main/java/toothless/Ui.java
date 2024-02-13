@@ -11,7 +11,7 @@ import toothless.tasks.*;
  */
 public class Ui {
     private String chatBotName = "Toothless";
-    private String greetingString = "Hi! "+ chatBotName +" is " + chatBotName + "!\n"
+    private String greetingString = "Hi! " + chatBotName + " is " + chatBotName + "!\n"
             + "What can " + chatBotName + " do for human?\n";
     private String exitString = "Bye. Hope to see you again soon!";
 
