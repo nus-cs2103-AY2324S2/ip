@@ -40,19 +40,22 @@ public class MarkCommand implements Command {
         String[] s = input.split("\\s");
         assert (s.length == 2) : "Mark command cannot be split at space";
         int num = Integer.parseInt(s[1]);
-        if (num <= list.getSize() && num >= 1) {
-            Task t = list.getTask(num - 1);
-            if (this.toMark) {
-                t.markAsDone();
-                storage.writeToFile(list);
-                return ui.showMarked(t);
-            } else {
-                t.markAsNotDone();
-                storage.writeToFile(list);
-                return ui.showUnmarked(t);
-            }
-        } else {
+        if (num > list.getSize() || num < 1) {
             throw new DukeException("Task (" + num + ") not found.\n" + list.print());
+        }
+        Task t = list.getTask(num - 1);
+        String message = markTask(ui, t);
+        storage.writeToFile(list);
+        return message;
+    }
+
+    private String markTask(Ui ui, Task t) {
+        if (this.toMark) {
+            t.markAsDone();
+            return ui.showMarked(t);
+        } else {
+            t.markAsNotDone();
+            return ui.showUnmarked(t);
         }
     }
 

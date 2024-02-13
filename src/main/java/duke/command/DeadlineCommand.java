@@ -33,13 +33,17 @@ public class DeadlineCommand implements Command {
         String[] task = input.split("/by");
         assert (task.length == 2) : "Deadline command cannot be split at /by";
         try {
-            Task t = new Deadline(task[0].substring(9).trim(), task[1].trim());
+            Task t = createTask(task);
             list.add(t);
             storage.writeToFile(list);
             return ui.showAdded(t, list);
         } catch (DateTimeParseException e) {
             throw new DukeException(e.getMessage());
         }
+    }
+    private Task createTask(String[] task) {
+        Task t = new Deadline(task[0].substring(9).trim(), task[1].trim());
+        return t;
     }
 
     @Override

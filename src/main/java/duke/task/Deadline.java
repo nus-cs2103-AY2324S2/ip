@@ -61,7 +61,7 @@ public class Deadline extends Task {
      *
      * @return String of formatted localDateTime.
      */
-    public String printDate() {
+    private String printDate() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
         return this.dueDate.format(formatter);
     }

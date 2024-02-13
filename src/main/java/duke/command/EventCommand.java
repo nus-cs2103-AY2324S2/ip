@@ -36,7 +36,7 @@ public class EventCommand implements Command {
         String[] time = task[1].split("/to");
         assert (time.length == 2) : "Event command cannot be split at /to";
         try {
-            Task t = new Event(task[0].substring(6).trim(), time[0].trim(), time[1].trim());
+            Task t = createTask(task, time);
             list.add(t);
             storage.writeToFile(list);
             return ui.showAdded(t, list);
@@ -44,6 +44,11 @@ public class EventCommand implements Command {
             throw new DukeException(e.getMessage());
         }
 
+    }
+
+    private Task createTask(String[] task, String[] time) {
+        Task t = new Event(task[0].substring(6).trim(), time[0].trim(), time[1].trim());
+        return t;
     }
 
     @Override

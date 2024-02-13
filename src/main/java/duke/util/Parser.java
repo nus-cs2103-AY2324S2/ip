@@ -18,6 +18,12 @@ import duke.exception.DukeException;
  * Represents a parser to process and parse command.
  */
 public class Parser {
+    private static final String MARK = "mark";
+    private static final String UNMARK = "unmark";
+    private static final String SPACE = "\\s";
+    private static final String SPACE_DIGIT = SPACE + "\\d+";
+    private static final String SPACE_MORE = SPACE + ".+";
+
     /**
      * Sets the possible types of input.
      */
@@ -45,7 +51,7 @@ public class Parser {
             return InputType.LIST;
         } else if (input.startsWith("mark")) {
             return InputType.MARK;
-        } else if (input.startsWith("unmark")) {
+        } else if (input.startsWith(UNMARK)) {
             return InputType.UNMARK;
         } else if (input.startsWith("delete")) {
             return InputType.DELETE;
@@ -143,22 +149,22 @@ public class Parser {
 
     private static Command parseMarkCommand(String input, boolean toMark) throws DukeException {
         String lowerInput = input.trim().toLowerCase();
-        if (matchPattern(lowerInput, "mark\\s\\d+|unmark\\s\\d+")) {
+        if (matchPattern(lowerInput, MARK + SPACE_DIGIT + "|" + UNMARK + SPACE_DIGIT)) {
             return new MarkCommand(input, toMark);
         } else {
             if (toMark) {
-                throw new DukeException("Your mark instruction is unclear.\n"
-                        + "Try 'mark [task number to mark as done]'.");
+                throw new DukeException("Your " + MARK + " instruction is unclear.\n"
+                        + "Try '" + MARK + " [task number to mark as done]'.");
             } else {
-                throw new DukeException("Your unmark instruction is unclear.\n"
-                        + "Try 'unmark [task number to mark as not done]'.");
+                throw new DukeException("Your " + UNMARK + " instruction is unclear.\n"
+                        + "Try '" + UNMARK + " [task number to mark as not done]'.");
             }
         }
     }
 
     private static Command parseDeleteCommand(String input) throws DukeException {
         String lowerInput = input.trim().toLowerCase();
-        if (Parser.matchPattern(lowerInput, "delete\\s\\d+")) {
+        if (Parser.matchPattern(lowerInput, "delete" + SPACE_DIGIT)) {
             return new DeleteCommand(input);
         } else {
             throw new DukeException("Your delete instruction is unclear.\n"
@@ -168,7 +174,7 @@ public class Parser {
 
     private static Command parseTodoCommand(String input) throws DukeException {
         String lowerInput = input.trim().toLowerCase();
-        if (Parser.matchPattern(lowerInput, "todo\\s.+")) {
+        if (Parser.matchPattern(lowerInput, "todo" + SPACE_MORE)) {
             return new TodoCommand(input);
         } else {
             throw new DukeException("The description of a todo cannot be empty.\n"
@@ -178,7 +184,7 @@ public class Parser {
 
     private static Command parseDeadlineCommand(String input) throws DukeException {
         String lowerInput = input.trim().toLowerCase();
-        if (Parser.matchPattern(lowerInput, "deadline\\s.+\\s/by\\s.+")) {
+        if (Parser.matchPattern(lowerInput, "deadline" + SPACE_MORE + SPACE + "/by" + SPACE_MORE)) {
             return new DeadlineCommand(input);
         } else {
             throw new DukeException("The description and due of a deadline cannot be empty.\n"
@@ -188,7 +194,8 @@ public class Parser {
 
     private static Command parseEventCommand(String input) throws DukeException {
         String lowerInput = input.trim().toLowerCase();
-        if (Parser.matchPattern(lowerInput, "event\\s.+\\s/from\\s.+\\s/to\\s.+")) {
+        if (Parser.matchPattern(lowerInput,
+                "event" + SPACE_MORE + SPACE + "/from" + SPACE_MORE + SPACE + "/to" + SPACE_MORE)) {
             return new EventCommand(input);
         } else {
             throw new DukeException("The description, start and end time of an event cannot be empty.\n"
@@ -205,8 +212,8 @@ public class Parser {
      */
     private static Command parseFindCommand(String input) throws DukeException {
         String lowerInput = input.trim().toLowerCase();
-        if (Parser.matchPattern(lowerInput, "find\\s.+")) {
-            String[] keywords = input.substring(4).trim().split("\\s");
+        if (Parser.matchPattern(lowerInput, "find" + SPACE_MORE)) {
+            String[] keywords = input.substring(4).trim().split(SPACE);
             return new FindCommand(keywords);
         } else {
             throw new DukeException("Specify 1 or more keyword/s to search.\n"
