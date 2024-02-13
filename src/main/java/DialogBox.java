@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.util.Collections;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,7 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
 /**
- * DialogBox class
+ * DialogBox class.
  */
 public class DialogBox extends HBox {
     @FXML
@@ -25,7 +24,7 @@ public class DialogBox extends HBox {
     private ImageView displayPicture;
 
     /**
-     * Constructor of DialogBox
+     * Constructor of DialogBox.
      * @param text
      * @param img
      */

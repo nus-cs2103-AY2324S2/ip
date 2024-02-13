@@ -45,7 +45,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public String getExecuteMessage(TaskList tasks, Ui ui, Storage storage) {
+    public String getExecutionMessage(TaskList tasks, Ui ui, Storage storage) {
         try {
             String output = tasks.addTask(commandArr[0], commandArr.length > 1 ? commandArr[1] : "");
             FileManaging.writeToFile(CommandType.FILEPATH.toString(), tasks);

@@ -1,12 +1,8 @@
 package duke.command;
 
-import duke.exception.DukeException;
-import duke.helpers.FileManaging;
 import duke.helpers.Storage;
 import duke.helpers.Ui;
 import duke.task.TaskList;
-
-import java.io.IOException;
 
 /**
  * ListCommand class
@@ -25,7 +21,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public String getExecuteMessage(TaskList tasks, Ui ui, Storage storage) {
-        return tasks.getListTask();
+    public String getExecutionMessage(TaskList tasks, Ui ui, Storage storage) {
+        return tasks.getListTasksMessage();
     }
 }

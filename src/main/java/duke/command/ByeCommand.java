@@ -25,7 +25,7 @@ public class ByeCommand extends Command {
     }
 
     @Override
-    public String getExecuteMessage(TaskList tasks, Ui ui, Storage storage) {
+    public String getExecutionMessage(TaskList tasks, Ui ui, Storage storage) {
         return "Bye. Hope to see you again soon!";
     }
 

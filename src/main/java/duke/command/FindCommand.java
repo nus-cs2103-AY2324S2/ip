@@ -40,7 +40,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public String getExecuteMessage(TaskList tasks, Ui ui, Storage storage) {
+    public String getExecutionMessage(TaskList tasks, Ui ui, Storage storage) {
         try {
             return tasks.findTask(commandArr.length > 1 ? commandArr[1] : "");
         } catch (DukeException e) {

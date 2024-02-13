@@ -25,7 +25,7 @@ public abstract class Command {
      * @param storage External storage in hard disk.
      * @return command string.
      */
-    public abstract String getExecuteMessage(TaskList tasks, Ui ui, Storage storage);
+    public abstract String getExecutionMessage(TaskList tasks, Ui ui, Storage storage);
 
     /**
      * Returns false to indicate that user is still in this chatbot.

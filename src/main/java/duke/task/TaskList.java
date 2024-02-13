@@ -96,9 +96,8 @@ public class TaskList {
      * Returns string when deletes a task.
      *
      * @param input index of the task to be deleted.
-     * @return length of storage after deleted the task.
-     * @throws DukeException If input task number is not in storage range.
      * @return String of actions.
+     * @throws DukeException If input task number is not in storage range.
      */
     public String deleteTask(String input) throws DukeException {
         try {
@@ -140,12 +139,12 @@ public class TaskList {
      * Return string of all the task from the storage.
      * @return String of all tasks.
      */
-    public String getListTask() {
+    public String getListTasksMessage() {
         StringBuilder output = new StringBuilder();
         if (storage.size() == 0) {
             return "Your task list is empty. Create your first task now!";
         } else {
-            output.append("Here are the tasks in your list:");
+            output.append("Here are the tasks in your list:\n");
         }
         for (int i = 0; i < storage.size(); i++) {
             output.append((i + 1) + ". " + storage.get(i) + "\n");
@@ -154,48 +153,12 @@ public class TaskList {
     }
 
     /**
-     * Lists out the task related to given date.
-     *
-     * @param date Date that user interested to check for related tasks.
-     */
-    public void listTask(LocalDate date) {
-        ui.drawLine();
-        if (storage.size() == 0) {
-            System.out.println("No event on " + date.toString());
-        } else {
-            System.out.println("Here are the tasks in your list related to " + date.toString() + " :");
-        }
-        for (int i = 0; i < storage.size(); i++) {
-            System.out.println((i + 1) + ". " + storage.get(i));
-        }
-        ui.drawLine();
-    }
-
-    /**
-     * Lists out the task matching to given word.
-     *
-     * @param word Matching word.
-     */
-    public void listTask(String word) {
-        ui.drawLine();
-        if (storage.size() == 0) {
-            System.out.println("There is no matching task in your list.");
-        } else {
-            System.out.println("Here are the matching tasks in your list related to " + word + " :");
-        }
-        for (int i = 0; i < storage.size(); i++) {
-            System.out.println((i + 1) + ". " + storage.get(i));
-        }
-        ui.drawLine();
-    }
-
-    /**
      * Returns out the task matching to given word.
      *
      * @param word Matching word.
      * @return String of tasks.
      */
-    public String getListTask(String word) {
+    public String getListTasksMessage(String word) {
         StringBuilder output = new StringBuilder();
         if (storage.size() == 0) {
             return "There is no matching task in your list.";
@@ -308,7 +271,7 @@ public class TaskList {
                 arr.add(item);
             }
         }
-        return arr.getListTask(word);
+        return arr.getListTasksMessage(word);
     }
 
 
@@ -328,7 +291,7 @@ public class TaskList {
                     arr.add(curr);
                 }
             }
-            return arr.getListTask(d.toString());
+            return arr.getListTasksMessage(d.toString());
         } catch (DukeException e) {
             return e.getMessage() + ". Please use format : " + CommandType.CHECKDATE.getCommand();
         }
