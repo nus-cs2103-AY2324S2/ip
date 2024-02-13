@@ -8,8 +8,7 @@ public class TodoTask extends Task {
      * @param status completion status of task
      */
     public TodoTask(String what, String status) {
-        super(what, status);
-        this.type = "[T]";
+        super(what, status, "[T]");
     }
 
     /**
@@ -29,7 +28,7 @@ public class TodoTask extends Task {
      */
 
     public String showAll() {
-        return this.type + super.showAll();
+        return super.showAll();
     }
 
     /**
