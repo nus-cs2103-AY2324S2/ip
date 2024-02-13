@@ -27,6 +27,7 @@ import javafx.scene.shape.Circle;
  */
 public class DialogBox extends HBox {
 
+    private static final String VIEW_DIALOG_BOX_FXML = "/view/DialogBox.fxml";
     private Label text;
 
     @FXML
@@ -40,7 +41,7 @@ public class DialogBox extends HBox {
         assert text != null : "Text parameter cannot be null";
         assert img != null : "Image parameter cannot be null";
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource(VIEW_DIALOG_BOX_FXML));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();

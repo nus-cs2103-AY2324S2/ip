@@ -11,6 +11,8 @@ import jayne.JayneException;
  * of a deadline date.
  */
 public class Deadline extends Task {
+    private static final String DATE_FORMAT_STRING = "MMM dd yyyy";
+    private static final String NO_DATE_STRING = "no date";
     protected LocalDate by;
     /**
      * Constructs a Deadline task with a description and deadline date.
@@ -45,9 +47,9 @@ public class Deadline extends Task {
      */
     private String formatDate(LocalDate date) {
         if (date == null) {
-            return "no date";
+            return NO_DATE_STRING;
         }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT_STRING);
         return date.format(formatter);
     }
     /**

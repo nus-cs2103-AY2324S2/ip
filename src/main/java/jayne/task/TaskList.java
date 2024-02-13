@@ -11,6 +11,7 @@ import jayne.Storage;
  * adding, deleting, and marking tasks as done or not done.
  */
 public class TaskList {
+    private static final String NO_TASKS_FOUND_WITH_THE_KEYWORD = "No tasks found with the keyword: ";
     private final List<Task> taskArray;
     private int taskCount;
 
@@ -44,15 +45,15 @@ public class TaskList {
      */
     public String findTask(String keyword) {
         int count = 0;
-        String output = "";
+        StringBuilder output = new StringBuilder();
         for (int i = 0; i < taskArray.size(); i++) {
             Task task = taskArray.get(i);
             if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
-                output = ++count + "." + task;
+                output.append(++count).append(".").append(task).append("\n");
             }
         }
         if (count == 0) {
-            output = "No tasks found with the keyword: " + keyword;
+            output = new StringBuilder(NO_TASKS_FOUND_WITH_THE_KEYWORD + keyword);
         }
 
         return "Here are the matching tasks in your list:\n" + output;
@@ -93,7 +94,6 @@ public class TaskList {
         if (index >= 0 && index <= taskArray.size()) {
             return taskArray.get(index - 1);
         }
-        System.out.println("Index invalid");
         return null;
     }
     /**
@@ -126,7 +126,6 @@ public class TaskList {
         for (int i = 0; i < taskArray.size(); i++) {
             output.append(i + 1).append(". ").append(taskArray.get(i).toString()).append("\n");
         }
-
         return "Here are the tasks in your list:\n" + output;
     }
 }
