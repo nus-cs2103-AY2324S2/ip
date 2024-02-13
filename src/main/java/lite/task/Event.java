@@ -14,7 +14,7 @@ public class Event extends Task {
     public String toString() {
         String startSplit[] = start.split(" ", 2);
         String endSplit[] = end.split(" ", 2);
-        return "[E]" + super.toString() + "(" + startSplit[0] + ": " + startSplit[1] +
+        return "[E]" + super.toString() + " (" + startSplit[0] + ": " + startSplit[1] + " " +
                 endSplit[0] + ": " + endSplit[1] + ")";
     }
 
