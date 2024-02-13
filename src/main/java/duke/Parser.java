@@ -10,7 +10,6 @@ import command.MarkCommand;
 import command.ShowListCommand;
 import command.TodoCommand;
 import command.UnmarkCommand;
-import command.WelcomeCommand;
 
 /**
  * Parser deals with making sense of the user command.
@@ -41,11 +40,11 @@ public class Parser {
      * @return A specific command that corresponds to the specific Actions.
      */
     public static Command parse(String input) {
+        assert input != null : "There should be an input";
         String temp = input.split(" ")[0];
         Actions action = Actions.valueOf(temp.toUpperCase());
+        assert action != null : "There should be a command, eg: hello";
         switch (action) {
-        case HELLO:
-            return new WelcomeCommand(taskList, ui, storage);
         case BYE:
             return new ByeCommand(taskList, ui, storage);
         case LIST:
