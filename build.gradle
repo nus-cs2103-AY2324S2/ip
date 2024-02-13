@@ -44,19 +44,19 @@ test {
 }
 
 application {
-    mainClass = "lamball.Launcher"
+    mainClass.set("lamball.Launcher")
 }
 
 shadowJar {
-    archiveFileName = 'lamball.jar'
-//    archiveBaseName = "duke"
-//    archiveClassifier = null
-//    dependsOn("distZip", "distTar")
+//    archiveFileName = 'lamball.jar'
+    archiveBaseName = "lamball"
+    archiveClassifier = null
+    dependsOn("distZip", "distTar")
 }
 
 checkstyle {
     toolVersion = '10.2'
-    configFile = file("./config/checkstyle/checkstyle.xml")
+//    configFile = file("./config/checkstyle/checkstyle.xml")
 //    configFile file("${project.rootDir}/config/checkstyle.xml")
 }
 
