@@ -1,3 +1,14 @@
+package lite;
+
+import lite.task.Deadline;
+import lite.task.Event;
+import lite.task.Todo;
+import lite.task.Task;
+import lite.task.TaskList;
+
+import lite.util.Printer;
+import lite.util.LiteException;
+
 public class Ui {
     private String input;
 

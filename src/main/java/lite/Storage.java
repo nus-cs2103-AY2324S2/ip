@@ -1,3 +1,5 @@
+package lite;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -5,7 +7,11 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
-public class SavedFile {
+
+import lite.task.Task;
+import lite.util.FileParseInput;
+import lite.util.LiteException;
+public class Storage {
     private static final String PATH = "./lite.txt";
 
     public static void save(ArrayList<Task> tasks) {

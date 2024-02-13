@@ -1,3 +1,5 @@
+package lite.task;
+
 public class Task {
     private String description;
     private boolean isDone;
@@ -14,7 +16,7 @@ public class Task {
 
     public String mark() {
         setDone();
-        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("Nice! I've marked this lite.task as done:");
         return this.toString();
     }
 
@@ -23,7 +25,7 @@ public class Task {
     }
 
     public String unmark() {
-        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println("OK, I've marked this lite.task as not done yet:");
         setUndone();
         return this.toString();
     }

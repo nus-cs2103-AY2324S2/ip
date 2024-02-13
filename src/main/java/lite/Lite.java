@@ -1,3 +1,5 @@
+package lite;
+
 public class Lite {
     public static void main(String[] args) {
         String logo = "  LLLLL      IIIIIIIII  TTTTTTTTTT  EEEEEEEEEE  \n" +

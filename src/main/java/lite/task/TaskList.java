@@ -1,3 +1,8 @@
+package lite.task;
+
+import lite.Storage;
+import lite.util.Printer;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -37,7 +42,7 @@ public class TaskList {
     }
 
     public void saveFile() {
-        SavedFile.save(this.tasks);
+        Storage.save(this.tasks);
     }
 
 }

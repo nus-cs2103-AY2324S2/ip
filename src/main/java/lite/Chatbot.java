@@ -1,6 +1,11 @@
+package lite;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
+
+import lite.task.TaskList;
+import lite.util.LiteException;
+import lite.util.Printer;
+
 
 public class Chatbot {
     private Scanner scanner = new Scanner(System.in);
@@ -15,7 +20,7 @@ public class Chatbot {
 
     public void start() {
         try {
-            this.tasks = new TaskList(SavedFile.load());
+            this.tasks = new TaskList(Storage.load());
             greetings();
             while (!this.isBye) {
                 Ui ui = new Ui(scanner.nextLine());

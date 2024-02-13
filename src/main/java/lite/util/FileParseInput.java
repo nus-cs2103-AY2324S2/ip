@@ -1,3 +1,10 @@
+package lite.util;
+
+import lite.task.Deadline;
+import lite.task.Event;
+import lite.task.Task;
+import lite.task.Todo;
+
 public class FileParseInput {
     public static Task parse(String input) {
         String[] instruction = input.split("!");
