@@ -23,7 +23,8 @@ public class InsertTask {
      * No constructor needed
      */
     private InsertTask() {
-        throw new AssertionError("Constructor is not allowed");
+        // throw new AssertionError("Constructor is not allowed");
+        assert false : "Execution should never reach this point!";
     }
 
     /**
@@ -32,7 +33,8 @@ public class InsertTask {
      * @param taskList
      * @throws TaylorException
      */
-    public static void execInsertTask(String input, List<Task> taskList) throws TaylorException {
+    public static String execInsertTask(String input, List<Task> taskList) throws TaylorException {
+        String response = null;
         // Split the UserInput to get the Action to be taken
         String[] parts = input.split(" ", 2);
         if (parts.length < 2 || parts[1].trim().isBlank()) {
@@ -45,18 +47,18 @@ public class InsertTask {
 
         switch (type) {
         case TODO:
-            todoTask(content, taskList);
+            response = todoTask(content, taskList);
             break;
         case DEADLINE:
-            deadlineTask(content, taskList);
+            response = deadlineTask(content, taskList);
             break;
         case EVENT:
-            eventTask(content, taskList);
+            response = eventTask(content, taskList);
             break;
         default:
             throw new TaylorException("Invalid Task Type");
         }
-
+        return response;
     }
 
     /**
@@ -64,13 +66,15 @@ public class InsertTask {
      * @param content : what to do?
      * @param taskList
      */
-    public static void todoTask(String content, List<Task> taskList) {
-        System.out.println("Got it. I've added this task:");
+    public static String todoTask(String content, List<Task> taskList) {
+        StringBuilder response = new StringBuilder();
+        response.append("Got it. I've added this task:\n");
         Todo task = new Todo(content);
         // Add todoTask into ArrayList
         taskList.add(task);
-        System.out.println(task);
-        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+        response.append(task).append("\n");
+        response.append("Now you have ").append(taskList.size()).append(" tasks in the list.").append("\n");
+        return response.toString();
     }
 
     /**
@@ -79,7 +83,8 @@ public class InsertTask {
      * @param taskList
      * @throws TaylorException
      */
-    public static void deadlineTask(String content, List<Task> taskList) throws TaylorException {
+    public static String deadlineTask(String content, List<Task> taskList) throws TaylorException {
+        StringBuilder response = new StringBuilder();
         try {
             // Given the content, get the Time
             String[] splitter = content.split("/by");
@@ -90,16 +95,17 @@ public class InsertTask {
             }
             // Get action and the time separately
             Deadline dl = new Deadline(splitter[0], dateConversion(splitter[1].trim()));
-            System.out.println("Got it. I've added this task:");
+            response.append("Got it. I've added this task:\n");
             // Add deadline Task into ArrayList
             taskList.add(dl);
-            System.out.println(dl);
-            System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+            response.append(dl).append("\n");
+            response.append("Now you have ").append(taskList.size()).append(" tasks in the list.").append("\n");
 
         } catch (ArrayIndexOutOfBoundsException err) {
             throw new TaylorException("Invalid format. "
                     + "Please type in the following format: deadline <action> /by <time>");
         }
+        return response.toString();
     }
 
     /**
@@ -108,7 +114,8 @@ public class InsertTask {
      * @param taskList
      * @throws TaylorException
      */
-    public static void eventTask(String content, List<Task> taskList) throws TaylorException {
+    public static String eventTask(String content, List<Task> taskList) throws TaylorException {
+        StringBuilder response = new StringBuilder();
         try {
             // Separate the action and the 2 times
             String[] splitter = content.split("/from");
@@ -130,9 +137,9 @@ public class InsertTask {
                         dateConversion(splitter1[0].trim()), dateConversion(splitter1[1].trim()));
                 // Add event Task into ArrayList
                 taskList.add(eve);
+                response.append(eve).append("\n");
+                response.append("Now you have ").append(taskList.size()).append(" tasks in the list.").append("\n");
 
-                System.out.println(eve);
-                System.out.println("Now you have " + taskList.size() + " tasks in the list.");
             } catch (ArrayIndexOutOfBoundsException err) {
                 throw new TaylorException("Invalid format. Please type in the following format: "
                         + "event <action> /from <time> /to <time>");
@@ -141,6 +148,7 @@ public class InsertTask {
             throw new TaylorException("Invalid format. Please type in the following format: "
                     + "event <action> /from <time> /to <time>");
         }
+        return response.toString();
     }
 
     /**

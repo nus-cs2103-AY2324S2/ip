@@ -12,23 +12,26 @@ public class ListTask {
      * No constructor needed
      */
     private ListTask() {
-        throw new AssertionError("Constructor is not allowed");
+        // throw new AssertionError("Constructor is not allowed");
+        assert false : "Execution should never reach this point!";
     }
 
     /**
      * List out all the tasks
      * @param taskList List of tasks
      */
-    public static void execListTask(List<Task> taskList) {
-        System.out.println("Here are the tasks in your list:");
+    public static String execListTask(List<Task> taskList) {
+        StringBuilder response = new StringBuilder();
+        response.append("Here are the tasks in your list:\n");
         int pos = 1;
         if (taskList.isEmpty()) {
-            System.out.println("List is empty.");
+            response.append("List is empty.");
         } else {
             for (Task acting : taskList) {
-                System.out.println(pos++ + ". " + acting);
+                response.append(pos++).append(". ").append(acting).append("\n");
             }
         }
+        return response.toString();
     }
 
 }

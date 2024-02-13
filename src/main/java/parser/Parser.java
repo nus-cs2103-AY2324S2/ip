@@ -3,6 +3,7 @@ package parser;
 import java.util.List;
 
 import exceptions.TaylorException;
+import filestorage.Storage;
 import tasklist.DeleteTask;
 import tasklist.FindTask;
 import tasklist.InsertTask;
@@ -26,7 +27,8 @@ public class Parser {
      * No constructor needed
      */
     private Parser() {
-        throw new AssertionError("Constructor is not allowed");
+        // throw new AssertionError("Constructor is not allowed");
+        assert false : "Execution should never reach this point!";
     }
 
     /**
@@ -34,7 +36,8 @@ public class Parser {
      * @param input User Input
      * @param tasksList List of Tasks
      */
-    public static void executeCommand(String input, List<Task> tasksList) {
+    public static String executeCommand(String input, List<Task> tasksList) {
+        String response = null;
         String[] userInputSplit = input.split(" ", 2);
         String actionCalled = userInputSplit[0];
 
@@ -42,17 +45,21 @@ public class Parser {
         // Switch between different calls
         switch (cmd) {
         case BYE:
-            throw new TaylorException("Quit");
+            try {
+                response = Storage.outputToFile(tasksList);
+            } catch (Exception err) {
+                response = Ui.printError(err);
+            }
+            break;
         case LIST:
-            ListTask.execListTask(tasksList);
-
+            response = ListTask.execListTask(tasksList);
             break;
         case MARK:
         case UNMARK:
             try {
-                MarkTask.execMarkTask(input, tasksList);
+                response = MarkTask.execMarkTask(input, tasksList);
             } catch (TaylorException err) {
-                Ui.printError(err);
+                response = Ui.printError(err);
             }
 
             break;
@@ -60,36 +67,38 @@ public class Parser {
         case DEADLINE:
         case EVENT:
             try {
-                InsertTask.execInsertTask(input, tasksList);
+                response = InsertTask.execInsertTask(input, tasksList);
             } catch (TaylorException err) {
-                Ui.printError(err);
+                response = Ui.printError(err);
             }
             break;
         case DELETE:
             try {
-                DeleteTask.execDeleteTask(input, tasksList);
+                response = DeleteTask.execDeleteTask(input, tasksList);
             } catch (TaylorException err) {
-                Ui.printError(err);
+                response = Ui.printError(err);
             }
             break;
         case SEARCH:
             try {
-                SearchTask.execSearchTask(userInputSplit[1], tasksList);
+                response = SearchTask.execSearchTask(userInputSplit[1], tasksList);
             } catch (TaylorException err) {
-                Ui.printError(err);
+                response = Ui.printError(err);
             }
             break;
         case FIND:
             try {
-                FindTask.exec(userInputSplit[1], tasksList);
+                response = FindTask.exec(userInputSplit[1], tasksList);
             } catch (TaylorException err) {
-                Ui.printError(err);
+                response = Ui.printError(err);
             }
             break;
         default:
-            Ui.invalidCommand();
+            assert false : "Invalid command";
+            response = Ui.invalidCommand();
             break;
         }
+        return response;
     }
 
     /**

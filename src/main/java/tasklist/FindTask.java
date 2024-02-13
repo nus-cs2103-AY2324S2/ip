@@ -15,7 +15,8 @@ public class FindTask {
      * No constructor needed
      */
     private FindTask() {
-        throw new AssertionError("Constructor is not allowed");
+        // throw new AssertionError("Constructor is not allowed");
+        assert false : "Execution should never reach this point!";
     }
 
     /**
@@ -23,7 +24,8 @@ public class FindTask {
      * @param input User input
      * @param taskList ArrayList of Tasks
      */
-    public static void exec(String input, List<Task> taskList) {
+    public static String exec(String input, List<Task> taskList) {
+        StringBuilder response = new StringBuilder();
         String[] parts = input.split(" ", 2);
         if (parts.length < 2 || parts[1].trim().isBlank()) {
             throw new TaylorException("The description of the task is empty.");
@@ -37,12 +39,13 @@ public class FindTask {
         }
 
         if (result.isEmpty()) {
-            System.out.println("No task found");
+            response.append("No task found").append("\n");
         } else {
             int pos = 1;
             for (Task tsk : result) {
-                System.out.println(pos++ + "." + tsk);
+                response.append(pos++).append(". ").append(tsk).append("\n");
             }
         }
+        return response.toString();
     }
 }

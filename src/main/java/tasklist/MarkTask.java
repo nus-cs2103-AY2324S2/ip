@@ -13,7 +13,8 @@ public class MarkTask {
      * No constructor needed
      */
     private MarkTask() {
-        throw new AssertionError("Constructor is not allowed");
+        //throw new AssertionError("Constructor is not allowed");
+        assert false : "Execution should never reach this point!";
     }
 
     /**
@@ -21,7 +22,8 @@ public class MarkTask {
      * @param input : to mark or unmark and which one?
      * @param taskList
      */
-    public static void execMarkTask(String input, List<Task> taskList) {
+    public static String execMarkTask(String input, List<Task> taskList) {
+        StringBuilder response = new StringBuilder();
         String[] markWhat = input.split(" ");
         String what = markWhat[0];
 
@@ -34,17 +36,18 @@ public class MarkTask {
 
             if (what.equals("mark")) {
                 taskList.get(num).markIt();
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println(taskList.get(num));
+                response.append("Nice! I've marked this task as done:\n");
+                response.append(taskList.get(num));
             } else if (what.equals("unmark")) {
                 taskList.get(num).unMark();
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(taskList.get(num));
+                response.append("OK, I've marked this task as not done yet:\n");
+                response.append(taskList.get(num));
             } else {
                 throw new TaylorException("Invalid command -  Only use mark/unmark");
             }
         } catch (ArrayIndexOutOfBoundsException err) {
             throw new TaylorException("Please insert task number!");
         }
+        return response.toString();
     }
 }
