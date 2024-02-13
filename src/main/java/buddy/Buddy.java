@@ -42,6 +42,7 @@ public class Buddy {
             Command c = Parser.parse(input);
             response = c.execute(tasks, storage);
             isExit = c.isExit();
+            assert response != null; // There should be a valid response;
             return response;
         } catch (BuddyException e) {
             return e.getMessage();

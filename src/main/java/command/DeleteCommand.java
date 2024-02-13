@@ -17,6 +17,7 @@ public class DeleteCommand extends Command {
      * @param taskIndex Index of task to be deleted.
      */
     public DeleteCommand(int taskIndex) {
+        assert taskIndex > 0;
         this.taskIndex = taskIndex;
     }
 
@@ -32,6 +33,7 @@ public class DeleteCommand extends Command {
         String response = "";
         try {
             Task task = tasks.getTask(taskIndex);
+            assert task != null; // task should be valid and not empty
             tasks.deleteTask(task);
             response += "I've deleted the following task:\n" + task + "\nYou have " + tasks.size()
                     + " tasks remaining!";

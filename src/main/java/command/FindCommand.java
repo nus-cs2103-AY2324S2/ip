@@ -16,6 +16,7 @@ public class FindCommand extends Command {
      * @param query Query phrase to search for in task list.
      */
     public FindCommand(String query) {
+        assert query != null;
         this.query = query;
     }
 

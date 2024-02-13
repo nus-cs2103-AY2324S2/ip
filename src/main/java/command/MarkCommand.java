@@ -16,7 +16,9 @@ public class MarkCommand extends Command {
      *
      * @param taskIndex Task to be modified.
      */
+
     public MarkCommand(int taskIndex) {
+        assert taskIndex > 0;
         this.taskIndex = taskIndex;
     }
 

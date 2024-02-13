@@ -15,13 +15,13 @@ public class AddCommand extends Command {
      * @param task Task to be added.
      */
     public AddCommand(Task task) {
+        assert task != null;
         this.task = task;
     }
 
     @Override
     public String execute(TaskList tasks, Storage storage) {
         tasks.addTask(this.task);
-
         String response = "";
         response += "I've added the following task:\n" + task + "\nYou have " + tasks.size() + " tasks";
         return response;
