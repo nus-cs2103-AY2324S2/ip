@@ -37,15 +37,13 @@ public class Tasklist {
      * @return The list of tasks in the task list.
      */
     public String printTodolist() {
+        if (isEmpty()) {
+            return "Todolist is empty!";
+        }
         StringBuilder s = new StringBuilder();
         int i = 1;
-        if (isEmpty()) {
-            s = new StringBuilder("Todolist is empty!");
-            return s.toString();
-        }
         for (Task t : todolist) {
-            s.append(i).append(". ").append(t.toString()).append("\n\t");
-            i++;
+            s.append(i++).append(". ").append(t).append("\n\t");
         }
         return s.toString().trim();
     }
@@ -84,25 +82,33 @@ public class Tasklist {
      */
     public void restoreData() throws DukeException {
         try {
-            boolean isDone;
             List<String> tasks = Storage.loadData();
-            for (String task : tasks) {
-                String[] details = task.split("\\|");
-                isDone = !Objects.equals(details[1], "0");
-                for (int i = 0; i < details.length; i++) {
-                    details[i] = details[i].trim();
-                }
-                if (details[0].equals("T")) {
-                    addItem(new Todo(details[2], isDone));
-                } else if (details[0].equals("D")) {
-                    addItem(new Deadline(details[2], LocalDate.parse(details[3]), isDone));
-                } else if (details[0].equals("E")) {
-                    addItem(new Event(details[2], LocalDate.parse(details[3]), LocalDate.parse(details[4]), isDone));
-                }
-            }
+            processDataFromString(tasks);
         } catch (IOException e) {
-            System.out.println("An error has occured while executing loadData()");
+            System.out.println("An error has occurred while executing loadData()");
         }
+    }
 
+    /**
+     * Processes the data from the list of strings provided from the file.
+     *
+     * @param tasks The data from the file.
+     */
+    public void processDataFromString(List<String> tasks) throws DukeException {
+        boolean isDone;
+        for (String task : tasks) {
+            String[] details = task.split("\\|");
+            isDone = !Objects.equals(details[1], "0");
+            for (int i = 0; i < details.length; i++) {
+                details[i] = details[i].trim();
+            }
+            if (details[0].equals("T")) {
+                addItem(new Todo(details[2], isDone));
+            } else if (details[0].equals("D")) {
+                addItem(new Deadline(details[2], LocalDate.parse(details[3]), isDone));
+            } else if (details[0].equals("E")) {
+                addItem(new Event(details[2], LocalDate.parse(details[3]), LocalDate.parse(details[4]), isDone));
+            }
+        }
     }
 }
