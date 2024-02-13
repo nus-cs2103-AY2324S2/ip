@@ -98,6 +98,7 @@ public class TaskList {
         if (listIndex >= this.tasks.size()) {
             throw new CoDriverException("Error! Given index exceeds list size of " + this.tasks.size() + ".");
         }
+        assert listIndex >= 0 : "Index out of bounds for markTask()";
         Task t = this.tasks.get(listIndex);
         t.markDone();
     }
@@ -112,6 +113,7 @@ public class TaskList {
         if (listIndex >= this.tasks.size()) {
             throw new CoDriverException("Error! Given index exceeds list size of " + this.tasks.size() + ".");
         }
+        assert listIndex >= 0 : "Index out of bounds for unmarkTask()";
         Task t = this.tasks.get(listIndex);
         t.markNotDone();
     }
@@ -126,6 +128,7 @@ public class TaskList {
         if (listIndex >= this.tasks.size()) {
             throw new CoDriverException("Error! Given index exceeds list size of " + this.tasks.size() + ".");
         }
+        assert listIndex >= 0 : "Index out of bounds for deleteTask()";
         Task t = this.tasks.get(listIndex);
         this.tasks.remove(t);
         System.out.println("Now you have " + this.tasks.size() + " tasks in the list.");
