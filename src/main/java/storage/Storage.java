@@ -1,8 +1,5 @@
 package storage;
 
-import exception.BuddyException;
-import task.*;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,6 +7,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import exception.BuddyException;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.TaskList;
+import task.Todo;
+
 
 /**
  * Represents storage component of buddy.Buddy, storing Task data.
@@ -36,35 +41,7 @@ public class Storage {
         File f = new File(filePath);
         try {
             if (!f.createNewFile()) {
-                Scanner sc = new Scanner(f);
-                while (sc.hasNext()) {
-                    String data = sc.nextLine();
-                    String[] dataParts = data.split(" \\| ");
-                    boolean isDone = dataParts[1].equals("true");
-                    switch (dataParts[0]) {
-                    case "T":
-                        Todo todo = new Todo(dataParts[2]);
-                        todo.setDone(isDone);
-                        taskList.add(todo);
-                        break;
-                    case "D":
-                        LocalDateTime by = LocalDateTime.parse(
-                                dataParts[3], Task.DATE_TIME_STRING_FORMAT);
-                        Deadline deadline = new Deadline(dataParts[2], by);
-                        deadline.setDone(isDone);
-                        taskList.add(deadline);
-                        break;
-                    case "E":
-                        LocalDateTime from = LocalDateTime.parse(
-                                dataParts[3], Task.DATE_TIME_STRING_FORMAT);
-                        LocalDateTime to = LocalDateTime.parse(
-                                dataParts[4], Task.DATE_TIME_STRING_FORMAT);
-                        Event event = new Event(dataParts[2], from, to);
-                        event.setDone(isDone);
-                        taskList.add(event);
-                        break;
-                    }
-                }
+                readData(f);
             }
         } catch (IOException ioe) {
             throw new BuddyException(ioe.getMessage());
@@ -84,12 +61,63 @@ public class Storage {
         try {
             FileWriter fw = new FileWriter(filePath);
             for (int i = 0; i < taskList.size(); i++) {
-                fw.write(taskList.getTask(i).writeTask());
+                String taskToBeWritten = taskList.getTask(i).toWritableString();
+                fw.write(taskToBeWritten);
                 fw.write(System.lineSeparator());
             }
             fw.close();
         } catch (IOException ioe) {
             throw new BuddyException(ioe.getMessage());
         }
+    }
+
+    private void readData(File f) throws IOException, BuddyException {
+        Scanner sc = new Scanner(f);
+        while (sc.hasNext()) {
+            String data = sc.nextLine();
+            System.out.println(data);
+            parseData(data);
+        }
+    }
+    private void parseData(String data) throws BuddyException {
+        String[] dataParts = data.split("\\|");
+        String taskType = dataParts[0].trim();
+        boolean isDone = dataParts[1].trim().equals("true");
+        String task = dataParts[2].trim();
+
+        switch (taskType) {
+        case "T":
+            addTodo(task, isDone);
+            break;
+        case "D":
+            String deadlineString = dataParts[3].trim();
+            LocalDateTime deadline = LocalDateTime.parse(deadlineString, Task.DATE_TIME_STRING_FORMAT);
+            addDeadline(task, deadline, isDone);
+            break;
+        case "E":
+            String startTimeString = dataParts[3].trim();
+            String endTimeString = dataParts[4].trim();
+            LocalDateTime startTime = LocalDateTime.parse(startTimeString, Task.DATE_TIME_STRING_FORMAT);
+            LocalDateTime endTime = LocalDateTime.parse(endTimeString, Task.DATE_TIME_STRING_FORMAT);
+            addEvent(task, startTime, endTime, isDone);
+            break;
+        default:
+            throw new BuddyException("Contents of the file are in incorrect format!");
+        }
+    }
+    private void addTodo(String task, boolean isDone) {
+        Todo td = new Todo(task);
+        td.setDone(isDone);
+        taskList.add(td);
+    }
+    private void addDeadline(String task, LocalDateTime deadline, boolean isDone) {
+        Deadline dl = new Deadline(task, deadline);
+        dl.setDone(isDone);
+        taskList.add(dl);
+    }
+    private void addEvent(String task, LocalDateTime from, LocalDateTime to, boolean isDone) {
+        Event ev = new Event(task, from, to);
+        ev.setDone(isDone);
+        taskList.add(ev);
     }
 }

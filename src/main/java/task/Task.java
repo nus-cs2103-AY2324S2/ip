@@ -6,12 +6,12 @@ import java.time.format.DateTimeFormatter;
  * Represents a task.
  */
 public class Task {
-    protected String description;
-    protected boolean isDone = false;
     /**
      * Format for representing datetime as string.
      */
     public static final DateTimeFormatter DATE_TIME_STRING_FORMAT = DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mm a");
+    protected String description;
+    protected boolean isDone = false;
 
     /**
      * Creates a task object with specified task description.
@@ -44,7 +44,7 @@ public class Task {
      *
      * @return Task in string format to be written into storage file.
      */
-    public String writeTask() {
+    public String toWritableString() {
         return isDone + " | " + description;
     }
 

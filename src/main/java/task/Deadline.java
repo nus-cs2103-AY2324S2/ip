@@ -20,14 +20,14 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String writeTask() {
-        return "D | " + super.writeTask() + " | "
+    public String toWritableString() {
+        return "D | " + super.toWritableString() + " | "
                 + by.format(DATE_TIME_STRING_FORMAT);
     }
 
     @Override
     public String toString() {
         return "[D]" + super.toString()
-                + "(by: " + by.format(DATE_TIME_STRING_FORMAT) + ")";
+                + " (by: " + by.format(DATE_TIME_STRING_FORMAT) + ")";
     }
 }

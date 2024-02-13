@@ -13,14 +13,13 @@ import task.Task;
 import task.TaskList;
 import task.Todo;
 
+public class UnmarkCommandTest {
 
-
-public class MarkCommandTest {
     private Storage storage;
     private TaskList tasks;
     private TaskList testList;
 
-    public MarkCommandTest() {
+    public UnmarkCommandTest() {
         this.storage = new Storage("");
         this.tasks = new TaskList();
         this.testList = new TaskList();
@@ -30,6 +29,10 @@ public class MarkCommandTest {
                 LocalDateTime.of(2024, 1, 1, 18, 0));
         Task task3 = new Todo("task 3");
 
+        task1.setDone(true);
+        task2.setDone(true);
+        task3.setDone(true);
+
         tasks.addTask(task1);
         tasks.addTask(task2);
         tasks.addTask(task3);
@@ -37,18 +40,18 @@ public class MarkCommandTest {
 
     @Test
     public void execute_normalInput_success() throws Exception {
-        MarkCommand mark = new MarkCommand(2);
-        mark.execute(tasks, storage);
-        assertEquals(tasks.getTask(0).getStatusIcon(), " ");
-        assertEquals(tasks.getTask(1).getStatusIcon(), "X");
-        assertEquals(tasks.getTask(2).getStatusIcon(), " ");
+        UnmarkCommand unmark = new UnmarkCommand(2);
+        unmark.execute(tasks, storage);
+        assertEquals(tasks.getTask(0).getStatusIcon(), "X");
+        assertEquals(tasks.getTask(1).getStatusIcon(), " ");
+        assertEquals(tasks.getTask(2).getStatusIcon(), "X");
     }
 
     @Test
     public void execute_invalidIndex_exceptionThrown() {
         try {
-            MarkCommand mark = new MarkCommand(99);
-            mark.execute(tasks, storage);
+            UnmarkCommand unmark = new UnmarkCommand(99);
+            unmark.execute(tasks, storage);
             assertEquals(tasks.getTask(1), "X");
             fail();
         } catch (Exception e) {
@@ -56,4 +59,3 @@ public class MarkCommandTest {
         }
     }
 }
-

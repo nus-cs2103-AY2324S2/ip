@@ -1,14 +1,23 @@
 package parser;
 
-import command.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import command.AddCommand;
+import command.Command;
+import command.CommandType;
+import command.DeleteCommand;
+import command.ExitCommand;
+import command.FindCommand;
+import command.ListCommand;
+import command.MarkCommand;
+import command.UnmarkCommand;
 import exception.BuddyException;
 import task.Deadline;
 import task.Event;
 import task.Todo;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * Represents Parser component of buddy.Buddy, parsing inputs given by user.
@@ -27,7 +36,7 @@ public class Parser {
         Command c = null;
         if (!fullCommand.isEmpty()) {
             String[] commandParts = fullCommand.split(" ", 2);
-            CommandType commandWord = getCommandType(commandParts[0]);
+            CommandType commandWord = getCommandType(commandParts[0].trim());
 
             switch (commandWord) {
             case BYE:
@@ -37,87 +46,25 @@ public class Parser {
                 c = new ListCommand();
                 break;
             case MARK:
-                // Fallthrough
+                c = parseMark(commandParts);
+                break;
             case UNMARK:
-                try {
-                    if (commandParts.length == 1) {
-                        throw new BuddyException("I need a task number buddy!");
-                    }
-
-                    int index = Integer.parseInt(commandParts[1].trim()) - 1;
-                    c = new MarkCommand(commandWord, index);
-                    break;
-                } catch (NumberFormatException nfe) {
-                    throw new BuddyException("Not a valid task number buddy!");
-                }
+                c = parseUnmark(commandParts);
+                break;
             case DELETE:
-                try {
-                    if (commandParts.length == 1) {
-                        throw new BuddyException("I need a task number buddy!");
-                    }
-
-                    int index = Integer.parseInt(commandParts[1].trim()) - 1;
-                    c = new DeleteCommand(index);
-                    break;
-                } catch (NumberFormatException nfe) {
-                    throw new BuddyException("Not a valid task number buddy!");
-                }
+                c = parseDelete(commandParts);
+                break;
             case TODO:
-                if (commandParts.length == 1) {
-                    throw new BuddyException("Please include a task!");
-                }
-
-                Todo todo = new Todo(commandParts[1].trim());
-                c = new AddCommand(todo);
+                c = parseTodo(commandParts);
                 break;
             case DEADLINE:
-                try {
-                    if (commandParts.length == 1) {
-                        throw new BuddyException("Please include a task and deadline!");
-                    }
-
-                    String[] requestBody = commandParts[1].split("/by", 2);
-                    if (requestBody.length <= 1 || requestBody[1].isEmpty()) {
-                        throw new BuddyException("Please include a deadline!");
-                    }
-
-                    LocalDateTime by = LocalDateTime.parse(requestBody[1].trim(), DATE_TIME_PARSE_FORMAT);
-                    Deadline deadline = new Deadline(requestBody[0], by);
-                    c = new AddCommand(deadline);
-                    break;
-                } catch (DateTimeParseException dtpe) {
-                    throw new BuddyException("Not a valid date format!");
-                }
+                c = parseDeadline(commandParts);
+                break;
             case EVENT:
-                try {
-                    if (commandParts.length == 1) {
-                        throw new BuddyException("Please include a task and start/end times");
-                    }
-
-                    String[] requestBody = commandParts[1].split("/from", 2);
-                    if (requestBody.length <= 1 || requestBody[1].isEmpty()) {
-                        throw new BuddyException("Please include start/end time!");
-                    }
-
-                    String[] requestTime = requestBody[1].split("/to", 2);
-                    if (requestTime.length <= 1 || requestTime[1].isEmpty()) {
-                        throw new BuddyException("Please include end time!");
-                    }
-
-                    LocalDateTime from = LocalDateTime.parse(requestTime[0].trim(), DATE_TIME_PARSE_FORMAT);
-                    LocalDateTime to = LocalDateTime.parse(requestTime[1].trim(), DATE_TIME_PARSE_FORMAT);
-                    Event event = new Event(requestBody[0].trim(), from, to);
-                    c = new AddCommand(event);
-                    break;
-                } catch (DateTimeParseException dtpe) {
-                    throw new BuddyException("Not a valid date format!");
-                }
+                c = parseEvent(commandParts);
+                break;
             case FIND:
-                if (commandParts.length == 1) {
-                    throw new BuddyException("What are you trying to find buddy?");
-                }
-
-                c = new FindCommand(commandParts[1].trim());
+                c = parseFind(commandParts);
                 break;
             default:
                 throw new BuddyException("Not a valid command!");
@@ -137,6 +84,105 @@ public class Parser {
             return CommandType.valueOf(cmd.trim().toUpperCase());
         } catch (IllegalArgumentException iae) {
             return CommandType.INVALID;
+        }
+    }
+
+    private static Command parseDelete(String[] query) throws BuddyException {
+        try {
+            if (query.length == 1) {
+                throw new BuddyException("I need a task number buddy!");
+            }
+
+            int index = Integer.parseInt(query[1].trim()) - 1;
+            return new DeleteCommand(index);
+        } catch (NumberFormatException nfe) {
+            throw new BuddyException("Not a valid task number buddy!");
+        }
+    }
+
+    private static Command parseTodo(String[] query) throws BuddyException {
+        if (query.length == 1) {
+            throw new BuddyException("Please include a task!");
+        }
+
+        Todo todo = new Todo(query[1].trim());
+        return new AddCommand(todo);
+    }
+
+    private static Command parseDeadline(String[] query) throws BuddyException {
+        try {
+            if (query.length == 1) {
+                throw new BuddyException("Please include a task and deadline!");
+            }
+
+            String[] requestBody = query[1].split("/by", 2);
+            if (requestBody.length <= 1 || requestBody[1].isEmpty()) {
+                throw new BuddyException("Please include a deadline!");
+            }
+
+            LocalDateTime by = LocalDateTime.parse(requestBody[1].trim(), DATE_TIME_PARSE_FORMAT);
+            Deadline deadline = new Deadline(requestBody[0], by);
+            return new AddCommand(deadline);
+        } catch (DateTimeParseException dtpe) {
+            throw new BuddyException("Not a valid date format!");
+        }
+    }
+
+    private static Command parseEvent(String[] query) throws BuddyException {
+        try {
+            if (query.length == 1) {
+                throw new BuddyException("Please include a task and start/end times");
+            }
+
+            String[] requestBody = query[1].split("/from", 2);
+            if (requestBody.length <= 1 || requestBody[1].isEmpty()) {
+                throw new BuddyException("Please include start/end time!");
+            }
+
+            String[] requestTime = requestBody[1].split("/to", 2);
+            if (requestTime.length <= 1 || requestTime[1].isEmpty()) {
+                throw new BuddyException("Please include end time!");
+            }
+
+            LocalDateTime from = LocalDateTime.parse(requestTime[0].trim(), DATE_TIME_PARSE_FORMAT);
+            LocalDateTime to = LocalDateTime.parse(requestTime[1].trim(), DATE_TIME_PARSE_FORMAT);
+            Event event = new Event(requestBody[0].trim(), from, to);
+            return new AddCommand(event);
+        } catch (DateTimeParseException dtpe) {
+            throw new BuddyException("Not a valid date format!");
+        }
+    }
+    private static Command parseFind(String[] query) throws BuddyException {
+        if (query.length == 1) {
+            throw new BuddyException("What are you trying to find buddy?");
+        }
+
+        return new FindCommand(query[1].trim());
+    }
+
+    private static Command parseUnmark(String[] query) throws BuddyException {
+        try {
+            if (query.length == 1) {
+                throw new BuddyException("I need a task number buddy!");
+            }
+
+            int index = Integer.parseInt(query[1].trim()) - 1;
+            return new UnmarkCommand(index);
+        } catch (NumberFormatException nfe) {
+            throw new BuddyException("Not a valid task number buddy!");
+        }
+    }
+
+    private static Command parseMark(String[] query) throws BuddyException {
+        try {
+            if (query.length == 1) {
+                throw new BuddyException("I need a task number buddy!");
+            }
+
+            int index = Integer.parseInt(query[1].trim()) - 1;
+            return new MarkCommand(index);
+        } catch (NumberFormatException nfe) {
+            throw new BuddyException("Not a valid task number buddy!");
         }
     }
 }
