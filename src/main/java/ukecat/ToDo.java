@@ -33,6 +33,6 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[T]%s%s", this.getStatusIcon(), super.toString());
+        return String.format("[T]%s %s", this.getStatusIcon(), super.toString());
     }
 }
