@@ -1,7 +1,175 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+ ____  _  _____ ____ ___ ____ ___
+/ ___|| |/ /_ _| __ )_ _|  _ \_ _|
+\___ \| ' / | ||  _ \| || | | | |
+ ___) | . \ | || |_) | || |_| | |
+|____/|_|\_\___|____/___|____/___|
+
+-------------------------------------------------------------------
+
+Hello! I'm Skibidi!
+What can I do for you?
+
+-------------------------------------------------------------------
+
+Your current list:
+Here are the tasks in your list:
+1. [T][ ] task1
+2. [D][ ] task2  (by: Jan 31 2024)
+3. [E][ ] task3 (from: Feb 01 2024 to: Feb 28 2024)
+
+-------------------------------------------------------------------
+
+Noted. I've removed this task::
+  [T][ ] task1
+
+Now you have 2 tasks in the list.
+
+-------------------------------------------------------------------
+
+Noted. I've removed this task::
+  [D][ ] task2  (by: Jan 31 2024)
+
+Now you have 1 tasks in the list.
+
+-------------------------------------------------------------------
+
+Noted. I've removed this task::
+  [E][ ] task3 (from: Feb 01 2024 to: Feb 28 2024)
+
+Now you have 0 tasks in the list.
+
+-------------------------------------------------------------------
+
+Got it added this task:
+  [T][ ] task1
+Now you have 1 tasks in the list.
+-------------------------------------------------------------------
+
+Got it added this task:
+  [D][ ] task2  (by: Jan 31 2024)
+Now you have 2 tasks in the list.
+-------------------------------------------------------------------
+
+Got it added this task:
+  [E][ ] task3 (from: Feb 01 2024 to: Feb 28 2024)
+Now you have 3 tasks in the list.
+-------------------------------------------------------------------
+
+This is not a valid input!!!
+
+-------------------------------------------------------------------
+
+Got it added this task:
+  [T][ ] for deleting
+Now you have 4 tasks in the list.
+-------------------------------------------------------------------
+
+There is an argument in the wrong format!!!
+
+-------------------------------------------------------------------
+
+There is an argument in the wrong format!!!
+
+-------------------------------------------------------------------
+
+The format of your date is wrong! Make sure it is of the form 'yyyy-MM-dd'.
+More specifically:
+Text '2024-99-01' could not be parsed: Invalid value for MonthOfYear (valid values 1 - 12): 99
+
+-------------------------------------------------------------------
+
+The format of your date is wrong! Make sure it is of the form 'yyyy-MM-dd'.
+More specifically:
+Text '2024-02-30' could not be parsed: Invalid date 'FEBRUARY 30'
+
+-------------------------------------------------------------------
+
+The end date should be after the start date
+
+-------------------------------------------------------------------
+
+Here are the tasks in your list:
+1. [T][ ] task1
+2. [D][ ] task2  (by: Jan 31 2024)
+3. [E][ ] task3 (from: Feb 01 2024 to: Feb 28 2024)
+4. [T][ ] for deleting
+
+-------------------------------------------------------------------
+
+Nice! I've marked this task as done:
+  [T][X] task1
+
+-------------------------------------------------------------------
+
+Nice! I've marked this task as done:
+  [D][X] task2  (by: Jan 31 2024)
+
+-------------------------------------------------------------------
+
+Nice! I've marked this task as done:
+  [E][X] task3 (from: Feb 01 2024 to: Feb 28 2024)
+
+-------------------------------------------------------------------
+
+Here are the tasks in your list:
+1. [T][X] task1
+2. [D][X] task2  (by: Jan 31 2024)
+3. [E][X] task3 (from: Feb 01 2024 to: Feb 28 2024)
+4. [T][ ] for deleting
+
+-------------------------------------------------------------------
+
+OK, I've marked this task as not done yet:
+  [T][ ] task1
+
+-------------------------------------------------------------------
+
+OK, I've marked this task as not done yet:
+  [D][ ] task2  (by: Jan 31 2024)
+
+-------------------------------------------------------------------
+
+OK, I've marked this task as not done yet:
+  [E][ ] task3 (from: Feb 01 2024 to: Feb 28 2024)
+
+-------------------------------------------------------------------
+
+Here are the tasks in your list:
+1. [T][ ] task1
+2. [D][ ] task2  (by: Jan 31 2024)
+3. [E][ ] task3 (from: Feb 01 2024 to: Feb 28 2024)
+4. [T][ ] for deleting
+
+-------------------------------------------------------------------
+
+Sorry, index out of range!
+
+-------------------------------------------------------------------
+
+Sorry, index out of range!
+
+-------------------------------------------------------------------
+
+Here are the tasks in your list:
+1. [T][ ] task1
+2. [D][ ] task2  (by: Jan 31 2024)
+3. [E][ ] task3 (from: Feb 01 2024 to: Feb 28 2024)
+4. [T][ ] for deleting
+
+-------------------------------------------------------------------
+
+Noted. I've removed this task::
+  [T][ ] for deleting
+
+Now you have 3 tasks in the list.
+
+-------------------------------------------------------------------
+
+Your list has been saved to /data/duke.txt
+
+-------------------------------------------------------------------
+
+Bye! Hope to see you again soon!
+
+-------------------------------------------------------------------
 
