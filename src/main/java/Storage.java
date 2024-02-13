@@ -14,11 +14,11 @@ public class Storage {
 
     public void save(TaskList tasks) {
         StringBuilder textOutput = new StringBuilder();
-        for (Task task : listOfTasks) {
+        for (Task task : tasks.getTaskList()) {
             if (task == null) {
                 break;
             }
-            textOutput.append(task.toString()).append("\n");
+            textOutput.append(task).append("\n");
         }
 
         try {
@@ -45,7 +45,8 @@ public class Storage {
         }
     }
 
-    public void load(TaskList tasks) {
+    public Task[] load() throws BalkanBotException {
+        Task[] tasks = new Task[100];
         String[] textInput = new String[100];
         try {
             BufferedReader reader = new BufferedReader(new FileReader(this.filePath));
@@ -57,7 +58,7 @@ public class Storage {
             }
         } catch (IOException e) {
             System.out.println(e);
-            return;
+            throw new BalkanBotException(e.toString());
         }
 
         int counter = 1;
@@ -111,8 +112,8 @@ public class Storage {
                     case ToDo: {
                         String taskDescription = String.join(" ", details);
                         try {
-                            listOfTasks[current] = new ToDo(taskDescription);
-                            markCheck(listOfTasks[current], completed);
+                            tasks[current] = new ToDo(taskDescription);
+                            markCheck(tasks[current], completed);
                             current++;
                             break;
                         } catch (InvalidInputException e) {
@@ -137,15 +138,13 @@ public class Storage {
                         String fixedDeadline = deadline.substring(0, deadline.toString().length() - 2);
 
                         try {
-                            listOfTasks[current] = new Deadline(taskDescription.toString(), fixedDeadline);
-                            markCheck(listOfTasks[current], completed);
+                            tasks[current] = new Deadline(taskDescription.toString(), fixedDeadline);
+                            markCheck(tasks[current], completed);
                             current++;
                             break;
-                        } catch (InvalidInputException e) {
+                        } catch (InvalidInputException | InvalidDateException e) {
                             System.out.println(e);
                             break;
-                        } catch (InvalidDateException e) {
-                            System.out.println(e);
                         }
                     }
                     case Event: {
@@ -172,20 +171,19 @@ public class Storage {
 
                         String fixedTo = to.substring(0, to.toString().length() - 2);
                         try {
-                            listOfTasks[current] = new Event(taskDescription.toString(), from.toString(),
+                            tasks[current] = new Event(taskDescription.toString(), from.toString(),
                                     fixedTo);
-                            markCheck(listOfTasks[current], completed);
+                            markCheck(tasks[current], completed);
                             current++;
                             break;
-                        } catch (InvalidInputException e) {
+                        } catch (InvalidInputException | InvalidDateException e) {
                             System.out.println(e);
                             break;
-                        } catch (InvalidDateException e) {
-                            throw new RuntimeException(e);
                         }
                     }
                 }
             }
         }
+        return tasks;
     }
 }
