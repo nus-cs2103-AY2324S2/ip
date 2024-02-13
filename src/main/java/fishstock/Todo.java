@@ -15,6 +15,15 @@ class Todo extends Task {
         super(description);
     }
 
+    private static void checkIsValid(String input) throws FishStockException {
+        if (!Parser.startsWith(COMMAND, input)) {
+            throw new FishStockException("OH NOSE! This input is not todo..");
+        }
+        if (COMMAND.length() + 1 >= input.length()) {
+            throw new FishStockException("OH NOSE! The description of todo cannot be empty..");
+        }
+    }
+
     /**
      * Initialize Todo object from input.
      * Has format "todo [description]".
@@ -23,12 +32,7 @@ class Todo extends Task {
      * @throws FishStockException The exceptions while creating the Todo object.
      */
     protected static Todo of(String input) throws FishStockException {
-        if (!Parser.startsWith(COMMAND, input)) {
-            throw new FishStockException("OH NOSE! This input is not todo..");
-        }
-        if (COMMAND.length() + 1 >= input.length()) {
-            throw new FishStockException("OH NOSE! The description of todo cannot be empty..");
-        }
+        checkIsValid(input);
         return new Todo(input.substring(COMMAND.length() + 1));
     }
 

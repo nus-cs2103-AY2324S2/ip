@@ -29,25 +29,16 @@ class Event extends Task {
         this.to = to;
     }
 
-    /**
-     * Initialize Event object from input.
-     * Has format "event [description] /from [date] /to [date]".
-     * @param input The input from user.
-     * @return The generated Event object.
-     * @throws FishStockException The exceptions while creating the Event object.
-     */
-    protected static Event of(String input) throws FishStockException {
+    private static void checkIsValid(String input, int fromIdx, int toIdx) throws FishStockException {
         if (!Parser.startsWith(COMMAND, input)) {
             throw new FishStockException("OH NOSE! This input is not event..");
         }
-        int fromIdx = input.indexOf(FROM_KEYWORD);
         if (fromIdx == -1) {
             throw new FishStockException("OH NOSE! \"" + FROM_KEYWORD + "\" not found..");
         }
         if (COMMAND.length() + 1 > fromIdx) {
             throw new FishStockException("OH NOSE! The description of event cannot be empty..");
         }
-        int toIdx = input.indexOf(TO_KEYWORD);
         if (toIdx == -1) {
             throw new FishStockException("OH NOSE! \"" + TO_KEYWORD + "\" not found..");
         }
@@ -60,6 +51,19 @@ class Event extends Task {
         if (toIdx + TO_KEYWORD.length() == input.length()) {
             throw new FishStockException("OH NOSE! The to-date cannot be empty..");
         }
+    }
+
+    /**
+     * Initialize Event object from input.
+     * Has format "event [description] /from [date] /to [date]".
+     * @param input The input from user.
+     * @return The generated Event object.
+     * @throws FishStockException The exceptions while creating the Event object.
+     */
+    protected static Event of(String input) throws FishStockException {
+        int fromIdx = input.indexOf(FROM_KEYWORD);
+        int toIdx = input.indexOf(TO_KEYWORD);
+        checkIsValid(input, fromIdx, toIdx);
 
         String description = input.substring(COMMAND.length() + 1, fromIdx);
         String fromStr = input.substring(fromIdx + FROM_KEYWORD.length(), toIdx);
