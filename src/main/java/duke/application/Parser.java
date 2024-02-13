@@ -32,43 +32,44 @@ public class Parser {
      *
      * @param input    The user input to be processed.
      * @param taskList The task list to be manipulated.
+     * @return A string result of the command execution.
      */
-    public void handleCommand(String input, TaskList taskList) {
+    public String handleCommand(String input, TaskList taskList) {
         String[] parsedInput = Parser.parseInput(input);
 
         if ("list".equalsIgnoreCase(input)) {
-            Ui.showTaskList(taskList.getTaskList());
+            return Ui.showTaskList(taskList.getTaskList());
 
         } else if ("bye".equalsIgnoreCase(input)) {
-            Ui.showByeMessage();
             Storage.saveTasks(taskList.getTaskList());
             System.exit(0);
+            return Ui.showByeMessage();
         } else if (parsedInput[0].equalsIgnoreCase("mark") || parsedInput[0].equalsIgnoreCase("unmark")) {
-            markingHandler(input, taskList);
+            return markingHandler(input, taskList);
         } else if (parsedInput[0].equalsIgnoreCase("deadline")) {
             if (isDeadlineInput(input)) {
-                handleDeadlines(input, taskList);
+                return handleDeadlines(input, taskList);
             } else {
-                Ui.showErrorMessage("Please complete your request by specifying the details of the task!");
+                return Ui.showErrorMessage("Please complete your request by specifying the details of the task!");
             }
         } else if (parsedInput[0].equalsIgnoreCase("todo")) {
             if (isTodoInput(input)) {
-                handleTodos(input, taskList);
+                return handleTodos(input, taskList);
             } else {
-                Ui.showErrorMessage("Please complete your request by specifying the details of the task!");
+                return Ui.showErrorMessage("Please complete your request by specifying the details of the task!");
             }
         } else if (parsedInput[0].equalsIgnoreCase("event")) {
             if (isEventInput(input)) {
-                handleEvents(input, taskList);
+                return handleEvents(input, taskList);
             } else {
-                Ui.showErrorMessage("Please complete your request by specifying the details of the task!");
+                return Ui.showErrorMessage("Please complete your request by specifying the details of the task!");
             }
         } else if (parsedInput[0].equalsIgnoreCase("delete")) {
-            handleRemove(input, taskList);
+            return handleRemove(input, taskList);
         } else if (parsedInput[0].equalsIgnoreCase("find")) {
-            findItems(input, taskList);
+            return findItems(input, taskList);
         } else {
-            Ui.showErrorMessage("I'm sorry, I don't understand! Please type your request again.");
+            return Ui.showErrorMessage("I'm sorry, I don't understand! Please type your request again.");
         }
     }
 
@@ -78,12 +79,11 @@ public class Parser {
      * @param input    The user input specifying the task number and the action.
      * @param taskList The task list to be manipulated.
      */
-    public static void markingHandler(String input, TaskList taskList) {
+    public static String markingHandler(String input, TaskList taskList) {
         String[] split = input.split(" ");
 
         if (split.length < 2) {
-            Ui.showErrorMessage("Please specify the task number!");
-            return;
+            return Ui.showErrorMessage("Please specify the task number!");
         }
 
         try {
@@ -93,18 +93,17 @@ public class Parser {
             if ("mark".equalsIgnoreCase(split[0])) {
                 task.markAsDone();
                 Storage.saveTasks(taskList.getTaskList());
-                Ui.showMarkedAsDone(task);
-                Ui.printLine();
+                return Ui.showMarkedAsDone(task);
             } else if ("unmark".equalsIgnoreCase(split[0])) {
                 task.unmarkTask();
                 Storage.saveTasks(taskList.getTaskList());
-                Ui.showUnmarkedTask(task);
-                Ui.printLine();
+                return Ui.showUnmarkedTask(task);
             }
 
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            Ui.showErrorMessage("Invalid task number. Please refer to your to-do list again.");
+            return Ui.showErrorMessage("Invalid task number. Please refer to your to-do list again.");
         }
+        return Ui.showErrorMessage("Invalid input for mark.");
     }
 
     /**
@@ -113,14 +112,12 @@ public class Parser {
      * @param input    User input specifying the Todo description.
      * @param taskList The task list to which the Todo task will be added.
      */
-    private static void handleTodos(String input, TaskList taskList) {
+    private static String handleTodos(String input, TaskList taskList) {
         String description = input.substring(5).trim();
         Todo todo = new Todo(description);
         taskList.addTask(todo);
         Storage.saveTasks(taskList.getTaskList());
-        System.out.println("Ok! I've added this todo: " + todo);
-        System.out.println("Now you have " + taskList.getTotalTasks() + " tasks in your list.");
-        Ui.printLine();
+        return Ui.showTodoAdded(todo, taskList.getTotalTasks());
     }
 
     /**
@@ -129,7 +126,7 @@ public class Parser {
      * @param input    User input specifying the Deadline description and due date.
      * @param taskList The task list to which the Deadline task will be added.
      */
-    private static void handleDeadlines(String input, TaskList taskList) {
+    private static String handleDeadlines(String input, TaskList taskList) {
         String[] splitParts = input.substring(9).split("/by", 2);
 
         if (splitParts.length > 1) {
@@ -140,19 +137,16 @@ public class Parser {
                 Deadline deadline = new Deadline(description, d1);
                 taskList.addTask(deadline);
                 Storage.saveTasks(taskList.getTaskList());
-                System.out.println("Ok! I've added this deadline: " + deadline);
-
+                return Ui.showDeadlineAdded(deadline, taskList.getTotalTasks());
             } else {
                 Deadline deadline = new Deadline(description, date);
                 taskList.addTask(deadline);
                 Storage.saveTasks(taskList.getTaskList());
-                System.out.println("Ok! I've added this deadline: " + deadline);
+                return Ui.showDeadlineAdded(deadline, taskList.getTotalTasks());
             }
-            System.out.println("Now you have " + taskList.getTotalTasks() + " tasks in your list.");
-            Ui.printLine();
         }
         else {
-            System.out.println("Invalid input format for deadline. Please provide a valid date/time.");
+            return Ui.showErrorMessage("Invalid input format for deadline. Please provide a valid date/time.");
         }
     }
 
@@ -162,7 +156,7 @@ public class Parser {
      * @param input    User input specifying the Event description and date range.
      * @param taskList The task list to which the Event task will be added.
      */
-    private static void handleEvents(String input, TaskList taskList) {
+    private static String handleEvents(String input, TaskList taskList) {
         String[] splitParts = input.substring(6).split("/from", 2);
         String[] splitTo = splitParts[1].split("/to", 2);
 
@@ -177,13 +171,13 @@ public class Parser {
                 taskList.addTask(event);
                 Storage.saveTasks(taskList.getTaskList());
                 Ui.showTaskAdded(event, taskList.getTotalTasks());
-                Ui.printLine();
             } else {
                 Ui.showErrorMessage("Invalid input format for event. Please provide valid dates.");
             }
         } else {
             Ui.showErrorMessage("Invalid input format for event. Please provide valid date/time.");
         }
+        return Ui.showErrorMessage("Invalid input format for event.");
     }
 
     /**
@@ -192,24 +186,23 @@ public class Parser {
      * @param input    User input specifying the task number to be removed.
      * @param taskList The task list from which the task will be removed.
      */
-    private static void handleRemove(String input, TaskList taskList) {
+    private static String handleRemove(String input, TaskList taskList) {
         String[] splitParts = input.split(" ");
         if (splitParts.length < 2) {
             System.out.println("Please specify which task number you want to remove!");
-            return;
         }
         try {
             int index = Integer.parseInt(splitParts[1]) - 1;
             Task removedTask = taskList.removeTask(index);
             Storage.saveTasks(taskList.getTaskList());
             Ui.showTaskRemoved(removedTask, taskList.getTotalTasks());
-            Ui.printLine();
         } catch (IndexOutOfBoundsException e) {
             Ui.showErrorMessage("Invalid task number. Please refer to your to-do list again.");
         }
+        return Ui.showErrorMessage("Invalid input format for remove.");
     }
 
-    public void findItems(String input, TaskList tasks) {
+    public String findItems(String input, TaskList tasks) {
         Ui.showFindItemList(input);
         boolean found = false;
         String[] splitParts = input.split("find", 2);
@@ -228,10 +221,10 @@ public class Parser {
             System.out.println("Please specify a search keyword.");
         }
 
-
         if (!found) {
             System.out.println("No tasks found containing: " + input);
         }
+        return Ui.showErrorMessage("Invalid input format for find.");
     }
 
     /**
