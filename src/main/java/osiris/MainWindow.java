@@ -1,7 +1,6 @@
 package osiris;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -25,10 +24,6 @@ public class MainWindow extends AnchorPane {
     /** The TextField where the user inputs messages. */
     @FXML
     private TextField userInput;
-
-    /** The Button used to send user messages. */
-    @FXML
-    private Button sendButton;
 
     /** An instance of the Osiris class, responsible for processing messages and interactions. */
     private Osiris osiris;

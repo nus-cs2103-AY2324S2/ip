@@ -37,7 +37,11 @@ public class InputsValidator {
      * @throws OsirisInvalidInputException If invalid mark command provided.
      */
     public boolean isMarkTaskCompleteInputValid(String userInput) {
+
+        assert userInput != null : "User input must not be null";
         String[] inputtedWords = userInput.split(" ");
+        assert inputtedWords.length >= 2 : "Invalid input format";
+
         if (inputtedWords.length == 2) {
             String taskIndexString = inputtedWords[1];
             if (taskIndexString.matches("\\d+")) {
@@ -61,7 +65,11 @@ public class InputsValidator {
      * @throws OsirisInvalidInputException If invalid unmark command provided.
      */
     public boolean isMarkTaskIncompleteInputValid(String userInput) {
+
+        assert userInput != null : "User input must not be null";
         String[] inputtedWords = userInput.split(" ");
+        assert inputtedWords.length >= 2 : "Invalid input format";
+
         if (inputtedWords.length == 2) {
             String taskIndexString = inputtedWords[1];
             if (taskIndexString.matches("\\d+")) {
@@ -85,7 +93,11 @@ public class InputsValidator {
      * @throws OsirisInvalidInputException If invalid delete command provided.
      */
     public boolean isDeleteTaskInputValid(String userInput) {
+
+        assert userInput != null : "User input must not be null";
         String[] inputtedWords = userInput.split(" ");
+        assert inputtedWords.length >= 2 : "Invalid input format";
+
         if (inputtedWords.length == 2) {
             String taskIndexString = inputtedWords[1];
             if (taskIndexString.matches("\\d+")) {
@@ -109,6 +121,7 @@ public class InputsValidator {
      * @throws OsirisInvalidInputException If invalid todo command provided.
      */
     public boolean isAddToDoTaskInputValid(String userInput) {
+        assert userInput != null : "User input must not be null";
         String taskName = userInput.substring(AddToDoTaskCommand.COMMAND.length()).trim();
         if (!taskName.isEmpty()) {
             return true;
@@ -126,8 +139,8 @@ public class InputsValidator {
      * @throws OsirisInvalidInputException If invalid deadline command provided.
      */
     public boolean isAddDeadlineTaskInputValid(String userInput) {
+        assert userInput != null : "User input must not be null";
         int byIndex = userInput.indexOf("/by");
-
         if (byIndex != -1) {
             String taskName = userInput.substring(AddDeadlineTaskCommand.COMMAND.length(), byIndex - 1).trim();
 
@@ -171,6 +184,7 @@ public class InputsValidator {
      * @throws OsirisInvalidInputException If invalid event command provided.
      */
     public boolean isAddEventTaskInputValid(String userInput) {
+        assert userInput != null : "User input must not be null";
         int fromIndex = userInput.indexOf("/from");
         int toIndex = userInput.indexOf("/to");
 

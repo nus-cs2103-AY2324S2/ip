@@ -51,9 +51,13 @@ public class UserInputInterpreter {
      */
     public Command interpretUserInput(String userInput) throws OsirisException {
 
+        assert userInput != null : "User input must not be null";
+
         String[] inputtedWords = userInput.split(" ");
         String taskName = "";
         boolean isValid = false;
+
+        assert inputtedWords.length > 0 : "Inputted words array must not be empty";
 
         switch (inputtedWords[0]) {
         case TerminateChatCommand.COMMAND:
