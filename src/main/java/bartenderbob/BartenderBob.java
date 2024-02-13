@@ -30,7 +30,9 @@ public class BartenderBob {
             ui.showWelcomeMessage(NAME);
         } catch (BartenderBobException e) {
             ui.showLoadingError();
+            tasks = new TaskList();
         }
+        assert tasks != null : "tasks cannot be null";
     }
     String getResponse(String input) {
         return InputHandler.handleInput(tasks, ui, input);
