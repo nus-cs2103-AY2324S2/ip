@@ -40,10 +40,11 @@ public class TaskList {
     public String addTask(Task task) {
         this.tasks.add(task);
         assert tasks.contains(task);
+        updateStorage();
+
         String response = ">w< Got it. I've added this task:\n";
         response += ("  " + task + "\n");
         response += ("Now you have " + getSize() + " task(s) in the list.\n");
-        updateStorage();
         return response;
     }
 
@@ -67,14 +68,15 @@ public class TaskList {
                 idsToInt.add(idToInt);
             }
             Collections.sort(idsToInt, Collections.reverseOrder());
-            response += ">w< Noted. I've removed the task(s):\n";
 
+            response += ">w< Noted. I've removed the task(s):\n";
             for (int idToInt : idsToInt) {
                 Task removedTask = tasks.remove(idToInt);
                 assert !tasks.contains(removedTask);
                 response += ("  " + removedTask + "\n");
             }
             response += ("Now you have " + tasks.size() + " task(s) in the list.\n");
+
             updateStorage();
         } catch (NumberFormatException e) {
             System.out.println("OOPS!!! Please enter a valid task number!");
@@ -102,6 +104,7 @@ public class TaskList {
                 }
                 idsToInt.add(idToInt);
             }
+
             response += ">w< Nice! I've marked the task(s) as done:\n";
             for (int idToInt : idsToInt) {
                 Task taskToMark = tasks.get(idToInt);
@@ -127,6 +130,7 @@ public class TaskList {
     public String unmarkTask(String ... taskIds) {
         String response = "";
         List<Integer> idsToInt = new ArrayList<>();
+
         try {
             for (String taskId : taskIds) {
                 int idToInt = Integer.parseInt(taskId) - 1;
@@ -136,6 +140,7 @@ public class TaskList {
                 }
                 idsToInt.add(idToInt);
             }
+
             response += ">w< Nice! I've marked the task(s) as undone:\n";
             for (int idToInt : idsToInt) {
                 Task taskToUnmark = tasks.get(idToInt);
@@ -161,6 +166,7 @@ public class TaskList {
     public String searchByDate(LocalDate date) {
         String response = "Here are the task(s) on " + date + " in your list:\n";
         int count = 0;
+
         for (int i = 0; i < this.tasks.size(); i++) {
             Task task = this.tasks.get(i);
             if (task instanceof Event) {
@@ -168,18 +174,20 @@ public class TaskList {
                         | date.equals((((Event) task).getTo()))
                         | (date.isAfter((((Event) task).getFrom())) & date.isBefore(((Event) task).getTo()))) {
                     count += 1;
-                    response += ((i + 1) + "." + task.toString() + "\n");
+                    response += ((i + 1) + "." + task + "\n");
                 }
             } else if (task instanceof Deadline) {
                 if (date.equals(((Deadline) task).getByTime())) {
                     count += 1;
-                    response += ((i + 1) + "." + task.toString() + "\n");
+                    response += ((i + 1) + "." + task + "\n");
                 }
             }
         }
+
         if (count == 0) {
             return "I am sorry.\nThere is no task on " + date + ".\nTry some other dates! > <";
         }
+
         return response;
     }
 
@@ -192,6 +200,7 @@ public class TaskList {
     public String searchByKeyword(String keyword) {
         String response = "Here are the task(s) with the keyword " + keyword + " in your list:\n";
         int count = 0;
+
         for (int i = 0; i < this.tasks.size(); i++) {
             Task task = this.tasks.get(i);
             if (task.getDescription().contains(keyword)) {
@@ -199,9 +208,11 @@ public class TaskList {
                 response += ((i + 1) + "." + task.toString() + "\n");
             }
         }
+
         if (count == 0) {
             return "I am sorry.\nThere is no task with the keyword you want.\nTry some other keywords! > <";
         }
+
         return response;
     }
 
@@ -218,11 +229,13 @@ public class TaskList {
         if (this.tasks.size() == 0) {
             return "Your list is empty now!\nPlease add some new tasks > <";
         }
+
         String response = "Here are the task(s) in your list:\n";
         for (int i = 0; i < this.tasks.size(); i++) {
             Task task = this.tasks.get(i);
             response += ((i + 1) + ". " + task.toString() + "\n");
         }
+
         return response;
     }
 
