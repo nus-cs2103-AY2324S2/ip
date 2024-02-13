@@ -22,6 +22,8 @@ public class TaskList {
      * @throws IOException If an I/O error occurs.
      */
     public TaskList(Storage storage, Ui ui) throws IOException {
+        assert storage != null : "Storage cannot be null";
+        assert ui != null : "UI cannot be null";
         this.storage = storage;
         this.ui = ui;
         l = storage.readFromFile();
