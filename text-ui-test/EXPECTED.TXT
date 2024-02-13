@@ -1,7 +1,83 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+____________________________________________________________
+ Greetings! I'm Barry.
+ How could I assist you?
+ [Type help for a list of available commands]
+____________________________________________________________
+____________________________________________________________
+ Here's a list of available commands:
+   help                                           List all available commands
+   bye                                            Quit
+   list                                           List all tasks in your list
+   mark [x]                                       Mark task number x in your list
+   unmark [x]                                     Unmark task number x in your list
+   delete [x]                                     Delete task number x in your list
+   todo [task name]                               Add a ToDo to your list
+   deadline [task name] /by [deadline]            Add a Deadline to your list
+   event [task name] /from [start] /to [end]      Add an Event to your list
+____________________________________________________________
+____________________________________________________________
+ I'm sorry, I don't understand what that means... >_<
+ [Type 'help' for a list of available commands]
+____________________________________________________________
+____________________________________________________________
+ Looks like there aren't any tasks in your list yet... let's add some!
+____________________________________________________________
+____________________________________________________________
+ I see you're trying to mark a task, but it's in the wrong format...
+ [Type 'help' if you're unsure of the correct format]
+____________________________________________________________
+____________________________________________________________
+ Oops, I can't find a task in your list with that number! :(
+ [Make sure the task number is correct and try again]
+____________________________________________________________
+____________________________________________________________
+ Gotcha, i've added the ToDo:
+   [T][ ] Some correct Todo
+ You've now got 1 task in your list!
+____________________________________________________________
+____________________________________________________________
+ Gotcha, i've added the Deadline:
+   [D][ ] Some correct Deadline (by: Some date and time)
+ You've now got 2 tasks in your list!
+____________________________________________________________
+____________________________________________________________
+ Gotcha, i've added the Event:
+   [E][ ] Some correct Event (from: Some date and time to: Another date and time)
+ You've now got 3 tasks in your list!
+____________________________________________________________
+____________________________________________________________
+ Let's take a look at the tasks in your list:
+ 1.[T][ ] Some correct Todo
+ 2.[D][ ] Some correct Deadline (by: Some date and time)
+ 3.[E][ ] Some correct Event (from: Some date and time to: Another date and time)
+____________________________________________________________
+____________________________________________________________
+ Nice, I have marked this task as done:
+   [D][X] Some correct Deadline (by: Some date and time)
+ Great job! :)
+____________________________________________________________
+____________________________________________________________
+ Looks like this task was already marked...
+ [In order to unmark a task, use the 'unmark' command instead]
+____________________________________________________________
+____________________________________________________________
+ Alright, i have marked this task as not done yet:
+   [D][ ] Some correct Deadline (by: Some date and time)
+____________________________________________________________
+____________________________________________________________
+ Looks like this task was already unmarked...
+ [In order to mark a task, use the 'mark' command instead]
+____________________________________________________________
+____________________________________________________________
+ Alright, the following task has been deleted off your list:
+   DELETED:  << [D][ ] Some correct Deadline (by: Some date and time) >>
+ You've now got 2 tasks left in your list.
+____________________________________________________________
+____________________________________________________________
+ Let's take a look at the tasks in your list:
+ 1.[T][ ] Some correct Todo
+ 2.[E][ ] Some correct Event (from: Some date and time to: Another date and time)
+____________________________________________________________
+____________________________________________________________
+ Bye, see you next time! :)
+____________________________________________________________

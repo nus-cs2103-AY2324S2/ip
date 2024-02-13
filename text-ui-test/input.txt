@@ -1,0 +1,16 @@
+help
+unknown
+list
+mark
+mark 10
+todo Some correct Todo
+deadline Some correct Deadline /by Some date and time
+event Some correct Event /from Some date and time /to Another date and time
+list
+mark 2
+mark 2
+unmark 2
+unmark 2
+delete 2
+list
+bye
