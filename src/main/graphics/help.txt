@@ -1,4 +1,4 @@
-Below contains all the available commands:
+Below contains all the available duke.duke.duke.commands.exceptions.duke.commands.exceptions.duke.duke.commands.commands:
 
      |  help                                              |
      |  todo <task>                                       |
