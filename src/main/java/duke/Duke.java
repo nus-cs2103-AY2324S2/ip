@@ -823,11 +823,7 @@ class AddEventCommand extends Command {
     }
 
     @Override
-<<<<<<< HEAD
-    public String execute(TaskList tasks, Ui ui, Storage storage) { 
-=======
     public String execute(TaskList tasks, Ui ui, Storage storage) {
->>>>>>> branch-A-JavaDoc
         Event newEvent = new Event(description, start, end);
         tasks.addTask(newEvent);
         ui.showTaskAdded(newEvent, tasks.getSize());
