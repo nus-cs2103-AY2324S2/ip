@@ -37,6 +37,7 @@ public class FindCommand extends Command {
      */
     @Override
     public String executeCommand(TaskList tasks, Ui ui, Storage storage) throws AndeluException {
+        assert input != null : "input should not be null";
         String[] splitInput = input.split(" ");
         if (splitInput.length <= 1) {
             throw new AndeluException("Missing the Description!");
