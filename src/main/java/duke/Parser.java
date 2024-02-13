@@ -16,50 +16,50 @@ public class Parser {
     private Ui ui;
     private Storage storage;
 
-    public Parser(Scanner s, TaskList t, Storage st) {
-        scanner = s;
+    public Parser(TaskList t, Storage st) {
         tasklist = t;
-        ui = new Ui();
         storage = st;
     }
 
     /**
+     * GUI version of read
      * Reads user input commands, processes them, and executes corresponding actions.
      * Continuously loops until the user exits the program.
      */
-    public void read() {
-        while (scanner.hasNext()) {
+    public String read(String userInput) {
+        Ui ui = new Ui();
+        String userInputLowercase = userInput.toLowerCase();
 
-            String userInput = scanner.nextLine();
-            String userInputLowercase = userInput.toLowerCase();
-
-            if (checkFeeding(userInputLowercase)) {
-                ui.happy();
-                continue;
-            } else if (checkIfBaseCommand(userInputLowercase)) {
-                handleBaseCommand(userInput.split(" "));
-                storage.writeToFile(tasklist);
-            } else if (checkIfFind(userInputLowercase)) {
-                handleFind(userInput.split(" "));
-                storage.writeToFile(tasklist);
-            } else if (checkIfLeave(userInputLowercase)) {
-                ui.goodbye();
-                break;
-            } else if (checkIfList(userInputLowercase)) {
-                handleList(tasklist);
-            } else if (checkIfTodo(userInputLowercase)) {
-                handleTodo(userInput, tasklist);
-                storage.writeToFile(tasklist);
-            } else if (checkIfEvent(userInputLowercase)) {
-                handleEvent(userInput, tasklist);
-                storage.writeToFile(tasklist);
-            } else if (checkIfDeadline(userInputLowercase)) {
-                handleDeadline(userInput, tasklist);
-                storage.writeToFile(tasklist);
-            } else {
-                ui.instructionMessage();
-            }
+        if (checkFeeding(userInputLowercase)) {
+            return ui.happy();
+        } else if (checkIfBaseCommand(userInputLowercase)) {
+            String reply = handleBaseCommand(userInput.split(" "));
+            storage.writeToFile(tasklist);
+            return reply;
+        } else if (checkIfFind(userInputLowercase)) {
+            String reply = handleFind(userInput.split(" "));
+            storage.writeToFile(tasklist);
+            return reply;
+        } else if (checkIfLeave(userInputLowercase)) {
+            return ui.goodbye();
+        } else if (checkIfList(userInputLowercase)) {
+            return handleList(tasklist);
+        } else if (checkIfTodo(userInputLowercase)) {
+            String reply = handleTodo(userInput, tasklist);
+            storage.writeToFile(tasklist);
+            return reply;
+        } else if (checkIfEvent(userInputLowercase)) {
+            String reply = handleEvent(userInput, tasklist);
+            storage.writeToFile(tasklist);
+            return reply;
+        } else if (checkIfDeadline(userInputLowercase)) {
+            String reply = handleDeadline(userInput, tasklist);
+            storage.writeToFile(tasklist);
+            return reply;
+        } else {
+            return ui.instructionMessage();
         }
+
     }
 
     /**
@@ -69,12 +69,11 @@ public class Parser {
      * @param s The user input command string for adding an event task.
      * @param t The task list to which the event task will be added.
      */
-    public void handleEvent(String s, TaskList t) {
+    public String handleEvent(String s, TaskList t) {
         String eventName = "";
         String[] temp = s.split(" ");
         if (temp.length == 1 || temp[1].startsWith("/from")) {
-            System.out.println("Duke.Duke.Event cannot be blank");
-            return;
+            return "Event cannot be blank";
         }
         for (int a = 1; a < temp.length; a++) {
             if (temp[a].startsWith("/from")) {
@@ -88,29 +87,27 @@ public class Parser {
             String start = findPeriod[1].split(" /to ")[0];
             String end = findPeriod[1].split(" /to ")[1];
             if (!canBeHandled(start) || !canBeHandled(end)) {
-                System.out.println("Please enter a event with the format event eventName /from dd/mm/yyyy /to dd/mm/yyyy!");
-                return;
+                return "Please enter a event with the format event eventName /from dd/mm/yyyy /to dd/mm/yyyy!";
             }
             Task ne = new Event(eventName, DateConvert(start), DateConvert(end));
             t.add(ne);
-            System.out.println("Duke.Task added! You now have " + t.length() + " tasks to attend to.");
-            return;
-
+            return "Duke.Task added! You now have " + t.length() + " tasks to attend to.";
         } catch (ArrayIndexOutOfBoundsException b) {
-            System.out.println("Please enter a event with the format event eventName /from dd/mm/yyyy /to dd/mm/yyyy!");
+            return "Please enter a event with the format event eventName /from dd/mm/yyyy /to dd/mm/yyyy!";
         }
     }
 
-    public void handleFind(String[] commandsplit) {
+    public String handleFind(String[] commandsplit) {
         try {
             String findTarget = commandsplit[1].toLowerCase();
             for (int i = 0; i < tasklist.length(); i++) {
                 if (tasklist.getTask(i).getDescription().toLowerCase().contains(findTarget)) {
-                    System.out.println(tasklist.getTask(i));
+                    return tasklist.getTask(i).toString();
                 }
             }
+            return "It doesn't exist!";
         } catch (Error e) {
-            System.out.println("[angry quacking] I can only find words!");
+            return "[angry quacking] I can only find words!";
         }
     }
 
@@ -140,12 +137,11 @@ public class Parser {
      * @param s The user input command string for adding a deadline task.
      * @param t The task list to which the deadline task will be added.
      */
-    public void handleDeadline(String s, TaskList t) {
+    public String handleDeadline(String s, TaskList t) {
         String deadlineName = "";
         String[] temp = s.split(" ");
         if (temp.length == 1 || temp[1].startsWith("/by")) {
-            System.out.println("Duke.Duke.Deadline cannot be blank");
-            return;
+            return "Deadline cannot be blank";
         }
         //create the deadline name
         for (int a = 1; a < temp.length; a++) {
@@ -160,15 +156,15 @@ public class Parser {
             String[] findDeadline = s.split(" /by ");
             String deadline = findDeadline[1];
             if (!canBeHandled(deadline)) {
-                System.out.println("Please enter a deadline with the format deadline deadlineName /by dd/mm/yyyy!");
-                return;
+                return "Please enter a deadline with the format deadline deadlineName /by dd/mm/yyyy!";
+
             }
             Task nd = new Deadline(deadlineName, DateConvert(deadline));
             t.add(nd);
-            System.out.println("Duke.Task added! You now have " + t.length() + " tasks to attend to.");
-            return;
+            return "Duke.Task added! You now have " + t.length() + " tasks to attend to.";
+
         } catch (ArrayIndexOutOfBoundsException b) {
-            System.out.println("Please enter a deadline with the format deadline deadlineName /by dd/mm/yyyy!");
+            return "Please enter a deadline with the format deadline deadlineName /by dd/mm/yyyy!";
         }
     }
 
@@ -179,12 +175,11 @@ public class Parser {
      * @param s The user input command string for adding a todo task.
      * @param t The task list to which the todo task will be added.
      */
-    public void handleTodo(String s, TaskList t) {
+    public String handleTodo(String s, TaskList t) {
         String todoName = "";
         String[] temp = s.split(" ");
         if (temp.length == 1) {
-            System.out.println("Todo cannot be blank");
-            return;
+            return "Todo cannot be blank";
         }
         for (int a = 1; a < temp.length; a++) {
             todoName = todoName.concat(temp[a]);
@@ -192,7 +187,7 @@ public class Parser {
         }
         Task nt = new ToDo(todoName);
         t.add(nt);
-        System.out.println("Duke.Task added! You now have " + t.length() + " tasks to attend to.");
+        return "Duke.Task added! You now have " + t.length() + " tasks to attend to.";
     }
 
     /**
@@ -231,11 +226,11 @@ public class Parser {
      *
      * @param t The task list to be listed.
      */
-    public void handleList(TaskList t) {
+    public String handleList(TaskList t) {
         if (t.length() == 0) {
-            System.out.println("You're a lazy duck, get back on the grind!");
+            return "You're a lazy duck, get back on the grind!";
         } else {
-            t.iterateout();
+            return t.iterateout();
         }
     }
 
@@ -279,6 +274,10 @@ public class Parser {
         return (f.startsWith("mark ") || f.startsWith("unmark ") || f.startsWith("delete "));
     }
 
+    public boolean checkIfFind(String f) {
+        return (f.startsWith("find "));
+    }
+
     /**
      * Handles the base commands for marking, unmarking, or deleting tasks.
      * Parses the input command, performs the corresponding task operation, and handles exceptions.
@@ -286,26 +285,21 @@ public class Parser {
      * @param commandSplit An array containing the command split into parts.
      */
 
-    public boolean checkIfFind(String f) {
-        return (f.startsWith("find "));
-    }
-
-    public void handleBaseCommand(String[] commandSplit) {
+    public String handleBaseCommand(String[] commandSplit) {
         String firstWord = commandSplit[0].toLowerCase();
         try {
             int num = Integer.parseInt(commandSplit[1]);
-            if (firstWord.equals("mark")) {
-                tasklist.mark(num - 1);
-            } else if (firstWord.equals("unmark")) {
-                tasklist.unmark(num - 1);
-            } else if (firstWord.equals("delete")) {
-                tasklist.delete(num - 1);
+            switch (firstWord) {
+                case "mark" -> tasklist.mark(num - 1);
+                case "unmark" -> tasklist.unmark(num - 1);
+                case "delete" -> tasklist.delete(num - 1);
             }
         } catch (NumberFormatException e) {
-            System.out.println("[angry quacking] I can only mark numbers!");
+            return "[angry quacking] I can only mark numbers!";
         } catch (IndexOutOfBoundsException a) {
-            System.out.println("[exasperated quacking] You're not that busy - numbers from 1 to " + tasklist.length() +
-                    " only, please.");
+            return "[exasperated quacking] You're not that busy - numbers from 1 to " + tasklist.length() +
+                    " only, please.";
         }
+        return "Done!";
     }
 }

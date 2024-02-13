@@ -12,6 +12,7 @@ public class Duke {
     private TaskList tasks; // Operations to add and delete
     private final Ui ui; // Deals with interactions from user
 
+
     /**
      * Constructs a Duke object with the specified file path for storing tasks.
      *
@@ -24,14 +25,23 @@ public class Duke {
     }
 
     /**
+     * Constructs a Duke object with the specified file path for storing tasks.
+     *
+     */
+    public Duke() {
+        ui = new Ui();
+        storage = new Storage("./data/tasks.txt");
+        tasks = new TaskList(storage.load());
+    }
+
+    /**
      * Runs the Duke program.
      * Displays the greeting message, initializes a scanner for user input,
      * and starts the parsing process.
      */
-    public void run() {
+    /* public void run() {
         ui.greet();
-        Scanner scanner = new Scanner(System.in);
-        Parser parser = new Parser(scanner, tasks, storage);
+        Parser parser = new Parser(tasks, storage);
         parser.read();
     }
 
@@ -40,9 +50,22 @@ public class Duke {
      *
      * @param args Command-line arguments (not used in this program).
      */
+    /*
     public static void main(String[] args) {
         Duke bearducky = new Duke("./data/tasks.txt");
         bearducky.run();
+    }
+    /*
+
+    /**
+     * Method that reads user input and generates a response
+     *
+     * @param input entry from user (not used in this program).
+     */
+    public String getResponse(String input) {
+        Parser parser = new Parser(tasks, storage);
+        String bearduckyresponse = parser.read(input);
+        return bearduckyresponse;
     }
 
 }

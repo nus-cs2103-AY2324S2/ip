@@ -75,9 +75,12 @@ public class TaskList {
     /**
      * Iterates through the task list and prints each task along with its index.
      */
-    public void iterateout() {
+    public String iterateout() {
+        String output = "";
         for (int i = 0; i < tasklist.size(); i++) {
-            System.out.println((i + 1) + ". " + tasklist.get(i));
+            output = output.concat((i + 1) + ". " + tasklist.get(i));
+            output = output.concat("\n");
         }
+        return output;
     }
 }
