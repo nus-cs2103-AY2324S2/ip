@@ -1,12 +1,26 @@
 package duke;
 
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
+
+/**
+ * The main class representing the chatbot.
+ * It is a chatbot that allows users to manage tasks,
+ * including adding, marking as done, saving and loading tasks to
+ * and from a file.
+ * It handles user input, parsing, executing and storage operations.
+ */
 public class Duke {
     private Storage storage;
     private MyList myList;
     private Ui ui;
 
+    /**
+     * Constructs a Duke instance with the specified file path for storage.
+     *
+     * @param filePath The file path for storage.
+     */
     public Duke(String filePath) {
         ui = new Ui(System.in);
         storage = new Storage(filePath);
@@ -24,6 +38,11 @@ public class Duke {
         }
     }
 
+
+    /**
+     * Runs the Duke application, displaying a welcome message, processing user commands,
+     * and saving the task list to a file before exiting.
+     */
     public void run() {
         ui.showWelcomeMessage();
         runCommandLoopUntilExitCommand();

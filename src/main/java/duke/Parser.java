@@ -4,11 +4,24 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
 
+/**
+ * Parses user commands and manages the execution of corresponding tasks.
+ */
 public class Parser {
+    /**
+     * Represents the possible requests that can be parsed from user commands.
+     */
     public enum Request {
         BYE, LIST, MARK, TODO, DEADLINE, EVENT, DELETE, INVALID
     }
 
+    /**
+     * Parses the user command and executes the corresponding action based on the request.
+     *
+     * @param myList    The list of tasks to be modified.
+     * @param userInput The user's input command.
+     * @return A string message indicating the result of the command execution.
+     */
     public String parseCommand(MyList myList, String userInput) {
         Request request = getRequest(userInput);
 
@@ -121,6 +134,12 @@ public class Parser {
         return "";
     }
 
+    /**
+     * Determines the request type based on the user's input command.
+     *
+     * @param userInput The user's input command.
+     * @return The Request enum corresponding to the parsed command.
+     */
     public Request getRequest(String userInput) {
         String inputUpper = userInput.toUpperCase();
 

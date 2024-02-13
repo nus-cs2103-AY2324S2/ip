@@ -1,24 +1,37 @@
 package duke;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
+/**
+ * Handles user interface interactions for the Duke application.
+ * It displays welcome messages, prompts for user input, and shows results to the user.
+ */
 public class Ui {
     private final BufferedReader br;
 
+    /**
+     * Constructs a UI instance with the specified input stream.
+     *
+     * @param in The input stream for user input.
+     */
     public Ui(InputStream in) {
         this.br = new BufferedReader(new InputStreamReader(in));
     }
 
+    /**
+     * Displays the welcome message when the Duke application starts.
+     */
     public void showWelcomeMessage() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
         System.out.println("Hello! I'm Hao Wen\n" + "What can I do for you?");
     }
 
+    /**
+     * Prompts the user to enter a command and reads the user's input.
+     *
+     * @return The user's input command as a string.
+     */
     public String getUserRequest() {
         try {
             System.out.println("Enter a command:");
@@ -29,6 +42,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays the provided string message to the user.
+     *
+     * @param s The message to be shown to the user.
+     */
     public void showResultToUser(String s) {
         System.out.println(s);
     }

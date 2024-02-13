@@ -1,20 +1,34 @@
 package duke;
 
 import java.io.*;
-import java.util.*;
-import java.util.regex.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
 
+/**
+ * Handles the saving and loading of tasks to and from a file.
+ */
 public class Storage {
     private File file;
     private List<Task> items;
 
+    /**
+     * Constructs a Storage instance with the specified file path.
+     *
+     * @param filePath The file path for saving and loading tasks.
+     */
     public Storage(String filePath) {
         this.file = new File(filePath);
         this.items = new ArrayList<>();
     }
 
+    /**
+     * Saves the tasks from the list to the file.
+     *
+     * @param myList The list containing tasks to be saved.
+     */
     public void save(MyList mylist) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, false))) {
             for (Task t : mylist.getItemsForSaving()) {
@@ -26,6 +40,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file and returns a list of tasks.
+     *
+     * @return The list of loaded task.
+     * @throws FileNotFoundException If the file is not found.
+     * @throws DukeException         If there is an issue with the file content.
+     * @throws IOException           If an I/O error occurs while reading the file.
+     */
     public List<Task> load() throws FileNotFoundException, DukeException, IOException {
         BufferedReader reader = new BufferedReader(new FileReader(file));
         String line;
