@@ -36,7 +36,7 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().add(DialogBox.getToothlessDialog(
                 " /\\_/\\\n"
                         + "( o.o )\n"
-                        + " > ^ <\n"
+                        + "> ^ <\n"
                         + "Nya-ice to meet you! I'm Toothless :D\n"
                         + "What can I do for you?", toothlessImage)
         );
