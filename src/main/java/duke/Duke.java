@@ -3,6 +3,7 @@ package duke;
 import java.io.IOException;
 
 import duke.action.Action;
+import duke.action.Echo;
 import duke.action.TaskList;
 import duke.exception.DukeException;
 
@@ -67,7 +68,7 @@ public class Duke extends Application {
      * Runs the Duke application, prompting the user for commands and executing them until the exit command is given.
      */
     public void run() {
-        ui.showWelcome();
+        //ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
             String command = ui.getUserInput();
@@ -81,14 +82,37 @@ public class Duke extends Application {
         }
     }
 
+
+    String getResponse(String input) {
+        //ui.showWelcome();
+        boolean isExit = false;
+        try {
+            String command = input;
+            Action response = CommandParser.parseCommand(command, taskList);
+            if (response != null) {
+                isExit = response.isExit();
+                storage.writeToFile(taskList);
+                return response.response();
+            } else {
+                // Handle the case where response is null
+                return "Error: Unexpected null response";
+            }
+        } catch (DukeException | IOException e) {
+            return String.format("    %s\n", e.getMessage());
+        }
+    }
+
+
+
     /**
      * The entry point for the Duke application.
      *
      * @param args Command-line arguments (not used in this application).
      */
-    public void main(String[] args) {
+    public static void main(String[] args) {
         new Duke("./data/tasks.txt").run();
     }
+
 
     @Override
     public void start(Stage stage) {
@@ -181,13 +205,6 @@ public class Duke extends Application {
         userInput.clear();
     }
 
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
-    public String getResponse(String input) {
-        return "Duke heard: " + input;
-    }
 
 
 }

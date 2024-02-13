@@ -83,7 +83,7 @@ public class TaskList implements Iterable<Task> {
         if (validateIndex(index)) {
             Task taskToMark = mylist.get(index);
             taskToMark.mark();
-            System.out.println("Nice! I've marked this task as done:");
+            System.out.println("TL Nice! I've marked this task as done:");
             System.out.println(taskToMark);
         }
     }
@@ -97,7 +97,7 @@ public class TaskList implements Iterable<Task> {
         if (validateIndex(index)) {
             Task taskToUnmark = mylist.get(index);
             taskToUnmark.unmark();
-            System.out.println("OK, I've marked this task as not done yet:");
+            System.out.println("OK, I've marked this task as not done yet:" + taskToUnmark.toString());
             System.out.println(taskToUnmark);
         }
     }
@@ -119,7 +119,7 @@ public class TaskList implements Iterable<Task> {
      * @param index The index to be validated.
      * @return True if the index is valid, false otherwise.
      */
-    private boolean validateIndex(int index) {
+    public boolean validateIndex(int index) {
         if (index >= 0 && index < mylist.size()) {
             return true;
         } else {

@@ -50,6 +50,16 @@ public class CommandParser {
                 taskList.goodBye();
                 return new Farewell();
             case "list":
+                if (taskList != null) {
+                    taskList.displayTasks();
+                    MyList myList = new MyList(taskList);
+                    return myList;
+                } else {
+                    System.out.println("Task list is not initialized.");
+                    // Handle the case where taskList is null, such as displaying an error message
+                    return null;
+                }
+            case "list2":
                 taskList.displayTasks();
                 MyList myList = new MyList(taskList);
                 return myList;
@@ -57,7 +67,10 @@ public class CommandParser {
                 if (words.length > 1) {
                     int index = Integer.parseInt(words[1]) - 1;
                     taskList.markTask(index);
-                    return new Mark();
+                    if (taskList.validateIndex(index)) {
+                        Task markedTask = taskList.get(index);
+                        return new Mark(markedTask);
+                    }
                 } else {
                     throw new NoIndexException();
                 }
@@ -65,7 +78,10 @@ public class CommandParser {
                 if (words.length > 1) {
                     int index = Integer.parseInt(words[1]) - 1;
                     taskList.unmarkTask(index);
-                    return new Unmark();
+                    if (taskList.validateIndex(index)) {
+                        Task unmarkedTask = taskList.get(index);
+                        return new Unmark(unmarkedTask);
+                    }
                 } else {
                     throw new NoIndexException();
                 }

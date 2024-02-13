@@ -1,6 +1,4 @@
-T|O|eat cake
+T|X|eat cake
 T|O|drink coffee
-T|O|bake cookies
-D|X|return book|2012-08-08
 D|O|return book|2018-11-15
-D|X|drink latte|2018-11-15
+D|O|drink latte|2018-11-15
