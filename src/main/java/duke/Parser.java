@@ -101,6 +101,8 @@ public class Parser {
             }
             break;
         default:
+            throw new DukeException("Invalid command. \n\t"
+                + formatStringInfo);
         }
 
 
