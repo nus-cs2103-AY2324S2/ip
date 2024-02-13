@@ -4,11 +4,10 @@ import java.util.function.Function;
 
 import me.ruibin.leto.tasklist.TaskList;
 
-/** Prints the list of tasks and returns <code>Results.OK</code>*/
-public class ListCommand implements Function<String, Results> {
+/** Prints the list of tasks and returns <code>ResultTypes.OK</code>*/
+public class ListCommand implements Function<String, Result> {
     @Override
-    public Results apply(String s) {
-        TaskList.printList();
-        return Results.OK;
+    public Result apply(String s) {
+        return TaskList.printList();
     }
 }

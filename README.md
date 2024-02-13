@@ -22,3 +22,10 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    | |_| | |_| |   <  __/
    |____/ \__,_|_|\_\___|
    ```
+---
+
+# Copyrights
+Fair use. Copyright belongs to their respective owners.  
+[Vanity Fair - Behold Dune](https://static.wikia.nocookie.net/dune/images/d/d0/Dune_2020_Duke_Leto_Atreides.jpg/revision/latest/scale-to-width-down/1000?cb=20200414181224)  
+[Rebecca Ferguson and Timothée Chalamet in Dune (2021)](https://www.imdb.com/title/tt1160419/mediaviewer/rm1265737985/)  
+

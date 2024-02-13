@@ -9,7 +9,7 @@ public class InvalidTaskException extends Exception {
         super(message);
     }
     /** Print the error message according using Ui.letoSpeak. */
-    public void printException() {
-        Ui.letoSpeak("We have a problem! " + this.getMessage());
+    public String printException() {
+        return Ui.letoSpeak("We have a problem! " + this.getMessage());
     }
 }

@@ -11,6 +11,8 @@ import java.io.UncheckedIOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.ruibin.leto.parser.Result;
+import me.ruibin.leto.parser.ResultTypes;
 import me.ruibin.leto.tasklist.Deadline;
 import me.ruibin.leto.tasklist.Event;
 import me.ruibin.leto.tasklist.InvalidTaskException;
@@ -19,7 +21,7 @@ import me.ruibin.leto.tasklist.TaskList;
 import me.ruibin.leto.tasklist.Todo;
 import me.ruibin.leto.ui.Ui;
 
-/**  returns <code>Results.OK</code>*/
+/**  returns <code>ResultTypes.OK</code>*/
 public class Storage {
     private static final String PATH_TO_STORE = "Leto-Tasks.csv";
 
@@ -28,13 +30,16 @@ public class Storage {
      * populates it. Throws Error if file is invalid.
      * If file is not found, will create one by default.
      */
-    public static void readFile() {
+    public static Result readFile() {
+        Result result = Result.makeResultOk("");
         try {
             BufferedReader br = new BufferedReader(new FileReader(PATH_TO_STORE));
-            Ui.letoSpeak("We found an existing file, will attempt to import it to the list\nGive me a while");
+            result.updateMessage(
+                Ui.letoSpeak("We found an existing file, will attempt to import it to the list\nGive me a while")
+            );
             File f = new File(PATH_TO_STORE);
             String absPath = f.getAbsolutePath();
-            Ui.shortSay("File path: " + absPath);
+            result.updateMessage(Ui.shortSay("File path: " + absPath));
             String entry = br.readLine();
             List<Task> taskList = new ArrayList<>();
             while (entry != null) {
@@ -44,16 +49,21 @@ public class Storage {
             Task[] t = new Task[taskList.size()];
             taskList.toArray(t);
             TaskList.addToList(t);
+            return result;
         } catch (FileNotFoundException e) {
-            Ui.letoSpeak("We did not find an existing file containing tasks"
+            String message = Ui.letoSpeak("We did not find an existing file containing tasks"
                     + "\n  We will carry on without a blank list");
+            result.updateWithException(message, e);
         } catch (UncheckedIOException | IOException e) {
-            Ui.letoSpeak("Blast! Ran into error while reading the file.\n"
+            String message = Ui.letoSpeak("Blast! Ran into error while reading the file.\n"
                     + "We will proceed with an empty list.\n");
+            result.updateWithException(message, e);
         } catch (InvalidTaskException e) {
-            Ui.letoSpeak("File might be corrupted\n"
+            String message = Ui.letoSpeak("File might be corrupted\n"
                     + "Full error report below: " + e);
+            result.updateWithException(message, e);
         }
+        return result;
     }
 
     /**
@@ -81,25 +91,28 @@ public class Storage {
     /**
      * Write the current task lists to a csv file.
      */
-    public static void writeFile() {
+    public static Result writeFile() {
         int saved = 0;
+        Result result = Result.makeResultOk("");
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(PATH_TO_STORE));
-            Ui.letoSpeak("Saving tasks");
+            result.updateMessage(Ui.letoSpeak("Saving tasks"));
             for (Task t : TaskList.getTasks()) {
                 writeTask(bw, t);
                 saved++;
             }
             bw.flush();
             bw.close();
-            Ui.shortSay("Saving completed: " + saved + " tasks saved");
+            result.updateMessage(Ui.shortSay("Saving completed: " + saved + " tasks saved"));
             File f = new File(PATH_TO_STORE);
             String absPath = f.getAbsolutePath();
-            Ui.shortSay("File path: " + absPath);
+            result.updateMessage(Ui.shortSay("File path: " + absPath));
         } catch (IOException e) {
-            Ui.letoSpeak("Blast! Ran into error while writing the file.\n"
+            String message = Ui.letoSpeak("Blast! Ran into error while writing the file.\n"
                     + "Saved " + saved + " tasks in the list.\n");
+            result.updateWithException(message, e);
         }
+        return result;
     }
 
     /**

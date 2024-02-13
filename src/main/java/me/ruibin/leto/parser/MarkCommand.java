@@ -4,11 +4,10 @@ import java.util.function.Function;
 
 import me.ruibin.leto.tasklist.TaskList;
 
-/** Marks task as completed and returns <code>Results.OK</code>*/
-public class MarkCommand implements Function<String, Results> {
+/** Marks task as completed and returns <code>Result</code>*/
+public class MarkCommand implements Function<String, Result> {
     @Override
-    public Results apply(String s) {
-        TaskList.markTaskCompleted(s);
-        return Results.OK;
+    public Result apply(String s) {
+        return TaskList.markTaskCompleted(s);
     }
 }

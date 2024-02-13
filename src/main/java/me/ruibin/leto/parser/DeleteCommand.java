@@ -4,11 +4,10 @@ import java.util.function.Function;
 
 import me.ruibin.leto.tasklist.TaskList;
 
-/** Deletes task and returns <code>Results.OK</code>*/
-public class DeleteCommand implements Function<String, Results> {
+/** Deletes task and returns <code>ResultTypes.OK</code>*/
+public class DeleteCommand implements Function<String, Result> {
     @Override
-    public Results apply(String s) {
-        TaskList.deleteTask(s);
-        return Results.OK;
+    public Result apply(String s) {
+        return TaskList.deleteTask(s);
     }
 }
