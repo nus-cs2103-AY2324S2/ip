@@ -83,7 +83,7 @@ public class Ui {
 
             case "list":
                 printHorizontalLine();
-                taskList.printTaskList();
+                //taskList.printTaskList();
                 break;
 
             case "mark":
@@ -170,5 +170,60 @@ public class Ui {
      */
     public void closeScanner() {
         scanner.close();
+    }
+
+    public String showOpeningGreeting() {
+        return "Hello, I'm Duchess. What can I do for you today?";
+    }
+
+    public String showClosingGreeting() {
+        return "Farewell. Hope to see you again soon, my dear!";
+    }
+
+    public String showAdd(Task task, int taskCount, String taskType) {
+        return String.format(
+                "Understood. I've added this " + taskType + " task:\n"
+                        + task.toString() + "\n"
+                        + "Now you have " + taskCount + " tasks in the list." ) ;
+    }
+
+    public String showList(TaskList taskList) {
+        return taskList.toString();
+    }
+
+    public String showDelete(Task task, int taskCount) {
+        return String.format(
+                "Understood. I've deleted this task:\n"
+                        + task.toString() + "\n"
+                        + "Now you have " + taskCount + " tasks in the list." ) ;
+    }
+
+    public String showMarked(Task task) {
+        return String.format(
+                "Perfect! I've marked this task as done:\n"
+                        + task.toString() + "\n");
+    }
+
+    public String showUnmarked(Task task) {
+        return String.format(
+                "Understood, I've marked this task as not done yet:\n"
+                        + task.toString() + "\n");
+    }
+
+    public String showFind(ArrayList<Pair<Integer, Task>> matchingTasks) {
+        StringBuilder sb = new StringBuilder();
+
+        if (!matchingTasks.isEmpty()) {
+            sb.append("Here are the matching tasks in your list:\n");
+            for (Pair<Integer, Task> pair : matchingTasks) {
+                int originalIndex = pair.getKey() + 1; // Add 1 to match the original index
+                Task task = pair.getValue();
+                sb.append(" ").append(originalIndex).append(".").append(task.toString()).append("\n");;
+            }
+        } else {
+            sb.append("No matching tasks found.");
+        }
+
+        return sb.toString();
     }
 }

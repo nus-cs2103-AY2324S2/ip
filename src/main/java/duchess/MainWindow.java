@@ -41,12 +41,16 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-        String input = userInput.getText();
-        String response = duchess.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
-        );
-        userInput.clear();
+        try {
+            String input = userInput.getText();
+            String response = duchess.getResponse(input);
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getDukeDialog(response, dukeImage)
+            );
+            userInput.clear();
+        } catch (DuchessException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

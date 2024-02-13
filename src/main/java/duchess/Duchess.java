@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import duchess.storage.Storage;
 import duchess.task.Task;
 import duchess.ui.Ui;
+import duchess.parser.Parser;
+import javafx.util.Pair;
 
 /**
  * Duchess class represents the main class of the Duchess program.
@@ -32,9 +34,51 @@ public class Duchess{
         ui = new Ui();
     }
 
-
-    protected String getResponse(String input) {
-        return "Duke heard: " + input;
+    protected String getResponse(String input) throws DuchessException {
+        try {
+            switch (Parser.parseCommand(input)) {
+            case BYE:
+                return this.ui.showClosingGreeting();
+            case LIST:
+                return this.ui.showList(this.taskList);
+            case TODO:
+                Task toDoTask = this.taskList.addToDo(Parser.parseArgs(input));
+                this.storage.saveData(this.taskList);
+                return this.ui.showAdd(toDoTask, this.taskList.getTaskCount(), "TODO");
+            case EVENT:
+                Task eventTask = this.taskList.addEvent(Parser.parseArgs(input));
+                this.storage.saveData(this.taskList);
+                return this.ui.showAdd(eventTask, this.taskList.getTaskCount(), "EVENT");
+            case DEADLINE:
+                Task deadlineTask = this.taskList.addDeadline(Parser.parseArgs(input));
+                this.storage.saveData(this.taskList);
+                return this.ui.showAdd(deadlineTask, this.taskList.getTaskCount(), "DEADLINE");
+            case DELETE:
+                int taskIndexToDelete = Integer.parseInt(Parser.parseArgs(input)) - 1;
+                Task deletedTask = this.taskList.deleteTask(taskIndexToDelete);
+                this.storage.saveData(this.taskList);
+                return this.ui.showDelete(deletedTask, this.taskList.getTaskCount());
+            case FIND:
+                String keywords = Parser.parseArgs(input);
+                ArrayList<Pair<Integer, Task>> matchingTasks = taskList.findTasksByKeyword(keywords);
+                return this.ui.showFind(matchingTasks);
+            case MARK:
+                int taskIndexToMark = Integer.parseInt(Parser.parseArgs(input)) - 1;
+                Task markedTask = this.taskList.markTaskAsDone(taskIndexToMark);
+                this.storage.saveData(this.taskList);
+                return this.ui.showMarked(markedTask);
+            case UNMARK:
+                int taskIndexToUnmark = Integer.parseInt(Parser.parseArgs(input)) - 1;
+                Task unmarkedTask = this.taskList.unmarkTaskAsDone(taskIndexToUnmark);
+                this.storage.saveData(this.taskList);
+                return this.ui.showUnmarked(unmarkedTask);
+            default:
+                //sth
+                throw new DuchessException("Oh dear, I can't make out what that is.");
+            }
+        } catch (DuchessException e) {
+            return e.getMessage();
+        }
     }
 
     /**

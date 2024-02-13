@@ -18,7 +18,6 @@ import duchess.task.Task;
  */
 public class Storage {
     private String filePath;
-    private Parser parser;
 
     /**
      * Constructs a Storage object with the specified file path.
@@ -28,7 +27,6 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.filePath = filePath;
-        this.parser = new Parser();
     }
 
     /**
@@ -49,7 +47,7 @@ public class Storage {
             Scanner fileScanner = new Scanner(file);
             while (fileScanner.hasNextLine()) {
                 String line = fileScanner.nextLine();
-                Task task = this.parser.parseTaskFromFileString(line); // Parse task from file line
+                Task task = Parser.parseTaskFromFileString(line); // Parse task from file line
                 if (task != null) {
                     taskList.getTasks().add(task); // Add task to the list
                 }
