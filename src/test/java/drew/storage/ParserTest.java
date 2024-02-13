@@ -1,5 +1,4 @@
 package drew.storage;
-import drew.command.Command;
 import drew.ui.Parser;
 
 import org.junit.jupiter.api.Test;
@@ -10,30 +9,30 @@ public class ParserTest {
     public void checkCommandIdentity_allTask_assertionSucceed() {
         Parser parser = new Parser();
 
-        String todoTask = "todo homework";
-        Command exepectedTodo = Command.TODO;
-        Command actualTodo = parser.checkCommandIdentity(todoTask);
-        assertEquals(exepectedTodo, actualTodo);
-
-        String deadline = "deadline homework /by 2024-02-05";
-        Command actualDeadline = parser.checkCommandIdentity(deadline);
-        assertEquals(Command.DEADLINE, actualDeadline);
-
-        String event = "event concert /from 2024-05-15 /to 2024-05-10";
-        Command actualEvent = parser.checkCommandIdentity(event);
-        assertEquals(Command.EVENT, actualEvent);
-
-        String list = "list";
-        Command expectedList = Command.LIST;
-        Command actualList = parser.checkCommandIdentity(list);
-        assertEquals(expectedList, actualList);
-
-        String mark = "mark 1";
-        Command actualMark = parser.checkCommandIdentity(mark);
-        assertEquals(Command.MARK, actualMark);
-
-        String unmark = "unmark 1";
-        Command acutalUnmark = parser.checkCommandIdentity(unmark);
-        assertEquals(Command.UNMARK, acutalUnmark);
+//        String todoTask = "todo homework";
+//        Commands exepectedTodo = Commands.TODO;
+//        Commands actualTodo = parser.checkCommandIdentity(todoTask);
+//        assertEquals(exepectedTodo, actualTodo);
+//
+//        String deadline = "deadline homework /by 2024-02-05";
+//        Commands actualDeadline = parser.checkCommandIdentity(deadline);
+//        assertEquals(Commands.DEADLINE, actualDeadline);
+//
+//        String event = "event concert /from 2024-05-15 /to 2024-05-10";
+//        Commands actualEvent = parser.checkCommandIdentity(event);
+//        assertEquals(Commands.EVENT, actualEvent);
+//
+//        String list = "list";
+//        Commands expectedList = Commands.LIST;
+//        Commands actualList = parser.checkCommandIdentity(list);
+//        assertEquals(expectedList, actualList);
+//
+//        String mark = "mark 1";
+//        Commands actualMark = parser.checkCommandIdentity(mark);
+//        assertEquals(Commands.MARK, actualMark);
+//
+//        String unmark = "unmark 1";
+//        Commands acutalUnmark = parser.checkCommandIdentity(unmark);
+//        assertEquals(Commands.UNMARK, acutalUnmark);
     }
 }

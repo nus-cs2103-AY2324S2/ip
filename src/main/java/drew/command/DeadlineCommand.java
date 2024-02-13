@@ -1,0 +1,44 @@
+package drew.command;
+
+import drew.storage.TaskList;
+import drew.task.Deadline;
+import drew.task.Task;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+public class DeadlineCommand extends Command {
+
+    public DeadlineCommand(String input) {
+        super(input);
+    }
+
+    @Override
+    public String execute(TaskList tasks) throws IllegalArgumentException {
+        String reply = "";
+        ArrayList<Task> ls = tasks.getList();
+        int listLength = ls.size();
+
+        int firstBackslashIndex = input.indexOf("/by");
+        if (firstBackslashIndex == -1) {
+            throw new IllegalArgumentException("Incorrect input. Ensure that date begins with /by");
+        }
+
+        String deadlineDescription = input.substring(9, firstBackslashIndex);
+        LocalDate deadline = LocalDate.parse(input.substring(firstBackslashIndex + 4).trim());
+
+        Deadline newTask = new Deadline(deadlineDescription, deadline);
+        ls.add(newTask);
+
+        reply = "Got it. I've added this task:\n";
+        reply = reply + newTask.toStatusString() + "\n";
+        listLength++;
+        reply = reply + String.format("Now you have %d task(s) in the list.", listLength);
+
+        return reply;
+    }
+
+    public static boolean isDeadlineCommand(int inputLength, String input) {
+        return inputLength >= 8 && input.substring(0, 8).equalsIgnoreCase("deadline");
+    }
+}
