@@ -1,6 +1,7 @@
 import duke.*;
 
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Duke {
     private Storage storage;

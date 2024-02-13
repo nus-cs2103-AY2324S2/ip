@@ -22,7 +22,7 @@ public class Command {
      * @param storage the storage object
      * @throws IOException if there is an error writing to the file
      */
-    public void execute(TaskList tasks, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Storage storage) throws DukeException {
         String description;
         String keyword;
         int index;
