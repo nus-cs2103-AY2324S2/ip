@@ -111,6 +111,12 @@ public class Ui {
         scanner.close();
     }
 
+    /**
+     * Displays a list of tasks to the user. If the list is empty, a message indicating
+     * no matching tasks is shown. Otherwise, all matching tasks are displayed.
+     *
+     * @param tasks The ArrayList of tasks to be displayed.
+     */
     public void showMatchingTasks(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
             System.out.println("No matching tasks in your list.");
