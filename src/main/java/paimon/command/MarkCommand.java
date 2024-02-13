@@ -5,12 +5,32 @@ import paimon.UiHandler;
 import paimon.task.Task;
 import paimon.task.TaskList;
 
-
+/**
+ * Represents a command to mark a specific task in the task list as done. The task to be marked
+ * is identified by its index provided by the user.
+ */
 public class MarkCommand extends Command {
-    private String indexString;
+    private final String indexString;
+
+    /**
+     * Constructs a MarkCommand with the index of the task to be marked as done.
+     *
+     * @param indexString The string representation of the task's index in the task list.
+     */
     public MarkCommand(String indexString) {
         this.indexString = indexString;
     }
+
+    /**
+     * Executes the mark command by parsing the index string to an integer, validating it,
+     * and then marking the corresponding task as done if it's not already marked.
+     * Notifies the user of the action through the UI handler.
+     *
+     * @param taskList The task list from which a task will be marked as done.
+     * @param ui       The UI handler for interacting with the user and displaying feedback.
+     * @throws ChatException If the index string cannot be converted to a valid integer,
+     *                       or if the index is out of bounds for the task list.
+     */
     public void execute(TaskList taskList, UiHandler ui) throws ChatException {
         try {
             int markIndex = Integer.parseInt(indexString);
@@ -29,8 +49,15 @@ public class MarkCommand extends Command {
         } catch (IndexOutOfBoundsException e) {
             throw new ChatException("Sorry Traveller, your index is out of bounds");
         }
-    };
+    }
+
+    /**
+     * Indicates that executing this command does not signal the application to exit.
+     *
+     * @return false always, as marking a task as done does not terminate the application.
+     */
     public boolean isExit() {
         return false;
-    };
+    }
+
 }

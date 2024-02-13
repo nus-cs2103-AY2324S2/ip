@@ -6,15 +6,25 @@ import paimon.task.TaskList;
 
 import java.util.Scanner;
 
+/**
+ * Manages user interactions by displaying messages.
+ */
 public class UiHandler {
     private final Scanner scanner;
 
+    /**
+     * Initializes a new instance of UiHandler with a Scanner
+     * to read input from console.
+     */
     public UiHandler() {
         this.scanner = new Scanner(System.in);
     }
-    public String readCommand() {
-        return scanner.nextLine();
-    }
+
+    /**
+     * Displays a message to the user. Standard format for messages.
+     *
+     * @param mainMessage The primary message to display.
+     */
 
     private static void sendMessage(String mainMessage) {
         System.out.println("-------------------->");
@@ -22,6 +32,28 @@ public class UiHandler {
         System.out.println("-------------------->");
     }
 
+    /**
+     * Displays a message to the user.
+     * Use this when displaying tasks.
+     *
+     * @param mainMessage The main message to display.
+     * @param subMessage  The sub message to provide additional details.
+     */
+    private static void sendMessage(String mainMessage, String subMessage) {
+        System.out.println(mainMessage);
+        System.out.println("-------------------->");
+        System.out.println(subMessage);
+        System.out.println("-------------------->");
+    }
+
+    /**
+     * Displays a detailed message to the user.
+     * Use this when displaying tasks along with a closing message.
+     *
+     * @param mainMessage    The main message to display.
+     * @param subMessage     The sub message to provide additional details.
+     * @param closingMessage The closing message to conclude the interaction.
+     */
     private static void sendMessage(String mainMessage, String subMessage, String closingMessage) {
         System.out.println(mainMessage);
         System.out.println("-------------------->");
@@ -30,13 +62,18 @@ public class UiHandler {
         System.out.println(closingMessage);
     }
 
-    private static void sendMessage(String mainMessage, String subMessage) {
-        System.out.println(mainMessage);
-        System.out.println("-------------------->");
-        System.out.println(subMessage);
-        System.out.println("-------------------->");
+    /**
+     * Reads a command from the user via the console.
+     *
+     * @return The command entered by the user as a String.
+     */
+    public String readCommand() {
+        return scanner.nextLine();
     }
 
+    /**
+     * Displays a help message detailing the syntax and commands supported.
+     */
     public void helpResponse() {
         sendMessage("You can perform the following actions, make sure to follow the syntax!",
                 "list : Lists all your Tasks\n" +
@@ -50,30 +87,63 @@ public class UiHandler {
                 "bye : Exits the program"
                 );
     }
+
     public void addTaskResponse(String taskString, int tasksLeft) {
         sendMessage("Okay Traveller, I've added the following task!", taskString, "You have " + tasksLeft + " tasks in your list");
     }
+
+    /**
+     * Notifies the user that a task has been deleted and displays the remaining number of tasks.
+     *
+     * @param tasksLeft The total number of tasks left after deletion.
+     */
     public void deleteTaskResponse(int tasksLeft) {
         sendMessage("Okay Traveller, I've deleted the task! You now have " + tasksLeft + " tasks remaining.");
     }
+
+    /**
+     * Displays the list of found tasks containing the keyword.
+     *
+     * @param taskString The list of tasks found
+     */
     public void getFoundResponse(String taskString) {
         sendMessage("Okay Traveller, here are the matching tasks", taskString);
     }
-    public void markTaskResponse(String taskString, boolean isDone) {
+
+
+    /**
+     * Notifies the user that a task's completion status has been updated.
+     *
+     * @param task   The task whose status was updated.
+     * @param isDone The new completion status of the task (true if done, false otherwise).
+     */
+    public void markTaskResponse(Task task, boolean isDone) {
         if (isDone) {
             sendMessage("Okay Traveller, I've marked the task as done", taskString);
         } else {
             sendMessage("Okay Traveller, I've unmarked this task", taskString);
         }
     }
+
+    /**
+     * Displays a greeting message to the user when the application starts.
+     */
     public void greetResponse() {
         sendMessage("Greetings Traveller! I'm Paimon, your friendly guide!\nType help to see what I can do!");
     }
 
+    /**
+     * Displays a goodbye message to the user when the application is exited.
+     */
     public void exitResponse() {
         sendMessage("See you later Traveller!");
     }
 
+    /**
+     * Displays the list of tasks to the user. If the list is empty, it notifies the user accordingly.
+     *
+     * @param list The {@link TaskList} containing all current tasks.
+     */
     public void listResponse(TaskList list) {
         if (list.getSize() == 0) {
             System.out.println("Your list is currently empty, add some tasks!");
@@ -83,10 +153,14 @@ public class UiHandler {
             System.out.println(list);
             System.out.println("-------------------->");
         }
-
     }
+
+    /**
+     * Displays an error message to the user.
+     *
+     * @param e The {@link ChatException} containing the error message to be displayed.
+     */
     public void showError(ChatException e) {
         System.out.println(e.getMessage());
     }
-
 }
