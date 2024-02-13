@@ -161,11 +161,12 @@ public class TaskList {
 
         if (isDuplicateTask(newTask)) {
             return "Error: Duplicate task already exists.";
-        } else {
-            taskList.add(newTask);
-            storage.saveTaskToFile(newTask);
-            return "Added: " + newTask;
         }
+
+        taskList.add(newTask);
+        storage.saveTaskToFile(newTask);
+        return "Added: " + newTask;
+
     }
     
 
