@@ -9,8 +9,6 @@ checkstyle {
     toolVersion = '10.2'
 }
 
-mainClassName = 'ghbot.GhBot'
-
 repositories {
     mavenCentral()
 }
@@ -49,11 +47,11 @@ test {
 }
 
 application {
-    mainClass.set("ghbot.GHBot")
+    mainClassName = 'ghbot.javafx.Launcher'
 }
 
 shadowJar {
-    archiveFileName = 'GHBot.jar'
+    archiveFileName = 'GhBot.jar'
 }
 
 run{
