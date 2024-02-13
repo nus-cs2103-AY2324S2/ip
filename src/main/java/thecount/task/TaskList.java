@@ -32,9 +32,9 @@ public class TaskList {
     /**
      * Prints the list of tasks.
      */
-    public void printList() {
+    public String printList() {
         Reply replyToUser = new PrintList(this.tasks);
-        replyToUser.displayMessage();
+        return replyToUser.displayMessage();
     }
 
     /**
@@ -54,7 +54,7 @@ public class TaskList {
      * @param isAnnounced Specifies if the action should be announced.
      * @throws TheCountException If the task index is invalid.
      */
-    public void markTask(int i, boolean isAnnounced) throws TheCountException {
+    public String markTask(int i, boolean isAnnounced) throws TheCountException {
         if (i < 1 || i > tasks.size()) {
             throw new TheCountException("Invalid task number. I can't count that!");
         }
@@ -62,9 +62,10 @@ public class TaskList {
         currTask.markAsDone();
         if (isAnnounced) {
             Reply replyToUser = new Reply("Ah-ah-ah! ONE! I've marked this task as done:\n"
-                    + "        " + currTask.toString());
-            replyToUser.displayMessage();
+                    + "" + currTask.toString());
+            return replyToUser.displayMessage();
         }
+        return "";
     }
 
     /**
@@ -74,7 +75,7 @@ public class TaskList {
      * @param isAnnounced Specifies if the action should be announced.
      * @throws TheCountException If the task index is invalid.
      */
-    public void unmarkTask(int i, boolean isAnnounced) throws TheCountException {
+    public String unmarkTask(int i, boolean isAnnounced) throws TheCountException {
         if (i < 1 || i > tasks.size()) {
             throw new TheCountException("Invalid task number. I can't count that!");
         }
@@ -82,9 +83,10 @@ public class TaskList {
         currTask.unmark();
         if (isAnnounced) {
             Reply replyToUser = new Reply("MINUS ONE! I've marked this task as not done yet:\n"
-                    + "        " + currTask.toString());
-            replyToUser.displayMessage();
+                    + "" + currTask.toString());
+            return replyToUser.displayMessage();
         }
+        return "";
     }
 
     /**
@@ -93,14 +95,14 @@ public class TaskList {
      * @param i The index of the task to delete.
      * @throws TheCountException If the task index is invalid.
      */
-    public void deleteTask(int i) throws TheCountException {
+    public String deleteTask(int i) throws TheCountException {
         if (i < 1 || i > tasks.size()) {
             throw new TheCountException("Invalid task number. I can't delete that!");
         }
         Task currTask = this.tasks.get(i - 1);
         this.tasks.remove(i - 1);
         Reply replyToUser = new RemoveFromListReply(currTask.toString(), this.tasks.size());
-        replyToUser.displayMessage();
+        return replyToUser.displayMessage();
     }
 
     /**
@@ -108,7 +110,7 @@ public class TaskList {
      *
      * @param keyword The keyword to search for.
      */
-    public void findTask(String keyword) {
+    public String findTask(String keyword) {
         ArrayList<Task> foundTasks = new ArrayList<>();
         keyword = keyword.toLowerCase();
 
@@ -119,10 +121,10 @@ public class TaskList {
         }
         if (foundTasks.size() == 0) {
             Reply replyToUser = new Reply("I can't find any matching tasks.");
-            replyToUser.displayMessage();
+            return replyToUser.displayMessage();
         } else {
             Reply replyToUser = new PrintList(foundTasks);
-            replyToUser.displayMessage();
+            return replyToUser.displayMessage();
         }
     }
 

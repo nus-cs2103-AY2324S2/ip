@@ -26,15 +26,15 @@ public class Ui {
     /**
      * Prints the greeting message to the user.
      */
-    public void printGreeting() {
-        greeting.displayMessage();
+    public String printGreeting() {
+        return greeting.displayMessage();
     }
 
     /**
      * Initiates the user interface and begins application execution.
      */
-    public void run() {
-        printGreeting();
-        parser.parse();
+    public String run() {
+        return printGreeting();
+//        parser.parse();
     }
 }

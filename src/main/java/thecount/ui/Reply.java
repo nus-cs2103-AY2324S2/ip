@@ -18,10 +18,7 @@ public class Reply {
     /**
      * Displays the reply message with appropriate formatting.
      */
-    public void displayMessage() {
-        String emptySpace = "      ";
-        String horizLine = "    ____________________________________________________";
-        System.out.println(horizLine.concat("\n").concat(emptySpace)
-                .concat(this.message).concat("\n").concat(horizLine));
+    public String displayMessage() {
+        return (this.message.concat("\n"));
     }
 }
