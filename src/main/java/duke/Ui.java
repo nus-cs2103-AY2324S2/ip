@@ -51,17 +51,17 @@ public class Ui {
      * @throws IOException When File f cannot be found.
      * @return Exit message
      */
-    public String readCommand() throws FileNotFoundException, IOException {
-        Parser parse = new Parser(tasklist);
-        Task task = new Task(user.nextLine());
-        while (!task.getTask().equals("bye")) {
-            parse.parsing(task.getTask());
-            task = new Task(user.nextLine());
-        }
-
-        tasklist.write();
-        return exit();
-    }
+//    public String readCommand() throws FileNotFoundException, IOException {
+//        Parser parse = new Parser(tasklist);
+//        Task task = new Task(user.nextLine());
+//        while (!task.getTask().equals("bye")) {
+//            parse.parsing(task.getTask());
+//            task = new Task(user.nextLine());
+//        }
+//
+//        tasklist.write();
+//        return exit();
+//    }
 
 
 

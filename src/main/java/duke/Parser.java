@@ -16,9 +16,11 @@ import java.io.IOException;
 
 public class Parser {
 private TaskList tasklist;
+private ContactsList contactsList;
 
-    public Parser(TaskList tasklist) {
+    public Parser(TaskList tasklist, ContactsList contactlist) {
         this.tasklist = tasklist;
+        this.contactsList = contactlist;
     }
 
     /**
@@ -49,6 +51,8 @@ private TaskList tasklist;
             res = "byeee love uu ttyl ok!";
             tasklist.write();
             tasklist.clearCurrentTasks();
+            contactsList.write();
+            contactsList.clearContacts();
         } else if (command.startsWith("mark")) {
             try {
                 String str = command.substring(5);
@@ -117,6 +121,18 @@ private TaskList tasklist;
                         res = "Let me know when this event is bb: " +
                                 "e.g. event <event> /from <when>/to <when>";
                     }
+//                } else if (command.startsWith("cont add")) {
+//                    try {
+//                        String str = command.substring(9);
+//                        String[] arr = str.split(" ");
+//                        String name = arr[0];
+//                        int number = Integer.parseInt(arr[1]);
+//
+//                    } catch (StringIndexOutOfBoundsException e) {
+//                        res = "Enter contact command";
+//                    } catch (NumberFormatException e) {
+//                        res = "Enter contact number";
+//                    }
                 } else {
                     res = "Baby, what are you saying? Tell me what your TODOs, DEADLINEs and EVENTs are!";
                 }

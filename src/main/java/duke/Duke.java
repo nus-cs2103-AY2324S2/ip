@@ -44,9 +44,12 @@ public class Duke extends Application {
     }
 
     File f = new File("data/EUEU.txt");
+    File contFile = new File("data/Contacts.txt");
     Scanner user = new Scanner(System.in);
     Storage storage = new Storage(f);
     TaskList tasklist = new TaskList(storage);
+    Storage contStorage = new Storage(contFile);
+    ContactsList contactsList = new ContactsList (contStorage);
 
     public static void main(String[] args) throws IOException {
 
@@ -57,7 +60,7 @@ public class Duke extends Application {
 
         Ui ui = new Ui(user, tasklist);
         System.out.println(ui.showWelcome());
-        System.out.println(ui.readCommand());
+//        System.out.println(ui.readCommand());
 
 
     }
@@ -171,9 +174,19 @@ public class Duke extends Application {
 //
 //        Ui ui = new Ui(user, tasklist);
 //        return ui.readCommand();
+        ContactsParser conts = new ContactsParser(contactsList);
 
-        Parser parse = new Parser(tasklist);
-        return parse.parsing(input);
+        if (input.startsWith("cont")) {
+            try {
+                String str = input.substring(5);
+                return conts.parsing(str);
+            } catch (StringIndexOutOfBoundsException e){
+                return "ENTER (CONTACT) INSTRUCTION";
+            }
+        } else {
+            Parser parse = new Parser(tasklist, contactsList);
+            return parse.parsing(input);
+        }
 
     }
 }
