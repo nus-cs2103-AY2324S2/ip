@@ -23,9 +23,8 @@ class Todo extends Task {
      * @throws FishStockException The exceptions while creating the Todo object.
      */
     protected static Todo of(String input) throws FishStockException {
-        if (!Parser.startsWith(COMMAND, input)) {
-            throw new FishStockException("OH NOSE! This input is not todo..");
-        }
+        assert Parser.startsWith(COMMAND, input) : "The input type is not Todo";
+
         if (COMMAND.length() + 1 >= input.length()) {
             throw new FishStockException("OH NOSE! The description of todo cannot be empty..");
         }

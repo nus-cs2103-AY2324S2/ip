@@ -37,9 +37,8 @@ class Event extends Task {
      * @throws FishStockException The exceptions while creating the Event object.
      */
     protected static Event of(String input) throws FishStockException {
-        if (!Parser.startsWith(COMMAND, input)) {
-            throw new FishStockException("OH NOSE! This input is not event..");
-        }
+        assert Parser.startsWith(COMMAND, input) : "The input type is not Event";
+
         int fromIdx = input.indexOf(FROM_KEYWORD);
         if (fromIdx == -1) {
             throw new FishStockException("OH NOSE! \"" + FROM_KEYWORD + "\" not found..");

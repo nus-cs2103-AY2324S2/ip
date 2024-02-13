@@ -29,9 +29,8 @@ class Deadline extends Task {
      * @throws FishStockException The exceptions while creating the Deadline object.
      */
     protected static Deadline of(String input) throws FishStockException {
-        if (!Parser.startsWith(COMMAND, input)) {
-            throw new FishStockException("OH NOSE! This input is not deadline..");
-        }
+        assert Parser.startsWith(COMMAND, input) : "The input type is not Deadline";
+
         int byIdx = input.indexOf(BY_KEYWORD);
         if (byIdx == -1) {
             throw new FishStockException("OH NOSE! \"" + BY_KEYWORD + "\" not found..");
