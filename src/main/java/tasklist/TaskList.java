@@ -1,6 +1,7 @@
 package tasklist;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import task.Task;
 
@@ -65,10 +66,9 @@ public class TaskList {
         if (this.tasksList.size() == 0) {
             return "There are no tasks in your list.";
         }
-        String listOutput = "";
-        for (int i = 0; i < this.tasksList.size(); i++) {
-            listOutput += (i + 1) + ". " + this.tasksList.get(i) + "\n";
-        }
+        String listOutput = this.tasksList.stream()
+                .map(task -> (this.tasksList.indexOf(task) + 1) + ". " + task + "\n")
+                .collect(Collectors.joining());
         return "Here are the tasks in your list:\n" + listOutput;
     }
 
@@ -94,12 +94,8 @@ public class TaskList {
      * Finds tasks that match the keyword
      */
     public ArrayList<Task> findTasks(String keyword) {
-        ArrayList<Task> result = new ArrayList<Task>();
-        for (Task task : this.tasksList) {
-            if (task.getDescription().contains(keyword)) {
-                result.add(task);
-            }
-        }
-        return result;
+        return this.tasksList.stream()
+                .filter(task -> task.getDescription().contains(keyword))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 }

@@ -37,9 +37,9 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + startDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
-                + " to: "
-                + deadlineDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        String startDateString = startDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        String deadlineDateString = deadlineDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        return "[E]" + super.toString() + " (from: " + startDateString + " to: " + deadlineDateString + ")";
     }
 
     /**
