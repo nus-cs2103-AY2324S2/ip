@@ -1,10 +1,10 @@
 package gui;
 
 import commands.Command;
+import commands.CommandParser;
 import exceptions.ConvoBotException;
 import exceptions.ExitException;
 import javafx.application.Application;
-import utils.Parser;
 import utils.ResponseConstructor;
 import utils.Storage;
 import utils.TaskList;
@@ -37,7 +37,7 @@ public class ConvoBot {
     public String getResponse(String userInput) throws ExitException {
         Command c;
         try {
-            c = Parser.parseUserInput(userInput);
+            c = CommandParser.parse(userInput);
             if (c.isExit()) {
                 throw new ExitException();
             }

@@ -14,7 +14,10 @@ import javafx.scene.layout.VBox;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
-    private static final ConvoBot convo = new ConvoBot("./data/tasks.txt");
+
+    private final ConvoBot convo = new ConvoBot("./data/tasks.txt");
+    private final Image userImage = new Image(getClass().getResourceAsStream("/images/DaUser.png"));
+    private final Image convoImage = new Image(getClass().getResourceAsStream("/images/DaConvo.png"));
 
     @FXML
     private ScrollPane scrollPane;
@@ -24,9 +27,6 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-
-    private final Image userImage = new Image(getClass().getResourceAsStream("/images/DaUser.png"));
-    private final Image convoImage = new Image(getClass().getResourceAsStream("/images/DaConvo.png"));
 
     @FXML
     public void initialize() {
