@@ -94,7 +94,7 @@ public class Parser {
             }
         default:
             throw new YpxmmException("Sorry bro, idk what that means. You try type in \"getcommands\" then see"
-                    + "if got what u want.");
+                    + " if got what u want.");
         }
     }
 }
