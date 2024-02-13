@@ -51,7 +51,9 @@ public class TaskList implements Serializable {
         try {
             checkIndex(index);
             Task task = this.taskList.get(index);
+            assert task != null : "Task to delete is not there";
             this.taskList.remove(index);
+            assert !this.taskList.contains(task) : "Task was not removed from the list";
             return "Noted. I've removed this task:\n" + task.toString() + "\n"
                     + "Now you have " + taskList.size() + " tasks in the list.";
         } catch (IndexOutOfBoundsException e) {
@@ -71,8 +73,10 @@ public class TaskList implements Serializable {
         try {
             checkIndex(index);
             Task task = this.taskList.get(index);
+            assert task != null : "Task to mark is present";
             checkMarked(task);
             task.markDone();
+            assert task.isDone : "Task is not marked as done after marking";
             return "Nice! I've marked this task as done:\n" + task.toString();
         } catch (IndexOutOfBoundsException e) {
             throw new TheAdvisorException("We use 1-based indexing for deletion, marking, and unmarking! "
@@ -91,8 +95,10 @@ public class TaskList implements Serializable {
         try {
             checkIndex(index);
             Task task = this.taskList.get(index);
+            assert task != null : "Task to unmark is not present";
             checkUnmarked(task);
             task.unmark();
+            assert !task.isDone : "Task is still marked as done after unmarking";
             return "OK, I've marked this task as not done yet:\n" + task.toString();
         } catch (IndexOutOfBoundsException e) {
             throw new TheAdvisorException("We use 1-based indexing for deletion, marking, and unmarking! "
@@ -126,6 +132,7 @@ public class TaskList implements Serializable {
      * @throws TheAdvisorException If the task is already marked.
      */
     public void checkMarked(Task task) throws TheAdvisorException {
+        assert task != null : "Task to check marked status is not present";
         if (task.isDone) {
             throw new TheAdvisorException("The task is already marked! Carry on.");
         }
@@ -138,6 +145,7 @@ public class TaskList implements Serializable {
      * @throws TheAdvisorException If the task is already unmarked.
      */
     public void checkUnmarked(Task task) throws TheAdvisorException {
+        assert task != null : "Task to check unmarked status is not present";
         if (!task.isDone) {
             throw new TheAdvisorException("The task is already unmarked! Carry on.");
         }
@@ -150,6 +158,7 @@ public class TaskList implements Serializable {
      * @throws TheAdvisorException If the index is out of bounds or the list is empty.
      */
     public void checkIndex(int index) throws TheAdvisorException {
+        assert index >= 0 : "Index must be non-negative";
         int size = this.taskList.size();
         if (index < 0) {
             throw new TheAdvisorException("We use 1-indexing for marking. Please try again.");

@@ -20,6 +20,8 @@ public class Deadline extends Task implements Serializable {
      */
     public Deadline(String description, LocalDateTime by) {
         super(description);
+        assert description != null && !description.isEmpty() : "Description cannot be null or empty";
+        assert by != null : "Deadline cannot be null";
         this.by = by;
     }
 
@@ -40,6 +42,7 @@ public class Deadline extends Task implements Serializable {
      */
     @Override
     public String getDescription() {
+        assert getDescription().contains("|") : "Description should contain the deadline";
         return this.description + " | " + this.by;
     }
 
