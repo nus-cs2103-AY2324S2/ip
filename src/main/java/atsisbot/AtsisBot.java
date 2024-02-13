@@ -37,6 +37,7 @@ public class AtsisBot {
     public static void main(String[] args) {
         Ui.printWelcomeMessage();
         String input = Ui.readCommand();
+        assert input != null : "Input cannot be null";
 
         while (!input.equals("bye")) {
             CommandEnum command = Parser.parseCommand(input);
@@ -58,6 +59,9 @@ public class AtsisBot {
      * @param args        the arguments for the command
      */
     public static String getResponse(CommandEnum commandEnum, String args) {
+        assert commandEnum != null : "CommandEnum cannot be null";
+        assert args != null : "Args cannot be null";
+
         ByteArrayOutputStream outputs = new ByteArrayOutputStream();
         PrintStream previous = System.out;
         System.setOut(new PrintStream(outputs));
