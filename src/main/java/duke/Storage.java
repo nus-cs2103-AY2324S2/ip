@@ -11,6 +11,11 @@ import java.util.Scanner;
 
 public class Storage {
     private static final File FILE = new File("./data/logfile.txt");
+    private static final String DATE_FORMAT = "yyyy-MM-dd";
+    private static final String DATETIME_FORMAT = "yyyy-MM-dd HH:mm";
+    private static final String TODO_PREFIX = "T |";
+    private static final String DEADLINE_PREFIX = "D |";
+    private static final String EVENT_PREFIX = "E |";
 
     /**
      * Constructs a Storage object using a specified file path.
@@ -46,7 +51,6 @@ public class Storage {
      * @throws IOException If an I/O error occurs while reading from the file.
      */
     public List<Task> readFromFile() throws IOException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         List<Task> l = new ArrayList<>();
         try {
             if (!FILE.exists()) {
@@ -59,42 +63,62 @@ public class Storage {
         Scanner sc = new Scanner(reader);
         while (sc.hasNext()) {
             String line = sc.nextLine();
-            String[] array_split = line.split(" \\| ");
-            boolean isDone = array_split[1].trim().equals("1");
-            if (array_split[0].equals("T")) {
-                ToDo todo = new ToDo(array_split[2]);
-                if (isDone) {
-                    todo.markDone();
-                }
-                l.add(todo);
-            } else if (array_split[0].equals("D")) {
-                String description = array_split[2];
-                LocalDateTime endTime;
-                try {
-                    endTime = LocalDateTime.parse(array_split[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-                } catch (DateTimeParseException e) {
-                    LocalDate date = LocalDate.parse(array_split[3], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                    endTime = date.atStartOfDay();
-                }
-                Deadline deadline = new Deadline(description, endTime);
-                if (isDone) {
-                    deadline.markDone();
-                }
-                l.add(deadline);
-            } else if (array_split[0].equals("E")) {
-                String description = array_split[2];
-                String[] dates = array_split[3].split(" to ");
-                LocalDate startTime = LocalDate.parse(dates[0], formatter);
-                LocalDate endTime = LocalDate.parse(dates[1], formatter);
-                Event event = new Event(description, startTime, endTime);
-                if (isDone) {
-                    event.markDone();
-                }
-                l.add(event);
+            Task task = processLine(line);
+            if (task != null) {
+                l.add(task);
             }
         }
         return l;
     }
+
+    private Task processLine(String line) {
+        String[] array_split = line.split(" \\| ");
+        boolean isDone = array_split[1].trim().equals("1");
+        if (array_split[0].equals("T")) {
+            return createToDo(array_split[2], isDone);
+        } else if (array_split[0].equals("D")) {
+            return createDeadline(array_split[2], array_split[3], isDone);
+        } else if (array_split[0].equals("E")) {
+            return createEvent(array_split[2], array_split[3], isDone);
+        }
+        return null;
+    }
+
+    private ToDo createToDo(String description, boolean isDone) {
+        ToDo todo = new ToDo(description);
+        if (isDone) {
+            todo.markDone();
+        }
+        return todo;
+    }
+
+    private Deadline createDeadline(String description, String endTimeStr, boolean isDone) {
+        LocalDateTime endTime;
+        try {
+            endTime = LocalDateTime.parse(endTimeStr, DateTimeFormatter.ofPattern(DATETIME_FORMAT));
+        } catch (DateTimeParseException e) {
+            LocalDate date = LocalDate.parse(endTimeStr, DateTimeFormatter.ofPattern(DATE_FORMAT));
+            endTime = date.atStartOfDay();
+        }
+        Deadline deadline = new Deadline(description, endTime);
+        if (isDone) {
+            deadline.markDone();
+        }
+        return deadline;
+    }
+
+    private Event createEvent(String description, String timeRange, boolean isDone) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
+        String[] dates = timeRange.split(" to ");
+        LocalDate startTime = LocalDate.parse(dates[0], formatter);
+        LocalDate endTime = LocalDate.parse(dates[1], formatter);
+        Event event = new Event(description, startTime, endTime);
+        if (isDone) {
+            event.markDone();
+        }
+        return event;
+    }
+
 
     /**
      * Formats a Task object into a string representation for file storage.
@@ -104,20 +128,20 @@ public class Storage {
      */
     protected String formatTaskForFile(Task task) {
         String status = task.getStatusIcon();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
         if (task instanceof ToDo) {
-            return "T | " + status + " | " + task.description;
+            return TODO_PREFIX + status + " | " + task.DESCRIPTION;
         }
         else if (task instanceof Deadline) {
             Deadline deadline = (Deadline) task;
-            String formattedEndTime = deadline.endTime.format(formatter);
-            return "D | " + status + " | " + deadline.description + " | " + formattedEndTime;
+            String formattedEndTime = deadline.END_TIME.format(formatter);
+            return DEADLINE_PREFIX + status + " | " + deadline.DESCRIPTION + " | " + formattedEndTime;
         }
         else if (task instanceof Event) {
             Event event = (Event) task;
-            String formattedStartTime = event.startTime.format(formatter);
-            String formattedEndTime = event.endTime.format(formatter);
-            return "E | " + status + " | " + event.description + " | " + formattedStartTime + " to " + formattedEndTime;
+            String formattedStartTime = event.START_TIME.format(formatter);
+            String formattedEndTime = event.END_TIME.format(formatter);
+            return EVENT_PREFIX + status + " | " + event.DESCRIPTION + " | " + formattedStartTime + " to " + formattedEndTime;
         }
         return "";
     }
