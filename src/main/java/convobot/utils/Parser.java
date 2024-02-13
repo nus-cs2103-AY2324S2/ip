@@ -161,9 +161,14 @@ public class Parser {
      * @throws IllegalArgumentException if the line is in an invalid format
      */
     public static Task parseTaskFromLine(String line) throws IllegalArgumentException {
+        final int minPartsLength = 3;
+        final int maxPartsLength = 5;
+        final IllegalArgumentException invalidLineException =
+                new IllegalArgumentException("Invalid line format: " + line);
+
         String[] parts = line.split(" \\| ");
-        if (parts.length < 3 || parts.length > 5) {
-            throw new IllegalArgumentException("Invalid line format: " + line);
+        if (parts.length < minPartsLength || parts.length > maxPartsLength) {
+            throw invalidLineException;
         }
         boolean isDone = parts[1].equals("1");
         String description = parts[2];
@@ -177,13 +182,14 @@ public class Parser {
                 task = new Deadline(description, isDone, DateTime.stringToDate(parts[3]));
                 break;
             case "E":
-                task = new Event(description, isDone, DateTime.stringToDate(parts[3]), DateTime.stringToDate(parts[4]));
+                task = new Event(description, isDone, DateTime.stringToDate(parts[3]),
+                                                      DateTime.stringToDate(parts[4]));
                 break;
             default:
-                throw new IllegalArgumentException("Invalid line format: " + line);
+                throw invalidLineException;
             }
         } catch (ConvoBotException e) {
-            throw new IllegalArgumentException("Invalid line format: " + line);
+            throw invalidLineException;
         }
         return task;
     }
