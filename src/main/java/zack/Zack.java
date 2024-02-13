@@ -145,7 +145,6 @@ public class Zack extends Application {
         // You will need to import `javafx.scene.control.Label`.
         Label textToAdd = new Label(text);
         textToAdd.setWrapText(true);
-
         return textToAdd;
     }
 
@@ -185,24 +184,5 @@ public class Zack extends Application {
      */
     public enum TaskType {
         BYE, MARK, UNMARK, LIST, TODO, DEADLINE, EVENT, DELETE, DATE, FIND
-    }
-
-    /**
-     * Runs the Zack program, handling user input and task execution.
-     */
-    public void run() {
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (ZackException e) {
-                ui.showError(e.getMessage());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
     }
 }
