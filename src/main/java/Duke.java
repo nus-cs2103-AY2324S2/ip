@@ -39,11 +39,12 @@ public class Duke {
      */
     public void run() {
         ui.printWelcomeMessage();
-        boolean isBye = false;
-        while (!isBye) {
+        boolean commandIsBye = false;
+        while (!commandIsBye) {
             String command = ui.getCommand();
             try {
-                isBye = parser.parseCommand(command, ui, storage, todolist);
+                commandIsBye = parser.commandIsBye(command);
+                parser.parseCommand(command, ui, storage, todolist);
             } catch (DukeException e) {
                 ui.printMessage(e.getMessage());
             }

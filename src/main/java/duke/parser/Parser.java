@@ -23,9 +23,8 @@ public class Parser {
      * @param ui The user interface.
      * @param storage The storage for the tasklist.
      * @param todolist The task list to operate on.
-     * @return True if the user input is "bye", false otherwise.
      */
-    public boolean parseCommand(String input, Ui ui,
+    public void parseCommand(String input, Ui ui,
                                 Storage storage, Tasklist todolist) throws DukeException {
         String[] parts = input.trim().split(" ", 2);
         String command = parts[0];
@@ -51,11 +50,12 @@ public class Parser {
             handleDelete(ui, details, todolist);
             break;
         case "bye":
-            return true;
         default:
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
-        return false;
+    }
+    public boolean commandIsBye(String input) {
+        return input.trim().equals("bye");
     }
 
     private void handleList(Ui ui, Tasklist todolist, Storage storage) throws DukeException {
