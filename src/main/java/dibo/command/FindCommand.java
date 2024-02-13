@@ -29,7 +29,7 @@ public class FindCommand extends Command {
      * @throws DiboException when an error occurs when we cannot find the task.
      */
     public void run(TaskList taskList, Ui ui, Storage storage) throws DiboException {
-        ui.showFound(taskList.getTasksWithKeyword(this.keywords));
+        ui.showFound(taskList.getTasksWithKeywords(this.keywords));
     }
 
 }

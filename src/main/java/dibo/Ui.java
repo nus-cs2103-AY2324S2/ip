@@ -81,13 +81,13 @@ public class Ui {
      * Takes in the string representation of the tasks with the specified keyword(s)
      * and stores it in the StringBuilder object to be returned later.
      *
-     * @param tasksWithKeyword The string representation of the tasks
+     * @param tasksWithKeywords The string representation of the tasks
      *                         that contains the specified keyword.
      */
-    public void showFound(String tasksWithKeyword) {
+    public void showFound(String tasksWithKeywords) {
         String foundMessage = "Good news sir! We've found the tasks in your list:\n";
         this.outputString.append(foundMessage);
-        this.outputString.append(tasksWithKeyword);
+        this.outputString.append(tasksWithKeywords);
     }
 
     /**

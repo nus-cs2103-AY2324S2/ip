@@ -105,7 +105,7 @@ public class TaskListTest {
         taskList.addTask(task2);
         taskList.addTask(task3);
         try {
-            assertEquals(taskList.getTasksWithKeyword(new String[]{"A"}), "1.[T][ ] A\n2.[T][ ] Aa\n");
+            assertEquals(taskList.getTasksWithKeywords(new String[]{"A"}), "1.[T][ ] A\n2.[T][ ] Aa\n");
         } catch (DiboException c) {
             //Ignore
         }

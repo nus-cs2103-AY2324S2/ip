@@ -38,13 +38,16 @@ public class TaskList {
      * Returns the string representation of the list to be displayed.
      */
     public String getDisplayFormat() {
-        StringBuilder list = new StringBuilder("Here are the tasks in your list:\n");
+        String displayMessage = "Here are the tasks in your list:\n";
+        StringBuilder list = new StringBuilder(displayMessage);
+
         for (int i = 0; i < size; ++i) {
             int taskIndex = i + 1;
             String taskToString = tasks.get(i).toString();
-            String task = String.format("%d.%s\n", taskIndex, taskToString);
-            list.append(task);
+            String taskString = String.format("%d.%s\n", taskIndex, taskToString);
+            list.append(taskString);
         }
+
         return list.toString();
     }
 
@@ -53,30 +56,35 @@ public class TaskList {
      */
     public String getSaveFormat() {
         StringBuilder list = new StringBuilder();
+
         for (int i = 0; i < size; ++i) {
             Task task = tasks.get(i);
             list.append(task.getSaveFormat());
             list.append("\n");
         }
+
         return list.toString();
     }
 
     /**
-     * Returns the string representation of the tasks with the specified keyword.
+     * Returns the string representation of the tasks with the specified keyword(s).
      *
-     * @throws DiboException if there is no such task with the specified keyword.
+     * @throws DiboException if there is no such task with the specified keyword(s).
      */
-    public String getTasksWithKeyword(String[] keywords) throws DiboException {
+    public String getTasksWithKeywords(String[] keywords) throws DiboException {
         StringBuilder list = new StringBuilder();
+
         int taskCount = 0;
         for (int i = 0; i < size; ++i) {
             Task task = tasks.get(i);
-            if (task.hasKeywords(keywords)) {
-                taskCount++;
-                String taskToString = tasks.get(i).toString();
-                String taskString = String.format("%d.%s\n", taskCount, taskToString);
-                list.append(taskString);
+            if (!task.hasKeywords(keywords)) {
+                continue;
             }
+
+            taskCount++;
+            String taskToString = tasks.get(i).toString();
+            String taskString = String.format("%d.%s\n", taskCount, taskToString);
+            list.append(taskString);
         }
 
         if (taskCount == 0) {
@@ -88,10 +96,9 @@ public class TaskList {
 
     /**
      * Takes in an index, marks the task at that index as done
-     * and return the string representation of that task.
+     * and returns the string representation of that task.
      *
-     * @param i The index of the task.
-     * @return The string representation of the task.
+     * @param i The index of the task, based 1.
      * @throws DiboException if there is no such task with the index.
      */
     public String markTask(int i) throws DiboException {
@@ -100,17 +107,18 @@ public class TaskList {
             throw new DiboException("Oh no sir! The index you provided is out of bounds");
         }
         Task task = tasks.get(taskIndex);
+
         task.markAsDone();
         assert task.isDone() : "This task should be marked as done.";
+
         return task.toString();
     }
 
     /**
      * Takes in an index, marks the task at that index as not done
-     * and return the string representation of that task.
+     * and returns the string representation of that task.
      *
-     * @param i The index of the task.
-     * @return The string representation of the task.
+     * @param i The index of the task, based 1.
      * @throws DiboException if there is no such task with the index.
      */
     public String unmarkTask(int i) throws DiboException {
@@ -119,17 +127,18 @@ public class TaskList {
             throw new DiboException("Oh no sir! The index you provided is out of bounds");
         }
         Task task = tasks.get(taskIndex);
+
         task.markAsNotDone();
         assert !task.isDone() : "This task should not be marked as done.";
+
         return task.toString();
     }
 
     /**
      * Takes in an index, deletes the task at that index
-     * and return the string representation of that task.
+     * and returns the string representation of that task.
      *
-     * @param i The index of the task.
-     * @return The string representation of the task.
+     * @param i The index of the task, based 1.
      * @throws DiboException if there is no such task with the index.
      */
     public String deleteTask(int i) throws DiboException {
@@ -138,9 +147,11 @@ public class TaskList {
             throw new DiboException("Oh no sir! The index you provided is out of bounds");
         }
         Task task = tasks.get(taskIndex);
+
         tasks.remove(i - 1);
         this.size--;
-        assert !this.tasks.contains(task) : "The taskList should not longer contain the added task";
+        assert !this.tasks.contains(task) : "The taskList should not longer contain the deleted task";
+
         return task.toString();
     }
 
