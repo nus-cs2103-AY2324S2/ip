@@ -46,7 +46,7 @@ public class DeadlineCommand extends Command {
                     + "\ncorrect format: dd/MM/yyyy HHmm");
         }
 
-        messages.add("Got it. I've added this tasks:");
+        messages.add("Got it. I've added this task:");
         messages.add("added: " + tasks.get(tasks.size() - 1).toString());
         messages.add("Now you have " + tasks.size() + " tasks in the list.");
         return messages;
