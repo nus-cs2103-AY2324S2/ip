@@ -7,6 +7,7 @@ import java.util.ArrayList;
  */
 public class TaskList {
 
+    private static final double FUZZY_SEARCH_THRESHOLD = 0.6;
     private ArrayList<Task> tasks;
     private int numTasks;
     private boolean isSaved;
@@ -103,18 +104,60 @@ public class TaskList {
     }
 
     /**
-     * Finds tasks that contain the keyword.
-     * @param keyword The keyword to search for.
+     * Finds tasks with a description that contains the keyword or is similar to the keyword.
+     * Similarity is determined using the Levenshtein distance.
+     * @param input The keyword to search for.
      * @return The list of tasks that contain the keyword.
      */
-    public ArrayList<Task> findTasks(String keyword) {
+    public ArrayList<Task> findTasks(String input) {
         ArrayList<Task> list = new ArrayList<>();
         for (Task task : this.tasks) {
-            if (task.getDescription().contains(keyword)) {
+            if (task.getDescription().contains(input)) {
                 list.add(task);
+            } else {
+                String[] descriptionWords = task.getDescription().split(" ");
+                String[] inputWords = input.split(" ");
+                double overallSimilarity = 0, currSimilarity;
+                for (String inputWord : inputWords) {
+                    currSimilarity = 0;
+                    for (String descriptionWord : descriptionWords) {
+                        currSimilarity = Math.max(currSimilarity, fuzzySearch(descriptionWord.trim(), inputWord.trim()));
+                    }
+                    overallSimilarity += currSimilarity;
+                }
+                overallSimilarity /= inputWords.length;
+                if (overallSimilarity > FUZZY_SEARCH_THRESHOLD) {
+                    list.add(task);
+                }
             }
         }
         return list;
+    }
+
+    /**
+     * Finds tasks with a description that contains the keyword or is similar to the keyword.
+     * Similarity is determined using the Levenshtein distance.
+     * @param keyword The keyword to search for.
+     * @return The list of tasks that contain the keyword.
+     */
+    private static double fuzzySearch(String string1, String string2) {
+        int m = string1.length();
+        int n = string2.length();
+        int[][] dp = new int[m + 1][n + 1];
+        for (int i = 0; i <= m; i++) {
+            for (int j = 0; j <= n; j++) {
+                if (i == 0) {
+                    dp[i][j] = j;
+                } else if (j == 0) {
+                    dp[i][j] = i;
+                } else if (string1.charAt(i - 1) == string2.charAt(j - 1)) {
+                    dp[i][j] = dp[i - 1][j - 1];
+                } else {
+                    dp[i][j] = 1 + Math.min(dp[i][j - 1], Math.min(dp[i - 1][j], dp[i - 1][j - 1]));
+                }
+            }
+        }
+        return 1 - (double) dp[m][n] / Math.max(m, n);
     }
 
 }

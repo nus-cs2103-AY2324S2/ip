@@ -251,6 +251,11 @@ public class Parser {
         return new EventTask(arr[0].trim(), startDateTime, endDateTime);
     }
 
+    /**
+     * Parses the find string from the user input
+     * @param input the user input
+     * @return the find string
+     */
     public static String parseFindString(String input) {
         assert input.startsWith("find") && input.length() > 4;
         return input.substring(5).trim();
