@@ -2,7 +2,7 @@ package fishstock;
 
 import java.util.ArrayList;
 
-import fishstock.FishStock.Command;
+import fishstock.Command.CommandType;
 
 /**
  * Encapsulates a TaskList object.
@@ -33,21 +33,41 @@ class TaskList {
     }
 
     /**
+     * Marks the Task.
+     * @param input The input from user.
+     * @return The marked Task.
+     * @throws FishStockException The exceptions while changing the mark.
+     */
+    protected Task markTask(UserInput input) throws FishStockException {
+        return changeMark(CommandType.MARK, input);
+    }
+
+    /**
+     * Unmarks the Task.
+     * @param input The input from user.
+     * @return The unmarked Task.
+     * @throws FishStockException The exceptions while changing the mark.
+     */
+    protected Task unmarkTask(UserInput input) throws FishStockException {
+        return changeMark(CommandType.UNMARK, input);
+    }
+
+    /**
      * Marks whether Task is done.
-     * @param command The command.
+     * @param commandType The type of command.
      * @param input The input from user.
      * @return The marked/unmarked Task.
      * @throws FishStockException The exceptions while changing the mark.
      */
-    protected Task changeMark(Command command, String input) throws FishStockException {
-        assert command == Command.MARK || command == Command.UNMARK : "Not a marking Command";
-
-        Integer idx = Parser.getTaskFromIndex(input);
+    private Task changeMark(CommandType commandType, UserInput input) throws FishStockException {
+        assert commandType == CommandType.MARK || commandType == CommandType.UNMARK : "Not a marking Command";
+        
+        int idx = input.getIndex();
         try {
             Task task = list.get(idx);
-            if (command == Command.MARK) {
+            if (commandType == CommandType.MARK) {
                 task.markAsDone();
-            } else if (command == Command.UNMARK) {
+            } else if (commandType == CommandType.UNMARK) {
                 task.markAsUndone();
             }
             return task;
@@ -63,8 +83,8 @@ class TaskList {
      * @return The removed Task.
      * @throws FishStockException The exceptions while removing the Task.
      */
-    protected Task deleteTask(String input) throws FishStockException {
-        Integer idx = Parser.getTaskFromIndex(input);
+    protected Task deleteTask(UserInput input) throws FishStockException {
+        int idx = input.getIndex();
         try {
             Task task = list.get(idx);
             list.remove(task);
@@ -77,17 +97,21 @@ class TaskList {
 
     /**
      * Adds Task into array.
-     * @param command The command.
+     * @param commandType The type of command.
      * @param input The input from user.
      * @return The added Task.
      * @throws FishStockException The exceptions while adding the Task.
      */
+<<<<<<< HEAD
     protected Task addTask(Command command, String input) throws FishStockException {
         assert command == Command.TODO || command == Command.DEADLINE
                 || command == Command.EVENT : "Attempted to add an invalid Task";
 
+=======
+    protected Task addTask(CommandType commandType, UserInput input) throws FishStockException {
+>>>>>>> master
         Task task = null;
-        switch (command) {
+        switch (commandType) {
         case TODO:
             task = Todo.of(input);
             break;
@@ -110,12 +134,13 @@ class TaskList {
      * @return The Tasks that were found.
      * @throws FishStockException The exceptions while finding Tasks.
      */
-    protected String findTasks(String input) throws FishStockException {
-        if (input.length() < 6) {
+    protected String findTasks(UserInput input) throws FishStockException {
+        String[] splitInput = input.splitByKeywords();
+        if (splitInput[0].isEmpty()) {
             throw new FishStockException("OH NOSE! The match word is empty..");
         }
 
-        String match = input.substring(5);
+        String match = splitInput[0];
 
         int count = 0;
         String result = "";

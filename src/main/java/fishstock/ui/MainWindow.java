@@ -1,7 +1,6 @@
 package fishstock.ui;
 
 import fishstock.FishStock;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -53,9 +52,5 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getFishStockDialog(response, fishStockImage)
         );
         userInput.clear();
-
-        if (fishstock.getStopped()) {
-            Platform.exit();
-        }
     }
 }

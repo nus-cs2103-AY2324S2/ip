@@ -5,14 +5,18 @@ package fishstock;
  * This Task only has a description.
  */
 class Todo extends Task {
-    protected static final String COMMAND = "todo";
-
     /**
      * Initialize Todo object manually.
      * @param description The task description.
      */
     protected Todo(String description) {
         super(description);
+    }
+
+    private static void checkIsValid(String[] splitInput) throws FishStockException {
+        if (splitInput[0].isEmpty()) {
+            throw new FishStockException("OH NOSE! The description of todo cannot be empty..");
+        }
     }
 
     /**
@@ -22,13 +26,14 @@ class Todo extends Task {
      * @return The generated Todo object.
      * @throws FishStockException The exceptions while creating the Todo object.
      */
-    protected static Todo of(String input) throws FishStockException {
-        assert Parser.startsWith(COMMAND, input) : "The input type is not Todo";
+    protected static Todo of(UserInput input) throws FishStockException {
+        assert input.getCommandType() == Command.CommandType.TODO : "The input type is not Todo";
 
-        if (COMMAND.length() + 1 >= input.length()) {
-            throw new FishStockException("OH NOSE! The description of todo cannot be empty..");
-        }
-        return new Todo(input.substring(COMMAND.length() + 1));
+        String[] splitInput = input.splitByKeywords();
+        checkIsValid(splitInput);
+
+        String description = splitInput[0];
+        return new Todo(description);
     }
 
     @Override
