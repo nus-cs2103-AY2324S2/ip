@@ -47,6 +47,7 @@ public class Duke {
             Parser parser = new Parser(input);
 
             String commandWord = parser.getCommandWord();
+            boolean isAddedToTasks = false;
             switch (commandWord) {
             case "bye":
                 storage.writeToFile(tasks);
@@ -55,34 +56,41 @@ public class Duke {
                 return ui.showTaskList(tasks);
             case "mark":
                 Task markTask = tasks.markDone(parser.getIndex());
+                assert markTask != null : "Task should not be null";
                 return ui.showDone(markTask);
             case "unmark":
                 Task unmarkTask = tasks.unmarkDone(parser.getIndex());
+                assert unmarkTask != null : "Task should not be null";
                 return ui.showUnmark(unmarkTask);
             case "delete":
                 Task deleteTask = tasks.deleteTask(parser.getIndex());
+                assert deleteTask != null : "Task should not be null";
                 return ui.showDelete(deleteTask, tasks.getSize());
             case "find":
                 TaskList filteredTasks = tasks.findTasks(parser.getDescription());
+                assert filteredTasks != null : "Filtered tasks should not be null";
                 return ui.showTaskList(filteredTasks);
             case "todo":
                 Task task = new Todo(parser.getDescription());
-                tasks.addTask(task);
+                isAddedToTasks = tasks.addTask(task);
+                assert !isAddedToTasks : "Todo could not be added to tasks";
                 return ui.showAddTask(task, tasks.getSize());
             case "deadline":
                 Task deadlineTask = new Deadline(parser.getDescription(), parser.getBy());
-                tasks.addTask(deadlineTask);
+                isAddedToTasks = tasks.addTask(deadlineTask);
+                assert !isAddedToTasks : "Deadline could not be added to tasks";
                 return ui.showAddTask(deadlineTask, tasks.getSize());
             case "event":
                 Task eventTask = new Event(parser.getDescription(), parser.getFromTo()[0], parser.getFromTo()[1]);
-                tasks.addTask(eventTask);
+                isAddedToTasks = tasks.addTask(eventTask);
+                assert !isAddedToTasks : "Event could not be added to tasks";
                 return ui.showAddTask(eventTask, tasks.getSize());
             default:
                 return ui.commandNotUnderstood();
             }
 
         } catch (IndexOutOfBoundsException e) {
-            return ui.showError("The index of a task cannot be empty. \n\t"
+            return ui.showError("The index given for the task does not exist. \n\t"
                 + "Please use the following format: mark <index>");
         } catch (NumberFormatException e) {
             return ui.showError("Please enter a valid number to modify task");
