@@ -1,20 +1,23 @@
 package virtue;
 
-public class Deadline extends VirtueTask {
-    private String by;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Deadline(String description, String by) {
+public class Deadline extends VirtueTask {
+    private VirtueDateTime by;
+
+    public Deadline(String description, VirtueDateTime by) {
         super(description);
         this.by = by;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by + ")";
+        return "[D]" + super.toString() + " (by: " + by + ")";
     }
 
     @Override
     public String fileFormat() {
-        return "D | " + super.fileFormat() + " | " + by;
+        return "D | " + super.fileFormat() + " | " + by.fileFormat();
     }
 }

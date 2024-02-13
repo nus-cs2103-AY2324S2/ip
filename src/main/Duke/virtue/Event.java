@@ -1,10 +1,10 @@
 package virtue;
 
 public class Event extends VirtueTask {
-    private String from;
-    private String to;
+    private VirtueDateTime from;
+    private VirtueDateTime to;
 
-    public Event(String description, String from, String to) {
+    public Event(String description, VirtueDateTime from, VirtueDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -17,6 +17,6 @@ public class Event extends VirtueTask {
 
     @Override
     public String fileFormat() {
-        return "E | " + super.fileFormat() + " | " + from + " | " + to;
+        return "E | " + super.fileFormat() + " | " + from.fileFormat() + " | " + to.fileFormat();
     }
 }

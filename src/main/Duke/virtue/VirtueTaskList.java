@@ -1,5 +1,8 @@
 package virtue;
 
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,12 +38,13 @@ public class VirtueTaskList {
     }
 
     // Adds a deadline task to the task list.
-    private void addDeadline(String description, String by) {
+    private void addDeadline(String description, VirtueDateTime by) {
         Deadline deadline = new Deadline(description, by);
         taskList.add(deadline);
         int numTasks = numTasks();
         String sOrNone = numTasks == 1 ? "" : "s";
         Virtue.printHorizontalLine();
+
         Virtue.printWithIndent(" Got it. I've added this task:");
         Virtue.printWithIndent("   " + deadline);
         Virtue.printWithIndent(" Now you have " + numTasks + " task" + sOrNone + " in the list.");
@@ -48,7 +52,7 @@ public class VirtueTaskList {
     }
 
     // Adds an event task to the task list.
-    private void addEvent(String description, String from, String to) {
+    private void addEvent(String description, VirtueDateTime from, VirtueDateTime to) {
         Event event = new Event(description, from, to);
         taskList.add(event);
         int numTasks = numTasks();
@@ -129,7 +133,7 @@ public class VirtueTaskList {
         }
     }
 
-    public void addFromFile(String str) {
+    public void addFromFile(String str) throws VirtueDateTimeException {
         String taskType = str.split(" \\| ")[0];
         String description = str.split(" \\| ")[2];
         int marked = Integer.parseInt(str.split(" \\| ")[1]);
@@ -139,10 +143,30 @@ public class VirtueTaskList {
                 taskList.add(new Todo(description));
                 break;
             case "D":
-                taskList.add(new Deadline(description, str.split(" \\| ")[3]));
-                break;
+                try {
+                    VirtueDateTime dateTime = new VirtueDateTime(str.split(" \\| ")[3]);
+                    taskList.add(new Deadline(description, dateTime));
+                    break;
+                } catch (DateTimeParseException e) {
+                    throw new VirtueDateTimeException("by", "deadline");
+                }
             case "E":
-                taskList.add(new Event(description, str.split(" \\| ")[3], str.split(" \\| ")[4]));
+                VirtueDateTime fromDateTime;
+                VirtueDateTime toDateTime;
+
+                try {
+                    fromDateTime = new VirtueDateTime(str.split(" \\| ")[3]);
+                } catch (DateTimeParseException e) {
+                    throw new VirtueDateTimeException("from", "event");
+                }
+
+                try {
+                    toDateTime = new VirtueDateTime(str.split(" \\| ")[4]);
+                } catch (DateTimeParseException e) {
+                    throw new VirtueDateTimeException("to", "event");
+                }
+
+                taskList.add(new Event(description, fromDateTime, toDateTime));
         }
 
         if (marked == 1) {

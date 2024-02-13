@@ -2,11 +2,12 @@ package virtue;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class VirtueFileReader {
 
-    public static VirtueTaskList initializeTaskList() {
+    public static VirtueTaskList initializeTaskList() throws VirtueDateTimeException {
         VirtueTaskList taskList = new VirtueTaskList();
 
         File directory = new File("data");
