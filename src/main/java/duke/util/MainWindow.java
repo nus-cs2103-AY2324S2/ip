@@ -1,5 +1,7 @@
 package duke.util;
 
+import java.util.Arrays;
+
 import duke.Duke;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
@@ -13,6 +15,8 @@ import javafx.stage.Stage;
  * Represents the main window of the chatbot.
  */
 public class MainWindow extends AnchorPane {
+    private static final String SPLIT_COMMAND = "\\s*\\|\\|\\s*";
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -42,11 +46,15 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         try {
             String input = userInput.getText();
-            String response = duke.getResponse(input);
-            dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getDukeDialog(response, dukeImage)
-            );
+            String[] commands = input.split(SPLIT_COMMAND);
+            Arrays.stream(commands)
+                    .forEach(command -> {
+                        String response = duke.getResponse(command);
+                        dialogContainer.getChildren().addAll(
+                                DialogBox.getUserDialog(command, userImage),
+                                DialogBox.getDukeDialog(response, dukeImage)
+                        );
+                    });
             userInput.clear();
             if (duke.isExit()) {
                 Stage stage = (Stage) dialogContainer.getScene().getWindow();

@@ -3,6 +3,7 @@ package duke.command;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
@@ -29,9 +30,11 @@ public class MarkCommandTest {
         arr.add(dl);
         TaskList list = new TaskList(arr);
         try {
-            mc.execute(list, new Ui("JavAssist", "", System.in), new StorageStub("", ""));
+            mc.execute(list, new Ui("JavAssist", "", System.in), new StorageStub(""));
             assertEquals("D | 1 | return book | 20-12-2020 10:01", list.getTask(1).toString());
         } catch (DukeException e) {
+            fail();
+        } catch (IOException e) {
             fail();
         }
     }
@@ -47,9 +50,11 @@ public class MarkCommandTest {
         arr.add(dl);
         TaskList list = new TaskList(arr);
         try {
-            mc.execute(list, new Ui("JavAssist", "", System.in), new StorageStub("", ""));
+            mc.execute(list, new Ui("JavAssist", "", System.in), new StorageStub(""));
             assertEquals("D | 0 | return book | 20-12-2020 10:01", list.getTask(1).toString());
         } catch (DukeException e) {
+            fail();
+        } catch (IOException e) {
             fail();
         }
     }
@@ -62,10 +67,12 @@ public class MarkCommandTest {
         arr.add(t);
         TaskList list = new TaskList(arr);
         try {
-            mc.execute(list, new Ui("JavAssist", "", System.in), new StorageStub("", ""));
+            mc.execute(list, new Ui("JavAssist", "", System.in), new StorageStub(""));
         } catch (DukeException e) {
             assertEquals("Task (-2) not found.\nHere are the tasks in your list:\n1." + t.printTask(),
                     e.getMessage());
+        } catch (IOException e) {
+            fail();
         }
     }
 }

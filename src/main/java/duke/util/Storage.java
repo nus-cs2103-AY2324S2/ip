@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -26,13 +29,20 @@ public class Storage {
      * Constructor to create an instance that perform IO operations on file in parent.
      *
      * @param file Name of file to write to.
-     * @param parent Parent directory of the file.
      */
-    public Storage(String file, String parent) {
-        this.f = new File(parent + "/" + file);
-        File parentDir = new File(parent);
-        if (!parentDir.exists()) {
-            parentDir.mkdirs();
+    public Storage(String file) throws IOException {
+        f = new File(file);
+        Path path = Paths.get(file);
+        Path parentDir = path.getParent();
+        if (parentDir != null) {
+            if (!Files.exists(parentDir)) {
+                Files.createDirectories(parentDir);
+                System.out.println("Parent directory created: " + parentDir);
+            } else {
+                System.out.println("Parent directory already exists: " + parentDir);
+            }
+        } else {
+            System.out.println("Parent directory not specified in the file path.");
         }
     }
 

@@ -1,6 +1,9 @@
 package duke.util;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import duke.command.Command;
 import duke.command.DeadlineCommand;
@@ -72,8 +75,7 @@ public class Parser {
      * @return True if matches, false otherwise.
      */
     public static boolean matchPattern(String input, String pattern) {
-        Pattern regexPattern = Pattern.compile(pattern);
-        return regexPattern.matcher(input).matches();
+        return Pattern.matches(pattern, input);
     }
 
     /**

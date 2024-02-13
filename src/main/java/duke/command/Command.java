@@ -11,5 +11,7 @@ import duke.util.Ui;
 public interface Command {
     public String execute(TaskList list, Ui ui, Storage storage) throws DukeException;
 
-    public boolean isExit();
+    public default boolean isExit() {
+        return false;
+    };
 }

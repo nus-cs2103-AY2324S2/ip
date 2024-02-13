@@ -29,8 +29,4 @@ public class ListCommand implements Command {
         }
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

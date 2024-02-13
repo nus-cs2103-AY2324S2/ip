@@ -49,11 +49,6 @@ public class FindCommand implements Command {
     }
 
     @Override
-    public boolean isExit() {
-        return false;
-    }
-
-    @Override
     public boolean equals(Object a) {
         FindCommand fc = (FindCommand) a;
         if (fc.keywords.length != this.keywords.length) {
