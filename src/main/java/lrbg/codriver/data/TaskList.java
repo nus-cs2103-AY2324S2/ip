@@ -2,10 +2,6 @@ package lrbg.codriver.data;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Scanner;
-
-import java.io.File;
-import java.io.FileNotFoundException;
 
 import lrbg.codriver.data.exception.CoDriverException;
 import lrbg.codriver.parser.Parser;
@@ -71,7 +67,7 @@ public class TaskList {
      * Gets the size of the list.
      * @return The size of the list.
      */
-    public int size() {
+    public int getSize() {
         return this.tasks.size();
     }
 
@@ -80,7 +76,7 @@ public class TaskList {
      * @param index The index of the task, zero indexed.
      * @return The task at the given index.
      */
-    public Task get(int index) {
+    public Task getTask(int index) {
         return this.tasks.get(index);
     }
 
@@ -143,9 +139,10 @@ public class TaskList {
     public TaskList findTasks(String keyword) {
         TaskList matchingTasks = new TaskList();
         for (Task t : this.tasks) {
-            if (t.getDescription().contains(keyword)) {
-                matchingTasks.addTask(t);
+            if (!t.getDescription().contains(keyword)) {
+                continue;
             }
+            matchingTasks.addTask(t);
         }
         return matchingTasks;
     }
@@ -154,15 +151,15 @@ public class TaskList {
      * Gets the list of tasks as a string to be saved in a file.
      * @return The list of tasks as a string.
      */
-    public String toSaveString() {
+    public String toFileSaveString() {
         StringBuilder sb = new StringBuilder();
         for (Task t : this.tasks) {
             if (t instanceof Todo) {
-                sb.append(t.toSaveString()).append("\n");
+                sb.append(t.toFileSaveString()).append("\n");
             } else if (t instanceof Deadline) {
-                sb.append(t.toSaveString()).append("\n");
+                sb.append(t.toFileSaveString()).append("\n");
             } else if (t instanceof Event) {
-                sb.append(t.toSaveString()).append("\n");
+                sb.append(t.toFileSaveString()).append("\n");
             }
         }
         return sb.toString();

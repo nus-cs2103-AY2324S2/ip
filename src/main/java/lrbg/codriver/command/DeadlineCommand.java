@@ -34,7 +34,7 @@ public class DeadlineCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws CoDriverException {
         Task newTask = new Deadline(this.description, this.date);
         tasks.addTask(newTask);
-        return ui.showAddTask(newTask, tasks.size());
+        return ui.showAddTask(newTask, tasks.getSize());
     }
 
     /**

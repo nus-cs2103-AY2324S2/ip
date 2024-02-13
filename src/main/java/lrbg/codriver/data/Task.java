@@ -57,7 +57,7 @@ public abstract class Task {
      * Returns a string representation of the task to be saved in a file.
      * @return The string representation of the task to be saved.
      */
-    public String toSaveString() {
+    public String toFileSaveString() {
         String isDoneString = isDone ? "1" : "0";
         return isDoneString + "|" + this.description;
     }

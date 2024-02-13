@@ -25,9 +25,9 @@ public class DeleteCommand extends Command {
      * {@inheritDoc}
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws CoDriverException {
-        Task task = tasks.get(index);
+        Task task = tasks.getTask(index);
         tasks.deleteTask(index);
-        return ui.showDeleteTask(task, tasks.size());
+        return ui.showDeleteTask(task, tasks.getSize());
     }
 
     /**
