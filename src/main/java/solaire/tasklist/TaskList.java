@@ -98,6 +98,8 @@ public class TaskList {
      * @param id 1-indexed integer identifier of the task as shown in the UI.
      */
     public String markDone(int id) {
+        assert id > 0 : "Task ID should be a positive integer";
+        assert id < taskList.size() : "Task ID should be less than the size of the task list";
         String output = "";
         for (Task item : taskList) {
             if (item.getId() == id) {
