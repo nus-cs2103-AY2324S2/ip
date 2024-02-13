@@ -33,14 +33,12 @@ public class Parser {
         String res = "";
         if (command.equals("list")) {
             if (tl.getSize() < 1) {
-                res += "Sorry you dont have any tasks currently D:";
+                res += "Sorry you don't have any tasks currently D:";
             } else {
                 for (int i = 1; i <= tl.getSize(); i++) {
-                    res += String.format("%d.%s\n",
-                            i, tl.get(i).getStatus());
+                    res += String.format("%d.%s\n", i, tl.get(i).getStatus());
                 }
             }
-            return res;
 
         } else {
             if (command.equals("todo")) {
@@ -49,8 +47,9 @@ public class Parser {
                 res += ui.invalidCommand();
             }
 
-            return res;
         }
+
+        return res;
     }
 
     /**
@@ -88,6 +87,7 @@ public class Parser {
                 }
 
                 return res;
+
             case "mark":
                 tl.markAsDone(Integer.parseInt(commandDescription));
                 return ui.markedTask(tl.get(Integer.parseInt(commandDescription)));
@@ -98,10 +98,13 @@ public class Parser {
                 Task deletedTask = tl.get(Integer.parseInt(commandDescription));
                 tl.delete(Integer.parseInt(commandDescription));
                 return ui.deletedTask(deletedTask, tl.getSize());
+
             default:
                 return ui.invalidCommand();
             }
+
         } catch (IndexOutOfBoundsException e) {
+            //catches invalid index from user input for mark, unmark and delete
             return ui.invalidIndex(tl.getSize());
         } catch (DateTimeParseException d) {
             return ui.invalidDate();

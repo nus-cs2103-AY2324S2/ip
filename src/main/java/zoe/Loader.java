@@ -25,16 +25,24 @@ public class Loader {
                 BufferedReader reader = new BufferedReader(new FileReader(file));
                 ArrayList<Task> loadedTasks = new ArrayList<Task>();
                 String line;
+
                 while (!(line = reader.readLine()).equals("EOF")) {
                     String[] readTask = line.split("_");
-                    if (readTask[0].equals("todo")) {
-                        ToDo td = new ToDo(readTask[1], readTask[2]);
+                    int taskType = LoadSplit.Task_Type.getIdx();
+                    int description = LoadSplit.Description.getIdx();
+                    int status = LoadSplit.Status.getIdx();
+
+                    if (readTask[taskType].equals("todo")) {
+                        ToDo td = new ToDo(
+                                readTask[description], readTask[status]);
                         loadedTasks.add(td);
-                    } else if (readTask[0].equals("event")) {
-                        Event e = new Event(readTask[1], readTask[2]);
+
+                    } else if (readTask[taskType].equals("event")) {
+                        Event e = new Event(readTask[description], readTask[status]);
                         loadedTasks.add(e);
+
                     } else {
-                        Deadline dl = new Deadline(readTask[1], readTask[2]);
+                        Deadline dl = new Deadline(readTask[description], readTask[status]);
                         loadedTasks.add(dl);
                     }
                 }
