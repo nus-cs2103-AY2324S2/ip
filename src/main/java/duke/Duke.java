@@ -3,7 +3,6 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -24,6 +23,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 
 /**
@@ -168,7 +169,7 @@ public class Duke extends Application {
         try {
             Command command = Parser.parse(userInputText);
             command.execute(tasks, ui, storage);
-            if (command instanceof DeleteCommand || command instanceof AddTodoCommand || command instanceof AddEventCommand || command instanceof AddDeadlineCommand || command instanceof ListCommand) {
+            if (command instanceof DeleteCommand || command instanceof AddTodoCommand || command instanceof AddEventCommand || command instanceof AddDeadlineCommand || command instanceof ListCommand || command instanceof MarkCommand || command instanceof UnmarkCommand) {
                 // Show updated task list after adding/deleting a task or when list command is invoked
                 response = ui.showTaskList(tasks);
             } else if (command instanceof FindCommand) {
@@ -196,7 +197,6 @@ public class Duke extends Application {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-
         return "SCZL heard: " + input;
     }
 
@@ -242,7 +242,6 @@ class Launcher {
 
 class DukeException extends Exception {
     public DukeException(String message) {
-
         super(message);
     }
 }
@@ -251,7 +250,6 @@ class Ui {
     private Scanner scanner;
 
     public Ui() {
-
         scanner = new Scanner(System.in);
     }
 
@@ -281,12 +279,10 @@ class Ui {
     }
 
     public String readCommand() {
-
         return scanner.nextLine();
     }
 
     public void showLoadingError() {
-
         System.out.println("Error loading file.");
     }
 
@@ -352,57 +348,54 @@ class Storage {
         this.filePath = filePath;
     }
 
-    public ArrayList<Task> load() throws DukeException {
-        ArrayList<Task> tasks = new ArrayList<>();
+    public List<Task> load() throws DukeException {
         File file = new File(filePath);
-
         if (!file.exists()) {
             throw new DukeException("File not found");
         }
 
-        try (Scanner fileScanner = new Scanner(file)) {
-            while (fileScanner.hasNext()) {
-                String line = fileScanner.nextLine();
-                String[] parts = line.split(" \\| ");
-                try {
-                    String type = parts[0];
-                    boolean isDone = parts[1].equals("1");
-                    String description = parts[2];
-                    Task task = null;
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
-                    switch (type) {
-                        case "T":
-                            task = new Todo(description);
-                            break;
-                        case "D":
-                            if (parts.length < 4) throw new DukeException("Invalid deadline format in file.");
-                            LocalDateTime byDate = LocalDateTime.parse(parts[3], formatter);
-                            task = new Deadline(description, byDate);
-                            break;
-                        case "E":
-                            if (parts.length < 5) throw new DukeException("Invalid event format in file.");
-                            LocalDateTime from = LocalDateTime.parse(parts[3], formatter);
-                            LocalDateTime to = LocalDateTime.parse(parts[4], formatter);
-                            task = new Event(description, from, to);
-                            break;
-                    }
-
-                    if (task != null) {
-                        if (isDone) {
-                            task.markAsDone();
-                        }
-                        tasks.add(task);
-                    }
-                } catch (DukeException | DateTimeParseException e) {
-                    System.out.println("Skipping invalid task: " + line);
-                }
-            }
-        } catch (FileNotFoundException e) {
-            throw new DukeException("File not found: " + e.getMessage());
+        try {
+            return Files.lines(Paths.get(filePath))
+                    .map(this::parseLineToTask)
+                    .filter(java.util.Objects::nonNull)
+                    .collect(Collectors.toList());
+        } catch (IOException e) {
+            throw new DukeException("Error reading from file: " + e.getMessage());
         }
-        return tasks;
+    }
 
+    private Task parseLineToTask(String line) {
+        try {
+            String[] parts = line.split(" \\| ");
+            String type = parts[0];
+            boolean isDone = parts[1].equals("1");
+            String description = parts[2];
+            Task task = createTask(type, description, parts);
+            if (isDone) task.markAsDone();
+            return task;
+        } catch (DukeException | DateTimeParseException e) {
+            System.out.println("Skipping invalid task: " + line);
+            return null;
+        }
+    }
+
+    private Task createTask(String type, String description, String[] parts) throws DukeException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        switch (type) {
+            case "T":
+                return new Todo(description);
+            case "D":
+                if (parts.length < 4) throw new DukeException("Invalid deadline format in file.");
+                LocalDateTime byDate = LocalDateTime.parse(parts[3], formatter);
+                return new Deadline(description, byDate);
+            case "E":
+                if (parts.length < 5) throw new DukeException("Invalid event format in file.");
+                LocalDateTime from = LocalDateTime.parse(parts[3], formatter);
+                LocalDateTime to = LocalDateTime.parse(parts[4], formatter);
+                return new Event(description, from, to);
+            default:
+                throw new DukeException("Unknown task type: " + type);
+        }
     }
 
     public void save(TaskList tasks) {
@@ -414,7 +407,7 @@ class Storage {
         } catch (IOException e) {
             System.out.println("An error occurred while saving tasks to file: " + e.getMessage());
         }
-    } //
+    }
 
     private String taskToFileString(Task task) {
         String type = task instanceof Todo ? "T" :
@@ -444,51 +437,75 @@ class Parser {
 
     public static Command parse(String fullCommand) throws DukeException {
         String[] commandParts = fullCommand.split(" ", 2);
-        String commandType = commandParts[0];
+        String commandType = commandParts[0].toLowerCase(); // Consider case-insensitivity
         String commandArgs = commandParts.length > 1 ? commandParts[1] : "";
 
         switch (commandType) {
             case "todo":
-                if (commandArgs.isEmpty()) {
-                    throw new DukeException("The description of a todo cannot be empty.");
-                }
-                return new AddTodoCommand(commandArgs);
+                return createAddTodoCommand(commandArgs);
             case "deadline":
-                return parseAddDeadlineCommand(commandArgs);
+                return createAddDeadlineCommand(commandArgs);
             case "event":
-                return parseAddEventCommand(commandArgs);
+                return createAddEventCommand(commandArgs);
             case "list":
                 return new ListCommand();
             case "mark":
-                try {
-                    int index = Integer.parseInt(commandArgs) - 1;
-                    return new MarkCommand(index);
-                } catch (NumberFormatException e) {
-                    throw new DukeException("Invalid task number format.");
-                }
+                return createMarkCommand(commandArgs);
             case "unmark":
-                try {
-                    int index = Integer.parseInt(commandArgs) - 1;
-                    return new UnmarkCommand(index);
-                } catch (NumberFormatException e) {
-                    throw new DukeException("Invalid task number format.");
-                }
+                return createUnmarkCommand(commandArgs);
             case "delete":
-                try {
-                    int index = Integer.parseInt(commandArgs) - 1;
-                    return new DeleteCommand(index);
-                } catch (NumberFormatException e) {
-                    throw new DukeException("Invalid task number format.");
-                }
+                return createDeleteCommand(commandArgs);
             case "find":
-                if (commandArgs.isEmpty()) {
-                    throw new DukeException("The keyword for find cannot be empty.");
-                }
-                return new FindCommand(commandArgs);
+                return createFindCommand(commandArgs);
             case "bye":
                 return new ExitCommand();
             default:
                 throw new DukeException("Unknown command");
+        }
+    }
+
+    private static Command createAddTodoCommand(String args) throws DukeException {
+        if (args.isEmpty()) {
+            throw new DukeException("The description of a todo cannot be empty.");
+        }
+        return new AddTodoCommand(args);
+    }
+
+    private static Command createAddDeadlineCommand(String args) throws DukeException {
+        return parseAddDeadlineCommand(args);
+    }
+
+    private static Command createAddEventCommand(String args) throws DukeException {
+        return parseAddEventCommand(args);
+    }
+
+    private static Command createMarkCommand(String args) throws DukeException {
+        int index = parseIndex(args);
+        return new MarkCommand(index);
+    }
+
+    private static Command createUnmarkCommand(String args) throws DukeException {
+        int index = parseIndex(args);
+        return new UnmarkCommand(index);
+    }
+
+    private static Command createDeleteCommand(String args) throws DukeException {
+        int index = parseIndex(args);
+        return new DeleteCommand(index);
+    }
+
+    private static Command createFindCommand(String args) throws DukeException {
+        if (args.isEmpty()) {
+            throw new DukeException("The keyword for find cannot be empty.");
+        }
+        return new FindCommand(args);
+    }
+
+    private static int parseIndex(String args) throws DukeException {
+        try {
+            return Integer.parseInt(args) - 1;
+        } catch (NumberFormatException e) {
+            throw new DukeException("Invalid task number format.");
         }
     }
 
@@ -530,35 +547,33 @@ class Parser {
 
 
 class TaskList {
-    private ArrayList<Task> tasks;
+    private List<Task> tasks;
 
-    public TaskList(ArrayList<Task> tasks) {
-
+    public TaskList(List<Task> tasks) {
+        assert tasks != null : "Task list cannot be null";
         this.tasks = tasks;
     }
 
     public TaskList() {
-
         this(new ArrayList<>());
     }
 
     public void addTask(Task task) {
-
+        int initialSize = tasks.size();
         tasks.add(task);
+        assert tasks.size() == initialSize + 1 : "Task list size should increase by 1";
     }
 
     public Task removeTask(int index) {
-
         return tasks.remove(index);
     }
 
     public Task getTask(int index) {
-
+        assert index >= 0 && index < tasks.size() : "Task index is out of bounds";
         return tasks.get(index);
     }
 
     public int getSize() {
-
         return tasks.size();
     }
 
@@ -685,7 +700,6 @@ class MarkCommand extends Command {
 
     @Override
     public boolean isExit() {
-
         return false;
     }
 }
@@ -842,6 +856,7 @@ class FindCommand extends Command {
     private String test;
 
     public FindCommand(String keyword) {
+        assert keyword != null && !keyword.trim().isEmpty() : "Keyword for find command cannot be empty";
         this.keyword = keyword;
     }
 
