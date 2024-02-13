@@ -36,4 +36,23 @@ public class Event extends Task {
     public String toFileSaveString() {
         return "E|" + super.toFileSaveString() + "|" + this.startDate + "~" + this.endDate;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } else if (obj instanceof Event) {
+            Event other = (Event) obj;
+            return other.getDescription().equals(this.getDescription())
+                    && other.startDate.equals(this.startDate)
+                    && other.endDate.equals(this.endDate);
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return this.getDescription().hashCode() + this.startDate.hashCode() + this.endDate.hashCode();
+    }
 }

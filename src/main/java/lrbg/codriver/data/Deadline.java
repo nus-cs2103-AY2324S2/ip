@@ -33,4 +33,22 @@ public class Deadline extends Task {
     public String toFileSaveString() {
         return "D|" + super.toFileSaveString() + "|" + this.date;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } else if (obj instanceof Deadline) {
+            Deadline other = (Deadline) obj;
+            return other.getDescription().equals(this.getDescription())
+                    && other.date.equals(this.date);
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return this.getDescription().hashCode() + this.date.hashCode();
+    }
 }

@@ -27,7 +27,10 @@ public class TodoCommand extends Command {
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws CoDriverException {
         Task newTask = new Todo(this.description);
-        tasks.addTask(newTask);
+        boolean success = tasks.addTask(newTask);
+        if (!success) {
+            throw new CoDriverException("I'm sorry I couldn't add this, it is a duplicate task: " + newTask);
+        }
         return ui.showAddTask(newTask, tasks.getSize());
     }
 
