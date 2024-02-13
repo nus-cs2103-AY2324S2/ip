@@ -15,7 +15,8 @@ import jiayou.task.ToDo;
  */
 public class Parser {
     private static enum CommandType {
-        TODO, DEADLINE, EVENT, LIST, DELETE, MARK, UNMARK, SEARCH_BY_DATE, SEARCH_BY_KEYWORD, HELP
+        TODO, DEADLINE, EVENT, LIST, DELETE, MARK, UNMARK, SEARCH_BY_DATE,
+        SEARCH_BY_KEYWORD, HELP, RESCHEDULE
     }
 
     /**
@@ -27,6 +28,8 @@ public class Parser {
      */
     public String parseCommand(TaskList tasks, String input) {
         String response = "";
+        String[] taskIds;
+
         try {
             String[] parts = input.split(" ", 2);
             String commandString = parts[0];
@@ -44,38 +47,38 @@ public class Parser {
                 if (content.isEmpty()) {
                     throw new JiayouException("OOPS!!! I don't know which task to mark.\n"
                             + "Please add the index after the keyword mark!");
-                } else {
-                    String[] taskIds = content.split(" ");
-                    response = tasks.markTask(taskIds);
-                    break;
                 }
+                taskIds = content.split(" ");
+                response = tasks.markTask(taskIds);
+                break;
+
             case UNMARK:
                 if (content.isEmpty()) {
                     throw new JiayouException("OOPS!!! I don't know which task to unmark.\n"
                             + "Please add the index after the keyword unmark!");
-                } else {
-                    String[] taskIds = content.split(" ");
-                    response = tasks.unmarkTask(taskIds);
-                    break;
                 }
+
+                taskIds = content.split(" ");
+                response = tasks.unmarkTask(taskIds);
+                break;
             case DELETE:
                 if (content.isEmpty()) {
                     throw new JiayouException("OOPS!!! I don't know which task to delete.\n"
                             + "Please add the index after the keyword delete!");
-                } else {
-                    String[] taskIds = content.split(" ");
-                    response = tasks.deleteTask(taskIds);
-                    break;
                 }
+
+                taskIds = content.split(" ");
+                response = tasks.deleteTask(taskIds);
+                break;
             case TODO:
                 if (content.isEmpty()) {
                     throw new JiayouException("OOPS!!! The description of a todo cannot be empty.\n"
                             + "Please add a description after the keyword todo!");
-                } else {
-                    ToDo newToDo = new ToDo(content);
-                    response = tasks.addTask(newToDo);
-                    break;
                 }
+
+                ToDo newToDo = new ToDo(content);
+                response = tasks.addTask(newToDo);
+                break;
             case DEADLINE:
                 String[] deadlineParts = content.split(" /by ");
                 Deadline newDeadline = new Deadline(deadlineParts[0], deadlineParts[1]);
@@ -93,6 +96,23 @@ public class Parser {
             case SEARCH_BY_KEYWORD:
                 response = tasks.searchByKeyword(content);
                 break;
+            case RESCHEDULE:
+                if (content.isEmpty()) {
+                    throw new JiayouException("OOPS!!! I don't know which task to mark.\n"
+                            + "Please add the index after the keyword mark!");
+                }
+
+                String[] partsOfReschedule = content.split(" ", 3);
+                if (partsOfReschedule.length < 3) {
+                    throw new JiayouException("Incorrect format for rescheduling.\n"
+                            + "Please use the format: reschedule <ID> /from <date> or /to <date> or /by <date>.");
+                }
+
+                String id = partsOfReschedule[0];
+                String dateType = partsOfReschedule[1];
+                String newDate = partsOfReschedule[2];
+                response = tasks.reschedule(id, dateType, newDate);
+                break;
             default:
                 break;
             }
@@ -105,6 +125,7 @@ public class Parser {
         return response;
     }
 
+
     /**
      * Provides an instruction on commands of the chatbot.
      *
@@ -112,13 +133,16 @@ public class Parser {
      */
     private String getGuide() {
         String response = "1. To get the whole list of tasks: list\n";
-        response += "2. To mark/unmark the task(s) with ids x, y and z: mark/unmark x y z\n";
-        response += "3. To delete the task(s) with ids x, y and z: delete x y z\n";
-        response += "4. To search tasks on a certain date: search_by_date YYYY-MM-DD\n";
-        response += "5. To search tasks with the keyword x: search_by_keyword x\n";
-        response += "6. To add a todo task: todo description\n";
-        response += "7. To add a deadline task: deadline description /by YYYY-MM-DD\n";
-        response += "8. To add an event task: event description /from YYYY-MM-DD /to YYYY-MM-DD";
+        response += "2. To mark/unmark the task(s) with ids x, y and z: mark/unmark <x y z>\n";
+        response += "3. To delete the task(s) with ids x, y and z: delete <x y z>\n";
+        response += "4. To search tasks on a certain date: search_by_date <date>\n";
+        response += "5. To search tasks with the keyword: search_by_keyword <keyword>\n";
+        response += "6. To add a todo task: todo <description>\n";
+        response += "7. To add a deadline task: deadline <description> /by <date>\n";
+        response += "8. To add an event task: event <description> /from <date> /to <date>\n";
+        response += "9. To reschedule a task: reschedule <ID> /from <date> or /to <date> or /by <date>\n";
+        response += "** All the dates should be in the form of YYYY-MM-DD **";
         return response;
     }
+
 }

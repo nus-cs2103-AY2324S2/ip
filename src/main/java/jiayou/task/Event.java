@@ -32,6 +32,14 @@ public class Event extends Task {
         return this.to;
     }
 
+    public void setFrom(String newFrom) {
+        this.from = LocalDate.parse(newFrom);
+    }
+
+    public void setTo(String newTo) {
+        this.to = LocalDate.parse(newTo);
+    }
+
     @Override
     public String toStringForStore() {
         return "E" + super.toStringForStore() + " | from " + this.from.toString() + " to " + this.to.toString();

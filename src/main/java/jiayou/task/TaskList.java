@@ -212,7 +212,71 @@ public class TaskList {
                     + String.join("\n", matchedTasks);
         }
     }
-    
+
+    /**
+     * Reschedules a task given its id and desired date.
+     *
+     * @param id the id of the task to be updated.
+     * @param dateType the type of the date, from, to or by.
+     * @param newDate the new date to be updated.
+     * @return a response message.
+     */
+
+    public String reschedule(String id, String dateType, String newDate) {
+        String response = "";
+        try {
+            int idToInt = Integer.parseInt(id) - 1;
+            if (idToInt < 0 || idToInt >= tasks.size()) {
+                throw new JiayouException("OOPS!!! The task you wanna unmark doesn't exist. "
+                        + "Please input a valid number!");
+            }
+
+            Task taskToReschedule = tasks.get(idToInt);
+            if (!isRescheduleValid(taskToReschedule, dateType)) {
+                throw new JiayouException("OOPS!!! Your rescheduling is unsuccessful because "
+                        + "the task doesn't have this type of date.");
+            }
+
+            response += ">w< Noted! I have rescheduled the task for you:\n";
+
+            if (dateType.equals("/by")) {
+                Deadline ddlToReschedule = (Deadline) taskToReschedule;
+                ddlToReschedule.setBy(newDate);
+                response += ddlToReschedule;
+            } else if (dateType.equals("/from")) {
+                Event eventToReschedule = (Event) taskToReschedule;
+                eventToReschedule.setFrom(newDate);
+                response += eventToReschedule;
+            } else {
+                Event eventToReschedule = (Event) taskToReschedule;
+                eventToReschedule.setTo(newDate);
+                response += eventToReschedule;
+            }
+        } catch (JiayouException e) {
+            return e.getMessage();
+        }
+        return response;
+    }
+
+    /**
+     * Checks if the rescheduling is valid.
+     * @param task the task to get rescheduled.
+     * @param dateType the type of the date, from, to or by.
+     * @return a boolean value.
+     */
+    private boolean isRescheduleValid(Task task, String dateType) {
+        boolean isEvent = task instanceof Event;
+        boolean isDeadline = task instanceof Deadline;
+        boolean isDateForEvent = dateType.equals("/from") | dateType.equals("/to");
+        boolean isDateForDeadline = dateType.equals("/by");
+
+        if ((isEvent & isDateForEvent) | (isDeadline & isDateForDeadline)) {
+            return true;
+        }
+
+        return false;
+    }
+
     public int getSize() {
         return this.tasks.size();
     }

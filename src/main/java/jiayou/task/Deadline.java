@@ -25,6 +25,10 @@ public class Deadline extends Task {
         return this.by;
     }
 
+    public void setBy(String newBy) {
+        this.by = LocalDate.parse(newBy);
+    }
+
     @Override
     public String toStringForStore() {
         return "D" + super.toStringForStore() + " | by" + this.by.toString();
