@@ -3,6 +3,7 @@ package duke.task;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 /**
  * Represents a Deadline which is a type of Task
@@ -58,5 +59,23 @@ public class Deadlines extends Task {
         output += "[D]";
         output += super.taskInfo();
         return output + " (by: " + formattedBy + "hrs)\n";
+    }
+
+    @Override
+    public String happenSoon() {
+        LocalDate now = LocalDate.now();
+        LocalDate nowPlusSeven = now.plus(7, ChronoUnit.DAYS);
+        LocalDate deadline = by.toLocalDate();
+
+        boolean isToday = deadline.isEqual(now);
+        boolean isInSevenDays = deadline.isEqual(nowPlusSeven);
+        boolean isBetweenSevenDays = deadline.isAfter(now) && deadline.isBefore(nowPlusSeven);
+        boolean isWithinSevenDays = isBetweenSevenDays || isToday || isInSevenDays;
+
+        if (isWithinSevenDays) {
+            return taskInfo();
+        } else {
+            return "";
+        }
     }
 }

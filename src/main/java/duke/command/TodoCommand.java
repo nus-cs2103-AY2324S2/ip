@@ -14,7 +14,7 @@ public class TodoCommand extends Command {
     }
     public String execute(TaskList tasks, Storage storage) throws DukeException {
         if (inputs.isEmpty()) {
-            throw new DukeMissingArgument(1, "todo");
+            throw new DukeMissingArgument("todo");
         }
 
         ToDos newTask = new ToDos(inputs, false);

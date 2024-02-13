@@ -23,7 +23,7 @@ public class DeadlineCommand extends Command {
             LocalDateTime by = LocalDateTime.parse(values[1], DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
             return tasks.add(new Deadlines(values[0], by, false));
         } catch (ArrayIndexOutOfBoundsException e1) {
-            throw new DukeMissingArgument(2, "deadline");
+            throw new DukeMissingArgument("deadline");
         } catch (DateTimeParseException e2) {
             throw new DukeInvalidDateTimeFormat("d/M/yyyy HHmm");
         }

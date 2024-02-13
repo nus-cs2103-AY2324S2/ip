@@ -14,7 +14,7 @@ public class DeleteCommand extends Command {
     }
     public String execute(TaskList tasks, Storage storage) throws DukeException {
         if (inputs.isEmpty()) {
-            throw new DukeMissingArgument(1, "delete");
+            throw new DukeMissingArgument( "delete");
         }
 
         try {

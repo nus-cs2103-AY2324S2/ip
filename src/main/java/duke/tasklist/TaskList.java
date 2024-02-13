@@ -155,4 +155,12 @@ public class TaskList {
         return output;
 
     }
+
+    public String remind() {
+        String output = "Here are the tasks happening within the next 7 days:\n";
+        for (Task item : list) {
+            output += item.happenSoon();
+        }
+        return output;
+    }
 }

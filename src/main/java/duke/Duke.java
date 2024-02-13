@@ -29,6 +29,10 @@ public class Duke {
         return "Hello! I'm notDuke\nWhat can I do for you?";
     }
 
+    public String reminder() {
+        return tasks.remind();
+    }
+
     public String getResponse(String userInput) {
         try {
             Command c = Parser.parse(userInput);
