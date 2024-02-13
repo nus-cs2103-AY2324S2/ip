@@ -107,4 +107,7 @@ public class Task {
         isDone = false;
         return "OK, I've marked this task as not done yet:" + this.taskInfo();
     }
+    public String happenSoon() {
+        return "";
+    }
 }

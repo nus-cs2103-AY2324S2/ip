@@ -14,7 +14,7 @@ public class MarkCommand extends Command {
     }
     public String execute(TaskList tasks, Storage storage) throws DukeException {
         if (inputs.isEmpty()) {
-            throw new DukeMissingArgument(1, "mark");
+            throw new DukeMissingArgument("mark");
         }
 
         try {

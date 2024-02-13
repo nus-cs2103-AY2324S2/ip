@@ -3,6 +3,7 @@ package duke.task;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 /**
  * Represents an Event which is a type of Task
@@ -40,8 +41,9 @@ public class Events extends Task {
 
         if (isWithinPeriod) {
             return taskInfo();
+        } else {
+            return "";
         }
-        return "";
     }
 
     /**
@@ -72,5 +74,28 @@ public class Events extends Task {
         output += "[E]";
         output += super.taskInfo();
         return output + " (from: " + formattedFrom + "hrs to: " + formattedTo + "hrs)\n";
+    }
+
+    @Override
+    public String happenSoon() {
+        LocalDate now = LocalDate.now();
+        LocalDate nowPlusSeven = now.plus(7, ChronoUnit.DAYS);
+        LocalDate start = from.toLocalDate();
+        LocalDate end = to.toLocalDate();
+
+        boolean isInSevenDays = start.isEqual(nowPlusSeven);
+        boolean isBetweenSevenDays = start.isAfter(now) && start.isBefore(nowPlusSeven);
+        boolean isHappeningSoon = isBetweenSevenDays || isInSevenDays;
+
+        boolean isStart = now.isEqual(start);
+        boolean isEnd = now.isEqual(end);
+        boolean isBetween = now.isAfter(start) && now.isBefore(end);
+        boolean isHappeningNow = isBetween || isStart || isEnd;
+
+        if (isHappeningSoon || isHappeningNow) {
+            return taskInfo();
+        } else {
+            return "";
+        }
     }
 }
