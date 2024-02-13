@@ -46,6 +46,8 @@ public class TaskList {
      * @return the task at the specified 1-based index.
      */
     public Task getTask(int index) {
+        assert 0 <= index && index < tasks.size()
+                : "Trying to retireve a value at an invalid index!";
         return tasks.get(index - 1);
     }
 
@@ -55,6 +57,7 @@ public class TaskList {
      * @param index 1-based index of the task to remove.
      */
     public void removeTask(int index) {
+        assert 0 <= index && index < tasks.size() : "Trying to remove a value at an invalid index!";
         tasks.remove(index - 1);
     }
 
@@ -97,6 +100,7 @@ public class TaskList {
      * @return The newly created TaskList.
      */
     public static TaskList load(Storage storage) throws IOException, CappyException {
+        assert storage != null : "Storage cannot be null!";
         TaskList taskList = new TaskList(storage);
         String[] csvLines = storage.readAll().split("\n");
         for (String line : csvLines) {
