@@ -2,6 +2,7 @@ package toothless.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  * A class inherited from Task with deadline due.
@@ -27,8 +28,8 @@ public class Deadline extends Task {
      * @param isDone A Boolean to describe if the task is done.
      * @param by A LocalDateTime for the deadline due of the task.
      */
-    public Deadline(String description, boolean isDone, LocalDateTime by) {
-        super(description, isDone);
+    public Deadline(String description, boolean isDone, ArrayList<Tag> tags, LocalDateTime by) {
+        super(description, isDone, tags);
         this.by = by;
     }
 
@@ -41,6 +42,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: "
-                + this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm")) + ")";
+                + this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm")) + ")\n\t"
+                + this.getTagsString();
     }
 }

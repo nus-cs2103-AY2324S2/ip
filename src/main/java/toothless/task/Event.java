@@ -2,6 +2,7 @@ package toothless.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  * A class inherited from Task with start and end datetime.
@@ -31,8 +32,8 @@ public class Event extends Task {
      * @param from A LocalDateTime for the start of the Event.
      * @param to A LocalDateTime for the end of the Event.
      */
-    public Event(String description, boolean isDone, LocalDateTime from, LocalDateTime to) {
-        super(description, isDone);
+    public Event(String description, boolean isDone, ArrayList<Tag> tags, LocalDateTime from, LocalDateTime to) {
+        super(description, isDone, tags);
         this.from = from;
         this.to = to;
     }
@@ -46,8 +47,9 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + String.format(" (from: %s to: %s)",
+        return "[E]" + super.toString() + String.format(" (from: %s to: %s)\n\t",
                 this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm")),
-                this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm")));
+                this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm")))
+                + this.getTagsString();
     }
 }

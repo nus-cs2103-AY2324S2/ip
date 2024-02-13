@@ -1,5 +1,7 @@
 package toothless.task;
 
+import java.util.ArrayList;
+
 /**
  * A simple task with only a description.
  */
@@ -19,8 +21,8 @@ public class ToDo extends Task {
      * @param description A String to describe the task.
      * @param isDone A Boolean to describe if the task is done.
      */
-    public ToDo(String description, boolean isDone) {
-        super(description, isDone);
+    public ToDo(String description, boolean isDone, ArrayList<Tag> tags) {
+        super(description, isDone, tags);
     }
 
     @Override
@@ -30,6 +32,6 @@ public class ToDo extends Task {
 
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return "[T]" + super.toString() + "\n\t" + this.getTagsString();
     }
 }

@@ -14,7 +14,7 @@ public class ParserTest {
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
         assertEquals("Got it. I've added this task:\n\t"
-                        + "[E][ ] dinner (from: Feb 2 2024, 18:00 to: Feb 2 2024, 20:30)\n"
+                        + "[E][ ] dinner (from: Feb 2 2024, 18:00 to: Feb 2 2024, 20:30)\n\tTags: NIL\n"
                         + "Nya-ow you have 1 tasks in the list.",
                 new Parser().parseEventInput(tasks, ui, "event dinner /from 2024-02-02 18:00 /to 2024-02-02 20:30"));
     }
