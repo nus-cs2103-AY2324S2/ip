@@ -119,14 +119,16 @@ public class Storage {
             if (task instanceof ToDo) {
                 result.append("T | ");
                 result.append(task.getStatusIcon().equals("X") ? "1 | " : "0 | ");
-                result.append(task.getDescription());
+                result.append(task.getDescription() + " | ");
+                result.append(task.getPriorityLevel());
                 result.append(System.getProperty("line.separator"));
             } else if (task instanceof Deadline) {
                 result.append("D | ");
                 Deadline deadlineTask = (Deadline) task;
                 result.append(deadlineTask.getStatusIcon().equals("X") ? "1 | " : "0 | ");
                 result.append(deadlineTask.getDescription() + " | ");
-                result.append(deadlineTask.getBy());
+                result.append(deadlineTask.getBy() + " | ");
+                result.append(task.getPriorityLevel());
                 result.append(System.getProperty("line.separator"));
             } else if (task instanceof Event) {
                 Event eventTask = (Event) task;
@@ -134,7 +136,8 @@ public class Storage {
                 result.append(eventTask.getStatusIcon().equals("X") ? "1 | " : "0 | ");
                 result.append(eventTask.getDescription() + " | ");
                 result.append(eventTask.getStart() + " | ");
-                result.append(eventTask.getEnd());
+                result.append(eventTask.getEnd() + " | ");
+                result.append(task.getPriorityLevel());
                 result.append(System.getProperty("line.separator"));
             }
 
@@ -157,18 +160,21 @@ public class Storage {
             if (stringAttributes[0].trim().equals("T")) {
                 fileTasks.add(new ToDo(
                         stringAttributes[2].trim(),
-                        stringAttributes[1].trim().equals("1") ? true : false));
+                        stringAttributes[1].trim().equals("1") ? true : false,
+                        PriorityLevel.valueOf(stringAttributes[3].trim())));
 
             } else if (stringAttributes[0].trim().equals("D")) {
                 fileTasks.add(new Deadline(
                         stringAttributes[2].trim(),
                         stringAttributes[1].trim().equals("1") ? true : false,
+                        PriorityLevel.valueOf(stringAttributes[3].trim()),
                         DateTimeManager.convertStringToLocalDateTime(stringAttributes[3].trim())));
 
             } else if (stringAttributes[0].trim().equals("E")) {
                 fileTasks.add(new Event(
                         stringAttributes[2].trim(),
                         stringAttributes[1].trim().equals("1") ? true : false,
+                        PriorityLevel.valueOf(stringAttributes[3].trim()),
                         DateTimeManager.convertStringToLocalDateTime(stringAttributes[3].trim()),
                         DateTimeManager.convertStringToLocalDateTime(stringAttributes[4].trim())));
             }
@@ -192,18 +198,21 @@ public class Storage {
             if (stringAttributes[0].equals("T")) {
                 fileTasks.add(new ToDo(
                         stringAttributes[2].trim(),
-                        stringAttributes[1].equals("1") ? true : false));
+                        stringAttributes[1].equals("1") ? true : false,
+                        PriorityLevel.valueOf(stringAttributes[3].trim())));
 
             } else if (stringAttributes[0].equals("D")) {
                 fileTasks.add(new Deadline(
                         stringAttributes[2].trim(),
                         stringAttributes[1].equals("1") ? true : false,
+                        PriorityLevel.valueOf(stringAttributes[3].trim()),
                         DateTimeManager.convertStringToLocalDateTime(stringAttributes[3].trim())));
 
             } else if (stringAttributes[0].equals("E")) {
                 fileTasks.add(new Event(
                         stringAttributes[2].trim(),
                         stringAttributes[1].equals("1") ? true : false,
+                        PriorityLevel.valueOf(stringAttributes[3].trim()),
                         DateTimeManager.convertStringToLocalDateTime(stringAttributes[3].trim()),
                         DateTimeManager.convertStringToLocalDateTime(stringAttributes[4].trim())));
             }

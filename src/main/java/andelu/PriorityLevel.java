@@ -1,2 +1,8 @@
-package andelu;public interface PriorityLevel {
+package andelu;
+
+public enum PriorityLevel {
+    LOW,
+    MEDIUM,
+    HIGH,
+    DEFAULT
 }

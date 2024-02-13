@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import andelu.AndeluException;
 import andelu.DateTimeManager;
+import andelu.PriorityLevel;
 import andelu.Storage;
 import andelu.TaskList;
 import andelu.Ui;
@@ -54,6 +55,22 @@ public class AddEventCommand extends Command {
         if (eventSplit.length < 3) {
             throw new AndeluException("Invalid format for new Event!");
         }
+
+        String[] priorityStringSplit = input.split("/priority");
+        PriorityLevel priorityLevel = PriorityLevel.DEFAULT;
+        if (priorityStringSplit.length == 2) {
+            String priorityInput = priorityStringSplit[1].trim();
+            if (priorityInput.equalsIgnoreCase("Low")) {
+                priorityLevel = PriorityLevel.LOW;
+            } else if (priorityInput.equalsIgnoreCase("Medium")) {
+                priorityLevel = PriorityLevel.MEDIUM;
+            } else if (priorityInput.equalsIgnoreCase("High")) {
+                priorityLevel = PriorityLevel.HIGH;
+            } else {
+                throw new AndeluException("Please select the priority level: Low, Medium or High, if any.");
+            }
+        }
+
         String name = eventSplit[0].substring(6).trim();
         String start = eventSplit[1].substring(5).trim();
         String end = eventSplit[2].substring(3).trim();
@@ -61,7 +78,7 @@ public class AddEventCommand extends Command {
         LocalDateTime startDT = DateTimeManager.convertStringToLocalDateTime(start);
         LocalDateTime endDT = DateTimeManager.convertStringToLocalDateTime(end);
 
-        Event newEvent = new Event(name, false, startDT, endDT);
+        Event newEvent = new Event(name, false, priorityLevel, startDT, endDT);
         tasks.addTask(newEvent);
         ArrayList<Task> newEventList = new ArrayList<>();
         newEventList.add(newEvent);

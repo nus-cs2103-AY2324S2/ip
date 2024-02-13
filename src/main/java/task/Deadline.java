@@ -1,5 +1,7 @@
 package task;
 
+import andelu.PriorityLevel;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -22,8 +24,8 @@ public class Deadline extends Task {
      * @param isDone The status of the task.
      * @param by The DateTime to complete the Deadline.
      */
-    public Deadline(String description, boolean isDone, LocalDateTime by) {
-        super(description, isDone);
+    public Deadline(String description, boolean isDone, PriorityLevel priorityLevel, LocalDateTime by) {
+        super(description, isDone, priorityLevel);
         this.by = by;
     }
 
@@ -58,6 +60,9 @@ public class Deadline extends Task {
             }
         }
 
-        return "[D][" + super.getStatusIcon() + "] " + super.getDescription() + " (by: " + byString + ")";
+        return "[D][" + super.getStatusIcon() + "] "
+                + super.getDescription()
+                + " (by: " + byString + ")"
+                + " (" + super.getPriorityLevel() + " priority)";
     }
 }
