@@ -5,6 +5,7 @@ import exceptions.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -81,9 +82,10 @@ public class Commands {
             identifier += inputParts.get(j) + " ";
         }
         identifier = identifier.trim();
-        if (identifier.isEmpty()) {
-            throw new EmptyStringException();
-        }
+        assert !identifier.isEmpty() : "Description cannot be empty!";
+//        if (identifier.isEmpty()) {
+//            throw new EmptyStringException();
+//        }
         String output = storage.find(identifier);
         return output;
     }
@@ -103,9 +105,10 @@ public class Commands {
             descriptor += inputParts.get(i) + " ";
         }
         descriptor = descriptor.trim();
-        if (descriptor.isEmpty()) {
-            throw new EmptyTaskException();
-        }
+        assert !descriptor.isEmpty() : "Description cannot be empty!";
+//        if (descriptor.isEmpty()) {
+//            throw new EmptyTaskException();
+//        }
         ToDos t = new ToDos(descriptor);
         storage.add(t);
         return t;
@@ -118,13 +121,13 @@ public class Commands {
      * @param storage The storage object to interact with tasks.
      * @return The newly created Deadlines task.
      * @throws EmptyTaskException If the task description is empty.
-     * @throws WrongFormatException If the input format is incorrect.
+     * @throws WrongDeadlineFormatException If the input format is incorrect.
      */
-    public static Deadlines deadlinesCommand (String input, Storage storage) throws EmptyTaskException, WrongFormatException {
+    public static Deadlines deadlinesCommand (String input, Storage storage) throws EmptyTaskException, WrongDeadlineFormatException, ParseDateException {
         List<String> inputParts = Arrays.asList(input.split(" "));
         int index = inputParts.indexOf("/by");
         if (index == -1) {
-            throw new WrongFormatException();
+            throw new WrongDeadlineFormatException();
         }
         String descriptor = "";
         String deadline = "";
@@ -135,16 +138,22 @@ public class Commands {
             deadline += inputParts.get(i)+ " ";
         }
         deadline = deadline.trim();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
-        LocalDateTime localDateTime = LocalDateTime.parse(deadline, formatter);
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
+            LocalDateTime localDateTime = LocalDateTime.parse(deadline, formatter);
 
-        descriptor = descriptor.trim();
-        if (descriptor.isEmpty()) {
-            throw new EmptyTaskException();
+            descriptor = descriptor.trim();
+            assert !descriptor.isEmpty() : "Description cannot be empty!";
+//            if (descriptor.isEmpty()) {
+//                throw new EmptyTaskException();
+//            }
+            Deadlines d = new Deadlines(descriptor, localDateTime);
+            storage.add(d);
+            return d;
+        }  catch (DateTimeParseException e){
+            throw new ParseDateException();
         }
-        Deadlines d = new Deadlines(descriptor, localDateTime);
-        storage.add(d);
-        return d;
+
     }
 
     /**
@@ -154,14 +163,14 @@ public class Commands {
      * @param storage The storage object to interact with tasks.
      * @return The newly created Events task.
      * @throws DukeExceptions If any Duke-specific exception occurs.
-     * @throws WrongFormatException If the input format is incorrect.
+     * @throws WrongEventFormatException If the input format is incorrect.
      */
-    public static Events eventsCommand (String input, Storage storage) throws DukeExceptions, WrongFormatException {
+    public static Events eventsCommand (String input, Storage storage) throws ParseDateException, WrongEventFormatException {
         List<String> inputParts = Arrays.asList(input.split(" "));
         int index1 = inputParts.indexOf("/from");
         int index2 = inputParts.indexOf("/to");
         if (index1 == -1 || index2 == -1) {
-            throw new WrongFormatException();
+            throw new WrongEventFormatException();
         }
         String descriptor = "";
         String from = "";
@@ -176,18 +185,21 @@ public class Commands {
             descriptor += inputParts.get(i)+ " ";
         }
         descriptor = descriptor.trim();
-        if (descriptor.isEmpty()) {
-            throw new EmptyTaskException();
-        }
+        assert !descriptor.isEmpty() : "Description cannot be empty!";
+//        if (descriptor.isEmpty()) {
+//            throw new WrongEventFormatException();
+//        }
         from = from.trim();
         to = to.trim();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
-        LocalDateTime localDateTimeFrom = LocalDateTime.parse(from, formatter);
-        LocalDateTime localDateTimeTo = LocalDateTime.parse(to, formatter);
-        Events e =  new Events(descriptor, localDateTimeFrom, localDateTimeTo);
-        storage.add(e);
-        return e;
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
+            LocalDateTime localDateTimeFrom = LocalDateTime.parse(from, formatter);
+            LocalDateTime localDateTimeTo = LocalDateTime.parse(to, formatter);
+            Events e =  new Events(descriptor, localDateTimeFrom, localDateTimeTo);
+            storage.add(e);
+            return e;
+        } catch (DateTimeParseException e){
+            throw new ParseDateException();
+        }
     }
-
-
 }
