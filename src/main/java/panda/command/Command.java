@@ -31,5 +31,15 @@ public abstract class Command {
      * @throws PandaException if an error occurs during execution.
      */
     abstract public void execute(TaskList tlist, Ui ui, Storage cacheFile) throws PandaException;
+
+    /**
+     * Executes the command on the given TaskList, saves changes to the cache file, and generate a reply.
+     * 
+     * @param tlist the TaskList on which the command is executed.
+     * @param cacheFile the cache file to save changes to.
+     * @return the reply generated from running the command
+     * @throws PandaException if an error occurs during execution.
+     */
+    abstract public String execute(TaskList tlist, Storage cacheFile) throws PandaException;
 }
 

@@ -1,5 +1,6 @@
 package panda.command;
 import panda.component.*;
+import panda.exception.PandaException;
 import panda.task.Task;
 public class NewTaskCommand extends Command {
     private Task task;
@@ -33,8 +34,24 @@ public class NewTaskCommand extends Command {
         tlist.insert(task);
         cacheFile.save(tlist);
         ui.showReply("Got it. I've added this task:" 
-            + "\n " + tlist.taskString(tlist.size() - 1) 
+            + "\n " + tlist.getTaskString(tlist.size()) 
             + "\nNow you have " + tlist.size() + " tasks in the list.");
+    }
+
+    /**
+     * Inserts the task into the given TaskList, saves changes to the cache file, and generate a reply.
+     * 
+     * @param tlist the TaskList into which the task is inserted.
+     * @param cacheFile the cache file to save changes to.
+     * @return the reply generated after insertion
+     * @throws PandaException if an error occurs during execution.
+     */
+    public String execute(TaskList tlist, Storage cacheFile) throws PandaException {
+        tlist.insert(task);
+        cacheFile.save(tlist);
+        return "Got it. I've added this task:" 
+            + "\n " + tlist.getTaskString(tlist.size() - 1) 
+            + "\nNow you have " + tlist.size() + " tasks in the list.";
     }
 
     /**
