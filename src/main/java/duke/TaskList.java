@@ -97,6 +97,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns a new TaskList of tasks that match the keyword.
+     *
+     * @param keyword Keyword to find.
+     * @return New TaskList of matching tasks.
+     */
     public TaskList find(String keyword) {
         TaskList filteredList = new TaskList();
         for (int i = 0; i < taskList.size(); i++) {
