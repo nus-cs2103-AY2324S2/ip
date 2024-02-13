@@ -1,6 +1,7 @@
 import commands.Command;
 import commands.Parser;
 import exceptions.DukeException;
+import javafx.application.Application;
 import main.Storage;
 import tasks.TaskList;
 import ui.Ui;
@@ -44,5 +45,9 @@ public class Duke {
         } catch (DukeException e) {
             return e.getMessage();
         }
+    }
+
+    public static void main(String[] args) {
+        Application.launch(Main.class, args);
     }
 }
