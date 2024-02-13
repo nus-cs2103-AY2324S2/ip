@@ -65,4 +65,20 @@ public class TaskList {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(task.getStatusIcon());
     }
+
+    /**
+     * Searches for tasks in the task list that contain the specified keyword in their descriptions.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     * @return An ArrayList of tasks that match the search criteria.
+     */
+    public ArrayList<Task> findTasks(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.description.contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
+    }
 }

@@ -33,6 +33,9 @@ public class CommandHandler {
             case "unmark":
                 handleUnmarkCommand(parsedCommand, tasks);
                 break;
+            case "find":
+                handleFindCommand(parsedCommand, tasks);
+                break;
             default:
                 Ui.showInvalidCommand();
                 break;
@@ -109,6 +112,24 @@ public class CommandHandler {
         int index = parseIndex(parsedCommand);
         taskList.markTaskAsNotDone(index);
     }
+
+    private static void handleFindCommand(String[] parsedCommand, TaskList taskList) throws DukeException {
+        if (parsedCommand.length < 2) {
+            throw new DukeException("Umm... The find command is incomplete!");
+        }
+        String keyword = parsedCommand[1];
+        ArrayList<Task> matchingTasks = taskList.findTasks(keyword);
+
+        if (matchingTasks.isEmpty()) {
+            System.out.println("No matching tasks found.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println((i + 1) + "." + matchingTasks.get(i).getStatusIcon());
+            }
+        }
+    }
+
     private static int parseIndex(String[] parsedCommand) throws DukeException {
         try {
             return Integer.parseInt(parsedCommand[1].trim()) - 1;
