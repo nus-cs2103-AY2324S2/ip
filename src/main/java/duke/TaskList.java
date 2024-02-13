@@ -1,19 +1,50 @@
 package duke;
 
-import duke.Event;
-import duke.Task;
-
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.io.File;
+import java.util.Scanner;
 
 /**
  * Represents a list of tasks.
  */
 public class TaskList {
     protected ArrayList<Task> tasks;
+    protected Storage storage;
+    public TaskList(Storage storage) {
+        this.tasks = new ArrayList<>();
+        this.storage = storage;
+    }
 
-    public TaskList(ArrayList<Task> tasks) {
-        this.tasks = tasks;
+    public TaskList(File f, Storage storage) throws FileNotFoundException {
+        this.tasks = new ArrayList<>();
+        this.storage = storage;
+        Scanner sc = new Scanner(f);
+        while (sc.hasNext()) {
+            String input = sc.nextLine();
+            String[] words = input.split(" ");
+            int isDone = Integer.parseInt(words[0]);
+            String command = words[1];
+            if (command.equals("todo")) {
+                String[] parts = input.split("todo", 2);
+                String description = parts[1].trim();
+                tasks.add(new ToDo(description, isDone));
+            } else if (command.equals("deadline")) {
+                String[] parts = input.split("deadline", 2);
+                String description = parts[1].trim();
+                String[] deadlineParts = description.split("/by", 2);
+                description = deadlineParts[0].trim();
+                String deadline = deadlineParts[1].trim();
+                tasks.add(new Deadline(description, isDone, deadline));
+            } else {
+                String[] parts = input.split("/from| /to");
+                String description = parts[0].trim().substring("0 event".length()).trim();
+                String start = parts[1].trim();
+                String end = parts[2].trim();
+                tasks.add(new Event(description, isDone, start, end));
+            }
+        }
     }
 
     /**

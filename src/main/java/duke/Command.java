@@ -1,7 +1,5 @@
 package duke;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 /**
  * Represents a command to be executed.
@@ -9,8 +7,6 @@ import java.util.ArrayList;
  * e.g. <code>todo read book</code>
  */
 public class Command {
-    protected TaskList tasks;
-    protected Storage storage;
     protected String command;
     protected String input;
     public Command(String command, String input) {

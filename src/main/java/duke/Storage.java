@@ -1,13 +1,8 @@
 package duke;
 
-import duke.Event;
-
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.Scanner;
 import java.io.BufferedWriter;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,49 +12,24 @@ import java.io.IOException;
  */
 public class Storage {
     protected String path;
+    protected File file;
     public Storage(String path) {
         this.path = path;
+        this.file = new File(path);
     }
 
     /**
-     * Loads the tasks from the file and returns an ArrayList of tasks.
+     * Loads the file.
      *
-     * @return An ArrayList of tasks.
+     * @return The file.
+     * @throws DukeException If an error occurs while creating the file.
      */
-    public ArrayList<Task> load() {
-        ArrayList<Task> list = new ArrayList<>();
-        try {
-            File f = new File(this.path);
-            Scanner sc = new Scanner(f);
-            while (sc.hasNext()) {
-                String input = sc.nextLine();
-                String[] words = input.split(" ");
-                int isDone = Integer.parseInt(words[0]);
-                String command = words[1];
-                if (command.equals("todo")) {
-                    String[] parts = input.split("todo", 2);
-                    String description = parts[1].trim();
-                    list.add(new ToDo(description, isDone));
-                } else if (command.equals("deadline")) {
-                    String[] parts = input.split("deadline", 2);
-                    String description = parts[1].trim();
-                    String[] deadlineParts = description.split("/by", 2);
-                    description = deadlineParts[0].trim();
-                    String deadline = deadlineParts[1].trim();
-                    list.add(new Deadline(description, isDone, deadline));
-                } else {
-                    String[] parts = input.split("/from| /to");
-                    String description = parts[0].trim().substring("0 event".length()).trim();
-                    String start = parts[1].trim();
-                    String end = parts[2].trim();
-                    list.add(new Event(description, isDone, start, end));
-                }
-            }
-            return list;
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-            return null;
+    public File load() throws DukeException{
+        if (!file.exists()) {
+            file.getParentFile().mkdirs();
+            throw new DukeException("File does not exist. Creating a new file.");
         }
+        return file;
     }
 
     /**
