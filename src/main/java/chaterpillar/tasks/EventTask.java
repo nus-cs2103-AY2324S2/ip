@@ -25,6 +25,7 @@ public class EventTask extends Task {
         super(taskName);
         this.dateTimeFrom = new DateTime(dateTimeFrom);
         this.dateTimeTo = new DateTime(dateTimeTo);
+        this.hasDate = true;
     }
 
     /**
@@ -41,6 +42,7 @@ public class EventTask extends Task {
         this.dateTimeFrom = new DateTime(dateTimeFrom);
         this.dateTimeTo = new DateTime(dateTimeTo);
         this.isMarked = isMarked;
+        this.hasDate = true;
     }
 
     /**

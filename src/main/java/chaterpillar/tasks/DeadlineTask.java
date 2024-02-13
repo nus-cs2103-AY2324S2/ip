@@ -19,6 +19,7 @@ public class DeadlineTask extends Task {
     public DeadlineTask(String taskName, String date_time) throws ChaterpillarException {
         super(taskName);
         this.dateTime = new DateTime(date_time);
+        this.hasDate = true;
     }
 
     /**
@@ -31,6 +32,7 @@ public class DeadlineTask extends Task {
     public DeadlineTask(String taskname, Boolean marked, String dateTime) throws ChaterpillarException {
         super(taskname, marked);
         this.dateTime = new DateTime(dateTime);
+        this.hasDate = true;
     }
 
     /**

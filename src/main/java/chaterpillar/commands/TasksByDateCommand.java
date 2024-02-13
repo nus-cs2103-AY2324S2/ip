@@ -38,10 +38,10 @@ public class TasksByDateCommand extends Command {
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ChaterpillarException {
         ui.echo(String.format("For %s,", this.date));
-        if (tasks.size() == 0) {
+        TaskList tasksNew = tasks.getTasksOnDate(this.date);
+        if (tasksNew.size() == 0) {
             ui.echo("Congrats! You have no tasks for today. :)");
         } else {
-            TaskList tasksNew = tasks.getTasksOnDate(this.date);
             new ListCommand(tasksNew).execute(tasks, ui, storage);
         }
     }

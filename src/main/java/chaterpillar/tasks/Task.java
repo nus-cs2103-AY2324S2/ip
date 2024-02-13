@@ -10,6 +10,7 @@ import chaterpillar.datetime.DateTime;
 public class Task {
     private final String taskName;
     boolean isMarked;
+    boolean hasDate;
 
     /**
      * Basic constructor
@@ -18,6 +19,7 @@ public class Task {
     public Task(String taskName) {
         this.taskName = taskName.trim();
         this.isMarked = false;
+        this.hasDate = false;
     }
 
     /**
@@ -28,6 +30,7 @@ public class Task {
     public Task(String taskName, Boolean isMarked) {
         this.taskName = taskName;
         this.isMarked = isMarked;
+        this.hasDate = false;
     }
 
     /**
