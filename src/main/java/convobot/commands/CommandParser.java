@@ -15,17 +15,15 @@ import utils.DateTime;
  */
 public class CommandParser {
 
-    private static int parseIndex(String input) throws ConvoBotException {
+    private static int parseIndex(ArrayList<String> inputList) throws ConvoBotException {
         try {
             return Integer.parseInt(inputList.get(1)) - 1;
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new ConvoBotException("Invalid input. Wrong number format or index.");
         }
-        assert false;
-        return -1;
     }
 
-    private static void enforceArgumentCount(int a, int b) {
+    private static void enforceArgumentCount(int a, int b) throws ConvoBotException {
         if (a != b) {
             throw new ConvoBotException("Invalid input. Wrong number of arguments.");
         }
@@ -71,19 +69,19 @@ public class CommandParser {
             break;
 
         case MARK:
-            i = parseIndex(inputList.get(1));
+            i = parseIndex(inputList);
             enforceArgumentCount(inputList.size(), 2);
             command = new Mark(i);
             break;
 
         case UNMARK:
-            i = parseIndex(inputList.get(1));
+            i = parseIndex(inputList);
             enforceArgumentCount(inputList.size(), 2);
             command = new Unmark(i);
             break;
 
         case DELETE:
-            i = parseIndex(inputList.get(1));
+            i = parseIndex(inputList);
             enforceArgumentCount(inputList.size(), 2);
             command = new Delete(i);
             break;
