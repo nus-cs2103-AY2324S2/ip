@@ -2,6 +2,11 @@
 
 Cats Galore!
 
+
+
+>   "I have no special talent. I am only passionately curious." -  Albert Einstein [(source)](https://github.com/dwyl/quotes)
+
+
 Bingus is a task management application based on [Project Duke](https://nus-cs2103-ay1920s1.github.io/website/se-book-adapted/projectDuke/index.html).
 
 ## Commands that Bingus Understands!
