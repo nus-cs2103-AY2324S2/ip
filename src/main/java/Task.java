@@ -1,3 +1,6 @@
+/**
+ * Represents a task with task description, completion status and task type as available details.
+ */
 public class Task {
     private String what;
     private String status;
