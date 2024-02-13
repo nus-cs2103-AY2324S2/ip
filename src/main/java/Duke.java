@@ -80,8 +80,7 @@ public class Duke {
     public static String getTask(String input) {
         int index = input.indexOf("/");
         int secondWord = input.indexOf(" ");
-        String task = input.substring(secondWord + 1, index);
-        return task;
+        return  input.substring(secondWord + 1, index);
     }
 
 

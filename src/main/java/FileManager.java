@@ -8,8 +8,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class FileManager {
-    private String filePath;
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private final String filePath;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     public FileManager(String filePath) {
         this.filePath = filePath;
