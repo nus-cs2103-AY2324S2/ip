@@ -1,10 +1,24 @@
 package duck;
 
+/**
+ * Represents a command to display available commands and their descriptions.
+ */
 public class HelpCommand implements Command {
+    /**
+     * Constructs a HelpCommand object.
+     */
     public HelpCommand() {
 
     }
 
+    /**
+     * Executes the help command, generating a string containing available commands and their descriptions.
+     *
+     * @param tasks The list of tasks.
+     * @param ui The user interface for interaction.
+     * @param storage The storage for saving tasks to a file.
+     * @return A string message containing available commands and their descriptions.
+     */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         StringBuilder helpMessage = new StringBuilder();
@@ -25,7 +39,5 @@ public class HelpCommand implements Command {
         helpMessage.append(" - Create a deadline task\n");
 
         return helpMessage.toString();
-
     }
-
 }

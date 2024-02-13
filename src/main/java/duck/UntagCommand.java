@@ -2,12 +2,29 @@ package duck;
 
 import java.io.IOException;
 
+/**
+ * Represents a command to untag a task.
+ */
 public class UntagCommand implements Command {
     private int taskIndex;
+
+    /**
+     * Constructs an UntagCommand object with the specified task index.
+     *
+     * @param taskIndex The index of the task to be untagged.
+     */
     public UntagCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
 
+    /**
+     * Executes the untag command, removing the tag from the specified task.
+     *
+     * @param tasks The list of tasks.
+     * @param ui The user interface for interaction.
+     * @param storage The storage for saving tasks to a file.
+     * @return A string message indicating the result of the untag operation.
+     */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         // Assert that taskIndex is within valid range

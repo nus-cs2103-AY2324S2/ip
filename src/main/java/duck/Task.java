@@ -40,6 +40,9 @@ public class Task {
         tag = tagged;
     }
 
+    /**
+     * Clears the tag of the task.
+     */
     public void clearTag() {
         tag = null;
     }
@@ -66,6 +69,12 @@ public class Task {
         }
     }
 
+    /**
+     * Converts a tag to its string representation.
+     *
+     * @param tag The tag to be converted.
+     * @return The string representation of the tag, or an empty string if the tag is null.
+     */
     public String tagString(String tag) {
         if (tag == null) {
             return "";
@@ -126,6 +135,11 @@ class Todo extends Task {
         return "T"; // Commands.Todo tasks have "T" as their status icon
     }
 
+    /**
+     * Returns a string representation of the Todo task.
+     *
+     * @return A string representation of the task.
+     */
     @Override
     public String toString() {
         return super.toString() + " " + tagString(tag);
