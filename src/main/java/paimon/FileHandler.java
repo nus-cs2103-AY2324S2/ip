@@ -8,12 +8,20 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.io.FileWriter;
 
+/**
+ * Handles file operations for the application, including loading tasks from a file
+ * and saving tasks to a file. This class ensures tasks persist between application runs.
+ */
 public class FileHandler {
     private static final String FILE_PATH = "./data/paimon.txt";
 
-    public FileHandler(String pathName) {
-    }
-
+    /**
+     * Converts a line of text from the task file into a {@link Task} object.
+     *
+     * @param data String data read from a line in the file.
+     * @return A {@link Task} object translated from each line of data.
+     * @throws IOException If there is an error parsing the task data.
+     */
     private static Task convertDataToTask(String data) throws IOException {
         String[] fields = data.split("\\|");
         for (int i = 0; i < fields.length; i++) {
@@ -47,6 +55,12 @@ public class FileHandler {
         return returnTask;
     }
 
+    /**
+     * Loads the list of tasks from the file specified by {@link #FILE_PATH}.
+     * If the file or directory does not exist, it attempts to create them.
+     *
+     * @return A {@link TaskList} containing the tasks loaded from the file.
+     */
     public static TaskList loadTaskList() {
         try {
             File dataFile = new File(FILE_PATH);
@@ -81,6 +95,11 @@ public class FileHandler {
         return new TaskList();
     }
 
+    /**
+     * Saves the current list of tasks to the file specified by {@link #FILE_PATH}.
+     *
+     * @param list The {@link TaskList} to be saved to the file.
+     */
     public static void saveTaskList(TaskList list) {
         try {
             FileWriter w = new FileWriter(FILE_PATH);

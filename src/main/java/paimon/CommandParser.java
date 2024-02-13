@@ -5,10 +5,21 @@ import paimon.command.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Parses user input into specific commands for the application to execute.
+ * This class takes the user input, determines the type of command it represents,
+ * and then constructs the appropriate command object to be executed.
+ */
 public class CommandParser {
-    private String input;
-    private String type;
+    private final String input;
+    private final String type;
 
+    /**
+     * Constructs a new CommandParser with the user's input.
+     * It also determines the command type based on the input.
+     *
+     * @param input The full command input from the user.
+     */
     public CommandParser(String input) {
         this.input = input;
         int firstSpaceIndex = input.indexOf(" ");
@@ -19,10 +30,23 @@ public class CommandParser {
         }
     }
 
+    /**
+     * Returns the type of the command determined from the user's input.
+     *
+     * @return The command type as a {@code String}.
+     */
     public String getType() {
         return this.type;
     }
 
+    /**
+     * Parses the user's input and constructs the corresponding command object.
+     * The method uses regular expressions to match against specific command patterns
+     * and extracts necessary details to construct command objects.
+     *
+     * @return A {@link Command} object representing the user's command.
+     * @throws ChatException If the input does follow proper syntax.
+     */
     public Command parseInput() throws ChatException {
         switch (this.type) {
             case "bye":
