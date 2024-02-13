@@ -38,36 +38,44 @@ public class Storage {
      */
     public ArrayList<Task> load() throws DukeNoSaveFile {
         ArrayList<Task> saveFile = new ArrayList<>();
+
         try {
             Scanner s = new Scanner(filePath);
             while (s.hasNextLine()) {
-                String line = s.nextLine();
-                String[] inputs = line.split(" \\| ");
-                boolean isDone = !inputs[1].equals("0");
-                Task task;
-                switch (inputs[0]) {
-                case "T":
-                    task = new ToDos(inputs[2], isDone);
-                    saveFile.add(task);
-                    break;
-                case "D":
-                    task = new Deadlines(inputs[2], LocalDateTime.parse(inputs[3]), isDone);
-                    saveFile.add(task);
-                    break;
-                case "E":
-                    String[] time = inputs[3].split("/");
-                    task = new Events(inputs[2], LocalDateTime.parse(time[0]),
-                            LocalDateTime.parse(time[1]), isDone);
-                    saveFile.add(task);
-                    break;
-                default:
-                    break;
+                String currLine = s.nextLine();
+                Task savedTask = createTask(currLine);
+                if (savedTask == null) {
+                    continue;
                 }
+                saveFile.add(savedTask);
             }
             return saveFile;
         } catch (FileNotFoundException e) {
             throw new DukeNoSaveFile();
         }
+    }
+
+    private Task createTask(String savedTask) {
+        String[] inputs = savedTask.split(" \\| ");
+        boolean isDone = !inputs[1].equals("0");
+        Task task = null;
+
+        switch (inputs[0]) {
+        case "T":
+            task = new ToDos(inputs[2], isDone);
+            break;
+        case "D":
+            task = new Deadlines(inputs[2], LocalDateTime.parse(inputs[3]), isDone);
+            break;
+        case "E":
+            String[] time = inputs[3].split("/");
+            task = new Events(inputs[2], LocalDateTime.parse(time[0]),
+                    LocalDateTime.parse(time[1]), isDone);
+            break;
+        default:
+            break;
+        }
+        return task;
     }
 
     /**

@@ -3,8 +3,8 @@ package duke.dukeexception;
 public class DukeTaskNotFound extends DukeException {
 
     private int index;
-    public DukeTaskNotFound(int idx) {
-        index = idx;
+    public DukeTaskNotFound(int index) {
+        this.index = index;
     }
     @Override
     public String toString() {

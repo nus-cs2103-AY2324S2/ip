@@ -4,9 +4,9 @@ public class DukeMissingArgument extends DukeException {
     private int need;
     private String command;
 
-    public DukeMissingArgument(int nd, String cmd) {
-        need = nd;
-        command = cmd;
+    public DukeMissingArgument(int need, String command) {
+        this.need = need;
+        this.command = command;
     }
     @Override
     public String toString() {

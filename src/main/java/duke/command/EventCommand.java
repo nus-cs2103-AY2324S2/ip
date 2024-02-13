@@ -13,15 +13,14 @@ public class EventCommand extends Command {
     private String inputs;
 
     public EventCommand(String command) {
-        inputs = command;
+        this.inputs = command;
     }
     public String execute(TaskList tasks, Storage storage) throws DukeException {
-        String timeFormat = "d/M/yyyy HHmm";
         try {
             String[] event = inputs.split(" /from ", 2);
             String[] time = event[1].split(" /to ");
-            LocalDateTime from = LocalDateTime.parse(time[0], DateTimeFormatter.ofPattern(timeFormat));
-            LocalDateTime to = LocalDateTime.parse(time[1], DateTimeFormatter.ofPattern(timeFormat));
+            LocalDateTime from = LocalDateTime.parse(time[0], DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+            LocalDateTime to = LocalDateTime.parse(time[1], DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
             return tasks.add(new Events(event[0], from, to, false));
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeMissingArgument(3, "event");

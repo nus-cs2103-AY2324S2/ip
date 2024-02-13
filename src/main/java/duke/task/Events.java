@@ -31,8 +31,14 @@ public class Events extends Task {
 
     @Override
     public String happenOn(LocalDate date) {
-        if ((date.isAfter(from.toLocalDate()) && date.isBefore(to.toLocalDate()))
-                || date.isEqual(from.toLocalDate()) || date.isEqual(to.toLocalDate())) {
+        boolean isAfterFrom = date.isAfter(from.toLocalDate());
+        boolean isBeforeTo = date.isBefore(to.toLocalDate());
+        boolean isOnFrom = date.isEqual(from.toLocalDate());
+        boolean isOnTo = date.isEqual(to.toLocalDate());
+        boolean isBetweenPeriod = isAfterFrom && isBeforeTo;
+        boolean isWithinPeriod = isBetweenPeriod || isOnFrom || isOnTo;
+
+        if (isWithinPeriod) {
             return taskInfo();
         }
         return "";
@@ -60,9 +66,11 @@ public class Events extends Task {
     @Override
     public String taskInfo() {
         String output = "";
+        String formattedFrom = from.format(DateTimeFormatter.ofPattern("MMM d yyyy, HHmm"));
+        String formattedTo = to.format(DateTimeFormatter.ofPattern("MMM d yyyy, HHmm"));
+
         output += "[E]";
         output += super.taskInfo();
-        return output + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy, HHmm")) + "hrs to: "
-                + to.format(DateTimeFormatter.ofPattern("MMM d yyyy, HHmm")) + "hrs)\n";
+        return output + " (from: " + formattedFrom + "hrs to: " + formattedTo + "hrs)\n";
     }
 }

@@ -1,12 +1,12 @@
 package duke.dukeexception;
 
 public class DukeInvalidArgument extends DukeException {
-    private String arguments;
+    private String args;
     public DukeInvalidArgument(String args) {
-        arguments = args;
+        this.args = args;
     }
     @Override
     public String toString() {
-        return String.format("%s The argument(s):\"%s\" you entered are invalid!", super.toString(), arguments);
+        return String.format("%s The argument(s):\"%s\" you entered are invalid!", super.toString(), args);
     }
 }

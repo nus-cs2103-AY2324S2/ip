@@ -17,7 +17,7 @@ public class TaskList {
      * Constructs an empty TaskList.
      */
     public TaskList() {
-        list = new ArrayList<>();
+        this.list = new ArrayList<>();
     }
 
     /**
@@ -25,7 +25,7 @@ public class TaskList {
      * @param saveFile An ArrayList containing the Tasks from previous usage
      */
     public TaskList(ArrayList<Task> saveFile) {
-        list = saveFile;
+        this.list = saveFile;
     }
 
     /**
@@ -48,6 +48,7 @@ public class TaskList {
         if (list.size() == 0) {
             return "The list is empty\n";
         }
+
         int index = 1;
         String output = "Here are the tasks in your list\n";
         for (Task item : list) {

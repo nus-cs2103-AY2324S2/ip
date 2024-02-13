@@ -13,7 +13,7 @@ public class CheckCommand extends Command {
     private String inputs;
 
     public CheckCommand(String command) {
-        inputs = command;
+        this.inputs = command;
     }
     public String execute(TaskList tasks, Storage storage) throws DukeException {
         try {

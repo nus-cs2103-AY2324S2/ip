@@ -25,7 +25,8 @@ public class Deadlines extends Task {
 
     @Override
     public String happenOn(LocalDate date) {
-        if (date.isEqual(by.toLocalDate())) {
+        boolean isOnBy = date.isEqual(by.toLocalDate());
+        if (isOnBy) {
             return taskInfo();
         }
         return "";
@@ -52,8 +53,10 @@ public class Deadlines extends Task {
     @Override
     public String taskInfo() {
         String output = "";
+        String formattedBy = by.format(DateTimeFormatter.ofPattern("MMM d yyyy, HHmm"));
+
         output += "[D]";
         output += super.taskInfo();
-        return output + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy, HHmm")) + "hrs)\n";
+        return output + " (by: " + formattedBy + "hrs)\n";
     }
 }
