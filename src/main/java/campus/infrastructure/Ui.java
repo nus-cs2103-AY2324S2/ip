@@ -26,6 +26,7 @@ public class Ui {
                 + "\n"
                 + "Hello! I'm Campus\n"
                 + "What can I do for you?\n"
+                + "Type in 'help' to get the full list of my commands!\n"
                 + "\n"
                 + LINE_BREAK;
 
