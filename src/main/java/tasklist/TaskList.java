@@ -23,6 +23,7 @@ public class TaskList {
 
     /**
      * Constructs a new {@code TaskList} instance with the specified list of tasks.
+     * 
      * @param tasksList The list of tasks.
      */
     public TaskList(ArrayList<Task> tasksList) {
@@ -31,6 +32,7 @@ public class TaskList {
 
     /**
      * Returns the number of tasks in the list.
+     * 
      * @return The number of tasks in the list
      */
     public int getTaskCount() {
@@ -39,6 +41,7 @@ public class TaskList {
 
     /**
      * Returns the list of tasks.
+     * 
      * @return The list of tasks
      */
     public ArrayList<Task> getTasksList() {
@@ -47,6 +50,7 @@ public class TaskList {
 
     /**
      * Returns the task at the specified index.
+     * 
      * @param index The index of the task
      * @return The task at the specified index
      */
@@ -57,15 +61,17 @@ public class TaskList {
     /**
      * Prints the list of tasks.
      */
-    public void printList() {
-        System.out.println("Here are the tasks in your list:");
+    public String printList() {
+        String listOutput = "";
         for (int i = 0; i < this.tasksList.size(); i++) {
-            System.out.println((i + 1) + ". " + this.tasksList.get(i));
+            listOutput += (i + 1) + ". " + this.tasksList.get(i) + "\n";
         }
+        return "Here are the tasks in your list:\n" + listOutput;
     }
 
     /**
      * Adds a task to the list.
+     * 
      * @param task The task to be added
      */
     public void addTask(Task task) {
@@ -74,6 +80,7 @@ public class TaskList {
 
     /**
      * Removes a task from the list at the specified index.
+     * 
      * @param index The index of the task to be removed
      */
     public void removeTask(int index) {

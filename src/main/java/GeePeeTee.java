@@ -1,6 +1,6 @@
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Scanner;
 
 import exception.GeePeeTeeException;
 import parser.Parser;
@@ -21,45 +21,46 @@ public class GeePeeTee {
 
     private TaskList taskList;
     private Storage storage;
+    private Parser parser;
     private Ui ui;
+    private String initializationErrorMessage = null; // Field to store initialization error message
 
     /**
      * Constructs a new {@code GeePeeTee} instance with the specified file path.
+     * 
      * @param filePath The file path to be associated with the application.
      */
     public GeePeeTee(String filePath) {
         ui = new Ui();
         try {
-            storage = new Storage("GeePeeTee.txt");
+            storage = new Storage(filePath);
             taskList = new TaskList(storage.loadTaskList());
+            parser = new Parser(taskList, storage, ui);
         } catch (FileNotFoundException e) {
-            ui.showFileNotFoundError();
+            initializationErrorMessage = ui.getFileNotFoundErrorMessage();
         } catch (IOException e) {
-            ui.showLoadingError();
+            initializationErrorMessage = ui.getLoadingErrorMessage();
         } catch (GeePeeTeeException e) {
-            ui.showErrorMessage(e.getMessage());
+            initializationErrorMessage = ui.getErrorMessage(e.getMessage());
         }
     }
 
     /**
-     * Runs the main loop of the application, processing user input and executing
-     * the corresponding commands.
+     * Gets the error message that occurred during initialization.
+     * 
+     * @return The error message that occurred during initialization
      */
-    public void run() {
-        String input = "";
-        ui.showWelcomeMessage();
-        Scanner scanner = new Scanner(System.in);
-        Parser parser = new Parser(taskList, storage, ui);
-        while (!input.equals("bye")) {
-            input = scanner.nextLine();
-            System.out.println("\n--------------------------------------------------");
-            if (input.equals("bye")) {
-                scanner.close();
-                ui.showGoodbyeMessage();
-            }
-            parser.parseInput(input);
+    public String getInitializationErrorMessage() {
+        return initializationErrorMessage;
+    }
 
-            System.out.println("--------------------------------------------------\n");
-        }
+    /**
+     * Processes the user input and returns the response.
+     * 
+     * @param input The user input to be processed
+     * @return The response to the user input
+     */
+    public String getResponse(String input) {
+        return parser.parseInput(input);
     }
 }
