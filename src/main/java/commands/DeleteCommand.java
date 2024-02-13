@@ -1,0 +1,28 @@
+package commands;
+
+import tasks.TaskList;
+import tasks.taskType.Task;
+
+public class DeleteCommand extends Command {
+    public DeleteCommand(String[] fullCommand, TaskList tasks) {
+        super(fullCommand, tasks);
+    }
+    @Override
+    public String execute() {
+        String single = tasks.size() <= 1 ? "task" : "tasks";
+        try {
+            Task currTask = tasks.getTask(Integer.parseInt(this.fullCommand[1]) - 1);
+            tasks.deleteTask(Integer.parseInt(this.fullCommand[1]) - 1);
+            return "Noted. I've removed this task:\n"
+                    + "    " + currTask + "\n"
+                    + "Now you have " + tasks.size() + " " + single + " in the task list.";
+        } catch (IndexOutOfBoundsException err) {
+            return "You only have "
+                    + tasks.size() + " " + single
+                    + " currently. Type \"tasks\" to view all your current "
+                    + single;
+        } catch (NumberFormatException err) {
+            return "Please enter a valid input";
+        }
+    }
+}

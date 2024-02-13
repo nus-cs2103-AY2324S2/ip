@@ -21,11 +21,11 @@ public class Fredricksen {
     }
 
     public void run() {
+        System.out.println("");
         ui.showWelcome();
         boolean isLoop = true;
         // while loop
         while (isLoop) {
-            System.out.println("");
             String task = "";
             try {
                 task = ui.readCommand();
@@ -37,8 +37,9 @@ public class Fredricksen {
             if (splitTask[0].equals("bye")) {
                 isLoop = false;
             } else {
-                Command command = new Command(task);
-                String response = command.execute(task, list, ui, store);
+                ParseInput parseInput = new ParseInput();
+                Command executableCommand = parseInput.getCommand(task, this.list);
+                String response = executableCommand.execute();
                 System.out.println(response);
             }
         }
@@ -52,8 +53,9 @@ public class Fredricksen {
      */
 
     public String getResponse(String input) {
-        Command command = new Command(input);
-        return command.execute(input, list, ui, store);
+        ParseInput parseInput = new ParseInput();
+        Command executableCommand = parseInput.getCommand(input, this.list);
+        return executableCommand.execute();
     }
 
     public static void main(String[] args) {
