@@ -28,15 +28,6 @@ public class TaskList {
     }
 
     /**
-     * To show welcome message to user.
-     *
-     * @param ui The ui to get the input of the user.
-     */
-    public String welcome(Ui ui) {
-        return Ui.showWelcome();
-    }
-
-    /**
      * To show goodbye message to user.
      *
      * @param ui The ui to get the input of the user.

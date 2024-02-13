@@ -64,10 +64,12 @@ public class Storage {
             if (!directory.exists()) {
                 directory.mkdir();
             }
+            assert directory.exists() : "File directory should already exist";
             File inputFile = new File("./data/tasks.txt");
             if (inputFile.createNewFile()) {
                 // new file created
             } else {
+                assert inputFile.exists() : "The file should already exist";
                 list = readTasks(inputFile);
             }
         } catch (FileNotFoundException e) {
