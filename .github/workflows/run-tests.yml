@@ -1,6 +1,14 @@
 name: Java CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - master
+    tags-ignore:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
 
 jobs:
   build:
