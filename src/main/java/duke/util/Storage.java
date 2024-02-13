@@ -16,6 +16,18 @@ public class Storage {
     private static String fileListPath = "./data/duke.txt";
     private ArrayList<String> listStates = new ArrayList<>();
 
+    private void addList(String str){
+        this.listStates.add(str);
+    }
+
+    private void removeList(int index){
+        this.listStates.remove(index);
+    }
+
+    private void setList(int index, String newRecord){
+        this.listStates.set(index, newRecord);
+    }
+
     /**
      * Access the stored lists and parse it into usable ArrayList of Task.
      * Each line of the stored file is read and parsed using a Parser.
@@ -31,7 +43,7 @@ public class Storage {
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 String str = s.nextLine();
-                listStates.add(str);
+                this.addList(str);
                 Parser.initializeTask(str, temp);
             }
         } catch (FileNotFoundException e) {
@@ -62,7 +74,7 @@ public class Storage {
      * @param index the given index of the task to be removed.
      */
     public void removeListStateRecord(int index) {
-        this.listStates.remove(index);
+        this.removeList(index);
         this.writeList();
     }
 
@@ -95,7 +107,7 @@ public class Storage {
         default:
             break;
         }
-        this.listStates.add(newRecord);
+        this.addList(newRecord);
         this.writeList();
     }
 
@@ -111,7 +123,7 @@ public class Storage {
         String[] record = this.listStates.get(index).split(" \\| ");
         record[1] = isMarking ? "1" : "0";
         String newRecord = String.join(" | ", record);
-        this.listStates.set(index, newRecord);
+        this.setList(index, newRecord);
         this.writeList();
     }
 

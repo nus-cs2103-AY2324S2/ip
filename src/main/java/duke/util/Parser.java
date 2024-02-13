@@ -47,27 +47,27 @@ public class Parser {
      * @param taskList the given Task ArrayList to be initialized.
      */
     public static void initializeTask(String input, ArrayList<Task> taskList) {
-        String[] data = input.split(" \\| ");
+        String[] commandComponents = input.split(" \\| ");
         Task task = new Task("");
-        assert(data[0].length() == 1);
-        switch (data[0]) {
+        assert(commandComponents[0].length() == 1);
+        switch (commandComponents[0]) {
         case "T":
-            task = new Todo(data[2]);
+            task = new Todo(commandComponents[2]);
             break;
         case "D":
-            LocalDateTime date = LocalDateTime.parse(data[3], DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
-            task = new Deadline(data[2], date);
+            LocalDateTime date = LocalDateTime.parse(commandComponents[3], DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
+            task = new Deadline(commandComponents[2], date);
             break;
         case "E":
-            LocalDateTime fromDate = LocalDateTime.parse(data[3], DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
-            LocalDateTime toDate = LocalDateTime.parse(data[4], DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
-            task = new Event(data[2], fromDate, toDate);
+            LocalDateTime fromDate = LocalDateTime.parse(commandComponents[3], DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
+            LocalDateTime toDate = LocalDateTime.parse(commandComponents[4], DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
+            task = new Event(commandComponents[2], fromDate, toDate);
             break;
         default:
             System.out.println("PROBLEM encountered with the saved data while loading");
             break;
         }
-        if (data[1].equals("1")) {
+        if (commandComponents[1].equals("1")) {
             task.mark();
         }
         taskList.add(task);
@@ -89,10 +89,10 @@ public class Parser {
      */
     public Command parse(String input) {
         Command command = new NoActionCommand(Cmd.none);
-        String[] cmds = input.split(" ", 2);
+        String[] commandComponents = input.split(" ", 2);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm");
         try {
-            switch (Cmd.valueOf(cmds[0])) {
+            switch (Cmd.valueOf(commandComponents[0])) {
             case bye:
                 command = new ByeCommand(Cmd.bye);
                 break;
@@ -100,31 +100,31 @@ public class Parser {
                 command = new ListTaskCommand(Cmd.list);
                 break;
             case mark:
-                command = new ToggleMarkTaskCommand(Cmd.mark, Integer.parseInt(cmds[1]));
+                command = new ToggleMarkTaskCommand(Cmd.mark, Integer.parseInt(commandComponents[1]));
                 break;
             case unmark:
-                command = new ToggleMarkTaskCommand(Cmd.unmark, Integer.parseInt(cmds[1]));
+                command = new ToggleMarkTaskCommand(Cmd.unmark, Integer.parseInt(commandComponents[1]));
                 break;
             case todo:
-                command = new AddTodoCommand(Cmd.todo, cmds[1]);
+                command = new AddTodoCommand(Cmd.todo, commandComponents[1]);
                 break;
             case deadline:
-                String[] deadlineData = cmds[1].split(" /by ", 2);
+                String[] deadlineData = commandComponents[1].split(" /by ", 2);
                 LocalDateTime date = LocalDateTime.parse(deadlineData[1], formatter);
                 command = new AddDeadlineCommand(Cmd.deadline, deadlineData[0], date);
                 break;
             case event:
-                String[] eventData = cmds[1].split(" /from ", 2);
+                String[] eventData = commandComponents[1].split(" /from ", 2);
                 String[] eventData2 = eventData[1].split(" /to ", 2);
                 LocalDateTime fromDate = LocalDateTime.parse(eventData2[0], formatter);
                 LocalDateTime toDate = LocalDateTime.parse(eventData2[1], formatter);
                 command = new AddEventCommand(Cmd.event, eventData[0], fromDate, toDate);
                 break;
             case find:
-                command = new FindCommand(Cmd.find, cmds[1]);
+                command = new FindCommand(Cmd.find, commandComponents[1]);
                 break;
             case delete:
-                command = new DeleteTaskCommand(Cmd.delete, Integer.parseInt(cmds[1]));
+                command = new DeleteTaskCommand(Cmd.delete, Integer.parseInt(commandComponents[1]));
                 break;
             default:
                 break;

@@ -32,7 +32,7 @@ public class ParserTest {
         LocalDateTime deadlineDate = LocalDateTime.of(2024, 3, 3, 23, 59);
         LocalDateTime eventFromDate = LocalDateTime.of(2024, 4, 3, 11, 0);
         LocalDateTime eventToDate = LocalDateTime.of(2024, 4, 3, 17, 0);
-        Parser p = new Parser();
+        Parser p = new Parser(new Ui());
 
         //test 1
         AddTodoCommand dummy1 = (AddTodoCommand) p.parse(todo);

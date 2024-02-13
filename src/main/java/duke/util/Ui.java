@@ -10,23 +10,7 @@ import duke.task.Task;
  * Messages are displayed through the console.
  */
 public class Ui {
-//    private String logo = "\t  __   __    ____  ____  ____  ____\n"
-//            + "\t / _\\ (  )  (  __)(  _ \\(  __)(    \\\n"
-//            + "\t/    \\/ (_/\\ ) _)  )   / ) _)  ) D (\n"
-//            + "\t\\_/\\_/\\____/(__)  (__\\_)(____)(____/\n";
-    private final String name = "Alfred";
-
     private String message = "";
-    /**
-     * Displays the given content between two lines to separate the output message.
-     *
-     * @param content the content to be printed.
-     */
-//    private static void printMessageWithLines(String content) {
-//        System.out.println("\t____________________________________________________________");
-//        System.out.println("\t" + content);
-//        System.out.println("\t____________________________________________________________\n");
-//    }
 
     /**
      * Displays a greeting message with the logo and the name of the chatbot and,
