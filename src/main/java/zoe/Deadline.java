@@ -8,13 +8,14 @@ import java.time.format.DateTimeFormatter;
  * Creates a deadline when keyed in the form: deadline XYZ /by yyyy-mm-dd
  */
 public class Deadline extends Task {
-
+    private static int DESCRIPTION = 0;
+    private static int DATE = 1;
     protected String date;
     protected String formattedDate;
     public Deadline(String desc) {
         String[] str = desc.split("/by ");
-        this.description = str[0];
-        this.date = str[1];
+        this.description = str[DESCRIPTION];
+        this.date = str[DATE];
         LocalDate inputDate = LocalDate.parse(date);
         this.formattedDate = inputDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         this.type = "D";
@@ -23,12 +24,14 @@ public class Deadline extends Task {
 
     public Deadline(String desc, String isDoneNumber) {
         String[] str = desc.split("/by ");
-        this.description = str[0];
-        this.date = str[1];
+        this.description = str[DESCRIPTION];
+        this.date = str[DATE];
         LocalDate inputDate = LocalDate.parse(date);
         this.formattedDate = inputDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         this.type = "D";
-        this.isDone = isDoneNumber.equals("1");
+        assert Integer.parseInt(isDoneNumber) < 2 : "Data file corrupted, invalid state";
+        assert Integer.parseInt(isDoneNumber) >= 0 : "Data file corrupted, invalid state";
+        this.isDone = isDoneNumber.equals(DoneStates.Done);
     }
 
     @Override

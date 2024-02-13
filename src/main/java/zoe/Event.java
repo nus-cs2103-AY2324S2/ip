@@ -5,24 +5,29 @@ package zoe;
  * Creates an event when keyed in the form: event XYZ /from 123 /to 123
  */
 public class Event extends Task {
+    private static int DESCRIPTION = 0;
+    private static int FROM = 1;
+    private static int TO = 2;
     protected String from;
     protected String to;
     public Event(String desc) {
         String[] str = desc.split("/");
-        this.description = str[0];
-        this.from = str[1].split(" ",2)[1];
-        this.to = str[2].split(" ", 2)[1];
+        this.description = str[DESCRIPTION];
+        this.from = str[FROM].split(" ",2)[1];
+        this.to = str[TO].split(" ", 2)[1];
         this.type = "E";
         this.isDone = false;
     }
 
     public Event(String desc, String isDoneNumber) {
         String[] str = desc.split("/");
-        this.description = str[0];
-        this.from = str[1].split(" ",2)[1];
-        this.to = str[2].split(" ", 2)[1];
+        this.description = str[DESCRIPTION];
+        this.from = str[FROM].split(" ",2)[1];
+        this.to = str[TO].split(" ", 2)[1];
         this.type = "E";
-        this.isDone = isDoneNumber.equals("1");
+        assert Integer.parseInt(isDoneNumber) < 2 : "Data file corrupted, invalid state";
+        assert Integer.parseInt(isDoneNumber) >= 0 : "Data file corrupted, invalid state";
+        this.isDone = isDoneNumber.equals(DoneStates.Done);
     }
 
     @Override
