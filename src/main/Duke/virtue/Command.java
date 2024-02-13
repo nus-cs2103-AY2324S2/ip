@@ -1,5 +1,8 @@
 package virtue;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 public class Command {
     // The available types of commands in Virtue.
     public enum CommandType {
@@ -34,9 +37,9 @@ public class Command {
     protected CommandType type;
     protected int index;
     protected String description;
-    protected String by;
-    protected String from;
-    protected String to;
+    protected VirtueDateTime by;
+    protected VirtueDateTime from;
+    protected VirtueDateTime to;
 
     public Command(String command) throws VirtueException {
         this.command = command;
@@ -110,23 +113,38 @@ public class Command {
     }
 
     // Gets the deadline for a deadline command.
-    private String getBy() {
+    private VirtueDateTime getBy() throws VirtueDateTimeException {
         String firstWordRemoved = command.split(" ", 2)[1];
-        return firstWordRemoved.split(" /by ", 2)[1];
+        String dateTimeStr = firstWordRemoved.split(" /by ", 2)[1];
+        try {
+            return new VirtueDateTime(dateTimeStr);
+        } catch (DateTimeParseException e) {
+            throw new VirtueDateTimeException("by", type.toString());
+        }
     }
 
     // Gets the start for a deadline command.
-    private String getFrom() {
+    private VirtueDateTime getFrom() throws VirtueDateTimeException {
         String firstWordRemoved = command.split(" ", 2)[1];
         String fromAndTo = firstWordRemoved.split(" /from ", 2)[1];
-        return fromAndTo.split(" /to ", 2)[0];
+        String dateTimeStr = fromAndTo.split(" /to ", 2)[0];
+        try {
+            return new VirtueDateTime(dateTimeStr);
+        } catch (DateTimeParseException e) {
+            throw new VirtueDateTimeException("from", type.toString());
+        }
     }
 
     // Gets the end for a deadline command.
-    private String getTo() {
+    private VirtueDateTime getTo() throws VirtueDateTimeException {
         String firstWordRemoved = command.split(" ", 2)[1];
         String fromAndTo = firstWordRemoved.split(" /from ", 2)[1];
-        return fromAndTo.split(" /to ", 2)[1];
+        String dateTimeStr = fromAndTo.split(" /to ", 2)[1];
+        try {
+            return new VirtueDateTime(dateTimeStr);
+        } catch (DateTimeParseException e) {
+            throw new VirtueDateTimeException("to", type.toString());
+        }
     }
 
     public boolean isBye() {

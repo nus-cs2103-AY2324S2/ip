@@ -68,10 +68,14 @@ public class Virtue {
 
     // Runs the chatbot.
     private void run() {
-        taskList = VirtueFileReader.initializeTaskList();
-        greet();
-        takeInputsUntilBye();
-        bye();
+        try {
+            taskList = VirtueFileReader.initializeTaskList();
+            greet();
+            takeInputsUntilBye();
+            bye();
+        } catch (VirtueDateTimeException e) {
+            System.out.println("OOPS! There is a date not in the correct format.");
+        }
     }
 
     public static void main(String[] args) {
