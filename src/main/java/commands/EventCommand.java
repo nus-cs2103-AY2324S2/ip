@@ -60,12 +60,10 @@ public class EventCommand extends Command {
                 try {
                     Task event = new Event(desc, LocalDate.parse(start), LocalDate.parse(end));
                     tasks.addTasks(event);
-                    try {
-                        storage.appendToFile(tasks);
-                    } catch (IOException e) {
-                        return e.getMessage();
-                    }
+                    storage.appendToFile(tasks);
                     return String.format(SUCCESS_MESSAGE, event, tasks.numTasks());
+                } catch (IOException e) {
+                    return e.getMessage();
                 } catch (DateTimeParseException e) {
                     throw new EventFormatException();
                 }
