@@ -1,7 +1,7 @@
 package duke;
 
-import java.util.Scanner;
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
@@ -20,17 +20,23 @@ import duke.tasks.TaskList;
  * Represents a chat bot to keep track of user's duke.tasks.
  */
 public class Duke extends Application {
+    @FXML
     private ScrollPane scrollPane;
+    @FXML
     private VBox dialogContainer;
+    @FXML
     private TextField userInput;
+    @FXML
     private Button sendButton;
+    @FXML
     private Scene scene;
 
     private static TaskList list = new TaskList();
-    private Ui ui;
+    private Parser parser = new Parser();
 
     private Image user = new Image(this.getClass().getResourceAsStream("/images/IMG_1297.jpg"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/IMG_1296.jpg"));
+
     @Override
     public void start(Stage stage) {
         //Step 1. Setting up required components
@@ -80,6 +86,10 @@ public class Duke extends Application {
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
+        //Show intro
+        Label intro = new Label(parser.showIntro());
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(intro, new ImageView(duke)));
+
         //Part 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> {
             handleUserInput();
@@ -88,9 +98,6 @@ public class Duke extends Application {
         userInput.setOnAction((event) -> {
             handleUserInput();
         });
-
-        Label intro = new Label(Ui.INTRO);
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(intro, new ImageView(duke)));
 
     }
 
@@ -113,9 +120,12 @@ public class Duke extends Application {
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
+    @FXML
     private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
+        String input = userInput.getText();
+        String ans = getResponse(input);
+        Label userText = new Label(input);
+        Label dukeText = new Label(ans);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
                 DialogBox.getDukeDialog(dukeText, new ImageView(duke))
@@ -128,18 +138,30 @@ public class Duke extends Application {
      * Replace this stub with your completed method.
      */
     private String getResponse(String input) {
-        return "Duke heard: " + input;
+        if (input.isEmpty()) {
+            return "oi talk to me la";
+        }
+        if (input.equals(null)) {
+            return "oi talk to me la";
+        }
+        if (input.equals("bye")) {
+            return parser.showOutro();
+        }
+        try {
+            return parser.processLine(input, list);
+        } catch (DukeException e) {
+            return parser.showLoadingError(e.getMessage());
+        }
     }
 
     /**
      * Constructor for the chat bot.
      */
     public Duke() {
-        ui = new Ui();
         try {
             Storage.loadFileContents(list);
         } catch (DukeException e) {
-            ui.showLoadingError(e.getMessage());
+            parser.showLoadingError(e.getMessage());
         }
     }
 
@@ -148,35 +170,8 @@ public class Duke extends Application {
      * @param args The arguments to be passed into the main method.
      */
     public static void main(String[] args) {
-        new Duke().run();
     }
-    /**
-     * Runs the chat bot.
-     */
-    public void run() {
-        Scanner sc = new Scanner(System.in);
-        Parser parser = new Parser();
-        ui.showIntro();
 
-        String original = sc.nextLine();
-
-        while (!original.equals("bye")) {
-            try {
-                parser.processLine(original, list, ui);
-            } catch (DukeException e) {
-                ui.showLoadingError(e.getMessage());
-            }
-            original = sc.nextLine();
-        }
-
-        try {
-            Storage.writeToFile(list);
-        } catch (DukeException e) {
-            ui.showLoadingError(e.getMessage());
-        }
-        ui.showOutro();
-        sc.close();
-    }
 }
 
 
