@@ -23,9 +23,9 @@ public class UnmarkCommand extends Command {
     /**
      * {@inheritDoc}
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws CoDriverException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws CoDriverException {
         tasks.unmarkTask(index);
-        ui.showUnmarkTask(tasks.get(index - 1));
+        return ui.showUnmarkTask(tasks.get(index - 1));
     }
 
     /**

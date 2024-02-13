@@ -24,10 +24,10 @@ public class DeleteCommand extends Command {
     /**
      * {@inheritDoc}
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws CoDriverException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws CoDriverException {
         Task task = tasks.get(index);
         tasks.deleteTask(index);
-        ui.showDeleteTask(task, tasks.size());
+        return ui.showDeleteTask(task, tasks.size());
     }
 
     /**

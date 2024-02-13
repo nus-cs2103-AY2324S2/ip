@@ -31,10 +31,10 @@ public class DeadlineCommand extends Command {
     /**
      * {@inheritDoc}
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws CoDriverException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws CoDriverException {
         Task newTask = new Deadline(this.description, this.date);
         tasks.addTask(newTask);
-        ui.showAddTask(newTask, tasks.size());
+        return ui.showAddTask(newTask, tasks.size());
     }
 
     /**
