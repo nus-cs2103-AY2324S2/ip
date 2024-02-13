@@ -168,7 +168,7 @@ public class Duke extends Application {
         try {
             Command command = Parser.parse(userInputText);
             command.execute(tasks, ui, storage);
-            if (command instanceof DeleteCommand || command instanceof AddTodoCommand || command instanceof AddEventCommand || command instanceof AddDeadlineCommand || command instanceof ListCommand) {
+            if (command instanceof DeleteCommand || command instanceof AddTodoCommand || command instanceof AddEventCommand || command instanceof AddDeadlineCommand || command instanceof ListCommand || command instanceof MarkCommand || command instanceof UnmarkCommand) {
                 // Show updated task list after adding/deleting a task or when list command is invoked
                 response = ui.showTaskList(tasks);
             } else if (command instanceof FindCommand) {
@@ -533,7 +533,7 @@ class TaskList {
     private ArrayList<Task> tasks;
 
     public TaskList(ArrayList<Task> tasks) {
-
+        assert tasks != null : "Task list cannot be null";
         this.tasks = tasks;
     }
 
@@ -543,8 +543,9 @@ class TaskList {
     }
 
     public void addTask(Task task) {
-
+        int initialSize = tasks.size();
         tasks.add(task);
+        assert tasks.size() == initialSize + 1 : "Task list size should increase by 1";
     }
 
     public Task removeTask(int index) {
@@ -553,7 +554,7 @@ class TaskList {
     }
 
     public Task getTask(int index) {
-
+        assert index >= 0 && index < tasks.size() : "Task index is out of bounds";
         return tasks.get(index);
     }
 
@@ -842,6 +843,7 @@ class FindCommand extends Command {
     private String test;
 
     public FindCommand(String keyword) {
+        assert keyword != null && !keyword.trim().isEmpty() : "Keyword for find command cannot be empty";
         this.keyword = keyword;
     }
 
