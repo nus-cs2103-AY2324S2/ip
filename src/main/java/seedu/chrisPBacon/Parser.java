@@ -1,6 +1,6 @@
 package seedu.chrisPBacon;
 
-import seedu.exceptions.DukeException;
+import seedu.exceptions.ChrisPBaconException;
 import seedu.exceptions.InvalidTaskNameException;
 import seedu.task.Task;
 import seedu.task.TaskList;
@@ -64,10 +64,10 @@ public class Parser extends Ui {
                     break;
                 default:
                     // if user entered input that cannot be recognised.
-                    throw new DukeException("Ooink oink! I'm sorry, I don't understand.\n"
+                    throw new ChrisPBaconException("Ooink oink! I'm sorry, I don't understand.\n"
                             + "Type 'help' for command info!\n");
                 }
-            } catch (DukeException | InvalidTaskNameException e) {
+            } catch (ChrisPBaconException | InvalidTaskNameException e) {
                 super.printError(e.getMessage());
             }
             userInput = scan.nextLine(); // Scan for next input.
