@@ -162,15 +162,12 @@ public class TaskList {
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;
-        }
-
-        if (obj.getClass() != this.getClass()) {
+        } else if (obj.getClass() != this.getClass()) {
             return false;
         }
 
         TaskList tl = (TaskList) obj;
-
-        return Duke.tasks.equals(tl.list);
+        return this.list.equals(tl.list);
     }
 
 }

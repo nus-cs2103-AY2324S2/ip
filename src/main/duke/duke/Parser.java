@@ -163,7 +163,6 @@ public class Parser {
                 throw new DukeErroneousArgumentException();
             }
             break;
-
         case DEADLINE: // Command: deadline taskName /by when
             if (inputs.length < 4) {
                 throw new DukeEmptyArgumentException();
@@ -171,7 +170,6 @@ public class Parser {
                 throw new DukeErroneousArgumentException();
             }
             break;
-
         case EVENT: // Command: event taskName /from start /to end
             if (inputs.length < 6) {
                 throw new DukeEmptyArgumentException();
