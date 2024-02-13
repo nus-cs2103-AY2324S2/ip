@@ -38,10 +38,8 @@ public class Task {
     public void changeStatus(String status) {
         if (status.equals("mark")) {
             this.status = "[X]";
-            System.out.println("Nice! I've marked this task as done:");
         } else if (status.equals("unmark")) {
             this.status = "[ ]";
-            System.out.println("OK, I've marked this task as not done yet:");
         }
     }
 
