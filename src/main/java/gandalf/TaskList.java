@@ -1,4 +1,4 @@
-package GandalfBot;
+package gandalf;
 
 import java.util.ArrayList;
 
@@ -28,7 +28,7 @@ public class TaskList {
      * @param date1
      * @param date2
      */
-    public void add(String taskType, String taskName, String date1, String date2) {
+    public void add(String taskType, String taskName, String date1, String date2) throws GandalfException {
         if(taskType.equals("todo")) {
             Task currentTask = new ToDos(taskName);
             this.list.add(currentTask);
@@ -44,6 +44,9 @@ public class TaskList {
             this.list.add(currentTask);
             System.out.println("added new task: " + currentTask);
         }
+        else{
+            throw new GandalfException("I do not recognize this command");
+        }
     }
     /**
      * Given the number, delete the corresponding task on the list.
@@ -57,8 +60,16 @@ public class TaskList {
         System.out.println("Total number of tasks so far: " + this.list.size());
     }
 
-    public void mark(String taskName) {
+    public void mark(int taskIndex) {
+        Task correspondingTask = list.get(taskIndex - 1);
+        correspondingTask.markStatus(true);
+        System.out.println(correspondingTask);
+    }
 
+    public void unmark(int taskIndex) {
+        Task correspondingTask = list.get(taskIndex - 1);
+        correspondingTask.markStatus(false);
+        System.out.println(correspondingTask);
     }
 }
 

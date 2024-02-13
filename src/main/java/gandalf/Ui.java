@@ -1,11 +1,11 @@
-package GandalfBot;
+package gandalf;
 
 public class Ui {
     public Ui() {
 
     }
     public void welcome() {
-        System.out.println("Through fire and shadow, I'm GandalfBot.Gandalf");
+        System.out.println("Through fire and shadow, I'm Gandalf");
         System.out.println("What can I do for you?\n");
     }
 

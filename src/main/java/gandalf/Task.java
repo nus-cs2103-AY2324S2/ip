@@ -1,4 +1,4 @@
-package GandalfBot;
+package gandalf;
 
 import java.io.Serializable;
 

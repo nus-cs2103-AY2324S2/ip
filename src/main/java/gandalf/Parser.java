@@ -1,4 +1,4 @@
-package GandalfBot;
+package gandalf;
 
 /**
  * Class to interpret user's input
@@ -10,17 +10,13 @@ public class Parser {
         this.userInput = userInput;
     }
 
-<<<<<<< HEAD
     /**
      * Interprets the instance-level userInput field by checking for double spacing and structure it to the
      * different information types
      *
      * @return An array of stringbuilders containing the various information required
      */
-    public StringBuilder[] interpret(){
-=======
     public StringBuilder[] interpret() {
->>>>>>> A-CodingStandard
         StringBuilder taskType = new StringBuilder();
         StringBuilder taskName = new StringBuilder();
         StringBuilder date1 = new StringBuilder();
