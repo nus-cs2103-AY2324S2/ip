@@ -67,6 +67,6 @@ public class Event extends Task {
         String info = String.format("(from: %s to: %s)",
                 start.format(DateTimeFormatter.ofPattern("MMM d yyyy")),
                 end.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
-        return String.format("[E]%s%s %s", this.getStatusIcon(), super.toString(), info);
+        return String.format("[E]%s %s %s", this.getStatusIcon(), super.toString(), info);
     }
 }

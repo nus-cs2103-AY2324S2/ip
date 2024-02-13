@@ -53,6 +53,7 @@ public class Ui {
         case "todo":
         case "deadline":
         case "event":
+        case "recur":
             return Storage.addTask();
         case "find":
             return Storage.findTask();
