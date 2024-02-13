@@ -1,3 +1,5 @@
+package Luke;
+
 public class Parser {
     private String[] validCommands;
 
