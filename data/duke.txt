@@ -1,3 +1,0 @@
-1 todo book
-1 todo read book
-0 deadline cook /by 2022-01-01
