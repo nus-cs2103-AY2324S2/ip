@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import me.ruibin.leto.ui.MainWindow;
-import me.ruibin.leto.Leto;
 
 /**
  * A GUI for Duke using FXML.

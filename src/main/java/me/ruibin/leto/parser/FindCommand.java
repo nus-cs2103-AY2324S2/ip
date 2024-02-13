@@ -1,13 +1,13 @@
 package me.ruibin.leto.parser;
 
-import me.ruibin.leto.ui.Ui;
-import me.ruibin.leto.tasklist.Task;
-import me.ruibin.leto.tasklist.TaskList;
+import static me.ruibin.leto.ui.Ui.letoSpeak;
 
 import java.util.List;
 import java.util.function.Function;
 
-import static me.ruibin.leto.ui.Ui.letoSpeak;
+import me.ruibin.leto.tasklist.Task;
+import me.ruibin.leto.tasklist.TaskList;
+import me.ruibin.leto.ui.Ui;
 
 /** Command for printing tasks found by a keyword search. */
 public class FindCommand implements Function<String, Result> {

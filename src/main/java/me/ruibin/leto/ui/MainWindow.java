@@ -7,7 +7,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
 import me.ruibin.leto.Leto;
 import me.ruibin.leto.parser.Result;
 import me.ruibin.leto.parser.ResultTypes;
@@ -33,6 +32,9 @@ public class MainWindow extends AnchorPane {
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/duke_leto.png"));
 
 
+    /**
+     * Initializes the main window of the app. Display welcome message.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

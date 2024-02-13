@@ -27,7 +27,6 @@ public class Leto {
      * Replace this stub with your completed method.
      */
     public Result getResponse(String inputs) {
-//        return "Duke heard: " + input;
         return Parser.readAndExecute(inputs);
     }
 }

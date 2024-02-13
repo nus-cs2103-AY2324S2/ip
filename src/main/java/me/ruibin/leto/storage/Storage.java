@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.ruibin.leto.parser.Result;
-import me.ruibin.leto.parser.ResultTypes;
 import me.ruibin.leto.tasklist.Deadline;
 import me.ruibin.leto.tasklist.Event;
 import me.ruibin.leto.tasklist.InvalidTaskException;

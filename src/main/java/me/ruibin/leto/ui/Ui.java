@@ -57,7 +57,8 @@ public class Ui {
         return toReturn;
     }
 
-    /** Print the standard help message.
+    /**
+     * Print the standard help message.
      *
      * @return String printed.
      * */

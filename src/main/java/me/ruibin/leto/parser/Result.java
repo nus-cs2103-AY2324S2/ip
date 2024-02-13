@@ -1,5 +1,9 @@
 package me.ruibin.leto.parser;
 
+/**
+ * Class for storing status of commands and output to be printed so far.
+ * Contains the latestException if any.
+ */
 public class Result {
     private ResultTypes type;
     private StringBuilder messageBuilder;
@@ -45,18 +49,30 @@ public class Result {
     }
 
     /**
-     * Changes the result type
+     * Changes the result type.
      *
-     * @param newType new Result Type
+     * @param newType new Result Type.
      */
     public void updateType(ResultTypes newType) {
         type = newType;
     }
 
+    /**
+     * Return type of result.
+     *
+     * @return The type part of <code>ResultTypes</code>.
+     */
     public ResultTypes getType() {
         return type;
     }
 
+    /**
+     * Update result to become of type Error and update message and
+     * exception stored.
+     *
+     * @param message New message to append.
+     * @param e Latest Exception to store.
+     */
     public void updateWithException(String message, Exception e) {
         type = ResultTypes.ERROR;
         messageBuilder.append(message);

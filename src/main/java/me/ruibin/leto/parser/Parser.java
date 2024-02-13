@@ -2,9 +2,11 @@ package me.ruibin.leto.parser;
 
 import java.util.Scanner;
 
-import javafx.util.Pair;
 import me.ruibin.leto.ui.Ui;
 
+/**
+ * Class for Parsing command and carrying out commands.
+ */
 public class Parser {
     private static Scanner sc = new Scanner(System.in);
 
