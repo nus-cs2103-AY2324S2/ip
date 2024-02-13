@@ -1,4 +1,6 @@
-import duke.*;
+package duke;
+
+import duke.command.Command;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -6,11 +8,13 @@ import java.io.IOException;
 public class Duke {
     private Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private final String FILE_PATH = "data/duke.txt";
 
-    public Duke(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
+    /**
+     * Constructor for Duke
+     */
+    public Duke() {
+        storage = new Storage(FILE_PATH);
         try {
             tasks = new TaskList(storage.load(), storage);
         } catch (DukeException | FileNotFoundException e) {
@@ -18,23 +22,25 @@ public class Duke {
         }
     }
 
-    public void run() throws IOException {
-        ui.showWelcome();
-        Command command;
-        do {
-            String input = ui.readInput();
-            command = new Parser().parse(input);
-            command.execute(tasks, storage);
-        } while (!ExitCommand.isExit(command));
-        exit();
+    /**
+     * Gets the response from Duke
+     * @param input the input from the user
+     * @return the response from Duke
+     */
+    public String getResponse(String input) {
+        try {
+            Command command = new Parser().parse(input);
+            return command.execute(tasks, storage);
+        } catch (DukeException e) {
+            return e.getMessage();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public void exit() {
-        ui.showGoodbyeMessage();
-        System.exit(0);
+    public String getGreeting() {
+        return "Hello! I'm Taro\nWhat can I do for you?";
     }
-    public static void main(String[] args) throws IOException {
-        new Duke("data/duke.txt").run();
-    }
+
 }
 

@@ -1,7 +1,8 @@
 package duke;
 
-import duke.ExitCommand;
-import duke.IncorrectCommand;
+import duke.command.Command;
+import duke.command.ExitCommand;
+import duke.command.IncorrectCommand;
 
 /**
  * Parses user input.

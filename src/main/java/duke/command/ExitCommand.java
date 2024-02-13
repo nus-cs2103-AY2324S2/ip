@@ -1,4 +1,7 @@
-package duke;
+package duke.command;
+
+import duke.Storage;
+import duke.TaskList;
 
 /**
  * Represents a command to exit the program.
@@ -13,7 +16,8 @@ public class ExitCommand extends Command {
      * @param tasks The list of tasks.
      * @param storage The storage object.
      */
-    public void execute(TaskList tasks, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**

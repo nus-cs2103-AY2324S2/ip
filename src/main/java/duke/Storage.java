@@ -24,12 +24,17 @@ public class Storage {
      * @return The file.
      * @throws DukeException If an error occurs while creating the file.
      */
-    public File load() throws DukeException{
+    public File load() throws DukeException {
         if (!file.exists()) {
-            file.getParentFile().mkdirs();
-            throw new DukeException("File does not exist. Creating a new file.");
+            try {
+                file.getParentFile().mkdirs();
+                throw new DukeException();
+            } catch (DukeException e) {
+                throw new DukeException("Something went wrong: " + e);
+            }
+        } else {
+            return file;
         }
-        return file;
     }
 
     /**

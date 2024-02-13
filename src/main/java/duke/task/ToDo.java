@@ -1,6 +1,6 @@
-package duke;
+package duke.task;
 
-import duke.Task;
+import duke.task.Task;
 
 /**
  * Represents a task that needs to be done.

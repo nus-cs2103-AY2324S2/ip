@@ -1,7 +1,7 @@
 package duke;
 
 /**
- * Class that represents a Duke-specific exception
+ * Class that represents a duke.Duke-specific exception
  */
 public class DukeException extends Exception {
     public DukeException() {

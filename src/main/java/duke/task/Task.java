@@ -1,4 +1,4 @@
-package duke;
+package duke.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -9,7 +9,7 @@ import java.time.temporal.ChronoUnit;
  * Represents a task in the task list.
  */
 public class Task {
-    protected String description;
+    public String description;
     protected int isDone;
 
     public Task(String description, int isDone) {
@@ -28,7 +28,6 @@ public class Task {
             String date = ld.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
             return date;
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format. Please enter a date in yyyy-MM-dd format.");
             return null;
         }
     }
