@@ -17,11 +17,8 @@ public class Ui {
     /**
      * The first message to be printed after load is complete.
      */
-    public void greetUser() {
-        System.out.println(DELIMITER);
-        System.out.println("Hello! I'm drew.Drew");
-        System.out.println("What can I do for you?");
-        System.out.println(DELIMITER);
+    public static String greetUser() {
+        return "Hello! I'm drew!\n What can I do for you?";
     }
 
     /**

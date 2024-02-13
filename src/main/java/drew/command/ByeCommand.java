@@ -1,11 +1,7 @@
 package drew.command;
 
 import drew.storage.TaskList;
-import drew.task.Deadline;
-import drew.task.Task;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
+import drew.storage.Storage;
 
 public class ByeCommand extends Command {
     public static final Command BYE = new ByeCommand("");
@@ -18,8 +14,9 @@ public class ByeCommand extends Command {
         return BYE;
     }
     @Override
-    public String execute(TaskList tasks) throws IllegalArgumentException {
-        return "Bye";
+    public String execute(TaskList tasks, Storage storage) throws IllegalArgumentException {
+        storage.save(tasks);
+        return "Bye. Hope to see you again soon!";
     }
 
     public static boolean isByeCommand(int inputLength, String input) {
