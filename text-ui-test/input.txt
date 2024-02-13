@@ -1,0 +1,8 @@
+todo hi
+deadline hw /monday
+event jb /tues /wed
+mark 1
+mark 2
+unmark 1
+list
+bye

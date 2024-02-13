@@ -1,7 +1,26 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+____________________________________________________________
+Hello! I'm Jux
+What can I do for you?
 
+You entered:
+[T][ ]hi
+You now have 1 task remaining
+You entered:
+[D][ ]hw (monday)
+You now have 2 tasks remaining
+You entered:
+[E][ ]jb (tues wed)
+You now have 3 tasks remaining
+Nice! I've marked this task as done:
+[T][X]hi
+Nice! I've marked this task as done:
+[D][X]hw (monday)
+OK, I've marked this task as not done yet:
+[T][ ]hi
+Here are the tasks in your list!
+1.[T][ ]hi
+2.[D][X]hw (monday)
+3.[E][ ]jb (tues wed)
+____________________________________________________________
+Bye. Hope to see you again soon!
+____________________________________________________________
