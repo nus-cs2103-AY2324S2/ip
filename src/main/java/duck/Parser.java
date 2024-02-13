@@ -1,8 +1,10 @@
-package duke;
+package duck;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * The Parser class is responsible for parsing user input and generating corresponding commands.
@@ -33,6 +35,34 @@ public class Parser {
             return Integer.parseInt(indexString) - 1;
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new DukeException("Please enter a valid task index :(");
+        }
+    }
+
+    /**
+     * Parses the tag from the user input.
+     *
+     * @param userInput The user input to parse.
+     * @return The parsed tag.
+     * @throws DukeException If an error occurs while parsing the tag.
+     */
+    /**
+     * Parses the tag number and tag from the user input.
+     *
+     * @param userInput The user input to parse.
+     * @return An array containing the tag number and tag.
+     * @throws DukeException If an error occurs while parsing the tag.
+     */
+    public static String[] parseTag(String userInput) throws DukeException {
+        // Assuming the input is in the format "tag 1 impt"
+        Pattern pattern = Pattern.compile("tag (\\d+) (.+)");
+        Matcher matcher = pattern.matcher(userInput);
+
+        if (matcher.find()) {
+            String tagNumber = matcher.group(1);
+            String tag = matcher.group(2);
+            return new String[]{tagNumber, tag};
+        } else {
+            throw new DukeException("Please enter a valid tag command :(");
         }
     }
 
@@ -77,6 +107,16 @@ public class Parser {
         case "find":
             String keyword = parts.length > 1 ? parts[1].trim() : "";
             return new FindCommand(keyword);
+        case "tag":
+            String[] tagArray = parseTag(userInput);
+            int tagIndex = Integer.parseInt(tagArray[0]) - 1;
+            String tagName = tagArray[1];
+            return new TagCommand(tagIndex, tagName);
+        case "untag":
+            int unTag = parseTaskIndex(userInput);
+            return new UntagCommand(unTag);
+        case "help":
+            return new HelpCommand();
         case "todo":
         case "deadline":
         case "event":

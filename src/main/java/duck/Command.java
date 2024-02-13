@@ -1,4 +1,4 @@
-package duke;
+package duck;
 
 /**
  * The Command interface represents an executable command that can be performed

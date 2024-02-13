@@ -1,4 +1,4 @@
-package duke;
+package duck;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected String tag;
 
     /**
      * Constructs a Task with the given description.
@@ -18,6 +19,7 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.tag = null;
     }
 
     /**
@@ -30,12 +32,46 @@ public class Task {
     }
 
     /**
+     * Sets the tag of the task.
+     *
+     * @param tagged The tag of the task.
+     */
+    public void setTag(String tagged) {
+        tag = tagged;
+    }
+
+    public void clearTag() {
+        tag = null;
+    }
+
+    /**
      * Gets the description of the task.
      *
      * @return The description of the task.
      */
     public String getDescription() {
         return description;
+    }
+
+    /**
+     * Gets the tag of the task.
+     *
+     * @return The tag of the task.
+     */
+    public String getTag() {
+        if (tag == null) {
+            return "";
+        } else {
+            return tag;
+        }
+    }
+
+    public String tagString(String tag) {
+        if (tag == null) {
+            return "";
+        } else {
+            return "#" + tag;
+        }
     }
 
     /**
@@ -89,6 +125,11 @@ class Todo extends Task {
     public String getStatusIcon() {
         return "T"; // Commands.Todo tasks have "T" as their status icon
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + " " + tagString(tag);
+    }
 }
 
 class Deadline extends Task {
@@ -131,7 +172,8 @@ class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + ")";
+        return super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + ")"
+                + " " + tagString(tag);
     }
 }
 
@@ -191,6 +233,7 @@ class Event extends Task {
     @Override
     public String toString() {
         return super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-                + " to: " + to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + ")";
+                + " to: " + to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + ")"
+                + " " + tagString(tag);
     }
 }

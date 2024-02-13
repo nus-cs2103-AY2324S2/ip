@@ -1,4 +1,4 @@
-package duke;
+package duck;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -22,7 +22,7 @@ import javafx.stage.Stage;
  * The main class for the Duck chatbot application.
  * Duke extends the JavaFX Application class and provides the graphical user interface for the chatbot.
  */
-public class Duke extends Application {
+public class Duck extends Application {
     private static final String FILE_PATH = "./data/duke.txt";
     private Image user = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/bot.png"));
@@ -40,7 +40,7 @@ public class Duke extends Application {
     private Button sendButton;
     private Scene scene;
 
-    public Duke() {
+    public Duck() {
 
     }
 
@@ -124,7 +124,8 @@ public class Duke extends Application {
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
         dialogContainer.getChildren().addAll(
-                getDialogLabel("Welcome to Duck Chatbot! How can I assist you today?")
+                getDialogLabel("Welcome to Duck Chatbot! How can I assist you today? " +
+                        "Use help to see the list of commands available")
         );
 
         sendButton.setOnMouseClicked((event) -> {

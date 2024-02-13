@@ -1,4 +1,4 @@
-package duke;
+package duck;
 
 import java.io.IOException;
 

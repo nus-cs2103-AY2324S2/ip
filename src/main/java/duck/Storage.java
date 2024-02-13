@@ -1,5 +1,5 @@
 
-package duke;
+package duck;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -125,17 +125,18 @@ class TaskListEncoder {
      */
     private static String encodeTask(Task task) {
         if (task instanceof Todo) {
-            return "T | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription();
+            return "T | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription() + " | " + task.getTag();
         } else if (task instanceof Deadline) {
             Deadline deadlineTask = (Deadline) task;
             String by = deadlineTask.getBy().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            return "D | " + (task.isDone() ? "1" : "0") + " | " + deadlineTask.getDescription() + " | " + "by " + by;
+            return "D | " + (task.isDone() ? "1" : "0") + " | " + deadlineTask.getDescription() + " | " + "by " + by
+                    + " | " + task.getTag();
         } else if (task instanceof Event) {
             Event eventTask = (Event) task;
             String from = eventTask.getFrom().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             String to = eventTask.getTo().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             return "E | " + (task.isDone() ? "1" : "0") + " | "
-                    + eventTask.getDescription() + " | " + from + " to " + to;
+                    + eventTask.getDescription() + " | " + from + " to " + to + " | " + task.getTag();
         } else {
             // Handle other task types if needed
             return "";
@@ -183,12 +184,18 @@ class TaskListDecoder {
         case "T":
             Task newTodo = new Todo(description);
             newTodo.setDone(isDone);
+            if (parts.length >= 4) {
+                newTodo.setTag(parts[3]);
+            }
             return newTodo;
         case "D":
             String by = parts[3];
             LocalDate byDateTime = LocalDate.parse(by.substring(3), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             Task newDeadline = new Deadline(description, byDateTime);
             newDeadline.setDone(isDone);
+            if (parts.length >= 5) {
+                newDeadline.setTag(parts[4]);
+            }
             return newDeadline;
         case "E":
             String dateTimeString = parts[3];
@@ -201,6 +208,10 @@ class TaskListDecoder {
 
             Task newEvent = new Event(description, fromDateTime, toDateTime);
             newEvent.setDone(isDone);
+
+            if (parts.length >= 5) {
+                newEvent.setTag(parts[4]);
+            }
             return newEvent;
         default:
             return null;

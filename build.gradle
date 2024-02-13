@@ -49,14 +49,14 @@ test {
 }
 
 application {
-    mainClassName = 'Duke.Duke';
-    mainClass.set("Duke.Duke")
+    mainClassName = 'Duck.Duck';
+    mainClass.set("Duck.Duck")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "duck"
     archiveClassifier = null
-    archiveFileName = 'Duke.jar'
+    archiveFileName = 'Duck.jar'
     dependsOn("distZip", "distTar")
 }
 

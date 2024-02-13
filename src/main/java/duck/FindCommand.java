@@ -1,4 +1,4 @@
-package duke;
+package duck;
 
 /**
  * The FindCommand class represents a command to find tasks containing a specific keyword.
