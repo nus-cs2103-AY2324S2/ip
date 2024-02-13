@@ -1,0 +1,13 @@
+list
+find book
+deadline return book /by 6 June 2024 1800
+event project meeting /from 6 Aug 2024 1400 /to 6 Aug 2024 1600
+todo join sports club
+todo borrow book
+list
+mark 1
+mark 4
+list
+todo sleep
+save
+bye

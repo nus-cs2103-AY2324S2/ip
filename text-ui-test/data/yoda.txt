@@ -1,0 +1,14 @@
+T | 1 | read book
+D | 0 | return book | Jun 6 2024 1800
+T | 1 | join sports club
+T | 1 | borrow book
+T | 0 | sleep
+D | 0 | return book | Jun 6 2024 1800
+T | 0 | join sports club
+T | 0 | borrow book
+T | 0 | sleep
+D | 0 | return book | Jun 6 2024 1800
+E | 0 | project meeting | Aug 6 2024 1400 to Aug 6 2024 1600
+T | 0 | join sports club
+T | 0 | borrow book
+T | 0 | sleep
