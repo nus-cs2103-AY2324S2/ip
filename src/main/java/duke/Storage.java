@@ -32,13 +32,15 @@ public class Storage {
         ArrayList<Task> tasksList = new ArrayList<Task>();
 
         File file = new File(filePath);
-        boolean isCreated = false;
+
         if (!file.exists()) {
+            boolean isCreated = false;
             isCreated = file.getParentFile().mkdirs();
             isCreated = file.createNewFile();
-        }
-        if (!isCreated) {
-            throw new DukeException("File could not be created.");
+
+            if (!isCreated) {
+                throw new DukeException("File could not be created.");
+            }
         }
 
         assert file.exists() : "File should exist";
@@ -48,6 +50,7 @@ public class Storage {
             Task task = parseTasksFromString(line);
             tasksList.add(task);
         }
+        System.out.println(tasksList);
         s.close();
 
         return tasksList;

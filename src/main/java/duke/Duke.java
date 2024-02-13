@@ -25,6 +25,7 @@ public class Duke {
     public Duke(String filePath, Ui ui) {
         this.ui = ui;
         try {
+            System.out.println(filePath);
             storage = new Storage(filePath);
             tasks = new TaskList(storage.loadTasks());
         } catch (DukeException e) {
@@ -73,17 +74,17 @@ public class Duke {
             case "todo":
                 Task task = new Todo(parser.getDescription());
                 isAddedToTasks = tasks.addTask(task);
-                assert !isAddedToTasks : "Todo could not be added to tasks";
+                assert isAddedToTasks : "Todo could not be added to tasks";
                 return ui.showAddTask(task, tasks.getSize());
             case "deadline":
                 Task deadlineTask = new Deadline(parser.getDescription(), parser.getBy());
                 isAddedToTasks = tasks.addTask(deadlineTask);
-                assert !isAddedToTasks : "Deadline could not be added to tasks";
+                assert isAddedToTasks : "Deadline could not be added to tasks";
                 return ui.showAddTask(deadlineTask, tasks.getSize());
             case "event":
                 Task eventTask = new Event(parser.getDescription(), parser.getFromTo()[0], parser.getFromTo()[1]);
                 isAddedToTasks = tasks.addTask(eventTask);
-                assert !isAddedToTasks : "Event could not be added to tasks";
+                assert isAddedToTasks : "Event could not be added to tasks";
                 return ui.showAddTask(eventTask, tasks.getSize());
             default:
                 return ui.commandNotUnderstood();
