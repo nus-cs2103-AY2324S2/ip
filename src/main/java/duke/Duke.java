@@ -3,7 +3,6 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -198,7 +197,6 @@ public class Duke extends Application {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-
         return "SCZL heard: " + input;
     }
 
@@ -244,7 +242,6 @@ class Launcher {
 
 class DukeException extends Exception {
     public DukeException(String message) {
-
         super(message);
     }
 }
@@ -253,7 +250,6 @@ class Ui {
     private Scanner scanner;
 
     public Ui() {
-
         scanner = new Scanner(System.in);
     }
 
@@ -283,12 +279,10 @@ class Ui {
     }
 
     public String readCommand() {
-
         return scanner.nextLine();
     }
 
     public void showLoadingError() {
-
         System.out.println("Error loading file.");
     }
 
@@ -413,7 +407,7 @@ class Storage {
         } catch (IOException e) {
             System.out.println("An error occurred while saving tasks to file: " + e.getMessage());
         }
-    } //
+    }
 
     private String taskToFileString(Task task) {
         String type = task instanceof Todo ? "T" :
@@ -478,12 +472,10 @@ class Parser {
     }
 
     private static Command createAddDeadlineCommand(String args) throws DukeException {
-        // Assume parseAddDeadlineCommand is a method that parses the args and returns an AddDeadlineCommand
         return parseAddDeadlineCommand(args);
     }
 
     private static Command createAddEventCommand(String args) throws DukeException {
-        // Similar to createAddDeadlineCommand
         return parseAddEventCommand(args);
     }
 
@@ -563,7 +555,6 @@ class TaskList {
     }
 
     public TaskList() {
-
         this(new ArrayList<>());
     }
 
@@ -574,7 +565,6 @@ class TaskList {
     }
 
     public Task removeTask(int index) {
-
         return tasks.remove(index);
     }
 
@@ -584,7 +574,6 @@ class TaskList {
     }
 
     public int getSize() {
-
         return tasks.size();
     }
 
@@ -711,7 +700,6 @@ class MarkCommand extends Command {
 
     @Override
     public boolean isExit() {
-
         return false;
     }
 }
