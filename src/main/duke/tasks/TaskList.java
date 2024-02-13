@@ -146,7 +146,7 @@ public class TaskList {
      * @param in A string in the format of "find x" where x is the substring to find.
      */
     public String find(String in) {
-        StringBuilder s = new StringBuilder("Here are the matching tasks in your list:");
+        StringBuilder s = new StringBuilder("Here are the matching tasks in your list:\n");
         int number = 1;
         for (Task t : Duke.tasks.getList()) {
             if (t.has(in)) {
