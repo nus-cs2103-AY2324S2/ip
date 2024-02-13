@@ -1,13 +1,25 @@
-package Oak.task.model;
+package oak.task.model;
 
+/**
+ * The parent Task Class to be inherited from for all Task-types
+ */
 public class Task {
     /** Whether the task has been completed, Default value = false */
-    public Boolean isCompleted = false;
+    private Boolean isCompleted = false;
     /** The name of the task */
-    public String name;
+    private String name;
+    /** The type icon of the task */
+    private String typeIcon;
 
-    public Task(String name) {
+    /**
+     * Constructor method for Task
+     *
+     * @param name
+     * @param typeIcon
+     */
+    public Task(String name, String typeIcon) {
         this.name = name;
+        this.typeIcon = typeIcon;
     }
 
     /**
@@ -24,15 +36,20 @@ public class Task {
         this.isCompleted = false;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     // @@author SherisseTJW-reused
-    // Reused from https://nus-cs2103-ay2324s2.github.io/website/schedule/week2/project.html, Level-3 Extension A-Classes Partial Solution
+    // Reused from https://nus-cs2103-ay2324s2.github.io/website/schedule/week2/project.html,
+    // Level-3 Extension A-Classes Partial Solution
     // with only function name modification
     private String getCompletedIcon() {
         return (isCompleted ? "X" : " ");
     }
 
     public String getTypeIcon() {
-        return null;
+        return this.typeIcon;
     };
 
     /**

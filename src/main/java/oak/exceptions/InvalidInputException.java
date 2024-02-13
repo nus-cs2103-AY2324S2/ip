@@ -1,8 +1,8 @@
-package Oak.exceptions;
-
-import Oak.feedback.enums.CommandEnum;
+package oak.exceptions;
 
 import java.util.Arrays;
+
+import oak.feedback.enums.CommandEnum;
 
 /**
  * The type Invalid input exception.
@@ -12,6 +12,9 @@ public class InvalidInputException extends Exception {
         super(message);
     }
 
+    /**
+     * Custom Exception for Invalid Command provided by user
+     */
     public static class InvalidCommandException extends InvalidInputException {
         /**
          * Instantiates a new Invalid command exception.
@@ -25,6 +28,9 @@ public class InvalidInputException extends Exception {
         }
     }
 
+    /**
+     * Custom Exception for Invalid Format for a specific command provided by user
+     */
     public static class InvalidFormatException extends InvalidInputException {
         /**
          * Instantiates a new Invalid format exception.

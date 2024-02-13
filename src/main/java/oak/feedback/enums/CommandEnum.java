@@ -1,5 +1,8 @@
-package Oak.feedback.enums;
+package oak.feedback.enums;
 
+/**
+ * Enums for all the possible commands provided by user
+ */
 public enum CommandEnum {
     BYE("bye"),
     FIND("find"),

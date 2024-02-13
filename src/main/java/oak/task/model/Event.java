@@ -1,24 +1,26 @@
-package Oak.task.model;
-
-import Oak.utility.DateTimeUtility;
+package oak.task.model;
 
 import java.time.LocalDateTime;
+import oak.utility.DateTimeUtility;
 
+/**
+ * The Event Class to handle all Event-type Tasks
+ */
 public class Event extends Task {
     /** The icon this task is represented by */
-    public static String typeIcon = "E";
+    public static String EVENT_TYPEICON = "E";
     private LocalDateTime fromDateTime;
     private LocalDateTime toDateTime;
 
     public Event(String name, String fromDateTime, String toDateTime) {
-        super(name);
+        super(name, EVENT_TYPEICON);
 
         this.fromDateTime = DateTimeUtility.parseStringToLocalDateTime(fromDateTime);
         this.toDateTime = DateTimeUtility.parseStringToLocalDateTime(toDateTime);
     }
 
     public Event(String name, Boolean isCompleted, String fromDateTime, String toDateTime) {
-        super(name);
+        super(name, EVENT_TYPEICON);
 
         if (isCompleted) {
             super.markTaskCompleted();
@@ -31,18 +33,20 @@ public class Event extends Task {
     @Override
     public String toTaskListStringFormat() {
         return String.format("%s|%s|%s|%s",
-                Event.typeIcon, super.toTaskListStringFormat(),
+                EVENT_TYPEICON, super.toTaskListStringFormat(),
                 this.fromDateTime.toString(), this.toDateTime.toString());
     }
 
     @Override
     public String getTypeIcon() {
-        return Event.typeIcon;
+        return EVENT_TYPEICON;
     }
 
     @Override
     public String toString() {
         return String.format("%s (from: %s to: %s)",
-                super.toString(), DateTimeUtility.parseLocalDateTimeToString(this.fromDateTime), DateTimeUtility.parseLocalDateTimeToString(this.toDateTime));
+                super.toString(),
+                DateTimeUtility.parseLocalDateTimeToString(this.fromDateTime),
+                DateTimeUtility.parseLocalDateTimeToString(this.toDateTime));
     }
 }

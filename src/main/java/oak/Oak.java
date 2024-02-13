@@ -1,7 +1,10 @@
-package Oak;
+package oak;
 
-import Oak.controller.TerminalController;
+import oak.controller.TerminalController;
 
+/**
+ * Base Entry Class for Oak-dex
+ */
 public class Oak {
     public static void main(String[] args) {
         TerminalController controller = new TerminalController();

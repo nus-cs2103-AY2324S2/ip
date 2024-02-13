@@ -6,7 +6,7 @@ Hello from
   \/_____/   \/_/\/_/   \/_/\/_/
 
 ----------------------------------------------
-Welcome! I'm Professor Oak
+Welcome! I'm Professor oak
 What can I do for you?
 ----------------------------------------------
 Added new Todo: test

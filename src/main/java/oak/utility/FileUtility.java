@@ -1,4 +1,4 @@
-package Oak.utility;
+package oak.utility;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -63,8 +63,7 @@ public class FileUtility {
         for (String line : originalFileData) {
             if (line.equals(originalData)) {
                 fw.write("\n" + newData);
-            }
-            else {
+            } else {
                 fw.write("\n" + line);
             }
         }
