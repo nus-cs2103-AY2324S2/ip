@@ -8,6 +8,7 @@ public enum CommandType {
     SHOW_LIST("show"),
     MARK("mark"),
     UNMARK("unmark"),
+    SEARCH("find"),
     DELETE("delete");
 
     private final String commandType;

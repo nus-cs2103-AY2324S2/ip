@@ -25,13 +25,16 @@ public abstract class Task {
     }
 
     public void markDone() throws DoubleMarkException {
+    public void markDone() throws DoubleMarkException {
         if (isDone) {
             throw new DoubleMarkException("Task is already marked \n " + this.toString());
+        } else {
         } else {
             isDone = true;
         }
     }
 
+    public boolean unmarkDone() throws DoubleMarkException {
     public boolean unmarkDone() throws DoubleMarkException {
         if (!isDone) {
             throw new DoubleMarkException("Task is already unmarked \n " + this.toString());
@@ -59,5 +62,15 @@ public abstract class Task {
 
         Task task = (Task) obj;
         return (this.taskString.equals(task.taskString));
+    }
+
+    /**
+     * Method to return if a task contains a keyword
+     * 
+     * @param userInput user input
+     * @return boolean if the task contains the keyword
+     */
+    public boolean searchWord(String userInput) {
+        return taskString.contains(userInput);
     }
 }

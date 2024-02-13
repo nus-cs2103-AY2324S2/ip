@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "TaskList",
+      "request": "launch",
+      "mainClass": "Aaron.Task.TaskList",
+      "projectName": "ip"
+    },
+    {
+      "type": "java",
       "name": "AaronBot",
       "request": "launch",
       "mainClass": "Aaron.Main.AaronBot",

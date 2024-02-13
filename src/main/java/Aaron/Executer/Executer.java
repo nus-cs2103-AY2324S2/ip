@@ -48,6 +48,10 @@ public class Executer {
                 DeleteTask deleteCommand = new DeleteTask(userCommand, commandType);
                 deleteCommand.run(taskList, ui);
                 return deleteCommand.returnIsBye();
+            case SEARCH:
+                SearchCommand searchCommand = new SearchCommand(userCommand, commandType);
+                searchCommand.run(taskList, ui);
+                return searchCommand.returnIsBye();
             case SHOW_LIST:
                 ShowList showCommand = new ShowList(userCommand, commandType);
                 showCommand.run(taskList, ui);

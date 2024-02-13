@@ -15,7 +15,7 @@ public class ShowList extends Command {
     @Override
     public void run(TaskList taskList, UI ui) {
         if (taskList.getTasklistSize() > 0) {
-            taskList.showList();
+            taskList.showList(ui);
         } else {
             ui.emptyListMessage();
         }

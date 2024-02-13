@@ -35,10 +35,10 @@ public class UI {
      * Message to indicate whether a previous tasklist was loaded
      * @param taskList tasklist that was loaded (empty if none found)
      */
-    public void taskListLoadedMessage(TaskList taskList) {
+    public void taskListLoadedMessage(TaskList taskList, UI ui) {
         if (taskList.getTasklistSize() > 0) {
             System.out.println("Tasklist successfully loaded.");
-            taskList.showList();
+            taskList.showList(ui);
         } else {
             System.out.println("Student, no previous tasklist found");
         }
@@ -112,4 +112,12 @@ public class UI {
         System.out.println("Goodbye student, HAND.");
     }
 
+    /**
+     * Method to display a message to the user
+     * @param messageString message to be displayed
+     */
+    public void showMessage(String messageString) {
+        System.out.println(messageString);
+    }
+ 
 }
