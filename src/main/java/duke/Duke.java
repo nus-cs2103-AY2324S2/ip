@@ -4,6 +4,7 @@ import duke.exceptions.InvalidCommandException;
 import duke.exceptions.ListOutofBoundsException;
 import duke.exceptions.MissingArgumentsException;
 import duke.exceptions.WrongTimeFormatException;
+import duke.parser.Command;
 import duke.parser.Parser;
 import duke.parser.Token;
 import duke.responses.Responses;
@@ -26,6 +27,7 @@ public class Duke {
 
         try {
             output = parser.parse();
+            assert output instanceof Token : "parser output should be a Token";
         } catch (InvalidCommandException e) {
             return Responses.error(e.getMessage());
         } catch (MissingArgumentsException e) {
@@ -34,6 +36,7 @@ public class Duke {
             return Responses.error(e.getMessage());
         }
 
+        assert output.getCmd() instanceof Command : "getCmd() should return a Command";
         switch (output.getCmd()) {
         case BYE:
             return Responses.goodbye();

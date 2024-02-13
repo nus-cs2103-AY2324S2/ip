@@ -70,70 +70,64 @@ public class Parser {
         case "list":
             if (split.length != 1) {
                 throw new InvalidCommandException("InvalidCommandException");
-            } else {
-                token = new Token(Command.LIST);
             }
+            token = new Token(Command.LIST);
             break;
         case "bye":
             if (split.length != 1) {
                 throw new InvalidCommandException("InvalidCommandException");
-            } else {
-                token = new Token(Command.BYE);
             }
+            token = new Token(Command.BYE);
             break;
         case "delete":
             if (split.length != 2) {
                 throw new MissingArgumentsExceptionMarking(split[0]);
-            } else {
-                try {
-                    Integer.parseInt(split[1]);
-                } catch (NumberFormatException e) {
-                    throw new InvalidCommandException("InvalidCommandException");
-                }
-                token = new Token(Command.DELETE, Integer.parseInt(split[1]));
             }
+            try {
+                Integer.parseInt(split[1]);
+            } catch (NumberFormatException e) {
+                throw new InvalidCommandException("InvalidCommandException");
+            }
+            token = new Token(Command.DELETE, Integer.parseInt(split[1]));
             break;
         case "unmark":
             if (split.length != 2) {
                 throw new MissingArgumentsExceptionMarking(split[0]);
-            } else {
-                try {
-                    Integer.parseInt(split[1]);
-                } catch (NumberFormatException e) {
-                    throw new InvalidCommandException("InvalidCommandException");
-                }
-                token = new Token(Command.UNMARK, Integer.parseInt(split[1]));
             }
+            try {
+                Integer.parseInt(split[1]);
+            } catch (NumberFormatException e) {
+                throw new InvalidCommandException("InvalidCommandException");
+            }
+            token = new Token(Command.UNMARK, Integer.parseInt(split[1]));
             break;
         case "mark":
             if (split.length != 2) {
                 throw new MissingArgumentsExceptionMarking(split[0]);
-            } else {
-                try {
-                    Integer.parseInt(split[1]);
-                } catch (NumberFormatException e) {
-                    throw new InvalidCommandException("InvalidCommandException");
-                }
-                token = new Token(Command.MARK, Integer.parseInt(split[1]));
             }
+            try {
+                Integer.parseInt(split[1]);
+            } catch (NumberFormatException e) {
+                throw new InvalidCommandException("InvalidCommandException");
+            }
+            token = new Token(Command.MARK, Integer.parseInt(split[1]));
+
             break;
         case "find":
             if (split.length == 1) {
                 throw new MissingArgumentsExceptionTodo("find");
-            } else {
-                int space = this.input.indexOf(" ");
-                token = new Token(Command.FIND);
-                token.setSearchKey(this.input.substring(space + 1));
             }
+            int spaceInFindCmd = this.input.indexOf(" ");
+            token = new Token(Command.FIND);
+            token.setSearchKey(this.input.substring(spaceInFindCmd + 1));
             break;
         case "todo":
             if (split.length == 1) {
                 throw new MissingArgumentsExceptionTodo("todo");
-            } else {
-                int space = this.input.indexOf(" ");
-                task = new Todos(this.input, this.input.substring(space + 1));
-                token = new Token(Command.TODO, task);
             }
+            int spaceInTodoCmd = this.input.indexOf(" ");
+            task = new Todos(this.input, this.input.substring(spaceInTodoCmd + 1));
+            token = new Token(Command.TODO, task);
             break;
         case "event":
             flag = Arrays.asList(split).indexOf("/from");
@@ -142,71 +136,74 @@ public class Parser {
                 throw new MissingArgumentsExceptionEvents("event");
             } else if (flag < 2 || flag2 == split.length - 1 || flag2 - flag <= 1) {
                 throw new MissingArgumentsExceptionEvents("event");
-            } else {
-                int space = this.input.indexOf(" ");
-                int from = this.input.indexOf("/from");
-                int to = this.input.indexOf("/to");
-                String fromDateTime;
-                String toDateTime;
-                // Processes From DateTime
-                try {
-                    checkTimeFormat(this.input.substring(from + 5, to).trim());
-
-                    String[] temporaryArray = this.input.substring(from + 5, to).trim().split("[\\s/\\-]+");
-
-                    int lenTemp = temporaryArray.length;
-
-                    for (int i = 0; i < temporaryArray.length / 2; i++) {
-                        String temp = temporaryArray[i];
-                        temporaryArray[i] = temporaryArray[lenTemp - 1 - i];
-                        temporaryArray[lenTemp - 1 - i] = temp;
-                    }
-
-                    if (temporaryArray[lenTemp - 2].length() == 1) {
-                        temporaryArray[lenTemp - 2] = "0" + temporaryArray[lenTemp - 2];
-                    }
-
-                    if (temporaryArray[lenTemp - 1].length() == 1) {
-                        temporaryArray[lenTemp - 1] = "0" + temporaryArray[lenTemp - 1];
-                    }
-
-                    fromDateTime = String.join("-", temporaryArray);
-
-                } catch (WrongTimeFormatException exception) {
-                    throw exception;
-                }
-                // Processes To DateTime
-                try {
-                    checkTimeFormat(this.input.substring(to + 3).trim());
-
-                    String[] temporaryArray = this.input.substring(to + 3)
-                            .trim().split("[\\s/\\-]+");
-
-                    int lenTemp = temporaryArray.length;
-
-                    for (int i = 0; i < temporaryArray.length / 2; i++) {
-                        String temp = temporaryArray[i];
-                        temporaryArray[i] = temporaryArray[lenTemp - 1 - i];
-                        temporaryArray[lenTemp - 1 - i] = temp;
-                    }
-
-                    if (temporaryArray[lenTemp - 1].length() == 1) {
-                        temporaryArray[lenTemp - 1] = "0" + temporaryArray[lenTemp - 1];
-                    }
-
-                    if (temporaryArray[lenTemp - 2].length() == 1) {
-                        temporaryArray[lenTemp - 2] = "0" + temporaryArray[lenTemp - 2];
-                    }
-
-                    toDateTime = String.join("-", temporaryArray);
-
-                } catch (WrongTimeFormatException exception) {
-                    throw exception;
-                }
-
-                task = new Events(this.input, this.input.substring(space + 1, from).trim(), fromDateTime, toDateTime);
-                token = new Token(Command.EVENT, task);
             }
+            int spaceInEventCmd = this.input.indexOf(" ");
+            int fromInEvenCmd = this.input.indexOf("/from");
+            int toInEvenCmd = this.input.indexOf("/to");
+
+            String fromDateTime;
+            String toDateTime;
+
+            // Processes From DateTime
+            try {
+                checkTimeFormat(this.input.substring(fromInEvenCmd + 5, toInEvenCmd).trim());
+
+                String[] temporaryArray = this.input.substring(fromInEvenCmd + 5, toInEvenCmd)
+                        .trim().split("[\\s/\\-]+");
+
+                int lenTemp = temporaryArray.length;
+
+                for (int i = 0; i < temporaryArray.length / 2; i++) {
+                    String temp = temporaryArray[i];
+                    temporaryArray[i] = temporaryArray[lenTemp - 1 - i];
+                    temporaryArray[lenTemp - 1 - i] = temp;
+                }
+
+                if (temporaryArray[lenTemp - 2].length() == 1) {
+                    temporaryArray[lenTemp - 2] = "0" + temporaryArray[lenTemp - 2];
+                }
+
+                if (temporaryArray[lenTemp - 1].length() == 1) {
+                    temporaryArray[lenTemp - 1] = "0" + temporaryArray[lenTemp - 1];
+                }
+
+                fromDateTime = String.join("-", temporaryArray);
+
+            } catch (WrongTimeFormatException exception) {
+                throw exception;
+            }
+            // Processes To DateTime
+            try {
+                checkTimeFormat(this.input.substring(toInEvenCmd + 3).trim());
+
+                String[] temporaryArray = this.input.substring(toInEvenCmd + 3)
+                        .trim().split("[\\s/\\-]+");
+
+                int lenTemp = temporaryArray.length;
+
+                for (int i = 0; i < temporaryArray.length / 2; i++) {
+                    String temp = temporaryArray[i];
+                    temporaryArray[i] = temporaryArray[lenTemp - 1 - i];
+                    temporaryArray[lenTemp - 1 - i] = temp;
+                }
+
+                if (temporaryArray[lenTemp - 1].length() == 1) {
+                    temporaryArray[lenTemp - 1] = "0" + temporaryArray[lenTemp - 1];
+                }
+
+                if (temporaryArray[lenTemp - 2].length() == 1) {
+                    temporaryArray[lenTemp - 2] = "0" + temporaryArray[lenTemp - 2];
+                }
+
+                toDateTime = String.join("-", temporaryArray);
+
+            } catch (WrongTimeFormatException exception) {
+                throw exception;
+            }
+
+            task = new Events(this.input, this.input.substring(spaceInEventCmd + 1, fromInEvenCmd)
+                    .trim(), fromDateTime, toDateTime);
+            token = new Token(Command.EVENT, task);
             break;
         case "deadline":
             flag = Arrays.asList(split).indexOf("/by");
@@ -281,30 +278,31 @@ public class Parser {
         if (splitString.length < 3) {
             throw new WrongTimeFormatException("wrong time buddy");
         }
+
         if (splitString.length > 5) {
             throw new WrongTimeFormatException("Too many inputs");
-        } else {
-            try {
-                int year = Integer.parseInt(splitString[2]);
-                int month = Integer.parseInt(splitString[1]);
-                int day = Integer.parseInt(splitString[0]);
+        }
 
-                checkRealDate(year, month, day);
-            } catch (NumberFormatException e) {
-                throw new WrongTimeFormatException("Use numerals for date");
-            } catch (WrongTimeFormatException exception) {
-                throw exception;
+        try {
+            int year = Integer.parseInt(splitString[2]);
+            int month = Integer.parseInt(splitString[1]);
+            int day = Integer.parseInt(splitString[0]);
+
+            checkRealDate(year, month, day);
+        } catch (NumberFormatException e) {
+            throw new WrongTimeFormatException("Use numerals for date");
+        } catch (WrongTimeFormatException exception) {
+            throw exception;
+        }
+
+        if (splitString.length > 3) {
+            String twelveHourFormat = "";
+
+            if (splitString.length > 4) {
+                twelveHourFormat = splitString[4];
             }
 
-            if (splitString.length > 3) {
-                String twelveHourFormat = "";
-
-                if (splitString.length > 4) {
-                    twelveHourFormat = splitString[4];
-                }
-
-                checkRealTime(splitString[3], twelveHourFormat);
-            }
+            checkRealTime(splitString[3], twelveHourFormat);
         }
     }
 
