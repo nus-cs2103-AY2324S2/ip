@@ -53,20 +53,20 @@ public class Printer {
      */
     public static void printActionAttach(Action action, Task task) {
         switch (action) {
-            case MARK:
-                printDecorator();
-                Printer.println("Nice! I've marked this task as done:");
-                Printer.printlnFurtherIndent(task.toString());
-                printDecorator();
-                break;
-            case UNMARK:
-                printDecorator();
-                Printer.println("OK, I've marked this task as not done yet:");
-                Printer.printlnFurtherIndent(task.toString());
-                printDecorator();
-                break;
-            default:
-                throw new IllegalArgumentException("Illegal action argument provided.\n");
+        case MARK:
+            printDecorator();
+            Printer.println("Nice! I've marked this task as done:");
+            Printer.printlnFurtherIndent(task.toString());
+            printDecorator();
+            break;
+        case UNMARK:
+            printDecorator();
+            Printer.println("OK, I've marked this task as not done yet:");
+            Printer.printlnFurtherIndent(task.toString());
+            printDecorator();
+            break;
+        default:
+            throw new IllegalArgumentException("Illegal action argument provided.\n");
         }
     }
 
@@ -89,32 +89,22 @@ public class Printer {
      */
     public static void printActionAttach(Action action) {
         switch (action) {
-            case BYE:
-                printDecorator();
-                Printer.println("Bye. Hope to see you again soon!");
-                printDecorator();
-                break;
-            case GREET:
-                printDecorator();
-                Printer.println("Hello! I'm Wis.");
-                Printer.println("What can I do for you?");
-                printDecorator();
-                break;
-            default:
-                throw new IllegalArgumentException("Illegal action argument provided.\n");
-        }
-    }
-
-    public static void printActionAttach(Action action, TaskList tasks) {
-        if (action == Action.LIST) {
+        case BYE:
             printDecorator();
-            Printer.println("Here are the tasks in your list:");
-            tasks.print();
+            Printer.println("Bye. Hope to see you again soon!");
             printDecorator();
-        } else {
+            break;
+        case GREET:
+            printDecorator();
+            Printer.println("Hello! I'm Wis.");
+            Printer.println("What can I do for you?");
+            printDecorator();
+            break;
+        default:
             throw new IllegalArgumentException("Illegal action argument provided.\n");
         }
     }
+
 
     public static void printActionAttach(Action action, ArrayList<Pair<Integer, Task>> matchingTasks) {
         if (action == Action.FIND) {

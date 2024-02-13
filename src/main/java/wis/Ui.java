@@ -161,7 +161,7 @@ public class Ui {
             ArrayList<Pair<Integer, Task>> matchingTasks = tasks.find(words[1]);
             Printer.printActionAttach(Action.FIND, matchingTasks);
         } catch (IndexOutOfBoundsException e) {
-            WisException.ActionExceptionHandler(Action.FIND);
+            WisException.actionExceptionHandler(Action.FIND);
         }
     }
 }
