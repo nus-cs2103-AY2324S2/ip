@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -30,7 +32,25 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuchess(duchess);
+
+            //fxmlLoader.<MainWindow>getController().setDuchess(duchess);
+
+            MainWindow mainWindow = fxmlLoader.getController();
+            mainWindow.setDuchess(duchess);
+
+            // Add event handler to prevent closing unless user input is "bye"
+            stage.setOnCloseRequest(event -> {
+                if (!mainWindow.canClose()) {
+                    event.consume();
+
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Warning");
+                    alert.setHeaderText(null);
+                    alert.setContentText("To close the application, please say 'bye' to Duchess. It's only polite!");
+                    alert.showAndWait();
+                }
+            });
+
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

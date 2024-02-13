@@ -8,6 +8,13 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -20,8 +27,8 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-
     private Duchess duchess;
+    private boolean canClose = false;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.jpeg"));
     private Image duchessImage = new Image(this.getClass().getResourceAsStream("/images/DaDuchess.jpeg"));
@@ -48,9 +55,30 @@ public class MainWindow extends AnchorPane {
                     DialogBox.getUserDialog(input, userImage),
                     DialogBox.getDuchessDialog(response, duchessImage)
             );
+
+            if (input.equals("bye")) {
+                setCanClose(true); // Set canClose to true if user input is "bye"
+            } else {
+                setCanClose(false); // Set canClose to false for any other input
+            }
+
             userInput.clear();
+
         } catch (DuchessException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    /**
+     * Sets the flag indicating whether the window can be closed.
+     *
+     * @param value true if the window can be closed, false otherwise
+     */
+    public void setCanClose(boolean value) {
+        canClose = value;
+    }
+
+    public boolean canClose() {
+        return canClose;
     }
 }
