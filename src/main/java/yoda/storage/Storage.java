@@ -24,7 +24,6 @@ public class Storage {
     private final String FILE_PATH;
     private final Path PATH;
 
-
     /**
      * Constructs a new Storage object.
      *
@@ -88,21 +87,12 @@ public class Storage {
      * @return The task in string format.
      */
     public String taskToFileFormat(Task task) {
-        String status = task.isDone() ? "1" : "0";
-        String type = task instanceof Todo ? "T" :
-                task instanceof Deadline ? "D" :
-                        task instanceof Event ? "E" : "";
-        String details = task.getDescription();
-
-        if (task instanceof Deadline) {
-            Deadline deadlineTask = (Deadline) task;
-            details += " | " + deadlineTask.getByString();
-        } else if (task instanceof Event) {
-            Event eventTask = (Event) task;
-            details += " | " + eventTask.getFromString() + " to " + eventTask.getToString();
-        }
+        String status = task.getStatus();
+        String type = task.getType();
+        String details = task.toFileFormatDetails();
         return type + " | " + status + " | " + details;
     }
+
 
     /**
      * Loads tasks from the file and returns them as a TaskList.

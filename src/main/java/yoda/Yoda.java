@@ -12,7 +12,6 @@ public class Yoda {
     private Storage storage;
     private TaskList tasks;
     private Parser parser;
-
     private YodaUI yodaUI;
 
     private String filePath = FilePaths.RELATIVE_OUTPUT_TXT_FILE_PATH;
@@ -24,10 +23,14 @@ public class Yoda {
         } catch (IOException e) {
             this.tasks = new TaskList();
         }
-        this.yodaUI = new YodaUI("Yoda", tasks, storage); // Initialize before passing to Parser
+        this.yodaUI = new YodaUI(tasks, storage); // Initialize before passing to Parser
         this.parser = new Parser(yodaUI);
     }
 
+    /**
+     * Gets the greeting message to be displayed in the GUI.
+     * @return Greeting message.
+     */
     public String getGreeting() {
         return yodaUI.printGreeting();
     }

@@ -1,4 +1,4 @@
-package exception;
+package yoda.exceptions;
 /**
  * Exception thrown when an attempt is made to create a task with an empty description.
  */

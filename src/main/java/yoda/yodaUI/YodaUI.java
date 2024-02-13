@@ -3,22 +3,20 @@ import yoda.task.Task;
 import yoda.task.TaskList;
 import yoda.storage.Storage;
 import java.io.IOException;
+import yoda.constants.Replies;
 
 
 public class YodaUI {
     private final TaskList TASKLIST;
-    private final String CHATBOT_NAME;
     private boolean isChatting;
     private final Storage STORAGE;
 
     /**
      * Constructor to initialize the chatbot with a name, a TaskList, and a Storage.
-     * @param chatbotName The name of the chatbot.
      * @param taskList The TaskList object to manage tasks.
      * @param storage The Storage object for handling task persistence.
      */
-    public YodaUI(String chatbotName, TaskList taskList, Storage storage) {
-        this.CHATBOT_NAME = chatbotName;
+    public YodaUI(TaskList taskList, Storage storage) {
         this.isChatting = true;
         this.TASKLIST = taskList;
         this.STORAGE = storage;
@@ -135,7 +133,7 @@ public class YodaUI {
      * @return A string containing the formatted greeting message.
      */
     public String printGreeting() {
-        return "Greetings! " + CHATBOT_NAME + ", I am\nAssist you, may I?";
+        return Replies.GREET;
     }
 
 

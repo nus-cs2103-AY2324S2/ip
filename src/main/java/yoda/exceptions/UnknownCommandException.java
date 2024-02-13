@@ -1,4 +1,4 @@
-package exception;
+package yoda.exceptions;
 /**
  * Exception thrown when an unrecognized command is encountered.
  * This typically happens when user input does not match any of the expected commands.

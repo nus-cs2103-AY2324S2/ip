@@ -16,6 +16,25 @@ public class Todo extends Task {
     }
 
     /**
+     * Returns the type of the task.
+     *
+     * @return A string representing the type of the task.
+     */
+    @Override
+    public String getType() {
+        return "T";
+    }
+
+    /**
+     * Returns a string representation of the event, including its type,
+     * @return
+     */
+    @Override
+    public String toFileFormatDetails() {
+        return getDescription();
+    }
+
+    /**
      * Returns a string representation of the todo task.
      * The method overrides the Task class's toString method to add the specific
      * identifier for Todo tasks.
@@ -25,6 +44,6 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" + super.toString(); // Adding the Todo identifier to the string representation
+        return "[" + getType() + "]" + super.toString(); // Adding the Todo identifier to the string representation
     }
 }
