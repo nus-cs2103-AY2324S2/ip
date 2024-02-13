@@ -23,7 +23,9 @@ public class WrongTimeFormatException extends Exception {
      */
     @Override
     public String getMessage() {
-        return "    " + super.getMessage() + "\n    Try again using the format {day month year} using "
-                + "\n    space, dash or slash as delimiters";
+        return "    " + super.getMessage()
+                + "\n    Try again using the format"
+                + "\n     {day/month/year HHmm}"
+                + "\n    or {date + H:mm pm/am}";
     }
 }

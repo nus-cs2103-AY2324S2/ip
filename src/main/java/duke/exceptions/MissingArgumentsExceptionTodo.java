@@ -8,8 +8,6 @@ public class MissingArgumentsExceptionTodo extends MissingArgumentsException {
 
     /**
      * Constructs a MissingArgumentsExceptionTodo with the specified detail message.
-     *
-     * @param message The detail message.
      */
     public MissingArgumentsExceptionTodo(String string) {
         super(string);
