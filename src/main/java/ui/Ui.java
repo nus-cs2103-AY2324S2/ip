@@ -1,6 +1,7 @@
 package ui;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import task.Task;
 
@@ -131,10 +132,9 @@ public class Ui {
         if (matchingTasks.isEmpty()) {
             return "There are no matching tasks in your list.";
         }
-        String matchingTasksOutput = "";
-        for (int i = 0; i < matchingTasks.size(); i++) {
-            matchingTasksOutput += (i + 1) + ". " + matchingTasks.get(i) + "\n";
-        }
+        String matchingTasksOutput = matchingTasks.stream()
+                .map(task -> (matchingTasks.indexOf(task) + 1) + ". " + task + "\n")
+                .collect(Collectors.joining());
         return "Here are the matching tasks in your list:\n" + matchingTasksOutput;
     }
 
