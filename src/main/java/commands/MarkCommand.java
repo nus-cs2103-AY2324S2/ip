@@ -33,6 +33,7 @@ public class MarkCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, StorageManager storageManager) {
+        assert mark <= taskList.getTasksSize() -1 : "Invalid index";
         taskList.mark(mark);
         storageManager.save(taskList.getTasks());
         String reply = "Nice! I've marked this task as done:\n" + taskList.getTask(mark).toString() + "\n";

@@ -33,6 +33,7 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, StorageManager storageManager) {
+        assert delete <= taskList.getTasksSize() -1 : "Invalid index";
         Task t = taskList.delete(delete);
         storageManager.save(taskList.getTasks());
         String reply = "Noted. I've removed this task:\n"
