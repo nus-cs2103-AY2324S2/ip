@@ -48,10 +48,12 @@ public class Parser {
             return list.todoCase(str);
         } else if (identifier.equals("delete")) {
             return list.removeCase(tokens);
-
         } else if(identifier.equals("find")) {
             return list.findCase(str);
-        }else {
+        } else if(identifier.equals("priority")){
+            return list.priorityCase(tokens);
+        }
+        else{
             return "OOPS!!! I'm sorry, but I don't know what that means :-(\n";
             //throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(\n");
         }

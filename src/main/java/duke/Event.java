@@ -39,7 +39,7 @@ public class Event extends Task{
     @Override
     public String ToString() {
         return super.ToString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
-                + " to: " + to.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+                + " to: " + to.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")" + " (" + getPriorityDataString() + ")";
     }
     /**
      * returns a string representation of event used to store the event on hard drive.
@@ -48,9 +48,9 @@ public class Event extends Task{
     @Override
     public String toStore() {
         if (isDone) {
-            return getTaskIcon() + "/" + "1" + "/" + description + "/" + from + "/" + to;
+            return getTaskIcon() + "/" + "1" + "/" + description + "/" + priority + "/" + from + "/" + to;
         } else {
-            return getTaskIcon() + "/" + "0" + "/" + description + "/" + from + "/" + to;
+            return getTaskIcon() + "/" + "0" + "/" + description + "/" + priority + "/" + from + "/" + to;
         }
     }
 }

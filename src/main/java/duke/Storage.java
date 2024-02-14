@@ -69,19 +69,23 @@ public class Storage {
                 String type = loadtokens[0];
                 String status = loadtokens[1];
                 String desc = loadtokens[2];
+                String priority = loadtokens[3];
                 Task task;
                 switch (type) {
                     case "T":
                         task = new Task(desc);
+                        task.setPriority(priority);
                         break;
                     case "E":
-                        String to = loadtokens[3];
-                        String from = loadtokens[4];
+                        String to = loadtokens[4];
+                        String from = loadtokens[5];
                         task = new Event(desc, to, from);
+                        task.setPriority(priority);
                         break;
                     case "D":
-                        String duedate = loadtokens[3];
+                        String duedate = loadtokens[4];
                         task = new Deadline(desc, duedate);
+                        task.setPriority(priority);
                         break;
                     default:
                         throw new DukeException("File corrupted.");

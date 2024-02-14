@@ -31,15 +31,15 @@ public class Deadline extends Task {
     @Override
     public String ToString() {
         return super.ToString() + " (by: "
-                + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+                + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")" + " (" + getPriorityDataString() + ")";
     }
 
     @Override
     public String toStore() {
         if (isDone) {
-            return getTaskIcon() + "/" + "1" + "/" + description + "/ " + by;
+            return getTaskIcon() + "/" + "1" + "/" + description + "/" + priority + "/ " + by;
         } else {
-            return getTaskIcon() + "/" + "0" + "/" + description + "/ " + by;
+            return getTaskIcon() + "/" + "0" + "/" + description + "/" + priority + "/ " + by;
         }
     }
 }
