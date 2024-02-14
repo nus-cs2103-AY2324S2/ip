@@ -48,6 +48,8 @@ private TaskList tasklist;
 
     public String parsing(String command) throws StringIndexOutOfBoundsException, NumberFormatException,
             ArrayIndexOutOfBoundsException, IOException {
+        assert command != null : "Command should not be null";
+        assert tasklist != null : "TaskList should not be null";
         String res = "";
         if (command.equals("list")) {
             res = tasklist.list();
