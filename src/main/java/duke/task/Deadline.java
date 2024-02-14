@@ -37,21 +37,13 @@ public class Deadline extends Task{
     }
 
     /**
-     * Returns the String that specifies the Deadline task
-     * @return Deadline category.
-     */
-    public String isDeadline() {
-        return "[D]";
-    }
-
-    /**
      * Overrides Task.add() to specify the Deadline task to be added.
      *
      * @return String representation of Deadline task to be added.
      */
     @Override
     public String add() {
-            return "    " + this.isDeadline() + this.marked() + " "
+            return "    " + this.getCat()+ this.marked() + " "
                     + this.getTask()
                     + this.getDeadline();
 
@@ -67,7 +59,7 @@ public class Deadline extends Task{
     public void writeToFile(File filePath) throws IOException {
         try {
             FileWriter fw = new FileWriter(filePath.getPath(), true);
-            fw.write(this.isDeadline() + this.marked() + " "
+            fw.write(this.getCat() + this.marked() + " "
                     + this.getTask() + this.getDeadline() + "\n");
             fw.close();
         } catch (IOException e) {
