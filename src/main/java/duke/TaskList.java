@@ -18,22 +18,23 @@ public class TaskList {
     /**
      * Prints the task list to console.
      */
-    public void returnList() {
+    public String returnList() {
+        String list = "";
         if (taskList.size() == 0) {
-            System.out.println("You have no items in your list.");
-            return;
+            return "You have no items in your list.";
         }
         for (int i = 1; i < taskList.size() + 1; i++) {
-            System.out.println(i + ". " + taskList.get(i - 1).toString());
+            list += (i + ". " + taskList.get(i - 1).toString());
         }
+        return list;
     }
     /**
      * Adds task to the task list.
      * @param task task to be added to task list
      */
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         taskList.add(task);
-        System.out.println("Got it. Added: " + task.toString());
+        return "Got it. Added: " + task.toString();
     }
 
     /**
@@ -46,25 +47,24 @@ public class TaskList {
     /**
      * Marking task at index i as done. Displays list at the end of marking.
      */
-    public void mark(int i) {
+    public String mark(int i) {
         this.taskList.get(i - 1).markDone();
-        this.returnList();
+        return "Marked i-th task as done";
     }
     /**
      * Marking task at index i as undone. Displays list at the end of marking.
      */
-    public void unmark(int i) {
+    public String unmark(int i) {
         this.taskList.get(i - 1).markUndone();
-        this.returnList();
+        return "Marked i-th task as un done";
     }
     /**
      * This function removes a task from the task list.
      * @param index remove index'th task
      */
-    public void delete(int index) {
+    public String delete(int index) {
         this.taskList.remove(index - 1);
-        System.out.println("Deleted task no. " + index);
-        System.out.println("You have " + this.len() + " tasks left");
+        return "Deleted task no. " + index + "You have " + this.len() + " tasks left";
     }
     /**
      * Returns the size of the task list.

@@ -2,9 +2,6 @@ package duke;
 
 import java.io.IOException;
 
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-
 /**
  * This class holds the main logic for the chatbot.
  */
@@ -25,28 +22,32 @@ public class Duke {
             System.out.println(e.getMessage());
         }
     }
-    /**
-     * Handles displaying the ui and loading and storing the task list on the local storage.
-     */
-    private void run() {
-        ui.introduce("riri");
-        try {
-            ui.chat(tasks);
-            storage.writeToFile(tasks.toString());
-        } catch (RiriException | IOException e) {
-            System.out.println(e.getMessage());
-        }
-        ui.exit();
-    }
-    public static void main(String[] args) {
-        new Duke().run();
-    }
+//    /**
+//     * Handles displaying the ui and loading and storing the task list on the local storage.
+//     */
+//    private void run() {
+//        ui.introduce("riri");
+//        try {
+//            ui.chat(tasks);
+//            storage.writeToFile(tasks.toString());
+//        } catch (RiriException | IOException e) {
+//            System.out.println(e.getMessage());
+//        }
+//        ui.exit();
+//    }
+//    public static void main(String[] args) {
+//        new Duke().run();
+//    }
 
     /**
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        try {
+            return CommandHandler.chat(input, tasks);
+        } catch (RiriException e) {
+            return e.getMessage();
+        }
     }
 }
