@@ -42,7 +42,7 @@ public class EventCommand extends Command {
         Event event;
         event = new Event(description, startTime, endTime);
         tasks.add(event);
-        ui.taskResponse(event, tasks);
+        ui.addResponse(event, tasks);
         storage.saveList(tasks.getTasks());
     }
 }

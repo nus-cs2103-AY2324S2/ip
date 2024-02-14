@@ -10,6 +10,7 @@ import duke.command.ViewCommand;
 import duke.command.ExitCommand;
 import duke.command.ListCommand;
 import duke.command.FindCommand;
+import duke.command.UndoCommand;
 
 import duke.exception.DukeException;
 
@@ -56,6 +57,8 @@ public class Parser {
             String findWord = userInput.replace("find", "").trim();
             processEmptyDescription(findWord, "find");
             return new FindCommand(findWord);
+        } else if (userInput.startsWith("undo")) {
+            return new UndoCommand();
         } else {
             throw new DukeException("Error! I don't know what that means.");
         }
