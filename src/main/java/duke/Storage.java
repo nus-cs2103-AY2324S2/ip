@@ -14,6 +14,7 @@ public class Storage {
      * @param filepath The filepath to the file that contains recorded tasks.
      */
     public Storage(String filepath) {
+        assert filepath != null : "filepath should not be null!";
         this.filepath = filepath;
     }
 
