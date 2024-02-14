@@ -101,15 +101,11 @@ public class Friday extends Application {
         scrollPane.setFitToWidth(true);
 
         sendButton = new Button("Send");
-
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-
         scene = new Scene(mainLayout);
-
         stage.setScene(scene);
         stage.show();
-
         stage.setTitle("Friday");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
@@ -118,16 +114,12 @@ public class Friday extends Application {
         mainLayout.setPrefSize(600, 800.0);
 
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
         userInput.setPrefWidth(325.0);
-
         sendButton.setPrefWidth(55.0);
 
         AnchorPane.setTopAnchor(scrollPane, 1.0);
-
         AnchorPane.setBottomAnchor(sendButton, 1.0);
         AnchorPane.setRightAnchor(sendButton, 1.0);
-
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 

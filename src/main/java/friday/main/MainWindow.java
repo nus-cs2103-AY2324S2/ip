@@ -80,7 +80,6 @@ public class MainWindow extends AnchorPane {
      * Waits for 2 seconds before closing the application window.
      */
     private void exitApplication() {
-        // Get the stage (window) and close it
         PauseTransition pause = new PauseTransition(Duration.seconds(2));
         pause.setOnFinished(event -> {
             Stage stage = (Stage) userInput.getScene().getWindow();
