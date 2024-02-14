@@ -40,10 +40,7 @@ public abstract class Command {
      */
     public static Command makeCommand(String description) throws InvalidCommandException {
         String type = description.split(" ")[0].toLowerCase();
-        String[] commandlst = {"list", "bye", "mark", "unmark", "delete", "todo", "deadline", "event"};
-
-        Command cmd = null;
-
+        Command cmd;
         switch (type) {
         case "list":
             cmd = new ListCommand();

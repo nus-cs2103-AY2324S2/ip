@@ -16,8 +16,8 @@ public class TaskList {
     }
 
     /**
-     * Makes a empty tasklist.
-     * @return a empty tasklist.
+     * Makes an empty taskList.
+     * @return an empty taskList.
      */
     public static TaskList makeTaskList() {
         return new TaskList();
@@ -31,7 +31,7 @@ public class TaskList {
      * @throws InvalidCommandIndexException if the index is out
      *         of range of the tasklist.
      */
-    public Task getTask(int pos) throws InvalidCommandIndexException {
+    public Task getTaskAtIndex(int pos) throws InvalidCommandIndexException {
 
         if (counter < pos || pos <= 0) {
             throw new InvalidCommandIndexException();
@@ -50,7 +50,7 @@ public class TaskList {
      *         of range of the tasklist.
      * @return a String representing whether the task is successfully added.
      */
-    public String markTask(int pos) throws InvalidCommandIndexException {
+    public String markTaskAtIndex(int pos) throws InvalidCommandIndexException {
 
 
         if (counter < pos || pos <= 0) {
@@ -75,7 +75,7 @@ public class TaskList {
      * @return a string representing if the task is successfully unmarked.
      */
 
-    public String unmarkTask(int pos) throws InvalidCommandIndexException {
+    public String unmarkTaskAtIndex(int pos) throws InvalidCommandIndexException {
 
 
         if (counter < pos || pos <= 0) {
@@ -98,7 +98,7 @@ public class TaskList {
      *         of range of the tasklist.
      * @return a string representing if the task is successfully deleted.
      */
-    public String deleteTask(int pos) throws InvalidCommandIndexException {
+    public String deleteTaskAtIndex(int pos) throws InvalidCommandIndexException {
 
 
         if (counter < pos || pos <= 0) {
@@ -132,7 +132,7 @@ public class TaskList {
      * @return an integer representing the number
      *         of the tasks within the tasklist.
      */
-    public int getCounter() {
+    public int getTaskNum() {
         return this.counter;
     }
 
@@ -159,16 +159,16 @@ public class TaskList {
      *            the user wishes to search for in the tasklist.
      */
     public String printMatchingTasks(String cmd) {
-        ArrayList<Task> found_tasks = new ArrayList<>();
+        ArrayList<Task> foundTasks = new ArrayList<>();
         for (int i = 0; i<counter; i++) {
             if (this.taskList.get(i).match(cmd)) {
-                found_tasks.add(taskList.get(i));
+                foundTasks.add(taskList.get(i));
             }
         }
         StringBuilder lst = new StringBuilder();
-        if (found_tasks.size() > 0) {
+        if (!foundTasks.isEmpty()) {
             System.out.println("Here are the tasks that match your description");
-            for (int j = 0; j < found_tasks.size(); j++) {
+            for (int j = 0; j < foundTasks.size(); j++) {
                 lst.append(this.taskList.get(j) + "\n");
             }
             return lst.toString();

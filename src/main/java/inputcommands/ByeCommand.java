@@ -9,9 +9,6 @@ import snomtasklist.TaskList;
  */
 public class ByeCommand extends Command {
 
-    private ByeCommand(String desc) {
-        super(desc);
-    }
 
     protected ByeCommand() {
         super(" ");
@@ -34,7 +31,7 @@ public class ByeCommand extends Command {
      * This method returns the string to terminate the execution of SnomBot.
      * @param t is the instance of Storage.TaskList.TaskList containing all the tasks.
      * @return a string representing the command to terminate the execution of SnomBot.
-     * @throws InvalidCommandException
+     * @throws InvalidCommandException if the command executed is invalid.
      */
     @Override
     public String execute(TaskList t) throws InvalidCommandException {

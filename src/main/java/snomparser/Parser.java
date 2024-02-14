@@ -15,6 +15,9 @@ import snomtasklist.TaskList;
  */
 public class Parser {
 
+    private static final int DEADLINE_TASK_LENGTH = 2;
+    private static final int EVENT_TASK_LENGTH = 3;
+
 
     /**
      * Processes the command, and returns a String output
@@ -30,46 +33,46 @@ public class Parser {
 
     public String processCommand(Command command, TaskList lst, TaskStorage storage) {
 
-        boolean status = true;
+
         try {
             String cmd = command.execute(lst);
             assert cmd != null : "Command cannot be null";
-            String result = "";
+            String result;
             switch (command.getType()) {
             case DEADLINE:
-                result = this.addDeadline(lst, storage, cmd);
+                result = this.addDeadlineToTaskList(lst, cmd);
                 break;
             case EVENT:
-                result = this.addEvent(lst, storage, cmd);
+                result = this.addEventToTaskList(lst, cmd);
                 break;
             case TODO:
-                result = this.addTodo(lst, storage, cmd);
+                result = this.addTodoToTaskList(lst, cmd);
                 break;
             case MARK:
-                result = this.doTask(lst, storage, Integer.parseInt(cmd));
+                result = this.doTaskInTaskList(lst, Integer.parseInt(cmd));
                 break;
             case UNMARK:
-                result = this.undoTask(lst, storage, Integer.parseInt(cmd));
+                result = this.undoTaskInTaskList(lst, Integer.parseInt(cmd));
                 break;
             case DELETE:
-                result = this.deleteTask(lst, storage, Integer.parseInt(cmd));
+                result = this.deleteTaskFromTaskList(lst, Integer.parseInt(cmd));
                 break;
             case LIST:
-                result = this.listTask(lst, storage);
+                result = this.listTaskInTaskList(lst);
                 break;
             case FIND:
-                result = this.findTask(lst, cmd);
+                result = this.findTaskInTaskList(lst, cmd);
                 break;
             case BYE:
                 result = "bye";
                 break;
             default:
-                result = "None";
+                result = "Invalid Task";
 
 
 
             }
-            assert result.equals("None") : "Invalid task added";
+            assert result.equals("Invalid Task") : "Invalid task added";
 
             storage.saveTask(lst);
             return result;
@@ -82,59 +85,57 @@ public class Parser {
     }
 
 
-    private String addTodo(TaskList lst, TaskStorage storage, String cmd) {
+    private String addTodoToTaskList(TaskList lst, String cmd) {
         return lst.addTask(new Todo(cmd));
 
     }
 
-    private String addDeadline(TaskList lst, TaskStorage storage, String cmd) {
-        String name = cmd.split("/", 2)[0];
+    private String addDeadlineToTaskList(TaskList lst, String cmd) {
+        String name = cmd.split("/", DEADLINE_TASK_LENGTH)[0];
 
-        String due_date = cmd.split("/", 2)[1];
+        String due_date = cmd.split("/", DEADLINE_TASK_LENGTH)[1];
         return lst.addTask(new Deadline(name, due_date));
 
     }
 
-    private String addEvent(TaskList lst, TaskStorage storage, String cmd) {
-        String name = cmd.split("/", 3)[0];
-        String start = cmd.split("/", 3)[1];
-        String end = cmd.split("/", 3)[2];
+    private String addEventToTaskList(TaskList lst, String cmd) {
+        String name = cmd.split("/", EVENT_TASK_LENGTH)[0];
+        String start = cmd.split("/", EVENT_TASK_LENGTH)[1];
+        String end = cmd.split("/", EVENT_TASK_LENGTH)[2];
 
         return lst.addTask(new Event(name, start, end));
     }
 
-    private String doTask(TaskList lst, TaskStorage storage, int pos) {
+    private String doTaskInTaskList(TaskList lst, int pos) {
         try {
-            return lst.markTask(pos);
+            return lst.markTaskAtIndex(pos);
         } catch (InvalidCommandException e) {
             System.out.println(e.getMessage());
             return "this should not happen1";
         }
     }
 
-    private String undoTask(TaskList lst, TaskStorage storage, int pos) {
+    private String undoTaskInTaskList(TaskList lst, int pos) {
         try {
-            return lst.unmarkTask(pos);
+            return lst.unmarkTaskAtIndex(pos);
         } catch (InvalidCommandException e) {
-            System.out.println(e.getMessage());
-            return "this should not happen2";
+            return "Invalid Task";
         }
     }
 
-    private String deleteTask(TaskList lst, TaskStorage storage, int pos) {
+    private String deleteTaskFromTaskList(TaskList lst, int pos) {
         try {
-            return lst.deleteTask(pos);
+            return lst.deleteTaskAtIndex(pos);
         } catch (InvalidCommandException e) {
-
-            return "this should not happen3";
+            return "Invalid Task";
         }
     }
 
-    private String listTask(TaskList lst, TaskStorage storage) {
+    private String listTaskInTaskList(TaskList lst) {
         return lst.displayTaskList();
     }
 
-    private String findTask(TaskList lst, String cmd) {
+    private String findTaskInTaskList(TaskList lst, String cmd) {
         return lst.printMatchingTasks(cmd);
     }
 

@@ -1,11 +1,11 @@
 package SnomStorage;
 
-import snomexceptions.InvalidCommandIndexException;
-import snomtasklist.TaskList;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import snomexceptions.InvalidCommandIndexException;
+import snomtasklist.TaskList;
 
 public class TaskStorage {
 
@@ -34,8 +34,8 @@ public class TaskStorage {
 
     private void updateFile(String filename, TaskList lst) {
         try {
-            for (int i = 1; i <= lst.getCounter(); i++) {
-                writeToFile(filename, lst.getTask(i) + System.lineSeparator());
+            for (int i = 1; i <= lst.getTaskNum(); i++) {
+                writeToFile(filename, lst.getTaskAtIndex(i) + System.lineSeparator());
                 //System.out.println(lst.getTask(i));
             }
         } catch (IOException e) {
