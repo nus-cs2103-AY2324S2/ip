@@ -9,6 +9,8 @@ import java.util.ArrayList;
  */
 public class TaskList extends ArrayList<Task> {
 
+    ArchiveList archive = new ArchiveList();
+
     /**
      * Adds a Task to the TaskList.
      *
@@ -38,15 +40,11 @@ public class TaskList extends ArrayList<Task> {
      *
      * @return String
      */
-    String getTasks() {
-        if (this.isEmpty()) {
-            return "There are no tasks in your list.";
+    String getTasks(String taskDetail) {
+        if (taskDetail.toUpperCase().equals("ALL")) {
+            return listAllTasks();
         }
-        StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
-        for (int i = 0; i < this.size(); i++) {
-            sb.append(i + 1 + ":" + this.get(i) + "\n");
-        }
-        return sb.toString();
+        return listTasks();
     }
 
     /**
@@ -79,7 +77,7 @@ public class TaskList extends ArrayList<Task> {
      * @param i index of the task to be deleted.
      * @return String
      */
-    String deleteTask(int i) {
+    String delete(int i) {
         int s0 = this.size();
         Task t = this.remove(i - 1);
         int s1 = this.size();
@@ -88,10 +86,43 @@ public class TaskList extends ArrayList<Task> {
     }
 
     /**
-     * Counts the number of Tasks on the TaskList.
+     * Archives the tasks by moving it into the archive list.
+     *
+     * @param i index of the task to be archived
+     * @return String
+     */
+    String archive(int i) {
+        Task t = this.remove(i-1);
+        archive.add(t);
+        return "Noted. I've archived this duke.task: " + "\n" + t + "\n" + countTasks();
+    }
+
+    /**
+     * Lists the number of Tasks on the TaskList.
      * @return String
      */
     String countTasks() {
         return "Now you have " + this.size() + " tasks in the list.";
     }
+
+    String listTasks() {
+        if (this.isEmpty()) {
+            return "There are no tasks in your list.";
+        }
+        StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
+        for (int i = 0; i < this.size(); i++) {
+            sb.append(i + 1 + ":" + this.get(i) + "\n");
+        }
+        return sb.toString();
+    }
+
+    String listAllTasks() {
+        StringBuilder sb = new StringBuilder(listTasks());
+        sb.append("Here are the tasks you have archived.\n");
+        for (int i = 0; i < archive.size(); i++) {
+            sb.append(i + 1 + ":" + archive.get(i) + "\n");
+        }
+        return sb.toString();
+    }
+
 }

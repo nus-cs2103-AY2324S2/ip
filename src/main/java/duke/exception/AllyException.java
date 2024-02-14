@@ -10,4 +10,9 @@ public class AllyException extends RuntimeException {
     public AllyException() {
         super();
     }
+
+    @Override
+    public String getMessage() {
+        return "I don't understand you sorry!";
+    }
 }

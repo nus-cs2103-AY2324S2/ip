@@ -33,7 +33,7 @@ public class Duke {
     private MainWindow mainWindow;
 
     public Duke() {
-        this.lst = storage.loadTasks();
+        lst = storage.loadTasks();
     }
 
     protected void linkMainWindow(MainWindow mw) {
@@ -48,12 +48,12 @@ public class Duke {
             String taskDetail = Parser.parseTaskDetail(s);
             switch (command) {
             case LIST:
-                return lst.getTasks();
+                return lst.getTasks(taskDetail);
             case BYE:
                 Storage.saveTasks();
                 mainWindow.addDukeMessage("Bye. Hope to see you again soon!");
                 System.exit(0);
-                // will not faull through
+                // will not fall through
             case MARK:
                 return lst.markComplete(Integer.parseInt(taskDetail.trim()));
             case UNMARK:
@@ -67,12 +67,15 @@ public class Duke {
                 return lst.addToList(new Event(taskDetail));
 
             case DELETE:
-                return lst.deleteTask(Integer.parseInt(taskDetail.trim()));
+                return lst.delete(Integer.parseInt(taskDetail.trim()));
 
             case FIND:
                 assert lst != null;
                 Finder finder = new Finder(lst);
                 return finder.find(taskDetail);
+
+            case ARCHIVE:
+                return lst.archive(Integer.parseInt(taskDetail.trim()));
 
             case UNKNOWN:
                 throw new AllyException();
