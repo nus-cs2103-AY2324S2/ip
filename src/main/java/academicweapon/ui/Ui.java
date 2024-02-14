@@ -56,6 +56,7 @@ public class Ui {
     public String readCommand() throws IOException, DukeExceptions {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String input = br.readLine();
+        assert input != null : "Input should not be null";
         return input;
     }
 
