@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class TaskListTest {
     @Test
-    public void markTask_outOfBounds_throwsException() throws Exception {
+    public void markTask_outOfBounds_throwsException() {
         try {
             TaskList tasks = new TaskList();
             tasks.markCompleteTask(50);
@@ -19,9 +19,15 @@ public class TaskListTest {
 
     @Test
     public void addTask_taskNotMutated_success() {
-        TaskList tasks = new TaskList();
-        Task todo1 = new Todo("Finish Assignments");
-        tasks.addTask(todo1);
-        assertEquals(tasks.printTask(0), new Todo("Finish Assignments").toString());
+        try {
+            TaskList tasks = new TaskList();
+            Task todo1 = new Todo("Finish Assignments");
+            tasks.addTask(todo1);
+            assertEquals(tasks.printTask(0), new Todo("Finish Assignments").toString());
+        } catch (QuackyException e) {
+            //This should never happen as it is a todo
+            fail();
+        }
     }
+
 }

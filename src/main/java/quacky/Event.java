@@ -37,4 +37,14 @@ public class Event extends Task{
     protected String toFileString() {
         return "E | " + super.toFileString() + " | " + this.fromDate + " | " + this.toDate;
     }
+
+    @Override
+    public boolean clashesWith(Task other) {
+        if (other instanceof Event) {
+            Event otherEvent = (Event) other;
+            return (this.fromDate.isBefore(otherEvent.toDate) && this.toDate.isAfter(otherEvent.fromDate))
+                    || (otherEvent.fromDate.isBefore(this.toDate) && otherEvent.toDate.isAfter(this.fromDate));
+        }
+        return false;
+    }
 }

@@ -15,7 +15,12 @@ public class TaskList {
         tasks = new ArrayList<>();
     }
 
-    public void addTask(Task task){
+    public void addTask(Task task) throws QuackyException {
+        for (Task existingTask : tasks) {
+            if (task.clashesWith(existingTask)) {
+                throw new QuackyException("Task clashes with existing task(s)");
+            }
+        }
         tasks.add(task);
     }
     /*
@@ -43,6 +48,7 @@ public class TaskList {
     public void deleteTask(int i){
         tasks.remove(i);
     }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -75,8 +81,12 @@ public class TaskList {
     public TaskList findTasksByKeyword(String keyword) {
         TaskList matchingTasks = new TaskList();
         for (Task task : this.tasks) {
-            if (task.toString().toLowerCase().contains(keyword.toLowerCase())) {
-                matchingTasks.addTask(task);
+            try {
+                if (task.toString().toLowerCase().contains(keyword.toLowerCase())) {
+                    matchingTasks.addTask(task);
+                }
+            } catch (QuackyException e) {
+                //This should not happen as the list should already not have clashing dates
             }
         }
         return matchingTasks;

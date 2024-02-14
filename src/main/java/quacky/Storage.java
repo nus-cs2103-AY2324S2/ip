@@ -90,7 +90,11 @@ public class Storage {
                     if (parts[1].equals("0")) {
                         task.markDone();
                     }
-                    tasks.addTask(task);
+                    try {
+                        tasks.addTask(task);
+                    } catch (QuackyException e) {
+                        //This should not happen as each time a task is saved, there will be a check for clashes
+                    }
                 }
             }
             fileReader.close();
