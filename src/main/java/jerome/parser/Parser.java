@@ -12,10 +12,12 @@ import jerome.commands.FindCommand;
 import jerome.commands.IncorrectCommand;
 import jerome.commands.ListCommand;
 import jerome.commands.MarkCommand;
+import jerome.commands.SetPriorityCommand;
 import jerome.commands.TodoCommand;
 import jerome.commands.UnmarkCommand;
 import jerome.common.Messages;
 import jerome.exception.MalformedUserInputException;
+import jerome.tasklist.Priority;
 
 /**
  * Represents a Parser class that parses user input and converts it into executable commands.
@@ -76,8 +78,32 @@ public class Parser {
         case FindCommand.COMMAND_WORD:
             return prepareFindCommand(arguments);
 
+        case SetPriorityCommand.COMMAND_WORD:
+            return prepareSetPriorityCommand(arguments);
+
         default:
             return new IncorrectCommand(Messages.MESSAGE_INCORRECT);
+        }
+    }
+
+    private Command prepareSetPriorityCommand(String arguments) {
+
+        final Matcher matcher = SetPriorityCommand.SET_PRIORITY_ARGUMENTS_FORMAT.matcher(arguments.trim());
+
+        if (!matcher.matches()) {
+            return new IncorrectCommand(SetPriorityCommand.MESSAGE_INVALID_ID);
+        }
+
+        try {
+            final int targetIndex = Integer.parseInt(matcher.group("targetIndex")) - 1;
+            final Priority priorityLevel = Priority.valueOf(matcher.group("priorityLevel"));
+
+            return new SetPriorityCommand(targetIndex, priorityLevel);
+        } catch (NumberFormatException e) {
+            return new IncorrectCommand(SetPriorityCommand.MESSAGE_INVALID_ID);
+        } catch (IllegalArgumentException e) {
+            // Handle the case where the enum constant is not valid
+            return new IncorrectCommand(SetPriorityCommand.MESSAGE_INVALID_PRIORITY);
         }
     }
 
@@ -85,21 +111,19 @@ public class Parser {
     private Command prepareFindCommand(String arguments) {
         if (arguments.isEmpty()) {
             return new IncorrectCommand(FindCommand.MESSAGE_EMPTY_SEARCH_TERM);
-        } else {
-            return new FindCommand(arguments.trim());
         }
+        return new FindCommand(arguments.trim());
     }
 
     private Command prepareMarkCommand(String arguments) {
         if (arguments.trim().isEmpty()) {
             return new IncorrectCommand(MarkCommand.MESSAGE_INVALID_ID);
-        } else {
-            try {
-                int targetIndex = Integer.valueOf(arguments.trim()) - 1;
-                return new MarkCommand(targetIndex);
-            } catch (NumberFormatException nfe) {
-                return new IncorrectCommand(MarkCommand.MESSAGE_INVALID_ID);
-            }
+        }
+        try {
+            int targetIndex = Integer.valueOf(arguments.trim()) - 1;
+            return new MarkCommand(targetIndex);
+        } catch (NumberFormatException nfe) {
+            return new IncorrectCommand(MarkCommand.MESSAGE_INVALID_ID);
         }
 
     }

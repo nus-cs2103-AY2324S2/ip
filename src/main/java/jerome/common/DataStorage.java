@@ -224,7 +224,14 @@ public class DataStorage {
         return this.taskCount;
     }
 
-    private void rebuildStorage() {
+    /**
+     * Rebuilds the storage file by iterating through all the tasks in the task list
+     * and adding them to the storage file again.
+     *
+     * Uses the addTaskToTextFile method to add a task to the storage file.
+     *
+     */
+    public void rebuildStorage() {
         // TODO: might not be a very good idea to rebuild the entire database.
         for (int i = 0; i < this.taskCount; i++) {
             // i != 0 means that refresh the whole file.

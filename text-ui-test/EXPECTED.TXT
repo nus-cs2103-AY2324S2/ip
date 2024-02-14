@@ -7,38 +7,38 @@
 	 ____________________________________________________________
 	 ____________________________________________________________
 	 Got it. I've added this task:
-	 [T][ ] hello
+	 [T][ ] hello [Priority: MEDIUM]
 	 Now you have 1 task(s) available!
 	 ____________________________________________________________
 	 ____________________________________________________________
-	 1. [T][ ] hello
+	 1. [T][ ] hello [Priority: MEDIUM]
 	 ____________________________________________________________
 	 ____________________________________________________________
 	 Nice! I've marked this task as done:
-	 [T][X] hello
+	 [T][X] hello [Priority: MEDIUM]
 	 ____________________________________________________________
 	 ____________________________________________________________
 	 Got it. I've added this task:
-	 [E][ ] party all day every (from: Jan 01 2023 to: Mar 09 2024)
+	 [E][ ] party all day every [Priority: MEDIUM] (from: Jan 01 2023 to: Mar 09 2024)
 	 Now you have 2 task(s) available!
 	 ____________________________________________________________
 	 ____________________________________________________________
-	 1. [T][X] hello
-	 2. [E][ ] party all day every (from: Jan 01 2023 to: Mar 09 2024)
+	 1. [T][X] hello [Priority: MEDIUM]
+	 2. [E][ ] party all day every [Priority: MEDIUM] (from: Jan 01 2023 to: Mar 09 2024)
 	 ____________________________________________________________
 	 ____________________________________________________________
 	 Got it. I've added this task:
-	 [E][ ] party all day every (from: Feb 01 2023 to: Mar 09 2024)
+	 [E][ ] party all day every [Priority: MEDIUM] (from: Feb 01 2023 to: Mar 09 2024)
 	 Now you have 3 task(s) available!
 	 ____________________________________________________________
 	 ____________________________________________________________
-	 1. [T][X] hello
-	 2. [E][ ] party all day every (from: Jan 01 2023 to: Mar 09 2024)
-	 3. [E][ ] party all day every (from: Feb 01 2023 to: Mar 09 2024)
+	 1. [T][X] hello [Priority: MEDIUM]
+	 2. [E][ ] party all day every [Priority: MEDIUM] (from: Jan 01 2023 to: Mar 09 2024)
+	 3. [E][ ] party all day every [Priority: MEDIUM] (from: Feb 01 2023 to: Mar 09 2024)
 	 ____________________________________________________________
 	 ____________________________________________________________
 	 Nice! I've marked this task as uncompleted:
-	 [T][ ] hello
+	 [T][ ] hello [Priority: MEDIUM]
 	 ____________________________________________________________
 	 ____________________________________________________________
 	 Invalid date time format.
@@ -46,12 +46,16 @@
 	 ____________________________________________________________
 	 ____________________________________________________________
 	 Nice! I've marked this task as done:
-	 [E][X] party all day every (from: Jan 01 2023 to: Mar 09 2024)
+	 [E][X] party all day every [Priority: MEDIUM] (from: Jan 01 2023 to: Mar 09 2024)
 	 ____________________________________________________________
 	 ____________________________________________________________
-	 1. [T][ ] hello
-	 2. [E][X] party all day every (from: Jan 01 2023 to: Mar 09 2024)
-	 3. [E][ ] party all day every (from: Feb 01 2023 to: Mar 09 2024)
+	 Noted, the priority of this task has been modified:
+	  [E][X] party all day every [Priority: LOW] (from: Jan 01 2023 to: Mar 09 2024)
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 1. [T][ ] hello [Priority: MEDIUM]
+	 2. [E][X] party all day every [Priority: LOW] (from: Jan 01 2023 to: Mar 09 2024)
+	 3. [E][ ] party all day every [Priority: MEDIUM] (from: Feb 01 2023 to: Mar 09 2024)
 	 ____________________________________________________________
 	 ____________________________________________________________
 	 event: Adds an event.
@@ -63,7 +67,7 @@
 	 ____________________________________________________________
 	 ____________________________________________________________
 	 Noted, I have removed this task:
-	  [T][ ] hello
+	  [T][ ] hello [Priority: MEDIUM]
 	 Now you have 2 task(s) in the list.
 	 ____________________________________________________________
 	 ____________________________________________________________
@@ -73,8 +77,14 @@
 	 Please enter a integer that is 1 or larger.
 	 ____________________________________________________________
 	 ____________________________________________________________
-	 1. [E][X] party all day every (from: Jan 01 2023 to: Mar 09 2024)
-	 2. [E][ ] party all day every (from: Feb 01 2023 to: Mar 09 2024)
+	 Please enter a integer that is 1 or larger.
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 Please enter a integer that is 1 or larger.
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 1. [E][X] party all day every [Priority: LOW] (from: Jan 01 2023 to: Mar 09 2024)
+	 2. [E][ ] party all day every [Priority: MEDIUM] (from: Feb 01 2023 to: Mar 09 2024)
 	 ____________________________________________________________
 	 ____________________________________________________________
  	 This is an invalid index

@@ -9,10 +9,13 @@ list
 unmark 1
 deadline return book /by Sunday
 mark 2
+triage 2 LOW
 list
 event party /FROM Monday 2pm /to 4pm
 mark -2
 delete 1
+triage -1 HIHJIEHJGOIEHGIO
+triage -1 HIGH
 mark 12098765456t7yuioi8765467890-98765789
 mark
 list
