@@ -23,14 +23,16 @@ public class DeleteCommand extends Command {
      * @param storage to store the product of execution locally.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         String deletedTaskInfo = taskList.delete(deleteIndex);
-        Ui.print_message("Noted. I've removed this task:\n  "
+        String replyMessage = "Noted. I've removed this task:\n  "
                 + deletedTaskInfo + "\n "
                 + "Now you have "
                 + taskList.accessNumberTask()
-                + " tasks in the list.");
+                + " tasks in the list.";
+        Ui.print_message(replyMessage);
         storage.writeDisk(taskList.accessList());
+        return replyMessage;
     }
 
     /**

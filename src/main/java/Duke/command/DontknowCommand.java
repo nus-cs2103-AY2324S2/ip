@@ -11,8 +11,10 @@ public class DontknowCommand extends Command {
      * @param ui to manage the interaction with users
      * @param storage to store the product of execution locally, not used in this program
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        Ui.print_message("OOPS!!! I'm sorry, but I don't know what that means");
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        String replyMessage = "OOPS!!! I'm sorry, but I don't know what that means";
+        Ui.print_message(replyMessage);
+        return replyMessage;
     }
     /**
      * Determine whether this command is an exit command

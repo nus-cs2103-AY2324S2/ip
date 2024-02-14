@@ -25,14 +25,16 @@ public class AddCommand extends Command {
      * @param storage store the product of execution locally.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         taskList.insert(this.task);
-        Ui.print_message("Got it. I've added this task:\n  "
+        String replyMessage = "Got it. I've added this task:\n  "
                 + task.toString() + "\n "
                 + "Now you have "
                 + taskList.accessNumberTask()
-                + " tasks in the list.");
+                + " tasks in the list.";
+        Ui.print_message(replyMessage);
         storage.writeDisk(taskList.accessList());
+        return replyMessage;
     }
 
     /**

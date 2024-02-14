@@ -7,10 +7,12 @@ public class MarkCommand extends Command {
         this.markIndex = index;
     }
 
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         String markedTaskInfo = taskList.mark(markIndex);
-        Ui.print_message("Nice! I've marked this task as done:\n  " + markedTaskInfo);
+        String replyMessage = "Nice! I've marked this task as done:\n  " + markedTaskInfo;
+        Ui.print_message(replyMessage);
         storage.writeDisk(taskList.accessList());
+        return replyMessage;
     }
     public boolean isExit() {
         return false;
