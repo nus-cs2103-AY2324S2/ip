@@ -74,6 +74,8 @@ public class Storage {
      * @param n the String to write
      */
     public void add(String n) {
+        assert folder.exists();
+        assert file.exists();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
             writer.write(n);
             writer.newLine();
@@ -86,6 +88,8 @@ public class Storage {
      * @param number the line to delete
      */
     public void delete(int number) {
+        assert folder.exists();
+        assert file.exists();
         // Read the content of the file
         ArrayList<String> lines = new ArrayList<>();
         String currentLine;
@@ -108,6 +112,8 @@ public class Storage {
      * @return returns the string found
      */
     public String read(int n) {
+        assert folder.exists();
+        assert file.exists();
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String currentLine = null;
             int currLine = 0;
