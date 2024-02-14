@@ -36,7 +36,9 @@ public class UnMarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         int oneItem = zeroItem + 1;
-        if (oneItem < 1 || oneItem > tasks.getSize()) {
+        boolean isOutsideLowerLimit = oneItem < 1;
+        boolean isOutsideUpperLimit = oneItem > tasks.getSize();
+        if (isOutsideLowerLimit || isOutsideUpperLimit) {
             throw new DukeException("Error! Task number '" + oneItem + "' does not exist.");
         }
         tasks.unMarkAsDone(zeroItem);

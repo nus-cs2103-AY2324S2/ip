@@ -57,7 +57,7 @@ public class Parser {
             processEmptyDescription(findWord, "find");
             return new FindCommand(findWord);
         } else {
-            throw new DukeException("Error! I don't know what that means. Types of tasks are limited to ToDos, Deadlines and Events.");
+            throw new DukeException("Error! I don't know what that means.");
         }
     }
 
@@ -71,7 +71,9 @@ public class Parser {
      */
     private static int parseTaskNumber(String input, String command) throws DukeException {
         String taskNumString = input.replace(command, "").trim();
-        if (taskNumString.isEmpty() || !taskNumString.matches("\\d+")) {
+        boolean isStringEmpty = taskNumString.isEmpty();
+        boolean isInvalidTaskNumber = !taskNumString.matches("\\d+");
+        if (isStringEmpty || isInvalidTaskNumber) {
             throw new DukeException("Error! Please provide a valid task number after '" + command + "'.");
         }
         int taskNumber = Integer.parseInt(taskNumString);

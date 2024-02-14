@@ -83,8 +83,10 @@ public class TaskList {
      * of 0 or if one-indexed task number is greater than the size of the task list.
      */
      public void deleteTask(int item) throws DukeException {
+        boolean isWithinLowerLimit = item >= 0;
+        boolean isWithinUpperLimit = item < tasks.size();
         assert tasks.get(item) != null : "Task to delete cannot be null";
-        if (item >= 0 && item < tasks.size()) {
+        if (isWithinLowerLimit && isWithinUpperLimit) {
             tasks.remove(item);
         } else {
             int oneItem = item + 1;
