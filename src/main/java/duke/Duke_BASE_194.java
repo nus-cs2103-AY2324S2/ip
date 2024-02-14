@@ -209,21 +209,6 @@ public class Duke extends Application {
         userInput.clear();
     }
 
-<<<<<<< HEAD
-
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
-    public String getResponse(String input) {
-        try {
-            Command command = Parser.parse(input);
-            return command.execute(tasks, ui, storage);
-        } catch (JamieException e) {
-            return e.getMessage();
-        } catch (Exception e) {
-            return "An error occurred while processing your request.";
-=======
     public void processUserInput(String input) {
         try {
             Command command = Parser.parse(input);
@@ -231,7 +216,6 @@ public class Duke extends Application {
             this.lastMessage = ui.getLastMessage();
         } catch (JamieException e) {
             ui.showError(e.getMessage());
->>>>>>> branch-Level-10
         }
     }
 
@@ -242,5 +226,6 @@ public class Duke extends Application {
     public Ui getUi() {
         return this.ui;
     }
+
 }
 

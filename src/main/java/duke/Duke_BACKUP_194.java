@@ -1,7 +1,8 @@
 package duke;
 
 import java.io.IOException;
-//import java.util.Scanner;
+import javafx.application.Platform;
+import javafx.scene.text.Text;
 
 import duke.command.Command;
 import javafx.application.Application;
@@ -17,7 +18,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
-
 /**
  * The Duke program implements an application that
  * manages a list of tasks. It allows adding, deleting,
@@ -27,21 +27,21 @@ public class Duke extends Application {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private Parser parser;
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-    private String lastMessage;
     private final Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private final Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-    private GuiObserver guiObserver;
+    //private GuiObserver guiObserver;
     /**
      * Constructs a new Duke object.
      * Initializes the user interface, storage, and task list.
      */
     public Duke() {
-        String filePath = "data/jamie.txt";
+        String filePath = "./data/jamie.txt";
         this.storage = new Storage(filePath);
         this.ui = new Ui();
         this.tasks = new TaskList();
@@ -61,43 +61,11 @@ public class Duke extends Application {
         } catch (IOException ie) {
             System.exit(0);
         } catch (JamieException e) {
+            ui.showLoadingError();
             tasks = new TaskList();
         }
     }
 
-//    /**
-//     * Runs the main loop of the application.
-//     * Reads user input and executes commands until the user exits.
-//     */
-//
-//    public void run() {
-//        ui.showWelcome();
-//        Scanner scanner = new Scanner(System.in);
-//        boolean isExit = false;
-//        while (!isExit) {
-//            String userInput = scanner.nextLine();
-//            try {
-//                Command command = Parser.parse(userInput);
-//                command.execute(tasks, ui, storage);
-//                isExit = command.isExit();
-//            } catch (JamieException e) {
-//                ui.showError(e.getMessage());
-//            }
-//        }
-//        ui.showExitMessage();
-//        scanner.close();
-//    }
-
-//    /**
-//     * The entry point of the application.
-//     *
-//     * @param args The command-line arguments.
-//     */
-//    public static void main(String[] args) {
-////        new Duke("data/Jamie.txt").run();
-//        Application.launch(Duke.class, args);
-//
-//    }
 
     @Override
     public void start(Stage stage) {
@@ -116,7 +84,11 @@ public class Duke extends Application {
 
         scene = new Scene(mainLayout);
         stage.setScene(scene);
+
         stage.show();
+
+        //
+        // mainWindow.displayDukeMessage(ui.showWelcome());
 
         //Step 2. Formatting the window to look as expected
         stage.setTitle("Jamie");
@@ -195,8 +167,8 @@ public class Duke extends Application {
     private void handleUserInput() {
         String userMessage = userInput.getText(); // Retrieve user input text
         Label userTextLabel = new Label(userMessage); // Create a Label with user input text
-        processUserInput(userMessage);
-        Label dukeTextLabel = new Label(this.lastMessage); // Create a Label with Duke's response
+        getResponse(userMessage);
+        Label dukeTextLabel = new Label(getResponse(userMessage)); // Create a Label with Duke's response
 
         // Create DialogBox instances using the user input text and images
         DialogBox userDialogBox = DialogBox.getUserDialog(userTextLabel.getText(), user);
@@ -209,6 +181,9 @@ public class Duke extends Application {
         userInput.clear();
     }
 
+<<<<<<< HEAD
+    public String getResponse(String input) {
+=======
 <<<<<<< HEAD
 
     /**
@@ -225,11 +200,19 @@ public class Duke extends Application {
             return "An error occurred while processing your request.";
 =======
     public void processUserInput(String input) {
+>>>>>>> ef11b940414c6c2888dfe9b8d8720c355b338579
         try {
-            Command command = Parser.parse(input);
-            command.execute(tasks, ui, storage);
-            this.lastMessage = ui.getLastMessage();
+            parser = new Parser(input);
+            Command command = parser.parse(input);
+            return command.execute(tasks, ui, storage);
+            //return this.lastMessage = ui.getLastMessage();
         } catch (JamieException e) {
+<<<<<<< HEAD
+            return "Invalid input! Please only use the available functions.";
+        }
+    }
+
+=======
             ui.showError(e.getMessage());
 >>>>>>> branch-Level-10
         }
@@ -242,5 +225,5 @@ public class Duke extends Application {
     public Ui getUi() {
         return this.ui;
     }
+>>>>>>> ef11b940414c6c2888dfe9b8d8720c355b338579
 }
-
