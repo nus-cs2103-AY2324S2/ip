@@ -98,7 +98,15 @@ public class MyList {
         }
     }
 
-    public String findByKeyword(String keyword) throws DukeException{
+    /**
+     * Finds and retrieves tasks containing a specified keyword.
+     *
+     * @param keyword The keyword to search for within task descriptions.
+     * @return A string representation of tasks containing the specified keyword,
+     *         or a message indicating that no matching tasks were found.
+     * @throws DukeException If the provided keyword is empty.
+     */
+    public String findByKeyword(String keyword) throws DukeException {
         if (keyword.isEmpty()) {
             throw new DukeException("Keyword cannot be empty");
         }
