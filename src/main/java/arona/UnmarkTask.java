@@ -23,5 +23,7 @@ public class UnmarkTask extends Command {
         int taskNum = Integer.parseInt(fullCommand.split(" ", 0)[1]);
         taskList.changeTaskStatus(taskNum, false);
         storage.save(taskList.getTasks());
+
+        assert !taskList.getTasks().get(taskNum - 1).getStatus() : "Task was not marked undone";
     }
 }
