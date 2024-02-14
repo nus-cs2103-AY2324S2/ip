@@ -54,6 +54,10 @@ public class FileParser {
 
     }
 
+    /**
+     * Returns the class's task list
+     * @return task list to be returned.
+     */
     public TaskList getTaskList() {
         return this.taskList;
     }

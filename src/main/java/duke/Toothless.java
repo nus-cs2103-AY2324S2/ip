@@ -41,6 +41,11 @@ public class Toothless {
     private String currentCommand;
     //private Image userImage = new Image(this.getClass().getResourceAsStream("/images/bunny.jpeg"));
     //private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/wisdom.jpeg"));
+    /**
+     * Main class of duke chatbot project. Upon running, creates a new ui to handle interactions with user and a parser to parse instructions
+     * from the user. Stores a txt file containing consequences of the instructions using Storage and parses the txt file for future
+     * use using the FileParser class.
+     */
     public Toothless() {
         this.ui = new Ui();
         this.currentCommand = "";
@@ -66,6 +71,12 @@ public class Toothless {
         this.taskList = fileParser.getTaskList();
 
     }
+
+    /**
+     * Returns a response from the program when a command is entered.
+     * @param input Command entered by user
+     * @return String response after executing the command.
+     */
     public String getResponse(String input) {
         this.currentCommand = input;
         Pair<TaskList, String> output = parser.parse(this.taskList, input);
@@ -95,6 +106,10 @@ public class Toothless {
 
     }
 
+    /**
+     * Method to print out the list of tasks
+     * @param tasksList task list to be printed out.
+     */
     static void printTasks(ArrayList<Task> tasksList) {
         int taskCount = 1;
         for (Task t : tasksList) {
@@ -103,6 +118,9 @@ public class Toothless {
         }
     }
 
+    /**
+     * print lines for formatting
+     */
     static void printLines() {
         System.out.println("____________________________________________________________");
     }
