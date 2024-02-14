@@ -34,7 +34,7 @@ public class Martin {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        return run(input);
     }
 
     /**
@@ -44,26 +44,19 @@ public class Martin {
      * It then enters a loop to continuously read user input and handle commands
      * until the user exits.
      */
-    public void run() {
-        ui.sayGreeting();
-        Scanner sc = new Scanner(System.in);
-
+    public String run(String input) {
         todoList = storage.startUpSequence();
         this.tasks = new TaskList(todoList);
         this.command = new Command(tasks, storage, ui, parser);
-        while (sc.hasNextLine()) {
-            String input = sc.nextLine().strip();
-            ChatbotKeyword command = parser.parse(input);
-            String remainingWords = parser.getRemainingWords(input);
-            try {
-                this.command.handleCommand(command, remainingWords);
-            } catch (IOException e) {
-                System.out.println("Error writing to file");
-            }
+        ChatbotKeyword command = parser.parse(input);
+        String remainingWords = parser.getRemainingWords(input);
+        String response = "";
+        try {
+            response = this.command.handleCommand(command, remainingWords);
+        } catch (IOException e) {
+            return "Error writing to file";
         }
-
-        ui.sayBye();
-        sc.close();
+        return response;
     }
 
     /**
@@ -74,6 +67,5 @@ public class Martin {
      */
     public static void main(String[] args) {
         Martin martin = new Martin();
-        martin.run();
     }
 }
