@@ -13,9 +13,13 @@ import java.time.format.DateTimeParseException;
  */
 public class Deadline extends Task {
 
-    /** The LocalDateTime representing the deadline. */
+    /**
+     * The LocalDateTime representing the deadline.
+     */
     protected LocalDateTime by;
-    /** The string representation of the deadline (used when parsing or if LocalDateTime parsing fails). */
+    /**
+     * The string representation of the deadline (used when parsing or if LocalDateTime parsing fails).
+     */
     protected String byString;
     private Ui ui;
 
@@ -40,13 +44,14 @@ public class Deadline extends Task {
             this.by = null;
         }
 
-        assert !(this.by != null && !this.byString.isEmpty()) : "Both LocalDateTime and byString should not be non-null.";
+        assert !(this.by != null && !this.byString.isEmpty()) : "Both LocalDateTime and byString should "
+                + "not be non-null.";
         assert (this.by == null && this.byString.isEmpty()) : "Didnt enter correctly";
 
         if (this.by == null && this.byString.isEmpty()) {
-            throw new DukeException("By when? You forgot to enter \"/by\"");
+            Ui.showError("by when? You forgot to enter \"/by\"");
         } else if (description.isEmpty()) {
-            throw new DukeException("You forgot to enter the task for which you have to complete it by");
+            Ui.showError("you forgot to enter the task for which you have to complete it by");
         }
     }
 
@@ -57,16 +62,19 @@ public class Deadline extends Task {
      */
     public Object getBy() {
         assert (this.by != null || !this.byString.isEmpty()) : "Either LocalDateTime or byString should be non-null.";
-        assert !(this.by != null && !this.byString.isEmpty()) : "Both LocalDateTime and byString should not be non-null.";
+        assert !(this.by != null && !this.byString.isEmpty()) : "Both LocalDateTime and byString should not be "
+                + " non-null.";
         return (this.by != null) ? this.by : this.byString;
     }
+
     /**
      * Gets the LocalDateTime representation of the deadline.
      *
      * @return The deadline as a LocalDateTime object.
      */
     public LocalDateTime getByTime() {
-        assert this.by == null || !this.byString.isEmpty() : "Either LocalDateTime should be null or byString should not be empty.";
+        assert this.by == null || !this.byString.isEmpty() : "Either LocalDateTime should be null or byString should "
+                + "not be empty.";
         return this.by;
     }
 
@@ -76,22 +84,27 @@ public class Deadline extends Task {
      * @return The deadline as a string.
      */
     public String getByString() {
-        assert this.by == null || !this.byString.isEmpty() : "Either LocalDateTime should be null or byString should not be empty.";
+        assert this.by == null || !this.byString.isEmpty() : "Either LocalDateTime should be null or byString should "
+               + "not be empty.";
         return this.byString;
     }
+
     /**
      * Overrides the toString method to provide a formatted string representation of the Deadline task.
      *
      * @return Formatted string representation of the Deadline task.
      */
     public String getMessage() {
-        String byStringFormatted = (by != null) ?
-                " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")" :
-                (this.byString != null ? " (by: " + this.byString + ")" : "");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+        String byStringFormatted = this.by != null
+                ? " (by: " + by.format(formatter) + ")"
+                : (!this.byString.isEmpty() ? " (by: " + this.byString + ")" : "");
 
         assert (this.by != null || !this.byString.isEmpty()) : "Either LocalDateTime or byString should be non-null.";
-        assert !(this.by != null && !this.byString.isEmpty()) : "Both LocalDateTime and byString should not be non-null.";
+        assert !(this.by != null && !this.byString.isEmpty()) : "Both LocalDateTime and byString should not "
+                + "be non-null.";
 
-        return ui.printMessage("Got it. I've added this task:\n [D][" + getStatusIcon() + "] " + getDescription() + byStringFormatted); // + by.getClass();
+        return ui.printMessage("Got it. I've added this task:\n [D][" + getStatusIcon() + "] " + getDescription()
+                + byStringFormatted);
     }
 }

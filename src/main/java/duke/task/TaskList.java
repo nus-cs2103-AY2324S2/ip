@@ -148,22 +148,61 @@ public class TaskList {
      * @throws DukeException If there is an issue displaying the task list.
      */
     public static String getList(TaskList taskList) throws DukeException {
-        assert taskList != null : "TaskList to be displayed should not be null.";
-        String taskDetails = "";
+        assert taskList != null : "TaskList to be displayed should not be null";
+        StringBuilder taskDetails = new StringBuilder();
+
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.getTask(i);
-            taskDetails += (i + 1) + ".[" + task.type + "][" + (task != null ? task.getStatusIcon() : "") + "] " + task.description;
-            if (task instanceof Deadline) {
-                Deadline deadlineTask = (Deadline) task;
-                taskDetails += " (by: " + (deadlineTask.by == null ? deadlineTask.byString : deadlineTask.by) + ")";
-            } else if (task instanceof Event) {
-                Event eventTask = (Event) task;
-                taskDetails += " (from: " + (eventTask.from == null ? eventTask.fromString : eventTask.from) + " to: " +
-                        (eventTask.to == null ? eventTask.toString : eventTask.to) + ")";
-            }
-            taskDetails += "\n";
+            appendTaskDetails(taskDetails, i + 1, task);
         }
-        return Ui.printMessage(taskDetails);
+
+        return Ui.printMessage(taskDetails.toString());
+    }
+
+    /**
+     * Appends the formatted details of a task to a StringBuilder, including task type, status icon,
+     * and description. If the task is an instance of Deadline or Event, additional details are appended.
+     *
+     * @param taskDetails StringBuilder to append the formatted task details.
+     * @param index       Index of the task in the list.
+     * @param task        The Task object to extract details from.
+     */
+    private static void appendTaskDetails(StringBuilder taskDetails, int index, Task task) {
+        taskDetails.append(index).append(".[").append(task.getType()).append("][");
+
+        if (task != null) {
+            taskDetails.append(task.getStatusIcon()).append("] ").append(task.getDescription());
+        }
+
+        if (task instanceof Deadline) {
+            appendDeadlineDetails(taskDetails, (Deadline) task);
+        } else if (task instanceof Event) {
+            appendEventDetails(taskDetails, (Event) task);
+        }
+
+        taskDetails.append("\n");
+    }
+
+    /**
+     * Appends the formatted details of a Deadline task to a StringBuilder, including the deadline.
+     *
+     * @param taskDetails    StringBuilder to append the formatted deadline details.
+     * @param deadlineTask   The Deadline task object to extract details from.
+     */
+    private static void appendDeadlineDetails(StringBuilder taskDetails, Deadline deadlineTask) {
+        taskDetails.append(" (by: ").append(deadlineTask.getBy()).append(")");
+    }
+
+    /**
+     * Appends the formatted details of an Event task to a StringBuilder, including the event's start
+     * and end times.
+     *
+     * @param taskDetails    StringBuilder to append the formatted event details.
+     * @param eventTask      The Event task object to extract details from.
+     */
+    private static void appendEventDetails(StringBuilder taskDetails, Event eventTask) {
+        taskDetails.append(" (from: ").append(eventTask.getFrom()).append(" to: ")
+                .append(eventTask.getTo()).append(")");
     }
 
     /**

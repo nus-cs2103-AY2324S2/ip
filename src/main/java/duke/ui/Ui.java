@@ -1,23 +1,20 @@
 package duke.ui;
 
 import duke.exception.DukeException;
-import duke.task.*;
-
-import java.time.DateTimeException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
 
 /**
  * The Ui class handles user interface-related operations in the Duke application.
  */
 public class Ui {
-    ArrayList < Task > arr;
     /**
      * Displays an error message indicating a problem with loading tasks.
      */
     public static String showLoadingError() {
-       return "Error loading tasks. Initializing with an empty task list."; //fix?
+        return "Error loading tasks. Initializing with an empty task list."; //fix?
     }
 
     /**
@@ -25,9 +22,6 @@ public class Ui {
      */
     public static String showWelcomeMessage() {
         return "Hello! I'm Tango. \nWhat can I do for you today?";
-//        System.out.println("-------------------------------");
-//        System.out.println("Hello! I'm Tango. \nWhat can I do for you today?");
-//        System.out.println("-------------------------------");
     }
 
     /**
@@ -37,8 +31,8 @@ public class Ui {
      */
     public static String printNumberOfTasks(TaskList tasks) {
         assert tasks != null : "TaskList should not be null.";
-        return (tasks.size() == 1 ? " Now you have 1 task in the list." :
-                "Now you have " + tasks.size() + " tasks in the list.");
+        return (tasks.size() == 1 ? " Now you have 1 task in the list."
+                : "Now you have " + tasks.size() + " tasks in the list.");
     }
 
     /**
@@ -48,8 +42,8 @@ public class Ui {
      */
     public static String printDeletedTaskMessage(Task task) {
         assert task != null : "Task should not be null.";
-        String taskDetails = "Noted. I've removed this task:\n" +
-                "[" + task.getType() + "][" + task.getStatusIcon() + "] " + task.getDescription();
+        String taskDetails = "Noted. I've removed this task:\n"
+                + "[" + task.getType() + "][" + task.getStatusIcon() + "] " + task.getDescription();
         if (task instanceof Deadline) {
             Deadline deadlineTask = (Deadline) task;
             taskDetails += " (by: " + deadlineTask.getBy() + ")";
@@ -57,7 +51,6 @@ public class Ui {
             Event eventTask = (Event) task;
             taskDetails += " (from: " + eventTask.getFrom() + " to: " + eventTask.getTo() + ")";
         }
-
         return taskDetails;
     }
 
@@ -76,7 +69,7 @@ public class Ui {
      */
     public static String showError(String errorMessage) throws DukeException {
         assert errorMessage != null : "Error message should not be null.";
-        return errorMessage;
+        throw new DukeException(errorMessage);
     }
 
     /**
@@ -100,14 +93,8 @@ public class Ui {
      */
     public static String markTask(Task task) {
         assert task != null : "Task should not be null.";
-        return "Nice! I've marked this as done: \n " + "[" + task.getType() + "][" + task.getStatusIcon() + "] " + task.getDescription();
-    }
-
-    /**
-     * Displays a separator line.
-     */
-    public static String printDashes() {
-        return "-------------------------------";
+        return "Nice! I've marked this as done: \n " + "[" + task.getType() + "][" + task.getStatusIcon() + "] "
+                + task.getDescription();
     }
 
     /**
@@ -117,7 +104,15 @@ public class Ui {
      */
     public static String unmarkTask(Task task) {
         assert task != null : "Task should not be null.";
-        return "OK, I've marked this task as not done yet: \n " + "[" + task.getType() + "][" + task.getStatusIcon() + "] " + task.getDescription();
+        return "OK, I've marked this task as not done yet: \n " + "[" + task.getType() + "]["
+                + task.getStatusIcon() + "] " + task.getDescription();
+    }
+
+    /**
+     * Displays a separator line.
+     */
+    public static String printDashes() {
+        return "-------------------------------";
     }
 
     /**
@@ -140,6 +135,13 @@ public class Ui {
         return "Sorry, you have no items in your tasklist matching with \"" + task + "\"";
     }
 
+    /**
+     * Returns the provided text message.
+     *
+     * @param text The text message to be printed. Should not be null.
+     * @return The input text message.
+     * @throws AssertionError If the provided text is null.
+     */
     public static String printMessage(String text) {
         assert text != null : "Text should not be null.";
         return text;
