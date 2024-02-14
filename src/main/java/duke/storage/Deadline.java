@@ -82,7 +82,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy hh:mma")
-                .withZone(ZoneId.systemDefault());
+                .withZone(ZoneId.of("+8"));
 
         return String.format("[D]%s (by: %s)", super.toString(), formatter.format(dueDate));
     }

@@ -108,7 +108,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy hh:mma")
-                .withZone(ZoneId.systemDefault());
+                .withZone(ZoneId.of("+8"));
 
         return String.format("[E]%s (from: %s to: %s)", super.toString(), formatter.format(startDate),
                 formatter.format(endDate));
