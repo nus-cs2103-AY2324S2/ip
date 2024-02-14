@@ -6,13 +6,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
-import duke.exceptions.InvalidCommandException;
-import duke.exceptions.MissingArgumentsException;
-import duke.exceptions.MissingArgumentsExceptionDeadlines;
-import duke.exceptions.MissingArgumentsExceptionEvents;
-import duke.exceptions.MissingArgumentsExceptionMarking;
-import duke.exceptions.MissingArgumentsExceptionTodo;
-import duke.exceptions.WrongTimeFormatException;
+import duke.exceptions.*;
 import duke.storage.Deadlines;
 import duke.storage.Events;
 import duke.storage.Task;
@@ -131,7 +125,7 @@ public class Parser {
             int toInEvenCmd = this.input.indexOf("/to");
 
             String fromDateTime = checkEventFrom(fromInEventCmd, toInEvenCmd);
-            String toDateTime = checkEventTo(fromInEventCmd, toInEvenCmd);
+            String toDateTime = checkEventTo(toInEvenCmd);
             task = new Events(this.input, this.input.substring(spaceInEventCmd + 1, fromInEventCmd)
                     .trim(), fromDateTime, toDateTime);
             token = new Token(Command.EVENT, task);
@@ -157,17 +151,53 @@ public class Parser {
 
         case "save":
             boolean marked = split[1].equals("1") ? true : false;
-            this.input = String.join(" ", Arrays.copyOfRange(split, 2, split.length));
+            this.input = String.join(" ", Arrays.copyOfRange(split, 3, split.length));
             token = this.parse();
             if (marked) {
                 token.getTask().mark();
             }
+            switch (split[2]) {
+            case "0":
+                token.getTask().setPriority(Priority.NONE);
+                break;
+            case "1":
+                token.getTask().setPriority(Priority.HIGH);
+                break;
+            case "-1":
+                token.getTask().setPriority(Priority.LOW);
+                break;
+            default:
+            }
             token.setAsSaved();
+            break;
+        case "priority":
+            Priority p = checkPriority(split);
+            token = new Token(Command.PRIORITY, Integer.parseInt(split[1]), p);
             break;
         default:
             throw new InvalidCommandException("InvalidCommandException");
         }
         return token;
+    }
+
+    private Priority checkPriority(String[] split) throws MissingArgumentsException,
+            InvalidCommandException {
+        if (split.length != 3) {
+            throw new MissingArgumentsException("priority {index} {high/low}");
+        }
+        try {
+            Integer.parseInt(split[1]);
+        } catch (NumberFormatException e) {
+            throw new InvalidCommandException("InvalidCommandException");
+        }
+
+        if (split[2].toLowerCase().equals("high")) {
+            return Priority.HIGH;
+        } else if (split[2].toLowerCase().equals("low")) {
+            return Priority.LOW;
+        } else {
+            throw new InvalidCommandException("InvalidCommandException");
+        }
     }
 
     /**
@@ -231,12 +261,11 @@ public class Parser {
      * Checks the event command's 'to' keyword for the correct format and returns the formatted 'to'
      * date-time string.
      *
-     * @param fromInEvenCmd The index of the 'from' keyword in the input command.
-     * @param toInEventCmd  The index of the 'to' keyword in the input command.
+     * @param toInEventCmd The index of the 'to' keyword in the input command.
      * @return The formatted 'to' date-time string.
      * @throws WrongTimeFormatException If the 'to' keyword format is incorrect or missing.
      */
-    private String checkEventTo(int fromInEvenCmd, int toInEventCmd) throws WrongTimeFormatException {
+    private String checkEventTo(int toInEventCmd) throws WrongTimeFormatException {
         try {
             String[] dateTime = checkDateTimeFormat(this.input.substring(toInEventCmd + 3).trim());
             return String.join("-", dateTime);

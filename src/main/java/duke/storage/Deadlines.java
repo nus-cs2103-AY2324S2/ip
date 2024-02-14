@@ -43,7 +43,7 @@ public class Deadlines extends Task {
         return "[D]" + super.toString() + "\n ( by: "
                 + this.byDate
                 + " "
-                + (this.byTime == "" ? "" : this.byTime)
+                + (this.byTime.equals("null") ? "" : this.byTime)
                 + ")";
     }
 }

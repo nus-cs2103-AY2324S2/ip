@@ -12,6 +12,7 @@ public class Token {
     private int selectedItem;
 
     private String searchKey;
+    private Priority priority;
 
     /**
      * Constructs a Token object with the specified command.
@@ -42,6 +43,12 @@ public class Token {
     public Token(Command cmd, int selectedItem) {
         this.cmd = cmd;
         this.selectedItem = selectedItem;
+    }
+
+    public Token(Command cmd, int selectedItem, Priority p) {
+        this.cmd = cmd;
+        this.selectedItem = selectedItem;
+        this.priority = p;
     }
 
     /**
@@ -95,5 +102,13 @@ public class Token {
      */
     public String getSearchKey() {
         return this.searchKey;
+    }
+
+    public Priority getPriority() {
+        return this.priority;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
     }
 }

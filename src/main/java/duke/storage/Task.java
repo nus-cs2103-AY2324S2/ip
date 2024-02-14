@@ -1,5 +1,7 @@
 package duke.storage;
 
+import duke.parser.Priority;
+
 /**
  * The Task class represents a task in the Duke task manager.
  * It stores information such as the task's description, completion status, and the original command
@@ -9,6 +11,7 @@ public class Task {
     protected String description;
     protected boolean isDone;
     protected String originalCommand;
+    protected Priority priority;
 
 
     /**
@@ -21,6 +24,7 @@ public class Task {
         this.originalCommand = originalCommand;
         this.description = description;
         this.isDone = false;
+        this.priority = Priority.NONE;
     }
 
     /**
@@ -64,6 +68,20 @@ public class Task {
         return this.description;
     }
 
+    public String getPriority() {
+        if (this.priority.equals(Priority.NONE)) {
+            return "";
+        } else if (this.priority.equals(Priority.HIGH)) {
+            return "HIGH!!";
+        } else {
+            return "LOW";
+        }
+    }
+
+    public void setPriority(Priority p) {
+        this.priority = p;
+    }
+
     /**
      * Returns a string representation of the task, including its status icon and description.
      *
@@ -71,7 +89,10 @@ public class Task {
      */
     @Override
     public String toString() {
-        return String.format("[%s] ", getStatusIcon()) + description;
+        return String.format("[%s] ", getStatusIcon())
+                + description
+                + " "
+                + getPriority();
     }
 
 }
