@@ -5,7 +5,7 @@ import java.time.format.DateTimeParseException;
 
 import morty.Storage;
 import morty.TaskList;
-import morty.Ui;
+import morty.Response;
 import morty.task.Deadline;
 import morty.task.Task;
 
@@ -29,21 +29,22 @@ public class DeadlineCommand extends Command {
    * @param tasks   The list of tasks.
    * @param ui      The user interface.
    * @param storage The storage.
+   * @return The response after executing the DeadlineCommand.
    */
   @Override
-  public void execute(TaskList tasks, Ui ui, Storage storage) {
+  public String execute(TaskList tasks, Response ui, Storage storage) {
     try {
       String[] deadlineTokens = tokens[1].split(" /by ");
       String description = deadlineTokens[0];
       LocalDate by = LocalDate.parse(deadlineTokens[1]);
       Task newTask = new Deadline(description, by);
       tasks.add(newTask);
-      ui.showTaskAdded(newTask, tasks.getSize());
       storage.save(tasks);
+      return ui.showTaskAdded(newTask, tasks.getSize());
     } catch (ArrayIndexOutOfBoundsException e) {
-      ui.showDeadlineUsage();
+      return ui.showDeadlineUsage();
     } catch (DateTimeParseException e) {
-      ui.showDeadlineUsage();
+      return ui.showDeadlineUsage();
     }
   }
 }

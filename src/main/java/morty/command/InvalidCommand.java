@@ -2,7 +2,7 @@ package morty.command;
 
 import morty.Storage;
 import morty.TaskList;
-import morty.Ui;
+import morty.Response;
 
 /**
  * Represents a command that is invalid.
@@ -24,9 +24,10 @@ public class InvalidCommand extends Command {
    * @param tasks   The list of tasks.
    * @param ui      The user interface.
    * @param storage The storage.
+   * @return The response after executing the InvalidCommand.
    */
   @Override
-  public void execute(TaskList tasks, Ui ui, Storage storage) {
-    ui.showInvalidCommand();
+  public String execute(TaskList tasks, Response ui, Storage storage) {
+    return ui.showInvalidCommand();
   }
 }

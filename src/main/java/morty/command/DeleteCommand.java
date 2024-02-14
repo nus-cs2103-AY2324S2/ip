@@ -2,7 +2,7 @@ package morty.command;
 
 import morty.Storage;
 import morty.TaskList;
-import morty.Ui;
+import morty.Response;
 import morty.task.Task;
 
 /**
@@ -25,18 +25,19 @@ public class DeleteCommand extends Command {
    * @param tasks   The list of tasks.
    * @param ui      The user interface.
    * @param storage The storage.
+   * @return The response after executing the DeleteCommand.
    */
-  public void execute(TaskList tasks, Ui ui, Storage storage) {
+  public String execute(TaskList tasks, Response ui, Storage storage) {
     try {
       int index = Integer.parseInt(tokens[1]) - 1;
       Task task = tasks.get(index);
       tasks.remove(index);
-      ui.showTaskRemoved(task, tasks.getSize());
       storage.save(tasks);
+      return ui.showTaskRemoved(task, tasks.getSize());
     } catch (NumberFormatException e) {
-      ui.showInvalidDelete();
+      return ui.showInvalidDelete();
     } catch (IndexOutOfBoundsException e) {
-      ui.showInvalidDelete();
+      return ui.showInvalidDelete();
     }
   }
 }

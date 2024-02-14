@@ -2,7 +2,7 @@ package morty.command;
 
 import morty.Storage;
 import morty.TaskList;
-import morty.Ui;
+import morty.Response;
 
 /**
  * Represents a command to exit the program.
@@ -25,9 +25,10 @@ public class ExitCommand extends Command {
    * @param tasks   The list of tasks.
    * @param ui      The user interface.
    * @param storage The storage.
+   * @return The response after executing the ExitCommand.
    */
   @Override
-  public void execute(TaskList tasks, Ui ui, Storage storage) {
-    ui.showGoodbye();
+  public String execute(TaskList tasks, Response ui, Storage storage) {
+    return ui.showGoodbye();
   }
 }
