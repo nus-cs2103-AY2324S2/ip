@@ -28,8 +28,6 @@ import javafx.scene.image.ImageView;
  */
 public class Tam extends Application {
     private static TaskList taskListObj;
-    private static Scanner scannerObj = new Scanner(System.in);
-
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
@@ -107,7 +105,7 @@ public class Tam extends Application {
         AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
-        //Part 3. Add functionality to handle user input.
+        // Step 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> { // event where mouse clicks 'send' button
             handleUserInput();
         });
@@ -144,6 +142,7 @@ public class Tam extends Application {
         String outputResponse = getResponse(inputCommand);
         Label userText = new Label(inputCommand);
         Label tamText = new Label(outputResponse);
+        boolean isTerminatingCommand = outputResponse.equals(Ui.exit());
 
         dialogContainer.getChildren().addAll(
             DialogBox.getUserDialog(userText, new ImageView(userImage)),
@@ -151,8 +150,8 @@ public class Tam extends Application {
         );
         userInput.clear();
 
-        // launch exit sequence if terminating command 'exit' or 'bye' is detected
-        if (outputResponse.equals(Ui.exit())) {
+        // launch exit sequence if outputResponse matches terminate program response
+        if (isTerminatingCommand) {
             exitApplication();
         }
     }
