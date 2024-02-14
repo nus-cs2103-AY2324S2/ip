@@ -11,6 +11,20 @@ public class StorageHelper {
     private static final String directoryPath = "data";
     private static final String fileName = "task_list.txt";
 
+    private File checkOrCreateFile() throws IOException {
+        // check if the directory exists if not create it
+        File directory = new File(directoryPath);
+        directory.mkdir();
+        assert directory.exists() : "directory should be created if not exist";
+
+        // check if the file exists if not create it
+        File file = new File(directoryPath + "/" + fileName);
+        file.createNewFile();
+        assert file.exists() : "file should be created if not exist";
+
+        return file;
+    }
+
     /**
      * Returns the file that is read from the storage.
      * Throws IOException, if creating a new file fails if not exists.
@@ -19,18 +33,7 @@ public class StorageHelper {
      * @throws IOException - thrown if create when not exist errors.
      */
     public File loadFile() throws IOException {
-        // check if the directory exists if not create it
-        File directory = new File(directoryPath);
-        directory.mkdir();
-
-        assert directory.exists() : "directory should be created if not exist";
-
-        // check if the file exists if not create it
-        File file = new File(directoryPath + "/" + fileName);
-        file.createNewFile();
-
-        assert file.exists() : "file should be created if not exist";
-
+        File file = checkOrCreateFile();
         return file;
     }
 
@@ -41,17 +44,7 @@ public class StorageHelper {
      * @throws IOException - thrown if create when not exist errors.
      */
     public void saveFile(String content) throws IOException {
-        // check if the directory exists if not create it
-        File directory = new File(directoryPath);
-        directory.mkdir();
-
-        assert directory.exists() : "directory should be created if not exist";
-
-        // check if the file exists if not create it
-        File file = new File(directoryPath + "/" + fileName);
-        file.createNewFile();
-
-        assert file.exists() : "file should be created if not exist";
+        File file = checkOrCreateFile();
 
         // write into the file
         FileWriter fw = new FileWriter(file);

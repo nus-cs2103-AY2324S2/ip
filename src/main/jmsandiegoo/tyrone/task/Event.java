@@ -22,19 +22,25 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E] "
+        String taskTypeStr = "[E] ";
+        String formDateTimeStr = " (from: " + this.startDateTime.formatDateTime();
+        String toDateTimeStr = " to: " + this.endDateTime.formatDateTime() +")";
+        return taskTypeStr
                 + super.toString()
-                + " (from: " + this.startDateTime.formatDateTime()
-                + " to: " + this.endDateTime.formatDateTime() +")";
+                + formDateTimeStr
+                + toDateTimeStr;
     }
 
     @Override
     public String serializeTask() {
-        return "E | "
+        String taskSerializedStr = "E | "
                 + super.serializeTask()
                 + " | "
                 + this.startDateTime.serializeDateTime()
                 + " - "
-                + this.endDateTime.serializeDateTime();
+                + this.endDateTime.serializeDateTime();;
+
+        return taskSerializedStr;
+
     }
 }

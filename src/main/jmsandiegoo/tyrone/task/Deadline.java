@@ -19,18 +19,24 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D] "
-                + super.toString()
-                + " (by: "
+        String taskTypeStr = "[D] ";
+        String byDateTimeStr = " (by: "
                 + this.deadlineDateTime.formatDateTime()
                 + ")";
+
+        return taskTypeStr
+                + super.toString()
+                + byDateTimeStr;
     }
 
     @Override
     public String serializeTask() {
-        return "D | "
-                + super.serializeTask()
-                + " | "
+        String taskTypeSerializedStr = "D | ";
+        String deadlineDateTimeSerializedStr = " | "
                 + this.deadlineDateTime.serializeDateTime();
+
+        return taskTypeSerializedStr
+                + super.serializeTask()
+                + deadlineDateTimeSerializedStr;
     }
 }

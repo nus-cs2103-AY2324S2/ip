@@ -2,18 +2,19 @@ package jmsandiegoo.tyrone.common;
 
 public class Messages {
     /* General messages */
-//    public static String MESSAGE_LOGO = "████████╗██╗   ██╗██████╗  ██████╗ ███╗   ██╗███████╗\n"
-//            + "╚══██╔══╝╚██╗ ██╔╝██╔══██╗██╔═══██╗████╗  ██║██╔════╝\n"
-//            + "   ██║    ╚████╔╝ ██████╔╝██║   ██║██╔██╗ ██║█████╗\n"
-//            + "   ██║     ╚██╔╝  ██╔══██╗██║   ██║██║╚██╗██║██╔══╝\n"
-//            + "   ██║      ██║   ██║  ██║╚██████╔╝██║ ╚████║███████╗\n"
-//            + "   ╚═╝      ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝";
-
     public static String MESSAGE_GREET = "Yo, what's crackin' fam! I'm Tyrone, your digital homie.\n\n"
             + "What's the word? So I can help you out today.";
 
     public static String MESSAGE_ADD_TASK = "Got it added homie:\n\n%1s\n"
             + "Now you have %2d in the list.";
+
+    public static String MESSAGE_VERTICAL_DIVIDER = " | ";
+
+    public static String MESSAGE_SQUARE_BRACKET_OPEN = "[";
+
+    public static String MESSAGE_SQUARE_BRACKET_CLOSE = "]";
+
+    public static String MESSAGE_EMPTY_SPACE = " ";
 
     /* General Exception messages */
     public static String MESSAGE_NOT_EXIST_CMD = "Command entered doesn't exist.";
