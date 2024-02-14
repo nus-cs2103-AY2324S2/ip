@@ -1,5 +1,8 @@
-package ChatBro;
+package chatbro;
 
+/**
+ * Finder class that contains method to find tasks in the task list.
+ */
 public class Finder {
     public static void findTask(String keyword) {
         int count = 0;

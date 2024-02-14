@@ -1,4 +1,4 @@
-package ChatBro;
+package chatbro;
 
 /**
  * Exception for wrong file format when loading from savedtasks.txt.

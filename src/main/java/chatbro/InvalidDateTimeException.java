@@ -1,4 +1,4 @@
-package ChatBro;
+package chatbro;
 
 /**
  * Exception class for invalid user input for date/time format parsing.

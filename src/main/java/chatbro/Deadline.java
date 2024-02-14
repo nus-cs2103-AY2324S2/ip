@@ -1,24 +1,24 @@
-package ChatBro;
+package chatbro;
 
 /**
- * ChatBro.Deadline class that represents a ChatBro.Task with a deadline.
+ * Deadline class that represents a chatbro.Task with a deadline.
  */
 public class Deadline extends Task {
     protected String by;
     /**
-     * Constructor for ChatBro.Deadline class.
+     * Constructor for Deadline class.
      *
-     * @param description Description of ChatBro.Deadline object.
-     * @param by the deadline of ChatBro.Deadline object.
+     * @param description Description of Deadline object.
+     * @param by the deadline of Deadline object.
      */
     public Deadline(String description, String by) {
         super(description);
-        this.type = "D";
+        type = "D";
         this.by = by;
     }
     public Deadline(String description, String by, boolean isDone) { // Overloaded constructor: loading from file
         super(description, isDone);
-        this.type = "D";
+        type = "D";
         this.by = by;
     }
     public String toString() {

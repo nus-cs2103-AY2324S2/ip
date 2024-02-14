@@ -1,21 +1,21 @@
-package ChatBro;
+package chatbro;
 
 /**
- * ChatBro.ToDo class that represents a ChatBro.Task without any associated time.
+ * ToDo class that represents a chatbro.Task without any associated time.
  */
 public class ToDo extends Task {
     /**
-     * Constructor for ChatBro.ToDo class.
+     * Constructor for ToDo class.
      *
-     * @param description Description of ChatBro.ToDo object.
+     * @param description Description of ToDo object.
      */
     public ToDo(String description) {
         super(description);
-        this.type = "T";
+        type = "T";
     }
     public ToDo(String description, boolean isDone) { // Overloaded constructor: loading from file
         super(description, isDone);
-        this.type = "T";
+        type = "T";
     }
     public String toString() {
         return "[T]" + super.toString();

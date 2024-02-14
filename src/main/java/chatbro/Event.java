@@ -1,14 +1,14 @@
-package ChatBro;
+package chatbro;
 
 /**
- * ChatBro.Event class that represents a ChatBro.Task with starting and ending time.
+ * Event class that represents a chatbro.Task with starting and ending time.
  */
 public class Event extends Task {
     protected String startTime;
     protected String endTime;
 
     /**
-     * Constructor for ChatBro.Event class.
+     * Constructor for Event class.
      *
      * @param description Description of ChatBro.Event object.
      * @param startTime the starting time of the Event object.
@@ -16,13 +16,13 @@ public class Event extends Task {
      */
     public Event(String description, String startTime, String endTime) {
         super(description);
-        this.type = "E";
+        type = "E";
         this.startTime = startTime;
         this.endTime = endTime;
     }
     public Event(String description, String startTime, String endTime, boolean isDone) { // Overloaded constructor: loading from file
         super(description, isDone);
-        this.type = "E";
+        type = "E";
         this.startTime = startTime;
         this.endTime = endTime;
     }

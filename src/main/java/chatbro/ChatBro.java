@@ -1,9 +1,13 @@
-package ChatBro;
+package chatbro;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 /**
  * Main class of the ChatBro chatbot.
  */
-public class ChatBro {
+public class ChatBro extends Application {
     static boolean isRunning;
     public static void main(String[] args) {
         Parser parser = new Parser();
@@ -18,8 +22,8 @@ public class ChatBro {
         }
         if (!savedTasksSplit[0].isEmpty()) { // savedTasks is not empty, load tasks into taskList
             try {
-                for (int j = 0; j < length; j++) {
-                    String taskString = savedTasksSplit[j];
+                for (int i = 0; i < length; i++) {
+                    String taskString = savedTasksSplit[i];
                     tm.addTask(Database.parseTask(taskString));
                 }
             } catch (WrongFileFormatException e) {
@@ -33,5 +37,14 @@ public class ChatBro {
             Parser.parseCommand();
         }
         Parser.closeScanner();
+
+        @Override
+        public void start(Stage stage) {
+            Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+            Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+            stage.setScene(scene); // Setting the stage to show our screen
+            stage.show(); // Render the stage.
+        }
     }
 }

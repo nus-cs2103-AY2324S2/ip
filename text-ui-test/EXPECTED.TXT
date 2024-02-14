@@ -4,7 +4,7 @@ _________________________
   \  / _ \  /_/
   /_/\___/ (_)
 
-I'm ChatBro.ChatBro!
+I'm chatbro.chatbro!
 What can I do for you bro?
 Use the available commands: list, bye, mark, unmark, delete, OR
 create a new task (todo, deadline, event) to store in your list bro.
@@ -82,7 +82,7 @@ _________________________
 _________________________
 
 _________________________
-Got it bro! ChatBro.Task 1 is marked as done:
+Got it bro! chatbro.Task 1 is marked as done:
 [T][X] Finish reading The Mythical Man-Month
 _________________________
 
@@ -91,7 +91,7 @@ Sorry bro, this task doesn't exist in your list.
 _________________________
 
 _________________________
-Got it bro! ChatBro.Task 3 is marked as done:
+Got it bro! chatbro.Task 3 is marked as done:
 [D][X] cs2100 assignment 1 (by: 4th Feb 2359)
 _________________________
 
@@ -104,12 +104,12 @@ _________________________
 _________________________
 
 _________________________
-Got it bro! ChatBro.Task 3 is marked as not done yet:
+Got it bro! chatbro.Task 3 is marked as not done yet:
 [D][ ] cs2100 assignment 1 (by: 4th Feb 2359)
 _________________________
 
 _________________________
-Got it bro! ChatBro.Task 1 has been removed:
+Got it bro! chatbro.Task 1 has been removed:
 [T][X] Finish reading The Mythical Man-Month
 _________________________
 

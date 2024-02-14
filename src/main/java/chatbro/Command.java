@@ -1,4 +1,4 @@
-package ChatBro;
+package chatbro;
 
 /**
  * Enumerates the available commands and their respective execution methods.

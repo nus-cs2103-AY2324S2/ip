@@ -1,4 +1,4 @@
-package ChatBro;
+package chatbro;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -6,7 +6,7 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 
 /**
- * ChatBro.Database that handles storing and loading of tasks into file.
+ * Database that handles storing and loading of tasks into file.
  */
 public class Database {
     private static final String FILE_PATH = "./savedTasks.txt";
@@ -41,8 +41,8 @@ public class Database {
     }
 
     /**
-     * Parses a string into a ChatBro.Task object.
-     * @return ChatBro.Task object.
+     * Parses a string into a Task object.
+     * @return chatbro.Task object.
      */
     public static Task parseTask(String taskString) throws WrongFileFormatException {
         try {
@@ -64,17 +64,17 @@ public class Database {
                 throw new WrongFileFormatException("savedTasks.txt is in the wrong format.\nPlease delete the file and restart the program.");
             }
             switch (type) {
-                case "T":
-                    return new ToDo(description, isDone);
-                case "D":
-                    String by = splitString[3];
-                    return new Deadline(description, by, isDone);
-                case "E":
-                    String start = splitString[3];
-                    String end = splitString[4];
-                    return new Event(description, start, end, isDone);
-                default:
-                    throw new WrongFileFormatException("savedTasks.txt is in the wrong format.\nPlease delete the file and restart the program.");
+            case "T":
+                return new ToDo(description, isDone);
+            case "D":
+                String by = splitString[3];
+                return new Deadline(description, by, isDone);
+            case "E":
+                String start = splitString[3];
+                String end = splitString[4];
+                return new Event(description, start, end, isDone);
+            default:
+                throw new WrongFileFormatException("savedTasks.txt is in the wrong format.\nPlease delete the file and restart the program.");
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new WrongFileFormatException("savedTasks.txt is in the wrong format.\nPlease delete the file and restart the program.");

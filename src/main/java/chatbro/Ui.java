@@ -1,7 +1,7 @@
-package ChatBro;
+package chatbro;
 
 /**
- * Represents the user interface of the ChatBro.ChatBro.
+ * Represents the user interface of ChatBro.
  */
 public class Ui {
     public static void printLine() {
@@ -10,6 +10,11 @@ public class Ui {
     public static void printWithoutLine(String message) {
         System.out.println(message);
     }
+
+    /**
+     * Prints a message with a line above and below it.
+     * @param message The message to be printed.
+     */
     public static void printMessage(String message) {
         printLine();
         System.out.println(message);

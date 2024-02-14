@@ -1,8 +1,8 @@
-package ChatBro;
+package chatbro;
 
 import java.util.Scanner;
 /**
- * ChatBro.Parser class parses user input and executes commands.
+ * Parser class parses user input and executes commands.
  */
 public class Parser {
     private static Scanner sc;
