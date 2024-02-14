@@ -1,5 +1,6 @@
 package commands;
 
+import storage.Storage;
 import taskList.TaskList;
 import ui.Ui;
 
@@ -14,9 +15,9 @@ public class ListCommand extends Command {
      * @param ui Gives reply to the user.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         String list = tasks.list();
-        ui.showList(list);
+        return ui.showList(list);
     }
 
     /**

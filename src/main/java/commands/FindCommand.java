@@ -1,6 +1,7 @@
 package commands;
 
-import excceptions.WeiException;
+import exceptions.WeiException;
+import storage.Storage;
 import taskList.TaskList;
 import ui.Ui;
 
@@ -27,13 +28,13 @@ public class FindCommand extends Command {
      * @throws WeiException If the command is incomplete.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) throws WeiException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws WeiException {
         if (input.length() < 6) {
             throw new WeiException("please tell me what you are looking for");
         }
         String keyword = this.input.substring(5);
         String searchResult = tasks.find(keyword);
-        ui.showSearchResult(searchResult);
+        return ui.showSearchResult(searchResult);
     }
 
     /**

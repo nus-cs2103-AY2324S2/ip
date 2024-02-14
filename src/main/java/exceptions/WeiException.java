@@ -1,4 +1,4 @@
-package excceptions;
+package exceptions;
 
 /**
  * Indicates error caused by the execution of the chatbot.

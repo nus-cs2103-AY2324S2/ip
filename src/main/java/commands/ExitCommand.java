@@ -1,6 +1,8 @@
 package commands;
 
-import excceptions.WeiException;
+import java.io.IOException;
+
+import storage.Storage;
 import taskList.TaskList;
 import ui.Ui;
 
@@ -15,7 +17,14 @@ public class ExitCommand extends Command {
      * @param ui Gives reply to the user.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        try {
+            storage.save(tasks);
+            System.exit(0);
+        } catch (IOException e) {
+            ui.showError(e.getMessage());
+        }
+        return "";
     }
 
     /**
@@ -27,6 +36,4 @@ public class ExitCommand extends Command {
     public boolean isExit() {
         return true;
     }
-
-
 }
