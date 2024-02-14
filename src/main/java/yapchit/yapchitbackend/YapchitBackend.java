@@ -52,6 +52,10 @@ public class YapchitBackend {
      * Main loop ends when the 'bye' command is entered by the user.
      */
     public String run(String input) {
+        assert this.ui != null;
+        assert this.parser != null;
+        assert this.handler != null;
+        assert this.tasks != null;
         String retVal;
 
         try{

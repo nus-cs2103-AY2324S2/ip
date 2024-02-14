@@ -43,6 +43,8 @@ public class Storage {
      */
     public TaskList importFromFile(
             String filePath, Ui ui, Handler handler, Parser parser) throws YapchitException {
+        assert filePath != "" : "FilePath cannot be empty";
+
         File f = new File(filePath);
         Scanner s;
         try {
@@ -95,9 +97,11 @@ public class Storage {
                         + " /by " + ((Deadline) t).getBy()
                         +(t.getDone() ? "1" : "0") + "\n";
             }
+
         }
         File f = new File(filePath);
 
+        assert toWrite != "";
 
         File dirCheck = f.getParentFile();
         if (!dirCheck.exists()) {
@@ -125,6 +129,5 @@ public class Storage {
         fw.write(textToAdd);
         fw.close();
     }
-
 
 }

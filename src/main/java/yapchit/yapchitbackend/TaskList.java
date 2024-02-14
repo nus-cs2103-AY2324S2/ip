@@ -36,6 +36,7 @@ public class TaskList {
      * @throws InvalidDetailException
      */
     public void mark(int idx, boolean isDone) throws InvalidDetailException {
+
         if (idx >= tasks.size()) {
             throw new InvalidDetailException("Invalid item index, please try again");
         } else {
