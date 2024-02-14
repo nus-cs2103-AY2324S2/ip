@@ -111,7 +111,7 @@ public class Ui {
     public String commandNotUnderstood() {
         return showError("Your message is not understood. Please use following:\n\t"
             + "todo <description>\n\t"
-            + "deadline <description> /by <dd-mm-yyyy>\n\t"
+            + "deadline <description> /by <dd-mm-yyyy> <HHmm> (time optional)\n\t"
             + "event <description> /from <dd-mm-yyyy> /to <dd-mm-yyyy>\n\t"
             + "list\n\t"
             + "done <index>\n\t"
@@ -125,5 +125,9 @@ public class Ui {
      */
     public String showBye() {
         return botHeader() + "Bye. Hope to see you again soon!";
+    }
+
+    public String showReminder(String message) {
+        return botHeader("reminder") + message;
     }
 }

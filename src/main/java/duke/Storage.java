@@ -50,7 +50,7 @@ public class Storage {
             Task task = parseTasksFromString(line);
             tasksList.add(task);
         }
-        System.out.println(tasksList);
+
         s.close();
 
         return tasksList;
@@ -73,12 +73,12 @@ public class Storage {
             break;
         case "D":
             String by = split[3];
-            task = new Deadline(description, Task.getInputDateFormat(by));
+            task = new Deadline(description, Task.getLocalDateTimeInput(by));
             break;
         case "E":
             String from = split[3];
             String to = split[4];
-            task = new Event(description, Task.getInputDateFormat(from), Task.getInputDateFormat(to));
+            task = new Event(description, Task.getLocalDateInput(from), Task.getLocalDateInput(to));
             break;
         default:
             throw new DukeException("Invalid task type");
@@ -109,13 +109,13 @@ public class Storage {
                 Deadline deadline = (Deadline) task;
                 fileWriter.write(
                     deadline.getTaskType() + " | " + (deadline.isDone ? "1" : "0") + " | "
-                        + deadline.getDescription() + " | " + Task.getLocalDateOutputFormat(deadline.getBy()) + "\n");
+                        + deadline.getDescription() + " | " + Task.getLocalDateTimeOutput(deadline.getBy(), "d-M-yyyy HHmm") + "\n");
             } else if (task instanceof Event) {
                 Event event = (Event) task;
                 fileWriter.write(
                     task.getTaskType() + " | " + (task.isDone ? "1" : "0") + " | "
-                        + task.getDescription() + " | " + Task.getLocalDateOutputFormat(event.getFrom()) + " | "
-                        + Task.getLocalDateOutputFormat(event.getTo()) + "\n");
+                        + task.getDescription() + " | " + Task.getLocalDateOutput(event.getFrom(), "d-M-yyyy") + " | "
+                        + Task.getLocalDateOutput(event.getTo(), "d-M-yyyy") + "\n");
             } else {
                 throw new DukeException("Invalid task type");
             }

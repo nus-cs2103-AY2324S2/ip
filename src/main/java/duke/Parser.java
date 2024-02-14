@@ -1,6 +1,8 @@
 package duke;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
 /**
@@ -43,6 +45,9 @@ public class Parser {
      */
     public String getDescription() throws DukeException {
         formatCheck("todo");
+        if (input.contains("/")) {
+            return input.split(" ", 2)[1].split("/")[0].trim();
+        }
         return input.split(" ", 2)[1];
     }
 
@@ -53,9 +58,11 @@ public class Parser {
      * @throws DukeException if the date is empty
      * @throws DateTimeParseException if the date is not in the correct format
      */
-    public LocalDate getBy() throws DukeException, DateTimeParseException {
+    public LocalDateTime getBy() throws DukeException, DateTimeParseException {
         formatCheck("deadline");
-        return Task.getInputDateFormat(input.split("/by ")[1].trim());
+
+        String dateTimeString = input.split("/by ")[1].trim();
+        return Task.getLocalDateTimeInput(dateTimeString);
     }
 
     /**
@@ -68,9 +75,13 @@ public class Parser {
      */
     public LocalDate[] getFromTo() throws DukeException, DateTimeParseException {
         formatCheck("event");
-        LocalDate from = Task.getInputDateFormat(input.split("/from")[1].split("/to")[0].trim());
-        LocalDate to = Task.getInputDateFormat(input.split("/to")[1].trim());
+        LocalDate from = Task.getLocalDateInput(input.split("/from")[1].split("/to")[0].trim());
+        LocalDate to = Task.getLocalDateInput(input.split("/to")[1].trim());
         return new LocalDate[] {from, to};
+    }
+
+    private String deadlineFormatError() throws DukeException {
+        return "Please use the following format: deadline <description> /by <dd-mm-yyyy> <HHmm> (time optional)";
     }
 
     private void formatCheck(String taskType) throws DukeException {
@@ -86,10 +97,10 @@ public class Parser {
         case "deadline":
             if (input.split(" ", 2).length == 1 || input.split("/by ").length != 2) {
                 throw new DukeException("The deadline and description for a task cannot be empty. \n\t"
-                    + "Please use the following format: deadline <description> /by <dd-mm-yyyy>");
+                    + deadlineFormatError());
             } else if (!input.contains("/by")) {
                 throw new DukeException("Invalid command for deadline. \n\t"
-                    + formatStringInfo + " /by <dd-mm-yyyy>");
+                    + deadlineFormatError());
             }
             break;
         case "event":

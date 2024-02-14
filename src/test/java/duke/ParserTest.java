@@ -75,7 +75,7 @@ class ParserTest {
     @Test
     void getBy_success() throws DukeException {
         Parser parser = new Parser("deadline test /by 23-12-2032");
-        assertEquals(parser.getBy(), Task.getInputDateFormat("23-12-2032"));
+        assertEquals(parser.getBy(), Task.getLocalDateInput("23-12-2032"));
     }
 
 

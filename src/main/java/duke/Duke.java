@@ -25,7 +25,6 @@ public class Duke {
     public Duke(String filePath, Ui ui) {
         this.ui = ui;
         try {
-            System.out.println(filePath);
             storage = new Storage(filePath);
             tasks = new TaskList(storage.loadTasks());
         } catch (DukeException e) {
@@ -96,7 +95,7 @@ public class Duke {
         } catch (NumberFormatException e) {
             return ui.showError("Please enter a valid number to modify task");
         } catch (DateTimeParseException e) {
-            return ui.showError("Please enter a valid date in the format dd-mm-yyyy");
+            return ui.showError("Please enter a valid date in the format dd-mm-yyyy HHmm");
         } catch (IOException e) {
             return ui.showError("Failed to save tasks to file");
         } catch (DukeException e) {

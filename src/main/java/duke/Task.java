@@ -1,6 +1,8 @@
 package duke;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -25,21 +27,50 @@ public class Task {
     /**
      * Accepts a date in String format of "d-M-yyyy" and returns the date in LocalDate format.
      *
-     * @param s date in String format of "d-M-yyyy"
+     * @param dateString date in String format of "d-M-yyyy"
      * @return date of the task
      */
-    public static LocalDate getInputDateFormat(String s) throws DateTimeParseException {
-        return LocalDate.parse(s, DateTimeFormatter.ofPattern("d-M-yyyy"));
+    public static LocalDate getLocalDateInput(String dateString) throws DateTimeParseException {
+        return LocalDate.parse(dateString, DateTimeFormatter.ofPattern("d-M-yyyy"));
     }
 
     /**
-     * Accepts a date in LocalDate format and returns the date in String format of "dd-MM-yyyy".
+     * Accepts a date in String format of "d-M-yyyy HHmm" and returns the date time in LocalDateTime format.
+     *
+     * @param dateTimeString datetime in String format of "d-M-yyyy HHmm"
+     * @return date of the task
+     */
+    public static LocalDateTime getLocalDateTimeInput(String dateTimeString) throws DukeException {
+        String[] splitDateTime = dateTimeString.split(" ");
+        if (splitDateTime.length == 1) {
+            return LocalDateTime.parse(dateTimeString + " " + LocalTime.MIDNIGHT.toString(),
+                DateTimeFormatter.ofPattern("d-M-yyyy HH:mm"));
+        } else if (splitDateTime.length == 2) {
+            return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern("d-M-yyyy HHmm"));
+        } else {
+            throw new DukeException("Date and time should be in the format of dd-M-yyyy HHmm");
+        }
+    }
+
+    /**
+     * Accepts a date in LocalDate format and returns the date time in given pattern.
      *
      * @param date date in LocalDate format
-     * @return date of the task in String format of "dd-MM-yyyy"
+     * @return date of the task in String format of given pattern
      */
-    public static String getLocalDateOutputFormat(LocalDate date) throws DateTimeParseException {
-        return date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+    public static String getLocalDateOutput(LocalDate date, String datePattern) throws DateTimeParseException {
+        return date.format(DateTimeFormatter.ofPattern(datePattern));
+    }
+
+    /**
+     * Accepts a date in LocalDateTime format and returns the date time in given pattern.
+     *
+     * @param date date in LocalDateTime format
+     * @param dateTimePattern to format the date time
+     * @return date of the task in String format of given pattern
+     */
+    public static String getLocalDateTimeOutput(LocalDateTime date, String dateTimePattern) throws DateTimeParseException {
+        return date.format(DateTimeFormatter.ofPattern(dateTimePattern));
     }
 
     /**
