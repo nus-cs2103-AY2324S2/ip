@@ -3,9 +3,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class DataManager {
+public class Storage {
 
-    public static void DataManager() {
+    public Storage() {
         try {
             String projectPath = System.getProperty("user.dir");
             java.nio.file.Path filePath = java.nio.file.Paths.get(projectPath, "src",
@@ -21,18 +21,14 @@ public class DataManager {
         }
     }
 
-    public static String loadData() {
-        try {
-            String projectPath = System.getProperty("user.dir");
-            java.nio.file.Path filePath = java.nio.file.Paths.get(projectPath, "src",
-                    "main", "resources", "data", "bmo_data.txt");
-            return Files.readString(filePath);
-        } catch (IOException e) {
-            System.out.println("Error: Unable to load data. " + e.getMessage());
-        }
+    public String loadData() throws IOException{
+        String projectPath = System.getProperty("user.dir");
+        java.nio.file.Path filePath = java.nio.file.Paths.get(projectPath, "src",
+                "main", "resources", "data", "bmo_data.txt");
+        return Files.readString(filePath);
     }
 
-    public static void saveData(String content) {
+    public void saveData(String content) {
         try {
             String projectPath = System.getProperty("user.dir");
             Path filePath = Paths.get(projectPath, "src", "main", "resources", "data", "bmo_data.txt");
