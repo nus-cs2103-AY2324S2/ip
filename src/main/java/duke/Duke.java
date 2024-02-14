@@ -73,7 +73,12 @@ public class Duke {
         return "Bye. Hope to see you again soon!";
     }
 
-
+    /**
+     * Gets the result of processing the user input from the text box
+     *
+     * @param echo
+     * @return String to be added to dialog box
+     */
     public String getResponse(String echo) {
         String output = " ";
         try {
@@ -113,6 +118,7 @@ public class Duke {
                 storage.updateFile(taskToAdd, STORAGE_ADD_COMMAND, 0);
                 break;
             default:
+                assert false : "Should not reach this point";
                 break;
             }
         } catch (DukeException e) {

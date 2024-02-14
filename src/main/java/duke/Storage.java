@@ -116,7 +116,7 @@ public class Storage {
      */
     public void updateFile(Task taskToUpdate, int command, int lineNum) {
         String taskString = taskToUpdate.toString(true);
-
+        assert command == 1 || command == 0 : "Invaliid command used";
         try {
             if (command == Duke.STORAGE_ADD_COMMAND) {
 
