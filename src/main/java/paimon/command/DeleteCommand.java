@@ -37,7 +37,7 @@ public class DeleteCommand extends Command {
                 taskList.deleteTask(deleteIndex - 1);
                 ui.displayDeleteTaskMessage(taskList.getSize());
             } else {
-                System.out.println("Sorry Traveller, that task does not exist");
+                throw new ChatException("Sorry Traveller, that task does not exist");
             }
         } catch (NumberFormatException e) {
             throw new ChatException("Sorry Traveller, your input is invalid");
