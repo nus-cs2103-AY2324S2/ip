@@ -62,8 +62,10 @@ public class TaskList {
         return this.taskList;
     }
 
+
     /**
-     * Lists and prints all tasks in the task list with their respective indices.
+     * @param keyword The keyword to find the sentence containing this keyword.
+     * @return The sentences contain this keyword.
      */
     public TaskList find(String keyword) {
         TaskList searchingResult = new TaskList();
@@ -76,6 +78,9 @@ public class TaskList {
         return searchingResult;
     }
 
+    /**
+     * Lists and prints all tasks in the task list with their respective indices.
+     */
     public void list() {
         int index = 1;
         for (Task msg : taskList) {

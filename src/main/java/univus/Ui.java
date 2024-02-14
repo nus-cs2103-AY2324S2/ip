@@ -4,12 +4,11 @@ package univus;
  * The Ui class that deals with interactions with the user.
  */
 public class Ui {
+    private static final String LINE = "____________________________________________________________";
 
     /**
      * Prints a greeting to the user.
      */
-    private final String LINE = "____________________________________________________________";
-
     public void greet() {
         System.out.println(LINE);
         System.out.println("Hello! I'm Univus");
