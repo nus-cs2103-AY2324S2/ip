@@ -8,12 +8,13 @@ import chaterpillar.datetime.DateTime;
  * indicating whether the task is marked.
  */
 public class Task {
+    private boolean isMarked;
     private final String taskName;
-    boolean isMarked;
-    boolean hasDate;
+    private boolean hasDate;
 
     /**
      * Basic constructor
+     *
      * @param taskName name of task to be tracked
      */
     public Task(String taskName) {
@@ -24,6 +25,7 @@ public class Task {
 
     /**
      * Overloaded constructor with marked status
+     *
      * @param taskName name of task to be tracked
      * @param isMarked status of task (marked or unmarked)
      */
@@ -50,8 +52,24 @@ public class Task {
     }
 
     /**
+     * Sets this task to have date, by setting the
+     * boolean flag to be true.
+     */
+    public void setHasDate() {
+        this.hasDate = true;
+    }
+
+    /**
+     * Gets the hasDate status.
+     */
+    public boolean getHasDate() {
+        return this.hasDate;
+    }
+
+    /**
      * Returns a formatted string meant for saving into the
      * text file.
+     *
      * @return formatted String, consisting of isMarked status and taskname
      */
     public String formatStringForSaving() {
@@ -60,6 +78,7 @@ public class Task {
 
     /**
      * checks if Task is within the date specified.
+     *
      * @param dt date specified
      * @return <code>false</code> by default.
      */

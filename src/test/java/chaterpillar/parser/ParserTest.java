@@ -1,11 +1,14 @@
 package chaterpillar.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import org.junit.jupiter.api.Test;
 
-import chaterpillar.commands.*;
+import chaterpillar.commands.ExitCommand;
+import chaterpillar.commands.HelpCommand;
+import chaterpillar.commands.ListAllCommand;
+import chaterpillar.commands.TasksTodayCommand;
+import chaterpillar.commands.UnrecognisedCommand;
 import chaterpillar.exceptions.ChaterpillarException;
 public class ParserTest {
     @Test

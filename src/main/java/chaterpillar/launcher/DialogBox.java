@@ -1,17 +1,13 @@
 package chaterpillar.launcher;
 
 import java.io.IOException;
-
 import java.util.Collections;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-
 import javafx.geometry.Pos;
-
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -33,6 +29,12 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Basic constructor for this class
+     *
+     * @param text to be placed in the <code>Label</code>
+     * @param img to be placed in the <code>ImageView</code>
+     */
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -58,21 +60,50 @@ public class DialogBox extends HBox {
         setBackground(new Background(new BackgroundFill(Paint.valueOf("MINTCREAM"), null, null)));
     }
 
+    /**
+     * Gets a <code>DialogBox</code> designed for the user.
+     *
+     * @param text to be placed in the <code>Label</code>
+     * @param img to be placed in the <code>ImageView</code>
+     * @return <code>DialogBox</code>
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Gets a <code>DialogBox</code> designed for the ChatBot.
+     *
+     * @param text to be placed in the <code>Label</code>
+     * @param img to be placed in the <code>ImageView</code>
+     * @return <code>DialogBox</code>
+     */
     public static DialogBox getChaterpillarDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;
     }
 
+    /**
+     * Gets a default start <code>DialogBox</code> designed for the ChatBot.
+     *
+     * @param text to be placed in the <code>Label</code>
+     * @param img to be placed in the <code>ImageView</code>
+     * @return <code>DialogBox</code>
+     */
     public static DialogBox getInitialiseChaterpillarDialog(String text, Image img) {
         var db = getChaterpillarDialog(text, img);
         db.help.setText("'help' for commands");
         return db;
     }
+
+    /**
+     * Gets a <code>DialogBox</code> designed for ChatBot Exceptions.
+     *
+     * @param text to be placed in the <code>Label</code>
+     * @param img to be placed in the <code>ImageView</code>
+     * @return <code>DialogBox</code>
+     */
     public static DialogBox getExceptionDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

@@ -2,9 +2,22 @@ package chaterpillar.parser;
 
 import java.time.format.DateTimeParseException;
 
+import chaterpillar.commands.Command;
+import chaterpillar.commands.DeleteCommand;
+import chaterpillar.commands.ExitCommand;
+import chaterpillar.commands.FindCommand;
+import chaterpillar.commands.HelpCommand;
+import chaterpillar.commands.ListAllCommand;
+import chaterpillar.commands.MarkCommand;
+import chaterpillar.commands.TaskCommand;
+import chaterpillar.commands.TasksTodayCommand;
+import chaterpillar.commands.UnmarkCommand;
+import chaterpillar.commands.UnrecognisedCommand;
 import chaterpillar.exceptions.ChaterpillarException;
-import chaterpillar.tasks.*;
-import chaterpillar.commands.*;
+import chaterpillar.tasks.DeadlineTask;
+import chaterpillar.tasks.EventTask;
+import chaterpillar.tasks.Task;
+import chaterpillar.tasks.TodoTask;
 
 /**
  * Utility class for parsing inputs by the user.
@@ -14,11 +27,12 @@ public class Parser {
     /**
      * Parses the string read from the input of the user.
      * Outputs the respective <code>Command</code> object.
+     *
      * @param input command to be parsed
      * @return <code>Command</code> objects corresponding to
-     * the instructions of the parsed line.
+     *     the instructions of the parsed line.
      * @throws ChaterpillarException if there are any commands typed
-     * wrongly or if there are missing components in the command.
+     *     wrongly or if there are missing components in the command.
      */
     public static Command parse(String input) throws ChaterpillarException {
         String[] inputSplit = input.split(" ");
@@ -84,7 +98,7 @@ public class Parser {
         case "delete":
             try {
                 tempInputArgs = input.split(" ");
-                int index = Integer.parseInt(tempInputArgs[1])-1;
+                int index = Integer.parseInt(tempInputArgs[1]) - 1;
                 return new DeleteCommand(index);
             } catch (NumberFormatException e) {
                 throw new ChaterpillarException(

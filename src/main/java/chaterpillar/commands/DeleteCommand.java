@@ -1,12 +1,10 @@
 package chaterpillar.commands;
 
 import chaterpillar.exceptions.ChaterpillarException;
+import chaterpillar.storage.Storage;
 import chaterpillar.tasks.Task;
 import chaterpillar.tasks.TaskList;
 import chaterpillar.ui.Ui;
-import chaterpillar.storage.Storage;
-
-import java.io.IOException;
 
 /**
  * <code>Command</code> to delete the item in the <code>TaskList</code>>
@@ -17,6 +15,7 @@ public class DeleteCommand extends Command {
 
     /**
      * Constructor for this class.
+     *
      * @param index the index of the item to be deleted.
      */
     public DeleteCommand(int index) {
@@ -25,11 +24,12 @@ public class DeleteCommand extends Command {
 
     /**
      * Deletes a task at the specified index.
+     *
      * @param tasks <code>TaskList</code> object for the list of tasks.
      * @param ui <code>Ui</code> object that handles the UI of this application.
      * @param storage <code>Storage</code> object that is used for storage.
-     * @throws ChaterpillarException if no number detected,
-     * or number specified does not exist in the <code>TaskList</code>
+     * @throws ChaterpillarException if no number detected, or number
+     *     specified does not exist in the <code>TaskList</code>.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws ChaterpillarException {

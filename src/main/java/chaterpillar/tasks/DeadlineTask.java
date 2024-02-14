@@ -14,17 +14,19 @@ public class DeadlineTask extends Task {
 
     /**
      * Basic constructor
+     *
      * @param taskName name of task to be tracked
      */
-    public DeadlineTask(String taskName, String date_time) throws ChaterpillarException {
+    public DeadlineTask(String taskName, String dateTime) throws ChaterpillarException {
         super(taskName);
-        this.dateTime = new DateTime(date_time);
-        this.hasDate = true;
+        this.dateTime = new DateTime(dateTime);
+        this.setHasDate();
     }
 
     /**
      * Overloaded Constructor with date/time specified
      * and marked status
+     *
      * @param taskname name of task to be tracked
      * @param dateTime Date and/or Time of deadline
      * @param marked status of task (marked or unmarked)
@@ -32,11 +34,12 @@ public class DeadlineTask extends Task {
     public DeadlineTask(String taskname, Boolean marked, String dateTime) throws ChaterpillarException {
         super(taskname, marked);
         this.dateTime = new DateTime(dateTime);
-        this.hasDate = true;
+        this.setHasDate();
     }
 
     /**
      * Checks if the task falls on the same day as the date specified
+     *
      * @param dt date specified
      * @return <code>true</code> if the task falls on the same day
      */
@@ -50,7 +53,7 @@ public class DeadlineTask extends Task {
     }
     @Override
     public String toString() {
-        return "[D]" + super.toString() +
-                String.format(" (by: %s)", this.dateTime);
+        return "[D]" + super.toString()
+                + String.format(" (by: %s)", this.dateTime);
     }
 }

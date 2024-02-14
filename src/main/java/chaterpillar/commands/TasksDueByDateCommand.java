@@ -2,18 +2,19 @@ package chaterpillar.commands;
 
 import chaterpillar.datetime.DateTime;
 import chaterpillar.exceptions.ChaterpillarException;
+import chaterpillar.storage.Storage;
 import chaterpillar.tasks.TaskList;
 import chaterpillar.ui.Ui;
-import chaterpillar.storage.Storage;
 
 /**
  * <code>Command</code> to list all tasks on a specified date.
  */
 public class TasksDueByDateCommand extends Command {
-    DateTime date;
+    private final DateTime date;
 
     /**
      * Constructor for when class is invoked with a String for the date specified.
+     *
      * @param date displays the list of tasks on this date.
      * @throws ChaterpillarException if date string provided is invalid
      */
@@ -24,6 +25,7 @@ public class TasksDueByDateCommand extends Command {
     /**
      * Overloaded Constructor for when class is invoked with a DateTime
      * object for the date specified.
+     *
      * @param date displays the list of tasks on this date.
      */
     public TasksDueByDateCommand(DateTime date) {
@@ -32,6 +34,7 @@ public class TasksDueByDateCommand extends Command {
 
     /**
      * Lists the tasks that fall on or within the specified date.
+     *
      * @param tasks the list of tasks.
      * @param ui object that handles the UI of this application.
      * @param storage object that is used for storage.

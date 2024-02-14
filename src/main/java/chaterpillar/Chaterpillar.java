@@ -1,15 +1,12 @@
 package chaterpillar;
 
-import chaterpillar.exceptions.ChaterpillarException;
 import chaterpillar.commands.Command;
+import chaterpillar.exceptions.ChaterpillarException;
 import chaterpillar.parser.Parser;
+import chaterpillar.storage.Storage;
 import chaterpillar.tasks.TaskList;
 import chaterpillar.ui.Ui;
-import chaterpillar.storage.Storage;
-
 import javafx.util.Pair;
-
-import java.io.IOException;
 
 /**
  * Main class for Chaterpillar chatbot.
@@ -20,7 +17,12 @@ public class Chaterpillar {
     private final TaskList tasks;
     private final Ui ui;
 
-    public Chaterpillar() throws ChaterpillarException, IOException {
+    /**
+     * Basic constructor for this class
+     *
+     * @throws ChaterpillarException custom <code>Exception</code> for this application.
+     */
+    public Chaterpillar() throws ChaterpillarException {
         ui = new Ui();
         storage = new Storage();
         tasks = storage.loadFromFile();
@@ -28,6 +30,7 @@ public class Chaterpillar {
 
     /**
      * Returns basic greeting message.
+     *
      * @return message
      */
     public static String greet() {
@@ -37,6 +40,7 @@ public class Chaterpillar {
 
     /**
      * Returns the appropriate response from a given input, tagged with exit status.
+     *
      * @param input command from user.
      * @return response of the chatbot and exit status.
      * @throws ChaterpillarException custom <code>Exception</code> for this application.

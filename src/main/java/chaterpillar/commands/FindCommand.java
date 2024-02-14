@@ -1,19 +1,20 @@
 package chaterpillar.commands;
 
 import chaterpillar.exceptions.ChaterpillarException;
+import chaterpillar.storage.Storage;
 import chaterpillar.tasks.Task;
 import chaterpillar.tasks.TaskList;
 import chaterpillar.ui.Ui;
-import chaterpillar.storage.Storage;
 
 /**
  * <code>Command</code> to find all tasks containing the search word.
  */
-public class FindCommand extends Command{
+public class FindCommand extends Command {
     private final String keyword;
 
     /**
      * Constructor for this class
+     *
      * @param keyword to be searched and matched
      */
     public FindCommand(String keyword) {
@@ -22,6 +23,7 @@ public class FindCommand extends Command{
 
     /**
      * Finds all tasks in the list that contains the matching word/phrase
+     *
      * @param tasks the list of tasks
      * @param ui UI for this application
      * @param storage storage for this application

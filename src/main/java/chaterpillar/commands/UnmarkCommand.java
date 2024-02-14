@@ -1,10 +1,10 @@
 package chaterpillar.commands;
 
 import chaterpillar.exceptions.ChaterpillarException;
+import chaterpillar.storage.Storage;
 import chaterpillar.tasks.Task;
 import chaterpillar.tasks.TaskList;
 import chaterpillar.ui.Ui;
-import chaterpillar.storage.Storage;
 
 /**
  * <code>Command</code> to unmark a task at a specified index as not completed.
@@ -14,6 +14,7 @@ public class UnmarkCommand extends Command {
 
     /**
      * Constructor for this class
+     *
      * @param index the index of the item to be unmarked.
      */
     public UnmarkCommand(int index) {
@@ -22,6 +23,7 @@ public class UnmarkCommand extends Command {
 
     /**
      * Un-marks the task at the specified index.
+     *
      * @param tasks the list of tasks.
      * @param ui object that handles the UI of this application.
      * @param storage object that is used for storage.

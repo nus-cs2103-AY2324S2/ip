@@ -1,11 +1,9 @@
 package chaterpillar.commands;
 
 import chaterpillar.exceptions.ChaterpillarException;
+import chaterpillar.storage.Storage;
 import chaterpillar.tasks.TaskList;
 import chaterpillar.ui.Ui;
-import chaterpillar.storage.Storage;
-
-import java.io.IOException;
 
 /**
  * Abstract class for specific <code>Command</code> objects,
@@ -16,6 +14,7 @@ public abstract class Command {
     /**
      * Executes the command (determined in the specific <code>Command</code>
      * classes).
+     *
      * @param task the list of tasks.
      * @param ui object that handles the UI of this application.
      * @param storage object that is used for storage.
@@ -26,6 +25,7 @@ public abstract class Command {
 
     /**
      * Default method to check if the command has exited the application.
+     *
      * @return <code>boolean</code> which is default false.
      */
     public boolean hasExited() {

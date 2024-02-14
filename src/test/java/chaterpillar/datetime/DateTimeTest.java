@@ -1,8 +1,9 @@
 package chaterpillar.datetime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 
 import chaterpillar.exceptions.ChaterpillarException;
@@ -23,13 +24,14 @@ public class DateTimeTest {
     }
 
     @Test
-    public void DateTime_invalidInput_exceptionThrown() {
+    public void dateTime_invalidInput_exceptionThrown() {
         try {
             new DateTime("invalid date time format");
         } catch (ChaterpillarException e) {
-            assertEquals( "Error in parsing string for date/time.\n" +
-                    "I accept quite a number of common date format, \n" +
-                    "but here is one you can use: DD/MM/YYY HH:MM", e.getMessage());
+            assertEquals("""
+                    Error in parsing string for date/time.
+                    I accept quite a number of common date format,\s
+                    but here is one you can use: DD/MM/YYY HH:MM""", e.getMessage());
         }
     }
 }

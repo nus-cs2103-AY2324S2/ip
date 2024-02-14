@@ -1,9 +1,9 @@
 package chaterpillar.commands;
 
+import chaterpillar.storage.Storage;
 import chaterpillar.tasks.Task;
 import chaterpillar.tasks.TaskList;
 import chaterpillar.ui.Ui;
-import chaterpillar.storage.Storage;
 
 /**
  * <code>Command</code> to list out the list of tasks given
@@ -15,6 +15,7 @@ public class ListCommand extends Command {
 
     /**
      * Constructor for this class.
+     *
      * @param tasks list of tasks to be printed.
      */
     public ListCommand(TaskList tasks) {
@@ -23,6 +24,7 @@ public class ListCommand extends Command {
 
     /**
      * Prints all the tasks in a specified list of tasks.
+     *
      * @param tasks the list of tasks.
      * @param ui object that handles the UI of this application.
      * @param storage object that is used for storage.

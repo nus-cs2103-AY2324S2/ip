@@ -20,6 +20,7 @@ public class Ui {
 
     /**
      * Prints out the message given in the String argument.
+     *
      * @param s the message to be printed
      */
     public void echo(String s) {
@@ -39,7 +40,7 @@ public class Ui {
      * Prints the greeting message by the Chaterpillar chatbot.
      * It also prints the horizontal lines as dividers before and after the message.
      *
-     * @return
+     * @return basic greeting message.
      */
     public String greet() {
         String output =
@@ -55,6 +56,7 @@ public class Ui {
 
     /**
      * Reads the string of command in the input line.
+     *
      * @return <code>String</code> of command.
      * @throws IOException if an I/O error occurs.
      */
