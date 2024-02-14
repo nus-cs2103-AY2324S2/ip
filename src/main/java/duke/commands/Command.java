@@ -7,6 +7,7 @@ import duke.tasks.Task;
 import duke.ui.Ui;
 
 public class Command {
+    protected String commandResponse;
 
     /**
      * Executes the command given by the input.
@@ -19,6 +20,15 @@ public class Command {
      */
     public void execute(ArrayList<Task> tasks, String[] input)
             throws CommandException, IOException {
-        Ui.printOutput("I'm sorry, but I have zero idea what you're asking from me...");
+        this.commandResponse = Ui.printOutput("I'm sorry, but I have zero idea what you're asking from me...");
     };
+
+    /**
+     * Returns the corresponding response to the command executed.
+     *
+     * @return Returns a String, containing the response.
+     */
+    public String getCommandResponse() {
+        return this.commandResponse;
+    }
 }

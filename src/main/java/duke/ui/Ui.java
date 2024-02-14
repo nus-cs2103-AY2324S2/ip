@@ -24,40 +24,48 @@ public class Ui {
 
     /**
      * Prints the output of the chatbot in formatted form.
-     * 
+     *
      * @param msg The message to output.
+     *
+     * @return Returns a String, containing the response.
      */
-    public static void printOutput(String... msg) {
+    public static String printOutput(String... msg) {
         System.out.println(INDENTATION + DIVIDER);
-
+        StringBuilder sb = new StringBuilder();
         for (String string : msg) {
-            System.out.println(SUBIDENTATION + string);
+            sb.append(string).append("\n");
         }
-        System.out.println(INDENTATION + DIVIDER + "\n");
+        return sb.toString();
     }
 
     /**
      * Prints the list of tasks in the provided ArrayList of tasks.
-     * 
+     *
      * @param tasks ArrayList of task to output.
+     *
+     * @return Returns a String, containing the response.
      */
-    public static void printList(ArrayList<Task> tasks) {
+    public static String printList(ArrayList<Task> tasks) {
         StringBuilder sb = new StringBuilder();
+        sb.append("Here are the tasks in your list:\n");
         int i = 1;
         for (Task task : tasks) {
-            sb.append(i + "." + task.toString() + "\n" + SUBIDENTATION);
+            sb.append(i).append(".").append(task.toString()).append("\n");
             i++;
         }
-        printOutput("Here are the tasks in your list:", sb.toString());
+        return sb.toString();
     }
 
     /**
      * Reads the command input of the user and returns it.
-     * 
+     *
      * @return Returns an array of String, containing the command.
      */
     public String[] readCommand() {
         return this.sc.nextLine().trim().split(" ", 2);
+    }
+    public String[] readCommand(String input) {
+        return input.trim().split(" ", 2);
     }
 
     /**

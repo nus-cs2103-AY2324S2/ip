@@ -20,6 +20,6 @@ public class ViewTaskListCommand extends Command {
     @Override
     public void execute(ArrayList<Task> tasks, String[] input)
             throws CommandException, IOException {
-        Ui.printList(tasks);
+        super.commandResponse = Ui.printList(tasks);
     }
 }

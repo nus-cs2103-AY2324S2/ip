@@ -19,7 +19,7 @@ public class ExitCommand extends Command {
      */
     public void execute(ArrayList<Task> tasks, String[] input)
             throws CommandException, IOException {
-        Ui.printOutput("Goodbye my friend. See you soon!");
+        super.commandResponse = Ui.printOutput("Goodbye my friend. See you soon!");
         System.exit(0);
     }
 }

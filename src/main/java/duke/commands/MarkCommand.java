@@ -44,7 +44,7 @@ public class MarkCommand extends Command {
                     "The task was already marked as done. I'm not changing anything.");
         } else {
             tasks.get(index).setStatus(true);
-            Ui.printOutput("Nice! I've marked this task as done:", tasks.get(index).toString());
+            super.commandResponse = Ui.printOutput("Nice! I've marked this task as done:", tasks.get(index).toString());
         }
     }
 

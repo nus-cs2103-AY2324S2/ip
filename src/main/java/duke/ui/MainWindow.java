@@ -24,12 +24,16 @@ public class MainWindow extends AnchorPane {
 
     private Duke duke;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/huhcat.png"));
+    private Image luckyImage = new Image(this.getClass().getResourceAsStream("/images/Lucky.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer
+                .getChildren()
+                .add(DialogBox.getDukeDialog("Hello! I'm Lucky the cat\nWhat can I do for you?", luckyImage));
+        scrollPane.setStyle("-fx-background: #0a1526;");
     }
 
     public void setDuke(Duke d) {
@@ -46,7 +50,7 @@ public class MainWindow extends AnchorPane {
         String response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, luckyImage)
         );
         userInput.clear();
     }

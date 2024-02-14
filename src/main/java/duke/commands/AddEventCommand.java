@@ -61,7 +61,7 @@ public class AddEventCommand extends Command {
 
         Storage.writeToStorage(eventTask);
 
-        Ui.printOutput("Got it. I've added this task:" + eventTask.toString(),
+        super.commandResponse = Ui.printOutput("Got it. I've added this task:" + eventTask.toString(),
                 "Now you have " + tasks.size() + " tasks in the list.");
     }
 

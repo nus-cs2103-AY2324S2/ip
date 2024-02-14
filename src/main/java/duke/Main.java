@@ -1,5 +1,6 @@
 package duke;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import duke.ui.MainWindow;
@@ -15,6 +16,9 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private Duke duke = new Duke();
+
+    public Main() throws FileNotFoundException {
+    }
 
     @Override
     public void start(Stage stage) {

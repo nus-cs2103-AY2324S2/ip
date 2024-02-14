@@ -22,23 +22,13 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class Duke {
-
-    @FXML
-    private ScrollPane scrollPane;
-    @FXML
-    private VBox dialogContainer;
-    @FXML
-    private TextField userInput;
-    @FXML
-    private Button sendButton;
-    private Scene scene;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-
+    private static Ui ui;
+    private static ArrayList<Task> tasks;
     /**
      * The main method of the application. This runs the required
      * methods to start the application.
@@ -47,8 +37,6 @@ public class Duke {
      * @throws IOException if the file path is not found.
      */
     public static void main(String[] args) throws IOException {
-        ArrayList<Task> tasks = Storage.init();
-        Ui ui = new Ui();
         ui.printWelcomeMsg();
         while (true) {
             try {
@@ -61,8 +49,9 @@ public class Duke {
         }
     }
 
-    public Duke() {
-
+    public Duke() throws FileNotFoundException {
+        ui = new Ui();
+        tasks = Storage.init();
     }
 
     /**
@@ -70,6 +59,15 @@ public class Duke {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        String[] strArrCommand = ui.readCommand(input);
+        String response;
+        try {
+            Command command = ParseCommand.parse(strArrCommand);
+            command.execute(tasks, strArrCommand);
+            response = command.getCommandResponse();
+        } catch (CommandException | IOException e) {
+            return Ui.printOutput(e.getMessage());
+        }
+        return response;
     }
 }

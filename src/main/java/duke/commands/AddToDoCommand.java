@@ -35,7 +35,7 @@ public class AddToDoCommand extends Command {
 
         Storage.writeToStorage(todoTask);
 
-        Ui.printOutput("Got it. I've added this task:" + todoTask.toString(),
+        super.commandResponse = Ui.printOutput("Got it. I've added this task:\n" + todoTask.toString(),
                 "Now you have " + tasks.size() + " tasks in the list.");
     }
 
