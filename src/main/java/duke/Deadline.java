@@ -37,4 +37,12 @@ public class Deadline extends Task {
         str = String.format("%s deadline %s /by %s", isDone, name, deadline);
         return str;
     }
+
+    /**
+     * Gets the deadline
+     * @return the deadline
+     */
+    public LocalDateTime getDeadline() {
+        return deadline;
+    }
 }

@@ -1,5 +1,6 @@
 package duke;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -61,7 +62,7 @@ public class TaskList {
     public String list() {
         StringBuilder str = new StringBuilder();
         if (tasks.size() == 0) {
-            duke.output("Your task list is empty! Congratulations!");
+            return "Your task list is empty! Congratulations!";
         } else {
             for(int i = 0; i < tasks.size(); i++) {
                 str.append(String.format("%s: %s \n", i + 1, tasks.get(i)));
@@ -232,7 +233,7 @@ public class TaskList {
         if(announce) {
             try {
                 date = LocalDateTime.parse(dateBuilder.substring(1),
-                        DateTimeFormatter.ofPattern("dd/M/yy HH:mm"));
+                        DateTimeFormatter.ofPattern("d/M/yy H:mm"));
             } catch (DateTimeParseException error) {
                 duke.output("Invalid Date format!");
             }
@@ -252,7 +253,7 @@ public class TaskList {
         announce.append("Alright. Adding this task:\n");
         announce.append(task.toString()).append("\n");
         String str = "";
-        str = String.format("You now have %s tasks", tasks.size());
+        str = String.format("You now have %s task(s)", tasks.size());
         announce.append(str);
         duke.output(announce.toString());
     }
@@ -271,7 +272,7 @@ public class TaskList {
             toPrint.append("Alright, removing this task\n");
             toPrint.append(task.toString());
             tasks.remove(index);
-            toPrint.append(String.format("\nYou now have %s tasks left", tasks.size()));
+            toPrint.append(String.format("\nYou now have %s task(s) left", tasks.size()));
             duke.output(toPrint.toString());
         }
     }
@@ -305,5 +306,41 @@ public class TaskList {
     public void clear() {
         tasks.clear();
         duke.output("List Cleared!");
+    }
+
+    /**
+     * Searches for events or deadlines occurring on the date specified.
+     * @param date the date to search for events and deadlines
+     * @return the list of events and deadlines occurring on that date
+     */
+    public String searchDate(LocalDate date) {
+        StringBuilder str = new StringBuilder(String.format("Searching for tasks on %s:\n",date));
+        int i = 0;
+        for(Task task : tasks) {
+            if (task instanceof Event) {
+                LocalDate taskStartDate = ((Event) task).getStartDate().toLocalDate();
+                LocalDate taskEndDate = ((Event) task).getEndDate().toLocalDate();
+                if (!(date.isBefore(taskStartDate)) && !(date.isAfter(taskEndDate)) && !(task.isDone)) {
+                    str.append(String.format("%s: %s \n", i + 1, task));
+                    i++;
+                }
+            }
+            if (task instanceof Deadline) {
+                LocalDate taskDeadline = ((Deadline) task).getDeadline().toLocalDate();
+                if (date.equals(taskDeadline) && !(task.isDone)) {
+                    str.append(String.format("%s: %s \n", i + 1, task));
+                    i++;
+                }
+            }
+        }
+        if (i == 0) {
+            return str.append("No tasks found!").toString();
+        } else {
+            return str.toString();
+        }
+    }
+
+    public String searchDate() {
+        return searchDate(LocalDate.now());
     }
 }

@@ -46,4 +46,20 @@ public class Event extends Task {
         str = String.format("%s event %s /from %s /to %s", isDone, name, startDate, endDate);
         return str;
     }
+
+    /**
+     * Gets the start date and time
+     * @return the start date and time of the event
+     */
+    public LocalDateTime getStartDate() {
+        return startDate;
+    }
+
+    /**
+     * Gets the end date and time
+     * @return the end date and time of the event
+     */
+    public LocalDateTime getEndDate() {
+        return endDate;
+    }
 }

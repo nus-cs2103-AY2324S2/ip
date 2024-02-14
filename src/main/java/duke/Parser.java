@@ -1,5 +1,9 @@
 package duke;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * Handles the parsing of inputs from the user.
  */
@@ -72,20 +76,40 @@ public class Parser {
                 taskList.delete(index);
                 break;
             }
+            case "t":
             case "todo": {
                 addSuccessful = taskList.addToDo(words, !reading, isDone);
                 break;
             }
-            case "deadline": {
+            case "deadline":
+            case "d": {
                 addSuccessful = taskList.addDeadline(words, !reading, isDone);
                 break;
             }
+            case "e":
             case "event": {
                 addSuccessful = taskList.addEvent(words, !reading, isDone);
                 break;
             }
             case "clear": {
                 taskList.clear();
+                break;
+            }
+            case "schedule": {
+                if (words.length < 2) {
+                    String activities = taskList.searchDate();
+                } else {
+                    LocalDate date = null;
+                    try {
+                        date = LocalDate.parse(words[1], DateTimeFormatter.ofPattern("d/M/yy"));
+                    } catch (DateTimeParseException error) {
+                        duke.output("Invalid Date format!");
+                    }
+                    if (date != null) {
+                        String activities = taskList.searchDate(date);
+                        duke.output(activities);
+                    }
+                }
                 break;
             }
             default:
