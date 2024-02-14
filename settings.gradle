@@ -1,5 +1,0 @@
-include 'src:main:java'
-findProject(':src:main:java')?.name = 'java'
-include 'src:untitled'
-findProject(':src:untitled')?.name = 'untitled'
-

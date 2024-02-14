@@ -15,7 +15,7 @@ public class VirtueTaskList {
     }
 
     // Gets the number of tasks in the task list.
-    private int numTasks() {
+    protected int numTasks() {
         return taskList.size();
     }
 
