@@ -14,10 +14,13 @@ import java.time.format.DateTimeParseException;
 public class Event extends Task {
     /** The LocalDateTime representing the start time of the event. */
     protected LocalDateTime from;
+
     /** The string representation of the start time (used when parsing or if LocalDateTime parsing fails). */
     protected String fromString;
+
     /** The LocalDateTime representing the end time of the event. */
     protected LocalDateTime to;
+
     /** The string representation of the end time (used when parsing or if LocalDateTime parsing fails). */
     protected String toString;
 
@@ -48,10 +51,15 @@ public class Event extends Task {
         }
 
         validateInputs();
-        assert (this.from != null || !this.fromString.isEmpty()) : "Either LocalDateTime or fromString should be non-null.";
-        assert (this.to != null || !this.toString.isEmpty()) : "Either LocalDateTime or toString should be non-null.";
-        assert !(this.from != null && !this.fromString.isEmpty()) : "Both LocalDateTime and fromString should not be non-null.";
-        assert !(this.to != null && !this.toString.isEmpty()) : "Both LocalDateTime and toString should not be non-null.";
+
+        assert (this.from != null || !this.fromString.isEmpty()) : "Either LocalDateTime or fromString should be"
+                + " non-null.";
+        assert (this.to != null || !this.toString.isEmpty()) : "Either LocalDateTime or toString should be"
+                + " non-null.";
+        assert !(this.from != null && !this.fromString.isEmpty()) : "Both LocalDateTime and fromString should not"
+                + " be non-null.";
+        assert !(this.to != null && !this.toString.isEmpty()) : "Both LocalDateTime and toString should not "
+                + "be non-null.";
     }
 
     /**
@@ -78,18 +86,22 @@ public class Event extends Task {
      */
     private void validateInputs() throws DukeException {
         if ((from == null && to == null) && (fromString.isEmpty() && toString.isEmpty())) {
-            throw new DukeException("You did not mention the duration! Please re-enter correctly!");
+            Ui.showError("You did not mention the duration! Please re-enter correctly!");
         } else if (from == null && fromString.isEmpty()) {
-            throw new DukeException("You did not mention from when! Please re-enter correctly!");
+            Ui.showError("You did not mention from when! Please re-enter correctly!");
         } else if (to == null && toString.isEmpty()) {
-            throw new DukeException("You did not mention till when! Please re-enter correctly!");
+            Ui.showError("You did not mention till when! Please re-enter correctly!");
         } else if (description.isEmpty()) {
-            throw new DukeException("You didn't specify the event!");
+            Ui.showError("You didn't specify the event!");
         }
-        assert (from == null && to == null) || (!fromString.isEmpty() && !toString.isEmpty()) :
-                "Either both LocalDateTime objects (from and to) should be null, or both fromString and toString should be non-empty.";
-        assert !(from == null && fromString.isEmpty()) : "Either from LocalDateTime object should be non-null, or fromString should be non-empty.";
-        assert !(to == null && toString.isEmpty()) : "Either to LocalDateTime object should be non-null, or toString should be non-empty.";
+
+        assert (from == null && to == null) || (!fromString.isEmpty() && !toString.isEmpty())
+                : "Either both LocalDateTime objects (from and to) should be null, or both fromString and toString "
+                        + "should be non-empty.";
+        assert !(from == null && fromString.isEmpty()) : "Either from LocalDateTime object should be non-null, or "
+                + "fromString should be non-empty.";
+        assert !(to == null && toString.isEmpty()) : "Either to LocalDateTime object should be non-null, or toString"
+                + " should be non-empty.";
         assert description != null : "Description should not be null.";
     }
 
@@ -136,15 +148,16 @@ public class Event extends Task {
      * @return Formatted string representation of the Event task.
      */
     public String getMessage() {
-        String fromStringFormatted = (from != null) ?
-                " from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) :
-                (this.fromString != null ? " from: " + this.fromString : "");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+        String fromStringFormatted = (from != null)
+                ? " from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))
+                : (this.fromString != null ? " from: " + this.fromString : "");
 
-        String toStringFormatted = (to != null) ?
-                " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) :
-                (this.toString != null ? " to: " + this.toString : "");
+        String toStringFormatted = (to != null)
+                ? " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))
+                : (this.toString != null ? " to: " + this.toString : "");
 
-        return ui.printMessage("Got it. I've added this task:\n [E][" + getStatusIcon() + "] " + getDescription() +
-                fromStringFormatted + toStringFormatted); //+ from.getClass() + to.getClass();
+        return ui.printMessage("Got it. I've added this task:\n [E][" + getStatusIcon() + "] " + getDescription()
+                + fromStringFormatted + toStringFormatted);
     }
 }
