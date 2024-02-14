@@ -144,6 +144,9 @@ package duke;
 
 import java.util.List;
 
+/**
+ * Represents the user interface of the Aether chatbot.
+ */
 public class Ui {
     private StringBuilder responseBuilder = new StringBuilder();
 
@@ -152,24 +155,43 @@ public class Ui {
         responseBuilder.append(message).append("\n");
     }
 
+    /**
+     * Displays a welcome message.
+     */
     public void showWelcome() {
         addMessage("Hello! I'm Aether!");
         addMessage("What can I do for you?");
     }
 
+    /**
+     * Displays an error message for failed task loading.
+     */
     public void showLoadingError() {
         addMessage("Error loading tasks from file.");
     }
 
+    /**
+     * Displays a separator line.
+     */
     public void showSeparator() {
         addMessage("_____________________________");
     }
 
+    /**
+     * Displays an error message.
+     *
+     * @param errorMessage The error message to display.
+     */
     public void showErrorMessage(String errorMessage) {
         addMessage("OOPS!!! " + errorMessage);
         addMessage("_____________________________");
     }
 
+    /**
+     * Displays the list of tasks.
+     *
+     * @param taskList The task list to display.
+     */
     public void showTaskList(TaskList taskList) {
         StringBuilder tasksMessage = new StringBuilder();
         tasksMessage.append("Here are the tasks in your list:\n");
@@ -181,6 +203,12 @@ public class Ui {
         addMessage(tasksMessage.toString());
     }
 
+    /**
+     * Displays a message indicating a task has been added.
+     *
+     * @param task       The added task.
+     * @param taskCount  The total number of tasks after adding.
+     */
     public void showTaskAdded(Task task, int taskCount) {
         addMessage("Got it. I've added this task:");
         addMessage("  " + task);
@@ -188,29 +216,56 @@ public class Ui {
         addMessage("_____________________________");
     }
 
+    /**
+     * Displays a message indicating a task has been deleted.
+     *
+     * @param deletedTask      The deleted task.
+     * @param remainingTasks   The remaining number of tasks after deletion.
+     */
     public void showTaskDeleted(Task deletedTask, int remainingTasks) {
         addMessage("Noted. I've removed this task:");
         addMessage("  " + deletedTask);
         addMessage("Now you have " + remainingTasks + " tasks in the list.");
         addMessage("_____________________________");
     }
-
+    /**
+     * Displays a message for an invalid task index.
+     */
     public void showInvalidTaskIndex() {
         addMessage("Invalid task index. Please provide a valid task index.");
     }
 
+    /**
+     * Displays a message indicating a task has been marked as done.
+     *
+     * @param markedTask The marked task.
+     */
     public void showTaskMarked(Task markedTask) {
         addMessage("Nice! I've marked this task as done:");
         addMessage("  " + markedTask);
         addMessage("_____________________________");
     }
 
+    /**
+     * Displays a message indicating a task has been marked as not done.
+     *
+     * @param unmarkedTask The unmarked task.
+     */
     public void showTaskUnmarked(Task unmarkedTask) {
         addMessage("OK, I've marked this task as not done yet:");
         addMessage("  " + unmarkedTask);
         addMessage("_____________________________");
     }
 
+    /**
+     * Displays matching tasks or a message if none are found.
+     *
+     * Iterates over a list of tasks, appending each to a message if the list is not empty.
+     * If the list is empty, a message indicating no matches is displayed. Always ends by
+     * adding a separator line.
+     *
+     * @param matchingTasks List of tasks that match a certain criterion.
+     */
     public void showMatchingTasks(List<Task> matchingTasks) {
         if (matchingTasks.isEmpty()) {
             addMessage("No matching tasks found.");
@@ -225,6 +280,9 @@ public class Ui {
         addMessage("_____________________________");
     }
 
+    /**
+     * Displays a goodbye message.
+     */
     public void showGoodbye() {
         addMessage("Goodbye. Hope to see you again soon!");
         addMessage("_____________________________");

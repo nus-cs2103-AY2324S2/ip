@@ -1,2 +1,2 @@
-D | 0 | do assignment | 2022-09-09 1200
-T | 0 | read harry potter
+T | 0 | read
+D | 1 | read two books | 2022-09-01 1200

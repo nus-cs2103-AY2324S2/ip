@@ -95,14 +95,14 @@ public class TaskList {
      *
      * @param taskIndex The index of the task to be deleted.
      */
-//    public void deleteTask(int taskIndex, Ui ui) {
-//        if (taskIndex >= 0 && taskIndex < tasks.size()) {
-//            Task removedTask = tasks.remove(taskIndex);
-//            ui.showTaskDeleted(removedTask, tasks.size());
-//        } else {
-//            ui.showInvalidTaskIndex();
-//        }
-//    }
+    //    public void deleteTask(int taskIndex, Ui ui) {
+    //        if (taskIndex >= 0 && taskIndex < tasks.size()) {
+    //            Task removedTask = tasks.remove(taskIndex);
+    //            ui.showTaskDeleted(removedTask, tasks.size());
+    //        } else {
+    //            ui.showInvalidTaskIndex();
+    //        }
+    //  }
     public Task deleteTask(int taskIndex) throws DukeException {
         if (taskIndex >= 0 && taskIndex < this.tasks.size()) {
             return this.tasks.remove(taskIndex); // Assuming tasks is the List<Task> holding your tasks
@@ -111,7 +111,12 @@ public class TaskList {
         }
     }
 
-
+    /**
+     * Searches for tasks with descriptions containing the specified keyword.
+     *
+     * @param keyword The keyword to match in task descriptions.
+     * @return List of matching {@link Task} objects, or an empty list if no matches found.
+     */
     public List<Task> findTasksByKeyword(String keyword) {
         return tasks.stream()
                 .filter(task -> task.getDescription().contains(keyword))

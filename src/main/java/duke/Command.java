@@ -56,7 +56,9 @@
 //                ui.showTaskAdded(tasks.getTasks().get(tasks.getSize() - 1), tasks.getSize());
 //                storage.saveTasks(tasks.getTasks());
 //            } else {
-//                throw new DukeException("Invalid deadline format. Please use: deadline <description> /by <date/time>");
+//              //throw new DukeException("Invalid deadline format.
+//              Please use: deadline <description>
+//                /by <date/time>");
 //            }
 //            break;
 //        case EVENT:
@@ -126,19 +128,38 @@ package duke;
 
 import java.util.List;
 
+/**
+ * Represents a command that can be executed by the Duke program.
+ */
 public class Command {
+    /**
+     * * Enumerates the possible types of commands.
+     */
     public enum CommandType {
         BYE, LIST, TODO, DEADLINE, EVENT, DELETE, MARK, UNMARK, FIND, INVALID
     }
-
     private CommandType type;
     private String argument;
 
+    /**
+     * Constructs a Command object with the specified type and argument.
+     *
+     * @param type     The type of the command.
+     * @param argument The argument associated with the command.
+     */
     public Command(CommandType type, String argument) {
         this.type = type;
         this.argument = argument;
     }
 
+    /**
+     * Executes the command based on its type.
+     *
+     * @param tasks   The TaskList on which the command operates.
+     * @param ui      The Ui used to interact with the user.
+     * @param storage The Storage used to save and load tasks.
+     * @throws DukeException If there is an error executing the command.
+     */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
 
         StringBuilder response = new StringBuilder();
@@ -174,7 +195,8 @@ public class Command {
         case EVENT:
             String[] eventDetails = argument.split("/from|/to", 3);
             if (eventDetails.length != 3) {
-                throw new DukeException("Invalid event format. Please use: event <description> /from <start> /to <end>");
+                throw new DukeException("Invalid event format. Please use: event <description> "
+                        + "/from <start> /to <end>");
             }
             Event event = new Event(eventDetails[0].trim(), eventDetails[1].trim(), eventDetails[2].trim());
             tasks.addTask(event);

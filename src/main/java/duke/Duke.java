@@ -55,21 +55,25 @@ public class Duke extends Application {
         } catch (DukeException e) {
             ui.showLoadingError();
             this.tasks = new TaskList(); // Ensure tasks is always initialized to prevent NullPointerException
-            }
+        }
     }
 
-//        try {
-//            tasks = new TaskList(storage.load());
-//        } catch (DukeException e) {
-//            ui.showLoadingError();
-//            tasks = new TaskList();
-//        }
-//}
+    //        try {
+    //            tasks = new TaskList(storage.load());
+    //        } catch (DukeException e) {
+    //            ui.showLoadingError();
+    //            tasks = new TaskList();
+    //  }
+    /**
+     * Initializes a new Duke application instance.
+     *
+     * Sets up the user interface, storage system with a default file path, and an empty task list.
+     */
     public Duke() {
-        String defaultFilePath = "data/tasks.txt"; // Default file path for storage
-        this.ui = new Ui(); // Initialize Ui
-        this.storage = new Storage(defaultFilePath); // Initialize Storage with default file path
-        this.tasks = new TaskList(); // Initialize TaskList
+        String defaultFilePath = "data/tasks.txt";
+        this.ui = new Ui();
+        this.storage = new Storage(defaultFilePath);
+        this.tasks = new TaskList();
 
     }
 
@@ -223,22 +227,22 @@ public class Duke extends Application {
 
         // Clear the user input TextField
         userInput.clear();
-}
-/**
- * Gets the response from the user input.
- *
- * @param input The user input
- * @return String representation of the response
- */
-//    public String getResponse(String input, TaskList tasks, Ui ui, Storage storage) {
-//        try {
-//            Parser parser = new Parser(input);
-//            Command command = parser.parse();
-//            return command.execute(tasks, ui, storage);
-//        } catch (DukeException e) {
-//            return "Error: " + e.getMessage();
-//        }
-//  }
+    }
+    //    public String getResponse(String input, TaskList tasks, Ui ui, Storage storage) {
+    //        try {
+    //            Parser parser = new Parser(input);
+    //            Command command = parser.parse();
+    //            return command.execute(tasks, ui, storage);
+    //        } catch (DukeException e) {
+    //            return "Error: " + e.getMessage();
+    //        }
+    //  }
+    /**
+    * Gets the response from the user input.
+    *
+    * @param input The user input
+    * @return String representation of the response
+    */
     public String getResponse(String input) {
         try {
             Parser parser = new Parser(input);
