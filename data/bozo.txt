@@ -1,5 +1,5 @@
-D | 0 | return book | 2019-10-15 1400
-E | 1 | project meeting | 2019-12-15 1400 | 2019-12-15 1600
+D | 1 | return book | 2019-10-15 1400
+E | 0 | project meeting | 2019-12-15 1400 | 2019-12-15 1600
 T | 1 | read book
 T | 0 | die
-D | 0 | do shit | 2019-09-18 1800
+D | 1 | do shit | 2019-12-25 1900

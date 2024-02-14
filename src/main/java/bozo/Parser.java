@@ -12,19 +12,24 @@ public class Parser {
      * @param list The list of tasks.
      * @throws BozoException If the user input is invalid.
      */
-    public void parseCommand(String input, TaskList list) throws BozoException {
-        if (input.equals("bye")) {
+    public String parseCommand(String input, TaskList list) throws BozoException {
+        StringBuilder output = new StringBuilder();
 
+        if (input.equals("bye")) {
+            output.append("Bye. Hope to see you again soon!");
         } else if (input.equals("list")) {
             // Display the list of tasks
             Ui.showLine();
+            System.out.println("Here are the tasks in your list:\n");
+            output.append("Here are the tasks in your list:\n");
             if (list.getSize() == 0) {
                 System.out.println("No tasks! You're a free man! :DD");
+                output.append("No tasks! You're a free man! :DD");
             } else {
-                System.out.println("Here are the tasks in your list:");
                 int counter = 1;
                 for (Task task : list) {
                     System.out.println(counter + ". " + task.toString());
+                    output.append(counter + ". " + task.toString()).append("\n");
                     counter++;
                 }
             }
@@ -39,8 +44,11 @@ public class Parser {
                 t.markAsDone();
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println("  " + t);
+                output.append("Nice! I've marked this task as done:\n");
+                output.append("  " + t);
                 Ui.showLine();
             } else {
+                output.append("Error: bozo.Task does not exist!");
                 throw new BozoException("Error: bozo.Task does not exist!");
             }
         } else if (input.startsWith("find")) {
@@ -49,14 +57,17 @@ public class Parser {
             String keyword = input.substring(input.indexOf(" ") + 1);
             int counter = 1;
             System.out.println("Here are the matching tasks in your list:");
+            output.append("Here are the matching tasks in your list:\n");
             for (Task task : list) {
                 if (task.toString().contains(keyword)) {
                     System.out.println(counter + ". " + task.toString());
+                    output.append(counter + ". " + task.toString()).append("\n");
                     counter++;
                 }
             }
             if (counter == 1) {
                 System.out.println("No matching tasks! :O");
+                output.append("No matching tasks! :O");
             }
             Ui.showLine();
         } else if (input.startsWith("unmark")) {
@@ -69,8 +80,11 @@ public class Parser {
                 t.markAsNotDone();
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println("  " + t);
+                output.append("OK, I've marked this task as not done yet:\n");
+                output.append("  " + t);
                 Ui.showLine();
             } else {
+                output.append("Error: bozo.Task does not exist!");
                 throw new BozoException("Error: bozo.Task does not exist!");
             }
         } else if (input.startsWith("delete")) {
@@ -78,12 +92,15 @@ public class Parser {
             Ui.showLine();
             if (list.getSize() == 0) {
                 System.out.println("You have no tasks to delete! :O");
+                output.append("You have no tasks to delete! :O");
             } else {
                 String taskStr = input.substring(input.indexOf(" ") + 1);
                 int taskNum = Integer.parseInt(taskStr);
                 Task t = list.removeTask(taskNum - 1);
                 System.out.println("Noted: I've removed this task:");
                 System.out.println("  " + t);
+                output.append("Noted: I've removed this task:\n");
+                output.append("  " + t);
             }
             Ui.showLine();
         } else {
@@ -91,6 +108,7 @@ public class Parser {
             Ui.showLine();
             if (input.startsWith("todo")) {
                 if (input.length() < 6) {
+                    output.append("I want that too but ur todo can't be empty :-((");
                     throw new BozoException("I want that too but ur todo can't be empty :-((");
                 } else {
                     Todo td = new Todo(input.substring(input.indexOf(" ") + 1));
@@ -98,9 +116,13 @@ public class Parser {
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + td);
                     System.out.println("Now you have " + list.getSize() + " tasks in the list.");
+                    output.append("Got it. I've added this task:\n");
+                    output.append("  " + td).append("\n");
+                    output.append("Now you have " + list.getSize() + " tasks in the list.");
                 }
             } else if (input.startsWith("deadline")) {
                 if (input.length() < 10) {
+                    output.append("I want that too but ur deadline can't be empty :-((");
                     throw new BozoException("I want that too but ur deadline can't be empty :-((");
                 } else {
                     int i = input.indexOf("/by");
@@ -110,9 +132,13 @@ public class Parser {
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + d);
                     System.out.println("Now you have " + list.getSize() + " tasks in the list.");
+                    output.append("Got it. I've added this task:\n");
+                    output.append("  " + d).append("\n");
+                    output.append("Now you have " + list.getSize() + " tasks in the list.");
                 }
             } else if (input.startsWith("event")) {
                 if (input.length() < 7) {
+                    output.append("I want that too but ur event can't be empty :-((");
                     throw new BozoException("I want that too but ur event can't be empty :-((");
                 } else {
                     int indexOfFrom = input.indexOf("/from");
@@ -124,11 +150,16 @@ public class Parser {
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + e);
                     System.out.println("Now you have " + list.getSize() + " tasks in the list.");
+                    output.append("Got it. I've added this task:\n");
+                    output.append("  " + e).append("\n");
+                    output.append("Now you have " + list.getSize() + " tasks in the list.");
                 }
             } else {
+                output.append("Oops! I don't know what you are saying :(");
                 throw new BozoException("Oops! I don't know what you are saying :(");
             }
             Ui.showLine();
         }
+        return output.toString();
     }
 }
