@@ -13,19 +13,15 @@ public class ChatSession {
     public List<NamedCommand> commandList;
     public boolean shouldContinueSession;
 
-    ChatSession(TaskList taskList) {
+    ChatSession(TaskList taskList, Ui ui) {
         this.shouldContinueSession = true;
-        this.ui = new Ui(this);
+        this.ui = ui;
         this.parser = new Parser(this);
         this.taskList = taskList;
     }
 
-    public void initChat() {
-        this.ui.initChat();
-    } 
-
     public void printMessage(String message) {
-        ui.printMessage(message);
+        ui.printDukeMessage(message);
     }
 
     public void handleMessage(String message) {
