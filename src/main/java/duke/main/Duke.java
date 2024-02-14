@@ -16,18 +16,17 @@ public class Duke {
      * Generates a response to user input.
      */
     String getResponse(String input) {
-        if (!isExit) {
-            try {
-                ui.repeat();
-                Command c = Parser.parse(input);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-                return ui.getAnswer();
-            } catch (DukeException e) {
-                return e.getMessage();
-            }
-        } else {
+        if (isExit) {
             return "";
+        }
+        try {
+            ui.repeat();
+            Command c = Parser.parse(input);
+            c.execute(tasks, ui, storage);
+            isExit = c.isExit();
+            return ui.getAnswer();
+        } catch (DukeException e) {
+            return e.getMessage();
         }
     }
 

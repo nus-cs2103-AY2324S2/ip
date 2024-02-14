@@ -35,7 +35,9 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         int taskNumber = zeroItem + 1;
-        if (taskNumber < 1 || taskNumber > tasks.getSize() || tasks.get(taskNumber - 1) == null) {
+        boolean isOutsideLowerLimit = taskNumber < 1;
+        boolean isOutsideUpperLimit = taskNumber > tasks.getSize();
+        if (isOutsideLowerLimit || isOutsideUpperLimit || tasks.get(taskNumber - 1) == null) {
             throw new DukeException("Error! Task number '" + taskNumber + "' does not exist.");
         }
         Task description = tasks.get(zeroItem);
