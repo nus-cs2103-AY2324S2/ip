@@ -17,8 +17,8 @@ public class Event extends Task {
      * @param start The starting time of the event.
      * @param end The ending time of the event.
      */
-    public Event(String description, LocalDateTime start, LocalDateTime end) {
-        super(description, "[E]");
+    public Event(String description, LocalDateTime start, LocalDateTime end, PriorityLevel priority) {
+        super(description, "[E]", priority);
         this.start = start;
         this.end = end;
     }
@@ -38,7 +38,7 @@ public class Event extends Task {
             completeStatus = "T";
         }
         return "E" + "," + completeStatus + ","
-            + this.description + ","
+            + this.description + "," + this.getPriority() + ","
             + this.getStart().toString() + "," + this.getEnd().toString();
     }
 

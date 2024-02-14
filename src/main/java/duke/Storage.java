@@ -14,6 +14,7 @@ import java.util.Scanner;
 import duke.exceptions.CorruptedLogException;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
+import duke.tasks.PriorityLevel;
 import duke.tasks.Task;
 import duke.tasks.ToDo;
 
@@ -109,23 +110,37 @@ public class Storage {
         }
     }
 
+    private PriorityLevel generatePriority(String p) {
+        switch (p) {
+        case "Low":
+            return PriorityLevel.LOW;
+        case "High":
+            return PriorityLevel.HIGH;
+        case "Medium":
+            return PriorityLevel.MEDIUM;
+        default:
+            return null;
+        }
+    }
+
     private Task parseEntry(String logEntry) {
         String[] entry = logEntry.split(",");
         boolean completeStatus = entry[1].equals("T");
         //System.out.println("Entry " + entry[1] + ": " + completeStatus);
         String desc = entry[2];
+        PriorityLevel priority = generatePriority(entry[3]);
         switch (entry[0]) {
         case "T":
-            Task ret = new ToDo(desc);
+            Task ret = new ToDo(desc, priority);
             ret.setCompletion(completeStatus);
             return ret;
         case "D":
-            ret = new Deadline(desc, restoreDateTime(entry[3]));
+            ret = new Deadline(desc, restoreDateTime(entry[4]), priority);
             ret.setCompletion(completeStatus);
             return ret;
         case "E":
-            ret = new Event(desc, restoreDateTime(entry[3]),
-              restoreDateTime(entry[4]));
+            ret = new Event(desc, restoreDateTime(entry[4]),
+              restoreDateTime(entry[5]), priority);
             ret.setCompletion(completeStatus);
             return ret;
         default:

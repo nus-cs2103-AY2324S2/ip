@@ -26,6 +26,14 @@ public class Duke {
     }
 
     /**
+     * Allows shuheng to say hi.
+     * @return Shuheng saying hi.
+     */
+    public static String sayHi() {
+        return Ui.sayHi();
+    }
+
+    /**
      * Getter for UI.
      * @return UI for the chatbot.
      */
