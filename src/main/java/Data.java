@@ -73,7 +73,7 @@ public class Data {
 //                }
 
                 try {
-                    Task task = command.parse(line);
+                    Task task = new Task().parseFromData(line);
                     tasks.add(task);
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
