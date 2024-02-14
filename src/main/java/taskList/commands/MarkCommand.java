@@ -23,20 +23,20 @@ public class MarkCommand implements Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         if (isMark) {
             try {
                 taskList.markTask(indexNo);
-                ui.showMarkMessage(taskList.getTask(indexNo - 1));
+                return ui.showMarkMessage(taskList.getTask(indexNo - 1));
             } catch (IndexOutOfBoundsException e) {
-                System.out.println(e.getMessage());
+                return (e.getMessage());
             }
         } else {
             try {
                 taskList.unmarkTask(indexNo);
-                ui.showUnmarkMessage(taskList.getTask(indexNo - 1));
+                return ui.showUnmarkMessage(taskList.getTask(indexNo - 1));
             } catch (IndexOutOfBoundsException e) {
-                System.out.println(e.getMessage());
+                return(e.getMessage());
             }
         }
     }

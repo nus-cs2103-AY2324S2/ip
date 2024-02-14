@@ -16,10 +16,12 @@ public class FindCommand implements Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         ArrayList<Task> matchedTasks = taskList.searchTask(input);
+        String result = "Here are the results:\n";
         for (Task task : matchedTasks) {
-            System.out.println(task);
+            result += task.toString() + "\n";
         }
+        return result;
     }
 }

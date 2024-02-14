@@ -7,8 +7,8 @@ import tasklist.Ui;
 /** Represents a command to exit the chatbot. Implements the Command interface. */
 public class ExitCommand implements Command {
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         ui.setRunning(false);
-        ui.showEndMessage();
+        return ui.showEndMessage();
     }
 }

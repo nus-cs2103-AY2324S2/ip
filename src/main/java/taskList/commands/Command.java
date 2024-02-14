@@ -8,5 +8,5 @@ import tasklist.Ui;
  * Implementations of this interface provide specific functions for different commands.
  */
 public interface Command {
-    void execute(TaskList taskList, Ui ui, Storage storage);
+    public String execute(TaskList taskList, Ui ui, Storage storage);
 }

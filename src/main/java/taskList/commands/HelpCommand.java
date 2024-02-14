@@ -7,7 +7,7 @@ import tasklist.Ui;
 /** Represents a command to display help information. Implements the Command interface. */
 public class HelpCommand implements Command {
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.showHelpMessage();
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return ui.showHelpMessage();
     }
 }

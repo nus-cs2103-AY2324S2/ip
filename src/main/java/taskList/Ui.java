@@ -25,9 +25,9 @@ public class Ui {
     }
 
     /** show Welcome Message */
-    public void showWelcomeMessage() {
-        System.out.println("Hello! I'm MichelleBot! What can I do for you? (helpg for guide)");
-        System.out.println("____________________________________________________________");
+    public static String showWelcomeMessage() {
+        return("Hello! I'm MichelleBot! What can I do for you? (helpg for guide)");
+        //System.out.println("____________________________________________________________");
     }
 
     /**
@@ -36,11 +36,12 @@ public class Ui {
      * @param addedTask task to be added to
      * @param size size of the list
      */
-    public void showAddTaskMessage(Task addedTask, int size) {
+    public String showAddTaskMessage(Task addedTask, int size) {
         if (addedTask != null) {
-            System.out.println("Roger that! I've added in this task:\n " + addedTask);
-            System.out.println("Now you have " + size + " tasks in the list.");
+            return("Roger that! I've added in this task:\n " + addedTask)
+            + ("\nNow you have " + size + " tasks in the list.");
         }
+        return null;
     }
 
     /**
@@ -49,15 +50,16 @@ public class Ui {
      * @param deletedTask task that was deleted
      * @param size size of the list
      */
-    public void showDeletedTaskMessage(Task deletedTask, int size) {
+    public String showDeletedTaskMessage(Task deletedTask, int size) {
         if (deletedTask != null) {
-            System.out.println(
+            return (
                 "Roger that! I've removed this task:\n "
                 + deletedTask
                 + "\nNow you have "
                 + size
                 + " tasks in the list.");
         }
+        return null;
     }
 
     /**
@@ -65,10 +67,11 @@ public class Ui {
      *
      * @param markedTask Task that is marked.
     */
-    public void showMarkMessage(Task markedTask) {
+    public String showMarkMessage(Task markedTask) {
         if (markedTask != null) {
-            System.out.println("I've marked this task as done: \n" + markedTask);
+            return ("I've marked this task as done: \n" + markedTask);
         }
+        return null;
     }
 
     /**
@@ -76,10 +79,11 @@ public class Ui {
      *
      * @param unmarkedTask Task that is marked.
      */
-    public void showUnmarkMessage(Task unmarkedTask) {
+    public String showUnmarkMessage(Task unmarkedTask) {
         if (unmarkedTask != null) {
-            System.out.println("I've marked this task as not done yet: \n" + unmarkedTask);
+            return ("I've marked this task as not done yet: \n" + unmarkedTask);
         }
+        return null;
     }
 
     /**
@@ -87,13 +91,13 @@ public class Ui {
      *
      * @param errorMessage message to be printed out
      */
-    public void showErrorMessage(String errorMessage) {
-        System.out.println(errorMessage);
+    public String showErrorMessage(String errorMessage) {
+        return (errorMessage);
     }
 
     /** Show help message explaining the commands in the program. */
-    public void showHelpMessage() {
-        System.out.println("Type in text to add in a task to your list\n"
+    public String showHelpMessage() {
+        return ("Type in text to add in a task to your list\n"
             + "Other commands:\n"
             + "add [task] - adds a task to the task list\n"
             + "mark [input number] - mark a task as done\n"
@@ -108,7 +112,7 @@ public class Ui {
     }
 
     /** Show end message when program is exited. */
-    public void showEndMessage() {
-        System.out.println("Bye. Hope to see you again soon! \\(^-^)/ ");
+    public String showEndMessage() {
+        return ("Bye. Hope to see you again soon! \\(^-^)/ ");
     }
 }

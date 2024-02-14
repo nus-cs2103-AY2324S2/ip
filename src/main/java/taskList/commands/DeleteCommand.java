@@ -14,8 +14,12 @@ public class DeleteCommand implements Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        Task deletedTask = taskList.deleteTask(indexNo);
-        ui.showDeletedTaskMessage(deletedTask, taskList.size());
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        try {
+            Task deletedTask = taskList.deleteTask(indexNo);
+            return ui.showDeletedTaskMessage(deletedTask, taskList.size());
+        } catch (IndexOutOfBoundsException e) {
+            return(e.getMessage());
+        }
     }
 }

@@ -42,11 +42,10 @@ public class TaskList implements Serializable {
             Task removedTask = theTaskList.remove(taskNo - 1);
             return removedTask;
         } catch (IndexOutOfBoundsException e) {
-            System.out.println(
+            throw new IndexOutOfBoundsException(
                 "Error: Index is out of bounds. The list currently has "
                 + theTaskList.size() + " item(s)");
         }
-        return null;
     }
 
     /**

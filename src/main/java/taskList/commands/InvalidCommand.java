@@ -13,8 +13,8 @@ public class InvalidCommand implements Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         // Implementation for handling the execution of an invalid command
-        ui.showErrorMessage(errorMessage);
+        return ui.showErrorMessage(errorMessage);
     }
 }
