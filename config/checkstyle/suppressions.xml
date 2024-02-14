@@ -1,5 +1,3 @@
-<!-- From https://github.com/se-edu/addressbook-level3/blob/master/config/checkstyle/suppressions.xml -->
-
 <?xml version="1.0"?>
 
 <!DOCTYPE suppressions PUBLIC
@@ -10,3 +8,6 @@
   <suppress checks="JavadocType" files=".*Test\.java"/>
   <suppress checks="MissingJavadocMethodCheck" files=".*Test\.java"/>
 </suppressions>
+
+<!-- From https://github.com/se-edu/addressbook-level3/blob/master/config/checkstyle/suppressions.xml -->
+
