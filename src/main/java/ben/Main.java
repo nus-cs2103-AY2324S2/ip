@@ -6,17 +6,25 @@ import ben.parser.Parser;
 import ben.storage.Storage;
 import ben.tasks.TaskList;
 import ben.ui.Ui;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
 
 /**
  * The main class for the Ben task management application.
  */
-public class Main {
+public class Main extends Application {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+
+    public Main() {
+
+    }
 
     /**
      * Constructs the Main object with the specified file path for storage.
@@ -54,6 +62,15 @@ public class Main {
                 ui.showLine();
             }
         }
+    }
+
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
     }
 
     /**
