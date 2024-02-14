@@ -57,7 +57,7 @@ public class Task {
             } else {
                 sb.append('1');
             }
-            sb.append(this.msg + " /by " + ((Deadline) this).by);
+            sb.append(this.msg + " /by " + ((Deadline) this).dueDate);
         } else if (this instanceof Event) {
             sb.append('E');
             if (this.done == 0) {
@@ -65,7 +65,7 @@ public class Task {
             } else {
                 sb.append('1');
             }
-            sb.append(this.msg + " /from " + ((Event) this).from + " /to " + ((Event) this).to);
+            sb.append(this.msg + " /from " + ((Event) this).fromDate + " /to " + ((Event) this).toDate);
         }
         return sb.toString();
     }

@@ -4,8 +4,8 @@ package task;
  * Class for Event object.
  */
 public class Event extends Task {
-    protected String from;
-    protected String to;
+    protected String fromDate;
+    protected String toDate;
 
     /**
      * Constructor for an Event object.
@@ -15,12 +15,12 @@ public class Event extends Task {
      */
     public Event(String msg, String from, String to) {
         super(msg);
-        this.from = from;
-        this.to = to;
+        this.fromDate = from;
+        this.toDate = to;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from:" + from + "to:" + to + ")";
+        return "[E]" + super.toString() + " (from:" + fromDate + "to:" + toDate + ")";
     }
 }
