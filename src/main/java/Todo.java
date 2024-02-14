@@ -7,15 +7,38 @@ public class Todo extends Task {
         this.name = name;
         this.done = false;
     }
+    public Todo(String name, boolean done) {
+        super(name);
+        this.name = name;
+        this.done = done;
+
+    }
+
+    public void mark() {
+        this.done = true;
+    }
+
+    public void unmark() {
+        this.done = false;
+    }
 
     @Override
     public String toString() {
-        String str = identifier + super.toString();
-        return str;
+        if (this.done) {
+            return "[X]" + identifier + " " + this.name;
+        } else {
+            return "[ ]" + identifier + " " + this.name;
+        }
     }
 
     public String getInput() {
-        String str = String.format("todo %s", name);
+        String mark;
+        if (this.done) {
+            mark = "1";
+        } else {
+            mark = "0";
+        }
+        String str = String.format("%s:todo:%s", mark, name);
         return str;
     }
 }

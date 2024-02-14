@@ -9,13 +9,16 @@ import java.io.FileReader;
 public class Data {
     TaskList tasks;
     Input input;
+    Command command;
     public Data() {
         this.tasks = new TaskList();
         this.input = new Input();
+        this.command = Command.HELLO;
     }
     public Data(TaskList taskList) {
         this.tasks = taskList;
         this.input = new Input();
+        this.command = Command.HELLO;
     }
     public void createFile() {
         String directoryPath = "data";
@@ -51,29 +54,32 @@ public class Data {
 
     }
 
-    public void load() {
+    public void load(TaskList tasks) {
         String filePath = "data/Duke.txt";
 
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
             String line = bufferedReader.readLine();
             while (line != null) {
-                String[] arr = line.split(" ", 2);
-                String command = arr[0].toLowerCase();
-                Command cmd = null;
-                if (command.equals("todo")) {
-                    cmd = Command.TODO;
-                } else if (command.equals("deadline")) {
-                    cmd = Command.DEADLINE;
-                } else if (command.equals("event")) {
-                    cmd = Command.EVENT;
-                }
+//                String[] arr = line.split(" ", 2);
+//                String command = arr[0].toLowerCase();
+//                Command cmd = null;
+//                if (command.equals("todo")) {
+//                    cmd = Command.TODO;
+//                } else if (command.equals("deadline")) {
+//                    cmd = Command.DEADLINE;
+//                } else if (command.equals("event")) {
+//                    cmd = Command.EVENT;
+//                }
 
                 try {
-                    cmd.execute(tasks, line);
+                    Task task = command.parse(line);
+                    tasks.add(task);
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
+
+
                 line = bufferedReader.readLine();
 
             }

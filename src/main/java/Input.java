@@ -34,6 +34,9 @@ public class Input {
         case "todo":
             this.currentCommand = Command.TODO;
             break;
+        case "clear":
+            this.currentCommand = Command.CLEAR;
+            break;
         default:
             this.currentCommand = Command.UNKNOWN;
             break;

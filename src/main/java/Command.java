@@ -121,13 +121,17 @@ public enum Command {
                 throw new DukeException("Please use the format: event <task> /from <date/time> /to <date/time>");
             }
 
-            String[] evarr = arr[1].split("/", 3);
-            if (evarr.length <= 2) {
+            String[] frarr = arr[1].split("/from", 2);
+            if (frarr.length <= 1) {
                 throw new DukeException("Please use the format: event /from <date/time> /to <date/time>");
             }
-            String name = evarr[0];
-            String from = evarr[1];
-            String to = evarr[2];
+            String[] toarr = frarr[1].split("/to", 2);
+            if (toarr.length <= 1) {
+                throw new DukeException("Please use the format: event /from <date/time> /to <date/time>");
+            }
+            String name = frarr[0];
+            String from = toarr[0];
+            String to = toarr[1];
             Task task = new Event(name, from, to);
             tasks.add(task);
             int n = tasks.size();
@@ -148,9 +152,9 @@ public enum Command {
                 throw new DukeException("Please use the format: deadline <task> /by <date/time>");
             }
 
-            String[] dlarr = arr[1].split("/", 2);
+            String[] dlarr = arr[1].split("/by", 2);
             if (dlarr.length <= 1) {
-                throw new DukeException("Please use the format: deadline <task> e/by <deadline>.");
+                throw new DukeException("Please use the format: deadline <task> /by <deadline>.");
             }
             String name = dlarr[0];
             String by = dlarr[1];
@@ -194,6 +198,17 @@ public enum Command {
             throw new DukeException("I don't know what that means");
         }
 
+    },
+    CLEAR("clear") {
+        @Override
+        public void execute() throws DukeException {
+            return;
+        }
+        @Override
+        public void execute(TaskList tasks, String description) throws DukeException {
+            tasks.clear();
+            System.out.println("List cleared.");
+        }
     };
 
     private final String command;
@@ -205,5 +220,51 @@ public enum Command {
     }
     public abstract void execute() throws DukeException;
     public abstract void execute(TaskList tasks, String description) throws DukeException;
+
+    public Task parse(String input) throws DukeException {
+        Task task = null;
+        boolean done;
+        String[] arr = input.split(":", 5);
+        if (arr[0].equals("1")) {
+            done = true;
+        } else {
+            done = false;
+        }
+        String command = arr[1];
+//        String[] commandarr = command.split(" ", 2);
+//        if (commandarr.length <= 1) {
+//            throw new DukeException("Please use the following formats:\n" +
+//                    "todo <task>\n" +
+//                    "deadline <task> /by <date/time>\n" +
+//                    "event /from <date/time> /to <date/time>");
+//
+//        }
+        if (command.equals("todo")) {
+            task = new Todo(arr[2], done);
+        } else if (command.equals("deadline")) {
+
+            try {
+                String name = arr[2];
+                String by = arr[3];
+                task = new Deadline(name, by, done);
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Invalid format");
+            }
+
+        } else if (command.equals("event")) {
+            try {
+                String name = arr[2];
+                String from = arr[3];
+                String to = arr[4];
+                task = new Event(name, from, to, done);
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Invalid format");
+            }
+
+        } else {
+            throw new DukeException("I don't know what that means.");
+        }
+        return task;
+    }
 }
 

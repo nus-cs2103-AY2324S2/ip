@@ -23,6 +23,9 @@ public class TaskList {
     public int size() {
         return this.list.size();
     }
+    public void clear() {
+        this.list.clear();
+    }
 
     @Override
     public String toString() {
