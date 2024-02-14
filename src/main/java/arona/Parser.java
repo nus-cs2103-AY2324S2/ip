@@ -44,6 +44,10 @@ public class Parser {
             return new AddTask(fullCommand);
         case "event":
             return new AddTask(fullCommand);
+        case "yes":
+            return new AddTask(fullCommand);
+        case "no":
+            return new AddTask(fullCommand);
         default:
             throw new AronaException("Sensei, Arona does not know what that means!");
         }

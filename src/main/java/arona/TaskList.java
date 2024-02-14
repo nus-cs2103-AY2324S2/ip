@@ -7,26 +7,40 @@ import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> tasks;
     private Ui ui;
+    private boolean awaitResponse;
+    private String fullCommand;
+    private boolean isLoading;
 
     public TaskList(TwoArrayList tasksToAdd, Ui ui) throws TaskException {
         tasks = new ArrayList<>();
         this.ui = ui;
+        awaitResponse = false;
+        fullCommand = "";
+        isLoading = true;
         for (int i = 0; i < tasksToAdd.getList1().size(); i++) {
             addTask(tasksToAdd.getList1().get(i));
             changeTaskStatus(i + 1, tasksToAdd.getList2().get(i));
         }
+        isLoading = false;
     }
 
     public TaskList(Ui ui) {
         this.tasks = new ArrayList<>();
         this.ui = ui;
+        awaitResponse = false;
+        fullCommand = "";
+        isLoading = false;
     }
 
     public ArrayList<Task> getTasks() {
         return tasks;
     }
     public void addTask(String input) throws TaskException {
-        String[] splitInput = input.split(" ", 2);
+        if (!awaitResponse) {
+            fullCommand = input;
+        }
+
+        String[] splitInput = fullCommand.split(" ", 2);
         String type = splitInput[0];
 
         if (splitInput.length == 0) {
@@ -38,8 +52,16 @@ public class TaskList {
         }
 
         String[] info = splitInput[1].split("/");
+        System.out.println(info[0]);
         String description = info[0];
         if (description.equals("")) throw new TaskException("Sensei! Please provide some task description!");
+
+        if (containDuplicateTasks(description) && !awaitResponse && !isLoading) {
+            fullCommand = input;
+            ui.checkResponse();
+            awaitResponse = true;
+            return;
+        }
 
         switch(type) {
         case "todo":
@@ -70,7 +92,10 @@ public class TaskList {
                 throw new TaskException("Sensei! The date format has to be in yyyy-mm-dd!");
             }
             break;
+        default:
+            // No need to throw exception as it has been handled above.
         }
+        awaitResponse = false;
         ui.taskAdded(tasks);
     }
 
@@ -84,6 +109,7 @@ public class TaskList {
     }
 
     public void changeTaskStatus(int taskNum, boolean status) throws IndexOutOfBoundsException {
+        System.out.println(taskNum);
         if (taskNum > tasks.size()) throw new IndexOutOfBoundsException("Sensei! The task doesn't exist!");
 
         int index = taskNum - 1;
@@ -116,6 +142,22 @@ public class TaskList {
             }
         }
         ui.printTasks(newTasksList);
+    }
+
+    public boolean containDuplicateTasks(String keyword) {
+        for (Task task : tasks) {
+            String description = task.getDescription();
+            if (description.equals(keyword)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void discardCommand() {
+        awaitResponse = false;
+        fullCommand = "";
+        ui.discardDuplicateTask();
     }
 
     private static <E extends Enum<E>> boolean containsEnumValue(Class<E> enumClass, String value) {
