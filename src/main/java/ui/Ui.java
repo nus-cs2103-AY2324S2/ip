@@ -31,8 +31,8 @@ public class Ui {
     /**
      * This method prints the goodbye message on termination of chatBot
      */
-    public void showBye() {
-        printer.print(" Alright, this kitty's got to go chase some shadows. See you later!\n");
+    public String showBye() {
+        return " Alright, this kitty's got to go chase some shadows. See you later!";
     }
 
     /**
@@ -64,4 +64,5 @@ public class Ui {
     public void showError(String error) {
         printer.print(error);
     }
+
 }

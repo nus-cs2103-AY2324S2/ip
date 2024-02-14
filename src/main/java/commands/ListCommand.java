@@ -9,12 +9,12 @@ import ui.Ui;
  */
 public class ListCommand extends Command {
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < tasks.getTaskList().size(); i++) {
             output.append(i + 1).append(".");
             output.append(tasks.getTaskList().get(i));
         }
-        ui.showResult(String.valueOf(output));
+        return String.valueOf(output);
     }
 }

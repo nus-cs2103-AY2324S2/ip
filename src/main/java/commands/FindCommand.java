@@ -17,7 +17,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws FileError {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws FileError {
         StringBuilder output = new StringBuilder();
         output.append("Here are the matching tasks in your list:\n");
         int counter = 1;
@@ -28,6 +28,6 @@ public class FindCommand extends Command {
                 counter++;
             }
         }
-        ui.showResult(String.valueOf(output));
+        return String.valueOf(output);
     }
 }

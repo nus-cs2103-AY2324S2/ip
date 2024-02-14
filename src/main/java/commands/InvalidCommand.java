@@ -16,7 +16,7 @@ public class InvalidCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showResult(result);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return result;
     }
 }

@@ -1,8 +1,24 @@
+package Blawg;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
 import commands.Command;
 import exceptions.BlawgException;
 import parser.Parser;
 import storage.Storage;
 import tasklist.TaskList;
+import ui.DialogBox;
 import ui.Ui;
 
 /**
@@ -16,10 +32,24 @@ public class Blawg {
     private TaskList tasks;
     private Storage storage;
     private Ui ui;
+   
     /**
      * initialises a Blawg class
      * @param filepath where the data storage file is read and written to
      */
+
+    public Blawg(){
+        ui = new Ui();
+        storage = new Storage("src/main/java/data/tasks.txt");
+        try {
+            tasks = new TaskList(storage.read());
+        } catch (BlawgException e) {
+            ui.showError(e.getMessage());
+            tasks = new TaskList();
+        }
+    }
+   
+
     public Blawg(String filepath) {
         ui = new Ui();
         storage = new Storage(filepath);
@@ -30,7 +60,6 @@ public class Blawg {
             tasks = new TaskList();
         }
     }
-
     /**
      * This method runs the chatbot Blawg, allowing it to start receiving input
      * and outputting results to users.
@@ -52,7 +81,19 @@ public class Blawg {
             }
         }
     }
+
     public static void main(String[] args) {
         new Blawg("src/main/java/data/tasks.txt").run();
+    }
+
+    public String getResponse(String input) {
+        try {
+            Command c = new Parser().parse(input);
+            String result = c.execute(tasks, ui, storage);
+            return result;
+        } catch (Exception e) {
+            ui.showError(e.getMessage());
+        }
+        return "";
     }
 }

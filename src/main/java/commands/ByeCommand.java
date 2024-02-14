@@ -12,9 +12,9 @@ import ui.Ui;
  */
 public class ByeCommand extends Command {
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws FileError {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws FileError {
         storage.write(tasks.getTaskList());
-        ui.showBye();
+        return ui.showBye();
     }
 
 
