@@ -1,5 +1,8 @@
 package Jelly;
 
+/**
+ * Todo task
+ */
 public class Todo extends Task {
 
     /**

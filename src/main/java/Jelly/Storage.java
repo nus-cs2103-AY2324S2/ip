@@ -3,12 +3,14 @@ package Jelly;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * deals with loading tasks from the file and saving tasks in the file
+ */
 public class Storage {
 
-    String path;
+    private String path;
 
     /**
      * @param filePath Path of file to read from/write to
@@ -65,40 +67,40 @@ public class Storage {
 
             switch (line.charAt(0)) {
 
-                case 'T':
+            case 'T':
 
-                    taskName = line.substring(2);
-                    tasks.addTodo(taskName, isDone);
+                taskName = line.substring(2);
+                tasks.addTodo(taskName, isDone);
 
-                    break;
+                break;
 
-                case 'D':
+            case 'D':
 
-                    int index = line.indexOf("/");
-                    taskName = line.substring(2, index);
-                    String deadline = line.substring(index + 1);
+                int index = line.indexOf("/");
+                taskName = line.substring(2, index);
+                String deadline = line.substring(index + 1);
 
-                    tasks.addDeadline(taskName, deadline, isDone);
+                tasks.addDeadline(taskName, deadline, isDone);
 
-                    break;
+                break;
 
-                case 'E':
+            case 'E':
 
-                    int firstIndex = line.indexOf("/");
-                    taskName = line.substring(2, firstIndex);
-                    String interval = line.substring(firstIndex + 1);
-                    int secondIndex = interval.indexOf("/");
-                    String startTime = interval.substring(0, secondIndex);
-                    String endTime = interval.substring(secondIndex + 1);
+                int firstIndex = line.indexOf("/");
+                taskName = line.substring(2, firstIndex);
+                String interval = line.substring(firstIndex + 1);
+                int secondIndex = interval.indexOf("/");
+                String startTime = interval.substring(0, secondIndex);
+                String endTime = interval.substring(secondIndex + 1);
 
-                    tasks.addEvent(taskName, startTime, endTime, isDone);
+                tasks.addEvent(taskName, startTime, endTime, isDone);
 
-                    break;
+                break;
 
-                default:
+            default:
 
-                    System.out.println("File corrupted");
-                    throw new JellyException("File corrupted");
+                System.out.println("File corrupted");
+                throw new JellyException("File corrupted");
 
             }
         }

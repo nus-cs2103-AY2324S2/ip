@@ -3,6 +3,9 @@ package Jelly;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Deadline task
+ */
 public class Deadline extends Task {
 
     private String deadline;
@@ -55,6 +58,9 @@ public class Deadline extends Task {
         return "/" + deadline;
     }
 
+    /**
+     * @return Returns whether the deadline has a valid date
+     */
     public boolean hasValidDate() {
 
         return isParsed;

@@ -1,5 +1,8 @@
 package Jelly;
 
+/**
+ * Jelly class
+ */
 //enum is not required
 public class Jelly {
 

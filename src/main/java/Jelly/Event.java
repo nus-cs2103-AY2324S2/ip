@@ -3,6 +3,9 @@ package Jelly;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Event task
+ */
 public class Event extends Task {
 
     private String start;

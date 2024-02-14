@@ -1,6 +1,8 @@
 package Jelly;
 
-import java.util.ArrayList;
+/**
+ * deals with interactions with the user
+ */
 public class Ui {
 
     private static String LINE = "\n-------------------------------------------";
@@ -11,7 +13,7 @@ public class Ui {
     /**
      * Currently empty constructor
      */
-    public Ui(){
+    public Ui() {
 
     }
 
@@ -19,7 +21,7 @@ public class Ui {
      * prints a loading error on the screen
      * @param e The exception
      */
-    public void printLoadingError(JellyException e){
+    public void printLoadingError(JellyException e) {
 
         System.out.println(e.getMessage());
     }
@@ -27,7 +29,7 @@ public class Ui {
     /**
      * Prints a line on the screen
      */
-    public void printLine(){
+    public void printLine() {
 
         System.out.println(LINE);
     }
@@ -35,7 +37,7 @@ public class Ui {
     /**
      * Prints contents of welcome on the screen
      */
-    public void printWelcomeMessage(){
+    public void printWelcomeMessage() {
 
         System.out.println(WELCOME);
     }
@@ -43,7 +45,7 @@ public class Ui {
     /**
      * Prints contents of farewell on the screen
      */
-    public void printFarewellMessage(){
+    public void printFarewellMessage() {
 
         System.out.println(FAREWELL);
     }
@@ -52,12 +54,16 @@ public class Ui {
      * Prints a message on the screen.
      * @param message message to be printed
      */
-    public void printMessage(String message){
+    public void printMessage(String message) {
 
         System.out.println(message);
     }
 
-    public void printSearchResults(TaskList taskList, String keyword){
+    /**
+     * @param taskList TaskList to search from
+     * @param keyword keyword of task to search
+     */
+    public void printSearchResults(TaskList taskList, String keyword) {
 
         TaskList result = taskList.find(keyword);
 

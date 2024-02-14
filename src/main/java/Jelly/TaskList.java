@@ -1,11 +1,10 @@
 package Jelly;
 
-import java.io.IOException;
-import java.util.*;
-import java.io.File;
-import java.io.FileWriter;
-import java.time.LocalDate;
+import java.util.ArrayList;
 
+/**
+ * A list of tasks
+ */
 public class TaskList {
 
     private static String taskAdded = "(˃.˂) Got it. I've added this task:";
@@ -96,7 +95,10 @@ public class TaskList {
         printListSize();
     }
 
-    public void add(Task task){
+    /**
+     * @param task Task to add to TaskList
+     */
+    public void add(Task task) {
 
         tasks.add(task);
     }
@@ -139,13 +141,13 @@ public class TaskList {
      * @param keyword keyword to be searched in the TaskList
      * @return An array of Task entries whose name contains keyword.
      */
-    public TaskList find(String keyword){
+    public TaskList find(String keyword) {
 
         TaskList result = new TaskList();
 
-        for(int i=0;i<tasks.size();++i){
+        for (int i = 0; i < tasks.size(); ++i) {
 
-            if(tasks.get(i).getName().contains(keyword)){
+            if (tasks.get(i).getName().contains(keyword)) {
 
                 result.add(tasks.get(i));
             }

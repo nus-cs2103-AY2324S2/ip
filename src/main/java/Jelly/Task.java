@@ -1,8 +1,11 @@
 package Jelly;
 
+/**
+ * Base class for all tasks
+ */
 public class Task {
-    private String name;
     protected Boolean isDone;
+    private String name;
 
     /**
      * @param name   name of task
