@@ -1,6 +1,6 @@
-package duke;
+package jojo;
 
-import exceptions.DukeException;
+import exceptions.JojoException;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -45,9 +45,9 @@ public class Storage {
     /**
      * Writes the list of items to the hard-coded file.
      * @param ls list of items
-     * @throws DukeException if there is an error when writing to the file
+     * @throws JojoException if there is an error when writing to the file
      */
-    public void save(String ls) throws DukeException {
+    public void save(String ls) throws JojoException {
         Path path = Paths.get(this.filePath);
         try {
             if (!Files.exists(path)) {
@@ -55,40 +55,40 @@ public class Storage {
             }
             Files.writeString(path, ls, StandardCharsets.UTF_8);
         } catch (IOException e) {
-            throw new DukeException("Error writing to file: " + e.getMessage());
+            throw new JojoException("Error writing to file: " + e.getMessage());
         }
     }
 
 
     /**
      * Prints the list from the file upon restarting the program.
-     * @throws DukeException when there are errors with the file
+     * @throws JojoException when there are errors with the file
      */
-    public void printList() throws DukeException {
+    public void printList() throws JojoException {
         System.out.println("Here are the tasks in your list:");
         BufferedReader br = null;
-        Path path = Paths.get(this.filePath);
+        Path path = Paths.get(filePath);
         try {
             if (!Files.exists(path)) {
                 Files.createFile(path); // Create the file if it doesn't exist
             }
-            File file = new File(this.filePath);
+            File file = new File(filePath);
             br = new BufferedReader(new FileReader(file));
             String s;
             while ((s = br.readLine()) != null) {
                 System.out.println(s);
             }
         } catch (FileNotFoundException e) {
-            throw new DukeException("File not found: " + this.filePath);
+            throw new JojoException("File not found: " + filePath);
         } catch (IOException e) {
-            throw new DukeException("Error reading file: " + e.getMessage());
+            throw new JojoException("Error reading file: " + e.getMessage());
         } finally {
             try {
                 if (br != null) {
                     br.close();
                 }
             } catch (IOException e) {
-                throw new DukeException("Error closing file reader: " + e.getMessage());
+                throw new JojoException("Error closing file reader: " + e.getMessage());
             }
         }
     }
@@ -96,13 +96,13 @@ public class Storage {
     /**
      * Returns an ArrayList<Task> which represents an array of tasks that is loaded from the file.
      * @return ArrayList<Task> taskArr
-     * @throws DukeException where there are errors in the file
+     * @throws JojoException where there are errors in the file
      */
-    public ArrayList<Task> load() throws DukeException {
+    public ArrayList<Task> load() throws JojoException {
         BufferedReader br = null;
         ArrayList<Task> taskArr = new ArrayList<>();
         try {
-            File file = new File(this.filePath);
+            File file = new File(filePath);
             if (!file.exists()) {
                 return taskArr;
             }
@@ -112,19 +112,19 @@ public class Storage {
                 String[] splitStr = s.split(" \\| ");
                 Task task;
                 switch(splitStr[0].strip()) {
-                    case "T":
-                        task = new ToDo(splitStr[2].strip());
-                        break;
-                    case  "D":
-                        LocalDateTime by = LocalDateTime.parse(splitStr[3].strip(), DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
-                        task = new Deadline(splitStr[2].strip(), by);
-                        break;
-                    case "E":
-                        String[] toFrom = splitStr[3].split("-");
-                        task = new Event(splitStr[2].strip(), toFrom[0].strip(), toFrom[1].strip());
-                        break;
-                    default:
-                        throw new DukeException("Sorry! There was an error parsing the file.");
+                case "T":
+                    task = new ToDo(splitStr[2].strip());
+                    break;
+                case "D":
+                    LocalDateTime by = LocalDateTime.parse(splitStr[3].strip(), DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+                    task = new Deadline(splitStr[2].strip(), by);
+                    break;
+                case "E":
+                    String[] toFrom = splitStr[3].split("-");
+                    task = new Event(splitStr[2].strip(), toFrom[0].strip(), toFrom[1].strip());
+                    break;
+                default:
+                    throw new JojoException("Sorry! There was an error parsing the file.");
                 }
                 if (splitStr[1].equals("1")) {
                     task.setDone();
@@ -132,16 +132,16 @@ public class Storage {
                 taskArr.add(task);
             }
         } catch (FileNotFoundException e) {
-            throw new DukeException("File not found: " + this.filePath);
+            throw new JojoException("File not found: " + filePath);
         } catch (IOException e) {
-            throw new DukeException("Error reading file: " + e.getMessage());
+            throw new JojoException("Error reading file: " + e.getMessage());
         } finally {
             try {
                 if (br != null) {
                     br.close();
                 }
             } catch (IOException e) {
-                throw new DukeException("Error closing file reader: " + e.getMessage());
+                throw new JojoException("Error closing file reader: " + e.getMessage());
             }
         }
         return taskArr;

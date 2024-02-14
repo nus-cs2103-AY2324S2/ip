@@ -1,7 +1,7 @@
-package duke;
+package jojo;
 
-import exceptions.DukeException;
-import exceptions.DukeUnknownTaskException;
+import exceptions.JojoException;
+import exceptions.JojoUnknownTaskException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -18,9 +18,9 @@ public class Parser {
      * @param ui ui
      * @param tl TaskList
      * @param st storage
-     * @throws DukeException if the tasks are invalid
+     * @throws JojoException if the tasks are invalid
      */
-    public static void parse(Scanner sc, Ui ui, TaskList tl, Storage st) throws DukeException {
+    public static void parse(Scanner sc, Ui ui, TaskList tl, Storage st) throws JojoException {
         String cmd = sc.nextLine();
         while (!cmd.equals("bye")) {
             if (cmd.equals("list")) {
@@ -28,7 +28,7 @@ public class Parser {
             } else if (cmd.startsWith("mark")) {
                 ui.printMark(tl, cmd);
             } else if (cmd.startsWith("unmark")) {
-               ui.printUnmark(tl, cmd);
+                ui.printUnmark(tl, cmd);
             } else if (cmd.startsWith("delete")) {
                 ui.printDelete(tl, cmd);
             } else if (cmd.startsWith("todo")) {
@@ -40,7 +40,7 @@ public class Parser {
             } else if (cmd.startsWith("find")) {
                 ui.printFind(tl, cmd);
             } else {
-                throw new DukeUnknownTaskException();
+                throw new JojoUnknownTaskException();
             }
             String store_str = st.storeList(tl);
             st.save(store_str);
