@@ -8,6 +8,8 @@ public class TaskList {
     private static ArrayList<Task> list;
     private static Storage store;
 
+    private final String BYE_MESSAGE = "Bye. Bingus hopes to see you again soon!\n";
+
     /**
      * Creates a task list based on the stored array.
      * @param store The storage used.
@@ -48,15 +50,15 @@ public class TaskList {
         //str = str.replace("to", "");
         String[] eventtokens = str.split(" ((/from)|(/to)) ");
 
-        if(eventtokens.length < 1) {
+        if (eventtokens.length < 1) {
             return "OOPS!!! The description of a event cannot be empty." + "Please give this instruction in the following format: event [description] / [event starting date] / [event ending date]\n";
            // throw new DukeException("OOPS!!! The description of a event cannot be empty." +
                   //  "Please give this instruction in the following format: event [description] / [event starting date] / [event ending date]");
-        } else if(eventtokens.length < 2) {
+        } else if (eventtokens.length < 2) {
             return "OOPS!!! The description of a event cannot be empty." + "Please give this instruction in the following format: event [description] / [event starting date] / [event ending date]\n";
             //throw new DukeException("OOPS!!! The beginning date of a event cannot be empty." +
                     //"Please give this instruction in the following format: event [description] / [event starting date] / [event ending date]");
-        } else if(eventtokens.length < 3) {
+        } else if (eventtokens.length < 3) {
             return "OOPS!!! The description of a event cannot be empty." + "Please give this instruction in the following format: event [description] / [event starting date] / [event ending date]\n";
             //throw new DukeException("OOPS!!! The ending date of a event cannot be empty." +
                     //"Please give this instruction in the following format: event [description] / [event starting date] / [event ending date]");
@@ -80,14 +82,16 @@ public class TaskList {
     public String deadlineCase(String str) throws DukeException {
         str = str.replace("deadline", "");
         //str = str.replace("by", "");
+
         String[] deadlinetokens = str.split("(/by)");
         if(deadlinetokens.length < 1) {
+
             return "OOPS!!! The description of a deadline cannot be empty." +
                     "Please give this instruction in the following format: deadline [description] / [deadline date]\n";
             //throw new DukeException("OOPS!!! The description of a deadline cannot be empty." +
                     //"Please give this instruction in the following format: deadline [description] / [deadline date]");
         }
-        else if(deadlinetokens.length < 2) {
+        else if (deadlinetokens.length < 2) {
             return "OOPS!!! The description of a deadline cannot be empty." +
                     "Please give this instruction in the following format: deadline [description] / [deadline date]\n";
             //throw new DukeException("OOPS!!! You must provide a deadline for this task." +
@@ -111,7 +115,7 @@ public class TaskList {
         str = str.replace("todo", "");
         int strcount = str.split("\\s").length;
 
-        if(strcount == 1) {
+        if (strcount == 1) {
             return "OOPS!!! The description of a todo cannot be empty. " +
                     " Please give this instruction in the following format: todo [description]\n";
             //throw new DukeException("OOPS!!! The description of a todo cannot be empty. " +
@@ -126,7 +130,7 @@ public class TaskList {
      * @param  tokens The command to mark task as done.
      */
     public String markCase(String[] tokens) throws DukeException{
-        if(tokens.length != 2) {
+        if (tokens.length != 2) {
             return "please give this instruction in the following format: mark [task number]";
            // throw new DukeException("please give this instruction in the following format: mark [task number]");
 
@@ -189,14 +193,14 @@ public class TaskList {
         String keyword = str.replace("find", "");
         String result = "Here are the matching tasks in your list:\n";
         //System.out.println("Here are the matching tasks in your list:");
-        int n = 0;
+        int findCounter = 0;
         for (int i = 0; i < list.size(); i++) {
 
             Task task = list.get(i);
             if (task.description.contains(keyword)) {
-                n++;
-                System.out.println( n + "." + task.ToString());
-                result += n + "." + task.ToString() + "\n";
+                findCounter++;
+                System.out.println( findCounter + "." + task.ToString());
+                result += findCounter + "." + task.ToString() + "\n";
 
             }
         }
@@ -237,7 +241,8 @@ public class TaskList {
  * Prints outro.
  */
     public String bye() throws DukeException{
-        return "Bye. Bingus hopes to see you again soon!\n";
+
+        return BYE_MESSAGE;
 
         // if keyword is bye, exit the program
     }

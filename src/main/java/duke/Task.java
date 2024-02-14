@@ -50,7 +50,7 @@ public class Task {
         *
         */
         public String toStore(){
-            if(isDone) {
+            if (isDone) {
                 return getTaskIcon() + "/" + "1" + "/" + description;
             } else {
                 return getTaskIcon() + "/" + "0" + "/" + description;
