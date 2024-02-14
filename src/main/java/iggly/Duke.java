@@ -1,10 +1,7 @@
 package iggly;
 
-import java.util.Scanner;
-
 import iggly.command.Command;
 import iggly.command.ExitCommand;
-import iggly.command.GreetCommand;
 import iggly.duke.DukeException;
 import iggly.duke.Parser;
 import iggly.duke.Storage;
@@ -28,6 +25,7 @@ public class Duke {
      * @param filePath the file path of the storage.
      */
     public Duke(String filePath) {
+        assert filePath != null && !filePath.isEmpty();
         this.storage = new Storage(filePath);
         this.isExit = false;
         if (storage.isExistingFile()) {
@@ -36,34 +34,6 @@ public class Duke {
             storage.createNewFile();
             this.taskList = new TaskList();
             storage.updateFile(taskList.getTaskList());
-        }
-    }
-
-    /**
-     * Launch the program and initiate the command loop to process user input.
-     * It displays a greeting message by calling the {@link GreetCommand}.
-     */
-    public void launch() {
-        new GreetCommand().execute(storage);
-        try (Scanner scanner = new Scanner(System.in)) {
-            while (true) {
-                System.out.print("Enter a command:\n");
-                String input = scanner.nextLine();
-
-                if (input.equals(ExitCommand.COMMAND_WORD)) {
-                    new ExitCommand().execute(storage);
-                    break;
-                } else {
-                    try {
-                        Command c = new Parser(input, taskList).parse();
-                        c.execute(storage);
-                    } catch (DukeException e) {
-                        System.out.println(e.getMessage());
-                    }
-                }
-            }
-        } catch (RuntimeException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -93,6 +63,7 @@ public class Duke {
                 Command c = new Parser(input, taskList).parse();
                 response = c.execute(storage);
             } catch (DukeException e) {
+                assert e.getMessage() != null && !e.getMessage().isEmpty();
                 response = e.getMessage();
             }
         }
