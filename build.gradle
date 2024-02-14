@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("friday.main.Friday")
+    mainClass.set("friday.main.Launcher")
 }
 
 shadowJar {
