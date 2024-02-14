@@ -13,14 +13,14 @@ public class DeleteCommand extends Command {
         this.index = index;
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
 
         Task removed = tasks.tasks.remove(index);
+        String Response = "Noted. I've removed this task:\n";
         String length = "" + tasks.getSize();
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(removed.toString());
-        System.out.println("Now you have " + length + " tasks in the list.");
-
+        Response = Response + removed.toString() + "\n" +
+                "Now you have " + length + " tasks in the list.\n";
+        return Response;
     }
 
     public boolean isExit() {

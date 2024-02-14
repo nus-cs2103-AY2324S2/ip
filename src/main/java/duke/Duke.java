@@ -15,12 +15,11 @@ public class Duke {
     private TaskList tasks;
     private Ui ui;
 
+    private String filePath = "./data/list.txt";
 
-    /**
-     * Creates an instance of Duke which contains Storage, Tasklist and UI
-     * @param filePath
-     */
-    public Duke(String filePath) {
+
+
+    public Duke() {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -37,7 +36,6 @@ public class Duke {
      * Helps to run the Duke program
      */
     public void run() {
-        ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
             try {
@@ -54,8 +52,30 @@ public class Duke {
         }
     }
 
+    public String getResponse(String userInput) {
+        String Response = "";
+        try {
+            Command newCommand = Parser.parse(userInput);
+            Response = newCommand.execute(tasks, ui, storage);
+//            if (userInput.equals("bye")) {
+//                Command newCommand = Parser.parse(userInput);
+//                Response = newCommand.execute(tasks, ui, storage);
+//                return "Hope to see you again soon!";
+//            } else {
+//                System.out.println(userInput);
+//                Command newCommand = Parser.parse(userInput);
+//                Response = newCommand.execute(tasks, ui, storage);
+//            }
+        } catch (NoCmdException e) {
+            throw new RuntimeException(e);
+        }
+        return Response;
+
+
+    }
+
     public static void main(String[] args) {
-        new Duke("./data/list.txt").run();
+        new Duke().run();
     }
 
 }

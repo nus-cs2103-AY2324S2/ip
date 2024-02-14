@@ -6,7 +6,7 @@ import duke.Ui;
 
 public abstract class Command {
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         throw new UnsupportedOperationException("This should only be implemented by child classes");
     }
     public boolean isExit() {

@@ -16,15 +16,14 @@ public class EditCommand extends Command {
         this.index = index;
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = tasks.getTask(index);
         if (editType.equals("mark")) {
             task.markAsDone();
-            ui.markedDone(task);
+            return ui.markedDone(task);
         } else {
             task.unmark();
-            ui.markedUndone(task);
-
+            return ui.markedUndone(task);
         }
     }
 

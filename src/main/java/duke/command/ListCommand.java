@@ -9,12 +9,15 @@ public class ListCommand extends Command {
 
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         ui.announceListing();
+        String Response = "";
         for (int i = 0; i < tasks.getSize(); i++) {
             int n = i + 1;
-            System.out.println(n + ". " + tasks.getTask(i).toString());
+            Response = Response + n + ". " + tasks.getTask(i).toString() + "\n";
+//            System.out.println(n + ". " + tasks.getTask(i).toString());
         }
+        return Response;
     }
 
     public boolean isExit() {

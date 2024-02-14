@@ -13,8 +13,6 @@ public class Ui {
 
     private static final String LINE = "_________________________________________________________";
 
-    private static final String GREET = "Hello! I'm DOUMMI\n" +
-            "What can I do for you?";
 
     private static final String LOADING_ERROR = "Loaded wrongly - Please check again!";
 
@@ -37,42 +35,38 @@ public class Ui {
         return userCmd;
     }
 
-    public void showWelcome() {
-        System.out.println(GREET);
+    public String showError(String msg) {
+        return "Sir, " + msg;
     }
 
-    public void showError(String msg) {
-        System.out.println("Sir, " + msg);
+    public String showLoadingError() {
+        return LOADING_ERROR;
     }
 
-    public void showLoadingError() {
-        System.out.println(LOADING_ERROR);
+    public String showLine() {
+        return LINE;
     }
 
-    public void showLine() {
-        System.out.println(LINE);
+    public String announceListing() {
+        return LIST_ANNOUNCEMENT;
     }
 
-    public void announceListing() {
-        System.out.println(LIST_ANNOUNCEMENT);
+    public String announceFinding() {
+        return "Here are the matching tasks in your list:";
     }
 
-    public void announceFinding() {
-        System.out.println("Here are the matching tasks in your list:");
+    public String markedDone(Task task) {
+        return "Nice! I've marked this task as done:\n" +
+                "\t" + task.toString();
     }
 
-    public void markedDone(Task task) {
-        System.out.println("Nice! I've marked this task as done:\n" +
-                "\t" + task.toString());
+    public String markedUndone(Task task) {
+        return "OK, I've marked this task as not done yet:\n" +
+                "\t" + task.toString();
     }
 
-    public void markedUndone(Task task) {
-        System.out.println("OK, I've marked this task as not done yet:\n" +
-                "\t" + task.toString());
-    }
-
-    public void sayGoodBye() {
-        System.out.println(BYE);
+    public String sayGoodBye() {
+        return BYE;
     }
 
 }

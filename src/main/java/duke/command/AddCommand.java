@@ -15,46 +15,49 @@ public class AddCommand extends Command {
         this.description = description;
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (taskType.equals("todo")) {
             try {
-                System.out.println(description);
-                processToDos(description, tasks.tasks);
+                return processToDos(description, tasks.tasks);
             } catch (ToDosException e){
                 ui.showError(e.getMessage());
+                return e.getMessage();
             }
         } else if (taskType.equals("event")) {
             try {
-                processEvents(description, tasks.tasks);
+                return processEvents(description, tasks.tasks);
             } catch (EventException e){
                 ui.showError(e.getMessage());
+                return e.getMessage();
             } catch (DateException e) {
                 throw new RuntimeException(e);
             }
         } else {
             try {
-                processDeadline(description, tasks.tasks);
+                return processDeadline(description, tasks.tasks);
             } catch (DeadlineException e){
                 ui.showError(e.getMessage());
+                return e.getMessage();
             } catch (DateException e) {
                 throw new RuntimeException(e);
             }
         }
     }
 
-    public static void processToDos(String description, ArrayList<Task> task) throws ToDosException {
+    public static String processToDos(String description, ArrayList<Task> task) throws ToDosException {
         if (description.isEmpty()) {
             throw new ToDosException("What todos do you need to record?");
         }
         Task new_task = new ToDos(description);
         task.add(new_task);
+        String Response = "Got it. I've added this task:\n";
         String length = "" + task.size();
-        System.out.println("Got it. I've added this task:\n" +
-                "\t" + new_task.toString());
-        System.out.println("Now you have " + length + " tasks in the list.");
+        Response = Response + "\t" + new_task.toString() + "\n" +
+                "Now you have " + length + " tasks in the list.";
+        return Response;
     }
 
-    public static void processDeadline(String description, ArrayList<Task> task) throws DeadlineException, DateException {
+    public static String processDeadline(String description, ArrayList<Task> task) throws DeadlineException, DateException {
         if (description.isEmpty()) {
             throw new DeadlineException("What deadline do you need to record?");
         }
@@ -70,13 +73,14 @@ public class AddCommand extends Command {
         }
         Task new_task =  new Deadline(D, by);
         task.add(new_task);
+        String Response = "Got it. I've added this task:\n";
         String length = "" + task.size();
-        System.out.println("Got it. I've added this task:\n" +
-                "\t" + new_task.toString());
-        System.out.println("Now you have " + length + " tasks in the list.");
+        Response = Response + "\t" + new_task.toString() + "\n" +
+                "Now you have " + length + " tasks in the list.";
+        return Response;
     }
 
-    public static void processEvents(String description, ArrayList<Task> task) throws EventException, DateException {
+    public static String processEvents(String description, ArrayList<Task> task) throws EventException, DateException {
         if (description.isEmpty()) {
             throw new EventException("What event do you need to record?");
         }
@@ -102,10 +106,11 @@ public class AddCommand extends Command {
         }
         Task new_task = new Events(D, from, to);
         task.add(new_task);
+        String Response = "Got it. I've added this task:\n";
         String length = "" + task.size();
-        System.out.println("Got it. I've added this task:\n" +
-                "\t" + new_task.toString());
-        System.out.println("Now you have " + length + " tasks in the list.");
+        Response = Response + "\t" + new_task.toString() + "\n" +
+                "Now you have " + length + " tasks in the list.";
+        return Response;
     }
 
     public boolean isExit() {

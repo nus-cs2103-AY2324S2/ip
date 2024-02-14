@@ -1,5 +1,2 @@
-T | 0 |                make a soup
-E | 0 |                project meeting |2023/10/24 1400|2023/10/24 1600
-D | 0 |                return book |2024/03/07
-T | 0 |         return the ball to Syed
-E | 0 |         kick the ball ses |2024/01/06 1700|2024/01/06 1900
+T | 0 | make a soup for James
+D | 0 | return textbook |2023/12/23
