@@ -94,6 +94,11 @@ public class Wis extends Application {
         });
     }
 
+    @Override
+    public void stop() {
+        chatBox.save();
+    }
+
     /**
      * Iteration 2:
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to

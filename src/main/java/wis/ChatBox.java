@@ -38,4 +38,8 @@ public class ChatBox {
         ui.setInput(string);
         return ui.parseInput(tasks);
     }
+
+    public void save() {
+        Storage.saveTasks(tasks);
+    }
 }
