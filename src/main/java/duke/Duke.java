@@ -15,7 +15,7 @@ public class Duke {
     /**
      * File to save storage to
      */
-    public static File saveFile;
+    private static File saveFile;
 
     /**
      * Task list for the Duke instance
@@ -40,6 +40,24 @@ public class Duke {
         file.getParentFile().mkdirs();
 
         this.taskList = new TaskList(Duke.saveFile);
+    }
+
+    /**
+     * Get the save file of the application
+     *
+     * @return Save file of the application
+     */
+    public static File getSaveFile() {
+        return Duke.saveFile;
+    }
+
+    /**
+     * Set the save file of the application
+     *
+     * @param file File to use as the save file of the application
+     */
+    public static void setSaveFile(File file) {
+        Duke.saveFile = file;
     }
 
     /**

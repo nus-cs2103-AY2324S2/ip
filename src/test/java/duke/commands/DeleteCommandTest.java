@@ -68,7 +68,7 @@ public class DeleteCommandTest {
         // Create data directory (if required)
         testFile.getParentFile().mkdirs();
         testFile.delete();
-        Duke.saveFile = testFile;
+        Duke.setSaveFile(testFile);
 
         taskList = new TaskList(testFile);
         ui = new Cli();
