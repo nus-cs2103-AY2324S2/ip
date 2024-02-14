@@ -15,7 +15,7 @@ public class Duke {
     /**
      * File to save storage to
      */
-    public static final File SAVE_FILE = new File("data/tasks.json");
+    public static File saveFile;
 
     /**
      * Task list for the Duke instance
@@ -34,11 +34,12 @@ public class Duke {
      */
     public Duke(File file) {
         this.ui = new Gui();
+        Duke.saveFile = file;
 
         // Create data directory (if required)
         file.getParentFile().mkdirs();
 
-        this.taskList = new TaskList(file);
+        this.taskList = new TaskList(Duke.saveFile);
     }
 
     /**
@@ -54,6 +55,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke(SAVE_FILE).run(args);
+        new Duke(new File("data/tasks.json")).run(args);
     }
 }
