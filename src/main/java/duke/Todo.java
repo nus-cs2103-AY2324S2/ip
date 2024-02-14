@@ -68,7 +68,7 @@ public class Todo extends Task {
     public static void main(String[] args) {
         String dbTodo = "T | 0 | Buy Bread";
         Todo todoTask = Todo.db2Todo(dbTodo);
-        todoTask.markAsDone();
+        todoTask.markDone();
         System.out.println(todoTask);
         System.out.println(Todo.todo2Db(todoTask));
     }

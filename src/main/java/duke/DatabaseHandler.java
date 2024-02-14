@@ -74,7 +74,7 @@ public class DatabaseHandler {
      * @return a list of strings representing data loaded from the database file
      */
     public List<String> loadData() {
-        List<String> stringTasksList = this.readromFile();
+        List<String> stringTasksList = this.readFromFile();
         return stringTasksList;
     }
 

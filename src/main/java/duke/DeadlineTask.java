@@ -86,7 +86,7 @@ public class DeadlineTask extends Task {
     public static void main(String[] args) {
         String dbDeadline = "D | 0 | return book | July 17th";
         DeadlineTask deadlineTask = DeadlineTask.dbToDeadlineTask(dbDeadline);
-        deadlineTask.markAsDone();
+        deadlineTask.markDone();
         System.out.println(deadlineTask);
         System.out.println(DeadlineTask.deadlineTaskToDb(deadlineTask));
     }

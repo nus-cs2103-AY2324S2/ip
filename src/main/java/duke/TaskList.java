@@ -35,7 +35,7 @@ public class TaskList {
      * @param stringTasksList List of strings representing tasks in the database
      * @throws DukeBotException.UnknownCommandException if an unknown command is encountered while parsing the tasks
      */
-    public TaskList(List<String> stringTasksList) throws DukeBotException.UnknownCommandException {
+    public TaskList(List<String> stringTasksList) throws DukeBotException.UnknownException {
         this.taskList = new ArrayList<>();
         assert taskList != null;
         for (String s : stringTasksList) {
