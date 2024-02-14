@@ -25,6 +25,8 @@ test {
         showStackTraces true
         showStandardStreams = false
     }
+
+
 }
 
 application {
