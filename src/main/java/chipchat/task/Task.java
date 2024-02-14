@@ -5,7 +5,7 @@ package chipchat.task;
  */
 public abstract class Task {
     private final String description;
-    private final boolean isDone;
+    private boolean isDone;
 
     /**
      * Constructor of Task.
