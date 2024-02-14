@@ -80,6 +80,8 @@ public class Ui {
             + "find     -  find a task by keyword, searches within their entire CSV entry\n"
             + "                usage: event <keyword>\n"
             + "                case sensitive\n"
+            + "snooze   -  snooze as task deadline by specified days\n"
+            + "                usage: snooze <task number> /by <number> d[ays]\n"
             + "bye      -  exit");
     }
 }

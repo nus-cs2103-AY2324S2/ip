@@ -16,10 +16,11 @@ enum Commands {
     SAVE(new SaveCommand()),
     HELP(new HelpCommand()),
     DEFAULT(new HelpCommand()),
-    FIND(new FindCommand());
+    FIND(new FindCommand()),
+    SNOOZE(new SnoozeCommand());
 
     private final Function<String, Result> commandAction;
-    private Commands(Function<String, Result> function) {
+    Commands(Function<String, Result> function) {
         this.commandAction = function;
     }
 

@@ -49,7 +49,7 @@ public class TaskList {
         Result r = Result.makeResultOk("");
         try {
             int index = getIndexFromInput(inputs);
-            temp = TaskList.list.get(index);
+            temp = getTaskByIndex(index);
             assert temp != null : "Shouldn't occur!! Task is null";
             if (temp.isCompleted()) {
                 throw new InvalidTaskException("Task already completed");
@@ -74,7 +74,7 @@ public class TaskList {
         Result r = Result.makeResultOk("");
         try {
             int index = getIndexFromInput(inputs);
-            temp = TaskList.list.get(index);
+            temp = getTaskByIndex(index);
             assert temp != null : "Shouldn't occur!! Task is null";
             if (!temp.isCompleted()) {
                 r.updateMessage(Ui.letoSpeak("Task is already not completed :< "));
@@ -99,7 +99,7 @@ public class TaskList {
         Result r = Result.makeResultOk("");
         try {
             int index = getIndexFromInput(inputs);
-            Task t = TaskList.list.get(index);
+            Task t = getTaskByIndex(index);
             TaskList.list.remove(index);
             r.updateMessage(Ui.letoSpeak("Task deleted, [" + t.toString()
                     + "]\n  > You have " + TaskList.list.size() + " tasks."));
@@ -121,18 +121,21 @@ public class TaskList {
             if (inputs.length != 2) {
                 throw new InvalidTaskException("You need to enter a task index number");
             }
-            int i = Integer.parseInt(inputs[1]) - 1;
-            if (TaskList.list.isEmpty()) {
-                throw new InvalidTaskException("Good news at least, you have no task!");
-            }
-            if (i >= TaskList.list.size() || i < 0) {
-                throw new BadTaskIndexException(TaskList.list.size());
-            }
-            return i;
+            return Integer.parseInt(inputs[1]) - 1;
         } catch (NumberFormatException e) {
             throw new InvalidTaskException("We cannot get task index from your input, "
                     + "it should be an integer, `(un)mark _int_`");
         }
+    }
+
+    public static Task getTaskByIndex(int i) throws InvalidTaskException {
+        if (list.isEmpty()) {
+            throw new InvalidTaskException("Good news at least, you have no task!");
+        }
+        if (i >= list.size() || i < 0) {
+            throw new BadTaskIndexException(list.size());
+        }
+        return list.get(i);
     }
 
     /**
