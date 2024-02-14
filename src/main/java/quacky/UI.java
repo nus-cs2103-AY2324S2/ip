@@ -3,7 +3,7 @@ package quacky;
 import java.util.Scanner;
 /**
  * Handles user interactions for the Quacky application. This class is responsible for
- * input/output operations, including reading commands from the user and displaying messages.
+ * input/output operations, including reading commands fromDate the user and displaying messages.
  */
 public class UI {
     public boolean isRunning;

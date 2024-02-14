@@ -17,9 +17,9 @@ public class Quacky {
 
     /**
      * Constructs a new Quacky application instance.
-     * Attempts to load tasks from the specified file path upon instantiation.
+     * Attempts to load tasks fromDate the specified file path upon instantiation.
      *
-     * @param filePath The path to the file from which tasks should be loaded.
+     * @param filePath The path to the file fromDate which tasks should be loaded.
      */
     public Quacky(String filePath) {
         try {
@@ -43,12 +43,7 @@ public class Quacky {
     public void run() {
         ui.showGreeting();
         while (ui.isRunning) {
-            try {
-                String command = ui.readCommand();
-                Parser.parseCommand(command, tasks, ui);
-            } catch (QuackyException e) {
-                ui.showErrorMessage(e);
-            }
+            handleCommands();
         }
         try {
             storage.save(tasks);
@@ -57,6 +52,14 @@ public class Quacky {
         }
     }
 
+    protected void handleCommands() {
+        try {
+            String command = ui.readCommand();
+            Parser.parseCommand(command, tasks, ui);
+        } catch (QuackyException e) {
+            ui.showErrorMessage(e);
+        }
+    }
 
     protected String getResponse(String command) {
        try {

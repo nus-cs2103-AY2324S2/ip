@@ -8,28 +8,28 @@ import java.time.format.DateTimeFormatter;
  * to be completed before a specific date.
  */
 public class Deadline extends Task{
-    protected LocalDate by;
-    protected String stringBy;
+    protected LocalDate byDate;
+    protected String stringByDate;
 
     /**
      * Constructs a new Deadline task with the specified description and deadline date.
      *
      * @param description The text description of the deadline task.
-     * @param by The date the task needs to be completed by.
+     * @param byDate The date the task needs to be completed by.
      */
-    public Deadline(String description, LocalDate by) {
+    public Deadline(String description, LocalDate byDate) {
         super(description);
-        this.by = by;
-        this.stringBy = by.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        this.byDate = byDate;
+        this.stringByDate = byDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.stringBy + ")";
+        return "[D]" + super.toString() + " (byDate: " + this.stringByDate + ")";
     }
 
     @Override
     protected String toFileString() {
-        return "D | " + super.toFileString() + " | " + this.by;
+        return "D | " + super.toFileString() + " | " + this.byDate;
     }
 }

@@ -8,33 +8,33 @@ import java.time.format.DateTimeFormatter;
  * that occurs over a period of time, from a start date to an end date.
  */
 public class Event extends Task{
-    protected LocalDate from;
-    protected String stringFrom;
-    protected LocalDate to;
+    protected LocalDate fromDate;
+    protected String stringFromDate;
+    protected LocalDate toDate;
     protected String stringTo;
 
     /**
      * Constructs a new Event task with the specified description, start date, and end date.
      *
      * @param description The textual description of the event task.
-     * @param from The start date of the event.
-     * @param to The end date of the event.
+     * @param fromDate The start date of the event.
+     * @param toDate The end date of the event.
      */
-    public Event(String description, LocalDate from, LocalDate to) {
+    public Event(String description, LocalDate fromDate, LocalDate toDate) {
         super(description);
-        this.from = from;
-        this.stringFrom = from.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        this.to = to;
-        this.stringTo = to.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        this.fromDate = fromDate;
+        this.stringFromDate = fromDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        this.toDate = toDate;
+        this.stringTo = toDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.stringFrom + " to: " + this.stringTo + ")";
+        return "[E]" + super.toString() + " (fromDate: " + this.stringFromDate + " toDate: " + this.stringTo + ")";
     }
 
     @Override
     protected String toFileString() {
-        return "E | " + super.toFileString() + " | " + this.from + " | " + this.to;
+        return "E | " + super.toFileString() + " | " + this.fromDate + " | " + this.toDate;
     }
 }

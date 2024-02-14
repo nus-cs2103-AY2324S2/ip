@@ -12,7 +12,7 @@ import java.io.FileNotFoundException;
 
 /**
  * Represents the file used to store task data
- * adapted from:https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/storage/StorageFile.java
+ * adapted fromDate:https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/storage/StorageFile.java
  */
 public class Storage {
     /**
@@ -58,10 +58,10 @@ public class Storage {
     }
 
     /**
-     * Loads the {@code Quacky.Quacky.TaskList} data from this storage file, and then returns it.
+     * Loads the {@code Quacky.Quacky.TaskList} data fromDate this storage file, and then returns it.
      * Returns an empty {@code Quacky.Quacky.TaskList} if the file does not exist, or is not a regular file.
      *
-     * @throws StorageOperationException if there were errors reading and/or converting data from file.
+     * @throws StorageOperationException if there were errors reading and/or converting data fromDate file.
      */
     public TaskList load() throws StorageOperationException {
         TaskList tasks = new TaskList();
@@ -97,8 +97,6 @@ public class Storage {
             return tasks;
         } catch (FileNotFoundException fnfe) {
             return tasks;
-        } catch (IOException ioe) {
-            throw new StorageOperationException("Error writing to file: " + path);
         }
 
     }

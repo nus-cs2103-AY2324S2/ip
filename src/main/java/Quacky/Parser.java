@@ -13,12 +13,12 @@ public class Parser {
         }
         case "find": {
             String keyword = keywords[1];
-            TaskList foundTasks = tasks.findTasksByKeyword(keyword);
-            assert foundTasks != null:  "This should always return a tasklist";
-            if (foundTasks.taskNumber() == 0) {
+            TaskList tasksFound = tasks.findTasksByKeyword(keyword);
+            assert tasksFound != null:  "This should always return a tasklist";
+            if (tasksFound.taskNumber() == 0) {
                 return ui.say("No tasks found with the keyword: " + keyword);
             } else {
-                return ui.showList(foundTasks);
+                return ui.showList(tasksFound);
             }
         }
         case "mark": {
