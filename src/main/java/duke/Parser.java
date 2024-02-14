@@ -14,8 +14,10 @@ import duke.command.UnmarkCommand;
 import duke.exception.DukeException;
 
 /**
- * The Parser class is responsible for parsing user input and converting it into executable commands.
- * It recognizes different command types and returns the corresponding Command objects.
+ * The Parser class is responsible for parsing user input and converting it
+ * into executable commands.
+ * It recognizes different command types and returns the corresponding Command
+ * objects.
  */
 public class Parser {
 

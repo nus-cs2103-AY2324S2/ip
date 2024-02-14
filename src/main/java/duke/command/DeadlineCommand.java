@@ -17,8 +17,9 @@ public class DeadlineCommand extends Command {
     /**
      * Constructs a DeadlineCommand with the specified description and deadline date/time.
      *
-     * @param description The description of the deadline task.
-     * @param by          The date/time by which the task should be completed.
+     * @param description    The description of the deadline task.
+     * @param by             The date/time by which the task should be completed.
+     * @throws DukeException If there is an error while executing the command.
      */
     public DeadlineCommand(String description, String by) throws DukeException {
         this.deadline = new Deadline(description, by);

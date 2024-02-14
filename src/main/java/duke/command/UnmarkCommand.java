@@ -23,7 +23,8 @@ public class UnmarkCommand extends Command {
     }
 
     /**
-     * Executes the UnmarkCommand by setting the specified task as not done in the TaskList.
+     * Executes the Unmark Command by setting the specified task as not done in
+     * the TaskList.
      * Shows a message indicating the task has been unmarked.
      * Saves the changes into the file.
      *

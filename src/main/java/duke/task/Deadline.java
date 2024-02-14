@@ -22,11 +22,13 @@ public class Deadline extends Task {
      *
      * @param description The description of the deadline task.
      * @param by           The deadline in the format "yyyy-MM-dd hh:mma".
+     * @throws DukeException If the format for input date/time is incorrect.
      */
     public Deadline(String description, String by) throws DukeException {
         super(description);
         this.by = by;
         try {
+            // Set up a DateTimeFormatter to parse the date/time string in the expected format.
             DateTimeFormatterBuilder builder = new DateTimeFormatterBuilder();
             builder.parseCaseInsensitive();
             builder.appendPattern("yyyy-MM-dd hh:mma");
@@ -36,7 +38,6 @@ public class Deadline extends Task {
             throw new DukeException("Input date/time is not in expected format.\n"
             + "Please enter 'help' for more info.\n");
         }
-
     }
 
     /**
