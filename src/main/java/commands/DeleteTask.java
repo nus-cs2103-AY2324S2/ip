@@ -32,10 +32,11 @@ public class DeleteTask implements Command {
      * Executes the DeleteTask command by removing the task at the specified index from the TaskList,
      * and displaying a confirmation message.
      *
+     * @return
      * @throws InvalidIndexException If the provided index is invalid (out of bounds).
      */
     @Override
-    public void execute() throws InvalidIndexException {
+    public String execute() throws InvalidIndexException {
         if (this.index < 0 || this.index >= tasks.size()) {
             throw new InvalidIndexException();
         }
@@ -45,6 +46,7 @@ public class DeleteTask implements Command {
         tasks.remove(this.index);
         String o = String.format("Noted. I've removed this task:\n %s\nNow you have %d tasks in the list.",
                 t.toString(), tasks.size());
-        EncaseLines.display(o);
+//        EncaseLines.display(o);
+        return o;
     }
 }

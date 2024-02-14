@@ -25,9 +25,11 @@ public class Find implements Command {
     /**
      * Executes the Find command, searching for tasks containing the specified keyword.
      * Displays the matching tasks with their corresponding indices.
+     *
+     * @return
      */
     @Override
-    public void execute() {
+    public String execute() {
         int i = 1;
         StringBuilder output = new StringBuilder();
 
@@ -44,10 +46,16 @@ public class Find implements Command {
             output.setLength(output.length() - 1);
         }
 
+//        if (output.length() == 0) {
+//            EncaseLines.display("No tasks found");
+//        } else {
+//            EncaseLines.display("Here are the matching tasks in your list:\n" + output);
+//        }
+
         if (output.length() == 0) {
-            EncaseLines.display("No tasks found");
+            return "No tasks found";
         } else {
-            EncaseLines.display("Here are the matching tasks in your list:\n" + output);
+            return "Here are the matching tasks in your list:\n" + output;
         }
     }
 }

@@ -32,13 +32,14 @@ public class CreateTodo implements Command {
      * Executes the CreateTodo command by creating a new todo task, adding it to the TaskList,
      * and displaying a confirmation message.
      *
+     * @return
      * @throws InvalidCommandException If there is an issue with the todo task information provided.
      */
     @Override
-    public void execute() throws InvalidCommandException {
+    public String execute() throws InvalidCommandException {
         Task t = new ToDos(input);
         tasks.addTask(t);
 
-        CreatedTask.display(this.tasks, t);
+        return CreatedTask.display(this.tasks, t);
     }
 }

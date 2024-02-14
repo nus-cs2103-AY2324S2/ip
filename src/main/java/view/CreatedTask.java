@@ -13,10 +13,12 @@ public class CreatedTask {
      *
      * @param tasks The TaskList containing the tasks.
      * @param task  The newly created task.
+     * @return
      */
-    public static void display(TaskList tasks, Task task) {
+    public static String display(TaskList tasks, Task task) {
         String o = String.format("Got it. I've added this task:\n  %s\nNow you have %d tasks in the list.",
                 task, tasks.size());
-        EncaseLines.display(o);
+//        EncaseLines.display(o);
+        return o;
     }
 }

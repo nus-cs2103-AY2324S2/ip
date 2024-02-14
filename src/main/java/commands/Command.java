@@ -18,6 +18,6 @@ public interface Command {
      * @throws InvalidEventException If there is an issue with an event-related command.
      * @throws InvalidIndexException If there is an issue with an index-related command.
      */
-    void execute() throws InvalidCommandException, InvalidDeadlineException, InvalidEventException,
+    String execute() throws InvalidCommandException, InvalidDeadlineException, InvalidEventException,
             InvalidIndexException;
 }

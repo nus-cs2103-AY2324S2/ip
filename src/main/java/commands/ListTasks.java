@@ -24,13 +24,16 @@ public class ListTasks implements Command {
     /**
      * Executes the ListTasks command by creating a formatted string representation of the tasks
      * and displaying it using the EncaseLines utility.
+     *
+     * @return
      */
     @Override
-    public void execute() {
+    public String execute() {
         StringBuilder output = new StringBuilder();
 
         if (tasks.isEmpty()) {
-            EncaseLines.display("List is empty!");
+            return "List is Empty!";
+
         } else {
 
             for (int i = 0; i < tasks.size(); i++) {
@@ -41,7 +44,9 @@ public class ListTasks implements Command {
                 }
             }
 
-            EncaseLines.display(output.toString());
+//            EncaseLines.display(output.toString());
         }
+
+        return output.toString();
     }
 }

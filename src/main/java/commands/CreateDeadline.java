@@ -35,16 +35,17 @@ public class CreateDeadline implements Command {
      * Executes the CreateDeadline command by creating a new deadline task, adding it to the TaskList,
      * and displaying a confirmation message.
      *
+     * @return
      * @throws InvalidDeadlineException If there is an issue with the deadline information provided.
      */
     @Override
-    public void execute() throws InvalidDeadlineException {
+    public String execute() throws InvalidDeadlineException {
         String name = input[0];
         LocalDateTime by = convertToDateTime(input[1]);
 
         Task t = new Deadlines(name, by);
         tasks.add(t);
 
-        CreatedTask.display(this.tasks, t);
+        return CreatedTask.display(this.tasks, t);
     }
 }

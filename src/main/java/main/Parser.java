@@ -15,16 +15,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import commands.Command;
-import commands.CreateDeadline;
-import commands.CreateEvent;
-import commands.CreateTodo;
-import commands.DeleteTask;
-import commands.Find;
-import commands.Help;
-import commands.ListTasks;
-import commands.MarkTask;
-import commands.UnmarkTask;
+import commands.*;
 import exception.DukeException;
 import exception.InvalidCommandException;
 import exception.InvalidDateException;
@@ -46,12 +37,13 @@ public class Parser {
      *
      * @param input The user input to be parsed.
      * @param tasks The TaskList to perform operations on.
+     * @return
      */
-    public static void parse(String input, TaskList tasks) {
+    public static Command parse(String input, TaskList tasks) {
+        Command command;
         try {
             input = input.trim().toLowerCase();
             String commandType = getCommandType(input);
-            Command command;
 
             switch (commandType) {
             case LIST:
@@ -95,12 +87,11 @@ public class Parser {
                 throw new InvalidCommandException();
             }
 
-            command.execute();
-
         } catch (DukeException e) {
-            EncaseLines.display(e.getMessage());
-
+            command = new CommandError(e.getMessage());
         }
+
+        return command;
     }
 
     /**

@@ -9,10 +9,10 @@ public class SingleLine extends UI {
     /**
      * Displays a horizontal line made of a repeating character.
      */
-    public static void display() {
+    public static String display() {
         String character = "═";
         String line = character.repeat(100);
 
-        System.out.println(line);
+        return line;
     }
 }

@@ -38,10 +38,11 @@ public class CreateEvent implements Command {
      * Executes the CreateEvent command by creating a new event task, adding it to the TaskList,
      * and displaying a confirmation message.
      *
+     * @return
      * @throws InvalidEventException If there is an issue with the event information provided.
      */
     @Override
-    public void execute() throws InvalidEventException {
+    public String execute() throws InvalidEventException {
         String name = input[0];
         LocalDateTime from = convertToDateTime(input[1]);
         LocalDateTime to = convertToDateTime(input[2]);
@@ -49,6 +50,6 @@ public class CreateEvent implements Command {
         Task t = new Events(name, from, to);
         tasks.add(t);
 
-        CreatedTask.display(this.tasks, t);
+        return CreatedTask.display(this.tasks, t);
     }
 }

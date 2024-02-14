@@ -8,8 +8,10 @@ public class Greeting extends UI {
 
     /**
      * Displays a greeting message along with a logo.
+     *
+     * @return
      */
-    public static void display() {
+    public static String display() {
         String greeting = " Hello! I'm Snorlax\n"
                 + " Type 'help' for list of commands";
         String logo = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣶⣿⣶⣦⣄⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣤⣶⣾⣿⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n"
@@ -28,5 +30,7 @@ public class Greeting extends UI {
 
         System.out.println(logo);
         EncaseLines.display(greeting);
+
+        return greeting;
     }
 }

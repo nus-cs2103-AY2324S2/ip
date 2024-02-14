@@ -33,11 +33,12 @@ public class MarkTask implements Command {
      * Executes the MarkTask command by marking the task at the specified index as done in the TaskList,
      * and displaying a confirmation message.
      *
-     * @throws InvalidIndexException    If the provided index is invalid (out of bounds).
-     * @throws InvalidCommandException  If the command is invalid (e.g., index is -1).
+     * @return
+     * @throws InvalidIndexException   If the provided index is invalid (out of bounds).
+     * @throws InvalidCommandException If the command is invalid (e.g., index is -1).
      */
     @Override
-    public void execute() throws InvalidIndexException, InvalidCommandException {
+    public String execute() throws InvalidIndexException, InvalidCommandException {
         if (this.index == -1) {
             throw new InvalidCommandException();
         } else if (this.index < 0 || this.index > tasks.size() - 1) {
@@ -49,6 +50,7 @@ public class MarkTask implements Command {
 
         String o = String.format("Nice! I've marked this task as done:\n   %s", t.toString());
 
-        EncaseLines.display(o);
+//        EncaseLines.display(o);
+        return o;
     }
 }

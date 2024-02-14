@@ -1,19 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainWindow">
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.2-ea"
+            xmlns:fx="http://javafx.com/fxml/1"
+            prefHeight="600.0" prefWidth="500.0"
+            fx:controller="MainWindow">
+
+    <!-- Root layout -->
     <children>
-        <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="324.0" AnchorPane.bottomAnchor="1.0" />
-        <Button fx:id="sendButton" layoutX="324.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send" />
-        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="557.0" prefWidth="400.0" vvalue="1.0">
-            <content>
-                <VBox fx:id="dialogContainer" prefHeight="552.0" prefWidth="388.0" />
-            </content>
+        <!-- Text input field -->
+        <TextField fx:id="userInput" prefWidth="424.0" prefHeight="41.0"
+                   AnchorPane.bottomAnchor="1.0" layoutY="558.0"
+                   onAction="#handleUserInput"/>
+
+        <!-- Send button -->
+        <Button fx:id="sendButton" text="Send" mnemonicParsing="false"
+                prefWidth="76.0" prefHeight="41.0" layoutX="424.0" layoutY="558.0"
+                onAction="#handleUserInput">
+            <style>
+                -fx-background-color: #7f6f62;
+            </style>
+            <font>
+                <Font name="Arial" size="16.0"/>
+            </font>
+        </Button>
+
+        <!-- Scrollable area -->
+        <ScrollPane fx:id="scrollPane" prefWidth="500.0" prefHeight="557.0"
+                    hbarPolicy="NEVER" vvalue="1.0" hvalue="1.0">
+            <!-- Conversation container -->
+            <VBox fx:id="dialogContainer" prefWidth="488.0" prefHeight="552.0"
+                  style="-fx-background-color: #f1e5d7;"/>
         </ScrollPane>
     </children>
 </AnchorPane>
