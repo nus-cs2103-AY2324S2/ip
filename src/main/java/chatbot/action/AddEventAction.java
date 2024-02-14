@@ -15,7 +15,7 @@ import chatbot.value.DateStringValue;
  *
  * @author Titus Chew
  */
-public final class AddEventAction extends Action {
+public final class AddEventAction extends ModifyAction {
     /**
      * The {@link Command} for adding an {@link Event}.
      */
@@ -39,17 +39,16 @@ public final class AddEventAction extends Action {
      * Adds an {@link Event} to the {@link TaskList}.
      *
      * @param taskList The {@link TaskList} to modify.
-     * @return The success message from performing the action.
      */
     @Override
-    public String execute(TaskList taskList) {
+    public void execute(TaskList taskList) {
         String name = findDefaultArgument().toString();
         DateStringValue from = new DateStringValue(findArgument("from"));
         DateStringValue to = new DateStringValue(findArgument("to"));
 
         // Perform behaviour
         Task task = taskList.addEvent(name, from, to);
-        return PrintFormatter.formatMessages(
+        PrintFormatter.addToFormatterQueue(
                 "Got it. I've added this event:",
                 "    " + task,
                 taskList.getSizeMessage()

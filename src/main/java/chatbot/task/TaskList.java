@@ -3,9 +3,11 @@ package chatbot.task;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import chatbot.storage.LocalStorage;
+import chatbot.storage.TaskListMemento;
 import chatbot.task.exception.OutOfBoundsException;
 import chatbot.value.DateStringValue;
 
@@ -14,13 +16,45 @@ import chatbot.value.DateStringValue;
  */
 public final class TaskList {
     /** Stores the tasks. */
-    private final List<Task> tasks;
+    private List<Task> tasks;
 
     /**
      * Constructor for this.
      */
     public TaskList() {
         this.tasks = new ArrayList<>();
+    }
+
+    /**
+     * Copy constructor for this task list.
+     *
+     * @param taskList The task list to copy.
+     */
+    public TaskList(TaskList taskList) {
+        this.tasks = taskList
+                .tasks
+                .stream()
+                .map(Task::copy)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Saves the internal state of the task list.
+     *
+     * @return The saved memento.
+     */
+    public TaskListMemento saveState() {
+        return new TaskListMemento(this);
+    }
+
+    /**
+     * Restores the internal state of the task list.
+     *
+     * @param taskListMemento The memento to restore from.
+     */
+    public void restoreState(TaskListMemento taskListMemento) {
+        tasks = taskListMemento.getSavedState().tasks;
+        LocalStorage.saveTaskList(this);
     }
 
     /**
@@ -47,13 +81,13 @@ public final class TaskList {
      * Adds a task to this list, saving the task list to local storage.
      *
      * @param <T> The type of task to add.
-     * @param task The task to add.
+     * @param newTask The task to add.
      * @return The task that is added.
      */
-    public <T extends Task> Task add(T task) {
-        tasks.add(task);
+    public <T extends Task> Task add(T newTask) {
+        tasks.add(newTask);
         LocalStorage.saveTaskList(this);
-        return task;
+        return newTask;
     }
 
     /**

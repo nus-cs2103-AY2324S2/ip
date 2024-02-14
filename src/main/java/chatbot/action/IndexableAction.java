@@ -15,7 +15,7 @@ import chatbot.value.exception.InvalidValueTypeException;
  *
  * @author Titus Chew
  */
-public abstract class IndexableAction extends Action {
+public abstract class IndexableAction extends ModifyAction {
 
     /**
      * Constructor for this indexable action.

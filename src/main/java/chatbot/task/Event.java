@@ -54,6 +54,17 @@ public final class Event extends Task {
     }
 
     /**
+     * Copy constructor for this event.
+     *
+     * @param event The event to copy.
+     */
+    public Event(Event event) {
+        super(event);
+        this.startDateTime = event.startDateTime;
+        this.endDateTime = event.endDateTime;
+    }
+
+    /**
      * Parses an event from a human-readable string.
      *
      * @param readableString The event as a human-readable string.

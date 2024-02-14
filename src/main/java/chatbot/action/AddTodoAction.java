@@ -14,7 +14,7 @@ import chatbot.ui.PrintFormatter;
  *
  * @author Titus Chew
  */
-public final class AddTodoAction extends Action {
+public final class AddTodoAction extends ModifyAction {
     /** The {@link Command} for adding a {@link ToDo}. */
     private static final Command COMMAND = new Command(
             new ExpectedArgument("todo", "name")
@@ -34,15 +34,14 @@ public final class AddTodoAction extends Action {
      * Adds a {@link ToDo} to the user's list.
      *
      * @param taskList The {@link TaskList} to modify.
-     * @return The success message from performing the action.
      */
     @Override
-    public String execute(TaskList taskList) {
+    public void execute(TaskList taskList) {
         String name = findDefaultArgument().toString();
 
         // Perform behaviour
         Task task = taskList.addTodo(name);
-        return PrintFormatter.formatMessages(
+        PrintFormatter.addToFormatterQueue(
                 "Got it. I've added this to-do:",
                 "    " + task,
                 taskList.getSizeMessage()

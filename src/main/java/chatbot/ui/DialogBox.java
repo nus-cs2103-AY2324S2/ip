@@ -14,31 +14,29 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
 
 /**
  * Reused from {@code https://se-education.org/guides/tutorials/javaFx.html},
  * with minor modifications.
+ *
+ * @author Titus Chew
  */
 public class DialogBox extends HBox {
-    /**
-     * An image representing the user.
-     */
+    /** An image representing the user. */
     private static final Image USER_IMAGE = new Image(DialogBox.class.getResourceAsStream("/images/DaUser.png"));
 
-    /**
-     * An image representing the chatbot.
-     */
+    /** An image representing the chatbot. */
     private static final Image CHAT_BOT_IMAGE = new Image(DialogBox.class.getResourceAsStream("/images/DaDuke.png"));
 
-    /**
-     * The size of the icon which is equal to the icon's width.
-     */
+    /** The size of the icon which is equal to the icon's width. */
     private static final int ICON_SIZE = 100;
 
-    /**
-     * The default padding to apply to the dialog box and components within.
-     */
+    /** The default padding to apply to the dialog box and components within. */
     private static final int DEFAULT_PADDING = 10;
+
+    /** The default font family. */
+    private static final String FONT_FAMILY = "Consolas";
 
     /**
      * Class Constructor.
@@ -51,6 +49,7 @@ public class DialogBox extends HBox {
         Label label = new Label(text);
         label.setPadding(new Insets(DEFAULT_PADDING));
         label.setWrapText(true);
+        label.setFont(Font.font(FONT_FAMILY));
 
         this.setPadding(new Insets(DEFAULT_PADDING));
         this.setAlignment(Pos.TOP_RIGHT);

@@ -33,15 +33,14 @@ public final class DeleteAction extends IndexableAction {
      * Deletes the {@link Task} from the {@link TaskList}.
      *
      * @param taskList The {@link TaskList} that is used with the {@link ChatBot}.
-     * @return The success message from performing the action.
      * @throws InvalidArgumentValueException If the action fails certain validation checks due to invalid input.
      */
     @Override
-    public String execute(TaskList taskList) throws InvalidArgumentValueException {
+    public void execute(TaskList taskList) throws InvalidArgumentValueException {
         // Perform behaviour
         Task deletedTask = performIndexingAction(taskList::deleteTask);
 
-        return PrintFormatter.formatMessages(
+        PrintFormatter.addToFormatterQueue(
                 "Noted. I've removed this task:",
                 "    " + deletedTask
         );

@@ -6,12 +6,16 @@ import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
 import chatbot.task.Task;
 import chatbot.task.TaskList;
+import chatbot.ui.PrintFormatter;
 import chatbot.value.StringValue;
 
 /**
  * An Action encapsulates the behaviour of a {@link Command} and it's {@link Argument}(s).
  * <li>An action may be invalid.
  * <li>An action can be executed, with validation checks.
+ * <p>
+ * <code>ModifyAction <: Action</code>
+ * <code>IndexableAction <: ModifyAction</code>
  *
  * @author Titus Chew
  */
@@ -62,6 +66,8 @@ public abstract class Action {
             return new DeleteAction(parsedArguments);
         } else if (command.equals(FindAction.getName())) {
             return new FindAction(parsedArguments);
+        } else if (command.equals(UndoAction.getName())) {
+            return new UndoAction(parsedArguments);
         } else {
             throw new UnrecognizedCommandException(command);
         }
@@ -91,8 +97,7 @@ public abstract class Action {
 
         // this represents that the argument of that name does not exist,
         // which should not happen, since the argument has been validated.
-        // so an empty StringValue is returned.
-        return new StringValue("");
+        throw new AssertionError("Invalid argument states!");
     }
 
     /**
@@ -107,11 +112,12 @@ public abstract class Action {
     /**
      * Executes this action, which performs the behaviour associated with the {@link Command}.
      * <p>
-     * This may modify the state of stored {@link Task}(s), and may print to the console.
+     * This may modify the state of stored {@link Task}(s), and may write to the {@link PrintFormatter}.
+     * <p>
+     * If no error is thrown, the execution is successful.
      *
      * @param taskList The {@link TaskList} that is used with the chatbot.
-     * @return The success message from performing the action.
      * @throws ActionException If the action fails certain validation checks due to invalid input.
      */
-    public abstract String execute(TaskList taskList) throws ActionException;
+    public abstract void execute(TaskList taskList) throws ActionException;
 }

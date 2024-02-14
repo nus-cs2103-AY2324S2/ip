@@ -35,15 +35,14 @@ public class FindAction extends Action {
      * Finds matching {@link Task}(s) from the {@link TaskList}.
      *
      * @param taskList The {@link TaskList} that is used with the {@link ChatBot}.
-     * @return The success message from performing the action.
      */
     @Override
-    public String execute(TaskList taskList) {
+    public void execute(TaskList taskList) {
         String pattern = findDefaultArgument().toString();
 
         // Perform behaviour
         int[] matchingSortedTaskIndices = taskList.findMatchingTaskIndices(pattern);
-        return PrintFormatter.formatMessages(
+        PrintFormatter.addToFormatterQueue(
                 "Here are the matching tasks in your list: ",
                 taskList.toString(matchingSortedTaskIndices)
         );

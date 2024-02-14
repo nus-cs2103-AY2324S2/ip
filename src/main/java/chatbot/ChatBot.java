@@ -2,9 +2,11 @@ package chatbot;
 
 import chatbot.action.Action;
 import chatbot.action.ByeAction;
+import chatbot.action.ModifyAction;
 import chatbot.action.exception.ActionException;
 import chatbot.parse.InputParser;
 import chatbot.storage.LocalStorage;
+import chatbot.storage.SaveState;
 import chatbot.task.TaskList;
 import chatbot.ui.MainWindow;
 import chatbot.ui.PrintFormatter;
@@ -49,15 +51,31 @@ public class ChatBot extends Application {
      */
     public String getResponseMessage(String commandLineInput) {
         try {
-            Action userAction = InputParser.getParsedInput(commandLineInput);
-
-            if (userAction instanceof ByeAction) {
-                Platform.exit();
-            }
-
-            return userAction.execute(USER_TASK_LIST);
+            executeCommand(commandLineInput);
         } catch (ActionException e) {
-            return PrintFormatter.formatMessages(e.getMessage());
+            PrintFormatter.addToFormatterQueue(e.getMessage());
+        }
+
+        return PrintFormatter.getMessages();
+    }
+
+    /**
+     * Executes the action to execute from the command line input,
+     * writing to the {@link PrintFormatter}.
+     *
+     * @throws ActionException If the input is invalid.
+     */
+    private void executeCommand(String commandLineInput) throws ActionException {
+        Action userAction = InputParser.getParsedInput(commandLineInput);
+
+        userAction.execute(USER_TASK_LIST);
+
+        if (userAction instanceof ModifyAction) {
+            SaveState.saveCurrentState(USER_TASK_LIST.saveState());
+        }
+
+        if (userAction instanceof ByeAction) {
+            Platform.exit();
         }
     }
 

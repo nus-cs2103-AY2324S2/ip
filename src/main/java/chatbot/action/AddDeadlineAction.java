@@ -15,7 +15,7 @@ import chatbot.value.DateStringValue;
  *
  * @author Titus Chew
  */
-public final class AddDeadlineAction extends Action {
+public final class AddDeadlineAction extends ModifyAction {
     /** The {@link Command} for adding a {@link Deadline}. */
     private static final Command COMMAND = new Command(
             new ExpectedArgument("deadline", "name"),
@@ -36,16 +36,15 @@ public final class AddDeadlineAction extends Action {
      * Adds a {@link Deadline} to the user's list.
      *
      * @param taskList The {@link TaskList} to modify.
-     * @return The success message from performing the action.
      */
     @Override
-    public String execute(TaskList taskList) {
+    public void execute(TaskList taskList) {
         String name = findDefaultArgument().toString();
         DateStringValue by = new DateStringValue(findArgument("by"));
 
         // Perform behaviour
         Task task = taskList.addDeadline(name, by);
-        return PrintFormatter.formatMessages(
+        PrintFormatter.addToFormatterQueue(
                 "Got it. I've added this deadline:",
                 "    " + task,
                 taskList.getSizeMessage()

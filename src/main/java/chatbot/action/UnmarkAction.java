@@ -35,15 +35,14 @@ public final class UnmarkAction extends IndexableAction {
      * Unmarks the {@link Task}.
      *
      * @param taskList The {@link TaskList} that is used with the {@link ChatBot}.
-     * @return The success message from performing the action.
      * @throws InvalidArgumentValueException If the action fails certain validation checks due to invalid input.
      */
     @Override
-    public String execute(TaskList taskList) throws InvalidArgumentValueException {
+    public void execute(TaskList taskList) throws InvalidArgumentValueException {
         // Perform behaviour
         Task unmarkedTask = performIndexingAction(taskList::unmarkTask);
 
-        return PrintFormatter.formatMessages(
+        PrintFormatter.addToFormatterQueue(
                 "Ok, I've marked this task as not done yet:",
                 "    " + unmarkedTask
         );

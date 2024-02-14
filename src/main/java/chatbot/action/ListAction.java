@@ -34,20 +34,19 @@ public final class ListAction extends Action {
      * Gets the user's list.
      *
      * @param taskList The {@link TaskList} that is used with the {@link ChatBot}.
-     * @return The success message from performing the action.
      */
     @Override
-    public String execute(TaskList taskList) {
+    public void execute(TaskList taskList) {
         if (taskList.isEmpty()) {
-            return PrintFormatter.formatMessages(
+            PrintFormatter.addToFormatterQueue(
                     "Your list is empty."
             );
+        } else {
+            PrintFormatter.addToFormatterQueue(
+                    "Here are the tasks in your list:",
+                    taskList.toString()
+            );
         }
-
-        return PrintFormatter.formatMessages(
-                "Here are the tasks in your list:",
-                taskList.toString()
-        );
     }
 
     public static String getName() {
