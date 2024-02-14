@@ -33,8 +33,8 @@ public class Duke extends Application {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/kuromi.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/bot.jpg"));
+    private Image user;
+    private Image duke;
 
     private boolean isExit;
 
@@ -69,6 +69,8 @@ public class Duke extends Application {
             ui.showMessage(e.getMessage());
             tasks = new TaskList();
         }
+        user = new Image(this.getClass().getResourceAsStream("/images/Kuromi.png"));
+        duke = new Image(this.getClass().getResourceAsStream("/images/bot.jpg"));
         isExit = false;
     }
 
