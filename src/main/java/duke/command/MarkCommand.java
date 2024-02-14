@@ -36,7 +36,7 @@ public class MarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         int oneItem = zeroItem + 1;
-        if (oneItem < 1 || oneItem > tasks.getSize() || tasks.get(oneItem - 1) == null) {
+        if (oneItem < 1 || oneItem > tasks.getSize()) {
             throw new DukeException("Error! Task number '" + oneItem + "' does not exist.");
         }
         tasks.markAsDone(zeroItem);
