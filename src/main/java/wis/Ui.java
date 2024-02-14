@@ -32,136 +32,126 @@ public class Ui {
      * Parses user input for action, and performs the action.
      *
      * @param tasks Task list storing all tasks.
-     * @return True if and only if user input signals exit.
      */
-    public boolean parseInput(TaskList tasks) {
+    public String parseInput(TaskList tasks) {
         String[] words = input.split(" ");
         Action action = InputParser.parseAction(input, words);
         switch (action) {
         case NONE:
-            break;
+            return "";
         case ADD_TODO:
-            addTodo(tasks);
-            break;
+            return addTodo(tasks);
         case ADD_DEADLINE:
-            addDeadline(tasks);
-            break;
+            return addDeadline(tasks);
         case ADD_EVENT:
-            addEvent(tasks);
-            break;
+            return addEvent(tasks);
         case MARK:
-            mark(words, tasks);
-            break;
+            return mark(words, tasks);
         case UNMARK:
-            unmark(words, tasks);
-            break;
+            return unmark(words, tasks);
         case DELETE:
-            delete(words, tasks);
-            break;
+            return delete(words, tasks);
         case LIST:
-            Printer.printActionAttach(Action.LIST, tasks);
-            break;
+            return Printer.printActionAttach(Action.LIST, tasks);
         case FIND:
-            find(words, tasks);
-            break;
-        case BYE:
-            return true;
+            return find(words, tasks);
+//        case BYE:
+//            return true;
         case INVALID:
-            WisException.actionExceptionHandler(Action.INVALID);
-            break;
+            return WisException.actionExceptionHandler(Action.INVALID);
         default:
             throw new IllegalArgumentException("Illegal action argument provided.\n");
         }
-        return false;
+//        return false;
     }
 
-    private void addTodo(TaskList tasks) {
+    private String addTodo(TaskList tasks) {
         try {
             Todo todo = new Todo(InputParser.parseTodo(input));
             tasks.add(todo);
-            Printer.printActionAttach(Action.ADD_TODO, todo, tasks);
+            return Printer.printActionAttach(Action.ADD_TODO, todo, tasks);
         } catch (InputMismatchException e) {
-            WisException.actionExceptionHandler(Action.ADD_TODO);
+            return WisException.actionExceptionHandler(Action.ADD_TODO);
         }
     }
 
-    private void addDeadline(TaskList tasks) {
+    private String addDeadline(TaskList tasks) {
         try {
             String[] parsedString = InputParser.parseDeadline(input);
             Deadline deadline = new Deadline(parsedString[0],
                     InputParser.parseDateTime(parsedString[1]));
             tasks.add(deadline);
-            Printer.printActionAttach(Action.ADD_DEADLINE, deadline, tasks);
+            return Printer.printActionAttach(Action.ADD_DEADLINE, deadline, tasks);
         } catch (InputMismatchException e) {
-            WisException.actionExceptionHandler(Action.ADD_DEADLINE);
+            return WisException.actionExceptionHandler(Action.ADD_DEADLINE);
         } catch (DateTimeParseException e) {
-            WisException.dateTimeExceptionHandler(e);
+            return WisException.dateTimeExceptionHandler(e);
         } catch (ArrayIndexOutOfBoundsException e) {
-            WisException.dateTimeExceptionHandler(e);
+            return WisException.dateTimeExceptionHandler(e);
         }
     }
 
-    private void addEvent(TaskList tasks) {
+    private String addEvent(TaskList tasks) {
         try {
             String[] parsedString = InputParser.parseEvent(input);
             Event event = new Event(parsedString[0],
                     InputParser.parseDateTime(parsedString[1]),
                     InputParser.parseDateTime(parsedString[2]));
             tasks.add(event);
-            Printer.printActionAttach(Action.ADD_EVENT, event, tasks);
+            return Printer.printActionAttach(Action.ADD_EVENT, event, tasks);
         } catch (InputMismatchException e) {
-            WisException.actionExceptionHandler(Action.ADD_EVENT);
+            return WisException.actionExceptionHandler(Action.ADD_EVENT);
         } catch (DateTimeParseException e) {
-            WisException.dateTimeExceptionHandler(e);
+            return WisException.dateTimeExceptionHandler(e);
         } catch (ArrayIndexOutOfBoundsException e) {
-            WisException.dateTimeExceptionHandler(e);
+            return WisException.dateTimeExceptionHandler(e);
         }
     }
 
-    private void mark(String[] words, TaskList tasks) {
+    private String mark(String[] words, TaskList tasks) {
         try {
             Task task = tasks.get(Integer.parseInt(words[1]) - 1);
             task.setDone();
             Storage.saveTasks(tasks);
-            Printer.printActionAttach(Action.MARK, task);
+            return Printer.printActionAttach(Action.MARK, task);
         } catch (IndexOutOfBoundsException e) {
-            WisException.actionExceptionHandler(Action.MARK);
+            return WisException.actionExceptionHandler(Action.MARK);
         } catch (NumberFormatException e) {
-            WisException.actionExceptionHandler(Action.MARK);
+            return WisException.actionExceptionHandler(Action.MARK);
         }
     }
 
-    private void unmark(String[] words, TaskList tasks) {
+    private String unmark(String[] words, TaskList tasks) {
         try {
             Task task = tasks.get(Integer.parseInt(words[1]) - 1);
             task.setUndone();
             Storage.saveTasks(tasks);
-            Printer.printActionAttach(Action.UNMARK, task);
+            return Printer.printActionAttach(Action.UNMARK, task);
         } catch (IndexOutOfBoundsException e) {
-            WisException.actionExceptionHandler(Action.UNMARK);
+            return WisException.actionExceptionHandler(Action.UNMARK);
         } catch (NumberFormatException e) {
-            WisException.actionExceptionHandler(Action.UNMARK);
+            return WisException.actionExceptionHandler(Action.UNMARK);
         }
     }
 
-    private void delete(String[] words, TaskList tasks) {
+    private String delete(String[] words, TaskList tasks) {
         try {
             Task task = tasks.remove(Integer.parseInt(words[1]) - 1);
             Storage.saveTasks(tasks);
-            Printer.printActionAttach(Action.DELETE, task, tasks);
+            return Printer.printActionAttach(Action.DELETE, task, tasks);
         } catch (IndexOutOfBoundsException e) {
-            WisException.actionExceptionHandler(Action.DELETE);
+            return WisException.actionExceptionHandler(Action.DELETE);
         } catch (NumberFormatException e) {
-            WisException.actionExceptionHandler(Action.DELETE);
+            return WisException.actionExceptionHandler(Action.DELETE);
         }
     }
 
-    private void find(String[] words, TaskList tasks) {
+    private String find(String[] words, TaskList tasks) {
         try {
             ArrayList<Pair<Integer, Task>> matchingTasks = tasks.find(words[1]);
-            Printer.printActionAttach(Action.FIND, matchingTasks);
+            return Printer.printActionAttach(Action.FIND, matchingTasks);
         } catch (IndexOutOfBoundsException e) {
-            WisException.actionExceptionHandler(Action.FIND);
+            return WisException.actionExceptionHandler(Action.FIND);
         }
     }
 }

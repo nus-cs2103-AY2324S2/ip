@@ -2,6 +2,7 @@ package wis.util;
 
 import java.io.IOException;
 
+import javafx.beans.binding.StringBinding;
 import wis.Action;
 
 /**
@@ -11,56 +12,57 @@ public class WisException {
     /**
      * Handles exceptions thrown by actions that fail to execute.
      */
-    public static void actionExceptionHandler(Action action) {
+    public static String actionExceptionHandler(Action action) {
+        StringBuilder sb = new StringBuilder();
         switch (action) {
         case ADD_TODO:
-            Printer.printDecorator();
-            Printer.println("Input format unsupported.");
-            Printer.println("Use this format: todo <task>");
-            Printer.printDecorator();
-            break;
+            sb.append(Printer.DECORATOR);
+            sb.append(Printer.println("Input format unsupported."));
+            sb.append(Printer.println("Use this format: todo <task>"));
+            sb.append(Printer.DECORATOR);
+            return sb.toString();
         case ADD_DEADLINE:
-            Printer.printDecorator();
-            Printer.println("Input format unsupported.");
-            Printer.println("Use this format: deadline <task> /by <time>");
-            Printer.printDecorator();
-            break;
+            sb.append(Printer.DECORATOR);
+            sb.append(Printer.println("Input format unsupported."));
+            sb.append(Printer.println("Use this format: deadline <task> /by <time>"));
+            sb.append(Printer.DECORATOR);
+            return sb.toString();
         case ADD_EVENT:
-            Printer.printDecorator();
-            Printer.println("Input format unsupported.");
-            Printer.println("Use this format: event <task> /from <time> /to <time>");
-            Printer.printDecorator();
-            break;
+            sb.append(Printer.DECORATOR);
+            sb.append(Printer.println("Input format unsupported."));
+            sb.append(Printer.println("Use this format: event <task> /from <time> /to <time>"));
+            sb.append(Printer.DECORATOR);
+            return sb.toString();
         case MARK:
-            Printer.printDecorator();
-            Printer.println("Please enter a valid index.");
-            Printer.println("Use this format: mark <task_index>");
-            Printer.printDecorator();
-            break;
+            sb.append(Printer.DECORATOR);
+            sb.append(Printer.println("Please enter a valid index."));
+            sb.append(Printer.println("Use this format: mark <task_index>"));
+            sb.append(Printer.DECORATOR);
+            return sb.toString();
         case UNMARK:
-            Printer.printDecorator();
-            Printer.println("Please enter a valid index.");
-            Printer.println("Use this format: unmark <task_index>");
-            Printer.printDecorator();
-            break;
+            sb.append(Printer.DECORATOR);
+            sb.append(Printer.println("Please enter a valid index."));
+            sb.append(Printer.println("Use this format: unmark <task_index>"));
+            sb.append(Printer.DECORATOR);
+            return sb.toString();
         case DELETE:
-            Printer.printDecorator();
-            Printer.println("Please enter a valid index.");
-            Printer.println("Use this format: delete <task_index>");
-            Printer.printDecorator();
-            break;
+            sb.append(Printer.DECORATOR);
+            sb.append(Printer.println("Please enter a valid index."));
+            sb.append(Printer.println("Use this format: delete <task_index>"));
+            sb.append(Printer.DECORATOR);
+            return sb.toString();
         case FIND:
-            Printer.printDecorator();
-            Printer.println("Use this format: find <keyword>");
-            Printer.printDecorator();
-            break;
+            sb.append(Printer.DECORATOR);
+            sb.append(Printer.println("Use this format: find <keyword>"));
+            sb.append(Printer.DECORATOR);
+            return sb.toString();
         case INVALID:
-            Printer.printDecorator();
-            Printer.println("Input format unsupported.");
-            Printer.println("Please begin your input with one of the following keywords:");
-            Printer.println("todo, deadline, event, list, mark, unmark, bye");
-            Printer.printDecorator();
-            break;
+            sb.append(Printer.DECORATOR);
+            sb.append(Printer.println("Input format unsupported."));
+            sb.append(Printer.println("Please begin your input with one of the following keywords:"));
+            sb.append(Printer.println("todo, deadline, event, list, mark, unmark, bye"));
+            sb.append(Printer.DECORATOR);
+            return sb.toString();
         default:
             throw new IllegalArgumentException("Illegal action argument provided.\n");
         }
@@ -69,32 +71,38 @@ public class WisException {
     /**
      * Handles exceptions due to failure to save file.
      */
-    public static void saveFileExceptionHandler(IOException e) {
-        Printer.printDecorator();
-        Printer.println("Failed to save file to local.");
-        Printer.println(e.getMessage());
-        Printer.printDecorator();
+    public static String saveFileExceptionHandler(IOException e) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(Printer.DECORATOR);
+        sb.append(Printer.println("Failed to save file to local."));
+        sb.append(Printer.println(e.getMessage()));
+        sb.append(Printer.DECORATOR);
+        return sb.toString();
     }
 
     /**
      * Handles exceptions due to failure to load file.
      */
-    public static void loadFileExceptionHandler() {
-        Printer.printDecorator();
-        Printer.println("Failed to load tasks from local.");
-        Printer.println("Local data file might be corrupted.");
-        Printer.printDecorator();
+    public static String loadFileExceptionHandler() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(Printer.DECORATOR);
+        sb.append(Printer.println("Failed to load tasks from local."));
+        sb.append(Printer.println("Local data file might be corrupted."));
+        sb.append(Printer.DECORATOR);
+        return sb.toString();
     }
 
     /**
      * Handles exceptions due to wrong format of date and time.
      */
-    public static void dateTimeExceptionHandler(Exception e) {
-        Printer.printDecorator();
-        Printer.println(e.getMessage());
-        Printer.println("Please use this format for time:");
-        Printer.println("yyyy-mm-dd hh:mm");
-        Printer.println("For example: 2024-03-03 23:59");
-        Printer.printDecorator();
+    public static String dateTimeExceptionHandler(Exception e) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(Printer.DECORATOR);
+        sb.append(Printer.println(e.getMessage()));
+        sb.append(Printer.println("Please use this format for time:"));
+        sb.append(Printer.println("yyyy-mm-dd hh:mm"));
+        sb.append(Printer.println("For example: 2024-03-03 23:59"));
+        sb.append(Printer.DECORATOR);
+        return sb.toString();
     }
 }

@@ -67,14 +67,16 @@ public class TaskList {
         return matchingTasks;
     }
 
-    public void print() {
+    public String print() {
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < taskCount; i++) {
-            Printer.println((i + 1) + "." + list.get(i).toString());
+            sb.append(Printer.println((i + 1) + "." + list.get(i).toString()));
         }
+        return sb.toString();
     }
 
-    public void printTaskCount() {
-        Printer.println("Now you have " + taskCount + " tasks in the list.");
+    public String printTaskCount() {
+        return Printer.println("Now you have " + taskCount + " tasks in the list.");
     }
 
     /**
