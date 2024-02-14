@@ -58,4 +58,8 @@ public abstract class Task {
     }
 
     public abstract String toSave();
+
+    public boolean matchKeyword(String keyword) {
+        return this.description.toLowerCase().contains(keyword.toLowerCase());
+    }
 }

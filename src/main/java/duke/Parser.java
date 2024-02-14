@@ -12,7 +12,7 @@ public class Parser {
      * Represents the possible requests that can be parsed from user commands.
      */
     public enum Request {
-        BYE, LIST, MARK, TODO, DEADLINE, EVENT, DELETE, INVALID
+        BYE, LIST, MARK, TODO, DEADLINE, EVENT, DELETE, FIND, INVALID
     }
 
     /**
@@ -130,6 +130,14 @@ public class Parser {
                 return myList.delete(index);
             } catch (NumberFormatException e) {
                 System.out.println("Please enter a number after delete.");
+            }
+            break;
+        case FIND:
+            try {
+                String keyword = userInput.substring("find".length()).trim();
+                return myList.findByKeyword(keyword);
+            } catch (DukeException e) {
+                System.out.println(e.getMsg());
             }
             break;
         case INVALID:

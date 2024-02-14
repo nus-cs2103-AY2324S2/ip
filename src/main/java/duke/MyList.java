@@ -2,6 +2,7 @@ package duke;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Represents a list of tasks.
@@ -94,6 +95,22 @@ public class MyList {
             Task t = this.tasks.remove(index - 1);
             return "Noted. I've removed this task:\n" + t.toString() + "\nNow you have "
                     + this.tasks.size() + " tasks in the list.";
+        }
+    }
+
+    public String findByKeyword(String keyword) throws DukeException{
+        if (keyword.isEmpty()) {
+            throw new DukeException("Keyword cannot be empty");
+        }
+        List<Task> matchList = this.tasks.stream()
+                .filter(task -> task.matchKeyword(keyword))
+                .collect(Collectors.toList());
+        MyList listWithKeyword = new MyList(matchList);
+
+        if (matchList.isEmpty()) {
+            return "No tasks found containing keyword";
+        } else {
+            return listWithKeyword.getTasks();
         }
     }
 }
