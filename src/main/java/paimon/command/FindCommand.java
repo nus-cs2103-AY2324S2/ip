@@ -11,6 +11,7 @@ public class FindCommand extends Command {
         this.keyword = keyword;
 
     }
+
     public void execute(TaskList taskList, UiHandler ui) throws ChatException {
         String foundTasks = taskList.getFoundString(keyword);
         if (foundTasks.isEmpty()) {
@@ -18,8 +19,10 @@ public class FindCommand extends Command {
         } else {
             ui.displayFoundTasksMessage(foundTasks);
         }
-    };
+    }
+
     public boolean isExit() {
         return false;
-    };
+    }
+
 }
