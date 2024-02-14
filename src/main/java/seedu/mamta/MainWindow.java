@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import java.util.Objects;
 
 /**
- * Controller for MainWindow. Provides the layout for the other controls.
+ * Controller for MainWindow. Provides the layout for the other controls. Handles UI logic.
  */
 public class MainWindow extends AnchorPane {
     @FXML
