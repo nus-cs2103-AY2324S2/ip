@@ -67,6 +67,14 @@ public class Ui {
         response = "I understand, sensei! Arona has marked the task as not done!\n";
     }
 
+    public void checkResponse() {
+        response = "Sensei! Arona found this task in your tasklist! Do you want to add it again?";
+    }
+
+    public void discardDuplicateTask() {
+        response = "Arona will be discarding this duplicate task!";
+    }
+
     public String showLine() {
         return "---------------------------------";
     }

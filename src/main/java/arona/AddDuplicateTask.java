@@ -3,8 +3,8 @@ package arona;
 /**
  * Allow for user to add tasks to the tasklist given.
  */
-public class AddTask extends Command {
-    public AddTask(String fullCommand) {
+public class AddDuplicateTask extends Command {
+    public AddDuplicateTask(String fullCommand) {
         super(fullCommand);
         this.exit = false;
     }
@@ -20,11 +20,6 @@ public class AddTask extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws FileException, TaskException {
-        if (fullCommand.equals("no")) {
-            taskList.discardCommand();
-            return;
-        }
-
         int originalSize = taskList.getTasks().size();
         taskList.addTask(fullCommand);
         int alteredSize = taskList.getTasks().size();
