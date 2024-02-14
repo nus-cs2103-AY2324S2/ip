@@ -52,6 +52,7 @@ public class TaskManager {
      * @throws DukeException Invalid processing of the items.
      */
     public String[] addTask(Actions options, String instruction) throws DukeException {
+        assert options != null : "Invalid action operation";
         Task item;
         String description;
         String by;
@@ -151,6 +152,7 @@ public class TaskManager {
      * @throws DukeException Invalid processing of the items.
      */
     public String[] manageTask(Manage act, String instruction) throws DukeException {
+        assert act != null : "Invalid manage operation";
         if (items.isEmpty()) {
             throw new DukeException("empty");
         }
