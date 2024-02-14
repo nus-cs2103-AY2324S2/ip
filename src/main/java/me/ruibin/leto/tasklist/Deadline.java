@@ -17,6 +17,18 @@ public class Deadline extends Task {
     }
 
     /**
+     * Extends the deadline by a specified number of days.
+     *
+     * @param days The number of days to extend the deadline.
+     */
+    public void extendDeadline(int days) {
+        if (days <= 0) {
+            throw new IllegalArgumentException("Cannot extend deadline by a negative number of or 0 days.");
+        }
+        this.deadline = this.deadline.plusDays(days);
+    }
+
+    /**
      * Read user input and generate a new instance of Deadline.
      *
      * @param input Command inputs from user.

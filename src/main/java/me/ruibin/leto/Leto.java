@@ -2,7 +2,6 @@ package me.ruibin.leto;
 
 import me.ruibin.leto.parser.Parser;
 import me.ruibin.leto.parser.Result;
-import me.ruibin.leto.tasklist.TaskList;
 import me.ruibin.leto.ui.Ui;
 
 /** Main program for Leto. Singleton class. */
@@ -11,7 +10,6 @@ public class Leto {
 
     private Leto() {
         Ui.letoLogo();
-        TaskList.initFromCsvFile();
     }
 
     public static Leto getLeto() {
