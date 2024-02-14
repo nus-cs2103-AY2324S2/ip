@@ -36,7 +36,6 @@ public class Deadline extends Task {
      */
     public Deadline(String event, String extraInfo) {
         super(event);
-
         this.deadline = LocalDate.parse(extraInfo.replace('/', '-'), formatter);;
     }
 
