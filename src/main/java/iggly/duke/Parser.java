@@ -4,7 +4,15 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import iggly.command.*;
+import iggly.command.AddTaskCommand;
+import iggly.command.Command;
+import iggly.command.DeleteTaskCommand;
+import iggly.command.FindTaskCommand;
+import iggly.command.HelpCommand;
+import iggly.command.InvalidCommand;
+import iggly.command.ListTaskCommand;
+import iggly.command.MarkTaskCommand;
+import iggly.command.UnmarkTaskCommand;
 import iggly.model.Deadline;
 import iggly.model.Event;
 import iggly.model.Task;
@@ -32,6 +40,7 @@ public class Parser {
 
     /**
      * Parses user input and return the corresponding command based on user's input.
+     *
      * @return a {@code Command} based on user's input.
      * @throws DukeException if user enters an invalid input.
      */
@@ -78,6 +87,7 @@ public class Parser {
 
     /**
      * Parses a todo input.
+     *
      * @return a {@code ToDo} based on user's input.
      * @throws DukeException if user left the description empty.
      */
@@ -90,6 +100,7 @@ public class Parser {
 
     /**
      * Parses an event input.
+     *
      * @return a {@code Event} based on user's input.
      * @throws DukeException if user left the description empty or entered invalid format.
      */
@@ -123,6 +134,7 @@ public class Parser {
 
     /**
      * Parses a deadline input.
+     *
      * @return a {@code Deadline} based on user's input.
      * @throws DukeException if user left the description empty or entered invalid format.
      */
@@ -147,6 +159,7 @@ public class Parser {
 
     /**
      * Parses a mark task input.
+     *
      * @return a {@code MarkTaskCommand} based on user's input.
      * @throws DukeException if user entered invalid index.
      */
@@ -154,7 +167,12 @@ public class Parser {
         try {
             int markIndex = Integer.parseInt(command[1]) - 1;
             try {
-                return new MarkTaskCommand(markIndex, this.taskList);
+                Task task = this.taskList.get(markIndex);
+                if (task.isDone()) {
+                    throw new DukeException("This task is already marked as done.");
+                } else {
+                    return new MarkTaskCommand(task, taskList);
+                }
             } catch (IndexOutOfBoundsException e) {
                 throw new DukeException("Invalid index.");
             }
@@ -167,6 +185,7 @@ public class Parser {
 
     /**
      * Parses an unmark task input.
+     *
      * @return a {@code UnmarkTaskCommand} based on user's input.
      * @throws DukeException if user entered invalid index.
      */
@@ -174,7 +193,12 @@ public class Parser {
         try {
             int unmarkIndex = Integer.parseInt(command[1]) - 1;
             try {
-                return new UnmarkTaskCommand(unmarkIndex, this.taskList);
+                Task task = this.taskList.get(unmarkIndex);
+                if (!task.isDone()) {
+                    throw new DukeException("This task is already marked as not done.");
+                } else {
+                    return new UnmarkTaskCommand(task, taskList);
+                }
             } catch (IndexOutOfBoundsException e) {
                 throw new DukeException("Invalid index.");
             }
@@ -187,6 +211,7 @@ public class Parser {
 
     /**
      * Parses a delete task input.
+     *
      * @return a {@code DeleteTaskCommand} based on user's input.
      * @throws DukeException if user entered invalid index.
      */
@@ -207,6 +232,7 @@ public class Parser {
 
     /**
      * Parses a find task input.
+     *
      * @return a {@link FindTaskCommand} based on user's input.
      * @throws DukeException if user left the description empty.
      */

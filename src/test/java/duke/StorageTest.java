@@ -21,7 +21,7 @@ public class StorageTest {
 
         storage.createNewFile();
 
-        assertTrue(storage.isFileExists());
+        assertTrue(storage.isExistingFile());
 
         File file = new File(filePath);
         assertTrue(file.delete());
@@ -32,7 +32,7 @@ public class StorageTest {
         String filePath = "test.dat";
         Storage storage = new Storage(filePath);
 
-        assertFalse(storage.isFileExists());
+        assertFalse(storage.isExistingFile());
     }
 
     @Test
@@ -42,7 +42,7 @@ public class StorageTest {
 
         storage.createNewFile();
 
-        assertTrue(storage.isFileExists());
+        assertTrue(storage.isExistingFile());
 
         File file = new File(filePath);
         assertTrue(file.delete());
@@ -55,7 +55,7 @@ public class StorageTest {
         ArrayList<Task> originalTaskList = new ArrayList<>(100);
         originalTaskList.add(new ToDo("todo"));
 
-        storage.update(originalTaskList);
+        storage.updateFile(originalTaskList);
         ArrayList<Task> loadedTaskList = storage.load();
 
         assertEquals(originalTaskList.size(), loadedTaskList.size());

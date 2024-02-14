@@ -31,7 +31,7 @@ public class Storage {
      *
      * @return {@code true} if the file exists, {@code false} otherwise.
      */
-    public boolean isFileExists() {
+    public boolean isExistingFile() {
         try (FileInputStream fileInputStream = new FileInputStream(file)) {
             return true;
         } catch (FileNotFoundException e) {
@@ -58,7 +58,7 @@ public class Storage {
      *
      * @param taskList The list of tasks to be written to the file.
      */
-    public void update(ArrayList<Task> taskList) {
+    public void updateFile(ArrayList<Task> taskList) {
         try (FileOutputStream fileOutputStream = new FileOutputStream(this.file);
              ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
             objectOutputStream.writeObject(taskList);

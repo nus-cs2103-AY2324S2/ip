@@ -11,12 +11,21 @@ public class GreetView extends Ui {
     @Override
     public String display() {
         return (
-                "\uD83D\uDC27\uD83D\uDC27\uD83D\uDC27\uD83D\uDC27     \uD83D\uDC27\uD83D\uDC27\uD83D\uDC27\uD83D\uDC27      \uD83D\uDC27\uD83D\uDC27\uD83D\uDC27\uD83D\uDC27    \uD83D\uDC27          \uD83D\uDC27        \uD83D\uDC27\n"
-                + "    \uD83D\uDC27\uD83D\uDC27      \uD83D\uDC27                   \uD83D\uDC27                  \uD83D\uDC27          \uD83D\uDC27        \uD83D\uDC27\n"
-                + "    \uD83D\uDC27\uD83D\uDC27      \uD83D\uDC27                   \uD83D\uDC27                  \uD83D\uDC27             \uD83D\uDC27  \uD83D\uDC27\n"
-                + "    \uD83D\uDC27\uD83D\uDC27      \uD83D\uDC27   \uD83D\uDC27\uD83D\uDC27\uD83D\uDC27    \uD83D\uDC27   \uD83D\uDC27\uD83D\uDC27\uD83D\uDC27   \uD83D\uDC27                \uD83D\uDC27\n"
-                + "    \uD83D\uDC27\uD83D\uDC27      \uD83D\uDC27           \uD83D\uDC27    \uD83D\uDC27           \uD83D\uDC27   \uD83D\uDC27                \uD83D\uDC27\n"
-                + "\uD83D\uDC27\uD83D\uDC27\uD83D\uDC27\uD83D\uDC27     \uD83D\uDC27\uD83D\uDC27\uD83D\uDC27\uD83D\uDC27       \uD83D\uDC27\uD83D\uDC27\uD83D\uDC27\uD83D\uDC27   \uD83D\uDC27\uD83D\uDC27\uD83D\uDC27\uD83D\uDC27    \uD83D\uDC27\n\n"
+                "\uD83D\uDC27\uD83D\uDC27\uD83D\uDC27\uD83D\uDC27     \uD83D\uDC27\uD83D\uDC27\uD83D\uDC27\uD83D\uDC27"
+                + "      \uD83D\uDC27\uD83D\uDC27\uD83D\uDC27\uD83D\uDC27    \uD83D\uDC27          \uD83D\uDC27"
+                + "        \uD83D\uDC27\n"
+                + "    \uD83D\uDC27\uD83D\uDC27      \uD83D\uDC27                   \uD83D\uDC27"
+                + "                  \uD83D\uDC27          \uD83D\uDC27        \uD83D\uDC27\n"
+                + "    \uD83D\uDC27\uD83D\uDC27      \uD83D\uDC27                   \uD83D\uDC27"
+                + "                  \uD83D\uDC27             \uD83D\uDC27  \uD83D\uDC27\n"
+                + "    \uD83D\uDC27\uD83D\uDC27      \uD83D\uDC27   \uD83D\uDC27\uD83D\uDC27\uD83D\uDC27    "
+                + "\uD83D\uDC27   \uD83D\uDC27\uD83D\uDC27\uD83D\uDC27   \uD83D\uDC27                \uD83D\uDC27\n"
+                + "    \uD83D\uDC27\uD83D\uDC27      \uD83D\uDC27           \uD83D\uDC27    \uD83D\uDC27"
+                + "           \uD83D\uDC27   \uD83D\uDC27                \uD83D\uDC27\n"
+                + "\uD83D\uDC27\uD83D\uDC27\uD83D\uDC27\uD83D\uDC27     "
+                + "\uD83D\uDC27\uD83D\uDC27\uD83D\uDC27\uD83D\uDC27       "
+                + "\uD83D\uDC27\uD83D\uDC27\uD83D\uDC27\uD83D\uDC27   \uD83D\uDC27\uD83D\uDC27\uD83D\uDC27\uD83D\uDC27"
+                + "    \uD83D\uDC27\n\n"
                 + "   Hello! I'm Iggly, your personal assistant chatbot.\n"
                 + "   What can I do for you? \uD83D\uDC27\n\n"
                 + "   Enter 'help' to view all the available commands!\n");

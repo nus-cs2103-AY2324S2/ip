@@ -1,7 +1,8 @@
 package iggly.model;
 
+import static iggly.util.DateTimeUtil.formatDateTime;
+
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * The {@link Deadline} class represents a task with a specific deadline.
@@ -29,7 +30,9 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]"
                 + super.toString()
-                + " (by: " + date.format(DateTimeFormatter.ofPattern("dd MMM yyyy h:mma"))
+                + " (by: " + formatDateTime(date)
                 + ", " + date.getDayOfWeek() + ")";
     }
+
+
 }

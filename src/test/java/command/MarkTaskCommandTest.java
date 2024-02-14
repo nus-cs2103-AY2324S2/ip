@@ -12,6 +12,7 @@ import iggly.command.AddTaskCommand;
 import iggly.command.MarkTaskCommand;
 import iggly.command.UnmarkTaskCommand;
 import iggly.duke.Storage;
+import iggly.model.Task;
 import iggly.model.TaskList;
 import iggly.model.ToDo;
 
@@ -31,12 +32,13 @@ public class MarkTaskCommandTest {
 
         AddTaskCommand addTaskCommand = new AddTaskCommand(todo, taskList);
         addTaskCommand.execute(storage);
-        MarkTaskCommand markTaskCommand = new MarkTaskCommand(0, taskList);
+        Task task = taskList.get(0);
+        MarkTaskCommand markTaskCommand = new MarkTaskCommand(task, taskList);
         markTaskCommand.execute(storage);
 
         assertTrue(todo.isDone());
 
-        UnmarkTaskCommand unmarkTaskCommand = new UnmarkTaskCommand(0, taskList);
+        UnmarkTaskCommand unmarkTaskCommand = new UnmarkTaskCommand(task, taskList);
         unmarkTaskCommand.execute(storage);
 
         assertFalse(todo.isDone());

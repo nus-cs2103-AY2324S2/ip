@@ -1,7 +1,9 @@
 package iggly.model;
 
+import static iggly.util.DateTimeUtil.formatDateTime;
+import static iggly.util.DateTimeUtil.formatTime;
+
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * The {@link Event} class represents a task with a specific time range.
@@ -32,7 +34,7 @@ public class Event extends Task {
     public String toString() {
         return "[E]"
                 + super.toString()
-                + " (on: " + from.format(DateTimeFormatter.ofPattern("dd MMM yyyy h:mma"))
-                + " to " + to.format(DateTimeFormatter.ofPattern("h:mma")) + ")";
+                + " (on: " + formatDateTime(from)
+                + " to " + formatTime(to) + ")";
     }
 }

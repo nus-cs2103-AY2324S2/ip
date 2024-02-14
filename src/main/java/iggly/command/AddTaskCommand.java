@@ -40,7 +40,7 @@ public class AddTaskCommand extends Command {
     @Override
     public String execute(Storage storage) {
         taskList.add(task);
-        storage.update(taskList.getTaskList());
+        storage.updateFile(taskList.getTaskList());
         AddTaskView addTaskView = new AddTaskView(this.task, this.taskList);
         return addTaskView.display();
     }

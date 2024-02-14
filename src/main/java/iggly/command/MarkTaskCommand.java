@@ -18,11 +18,11 @@ public class MarkTaskCommand extends Command {
      * Constructs a {@link MarkTaskCommand} object with the specified {@link Task} index and {@link TaskList}.
      * This command is used to mark a task as done from the given task list.
      *
-     * @param index The index of the task to be marked as done.
+     * @param task The task to be marked as done.
      * @param taskList The task list to which the task will be marked.
      */
-    public MarkTaskCommand(int index, TaskList taskList) {
-        this.task = taskList.get(index);
+    public MarkTaskCommand(Task task, TaskList taskList) {
+        this.task = task;
         this.taskList = taskList;
     }
 
@@ -39,7 +39,7 @@ public class MarkTaskCommand extends Command {
     @Override
     public String execute(Storage storage) {
         this.task.mark();
-        storage.update(taskList.getTaskList());
+        storage.updateFile(taskList.getTaskList());
         MarkTaskView markTaskView = new MarkTaskView(this.task);
         return markTaskView.display();
     }

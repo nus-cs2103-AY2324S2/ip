@@ -24,17 +24,18 @@ public class Duke {
     /**
      * Constructor for {@link Duke} to initialize the storage or
      * get task list from the storage.
+     *
      * @param filePath the file path of the storage.
      */
     public Duke(String filePath) {
         this.storage = new Storage(filePath);
         this.isExit = false;
-        if (storage.isFileExists()) {
+        if (storage.isExistingFile()) {
             this.taskList = new TaskList(storage.load());
         } else {
             storage.createNewFile();
             this.taskList = new TaskList();
-            storage.update(taskList.getTaskList());
+            storage.updateFile(taskList.getTaskList());
         }
     }
 
@@ -68,6 +69,7 @@ public class Duke {
 
     /**
      * The program's main function to start the application.
+     *
      * @param args the arguments passed into the application.
      */
     public static void main(String[] args) {

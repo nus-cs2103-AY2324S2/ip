@@ -38,7 +38,7 @@ public class DeleteTaskCommand extends Command {
     @Override
     public String execute(Storage storage) {
         taskList.remove(task);
-        storage.update(taskList.getTaskList());
+        storage.updateFile(taskList.getTaskList());
         DeleteTaskView deleteTaskView = new DeleteTaskView(this.task, this.taskList);
         return deleteTaskView.display();
     }

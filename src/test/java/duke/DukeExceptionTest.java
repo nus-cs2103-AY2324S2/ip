@@ -13,6 +13,6 @@ class DukeExceptionTest {
 
         DukeException dukeException = new DukeException(errorMessage);
 
-        assertEquals("OOPS!!! " + errorMessage + "\n", dukeException.getMessage());
+        assertEquals("OOPS!!! " + errorMessage + " \uD83D\uDC27\n", dukeException.getMessage());
     }
 }
