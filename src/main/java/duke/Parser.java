@@ -14,7 +14,7 @@ import duke.commands.CommandToDo;
 import duke.commands.CommandUnmark;
 import duke.commands.CommandSort;
 
-import duke.exceptions.DukeCeption;
+import duke.exceptions.UnknownCommandException;
 import duke.commands.CommandFind;
 import duke.tasks.TaskList;
 
@@ -96,7 +96,7 @@ public class Parser {
                     command = new CommandSort(taskList, ui);
                     break;
                 default:
-                    throw new DukeCeption("Sorry I don't recognize that command :/");
+                    throw new UnknownCommandException("Sorry I don't recognize that command :/");
             }
             command.execute(description);
         } catch (Exception e) {

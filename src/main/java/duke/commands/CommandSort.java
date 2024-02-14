@@ -3,7 +3,10 @@ package duke.commands;
 import java.util.Comparator;
 
 import duke.Ui;
+
 import duke.exceptions.DukeCeption;
+import duke.exceptions.UnknownCommandException;
+
 import duke.tasks.TaskComparatorCreator;
 import duke.tasks.TaskList;
 import duke.tasks.Task;
@@ -32,7 +35,7 @@ public class CommandSort extends Command {
                     taskComparator = TaskComparatorCreator.getDateComparator();
                     break;
                 default:
-                    throw new DukeCeption("Unknown sort by command");
+                    throw new UnknownCommandException("Unknown sort by command");
             }
             taskList.sort(taskComparator);
             ui.printSortedMessage(sortBy);
