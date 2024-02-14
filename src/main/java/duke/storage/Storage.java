@@ -58,6 +58,14 @@ public class Storage {
             } catch (IOException e) {
                 throw new StorageOperationException("OOPS!! Error creating the file: " + file);
             }
+        } else if (!Files.exists(file)) {
+            try {
+                Files.createFile(file);
+                System.out.println("The and data.txt has been created. >v<");
+                return new ArrayList<>();
+            } catch (IOException e) {
+                throw new StorageOperationException("OOPS!! Error creating the file: " + file);
+            }
         } else {
             try {
                 return TaskDecoder.decodeTask(Files.readAllLines(file));
@@ -81,7 +89,8 @@ public class Storage {
     }
 
     /**
-     * Signals that some error has occurred while trying to convert and read/write data between the application and the storage file.
+     * Signals that some error has occurred while trying to convert and read/write data between the application
+     * and the storage file.
      */
     public static class StorageOperationException extends Exception {
         public StorageOperationException(String message) {

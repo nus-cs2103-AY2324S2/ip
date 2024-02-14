@@ -1,5 +1,5 @@
 [T][Y] read book
-[D][N] return book | by: 30/09/2002
+[D][Y] return book | by: 30/09/2002
 [E][N] project meeting | from: Aug 6th 2pm | to: 4pm
 [T][Y] join sports club
 [T][N] borrow book

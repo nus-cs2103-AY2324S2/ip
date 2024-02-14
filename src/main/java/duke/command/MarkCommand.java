@@ -18,6 +18,7 @@ public class MarkCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Ui ui) throws DukeException {
+        assert taskList != null : "Task list is empty!!!";
         try {
             if (isMark) {
                 taskList.get(num).markAsDone();
@@ -27,7 +28,7 @@ public class MarkCommand extends Command {
                 return ui.showUnmark(taskList, num);
             }
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("OOPS!! I haven't record this detective.task!");
+            throw new DukeException("OOPS!! I haven't record this task!");
         }
     }
 }

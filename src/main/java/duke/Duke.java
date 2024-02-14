@@ -23,14 +23,14 @@ public class Duke {
             storage = new Storage();
             myList = new TaskList(storage.load());
         } catch (Storage.InvalidStorageFilePathException | Storage.StorageOperationException e) {
-            ui.showError(e.getMessage());
+            System.out.println(ui.showError(e.getMessage()));
         }
     }
 
     /** Runs the program until termination.  */
     public void run() {
         boolean isContinue = true;
-        ui.showWelcome();
+        System.out.println(ui.showWelcome());
 
         while (isContinue) {
             String input = ui.getCommand();
@@ -40,13 +40,13 @@ public class Duke {
                     isContinue = false;
                 }
             } catch (Storage.StorageOperationException e) {
-                ui.showError(e.getMessage());
+                System.out.println(ui.showError(e.getMessage()));
             }
             try {
                 Command command = Parser.parseCommand(input);
-                command.execute(myList, ui);
+                System.out.println(command.execute(myList, ui));
             } catch (DukeException e) {
-                ui.showError(e.getMessage());
+                System.out.println(ui.showError(e.getMessage()));
             }
         }
     }
