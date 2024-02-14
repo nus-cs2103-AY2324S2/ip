@@ -159,7 +159,7 @@ public class Hirwan {
         }
     }
 
-    public static String parseInput(String text) {
+    public String parseInput(String text) {
 //        String logo = "I'm hirwan \n"
 //                + "_________________________________\n"
 //                + "what can I do for you? \n"
@@ -167,22 +167,22 @@ public class Hirwan {
 //
 //        Ui.output("Hello! " + logo);
 
-        String output = "";
-
+        String output = new String("");
         Tasklist tasks = new Tasklist(Storage.read());
 
-        try (BufferedWriter fileWrite = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
+        try {
             int input = Parser.translate(text);
 
             if (input == 8) {
             } else if (input == 1) {
+                output = "";
                 for (String i : tasks.getList()) {
                     output += i + "\n";
-                };
+                }
             } else if (input == 2) {
                 try {
-                    output = output + "Got it. I've added this task: \n  " + "[T][ ] "
-                            + text.substring(5);
+                    output = "Got it. I've added this task: \n  " + "[T][ ] "
+                            + text.substring(5) + "\n";
                     tasks.add(". " + "[T][ ] " + text.substring(5));
                     output = output + "Now you have " + tasks.size() + " tasks in the list.";
                     Storage.writeTask(tasks.getList());
@@ -200,9 +200,10 @@ public class Hirwan {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d 'of' MMMM yyyy, ha");
 
                     tasks.add(". " + "[D][ ] " + item + " (by: " + dayDate.format(formatter) + ")");
-                    output = output + "Got it. I've added this task:\n  " + "[D][ ] " + item + " (by: "
+                    output = "Got it. I've added this task:\n  " + "[D][ ] " + item + " (by: "
                             + dayDate.format(formatter) + ")";
-                    output = output + "Now you have " + tasks.size() + " tasks in the list.";
+                    output = output + "\nNow you have " + tasks.size() + " tasks in the list.";
+                    Storage.writeTask(tasks.getList());
                 } catch (StringIndexOutOfBoundsException e) {
                     output = output + "Error: Please enter a description or date for your deadline command";
                 }
@@ -222,9 +223,9 @@ public class Hirwan {
 
                     tasks.add(". " + "[E][ ] " + item + " (from: " + startDate.format(formatter) + " to: "
                             + endDate.format(formatter) + ")");
-                    output = output + "Got it. I've added this task:\n  " + "[E][ ] " + item + " (from: "
+                    output = "Got it. I've added this task:\n  " + "[E][ ] " + item + " (from: "
                             + startDate.format(formatter) + " to: " + endDate.format(formatter) + ")";
-                    output = output + "Now you have " + tasks.size() + " tasks in the list.";
+                    output = output + "\nNow you have " + tasks.size() + " tasks in the list.";
                     Storage.writeTask(tasks.getList());
                 } catch (StringIndexOutOfBoundsException e) {
                     output = output + "Error: Please enter a description or date for your event to command";
@@ -237,12 +238,12 @@ public class Hirwan {
                     String type = tasks.get(numberint - 1).substring(2, 5);
 
                     tasks.set(numberint - 1, ". " + type + "[X] " + temp);
-                    output = output + "Nice! I've marked this task as done: \n" + "[X] " + temp;
+                    output = "Nice! I've marked this task as done: \n" + "[X] " + temp;
                     Storage.writeTask(tasks.getList());
                 } catch (IndexOutOfBoundsException e) {
-                    output = output + "Error: Please enter a valid index for marking!";
+                    output = "Error: Please enter a valid index for marking!";
                 } catch (NumberFormatException e) {
-                    output = output + "Error: Please enter a numerical index to mark!";
+                    output = "Error: Please enter a numerical index to mark!";
                 }
             } else if (input == 6) {
                 try {
@@ -252,7 +253,7 @@ public class Hirwan {
                     String type = tasks.get(numberInt - 1).substring(2, 5);
 
                     tasks.set(numberInt - 1, ". " + type + "[ ] " + temp);
-                    output = output + "OK, I've marked this task as not done yet: \n" + "[ ] " + temp;
+                    output = "OK, I've marked this task as not done yet: \n" + "[ ] " + temp;
                     Storage.writeTask(tasks.getList());
                 } catch (IndexOutOfBoundsException e) {
                     output = output + "Error: Please enter a valid index for unmarking!";
@@ -262,27 +263,28 @@ public class Hirwan {
             } else if (input == 7) {
                 try {
                     int numberInt = Integer.parseInt(text.substring(7)) - 1;
-                    output = output + "Noted. I've removed this task:\n"
+                    output = "Noted. I've removed this task:\n"
                             + "  " + tasks.get(numberInt).substring(2) + "\n"
                             + "Now you have " + (tasks.size() - 1) + " tasks in the list.";
                     tasks.delete(numberInt);
                     Storage.writeTask(tasks.getList());
                 } catch (IndexOutOfBoundsException e) {
-                    output = output + "Error: Please enter a valid index for deletion!";
+                    output = "Error: Please enter a valid index for deletion!";
                 } catch (NumberFormatException e) {
-                    output = output + "Error: Please enter a numerical index to delete!";
+                    output = "Error: Please enter a numerical index to delete!";
                 }
             } else if (input == 10) {
                 List<Integer> indexes = Hirwan.searchWord(text.substring(5), tasks.getList());
                 Hirwan.printSearchResults(indexes, tasks.getList());
             } else if (input == 9) {
-                output = output + "Error: I am sorry but I do not recognise this command";
+                output = "Error: I am sorry but I do not recognise this command";
             } else {
-                output = output + "Bye. Hope to see you again soon!";
+                output = "Bye. Hope to see you again soon!";
             }
-        } catch (IOException e) {
-            System.out.print(e.getMessage());
+        } catch (Exception e) {
+            output = e.getMessage();
         }
+        tasks.deleteList();
         return output;
     }
 

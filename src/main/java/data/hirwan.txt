@@ -1,0 +1,3 @@
+. [T][X] walk
+. [T][ ] run
+. [D][ ] fjajfaj (by: 12 of January 2024, 1PM)

@@ -37,4 +37,8 @@ public class Tasklist {
     public void set(int Index, String input) {
         tasks.set(Index, input);
     }
+
+    public void deleteList() {
+        tasks.removeAll(tasks);
+    }
 }
