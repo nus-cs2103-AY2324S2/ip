@@ -44,6 +44,7 @@ public class TaskList {
      * @param num Number associated with the task.
      */
     public void deleteTask(int num) {
+        assert num <= tasksCount : "Task number does not exist";
         tasks.remove(num);
         tasksCount--;
     }
@@ -88,6 +89,7 @@ public class TaskList {
      * @param status Status if the task is done or not done.
      */
     public void markTask(int num, boolean status) {
+        assert num <= tasksCount : "Task number does not exist";
         tasks.get(num).mark(status);
     }
 
@@ -117,6 +119,7 @@ public class TaskList {
 
 
     public String getTaskDescription(int num) {
+        assert num <= tasksCount : "Task number does not exist";
         return tasks.get(num).getDescription();
     }
 
