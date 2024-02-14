@@ -92,56 +92,70 @@ public class Parser {
      */
     public String[] parseAdd(String cmd) throws DukeException {
         String[] str = cmd.split(" ", 2);
-        String[] res = new String[0];
-        String desc, from, to;
-        LocalDate by;
 
         if (str[0].equals("todo")) {
-            if (str.length != 2) {
-                throw new DukeException("Missing params for todo!");
-            }
-            desc = str[1].replaceAll("\\s", "");
-            res = new String[] { str[0], desc };
+            return parseTodo(str);
         } else if (str[0].equals("deadline")) {
-            if (str.length != 2) {
-                throw new DukeException("Missing params for deadline!");
-            }
-
-            String[] temp = str[1].split("/by");
-
-            if (temp.length != 2) {
-                throw new DukeException("Missing deadline for deadline!");
-            }
-
-            desc = temp[0].replaceAll("\\s", "");
-            by = validDate(temp[1].replaceAll("\\s", ""));
-            res = new String[] { str[0], desc, by.toString() };
+            return parseDeadline(str);
         } else {
-            if (str.length != 2) {
-                throw new DukeException("Missing params for event!");
-            }
-
-            String[] temp = str[1].split("/from");
-
-            if (temp.length != 2) {
-                throw new DukeException("Missing [from] and [to] for event!");
-            }
-
-            desc = str[1].split("/from")[0].replaceAll("\\s", "");
-
-            String[] temp2 = str[1].split("/from")[1].split("/to");
-
-            if (temp2.length != 2) {
-                throw new DukeException("Missing [to] for event!");
-            }
-
-            from = temp2[0].replaceAll("\\s", "");
-            to = temp2[1].replaceAll("\\s", "");
-
-            res = new String[] { str[0], desc, from, to };
+          return parseEvent(str);
         }
 
-        return res;
+    }
+
+    private String[] parseTodo(String[] str) throws DukeException {
+        String desc;
+        if (str.length != 2) {
+            throw new DukeException("Missing params for todo!");
+        }
+        desc = str[1].replaceAll("\\s", "");
+        return new String[] { str[0], desc };
+    }
+
+    private String[] parseDeadline(String[] str) throws DukeException {
+        String desc;
+        LocalDate by;
+
+        if (str.length != 2) {
+            throw new DukeException("Missing params for deadline!");
+        }
+
+        String[] temp = str[1].split("/by");
+
+        if (temp.length != 2) {
+            throw new DukeException("Missing deadline for deadline!");
+        }
+
+        desc = temp[0].replaceAll("\\s", "");
+        by = validDate(temp[1].replaceAll("\\s", ""));
+        return new String[] { str[0], desc, by.toString() };
+    }
+
+    private String[] parseEvent(String[] str) throws DukeException {
+        String desc, from, to;
+
+        if (str.length != 2) {
+            throw new DukeException("Missing params for event!");
+        }
+
+        String[] temp = str[1].split("/from");
+
+        if (temp.length != 2) {
+            throw new DukeException("Missing [from] and [to] for event!");
+        }
+
+        desc = str[1].split("/from")[0].replaceAll("\\s", "");
+
+        String[] temp2 = str[1].split("/from")[1].split("/to");
+
+        if (temp2.length != 2) {
+            throw new DukeException("Missing [to] for event!");
+        }
+
+        from = temp2[0].replaceAll("\\s", "");
+        to = temp2[1].replaceAll("\\s", "");
+
+        return new String[] { str[0], desc, from, to };
     }
 
     /**
