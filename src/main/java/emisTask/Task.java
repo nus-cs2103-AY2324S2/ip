@@ -1,4 +1,6 @@
-package main.java.emis.task;
+package emisTask;
+
+import emis.Ui;
 
 /**
  * The Task class represents a generic task in the EMIS application.
@@ -36,6 +38,15 @@ public class Task {
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
+    }
+
+    /**
+     * Returns the description of the task.
+     *
+     * @return The description of the task
+     */
+    public String getDescription() {
+        return this.description;
     }
 
     /**

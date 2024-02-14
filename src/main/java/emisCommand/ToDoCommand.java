@@ -1,9 +1,9 @@
-package main.java.emis.command;
+package emisCommand;
 
-import main.java.emis.TaskList;
-import main.java.emis.Ui;
-import main.java.emis.Storage;
-import main.java.emis.task.ToDo;
+import emis.TaskList;
+import emis.Ui;
+import emis.Storage;
+import emisTask.ToDo;
 
 /**
  * The ToDoCommand class represents a command to add a to-do task in the EMIS application.

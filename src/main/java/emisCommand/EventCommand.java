@@ -1,9 +1,9 @@
-package main.java.emis.command;
+package emisCommand;
 
-import main.java.emis.TaskList;
-import main.java.emis.Ui;
-import main.java.emis.Storage;
-import main.java.emis.Event;
+import emis.TaskList;
+import emis.Ui;
+import emis.Storage;
+import emisTask.Event;
 
 /**
  * The EventCommand class represents a command to add an event task in the EMIS application.

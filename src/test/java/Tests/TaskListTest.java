@@ -1,4 +1,4 @@
-package test.java;
+package Tests;
 
 import org.junit.jupiter.api.Test;
 
@@ -7,10 +7,10 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 
-import main.java.emis.exceptions.EmisException;
-import main.java.emis.task.Task;
-import main.java.emis.TaskList;
-import main.java.emis.task.ToDo;
+import emisExceptions.EmisException;
+import emisTask.Task;
+import emis.TaskList;
+import emisTask.ToDo;
 
 /**
  * The TaskListTest class contains JUnit tests for the TaskList class.

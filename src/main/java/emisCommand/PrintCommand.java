@@ -1,8 +1,8 @@
-package main.java.emis.command;
+package emisCommand;
 
-import main.java.emis.TaskList;
-import main.java.emis.Ui;
-import main.java.emis.Storage;
+import emis.TaskList;
+import emis.Ui;
+import emis.Storage;
 
 /**
  * The PrintCommand class represents a command to print the list of tasks in the EMIS application.
