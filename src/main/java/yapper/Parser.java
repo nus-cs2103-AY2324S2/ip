@@ -43,12 +43,13 @@ public class Parser {
         Yapper.Command cmd = Yapper.Command.valueOfCommandName(cmdArg[0]);
         String response = "";
 
-        // invalid command
-        if (cmd == null) {
+        boolean isInvalidCommand = cmd == null;
+        if (isInvalidCommand) {
             throw (new YapperException("What is blud yappin'? Here's the legit commands:\n"
                     + "list, todo, deadline, event, mark, unmark, delete, find, bye"));
         }
 
+        boolean hasNoArguments = cmdArg.length != 2;
         // Commands create a Command class in the future
         switch (cmd) {
         case BYE:
@@ -66,71 +67,79 @@ public class Parser {
             break;
         case FIND:
             // empty find
-            if (cmdArg.length != 2) {
+            if (hasNoArguments) {
                 throw (new YapperException("What is lil bro looking for?"));
             }
 
-            response = mainTasks.find(cmdArg[1]); // can be expanded to change current TaskList to look at found Task List
+            // can be expanded to change current TaskList to look at found Task List
+            response = mainTasks.find(cmdArg[1]);
             break;
         case MARK:
             // Fallthrough
         case UNMARK:
             // Fallthrough
         case DELETE:
-            if (cmdArg.length == 2) {
-                try {
-                    int i = Integer.parseInt(cmdArg[1]);
-
-                    // incorrect index
-                    if (i > mainTasks.listSize()) {
-                        throw (new YapperException("You ain't got that many tasks bruh!"));
-                    } else if (i < 1) { // incorrect index
-                        throw (new YapperException("Start from task 1 lil bro!"));
-                    }
-
-                    // Execute MARK/UNMARK/DELETE
-                    if (cmdArg[0].equals("mark")) {
-                        response = mainTasks.markTask(i);
-                    } else if (cmdArg[0].equals("unmark")) {
-                        response = mainTasks.unmarkTask(i);
-                    } else {
-                        response = mainTasks.deleteTask(i);
-                    }
-                } catch (java.lang.NumberFormatException e) { // non number typed
-                    throw (new YapperException("Ain't no way! We lackin' just numbers after mark/unmark/delete.\n"
-                            + "e.g. unmark 2"));
-                } catch (YapperException e) {
-                    throw (e);
-                }
-            } else { // no arguments
+            if (hasNoArguments) {
                 throw (new YapperException("Ain't no way! Which task in the list we vibin' with?\n"
                         + "e.g. mark/unmark/delete 1"));
             }
+
+            try {
+                int i = Integer.parseInt(cmdArg[1]);
+
+                boolean isIndexTooLarge = i > mainTasks.listSize();
+                boolean isIndexTooSmall = i < 1;
+
+                // incorrect index
+                if (isIndexTooLarge) {
+                    throw (new YapperException("You ain't got that many tasks bruh!\n"));
+                }
+                // incorrect index
+                if (isIndexTooSmall) {
+                    throw (new YapperException("Start from task 1 lil bro!\n"));
+                }
+
+                // Execute MARK/UNMARK/DELETE
+                if (cmdArg[0].equals("mark")) {
+                    response = mainTasks.markTask(i);
+                } else if (cmdArg[0].equals("unmark")) {
+                    response = mainTasks.unmarkTask(i);
+                } else if (cmdArg[0].equals("delete")) {
+                    response = mainTasks.deleteTask(i);
+                } else {
+                    throw new YapperException("Unexpected command fallen through the switch case\n");
+                }
+            } catch (java.lang.NumberFormatException e) { // non number typed
+                throw (new YapperException("Ain't no way! We lackin' just numbers after mark/unmark/delete.\n"
+                        + "e.g. unmark 2"));
+            } catch (YapperException e) {
+                throw (e);
+            }
             break;
         case TODO:
-            if (cmdArg.length != 2) { // no arguments
+            if (hasNoArguments) {
                 throw (new YapperException("Ain't no way! You got caught lackin' the format!\n"
                         + "e.g. todo <task>"));
             }
             response = parseTask(cmdArg[1], Task.ID.TODO);
             break;
         case DEADLINE:
-            if (cmdArg.length != 2) { // no arguments
+            if (hasNoArguments) { // no arguments
                 throw (new YapperException("Ain't no way! You got caught lackin' the format!\n"
-                        + "e.g. deadline <task> /by <date/time>"));
+                        + "e.g. deadline <task> /by <date/time>\n"));
             }
             response = parseTask(cmdArg[1], Task.ID.DEADLINE);
             break;
         case EVENT:
-            if (cmdArg.length != 2) { // no arguments
+            if (hasNoArguments) { // no arguments
                 throw (new YapperException("Ain't no way! You got caught lackin' the format!\n"
-                        + "e.g. event <task> /from <start date/time> /to <start date/time>"));
+                        + "e.g. event <task> /from <start date/time> /to <start date/time>\n"));
             }
             response = parseTask(cmdArg[1], Task.ID.EVENT);
             break;
         default: // Shouldn't reach here, invalid commands should be null
-            throw (new YapperException("What is blud yappin'? Here's the legit commands:"
-                    + "list, todo, deadline, event, mark, unmark, delete, find, bye"));
+            throw (new YapperException("What is blud yappin'? Here's the legit commands:\n"
+                    + "list, todo, deadline, event, mark, unmark, delete, find, bye\n"));
         }
         return response;
     }
@@ -151,7 +160,8 @@ public class Parser {
             break;
         case DEADLINE: {
             String[] descDate = arg.split(" /by ", 2); // [description, by]
-            if (descDate.length != 2) { // incorrect formatting for /by
+            boolean isIncorrectByFormat = descDate.length != 2;
+            if (isIncorrectByFormat) {
                 throw (new YapperException("When you wanna do this task by lil bro?\n"
                         + "type deadline <task> /by <yyyy-mm-dd>\n"
                         + "e.g. deadline hit the griddy by 2024-12-31"));
@@ -171,8 +181,8 @@ public class Parser {
         case EVENT: {
             String[] descDate = arg.split(" /from ", 2); // [description, fromTo]
 
-            // incorrect formatting for /from
-            if (descDate.length != 2) {
+            boolean isIncorrectFromFormat = descDate.length != 2;
+            if (isIncorrectFromFormat) {
                 throw (new YapperException("When does this event start lil bro?\n"
                         + "type event <task> /from <yyyy-mm-dd> /to <yyyy-mm-dd>\n"
                         + "e.g. event party rock /from <yyyy-mm-dd> /to <yyyy-mm-dd>"));
@@ -180,8 +190,8 @@ public class Parser {
 
             String[] fromTo = descDate[1].split(" /to ", 2); // [from , to]
 
-            // incorrect formatting for /to
-            if (fromTo.length != 2) {
+            boolean isIncorrectToFormat = fromTo.length != 2;
+            if (isIncorrectToFormat) {
                 throw (new YapperException("When does this event end lil bro?\n"
                         + "type event <task> /from <yyyy-mm-dd> /to <yyyy-mm-dd>\n"
                         + "e.g. event party rock /from <yyyy-mm-dd> /to <yyyy-mm-dd>"));
@@ -211,12 +221,14 @@ public class Parser {
      * @param data Task list data saved in the local file represented as a String.
      * @throws YapperException Data found in local file is detected to be incorrectly formatted.
      */
-    public void parseData(String data) throws YapperException {
+    public void parseDataToTask(String data) throws YapperException {
         String[] taskData = data.split("" + " / ");
         boolean isDone; // used for creating new Task
+        boolean hasWrongNumberOfArgs;
         switch (taskData[0]) {
         case "T":
-            if (taskData.length != 3) {
+            hasWrongNumberOfArgs = taskData.length != 3;
+            if (hasWrongNumberOfArgs) {
                 throw new YapperException("Error in the save files 1");
             }
 
@@ -231,7 +243,8 @@ public class Parser {
             mainTasks.addTaskNoMessage(new Todo(isDone, taskData[2]));
             break;
         case "D":
-            if (taskData.length != 4) {
+            hasWrongNumberOfArgs = taskData.length != 4;
+            if (hasWrongNumberOfArgs) {
                 throw new YapperException("Error in the save files 3");
             }
 
@@ -252,7 +265,8 @@ public class Parser {
 
             break;
         case "E":
-            if (taskData.length != 5) {
+            hasWrongNumberOfArgs = taskData.length != 5;
+            if (hasWrongNumberOfArgs) {
                 throw new YapperException("Error in the save files 6");
             }
 
@@ -263,6 +277,7 @@ public class Parser {
             } else {
                 throw new YapperException("Error in the save files 7");
             }
+
             try {
                 LocalDate from = LocalDate.parse(taskData[3]);
                 LocalDate to = LocalDate.parse(taskData[3]);
@@ -281,7 +296,7 @@ public class Parser {
      *
      * @return String representation of task list data to be saved to the local file.
      */
-    public String parseToData() {
+    public String parseTaskToData() {
         String data = "";
         for (int i = 0; i < mainTasks.listSize(); i++) {
             Task task = mainTasks.getTask(i);
@@ -303,6 +318,8 @@ public class Parser {
                         task.getDescription(),
                         event.getFrom(),
                         event.getTo());
+            } else {
+                System.out.println("Unaccounted for Task type present");
             }
 
             // add new line after each task except for the last line

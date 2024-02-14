@@ -56,7 +56,7 @@ public abstract class Task {
         isDone = true;
     }
 
-    public void unmark() {
+    public void markAsNotDone() {
         isDone = false;
     }
 

@@ -39,7 +39,7 @@ public class FileManager {
             }
             Scanner scanner = new Scanner(file);
             while (scanner.hasNext()) {
-                parser.parseData(scanner.nextLine());
+                parser.parseDataToTask(scanner.nextLine());
             }
         } catch (IOException e) {
             System.out.println("Error in the IO when creating taskData file");
@@ -54,7 +54,7 @@ public class FileManager {
      */
     public void saveTasks() throws YapperException {
         try (FileWriter fw = new FileWriter("data/taskData.txt")) {
-            fw.write(parser.parseToData());
+            fw.write(parser.parseTaskToData());
         } catch (IOException e) {
             throw (new YapperException("IO Exception when saving data\n"));
         }
