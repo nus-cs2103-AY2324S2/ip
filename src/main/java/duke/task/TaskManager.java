@@ -15,6 +15,7 @@ import duke.parser.DateHandler;
  * Manager class to manage and keep track of all the actions being performed on the task.
  */
 public class TaskManager {
+    public static final LocalTime TIME_DEFAULT = LocalTime.of(0, 0);
     private static final String listingResponse = "Here are the tasks in your list:";
     //Strings for marking and unmarking
     private static final String RESPONSE_MARK = "Nice! I've marked this task as done:";
@@ -52,6 +53,21 @@ public class TaskManager {
      * @throws DukeException Invalid processing of the items.
      */
     public String[] addTask(Actions options, String instruction) throws DukeException {
+
+        Task item = getTask(options, instruction);
+        hasChanged = true;
+        items.add(item);
+
+        String[] ret = new String[3];
+        ret[0] = RESPONSE_ADD;
+        ret[1] = item.toString();
+        ret[2] = numOfTask();
+
+        return ret;
+
+    }
+
+    private static Task getTask(Actions options, String instruction) throws DukeException {
         Task item;
         String description;
         String by;
@@ -67,70 +83,26 @@ public class TaskManager {
             break;
         case DEADLINE:
             Matcher deadlineMatch = deadlineFormat.matcher(instruction);
-            if (!deadlineMatch.find()) {
-                throw new DukeException("GIGABOOOM");
-            }
             description = deadlineMatch.group("description");
-            by = deadlineMatch.group("by").trim();
-            if (description.isBlank()) {
-                throw new DukeException("description");
-            } else if (by.isBlank()) {
-                throw new DukeException("by");
-            }
-            Optional<LocalDate> testDate = DateHandler.checkDate(by);
-            item = testDate
-                    .map(localDate -> new Deadline(description,
-                                                   LocalDateTime.of(localDate,
-                                                                    DateHandler
-                                                                            .checkTime(by)
-                                                                            .orElse(LocalTime.of(0, 0)))))
-                    .orElseGet(() -> new Deadline(description, by));
+            by = deadlineMatch.group("by")
+                              .trim();
+            checkDeadlineValid(description, by, deadlineMatch.find());
+            item = constructDeadline(by, description);
             break;
         case EVENT:
             Matcher eventMatch = eventFormat.matcher(instruction);
-            if (!eventMatch.find()) {
-                System.out.println("reached here");
-                throw new DukeException("GIGABOOOM");
-            }
             description = eventMatch.group("description");
-            by = eventMatch.group("by").trim();
-            from = eventMatch.group("from").trim();
-            if (from.isBlank()) {
-                throw new DukeException("from");
-            } else if (by.isBlank()) {
-                throw new DukeException("by");
-            } else if (description.isBlank()) {
-                throw new DukeException("description");
-            }
-            Optional<LocalDate> testByDate = DateHandler.checkDate(by);
-            Optional<LocalDate> testFromDate = DateHandler.checkDate(from);
-            //This will only check a valid time after checking a valid date if not it will skip and use legacy stuff
-            Optional<LocalDateTime> combineByDate = testByDate.flatMap(byDate -> {
-                LocalTime time = DateHandler.checkTime(by).orElse(LocalTime.of(0, 0));
-                return Optional.of(LocalDateTime.of(byDate, time));
-            });
-            Optional<LocalDateTime> combineFromDate = testFromDate.flatMap(fromDate -> {
-                LocalTime time = DateHandler.checkTime(from).orElse(LocalTime.of(0, 0));
-                return Optional.of(LocalDateTime.of(fromDate, time));
-            });
-            item = combineByDate
-                    .flatMap(byDate -> combineFromDate.flatMap(fromDate -> Optional.of(new Event(description,
-                                                                                                 fromDate,
-                                                                                                 byDate))))
-                    .orElseGet(() -> new Event(description, from, by));
+            by = eventMatch.group("by")
+                           .trim();
+            from = eventMatch.group("from")
+                             .trim();
+            checkEventValid(eventMatch, from, by, description);
+            item = constructEvent(by, from, description);
             break;
         default:
-            throw new DukeException("Invalid");
+            throw new DukeException("invalidError");
         }
-        hasChanged = true;
-        items.add(item);
-        String[] ret = new String[3];
-        ret[0] = RESPONSE_ADD;
-        ret[1] = item.toString();
-        ret[2] = numOfTask();
-
-        return ret;
-
+        return item;
     }
 
     /**
@@ -142,6 +114,56 @@ public class TaskManager {
         return "Now you have " + items.size() + " tasks in the list.";
     }
 
+    private static void checkDeadlineValid(String description, String by, boolean foundPattern) throws DukeException {
+        if (description.isBlank()) {
+            throw new DukeException("descriptionError");
+        } else if (by.isBlank()) {
+            throw new DukeException("byEmptyError");
+        }
+        if (!foundPattern) {
+            throw new DukeException("datelineError");
+        }
+    }
+
+    private static Task constructDeadline(String by, String description) throws DukeException {
+        Optional<LocalDate> testDate = DateHandler.checkDate(by);
+        return testDate.map(localDate -> new Deadline(description, LocalDateTime.of(localDate, getTimeFromString(by))))
+                       .orElseGet(() -> new Deadline(description, by));
+    }
+
+    private static void checkEventValid(Matcher eventMatch, String from, String by, String description)
+            throws DukeException {
+        if (!eventMatch.find()) {
+            throw new DukeException("eventError");
+        }
+        if (from.isBlank()) {
+            throw new DukeException("fromEmptyError");
+        } else if (by.isBlank()) {
+            throw new DukeException("byEmptyError");
+        } else if (description.isBlank()) {
+            throw new DukeException("descriptionError");
+        }
+    }
+
+    private static Task constructEvent(String by, String from, String description) throws DukeException {
+
+        Optional<LocalDate> testByDate = DateHandler.checkDate(by);
+        Optional<LocalDate> testFromDate = DateHandler.checkDate(from);
+        Optional<LocalDateTime> combineByDate =
+                testByDate.flatMap(byDate -> Optional.of(LocalDateTime.of(byDate, getTimeFromString(by))));
+        Optional<LocalDateTime> combineFromDate =
+                testFromDate.flatMap(fromDate -> Optional.of(LocalDateTime.of(fromDate, getTimeFromString(from))));
+        return combineByDate.flatMap(byDate -> combineFromDate.flatMap(fromDate -> Optional.of(new Event(description,
+                                                                                                         fromDate,
+                                                                                                         byDate))))
+                            .orElseGet(() -> new Event(description, from, by));
+    }
+
+    private static LocalTime getTimeFromString(String time) {
+        return DateHandler.checkTime(time)
+                          .orElse(TIME_DEFAULT);
+    }
+
     /**
      * Manages current task in TaskManager.
      *
@@ -151,6 +173,14 @@ public class TaskManager {
      * @throws DukeException Invalid processing of the items.
      */
     public String[] manageTask(Manage act, String instruction) throws DukeException {
+        int id = getId(instruction);
+        Task item = items.get(id);
+        String response = decideManageAction(act, item, id);
+        hasChanged = true;
+        return buildManageResponse(act, response, item);
+    }
+
+    private int getId(String instruction) throws DukeException {
         if (items.isEmpty()) {
             throw new DukeException("empty");
         }
@@ -161,7 +191,10 @@ public class TaskManager {
         if (id < 0 || id >= items.size()) {
             throw new DukeException("outOfRange");
         }
-        Task item = items.get(id);
+        return id;
+    }
+
+    private String decideManageAction(Manage act, Task item, int id) throws DukeException {
         String response = "";
         switch (act) {
         case UNMARK:
@@ -177,23 +210,31 @@ public class TaskManager {
             items.remove(id);
             break;
         default:
-            //This does nothing
-            break;
+            throw new DukeException("manageError");
         }
-        hasChanged = true;
+        return response;
+    }
 
-        if (act.equals(Manage.MARK) || act.equals(Manage.UNMARK)) {
-            String[] ret = new String[2];
+    private String[] buildManageResponse(Manage act, String response, Task item) throws DukeException {
+        String[] ret;
+        switch (act) {
+        case MARK:
+            //fallthrough
+        case UNMARK:
+            ret = new String[2];
             ret[0] = response;
             ret[1] = item.toString();
-            return ret;
-        } else {
-            String[] ret = new String[3];
+            break;
+        case DELETE:
+            ret = new String[3];
             ret[0] = response;
             ret[1] = item.toString();
             ret[2] = numOfTask();
-            return ret;
+            break;
+        default:
+            throw new DukeException("invalidError");
         }
+        return ret;
     }
 
     /**
@@ -213,7 +254,7 @@ public class TaskManager {
     /**
      * Gets all the current items in TaskManager.
      *
-     * @return An ArrayList of String of the all the items.
+     * @return An String array of the all the items.
      */
     public String[] listItems() {
         if (items.isEmpty()) {
@@ -243,10 +284,10 @@ public class TaskManager {
      */
     public String[] findTask(String search) {
         ArrayList<String> foundTask = new ArrayList<>();
-        //StringBuilder foundTask = new StringBuilder();
         int count = 1;
         for (Task item : items) {
-            if (item.toString().contains(search)) {
+            if (item.toString()
+                    .contains(search)) {
                 if (count == 1) {
                     foundTask.add(RESPONSE_FIND);
                 }
