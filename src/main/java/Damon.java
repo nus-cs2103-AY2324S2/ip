@@ -1,7 +1,16 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Damon {
+    private ArrayList<String> storage;
+
+    Damon() {
+        this.storage = new ArrayList<String>();
+    }
+
+
     public static void main(String[] args) {
+        Damon damon = new Damon();
         String logo = " ____\n"
                 + "|  _  \\\n"
                 + "| | | |\n"
@@ -9,17 +18,17 @@ public class Damon {
                 + "|____/ \n";
         System.out.println("Hello from\n" + logo);
 
-        System.out.println("__________________________________________________________\n"
-                + "Hello! Damon is here!\n"
-                + "What can I do for you\n"
-                + "__________________________________________________________\n");
+        damon.storeInput();
+    }
 
-        while (true) {
-            //Solution below adapted from https://stackoverflow.com/a/16252290
-            Scanner scanner = new Scanner(System.in);
+    void echo() {
+        //Solution below adapted from https://stackoverflow.com/a/16252290
+
+        Scanner scanner = new Scanner(System.in);
+
+        while (scanner.hasNextLine()) {
             String inputString = scanner.nextLine();
-
-            if (inputString.equals("exit")) {
+            if (inputString.equals("bye")) {
                 System.out.println("__________________________________________________________\n"
                         + "Bye. Hope to see you again soon!\n"
                         + "__________________________________________________________\n");
@@ -30,4 +39,23 @@ public class Damon {
                     + "__________________________________________________________\n");
         }
     }
+    void storeInput() {
+        //Solution below adapted from https://stackoverflow.com/a/16252290
+        Scanner scanner = new Scanner(System.in);
+
+        while (scanner.hasNextLine()) {
+            String inputString = scanner.nextLine();
+            if (inputString.equals("bye")) {
+                System.out.println("__________________________________________________________\n"
+                        + "Bye. Hope to see you again soon!\n"
+                        + "__________________________________________________________\n");
+                break;
+            }
+            this.storage.add(inputString);
+            System.out.println("__________________________________________________________\n"
+                    + "add: " + inputString + "\n"
+                    + "__________________________________________________________\n");
+        }
+    }
+
 }
