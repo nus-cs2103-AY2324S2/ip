@@ -1,13 +1,24 @@
 package lite.task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
     private String start;
     private String end;
+    private LocalDateTime from;
+    private LocalDateTime to;
+
 
     public Event(String description, String start, String end) {
         super(description);
         this.start = start;
         this.end = end;
+        String startTime = start.split("from ")[1].trim();
+        String endTime = end.split("to ")[1].trim();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        this.from = LocalDateTime.parse(startTime, formatter);
+        this.to = LocalDateTime.parse(endTime, formatter);
     }
 
     /**
@@ -17,17 +28,17 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        String startSplit[] = start.split(" ", 2);
-        String endSplit[] = end.split(" ", 2);
-        return "[E]" + super.toString() + " (" + startSplit[0] + ": " + startSplit[1] + " " +
-                endSplit[0] + ": " + endSplit[1] + ")";
+        return "[E]" + super.toString() + "(from: " + from.getMonth() + " "
+                + from.getDayOfMonth() + " " + from.getYear() + " "
+                + from.getHour() + ":" + from.getMinute() + " to: " +
+                to.getMonth() + " " + to.getDayOfMonth() + " " + to.getYear() + " "
+                + to.getHour() + ":" + from.getMinute() + ")";
     }
-
     /**
      * {@inheritDoc}
      */
     @Override
     public String saveToFile() {
-        return "E!" + super.saveToFile() + "!" + start + "!" + end + "\n";
+        return "E!" + super.saveToFile() + "!" + this.start + "!" + this.end + "\n";
     }
 }

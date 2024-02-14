@@ -1,11 +1,17 @@
 package lite.task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
-    private String due;
+    private LocalDateTime due;
+    private String timeDescription;
 
     public Deadline(String description, String due) {
         super(description);
-        this.due = due;
+        this.timeDescription = due;
+        String time = due.split("by ")[1];
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        this.due = LocalDateTime.parse(time, formatter);
     }
 
     /**
@@ -16,8 +22,10 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        String dueSplit[] = due.split(" ", 2);
-        return "[D]" + super.toString() + " (" + dueSplit[0] + ": " + dueSplit[1] + ")";
+        return "[D]" + super.toString() + "(by: " + due.getMonth() + " "
+                + due.getDayOfMonth() + " " + due.getYear() + " "
+                + due.getHour() + ":" + due.getMinute() + ")";
+
     }
 
     /**
@@ -25,6 +33,6 @@ public class Deadline extends Task {
      */
     @Override
     public String saveToFile() {
-        return "D!" + super.saveToFile() + "!" + due + "\n";
+        return "D!" + super.saveToFile() + "!" + timeDescription + "\n";
     }
 }
