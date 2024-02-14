@@ -1,0 +1,9 @@
+todo Buy groceries
+deadline Submit report /by some-time-later
+event Team meeting /from abc /to xyz
+help
+mark done 1
+mark undone 2
+delete 3
+list
+bye
