@@ -2,6 +2,8 @@ package duke;
 
 import java.time.format.DateTimeParseException;
 
+import javafx.util.Pair;
+
 /**
  * Represent the chatbot class to be used for interaction with the user
  * CS2103T
@@ -16,10 +18,13 @@ public class Duke {
     protected static final int UNMARK_COMMAND = 4;
     protected static final int DELETE_COMMAND = 5;
     protected static final int FIND_COMMAND = 6;
-    protected static final int TASK_COMMAND = 7;
+    protected static final int SNOOZE_COMMAND = 7;
+    protected static final int TASK_COMMAND = 8;
 
     protected static final int STORAGE_ADD_COMMAND = 0;
     protected static final int STORAGE_DELETE_COMMAND = 1;
+    protected static final int STORAGE_SNOOZE_COMMAND = 2;
+
 
     private Ui ui;
     private Storage storage;
@@ -61,6 +66,7 @@ public class Duke {
                 + "View the task list with List/list, or close the chat with Bye/bye!\n"
                 + "Mark/Unmark a task in the list with mark (number) or unmark (number)\n"
                 + "Delete a task in the list with delete (number)\n"
+                + "Snooze a task by 5 minutes with snooze (number)\n"
                 + "Records will be remembered if you close me and reopen me!---\n";
     }
 
@@ -86,7 +92,6 @@ public class Duke {
             //Ui then knows what command to execute, and passes back here for taskList + storage to execute
 
             int[] result = ui.analyseUserInput(echo);
-
             switch (result[0]) {
             case BYE_COMMAND:
                 output = bye();
@@ -109,6 +114,13 @@ public class Duke {
             case FIND_COMMAND:
                 String keywordToFind = ui.analyseFind(echo);
                 output = tasks.findMechanism(keywordToFind);
+                break;
+            case SNOOZE_COMMAND:
+                Pair<String, Task> taskToSnooze = tasks.snoozeMechanism(result[1]);
+                output = taskToSnooze.getKey();
+                if (result[1] <= tasks.getSize() + 1) {
+                    storage.updateFile(taskToSnooze.getValue(), STORAGE_SNOOZE_COMMAND, result[1]);
+                }
                 break;
             case TASK_COMMAND:
                 //tell ui to parse and return task to make

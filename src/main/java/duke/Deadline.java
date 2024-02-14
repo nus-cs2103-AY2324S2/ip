@@ -17,6 +17,7 @@ public class Deadline extends Task {
     private String by;
     private LocalDateTime converted;
 
+    private DateTimeFormatter accepted = DateTimeFormatter.ofPattern(" yyyy-MM-dd HH:mm");
     /**
      * Constructor for a Deadline instance
      *
@@ -25,7 +26,6 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
         super(description);
-        DateTimeFormatter accepted = DateTimeFormatter.ofPattern(" yyyy-MM-dd HH:mm");
         this.by = by;
         this.converted = LocalDateTime.parse(by, accepted);
     }
@@ -50,5 +50,12 @@ public class Deadline extends Task {
     @Override
     public String toString(boolean update) {
         return "D@" + super.toString(update) + "@" + this.by;
+    }
+
+    @Override
+    public String snoozeTask() throws DukeException {
+        converted = converted.plusMinutes(5);
+        by = converted.format(accepted);
+        return super.snoozeTask();
     }
 }

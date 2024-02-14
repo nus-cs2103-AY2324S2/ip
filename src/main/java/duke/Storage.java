@@ -116,7 +116,9 @@ public class Storage {
      */
     public void updateFile(Task taskToUpdate, int command, int lineNum) {
         String taskString = taskToUpdate.toString(true);
-        assert command == 1 || command == 0 : "Invaliid command used";
+        assert command == Duke.STORAGE_ADD_COMMAND
+                || command == Duke.STORAGE_DELETE_COMMAND
+                || command == 2 : "Invaliid command used";
         try {
             if (command == Duke.STORAGE_ADD_COMMAND) {
 
@@ -146,6 +148,26 @@ public class Storage {
                     lineNumCount++;
                 }
 
+                sb.deleteCharAt(sb.lastIndexOf("\n"));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(dataFile));
+                writer.write(sb.toString());
+                writer.close();
+                reader.close();
+            } else if (command == Duke.STORAGE_SNOOZE_COMMAND) {
+                BufferedReader reader = new BufferedReader(new FileReader(dataFile));
+                String line;
+                StringBuilder sb = new StringBuilder();
+                int lineNumCount = 1;
+
+                while ((line = reader.readLine()) != null) {
+                    if ((lineNumCount == lineNum)) {
+                        sb.append(taskString + "\n");
+                    } else {
+                        sb.append(line);
+                        sb.append("\n");
+                    }
+                    lineNumCount++;
+                }
                 sb.deleteCharAt(sb.lastIndexOf("\n"));
                 BufferedWriter writer = new BufferedWriter(new FileWriter(dataFile));
                 writer.write(sb.toString());

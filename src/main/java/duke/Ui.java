@@ -44,6 +44,9 @@ public class Ui {
             results[1] = parser.digOutInt(echo);
         } else if (echo.matches("find [a-zA-Z0-9]*")) {
             results[0] = Duke.FIND_COMMAND;
+        } else if (echo.matches("snooze -?[0-9]*")) {
+            results[0] = Duke.SNOOZE_COMMAND;
+            results[1] = parser.digOutInt(echo);
         } else {
             results[0] = Duke.TASK_COMMAND;
         }

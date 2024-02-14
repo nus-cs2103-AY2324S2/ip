@@ -2,6 +2,7 @@ package duke;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 /**
  * Represent a subclass that stores information and 2 timings/dates to be used with a Chatbot
  * CS2103T
@@ -23,6 +24,9 @@ public class Event extends Task {
     private LocalDateTime convertedFrom;
     private LocalDateTime convertedTo;
 
+    private DateTimeFormatter accepted = DateTimeFormatter.ofPattern(" yyyy-MM-dd HH:mm ");
+    private DateTimeFormatter accepted1 = DateTimeFormatter.ofPattern(" yyyy-MM-dd HH:mm");
+
     /**
      * Constructor for an Event instance
      *
@@ -32,8 +36,6 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to) {
         super(description);
-        DateTimeFormatter accepted = DateTimeFormatter.ofPattern(" yyyy-MM-dd HH:mm ");
-        DateTimeFormatter accepted1 = DateTimeFormatter.ofPattern(" yyyy-MM-dd HH:mm");
         this.from = from;
         this.to = to;
         this.convertedFrom = LocalDateTime.parse(from, accepted);
@@ -61,5 +63,14 @@ public class Event extends Task {
     @Override
     public String toString(boolean update) {
         return "E@" + super.toString(update) + "@" + this.from + "@" + this.to;
+    }
+
+    @Override
+    public String snoozeTask() throws DukeException {
+        convertedFrom = convertedFrom.plusMinutes(5);
+        convertedTo = convertedTo.plusMinutes(5);
+        from = convertedFrom.format(accepted);
+        from = convertedTo.format(accepted1);
+        return super.snoozeTask();
     }
 }

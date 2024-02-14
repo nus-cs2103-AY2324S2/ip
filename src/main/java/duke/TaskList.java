@@ -2,6 +2,8 @@ package duke;
 
 import java.util.ArrayList;
 
+import javafx.util.Pair;
+
 /**
  * Represent the class that contains the task list
  * e.g., it has operations to add/delete tasks in the list
@@ -137,6 +139,25 @@ public class TaskList {
             }
             return sb.toString();
         }
+    }
+
+    /**
+     * Snoozes a Task in the Task Arraylist as requested by the user
+     *
+     * @param num index of Task in taskList to be removed
+     * @return Task that was deleted for storage to settle, String for dialogbox
+     * @throws DukeException when user gives an invalid value
+     */
+    public Pair<String, Task> snoozeMechanism(int num) throws DukeException {
+        String output = "Invalid Snooze";
+
+        if (num <= tasks.size() && num > 0) {
+            output = tasks.get(num - 1).snoozeTask();
+        } else {
+            throw new DukeException("Please snooze a valid task!\n");
+        }
+
+        return new Pair<String, Task>(output, tasks.get(num - 1));
     }
 
     /**

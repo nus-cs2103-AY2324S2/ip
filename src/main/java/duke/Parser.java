@@ -88,8 +88,8 @@ public class Parser {
             assert !isEvent : "An event was not interpreted correctly.";
             assert !isTodo : "A todo was not interpreted correctly.";
 
-            throw new DukeException("Invalid command. Please ensure"
-                    + "delete/mark/unmark commands\n"
+            throw new DukeException("Invalid command. Please ensure "
+                    + "delete/mark/unmark/snooze commands\n"
                     + "only contain numbers after the command.\n"
                     + "Please enter a todo, deadline or event with the relevant details!\n"
                     + "Todo: todo + task ;\n"

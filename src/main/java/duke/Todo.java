@@ -31,4 +31,9 @@ public class Todo extends Task {
     public String toString(boolean update) {
         return "T@" + super.toString(update);
     }
+
+    @Override
+    public String snoozeTask() throws DukeException {
+        throw new DukeException("This task has no time element to snooze!");
+    }
 }

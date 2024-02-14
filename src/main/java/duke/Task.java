@@ -101,4 +101,16 @@ public class Task {
                     + "\n";
         }
     }
+
+    /**
+     * Snoozes a valid Task in the Task array
+     *
+     * @return the description of the Task after being snoozed
+     * @throws DukeException when task cannot be snoozed
+     */
+    public String snoozeTask() throws DukeException {
+        return "Very well. This task is now snoozed.\n"
+                + this.toString()
+                + "\n";
+    }
 }
