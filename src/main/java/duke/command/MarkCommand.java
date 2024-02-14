@@ -38,7 +38,7 @@ public class MarkCommand extends Command {
         int oneItem = zeroItem + 1;
         boolean isOutsideLowerLimit = oneItem < 1;
         boolean isOutsideUpperLimit = oneItem > tasks.getSize();
-        if (isOutsideLowerLimit || isOutsideUpperLimit || tasks.get(oneItem - 1) == null) {
+        if (isOutsideLowerLimit || isOutsideUpperLimit) {
             throw new DukeException("Error! Task number '" + oneItem + "' does not exist.");
         }
         tasks.markAsDone(zeroItem);
