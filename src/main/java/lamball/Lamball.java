@@ -17,6 +17,8 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import lamball.command.Command;
+import lamball.memo.Memo;
+import lamball.memo.MemoList;
 import lamball.ui.DialogBox;
 
 /**
@@ -35,7 +37,9 @@ public class Lamball extends Application {
     private Button sendButton;
     private Scene scene;
     private TaskList tasks;
+    private MemoList memos;
     private Ui ui;
+    private String lastDoneTask;
 
 
     /**
@@ -43,7 +47,8 @@ public class Lamball extends Application {
      *
      */
     public Lamball() {
-        tasks = new TaskList();
+        tasks = new TaskList(this);
+        memos = new MemoList(this);
         ui = new Ui();
     }
 
@@ -53,6 +58,10 @@ public class Lamball extends Application {
         return guiText;
     }
 
+    public void addToMemList(Memo mem, boolean isInit) {
+        this.memos.addMemo(mem, isInit);
+    }
+
     /**
      * Parse for initial list of commands
      *
@@ -60,7 +69,7 @@ public class Lamball extends Application {
      * @throws LamballParseException if invalid command is provided.
      */
     public void initParse(String msg) throws LamballParseException {
-        Command parsed = Parser.parse(msg, tasks, true);
+        Command parsed = Parser.parse(msg, tasks, memos, true);
         parsed.run();
     }
 
@@ -80,12 +89,12 @@ public class Lamball extends Application {
 
             // Echo the user's command
             try {
-                Command comd = Parser.parse(userInput, tasks, false);
+                Command comd = Parser.parse(userInput, tasks, memos, false);
                 isActive = comd.run();
                 if (!isActive) {
                     ui.goodbyeMessage();
                 } else {
-                    ui.displayAction(tasks.getLastDoneTask());
+                    ui.displayAction(this.lastDoneTask);
                 }
             } catch (LamballParseException e) {
                 ui.displayError(e);
@@ -198,18 +207,27 @@ public class Lamball extends Application {
     private String getResponse(String input) {
         String response = "";
         try {
-            Command comd = Parser.parse(input, tasks, false);
+            Command comd = Parser.parse(input, tasks, memos, false);
             boolean isActive = comd.run();
             if (!isActive) {
                 response = ui.goodbyeMessage();
             } else {
-                response = ui.displayAction(tasks.getLastDoneTask());
+                response = ui.displayAction(this.lastDoneTask);
             }
         } catch (LamballParseException e) {
             response = ui.displayError(e);
         }
         assert response != "" : "response should not be empty";
         return response;
+    }
+
+    /**
+     * Updates last done task (either in memo or tasklist)
+     *
+     * @param task Formatted string of last done task.
+     */
+    public void updateLastDoneTask(String task) {
+        this.lastDoneTask = task;
     }
 }
 

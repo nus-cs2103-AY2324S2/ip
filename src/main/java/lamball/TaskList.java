@@ -18,21 +18,20 @@ import lamball.task.ToDo;
  */
 public class TaskList {
     protected ArrayList<Task> tasks;
-
-    private String lastDoneTask;
+    private Lamball lamb;
 
 
     /**
      * Constructor for TaskList
      *
      */
-    public TaskList() {
+    public TaskList(Lamball lamb) {
+        this.lamb = lamb;
         this.tasks = new ArrayList<>();
-        this.lastDoneTask = "";
     }
 
     private void updateLastDoneTask(String toUpdate) {
-        this.lastDoneTask = toUpdate;
+        lamb.updateLastDoneTask(toUpdate);
     }
 
     /**
@@ -44,14 +43,6 @@ public class TaskList {
         return this.tasks.size();
     }
 
-    /**
-     * Returns last done task.
-     *
-     * @return last done task in String format.
-     */
-    public String getLastDoneTask() {
-        return this.lastDoneTask;
-    }
 
     private void printList(ArrayList<Task> lst) {
         String listStr = "Here aaaaare the taaaasks in your list:";
