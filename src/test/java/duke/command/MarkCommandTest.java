@@ -49,7 +49,7 @@ public class MarkCommandTest {
 
         // Create MarkCommand and execute, assert DukeException is thrown
         MarkCommand markCommand = new MarkCommand(invalidIndex);
-        DukeException dukeException = assertThrows(DukeException.class,(
+        DukeException dukeException = assertThrows(DukeException.class, (
                 ) -> markCommand.execute(task, ui, storage));
 
         // Verify that the exception message is as expected
