@@ -44,7 +44,7 @@ public class Ui {
         int tasksCount = TaskList.tasksCount;
         if (added) {
             String taskDescription = tasklist.getTaskDescription(tasksCount - 1);
-            return String.format("Gotcha. I've added this task: \n    %s\nNow you have %d tasks in the list.",
+            return String.format("Gotcha. I've added this task: \n%s\nNow you have %d tasks in the list.",
                     taskDescription, tasksCount);
         } else {
             return "I couldn't add your task due to an error";
@@ -61,7 +61,7 @@ public class Ui {
         int num = Integer.parseInt(input) - 1;
         tasklist.markTask(num, status);
         String taskDescription = tasklist.getTaskDescription(num);
-        return String.format("%s\n    %s",
+        return String.format("%s\n%s",
                 status ? "Good job on finishing this task: " : "Aw OK, I've marked this task as not done yet: ",
                 taskDescription);
     }
@@ -75,7 +75,7 @@ public class Ui {
         int num = Integer.parseInt(input) - 1;
         String deletedTask = tasklist.getTaskDescription(num);
         tasklist.deleteTask(num);
-        return String.format("Sure, I've removed this task:\n    %s\nNow you have %d tasks in the list.",
+        return String.format("Sure, I've removed this task:\n%s\nNow you have %d tasks in the list.",
                 deletedTask, TaskList.tasksCount);
     }
 

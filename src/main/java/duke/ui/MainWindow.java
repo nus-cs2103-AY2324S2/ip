@@ -1,5 +1,6 @@
-package duke.core;
+package duke.ui;
 
+import duke.core.Chatbot;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;

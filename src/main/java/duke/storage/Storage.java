@@ -66,6 +66,7 @@ public class Storage {
      */
     public static Task fileStringToTask(String fileString) {
         String[] parts = fileString.split(" \\| ");
+        assert parts.length > 0 : "Incorrect file format";
         if (parts.length < 3) {
             ChatbotException.getError(ChatbotException.ErrorType.TASK_CORRUPT);
         }
@@ -112,6 +113,9 @@ public class Storage {
      * @return Task object.
      */
     public static Task createTask(String command, String description) {
+        assert command.startsWith("todo") || command.startsWith("deadline")
+                || command.startsWith("event") : "Incorrect command entered";
+
         if (command.startsWith("todo")) {
             return new ToDo(description);
 

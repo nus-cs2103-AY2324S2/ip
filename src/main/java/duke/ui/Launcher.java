@@ -1,5 +1,6 @@
-package duke.core;
+package duke.ui;
 
+import duke.core.Duke;
 import javafx.application.Application;
 
 /**
