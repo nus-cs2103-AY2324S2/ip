@@ -1,5 +1,6 @@
 package tasklist;
 
+import java.util.Collections;
 import java.util.List;
 
 import tasks.Task;
@@ -30,6 +31,7 @@ public class ListTask {
             int deadlineListIdx = 0;
             List<Task> deadlineList = taskList.get(deadlineListIdx);
             response.append("Deadline: ").append("\n");
+            Collections.sort(deadlineList);
             for (Task task : deadlineList) {
                 response.append(pos++).append(". ").append(task).append("\n");
             }
@@ -38,6 +40,7 @@ public class ListTask {
             int eventListIdx = 1;
             List<Task> eventList = taskList.get(eventListIdx);
             response.append("Events: ").append("\n");
+            Collections.sort(eventList);
             for (Task task : eventList) {
                 response.append(pos++).append(". ").append(task).append("\n");
             }
@@ -46,6 +49,7 @@ public class ListTask {
             int todoListIdx = 2;
             List<Task> todoList = taskList.get(todoListIdx);
             response.append("Todo: ").append("\n");
+            Collections.sort(todoList);
             for (Task task : todoList) {
                 response.append(pos++).append(". ").append(task).append("\n");
             }
