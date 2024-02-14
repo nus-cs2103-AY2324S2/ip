@@ -55,14 +55,11 @@ public class Ui {
             return Printer.printActionAttach(Action.LIST, tasks);
         case FIND:
             return find(words, tasks);
-//        case BYE:
-//            return true;
         case INVALID:
             return WisException.actionExceptionHandler(Action.INVALID);
         default:
             throw new IllegalArgumentException("Illegal action argument provided.\n");
         }
-//        return false;
     }
 
     private String addTodo(TaskList tasks) {

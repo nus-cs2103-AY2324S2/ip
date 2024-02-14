@@ -91,19 +91,13 @@ public class Printer {
      */
     public static String printActionAttach(Action action) {
         StringBuilder sb = new StringBuilder();
-        switch (action) {
-        case BYE:
-            sb.append(DECORATOR);
-            sb.append(Printer.println("Bye. Hope to see you again soon!"));
-            sb.append(DECORATOR);
-            return sb.toString();
-        case GREET:
+        if (action == Action.GREET) {
             sb.append(DECORATOR);
             sb.append(Printer.println("Hello! I'm Wis."));
             sb.append(Printer.println("What can I do for you?"));
             sb.append(DECORATOR);
             return sb.toString();
-        default:
+        } else {
             throw new IllegalArgumentException("Illegal action argument provided.\n");
         }
     }

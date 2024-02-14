@@ -26,9 +26,6 @@ public class InputParser extends Parser {
         if (input.equals("list")) {
             return Action.LIST;
         }
-        if (input.equals("bye")) {
-            return Action.BYE;
-        }
         if (words[0].equals("mark")) {
             return Action.MARK;
         }

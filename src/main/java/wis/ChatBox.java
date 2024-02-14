@@ -26,6 +26,7 @@ public class ChatBox {
     public String launch() {
         try {
             this.tasks = new TaskList(Storage.loadTasks());
+            Printer.printActionAttach(Action.GREET);
             return "";
         } catch (IOException e) {
             return WisException.loadFileExceptionHandler();

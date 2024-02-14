@@ -2,7 +2,7 @@ package wis;
 
 public enum Action {
     NONE,
-    GREET, BYE,
+    GREET,
     LIST, FIND,
     MARK, UNMARK,
     ADD_TODO, ADD_DEADLINE, ADD_EVENT,

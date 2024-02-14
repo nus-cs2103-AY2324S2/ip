@@ -60,7 +60,7 @@ public class WisException {
             sb.append(Printer.DECORATOR);
             sb.append(Printer.println("Input format unsupported."));
             sb.append(Printer.println("Please begin your input with one of the following keywords:"));
-            sb.append(Printer.println("todo, deadline, event, list, mark, unmark, bye"));
+            sb.append(Printer.println("todo, deadline, event, list, mark, unmark"));
             sb.append(Printer.DECORATOR);
             return sb.toString();
         default:
