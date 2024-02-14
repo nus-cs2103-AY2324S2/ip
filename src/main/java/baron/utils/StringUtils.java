@@ -5,6 +5,7 @@ package baron.utils;
  * user input. Helps with catching common format exceptions.
  */
 public class StringUtils {
+    public static final String SEPARATOR = " | ";
     public static String getCommand(String input) {
         return input.split(" ")[0];
     }

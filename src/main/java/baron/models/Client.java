@@ -1,5 +1,7 @@
 package baron.models;
 
+import baron.utils.StringUtils;
+
 /**
  * Contains basic information about clients.
  */
@@ -70,5 +72,11 @@ public class Client extends BaseModel {
 
     public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
+    }
+
+    @Override
+    public String toString() {
+        String div = StringUtils.SEPARATOR;
+        return this.studentNumber + div + this.email + div + this.name + div + this.contactNumber;
     }
 }

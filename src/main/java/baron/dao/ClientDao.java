@@ -41,7 +41,6 @@ public class ClientDao extends BaseDao {
 
     @Override
     public Client fromInputString(String input) {
-        System.out.println("input " + input);
         String studentNumber = getStudentNumber(input);
         String email = getEmail(input);
         String name = getName(input);
@@ -80,7 +79,7 @@ public class ClientDao extends BaseDao {
         return StringUtils.getValueOfCommand(
                 input,
                 Argument.EMAIL.getArg(),
-                Argument.CONTACT_NUMBER.getArg());
+                Argument.NAME.getArg());
     }
     private String getName(String input) {
         return StringUtils.getValueOfCommand(
