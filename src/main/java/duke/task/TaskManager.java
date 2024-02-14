@@ -4,9 +4,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import duke.DukeException;
 import duke.parser.DateHandler;
@@ -15,7 +17,7 @@ import duke.parser.DateHandler;
  * Manager class to manage and keep track of all the actions being performed on the task.
  */
 public class TaskManager {
-    private static final String listingResponse = "Here are the tasks in your list:";
+    private static final String RESPONSE_LISTING = "Here are the tasks in your list:";
     //Strings for marking and unmarking
     private static final String RESPONSE_MARK = "Nice! I've marked this task as done:";
     private static final String RESPONSE_UMARK = "OK, I've marked this task as not done yet:";
@@ -79,13 +81,11 @@ public class TaskManager {
                 throw new DukeException("by");
             }
             Optional<LocalDate> testDate = DateHandler.checkDate(by);
-            item = testDate
-                    .map(localDate -> new Deadline(description,
-                                                   LocalDateTime.of(localDate,
-                                                                    DateHandler
-                                                                            .checkTime(by)
-                                                                            .orElse(LocalTime.of(0, 0)))))
-                    .orElseGet(() -> new Deadline(description, by));
+            item =
+                    testDate.map(localDate -> new Deadline(description, LocalDateTime.of(localDate,
+                                                                                         DateHandler.checkTime(by)
+                                                                                                               .orElse(LocalTime.of(0, 0)))))
+                            .orElseGet(() -> new Deadline(description, by));
             break;
         case EVENT:
             Matcher eventMatch = eventFormat.matcher(instruction);
@@ -114,11 +114,9 @@ public class TaskManager {
                 LocalTime time = DateHandler.checkTime(from).orElse(LocalTime.of(0, 0));
                 return Optional.of(LocalDateTime.of(fromDate, time));
             });
-            item = combineByDate
-                    .flatMap(byDate -> combineFromDate.flatMap(fromDate -> Optional.of(new Event(description,
-                                                                                                 fromDate,
-                                                                                                 byDate))))
-                    .orElseGet(() -> new Event(description, from, by));
+            item =
+                    combineByDate.flatMap(byDate -> combineFromDate.flatMap(fromDate -> Optional.of(new Event(description, fromDate, byDate))))
+                                 .orElseGet(() -> new Event(description, from, by));
             break;
         default:
             throw new DukeException("Invalid");
@@ -219,10 +217,10 @@ public class TaskManager {
      */
     public String[] listItems() {
         if (items.isEmpty()) {
-            return new String[]{"Your list is empty!!!!Add something! "};
+            return new String[]{"Your list is empty!!!!Add something! " };
         }
         String[] ret = new String[items.size()];
-        ret[0] = listingResponse;
+        ret[0] = RESPONSE_LISTING;
         for (int i = 0; i < items.size(); i++) {
             ret[i] = i + 1 + "." + items.get(i);
         }
@@ -244,22 +242,17 @@ public class TaskManager {
      * @return A list of items containing the search results.
      */
     public String[] findTask(String search) {
-        ArrayList<String> foundTask = new ArrayList<>();
-        //StringBuilder foundTask = new StringBuilder();
-        int count = 1;
-        for (Task item : items) {
-            if (item.toString().contains(search)) {
-                if (count == 1) {
-                    foundTask.add(RESPONSE_FIND);
-                }
-                foundTask.add(count + ". " + item);
-                count += 1;
-            }
+        List<String> foundTask = items.stream().filter(item -> item.toString().contains(search))
+                                      .map(item -> items.indexOf(item) + 1 + ". " + item).collect(Collectors.toList());
+
+        if (!foundTask.isEmpty()) {
+            foundTask.add(0, RESPONSE_LISTING);
+            return foundTask.toArray(String[]::new);
+
+        } else {
+            return new String[]{"Sorry I couldn't find anything that fits that search :(" };
+
         }
-        if (foundTask.isEmpty()) {
-            return new String[]{"Sorry I couldn't find anything that fits that search :("};
-        }
-        return foundTask.toArray(new String[0]);
     }
 
 
