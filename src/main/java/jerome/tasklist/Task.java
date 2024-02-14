@@ -6,18 +6,38 @@ package jerome.tasklist;
 public class Task {
     private String description;
     private boolean isDone;
+    private Priority priority;
 
     /**
      * Constructs a Task object with the given description and completion status.
      *
      * @param description the description of the task.
-     * @param isDone the completion status of the task.
+     * @param isDone      the completion status of the task.
      */
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
+        // Default sets priority to medium
+        this.priority = Priority.MEDIUM;
     }
 
+    /**
+     * Retrieves the priority of the task.
+     *
+     * @return the priority of the task.
+     */
+    public Priority getPriority() {
+        return this.priority;
+    }
+
+    /**
+     * Sets the priority of the task to the specified priority level.
+     *
+     * @param priority the priority level to be set.
+     */
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
 
     /**
      * Returns the status icon of the task.
@@ -45,7 +65,6 @@ public class Task {
      * Sets the completion status of the task to the true / false.
      *
      * @param status the completion status of the task (true indicates completed, false indicates incomplete).
-     *
      */
     public void setDone(boolean status) {
         this.isDone = status;
@@ -70,7 +89,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.getDescription();
+        return "[" + this.getStatusIcon() + "] " + this.getDescription() + " [Priority: " + this.priority + "]";
     }
 
     /**
@@ -79,7 +98,7 @@ public class Task {
      * @return String interpretation of Task object.
      */
     public String toStorageString() {
-        return "T | " + this.getStatus() + " | " + this.description;
+        return "T | " + this.getStatus() + " | " + this.description + " | " + this.priority;
     }
 
 }
