@@ -33,10 +33,12 @@ public class Ui {
 
     public void printTasks(ArrayList<Task> tasks) {
         response = "Sensei! Here are the tasks in your list:\n";
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i) == null) break;
             Task task = tasks.get(i);
             response += i + 1 + "." + task.toString() + "\n";
+            System.out.println(response);
         }
     }
 
@@ -44,6 +46,7 @@ public class Ui {
         response = "Arona has added this task to sensei's task list!: \n"
                 + tasks.get(tasks.size() - 1).toString() + "\n"
                 + "Arona has counted " + tasks.size() + " tasks in the list!";
+        System.out.println(response);
     }
 
     public void taskDeleted(Task task, int size) {
