@@ -1,3 +1,5 @@
+import BalkanBot.BalkanBotException;
+
 import java.io.*;
 
 public class Storage {

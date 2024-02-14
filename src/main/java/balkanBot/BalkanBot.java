@@ -2,7 +2,6 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class BalkanBot {
-    private static final String line = "------------------------------------------";
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
