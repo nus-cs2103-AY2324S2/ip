@@ -143,7 +143,7 @@ public class TaskList implements Serializable {
      * Finds tasks in the list that match the given keyword.
      *
      * @param keyword The keyword to search for.
-     * @return A string representation of matching tasks.
+     * @return A string representation of matching tasks, even if only matching partially.
      * @throws TheAdvisorException If no matching tasks are found.
      */
     public String findItem(String keyword) throws TheAdvisorException {
