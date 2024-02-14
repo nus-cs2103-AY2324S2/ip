@@ -5,26 +5,11 @@ import duke.task.TaskList;
 import duke.util.FileManager;
 import duke.util.Parser;
 import duke.util.Ui;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 
 
 public class Duke{
-    //GUI stuff
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
-
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
     private String filePath = "./data/saveData.txt";
     private FileManager storage;  // This is the storage class just named duke.util.FileManager
     private TaskList tasks;
@@ -63,5 +48,4 @@ public class Duke{
             throw new RuntimeException(e);
         }
     }
-
 }

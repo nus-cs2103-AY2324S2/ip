@@ -37,6 +37,7 @@ public class Parser {
      * @throws TaskException If the request format is invalid or lacks necessary information.
      */
     public Task identify(String request) throws TaskException {
+        assert request != null && !request.isEmpty() : "request invalid";
         if (request.startsWith("todo")) {
             String[] reqParts = request.split(" ");
             return commander.createTodoCommand(reqParts);
