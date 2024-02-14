@@ -25,14 +25,18 @@ public class EventCommand extends Command {
      * @return
      */
     @Override
-    public String execute() {
+    public String executeCommand() {
         Event eventTask = new Event(name, from.trim(), to.trim());
         taskList.add(eventTask);
-        Ui.printVLine();
-        System.out.println("Got it! Event has been added:\n" + eventTask + "\nNow you have "
-                + taskList.getList().size() + " tasks in the list.");
-        Ui.printVLine();
-        return "Got it! Event has been added:\n" + eventTask + "\nNow you have "
+        String addedEventMessage = "Got it! Event has been added:\n" + eventTask + "\nNow you have "
                 + taskList.getList().size() + " tasks in the list.";
+        printMessage(addedEventMessage);
+        return addedEventMessage;
+    }
+
+    private static void printMessage(String addedEventMessage) {
+        Ui.printVLine();
+        System.out.println(addedEventMessage);
+        Ui.printVLine();
     }
 }

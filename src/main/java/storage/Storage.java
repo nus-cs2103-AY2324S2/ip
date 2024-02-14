@@ -12,29 +12,23 @@ import java.nio.file.Paths;
 import java.nio.file.Files;
 import java.util.List;
 
-
 public class Storage {
 
-    public static class InvalidFilePathException extends DukeException {
-        public InvalidFilePathException(String message) {
-            super(message);
-        }
-    }
-
-    public static class InvalidFormatException extends DukeException {
-        public InvalidFormatException(String message) {
-            super(message);
-        }
-    }
-
     public static final String FILEPATH = "data/data.txt";
-
     public final Path path;
 
-    public Storage() throws InvalidFilePathException {
+    /**
+     * Constructor for Storage.
+     * @throws InvalidFileException Throws the exception when file is not txt document.
+     */
+    public Storage() throws InvalidFileException {
         this.path = Paths.get(FILEPATH);
+        checkIfTextFile();
+    }
+
+    private void checkIfTextFile() throws InvalidFileException {
         if (!path.toString().endsWith(".txt")) {
-            throw new InvalidFilePathException("Storage must end with '.txt'");
+            throw new InvalidFileException("Storage must end with '.txt'");
         }
     }
 
@@ -65,21 +59,15 @@ public class Storage {
                 } else {
                     if (input[0].equals("T")) {
                         Task t = new Task(input[2]);
-                        if (input[1].equals("1")) {
-                            t.setDone();
-                        }
+                        checkAndSetTaskStatus(input, t);
                         tasks.add(t);
                     } else if (input[0].equals("D")) {
                         Deadline d = new Deadline(input[2],input[3]);
-                        if (input[1].equals("1")) {
-                            d.setDone();
-                        }
+                        checkAndSetTaskStatus(input, d);
                         tasks.add(d);
                     } else {
                         Event e = new Event(input[2], input[3], input[4]);
-                        if (input[1].equals("1")) {
-                            e.setDone();
-                        }
+                        checkAndSetTaskStatus(input, e);
                         tasks.add(e);
                     }
                 }
@@ -90,23 +78,37 @@ public class Storage {
         }
     }
 
+    private static void checkAndSetTaskStatus(String[] input, Task t) {
+        if (input[1].equals("1")) {
+            t.setDone();
+        }
+    }
+
     public void saveFile(TaskList taskLs) throws IOException {
         List<Task> tasks = taskLs.getList();
         try {
             FileWriter writer = new FileWriter("./data/data.txt");
-//            BufferedWriter bw = new BufferedWriter(new FileWriter(path.toString()));
             for (Task t : tasks) {
                 writer.write(t.encode()+"\n");
-                //writer.newLine();
             }
-//            bw.flush();
-//            bw.close();
             writer.close();
         } catch (FileNotFoundException e) { //file not found
            Files.createDirectories(Paths.get("data")); //create file
            saveFile(taskLs); //run function again
         } catch (IOException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    public static class InvalidFileException extends DukeException {
+        public InvalidFileException(String message) {
+            super(message);
+        }
+    }
+
+    public static class InvalidFormatException extends DukeException {
+        public InvalidFormatException(String message) {
+            super(message);
         }
     }
 

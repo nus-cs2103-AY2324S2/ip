@@ -21,19 +21,22 @@ public class MarkCommand extends Command {
      * @return
      */
     @Override
-    public String execute() {
+    public String executeCommand() {
         try {
-            Task toMark = taskList.get(index - 1);
-            Ui.printVLine();
-            System.out.println("Acknowledged!!\n" + toMark.setDone());
-            Ui.printVLine();
-            return "Acknowledged!!\n" + toMark.setDone();
+            Task toMark = taskList.get(index - 1).setDone();
+            String markedMessage = "Acknowledged!!\n" + toMark;
+            printMessage(markedMessage);
+            return markedMessage;
         } catch (IndexOutOfBoundsException e) {
             String errorMessage = "Oppss...I can't seem to find the task you're looking for. Type 'list' to see the the tasks that you have!";
-            Ui.printVLine();
-            System.out.println(errorMessage);
-            Ui.printVLine();
+            printMessage(errorMessage);
             return errorMessage;
         }
+    }
+
+    private static void printMessage(String markedMessage) {
+        Ui.printVLine();
+        System.out.println(markedMessage);
+        Ui.printVLine();
     }
 }

@@ -63,8 +63,9 @@ public class Task {
      *
      */
     public String encode() {
-        String s = "T|" + (isDone ? 1 : 0) + "|" + task;
-        return s;
+        String taskType = "T|";
+        String taskStatus = (isDone ? 1 : 0) + "|";
+        return taskType + taskStatus + task;
     }
 
     @Override
@@ -87,6 +88,8 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "[T][" +(isDone ? "X" : " ") + "] " + task;
+        String taskType = "[T][";
+        String taskStatus = (isDone ? "X" : " ") + "] ";
+        return taskType + taskStatus + task;
     }
 }

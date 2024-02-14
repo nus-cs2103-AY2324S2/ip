@@ -20,19 +20,22 @@ public class UnmarkCommand extends Command {
      * @return
      */
     @Override
-    public String execute() {
+    public String executeCommand() {
         try {
-            Task toMark = taskList.get(index - 1);
-            Ui.printVLine();
-            System.out.println("Acknowledged!\n" + toMark.setUndone());
-            Ui.printVLine();
-            return "Acknowledged!\n" + toMark.setUndone();
+            Task toMark = taskList.get(index - 1).setUndone();
+            String unmarkedMessage = "Acknowledged!\n" + toMark;
+            printMessage(unmarkedMessage);
+            return unmarkedMessage;
         } catch (IndexOutOfBoundsException e) {
             String errorMessage = "Oppss...I can't seem to find the task you're looking for. Type 'list' to see the the tasks that you have!";
-            Ui.printVLine();
-            System.out.println(errorMessage);
-            Ui.printVLine();
+            printMessage(errorMessage);
             return errorMessage;
         }
+    }
+
+    private static void printMessage(String unmarkedMessage) {
+        Ui.printVLine();
+        System.out.println(unmarkedMessage);
+        Ui.printVLine();
     }
 }

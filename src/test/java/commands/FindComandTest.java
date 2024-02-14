@@ -37,7 +37,7 @@ public class FindComandTest {
         String input = "book";
         Command command = new FindCommand(input);
         command.setData(tasks);
-        command.execute();
+        command.executeCommand();
         assertEquals("Here are the list of tasks that matches your keyword: [book]\r\n" +
                         "1. [D][ ] return book(by: tomorrow)\r\n" +
                         "2. [T][ ] read book",
@@ -48,7 +48,7 @@ public class FindComandTest {
         input = "exams";
         command = new FindCommand(input);
         command.setData(tasks);
-        command.execute();
+        command.executeCommand();
         assertEquals("Here are the list of tasks that matches your keyword: [exams]",
                 outputStreamCaptor.toString().trim());
     }

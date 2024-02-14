@@ -20,18 +20,22 @@ public class FindCommand extends Command {
      * @return
      */
     @Override
-    public String execute() {
+    public String executeCommand() {
         int count = 1;
         String result = "Here are the list of tasks that matches your keyword: [" + keyword + "]\n";
-        System.out.println("Here are the list of tasks that matches your keyword: [" + keyword + "]");
+        printMessage(result);
         for (Task t : taskList.getList()) {
             if (t.getTask().contains(keyword)) {
-                System.out.println(count + ". " + t);
+                printMessage(count + ". " + t);
                 result += count + ". " + t + "\n";
                 count++;
             }
         }
 
         return result;
+    }
+
+    private static void printMessage(String result) {
+        System.out.print(result);
     }
 }

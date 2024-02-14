@@ -15,7 +15,7 @@ public class ByeCommand extends  Command {
     public static final String COMMAND = "bye";
 
     @Override
-    public String execute() throws IOException, DukeException {
+    public String executeCommand() throws IOException, DukeException {
         Storage storage = new Storage();
         storage.saveFile(taskList);
 

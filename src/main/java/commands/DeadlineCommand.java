@@ -23,14 +23,19 @@ public class DeadlineCommand extends Command {
      * @return
      */
     @Override
-    public String execute() {
+    public String executeCommand() {
         Deadline deadline = new Deadline(name, by.trim());
         taskList.add(deadline);
-        Ui.printVLine();
-        System.out.println("Got it! Deadline has been added:\n" + deadline + "\nNow you have "
-                + taskList.getList().size() + " tasks in the list.");
-        Ui.printVLine();
-        return "Got it! Deadline has been added:\n" + deadline + "\nNow you have "
+        String addedTaskMessage = "Got it! Deadline has been added:\n" + deadline + "\nNow you have "
                 + taskList.getList().size() + " tasks in the list.";
+        printMessage(addedTaskMessage);
+        return addedTaskMessage;
+    }
+
+    private static void printMessage(String addedTaskMessage) {
+        Ui.printVLine();
+        System.out.println(addedTaskMessage);
+        Ui.printVLine();
     }
 }
+

@@ -30,7 +30,7 @@ public class TodoCommandTest {
         String input = "read book";
         TodoCommand command = new TodoCommand(input);
         command.setData(taskLs);
-        command.execute();
+        command.executeCommand();
 
         assertEquals(size+1, taskLs.getList().size());
         size = taskLs.getList().size();
@@ -48,7 +48,7 @@ public class TodoCommandTest {
             String input = "";
             TodoCommand command = new TodoCommand(input);
             command.setData(taskLs);
-            command.execute();
+            command.executeCommand();
         } catch (DukeException e) {
             assertEquals("Hey! You've just entered an unnamed task... Try to give a description/name of your task :)",
                     e.getMessage());
