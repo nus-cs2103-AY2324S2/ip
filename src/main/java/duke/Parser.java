@@ -1,8 +1,10 @@
 package duke;
 
+import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -137,10 +139,15 @@ public class Parser {
                 } catch (DukeException d) {
                     return d.toString();
                 }
+            } else {
+                InstructionType instr = InstructionType.valueOf(userInput.split(" ")[0].toUpperCase());
+                ArrayList<InstructionType> instrArr = new ArrayList<>();
+                Collections.addAll(instrArr, InstructionType.values());
+                assert instrArr.contains(instr) : "Invalid instruction";
+                return "Sorry, I don't understand. Please try again.";
             }
         } catch (DukeException d) {
             return d.toString();
         }
-        return "Sorry, I don't understand. Please try again.";
     }
 }
