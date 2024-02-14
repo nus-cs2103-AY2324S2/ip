@@ -4,6 +4,8 @@ import static me.ruibin.leto.ui.Ui.letoSpeak;
 
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import me.ruibin.leto.tasklist.Task;
 import me.ruibin.leto.tasklist.TaskList;
@@ -27,14 +29,13 @@ public class FindCommand implements Function<String, Result> {
             return r;
         }
         String keyword = parts[1];
-        List<Task> tasks = TaskList.getTasks();
+        Stream<Task> taskStream = TaskList.getTasks().stream();
         StringBuilder outputListMessage = new StringBuilder("Tasks matching \"" + keyword + "\":\n");
-        int index = 1;
-        for (Task t: tasks) {
-            if (t.toCsvString().split(",")[2].contains(keyword)) {
-                outputListMessage.append(index).append(". ").append(t).append("\n");
-                index++;
-            }
+        List<Task> filteredTasks = taskStream.filter((task) ->
+                task.toCsvString().split(",")[2].contains(keyword)).collect(Collectors.toList());
+        for (int index = 0; index < filteredTasks.size(); index++) {
+            outputListMessage.append(index + 1).append(". ").append(filteredTasks.get(index)).append("\n");
+            index++;
         }
         r.updateMessage(letoSpeak(outputListMessage.toString()));
         return r;
