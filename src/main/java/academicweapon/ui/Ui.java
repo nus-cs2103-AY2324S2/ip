@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
  */
 public class Ui {
     private static final String LOADING_ERROR = "Error loading file. \n";
+    private static final String BYE_MESSAGE = "Bye. Hope to see you again soon!\n";
     /**
      * Displays a welcome message when the application starts.
      */
@@ -126,7 +127,7 @@ public class Ui {
     public String showBye() {
         StringBuilder sb = new StringBuilder();
         System.out.println("Bye. Hope to see you again soon!");
-        sb.append("Bye. Hope to see you again soon!\n");
+        sb.append(BYE_MESSAGE);
         return sb.toString();
     }
 }
