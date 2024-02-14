@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import jerome.exception.MalformedUserInputException;
 import jerome.tasklist.Deadline;
 import jerome.tasklist.Event;
+import jerome.tasklist.Priority;
 import jerome.tasklist.Task;
 import jerome.tasklist.Todo;
 
@@ -121,7 +122,6 @@ public class DataStorage {
 
         try {
             this.appendReadTasksIntoList(tasksList);
-
         } catch (FileNotFoundException e) {
             System.out.println("The file was not found.");
         } catch (IOException e) {
@@ -168,27 +168,28 @@ public class DataStorage {
 
     private static Event getEventTaskFromDatabase(int length, String[] splitTask) throws MalformedUserInputException {
         // then it is an event
-        if (length != 5) {
+        if (length != 6) {
             throw new MalformedUserInputException("Your database is corrupted.");
         }
-        return new Event(splitTask[1], splitTask[3], splitTask[4], Boolean.valueOf(splitTask[2]));
+        return new Event(splitTask[1], splitTask[3], splitTask[4],
+                Boolean.valueOf(splitTask[2]), Priority.valueOf(splitTask[5]));
     }
 
     private static Deadline getDeadlineTaskFromDatabase(int length, String[] splitTask)
             throws MalformedUserInputException {
         // then it is a deadline
-        if (length != 4) {
+        if (length != 5) {
             throw new MalformedUserInputException("Your database is corrupted.");
         }
-        return new Deadline(splitTask[1], splitTask[3], Boolean.valueOf(splitTask[2]));
+        return new Deadline(splitTask[1], splitTask[3], Boolean.valueOf(splitTask[2]), Priority.valueOf(splitTask[4]));
     }
 
     private static Todo getTodoTaskFromDatabase(int length, String[] splitTask) throws MalformedUserInputException {
         // then it is a task
-        if (length != 3) {
+        if (length != 4) {
             throw new MalformedUserInputException("Your database is corrupted.");
         }
-        return new Todo(splitTask[1], Boolean.valueOf(splitTask[2]));
+        return new Todo(splitTask[1], Boolean.valueOf(splitTask[2]), Priority.valueOf(splitTask[3]));
     }
 
 
@@ -223,7 +224,14 @@ public class DataStorage {
         return this.taskCount;
     }
 
-    private void rebuildStorage() {
+    /**
+     * Rebuilds the storage file by iterating through all the tasks in the task list
+     * and adding them to the storage file again.
+     *
+     * Uses the addTaskToTextFile method to add a task to the storage file.
+     *
+     */
+    public void rebuildStorage() {
         // TODO: might not be a very good idea to rebuild the entire database.
         for (int i = 0; i < this.taskCount; i++) {
             // i != 0 means that refresh the whole file.

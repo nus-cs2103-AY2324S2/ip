@@ -20,9 +20,9 @@ import org.junit.jupiter.api.Test;
 import jerome.exception.MalformedUserInputException;
 import jerome.tasklist.Deadline;
 import jerome.tasklist.Event;
+import jerome.tasklist.Priority;
 import jerome.tasklist.Task;
 import jerome.tasklist.Todo;
-
 
 /**
  * Tests the functionality of the {@code DataStorage} class.
@@ -33,9 +33,9 @@ import jerome.tasklist.Todo;
  */
 public class DataStorageTest {
     // Represents the String that the Tests format of the database.
-    private static final String TODO_DATABASE_FORMAT = "T | %s | %s";
-    private static final String DEADLINE_DATABASE_FORMAT = "D | %s | %s | %s";
-    private static final String EVENT_DATABASE_FORMAT = "E | %s | %s | %s | %s";
+    private static final String TODO_DATABASE_FORMAT = "T | %s | %s | %s";
+    private static final String DEADLINE_DATABASE_FORMAT = "D | %s | %s | %s | %s";
+    private static final String EVENT_DATABASE_FORMAT = "E | %s | %s | %s | %s | %s";
 
     // Represents the random activities and valid timestamps used for testing.
     private static final String[] activityNames = {"Running", "Swimming", "Cycling", "Hiking", "Skiing"};
@@ -174,10 +174,11 @@ public class DataStorageTest {
     public void dataStorage_task_correctlyStored() {
         String taskName = "Sample Task";
         boolean isDone = true;
+        Priority priority = Priority.LOW;
 
-        Todo sampleTask = new Todo(taskName, isDone);
+        Todo sampleTask = new Todo(taskName, isDone, priority);
 
-        String databaseEntry = String.format(TODO_DATABASE_FORMAT, taskName, isDone);
+        String databaseEntry = String.format(TODO_DATABASE_FORMAT, taskName, isDone, priority);
         dataStorage.addTaskToTextFile(sampleTask);
         int currentLineCount = this.getLineCount();
         assertEquals(this.getLine(currentLineCount), databaseEntry);
@@ -194,10 +195,12 @@ public class DataStorageTest {
         String taskName = "Sample Task";
         String deadline = "2024-01-02";
         boolean isDone = true;
+        Priority priority = Priority.HIGH;
 
-        Deadline sampleTask = new Deadline(taskName, deadline, isDone);
 
-        String databaseEntry = String.format(DEADLINE_DATABASE_FORMAT, taskName, isDone, deadline);
+        Deadline sampleTask = new Deadline(taskName, deadline, isDone, priority);
+
+        String databaseEntry = String.format(DEADLINE_DATABASE_FORMAT, taskName, isDone, deadline, priority);
         dataStorage.addTaskToTextFile(sampleTask);
         int currentLineCount = this.getLineCount();
         assertEquals(this.getLine(currentLineCount), databaseEntry);
@@ -245,10 +248,11 @@ public class DataStorageTest {
         String startTime = "2024-01-02";
         String endTime = "2024-01-02";
         boolean isDone = true;
+        Priority priority = Priority.MEDIUM;
 
         Event sampleTask = new Event(taskName, startTime, endTime, isDone);
 
-        String databaseEntry = String.format(EVENT_DATABASE_FORMAT, taskName, isDone, startTime, endTime);
+        String databaseEntry = String.format(EVENT_DATABASE_FORMAT, taskName, isDone, startTime, endTime, priority);
         dataStorage.addTaskToTextFile(sampleTask);
         int currentLineCount = this.getLineCount();
         assertEquals(this.getLine(currentLineCount), databaseEntry);

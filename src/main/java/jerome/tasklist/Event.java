@@ -27,6 +27,23 @@ public class Event extends Task {
     }
 
     /**
+     * Initializes a new Event task with the given description, start time, end time, priority and completion status.
+     *
+     * @param description the description of the Event task.
+     * @param startTime the start time of the Event task in the format "yyyy-MM-dd".
+     * @param endTime the end time of the Event task in the format "yyyy-MM-dd".
+     * @param isDone the completion status of the Event task.
+     * @param priority    the priority level of the task.
+     * @throws MalformedUserInputException if the user input is dirty.
+     */
+    public Event(String description, String startTime, String endTime, boolean isDone, Priority priority)
+            throws MalformedUserInputException {
+        super(description, isDone);
+        this.startTime = new DateTimeHandler(startTime);
+        this.endTime = new DateTimeHandler(endTime);
+    }
+
+    /**
      * Returns a string representation of the Event object.
      * @return a string representation of the Event object.
      */
@@ -42,7 +59,8 @@ public class Event extends Task {
     @Override
     public String toStorageString() {
         return "E | " + this.getDescription() + " | " + super.getStatus() + " | "
-                + this.startTime.toStorageString() + " | " + this.endTime.toStorageString();
+                + this.startTime.toStorageString() + " | " + this.endTime.toStorageString()
+                + " | " + this.getPriority();
     }
 
 
