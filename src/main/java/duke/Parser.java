@@ -12,6 +12,8 @@ import duke.commands.CommandList;
 import duke.commands.CommandMark;
 import duke.commands.CommandToDo;
 import duke.commands.CommandUnmark;
+import duke.commands.CommandSort;
+
 import duke.exceptions.DukeCeption;
 import duke.commands.CommandFind;
 import duke.tasks.TaskList;
@@ -21,7 +23,7 @@ import duke.tasks.TaskList;
  */
 public class Parser {
 
-    enum CommandType {LIST, BYE, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, FIND};
+    enum CommandType {LIST, BYE, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, FIND, SORT};
 
     private Ui ui;
     private TaskList taskList;
@@ -43,14 +45,14 @@ public class Parser {
      * splits the user command and description
      */
     public void readUserInput(String userInput) {
-        //String userInput = scanner.nextLine();
+        System.out.println(userInput);
         String[] userInputSplit = userInput.split(" ", 2);
         ArrayList<String> userInputList = new ArrayList<>(Arrays.asList(userInputSplit));
         userInputList.add("");
 
         assert userInputList.size() >= 2: "There should be a user input here";
 
-        String userCommand = userInputList.get(0).toLowerCase();
+        String userCommand = userInputList.get(0);
         String description = userInputList.get(1);
         parseUserInput(userCommand, description);
     }
@@ -92,6 +94,9 @@ public class Parser {
                     break;
                 case FIND:
                     command = new CommandFind(taskList, ui);
+                    break;
+                case SORT:
+                    command = new CommandSort(taskList, ui);
                     break;
                 default: // find
                     throw new DukeCeption("Sorry I don't recognize that command :/");

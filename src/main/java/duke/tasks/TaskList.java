@@ -1,6 +1,7 @@
 package duke.tasks;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import duke.exceptions.DukeCeption;
 import duke.exceptions.IncorrectFormatException;
@@ -73,6 +74,14 @@ public class TaskList {
             int taskNumber = Integer.parseInt(number) - 1;
             list.remove(taskNumber);
             return task;
+    }
+
+    /**
+     * sorts the list by the comparator
+     * @param taskComparator Comparator for task
+     */
+    public void sort(Comparator<Task> taskComparator) {
+        list.sort(taskComparator);
     }
 
     /**
