@@ -67,22 +67,7 @@ public class DatabaseHandler {
             FileWriter fw = new FileWriter(db);
             for (int i = 0; i < tasks.getLength(); i++) {
                 Task task = tasks.getTask(i);
-                switch (tasks.getTask(i).getType()) {
-                case "D":
-                    Deadline d = (Deadline) task;
-                    fw.write(d.saveFormat());
-                    break;
-                case "E":
-                    Event e = (Event) task;
-                    fw.write(e.saveFormat());
-                    break;
-                case "T":
-                    Todo t = (Todo) task;
-                    fw.write(t.saveFormat());
-                    break;
-                default:
-                    break;
-                }
+                fw.write(task.saveFormat());
                 fw.write("\n");
             }
             fw.close();
@@ -143,8 +128,6 @@ public class DatabaseHandler {
             System.out.println(e.getMessage());
         }
         return list;
-
-
     }
 
 

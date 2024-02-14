@@ -42,6 +42,7 @@ public class Deadline extends Task {
      *
      * @return The save string.
      */
+    @Override
     public String saveFormat() {
         return this.getType() + " | " + (this.getStatus() ? "1" : "0")
             + " | " + this.getDescription()
