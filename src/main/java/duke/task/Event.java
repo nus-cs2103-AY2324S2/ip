@@ -22,14 +22,6 @@ public class Event extends Task {
     }
 
     /**
-     * Returns the String that specifies the Event task
-     * @return Event category.
-     */
-    public String isEvent() {
-        return "[E]";
-    }
-
-    /**
      * Returns the time of the Event task specified by user.
      *
      * @return Time/Date Event task is happening.
@@ -54,7 +46,7 @@ public class Event extends Task {
      */
     @Override
     public String add() {
-            return "    " + this.isEvent() + this.marked() + " "
+            return "    " + this.getCat() + this.marked() + " "
                     + this.getTask() + this.getEvent();
     }
 
@@ -68,7 +60,7 @@ public class Event extends Task {
     public void writeToFile(File filePath) throws IOException {
         try {
             FileWriter fw = new FileWriter(filePath.getPath(), true);
-            fw.write (this.isEvent() + this.marked() + " "
+            fw.write (this.getCat() + this.marked() + " "
                     + this.getTask() + this.getEvent() + "\n");
             fw.close();
         } catch (IOException e) {
