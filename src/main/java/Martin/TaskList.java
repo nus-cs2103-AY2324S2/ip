@@ -13,27 +13,32 @@ public class TaskList {
         return this.tasks;
     }
 
-    public void add(Task task) {
+    public String add(Task task) {
         tasks.add(task);
+        return "task added: " + task.toString() + "\n";
     }
 
     public Task remove(int index) {
         return tasks.remove(index);
     }
 
-    public void markAsDone(int index) {
+    public String markAsDone(int index) {
         tasks.get(index).markAsDone();
+        return tasks.get(index).toString();
     }
 
-    public void unmarkAsDone(int index) {
+    public String unmarkAsDone(int index) {
         tasks.get(index).unmarkAsDone();
+        return tasks.get(index).toString();
     }
 
-    public void printList() {
+    public String printList() {
         // 1-indexed todolist
+        String list = "";
         for (int i = 1; i < tasks.size(); i++) {
-            System.out.println(i + "." + tasks.get(i));
+            list += (i + "." + tasks.get(i) + "\n");
         }
+        return list;
     }
 
     public ArrayList<Task> find(String keyword) {
