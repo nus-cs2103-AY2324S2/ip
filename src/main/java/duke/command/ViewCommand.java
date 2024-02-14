@@ -9,21 +9,21 @@ import java.time.LocalDate;
 /**
  * Represents a command to display tasks from the task list that happen on a given date.
  */
-public class OnCommand extends Command {
+public class ViewCommand extends Command {
 
     private LocalDate targetDate;
 
     /**
-     * Constructs an OnCommand with the given target date.
+     * Constructs a ViewCommand with the given target date.
      *
      * @param targetDate Target date for which the tasks from the task list will be displayed.
      */
-    public OnCommand(LocalDate targetDate) {
+    public ViewCommand(LocalDate targetDate) {
         this.targetDate = targetDate;
     }
 
     /**
-     * Executes the OnCommand by displaying tasks from
+     * Executes the ViewCommand by displaying tasks from
      * the task list that happen on a given date using Ui.
      *
      * @param tasks TaskList that contains the task list.

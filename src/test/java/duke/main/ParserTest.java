@@ -5,7 +5,7 @@ import duke.command.EventCommand;
 import duke.command.ExitCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
-import duke.command.OnCommand;
+import duke.command.ViewCommand;
 import duke.command.ToDoCommand;
 import duke.command.UnMarkCommand;
 
@@ -24,8 +24,8 @@ public class ParserTest {
         assertTrue(Parser.parse("bye") instanceof ExitCommand, "exit parser passed");
         assertTrue(Parser.parse("list") instanceof ListCommand, "list parser passed");
         assertTrue(Parser.parse("mark 1") instanceof MarkCommand, "mark parser passed");
-        assertTrue(Parser.parse("on Oct 15 2019") instanceof OnCommand, "on parser passed");
-        assertTrue(Parser.parse("on Oct 17 2019") instanceof OnCommand, "on parser passed");
+        assertTrue(Parser.parse("view Oct 15 2019") instanceof ViewCommand, "view parser passed");
+        assertTrue(Parser.parse("view Oct 17 2019") instanceof ViewCommand, "view parser passed");
         assertTrue(Parser.parse("todo go to school") instanceof ToDoCommand, "todo parser passed");
         assertTrue(Parser.parse("unmark 20") instanceof UnMarkCommand, "unmark parser passed");
     }

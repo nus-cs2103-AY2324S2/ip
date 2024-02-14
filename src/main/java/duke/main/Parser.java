@@ -6,7 +6,7 @@ import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.MarkCommand;
 import duke.command.UnMarkCommand;
-import duke.command.OnCommand;
+import duke.command.ViewCommand;
 import duke.command.ExitCommand;
 import duke.command.ListCommand;
 import duke.command.FindCommand;
@@ -47,11 +47,11 @@ public class Parser {
         } else if(userInput.startsWith("delete")) {
             int num = parseTaskNumber(userInput, "delete");
             return new DeleteCommand(num);
-        } else if (userInput.startsWith("on")) {
-            String dateInput = userInput.replace("on", "").trim();
-            processEmptyDescription(dateInput, "on");
+        } else if (userInput.startsWith("view")) {
+            String dateInput = userInput.replace("view", "").trim();
+            processEmptyDescription(dateInput, "view");
             LocalDate targetDate = parseOnDateTime(dateInput);
-            return new OnCommand(targetDate);
+            return new ViewCommand(targetDate);
         } else if (userInput.startsWith("find")) {
             String findWord = userInput.replace("find", "").trim();
             processEmptyDescription(findWord, "find");
