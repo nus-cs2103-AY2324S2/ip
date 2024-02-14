@@ -2,6 +2,8 @@ package duke.task;
 
 import duke.util.TimeManager;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents a deadline task in duke.Duke chat-bot.
  * A deadline task has an end time in addition to the properties inherited from Task.
@@ -50,5 +52,36 @@ public class Deadline extends Task {
     @Override
     public String getRawTime(){
         return this.end;
+    }
+
+    @Override
+    public void snooze() {
+        try {
+            LocalDateTime newTime = TimeManager.convertTime(this.end);
+            newTime = newTime.plusDays(1);
+            this.end = TimeManager.parseTime(String.valueOf(newTime));
+        } catch (TaskException e) {
+            this.end = "Day after " + this.end;
+        }
+    }
+    @Override
+    public void postpone(int days) {
+        try {
+            LocalDateTime newTime = TimeManager.convertTime(this.end);
+            newTime = newTime.plusDays(days);
+            this.end = TimeManager.parseTime(String.valueOf(newTime));
+        } catch (TaskException e) {
+            this.end = "Day after " + this.end;
+        }
+    }
+
+    @Override
+    public void reschedule(String end){
+        try {
+            LocalDateTime newTime = TimeManager.convertTime(end);
+            this.end = TimeManager.parseTime(String.valueOf(newTime));
+        } catch (TaskException e) {
+            this.end = end;
+        }
     }
 }

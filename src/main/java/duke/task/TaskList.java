@@ -43,7 +43,7 @@ public class TaskList {
      * @param index The 1-based index of the {@code Task} to be removed.
      */
     public void deleteTask(int index){
-        taskList.remove(index - 1);
+        taskList.remove(index);
     }
 
     /**

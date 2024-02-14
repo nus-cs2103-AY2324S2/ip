@@ -81,8 +81,22 @@ public class Parser {
                 throw new TaskException("What do you want me to find? Please specify");
             }
             return commander.findTaskCommand(reqList);
+        } else if (current.startsWith("snooze")) {
+            String[] marking = current.split(" ");
+            int position = Integer.parseInt(marking[1]) - 1;
+            return commander.snoozeCommand(position);
+        } else if (current.startsWith("postpone")) {
+            String[] marking = current.split(" ");
+            int position = Integer.parseInt(marking[1]) - 1;
+            int days = Integer.parseInt(marking[2]);
+            return commander.postponeCommand(position, days);
+        } else if (current.startsWith("reschedule")) {
+            String[] marking = current.split(" ");
+            return commander.rescheduleCommand(marking);
         } else {
-            return ui.showError("failed to read input");
+            Task curr = identify(current);
+            tasks.addTask(curr);
+            return ui.addTask(curr, tasks);
         }
     }
 }

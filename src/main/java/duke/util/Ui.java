@@ -57,6 +57,7 @@ public class Ui {
         Task currTask = list.getTask(index);
         String currStatus = currTask.getStatus();
         list.deleteTask(index);
+
         assert list.size() == initialSize - 1 : "tasks size should decrease by 1";
 
         total.add( "Noted. I've removed this task:");
@@ -94,6 +95,26 @@ public class Ui {
         ArrayList<String> list = tasks.find(keyword);
         total.add(first);
         total.addAll(list);
+        return total;
+    }
+
+    public ArrayList<String> snooze(Task task) {
+        ArrayList<String> total = new ArrayList<>();
+        String first = "This task has been delayed by a day:";
+        total.add( "  " + task.getStatus());
+        return total;
+    }
+
+    public ArrayList<String> postpone(Task task, int days) {
+        ArrayList<String> total = new ArrayList<>();
+        String first = "This task has been delayed by " + Integer.toString(days) + " days:";
+        total.add( "  " + task.getStatus());
+        return total;
+    }
+    public ArrayList<String> reschedule(Task task) {
+        ArrayList<String> total = new ArrayList<>();
+        String first = "This task has been rescheduled:";
+        total.add( "  " + task.getStatus());
         return total;
     }
 }

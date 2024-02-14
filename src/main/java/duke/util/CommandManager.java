@@ -96,4 +96,57 @@ public class CommandManager {
         Event current = new Event(desc, start, end);
         return current;
     }
+
+    public ArrayList<String> snoozeCommand(int index) throws TaskException{
+        Task curr = tasks.getTask(index);
+        if (curr instanceof Todo) {
+            ArrayList<String> errorList = new ArrayList<String>(Arrays.asList("Todo task cannot be snoozed"));
+            return errorList;
+        }
+        curr.snooze();
+        return ui.snooze(curr);
+    }
+    public ArrayList<String> postponeCommand(int index, int days) throws TaskException{
+        Task curr = tasks.getTask(index);
+        if (curr instanceof Todo) {
+            ArrayList<String> errorList = new ArrayList<String>(Arrays.asList("Todo task cannot be snoozed"));
+            return errorList;
+        }
+        curr.postpone(days);
+        return ui.postpone(curr, days);
+    }
+    public ArrayList<String> rescheduleCommand(String[] reqParts) throws TaskException{
+        int position;
+        try {
+            position = Integer.parseInt(reqParts[0]);
+        } catch (NumberFormatException e) {
+            return ui.showError("Please reschedule a valid task from the list");
+        }
+        Task curr = tasks.getTask(position);
+        if (curr instanceof Todo){
+            return ui.showError("Todo cannot be rescheduled");
+        }
+        if (curr instanceof Event) {
+            if (!Arrays.asList(reqParts).contains("/from") && !Arrays.asList(reqParts).contains("/to")){
+                throw new TaskException("Please specify the new event timeframe");
+            } else if (!Arrays.asList(reqParts).contains("/from")){
+                throw new TaskException("Please specify when the new start time.");
+            } else if (!Arrays.asList(reqParts).contains("/to")){
+                throw new TaskException("Please specify when the new end time.");
+            }
+
+            int fromIndex = finder("/from", reqParts);
+            int toIndex = finder("/to", reqParts);
+
+            String start = String.join(" ", Arrays.copyOfRange(reqParts, fromIndex + 1, toIndex));
+            String end = String.join(" ", Arrays.copyOfRange(reqParts, toIndex + 1, reqParts.length));
+
+            curr.reschedule(start, end);
+            return ui.reschedule(curr);
+        }
+
+        String end = String.join(" ", Arrays.copyOfRange(reqParts, 1, reqParts.length));
+        curr.reschedule(end);
+        return ui.reschedule(curr);
+    }
 }

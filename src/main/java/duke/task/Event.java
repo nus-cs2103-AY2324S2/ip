@@ -2,6 +2,8 @@ package duke.task;
 
 import duke.util.TimeManager;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents an event task in duke.Duke chat-bot.
  * An event task has both a start and an end time in addition to the properties inherited from Task.
@@ -52,5 +54,26 @@ public class Event extends Task {
     @Override
     public String getRawTime(){
         return this.start + " to: " + this.end;
+    }
+
+    @Override
+    public void snooze() {
+        try {
+            LocalDateTime newTime = TimeManager.convertTime(this.end);
+            newTime = newTime.plusDays(1);
+            this.end = TimeManager.parseTime(String.valueOf(newTime));
+        } catch (TaskException e) {
+            this.end = "Day after " + this.end;
+        }
+    }
+
+    @Override
+    public void postpone(int days) {
+        try {
+            LocalDateTime currTime = TimeManager.convertTime(this.end);
+            this.end = TimeManager.addDays(currTime, days);
+        } catch (TaskException e) {
+            this.end = "Day after " + this.end;
+        }
     }
 }

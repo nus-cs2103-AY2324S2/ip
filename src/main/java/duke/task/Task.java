@@ -99,5 +99,15 @@ public class Task {
             return this.getType() + "[ ] " + this.getName() + " " + this.getTime();
         }
     }
+
+    public void snooze(){
+    }
+
+    public void postpone(int days){
+    }
+    public void reschedule(String end){
+    }
+    public void reschedule(String start, String end){
+    }
 }
 

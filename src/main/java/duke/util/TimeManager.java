@@ -1,5 +1,7 @@
 package duke.util;
 
+import duke.task.TaskException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -28,6 +30,7 @@ public class TimeManager {
                 DateTimeFormatter.ofPattern("M/d/yyyy hh:mm a"),
                 DateTimeFormatter.ofPattern("dd MMMM yyyy, h:mm a")
         );
+
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy, h:mm a");
 
         String timeResult = input;
@@ -43,5 +46,31 @@ public class TimeManager {
         }
 
         return timeResult;
+    }
+
+    public static LocalDateTime convertTime(String input) throws TaskException{
+        List<DateTimeFormatter> formatters = Arrays.asList(
+                DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"),
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"),
+                DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"),
+                DateTimeFormatter.ofPattern("M/d/yyyy hh:mm a"),
+                DateTimeFormatter.ofPattern("dd MMMM yyyy, h:mm a")
+        );
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy, h:mm a");
+
+        for (DateTimeFormatter formatter : formatters) {
+            try {
+                LocalDateTime currTime = LocalDateTime.parse(input, formatter);
+                return currTime;
+            } catch (DateTimeParseException e) {
+                continue;
+            }
+        }
+        throw new TaskException("Cannot convert time");
+    }
+
+    public static String addDays(LocalDateTime currTime, int days) {
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy, h:mm a");
+        return currTime.format(outputFormatter);
     }
 }
