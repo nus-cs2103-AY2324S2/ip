@@ -1,0 +1,6 @@
+todo something
+deadline something    /from now /to then
+event something    /from now    /to then
+todo something
+deadline something     /from now /to then
+event something     /from now     /to then
