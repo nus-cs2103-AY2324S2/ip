@@ -1,6 +1,4 @@
 public class TodoTask extends Task {
-    private String type;
-
     /**
      * Constructor for TodoTask object.
      *
