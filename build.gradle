@@ -28,14 +28,24 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("duke.Duke")
+    mainClassName = 'duke.Duke'
 }
 
 shadowJar {
     archiveBaseName = "duke"
     archiveClassifier = null
+    archiveFileName = "duke.jar"
     dependsOn("distZip", "distTar")
+    manifest {
+        attributes 'Main-Class': 'duke.Duke'
+    }
+    from('src/main/resources') {
+        include '*'
+    }
 }
+
+
 
 run{
     standardInput = System.in

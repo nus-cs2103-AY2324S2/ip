@@ -1,11 +1,12 @@
 package duke.mainUtils;
+import duke.exceptions.StorageException;
 import duke.fileUtils.*;
 
 public class Ui {
     private String[] userInput;
     public Ui() {
     }
-    public final void displayStart() {
+    public final void displayStart() throws StorageException {
         displayLine();
         displayLogo();
         System.out.println("      Hello! I'm RahhBot. RAHHHH!!\n");
@@ -13,15 +14,15 @@ public class Ui {
         displayLine();
     }
 
-    public final void displayLine() {
+    public final void displayLine() throws StorageException {
         FileUtil.displayFile(FilePaths.HORIZONTAL_LINE_PATH);
     }
 
-    public final void displayLogo() {
+    public final void displayLogo() throws StorageException {
         FileUtil.displayFile(FilePaths.LOGO_PATH);
     }
 
-    public final void displayErrorGraphic(String errorMessage) {
+    public final void displayErrorGraphic(String errorMessage) throws StorageException {
         FileUtil.displayFile(FilePaths.ERROR_GRAPHIC_PATH);
         System.out.println(errorMessage);
     }
