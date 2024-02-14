@@ -9,16 +9,31 @@ import java.io.FileNotFoundException;
 import java.io.File;
 import java.io.FileWriter;
 
-// Storage class, deals with loading tasks and saving tasks
+/** The Storage class deals with loading tasks from and saving tasks to a file in the EMIS application. */
 public class Storage {
+
+    /** The file path of the storage file. */
     private String filePath;
+
+    /** The list of tasks loaded from the storage file. */
     private ArrayList<Task> al;
 
+    /**
+     * Constructs a new Storage object with the specified file path.
+     * 
+     * @param filePath The file path of the storage file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         this.al = new ArrayList<>();
     }
 
+    /**
+     * Loads tasks from the storage file.
+     * 
+     * @return The list of tasks loaded from the storage file.
+     * @throws EmisException If an error occurs during loading tasks from the storage file.
+     */
     public ArrayList<Task> load() throws EmisException {
         try {
             Scanner sT = new Scanner(new File(this.filePath));
@@ -72,6 +87,9 @@ public class Storage {
         return this.al;
     }
 
+    /**
+     * Updates the storage file with the current list of tasks.
+     */
     public void updateStorage() {
         try {
             FileWriter fw = new FileWriter(this.filePath);

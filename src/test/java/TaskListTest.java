@@ -12,7 +12,16 @@ import main.java.emis.task.Task;
 import main.java.emis.TaskList;
 import main.java.emis.task.ToDo;
 
+/**
+ * The TaskListTest class contains JUnit tests for the TaskList class.
+ */
 public class TaskListTest {
+    
+    /**
+     * Tests the markAsDone method of the TaskList class when an exception is thrown.
+     *
+     * @throws EmisException if an error occurs during the test.
+     */
     @Test
     public void markAsDone_exceptionThrown() throws EmisException {
         ArrayList<Task> testTasks = new ArrayList<>();
@@ -28,6 +37,9 @@ public class TaskListTest {
         }
     }
 
+    /**
+     * Tests the deleteTask method of the TaskList class when an exception is thrown.
+     */
     @Test
     public void deleteTask_exceptionThrown() {
         ArrayList<Task> testTasks = new ArrayList<>();

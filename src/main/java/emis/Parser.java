@@ -3,8 +3,19 @@ import main.java.emis.exceptions.EmisException;
 import main.java.emis.command.*;
 import main.java.emis.task.*;
 
-// Parser class, deals with making sense of the user command
+/**
+ * The Parser class deals with making sense of user commands in the EMIS application.
+ * It parses the user input and returns the corresponding Command object.
+ */
 public class Parser {
+
+    /**
+     * Parses the user command and returns the corresponding Command object.
+     * 
+     * @param fullCommand The full user command to be parsed.
+     * @return The Command object corresponding to the parsed user command.
+     * @throws EmisException If the user command is invalid or cannot be parsed.
+     */
     public static Command parse(String fullCommand) throws EmisException {
         Integer spaceIndex = fullCommand.indexOf(" ");
 
