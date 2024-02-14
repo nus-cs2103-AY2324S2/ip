@@ -4,26 +4,23 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Storage {
-    private String filePath;
-    private ArrayList<String> text = new ArrayList<>();
-    private ArrayList<Boolean> status = new ArrayList<>();
-    public Storage(String filePath) {
-        this.filePath = filePath;
-    }
+    private final String FILE_PATH = "./src/data/tasklist.txt";
+    private ArrayList<String> texts = new ArrayList<>();
+    private ArrayList<Boolean> statuses = new ArrayList<>();
 
     public TwoArrayList load() throws FileException {
         try {
-            File file = new File(filePath);
+            File file = new File(FILE_PATH);
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String line = reader.readLine();
 
             while (line != null) {
-                text.add(Parser.FileInputToTask(line));
-                status.add(Parser.FileInputToTaskStatus(line));
+                texts.add(Parser.FileInputToTask(line));
+                statuses.add(Parser.FileInputToTaskStatus(line));
                 line = reader.readLine();
             }
             reader.close();
-            return new TwoArrayList(text, status);
+            return new TwoArrayList(texts, statuses);
         } catch (FileNotFoundException e) {
             throw new FileException("Oops, Arona cannot find your task file!");
         } catch (IOException e) {
@@ -33,7 +30,7 @@ public class Storage {
 
     public void save(ArrayList<Task> tasks) throws FileException {
         try {
-            File file = new File(filePath);
+            File file = new File(FILE_PATH);
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 
             for (Task task : tasks) {
