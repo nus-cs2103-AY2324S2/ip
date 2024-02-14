@@ -4,8 +4,8 @@ package catchat;
  * Parser class deals with making sense of the user command
  */
 public class Parser {
-    private Ui ui;
-    private TaskList taskList;
+    private final Ui ui;
+    private final TaskList taskList;
 
     /**
      * Constructor for Parser

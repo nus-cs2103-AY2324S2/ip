@@ -1,1 +1,2 @@
 T | done | thisnew
+T | not done | task

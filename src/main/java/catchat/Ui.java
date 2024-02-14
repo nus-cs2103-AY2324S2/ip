@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Ui {
     private static final String LINE = "____________________________________________________________";
-    private Scanner scanner;
+    private final Scanner scanner;
 
     public Ui() {
         this.scanner = new Scanner(System.in);
@@ -31,8 +31,11 @@ public class Ui {
      * Returns the list of available commands
      */
     public String getHelp() {
-        return "Help: \n"
-                + "DISPLAY LIST: list\n"
+        return "Help: \n" + getCommands();
+    }
+
+    public String getCommands() {
+        return "DISPLAY LIST: list\n"
                 + "ADD TODO: todo <TASK NAME>\n"
                 + "ADD DEADLINE: deadline <TASK NAME> /by <DD/MM/YYYY>\n"
                 + "ADD EVENT: event <TASK NAME> /from <DD/MM/YYYY> /to <DD/MM/YYYY>\n"

@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private CatChat duke = new CatChat();
+    private final CatChat duke = new CatChat();
 
     @Override
     public void start(Stage stage) {

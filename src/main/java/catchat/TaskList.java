@@ -5,10 +5,10 @@ import java.util.ArrayList;
  * TaskList class contains the task list
  */
 public class TaskList {
-    private ArrayList<Task> taskList;
-    private Ui ui;
+    private final ArrayList<Task> taskList;
+    private final Ui ui;
     private int taskIndex;
-    private Storage storage;
+    private final Storage storage;
 
     /**
      * Constructor for TaskList
@@ -80,7 +80,7 @@ public class TaskList {
             this.taskList.add(newDeadline);
             storage.saveTaskListToFile();
 
-            return "Added deadline: " + newDeadline.toString();
+            return "Added deadline: " + newDeadline;
         }
     }
 

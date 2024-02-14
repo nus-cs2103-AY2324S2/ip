@@ -13,9 +13,9 @@ public class Storage {
 
     private static final String FOLDER_PATH = "./tasklist";
     private static final String TASKLIST_PATH = FOLDER_PATH + "/tasklist.txt";
-    private Path taskListPath = Paths.get(TASKLIST_PATH);
-    private Path folderPath = Paths.get(FOLDER_PATH);
-    private ArrayList<Task> taskList;
+    private final Path taskListPath = Paths.get(TASKLIST_PATH);
+    private final Path folderPath = Paths.get(FOLDER_PATH);
+    private final ArrayList<Task> taskList;
 
     /**
      * Constructor for Storage

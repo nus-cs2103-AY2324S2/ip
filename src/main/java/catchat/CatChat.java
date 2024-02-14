@@ -17,19 +17,19 @@ import javafx.stage.Stage;
  * Main class
  */
 public class CatChat extends Application {
-    private Storage storage;
-    private ArrayList<Task> taskList = new ArrayList<>();
-    private TaskList tasks;
-    private Parser parser;
-    private Ui ui;
+    private final Storage storage;
+    private final ArrayList<Task> taskList = new ArrayList<>();
+    private final TaskList tasks;
+    private final Parser parser;
+    private final Ui ui;
 
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-    private Image userImg = new Image(this.getClass().getResourceAsStream("/images/PopCat.jpg"));
-    private Image dukeImg = new Image(this.getClass().getResourceAsStream("/images/HuhCat.jpg"));
+    private final Image userImg = new Image(this.getClass().getResourceAsStream("/images/PopCat.jpg"));
+    private final Image dukeImg = new Image(this.getClass().getResourceAsStream("/images/HuhCat.jpg"));
     /**
      * Constructor for Duke
      */
