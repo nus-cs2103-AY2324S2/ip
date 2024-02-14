@@ -42,6 +42,8 @@ class Parser {
                 return new MarkCommand();
             case "unmark":
                 return new UnmarkCommand();
+            case "find":
+                return new FindCommand();
             default:
                 throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }

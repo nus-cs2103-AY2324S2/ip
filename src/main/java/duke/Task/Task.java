@@ -40,6 +40,10 @@ public class Task {
         return "[" + (isDone ? "X" : " ") + "] " + description;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     /**
      * Returns a string representation of the task.
      *

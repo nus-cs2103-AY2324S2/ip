@@ -50,6 +50,8 @@ public class Ui {
         return scanner.nextLine();
     }
 
+    
+
     /**
      * Prints a message to the user.
      *

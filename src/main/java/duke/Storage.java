@@ -10,7 +10,7 @@ import java.util.Scanner;
 /**
  * The Storage class handles the loading and saving of tasks to a file.
  */
-class Storage {
+public class Storage {
     private static final String FILE_PATH = "duke.txt";
 
     /**
