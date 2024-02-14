@@ -9,8 +9,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Hari using FXML.
  */
+
 public class Main extends Application {
 
     private final Duke duke = new Duke();
@@ -19,12 +20,17 @@ public class Main extends Application {
     public void start(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/Window.fxml"));
-            AnchorPane ap = fxmlLoader.load();
-            Scene scene = new Scene(ap);
+            AnchorPane anchoringPane = fxmlLoader.load();
+
+            // Set controller data
+            MainDisplay controller = fxmlLoader.<MainDisplay>getController();
+            controller.setDuke(duke);
+
+            Scene scene = new Scene(anchoringPane);
             stage.setScene(scene);
-            fxmlLoader.<MainDisplay>getController().setDuke(duke);
-            stage.setTitle("hari");
+            stage.setTitle("Hari");
             stage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }

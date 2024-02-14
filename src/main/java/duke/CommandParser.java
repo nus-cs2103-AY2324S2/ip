@@ -14,15 +14,16 @@ public class CommandParser {
     }
 
     /**
-     * Processes a single command.
+     * Processes a command.
      *
      * @param command input command
-     * @return boolean indicating whether to continue processing
+     * @return boolean indicates if processing should continue
      */
+
     public boolean processCommand(String command) {
         try {
             String cmd = command.split(" ")[0];
-            String params = command.substring(cmd.length()).trim();
+            String para = command.substring(cmd.length()).trim();
             switch (cmd) {
                 case "bye":
                     System.out.println("Au revoir! Till we meet again!");
@@ -31,31 +32,31 @@ public class CommandParser {
                     parseList();
                     break;
                 case "find":
-                    parseFind(params);
+                    parseFind(para);
                     break;
                 case "mark":
-                    parseMark(params);
+                    parseMark(para);
                     break;
                 case "unmark":
-                    parseUnmark(params);
+                    parseUnmark(para);
                     break;
                 case "delete":
-                    parseDelete(params);
+                    parseDelete(para);
                     break;
                 case "todo":
-                    parseTodo(params);
+                    parseTodo(para);
                     break;
                 case "deadline":
-                    parseDeadline(params);
+                    parseDeadline(para);
                     break;
                 case "event":
-                    parseEvent(params);
+                    parseEvent(para);
                     break;
                 case "undo":
                     parseUndo();
                     break;
                 default:
-                    throw new DukeBotException.UnknownCommandException();
+                    throw new DukeBotException.UnknownException();
             }
         } catch (DukeBotException e) {
             System.out.println(e.getMessage());
@@ -75,58 +76,59 @@ public class CommandParser {
         taskList.undo();
     }
 
-    private void parseFind(String params) throws DukeBotException {
-        if (params.length() == 0) {
-            throw new DukeBotException.FindParamsException();
+    private void parseFind(String para) throws DukeBotException {
+        if (para.length() == 0) {
+            throw new DukeBotException.FindException();
         }
-        String keyword = params.trim();
-        taskList.findTasks(keyword);
+        String searchword = para.trim();
+        taskList.findTasks(searchword);
     }
 
-    private void parseMark(String params) throws DukeBotException {
-        if (params.length() == 0) {
-            throw new DukeBotException.MarkParamsException();
+    private void parseMark(String para) throws DukeBotException {
+        if (para.length() == 0) {
+            throw new DukeBotException.MarkException();
         }
-        int num = Integer.valueOf(params);
-        taskList.markTask(num);
-        Task task = taskList.getTask(num);
+        int index = Integer.valueOf(para);
+        taskList.markTask(index);
+        Task task = taskList.getTask(index);
 
         System.out.println("Another one in the bag! Well done!");
         System.out.println(task);
     }
 
-    private void parseUnmark(String params) throws DukeBotException {
-        if (params.length() == 0) {
-            throw new DukeBotException.MarkParamsException();
+    private void parseUnmark(String para) throws DukeBotException {
+        if (para.length() == 0) {
+            throw new DukeBotException.MarkException();
         }
-        int num = Integer.valueOf(params);
-        taskList.unmarkTask(num);
-        Task task = taskList.getTask(num);
+        int index = Integer.valueOf(para);
+        taskList.unmarkTask(index);
+        Task task = taskList.getTask(index);
 
         System.out.println("Oh dear, better get on it!");
         System.out.println(task);
     }
 
-    private void parseDelete(String params) throws DukeBotException {
-        if (params.length() == 0) {
-            throw new DukeBotException.DeleteParamsException();
+    private void parseDelete(String para) throws DukeBotException {
+        if (para.length() == 0) {
+            throw new DukeBotException.DeleteException();
         }
-        int num = Integer.valueOf(params);
-        Task toDelete = taskList.getTask(num);
-        taskList.deleteTask(num);
+        int index = Integer.valueOf(para);
+        Task toDelete = taskList.getTask(index);
+        taskList.deleteTask(index);
+
         System.out.println("Task DELETE DELETE DELETE");
         System.out.println(toDelete);
     }
 
-    private void parseTodo(String params) throws DukeBotException {
+    private void parseTodo(String para) throws DukeBotException {
         Todo newTask;
-        if (params.length() == 0) {
-            throw new DukeBotException.TodoDescriptionMissingException();
+        if (para.length() == 0) {
+            throw new DukeBotException.TodoException();
         }
 
-        String desc = params;
+        String description = para;
 
-        newTask = new Todo(desc);
+        newTask = new Todo(description);
         taskList.addTask(newTask);
 
         System.out.println("Got it. I've added this task:");
@@ -137,18 +139,18 @@ public class CommandParser {
     private void parseDeadline(String params) throws DukeBotException {
         DeadlineTask newTask;
         if (!params.contains("/by")) {
-            throw new DukeBotException.DeadlineDetailsMissingException();
+            throw new DukeBotException.DeadlineException();
         }
 
-        String desc = params.split("/by")[0].trim();
+        String description = params.split("/by")[0].trim();
         String by = params.split("/by")[1].trim();
 
         // Check if by is in valid date format
         if (DateHandler.isValidInputDate(by)) {
-            LocalDateTime dateObj = DateHandler.inputStrToDateTime(by);
-            newTask = new DeadlineTask(desc, dateObj); // Create date object
+            LocalDateTime dateObj = DateHandler.inputStringDateTime(by);
+            newTask = new DeadlineTask(description, dateObj); // Create date object
         } else {
-            newTask = new DeadlineTask(desc, by);
+            newTask = new DeadlineTask(description, by);
         }
         taskList.addTask(newTask);
 
@@ -158,22 +160,22 @@ public class CommandParser {
 
     }
 
-    private void parseEvent(String params) throws DukeBotException {
+    private void parseEvent(String para) throws DukeBotException {
         EventTask newTask;
-        if (!params.contains("/from") || !params.contains("/to")) {
-            throw new DukeBotException.EventDetailsMissingException();
+        if (!para.contains("/from") || !para.contains("/to")) {
+            throw new DukeBotException.EventException();
         }
 
-        String desc = params.split("/from")[0];
-        String from = params.split("/from")[1].split("/to")[0].trim();
-        String to = params.split("/to")[1].trim();
+        String description = para.split("/from")[0];
+        String from = para.split("/from")[1].split("/to")[0].trim();
+        String to = para.split("/to")[1].trim();
 
         if (DateHandler.isValidInputDate(from) && DateHandler.isValidInputDate(to)) {
-            LocalDateTime dateObjFrom = DateHandler.inputStrToDateTime(from);
-            LocalDateTime dateObjTo = DateHandler.inputStrToDateTime(to);
-            newTask = new EventTask(desc, dateObjFrom, dateObjTo); // Create date object
+            LocalDateTime dateObjFrom = DateHandler.inputStringDateTime(from);
+            LocalDateTime dateObjTo = DateHandler.inputStringDateTime(to);
+            newTask = new EventTask(description, dateObjFrom, dateObjTo); // Create date object
         } else {
-            newTask = new EventTask(desc, from, to);
+            newTask = new EventTask(description, from, to);
         }
         taskList.addTask(newTask);
 

@@ -1,27 +1,30 @@
 package duke;
 
 /**
- * Deals with interactions from the user
+ * Handles user interaction
  */
+
 public class Ui {
-    private static String border = "____________________________________________________________";
+    private static String borderline = "____________________________________________________________";
 
     /**
-     * Prints a greeting for the user upon bot startup
+     * Displays greeting to the user upon start
      */
-    public void greet() {
-        System.out.println(border);
+
+    public void greeting() {
+        System.out.println(borderline);
         System.out.println("Hey! I'm Hari!");
         System.out.println("How may I be of service today?");
-        System.out.println(border);
+        System.out.println(borderline);
     }
-    public void showLoadingError() {
-        System.out.println("Error loading data from file. File may be corrupted.");
+
+    public void displayLoadError() {
+        System.out.println("Error loading data from file! File may be corrupted or has format issues.");
     }
 
     public static void main(String[] args) {
         Ui ui = new Ui();
-        ui.greet();
+        ui.greeting();
     }
 
 }

@@ -46,8 +46,8 @@ public class EventTask extends Task {
      */
     public EventTask(String description, LocalDateTime startTime, LocalDateTime endTime) {
         super(description);
-        this.startTime = DateHandler.dateTimeToDbStr(startTime);
-        this.endTime = DateHandler.dateTimeToDbStr(endTime);
+        this.startTime = DateHandler.dateTimeToDatabaseString(startTime);
+        this.endTime = DateHandler.dateTimeToDatabaseString(endTime);
     }
 
     /**
@@ -71,11 +71,11 @@ public class EventTask extends Task {
      * @return EventTask the EventTask object
      */
     public static EventTask dbToEventTask(String dbEvent) {
-        String[] params = dbEvent.split(" \\| ");
-        Boolean isDone = params[1].equals("1") ? true : false;
-        String desc = params[2];
-        String startTime = params[3];
-        String endTime = params[4];
+        String[] para = dbEvent.split(" \\| ");
+        Boolean isDone = para[1].equals("1") ? true : false;
+        String desc = para[2];
+        String startTime = para[3];
+        String endTime = para[4];
         return new EventTask(desc, isDone, startTime, endTime);
     }
 
@@ -87,29 +87,17 @@ public class EventTask extends Task {
      */
     public static String eventTaskToDb(EventTask eventTask) {
         String done = eventTask.isTaskDone ? "1" : "0";
-        String desc = eventTask.taskDescription;
+        String description= eventTask.taskDescription;
         String startTime = eventTask.startTime;
         String endTime = eventTask.endTime;
-        return "E" + " | " + done + " | " + desc + " | " + startTime + " | " + endTime;
+        return "E" + " | " + done + " | " + description + " | " + startTime + " | " + endTime;
     }
 
     public static void main(String[] args) {
-        String dbEvent = "E | 0 | project meeting | Aug 6th 2 | 4pm";
+        String dbEvent = "E | 0 | assignment | Feb 1st 2 | 2pm";
         EventTask eventTask = EventTask.dbToEventTask(dbEvent);
-        eventTask.markAsDone();
+        eventTask.markDone();
         System.out.println(eventTask);
         System.out.println(EventTask.eventTaskToDb(eventTask));
-
-        // Test creating an event task with valid date
-        String desc = "Buy Bread";
-        String validFromDate1 = "15/01/2023 1430";
-        String validToDate1 = "17/01/2023 2359";
-        if (DateHandler.isValidInputDate(validFromDate1) && DateHandler.isValidInputDate(validToDate1)) {
-            LocalDateTime validFromDateObj1 = DateHandler.inputStrToDateTime(validFromDate1);
-            LocalDateTime validToDateObj1 = DateHandler.inputStrToDateTime(validToDate1);
-            EventTask e = new EventTask(desc, validFromDateObj1, validToDateObj1); // Create date object
-            e.markAsDone();
-            System.out.println(EventTask.eventTaskToDb(e));
-        }
     }
 }

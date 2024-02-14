@@ -44,20 +44,20 @@ public class Task {
      * @return "X" if the task is complete, otherwise " "
      */
     public String getStatusIcon() {
-        return (isTaskDone ? "X" : " "); // mark done task with X
+        return (isTaskDone ? "X" : " ");
     }
 
     /**
      * Marks the task as complete.
      */
-    public void markAsDone() {
+    public void markDone() {
         this.isTaskDone = true;
     }
 
     /**
      * Marks the task as incomplete.
      */
-    public void unmarkAsDone() {
+    public void unmarkDone() {
         this.isTaskDone = false;
     }
 

@@ -37,7 +37,7 @@ public class DatabaseHandler {
      *
      * @return a list of strings containing all lines from the database file
      */
-    public List<String> readLinesFromFile() {
+    public List<String> readFromFile() {
         try {
             return Files.readAllLines(Paths.get(this.databaseFilePath));
         } catch (IOException e) {
@@ -51,7 +51,7 @@ public class DatabaseHandler {
      *
      * @param stringList the list of strings to be written to the file
      */
-    public void writeLinesToFile(List<String> stringList) {
+    public void writeToFile(List<String> stringList) {
         try {
             File file = new File(this.databaseFilePath);
             file.createNewFile();
@@ -74,14 +74,14 @@ public class DatabaseHandler {
      * @return a list of strings representing data loaded from the database file
      */
     public List<String> loadData() {
-        List<String> stringTasksList = this.readLinesFromFile();
+        List<String> stringTasksList = this.readromFile();
         return stringTasksList;
     }
 
     /**
      * Clears the contents of the database file.
      */
-    public void clearDatabaseFile() {
+    public void clearFile() {
         try {
             Files.write(Paths.get(databaseFilePath), new byte[0]);
         } catch (IOException e) {
@@ -94,16 +94,16 @@ public class DatabaseHandler {
         DatabaseHandler databaseHandler = new DatabaseHandler(databaseFilePath);
 
         // Clear and initialize data/duke.txt
-        databaseHandler.clearDatabaseFile();
+        databaseHandler.clearFile();
 
         List<String> input = new ArrayList<>();
 
         input.add("E | 0 | netflix marathon | 01 December 2022 00:00 | 15 December 2022 23:59");
-        input.add("Success!");
+        input.add("Test was a success!");
 
-        databaseHandler.writeLinesToFile(input);
+        databaseHandler.writeToFile(input);
 
-        List<String> output = databaseHandler.readLinesFromFile();
+        List<String> output = databaseHandler.readFromFile();
 
         for (String line : output) {
             System.out.println(line);

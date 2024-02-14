@@ -8,28 +8,19 @@ import java.util.List;
  */
 public class TaskList {
     public ArrayList<Task> taskList;
-    public ArrayList<Task> prevTaskList; // contains the taskList before mutation
-    private Task prevTask; // contains the task involved in the previous operation
-    private MutationOperation prevOp; // contains the previous operation that mutated taskList
+    public ArrayList<Task> prevTaskList; // previous taskList
+    private Task prevTask; // task from previous operation
+    private ChangeOperation prevOp; // previous operation
 
     /**
-     * Enum of operations that can mutate taskList.
+     * Enum of operations that change taskList.
      */
-    private enum MutationOperation {
+    private enum ChangeOperation {
         MARK,
         UNMARK,
         ADD,
         DELETE
     }
-
-    // duke.Todo representation - 0 means not done, 1 means done
-    // T | done? | desc
-
-    // duke.Deadline representation
-    // D | done? | desc | by
-
-    // duke.Event representation
-    // E | done? | desc | from | to
 
     /**
      * Constructs a new TaskList with an empty task list.
@@ -54,7 +45,6 @@ public class TaskList {
 
     /**
      * Finds tasks containing a specific keyword in their description.
-     *
      * @param keyword The keyword to search for in task descriptions (case-sensitive)
      */
     public void findTasks(String keyword) {
@@ -74,13 +64,13 @@ public class TaskList {
      *
      * @param index The index of the task to retrieve
      * @return The task at the specified index
-     * @throws DukeBotException.TaskNotFoundException if the index is out of bounds
+     * @throws DukeBotException.TaskException if the index is out of bounds
      */
-    public Task getTask(int index) throws DukeBotException.TaskNotFoundException {
+    public Task getTask(int index) throws DukeBotException.TaskException {
         if (index >= 1 && index <= taskList.size()) {
             return taskList.get(index - 1);
         } else {
-            throw new DukeBotException.TaskNotFoundException();
+            throw new DukeBotException.TaskException();
         }
     }
 
@@ -98,12 +88,12 @@ public class TaskList {
     /**
      * Deletes a task from the task list by its index.
      *
-     * @param index The index of the task to delete
-     * @throws DukeBotException.TaskNotFoundException if the index is out of bounds
+     * @param index The index of task to delete
+     * @throws DukeBotException.TaskException if index is out of bounds
      */
-    public void deleteTask(int index) throws DukeBotException.TaskNotFoundException {
+    public void deleteTask(int index) throws DukeBotException.TaskException {
         if (index < 1 || index > taskList.size()) {
-            throw new DukeBotException.TaskNotFoundException();
+            throw new DukeBotException.TaskException();
         } else {
             prevTaskList = cloneTaskList(taskList);
             taskList.remove(index - 1);
@@ -113,37 +103,37 @@ public class TaskList {
     /**
      * Marks a task as completed by its index.
      *
-     * @param index The index of the task to mark as completed
-     * @throws DukeBotException.TaskNotFoundException if the index is out of bounds
+     * @param index The index of task to mark as completed
+     * @throws DukeBotException.TaskException if index is out of bounds
      */
-    public void markTask(int index) throws DukeBotException.TaskNotFoundException {
+    public void markTask(int index) throws DukeBotException.TaskException {
         if (index < 1 || index > taskList.size()) {
-            throw new DukeBotException.TaskNotFoundException();
+            throw new DukeBotException.TaskException();
         } else {
             prevTaskList = cloneTaskList(taskList);
             Task t = this.getTask(index);
-            t.markAsDone();
+            t.markDone();
         }
     }
 
     /**
      * Unmarks a task as completed by its index.
      *
-     * @param index The index of the task to unmark
-     * @throws DukeBotException.TaskNotFoundException if the index is out of bounds
+     * @param index The index of task to unmark
+     * @throws DukeBotException.TaskException if index is out of bounds
      */
-    public void unmarkTask(int index) throws DukeBotException.TaskNotFoundException {
+    public void unmarkTask(int index) throws DukeBotException.TaskException {
         if (index < 1 || index > taskList.size()) {
-            throw new DukeBotException.TaskNotFoundException();
+            throw new DukeBotException.TaskException();
         } else {
             prevTaskList = cloneTaskList(taskList);
             Task t = this.getTask(index);
-            t.unmarkAsDone();
+            t.unmarkDone();
         }
     }
 
     /**
-     * Reverts the task list to its previous state before the last mutation.
+     * Reverts task list to previous state before the last change.
      */
     public void undo() {
         if (prevTaskList == null) {
@@ -157,7 +147,7 @@ public class TaskList {
     }
 
     /**
-     * Prints out the contents of the task list.
+     * Prints out contents of the task list.
      */
     public void printTasks() {
         for (int i = 0; i < this.taskList.size(); i++) {
@@ -176,15 +166,14 @@ public class TaskList {
 
     /**
      * Converts the database representation of a task to a Task object.
-     *
      * @param dbTask The string representation of the task in the database
      * @return The Task object
-     * @throws DukeBotException.UnknownCommandException if an unknown command is encountered while parsing the task
+     * @throws DukeBotException.UnknownException if an unknown command is encountered while parsing the task
      */
 
-    public static Task parseStringToTask(String dbTask) throws DukeBotException.UnknownCommandException {
-        String[] params = dbTask.split(" \\| ");
-        String type = params[0];
+    public static Task parseStringToTask(String dbTask) throws DukeBotException.UnknownException {
+        String[] param = dbTask.split(" \\| ");
+        String type = param[0];
         switch (type) {
             case "T": // To do
                 Todo todoTask = Todo.db2Todo(dbTask);
@@ -197,7 +186,7 @@ public class TaskList {
                 return eventTask;
             default:
                 System.out.println("Unrecognized task type");
-                throw new DukeBotException.UnknownCommandException();
+                throw new DukeBotException.UnknownException();
         }
     }
 

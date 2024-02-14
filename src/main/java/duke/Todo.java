@@ -46,10 +46,10 @@ public class Todo extends Task {
      */
     public static Todo db2Todo(String dbTodo) {
         // T | 0 | Buy Bread
-        String[] params = dbTodo.split(" \\| ");
-        Boolean isDone = params[1].equals("1") ? true : false; // if "1", means isDone
-        String desc = params[2];
-        return new Todo(desc, isDone);
+        String[] para = dbTodo.split(" \\| ");
+        Boolean isDone = para[1].equals("1") ? true : false;
+        String description = para[2];
+        return new Todo(description, isDone);
     }
 
     /**
@@ -61,8 +61,8 @@ public class Todo extends Task {
     public static String todo2Db(Todo todoTask) {
         // T | 0 | Buy Bread
         String done = todoTask.isTaskDone ? "1" : "0";
-        String desc = todoTask.taskDescription;
-        return "T | " + done + " | " + desc;
+        String description = todoTask.taskDescription;
+        return "T | " + done + " | " + description;
     }
 
     public static void main(String[] args) {

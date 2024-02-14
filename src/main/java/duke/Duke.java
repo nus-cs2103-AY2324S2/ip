@@ -29,7 +29,7 @@ public class Duke {
             taskList = new TaskList(DatabaseHandler.loadData());
             commandParser = new CommandParser(new Scanner(System.in), this.taskList);
         } catch (DukeBotException e) {
-            Ui.showLoadingError();
+            Ui.displayLoadError();
             taskList = new TaskList();
         }
     }
@@ -42,7 +42,7 @@ public class Duke {
         StringBuilder outputBuilder = new StringBuilder();
 
         // Create a PrintStream that writes to the StringBuilder
-        PrintStream ps = new PrintStream(new OutputStream() {
+        PrintStream stream = new PrintStream(new OutputStream() {
             @Override
             public void write(int b) {
                 outputBuilder.append((char) b);
@@ -50,10 +50,10 @@ public class Duke {
         });
 
         // Save the original System.out
-        PrintStream prev = System.out;
+        PrintStream og = System.out;
 
         // Set the System.out to the custom PrintStream
-        System.setOut(ps);
+        System.setOut(stream);
         // Process the user input
         try {
             this.commandParser.processCommand(input);
@@ -62,14 +62,14 @@ public class Duke {
             System.out.println(e.getMessage());
         } finally {
             // Restore the original System.out
-            System.setOut(prev);
+            System.setOut(og);
         }
         // Return the captured output
         return outputBuilder.toString();
     }
 
     /**
-     * Saves the current task list to the hard drive.
+     * Saves the current task list
      */
     private void save() {
         List<String> lines = new ArrayList<>();
@@ -77,11 +77,11 @@ public class Duke {
             String stringTask = TaskList.taskToDbString(task);
             lines.add(stringTask);
         }
-        this.DatabaseHandler.writeLinesToFile(lines);
+        this.DatabaseHandler.writeToFile(lines);
     }
 
     /**
-     * Starts up the application and sets up the command parser and user interface.
+     * Starts up the application.
      */
     public void run() {
         String greeting = "____________________________________________________________\n"
@@ -91,13 +91,13 @@ public class Duke {
 
         String goodbye = " Au revoir! Till we meet again!\n"
                 + "____________________________________________________________";
-        Ui.greet();
+        Ui.greeting();
 
         Scanner scanner = new Scanner(System.in); // Create a Scanner object
-        String line = scanner.nextLine(); // Get first input
+        String input = scanner.nextLine(); // Get first input
 
-        while (this.commandParser.processCommand(line)) {
-            line = scanner.nextLine();
+        while (this.commandParser.processCommand(input)) {
+            input = scanner.nextLine();
         }
         // Save the tasks from taskList to duke.DatabaseHandler
         this.save();

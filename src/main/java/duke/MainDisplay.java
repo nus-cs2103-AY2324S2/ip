@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 /**
- * Controller for MainWindow. Provides the layout for the other controls.
+ * Controller for MainDisplay.
  */
 public class MainDisplay extends AnchorPane {
     public static final String USERIMGPATH = "/images/user.png";
@@ -19,9 +19,9 @@ public class MainDisplay extends AnchorPane {
     @FXML
     private VBox dialogContainer;
     @FXML
-    private TextField userInput;
+    private TextField textInput;
     @FXML
-    private Button sendButton;
+    private Button enterButton;
 
     private Duke duke;
 
@@ -33,22 +33,22 @@ public class MainDisplay extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setDuke(Duke dukes) {
+        duke = dukes;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one for user input and the other containing Duke's reply.
+     * Input is cleared after processing.
      */
     @FXML
     private void handleUserInput() {
-        String input = userInput.getText();
+        String input = textInput.getText();
         String response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
-        userInput.clear();
+        textInput.clear();
     }
 }
