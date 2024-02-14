@@ -27,5 +27,6 @@ Need advice? Making a list? Steven's the bot!
 
 > Steven's advice: Don't wait! Install now!
 
+~~Please understand that Steven is not indeed sentient~~
 
 *Text at top of this readme has been provided by [parorjk.com](https://patorjk.com/software/taag/)* 
