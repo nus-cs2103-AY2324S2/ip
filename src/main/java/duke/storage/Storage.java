@@ -45,6 +45,7 @@ public class Storage {
                 throw new DukeException("directoryError");
             }
         }
+        assert filePath.contains(".txt") : "Loading invalid storage format";
         File storage = new File(filePath);
         try {
             if (!storage.createNewFile()) {

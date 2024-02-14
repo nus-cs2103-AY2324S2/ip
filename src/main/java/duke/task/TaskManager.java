@@ -4,9 +4,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import duke.DukeException;
 import duke.parser.DateHandler;
@@ -16,7 +18,8 @@ import duke.parser.DateHandler;
  */
 public class TaskManager {
     public static final LocalTime TIME_DEFAULT = LocalTime.of(0, 0);
-    private static final String listingResponse = "Here are the tasks in your list:";
+    private static final String RESPONSE_LISTING = "Here are the tasks in your list:";
+
     private static final String RESPONSE_MARK = "Nice! I've marked this task as done:";
     private static final String RESPONSE_UMARK = "OK, I've marked this task as not done yet:";
     private static final String RESPONSE_REMOVE = "Noted. I've removed this task";
@@ -69,6 +72,7 @@ public class TaskManager {
     }
 
     private static Task getTask(Actions options, String instruction) throws DukeException {
+        assert options != null : "Invalid action operation";
         Task item;
         String description;
         String by;
@@ -169,6 +173,7 @@ public class TaskManager {
      * @throws DukeException Invalid processing of the items.
      */
     public String[] manageTask(Manage act, String instruction) throws DukeException {
+        assert act != null : "Invalid manage operation";
         int id = getId(instruction);
         Task item = items.get(id);
         String response = decideManageAction(act, item, id);
@@ -250,14 +255,15 @@ public class TaskManager {
     /**
      * Gets all the current items in TaskManager.
      *
-     * @return An String array of the all the items.
+     * @return A String array of the all the items.
      */
     public String[] listItems() {
         if (items.isEmpty()) {
             return new String[]{RESPONSE_EMPTY};
+
         }
         String[] ret = new String[items.size()];
-        ret[0] = listingResponse;
+        ret[0] = RESPONSE_LISTING;
         for (int i = 0; i < items.size(); i++) {
             ret[i] = i + 1 + "." + items.get(i);
         }
@@ -279,21 +285,17 @@ public class TaskManager {
      * @return A list of items containing the search results.
      */
     public String[] findTask(String search) {
-        ArrayList<String> foundTask = new ArrayList<>();
-        int count = 1;
-        for (Task item : items) {
-            if (item.toString().contains(search)) {
-                if (count == 1) {
-                    foundTask.add(RESPONSE_FIND);
-                }
-                foundTask.add(count + ". " + item);
-                count += 1;
-            }
-        }
-        if (foundTask.isEmpty()) {
+        List<String> foundTask = items.stream().filter(item -> item.toString().contains(search))
+                                      .map(item -> items.indexOf(item) + 1 + ". " + item).collect(Collectors.toList());
+
+        if (!foundTask.isEmpty()) {
+            foundTask.add(0, RESPONSE_FIND);
+            return foundTask.toArray(String[]::new);
+
+        } else {
             return new String[]{RESPONSE_EMPTY_SEARCH};
+
         }
-        return foundTask.toArray(new String[0]);
     }
 
 }

@@ -36,6 +36,7 @@ public class Duke {
             System.out.println(e.getMessage());
             manager = new TaskManager();
         }
+        //assert false : "This is impossible to continue";
         TimerTask savingTask = new TimerTask() {
             @Override
             public void run() {
