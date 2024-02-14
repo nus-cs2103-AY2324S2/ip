@@ -33,7 +33,7 @@ public class Event extends Task {
         }
         this.description = description;
         if (isDone == 1) {
-            this.markAsDone();
+            this.setDone();
         }
     }
     /**
@@ -43,7 +43,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         return String.format("[E][%s] %s (from: %s to: %s)", getStatusIcon(),
-                this.description, this.fromTime.format(dateFormat), this.toTime.format(dateFormat));
+                this.description, this.fromTime.format(dateFormat),
+                this.toTime.format(dateFormat));
     }
     /**
      * Returns a String that describes the Event task for saving.

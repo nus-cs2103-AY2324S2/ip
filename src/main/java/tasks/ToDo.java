@@ -20,7 +20,7 @@ public class ToDo extends Task {
         }
         this.description = description;
         if (isDone == 1) {
-            this.markAsDone();
+            this.setDone();
         }
     }
     /**
@@ -29,7 +29,8 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[T][%s] %s", getStatusIcon(), this.description);
+        return String.format("[T][%s] %s", getStatusIcon(),
+                this.description);
     }
     /**
      * Returns a String that describes the todo task for saving.
@@ -37,6 +38,7 @@ public class ToDo extends Task {
      */
     @Override
     public String getSaveLine() {
-        return "T " + (this.isDone ? "1 " : "0 ") + this.description + "\n";
+        return "T " + (this.isDone ? "1 " : "0 ")
+                + this.description + "\n";
     }
 }

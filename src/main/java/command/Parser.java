@@ -54,9 +54,11 @@ public class Parser {
     public List<String> convertDateEvent(List<String> splitStr) throws CroException {
         int fromIndex = splitStr.indexOf("/from");
         int toIndex = splitStr.indexOf("/to");
+
         if (fromIndex < 0 || toIndex < 0) {
             throw new CroException("event timings not found, please use /from and /to to indicate.");
         }
+
         List<String> fromSplitStr = splitStr.subList(fromIndex + 1, toIndex);
         List<String> toSplitStr = splitStr.subList(toIndex + 1, splitStr.size());
         LocalDateTime from = LocalDateTime.parse(String.join(" ", fromSplitStr), inputFormat);
@@ -81,45 +83,45 @@ public class Parser {
         String command = splitStr.remove(0);
         try {
             switch (command) {
-                case "bye":
-                    System.out.println("-----------------------------------");
-                    System.out.println("Bye. Hope to see you again soon!");
-                    System.out.println("-----------------------------------");
-                    return false;
-                case "list":
-                    cro.taskList.displayTasks();
-                    break;
-                case "mark":
-                    cro.taskList.markTaskAsDone(splitStr);
-                    break;
-                case "unmark":
-                    cro.taskList.markTaskAsUndone(splitStr);
-                    break;
-                case "todo": {
-                    List<String> res = new ArrayList<>(Arrays.asList("T", "0"));
-                    res.addAll(splitStr);
-                    cro.taskList.addToDo(res);
-                    break;
-                }
-                case "deadline": {
-                    List<String> res = new ArrayList<>(Arrays.asList("D", "0"));
-                    splitStr = convertDateDeadline(splitStr);
-                    res.addAll(splitStr);
-                    cro.taskList.addDeadline(res);
-                    break;
-                }
-                case "event": {
-                    List<String> res = new ArrayList<>(Arrays.asList("E", "0"));
-                    splitStr = convertDateEvent(splitStr);
-                    res.addAll(splitStr);
-                    cro.taskList.addEvent(res);
-                    break;
-                }
-                case "delete":
-                    cro.taskList.deleteEvent(splitStr);
-                    break;
-                default:
-                    throw new CroException("Unknown command. Please try again.");
+            case "bye":
+                System.out.println("-----------------------------------");
+                System.out.println("Bye. Hope to see you again soon!");
+                System.out.println("-----------------------------------");
+                return false;
+            case "list":
+                cro.taskList.displayTasks();
+                break;
+            case "mark":
+                cro.taskList.markTaskAsDone(splitStr);
+                break;
+            case "unmark":
+                cro.taskList.markTaskAsUndone(splitStr);
+                break;
+            case "todo": {
+                List<String> res = new ArrayList<>(Arrays.asList("T", "0"));
+                res.addAll(splitStr);
+                cro.taskList.addToDo(res);
+                break;
+            }
+            case "deadline": {
+                List<String> res = new ArrayList<>(Arrays.asList("D", "0"));
+                splitStr = convertDateDeadline(splitStr);
+                res.addAll(splitStr);
+                cro.taskList.addDeadline(res);
+                break;
+            }
+            case "event": {
+                List<String> res = new ArrayList<>(Arrays.asList("E", "0"));
+                splitStr = convertDateEvent(splitStr);
+                res.addAll(splitStr);
+                cro.taskList.addEvent(res);
+                break;
+            }
+            case "delete":
+                cro.taskList.deleteEvent(splitStr);
+                break;
+            default:
+                throw new CroException("Unknown command. Please try again.");
             }
         } catch (Exception e){
             System.out.println(e.getMessage());

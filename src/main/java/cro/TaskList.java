@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents a TaskList in the chat-bot. A TaskList object is responsible for keeping track of the tasks currently
- * in the system.
+ * Represents a TaskList in the chatbot. A TaskList object is responsible for
+ * keeping track of the tasks currently in the system.
  */
 public class TaskList {
     public List<Task> taskList = new ArrayList<>();
@@ -21,8 +21,8 @@ public class TaskList {
 
 
     /**
-     * Returns nothing. Adds a new task, newTask into the taskList. Displays a string output upon successful addition of
-     * the task into taskList.
+     * Returns nothing. Adds a new task, newTask into the taskList. Displays a string output
+     * upon successful addition of the task into taskList.
      * @param newTask
      */
     public void addToTaskList(Task newTask) {
@@ -91,7 +91,7 @@ public class TaskList {
         if (taskNo > taskList.size()) {
             throw new CroException("Task not found!");
         } else {
-            taskList.get(taskNo - 1).markAsDone();
+            taskList.get(taskNo - 1).setDone();
             System.out.println("-----------------------------------");
             System.out.println("Nice! I've marked this task as done!");
             System.out.println(taskList.get(taskNo - 1));
@@ -114,7 +114,7 @@ public class TaskList {
         if (taskNo > taskList.size()) {
             throw new CroException("Task not found!");
         } else {
-            taskList.get(taskNo - 1).markAsUndone();
+            taskList.get(taskNo - 1).setUndone();
             System.out.println("-----------------------------------");
             System.out.println("OK, I've marked this task as not done yet.");
             System.out.println(taskList.get(taskNo - 1));

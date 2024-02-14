@@ -32,7 +32,7 @@ public class Deadline extends Task {
         }
         this.description = description;
         if (isDone == 1) {
-            this.markAsDone();
+            this.setDone();
         }
     }
 
@@ -42,7 +42,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[D][%s] %s (by: %s)", getStatusIcon(), this.description, this.deadline.format(dateFormat));
+        return String.format("[D][%s] %s (by: %s)", getStatusIcon(), this.description,
+                this.deadline.format(dateFormat));
     }
 
     /**
@@ -51,6 +52,7 @@ public class Deadline extends Task {
      */
     @Override
     public String getSaveLine() {
-        return "D " + (this.isDone ? "1 " : "0 ") + this.description + " /by " + this.deadline.toString() + "\n";
+        return "D " + (this.isDone ? "1 " : "0 ") + this.description + " /by "
+                + this.deadline.toString() + "\n";
     }
 }

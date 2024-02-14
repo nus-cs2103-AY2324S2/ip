@@ -25,11 +25,11 @@ public class Task {
         return String.format("[%s] %s", getStatusIcon(), this.description);
     }
 
-    public void markAsDone() {
+    public void setDone() {
         this.isDone = true;
     }
 
-    public void markAsUndone() {
+    public void setUndone() {
         this.isDone = false;
     }
 
