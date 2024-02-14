@@ -3,6 +3,7 @@ package osiris.task;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import osiris.exceptions.OsirisInvalidIndexException;
 import osiris.exceptions.OsirisStorageFileException;
@@ -44,13 +45,14 @@ public class TaskManager {
      *
      * @param taskName    The name of the task.
      * @param isCompleted The completion status of the task.
-     * @return True if the task is added successfully, false otherwise.
+     * @return The task added.
      */
-    public boolean addToDoTask(String taskName, boolean isCompleted) {
+    public Task addToDoTask(String taskName, boolean isCompleted) {
         assert taskName != null : "Task name cannot be null";
         ToDoTask newTask = new ToDoTask(taskName, isCompleted);
         userTasks.add(newTask);
-        return true;
+        userTasks.sort(Comparator.comparing(Task::getStartDateTime));
+        return newTask;
     }
 
     /**
@@ -59,13 +61,14 @@ public class TaskManager {
      * @param taskName    The name of the task.
      * @param isCompleted The completion status of the task.
      * @param deadline    The deadline of the task.
-     * @return True if the task is added successfully, false otherwise.
+     * @return The task added.
      */
-    public boolean addDeadlineTask(String taskName, boolean isCompleted, LocalDate deadline) {
+    public Task addDeadlineTask(String taskName, boolean isCompleted, LocalDate deadline) {
         assert taskName != null : "Task name cannot be null";
         DeadlineTask newTask = new DeadlineTask(taskName, isCompleted, deadline);
         userTasks.add(newTask);
-        return true;
+        userTasks.sort(Comparator.comparing(Task::getStartDateTime));
+        return newTask;
     }
 
     /**
@@ -75,14 +78,15 @@ public class TaskManager {
      * @param isCompleted   The completion status of the task.
      * @param startDateTime The start date and time of the event.
      * @param endDateTime   The end date and time of the event.
-     * @return True if the task is added successfully, false otherwise.
+     * @return The task added.
      */
-    public boolean addEventTask(String taskName, boolean isCompleted, LocalDateTime startDateTime,
+    public Task addEventTask(String taskName, boolean isCompleted, LocalDateTime startDateTime,
                                 LocalDateTime endDateTime) {
         assert taskName != null : "Task name cannot be null";
         EventTask newTask = new EventTask(taskName, isCompleted, startDateTime, endDateTime);
         userTasks.add(newTask);
-        return true;
+        userTasks.sort(Comparator.comparing(Task::getStartDateTime));
+        return newTask;
     }
 
     /**
@@ -214,5 +218,6 @@ public class TaskManager {
                         dateTimeRange[1]);
             }
         }
+        userTasks.sort(Comparator.comparing(Task::getStartDateTime));
     }
 }

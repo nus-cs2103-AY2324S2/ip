@@ -61,6 +61,16 @@ public class EventTask extends Task {
     }
 
     /**
+     * Returns start Local Date Time of Task
+     *
+     * @return LocalDateTime    The start time of the task.
+     */
+    @Override
+    public LocalDateTime getStartDateTime() {
+        return startDateTime;
+    }
+
+    /**
      * Retrieves the string representation of the EventTask for storage purposes.
      *
      * @return The string representation of the EventTask.

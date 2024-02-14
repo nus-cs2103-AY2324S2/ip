@@ -35,14 +35,9 @@ public class AddToDoTaskCommand extends Command {
      */
     @Override
     public String execute(TaskManager taskManager, Ui userInterface) {
-        boolean isSuccess = taskManager.addToDoTask(taskName, false);
-        if (isSuccess) {
-            int lastTaskIndex = taskManager.getTotalTaskCount() - 1;
-            Task lastTask = taskManager.getTask(lastTaskIndex);
-            String taskDetails = lastTask.toString();
-            int totalTasks = taskManager.getTotalTaskCount();
-            return userInterface.displayToDoTaskAdditionNotification(taskDetails, totalTasks);
-        }
-        throw new OsirisException("An error has occurred. Please try again.");
+        Task newTask = taskManager.addToDoTask(taskName, false);
+        String taskDetails = newTask.toString();
+        int totalTasks = taskManager.getTotalTaskCount();
+        return userInterface.displayToDoTaskAdditionNotification(taskDetails, totalTasks);
     }
 }

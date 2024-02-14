@@ -47,15 +47,9 @@ public class AddEventTaskCommand extends Command {
      */
     @Override
     public String execute(TaskManager taskManager, Ui userInterface) {
-        boolean isSuccess = taskManager.addEventTask(taskName, false, startDateTime, endDateTime);
-
-        if (isSuccess) {
-            int lastTaskIndex = taskManager.getTotalTaskCount() - 1;
-            Task lastTask = taskManager.getTask(lastTaskIndex);
-            String taskDetails = lastTask.toString();
-            int totalTasks = taskManager.getTotalTaskCount();
-            return userInterface.displayEventTaskAdditionNotification(taskDetails, totalTasks);
-        }
-        throw new OsirisException("An error has occurred. Please try again.");
+        Task newTask = taskManager.addEventTask(taskName, false, startDateTime, endDateTime);
+        String taskDetails = newTask.toString();
+        int totalTasks = taskManager.getTotalTaskCount();
+        return userInterface.displayEventTaskAdditionNotification(taskDetails, totalTasks);
     }
 }
