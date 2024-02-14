@@ -83,20 +83,23 @@ public class TaskManager {
             break;
         case DEADLINE:
             Matcher deadlineMatch = deadlineFormat.matcher(instruction);
+            if (!deadlineMatch.find()) {
+                throw new DukeException("datelineError");
+            }
             description = deadlineMatch.group("description");
-            by = deadlineMatch.group("by")
-                              .trim();
-            checkDeadlineValid(description, by, deadlineMatch.find());
+            by = deadlineMatch.group("by").trim();
+            checkDeadlineValid(description, by);
             item = constructDeadline(by, description);
             break;
         case EVENT:
             Matcher eventMatch = eventFormat.matcher(instruction);
+            if (!eventMatch.find()) {
+                throw new DukeException("eventError");
+            }
             description = eventMatch.group("description");
-            by = eventMatch.group("by")
-                           .trim();
-            from = eventMatch.group("from")
-                             .trim();
-            checkEventValid(eventMatch, from, by, description);
+            by = eventMatch.group("by").trim();
+            from = eventMatch.group("from").trim();
+            checkEventValid(from, by, description);
             item = constructEvent(by, from, description);
             break;
         default:
@@ -114,14 +117,11 @@ public class TaskManager {
         return "Now you have " + items.size() + " tasks in the list.";
     }
 
-    private static void checkDeadlineValid(String description, String by, boolean foundPattern) throws DukeException {
+    private static void checkDeadlineValid(String description, String by) throws DukeException {
         if (description.isBlank()) {
             throw new DukeException("descriptionError");
         } else if (by.isBlank()) {
             throw new DukeException("byEmptyError");
-        }
-        if (!foundPattern) {
-            throw new DukeException("datelineError");
         }
     }
 
@@ -131,11 +131,7 @@ public class TaskManager {
                        .orElseGet(() -> new Deadline(description, by));
     }
 
-    private static void checkEventValid(Matcher eventMatch, String from, String by, String description)
-            throws DukeException {
-        if (!eventMatch.find()) {
-            throw new DukeException("eventError");
-        }
+    private static void checkEventValid(String from, String by, String description) throws DukeException {
         if (from.isBlank()) {
             throw new DukeException("fromEmptyError");
         } else if (by.isBlank()) {
@@ -160,8 +156,7 @@ public class TaskManager {
     }
 
     private static LocalTime getTimeFromString(String time) {
-        return DateHandler.checkTime(time)
-                          .orElse(TIME_DEFAULT);
+        return DateHandler.checkTime(time).orElse(TIME_DEFAULT);
     }
 
     /**
@@ -286,8 +281,7 @@ public class TaskManager {
         ArrayList<String> foundTask = new ArrayList<>();
         int count = 1;
         for (Task item : items) {
-            if (item.toString()
-                    .contains(search)) {
+            if (item.toString().contains(search)) {
                 if (count == 1) {
                     foundTask.add(RESPONSE_FIND);
                 }
