@@ -12,7 +12,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Victor victor = new Victor();
+    private final Victor victor = new Victor();
 
     @Override
     public void start(Stage stage) {

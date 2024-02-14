@@ -39,7 +39,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
-                DialogBox.getVictorDialog(ui.showIntro(), victorImage)
+                VictorDialogBox.getVictorDialog(ui.showIntro(), victorImage)
         );
     }
 
@@ -57,7 +57,7 @@ public class MainWindow extends AnchorPane {
         String response = victor.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getVictorDialog(response, victorImage)
+                VictorDialogBox.getVictorDialog(response, victorImage)
         );
         userInput.clear();
     }
