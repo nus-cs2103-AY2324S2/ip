@@ -23,6 +23,11 @@ public class Fireraya {
     private Storage storage;
     private Ui ui;
 
+    /**
+     * Initializer for main class. Loads previous saved file from memory.
+     *
+     * @param filePath The name of the file where outputs are saved.
+     */
     public Fireraya(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -34,6 +39,9 @@ public class Fireraya {
         }
     }
 
+    /**
+     * The command to start the program.
+     */
     public void run() {
 
         ui.startMessage();
@@ -54,6 +62,11 @@ public class Fireraya {
         }
     }
 
+    /**
+     * Main class to run program.
+     *
+     * @param args Input from cli.
+     */
     public static void main(String[] args) {
         new Fireraya("current_list.txt").run();
     }
