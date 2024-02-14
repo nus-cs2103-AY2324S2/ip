@@ -41,25 +41,8 @@ public class Storage {
             if (Files.exists(path)) {
                 List<String> tasks = Files.readAllLines(path);
                 for (String taskString : tasks) {
-                    String[] taskStringComponents = taskString.split(" \\| ");
-                    String taskType = taskStringComponents[0];
-                    String taskStatus = taskStringComponents[1];
-                    boolean isDone = taskStatus.equals("X");
-                    String description = taskStringComponents[2];
-
-                    if (taskType.equals("T")) {
-                        taskArray.add(new ToDo(description, isDone));
-                    } else if (taskType.equals("D")) {
-                        String dueDate = taskStringComponents[3];
-                        dueDate = convertDateFormat(dueDate);
-                        taskArray.add(new Deadline(description, dueDate, isDone));
-                    } else if (taskType.equals("E")) {
-                        String fromDate = taskStringComponents[3];
-                        fromDate = convertDateFormat(fromDate);
-                        String toDate = taskStringComponents[4];
-                        toDate = convertDateFormat(toDate);
-                        taskArray.add(new Event(description, fromDate, toDate, isDone));
-                    }
+                    Task task = parseTaskFromString(taskString);
+                    taskArray.add(task);
                 }
             } else {
                 //Create data directory
@@ -73,6 +56,29 @@ public class Storage {
         } catch (IOException e) {
             throw new BartenderBobException();
         }
+    }
+
+    private Task parseTaskFromString(String taskString) {
+        String[] taskStringComponents = taskString.split(" \\| ");
+        String taskType = taskStringComponents[0];
+        String taskStatus = taskStringComponents[1];
+        boolean isDone = taskStatus.equals("X");
+        String description = taskStringComponents[2];
+
+        if (taskType.equals("T")) {
+            return new ToDo(description, isDone);
+        } else if (taskType.equals("D")) {
+            String dueDate = taskStringComponents[3];
+            dueDate = convertDateFormat(dueDate);
+            return new Deadline(description, dueDate, isDone);
+        } else if (taskType.equals("E")) {
+            String fromDate = taskStringComponents[3];
+            fromDate = convertDateFormat(fromDate);
+            String toDate = taskStringComponents[4];
+            toDate = convertDateFormat(toDate);
+            return new Event(description, fromDate, toDate, isDone);
+        }
+        return null;
     }
 
     /**
@@ -130,33 +136,45 @@ public class Storage {
             assert task != null : "Task cannot be null";
             Path path = Paths.get(filePath);
             String taskString = task.show();
-            String typeOfTask = taskString.substring(1, 2); //T
-            String taskStatus = taskString.substring(4, 5); //X
-            String taskDescription = "";
-            String saveEntry = "";
-            if (typeOfTask.equals("T")) {
-                taskDescription = taskString.substring(7);
-                saveEntry = typeOfTask + " | " + taskStatus + " | " + taskDescription;
-            } else if (typeOfTask.equals("D")) {
-                int startIndex = taskString.indexOf("(by: ");
-                int endIndex = taskString.indexOf(")");
-                taskDescription = taskString.substring(7, startIndex - 1);
-                String deadline = taskString.substring(startIndex + 5, endIndex);
-                saveEntry = typeOfTask + " | " + taskStatus + " | " + taskDescription
-                        + " | " + deadline;
-            } else if (typeOfTask.equals("E")) {
-                int startIndex = taskString.indexOf("(from: ");
-                taskDescription = taskString.substring(7, startIndex - 1);
-                int endIndex = taskString.indexOf(" to:");
-                String fromDate = taskString.substring(startIndex + 7, endIndex);
-                startIndex = taskString.indexOf(")");
-                String toDate = taskString.substring(endIndex + 5, startIndex);
-                saveEntry = typeOfTask + " | " + taskStatus + " | " + taskDescription
-                        + " | " + fromDate + " | " + toDate;
-            }
+            String typeOfTask = taskString.substring(1, 2);
+            String taskStatus = taskString.substring(4, 5);
+            String saveEntry = createSaveEntry(typeOfTask, taskString, taskStatus);
             Files.write(path, (saveEntry + System.lineSeparator()).getBytes(), StandardOpenOption.APPEND);
         } catch (IOException e) {
             ui.showSaveTasksError();
         }
+    }
+
+    private String createSaveEntry(String typeOfTask, String taskString, String taskStatus) {
+        if (typeOfTask.equals("T")) {
+            return createTodoSaveEntry(taskString, taskStatus);
+        } else if (typeOfTask.equals("D")) {
+            return createDeadlineSaveEntry(taskString, taskStatus);
+        } else if (typeOfTask.equals("E")) {
+            return createEventSaveEntry(taskString, taskStatus);
+        }
+        return null;
+    }
+    private String createTodoSaveEntry(String taskString, String taskStatus) {
+        String taskDescription = taskString.substring(7);
+        return "T" + " | " + taskStatus + " | " + taskDescription;
+    }
+    private String createDeadlineSaveEntry(String taskString, String taskStatus) {
+        int startIndex = taskString.indexOf("(by: ");
+        int endIndex = taskString.indexOf(")");
+        String taskDescription = taskString.substring(7, startIndex - 1);
+        String deadline = taskString.substring(startIndex + 5, endIndex);
+        return "D" + " | " + taskStatus + " | " + taskDescription
+                + " | " + deadline;
+    }
+    private String createEventSaveEntry(String taskString, String taskStatus) {
+        int startIndex = taskString.indexOf("(from: ");
+        String taskDescription = taskString.substring(7, startIndex - 1);
+        int endIndex = taskString.indexOf(" to:");
+        String fromDate = taskString.substring(startIndex + 7, endIndex);
+        startIndex = taskString.indexOf(")");
+        String toDate = taskString.substring(endIndex + 5, startIndex);
+        return "E" + " | " + taskStatus + " | " + taskDescription
+                + " | " + fromDate + " | " + toDate;
     }
 }
