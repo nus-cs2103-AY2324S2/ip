@@ -36,6 +36,7 @@ public class TaskList {
 
        //System.out.println("Now you have " + list.size() + " tasks in the list.");
         store.save();
+        assert this.list.size() > 0 : "taskList should not be empty";
         return "Got it. I've added this task:\n" + list.get(list.size()-1).ToString() + "\n" + "Now you have " + list.size() + " tasks in the list.\n";
     }
 
@@ -65,7 +66,9 @@ public class TaskList {
         String subject = eventtokens[0];
 
         String to = eventtokens[1];
+        assert to != null : "to clause should not be null";
         String from = eventtokens[2];
+        assert from != null : "from clause should not be null";
         list.add(new Event(subject, to, from));
         return addTask();
 
@@ -79,8 +82,10 @@ public class TaskList {
     public String deadlineCase(String str) throws DukeException {
         str = str.replace("deadline", "");
         //str = str.replace("by", "");
-        String[] deadlinetokens = str.split("/by");
-        if (deadlinetokens.length < 1) {
+
+        String[] deadlinetokens = str.split("(/by)");
+        if(deadlinetokens.length < 1) {
+
             return "OOPS!!! The description of a deadline cannot be empty." +
                     "Please give this instruction in the following format: deadline [description] / [deadline date]\n";
             //throw new DukeException("OOPS!!! The description of a deadline cannot be empty." +
@@ -94,6 +99,7 @@ public class TaskList {
         }
         String subject = deadlinetokens[0];
         String deadline = deadlinetokens[1];
+        assert deadline != null : "deadline should not be null";
         list.add(new Deadline(subject, deadline));
         return addTask();
 
