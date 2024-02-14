@@ -42,7 +42,7 @@ public class UnmarkCommand extends Command {
                     "The task you're unmarking was not marked to begin with... I'm not changing anything.");
         } else {
             tasks.get(index).setStatus(false);
-            Ui.printOutput("OK, I've marked this task as not done yet: ",
+            super.commandResponse = Ui.printOutput("OK, I've marked this task as not done yet: ",
                     tasks.get(index).toString());
         }
     }

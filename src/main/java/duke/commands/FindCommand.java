@@ -32,10 +32,10 @@ public class FindCommand extends Command {
             }
         }
 
-        if (matchingTask.size() != 0) {
-            Ui.printList(matchingTask);
+        if (!matchingTask.isEmpty()) {
+            super.commandResponse = Ui.printList(matchingTask);
         } else {
-            Ui.printOutput(String.format(
+            super.commandResponse = Ui.printOutput(String.format(
                     "Hmmm... I can't find any task that corresponds to the keyword '%s'",
                     input[1].toString()));
         }
