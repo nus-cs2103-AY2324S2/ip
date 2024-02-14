@@ -32,6 +32,7 @@ public class Parser {
      */
     public String deduceCommand(String userInput, TaskList taskList, Image kervynImage, VBox dialogContainer) {
         String[] processedUserInput = userInput.split(" ");
+        assert(!processedUserInput.equals(""));
         switch (processedUserInput[0]) {
             case "bye":
                 new ByeCommand(taskList, this.storage, kervynImage, dialogContainer).executeCommand();

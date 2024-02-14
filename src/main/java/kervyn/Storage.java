@@ -53,6 +53,7 @@ public class Storage {
             }
 
             File file = new File(this.path);
+            assert(this.path.equals("data/tasks.txt"));
 
             if (!file.exists()) {
                 file.createNewFile();
