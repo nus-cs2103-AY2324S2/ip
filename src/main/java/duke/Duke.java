@@ -64,23 +64,4 @@ public class Duke{
         }
     }
 
-/*
-    public void start(Stage stage){
-        ui.intro();
-        Scanner input = new Scanner(System.in);
-        boolean isDone = false;
-        while(!isDone) {
-            String current = input.nextLine();
-            try {
-                parser.read(current);
-            } catch (TaskException e) {
-                System.out.println(e);
-            }
-            isDone = parser.isExit();
-        }
-        storage.saveFile(tasks.giveList());
-
-    }
-
- */
 }
