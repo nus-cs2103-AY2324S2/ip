@@ -13,6 +13,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -21,22 +23,19 @@ import javafx.stage.Stage;
 public class Duke extends Application {
 
     private static final String TASKS_CACHE_PATH = ".duke-cache";
+    private static final String HORIZONTAL_LINE = "---------------------------------\n";
+
     private static TaskList tasks;
     private static Storage storage;
-    private static final String HORIZONTAL_LINE = "---------------------------------\n";
+
+    private final Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private final Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-
-    private static void greet() {
-        String greet = "Hello! I'm Dino\n"
-                + "What can I do for you?\n"
-                + HORIZONTAL_LINE;
-        System.out.println(greet);
-    }
 
     @Override
     public void start (Stage stage) {
@@ -74,6 +73,8 @@ public class Duke extends Application {
 
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+
         userInput.setPrefWidth(325.0);
 
         sendButton.setPrefWidth(55.0);
@@ -83,20 +84,11 @@ public class Duke extends Application {
         AnchorPane.setBottomAnchor(sendButton, 1.0);
         AnchorPane.setRightAnchor(sendButton, 1.0);
 
-        AnchorPane.setLeftAnchor(userInput , 1.0);
+        AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
-        sendButton.setOnMouseClicked((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
-        });
-
-        userInput.setOnAction((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
-        });
-
-        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+        sendButton.setOnMouseClicked((event) -> handleUserInput());
+        userInput.setOnAction((event) -> handleUserInput());
     }
 
     private Label getDialogLabel(String text) {
@@ -104,6 +96,16 @@ public class Duke extends Application {
         textToAdd.setWrapText(true);
 
         return textToAdd;
+    }
+
+    private void handleUserInput() {
+        Label userText = new Label(userInput.getText());
+        Label dukeText = new Label(getResponse(userInput.getText()));
+        dialogContainer.getChildren().addAll(
+                new DialogBox(userText, new ImageView(user)),
+                new DialogBox(dukeText, new ImageView(duke))
+        );
+        userInput.clear();
     }
 
 
@@ -131,6 +133,13 @@ public class Duke extends Application {
         }
         System.out.println("Bye. Hope to see you again soon!");
         scanner.close();
+    }
+
+    private static void greet() {
+        String greet = "Hello! I'm Dino\n"
+                + "What can I do for you?\n"
+                + HORIZONTAL_LINE;
+        System.out.println(greet);
     }
 
     /**
