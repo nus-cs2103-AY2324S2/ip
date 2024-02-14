@@ -56,6 +56,9 @@ public abstract class Task {
         return this.content;
     }
 
+
+    public abstract String saveFormat();
+
     /**
      * Gets the type identifier for this task.
      *

@@ -48,6 +48,7 @@ public class Event extends Task {
      *
      * @return The save format string.
      */
+    @Override
     public String saveFormat() {
         return this.getType() + " | " + (this.getStatus() ? "1" : "0")
                 + " | " + this.getDescription() + " | "

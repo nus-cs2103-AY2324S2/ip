@@ -51,7 +51,7 @@ public class Jivox {
         }
         Task t = this.tasks.getTask(i - 1);
         t.mark();
-        dbHandler.save(this.tasks);
+//        dbHandler.save(this.tasks);
         return this.ui.showMark(t);
     }
 
@@ -67,7 +67,7 @@ public class Jivox {
         }
         Task t = this.tasks.getTask(i - 1);
         t.unmark();
-        dbHandler.save(this.tasks);
+//        dbHandler.save(this.tasks);
         return this.ui.showUnmark(t);
     }
 
@@ -93,7 +93,7 @@ public class Jivox {
 
     private void addTodo(String content) throws DataHandlerException {
         this.tasks.add(new Todo(content));
-        dbHandler.save(this.tasks);
+//        dbHandler.save(this.tasks);
     }
 
     private void addDeadline(String content) throws JivoxException {
@@ -143,7 +143,7 @@ public class Jivox {
         }
         Task t = this.tasks.getTask(i - 1);
         this.tasks.delete(i - 1);
-        this.dbHandler.save(this.tasks);
+//        this.dbHandler.save(this.tasks);
         return this.ui.showDelete(t, this.tasks.getLength());
     }
 
@@ -173,6 +173,7 @@ public class Jivox {
             case BYE:
                 this.isRunning = false;
                 this.ui.close();
+                this.dbHandler.save(this.tasks);
                 return this.ui.exit();
             case DEADLINE:
                 return this.add("deadline", input[1]);
