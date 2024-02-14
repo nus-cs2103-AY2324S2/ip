@@ -1,8 +1,11 @@
 package ken.parser;
 
+import javafx.application.Platform;
 import ken.exception.KenException;
+import ken.response.Response;
 import ken.task.TaskList;
 import ken.storage.Storage;
+import ken.ui.Ui;
 
 import java.util.Scanner;
 
@@ -15,7 +18,8 @@ public class Parser {
     private Scanner scanner;
     private TaskList taskList;
     private Storage storage;
-    private boolean saidBye;
+
+    Ui ui = new Ui();
 
     /**
      * Constructs a new Parser with the specified TaskList and Storage.
@@ -27,7 +31,6 @@ public class Parser {
         this.scanner = new Scanner(System.in);
         this.taskList = taskList;
         this.storage = storage;
-        this.saidBye = false;
     }
 
     /**
@@ -35,54 +38,41 @@ public class Parser {
      *
      * @throws KenException if there is an error during command parsing or task manipulation
      */
-    public void parseUserCommands() throws KenException {
-        String command;
 
-        do {
-            command = scanner.nextLine();
-
-            if (command.equals("list")) {
-                taskList.listTasks();
-            } else if (command.startsWith("mark ")) {
-                taskList.markTask(Integer.parseInt(command.substring(5)));
-            } else if (command.startsWith("unmark ")) {
-                taskList.unmarkTask(Integer.parseInt(command.substring(7)));
-            } else if (command.startsWith("delete ")) {
-                taskList.deleteTask(Integer.parseInt(command.substring(7)));
-            } else if (command.startsWith("todo ")) {
-                taskList.addTodoTask(command.substring(5));
-            } else if (command.startsWith("deadline ")) {
-                taskList.addDeadlineTask(command.substring(9));
-            } else if (command.startsWith("event ")) {
-                taskList.addEventTask(command.substring(6));
-            } else if (command.equalsIgnoreCase("bye")) {
-                saidBye = true;
-            } else if (command.startsWith("seek ")) {
-                taskList.findTasks(command.substring(5));
-            } else if (command.startsWith("seek")) {
-                System.out.println("OKAY I'LL GO HIDE!\n");
-            } else if (command.startsWith("todo")) {
-                System.out.println("do what?\n");
-            } else if (command.startsWith("deadline")) {
-                System.out.println("oh no! which line died?\n");
-            } else if (command.startsWith("event")) {
-                System.out.println("where you going?\n");
-            } else if (!command.equals("bye")) {
-                System.out.println("don't know what that is\n");
-            } else {
-            }
-
-        } while (!command.equalsIgnoreCase("bye"));
-        storage.saveTasks(taskList.getTasks());
-        scanner.close();
+    public Response processUserCommands(String command) throws KenException {
+        if (command.equals("list")) {
+            return taskList.listTasks();
+        } else if (command.startsWith("mark ")) {
+            return taskList.markTask(Integer.parseInt(command.substring(5)));
+        } else if (command.startsWith("unmark ")) {
+            return taskList.unmarkTask(Integer.parseInt(command.substring(7)));
+        } else if (command.startsWith("delete ")) {
+            return taskList.deleteTask(Integer.parseInt(command.substring(7)));
+        } else if (command.startsWith("todo ")) {
+            return taskList.addTodoTask(command.substring(5));
+        } else if (command.startsWith("deadline ")) {
+            return taskList.addDeadlineTask(command.substring(9));
+        } else if (command.startsWith("event ")) {
+            return taskList.addEventTask(command.substring(6));
+        } else if (command.equalsIgnoreCase("bye")) {
+            storage.saveTasks(taskList.getTasks());
+            Platform.exit();
+            return new Response(ui.byeMessage().getMessage());
+        } else if (command.startsWith("seek ")) {
+            return taskList.findTasks(command.substring(5));
+        } else if (command.startsWith("seek")) {
+            return new Response("OKAY I'LL GO HIDE!\n");
+        } else if (command.startsWith("todo")) {
+            return new Response("do what?\n");
+        } else if (command.startsWith("deadline")) {
+            return new Response("oh no! which line died?\n");
+        } else if (command.startsWith("event")) {
+            return new Response("where you going?\n");
+        } else if (!command.equals("bye")) {
+            return new Response("i'm Kenfused...\n");
+        } else {
+            return new Response("nothing");
+        }
     }
 
-    /**
-     * Checks if the user has said "bye" during the last interaction.
-     *
-     * @return true if the user has said "bye," false otherwise
-     */
-    public boolean hasSaidBye() {
-        return saidBye;
-    }
 }

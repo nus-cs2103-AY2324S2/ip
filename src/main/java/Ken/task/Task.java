@@ -38,10 +38,10 @@ public class Task {
     /**
      * Retrieves the status icon for the task.
      *
-     * @return The status icon ("✔" if done, " " if not done).
+     * @return The status icon ("X" if done, " " if not done).
      */
     private String getStatusIcon() {
-        return (isDone ? "✔" : " "); // mark done task with X
+        return (isDone ? "X" : " "); // mark done task with X
     }
 
     /**

@@ -1,6 +1,8 @@
 package ken.task;
 
 import ken.exception.KenException;
+import ken.response.Response;
+import ken.ui.Ui;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,19 +49,19 @@ public class TaskList {
      *
      * @param task The task to be added.
      */
-    public void addTask(Task task) {
+
+    Ui ui = new Ui();
+    public Response addTask(Task task) {
         if (tasks.size() < MAX_TASKS) {
             tasks.add(task);
-            System.out.println("Got it!");
-            System.out.println("added task: " + task);
-            System.out.println("Now Barbie has " + tasks.size() + " tasks in list\n");
+            return ui.addTaskMessage(task, tasks.size());
 
         } else {
-            System.out.println("Way too many tasks for today Barbie!");
-            System.out.println("Slow the Slayy\n");
+            return ui.tooManyTaskMessage();
 
         }
     }
+
 
     /**
      * Adds a todo task to the list.
@@ -67,12 +69,12 @@ public class TaskList {
      * @param description The description of the todo task.
      * @throws KenException If the description is empty.
      */
-    public void addTodoTask(String description) throws KenException {
+    public Response addTodoTask(String description) throws KenException {
         if (description.isEmpty()) {
             throw new KenException("do what?");
         }
         Todo todo = new Todo(description);
-        addTask(todo);
+        return addTask(todo);
     }
 
     /**
@@ -81,16 +83,16 @@ public class TaskList {
      * @param description The description of the deadline task.
      * @throws KenException If the description or deadline command is invalid.
      */
-    public void addDeadlineTask(String description) throws KenException {
+    public Response addDeadlineTask(String description) throws KenException {
         try {
             int indexOfBy = description.indexOf("/by");
             if (indexOfBy != -1) {
                 String deadlineDescription = description.substring(0, indexOfBy).trim();
                 String by = description.substring(indexOfBy + 3).trim();
                 Deadline deadline = new Deadline(deadlineDescription, by);
-                addTask(deadline);
+                return addTask(deadline);
             } else {
-                System.out.println("That's not how you declare a deadline. p.s. use /by.");
+                ui.invalidDeadlineMessage();
                 throw new KenException("Invalid deadline command. By when?.");
             }
         } catch (Exception e) {
@@ -105,7 +107,7 @@ public class TaskList {
      * @param description The description of the event task.
      * @throws KenException If the description or event command is invalid.
      */
-    public void addEventTask(String description) throws KenException {
+    public Response addEventTask(String description) throws KenException {
         try {
             int indexOfFrom = description.indexOf("/from");
             int indexOfTo = description.indexOf("/to");
@@ -115,9 +117,9 @@ public class TaskList {
                 String from = description.substring(indexOfFrom + 5, indexOfTo).trim();
                 String to = description.substring(indexOfTo + 3).trim();
                 Event event = new Event(eventDescription, from, to);
-                addTask(event);
+                return addTask(event);
             } else {
-                System.out.println("That's not how you declare an event. p.s. use /from, and /to.");
+                ui.invalidEventMessage();
                 throw new KenException("Invalid event command. From when to when?");
             }
         } catch (Exception e) {
@@ -130,14 +132,12 @@ public class TaskList {
      *
      * @param index The index of the task to be deleted.
      */
-    public void deleteTask(int index) {
+    public Response deleteTask(int index) {
         if (index >= 1 && index <= tasks.size()) {
             Task removedTask = tasks.remove(index - 1);
-            System.out.println("Ohh okayy...");
-            System.out.println("deleted task: " + removedTask);
-            System.out.println("Now Barbie has " + tasks.size() + " tasks in list.\n");
+            return ui.deleteMessage(removedTask, tasks.size());
         } else {
-            System.out.println("Barbie has no task " + index);
+            return ui.invalidTaskMessage(index);
         }
     }
 
@@ -146,13 +146,13 @@ public class TaskList {
      *
      * @param index The index of the task to be marked as done.
      */
-    public void markTask(int index) {
+    public Response markTask(int index) {
         if (index >= 1 && index <= tasks.size()) {
             Task task = tasks.get(index - 1);
             task.markAsDone();
-            System.out.println("SUBLIME! Task " + index + " completed!\n " + task.toString());
+            return ui.markTaskMessage(index, task.toString());
         } else {
-            System.out.println("Barbie has no task " + index);
+            return ui.invalidTaskMessage(index);
         }
     }
 
@@ -161,35 +161,29 @@ public class TaskList {
      *
      * @param index The index of the task to be unmarked as done.
      */
-    public void unmarkTask(int index) {
+    public Response unmarkTask(int index) {
         if (index >= 1 && index <= tasks.size()) {
             Task task = tasks.get(index - 1);
             task.unmarkAsDone();
-            System.out.println("ookayy, so task " + index + " is not actually done\n " + task.toString());
-            System.out.println("You are not doing task very well :(");
+            return ui.unmarkTaskMessage(index, task.toString());
 
         } else {
-            System.out.println("Barbie has no task " + index);
+            return ui.invalidTaskMessage(index);
         }
     }
 
     /**
      * Lists all tasks in the task list.
      */
-    public void listTasks() {
-
-        System.out.println("Hold my ice cream,");
-
-        if (tasks.isEmpty()) {
-            System.out.println("actually, wait, i'm taking my ice cream back");
-            System.out.println("no tasks yet");
-        } else {
-            System.out.println("Your tasks for today: \n");
-
-            for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + ". " + tasks.get(i));
-            }
-        }
+    public Response listTasks() {
+//        ui.listTasksMessage(tasks.isEmpty());
+//
+//        if (!tasks.isEmpty()) {
+//            for (int i = 0; i < tasks.size(); i++) {
+//                return new Response((i + 1) + ". " + tasks.get(i));
+//            }
+//        }
+        return ui.listTasksMessage(tasks.isEmpty(), tasks);
     }
 
     /**
@@ -197,12 +191,12 @@ public class TaskList {
      *
      * @param keyword The keyword to search for in task descriptions.
      */
-    public void findTasks(String keyword) {
+    public Response findTasks(String keyword) {
         List<Task> matchingTasks = tasks.stream()
                 .filter(task -> task.getDescription().contains(keyword))
                 .collect(Collectors.toList());
 
-        displayMatchingTasks(matchingTasks, keyword);
+        return ui.displayMatchingTasksMessage(keyword, matchingTasks);
     }
 
     /**
@@ -211,13 +205,12 @@ public class TaskList {
      * @param matchingTasks The list of tasks matching the specified keyword.
      * @param keyword The keyword used for the search.
      */
-    private void displayMatchingTasks(List<Task> matchingTasks, String keyword) {
-        System.out.println("seeking...\n");
-        System.out.println("These are all the " + keyword + "s in your list:");
-        for (int i = 0; i < matchingTasks.size(); i++) {
-            System.out.println((i + 1) + ". " + matchingTasks.get(i));
-        }
-        System.out.println("There, all found!\n");
-    }
+//    private void displayMatchingTasks(List<Task> matchingTasks, String keyword) {
+//        ui.displayMatchingTasksMessage(keyword);
+//        for (int i = 0; i < matchingTasks.size(); i++) {
+//            new Response((i + 1) + ". " + matchingTasks.get(i));
+//        }
+//        System.out.println("There, all found!\n");
+//    }
 
 }

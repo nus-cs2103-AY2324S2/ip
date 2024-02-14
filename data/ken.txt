@@ -1,1 +1,2 @@
-T | 0 | shower
+T | 1 | slay
+T | 0 | run
