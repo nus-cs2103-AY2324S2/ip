@@ -12,41 +12,30 @@ import wis.util.WisException;
  * Main window running chat box of the application.
  */
 public class ChatBox {
-    private Scanner scanner;
     private Ui ui;
     private TaskList tasks;
-    private boolean isExitSignal;
 
     public ChatBox() {
-        this.scanner = new Scanner(System.in);
         this.ui = new Ui("");
         this.tasks = new TaskList();
-        this.isExitSignal = false;
     }
 
     /**
      * Loads tasks from disk to launch chat box.
      */
-    public void launch() {
+    public String launch() {
         try {
             this.tasks = new TaskList(Storage.loadTasks());
-            run();
+            return "";
         } catch (IOException e) {
-            WisException.loadFileExceptionHandler();
+            return WisException.loadFileExceptionHandler();
         } catch (InputMismatchException e) {
-            WisException.loadFileExceptionHandler();
+            return WisException.loadFileExceptionHandler();
         }
     }
 
-    /**
-     * Keeps the chat box running until receiving exit signal.
-     */
-    private void run() {
-        Printer.printActionAttach(Action.GREET);
-        while (!isExitSignal) {
-            ui.setInput(scanner.nextLine());
-            isExitSignal = ui.parseInput(tasks);
-        }
-        Printer.printActionAttach(Action.BYE);
+    public String getResponse(String string) {
+        ui.setInput(string);
+        return ui.parseInput(tasks);
     }
 }
