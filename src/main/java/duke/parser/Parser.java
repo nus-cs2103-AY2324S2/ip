@@ -16,6 +16,9 @@ import duke.ui.Ui;
  * Represents a parser that parses user input and executes the corresponding commands.
  */
 public class Parser {
+
+    protected String outputMessage;
+
     /**
      * Parses the user input and executes the corresponding commands.
      *
@@ -24,69 +27,70 @@ public class Parser {
      * @param storage The storage for the tasklist.
      * @param todolist The task list to operate on.
      */
-    public void parseCommand(String input, Ui ui,
+    public String parseCommand(String input, Ui ui,
                                 Storage storage, Tasklist todolist) throws DukeException {
         String[] parts = input.trim().split(" ", 2);
         String command = parts[0];
         String details = parts.length > 1 ? parts[1].trim() : ""; // contains the details after command is issued
         switch (command) {
         case "list":
-            handleList(ui, todolist, storage);
-            break;
+            return handleList(ui, todolist, storage);
         case "mark":
         case "unmark":
-            handleMarkUnmark(ui, details, command.equals("mark"), todolist);
-            break;
+            return handleMarkUnmark(ui, details, command.equals("mark"), todolist);
         case "todo":
-            handleAddTask(ui, new Todo(details, false), todolist);
-            break;
+            return handleAddTask(ui, new Todo(details, false), todolist);
         case "deadline":
-            handleAddTask(ui, createDeadline(details), todolist);
-            break;
+            return handleAddTask(ui, createDeadline(details), todolist);
         case "event":
-            handleAddTask(ui, createEvent(details), todolist);
-            break;
+            return handleAddTask(ui, createEvent(details), todolist);
         case "delete":
-            handleDelete(ui, details, todolist);
-            break;
+            return handleDelete(ui, details, todolist);
         case "find":
-            findTask(ui, details, todolist);
-            break;
+            return findTask(ui, details, todolist);
         case "bye":
             break;
         default:
-            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            outputMessage = "OOPS!!! I'm sorry, but I don't know what that means :-(";
+            return outputMessage;
         }
+        return "Error";
     }
     public boolean commandIsBye(String input) {
         return input.trim().equals("bye");
     }
 
-    private void handleList(Ui ui, Tasklist todolist, Storage storage) throws DukeException {
+    private String handleList(Ui ui, Tasklist todolist, Storage storage) throws DukeException {
         try {
             storage.saveData(todolist.getTodolist());
-            ui.printMessage(todolist.printTodolist());
+            outputMessage = todolist.printTodolist();
+            ui.printMessage(outputMessage);
+            return outputMessage;
         } catch (IOException e) {
             throw new DukeException("An error occurred while writing to the file.");
         }
     }
 
-    private void handleMarkUnmark(Ui ui, String details,
+    private String handleMarkUnmark(Ui ui, String details,
                                   boolean isMark, Tasklist todolist) throws DukeException {
         try {
             int taskNumber = Integer.parseInt(details) - 1;
             todolist.markTaskAsDone(taskNumber, isMark);
             String statusMessage = isMark ? "Nice! I've marked this task as done:"
                     : "OK, I've marked this task as not done yet:";
-            ui.printMessage(statusMessage + "\n\t" + todolist.getTaskString(taskNumber));
+            outputMessage = statusMessage + "\n\t" + todolist.getTaskString(taskNumber);
+            ui.printMessage(outputMessage);
+            return outputMessage;
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new DukeException("Please provide a valid task number to mark or unmark.");
         }
     }
 
-    private void handleAddTask(Ui ui, Task task, Tasklist todolist) {
+    private String handleAddTask(Ui ui, Task task, Tasklist todolist) {
         todolist.addItem(task);
-        ui.printMessage("Added: " + task);
+        outputMessage = "Added: " + task;
+        ui.printMessage(outputMessage);
+        return outputMessage;
     }
 
     private Task createDeadline(String details) throws DukeException {
@@ -108,17 +112,19 @@ public class Parser {
         return new Event(parts[0].trim(), from, to, false);
     }
 
-    private void handleDelete(Ui ui, String details, Tasklist todolist) throws DukeException {
+    private String handleDelete(Ui ui, String details, Tasklist todolist) throws DukeException {
         try {
             int taskNumber = Integer.parseInt(details) - 1;
             Task removed = todolist.removeItem(taskNumber);
-            ui.printMessage("Noted. I've removed this task: " + removed);
+            outputMessage = "Noted. I've removed this task: " + removed;
+            ui.printMessage(outputMessage);
+            return outputMessage;
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new DukeException("Please provide a valid task number to delete.");
         }
     }
 
-    private void findTask(Ui ui, String details, Tasklist todolist) throws DukeException {
+    private String findTask(Ui ui, String details, Tasklist todolist) throws DukeException {
         if (details.isEmpty()) {
             throw new DukeException("Please provide a keyword to search for.");
         }
@@ -133,9 +139,12 @@ public class Parser {
         }
 
         if (tasksWithKeyword.length() == 0) {
-            ui.printMessage("No matching tasks found.");
-            return;
+            outputMessage = "No matching tasks found.";
+            ui.printMessage(outputMessage);
+            return outputMessage;
         }
-        ui.printMessage(tasksWithKeyword.toString().trim());
+        outputMessage = tasksWithKeyword.toString().trim();
+        ui.printMessage(outputMessage);
+        return outputMessage;
     }
 }

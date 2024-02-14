@@ -51,4 +51,12 @@ public class Duke {
         }
         ui.printByeMessage();
     }
+    public String getResponse(String input) {
+        try {
+            return parser.parseCommand(input, ui, storage, todolist);
+        } catch (DukeException e) {
+            ui.printMessage(e.getMessage());
+            return "Error";
+        }
+    }
 }
