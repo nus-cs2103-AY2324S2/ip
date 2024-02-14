@@ -32,4 +32,13 @@ public class Deadline extends Task{
     protected String toFileString() {
         return "D | " + super.toFileString() + " | " + this.byDate;
     }
+
+    @Override
+    public boolean clashesWith(Task other) {
+        if (other instanceof Deadline) {
+            Deadline otherDeadline = (Deadline) other;
+            return this.byDate.equals(otherDeadline.byDate);
+        }
+        return false;
+    }
 }

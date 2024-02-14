@@ -95,8 +95,12 @@ public class Parser {
         return ui.showDeleteTask(tasks.taskNumber(), tasks.printTask(taskNumber));
     }
     public static String handleTasks(Task newTask,TaskList tasks, UI ui) {
-        tasks.addTask(newTask);
-        return ui.showAddTask(tasks.taskNumber(), newTask.toString());
+        try {
+            tasks.addTask(newTask);
+            return ui.showAddTask(tasks.taskNumber(), newTask.toString());
+        } catch (QuackyException e) {
+            return ui.showErrorMessage(e);
+        }
     }
     public static String handleBye(UI ui) {
         return ui.showFarewell();

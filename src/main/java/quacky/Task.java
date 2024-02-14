@@ -62,6 +62,15 @@ public abstract class Task {
         return getStatusValue() + " | " + this.description;
     }
 
-    ;
+    /**
+     * Checks if this task clashes with another task.
+     * The base method returns false, indicating no clash for basic tasks.
+     *
+     * @param other The task to compare against.
+     * @return true if there is a clash, false otherwise.
+     */
+    public boolean clashesWith(Task other) {
+        return false; // By default, tasks do not clash.
+    }
 
 }
