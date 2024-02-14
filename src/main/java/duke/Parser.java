@@ -19,6 +19,8 @@ public class Parser {
         int length = words.length;
         boolean addSuccessful = false;
 
+        assert length > 0 : "Command cannot be empty";
+
         switch (words[0]) {
             case "true": {
                 commands(taskList, request.substring(5), reading, true, duke);
@@ -80,6 +82,10 @@ public class Parser {
             }
             case "event": {
                 addSuccessful = taskList.addEvent(words, !reading, isDone);
+                break;
+            }
+            case "clear": {
+                taskList.clear();
                 break;
             }
             default:

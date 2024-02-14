@@ -298,4 +298,9 @@ public class TaskList {
             duke.output(listOfTasks.toString());
         }
     }
+
+    public void clear() {
+        tasks.clear();
+        duke.output("List Cleared!");
+    }
 }

@@ -46,6 +46,7 @@ public class Storage {
                 Scanner s = new Scanner(f); // create a Scanner using the File as the source
                 while (s.hasNext()) {
                     String input = s.nextLine();
+                    assert input != null : "Input cannot be null";
                     Parser.commands(taskList, input, true, false, duke);
                 }
                 duke.output("Save loaded!");
