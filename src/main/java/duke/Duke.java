@@ -36,9 +36,12 @@ public class Duke extends Application {
     }
 
     File f = new File("data/EUEU.txt");
+    File contFile = new File("data/Contacts.txt");
     Scanner user = new Scanner(System.in);
     Storage storage = new Storage(f);
     TaskList tasklist = new TaskList(storage);
+    Storage contStorage = new Storage(contFile);
+    ContactsList contactsList = new ContactsList (contStorage);
 
     public static void main(String[] args) throws IOException {
 
@@ -46,7 +49,6 @@ public class Duke extends Application {
         Scanner user = new Scanner(System.in);
         Storage storage = new Storage(f);
         TaskList tasklist = new TaskList(storage);
-
 
     }
 
@@ -151,17 +153,19 @@ public class Duke extends Application {
      * @throws IOException When string input do not match any of the CLI of the Parser class.
      */
     String getResponse(String input) throws IOException {
+        ContactsParser conts = new ContactsParser(contactsList);
 
-//        File f = new File("data/EUEU.txt");
-//        Scanner user = new Scanner(System.in);
-//        Storage storage = new Storage(f);
-//        TaskList tasklist = new TaskList(storage);
-//
-//        Ui ui = new Ui(user, tasklist);
-//        return ui.readCommand();
-
-        Parser parse = new Parser(tasklist);
-        return parse.parsing(input);
+        if (input.startsWith("cont")) {
+            try {
+                String str = input.substring(5);
+                return conts.parsing(str);
+            } catch (StringIndexOutOfBoundsException e){
+                return "ENTER (CONTACT) INSTRUCTION";
+            }
+        } else {
+            Parser parse = new Parser(tasklist, contactsList);
+            return parse.parsing(input);
+        }
 
     }
 }

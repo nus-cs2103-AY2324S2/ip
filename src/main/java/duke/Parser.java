@@ -14,9 +14,11 @@ import java.io.IOException;
 
 public class Parser {
 private TaskList tasklist;
+private ContactsList contactsList;
 
-    public Parser(TaskList tasklist) {
+    public Parser(TaskList tasklist, ContactsList contactlist) {
         this.tasklist = tasklist;
+        this.contactsList = contactlist;
     }
 
     static final String WELCOME_MESSAGE = "Hi babyyy! It's your EUEU!! \n"
@@ -64,6 +66,8 @@ private TaskList tasklist;
             res = EXIT_MESSAGE;
             tasklist.write();
             tasklist.clearCurrentTasks();
+            contactsList.write();
+            contactsList.clearContacts();
         } else if (command.startsWith("mark")) {
             try {
                 String str = command.substring(5);
@@ -124,6 +128,18 @@ private TaskList tasklist;
                     } catch(ArrayIndexOutOfBoundsException e) {
                         res = INVALID_EVENT_TIMINGS;
                     }
+//                } else if (command.startsWith("cont add")) {
+//                    try {
+//                        String str = command.substring(9);
+//                        String[] arr = str.split(" ");
+//                        String name = arr[0];
+//                        int number = Integer.parseInt(arr[1]);
+//
+//                    } catch (StringIndexOutOfBoundsException e) {
+//                        res = "Enter contact command";
+//                    } catch (NumberFormatException e) {
+//                        res = "Enter contact number";
+//                    }
                 } else {
                     res = NON_COMMAND_RESPONSE;
                 }
