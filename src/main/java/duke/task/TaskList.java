@@ -1,6 +1,8 @@
 package duke.task;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Encapsulates a list of tasks, providing functionality to manage tasks such as adding, deleting, and retrieving tasks.
@@ -60,13 +62,9 @@ public class TaskList {
      * @return An ArrayList of strings, each representing a numbered task.
      */
     public ArrayList<String> showList(){
-        ArrayList<String> result = new ArrayList<>();
-        int count = 1;
-        for (Task i : taskList) {
-            result.add(Integer.toString(count) + "." + i.getStatus());
-            count++;
-        }
-        return result;
+        return (ArrayList<String>) IntStream.range(0, taskList.size())
+                .mapToObj(i -> (i+1) + "." + taskList.get(i).getStatus())
+                .collect(Collectors.toList());
     }
 
     /**
