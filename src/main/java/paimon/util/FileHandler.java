@@ -1,17 +1,18 @@
 package paimon.util;
 
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
 import paimon.ChatException;
 import paimon.task.DeadlineTask;
 import paimon.task.EventTask;
 import paimon.task.Task;
-import paimon.task.TodoTask;
 import paimon.task.TaskList;
+import paimon.task.TodoTask;
 
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Scanner;
-import java.io.FileWriter;
 
 /**
  * Handles file operations for the application, including loading tasks from a file
@@ -35,25 +36,25 @@ public class FileHandler {
         Task returnTask;
         // Might need to catch DateTimeParseException here
         switch (fields[0]) {
-            case "T":
-                returnTask = new TodoTask(fields[2]);
-                break;
-            case "D":
-                try {
-                    returnTask = new DeadlineTask(fields[2], DateParser.parseDate(fields[3]));
-                } catch (ChatException e) {
-                    throw new IOException("Unable to read date " + fields[3]);
-                }
-                break;
-            case "E":
-                try {
-                    returnTask = new EventTask(fields[2], DateParser.parseDate(fields[3]), DateParser.parseDate(fields[4]));
-                } catch (ChatException e) {
-                    throw new IOException("Unable to read date " + fields[3] + " " + fields[4]);
-                }
-                break;
-            default:
-                throw new IOException("Invalid task type: " + fields[0]);
+        case "T":
+            returnTask = new TodoTask(fields[2]);
+            break;
+        case "D":
+            try {
+                returnTask = new DeadlineTask(fields[2], DateParser.parseDate(fields[3]));
+            } catch (ChatException e) {
+                throw new IOException("Unable to read date " + fields[3]);
+            }
+            break;
+        case "E":
+            try {
+                returnTask = new EventTask(fields[2], DateParser.parseDate(fields[3]), DateParser.parseDate(fields[4]));
+            } catch (ChatException e) {
+                throw new IOException("Unable to read date " + fields[3] + " " + fields[4]);
+            }
+            break;
+        default:
+            throw new IOException("Invalid task type: " + fields[0]);
         }
 
         returnTask.setTaskState(fields[1].equals("1"));

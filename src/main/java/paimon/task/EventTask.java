@@ -33,9 +33,11 @@ public class EventTask extends Task {
     @Override
     public String getTask() {
         if (this.isDone) {
-            return "[E][X] " + this.description + " (from: " + startDate.format(DATE_FORMAT) + ", to: " + this.endDate.format(DATE_FORMAT) + ")";
+            return "[E][X] " + this.description
+                    + " (from: " + startDate.format(DATE_FORMAT) + ", to: " + this.endDate.format(DATE_FORMAT) + ")";
         } else {
-            return "[E][ ] " + this.description + " (from: " + startDate.format(DATE_FORMAT) + ", to: " + this.endDate.format(DATE_FORMAT) + ")";
+            return "[E][ ] " + this.description
+                    + " (from: " + startDate.format(DATE_FORMAT) + ", to: " + this.endDate.format(DATE_FORMAT) + ")";
         }
     }
 
@@ -49,9 +51,11 @@ public class EventTask extends Task {
     @Override
     public String toFileString() {
         if (this.isDone) {
-            return "E | 1 | " + this.description + " | " + this.startDate.format(DATE_FORMAT) + " | " + this.endDate.format(DATE_FORMAT);
+            return "E | 1 | " + this.description
+                    + " | " + this.startDate.format(DATE_FORMAT) + " | " + this.endDate.format(DATE_FORMAT);
         } else {
-            return "E | 0 | " + this.description + " | " + this.startDate.format(DATE_FORMAT) + " | " + this.endDate.format(DATE_FORMAT);
+            return "E | 0 | " + this.description
+                    + " | " + this.startDate.format(DATE_FORMAT) + " | " + this.endDate.format(DATE_FORMAT);
         }
     }
 }

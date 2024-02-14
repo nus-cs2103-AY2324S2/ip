@@ -1,10 +1,9 @@
 package paimon.util;
 
+import java.util.Scanner;
 
 import paimon.ChatException;
 import paimon.task.TaskList;
-
-import java.util.Scanner;
 
 /**
  * Manages user interactions by displaying messages.
@@ -75,11 +74,25 @@ public class UiHandler {
      * Displays a help message detailing the syntax and commands supported.
      */
     public void displayHelpMessage() {
-        displayMessage("You can perform the following actions, make sure to follow the syntax!", "list : Lists all your Tasks\n" + "todo <task>: Adds a Task without any deadline\n" + "deadline <task> /by <time>: Adds a task done before a time\n" + "event<Task> /from <time> /to <time>: Adds a task with a time window\n" + "mark/unmark <index>: Marks a Task as done. Index must be a number\n" + "unmark <index>: Mark a Task as not done. Index must be a number\n" + "delete <index>: Deletes a Task from your list!. Index must be a number\n" + "find <keyword>: Lists tasks that contain keyword\n" + "bye : Exits the program");
+        displayMessage("You can perform the following actions, make sure to follow the syntax!",
+                "list : Lists all your Tasks\n" + "todo <task>: Adds a Task without any deadline\n"
+                        + "deadline <task> /by <time>: Adds a task done before a time\n"
+                        + "event<Task> /from <time> /to <time>: Adds a task with a time window\n"
+                        + "mark/unmark <index>: Marks a Task as done. Index must be a number\n"
+                        + "unmark <index>: Mark a Task as not done. Index must be a number\n"
+                        + "delete <index>: Deletes a Task from your list!. Index must be a number\n"
+                        + "find <keyword>: Lists tasks that contain keyword\n" + "bye : Exits the program");
     }
 
+    /**
+     * Notifies the user that a task has been added
+     *
+     * @param taskString Task that was added
+     * @param tasksLeft The total number of tasks left after adding
+     */
     public void displayAddTaskMessage(String taskString, int tasksLeft) {
-        displayMessage("Okay Traveller, I've added the following task!", taskString, "You have " + tasksLeft + " tasks in your list");
+        displayMessage("Okay Traveller, I've added the following task!",
+                taskString, "You have " + tasksLeft + " tasks in your list");
     }
 
     /**

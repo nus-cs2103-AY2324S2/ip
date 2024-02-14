@@ -1,8 +1,9 @@
 package paimon.command;
 
 import paimon.ChatException;
-import paimon.util.UiHandler;
 import paimon.task.TaskList;
+import paimon.util.UiHandler;
+
 
 /**
  * Represents a command to delete a task from the task list. The task to be deleted

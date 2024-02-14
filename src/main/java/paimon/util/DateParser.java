@@ -1,20 +1,29 @@
 package paimon.util;
 
-import paimon.ChatException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
+
+import paimon.ChatException;
+
+
 
 /**
  * Provides functionality to parse date strings into {@link LocalDateTime} objects.
  * Supports multiple date and time formats for flexibility in user input.
  */
 public class DateParser {
-    private static final List<FormatterWithTime> formatters = Arrays.asList(new FormatterWithTime(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"), true), new FormatterWithTime(DateTimeFormatter.ofPattern("yyyy/MM/dd"), false), new FormatterWithTime(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"), true), new FormatterWithTime(DateTimeFormatter.ofPattern("yyyy-MM-dd"), false), new FormatterWithTime(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"), true), new FormatterWithTime(DateTimeFormatter.ofPattern("dd/MM/yyyy"), false));
+    private static final List<FormatterWithTime> formatters = Arrays.asList(
+            new FormatterWithTime(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"), true),
+            new FormatterWithTime(DateTimeFormatter.ofPattern("yyyy/MM/dd"), false),
+            new FormatterWithTime(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"), true),
+            new FormatterWithTime(DateTimeFormatter.ofPattern("yyyy-MM-dd"), false),
+            new FormatterWithTime(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"), true),
+            new FormatterWithTime(DateTimeFormatter.ofPattern("dd/MM/yyyy"), false)
+    );
 
     /**
      * Parses a string representing a date or datetime into a {@link LocalDateTime} object.
@@ -42,7 +51,8 @@ public class DateParser {
                 // Continue to the next formatter
             }
         }
-        throw new ChatException("The date should be in the format: yyyy/MM/dd, yyyy/MM/dd HH:mm, yyyy-MM-DD, dd/MM/yyyy HH:mm");
+        throw new ChatException(
+                "The date should be in the format: yyyy/MM/dd, yyyy/MM/dd HH:mm, yyyy-MM-DD, dd/MM/yyyy HH:mm");
     }
 
     /**

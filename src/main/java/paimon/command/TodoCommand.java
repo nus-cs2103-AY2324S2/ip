@@ -1,10 +1,10 @@
 package paimon.command;
 
 import paimon.ChatException;
-import paimon.util.UiHandler;
 import paimon.task.Task;
 import paimon.task.TaskList;
 import paimon.task.TodoTask;
+import paimon.util.UiHandler;
 
 /**
  * Represents a command to add a new to-do task to the task list. A to-do task consists
