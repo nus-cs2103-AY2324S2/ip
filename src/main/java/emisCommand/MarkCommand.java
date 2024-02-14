@@ -1,9 +1,9 @@
-package main.java.emis.command;
+package emisCommand;
 
-import main.java.emis.exceptions.EmisException;
-import main.java.emis.TaskList;
-import main.java.emis.Ui;
-import main.java.emis.Storage;
+import emisExceptions.EmisException;
+import emis.TaskList;
+import emis.Ui;
+import emis.Storage;
 
 /**
  * The MarkCommand class represents a command to mark a task as done in the EMIS application.

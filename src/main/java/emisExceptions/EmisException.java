@@ -1,4 +1,4 @@
-package main.java.emis.exceptions;
+package emisExceptions;
 
 /**
  * The EmisException class represents an exception specific to the EMIS application.

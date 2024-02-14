@@ -1,4 +1,4 @@
-package test.java;
+package Tests;
 
 import org.junit.jupiter.api.Test;
 
@@ -8,13 +8,11 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 
-import main.java.emis.exceptions.EmisException;
-import main.java.emis.Parser;
-import main.java.emis.task.Task;
-import main.java.emis.task.ToDo;
-import main.java.emis.TaskList;
-import main.java.emis.command.ToDoCommand;
-import main.java.emis.command.*;
+import emisExceptions.EmisException;
+import emis.Parser;
+import emisTask.Task;
+import emis.TaskList;
+import emisCommand.ToDoCommand;
 
 /**
  * The ParserTest class contains JUnit tests for the Parser class.

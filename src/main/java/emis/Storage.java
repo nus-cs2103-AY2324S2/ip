@@ -1,9 +1,10 @@
 package emis;
 
-import main.java.emis.exceptions.EmisException;
-import main.java.emis.task.Event;
-import main.java.emis.task.ToDo;
-import main.java.emis.task.Deadline;
+import emisExceptions.EmisException;
+import emisTask.Event;
+import emisTask.ToDo;
+import emisTask.Deadline;
+import emisTask.Task;
 
 import java.util.Scanner;
 import java.util.ArrayList;

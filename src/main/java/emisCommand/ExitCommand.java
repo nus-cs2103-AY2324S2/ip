@@ -1,8 +1,8 @@
-package main.java.emis.command;
+package emisCommand;
 
-import main.java.emis.TaskList;
-import main.java.emis.Ui;
-import main.java.emis.Storage;
+import emis.TaskList;
+import emis.Ui;
+import emis.Storage;
 
 /**
  * The ExitCommand class represents a command to exit the EMIS application.
@@ -25,7 +25,7 @@ public class ExitCommand extends Command {
      */
     @Override
     public void execute(TaskList tasklist, Ui ui, Storage storage) {
-        ui.exit();
+        Ui.exit();
     }
 
     /**

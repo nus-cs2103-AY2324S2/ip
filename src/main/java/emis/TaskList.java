@@ -1,7 +1,7 @@
 package emis;
 
-import main.java.emis.exceptions.EmisException;
-import main.java.emis.task.Task;
+import emisExceptions.EmisException;
+import emisTask.Task;
 import java.util.ArrayList;
 
 // TaskList class, contains task list and its operations
@@ -103,5 +103,24 @@ public class TaskList {
             task.markAsUndone();
             this.tasklist.set(taskNo - 1, task);
         }
+    }
+
+    /**
+     * Finds tasks containing a specific keyword in their descriptions.
+     * 
+     * @param keywordToFind The keyword to search for in task descriptions.
+     * @return A string representation of matching tasks found in the task list.
+     */
+    public void findTasks(String keywordToFind) {
+        Ui.showLine();
+        System.out.println("Here are the matching tasks in your list:");
+        int counter = 1;
+        for (Task task : this.tasklist) {
+            if (task.getDescription().contains(keywordToFind)) {
+                System.out.println(Integer.toString(counter) + ". " + task.toString());
+                counter++;
+            }
+        }
+        Ui.showLine();
     }
 }

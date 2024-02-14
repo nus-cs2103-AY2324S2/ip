@@ -1,4 +1,4 @@
-package main.java.emis.task;
+package emisTask;
 
 /**
  * The ToDo class represents a task without a deadline in the EMIS application.

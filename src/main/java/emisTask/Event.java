@@ -1,4 +1,4 @@
-package main.java.emis.task;
+package emisTask;
 
 /**
  * The Event class represents an event task in the EMIS application.

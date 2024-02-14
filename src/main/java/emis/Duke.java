@@ -1,10 +1,7 @@
 package emis;
 
-import main.java.emis.command.Command;
-import main.java.emis.exceptions.EmisException;
-import main.java.emis.TaskList;
-import main.java.emis.Ui;
-import main.java.emis.Storage;
+import emisCommand.Command;
+import emisExceptions.EmisException;
 
 /**
  * The main class of the EMIS application.
