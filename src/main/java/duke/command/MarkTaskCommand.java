@@ -33,7 +33,13 @@ public class MarkTaskCommand extends Command {
      * @throws DukeException
      */
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-        Task markedTask = taskList.markTask(indexToBeMarked);
+        Task markedTask;
+        try {
+            markedTask = taskList.markTask(indexToBeMarked);
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            throw new DukeException("*HONK* Pengu thinks you need a valid task number to mark, "
+                    + "consider checking the list command");
+        }
         try {
             storage.saveStorage(taskList.getTaskStore());
         } catch (IOException e) {
