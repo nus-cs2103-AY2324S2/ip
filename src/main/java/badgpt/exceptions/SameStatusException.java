@@ -28,6 +28,6 @@ public class SameStatusException extends TaskException {
      */
     @Override
     public String toString() {
-        return "The task:\n" + this.task + "\nis " + (this.type == 0 ? "already complete." : "not yet complete.");
+        return "The task:\n" + task + "\nis " + (type == 0 ? "already complete." : "not yet complete.");
     }
 }

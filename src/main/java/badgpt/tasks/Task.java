@@ -14,11 +14,11 @@ public class Task {
      */
     public Task(String description) {
         this.description = description;
-        this.isDone = false;
+        isDone = false;
     }
 
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     /**
@@ -34,21 +34,21 @@ public class Task {
      * Gets the status of the task.
      */
     public boolean isComplete() {
-        return this.isDone;
+        return isDone;
     }
 
     /**
      * Changes the status of the task to complete.
      */
     public void complete() {
-        this.isDone = true;
+        isDone = true;
     }
 
     /**
      * Changes the status of the task to incomplete.
      */
     public void uncomplete() {
-        this.isDone = false;
+        isDone = false;
     }
 
     /**
@@ -63,6 +63,6 @@ public class Task {
      */
     @Override
     public String toString() {
-        return getStatusIcon() + " " + this.description;
+        return getStatusIcon() + " " + description;
     }
 }

@@ -2,26 +2,34 @@ package badgpt.util;
 
 import badgpt.exceptions.BadException;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.Scanner;
 
 /**
  * Handles interaction with user. Prints all messages and responses and takes in user input.
  */
 public class Ui {
-    private Scanner sc;
+    protected Scanner sc;
 
     /**
-     * Initialises the Scanner object to take in user input.
+     * Initialises the Scanner object to take in user input. Also sets console and error output to a specified output
+     * stream to be read by the GUI.
+     *
+     * @param out The stream for console output.
+     * @param err The stream for error output.
      */
-    public Ui() {
-        this.sc = new Scanner(System.in);
+    public Ui(ByteArrayOutputStream out, ByteArrayOutputStream err) {
+        sc = new Scanner(System.in);
+        System.setOut(new PrintStream(out));
+        System.setErr(new PrintStream(err));
     }
 
     /**
      * Prints a line to make the chatbot look nice.
      */
     public void printLine() {
-        System.out.println("____________________________________________________________");
+        System.out.println("_____________________________________________________");
     }
 
     /**
@@ -30,8 +38,8 @@ public class Ui {
      * @param e The exception thrown by the bot.
      */
     public void printException(BadException e) {
-        System.err.println("____________________________________________________________\n"
-                + e + "\n____________________________________________________________");
+        System.err.println("_____________________________________________________\n"
+                + e + "\n_____________________________________________________");
     }
 
     /**

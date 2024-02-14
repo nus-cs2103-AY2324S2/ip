@@ -2,10 +2,23 @@ package badgpt.util;
 
 import badgpt.tasks.Task;
 
+import java.io.ByteArrayOutputStream;
+
 /**
  * An extension of the Ui class which handles task-related interactions.
  */
 public class TasksUi extends Ui {
+
+    /**
+     * Initialises the Scanner object to take in user input. Also sets console and error output to a specified output
+     * stream to be read by the GUI.
+     *
+     * @param out The stream for console output.
+     * @param err The stream for error output.
+     */
+    public TasksUi(ByteArrayOutputStream out, ByteArrayOutputStream err) {
+        super(out, err);
+    }
 
     /**
      * Prints the newly-added task.

@@ -18,8 +18,12 @@ import java.util.List;
  */
 public class TaskList {
     private List<Task> tasks = new ArrayList<>(100);
-    private TasksUi tasksUi = new TasksUi();
+    private TasksUi tasksUi;
     private boolean hasChanges = false;
+
+    public TaskList(TasksUi tasksUi) {
+        this.tasksUi = tasksUi;
+    }
 
     /**
      * Stores a Task object in the list. The list has a max size of 100.
@@ -56,7 +60,7 @@ public class TaskList {
      * Returns the current number of tasks in the list.
      */
     public int getListSize() {
-        return this.tasks.size();
+        return tasks.size();
     }
 
     /**

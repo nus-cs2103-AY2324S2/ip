@@ -1,27 +1,37 @@
 package badgpt;
 
 import badgpt.exceptions.BadException;
-import badgpt.util.FileManager;
-import badgpt.util.Parser;
-import badgpt.util.TaskList;
-import badgpt.util.Ui;
+import badgpt.gui.Gui;
+import badgpt.util.*;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 /**
  * The main class for the chatbot program.
  */
 public class BadGpt {
     private final String NAME = "BadGPT";
+    private ByteArrayOutputStream out;
+    private ByteArrayOutputStream err;
     private TaskList taskList;
     private Ui ui;
     private FileManager fileManager;
+    private Gui gui;
 
     /**
-     * Initialises the TaskList, Ui and FileManager instances needed to run the bot.
+     * Initialises the TaskList, Ui and FileManager instances needed to run the bot. Also takes in the Gui needed to
+     * display the chat.
+     *
+     * @param gui The GUI to be used to display the chat.
      */
-    public BadGpt() {
-        taskList = new TaskList();
-        ui = new Ui();
+    public BadGpt(Gui gui) {
+        out = new ByteArrayOutputStream();
+        err = new ByteArrayOutputStream();
+        taskList = new TaskList(new TasksUi(out, err));
+        ui = new Ui(out, err);
         fileManager = new FileManager();
+        this.gui = gui;
     }
 
     /**
@@ -30,7 +40,7 @@ public class BadGpt {
      * @param args Command line arguments.
      */
     public static void main(String[] args) {
-        new BadGpt().run();
+        // new BadGpt().run();
     }
 
     /**
@@ -42,14 +52,23 @@ public class BadGpt {
 
         fileManager.loadFile();
         fileManager.readFile(taskList);
+    }
 
-        while (true) {
-            String in = ui.read();
-            try {
-                Parser.parse(in, this, taskList);
-            } catch (BadException e) {
-                ui.printException(e);
-            }
+    /**
+     * Takes in user input and returns the appropriate response.
+     *
+     * @param in The user input.
+     * @return The response.
+     */
+    public String parseText(String in) {
+        out.reset();
+        err.reset();
+        try {
+            Parser.parse(in, this, taskList);
+            return out.toString();
+        } catch (BadException e) {
+            ui.printException(e);
+            return err.toString();
         }
     }
 
@@ -60,6 +79,5 @@ public class BadGpt {
         taskList.writeChanges(fileManager);
         ui.sayBye();
         ui.stop();
-        System.exit(0);
     }
 }

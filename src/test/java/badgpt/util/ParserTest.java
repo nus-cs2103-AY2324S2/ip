@@ -2,6 +2,7 @@ package badgpt.util;
 
 import badgpt.BadGpt;
 import badgpt.exceptions.BadException;
+import badgpt.gui.Gui;
 import badgpt.tasks.Task;
 
 import org.junit.jupiter.api.Test;
@@ -16,15 +17,15 @@ public class ParserTest {
 
     @Test
     public void parse_validCommandFormat_success() throws Exception {
-        BadGpt bot = new BadGpt();
-        TaskList taskList = new TaskList();
-        taskList.store(new Task("return book"));
-
         // @@author ronnnnnnnnn-reused
         // Reused from https://stackoverflow.com/a/32241300 with minor modifications
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         System.setOut(new PrintStream(out));
         // @@author
+
+        BadGpt bot = new BadGpt(new Gui());
+        TaskList taskList = new TaskList(new TasksUi(out, new ByteArrayOutputStream()));
+        taskList.store(new Task("return book"));
 
         Parser.parse("mark 1", bot, taskList);
         assertEquals("____________________________________________________________\r\n" +
@@ -43,8 +44,8 @@ public class ParserTest {
 
     @Test
     public void parse_invalidCommandFormat_notSuccess() {
-        BadGpt bot = new BadGpt();
-        TaskList taskList = new TaskList();
+        BadGpt bot = new BadGpt(new Gui());
+        TaskList taskList = new TaskList(new TasksUi(new ByteArrayOutputStream(), new ByteArrayOutputStream()));
 
         // Try mark command without a number
         try {
