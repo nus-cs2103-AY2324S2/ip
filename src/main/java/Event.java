@@ -1,20 +1,26 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 class Event extends Task {
-    protected String from;
-    protected String to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
+    private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
     public Event(String description, String from, String to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.from = LocalDateTime.parse(from, INPUT_FORMATTER);
+        this.to = LocalDateTime.parse(to, INPUT_FORMATTER);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return String.format("[E]%s (from: %s to: %s", super.toString(), from.format(OUTPUT_FORMATTER),
+                to.format(OUTPUT_FORMATTER));
     }
 
     @Override
     public String toFileFormat() {
-        return String.format("E | %d | %s | %s to %s", isDone ? 1 : 0, this.description, this.from, this.to);
+        return String.format("E | %d | %s | %s to %s", isDone ? 1 : 0, this.description, from.format(INPUT_FORMATTER),
+                to.format(INPUT_FORMATTER));
     }
 }

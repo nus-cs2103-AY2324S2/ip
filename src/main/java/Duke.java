@@ -1,4 +1,9 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -190,7 +195,7 @@ public class Duke {
     private static void addTask(String userInput, List<Task> taskList) throws Exception {
         String[] parts = userInput.split(" ", 2);
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
-            throw new IllegalArgumentException("The description of a todo task cannot be empty.");
+            throw new IllegalArgumentException("The description of a task cannot be empty.");
         }
         String command = parts[0];
         String taskInfo = parts[1];
