@@ -66,6 +66,7 @@ public class TaskList {
      */
     public String printTaskMarked(Ui ui, int num) {
         Task task = taskList.get(num);
+        assert task.getStatusIcon().equals("X"):"task should already be marked" ;
         return ui.printTaskMarked(task.toString());
     }
 
@@ -77,6 +78,7 @@ public class TaskList {
      */
     public String printTaskUnMarked(Ui ui, int num) {
         Task task = taskList.get(num);
+        assert task.getStatusIcon().equals(" "):"task should be unmarked" ;
         return ui.printTaskUnMarked(task.toString());
     }
 
@@ -119,7 +121,6 @@ public class TaskList {
             addTodo(task);
         } else if (typeOfTask.equals(Parser.TASK_DEADLINE)) {
             addDeadline(task);
-
         } else if (typeOfTask.equals(Parser.TASK_EVENT)){
             addEvent(task);
         } else {
@@ -136,14 +137,13 @@ public class TaskList {
     }
     public void addDeadline(String task) throws JuxException {
         String[] args = Parser.parseDeadline(task);
+        assert args.length == 2 : "Deadline should have description and time!";
         taskList.add(new Deadline(args[0], args[1]));
     }
     public void addEvent(String task) throws JuxException {
         String[] args = Parser.parseEvent(task);
+        assert args.length == 2 : "Event should have description and time range!";
         taskList.add(new Event(args[0],args[1],args[2]));
-    }
-    public String showList(Ui ui) {
-        return ui.printList(taskList);
     }
     public String showListWithIndexing(Ui ui) {
         return ui.printListWithIndexing(taskList);

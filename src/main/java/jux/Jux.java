@@ -24,6 +24,7 @@ public class Jux{
         try {
             tasks = new TaskList(storage.load());
             isNewStart = tasks.isEmpty();
+
         } catch (FileNotFoundException e) {
             ui.showLoadingError(e.getMessage());
             tasks = new TaskList();

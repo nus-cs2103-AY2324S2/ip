@@ -46,13 +46,12 @@ public class MainWindow extends AnchorPane {
      */
 
     public void welcomeMessage(){
-        String message = "Previously on Jux...." + "\n";
-        message += jux.getStorageList();
-        if (jux.isNewStart()) {
-            message = "Hello! I'm Jux\n" +
-                    "What can I do for you?\n";
+        String message = "Hello! I'm Jux\n" +
+                "What can I do for you?\n";
+        if (!jux.isNewStart()) {
+            message = "Previously on Jux...." + "\n";
+            message += jux.getStorageList();
         }
-
         dialogContainer.getChildren().add(DialogBox.getJuxDialog(message, juxImage));
     }
 
