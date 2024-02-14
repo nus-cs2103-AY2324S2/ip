@@ -150,6 +150,7 @@ public class Command {
     public Command(CommandType type, String argument) {
         this.type = type;
         this.argument = argument;
+        assert argument != null : "Argument should not be null or empty";
     }
 
     /**
@@ -183,6 +184,8 @@ public class Command {
             break;
         case DEADLINE:
             String[] deadlineDetails = argument.split("/by", 2);
+            assert deadlineDetails.length == 2 : "Deadline argument should contain description "
+                    + "and date/time separated by '/by'";
             if (deadlineDetails.length != 2) {
                 throw new DukeException("Invalid deadline format. Please use: deadline <description> /by <date/time>");
             }
@@ -207,6 +210,7 @@ public class Command {
         case DELETE:
             try {
                 int indexToDelete = Integer.parseInt(argument) - 1;
+                assert isValidIndex(indexToDelete, tasks.getSize()) : "Index out of bounds";
                 Task taskToDelete = tasks.deleteTask(indexToDelete);
                 storage.saveTasks(tasks.getTasks());
                 response.append("Noted. I've removed this task:\n  ").append(taskToDelete)
