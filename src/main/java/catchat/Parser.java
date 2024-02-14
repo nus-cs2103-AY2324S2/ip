@@ -21,52 +21,52 @@ public class Parser {
      * Executes user input
      *
      * @param input user input
-     * @return boolean
      */
-    public void executeUserInput(String input) {
-        switch (CommandType) {
-        case
+    public String executeUserInput(String input) {
+        CommandType commandType = getCommandType(input);
 
-        //        if (input.equals("list")) { // show list
-        //            taskList.printList();
-        //            return CommandType.LIST;
-        //
-        //        } else if (input.startsWith("mark done")) { // mark as done
-        //            try {
-        //                int index = Integer.parseInt(input.substring(9).trim()) - 1;
-        //                taskList.markDone(index);
-        //                return CommandType.MARK_DONE;
-        //            } catch (NumberFormatException e) {
-        //                ui.printInvalidTaskIndex();
-        //            }
-        //
-        //        } else if (input.startsWith("mark undone")) { // mark as undone
-        //            try {
-        //                int index = Integer.parseInt(input.substring(11).trim()) - 1;
-        //                taskList.markUndone(index);
-        //                return CommandType.MARK_UNDONE;
-        //            } catch (NumberFormatException e) {
-        //                ui.printInvalidTaskIndex();
-        //            }
-        //
-        //        } else if (input.startsWith("find")) { // tasks that contain keyword
-        //            try {
-        //                String keyword = input.substring(5).trim();
-        //                taskList.findTasks(keyword);
-        //                return CommandType.FIND;
-        //            } catch (StringIndexOutOfBoundsException e) {
-        //                ui.printInvalidKeyword();
-        //            }
-        //
-        //        } else { // else adds task
-        //            taskList.addTask(input);
-        //            return CommandType.ADD;
-        //        }
-        //        return CommandType.INVALID_COMMAND;
+        switch (commandType) {
+        case EXIT:
+            return ui.showGoodbye();
+        case LIST:
+            return taskList.getList();
+        case MARK_DONE:
+            try {
+                int index = Integer.parseInt(input.substring(9).trim()) - 1;
+                return taskList.markDone(index);
+            } catch (NumberFormatException e) {
+                return ui.printInvalidTaskIndex();
+            }
+        case MARK_UNDONE:
+            try {
+                int index = Integer.parseInt(input.substring(11).trim()) - 1;
+                return taskList.markUndone(index);
+            } catch (NumberFormatException e) {
+                return ui.printInvalidTaskIndex();
+            }
+        case FIND:
+            try {
+                String keyword = input.substring(5).trim();
+                return taskList.findTasks(keyword);
+            } catch (StringIndexOutOfBoundsException e) {
+                return ui.printInvalidKeyword();
+            }
+        case HELP:
+            return ui.getHelp();
+        case DELETE:
+            try {
+                int index = Integer.parseInt(input.substring(6).trim()) - 1;
+                return taskList.deleteTask(index);
+            } catch (NumberFormatException e) {
+                return ui.printInvalidTaskIndex();
+            }
+        default: // default is to add task
+            return taskList.addTask(input);
+        }
     }
 
     /**
-     * Gets the command type
+     * Get the command type
      *
      * @param input
      * @return
@@ -93,18 +93,18 @@ public class Parser {
             return CommandType.ADD;
         }
     }
+}
 
-    /**
-     * Enum for CommandType
-     */
-    public enum CommandType {
-        EXIT,
-        LIST,
-        MARK_DONE,
-        MARK_UNDONE,
-        FIND,
-        ADD,
-        HELP,
-        DELETE
-    }
+/**
+ * Enum for CommandType
+ */
+enum CommandType {
+    EXIT,
+    LIST,
+    MARK_DONE,
+    MARK_UNDONE,
+    FIND,
+    ADD,
+    HELP,
+    DELETE
 }

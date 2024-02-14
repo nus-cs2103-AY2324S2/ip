@@ -68,8 +68,8 @@ public class Ui {
     /**
      * Prints the exit message
      */
-    public void showGoodbye() {
-        System.out.println("\t" + "Bye. Hope to see you again soon!");
+    public String showGoodbye() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -92,8 +92,8 @@ public class Ui {
     /**
      * Prints the line
      */
-    public void printLine() {
-        System.out.println(LINE);
+    public String printLine() {
+        return LINE;
     }
 
     /**
@@ -121,14 +121,14 @@ public class Ui {
     /**
      * Invalid task index message
      */
-    public void printInvalidTaskIndex() {
-        System.out.println("\t" + "Oops, that wasn't a valid task index :P");
+    public String printInvalidTaskIndex() {
+        return "Oops, that wasn't a valid task index :P";
     }
 
     /**
      * Invalid keyword message
      */
-    public void printInvalidKeyword() {
-        System.out.println("\t" + "No tasks match that keyword :(");
+    public String printInvalidKeyword() {
+        return "No tasks match that keyword :(";
     }
 }

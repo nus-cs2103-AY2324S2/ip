@@ -8,7 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-//import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -45,27 +44,9 @@ public class CatChat extends Application {
     /**
      * Starts the program
      *
-     * @throws IndexOutOfBoundsException if index is out of bounds
-     * @throws NumberFormatException if input is not a number
-     * @throws StringIndexOutOfBoundsException if input is not a number
+     * @param stage
+     * @throws Exception
      */
-    public void start() {
-
-        ui.showGreeting();
-
-        String input = ui.getUserInput();
-        while (true) {
-            ui.printLine();
-            if (!parser.executeUserInput(input)) {
-                break;
-            }
-
-            input = ui.getUserInput();
-        }
-        ui.showGoodbye();
-        ui.closeScanner();
-    }
-
     @Override
     public void start(Stage stage) {
         //Step 1. Setting up required components
@@ -86,7 +67,6 @@ public class CatChat extends Application {
         stage.setScene(scene);
         stage.show();
 
-        //More code to be added here later
         //Step 2. Formatting the window to look as expected
         stage.setTitle("CatChat!");
         stage.setResizable(false);
@@ -137,7 +117,6 @@ public class CatChat extends Application {
      * @return a label with the specified text that has word wrap enabled.
      */
     private Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
         Label textToAdd = new Label(text);
         textToAdd.setWrapText(true);
 
@@ -151,8 +130,6 @@ public class CatChat extends Application {
      */
     private void handleUserInput() {
         String input = ui.getUserInput(); // Get user input using Ui class method
-        // Label userText = new Label(input);
-        // Label dukeText = new Label(getResponse(input));
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImg),
                 DialogBox.getDukeDialog(getResponse(input), dukeImg)
@@ -165,7 +142,7 @@ public class CatChat extends Application {
      * Replace this stub with your completed method.
      */
     protected String getResponse(String input) {
-
+        return parser.executeUserInput(input);
     }
 
     /**
@@ -175,6 +152,5 @@ public class CatChat extends Application {
      */
     public static void main(String[] args) {
         CatChat mainApp = new CatChat();
-        mainApp.start();
     }
 }

@@ -27,34 +27,19 @@ public class TaskList {
      *
      * @param task task to be added
      */
-    public void addTask(String task) {
+    public String addTask(String task) {
         TaskType taskType = getTaskType(task);
 
         switch (taskType) {
         case TODO:
-            addTodoTask(task);
-            break;
+            return addTodoTask(task);
         case DEADLINE:
-            addDeadline(task);
-            break;
+            return addDeadline(task);
         case EVENT:
-            addEvent(task);
-            break;
-        case HELP:
-            ui.showHelp();
-            break;
-        case DELETE:
-            try {
-                int index = Integer.parseInt(task.substring(6).trim()) - 1;
-                deleteTask(index);
-            } catch (NumberFormatException e) {
-                System.out.println("\t" + "Invalid input. Please enter a valid task index.");
-            }
-            break;
+            return addEvent(task);
         default: // UNKNOWN TaskType
-            System.out.println("\t" + "Sorry, that's not a command. Enter 'help' for instructions.");
+            return "Sorry, that's not a command. Enter 'help' for instructions.";
         }
-        ui.printLine();
     }
 
     /**
@@ -62,17 +47,17 @@ public class TaskList {
      *
      * @param task task to be added
      */
-    public void addTodoTask(String task) {
+    public String addTodoTask(String task) {
 
         String todoDescription = task.substring(4).trim();
         if (todoDescription.isEmpty()) {
-            System.out.println("\t" + "Invalid input. Please enter a valid todo task.");
+            return "Invalid input. Please enter a valid todo task.";
         } else {
             Todo newTodo = new Todo(todoDescription);
             this.taskList.add(newTodo);
-
-            System.out.println("\t" + "Added todo: " + todoDescription);
             storage.saveTaskListToFile();
+
+            return "Added todo: " + todoDescription;
         }
     }
 
@@ -81,21 +66,21 @@ public class TaskList {
      *
      * @param task task to be added
      */
-    public void addDeadline(String task) {
+    public String addDeadline(String task) {
 
         String[] deadlineDescription = task.substring(8).trim().split("/by", 2);
         if (deadlineDescription.length != 2 || deadlineDescription[0].trim().isEmpty()
-            || deadlineDescription[1].trim().isEmpty()) {
-            System.out.println("\t" + "Invalid input. Enter 'deadline <task> /by <DEADLINE>'");
+                || deadlineDescription[1].trim().isEmpty()) {
+            return "Invalid input. Enter 'deadline <task> /by <DEADLINE>'";
         } else {
             String description = deadlineDescription[0].trim();
             String by = deadlineDescription[1].trim();
 
             Deadline newDeadline = new Deadline(description, by);
             this.taskList.add(newDeadline);
-
-            System.out.println("\t" + "Added deadline: " + newDeadline.toString());
             storage.saveTaskListToFile();
+
+            return "Added deadline: " + newDeadline.toString();
         }
     }
 
@@ -104,7 +89,7 @@ public class TaskList {
      *
      * @param task task to be added
      */
-    public void addEvent(String task) {
+    public String addEvent(String task) {
 
         String[] eventParts = task.substring(6).trim().split("/from");
         if (eventParts.length == 2) {
@@ -115,17 +100,17 @@ public class TaskList {
                 String to = durationParts[1].trim();
                 Events newEvent = new Events(desc, from, to);
                 this.taskList.add(newEvent);
-
-                System.out.println("\t" + "Added event: " + desc + " (from: " + from + ", to: " + to + ")");
                 storage.saveTaskListToFile();
 
+                return "Added event: " + desc + " (from: " + from + ", to: " + to + ")";
+
             } else {
-                System.out.println("\t" + "Invalid input for event. "
-                        + "Please use the format: event <task> /from <start time> /to <end time>");
+                return "Invalid input for event. "
+                        + "Please use the format: event <task> /from <start time> /to <end time>";
             }
         } else {
-            System.out.println("\t" + "Invalid input for event. "
-                    + "Please use the format: event <task> /from <start time> /to <end time>");
+            return "Invalid input for event. "
+                    + "Please use the format: event <task> /from <start time> /to <end time>";
         }
     }
 
@@ -136,18 +121,17 @@ public class TaskList {
      * @throws IndexOutOfBoundsException if index is out of bounds
      * @throws NumberFormatException if input is not a number
      */
-    public void deleteTask(int index) {
+    public String deleteTask(int index) {
         try {
-            System.out.println("\t" + "Noted. I've removed this task:" + "\n" + "\t"
-                    + "[ " + this.taskList.get(index) + " ]");
             this.taskList.remove(index);
-            System.out.println("\t" + "There are " + this.taskList.size() + " tasks in your list.");
             storage.saveTaskListToFile();
-        } catch (IndexOutOfBoundsException e) {
-            ui.printInvalidTaskIndex();
-        } catch (NumberFormatException e) {
+            return "Noted. I've removed this task:\n"
+                    + "[ " + this.taskList.get(index) + " ]\n"
+                    + "There are " + this.taskList.size() + " tasks in your list.";
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
             ui.printInvalidTaskIndex();
         }
+        return "";
     }
 
     /**
@@ -163,10 +147,6 @@ public class TaskList {
             return TaskType.DEADLINE;
         } else if (task.startsWith("event")) {
             return TaskType.EVENT;
-        } else if (task.equals("help")) {
-            return TaskType.HELP;
-        } else if (task.equals("delete")) { // if (task.startsWith("delete"))
-            return TaskType.DELETE;
         } else {
             return TaskType.UNKNOWN;
         }
@@ -183,22 +163,19 @@ public class TaskList {
      * @throws IndexOutOfBoundsException if index is out of bounds
      * @throws NumberFormatException if input is not a number
      */
-    public void markDone(int index) {
+    public String markDone(int index) {
         try {
             if (this.taskList.get(index).isDone()) {
-                System.out.println("\t" + "You completed this task already!");
-                ui.printLine();
+                return "You completed this task already!";
             } else {
                 this.taskList.get(index).markDone();
-                System.out.println("\t" + "Good job completing the task!");
                 storage.saveTaskListToFile();
-                printList();
+                return "Good job completing the task!";
             }
-        } catch (IndexOutOfBoundsException e) {
-            ui.printInvalidTaskIndex();
-        } catch (NumberFormatException e) {
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
             ui.printInvalidTaskIndex();
         }
+        return "";
     }
 
     /**
@@ -212,59 +189,59 @@ public class TaskList {
      * @throws IndexOutOfBoundsException if index is out of bounds
      * @throws NumberFormatException if input is not a number
      */
-    public void markUndone(int index) {
+    public String markUndone(int index) {
         try {
             if (!this.taskList.get(index).isDone()) {
-                System.out.println("\t" + "Oops! You still haven't done this task!");
+                return "Oops! You still haven't done this task!";
             } else {
                 this.taskList.get(index).markUndone();
-                System.out.println("\t" + "Better get to it soon!");
                 storage.saveTaskListToFile();
-                printList();
-                ui.printLine();
+                return "Better get to it soon!";
             }
-        } catch (IndexOutOfBoundsException e) {
-            ui.printInvalidTaskIndex();
-        } catch (NumberFormatException e) {
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
             ui.printInvalidTaskIndex();
         }
+        return "";
     }
 
     /**
      * Find tasks that contain keyword
      */
-    public void findTasks(String keyword) {
+    public String findTasks(String keyword) {
+        StringBuilder result = new StringBuilder();
         int count = 0;
+
         for (Task task : this.taskList) {
             if (task.toString().contains(keyword)) {
                 if (count == 0) {
-                    System.out.println("\t" + "Here are the matching tasks in your list:");
+                    result.append("\t").append("Here are the matching tasks in your list:\n");
                 }
                 count++;
-                System.out.println("\t" + count + ". " + task);
+                result.append("\t").append(count).append(". ").append(task).append("\n");
             }
         }
+
         if (count == 0) {
-            System.out.println("\t" + "No matching tasks found :(");
+            result.append("\t").append("No matching tasks found :(");
         }
-        ui.printLine();
+
+        return result.toString();
     }
 
-    /**
-     * Prints taskList
-     */
-    public void printList() {
+
+    public String getList() {
         if (this.taskList.isEmpty()) {
-            System.out.println("\t" + "Your tasklist is empty");
+            return "Your tasklist is empty";
         } else {
-            System.out.println("\t" + "Here is your to-do list:");
+            String list = "Here is your to-do list:\n";
 
             this.taskIndex = 1;
             for (Task task : this.taskList) {
+                list += this.taskIndex + ". " + task + "\n";
                 System.out.println("\t" + this.taskIndex + ". " + task);
                 this.taskIndex++;
             }
+            return list;
         }
-        ui.printLine();
     }
 }
