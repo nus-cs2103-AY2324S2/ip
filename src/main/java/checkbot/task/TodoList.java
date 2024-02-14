@@ -1,7 +1,7 @@
 package checkbot.task;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import checkbot.exception.InvalidIndexException;
@@ -113,11 +113,10 @@ public class TodoList {
      */
     public TodoList find(String substr) {
         return new TodoList(
-                new ArrayList<>(List.of(
-                        taskList
-                                .stream()
-                                .filter(task -> task.nameContains(substr))
-                                .toArray(Task[]::new)))
+                new ArrayList<>(taskList
+                        .stream()
+                        .filter(task -> task.nameContains(substr))
+                        .collect(Collectors.toList()))
         );
     }
 }

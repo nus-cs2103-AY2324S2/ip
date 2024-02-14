@@ -68,14 +68,17 @@ public class Parser {
     }
 
     private static AddCommand parseEventCommand(String input, String taskName)
-            throws MissingFromException, MissingToException {
+            throws MissingFromException, MissingToException, EmptyDescriptionException {
+        // We allow for any order of from and to for flexibility
         Pattern pattern = Pattern.compile("event (.*) /(from|to)(.*) /(from|to)(.*)");
         Matcher matcher = pattern.matcher(input);
         if (!matcher.find()) {
-            if (input.contains(" /from ")) {
-                throw new MissingToException();
+            if (!input.contains(" /from ")) {
+                throw new MissingFromException();
+            } else if (!input.contains("/to")) {
+                throw new MissingFromException();
             }
-            throw new MissingFromException();
+            throw new EmptyDescriptionException();
         }
 
         String firstLabel = matcher.group(2);
@@ -145,12 +148,12 @@ public class Parser {
         if (input.startsWith("delete ")) {
             return parseDeleteCommand(input);
         }
-        if (input.startsWith("todo")
-                || input.startsWith("deadline")
-                || input.startsWith("event")) {
+        if (input.startsWith("todo ")
+                || input.startsWith("deadline ")
+                || input.startsWith("event ")) {
             return parseAddCommand(input);
         }
-        if (Pattern.compile("find (.*)").matcher(input).find()) {
+        if (input.startsWith("find ")) {
             return parseFindCommand(input);
         }
         throw new InvalidCommandException(input);

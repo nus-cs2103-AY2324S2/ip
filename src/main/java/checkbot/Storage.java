@@ -47,6 +47,8 @@ public class Storage {
         if (type.equals(TASK_CODE)) {
             task = new Todo(taskDetails);
         } else if (type.equals(DEADLINE_CODE)) {
+            // Sample taskDetails: "name of task | Tomorrow"
+            // This regex puts "name of task" into group 1 and "Tomorrow" into group 2
             Matcher deadlineMatcher = Pattern.compile("(.*) \\| (.*)").matcher(taskDetails);
             if (!deadlineMatcher.find()) {
                 return null;
@@ -56,6 +58,8 @@ public class Storage {
             task = new Deadline(name, byWhen);
         } else {
             assert type.equals((EVENT_CODE)) : "Task should start with an 'E'";
+            // Sample taskDetails: "name of task | 10 Feb | 20 Feb"
+            // This regex puts "name of task" into group 1, "10 Feb" into group 2 and "20 Feb" into group 3
             Matcher eventMatcher = Pattern.compile("(.*) \\| (.*) \\| (.*)").matcher(taskDetails);
             if (!eventMatcher.find()) {
                 return null;
@@ -86,6 +90,7 @@ public class Storage {
 
         try (Scanner scanner = new Scanner(file)) {
             Pattern pattern = Pattern.compile(
+                    // ([TDE]) \| ([01]) \| (.*)
                     String.format("([%s%s%s]) \\| ([01]) \\| (.*)", TASK_CODE, DEADLINE_CODE, EVENT_CODE));
 
             while (scanner.hasNextLine()) {

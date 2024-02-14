@@ -12,7 +12,6 @@ import javafx.stage.Stage;
  * Represents the main class of the Checkbot program.
  */
 public class Checkbot extends Application {
-    public static final String TASK_FILE_DIR = "./tasks.txt";
 
     private static final String CHECKBOT_AVATAR_DIR = "/images/checkbot.png";
     private static final String USER_AVATAR_DIR = "/images/DaUser.png";
@@ -36,16 +35,9 @@ public class Checkbot extends Application {
                 this::parseUserInput);
     }
 
-    /**
-     * Constructor for Checkbot that uses the default filepath for tasks.txt
-     */
-    public Checkbot() {
-        this(TASK_FILE_DIR);
-    }
-
     private void parseUserInput(String input) {
         try {
-            Command c = parser.parse(input);
+            Command c = parser.parse(input.strip());
             c.executeCommand(todoList, storage, ui);
             if (c.isBye()) {
                 Platform.exit();
