@@ -1,13 +1,16 @@
 package paimon.command;
 
+import java.time.LocalDateTime;
+
 import paimon.ChatException;
-import paimon.util.UiHandler;
-import paimon.util.DateParser;
 import paimon.task.EventTask;
 import paimon.task.Task;
 import paimon.task.TaskList;
+import paimon.util.DateParser;
+import paimon.util.UiHandler;
 
-import java.time.LocalDateTime;
+
+
 
 /**
  * Represents a command to add an event task to the task list. The event task includes a description,
@@ -40,15 +43,11 @@ public class EventCommand extends Command {
      * @throws ChatException If the start or end date strings cannot be parsed into valid dates/times.
      */
     public void execute(TaskList tasks, UiHandler ui) throws ChatException {
-        try {
-            LocalDateTime startDate = DateParser.parseDate(startDateString);
-            LocalDateTime endDate = DateParser.parseDate(endDateString);
-            Task eventTask = new EventTask(this.description, startDate, endDate);
-            tasks.addTask(eventTask);
-            ui.displayAddTaskMessage(eventTask.getTask(), tasks.getSize());
-        } catch (ChatException e) {
-            throw e;
-        }
+        LocalDateTime startDate = DateParser.parseDate(startDateString);
+        LocalDateTime endDate = DateParser.parseDate(endDateString);
+        Task eventTask = new EventTask(this.description, startDate, endDate);
+        tasks.addTask(eventTask);
+        ui.displayAddTaskMessage(eventTask.getTask(), tasks.getSize());
     }
 
     /**

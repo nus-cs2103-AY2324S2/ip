@@ -2,8 +2,9 @@ package paimon.command;
 
 
 import paimon.ChatException;
-import paimon.util.UiHandler;
 import paimon.task.TaskList;
+import paimon.util.UiHandler;
+
 
 /**
  * Represents the abstract base for commands in the application. This class provides a structure

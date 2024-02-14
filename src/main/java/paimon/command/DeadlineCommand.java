@@ -1,13 +1,15 @@
 package paimon.command;
 
+import java.time.LocalDateTime;
+
 import paimon.ChatException;
-import paimon.util.UiHandler;
-import paimon.util.DateParser;
 import paimon.task.DeadlineTask;
 import paimon.task.Task;
 import paimon.task.TaskList;
+import paimon.util.DateParser;
+import paimon.util.UiHandler;
 
-import java.time.LocalDateTime;
+
 
 
 /**
@@ -38,14 +40,10 @@ public class DeadlineCommand extends Command {
      * @throws ChatException If the end date string cannot be parsed into a valid date/time.
      */
     public void execute(TaskList tasks, UiHandler ui) throws ChatException {
-        try {
-            LocalDateTime endDate = DateParser.parseDate(endDateString);
-            Task deadlineTask = new DeadlineTask(this.description, endDate);
-            tasks.addTask(deadlineTask);
-            ui.displayAddTaskMessage(deadlineTask.getTask(), tasks.getSize());
-        } catch (ChatException e) {
-            throw e;
-        }
+        LocalDateTime endDate = DateParser.parseDate(endDateString);
+        Task deadlineTask = new DeadlineTask(this.description, endDate);
+        tasks.addTask(deadlineTask);
+        ui.displayAddTaskMessage(deadlineTask.getTask(), tasks.getSize());
     }
 
     /**

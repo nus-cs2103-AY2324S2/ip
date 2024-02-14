@@ -11,7 +11,7 @@ public abstract class Task {
     /**
      * The date and time format used for representing task deadlines or event timings.
      */
-    protected final static DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    protected static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /**
      * The description of the task.
