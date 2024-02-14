@@ -29,6 +29,13 @@ public class Task {
         this.isDone = isDone;
     }
 
+    public Boolean getStatus() {
+        return this.isDone;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
     /**
      * Marks the task as done by setting isDone to true.
      */

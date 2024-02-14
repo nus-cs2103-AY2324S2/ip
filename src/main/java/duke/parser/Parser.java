@@ -4,8 +4,12 @@ import duke.storage.Storage;
 import duke.task.*;
 import duke.response.Ui;
 
+import java.util.List;
+import java.util.Arrays;
+import java.util.Collections;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 /**
@@ -66,7 +70,24 @@ public class Parser {
             this.storage.saveTasksToFile(taskList.getTasks());
             return response.sendGoodbye();
         case "list":
-            return response.showTaskList(taskList.getTasks());
+            ArrayList<Task> tasks = taskList.getTasks();
+            if (words.length == 1) {
+                return response.showTaskList(tasks);
+            }
+            String listMethod = userInput.substring(command.length()).trim();
+            if (listMethod.equals("done")) {
+                return response.showDoneTaskList(tasks);
+            } else if (listMethod.equals("undone")) {
+                return response.showUndoneTaskList(tasks);
+            } else if (listMethod.equals("undone top") || listMethod.equals("top undone")) {
+                return response.undoneDoneList(tasks);
+            } else if (listMethod.equals("done top") || listMethod.equals("top done")) {
+                return response.doneUndoneList(tasks);
+            } else if (listMethod.equals("a") || listMethod.equals("alphabetically")) {
+                return response.sortAlphabetically(tasks);
+            } else {
+                return response.showTaskList(tasks);
+            }
         case "done":
             if (words.length == 1) {
                 return response.noIndexMarkAsDone();
@@ -79,6 +100,15 @@ public class Parser {
             }
             int undoneTaskIndex = Integer.parseInt(words[1]);
             return this.taskList.markTaskAsUndone(undoneTaskIndex);
+//        case "delete mass":
+//            if (words.length <= 2) {
+//                return response.noIndexDeleteTask();
+//            }
+//            String[] indexesString = words[2].split(",");
+//            int[] taskIndices = new int[words.length - 1];
+//            for (int i = words.length; i > 0; i--) {
+//                taskIndices[i - 1] = Integer.parseInt(words[i]);
+//            }
         case "delete":
             if (words.length == 1) {
                 return response.noIndexDeleteTask();

@@ -3,6 +3,9 @@ package duke.task;
 import duke.response.Ui;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class TaskList {
     ArrayList<Task> tasks;
@@ -41,6 +44,22 @@ public class TaskList {
         Task removedTask = this.tasks.remove(taskIndex - 1);
         return response.deleteTask(removedTask, getTaskListSize());
     }
+
+    public String deleteTasks(int[] taskIndices) {
+        StringBuilder removedTasks = new StringBuilder();
+        ArrayList<Integer> invalidIndexes = new ArrayList<Integer>();
+        for (int index : taskIndices) {
+            if (!checkValidTaskIndex(index)) {
+                invalidIndexes.add(index);
+            } else {
+                Task removedTask = this.tasks.remove(index - 1);
+                removedTasks = removedTasks.append("  ").append(removedTask).append("\n");
+            }
+        }
+        return response.deleteTasks(String.valueOf(removedTasks), invalidIndexes, getTaskListSize());
+    }
+
+
     public String markTaskAsDone(int taskIndex) {
         if (!checkValidTaskIndex(taskIndex)) {
             return response.invalidTaskIndex();

@@ -3,6 +3,8 @@ package duke.response;//package duke;
 import duke.task.Task;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * The Ui class manages user interface interactions and displays messages to the user.
@@ -64,6 +66,72 @@ public class Ui {
         }
     }
 
+    public String showDoneTaskList(ArrayList<Task> taskList) {
+        if (taskList.isEmpty()) {
+            return "There are no tasks!";
+        } else {
+            String tasksString = "Here are completed tasks in your list:";
+            for (int i = 0; i < taskList.size(); i++) {
+                Task task = taskList.get(i);
+                if (!task.getStatus()) {
+                    continue;
+                }
+                tasksString = tasksString + "\n" + (i + 1) + ". " + task;
+            }
+            return tasksString;
+        }
+    }
+
+    public String showUndoneTaskList(ArrayList<Task> taskList) {
+        if (taskList.isEmpty()) {
+            return "There are no tasks!";
+        } else {
+            String tasksString = "Here are task which are not completed in your list:";
+            for (int i = 0; i < taskList.size(); i++) {
+                Task task = taskList.get(i);
+                if (task.getStatus()) {
+                    continue;
+                }
+                tasksString = tasksString + "\n" + (i + 1) + ". " + task;
+            }
+            return tasksString;
+        }
+    }
+
+    public String doneUndoneList(ArrayList<Task> taskList) {
+        return showDoneTaskList(taskList) +
+                "\n" +
+                "\n" +
+                showUndoneTaskList(taskList);
+    }
+
+    public String undoneDoneList(ArrayList<Task> taskList) {
+        return showUndoneTaskList(taskList) +
+                "\n" +
+                "\n" +
+                showDoneTaskList(taskList);
+    }
+
+    public String sortAlphabetically(ArrayList<Task> taskList) {
+        // Sort tasks using a custom comparator
+        Collections.sort(taskList, new Comparator<Task>() {
+            @Override
+            public int compare(Task task1, Task task2) {
+                // Compare tasks based on their descriptions
+                return task1.getDescription().compareToIgnoreCase(task2.getDescription());
+            }
+        });
+
+        // Build a string representation of the sorted tasks
+        StringBuilder sortedTasks = new StringBuilder();
+        for (int i = 0; i < taskList.size(); i++) {
+            Task task = taskList.get(i);
+            sortedTasks.append(i + 1).append(". ").append(task).append("\n");
+        }
+
+        return sortedTasks.toString();
+    }
+
     public String addNewTask(Task addedTask, int taskListSize) {
         return "Got it. I have added:\n"
                 + " " + addedTask + "\n"
@@ -73,6 +141,12 @@ public class Ui {
     public String deleteTask(Task deletedTask, int taskListSize) {
         return "Task has been successfully removed:\n"
                 + " " + deletedTask + "\n"
+                + "There are " + taskListSize + " tasks in the task list currently.";
+    }
+
+    public String deleteTasks(String deletedTasks, ArrayList<Integer> invalidIndexes, int taskListSize) {
+        return "Tasks have been successfully removed:\n"
+                + deletedTasks
                 + "There are " + taskListSize + " tasks in the task list currently.";
     }
 
@@ -153,6 +227,10 @@ public class Ui {
         return "Please provide a keyword to search.";
     }
 
+    public String unrecognizedListMethod() {
+        return "Please indicate what listing method do you wish to use?";
+    }
+
     public String help() {
         return "Welcome to " + botName + " chatbot!" +
                 "\n" + "You can follow instructions below to use this chatbot!" +
@@ -168,6 +246,21 @@ public class Ui {
                 "\n" +
                 "\n" + "list" +
                 "\n" + "--> list out all tasks in the task list" +
+                "\n" +
+                "\n" + "list done" +
+                "\n" + "--> list out all completed tasks in the task list" +
+                "\n" +
+                "\n" + "list undone" +
+                "\n" + "--> list out all uncompleted tasks in the task list" +
+                "\n" +
+                "\n" + "list top undone" +
+                "\n" + "--> list out all uncompleted tasks on the top and completed tasks below" +
+                "\n" +
+                "\n" + "list top done" +
+                "\n" + "--> list out all completed tasks on the top and uncompleted tasks below" +
+                "\n" +
+                "\n" + "list a" +
+                "\n" + "--> list out all tasks in the task list alphabetically" +
                 "\n" +
                 "\n" + "delete taskIndex" +
                 "\n" + "--> delete certain task" +
