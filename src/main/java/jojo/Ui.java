@@ -10,16 +10,17 @@ public class Ui {
     /**
      * Prints a welcome message.
      */
-    public void showWelcomeMessage() {
-        System.out.println("Hello! I'm Jojo :)");
+    public String showWelcomeMessage() {
+        return "Hello! I'm Jojo :)";
     }
 
     /**
      * Prints the starting prompt.
      */
-    public void showStartingQn() {
-        System.out.println("What can I do for you?");
+    public String showStartingQn() {
+        return "What can I do for you?";
     }
+
 
     /**
      * Prints break lines to show end of a command.

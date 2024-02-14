@@ -44,6 +44,16 @@ public class Jojo {
         return ui.getResponse(response);
     }
 
+    public String getStartingMsg() throws JojoException {
+        StringBuilder msg = new StringBuilder();
+        msg.append(ui.showWelcomeMessage());
+        msg.append(System.getProperty("line.separator"));
+        msg.append(storage.printList());
+        msg.append(System.getProperty("line.separator"));
+        msg.append(ui.showStartingQn());
+        return msg.toString();
+    }
+
     public static void main(String[] args) {
         try {
             new Jojo("jojo.txt").run();
