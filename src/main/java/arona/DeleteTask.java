@@ -20,8 +20,13 @@ public class DeleteTask extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws FileException {
+        int originalSize = taskList.getTasks().size();
         int taskNum = Integer.parseInt(fullCommand.split(" ", 0)[1]);
         taskList.DeleteTask(taskNum);
+        int alteredSize = taskList.getTasks().size();
+
+        assert alteredSize == originalSize - 1 : "Task was not deleted";
+
         storage.save(taskList.getTasks());
     }
 

@@ -20,7 +20,12 @@ public class AddTask extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws FileException, TaskException {
+        int originalSize = taskList.getTasks().size();
         taskList.addTask(fullCommand);
+        int alteredSize = taskList.getTasks().size();
+
+        assert alteredSize == originalSize + 1 : "Task was not added to tasklist";
+
         storage.save(taskList.getTasks());
     }
 }
