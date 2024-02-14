@@ -2,16 +2,19 @@ package univus;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import univus.task.TaskList;
-import univus.task.Task;
-import univus.task.ToDo;
+
 import univus.task.Deadline;
 import univus.task.Event;
+import univus.task.Task;
+import univus.task.TaskList;
+import univus.task.ToDo;
+
 
 /**
  * Parses user input and performs corresponding actions for the Univus application.
  */
 public class Parser {
+    private static final String LINE = "____________________________________________________________";
 
     /**
      * Parses the user input message and performs actions based on the message content.
@@ -20,8 +23,6 @@ public class Parser {
      * @param message  The user input message to be parsed.
      * @throws UnivusException If an error occurs during the parsing or execution of the command.
      */
-    private static final String LINE = "____________________________________________________________";
-
     public static void parse(TaskList taskList, String message) throws UnivusException {
         if (message.equals("list")) {
             System.out.println(LINE);

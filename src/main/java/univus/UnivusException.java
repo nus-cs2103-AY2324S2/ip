@@ -7,9 +7,9 @@ public class UnivusException extends Throwable {
     /**
      * Constructs a UnivusException with a formatted error message.
      *
-     * @param Message Error message.
+     * @param message Error message.
      */
-    public UnivusException(String Message) {
-        super(Message);
+    public UnivusException(String message) {
+        super(message);
     }
 }
