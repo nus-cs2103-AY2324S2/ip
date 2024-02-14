@@ -28,6 +28,7 @@ public class DeadlineAction extends actions.GenericAction {
             if (!userInput.arg3Empty()) {
                 throw new ExcessiveArgException();
             }
+            assert !(userInput.arg2Empty() && userInput.arg1Empty());
             LocalDate due = LocalDate.parse(userInput.getArg2());
             taskList.addToList(new Deadline(userInput.getArg1(), due));
             outputString += "I see. I shall add the following to the list of tasks:\n";
