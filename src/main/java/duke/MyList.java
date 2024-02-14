@@ -8,13 +8,13 @@ import java.util.List;
  * The tasks can be added, retrieved, marked as done, and deleted.
  */
 public class MyList {
-    private List<Task> items;
+    private List<Task> tasks;
 
     /**
      * Constructs an empty list.
      */
     public MyList() {
-        this.items = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
     /**
@@ -23,7 +23,7 @@ public class MyList {
      * @param t The list of tasks saved in the text file.
      */
     public MyList(List<Task> t) {
-        this.items = t;
+        this.tasks = t;
     }
 
     /**
@@ -31,8 +31,8 @@ public class MyList {
      *
      * @return The list of tasks.
      */
-    public List<Task> getItemsForSaving() {
-        return this.items;
+    public List<Task> getTasksForSaving() {
+        return this.tasks;
     }
 
 
@@ -42,9 +42,9 @@ public class MyList {
      * @param t The task to be added.
      * @return A message indicating the success of the operation.
      */
-    public String addItem(Task t) {
-        this.items.add(t);
-        return "Got it. I've added this task:\n" + t.toString() + "\nNow you have " + this.items.size()
+    public String addTask(Task t) {
+        this.tasks.add(t);
+        return "Got it. I've added this task:\n" + t.toString() + "\nNow you have " + this.tasks.size()
                 + " tasks in the list.";
     }
 
@@ -53,14 +53,14 @@ public class MyList {
      *
      * @return A string representing all the tasks in the list.
      */
-    public String getItems() {
+    public String getTasks() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Here are the tasks in your list:\n");
         int index = 1;
 
-        for (Task task : this.items) {
-            String itemString = String.format("%d. %s\n", index, task.toString());
-            stringBuilder.append(itemString);
+        for (Task task : this.tasks) {
+            String taskstring = String.format("%d. %s\n", index, task.toString());
+            stringBuilder.append(taskstring);
             index++;
         }
 
@@ -74,10 +74,10 @@ public class MyList {
      * @return A message indicating the success of the operation or if the index is out of bounds.
      */
     public String markTask(int index) {
-        if (index < 1 || index > this.items.size()) {
+        if (index < 1 || index > this.tasks.size()) {
             return "Number is outside length of list";
         } else {
-            return "Nice! I've marked this task as done:\n" + this.items.get(index - 1).markAsDone();
+            return "Nice! I've marked this task as done:\n" + this.tasks.get(index - 1).markAsDone();
         }
     }
 
@@ -88,11 +88,12 @@ public class MyList {
      * @return A message indicating the success of the operation or if the index is out of bounds.
      */
     public String delete(int index) {
-        if (index < 1 || index > this.items.size()) {
+        if (index < 1 || index > this.tasks.size()) {
             return "Number is outside length of list";
         } else {
-            Task t = this.items.remove(index - 1);
-            return "Noted. I've removed this task:\n" + t.toString() + "\nNow you have " + this.items.size() + " tasks in the list.";
+            Task t = this.tasks.remove(index - 1);
+            return "Noted. I've removed this task:\n" + t.toString() + "\nNow you have "
+                    + this.tasks.size() + " tasks in the list.";
         }
     }
 }
