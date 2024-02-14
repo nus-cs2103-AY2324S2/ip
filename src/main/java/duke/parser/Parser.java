@@ -1,8 +1,8 @@
-package duke.parser;//package duke;
+package duke.parser;
 
 import duke.storage.Storage;
 import duke.task.*;
-import duke.ui.Ui;
+import duke.response.Ui;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -35,7 +35,7 @@ public class Parser {
      * @param dateString the string representation of the date
      * @return true if the string is a valid date, false otherwise
      */
-    private static boolean isValidDate(String dateString) {
+    private static boolean checkValidDate(String dateString) {
         String parsedInPattern = "\\d{4}-\\d{2}-\\d{2}";
         return Pattern.matches(parsedInPattern, dateString);
     }
@@ -47,7 +47,7 @@ public class Parser {
      * @param endDate   the end date
      * @return true if the start date is before the end date, false otherwise
      */
-    private static boolean isValidDates(LocalDate startDate, LocalDate endDate) {
+    private static boolean checkValidDates(LocalDate startDate, LocalDate endDate) {
         return startDate.isBefore(endDate);
     }
 
@@ -98,7 +98,7 @@ public class Parser {
             }
             String deadlineDescription = userInput.substring(command.length() + 1, userInput.indexOf("/by")).trim();
             String byString = userInput.substring(userInput.indexOf("/by") + 3).trim();
-            if (!isValidDate(byString)) {
+            if (!checkValidDate(byString)) {
                 return this.ui.invalidDateInput();
             }
             LocalDate by = LocalDate.parse(byString);
@@ -119,7 +119,7 @@ public class Parser {
             String toString = userInput.substring(userInput.indexOf("/to") + 3).trim();
             LocalDate from = LocalDate.parse(fromString);
             LocalDate to = LocalDate.parse(toString);
-            if (!isValidDates(from, to)) {
+            if (!checkValidDates(from, to)) {
                 return this.ui.invalidEventStartingTimeAndEndingTime();
             }
             Task newEvent = new EventTask(eventDescription, from, to);
@@ -132,6 +132,7 @@ public class Parser {
             return this.taskList.searchTasks(keyword);
         default:
             return ui.badUserInput();
+
         }
     }
 }

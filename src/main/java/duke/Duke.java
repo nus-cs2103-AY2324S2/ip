@@ -1,13 +1,15 @@
-package duke;//package duke;
+package duke;
 
 import duke.task.*;
-import duke.storage.*;
-import duke.ui.*;
-import duke.parser.*;
+import duke.storage.Storage;
+import duke.response.Ui;
+import duke.parser.Parser;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -18,23 +20,12 @@ import javafx.stage.Stage;
 import javafx.scene.layout.Region;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
 
 /**
  * The Duke class serves as the main class for the chatbot.
  * It manages the initialization of components and runs the main loop for user interaction.
  */
 public class Duke extends Application {
-
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-
     /**
      * The storage handler for managing tasks.
      */
@@ -55,11 +46,19 @@ public class Duke extends Application {
      */
     private Parser parser;
 
+    private ScrollPane scrollPane;
+    private VBox dialogContainer;
+    private TextField userInput;
+    private Button sendButton;
+    private Scene scene;
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+
     /**
      * Constructs a Duke object with the specified file path and bot name.
      *
-     * @param filePath the file path where tasks are stored
-     * @param botName  the name of the Duke bot
+     * @param filePath the file path where tasks are stored.
+     * @param botName  the name of the Duke bot.
      */
     public Duke(String filePath, String botName) {
         this.storage = new Storage(filePath);
@@ -77,33 +76,18 @@ public class Duke extends Application {
         this.parser = new Parser(this.ui, this.storage, this.taskList);
     }
 
-    /**
-     * Runs the program.
-     *
-     * @throws IOException if an I/O error occurs during application execution
-     */
-    public void run() throws IOException {
-        ui.sendWelcome();
-        boolean isBye = false;
-        while (true) {
-            Scanner scanner = new Scanner(System.in);
-            String userInput = scanner.nextLine();
-            parser.execute(userInput);
-            if (userInput.equals("bye")) {
-                break;
-            }
-        }
-    }
 
-    /**
-     * The main method for starting the Duke chatbot application.
-     *
-     * @param args the command-line arguments (not used)
-     * @throws IOException if an I/O error occurs during application execution
-     */
-    public static void main(String[] args) throws IOException {
-        new Duke("./data/duke.txt", "Hammy").run();
-    }
+//    public void run() throws IOException {
+//        ui.sendWelcome();
+//        while (true) {
+//            Scanner scanner = new Scanner(System.in);
+//            String userInput = scanner.nextLine();
+//            parser.execute(userInput);
+//            if (userInput.equals("bye")) {
+//                break;
+//            }
+//        }
+//    }
 
     @Override
     public void start(Stage stage) {
@@ -207,8 +191,12 @@ public class Duke extends Application {
      */
     private void handleUserInput() throws IOException {
         String userText = userInput.getText();
-        String dukeText = getResponse(userText);
+        if (userText.equalsIgnoreCase("bye")) {
+            Platform.exit();
+            return;
+        }
 
+        String dukeText = getResponse(userText);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, user),
                 DialogBox.getDukeDialog(dukeText, duke)
