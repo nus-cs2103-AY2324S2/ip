@@ -15,7 +15,10 @@ public class Duke {
         ui = new Ui();
         storage = new Storage("./data/duke.ser");
         taskList = storage.loadTasks();
-        System.out.println(taskList.getTask(0));
+        // Assert that ui, storage, and taskList are not null
+        assert ui != null : "Ui should not be null";
+        assert storage != null : "Storage should not be null";
+        assert taskList != null : "Task list should not be null";
     }
 
     // /** Function to start running the chatbot */
@@ -39,6 +42,7 @@ public class Duke {
     public String processResponse(String input) {
         Command outputCommand = Parser.parseCommand(input);
         String output = outputCommand.execute(taskList, ui, storage);
+        assert output != null : "Should always return a message";
         this.storage.saveTasks(taskList);
         return output;
     }
