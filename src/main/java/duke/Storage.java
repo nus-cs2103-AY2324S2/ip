@@ -27,13 +27,16 @@ public class Storage {
     /**
      * Saves the tasks from the list to the file.
      *
-     * @param myList The list containing tasks to be saved.
+     * @param mylist The list containing tasks to be saved.
      */
-    public void save(MyList mylist) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(file, false));
-        for (Task t : mylist.getTasksForSaving()) {
-            writer.write(t.toSave());
-            writer.newLine();
+    public void save(MyList mylist) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, false))) {
+            for (Task t : mylist.getTasksForSaving()) {
+                writer.write(t.toSave());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println("Error writing task to file: " + e.getMessage());
         }
     }
 

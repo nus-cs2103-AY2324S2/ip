@@ -45,13 +45,8 @@ public class Duke {
         Parser parser = new Parser();
         String response;
         if (userInput.equalsIgnoreCase("bye")) {
-            try {
-                storage.save(myList);
-            } catch (IOException e) {
-                System.err.println("Error writing task to file: " + e.getMessage());
-            }
+            storage.save(myList);
         }
-
         try {
             response = parser.parseCommand(myList, userInput);
         } catch (DukeException e) {
@@ -71,11 +66,7 @@ public class Duke {
     public void run() {
         ui.showWelcomeMessage();
         runCommandLoopUntilExitCommand();
-        try {
-            storage.save(myList);
-        } catch (IOException e) {
-            System.err.println("Error writing task to file: " + e.getMessage());
-        }
+        storage.save(myList);
         System.exit(0);
     }
 
