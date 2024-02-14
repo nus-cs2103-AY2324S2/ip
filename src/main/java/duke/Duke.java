@@ -33,7 +33,7 @@ public class Duke {
         try {
             manager = storage.loadFile();
         } catch (DukeException e) {
-
+            System.out.println(e.getMessage());
             manager = new TaskManager();
         }
         //assert false : "This is impossible to continue";
@@ -56,8 +56,6 @@ public class Duke {
 
         } catch (DukeException e) {
             response = Ui.handleError(e.getMessage());
-        } catch (NumberFormatException e) {
-            response = " OPPPS!!!!That is not a number!!!!!!!!!!";
         }
         return response;
 

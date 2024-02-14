@@ -15,10 +15,10 @@ import duke.DukeException;
  */
 public class DateHandler {
     //Inspired from: https://www.baeldung.com/java-date-regular-expressions
-    private static final Pattern PATTERN_DATE = Pattern.compile(
-            "([a-zA-Z]+)?\\s?(?<d>\\d{2})[-/](?<m>\\d{1,2})[-/](?<y>\\d{2,4})\\s?([a-zA-Z]+)?");
-    private static final Pattern TIME_PATTERN = Pattern.compile(
-            "(.+)?\\s?(?<time>(\\d{2}:?\\d{2}))(?<indicator>(?i)\\s?[ap]m)?\\s?(.+)?");
+    private static final Pattern PATTERN_DATE =
+            Pattern.compile("([a-zA-Z]+)?\\s?(?<d>\\d{1,2})[-/](?<m>\\d{1,2})[-/](?<y>\\d{2,4})\\s?([a-zA-Z]+)?");
+    private static final Pattern TIME_PATTERN =
+            Pattern.compile("(.+)?\\s?(?<time>(\\d{2}:?\\d{2}))(?<indicator>(?i)\\s?[ap]m)?\\s?(.+)?");
 
     //For formatting of the date
     private static final DateTimeFormatter FORMAT_DATE = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
@@ -32,27 +32,28 @@ public class DateHandler {
      */
     public static Optional<LocalDate> checkDate(String testDate) throws DukeException {
         Matcher match = PATTERN_DATE.matcher(testDate);
-        if (match.find()) {
-            String d = match.group("d");
-            String m = match.group("m");
-            String y = match.group("y");
-            if (y.length() == 3) {
-                throw new DukeException("dateError");
-            } else if (y.length() == 2) {
-                y = "20" + y; //assume it is in the 2000
-            }
-            int date = Integer.parseInt(d);
-            int month = Integer.parseInt(m);
-            if (!(0 <= date && date <= 31) || !(0 <= month && month <= 12)) {
-                throw new DukeException("DateOutOfRange");
-            }
-            int year = Integer.parseInt(y);
-            LocalDate convert = LocalDate.of(year, month, date);
-            return Optional.of(convert);
-
-        } else {
+        if (!match.find()) {
             return Optional.empty();
         }
+
+        String d = match.group("d");
+        String m = match.group("m");
+        String y = match.group("y");
+
+
+        if (y.length() == 3) {
+            throw new DukeException("dateError");
+        } else if (y.length() == 2) {
+            y = "20" + y;
+        }
+        int date = Integer.parseInt(d);
+        int month = Integer.parseInt(m);
+        if (!(0 <= date && date <= 31) || !(0 <= month && month <= 12)) {
+            throw new DukeException("DateOutOfRange");
+        }
+        int year = Integer.parseInt(y);
+        LocalDate convert = LocalDate.of(year, month, date);
+        return Optional.of(convert);
     }
 
     /**
@@ -65,25 +66,27 @@ public class DateHandler {
 
         Matcher match = TIME_PATTERN.matcher(testTime);
         Matcher am = Pattern.compile("(?i)[ap]m").matcher(testTime);
-        if (match.matches()) {
-            String time = match.group("time");
-            String[] data = time.replaceAll("[ :]", "").split("(?<=\\G\\d{2})");
-            int hour = Integer.parseInt(data[0]);
-            int minutes = Integer.parseInt(data[1]);
-            if (am.find()) {
-                //12 hour time format
-                String indicator = match.group("indicator").toLowerCase();
-                if (indicator.equals("pm")) {
-                    hour += 12;
-                }
-                return Optional.of(LocalTime.of(hour, minutes));
-            } else {
-                //treat it as a 24 hour time format
-                return Optional.of(LocalTime.of(hour, minutes));
-            }
-
+        if (!match.matches()) {
+            return Optional.empty();
         }
-        return Optional.empty();
+
+        String time = match.group("time");
+        String[] data = time.replaceAll("[ :]", "").split("(?<=\\G\\d{2})");
+        int hour = Integer.parseInt(data[0]);
+        int minutes = Integer.parseInt(data[1]);
+        if (am.find()) {
+            //12-hour time format
+            String indicator = match.group("indicator").toLowerCase();
+            if (indicator.equals("pm")) {
+                hour += 12;
+            }
+            return Optional.of(LocalTime.of(hour, minutes));
+        } else {
+            //24-hour time format
+            return Optional.of(LocalTime.of(hour, minutes));
+        }
+
+
     }
 
     /**

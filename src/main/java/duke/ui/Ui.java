@@ -8,7 +8,6 @@ package duke.ui;
 public class Ui {
     public static final String MESSAGE_BYE = " Bye. Hope to see you again soon!";
     private static final String INDENT = " ";
-    private static final String BAR = "____________________________________________________________";
     private static final String FIRST = " Hello! I'm Pluiexo";
     private static final String SECOND = " What can I do for you?";
     private static final String[] GREET = new String[]{FIRST, SECOND};
@@ -64,35 +63,50 @@ public class Ui {
 
         String errorResponse;
         switch (msg) {
-        case "description":
+        case "descriptionError":
             errorResponse = " OOPS!!! The description of this command cannot be empty.";
             break;
-        case "from":
-            errorResponse = " OOPS!!! the from date .";
+        case "fromEmptyError":
+            errorResponse = " OOPS!!! the from date cannot be empty ";
             break;
-        case "by":
+        case "byEmptyError":
             errorResponse = " OOPS!!! the by date cannot be empty.";
+            break;
+        case "deadlineError":
+            errorResponse = "OPPSSSS!!!! Your dateline command is incorrect format";
+            break;
+        case "eventError":
+            errorResponse = "OPPPPssss!!! YOur event command is of the invalid format!!";
+            break;
+        case "manageError":
+            errorResponse = "Opppps!!!! Invalid manage action ";
             break;
         case "dateError":
             errorResponse = "OOPS!!! Incorrect date format!!!";
             break;
-        case "number":
+        case "loadError":
+            errorResponse = "Error loading the save file";
+            break;
+        case "numberError":
             errorResponse = "OOPS!!! This is missing your index number";
             break;
-        case "outOfRange":
+        case "outOfRangeError":
             errorResponse = "Opps!!!!! Your index in out of range!";
             break;
-        case "empty":
+        case "emptyListError":
             errorResponse = "Opps!!!!! Your list is empty!!!You can't do any of these actions yet!";
             break;
-        case "DateOutOfRange":
+        case "dateOutOfRangeError":
             errorResponse = "Ooops!!! Yoo Your date numbers ain't right";
             break;
-        case "invalid":
+        case "directoryError":
+            errorResponse = "Error Creating directory!!!";
+            break;
+        case "invalidError":
             errorResponse = "OOPS!!! I'm sorry, incorrect command or input";
             break;
         default:
-            errorResponse = "invalid application commence self-destruct";
+            errorResponse = "invalid application, commence self-destruct >:(";
         }
         return errorResponse;
     }
