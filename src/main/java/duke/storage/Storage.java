@@ -58,6 +58,7 @@ public class Storage {
                     System.out.println("Error found: Bad input");
                     System.out.println(line);
                 }
+
                 char taskType = line.charAt(1);
                 char isDoneX = line.charAt(4);
                 if (taskType == 'T') {

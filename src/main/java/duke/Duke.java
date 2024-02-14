@@ -205,16 +205,6 @@ public class Duke extends Application {
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
-//    private void handleUserInput() {
-//        Label userText = new Label(userInput.getText());
-//        Label dukeText = new Label(getResponse(userInput.getText()));
-//        dialogContainer.getChildren().addAll(
-//                DialogBox.getUserDialog(userText, new ImageView(user)),
-//                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
-//        );
-//        userInput.clear();
-//    }
-
     private void handleUserInput() throws IOException {
         String userText = userInput.getText();
         String dukeText = getResponse(userText);
@@ -226,11 +216,6 @@ public class Duke extends Application {
         userInput.clear();
     }
 
-
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
     protected String getResponse(String input) throws IOException {
         try {
             String response = parser.execute(input);

@@ -6,6 +6,9 @@
  */
 plugins {
     id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 repositories {
@@ -27,7 +30,9 @@ test {
 
 repositories {
     mavenCentral()
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
 }
+
 
 dependencies {
     String javaFxVersion = '17.0.7'
@@ -46,14 +51,12 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
 }
 
-//plugins {
-//    id 'java'
-//    id 'com.github.johnrengelman.shadow' version '7.1.2'
-//    // other plugins
-//}
-//
-//mainClassName = 'duke.Duke'
-//
-//shadowJar {
-//    archiveFileName = 'duke.jar'
-//}
+checkstyle {
+    toolVersion = '10.2'
+}
+
+mainClassName = 'duke.Main'
+
+shadowJar {
+    archiveFileName = 'duke.jar'
+}
