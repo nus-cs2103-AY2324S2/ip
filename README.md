@@ -18,6 +18,6 @@ And it is **FREE**!
 
 Features:
 
- Managing tasks
- Managing deadlines (coming soon)
- Reminders (coming soon)
+Managing tasks 
+Managing deadlines (coming soon) 
+Reminders (coming soon)
