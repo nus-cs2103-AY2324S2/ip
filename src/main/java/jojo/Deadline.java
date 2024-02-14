@@ -1,17 +1,17 @@
-package duke;
+package jojo;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a deadline with a string description and date and time in LocalDateTime format.
  */
-public class Deadline extends duke.Task {
+public class Deadline extends Task {
 
-    protected LocalDateTime by;
+    protected LocalDateTime byWhen;
 
-    public Deadline(String description, LocalDateTime by) {
+    public Deadline(String description, LocalDateTime byWhen) {
         super(description);
-        this.by = by;
+        this.byWhen = byWhen;
     }
 
     /**
@@ -19,7 +19,7 @@ public class Deadline extends duke.Task {
      * @return String in the format of "MMM dd yyyy HH:mm"
      */
     public String formattedDeadline() {
-        return by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+        return byWhen.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
     }
 
     /**
@@ -27,11 +27,11 @@ public class Deadline extends duke.Task {
      * @return String
      */
     public String simpleToString() {
-        return "D " + super.simpleToString() + " | " + this.formattedDeadline();
+        return "D " + super.simpleToString() + " | " + formattedDeadline();
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.formattedDeadline() + ")";
+        return "[D]" + super.toString() + " (by: " + formattedDeadline() + ")";
     }
 }

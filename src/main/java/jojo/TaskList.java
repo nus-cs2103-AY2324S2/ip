@@ -1,13 +1,13 @@
-package duke;
+package jojo;
 import java.util.ArrayList;
 
 /**
  * Stores all the tasks in an array list which can be manioulated using add, delete, mark, unmark commands.
  */
 public class TaskList {
-    private ArrayList<duke.Task> listArr;
+    private ArrayList<Task> listArr;
 
-    public TaskList(ArrayList<duke.Task> listArr) {
+    public TaskList(ArrayList<Task> listArr) {
         this.listArr = listArr;
     }
 
@@ -16,15 +16,15 @@ public class TaskList {
      * @return int size
      */
     public int size() {
-        return this.listArr.size();
+        return listArr.size();
     }
 
     /**
      * Returns the task at that index of the array list.
      * @return Task task
      */
-    public duke.Task get(int idx) {
-        return this.listArr.get(idx);
+    public Task get(int idx) {
+        return listArr.get(idx);
     }
 
     /**
@@ -32,7 +32,7 @@ public class TaskList {
      * @param idx int index
      */
     public void setDone(int idx) {
-        this.get(idx).setDone();
+        get(idx).setDone();
     }
 
     /**
@@ -40,7 +40,7 @@ public class TaskList {
      * @param idx int index
      */
     public void setUndone(int idx) {
-        this.get(idx).setUndone();
+        get(idx).setUndone();
     }
 
     /**
@@ -48,7 +48,7 @@ public class TaskList {
      * @param idx int index
      */
     public void deleteTask(int idx) {
-        this.listArr.remove(idx);
+        listArr.remove(idx);
     }
 
     /**
@@ -56,7 +56,7 @@ public class TaskList {
      * @param Task t
      */
     public void addTask(Task t) {
-        this.listArr.add(t);
+        listArr.add(t);
     }
 
     /**
@@ -65,7 +65,7 @@ public class TaskList {
      * @return String toString
      */
     public String taskToString(int idx) {
-        return this.get(idx).toString();
+        return get(idx).toString();
     }
 
 

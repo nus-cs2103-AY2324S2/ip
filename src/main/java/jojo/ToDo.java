@@ -1,4 +1,4 @@
-package duke;
+package jojo;
 
 /**
  * Represents a todo with a string description.

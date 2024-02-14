@@ -1,9 +1,9 @@
-package duke;
+package jojo;
 
 /**
  * Represents an event with a string description, to and from details.
  */
-public class Event extends duke.Task {
+public class Event extends Task {
     protected String from;
     protected String to;
 
@@ -19,11 +19,11 @@ public class Event extends duke.Task {
      */
     @Override
     public String simpleToString() {
-        return "E " + super.simpleToString() + " | " + this.from + " - " + this.to;
+        return "E " + super.simpleToString() + " | " + from + " - " + to;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 }
