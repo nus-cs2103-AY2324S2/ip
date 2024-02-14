@@ -1,5 +1,8 @@
 package main.java.emis.command;
-import main.java.emis.*;
+
+import main.java.emis.TaskList;
+import main.java.emis.Ui;
+import main.java.emis.Storage;
 import main.java.emis.Event;
 
 /**
@@ -19,27 +22,27 @@ public class EventCommand extends Command {
     /**
      * Constructs a new EventCommand object with the specified description, start time, and end time.
      *
-     * @param d The description of the event task.
-     * @param f The start time of the event task.
-     * @param t The end time of the event task.
+     * @param description The description of the event task.
+     * @param from The start time of the event task.
+     * @param to The end time of the event task.
      */
-    public EventCommand(String d, String f, String t) {
-        this.description = d;
-        this.from = f;
-        this.to = t;
+    public EventCommand(String description, String from, String to) {
+        this.description = description;
+        this.from = from;
+        this.to = to;
     }
 
     /**
      * Executes the event command by adding a new event task to the task list and updating the storage.
      *
-     * @param t The TaskList object representing the list of tasks.
+     * @param tasklist The TaskList object representing the list of tasks.
      * @param ui The Ui object handling interactions with the user.
-     * @param s The Storage object handling loading and saving of tasks.
+     * @param storage The Storage object handling loading and saving of tasks.
      */
     @Override
-    public void execute(TaskList t, Ui ui, Storage s) {
-        t.addTask(new Event(this.description, this.from, this.to));
-        s.updateStorage();
+    public void execute(TaskList tasklist, Ui ui, Storage storage) {
+        tasklist.addTask(new Event(this.description, this.from, this.to));
+        storage.updateStorage();
     }
 
     /**

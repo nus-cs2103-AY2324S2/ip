@@ -1,7 +1,10 @@
-package main.java.emis;
-import main.java.emis.command.*;
-import main.java.emis.exceptions.*;
-import main.java.emis.task.*;
+package emis;
+
+import main.java.emis.command.Command;
+import main.java.emis.exceptions.EmisException;
+import main.java.emis.TaskList;
+import main.java.emis.Ui;
+import main.java.emis.Storage;
 
 /**
  * The main class of the EMIS application.
@@ -30,7 +33,7 @@ public class Duke {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            tasklist = new TaskList(storage.load());
+            tasklist = new TaskList(storage.loadFromStorageFile());
         } catch (EmisException e) {
             ui.showLoadingError();
             tasklist = new TaskList();

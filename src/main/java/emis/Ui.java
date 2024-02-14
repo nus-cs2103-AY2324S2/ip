@@ -1,6 +1,5 @@
-package main.java.emis;
-import main.java.emis.command.*;
-import main.java.emis.task.*;
+package emis;
+
 import java.util.Scanner;
 
 /**
@@ -8,13 +7,13 @@ import java.util.Scanner;
  */
 public class Ui {
     /** The scanner object for reading user input. */
-    private static Scanner sc;
+    private static Scanner scanner;
 
     /**
      * Constructs a new Ui object and initializes the scanner for reading user input.
      */
     public Ui () {
-        sc = new Scanner(System.in);
+        scanner = new Scanner(System.in);
     }
 
     /**
@@ -39,7 +38,7 @@ public class Ui {
      * @return The user command as a string.
      */
     public String readCommand() {
-        return sc.nextLine().trim();
+        return scanner.nextLine().trim();
     }
 
     /**
@@ -54,10 +53,10 @@ public class Ui {
     /**
      * Displays an error message.
      * 
-     * @param str The error message to display.
+     * @param errorMessage The error message to display.
      */
-    public void showError(String str) {
-        System.out.println(str);
+    public void showError(String errorMessage) {
+        System.out.println(errorMessage);
     }
 
     /**
@@ -80,7 +79,7 @@ public class Ui {
      * Closes the scanner and exits the application.
      */
     public static void exit() {
-        sc.close();
+        scanner.close();
         showLine();
         System.out.println("\tBye. Hope to see you again soon!");
         showLine();

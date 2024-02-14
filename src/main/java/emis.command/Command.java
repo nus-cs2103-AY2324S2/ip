@@ -1,5 +1,8 @@
 package main.java.emis.command;
-import main.java.emis.*;
+
+import main.java.emis.TaskList;
+import main.java.emis.Ui;
+import main.java.emis.Storage;
 
 /**
  * The Command class is an abstract class representing a command in the EMIS application.
@@ -10,11 +13,11 @@ public abstract class Command {
     /**
      * Executes the command with the given parameters.
      * 
-     * @param t The TaskList object representing the list of tasks.
+     * @param tasklist The TaskList object representing the list of tasks.
      * @param ui The Ui object handling interactions with the user.
-     * @param s The Storage object handling loading and saving of tasks.
+     * @param storage The Storage object handling loading and saving of tasks.
      */
-    public abstract void execute(TaskList t, Ui ui, Storage s);
+    public abstract void execute(TaskList tasklist, Ui ui, Storage storage);
 
     /**
      * Checks if the command is an exit command.

@@ -1,5 +1,8 @@
 package main.java.emis.command;
-import main.java.emis.*;
+
+import main.java.emis.TaskList;
+import main.java.emis.Ui;
+import main.java.emis.Storage;
 import main.java.emis.task.Deadline;
 
 /**
@@ -16,12 +19,12 @@ public class DeadlineCommand extends Command {
     /**
      * Constructs a new DeadlineCommand object with the specified description and due date.
      *
-     * @param d The description of the deadline task.
-     * @param b The due date of the deadline task.
+     * @param description The description of the deadline task.
+     * @param by The due date of the deadline task.
      */
-    public DeadlineCommand(String d, String b) {
-        this.description = d;
-        this.by = b;
+    public DeadlineCommand(String description, String by) {
+        this.description = description;
+        this.by = by;
     }
 
     /**
@@ -33,9 +36,9 @@ public class DeadlineCommand extends Command {
      * @param s The Storage object handling loading and saving of tasks.
      */
     @Override
-    public void execute(TaskList t, Ui ui, Storage s) {
-        t.addTask(new Deadline(this.description, this.by));
-        s.updateStorage();
+    public void execute(TaskList tasklist, Ui ui, Storage storage) {
+        tasklist.addTask(new Deadline(this.description, this.by));
+        storage.updateStorage();
     }
 
     /**
