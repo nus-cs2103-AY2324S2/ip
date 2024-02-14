@@ -6,7 +6,7 @@ import java.util.Scanner;
  */
 public class Duke {
     protected int exit;
-    protected final Storage store;
+    protected final Storage storage;
     protected final TaskList taskList;
 
     /**
@@ -15,8 +15,8 @@ public class Duke {
     public Duke() {
         this.exit = 0;
         this.taskList = new TaskList();
-        this.store = new Storage(taskList);
-        store.loadList();
+        this.storage = new Storage(taskList);
+        storage.loadList();
     }
 
     public String getResponse(String input) {
