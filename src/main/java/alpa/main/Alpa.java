@@ -1,3 +1,11 @@
+package alpa.main;
+
+import alpa.utils.*;
+import alpa.commands.*;
+import alpa.exceptions.*;
+import alpa.tasks.*;
+import alpa.ui.*;
+
 import java.util.Scanner;
 
 public class Alpa {

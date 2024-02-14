@@ -1,3 +1,6 @@
+package alpa.tasks;
+
+import alpa.exceptions.AlpaException;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,3 +1,11 @@
+package alpa.commands;
+
+import alpa.exceptions.AlpaException;
+import alpa.utils.Storage;
+import alpa.tasks.Task;
+import alpa.tasks.TaskList;
+import alpa.ui.Ui;
+
 public class UnmarkCommand implements Command {
   private int index;
 

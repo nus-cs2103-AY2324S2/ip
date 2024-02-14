@@ -1,3 +1,10 @@
+package alpa.commands;
+
+import alpa.tasks.Task;
+import alpa.utils.Storage;
+import alpa.tasks.TaskList;
+import alpa.ui.Ui;
+
 public class ByeCommand implements Command {
   
   @Override
