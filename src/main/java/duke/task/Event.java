@@ -3,6 +3,7 @@ package duke.task;
 import java.time.LocalDateTime;
 
 import duke.parser.DateHandler;
+import duke.storage.SaveType;
 
 
 /**
@@ -62,5 +63,9 @@ public class Event extends Task {
             return "[E]" + super.toString() + " (from: " + DateHandler.formatDate(fromDateTime) + " to "
                    + DateHandler.formatDate(byDateTime) + ")";
         }
+    }
+    @Override
+    public SaveType getType() {
+        return SaveType.EVENT;
     }
 }

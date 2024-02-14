@@ -238,6 +238,60 @@ public class TaskManager {
         return ret;
     }
 
+
+    /**
+     * Querys the task with the corresponding query action.
+     *
+     * @param act a valid qeury action
+     * @param instruction query parameters to find
+     * @return A String array of values to return to the Ui to print.
+     * @throws DukeException Invalid query of tasks.
+     */
+    public String[] queryTasks(Query act, String instruction) throws DukeException {
+
+        String[] ret = new String[]{RESPONSE_EMPTY_SEARCH};
+        switch (act) {
+        case FIND:
+            ret = findTask(instruction);
+            break;
+        case VIEWBYDATE:
+            ret =viewByDate(instruction);
+            break;
+        default:
+            throw new DukeException("queryError");
+        }
+        return ret;
+
+    }
+
+    public String[] viewByDate(String date) throws DukeException {
+        Optional<LocalDate>testDate =  DateHandler.checkDate(date);
+        if(testDate.isEmpty()) {
+            throw new DukeException("dateError");
+        }
+        return new String[]{};
+    }
+
+    /**
+     * Find the task in the current list.
+     *
+     * @param search The keywords to search.
+     * @return A list of items containing the search results.
+     */
+    public String[] findTask(String search) {
+        List<String> foundTask = items.stream().filter(item -> item.toString().contains(search))
+                                      .map(item -> items.indexOf(item) + 1 + ". " + item).collect(Collectors.toList());
+
+        if (!foundTask.isEmpty()) {
+            foundTask.add(0, RESPONSE_FIND);
+            return foundTask.toArray(String[]::new);
+
+        } else {
+            return new String[]{RESPONSE_EMPTY_SEARCH};
+
+        }
+    }
+
     /**
      * Gets the current items in the TaskManager and produce them into a save format
      *
@@ -276,26 +330,6 @@ public class TaskManager {
 
     public void setUpdate(boolean hasChanged) {
         this.hasChanged = hasChanged;
-    }
-
-    /**
-     * Find the task in the current list.
-     *
-     * @param search The keywords to search.
-     * @return A list of items containing the search results.
-     */
-    public String[] findTask(String search) {
-        List<String> foundTask = items.stream().filter(item -> item.toString().contains(search))
-                                      .map(item -> items.indexOf(item) + 1 + ". " + item).collect(Collectors.toList());
-
-        if (!foundTask.isEmpty()) {
-            foundTask.add(0, RESPONSE_FIND);
-            return foundTask.toArray(String[]::new);
-
-        } else {
-            return new String[]{RESPONSE_EMPTY_SEARCH};
-
-        }
     }
 
 }
