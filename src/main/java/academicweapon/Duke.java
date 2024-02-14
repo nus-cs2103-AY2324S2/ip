@@ -73,6 +73,8 @@ public class Duke {
                 continue;
             }
 
+            assert actions.size() > 0 : "Parsed actions should not be empty";
+
             Action action = Action.valueOf(actions.get(0));
 
             switch (action) {
