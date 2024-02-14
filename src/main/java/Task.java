@@ -1,19 +1,16 @@
 public class Task {
-    private String name;
-    private boolean done;
+    String name;
+    boolean done;
 
     public Task(String name) {
         this.name = name;
         this.done = false;
     }
 
-    public void mark() {
-        this.done = true;
-    }
+    public void mark() {};
 
-    public void unmark() {
-        this.done = false;
-    }
+    public void unmark() {};
+
 
     @Override
     public String toString() {
@@ -25,6 +22,10 @@ public class Task {
     }
 
     public String getInput() {
-        return "";
+        if (this.done) {
+            return "1 ";
+        } else {
+            return "0 ";
+        }
     }
 }

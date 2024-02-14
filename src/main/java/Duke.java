@@ -17,7 +17,7 @@ public class Duke {
 
     public void run() throws DukeException{
         this.data.createFile();
-        this.data.load();
+        this.data.load(tasks);
 
         Command currentCommand = Command.HELLO;
         currentCommand.execute();
