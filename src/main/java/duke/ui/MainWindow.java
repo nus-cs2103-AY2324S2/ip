@@ -49,9 +49,15 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
-        dialogContainer.getChildren()
-                       .addAll(DialogBox.getUserDialog(input, userImage), DialogBox.getDukeDialog(response, dukeImage));
+        String response = duke.getResponse(input).trim();
+        if (response.matches("((?i)clear)")) {
+            dialogContainer.getChildren().clear();
+        } else {
+            dialogContainer.getChildren()
+                           .addAll(DialogBox.getUserDialog(input, userImage), DialogBox.getDukeDialog(response,
+                                                                                                      dukeImage));
+        }
+
         userInput.clear();
         //Inspired from :
         // https://stackoverflow.com/questions/27334455/how-to-close-a-stage-after-a-certain-amount-of-time-javafx

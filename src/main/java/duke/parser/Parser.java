@@ -14,9 +14,12 @@ import duke.ui.Ui;
  * Parser class to make sense of the input commands and decides the actions to give.
  */
 public class Parser {
-    static final Pattern PATTERN_MANAGE = Pattern.compile("((?i)unmark|mark|delete) (\\d+)");
-    static final Pattern PATTERN_ACTIONS = Pattern.compile("((?i)todo|deadline|event) (.+)");
-    static final Pattern PATTERN_QUERY = Pattern.compile("((?i)find|view) (.+)");
+    private static final Pattern PATTERN_MANAGE = Pattern.compile("((?i)unmark|mark|delete) (\\d+)");
+    private static final Pattern PATTERN_ACTIONS = Pattern.compile("((?i)todo|deadline|event) (.+)");
+    private static final Pattern PATTERN_QUERY = Pattern.compile("((?i)find|view) (.+)");
+
+    private static final String[] CLEAR = new String[]{"clear"};
+
     private static boolean isDead = false;
 
     /**
@@ -47,7 +50,9 @@ public class Parser {
             return manager.addTask(act, actionMatch.group(2));
         } else if (queryMatch.matches()) {
             Query act = Query.valueOf(queryMatch.group(1).toUpperCase());
-            return manager.queryTasks(act,queryMatch.group(2).trim());
+            return manager.queryTasks(act, queryMatch.group(2).trim());
+        } else if (command.matches("((?i)clear)")) {
+            return CLEAR;
         } else {
             throw new DukeException("invalid");
         }

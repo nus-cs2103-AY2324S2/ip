@@ -1,6 +1,5 @@
 package duke.task;
 
-import java.sql.PseudoColumnUsage;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -290,6 +289,13 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Returns the task scheduled on that particular date.
+     *
+     * @param date the date to query.
+     * @return A string array of the task to print to the Ui.
+     * @throws DukeException throws invalid query error.
+     */
     public String[] viewByDate(String date) throws DukeException {
         LocalDate inputDate = DateHandler.checkDate(date).orElseThrow(() -> new DukeException("dateError"));
         System.out.println(inputDate);
@@ -356,7 +362,7 @@ public class TaskManager {
         String[] ret = new String[items.size()];
         ret[0] = RESPONSE_LISTING;
         for (int i = 0; i < items.size(); i++) {
-            ret[i] = i + 1 + "." + items.get(i);
+            ret[i] = i + 1 + ". " + items.get(i);
         }
         return ret;
     }
