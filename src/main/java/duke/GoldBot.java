@@ -1,17 +1,18 @@
 package duke;
+
 import java.io.IOException;
-import java.util.Scanner;
+import java.util.ArrayList;
 
 import duke.exceptions.FileCorruptionException;
 
-/**
- * GoldBot class to handle main bot operations
- */
 public class GoldBot {
-    public static void main(String[] args) {
-        System.out.println("test");
-        Storage storage = new Storage("./data/data.txt");
-        TaskList taskList;
+
+    private ChatSession session;
+    private Storage storage;
+    private TaskList taskList;
+
+    GoldBot() {
+        storage = new Storage("./data/data.txt");
         try {
             taskList = storage.createTaskList();
         } catch (IOException e) {
@@ -21,15 +22,12 @@ public class GoldBot {
             System.out.println("File corrupted.");
             return;
         }
-        ChatSession session = new ChatSession(taskList);
-        session.initChat();
-        
-        Scanner scanner = new Scanner(System.in);
 
-        while (session.shouldContinueSession) {
-            String input = scanner.nextLine();
-            session.handleMessage(input);
-        }
-        scanner.close();
+        this.session = new ChatSession(taskList);
+    }
+
+    public ArrayList<String> getResponse(String input) {
+        session.handleMessage(input);
+        return session.getResponses();
     }
 }
