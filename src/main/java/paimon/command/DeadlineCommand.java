@@ -1,8 +1,8 @@
 package paimon.command;
 
 import paimon.ChatException;
-import paimon.UiHandler;
-import paimon.DateParser;
+import paimon.util.UiHandler;
+import paimon.util.DateParser;
 import paimon.task.DeadlineTask;
 import paimon.task.Task;
 import paimon.task.TaskList;
@@ -42,7 +42,7 @@ public class DeadlineCommand extends Command {
             LocalDateTime endDate = DateParser.parseDate(endDateString);
             Task deadlineTask = new DeadlineTask(this.description, endDate);
             tasks.addTask(deadlineTask);
-            ui.addTaskResponse(deadlineTask.getTask(), tasks.getSize());
+            ui.displayAddTaskMessage(deadlineTask.getTask(), tasks.getSize());
         } catch (ChatException e) {
             throw e;
         }

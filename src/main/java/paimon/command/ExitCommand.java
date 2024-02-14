@@ -2,7 +2,7 @@ package paimon.command;
 
 
 import paimon.ChatException;
-import paimon.UiHandler;
+import paimon.util.UiHandler;
 import paimon.task.TaskList;
 
 /**

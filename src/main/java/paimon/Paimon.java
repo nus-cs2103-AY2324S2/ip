@@ -3,6 +3,9 @@ package paimon;
 
 import paimon.command.Command;
 import paimon.task.TaskList;
+import paimon.util.CommandParser;
+import paimon.util.FileHandler;
+import paimon.util.UiHandler;
 
 /**
  * Serves as the entry point for the application.
@@ -17,7 +20,7 @@ public class Paimon {
      */
     public static void main(String[] args) {
         UiHandler ui = new UiHandler();
-        ui.greetResponse();
+        ui.displayGreetMessage();
         TaskList taskList = FileHandler.loadTaskList();
         boolean isActive = true;
         while (isActive) {
@@ -30,10 +33,10 @@ public class Paimon {
                     isActive = false;
                 }
             } catch (ChatException e) {
-                ui.showError(e);
+                ui.displayError(e);
             }
         }
-        ui.exitResponse();
+        ui.displayExitMessage();
     }
 
 }

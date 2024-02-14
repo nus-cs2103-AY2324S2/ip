@@ -32,7 +32,7 @@ public class EventTask extends Task {
      */
     @Override
     public String getTask() {
-        if (isDone) {
+        if (this.isDone) {
             return "[E][X] " + this.description + " (from: " + startDate.format(DATE_FORMAT) + ", to: " + this.endDate.format(DATE_FORMAT) + ")";
         } else {
             return "[E][ ] " + this.description + " (from: " + startDate.format(DATE_FORMAT) + ", to: " + this.endDate.format(DATE_FORMAT) + ")";

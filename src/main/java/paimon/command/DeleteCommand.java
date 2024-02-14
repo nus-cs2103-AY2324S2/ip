@@ -1,7 +1,7 @@
 package paimon.command;
 
 import paimon.ChatException;
-import paimon.UiHandler;
+import paimon.util.UiHandler;
 import paimon.task.TaskList;
 
 /**
@@ -35,9 +35,9 @@ public class DeleteCommand extends Command {
             int deleteIndex = Integer.parseInt(indexString);
             if (deleteIndex >= 1 && deleteIndex <= taskList.getSize()) {
                 taskList.deleteTask(deleteIndex - 1);
-                ui.deleteTaskResponse(taskList.getSize());
+                ui.displayDeleteTaskMessage(taskList.getSize());
             } else {
-                System.out.println("Sorry Traveller, that task does not exist");
+                throw new ChatException("Sorry Traveller, that task does not exist");
             }
         } catch (NumberFormatException e) {
             throw new ChatException("Sorry Traveller, your input is invalid");

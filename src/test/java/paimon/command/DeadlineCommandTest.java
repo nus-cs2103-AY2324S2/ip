@@ -3,14 +3,12 @@ package paimon.command;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import paimon.ChatException;
-import paimon.UiHandler;
-import paimon.task.Task;
+import paimon.util.UiHandler;
 import paimon.task.TaskList;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertEquals;
