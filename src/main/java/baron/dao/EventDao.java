@@ -18,7 +18,7 @@ import baron.utils.StringUtils;
 public class EventDao extends TaskDao {
     public static final String NAME = TaskType.EVENT.getTaskType();
     private static final String ARG_FROM = Argument.FROM.getArg();
-    private static final String ARG_TO = Argument.BY.getArg();
+    private static final String ARG_TO = Argument.TO.getArg();
 
     /**
      * Creates a event object from the given input string
