@@ -3,16 +3,10 @@ package baron.managers;
 import java.util.ArrayList;
 import java.util.List;
 
-import baron.dao.DeadlineDao;
-import baron.dao.EventDao;
-import baron.dao.TaskDao;
-import baron.dao.TodoDao;
+import baron.dao.*;
 import baron.enums.Command;
 import baron.enums.TaskType;
-import baron.models.Deadline;
-import baron.models.Event;
-import baron.models.Task;
-import baron.models.Todo;
+import baron.models.*;
 import baron.utils.StringUtils;
 
 // TODO: Stretch goal: add exceptions for marking and listing non-existent indexes
@@ -23,7 +17,8 @@ import baron.utils.StringUtils;
 public class TaskManager {
 
     private final List<Task> tasks = new ArrayList<>();
-
+    private final List<Client> clients = new ArrayList<>();
+    private ClientDao clientDao = new ClientDao();
     /**
      * Initialises data from the different files so that it's all shown in 1 task list.
      */
@@ -53,6 +48,8 @@ public class TaskManager {
                 return addDeadline(input);
             } else if (command.equals(EventDao.NAME)) {
                 return addEvent(input);
+            } else if (command.equals(ClientDao.NAME)) {
+                return addClient(input);
             } else if (command.equals(Command.LIST.getCommand())) {
                 return UiManager.list(this.tasks);
             } else if (command.equals(Command.MARK.getCommand())) {
@@ -80,19 +77,26 @@ public class TaskManager {
     private String addTodo(String input) {
         Todo todo = TodoDao.getFrom(input);
         TaskDao.add(TodoDao.NAME, todo);
-        return this.add(todo);
+        return this.addTask(todo);
     }
 
     private String addDeadline(String input) {
         Deadline deadline = DeadlineDao.getFrom(input);
         DeadlineDao.add(DeadlineDao.NAME, deadline);
-        return this.add(deadline);
+        return this.addTask(deadline);
     }
 
     private String addEvent(String input) {
         Event event = EventDao.getFrom(input);
         EventDao.add(EventDao.NAME, event);
-        return this.add(event);
+        return this.addTask(event);
+    }
+
+    private String addClient(String input) {
+        Client client = clientDao.fromInputString(input);
+        clientDao.add(client);
+        clients.add(client);
+        return UiManager.add(client, clients.size());
     }
 
     private String mark(String input, boolean isDone) {
@@ -135,7 +139,7 @@ public class TaskManager {
      * @param task Task to aadd
      * @return returns Bot response output
      */
-    protected String add(Task task) {
+    protected String addTask(Task task) {
         tasks.add(task);
         return UiManager.add(task, tasks.size());
     }

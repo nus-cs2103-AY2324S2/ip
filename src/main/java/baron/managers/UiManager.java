@@ -2,6 +2,7 @@ package baron.managers;
 
 import java.util.List;
 
+import baron.models.BaseModel;
 import baron.models.Task;
 /**
  * Manages all output by the bot
@@ -19,7 +20,7 @@ public class UiManager {
      * @param task  Task added
      * @param count count of tasks currently in list after modification
      */
-    public static String add(Task task, int count) {
+    public static String add(BaseModel task, int count) {
         StringBuilder sb = new StringBuilder();
         sb.append("Got it, I've added this task: \n  " + task);
         sb.append("\n");

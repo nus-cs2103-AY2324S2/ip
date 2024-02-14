@@ -6,7 +6,11 @@ package baron.enums;
 public enum Argument {
     BY("/by"),
     FROM("/from"),
-    TO("/to");
+    TO("/to"),
+    NAME("/name"),
+    EMAIL("/email"),
+    CONTACT_NUMBER("/cn"),
+    STUDENT_NUMBER("/sn");
 
     private final String arg;
 
