@@ -2,7 +2,7 @@ package morty.command;
 
 import morty.Storage;
 import morty.TaskList;
-import morty.Ui;
+import morty.Response;
 
 /**
  * Represents a command to list all tasks.
@@ -24,9 +24,10 @@ public class ListCommand extends Command {
    * @param tasks   The list of tasks.
    * @param ui      The user interface.
    * @param storage The storage.
+   * @return The response after executing the ListCommand.
    */
   @Override
-  public void execute(TaskList tasks, Ui ui, Storage storage) {
-    ui.showTaskList(tasks);
+  public String execute(TaskList tasks, Response ui, Storage storage) {
+    return ui.showTaskList(tasks);
   }
 }

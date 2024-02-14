@@ -3,7 +3,7 @@ package morty.command;
 import morty.MortyException;
 import morty.Storage;
 import morty.TaskList;
-import morty.Ui;
+import morty.Response;
 
 /**
  * Represents a command.
@@ -35,9 +35,10 @@ public abstract class Command {
    * @param tasks   The list of tasks.
    * @param ui      The user interface.
    * @param storage The storage.
+   * @return The response after executing the command.
    * @throws MortyException If an error occurs during execution.
    */
-  public abstract void execute(TaskList tasks, Ui ui, Storage storage);
+  public abstract String execute(TaskList tasks, Response ui, Storage storage);
 
   /**
    * Returns true if the command is an exit command, false otherwise.

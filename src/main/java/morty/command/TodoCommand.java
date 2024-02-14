@@ -2,7 +2,7 @@ package morty.command;
 
 import morty.Storage;
 import morty.TaskList;
-import morty.Ui;
+import morty.Response;
 import morty.task.Todo;
 
 /**
@@ -25,17 +25,18 @@ public class TodoCommand extends Command {
    * @param tasks   The list of tasks.
    * @param ui      The user interface.
    * @param storage The storage.
+   * @return The response after executing the TodoCommand.
    */
   @Override
-  public void execute(TaskList tasks, Ui ui, Storage storage) {
+  public String execute(TaskList tasks, Response ui, Storage storage) {
     try {
       String title = tokens[1];
       Todo newTodo = new Todo(title);
       tasks.add(newTodo);
-      ui.showTaskAdded(newTodo, tasks.getSize());
       storage.save(tasks);
+      return ui.showTaskAdded(newTodo, tasks.getSize());
     } catch (ArrayIndexOutOfBoundsException e) {
-      ui.showTodoUsage();
+      return ui.showTodoUsage();
     }
   }
 }

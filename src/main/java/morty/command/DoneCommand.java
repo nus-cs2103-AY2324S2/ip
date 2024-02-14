@@ -2,7 +2,7 @@ package morty.command;
 
 import morty.Storage;
 import morty.TaskList;
-import morty.Ui;
+import morty.Response;
 import morty.task.Task;
 
 /**
@@ -25,19 +25,20 @@ public class DoneCommand extends Command {
    * @param tasks   The list of tasks.
    * @param ui      The user interface.
    * @param storage The storage.
+   * @return The response after executing the DoneCommand.
    */
   @Override
-  public void execute(TaskList tasks, Ui ui, Storage storage) {
+  public String execute(TaskList tasks, Response ui, Storage storage) {
     try {
       int index = Integer.parseInt(tokens[1]) - 1;
       Task task = tasks.get(index);
       tasks.markDone(index);
-      ui.showTaskMarkedDone(task);
       storage.save(tasks);
+      return ui.showTaskMarkedDone(task);
     } catch (NumberFormatException e) {
-      ui.showInvalidDone();
+      return ui.showInvalidDone();
     } catch (IndexOutOfBoundsException e) {
-      ui.showInvalidDone();
+      return ui.showInvalidDone();
     }
   }
 }
