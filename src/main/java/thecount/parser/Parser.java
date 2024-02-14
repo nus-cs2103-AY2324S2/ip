@@ -24,7 +24,7 @@ public class Parser {
      * Represents the types of commands.
      */
     public enum CommandType {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID, FIND,
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID, FIND, TAG,
     }
 
     /**
@@ -59,6 +59,8 @@ public class Parser {
                 return handleMarkTask(userInput, tasks);
             case UNMARK:
                 return handleUnmarkTask(userInput, tasks);
+            case TAG:
+                return handleTagTask(userInput, tasks);
             case TODO:
                 return handleTodoTask(userInput, tasks);
             case DEADLINE:
@@ -74,11 +76,10 @@ public class Parser {
             default:
                 break;
             }
-            loader.write(tasks);
             userInput = scanner.nextLine();
         }
     }
-    private static CommandType getCommandType(String userInput) {
+    private CommandType getCommandType(String userInput) {
         String commandName = userInput.split("\\s+")[0].toUpperCase();
         try {
             return CommandType.valueOf(commandName);
@@ -87,11 +88,13 @@ public class Parser {
         }
     }
 
-    private static String handleMarkTask(String userInput, TaskList tasks) {
+    private String handleMarkTask(String userInput, TaskList tasks) {
         assert tasks != null : "TaskList (tasks) must not be null";
         try {
             int taskNumber = Integer.parseInt(userInput.split("\\s+")[1]);
-            return tasks.markTask(taskNumber, true);
+            String result = tasks.markTask(taskNumber, true);
+            loader.write(tasks);
+            return result;
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             return handleException("Please put a number. I can't count that!");
         } catch (TheCountException e) {
@@ -99,11 +102,13 @@ public class Parser {
         }
     }
 
-    private static String handleUnmarkTask(String userInput, TaskList tasks) {
+    private String handleUnmarkTask(String userInput, TaskList tasks) {
         assert tasks != null : "TaskList (tasks) must not be null";
         try {
             int taskNumber = Integer.parseInt(userInput.split("\\s+")[1]);
-            return tasks.unmarkTask(taskNumber, true);
+            String result = tasks.unmarkTask(taskNumber, true);
+            loader.write(tasks);
+            return result;
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             return handleException("Please put a number. I can't count that!");
         } catch (TheCountException e) {
@@ -111,26 +116,56 @@ public class Parser {
         }
     }
 
-    private static String handleTodoTask(String userInput, TaskList tasks) {
+    /**
+     * Handles the tagging of a task with a user-provided tag.
+     *
+     * @param userInput The user input containing the task number and tag.
+     * @param tasks The TaskList instance managing the tasks.
+     * @return A message indicating the task has been tagged.
+     */
+    private String handleTagTask(String userInput, TaskList tasks) {
+        assert tasks != null : "TaskList (tasks) must not be null";
+        try {
+            String[] parts = userInput.split("\\s+", 3);
+            int taskNumber = Integer.parseInt(parts[1]);
+            String tag = parts.length > 2 ? parts[2].trim() : "";
+            if (parts.length < 3 || tag.isEmpty()) {
+                throw new TheCountException("Tag cannot be empty. Please provide a tag.");
+            }
+            String result = tasks.tagTask(taskNumber, tag);
+            loader.write(tasks);
+            return result;
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            return handleException("Please put a number. I can't count that!");
+        } catch (TheCountException e) {
+            return handleException(e);
+        }
+    }
+
+    private String handleTodoTask(String userInput, TaskList tasks) {
         try {
             String info = getTaskInfo(userInput, " ");
             ToDo todo = new ToDo(info);
 
             tasks.add(todo);
-            return todo.displayMessage(tasks.length());
+            String result = todo.displayMessage(tasks.length());
+            loader.write(tasks);
+            return result;
         } catch (TheCountException e) {
             return handleException(e);
         }
     }
 
-    private static String handleDeadlineTask(String userInput, TaskList tasks) {
+    private String handleDeadlineTask(String userInput, TaskList tasks) {
         try {
             String info = getTaskInfo(userInput, "/by");
             String deadlineTime = getTaskTime(userInput, "/by", "deadline");
             Deadline deadline = new Deadline(info, deadlineTime);
 
             tasks.add(deadline);
-            return deadline.displayMessage(tasks.length());
+            String result = deadline.displayMessage(tasks.length());
+            loader.write(tasks);
+            return result;
         } catch (TheCountException e) {
             return handleException(e, "Example: deadline assignment /by 2021-12-31");
         } catch (DateTimeParseException e) {
@@ -138,7 +173,7 @@ public class Parser {
         }
     }
 
-    private static String handleEventTask(String userInput, TaskList tasks) {
+    private String handleEventTask(String userInput, TaskList tasks) {
         try {
             String info = getTaskInfo(userInput, "/from");
             String startTime = getStartTime(userInput);
@@ -146,23 +181,27 @@ public class Parser {
             Event event = new Event(info, startTime, endTime);
 
             tasks.add(event);
-            return event.displayMessage(tasks.length());
+            String result = event.displayMessage(tasks.length());
+            loader.write(tasks);
+            return result;
         } catch (TheCountException e) {
             return handleException(e, "Example: event meeting /from 2pm /to 4pm");
         }
     }
 
-    private static String handleDeleteTask(String userInput, TaskList tasks) {
+    private String handleDeleteTask(String userInput, TaskList tasks) {
         assert tasks != null : "TaskList (tasks) must not be null";
         try {
             int taskNumber = Integer.parseInt(userInput.split("\\s+")[1]);
-            return tasks.deleteTask(taskNumber);
+            String result = tasks.deleteTask(taskNumber);
+            loader.write(tasks);
+            return result;
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException | TheCountException e) {
             return handleException(e);
         }
     }
 
-    private static String handleInvalidCommand() {
+    private String handleInvalidCommand() {
         try {
             throw new TheCountException("WHAT?! I can't count that! Try another command!");
         } catch (TheCountException e) {
@@ -170,17 +209,19 @@ public class Parser {
         }
     }
 
-    private static String handleFindTask(String userInput, TaskList tasks) {
+    private String handleFindTask(String userInput, TaskList tasks) {
         assert tasks != null : "TaskList (tasks) must not be null";
         try {
             String keyword = userInput.split("\\s+", 2)[1].trim();
-            return tasks.findTask(keyword);
+            String result = tasks.findTask(keyword);
+            loader.write(tasks);
+            return result;
         } catch (ArrayIndexOutOfBoundsException e) {
             return handleException("Please enter a keyword to search for.");
         }
     }
 
-    private static String getTaskInfo(String userInput, String delimiter) throws TheCountException {
+    private String getTaskInfo(String userInput, String delimiter) throws TheCountException {
         try {
             String info;
 
@@ -199,7 +240,7 @@ public class Parser {
         }
     }
 
-    private static String getTaskTime(String userInput, String delimiter, String timeType) throws TheCountException {
+    private String getTaskTime(String userInput, String delimiter, String timeType) throws TheCountException {
         try {
             return userInput.split(delimiter)[1].trim();
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -207,7 +248,7 @@ public class Parser {
         }
     }
 
-    private static String getStartTime(String userInput) throws TheCountException {
+    private String getStartTime(String userInput) throws TheCountException {
         try {
             return userInput.split("/from")[1].split("/to")[0].trim();
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -215,17 +256,17 @@ public class Parser {
         }
     }
 
-    private static String handleException(Exception e) {
+    private String handleException(Exception e) {
         Reply errorMsg = new Reply(e.getMessage());
         return errorMsg.displayMessage();
     }
 
-    private static String handleException(Exception e, String additionalMessage) {
+    private String handleException(Exception e, String additionalMessage) {
         Reply errorMsg = new Reply(e.getMessage() + "\n" + additionalMessage);
         return errorMsg.displayMessage();
     }
 
-    private static String handleException(String additionalMessage) {
+    private String handleException(String additionalMessage) {
         Reply errorMsg = new Reply(additionalMessage);
         return errorMsg.displayMessage();
     }

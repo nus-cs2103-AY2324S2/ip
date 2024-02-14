@@ -47,6 +47,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public void tag(String message) {
+        this.description = this.description + " #" + message;
+    }
+
     /**
      * Displays a message related to the task.
      *

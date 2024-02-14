@@ -90,6 +90,26 @@ public class TaskList {
     }
 
     /**
+     * Tags a task with a message.
+     *
+     * @param i The index of the task to tag.
+     * @param message The message to tag the task with.
+     * @return A message indicating that the task has been tagged.
+     * @throws TheCountException If the task number is invalid.
+     */
+    public String tagTask(int i, String message) throws TheCountException {
+        if (i < 1 || i > tasks.size()) {
+            throw new TheCountException("Invalid task number. I can't count that!");
+        }
+        Task currTask = this.tasks.get(i - 1);
+        currTask.tag(message);
+        Reply replyToUser = new Reply("I've tagged this task:\n"
+                + "" + currTask.toString());
+        return replyToUser.displayMessage();
+    }
+
+
+    /**
      * Deletes a task from the list.
      *
      * @param i The index of the task to delete.
