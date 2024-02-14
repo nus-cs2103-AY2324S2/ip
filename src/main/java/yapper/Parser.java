@@ -53,6 +53,7 @@ public class Parser {
         switch (cmd) {
         case BYE:
             try {
+                assert(fm != null);
                 fm.saveTasks();
             } catch (YapperException y) {
                 response = y.getMessage();
