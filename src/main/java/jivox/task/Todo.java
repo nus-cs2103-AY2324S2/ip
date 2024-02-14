@@ -1,5 +1,7 @@
 package jivox.task;
 
+import java.util.Objects;
+
 /**
  * Todo represents a simple todo task.
  * It extends Task.

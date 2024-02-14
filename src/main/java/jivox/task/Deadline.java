@@ -2,6 +2,7 @@ package jivox.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 /**
  * Deadline represents a task with a deadline.
@@ -54,5 +55,14 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: "
                 + this.deadline.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm"))
                 + ")";
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof Deadline){
+            Deadline d = (Deadline) o;
+            return Objects.equals(d.getDescription(), this.getDescription()) && this.deadline.equals(d.deadline);
+        }
+        return false;
     }
 }

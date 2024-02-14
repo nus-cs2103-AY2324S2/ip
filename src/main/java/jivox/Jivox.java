@@ -51,7 +51,6 @@ public class Jivox {
         }
         Task t = this.tasks.getTask(i - 1);
         t.mark();
-//        dbHandler.save(this.tasks);
         return this.ui.showMark(t);
     }
 
@@ -67,18 +66,15 @@ public class Jivox {
         }
         Task t = this.tasks.getTask(i - 1);
         t.unmark();
-//        dbHandler.save(this.tasks);
         return this.ui.showUnmark(t);
     }
 
     private void addEvent(String content) throws JivoxException {
         String[] first = this.parser.split(content, " /from ");
-        //    content.split(" /from ");
         if (first.length == 1) {
             throw new JivoxException("No time interval (from) received  for the event , Please try again!");
         }
         String[] second = this.parser.split(first[1], " /to ", 2);
-        //first[1].split(" /to ",2);
         if (second.length == 1) {
             throw new JivoxException("No time interval received (to) for the event , Please try again!");
         }
@@ -87,24 +83,45 @@ public class Jivox {
         if (to.isBefore(from)) {
             throw new JivoxException("Invalid event ! To is before From");
         }
-        this.tasks.add(new Event(first[0].trim(), from, to));
-        dbHandler.save(this.tasks);
+        Event task = new Event(first[0].trim(), from, to);
+        if(this.checkDuplicateTask(task)){
+            throw new JivoxException("Duplicate Event, Task already exists!");
+        } else {
+            this.tasks.add(task);
+        }
     }
 
-    private void addTodo(String content) throws DataHandlerException {
-        this.tasks.add(new Todo(content));
-//        dbHandler.save(this.tasks);
+    private void addTodo(String content) throws JivoxException {
+        Todo task = new Todo(content);
+        if(this.checkDuplicateTask(task)){
+            throw new JivoxException("Duplicate Todo , Task already exists!");
+        } else {
+            this.tasks.add(task);
+        }
     }
 
     private void addDeadline(String content) throws JivoxException {
         String[] in = this.parser.split(content, " /by ", 2);
-        // content.split(" /by ",2);
         if (in.length == 1) {
             throw new JivoxException("Oooops! Please provide a deadline");
         }
         LocalDateTime deadline = LocalDateTime.parse(in[1], formatter);
-        this.tasks.add(new Deadline(in[0].trim(), deadline));
-        dbHandler.save(this.tasks);
+        Deadline task = new Deadline(in[0].trim(), deadline);
+        if(this.checkDuplicateTask(task)) {
+            throw new JivoxException("Duplicate Deadline Task , Task already exists !");
+        } else {
+            this.tasks.add(task);
+        }
+    }
+
+
+    private boolean checkDuplicateTask(Task t){
+        for(int i = 0; i < this.tasks.getLength(); i++){
+            if(this.tasks.getTask(i).equals(t)){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

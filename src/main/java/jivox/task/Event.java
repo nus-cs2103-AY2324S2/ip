@@ -1,6 +1,7 @@
 package jivox.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 /**
  * Event represents a task with a start and end time.
@@ -60,5 +61,16 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: "
                 + this.from.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")) + " to: "
                 + this.to.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")) + ")";
+    }
+
+
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof Event){
+            Event e = (Event) o;
+            return Objects.equals(e.getDescription(), this.getDescription())
+                    && this.from.equals(e.from) && this.to.equals(e.to);
+        }
+        return false;
     }
 }
