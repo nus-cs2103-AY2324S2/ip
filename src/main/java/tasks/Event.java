@@ -46,4 +46,24 @@ public class Event extends Task {
                 + " to: "
                 + this.to.format(DateTimeFormatter.ofPattern("dd MMM yyyy hh:mma"));
     }
+
+    /**
+     * Sort based on from timing
+     * if same, sort based on to timing
+     * if same, sort alphabetically
+     * @param task the object to be compared.
+     * @return result of the comparison
+     */
+    @Override
+    public int compareTo(Task task) {
+        Event event = (Event) task;
+        int result = this.from.compareTo(event.from);
+        if (result == 0) {
+            result = this.to.compareTo(event.to);
+            if (result == 0) {
+                result = this.getExecute().compareTo(event.getExecute());
+            }
+        }
+        return result;
+    }
 }

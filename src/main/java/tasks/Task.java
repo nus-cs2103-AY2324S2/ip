@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Action class
  */
-public class Task implements Serializable {
+public class Task implements Serializable, Comparable<Task> {
     private String marking;
     private String execute;
 
@@ -48,5 +48,15 @@ public class Task implements Serializable {
     @Override
     public String toString() {
         return "[" + this.marking + "] " + this.execute;
+    }
+
+    /**
+     * Override comparison to sort alphabetically
+     * @param task task to be compared to
+     * @return int of the comparison
+     */
+    @Override
+    public int compareTo(Task task) {
+        return this.execute.compareToIgnoreCase(task.execute);
     }
 }

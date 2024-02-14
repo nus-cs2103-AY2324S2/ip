@@ -34,4 +34,14 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + "(by: "
                 + this.by.format(DateTimeFormatter.ofPattern("dd MMM yyyy hh:mma")) + ")";
     }
+
+    @Override
+    public int compareTo(Task task) {
+        Deadline event = (Deadline) task;
+        int result = this.by.compareTo(event.by);
+        if (result == 0) {
+            result = this.getExecute().compareTo(event.getExecute());
+        }
+        return result;
+    }
 }
