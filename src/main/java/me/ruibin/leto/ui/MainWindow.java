@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import me.ruibin.leto.Leto;
 import me.ruibin.leto.parser.Result;
 import me.ruibin.leto.parser.ResultTypes;
+import me.ruibin.leto.tasklist.TaskList;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -39,8 +40,9 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         scrollPane.hvalueProperty().bind(dialogContainer.widthProperty());
-        dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(Ui.letoLogo(), dukeImage)
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(Ui.letoLogo(), dukeImage),
+                DialogBox.getDukeDialog(TaskList.initFromCsvFile().getMessage(), dukeImage)
         );
     }
 
