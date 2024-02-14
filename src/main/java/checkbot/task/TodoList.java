@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import checkbot.exception.DuplicateTaskException;
 import checkbot.exception.InvalidIndexException;
 
 /**
@@ -25,7 +26,10 @@ public class TodoList {
      *
      * @param task The task to be added.
      */
-    public void addTask(Task task) {
+    public void addTask(Task task) throws DuplicateTaskException {
+        if (exists(task)) {
+            throw new DuplicateTaskException(task);
+        }
         taskList.add(task);
     }
 
@@ -118,5 +122,10 @@ public class TodoList {
                         .filter(task -> task.nameContains(substr))
                         .collect(Collectors.toList()))
         );
+    }
+
+    private boolean exists(Task target) {
+        return taskList.stream()
+                .anyMatch(task -> task.equals(target));
     }
 }
