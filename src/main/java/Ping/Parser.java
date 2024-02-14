@@ -49,13 +49,14 @@ public class Parser {
         case "find":
             return parseFind(restCommands);
         default:
-            throw new PingException("Pleas fill in the valid command\n"
+            throw new PingException("Please fill in the valid command\n"
                     + "Valid commands are: bye, list, blah, todo, event, deadline, mark, unmark, delete, hi");
         }
     }
-
+    // Add assert to check the input
     private static Command parseMark(String[] restCommands) throws PingException {
         try {
+            assert restCommands.length >= 2 : "Assert: Invalid number of arguments";
             int i = Integer.parseInt(restCommands[1]) - 1;
             return new MarkCommand(i);
         } catch (Exception e) {
@@ -65,6 +66,7 @@ public class Parser {
 
     private static Command parseUnmark(String[] restCommands) throws PingException {
         try {
+            assert restCommands.length >= 2 : "Invalid number of arguments";
             int i = Integer.parseInt(restCommands[1]) - 1;
             return new UnmarkCommand(i);
         } catch (Exception e) {
@@ -90,6 +92,7 @@ public class Parser {
 
     private static Command parseDelete(String[] delCommand) throws PingException {
         try {
+            assert delCommand.length >= 2 : "Invalid number of arguments";
             int i = Integer.parseInt(delCommand[1]) - 1;
             return new DeleteCommand(i);
         } catch (Exception e) {

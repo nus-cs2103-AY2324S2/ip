@@ -10,11 +10,11 @@ public class Deadline extends Task {
 
     /**
      * This is the constructor of the Deadline class
-     * @param destription the description of the deadline task
+     * @param description the description of the deadline task
      * @param by the date of the deadline task
      */
-    public Deadline(String destription, LocalDate by) {
-        super(destription);
+    public Deadline(String description, LocalDate by) {
+        super(description);
         this.by = by;
     }
 
