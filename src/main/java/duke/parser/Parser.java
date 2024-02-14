@@ -3,7 +3,7 @@ package duke.parser;
 import java.time.DateTimeException;
 import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -45,7 +45,7 @@ public class Parser {
                 Integer.parseInt(date.substring(8, 10)),
                 Integer.parseInt(time.substring(0, 2)),
                 Integer.parseInt(time.substring(3, 5)))
-                .toInstant(OffsetDateTime.now().getOffset());
+                .toInstant(ZoneOffset.of("+8"));
     }
 
     /**
