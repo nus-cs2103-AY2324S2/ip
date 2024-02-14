@@ -1,8 +1,8 @@
 package duke;
 import java.util.Scanner;
 
-class Ui {
-    private static final String logo = " ____        _        \n"
+public class Ui {
+    public static final String logo = " ____        _        \n"
                     + "|  _ \\ _   _| | _____ \n"
                     + "| | | | | | | |/ / _ \\\n"
                     + "| |_| | |_| |   <  __/\n"

@@ -8,7 +8,7 @@ import duke.Task.Task;
 import duke.TaskList;
 import duke.Ui;
 
-class Duke {
+public class Duke {
     private TaskList taskList;
 
     Duke() {
