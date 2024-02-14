@@ -1,6 +1,8 @@
 package duke.task;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Represents a list of tasks in the Duke chatbot application.
@@ -47,10 +49,9 @@ public class TaskList {
      * Lists all tasks in the task list.
      */
     public String list() {
-        String lists = "";
-        for (int i = 0; i < tasks.size(); i++) {
-            lists += (i + 1) + ". " + tasks.get(i).toString() + "\n";
-        }
+        String lists = IntStream.range(0, tasks.size())
+                .mapToObj(i -> (i + 1) + ". " + tasks.get(i).toString() + "\n")
+                .collect(Collectors.joining());
         return lists;
     }
 
@@ -107,12 +108,9 @@ public class TaskList {
      * @return An ArrayList of tasks containing the specified keyword.
      */
     public ArrayList<Task> findTasksByKeyword(String keyword) {
-        ArrayList<Task> matchingTask = new ArrayList<>();
-        for (Task task : tasks) {
-            if (task.containsKeyword(keyword)) {
-                matchingTask.add(task);
-            }
-        }
+        ArrayList<Task> matchingTask = tasks.stream()
+                .filter(task -> task.containsKeyword(keyword))
+                .collect(Collectors.toCollection(ArrayList::new));
         return matchingTask;
     }
 }
