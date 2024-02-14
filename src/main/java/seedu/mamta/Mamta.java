@@ -160,7 +160,7 @@ public class Mamta extends Application  {
 
 
     /**
-     * Echoes the input command based on its type and parameters.
+     * Echoes the input command based on its type and parameters. The type description follows.
      * @param taskType The type of the task.
      * @param command The command to be executed.
      * @param taskNum The task number (if applicable).
