@@ -74,9 +74,10 @@ public class MyList {
      * @param index The index of the task to be marked as done.
      * @return A message indicating the success of the operation or if the index is out of bounds.
      */
-    public String markTask(int index) {
+    public String markTask(int index) throws DukeException {
         if (index < 1 || index > this.tasks.size()) {
-            return "Number is outside length of list";
+            //return "Number is outside length of list";
+            throw new DukeException("Number is outside length of list");
         } else {
             return "Nice! I've marked this task as done:\n" + this.tasks.get(index - 1).markAsDone();
         }
@@ -88,9 +89,10 @@ public class MyList {
      * @param index The index of the task to be deleted.
      * @return A message indicating the success of the operation or if the index is out of bounds.
      */
-    public String delete(int index) {
+    public String delete(int index) throws DukeException {
         if (index < 1 || index > this.tasks.size()) {
-            return "Number is outside length of list";
+            //return "Number is outside length of list";
+            throw new DukeException("Number is outside length of list");
         } else {
             Task t = this.tasks.remove(index - 1);
             return "Noted. I've removed this task:\n" + t.toString() + "\nNow you have "
