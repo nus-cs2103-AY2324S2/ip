@@ -151,6 +151,10 @@ public class TheAdvisor implements Serializable {
                 response = "Incorrect prompt use. Please try again with these prompts: "
                         + "todo, list, mark, unmark, bye, event, deadline, find";
                 break;
+            case WRONG:
+                response = "Incorrect prompt use. Please try again with these prompts: "
+                        + "todo, list, mark, unmark, bye, event, deadline, find";
+                break;
             default:
                 throw new TheAdvisorException("Incorrect input, please try again with the correct input of either: "
                         + "todo, event, mark...etc");

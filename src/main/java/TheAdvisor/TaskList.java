@@ -2,6 +2,8 @@ package theadvisor;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The TaskList class represents a list of tasks and provides methods for managing tasks.
@@ -143,6 +145,7 @@ public class TaskList implements Serializable {
      * @param keyword The keyword to search for.
      * @return A string representation of matching tasks.
      */
+<<<<<<< HEAD
     public String findItem(String keyword) {
         ArrayList<Integer> indexes = new ArrayList<>();
 
@@ -153,13 +156,23 @@ public class TaskList implements Serializable {
         }
         if (indexes.size() == 0) {
             return "Sorry! There are no tasks that match your search criteria.";
+=======
+    public String findItem(String keyword) throws TheAdvisorException {
+        List<Task> matchingTasks = taskList.stream()
+                .filter(task -> task.getDescription().contains(keyword))
+                .collect(Collectors.toList());
+
+        if (matchingTasks.isEmpty()) {
+            throw new TheAdvisorException("Sorry! There are no tasks that match your search criteria.");
+>>>>>>> A-Streams
         } else {
             StringBuilder toReturn = new StringBuilder("Here are the matching tasks in your list:\n");
-            for (int j = 0; j < indexes.size(); j++) {
-                Task task = taskList.get(indexes.get(j));
+            for (int j = 0; j < matchingTasks.size(); j++) {
+                Task task = matchingTasks.get(j);
                 toReturn.append(j + 1).append(". ").append(task.toString()).append("\n");
             }
             return toReturn.toString();
         }
     }
+
 }

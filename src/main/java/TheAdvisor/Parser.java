@@ -70,7 +70,7 @@ public class Parser {
             return Prompts.WRONG;
         }
         try {
-            return Prompts.valueOf(prompt.toUpperCase());
+            return Prompts.valueOf(prompt.toUpperCase().trim());
         } catch (IllegalArgumentException e) {
             return Prompts.WRONG;
         }

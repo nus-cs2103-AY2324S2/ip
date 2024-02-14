@@ -1,6 +1,7 @@
 package theadvisor;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * The Ui class represents the user interface for interacting with the application.
@@ -35,17 +36,17 @@ public class Ui {
      */
     public String printList(TaskList taskList) {
         ArrayList<Task> tasks = taskList.getTaskList();
+<<<<<<< HEAD
         if (tasks.size() == 0) {
+=======
+        if (tasks.isEmpty()) {
+>>>>>>> A-Streams
             return "Sorry, there are no tasks in your list. Start adding them :)";
         } else {
-            StringBuilder reply = new StringBuilder("Here are the tasks in your list: ");
-            for (int i = 0; i < tasks.size(); i++) {
-                reply.append("\n")
-                        .append((i + 1))
-                        .append(". ")
-                        .append(tasks.get(i));
-            }
-            return reply.toString();
+            return "Here are the tasks in your list: \n"
+                    + tasks.stream()
+                            .map(task -> tasks.indexOf(task) + 1 + ". " + task)
+                            .collect(Collectors.joining("\n"));
         }
     }
 }
