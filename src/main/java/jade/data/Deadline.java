@@ -31,11 +31,11 @@ public class Deadline extends Task {
      * Returns a formatted string of the deadline date.
      */
     public String dateFormatter() {
-        return deadlineDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy hmma"));
+        return deadlineDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"));
     }
 
     /**
-     * @inheritDoc This implementation checks whether the deadline date equals to the date.
+     * @inheritDoc This implementation checks whether the deadline date equals to the given date.
      */
     @Override
     public boolean isSameDate(LocalDate date) {

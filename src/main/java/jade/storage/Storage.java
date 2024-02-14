@@ -11,6 +11,7 @@ import java.util.Scanner;
 
 import jade.data.Deadline;
 import jade.data.Event;
+import jade.data.RecurringTask;
 import jade.data.Task;
 import jade.data.TaskList;
 import jade.data.Todo;
@@ -103,12 +104,22 @@ public class Storage {
             taskList.add(new Todo(task[2], isDone));
             break;
         case "D":
-            taskList.add(new Deadline(task[2], Parser.parseDateTime(task[3], "MMM d yyyy hmma"), isDone));
+            taskList.add(new Deadline(task[2], Parser.parseDateTime(task[3], "MMM d yyyy hh:mm a"), isDone));
             break;
         case "E":
             String[] dateTimes = task[3].split(" - ");
-            taskList.add(new Event(task[2], Parser.parseDateTime(dateTimes[0], "MMM d yyyy hmma"),
-                    Parser.parseDateTime(dateTimes[1], "MMM d yyyy hmma"), isDone));
+            taskList.add(new Event(task[2], Parser.parseDateTime(dateTimes[0], "MMM d yyyy hh:mm a"),
+                    Parser.parseDateTime(dateTimes[1], "MMM d yyyy hh:mm a"), isDone));
+            break;
+        case "RT":
+            String[] dates = task[3].split(" - ");
+            String[] times = task[4].split(" - ");
+            taskList.add(new RecurringTask(task[2],
+                    Parser.parseDate(dates[0], "MMM d yyyy"),
+                    Parser.parseDate(dates[1], "MMM d yyyy"),
+                    Parser.parseTime(times[0]),
+                    Parser.parseTime(times[1]),
+                    RecurringTask.lookUpTable.get(task[5]), isDone));
             break;
         default:
             break;
@@ -120,7 +131,7 @@ public class Storage {
      * @param taskList The list of updated user tasks.
      * @throws JadeException If IOException is caught
      */
-    public void saveChange(TaskList taskList) throws JadeException {
+    public void saveChange(TaskList<Task> taskList) throws JadeException {
         try {
             Path dataFilePath = java.nio.file.Paths.get(System.getProperty("user.dir"), "data", "jadeList.txt");
             File jadeList = new File(dataFilePath.toString());
