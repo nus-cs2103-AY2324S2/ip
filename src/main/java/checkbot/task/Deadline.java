@@ -7,7 +7,7 @@ import java.util.Objects;
  * A deadline task is a task that contains a "due date".
  */
 public class Deadline extends Task {
-    private final String to;
+    private final TimeString to;
 
     /**
      * Constructor for a Deadline.
@@ -17,7 +17,7 @@ public class Deadline extends Task {
      */
     public Deadline(String name, String to) {
         super(name);
-        this.to = tryParseDate(to);
+        this.to = new TimeString(to);
     }
 
     @Override
@@ -40,10 +40,5 @@ public class Deadline extends Task {
         }
         Deadline deadline = (Deadline) o;
         return Objects.equals(to, deadline.to);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(to);
     }
 }

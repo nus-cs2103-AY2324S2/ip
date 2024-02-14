@@ -1,8 +1,5 @@
 package checkbot.task;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
 /**
@@ -34,31 +31,6 @@ public abstract class Task {
      */
     public void unmark() {
         this.isDone = false;
-    }
-
-    /**
-     * Attempts to parse the specified string as a LocalDate object.
-     * Reformats the date and returns the new string, if successful,
-     * or returns the original string otherwise.
-     *
-     * @param dateString The string to be parsed into a LocalDate
-     * @return Formatted date, or the original string if parsing fails.
-     */
-    public static String tryParseDate(String dateString) {
-        final String[] formats = {"dd-MM-yyyy",
-                                  "d-M-yyyy",
-                                  "d/M/yyyy",
-                                  "dd/MM/yyyy"};
-        for (String format : formats) {
-            try {
-                LocalDate date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern(format));
-                return date.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
-            } catch (DateTimeParseException ignored) {
-                // We don't actually need anything in here because we are trying a bunch of formats
-                // to parse the dates in, and if none of them work, we return the original string.
-            }
-        }
-        return dateString;
     }
 
     /**
