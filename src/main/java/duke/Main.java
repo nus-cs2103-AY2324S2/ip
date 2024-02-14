@@ -34,6 +34,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setTitle("Bingus: The Friendly Cat TaskChecker!");
             MainWindow mainWindow = fxmlLoader.getController();
+            assert(mainWindow != null);
             mainWindow.setDuke(duke);
 
             stage.show();

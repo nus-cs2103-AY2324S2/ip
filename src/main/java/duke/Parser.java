@@ -42,11 +42,11 @@ public class Parser {
         } else if (identifier.equals("event")) {
             return list.eventCase(str);
         } else if (identifier.equals("deadline")) {
-            list.deadlineCase(str);
-            return list.addTask();
+
+            return list.deadlineCase(str);
         } else if (identifier.equals("todo")) {
-            list.todoCase(str);
-            return list.addTask();
+
+            return list.todoCase(str);
         } else if (identifier.equals("delete")) {
             return list.removeCase(tokens);
 
