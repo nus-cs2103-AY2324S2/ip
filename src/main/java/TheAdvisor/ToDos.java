@@ -14,6 +14,7 @@ public class ToDos extends Task implements Serializable {
      */
     public ToDos(String description) {
         super(description);
+        assert description != null && !description.isEmpty() : "Description cannot be null or empty";
     }
 
     /**
@@ -33,6 +34,7 @@ public class ToDos extends Task implements Serializable {
      */
     @Override
     public String getDescription() {
+        assert getDescription() != null : "Description should not be null";
         return this.description;
     }
 
