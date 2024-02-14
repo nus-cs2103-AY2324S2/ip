@@ -112,6 +112,7 @@ public class Parser {
             return new ListTasksCommand();
         } else if (userInput.toLowerCase().startsWith("mark")) {
             String[] inputArr = userInput.split(" ");
+            assert inputArr[0].toLowerCase() == "mark";
             try {
                 int index = Integer.parseInt(inputArr[1]) - 1;
                 return new MarkTaskCommand(index);
@@ -121,6 +122,7 @@ public class Parser {
             }
         } else if (userInput.toLowerCase().startsWith("unmark")) {
             String[] inputArr = userInput.split(" ");
+            assert inputArr[0].toLowerCase() == "unmark";
             try {
                 int index = Integer.parseInt(inputArr[1]) - 1;
                 return new UnmarkTaskCommand(index);
@@ -130,6 +132,7 @@ public class Parser {
             }
         } else if (userInput.toLowerCase().startsWith("delete")) {
             String[] inputArr = userInput.split(" ");
+            assert inputArr[0].toLowerCase() == "delete";
             try {
                 int index = Integer.parseInt(inputArr[1]) - 1;
                 return new DeleteTaskCommand(index);
@@ -139,6 +142,7 @@ public class Parser {
             }
         } else if (userInput.toLowerCase().startsWith("find")) {
             String[] inputArr = userInput.split(" ");
+            assert inputArr[0].toLowerCase() == "find";
             if (inputArr.length > 2) {
                 throw new DukeException("Pengu can only look up one-word long keywords");
             }
