@@ -1,6 +1,8 @@
 package osiris.task;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -33,6 +35,16 @@ public class DeadlineTask extends Task {
     public DeadlineTask(String taskName, boolean isCompleted, LocalDate deadline) {
         super(taskName, isCompleted);
         this.deadline = deadline;
+    }
+
+    /**
+     * Returns start Local Date Time of Task
+     *
+     * @return LocalDateTime    The start time of the task.
+     */
+    @Override
+    public LocalDateTime getStartDateTime() {
+        return LocalDateTime.of(deadline, LocalTime.of(0, 0));
     }
 
     /**

@@ -1,10 +1,15 @@
 package osiris.task;
 
+import java.time.LocalDateTime;
+
 /**
  * The Task class represents a generic task in the Osiris application.
  * It serves as the base class for different types of tasks.
  */
 public abstract class Task {
+
+    /** Local DateTime of task with no start Date */
+    public static final LocalDateTime DEFAULT_START_DATE_TIME = LocalDateTime.of(-1, 1, 1, 0, 0);
 
     /** Name of Task */
     private final String taskName;
@@ -44,6 +49,15 @@ public abstract class Task {
      */
     public void markIncomplete() {
         isCompleted = false;
+    }
+
+    /**
+     * Returns start Local Date Time of Task
+     *
+     * @return LocalDateTime    The start time of the task.
+     */
+    public LocalDateTime getStartDateTime() {
+        return Task.DEFAULT_START_DATE_TIME;
     }
 
     /**

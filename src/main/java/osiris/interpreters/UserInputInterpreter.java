@@ -108,9 +108,7 @@ public class UserInputInterpreter {
                 taskName = userInput.substring(AddDeadlineTaskCommand.COMMAND.length(), byIndex - 1).trim();
                 String deadlineStr = userInput.substring(byIndex + "/by".length()).trim();
                 LocalDate deadline = DateTimeFormatters.getInstance().formatUserInputDate(deadlineStr);
-                if (deadline != null) {
-                    return new AddDeadlineTaskCommand(taskName, deadline);
-                }
+                return new AddDeadlineTaskCommand(taskName, deadline);
             }
             break;
 
@@ -124,9 +122,7 @@ public class UserInputInterpreter {
                 String endDateTimeStr = userInput.substring(toIndex + "/to".length()).trim();
                 LocalDateTime[] dateTimeRange = DateTimeFormatters.getInstance()
                         .formatUserInputDateTimeRange(startDateTimeStr, endDateTimeStr);
-                if (dateTimeRange != null) {
-                    return new AddEventTaskCommand(taskName, dateTimeRange[0], dateTimeRange[1]);
-                }
+                return new AddEventTaskCommand(taskName, dateTimeRange[0], dateTimeRange[1]);
             }
             break;
 
