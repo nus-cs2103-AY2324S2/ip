@@ -1,6 +1,7 @@
 package duke.responses;
 
 import duke.exceptions.ListOutofBoundsException;
+import duke.parser.Priority;
 import duke.storage.Storage;
 import duke.storage.Task;
 import duke.storage.TaskList;
@@ -92,6 +93,16 @@ public class Responses {
         }
         stringBuilder.append("    OK, I've marked this task as not done yet:\n");
         stringBuilder.append(this.taskList.unMarkTask(input));
+        return stringBuilder.toString();
+    }
+
+    public String updatePriority(int input, Priority priority) throws ListOutofBoundsException {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (input < 0 || input > this.taskList.taskLength() - 1) {
+            throw new ListOutofBoundsException(String.format("%d", this.taskList.taskLength()));
+        }
+        stringBuilder.append("    OK, I've updated this task's Priority:\n");
+        stringBuilder.append(this.taskList.updatePriority(input, priority));
         return stringBuilder.toString();
     }
 

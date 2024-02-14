@@ -52,11 +52,11 @@ public class Events extends Task {
         return "[E]" + super.toString() + "\n (from: "
                 + this.fromDate
                 + " "
-                + (this.fromTime == "" ? "" : this.fromTime)
+                + (this.fromTime.equals("null") ? "" : this.fromTime)
                 + " to: "
                 + this.toDate
                 + " "
-                + (this.toTime == "" ? "" : this.toTime)
+                + (this.toTime.equals("null") ? "" : this.toTime)
                 + ")";
     }
 }

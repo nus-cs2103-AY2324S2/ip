@@ -1,5 +1,7 @@
 package duke.storage;
 
+import duke.parser.Priority;
+
 import java.util.ArrayList;
 
 /**
@@ -74,6 +76,13 @@ public class TaskList {
         return toPrint;
     }
 
+    public String updatePriority(int number, Priority priority) {
+        this.tasks.get(number).setPriority(priority);
+        System.out.println(this.tasks.get(number).getPriority());
+        saveToFile();
+        return "      " + this.tasks.get(number).toString();
+    }
+
     /**
      * Searches for tasks containing a specified keyword in their descriptions.
      *
@@ -116,6 +125,16 @@ public class TaskList {
         return result.toString();
     }
 
+    private String getPriority(Task task) {
+        if (task.getPriority().equals("")) {
+            return "0";
+        } else if (task.getPriority().equals("LOW")) {
+            return "-1";
+        } else {
+            return "1";
+        }
+    }
+
     /**
      * Saves the current list of tasks to a file.
      * The format of the save file is "save [doneStatus] [originalCommand]" for each task.
@@ -125,7 +144,11 @@ public class TaskList {
         StringBuilder temporary = new StringBuilder();
 
         for (Task task : tasks) {
-            temporary.append("save ").append(task.isDone ? "1 " : "0 ").append(task.getOriginalCommand() + "\n");
+            temporary.append("save ")
+                    .append(task.isDone ? "1 " : "0 ")
+                    .append(getPriority(task))
+                    .append(" ")
+                    .append(task.getOriginalCommand() + "\n");
         }
         Storage.save(temporary.toString());
     }

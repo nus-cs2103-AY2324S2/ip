@@ -68,6 +68,12 @@ public class Duke {
             } catch (ListOutofBoundsException e) {
                 return Responses.error(e.getMessage());
             }
+        case PRIORITY:
+            try {
+                return dukeResponse.updatePriority(output.getSelectedItem() - 1, output.getPriority());
+            } catch (ListOutofBoundsException e) {
+                return Responses.error(e.getMessage());
+            }
         default:
             return "";
         }

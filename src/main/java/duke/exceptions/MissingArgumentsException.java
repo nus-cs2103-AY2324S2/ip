@@ -11,8 +11,8 @@ public class MissingArgumentsException extends Exception {
      *
      * @param message The detail message indicating the missing arguments.
      */
-    public MissingArgumentsException(String string) {
-        super(string);
+    public MissingArgumentsException(String message) {
+        super(message);
     }
 
     /**
