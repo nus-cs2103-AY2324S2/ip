@@ -1,15 +1,22 @@
 package paimon;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import paimon.command.*;
+
+import paimon.command.DeadlineCommand;
+import paimon.command.EventCommand;
+import paimon.command.ExitCommand;
+import paimon.command.HelpCommand;
+import paimon.command.ListCommand;
+import paimon.command.TodoCommand;
 import paimon.util.CommandParser;
 
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class CommandParserTest {
 
@@ -41,7 +48,7 @@ public class CommandParserTest {
     }
 
     @Test
-    void parseInput_helpCommand_success() throws Exception{
+    void parseInput_helpCommand_success() throws Exception {
         parser = new CommandParser("help");
         assertInstanceOf(HelpCommand.class, parser.parseInput());
         parser = new CommandParser("help donuts banana");
@@ -67,7 +74,7 @@ public class CommandParserTest {
             parser = new CommandParser("todo ");
             assertInstanceOf(TodoCommand.class, parser.parseInput());
             fail();
-        } catch (ChatException e){
+        } catch (ChatException e) {
             assertEquals("Input does not match expected format: todo <task>", e.getMessage());
         }
 
@@ -82,6 +89,7 @@ public class CommandParserTest {
         parser = new CommandParser("deadline stufff /sadas /by something");
         assertInstanceOf(DeadlineCommand.class, parser.parseInput());
     }
+
     @Test
     void parseInput_deadlineCommand_chatExceptionThrown() {
         parser = new CommandParser("deadline");
@@ -93,6 +101,7 @@ public class CommandParserTest {
         parser = new CommandParser("deadline do stuff /bwqyqw");
         assertThrows(ChatException.class, () -> parser.parseInput());
     }
+
     @Test
     void parseInput_eventCommand_success() throws Exception {
         parser = new CommandParser("event work out /from 2022-01-20 /to 2022-01-22");
@@ -102,6 +111,7 @@ public class CommandParserTest {
         parser = new CommandParser("event stuff /sdaf/af /sad/asd /from /asdasd /to /asd/asd");
         assertInstanceOf(EventCommand.class, parser.parseInput());
     }
+
     @Test
     void parseInput_eventCommand_chatExceptionThrown() {
         parser = new CommandParser("event");
@@ -126,5 +136,5 @@ public class CommandParserTest {
         assertThrows(ChatException.class, () -> parser.parseInput());
     }
 
-
 }
+
