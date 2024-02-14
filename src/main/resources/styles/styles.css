@@ -1,0 +1,22 @@
+/* style.css */
+.root {
+    -fx-background-color: #ADD8E6; /* Light blue background */
+}
+
+.title-image {
+    -fx-fit-to-width: true; /* Make the image fit to the container width */
+}
+
+.dialog-container {
+    -fx-background-color: #EEEE11; /* White background for the dialog container */
+}
+
+.text-field {
+    -fx-pref-height: 30px;
+    -fx-font-size: 14px;
+}
+
+.button {
+    -fx-background-color: #ADD8E6; /* Red background for buttons */
+    -fx-text-fill: #000000; /* White text */
+}
