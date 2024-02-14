@@ -1,6 +1,10 @@
 package baron.dao;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
 
 import baron.database.Database;
 import baron.enums.Argument;
@@ -66,6 +70,20 @@ public class ClientDao extends BaseDao {
     @Override
     public Client getFrom(String input) {
         return null;
+    }
+    @Override
+    public List<Client> getItems() {
+        File table = Database.getTable(this.name);
+        List<Client> models = new ArrayList<>();
+        try {
+            Files.lines(table.toPath()).forEach(line -> {
+                Client t = fromDataString(line);
+                models.add(t);
+            });
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return models;
     }
 
     private String getStudentNumber(String input) {

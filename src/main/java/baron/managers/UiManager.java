@@ -43,10 +43,13 @@ public class UiManager {
     /**
      * Lists all tasks currently available in a pretty format
      */
-    public static String list(List<Task> tasks) {
+    public static <T> String list(List<T> items) {
+        if (items.size() == 0) {
+            return formatOutput("You have no items. Add something, you serf.");
+        }
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < tasks.size(); i++) {
-            sb.append((i + 1) + ". " + tasks.get(i));
+        for (int i = 0; i < items.size(); i++) {
+            sb.append((i + 1) + ". " + items.get(i));
             sb.append("\n");
         }
         return formatOutput(sb.toString());

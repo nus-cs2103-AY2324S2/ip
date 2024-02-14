@@ -1,6 +1,7 @@
 package baron.dao;
 
 import java.io.File;
+import java.util.List;
 
 import baron.database.Database;
 import baron.models.BaseModel;
@@ -54,4 +55,11 @@ public abstract class BaseDao {
         return "";
     };
     public abstract BaseModel getFrom(String input);
+
+    /**
+     * Gets all models from the data file
+     *
+     * @return Returns a list of models from data file
+     */
+    public abstract <T> List<T> getItems();
 }

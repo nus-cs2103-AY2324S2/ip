@@ -5,6 +5,7 @@ package baron.enums;
  */
 public enum Command {
     LIST("list"),
+    LIST_CLIENTS("clients"),
     FIND("find"),
     MARK("mark"),
     UNMARK("unmark"),

@@ -29,6 +29,8 @@ public class TaskManager {
         tasks.addAll(deadlines);
         List<Event> events = EventDao.getEvents();
         tasks.addAll(events);
+
+        clients.addAll(clientDao.getItems());
     }
 
     /**
@@ -52,6 +54,8 @@ public class TaskManager {
                 return addClient(input);
             } else if (command.equals(Command.LIST.getCommand())) {
                 return UiManager.list(this.tasks);
+            } else if (command.equals(Command.LIST_CLIENTS.getCommand())) {
+                return UiManager.list(this.clients);
             } else if (command.equals(Command.MARK.getCommand())) {
                 return mark(input, true);
             } else if (command.equals(Command.UNMARK.getCommand())) {
