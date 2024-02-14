@@ -6,7 +6,7 @@ package seedu.mamta;
 public class Parser {
 
     /**
-     * Transforms user output into a format suitable for further processing.
+     * Transforms user output into a format suitable for further processing. Returns processed output.
      * @param userOutput The user's output.
      * @return Transformed output for further processing.
      */
