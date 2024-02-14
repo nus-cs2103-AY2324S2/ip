@@ -30,12 +30,16 @@ public class TaskList {
      * @throws IOException When File f cannot be found.
      */
     public void write() throws IOException {
+        assert tasklist != null : "TaskList should not be null";
+
         for (int i = 0; i < tasklist.size(); i++) {
             tasklist.get(i).writeToFile(s.getFile());
         }
     }
 
     public void clearCurrentTasks() {
+        assert tasklist != null : "TaskList should not be null";
+
         tasklist.clear();
     }
 
@@ -46,6 +50,8 @@ public class TaskList {
      * @return String representation of the list
      */
     public String list() throws FileNotFoundException {
+        assert s != null : "Storage s should not be null";
+
         String str = "";
         try {
             str = "All tasks: \n" +  s.getFileContent() + "\n" + "Current tasks: \n" + getCurrentList();
@@ -61,6 +67,8 @@ public class TaskList {
      * @return String representation of current tasklist
      */
     public String getCurrentList() {
+        assert tasklist != null : "TaskList should not be null";
+
         String str = "";
         for (int i = 0; i < tasklist.size(); i++) {
             int j = i + 1;
@@ -79,6 +87,8 @@ public class TaskList {
      * @throws StringIndexOutOfBoundsException When user does not specify task and leaves blank (e.g. todo).
      */
     public String addTask(Todo task) throws StringIndexOutOfBoundsException {
+        assert tasklist != null : "TaskList should not be null";
+
         String str = "";
         try {
             tasklist.add(task);
@@ -99,6 +109,8 @@ public class TaskList {
      * @throws StringIndexOutOfBoundsException When user does not specify task and leaves blank (e.g. deadline).
      */
     public String addTask(Deadline task) throws StringIndexOutOfBoundsException {
+        assert tasklist != null : "TaskList should not be null";
+
         String str = "";
         try {
             tasklist.add(task);
@@ -120,6 +132,8 @@ public class TaskList {
      */
 
     public String addTask(Event task) throws StringIndexOutOfBoundsException {
+        assert tasklist != null : "TaskList should not be null";
+
         String str = "";
         try {
             tasklist.add(task);
@@ -139,6 +153,8 @@ public class TaskList {
      * @throws IndexOutOfBoundsException When user inputs task number that does not exist in the list.
      */
     public String mark(int number) throws IndexOutOfBoundsException {
+        assert tasklist != null : "TaskList should not be null";
+
         String str = "";
         try {
             Task task = tasklist.get(number);
@@ -159,6 +175,8 @@ public class TaskList {
      * @throws IndexOutOfBoundsException When user inputs task number that does not exist in the list.
      */
     public String unmark(int number) throws IndexOutOfBoundsException {
+        assert tasklist != null : "TaskList should not be null";
+
         String str = "";
         try {
             Task task = tasklist.get(number);
@@ -179,6 +197,8 @@ public class TaskList {
      * @throws IndexOutOfBoundsException When user inputs task number that does not exist in the list.
      */
     public String delete(int number) throws IndexOutOfBoundsException {
+        assert tasklist != null : "TaskList should not be null";
+
         String str = "";
         try {
             Task task = tasklist.get(number);
@@ -200,6 +220,8 @@ public class TaskList {
      */
 
     public String find(String str) throws StringIndexOutOfBoundsException {
+        assert tasklist != null : "TaskList should not be null";
+
         String ret = "";
         try {
             int j = 1;
