@@ -27,14 +27,13 @@ public class Todo extends Task {
         String name = segments[2];
         return new Todo(id, name, done);
     }
-
+    @Override
+    public String toDataString() {
+        return super.toDataString();
+    }
     @Override
     public String toString() {
         return "[T]" + super.toString();
     }
 
-    @Override
-    public String toDataString() {
-        return super.toDataString();
-    }
 }

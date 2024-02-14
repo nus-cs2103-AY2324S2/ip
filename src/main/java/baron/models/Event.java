@@ -3,7 +3,7 @@ package baron.models;
 /**
  * Event takes in /from and /to parameters, but does not format these dates
  */
-public class Event extends baron.models.Task {
+public class Event extends Task {
 
     private String startDate;
     private final String endDate;

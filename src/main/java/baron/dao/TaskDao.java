@@ -38,7 +38,7 @@ public class TaskDao {
         File table = Database.getTable(name);
         String data = task.toDataString();
         long id = Database.create(table.toPath(), data);
-        task.setId(id);
+        task.setId((int) id);
     }
 
     /**

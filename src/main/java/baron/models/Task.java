@@ -1,12 +1,12 @@
 package baron.models;
 
 /**
- * An abstraction class for todos, deadlines and events
+ * An abstraction class for todos, deadlines and events. It is not abstract because
+ * we want to list todos, events and deadlines together in the same list still.
  */
-public class Task {
+public class Task extends BaseModel {
 
     private final String name;
-    private long id;
     private boolean isDone;
 
     /**
@@ -14,6 +14,7 @@ public class Task {
      * @param name Name of task
      */
     public Task(String name) {
+        super(0);
         this.name = name;
         this.isDone = false;
     }
@@ -25,18 +26,11 @@ public class Task {
      * @param isDone whether task is done
      */
     public Task(int id, String name, boolean isDone) {
-        this.id = id;
+        super(id);
         this.name = name;
         this.isDone = isDone;
     }
 
-    public long getId() {
-        return this.id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     @Override
     public String toString() {
