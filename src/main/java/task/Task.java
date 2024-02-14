@@ -72,4 +72,8 @@ public class Task {
             return "[ ] " + description;
         }
     }
+
+    public void updateDescription(String newDescription) {
+        this.description = newDescription;
+    }
 }

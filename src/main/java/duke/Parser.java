@@ -10,6 +10,7 @@ import command.MarkCommand;
 import command.ShowListCommand;
 import command.TodoCommand;
 import command.UnmarkCommand;
+import command.UpdateCommand;
 
 /**
  * Parser deals with making sense of the user command.
@@ -63,6 +64,8 @@ public class Parser {
             return new DeleteCommand(taskList, ui, storage);
         case FIND:
             return new FindCommand(taskList, ui, storage);
+        case UPDATE:
+            return new UpdateCommand(taskList, ui, storage);
         default:
             return new InvalidCommand(taskList, ui, storage);
         }
