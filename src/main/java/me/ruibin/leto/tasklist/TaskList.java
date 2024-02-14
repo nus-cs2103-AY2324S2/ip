@@ -41,8 +41,9 @@ public class TaskList {
                 t = Todo.todoFromCmd(inputs);
                 break;
             default:
-                throw new InvalidTaskException("This task does not fit known tasks (event, deadline, todo)");
+                assert false : "Should never reach here, means parser failed";
             } // end switch for type of task
+            assert t != null : "t should be a created task by now";
             TaskList.list.add(t);
             r.updateMessage(Ui.letoSpeak("Task added, " + t
                     + "\n  > You have " + TaskList.list.size() + " tasks."));
@@ -75,10 +76,7 @@ public class TaskList {
         try {
             int index = getIndexFromInput(inputs);
             temp = TaskList.list.get(index);
-            if (temp == null) {
-                // should never happen
-                throw new InvalidTaskException("WARNING Task is null, try creating a task first!");
-            }
+            assert temp != null : "Shouldn't occur!! Task is null";
             if (temp.isCompleted()) {
                 throw new InvalidTaskException("Task already completed");
             } else {
@@ -104,10 +102,7 @@ public class TaskList {
         try {
             int index = getIndexFromInput(inputs);
             temp = TaskList.list.get(index);
-            if (temp == null) {
-                // should not happen btw
-                throw new InvalidTaskException("WARNING Task is null, try creating a task first!");
-            }
+            assert temp != null : "Shouldn't occur!! Task is null";
             if (!temp.isCompleted()) {
                 r.updateMessage(Ui.letoSpeak("Task is already not completed :< "));
             } else {

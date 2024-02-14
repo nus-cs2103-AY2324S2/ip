@@ -97,6 +97,7 @@ public class Storage {
             BufferedWriter bw = new BufferedWriter(new FileWriter(PATH_TO_STORE));
             result.updateMessage(Ui.letoSpeak("Saving tasks"));
             for (Task t : TaskList.getTasks()) {
+                assert t != null : "Task to write cannot be null but it is!";
                 writeTask(bw, t);
                 saved++;
             }
@@ -123,6 +124,7 @@ public class Storage {
      * @throws IOException Pass up possible IOException from bw write.
      */
     private static void writeTask(BufferedWriter bw, Task t) throws IOException {
+        assert t != null : "Task to write cannot be null but it is!";
         bw.write(t.toCsvString() + "\n");
     }
 }
