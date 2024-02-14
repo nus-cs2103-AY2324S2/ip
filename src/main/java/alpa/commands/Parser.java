@@ -1,3 +1,7 @@
+package alpa.commands;
+
+import alpa.exceptions.AlpaException;
+
 public class Parser {
 
   public static Command parse(String userInput) throws AlpaException {

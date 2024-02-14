@@ -1,3 +1,5 @@
+package alpa.tasks;
+
 public enum TaskType {
   TODO,
   DEADLINE,

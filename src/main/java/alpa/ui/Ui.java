@@ -1,3 +1,6 @@
+package alpa.ui;
+
+import alpa.tasks.Task;
 import java.util.Scanner;
 import java.util.List;
 

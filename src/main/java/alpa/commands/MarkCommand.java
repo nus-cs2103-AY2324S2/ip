@@ -1,3 +1,11 @@
+package alpa.commands;
+
+import alpa.exceptions.AlpaException;
+import alpa.utils.Storage;
+import alpa.tasks.TaskList;
+import alpa.tasks.Task;
+import alpa.ui.Ui;
+
 public class MarkCommand implements Command {
   private int index;
 

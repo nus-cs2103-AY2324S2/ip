@@ -1,3 +1,11 @@
+package alpa.commands;
+
+import alpa.exceptions.AlpaException;
+import alpa.utils.Storage;
+import alpa.tasks.Task;
+import alpa.tasks.TaskList;
+import alpa.ui.Ui;
+
 public class DeleteCommand implements Command {
   private final int index;
 
