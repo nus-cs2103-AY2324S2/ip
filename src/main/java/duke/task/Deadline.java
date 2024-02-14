@@ -28,7 +28,7 @@ public class Deadline extends Task {
         super(description);
         this.by = by;
         try {
-            // Set up a DateTimeFormatter to parse the date/time string in the expected format.
+            // Set up a DateTimeFormatter to parse the date/time input in the expected format.
             DateTimeFormatterBuilder builder = new DateTimeFormatterBuilder();
             builder.parseCaseInsensitive();
             builder.appendPattern("yyyy-MM-dd hh:mma");
