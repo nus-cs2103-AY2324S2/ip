@@ -27,6 +27,7 @@ public class FindTasksCommand extends Command {
 
     /**
      * Executes the find tasks command, searching for relevant tasks based on the search string.
+     * Find items even if the keyword matches the item only partially.
      *
      * @param taskManager   The TaskManager instance managing the tasks.
      * @param userInterface The Ui instance for interacting with the user.
