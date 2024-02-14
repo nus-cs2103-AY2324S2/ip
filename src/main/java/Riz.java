@@ -127,11 +127,9 @@ public class Riz extends Application{
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    @FXML
     public String getResponse (String input){
         return " " + Parser.parse(this.taskList, this.storage, input);
     }
-
 
     /*
     /**
@@ -164,8 +162,5 @@ public class Riz extends Application{
      * @param args Command-line arguments provided to the program.
      * These arguments can be used to customize the behavior of the program.
      */
-    public static void main(String[] args) {
-        Riz riz = new Riz("riz/data/riz.txt");
-        riz.run();
-    }
+
 }

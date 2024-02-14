@@ -28,10 +28,12 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        Label welcomeMessageLabel = new Label("Welcome to the best to-do list manager... RizBot...");
+        dialogContainer.getChildren().add(DialogBox.getRizDialog(welcomeMessageLabel, new ImageView(rizImage)));
     }
 
     public void setRiz(Riz riz) {
-        riz = riz;
+        this.riz = riz;
     }
 
     /**
