@@ -14,7 +14,7 @@ public class ParserTest {
         File file = new File("src/main/data/tempFile.txt");
 
         try {
-            Parser.ProcessQuery("todo", file);
+            Parser.ProcessQuery("todo");
             boolean isEmpty = TaskList.tasks.isEmpty();
             assertTrue(isEmpty);
         } catch (IOException e) {
@@ -28,7 +28,7 @@ public class ParserTest {
 
         try {
             int x = TaskList.tasks.size();
-            Parser.ProcessQuery("HELLO WORLD", file);
+            Parser.ProcessQuery("HELLO WORLD");
             int y = TaskList.tasks.size();
             assertEquals(x, y);
         } catch (IOException e) {
@@ -41,7 +41,7 @@ public class ParserTest {
         File file = new File("src/main/data/tempFile.txt");
 
         try {
-            Parser.ProcessQuery("todo DONTCARE", file);
+            Parser.ProcessQuery("todo DONTCARE");
             assertTrue(TaskList.tasks.contains(Todo.extractDetails("todo DONTCARE")));
         } catch (IOException e) {
             fail();
@@ -53,7 +53,7 @@ public class ParserTest {
         File file = new File("src/main/data/tempFile.txt");
 
         try {
-            Parser.ProcessQuery("deadline CS2103 /by 2024-02-06", file);
+            Parser.ProcessQuery("deadline CS2103 /by 2024-02-06");
             assertEquals("Deadline [] CS2103 (by: 06 Feb 2024 )", TaskList.tasks.get(0).toString());
         } catch (IOException e) {
             fail();

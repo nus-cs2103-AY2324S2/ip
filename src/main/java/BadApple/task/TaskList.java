@@ -6,9 +6,22 @@ import java.util.ArrayList;
 
 public class TaskList {
     public static ArrayList<Task> tasks = new ArrayList<>(); // Globally accessible Tasks in memory.
-    public static void listTasks(BufferedReader bufferedReader) throws IOException {
+    public static String listTasks(BufferedReader bufferedReader) throws IOException {
+        StringBuilder stringBuilder = new StringBuilder();
         while (bufferedReader.ready()) {
-            System.out.println(bufferedReader.readLine());
+            stringBuilder.append(bufferedReader.readLine()).append("\n");
         }
+        System.out.println(stringBuilder);
+        return stringBuilder.toString();
+    }
+
+    public static String filterTasks(String filter) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Task t : tasks) {
+            if (t.brief().toLowerCase().contains(filter.toLowerCase())) {
+                stringBuilder.append(t).append("\n");
+            }
+        }
+        return stringBuilder.toString();
     }
 }

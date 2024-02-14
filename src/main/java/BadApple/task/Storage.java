@@ -29,17 +29,21 @@ public class Storage {
         bufferedWriter.close();
     }
 
-    public static void addTask(Task task) {
+    public static String addTask(Task task) {
+        String reply = "";
         TaskList.tasks.add(task);
         if (!Tracker.suppressMessages) {
-            System.out.println(Tracker.CustomMessages.randomMsg(task));
-            System.out.println(task);
+            reply = Tracker.CustomMessages.randomMsg(task) + "\n" + task;
+            System.out.println(reply);
         }
+        return reply;
     }
 
-    public static void removeTask(int i) {
-        System.out.println("Exploooosion! now task " + TaskList.tasks.remove(i).brief() + " has been Kazuma-ed out of existence");
-        System.out.println("You now have " + TaskList.tasks.size() + " tasks in your list");
+    public static String removeTask(int i) {
+        String reply = "Kel has nuked " + TaskList.tasks.remove(i).brief() + "\n"
+                + "You now have " + TaskList.tasks.size() + " tasks in your list";
+        System.out.println(reply);
+        return reply;
     }
 
     /**
@@ -48,10 +52,11 @@ public class Storage {
      * @throws IOException when a file can't be read from
      * @throws BadAppleException when the file contents are in the wrong format (i.e. non-command)
      */
-    public static void parseTasks(File file) throws IOException, BadAppleException {
+    public static void loadSave(File file) throws IOException, BadAppleException {
         // check the file to see what tasks are already available.
         BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
 
+        StringBuilder stringBuilder = new StringBuilder();
         int taskIndex = 1;
         while (bufferedReader.ready()) {
             String line = bufferedReader.readLine();
@@ -132,10 +137,10 @@ public class Storage {
             }
 
             // upon reconstructing the command, execute it.
-            Parser.ProcessQuery(query, file);
+            Parser.ProcessQuery(query);
             if (status) {
                 // if this task is already complete, mark it.
-                Parser.ProcessQuery("mark " + taskIndex, file);
+                Parser.ProcessQuery("mark " + taskIndex);
             }
             taskIndex++;
         }

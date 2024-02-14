@@ -11,25 +11,27 @@ public class Task {
         this.description = desc;
     }
 
-    public void mark(boolean b, int taskIndex) {
+    public String mark(boolean b, int taskIndex) {
+        String reply = "";
         String MARK = b ? "marked" : "unmarked"; //use enums if more needed
         if (TaskList.tasks.isEmpty()) {
-            System.out.println("There's nothing to mark, Yay!");
-            return;
+            reply = "There's nothing to mark, Yay!";
+            System.out.println(reply);
         }
         try {
             if (taskIndex > TaskList.tasks.size() || taskIndex < 0) {
-                System.out.println("You don't have that task silly!");
-                return;
+                reply = "You don't have that task silly!";
+                System.out.println(reply);
             }
             this.isComplete = b;
             if (!Tracker.suppressMessages) {
-                System.out.println("I've " + MARK + " task " + (taskIndex+1));
-                System.out.println(this);
+                reply = "I've " + MARK + " task " + (taskIndex+1) + "\n" + this;
+                System.out.println(reply);
             }
         } catch(NumberFormatException | IndexOutOfBoundsException  e) {
             System.out.println("Usage: mark <taskNumber>");
         }
+        return reply;
     }
     @Override
     public String toString() {
