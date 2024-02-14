@@ -1,6 +1,7 @@
 package felix.utils;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import felix.task.Task;
 
@@ -15,6 +16,13 @@ public class TaskList {
      */
     public TaskList() {
         this.tasks = new ArrayList<Task>();
+    }
+
+    /**
+     * Private constructor for internal usage.
+     */
+    private TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
     }
 
     /**
@@ -65,13 +73,9 @@ public class TaskList {
      * @return list of tasks with description containing specified keyword.
      */
     public TaskList filterByKeyword(String keyword) {
-        TaskList taskList = new TaskList();
-        for (Task t: this.tasks) {
-            if (t.hasKeyword(keyword)) {
-                taskList.addTask(t);
-            }
-        }
-        return taskList;
+        return new TaskList(this.tasks.stream()
+                .filter(task -> task.hasKeyword(keyword))
+                .collect(Collectors.toCollection(ArrayList::new)));
     }
 
     /**
