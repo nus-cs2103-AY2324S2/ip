@@ -89,7 +89,7 @@ public class TaskList {
      */
     public String unmarkTask(int i) {
         Task task = tasks.get(i - 1);
-        task.unmark();
+        task.markAsNotDone();
         return ui.unmarkMessage(task);
     }
 

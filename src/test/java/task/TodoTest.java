@@ -1,7 +1,5 @@
 package task;
 
-import java.time.LocalDate;
-
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -38,7 +36,7 @@ public class TodoTest {
     public void markThenUnmark() {
         Task task = new Todo("test4");
         task.markAsDone();
-        task.unmark();
+        task.markAsNotDone();
 
         assertFalse(task.getIsDone());
         assertEquals(" ", task.getStatusIcon());
