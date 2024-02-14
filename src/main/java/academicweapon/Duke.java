@@ -83,11 +83,11 @@ public class Duke {
                 if (strLst.isEmpty()) {
                     System.out.println("No tasks containing this keyword");
                     sb.append("No tasks containing this keyword\n");
-                } else {
-                    for (String str : strLst) {
-                        System.out.println(str);
-                        sb.append(str + "\n");
-                    }
+                    break;
+                }
+                for (String str : strLst) {
+                    System.out.println(str);
+                    sb.append(str + "\n");
                 }
                 break;
             case LIST:
@@ -171,11 +171,11 @@ public class Duke {
             if (strLst.isEmpty()) {
                 System.out.println("No tasks containing this keyword");
                 sb.append("No tasks containing this keyword\n");
-            } else {
-                for (String str : strLst) {
-                    System.out.println(str);
-                    sb.append(str + "\n");
-                }
+                break;
+            }
+            for (String str : strLst) {
+                System.out.println(str);
+                sb.append(str + "\n");
             }
             break;
         case LIST:
