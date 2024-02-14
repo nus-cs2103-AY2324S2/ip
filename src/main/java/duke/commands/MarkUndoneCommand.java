@@ -28,6 +28,8 @@ public class MarkUndoneCommand extends Command {
         this.taskList = taskList;
         this.storage = storage;
         this.indexToUnmark = indexToUnmark;
+        assert indexToUnmark > 1 : "index to unmark should not be less than 1";
+        assert indexToUnmark <= taskList.size() : "index to unmark should not be greater than list size";
     }
     @Override
     public String execute() throws DukeException {
