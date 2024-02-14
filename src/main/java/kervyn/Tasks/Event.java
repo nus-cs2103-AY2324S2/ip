@@ -51,7 +51,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        char check = this.getStatus() ? 'X' : ' ';
+        char check = this.getCompleted() ? 'X' : ' ';
         return "\t[" + this.getCapitalType() + "]" + " [" + check + "] " + this.getDescription() + " (from: " + this.getStartDate() + " to: " + this.getEndDate() + ")";
     }
 

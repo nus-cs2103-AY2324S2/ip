@@ -6,7 +6,7 @@ package kervyn.Tasks;
  */
 public class Task {
     private String description;
-    private boolean status;
+    private boolean isCompleted;
     private Type type;
 
     /**
@@ -18,7 +18,7 @@ public class Task {
      */
     public Task(String description, boolean status, Type type) {
         this.description = description;
-        this.status = status;
+        this.isCompleted = status;
         this.type = type;
     }
 
@@ -36,8 +36,8 @@ public class Task {
      *
      * @return The status of the task, where true indicates completed and false indicates not completed.
      */
-    public boolean getStatus() {
-        return this.status;
+    public boolean getCompleted() {
+        return this.isCompleted;
     }
 
     /**
@@ -70,7 +70,7 @@ public class Task {
      * Toggles the status of the task between complete and incomplete.
      */
     public void updateStatus() {
-        this.status = !this.status;
+        this.isCompleted = !this.isCompleted;
     }
 
     /**
@@ -80,7 +80,6 @@ public class Task {
      */
     @Override
     public String toString() {
-        char check = this.getStatus() ? 'X' : ' ';
         char letterType = this.getCapitalType();
         switch (letterType) {
             case 'T':

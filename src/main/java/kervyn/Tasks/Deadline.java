@@ -38,7 +38,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        char check = this.getStatus() ? 'X' : ' ';
+        char check = this.getCompleted() ? 'X' : ' ';
         return "\t[" + this.getCapitalType() + "]" + " [" + check + "] " + this.getDescription() + " (by: " + this.getDeadline() + ")";
     }
 
