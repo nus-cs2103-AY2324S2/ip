@@ -23,6 +23,7 @@ public class Parser {
      * @return A command object corresponding to the input.
      */
     public Command parseCommand(String input) {
+        assert input != null && !input.isEmpty() : "Oops! Input must not be null or empty.";
         String[] sections = input.split(" ", 2);
         String commandWord = sections[0].toUpperCase();
 
@@ -57,6 +58,7 @@ public class Parser {
      * @return A command object for adding a Todo task based on the input.
      */
     public static Command parseTodo(String input) {
+        assert input != null && !input.isEmpty() : "Oops! Input must not be null or empty.";
         String[] sections = input.split(" ", 2);
             if (sections.length <= 1) {
                 return new InvalidCommand("Oops! You have not entered a task.");
@@ -72,6 +74,7 @@ public class Parser {
      * @return A command object for marking a task as done based on the input.
      */
     public static Command parseMark(String input) {
+        assert input != null && !input.isEmpty() : "Oops! Input must not be null or empty.";
         String[] sections = input.split(" ", 2);
         if (sections.length <= 1) {
             return new InvalidCommand("Oops! Please enter a task number to mark.");
@@ -90,6 +93,7 @@ public class Parser {
      * @return A command object for unmarking a task as done based on the input.
      */
     public static Command parseUnmark(String input) {
+        assert input != null && !input.isEmpty() : "Oops! Input must not be null or empty.";
         String[] sections = input.split(" ", 2);
         if (sections.length <= 1) {
             return new InvalidCommand("Oops! Please enter a task number to mark.");
@@ -108,6 +112,7 @@ public class Parser {
      * @return A command object for deleting a task based on the input.
      */
     public static Command parseDelete(String input) {
+        assert input != null && !input.isEmpty() : "Oops! Input must not be null or empty.";
         String[] sections = input.split(" ", 2);
         if (sections.length <= 1 || sections[1].isEmpty()) {
             return new InvalidCommand("Oops! Please enter a task number to delete.");
@@ -126,6 +131,7 @@ public class Parser {
      * @return A command object for adding a deadline task based on the input.
      */
     public static Command parseDeadline(String input) {
+        assert input != null && !input.isEmpty() : "Oops! Input must not be null or empty.";
         String[] sections = input.split(" ", 2);
         if (sections.length <= 1) {
             return new InvalidCommand("Oops! Please enter a task description.");
@@ -152,6 +158,7 @@ public class Parser {
      * @return A command object for adding an event task based on the input.
      */
     public static Command parseEvent(String input) {
+        assert input != null && !input.isEmpty() : "Oops! Input must not be null or empty.";
         String[] sections = input.split(" ", 2);
         if (sections.length <= 1) {
             return new InvalidCommand("Oops! Please enter a task description.");
@@ -180,6 +187,7 @@ public class Parser {
      * @return A command object for finding tasks based on the input.
      */
     public static Command parseFind(String input) {
+        assert input != null && !input.isEmpty() : "Oops! Input must not be null or empty.";
         String[] sections = input.split(" ", 2);
         if (sections.length <= 1) {
             return new InvalidCommand("Oops! Please enter a task to find.");
@@ -196,6 +204,7 @@ public class Parser {
      * @throws ChatBotException If the date string is in an invalid format.
      */
     public static LocalDateTime parseDate(String dateString) throws ChatBotException {
+        assert dateString != null && !dateString.isEmpty() : "Oops! DateString must not be null or empty.";
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
@@ -218,6 +227,7 @@ public class Parser {
      * @throws ChatBotException If the string representation of the task is invalid.
      */
     public static Task parseTasksFromFile(String tasksFromFile) throws ChatBotException {
+        assert tasksFromFile != null && !tasksFromFile.isEmpty() : "Oops! TaskString must not be null or empty.";
         String[] sections = tasksFromFile.split("\\|");
         if (sections.length < 3 || sections.length > 4) {
             throw new ChatBotException("Oops! tasks.Task format is invalid.");

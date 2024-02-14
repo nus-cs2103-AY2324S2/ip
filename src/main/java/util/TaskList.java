@@ -53,9 +53,9 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void addTask(Task task) {
-        if (this.tasks.size() < MAX_TASKS) {
-            this.tasks.add(task);
-        }
+        assert task != null : "Oops! Task to add cannot be null.";
+        assert this.tasks.size() < MAX_TASKS : "Oops! Task list is full.";
+        this.tasks.add(task);
     }
 
     /**
@@ -66,6 +66,7 @@ public class TaskList {
      * @throws ChatBotException If the task list is empty or the specified index is invalid.
      */
     public Task deleteTask(int number) throws ChatBotException {
+        assert number > 0 : "Oops! Task number cannot be less than 1.";
         if (this.tasks.size() == 0) {
             throw new ChatBotException("Oops! There are no tasks in the list.");
         }
@@ -89,9 +90,7 @@ public class TaskList {
      * @throws ChatBotException If the specified index is invalid (zero or negative).
      */
     public void markTask(int index) throws ChatBotException {
-        if (index <= 0) {
-            throw new ChatBotException("Oops! Number entered cannot be zero or negative.");
-        }
+        assert index > 0 : "Oops! Task number cannot be less than 1.";
         if (this.tasks.size() == 0) {
             throw new ChatBotException("Oops! There are no tasks in the list.");
         }
@@ -106,6 +105,7 @@ public class TaskList {
      * @throws ChatBotException If the specified index is invalid (zero or negative).
      */
     public void unmarkTask(int index) throws ChatBotException {
+        assert index > 0 : "Oops! Task number cannot be less than 1.";
         if (index <= 0) {
             throw new ChatBotException("Oops! Number entered cannot be zero or negative.");
         }
@@ -142,6 +142,7 @@ public class TaskList {
      * @throws ChatBotException If no tasks match the keyword.
      */
     public TaskList findTasks(String keyWord) throws ChatBotException {
+        assert keyWord != null && !keyWord.isEmpty() : "Oops! Keyword must not be null or empty.";
         List<Task> matchingTasks = new ArrayList<>();
         boolean isFound = false;
         for (Task task : tasks) {
