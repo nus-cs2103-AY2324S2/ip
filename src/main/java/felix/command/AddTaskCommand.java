@@ -25,7 +25,9 @@ public class AddTaskCommand extends Command {
      * @param storage Abstraction for storage file.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws FelixException {
+        int prevSize = tasks.getCount();
         tasks.addTask(task);
+        assert prevSize + 1 == tasks.getCount(): "Task has not been added successfully";
         storage.writeToFile(tasks);
         return ui.getAddTaskMessage(task, tasks.getCount());
     }

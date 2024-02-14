@@ -28,6 +28,7 @@ public class UnmarkCommand extends Command {
         try {
             Task task = tasks.getTask(this.indexToUnmark);
             task.unmarkDone();
+            assert !tasks.getTask(this.indexToUnmark).getStatus() : "task was not unmarked successfully";
             storage.writeToFile(tasks);
             return ui.getUnmarkMessage(task);
         } catch (IndexOutOfBoundsException err) {
