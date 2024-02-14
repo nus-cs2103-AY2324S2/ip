@@ -1,10 +1,13 @@
 package seedu.duke.command;
-import java.time.LocalDateTime;
 
 import seedu.duke.common.TaskList;
+import seedu.duke.exception.DuplicateTaskException;
 import seedu.duke.storage.Storage;
 import seedu.duke.task.Deadline;
+import seedu.duke.task.Task;
 import seedu.duke.ui.Ui;
+
+import java.time.LocalDateTime;
 
 
 /**
@@ -19,8 +22,9 @@ public class DeadlineCommand extends Command {
 
     /**
      * Constructor of the deadline task
+     *
      * @param description description of the deadline task
-     * @param deadline deadline of the task
+     * @param deadline    deadline of the task
      */
     public DeadlineCommand(String description, LocalDateTime deadline) {
         this.description = description;
@@ -29,12 +33,24 @@ public class DeadlineCommand extends Command {
 
     /**
      * Creates a deadline task, save it to the task list and then display the result to the user
+     *
      * @param taskList
      * @param ui
      * @param storage
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DuplicateTaskException {
+        for (int i = 0; i < taskList.getListSize(); i++) {
+            Task task = taskList.getTask(i);
+            if (task instanceof Deadline) {
+                boolean isSameDescription = description.equals(task.getDescription());
+                boolean isSameTime = deadline.equals(((Deadline) task).getDeadline());
+                boolean isSameStatus = !task.getHasDone();
+                if(isSameStatus && isSameDescription && isSameTime) {
+                    throw new DuplicateTaskException(task);
+                }
+            }
+        }
         Deadline deadlineTask = new Deadline(description, false, deadline);
         taskList.addTask(deadlineTask);
         ui.generateNewTaskResponse(deadlineTask, taskList);

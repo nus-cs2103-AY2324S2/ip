@@ -1,7 +1,9 @@
 package seedu.duke.command;
 
 import seedu.duke.common.TaskList;
+import seedu.duke.exception.DuplicateTaskException;
 import seedu.duke.storage.Storage;
+import seedu.duke.task.Task;
 import seedu.duke.task.Todo;
 import seedu.duke.ui.Ui;
 
@@ -26,10 +28,19 @@ public class TodoCommand extends Command {
      * Adds a todo task to the TaskList and show the result to the users using ui
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DuplicateTaskException {
         Todo todo = new Todo(this.description, false);
         taskList.addTask(todo);
-
+        for(int i = 0; i < taskList.getListSize(); i++) {
+            Task task = taskList.getTask(i);
+            if(task instanceof Todo) {
+                boolean isSameDescription = task.getDescription().equals(description);
+                boolean isSameStatus = !task.getHasDone();
+                if(isSameDescription && isSameStatus) {
+                    throw new DuplicateTaskException(task);
+                }
+            }
+        }
 
         ui.generateNewTaskResponse(todo, taskList);
     }

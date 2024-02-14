@@ -4,9 +4,11 @@ import java.time.LocalDateTime;
 
 import seedu.duke.common.Messages;
 import seedu.duke.common.TaskList;
+import seedu.duke.exception.DuplicateTaskException;
 import seedu.duke.exception.InvalidInputException;
 import seedu.duke.storage.Storage;
 import seedu.duke.task.Event;
+import seedu.duke.task.Task;
 import seedu.duke.ui.Ui;
 
 
@@ -43,10 +45,24 @@ public class EventCommand extends Command {
      * @throws InvalidInputException If the start date is later than the end date
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws InvalidInputException {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws InvalidInputException,
+            DuplicateTaskException {
         if (startDate.isAfter(endDate)) {
             throw new InvalidInputException(String.format(Messages.MESSAGE_INVALID_INPUT_VALUE,
                     "Event start date cannot be after the end date"));
+        }
+
+        for(int i = 0; i < taskList.getListSize(); i++) {
+            Task task = taskList.getTask(i);
+            if(task instanceof Event) {
+                boolean isSameDescription = task.getDescription().equals(description);
+                boolean isSameStartDate = ((Event) task).getStartDate().equals(startDate);
+                boolean isSameEndDate = ((Event) task).getEndDate().equals(endDate);
+                boolean isSameStatus = !task.getHasDone();
+                if(isSameDescription && isSameStatus && isSameStartDate && isSameEndDate) {
+                    throw new DuplicateTaskException(task);
+                }
+            }
         }
 
 

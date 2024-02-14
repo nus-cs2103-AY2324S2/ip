@@ -125,7 +125,6 @@ public class Parser {
 
     private static Command prepareDeadline(String arguments) throws InvalidCommandFormatException {
         Matcher matcher = DEADLINE_COMMAND_FORMAT.matcher(arguments.trim());
-        System.out.println(arguments);
         if (!matcher.matches()) {
             throw new InvalidCommandFormatException(
                     String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeadlineCommand.COMMAND_USAGE));
