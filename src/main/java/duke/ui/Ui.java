@@ -40,9 +40,9 @@ public class Ui {
      * @param input Task input
      */
     public static String addTask(TaskList tasklist, String input) {
-        boolean added = tasklist.addTask(input);
+        boolean isAdded = tasklist.addTask(input);
         int tasksCount = TaskList.tasksCount;
-        if (added) {
+        if (isAdded) {
             String taskDescription = tasklist.getTaskDescription(tasksCount - 1);
             return String.format("Gotcha. I've added this task: \n%s\nNow you have %d tasks in the list.",
                     taskDescription, tasksCount);
