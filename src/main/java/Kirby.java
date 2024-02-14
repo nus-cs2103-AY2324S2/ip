@@ -32,6 +32,11 @@ public class Kirby {
             try {
                 //mark command
                 if (var.split(" ")[0].equals("mark")) {
+
+                    if (var.split(" ").length == 1){
+                        throw new MissingArgumentException("Missing Argument");
+                    }
+
                     int temp = Integer.parseInt(var.split(" ")[1]);
                     inputs.get(temp - 1).setDone(true);
 
@@ -45,6 +50,12 @@ public class Kirby {
 
                 //unmark command
                 if (var.split(" ")[0].equals("unmark")) {
+
+                    if (var.split(" ").length == 1){
+                        throw new MissingArgumentException("Missing Argument");
+                    }
+
+
                     int temp = Integer.parseInt(var.split(" ")[1]);
                     inputs.get(temp - 1).setDone(false);
 
@@ -58,6 +69,11 @@ public class Kirby {
 
                 //todo command
                 if (var.split(" ")[0].equals("todo")){
+
+                    if (var.split(" ").length == 1){
+                        throw new MissingArgumentException("Missing Argument");
+                    }
+
 
                     String[] command = var.split(" ");
 
@@ -81,6 +97,10 @@ public class Kirby {
 
                 //deadline command
                 if (var.split(" ")[0].equals("deadline")){
+
+                    if (var.split(" ").length == 1){
+                        throw new MissingArgumentException("Missing Argument");
+                    }
 
                     String[] command = var.split("/")[1].split(" ");
 
@@ -115,6 +135,11 @@ public class Kirby {
 
                 //event command
                 if (var.split(" ")[0].equals("event")){
+
+                    if (var.split(" ").length == 1){
+                        throw new MissingArgumentException("Missing Argument");
+                    }
+
 
                     String[] task = var.split("/")[0].split(" ");
 
@@ -158,6 +183,8 @@ public class Kirby {
                     continue;
                 }
 
+                throw new InvalidCommandException("Invalid Command");
+
             } catch(IndexOutOfBoundsException e){
                 System.out.println("Sorry that item doesn't exist");
                 var = sc.nextLine();
@@ -166,8 +193,16 @@ public class Kirby {
                 System.out.println("You have to indicate the number on the list");
                 var = sc.nextLine();
                 continue;
-            }
+            } catch(MissingArgumentException e){
+                System.out.println("It seems that you are missing some details. I'm not really sure what I'm supposed to do");
+                var = sc.nextLine();
+                continue;
 
+            } catch(InvalidCommandException e){
+                System.out.println("Please enter a valid command");
+                var = sc.nextLine();
+                continue;
+            }
             /*
             inputs.add(new Task(var));
             System.out.println("____________________________________________________________");
@@ -176,7 +211,7 @@ public class Kirby {
             var = sc.nextLine();
             */
 
-            var = sc.nextLine();
+            // var = sc.nextLine();
         }
 
         //bye command
