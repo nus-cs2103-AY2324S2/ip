@@ -51,7 +51,6 @@ public class Jivox {
         }
         Task t = this.tasks.getTask(i - 1);
         t.mark();
-//        dbHandler.save(this.tasks);
         return this.ui.showMark(t);
     }
 
@@ -67,7 +66,6 @@ public class Jivox {
         }
         Task t = this.tasks.getTask(i - 1);
         t.unmark();
-//        dbHandler.save(this.tasks);
         return this.ui.showUnmark(t);
     }
 
@@ -88,23 +86,27 @@ public class Jivox {
             throw new JivoxException("Invalid event ! To is before From");
         }
         this.tasks.add(new Event(first[0].trim(), from, to));
-        dbHandler.save(this.tasks);
     }
 
     private void addTodo(String content) throws DataHandlerException {
         this.tasks.add(new Todo(content));
-//        dbHandler.save(this.tasks);
+    }
+
+    public void saveDb(){
+        try {
+            this.dbHandler.save(this.tasks);
+        } catch (JivoxException e){
+            this.ui.showException(e);
+        }
     }
 
     private void addDeadline(String content) throws JivoxException {
         String[] in = this.parser.split(content, " /by ", 2);
-        // content.split(" /by ",2);
         if (in.length == 1) {
             throw new JivoxException("Oooops! Please provide a deadline");
         }
         LocalDateTime deadline = LocalDateTime.parse(in[1], formatter);
         this.tasks.add(new Deadline(in[0].trim(), deadline));
-        dbHandler.save(this.tasks);
     }
 
     /**
@@ -143,7 +145,6 @@ public class Jivox {
         }
         Task t = this.tasks.getTask(i - 1);
         this.tasks.delete(i - 1);
-//        this.dbHandler.save(this.tasks);
         return this.ui.showDelete(t, this.tasks.getLength());
     }
 
