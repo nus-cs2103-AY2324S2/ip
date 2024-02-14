@@ -66,7 +66,7 @@ public class Parser {
      */
     public static String[] extractDescriptionData(String... descriptionArray) throws
             InvalidInputException {
-        assert (descriptionArray.length > 0);
+        assert (descriptionArray.length > 0 && descriptionArray.length == 4);
         String[] ret = new String[3];
         String taskDesc;
         switch(descriptionArray[0]) {
