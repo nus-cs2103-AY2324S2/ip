@@ -1,7 +1,7 @@
 package commands;
 
-import commands.Command;
-import excceptions.WeiException;
+import exceptions.WeiException;
+import storage.Storage;
 import taskList.TaskList;
 import ui.Ui;
 
@@ -28,17 +28,15 @@ public class DeleteCommand extends Command {
      * @throws WeiException If the command is incomplete.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) throws WeiException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws WeiException {
         try {
             int order = Integer.parseInt(input.substring(7)) - 1;
             String deletedTask = tasks.delete(order);
             int size = tasks.getSize();
-            ui.showDeleteMessage(deletedTask);
-            ui.showNumberOfRemainingTasks(size);
+            return ui.showDeleteMessage(deletedTask) + ui.showNumberOfRemainingTasks(size);
         } catch (NumberFormatException e) {
             throw new WeiException("which task do you want to delete?");
         }
-
     }
 
     /**

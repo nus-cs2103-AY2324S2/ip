@@ -1,6 +1,7 @@
 package commands;
 
-import excceptions.WeiException;
+import exceptions.WeiException;
+import storage.Storage;
 import taskList.TaskList;
 import ui.Ui;
 
@@ -15,7 +16,7 @@ public abstract class Command {
      * @param ui Gives reply to the user.
      * @throws WeiException If the command is incomplete.
      */
-    public abstract void execute(TaskList tasks, Ui ui) throws WeiException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws WeiException;
 
     /**
      * Indicates if this command is an exit command.

@@ -1,6 +1,7 @@
 package commands;
 
-import excceptions.WeiException;
+import exceptions.WeiException;
+import storage.Storage;
 import taskList.TaskList;
 import ui.Ui;
 
@@ -27,11 +28,11 @@ public class MarkCommand extends Command {
      * @throws WeiException If the command is incomplete.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) throws WeiException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws WeiException {
         try {
             int order = Integer.parseInt(input.substring(5)) - 1;
             String markedTask = tasks.mark(order);
-            ui.showMarkedMessage(markedTask);
+            return ui.showMarkedMessage(markedTask);
         } catch (NumberFormatException e) {
             throw new WeiException("which task do you want to mark?");
         }

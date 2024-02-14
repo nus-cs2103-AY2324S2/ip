@@ -1,6 +1,7 @@
 package commands;
 
-import excceptions.WeiException;
+import exceptions.WeiException;
+import storage.Storage;
 import taskList.TaskList;
 import tasks.Deadline;
 import tasks.Event;
@@ -30,7 +31,7 @@ public class AddCommand extends Command {
      * @throws WeiException If the command is incomplete.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) throws WeiException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws WeiException {
         String taskAdded = "";
         if (input.startsWith("todo")) {
             taskAdded = addToDo(tasks, input);
@@ -40,8 +41,7 @@ public class AddCommand extends Command {
             taskAdded = addEvent(tasks, input);
         }
         int size = tasks.getSize();
-        ui.showAddMessage(taskAdded);
-        ui.showNumberOfRemainingTasks(size);
+        return ui.showAddMessage(taskAdded) + ui.showNumberOfRemainingTasks(size);
     }
 
     /**

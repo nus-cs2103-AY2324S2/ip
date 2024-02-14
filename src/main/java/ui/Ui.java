@@ -5,26 +5,19 @@ package ui;
  */
 public class Ui {
     /**
-     * Prints a line to separate between sections of the conversation.
-     */
-    public void showLine() {
-        System.out.println("________________________________________");
-    }
-
-    /**
      * Greets the user when the chatbot is loaded.
+     *
+     * @return greet message.
      */
-    public void greet() {
-        System.out.println("Hello! I'm Wei.\n" + "What can I do for you?");
-        showLine();
+    public String greet() {
+        return "Hello! I'm wei.\n" + "What can I do for you?";
     }
 
     /**
      * Says goodbye before terminating the conversation.
      */
-    public void exit() {
-        System.out.println("Bye. Hope to see you again soon!");
-        showLine();
+    public String exit() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -32,9 +25,8 @@ public class Ui {
      *
      * @param list The task list.
      */
-    public void showList(String list) {
-        System.out.println("Here are the tasks in your list:");
-        System.out.println(list);
+    public String showList(String list) {
+        return "Here are the tasks in your list:\n" + list;
     }
 
     /**
@@ -42,9 +34,8 @@ public class Ui {
      *
      * @param taskName Details about the task.
      */
-    public void showAddMessage(String taskName) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(taskName);
+    public String showAddMessage(String taskName) {
+        return "Got it. I've added this task:\n" + taskName + "\n";
     }
 
     /**
@@ -52,9 +43,8 @@ public class Ui {
      *
      * @param taskName Details about the task.
      */
-    public void showDeleteMessage(String taskName) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(taskName);
+    public String showDeleteMessage(String taskName) {
+        return "Noted. I've removed this task:\n" + taskName + "\n";
     }
 
     /**
@@ -62,9 +52,8 @@ public class Ui {
      *
      * @param taskName Details about the task.
      */
-    public void showMarkedMessage(String taskName) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(taskName);
+    public String showMarkedMessage(String taskName) {
+        return "Nice! I've marked this task as done:\n" + taskName;
     }
 
     /**
@@ -72,9 +61,8 @@ public class Ui {
      *
      * @param taskName Details about the task.
      */
-    public void showUnmarkedMessage(String taskName) {
-        System.out.println("Noted! I've unmarked this task:");
-        System.out.println(taskName);
+    public String showUnmarkedMessage(String taskName) {
+        return "Noted! I've unmarked this task:\n" + taskName;
     }
 
     /**
@@ -82,8 +70,8 @@ public class Ui {
      *
      * @param sizeOfTaskList Number of tasks.
      */
-    public void showNumberOfRemainingTasks(int sizeOfTaskList) {
-        System.out.println("Now you have " + sizeOfTaskList + " tasks in the list.");
+    public String showNumberOfRemainingTasks(int sizeOfTaskList) {
+        return "Now you have " + sizeOfTaskList + " tasks in the list.";
     }
 
     /**
@@ -91,8 +79,8 @@ public class Ui {
      *
      * @param errorMessage Message of exception raised.
      */
-    public void showError(String errorMessage) {
-        System.out.println(errorMessage);
+    public String showError(String errorMessage) {
+        return errorMessage;
     }
 
     /**
@@ -100,8 +88,7 @@ public class Ui {
      *
      * @param result Tasks in the result.
      */
-    public void showSearchResult(String result) {
-        System.out.println("Here are the matching tasks in your list:");
-        System.out.println(result);
+    public String showSearchResult(String result) {
+        return "Here are the matching tasks in your list:\n" + result;
     }
 }

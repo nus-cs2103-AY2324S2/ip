@@ -1,7 +1,7 @@
 package parser;
 
 import commands.*;
-import excceptions.WeiException;
+import exceptions.WeiException;
 
 /**
  * Processes the commands inserted by the user.
