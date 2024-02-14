@@ -1,5 +1,9 @@
+package parser;
+
+import task.*;
+import ui.Ui;
+
 import java.util.Arrays;
-import java.util.Scanner;
 
 public class Parser {
     protected static int current = 0;

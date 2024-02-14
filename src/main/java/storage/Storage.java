@@ -1,4 +1,8 @@
-import BalkanBot.BalkanBotException;
+package storage;
+
+import balkanBot.BalkanBotException;
+import task.*;
+import parser.Parser;
 
 import java.io.*;
 
@@ -91,8 +95,8 @@ public class Storage {
                         break;
                     }
                     default: {
-                        System.out.println("Error with Task: " + counter + "Type Unidentified Task Found Save File. " +
-                                "Task will be skipped");
+                        System.out.println("Error with Task.Task: " + counter + "Type Unidentified Task.Task Found Save File. " +
+                                "Task.Task will be skipped");
                         proceed = false;
                     }
                 }
@@ -100,7 +104,7 @@ public class Storage {
                 if (complete.equals("X")) {
                     completed = true;
                 } else if (!complete.equals(" ")) {
-                    System.out.println("Completion status of task [" + counter + "] is invalid. Task will be skipped");
+                    System.out.println("Completion status of task [" + counter + "] is invalid. Task.Task will be skipped");
                     proceed = false;
                 }
 

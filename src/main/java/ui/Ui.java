@@ -1,6 +1,6 @@
-import java.io.InputStream;
-import java.io.PrintStream;
-import java.util.Scanner;
+package ui;
+
+import task.Task;
 
 public class Ui {
     private final String line = "------------------------------------------";
