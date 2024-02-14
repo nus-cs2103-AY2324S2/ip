@@ -19,7 +19,7 @@ public class Task {
     /**
      * Get the msg of a Task.
      */
-    public String getMsg() {
+    public String getMSG() {
         return this.msg;
     }
 

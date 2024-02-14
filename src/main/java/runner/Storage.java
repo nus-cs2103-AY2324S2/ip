@@ -35,22 +35,23 @@ public class Storage {
             while (s.hasNextLine()) {
                 String line = s.nextLine();
                 char type = line.charAt(0);
+                char status = line.charAt(1);
                 String info = line.substring(2);
                 switch (type) {
                     case 'T':
-                        Task td = new Todo(info);
-                        addCheckedTask(line, td);
+                        Task todo = new Todo(info);
+                        check_add(status, todo);
                         break;
                     case 'D':
-                        String[] deadLine = info.split(" /by ",2);
-                        Task dd = new Deadline(deadLine[0], deadLine[1]);
-                        addCheckedTask(line, dd);
+                        String[] date = info.split(" /by ",2);
+                        Task deadline = new Deadline(date[0], date[1]);
+                        check_add(status, deadline);
                         break;
                     case 'E':
-                        String[] event = info.split(" /from ",2);
-                        String[] time = event[1].split(" /to ",2);
-                        Task et = new Event(event[0], time[0], time[1]);
-                        addCheckedTask(line, et);
+                        String[] eventMsg = info.split(" /from ",2);
+                        String[] time = eventMsg[1].split(" /to ",2);
+                        Task event = new Event(eventMsg[0], time[0], time[1]);
+                        check_add(status, event);
                         break;
                 }
             }
@@ -82,15 +83,15 @@ public class Storage {
 
     /**
      * Check the status of the Task and add it to the TaskList.
-     * @param line Description of a Task.
-     * @param t Task checked.
+     * @param status Description of a Task.
+     * @param tk Task checked.
      */
-    public void addCheckedTask(String line, Task t) {
-        if (line.charAt(1) == '0') {
-            t.uncomplete();
+    public void check_add(char status, Task tk) {
+        if (status == '0') {
+            tk.uncomplete();
         } else {
-            t.complete();
+            tk.complete();
         }
-        taskList.add(t);
+        taskList.add(tk);
     }
 }
