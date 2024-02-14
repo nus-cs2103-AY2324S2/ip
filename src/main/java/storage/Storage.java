@@ -84,13 +84,13 @@ public class Storage {
                     task.setPriority(priority);
                     break;
                 case "D":
-                    LocalDate deadlineDate = LocalDate.parse(parts[3]);
+                    LocalDate deadlineDate = LocalDate.parse(parts[4]);
                     task = new Deadline(description, deadlineDate);
                     task.setPriority(priority);
                     break;
                 case "E":
-                    LocalDate startDate = LocalDate.parse(parts[3]);
-                    LocalDate endDate = LocalDate.parse(parts[4]);
+                    LocalDate startDate = LocalDate.parse(parts[4]);
+                    LocalDate endDate = LocalDate.parse(parts[5]);
                     task = new Event(description, startDate, endDate);
                     task.setPriority(priority);
                     break;

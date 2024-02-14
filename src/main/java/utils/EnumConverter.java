@@ -36,11 +36,11 @@ public class EnumConverter {
     public static String convertPriorityToString(Priority priority) {
         switch (priority) {
             case HIGH:
-                return "🔴 High";
+                return "High";
             case MEDIUM:
-                return "🟡 Medium";
+                return "Medium";
             case LOW:
-                return "🟢 Low";
+                return "Low";
             case NONE:
                 return "None";
             default:

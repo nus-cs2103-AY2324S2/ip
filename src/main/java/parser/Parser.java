@@ -97,29 +97,15 @@ public class Parser {
             if (input.trim().equals("mark")) {
                 throw new InvalidTaskIndexException("The index of a task cannot be empty.");
             }
-            int markIndex;
-            try {
-                markIndex = Integer.parseInt(input.split(" ")[1]);
-            } catch (NumberFormatException e) {
-                throw new InvalidTaskIndexException("The index of a task must be a number.");
-            }
-            if (markIndex > taskList.getTaskCount()) {
-                throw new InvalidTaskIndexException("The index of a task cannot be greater than the number of tasks.");
-            }
-            if (markIndex <= 0) {
-                throw new InvalidTaskIndexException("The index of a task cannot be 0 or negative.");
-            }
+            int markIndex = parseTaskIndex(input.split(" ")[1]);
             Task taskToMark = taskList.getTask(markIndex);
-            if (taskToMark == null) {
-                throw new InvalidTaskIndexException("The task at index " + markIndex + " does not exist.");
-            }
             taskToMark.markAsDone();
             storage.saveTaskList(taskList.getTasksList());
             return CommandResponse.success(ui.getTaskMarkedMessage(taskToMark));
         } catch (GeePeeTeeException e) {
-            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
+            return CommandResponse.error(ui.getErrorMessage(e.getMessage() + ui.getCommandDescriptionMessage("mark")));
         } catch (InvalidTaskIndexException e) {
-            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
+            return CommandResponse.error(ui.getErrorMessage(e.getMessage() + ui.getCommandDescriptionMessage("mark")));
         }
     }
 
@@ -138,29 +124,17 @@ public class Parser {
             if (input.trim().equals("unmark")) {
                 throw new InvalidTaskIndexException("The index of a task cannot be empty.");
             }
-            int unmarkIndex;
-            try {
-                unmarkIndex = Integer.parseInt(input.split(" ")[1]);
-            } catch (NumberFormatException e) {
-                throw new InvalidTaskIndexException("The index of a task must be a number.");
-            }
-            if (unmarkIndex > taskList.getTaskCount()) {
-                throw new InvalidTaskIndexException("The index of a task cannot be greater than the number of tasks.");
-            }
-            if (unmarkIndex <= 0) {
-                throw new InvalidTaskIndexException("The index of a task cannot be 0 or negative.");
-            }
+            int unmarkIndex = parseTaskIndex(input.split(" ")[1]);
             Task taskToUnmark = taskList.getTask(unmarkIndex);
-            if (taskToUnmark == null) {
-                throw new InvalidTaskIndexException("The task at index " + unmarkIndex + " does not exist.");
-            }
             taskToUnmark.unmarkAsDone();
             storage.saveTaskList(taskList.getTasksList());
             return CommandResponse.success(ui.getTaskUnmarkedMessage(taskToUnmark));
         } catch (GeePeeTeeException e) {
-            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
+            return CommandResponse
+                    .error(ui.getErrorMessage(e.getMessage() + ui.getCommandDescriptionMessage("unmark")));
         } catch (InvalidTaskIndexException e) {
-            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
+            return CommandResponse
+                    .error(ui.getErrorMessage(e.getMessage() + ui.getCommandDescriptionMessage("unmark")));
         }
     }
 
@@ -178,29 +152,17 @@ public class Parser {
             if (input.trim().equals("delete")) {
                 throw new InvalidTaskIndexException("The index of a task cannot be empty.");
             }
-            int deleteIndex;
-            try {
-                deleteIndex = Integer.parseInt(input.split(" ")[1]);
-            } catch (NumberFormatException e) {
-                throw new InvalidTaskIndexException("The index of a task must be a number.");
-            }
-            if (deleteIndex > taskList.getTaskCount()) {
-                throw new InvalidTaskIndexException("The index of a task cannot be greater than the number of tasks.");
-            }
-            if (deleteIndex <= 0) {
-                throw new InvalidTaskIndexException("The index of a task cannot be 0 or negative.");
-            }
+            int deleteIndex = parseTaskIndex(input.split(" ")[1]);
             Task taskToDelete = taskList.getTask(deleteIndex);
-            if (taskToDelete == null) {
-                throw new InvalidTaskIndexException("The task at index " + deleteIndex + " does not exist.");
-            }
             taskList.removeTask(deleteIndex);
             storage.saveTaskList(taskList.getTasksList());
             return CommandResponse.success(ui.getDeleteTaskMessage(taskToDelete, taskList.getTaskCount()));
         } catch (GeePeeTeeException e) {
-            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
+            return CommandResponse
+                    .error(ui.getErrorMessage(e.getMessage() + ui.getCommandDescriptionMessage("delete")));
         } catch (InvalidTaskIndexException e) {
-            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
+            return CommandResponse
+                    .error(ui.getErrorMessage(e.getMessage() + ui.getCommandDescriptionMessage("delete")));
         }
     }
 
@@ -248,11 +210,11 @@ public class Parser {
             storage.saveTaskList(taskList.getTasksList());
             return CommandResponse.success(ui.getAddTaskMessage(newEvent, taskList.getTaskCount()));
         } catch (InvalidDateException e) {
-            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
+            return CommandResponse.error(ui.getErrorMessage(e.getMessage() + ui.getCommandDescriptionMessage("event")));
         } catch (InvalidTaskFormatException e) {
-            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
+            return CommandResponse.error(ui.getErrorMessage(e.getMessage() + ui.getCommandDescriptionMessage("event")));
         } catch (GeePeeTeeException e) {
-            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
+            return CommandResponse.error(ui.getErrorMessage(e.getMessage() + ui.getCommandDescriptionMessage("event")));
         }
     }
 
@@ -283,18 +245,21 @@ public class Parser {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             parsedBy = LocalDate.parse(by, formatter);
             if (parsedBy.isBefore(LocalDate.now())) {
-                throw new InvalidDateException("The date of a deadline cannot be in the past.");
+                throw new InvalidDateException("The deadline date cannot be in the past.");
             }
             Deadline newDeadline = new Deadline(description, parsedBy);
             taskList.addTask(newDeadline);
             storage.saveTaskList(taskList.getTasksList());
             return CommandResponse.success(ui.getAddTaskMessage(newDeadline, taskList.getTaskCount()));
         } catch (InvalidDateException e) {
-            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
+            return CommandResponse
+                    .error(ui.getErrorMessage(e.getMessage() + ui.getCommandDescriptionMessage("deadline")));
         } catch (InvalidTaskFormatException e) {
-            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
+            return CommandResponse
+                    .error(ui.getErrorMessage(e.getMessage() + ui.getCommandDescriptionMessage("deadline")));
         } catch (GeePeeTeeException e) {
-            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
+            return CommandResponse
+                    .error(ui.getErrorMessage(e.getMessage() + ui.getCommandDescriptionMessage("deadline")));
         }
     }
 
@@ -319,9 +284,9 @@ public class Parser {
             storage.saveTaskList(taskList.getTasksList());
             return CommandResponse.success(ui.getAddTaskMessage(newToDo, taskList.getTaskCount()));
         } catch (InvalidTaskFormatException e) {
-            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
+            return CommandResponse.error(ui.getErrorMessage(e.getMessage() + ui.getCommandDescriptionMessage("todo")));
         } catch (GeePeeTeeException e) {
-            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
+            return CommandResponse.error(ui.getErrorMessage(e.getMessage() + ui.getCommandDescriptionMessage("todo")));
         }
     }
 
@@ -339,7 +304,7 @@ public class Parser {
             ArrayList<Task> result = taskList.findTasks(keyword);
             return CommandResponse.success(ui.getMatchingTasksMessage(result));
         } catch (InvalidTaskFormatException e) {
-            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
+            return CommandResponse.error(ui.getErrorMessage(e.getMessage() + ui.getCommandDescriptionMessage("find")));
         }
     }
 
@@ -353,33 +318,29 @@ public class Parser {
             if (input.trim().split(" ").length < 3) {
                 throw new InvalidTaskFormatException("Please provide a task index and a priority to tag.");
             }
-            int tagIndex;
-            try {
-                tagIndex = Integer.parseInt(input.split(" ")[1]);
-            } catch (NumberFormatException e) {
-                throw new InvalidTaskIndexException("The index of a task must be a number.");
-            }
-            if (tagIndex > taskList.getTaskCount()) {
-                throw new InvalidTaskIndexException("The index of a task cannot be greater than the number of tasks.");
-            }
-            if (tagIndex <= 0) {
-                throw new InvalidTaskIndexException("The index of a task cannot be 0 or negative.");
-            }
+            int tagIndex = parseTaskIndex(input.split(" ")[1]);
             Task taskToTag = taskList.getTask(tagIndex);
-            if (taskToTag == null) {
-                throw new InvalidTaskIndexException("The task at index " + tagIndex + " does not exist.");
-            }
             String priorityInput = input.split(" ")[2];
             Priority priority = EnumConverter.convertStringToPriority(priorityInput);
             taskToTag.setPriority(priority);
             storage.saveTaskList(taskList.getTasksList());
             return CommandResponse.success(ui.getTagTaskMessage(taskToTag));
         } catch (InvalidTaskFormatException e) {
-            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
+            return CommandResponse.error(ui.getErrorMessage(e.getMessage() + ui.getCommandDescriptionMessage("tag")));
         } catch (InvalidTaskIndexException e) {
-            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
+            return CommandResponse.error(ui.getErrorMessage(e.getMessage() + ui.getCommandDescriptionMessage("tag")));
         } catch (GeePeeTeeException e) {
-            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
+            return CommandResponse.error(ui.getErrorMessage(e.getMessage() + ui.getCommandDescriptionMessage("tag")));
         }
+    }
+
+    private int parseTaskIndex(String input) throws InvalidTaskIndexException {
+        int index;
+        try {
+            index = Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            throw new InvalidTaskIndexException("The index of a task must be a number.");
+        }
+        return index;
     }
 }
