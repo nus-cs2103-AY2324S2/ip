@@ -84,7 +84,7 @@ public class Parser {
     public static String[] extractDescriptionData(String... descriptionArray) throws
             InvalidInputException {
         assert (descriptionArray.length > 0);
-        String[] ret = new String[4];
+        String[] returnArray = new String[4];
         String taskDesc;
         switch(descriptionArray[0]) {
         case "todo":
