@@ -32,33 +32,23 @@ public class App {
         this.tasks = tmp;
     }
 
-    /**
-     * Runs the main program through a Read-Eval-Print loop.
-     */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String userInput = ui.readUserInput();
-                ui.showLine();
-                Action action = Parser.parseAction(userInput);
-                action.run(tasks, ui, storage);
-                isExit = action.isExit();
-            } catch (ChipchatException exc) {
-                System.err.println(exc);
-            } finally {
-                ui.showLine();
-            }
-        }
+    public String getResponse(String userInput) {
+        run(userInput);
+        return ui.getOutput();
     }
 
     /**
-     * Starting point of main program.
-     *
-     * @param args system input
+     * Runs the main program through a Read-Eval-Print loop.
      */
-    public static void main(String[] args) {
-        new App().run();
+    public void run(String userInput) {
+        try {
+            ui.showLine();
+            Action action = Parser.parseAction(userInput);
+            action.run(tasks, ui, storage);
+        } catch (ChipchatException exc) {
+            ui.showErrMsg(exc);
+        } finally {
+            ui.showLine();
+        }
     }
 }

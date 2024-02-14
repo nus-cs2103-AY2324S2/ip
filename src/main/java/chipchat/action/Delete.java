@@ -36,8 +36,8 @@ public class Delete extends Action {
             storage.save(tasks);
             ui.showMsg(SUCCESS_MSG);
             ui.showMsg(removedTask.toString());
-        } catch (ChipchatException x) {
-            System.err.format("Exception at Delete::run(), %s", x);
+        } catch (ChipchatException exc) {
+            ui.showErrMsg(exc);
         }
     }
 }

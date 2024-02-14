@@ -40,7 +40,7 @@ public class Find extends Action {
             }
             ui.showMsg(taskList.toString());
         } catch (ChipchatException exc) {
-            System.err.format("Exception at Find::run(), %s\n", exc);
+            ui.showErrMsg(exc);
         }
     }
 }

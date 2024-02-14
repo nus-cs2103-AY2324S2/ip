@@ -34,8 +34,8 @@ public class Unmark extends Action {
             storage.save(tasks);
             ui.showMsg(SUCCESS_MSG);
             ui.showMsg(tasks.printTask(this.index));
-        } catch (ChipchatException x) {
-            System.err.format("Exception at Unmark::run(), %s\n", x);
+        } catch (ChipchatException exc) {
+            ui.showErrMsg(exc);
         }
     }
 }

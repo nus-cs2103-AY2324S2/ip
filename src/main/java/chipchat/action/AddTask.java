@@ -71,8 +71,8 @@ public class AddTask extends Action {
             ui.showMsg(SUCCESS_MSG);
             ui.showMsg(this.task.toString());
             storage.save(tasks);
-        } catch (ChipchatException x) {
-            System.err.format("Exception at AddTask::run(), %s\n", x);
+        } catch (ChipchatException exc) {
+            ui.showErrMsg(exc);
         }
     }
 }

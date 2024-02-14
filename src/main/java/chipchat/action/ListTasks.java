@@ -29,8 +29,8 @@ public class ListTasks extends Action {
         try {
             ui.showMsg(SUCCESS_MSG);
             ui.showMsg(tasks.toString());
-        } catch (ChipchatException x) {
-            System.err.format("Exception at List::run(), %s\n", x);
+        } catch (ChipchatException exc) {
+            ui.showErrMsg(exc);
         }
     }
 }

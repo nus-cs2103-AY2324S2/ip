@@ -1,5 +1,7 @@
 package chipchat.ui;
 
+import chipchat.exception.ChipchatException;
+
 import java.util.Scanner;
 
 /**
@@ -8,26 +10,32 @@ import java.util.Scanner;
 public class Ui {
     private static final String WELCOME_MSG = "Hello! I'm Chipchat \nWhat can I do for you?";
     private static final String EXIT_MSG = "Good bye! Hope to see you again soon!";
-    private final Scanner reader;
+    private final StringBuilder outputBuffer;
 
     public Ui() {
-        this.reader = new Scanner(System.in);
+        this.outputBuffer = new StringBuilder();
     }
 
-    public String readUserInput() {
-        return reader.nextLine();
+    public String getOutput() {
+        String output = this.outputBuffer.toString();
+        this.outputBuffer.setLength(0);
+        return output;
+    }
+
+    private void appendWithNewLine(String str) {
+        this.outputBuffer.append(str).append("\n");
     }
 
     public void showWelcome() {
-        System.out.println(WELCOME_MSG);
+        this.appendWithNewLine(WELCOME_MSG);
     }
 
     public void showBye() {
-        System.out.println(EXIT_MSG);
+        this.appendWithNewLine(EXIT_MSG);
     }
 
     public void showLine() {
-        System.out.println("----------------------------");
+        this.appendWithNewLine("----------------------------");
     }
 
     public void showLoadingError() {
@@ -35,6 +43,10 @@ public class Ui {
     }
 
     public void showMsg(String message) {
-        System.out.println(message);
+        this.appendWithNewLine(message);
+    }
+
+    public void showErrMsg(ChipchatException exc) {
+        this.appendWithNewLine(exc.toString());
     }
 }
