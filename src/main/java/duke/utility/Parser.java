@@ -1,13 +1,6 @@
 package duke.utility;
 
-import duke.command.Command;
-import duke.command.AddTaskCommand;
-import duke.command.DeleteTaskCommand;
-import duke.command.ExitCommand;
-import duke.command.FindTaskCommand;
-import duke.command.ListTasksCommand;
-import duke.command.MarkTaskCommand;
-import duke.command.UnmarkTaskCommand;
+import duke.command.*;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -57,36 +50,6 @@ public class Parser {
             return new ListTasksCommand();
         } else if (userInput.toLowerCase().startsWith("mark")) {
             String[] inputArr = userInput.split(" ");
-<<<<<<< HEAD
-            assert inputArr[0].toLowerCase() == "mark";
-            try {
-                int index = Integer.parseInt(inputArr[1]) - 1;
-                return new MarkTaskCommand(index);
-            } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                throw new DukeException("*HONK* Pengu thinks you need a valid task number to mark, "
-                        + "consider checking the list command");
-            }
-        } else if (userInput.toLowerCase().startsWith("unmark")) {
-            String[] inputArr = userInput.split(" ");
-            assert inputArr[0].toLowerCase() == "unmark";
-            try {
-                int index = Integer.parseInt(inputArr[1]) - 1;
-                return new UnmarkTaskCommand(index);
-            } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                throw new DukeException("*HONK* Pengu thinks you need a valid task number to unmark, "
-                        + "consider checking the list command");
-            }
-        } else if (userInput.toLowerCase().startsWith("delete")) {
-            String[] inputArr = userInput.split(" ");
-            assert inputArr[0].toLowerCase() == "delete";
-            try {
-                int index = Integer.parseInt(inputArr[1]) - 1;
-                return new DeleteTaskCommand(index);
-            } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                throw new DukeException("*HONK* Pengu thinks you need a valid task number to delete, "
-                        + "consider checking the list command");
-            }
-=======
             int index = Integer.parseInt(inputArr[1]) - 1;
             return new MarkTaskCommand(index);
         } else if (userInput.toLowerCase().startsWith("unmark")) {
@@ -97,7 +60,6 @@ public class Parser {
             String[] inputArr = userInput.split(" ");
             int index = Integer.parseInt(inputArr[1]) - 1;
             return new DeleteTaskCommand(index);
->>>>>>> branch-A-CodeQuality
         } else if (userInput.toLowerCase().startsWith("find")) {
             String[] inputArr = userInput.split(" ");
             assert inputArr[0].toLowerCase() == "find";
@@ -105,6 +67,8 @@ public class Parser {
                 throw new DukeException("Pengu can only look up one-word long keywords");
             }
             return new FindTaskCommand(inputArr[1]);
+        } else if (userInput.toLowerCase().startsWith("update")) {
+            return new UpdateTaskCommand(userInput);
         }
         String keyword = userInput.split(" ")[0].toLowerCase();
         if (!(keyword.equals("todo") || keyword.equals("deadline") || keyword.equals("event"))) {

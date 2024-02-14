@@ -117,4 +117,9 @@ public class Ui {
         }
         return output;
     }
+
+    public String showUpdatedTask(Task taskToBeUpdated) {
+        return String.format("*Honk! Pengu has updated the following task:"
+                + "\n %s", taskToBeUpdated.toString());
+    }
 }

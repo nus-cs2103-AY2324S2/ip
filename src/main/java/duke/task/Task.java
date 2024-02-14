@@ -1,11 +1,13 @@
 package duke.task;
 
+import duke.utility.DukeException;
+
 /**
  * Class that represents a Task
  */
 public abstract class Task {
     /** String containing the description of the Task. */
-    private String description;
+    protected String description;
     /** Boolean value that tells us if the Task has been marked done. */
     private boolean isDone;
 
@@ -43,13 +45,15 @@ public abstract class Task {
      *
      * @param isDone Boolean value indicating whether the Task should be marked done.
      */
-    public void updateTask(boolean isDone) {
+    public void updateTaskStatus(boolean isDone) {
         if (isDone == true) {
             this.isDone = true;
         } else {
             isDone = false;
         }
     }
+
+    public abstract void updateTaskDescription(String field, String updatedDescription) throws DukeException;
 
     public String getDescription() {
         return this.description;

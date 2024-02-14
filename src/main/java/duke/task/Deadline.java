@@ -1,5 +1,8 @@
 package duke.task;
 
+import duke.utility.DukeException;
+import duke.utility.Parser;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -31,5 +34,20 @@ public class Deadline extends Task {
         DateTimeFormatter dTFormatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy HHmm");
         String byDateString = byDate.format(dTFormatter);
         return String.format("[D]" + super.toString() + " (by: %s)", byDateString);
+    }
+
+    @Override
+    public void updateTaskDescription(String field, String updatedDescription) throws DukeException {
+        String fieldInput = field.toLowerCase();
+        switch (fieldInput) {
+        case "info":
+            this.description = updatedDescription;
+            break;
+        case "by":
+            this.byDate = Parser.checkDates(updatedDescription);
+            break;
+        default:
+            throw new DukeException("*Honk!* Pengu can only update the 'info' or 'by' of this task");
+        }
     }
 }

@@ -1,5 +1,8 @@
 package duke.task;
 
+import duke.utility.DukeException;
+import duke.utility.Parser;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -36,5 +39,23 @@ public class Event extends Task {
         String fromDateString = fromDate.format(dTFormatter);
         String toDateString = toDate.format(dTFormatter);
         return String.format("[E]" + super.toString() + " (from: %s to: %s)", fromDateString, toDateString);
+    }
+
+    @Override
+    public void updateTaskDescription(String field, String updatedDescription) throws DukeException {
+        String fieldInput = field.toLowerCase();
+        switch (fieldInput) {
+        case "info":
+            this.description = updatedDescription;
+            break;
+        case "from":
+            this.fromDate = Parser.checkDates(updatedDescription);
+            break;
+        case "to":
+            this.toDate = Parser.checkDates(updatedDescription);
+            break;
+        default:
+            throw new DukeException("*Honk!* Pengu can only update the 'info', 'from' or 'to' of this task");
+        }
     }
 }
