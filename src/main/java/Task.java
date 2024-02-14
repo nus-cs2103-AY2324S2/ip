@@ -2,9 +2,9 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    public Task(String description) {
+    public Task(String description, boolean isDone) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     public String getStatusIcon() {
@@ -22,6 +22,10 @@ public class Task {
     // instead of toString(), express description as String explicitly
     public String getDescription() {
         return this.description;
+    }
+
+    public Boolean isDone() {
+        return this.isDone;
     }
 
     @Override
