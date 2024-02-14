@@ -33,7 +33,7 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, StorageManager storageManager) {
-        assert unmark <= taskList.getTasksSize() -1 : "Invalid index";
+        assert unmark <= taskList.getTasksSize() - 1 : "Invalid index";
         taskList.unmark(unmark);
         storageManager.save(taskList.getTasks());
         String reply = "OK, I've marked this task as not done yet:\n" + taskList.getTask(unmark).toString() + "\n";
