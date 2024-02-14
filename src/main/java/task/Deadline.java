@@ -35,7 +35,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String deadlineDateString = deadlineDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-        return "[D]" + super.toString() + " (by: " + deadlineDateString + ")";
+        return super.getPriorityString() + "[D]" + super.toString() + " (by: " + deadlineDateString + ")";
     }
 
     /**
@@ -47,6 +47,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + deadlineDate;
+        return "D | " + super.toFileString() + " | " + deadlineDate;
     }
 }

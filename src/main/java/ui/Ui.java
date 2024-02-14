@@ -120,7 +120,8 @@ public class Ui {
                 + "3. event <description> /at <date>: Add an event task\n"
                 + "4. list: List all tasks\n" + "5. mark <taskNumber>: Mark a task as done\n"
                 + "6. unmark <taskNumber>: Mark a task as not done\n" + "7. delete <taskNumber>: Remove a task\n"
-                + "8. bye: Exit the program";
+                + "8. find <keyword>: Find tasks with a keyword\n" + "9. tag <taskNumber> <tag>: Tag a task\n"
+                + "10. bye: Exit the program";
     }
 
     /**
@@ -136,6 +137,10 @@ public class Ui {
                 .map(task -> (matchingTasks.indexOf(task) + 1) + ". " + task + "\n")
                 .collect(Collectors.joining());
         return "Here are the matching tasks in your list:\n" + matchingTasksOutput;
+    }
+
+    public String getTagTaskMessage(Task task) {
+        return "Got it. I have tagged this task:\n" + getTaskMessage(task);
     }
 
     /**

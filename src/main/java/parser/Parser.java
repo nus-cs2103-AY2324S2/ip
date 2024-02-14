@@ -2,7 +2,6 @@ package parser;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import command.CommandResponse;
@@ -13,10 +12,12 @@ import exception.InvalidTaskIndexException;
 import storage.Storage;
 import task.Deadline;
 import task.Event;
+import task.Priority;
 import task.Task;
 import task.ToDo;
 import tasklist.TaskList;
 import ui.Ui;
+import utils.EnumConverter;
 
 /**
  * Represents a parser that processes user input and executes the corresponding
@@ -75,6 +76,8 @@ public class Parser {
                 return processToDoCommand(input);
             case "find":
                 return processFindCommand(input);
+            case "tag":
+                return processTagCommand(input);
             default:
                 return CommandResponse.error(ui.getErrorMessage("I'm sorry, but I don't know what that means :-("));
         }
@@ -213,49 +216,44 @@ public class Parser {
      *                                    task.
      */
     private CommandResponse processEventCommand(String input) {
-        if (!input.startsWith("event ")) {
-            return CommandResponse.error(ui.getErrorMessage("Command should start with 'event'."));
-        }
-
-        String[] parts = input.substring("event ".length()).split(" /from | /to ", -1);
-        if (parts.length != 3 || parts[0].isEmpty() || parts[1].isEmpty() || parts[2].isEmpty()) {
-            return CommandResponse.error(ui.getErrorMessage(
-                    "Invalid event format. Please use 'event description /from yyyy-MM-dd /to yyyy-MM-dd'."));
-        }
-
-        String description = parts[0];
-        String from = parts[1];
-        String to = parts[2];
-
-        LocalDate parsedFrom, parsedTo;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
+            String[] parts = input.substring("event ".length()).split(" /from | /to ", -1);
+            if (parts.length != 3 || parts[0].isEmpty() || parts[1].isEmpty() || parts[2].isEmpty()) {
+                throw new InvalidTaskFormatException(
+                        "Invalid event format. Please use 'event description /from yyyy-MM-dd /to yyyy-MM-dd'.");
+            }
+
+            String description = parts[0].trim();
+            if (description.isEmpty()) {
+                throw new InvalidTaskFormatException("The description of an event cannot be empty.");
+            }
+            String from = parts[1].trim();
+            String to = parts[2].trim();
+
+            LocalDate parsedFrom, parsedTo;
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             parsedFrom = LocalDate.parse(from, formatter);
             parsedTo = LocalDate.parse(to, formatter);
             if (parsedFrom.isBefore(LocalDate.now())) {
-                return CommandResponse.error(ui.getErrorMessage("The start date of an event cannot be in the past."));
+                throw new InvalidDateException("The start date of an event cannot be in the past.");
             }
             if (parsedTo.isBefore(LocalDate.now())) {
-                return CommandResponse.error(ui.getErrorMessage("The end date of an event cannot be in the past."));
+                throw new InvalidDateException("The end date of an event cannot be in the past.");
             }
             if (parsedTo.isBefore(parsedFrom)) {
-                return CommandResponse
-                        .error(ui.getErrorMessage("The end date of an event cannot be before the start date."));
+                throw new InvalidDateException("The end date of an event cannot be before the start date.");
             }
-        } catch (DateTimeParseException e) {
-            return CommandResponse.error(ui.getErrorMessage("Invalid date format. Please use 'yyyy-MM-dd'."));
-        }
-
-        Event newEvent = new Event(description, parsedFrom, parsedTo);
-        try {
+            Event newEvent = new Event(description, parsedFrom, parsedTo);
             taskList.addTask(newEvent);
             storage.saveTaskList(taskList.getTasksList());
+            return CommandResponse.success(ui.getAddTaskMessage(newEvent, taskList.getTaskCount()));
+        } catch (InvalidDateException e) {
+            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
+        } catch (InvalidTaskFormatException e) {
+            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
         } catch (GeePeeTeeException e) {
-            return CommandResponse
-                    .error(ui.getErrorMessage(e.getMessage()));
+            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
         }
-
-        return CommandResponse.success(ui.getAddTaskMessage(newEvent, taskList.getTaskCount()));
     }
 
     /**
@@ -270,42 +268,34 @@ public class Parser {
      *                                    deadline task.
      */
     private CommandResponse processDeadlineCommand(String input) {
-        if (!input.startsWith("deadline ")) {
-            return CommandResponse.error(ui.getErrorMessage("Command should start with 'deadline'."));
-        }
-
-        String[] parts = input.split(" /by ", 2);
-        if (parts.length < 2) {
-            return CommandResponse.error(ui.getErrorMessage(
-                    "Invalid deadline format. Please use 'deadline description /by yyyy-MM-dd'."));
-        }
-        String description = parts[0].substring("deadline ".length()).trim();
-        if (description.isEmpty()) {
-            return CommandResponse.error(ui.getErrorMessage("The description of a deadline cannot be empty."));
-        }
-
-        String by = parts[1];
-        LocalDate parsedBy;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
+            String[] parts = input.substring("deadline ".length()).split(" /by ", -1);
+            if (parts.length != 2) {
+                throw new InvalidTaskFormatException(
+                        "Invalid deadline format. Please use 'deadline description /by yyyy-MM-dd'.");
+            }
+            String description = parts[0].trim();
+            if (description.isEmpty()) {
+                throw new InvalidTaskFormatException("The description of a deadline cannot be empty.");
+            }
+            String by = parts[1].trim();
+            LocalDate parsedBy;
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             parsedBy = LocalDate.parse(by, formatter);
             if (parsedBy.isBefore(LocalDate.now())) {
-                return CommandResponse.error(ui.getErrorMessage("The deadline of a task cannot be in the past."));
+                throw new InvalidDateException("The date of a deadline cannot be in the past.");
             }
-        } catch (DateTimeParseException e) {
-            return CommandResponse.error(ui.getErrorMessage("Invalid date format. Please use 'yyyy-MM-dd'."));
-        }
-
-        Deadline newDeadline = new Deadline(description, parsedBy);
-        try {
+            Deadline newDeadline = new Deadline(description, parsedBy);
             taskList.addTask(newDeadline);
             storage.saveTaskList(taskList.getTasksList());
+            return CommandResponse.success(ui.getAddTaskMessage(newDeadline, taskList.getTaskCount()));
+        } catch (InvalidDateException e) {
+            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
+        } catch (InvalidTaskFormatException e) {
+            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
         } catch (GeePeeTeeException e) {
-            return CommandResponse
-                    .error(ui.getErrorMessage(e.getMessage()));
+            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
         }
-
-        return CommandResponse.success(ui.getAddTaskMessage(newDeadline, taskList.getTaskCount()));
     }
 
     /**
@@ -319,20 +309,17 @@ public class Parser {
      *                                    task.
      */
     private CommandResponse processToDoCommand(String input) {
-        if (!input.startsWith("todo ")) {
-            return CommandResponse.error(ui.getErrorMessage("Command should start with 'todo '."));
-        }
-
-        String description = input.substring("todo ".length()).trim();
-        if (description.isEmpty()) {
-            return CommandResponse.error(ui.getErrorMessage("The description of a todo cannot be empty."));
-        }
-
         try {
+            String description = input.substring("todo ".length()).trim();
+            if (description.isEmpty()) {
+                throw new InvalidTaskFormatException("The description of a todo cannot be empty.");
+            }
             ToDo newToDo = new ToDo(description);
             taskList.addTask(newToDo);
             storage.saveTaskList(taskList.getTasksList());
             return CommandResponse.success(ui.getAddTaskMessage(newToDo, taskList.getTaskCount()));
+        } catch (InvalidTaskFormatException e) {
+            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
         } catch (GeePeeTeeException e) {
             return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
         }
@@ -352,6 +339,46 @@ public class Parser {
             ArrayList<Task> result = taskList.findTasks(keyword);
             return CommandResponse.success(ui.getMatchingTasksMessage(result));
         } catch (InvalidTaskFormatException e) {
+            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
+        }
+    }
+
+    /**
+     * Processes the tag command to set priority to a task.
+     * 
+     * @param input The user input
+     */
+    private CommandResponse processTagCommand(String input) {
+        try {
+            if (input.trim().split(" ").length < 3) {
+                throw new InvalidTaskFormatException("Please provide a task index and a priority to tag.");
+            }
+            int tagIndex;
+            try {
+                tagIndex = Integer.parseInt(input.split(" ")[1]);
+            } catch (NumberFormatException e) {
+                throw new InvalidTaskIndexException("The index of a task must be a number.");
+            }
+            if (tagIndex > taskList.getTaskCount()) {
+                throw new InvalidTaskIndexException("The index of a task cannot be greater than the number of tasks.");
+            }
+            if (tagIndex <= 0) {
+                throw new InvalidTaskIndexException("The index of a task cannot be 0 or negative.");
+            }
+            Task taskToTag = taskList.getTask(tagIndex);
+            if (taskToTag == null) {
+                throw new InvalidTaskIndexException("The task at index " + tagIndex + " does not exist.");
+            }
+            String priorityInput = input.split(" ")[2];
+            Priority priority = EnumConverter.convertStringToPriority(priorityInput);
+            taskToTag.setPriority(priority);
+            storage.saveTaskList(taskList.getTasksList());
+            return CommandResponse.success(ui.getTagTaskMessage(taskToTag));
+        } catch (InvalidTaskFormatException e) {
+            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
+        } catch (InvalidTaskIndexException e) {
+            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
+        } catch (GeePeeTeeException e) {
             return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
         }
     }

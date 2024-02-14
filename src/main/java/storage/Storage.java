@@ -12,8 +12,10 @@ import java.util.Scanner;
 import exception.GeePeeTeeException;
 import task.Deadline;
 import task.Event;
+import task.Priority;
 import task.Task;
 import task.ToDo;
+import utils.EnumConverter;
 
 /**
  * Represents a storage class that handles the loading and saving of task lists
@@ -72,20 +74,25 @@ public class Storage {
             String[] parts = line.split(" \\| ");
             String type = parts[0];
             boolean isDone = parts[1].equals("1");
-            String description = parts[2];
+            String priorityInput = parts[2];
+            Priority priority = EnumConverter.convertStringToPriority(priorityInput);
+            String description = parts[3];
             Task task;
             switch (type) {
                 case "T":
                     task = new ToDo(description);
+                    task.setPriority(priority);
                     break;
                 case "D":
                     LocalDate deadlineDate = LocalDate.parse(parts[3]);
                     task = new Deadline(description, deadlineDate);
+                    task.setPriority(priority);
                     break;
                 case "E":
                     LocalDate startDate = LocalDate.parse(parts[3]);
                     LocalDate endDate = LocalDate.parse(parts[4]);
                     task = new Event(description, startDate, endDate);
+                    task.setPriority(priority);
                     break;
                 default:
                     throw new GeePeeTeeException("File contains invalid task type.");

@@ -3,6 +3,7 @@ package tasklist;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+import task.PriorityComparator;
 import task.Task;
 
 /**
@@ -60,12 +61,13 @@ public class TaskList {
     }
 
     /**
-     * Prints the list of tasks.
+     * Prints the list of tasks, sorted by priority.
      */
     public String printList() {
         if (this.tasksList.size() == 0) {
             return "There are no tasks in your list.";
         }
+        this.tasksList.sort(new PriorityComparator());
         String listOutput = this.tasksList.stream()
                 .map(task -> (this.tasksList.indexOf(task) + 1) + ". " + task + "\n")
                 .collect(Collectors.joining());
