@@ -31,12 +31,12 @@ public class UiManager {
     /**
      * Informs user of deleted content
      *
-     * @param task  Task added
+     * @param item  Item added
      * @param count count of tasks currently in list after modification
      */
-    public static String delete(Task task, int count) {
-        String output = "Noted, I've removed this task: \n  " + task;
-        output += "\nNow you have " + count + " tasks in the list";
+    public static <T> String delete(T item, int count) {
+        String output = "Noted, I've removed this item: \n  " + item;
+        output += "\nNow you have " + count + " items in the list";
         return formatOutput(output);
     }
 

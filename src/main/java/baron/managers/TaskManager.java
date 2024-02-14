@@ -62,6 +62,8 @@ public class TaskManager {
                 return mark(input, false);
             } else if (command.equals(Command.DELETE.getCommand())) {
                 return delete(input);
+            } else if (command.equals(Command.DELETE_CLIENT.getCommand())) {
+                return deleteClient(input);
             } else if (command.equals(Command.BYE.getCommand())) {
                 // Exits application
                 System.exit(0);
@@ -118,6 +120,13 @@ public class TaskManager {
         TaskType type = getTaskType(task);
         TaskDao.delete(type.getTaskType(), task.getId());
         return UiManager.delete(task, this.tasks.size());
+    }
+
+    protected String deleteClient(String input) {
+        int i = Integer.parseInt(StringUtils.getValueOfCommand(input, Command.DELETE_CLIENT.getCommand(), null)) - 1;
+        Client client = this.clients.remove(i);
+        clientDao.delete(client.getId());
+        return UiManager.delete(client, this.clients.size());
     }
 
     /**
