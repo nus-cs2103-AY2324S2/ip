@@ -11,7 +11,7 @@ public class Leto {
 
     private Leto() {
         Ui.letoLogo();
-        TaskList.initFromFile();
+        TaskList.initFromCsvFile();
     }
 
     public static Leto getLeto() {

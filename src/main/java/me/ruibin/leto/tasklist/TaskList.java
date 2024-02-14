@@ -12,11 +12,9 @@ import me.ruibin.leto.ui.Ui;
 public class TaskList {
     private static final ArrayList<Task> list = new ArrayList<>(100);
 
-    public TaskList() {}
-
     /** Static method to initialise the task list from csv file. */
-    public static void initFromFile() {
-        Storage.readFile();
+    public static Result initFromCsvFile() {
+        return Storage.readFile();
     }
 
     /** Save task list to csv file. */
@@ -24,44 +22,20 @@ public class TaskList {
         return Storage.writeFile();
     }
 
-    /** In charge of reading inputs and adding the corresponding task to the list */
-    public static Result addToList(String inputs) {
-        Result r = Result.makeResultOk("");
-        try {
-            Task t = null;
-            String typeOfTask = inputs.split(" ")[0];
-            switch (typeOfTask.toLowerCase()) {
-            case "event":
-                t = Event.eventFromCommand(inputs);
-                break;
-            case "deadline":
-                t = Deadline.deadlineFromCommand(inputs);
-                break;
-            case "todo":
-                t = Todo.todoFromCmd(inputs);
-                break;
-            default:
-                assert false : "Should never reach here, means parser failed";
-            } // end switch for type of task
-            assert t != null : "t should be a created task by now";
-            TaskList.list.add(t);
-            r.updateMessage(Ui.letoSpeak("Task added, " + t
-                    + "\n  > You have " + TaskList.list.size() + " tasks."));
-        } catch (InvalidTaskException e) {
-            r.updateWithException(e.printException(), e);
-        }
-        return r;
-    }
-
     /**
      * Takes in a list of tasks as varargs to add to the task list.
      *
      * @param tasks Array containing Tasks.
+     * @return Result of the add. Should be ok.
      */
-    public static void addToList(Task... tasks) {
+    public static Result addToList(Task... tasks) {
+        Result r = Result.makeResultOk("Adding to task list:\n");
         for (Task t : tasks) {
             list.add(t);
+            r.updateMessage(Ui.letoSpeak("Task added, " + t
+                    + "\n  > You have " + TaskList.list.size() + " tasks."));
         }
+        return r;
     }
 
     /**
@@ -79,11 +53,10 @@ public class TaskList {
             assert temp != null : "Shouldn't occur!! Task is null";
             if (temp.isCompleted()) {
                 throw new InvalidTaskException("Task already completed");
-            } else {
-                temp.markCompleted();
-                r.updateMessage(Ui.letoSpeak("Task marked as completed! Congratulations"));
-                return r;
             }
+            temp.markCompleted();
+            r.updateMessage(Ui.letoSpeak("Task marked as completed! Congratulations"));
+            return r;
         } catch (InvalidTaskException e) {
             r.updateWithException(e.printException(), e);
             return r;
@@ -105,11 +78,10 @@ public class TaskList {
             assert temp != null : "Shouldn't occur!! Task is null";
             if (!temp.isCompleted()) {
                 r.updateMessage(Ui.letoSpeak("Task is already not completed :< "));
-            } else {
-                temp.markUncompleted();
-                r.updateMessage(
-                        Ui.letoSpeak("Task marked as uncompleted! Things happen, don't worry we account for it"));
             }
+            temp.markUncompleted();
+            r.updateMessage(
+                    Ui.letoSpeak("Task marked as uncompleted! Things happen, don't worry we account for it"));
             return r;
         } catch (InvalidTaskException e) {
             r.updateWithException(e.printException(), e);
@@ -181,7 +153,7 @@ public class TaskList {
     /**
      * Get tasks as an unmodifiable list when there is a need to iterate through it.
      *
-     * @return A unmodifiable List of Task.
+     * @return An unmodifiable List of Task.
      */
     public static List<Task> getTasks() {
         return Collections.unmodifiableList(list);
