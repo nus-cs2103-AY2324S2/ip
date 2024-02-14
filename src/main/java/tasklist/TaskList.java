@@ -3,6 +3,8 @@ package tasklist;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+import exception.InvalidTaskIndexException;
+import task.PriorityComparator;
 import task.Task;
 
 /**
@@ -55,17 +57,28 @@ public class TaskList {
      * @param index The index of the task
      * @return The task at the specified index
      */
-    public Task getTask(int index) {
-        return this.tasksList.get(index - 1);
+    public Task getTask(int index) throws InvalidTaskIndexException {
+        if (index <= 0) {
+            throw new InvalidTaskIndexException("The index of a task cannot be 0 or negative.");
+        }
+        if (index > this.getTaskCount()) {
+            throw new InvalidTaskIndexException("The index of a task cannot be greater than the number of tasks.");
+        }
+        Task task = this.tasksList.get(index - 1);
+        if (task == null) {
+            throw new InvalidTaskIndexException("The task at index " + index + " does not exist.");
+        }
+        return task;
     }
 
     /**
-     * Prints the list of tasks.
+     * Prints the list of tasks, sorted by priority.
      */
     public String printList() {
         if (this.tasksList.size() == 0) {
             return "There are no tasks in your list.";
         }
+        this.tasksList.sort(new PriorityComparator());
         String listOutput = this.tasksList.stream()
                 .map(task -> (this.tasksList.indexOf(task) + 1) + ". " + task + "\n")
                 .collect(Collectors.joining());

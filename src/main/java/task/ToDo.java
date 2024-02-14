@@ -26,7 +26,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return super.getPriorityString() + "[T]" + super.toString();
     }
 
     /**
@@ -36,6 +36,6 @@ public class ToDo extends Task {
      */
     @Override
     public String toFileString() {
-        return "T | " + (isDone ? "1" : "0") + " | " + description;
+        return "T | " + super.toFileString();
     }
 }

@@ -39,7 +39,8 @@ public class Event extends Task {
     public String toString() {
         String startDateString = startDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         String deadlineDateString = deadlineDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-        return "[E]" + super.toString() + " (from: " + startDateString + " to: " + deadlineDateString + ")";
+        return super.getPriorityString() + "[E]" + super.toString() + " (from: " + startDateString + " to: "
+                + deadlineDateString + ")";
     }
 
     /**
@@ -51,6 +52,6 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + startDate + " | " + deadlineDate;
+        return "E | " + super.toFileString() + " | " + startDate + " | " + deadlineDate;
     }
 }

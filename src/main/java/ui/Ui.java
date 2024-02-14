@@ -1,6 +1,8 @@
 package ui;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import task.Task;
@@ -13,6 +15,22 @@ import task.Task;
  * </p>
  */
 public class Ui {
+
+    private static final Map<String, String> commandDescriptions = new LinkedHashMap<>();
+
+    static {
+        commandDescriptions.put("todo", "Add a todo task: todo <description>");
+        commandDescriptions.put("deadline", "Add a deadline task: deadline <description> /by <date>");
+        commandDescriptions.put("event", "Add an event task: event <description> /at <date>");
+        commandDescriptions.put("list", "List all tasks: list");
+        commandDescriptions.put("mark", "Mark a task as done: mark <taskNumber>");
+        commandDescriptions.put("unmark", "Mark a task as not done: unmark <taskNumber>");
+        commandDescriptions.put("delete", "Remove a task: delete <taskNumber>");
+        commandDescriptions.put("find", "Find tasks by keyword: find <keyword>");
+        commandDescriptions.put("tag", "Tag a task: tag <taskNumber> <tag>");
+        commandDescriptions.put("bye", "Exit the application: bye");
+    }
+
     /**
      * Displays the welcome message to the user.
      * 
@@ -115,12 +133,18 @@ public class Ui {
      * Displays the list of commands available to the user.
      */
     public String getListOfCommandsMessage() {
-        return "Here are the available commands:\n" + "1. todo <description>: Add a todo task\n"
-                + "2. deadline <description> /by <date>: Add a deadline task\n"
-                + "3. event <description> /at <date>: Add an event task\n"
-                + "4. list: List all tasks\n" + "5. mark <taskNumber>: Mark a task as done\n"
-                + "6. unmark <taskNumber>: Mark a task as not done\n" + "7. delete <taskNumber>: Remove a task\n"
-                + "8. bye: Exit the program";
+        return "Here are the available commands:\n" + commandDescriptions.entrySet().stream()
+                .map(entry -> entry.getKey() + " - " + entry.getValue() + "\n")
+                .collect(Collectors.joining());
+    }
+
+    /**
+     * Display specific command to the user.
+     * 
+     * @param command The command to be displayed
+     */
+    public String getCommandDescriptionMessage(String command) {
+        return "\n\n" + "Format> " + commandDescriptions.get(command);
     }
 
     /**
@@ -136,6 +160,10 @@ public class Ui {
                 .map(task -> (matchingTasks.indexOf(task) + 1) + ". " + task + "\n")
                 .collect(Collectors.joining());
         return "Here are the matching tasks in your list:\n" + matchingTasksOutput;
+    }
+
+    public String getTagTaskMessage(Task task) {
+        return "Got it. I have tagged this task:\n" + getTaskMessage(task);
     }
 
     /**

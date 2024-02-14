@@ -1,5 +1,7 @@
 package task;
 
+import utils.EnumConverter;
+
 /**
  * Represents a task.
  * <p>
@@ -11,14 +13,17 @@ package task;
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected Priority priority;
 
     /**
      * Constructs a new {@code Task} instance with the specified description.
+     * 
      * @param description The description of the task.
      */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.priority = Priority.NONE;
     }
 
     public String getDescription() {
@@ -27,10 +32,36 @@ public class Task {
 
     /**
      * Returns the status of the task.
+     * 
      * @return The status of the task.
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
+    }
+
+    /**
+     * Returns the priority of the task.
+     * 
+     * @return The priority of the task.
+     */
+    public Priority getPriority() {
+        return this.priority;
+    }
+
+    /**
+     * Sets the priority of the task.
+     * 
+     * @param priority The priority of the task.
+     */
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
+
+    /**
+     * Removes the priority of the task.
+     */
+    public void removePriority() {
+        this.priority = null;
     }
 
     /**
@@ -49,6 +80,7 @@ public class Task {
 
     /**
      * Returns the string representation of the task.
+     * 
      * @return The string representation of the task.
      */
     @Override
@@ -56,12 +88,20 @@ public class Task {
         return "[" + getStatusIcon() + "] " + description;
     }
 
+    public String getPriorityString() {
+        if (priority == Priority.NONE) {
+            return "";
+        }
+        return "[" + EnumConverter.convertPriorityToString(priority) + "] ";
+    }
+
     /**
      * Returns the string representation of the task to be saved in the file.
+     * 
      * @return The string representation of the task to be saved in the file.
      */
     public String toFileString() {
-        return (isDone ? "1" : "0") + " | " + description;
+        return (isDone ? "1" : "0") + " | " + EnumConverter.convertPriorityToFileString(priority) + " | " + description;
     }
 
 }
