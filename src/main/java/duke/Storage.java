@@ -16,13 +16,13 @@ public class Storage {
      */
     public static void save(TaskList taskList) {
         try {
-            FileWriter f = new FileWriter("save.txt");
+            FileWriter file = new FileWriter("save.txt");
             for(Task task : taskList.getTaskList()) {
                 String taskString = task.convertToText();
-                f.write(taskString);
-                f.write("\n");
+                file.write(taskString);
+                file.write("\n");
             }
-            f.close();
+            file.close();
         } catch (java.io.IOException e) {
             System.out.println("Error in saving");
         }
