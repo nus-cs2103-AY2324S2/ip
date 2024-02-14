@@ -26,11 +26,6 @@ public class TaskList {
     public void addTask(Task task) {
         tasks.add(task);
     }
-
-    public boolean emptyCheck() {
-        return tasks.isEmpty();
-    }
-
     public ArrayList<Task> allTasks() {
         return tasks;
     }

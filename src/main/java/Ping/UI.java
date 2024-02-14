@@ -73,7 +73,7 @@ public class UI {
         } else {
             for (int i = 0; i < tasks.size(); i++) {
                 int idx = i + 1;
-                sb.append(idx).append(".").append(tasks.get(i).toString()).append("\n");
+                sb.append(idx).append(". ").append(tasks.get(i).toString()).append("\n");
             }
             return sb.toString();
         }

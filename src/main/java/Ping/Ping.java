@@ -1,6 +1,5 @@
 // Some of the code modified from the JavaFX tutorial
 package Ping;
-import java.util.ArrayList;
 
 import Command.Command;
 
