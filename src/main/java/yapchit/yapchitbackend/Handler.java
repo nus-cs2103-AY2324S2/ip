@@ -192,6 +192,7 @@ public class Handler {
         }
 
         String output = "";
+        assert parts[1] != null : "search term cannot be null";
         output = ui.printList(tasks.findSublist(parts[1]), "Here are the matching tasks in your list:");
         return output;
 
@@ -231,6 +232,7 @@ public class Handler {
         }
 
         try {
+            assert parts[1] != null : "delete index cannot be null";
             int num = Integer.parseInt(parts[1]);
             Task t = tasks.getItem(num - 1);
             tasks.delete(num - 1);
@@ -258,6 +260,7 @@ public class Handler {
 
         String output = "";
         try {
+            assert parts[1] != null : "mark index cannot be null";
             int idx = Integer.parseInt(parts[1]);
             tasks.mark(idx - 1, isDone);
             output = ui.printTaskMark(tasks.getItem(idx - 1), isDone);
@@ -294,11 +297,12 @@ public class Handler {
         if (!isNewTask) {
             isDone = input.charAt(input.length() - 1);
         }
-
+        assert isDone == '0' || isDone == '1' : "isDone must be '0' or '1'";
         return isDone;
     }
 
     private String getUpdatedInput(String input, boolean isNewTask) {
+        assert input != "" : "input cannot be empty";
         return isNewTask ? input : input.substring(0, input.length() - 1);
     }
 }

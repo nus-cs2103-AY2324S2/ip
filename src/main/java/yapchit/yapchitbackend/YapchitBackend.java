@@ -52,6 +52,10 @@ public class YapchitBackend {
      * Main loop ends when the 'bye' command is entered by the user.
      */
     public String run(String input) {
+        assert this.ui != null;
+        assert this.parser != null;
+        assert this.handler != null;
+        assert this.tasks != null;
         String retVal;
 
         try{
@@ -84,6 +88,9 @@ public class YapchitBackend {
     }
 
     public boolean checkIsBye(String input){
+
+        assert input instanceof String : "input should be a String instance";
+
         return handler.checkIsBye(input);
     }
 }
