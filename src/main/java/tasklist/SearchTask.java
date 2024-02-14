@@ -20,13 +20,12 @@ public class SearchTask {
         throw new AssertionError("Constructor is not allowed");
         // assert false : "Execution should never reach this point!";
     }
-
     /**
      * Search Task in ArrayList based on Date and Time
      * @param input Date and Time to search
      * @param taskList ArrayList with Tasks
      */
-    public static String execSearchTask(String input, List<Task> taskList) throws TaylorException {
+    public static String execSearchTask(String input, List<List<Task>> taskList) throws TaylorException {
         StringBuilder response = new StringBuilder();
         int splitFirstWhitespace = 2;
         int contentIdx = 1;
@@ -37,21 +36,22 @@ public class SearchTask {
             LocalDateTime searchDate = InsertTask.dateConversion(content);
             List<Task> output = new ArrayList<>();
 
-            for (Task act : taskList) {
-                int taskTypeIdx = 1;
-                char taskType = act.toString().charAt(taskTypeIdx);
+            int deadlineListIdx = 0;
+            int eventListIdx = 1;
+            List<Task> deadlineList = taskList.get(deadlineListIdx);
+            List<Task> eventList = taskList.get(eventListIdx);
 
-                if (taskType == 'D') {
-                    Deadline task = (Deadline) act;
-                    if (task.getBy().isEqual(searchDate)) {
-                        output.add(act);
-                    }
+            for (Task deadline : deadlineList) {
+                Deadline task = (Deadline) deadline;
+                if (task.getBy().isEqual(searchDate)) {
+                    output.add(task);
+                }
+            }
 
-                } else if (taskType == 'E') {
-                    Event task = (Event) act;
-                    if (task.getFrom().isEqual(searchDate) || task.getTo().isEqual(searchDate)) {
-                        output.add(act);
-                    }
+            for (Task event : eventList) {
+                Event task = (Event) event;
+                if (task.getFrom().isEqual(searchDate) || task.getTo().isEqual(searchDate)) {
+                    output.add(task);
                 }
             }
 

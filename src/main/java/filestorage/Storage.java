@@ -29,11 +29,10 @@ public class Storage {
      * @return Action ArrayList from Hard Disk or the empty ArrayList if not present
      * @throws Exception Wrong file location, no data in the file, or content in wrong format
      */
-    public static List<Task> inputFromFile(List<Task> taskList) throws TaylorException {
+    public static List<List<Task>> inputFromFile(List<List<Task>> taskList) throws TaylorException {
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("taylor.txt"));
-            taskList = (List<Task>) ois.readObject();
-            int pos = 1;
+            taskList = (List<List<Task>>) ois.readObject();
             return taskList;
         } catch (FileNotFoundException e) {
             throw new TaylorException("File not found\n" + System.getProperty("user.dir"));
@@ -49,7 +48,7 @@ public class Storage {
      * @param taskList get the Action Array List and save in Hard Disk
      * @throws Exception file to save the Actions is not available
      */
-    public static String outputToFile(List<Task> taskList) throws Exception {
+    public static String outputToFile(List<List <Task>> taskList) throws Exception {
         StringBuilder response = new StringBuilder();
         try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("taylor.txt"));
