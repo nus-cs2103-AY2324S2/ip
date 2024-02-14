@@ -52,25 +52,25 @@ public class Storage {
             String[] splits = taskString.split(" \\| "); // Splitting each part of the task
 
             switch (splits[0]) {
-            case "T": {
-                Task toAdd = new ToDo(splits[2], splits[1].equals("1"));
-                loadedTasks.add(toAdd);
-                break;
-            }
-            case "E": {
-                Task toAdd = new Event(splits[2], splits[3], splits[4], splits[1].equals("1"));
-                loadedTasks.add(toAdd);
-                break;
-            }
-            case "D": {
-                Task toAdd = new Deadline(splits[2], splits[3], splits[1].equals("1"));
-                loadedTasks.add(toAdd);
-                break;
-            }
-            default: {
-                throw new JamieException("Error occurred when reading data from storage file.\n"
-                        + "Therefore, creating a new task list.");
-            }
+                case "T": {
+                    Task toAdd = new ToDo(splits[2], splits[1].equals("1"));
+                    loadedTasks.add(toAdd);
+                    break;
+                }
+                case "E": {
+                    Task toAdd = new Event(splits[2], splits[3], splits[4], splits[1].equals("1"));
+                    loadedTasks.add(toAdd);
+                    break;
+                }
+                case "D": {
+                    Task toAdd = new Deadline(splits[2], splits[3], splits[1].equals("1"));
+                    loadedTasks.add(toAdd);
+                    break;
+                }
+                default: {
+                    throw new JamieException("Error occurred when reading data from storage file.\n"
+                            + "Therefore, creating a new task list.");
+                }
             }
         }
         scanner.close();

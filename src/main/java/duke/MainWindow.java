@@ -62,4 +62,3 @@ public class MainWindow extends AnchorPane {
         Platform.exit();
     }
 }
-
