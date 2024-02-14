@@ -5,6 +5,7 @@ import java.time.format.DateTimeParseException;
 
 import atsisbot.task.Deadline;
 import atsisbot.task.Event;
+import atsisbot.task.Priority;
 import atsisbot.task.Task;
 import atsisbot.task.TaskList;
 import atsisbot.task.Todo;
@@ -151,6 +152,23 @@ public class Command {
             return;
         }
         Ui.printFindMessage(taskList.findTasks(args));
+    }
+
+    public static void setPriority(String args, TaskList taskList) {
+        String[] descriptionAndPriority = args.split(" /priority ");
+        if (descriptionAndPriority.length != 2) {
+            Ui.printInvalidPriorityFormatMessage();
+            return;
+        }
+        try {
+            int index = Integer.parseInt(descriptionAndPriority[0]);
+            taskList.getTask(index).setPriority(Priority.valueOf(descriptionAndPriority[1]));
+            Ui.printSetPriorityMessage(taskList.getTask(index));
+        } catch (IndexOutOfBoundsException e) {
+            Ui.printInvalidTaskNumberMessage();
+        } catch (IllegalArgumentException e) {
+            Ui.printInvalidPriorityFormatMessage();
+        }
     }
 
     /**

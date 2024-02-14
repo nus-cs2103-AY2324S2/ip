@@ -12,6 +12,7 @@ import java.util.stream.Stream;
 
 import atsisbot.task.Deadline;
 import atsisbot.task.Event;
+import atsisbot.task.Priority;
 import atsisbot.task.Task;
 import atsisbot.task.TaskList;
 import atsisbot.task.Todo;
@@ -79,7 +80,7 @@ public class Storage {
         Task task = null;
         switch (taskInfo[0]) {
         case "T":
-            task = new Todo(taskInfo[2]);
+            task = processTodo(taskInfo);
             break;
         case "D":
             task = processDeadline(taskInfo, task);
@@ -93,6 +94,17 @@ public class Storage {
         if (taskInfo[1].equals("1")) {
             task.markAsDone();
         }
+        return task;
+    }
+
+    private static Task processTodo(String[] taskInfo) {
+        if (taskInfo.length != 4) {
+            System.out.println("Invalid todo format in the atsisbot.task list");
+            return null;
+        }
+        Task task;
+        task = new Todo(taskInfo[2]);
+        task.setPriority(Priority.valueOf(taskInfo[3].toUpperCase()));
         return task;
     }
 
@@ -114,7 +126,8 @@ public class Storage {
             LocalDateTime startDateTime = LocalDateTime.parse(taskInfo[3], Task.getDateTimeFormatter());
             LocalDateTime endDateTime = LocalDateTime.parse(taskInfo[4], Task.getDateTimeFormatter());
             task = new Event(taskInfo[2], startDateTime, endDateTime);
-        } catch (DateTimeParseException e) {
+            task.setPriority(Priority.valueOf(taskInfo[5].toUpperCase()));
+        } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
             System.out.println("Invalid event format in the atsisbot.task list: " + e.getMessage());
         }
         return task;
@@ -137,7 +150,8 @@ public class Storage {
         try {
             LocalDateTime deadline = LocalDateTime.parse(taskInfo[3], Task.getDateTimeFormatter());
             task = new Deadline(taskInfo[2], deadline);
-        } catch (DateTimeParseException e) {
+            task.setPriority(Priority.valueOf(taskInfo[4].toUpperCase()));
+        } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
             System.out.println(
                     "Invalid deadline format in the atsisbot.task list: " + e.getMessage());
         }
