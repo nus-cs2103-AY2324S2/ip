@@ -1,5 +1,0 @@
-1:todo:something
-0:todo:something else
-0:event:something : this : that
-1:event:something : this : that
-1:deadline:something : then
