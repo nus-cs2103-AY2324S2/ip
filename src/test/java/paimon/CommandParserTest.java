@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import paimon.command.*;
 import paimon.util.CommandParser;
 
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertEquals;
