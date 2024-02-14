@@ -27,19 +27,21 @@ public class UnmarkCommand extends Command {
      * @param storage object that is used for storage.
      * @throws ChaterpillarException if there is an error writing to file.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage)
+    public String execute(TaskList tasks, Ui ui, Storage storage)
             throws ChaterpillarException {
         if (index > tasks.size()) {
-            ui.echo("Sorry! That item does not exist in the list.\n"
+            throw new ChaterpillarException(
+                    "Sorry! That item does not exist in the list.\n"
                     + "You currently have " + tasks.size() + " tasks in the list.");
         } else {
             Task currTask = tasks.get(index - 1);
             currTask.unmark();
-
-            ui.echo("Ok, I've marked this task as not done yet:");
-            ui.echo(currTask.toString());
-
             storage.saveAllToFile(tasks);
+
+            String output =
+                    "Ok, I've marked this task as not done yet:\n" + currTask;
+            ui.echo(output);
+            return output;
         }
     }
 }

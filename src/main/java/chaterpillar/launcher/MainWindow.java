@@ -1,2 +1,71 @@
-package chaterpillar.launcher;public class MainWindow {
+package chaterpillar.launcher;
+
+import chaterpillar.Chaterpillar;
+import chaterpillar.exceptions.ChaterpillarException;
+import javafx.fxml.FXML;
+
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+
+import javafx.scene.image.Image;
+
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+
+import javafx.util.Pair;
+
+/**
+ * Controller for MainWindow. Provides the layout for the other controls.
+ */
+public class MainWindow extends AnchorPane {
+    @FXML
+    private ScrollPane scrollPane;
+    @FXML
+    private VBox dialogContainer;
+    @FXML
+    private TextField userInput;
+    @FXML
+    private Button sendButton;
+    private Chaterpillar chaterpillar;
+    private Image chaterpillarImage = new Image(this.getClass().getResourceAsStream("/images/chaterpillar.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+
+    @FXML
+    public void initialize() {
+        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getInitialiseChaterpillarDialog(Chaterpillar.greet(), chaterpillarImage)
+        );
+    }
+
+    public void setChaterpillar(Chaterpillar chaterpillar) {
+        this.chaterpillar = chaterpillar;
+    }
+
+    /**
+     * Creates two dialog boxes, one echoing user input and the other containing Chaterpillar's reply and then appends them to
+     * the dialog container. Clears the user input after processing.
+     */
+    @FXML
+    private void handleUserInput() {
+        String input = userInput.getText();
+        try {
+            Pair<String, Boolean> pair = chaterpillar.getResponse(input);
+            String response = pair.getKey();
+            boolean hasExited = pair.getValue();
+            if (!hasExited) {
+                dialogContainer.getChildren().addAll(
+                        DialogBox.getUserDialog(input, userImage),
+                        DialogBox.getChaterpillarDialog(response, chaterpillarImage));
+            }
+        } catch (ChaterpillarException e) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getExceptionDialog(e.getMessage(), chaterpillarImage));
+        }
+        userInput.clear();
+    }
 }
+
+

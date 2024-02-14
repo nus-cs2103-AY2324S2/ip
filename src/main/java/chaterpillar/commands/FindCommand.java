@@ -27,10 +27,9 @@ public class FindCommand extends Command{
      * @param storage storage for this application
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ChaterpillarException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ChaterpillarException {
         if (this.keyword.trim().isEmpty()) {
-            ui.echo("Word/phrase to be search cannot be empty!");
-            return;
+            throw new ChaterpillarException("Word/phrase to be search cannot be empty!");
         }
 
         TaskList newList = new TaskList();
@@ -41,9 +40,12 @@ public class FindCommand extends Command{
         }
 
         if (newList.size() == 0) {
-            ui.echo("There are no items that match your search.");
+            String output = "There are no items that match your search.";
+            ui.echo(output);
+            return output;
         } else {
-            new ListCommand(newList).execute(newList, ui, storage);
+            String output = "Here are the items that match the keyword (" + this.keyword + "): \n";
+            return output + new ListCommand(newList).execute(newList, ui, storage);
         }
     }
 }

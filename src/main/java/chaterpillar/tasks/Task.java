@@ -54,7 +54,7 @@ public class Task {
      * text file.
      * @return formatted String, consisting of isMarked status and taskname
      */
-    public String stringForSaving() {
+    public String formatStringForSaving() {
         return this.isMarked + "|" + this.taskName;
     }
 

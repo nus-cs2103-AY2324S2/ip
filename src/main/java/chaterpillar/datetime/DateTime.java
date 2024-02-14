@@ -21,8 +21,8 @@ import java.time.temporal.TemporalAccessor;
 
 public class DateTime {
     private final LocalDateTime dateTime;
-    private boolean dateOnly;
-    private boolean timeOnly;
+    private boolean hasOnlyDate;
+    private boolean hasOnlyTime;
 
     /**
      * Constructor for this class.
@@ -31,8 +31,8 @@ public class DateTime {
      * invalid/unaccepted format.
      */
     public DateTime(String date) throws ChaterpillarException {
-        this.dateOnly = false;
-        this.timeOnly = false;
+        this.hasOnlyDate = false;
+        this.hasOnlyTime = false;
         this.dateTime = parseDateTime(date);
     }
 
@@ -42,8 +42,8 @@ public class DateTime {
      * @param date date and time in <code>LocalDateTime</code> object
      */
     public DateTime(LocalDate date) {
-        this.dateOnly = false;
-        this.timeOnly = false;
+        this.hasOnlyDate = false;
+        this.hasOnlyTime = false;
         this.dateTime = date.atTime(0, 0);
     }
 
@@ -162,12 +162,12 @@ public class DateTime {
                     s, LocalDateTime::from, LocalDate::from, LocalTime::from, YearMonth::from);
 
             if (dt instanceof LocalDate) {
-                dateOnly = true;
+                hasOnlyDate = true;
                 return ((LocalDate) dt).atStartOfDay();
             } else if (dt instanceof LocalTime) {
                 return ((LocalTime) dt).atDate(LocalDate.now());
             } else if (dt instanceof YearMonth) {
-                dateOnly = true;
+                hasOnlyDate = true;
                 return ((YearMonth) dt).atDay(1).atStartOfDay();
             } else {
                 return LocalDateTime.from(dt);
@@ -210,7 +210,7 @@ public class DateTime {
     }
     @Override
     public String toString() {
-        if (dateOnly) {
+        if (hasOnlyDate) {
             return this.dateTime.format(DateTimeFormatter.ofPattern("d/MMM/yyyy"));
         } else {
             return this.dateTime.format(DateTimeFormatter.ofPattern("d/MMM/yyyy hh:mm a"));

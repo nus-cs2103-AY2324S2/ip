@@ -15,10 +15,11 @@ public class UnrecognisedCommand extends Command {
      * @param ui object that handles the UI of this application.
      * @param storage object that is used for storage.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         String unrecognised =
                 "Oops, I have no idea what that means. "
                 + "Use 'help' for a list of commands I recognise.";
         ui.echo(unrecognised);
+        return unrecognised;
     }
 }

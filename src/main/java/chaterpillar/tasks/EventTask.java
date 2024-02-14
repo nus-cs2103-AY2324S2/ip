@@ -55,8 +55,8 @@ public class EventTask extends Task {
         return dt.isWithinDate(this.dateTimeFrom, this.dateTimeTo);
     }
     @Override
-    public String stringForSaving() {
-        return "E|" + super.stringForSaving() + "|"
+    public String formatStringForSaving() {
+        return "E|" + super.formatStringForSaving() + "|"
                 + this.dateTimeFrom + "|"
                 + this.dateTimeTo;
     }

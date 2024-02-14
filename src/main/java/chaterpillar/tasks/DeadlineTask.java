@@ -45,8 +45,8 @@ public class DeadlineTask extends Task {
         return this.dateTime.isSameDay(dt);
     }
     @Override
-    public String stringForSaving() {
-        return "D|" + super.stringForSaving() + "|" + this.dateTime;
+    public String formatStringForSaving() {
+        return "D|" + super.formatStringForSaving() + "|" + this.dateTime;
     }
     @Override
     public String toString() {

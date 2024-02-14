@@ -16,7 +16,7 @@ public class ListAllCommand extends Command{
      * @param ui object that handles the UI of this application.
      * @param storage object that is used for storage.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        new ListCommand(tasks).execute(tasks, ui, storage);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return new ListCommand(tasks).execute(tasks, ui, storage);
     }
 }

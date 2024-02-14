@@ -29,13 +29,15 @@ public class TaskCommand extends Command {
      * @param storage object that is used for storage.
      * @throws ChaterpillarException if there are errors writing to the file.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ChaterpillarException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ChaterpillarException {
         tasks.addTask(this.task);
-
-        ui.echo("Got it. I've added this task:");
-        ui.echo(task.toString());
-        ui.echo("Now you have " + tasks.size() + " tasks in the list.");
-
         storage.saveAllToFile(tasks);
+
+        String output =
+                "Got it. I've added this task:\n"
+                + task.toString() + "\n"
+                + "Now you have " + tasks.size() + " tasks in the list.";
+        ui.echo(output);
+        return output;
     }
 }

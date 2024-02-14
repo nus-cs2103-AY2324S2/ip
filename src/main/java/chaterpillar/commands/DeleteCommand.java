@@ -1,6 +1,7 @@
 package chaterpillar.commands;
 
 import chaterpillar.exceptions.ChaterpillarException;
+import chaterpillar.tasks.Task;
 import chaterpillar.tasks.TaskList;
 import chaterpillar.ui.Ui;
 import chaterpillar.storage.Storage;
@@ -31,9 +32,17 @@ public class DeleteCommand extends Command {
      * or number specified does not exist in the <code>TaskList</code>
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ChaterpillarException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ChaterpillarException {
         try {
-            tasks.deleteTaskAtIndex(index);
+            Task task = tasks.deleteTaskAtIndex(index);
+            storage.saveAllToFile(tasks);
+
+            String output =
+                    "I have deleted this task for you: \n"
+                    + task.toString() + "\n"
+                    + "Now you have " + tasks.size() + " tasks in the list.";
+            ui.echo(output);
+            return output;
         } catch (NumberFormatException e) {
             throw new ChaterpillarException(
                     "Sorry, there is no number detected.\n"
@@ -43,6 +52,5 @@ public class DeleteCommand extends Command {
                     "Sorry, the item does not exist in the list.\n"
                     + "The correct way to use the command is: delete number");
         }
-        storage.saveAllToFile(tasks);
     }
 }

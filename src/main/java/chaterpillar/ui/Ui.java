@@ -38,13 +38,19 @@ public class Ui {
     /**
      * Prints the greeting message by the Chaterpillar chatbot.
      * It also prints the horizontal lines as dividers before and after the message.
+     *
+     * @return
      */
-    public void greet() {
+    public String greet() {
+        String output =
+                "Hello! I'm Chaterpillar\n"
+                + "What can I do for you?";
+
         printHorizontalLine();
         echo(LOGO);
-        echo("Hello! I'm Chaterpillar");
-        echo("What can I do for you?");
+        echo(output);
         printHorizontalLine();
+        return output;
     }
 
     /**

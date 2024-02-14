@@ -7,6 +7,8 @@ import chaterpillar.tasks.TaskList;
 import chaterpillar.ui.Ui;
 import chaterpillar.storage.Storage;
 
+import javafx.util.Pair;
+
 import java.io.IOException;
 
 /**
@@ -24,6 +26,29 @@ public class Chaterpillar {
         tasks = storage.loadFromFile();
     }
 
+    /**
+     * Returns basic greeting message.
+     * @return message
+     */
+    public static String greet() {
+        return "Hello! I'm Chaterpillar!\n"
+                + "What can I do for you?";
+    }
+
+    /**
+     * Returns the appropriate response from a given input, tagged with exit status.
+     * @param input command from user.
+     * @return response of the chatbot and exit status.
+     * @throws ChaterpillarException custom <code>Exception</code> for this application.
+     */
+    public Pair<String, Boolean> getResponse(String input) throws ChaterpillarException {
+        Command command = Parser.parse(input);
+        String response = command.execute(tasks, ui, storage);
+        boolean hasExited = command.hasExited();
+        return new Pair<>(response, hasExited);
+    }
+
+    /* Potentially obsolete code
     public void run() {
         ui.greet();
         boolean hasExited = false;
@@ -44,5 +69,5 @@ public class Chaterpillar {
 
     public static void main(String[] args) throws ChaterpillarException, IOException {
         new Chaterpillar().run();
-    }
+    }*/
 }

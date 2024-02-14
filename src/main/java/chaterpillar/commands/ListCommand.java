@@ -27,12 +27,15 @@ public class ListCommand extends Command {
      * @param ui object that handles the UI of this application.
      * @param storage object that is used for storage.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.echo("Here are the tasks in your list: ");
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        StringBuilder output = new StringBuilder("Here are the tasks in your list: \n");
 
         int i = 1;
         for (Task eachTask : this.tasks.getTasks()) {
-            ui.echo(i++ + ". " + eachTask);
+            output.append(i++).append(". ").append(eachTask).append("\n");
         }
+
+        ui.echo(output.toString());
+        return output.toString();
     }
 }

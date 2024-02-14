@@ -15,7 +15,7 @@ public class HelpCommand extends Command {
      * @param ui object that handles the UI of this application.
      * @param storage object that is used for storage.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         String helpMessage =
                 "Hi! Here are the list of commands I recognise: \n\n"
                 + "'list' - lists the tasks registered in the list\n"
@@ -28,5 +28,6 @@ public class HelpCommand extends Command {
                 + "'help' - opens the list of commands available\n"
                 + "'bye' - exits the chatbot";
         ui.echo(helpMessage);
+        return helpMessage;
     }
 }

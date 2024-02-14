@@ -1,9 +1,7 @@
 package chaterpillar.tasks;
 
 import chaterpillar.datetime.DateTime;
-import chaterpillar.exceptions.ChaterpillarException;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -65,10 +63,12 @@ public class TaskList {
 
     /**
      * Deletes a <code>Task</code> at the specified index.
+     *
      * @param index specified index to be deleted
+     * @return
      */
-    public void deleteTaskAtIndex(int index) {
-        this.tasks.remove(index);
+    public Task deleteTaskAtIndex(int index) {
+        return this.tasks.remove(index);
     }
 
     /**

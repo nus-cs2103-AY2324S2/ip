@@ -29,18 +29,21 @@ public class MarkCommand extends Command {
      * @param storage object that is used for storage.
      * @throws ChaterpillarException if there is an error writing to file.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ChaterpillarException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ChaterpillarException {
         if (index > tasks.size()) {
-            ui.echo("Sorry! That item does not exist in the list.\n" +
-                    "You currently have " + tasks.size() + " tasks in the list.");
+            throw new ChaterpillarException(
+                    "Sorry! That item does not exist in the list.\n"
+                    + "You currently have " + tasks.size() + " tasks in the list.");
         } else {
             Task currTask = tasks.get(index-1);
             currTask.mark();
 
-            ui.echo("Nice! I've marked this task as done:");
-            ui.echo(currTask.toString());
-
             storage.saveAllToFile(tasks);
+
+            String output = "Nice! I've marked this task as done:\n" + currTask;
+
+            ui.echo(output);
+            return output;
         }
     }
 }

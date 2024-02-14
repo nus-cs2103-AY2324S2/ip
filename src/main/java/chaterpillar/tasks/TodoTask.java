@@ -24,8 +24,8 @@ public class TodoTask extends Task {
         super(taskName, isMarked);
     }
     @Override
-    public String stringForSaving() {
-        return "T|" + super.stringForSaving();
+    public String formatStringForSaving() {
+        return "T|" + super.formatStringForSaving();
     }
     @Override
     public String toString() {

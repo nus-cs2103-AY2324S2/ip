@@ -9,7 +9,7 @@ import chaterpillar.storage.Storage;
 /**
  * <code>Command</code> to list all tasks on a specified date.
  */
-public class TasksByDateCommand extends Command {
+public class TasksDueByDateCommand extends Command {
     DateTime date;
 
     /**
@@ -17,7 +17,7 @@ public class TasksByDateCommand extends Command {
      * @param date displays the list of tasks on this date.
      * @throws ChaterpillarException if date string provided is invalid
      */
-    public TasksByDateCommand(String date) throws ChaterpillarException {
+    public TasksDueByDateCommand(String date) throws ChaterpillarException {
         this.date = new DateTime(date);
     }
 
@@ -26,7 +26,7 @@ public class TasksByDateCommand extends Command {
      * object for the date specified.
      * @param date displays the list of tasks on this date.
      */
-    public TasksByDateCommand(DateTime date) {
+    public TasksDueByDateCommand(DateTime date) {
         this.date = date;
     }
 
@@ -36,13 +36,15 @@ public class TasksByDateCommand extends Command {
      * @param ui object that handles the UI of this application.
      * @param storage object that is used for storage.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ChaterpillarException {
-        ui.echo(String.format("For %s,", this.date));
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ChaterpillarException {
         TaskList tasksNew = tasks.getTasksOnDate(this.date);
+        String output = String.format("For %s,\n", this.date);
         if (tasksNew.size() == 0) {
-            ui.echo("Congrats! You have no tasks for today. :)");
+            output += "Congrats! You have no tasks for today. :)";
         } else {
-            new ListCommand(tasksNew).execute(tasks, ui, storage);
+            return output + new ListCommand(tasksNew).execute(tasks, ui, storage);
         }
+        ui.echo(output);
+        return output;
     }
 }

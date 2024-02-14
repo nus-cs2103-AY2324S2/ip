@@ -110,7 +110,7 @@ public class Storage {
             writer.write("");   // clears the file
             StringBuilder strBdr = new StringBuilder();
             for (Task task : tasks.getTasks()) {
-                String str = task.stringForSaving();
+                String str = task.formatStringForSaving();
                 strBdr.append(str).append("\n");
             }
             writer.write(strBdr.toString());

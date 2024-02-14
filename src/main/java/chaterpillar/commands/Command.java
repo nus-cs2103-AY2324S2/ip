@@ -21,7 +21,7 @@ public abstract class Command {
      * @param storage object that is used for storage.
      * @throws ChaterpillarException custom <code>Exception</code> for this application.
      */
-    public abstract void execute(TaskList task, Ui ui, Storage storage)
+    public abstract String execute(TaskList task, Ui ui, Storage storage)
             throws ChaterpillarException;
 
     /**
