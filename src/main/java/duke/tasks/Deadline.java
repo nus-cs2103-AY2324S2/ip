@@ -1,4 +1,4 @@
-package duke;
+package duke.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -32,13 +32,13 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a string representation containing all details required to reconstruct this task. Meant for writing to 
+     * Returns a string representation containing all details required to reconstruct this task. Meant for writing to
      * storage.
      * @return a String that shows the name, date and done status of the task, to be stored on disk.
      */
     @Override
     public String toStorageString() {
-        return String.format("D,%s,%s", 
+        return String.format("D,%s,%s",
                 super.toStorageString(), this.by.format(Task.INPUT_TIME_FORMATTER));
     }
 }

@@ -1,4 +1,4 @@
-package duke;
+package duke.ui;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,7 +24,7 @@ public class DialogBox extends HBox {
         this.setAlignment(Pos.TOP_RIGHT);
         this.getChildren().addAll(text, displayPicture);
     }
-    
+
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */

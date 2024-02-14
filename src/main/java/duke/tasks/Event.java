@@ -1,11 +1,11 @@
-package duke;
+package duke.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
     private final LocalDateTime from;
-    
+
     private final LocalDateTime to;
 
     public Event(String name, String from, String to) throws DateTimeParseException {
@@ -17,15 +17,15 @@ public class Event extends Task {
     @Override
     public String describe() {
         return String.format("[E]%s (from: %s to: %s)",
-                super.describe(), 
-                this.from.format(Task.OUTPUT_TIME_FORMATTER), 
+                super.describe(),
+                this.from.format(Task.OUTPUT_TIME_FORMATTER),
                 this.to.format(Task.OUTPUT_TIME_FORMATTER));
     }
 
     @Override
     public String toStorageString() {
-        return String.format("E,%s,%s,%s", super.toStorageString(), 
-                this.from.format(INPUT_TIME_FORMATTER), 
+        return String.format("E,%s,%s,%s", super.toStorageString(),
+                this.from.format(INPUT_TIME_FORMATTER),
                 this.to.format(INPUT_TIME_FORMATTER));
     }
 }

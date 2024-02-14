@@ -4,6 +4,12 @@ import java.time.format.DateTimeParseException;
 import java.util.Objects;
 import java.util.function.Consumer;
 
+import duke.commands.Command;
+import duke.commands.CommandList;
+import duke.commands.DukeCommandNotFoundException;
+import duke.tasks.*;
+import duke.ui.DialogBox;
+import duke.ui.Ui;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -60,7 +66,7 @@ public class Duke extends Application {
             try {
                 args.assertEnd();
                 this.print("Here's what you've done today...\n" + this.tasks.toDisplayString());
-                
+
             } catch (DukeOptionParsingException e) {
                 this.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
@@ -90,15 +96,15 @@ public class Duke extends Application {
                                 (String.format("I expected a number but %s was given instead", indexStr));
                     }
                 }
-                
+
                 args.assertEnd();
-                
-                try { 
+
+                try {
                     t = this.tasks.get(index - 1);
                 } catch (IndexOutOfBoundsException e) {
                     throw new DukeException(String.format("You tried to access an invalid task index: %d", index));
                 }
-                
+
                 t.mark();
                 this.print("CONGRATULATION!!!!!! you completed this task:\n" + t.describe());
                 this.st.writeTasks(this.tasks);
@@ -122,16 +128,16 @@ public class Duke extends Application {
                         );
                     }
                 }
-                
+
                 args.assertEnd();
-                
-                try { 
+
+                try {
                     t = this.tasks.get(index - 1);
                 } catch (IndexOutOfBoundsException e) {
                     throw new DukeException
                             (String.format("You tried to access an invalid task index: %d", index));
                 }
-                
+
                 t.unmark();
                 this.print("CONGRATULATION!!!!!! you un completed this task:\n" + t.describe());
                 this.st.writeTasks(this.tasks);
@@ -141,7 +147,7 @@ public class Duke extends Application {
         });
 
         this.addCommand("todo", (args) -> {
-            
+
             try {
                 String str = args.rest();
                 Task t = new ToDo(str);
@@ -157,10 +163,10 @@ public class Duke extends Application {
             StringBuilder by = new StringBuilder();
             StringBuilder name = new StringBuilder();
             Task t;
-            
+
             final String NO_NAME = "you didn't specify specify a name for your deadline";
             final String NO_BY = "you failed to specify an end date using '/by'";
-            
+
             try {
                 while (!args.peek().startsWith("/")) {
                     if (!name.isEmpty()) {
@@ -196,21 +202,21 @@ public class Duke extends Application {
                 if (by.isEmpty()) {
                     throw new DukeOptionParsingException(NO_BY);
                 }
-                
+
                 try {
                     t = new Deadline(name.toString(), by.toString());
                 } catch (DateTimeParseException e) {
                     throw new DukeException("Couldn't parse the end date " + by);
                 }
-                
+
                 this.print(String.format("Ok, I've added a new deadline...\n  %s", t.describe()));
                 this.tasks.add(t);
                 this.st.writeTasks(this.tasks);
             } catch (DukeException e) {
                 this.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
-            
-            
+
+
         });
 
         this.addCommand("event", (args) -> {
@@ -255,7 +261,7 @@ public class Duke extends Application {
                 if (from.isEmpty()) {
                     throw new DukeOptionParsingException(NO_FROM);
                 }
-                
+
                 {
                     String str = args.next();
                     if (!str.equals("/to")) {
@@ -279,7 +285,7 @@ public class Duke extends Application {
                 if (to.isEmpty()) {
                     throw new DukeOptionParsingException(NO_TO);
                 }
-                
+
                 try {
                     t = new Event(name.toString(), from.toString(), to.toString());
                 } catch (DateTimeParseException e) {
@@ -330,8 +336,8 @@ public class Duke extends Application {
         this.addCommand("find", (psr) -> {
             try {
                 String toFind = psr.rest();
-                this.print(String.format("I found the following tasks with names that match '%s':\n%s", 
-                        toFind, 
+                this.print(String.format("I found the following tasks with names that match '%s':\n%s",
+                        toFind,
                         this.tasks.filterSubString(toFind)));
             } catch (DukeOptionParsingException e) {
                 this.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
@@ -412,7 +418,7 @@ public class Duke extends Application {
                             + "\n\nPlease delete 'data.txt' and try again. Bye bye...", e.getMessage()));
             System.exit(1);
         }
-        
+
         this.initCommands();
     }
 
@@ -427,7 +433,7 @@ public class Duke extends Application {
         dialogContainer.getChildren().add(DialogBox.createUserDialog(userText, new ImageView(user)));
         Parser parser = new Parser(userInput.getText());
         userInput.clear();
-        
+
         try {
             this.commands.get(parser.next()).run(parser);
         } catch (DukeCommandNotFoundException | DukeOptionParsingException e) {

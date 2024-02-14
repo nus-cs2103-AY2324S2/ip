@@ -1,5 +1,7 @@
 package duke;
 
+import duke.tasks.Deadline;
+import duke.tasks.Task;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -10,13 +12,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class DeadlineTest {
-    
+
     public static final String NAME_1 = "deadline 1";
     public static final String DATE_1 = "2024-06-06 0000";
     public static final String EXPECTED_DESCRIBE_1 = "[D][ ] deadline 1 (by: 12:00 am, 6-06-2024)";
     public static final String EXPECTED_STORED_1 = "D,deadline 1,F,2024-06-06 0000";
-    
-    
+
+
     @Nested
     class TaskTest {
         private static Task t;
@@ -83,23 +85,23 @@ public class DeadlineTest {
             assertEquals(t.toStorageString(), "D,mwa, ha, ha,F,2024-06-06 0000");
         }
     }
-    
+
     @Test
     public void Deadline_invalidDateString_exceptionThrown() {
         var thrown = assertThrows
                 (DateTimeParseException.class, () -> new Deadline(NAME_1, "2024-06-06 0000 nonsense"));
         assertEquals
-                ("Text '2024-06-06 0000 nonsense' could not be parsed, unparsed text found at index 15", 
+                ("Text '2024-06-06 0000 nonsense' could not be parsed, unparsed text found at index 15",
                         thrown.getMessage());
     }
-    
+
     @Test
     public void Deadline_outOfBoundsDateString_exceptionThrown() {
         var thrown = assertThrows
                 (DateTimeParseException.class, () -> new Deadline(NAME_1, "2024-06-06 2500"));
         assertEquals
                 ("Text '2024-06-06 2500' could not be parsed: "
-                        + "Invalid value for HourOfDay (valid values 0 - 23): 25", 
+                        + "Invalid value for HourOfDay (valid values 0 - 23): 25",
                         thrown.getMessage());
     }
 }

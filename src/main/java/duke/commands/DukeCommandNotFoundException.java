@@ -1,4 +1,6 @@
-package duke;
+package duke.commands;
+
+import duke.DukeException;
 
 public class DukeCommandNotFoundException extends DukeException {
     public DukeCommandNotFoundException() {

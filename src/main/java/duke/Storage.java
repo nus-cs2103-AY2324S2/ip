@@ -1,5 +1,8 @@
 package duke;
 
+import duke.tasks.Task;
+import duke.tasks.TaskList;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -20,7 +23,7 @@ public class Storage {
         Scanner scanner = null;
         if (!f.exists()) {
             try {
-                f.createNewFile();                
+                f.createNewFile();
             } catch (IOException e) {
                 throw new DukeException("IO error when creating data.txt: " + e.getMessage());
             }
@@ -45,7 +48,7 @@ public class Storage {
         PrintWriter pw = null;
         File f = new File(path);
         String toWrite = tasks.toStorageString();
-        
+
         try {
             pw = new PrintWriter(new File(path));
             pw.write(toWrite);

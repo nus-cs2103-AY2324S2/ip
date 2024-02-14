@@ -1,4 +1,6 @@
-package duke;
+package duke.tasks;
+
+import duke.DukeException;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;

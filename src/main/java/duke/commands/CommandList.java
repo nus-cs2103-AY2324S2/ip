@@ -1,9 +1,9 @@
-package duke;
+package duke.commands;
 
 import java.util.HashMap;
 
 /**
- * Represents a set of {@code Command}s that can be queried by their names. Analogous to a 
+ * Represents a set of {@code Command}s that can be queried by their names. Analogous to a
  * <code>HashMap<String, Command></code> with relevant operations supported.
  */
 public class CommandList {
@@ -28,13 +28,13 @@ public class CommandList {
     }
 
     /**
-     * Gets the command associated with the given name. Similar to HashMap::get, but it throws if there is nothing 
-     * found. 
+     * Gets the command associated with the given name. Similar to HashMap::get, but it throws if there is nothing
+     * found.
      * @param arg name of the command to query.
-     *            
+     *
      * @return the Command associated with the name
-     * 
-     * @throws DukeCommandNotFoundException if there is nothing found. 
+     *
+     * @throws DukeCommandNotFoundException if there is nothing found.
      */
     public Command get(String arg) throws DukeCommandNotFoundException {
         if (this.has(arg)) {
