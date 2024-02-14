@@ -16,8 +16,8 @@ import javafx.util.Duration;
  */
 public class MainWindow extends AnchorPane {
 
-    private final static int SAVE_FREQUENCY = 2000;
-    private final static String PATH_SAVE = "data/tasks.txt";
+    private static final int SAVE_FREQUENCY = 2000;
+    private static final String PATH_SAVE = "data/tasks.txt";
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.jpg"));
     private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.jpg"));
     @FXML
@@ -50,8 +50,8 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = duke.getResponse(input);
-        dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage),
-                                             DialogBox.getDukeDialog(response, dukeImage));
+        dialogContainer.getChildren()
+                       .addAll(DialogBox.getUserDialog(input, userImage), DialogBox.getDukeDialog(response, dukeImage));
         userInput.clear();
         //Inspired from :
         // https://stackoverflow.com/questions/27334455/how-to-close-a-stage-after-a-certain-amount-of-time-javafx

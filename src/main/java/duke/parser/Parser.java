@@ -16,7 +16,6 @@ public class Parser {
     static final Pattern PATTERN_MANAGE = Pattern.compile("((?i)unmark|mark|delete) (\\d+)");
     static final Pattern PATTERN_ACTIONS = Pattern.compile("((?i)todo|deadline|event) (.+)");
     static final Pattern PATTERN_QUERY = Pattern.compile("((?i)find) (.+)");
-    //Change to support regex instead to make things neater
     private static boolean isDead = false;
 
     /**
@@ -32,26 +31,26 @@ public class Parser {
         Matcher manageMatch = PATTERN_MANAGE.matcher(command);
         Matcher actionMatch = PATTERN_ACTIONS.matcher(command);
         Matcher queryMatch = PATTERN_QUERY.matcher(command);
+
+
         if (command.matches("((?i)bye)")) {
             isDead = true;
             return new String[]{Ui.sayBye()};
-        }
-        if (command.matches("((?i)list)")) {
+        } else if (command.matches("((?i)list)")) {
             return manager.listItems();
+        } else if (manageMatch.matches()) {
+            Manage act = Manage.valueOf(manageMatch.group(1).toUpperCase());
+            return manager.manageTask(act, manageMatch.group(2));
+        } else if (actionMatch.matches()) {
+            Actions act = Actions.valueOf(actionMatch.group(1).toUpperCase());
+            return manager.addTask(act, actionMatch.group(2));
+        } else if (queryMatch.matches()) {
+            return manager.findTask(queryMatch.group(2).trim());
         } else {
-            if (manageMatch.matches()) {
-                Manage act = Manage.valueOf(manageMatch.group(1).toUpperCase());
-                return manager.manageTask(act, manageMatch.group(2));
-            } else if (actionMatch.matches()) {
-                Actions act = Actions.valueOf(actionMatch.group(1).toUpperCase());
-                return manager.addTask(act, actionMatch.group(2));
-            } else if (queryMatch.matches()) {
-                return manager.findTask(queryMatch.group(2).trim());
-            } else {
-                throw new DukeException("invalid");
-            }
+            throw new DukeException("invalid");
         }
     }
+
 
     /**
      * @returns Checks if it is time to exit the program.

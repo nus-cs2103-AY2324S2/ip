@@ -17,11 +17,9 @@ import duke.parser.DateHandler;
 public class TaskManager {
     public static final LocalTime TIME_DEFAULT = LocalTime.of(0, 0);
     private static final String listingResponse = "Here are the tasks in your list:";
-    //Strings for marking and unmarking
     private static final String RESPONSE_MARK = "Nice! I've marked this task as done:";
     private static final String RESPONSE_UMARK = "OK, I've marked this task as not done yet:";
     private static final String RESPONSE_REMOVE = "Noted. I've removed this task";
-    //String and variables for task
     private static final String RESPONSE_ADD = "Got it. I've added this task:";
     private static final String RESPONSE_FIND = "Here are the matching tasks in your list";
     private final ArrayList<Task> items;
@@ -49,7 +47,7 @@ public class TaskManager {
      *
      * @param options     A valid Action to perform.
      * @param instruction A string value of the commands.
-     * @return An ArrayList of string of the values to output to the Ui.
+     * @return A String array of the values to output to the Ui.
      * @throws DukeException Invalid processing of the items.
      */
     public String[] addTask(Actions options, String instruction) throws DukeException {
@@ -164,7 +162,7 @@ public class TaskManager {
      *
      * @param act         A valid action.
      * @param instruction A command to indicate what to do based on the action.
-     * @return An ArrayList of String of the outputs to be return to the Ui.
+     * @return A String array of the outputs to be return to the Ui.
      * @throws DukeException Invalid processing of the items.
      */
     public String[] manageTask(Manage act, String instruction) throws DukeException {
