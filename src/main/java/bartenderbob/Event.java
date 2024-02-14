@@ -6,6 +6,8 @@ import java.time.format.DateTimeFormatter;
  * Represents the Event task that has a description, from date and a due date.
  */
 public class Event extends Task {
+    public static final String YYYY_MM_DD = "yyyy-MM-dd";
+    public static final String MMM_DD_YYYY = "MMM dd yyyy";
     /** Event start date */
     private LocalDate from;
     /** Event due date */
@@ -24,8 +26,8 @@ public class Event extends Task {
         if (!isValidDateFormat(from, by)) {
             throw new IllegalArgumentException();
         }
-        this.from = LocalDate.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        this.by = LocalDate.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        this.from = LocalDate.parse(from, DateTimeFormatter.ofPattern(YYYY_MM_DD));
+        this.by = LocalDate.parse(by, DateTimeFormatter.ofPattern(YYYY_MM_DD));
     }
 
     /**
@@ -42,8 +44,8 @@ public class Event extends Task {
         if (!isValidDateFormat(from, by)) {
             throw new IllegalArgumentException();
         }
-        this.from = LocalDate.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        this.by = LocalDate.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        this.from = LocalDate.parse(from, DateTimeFormatter.ofPattern(YYYY_MM_DD));
+        this.by = LocalDate.parse(by, DateTimeFormatter.ofPattern(YYYY_MM_DD));
     }
 
     /**
@@ -54,8 +56,8 @@ public class Event extends Task {
      */
     private boolean isValidDateFormat(String from, String by) {
         try {
-            LocalDate.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            LocalDate.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            LocalDate.parse(from, DateTimeFormatter.ofPattern(YYYY_MM_DD));
+            LocalDate.parse(by, DateTimeFormatter.ofPattern(YYYY_MM_DD));
             return true;
         } catch (Exception e) {
             return false;
@@ -70,8 +72,8 @@ public class Event extends Task {
     @Override
     public String show() {
         super.status = isDone ? "X" : " ";
-        String fromFormat = this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-        String byFormat = this.by.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        String fromFormat = this.from.format(DateTimeFormatter.ofPattern(MMM_DD_YYYY));
+        String byFormat = this.by.format(DateTimeFormatter.ofPattern(MMM_DD_YYYY));
         String fromByFormat = "(from: " + fromFormat + " to: " + byFormat + ")";
         return "[E]" + "[" + status + "]" + " " + this.description + " " + fromByFormat;
     }
