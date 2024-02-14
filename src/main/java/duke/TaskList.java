@@ -1,5 +1,8 @@
 package duke;
+import java.text.ParseException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
@@ -136,13 +139,17 @@ public class TaskList {
                     deadlineBuilder.append(" ").append(words[wordsIndex]);
                     wordsIndex++;
                 }
-                String deadline = deadlineBuilder.substring(1);
-                successful = true;
-                Task task = new Deadline(name, LocalDateTime.parse(deadline), isDone);
-                tasks.add(task);
 
-                if(announce) {
-                    announceAddition(task);
+                LocalDateTime deadline = dateBuilder(announce, deadlineBuilder);
+
+                if(deadline != null) {
+                    successful = true;
+                    Task task = new Deadline(name, deadline, isDone);
+                    tasks.add(task);
+
+                    if(announce) {
+                        announceAddition(task);
+                    }
                 }
             }
         }
@@ -190,7 +197,8 @@ public class TaskList {
                         wordsIndex++;
                     }
                 }
-                String startDate = startDateBuilder.substring(1);
+
+                LocalDateTime startDate = dateBuilder(announce, startDateBuilder);
 
                 if (wordsIndex >= length) {
                     duke.output("The end date cannot be empty!");
@@ -200,19 +208,38 @@ public class TaskList {
                         endDateBuilder.append(" ").append(words[wordsIndex]);
                         wordsIndex++;
                     }
-                    String endDate = endDateBuilder.substring(1);
-                    successful = true;
 
-                    Task task = new Event(name, LocalDateTime.parse(startDate), LocalDateTime.parse(endDate), isDone);
-                    tasks.add(task);
+                    LocalDateTime endDate = dateBuilder(announce, endDateBuilder);
 
-                    if(announce) {
-                        announceAddition(task);
+
+                    if (startDate != null && endDate != null) {
+                        successful = true;
+                        Task task = new Event(name, startDate, endDate, isDone);
+                        tasks.add(task);
+
+                        if(announce) {
+                            announceAddition(task);
+                        }
                     }
                 }
             }
         }
         return successful;
+    }
+
+    private LocalDateTime dateBuilder(boolean announce, StringBuilder dateBuilder) {
+        LocalDateTime date = null;
+        if(announce) {
+            try {
+                date = LocalDateTime.parse(dateBuilder.substring(1),
+                        DateTimeFormatter.ofPattern("dd/M/yy HH:mm"));
+            } catch (DateTimeParseException error) {
+                duke.output("Invalid Date format!");
+            }
+        } else {
+            date = LocalDateTime.parse(dateBuilder.substring(1));
+        }
+        return date;
     }
 
     /**

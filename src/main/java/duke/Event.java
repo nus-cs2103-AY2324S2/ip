@@ -34,9 +34,9 @@ public class Event extends Task {
     @Override
     public String toString() {
         String str = "";
-        str = String.format("[E]%s (from: %s to: %s)", super.toString(),
-                startDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")),
-                endDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
+        str = String.format("[E]%s (from: %s \nto: %s)", super.toString(),
+                startDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")),
+                endDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")));
         return str;
     }
 
