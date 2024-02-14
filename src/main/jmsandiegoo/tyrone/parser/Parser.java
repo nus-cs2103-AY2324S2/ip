@@ -42,9 +42,12 @@ public class Parser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+        
+        return getCommand(commandWord, arguments);
+    }
 
+    private Command getCommand(String commandWord, String arguments) throws IncorrectCommandException {
         Command command;
-        // execute cmd logic respectively
         switch (commandWord) {
         case ByeCommand.COMMAND_WORD:
             command = parseByeCommandArgs(arguments);
@@ -76,7 +79,6 @@ public class Parser {
         default:
             throw new IncorrectCommandException(Messages.MESSAGE_NOT_EXIST_CMD);
         }
-
         return command;
     }
 

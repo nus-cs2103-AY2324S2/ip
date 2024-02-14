@@ -11,11 +11,15 @@ public class ToDo extends Task {
 
     @Override
     public String toString() {
-        return "[T] " + super.toString();
+        String taskTypeStr = "[T] ";
+        return taskTypeStr
+                + super.toString();
     }
 
     @Override
     public String serializeTask() {
-        return "T | " + super.serializeTask();
+        String taskTypeSerializedStr = "T | ";
+        return taskTypeSerializedStr
+                + super.serializeTask();
     }
 }

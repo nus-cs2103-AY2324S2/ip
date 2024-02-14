@@ -1,5 +1,7 @@
 package jmsandiegoo.tyrone.task;
 
+import jmsandiegoo.tyrone.common.Messages;
+
 /**
  * Represents the abstract task item of the application.
  */
@@ -41,7 +43,11 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return "[" + (this.isDone ? "X" : " ") + "]" + " " + this.description;
+        String isDoneStr = "[" + (this.isDone ? "X" : " ") + "] ";
+
+        return
+                isDoneStr
+                + this.description;
     }
 
     /**
@@ -50,6 +56,7 @@ public abstract class Task {
      * @return String - the encoded string format of the task.
      */
     public String serializeTask() {
-        return (this.isDone ? "1" : "0") + " | " + this.description;
+        String isDoneStr = this.isDone ? "1" : "0";
+        return isDoneStr + " | " + this.description;
     }
 }

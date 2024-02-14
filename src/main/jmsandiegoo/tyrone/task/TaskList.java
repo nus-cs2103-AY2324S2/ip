@@ -55,26 +55,7 @@ public class TaskList {
             Scanner sc = new Scanner(file);
             while (sc.hasNext()) {
                 String[] strArr = sc.nextLine().split(" \\| ");
-                Task t;
-                switch (strArr[0]) {
-                case "T":
-                    t = new ToDo(strArr[2]);
-                    break;
-                case "D":
-                    t = new Deadline(strArr[2], new DateTime(strArr[3]));
-                    break;
-                case "E":
-                    String[] periodArr = strArr[3].split(" - ");
-                    t = new Event(strArr[2], new DateTime(periodArr[0]), new DateTime(periodArr[1]));
-                    break;
-                default:
-                    throw new IOException("Invalid text file format.");
-                }
-
-                if (strArr[1].equals("1")) {
-                    t.markItem();
-                }
-
+                Task t = deserializeTaskStr(strArr);
                 this.items.add(t);
             }
         } catch (IOException | DateTimeParseException e) {
@@ -82,6 +63,30 @@ public class TaskList {
             this.items = new ArrayList<>();
             throw new StorageHelperException("Error loading the local task list file.");
         }
+    }
+
+    private Task deserializeTaskStr(String[] strArr) throws IOException {
+        Task t;
+        switch (strArr[0]) {
+        case "T":
+            t = new ToDo(strArr[2]);
+            break;
+        case "D":
+            t = new Deadline(strArr[2], new DateTime(strArr[3]));
+            break;
+        case "E":
+            String[] periodArr = strArr[3].split(" - ");
+            t = new Event(strArr[2], new DateTime(periodArr[0]), new DateTime(periodArr[1]));
+            break;
+        default:
+            throw new IOException("Invalid text file format.");
+        }
+
+        if (strArr[1].equals("1")) {
+            t.markItem();
+        }
+
+        return t;
     }
 
     /**
@@ -102,7 +107,6 @@ public class TaskList {
             throw new StorageHelperException("Failed to save the list changes locally. My bad...");
         }
     }
-
 
     /**
      * Adds the item specified into the task list.
@@ -165,9 +169,11 @@ public class TaskList {
     public TaskList findItemsByKeyword(String keyword) {
         TaskList findTaskList = new TaskList();
         for (Task item : this.items) {
-            if (item.hasKeyword(keyword)) {
-                findTaskList.addItem(item);
+            if (!item.hasKeyword(keyword)) {
+                continue;
             }
+
+            findTaskList.addItem(item);
         }
 
         return findTaskList;
@@ -178,6 +184,7 @@ public class TaskList {
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < this.items.size(); ++i) {
             output.append(i + 1).append(".  ").append(this.items.get(i).toString());
+
             if (i < this.items.size() - 1) {
                 output.append("\n");
             }

@@ -63,7 +63,7 @@ public class MarkCommandTest {
             markCommand.execute();
             fail();
         } catch (CommandExecutionException e) {
-            // pass;
+            // pass
         }
     }
 }
