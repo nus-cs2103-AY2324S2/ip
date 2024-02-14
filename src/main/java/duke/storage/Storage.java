@@ -5,7 +5,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 import duke.DukeException;
 import duke.task.Deadline;
@@ -39,83 +41,96 @@ public class Storage {
         TaskManager manager = new TaskManager();
         File directory = new File("data");
         if (!directory.exists()) {
-            directory.mkdir();
-        } else {
-            File storage = new File(filePath);
-            try {
-                if (!storage.createNewFile()) {
-
-                    loadTasksFromFile(new File(filePath), manager);
-                }
-            } catch (IOException e) {
-                throw new DukeException("Stupid thing won't load");
+            boolean created = directory.mkdir();
+            if (!created) {
+                throw new DukeException("directoryError");
             }
         }
+        File storage = new File(filePath);
+        try {
+            if (!storage.createNewFile()) {
+
+                loadTasksFromFile(new File(filePath), manager);
+            }
+        } catch (IOException e) {
+            throw new DukeException("loadError");
+        }
+
         return manager;
     }
 
-    private void loadTasksFromFile(File file, TaskManager manager) {
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String next;
-            while ((next = br.readLine()) != null) {
-                if (!next.isBlank()) {
-                    //Read task file
-                    Task item = determineTask(next);
-                    manager.addItem(item);
-                }
+    private void loadTasksFromFile(File file, TaskManager manager) throws IOException, DukeException {
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        String next;
 
+        while ((next = br.readLine()) != null) {
+            if (!next.isBlank()) {
+                Task item = determineTask(next);
+                manager.addItem(item);
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
         }
+
     }
 
-    private Task determineTask(String task) {
+    private Task determineTask(String task) throws DukeException {
         String[] data = task.split("\\|");
         String type = data[0];
+        String[] information = Arrays.copyOfRange(data, 1, data.length);
         Task item;
-        String name;
-        String by;
-        String from;
+
         switch (type) {
         case "D":
-            name = data[2];
-            by = data[3];
-            String temp = data[4];
-            if (!temp.equals("null")) {
-                item = new Deadline(name, LocalDateTime.parse(temp.trim()));
-            } else {
-                item = new Deadline(name, by);
-            }
+            item = createLoadedTask(SaveType.DEADLINE, information);
             break;
         case "E":
-            name = data[2];
-            by = data[3];
-            from = data[4];
-            String tempBy = data[5];
-            String tempFrom = data[6];
-            if (!(tempBy.equals("null") || tempFrom.equals("null"))) {
-                item = new Event(name, LocalDateTime.parse(tempFrom.trim()), LocalDateTime.parse(tempBy.trim()));
-            } else {
-                item = new Event(name, by, from);
-            }
-
+            item = createLoadedTask(SaveType.EVENT, information);
             break;
         case "T":
-            name = data[2];
-            item = new Todo(name);
+            item = createLoadedTask(SaveType.TODO, information);
             break;
         default:
-            item = new Task(data[2]);
-            break;
+            throw new DukeException("loadError");
         }
-        String isDone = data[1];
-        if (isDone.equals("x")) {
-            item.markAsDone();
-        }
+
         return item;
 
     }
+
+    private static Task createLoadedTask(SaveType type, String... values) throws DukeException {
+
+        Task item;
+        switch (type) {
+        case DEADLINE:
+            if (!values[3].equals("null")) {
+                item = new Deadline(values[1], LocalDateTime.parse(values[3].trim()));
+            } else {
+                item = new Deadline(values[1], values[2]);
+            }
+            break;
+
+        case EVENT:
+            boolean emptyDateTime = values[4].equals("null") && values[5].equals("null");
+            if (!emptyDateTime) {
+                LocalDateTime fromDate = LocalDateTime.parse(values[5].trim());
+                LocalDateTime byDate = LocalDateTime.parse(values[4].trim());
+                item = new Event(values[1], fromDate, byDate);
+            } else {
+                item = new Event(values[1], values[2], values[3]);
+            }
+            break;
+
+        case TODO:
+            item = new Todo(values[1]);
+            break;
+        default:
+            throw new DukeException("loadError");
+        }
+        if (values[0].equals("x")) {
+            item.markAsDone();
+        }
+        return item;
+    }
+
 
     /**
      * Writes to the filepath of the items to save.

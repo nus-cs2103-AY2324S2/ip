@@ -84,6 +84,9 @@ public class Ui {
         case "dateError":
             errorResponse = "OOPS!!! Incorrect date format!!!";
             break;
+        case "loadError":
+            errorResponse = "Error loading the save file";
+            break;
         case "numberError":
             errorResponse = "OOPS!!! This is missing your index number";
             break;
@@ -95,6 +98,9 @@ public class Ui {
             break;
         case "dateOutOfRangeError":
             errorResponse = "Ooops!!! Yoo Your date numbers ain't right";
+            break;
+        case "directoryError":
+            errorResponse = "Error Creating directory!!!";
             break;
         case "invalidError":
             errorResponse = "OOPS!!! I'm sorry, incorrect command or input";
