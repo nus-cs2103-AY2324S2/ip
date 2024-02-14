@@ -1,5 +1,8 @@
 package duke.task;
 
+import duke.utility.DukeException;
+import duke.utility.Parser;
+
 /**
  * Class that represents a ToDo Task.
  */
@@ -21,5 +24,17 @@ public class ToDo extends Task {
     @Override
     public String toString() {
         return "[T]" + super.toString();
+    }
+
+    @Override
+    public void updateTaskDescription(String field, String updatedDescription) throws DukeException {
+        String fieldInput = field.toLowerCase();
+        switch (fieldInput) {
+        case "info":
+            this.description = updatedDescription;
+            break;
+        default:
+            throw new DukeException("*Honk!* Pengu can only update the 'info' of this task");
+        }
     }
 }

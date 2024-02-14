@@ -43,7 +43,7 @@ public class DeleteTaskCommand extends Command {
         try {
             storage.saveStorage(taskList.getTaskStore());
         } catch (IOException e) {
-            ui.showError(e.getMessage());
+            return ui.showError(e.getMessage());
         }
         return ui.showDeletedTask(deletedTask, taskList.listSize());
     }

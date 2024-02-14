@@ -43,7 +43,7 @@ public class UnmarkTaskCommand extends Command {
         try {
             storage.saveStorage(taskList.getTaskStore());
         } catch (IOException e) {
-            ui.showError(e.getMessage());
+            return ui.showError(e.getMessage());
         }
         return ui.showUnmarkedTask(unmarkedTask);
     }
