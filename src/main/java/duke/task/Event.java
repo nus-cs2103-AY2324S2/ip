@@ -1,5 +1,6 @@
 package duke.task;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -34,5 +35,11 @@ public class Event extends Task {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm a");
         return "[E]" + super.toString() + " (from: " + this.fromDate.format(outputFormatter) + " to: "
                 + this.toDate.format(outputFormatter) + ")";
+    }
+
+    @Override
+    public boolean isOnThisDay(LocalDate date) {
+        LocalDate taskDate = this.fromDate.toLocalDate();
+        return taskDate.equals(date);
     }
 }

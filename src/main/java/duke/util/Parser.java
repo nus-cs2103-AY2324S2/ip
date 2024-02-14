@@ -1,24 +1,18 @@
 package duke.util;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
-import duke.command.AddDeadlineCommand;
-import duke.command.AddEventCommand;
-import duke.command.AddTodoCommand;
-import duke.command.ByeCommand;
-import duke.command.Command;
-import duke.command.DeleteTaskCommand;
-import duke.command.FindCommand;
-import duke.command.ListTaskCommand;
-import duke.command.NoActionCommand;
-import duke.command.ToggleMarkTaskCommand;
+import duke.command.*;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
+
+import javax.swing.text.DateFormatter;
 
 /**
  *  Represents the parser of the program that converts user inputs into Commands.
@@ -29,7 +23,7 @@ public class Parser {
      * The enumeration of command.
      */
     public enum Cmd {
-        list, todo, deadline, event, mark, unmark, delete, find, bye, none;
+        list, todo, deadline, event, mark, unmark, delete, find, viewSchedule, bye, none;
     }
 
     private Ui ui;
@@ -91,6 +85,7 @@ public class Parser {
         Command command = new NoActionCommand(Cmd.none);
         String[] commandComponents = input.split(" ", 2);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         try {
             switch (Cmd.valueOf(commandComponents[0])) {
             case bye:
@@ -123,6 +118,9 @@ public class Parser {
             case find:
                 command = new FindCommand(Cmd.find, commandComponents[1]);
                 break;
+            case viewSchedule:
+                LocalDate targetDate = LocalDate.parse(commandComponents[1], dateFormatter);
+                command = new ViewScheduleCommand(Cmd.viewSchedule, targetDate);
             case delete:
                 command = new DeleteTaskCommand(Cmd.delete, Integer.parseInt(commandComponents[1]));
                 break;

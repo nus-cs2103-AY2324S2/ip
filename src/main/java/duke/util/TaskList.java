@@ -1,5 +1,6 @@
 package duke.util;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import duke.task.Task;
@@ -96,10 +97,20 @@ public class TaskList {
      *
      * @param keyword the keyword to be searched.
      */
-    public ArrayList<Task>  searchAndDisplay(String keyword) {
+    public ArrayList<Task> searchAndDisplay(String keyword) {
         ArrayList<Task> searchResult = new ArrayList<>();
         for (Task t : this.listItems) {
             if (t.contains(keyword)) {
+                searchResult.add(t);
+            }
+        }
+        return searchResult;
+    }
+
+    public ArrayList<Task> searchDate(LocalDate date){
+        ArrayList<Task> searchResult = new ArrayList<>();
+        for (Task t : this.listItems) {
+            if (t.isOnThisDay(date)) {
                 searchResult.add(t);
             }
         }

@@ -25,7 +25,6 @@ public class Ui {
      */
     public void leave() {
         String message = "Farewell. Wishing for the opportunity to meet you again soon.";
-//        printMessageWithLines(message);
         this.message = message;
     }
 
@@ -37,7 +36,6 @@ public class Ui {
         String message = "I regret to inform you that I currently lack an understanding of the intended meaning behind"
                 + "that statement.";
         this.message = message;
-//        informWrongInputFormat();
     }
 
     /**
@@ -48,7 +46,6 @@ public class Ui {
     public void informListMarked(Task task) {
         String message = "It is my pleasure to inform you that I have officially marked this particular task as"
                 + " 'completed':" + "\n" + task;
-//        printMessageWithLines(message);
         this.message = message;
     }
 
@@ -60,7 +57,6 @@ public class Ui {
     public void informListUnmarked(Task task) {
         String message = "I wish to communicate that I have marked this particular task as 'incomplete' at this "
                 + "juncture:" + "\n" + task;
-//        printMessageWithLines(message);
         this.message = message;
     }
 
@@ -74,7 +70,6 @@ public class Ui {
     public void informItemAdded(Task task, TaskList taskList) {
         String message = "I am pleased to convey that the following task has been added to the outlined list:\n"
                 + task + "\n " + taskList;
-//        printMessageWithLines(message);
         this.message = message;
     }
 
@@ -103,7 +98,6 @@ public class Ui {
     public void informItemRemoved(Task task, int size) {
         String message = "I acknowledge your update. The specified task has been duly removed:\n" + task
                 + "\nCurrently, " + "the list comprises " + size + " tasks.";
-//        printMessageWithLines(message);
         this.message = message;
     }
     /**
@@ -112,16 +106,10 @@ public class Ui {
      * @param taskList the task list to be displayed.
      */
     public void displaySelectedList(ArrayList<Task> taskList) {
-//        System.out.println("\t____________________________________________________________");
-//        System.out.println("\tHere are the corresponding tasks that align with your criteria:");
-//        for (Task t: taskList) {
-//            System.out.println("\t" + t);
-//        }
-//        System.out.println("\t____________________________________________________________\n");
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Here are the corresponding tasks that align with your criteria:\n");
         for (Task t : taskList) {
-            stringBuilder.append("").append(t).append("");
+            stringBuilder.append("\t").append(t).append("\n");
         }
         this.message = stringBuilder.toString();;
     }
