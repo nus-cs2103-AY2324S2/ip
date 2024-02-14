@@ -1,7 +1,15 @@
-package main.java.emis;
+package emis;
+
 import main.java.emis.exceptions.EmisException;
-import main.java.emis.command.*;
-import main.java.emis.task.*;
+import main.java.emis.command.Command;
+import main.java.emis.command.ExitCommand;
+import main.java.emis.command.PrintCommand;
+import main.java.emis.command.ToDoCommand;
+import main.java.emis.command.DeadlineCommand;
+import main.java.emis.command.EventCommand;
+import main.java.emis.command.MarkCommand;
+import main.java.emis.command.UnmarkCommand;
+import main.java.emis.command.DeleteCommand;
 
 /**
  * The Parser class deals with making sense of user commands in the EMIS application.

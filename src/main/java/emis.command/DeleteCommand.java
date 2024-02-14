@@ -1,6 +1,9 @@
 package main.java.emis.command;
+
 import main.java.emis.exceptions.EmisException;
-import main.java.emis.*;
+import main.java.emis.TaskList;
+import main.java.emis.Ui;
+import main.java.emis.Storage;
 
 /**
  * The DeleteCommand class represents a command to delete a task in the EMIS application.
@@ -22,15 +25,15 @@ public class DeleteCommand extends Command {
     /**
      * Executes the delete command by deleting the task with the specified task number from the task list and updating the storage.
      *
-     * @param t The TaskList object representing the list of tasks.
+     * @param tasklist The TaskList object representing the list of tasks.
      * @param ui The Ui object handling interactions with the user.
-     * @param s The Storage object handling loading and saving of tasks.
+     * @param storage The Storage object handling loading and saving of tasks.
      */
     @Override
-    public void execute(TaskList t, Ui ui, Storage s) {
+    public void execute(TaskList tasklist, Ui ui, Storage storage) {
         try {
-            t.deleteTask(this.taskNo);
-            s.updateStorage();
+            tasklist.deleteTask(this.taskNo);
+            storage.updateStorage();
         } catch (EmisException e) {
             ui.showError(e.getMessage());
         }

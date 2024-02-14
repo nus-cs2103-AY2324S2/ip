@@ -1,7 +1,10 @@
-package main.java.emis;
+package emis;
+
 import main.java.emis.exceptions.EmisException;
-import main.java.emis.command.*;
-import main.java.emis.task.*;
+import main.java.emis.task.Event;
+import main.java.emis.task.ToDo;
+import main.java.emis.task.Deadline;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.IOException;
@@ -16,7 +19,7 @@ public class Storage {
     private String filePath;
 
     /** The list of tasks loaded from the storage file. */
-    private ArrayList<Task> al;
+    private ArrayList<Task> taskList;
 
     /**
      * Constructs a new Storage object with the specified file path.
@@ -25,7 +28,7 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.filePath = filePath;
-        this.al = new ArrayList<>();
+        this.taskList = new ArrayList<>();
     }
 
     /**
@@ -34,12 +37,12 @@ public class Storage {
      * @return The list of tasks loaded from the storage file.
      * @throws EmisException If an error occurs during loading tasks from the storage file.
      */
-    public ArrayList<Task> load() throws EmisException {
+    public ArrayList<Task> loadFromStorageFile() throws EmisException {
         try {
-            Scanner sT = new Scanner(new File(this.filePath));
-            while (sT.hasNextLine()) {
+            Scanner scanner = new Scanner(new File(this.filePath));
+            while (scanner.hasNextLine()) {
                 // read from file, add to arraylist al
-                String input = sT.nextLine();
+                String input = scanner.nextLine();
                 String[] data = input.split("\\|");
                 String taskType = data[0].trim();
                 String retrieveStatus = data[1].trim();
@@ -47,29 +50,29 @@ public class Storage {
                 String retrieveDescription = data[2].trim();
 
                 if (taskType.equals("T")) {
-                    this.al.add(new ToDo(convertStatus, retrieveDescription));
+                    this.taskList.add(new ToDo(convertStatus, retrieveDescription));
 
                 } else if (taskType.equals("D")) {
                     String finishBy = data[3].trim();
-                    this.al.add(new Deadline(convertStatus, retrieveDescription, finishBy));
+                    this.taskList.add(new Deadline(convertStatus, retrieveDescription, finishBy));
 
                 } else if (taskType.equals("E")) {
                     String startFrom = data[3].trim();
                     String endBy = data[4].trim();
-                    this.al.add(new Event(convertStatus, retrieveDescription, startFrom, endBy));
+                    this.taskList.add(new Event(convertStatus, retrieveDescription, startFrom, endBy));
 
                 } else {
                     throw new EmisException("Invalid input type.");
                 }
             } 
-            sT.close();
+            scanner.close();
             
         } catch (FileNotFoundException FNFe) {
             // file does not exist yet, so create
             try {
-                File emisTxt = new File(this.filePath);
-                emisTxt.getParentFile().mkdirs();
-                if (emisTxt.createNewFile()) {
+                File createFile = new File(this.filePath);
+                createFile.getParentFile().mkdirs();
+                if (createFile.createNewFile()) {
                     System.out.println("File created");
                 } else {
                     System.out.println("File already exists");
@@ -84,7 +87,7 @@ public class Storage {
             }
             */
         }
-        return this.al;
+        return this.taskList;
     }
 
     /**
@@ -92,14 +95,14 @@ public class Storage {
      */
     public void updateStorage() {
         try {
-            FileWriter fw = new FileWriter(this.filePath);
-            String s = "";
-            for (int i = 0; i < this.al.size(); i++) {
-                s += this.al.get(i).storeString();
-                s += "\n";
+            FileWriter fileWriter = new FileWriter(this.filePath);
+            String taskToBeAdded = "";
+            for (int i = 0; i < this.taskList.size(); i++) {
+                taskToBeAdded += this.taskList.get(i).storeString();
+                taskToBeAdded += "\n";
             }
-            fw.write(s);
-            fw.close();
+            fileWriter.write(taskToBeAdded);
+            fileWriter.close();
             System.out.println("Successfully wrote to the file.");
         } catch (IOException IOe) {
             System.out.println("Error occurred while writing to the file.");

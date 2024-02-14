@@ -1,7 +1,7 @@
-package main.java.emis;
+package emis;
+
 import main.java.emis.exceptions.EmisException;
-import main.java.emis.command.*;
-import main.java.emis.task.*;
+import main.java.emis.task.Task;
 import java.util.ArrayList;
 
 // TaskList class, contains task list and its operations
@@ -10,22 +10,22 @@ import java.util.ArrayList;
  */
 public class TaskList {
     /** The list of tasks. */
-    private ArrayList<Task> al;
+    private ArrayList<Task> tasklist;
 
     /**
      * Constructs a new TaskList object with the specified list of tasks.
      * 
-     * @param al The list of tasks.
+     * @param tasklist The list of tasks.
      */
-    public TaskList(ArrayList<Task> al) {
-        this.al = al;
+    public TaskList(ArrayList<Task> tasklist) {
+        this.tasklist = tasklist;
     }
 
     /**
      * Constructs a new TaskList object with an empty list of tasks.
      */
     public TaskList() {
-        this.al = new ArrayList<>();
+        this.tasklist = new ArrayList<>();
     }
 
     /**
@@ -34,8 +34,8 @@ public class TaskList {
     public void printList() {
         Ui.showLine();
         System.out.println("\tHere are the tasks in your list:");
-        for (int i = 0; i < this.al.size(); i++) {
-            System.out.println("\t\t" + (i + 1) + "." + this.al.get(i).toString());
+        for (int i = 0; i < this.tasklist.size(); i++) {
+            System.out.println("\t\t" + (i + 1) + "." + this.tasklist.get(i).toString());
         }
         Ui.showLine();
     }
@@ -47,14 +47,14 @@ public class TaskList {
      * @throws EmisException If the specified task number is invalid.
      */
     public void deleteTask(int taskNo) throws EmisException {
-        if (taskNo <= 0 || taskNo > al.size()) {
+        if (taskNo <= 0 || taskNo > this.tasklist.size()) {
             throw new EmisException("This task does not exist!");
         } else {
             Ui.showLine();
             System.out.println("\tNoted. I've removed this task:");
-            System.out.println("\t\t" + this.al.get(taskNo - 1).toString());
-            this.al.remove(taskNo - 1);
-            System.out.println("\tNow you have " + this.al.size() + " tasks in the list.");
+            System.out.println("\t\t" + this.tasklist.get(taskNo - 1).toString());
+            this.tasklist.remove(taskNo - 1);
+            System.out.println("\tNow you have " + this.tasklist.size() + " tasks in the list.");
             Ui.showLine();
         }
     }
@@ -65,11 +65,11 @@ public class TaskList {
      * @param task The task to add.
      */
     public void addTask(Task task) {
-        this.al.add(task);
+        this.tasklist.add(task);
         Ui.showLine();
         System.out.println("\tGot it. I've added this task:");
         System.out.println("\t\t" + task.toString());
-        System.out.println("\tNow you have " + this.al.size() + " tasks in the list.");
+        System.out.println("\tNow you have " + this.tasklist.size() + " tasks in the list.");
         Ui.showLine();
     }
     
@@ -80,12 +80,12 @@ public class TaskList {
      * @throws EmisException If the specified task number is invalid.
      */
     public void markAsDone(int taskNo) throws EmisException {
-        if (taskNo <= 0 || taskNo > al.size()) {
+        if (taskNo <= 0 || taskNo > tasklist.size()) {
             throw new EmisException("This task does not exist!");
         } else {
-            Task t = this.al.get(taskNo - 1);
-            t.markAsDone();
-            this.al.set(taskNo - 1, t);
+            Task task = this.tasklist.get(taskNo - 1);
+            task.markAsDone();
+            this.tasklist.set(taskNo - 1, task);
         }
     }
 
@@ -96,12 +96,12 @@ public class TaskList {
      * @throws EmisException If the specified task number is invalid.
      */
     public void markAsUndone(int taskNo) throws EmisException {
-        if (taskNo <= 0 || taskNo > al.size()) {
+        if (taskNo <= 0 || taskNo > tasklist.size()) {
             throw new EmisException("This task does not exist!");
         } else {
-            Task t = this.al.get(taskNo - 1);
-            t.markAsUndone();
-            this.al.set(taskNo - 1, t);
+            Task task = this.tasklist.get(taskNo - 1);
+            task.markAsUndone();
+            this.tasklist.set(taskNo - 1, task);
         }
     }
 }

@@ -23,7 +23,7 @@ public class TaskListTest {
      * @throws EmisException if an error occurs during the test.
      */
     @Test
-    public void markAsDone_exceptionThrown() throws EmisException {
+    public void markAsDone_TaskZero_exceptionThrown() throws EmisException {
         ArrayList<Task> testTasks = new ArrayList<>();
         testTasks.add(new ToDo("read book"));
         testTasks.add(new ToDo("read magazine"));
@@ -41,7 +41,7 @@ public class TaskListTest {
      * Tests the deleteTask method of the TaskList class when an exception is thrown.
      */
     @Test
-    public void deleteTask_exceptionThrown() {
+    public void deleteTask_TaskZero_exceptionThrown() {
         ArrayList<Task> testTasks = new ArrayList<>();
         testTasks.add(new ToDo("read book"));
         testTasks.add(new ToDo("read magazine"));

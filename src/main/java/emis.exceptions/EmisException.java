@@ -8,9 +8,9 @@ public class EmisException extends Exception {
     /**
      * Constructs a new EmisException object with the specified error message.
      *
-     * @param str The error message associated with this exception.
+     * @param errorMessage The error message associated with this exception.
      */
-    public EmisException(String str) {
-        super(str);
+    public EmisException(String errorMessage) {
+        super(errorMessage);
     }
 }

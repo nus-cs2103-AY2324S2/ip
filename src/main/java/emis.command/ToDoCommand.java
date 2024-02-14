@@ -1,5 +1,8 @@
 package main.java.emis.command;
-import main.java.emis.*;
+
+import main.java.emis.TaskList;
+import main.java.emis.Ui;
+import main.java.emis.Storage;
 import main.java.emis.task.ToDo;
 
 /**
@@ -22,14 +25,14 @@ public class ToDoCommand extends Command {
     /**
      * Executes the to-do command by adding a new to-do task with the specified description to the task lsit and updating the storage.
      * 
-     * @param t The TaskList object representing the list of tasks.
+     * @param tasklist The TaskList object representing the list of tasks.
      * @param ui The Ui object handling interactions with the user.
-     * @param s The Storage object handling loading and saving of tasks.
+     * @param storage The Storage object handling loading and saving of tasks.
      */
     @Override
-    public void execute(TaskList t, Ui ui, Storage s) {
-        t.addTask(new ToDo(this.description));
-        s.updateStorage();
+    public void execute(TaskList tasklist, Ui ui, Storage storage) {
+        tasklist.addTask(new ToDo(this.description));
+        storage.updateStorage();
     }
 
     /**
