@@ -22,6 +22,9 @@ public class TaskManager {
     private static final String RESPONSE_REMOVE = "Noted. I've removed this task";
     private static final String RESPONSE_ADD = "Got it. I've added this task:";
     private static final String RESPONSE_FIND = "Here are the matching tasks in your list";
+
+    private static final String RESPONSE_EMPTY = "Your list is empty!!!!Add something! ";
+    private static final String RESPONSE_EMPTY_SEARCH = "Sorry I couldn't find anything that fits that search :(";
     private final ArrayList<Task> items;
     private boolean hasChanged = false;
 
@@ -251,7 +254,7 @@ public class TaskManager {
      */
     public String[] listItems() {
         if (items.isEmpty()) {
-            return new String[]{"Your list is empty!!!!Add something! "};
+            return new String[]{RESPONSE_EMPTY};
         }
         String[] ret = new String[items.size()];
         ret[0] = listingResponse;
@@ -288,10 +291,9 @@ public class TaskManager {
             }
         }
         if (foundTask.isEmpty()) {
-            return new String[]{"Sorry I couldn't find anything that fits that search :("};
+            return new String[]{RESPONSE_EMPTY_SEARCH};
         }
         return foundTask.toArray(new String[0]);
     }
-
 
 }
