@@ -90,7 +90,7 @@ public class YapchitBackend {
 
     public boolean checkIsBye(String input){
 
-        assert input instanceof String : "input should be a String";
+        assert input instanceof String : "input should be a String instance";
 
         return handler.checkIsBye(input);
     }

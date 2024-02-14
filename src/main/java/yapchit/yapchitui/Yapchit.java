@@ -43,7 +43,7 @@ public class Yapchit extends Application {
 
     public Yapchit(){
         this.yapchitBackend= new YapchitBackend("./src/main/data/dataStore.txt");
-        assert yapchitBackend != null;
+        assert yapchitBackend != null : "backend must be initialised";
     }
 
     @Override
