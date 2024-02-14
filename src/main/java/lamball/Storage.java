@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
+import lamball.memo.Memo;
 
 /**
  * Contains methods that pertain to file access and modification.
@@ -19,11 +20,10 @@ import java.util.Scanner;
  */
 public class Storage {
 
-    protected static String filePath = "src/main/java/data/";
+    protected static String filePath = "src/main/java/data";
     protected static String defaultFileName = "/list.txt";
-    protected static String tempFilePath = "src/main/java/data/tempfile.txt";
-
-    private static final int ARGUMENTS = 2;
+    protected static String defaultMemoName = "/memo.txt";
+    protected static String defaultTempFile = "/temp.txt";
 
     /**
      * Obtains and initializes list from saved text file locally.
@@ -40,19 +40,36 @@ public class Storage {
             returnVal += "Folder does not exist. Creating folder...\n";
             folder.mkdirs();
         }
+        File savedMemo = new File(filePath + defaultMemoName);
         File savedList = new File(filePath + defaultFileName);
+
         try {
-            // Try to create file
+            // List file creation
             if (savedList.createNewFile()) {
                 String message = "List created successfully at: " + savedList.getAbsolutePath();
                 System.out.println(message);
                 returnVal += message + "\n";
             } else {
+                assert savedList.exists() : "There should be a list.txt";
                 String message = "Seems like I haave helped you before, so no new list is needed!";
                 System.out.println(message);
-                returnVal += message + "\n";
+                returnVal += message + "\n\n";
             }
+
+            // Memo file creation
+            if (savedMemo.createNewFile()) {
+                String message = "Memo created successfully at: " + savedMemo.getAbsolutePath();
+                System.out.println(message);
+                returnVal += message + "\n";
+            } else {
+                assert savedMemo.exists() : "There should be a memo.txt";
+                String message = "Seems like you have saved memos!";
+                System.out.println(message);
+                returnVal += message + "\n\n";
+            }
+
             initializeListFromText(savedList, lamb);
+            initializeMemo(savedMemo, lamb);
         } catch (IOException e) {
             String errorMessage = "An error occurred while creating the file: " + e.getMessage();
             System.err.println(errorMessage);
@@ -64,14 +81,36 @@ public class Storage {
         return returnVal;
     }
 
+    private static void initializeMemo(File savedMemo, Lamball lamb) throws FileNotFoundException {
+
+        assert savedMemo.exists() : "Memo file should exist.";
+        System.out.println(savedMemo.exists());
+        System.out.println("asdasdasd");
+        Scanner scannr = new Scanner(savedMemo);
+        System.out.println("Initializing memo...");
+        while (scannr.hasNext()) {
+            try {
+                String currLine = scannr.nextLine();
+                Memo currMemo = Parser.parseMemo(currLine);
+                lamb.addToMemList(currMemo, true);
+            } catch (LamballParseException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private static void flush(File toFlush) throws IOException {
+        toFlush.delete();
+        toFlush.createNewFile();
+    }
+
+
     private static void initializeListFromText(File savedList, Lamball lamb) throws FileNotFoundException {
-        File tempFile = new File(tempFilePath);
+        File tempFile = new File(filePath + defaultTempFile);
         assert (!Objects.isNull(tempFile)) : "there should be a file created";
 
         try {
-            // Delete and creates a new tempfile
-            tempFile.delete();
-            tempFile.createNewFile();
+            flush(tempFile);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -82,11 +121,8 @@ public class Storage {
             try {
                 // Parses every line of the saved file - if error, deletes line in the file and ignores command
                 String currLine = scanner.nextLine();
-                String[] parts = currLine.split(" \\| ", 2);
-                // Means that it is not formatted correctly in the <0 or 1> | <command> format
-                if (parts.length != ARGUMENTS || !(Integer.valueOf(parts[0]) == 1 || Integer.valueOf(parts[0]) == 0)) {
-                    throw new LamballParseException("Corrupt format, ignoring...");
-                }
+                String[] parts = Parser.parseSavedList(currLine);
+
                 lamb.initParse(parts[1]);
                 count++;
                 // Marks task if first character is 1. Else does not.
@@ -95,11 +131,11 @@ public class Storage {
                     lamb.initParse("mark " + count);
                 }
                 // If code reaches here, means that the line is valid - write to temp file
-                Storage.writeToFile(tempFilePath, currLine);
+                Storage.writeToFile(defaultTempFile, currLine);
 
 
             } catch (LamballParseException e) {
-                // Ignores line
+                // Does not write if the command is invalid.
                 System.out.println("Corrupt format, ignoring...");
             }
         }
@@ -161,14 +197,29 @@ public class Storage {
     }
 
     /**
+     * Deletes all lines in text file.
+     *
+     */
+    public static void deleteAllLines(String fileName) {
+        try {
+            // Read all lines from the file
+            File toClear = new File(filePath + fileName);
+            flush(toClear);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Replaces specified line in text file.
      *
-     * @param filePath File path of the text file.
+     * @param fileName File name of the text file.
      * @param toAdd Line to be appended to the text file.
      */
-    public static void writeToFile(String filePath, String toAdd) {
+    public static void writeToFile(String fileName, String toAdd) {
         try {
-            FileWriter fw = new FileWriter(filePath, true);
+            System.out.println(new File(fileName).exists());
+            FileWriter fw = new FileWriter(filePath + fileName, true);
             fw.write(toAdd + System.lineSeparator());
             fw.close();
         } catch (IOException e) {
