@@ -40,6 +40,10 @@ public abstract class Task {
         return this.description;
     }
 
+    public boolean getStatus() {
+        return this.isDone;
+    }
+
     public abstract String toFileString();
 
     /**

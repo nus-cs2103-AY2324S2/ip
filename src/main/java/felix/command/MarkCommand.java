@@ -28,6 +28,7 @@ public class MarkCommand extends Command {
         try {
             Task task = tasks.getTask(this.indexToMark);
             task.markAsDone();
+            assert tasks.getTask(this.indexToMark).getStatus() : "task was not marked as done successfully";
             storage.writeToFile(tasks);
             return ui.getMarkMessage(task);
         } catch (IndexOutOfBoundsException err) {
