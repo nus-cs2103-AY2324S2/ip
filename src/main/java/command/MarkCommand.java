@@ -6,19 +6,19 @@ import task.Task;
 import task.TaskList;
 
 /**
- * Represents Command that marks or unmarks tasks.
+ * Represents Command that marks tasks.
  */
 public class MarkCommand extends Command {
     private int taskIndex;
 
     /**
-     * Creates MarkCommand with specified task to mark or unmark.
+     * Creates MarkCommand with specified task to mark.
      *
-     * @param taskIndex Task to be modified.
+     * @param taskIndex Task to be marked.
      */
 
     public MarkCommand(int taskIndex) {
-        assert taskIndex > 0;
+        assert taskIndex >= 0;
         this.taskIndex = taskIndex;
     }
 

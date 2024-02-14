@@ -6,7 +6,7 @@ import task.Task;
 import task.TaskList;
 
 /**
- * Represents Command that marks or unmarks tasks.
+ * Represents Command that unmarks tasks.
  */
 public class UnmarkCommand extends Command {
     private int taskIndex;
@@ -17,7 +17,7 @@ public class UnmarkCommand extends Command {
      * @param taskIndex Task to be unmarked.
      */
     public UnmarkCommand(int taskIndex) {
-        assert taskIndex > 0;
+        assert taskIndex >= 0;
         this.taskIndex = taskIndex;
     }
 
