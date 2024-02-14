@@ -23,6 +23,9 @@ import bob.exception.InvalidDaysException;
 import bob.exception.InvalidTaskIndexException;
 import bob.exception.ParameterNotFoundException;
 
+/**
+ * Utility class to make sense of the user command.
+ */
 public class Parser {
     private static final String EXIT = "exit";
     private static final String LIST = "list";
@@ -150,6 +153,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Makes sense of the given user command.
+     *
+     * @param command The given user command.
+     * @return A <code>Command</code> object corresponding to the parsed command.
+     * @throws BobException If there is an error parsing the given user command.
+     */
     public static Command parse(String command) throws BobException {
         // TODO: Use regex
         String[] commandArgs = command.trim().split(" ", 2);

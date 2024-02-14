@@ -19,6 +19,10 @@ import bob.task.Event;
 import bob.task.Task;
 import bob.task.Todo;
 
+/**
+ * Represents the storage for the program. A <code>Storage</code> object corresponds to
+ * a file acting as the storage for the program.
+ */
 public class Storage {
     private static final String DATA_DIR = "data";
     public static final String DATA_PATH = DATA_DIR + "/bob.txt";
@@ -71,10 +75,24 @@ public class Storage {
         return task;
     }
 
+    /**
+     * Utility method to format the given <code>LocalDateTime</code>
+     * using the predefined <code>DateTimeFormatter</code>.
+     *
+     * @param dateTime The given <code>LocalDateTime</code>.
+     * @return The formatted string to be stored in the storage.
+     */
     public static String formatDateTime(LocalDateTime dateTime) {
         return dateTime.format(DATETIME_FORMATTER);
     }
 
+    /**
+     * Loads data from hard disk.
+     *
+     * @param dataPath The file path in which the data to be loaded is stored.
+     * @return A list of tasks loaded from hard disk.
+     * @throws LoadingException If an error occurred while loading the tasks from hard disk.
+     */
     public ArrayList<Task> load(String dataPath) throws LoadingException {
         try {
             dataFile = createOrRetrieve(dataPath);
@@ -94,6 +112,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves a new task to hard disk.
+     *
+     * @param task The new task to be saved to hard disk.
+     * @throws SavingException If an error occurred while saving the new task to hard disk.
+     */
     public void saveTask(Task task) throws SavingException {
         try {
             FileWriter fw = new FileWriter(dataFile.getAbsoluteFile(), true);
@@ -107,6 +131,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Update the storage with a specified list of tasks.
+     *
+     * @param tasks The list of tasks to update the storage with.
+     * @throws SavingException If an error occurred while saving the tasks in the list of tasks to hard disk.
+     */
     public void refresh(ArrayList<Task> tasks) throws SavingException {
         try {
             FileWriter fw = new FileWriter(dataFile.getAbsoluteFile());
