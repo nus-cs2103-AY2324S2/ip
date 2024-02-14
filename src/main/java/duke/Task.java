@@ -1,4 +1,4 @@
-package jojo;
+package duke;
 
 /**
  * Stores a task which is 1 of the 3 types: todo, event and deadline.
@@ -41,12 +41,12 @@ public class Task {
      * @return String
      */
     public String simpleToString() {
-        return "| " + getBooleanStatusIcon() + " | " + description;
+        return "| " + this.getBooleanStatusIcon() + " | " + this.description;
     }
 
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
 }

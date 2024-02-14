@@ -1,8 +1,8 @@
-import jojo.Parser;
-import jojo.Storage;
-import jojo.TaskList;
-import jojo.Ui;
-import exceptions.JojoUnknownTaskException;
+import duke.Parser;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import exceptions.DukeUnknownTaskException;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -32,7 +32,7 @@ public class ParserTest {
     @Test
     public void testParseUnknownTask() {
         String cmd = "unknown-task";
-        assertThrows(JojoUnknownTaskException.class, () -> Parser.parse(new Scanner(cmd), new Ui(), new TaskList(new ArrayList<>()), new Storage("")));
+        assertThrows(DukeUnknownTaskException.class, () -> Parser.parse(new Scanner(cmd), new Ui(), new TaskList(new ArrayList<>()), new Storage("")));
     }
 
 }
