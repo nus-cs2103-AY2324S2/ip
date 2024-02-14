@@ -42,6 +42,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = duke.run(input);
+        assert response != "";
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, chatBotImage)
@@ -53,7 +54,7 @@ public class MainWindow extends AnchorPane {
      * Create a dialog box to display the welcome message.
      */
     public void greet() {
-        String response = duke.greet();
+        String response = duke.showGreetings();
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(response, chatBotImage)
         );

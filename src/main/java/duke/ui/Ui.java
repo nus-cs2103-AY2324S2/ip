@@ -21,15 +21,6 @@ public class Ui {
     }
 
     /**
-     * Reads a command from the user.
-     *
-     * @return The user's input command.
-     */
-    public String readCommand() {
-        return scanner.nextLine();
-    }
-
-    /**
      * Prints the welcome message when the chatbot starts.
      *
      * @return A welcome message.
