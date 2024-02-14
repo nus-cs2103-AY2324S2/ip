@@ -1,26 +1,31 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * Represents an Event task, which is a type of task that needs to be completed.
  * Inherits from the Task class.
  */
 class Event extends Task {
-    private String from;
-    private String to;
+    private LocalDateTime from;
+    private LocalDateTime to;
 
-    Event(String name, String from, String to) throws DukeException {
+    Event(String name, LocalDateTime from, LocalDateTime to) throws DukeException {
         super(name);
-        this.from = from;
         this.to = to;
+        this.from = from;
         if (name == null || name.isEmpty()) {
             throw new DukeException("Task name cannot be empty");
-        } else if (from == null || from.isEmpty()) {
-            throw new DukeException("From date cannot be empty");
-        } else if (to == null || to.isEmpty()) {
-            throw new DukeException("To date name cannot be empty");
+        } else if (from == null) {
+            throw new DukeException("Invalid from date format: Event dates should be in dd/mm/yyyy HHmm");
+        } else if (to == null) {
+            throw new DukeException("Invalid to date format: Event dates should be in dd/mm/yyyy HHmm");
         }
     }
 
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), from, to);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
+        return String.format("[E]%s (from: %s to: %s)", super.toString(), from.format(formatter), to.format(formatter));
     }
 }

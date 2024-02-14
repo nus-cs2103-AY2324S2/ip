@@ -4,10 +4,18 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class Duke {
     private static final String LINE = "    ___________________________________________________________\n";
+    private static final String[] dateFormats = { "yyyy-MM-dd", "dd-MM-yyyy", "MM-dd-yyyy", "dd/MM/yyyy", "MM/dd/yyyy",
+            "yyyy/MM/dd", "dd MMM yyyy", "MMM dd yyyy", "yyyy MMM dd", "dd MMM yyyy", "yyyy-MM-d", "d-MM-yyyy",
+            "MM-d-yyyy", "d/MM/yyyy", "MM/d/yyyy", "yyyy/MM/d", "d MMM yyyy", "MMM d yyyy", "yyyy MMM d",
+            "d MMM yyyy" };
+    private static final String[] timeFormats = { "HH:mm", "HH:mm", "h:mm a", "HHmm", "hh:mm a" };
 
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -42,12 +50,15 @@ public class Duke {
                     repeatFunction(newTask, listOfTasks);
                 } else if (input.contains("deadline")) {
                     String[] parts = input.substring(9).split(" /");
-                    Task newTask = new Deadline(parts[0], parts[1].substring(3));
+                    LocalDateTime by = convertDateTime(parts[1].substring(3));
+                    Task newTask = new Deadline(parts[0], by);
                     listOfTasks.add(newTask);
                     repeatFunction(newTask, listOfTasks);
                 } else if (input.contains("event")) {
                     String[] parts = input.substring(6).split(" /");
-                    Task newTask = new Event(parts[0], parts[1].substring(5), parts[2].substring(3));
+                    LocalDateTime from = convertDateTime(parts[1].substring(5));
+                    LocalDateTime to = convertDateTime(parts[2].substring(3));
+                    Task newTask = new Event(parts[0], from, to);
                     listOfTasks.add(newTask);
                     repeatFunction(newTask, listOfTasks);
                 } else if (input.contains("delete")) {
@@ -76,6 +87,31 @@ public class Duke {
     public static void greet(String botName) {
         System.out.println(String.format(
                 "%s     Hello! I'm %s \n     What can I do for you? \n%s", LINE, botName, LINE));
+    }
+
+    /**
+     * 
+     * @param dateTimeString
+     * @return
+     */
+    public static LocalDateTime convertDateTime(String dateTimeString) {
+        for (String dateFormat : dateFormats) {
+            for (String timeFormat : timeFormats) {
+                try {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(timeFormat + " " + dateFormat);
+                    return LocalDateTime.parse(dateTimeString, formatter);
+                } catch (DateTimeParseException e) {
+
+                }
+                try {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat + " " + timeFormat);
+                    return LocalDateTime.parse(dateTimeString, formatter);
+                } catch (DateTimeParseException e) {
+
+                }
+            }
+        }
+        return null;
     }
 
     /**
