@@ -34,9 +34,9 @@ public class TaskList {
         try {
             this.tasks.get(index).setStatus(true);
             storage.storeTasks(this.tasks);
-            ui.markTaskMsg(this.tasks.get(index));
+            ui.showMarkTaskMsg(this.tasks.get(index));
         } catch (IOException e) {
-            ui.showErrorMsgStoreTasks();
+            ui.showStoreTaskErrorMessage();
             this.tasks.get(index).setStatus(false);
         }
     }
@@ -53,9 +53,9 @@ public class TaskList {
         try {
             this.tasks.get(index).setStatus(false);
             storage.storeTasks(this.tasks);
-            ui.unmarkTaskMsg(this.tasks.get(index));
+            ui.showUnmarkTaskMsg(this.tasks.get(index));
         } catch (IOException e) {
-            ui.showErrorMsgStoreTasks();
+            ui.showStoreTaskErrorMessage();
             this.tasks.get(index).setStatus(true);
         }
     }
@@ -88,12 +88,12 @@ public class TaskList {
                 if (task != null) {
                     this.tasks.add(task);
                     storage.storeTasks(this.tasks);
-                    ui.addTaskMsg(task, this.tasks.size());
+                    ui.showAddTaskMsg(task, this.tasks.size());
                 } else {
                     System.out.println("    No task added");
                 }
             } catch (IOException e) {
-                ui.showErrorMsgStoreTasks();
+                ui.showStoreTaskErrorMessage();
                 this.tasks.remove(this.tasks.size() - 1);
             }
         } catch (ByteTalkerException.UnsupportedTaskException ex) {
@@ -181,13 +181,19 @@ public class TaskList {
         try {
             this.tasks.remove(position - 1);
             storage.storeTasks(this.tasks);
-            ui.deleteTaskMsg(task, this.tasks.size());
+            ui.showDeleteTaskMsg(task, this.tasks.size());
         } catch (IOException e) {
-            ui.showErrorMsgStoreTasks();
+            ui.showStoreTaskErrorMessage();
             this.tasks.add(task);
         }
     }
 
+    /**
+     * Finds all the tasks with content that contains the user input.
+     *
+     * @param splitMessage Parsed messages of user input and processed by Parser.
+     * @param ui Utility object to print out the message to user to inform the process of the method.
+     */
     public void findTask(String[] splitMessage, Ui ui) {
         if (splitMessage.length != 2) {
             System.out.println("    Please use the correct format");

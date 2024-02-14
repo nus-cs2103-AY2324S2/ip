@@ -31,7 +31,7 @@ public class Parser {
     }
 
     public static ArrayList<String> parseDeadlineInput(String[] splitMessages) throws ByteTalkerException.DeadlineUnsupportedFormatException {
-        ArrayList<String> storeMessages = new ArrayList<>();
+        ArrayList<String> messageContainer = new ArrayList<>();
         String tempMessage = "";
         for (int i = 1; i < splitMessages.length; i++) {
             if (splitMessages[i].equals("/from") || splitMessages[i].equals("/to")) {
@@ -41,18 +41,18 @@ public class Parser {
             boolean isContentFilled = splitMessages[i].equals("/by");
             if (isContentFilled) {
                 tempMessage = tempMessage.strip();
-                storeMessages.add(tempMessage);
+                messageContainer.add(tempMessage);
                 tempMessage = "";
             } else {
                 tempMessage += splitMessages[i] + " ";
             }
         }
-        storeMessages.add(tempMessage);
-        return storeMessages;
+        messageContainer.add(tempMessage);
+        return messageContainer;
     }
 
     public static ArrayList<String> parseEventInput(String[] splitMessages) throws ByteTalkerException.EventWrongFormatException {
-        ArrayList<String> storeMessages = new ArrayList<>();
+        ArrayList<String> messageContainer = new ArrayList<>();
         String tempMessage = "";
         for (int i = 1; i < splitMessages.length; i++) {
             if (splitMessages[i].equals("/by")) {
@@ -62,19 +62,19 @@ public class Parser {
             boolean isFromFilled = splitMessages[i].equals("/to");
             if (isContentFilled) {
                 tempMessage = tempMessage.strip();
-                storeMessages.add(tempMessage);
+                messageContainer.add(tempMessage);
                 tempMessage = "";
             } else if (isFromFilled) {
                 tempMessage = tempMessage.strip();
-                storeMessages.add(tempMessage);
+                messageContainer.add(tempMessage);
                 tempMessage = "";
             } else {
                 tempMessage += splitMessages[i] + " ";
             }
         }
         tempMessage = tempMessage.strip();
-        storeMessages.add(tempMessage);
-        return storeMessages;
+        messageContainer.add(tempMessage);
+        return messageContainer;
     }
 
     public static LocalDateTime parseDateTime(String dateTimeString) {

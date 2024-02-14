@@ -8,14 +8,9 @@ package bytetalker.task;
  * @since 2024-02-06
  */
 public enum TaskType {
-    TODO("T") {
-    },
-    DEADLINE("D") {
-
-    },
-    EVENT("E") {
-
-    };
+    TODO("T") {},
+    DEADLINE("D") {},
+    EVENT("E") {};
 
     TaskType(String icon) {
         this.icon = icon;

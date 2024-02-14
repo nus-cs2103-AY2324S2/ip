@@ -39,21 +39,21 @@ public class ByteTalker {
         ui.showWelcome();
         while (!isExit) {
             String userInputString = ui.storeUserInput();
-            String[] splitMessage = Parser.parse(userInputString);
+            String[] splitMessages = Parser.parse(userInputString);
             if (userInputString.equals("bye")) {
                 break;
             } else if (userInputString.equals("list")) {
                 this.ui.returnList(this.tasks.getTasks());
-            } else if (splitMessage[0].equals("mark")) {
-                this.tasks.markTask(splitMessage, storage, ui);
-            } else if (splitMessage[0].equals("unmark")) {
-                this.tasks.unmarkTask(splitMessage, storage, ui);
-            } else if (splitMessage[0].equals("delete")) {
-                this.tasks.deleteTask(Integer.parseInt(splitMessage[1]), storage, ui);
-            } else if (splitMessage[0].equals("find")) {
-                this.tasks.findTask(splitMessage, ui);
+            } else if (splitMessages[0].equals("mark")) {
+                this.tasks.markTask(splitMessages, storage, ui);
+            } else if (splitMessages[0].equals("unmark")) {
+                this.tasks.unmarkTask(splitMessages, storage, ui);
+            } else if (splitMessages[0].equals("delete")) {
+                this.tasks.deleteTask(Integer.parseInt(splitMessages[1]), storage, ui);
+            } else if (splitMessages[0].equals("find")) {
+                this.tasks.findTask(splitMessages, ui);
             } else {
-                this.tasks.addTask(splitMessage, storage, ui);
+                this.tasks.addTask(splitMessages, storage, ui);
             }
         }
         ui.showBye();
