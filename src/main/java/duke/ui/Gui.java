@@ -5,7 +5,6 @@ import duke.exceptions.DukeException;
 import duke.parser.Parser;
 import duke.storage.TaskList;
 import duke.ui.gui.Main;
-
 import javafx.application.Application;
 
 /**
@@ -18,7 +17,7 @@ public class Gui extends Ui {
     /**
      * Tasklist for the application
      */
-    public static TaskList taskList;
+    private static TaskList taskList;
 
     /**
      * Create a label with the response from the application to the user input

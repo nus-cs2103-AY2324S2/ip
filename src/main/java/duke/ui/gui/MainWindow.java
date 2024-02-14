@@ -3,7 +3,6 @@ package duke.ui.gui;
 import duke.exceptions.DukeException;
 import duke.exceptions.StorageException;
 import duke.ui.Gui;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;

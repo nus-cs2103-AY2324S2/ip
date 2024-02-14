@@ -42,9 +42,9 @@ public class DeleteCommand extends Command {
         // Save to file
         taskList.saveTasks();
 
-        return "Noted. I've removed this task:\n" +
-                String.format("  %s\n", deletedTask.toString()) +
-                String.format("Now you have %d tasks in the list.\n", taskList.size());
+        return "Noted. I've removed this task:\n"
+                + String.format("  %s\n", deletedTask.toString())
+                + String.format("Now you have %d tasks in the list.\n", taskList.size());
     }
 
     /**
