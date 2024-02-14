@@ -55,7 +55,7 @@ public class Duke {
      *
      * @return A welcome message.
      */
-    public String greet() {
+    public String showGreetings() {
         return ui.showWelcomeMsg();
     }
 }

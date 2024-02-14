@@ -57,7 +57,7 @@ public class DialogBox extends HBox {
      * @param pos The text alignment.
      */
     private void setTextAlignment(TextAlignment pos) {
-        dialog.setTextAlignment(pos);;
+        dialog.setTextAlignment(pos);
     }
 
     /**

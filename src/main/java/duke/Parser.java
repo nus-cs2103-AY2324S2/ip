@@ -92,6 +92,8 @@ public class Parser {
      */
     private static Command parseToDoCommand(String[] inputs) throws DukeException {
         if (inputs.length == 1 || containsEmptyString(inputs)) {
+            assert inputs.length == 1 || containsEmptyString(inputs)
+                    : "Description cannot be left blank";
             throw new DukeException("OOPS! The description of a todo cannot be left blank.\n"
                     + "Please enter 'help' command to find out more.\n");
         }
@@ -108,6 +110,8 @@ public class Parser {
      */
     private static Command parseDeleteCommand(String[] inputs) throws DukeException {
         if (inputs.length == 1 || containsEmptyString(inputs)) {
+            assert inputs.length == 1 || containsEmptyString(inputs)
+                    : "Index of tasks to be deleted cannot be left blank";
             throw new DukeException("Please indicate the index of task you want to delete.\n"
                     + "Please enter 'help' command to find out more.\n");
         }
@@ -124,6 +128,8 @@ public class Parser {
      */
     private static Command parseMarkCommand(String[] inputs) throws DukeException {
         if (inputs.length == 1 || containsEmptyString(inputs)) {
+            assert inputs.length == 1 || containsEmptyString(inputs)
+                    : "Index of task to be marked cannot be left blank";
             throw new DukeException("Please indicate the index of task you want to mark as done.\n"
                     + "Please enter 'help' command to find out more.\n");
         }
@@ -140,6 +146,8 @@ public class Parser {
      */
     private static Command parseUnmarkCommand(String[] inputs) throws DukeException {
         if (inputs.length == 1 || containsEmptyString(inputs)) {
+            assert inputs.length == 1 || containsEmptyString(inputs)
+                    : "Index of tasks to be unmarked cannot be left blank";
             throw new DukeException("Please indicate the index of task you want to mark as not done.\n"
                     + "Please enter 'help' command to find out more.\n");
         }
@@ -156,9 +164,12 @@ public class Parser {
      */
     private static Command parseDeadlineCommand(String[] inputs) throws DukeException {
         if (inputs.length == 1 || containsEmptyString(inputs)) {
+            assert inputs.length == 1 || containsEmptyString(inputs)
+                    : "Description cannot be left blank";
             throw new DukeException("OOPS! The description of a deadline cannot be left blank.\n"
                     + "Please enter 'help' command to find out more.\n");
         } else if (!inputs[1].contains("/by")) {
+            assert !inputs[1].contains("/by") : "This is invalid format.";
             throw new DukeException("OOPS! The date/time for the deadline cannot be left blank.\n"
                     + "Please enter 'help' command to find out more.\n");
         }
@@ -175,9 +186,13 @@ public class Parser {
      */
     private static Command parseEventCommand(String[] inputs) throws DukeException {
         if (inputs.length == 1 || containsEmptyString(inputs)) {
+            assert inputs.length == 1 || containsEmptyString(inputs)
+                    : "Description cannot be left blank";
             throw new DukeException("OOPS! The description of an event cannot be left blank.\n"
                     + "Please enter 'help' command to find out more.\n");
         } else if (!inputs[1].contains("/from") && !inputs[1].contains("/to")) {
+            assert !inputs[1].contains("/from") && !inputs[1].contains("/to")
+                    : "Invalid format.";
             throw new DukeException("OOPS! The start time and end time cannot be left blank.\n"
                     + "Please enter 'help' command to find out more.\n");
         }
@@ -194,6 +209,8 @@ public class Parser {
      */
     public static Command parseFindCommand(String[] inputs) throws DukeException {
         if (inputs.length == 1 || containsEmptyString(inputs)) {
+            assert inputs.length == 1 || containsEmptyString(inputs)
+                    : "Keyword cannot be left blank";
             throw new DukeException("OOPS! The keyword to find cannot be left blank.\n"
                     + "Please enter 'help' command to find out more.\n");
         }
