@@ -48,11 +48,10 @@ public class Yapchit extends Application {
 
     @Override
     public void start(Stage stage) {
-
         initialSetup(stage);
 
-
-        DialogBox yapchitInro = DialogBox.getYapchitDialog(getDialogLabel(yapchitBackend.getIntro()), new ImageView(yapchit));
+        DialogBox yapchitInro = DialogBox.getYapchitDialog(getDialogLabel(yapchitBackend.getIntro()),
+                new ImageView(yapchit));
         dialogContainer.getChildren().add(yapchitInro);
 
         sendButton.setOnMouseClicked((event) -> {
@@ -68,8 +67,6 @@ public class Yapchit extends Application {
         });
 
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-
-
     }
 
     /**
@@ -86,24 +83,25 @@ public class Yapchit extends Application {
     }
 
     /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Responds to user input based on input command. Enables core functionality of yapchit.
      */
     private void handleUserInput() {
         String inputText = userInput.getText();
         Label yapchitText;
         Label userText = new Label(inputText);
+
         if (yapchitBackend.checkIsBye(inputText)){
             yapchitText = new Label(yapchitBackend.getOutro());
             this.hasNext = false;
         } else {
             yapchitText = new Label(yapchitBackend.run(inputText));
         }
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
                 DialogBox.getYapchitDialog(yapchitText, new ImageView(yapchit))
         );
+
         userInput.clear();
     }
 
@@ -111,17 +109,45 @@ public class Yapchit extends Application {
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
+    private String getResponse(String input) {
+        return "bob";
+    }
+
     private void initialSetup(Stage stage){
-        scrollPane = new ScrollPane();
+        setupDialogContainer();
+        setUpScrollPane();
+        AnchorPane mainLayout = createNewAnchorPane();
+        setupStage(stage, mainLayout);
+        setUpAnchorPane(mainLayout);
+    }
+
+    private void setupDialogContainer() {
         dialogContainer = new VBox();
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+    }
+
+    private void setUpScrollPane() {
+        scrollPane = new ScrollPane();
         scrollPane.setContent(dialogContainer);
 
+        scrollPane.setPrefSize(385, 535);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+
+        scrollPane.setVvalue(1.0);
+        scrollPane.setFitToWidth(true);
+    }
+
+    private AnchorPane createNewAnchorPane() {
         userInput = new TextField();
         sendButton = new Button("Send");
-
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
 
+        return mainLayout;
+    }
+
+    private void setupStage(Stage stage, AnchorPane mainLayout) {
         scene = new Scene(mainLayout);
 
         stage.setScene(scene);
@@ -131,20 +157,12 @@ public class Yapchit extends Application {
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
+    }
 
+    private void setUpAnchorPane(AnchorPane mainLayout) {
         mainLayout.setPrefSize(400.0, 600.0);
 
-        scrollPane.setPrefSize(385, 535);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
-        scrollPane.setVvalue(1.0);
-        scrollPane.setFitToWidth(true);
-
-        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
         userInput.setPrefWidth(325.0);
-
         sendButton.setPrefWidth(55.0);
 
         AnchorPane.setTopAnchor(scrollPane, 1.0);
@@ -155,8 +173,4 @@ public class Yapchit extends Application {
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
     }
-
-
-
-
 }

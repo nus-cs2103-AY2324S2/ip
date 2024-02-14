@@ -32,10 +32,10 @@ public class Ui {
      * Prints Yapchit intro message.
      */
     public String printIntro() {
-        String intro = "\t--------------------------------------------------\n"
+        String intro = Ui.printLine() + "\n"
                 + "\tHello! I'm Yapchit\n"
                 + "\tWhat can I do for you?\n"
-                + "\t--------------------------------------------------";
+                + Ui.printLine();
         return intro;
     }
 
@@ -43,9 +43,9 @@ public class Ui {
      * Prints Yapchit outro message.
      */
     public String printOutro() {
-        String outro = "\t--------------------------------------------------\n"
+        String outro = Ui.printLine() + "\n"
                 + "\tBye. Hope to see you again soon!\n"
-                + "\t--------------------------------------------------";
+                + Ui.printLine();
         return outro;
     }
 

@@ -1,6 +1,5 @@
 package yapchit.yapchitbackend;
 
-import yapchit.yapchitui.Yapchit;
 import yapchit.yapchitbackend.tasks.Deadline;
 import yapchit.yapchitbackend.tasks.Event;
 import yapchit.yapchitbackend.tasks.Task;
@@ -60,8 +59,8 @@ public class Storage {
             String[] parts = parser.parseInputParts(input);
             try {
                 YapchitBackend.Operations k = YapchitBackend.Operations.valueOf(parts[0].toUpperCase());
-                handler.handleUpdateListFromFile(input, k, tasks, ui, parser);
-            } catch (YapchitException e) {
+                handler.handleOperation(input, k, tasks, ui, parser, false);
+            } catch (Exception e) {
                 throw new FileListParseException("Error in parsing file. Some of the contents may be corrupted");
             }
         }
@@ -79,25 +78,7 @@ public class Storage {
         String toWrite = "";
         for (int i = 0; i < tasks.getListSize(); i++) {
             Task t = tasks.getItem(i);
-            if (t instanceof ToDo) {
-                toWrite = toWrite + "todo "+ t.getName() + (t.getDone() ? "1" : "0") + "\n";
-            }
-
-            if (t instanceof Event) {
-                toWrite = toWrite
-                        + "event "+ t.getName()
-                        + " /from " + ((Event) t).getFrom()
-                        + " /to " + ((Event) t).getTo()
-                        +(t.getDone() ? "1" : "0") + "\n";
-            }
-
-            if (t instanceof Deadline) {
-                toWrite = toWrite
-                        + "deadline "+ t.getName()
-                        + " /by " + ((Deadline) t).getBy()
-                        +(t.getDone() ? "1" : "0") + "\n";
-            }
-
+            toWrite = toWrite + getTaskWriteString(t);
         }
         File f = new File(filePath);
 
@@ -124,10 +105,33 @@ public class Storage {
 
     }
 
-    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+    private String getTaskWriteString(Task t) {
+        String toWrite = "";
+        if (t instanceof ToDo) {
+            toWrite = "todo "+ t.getName() + (t.getDone() ? "1" : "0") + "\n";
+        }
+
+        if (t instanceof Event) {
+            toWrite = "event "+ t.getName()
+                    + " /from " + ((Event) t).getFrom()
+                    + " /to " + ((Event) t).getTo()
+                    +(t.getDone() ? "1" : "0") + "\n";
+        }
+
+        if (t instanceof Deadline) {
+            toWrite = "deadline "+ t.getName()
+                    + " /by " + ((Deadline) t).getBy()
+                    +(t.getDone() ? "1" : "0") + "\n";
+        }
+
+        return toWrite;
+    }
+
+    private void writeToFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         fw.write(textToAdd);
         fw.close();
     }
+
 
 }
