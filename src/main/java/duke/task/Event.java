@@ -21,6 +21,7 @@ public class Event extends Task {
         super(description);
         this.from = new DateTime(from);
         this.to = new DateTime(to);
+        assert (this.from != null && this.to != null) : "'From' and 'to' should not be null!";
     }
 
     /**
