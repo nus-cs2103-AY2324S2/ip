@@ -1,8 +1,21 @@
 package duke.Command;
+
 import duke.TaskList;
 import duke.DukeException;
 import duke.Command.Command;
+
+/**
+ * Represents a command to list all tasks in the task list.
+ */
 public class ListCommand extends Command {
+
+    /**
+     * Executes the list command and returns a string representation of the tasks in the task list.
+     *
+     * @param taskList the task list containing the tasks
+     * @param command  the command string
+     * @return a string representation of the tasks in the task list
+     */
     @Override
     public String execute(TaskList taskList, String command) {
         if (taskList.getTasks().isEmpty()) {

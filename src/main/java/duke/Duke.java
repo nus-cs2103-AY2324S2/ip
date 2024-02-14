@@ -8,14 +8,27 @@ import duke.Task.Task;
 import duke.TaskList;
 import duke.Ui;
 
+/**
+ * The Duke class represents a task management application.
+ * It allows users to add, delete, and mark tasks as done.
+ */
 public class Duke {
     private TaskList taskList;
 
+    /**
+     * Constructs a Duke object.
+     * Loads tasks from file and initializes the task list.
+     */
     Duke() {
         ArrayList<Task> tasks = Storage.loadTasksFromFile();
         taskList = new TaskList(tasks);
     }
 
+    /**
+     * Runs the Duke application.
+     * Prompts the user for commands and executes them until the user enters "bye".
+     * Saves tasks to file before exiting.
+     */
     void run() {
         Ui.printLogo();
         Ui.printWelcomeMessage();
@@ -37,6 +50,12 @@ public class Duke {
         Ui.printGoodbyeMessage();
     }
 
+    /**
+     * The entry point of the Duke application.
+     * Creates a Duke object and runs the application.
+     *
+     * @param args The command-line arguments.
+     */
     public static void main(String[] args) {
         new Duke().run();
     }

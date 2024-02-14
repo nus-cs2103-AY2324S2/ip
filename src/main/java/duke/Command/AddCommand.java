@@ -1,17 +1,27 @@
 package duke.Command;
+
 import duke.Task.DeadlineTask;
 import duke.Task.EventTask;
 import duke.Task.Task;
 import duke.TaskList;
+import duke.DukeException;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import duke.Task.ToDoTask;
-import duke.DukeException;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import duke.Command.Command;
-import duke.DukeException;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-public class AddCommand extends Command{
+
+/**
+ * Represents a command to add a task to the task list.
+ */
+public class AddCommand extends Command {
+
+    /**
+     * Executes the add command.
+     *
+     * @param taskList the task list to add the task to
+     * @param command the command string
+     * @return the result message after adding the task
+     * @throws DukeException if there is an error executing the command
+     */
     @Override
     public String execute(TaskList taskList, String command) throws DukeException {
         String[] parts = command.split(" ", 2);

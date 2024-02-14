@@ -4,17 +4,28 @@ import duke.Task.*;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The Parser class is responsible for parsing user commands and task strings.
+ * It provides methods to parse commands and tasks from string inputs.
+ */
 class Parser {
+    /**
+     * Parses the user command from the given string input.
+     *
+     * @param command The string input representing the user command.
+     * @return The corresponding Command object based on the user command.
+     * @throws DukeException If the command is empty or not recognized.
+     */
     static Command parseCommand(String command) throws DukeException {
         String[] parts = command.split(" ", 2);
-    
+
         // Ensure there's at least one part
         if (parts.length < 1) {
             throw new DukeException("Command is empty.");
         }
-    
+
         String keyword = parts[0].toLowerCase(); // Convert to lowercase for case-insensitive comparison
-    
+
         switch (keyword) {
             case "list":
                 return new ListCommand();
@@ -35,21 +46,25 @@ class Parser {
                 throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
     }
-    
-    
-    
 
+    /**
+     * Parses the task from the given string input.
+     *
+     * @param line The string input representing the task.
+     * @return The corresponding Task object based on the task string.
+     * @throws DukeException If the task format is invalid.
+     */
     static Task parseTaskFromString(String line) throws DukeException {
         String[] parts = line.split("\\|");
-    
+
         if (parts.length < 3) {
             throw new DukeException("Invalid task format: " + line);
         }
-    
+
         String type = parts[0].trim();
         boolean isDone = parts[1].trim().equals("1"); // "1" represents task is done
         String description = parts[2].trim();
-    
+
         switch (type) {
             case "D":
                 if (parts.length < 4) {
@@ -83,6 +98,5 @@ class Parser {
                 return toDoTask;
         }
     }
-    
-}
 
+}
