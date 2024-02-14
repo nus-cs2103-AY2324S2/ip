@@ -55,6 +55,8 @@ public class Event extends Task {
      * @return Whether the string follows the format yyyy-MM-dd.
      */
     private boolean isValidDateFormat(String from, String by) {
+        assert from != null : "String parameter 'from' cannot be null";
+        assert by != null : "String parameter 'by' cannot be null";
         try {
             LocalDate.parse(from, DateTimeFormatter.ofPattern(YYYY_MM_DD));
             LocalDate.parse(by, DateTimeFormatter.ofPattern(YYYY_MM_DD));

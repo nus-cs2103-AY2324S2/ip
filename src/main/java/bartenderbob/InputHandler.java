@@ -12,6 +12,9 @@ public class InputHandler {
      * @return The response to the user input.
      */
     public static String handleInput(TaskList taskList, Ui ui, String userInput) {
+        assert taskList != null : "Task list cannot be null";
+        assert ui != null : "ui cannot be null";
+        assert userInput != null : "user input cannot be null";
         String[] stringComponents = userInput.split(" ");
         String firstWord = stringComponents[0];
         if (firstWord.equals("bye")) {

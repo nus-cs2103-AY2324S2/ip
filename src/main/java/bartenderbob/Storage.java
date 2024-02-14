@@ -35,6 +35,7 @@ public class Storage {
      */
     public ArrayList<Task> load() throws BartenderBobException {
         try {
+            assert filePath != null : "File path cannot be null";
             ArrayList<Task> taskArray = new ArrayList<>();
             Path path = Paths.get(filePath); //Operating system independent
             if (Files.exists(path)) {
@@ -88,6 +89,8 @@ public class Storage {
      */
     public void saveChanges(ArrayList<Task> tasks) {
         try {
+            assert filePath != null : "File path cannot be null";
+            assert tasks != null : "Task cannot be null";
             Path path = Paths.get(filePath);
             Files.write(path, "".getBytes(), StandardOpenOption.TRUNCATE_EXISTING);
             for (Task task : tasks) {
@@ -130,6 +133,7 @@ public class Storage {
         //[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
         // = E |  | project meeting | Aug 6th 2pm | 4pm
         try {
+            assert task != null : "Task cannot be null";
             Path path = Paths.get(filePath);
             String taskString = task.show();
             String typeOfTask = taskString.substring(1, 2);
