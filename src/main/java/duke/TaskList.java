@@ -49,15 +49,12 @@ public class TaskList {
         if (tasks.size() == 0) {
             throw new DukeException("Add tasks to list first! Type something other than List/list or Bye/bye.\n");
         } else {
-            //System.out.println("Here are the tasks in your list:\n");
             sb.append("Here are the tasks in your list:\n\n");
 
             for (int i = 0; i < tasks.size(); i++) {
-                //System.out.println(i + 1 + "." + tasks.get(i).toString());
                 sb.append(i + 1 + "." + tasks.get(i).toString() + "\n");
             }
 
-            //System.out.println();
             sb.append("\n");
         }
         return sb.toString();
