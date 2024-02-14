@@ -15,7 +15,6 @@ public abstract class Command {
 
     /**
      * Execute the command
-     * @throws DukeException
      */
     public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
 

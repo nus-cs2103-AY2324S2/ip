@@ -56,7 +56,7 @@ public class Duke {
     /**
      * This method will get the response from the ui
      * @param input the user input in the CLI
-     * @return
+     * @return the response of the given command being run
      */
     public String getResponse(String input) {
         try {
