@@ -4,12 +4,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.shape.Circle;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
+import javafx.scene.Node;
+import javafx.scene.shape.Circle;
 
 /**
  * Displays a dialog entry from a user.
@@ -18,11 +17,14 @@ public class DialogBox extends HBox {
     private final Label text;
     private final ImageView displayPicture;
 
+    private final boolean isUser;
+
     /**
      * @param l  A `Label` for the dialog text.
      * @param iv An `ImageView` containing the user avatar.
      */
-    public DialogBox(Label l, ImageView iv) {
+    public DialogBox(Label l, ImageView iv, boolean isUser) {
+        this.isUser = isUser;
         text = l;
         displayPicture = iv;
 
@@ -39,6 +41,12 @@ public class DialogBox extends HBox {
         clip.setCenterX(50);
         clip.setCenterY(50);
         displayPicture.setClip(clip);
+
+        if (isUser) {
+            this.setStyle("-fx-background-color: lightgray; -fx-background-radius: 10px;");
+        } else {
+            this.setStyle("-fx-background-color: white; -fx-background-radius: 10px;");
+        }
     }
 
     private void flip() {
@@ -49,11 +57,11 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(Label l, ImageView iv) {
-        return new DialogBox(l, iv);
+        return new DialogBox(l, iv, true);
     }
 
     public static DialogBox getDukeDialog(Label l, ImageView iv) {
-        var db = new DialogBox(l, iv);
+        var db = new DialogBox(l, iv, false);
         db.flip();
         return db;
     }
