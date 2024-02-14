@@ -22,7 +22,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: " + due.getMonth() + " "
+        return "[D]" + super.toString() + " (by: " + due.getMonth() + " "
                 + due.getDayOfMonth() + " " + due.getYear() + " "
                 + due.getHour() + ":" + due.getMinute() + ")";
 

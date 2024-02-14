@@ -6,21 +6,14 @@ import lite.task.TaskList;
 public class Printer {
 
     /**
-     * Prints a horizontal line for formatting
-     */
-    public static void printHorizontalLine() {
-        System.out.println("____________________________________________________________");
-    }
-
-    /**
      * Prints a message notifying that a task has been removed
      * @param tasks List of tasks
      * @param index Index of task to remove from
      */
-    public static void printRemoveTask(TaskList tasks, int index) {
-        System.out.println("Noted. I've removed this lite.task:\n" +
+    public static String printRemoveTask(TaskList tasks, int index) {
+        return "Noted. I've removed this lite.task:\n" +
                 tasks.get(index) + "\n" +
-                "Now you have " + (tasks.size() - 1) + " tasks in the tasks.");
+                "Now you have " + (tasks.size() - 1) + " tasks in the tasks.";
     }
 
 
@@ -29,18 +22,17 @@ public class Printer {
      * @param tasks List of tasks
      * @param task Task to be added
      */
-    public static void printTask(TaskList tasks, Task task) {
-        System.out.println("Got it. I've added this lite.task: ");
-        System.out.println(task);
-        System.out.println("Now you have " + tasks.size() + " tasks in the tasks");
+    public static String printTask(TaskList tasks, Task task) {
+        return "Got it. I've added this lite.task: \n" +
+                task + "\n" + "Now you have " + tasks.size() + " tasks in the tasks";
     }
 
     /**
      * Prints out a message notifying that a task has been unmarked
      * @param task Task being unmarked
      */
-    public static void printUnmark(Task task) {
-        System.out.println(task.unmark());
+    public static String printUnmark(Task task) {
+        return task.unmark();
     }
 
 
@@ -48,16 +40,17 @@ public class Printer {
      * Prints out a message notifying that a task has been marked
      * @param task Task being marked
      */
-    public static void printMark(Task task) {
-        System.out.println(task.mark());
+    public static String printMark(Task task) {
+        return task.mark();
     }
 
-    public static void printFound(TaskList tasks) {
-        System.out.println("Here are the matching tasks in your list:");
-        tasks.taskString();
+    public static String printFound(TaskList tasks) {
+        String output = "Here are the matching tasks in your list:\n";
+        output += tasks.taskString();
+        return output;
     }
 
-    public static void printNotFound() {
-        System.out.println("There are no tasks that correspond with your input");
+    public static String printNotFound() {
+        return "There are no tasks that correspond with your input";
     }
 }
