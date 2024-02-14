@@ -1,4 +1,4 @@
-package oak;
+package oak.javafx;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import oak.controller.OakController;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -21,7 +22,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Oak oak;
+    private OakController oak;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/oak_dex.png"));
     private Image oakImage = new Image(this.getClass().getResourceAsStream("/images/oak_dex.png"));
@@ -31,7 +32,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setOak(Oak d) {
+    public void setOak(OakController d) {
         oak = d;
     }
 

@@ -1,4 +1,4 @@
-package oak;
+package oak.javafx;
 
 import java.io.IOException;
 import java.util.Collections;

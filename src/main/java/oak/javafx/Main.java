@@ -1,4 +1,4 @@
-package oak;
+package oak.javafx;
 
 import java.io.IOException;
 
@@ -7,9 +7,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import oak.controller.OakController;
 
 public class Main extends Application {
-    private Oak oak = new Oak();
+    private OakController oak = new OakController();
 
     @Override
     public void start(Stage stage) {
