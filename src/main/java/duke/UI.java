@@ -14,21 +14,41 @@ public class UI {
     public UI() {
     }
 
-
+    /**
+     * Returns the initial message.
+     *
+     * @return
+     */
     public String startMsg() {
         return "Greetings friend! I am Datuk\n"
                 + "How can I serve you today? ^_^' \n";
     }
 
-    public String byeMsg() throws IOException {
+    /**
+     * Returns parting message.
+     *
+     * @return
+     */
+    public String byeMsg() {
         return "Farewell!\n"
                 + "Please use the x on the top right corner to exit!";
     }
 
+    /**
+     * Returns error message.
+     *
+     * @param de
+     * @return
+     */
     public String showError(DukeException de) {
         return de.toString();
     }
 
+    /**
+     * Returns an ordered list of Tasks.
+     *
+     * @param taskList an ArrayList of all the Tasks
+     */
     public String printList(ArrayList<Task> taskList) {
         StringBuilder sb = new StringBuilder();
         sb.append("These are all your tasks:\n");
@@ -45,6 +65,12 @@ public class UI {
         return sb.toString();
     }
 
+    /**
+     * Returns an ordered list of Tasks found.
+     *
+     * @param taskList an ArrayList of Tasks found.
+     * @return an ordered list.
+     */
     public String printFindList(ArrayList<Task> taskList) {
         StringBuilder sb = new StringBuilder();
         if (taskList.isEmpty()) {
@@ -61,6 +87,12 @@ public class UI {
         return sb.toString();
     }
 
+    /**
+     * Returns a message of the task added and the number of remaining tasks.
+     *
+     * @param t The object of the Task added to the list
+     * @param size The new size of the list.
+     */
     public String showAddMsg(Task t, int size) {
         StringBuilder sb = new StringBuilder();
         sb.append("Understood. Added the following:\n");
@@ -70,6 +102,12 @@ public class UI {
         return sb.toString();
     }
 
+    /**
+     * Returns a message of the task deleted and the number of remaining tasks.
+     *
+     * @param t The object of the Task removed from the list
+     * @param size The new size of the list.
+     */
     public String showDeleteMsg(Task t, int size) {
         StringBuilder sb = new StringBuilder();
         sb.append("Removed the following: \n");
@@ -78,12 +116,22 @@ public class UI {
         return sb.toString();
     }
 
+    /**
+     * Returns a String of the Task that has been completed.
+     *
+     * @param desc the description of the Task.
+     */
     public String showMark(String desc) {
         StringBuilder sb = new StringBuilder();
         sb.append("I have set this task < " + desc + " > as completed." );
         return sb.toString();
     }
 
+    /**
+     * Returns a String of the Task that has not been completed.
+     *
+     * @param desc the description of the Task.
+     */
     public String showUnmark(String desc) {
         StringBuilder sb = new StringBuilder();
         sb.append("I have set this task < " + desc + " > as incomplete." );
