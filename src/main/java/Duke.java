@@ -1,10 +1,11 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
         System.out.println("Hello! I'm Linus!\nWhat can I do for you?\n\n");
 
-        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = FileManager.loadTasksFromFile(); // Load tasks from file
         Scanner sc = new Scanner(System.in);
 
         // while loop to repeat printing of multiple Scanner inputs
@@ -17,6 +18,7 @@ public class Duke {
                 // When comparing strings for equality, you should use the equals() method, not the == operator.
                 if (input.equals("bye")) { // exit chat
                     System.out.println("Bye. It's been a pleasure chatting with you!");
+                    FileManager.saveTasksToFile(tasks); // Save tasks to file before exiting
                     break;
                 } else if (input.equals("list")) { // list tasks
                     System.out.println("Here are the tasks in your list:");
@@ -53,7 +55,7 @@ public class Duke {
                                 " (e.g. todo borrow book)");
                     }
 
-                    Task todo = new Todo(description);
+                    Task todo = new Todo(description, false);
                     tasks.add(todo);
                     System.out.println("Got it. I've added this task: \n" + todo);
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -78,7 +80,7 @@ public class Duke {
                     }
 
                     String by = substrings[1];
-                    Task deadline = new Deadline(description, by);
+                    Task deadline = new Deadline(description, by, false);
                     tasks.add(deadline);
                     System.out.println("Got it. I've added this task: \n" + deadline);
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -99,7 +101,7 @@ public class Duke {
 
                     String from = substrings2[0];
                     String to = substrings2[1];
-                    Task event = new Event(description, from, to);
+                    Task event = new Event(description, from, to, false);
                     tasks.add(event);
                     System.out.println("Got it. I've added this task: \n" + event);
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -109,7 +111,7 @@ public class Duke {
                                 " (e.g. delete 3)");
                     }
 
-                    Integer indexOfTask = Integer.parseInt(input.substring(7).trim()) - 1;
+                    int indexOfTask = Integer.parseInt(input.substring(7).trim()) - 1;
 
                     if (indexOfTask < 0 || indexOfTask >= tasks.size()) {
                         throw new DukeException("The task index is out of range.");
