@@ -152,4 +152,38 @@ public class Ui {
     public String noKeywordsForSearching() {
         return "Please provide a keyword to search.";
     }
+
+    public String help() {
+        return "Welcome to " + botName + " chatbot!" +
+                "\n" + "You can follow instructions below to use this chatbot!" +
+                "\n" +
+                "\n" + "todo description" +
+                "\n" + "--> Add todo task" +
+                "\n" +
+                "\n" + "deadline description /by date"  +
+                "\n" + "--> Add deadline task (Date format: YYYY-M-D)" +
+                "\n" +
+                "\n" + "event description /from date /to date" +
+                "\n" + "--> Add event task (Date format: YYYY-M-D)" +
+                "\n" +
+                "\n" + "list" +
+                "\n" + "--> list out all tasks in the task list" +
+                "\n" +
+                "\n" + "delete taskIndex" +
+                "\n" + "--> delete certain task" +
+                "\n" +
+                "\n" + "done taskIndex" +
+                "\n" + "--> mark certain task as done" +
+                "\n" +
+                "\n" + "undone taskIndex" +
+                "\n" + "--> mark certain task as not done" +
+                "\n" +
+                "\n" + "search keyword" +
+                "\n" + "--> search tasks matching with keyword" +
+                "\n" +
+                "\n" + "bye or save" +
+                "\n" + "--> save the tasks locally (IMPORTANT!)" +
+                "\n" +
+                "\n" + "That's the end of the features (more is yet to come!)";
+    }
 }

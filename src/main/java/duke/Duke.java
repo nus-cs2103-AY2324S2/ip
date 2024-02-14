@@ -174,6 +174,7 @@ public class Duke extends Application {
     /**
      * Iteration 1:
      * Creates a label with the specified text and adds it to the dialog container.
+     *
      * @param text String containing text to add
      * @return a label with the specified text that has word wrap enabled.
      */
@@ -212,18 +213,4 @@ public class Duke extends Application {
             throw new RuntimeException(e);
         }
     }
-
-    /**
-     * While the GUI looks similar to the mockup, there are still parts that need to be refined. Try your hand at some of these tasks:
-     *
-     * Add padding between each DialogBox
-     * Add padding between each ImageView and its Label
-     * Clip the ImageView into a circle
-     * Add background color to each dialog box
-     * After attempting the changes, reflect critically on the following:
-     *
-     * What was the development workflow like?
-     * Is the code base well-organized?
-     */
-
 }

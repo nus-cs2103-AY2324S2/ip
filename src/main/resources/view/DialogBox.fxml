@@ -6,6 +6,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.shape.Circle?>
 
 <fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" prefWidth="800.0" style="-fx-background-size: contain;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <children>
@@ -14,7 +16,15 @@
                 <Font name="Ebrima" size="12.0" />
             </font>
         </Text>
-        <ImageView fx:id="displayPicture" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="displayPicture" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+            <clip>
+                <!-- Adjust the corner radius as desired -->
+                <Rectangle arcWidth="20.0" arcHeight="20.0" width="50.0" height="50.0" />
+            </clip>
+<!--            <clip>-->
+<!--                <Circle radius="25.0" centerX="25.0" centerY="25.0" />-->
+<!--            </clip>-->
+        </ImageView>
     </children>
     <padding>
         <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
