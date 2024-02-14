@@ -39,22 +39,30 @@ public class Ui {
         return output;
     }
 
+    public String showUnDo(String input) {
+        return showToUser("Undo the command:", input);
+    }
+
     public String showMark(TaskList taskList, int taskNum) {
-        return showToUser("Nice! I've marked this detective.task as done:", taskList.get(taskNum).toString());
+        return showToUser("Nice! I've marked this task as done:", taskList.get(taskNum).toString());
     }
 
     public String showUnmark(TaskList taskList, int taskNum) {
-        return showToUser("Nice! I've unmarked this detective.task as done:", taskList.get(taskNum).toString());
+        return showToUser("Nice! I've unmarked this task as done:", taskList.get(taskNum).toString());
+    }
+
+    public String showNoChange(TaskList taskList, int taskNum) {
+        return showToUser("No change in the task:", taskList.get(taskNum).toString());
     }
 
     public String showAddTask(TaskList taskList, Task task) {
-        return showToUser("Got it. I've added this detective.task:",
+        return showToUser("Got it. I've added this task:",
                 task.toString(),
                 "Now you have " + taskList.size() + " tasks in the list.");
     }
 
     public String showDeleteTask(TaskList taskList, Task task) {
-        return showToUser("Got it. I've deleted this detective.task:",
+        return showToUser("Got it. I've deleted this task:",
                 task.toString(),
                 "Now you have " + taskList.size() + " tasks in the list.");
     }
