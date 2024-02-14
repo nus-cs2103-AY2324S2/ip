@@ -35,6 +35,7 @@ public class TaskList {
     }
 
     public String deleteTask(int taskIndex) {
+        assert(taskIndex >= 1);
         if (!isValidTaskIndex(taskIndex)) {
             return ui.invalidTaskIndex();
         }
@@ -42,6 +43,7 @@ public class TaskList {
         return ui.deleteTask(removedTask, getTaskListSize());
     }
     public String markTaskAsDone(int taskIndex) {
+        assert(taskIndex >= 1);
         if (!isValidTaskIndex(taskIndex)) {
             return ui.invalidTaskIndex();
         }
@@ -51,6 +53,7 @@ public class TaskList {
     }
 
     public String markTaskAsUndone(int taskIndex) {
+        assert(taskIndex >= 1);
         if (!isValidTaskIndex(taskIndex)) {
             return ui.invalidTaskIndex();
         }
