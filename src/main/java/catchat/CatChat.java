@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+//import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -29,8 +29,8 @@ public class CatChat extends Application {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/PopCat.jpg"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/HuhCat.jpg"));
+    private Image userImg = new Image(this.getClass().getResourceAsStream("/images/PopCat.jpg"));
+    private Image dukeImg = new Image(this.getClass().getResourceAsStream("/images/HuhCat.jpg"));
     /**
      * Constructor for Duke
      */
@@ -151,11 +151,11 @@ public class CatChat extends Application {
      */
     private void handleUserInput() {
         String input = ui.getUserInput(); // Get user input using Ui class method
-        Label userText = new Label(input);
-        Label dukeText = new Label(getResponse(input));
+        // Label userText = new Label(input);
+        // Label dukeText = new Label(getResponse(input));
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
+                DialogBox.getUserDialog(input, userImg),
+                DialogBox.getDukeDialog(getResponse(input), dukeImg)
         );
         userInput.clear();
     }
@@ -165,7 +165,7 @@ public class CatChat extends Application {
      * Replace this stub with your completed method.
      */
     protected String getResponse(String input) {
-        return "Duke heard: " + input;
+
     }
 
     /**

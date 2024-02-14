@@ -4,7 +4,7 @@ import java.util.ArrayList;
 /**
  * TaskList class contains the task list
  */
-public class TaskList {
+public class TaskListGui {
     private ArrayList<Task> taskList;
     private Ui ui;
     private int taskIndex;
@@ -16,7 +16,7 @@ public class TaskList {
      * @param storage
      * @param taskList
      */
-    public TaskList(Storage storage, ArrayList<Task> taskList) {
+    public TaskListGui(Storage storage, ArrayList<Task> taskList) {
         this.taskList = taskList;
         this.ui = new Ui();
         this.storage = storage;
@@ -40,17 +40,17 @@ public class TaskList {
         case EVENT:
             addEvent(task);
             break;
-        case HELP:
-            ui.showHelp();
-            break;
-        case DELETE:
-            try {
-                int index = Integer.parseInt(task.substring(6).trim()) - 1;
-                deleteTask(index);
-            } catch (NumberFormatException e) {
-                System.out.println("\t" + "Invalid input. Please enter a valid task index.");
-            }
-            break;
+        //        case HELP:
+        //            ui.showHelp();
+        //            break;
+        //        case DELETE:
+        //            try {
+        //                int index = Integer.parseInt(task.substring(6).trim()) - 1;
+        //                deleteTask(index);
+        //            } catch (NumberFormatException e) {
+        //                System.out.println("\t" + "Invalid input. Please enter a valid task index.");
+        //            }
+        //            break;
         default: // UNKNOWN TaskType
             System.out.println("\t" + "Sorry, that's not a command. Enter 'help' for instructions.");
         }
@@ -85,7 +85,7 @@ public class TaskList {
 
         String[] deadlineDescription = task.substring(8).trim().split("/by", 2);
         if (deadlineDescription.length != 2 || deadlineDescription[0].trim().isEmpty()
-            || deadlineDescription[1].trim().isEmpty()) {
+                || deadlineDescription[1].trim().isEmpty()) {
             System.out.println("\t" + "Invalid input. Enter 'deadline <task> /by <DEADLINE>'");
         } else {
             String description = deadlineDescription[0].trim();
@@ -163,10 +163,6 @@ public class TaskList {
             return TaskType.DEADLINE;
         } else if (task.startsWith("event")) {
             return TaskType.EVENT;
-        } else if (task.equals("help")) {
-            return TaskType.HELP;
-        } else if (task.equals("delete")) { // if (task.startsWith("delete"))
-            return TaskType.DELETE;
         } else {
             return TaskType.UNKNOWN;
         }
@@ -183,22 +179,19 @@ public class TaskList {
      * @throws IndexOutOfBoundsException if index is out of bounds
      * @throws NumberFormatException if input is not a number
      */
-    public void markDone(int index) {
+    public String markDone(int index) {
         try {
             if (this.taskList.get(index).isDone()) {
-                System.out.println("\t" + "You completed this task already!");
-                ui.printLine();
+                return "You completed this task already!";
             } else {
                 this.taskList.get(index).markDone();
-                System.out.println("\t" + "Good job completing the task!");
                 storage.saveTaskListToFile();
-                printList();
+                return "Good job completing the task!";
             }
-        } catch (IndexOutOfBoundsException e) {
-            ui.printInvalidTaskIndex();
-        } catch (NumberFormatException e) {
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
             ui.printInvalidTaskIndex();
         }
+        return "";
     }
 
     /**
@@ -212,22 +205,19 @@ public class TaskList {
      * @throws IndexOutOfBoundsException if index is out of bounds
      * @throws NumberFormatException if input is not a number
      */
-    public void markUndone(int index) {
+    public String markUndone(int index) {
         try {
             if (!this.taskList.get(index).isDone()) {
-                System.out.println("\t" + "Oops! You still haven't done this task!");
+                return "Oops! You still haven't done this task!";
             } else {
                 this.taskList.get(index).markUndone();
-                System.out.println("\t" + "Better get to it soon!");
                 storage.saveTaskListToFile();
-                printList();
-                ui.printLine();
+                return "Better get to it soon!";
             }
-        } catch (IndexOutOfBoundsException e) {
-            ui.printInvalidTaskIndex();
-        } catch (NumberFormatException e) {
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
             ui.printInvalidTaskIndex();
         }
+        return "";
     }
 
     /**
@@ -250,21 +240,20 @@ public class TaskList {
         ui.printLine();
     }
 
-    /**
-     * Prints taskList
-     */
-    public void printList() {
+    public String getList() {
         if (this.taskList.isEmpty()) {
-            System.out.println("\t" + "Your tasklist is empty");
+            return "Your tasklist is empty";
         } else {
-            System.out.println("\t" + "Here is your to-do list:");
+            String list = "Here is your to-do list:\n";
 
             this.taskIndex = 1;
             for (Task task : this.taskList) {
+                list += this.taskIndex + ". " + task + "\n";
                 System.out.println("\t" + this.taskIndex + ". " + task);
                 this.taskIndex++;
             }
+            return list;
         }
-        ui.printLine();
+        // ui.printLine();
     }
 }
