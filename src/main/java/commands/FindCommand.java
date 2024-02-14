@@ -20,7 +20,7 @@ public class FindCommand extends Command {
      * @return
      */
     @Override
-    public String execute() {
+    public String executeCommand() {
         int count = 1;
         String result = "Here are the list of tasks that matches your keyword: [" + keyword + "]\n";
         printMessage(result);
