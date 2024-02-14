@@ -41,7 +41,7 @@ public class Ui {
     /**
      * Prints out error message if there is an error while changing the task list.
      */
-    public void showErrorMsgStoreTasks() {
+    public void showStoreTaskErrorMessage() {
         System.out.println("    -----------------------------------");
         System.out.println("    Error while changing the task list");
         System.out.println("    Please try again");
@@ -63,7 +63,7 @@ public class Ui {
      *
      * @param task Task that user wants to mark as done.
      */
-    public void markTaskMsg(Task task) {
+    public void showMarkTaskMsg(Task task) {
         System.out.println("    -----------------------------------");
         System.out.println("    Nice! I've marked this task as done:");
         System.out.println("      " + task.toString());
@@ -75,7 +75,7 @@ public class Ui {
      *
      * @param task Task the user wants to mark as undone.
      */
-    public void unmarkTaskMsg(Task task) {
+    public void showUnmarkTaskMsg(Task task) {
         System.out.println("    -----------------------------------");
         System.out.println("    OK, I've marked this task as not done yet:");
         System.out.println("      " + task.toString());
@@ -89,7 +89,7 @@ public class Ui {
      * @param task Task the user wants to delete from the task list.
      * @param length Length of the task list after deleting the task.
      */
-    public void deleteTaskMsg(Task task, int length) {
+    public void showDeleteTaskMsg(Task task, int length) {
         System.out.println("    -----------------------------------");
         System.out.println("    Got it. I've removed this task:");
         System.out.println("        " + task.toString());
@@ -104,7 +104,7 @@ public class Ui {
      * @param task Task that the user wants to add to the lsit.
      * @param length Length of the task list after adding the task.
      */
-    public void addTaskMsg(Task task, int length) {
+    public void showAddTaskMsg(Task task, int length) {
         System.out.println("    -----------------------------------");
         System.out.println("    Got it. I've added this task:");
         System.out.println("       " + task.toString());
@@ -142,6 +142,11 @@ public class Ui {
         System.err.println("Unable to parse the date and time string: " + e.getMessage());
     }
 
+    /**
+     * Prints out the list of tasks found based on the user input.
+     *
+     * @param foundTasks List of tasks found.
+     */
     public void displayFoundTasks(ArrayList<Task> foundTasks) {
         System.out.println("    -----------------------------------");
         for (int i = 0; i < foundTasks.size(); i++) {
