@@ -95,6 +95,28 @@ public class Kirby {
                     continue;
                 }
 
+                //delete command
+                if (var.split(" ")[0].equals("delete")){
+
+                    if (var.split(" ").length == 1){
+                        throw new MissingArgumentException("Missing Argument");
+                    }
+
+
+                    int temp = Integer.parseInt(var.split(" ")[1]);
+                    
+                    Task task = inputs.get(temp - 1);
+
+                    inputs.remove(temp - 1);
+
+                    System.out.println("Ok I will delete:");
+                    System.out.println(temp + ". " + task);
+                    System.out.println();
+
+                    var = sc.nextLine();
+                    continue;
+                }
+
                 //deadline command
                 if (var.split(" ")[0].equals("deadline")){
 
@@ -187,6 +209,7 @@ public class Kirby {
 
             } catch(IndexOutOfBoundsException e){
                 System.out.println("Sorry that item doesn't exist");
+                // e.printStackTrace();
                 var = sc.nextLine();
                 continue;
             } catch(NumberFormatException e){
