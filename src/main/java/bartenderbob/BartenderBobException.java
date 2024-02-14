@@ -31,6 +31,7 @@ public class BartenderBobException extends Exception {
      * @param userInput The user input to BartenderBob.
      */
     public static String invalidInput(String userInput) {
+        assert userInput != null : "user input cannot be null";
         return UI.showInvalidInputError(userInput);
     }
 
@@ -39,6 +40,7 @@ public class BartenderBobException extends Exception {
      * with missing parameters that is required by BartenderBob.
      */
     public String displayError() {
+        assert firstWord != null : "first word cannot be null";
         switch (firstWord) {
         case "mark":
             return UI.showInvalidMarkCommand();

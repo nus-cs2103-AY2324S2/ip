@@ -49,6 +49,7 @@ public class Deadline extends Task {
      * @return Whether the string follows the format yyyy-MM-dd.
      */
     private boolean isValidDateFormat(String by) {
+        assert by != null : "String parameter 'by' cannot be null";
         try {
             LocalDate.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             return true;
