@@ -1,9 +1,10 @@
 package baron.models;
 
 /**
- * An abstraction class for todos, deadlines and events
+ * An abstraction class for todos, deadlines and events. It is not abstract because
+ * we want to list todos, events and deadlines together in the same list still.
  */
-public class Task extends Model {
+public class Task extends BaseModel {
 
     private final String name;
     private boolean isDone;

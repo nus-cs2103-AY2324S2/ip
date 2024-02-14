@@ -3,7 +3,7 @@ package baron.models;
 /**
  * Contains basic information about clients.
  */
-public class Client extends Model {
+public class Client extends BaseModel {
     private String studentNumber;
     private String email;
     private String name;
