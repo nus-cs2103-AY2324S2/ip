@@ -23,4 +23,8 @@ public class Task {
             return "[ ] " + this.name;
         }
     }
+
+    public String getInput() {
+        return "";
+    }
 }

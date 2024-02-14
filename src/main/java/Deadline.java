@@ -6,6 +6,7 @@ public class Deadline extends Task {
 
     public Deadline(String name, String by) {
         super(name);
+        this.name = name;
         this.by = by;
         this.done = false;
     }
@@ -13,6 +14,11 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String str = identifier + super.toString() + "(" + by + ")";
+        return str;
+    }
+
+    public String getInput() {
+        String str = String.format("deadline %s /%s", name, by);
         return str;
     }
 }
