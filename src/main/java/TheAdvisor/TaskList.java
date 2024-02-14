@@ -67,7 +67,7 @@ public class TaskList implements Serializable {
      *
      * @param index The index of the task to be marked as done.
      * @return A message indicating the successful marking of the task as done,
-     *      or a message indicating that the task has already been marked.
+     *       or a message indicating that the task has already been marked.
      */
     public String markTask(int index) {
         if (checkIndex(index)) {
@@ -144,27 +144,14 @@ public class TaskList implements Serializable {
      *
      * @param keyword The keyword to search for.
      * @return A string representation of matching tasks.
+     * @throws TheAdvisorException If no matching tasks are found.
      */
-<<<<<<< HEAD
-    public String findItem(String keyword) {
-        ArrayList<Integer> indexes = new ArrayList<>();
-
-        for (int i = 0; i < taskList.size(); i++) {
-            if (taskList.get(i).getDescription().contains(keyword)) {
-                indexes.add(i);
-            }
-        }
-        if (indexes.size() == 0) {
-            return "Sorry! There are no tasks that match your search criteria.";
-=======
     public String findItem(String keyword) throws TheAdvisorException {
         List<Task> matchingTasks = taskList.stream()
                 .filter(task -> task.getDescription().contains(keyword))
                 .collect(Collectors.toList());
-
         if (matchingTasks.isEmpty()) {
             throw new TheAdvisorException("Sorry! There are no tasks that match your search criteria.");
->>>>>>> A-Streams
         } else {
             StringBuilder toReturn = new StringBuilder("Here are the matching tasks in your list:\n");
             for (int j = 0; j < matchingTasks.size(); j++) {
@@ -174,5 +161,4 @@ public class TaskList implements Serializable {
             return toReturn.toString();
         }
     }
-
 }
