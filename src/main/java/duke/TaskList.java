@@ -158,7 +158,7 @@ public class TaskList {
             taskList.remove(t);
             str = str + "Noted. I've removed this task:\n"
                     + t.toString()
-                    + "Now you have " + taskList.size() + " tasks in the list.";
+                    + "\nNow you have " + taskList.size() + " tasks in the list.";
         }
         return str;
     }
@@ -188,11 +188,32 @@ public class TaskList {
     }
 
     /**
+     * To update a specific task
+     */
+    public String update(String newDescription, int position) {
+        String str = "";
+        // check for error
+        if (position + 1 > taskList.size() || position < 0) {
+            str = str + "Task does not exist";
+        } else {
+            Task t = taskList.get(position);
+            t.updateDescription(newDescription);
+            str = str + "I have updated the description\n"
+                    + t.toString();
+        }
+        return str;
+    }
+
+    /**
      * A getter function to get the current taskList.
      *
      * @return The current taskList.
      */
     public static ArrayList<Task> getTaskList() {
         return taskList;
+    }
+
+    public Task get(int position) {
+        return taskList.get(position);
     }
 }
