@@ -23,6 +23,7 @@ public class Parser {
         String parameters;
         String[] inputParts = fullCommand.split(" ", 2);
         ArrayList<String> lst = new ArrayList<>();
+        assert inputParts.length >= 1 : "Input should contain at least the action";
 
         try {
             String str = inputParts[0].toUpperCase();
@@ -31,6 +32,8 @@ public class Parser {
         } catch (IllegalArgumentException e) {
             throw new DukeExceptions("Invalid AcademicWeapon.Action. Please enter a valid command.");
         }
+
+        assert action != null : "Action should not be null";
 
         if (inputParts.length == 2) {
             parameters = inputParts[1];

@@ -24,12 +24,15 @@ public class Storage {
      * @param fileName The file path for the task list data file
      */
     public Storage(String fileName) {
+        assert fileName != null : "File name should not be null";
+
         this.filePath = "./data/" + fileName;
         this.file = new File(fileName);
         try {
             File parentDirectory = file.getParentFile();
             if (!parentDirectory.exists()) {
                 boolean directoryCreated = parentDirectory.mkdirs();
+                assert directoryCreated : "Failed to create parent directory";
                 if (directoryCreated) {
                     System.out.println("Parent directory created successfully.");
                 } else {
@@ -55,6 +58,8 @@ public class Storage {
      * @throws DukeExceptions If there is an error in loading or parsing the file
      */
     public ArrayList<String> load() throws DukeExceptions {
+        assert file != null : "File should not be null";
+
         ArrayList<String> lst = new ArrayList<>();
         try {
             Scanner sc = new Scanner(this.file);
