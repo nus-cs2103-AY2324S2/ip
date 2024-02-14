@@ -34,66 +34,11 @@ public class Parser {
         Task newTask;
         validTaskCommand(description);
         if (description.toLowerCase().startsWith("todo")) {
-            String[] descriptionArr = description.split(" ");
-            StringBuilder descBuilder = new StringBuilder();
-            for (int k = 1; k < descriptionArr.length; k++) {
-                if (k == descriptionArr.length - 1) {
-                    descBuilder.append(descriptionArr[k]);
-                } else {
-                    descBuilder.append(descriptionArr[k] + " ");
-                }
-            }
-            newTask = new ToDo(descBuilder.toString());
+            newTask = parseTodo(description);
         } else if (description.toLowerCase().startsWith("deadline")) {
-            String[] descriptionArr = description.split(" ");
-            int byIndex = Arrays.asList(descriptionArr).indexOf("/by");
-            StringBuilder descBuilder = new StringBuilder();
-            for (int k = 1; k < byIndex; k++) {
-                if (k == byIndex - 1) {
-                    descBuilder.append(descriptionArr[k]);
-                } else {
-                    descBuilder.append(descriptionArr[k] + " ");
-                }
-            }
-            StringBuilder byBuilder = new StringBuilder();
-            for (int k = byIndex + 1; k < descriptionArr.length; k++) {
-                if (k == descriptionArr.length - 1) {
-                    byBuilder.append(descriptionArr[k]);
-                } else {
-                    byBuilder.append(descriptionArr[k] + " ");
-                }
-            }
-            newTask = new Deadline(descBuilder.toString(), checkDates(byBuilder.toString()));
+            newTask = parseDeadline(description);
         } else {
-            String[] descriptionArr = description.split(" ");
-            int fromIndex = Arrays.asList(descriptionArr).indexOf("/from");
-            StringBuilder descBuilder = new StringBuilder();
-            for (int k = 1; k < fromIndex; k++) {
-                if (k == fromIndex - 1) {
-                    descBuilder.append(descriptionArr[k]);
-                } else {
-                    descBuilder.append(descriptionArr[k] + " ");
-                }
-            }
-            int toIndex = Arrays.asList(descriptionArr).indexOf("/to");
-            StringBuilder fromBuilder = new StringBuilder();
-            for (int k = fromIndex + 1; k < toIndex; k++) {
-                if (k == toIndex - 1) {
-                    fromBuilder.append(descriptionArr[k]);
-                } else {
-                    fromBuilder.append(descriptionArr[k] + " ");
-                }
-            }
-            StringBuilder toBuilder = new StringBuilder();
-            for (int k = toIndex + 1; k < descriptionArr.length; k++) {
-                if (k == descriptionArr.length - 1) {
-                    toBuilder.append(descriptionArr[k]);
-                } else {
-                    toBuilder.append(descriptionArr[k] + " ");
-                }
-            }
-            newTask = new Event(descBuilder.toString(), checkDates(fromBuilder.toString()),
-                    checkDates(toBuilder.toString()));
+            newTask = parseEvent(description);
         }
         return new AddTaskCommand(newTask);
     }
@@ -112,31 +57,16 @@ public class Parser {
             return new ListTasksCommand();
         } else if (userInput.toLowerCase().startsWith("mark")) {
             String[] inputArr = userInput.split(" ");
-            try {
-                int index = Integer.parseInt(inputArr[1]) - 1;
-                return new MarkTaskCommand(index);
-            } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                throw new DukeException("*HONK* Pengu thinks you need a valid task number to mark, "
-                        + "consider checking the list command");
-            }
+            int index = Integer.parseInt(inputArr[1]) - 1;
+            return new MarkTaskCommand(index);
         } else if (userInput.toLowerCase().startsWith("unmark")) {
             String[] inputArr = userInput.split(" ");
-            try {
-                int index = Integer.parseInt(inputArr[1]) - 1;
-                return new UnmarkTaskCommand(index);
-            } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                throw new DukeException("*HONK* Pengu thinks you need a valid task number to unmark, "
-                        + "consider checking the list command");
-            }
+            int index = Integer.parseInt(inputArr[1]) - 1;
+            return new UnmarkTaskCommand(index);
         } else if (userInput.toLowerCase().startsWith("delete")) {
             String[] inputArr = userInput.split(" ");
-            try {
-                int index = Integer.parseInt(inputArr[1]) - 1;
-                return new DeleteTaskCommand(index);
-            } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                throw new DukeException("*HONK* Pengu thinks you need a valid task number to delete, "
-                        + "consider checking the list command");
-            }
+            int index = Integer.parseInt(inputArr[1]) - 1;
+            return new DeleteTaskCommand(index);
         } else if (userInput.toLowerCase().startsWith("find")) {
             String[] inputArr = userInput.split(" ");
             if (inputArr.length > 2) {
@@ -162,78 +92,16 @@ public class Parser {
      */
     public static Task parseFileLine(String fileLine) throws DukeException {
         Task t;
-        DateTimeFormatter dTFormatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy HHmm");
-        if (fileLine.charAt(1) == 'T') {
+        boolean isTodo = fileLine.charAt(1) == 'T';
+        boolean isDeadline = fileLine.charAt(1) == 'D';
+        boolean isEvent = fileLine.charAt(1) == 'E';
+        if (isTodo) {
             String infoString = fileLine.substring(7);
             t = new ToDo(infoString);
-        } else if (fileLine.charAt(1) == 'D') {
-            String infoString = fileLine.substring(7);
-            String[] strArr = infoString.split(" ");
-            int byIndex = Arrays.asList(strArr).indexOf("(by:");
-            StringBuilder descBuilder = new StringBuilder();
-            for (int k = 0; k < byIndex; k++) {
-                if (k == byIndex - 1) {
-                    descBuilder.append(strArr[k]);
-                } else {
-                    descBuilder.append(strArr[k] + " ");
-                }
-            }
-            StringBuilder byBuilder = new StringBuilder();
-            for (int k = byIndex + 1; k < strArr.length; k++) {
-                if (k == strArr.length - 1) {
-                    byBuilder.append(strArr[k]);
-                } else {
-                    byBuilder.append(strArr[k] + " ");
-                }
-            }
-            if (byBuilder.toString().length() == 0) {
-                throw new DukeException("Wrong File Format");
-            } else {
-                String dateTimeStr = byBuilder.toString();
-                dateTimeStr = dateTimeStr.substring(0, dateTimeStr.length() - 1);
-                LocalDateTime byTime = LocalDateTime.parse(dateTimeStr, dTFormatter);
-                t = new Deadline(descBuilder.toString(), byTime);
-            }
-        } else if (fileLine.charAt(1) == 'E') {
-            String infoString = fileLine.substring(7);
-            String[] strArr = infoString.split(" ");
-            int fromIndex = Arrays.asList(strArr).indexOf("(from:");
-            StringBuilder descBuilder = new StringBuilder();
-            for (int k = 0; k < fromIndex; k++) {
-                if (k == fromIndex - 1) {
-                    descBuilder.append(strArr[k]);
-                } else {
-                    descBuilder.append(strArr[k] + " ");
-                }
-            }
-            int toIndex = Arrays.asList(strArr).indexOf("to:");
-            StringBuilder fromBuilder = new StringBuilder();
-            for (int k = fromIndex + 1; k < toIndex; k++) {
-                if (k == toIndex - 1) {
-                    fromBuilder.append(strArr[k]);
-                } else {
-                    fromBuilder.append(strArr[k] + " ");
-                }
-            }
-            StringBuilder toBuilder = new StringBuilder();
-            for (int k = toIndex + 1; k < strArr.length; k++) {
-                if (k == strArr.length - 1) {
-                    toBuilder.append(strArr[k]);
-                } else {
-                    toBuilder.append(strArr[k] + " ");
-                }
-            }
-            if (fromBuilder.toString().length() == 0 || toBuilder.toString().length() == 0) {
-                throw new DukeException("Wrong File Format");
-            } else {
-                String fromDateTimeStr = fromBuilder.toString();
-                String toDateTimeStr = toBuilder.toString();
-                fromDateTimeStr = fromDateTimeStr.substring(0, fromDateTimeStr.length());
-                toDateTimeStr = toDateTimeStr.substring(0, toDateTimeStr.length() - 1);
-                LocalDateTime fromTime = LocalDateTime.parse(fromDateTimeStr, dTFormatter);
-                LocalDateTime toTime = LocalDateTime.parse(toDateTimeStr, dTFormatter);
-                t = new Event(descBuilder.toString(), fromTime, toTime);
-            }
+        } else if (isDeadline) {
+            t = parseFileDeadline(fileLine);
+        } else if (isEvent) {
+            t = parseFileEvent(fileLine);
         } else {
             throw new DukeException("Wrong File Format");
         }
@@ -283,6 +151,147 @@ public class Parser {
             return date;
         } catch (DateTimeParseException e) {
             throw new DukeException("Pengu thinks that you need to put the date in this format: yyyy-MM-dd HHmm");
+        }
+    }
+
+    private static Task parseTodo(String userInput) {
+        String[] descriptionArr = userInput.split(" ");
+        StringBuilder descBuilder = new StringBuilder();
+        for (int k = 1; k < descriptionArr.length; k++) {
+            if (k == descriptionArr.length - 1) {
+                descBuilder.append(descriptionArr[k]);
+            } else {
+                descBuilder.append(descriptionArr[k] + " ");
+            }
+        }
+        return new ToDo(descBuilder.toString());
+    }
+
+    private static Task parseDeadline(String userInput) throws DukeException {
+        String[] descriptionArr = userInput.split(" ");
+        int byIndex = Arrays.asList(descriptionArr).indexOf("/by");
+        StringBuilder descBuilder = new StringBuilder();
+        for (int k = 1; k < byIndex; k++) {
+            if (k == byIndex - 1) {
+                descBuilder.append(descriptionArr[k]);
+            } else {
+                descBuilder.append(descriptionArr[k] + " ");
+            }
+        }
+        StringBuilder byBuilder = new StringBuilder();
+        for (int k = byIndex + 1; k < descriptionArr.length; k++) {
+            if (k == descriptionArr.length - 1) {
+                byBuilder.append(descriptionArr[k]);
+            } else {
+                byBuilder.append(descriptionArr[k] + " ");
+            }
+        }
+        return new Deadline(descBuilder.toString(), checkDates(byBuilder.toString()));
+    }
+
+    private static Task parseEvent(String userInput) throws DukeException {
+        String[] descriptionArr = userInput.split(" ");
+        int fromIndex = Arrays.asList(descriptionArr).indexOf("/from");
+        StringBuilder descBuilder = new StringBuilder();
+        for (int k = 1; k < fromIndex; k++) {
+            if (k == fromIndex - 1) {
+                descBuilder.append(descriptionArr[k]);
+            } else {
+                descBuilder.append(descriptionArr[k] + " ");
+            }
+        }
+        int toIndex = Arrays.asList(descriptionArr).indexOf("/to");
+        StringBuilder fromBuilder = new StringBuilder();
+        for (int k = fromIndex + 1; k < toIndex; k++) {
+            if (k == toIndex - 1) {
+                fromBuilder.append(descriptionArr[k]);
+            } else {
+                fromBuilder.append(descriptionArr[k] + " ");
+            }
+        }
+        StringBuilder toBuilder = new StringBuilder();
+        for (int k = toIndex + 1; k < descriptionArr.length; k++) {
+            if (k == descriptionArr.length - 1) {
+                toBuilder.append(descriptionArr[k]);
+            } else {
+                toBuilder.append(descriptionArr[k] + " ");
+            }
+        }
+        return new Event(descBuilder.toString(), checkDates(fromBuilder.toString()),
+                checkDates(toBuilder.toString()));
+    }
+
+    private static Task parseFileDeadline(String fileInput) throws DukeException {
+        DateTimeFormatter dTFormatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy HHmm");
+        String infoString = fileInput.substring(7);
+        String[] strArr = infoString.split(" ");
+        int byIndex = Arrays.asList(strArr).indexOf("(by:");
+        StringBuilder descBuilder = new StringBuilder();
+        for (int k = 0; k < byIndex; k++) {
+            if (k == byIndex - 1) {
+                descBuilder.append(strArr[k]);
+            } else {
+                descBuilder.append(strArr[k] + " ");
+            }
+        }
+        StringBuilder byBuilder = new StringBuilder();
+        for (int k = byIndex + 1; k < strArr.length; k++) {
+            if (k == strArr.length - 1) {
+                byBuilder.append(strArr[k]);
+            } else {
+                byBuilder.append(strArr[k] + " ");
+            }
+        }
+        if (byBuilder.toString().length() == 0) {
+            throw new DukeException("Wrong File Format");
+        } else {
+            String dateTimeStr = byBuilder.toString();
+            dateTimeStr = dateTimeStr.substring(0, dateTimeStr.length() - 1);
+            LocalDateTime byTime = LocalDateTime.parse(dateTimeStr, dTFormatter);
+            return new Deadline(descBuilder.toString(), byTime);
+        }
+    }
+
+    private static Task parseFileEvent(String fileInput) throws DukeException {
+        DateTimeFormatter dTFormatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy HHmm");
+        String infoString = fileInput.substring(7);
+        String[] strArr = infoString.split(" ");
+        int fromIndex = Arrays.asList(strArr).indexOf("(from:");
+        StringBuilder descBuilder = new StringBuilder();
+        for (int k = 0; k < fromIndex; k++) {
+            if (k == fromIndex - 1) {
+                descBuilder.append(strArr[k]);
+            } else {
+                descBuilder.append(strArr[k] + " ");
+            }
+        }
+        int toIndex = Arrays.asList(strArr).indexOf("to:");
+        StringBuilder fromBuilder = new StringBuilder();
+        for (int k = fromIndex + 1; k < toIndex; k++) {
+            if (k == toIndex - 1) {
+                fromBuilder.append(strArr[k]);
+            } else {
+                fromBuilder.append(strArr[k] + " ");
+            }
+        }
+        StringBuilder toBuilder = new StringBuilder();
+        for (int k = toIndex + 1; k < strArr.length; k++) {
+            if (k == strArr.length - 1) {
+                toBuilder.append(strArr[k]);
+            } else {
+                toBuilder.append(strArr[k] + " ");
+            }
+        }
+        if (fromBuilder.toString().length() == 0 || toBuilder.toString().length() == 0) {
+            throw new DukeException("Wrong File Format");
+        } else {
+            String fromDateTimeStr = fromBuilder.toString();
+            String toDateTimeStr = toBuilder.toString();
+            fromDateTimeStr = fromDateTimeStr.substring(0, fromDateTimeStr.length());
+            toDateTimeStr = toDateTimeStr.substring(0, toDateTimeStr.length() - 1);
+            LocalDateTime fromTime = LocalDateTime.parse(fromDateTimeStr, dTFormatter);
+            LocalDateTime toTime = LocalDateTime.parse(toDateTimeStr, dTFormatter);
+            return new Event(descBuilder.toString(), fromTime, toTime);
         }
     }
 }

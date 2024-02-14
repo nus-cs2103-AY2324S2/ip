@@ -36,7 +36,7 @@ import duke.task.Task;
 /**
  * Class that represents the Duke Chatbot.
  */
-public class Duke extends Application {
+public class Duke {
     /** TaskList Object to be used to store Tasks. */
     private TaskList taskList;
     /** Ui Object for User Interactions. */
@@ -54,15 +54,9 @@ public class Duke extends Application {
     /**
      * Constucts a Duke Object that will be loaded with existing TaskList state.
      *
-     * @param FilePath FilePath of file to be used to load TaskList stored.
      * @throws DukeException
      * @throws IOException
      */
-    public Duke(String FilePath) throws DukeException, IOException {
-        this.userInterface = new Ui();
-        this.fileStorage = new Storage(FilePath);
-    }
-
     public Duke() throws DukeException, IOException {
         this.userInterface = new Ui();
         this.fileStorage = new Storage("./data/tasks.txt");
@@ -73,87 +67,6 @@ public class Duke extends Application {
         } else {
             taskList = new TaskList();
         }
-    }
-
-    /**
-     * Runs the Duke Chatbot.
-     * 
-     * @throws DukeException
-     * @throws IOException
-     */
-    public void run() throws DukeException, IOException {
-
-    }
-    @Override
-    public void start(Stage stage) {
-        scrollPane = new ScrollPane();
-        dialogContainer = new VBox();
-        scrollPane.setContent(dialogContainer);
-
-        userInput = new TextField();
-        sendButton = new Button("Send");
-
-        AnchorPane mainLayout = new AnchorPane();
-        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-
-        scene = new Scene(mainLayout);
-        stage.setScene(scene);
-        stage.show();
-
-        stage.setTitle("Pengu");
-        stage.setResizable(false);
-        stage.setMinHeight(600.0);
-        stage.setMinWidth(400.0);
-
-        mainLayout.setPrefSize(400.0, 600.0);
-
-        scrollPane.setPrefSize(385, 535);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
-        scrollPane.setVvalue(1.0);
-        scrollPane.setFitToWidth(true);
-
-        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
-        userInput.setPrefWidth(325.0);
-
-        sendButton.setPrefWidth(55.0);
-
-        AnchorPane.setTopAnchor(scrollPane, 1.0);
-
-        AnchorPane.setBottomAnchor(sendButton, 1.0);
-        AnchorPane.setRightAnchor(sendButton, 1.0);
-
-        AnchorPane.setLeftAnchor(userInput, 1.0);
-        AnchorPane.setBottomAnchor(userInput, 1.0);
-
-        sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
-
-        userInput.setOnAction((event -> {
-            handleUserInput();
-        }));
-
-        dialogContainer.heightProperty().addListener((observable -> scrollPane.setVvalue(1.0)));
-
-    }
-
-    private Label getDialogLabel(String text) {
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-        return textToAdd;
-    }
-
-    private void handleUserInput() {
-        String userText = userInput.getText();
-        String dukeText = getResponse(userInput.getText());
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, user),
-                DialogBox.getDukeDialog(dukeText, pengu)
-        );
-        userInput.clear();
     }
 
     protected String getResponse(String input) {
