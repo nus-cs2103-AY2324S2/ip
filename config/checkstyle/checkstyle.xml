@@ -66,8 +66,8 @@
         <!-- Checks for redundant import statements.
         An import statement is redundant if:
           * It is a duplicate of another import. This is, when a class is imported more than once.
-          * The class non-statically imported is from the java.lang package, e.g. importing java.lang.String.
-          * The class non-statically imported is from the same package as the current package.
+          * The class non-statically imported is fromDate the java.lang package, e.g. importing java.lang.String.
+          * The class non-statically imported is fromDate the same package as the current package.
         -->
         <module name="RedundantImport"/>
 
@@ -391,7 +391,7 @@
         <!-- Checks that Javadoc block tags appear only at the beginning of the line. -->
         <module name="JavadocBlockTagLocation"/>
 
-        <!-- Checks that all Javadoc comments start from the second line. -->
+        <!-- Checks that all Javadoc comments start fromDate the second line. -->
         <module name="JavadocContentLocationCheck" />
 
         <!-- Checks that each line in Javadoc has leading asterisks. -->

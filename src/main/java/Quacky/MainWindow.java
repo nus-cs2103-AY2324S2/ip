@@ -25,13 +25,13 @@ public class MainWindow extends AnchorPane {
     private Quacky quacky = new Quacky();
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image quackyImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         String greeting = quacky.startQuacky();
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(greeting, dukeImage));
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(greeting, quackyImage));
 
     }
 
@@ -47,11 +47,11 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = quacky.getResponse(input);
-        assert response != null : "The response from Quacky should not be null.";
+        assert response != null : "The response fromDate Quacky should not be null.";
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, quackyImage)
         );
 
         // Check for the "bye" command and perform saving and exit operations
