@@ -158,7 +158,6 @@ public class Mamta extends Application  {
         return "Bye. Hope to see you again soon!";
     }
 
-
     /**
      * Echoes the input command based on its type and parameters. The type description follows.
      * @param taskType The type of the task.
@@ -234,7 +233,7 @@ public class Mamta extends Application  {
     }
 
     /**
-     * Runs the Mamta application.
+     * Runs the Mamta application bot.
      * @param loadTasksFile The file path for loading tasks.
      * @param inputNewTasksFile The file path for inputting new tasks.
      */
