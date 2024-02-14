@@ -39,18 +39,18 @@ public class Storage {
                 switch (type) {
                     case 'T':
                         Task td = new Todo(info);
-                        check_add(line, td);
+                        addCheckedTask(line, td);
                         break;
                     case 'D':
                         String[] deadLine = info.split(" /by ",2);
                         Task dd = new Deadline(deadLine[0], deadLine[1]);
-                        check_add(line, dd);
+                        addCheckedTask(line, dd);
                         break;
                     case 'E':
                         String[] event = info.split(" /from ",2);
                         String[] time = event[1].split(" /to ",2);
                         Task et = new Event(event[0], time[0], time[1]);
-                        check_add(line, et);
+                        addCheckedTask(line, et);
                         break;
                 }
             }
@@ -85,7 +85,7 @@ public class Storage {
      * @param line Description of a Task.
      * @param t Task checked.
      */
-    public void check_add(String line, Task t) {
+    public void addCheckedTask(String line, Task t) {
         if (line.charAt(1) == '0') {
             t.uncomplete();
         } else {
