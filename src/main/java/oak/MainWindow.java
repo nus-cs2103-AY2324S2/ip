@@ -23,8 +23,8 @@ public class MainWindow extends AnchorPane {
 
     private Oak oak;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image oakImage = new Image(this.getClass().getResourceAsStream("/images/DaOak.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/oak_dex.png"));
+    private Image oakImage = new Image(this.getClass().getResourceAsStream("/images/oak_dex.png"));
 
     @FXML
     public void initialize() {
