@@ -3,6 +3,8 @@ package commands;
 import task.Task;
 import ui.Ui;
 
+import java.util.Objects;
+
 /**
  * Encapsulates a todo command.
  */
@@ -29,7 +31,7 @@ public class TodoCommand extends Command {
                 + taskList.getList().size() + " tasks in the list.";
         System.out.println(addedMessage);
         Ui.printVLine();
-
+        assert Objects.equals(task.getTask(), name.trim()) : "Failed at TodoCommand: Task name is not the same.";
         return addedMessage;
     }
 }

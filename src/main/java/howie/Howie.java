@@ -31,6 +31,7 @@ public class Howie {
             String[] input = ui.getUserCommand();
             try {
                 Command command = new Parser().parseCommand(input);
+                assert command != null : "Failed at Howie.java. Command variable is null";
                 command.setData(taskList);
                 command.execute();
             } catch (DukeException e) {
