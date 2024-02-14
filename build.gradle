@@ -44,12 +44,12 @@ test {
 }
 
 application {
-    mainClass.set("Tam")
+    mainClass.set("gui.Launcher")
 }
 
 shadowJar {
     archiveBaseName = "tam"
-    archiveVersion = "1.0"
+    archiveVersion = "1.1"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
