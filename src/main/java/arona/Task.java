@@ -1,8 +1,7 @@
 package arona;
 
 /**
- * Stores the task description and indicates if the
- * task is completed
+ * Stores the task description and indicates if the task is completed.
  */
 public class Task {
     protected String description;
@@ -19,10 +18,9 @@ public class Task {
     }
 
     /**
-     * Process the string with unmodified date form which is to be
-     * saved in the file
+     * Process the string with unmodified date form which is to be saved in the file.
      *
-     * @return String that is to be processed and stored in the file
+     * @return String that is to be processed and stored in the file.
      */
     public String userInputToString() {
         return "[" + this.getStatusIcon() + "] " + this.description;

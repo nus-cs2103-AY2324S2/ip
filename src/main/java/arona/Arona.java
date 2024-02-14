@@ -9,7 +9,6 @@ import java.io.OutputStream;
  */
 public class Arona  {
     private String name;
-    private String filePath = "./src/data/tasklist.txt";
     private TaskList taskList;
     private Storage storage;
     private Ui ui;
@@ -29,7 +28,7 @@ public class Arona  {
         }));
 
         name = "";
-        storage = new Storage(filePath);
+        storage = new Storage();
         ui = new Ui();
 
         try {

@@ -55,16 +55,16 @@ public class Ui {
                 + "Arona has counted " + size + " tasks in the list!\n";
     }
 
-    public void alreadyMarked(boolean status) {
+    public void isMarked(boolean status) {
         response = "Sensei, the task has already been marked as " + (status ? "done!" : "not done!") + "\n";
     }
 
     public void markTask() {
-        response = "Congratulation, sensei! Arona has marked the task as done!:\n";
+        response = "Congratulation, sensei! Arona has marked the task as done!\n";
     }
 
     public void unmarkTask() {
-        response = "I understand, sensei! Arona has marked the task as not done!:\n";
+        response = "I understand, sensei! Arona has marked the task as not done!\n";
     }
 
     public String showLine() {

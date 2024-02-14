@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * A type of task that contains a deadline
+ * A type of task that contains a deadline.
  */
 public class Deadline extends Task {
     protected LocalDate by;
@@ -25,10 +25,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Process the string with unmodified date form which is to be
-     * saved in the file
+     * Process the string with unmodified date form which is to be saved in the file.
      *
-     * @return String that is to be processed and stored in the file
+     * @return String that is to be processed and stored in the file.
      */
     @Override
     public String userInputToString() {

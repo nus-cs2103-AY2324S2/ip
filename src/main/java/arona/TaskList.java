@@ -9,7 +9,7 @@ public class TaskList {
     private Ui ui;
 
     public TaskList(TwoArrayList tasksToAdd, Ui ui) throws TaskException {
-        this.tasks = new ArrayList<>();
+        tasks = new ArrayList<>();
         this.ui = ui;
         for (int i = 0; i < tasksToAdd.getList1().size(); i++) {
             addTask(tasksToAdd.getList1().get(i));
@@ -90,7 +90,7 @@ public class TaskList {
         Task task = tasks.get(index);
 
         if (task.getStatus() == status) {
-            ui.alreadyMarked(status);
+            ui.isMarked(status);
             return;
         }
 
@@ -101,7 +101,7 @@ public class TaskList {
         } else {
             ui.unmarkTask();
         }
-        System.out.println(task.toString());
+//        ui.printTasks(tasks);
     }
 
     public void findTasks(String fullCommand) {
