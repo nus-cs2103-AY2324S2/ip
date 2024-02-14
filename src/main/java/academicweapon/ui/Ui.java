@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
  * The Ui class handles the user interface
  */
 public class Ui {
+    private static final String LOADING_ERROR = "Error loading file. \n";
     /**
      * Displays a welcome message when the application starts.
      */
@@ -39,8 +40,8 @@ public class Ui {
      */
     public String showLoadingError() {
         StringBuilder sb = new StringBuilder();
-        System.out.println("Error loading file.");
-        sb.append("Error loading file.\n");
+        System.out.println(LOADING_ERROR);
+        sb.append(LOADING_ERROR);
         return sb.toString();
     }
 
