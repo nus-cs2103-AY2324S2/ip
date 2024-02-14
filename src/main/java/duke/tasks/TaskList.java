@@ -45,6 +45,22 @@ public class TaskList {
     }
 
     /**
+     * Retrieves a task from the list at the specified index.
+     *
+     * @param index The index of the task to set.
+     * @param task The task to set.
+     * @return The task at the specified index.
+     * @throws DukeException If the index is out of bounds, indicating the task does not exist.
+     */
+    public Task set(int index, Task task) throws DukeException {
+        try {
+            return this.tasks.set(index, task);
+        } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+            throw new MissingTaskException();
+        }
+    }
+
+    /**
      * Adds a task to the list.
      *
      * @param task The task to be added.

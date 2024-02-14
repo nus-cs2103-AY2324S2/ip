@@ -14,6 +14,7 @@ import duke.commands.CommandEvent;
 import duke.commands.CommandFind;
 import duke.commands.CommandList;
 import duke.commands.CommandMark;
+import duke.commands.CommandSortDeadline;
 import duke.commands.CommandTodo;
 import duke.commands.CommandUnknown;
 import duke.commands.CommandUnmark;
@@ -274,6 +275,13 @@ public class Parser {
     }
 
     /**
+     * Parses the "sort-deadlines" command and its arguments.
+     */
+    private static Command parseCommandSortDeadlines() {
+        return new CommandSortDeadline();
+    }
+
+    /**
      * Parses an unknown command.
      *
      * @return A CommandUnknown instance.
@@ -296,12 +304,11 @@ public class Parser {
 
         // Extract command type string
         String commandTypeStr = args[0];
-        commandTypeStr = commandTypeStr.toUpperCase();
 
         // Create command type enum
         CommandType commandType;
         try {
-            commandType = CommandType.valueOf(commandTypeStr);
+            commandType = CommandType.fromString(commandTypeStr);
         } catch (IllegalArgumentException illegalArgumentException) {
             return parseCommandUnknown();
         }
@@ -338,6 +345,9 @@ public class Parser {
             break;
         case FIND:
             command = parseCommandFind(commandArgs);
+            break;
+        case SORT_DEADLINES:
+            command = parseCommandSortDeadlines();
             break;
         default:
             command = parseCommandUnknown();

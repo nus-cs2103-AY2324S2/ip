@@ -64,7 +64,29 @@ public abstract class Command {
         /**
          * Command to find and display tasks that match a specific keyword.
          */
-        FIND
+        FIND,
+
+        /**
+         * Command to sort deadline tasks chronologically.
+         */
+        SORT_DEADLINES;
+
+        /**
+         * Converts a given string representing a command to its corresponding {@code CommandType} enum constant.
+         * This method allows for flexible string formats by replacing hyphens with underscores and converting
+         * the string to uppercase, which matches the enum naming convention in Java. This is particularly useful
+         * when the input string format does not directly match the naming of enum constants.
+         *
+         * @param command The string representation of the command type. It is case-insensitive and can contain
+         *                hyphens as separators.
+         * @return The {@code CommandType} enum constant that matches the input string.
+         * @throws IllegalArgumentException if the input string does not match any {@code CommandType} enum constant.
+         */
+        public static CommandType fromString(String command) throws IllegalArgumentException {
+            // Replace hyphens with underscores and make uppercase to match enum naming convention
+            String formattedCommand = command.replace('-', '_').toUpperCase();
+            return CommandType.valueOf(formattedCommand);
+        }
     }
 
 
