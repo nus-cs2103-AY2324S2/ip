@@ -32,10 +32,10 @@ public class Deadline extends Task {
      *
      * @param description Description of the deadline
      * @param dueDate     Due date of the deadline
-     * @param isDone      Status of the deadline
+     * @param isCompleted Status of the deadline
      */
-    public Deadline(String description, Instant dueDate, boolean isDone) {
-        super(description, TaskType.DEADLINE, isDone);
+    public Deadline(String description, Instant dueDate, boolean isCompleted) {
+        super(description, TaskType.DEADLINE, isCompleted);
         this.dueDate = dueDate;
     }
 
@@ -44,10 +44,10 @@ public class Deadline extends Task {
      *
      * @param description Description of the deadline
      * @param dueDate     Due date of the deadline (in epoch Milliseconds)
-     * @param isDone      Status of the deadline
+     * @param isCompleted Status of the deadline
      */
-    public Deadline(String description, long dueDate, boolean isDone) {
-        super(description, TaskType.DEADLINE, isDone);
+    public Deadline(String description, long dueDate, boolean isCompleted) {
+        super(description, TaskType.DEADLINE, isCompleted);
         this.dueDate = Instant.ofEpochMilli(dueDate);
     }
 

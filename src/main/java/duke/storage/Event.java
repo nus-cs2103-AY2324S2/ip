@@ -88,13 +88,16 @@ public class Event extends Task {
      * @return True if event is encompasses specified date, false otherwise
      */
     public boolean encompasses(Instant date) {
+        // Get dates in local time zone
         LocalDate startDateLocal = this.startDate.atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate endDateLocal = this.endDate.atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate dateLocal = date.atZone(ZoneId.systemDefault()).toLocalDate();
 
-        return (dateLocal.isAfter(startDateLocal) && dateLocal.isBefore(endDateLocal))
-                || dateLocal.equals(startDateLocal)
-                || dateLocal.equals(endDateLocal);
+        boolean isBetweenDates = dateLocal.isAfter(startDateLocal) && dateLocal.isBefore(endDateLocal);
+        boolean isOnStartDate = dateLocal.equals(startDateLocal);
+        boolean isOnEndDate = dateLocal.equals(endDateLocal);
+
+        return isBetweenDates || isOnStartDate || isOnEndDate;
     }
 
     /**

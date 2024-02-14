@@ -82,6 +82,7 @@ public class Storage {
                             entry.getLong("endDate"),
                             entry.getBoolean("isDone"));
                     break;
+
                 default:
                     throw new TaskNotSupportedException(
                             String.format("Task '%s' not currently supported", entry.getString("type")));
