@@ -1,14 +1,14 @@
-package duke.Parsers;
+package duke.parsers;
 
-import duke.Tasks.Event;
-import duke.Tasks.ToDo;
+import duke.tasks.Event;
+import duke.tasks.ToDo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.util.Scanner;
-import duke.Tasks.Deadline;
-import duke.Tasks.TaskList;
+import duke.tasks.Deadline;
+import duke.tasks.TaskList;
 
 /**
  * Class to parse text file and generates a TaskList for modifications from the user.
