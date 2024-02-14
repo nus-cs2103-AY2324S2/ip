@@ -7,6 +7,7 @@ import ui.Ui;
  */
 public class HelpCommand extends Command {
 
+    public static final String COMMAND = "help";
     /**
      * Prints out the help tool.
      *

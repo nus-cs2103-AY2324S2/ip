@@ -7,6 +7,7 @@ import commands.DeleteCommand;
 import commands.EventCommand;
 import commands.FindCommand;
 import commands.HelpCommand;
+import commands.InvalidCommand;
 import commands.ListCommand;
 import commands.MarkCommand;
 import commands.TodoCommand;
@@ -114,8 +115,10 @@ public class Parser {
                         "For example: find book");
             }
             return new FindCommand(input[1]);
-        default:
+        case HelpCommand.COMMAND:
             return new HelpCommand();
+        default:
+            return new InvalidCommand();
         }
     }
 }
