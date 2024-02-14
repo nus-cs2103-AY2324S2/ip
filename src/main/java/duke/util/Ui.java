@@ -29,6 +29,7 @@ public class Ui {
     }
 
     public ArrayList<String> showList(ArrayList<String> list) {
+        assert list != null : "List cannot be null";
         ArrayList<String> total = new ArrayList<>();
         total.add("Here are the tasks in your list:");
         for (String i : list) {
@@ -51,10 +52,13 @@ public class Ui {
         return total;
     }
     public ArrayList<String> delete(int index, TaskList list){
+        int initialSize = list.size();
         ArrayList<String> total = new ArrayList<>();
         Task currTask = list.getTask(index);
         String currStatus = currTask.getStatus();
         list.deleteTask(index);
+        assert list.size() == initialSize - 1 : "tasks size should decrease by 1";
+
         total.add( "Noted. I've removed this task:");
         total.add( "  " + currStatus);
         total.add( "Now you have " + Integer.toString(list.size()) +
