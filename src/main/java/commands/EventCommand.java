@@ -3,6 +3,8 @@ package commands;
 import task.Event;
 import ui.Ui;
 
+import java.util.Objects;
+
 /**
  * Encapsulates an event command.
  */
@@ -32,6 +34,9 @@ public class EventCommand extends Command {
         System.out.println("Got it! Event has been added:\n" + eventTask + "\nNow you have "
                 + taskList.getList().size() + " tasks in the list.");
         Ui.printVLine();
+
+        assert Objects.equals(eventTask.getTask(), name.trim()) : "Failed at EventCommand: Task name is not the same.";
+
         return "Got it! Event has been added:\n" + eventTask + "\nNow you have "
                 + taskList.getList().size() + " tasks in the list.";
     }

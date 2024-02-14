@@ -23,9 +23,12 @@ public class UnmarkCommand extends Command {
     public String execute() {
         try {
             Task toMark = taskList.get(index - 1);
+
             Ui.printVLine();
             System.out.println("Acknowledged!\n" + toMark.setUndone());
             Ui.printVLine();
+
+            assert !toMark.getStatus() : "Failed at UnmarkCommand";
             return "Acknowledged!\n" + toMark.setUndone();
         } catch (IndexOutOfBoundsException e) {
             String errorMessage = "Oppss...I can't seem to find the task you're looking for. Type 'list' to see the the tasks that you have!";
