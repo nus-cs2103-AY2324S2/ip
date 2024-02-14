@@ -65,10 +65,9 @@ public class TaskList {
      */
     public String listTasks() {
         String responseWithList = Ui.listMessage();
-        for (int i = 0; i < tasks.size(); i++) {
-            responseWithList += Ui.indent() + (i + 1) + "." + tasks.get(i) + "\n";
-        }
-        return responseWithList;
+        return tasks.stream()
+                .map(x -> Ui.indent() + (tasks.indexOf(x) + 1) + "." + x + "\n")
+                .reduce(responseWithList, (y, z) -> y + z);
     }
 
     /**
@@ -110,24 +109,17 @@ public class TaskList {
     /**
      * Searches the TaskList for all tasks with a matching description to the given {@link String}.
      *
-     * @param string String that describes the task description of the tasks to be found.
+     * @param str String that describes the task description of the tasks to be found.
      * @return TaskList containing the tasks which has matching descriptions with the given string.
      */
-    public String find(String string) {
-        String response = Ui.findMessage(string);
+    public String find(String str) {
         TaskList foundTasks = new TaskList();
-        for (Task task : tasks) {
-            if (task.contains(string)) {
-                foundTasks.addTaskNoMessage(task);
-            }
-        }
+        foundTasks.setUi(ui);
+        tasks.stream().filter(x -> x.contains(str)).forEach(foundTasks::addTask);
 
         if (foundTasks.listSize() == 0) {
-            response += Ui.foundNothingMessage();
-        } else {
-            response += foundTasks.listTasks();
+            return Ui.findMessage(str) + Ui.foundNothingMessage();
         }
-
-        return response;
+        return Ui.findMessage(str) + foundTasks.listTasks();
     }
 }

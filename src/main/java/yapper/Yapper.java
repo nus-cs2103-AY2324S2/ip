@@ -63,7 +63,8 @@ public class Yapper {
         } catch (YapperException y) {
             return y.getMessage();
         } catch (Exception e) {
-            return "unexpected exception in the getResponse function";
+            return "unexpected exception in the getResponse function: \n"
+                    + e.getClass().getSimpleName() + " " + e.getMessage();
         }
     }
 
