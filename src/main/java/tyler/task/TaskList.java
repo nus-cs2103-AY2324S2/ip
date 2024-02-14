@@ -62,6 +62,11 @@ public class TaskList {
         return this.taskList.get(index);
     }
 
+    /**
+     * Finding the task given the keyword.
+     *
+     * @param keyword Keyword that the task may contain.
+     */
     public void find(String keyword) {
         ArrayList<Task> matchedTasks = new ArrayList<>();
         for (Task task: taskList) {

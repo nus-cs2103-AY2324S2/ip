@@ -1,11 +1,11 @@
 package tyler.command;
 
-import tyler.task.Deadline;
-import tyler.ui.Ui;
-import tyler.task.TaskList;
-import tyler.storage.Storage;
-
 import java.time.LocalDateTime;
+
+import tyler.storage.Storage;
+import tyler.task.Deadline;
+import tyler.task.TaskList;
+import tyler.ui.Ui;
 
 /**
  * Represent a Deadline command. A Deadline command has an extra argument which is
@@ -14,6 +14,12 @@ import java.time.LocalDateTime;
 public class DeadlineCommand extends AddCommand {
     protected LocalDateTime end;
 
+    /**
+     * Constructor for DeadlineCommand
+     *
+     * @param name Name of the Deadline Task
+     * @param end  Deadline of the Task
+     */
     public DeadlineCommand(String name, LocalDateTime end) {
         super(name);
         this.end = end;

@@ -1,25 +1,29 @@
 package tyler;
 
-import tyler.task.TaskList;
-import tyler.storage.Storage;
-import tyler.ui.Ui;
-import tyler.command.Command;
-import tyler.parser.Parser;
-import tyler.exception.TylerException;
-
-import java.nio.file.Paths;
 import java.io.IOException;
+import java.nio.file.Paths;
 
+import tyler.command.Command;
+import tyler.exception.TylerException;
+import tyler.parser.Parser;
+import tyler.storage.Storage;
+import tyler.task.TaskList;
+import tyler.ui.Ui;
 
 /**
  * The main class of Tyler that run Tyler.
  */
 public class Tyler {
-    private static final String FILE_PATH = Paths.get(".",  "data", "Tyler.txt").toString();
+    private static final String FILE_PATH = Paths.get(".", "data", "Tyler.txt").toString();
     private Ui ui;
     private Storage storage;
     private TaskList tasks;
 
+    /**
+     * Constructor for Tyler
+     *
+     * @param filePath The filepath of the saved file.
+     */
     public Tyler(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);

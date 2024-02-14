@@ -1,11 +1,11 @@
 package tyler.command;
 
-import tyler.task.TaskList;
-import tyler.task.Event;
-import tyler.ui.Ui;
-import tyler.storage.Storage;
-
 import java.time.LocalDateTime;
+
+import tyler.storage.Storage;
+import tyler.task.Event;
+import tyler.task.TaskList;
+import tyler.ui.Ui;
 
 /**
  * Represents an Event Command. An Event Command has two extra argument which is start
@@ -15,6 +15,13 @@ public class EventCommand extends AddCommand {
     protected LocalDateTime start;
     protected LocalDateTime end;
 
+    /**
+     * Constructor for Event Command
+     *
+     * @param name  Name of Task
+     * @param start Event start date
+     * @param end   Event end date
+     */
     public EventCommand(String name, LocalDateTime start, LocalDateTime end) {
         super(name);
         this.start = start;

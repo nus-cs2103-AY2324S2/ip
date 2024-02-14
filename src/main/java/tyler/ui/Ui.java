@@ -1,16 +1,16 @@
 package tyler.ui;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import tyler.task.Task;
 import tyler.task.TaskList;
-
-import java.util.Scanner;
-import java.util.ArrayList;
 
 /**
  * Represents a User Interface of Tyler.
  */
 public class Ui {
-    Scanner sc = new Scanner(System.in);
+    private static final Scanner sc = new Scanner(System.in);
 
     /**
      * Prints welcome when initialize Tyler.

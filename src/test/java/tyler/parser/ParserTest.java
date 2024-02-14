@@ -1,7 +1,8 @@
 package tyler.parser;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 import tyler.command.Command;
 import tyler.command.ExitCommand;

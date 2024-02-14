@@ -1,25 +1,28 @@
 package tyler.storage;
 
-import tyler.task.*;
-
-import java.io.IOException;
-import java.io.File;
 import java.io.BufferedWriter;
-import java.io.FileWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
-
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import tyler.task.Deadline;
+import tyler.task.Event;
+import tyler.task.Task;
+import tyler.task.TaskList;
+import tyler.task.Todo;
 
 /**
  * Storage handle the loadTask from local and saveTask to local.
  */
 public class Storage {
+
+    private static final DateTimeFormatter OUTPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("dd MMM yyyy h:mm a");
     protected String filePath;
-    private final DateTimeFormatter OUTPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("dd MMM yyyy h:mm a");
     public Storage(String filePath) {
         this.filePath = filePath;
     }
@@ -75,7 +78,7 @@ public class Storage {
             }
             bw.close();
         } catch (IOException e) {
-
+            // Nothing here
         }
     }
 

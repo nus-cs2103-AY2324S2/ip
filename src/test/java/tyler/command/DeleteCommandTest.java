@@ -1,15 +1,17 @@
 package tyler.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
 import tyler.storage.Storage;
 import tyler.task.Task;
 import tyler.task.TaskList;
 import tyler.task.Todo;
 import tyler.ui.Ui;
 
-import java.util.ArrayList;
-
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 public class DeleteCommandTest {
     @Test
     public void testDelete1() {

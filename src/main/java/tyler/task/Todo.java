@@ -8,6 +8,12 @@ public class Todo extends Task {
         super(name);
     }
 
+    /**
+     * Constructor of Todo Task.
+     *
+     * @param name   Name of Task.
+     * @param isDone Status of Task.
+     */
     public Todo(String name, boolean isDone) {
         super(name);
         this.isDone = isDone;

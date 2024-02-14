@@ -1,10 +1,22 @@
 package tyler.parser;
 
-import tyler.command.*;
-import tyler.exception.*;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import tyler.command.Command;
+import tyler.command.DeadlineCommand;
+import tyler.command.DeleteCommand;
+import tyler.command.EventCommand;
+import tyler.command.ExitCommand;
+import tyler.command.FindCommand;
+import tyler.command.ListCommand;
+import tyler.command.MarkCommand;
+import tyler.command.TodoCommand;
+import tyler.command.UnmarkCommand;
+import tyler.exception.EmptyNameException;
+import tyler.exception.InvalidTaskException;
+import tyler.exception.TylerException;
+import tyler.exception.UndefinedActionException;
 
 /**
  * This parser class is required to parse the line from System.in.

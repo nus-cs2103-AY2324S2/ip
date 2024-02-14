@@ -1,9 +1,9 @@
 package tyler.command;
 
-import tyler.ui.Ui;
 import tyler.storage.Storage;
 import tyler.task.Task;
 import tyler.task.TaskList;
+import tyler.ui.Ui;
 
 /**
  * Represent a delete command. A Delete Command has an index which is the index of

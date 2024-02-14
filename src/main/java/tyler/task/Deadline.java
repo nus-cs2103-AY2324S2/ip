@@ -7,14 +7,27 @@ import java.time.format.DateTimeFormatter;
  * Represents a deadline task. Have an extra argument called end to store the deadline.
  */
 public class Deadline extends Task {
-    protected LocalDateTime end;
     protected static final DateTimeFormatter OUTPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("dd MMM yyyy h:mm a");
+    protected LocalDateTime end;
 
+    /**
+     * Constructor of Deadline Task
+     *
+     * @param name Name of Task
+     * @param end  Deadline of Task
+     */
     public Deadline(String name, LocalDateTime end) {
         super(name);
         this.end = end;
     }
 
+    /**
+     * Constructor of Deadline Task
+     *
+     * @param name   Name of Task
+     * @param end    Deadline of Task
+     * @param isDone Status of Task
+     */
     public Deadline(String name, LocalDateTime end, boolean isDone) {
         super(name);
         this.end = end;
@@ -28,7 +41,7 @@ public class Deadline extends Task {
      */
     @Override
     public String saveToFileString() {
-        return "D | " + super.saveToFileString() + " | " +  this.end.format(OUTPUT_DATE_FORMAT);
+        return "D | " + super.saveToFileString() + " | " + this.end.format(OUTPUT_DATE_FORMAT);
     }
 
     @Override

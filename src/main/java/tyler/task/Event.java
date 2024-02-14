@@ -8,16 +8,31 @@ import java.time.format.DateTimeFormatter;
  * the started and ended date, time of this event.
  */
 public class Event extends Task {
+    protected static final DateTimeFormatter OUTPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("dd MMM yyyy h:mm a");
     protected LocalDateTime start;
     protected LocalDateTime end;
-    protected static final DateTimeFormatter OUTPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("dd MMM yyyy h:mm a");
 
+    /**
+     * Constructor of Event Task
+     *
+     * @param name  Name of Task
+     * @param start Start time of Task
+     * @param end   End time of Task
+     */
     public Event(String name, LocalDateTime start, LocalDateTime end) {
         super(name);
         this.start = start;
         this.end = end;
     }
 
+    /**
+     * Constructor of Event Task
+     *
+     * @param name   Name of Task
+     * @param start  Start Time of Task
+     * @param end    End Time of Task
+     * @param isDone Status of Task
+     */
     public Event(String name, LocalDateTime start, LocalDateTime end, boolean isDone) {
         super(name);
         this.start = start;
@@ -33,12 +48,14 @@ public class Event extends Task {
 
     @Override
     public String saveToFileString() {
-        return "E | " + super.saveToFileString() + " | " + this.start.format(OUTPUT_DATE_FORMAT) + " | " + this.end.format(OUTPUT_DATE_FORMAT);
+        return "E | " + super.saveToFileString() + " | " + this.start.format(OUTPUT_DATE_FORMAT)
+                + " | " + this.end.format(OUTPUT_DATE_FORMAT);
     }
 
     @Override
     public String toString() {
         String str = super.toString();
-        return "[E]" + str + " (from: " + this.start.format(OUTPUT_DATE_FORMAT) + " to: " + this.end.format(OUTPUT_DATE_FORMAT) + ")";
+        return "[E]" + str + " (from: " + this.start.format(OUTPUT_DATE_FORMAT)
+                + " to: " + this.end.format(OUTPUT_DATE_FORMAT) + ")";
     }
 }

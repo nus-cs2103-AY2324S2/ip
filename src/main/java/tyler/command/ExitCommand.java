@@ -1,8 +1,8 @@
 package tyler.command;
 
+import tyler.storage.Storage;
 import tyler.task.TaskList;
 import tyler.ui.Ui;
-import tyler.storage.Storage;
 
 /**
  * Represent the Exit Command. This command can ensure to exit the Tyler.
