@@ -48,17 +48,6 @@ public class TaskList {
     }
     /**
      * Prints the current list
-     * It will add a counter to the list such that each task is enumerated.
-     */
-    public void printList() {
-        int counter = 1;
-        for (Task t : taskList) {
-            System.out.printf("%d. %s%n", counter, t.toString());
-            counter++;
-        }
-    }
-    /**
-     * Prints the current list
      * It will add a counter to the list such that each task is enumerated. This method returns it as a string
      * @return string that lists all the tasks
      */

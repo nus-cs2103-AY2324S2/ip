@@ -32,7 +32,7 @@ public class DeadlineAction extends actions.GenericAction {
             taskList.addToList(new Deadline(userInput.getArg1(), due));
             outputString += "I see. I shall add the following to the list of tasks:\n";
             outputString += String.format(taskList.get(taskList.size() - 1) + "\n");
-            System.out.printf("Do bear in mind that you now have %d tasks in the list.%n", taskList.size());
+            outputString += String.format("Do bear in mind that you now have %d tasks in the list.%n", taskList.size());
         } catch (InsufficientArgException | ExcessiveArgException error) {
             outputString += String.format(FORMAT_ERROR + "Steven's advice: The format of \"Deadline\" is as follows:"
                     + "\nDeadline (item) /by (date) - item is the name of an item that you want to add to the "
