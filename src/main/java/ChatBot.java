@@ -18,7 +18,7 @@ public class ChatBot {
     private static final String ADD_TASK = " has been accounted for! \n" + NEW_LINE;
     private static final String NORMAL = "normal";
     private static final String REMOVE = "remove";
-    private static final String TASK_REMOVED = "I have removed the task from the list Sir!";
+    private static final String TASK_REMOVED = NEW_LINE + INDENT + "I have removed the task from the list Sir! \n" + NEW_LINE;
 
     TaskList taskList = new TaskList();
     Boolean isFinished = false;
@@ -77,7 +77,7 @@ public class ChatBot {
                 throw new UnrecognizedException("Yoyoyo");
             }
             taskList.addTask(task);
-            return NEW_LINE +  task.getName() + ADD_TASK;
+            return NEW_LINE + INDENT + task.getName() + ADD_TASK;
         }
     }
 
