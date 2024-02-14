@@ -37,7 +37,7 @@ public class DeleteCommand extends Command {
         int taskNumber = zeroItem + 1;
         boolean isOutsideLowerLimit = taskNumber < 1;
         boolean isOutsideUpperLimit = taskNumber > tasks.getSize();
-        if (isOutsideLowerLimit || isOutsideUpperLimit || tasks.get(taskNumber - 1) == null) {
+        if (isOutsideLowerLimit || isOutsideUpperLimit) {
             throw new DukeException("Error! Task number '" + taskNumber + "' does not exist.");
         }
         Task description = tasks.get(zeroItem);

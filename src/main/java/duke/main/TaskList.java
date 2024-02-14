@@ -32,11 +32,15 @@ public class TaskList {
     }
 
     public Task get(int zeroItem) {
+        Task task = tasks.get(zeroItem);
+        assert task != null : "Task at index " + zeroItem + " should not be null";
         return tasks.get(zeroItem);
     }
 
     public int getSize() {
-        return tasks.size();
+        int taskSize = tasks.size();
+        assert taskSize >= 0 : "Size of task list should be greater than or equal to 0";
+        return taskSize;
     }
 
     /**
@@ -45,6 +49,7 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void add(Task task) {
+        assert task != null : "Task should not be null";
         tasks.add(task);
     }
 
@@ -54,7 +59,9 @@ public class TaskList {
      * @param num The zero-indexed task index to mark as done.
      */
     public void markAsDone(int num) {
-        tasks.get(num).markAsDone();
+        Task taskToMark = tasks.get(num);
+        assert taskToMark != null : "Task to mark as done cannot be null";
+        taskToMark.markAsDone();
     }
 
     /**
@@ -63,7 +70,9 @@ public class TaskList {
      * @param num The zero-indexed task index to mark as not done.
      */
      public void unMarkAsDone(int num) {
-        tasks.get(num).unMarkAsDone();
+         Task taskToUnMark = tasks.get(num);
+         assert taskToUnMark != null : "Task to mark as not done cannot be null";
+         taskToUnMark.unMarkAsDone();
     }
 
     /**
@@ -76,7 +85,8 @@ public class TaskList {
      public void deleteTask(int item) throws DukeException {
         boolean isWithinLowerLimit = item >= 0;
         boolean isWithinUpperLimit = item < tasks.size();
-        if (isWithinLowerLimit && isWithinUpperLimit && tasks.get(item) != null) {
+        assert tasks.get(item) != null : "Task to delete cannot be null";
+        if (isWithinLowerLimit && isWithinUpperLimit) {
             tasks.remove(item);
         } else {
             int oneItem = item + 1;
