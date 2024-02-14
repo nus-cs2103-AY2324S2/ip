@@ -9,6 +9,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import checkbot.exception.DuplicateTaskException;
 import checkbot.exception.SaveFileException;
 import checkbot.task.Deadline;
 import checkbot.task.Event;
@@ -102,7 +103,11 @@ public class Storage {
                     continue;
                 }
 
-                todoList.addTask(task);
+                try {
+                    todoList.addTask(task);
+                } catch (DuplicateTaskException e) {
+                    // No code here because we are just not going to insert the duplicate task into the list.
+                }
             }
         } catch (FileNotFoundException e) {
             return todoList;

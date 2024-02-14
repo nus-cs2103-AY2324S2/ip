@@ -2,6 +2,7 @@ package checkbot.command;
 
 import checkbot.Storage;
 import checkbot.Ui;
+import checkbot.exception.DuplicateTaskException;
 import checkbot.exception.SaveFileException;
 import checkbot.task.Deadline;
 import checkbot.task.Event;
@@ -28,7 +29,8 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void executeCommand(TodoList todoList, Storage storage, Ui ui) throws SaveFileException {
+    public void executeCommand(TodoList todoList, Storage storage, Ui ui)
+            throws SaveFileException, DuplicateTaskException {
         todoList.addTask(task);
         storage.saveTasks(todoList);
         ui.showAddedTaskMessage(task, todoList.getLength());
