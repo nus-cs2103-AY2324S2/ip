@@ -20,6 +20,14 @@ public class TaskList {
     private ArrayList<Task> tasklist = new ArrayList<Task>();
     private Storage s;
 
+    static final String FILE_NOT_FOUND = "file not found! try again xx";
+    static final String INVALID_TASK_RESPONSE = "ENTER INSTRUCTION";
+    static final String INVALID_TASK_MARK = "No such task to mark.";
+    static final String INVALID_TASK_UNMARK = "No such task to unmark.";
+    static final String INVALID_TASK_DELETE = "No such task to delete.";
+    static final String TASK_NOT_FOUND = "sowwie babez no matching tasks!";
+
+
     public TaskList(Storage s) {
         this.s = s;
     }
@@ -45,12 +53,12 @@ public class TaskList {
      *
      * @return String representation of the list
      */
-    public String list() throws FileNotFoundException {
+    public String list() {
         String str = "";
         try {
             str = "All tasks: \n" +  s.getFileContent() + "\n" + "Current tasks: \n" + getCurrentList();
         } catch (FileNotFoundException e) {
-            str = "file not found! try again xx";
+            str = FILE_NOT_FOUND;
         }
         return str;
     }
@@ -86,7 +94,7 @@ public class TaskList {
                     "Now you have " + tasklist.size() + " tasks in the list.";
 
         } catch (StringIndexOutOfBoundsException e) {
-            str = "ENTER INSTRUCTION";
+            str = INVALID_TASK_RESPONSE;
         }
         return str;
     }
@@ -106,7 +114,7 @@ public class TaskList {
                     "Now you have " + tasklist.size() + " tasks in the list.";
 
         } catch (StringIndexOutOfBoundsException e) {
-            str = "ENTER INSTRUCTION";
+            str = INVALID_TASK_RESPONSE;
         }
         return str;
     }
@@ -126,7 +134,7 @@ public class TaskList {
             str = "Got it. I've added this task: \n" + task.add() + "\n" +
                     "Now you have " + tasklist.size() + " tasks in the list.";
         } catch (StringIndexOutOfBoundsException e) {
-            str = "ENTER INSTRUCTION";
+            str = INVALID_TASK_RESPONSE;
         }
         return str;
     }
@@ -146,7 +154,7 @@ public class TaskList {
             str = "Nice! I've marked this task as done: \n" +
                     task.mark(number);
         } catch (IndexOutOfBoundsException e) {
-            str = "No such task to mark.";
+            str = INVALID_TASK_MARK;
         }
         return str;
     }
@@ -166,7 +174,7 @@ public class TaskList {
             str = "Ok, I've marked this task as not done yet: \n" +
                     task.unmark(number);
         } catch (IndexOutOfBoundsException e) {
-            str = "No such task to unmark.";
+            str = INVALID_TASK_UNMARK;
         }
         return str;
     }
@@ -186,7 +194,7 @@ public class TaskList {
             str = "Noted. I've removed this task: \n" + task.delete() + "\n" +
             "Now you have " + tasklist.size() + " tasks in the current list.";
         } catch (IndexOutOfBoundsException e) {
-            str = "No such task to delete.";
+            str = INVALID_TASK_DELETE;
         }
         return str;
     }
@@ -216,10 +224,10 @@ public class TaskList {
                 }
             }
             if (j == 1) {
-                ret = "No matching tasks!";
+                ret = TASK_NOT_FOUND;
             }
         } catch (StringIndexOutOfBoundsException e) {
-            ret = "ENTER INSTRUCTION";
+            ret = INVALID_TASK_RESPONSE;
         }
         return ret;
     }

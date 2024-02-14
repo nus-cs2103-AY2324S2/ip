@@ -2,10 +2,8 @@ package duke;
 
 import duke.task.Deadline;
 import duke.task.Event;
-import duke.task.Task;
 import duke.task.Todo;
 
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -20,6 +18,22 @@ private TaskList tasklist;
     public Parser(TaskList tasklist) {
         this.tasklist = tasklist;
     }
+
+    static final String WELCOME_MESSAGE = "Hi babyyy! It's your EUEU!! \n"
+                                            + "What are you doing today??";
+    static final String EXIT_MESSAGE = "byeee love uu ttyl ok!";
+    static final String TASKLIST_FILE = "data/EUEU.txt";
+    static final String CLEAR_LIST = "YAY BB! your list is cleared :)";
+    static final String NON_COMMAND_RESPONSE = "Baby, what are you saying? " +
+                                                "Tell me what your TODOs, DEADLINEs and EVENTs are!";
+    static final String INVALID_TASK_RESPONSE = "ENTER TASK";
+    static final String INVALID_TASK_MARK = "Enter task to mark done: e.g. mark 1";
+    static final String INVALID_TASK_UNMARK = "Enter task to unmark: e.g. unmark 1";
+    static final String INVALID_TASK_DELETE = "Enter task to delete: e.g. delete 1";
+    static final String INVALID_TASK_FIND = "What are you finding babe?";
+    static final String INVALID_DEADLINE_DDL = "Let me know your deadlines babe: e.g. deadline <deadline> /by <ddl>";
+    static final String INVALID_EVENT_TIMINGS = "Let me know when this event is bb: " +
+                                                "e.g. event <event> /from <when>/to <when>";
 
     /**
      * Parses user's String input to commands that TaskList executes.
@@ -38,15 +52,14 @@ private TaskList tasklist;
         if (command.equals("list")) {
             res = tasklist.list();
         } else if (command.equals("hey") || command.equals("hi")) {
-            res = "Hi babyyy! It's your EUEU!! \n"
-                    + "What are you doing today??";
+            res = WELCOME_MESSAGE;
         } else if (command.equals("clear list")) {
-            res = "YAY BB! your list is cleared :)";
-            FileWriter fw = new FileWriter("data/EUEU.txt", false);
+            res = CLEAR_LIST;
+            FileWriter fw = new FileWriter(TASKLIST_FILE, false);
             fw.close();
             tasklist.clearCurrentTasks();
         } else if (command.equals("bye")) {
-            res = "byeee love uu ttyl ok!";
+            res = EXIT_MESSAGE;
             tasklist.write();
             tasklist.clearCurrentTasks();
         } else if (command.startsWith("mark")) {
@@ -54,38 +67,31 @@ private TaskList tasklist;
                 String str = command.substring(5);
                 int number = Integer.parseInt(str) - 1;
                 res =  tasklist.mark(number);
-            } catch (StringIndexOutOfBoundsException e) {
-                res = "Enter task to mark done: e.g. mark 1";
-            }
-            catch (NumberFormatException e) {
-                res = "Enter task to mark done: e.g. mark 1";
+            } catch (StringIndexOutOfBoundsException | NumberFormatException e) {
+                res = INVALID_TASK_MARK;
             }
         } else if (command.startsWith("unmark")) {
             try {
                 String str = command.substring(7);
                 int number = Integer.parseInt(str) - 1;
                 res = tasklist.unmark(number);
-            } catch (StringIndexOutOfBoundsException e) {
-                res = "Enter task to unmark: e.g. unmark 1";
-            } catch (NumberFormatException e) {
-                res = "Enter task to unmark: e.g. unmark 1";
+            } catch (StringIndexOutOfBoundsException | NumberFormatException e) {
+                res = INVALID_TASK_UNMARK;
             }
         } else if (command.startsWith("delete")) {
             try {
                 String str = command.substring(7);
                 int number = Integer.parseInt(str) - 1;
                 res = tasklist.delete(number);
-            } catch (StringIndexOutOfBoundsException e) {
-                res = "Enter task to delete: e.g. delete 1";
-            } catch (NumberFormatException e) {
-                res = "Enter task to delete: e.g. delete 1";
+            } catch (StringIndexOutOfBoundsException | NumberFormatException e) {
+                res = INVALID_TASK_DELETE;
             }
         } else if(command.startsWith("find")) {
             try {
                 String str = command.substring(5);
                 res = tasklist.find(str);
             } catch (StringIndexOutOfBoundsException e) {
-                res = "What are you finding babe?";
+                res = INVALID_TASK_FIND;
             }
         } else {
             try {
@@ -102,7 +108,7 @@ private TaskList tasklist;
                         Deadline deadline = new Deadline(ddl, c);
                         res = tasklist.addTask(deadline);
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        res = "Let me know your deadlines babe: e.g. deadline <deadline> /by <ddl>";
+                        res = INVALID_DEADLINE_DDL;
                     }
                 } else if (command.startsWith("event")) {
                     try {
@@ -114,14 +120,13 @@ private TaskList tasklist;
                         Event event = new Event(start, end, c);
                         res = tasklist.addTask(event);
                     } catch(ArrayIndexOutOfBoundsException e) {
-                        res = "Let me know when this event is bb: " +
-                                "e.g. event <event> /from <when>/to <when>";
+                        res = INVALID_EVENT_TIMINGS;
                     }
                 } else {
-                    res = "Baby, what are you saying? Tell me what your TODOs, DEADLINEs and EVENTs are!";
+                    res = NON_COMMAND_RESPONSE;
                 }
             } catch (StringIndexOutOfBoundsException e){
-                res = "ENTER INSTRUCTION";
+                res = INVALID_TASK_RESPONSE;
             }
         }
         return res;
