@@ -41,6 +41,7 @@ public class Storage {
         if (!directory.exists()) {
             directory.mkdir();
         } else {
+            assert filePath.contains(".txt") : "Loading invalid storage format";
             File storage = new File(filePath);
             try {
                 if (!storage.createNewFile()) {
