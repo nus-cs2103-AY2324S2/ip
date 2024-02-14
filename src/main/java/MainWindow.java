@@ -49,6 +49,14 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
+    /**
+     * Greets the user by displaying a welcome message from Lery
+     * or an error message if there's an issue with chat initialization.
+     * Loads tasks from the text file.
+     * The method appends the greeting message to the dialog container.
+     *
+     * @throws LeryException If there's an error during chat initialization.
+     */
     public void greet() {
         try {
             dialogContainer.getChildren().addAll(
