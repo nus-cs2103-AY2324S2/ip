@@ -29,10 +29,6 @@ public class DeleteCommand extends Command {
 
     /**
      * Deletes a task in the list with corresponding list number
-     *
-     * @param taskList
-     * @param ui
-     * @param storage
      * @throws InvalidInputException if the task number given is out of the list
      */
     @Override

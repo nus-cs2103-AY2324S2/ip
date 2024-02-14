@@ -34,10 +34,6 @@ public class CheckCommand extends Command {
 
     /**
      * Checks the tasks due on a specific date and then display it to the user
-     *
-     * @param taskList
-     * @param ui
-     * @param storage
      * @throws DukeException
      */
     @Override

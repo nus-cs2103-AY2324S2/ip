@@ -29,9 +29,6 @@ public class UnmarkCommand extends Command {
 
     /**
      * Marks the task with corresponds number in the list to be not done and show the result using ui.
-     * @param taskList
-     * @param ui
-     * @param storage
      * @throws InvalidInputException If user keys in number that is not in the range of the list
      */
     @Override

@@ -15,29 +15,33 @@ public class Ui {
     private String response;
 
 
+    /**
+     * Get the response of most recently run command
+     * @return a string representing the result of the command
+     */
     public String getResponse() {
         return this.response;
     }
 
+
     /**
-     * Reads the input from user
+     * Get the welcome message
+     * @return a string representing the welcome message
      */
-
-
     public String getWelcomeMessage() {
         return "Hello Bro, I'm wind" + "\n"
                 + "What can I do for you?";
     }
 
     /**
-     * Display loading exception message to the user
+     * Get loading exception message to the user
      */
     public void getLoadingExceptionMessage() {
         this.response = "Bro, something bad happens during loading, I can't load your tasks";
     }
 
     /**
-     * Shows error message to the user
+     * Get error message to the user
      *
      * @param message The error message
      */
@@ -46,7 +50,7 @@ public class Ui {
     }
 
     /**
-     * Shows the tasks in the taskList in the users
+     * Get the tasks in the taskList in the users
      *
      * @param taskList the TaskList containing all tasks that users have
      */
@@ -61,7 +65,7 @@ public class Ui {
     }
 
     /**
-     * Show the result of new task being added to the user
+     * Get the result of new task being added to the user
      *
      * @param task     The new task
      * @param taskList The TaskList containing all the tasks that users have
@@ -73,7 +77,7 @@ public class Ui {
     }
 
     /**
-     * Shows result when a task is being mark as done
+     * Get result when a task is being mark as done
      *
      * @param task The task that is being mark as done
      */
@@ -83,7 +87,7 @@ public class Ui {
     }
 
     /**
-     * Shows result when a task is being mark as not done
+     * Get result when a task is being mark as not done
      *
      * @param task The task being mark as not done
      */
@@ -93,7 +97,7 @@ public class Ui {
     }
 
     /**
-     * Shows result when a task is deleted
+     * Get result when a task is deleted
      *
      * @param task     The task that is deleted
      * @param taskList The TaskList object containing all the tasks
@@ -105,7 +109,7 @@ public class Ui {
     }
 
     /**
-     * Shows the tasks that is due on a specific date
+     * Get the tasks that is due on a specific date
      *
      * @param tasks     The tasks that are due on that date
      * @param localDate The due date
@@ -131,7 +135,7 @@ public class Ui {
     }
 
     /**
-     * Shows tasks that match the keyword
+     * Get tasks that match the keyword
      *
      * @param tasks Tasks that match the keyword
      */
@@ -141,7 +145,7 @@ public class Ui {
     }
 
     /**
-     * Shows goodbye message
+     * Get goodbye message
      */
     public void generateGoodByeMessage() {
         this.response = "Bye. Hope to see you again soon!";

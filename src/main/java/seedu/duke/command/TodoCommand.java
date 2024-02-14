@@ -24,9 +24,6 @@ public class TodoCommand extends Command {
 
     /**
      * Adds a todo task to the TaskList and show the result to the users using ui
-     * @param taskList
-     * @param ui
-     * @param storage
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {

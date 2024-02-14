@@ -36,14 +36,28 @@ public class Duke {
         }
     }
 
+    /**
+     * Get the initial message to be displayed when the GUI is loaded
+     * @return A string representing the initial message to be displayed
+     */
     public String getInitMessage() {
         return this.ui.getWelcomeMessage();
     }
 
+
+    /**
+     * Get the storage exception message if there is any
+     * @return a string representing the exception message
+     */
     public String getLoadingExceptionMessage() {
         return this.loadingExceptionMessage;
     }
 
+    /**
+     * This method will get the response from the ui
+     * @param input the user input in the CLI
+     * @return
+     */
     public String getResponse(String input) {
         try {
             Command command = Parser.parse(input);
@@ -55,6 +69,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Check whether the most recently run command would exit the application
+     * @return a boolean variable indicating whether the user want to exit the application
+     */
     public boolean isExit() {
         return this.isExit;
     }

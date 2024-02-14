@@ -14,9 +14,6 @@ public class ListCommand extends Command {
 
     /**
      * Shows the tasks that the users have
-     * @param taskList
-     * @param ui
-     * @param storage
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {

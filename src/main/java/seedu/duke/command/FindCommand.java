@@ -31,10 +31,6 @@ public class FindCommand extends Command {
 
     /**
      * Finds the tasks that match the keyword and then display them to the user
-     *
-     * @param taskList
-     * @param ui
-     * @param storage
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
