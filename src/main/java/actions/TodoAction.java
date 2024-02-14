@@ -27,6 +27,7 @@ public class TodoAction extends actions.GenericAction {
             if (!userInput.arg2Empty() || !userInput.arg3Empty()) {
                 throw new ExcessiveArgException();
             }
+            assert !userInput.arg1Empty();
             String name = userInput.getArg1();
             taskList.addToList(new Todo(name));
             outputString += "I see. I shall add the following to the list of tasks:\n";

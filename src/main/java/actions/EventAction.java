@@ -25,6 +25,7 @@ public class EventAction extends actions.GenericAction {
             if (userInput.arg1Empty() || userInput.arg2Empty() || userInput.arg3Empty()) {
                 throw new InsufficientArgException();
             }
+            assert !(userInput.arg1Empty() && userInput.arg2Empty() && userInput.arg3Empty());
             LocalDate start = LocalDate.parse((userInput.getArg2()));
             LocalDate end = LocalDate.parse(userInput.getArg3());
             if (end.isBefore(start)) {

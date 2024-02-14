@@ -31,6 +31,7 @@ public class Deadline extends Task {
     @Override
     public String storeFormat() {
         String completeFormat = isComplete ? "1" : "0";
-        return String.format("%s | %s | %s | %s", "D", completeFormat, name, dateDue.format(DateTimeFormatter.ISO_DATE));
+        return String.format("%s | %s | %s | %s", "D",
+                completeFormat, name, dateDue.format(DateTimeFormatter.ISO_DATE));
     }
 }

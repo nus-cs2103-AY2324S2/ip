@@ -62,6 +62,7 @@ public class Steven {
     String getResponse(String input) {
         UserInput command = new UserInput(input);
         String outputString = new Parser(command, this.tasks).processInput();
+        assert !outputString.isEmpty();
         return outputString;
     }
 }

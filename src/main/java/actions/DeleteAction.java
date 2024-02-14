@@ -27,6 +27,7 @@ public class DeleteAction extends actions.GenericAction {
                 throw new ExcessiveArgException();
             }
             int index = Integer.parseInt(userInput.getArg1());
+            assert index - 1 < taskList.size();
             Task removedItem = taskList.get(index - 1);
             taskList.removeFromList(index - 1);
             outputString += String.format("Very well, the following item has been removed from the"
