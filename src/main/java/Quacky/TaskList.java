@@ -55,7 +55,6 @@ public class TaskList {
         return sb.toString();
     }
 
-
     protected String printSimplified() {
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i < tasks.size(); i++) {
@@ -66,59 +65,6 @@ public class TaskList {
         return simplifiedString;
 
     }
-    protected void writeToFile(String filePath) throws IOException {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < tasks.size(); i++) {
-            sb.append(tasks.get(i).toFileString()).append("\n");
-        }
-
-        String textToAdd = sb.toString();
-        System.out.println(this.printSimplified());
-        FileWriter fw = new FileWriter(filePath, false);
-        fw.write(textToAdd);
-        fw.close();
-    }
-
-    public void loadFromFile(String filePath) {
-        try {
-            File file = new File(filePath);
-            if (!file.exists()) {
-                file.getParentFile().mkdirs();
-                file.createNewFile();
-            }
-            Scanner fileReader = new Scanner(file);
-
-            while (fileReader.hasNext()) {
-                String line = fileReader.nextLine();
-                String[] parts = line.split(" \\| ");
-                Task task = null;
-
-                switch (parts[0]) {
-                case "E":
-                    task = new Event(parts[2], LocalDate.parse(parts[3]), LocalDate.parse(parts[4]));
-                    break;
-                case "D":
-                    task = new Deadline(parts[2], LocalDate.parse(parts[3]));
-                    break;
-                case "T":
-                    task = new Todo(parts[2]);
-                    break;
-                }
-
-                if (task != null) {
-                    if (parts[1].equals("0")) {
-                        task.markDone();
-                    }
-                    this.addTask(task);
-                }
-            }
-
-            fileReader.close();
-        } catch (IOException e) {
-            System.out.println("An error has occurred");
-        }
-    }
-
 
     /**
      * Finds and returns a TaskList of tasks that contain the given keyword in their description.
