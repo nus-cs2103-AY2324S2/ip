@@ -72,22 +72,11 @@ public class Duke {
     }
 
     /**
-     * Chatbot's main loop: keeps getting user input until called to shut down
+     * Gets the result of processing the user input from the text box
      *
+     * @param echo
+     * @return String to be added to dialog box
      */
-    private void chatting() {
-        System.out.println(this.greet());
-        Scanner scanner = new Scanner(System.in);
-        boolean isChatting = true;
-
-        while (isChatting == true) {
-            //get input
-            String echo = scanner.nextLine();
-
-            System.out.println(bye());
-        }
-    }
-
     public String getResponse(String echo) {
         String output = " ";
         try {
@@ -127,6 +116,7 @@ public class Duke {
                 storage.updateFile(taskToAdd, 0, 0);
                 break;
             default:
+                assert false : "Should not reach this point";
                 break;
             }
         } catch (DukeException e) {

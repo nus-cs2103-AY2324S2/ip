@@ -20,6 +20,7 @@ public class TaskList {
      * @param  inputTaskArray an ArrayList of Tasks to load in
      */
     public TaskList(ArrayList<Task> inputTaskArray) {
+        assert inputTaskArray.size() >= 0 : "Loading invalid tasklist";
         tasks = inputTaskArray;
     }
 
@@ -98,7 +99,9 @@ public class TaskList {
      * @param taskToAdd Task to be added into taskList
      */
     public String taskMechanism(Task taskToAdd) {
+        int tasksSizeBefore = tasks.size();
         tasks.add(taskToAdd);
+        assert tasks.size() == tasksSizeBefore + 1 : "Task was not added into taskList";
 
         return "Understood. I've added this task:\n "
                 + tasks.size() + "."
@@ -134,7 +137,6 @@ public class TaskList {
             sb.append("Here are the tasks matching your keyword:\n");
             for (int i = 0; i < searchResults.size(); i++) {
                 sb.append(i + 1 + "." + searchResults.get(i).toString() + "\n");
-                //System.out.println();
             }
             return sb.toString();
         }
@@ -148,7 +150,9 @@ public class TaskList {
      * @throws IndexOutOfBoundsException when user gives an invalid value
      */
     public String deleteMechanism(int num) throws IndexOutOfBoundsException {
+        int tasksSizeBefore = tasks.size();
         Task removed = tasks.remove(num - 1);
+        assert tasks.size() == tasksSizeBefore - 1 : "Task was not deleted into taskList";
 
         return "Very well. I have removed this task.\n"
                 + removed
