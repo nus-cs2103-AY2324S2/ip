@@ -6,13 +6,15 @@ public class Task {
     @Override
     public String toString() {
 
+        String taskString = "[ ] ";
+
         String temp = "[ ] ";
 
-        if(done){
+        if(this.done){
             temp = "[X] ";
         }
 
-        return temp + name;
+        return taskString + temp + this.name;
     }
 
     public void setName(String name) {
