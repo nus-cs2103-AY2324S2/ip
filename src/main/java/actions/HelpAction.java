@@ -7,7 +7,8 @@ import mainfiles.UserInput;
  * an action which displays the list of commands for Steven
  */
 public class HelpAction extends actions.GenericAction {
-    private static final String HELP1 = "The following are UserInputs that I recgonise, and their respective formats:\n";
+    private static final String HELP1 = "The following are UserInputs that I recgonise, "
+            + "and their respective formats:\n";
     private static final String HELP2 = "bye - terminates the program\n";
     private static final String HELP3 = "list - provides a list of events that you have added prior\n";
     private static final String HELP4 = "mark (x) - marks the xth item on the list as complete. Note that an "
@@ -28,6 +29,8 @@ public class HelpAction extends actions.GenericAction {
             + "positioning of some of the items.\n";
     private static final String HELP10 = "find (item) - finds any items in the list and prints them out, giving "
             + "their indexes.\n";
+    private static final String HELP11 = "sort (asc/des) - sorts the user's task list in ascending or descending order"
+            + " respectively, where \"asc\" or \"des\" is given as the second parameter.";
     /**
      * executes the given task
      * @param userInput What the user inputted
@@ -35,6 +38,6 @@ public class HelpAction extends actions.GenericAction {
      * @return the string containing the Steven's response to the task.
      */
     public String execute(UserInput userInput, TaskList taskList) {
-        return String.format(HELP1 + HELP2 + HELP3 + HELP4 + HELP5 + HELP6 + HELP7 + HELP8 + HELP9 + HELP10);
+        return String.format(HELP1 + HELP2 + HELP3 + HELP4 + HELP5 + HELP6 + HELP7 + HELP8 + HELP9 + HELP10 + HELP11);
     }
 }

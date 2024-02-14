@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import comparators.NameComparator;
+import comparators.NameComparatorDes;
 import exceptions.IncompatibleMarkException;
 import tasks.Task;
 
@@ -111,5 +113,21 @@ public class TaskList {
             counter++;
         }
         return retString;
+    }
+
+    /**
+     * Sorts the list in ascending lexicographical order (ascending)
+     */
+    public void sortTasks() throws IOException {
+        taskList.sort(new NameComparator());
+        storage.refreshFile(taskList);
+    }
+
+    /**
+     * Sorts the list in ascending lexicographical order (descending)
+     */
+    public void sortTasksInverse() throws IOException {
+        taskList.sort(new NameComparatorDes());
+        storage.refreshFile(taskList);
     }
 }

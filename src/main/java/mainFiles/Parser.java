@@ -6,6 +6,7 @@ import actions.EventAction;
 import actions.FindAction;
 import actions.HelpAction;
 import actions.MarkAction;
+import actions.SortAction;
 import actions.TodoAction;
 import actions.UnmarkAction;
 
@@ -56,6 +57,9 @@ public class Parser {
             break;
         case "find":
             outputString += new FindAction().execute(userInput, taskList);
+            break;
+        case "sort":
+            outputString += new SortAction().execute(userInput, taskList);
             break;
         case "help":
             outputString += new HelpAction().execute(userInput, taskList);
