@@ -1,5 +1,5 @@
 ## BenPro
-> "Your mind is for having ideas, not holding them." - David Allen [(source)]([url](https://dansilvestre.com/productivity-quotes))
+> "Your mind is for having ideas, not holding them." - David Allen ([source](https://dansilvestre.com/productivity-quotes))
 
 BenPro frees your mind of having to remember things you need to do. It's,
 
@@ -8,7 +8,7 @@ BenPro frees your mind of having to remember things you need to do. It's,
 - ~~FAST~~ *SUPER* FAST to use
 
 All you need to do is,
-1. download it from [here]([url](https://nus-cs2103-ay2324s2.github.io/website/schedule/week4/project.html)).
+1. download it from ([here](https://nus-cs2103-ay2324s2.github.io/website/schedule/week4/project.html)).
 2. double-click it.
 3. add your tasks.
 4. let it manage your tasks for you :wink:
