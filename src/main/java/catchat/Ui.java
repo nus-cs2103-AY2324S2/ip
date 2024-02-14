@@ -16,7 +16,9 @@ public class Ui {
      * Returns the greeting message
      */
     public String showGreeting() {
-        return "Chat with cats, it's CatChat!\n" + "What's up?";
+        return "Chat with cats, it's CatChat!\n"
+                + "What's up?\n"
+                + "Type 'help' to see the list of commands.";
     }
 
     /**
