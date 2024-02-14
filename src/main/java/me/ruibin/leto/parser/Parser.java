@@ -48,6 +48,7 @@ public class Parser {
         Commands cmd;
         try {
             cmd = Commands.valueOf(commands[0].toUpperCase());
+            assert cmd != null : "Command is null, should never happen";
             return cmd.run(inputs);
         } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException e) {
             return Commands.HELP.run("");
