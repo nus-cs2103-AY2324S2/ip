@@ -2,11 +2,14 @@ package duke;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.shape.Circle;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 
 /**
  * Displays a dialog entry from a user.
@@ -29,6 +32,13 @@ public class DialogBox extends HBox {
 
         this.setAlignment(Pos.TOP_RIGHT);
         this.getChildren().addAll(text, displayPicture);
+        this.setSpacing(10); // Set spacing between ImageView and Label
+        this.setPadding(new Insets(10)); // Set overall padding for DialogBox
+
+        Circle clip = new Circle(50); // Clip the ImageView into a circle
+        clip.setCenterX(50);
+        clip.setCenterY(50);
+        displayPicture.setClip(clip);
     }
 
     private void flip() {
