@@ -8,6 +8,7 @@ import felix.task.Task;
  * Class representing abstraction for user interface
  */
 public class Ui {
+    private static final int LINE_LENGTH = 60;
     private static final String BOT_NAME = "Felix";
     private static final String LOGO = "___________    .__  .__        \n"
             + "\\_   _____/___ |  | |__|__  ___\n"
@@ -15,13 +16,13 @@ public class Ui {
             + " |     \\\\  ___/|  |_|  |>    <  \n"
             + " \\___  / \\___  >____/__/__/\\_ \\ \n"
             + "     \\/      \\/              \\/ \n";
-    private static final String LINE_SEPARATOR = "__________________________"
-            + "__________________________________";
+    private static final String LINE_SEPARATOR = "_".repeat(LINE_LENGTH);
     private static final String ADD_TASK_MSG = "Got it. I've added this task:";
     private static final String DELETE_TASK_MSG = "Noted. I've removed this task:";
     private static final String FIND_TASK_MSG = "Here are the matching tasks in your list:";
     private static final String MARK_MSG = "Nice! I have marked this task as done:";
     private static final String UNMARK_MSG = "OK, I've marked this task as not done yet:";
+    private static final String GOODBYE_MESSAGE = "Bye. Hope to see you again soon!";
     private final Scanner scanner;
 
     /**
@@ -79,7 +80,7 @@ public class Ui {
      * Returns goodbye message.
      */
     public String getExitMessage() {
-        return "Bye. Hope to see you again soon!";
+        return GOODBYE_MESSAGE;
     }
 
     /**
