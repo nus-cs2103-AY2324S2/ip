@@ -20,13 +20,12 @@ public class SearchTask {
         throw new AssertionError("Constructor is not allowed");
         // assert false : "Execution should never reach this point!";
     }
-
     /**
      * Search Task in ArrayList based on Date and Time
      * @param input Date and Time to search
      * @param taskList ArrayList with Tasks
      */
-    public static String execSearchTask(String input, List<Task> taskList) throws TaylorException {
+    public static String execSearchTask(String input, List<List<? extends Task>> taskList) throws TaylorException {
         StringBuilder response = new StringBuilder();
         int splitFirstWhitespace = 2;
         int contentIdx = 1;

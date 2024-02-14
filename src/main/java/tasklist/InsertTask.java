@@ -32,7 +32,7 @@ public class InsertTask {
      * @param taskList
      * @throws TaylorException
      */
-    public static String execInsertTask(String input, List<Task> taskList) throws TaylorException {
+    public static String execInsertTask(String input, List<List<? extends Task>> taskList) throws TaylorException {
         String response = null;
 
         int splitFirstWhitespace = 2;

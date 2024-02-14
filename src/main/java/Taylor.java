@@ -23,7 +23,7 @@ import tasks.Task;
  * Main class to execute Taylor ChatBot
  */
 public class Taylor extends Application {
-    private List<Task> tasksList = new ArrayList<>();
+    private List<List<? extends Task>> tasksList = new ArrayList<>();
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;

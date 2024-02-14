@@ -1,5 +1,6 @@
 package tasklist;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import exceptions.TaylorException;
@@ -24,28 +25,51 @@ public class DeleteTask {
      * @param taskList
      * @throws TaylorException
      */
-    public static String execDeleteTask(String input, List<Task> taskList) throws TaylorException {
+    // delete event 1
+    public static String execDeleteTask(String input, List<List<? extends Task>> taskList) throws TaylorException {
         StringBuilder response = new StringBuilder();
+        String[] wordPartition = input.split(" ");
         try {
-            int splitWhiteSpace = 2;
-            String[] parts = input.split(" ", splitWhiteSpace);
+            int idxToGetTaskType = 1;
+            String taskType = wordPartition[idxToGetTaskType].toUpperCase();
+            boolean isEvent = taskType.equals("EVENT");
+            boolean isDeadline = taskType.equals("DEADLINE");
+            boolean isTodo = taskType.equals("TODO");
+            if (!isTodo && !isDeadline && !isEvent) {
+                throw new TaylorException("<TaskType> only accepts EVENT/DEADLINE/TODO");
+            }
 
-            int getDeleteIdx = 1;
-            int pos = Integer.parseInt(parts[getDeleteIdx]);
+            int idxToGetTaskNo = 2;
+            int noToDelete = Integer.parseInt(wordPartition[idxToGetTaskNo]);
 
-            if (pos > taskList.size() || pos <= 0) {
+            if (noToDelete < 0 || noToDelete >= taskList.size()) {
                 throw new TaylorException("Invalid task number");
             }
 
-            int idx = pos - 1;
-            Task taskRemoved = taskList.get(idx);
+            List<? extends Task> listToEdit = new ArrayList<>();
+            if (isDeadline) {
+                int deadlineListIdx = 0;
+                listToEdit = taskList.get(deadlineListIdx);
+            } else if (isEvent) {
+                int eventListIdx = 1;
+                listToEdit = taskList.get(eventListIdx);
+            } else if (isTodo) {
+                int todoListIdx = 2;
+                listToEdit = taskList.get(todoListIdx);
+            } else {
+                assert false : "Program should not run here";
+            }
+
+            int idx = noToDelete - 1;
+            Task taskRemoved = listToEdit.get(idx);
             response.append("Noted. I've removed this tasks:\n");
             response.append(taskRemoved).append("\n");
             taskList.remove(idx);
-            response.append("Now you have ").append(taskList.size()).append(" tasks in the list.").append("\n");
+            response.append("Now you have ").append(listToEdit.size())
+                    .append(" tasks in the ").append(taskList).append("list.\n");
 
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException err) {
-            throw new TaylorException("Please include index of task to be removed");
+            throw new TaylorException("Please ensure the following format: DELETE <TaskType> <TaskNumber>");
         }
         return response.toString();
     }
