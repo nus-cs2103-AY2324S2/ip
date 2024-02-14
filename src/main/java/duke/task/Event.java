@@ -1,6 +1,7 @@
 package duke.task;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import duke.parser.DateHandler;
 import duke.storage.SaveType;
@@ -41,6 +42,15 @@ public class Event extends Task {
         super(description);
         fromDateTime = from;
         byDateTime = by;
+    }
+
+
+    public Optional<LocalDateTime> getDateTime() {
+        if (byDateTime != null) {
+            return Optional.of(byDateTime);
+        } else {
+            return Optional.empty();
+        }
     }
 
     @Override

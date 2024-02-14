@@ -1,5 +1,6 @@
 package duke.task;
 
+import java.sql.PseudoColumnUsage;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -12,6 +13,7 @@ import java.util.stream.Collectors;
 
 import duke.DukeException;
 import duke.parser.DateHandler;
+import duke.storage.SaveType;
 
 /**
  * Manager class to manage and keep track of all the actions being performed on the task.
@@ -25,6 +27,7 @@ public class TaskManager {
     private static final String RESPONSE_REMOVE = "Noted. I've removed this task";
     private static final String RESPONSE_ADD = "Got it. I've added this task:";
     private static final String RESPONSE_FIND = "Here are the matching tasks in your list";
+    private static final String RESPONSE_VIEW_DATES = "Here are the task scheduled on that date!!";
 
     private static final String RESPONSE_EMPTY = "Your list is empty!!!!Add something! ";
     private static final String RESPONSE_EMPTY_SEARCH = "Sorry I couldn't find anything that fits that search :(";
@@ -150,10 +153,13 @@ public class TaskManager {
 
         Optional<LocalDate> testByDate = DateHandler.checkDate(by);
         Optional<LocalDate> testFromDate = DateHandler.checkDate(from);
+
         Optional<LocalDateTime> combineByDate =
                 testByDate.flatMap(byDate -> Optional.of(LocalDateTime.of(byDate, getTimeFromString(by))));
+
         Optional<LocalDateTime> combineFromDate =
                 testFromDate.flatMap(fromDate -> Optional.of(LocalDateTime.of(fromDate, getTimeFromString(from))));
+
         return combineByDate.flatMap(byDate -> combineFromDate.flatMap(fromDate -> Optional.of(new Event(description,
                                                                                                          fromDate,
                                                                                                          byDate))))
@@ -242,34 +248,26 @@ public class TaskManager {
     /**
      * Querys the task with the corresponding query action.
      *
-     * @param act a valid qeury action
+     * @param act         a valid qeury action
      * @param instruction query parameters to find
      * @return A String array of values to return to the Ui to print.
      * @throws DukeException Invalid query of tasks.
      */
     public String[] queryTasks(Query act, String instruction) throws DukeException {
 
-        String[] ret = new String[]{RESPONSE_EMPTY_SEARCH};
+        String[] ret;
         switch (act) {
         case FIND:
             ret = findTask(instruction);
             break;
-        case VIEWBYDATE:
-            ret =viewByDate(instruction);
+        case VIEW:
+            ret = viewByDate(instruction);
             break;
         default:
             throw new DukeException("queryError");
         }
         return ret;
 
-    }
-
-    public String[] viewByDate(String date) throws DukeException {
-        Optional<LocalDate>testDate =  DateHandler.checkDate(date);
-        if(testDate.isEmpty()) {
-            throw new DukeException("dateError");
-        }
-        return new String[]{};
     }
 
     /**
@@ -289,6 +287,45 @@ public class TaskManager {
         } else {
             return new String[]{RESPONSE_EMPTY_SEARCH};
 
+        }
+    }
+
+    public String[] viewByDate(String date) throws DukeException {
+        LocalDate inputDate = DateHandler.checkDate(date).orElseThrow(() -> new DukeException("dateError"));
+        System.out.println(inputDate);
+        List<String> foundDates = items.stream().filter(this::isValidDateTask)
+                                       .filter(item -> isMatchDate(item.getType(), item, inputDate))
+                                       .map(item -> items.indexOf(item) + 1 + ". " + item).collect(Collectors.toList());
+
+        if (!foundDates.isEmpty()) {
+            foundDates.add(0, RESPONSE_VIEW_DATES);
+            return foundDates.toArray(String[]::new);
+
+        } else {
+            System.out.println("Found nothing");
+            return new String[]{RESPONSE_EMPTY_SEARCH};
+
+        }
+    }
+
+    private boolean isValidDateTask(Task item) {
+        return item.getType().equals(SaveType.EVENT) || item.getType().equals(SaveType.DEADLINE);
+    }
+
+    private boolean isMatchDate(SaveType type, Task first, LocalDate second) {
+        if (type.equals(SaveType.DEADLINE)) {
+            Deadline test = (Deadline) first;
+            Optional<LocalDateTime> compareDate = test.getDateTime();
+            return compareDate.map(localDateTime -> localDateTime.toLocalDate().equals(second)).orElse(false);
+
+        } else if (type.equals(SaveType.EVENT)) {
+            Event test = (Event) first;
+            Optional<LocalDateTime> compareDate = test.getDateTime();
+            return compareDate.map(localDateTime -> localDateTime.toLocalDate().equals(second)).orElse(false);
+
+
+        } else {
+            return false;
         }
     }
 

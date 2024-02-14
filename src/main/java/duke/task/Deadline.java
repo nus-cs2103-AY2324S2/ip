@@ -1,6 +1,7 @@
 package duke.task;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import duke.parser.DateHandler;
 import duke.storage.SaveType;
@@ -34,6 +35,14 @@ public class Deadline extends Task {
     public Deadline(String description, LocalDateTime by) {
         super(description);
         byDateTime = by;
+    }
+
+    public Optional<LocalDateTime> getDateTime() {
+        if (byDateTime != null) {
+            return Optional.of(byDateTime);
+        } else {
+            return Optional.empty();
+        }
     }
 
 

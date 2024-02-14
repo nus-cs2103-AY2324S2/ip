@@ -16,7 +16,7 @@ import duke.ui.Ui;
 public class Parser {
     static final Pattern PATTERN_MANAGE = Pattern.compile("((?i)unmark|mark|delete) (\\d+)");
     static final Pattern PATTERN_ACTIONS = Pattern.compile("((?i)todo|deadline|event) (.+)");
-    static final Pattern PATTERN_QUERY = Pattern.compile("((?i)find | view) (.+)");
+    static final Pattern PATTERN_QUERY = Pattern.compile("((?i)find|view) (.+)");
     private static boolean isDead = false;
 
     /**
