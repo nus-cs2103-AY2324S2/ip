@@ -68,4 +68,8 @@ public class Ui {
     public String showFindCommandHeader() {
         return "Here are the matching tasks in your list:";
     }
+    public String showClashError(Event newEvent, Event existingEvent) {
+        return "Hey, this event clashes with another event!\n" + newEvent.show()
+                + "\nClashes with existing event:\n" + existingEvent.show();
+    }
 }

@@ -15,10 +15,31 @@ public class TaskList {
 
     public String store(Task task) {
         assert task != null : "Task cannot be null";
+        if (task instanceof Event) {
+            Event existingEvent = getEventIfClash(task);
+            if (existingEvent != null) {
+                //TODO: Throw the exception and handle it in the input handler?
+                return BartenderBobException.showEventClashError((Event) task, existingEvent);
+            }
+        }
         tasks.add(task);
         STORAGE.saveTask(task);
         int totalTasks = tasks.size();
         return ui.showStoreTasksMessage(task, totalTasks);
+    }
+    public Event getEventIfClash(Task task) {
+        for (Task existingTask : tasks) {
+            if (!(existingTask instanceof Event)) {
+                continue;
+            }
+            Event newEvent = (Event) task;
+            Event existingEvent = (Event) existingTask;
+            if (newEvent.hasNoClash(existingEvent)) {
+                continue;
+            }
+            return existingEvent;
+        }
+        return null;
     }
     public String list() {
         assert tasks != null : "Tasks list cannot be null";

@@ -1,11 +1,13 @@
 package bartenderbob;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  * Represents the Event task that has a description, from date and a due date.
  */
 public class Event extends Task {
+    //TODO: What happens if by is before from?
     public static final String YYYY_MM_DD = "yyyy-MM-dd";
     public static final String MMM_DD_YYYY = "MMM dd yyyy";
     /** Event start date */
@@ -65,7 +67,14 @@ public class Event extends Task {
             return false;
         }
     }
-
+    /**
+     * Verifies whether the event task has no clash with another event task.
+     * @param event The event task to be compared with.
+     * @return Whether the event task has no clash with another event task.
+     */
+    public boolean hasNoClash(Event event) {
+        return this.by.isBefore(event.from) || event.by.isBefore(this.from);
+    }
     /**
      * Shows the event task information when the user uses the 'list' command.
      *

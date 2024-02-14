@@ -66,4 +66,7 @@ public class BartenderBobException extends Exception {
     public String tasksOutOfBounds() {
         return UI.showOutOfBoundsCommand();
     }
+    public static String showEventClashError(Event newEvent, Event existingEvent) {
+        return UI.showClashError(newEvent, existingEvent);
+    }
 }

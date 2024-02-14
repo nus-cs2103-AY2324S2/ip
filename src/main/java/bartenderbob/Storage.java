@@ -109,6 +109,10 @@ public class Storage {
      * @return Date which is of yyyy-MM-dd format.
      */
     private String convertDateFormat(String oldDateFormat) {
+        //The storage and show() method stores the date as "MMM dd yyyy"
+        //however, the constructor for deadline and event takes in a date
+        //as "yyyy-MM-dd". That's why we need this method when loading from
+        //storage into the chatbot.
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
         // Parse the original string to LocalDate
@@ -128,10 +132,6 @@ public class Storage {
      * @param task The task that we are saving to the storage file.
      */
     public void saveTask(Task task) {
-        //[T][X] read book = T | X | read book
-        //[D][ ] return book (by: June 6th) = D |  | return book | June 6th
-        //[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-        // = E |  | project meeting | Aug 6th 2pm | 4pm
         try {
             assert task != null : "Task cannot be null";
             Path path = Paths.get(filePath);
