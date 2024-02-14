@@ -159,27 +159,36 @@ public class Parser {
 
     /**
      * Parses date and time from a string and creates a LocalDateTime object.
+     * Validates that the date is not before the current date.
      *
      * @param dateTimeStr The string containing date and time information.
      * @return The LocalDateTime object created based on the input.
-     * @throws DukeException If there is an issue parsing the date and time or if the format is invalid.
+     * @throws DukeException If there is an issue parsing the date and time, if the format is invalid,
+     *                       or if the date is before today.
      */
     public static LocalDateTime parseDateTime(String dateTimeStr) throws DukeException {
+        LocalDateTime parsedDateTime;
         try {
             if (dateTimeStr.equalsIgnoreCase("today")) {
-                return LocalDateTime.now().with(LocalTime.MIN);
+                parsedDateTime = LocalDateTime.now().with(LocalTime.MIN);
             } else if (dateTimeStr.equalsIgnoreCase("tomorrow")) {
-                return LocalDateTime.now().plusDays(1).with(LocalTime.MAX);
+                parsedDateTime = LocalDateTime.now().plusDays(1).with(LocalTime.MAX);
             } else if (dateTimeStr.contains(" ")) {
-                return LocalDateTime.parse(dateTimeStr, DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
+                parsedDateTime = LocalDateTime.parse(dateTimeStr, DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
             } else {
                 LocalDate date = LocalDate.parse(dateTimeStr, DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-                return date.atStartOfDay();
+                parsedDateTime = date.atStartOfDay();
             }
         } catch (Exception e) {
             throw new DukeException("Invalid date/time format. Please use "
                     + "'yyyy/MM/dd HHmm', 'yyyy/MM/dd', 'today', or 'tomorrow'.");
         }
+
+        // Check if the parsed date is before today
+        if (parsedDateTime.toLocalDate().isBefore(LocalDate.now())) {
+            throw new DukeException("The date cannot be in the past.");
+        }
+        return parsedDateTime;
     }
 
     /**
