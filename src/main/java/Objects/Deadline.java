@@ -15,12 +15,12 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String toString(){
-        return "[D] " + super.toString() + "(by : "+this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy"))+")";
+    public String toString() {
+        return "[D] " + super.toString() + "(by : " + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
     @Override
     public String toStringFile(){
-        return "D|" + super.toStringFile() + "|"+this.deadline;
+        return "D|" + super.toStringFile() + "|" + this.deadline;
     }
 }

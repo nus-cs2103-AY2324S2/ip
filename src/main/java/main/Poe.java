@@ -31,12 +31,9 @@ public class Poe {
             TaskList taskList = new TaskList(data);
             taskList.printList();
             Parser.input(taskList);
-        }catch (Exception e){
+        } catch (Exception e) {
             TaskList taskList = new TaskList();
             Parser.input(taskList);
         }
-
-
-
     }
 }

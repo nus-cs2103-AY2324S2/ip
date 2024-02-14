@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class TaskListTest {
 
     @Test
-    public void mark_exceptionThrown(){
+    public void mark_exceptionThrown() {
         try {
             TaskList taskList = new TaskList();
             taskList.mark(-1);
@@ -18,7 +18,7 @@ public class TaskListTest {
         }
     }
     @Test
-    public void unmark_exceptionThrown(){
+    public void unmark_exceptionThrown() {
         try {
             TaskList taskList = new TaskList();
             taskList.unmark(-1);
@@ -28,7 +28,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void remove_exceptionThrown(){
+    public void remove_exceptionThrown() {
         try {
             TaskList taskList = new TaskList();
             taskList.remove(-1);

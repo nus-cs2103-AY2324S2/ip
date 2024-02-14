@@ -5,44 +5,40 @@ package Objects;
  */
 public class Task {
     private String name;
-    private boolean mark = false;
-    public Task(String name,boolean mark){
+    private boolean isMarked = false;
+    public Task(String name,boolean isMarked) {
         this.name = name;
-        this.mark = mark;
+        this.isMarked = isMarked;
     }
 
     public String getName() {
         return name;
     }
-    public boolean getMark(){
-        return mark;
+    public boolean getMark() {
+        return isMarked;
     }
-    public void toggleMark(){
-        this.mark = !this.mark;
-    }
-
-    public void markMark(){
-        this.mark = true;
+    public void markMark() {
+        this.isMarked = true;
     }
 
-    public void unmarkMark(){
-        this.mark = false;
+    public void unmarkMark() {
+        this.isMarked = false;
     }
 
 
     @Override
-    public String toString(){
-        if  (getMark()){
+    public String toString() {
+        if (getMark()) {
             return "[X] " + getName();
-        }else{
+        } else {
             return "[ ] " + getName();
         }
     }
 
-    public String toStringFile(){
-        if  (getMark()){
+    public String toStringFile() {
+        if (getMark()) {
             return "1|" + getName();
-        }else{
+        } else {
             return "0|" + getName();
         }
     }
