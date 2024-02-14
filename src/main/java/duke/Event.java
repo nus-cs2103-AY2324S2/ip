@@ -40,6 +40,7 @@ public class Event extends Task {
      */
 
     public LocalDateTime getStartTime() {
+        assert startTime != null : "Start time should not be null";
         return startTime;
     }
 
@@ -49,6 +50,7 @@ public class Event extends Task {
      * @return The end time as a LocalDateTime object.
      */
     public LocalDateTime getEndTime() {
+        assert endTime != null : "End time should not be null";
         return endTime;
     }
 
@@ -59,10 +61,10 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
+        assert startTime != null && endTime != null : "Start and end times should not be null";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
         String formattedStartTime = startTime.format(formatter);
         String formattedEndTime = endTime.format(formatter);
-
         return "[E]" + super.toString() + " (from: " + formattedStartTime + " to: " + formattedEndTime + ")";
     }
 }

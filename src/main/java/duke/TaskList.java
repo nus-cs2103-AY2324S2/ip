@@ -25,6 +25,7 @@ public class TaskList {
      */
     public TaskList(List<Task> tasks) {
         this.tasks = tasks;
+        assert tasks != null : "Task list should not be null";
     }
 
     /**
@@ -38,6 +39,7 @@ public class TaskList {
             this.tasks = new ArrayList<>(); // Initialize the list if it's null
         }
         this.tasks.add(task);
+        assert tasks.contains(task) : "Task should be added to the list";
     }
 
     /**
@@ -65,6 +67,7 @@ public class TaskList {
      * @throws DukeException If the index is invalid.
      */
     public Task markTaskAsDone(int index) throws DukeException {
+        assert index >= 0 && index < tasks.size() : "Index should be within the list range";
         if (index >= 0 && index < tasks.size()) {
             Task task = tasks.get(index);
             task.markAsDone();
@@ -104,8 +107,9 @@ public class TaskList {
     //        }
     //  }
     public Task deleteTask(int taskIndex) throws DukeException {
+        assert taskIndex >= 0 && taskIndex < tasks.size() : "taskIndex should be within the valid range";
         if (taskIndex >= 0 && taskIndex < this.tasks.size()) {
-            return this.tasks.remove(taskIndex); // Assuming tasks is the List<Task> holding your tasks
+            return this.tasks.remove(taskIndex);
         } else {
             throw new DukeException("Invalid task index.");
         }
@@ -118,6 +122,7 @@ public class TaskList {
      * @return List of matching {@link Task} objects, or an empty list if no matches found.
      */
     public List<Task> findTasksByKeyword(String keyword) {
+        assert keyword != null : "Keyword should not be null";
         return tasks.stream()
                 .filter(task -> task.getDescription().contains(keyword))
                 .collect(Collectors.toList());
