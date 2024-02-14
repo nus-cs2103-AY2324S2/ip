@@ -1,10 +1,1 @@
-T |   | emily
-T |   | shower
-T |   | brush teeth
-T |   | hello
-T |   | bye
-T |   | kill
-T |   | hi
-T |   | shower
-T |   | hey
 T |   | shower
