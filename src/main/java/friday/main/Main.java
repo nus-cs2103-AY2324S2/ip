@@ -22,9 +22,13 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
+            assert friday != null : "Friday instance must not be null";
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            assert fxmlLoader != null : "FXML loader must be initialized";
             AnchorPane ap = fxmlLoader.load();
+            assert ap != null : "AnchorPane must be initialized";
             Scene scene = new Scene(ap);
+            assert scene != null : "Scene must be initialized";
             stage.setScene(scene);
             stage.setTitle("Friday");
             fxmlLoader.<MainWindow>getController().setFriday(friday);

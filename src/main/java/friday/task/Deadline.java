@@ -18,6 +18,8 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String byString) {
         super(description);
+        assert description != null : "Description must not be null";
+        assert byString != null : "Deadline string must not be null";
         this.by = parseDeadline(byString);
     }
 
@@ -29,9 +31,12 @@ public class Deadline extends Task {
      */
     public Deadline(String description, LocalDateTime by) {
         super(description);
+        assert description != null : "Description must not be null";
+        assert by != null : "Deadline LocalDateTime must not be null";
         this.by = by;
     }
     private LocalDateTime parseDeadline(String byString) {
+        assert byString != null : "Deadline string must not be null";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         return LocalDateTime.parse(byString, formatter);
     }
@@ -42,6 +47,7 @@ public class Deadline extends Task {
      * @return The formatted deadline string.
      */
     public String getFormattedDeadline() {
+        assert by != null : "Deadline must be initialized";
         return by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
     }
 
@@ -52,6 +58,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
+        assert by != null : "Deadline must be initialized";
         return "[D]" + super.toString() + " (by: " + getFormattedDeadline() + ")";
     }
 }

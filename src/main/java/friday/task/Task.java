@@ -17,6 +17,7 @@ public class Task {
      * @param description The description of the task.
      */
     public Task(String description) {
+        assert description != null : "Description must not be null";
         this.description = description;
         this.isDone = false;
     }
@@ -51,6 +52,7 @@ public class Task {
      * @return {@code true} if the task's description contains the keyword (case-insensitive), {@code false} otherwise.
      */
     public boolean containsKeyword(String keyword) {
+        assert keyword != null : "Keyword must not be null";
         return description.toLowerCase().contains(keyword);
     }
 
@@ -61,10 +63,12 @@ public class Task {
      * @return The parsed Task object.
      */
     public static Task parseTask(String taskString) {
+        assert taskString != null : "Task string must not be null";
         String cat = taskString.substring(1, 2);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
         switch (cat) {
         case "T":
+            assert taskString.length() >= 7 : "Invalid Todo task string";
             Todo t = new Todo(taskString.substring(7).trim());
             if (taskString.substring(4, 5).equals("X")) {
                 t.markAsDone();
@@ -73,6 +77,7 @@ public class Task {
             }
             return t;
         case "D":
+            assert taskString.contains("(") && taskString.contains(")") : "Invalid Deadline task string";
             String byString = taskString.split(":")[1].split("\\)")[0].trim();
             LocalDateTime by = LocalDateTime.parse(byString, formatter);
             String description = taskString.split("\\(")[0].substring(7).trim();
@@ -84,6 +89,7 @@ public class Task {
             }
             return d;
         case "E":
+            assert taskString.contains("from: ") && taskString.contains("to: ") : "Invalid Event task string";
             int fromIndex = taskString.indexOf("from: ");
             int toIndex = taskString.indexOf("to: ");
             String fromString = taskString.substring(fromIndex + 5, toIndex).trim();

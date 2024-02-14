@@ -18,6 +18,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 
 
 /**
@@ -69,7 +70,10 @@ public class Friday extends Application {
      */
     public Friday() {
         ui = new Ui();
+        assert ui != null : "UI must be initialized";
         storage = new Storage(DATA_FILE_PATH);
+        assert storage != null : "Storage must be initialized";
+
         try {
             storage.checkFile();
         } catch (IOException e) {
@@ -93,6 +97,10 @@ public class Friday extends Application {
         dialogContainer = new VBox();
         userInput = new TextField();
         scrollPane = new ScrollPane();
+        assert dialogContainer != null : "Dialog container must be initialized";
+        assert userInput != null : "User input field must be initialized";
+        assert scrollPane != null : "Scroll pane must be initialized";
+
         scrollPane.setContent(dialogContainer);
         scrollPane.setPrefSize(400, 400);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -101,11 +109,14 @@ public class Friday extends Application {
         scrollPane.setFitToWidth(true);
 
         sendButton = new Button("Send");
+        assert sendButton != null : "Send button must be initialized";
 
         AnchorPane mainLayout = new AnchorPane();
+        assert mainLayout != null : "Main layout must be initialized";
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
 
         scene = new Scene(mainLayout);
+        assert scene != null : "Scene must be initialized";
 
         stage.setScene(scene);
         stage.show();
@@ -162,8 +173,14 @@ public class Friday extends Application {
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
+        assert userInput != null : "User input field must be initialized";
+        assert dialogContainer != null : "Dialog container must be initialized";
+
         String userText = String.valueOf(new Label(userInput.getText()));
         String dukeText = String.valueOf(new Label(getResponse(userInput.getText())));
+        assert userText != null : "User text must not be null";
+        assert dukeText != null : "Duke text must not be null";
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user).getImage()),
                 DialogBox.getFridayDialog(dukeText, new ImageView(duke).getImage())

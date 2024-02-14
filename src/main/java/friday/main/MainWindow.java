@@ -37,6 +37,11 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
+        assert scrollPane != null : "ScrollPane must be initialized";
+        assert dialogContainer != null : "DialogContainer must be initialized";
+        assert userInput != null : "UserInput must be initialized";
+        assert sendButton != null : "SendButton must be initialized";
+
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         displayWelcomeMessage();
     }
@@ -46,6 +51,7 @@ public class MainWindow extends AnchorPane {
      * @param f The Friday instance to set.
      */
     public void setFriday(Friday f) {
+        assert f != null : "Friday instance must not be null";
         friday = f;
     }
 
@@ -55,6 +61,9 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        assert userInput != null : "UserInput must be initialized";
+        assert dialogContainer != null : "DialogContainer must be initialized";
+
         String input = userInput.getText();
         String response = friday.getResponse(input);
         dialogContainer.getChildren().addAll(
@@ -71,6 +80,8 @@ public class MainWindow extends AnchorPane {
      * Displays a welcome message from Friday.
      */
     private void displayWelcomeMessage() {
+        assert dialogContainer != null : "DialogContainer must be initialized";
+
         String welcomeMessage = "Hello Master! I'm Friday. How can I assist you today?";
         dialogContainer.getChildren().add(DialogBox.getFridayDialog(welcomeMessage, fridayImage));
     }
@@ -80,6 +91,7 @@ public class MainWindow extends AnchorPane {
      * Waits for 2 seconds before closing the application window.
      */
     private void exitApplication() {
+        assert userInput != null : "UserInput must be initialized";
         // Get the stage (window) and close it
         PauseTransition pause = new PauseTransition(Duration.seconds(2));
         pause.setOnFinished(event -> {

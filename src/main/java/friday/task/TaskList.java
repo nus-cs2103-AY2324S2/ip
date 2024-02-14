@@ -42,11 +42,14 @@ public class TaskList {
      * @return A message indicating the task has been marked as done, or an error message.
      */
     public String markTask(String userInput) {
+        assert userInput != null : "User input must not be null";
+
         String num = userInput.substring(4).trim();
         if (num.isEmpty()) {
             return "Error. Unknown task number to be marked.";
         } else {
             int id = Integer.parseInt(num);
+            assert id > 0 && id <= tasks.size() : "Task number is out of bounds";
             if (id > tasks.size()) {
                 return "Error. Task number does not exist.";
             } else {
@@ -67,11 +70,14 @@ public class TaskList {
      * @return A message indicating the task has been marked as undone, or an error message.
      */
     public String unmarkTask(String userInput) {
+        assert userInput != null : "User input must not be null";
+
         String num = userInput.substring(6).trim();
         if (num.isEmpty()) {
             return "Error. Unknown task number to be unmarked.";
         } else {
             int id = Integer.parseInt(num);
+            assert id > 0 && id <= tasks.size() : "Task number is out of bounds";
             if (id > tasks.size()) {
                 return "Error. Task number does not exist.";
             } else {
@@ -92,11 +98,13 @@ public class TaskList {
      * @return A message indicating the task has been deleted, or an error message.
      */
     public String deleteTask(String userInput) {
+        assert userInput != null : "User input must not be null";
         String num = userInput.substring(6).trim();
         if (num.isEmpty()) {
             return "Error. Unknown task number to be deleted.";
         } else {
             int id = Integer.parseInt(num);
+            assert id > 0 && id <= tasks.size() : "Task number is out of bounds";
             if (id > tasks.size()) {
                 return "Error. Task number does not exist.";
             } else {

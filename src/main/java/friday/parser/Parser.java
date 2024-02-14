@@ -20,6 +20,8 @@ public class Parser {
      * @param filePath The file path for data storage.
      */
     public Parser(TaskList tasks, String filePath) {
+        assert tasks != null : "TaskList must not be null";
+        assert filePath != null : "File path must not be null";
         this.tasks = tasks;
         this.storage = new Storage(filePath);
     }
@@ -30,6 +32,7 @@ public class Parser {
      * @return A String representing the response to the user command.
      */
     public String parseInput(String userInput) {
+        assert userInput != null : "User input must not be null";
         String category = userInput.split(" ")[0].toLowerCase().trim();
         switch (category) {
         case "list":
@@ -42,6 +45,8 @@ public class Parser {
             }
             return sb.toString();
         case "mark":
+            assert tasks != null : "TaskList must not be null";
+            assert storage != null : "Storage must not be null";
             String responseToMark = tasks.markTask(userInput);
             try {
                 storage.writeToFile(tasks);
@@ -50,6 +55,8 @@ public class Parser {
             }
             return responseToMark;
         case "unmark":
+            assert tasks != null : "TaskList must not be null";
+            assert storage != null : "Storage must not be null";
             String responseToUnmark = tasks.unmarkTask(userInput);
             try {
                 storage.writeToFile(tasks);
@@ -64,6 +71,8 @@ public class Parser {
         case "event":
             return tasks.addEvent(userInput);
         case "delete":
+            assert tasks != null : "TaskList must not be null";
+            assert storage != null : "Storage must not be null";
             String responseToDelete = tasks.deleteTask(userInput);
             try {
                 storage.writeToFile(tasks);
