@@ -3,7 +3,7 @@ package chatbro;
 import java.util.ArrayList;
 
 /**
- * TaskManager class that manages the list and count of tasks.
+ * TaskManager class that manages task list and task count.
  */
 public class TaskManager {
     private static ArrayList<Task> taskList;
