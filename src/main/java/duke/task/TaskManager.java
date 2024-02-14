@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import duke.DukeException;
 import duke.parser.DateHandler;
+import duke.storage.SaveType;
 
 /**
  * Manager class to manage and keep track of all the actions being performed on the task.
@@ -25,6 +26,7 @@ public class TaskManager {
     private static final String RESPONSE_REMOVE = "Noted. I've removed this task";
     private static final String RESPONSE_ADD = "Got it. I've added this task:";
     private static final String RESPONSE_FIND = "Here are the matching tasks in your list";
+    private static final String RESPONSE_VIEW_DATES = "Here are the task scheduled on that date!!";
 
     private static final String RESPONSE_EMPTY = "Your list is empty!!!!Add something! ";
     private static final String RESPONSE_EMPTY_SEARCH = "Sorry I couldn't find anything that fits that search :(";
@@ -150,10 +152,13 @@ public class TaskManager {
 
         Optional<LocalDate> testByDate = DateHandler.checkDate(by);
         Optional<LocalDate> testFromDate = DateHandler.checkDate(from);
+
         Optional<LocalDateTime> combineByDate =
                 testByDate.flatMap(byDate -> Optional.of(LocalDateTime.of(byDate, getTimeFromString(by))));
+
         Optional<LocalDateTime> combineFromDate =
                 testFromDate.flatMap(fromDate -> Optional.of(LocalDateTime.of(fromDate, getTimeFromString(from))));
+
         return combineByDate.flatMap(byDate -> combineFromDate.flatMap(fromDate -> Optional.of(new Event(description,
                                                                                                          fromDate,
                                                                                                          byDate))))
@@ -238,6 +243,98 @@ public class TaskManager {
         return ret;
     }
 
+
+    /**
+     * Querys the task with the corresponding query action.
+     *
+     * @param act         a valid qeury action
+     * @param instruction query parameters to find
+     * @return A String array of values to return to the Ui to print.
+     * @throws DukeException Invalid query of tasks.
+     */
+    public String[] queryTasks(Query act, String instruction) throws DukeException {
+
+        String[] ret;
+        switch (act) {
+        case FIND:
+            ret = findTask(instruction);
+            break;
+        case VIEW:
+            ret = viewByDate(instruction);
+            break;
+        default:
+            throw new DukeException("queryError");
+        }
+        return ret;
+
+    }
+
+    /**
+     * Find the task in the current list.
+     *
+     * @param search The keywords to search.
+     * @return A list of items containing the search results.
+     */
+    public String[] findTask(String search) {
+        List<String> foundTask = items.stream().filter(item -> item.toString().contains(search))
+                                      .map(item -> items.indexOf(item) + 1 + ". " + item).collect(Collectors.toList());
+
+        if (!foundTask.isEmpty()) {
+            foundTask.add(0, RESPONSE_FIND);
+            return foundTask.toArray(String[]::new);
+
+        } else {
+            return new String[]{RESPONSE_EMPTY_SEARCH};
+
+        }
+    }
+
+    /**
+     * Returns the task scheduled on that particular date.
+     *
+     * @param date the date to query.
+     * @return A string array of the task to print to the Ui.
+     * @throws DukeException throws invalid query error.
+     */
+    public String[] viewByDate(String date) throws DukeException {
+        LocalDate inputDate = DateHandler.checkDate(date).orElseThrow(() -> new DukeException("dateError"));
+        System.out.println(inputDate);
+        List<String> foundDates = items.stream().filter(this::isValidDateTask)
+                                       .filter(item -> isMatchDate(item.getType(), item, inputDate))
+                                       .map(item -> items.indexOf(item) + 1 + ". " + item).collect(Collectors.toList());
+
+        if (!foundDates.isEmpty()) {
+            foundDates.add(0, RESPONSE_VIEW_DATES);
+            return foundDates.toArray(String[]::new);
+
+        } else {
+            System.out.println("Found nothing");
+            return new String[]{RESPONSE_EMPTY_SEARCH};
+
+        }
+    }
+
+    private boolean isValidDateTask(Task item) {
+        return item.getType().equals(SaveType.EVENT) || item.getType().equals(SaveType.DEADLINE);
+    }
+
+    private boolean isMatchDate(SaveType type, Task first, LocalDate second) {
+        if (type.equals(SaveType.DEADLINE)) {
+            Deadline test = (Deadline) first;
+            Optional<LocalDateTime> compareDate = test.getDateTime();
+            return compareDate.map(localDateTime -> localDateTime.toLocalDate().equals(second)).orElse(false);
+
+        } else if (type.equals(SaveType.EVENT)) {
+            Event test = (Event) first;
+            Optional<LocalDateTime> compareDate = test.getDateTime();
+            return compareDate.map(localDateTime -> localDateTime.toLocalDate().equals(second)).orElse(false);
+
+
+        } else {
+            return false;
+        }
+    }
+
     /**
      * Gets the current items in the TaskManager and produce them into a save format
      *
@@ -265,7 +362,7 @@ public class TaskManager {
         String[] ret = new String[items.size()];
         ret[0] = RESPONSE_LISTING;
         for (int i = 0; i < items.size(); i++) {
-            ret[i] = i + 1 + "." + items.get(i);
+            ret[i] = i + 1 + ". " + items.get(i);
         }
         return ret;
     }
@@ -276,26 +373,6 @@ public class TaskManager {
 
     public void setUpdate(boolean hasChanged) {
         this.hasChanged = hasChanged;
-    }
-
-    /**
-     * Find the task in the current list.
-     *
-     * @param search The keywords to search.
-     * @return A list of items containing the search results.
-     */
-    public String[] findTask(String search) {
-        List<String> foundTask = items.stream().filter(item -> item.toString().contains(search))
-                                      .map(item -> items.indexOf(item) + 1 + ". " + item).collect(Collectors.toList());
-
-        if (!foundTask.isEmpty()) {
-            foundTask.add(0, RESPONSE_FIND);
-            return foundTask.toArray(String[]::new);
-
-        } else {
-            return new String[]{RESPONSE_EMPTY_SEARCH};
-
-        }
     }
 
 }

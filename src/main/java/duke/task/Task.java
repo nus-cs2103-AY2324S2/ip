@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.storage.SaveType;
+
 /**
  * Basic class of a Task.
  */
@@ -65,6 +67,14 @@ public class Task {
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
+    }
+
+    /**
+     * Checks what type of task this is .
+     * @return The type of Task it is
+     */
+    public SaveType getType() {
+        return null;
     }
 
 }

@@ -81,6 +81,9 @@ public class Ui {
         case "manageError":
             errorResponse = "Opppps!!!! Invalid manage action ";
             break;
+        case "queryError":
+            errorResponse = "Query invalid search command !";
+            break;
         case "dateError":
             errorResponse = "OOPS!!! Incorrect date format!!!";
             break;

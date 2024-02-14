@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.storage.SaveType;
+
 /**
  * Create a todo class that only has a name.
  */
@@ -22,5 +24,10 @@ public class Todo extends Task {
     @Override
     public String toString() {
         return "[T]" + super.toString();
+    }
+
+    @Override
+    public SaveType getType() {
+        return SaveType.TODO;
     }
 }
