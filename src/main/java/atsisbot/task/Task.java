@@ -9,6 +9,7 @@ public abstract class Task {
     private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     protected String description;
     protected TaskStatus status;
+    protected Priority priority;
 
     /**
      * Constructs a Task object with the given description.
@@ -20,6 +21,7 @@ public abstract class Task {
     public Task(String description) {
         this.description = description;
         this.status = TaskStatus.UNDONE;
+        this.priority = Priority.LOW;
     }
 
     /**
@@ -66,7 +68,21 @@ public abstract class Task {
      */
     public abstract String encode();
 
+    /**
+     * Returns the DateTimeFormatter object used in this class.
+     *
+     * @return the DateTimeFormatter object
+     */
     public static DateTimeFormatter getDateTimeFormatter() {
         return dateTimeFormatter;
+    }
+
+    /**
+     * Sets the priority of this task.
+     *
+     * @param priority the priority to set for this task
+     */
+    public void setPriority(Priority priority) {
+        this.priority = priority;
     }
 }

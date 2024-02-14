@@ -114,6 +114,9 @@ public class AtsisBot {
             case FIND:
                 Command.find(args, taskList);
                 break;
+            case SET_PRIORITY:
+                Command.setPriority(args, taskList);
+                break;
             default:
                 Ui.printUnknownCommandMessage();
             }

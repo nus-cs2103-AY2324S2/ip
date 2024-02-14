@@ -33,7 +33,7 @@ public class Deadline extends Task {
                 + this.getDescription()
                 + " (by: "
                 + this.by.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm"))
-                + ")\n";
+                + ") - " + this.priority.toString() + "\n";
     }
 
     /**
@@ -50,6 +50,8 @@ public class Deadline extends Task {
                 + " | "
                 + this.description
                 + " | "
-                + this.by.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+                + this.by.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))
+                + " | "
+                + this.priority.toString();
     }
 }

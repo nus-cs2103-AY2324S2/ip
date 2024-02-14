@@ -29,7 +29,9 @@ public class Ui {
     private static final String UNKNOWN_COMMAND_MESSAGE = "I'm sorry, but I don't understand that command.";
     private static final String INVALID_FIND_MESSAGE = "No matching tasks found.\n";
     private static final String FIND_MESSAGE = "Here are the matching tasks in your list:\n";
-
+    private static final String INVALID_PRIORITY_FORMAT_MESSAGE = "Invalid priority format. "
+            + "Please use the correct format.\n";
+    private static final String DONE_SET_PRIORITY = "Nice! I've set the priority for this task:\n";
     private static Scanner sc = new Scanner(System.in);
 
     /**
@@ -152,6 +154,24 @@ public class Ui {
      */
     public static void printInvalidInputFormatMessage() {
         System.out.println(INVALID_INPUT_FORMAT_MESSAGE);
+    }
+
+    /**
+     * Prints the invalid priority format message to the console.
+     * This method is typically called when the user enters a priority in an incorrect format.
+     */
+    public static void printInvalidPriorityFormatMessage() {
+        System.out.println(INVALID_PRIORITY_FORMAT_MESSAGE);
+    }
+
+    /**
+     * Prints the message indicating that the priority for a task has been set.
+     * This method is typically called after the priority of a task has been successfully updated.
+     *
+     * @param task The task for which the priority has been set.
+     */
+    public static void printSetPriorityMessage(Task task) {
+        System.out.print(DONE_SET_PRIORITY + task.toString());
     }
 
     /**

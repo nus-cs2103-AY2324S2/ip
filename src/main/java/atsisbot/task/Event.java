@@ -14,7 +14,8 @@ public class Event extends Task {
      * Constructs an Event object with the given description and fromTo details.
      *
      * @param description The description of the event.
-     * @param fromTo      The time period of the event.
+     * @param startTime   The start time of the event.
+     * @param endTime     The end time of the event.
      */
     public Event(String description, LocalDateTime startTime, LocalDateTime endTime) {
         super(description);
@@ -34,9 +35,10 @@ public class Event extends Task {
                 + "] "
                 + this.getDescription()
                 + String.format(
-                " (from: %s to %s)\n",
+                " (from: %s to %s) - %s\n",
                 this.startTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")),
-                this.endTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")));
+                this.endTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")),
+                this.priority.toString());
     }
 
     /**
@@ -56,8 +58,9 @@ public class Event extends Task {
                 + this.description
                 + " | "
                 + String.format(
-                "%s | %s",
+                "%s | %s | %s",
                 this.startTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")),
-                this.endTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+                this.endTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")),
+                this.priority.toString());
     }
 }

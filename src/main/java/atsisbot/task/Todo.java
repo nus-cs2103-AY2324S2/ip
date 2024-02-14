@@ -20,7 +20,8 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return "[T][" + this.getStatus().getStatusIcon() + "] " + this.getDescription() + "\n";
+        return "[T][" + this.getStatus().getStatusIcon() + "] " + this.getDescription() + " - "
+                + this.priority.toString() + "\n";
     }
 
     /**
@@ -31,6 +32,6 @@ public class Todo extends Task {
     @Override
     public String encode() {
         String status = this.getStatus().isDone() ? "1" : "0";
-        return "T | " + status + " | " + this.description;
+        return "T | " + status + " | " + this.description + " | " + this.priority.toString();
     }
 }

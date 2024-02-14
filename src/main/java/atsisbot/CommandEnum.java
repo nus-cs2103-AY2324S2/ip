@@ -8,5 +8,6 @@ package atsisbot;
 public enum CommandEnum {
     LIST,
     TODO, EVENT, DEADLINE, FIND,
-    MARK, UNMARK, DELETE, UNKNOWN
+    MARK, UNMARK, DELETE, UNKNOWN,
+    SET_PRIORITY
 }
