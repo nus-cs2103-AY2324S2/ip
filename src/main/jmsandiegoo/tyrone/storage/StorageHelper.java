@@ -33,8 +33,7 @@ public class StorageHelper {
      * @throws IOException - thrown if create when not exist errors.
      */
     public File loadFile() throws IOException {
-        File file = checkOrCreateFile();
-        return file;
+        return checkOrCreateFile();
     }
 
     /**
