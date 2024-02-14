@@ -1,5 +1,3 @@
-import java.util.LinkedList;
-
 public class Ui {
     public void greeting() {
         System.out.println("Hello! I'm AWEX!\nWhat can I do for you?");

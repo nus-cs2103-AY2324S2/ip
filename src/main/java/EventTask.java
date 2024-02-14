@@ -1,7 +1,6 @@
 import java.time.LocalDateTime;
 
 public class EventTask extends Task {
-    private String type;
     private LocalDateTime start;
     private LocalDateTime end;
 
