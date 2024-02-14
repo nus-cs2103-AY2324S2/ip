@@ -1,8 +1,7 @@
 package alpa.commands;
 
-import alpa.exceptions.AlpaException;
-import alpa.tasks.TaskList;
 import alpa.tasks.Deadline;
+import alpa.tasks.TaskList;
 import alpa.ui.Ui;
 import alpa.utils.Storage;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,13 +9,13 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import java.time.LocalDateTime;
-
+import java.time.format.DateTimeFormatter;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 class DeadlineCommandTest {
 
-    @Mock
-    private TaskList mockTaskList;
+    private TaskList taskList;
     @Mock
     private Ui mockUi;
     @Mock
@@ -25,22 +24,23 @@ class DeadlineCommandTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+        taskList = new TaskList();
     }
 
     @Test
-    void executeCommand_validDetails_addsDeadline() throws AlpaException {
-        // Arrange
-        String details = "submit report /by 14 Feb 3pm";
+    void executeCommand_validDeadlineDetails_correctToFileFormat() throws Exception {
+
+        String details = "finish report /by 15/12/2022";
         DeadlineCommand command = new DeadlineCommand(details);
-        LocalDateTime expectedDateTime = LocalDateTime.of(2024, 2, 14, 15, 0);
+        String expectedFormat = "D | 0 | finish report | 2022-12-15 23:59";
 
-        // Act
-        command.executeCommand(mockTaskList, mockUi, mockStorage);
+        command.executeCommand(taskList, mockUi, mockStorage);
 
-        // Assert
-        verify(mockTaskList).addTask(any(Deadline.class));
-        verify(mockUi).showAddedTask(any(Deadline.class), anyInt());
-        verify(mockStorage).saveTasks(anyList());
+        assertEquals(1, taskList.getSize()); // Ensure a deadline was added
+        Deadline addedDeadline = (Deadline) taskList.getTasks().get(0);
+
+        // Verify the toFileFormat output matches the expected format
+        String actualFormat = addedDeadline.toFileFormat();
+        assertEquals(expectedFormat, actualFormat);
     }
 }
-

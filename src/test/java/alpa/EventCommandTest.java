@@ -1,6 +1,5 @@
 package alpa.commands;
 
-import alpa.exceptions.AlpaException;
 import alpa.tasks.Event;
 import alpa.tasks.TaskList;
 import alpa.ui.Ui;
@@ -9,15 +8,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
 import java.time.LocalDateTime;
-
+import java.time.format.DateTimeFormatter;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 class EventCommandTest {
 
-    @Mock
-    private TaskList mockTaskList;
+    private TaskList taskList;
     @Mock
     private Ui mockUi;
     @Mock
@@ -26,28 +24,25 @@ class EventCommandTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+        taskList = new TaskList();
     }
 
     @Test
-    void executeCommand_validEventDetails_addsEvent() throws AlpaException {
+    void executeCommand_validEventDetails_correctToFileFormat() throws Exception {
         // Arrange
-        String details = "team meeting /from 2 Dec 10 AM /to 11 AM";
+        String details = "project meeting /from 12 Feb 2 PM /to 3 PM";
         EventCommand command = new EventCommand(details);
-        LocalDateTime startDateTime = LocalDateTime.of(2024, 12, 2, 10, 0);
-        LocalDateTime endDateTime = LocalDateTime.of(2024, 12, 2, 11, 0);
+        String expectedFormat = "E | 0 | project meeting | 2024-02-12 14:00 - 2024-02-12 15:00";
 
         // Act
-        command.executeCommand(mockTaskList, mockUi, mockStorage);
+        command.executeCommand(taskList, mockUi, mockStorage);
 
         // Assert
-        verify(mockTaskList).addTask(argThat(argument -> 
-            argument instanceof Event && 
-            ((Event) argument).getStartDateTime().equals(startDateTime) &&
-            ((Event) argument).getEndDateTime().equals(endDateTime) &&
-            ((Event) argument).getDescription().equals("team meeting")
-        ));
-        verify(mockUi).showAddedTask(any(Event.class), anyInt());
-        verify(mockStorage).saveTasks(anyList());
+        assertEquals(1, taskList.getSize()); // Ensure an event was added
+        Event addedEvent = (Event) taskList.getTasks().get(0);
+
+        // Format the start and end times as expected in the toFileFormat output
+        String actualFormat = addedEvent.toFileFormat();
+        assertEquals(expectedFormat, actualFormat);
     }
 }
-
