@@ -88,6 +88,14 @@ public class Parser {
                         Ui.error();
                     }
                     break;
+                case "find":
+                    if (splitStr.length == 2) {
+                        taskList.printList(taskList.findList(splitStr[1]));
+                    } else {
+                        Ui.error();
+                    }
+                    break;
+
                 default:
                     System.out.println("huh? what did you say?");
                     break;

@@ -46,6 +46,28 @@ public class TaskList {
             System.out.printf("%d. %s\n", i+1, list.get(i).toString());
         }
         Ui.showLine();
+<<<<<<< HEAD
+=======
+    }
+
+    public void printList(ArrayList<Task> taskArrayList){
+        Ui.showLine();
+        System.out.println("Here's what you're looking for :)");
+        for (int i = 0; i < taskArrayList.size(); i++){
+            System.out.printf("%d. %s\n",i+1,taskArrayList.get(i).toString());
+        }
+        Ui.showLine();
+    }
+
+    public ArrayList<Task> findList(String str){
+        ArrayList<Task> temp = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++){
+            if (str.equals(list.get(i).getName().trim())){
+                temp.add(list.get(i));
+            }
+        }
+        return temp;
+>>>>>>> master
     }
 
     public ArrayList<Task> getList() {
