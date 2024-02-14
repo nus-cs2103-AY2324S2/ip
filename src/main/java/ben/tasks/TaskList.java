@@ -1,9 +1,7 @@
 package ben.tasks;
 
-import ben.commands.DeadlineCommand;
 import ben.exceptions.BenException;
 import ben.ui.Ui;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
