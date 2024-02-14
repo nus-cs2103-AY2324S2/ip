@@ -121,7 +121,7 @@ public class Parser {
      */
     public static LocalTime parseTime(String time) throws JadeException {
         try {
-            return LocalTime.parse(time, DateTimeFormatter.ofPattern("hmma"));
+            return LocalTime.parse(time, DateTimeFormatter.ofPattern("hh:mm a"));
         } catch (DateTimeException e) {
             throw new JadeException(INVALID_TIME_MSG);
         }
@@ -195,7 +195,7 @@ public class Parser {
     private static AddCommand parseDeadline(String[] commands) throws JadeException {
         checkEmptyDescription(5, commands);
         return new AddCommand(new Deadline(concatStringWithTextBound(commands, "", "/by"),
-                parseDateTime(concatStringWithTextBound(commands, "/by", ""), "yyyy-MM-dd hmma")));
+                parseDateTime(concatStringWithTextBound(commands, "/by", ""), "yyyy-MM-dd hh:mm a")));
     }
 
     /**
@@ -204,8 +204,8 @@ public class Parser {
     private static AddCommand parseEvent(String[] commands) throws JadeException {
         checkEmptyDescription(8, commands);
         return new AddCommand(new Event(concatStringWithTextBound(commands, "", "/from"),
-                parseDateTime(concatStringWithTextBound(commands, "/from", "/to"), "yyyy-MM-dd hmma"),
-                parseDateTime(concatStringWithTextBound(commands, "/to", ""), "yyyy-MM-dd hmma")));
+                parseDateTime(concatStringWithTextBound(commands, "/from", "/to"), "yyyy-MM-dd hh:mm a"),
+                parseDateTime(concatStringWithTextBound(commands, "/to", ""), "yyyy-MM-dd hh:mm a")));
     }
 
     /**

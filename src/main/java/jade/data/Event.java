@@ -35,7 +35,7 @@ public class Event extends Task {
      * Returns a formatted string of the LocalDateTime object.
      */
     public String dateTimeFormatter(LocalDateTime dateTime) {
-        return dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy hmma"));
+        return dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"));
     }
 
     /**

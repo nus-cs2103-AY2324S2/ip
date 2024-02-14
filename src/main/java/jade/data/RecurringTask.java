@@ -24,11 +24,16 @@ public class RecurringTask extends Task {
         Weekly,
         Monthly,
     }
+    /** For converting letter into the TaskFreq it represents */
+    public static final Map<String, TaskFreq> lookUpTable = Arrays.stream(TaskFreq.values())
+            .collect(Collectors.toMap(
+                    freq -> freq.toString().substring(0, 1),
+                    freq -> freq));
     /** For converting TaskFreq into its first char */
-    private final Map<TaskFreq, Character> lookUpTable = Arrays.stream(TaskFreq.values())
+    private final Map<TaskFreq, String> lookUpTableReversed = Arrays.stream(TaskFreq.values())
             .collect(Collectors.toMap(
                     freq -> freq,
-                    freq -> freq.toString().charAt(0)));
+                    freq -> freq.toString().substring(0, 1)));
     private final LocalDate startDate;
     private final LocalDate endDate;
     private final LocalTime startTime;
@@ -158,7 +163,7 @@ public class RecurringTask extends Task {
     public String taskFormatter() {
         return String.format("RT | %s | %s | %s - %s | %s - %s | %s\n", statusFormatter(),
                 description, dateFormatter(startDate), dateFormatter(endDate),
-                timeFormatter(startTime), timeFormatter(endTime), lookUpTable.get(taskFreq));
+                timeFormatter(startTime), timeFormatter(endTime), lookUpTableReversed.get(taskFreq));
     }
 }
 
