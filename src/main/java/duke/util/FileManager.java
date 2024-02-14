@@ -39,7 +39,8 @@ public class FileManager {
         if (!file.exists()){
             try {
                 file.getParentFile().mkdirs();
-                file.createNewFile();
+                boolean exists = file.createNewFile();
+                assert exists : "File created successfully";
                 System.out.println("New task file created at: " + this.path);
             } catch (IOException e) {
                 System.out.println("Failed to create save file");

@@ -32,6 +32,7 @@ public class TaskList {
      * @param current The {@code Task} to be added.
      */
     public void addTask(Task current) {
+        assert current != null : "task added cannot be null";
         taskList.add(current);
     }
 
@@ -53,6 +54,7 @@ public class TaskList {
      * @return The {@code Task} at the specified position.
      */
     public Task getTask(int index){
+        assert index > 0 && index < taskList.size() : "Index out of bounds";
         return taskList.get(index);
     }
 
