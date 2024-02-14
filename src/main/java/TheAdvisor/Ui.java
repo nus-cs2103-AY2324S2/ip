@@ -36,11 +36,7 @@ public class Ui {
      */
     public String printList(TaskList taskList) {
         ArrayList<Task> tasks = taskList.getTaskList();
-<<<<<<< HEAD
-        if (tasks.size() == 0) {
-=======
         if (tasks.isEmpty()) {
->>>>>>> A-Streams
             return "Sorry, there are no tasks in your list. Start adding them :)";
         } else {
             return "Here are the tasks in your list: \n"
