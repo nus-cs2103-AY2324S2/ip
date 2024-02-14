@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    
+
     public static void main(String[] args) {
         System.out.println(TextUi.introMessage());
         Scanner sc = new Scanner(System.in);
