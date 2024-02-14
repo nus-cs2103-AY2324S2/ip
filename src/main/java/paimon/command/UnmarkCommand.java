@@ -1,7 +1,7 @@
 package paimon.command;
 
 import paimon.ChatException;
-import paimon.UiHandler;
+import paimon.util.UiHandler;
 import paimon.task.Task;
 import paimon.task.TaskList;
 
@@ -37,7 +37,7 @@ public class UnmarkCommand extends Command {
             if (markIndex >= 1 && markIndex <= taskList.getSize()) {
                 Task markTask = taskList.getTask(markIndex - 1);
                 if (taskList.markTask(markIndex - 1, false)) {
-                    ui.markTaskResponse(markTask.getTask(), true);
+                    ui.displayMarkTaskMessage(markTask.getTask(), true);
                 } else {
                     System.out.println("Traveller, this task is already unmarked.");
                 }

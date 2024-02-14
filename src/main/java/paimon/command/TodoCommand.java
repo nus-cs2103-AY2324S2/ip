@@ -1,7 +1,7 @@
 package paimon.command;
 
 import paimon.ChatException;
-import paimon.UiHandler;
+import paimon.util.UiHandler;
 import paimon.task.Task;
 import paimon.task.TaskList;
 import paimon.task.TodoTask;
@@ -36,7 +36,7 @@ public class TodoCommand extends Command {
     public void execute(TaskList taskList, UiHandler ui) throws ChatException {
         Task eventTask = new TodoTask(this.description);
         taskList.addTask(eventTask);
-        ui.addTaskResponse(eventTask.getTask(), taskList.getSize());
+        ui.displayAddTaskMessage(eventTask.getTask(), taskList.getSize());
     }
 
     /**

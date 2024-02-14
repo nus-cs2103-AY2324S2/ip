@@ -1,10 +1,8 @@
 package paimon.command;
 
 import paimon.ChatException;
-import paimon.UiHandler;
-import paimon.task.Task;
+import paimon.util.UiHandler;
 import paimon.task.TaskList;
-import paimon.task.TodoTask;
 
 public class FindCommand extends Command {
     private final String keyword;
@@ -18,7 +16,7 @@ public class FindCommand extends Command {
         if (foundTasks.isEmpty()) {
             throw new ChatException("Could not find any tasks with that keyword");
         } else {
-            ui.getFoundResponse(foundTasks);
+            ui.displayFoundTasksMessage(foundTasks);
         }
     };
     public boolean isExit() {

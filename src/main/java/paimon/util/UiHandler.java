@@ -1,7 +1,7 @@
-package paimon;
+package paimon.util;
 
 
-import paimon.task.Task;
+import paimon.ChatException;
 import paimon.task.TaskList;
 
 import java.util.Scanner;
@@ -26,7 +26,7 @@ public class UiHandler {
      * @param mainMessage The primary message to display.
      */
 
-    private static void sendMessage(String mainMessage) {
+    private static void displayMessage(String mainMessage) {
         System.out.println("-------------------->");
         System.out.println(mainMessage);
         System.out.println("-------------------->");
@@ -39,7 +39,7 @@ public class UiHandler {
      * @param mainMessage The main message to display.
      * @param subMessage  The sub message to provide additional details.
      */
-    private static void sendMessage(String mainMessage, String subMessage) {
+    private static void displayMessage(String mainMessage, String subMessage) {
         System.out.println(mainMessage);
         System.out.println("-------------------->");
         System.out.println(subMessage);
@@ -54,7 +54,7 @@ public class UiHandler {
      * @param subMessage     The sub message to provide additional details.
      * @param closingMessage The closing message to conclude the interaction.
      */
-    private static void sendMessage(String mainMessage, String subMessage, String closingMessage) {
+    private static void displayMessage(String mainMessage, String subMessage, String closingMessage) {
         System.out.println(mainMessage);
         System.out.println("-------------------->");
         System.out.println(subMessage);
@@ -74,22 +74,12 @@ public class UiHandler {
     /**
      * Displays a help message detailing the syntax and commands supported.
      */
-    public void helpResponse() {
-        sendMessage("You can perform the following actions, make sure to follow the syntax!",
-                "list : Lists all your Tasks\n" +
-                "todo <task>: Adds a Task without any deadline\n" +
-                "deadline <task> /by <time>: Adds a task done before a time\n" +
-                "event<Task> /from <time> /to <time>: Adds a task with a time window\n" +
-                "mark/unmark <index>: Marks a Task as done. Index must be a number\n" +
-                "unmark <index>: Mark a Task as not done. Index must be a number\n" +
-                "delete <index>: Deletes a Task from your list!. Index must be a number\n" +
-                "find <keyword>: Lists tasks that contain keyword\n" +
-                "bye : Exits the program"
-                );
+    public void displayHelpMessage() {
+        displayMessage("You can perform the following actions, make sure to follow the syntax!", "list : Lists all your Tasks\n" + "todo <task>: Adds a Task without any deadline\n" + "deadline <task> /by <time>: Adds a task done before a time\n" + "event<Task> /from <time> /to <time>: Adds a task with a time window\n" + "mark/unmark <index>: Marks a Task as done. Index must be a number\n" + "unmark <index>: Mark a Task as not done. Index must be a number\n" + "delete <index>: Deletes a Task from your list!. Index must be a number\n" + "find <keyword>: Lists tasks that contain keyword\n" + "bye : Exits the program");
     }
 
-    public void addTaskResponse(String taskString, int tasksLeft) {
-        sendMessage("Okay Traveller, I've added the following task!", taskString, "You have " + tasksLeft + " tasks in your list");
+    public void displayAddTaskMessage(String taskString, int tasksLeft) {
+        displayMessage("Okay Traveller, I've added the following task!", taskString, "You have " + tasksLeft + " tasks in your list");
     }
 
     /**
@@ -97,8 +87,8 @@ public class UiHandler {
      *
      * @param tasksLeft The total number of tasks left after deletion.
      */
-    public void deleteTaskResponse(int tasksLeft) {
-        sendMessage("Okay Traveller, I've deleted the task! You now have " + tasksLeft + " tasks remaining.");
+    public void displayDeleteTaskMessage(int tasksLeft) {
+        displayMessage("Okay Traveller, I've deleted the task! You now have " + tasksLeft + " tasks remaining.");
     }
 
     /**
@@ -106,37 +96,37 @@ public class UiHandler {
      *
      * @param taskString The list of tasks found
      */
-    public void getFoundResponse(String taskString) {
-        sendMessage("Okay Traveller, here are the matching tasks", taskString);
+    public void displayFoundTasksMessage(String taskString) {
+        displayMessage("Okay Traveller, here are the matching tasks", taskString);
     }
 
 
     /**
      * Notifies the user that a task's completion status has been updated.
      *
-     * @param task   The task whose status was updated.
-     * @param isDone The new completion status of the task (true if done, false otherwise).
+     * @param taskString The task whose status was updated.
+     * @param isDone     The new completion status of the task (true if done, false otherwise).
      */
-    public void markTaskResponse(String taskString, boolean isDone) {
+    public void displayMarkTaskMessage(String taskString, boolean isDone) {
         if (isDone) {
-            sendMessage("Okay Traveller, I've marked the task as done", taskString);
+            displayMessage("Okay Traveller, I've marked the task as done", taskString);
         } else {
-            sendMessage("Okay Traveller, I've unmarked this task", taskString);
+            displayMessage("Okay Traveller, I've unmarked this task", taskString);
         }
     }
 
     /**
      * Displays a greeting message to the user when the application starts.
      */
-    public void greetResponse() {
-        sendMessage("Greetings Traveller! I'm Paimon, your friendly guide!\nType help to see what I can do!");
+    public void displayGreetMessage() {
+        displayMessage("Greetings Traveller! I'm Paimon, your friendly guide!\nType help to see what I can do!");
     }
 
     /**
      * Displays a goodbye message to the user when the application is exited.
      */
-    public void exitResponse() {
-        sendMessage("See you later Traveller!");
+    public void displayExitMessage() {
+        displayMessage("See you later Traveller!");
     }
 
     /**
@@ -144,7 +134,7 @@ public class UiHandler {
      *
      * @param list The {@link TaskList} containing all current tasks.
      */
-    public void listResponse(TaskList list) {
+    public void displayListMessage(TaskList list) {
         if (list.getSize() == 0) {
             System.out.println("Your list is currently empty, add some tasks!");
         } else {
@@ -160,7 +150,7 @@ public class UiHandler {
      *
      * @param e The {@link ChatException} containing the error message to be displayed.
      */
-    public void showError(ChatException e) {
+    public void displayError(ChatException e) {
         System.out.println(e.getMessage());
     }
 }

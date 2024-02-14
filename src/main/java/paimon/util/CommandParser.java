@@ -1,5 +1,6 @@
-package paimon;
+package paimon.util;
 
+import paimon.ChatException;
 import paimon.command.*;
 
 import java.util.regex.Matcher;
