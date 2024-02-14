@@ -23,7 +23,7 @@ import tasks.Task;
  * Main class to execute Taylor ChatBot
  */
 public class Taylor extends Application {
-    private List<List<? extends Task>> tasksList = new ArrayList<>();
+    private List<List<Task>> tasksList = new ArrayList<>();
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
@@ -41,6 +41,9 @@ public class Taylor extends Application {
     @Override
     public void start(Stage stage) {
         //Step 1. Setting up required components
+        for (int i = 0; i < 3; i++) {
+            tasksList.add(new ArrayList<>());
+        }
 
         //The container for the content of the chat to scroll.
         scrollPane = new ScrollPane();

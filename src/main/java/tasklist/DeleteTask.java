@@ -26,7 +26,7 @@ public class DeleteTask {
      * @throws TaylorException
      */
     // delete event 1
-    public static String execDeleteTask(String input, List<List<? extends Task>> taskList) throws TaylorException {
+    public static String execDeleteTask(String input, List<List<Task>> taskList) throws TaylorException {
         StringBuilder response = new StringBuilder();
         String[] wordPartition = input.split(" ");
         try {
@@ -42,31 +42,35 @@ public class DeleteTask {
             int idxToGetTaskNo = 2;
             int noToDelete = Integer.parseInt(wordPartition[idxToGetTaskNo]);
 
-            if (noToDelete < 0 || noToDelete >= taskList.size()) {
-                throw new TaylorException("Invalid task number");
-            }
-
             List<? extends Task> listToEdit = new ArrayList<>();
+            String editList = null;
             if (isDeadline) {
                 int deadlineListIdx = 0;
                 listToEdit = taskList.get(deadlineListIdx);
+                editList = "Deadline";
             } else if (isEvent) {
                 int eventListIdx = 1;
                 listToEdit = taskList.get(eventListIdx);
+                editList = "Event";
             } else if (isTodo) {
                 int todoListIdx = 2;
                 listToEdit = taskList.get(todoListIdx);
+                editList = "ToDo";
             } else {
                 assert false : "Program should not run here";
             }
 
+            if (noToDelete < 0 || noToDelete > listToEdit.size()) {
+                throw new TaylorException("Invalid task number");
+            }
+
             int idx = noToDelete - 1;
             Task taskRemoved = listToEdit.get(idx);
+            listToEdit.remove(idx);
             response.append("Noted. I've removed this tasks:\n");
             response.append(taskRemoved).append("\n");
-            taskList.remove(idx);
             response.append("Now you have ").append(listToEdit.size())
-                    .append(" tasks in the ").append(taskList).append("list.\n");
+                    .append(" tasks in the ").append(editList).append("list.\n");
 
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException err) {
             throw new TaylorException("Please ensure the following format: DELETE <TaskType> <TaskNumber>");

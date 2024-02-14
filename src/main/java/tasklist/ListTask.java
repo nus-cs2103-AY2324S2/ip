@@ -20,7 +20,7 @@ public class ListTask {
      * List out all the tasks
      * @param taskList List of tasks
      */
-    public static String execListTask(List<List<? extends Task>> taskList) {
+    public static String execListTask(List<List<Task>> taskList) {
         StringBuilder response = new StringBuilder();
         response.append("Here are the tasks in your list:\n");
         int pos = 1;
@@ -28,7 +28,7 @@ public class ListTask {
             response.append("List is empty.");
         } else {
             int deadlineListIdx = 0;
-            List<? extends Task> deadlineList = taskList.get(deadlineListIdx);
+            List<Task> deadlineList = taskList.get(deadlineListIdx);
             response.append("Deadline: ").append("\n");
             for (Task task : deadlineList) {
                 response.append(pos++).append(". ").append(task).append("\n");
@@ -36,7 +36,7 @@ public class ListTask {
             response.append("___________________________").append("\n");
 
             int eventListIdx = 1;
-            List<? extends Task> eventList = taskList.get(eventListIdx);
+            List<Task> eventList = taskList.get(eventListIdx);
             response.append("Events: ").append("\n");
             for (Task task : eventList) {
                 response.append(pos++).append(". ").append(task).append("\n");
@@ -44,7 +44,7 @@ public class ListTask {
             response.append("___________________________").append("\n");
 
             int todoListIdx = 2;
-            List<? extends Task> todoList = taskList.get(todoListIdx);
+            List<Task> todoList = taskList.get(todoListIdx);
             response.append("Todo: ").append("\n");
             for (Task task : todoList) {
                 response.append(pos++).append(". ").append(task).append("\n");

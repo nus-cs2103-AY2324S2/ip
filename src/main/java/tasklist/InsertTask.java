@@ -32,7 +32,7 @@ public class InsertTask {
      * @param taskList
      * @throws TaylorException
      */
-    public static String execInsertTask(String input, List<List<? extends Task>> taskList) throws TaylorException {
+    public static String execInsertTask(String input, List<List<Task>> taskList) throws TaylorException {
         String response = null;
 
         int splitFirstWhitespace = 2;
@@ -40,23 +40,33 @@ public class InsertTask {
         int actionsIdx = 0;
 
         String[] wordPartition = input.split(" ", splitFirstWhitespace);
-        boolean isContentEmpty = wordPartition[contentsIdx].trim().isBlank();
-        if (isContentEmpty) {
+        boolean isContentEmpty;
+        try {
+            isContentEmpty = wordPartition[contentsIdx].trim().isBlank();
+        } catch (ArrayIndexOutOfBoundsException err) {
             throw new TaylorException("The description of the task is empty.");
         }
 
         String content = wordPartition[contentsIdx];
         Type type = Type.valueOf(wordPartition[actionsIdx].toUpperCase());
 
+        int deadlineListIdx = 0;
+        int eventListIdx = 1;
+        int todoListIdx = 2;
+
+        List<Task> deadlineList = taskList.get(deadlineListIdx);
+        List<Task> eventList = taskList.get(eventListIdx);
+        List<Task> todoList = taskList.get(todoListIdx);
+
         switch (type) {
         case TODO:
-            response = todoTask(content, taskList);
+            response = todoTask(content, todoList);
             break;
         case DEADLINE:
-            response = deadlineTask(content, taskList);
+            response = deadlineTask(content, deadlineList);
             break;
         case EVENT:
-            response = eventTask(content, taskList);
+            response = eventTask(content, eventList);
             break;
         default:
             throw new TaylorException("Invalid Task Type");

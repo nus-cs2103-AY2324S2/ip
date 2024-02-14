@@ -23,7 +23,7 @@ public class MarkTask {
      * @param input : to mark or unmark and which one?
      * @param taskList
      */
-    public static String execMarkTask(String input, List<List<? extends Task>> taskList) {
+    public static String execMarkTask(String input, List<List<Task>> taskList) {
         StringBuilder response = new StringBuilder();
         String[] wordPartition = input.split(" ");
         int idxToGetType = 0;
