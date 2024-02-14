@@ -1,7 +1,6 @@
 package duke;
 
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 
 /**
  * Represent the chatbot class to be used for interaction with the user
@@ -18,6 +17,9 @@ public class Duke {
     protected static final int DELETE_COMMAND = 5;
     protected static final int FIND_COMMAND = 6;
     protected static final int TASK_COMMAND = 7;
+
+    protected static final int STORAGE_ADD_COMMAND = 0;
+    protected static final int STORAGE_DELETE_COMMAND = 1;
 
     private Ui ui;
     private Storage storage;
@@ -71,22 +73,6 @@ public class Duke {
         return "Bye. Hope to see you again soon!";
     }
 
-    /**
-     * Chatbot's main loop: keeps getting user input until called to shut down
-     *
-     */
-    private void chatting() {
-        System.out.println(this.greet());
-        Scanner scanner = new Scanner(System.in);
-        boolean isChatting = true;
-
-        while (isChatting == true) {
-            //get input
-            String echo = scanner.nextLine();
-
-            System.out.println(bye());
-        }
-    }
 
     public String getResponse(String echo) {
         String output = " ";
@@ -112,7 +98,7 @@ public class Duke {
             case DELETE_COMMAND:
                 output = tasks.deleteMechanism(result[1]);
                 if (result[1] <= tasks.getSize() + 1) {
-                    storage.updateFile(new Task("To Delete"), 1, result[1]);
+                    storage.updateFile(new Task("To Delete"), STORAGE_DELETE_COMMAND, result[1]);
                 }
                 break;
             case FIND_COMMAND:
@@ -124,7 +110,7 @@ public class Duke {
                 //pass to tasklist to add the task only, no other computation needed
                 Task taskToAdd = ui.analyseTask(echo);
                 output = tasks.taskMechanism(taskToAdd);
-                storage.updateFile(taskToAdd, 0, 0);
+                storage.updateFile(taskToAdd, STORAGE_ADD_COMMAND, 0);
                 break;
             default:
                 break;

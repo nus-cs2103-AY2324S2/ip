@@ -103,6 +103,7 @@ public class Storage {
         if (taskComponents[1].equals("1")) {
             taskAdded.markAsDone();
         }
+
         return taskAdded;
     }
 
@@ -117,7 +118,7 @@ public class Storage {
         String taskString = taskToUpdate.toString(true);
 
         try {
-            if (command == 0) {
+            if (command == Duke.STORAGE_ADD_COMMAND) {
 
                 BufferedWriter writer = new BufferedWriter(new FileWriter(
                         dataFile, true));
@@ -128,7 +129,8 @@ public class Storage {
 
                 writer.write(taskString);
                 writer.close();
-            } else {
+
+            } else if (command == Duke.STORAGE_DELETE_COMMAND) {
                 BufferedReader reader = new BufferedReader(new FileReader(dataFile));
                 String line;
                 StringBuilder sb = new StringBuilder();
@@ -149,6 +151,8 @@ public class Storage {
                 writer.write(sb.toString());
                 writer.close();
                 reader.close();
+            } else {
+                assert false : "Invalid command sent to storage";
             }
         } catch (IOException e) {
             System.out.println("Oops!");
