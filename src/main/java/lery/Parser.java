@@ -32,6 +32,8 @@ public class Parser {
      * @throws LeryException if the user command has an error.
      */
     public String parseCommand(String command) throws LeryException {
+        assert storage != null : "Storage should not be null";
+        assert command != null : "Command should not be null";
         TaskList taskList = this.storage.getTaskList();
         if (command.equalsIgnoreCase("list")) {
             return taskList.printList();
@@ -78,6 +80,7 @@ public class Parser {
      * @throws LeryException if the user command has an error.
      */
     public String parseAddTaskCommand(String command) throws LeryException {
+        assert command != null : "Command should not be null";
         String msg = "Got it. I've added this task:\n";
         Task newTask;
         if (command.startsWith("todo")) {
@@ -92,7 +95,7 @@ public class Parser {
                 this.storage.checkDateFormat(taskDesc[1]);
                 newTask = new Deadline(taskDesc[0], taskDesc[1]);
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                throw new LeryException("Erm... Please provide event details." + e);
+                throw new LeryException("Erm... Please provide event details.");
             }
         } else if (command.startsWith("event")) {
             try {
@@ -106,7 +109,7 @@ public class Parser {
         this.storage.saveTasks(newTask);
         msg = msg + "[" + newTask.getType() + "]" + "[" + newTask.getStatusIcon()
                 + "]" + " " + newTask.getDescription() + newTask.getExtraInfo()
-                + "\nNow you have " + Integer.toString(this.storage.getSize())
+                + "\nNow you have " + this.storage.getSize()
                 + " tasks in the list.";
         return msg;
     }
@@ -118,6 +121,7 @@ public class Parser {
      * @return a string containing the result or feedback of the command execution.
      */
     public String parseDeleteTaskCommand(Task task) {
+        assert task != null : "Task to delete must not be null";
         this.storage.deleteTask(task);
         String msg = "Noted. I've removed this task:\n" + task.getType() + "["
                 + task.getStatusIcon() + "]" + " " + task.getDescription()
@@ -132,6 +136,7 @@ public class Parser {
      * @return a string containing the result or feedback of the command execution.
      */
     public String parseFindTaskCommand(String d) {
+        assert d != null : "Command should not be null";
         TaskList t = this.storage.getTaskList();
         TaskList findList = new TaskList();
         for (int i = 0; i < t.getSize(); i++) {

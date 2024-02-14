@@ -23,7 +23,6 @@ import java.util.Scanner;
  * It also saves new tasks to the text file when added.
  */
 public class Storage {
-    private File tasksFile;
     private final String filename = "./data/lery.txt";
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -52,6 +51,7 @@ public class Storage {
                 Scanner s = new Scanner(file);
                 while (s.hasNext()) {
                     String line = s.nextLine();
+                    assert line.contains("|") : "Command in text file should contain '|'";
                     String[] splitLine = line.split(" \\| ");
                     String event = splitLine[2];
                     String type = splitLine[0];
