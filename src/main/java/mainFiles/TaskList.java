@@ -78,7 +78,7 @@ public class TaskList {
      * @throws IOException If the file used for refreshing the list cannot be found.
      */
     public void markList(int index) throws IncompatibleMarkException, IOException {
-        if (taskList.get(index).getCompletionStatus()) {
+        if (!taskList.get(index).getCompletionStatus()) {
             taskList.get(index).toggleCompletion();
             storage.refreshFile(taskList);
             return;
@@ -92,7 +92,7 @@ public class TaskList {
      * @throws IOException If the file used for refreshing the list cannot be found.
      */
     public void unmarkList(int index) throws IncompatibleMarkException, IOException {
-        if (!taskList.get(index).getCompletionStatus()) {
+        if (taskList.get(index).getCompletionStatus()) {
             taskList.get(index).toggleCompletion();
             storage.refreshFile(taskList);
             return;

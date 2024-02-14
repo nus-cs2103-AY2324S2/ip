@@ -6,7 +6,7 @@ import mainfiles.UserInput;
 /**
  * an action which displays the list of commands for Steven
  */
-public class HelpAction extends GenericAction {
+public class HelpAction extends actions.GenericAction {
     private static final String HELP1 = "The following are UserInputs that I recgonise, and their respective formats:\n";
     private static final String HELP2 = "bye - terminates the program\n";
     private static final String HELP3 = "list - provides a list of events that you have added prior\n";

@@ -13,7 +13,7 @@ import tasks.Event;
 /**
  * an action which adds an Event item to the list
  */
-public class EventAction extends GenericAction {
+public class EventAction extends actions.GenericAction {
     /**
      * executes the given task, modifying the tasklist accordingly
      * @param userInput What the user inputted

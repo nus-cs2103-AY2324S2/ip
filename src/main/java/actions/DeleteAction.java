@@ -11,7 +11,7 @@ import tasks.Task;
 /**
  * an action which removes the index of a particular item from the list
  */
-public class DeleteAction extends GenericAction {
+public class DeleteAction extends actions.GenericAction {
     /**
      * executes the given task, modifying the tasklist accordingly
      * @param userInput What the user inputted

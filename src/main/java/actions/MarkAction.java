@@ -9,9 +9,9 @@ import mainfiles.TaskList;
 import mainfiles.UserInput;
 
 /**
- * an action which unmarks an item in the list
+ * To mark a task as complete
  */
-public class UnmarkAction extends GenericAction {
+public class MarkAction extends actions.GenericAction {
     /**
      * executes the given task, modifying the tasklist accordingly
      * @param userInput What the user inputted
@@ -28,23 +28,23 @@ public class UnmarkAction extends GenericAction {
             }
             int index = Integer.parseInt(userInput.getArg1()) - 1;
             taskList.markList(index);
-            outputString += "I see. In that case, the following task will be unmarked:\n";
+            outputString += "As you wish, this task will be marked:\n";
             outputString += String.format(taskList.get(index).toString());
         } catch (InsufficientArgException | ExcessiveArgException error) {
             outputString += String.format(FORMAT_ERROR + "Steven's advice: The format of \"mark\" is as follows:"
-                    + "\nmark (x) - x is an number corresponding with the index of an item in the list.");
+                    + "\nunmark (x) - x is an number corresponding with the index of an item in the list.");
         } catch (NumberFormatException error) {
-            outputString += "Hmm... Seems like you want me to mark, something, but you didn't provide a valid "
-                    + "number for me to work off.\nSteven's Advice: Use a number instead.";
+            outputString += "Hmm... Seems like you want me to mark something, but you didn't provide a "
+                    + "valid number for me to work off.\nSteven's Advice: Use a number instead.";
         } catch (IndexOutOfBoundsException error) {
             outputString += "Ah, a pity... Seems like you don't have that many tasks.\nSteven's advice: "
-                    + "Use a number which corresponds to a task number. If you need to know what number corresponds"
-                    + " to what task, use \"list\".";
+                    + "Use a number which corresponds to a task number. If you need to know what number "
+                    + "corresponds to what task, use \"list\".";
         } catch (IOException e) {
             outputString += String.format(CORRUPTED);
         } catch (IncompatibleMarkException e) {
-            outputString += "Ah, hold on. Seems like this one's still incomplete. I can't unmark this."
-                    + "\nSteven's advice: You might have wanted to use\"mark\" instead!";
+            outputString += "Wait a moment, this one's already complete! I can't mark it as such again!."
+                    + "\nSteven's advice: You might have wanted to use\"unmark\" instead!";
         }
         return outputString;
     }
