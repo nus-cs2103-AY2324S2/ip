@@ -15,7 +15,7 @@ public class Event extends Task {
     private LocalDateTime to;
 
     /**
-     * Constructs a new Event object.
+     * Constructs a new Event object that should be unmarked and in the future.
      * @param description
      * @param from
      * @param to
@@ -24,10 +24,13 @@ public class Event extends Task {
         super(description);
         this.from = from;
         this.to = to;
+        Assertions.assertDateTimeIsInTheFuture(from);
+        Assertions.assertDateTimeIsInTheFuture(to);
+        Assertions.assertTaskIsUnmarked(this);
     }
 
     /**
-     * Constructs a new Event object.
+     * Constructs a new Event object without restrictions on done status and datetime.
      * @param description
      * @param isDone
      * @param from

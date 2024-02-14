@@ -14,17 +14,19 @@ public class Deadline extends Task {
     private LocalDateTime by;
 
     /**
-     * Constructs a new Deadline object.
+     * Constructs a new Deadline object that should be unmarked and in the future.
      * @param description
      * @param by
      */
     public Deadline(String description, LocalDateTime by) { // default access modifier
         super(description);
         this.by = by;
+        Assertions.assertDateTimeIsInTheFuture(by);
+        Assertions.assertTaskIsUnmarked(this);
     }
 
     /**
-     * Constructs a new Deadline object.
+     * Constructs a new Deadline object without restrictions on done status and datetime.
      * @param description
      * @param isDone
      * @param by

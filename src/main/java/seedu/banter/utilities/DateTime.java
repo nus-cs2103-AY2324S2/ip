@@ -25,7 +25,7 @@ public class DateTime {
                 parsedDateTime = LocalDateTime.parse(str, formatter);
                 break;
             } catch (DateTimeParseException ignored) {
-                // Do nothing
+                // TODO: handle exception
             }
         }
 

@@ -87,7 +87,7 @@ public class Parser {
                     parseFind(input);
                     break;
                 default:
-                    throw Errors.INVALID_COMMAND_ERROR;
+                    assert false : "Invalid command type parsed";
                 }
             } catch (InvalidBanterUsageError e) {
                 Card errorMessage = new Card(e.getMessage());

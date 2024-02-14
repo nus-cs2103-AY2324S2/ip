@@ -55,8 +55,7 @@ public class Storage {
                     taskList.loadEvent(description, isDone, from, to);
                     break;
                 default:
-                    System.out.println("Invalid task type: " + taskType);
-                    break;
+                    assert false : "Invalid task type in storage file";
                 }
             }
             return taskList;
