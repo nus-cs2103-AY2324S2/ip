@@ -1,9 +1,9 @@
-package duke;
+package duke.ui;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import duke.ui.MainWindow;
+import duke.Duke;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,7 +15,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke();
+    private final Duke duke = new Duke();
 
     public Main() throws FileNotFoundException {
     }

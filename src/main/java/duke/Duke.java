@@ -29,25 +29,6 @@ import java.util.ArrayList;
 public class Duke {
     private static Ui ui;
     private static ArrayList<Task> tasks;
-    /**
-     * The main method of the application. This runs the required
-     * methods to start the application.
-     *
-     * @param args
-     * @throws IOException if the file path is not found.
-     */
-    public static void main(String[] args) throws IOException {
-        ui.printWelcomeMsg();
-        while (true) {
-            try {
-                String[] strArrCommand = ui.readCommand();
-                Command command = ParseCommand.parse(strArrCommand);
-                command.execute(tasks, strArrCommand);
-            } catch (CommandException | IOException e) {
-                Ui.printOutput(e.getMessage());
-            }
-        }
-    }
 
     public Duke() throws FileNotFoundException {
         ui = new Ui();
@@ -55,8 +36,9 @@ public class Duke {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Returns a response using the provided input.
+     * @param input String input.
+     * @return String output of the command executed.
      */
     public String getResponse(String input) {
         String[] strArrCommand = ui.readCommand(input);

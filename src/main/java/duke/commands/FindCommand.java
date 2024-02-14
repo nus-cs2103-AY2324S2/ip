@@ -32,7 +32,7 @@ public class FindCommand extends Command {
             }
         }
 
-        if (matchingTask.size() != 0) {
+        if (!matchingTask.isEmpty()) {
             super.commandResponse = Ui.printList(matchingTask);
         } else {
             super.commandResponse = Ui.printOutput(String.format(
