@@ -160,6 +160,18 @@ public class TaskList {
         return "OK, I've marked this task as not done yet:\n" + list.get(no).ToString();
     }
 
+    public String priorityCase(String[] tokens) throws DukeException{
+        if(tokens.length != 3) {
+            return "please give this instruction in the following format: priority [task number] [priority(HIGH/MEDIUM/LOW)]";
+            //throw new DukeException("please give this instruction in the following format: unmark [task number]");
+        }
+        int no = Integer.parseInt(tokens[1]) - 1;
+        String priority = tokens[2];
+        list.get(no).setPriority(priority);
+        store.save();
+        return "OK, I've changed the priority of this task:\n" + list.get(no).ToString();
+    }
+
     /**
      * removes a task.
      * @param  tokens The command to remove a task.
@@ -207,6 +219,8 @@ public class TaskList {
         return result;
 
     }
+
+
     /**
      * prints the task list.
      */
