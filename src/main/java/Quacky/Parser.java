@@ -14,6 +14,7 @@ public class Parser {
         case "find": {
             String keyword = keywords[1];
             TaskList foundTasks = tasks.findTasksByKeyword(keyword);
+            assert foundTasks != null:  "This should always return a tasklist";
             if (foundTasks.taskNumber() == 0) {
                 return ui.say("No tasks found with the keyword: " + keyword);
             } else {
@@ -23,6 +24,7 @@ public class Parser {
         case "mark": {
             int taskNumber = Integer.parseInt(keywords[1]) - 1;
             try {
+                assert taskNumber >= 0 && taskNumber < tasks.taskNumber() : "Task number must be within the valid range.";
                 tasks.markCompleteTask(taskNumber);
                 return ui.showMarkDone(tasks.printTask(taskNumber));
             } catch (QuackyException e) {
@@ -32,12 +34,14 @@ public class Parser {
 
         case "unmark": {
             int taskNumber = Integer.parseInt(keywords[1]) - 1;
+            assert taskNumber >= 0 && taskNumber < tasks.taskNumber() : "Task number must be within the valid range.";
             tasks.unmarkCompleteTask(taskNumber);
             return ui.showUnmarkDone(tasks.printTask(taskNumber));
         }
 
         case "delete": {
             int taskNumber = Integer.parseInt(keywords[1]) - 1;
+            assert taskNumber >= 0 && taskNumber < tasks.taskNumber() : "Task number must be within the valid range.";
             tasks.deleteTask(taskNumber);
             return ui.showDeleteTask(tasks.taskNumber(), tasks.printTask(taskNumber));
         }

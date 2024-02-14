@@ -13,6 +13,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
+            assert Main.class.getResource("/view/MainWindow.fxml") != null : "FXML resource should be found.";
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
