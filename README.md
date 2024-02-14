@@ -15,9 +15,9 @@ Need advice? Making a list? Steven's the bot!
 - Marking, deleting and so forth of tasks
 
 ### Useful commands in the bot
-- [x] "help" whenever you're not sure what to do
-- [x] "list" to view what you have
-- [x] "bye" to exit the program
+- [x] `help` whenever you're not sure what to do
+- [x] `list` to view what you have
+- [x] `bye` to exit the program
 - [ ] and so much more! :smiley:
 
 # Sounds great! How do I download it?
