@@ -2,7 +2,6 @@ package ben.ui;
 
 import ben.tasks.Task;
 import ben.tasks.TaskList;
-
 import java.util.Scanner;
 
 /**
