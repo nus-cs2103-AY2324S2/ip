@@ -6,24 +6,20 @@ import ben.parser.Parser;
 import ben.storage.Storage;
 import ben.tasks.TaskList;
 import ben.ui.Ui;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
 
 /**
  * The main class for the Ben task management application.
  */
-public class Main extends Application {
+public class Ben {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
-    public Main() {
-
+    public Ben() {
+        // ...
     }
 
     /**
@@ -31,7 +27,7 @@ public class Main extends Application {
      *
      * @param filePath The file path for storage.
      */
-    public Main(String filePath) {
+    public Ben(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -64,13 +60,12 @@ public class Main extends Application {
         }
     }
 
-    @Override
-    public void start(Stage stage) {
-        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
-        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
-
-        stage.setScene(scene); // Setting the stage to show our screen
-        stage.show(); // Render the stage.
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        return "Duke heard: " + input;
     }
 
     /**
@@ -79,6 +74,6 @@ public class Main extends Application {
      * @param args The command-line arguments.
      */
     public static void main(String[] args) {
-        new Main("data/tasks.txt").run();
+        new Ben("data/tasks.txt").run();
     }
 }

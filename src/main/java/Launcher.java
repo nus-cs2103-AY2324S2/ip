@@ -1,5 +1,3 @@
-package ben;
-
 import javafx.application.Application;
 
 /**
