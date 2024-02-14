@@ -12,8 +12,8 @@ public class Event extends Task {
 
     public Event(String description, String start, String end) {
         super(description);
-        this.start = start;
-        this.end = end;
+        this.start = start.trim();
+        this.end = end.trim();
         String startTime = start.split("from ")[1].trim();
         String endTime = end.split("to ")[1].trim();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");

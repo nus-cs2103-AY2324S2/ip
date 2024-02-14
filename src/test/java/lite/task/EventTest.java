@@ -7,19 +7,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class EventTest {
     @Test
     public void saveToFileTest() {
-        Task task = new Event("something", "from Monday 4pm", "to Tuesday 2pm");
-        assertEquals("E!0!something!from Monday 4pm!to Tuesday 2pm\n", task.saveToFile());
+        Task task = new Event("project meeting", "from 2020-08-10 15:30", "to 2020-08-10 17:30");
+        assertEquals("E!0!project meeting!from 2020-08-10 15:30!to 2020-08-10 17:30\n", task.saveToFile());
         task.setDone();
-        assertEquals("E!1!something!from Monday 4pm!to Tuesday 2pm\n", task.saveToFile());
+        assertEquals("E!1!project meeting!from 2020-08-10 15:30!to 2020-08-10 17:30\n", task.saveToFile());
         task.setUndone();
-        assertEquals("E!0!something!from Monday 4pm!to Tuesday 2pm\n", task.saveToFile());
+        assertEquals("E!0!project meeting!from 2020-08-10 15:30!to 2020-08-10 17:30\n", task.saveToFile());
     }
 
     @Test
     public void toStringTest() {
-        Task task = new Event("something", "from Monday 4pm", "to Tuesday 2pm");
-        assertEquals("[E][] something (from: Monday 4pm to: Tuesday 2pm)", task.toString());
+        Task task = new Event("project meeting", "from 2020-08-10 15:30", "to 2020-08-10 17:30");
+        assertEquals("[E][] project meeting(from: AUGUST 10 2020 15:30 to: AUGUST 10 2020 17:30)", task.toString());
         task.setDone();
-        assertEquals("[E][X] something (from: Monday 4pm to: Tuesday 2pm)", task.toString());
+        assertEquals("[E][X] project meeting(from: AUGUST 10 2020 15:30 to: AUGUST 10 2020 17:30)", task.toString());
     }
 }
