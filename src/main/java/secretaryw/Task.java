@@ -65,6 +65,10 @@ class Task {
         return this.description;
     }
 
+    public TaskType getType() {
+        return this.type;
+    }
+
     public boolean isDone() {
         return this.isDone;
     }
