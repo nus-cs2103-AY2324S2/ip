@@ -12,10 +12,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import duke.exceptions.CorruptedLogException;
-import duke.tasks.Deadlines;
-import duke.tasks.Events;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.PriorityLevel;
 import duke.tasks.Task;
-import duke.tasks.ToDos;
+import duke.tasks.ToDo;
 
 /**
  * This class represents a storage manager to handle logging and restoration of task list.
@@ -30,13 +31,13 @@ public class Storage {
      * @param path The location where the logs will be written to.
      */
     public Storage(String path) {
-        String wd = System.getProperty("user.dir");
+        String workingDirectory = System.getProperty("user.dir");
         try {
             // Create directory
-            Path secondDir = Paths.get(wd + "/" + path);
+            Path secondDir = Paths.get(workingDirectory + "/" + path);
             //System.out.println("Attempting to create: " + dir_);
             Files.createDirectories(secondDir);
-            this.path = wd + "/" + path + "/log.txt";
+            this.path = workingDirectory + "/" + path + "/log.txt";
             //System.out.println("Creating file at: " + this.path);
         } catch (IOException e) {
             System.out.println("Problem setting up file manager: " + e.getMessage());
@@ -49,7 +50,7 @@ public class Storage {
     public void createLog() {
         File logFile = new File(this.path);
         try {
-            boolean response = logFile.createNewFile();
+            logFile.createNewFile();
         } catch (IOException e) {
             System.out.println("Problem creating log! " + e.getMessage());
         }
@@ -109,23 +110,37 @@ public class Storage {
         }
     }
 
+    private PriorityLevel generatePriority(String p) {
+        switch (p) {
+        case "Low":
+            return PriorityLevel.LOW;
+        case "High":
+            return PriorityLevel.HIGH;
+        case "Medium":
+            return PriorityLevel.MEDIUM;
+        default:
+            return null;
+        }
+    }
+
     private Task parseEntry(String logEntry) {
         String[] entry = logEntry.split(",");
         boolean completeStatus = entry[1].equals("T");
         //System.out.println("Entry " + entry[1] + ": " + completeStatus);
         String desc = entry[2];
+        PriorityLevel priority = generatePriority(entry[3]);
         switch (entry[0]) {
         case "T":
-            Task ret = new ToDos(desc);
+            Task ret = new ToDo(desc, priority);
             ret.setCompletion(completeStatus);
             return ret;
         case "D":
-            ret = new Deadlines(desc, restoreDateTime(entry[3]));
+            ret = new Deadline(desc, restoreDateTime(entry[4]), priority);
             ret.setCompletion(completeStatus);
             return ret;
         case "E":
-            ret = new Events(desc, restoreDateTime(entry[3]),
-              restoreDateTime(entry[4]));
+            ret = new Event(desc, restoreDateTime(entry[4]),
+              restoreDateTime(entry[5]), priority);
             ret.setCompletion(completeStatus);
             return ret;
         default:

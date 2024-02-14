@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 /**
  * This class represents a task with a deadline.
  */
-public class Deadlines extends Task {
+public class Deadline extends Task {
 
     private LocalDateTime deadline;
 
@@ -14,8 +14,8 @@ public class Deadlines extends Task {
      * @param description A description of the task.
      * @param deadline When the task is due by (the deadline).
      */
-    public Deadlines(String description, LocalDateTime deadline) {
-        super(description, "[D]");
+    public Deadline(String description, LocalDateTime deadline, PriorityLevel priority) {
+        super(description, "[D]", priority);
         this.deadline = deadline;
     }
 
@@ -30,7 +30,7 @@ public class Deadlines extends Task {
             completeStatus = "T";
         }
         return "D" + "," + completeStatus + ","
-            + this.description + "," + this.getDeadline().toString();
+            + this.description + "," + getPriority() + "," + this.getDeadline().toString();
     }
 
     @Override

@@ -3,9 +3,9 @@ package duke.tasks;
 /**
  * This class represents a task without a deadline.
  */
-public class ToDos extends Task {
-    public ToDos(String description) {
-        super(description, "[T]");
+public class ToDo extends Task {
+    public ToDo(String description, PriorityLevel priority) {
+        super(description, "[T]", priority);
     }
 
     @Override
@@ -19,11 +19,11 @@ public class ToDos extends Task {
         if (this.isDone) {
             completeStatus = "T";
         }
-        return "T" + "," + completeStatus + "," + this.description;
+        return "T" + "," + completeStatus + "," + this.description + "," + this.getPriority();
     }
 
     @Override
     public String getFullStatus() {
-        return this.getStatusIcon() + " " + this.getDescription();
+        return this.getStatusIcon() + " " + this.getDescription() + " [" + this.getPriority() + "]";
     }
 }

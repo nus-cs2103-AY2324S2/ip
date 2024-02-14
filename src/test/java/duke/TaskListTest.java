@@ -4,14 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import duke.tasks.ToDos;
+import duke.tasks.PriorityLevel;
+import duke.tasks.ToDo;
 
 public class TaskListTest {
     @Test
     public void testInsert() {
         TaskList taskList = new TaskList();
-        ToDos toAdd = new ToDos("do stuff");
-        ToDos toAdd2 = new ToDos("do more stuff");
+        ToDo toAdd = new ToDo("do stuff", PriorityLevel.LOW);
+        ToDo toAdd2 = new ToDo("do more stuff", PriorityLevel.HIGH);
         taskList.addTaskTest(toAdd);
         assertEquals(1, taskList.getLength());
         taskList.addTaskTest(toAdd2);

@@ -12,7 +12,7 @@ public class Duke {
 
     private TaskList history;
 
-    private UI ui;
+    private Ui ui;
 
     /**
      * Constructor for duke application.
@@ -22,14 +22,22 @@ public class Duke {
         this.manager.createLog();
         this.parser = new Parser();
         this.history = new TaskList(this.manager);
-        this.ui = new UI(manager, parser, history);
+        this.ui = new Ui(manager, parser, history);
+    }
+
+    /**
+     * Allows shuheng to say hi.
+     * @return Shuheng saying hi.
+     */
+    public static String sayHi() {
+        return Ui.sayHi();
     }
 
     /**
      * Getter for UI.
      * @return UI for the chatbot.
      */
-    public UI getUI() {
+    public Ui getUi() {
         return this.ui;
     }
     /**
