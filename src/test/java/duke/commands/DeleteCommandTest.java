@@ -65,8 +65,11 @@ public class DeleteCommandTest {
      */
     @BeforeEach
     public void createEnvironment() {
+        // Create data directory (if required)
+        testFile.getParentFile().mkdirs();
         testFile.delete();
         Duke.saveFile = testFile;
+
         taskList = new TaskList(testFile);
         ui = new Cli();
         outContent.reset();
