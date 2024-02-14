@@ -11,6 +11,8 @@ import java.time.LocalDate;
  * The Parser class parses user input (a command) and executes the command accordingly
  */
 public class Parser {
+    private static final int CONTINUE_PROGRAM = 1;
+    private static final int TERMINATE_PROGRAM = 0;
 
     private static String dividerText = "____________________________________________________________\n";
 
@@ -35,11 +37,11 @@ public class Parser {
             case "bye":
             case "exit":
                 response = Ui.exit();
-                return new Pair(0, response);
+                return new Pair(TERMINATE_PROGRAM, response);
 
             case "list":
                 response = existingTaskList.listTasks();
-                return new Pair(1, response);
+                return new Pair(CONTINUE_PROGRAM, response);
 
             case "mark":
             case "unmark":
@@ -58,7 +60,7 @@ public class Parser {
                     response = "Task does not exist! Type 'list' to check task numbers";
                 }
                 Storage.saveTaskList(existingTaskList);
-                return new Pair(1, response);
+                return new Pair(CONTINUE_PROGRAM, response);
 
             case "delete":
                 try {
@@ -80,7 +82,7 @@ public class Parser {
                     response = "Task does not exist! Type 'list' to check task numbers";
                 }
                 Storage.saveTaskList(existingTaskList);
-                return new Pair(1, response);
+                return new Pair(CONTINUE_PROGRAM, response);
 
             case "todo":
                 String todoDescription = input.replace("todo", "").trim();
@@ -101,7 +103,7 @@ public class Parser {
                     response = existingTaskList.addTodo(todoDescription);
                 }
                 Storage.saveTaskList(existingTaskList);
-                return new Pair(1, response);
+                return new Pair(CONTINUE_PROGRAM, response);
 
             case "deadline":
                 String deadlineDescriptionDueDate = input.replace("deadline", "").trim();
@@ -109,7 +111,7 @@ public class Parser {
                     System.out.print("Missing due date!\n");
                     System.out.print(dividerText);
                     response = "Missing due date!";
-                    return new Pair(1, response);
+                    return new Pair(CONTINUE_PROGRAM, response);
                 }
                 String[] deadlineDescriptionDueDateArray = input.replace("deadline", "")
                         .trim().split(" /by ");
@@ -143,7 +145,7 @@ public class Parser {
                     }
                 }
                 Storage.saveTaskList(existingTaskList);
-                return new Pair(1, response);
+                return new Pair(CONTINUE_PROGRAM, response);
 
             case "event":
                 String eventDescriptionFromTo = input.replace("event", "").trim();
@@ -152,7 +154,7 @@ public class Parser {
                     System.out.print("Missing event from and/or to date!\n");
                     System.out.print(dividerText);
                     response = "Missing even from and/or to date!";
-                    return new Pair(1, response);
+                    return new Pair(CONTINUE_PROGRAM, response);
                 }
                 String[] eventDescriptionFromToArray = input.replace("event", "")
                         .trim().split(" /from ");
@@ -195,7 +197,7 @@ public class Parser {
                     }
                 }
                 Storage.saveTaskList(existingTaskList);
-                return new Pair(1, response);
+                return new Pair(CONTINUE_PROGRAM, response);
 
             case "find":
                 try {
@@ -207,7 +209,7 @@ public class Parser {
                     response = e.getMessage();
                 }
 
-                return new Pair(1, response);
+                return new Pair(CONTINUE_PROGRAM, response);
 
             case "help":
                 System.out.print("LIST OF COMMANDS\n");
@@ -239,19 +241,19 @@ public class Parser {
                         + "Delete a task: delete [task number on list] "
                         + "(eg: delete 3)\n"
                         + "Close Tam the Task Manager: bye";
-                return new Pair(1, response);
+                return new Pair(CONTINUE_PROGRAM, response);
 
             default:
                 System.out.print("Invalid command entered. Type 'help' for list of commands\n");
                 System.out.print(dividerText);
                 response = "Invalid command entered. Type 'help' for list of commands";
-                return new Pair(1, response);
+                return new Pair(CONTINUE_PROGRAM, response);
             }
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
             response = e.getMessage();
-            return new Pair(0, response);
+            return new Pair(TERMINATE_PROGRAM, response);
         }
     }
 }
