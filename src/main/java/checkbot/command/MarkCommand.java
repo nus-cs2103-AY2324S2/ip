@@ -18,7 +18,8 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void executeCommand(TodoList todoList, Storage storage, Ui ui) throws InvalidIndexException, SaveFileException {
+    public void executeCommand(TodoList todoList, Storage storage, Ui ui)
+            throws InvalidIndexException, SaveFileException {
         Task task = todoList.markTask(index);
         storage.saveTasks(todoList);
         ui.showMarkedTaskMessage(task);
