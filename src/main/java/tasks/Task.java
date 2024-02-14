@@ -34,4 +34,6 @@ public class Task {
     }
 
     public String getSaveLine() { return "Unknown Task Type";}
+
+    public String getDescription() { return this.description;}
 }

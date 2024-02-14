@@ -117,6 +117,10 @@ public class Parser {
                 cro.taskList.addEvent(res);
                 break;
             }
+            case "find": {
+                cro.taskList.findKeyword(splitStr);
+                break;
+            }
             case "delete":
                 cro.taskList.deleteEvent(splitStr);
                 break;

@@ -77,6 +77,24 @@ public class TaskList {
     }
 
     /**
+     * Returns nothing. Displays all the current tasks specified in the taskList.
+     * @param taskList A list of tasks that is to be displayed.
+     */
+    private void displayTasks(List<Task> taskList) {
+        System.out.println("-----------------------------------");
+        if (taskList.size() == 0) {
+            System.out.println("There are no matching tasks in your list.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < taskList.size(); i++) {
+                String output = String.format("%d. %s", i + 1, taskList.get(i));
+                System.out.println(output);
+            }
+        }
+        System.out.println("-----------------------------------");
+    }
+
+    /**
      * Returns nothing. Marks the specified task as done as per the index in taskList.
      * @param splitStr Input list that specifies which task to mark as done.
      * @throws CroException If index out of range or index not an integer.
@@ -144,5 +162,20 @@ public class TaskList {
             System.out.printf("Now you have %d tasks in the list%n", taskList.size());
             System.out.println("-----------------------------------");
         }
+    }
+
+    /**
+     * Returns nothing. Displays all tasks that contain the keyword specified.
+     * @param splitStr A list specifying the keyword to search.
+     */
+    public void findKeyword(List<String> splitStr) {
+        String searchString = String.join(" ", splitStr);
+        List<Task> foundTasks = new ArrayList<>();
+        for (Task task : taskList) {
+            if (task.getDescription().contains(searchString)) {
+                foundTasks.add(task);
+            }
+        }
+        displayTasks(foundTasks);
     }
 }
