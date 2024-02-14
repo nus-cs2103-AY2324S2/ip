@@ -17,6 +17,7 @@ public class Event extends Task {
         this.to = str[TO].split(" ", 2)[1];
         this.type = "E";
         this.isDone = false;
+        this.priority = TaskPriority.EVENT.getPriority();
     }
 
     public Event(String desc, String isDoneNumber) {
@@ -27,7 +28,8 @@ public class Event extends Task {
         this.type = "E";
         assert Integer.parseInt(isDoneNumber) < 2 : "Data file corrupted, invalid state";
         assert Integer.parseInt(isDoneNumber) >= 0 : "Data file corrupted, invalid state";
-        this.isDone = isDoneNumber.equals(DoneStates.Done);
+        this.isDone = isDoneNumber.equals(DoneStates.DONE);
+        this.priority = TaskPriority.EVENT.getPriority();
     }
 
     @Override

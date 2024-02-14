@@ -20,6 +20,7 @@ public class Deadline extends Task {
         this.formattedDate = inputDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         this.type = "D";
         this.isDone = false;
+        this.priority = TaskPriority.DEADLINE.getPriority();
     }
 
     public Deadline(String desc, String isDoneNumber) {
@@ -31,17 +32,22 @@ public class Deadline extends Task {
         this.type = "D";
         assert Integer.parseInt(isDoneNumber) < 2 : "Data file corrupted, invalid state";
         assert Integer.parseInt(isDoneNumber) >= 0 : "Data file corrupted, invalid state";
-        this.isDone = isDoneNumber.equals(DoneStates.Done);
+        this.isDone = isDoneNumber.equals(DoneStates.DONE);
+        this.priority = TaskPriority.DEADLINE.getPriority();
     }
 
     @Override
     public String getStatus() {
-        return String.format("[%s][%s] %s(by:%s)", this.type, this.getStatusIcon(),
-                this.description, this.formattedDate);
+        return String.format("[%s][%s] %s(by:%s)", type, getStatusIcon(),
+                description, formattedDate);
     }
 
     @Override
     public String saveTask() {
-        return String.format("deadline_%s/by %s_%d", this.description, this.date, this.isDoneNumerical());
+        return String.format("deadline_%s/by %s_%d", description, date, isDoneNumerical());
+    }
+
+    public LocalDate getDate() {
+        return LocalDate.parse(date);
     }
 }

@@ -15,7 +15,8 @@ public class ToDo extends Task {
         this.type = "T";
         assert Integer.parseInt(isDoneNumber) < 2 : "Data file corrupted, invalid state";
         assert Integer.parseInt(isDoneNumber) >= 0 : "Data file corrupted, invalid state";
-        this.isDone = isDoneNumber.equals(DoneStates.Done);
+        this.isDone = isDoneNumber.equals(DoneStates.DONE);
+        this.priority = TaskPriority.TODO.getPriority();
     }
 
     @Override
