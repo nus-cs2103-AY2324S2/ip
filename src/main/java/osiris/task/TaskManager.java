@@ -119,7 +119,7 @@ public class TaskManager {
             userTasks.remove(index);
             return deletedTask;
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("No task with index " + (index + 1) + ". Enter 'list' to view tasks.");
+            System.err.println("No task with index " + (index + 1) + ". Enter 'list' to view tasks.");
             throw new OsirisInvalidIndexException(index + 1);
         }
     }
@@ -146,7 +146,7 @@ public class TaskManager {
             userTasks.get(index).markComplete();
             return true;
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("No task with index " + (index + 1) + ". Enter 'list' to view tasks.");
+            System.err.println("No task with index " + (index + 1) + ". Enter 'list' to view tasks.");
             throw new OsirisInvalidIndexException(index + 1);
         }
     }
@@ -164,7 +164,7 @@ public class TaskManager {
             userTasks.get(index).markIncomplete();
             return true;
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("No task with index " + (index + 1) + ". Enter 'list' to view tasks.");
+            System.err.println("No task with index " + (index + 1) + ". Enter 'list' to view tasks.");
             throw new OsirisInvalidIndexException(index + 1);
         }
     }

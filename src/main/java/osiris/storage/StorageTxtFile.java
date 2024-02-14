@@ -36,10 +36,10 @@ public class StorageTxtFile extends Storage {
             } else if (file.createNewFile()) {
                 System.out.println("Created Task Storage File: " + this.getFilepath());
             } else {
-                System.out.println("Failed to create Task Storage file: " + this.getFilepath());
+                System.err.println("Failed to create Task Storage file: " + this.getFilepath());
             }
         } catch (IOException e) {
-            System.out.println("Error: Unable to create new Txt file for Task storage.");
+            System.err.println("Error: Unable to create new Txt file for Task storage.");
             throw new OsirisStorageFileException("Error: Unable to create new Txt file for Task storage.");
         }
     }
@@ -61,7 +61,7 @@ public class StorageTxtFile extends Storage {
             }
             return readContents;
         } catch (FileNotFoundException e) {
-            System.out.println("Error: Unable to locate filepath " + this.getFilepath());
+            System.err.println("Error: Unable to locate filepath " + this.getFilepath());
             throw new OsirisStorageFileException("Error: Unable to locate filepath " + this.getFilepath());
         } finally {
             if (scanner != null) {
@@ -82,7 +82,7 @@ public class StorageTxtFile extends Storage {
             fw.write(content + "\n");
             fw.close();
         } catch (IOException e) {
-            System.out.println("Error: Unable to update Task Storage File. Trouble appending.");
+            System.err.println("Error: Unable to update Task Storage File. Trouble appending.");
             throw new OsirisStorageFileException("Error: Unable to update Task Storage File. Trouble appending.");
         }
     }
@@ -97,7 +97,7 @@ public class StorageTxtFile extends Storage {
             FileWriter fw = new FileWriter(getFilepath());
             fw.close();
         } catch (IOException e) {
-            System.out.println("Error: Unable to update Task Storage File. Trouble clearing contents.");
+            System.err.println("Error: Unable to update Task Storage File. Trouble clearing contents.");
             throw new OsirisStorageFileException("Error: Unable to update Task Storage File. "
                     + "Trouble clearing contents.");
         }

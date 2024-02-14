@@ -47,12 +47,12 @@ public class InputsValidator {
             if (taskIndexString.matches("\\d+")) {
                 return true;
             } else {
-                System.out.println("Invalid task index: " + taskIndexString + ". Please enter a valid integer.");
+                System.err.println("Invalid task index: " + taskIndexString + ". Please enter a valid integer.");
                 throw new OsirisInvalidInputException("Invalid task index: "
                         + taskIndexString + ". Please enter a valid integer.");
             }
         } else {
-            System.out.println("Invalid task index. Please Reenter");
+            System.err.println("Invalid task index. Please Reenter");
             throw new OsirisInvalidInputException("Invalid task index. Please Reenter.");
         }
     }
@@ -75,12 +75,12 @@ public class InputsValidator {
             if (taskIndexString.matches("\\d+")) {
                 return true;
             } else {
-                System.out.println("Invalid task index: " + taskIndexString + ". Please enter a valid integer.");
+                System.err.println("Invalid task index: " + taskIndexString + ". Please enter a valid integer.");
                 throw new OsirisInvalidInputException("Invalid task index: "
                         + taskIndexString + ". Please enter a valid integer.");
             }
         } else {
-            System.out.println("Invalid task index. Please Reenter.");
+            System.err.println("Invalid task index. Please Reenter.");
             throw new OsirisInvalidInputException("Invalid task index. Please Reenter.");
         }
     }
@@ -103,12 +103,12 @@ public class InputsValidator {
             if (taskIndexString.matches("\\d+")) {
                 return true;
             } else {
-                System.out.println("Invalid task index: " + taskIndexString + ". Please enter a valid integer.");
+                System.err.println("Invalid task index: " + taskIndexString + ". Please enter a valid integer.");
                 throw new OsirisInvalidInputException("Invalid task index: "
                         + taskIndexString + ". Please enter a valid integer.");
             }
         } else {
-            System.out.println("Invalid task index. Please Reenter");
+            System.err.println("Invalid task index. Please Reenter");
             throw new OsirisInvalidInputException("Invalid task index. Please Reenter.");
         }
     }
@@ -126,7 +126,7 @@ public class InputsValidator {
         if (!taskName.isEmpty()) {
             return true;
         } else {
-            System.out.println("Task name not provided. Please Reenter.");
+            System.err.println("Task name not provided. Please Reenter.");
             throw new OsirisInvalidInputException("Task name not provided. Please Reenter.");
         }
     }
@@ -155,20 +155,20 @@ public class InputsValidator {
                     if (isValidDay(dayStr) && isValidMonth(monthStr) && isValidYear(yearStr)) {
                         return true;
                     } else {
-                        System.out.println("Invalid day, month, or year in deadline. Please use dd-MM-yyyy. ");
+                        System.err.println("Invalid day, month, or year in deadline. Please use dd-MM-yyyy. ");
                         throw new OsirisInvalidInputException("Invalid day, month, or year in deadline. "
                                 + "Please use dd-MM-yyyy. ");
                     }
                 } else {
-                    System.out.println("Invalid deadline format. Please use dd-MM-yyyy.");
+                    System.err.println("Invalid deadline format. Please use dd-MM-yyyy.");
                     throw new OsirisInvalidInputException("Invalid deadline format. Please use dd-MM-yyyy.");
                 }
             } else {
-                System.out.println("Task name not provided. Please Reenter.");
+                System.err.println("Task name not provided. Please Reenter.");
                 throw new OsirisInvalidInputException("Task name not provided. Please Reenter.");
             }
         } else {
-            System.out.println("Invalid input format. Please Reenter. Ensure '/by' is specified for a Deadline Task. "
+            System.err.println("Invalid input format. Please Reenter. Ensure '/by' is specified for a Deadline Task. "
                     + "E.g. deadline Do Homework /by dd-MM-yyyy .");
             throw new OsirisInvalidInputException("Invalid input format. Please Reenter. "
                     + "Ensure '/by' is specified for a Deadline Task. "
@@ -199,21 +199,21 @@ public class InputsValidator {
                             .isBefore((DateTimeFormatters.getInstance().formatUserInputDateTime(endDateTime)))) {
                         return true;
                     } else {
-                        System.out.println("Invalid date-time order. Start date/time should be before end date/time.");
+                        System.err.println("Invalid date-time order. Start date/time should be before end date/time.");
                         throw new OsirisInvalidInputException("Invalid date-time order. "
                                 + "Start date/time should be before end date/time.");
 
                     }
                 } else {
-                    System.out.println("Invalid date-time format. Please use dd-MM-yyyy HHmm.");
+                    System.err.println("Invalid date-time format. Please use dd-MM-yyyy HHmm.");
                     throw new OsirisInvalidInputException("Invalid date-time format. Please use dd-MM-yyyy HHmm.");
                 }
             } else {
-                System.out.println("Task name not provided. Please Reenter.");
+                System.err.println("Task name not provided. Please Reenter.");
                 throw new OsirisInvalidInputException("Task name not provided. Please Reenter.");
             }
         } else {
-            System.out.println("Invalid input format. Please Reenter. "
+            System.err.println("Invalid input format. Please Reenter. "
                     + "Ensure '/from' & '/to' is specified for a Event Task. "
                     + "E.g. event School Meeting /from dd-MM-yyyy HHmm /to dd-MM-yyyy HHmm. Please Reenter.");
             throw new OsirisInvalidInputException("Invalid input format. Please Reenter. "

@@ -9,6 +9,7 @@ import osiris.exceptions.OsirisStorageFileException;
  */
 public class Storage {
 
+    /** File path of the storage file. */
     private final String filepath;
 
     /**

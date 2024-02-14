@@ -50,8 +50,8 @@ public class DateTimeFormatters {
         try {
             return LocalDate.parse(dateStr, dateTimeFormatter);
         } catch (DateTimeParseException e) {
-            System.out.println("Failed to parse the date-time string: " + dateStr);
-            System.out.println("Please try /by dd-mm-yyyy for a deadline tasks.");
+            System.err.println("Failed to parse the date-time string: " + dateStr);
+            System.err.println("Please try /by dd-mm-yyyy for a deadline tasks.");
             throw new OsirisParseDateException(dateStr);
         }
     }
@@ -72,8 +72,8 @@ public class DateTimeFormatters {
         try {
             return LocalDateTime.parse(dateTimeStr, dateTimeFormatter);
         } catch (DateTimeParseException e) {
-            System.out.println("Failed to parse the date-time string: " + dateTimeStr);
-            System.out.println("Please provide date time range 'dd-MM-yyyy HHmm' format.");
+            System.err.println("Failed to parse the date-time string: " + dateTimeStr);
+            System.err.println("Please provide date time range 'dd-MM-yyyy HHmm' format.");
             throw new OsirisParseDateTimeException(dateTimeStr);
         }
     }
@@ -98,8 +98,8 @@ public class DateTimeFormatters {
             LocalDateTime endDateTime = LocalDateTime.parse(toDateTimeStr, endDateTimeFormatter);
             return new LocalDateTime[]{startDateTime, endDateTime};
         } catch (DateTimeParseException e) {
-            System.out.println("Failed to parse the date time range.");
-            System.out.println("Please provide date time range in 'dd-MM-yyyy HHmm' format.");
+            System.err.println("Failed to parse the date time range.");
+            System.err.println("Please provide date time range in 'dd-MM-yyyy HHmm' format.");
             throw new OsirisParseDateTimeRangeException();
         }
     }
@@ -120,7 +120,7 @@ public class DateTimeFormatters {
         try {
             return LocalDate.parse(dateStr, dateTimeFormatter);
         } catch (DateTimeParseException e) {
-            System.out.println("Failed to parse the date-time string: '" + dateStr);
+            System.err.println("Failed to parse the date-time string: '" + dateStr);
             throw new OsirisParseStoredDateTimeException();
         }
     }
@@ -141,7 +141,7 @@ public class DateTimeFormatters {
         try {
             return LocalDateTime.parse(dateTimeStr, dateTimeFormatter);
         } catch (DateTimeParseException e) {
-            System.out.println("Failed to parse the date-time string: '" + dateTimeStr);
+            System.err.println("Failed to parse the date-time string: '" + dateTimeStr);
             throw new OsirisParseStoredDateTimeException();
         }
     }
@@ -166,7 +166,7 @@ public class DateTimeFormatters {
             LocalDateTime endDateTime = LocalDateTime.parse(toDateTimeStr, endDateTimeFormatter);
             return new LocalDateTime[]{startDateTime, endDateTime};
         } catch (DateTimeParseException e) {
-            System.out.println("Failed to parse the date time range: " + fromDateTimeStr + " OR " + toDateTimeStr);
+            System.err.println("Failed to parse the date time range: " + fromDateTimeStr + " OR " + toDateTimeStr);
             throw new OsirisParseStoredDateTimeException();
         }
     }
