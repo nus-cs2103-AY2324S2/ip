@@ -1,7 +1,18 @@
 package oak.controller;
 
+import java.io.IOException;
+
+import oak.exceptions.InvalidInputException;
+import oak.feedback.FeedbackService;
+
 public class OakController {
+    private FeedbackService feedbackService = new FeedbackService();
+
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        try {
+            return feedbackService.run(input);
+        } catch (InvalidInputException | IOException e) {
+            return e.getMessage();
+        }
     }
 }
