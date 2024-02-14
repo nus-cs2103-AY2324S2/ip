@@ -14,8 +14,8 @@ import javafx.stage.Stage;
 public class Duke extends Application {
     private static final String FILE_PATH = "./data/duke.txt";
 
-    private Ui ui;
-    private Storage storage;
+    private final Ui ui;
+    private final Storage storage;
     private TaskList tasks;
 
     /**

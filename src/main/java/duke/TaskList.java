@@ -140,8 +140,8 @@ public class TaskList {
     }
 
     /**
-     * @param keyword
-     * @param ui
+     * @param keyword to be found
+     * @param ui display on ui
      * @return String of all tasks found
      */
     public static String findTasks(String keyword, Ui ui) {

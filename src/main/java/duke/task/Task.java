@@ -86,14 +86,10 @@ public class Task {
      */
 
     public boolean equals(Task t) {
-        if (!(t instanceof Task)) {
+        if (t == null) {
             return false;
         }
 
-        if (!t.toString().equals(this.toString())) {
-            return false;
-        }
-
-        return true;
+        return t.toString().equals(this.toString());
     }
 }

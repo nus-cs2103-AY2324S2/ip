@@ -47,10 +47,6 @@ public class Todo extends Task {
             return false;
         }
 
-        if (!t.toString().equals(this.toString())) {
-            return false;
-        }
-
-        return true;
+        return t.toString().equals(this.toString());
     }
 }

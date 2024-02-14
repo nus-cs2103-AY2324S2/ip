@@ -233,7 +233,7 @@ public class Parser {
      */
     public static String parseTodo(String[] words, TaskList tasks) throws DukeException {
 
-        String res = "";
+
         if (words[1].isEmpty()) {
             try {
                 throw new DukeException.EmptyTodoDescriptionException();

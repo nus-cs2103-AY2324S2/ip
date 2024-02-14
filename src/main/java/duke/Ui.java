@@ -77,9 +77,8 @@ public class Ui {
     /**
      * Displays an error message for loading tasks.
      */
-    public String showLoadingError() {
+    public void showLoadingError() {
         System.out.println("Error loading tasks from file. Starting with an empty task list.");
-        return "Error loading tasks from file. Starting with an empty task list.";
     }
 
     /**
