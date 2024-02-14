@@ -78,6 +78,7 @@ public class TaskList {
     public String markTask(int i) {
         Task task = tasks.get(i - 1);
         task.markAsDone();
+        assert(ui != null);
         return ui.markMessage(task);
     }
 
@@ -89,6 +90,7 @@ public class TaskList {
     public String unmarkTask(int i) {
         Task task = tasks.get(i - 1);
         task.unmark();
+        assert(ui != null);
         return ui.unmarkMessage(task);
     }
 
@@ -100,6 +102,7 @@ public class TaskList {
     public String deleteTask(int i) {
         Task task = tasks.get(i - 1);
         tasks.remove(i - 1);
+        assert(ui != null);
         return ui.deleteMessage(task);
     }
 

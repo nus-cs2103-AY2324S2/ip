@@ -53,7 +53,7 @@ application {
 
 shadowJar {
     archiveBaseName = "Yapper"
-    archiveVersion = "v0.03"
+    archiveVersion = "v0.06"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
