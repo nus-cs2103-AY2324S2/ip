@@ -26,32 +26,30 @@ public class Ui {
      *
      */
     public Ui() {
-        this.intro = "____________________________________________________________\n"
-                + " Hello! I'm VICTOR\n"
-                + " What can I do for you?\n"
-                + "____________________________________________________________\n";
-        this.ending = "____________________________________________________________\n"
-                + " Bye. Hope to see you again soon!\n"
-                + "____________________________________________________________";
+        this.intro = " Hello! I'm VICTOR\n"
+                + " What can I do for you?\n";
+        this.ending =  " Bye. Hope to see you again soon!\n";
     }
 
     /**
-     * The showIntro method is used to print out the intro greeting when called.
-     * It doesn't take in any inputs nor does it return anything.
+     * The showIntro method is used to return the intro as a String.
+     * It doesn't take in any inputs.
+     *
+     * @return the intro String
      *
      */
-    public void showIntro() {
-        System.out.println(this.intro);
+    public String showIntro() {
+        return this.intro;
     }
 
     /**
-     * The showEnding method is used to print out the ending String when called.
-     * It doesn't take in any inputs nor does it return anything.
+     * The showEnding method is used to return the ending String.
+     * It doesn't take in any inputs.
+     *
+     * @return the ending string
      *
      */
-    public void showEnding() {
-        System.out.println(this.ending);
-    }
+    public String showEnding() { return this.ending; }
 
     /**
      * The readCommand method is used to scan the user input and return it

@@ -46,13 +46,12 @@ public class TaskList {
     /**
      * Prints out all the current data from the ArrayList.
      */
-    public void printList() {
-        ui.displayBarrier();
-        System.out.println("Here are the tasks in your list:");
+    public String printList() {
+        StringBuilder listString = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < currentTaskLists.size(); i++) {
-            System.out.println(i + 1 + "." + currentTaskLists.get(i).toString());
+            listString.append(i + 1).append(".").append(currentTaskLists.get(i).toString()).append("\n");
         }
-        ui.displayBarrier();
+        return listString.toString();
     }
 
     /**
@@ -111,12 +110,16 @@ public class TaskList {
      *
      * @param wordSearch A string which would be used to check if
      *                   the description contains it.
+     * @return a String containing all the tasks
+     *         matching the word search
      */
-    public void findTask(String wordSearch) {
+    public String findTask(String wordSearch) {
+        StringBuilder listString = new StringBuilder("Here are the matching tasks in your list:\n");
         for (Task task : currentTaskLists) {
             if (task.descriptionContains(wordSearch)) {
-                System.out.println(task.toString());
+                listString.append(task.toString() + "\n");
             }
         }
+        return listString.toString();
     }
 }

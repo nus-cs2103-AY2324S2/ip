@@ -34,6 +34,12 @@ public class Event extends Task {
     protected LocalDateTime tempTo;
 
     /**
+     * The tempFormatter variable is a DateTimeFormatter
+     * that indicates the format that the tempFrom and tempTo is supposed to take.
+     */
+    protected DateTimeFormatter tempFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+    /**
      * The Event constructor takes in a String description and a boolean isDone
      * which is added to their respective variables of the same name.
      * This is done using the super keyword.
@@ -51,7 +57,6 @@ public class Event extends Task {
         DateTimeFormatter formatter =
                 DateTimeFormatter.ofPattern(
                 "MMM dd yyyy HH:mm a");
-        DateTimeFormatter tempFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         this.tempFrom = LocalDateTime.parse(from, tempFormatter);
         this.from = tempFrom.format(formatter);
         this.tempTo = LocalDateTime.parse(to, tempFormatter);
@@ -81,6 +86,6 @@ public class Event extends Task {
      */
     @Override
     public String saveInput() {
-        return "E | " + isDone + " | " + description + " | " + tempFrom + " | " + tempTo;
+        return "E | " + isDone + " | " + description + " | " + tempFrom.format(tempFormatter) + " | " + tempTo.format(tempFormatter);
     }
 }

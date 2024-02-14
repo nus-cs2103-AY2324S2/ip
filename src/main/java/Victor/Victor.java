@@ -2,6 +2,9 @@ package victor;
 
 import java.io.IOException;
 
+import javafx.application.Platform;
+import javafx.scene.image.Image;
+
 import victor.parser.Parser;
 import victor.storage.Storage;
 import victor.tasklist.TaskList;
@@ -43,15 +46,21 @@ public class Victor {
     private static Parser parser;
 
     /**
+     * This is a victorImage image that holds the image for victor
+     */
+
+    private Image victorImage = new Image(this.getClass().getResourceAsStream("/images/victorImage.png"));
+
+
+    /**
      * The Victor constructor is used to call in all the various parts
      * of the program in order to run it from this file. It would also
      * use the ui.showIntro() method to show the greeting of the ui.
      *
-     * @param filePath The file path of the data file
      */
-    public Victor(String filePath) {
+    public Victor() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage("data/victor.txt");
         ui.showIntro();
         tasks = new TaskList(storage.load());
         parser = new Parser(ui, tasks);
@@ -67,6 +76,7 @@ public class Victor {
      */
     public void run() throws IOException {
         String userInput = "";
+
         while (!userInput.equals("bye")) {
             userInput = ui.readCommand();
             parser.parse(userInput);
@@ -76,6 +86,9 @@ public class Victor {
     }
 
     public static void main(String[] args) throws IOException {
-        new Victor("data/victor.txt").run();
+        new Victor().run();
+    }
+    public String getResponse(String input) throws IOException {
+        return parser.parse(input);
     }
 }

@@ -1,10 +1,13 @@
 package victor.parser;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import javafx.application.Platform;
+import victor.storage.Storage;
 import victor.tasklist.TaskList;
 import victor.tasktype.Deadline;
 import victor.tasktype.Event;
@@ -34,6 +37,10 @@ public class Parser {
         delete
     }
 
+    /**
+     * Storage class that is used to load and store data into data file
+     */
+    private static final Storage storage = new Storage("data/victor.txt");;
 
     /**
      * Ui class that is used to display certain information for this class.
@@ -67,75 +74,60 @@ public class Parser {
      * @throws DateTimeParseException    Used for deadline, when the input for the by variable is unable
      *                                   to be converted from String to a LocalDate,
      *                                   indicating that it is in the wrong format.
+     *
+     * @return A string of the information of the command
+     *
      */
-    public void parse(String commandLine) {
+    public String parse(String commandLine) throws IOException {
         String[] inputList = commandLine.split(" ", 2);
+        String returnString = "";
         switch (inputList[0]) {
-        case "list" -> currentTasks.printList();
+        case "list" -> returnString = currentTasks.printList();
         case "mark" -> {
             try {
                 int position = Integer.parseInt(inputList[1]);
                 Task currentTask = currentTasks.getPosValue(position - 1);
-                System.out.println();
-                System.out.println("Nice! I've marked this task as done:");
                 currentTask.markAsDone();
-                System.out.println(currentTask);
-                ui.displayBarrier();
+                returnString = "Nice! I've marked this task as done:\n" + currentTask;
             } catch (IndexOutOfBoundsException e) {
-                ui.displayBarrier();
-                System.out.println("Check how many items are in the list again. "
-                        + "The number you gave is too high");
-                System.out.println("Can't mark an item not in the list");
-                System.out.println("The format to mark a task is: mark (task list number)");
-                ui.displayBarrier();
+                returnString =  "Check how many items are in the list again.\n "
+                        + "The number you gave is too high\n"
+                        + "Can't mark an item not in the list"
+                        + "The format to mark a task is: mark (task list number)";
             } catch (NumberFormatException e) {
-                ui.displayBarrier();
-                System.out.println("Sorry, I'm only smart enough to find the task based on numbers.");
-                System.out.println("Please give a number. If you refuse, too bad, "
-                        + "this is all I can do.");
-                ui.displayBarrier();
+                returnString = "Sorry, I'm only smart enough to find the task based on numbers."
+                        + "Please give a number. If you refuse, too bad, "
+                        + "this is all I can do.";
             }
         }
         case "unmark" -> {
             try {
                 int position = Integer.parseInt(inputList[1]);
                 Task currentTask = currentTasks.getPosValue(position - 1);
-                ui.displayBarrier();
-                System.out.println("OK, I've marked this task as not done yet:");
                 currentTask.unmarkAsDone();
-                System.out.println(currentTask);
-                ui.displayBarrier();
+                returnString =  "OK, I've marked this task as not done yet:\n" + currentTask;
             } catch (IndexOutOfBoundsException e) {
-                ui.displayBarrier();
-                System.out.println("Check how many items are in the list again. "
-                        + "The number you gave is too high.");
-                System.out.println("Can't unmark an item not in the list");
-                System.out.println("The format to unmark a task is: unmark (task list number)");
-                ui.displayBarrier();
+                returnString = "Check how many items are in the list again.\n"
+                        + "The number you gave is too high.\n"
+                        + "Can't unmark an item not in the list"
+                        + "The format to unmark a task is: unmark (task list number)";
             } catch (NumberFormatException e) {
-                ui.displayBarrier();
-                System.out.println("Sorry, I'm only smart enough to find the task based on numbers.");
-                System.out.println("Please give a number. If you refuse, too bad, "
-                        + "this is all I can do.");
-                ui.displayBarrier();
+                returnString = "Sorry, I'm only smart enough to find the task based on numbers.\n"
+                        + "Please give a number. If you refuse, too bad, "
+                        + "this is all I can do.";
             }
         }
         case "todo" -> {
             try {
                 Todo userTask = new Todo(inputList[1], false);
                 currentTasks.addTask(userTask);
-                ui.displayBarrier();
-                System.out.println(userTask);
-                System.out.println("Now you have " + currentTasks.getSize() + " tasks in the list.");
-                ui.displayBarrier();
+                returnString = userTask + "\nNow you have " + currentTasks.getSize() + " tasks in the list.";
             } catch (IndexOutOfBoundsException e) {
-                ui.displayBarrier();
-                System.out.println("Sorry pal, but your description is empty.");
-                System.out.println("Please redo the command and remember to "
-                        + "add a description of the action");
-                System.out.println("The format to schedule a todo task is: " + TaskName.todo
-                        + " (Description)");
-                ui.displayBarrier();
+                returnString = "Sorry pal, but your description is empty.\n"
+                        + "Please redo the command and remember to "
+                        + "add a description of the action\n"
+                        + "The format to schedule a todo task is: " + TaskName.todo
+                        + " (Description)";
             }
         }
         case "deadline" -> {
@@ -145,24 +137,19 @@ public class Parser {
                 LocalDate deadDate = LocalDate.parse(deadLine[1]);
                 Deadline userTask = new Deadline(differentParts[0], false, deadLine[1]);
                 currentTasks.addTask(userTask);
-                ui.displayBarrier();
-                System.out.println(userTask.toString());
-                System.out.println("Now you have " + currentTasks.getSize() + " tasks in the list.");
-                ui.displayBarrier();
+                System.out.println();
+                returnString = userTask.toString() + "\n"
+                        + "Now you have " + currentTasks.getSize() + " tasks in the list.";
             } catch (IndexOutOfBoundsException e) {
-                ui.displayBarrier();
-                System.out.println("Oh, you forgot to indicate when is the deadline "
-                        + "or maybe you forgot the description.");
-                System.out.println("Please redo the command and remember to "
-                        + "add the necessary information.");
-                System.out.println("The format to schedule a deadline is: " + TaskName.deadline
-                        + " (Description) /by (Deadline Date + time)");
-                ui.displayBarrier();
+                returnString = "Oh, you forgot to indicate when is the deadline "
+                        + "or maybe you forgot the description.\n"
+                        + "Please redo the command and remember to "
+                        + "add the necessary information.\n"
+                        + "The format to schedule a deadline is: " + TaskName.deadline
+                        + " (Description) /by (Deadline Date + time)";
             } catch (DateTimeParseException e) {
-                ui.displayBarrier();
-                System.out.println("Incorrect Date format. Please insert format using yyyy-mm-dd.");
-                System.out.println("E.g. 2019-02-15 is 15 February 2019");
-                ui.displayBarrier();
+                returnString = "Incorrect Date format. Please insert format using yyyy-mm-dd.\n"
+                        + "E.g. 2019-02-15 is 15 February 2019";
             }
         }
         case "event" -> {
@@ -177,73 +164,61 @@ public class Parser {
                 LocalDateTime endDT = LocalDateTime.parse(trimEndDate, formatter);
                 Event userTask = new Event(differentParts[0], false, trimStartDate, trimEndDate);
                 currentTasks.addTask(userTask);
-                ui.displayBarrier();
-                System.out.println(userTask.toString());
-                System.out.println("Now you have " + currentTasks.getSize() + " tasks in the list.");
-                ui.displayBarrier();
+                returnString = userTask.toString()
+                        + "\nNow you have " + currentTasks.getSize() + " tasks in the list.";
             } catch (IndexOutOfBoundsException e) {
-                ui.displayBarrier();
-                System.out.println("You forgot to provide either a description, "
-                        + "an start date or an end date for this event.");
-                System.out.println("Sorry, but mind reading is not installed in me yet.");
-                System.out.println("Please redo the command and remember to "
-                        + "add the necessary information.");
-                System.out.println("The format to schedule a event is: " + TaskName.event
-                        + " (Description) /from (Start date + time) /to (End date + time)");
-                ui.displayBarrier();
+                returnString = "You forgot to provide either a description, "
+                        + "an start date or an end date for this event.\n"
+                        + "Sorry, but mind reading is not installed in me yet.\n"
+                        + "Please redo the command and remember to "
+                        + "add the necessary information.\n"
+                        + "The format to schedule a event is: " + TaskName.event
+                        + " (Description) /from (Start date + time) /to (End date + time)";
             } catch (DateTimeParseException e) {
-                ui.displayBarrier();
-                System.out.println(e);
-                System.out.println("Incorrect Date format. Please insert format using yyyy-MM-dd HHmm.");
-                System.out.println("E.g. 2019-02-15 10:40 is 15 February 2019 10:40 am");
-                ui.displayBarrier();
+                returnString = "Incorrect Date format. Please insert format using yyyy-MM-dd HHmm.\n"
+                        + "E.g. 2019-02-15 10:40 is 15 February 2019 10:40 am";
             }
         }
         case "delete" -> {
             try {
                 int position = Integer.parseInt(inputList[1]);
                 Task chosenTask = currentTasks.getPosValue(position - 1);
-                ui.displayBarrier();
-                System.out.println("Noted. I've removed this task:");
-                System.out.println(chosenTask.toString());
                 currentTasks.removeTask(position - 1);
-                System.out.println("Now you have " + currentTasks.getSize() + " tasks in the list.");
-                ui.displayBarrier();
+                returnString = "Noted. I've removed this task:\n"
+                        + chosenTask.toString()
+                        + "\nNow you have " + currentTasks.getSize() + " tasks in the list.";
             } catch (IndexOutOfBoundsException e) {
-                ui.displayBarrier();
-                System.out.println("The number you gave exceeds how many items is in the list.");
-                System.out.println("Can't " + TaskName.delete + " an item not in the list. "
-                        + "Please try again.");
-                System.out.println("The format to delete a task is: " + TaskName.delete
-                        + " (task list number)");
-                ui.displayBarrier();
+                returnString = "The number you gave exceeds how many items is in the list.\n"
+                        + "Can't " + TaskName.delete + " an item not in the list. "
+                        + "Please try again.\n"
+                        + "The format to delete a task is: " + TaskName.delete
+                        + " (task list number)";
             } catch (NumberFormatException e) {
-                ui.displayBarrier();
-                System.out.println("Sorry, I'm only smart enough to find the task based on numbers.");
-                System.out.println("Please give a number. If you refuse, too bad, "
-                        + "this is all I can do.");
-                System.out.println("The format to delete a task is: " + TaskName.delete
-                        + " (task list number)");
-                ui.displayBarrier();
+                returnString = "Sorry, I'm only smart enough to find the task based on numbers.\n"
+                        + "Please give a number. If you refuse, too bad, "
+                        + "this is all I can do.\n"
+                        + "The format to delete a task is: " + TaskName.delete
+                        + " (task list number)";
             }
         }
         case "find" -> {
             try {
-                ui.displayBarrier();
-                System.out.println("Here are the matching tasks in your list:");
-                currentTasks.findTask(inputList[1]);
-                ui.displayBarrier();
+                returnString =  currentTasks.findTask(inputList[1]);
             } catch (ArrayIndexOutOfBoundsException e) {
-                ui.displayBarrier();
-                System.out.println("Sorry, you didn't add anything after the keyword find.");
-                System.out.println("I'm gonna need you to indicate what you want to search for "
-                        + "in the list. Thanks");
-                ui.displayBarrier();
+                returnString = "Sorry, you didn't add anything after the keyword find.\n"
+                        + "I'm gonna need you to indicate what you want to search for "
+                        + "in the list. Thanks";
             }
         }
+        case "bye" -> {
+            storage.updateFile(currentTasks.returnList());
+            Platform.exit();
+            System.exit(0);
+        }
         default -> {
-            System.out.println("Command not recognized. Please try again.");
+            returnString = "Command not recognized. Please try again.";
         }
         }
+        return returnString;
     }
 }
