@@ -15,7 +15,7 @@ public class Solaire {
     private Ui ui;
 
     enum UserCommands {
-        GREET, BYE, MARK, UNMARK, LIST, TODO, EVENT, DEADLINE, DELETE, FIND
+        GREET, BYE, MARK, UNMARK, LIST, TODO, EVENT, DEADLINE, DELETE, FIND, REMINDME
     }
 
     /**
@@ -64,6 +64,13 @@ public class Solaire {
                 break;
             case FIND:
                 solaireOutput = taskList.findTask(inputCommand[1]);
+                break;
+            case REMINDME:
+                if (inputCommand.length < 2) {
+                    solaireOutput = taskList.remindMe();
+                } else {
+                    solaireOutput = taskList.remindMe(inputCommand[1]);
+                }
                 break;
             default:
                 solaireOutput = "Unsupported command pattern\n";

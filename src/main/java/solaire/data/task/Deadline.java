@@ -43,4 +43,21 @@ public class Deadline extends Task {
                 + this.by.getYear();
         return "[D]" + super.toString() + " ( by: " + formattedDate + ")";
     }
+
+    /**
+     * Returns the due status of the task based on the current date and time.
+     *
+     * @param buffer the number of days before the deadline to check for due status.
+     * @return true if the task is due within the buffer, false otherwise.
+     */
+    public boolean getDueStatus(int buffer) {
+        LocalDate currentDate = LocalDate.now();
+        LocalDate limit = currentDate.plusDays(buffer);
+        boolean isOverdue = this.by.isBefore(currentDate);
+        if (!isOverdue && (this.by.isBefore(limit) || this.by.isEqual(limit))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

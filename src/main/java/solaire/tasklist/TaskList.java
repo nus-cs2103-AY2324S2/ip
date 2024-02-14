@@ -3,6 +3,7 @@ package solaire.tasklist;
 import java.util.ArrayList;
 
 import solaire.data.exception.SolaireException;
+import solaire.data.task.Deadline;
 import solaire.data.task.Task;
 import solaire.parser.Parser;
 
@@ -148,6 +149,32 @@ public class TaskList {
             if (task.getDescription().contains(prompt)) {
                 output += filteredIndex + ". " + task.toString() + "\n";
                 filteredIndex++;
+            }
+        }
+        return output;
+    }
+
+    /**
+     * Reminds the user of upcoming deadlines and events.
+     *
+     * @return a message containing the upcoming deadlines and events.
+     */
+    public String remindMe(String... buffer) {
+
+        // If user specifies no particular buffer, default to 1 day
+        int bufferDays = 1;
+        if (buffer.length != 0) {
+            bufferDays = Integer.parseInt(buffer[0]);
+        }
+        String output = "Here's what's due in " + bufferDays + " days:\n ";
+        int reminderIndex = 1;
+        for (Task task : taskList) {
+            if (task instanceof Deadline) {
+                Deadline deadlineTask = (Deadline) task;
+                if (deadlineTask.getDueStatus(bufferDays)) {
+                    output += reminderIndex + ". " + deadlineTask.toString() + "\n";
+                    reminderIndex++;
+                }
             }
         }
         return output;
