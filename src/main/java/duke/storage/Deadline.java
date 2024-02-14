@@ -68,8 +68,8 @@ public class Deadline extends Task {
      * @return True if deadline is on the specified date, false otherwise
      */
     public boolean isOn(Instant date) {
-        LocalDate dueDateLocal = this.dueDate.atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate dateLocal = date.atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate dueDateLocal = this.dueDate.atZone(ZoneId.of("+8")).toLocalDate();
+        LocalDate dateLocal = date.atZone(ZoneId.of("+8")).toLocalDate();
 
         return dueDateLocal.equals(dateLocal);
     }
