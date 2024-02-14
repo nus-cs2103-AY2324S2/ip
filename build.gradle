@@ -32,12 +32,14 @@ test {
 
 application {
     mainClass.set("seedu.duke.Duke")
+
 }
 
 shadowJar {
     archiveBaseName = "duke"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+    destinationDirectory = file("build/libs")
 }
 
 run{
