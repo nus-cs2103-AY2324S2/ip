@@ -1,6 +1,5 @@
 package gulie;
 
-import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
@@ -48,6 +47,7 @@ public class Gulie {
         final Scanner in = new Scanner(System.in);
         final PrintStream out = System.out;
         new Gulie(new GulieInterface() {
+            final String LINE = "____________________________________________________________";
             @Override
             public String getString() {
                 return in.nextLine();
@@ -55,7 +55,9 @@ public class Gulie {
 
             @Override
             public void print(String str) {
+                out.println(LINE);
                 out.println(str);
+                out.println(LINE);
             }
 
             @Override
