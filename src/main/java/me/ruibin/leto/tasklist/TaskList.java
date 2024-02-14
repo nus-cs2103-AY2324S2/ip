@@ -41,7 +41,7 @@ public class TaskList {
                 t = Todo.todoFromCmd(inputs);
                 break;
             default:
-                throw new InvalidTaskException("This task does not fit known tasks (event, deadline, todo)");
+                assert false : "Should never reach here, means parser failed";
             } // end switch for type of task
             assert t != null : "t should be a created task by now";
             TaskList.list.add(t);
