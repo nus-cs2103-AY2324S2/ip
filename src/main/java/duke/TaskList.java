@@ -299,6 +299,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * Clears the list of tasks
+     */
     public void clear() {
         tasks.clear();
         duke.output("List Cleared!");
