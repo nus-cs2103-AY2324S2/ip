@@ -41,7 +41,7 @@ public class Storage {
         }
     }
 
-    private String taskToFormattedString(Task task) {
+    String taskToFormattedString(Task task) {
         StringBuilder sb = new StringBuilder();
         sb.append(task.getTaskCat().name()).append(" | ")
                 .append(task.isDone? "1" : "0").append(" | ")
@@ -61,7 +61,7 @@ public class Storage {
         return sb.toString();
     }
 
-    private Task parseTaskFromString(String input) throws WhisperException {
+    Task parseTaskFromString(String input) throws WhisperException {
         try {
             String[] parts = input.split("\\|");
 
@@ -118,7 +118,7 @@ public class Storage {
         }
     }
 
-    private LocalDateTime parseDateTime(String dateTime) throws WhisperException {
+    LocalDateTime parseDateTime(String dateTime) throws WhisperException {
         try {
             return LocalDateTime.parse(dateTime.trim(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
         } catch (DateTimeParseException e) {
