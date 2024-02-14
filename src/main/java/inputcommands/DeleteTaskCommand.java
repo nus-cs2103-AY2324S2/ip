@@ -42,7 +42,7 @@ class DeleteTaskCommand extends Command {
     public String execute(TaskList lst) throws InvalidCommandIndexException {
         try {
             int pos = Integer.parseInt(this.desc.split(" ")[1]);
-            lst.getTask(pos);
+            lst.getTaskAtIndex(pos);
             return "delete " + pos;
         } catch (InvalidCommandIndexException e) {
             throw new InvalidCommandIndexException();

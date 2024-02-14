@@ -43,7 +43,7 @@ class MarkTaskCommand extends Command {
     public String execute(TaskList lst) throws InvalidCommandIndexException {
         try {
             int pos = Integer.parseInt(this.desc.split(" ")[1]);
-            lst.getTask(pos);
+            lst.getTaskAtIndex(pos);
             return Integer.toString(pos);
         } catch (InvalidCommandIndexException e) {
             throw new InvalidCommandIndexException();
