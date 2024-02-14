@@ -14,13 +14,13 @@ import remi.utils.RemiError;
  */
 public class Ui {
 
-    private boolean exitLoop;
+    private boolean isFinished;
     private StoredTaskList taskList;
     private CommandList commandList;
     private Parser parser;
 
     public Ui() {
-        this.exitLoop = false;
+        this.isFinished = false;
         this.taskList = Storage.get();
         this.commandList = new CommandList(this.taskList, this);
         this.parser = new Parser(this.commandList);
@@ -33,9 +33,9 @@ public class Ui {
     public void doIoLoop() {
         initialize();
 
-        while (!exitLoop) {
+        while (!isFinished) {
             doOnce();
-            if (exitLoop) {
+            if (isFinished) {
                 break;
             }
         }
@@ -76,6 +76,10 @@ public class Ui {
      * If called at least once, termination will occur after all pending commands are finished.
      */
     public void exitIoLoop() {
-        exitLoop = true;
+        isFinished = true;
+    }
+
+    public boolean getIsFinished() {
+        return isFinished;
     }
 }
