@@ -8,6 +8,7 @@ import remi.utils.RemiError;
 @FunctionalInterface
 public interface Command {
     /**
+     * The function in this lambda method.
      *
      * @param args the arguments of the message (this excludes the first word of the command)
      * @return the message to be outputted
