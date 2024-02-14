@@ -1,12 +1,9 @@
 package duke;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.File;
 
-import duke.task.Task;
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -19,12 +16,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-
 import java.util.Scanner;
-
-import duke.Parser;
-import duke.TaskList;
-
 /**
  * duke.Main class of the program.
  *
@@ -57,11 +49,6 @@ public class Duke extends Application {
         Scanner user = new Scanner(System.in);
         Storage storage = new Storage(f);
         TaskList tasklist = new TaskList(storage);
-
-        Ui ui = new Ui(user, tasklist);
-        System.out.println(ui.showWelcome());
-//        System.out.println(ui.readCommand());
-
 
     }
 
@@ -166,14 +153,6 @@ public class Duke extends Application {
      * @throws IOException When string input do not match any of the CLI of the Parser class.
      */
     String getResponse(String input) throws IOException {
-
-//        File f = new File("data/EUEU.txt");
-//        Scanner user = new Scanner(System.in);
-//        Storage storage = new Storage(f);
-//        TaskList tasklist = new TaskList(storage);
-//
-//        Ui ui = new Ui(user, tasklist);
-//        return ui.readCommand();
         ContactsParser conts = new ContactsParser(contactsList);
 
         if (input.startsWith("cont")) {

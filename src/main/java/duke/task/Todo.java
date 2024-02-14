@@ -3,22 +3,12 @@ package duke.task;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
-import duke.task.Task;
 /**
  * Represents an Todo task that inherits from Task
  */
 public class Todo extends Task {
     public Todo(String task) {
         super(task);
-    }
-
-
-    /**
-     * Returns the String that specifies the Todo task
-     * @return Todo category.
-     */
-    public String isTodo() {
-        return "[T]";
     }
 
     /**
@@ -28,7 +18,7 @@ public class Todo extends Task {
      */
     @Override
     public String add() {
-        return "    " + this.isTodo() + this.marked() + " " + this.getTask();
+        return "    " + this.getCat() + this.marked() + " " + this.getTask();
     }
 
     /**
@@ -41,7 +31,7 @@ public class Todo extends Task {
     public void writeToFile(File filePath) throws IOException {
       try {
           FileWriter fw = new FileWriter(filePath.getPath(), true);
-          fw.write(this.isTodo() + this.marked() + " " + this.getTask() + "\n");
+          fw.write(this.getCat() + this.marked() + " " + this.getTask() + "\n");
           fw.close();
       } catch (IOException e) {
           System.out.println("file not found! try again bb");
