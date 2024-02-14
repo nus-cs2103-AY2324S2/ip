@@ -27,7 +27,7 @@ public class Echo implements Action {
      */
     @Override
     public String response() {
-        return "  " + "added: " + stuff;
+        return stuff;
     }
 }
 

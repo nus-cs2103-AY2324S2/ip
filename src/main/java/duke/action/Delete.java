@@ -1,39 +1,35 @@
 package duke.action;
 
+import duke.exception.WrongIndexException;
 import duke.task.Task;
 
 /**
- * Represents an action to delete a task from the task list.
+ * Represents an action to delete a task.
  */
 public class Delete implements Action {
-
-    /**
-     * The task that has been deleted.
-     */
+    private int index;
     private Task deletedTask;
+    private TaskList tasks;
 
-
-    /**
-     * Constructs a Delete action with the specified task to be deleted.
-     *
-     * @param deletedTask The task to be deleted.
-     */
-    public Delete(Task deletedTask) {
-        this.deletedTask = deletedTask;
+    public Delete(int index, TaskList tasks) throws WrongIndexException {
+        if (!tasks.validateIndex(index)) {
+            throw new WrongIndexException();
+        }
+        this.index = index;
+        this.deletedTask = tasks.get(index); // Retrieve the task before deletion
+        tasks.deleteTask(index);
+        this.tasks = tasks;
     }
 
     /**
-     * Gets the response message indicating the deletion of the task.
+     * Gets the response message indicating the successful deletion of a task.
      *
      * @return A string representing the response message.
      */
     @Override
     public String response() {
         return "Noted. I've removed this task:\n" + deletedTask.toString() + "\nNow you have "
-                + " tasks in the list.";
+                + tasks.size() + " tasks in the list.";
     }
 }
-
-
-
 

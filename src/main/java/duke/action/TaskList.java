@@ -71,7 +71,7 @@ public class TaskList implements Iterable<Task> {
         mylist.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task);
-        System.out.println("Now you have " + size() + " tasks in the list.");
+        System.out.println("Now you have " + this.size() + " tasks in the list.");
     }
 
     /**
@@ -175,6 +175,7 @@ public class TaskList implements Iterable<Task> {
 
 
     public String response() {
+
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Here are the tasks in your list:\n");
         for (int i = 0; i < mylist.size(); i++) {

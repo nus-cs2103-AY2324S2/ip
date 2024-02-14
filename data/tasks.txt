@@ -1,5 +1,2 @@
-T|X|eat cake
-T|O|drink coffee
-D|O|return book|2018-11-15
-D|X|drink latte|2018-11-15
-T|O|add
+T|X|eat
+T|O|drink

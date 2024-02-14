@@ -29,8 +29,9 @@ public class MyList implements Action {
      */
     @Override
     public String response() {
+        mylist.displayTasks();
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("  Here are the tasks in your list:\n");
+        stringBuilder.append("Here are the tasks in your list:\n");
 
         for (int i = 0; i < mylist.size(); i++) {
             Task task = mylist.get(i);

@@ -46,20 +46,15 @@ public class CommandParser {
                 return new Farewell();
             case "list":
                 if (taskList != null) {
-                    taskList.displayTasks();
-                    MyList myList = new MyList(taskList);
-                    return myList;
+                    //taskList.displayTasks();
+                    return new MyList(taskList);
                 } else {
-                    System.out.println("Task list is not initialized.");
-                    return null;
+                    return new Echo("Task list is not initialized.");
                 }
-            case "list2":
-                taskList.displayTasks();
-                MyList myList = new MyList(taskList);
-                return myList;
             case "mark":
                 if (words.length > 1) {
                     int index = Integer.parseInt(words[1]) - 1;
+                    //taskList.markTask(index);
                     return new Mark(index, taskList);
                 } else {
                     throw new NoIndexException();
@@ -67,6 +62,7 @@ public class CommandParser {
             case "unmark":
                 if (words.length > 1) {
                     int index = Integer.parseInt(words[1]) - 1;
+                    //taskList.unmarkTask(index);
                     return new Unmark(index, taskList);
                 } else {
                     throw new NoIndexException();
@@ -88,14 +84,9 @@ public class CommandParser {
             case "delete":
                 if (words.length > 1) {
                     int index = Integer.parseInt(words[1]) - 1;
-                    Task deletedTask = taskList.deleteTask(index);
-                    if (deletedTask != null) {
-                        return new Delete(deletedTask);
-                    } else {
-                        throw new NoIndexException();
-                    }
+                    return new Delete(index, taskList);
                 } else {
-                    throw new NoIndexException();
+                    throw new MissingIndexException();
                 }
             case "deadline":
                 if (words.length > 1) {
@@ -117,7 +108,7 @@ public class CommandParser {
                     throw new EmptyDescriptionException();
                 }
             case "event":
-                if (words.length > 1) {
+                if (words.length > 1 && command.contains("/from") && command.contains("/to")) {
                     try {
                         String[] parts = command.split("/from", 2);
                         String description = parts[0].substring(6).trim();
@@ -138,8 +129,9 @@ public class CommandParser {
                         throw new WrongDateFormatException();
                     }
                 } else {
-                    throw new EmptyDescriptionException();
+                    throw new InvalidEventFormatException();
                 }
+
             default:
                 throw new UnknownCommandException();
             }
