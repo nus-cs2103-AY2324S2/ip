@@ -1,2 +1,3 @@
-todo bov1
 todo bob0
+deadline 7 /by 2022-11-111
+event hhh /from a /to b1

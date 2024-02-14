@@ -56,16 +56,15 @@ public class YapchitBackend {
 
         try{
             YapchitBackend.Operations k = parser.parseInputOperation(input);
-            retVal = handler.handleOperation(input, k, tasks, ui, parser);
+            retVal = handler.handleOperation(input, k, tasks, ui, parser, true);
+            storage.updateFile(filePath, this.tasks);
         } catch (YapchitException e) {
             retVal = e.getMessage();
         }
-
         return retVal;
     }
 
     public String getIntro(){
-
         String errorMsg = "";
 
         try{
@@ -74,7 +73,9 @@ public class YapchitBackend {
             errorMsg = ui.printTasklistLoadError();
             this.tasks = new TaskList();
         }
-        return errorMsg == "" ? ui.printIntro() : errorMsg + "\n" + ui.printIntro();
+
+        String errorAndIntro = errorMsg + "\n" + ui.printIntro();
+        return errorMsg == "" ? ui.printIntro() : errorAndIntro;
     }
 
     public String getOutro(){
@@ -85,6 +86,4 @@ public class YapchitBackend {
     public boolean checkIsBye(String input){
         return handler.checkIsBye(input);
     }
-
-
 }
