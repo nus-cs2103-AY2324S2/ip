@@ -85,10 +85,12 @@ public class Storage {
     }
 
     /**
-     * Creates a Task object from a line of text read from the file.
+     * Creates a Task from a line of text read from the file.
+     * This method creates and returns a specified Task subclass (Todo, Deadline, or Event)
+     * by parsing a structured string representing a task and extracting pertinent information.
      *
-     * @param line The line of text representing a task.
-     * @return The Task object created from the line.
+     * @param line The formatted text line with separated sections that represents a task.
+     * @return The Task created from the line, or null if the line cannot be break into a valid task.
      */
     private static Task createTaskFromLine(String line) {
         String[] parts = line.split("\\s*\\|\\s*");
