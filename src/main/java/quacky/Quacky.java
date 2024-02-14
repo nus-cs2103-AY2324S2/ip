@@ -25,7 +25,6 @@ public class Quacky {
         try {
             ui = new UI();
             storage = new Storage(filePath);
-            // Use the filePath parameter instead of hardcoding
             tasks = storage.load();
         } catch (Storage.InvalidStorageFilePathException e) {
             System.out.println(e.getMessage());
