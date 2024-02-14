@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 
 import lite.task.Task;
+import lite.task.TaskList;
 import lite.util.FileParseInput;
 import lite.util.LiteException;
 public class Storage {
@@ -18,7 +19,7 @@ public class Storage {
      * Saves the TaskList into a file
      * @param tasks TaskList to be saved
      */
-    public static void save(ArrayList<Task> tasks) {
+    public static void save(TaskList tasks) {
         try {
             File file = new File(PATH);
             if (!file.exists()) {

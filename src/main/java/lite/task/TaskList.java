@@ -59,29 +59,23 @@ public class TaskList {
     /**
      * Outputs the string representation of the TaskList when prompted with "list"
      */
-    public void outputTasks() {
-        Printer.printHorizontalLine();
-        System.out.println("Here are the tasks in your taskList:");
+    public String outputTasks() {
+        String output = "Here are the tasks in your taskList:\n";
         for (int i = 0; i < this.tasks.size(); i++) {
-            System.out.println((i+1) + ". " + this.tasks.get(i));
+            output += (i + 1) + ". " + this.tasks.get(i) + "\n";
         }
-        Printer.printHorizontalLine();
+        return output;
     }
 
     /**
      * Outputs the string representation of the TaskList
      */
-    public void taskString() {
+    public String taskString() {
+        String output = "";
         for (int i = 0; i < this.tasks.size(); i++) {
-            System.out.println((i+1) + ". " + this.tasks.get(i));
+            output += (i+1) + ". " + this.tasks.get(i) + "\n";
         }
-    }
-
-    /**
-     * Saves the content of the TaskList into a file
-     */
-    public void saveFile() {
-        Storage.save(this.tasks);
+        return output;
     }
 
 }
