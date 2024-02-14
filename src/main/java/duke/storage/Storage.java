@@ -80,7 +80,10 @@ public class Storage {
                 }
                 fileWriter.write(text);
                 fileWriter.append("\n");
+                assert text != null : "Generated text should not be null.";
+
             }
+
         }
 
     }
@@ -105,12 +108,14 @@ public class Storage {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] parts = line.split("\\|");
+                assert parts.length >= 3 : "Expected at least 3 parts in the line.";
                 TaskType taskType = TaskType.valueOf(parts[0].trim());
                 boolean isDone = parts[1].trim().equals("1");
                 String description = parts[2].trim();
                 String additionalInfo = (parts.length > 3) ? parts[3].trim() : null;
 
                 Task task = new Task(null, null);
+                assert taskType != null : "Task type should not be null.";
 
                 if (taskType == TaskType.T) {
                     task = new ToDo(description, ui);
@@ -126,6 +131,7 @@ public class Storage {
         } catch (FileNotFoundException e) {
             System.out.println(e);
         }
+        assert loadedTasks != null : "Loaded tasks should not be null.";
         return loadedTasks;
     }
 }

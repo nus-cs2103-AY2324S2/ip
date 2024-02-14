@@ -21,23 +21,28 @@ public class TaskList {
      *
      * @param tasks The list of tasks.
      */
-    public TaskList(ArrayList < Task > tasks, Ui ui) {
+    public TaskList(ArrayList<Task> tasks, Ui ui) {
         this.tasks = tasks;
         this.ui = ui;
+        assert this.tasks != null : "Task list should not be null.";
+        assert this.ui != null : "UI should not be null.";
     }
 
     /**
      * Constructs an empty TaskList.
      */
     public TaskList() {
-        this.tasks = new ArrayList < > ();
+        this.tasks = new ArrayList<>();
+        assert this.tasks != null : "Task list should not be null.";
     }
+
     /**
      * Adds a generic task to the task list.
      *
      * @param task The task to be added.
      */
     public void addTask(Task task) {
+        assert task != null : "Task to be added should not be null.";
         tasks.add(task);
     }
 
@@ -47,6 +52,7 @@ public class TaskList {
      * @param task The ToDo task to be added.
      */
     public void addToDoTask(ToDo task) {
+        assert task != null : "ToDo task to be added should not be null.";
         tasks.add(task);
         System.out.println(task.toString());
     }
@@ -57,10 +63,10 @@ public class TaskList {
      * @param task The Deadline task to be added.
      */
     public void addDeadlineTask(Deadline task) {
+        assert task != null : "Deadline task to be added should not be null.";
         tasks.add(task);
         System.out.println(task.toString());
     }
-
 
     /**
      * Adds an Event task to the task list and prints its details.
@@ -68,6 +74,7 @@ public class TaskList {
      * @param task The Event task to be added.
      */
     public void addEventTask(Event task) {
+        assert task != null : "Event task to be added should not be null.";
         tasks.add(task);
         System.out.println(task.toString());
     }
@@ -79,6 +86,7 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task getTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Index should be within bounds.";
         return tasks.get(index);
     }
 
@@ -90,6 +98,7 @@ public class TaskList {
     public int size() {
         return tasks.size();
     }
+
     /**
      * Deletes a task from the task list based on the specified index.
      *
@@ -97,9 +106,7 @@ public class TaskList {
      * @throws DukeException If the index is out of bounds.
      */
     public String deleteTask(int index) throws DukeException {
-        if (index < 0 || index >= tasks.size()) {
-            Ui.showError("You have not created task " + (index + 1) + " for me to delete!");
-        }
+        assert index >= 0 && index < tasks.size() : "Index should be within bounds.";
         Task removedTask = tasks.remove(index);
         return this.ui.printDeletedTaskMessage(removedTask);
     }
@@ -111,6 +118,7 @@ public class TaskList {
      * @throws DukeException If the task is already marked as done.
      */
     public String markStatus(Task job) throws DukeException {
+        assert job != null : "Task to be marked should not be null.";
         if (job.isDone) {
             return Ui.showError("This task is already marked as done.");
         }
@@ -125,6 +133,7 @@ public class TaskList {
      * @throws DukeException If the task is already marked as not done.
      */
     public String unmarkStatus(Task job) throws DukeException {
+        assert job != null : "Task to be unmarked should not be null.";
         if (!job.isDone) {
             return Ui.showError("This task is already marked as not done.");
         }
@@ -138,11 +147,12 @@ public class TaskList {
      * @param taskList The TaskList to be displayed.
      * @throws DukeException If there is an issue displaying the task list.
      */
-    public static String getList(TaskList taskList) throws DukeException { //need to put in UI class?
+    public static String getList(TaskList taskList) throws DukeException {
+        assert taskList != null : "TaskList to be displayed should not be null.";
         String taskDetails = "";
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.getTask(i);
-             taskDetails += (i + 1) + ".[" + task.type + "][" + (task != null ? task.getStatusIcon() : "") + "] " + task.description;
+            taskDetails += (i + 1) + ".[" + task.type + "][" + (task != null ? task.getStatusIcon() : "") + "] " + task.description;
             if (task instanceof Deadline) {
                 Deadline deadlineTask = (Deadline) task;
                 taskDetails += " (by: " + (deadlineTask.by == null ? deadlineTask.byString : deadlineTask.by) + ")";
@@ -164,9 +174,10 @@ public class TaskList {
      * @return A new TaskList containing tasks with descriptions that match the search string.
      */
     public TaskList findTask(String searchString) throws DukeException {
+        assert searchString != null : "Search string should not be null.";
         TaskList foundTasks = new TaskList();
 
-        for (Task job: tasks) {
+        for (Task job : tasks) {
             if (job.getDescription().contains(searchString)) {
                 foundTasks.addTask(job);
             }

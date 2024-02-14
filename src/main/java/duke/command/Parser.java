@@ -172,13 +172,19 @@ public class Parser {
                     hasChanged = true;
                     break;
                 case "find":
-                    String taskToFind = command.substring(5).trim();
-                    TaskList foundTasks = tasks.findTask(taskToFind);
-                    if (foundTasks.size() > 0) {
-                        this.response = ui.showFoundTasks(taskToFind) + "\n" +
-                        tasks.getList(foundTasks);
+                    if (command.length() <= 5) {
+                        String reply = "Find what? Please re-enter correctly!";
+                        ui.showError(reply);
+                        this.response = reply;
                     } else {
-                        this.response = ui.showNoTasksFound(taskToFind);
+                        String taskToFind = command.substring(5).trim();
+                        TaskList foundTasks = tasks.findTask(taskToFind);
+                        if (foundTasks.size() > 0) {
+                            this.response = ui.showFoundTasks(taskToFind) + "\n" +
+                                    tasks.getList(foundTasks);
+                        } else {
+                            this.response = ui.showNoTasksFound(taskToFind);
+                        }
                     }
                     break;
                 default:
@@ -186,6 +192,8 @@ public class Parser {
                     ui.showError(reply);
                     this.response = reply;
                     break;
+
+
             }
         } catch (DukeException | IOException e) {
             ui.showError(e.getMessage());
@@ -193,9 +201,13 @@ public class Parser {
         } finally {
             ui.printDashes();
         }
+
+        assert response != null : "Response should not be null after processing the command.";
+        assert isRunning == false || isRunning == true : "Running status should be either true or false.";
     }
 
     public String getResponse() {
         return this.response;
     }
+
 }

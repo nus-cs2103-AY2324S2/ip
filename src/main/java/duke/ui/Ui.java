@@ -36,6 +36,7 @@ public class Ui {
      * @param tasks The task list.
      */
     public static String printNumberOfTasks(TaskList tasks) {
+        assert tasks != null : "TaskList should not be null.";
         return (tasks.size() == 1 ? " Now you have 1 task in the list." :
                 "Now you have " + tasks.size() + " tasks in the list.");
     }
@@ -46,6 +47,7 @@ public class Ui {
      * @param task The deleted task.
      */
     public static String printDeletedTaskMessage(Task task) {
+        assert task != null : "Task should not be null.";
         String taskDetails = "Noted. I've removed this task:\n" +
                 "[" + task.getType() + "][" + task.getStatusIcon() + "] " + task.getDescription();
         if (task instanceof Deadline) {
@@ -73,6 +75,7 @@ public class Ui {
      * @throws DukeException DukeException is thrown to indicate an error.
      */
     public static String showError(String errorMessage) throws DukeException {
+        assert errorMessage != null : "Error message should not be null.";
         return errorMessage;
     }
 
@@ -82,6 +85,7 @@ public class Ui {
      * @param tasks The task list to be displayed.
      */
     public static String showTaskList(TaskList tasks) {
+        assert tasks != null : "TaskList should not be null.";
         if (tasks.size() == 0) {
             return "You have no tasks in your list!";
         } else {
@@ -95,6 +99,7 @@ public class Ui {
      * @param task The task marked as done.
      */
     public static String markTask(Task task) {
+        assert task != null : "Task should not be null.";
         return "Nice! I've marked this as done: \n " + "[" + task.getType() + "][" + task.getStatusIcon() + "] " + task.getDescription();
     }
 
@@ -111,6 +116,7 @@ public class Ui {
      * @param task The task marked as not done.
      */
     public static String unmarkTask(Task task) {
+        assert task != null : "Task should not be null.";
         return "OK, I've marked this task as not done yet: \n " + "[" + task.getType() + "][" + task.getStatusIcon() + "] " + task.getDescription();
     }
 
@@ -120,6 +126,7 @@ public class Ui {
      * @param task The search string to match tasks against.
      */
     public static String showFoundTasks(String task) {
+        assert task != null : "Search string should not be null.";
         return "Here are the tasks matching with \"" + task + "\" in your list: ";
     }
 
@@ -129,10 +136,12 @@ public class Ui {
      * @param task The search string to match tasks against.
      */
     public static String showNoTasksFound(String task) {
+        assert task != null : "Search string should not be null.";
         return "Sorry, you have no items in your tasklist matching with \"" + task + "\"";
     }
 
     public static String printMessage(String text) {
+        assert text != null : "Text should not be null.";
         return text;
     }
 }
