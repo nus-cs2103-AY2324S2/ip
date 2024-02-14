@@ -1,5 +1,5 @@
 
-package Jelly;
+package jelly;
 
 /**
  * Exception class for the Jelly chatbot

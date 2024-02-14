@@ -1,4 +1,4 @@
-package Jelly;
+package jelly;
 
 
 import java.util.Scanner;
@@ -29,7 +29,7 @@ public class Parser {
      */
     public void loop() {
 
-        while (!read().equals("bye")) ;
+
     }
 
     /**
@@ -37,9 +37,8 @@ public class Parser {
      *
      * @return initial message given by user (first word)
      */
-    public String read() {
+    public String read(String message) {
 
-        String message = scanner.nextLine();
         String[] lines = message.split("\\s+");
         String command = lines[0];
 
@@ -54,28 +53,29 @@ public class Parser {
         switch (command) {
 
         case "bye":
+
             return command;
 
         case "list":
-            System.out.println(taskList);
-            break;
+
+            return taskList.toString();
 
         case "mark":
-            taskList.markTask(Integer.parseInt(lines[1]));
-            break;
+
+            return taskList.markTask(Integer.parseInt(lines[1]));
 
         case "unmark":
-            taskList.unmarkTask(Integer.parseInt(lines[1]));
-            break;
+
+            return taskList.unmarkTask(Integer.parseInt(lines[1]));
 
         case "todo":
 
             if (argument.length() == 0) {
 
-                ui.printMessage("(X_x) Formatting error! Task name missing");
+                return "(X_x) Formatting error! Task name missing";
             }
-            taskList.addTodo(argument, false);
-            break;
+
+            return taskList.addTodo(argument, false);
 
         case "deadline":
 
@@ -83,16 +83,14 @@ public class Parser {
 
             if (deadlineIndex.equals(-1)) { //formatting error
 
-                ui.printMessage("(X_x) Formatting error! /by is missing");
-                break;
+                return "(X_x) Formatting error! /by is missing";
             }
 
             String deadline = argument.substring(deadlineIndex + 3);
 
             if (deadline.length() == 1) {
 
-                ui.printMessage("(X_x) Formatting error! nothing after /by");
-                break;
+                return "(X_x) Formatting error! nothing after /by";
             }
 
             deadline = deadline.substring(1);
@@ -101,13 +99,10 @@ public class Parser {
 
             if (!argument.endsWith(" ")) {
 
-                ui.printMessage("(X_x) Formatting error! you need a space before any '/'");
-                break;
+                return "(X_x) Formatting error! you need a space before any '/'";
             }
 
-            taskList.addDeadline(argument, deadline, false);
-
-            break;
+            return taskList.addDeadline(argument, deadline, false);
 
         case "event":
 
@@ -115,8 +110,7 @@ public class Parser {
 
             if (startIndex.equals(-1)) {
 
-                ui.printMessage("(X_x) Formatting error! /from is missing");
-                break;
+                return "(X_x) Formatting error! /from is missing";
             }
 
             String timeframe = argument.substring(startIndex + 1);
@@ -127,8 +121,7 @@ public class Parser {
 
             if (endIndex.equals(-1)) {
 
-                ui.printMessage("(X_x) Formatting error! /to is missing");
-                break;
+                return "(X_x) Formatting error! /to is missing";
             }
 
             String end = start.substring(endIndex + 3);
@@ -136,24 +129,21 @@ public class Parser {
 
             if (start.length() == 1) {
 
-                ui.printMessage("(X_x) Formatting error! nothing after /from ");
-                break;
+                return "(X_x) Formatting error! nothing after /from ";
             }
 
             start = start.substring(1);
 
             if (!start.endsWith(" ")) {
 
-                ui.printMessage("(X_x) Formatting error! you need a space before any '/'");
-                break;
+                return "(X_x) Formatting error! you need a space before any '/'";
             }
 
             start = start.substring(0, start.length() - 1);
 
             if (end.length() == 1) {
 
-                ui.printMessage("(X_x) Formatting error! nothing after /to");
-                break;
+                return "(X_x) Formatting error! nothing after /to";
             }
 
             end = end.substring(1);
@@ -162,38 +152,28 @@ public class Parser {
 
             if (!argument.endsWith(" ")) {
 
-                ui.printMessage("(X_x) Formatting error! you need a space before any '/'");
-                break;
+                return "(X_x) Formatting error! you need a space before any '/'";
             }
 
-            taskList.addEvent(argument, start, end, false);
-
-            break;
+            return taskList.addEvent(argument, start, end, false);
 
         case "delete":
 
             if (argument.length() == 0) {
 
-                ui.printMessage("(X_x) Formatting error! no index received");
-                break;
+                return "(X_x) Formatting error! no index received";
             }
-            taskList.deleteTask(Integer.parseInt(lines[1]));
 
-            break;
+            return taskList.deleteTask(Integer.parseInt(lines[1]));
 
         case "find":
 
-            ui.printMessage("(@_@) Here are the tasks that match your keyword!");
-            ui.printSearchResults(taskList, lines[1]);
-            break;
+            return "(@_@) Here are the tasks that match your keyword!\n" + taskList.find(lines[1]);
 
         default:
 
-            ui.printMessage("(O_o) Huh? What does that even mean?");
+            return "(O_o) Huh? What does that even mean?";
         }
 
-        ui.printLine();
-
-        return command;
     }
 }

@@ -1,4 +1,4 @@
-package Jelly;
+package jelly;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;

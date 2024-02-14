@@ -1,4 +1,4 @@
-package Jelly;
+package jelly;
 
 /**
  * Todo task

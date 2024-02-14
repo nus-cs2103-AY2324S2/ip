@@ -1,4 +1,4 @@
-package Jelly;
+package jelly;
 
 /**
  * Base class for all tasks
@@ -45,6 +45,7 @@ public class Task {
      * Marks task as done
      */
     public void mark() {
+
         isDone = true;
     }
 
@@ -52,10 +53,12 @@ public class Task {
      * Marks task as not done
      */
     public void unmark() {
+
         isDone = false;
     }
 
     public String getName() {
+
         return name;
     }
 

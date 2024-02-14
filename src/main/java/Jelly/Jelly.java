@@ -1,4 +1,12 @@
-package Jelly;
+package jelly;
+
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 
 /**
  * Jelly class
@@ -6,18 +14,27 @@ package Jelly;
 //enum is not required
 public class Jelly {
 
-    private static TaskList list;
-    private static Storage storage;
-    private static Parser parser;
-    private static Ui ui;
-    private static String line = "\n-------------------------------------------";
-
-    private static String welcome = "(ᵔ_ᵔ) Hello! I'm Jelly\nWhat can I do for you?";
-    private static String farewell = "(•︿•) Bye. Hope to see you again soon!";
+    private static final String farewell = "(•︿•) Bye. Hope to see you again soon!";
 
     private static String path = "jelly.txt";
+    private TaskList list;
+    private Storage storage;
+    private Parser parser;
+    private Ui ui;
 
-    public static void main(String[] args) {
+    private ScrollPane scrollPane;
+    private VBox dialogContainer;
+    private TextField userInput;
+    private Button sendButton;
+    private Scene scene;
+
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/Jelly_user.png"));
+    private Image duke = new Image(this.getClass().getResourceAsStream("/images/Jelly_icon.png"));
+
+    /**
+     * Default constructor for Jelly
+     */
+    public Jelly() {
 
         storage = new Storage(path);
 
@@ -34,17 +51,44 @@ public class Jelly {
         }
 
         parser = new Parser(list, ui);
+    }
 
-        ui.printLine();
-        ui.printWelcomeMessage();
-        ui.printLine();
+    /**
+     * Iteration 1:
+     * Creates a label with the specified text and adds it to the dialog container.
+     * @param text String containing text to add
+     * @return a label with the specified text that has word wrap enabled.
+     */
+    private Label getDialogLabel(String text) {
+        // You will need to import `javafx.scene.control.Label`.
+        Label textToAdd = new Label(text);
+        textToAdd.setWrapText(true);
 
-        parser.loop();
+        return textToAdd;
+    }
 
-        ui.printFarewellMessage();
-        ui.printLine();
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        return parser.read(input);
+    }
+
+    /**
+     * Saves storage of tasks into txt file
+     */
+    public void saveStorage() {
 
         storage.save(list);
+    }
+
+    /**
+     * @return Farewell message
+     */
+    public String getFarewell() {
+
+        return farewell;
     }
 
 }

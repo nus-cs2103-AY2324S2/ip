@@ -1,4 +1,4 @@
-package Jelly;
+package jelly;
 
 import java.io.File;
 import java.io.FileWriter;

@@ -1,4 +1,4 @@
-package Jelly;
+package jelly;
 
 import java.util.ArrayList;
 
@@ -48,9 +48,9 @@ public class TaskList {
     /**
      * Prints message containing number of tasks in the TaskList
      */
-    public void printListSize() {
+    public String listSize() {
 
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        return "Now you have " + tasks.size() + " tasks in the list.";
     }
 
     /**
@@ -58,26 +58,22 @@ public class TaskList {
      * @param deadline date/time of deadline
      * @param isDone   whether task is done
      */
-    public void addDeadline(String name, String deadline, boolean isDone) {
+    public String addDeadline(String name, String deadline, boolean isDone) {
 
         Task task = new Deadline(name, deadline, isDone);
         tasks.add(task);
-        System.out.println(taskAdded);
-        System.out.println(task);
-        printListSize();
+        return taskAdded + "\n" + task + "\n" + listSize();
     }
 
     /**
      * @param name   name of todo
      * @param isDone whether task is done
      */
-    public void addTodo(String name, boolean isDone) {
+    public String addTodo(String name, boolean isDone) {
 
         Task task = new Todo(name, isDone);
         tasks.add(task);
-        System.out.println(taskAdded);
-        System.out.println(task);
-        printListSize();
+        return taskAdded + "\n" + task + "\n" + listSize();
     }
 
     /**
@@ -86,13 +82,11 @@ public class TaskList {
      * @param end    end date/time of event
      * @param isDone whether task is done
      */
-    public void addEvent(String name, String start, String end, boolean isDone) {
+    public String addEvent(String name, String start, String end, boolean isDone) {
 
         Task task = new Event(name, start, end, isDone);
         tasks.add(task);
-        System.out.println(taskAdded);
-        System.out.println(task);
-        printListSize();
+        return taskAdded + "\n" + task + "\n" + listSize();
     }
 
     /**
@@ -106,35 +100,31 @@ public class TaskList {
     /**
      * @param index index of task to delete
      */
-    public void deleteTask(Integer index) {
+    public String deleteTask(Integer index) {
 
         Task task = tasks.get(index - 1);
         tasks.remove(index - 1);
-        System.out.println("(•-•) Noted, I've removed this task:");
-        System.out.println(task);
-        printListSize();
+        return "(•-•) Noted, I've removed this task:\n" + task + "\n" + listSize();
     }
 
     /**
      * @param index index of task to mark as done
      */
-    public void markTask(Integer index) {
+    public String markTask(Integer index) {
 
         Task task = tasks.get(index - 1);
         task.mark();
-        System.out.println("(•ᗜ•) Nice, I've marked this task as done:");
-        System.out.println(task);
+        return "(•ᗜ•) Nice, I've marked this task as done:\n" + task;
     }
 
     /**
      * @param index index of task to mark as not done
      */
-    public void unmarkTask(Integer index) {
+    public String unmarkTask(Integer index) {
 
         Task task = tasks.get(index - 1);
         task.unmark();
-        System.out.println("(ᗒᗣᗕ) OK, I've marked this task as not done yet:");
-        System.out.println(task);
+        return "(ᗒᗣᗕ) OK, I've marked this task as not done yet:\n" + task;
     }
 
     /**

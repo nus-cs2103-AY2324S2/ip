@@ -1,14 +1,14 @@
-package Jelly;
+package jelly;
 
 /**
  * deals with interactions with the user
  */
 public class Ui {
 
-    private static String LINE = "\n-------------------------------------------";
+    private static final String LINE = "\n-------------------------------------------";
 
-    private static String WELCOME = "(ᵔ_ᵔ) Hello! I'm Jelly\nWhat can I do for you?";
-    private static String FAREWELL = "(•︿•) Bye. Hope to see you again soon!";
+    private static final String WELCOME = "(ᵔ_ᵔ) Hello! I'm Jelly\nWhat can I do for you?";
+    private static final String FAREWELL = "(•︿•) Bye. Hope to see you again soon!";
 
     /**
      * Currently empty constructor
