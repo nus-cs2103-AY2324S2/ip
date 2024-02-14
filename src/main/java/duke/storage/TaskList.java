@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 import org.json.JSONArray;
 
@@ -113,9 +114,10 @@ public class TaskList {
     public String getTasks() {
         StringBuilder tasks = new StringBuilder();
 
-        for (int i = 0; i < taskArray.size(); i++) {
-            tasks.append(String.format("%d.%s\n", i + 1, taskArray.get(i).toString()));
-        }
+        IntStream
+                .range(0, taskArray.size())
+                .mapToObj(index -> String.format("%d.%s\n", index + 1, taskArray.get(index).toString()))
+                .forEach(task -> tasks.append(task));
 
         // Remove trailing '\n' characters
         if (tasks.lastIndexOf("\n") != -1) {
