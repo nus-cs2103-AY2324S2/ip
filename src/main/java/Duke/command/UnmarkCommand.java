@@ -7,10 +7,12 @@ public class UnmarkCommand extends Command {
         this.unmarkIndex = index;
     }
 
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         String unmarkedTaskInfo = taskList.unmark(unmarkIndex);
-        Ui.print_message("OK, I've marked this task as not done yet:\n  " + unmarkedTaskInfo);
+        String replyMessage = "OK, I've marked this task as not done yet:\n  " + unmarkedTaskInfo;
+        Ui.print_message(replyMessage);
         storage.writeDisk(taskList.accessList());
+        return replyMessage;
     }
     public boolean isExit() {
         return false;

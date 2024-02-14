@@ -10,8 +10,10 @@ public class ExitCommand extends Command {
      * @param ui to manage the interaction with users
      * @param storage to store the product of execution locally, not used in this program
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        Ui.print_message("Bye");
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        String replyMessage = "Bye";
+        Ui.print_message(replyMessage);
+        return replyMessage;
     }
     /**
      * Determine whether this command is an exit command

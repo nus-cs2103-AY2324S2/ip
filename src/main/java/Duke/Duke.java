@@ -39,6 +39,12 @@ public class Duke {
         }
     }
 
+    public String getResponse(String userInput) {
+        Command c = Parser.parse(userInput);
+        String response = c.execute(tasks, ui, storage);
+        return response;
+    }
+
     /**
      * The entry point of the entire program, create a Duke instance and run it.
      *

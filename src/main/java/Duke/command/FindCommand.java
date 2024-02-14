@@ -11,7 +11,7 @@ public class FindCommand extends Command {
         this.stringToFind = stringToFind;
     }
     @Override
-    public void execute(TaskList tsk, Ui ui, Storage storage) {
+    public String execute(TaskList tsk, Ui ui, Storage storage) {
         String stringToPrint = "Here are the matching tasks in your list:\n";
         int counter = 0;
         for (int i = 0; i < tsk.accessList().size(); i++) {
@@ -22,6 +22,7 @@ public class FindCommand extends Command {
         }
         stringToPrint = stringToPrint.substring(0, stringToPrint.length() - 1);
         Ui.print_message(stringToPrint);
+        return stringToPrint;
     }
 
     @Override

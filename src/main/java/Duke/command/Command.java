@@ -14,7 +14,7 @@ public abstract class Command {
      * @param ui to manage the interaction with users
      * @param storage to store the product of execution locally.
      */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage);
+    public abstract String execute(TaskList taskList, Ui ui, Storage storage);
 
     /**
      * Determine whether this command is an exit command
