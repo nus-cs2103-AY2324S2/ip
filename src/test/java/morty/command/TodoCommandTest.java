@@ -2,7 +2,7 @@ package morty.command;
 
 import morty.Storage;
 import morty.TaskList;
-import morty.Ui;
+import morty.Response;
 import morty.task.Todo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,7 +17,7 @@ import static org.mockito.Mockito.*;
 public class TodoCommandTest {
 
     private TaskList tasks;
-    private Ui ui;
+    private Response ui;
     private Storage storage;
     private String[] tokens;
 
@@ -25,14 +25,14 @@ public class TodoCommandTest {
     public void setUp() {
         // Initialize your mocks
         tasks = Mockito.mock(TaskList.class);
-        ui = Mockito.mock(Ui.class);
+        ui = Mockito.mock(Response.class);
         storage = Mockito.mock(Storage.class);
     }
 
     @Test
     public void execute_todoCommand_addsNewTodo() {
         // Set up tokens to simulate user input for a todo task
-        tokens = new String[]{"todo", "new todo"};
+        tokens = new String[] { "todo", "new todo" };
         TodoCommand todoCommand = new TodoCommand(tokens);
 
         // Execute the command
@@ -53,7 +53,7 @@ public class TodoCommandTest {
     @Test
     public void execute_todoCommandWithMissingTitle_showsUsage() {
         // Set up tokens to simulate user input with missing task title
-        tokens = new String[]{"todo"};
+        tokens = new String[] { "todo" };
         TodoCommand todoCommand = new TodoCommand(tokens);
 
         // Execute the command
