@@ -1,8 +1,9 @@
 package duke;
 
-import duke.TaskList;
-import duke.tasks.Task;
 import java.util.Scanner;
+
+import duke.tasks.Task;
+
 
 /**
  * Represent Ui class to interact with user.
@@ -33,10 +34,10 @@ public class Ui {
      */
     public String sayHello() {
         String greetMessage = String.format(
-                "____________________________________________________________\n" +
-                        " Hello! I'm Corgi!\n" +
-                        " What can I do for you?\n" +
-                        "____________________________________________________________\n");
+                "____________________________________________________________\n"
+                        + " Hello! I'm Corgi!\n"
+                        + " What can I do for you?\n"
+                        + "____________________________________________________________\n");
         System.out.println(greetMessage);
         return greetMessage;
     }
@@ -47,9 +48,9 @@ public class Ui {
      * @return String Message for goodbye.
      */
     public String sayGoodbye() {
-        String exitMessage = "____________________________________________________________\n" +
-                " Bye. Hope to see you again soon!\n" +
-                "____________________________________________________________\n";
+        String exitMessage = "____________________________________________________________\n"
+                + " Bye. Hope to see you again soon!\n"
+                + "____________________________________________________________\n";
         System.out.println(exitMessage);
         return exitMessage;
     }
@@ -63,11 +64,11 @@ public class Ui {
      */
     public String printAddMessage(int sizeOfTaskList, Task addedTask) {
         String message = String.format(
-                "____________________________________________________________\n" +
-                        " Got it. I've added this task:\n" +
-                        "  [%s][%s] %s\n" +
-                        " Now you have %d tasks in the list.\n" +
-                        "____________________________________________________________\n",
+                "____________________________________________________________\n"
+                        + " Got it. I've added this task:\n"
+                        + "  [%s][%s] %s\n"
+                        + " Now you have %d tasks in the list.\n"
+                        + "____________________________________________________________\n",
                 addedTask.getTaskType(), addedTask.getStatusIcon(),
                 addedTask.toString(), sizeOfTaskList);
         System.out.println(message);
@@ -83,11 +84,11 @@ public class Ui {
      */
     public String printDeleteMessage(int sizeOfTaskList, Task deletedTask) {
         String deleteMessage = String.format(
-                "____________________________________________________________\n" +
-                        " Noted. I've removed this task:\n" +
-                        "  [%s][%s] %s\n" +
-                        " Now you have %d tasks in the list.\n" +
-                        "____________________________________________________________\n",
+                "____________________________________________________________\n"
+                        + " Noted. I've removed this task:\n"
+                        + "  [%s][%s] %s\n"
+                        + " Now you have %d tasks in the list.\n"
+                        + "____________________________________________________________\n",
                 deletedTask.getTaskType(), deletedTask.getStatusIcon(),
                 deletedTask.toString(), sizeOfTaskList);
         System.out.println(deleteMessage);
@@ -101,10 +102,10 @@ public class Ui {
      * @return String Message containing list of tasks.
      */
     public String printList(TaskList taskList) {
-        String message = "____________________________________________________________\n" +
-                " Here are the tasks in your list:\n";
-        System.out.println("____________________________________________________________\n" +
-                " Here are the tasks in your list:\n");
+        String message = "____________________________________________________________\n"
+                + " Here are the tasks in your list:\n";
+        System.out.println("____________________________________________________________\n"
+                + " Here are the tasks in your list:\n");
         for (int i = 0; i < taskList.size(); i++) {
             String currentTask = String.format("%d.[%s][%s] %s\n",
                     i + 1, taskList.getTask(i).getTaskType(),
@@ -126,10 +127,10 @@ public class Ui {
      */
     public String printMarkDoneMessage(Task taskToBeMarked, int taskNumber) {
         String message = String.format(
-                "____________________________________________________________\n" +
-                        " Nice! I've marked this task as done:\n" +
-                        "  [%s][%s] %s\n" +
-                        "____________________________________________________________\n",
+                "____________________________________________________________\n"
+                        + " Nice! I've marked this task as done:\n"
+                        + "  [%s][%s] %s\n"
+                        + "____________________________________________________________\n",
                 taskToBeMarked.getTaskType(), taskToBeMarked.getStatusIcon(),
                 taskToBeMarked.getDescription());
         System.out.println(message);
@@ -145,10 +146,10 @@ public class Ui {
      */
     public String printMarkUndoneMessage(Task taskToBeUnmarked, int taskNumber) {
         String message = String.format(
-                "____________________________________________________________\n" +
-                        " OK, I've marked this task as not done yet:\n" +
-                        "  [%s][%s] %s\n" +
-                        "____________________________________________________________\n",
+                "____________________________________________________________\n"
+                        + " OK, I've marked this task as not done yet:\n"
+                        + "  [%s][%s] %s\n"
+                        + "____________________________________________________________\n",
                 taskToBeUnmarked.getTaskType(), taskToBeUnmarked.getStatusIcon(),
                 taskToBeUnmarked.getDescription());
         System.out.println(message);
@@ -162,8 +163,8 @@ public class Ui {
      * @return String Message containing error.
      */
     public String printErrorMessage(String message) {
-        String errorMessage = "____________________________________________________________\n" +
-                message + "\n____________________________________________________________\n";
+        String errorMessage = "____________________________________________________________\n"
+                + message + "\n____________________________________________________________\n";
         System.out.println(errorMessage);
         return errorMessage;
     }
@@ -175,8 +176,8 @@ public class Ui {
      * @return String Message containing date error.
      */
     public String printDateErrorMessage(String message) {
-        String errorMessage = "____________________________________________________________\n" +
-                message + "\n____________________________________________________________\n";
+        String errorMessage = "____________________________________________________________\n"
+                + message + "\n____________________________________________________________\n";
         System.out.println(errorMessage);
         return errorMessage;
     }
@@ -189,10 +190,10 @@ public class Ui {
      * @return String Message containing found tasks.
      */
     public String printFoundTasks(TaskList taskList, String keyWord) {
-        String message = "____________________________________________________________\n" +
-                " Here are the matching tasks in your list:\n";
-        System.out.println("____________________________________________________________\n" +
-                " Here are the matching tasks in your list:\n");
+        String message = "____________________________________________________________\n"
+                + " Here are the matching tasks in your list:\n";
+        System.out.println("____________________________________________________________\n"
+                + " Here are the matching tasks in your list:\n");
         int count = 0;
         for (int i = 0; i < taskList.size(); i++) {
             if (!taskList.getTask(i).getDescription().contains(keyWord)) {

@@ -13,7 +13,7 @@ public class Storage {
      *
      * @param filepath The filepath to the file that contains recorded tasks.
      */
-    public Storage(String filepath){
+    public Storage(String filepath) {
         this.filepath = filepath;
     }
 
@@ -23,7 +23,7 @@ public class Storage {
      * @return TaskList The TaskList object to be loaded from the filePath.
      */
     public TaskList load() {
-        try{
+        try {
             FileInputStream file = new FileInputStream(filepath);
             ObjectInputStream input = new ObjectInputStream(file);
             TaskList taskList = (TaskList) input.readObject();

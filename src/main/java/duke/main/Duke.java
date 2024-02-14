@@ -50,7 +50,7 @@ public class Duke {
      */
     public String getResponse(String userInput) {
         try {
-            Command c = Parser.parse(userInput, this.ui,this.taskList, this.storage);
+            Command c = Parser.parse(userInput, this.ui, this.taskList, this.storage);
             String response = c.execute();
             return response;
         } catch (DukeException e) {

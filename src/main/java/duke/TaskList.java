@@ -1,8 +1,9 @@
 package duke;
 
-import duke.tasks.Task;
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import duke.tasks.Task;
 
 /**
  * Represent a TaskList class to record tasks.
