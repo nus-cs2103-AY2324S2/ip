@@ -7,6 +7,6 @@ public enum InstructionType {
     UNMARK,
     LIST,
     DELETE,
-    FIND
+    PEWPEWPEW, FIND
 }
 

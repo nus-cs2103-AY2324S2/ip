@@ -32,7 +32,7 @@ public class DukeException extends Exception{
      * @throws DukeException if the instruction is not in the list
      */
     public static void validateInstn(String str) throws DukeException {
-        String[] instnArr = {"todo", "deadline", "event", "mark", "unmark", "list", "delete", "find"};
+        String[] instnArr = {"todo", "deadline", "event", "mark", "unmark", "list", "delete", "find", "pewpewpew"};
         String instn = str.split(" ")[0].toLowerCase();
         if (!Arrays.asList(instnArr).contains(instn)) {
             throw new DukeException("Invalid instruction for PeWPeWPeW:(((");

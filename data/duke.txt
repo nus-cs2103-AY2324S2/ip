@@ -7,3 +7,4 @@ T|0|2103T
 T|0|dotes
 T|0|2109
 D|0|deadline do work |by 2 of February 2024, 12:00AM
+E|0|event 2100s PS2 |14 of February 2024, 12:00AM|19 of February 2024, 6:00PM
