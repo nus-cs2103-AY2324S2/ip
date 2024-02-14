@@ -1,5 +1,6 @@
 package duke.action;
 
+import duke.exception.WrongIndexException;
 import duke.task.Task;
 
 /**
@@ -7,10 +8,16 @@ import duke.task.Task;
  */
 
 public class Unmark implements Action {
-    private Task unmarkedTask;
+    private int index;
+    private TaskList tasks;
 
-    public Unmark(Task unmarkedTask) {
-        this.unmarkedTask = unmarkedTask;
+    public Unmark(int index, TaskList tasks) throws WrongIndexException {
+        if (!(tasks.validateIndex(index))) {
+            throw new WrongIndexException();
+        }
+        this.index = index;
+        tasks.unmarkTask(index);
+        this.tasks = tasks;
     }
 
     /**
@@ -20,6 +27,7 @@ public class Unmark implements Action {
      */
     @Override
     public String response() {
+        Task unmarkedTask = tasks.get(index);
         return " OK, I've marked this task as not done yet:\n" + unmarkedTask.toString();
     }
 }

@@ -2,6 +2,8 @@ package duke.action;
 
 import duke.task.Task;
 
+import duke.exception.WrongIndexException;
+
 /**
  * Represents an action to delete a task from the task list.
  */
@@ -10,16 +12,17 @@ public class Mark implements Action {
     /**
      * The task that has been deleted.
      */
-    private Task markedTask;
+    private int index;
+    private TaskList tasks;
 
 
-    /**
-     * Constructs a Mark action with the specified task to be marked
-     *
-     * @param markedTask The task to be deleted.
-     */
-    public Mark(Task markedTask) {
-        this.markedTask = markedTask;
+    public Mark(int index, TaskList tasks) throws WrongIndexException {
+        if (!(tasks.validateIndex(index))) {
+            throw new WrongIndexException();
+        }
+        this.index = index;
+        tasks.markTask(index);
+        this.tasks = tasks;
     }
 
     /**
@@ -29,7 +32,7 @@ public class Mark implements Action {
      */
     @Override
     public String response() {
+        Task markedTask = tasks.get(index);
         return "Nice! I've marked this task as done\n" + markedTask.toString();
     }
 }
-

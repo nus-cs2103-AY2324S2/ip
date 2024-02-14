@@ -12,11 +12,7 @@ import duke.action.Match;
 import duke.action.MyList;
 import duke.action.TaskList;
 import duke.action.Unmark;
-import duke.exception.EmptyDescriptionException;
-import duke.exception.NoIndexException;
-import duke.exception.UnknownCommandException;
-import duke.exception.WrongDateFormatException;
-import duke.exception.WrongDateOrderingException;
+import duke.exception.*;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -32,8 +28,7 @@ public class CommandParser {
      * Parses user commands and performs corresponding actions in the Duke application.
      */
     public static Action parseCommand(String command, TaskList taskList) throws
-            EmptyDescriptionException, NoIndexException, UnknownCommandException,
-            WrongDateFormatException, WrongDateOrderingException {
+            DukeException {
         try {
             String[] words = command.split(" ");
 
@@ -42,10 +37,10 @@ public class CommandParser {
                 if (words.length > 1) {
                     String keyword = command.substring(5).trim();
                     taskList.matches(keyword);
+                    return new Match(keyword, taskList);
                 } else {
-                    System.out.println("Please provide a keyword to search for.");
+                    throw new NoWordException();
                 }
-                return new Match(taskList);
             case "bye":
                 taskList.goodBye();
                 return new Farewell();
@@ -56,7 +51,6 @@ public class CommandParser {
                     return myList;
                 } else {
                     System.out.println("Task list is not initialized.");
-                    // Handle the case where taskList is null, such as displaying an error message
                     return null;
                 }
             case "list2":
@@ -66,22 +60,14 @@ public class CommandParser {
             case "mark":
                 if (words.length > 1) {
                     int index = Integer.parseInt(words[1]) - 1;
-                    taskList.markTask(index);
-                    if (taskList.validateIndex(index)) {
-                        Task markedTask = taskList.get(index);
-                        return new Mark(markedTask);
-                    }
+                    return new Mark(index, taskList);
                 } else {
                     throw new NoIndexException();
                 }
             case "unmark":
                 if (words.length > 1) {
                     int index = Integer.parseInt(words[1]) - 1;
-                    taskList.unmarkTask(index);
-                    if (taskList.validateIndex(index)) {
-                        Task unmarkedTask = taskList.get(index);
-                        return new Unmark(unmarkedTask);
-                    }
+                    return new Unmark(index, taskList);
                 } else {
                     throw new NoIndexException();
                 }

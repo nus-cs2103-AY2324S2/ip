@@ -83,7 +83,7 @@ public class TaskList implements Iterable<Task> {
         if (validateIndex(index)) {
             Task taskToMark = mylist.get(index);
             taskToMark.mark();
-            System.out.println("TL Nice! I've marked this task as done:");
+            System.out.println("Nice! I've marked this task as done:");
             System.out.println(taskToMark);
         }
     }
@@ -123,7 +123,7 @@ public class TaskList implements Iterable<Task> {
         if (index >= 0 && index < mylist.size()) {
             return true;
         } else {
-            System.out.println("Invalid task index. Please provide a valid index.");
+            //System.out.println("Invalid task index. Please provide a valid index.");
             return false;
         }
     }
@@ -172,6 +172,17 @@ public class TaskList implements Iterable<Task> {
     public Iterator<Task> iterator() {
         return mylist.iterator();
     }
+
+
+    public String response() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Here are the tasks in your list:\n");
+        for (int i = 0; i < mylist.size(); i++) {
+            stringBuilder.append("  ").append(i + 1).append(". ").append(mylist.get(i)).append("\n");
+        }
+        return stringBuilder.toString();
+    }
+
 }
 
 
