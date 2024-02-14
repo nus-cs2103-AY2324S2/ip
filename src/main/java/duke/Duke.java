@@ -47,6 +47,9 @@ public class Duke {
      * @param args Arguments to pass to the application
      */
     public void run(String[] args) {
+        assert this.ui != null; // UI should exist
+        assert this.taskList != null; // Tasklist should exist
+
         this.ui.startUI(this.taskList, args);
     }
 

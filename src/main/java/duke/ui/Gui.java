@@ -30,6 +30,7 @@ public class Gui extends Ui {
     public String getResponse(String input) throws DukeException {
         // Parse user input
         Command command = Parser.parse(input);
+        assert command != null; // Command should exist
 
         // Execute command
         return command.execute(Gui.taskList);

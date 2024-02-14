@@ -31,10 +31,7 @@ public class Storage {
         // Create file (if required)
         file.createNewFile();
 
-        // Check if file is writable
-        if (!file.canWrite()) {
-            throw new IOException(String.format("File '%s' cannot be written to", file.getAbsolutePath().toString()));
-        }
+        assert file.canWrite(); // Ensure that file is writable
 
         // Write to file
         FileWriter writer = new FileWriter(file);
@@ -64,6 +61,7 @@ public class Storage {
             for (int i = 0; i < jsonArray.length(); i++) {
                 // Get json entry
                 JSONObject entry = jsonArray.getJSONObject(i);
+                assert entry != null; // Entry should exist
 
                 // Parse JSON entry to task
                 Task task;
@@ -88,6 +86,8 @@ public class Storage {
                     throw new TaskNotSupportedException(
                             String.format("Task '%s' not currently supported", entry.getString("type")));
                 }
+
+                assert task != null; // Task should exist
 
                 // Add task to storage array
                 taskList.addTask(task);
