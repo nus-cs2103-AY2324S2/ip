@@ -1,4 +1,3 @@
-
 package duke;
 
 import java.io.ByteArrayOutputStream;
@@ -27,6 +26,7 @@ public class Duke {
         } catch (DukeException e) {
             System.out.println(e);
         }
+        assert taskList != null : "taskList should not be null after initialization";
         new Duke().run();
     }
 
@@ -40,6 +40,7 @@ public class Duke {
         do {
             ui.showLine();
             userInput = ui.readCommand();
+            assert userInput != null && !userInput.trim().isEmpty() : "userInput should not be null or empty";
             try {
                 Parser.processCommand(userInput).execute(taskList, ui, userInput);
             } catch (DukeException e) {
@@ -50,17 +51,17 @@ public class Duke {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Generates a response to user input.
+     *
+     * @param input User input.
+     * @return Response as a string.
      */
     String getResponse(String input) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PrintStream previous = System.out;
         System.setOut(new PrintStream(baos));
-        if (ui == null) {
+        if (ui == null || taskList == null) {
             ui = new Ui();
-        }
-        if (taskList == null) {
             taskList = new TaskList();
             try {
                 taskList.getTasks().addAll(Storage.loadTasks()); // Load tasks from storage
@@ -68,6 +69,8 @@ public class Duke {
                 return "Failed to load tasks: " + e.getMessage();
             }
         }
+        assert ui != null : "Ui should not be null";
+        assert taskList != null : "TaskList should not be null";
 
         try {
             Parser.processCommand(input).execute(taskList, ui, input);
@@ -79,7 +82,8 @@ public class Duke {
         System.out.flush();
         System.setOut(previous);
 
-        // Return captured output as a string
-        return baos.toString().trim();
+        String output = baos.toString().trim();
+        assert output != null : "The output from executing the command should not be null";
+        return output;
     }
 }
