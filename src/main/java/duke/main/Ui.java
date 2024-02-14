@@ -63,13 +63,25 @@ public class Ui {
     }
 
     /**
+     * Displays a confirmation message that the most recently added item
+     * in the list was removed. Also displays the current list of
+     * items with their respective indexes, skipping null or
+     * uninitialised elements in the list.
+     */
+    public void displayListAfterUndo(ArrayList<Task> tasks) {
+        answer.append("Got it. I've removed the most recently added task.\n");
+        answer.append("You now have these tasks in the list:\n");
+        displayList(tasks);
+    }
+
+    /**
      * Prints out the response, specific to the type of task,
      * after adding the task to the list
      *
      * @param task  Task that is added to the list.
      * @param tasks TaskList containing the list of tasks.
      */
-    public void taskResponse(Task task, TaskList tasks) {
+    public void addResponse(Task task, TaskList tasks) {
          int numTasks = tasks.getSize();
          answer.append("Got it. I've added this task:");
          answer.append("\n");

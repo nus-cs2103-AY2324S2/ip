@@ -93,4 +93,18 @@ public class TaskList {
             throw new DukeException("Error! Task number '" + oneItem + "' does not exist.");
         }
     }
+
+    /**
+     * Removes the most recently added task from the TaskList.
+     *
+     * @throws DukeException If the task list is empty.
+     */
+    public void undoRecentTask() throws DukeException {
+        if (tasks.size() == 0) {
+            throw new DukeException("Error! There are no tasks in the list to undo.");
+        } else {
+            int lastIndex = tasks.size() - 1;
+            tasks.remove(lastIndex);
+        }
+    }
 }
