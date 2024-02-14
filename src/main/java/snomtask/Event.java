@@ -18,4 +18,19 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " from " + this.start + " to " + this.end;
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Event) {
+            Event e = (Event) o;
+            boolean isStartDateMatch = this.start.equals(e.start);
+            boolean isEndDateMatch = this.end.equals(e.end);
+            boolean isDatesMatch = isStartDateMatch && isEndDateMatch;
+            boolean isTaskDescMatch = super.equals(e);
+            return isTaskDescMatch && isDatesMatch;
+        } else {
+            return false;
+        }
+    }
 }

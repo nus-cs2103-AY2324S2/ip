@@ -15,4 +15,17 @@ public class Deadline extends Task {
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Deadline) {
+            Deadline d = (Deadline) o;
+            boolean isDateMatch = this.deadline.equals(d.deadline);
+            boolean isTaskDescMatch = super.equals(d);
+            return isTaskDescMatch && isDateMatch;
+        } else {
+            return false;
+        }
+    }
+
+
 }

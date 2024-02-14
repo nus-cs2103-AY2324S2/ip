@@ -3,6 +3,7 @@ package snomparser;
 
 import SnomStorage.TaskStorage;
 import inputcommands.Command;
+import snomexceptions.InvalidCommandDuplicateTaskException;
 import snomexceptions.InvalidCommandException;
 import snomtask.Deadline;
 import snomtask.Event;
@@ -72,8 +73,6 @@ public class Parser {
 
 
             }
-            assert result.equals("Invalid Task") : "Invalid task added";
-
             storage.saveTask(lst);
             return result;
 
@@ -85,25 +84,38 @@ public class Parser {
     }
 
 
-    private String addTodoToTaskList(TaskList lst, String cmd) {
-        return lst.addTask(new Todo(cmd));
-
+    private String addTodoToTaskList(TaskList lst, String cmd) throws InvalidCommandDuplicateTaskException {
+        Todo todo = new Todo(cmd);
+        if (lst.checkDuplicateTask(todo)) {
+            throw new InvalidCommandDuplicateTaskException();
+        } else {
+            return lst.addTask(todo);
+        }
     }
 
-    private String addDeadlineToTaskList(TaskList lst, String cmd) {
+    private String addDeadlineToTaskList(TaskList lst, String cmd) throws InvalidCommandDuplicateTaskException {
         String name = cmd.split("/", DEADLINE_TASK_LENGTH)[0];
-
         String due_date = cmd.split("/", DEADLINE_TASK_LENGTH)[1];
-        return lst.addTask(new Deadline(name, due_date));
+        Deadline deadline = new Deadline(name, due_date);
+        if (lst.checkDuplicateTask(deadline)) {
+            throw new InvalidCommandDuplicateTaskException();
+        } else {
+            return lst.addTask(deadline);
+        }
 
     }
 
-    private String addEventToTaskList(TaskList lst, String cmd) {
+    private String addEventToTaskList(TaskList lst, String cmd) throws InvalidCommandDuplicateTaskException {
         String name = cmd.split("/", EVENT_TASK_LENGTH)[0];
         String start = cmd.split("/", EVENT_TASK_LENGTH)[1];
         String end = cmd.split("/", EVENT_TASK_LENGTH)[2];
+        Event event = new Event(name, start, end);
+        if (lst.checkDuplicateTask(event)) {
+            throw new InvalidCommandDuplicateTaskException();
+        } else {
+            return lst.addTask(event);
+        }
 
-        return lst.addTask(new Event(name, start, end));
     }
 
     private String doTaskInTaskList(TaskList lst, int pos) {

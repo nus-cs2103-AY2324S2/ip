@@ -161,7 +161,7 @@ public class TaskList {
     public String printMatchingTasks(String cmd) {
         ArrayList<Task> foundTasks = new ArrayList<>();
         for (int i = 0; i<counter; i++) {
-            if (this.taskList.get(i).match(cmd)) {
+            if (this.taskList.get(i).isMatch(cmd)) {
                 foundTasks.add(taskList.get(i));
             }
         }
@@ -175,5 +175,9 @@ public class TaskList {
         } else {
             return "Sorry, we did not find any tasks that matched your description";
         }
+    }
+
+    public boolean checkDuplicateTask(Task t) {
+        return this.taskList.stream().anyMatch(x -> x.equals(t));
     }
 }

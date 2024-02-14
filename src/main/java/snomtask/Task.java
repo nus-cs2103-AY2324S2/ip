@@ -60,8 +60,18 @@ public abstract class Task {
      * @return a boolean value to see if the task description
      *         matches the user input.
      */
-    public boolean match(String cmd) {
+    public boolean isMatch(String cmd) {
         return this.name.contains(cmd);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Task) {
+            Task t = (Task) o;
+            return this.name.toLowerCase().equals(t.name);
+        } else {
+            return false;
+        }
     }
 
 
