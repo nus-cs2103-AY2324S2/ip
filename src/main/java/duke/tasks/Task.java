@@ -1,5 +1,7 @@
 package duke.tasks;
 
+import java.time.LocalDateTime;
+
 /**
  * Parent class for task
  * @param description
@@ -28,6 +30,14 @@ public abstract class Task {
     }
 
     /**
+     * get the description of the task
+     * @return String of task description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
      * Finds if the string find matches with a part of the description
      * @param find String to find match
      * @return Boolean true if match else false
@@ -49,6 +59,12 @@ public abstract class Task {
      * @return String of the type of task
      */
     public abstract String getTaskType();
+
+    /**
+     * get Date of task to use for sorting
+     * @return LocalDateTime of task
+     */
+    public abstract LocalDateTime getDate();
 
     /**
      * Mark task as done

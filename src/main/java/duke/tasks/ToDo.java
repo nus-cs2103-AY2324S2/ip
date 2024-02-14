@@ -1,5 +1,7 @@
 package duke.tasks;
 
+import java.time.LocalDateTime;
+
 /**
  * Class for ToDo Task
  */
@@ -14,9 +16,20 @@ public class ToDo extends Task {
         super(description, isDone);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getTaskType() {
         return TASKTYPE;
+    }
+
+    /**
+     * Returns the minimum date possible as ToDos have no dates
+     */
+    @Override
+    public LocalDateTime getDate() {
+        return LocalDateTime.MIN;
     }
 
     /**

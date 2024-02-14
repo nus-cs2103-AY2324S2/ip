@@ -1,5 +1,7 @@
 package duke.tasks;
 
+import java.time.LocalDateTime;
+
 /**
  * Class for Event Task
  */
@@ -25,6 +27,14 @@ public class Event extends Task {
     @Override
     public String getTaskType() {
         return TASKTYPE;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public LocalDateTime getDate() {
+        return from.getDate();
     }
 
     /**

@@ -33,6 +33,14 @@ public class DateTask {
     }
 
     /**
+     * Get the date for this DateTask
+     * @return LocalDateTime of DateTask
+     */
+    public LocalDateTime getDate() {
+        return localDateTime;
+    }
+
+    /**
      * Change the date into a save format
      * @return String for the date to be saved into a file
      */

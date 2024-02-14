@@ -8,7 +8,8 @@ public class Test {
     }
     public static void main(String[] args) {
         String abc ="medium";
+        String sbd = "medium afgasf";
         //Size abc = Size.valueOf("smalll".toUpperCase());
-        System.out.println(Size.valueOf(abc.toUpperCase()));
+        System.out.println(abc.compareTo(sbd));
     }
 }

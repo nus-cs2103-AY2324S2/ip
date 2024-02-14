@@ -101,6 +101,14 @@ public class Ui {
     }
 
     /**
+     * prints when user command = sort (method)
+     * @param sortBy String of sorted method
+     */
+    public void printSortedMessage(String sortBy) {
+        this.add(String.format("List has been sorted by %s", sortBy));
+    }
+
+    /**
      * Greets the user
      * @param name String name of chatbot
      */

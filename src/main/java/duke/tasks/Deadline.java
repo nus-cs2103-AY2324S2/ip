@@ -1,5 +1,7 @@
 package duke.tasks;
 
+import java.time.LocalDateTime;
+
 /**
  * Class for Deadline Task
  */
@@ -22,6 +24,14 @@ public class Deadline extends Task {
     @Override
     public String getTaskType() {
         return TASKTYPE;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public LocalDateTime getDate() {
+        return by.getDate();
     }
 
     /**
