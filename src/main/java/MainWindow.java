@@ -19,6 +19,8 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
+    @FXML
+    private Button todoButton;
 
     private Riz riz;
 
@@ -42,20 +44,19 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-      /*String input = userInput.getText();
-        String response = riz.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getRizDialog(response, rizImage)
-        );
-        userInput.clear();
-*/
         Label userText = new Label(userInput.getText() + " ");
         Label RizText = new Label(riz.getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(userImage)),
                 DialogBox.getRizDialog(RizText, new ImageView(rizImage))
-        );
+    );
         userInput.clear();
+    }
+
+    @FXML
+    private void handleToDoButton() {
+        userInput.requestFocus();
+        userInput.setText("todo ");
+        userInput.positionCaret(5);
     }
 }
