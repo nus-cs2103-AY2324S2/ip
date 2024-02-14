@@ -28,6 +28,8 @@ public class MarkDoneCommand extends Command {
         this.taskList = taskList;
         this.storage = storage;
         this.indexToMark = indexToMark;
+        assert indexToMark > 1 : "index to mark should not be less than 1";
+        assert indexToMark <= taskList.size() : "index to mark should not be greater than list size";
     }
     @Override
     public String execute() throws DukeException {
