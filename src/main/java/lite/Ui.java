@@ -23,7 +23,7 @@ public class Ui {
      * @param tasks List of tasks
      * @return True if it is a bye (terminating condition)
      */
-    public boolean parse(TaskList tasks) {
+    public boolean executeCommand(TaskList tasks) {
         if (this.input.equals("bye")) {
             return true;
         }
@@ -34,26 +34,26 @@ public class Ui {
 
         String instruction[] = this.input.split(" ", 2); // It only splits the first " "
         if (instruction[0].equals("mark")) {
-            this.mark(instruction, tasks);
+            this.markTask(instruction, tasks);
         } else if (instruction[0].equals("unmark")){
-            this.unmark(instruction, tasks);
+            this.unmarkTask(instruction, tasks);
         } else if (instruction[0].equals("delete")) {
-            this.delete(instruction, tasks);
+            this.deleteTask(instruction, tasks);
         } else if (instruction[0].equals("todo")) {
-            this.addToDo(instruction, tasks);
+            this.addToDoTask(instruction, tasks);
         } else if (instruction[0].equals("deadline")) {
-            this.addDeadline(instruction, tasks);
+            this.addDeadlineTask(instruction, tasks);
         } else if (instruction[0].equals("event")) {
-            this.addEvent(instruction, tasks);
+            this.addEventTask(instruction, tasks);
         } else if (instruction[0].equals("find"))  {
-            this.find(instruction, tasks);
+            this.findTask(instruction, tasks);
         } else {
             LiteException.invalidInput();
         }
         return false;
     }
 
-    private void find (String instruction[], TaskList tasks) {
+    private void findTask(String instruction[], TaskList tasks) {
         String description = instruction[1];
         TaskList availableTasks = new TaskList();
         boolean isContains = false;
@@ -65,9 +65,9 @@ public class Ui {
         }
         Printer.printHorizontalLine();
         if (isContains) {
-            Printer.successfulFind(availableTasks);
+            Printer.printFound(availableTasks);
         } else {
-            Printer.unsuccessfulFind();
+            Printer.printNotFound();
         }
         Printer.printHorizontalLine();
     }
@@ -78,16 +78,16 @@ public class Ui {
      * @param instruction Parsed input
      * @param tasks List of tasks
      */
-    private void delete(String instruction[], TaskList tasks) {
+    private void deleteTask(String instruction[], TaskList tasks) {
         try {
             int index = Integer.parseInt(instruction[1]) - 1;
             Printer.printHorizontalLine();
-            Printer.removeTask(tasks, index);
+            Printer.printRemoveTask(tasks, index);
             tasks.remove(index);
             Printer.printHorizontalLine();
         } catch (NullPointerException | ArrayIndexOutOfBoundsException e){
             Printer.printHorizontalLine();
-            Printer.deleteException(tasks);
+            LiteException.deleteException(tasks);
             Printer.printHorizontalLine();
         }
     }
@@ -97,7 +97,7 @@ public class Ui {
      * @param instruction Parsed input
      * @param tasks List of tasks
      */
-    private void addToDo(String instruction[], TaskList tasks) {
+    private void addToDoTask(String instruction[], TaskList tasks) {
         try {
             String description = instruction[1];
             Printer.printHorizontalLine();
@@ -107,7 +107,7 @@ public class Ui {
             Printer.printHorizontalLine();
         } catch (ArrayIndexOutOfBoundsException e) {
             Printer.printHorizontalLine();
-            Printer.toDoException();
+            LiteException.toDoException();
             Printer.printHorizontalLine();
         }
     }
@@ -117,7 +117,7 @@ public class Ui {
      * @param instruction Parsed input
      * @param tasks List of tasks
      */
-    private void addDeadline(String instruction[], TaskList tasks) {
+    private void addDeadlineTask(String instruction[], TaskList tasks) {
         try {
             String splits[] = instruction[1].split("/");
             String description = splits[0];
@@ -129,7 +129,7 @@ public class Ui {
             Printer.printHorizontalLine();
         } catch (ArrayIndexOutOfBoundsException e) {
             Printer.printHorizontalLine();
-            Printer.deadlineException();
+            LiteException.deadlineException();
             Printer.printHorizontalLine();
         }
     }
@@ -139,7 +139,7 @@ public class Ui {
      * @param instruction Parsed input
      * @param tasks List of tasks
      */
-    private void addEvent(String[] instruction, TaskList tasks) {
+    private void addEventTask(String[] instruction, TaskList tasks) {
         try {
             String splits[] = instruction[1].split("/");
             String description = splits[0];
@@ -152,7 +152,7 @@ public class Ui {
             Printer.printHorizontalLine();
         } catch (ArrayIndexOutOfBoundsException e) {
             Printer.printHorizontalLine();
-            Printer.eventException();
+            LiteException.eventException();
             Printer.printHorizontalLine();
         }
     }
@@ -162,7 +162,7 @@ public class Ui {
      * @param instruction Parsed input
      * @param tasks List of tasks
      */
-    private void unmark(String instruction[], TaskList tasks) {
+    private void unmarkTask(String instruction[], TaskList tasks) {
         try {
             int index = Integer.parseInt(instruction[1]) - 1;
             Printer.printHorizontalLine();
@@ -170,7 +170,7 @@ public class Ui {
             Printer.printHorizontalLine();
         } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
             Printer.printHorizontalLine();
-            Printer.unmarkException(tasks);
+            LiteException.unmarkException(tasks);
             Printer.printHorizontalLine();
         }
     }
@@ -180,7 +180,7 @@ public class Ui {
      * @param instruction Parsed input
      * @param tasks List of tasks
      */
-    private void mark(String instruction[], TaskList tasks) {
+    private void markTask(String instruction[], TaskList tasks) {
         try {
             int index = Integer.parseInt(instruction[1]) - 1;
             Printer.printHorizontalLine();
@@ -188,7 +188,7 @@ public class Ui {
             Printer.printHorizontalLine();
         } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
             Printer.printHorizontalLine();
-            Printer.markException(tasks);
+            LiteException.markException(tasks);
             Printer.printHorizontalLine();
         }
     }

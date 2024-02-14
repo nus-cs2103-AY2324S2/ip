@@ -17,21 +17,12 @@ public class Printer {
      * @param tasks List of tasks
      * @param index Index of task to remove from
      */
-    public static void removeTask(TaskList tasks, int index) {
+    public static void printRemoveTask(TaskList tasks, int index) {
         System.out.println("Noted. I've removed this lite.task:\n" +
                 tasks.get(index) + "\n" +
                 "Now you have " + (tasks.size() - 1) + " tasks in the tasks.");
     }
 
-    /**
-     * Prints an error message when delete does not meet the input format
-     * @param tasks List of tasks
-     */
-    public static void deleteException(TaskList tasks) {
-        System.out.println("Please input a valid index. \n"
-                + "The correct format is delete <index>. \n"
-                + "The minimum index is 1 and the maximum index is " + tasks.size());
-    }
 
     /**
      * Prints a message notifying that a task has been added
@@ -45,30 +36,6 @@ public class Printer {
     }
 
     /**
-     * Prints an error message when ToDo task does not meet input format
-     */
-    public static void toDoException() {
-        System.out.println("Please give a name for the todo lite.task. \n +" +
-                "The correct format is todo <description>");
-    }
-
-    /**
-     * Prints an error message when Deadline task does not meet input format
-     */
-    public static void deadlineException() {
-        System.out.println("Invalid input. \n" +
-                "Please follow the format of: deadline <description> /by <date>");
-    }
-
-    /**
-     * Prints an error message when Event task does not meet input format
-     */
-    public static void eventException() {
-        System.out.println("Invalid input. \n" +
-                "Please follow the format: event <description> /from <date> /to <date>");
-    }
-
-    /**
      * Prints out a message notifying that a task has been unmarked
      * @param task Task being unmarked
      */
@@ -76,15 +43,6 @@ public class Printer {
         System.out.println(task.unmark());
     }
 
-    /**
-     * Prints  an error message when unmark does not meet the input format
-     * @param tasks List of tasks
-     */
-    public static void unmarkException(TaskList tasks) {
-        System.out.println("Please input a valid index. \n"
-                + "The correct format is unmark <index>. \n"
-                + "The minimum index is 1 and the maximum index is " + tasks.size());
-    }
 
     /**
      * Prints out a message notifying that a task has been marked
@@ -94,22 +52,12 @@ public class Printer {
         System.out.println(task.mark());
     }
 
-    /**
-     * Prints  an error message when mark does not meet the input format
-     * @param tasks List of tasks
-     */
-    public static void markException(TaskList tasks) {
-        System.out.println("Please input a valid index. \n"
-                + "The correct format is mark <index>. \n"
-                + "The minimum index is 1 and the maximum index is " + tasks.size());
-    }
-
-    public static void successfulFind(TaskList tasks) {
+    public static void printFound(TaskList tasks) {
         System.out.println("Here are the matching tasks in your list:");
         tasks.taskString();
     }
 
-    public static void unsuccessfulFind() {
+    public static void printNotFound() {
         System.out.println("There are no tasks that correspond with your input");
     }
 }

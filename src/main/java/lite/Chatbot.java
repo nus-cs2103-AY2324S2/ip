@@ -27,7 +27,7 @@ public class Chatbot {
             greetings();
             while (!this.isBye) {
                 Ui ui = new Ui(scanner.nextLine());
-                this.isBye = ui.parse(tasks);
+                this.isBye = ui.executeCommand(tasks);
             }
             tasks.saveFile();
             exit();
