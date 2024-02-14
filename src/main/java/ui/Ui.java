@@ -50,14 +50,15 @@ public class Ui {
      */
     public static String printAllTask(List<Task> tasks) {
         printVLine();
-        String result = "";
+        String result;
         if (tasks.isEmpty()) {
-            System.out.println("Your list is now EMPTY! Time for you to have a break!");
+            String emptyTaskListMessage = "Your list is now EMPTY! Time for you to have a break!";
+            System.out.println(emptyTaskListMessage);
             printVLine();
-            return "Your list is now EMPTY! Time for you to have a break!";
+            return emptyTaskListMessage;
         }
         result = "You have " + tasks.size() + " left. There are:\n";
-        System.out.println("You have " + tasks.size() + " left. There are:");
+        System.out.print(result);
         for (int i = 1; i <= tasks.size(); i++) {
             Task t = tasks.get(i-1);
             System.out.println(i +"." + t);
@@ -71,10 +72,9 @@ public class Ui {
      * Exits the program when exit command is entered.
      */
     public static String exit() {
-//        printVLine();
-//        System.out.println("Bye! I'll see you when I see you :)");
-//        printVLine();
-//        System.exit(0);
+        printVLine();
+        System.out.println("Bye! I'll see you when I see you :)");
+        printVLine();
         System.exit(0);
         return "Bye! I'll see you when I see you :)";
     }

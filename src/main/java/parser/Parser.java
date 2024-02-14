@@ -28,18 +28,20 @@ public class Parser {
         StringBuilder current;
         String s1 = input[0];
 
+        boolean isInputLengthTwo = input.length != 2;
+
         switch (s1) {
         case ListCommand.COMMAND:
             return new ListCommand();
         case ByeCommand.COMMAND:
             return new ByeCommand();
         case MarkCommand.COMMAND:
-            if (input.length != 2) {
+            if (isInputLengthTwo) {
                 throw new DukeException("Invalid arguments detected! Please enter a index.");
             }
             return new MarkCommand(Integer.parseInt(input[1]));
         case UnmarkCommand.COMMAND:
-            if (input.length != 2) {
+            if (isInputLengthTwo) {
                 throw new DukeException("Invalid arguments detected! Please enter a index.");
             }
             return new UnmarkCommand(Integer.parseInt(input[1]));
@@ -102,12 +104,12 @@ public class Parser {
                 return new EventCommand(name.toString(), from.toString(), to.toString());
             }
         case DeleteCommand.COMMAND:
-            if (input.length != 2) {
+            if (isInputLengthTwo) {
                 throw new DukeException("Invalid arguments detected! Hint: delete [index]");
             }
             return new DeleteCommand(Integer.parseInt(input[1]));
         case FindCommand.COMMAND:
-            if (input.length != 2) {
+            if (isInputLengthTwo) {
                 throw new DukeException("Invalid arguments detected! Please enter a valid keyword! " +
                         "For example: find book");
             }

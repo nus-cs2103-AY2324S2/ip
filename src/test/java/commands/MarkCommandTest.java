@@ -27,11 +27,11 @@ public class MarkCommandTest {
         Command mark2 = new MarkCommand(2);
 
         mark1.setData(taskLs);
-        mark1.execute();
+        mark1.executeCommand();
         assertTrue(taskLs.get(0).getStatus());
 
         mark2.setData(taskLs);
-        mark2.execute();
+        mark2.executeCommand();
         assertTrue(taskLs.get(1).getStatus());
     }
 
@@ -45,7 +45,7 @@ public class MarkCommandTest {
             taskLs.add(new Deadline("do homework", "Sunday"));
             Command mark3 = new MarkCommand(i);
             mark3.setData(taskLs);
-            mark3.execute();
+            mark3.executeCommand();
         } catch (IndexOutOfBoundsException e) {
             assertEquals("Oppss...I can't seem to find the task you're looking for. Type 'list' to see the the tasks that you have!",
                     e.getMessage());

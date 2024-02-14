@@ -65,7 +65,7 @@ public class MainWindow extends AnchorPane {
         try {
             command = new Parser().parseCommand(input.split(" "));
             command.setData(taskList);
-            String response =  command.execute();
+            String response =  command.executeCommand();
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog("Me: " + input, userImage),
                     DialogBox.getDukeDialog(response, dukeImage)

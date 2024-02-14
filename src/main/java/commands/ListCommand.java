@@ -15,7 +15,7 @@ public class ListCommand extends Command {
      * @return
      */
     @Override
-    public String execute() {
+    public String executeCommand() {
         return  Ui.printAllTask(taskList.getList());
     }
 

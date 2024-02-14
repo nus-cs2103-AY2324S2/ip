@@ -13,7 +13,7 @@ public class HelpCommand extends Command {
      * @return
      */
     @Override
-    public String execute() {
+    public String executeCommand() {
         return Ui.helpMessage();
     }
 }

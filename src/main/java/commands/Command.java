@@ -17,7 +17,7 @@ public class Command {
      * @throws DukeException Throws an exception when calling execute() on this command.
      * @throws IOException Throws an exception when I/O error is caught.
      */
-    public String execute() throws DukeException, IOException {
+    public String executeCommand() throws DukeException, IOException {
         throw new DukeException("Invalid call of execute()");
     };
 

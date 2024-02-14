@@ -10,6 +10,9 @@ import java.time.format.DateTimeParseException;
  * @author Koo Zhuo Hui
  */
 public class Event extends Task {
+    private static final String YYYY_MM_DD_HH_MM = "yyyy-MM-dd HH:mm";
+    private static final String MMM_DD_YYYY_HH_MM = "MMM dd yyyy HH:mm";
+
     private String from;
     private String to;
     private LocalDateTime end;
@@ -23,11 +26,11 @@ public class Event extends Task {
     public Event(String s, String from, String to) {
         super(s);
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(YYYY_MM_DD_HH_MM);
             LocalDateTime start = LocalDateTime.parse(from, formatter);
             end = LocalDateTime.parse(to, formatter);
-            this.from = start.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
-            this.to = end.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+            this.from = start.format(DateTimeFormatter.ofPattern(MMM_DD_YYYY_HH_MM));
+            this.to = end.format(DateTimeFormatter.ofPattern(MMM_DD_YYYY_HH_MM));
         } catch (DateTimeParseException e) {
             this.from = from;
             this.to = to;
@@ -39,15 +42,19 @@ public class Event extends Task {
      */
     @Override
     public String encode() {
-        String s = "E|" + (super.getStatus() ? 1 : 0) + "|" + super.getTask()
-                + "|" + from + "|" + to;
-        return s;
+        String taskType = "E|";
+        String taskStatus = (super.getStatus() ? 1 : 0) + "|";
+        String taskName = super.getTask() + "|";
+        String taskRange = from + "|" + to;
+        return taskType + taskStatus + taskName + taskRange;
     }
 
     @Override
     public String toString() {
-        return "[E][" + (super.getStatus() ? "X" : " ") + "] " + super.getTask()
-                + "(From: " + from + " To: " + to + ")";
-
+        String taskType = "[E][";
+        String taskStatus = (super.getStatus() ? "X" : " ") + "] ";
+        String taskName = super.getTask();
+        String taskRange = "(From: " + from + " To: " + to + ")";
+        return taskType + taskStatus + taskName + taskRange;
     }
 }

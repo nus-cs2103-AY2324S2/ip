@@ -7,6 +7,8 @@ import storage.Storage;
 import tasklists.TaskList;
 import ui.Ui;
 
+import java.io.IOException;
+
 /**
  * The chat-bot To-Do program named Howie which keeps tracks of major major tasks such as
  * todo, event and deadlines.
@@ -30,15 +32,18 @@ public class Howie {
         while (true) {
             String[] input = ui.getUserCommand();
             try {
-                Command command = new Parser().parseCommand(input);
-                assert command != null : "Failed at Howie.java. Command variable is null";
-                command.setData(taskList);
-                command.execute();
+                parseAndExecute(input, taskList);
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
                 Ui.printVLine();
             }
         }
+    }
+
+    private static void parseAndExecute(String[] input, TaskList taskList) throws DukeException, IOException {
+        Command command = new Parser().parseCommand(input);
+        command.setData(taskList);
+        command.executeCommand();
     }
 
 }

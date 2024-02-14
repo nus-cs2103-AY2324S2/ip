@@ -11,7 +11,9 @@ import java.time.format.DateTimeParseException;
  * @author Koo Zhuo Hui
  */
 public class Deadline extends Task {
-    
+
+    public static final String YYYY_MM_DD = "yyyy-MM-dd";
+    public static final String MMM_DD_YYYY = "MMM dd yyyy";
     private String by;
     private LocalDate date;
 
@@ -23,9 +25,9 @@ public class Deadline extends Task {
     public Deadline(String s, String by) {
         super(s);
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(YYYY_MM_DD);
             date = LocalDate.parse(by, formatter);
-            this.by = date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            this.by = date.format(DateTimeFormatter.ofPattern(MMM_DD_YYYY));
         } catch (DateTimeParseException e) {
             this.by = by;
         }
@@ -36,14 +38,19 @@ public class Deadline extends Task {
      */
     @Override
     public String encode() {
-        String s = "D|" + (super.getStatus() ? 1 : 0) + "|" + super.getTask() + "|" + by;
-        return s;
+        String taskType = "D|";
+        String taskStatus = (super.getStatus() ? 1 : 0) + "|";
+        String taskName = super.getTask() + "|";
+        String taskDueDate = by;
+        return taskType + taskStatus + taskName + taskDueDate;
     }
 
     @Override
     public String toString() {
-        return "[D][" + (super.getStatus() ? "X" : " ") + "] "
-               + super.getTask() + "(by: " + by + ")";
-
+        String taskType = "[D][";
+        String taskStatus = (super.getStatus() ? "X" : " ") + "] ";
+        String taskName = super.getTask();
+        String taskDueDate = "(by: " + by + ")";
+        return taskType + taskStatus + taskName + taskDueDate;
     }
 }

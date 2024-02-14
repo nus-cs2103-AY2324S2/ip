@@ -23,7 +23,7 @@ public class FindCommand extends Command {
     public String execute() {
         int count = 1;
         String result = "Here are the list of tasks that matches your keyword: [" + keyword + "]\n";
-        System.out.print(result);
+        printMessage(result);
         for (Task t : taskList.getList()) {
             if (t.getTask().contains(keyword)) {
                 System.out.println(count + ". " + t);
@@ -33,5 +33,9 @@ public class FindCommand extends Command {
         }
 
         return result;
+    }
+
+    private static void printMessage(String result) {
+        System.out.print(result);
     }
 }
