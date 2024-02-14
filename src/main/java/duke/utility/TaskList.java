@@ -9,7 +9,7 @@ import duke.task.Task;
  * Represents a list of tasks.
  */
 public class TaskList {
-    private final ArrayList<Task> list;
+    private ArrayList<Task> list;
 
     public TaskList(ArrayList<Task> list) {
         this.list = list;
@@ -70,7 +70,7 @@ public class TaskList {
      */
     public void deleteTask(int i) throws DukeException {
         try {
-            Task t = list.remove(i - 1);
+            list.remove(i - 1);
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Task not found.");
         }
@@ -80,7 +80,7 @@ public class TaskList {
      * Search the task list for a matching keyword.
      *
      * @param keyword the word to search for.
-     * @return a list of tasks with the matching keyword.
+     * @return a list of tasks with the matching keyword
      */
     public ArrayList<Task> searchList(String keyword) {
         ArrayList<Task> matchingList = new ArrayList<>();

@@ -1,8 +1,7 @@
 package duke.gui;
 
-import javafx.application.Application;
-
 import duke.Main;
+import javafx.application.Application;
 
 /**
  * A Launcher class to workaround classpath issues.

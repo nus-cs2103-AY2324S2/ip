@@ -18,7 +18,9 @@ public class Duke {
     private Ui ui;
     private Storage storage;
 
-
+    /**
+     * Default Constructor for duke setting default filepath of task list file to data/duke.txt.
+     */
     public Duke() {
         ui = new Ui();
         storage = new Storage("data/duke.txt");
@@ -79,6 +81,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Duke greets user with introduction.
+     *
+     * @return the greeting output
+     */
     public String greet() {
         this.ui.greet();
         return ui.craftResponse();

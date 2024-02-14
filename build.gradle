@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("duke.Duke")
+    mainClass.set("duke.gui.Launcher")
 }
 
 checkstyle {
@@ -58,4 +58,5 @@ shadowJar {
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }
