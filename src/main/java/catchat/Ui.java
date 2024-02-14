@@ -6,7 +6,6 @@ import java.util.Scanner;
  */
 
 public class Ui {
-    private static final String LINE = "____________________________________________________________";
     private final Scanner scanner;
 
     public Ui() {
@@ -16,56 +15,27 @@ public class Ui {
     /**
      * Returns the greeting message
      */
-    public String getGreeting() {
+    public String showGreeting() {
         return "Chat with cats, it's CatChat!\n" + "What's up?";
-    }
-
-    /**
-     * Returns the exit message
-     */
-    public String getGoodbye() {
-        return "Talk with me again soon!";
     }
 
     /**
      * Returns the list of available commands
      */
     public String getHelp() {
-        return "Help: \n" + getCommands();
+        return "Help:\n" + getCommands();
     }
 
     public String getCommands() {
-        return "DISPLAY LIST: list\n"
-                + "ADD TODO: todo <TASK NAME>\n"
-                + "ADD DEADLINE: deadline <TASK NAME> /by <DD/MM/YYYY>\n"
-                + "ADD EVENT: event <TASK NAME> /from <DD/MM/YYYY> /to <DD/MM/YYYY>\n"
-                + "MARK DONE: mark done <INDEX>\n"
-                + "MARK UNDONE: mark undone <INDEX>\n"
-                + "DELETE TASK: delete <INDEX>\n"
-                + "FIND TASK: find <KEYWORD>\n"
-                + "EXIT: bye";
-    }
-
-    /**
-     * Returns the message for an invalid task index
-     */
-    public String getInvalidTaskIndex() {
-        return "Oops, that wasn't a valid task index :P";
-    }
-
-    /**
-     * Returns the message for an invalid keyword
-     */
-    public String getInvalidKeyword() {
-        return "No tasks match that keyword :(";
-    }
-    /**
-     * Prints the greeting message
-     */
-    public void showGreeting() {
-        printLine();
-        showHelp();
-        printLine();
+        return "Display your list => LIST\n"
+                + "Add a Todo => todo <TASK NAME>\n"
+                + "Add a Deadline => deadline <TASK NAME> /by <DD/MM/YYYY>\n"
+                + "Add a Event => event <TASK NAME> /from <DD/MM/YYYY> /to <DD/MM/YYYY>\n"
+                + "Mark Done => mark done <INDEX>\n"
+                + "Mark Undone => mark undone <INDEX>\n"
+                + "Delete a Task => delete <INDEX>\n"
+                + "Find a Task => find <KEYWORD>\n"
+                + "Exit => bye";
     }
 
     /**
@@ -83,42 +53,6 @@ public class Ui {
     public String getUserInput() {
         // System.out.println("Enter a task below: ");
         return scanner.nextLine();
-    }
-
-    /**
-     * Close the scanner
-     */
-    public void closeScanner() {
-        scanner.close();
-    }
-
-    /**
-     * Prints the line
-     */
-    public String printLine() {
-        return LINE;
-    }
-
-    /**
-     * Prints list of available commands
-     */
-    public void showHelp() {
-        System.out.println("\t" + "Help: ");
-
-        String[] instructions = {
-            "DISPLAY LIST: list",
-            "ADD TODO: todo <TASK NAME>",
-            "ADD DEADLINE: deadline <TASK NAME> /by <DD/MM/YYYY>",
-            "ADD EVENT: event <TASK NAME> /from <DD/MM/YYYY> /to <DD/MM/YYYY>",
-            "MARK DONE: mark done <INDEX>",
-            "MARK UNDONE: mark undone <INDEX>",
-            "DELETE TASK: delete <INDEX>",
-            "FIND TASK: find <KEYWORD>",
-            "EXIT: bye"
-        };
-        for (int i = 0; i < instructions.length; i++) {
-            System.out.println("\t" + (i + 1) + ". " + instructions[i]);
-        }
     }
 
     /**

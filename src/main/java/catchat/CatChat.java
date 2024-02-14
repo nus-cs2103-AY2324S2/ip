@@ -108,6 +108,9 @@ public class CatChat extends Application {
 
         //Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(ui.showGreeting(), dukeImg)
+        );
     }
 
     /**
