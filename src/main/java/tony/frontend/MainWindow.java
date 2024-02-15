@@ -1,6 +1,5 @@
 package tony.frontend;
 
-import tony.Tony;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import tony.Tony;
 import tony.Ui;
 
 /**
@@ -36,7 +36,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         String dukeText = Ui.greeting();
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(dukeText, dukeImage)
+                DialogBox.getTonyDialog(dukeText, dukeImage)
         );
     }
 
@@ -45,7 +45,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Tony's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -54,7 +54,7 @@ public class MainWindow extends AnchorPane {
         String response = getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getTonyDialog(response, dukeImage)
         );
         userInput.clear();
     }
