@@ -29,77 +29,186 @@ public class Parser {
         String output = "";
         switch (command) {
         case "list":
-            if (taskList.isEmpty()) {
-                throw new JuxException(" YOUR LIST IS EMPTY");
-            }
-            output = taskList.showListWithIndexing(ui);
+            output = getListString(taskList, ui);
             break;
         case "mark":
-            if (input.length() > 5) {
-                String listStringNumber = input.substring(5);
-                // future error detection for non-numerals
-                int convertedToNumber = Parser.convertStringIndexToIntZeroIndex(listStringNumber);
-                // future error when list is empty
-                if (convertedToNumber < 0 || convertedToNumber >= taskList.getSize()) {
-                    throw new JuxException("NUMBER NOT IN LIST, PLEASE ADD A TASK OR " +
-                            "CHOOSE A DIFFERENT NUMBER WITHIN 1 AND"
-                            + taskList.getSize());
-                }
-                if (taskList.isIndexedTaskChecked(convertedToNumber)) {
-                    throw new JuxException("TASK ALREADY MARKED");
-                }
-                taskList.toggleIndexedTask(convertedToNumber);
-                output = taskList.printTaskMarked(ui, convertedToNumber);
-            } else {
-                throw new JuxException("PLEASE INSERT NUMBER TO MARK");
-            }
+            output = getmarkString(input, taskList, ui);
             break;
         case "unmark":
-            String listStringNumber = input.substring(7);
-            // future error detection for non-numerals
-            int convertedToNumber = Parser.convertStringIndexToIntZeroIndex(listStringNumber);
-            // future error when list is empty
-            if (convertedToNumber < 0 || convertedToNumber >= taskList.getSize()) {
-                throw new JuxException("NUMBER NOT IN LIST, PLEASE ADD A TASK OR " +
-                        "CHOOSE A DIFFERENT NUMBER WITHIN 1 AND"
-                        + taskList.getSize());
-            }
-            if (!taskList.isIndexedTaskChecked(convertedToNumber)) {
-                throw new JuxException("TASK ALREADY UNMARKED");
-            }
-            taskList.toggleIndexedTask(convertedToNumber);
-            output = taskList.printTaskUnMarked(ui, convertedToNumber);
+            output = getunmarkString(input, taskList, ui);
             break;
         case "delete":
-            String deleteListStringNumber =  input.substring(7);
-            // future error detection for non-numerals
-            int deleteConvertedToNumber = Parser.convertStringIndexToIntZeroIndex(deleteListStringNumber);
-            // future error when list is empty
-            if (deleteConvertedToNumber < 0 || deleteConvertedToNumber >= taskList.getSize()) {
-                throw new JuxException("NUMBER NOT IN LIST, PLEASE ADD A TASK OR " +
-                        "CHOOSE A DIFFERENT NUMBER WITHIN 1 AND"
-                        + taskList.getSize());
-            }
-            output = taskList.deleteTask(ui, deleteConvertedToNumber);
+            output = getDeleteString(input, taskList, ui);
             break;
         case "add":
-            String typeOfTask = Parser.typeOfTask(input);
-            output = taskList.addTask(ui, typeOfTask, input);
+            output = getAddTaskString(input, taskList, ui);
             break;
         case "find":
-            String findTask = Parser.parseFind(input);
-            ArrayList<Task> tasksFound = taskList.findTask(findTask);
-            if (tasksFound.isEmpty()) {
-                output = ui.printNotFound();
-            } else {
-                output = ui.printList(tasksFound);
-            }
+            output = getFindString(input, taskList, ui);
             break;
         default:
             break;
         }
         return output;
     }
+
+    /**
+     * Returns the list to be printed in the gui
+     * @param taskList task list
+     * @param ui ui
+     * @return the task list to be printed
+     * @throws JuxException if list is empty
+     */
+    private static String getListString(TaskList taskList, Ui ui) throws JuxException {
+        String output;
+        if (taskList.isEmpty()) {
+            throw new JuxException(" YOUR LIST IS EMPTY");
+        }
+        output = taskList.showListWithIndexing(ui);
+        return output;
+    }
+
+    /**
+     * Returns the string to be printed in the Gui
+     * @param input user input
+     * @param taskList task list
+     * @param ui ui
+     * @return the marked string to be printed
+     * @throws JuxException exception for incorrect input
+     */
+    private static String getmarkString(String input, TaskList taskList, Ui ui) throws JuxException {
+        String output;
+        if (input.length() > 5) {
+            String listStringNumber = input.substring(5);
+            // future error detection for non-numerals
+            int convertedToNumber = Parser.convertStringIndexToIntZeroIndex(listStringNumber);
+            // future error when list is empty
+            exceptionMarkString(taskList, convertedToNumber);
+            taskList.toggleIndexedTask(convertedToNumber);
+            output = taskList.printTaskMarked(ui, convertedToNumber);
+        } else {
+            throw new JuxException("PLEASE INSERT NUMBER TO MARK");
+        }
+        return output;
+    }
+
+    /**
+     * Exception for input for mark string
+     * @param taskList task list
+     * @param convertedToNumber the index of the task in tasklist
+     * @throws JuxException the exception to the rule that it violates
+     */
+    private static void exceptionMarkString(TaskList taskList, int convertedToNumber) throws JuxException {
+        if (convertedToNumber < 0 || convertedToNumber >= taskList.getSize()) {
+            throw new JuxException("NUMBER NOT IN LIST, PLEASE ADD A TASK OR " +
+                    "CHOOSE A DIFFERENT NUMBER WITHIN 1 AND"
+                    + taskList.getSize());
+        }
+        if (taskList.isIndexedTaskChecked(convertedToNumber)) {
+            throw new JuxException("TASK ALREADY MARKED");
+        }
+    }
+
+    /**
+     * Returns the unmarked string to be printed in the Gui
+     * @param input user input
+     * @param taskList task list
+     * @param ui ui
+     * @return the unmarked string to be printed
+     * @throws JuxException exception for incorrect input
+     */
+    private static String getunmarkString(String input, TaskList taskList, Ui ui) throws JuxException {
+        String output;
+        String listStringNumber = input.substring(7);
+        // future error detection for non-numerals
+        int convertedToNumber = Parser.convertStringIndexToIntZeroIndex(listStringNumber);
+        // future error when list is empty
+        exceptionUnMarkString(taskList, convertedToNumber);
+        taskList.toggleIndexedTask(convertedToNumber);
+        output = taskList.printTaskUnMarked(ui, convertedToNumber);
+        return output;
+    }
+
+    /**
+     * Exceptions for input for unMark string
+     * @param taskList task list
+     * @param convertedToNumber the task index in the task list
+     * @throws JuxException the exception to the rule that it violates
+     */
+    private static void exceptionUnMarkString(TaskList taskList, int convertedToNumber) throws JuxException {
+        if (convertedToNumber < 0 || convertedToNumber >= taskList.getSize()) {
+            throw new JuxException("NUMBER NOT IN LIST, PLEASE ADD A TASK OR " +
+                    "CHOOSE A DIFFERENT NUMBER WITHIN 1 AND"
+                    + taskList.getSize());
+        }
+        if (!taskList.isIndexedTaskChecked(convertedToNumber)) {
+            throw new JuxException("TASK ALREADY UNMARKED");
+        }
+    }
+
+    /**
+     * Returns the find string to be printed in Gui
+     * @param input user input
+     * @param taskList task list
+     * @param ui ui
+     * @return string from find action
+     */
+    private static String getFindString(String input, TaskList taskList, Ui ui) {
+        String output;
+        String findTask = Parser.parseFind(input);
+        ArrayList<Task> tasksFound = taskList.findTask(findTask);
+        if (tasksFound.isEmpty()) {
+            output = ui.printNotFound();
+        } else {
+            output = ui.printList(tasksFound);
+        }
+        return output;
+    }
+
+    /**
+     * Returns the add task string to be printed in the Gui
+     * @param input user input
+     * @param taskList task list
+     * @param ui ui
+     * @return string for Gui
+     * @throws JuxException
+     */
+    private static String getAddTaskString(String input, TaskList taskList, Ui ui) throws JuxException {
+        String output;
+        String typeOfTask = Parser.typeOfTask(input);
+        output = taskList.addTask(ui, typeOfTask, input);
+        return output;
+    }
+
+    /**
+     * Returns the string to be shown in the Gui after
+     * checking whether it violates any exceptions
+     * @param input user input
+     * @param taskList the task list
+     * @param ui the ui
+     * @return
+     * @throws JuxException
+     */
+    private static String getDeleteString(String input, TaskList taskList, Ui ui) throws JuxException {
+        String output;
+        String deleteListStringNumber =  input.substring(7);
+        // future error detection for non-numerals
+        int deleteConvertedToNumber = Parser.convertStringIndexToIntZeroIndex(deleteListStringNumber);
+        // future error when list is empty
+        if (deleteConvertedToNumber < 0 || deleteConvertedToNumber >= taskList.getSize()) {
+            throw new JuxException("NUMBER NOT IN LIST, PLEASE ADD A TASK OR " +
+                    "CHOOSE A DIFFERENT NUMBER WITHIN 1 AND"
+                    + taskList.getSize());
+        }
+        output = taskList.deleteTask(ui, deleteConvertedToNumber);
+        return output;
+    }
+
+    /**
+     * Returns the string to find
+     * @param input user input
+     * @return the string to find
+     */
     public static  String parseFind(String input) {
         return input.substring(5);
     }
