@@ -31,6 +31,7 @@ public class FindCommand extends Command {
 
         String query = userInput.substring(5).trim().toLowerCase();
 
+        // Utilizing Java Streams to filter tasks
         List<Task> matchingTasks = taskList.getTasks().stream()
                 .filter(task -> task.toString().toLowerCase().contains(query))
                 .collect(Collectors.toList());
