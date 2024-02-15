@@ -34,6 +34,7 @@ public class TaskList {
      * @param i the index of the task to delete
      */
     public void deleteTask(int i) {
+        assert i >= 0;
         this.tasks.remove(i);
         Storage.updateSaved(tasks);
     }
@@ -45,6 +46,7 @@ public class TaskList {
      * @return the task at the specified index
      */
     public Task getTask(int i) {
+        assert i >= 0;
         return this.tasks.get(i);
     }
 
@@ -63,6 +65,7 @@ public class TaskList {
      * @param i the index of the task to mark as completed
      */
     public void markTask(int i) {
+        assert i >= 0;
         this.tasks.get(i).mark();
         Storage.updateSaved(tasks);
     }
@@ -73,6 +76,7 @@ public class TaskList {
      * @param i the index of the task to unmark
      */
     public void unmarkTask(int i) {
+        assert i >= 0;
         this.tasks.get(i).unmark();
         Storage.updateSaved(tasks);
     }

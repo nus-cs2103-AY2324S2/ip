@@ -89,10 +89,13 @@ public class Parser {
         case FIND:
             return prepareFind(inputs);
 
-        default:
+        case UNKNOWN:
             return new IncorrectCommand(
                 new PodzException(
                     "ERROR!! The system did not recognize the command you entered."));
+                    
+        default:
+            throw new AssertionError(cmd);
         }
     }
 
