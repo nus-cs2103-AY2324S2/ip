@@ -4,6 +4,7 @@ import ChatbotRan.components.DialogBox;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -135,7 +136,7 @@ public class RanUi {
      * @param e error from parsing a task
      */
     public void displayError(TaskException e) {
-        System.out.println(e.getMessage());
+        container.getChildren().add(DialogBox.getErrorDialog(e.getMessage(), ranImage));
     }
 
     public void found(ArrayList<Task> tasks) {
