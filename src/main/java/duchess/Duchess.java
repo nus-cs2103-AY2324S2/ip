@@ -27,14 +27,61 @@ public class Duchess {
      */
     public Duchess() throws DuchessException {
         this.storage = new Storage(FILE_PATH);
-        this.taskList = new TaskList();
         this.isRunning = true;
+        this.ui = new Ui();
         ArrayList<Task> tasksStored = this.storage.loadData();
         if (!tasksStored.isEmpty()) {
             this.taskList = new TaskList(this.storage.loadData());
+        } else {
+            this.taskList = new TaskList();
         }
-        this.ui = new Ui();
     }
+
+
+    /**
+     * Main method to start the Duchess program.
+     *
+     * @param args command-line arguments (not used)
+     */
+    public static void main(String[] args) {
+        try {
+            new Duchess().run();
+        } catch (DuchessException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    /**
+     * Runs the Duchess program.
+     * Displays opening greeting, interacts with user, and handles exceptions.
+     */
+    public void run() {
+        try {
+            while (this.isRunning) {
+                String input = this.ui.nextLine();
+                System.out.println(this.getResponse(input));
+            }
+        } catch (DuchessException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * Exits the Duchess program.
+     * Closes the scanner used for user input, saves the task list data, and sets the program state to not running.
+     */
+    public void exit() {
+        assert this.isRunning;
+        this.ui.closeScanner();
+        this.storage.saveData(this.taskList);
+        this.isRunning = false;
+    }
+
+    public String getOpeningGreeting() {
+        return this.ui.openingGreeting();
+    }
+
 
     protected String getResponse(String input) throws DuchessException {
         try {
@@ -77,48 +124,8 @@ public class Duchess {
         }
     }
 
-    /**
-     * Main method to start the Duchess program.
-     *
-     * @param args command-line arguments (not used)
-     */
-    public static void main(String[] args) {
-        try {
-            new Duchess().run();
-        } catch (DuchessException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    /**
-     * Runs the Duchess program.
-     * Displays opening greeting, interacts with user, and handles exceptions.
-     */
-    public void run() {
-        try {
-            ui.printOpeningGreeting();
-            while (this.isRunning) {
-                String input = this.ui.nextLine();
-                System.out.println(this.getResponse(input));
-            }
-        } catch (DuchessException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
     public void restartDuchess() {
         this.isRunning = true;
         this.ui = new Ui();
-    }
-
-    /**
-     * Exits the Duchess program.
-     * Closes the scanner used for user input, saves the task list data, and sets the program state to not running.
-     */
-    public void exit() {
-        assert this.isRunning : "Duchess is not running already, can't exit";
-        this.ui.closeScanner();
-        this.storage.saveData(this.taskList);
-        this.isRunning = false;
     }
 }

@@ -11,6 +11,8 @@ import javafx.scene.layout.VBox;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.jpeg"));
+    private final Image duchessImage = new Image(this.getClass().getResourceAsStream("/images/DaDuchess.jpeg"));
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -22,9 +24,6 @@ public class MainWindow extends AnchorPane {
     private Duchess duchess;
     private boolean canClose = false;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.jpeg"));
-    private Image duchessImage = new Image(this.getClass().getResourceAsStream("/images/DaDuchess.jpeg"));
-
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -32,11 +31,13 @@ public class MainWindow extends AnchorPane {
 
     public void setDuchess(Duchess d) {
         duchess = d;
+        dialogContainer.getChildren().add(DialogBox.getDuchessDialog(d.getOpeningGreeting(), duchessImage));
     }
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * the dialog container. Sets dialog box to can close only if last message is bye.
+     * Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
@@ -51,7 +52,7 @@ public class MainWindow extends AnchorPane {
             );
 
             if (input.equals("bye")) {
-                setCanClose(true); // Set canClose to true if user input is "bye"
+                setCanClose(true);
             } else {
                 setCanClose(false); // Set canClose to false for any other input
                 duchess.restartDuchess();
