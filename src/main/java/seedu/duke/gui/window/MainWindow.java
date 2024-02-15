@@ -34,7 +34,6 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
-
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
@@ -68,7 +67,7 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
         if (duke.isExit()) {
             dialogContainer.getChildren().addAll(
-                    DialogBox.getDukeDialog("Duke left the chat room", dukeImage)
+                    DialogBox.getDukeDialog("WindBro left the chat room", dukeImage)
             );
             PauseTransition pauseTransition = new PauseTransition(Duration.seconds(3));
             pauseTransition.setOnFinished(event -> {

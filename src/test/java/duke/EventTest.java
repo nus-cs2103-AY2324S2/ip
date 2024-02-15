@@ -2,6 +2,7 @@ package duke;
 
 import seedu.duke.command.EventCommand;
 import seedu.duke.common.TaskList;
+import seedu.duke.exception.DuplicateTaskException;
 import seedu.duke.exception.InvalidInputException;
 import seedu.duke.storage.Storage;
 import seedu.duke.task.Event;
@@ -19,7 +20,7 @@ import static org.mockito.Mockito.verify;
 
 public class EventTest {
     @Test
-    public void testEvent() throws InvalidInputException {
+    public void testEvent() throws InvalidInputException, DuplicateTaskException {
         Storage mockStorage = mock(Storage.class);
         Ui mockUi = mock(Ui.class);
         TaskList mockTaskList = mock(TaskList.class);

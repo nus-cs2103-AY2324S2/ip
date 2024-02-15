@@ -30,7 +30,6 @@ public class TodoCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DuplicateTaskException {
         Todo todo = new Todo(this.description, false);
-        taskList.addTask(todo);
         for(int i = 0; i < taskList.getListSize(); i++) {
             Task task = taskList.getTask(i);
             if(task instanceof Todo) {
@@ -41,7 +40,7 @@ public class TodoCommand extends Command {
                 }
             }
         }
-
+        taskList.addTask(todo);
         ui.generateNewTaskResponse(todo, taskList);
     }
 }

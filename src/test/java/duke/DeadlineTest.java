@@ -2,6 +2,7 @@ package duke;
 
 import seedu.duke.command.DeadlineCommand;
 import seedu.duke.common.TaskList;
+import seedu.duke.exception.DuplicateTaskException;
 import seedu.duke.storage.Storage;
 import seedu.duke.task.Deadline;
 import seedu.duke.ui.Ui;
@@ -18,7 +19,7 @@ import static org.mockito.Mockito.verify;
 
 public class DeadlineTest {
     @Test
-    public void testDeadline() {
+    public void testDeadline() throws DuplicateTaskException {
         LocalDateTime localDateTime = LocalDateTime.now();
         String description = "test";
         Storage mockStorage = mock(Storage.class);

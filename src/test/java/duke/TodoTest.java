@@ -2,6 +2,7 @@ package duke;
 
 import seedu.duke.command.TodoCommand;
 import seedu.duke.common.TaskList;
+import seedu.duke.exception.DuplicateTaskException;
 import seedu.duke.storage.Storage;
 import seedu.duke.task.Todo;
 import seedu.duke.ui.Ui;
@@ -16,7 +17,7 @@ import static org.mockito.Mockito.verify;
 
 public class TodoTest {
     @Test
-    public void testToDo() {
+    public void testToDo() throws DuplicateTaskException {
         Storage mockStorage = mock(Storage.class);
         Ui mockUi = mock(Ui.class);
         TaskList mockTaskList = mock(TaskList.class);
