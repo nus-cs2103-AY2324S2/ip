@@ -40,10 +40,10 @@ public class Event extends Task {
      * @param description Description of the event
      * @param startDate   Start date of the event
      * @param endDate     End date of the event
-     * @param isDone      Status of the event
+     * @param isCompleted Status of the event
      */
-    public Event(String description, Instant startDate, Instant endDate, boolean isDone) {
-        super(description, TaskType.EVENT, isDone);
+    public Event(String description, Instant startDate, Instant endDate, boolean isCompleted) {
+        super(description, TaskType.EVENT, isCompleted);
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -54,10 +54,10 @@ public class Event extends Task {
      * @param description Description of the event
      * @param startDate   Start date of the event (in epoch milliseconds)
      * @param endDate     End date of the event (in epoch milliseconds)
-     * @param isDone      Status of the event
+     * @param isCompleted Status of the event
      */
-    public Event(String description, long startDate, long endDate, boolean isDone) {
-        super(description, TaskType.EVENT, isDone);
+    public Event(String description, long startDate, long endDate, boolean isCompleted) {
+        super(description, TaskType.EVENT, isCompleted);
         this.startDate = Instant.ofEpochMilli(startDate);
         this.endDate = Instant.ofEpochMilli(endDate);
     }

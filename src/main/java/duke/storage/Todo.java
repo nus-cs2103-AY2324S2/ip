@@ -19,10 +19,10 @@ public class Todo extends Task {
      * Create a Todo task
      *
      * @param description Description of the todo task
-     * @param isDone      Status of the task
+     * @param isCompleted Status of the task
      */
-    public Todo(String description, boolean isDone) {
-        super(description, TaskType.TODO, isDone);
+    public Todo(String description, boolean isCompleted) {
+        super(description, TaskType.TODO, isCompleted);
     }
 
     /**

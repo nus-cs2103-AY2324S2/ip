@@ -28,19 +28,26 @@ public class Task {
     /**
      * Status of the task (Done/not done)
      */
-    private boolean isDone;
+    private boolean isCompleted;
+
+    /**
+     * Visibility of the task
+     */
+    private boolean isArchived;
 
     /**
      * Constructor for creating a task
      *
      * @param description Description of the task
      * @param type        Type of task
-     * @param isDone      Status of the task
+     * @param isCompleted Status of the task
+     * @param isArchived  Visibility of the task
      */
-    protected Task(String description, TaskType type, boolean isDone) {
+    protected Task(String description, TaskType type, boolean isCompleted, boolean isArchived) {
         this.description = description;
         this.type = type;
-        this.isDone = isDone;
+        this.isCompleted = isCompleted;
+        this.isArchived = isArchived;
     }
 
     /**
@@ -66,22 +73,31 @@ public class Task {
      *
      * @return Status of the task
      */
-    public boolean getIsDone() {
-        return this.isDone;
+    public boolean getIsCompleted() {
+        return this.isCompleted;
+    }
+
+    /**
+     * Get the visibility of the task
+     *
+     * @return Visibility of the task
+     */
+    public boolean getIsArchived() {
+        return this.isArchived;
     }
 
     /**
      * Mark the task as done
      */
     public void mark() {
-        this.isDone = true;
+        this.isCompleted = true;
     }
 
     /**
      * Mark the task as not done
      */
     public void unmark() {
-        this.isDone = false;
+        this.isCompleted = false;
     }
 
     /**
@@ -102,7 +118,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        return String.format("[%s] %s", isDone ? "X" : " ", description);
+        return String.format("[%s] %s", isCompleted ? "X" : " ", description);
     }
 
     /**
@@ -123,7 +139,7 @@ public class Task {
 
             return this.type.equals(task.type)
                     && this.description.equals(task.description)
-                    && this.isDone == task.isDone;
+                    && this.isCompleted == task.isCompleted;
         }
 
         return false;

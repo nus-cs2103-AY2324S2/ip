@@ -23,7 +23,7 @@ public class Deadline extends Task {
      * @param dueDate     Due date of the deadline
      */
     public Deadline(String description, Instant dueDate) {
-        super(description, TaskType.DEADLINE, false);
+        super(description, TaskType.DEADLINE, false, false);
         this.dueDate = dueDate;
     }
 
@@ -35,7 +35,7 @@ public class Deadline extends Task {
      * @param isCompleted Status of the deadline
      */
     public Deadline(String description, Instant dueDate, boolean isCompleted) {
-        super(description, TaskType.DEADLINE, isCompleted);
+        super(description, TaskType.DEADLINE, isCompleted, false);
         this.dueDate = dueDate;
     }
 

@@ -67,20 +67,20 @@ public class Storage {
                 Task task;
                 switch (TaskType.valueOf(entry.getString("type"))) {
                 case TODO:
-                    task = new Todo(entry.getString("description"), entry.getBoolean("isDone"));
+                    task = new Todo(entry.getString("description"), entry.getBoolean("isCompleted"));
                     break;
 
                 case DEADLINE:
                     task = new Deadline(entry.getString("description"),
                             entry.getLong("dueDate"),
-                            entry.getBoolean("isDone"));
+                            entry.getBoolean("isCompleted"));
                     break;
 
                 case EVENT:
                     task = new Event(entry.getString("description"),
                             entry.getLong("startDate"),
                             entry.getLong("endDate"),
-                            entry.getBoolean("isDone"));
+                            entry.getBoolean("isCompleted"));
                     break;
 
                 default:
