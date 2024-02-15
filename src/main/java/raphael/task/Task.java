@@ -82,16 +82,17 @@ public class Task implements FileFormattable, Comparable<Task> {
     public static Task of(String task) throws RaphaelException {
         final String[] taskArr = task.split(" \\|&\\| ");
         switch (taskArr[0]) {
-        case "T":
-            return new Todo(taskArr[2], taskArr[1].equals("1"));
-        case "D":
-            return new Deadline(taskArr[2], taskArr[3], taskArr[1].equals("1"));
-        case "E":
-            return new Event(taskArr[2], taskArr[3],
-                    taskArr[4], taskArr[1].equals("1"));
-        default:
-            throw new RaphaelException("Error in loading the tasks!");
+            case "T":
+                return new Todo(taskArr[2], taskArr[1].equals("1"));
+            case "D":
+                return new Deadline(taskArr[2], taskArr[3], taskArr[1].equals("1"));
+            case "E":
+                return new Event(taskArr[2], taskArr[3],
+                        taskArr[4], taskArr[1].equals("1"));
+            default:
+                throw new RaphaelException("Error in loading the tasks!");
         }
+    }
     private void checkIsDone(boolean expected) {
         String assertionErrorMessage = String.format(
                 "The task should be %s", expected ? "done" : "not done");
