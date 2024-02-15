@@ -172,7 +172,6 @@ public class TaskHandler{
         if (temp.length <= 1) {
             throw new DukeException(errorMsg);
         }
-        if (temp[0].equals("mark") || temp[0].equals("unmark") || temp[0].equals("delete")) {}
         int number = Integer.parseInt(temp[1]);
         if (number > storage.size() || number <= 0) {
             throw new DukeException("__________________________________\n" +
