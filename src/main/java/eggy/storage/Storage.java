@@ -47,25 +47,40 @@ public class Storage {
      * @throws LoadTasksException If there is an error loading the tasks.
      */
     public List<Task> load() throws InvalidTaskTypeException, LoadTasksException {
-        List<Task> tempTasks = new ArrayList<>();
         try {
-            File file = new File(this.filePath);
-            if (!file.exists()) {
-                file.getParentFile().mkdirs();
-                file.createNewFile();
-            }
-            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-                String line;
-                while ((line = br.readLine()) != null) {
-                    tempTasks.add(processTaskLine(line));
-                }
-            }
-            return tempTasks;
+            File file = openFile();
+            return readTasksFile(file);
         } catch (IOException e) {
             throw new LoadTasksException(this.filePath);
         }
     }
 
+    /**
+     * Reads the tasks from the storage file.
+     *
+     * @param file The storage file.
+     * @return The list of tasks.
+     * @throws IOException If there is an error reading the file.
+     * @throws InvalidTaskTypeException If the task type is invalid.
+     */
+    private List<Task> readTasksFile(File file) throws IOException, InvalidTaskTypeException {
+        List<Task> tempTasks = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                tempTasks.add(processTaskLine(line));
+            }
+        }
+        return tempTasks;
+    }
+
+    /**
+     * Processes a line from the storage file and returns the task.
+     *
+     * @param line The line from the storage file.
+     * @return The task object.
+     * @throws InvalidTaskTypeException If the task type is invalid.
+     */
     private Task processTaskLine(String line) throws InvalidTaskTypeException {
         String[] taskStrings = line.split(" \\| ");
         try {
@@ -76,6 +91,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates a task object from the task type and task strings.
+     *
+     * @param taskType The type of task.
+     * @param taskStrings The strings of the task.
+     * @return The task object.
+     * @throws InvalidTaskTypeException If the task type is invalid.
+     */
     private Task createTask(TaskType taskType, String[] taskStrings) throws InvalidTaskTypeException {
         switch (taskType) {
         case T:
@@ -99,16 +122,27 @@ public class Storage {
      */
     public void save(TaskList tasks) throws SaveTasksException {
         try {
-            File file = new File(this.filePath);
-            if (!file.exists()) {
-                file.getParentFile().mkdirs();
-                file.createNewFile();
-            }
+            File file = openFile();
             FileWriter fw = new FileWriter(file);
             fw.write(tasks.toFileString());
             fw.close();
         } catch (IOException e) {
             throw new SaveTasksException(this.filePath);
         }
+    }
+
+    /**
+     * Opens the storage file. If the file does not exist, it will be created.
+     *
+     * @return The storage file.
+     * @throws IOException If there is an error opening the file.
+     */
+    private File openFile() throws IOException {
+        File file = new File(this.filePath);
+        if (!file.exists()) {
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+        }
+        return file;
     }
 }
