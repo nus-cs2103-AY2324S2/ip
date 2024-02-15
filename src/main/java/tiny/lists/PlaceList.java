@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import tiny.extensions.Place;
 
+/**
+ * Manages all the places.
+ */
 public class PlaceList {
     protected ArrayList<Place> places = new ArrayList<>();
 
@@ -52,5 +55,5 @@ public class PlaceList {
             toSave.add(places.get(i).formatToSave());
         }
         return toSave;
-    }       
+    }
 }

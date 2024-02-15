@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import tiny.extensions.Merchandise;
 
+/**
+ * Manages all the merchandises.
+ */
 public class MerchandiseList {
     protected ArrayList<Merchandise> merchandises = new ArrayList<>();
 
@@ -52,5 +55,5 @@ public class MerchandiseList {
             toSave.add(merchandises.get(i).formatToSave());
         }
         return toSave;
-    }       
+    }
 }

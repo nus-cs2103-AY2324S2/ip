@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import tiny.extensions.Expense;
 
+/**
+ * Manages all the expenses.
+ */
 public class ExpenseList {
     protected ArrayList<Expense> expenses = new ArrayList<>();
 
@@ -39,8 +42,6 @@ public class ExpenseList {
         }
         return output;
     }
-    
-
 
     /**
      * Formats all the expenses into the correct format to save.
@@ -53,5 +54,5 @@ public class ExpenseList {
             toSave.add(expenses.get(i).formatToSave());
         }
         return toSave;
-    }       
+    }
 }

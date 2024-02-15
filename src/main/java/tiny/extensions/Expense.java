@@ -5,18 +5,28 @@ import java.time.format.DateTimeFormatter;
 
 import tiny.exceptions.TinyException;
 
+/**
+ * Represents an expense.
+ */
 public class Expense {
     protected String description;
     protected Double amount;
     protected LocalDate transactionDate;
 
+    /**
+     * Initializes Expense.
+     *
+     * @param description     Description of the expense.
+     * @param amount          Amount of the expense.
+     * @param transactionDate Transaction date of the expense.
+     */
     public Expense(String description, double amount, String transactionDate) throws TinyException {
         this.description = description;
         this.amount = amount;
         this.transactionDate = dateParser(transactionDate);
     }
 
-    public LocalDate dateParser(String date) throws TinyException {
+    private LocalDate dateParser(String date) throws TinyException {
         int year = 0;
         int month = 0;
         int day = 0;
@@ -33,9 +43,9 @@ public class Expense {
         } catch (Exception e) {
             throw new TinyException(errorMsg);
         }
-    }    
+    }
 
-    public String dateSaveFormat(LocalDate date) {
+    private String dateSaveFormat(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return date.format(formatter);
     }

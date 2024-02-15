@@ -14,7 +14,7 @@ public class Tiny {
     private ControlList controlList;
     private Ui ui;
     private Parser parser = new Parser();
-    private boolean isExit = false; 
+    private boolean isExit = false;
 
     /**
      * Initializes Tiny.
@@ -27,7 +27,7 @@ public class Tiny {
             controlList.processData(storage.loadData());
         } catch (TinyException e) {
             ui.showLoadingError();
-            controlList = new ControlList();        
+            controlList = new ControlList();
         }
     }
 
@@ -63,10 +63,10 @@ public class Tiny {
             storage.saveData(controlList.formatToSave());
             return message;
         } catch (TinyException e) {
-            return e.getMessage();            
+            return e.getMessage();
         }
     }
-    
+
     /**
      * Starts the program.
      *

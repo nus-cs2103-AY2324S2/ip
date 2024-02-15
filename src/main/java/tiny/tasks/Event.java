@@ -168,7 +168,7 @@ public class Event extends Task {
      * Formats the task into the correct format to save.
      *
      * @return String of the task in the correct format to save.
-     */       
+     */
     @Override
     public String formatToSave() {
         return "E" + super.formatToSave() + " | " + startDatetimeSaveFormat() + " | " + endTimeSaveFormat();

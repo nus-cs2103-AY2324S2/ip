@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import tiny.tasks.Task;
 
 /**
- * Represents the tasklist to manage all the tasks.
+ * Manages all the tasks.
  */
 public class TaskList {
     protected ArrayList<Task> tasks = new ArrayList<>();
@@ -80,5 +80,5 @@ public class TaskList {
             toSave.add(tasks.get(i).formatToSave());
         }
         return toSave;
-    }    
+    }
 }

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import tiny.extensions.Client;
 
+/**
+ * Manages all the clients.
+ */
 public class ClientList {
     protected ArrayList<Client> clients = new ArrayList<>();
 
@@ -51,5 +54,5 @@ public class ClientList {
             toSave.add(clients.get(i).formatToSave());
         }
         return toSave;
-    }    
+    }
 }

@@ -51,7 +51,7 @@ public class Task {
      */
     public boolean taskIsDone() {
         return isDone;
-    }    
+    }
 
     /**
      * Search the description of the task using the keyword.
@@ -67,7 +67,7 @@ public class Task {
      * Formats the task into the correct format to save.
      *
      * @return String of the task in the correct format to save.
-     */    
+     */
     public String formatToSave() {
         return " | " + (isDone ? "1" : "0") + " | " + description;
     }

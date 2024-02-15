@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 import tiny.extensions.LoanTaken;
 
+
+/**
+ * Manages all the taken loans.
+ */
 public class LoanTakenList {
     protected ArrayList<LoanTaken> loansTaken = new ArrayList<>();
 
@@ -52,5 +56,5 @@ public class LoanTakenList {
             toSave.add(loansTaken.get(i).formatToSave());
         }
         return toSave;
-    }       
+    }
 }

@@ -16,8 +16,10 @@ import tiny.tasks.Deadline;
 import tiny.tasks.Event;
 import tiny.tasks.Todo;
 
+/**
+ * Manages all the lists.
+ */
 public class ControlList {
-
     protected ContactList contactList = new ContactList();
     protected ClientList clientList = new ClientList();
     protected ExpenseList expenseList = new ExpenseList();
@@ -29,9 +31,14 @@ public class ControlList {
     protected TaskList taskList = new TaskList();
     protected TriviaList triviaList = new TriviaList();
 
-    public void processData(ArrayList<String> datas) throws TinyException {
-        for (int i = 0; i < datas.size(); i++) {
-            String[] entry = datas.get(i).split(" \\| ");
+    /**
+     * Processes the saved data.
+     *
+     * @param data Data to load from the save file.
+     */
+    public void processData(ArrayList<String> data) throws TinyException {
+        for (int i = 0; i < data.size(); i++) {
+            String[] entry = data.get(i).split(" \\| ");
             String inputType = entry[0];
             if (isCategory(inputType, "T")) {
                 Todo todo = new Todo(entry[2], !entry[1].equals("0"));
@@ -92,19 +99,19 @@ public class ControlList {
 
     public LoanTakenList getLoanTakenList() {
         return loanTakenList;
-    }    
+    }
 
     public MerchandiseList getMerchandiseList() {
         return merchandiseList;
-    }    
+    }
 
     public NoteList getNoteList() {
         return noteList;
-    }    
+    }
 
     public PlaceList getPlaceList() {
         return placeList;
-    }    
+    }
 
     public TaskList getTaskList() {
         return taskList;
@@ -114,7 +121,9 @@ public class ControlList {
         return triviaList;
     }
 
-
+    /**
+     * Formats the data to be saved.
+     */
     public ArrayList<String> formatToSave() {
         ArrayList<String> dataToSave = new ArrayList<>();
         dataToSave.addAll(clientList.formatToSave());

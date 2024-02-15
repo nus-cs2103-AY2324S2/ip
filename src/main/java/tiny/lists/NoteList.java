@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import tiny.extensions.Note;
 
+/**
+ * Manages all the notes.
+ */
 public class NoteList {
     protected ArrayList<Note> notes = new ArrayList<>();
 
@@ -52,5 +55,5 @@ public class NoteList {
             toSave.add(notes.get(i).formatToSave());
         }
         return toSave;
-    }       
+    }
 }

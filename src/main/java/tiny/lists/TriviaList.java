@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import tiny.extensions.Trivia;
 
+/**
+ * Manages all the trivias.
+ */
 public class TriviaList {
     protected ArrayList<Trivia> trivias = new ArrayList<>();
 
@@ -52,5 +55,5 @@ public class TriviaList {
             toSave.add(trivias.get(i).formatToSave());
         }
         return toSave;
-    }       
+    }
 }

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import tiny.extensions.Contact;
 
+/**
+ * Manages all the contacts.
+ */
 public class ContactList {
     protected ArrayList<Contact> contacts = new ArrayList<>();
 
@@ -51,5 +54,5 @@ public class ContactList {
             toSave.add(contacts.get(i).formatToSave());
         }
         return toSave;
-    }       
+    }
 }

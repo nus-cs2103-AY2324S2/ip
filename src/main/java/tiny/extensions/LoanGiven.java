@@ -5,11 +5,21 @@ import java.time.format.DateTimeFormatter;
 
 import tiny.exceptions.TinyException;
 
+/**
+ * Represents a given loan.
+ */
 public class LoanGiven {
     protected String name;
     protected Double amount;
     protected LocalDate dueDate;
 
+    /**
+     * Initializes LoanGiven.
+     *
+     * @param name    Name of the person.
+     * @param amount  Amount of the loan.
+     * @param dueDate Due date of the loan.
+     */
     public LoanGiven(String name, Double amount, String dueDate) throws TinyException {
         this.name = name;
         this.amount = amount;
@@ -17,9 +27,7 @@ public class LoanGiven {
         this.dueDate = dateParser(dueDate);
     }
 
-
-    //Need to edit error msg
-    public LocalDate dateParser(String date) throws TinyException {
+    private LocalDate dateParser(String date) throws TinyException {
         int year = 0;
         int month = 0;
         int day = 0;
@@ -38,7 +46,7 @@ public class LoanGiven {
         }
     }
 
-    public String dateSaveFormat(LocalDate date) {
+    private String dateSaveFormat(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return date.format(formatter);
     }
@@ -48,13 +56,12 @@ public class LoanGiven {
         return date.format(formatter);
     }
 
-
     public String formatToSave() {
         return "LG | " + name + " | " + amount + " | " + dateSaveFormat(dueDate);
-    }  
-    
+    }
+
     @Override
     public String toString() {
         return "Name: " + name + " | Amount: " + amount + " |  Date: " + dateToString(dueDate);
-    }    
+    }
 }

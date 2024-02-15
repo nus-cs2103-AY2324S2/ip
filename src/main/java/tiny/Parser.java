@@ -46,8 +46,9 @@ public class Parser {
     /**
      * Parses the user input into commands and return the appropriate response.
      *
-     * @param input    The string input from the user
-     * @param taskList The instance of the taskList which contains all the tasks.
+     * @param input       The string input from the user
+     * @param controlList The instance of the controlList which contains all the
+     *                    lists.
      * @return The message to be displayed to the user.
      * @throws TinyException When input is invalid when parsing the respective
      *                       commands.
@@ -132,7 +133,7 @@ public class Parser {
             } else if (isValidCommand("delete place")) {
                 return deletePlace();
             } else if (isValidCommand("delete task")) {
-                return deleteTask();                
+                return deleteTask();
             } else if (isValidCommand("delete trivia")) {
                 return deleteTrivia();
             } else if (isValidCommand("find")) {
@@ -362,7 +363,7 @@ public class Parser {
             String[] s = input.split(" ");
             String[] onSplit = input.split("/on ");
             String[] forSplit = onSplit[0].split("/for ");
-            expenseList.add(new Expense(s[1], Double.parseDouble(forSplit[1].trim()), onSplit[1].trim()));            
+            expenseList.add(new Expense(s[1], Double.parseDouble(forSplit[1].trim()), onSplit[1].trim()));
             return addMessage("expense", expenseList.get(expenseList.size() - 1).toString(),
                     expenseList.size());
         } catch (Exception e) {
@@ -374,10 +375,11 @@ public class Parser {
     private String loanGiven() throws TinyException {
         try {
             String[] onSplit = input.split("/on ");
-            String[] forSplit = onSplit[0].split("/for ");          
-            String[] toSplit = forSplit[0].split("/to ");            
-  
-            loanGivenList.add(new LoanGiven(toSplit[1].trim(), Double.parseDouble(forSplit[1].trim()), onSplit[1].trim()));
+            String[] forSplit = onSplit[0].split("/for ");
+            String[] toSplit = forSplit[0].split("/to ");
+
+            loanGivenList.add(new LoanGiven(toSplit[1].trim(), Double.parseDouble(forSplit[1].trim()),
+                    onSplit[1].trim()));
             return addMessage("given loan", loanGivenList.get(loanGivenList.size() - 1).toString(),
                     loanGivenList.size());
         } catch (Exception e) {
@@ -389,9 +391,10 @@ public class Parser {
     private String loanTaken() throws TinyException {
         try {
             String[] onSplit = input.split("/on ");
-            String[] forSplit = onSplit[0].split("/for ");          
-            String[] fromSplit = forSplit[0].split("/from ");            
-            loanTakenList.add(new LoanTaken(fromSplit[1].trim(), Double.parseDouble(forSplit[1].trim()), onSplit[1].trim()));
+            String[] forSplit = onSplit[0].split("/for ");
+            String[] fromSplit = forSplit[0].split("/from ");
+            loanTakenList.add(new LoanTaken(fromSplit[1].trim(), Double.parseDouble(forSplit[1].trim()),
+                    onSplit[1].trim()));
             return addMessage("taken loan", loanTakenList.get(loanTakenList.size() - 1).toString(),
                     loanTakenList.size());
         } catch (Exception e) {
@@ -403,9 +406,10 @@ public class Parser {
     private String merchandise() throws TinyException {
         try {
             String[] s = input.split(" ");
-            String[] priceSplit = input.split("/price ");          
-            String[] quantitySplit = priceSplit[0].split("/quantity ");          
-            merchandiseList.add(new Merchandise(s[1], Integer.parseInt(quantitySplit[1].trim()), Double.parseDouble(priceSplit[1].trim())));
+            String[] priceSplit = input.split("/price ");
+            String[] quantitySplit = priceSplit[0].split("/quantity ");
+            merchandiseList.add(new Merchandise(s[1], Integer.parseInt(quantitySplit[1].trim()),
+                    Double.parseDouble(priceSplit[1].trim())));
             return addMessage("merchandise", merchandiseList.get(merchandiseList.size() - 1).toString(),
                     merchandiseList.size());
         } catch (Exception e) {
@@ -532,8 +536,8 @@ public class Parser {
                 return "OOPS! You need to type \"delete <number>\" to delete!";
             }
             int ind = Integer.parseInt(s[2]);
-            String output = deleteMessage("merchandise", merchandiseList.get(ind - 1).toString(), 
-            merchandiseList.size() - 1);
+            String output = deleteMessage("merchandise", merchandiseList.get(ind - 1).toString(),
+                    merchandiseList.size() - 1);
             merchandiseList.delete(ind - 1);
             return output;
         } catch (Exception e) {
@@ -548,7 +552,7 @@ public class Parser {
                 return "OOPS! You need to type \"delete <number>\" to delete!";
             }
             int ind = Integer.parseInt(s[2]);
-            String output = deleteMessage("note",noteList.get(ind - 1).toString(), noteList.size() - 1);
+            String output = deleteMessage("note", noteList.get(ind - 1).toString(), noteList.size() - 1);
             noteList.delete(ind - 1);
             return output;
         } catch (Exception e) {
