@@ -29,13 +29,13 @@ public class TaskList {
     }
 
     private ArrayList<Task> listWithFilter(Predicate<Task> filter) {
-        ArrayList<Task> filteredTask = new ArrayList<>();
+        ArrayList<Task> filteredTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (filter.test(task)) {
-                filteredTask.add(task);
+                filteredTasks.add(task);
             }
         }
-        return filteredTask;
+        return filteredTasks;
     }
 
     public ArrayList<Task> list() {
