@@ -52,9 +52,9 @@ public class DukeException extends Exception {
     /**
      * An Exception for when the arguments given to the todo command are invalid or missing.
      */
-    public static class TodoDescriptionMissingException extends DukeException {
-        public TodoDescriptionMissingException() {
-            super("The description for a todo task cannot be empty :3");
+    public static class TodoParamsMissingException extends DukeException {
+        public TodoParamsMissingException() {
+            super("A todo task must have a description and an integer priority :3");
         }
     }
 
@@ -63,7 +63,7 @@ public class DukeException extends Exception {
      */
     public static class EventDetailsMissingException extends DukeException {
         public EventDetailsMissingException() {
-            super("An event task must have a description, a 'from' time, and a 'to' time :3");
+            super("An event task must have a description, an integer priority, a 'from' time, and a 'to' time :3");
         }
     }
 
@@ -72,7 +72,7 @@ public class DukeException extends Exception {
      */
     public static class DeadlineDetailsMissingException extends DukeException {
         public DeadlineDetailsMissingException() {
-            super("A deadline task must have a description and a 'by' time :3");
+            super("A deadline task must have a description, an integer priority and a 'by' time :3");
         }
     }
 

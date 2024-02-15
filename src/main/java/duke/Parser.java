@@ -119,14 +119,17 @@ public class Parser {
         System.out.println(toDelete);
     }
     private void parseTodo(String params) throws DukeException {
+        // todo buy bread /p 2
         Todo newTask;
-        if (params.length() == 0) {
-            throw new DukeException.TodoDescriptionMissingException();
+        if (!params.contains("/p")) {
+            throw new DukeException.TodoParamsMissingException();
         }
 
-        String desc = params;
+        // buy bread /p 2
+        int priority = Integer.parseInt(params.split("/p")[1].trim());
+        String desc = params.split("/p")[0];
 
-        newTask = new Todo(desc);
+        newTask = new Todo(desc, priority);
         myTasks.addTask(newTask);
 
         System.out.println("Got it. I've added this task:");
@@ -134,20 +137,22 @@ public class Parser {
         System.out.println("Now you have " + myTasks.size() + " tasks in the list");
     }
     private void parseDeadline(String params) throws DukeException {
+        // deadline return bread /p 2 /by monday
         Deadline newTask;
-        if (!params.contains("/by")) {
+        if (!params.contains("/by") || !params.contains("/p")) {
             throw new DukeException.DeadlineDetailsMissingException();
         }
-
-        String desc = params.split("/by")[0].trim();
+        // return bread /p 2 /by monday
+        String desc = params.split("/p")[0].trim();
+        Integer priority = Integer.parseInt(params.split("/p")[1].split("/by")[0].trim());
         String by = params.split("/by")[1].trim();
 
         // Check if by is in valid date format
         if (Dates.isValidInputDate(by)) {
             LocalDateTime dateObj = Dates.inputStr2DateTime(by);
-            newTask = new Deadline(desc, dateObj); // Create date object
+            newTask = new Deadline(desc, priority, dateObj); // Create date object
         } else {
-            newTask = new Deadline(desc, by);
+            newTask = new Deadline(desc, priority, by);
         }
         myTasks.addTask(newTask);
 
@@ -157,21 +162,24 @@ public class Parser {
 
     }
     private void parseEvent(String params) throws DukeException {
+        // event group meeting /p 5 /from mon 4pm /to tues 4pm
         Event newTask;
-        if (!params.contains("/from") || !params.contains("/to")) {
+        if (!params.contains("/from") || !params.contains("/to") || !params.contains("/p")) {
             throw new DukeException.EventDetailsMissingException();
         }
-
-        String desc = params.split("/from")[0];
+        // todo: handle invalid char as priority value error
+        // group meeting /p 5 /from mon 4pm /to tues 4pm
+        String desc = params.split("/p")[0];
+        int priority = Integer.parseInt(params.split("/p")[1].split("/from")[0].trim());
         String from = params.split("/from")[1].split("/to")[0].trim();
         String to = params.split("/to")[1].trim();
 
         if (Dates.isValidInputDate(from) && Dates.isValidInputDate(to)) {
             LocalDateTime dateObjFrom = Dates.inputStr2DateTime(from);
             LocalDateTime dateObjTo = Dates.inputStr2DateTime(to);
-            newTask = new Event(desc, dateObjFrom, dateObjTo); // Create date object
+            newTask = new Event(desc, priority, dateObjFrom, dateObjTo); // Create date object
         } else {
-            newTask = new Event(desc, from, to);
+            newTask = new Event(desc, priority, from, to);
         }
         myTasks.addTask(newTask);
 

@@ -15,31 +15,31 @@ public class Deadline extends Task {
      * @param description of Deadline
      * @param by is the end of the deadline
      */
-    public Deadline(String description, String by) {
-        super(description);
+    public Deadline(String description, int priority, String by) {
+        super(description, priority);
         this.by = by;
     }
 
     /**
-     * Overloaded constructor, isDone can be set.
+     * Overloaded constructor, isDone set.
      *
      * @param description of Deadline
      * @param isDone sets the completion status of Deadline
      * @param by is the end of the deadline
      */
-    public Deadline(String description, Boolean isDone, String by) {
-        super(description, isDone);
+    public Deadline(String description, Boolean isDone, int priority, String by) {
+        super(description, isDone, priority);
         this.by = by;
     }
 
     /**
-     * Overloaded constructor.
+     * Overloaded constructor with LocalDateTime.
      *
      * @param description of Deadline
      * @param by is the end of the deadline
      */
-    public Deadline(String description, LocalDateTime by) {
-        super(description);
+    public Deadline(String description, int priority, LocalDateTime by) {
+        super(description, priority);
         this.by = Dates.dateTime2DbStr(by);
     }
 
@@ -63,12 +63,13 @@ public class Deadline extends Task {
      * @return Task the Deadline Task object
      */
     public static Deadline db2Deadline(String dbDeadline) {
-        // D | 0 | return book | June 6th
+        // D | 0 | 1 | return book | June 6th
         String[] params = dbDeadline.split(" \\| ");
         Boolean isDone = params[1].equals("1") ? true : false; // if "1", means isDone
-        String desc = params[2];
+        int priority = Integer.parseInt(params[2].trim());
+        String desc = params[3];
         String by = params[3];
-        return new Deadline(desc, isDone, by);
+        return new Deadline(desc, isDone, priority, by);
     }
 
     /**
@@ -78,15 +79,16 @@ public class Deadline extends Task {
      * @return Task the string rep of Deadline in the database
      */
     public static String deadline2Db(Deadline deadlineTask) {
-        // D | 0 | return book | June 6th
+        // D | 0 | 1 | return book | June 6th
         String done = deadlineTask.isDone ? "1" : "0";
         String desc = deadlineTask.description;
+        String priority = Integer.toString(deadlineTask.priority);
         String by = deadlineTask.by;
-        return "D" + " | " + done + " | " + desc + " | " + by;
+        return "D" + " | " + done + " | " + priority + " | " + desc + " | " + by;
     }
 
     public static void main(String[] args) {
-        String dbDeadline = "D | 0 | return book | June 6th";
+        String dbDeadline = "D | 0 | 1 | return book | June 6th";
         Deadline deadlineTask = Deadline.db2Deadline(dbDeadline);
         deadlineTask.markAsDone();
         System.out.println(deadlineTask);
@@ -95,9 +97,10 @@ public class Deadline extends Task {
         // Test creating a deadline with valid date
         String desc = "Buy Bread";
         String validInputDate1 = "15/01/2023 1430";
+        int priority = 5;
         if (Dates.isValidInputDate(validInputDate1)) {
             LocalDateTime validDate1 = Dates.inputStr2DateTime(validInputDate1);
-            Deadline d = new Deadline(desc, validDate1); // Create date object
+            Deadline d = new Deadline(desc, priority, validDate1); // Create date object
             d.markAsDone();
             System.out.println(Deadline.deadline2Db(d));
         }

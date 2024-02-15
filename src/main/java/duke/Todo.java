@@ -11,12 +11,16 @@ public class Todo extends Task {
      * Default constructor, isDone set to false.
      * @param description of Todo
      */
-    public Todo(String description) {
-        super(description);
+    public Todo(String description, int priority) {
+        super(description, priority);
     }
 
-    public Todo(String description, Boolean isDone) {
-        super(description, isDone);
+    /**
+     * Overloaded constructor, isDone is set.
+     * @param description of Todo
+     */
+    public Todo(String description, Boolean isDone, int priority) {
+        super(description, isDone, priority);
     }
 
     /**
@@ -38,11 +42,12 @@ public class Todo extends Task {
      * @return Task the todo Task object
      */
     public static Todo db2Todo(String dbTodo) {
-        // T | 0 | Buy Bread
+        // T | 0 | 1 | Buy Bread
         String[] params = dbTodo.split(" \\| ");
         Boolean isDone = params[1].equals("1") ? true : false; // if "1", means isDone
-        String desc = params[2];
-        return new Todo(desc, isDone);
+        int priority = Integer.parseInt(params[2]);
+        String desc = params[3];
+        return new Todo(desc, isDone, priority);
     }
 
     /**
@@ -51,14 +56,15 @@ public class Todo extends Task {
      * @return Task the string rep of Todo in the database
      */
     public static String todo2Db(Todo todoTask) {
-        // T | 0 | Buy Bread
+        // T | 0 | 1 | Buy Bread
         String done = todoTask.isDone ? "1" : "0";
         String desc = todoTask.description;
-        return "T" + " | " + done + " | " + desc;
+        int priority = todoTask.priority;
+        return "T" + " | " + done + " | " + priority + " | " + desc;
     }
 
     public static void main(String[] args) {
-        String dbTodo = "T | 0 | Buy Bread";
+        String dbTodo = "T | 0 | 1 | Buy Bread";
         Todo todoTask = Todo.db2Todo(dbTodo);
         todoTask.markAsDone();
         System.out.println(todoTask);

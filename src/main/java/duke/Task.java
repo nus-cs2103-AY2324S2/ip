@@ -6,24 +6,29 @@ package duke;
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected int priority;
 
     /**
-     * The default Task constructor
+     * The default Task constructor, where isDone is default, and priority is set.
+     * @param priority of the task
      * @param description of the task
      */
-    public Task(String description) {
+    public Task(String description, int priority) {
         this.description = description;
         this.isDone = false;
+        this.priority = priority;
     }
 
     /**
-     * Class constructor specifying completion status
+     * Class constructor, isDone is set, priority is set.
      * @param description of the task
      * @param isDone denoting task completion status
+     * @param priority of the task
      */
-    public Task(String description, Boolean isDone) {
+    public Task(String description, Boolean isDone, int priority) {
         this.description = description;
         this.isDone = isDone;
+        this.priority = priority;
     }
 
     /**
@@ -33,6 +38,7 @@ public class Task {
     public Task(Task task) {
         this.description = task.description;
         this.isDone = task.isDone;
+        this.priority = task.priority;
     }
 
     /**
@@ -59,6 +65,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + description;
+        return "[" + this.getStatusIcon() + "] " + "[P" + priority + "] " + description;
     }
 }

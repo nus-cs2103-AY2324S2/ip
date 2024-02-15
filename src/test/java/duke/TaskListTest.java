@@ -19,19 +19,22 @@ public class TaskListTest {
         }
 
         // get task that exists
-        testTasks.addTask(new Todo("buy bread"));
+        testTasks.addTask(new Todo("buy bread", 2));
         String todoDesc = "";
+        Integer todoPriority = 0;
         try {
             todoDesc = testTasks.getTask(1).description;
+            todoPriority = testTasks.getTask(1).priority;
         } catch (DukeException.TaskNotFoundException e) {
             assertEquals("Could not find task!", e.getMessage());
         }
         assertEquals("buy bread", todoDesc);
+        assertEquals(2, todoPriority);
     }
 
     @Test
     public void testMarkTask() {
-        testTasks.addTask(new Deadline("return book", "Mon 4pm"));
+        testTasks.addTask(new Deadline("return book", 2, "Mon 4pm"));
 
         // mark task that doesn't exist
         try {
@@ -59,7 +62,7 @@ public class TaskListTest {
 
     @Test
     public void testUnmarkTask() {
-        testTasks.addTask(new Deadline("return book", "Mon 4pm"));
+        testTasks.addTask(new Deadline("return book", 5, "Mon 4pm"));
 
         // unmark task that doesn't exist
         try {
@@ -87,7 +90,7 @@ public class TaskListTest {
 
     @Test
     public void testDeleteTask() {
-        testTasks.addTask(new Deadline("return book", "Mon 4pm"));
+        testTasks.addTask(new Deadline("return book", 5, "Mon 4pm"));
 
         // delete existing task
         try {
@@ -108,32 +111,32 @@ public class TaskListTest {
     @Test
     public void testAddTask() {
         assertEquals(0, testTasks.size());
-        Todo t = new Todo("Buy bread");
+        Todo t = new Todo("Buy bread", 4);
         testTasks.addTask(t);
         assertEquals(1, testTasks.size());
     }
 
     @Test
     public void testFindTasks() {
-        testTasks.addTask(new Todo("Buy Bread"));
-        testTasks.addTask(new Todo("Borrow book"));
-        testTasks.addTask(new Deadline("Return Bread", "tomorrow"));
-        testTasks.addTask(new Todo("eat bread"));
-        testTasks.addTask(new Event("Bread discussion", "Mon 4pm", "5pm"));
+        testTasks.addTask(new Todo("Buy Bread", 5));
+        testTasks.addTask(new Todo("Borrow book", 5));
+        testTasks.addTask(new Deadline("Return Bread", 3, "tomorrow"));
+        testTasks.addTask(new Todo("eat bread", 5));
+        testTasks.addTask(new Event("Bread discussion", 10, "Mon 4pm", "5pm"));
 
         testTasks.findTasks("Bread");
     }
 
     @Test
     public void testUndo() {
-        testTasks.addTask(new Todo("Buy Bread"));
+        testTasks.addTask(new Todo("Buy Bread", 5));
         testTasks.undo();
 
         assertEquals(0, testTasks.size());
 
-        testTasks.addTask(new Deadline("Return Bread", "tomorrow"));
-        testTasks.addTask(new Todo("eat bread"));
-        testTasks.addTask(new Event("Bread discussion", "Mon 4pm", "5pm"));
+        testTasks.addTask(new Deadline("Return Bread", 5, "tomorrow"));
+        testTasks.addTask(new Todo("eat bread", 2));
+        testTasks.addTask(new Event("Bread discussion", 4, "Mon 4pm", "5pm"));
 
         // delete existing task
         try {
