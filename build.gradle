@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("lumiere.Lumiere")
+    mainClass.set("lumiere.lumiere.Lumiere")
 }
 
 shadowJar {
