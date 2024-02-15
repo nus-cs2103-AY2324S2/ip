@@ -1,6 +1,8 @@
 package eggy.response;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import eggy.task.Task;
 import eggy.task.TaskList;
@@ -100,10 +102,10 @@ public class Response {
         if (tasks.isEmpty()) {
             this.response = "There are no matching tasks in your list.";
         } else {
-            this.response = "Here are the matching tasks in your list:";
-            for (int i = 0; i < tasks.size(); i++) {
-                this.response += "\n  " + (i + 1) + "." + tasks.get(i);
-            }
+            this.response = "Here are the matching tasks in your list:\n";
+            this.response += IntStream.range(0, tasks.size())
+                    .mapToObj(i -> "  " + (i + 1) + "." + tasks.get(i))
+                    .collect(Collectors.joining("\n"));
         }
     }
 
