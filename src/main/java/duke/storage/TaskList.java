@@ -44,7 +44,7 @@ public class TaskList {
     public TaskList(File file) {
         try {
             Storage.loadFromFile(this, file);
-        } catch (TaskNotSupportedException | TaskCorruptedException | FileNotFoundException e) {
+        } catch (TaskNotSupportedException | TaskCorruptedException | FileNotFoundException | StorageException e) {
             Cli.printLoadFromFileWarning();
         }
     }
