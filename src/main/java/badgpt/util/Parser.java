@@ -28,12 +28,6 @@ public class Parser {
         String cmd = line.split(" ")[0];
         String args = line.substring(cmd.length()).trim();
 
-        // Cases
-        // "bye": Exit the loop and the program.
-        // "list": List out all currently stored tasks.
-        // "mark": Mark the task corresponding to the number entered after as complete.
-        // "unmark": Unmark the task corresponding to the number entered after.
-        // Else, store the string entered as a new Task object.
         switch (cmd) {
         case "bye":
             bot.bye();
