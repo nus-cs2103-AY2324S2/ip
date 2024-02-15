@@ -6,21 +6,20 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * A CLI chatbot with the ability to save tasks.
+ * A chatbot with the ability to save tasks.
  */
 public class Jojo {
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
 
     public Jojo(String filePath) {
-        ui = new Ui();
         ui = new Ui();
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
         } catch (JojoException e) {
-            this.ui.showLoadingError();
+            ui.showLoadingError();
             tasks = new TaskList(new ArrayList<>());
         }
     }
@@ -30,18 +29,54 @@ public class Jojo {
      * @throws JojoException when an invalid command is given.
      */
     public void run() throws JojoException {
-            ui.showWelcomeMessage();
-            storage.printList();
-            ui.showStartingQn();
-            ui.breakLines();
+            System.out.println(getStartingMsg());
+            System.out.println(ui.breakLines());
             Scanner sc = new Scanner(System.in);
-            Parser.parse(sc, ui, tasks, storage);
-            this.ui.showExitMessage();
-            this.ui.breakLines();
+            String cmd = sc.nextLine();
+            while (!cmd.equals("bye")) {
+                getResponse(cmd);
+                saveTasks();
+                System.out.println(ui.breakLines());
+                cmd = sc.nextLine();
+            }
+            System.out.println(ui.showExitMessage());
+            System.out.println(ui.breakLines());
     }
 
-    public String getResponse(String response) {
-        return ui.getResponse(response);
+    /**
+     * Saves the tasks to the hardcoded file
+     * @throws JojoException when an invalid command is given.
+     */
+    public void saveTasks() throws JojoException {
+        String store_str = storage.storeList(tasks);
+        storage.save(store_str);
+    }
+
+    /**
+     * Returns the response by Jojo
+     * @param input from the user
+     * @return String
+     * @throws JojoException when an invalid command is given.
+     */
+    public String getResponse(String input) throws JojoException {
+        String response = Parser.parse(input, ui, tasks);
+        System.out.println(response);
+        return response;
+    }
+
+    /**
+     * Returns the starting message
+     * @return String
+     * @throws JojoException when an invalid command is given.
+     */
+    public String getStartingMsg() throws JojoException {
+        StringBuilder msg = new StringBuilder();
+        msg.append(ui.showWelcomeMessage());
+        msg.append(System.getProperty("line.separator"));
+        msg.append(storage.printList());
+        msg.append(System.getProperty("line.separator"));
+        msg.append(ui.showStartingQn());
+        return msg.toString();
     }
 
     public static void main(String[] args) {

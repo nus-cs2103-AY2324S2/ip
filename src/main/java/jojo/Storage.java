@@ -64,8 +64,9 @@ public class Storage {
      * Prints the list from the file upon restarting the program.
      * @throws JojoException when there are errors with the file
      */
-    public void printList() throws JojoException {
-        System.out.println("Here are the tasks in your list:");
+    public String printList() throws JojoException {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the tasks in your list:");
         BufferedReader br = null;
         Path path = Paths.get(filePath);
         try {
@@ -76,7 +77,8 @@ public class Storage {
             br = new BufferedReader(new FileReader(file));
             String s;
             while ((s = br.readLine()) != null) {
-                System.out.println(s);
+                sb.append(System.getProperty("line.separator"));
+                sb.append(s);
             }
         } catch (FileNotFoundException e) {
             throw new JojoException("File not found: " + filePath);
@@ -91,6 +93,7 @@ public class Storage {
                 throw new JojoException("Error closing file reader: " + e.getMessage());
             }
         }
+        return sb.toString();
     }
 
     /**

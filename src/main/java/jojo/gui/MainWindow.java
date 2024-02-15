@@ -1,5 +1,7 @@
 package jojo.gui;
 
+import exceptions.JojoException;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -25,7 +27,7 @@ public class MainWindow extends AnchorPane {
     private Jojo jojo;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image jojoImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @FXML
     public void initialize() {
@@ -43,15 +45,34 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = jojo.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getJojoDialog(response, dukeImage)
-        );
-        userInput.clear();
+        try {
+            if (input.strip().equals("bye")) {
+                Platform.exit();
+            }
+            String response = jojo.getResponse(input);
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getJojoDialog(response, jojoImage)
+            );
+            jojo.saveTasks();
+        } catch (JojoException e) {
+            String response = e.getMessage();
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getJojoDialog(response, jojoImage)
+            );
+        } finally {
+            userInput.clear();
+        }
     }
 
     /**
-     * Prints the starting message.
+     * Returns the starting message.
      */
+    public void showStartingMsg() throws JojoException {
+        String response = jojo.getStartingMsg();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getJojoDialog(response, jojoImage)
+        );
+    }
 }

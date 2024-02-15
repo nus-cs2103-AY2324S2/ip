@@ -61,7 +61,7 @@ public class TaskList {
 
     /**
      * Returns the toString() of the Task at that index.
-     * @param idx
+     * @param idx int
      * @return String toString
      */
     public String taskToString(int idx) {

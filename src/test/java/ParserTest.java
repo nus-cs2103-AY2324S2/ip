@@ -1,13 +1,11 @@
+import exceptions.JojoUnknownTaskException;
 import jojo.Parser;
-import jojo.Storage;
 import jojo.TaskList;
 import jojo.Ui;
-import exceptions.JojoUnknownTaskException;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -32,7 +30,7 @@ public class ParserTest {
     @Test
     public void testParseUnknownTask() {
         String cmd = "unknown-task";
-        assertThrows(JojoUnknownTaskException.class, () -> Parser.parse(new Scanner(cmd), new Ui(), new TaskList(new ArrayList<>()), new Storage("")));
+        assertThrows(JojoUnknownTaskException.class, () -> Parser.parse(cmd, new Ui(), new TaskList(new ArrayList<>())));
     }
 
 }
