@@ -92,7 +92,6 @@ public class Storage {
      * @param tasks The task list containing tasks to be written to.
      */
     private void readFile(File file, TaskList tasks) throws FileNotFoundException {
-        // Reading from file
         Scanner s = new Scanner(file);
         while (s.hasNext()) {
             String line = s.nextLine();
