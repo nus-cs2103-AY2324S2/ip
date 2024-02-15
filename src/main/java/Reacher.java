@@ -5,9 +5,13 @@ import java.util.Scanner;
 
 public class Reacher {
     public static void main(String[] args) {
-
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> memory = new ArrayList<>();
+        Storage storage = new Storage();
+        if (!storage.isEmpty()) {
+            memory = storage.loadList();
+        }
+
         System.out.println("Hello!\n" +
                 "I'm Reacher.\n" +
                 "Give me tasks.\n" +
@@ -46,11 +50,12 @@ public class Reacher {
                             task.markNotDone();
                             System.out.println("Task " + num + " marked Undone");
                         } else if (change.equalsIgnoreCase("delete")) {
-                            memory.remove(num);
+                            memory.remove(num - 1);
                             System.out.println("Task " + num + " deleted");
                         }else {
                             throw new ReacherException("u did not write done, undone or delete.");
                         }
+                        storage.storeList(memory);
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
@@ -79,6 +84,7 @@ public class Reacher {
                         } else {
                             throw new ReacherException("That is not a type of task.");
                         }
+                        storage.storeList(memory);
                     } catch (ReacherException e) {
                         System.out.println(e.getMessage());
                     }
