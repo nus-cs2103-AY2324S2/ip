@@ -1,5 +1,6 @@
 package parser;
 
+import commands.Commands;
 import javafx.util.Pair;
 import storage.Storage;
 import tasks.TaskList;
@@ -227,20 +228,17 @@ public class Parser {
                         "(eg: delete 3)\n");
                 System.out.print("Close Tam the Task Manager: bye\n");
                 System.out.print(dividerText);
-                response = "LIST OF COMMANDS\n"
-                        + "Create todo: todo [task name] (eg: todo borrow book)\n"
-                        + "Create deadline: deadline [task name] /by [due date] "
-                        + "(eg: deadline homework /by Sun 6pm)\n"
-                        + "Create event: event [task name] /from [from date] /to [to date] "
-                        + "(eg: event concert /from Mon 6pm /to Mon 8pm)\n"
-                        + "List current tasks: list\n"
-                        + "Mark a task as complete: mark [task number on list] "
-                        + "(eg: mark 2)\n"
-                        + "Mark a task as incomplete: unmark [task number on list] "
-                        + "(eg: unmark 2)\n"
-                        + "Delete a task: delete [task number on list] "
-                        + "(eg: delete 3)\n"
-                        + "Close Tam the Task Manager: bye";
+
+                response = "LIST OF COMMANDS\n" // USE STREAM TO PRINT COMMAND HELP MESSAGES
+                        + Commands.TODO.getHelpMessage() + "\n"
+                        + Commands.DEADLINE.getHelpMessage() + "\n"
+                        + Commands.EVENT.getHelpMessage() + "\n"
+                        + Commands.LIST.getHelpMessage() + "\n"
+                        + Commands.MARK.getHelpMessage() + "\n"
+                        + Commands.UNMARK.getHelpMessage() + "\n"
+                        + Commands.DELETE.getHelpMessage() + "\n"
+                        + Commands.FIND.getHelpMessage() + "\n"
+                        + Commands.BYE.getHelpMessage();
                 return new Pair(CONTINUE_PROGRAM, response);
 
             default:
@@ -249,8 +247,7 @@ public class Parser {
                 response = "Invalid command entered. Type 'help' for list of commands";
                 return new Pair(CONTINUE_PROGRAM, response);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             response = e.getMessage();
             return new Pair(TERMINATE_PROGRAM, response);
