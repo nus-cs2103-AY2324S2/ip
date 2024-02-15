@@ -1,0 +1,4 @@
+T | 0 | read book
+T | 0 | sleep
+T | 0 | watch movie
+D | 0 | meeting | Mar 17 2024 15:00
