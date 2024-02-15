@@ -24,22 +24,22 @@ import bob.exception.InvalidTaskIndexException;
 import bob.exception.ParameterNotFoundException;
 
 public class Parser {
-    private static final String EXIT = "exit";
-    private static final String LIST = "list";
-    private static final String MARK = "mark";
-    private static final String UNMARK = "unmark";
-    private static final String TODO = "todo";
-    private static final String DEADLINE = "deadline";
-    private static final String EVENT = "event";
-    private static final String DELETE = "delete";
+    private static final String COMMAND_DEADLINE = "deadline";
+    private static final String COMMAND_DELETE = "delete";
+    private static final String COMMAND_EVENT = "event";
+    private static final String COMMAND_EXIT = "exit";
+    private static final String COMMAND_LIST = "list";
+    private static final String COMMAND_MARK = "mark";
+    private static final String COMMAND_TODO = "todo";
+    private static final String COMMAND_UNMARK = "unmark";
 
-    private static final String DATE_PATTERN = "d/M/yyyy";
-    private static final DateTimeFormatter DATE_FORMATTER
-            = DateTimeFormatter.ofPattern(DATE_PATTERN);
+    private static final String PATTERN_DATE = "d/M/yyyy";
+    private static final String PATTERN_DATE_TIME = PATTERN_DATE + " HHmm";
 
-    private static final String DATETIME_PATTERN = DATE_PATTERN + " HHmm";
-    private static final DateTimeFormatter DATETIME_FORMATTER
-            = DateTimeFormatter.ofPattern(DATETIME_PATTERN);
+    private static final DateTimeFormatter FORMATTER_DATE
+            = DateTimeFormatter.ofPattern(PATTERN_DATE);
+    private static final DateTimeFormatter FORMATTER_DATE_TIME
+            = DateTimeFormatter.ofPattern(PATTERN_DATE_TIME);
 
     private static String[] extractParameters(String parametersString,
                                              String[] parameters) throws ParameterNotFoundException {
@@ -80,10 +80,10 @@ public class Parser {
 
             if (hasOn) {
                 try {
-                    LocalDate on = LocalDate.parse(onSplit[1], DATE_FORMATTER);
+                    LocalDate on = LocalDate.parse(onSplit[1], FORMATTER_DATE);
                     return new ListOnDateCommand(on);
                 } catch (DateTimeParseException e) {
-                    throw new InvalidDateTimeException(DATE_PATTERN, e.getParsedString());
+                    throw new InvalidDateTimeException(PATTERN_DATE, e.getParsedString());
                 }
             } else if (hasDueIn) {
                 try {
@@ -102,10 +102,10 @@ public class Parser {
             String[] commandArgs) throws InvalidTaskIndexException, EmptyDescriptionException {
         try {
             int taskIndex = Integer.parseInt(commandArgs[1]) - 1;
-            if (commandArgs[0].equals(Parser.DELETE)) {
+            if (commandArgs[0].equals(Parser.COMMAND_DELETE)) {
                 return new DeleteCommand(taskIndex);
             } else {
-                return new MarkCommand(taskIndex, commandArgs[0].equals(Parser.MARK));
+                return new MarkCommand(taskIndex, commandArgs[0].equals(Parser.COMMAND_MARK));
             }
         } catch (NumberFormatException e) {
             throw new InvalidTaskIndexException(commandArgs[1]);
@@ -129,24 +129,24 @@ public class Parser {
 
         try {
             switch (taskType) {
-            case TODO:
+            case COMMAND_TODO:
                 parameters = Parser.extractParameters(commandArgs[1], new String[]{});
                 description = parameters[0];
                 return new AddTodoCommand(description);
-            case DEADLINE:
+            case COMMAND_DEADLINE:
                 parameters = Parser.extractParameters(commandArgs[1], new String[]{ "by" });
                 description = parameters[0];
-                LocalDateTime by = LocalDateTime.parse(parameters[1], DATETIME_FORMATTER);
+                LocalDateTime by = LocalDateTime.parse(parameters[1], FORMATTER_DATE_TIME);
                 return new AddDeadlineCommand(description, by);
             default:
                 parameters = Parser.extractParameters(commandArgs[1], new String[] { "from", "to" });
                 description = parameters[0];
-                LocalDateTime from = LocalDateTime.parse(parameters[1], DATETIME_FORMATTER);
-                LocalDateTime to = LocalDateTime.parse(parameters[2], DATETIME_FORMATTER);
+                LocalDateTime from = LocalDateTime.parse(parameters[1], FORMATTER_DATE_TIME);
+                LocalDateTime to = LocalDateTime.parse(parameters[2], FORMATTER_DATE_TIME);
                 return new AddEventCommand(description, from, to);
             }
         } catch (DateTimeParseException e) {
-            throw new InvalidDateTimeException(DATETIME_PATTERN, e.getParsedString());
+            throw new InvalidDateTimeException(PATTERN_DATE_TIME, e.getParsedString());
         }
     }
 
@@ -156,24 +156,24 @@ public class Parser {
 
         command = commandArgs[0];
 
-        if (command.equals(Parser.EXIT)) {
+        if (command.equals(Parser.COMMAND_EXIT)) {
             return new ExitCommand();
         }
 
         switch (command) {
-        case Parser.LIST:
+        case Parser.COMMAND_LIST:
             return parseList(commandArgs);
-        case Parser.DELETE:
+        case Parser.COMMAND_DELETE:
             // Fallthrough
-        case Parser.UNMARK:
+        case Parser.COMMAND_UNMARK:
             // Fallthrough
-        case Parser.MARK:
+        case Parser.COMMAND_MARK:
             return parseDeleteOrMark(commandArgs);
-        case Parser.TODO:
+        case Parser.COMMAND_TODO:
             // Fallthrough
-        case Parser.DEADLINE:
+        case Parser.COMMAND_DEADLINE:
             // Fallthrough
-        case Parser.EVENT:
+        case Parser.COMMAND_EVENT:
             return parseAdd(commandArgs);
         default:
             throw new InvalidCommandException();

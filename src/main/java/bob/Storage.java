@@ -23,7 +23,7 @@ public class Storage {
     private static final String DATA_DIR = "data";
     public static final String DATA_PATH = DATA_DIR + "/bob.txt";
 
-    private static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+    private static final DateTimeFormatter FORMATTER_DATE_TIME = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
     private File dataFile;
 
@@ -56,12 +56,12 @@ public class Storage {
             task = new Todo(description);
             break;
         case Deadline.STORAGE_INDICATOR:
-            LocalDateTime by = LocalDateTime.parse(parameters[3], DATETIME_FORMATTER);
+            LocalDateTime by = LocalDateTime.parse(parameters[3], FORMATTER_DATE_TIME);
             task = new Deadline(description, by);
             break;
         case Event.STORAGE_INDICATOR:
-            LocalDateTime from = LocalDateTime.parse(parameters[3], DATETIME_FORMATTER);
-            LocalDateTime to = LocalDateTime.parse(parameters[4], DATETIME_FORMATTER);
+            LocalDateTime from = LocalDateTime.parse(parameters[3], FORMATTER_DATE_TIME);
+            LocalDateTime to = LocalDateTime.parse(parameters[4], FORMATTER_DATE_TIME);
             task = new Event(description, from, to);
             break;
         default:
@@ -72,7 +72,7 @@ public class Storage {
     }
 
     public static String formatDateTime(LocalDateTime dateTime) {
-        return dateTime.format(DATETIME_FORMATTER);
+        return dateTime.format(FORMATTER_DATE_TIME);
     }
 
     public ArrayList<Task> load(String dataPath) throws LoadingException {
