@@ -35,23 +35,40 @@ public class SirDuke{
         }
     }
 
-    public String run() {
+    /**
+     * Run method that returns a String response for the GUI
+     * @return
+     */
+    public String runForGUI(String userInput) {
         ui.welcome();
         Boolean isBye = false;
         String response = "";
+        try {
+            Command c = parser.parseCommand(userInput);
+            // i set tasks and ui here so that I dont have to pass it to parse command
+            c.setTasksAndUi(tasks, ui);
+            response = c.execute();
+            isBye = c.getIsBye();
+        } catch (DukeException e) {
+            ui.errorMsg(e.getMessage());
+        }
+        return response;
+    }
+
+    public void run() {
+        ui.welcome();
+        Boolean isBye = false;
         while (!isBye) {
             try {
                 String cmd = ui.readCommand();
                 Command c = parser.parseCommand(cmd);
                 // i set tasks and ui here so that I dont have to pass it to parse command
                 c.setTasksAndUi(tasks, ui);
-                response = c.execute();
                 isBye = c.getIsBye();
             } catch (DukeException e) {
                 ui.errorMsg(e.getMessage());
             }
         }
-        return response;
     }
 
 

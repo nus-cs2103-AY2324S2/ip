@@ -26,8 +26,8 @@ public class MainWindow extends AnchorPane {
 
     private SirDuke duke;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/LeUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/SirDuke.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/LeUser.png"));
+    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/SirDuke.png"));
 
     @FXML
     public void initialize() {
@@ -39,7 +39,8 @@ public class MainWindow extends AnchorPane {
     }
 
     String getResponse(String input) {
-        return "Duke heard: " + input;
+        String response = duke.runForGUI(input);
+        return "Duke heard: " + response;
     }
 
     /**
