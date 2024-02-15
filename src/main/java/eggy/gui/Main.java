@@ -21,11 +21,14 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+
             scene.getStylesheets().add("/css/styles.css");
+
             stage.setScene(scene);
             stage.setMinHeight(420);
             stage.setMinWidth(280);
             stage.setTitle("Eggy");
+
             fxmlLoader.<MainWindow>getController().setEggy(eggy);
             fxmlLoader.<MainWindow>getController().showInitMessage();
             stage.show();

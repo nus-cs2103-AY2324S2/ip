@@ -50,43 +50,44 @@ public class Storage {
         List<Task> tempTasks = new ArrayList<>();
         try {
             File file = new File(this.filePath);
-            if (file.exists()) {
-                try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-                    String line = br.readLine();
-                    while (line != null) {
-                        String[] taskStrings = line.split(" \\| ");
-                        try {
-                            TaskType taskType = TaskType.valueOf(taskStrings[0]);
-                            Task task;
-                            switch (taskType) {
-                            case T:
-                                task = new Todo(taskStrings[2], taskStrings[1].equals("1"));
-                                break;
-                            case D:
-                                task = new Deadline(taskStrings[2], LocalDateTime.parse(taskStrings[3]),
-                                        taskStrings[1].equals("1"));
-                                break;
-                            case E:
-                                task = new Event(taskStrings[2], LocalDateTime.parse(taskStrings[3]),
-                                        LocalDateTime.parse(taskStrings[4]), taskStrings[1].equals("1"));
-                                break;
-                            default:
-                                throw new InvalidTaskTypeException();
-                            }
-                            tempTasks.add(task);
-                            line = br.readLine();
-                        } catch (IllegalArgumentException e) {
-                            throw new InvalidTaskTypeException();
-                        }
-                    }
-                }
-            } else {
+            if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
+            }
+            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    tempTasks.add(processTaskLine(line));
+                }
             }
             return tempTasks;
         } catch (IOException e) {
             throw new LoadTasksException(this.filePath);
+        }
+    }
+
+    private Task processTaskLine(String line) throws InvalidTaskTypeException {
+        String[] taskStrings = line.split(" \\| ");
+        try {
+            TaskType taskType = TaskType.valueOf(taskStrings[0]);
+            return createTask(taskType, taskStrings);
+        } catch (IllegalArgumentException e) {
+            throw new InvalidTaskTypeException();
+        }
+    }
+
+    private Task createTask(TaskType taskType, String[] taskStrings) throws InvalidTaskTypeException {
+        switch (taskType) {
+        case T:
+            return new Todo(taskStrings[2], taskStrings[1].equals("1"));
+        case D:
+            return new Deadline(taskStrings[2], LocalDateTime.parse(taskStrings[3]),
+                    taskStrings[1].equals("1"));
+        case E:
+            return new Event(taskStrings[2], LocalDateTime.parse(taskStrings[3]),
+                    LocalDateTime.parse(taskStrings[4]), taskStrings[1].equals("1"));
+        default:
+            throw new InvalidTaskTypeException();
         }
     }
 
