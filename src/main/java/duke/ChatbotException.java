@@ -7,7 +7,6 @@ package duke;
  * gracefully and inform the user accordingly.
  */
 public class ChatbotException extends Exception {
-
     /**
      * Constructs a new Exception with the specified detail message.
      * The message provides a clear description of the exception, intended to be shown directly to the user or logged
@@ -15,6 +14,7 @@ public class ChatbotException extends Exception {
      *
      * @param message The detail message. The detail message is saved for later retrieval by the {@link #getMessage()} method.
      */
+
     public ChatbotException(String message) {
         super(message);
     }

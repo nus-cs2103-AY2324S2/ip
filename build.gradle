@@ -35,6 +35,7 @@ shadowJar {
     archiveBaseName = "HughJazz"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+    archiveFileName = "HughJazz.jar"
 }
 
 run{
