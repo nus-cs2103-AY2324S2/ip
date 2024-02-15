@@ -1,45 +1,14 @@
-package tiny;
+package tiny.lists;
 
 import java.util.ArrayList;
 
-import tiny.exceptions.TinyException;
-import tiny.tasks.Deadline;
-import tiny.tasks.Event;
 import tiny.tasks.Task;
-import tiny.tasks.Todo;
 
 /**
  * Represents the tasklist to manage all the tasks.
  */
 public class TaskList {
     protected ArrayList<Task> tasks = new ArrayList<>();
-
-    /**
-     * Initializes TaskList when there is no tasks to load.
-     */
-    public TaskList() {
-    }
-
-    /**
-     * Initializes TaskList with data to load.
-     *
-     * @param data The tasks to be added to the local tasks ArrayList.
-     */
-    public TaskList(ArrayList<String> datas) throws TinyException {
-        for (int i = 0; i < datas.size(); i++) {
-            String[] entry = datas.get(i).split(" \\| ");
-            if (entry[0].equals("T")) {
-                Todo todo = new Todo(entry[2], !entry[1].equals("0"));
-                tasks.add(todo);
-            } else if (entry[0].equals("D")) {
-                Deadline deadline = new Deadline(entry[2], !entry[1].equals("0"), entry[3]);
-                tasks.add(deadline);
-            } else if (entry[0].equals("E")) {
-                Event event = new Event(entry[2], !entry[1].equals("0"), entry[3], entry[4]);
-                tasks.add(event);
-            }
-        }
-    }
 
     public void add(Task task) {
         tasks.add(task);
@@ -56,6 +25,7 @@ public class TaskList {
     public Integer size() {
         return tasks.size();
     }
+
 
     /**
      * Finds all macthing tasks in the task list.
@@ -82,7 +52,7 @@ public class TaskList {
     }
 
     /**
-     * Lists out all the tasks in the task list.
+     * Lists out all the tasks in the list.
      *
      * @return String of all of the tasks.
      */
@@ -98,17 +68,17 @@ public class TaskList {
         return output;
     }
 
+
     /**
      * Formats all the tasks into the correct format to save.
      *
      * @return ArrayList of tasks in the correct format to save.
      */
-    public ArrayList<String> formatTasksForSaving() {
-        ArrayList<String> tasksToSave = new ArrayList<>();
+    public ArrayList<String> formatToSave() {
+        ArrayList<String> toSave = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
-            tasksToSave.add(tasks.get(i).formatTasksForSaving());
+            toSave.add(tasks.get(i).formatToSave());
         }
-        return tasksToSave;
-    }
-
+        return toSave;
+    }    
 }

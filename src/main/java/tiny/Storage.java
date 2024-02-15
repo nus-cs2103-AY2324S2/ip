@@ -51,15 +51,15 @@ public class Storage {
     /**
      * Writes (save) tasks data to a specified file path.
      *
-     * @param tasksToSave The list of data to be saved.
+     * @param dataToSave The list of data to be saved.
      */
-    public void saveData(ArrayList<String> tasksToSave) {
+    public void saveData(ArrayList<String> dataToSave) {
         try {
             new FileWriter(filePath).close();
 
             FileWriter fileWriter = new FileWriter(filePath);
-            for (int i = 0; i < tasksToSave.size(); i++) {
-                fileWriter.write(tasksToSave.get(i) + "\n");
+            for (int i = 0; i < dataToSave.size(); i++) {
+                fileWriter.write(dataToSave.get(i) + "\n");
             }
             fileWriter.close();
         } catch (IOException e) {

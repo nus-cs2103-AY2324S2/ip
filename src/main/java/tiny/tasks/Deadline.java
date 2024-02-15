@@ -53,7 +53,7 @@ public class Deadline extends Task {
         // Processes the date
         try {
             String[] dateSplit = dateTimeSplit[0].split("-");
-            assert dateSplit.length == 2;
+            assert dateSplit.length == 3;
             year = Integer.parseInt(dateSplit[0]);
             month = Integer.parseInt(dateSplit[1]);
             day = Integer.parseInt(dateSplit[2]);
@@ -115,8 +115,8 @@ public class Deadline extends Task {
      * @return String of the task in the correct format to save.
      */       
     @Override
-    public String formatTasksForSaving() {
-        return "D" + super.formatTasksForSaving() + " | " + endDatetimeSaveFormat();
+    public String formatToSave() {
+        return "D" + super.formatToSave() + " | " + endDatetimeSaveFormat();
     }
 
     @Override

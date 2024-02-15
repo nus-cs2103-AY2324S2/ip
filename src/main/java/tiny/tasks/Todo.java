@@ -30,8 +30,8 @@ public class Todo extends Task {
      * @return String of the task in the correct format to save.
      */       
     @Override
-    public String formatTasksForSaving() {
-        return "T" + super.formatTasksForSaving();
+    public String formatToSave() {
+        return "T" + super.formatToSave();
     }
 
     @Override

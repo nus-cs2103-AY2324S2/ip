@@ -68,7 +68,7 @@ public class Task {
      *
      * @return String of the task in the correct format to save.
      */    
-    public String formatTasksForSaving() {
+    public String formatToSave() {
         return " | " + (isDone ? "1" : "0") + " | " + description;
     }
 
