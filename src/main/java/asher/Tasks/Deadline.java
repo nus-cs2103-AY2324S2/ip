@@ -51,6 +51,6 @@ public class Deadline extends Task {
         DateTimeFormatter formattingTime = DateTimeFormatter.ofPattern("hh:mm a");
         String formattedDate = dueDate.format(formattingDate);
         String formattedTime = dueTime.format(formattingTime);
-        return "[D]" + super.toString() + " (by: " + formattedDate + "," + " " + formattedTime + ")";
+        return " [D]" + super.toString() + " (by: " + formattedDate + "," + " " + formattedTime + ")";
     }
 }

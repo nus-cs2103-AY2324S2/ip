@@ -75,6 +75,6 @@ public class Event extends Task {
         String formattedEndDate = endDate.format(formattingDate);
         String formattedStartTime = startTime.format(formattingTime);
         String formattedEndTime = endTime.format(formattingTime);
-        return "[E]" + super.toString() + " (from: " + formattedStartDate + "," + " " + formattedStartTime + " to: " + formattedEndDate + "," + " " + formattedEndTime + ")";
+        return " [E]" + super.toString() + " (from: " + formattedStartDate + "," + " " + formattedStartTime + " to: " + formattedEndDate + "," + " " + formattedEndTime + ")";
     }
 }

@@ -14,91 +14,64 @@ public class Ui {
      */
     public Ui() {}
 
-    /**
-     * Displays the welcome message at the start.
-     */
-    public void showWelcomeMessage() {
-        System.out.println("Hello! I'm Asher. What can I do for you?");
+    public String showWelcomeMessage() {
+        return "Hello! I'm Asher. What can I do for you?";
     }
 
-    /**
-     * Displays the exit message at the end.
-     */
-    public void showExitMessage() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String showExitMessage() {
+        return "Bye. Hope to see you again soon!";
     }
 
-    /**
-     * Displays the add task message.
-     * @param task The task that is added.
-     */
-    public void showAddTaskMessage(Task task) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(" " + task);
+    public String showAddTaskMessage(Task task) {
+        String msg = "Got it. I've added this task:\n " + task;
+        return msg;
     }
 
-    /**
-     * Displays the remove task message.
-     * @param removedTask The task that is deleted.
-     */
-    public void showRemoveTaskMessage(Task removedTask) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(" " + removedTask);
+    public String showRemoveTaskMessage(Task removedTask) {
+        String msg = "Noted. I've removed this task:\n " + removedTask;
+        return msg;
     }
 
-    /**
-     * Displays the number of tasks in the list message.
-     * @param totalTasks The total number of tasks.
-     */
-    public void showNumberOfTaskInListMessage(int totalTasks) {
-        System.out.println("Now you have " + totalTasks + " tasks in the list.");
+    public String showNumberOfTaskInListMessage(int totalTasks) {
+        return "Now you have " + totalTasks + " tasks in the list.";
     }
 
-    /**
-     * Display the task is marked message.
-     * @param task The task that should be marked.
-     */
-    public void showMarkTaskMessage(Task task) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(" "  + task);
+    public String showMarkTaskMessage(Task task) {
+        String msg = "Nice! I've marked this task as done:\n " + task;
+        return msg;
     }
 
-    /**
-     * Displays the task is unmarked message.
-     * @param task The task that should be unmarked.
-     */
-    public void showUnmarkTaskMessage(Task task) {
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  " + task);
+    public String showUnmarkTaskMessage(Task task) {
+        String msg = "OK, I've marked this task as not done yet:\n " + task;
+        return msg;
     }
 
-    /**
-     * Displays the task list message.
-     * @param taskList The task list.
-     */
-    public void showTaskList(TaskList taskList) {
+    public String showTaskList(TaskList taskList) {
         ArrayList<Task> tasks = taskList.getTasks();
-        System.out.println("Here are the tasks in your list:");
+        StringBuilder messageBuilder = new StringBuilder("Here are the tasks in your list:\n");
 
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i));
+            messageBuilder.append((i + 1)).append(".").append(tasks.get(i)).append("\n");
         }
+        return messageBuilder.toString();
     }
 
-    /**
-     * Displays the matching tasks message.
-     * @param matchingTasks The tasks that have the common keyword.
-     */
-    public void showMatchingTasks(ArrayList<Task> matchingTasks) {
+    public String showMatchingTasks(ArrayList<Task> matchingTasks) {
+        StringBuilder messageBuilder = new StringBuilder();
+
         if (matchingTasks.isEmpty()) {
-            System.out.println("No matching tasks at all!");
+            messageBuilder.append("No matching tasks at all!\n");
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            messageBuilder.append("Here are the matching tasks in your list:\n");
 
             for (int i = 0; i < matchingTasks.size(); i++) {
-                System.out.println((i + 1) + "." + matchingTasks.get(i));
+                messageBuilder.append((i + 1)).append(".").append(matchingTasks.get(i)).append("\n");
             }
         }
+        return messageBuilder.toString();
     }
 
+    public String showErrorMessage(String message) {
+        return message;
+    }
 }

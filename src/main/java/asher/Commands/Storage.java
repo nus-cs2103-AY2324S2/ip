@@ -18,10 +18,7 @@ import asher.Tasks.Task;
  * retrieving the tasks from the same file when the program is run again.
  */
 public class Storage {
-    protected String filePath;
-
-    public Storage(String filePath) {
-        this.filePath = filePath;
+    public Storage() {
     }
 
     /**
