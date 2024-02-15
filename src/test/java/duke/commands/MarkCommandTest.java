@@ -8,12 +8,14 @@ import java.io.PrintStream;
 import java.time.Instant;
 
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 
+import duke.Duke;
 import duke.exceptions.DukeException;
 import duke.storage.Deadline;
 import duke.storage.Event;
@@ -65,6 +67,11 @@ public class MarkCommandTest {
      */
     @BeforeEach
     public void createEnvironment() throws DukeException {
+        // Create data directory (if required)
+        testFile.getParentFile().mkdirs();
+        testFile.delete();
+        Duke.setSaveFile(testFile);
+
         taskList = new TaskList(testFile);
         ui = new Cli();
 
@@ -75,6 +82,14 @@ public class MarkCommandTest {
         taskList.addTask(new Deadline("go school", Instant.ofEpochSecond(1706614760)), false);
 
         outContent.reset();
+    }
+
+    /**
+     * Reset testing environment for each test
+     */
+    @AfterEach
+    public void resetEnvironment() {
+        testFile.delete();
     }
 
     /**

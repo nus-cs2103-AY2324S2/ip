@@ -3,7 +3,7 @@ package duke;
 import java.io.File;
 
 import duke.storage.TaskList;
-import duke.ui.Gui;
+import duke.ui.Cli;
 import duke.ui.Ui;
 
 /**
@@ -33,7 +33,7 @@ public class Duke {
      * @param file File to save and load tasks
      */
     public Duke(File file) {
-        this.ui = new Gui();
+        this.ui = new Cli();
         Duke.saveFile = file;
 
         // Create data directory (if required)

@@ -80,6 +80,7 @@ public class DeleteCommandTest {
      */
     @AfterEach
     public void resetEnvironment() {
+        testFile.delete();
     }
 
     /**
