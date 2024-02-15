@@ -3,10 +3,9 @@ package duke;
 import java.util.ArrayList;
 import java.util.Scanner;
 import duke.Command.Command;
-import duke.Storage;
+
 import duke.Task.Task;
-import duke.TaskList;
-import duke.Ui;
+
 
 /**
  * The Duke class represents a task management application.

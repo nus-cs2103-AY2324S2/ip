@@ -1,7 +1,5 @@
 package duke.Task;
 
-import duke.Task.Task;
-
 /**
  * Represents a ToDo task.
  * Inherits from the Task class.
