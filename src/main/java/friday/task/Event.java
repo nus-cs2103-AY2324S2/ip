@@ -20,6 +20,9 @@ public class Event extends Task {
      */
     public Event(String description, String fromString, String toTimeString) {
         super(description);
+        assert description != null : "Description must not be null";
+        assert fromString != null : "Start time string must not be null";
+        assert toTimeString != null : "End time string must not be null";
         this.from = parseDateTime(fromString);
         this.to = parseDateTime(toTimeString);
     }
@@ -33,6 +36,9 @@ public class Event extends Task {
      */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
+        assert description != null : "Description must not be null";
+        assert from != null : "Start time must not be null";
+        assert to != null : "End time must not be null";
         this.from = from;
         this.to = to;
     }
@@ -41,6 +47,8 @@ public class Event extends Task {
      * Parses a date-time string into a LocalDateTime object.
      */
     private LocalDateTime parseDateTime(String dateTimeString) {
+        assert dateTimeString != null : "Date-time string must not be null";
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         return LocalDateTime.parse(dateTimeString, formatter);
     }
@@ -51,6 +59,7 @@ public class Event extends Task {
      * @return The formatted start time string.
      */
     public String getFormattedFromTime() {
+        assert from != null : "Start time must be initialized";
         return from.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
     }
 
@@ -60,6 +69,7 @@ public class Event extends Task {
      * @return The formatted end time string.
      */
     public String getFormattedToTime() {
+        assert to != null : "End time must be initialized";
         return to.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
     }
 
@@ -70,6 +80,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
+        assert from != null : "Start time must be initialized";
+        assert to != null : "End time must be initialized";
         return "[E]" + super.toString() + " (from: " + getFormattedFromTime()
                         + " to: " + getFormattedToTime() + ")";
     }

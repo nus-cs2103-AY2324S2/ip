@@ -20,6 +20,7 @@ public class Storage {
      * @param filePath The path to the file where task data is stored.
      */
     public Storage(String filePath) {
+        assert filePath != null : "File path must not be null";
         this.filePath = filePath;
     }
 
@@ -48,6 +49,7 @@ public class Storage {
      * @throws IOException If an I/O error occurs during file writing.
      */
     public void writeToFile(TaskList tasks) throws IOException {
+        assert tasks != null : "TaskList must not be null";
         FileWriter fw = new FileWriter(this.filePath);
         for (int i = 0; i < tasks.getLength(); i++) {
             fw.write(tasks.getTask(i).toString() + System.lineSeparator());
@@ -89,6 +91,7 @@ public class Storage {
      * @throws IOException If an I/O error occurs during file appending.
      */
     public void appendToFile(String textToAppend) throws IOException {
+        assert textToAppend != null : "Text to append must not be null";
         FileWriter fw = new FileWriter(filePath, true);
         fw.write(textToAppend);
         fw.close();
