@@ -48,7 +48,7 @@ test {
 }
 
 application {
-    mainClass.set("Duke.Duke")
+    mainClass.set("duke.Launcher")
 }
 
 shadowJar {

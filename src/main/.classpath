@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="src" path="java"/>
 	<classpathentry kind="src" path="resources"/>
 	<classpathentry kind="src" path="resources"/>
+	<classpathentry kind="src" path="resources"/>
 	<classpathentry kind="src" path="java"/>
+	<classpathentry kind="src" path="java"/>
+	<classpathentry kind="src" path="java"/>
+	<classpathentry kind="src" path="java"/>
+	<classpathentry kind="src" path="resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Gradle: org.openjfx:javafx-fxml:linux:17.0.7"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Gradle: org.openjfx:javafx-fxml:mac:17.0.7"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Gradle: org.openjfx:javafx-fxml:win:17.0.7"/>
