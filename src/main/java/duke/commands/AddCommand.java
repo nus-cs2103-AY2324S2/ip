@@ -39,9 +39,6 @@ public class AddCommand extends Command {
         // Add task
         taskList.addTask(task);
 
-        // Save to file
-        taskList.saveTasks();
-
         return "Got it. I've added this task:\n"
                 + String.format("  %s\n", task.toString())
                 + String.format("Now you have %d tasks in the list.\n", taskList.size());

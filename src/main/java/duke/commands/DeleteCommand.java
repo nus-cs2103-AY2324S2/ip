@@ -39,9 +39,6 @@ public class DeleteCommand extends Command {
         // Delete the task
         Task deletedTask = taskList.deleteTask(this.index);
 
-        // Save to file
-        taskList.saveTasks();
-
         return "Noted. I've removed this task:\n"
                 + String.format("  %s\n", deletedTask.toString())
                 + String.format("Now you have %d tasks in the list.\n", taskList.size());
