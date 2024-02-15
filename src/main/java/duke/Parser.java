@@ -65,6 +65,8 @@ public class Parser {
                 return new AddCommand();
             case FIND:
                 return new FindCommand();
+            case HELP:
+                return new HelpCommand();
             default:
                 throw new DukeException("I'm sorry, but I don't know what that means :-(");
             }

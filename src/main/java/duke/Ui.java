@@ -31,8 +31,8 @@ public class Ui {
      * Displays a welcome message when the application starts.
      */
     public void showWelcome() {
-        System.out.println("\n Hello! I'm FICIN!");
-        System.out.println(" What can I do for you?");
+        System.out.println("\nHello! I'm FICIN!");
+        System.out.println("What can I do for you?");
     }
 
     /**
@@ -129,5 +129,15 @@ public class Ui {
      */
     public void closeScanner() {
         scanner.close();
+    }
+
+    public void showHelp() {
+        System.out.println("Here are the available commands:");
+        System.out.println("  - help: show commands");
+        System.out.println("  - find: Find tasks");
+        System.out.println("  - list: List all tasks");
+        System.out.println("  - todo <description>: Add a todo task");
+        System.out.println("  - deadline <description> /by <date/time>: Add a deadline task");
+        System.out.println("  - event <description> /from <start date/time> /to <end date/time>: Add an event task");
     }
 }

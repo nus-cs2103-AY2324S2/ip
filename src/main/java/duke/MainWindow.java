@@ -2,6 +2,7 @@ package duke;
 
 import java.util.Objects;
 
+import duke.task.TaskList;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -30,6 +31,8 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Duke duke;
+    private static TaskList taskList;
+    private static Ui ui;
 
     // Images for user and Duke (bot) avatars
     private final Image userImage = new Image(Objects.requireNonNull(
@@ -44,6 +47,13 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
+        taskList = new TaskList();
+        try {
+            taskList.getTasks().addAll(Storage.loadTasks()); // Load tasks from storage
+        } catch (DukeException e) {
+            System.out.println(e);
+        }
+
         // Bind scroll pane to dialog container to automatically scroll to the bottom
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
@@ -51,11 +61,26 @@ public class MainWindow extends AnchorPane {
         sendButton.setFont(Font.font("Helvetica"));
         userInput.setFont(Font.font("Helvetica"));
 
-        // Display a welcome message from Duke when the application starts
-        String greeting = "Welcome! I'm FICIN.\nWhat can I do for you?";
-        dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(greeting, dukeImage)
-        );
+        // Show help if no tasks are loaded
+        if (taskList.getSize() == 0) {
+            String helpMessage = "Welcome! I'm FICIN.\nWhat can I do for you?\n" +
+                    "\nHere are the available commands:\n" +
+                    "  - help: show commands\n" +
+                    "  - find: Find tasks\n" +
+                    "  - list: List all tasks\n" +
+                    "  - todo <description>: Add a todo task\n" +
+                    "  - deadline <description> /by <date/time>: Add a deadline task\n" +
+                    "  - event <description> /from <start date/time> /to <end date/time>: Add an event task";
+            dialogContainer.getChildren().add(
+                    DialogBox.getDukeDialog(helpMessage, dukeImage)
+            );
+        } else {
+            // Display a welcome message from Duke when the application starts
+            String greeting = "Welcome! I'm FICIN.\nWhat can I do for you?";
+            dialogContainer.getChildren().add(
+                    DialogBox.getDukeDialog(greeting, dukeImage)
+            );
+        }
     }
 
     /**

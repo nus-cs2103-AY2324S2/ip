@@ -26,6 +26,9 @@ public class Duke {
         } catch (DukeException e) {
             System.out.println(e);
         }
+        if (taskList.getSize() == 0) {
+            new Ui().showHelp();
+        }
         assert taskList != null : "taskList should not be null after initialization";
         new Duke().run();
     }
@@ -82,8 +85,6 @@ public class Duke {
         System.out.flush();
         System.setOut(previous);
 
-        String output = baos.toString().trim();
-        assert output != null : "The output from executing the command should not be null";
-        return output;
+        return baos.toString().trim();
     }
 }
