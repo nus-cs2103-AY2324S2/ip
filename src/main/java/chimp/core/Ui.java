@@ -32,11 +32,15 @@ public class Ui {
      *
      * @param key the key to retrieve the phrase from the hashmap
      */
-    public void say(String key) {
+    public String say(String key) {
+        StringBuilder sb = new StringBuilder();
         String phrase = phrases.get(key);
-        System.out.println(DIVIDER);
-        System.out.println(phrase);
-        System.out.println(DIVIDER);
+
+        sb.append(DIVIDER);
+        sb.append(phrase);
+        sb.append(DIVIDER);
+
+        return sb.toString();
     }
 
     /**
@@ -45,12 +49,16 @@ public class Ui {
      * @param task The task to be printed.
      * @param list The task list containing the tasks.
      */
-    public void say(Task task, TaskList list) {
-        System.out.println(DIVIDER);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + list.size() + " tasks in the list.");
-        System.out.println(DIVIDER);
+    public String say(Task task, TaskList list) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(DIVIDER);
+        sb.append("Got it. I've added this task:");
+        sb.append(task);
+        sb.append("Now you have " + list.size() + " tasks in the list.");
+        sb.append(DIVIDER);
+
+        return sb.toString();
     }
 
     /**
@@ -61,23 +69,31 @@ public class Ui {
      * @param task the task to be displayed
      * @param list the current task list
      */
-    public void say(String key, Task task, TaskList list) {
+    public String say(String key, Task task, TaskList list) {
         String phrase = phrases.get(key);
-        System.out.println(DIVIDER);
-        System.out.println(phrase);
-        System.out.println(task);
-        System.out.println("Now you have " + list.size() + " tasks in the list.");
-        System.out.println(DIVIDER);
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(DIVIDER);
+        sb.append(phrase);
+        sb.append(task);
+        sb.append("Now you have " + list.size() + " tasks in the list.");
+        sb.append(DIVIDER);
+
+        return sb.toString();
     }
 
-    public void say(String key, Task[] matches, TaskList list) {
+    public String say(String key, Task[] matches, TaskList list) {
         String phrase = phrases.get(key);
-        System.out.println(DIVIDER);
-        System.out.println(phrase);
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(DIVIDER);
+        sb.append(phrase);
         for (int i = 0; i < matches.length; i++) {
-            System.out.println((i + 1) + ". " + matches[i].toString());
+            sb.append((i + 1)).append(". ").append(matches[i].toString()).append("\n");
         }
-        System.out.println(DIVIDER);
+        sb.append(DIVIDER);
+
+        return sb.toString();
     }
 
     /**
@@ -85,12 +101,16 @@ public class Ui {
      * 
      * @param list The task list to be printed.
      */
-    public void printList(TaskList list) {
-        System.out.println(DIVIDER);
-        System.out.println("Here are the tasks in your list:");
+    public String printList(TaskList list) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(DIVIDER);
+        sb.append("Here are the tasks in your list:\n");
         for (int i = 0; i < list.size(); i++) {
-            System.out.println((i + 1) + ". " + list.get(i));
+            sb.append((i + 1)).append(". ").append(list.get(i)).append("\n");
         }
-        System.out.println(DIVIDER);
+        sb.append(DIVIDER);
+
+        return sb.toString();
     }
 }
