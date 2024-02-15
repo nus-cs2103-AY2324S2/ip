@@ -4,20 +4,36 @@ import java.util.List;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+/**
+ * Represents a list of tasks with various operations like adding, listing, marking as done, etc.
+ */
 class TaskList {
 
     private List<Task> tasks;
     private Storage storage;
 
+    /**
+     * Constructs a TaskList with the specified list of tasks and storage.
+     * @param tasks List of tasks to be initialized with.
+     * @param storage Storage object for saving and loading tasks.
+     */
     public TaskList(List<Task> tasks, Storage storage) {
         this.tasks = tasks;
         this.storage = storage;
     }
 
+    /**
+     * Constructs an empty TaskList with no tasks.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Adds a TodoTask to the list with the specified description.
+     * @param taskDescription Description of the TodoTask.
+     */
     public void addTodoTask(String taskDescription) {
         if (taskDescription.isEmpty()) {
             System.out.println("Do nothing?");
@@ -26,6 +42,10 @@ class TaskList {
         }
     }
 
+    /**
+     * Adds a DeadlineTask to the list with the specified details.
+     * @param taskDetails Details of the DeadlineTask.
+     */
     public void addDeadlineTask(String taskDetails) {
         String[] details = taskDetails.split(" /by ");
         if (details.length == 2) {
@@ -50,6 +70,10 @@ class TaskList {
         }
     }
 
+    /**
+     * Adds an EventTask to the list with the specified details.
+     * @param taskDetails Details of the EventTask.
+     */
     public void addEventTask(String taskDetails) {
         String[] details = taskDetails.split(" /from ");
         if (details.length == 2) {
@@ -75,6 +99,10 @@ class TaskList {
         }
     }
 
+    /**
+     * Adds a task to the list and prints a confirmation message.
+     * @param task Task to be added to the list.
+     */
     public void addTask(Task task) {
         tasks.add(task);
         System.out.println(" Got it. I've added this task:");
@@ -83,6 +111,9 @@ class TaskList {
         saveTasks(); // Save tasks after adding
     }
 
+    /**
+     * Lists all the tasks in the list.
+     */
     public void listTasks() {
         if (tasks.isEmpty()) {
             System.out.println(" No tasks added yet.");
@@ -94,6 +125,10 @@ class TaskList {
         }
     }
 
+    /**
+     * Marks a task at the specified index as done.
+     * @param taskIndex Index of the task to be marked as done.
+     */
     public void markTaskDone(int taskIndex) {
         if (isValidIndex(taskIndex)) {
             tasks.get(taskIndex - 1).markAsDone();
@@ -105,6 +140,10 @@ class TaskList {
         }
     }
 
+    /**
+     * Unmarks a task at the specified index as not done.
+     * @param taskIndex Index of the task to be unmarked.
+     */
     public void unmarkTaskDone(int taskIndex) {
         if (isValidIndex(taskIndex)) {
             tasks.get(taskIndex - 1).unmarkAsDone();
@@ -116,6 +155,10 @@ class TaskList {
         }
     }
 
+    /**
+     * Deletes a task at the specified index from the list.
+     * @param taskIndex Index of the task to be deleted.
+     */
     public void deleteTask(int taskIndex) {
         if (isValidIndex(taskIndex)) {
             Task removedTask = tasks.remove(taskIndex - 1);
@@ -128,6 +171,10 @@ class TaskList {
         }
     }
 
+    /**
+     * Checks and lists tasks on a specific date.
+     * @param dateString Date in string format (yyyy-MM-dd) to check tasks.
+     */
     public void checkTasksOnDate(String dateString) {
         try {
             LocalDateTime targetDate = LocalDateTime.parse(dateString + " 0000", DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));

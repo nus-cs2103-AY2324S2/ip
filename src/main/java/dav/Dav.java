@@ -1,6 +1,9 @@
 package dav;
 import java.util.Scanner;
 
+/**
+ * Dav application class for managing tasks.
+ */
 public class Dav {
 
     private static final String FILE_PATH = "./data/dav.txt";
@@ -8,6 +11,9 @@ public class Dav {
     private static Ui ui;
     private static Storage storage;
 
+    /**
+     * Constructor for Dav class. Initializes UI, storage, and task list.
+     */
     public Dav() {
         ui = new Ui();
         storage = new Storage(FILE_PATH);
@@ -19,6 +25,9 @@ public class Dav {
         }
     }
 
+    /**
+     * Main method to run the Dav application.
+     */
     public void run() {
         ui.greetUser();
 
@@ -34,7 +43,10 @@ public class Dav {
         ui.exit();
     }
 
-    public static void main(String[] args) {
+    /**
+     * Main method to start the Dav application.
+     * @param args Command line arguments (not used).
+     */public static void main(String[] args) {
         new Dav().run();
     }
 }

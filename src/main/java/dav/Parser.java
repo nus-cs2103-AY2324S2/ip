@@ -1,6 +1,17 @@
 package dav;
+
+/**
+ * Parses user input and performs corresponding actions on the task list.
+ */
 class Parser {
 
+    /**
+     * Parses the user input and performs the corresponding actions.
+     * @param input User input to be parsed.
+     * @param tasks TaskList object to perform actions on.
+     * @param ui Ui object to handle user interface interactions.
+     * @param storage Storage object for data storage operations.
+     */
     public static void parseUserInput(String input, TaskList tasks, Ui ui, Storage storage) {
         System.out.println("____________________________________________________________");
 
