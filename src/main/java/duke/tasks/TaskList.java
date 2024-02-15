@@ -3,6 +3,7 @@ package duke.tasks;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
+import duke.exceptions.DukeDuplicateException;
 import duke.exceptions.DukeException;
 import duke.exceptions.DukeIllegalArgumentException;
 import duke.storage.Storage;
@@ -22,6 +23,7 @@ public class TaskList {
     private static final String REMOVE_TASK_MESSAGE =
             "Noted. I've removed this task:%n%s%nNow you have %d tasks in the list.";
     private static final String FIND_TASK_MESSAGE = "Here are the matching tasks in your list:%s";
+    private static final String IS_DUPLICATE_MESSAGE = "The tasks you are trying to add is a duplicate!";
 
     private final ArrayList<Task> taskList;
     private final Storage taskStorage;
@@ -50,6 +52,9 @@ public class TaskList {
         if (toDoDescription.isBlank()) {
             throw new DukeIllegalArgumentException(MISSING_ARGUMENT_MESSAGE);
         }
+        if (isDuplicate(toDoDescription)) {
+            throw new DukeDuplicateException(IS_DUPLICATE_MESSAGE);
+        }
         Task toDo = new ToDo(toDoDescription);
         taskList.add(toDo);
         updateStorage();
@@ -66,6 +71,9 @@ public class TaskList {
     public String addDeadlineTask(String deadlineDescription) {
         if (deadlineDescription.isBlank()) {
             throw new DukeIllegalArgumentException(MISSING_ARGUMENT_MESSAGE);
+        }
+        if (isDuplicate(deadlineDescription)) {
+            throw new DukeDuplicateException(IS_DUPLICATE_MESSAGE);
         }
         String[] deadlineArgs = deadlineDescription.split(" /by ");
         Task deadline = new Deadline(deadlineArgs[0], deadlineArgs[1]);
@@ -84,6 +92,9 @@ public class TaskList {
     public String addEventTask(String eventDescription) {
         if (eventDescription.isBlank()) {
             throw new DukeIllegalArgumentException(MISSING_ARGUMENT_MESSAGE);
+        }
+        if (isDuplicate(eventDescription)) {
+            throw new DukeDuplicateException(IS_DUPLICATE_MESSAGE);
         }
         String[] eventArgs = eventDescription.split(" /from ");
         String[] eventTime = eventArgs[1].split(" /to ");
@@ -178,6 +189,11 @@ public class TaskList {
         return String.format(LIST_TASK_MESSAGE, sb);
     }
 
+    /**
+     * Syncs the current taskList with the tasks stored in storage.
+     * Method will be called once when starting up Duke.
+     */
+
     private void updateList() {
         try {
             String fileData = taskStorage.loadFileData();
@@ -209,7 +225,7 @@ public class TaskList {
     }
 
     /**
-     * Syncs the current taskList with the tasks stored in storage.
+     * Formats a task stored in storage and adds it to the taskList.
      *
      * @param taskType The type of task
      * @param status Status of the task
@@ -247,6 +263,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * Updates the storage based on tasks in current taskList.
+     */
     private void updateStorage() {
         StringBuilder sb = new StringBuilder();
         for (Task t : taskList) {
@@ -257,5 +276,14 @@ public class TaskList {
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    private boolean isDuplicate(String description) {
+        for (Task t: taskList) {
+            if (t.description.contains(description)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
