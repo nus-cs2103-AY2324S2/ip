@@ -117,6 +117,12 @@ public class Storage {
         return todoList;
     }
 
+    /**
+     * Rewrites the file with the tasks from the given task list.
+     *
+     * @param taskList The task list containing the tasks to be written to the file.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
     public void rewriteFile(TaskList taskList) throws IOException {
         try {
             FileWriter fw = new FileWriter(filePath);
@@ -130,6 +136,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Appends a line of text to the file.
+     *
+     * @param line the line of text to be appended
+     */
     public void appendToFile(String line) {
         try {
             FileWriter fw = new FileWriter(filePath, true);
