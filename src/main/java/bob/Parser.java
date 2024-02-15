@@ -230,27 +230,27 @@ public class Parser {
         command = commandArgs[0];
 
         // Return an ExitCommand if we encounter an exit command
-        if (command.equals(Parser.COMMAND_EXIT)) {
+        if (command.equals(COMMAND_EXIT)) {
             return new ExitCommand();
         }
 
         // Parse the command differently depending on the type of command encountered
         switch (command) {
-        case Parser.COMMAND_LIST:
+        case COMMAND_LIST:
             return parseList(commandArgs);
-        case Parser.COMMAND_DELETE:
+        case COMMAND_DELETE:
             // Fallthrough
-        case Parser.COMMAND_UNMARK:
+        case COMMAND_UNMARK:
             // Fallthrough
-        case Parser.COMMAND_MARK:
+        case COMMAND_MARK:
             return parseDeleteOrMark(commandArgs);
-        case Parser.COMMAND_TODO:
+        case COMMAND_TODO:
             // Fallthrough
-        case Parser.COMMAND_DEADLINE:
+        case COMMAND_DEADLINE:
             // Fallthrough
-        case Parser.COMMAND_EVENT:
+        case COMMAND_EVENT:
             return parseAdd(commandArgs);
-        case Parser.COMMAND_FIND:
+        case COMMAND_FIND:
             return parseFind(commandArgs);
         default:
             throw new InvalidCommandException();
