@@ -25,6 +25,8 @@ import capone.tasks.ToDo;
  * @author Tay Rui-Jie
  */
 public class Storage {
+    protected static final String STORAGE_PATH = "./data/";
+    protected static final String STORAGE_FILE = "tasks.json";
     private final String jsonFilename;
     private final String jsonFilepath;
 

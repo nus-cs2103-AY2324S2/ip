@@ -12,7 +12,6 @@ import capone.ui.Ui;
  * @author Tay Rui-Jie
  */
 public class InvalidCommand extends Command {
-
     /**
      * Executes the InvalidCommand, throwing an InvalidCommandException with a helpful message.
      *

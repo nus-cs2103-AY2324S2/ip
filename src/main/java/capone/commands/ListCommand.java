@@ -12,7 +12,6 @@ import capone.ui.Ui;
  * @author Tay Rui-Jie
  */
 public class ListCommand extends Command {
-
     /**
      * Executes the ListCommand, displaying the list of tasks to the user.
      *

@@ -11,8 +11,6 @@ import capone.ui.Ui;
  * @author Tay Rui-Jie
  */
 public class Capone {
-    private static final String STORAGE_PATH = "./data/";
-    private static final String STORAGE_FILE = "tasks.json";
     private final TaskList tasks;
     private final Storage storage;
     private final Ui ui;
@@ -33,7 +31,7 @@ public class Capone {
      * Constructs a Capone instance with the default task list path and name.
      */
     public Capone() {
-        this.storage = new Storage(Capone.STORAGE_PATH, Capone.STORAGE_FILE);
+        this.storage = new Storage(Storage.STORAGE_PATH, Storage.STORAGE_FILE);
         this.tasks = new TaskList();
         this.ui = new Ui();
     }
