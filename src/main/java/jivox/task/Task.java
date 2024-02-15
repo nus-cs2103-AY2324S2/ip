@@ -10,12 +10,14 @@ public abstract class Task {
     private boolean isDone;
     private final String content;
 
+    private Tag tag;
+
     /**
      * Creates a new Task with the given content/description.
      *
      * @param content The task description.
      */
-    public Task(String content) {
+    public Task(String content){
         this.content = content;
         this.isDone = false;
     }
@@ -57,6 +59,14 @@ public abstract class Task {
         return this.content;
     }
 
+    /**
+     * Sets the tag of this task.
+     *
+     */
+    public void setTag(Tag tag){
+        this.tag = tag;
+    }
+
 
     public abstract String saveFormat();
 
@@ -66,6 +76,15 @@ public abstract class Task {
      * @return The type identifier.
      */
     public abstract String getType();
+
+    /**
+     * returns the tag associated with the task.
+     *
+     * @return The type identifier.
+     */
+    public String getTag(){
+        return this.tag == null ? "" : this.tag.toString();
+    }
 
     /**
      * Checks if this task is marked as completed.
@@ -92,7 +111,7 @@ public abstract class Task {
     public boolean equals(Object o){
         if(o instanceof Task){
             Task t = (Task) o;
-            return Objects.equals(t.content, this.content);
+            return this.content.equalsIgnoreCase(t.content);
         }
         else{
             return false;

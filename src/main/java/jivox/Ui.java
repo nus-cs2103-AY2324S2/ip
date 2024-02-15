@@ -148,6 +148,11 @@ public class Ui {
                 + time.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + ":-\n" + sb;
     }
 
+
+    public String showTag(Task t, String tag) {
+        return String.format("Following task has been tagged with %s :- \n %s",tag,t);
+    }
+
     /**
      * Prints an exception message.
      *

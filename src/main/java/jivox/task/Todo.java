@@ -28,7 +28,8 @@ public class Todo extends Task {
 
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return "[T]" + super.toString() + " " +
+                (this.getTag().isEmpty() ? "" : "#" + this.getTag());
     }
 
     /**
@@ -39,6 +40,7 @@ public class Todo extends Task {
     @Override
     public String saveFormat() {
         return this.getType() + " | "
-                + (this.getStatus() ? "1" : "0") + " | " + this.getDescription();
+                + (this.getStatus() ? "1" : "0") + " | " + this.getDescription()
+                + " tag " + (this.getTag().isEmpty() ? "None" : this.getTag());
     }
 }

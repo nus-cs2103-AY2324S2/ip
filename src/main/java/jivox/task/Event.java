@@ -54,13 +54,15 @@ public class Event extends Task {
         return this.getType() + " | " + (this.getStatus() ? "1" : "0")
                 + " | " + this.getDescription() + " | "
                 + this.from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
-                + " to " + this.to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                + " to " + this.to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+                + " tag " + (this.getTag().isEmpty() ? "None" : this.getTag());
     }
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: "
                 + this.from.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")) + " to: "
-                + this.to.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")) + ")";
+                + this.to.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")) + ") "
+                + (this.getTag().isEmpty() ? "" : "#" + this.getTag());
     }
 
 
@@ -68,7 +70,7 @@ public class Event extends Task {
     public boolean equals(Object o){
         if(o instanceof Event){
             Event e = (Event) o;
-            return Objects.equals(e.getDescription(), this.getDescription())
+            return this.getDescription().equalsIgnoreCase(e.getDescription())
                     && this.from.equals(e.from) && this.to.equals(e.to);
         }
         return false;
