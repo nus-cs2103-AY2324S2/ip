@@ -80,4 +80,11 @@ public class ToDos extends Task {
     public static String getFormat() {
         return "todo Description";
     }
+    @Override
+    public boolean isEqual(Task task) {
+        if (!(task instanceof ToDos)) {
+            return false;
+        }
+        return description.equals(task.description);
+    }
 }

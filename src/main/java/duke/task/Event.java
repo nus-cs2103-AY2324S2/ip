@@ -98,4 +98,26 @@ public class Event extends Task {
     public static String getFormat() {
         return "event Description /from " + "yyyy-MM-dd HH:mm" + " /to " + "yyyy-MM-dd HH:mm";
     }
+
+    /**
+     * Check whether the event instance date
+     * is equal to other event instance date.
+     *
+     * @param task Event instance to be checked.
+     * @return boolean result of the check.
+     */
+    public boolean isEqualDate(Event task) {
+        boolean isEqualFrom = from.equals(task.from);
+        boolean isEqualTo = to.equals(task.to);
+        return isEqualTo && isEqualFrom;
+    }
+    @Override
+    public boolean isEqual(Task task) {
+        if (!(task instanceof Event)) {
+            return false;
+        }
+        boolean isEqualDesc = description.equals(task.description);
+        boolean isEqualDt = isEqualDate((Event) task);
+        return isEqualDt && isEqualDesc;
+    }
 }

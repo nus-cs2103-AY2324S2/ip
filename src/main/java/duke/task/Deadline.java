@@ -90,4 +90,24 @@ public class Deadline extends Task {
     public static String getFormat() {
         return "deadline Description /by " + "yyyy-MM-dd HH:mm";
     }
+
+    /**
+     * Check whether the deadline instance date
+     * is equal to other deadline instance date.
+     *
+     * @param task Deadline instance to be checked.
+     * @return boolean result of the check.
+     */
+    public boolean isEqualDeadline(Deadline task) {
+        return deadline.equals(task.deadline);
+    }
+    @Override
+    public boolean isEqual(Task task) {
+        if (!(task instanceof Deadline)) {
+            return false;
+        }
+        boolean isEqualDesc = description.equals(task.description);
+        boolean isEqualDl = isEqualDeadline((Deadline) task);
+        return isEqualDl && isEqualDesc;
+    }
 }
