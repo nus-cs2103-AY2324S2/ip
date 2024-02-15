@@ -30,6 +30,25 @@ class TaskList {
         this.tasks = new ArrayList<>();
     }
 
+    public void findTasks(String keyword) {
+        List<Task> matchingTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        if (matchingTasks.isEmpty()) {
+            System.out.println("No matching tasks found.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println(" " + (i + 1) + "." + matchingTasks.get(i));
+            }
+        }
+    }
+
     /**
      * Adds a TodoTask to the list with the specified description.
      * @param taskDescription Description of the TodoTask.
