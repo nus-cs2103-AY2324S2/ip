@@ -14,7 +14,7 @@ import tasks.TaskList;
  */
 public class Storage {
     private final String filePath;
-    private final TaskList taskList;
+    private TaskList taskList;
 
     /**
      * Constructs a Storage object with the specified file path and TaskList.

@@ -10,23 +10,23 @@ import processor.*;
  */
 public class Parser {
 
-    private final Factory factory;
     private final AddTaskProcessor addTaskProcessor;
     private final DeleteTaskProcessor deleteTaskProcessor;
     //private final ExitProcessor exitProcessor;
     private final FindTaskProcessor findTaskProcessor;
     private final ListTasksProcessor listTasksProcessor;
-    private final MarkUnMarkTaskProcessor markTaskProcessor;
+   //private final MarkUnMarkTaskProcessor markTaskProcessor;
+    private final MarkTaskProcessor markTaskProcessor;
+    private final UnmarkTaskProcessor unmarkTaskProcessor;
 
     public Parser(Factory factory) {
-        this.factory = factory;
         this.addTaskProcessor = factory.createAddTaskProcessor();
         this.deleteTaskProcessor = factory.createDeleteTaskProcessor();
-        // Uncomment the following line when you have implemented createExitProcessor
         // this.exitProcessor = factory.createExitProcessor();
         this.findTaskProcessor = factory.createFindTaskProcessor();
         this.listTasksProcessor = factory.createListTasksProcessor();
-        this.markTaskProcessor = factory.createMarkUnmarkTaskProcessor();
+        this.markTaskProcessor = factory.createMarkTaskProcessor();
+        this.unmarkTaskProcessor = factory.createUnmarkTaskProcessor();
     }
 
     /**
@@ -35,17 +35,25 @@ public class Parser {
      * @throws IOException if an I/O error occurs while processing the command
      */
     public void parse(String userInput) throws IOException {
-
-        if (userInput.startsWith("find")) {
+        switch (userInput.split(" ")[0]) {
+        case "find":
             findTaskProcessor.processCommand(userInput);
-        } else if (userInput.startsWith("delete")) {
+            break;
+        case "delete":
             deleteTaskProcessor.processCommand(userInput);
-        } else if (userInput.startsWith("mark") || userInput.startsWith("unmark")) {
+            break;
+        case "mark":
             markTaskProcessor.processCommand(userInput);
-        } else if (userInput.equals("list")) {
+            break;
+        case "unmark":
+            unmarkTaskProcessor.processCommand(userInput);
+            break;
+        case "list":
             listTasksProcessor.processCommand(userInput);
-        } else {
+            break;
+        default:
             addTaskProcessor.processCommand(userInput);
+            break;
         }
     }
 }

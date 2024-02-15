@@ -60,11 +60,20 @@ public class Factory {
     }
 
     /**
-     * Creates a MarkUnMarkTaskProcessor object.
+     * Creates a MarkTaskProcessor object.
      *
-     * @return the created MarkUnMarkTaskProcessor object
+     * @return the created MarkTaskProcessor object
      */
-    public MarkUnMarkTaskProcessor createMarkUnmarkTaskProcessor() {
-        return new MarkUnMarkTaskProcessor(taskList, chatbotUi);
+    public MarkTaskProcessor createMarkTaskProcessor() {
+        return new MarkTaskProcessor(taskList, chatbotUi);
+    }
+
+    /**
+     * Creates an UnmarkTaskProcessor object.
+     *
+     * @return the created UnmarkTaskProcessor object
+     */
+    public UnmarkTaskProcessor createUnmarkTaskProcessor() {
+        return new UnmarkTaskProcessor(taskList, chatbotUi);
     }
 }
