@@ -1,14 +1,17 @@
 package dook;
 
-import task.TaskList;
-
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.ArrayList;
 
+import task.TaskList;
+
+/**
+ * Abstraction class representing the storage system of Dook.
+ */
 public class Storage {
 
     private final ArrayList<String> path;
@@ -26,7 +29,7 @@ public class Storage {
     public void write(TaskList tasks) throws DookException {
         try {
             File f = new File(String.join("/", path));
-            if (!f.exists()){
+            if (!f.exists()) {
                 f.createNewFile();
             }
             FileWriter writer = new FileWriter(String.join("/", path));

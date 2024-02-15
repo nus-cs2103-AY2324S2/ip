@@ -13,6 +13,9 @@ public class ListCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) {
+        if (tasks.size() == 0) {
+            return "You have no tasks!!";
+        }
         String toReturn = "Here are your tasks!\n";
         toReturn += tasks.toString();
         return toReturn;
