@@ -19,13 +19,13 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws CommandExecuteException{
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws CommandExecuteException{
         if (index - 1 < 0 || index - 1 >= tasks.size()) {
             throw new CommandExecuteException("Invalid indexber argument provided to delete");
         }
         Task task = tasks.get(index - 1);
         tasks.remove(index - 1);
-        ui.say("delete", task, tasks);
+        return ui.say("delete", task, tasks);
     }
 
 }
