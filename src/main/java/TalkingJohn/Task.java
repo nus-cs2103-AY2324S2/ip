@@ -1,4 +1,4 @@
-package TalkingJohn;
+package talkingjohn;
 
 /**
  * Represents a task with a description and completion status.

@@ -1,6 +1,10 @@
 package TalkingJohn;
 
 import org.junit.jupiter.api.Test;
+
+import talkingjohn.Event;
+import talkingjohn.Todo;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TJohnTest {

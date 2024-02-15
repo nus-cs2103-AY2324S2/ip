@@ -1,4 +1,4 @@
-package TalkingJohn;
+package talkingjohn;
 
 /**
  * Represents a todo task, which is a type of task with no specific deadline.

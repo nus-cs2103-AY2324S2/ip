@@ -1,4 +1,4 @@
-package TalkingJohn;
+package talkingjohn;
 
 import java.util.List;
 import java.util.Objects;
@@ -37,46 +37,50 @@ public class TaskList {
      *
      * @param input The user input.
      */
-    public void action(String input) {
+    public String action(String input) {
         if (Objects.equals(input, "list")) {
             if (!taskArr.isEmpty()) {
+                StringBuilder sb = new StringBuilder();
+                sb.append("Here is the list of tasks!\n");
                 for (int i = 0; i < taskArr.size(); i++) {
-                    System.out.println((i + 1) + ". " + taskArr.get(i) + "\n");
+                    sb.append((i + 1) + ". " + taskArr.get(i) + "\n");
                 }
+                String result = sb.toString();
+                return result;
             } else {
                 ui.emptyInput("list");
             }
-        }else if (input.startsWith("delete") && input.length() > 6) {
+        } else if (input.startsWith("delete") && input.length() > 6) {
             try {
                 int i = convertInt(input);
                 Task deleted = taskArr.remove(i - 1);
-                System.out.println("Noted. I've removed this task:\n" + deleted + "\nNow you have " + taskArr.size() + " tasks in the list.");
+                return "Noted. I've removed this task:\n" + deleted + "\nNow you have " + taskArr.size() + " tasks in the list.";
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                System.out.println("OOPS!!! Invalid delete expression.");
+                return "OOPS!!! Invalid delete expression.";
             }
         } else if (input.startsWith("mark") && input.length() > 4) {
             try {
                 int i = convertInt(input);
                 Task taskToMark = taskArr.get(i - 1);
                 taskToMark.mark();
-                System.out.println("Nice! I've marked this task as done:\n" + taskToMark);
+                return "Nice! I've marked this task as done:\n" + taskToMark;
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                System.out.println("OOPS!!! Invalid mark expression.");
+                return "OOPS!!! Invalid mark expression.";
             }
         } else if (input.startsWith("unmark") && input.length() > 6) {
             try {
                 int i = convertInt(input);
                 Task taskToUnmark = taskArr.get(i - 1);
                 taskToUnmark.unMark();
-                System.out.println("OK, I've marked this task as not done yet:\n" + taskToUnmark);
+               return "OK, I've marked this task as not done yet:\n" + taskToUnmark;
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                System.out.println("OOPS!!! Invalid unmark expression.");
+                return "OOPS!!! Invalid unmark expression.";
             }
         } else if (input.startsWith("todo") && input.length() > 4 && input.charAt(4) == ' ') {
             String whatToDo = input.split(" ", 2)[1];
             Todo toDo = new Todo(whatToDo);
             taskArr.add(toDo);
-            ui.printAddTask(toDo, taskArr.size());
+            return ui.printAddTask(toDo, taskArr.size());
         } else if (input.startsWith("deadline") && input.length() > 8) {
             try {
                 String[] parts = input.split(" ", 2);
@@ -84,9 +88,9 @@ public class TaskList {
                 String[] secPart = buffer.split("/", 2);
                 Deadline deadline = new Deadline(secPart[0], secPart[1]);
                 taskArr.add(deadline);
-                ui.printAddTask(deadline, taskArr.size());
+                return ui.printAddTask(deadline, taskArr.size());
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("OH NO! It seems like the format is wrong. Did you include at least 1 '/' in the description?");
+                return "OH NO! It seems like the format is wrong. Did you include at least 1 '/' in the description?";
             }
         } else if (input.startsWith("event") && input.length() > 5) {
             try {
@@ -95,27 +99,29 @@ public class TaskList {
                 String[] secPart = buffer.split("/", 3);
                 Event event = new Event(secPart[0], secPart[1], secPart[2]);
                 taskArr.add(event);
-                ui.printAddTask(event, taskArr.size());
+                return ui.printAddTask(event, taskArr.size());
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("OH NO! It seems like the format is wrong. Did you include at least 2 '/' in the description?");
+                return "OH NO! It seems like the format is wrong. Did you include at least 2 '/' in the description?";
             }
         } else if (input.startsWith("find") && input.length() > 4) {
             try {
                 String[] parts = input.split(" ", 2);
                 String toFind = parts[1];
                 int i = 1;
+                StringBuilder sb = new StringBuilder();
+
                 for (Task task : taskArr) {
                     if (task.toString().contains(toFind)) {
-                        System.out.println((i) + ". " + task + "\n");
+                        sb.append((i) + ". " + task + "\n");
                         i++;
                     }
                 }
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("OH NO! It seems like the format is wrong.");
-            }
+                return sb.toString();
 
-        } else {
-            ui.invalidInput();
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return "OH NO! It seems like the format is wrong.";
+            }
         }
+        return ui.invalidInput();
     }
 }

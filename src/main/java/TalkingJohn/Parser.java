@@ -1,4 +1,4 @@
-package TalkingJohn;
+package talkingjohn;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -37,26 +37,17 @@ public class Parser {
     /**
      * Handles user input and executes corresponding actions until the "bye" command is received.
      */
-    public void handleInput() {
-        try (Scanner scanner = new Scanner(System.in)) {
-            ui.greeting();
-
-            while (true) {
-                String input = scanner.hasNextLine() ? scanner.nextLine() : "";
-
-                if (Objects.equals(input, "bye")) {
-                    ui.goodbye();
-                    storage.saveTasksToFile();
-                    break;
-                }
-
-                if (invalidInputs.contains(input)) {
-                    ui.emptyInput(input);
-                    continue;
-                }
-
-                taskList.action(input);
-            }
+    public String handleInput(String input) {
+        if (Objects.equals(input, "bye")) {
+            storage.saveTasksToFile();
+            return ui.goodbye();
         }
+
+        if (invalidInputs.contains(input)) {
+            return ui.emptyInput(input);
+        }
+
+        return taskList.action(input);
+
     }
 }

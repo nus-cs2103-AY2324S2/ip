@@ -1,4 +1,4 @@
-package TalkingJohn;
+package talkingjohn;
 
 /**
  * Represents an event task that has a start date and an end date.

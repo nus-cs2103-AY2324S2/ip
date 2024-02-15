@@ -1,4 +1,4 @@
-package TalkingJohn;
+package talkingjohn;
 
 /**
  * Represents the user interface of the TalkingJohn application.
@@ -8,15 +8,15 @@ public class Ui {
     /**
      * Displays a greeting message when the application starts.
      */
-    public void greeting() {
-        System.out.println("Hello, I am TalkingJohn\nWhat can I do for you?\n");
+    public String greeting() {
+        return "Hello, I am TalkingJohn\nWhat can I do for you?\n";
     }
 
     /**
      * Displays a goodbye message when the application exits.
      */
-    public void goodbye() {
-        System.out.println("Bye, hope to see you soon");
+    public String goodbye() {
+        return "Bye, hope to see you soon";
     }
 
     /**
@@ -24,8 +24,8 @@ public class Ui {
      *
      * @param input The empty user input.
      */
-    public void emptyInput(String input) {
-        System.out.println("OOPS!!! " + input + " cannot be empty.");
+    public String emptyInput(String input) {
+        return "OOPS!!! " + input + " cannot be empty.";
     }
 
     /**
@@ -34,15 +34,15 @@ public class Ui {
      * @param task        The task that was added.
      * @param taskArrSize The size of the task array after adding the task.
      */
-    public void printAddTask(Task task, int taskArrSize) {
-        System.out.println("Got it. I've added this task:\n" +
-                task + "\nNow you have " + taskArrSize + " tasks in the list.");
+    public String printAddTask(Task task, int taskArrSize) {
+        return "Got it. I've added this task:\n" +
+                task + "\nNow you have " + taskArrSize + " tasks in the list.";
     }
 
     /**
      * Displays an error message for invalid user input.
      */
-    public void invalidInput() {
-        System.out.println("HMM? This is an activity planner. Please repeat \uD83E\uDD72");
+    public String invalidInput() {
+        return "HMM? This is an activity planner. Please repeat \uD83E\uDD72";
     }
 }

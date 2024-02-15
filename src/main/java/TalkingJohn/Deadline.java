@@ -1,4 +1,4 @@
-package TalkingJohn;
+package talkingjohn;
 
 
 import java.time.LocalDateTime;
