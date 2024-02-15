@@ -34,7 +34,6 @@ public class ByeCommand extends Command {
         try {
             msg = ui.getGoodbyeMsg();
             saveFile.saveTasksToFile(tasks);
-            ui.setContinueIter(false);
         } catch (TalkingBotException e) {
             msg = ui.getGenericErrorMsg(e);
         }
