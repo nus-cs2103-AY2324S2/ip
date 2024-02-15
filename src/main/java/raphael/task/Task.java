@@ -37,11 +37,14 @@ public class Task implements FileFormattable, Comparable<Task> {
      *
      * @return 0 if the current task is not done yet, and hence a successful operation can be carried out; -1 otherwise.
      */
-    public int check() {
+    public int markTaskAsDone() {
         if (this.isDone) {
+            this.checkIsDone(true);
             return -1;
         } else {
+            this.checkIsDone(false);
             this.isDone = true;
+            this.checkIsDone(true);
             return 0;
         }
     }
@@ -51,11 +54,14 @@ public class Task implements FileFormattable, Comparable<Task> {
      *
      * @return 0 if the current task is done, and hence a successful operation can be carried out; -1 otherwise.
      */
-    public int uncheck() {
+    public int markTaskAsUndone() {
         if (!this.isDone) {
+            this.checkIsDone(false);
             return -1;
         } else {
+            this.checkIsDone(true);
             this.isDone = false;
+            this.checkIsDone(false);
             return 0;
         }
     }
@@ -86,6 +92,10 @@ public class Task implements FileFormattable, Comparable<Task> {
         default:
             throw new RaphaelException("Error in loading the tasks!");
         }
+    private void checkIsDone(boolean expected) {
+        String assertionErrorMessage = String.format(
+                "The task should be %s", expected ? "done" : "not done");
+        assert this.isDone == expected : assertionErrorMessage;
     }
     @Override
     public String toString() {
