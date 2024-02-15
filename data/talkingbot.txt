@@ -1,3 +1,0 @@
-D | 1 | return book | 2019-12-02 1800
-T | 1 | read book
-E | 1 | meet mentor | 2019-12-02 1900 | 2019-12-02 2000
