@@ -18,7 +18,7 @@ public abstract class Command {
      * @param taskList Active during the execution of the program
      * @throws DukeException
      */
-    public abstract void execute(Storage storage, TaskList taskList) throws DukeException;
+    public abstract String execute(Storage storage, TaskList taskList) throws DukeException;
 
     /**
      * Returns true if the command is the exit command, and false otherwise

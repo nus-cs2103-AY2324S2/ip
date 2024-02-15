@@ -30,14 +30,15 @@ public class TaskList {
     /**
      * Prints all tasks in the list.
      */
-    public void print() {
+    public String print() {
         if (tasks.isEmpty()) {
-            System.out.println("No tasks yet...");
+            return "No tasks yet...\n";
         } else {
-            System.out.println("The tasks as as follows:");
+            String result = "The tasks as as follows:\n";
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + "." + tasks.get(i));
+                result += (i + 1) + "." + tasks.get(i) + "\n";
             }
+            return result;
         }
     }
 
@@ -72,11 +73,11 @@ public class TaskList {
     /**
      * Counts the number of available tasks.
      */
-    public void countSize() {
+    public String countSize() {
         if (tasks.size() == 1) {
-            System.out.println("Now you have 1 task in the list");
+            return "Now you have 1 task in the list\n";
         } else {
-            System.out.printf("Now you have %d tasks in the list\n", tasks.size());
+            return String.format("Now you have %d tasks in the list\n", tasks.size());
         }
     }
 
@@ -117,7 +118,7 @@ public class TaskList {
      *
      * @param localDate The searching date
      */
-    public void searchDate(LocalDate localDate) {
+    public String searchDate(LocalDate localDate) {
         ArrayList<Task> result = new ArrayList<>();
         for (Task task : tasks) {
             if (task.canMatchDate(localDate)) {
@@ -125,12 +126,13 @@ public class TaskList {
             }
         }
         if (result.isEmpty()) {
-            System.out.println("Sorry! No tasks can satisfy your query conditions...");
+            return "Sorry! No tasks can satisfy your query conditions...\n";
         } else {
-            System.out.println("OK! The search results are as follows:");
+            String output = "OK! The search results are as follows:\n";
             for (int i = 1; i <= result.size(); i++) {
-                System.out.printf("  %d. %s\n", i, result.get(i - 1));
+                output += String.format("  %d. %s\n", i, result.get(i - 1));
             }
+            return output;
         }
     }
 
@@ -139,7 +141,7 @@ public class TaskList {
      *
      * @param keyword The keyword typed in by the user
      */
-    public void searchKeyword(String keyword) {
+    public String searchKeyword(String keyword) {
         ArrayList<Task> result = new ArrayList<>();
         for (Task task : tasks) {
             if (task.isContaining(keyword)) {
@@ -147,12 +149,13 @@ public class TaskList {
             }
         }
         if (result.isEmpty()) {
-            System.out.println("Sorry! No tasks can satisfy your query conditions...");
+            return "Sorry! No tasks can satisfy your query conditions...\n";
         } else {
-            System.out.println("OK! The search results are as follows:");
+            String output = "OK! The search results are as follows:\n";
             for (int i = 1; i <= result.size(); i++) {
-                System.out.printf("  %d. %s\n", i, result.get(i - 1));
+                output += String.format("  %d. %s\n", i, result.get(i - 1));
             }
+            return output;
         }
     }
 
@@ -162,10 +165,10 @@ public class TaskList {
      *
      * @param task The task that needs to be added
      */
-    public void add(Task task) {
+    public String add(Task task) {
         tasks.add(task);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
-        countSize();
+        String result = "Got it. I've added this task:\n";
+        result += "  " + task + "\n";
+        return result + countSize();
     }
 }

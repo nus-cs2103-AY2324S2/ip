@@ -25,8 +25,8 @@ public class ExitCommand extends Command {
      * @param taskList Active during the execution of the program
      */
     @Override
-    public void execute(Storage storage, TaskList taskList) {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String execute(Storage storage, TaskList taskList) {
+        return "Bye. Hope to see you again soon!\n";
     }
 
     /**
