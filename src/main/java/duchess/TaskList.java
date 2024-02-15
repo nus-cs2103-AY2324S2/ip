@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import duchess.task.Deadline;
 import duchess.task.Event;
 import duchess.task.Task;
-import duchess.task.TaskType;
 import duchess.task.ToDo;
 
 import javafx.util.Pair;

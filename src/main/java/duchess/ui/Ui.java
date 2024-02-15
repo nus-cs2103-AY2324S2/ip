@@ -27,20 +27,14 @@ public class Ui {
     }
 
     /**
-     * Prints the opening greeting message when the program starts.
+     * The opening greeting message when the program starts.
      */
-    public void printOpeningGreeting() {
-        String logo = " ____            __\n"
-                + "|  _ \\ _   ______| |      ___  ___  ___\n"
-                + "| | | | | | |  __| |__  /  _ \\/ __|/ __|\n"
-                + "| |_| | |_| | |__| ___ |   __/\\__ \\\\__ \\\n"
-                + "|____/ \\__,_|____|_| |_|\\ ___||___/|___/\n";
-        printHorizontalLine();
-        System.out.println(logo);
-        printHorizontalLine();
-        System.out.println("Hello! I'm Duchess.");
-        System.out.println("What can I do for you today?");
-        printHorizontalLine();
+    public String openingGreeting() {
+        String logo = "___  _     _ ____  _     _  ____ ____ ____ \n" +
+                " |     \\   |     |   |            |__|    |___  [__     [__  \n" +
+                " |__/   |__|   |___    |     |    |___  ___]  ___] \n" +
+                "                                   ";
+        return String.format(logo + "\n" + "Hello! I'm Duchess.\n" + "What can I do for you today?\n");
     }
 
 
@@ -65,14 +59,6 @@ public class Ui {
         }
 
         System.out.println();
-    }
-
-    /**
-     * Displays the opening greeting message.
-     * @return The opening greeting message.
-     */
-    public String showOpeningGreeting() {
-        return "Hello, I'm Duchess. What can I do for you today?";
     }
 
     /**

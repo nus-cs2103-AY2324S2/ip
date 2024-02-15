@@ -58,7 +58,6 @@ public class Duchess {
      */
     public void run() {
         try {
-            ui.printOpeningGreeting();
             while (this.isRunning) {
                 String input = this.ui.nextLine();
                 System.out.println(this.getResponse(input));
@@ -77,6 +76,10 @@ public class Duchess {
         this.ui.closeScanner();
         this.storage.saveData(this.taskList);
         this.isRunning = false;
+    }
+
+    public String getOpeningGreeting() {
+        return this.ui.openingGreeting();
     }
 
 

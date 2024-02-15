@@ -31,6 +31,7 @@ public class MainWindow extends AnchorPane {
 
     public void setDuchess(Duchess d) {
         duchess = d;
+        dialogContainer.getChildren().add(DialogBox.getDuchessDialog(d.getOpeningGreeting(), duchessImage));
     }
 
     /**
