@@ -18,6 +18,7 @@ public class Duke {
      */
     public String getResponse(String input) {
         String response = processCommand(input, taskList, true);
+        
         return response;
     }
 
