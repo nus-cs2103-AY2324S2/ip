@@ -16,27 +16,26 @@ public class Parser {
      * @param cmd String
      * @param ui ui
      * @param tl TaskList
-     * @param st storage
      * @throws JojoException if the tasks are invalid
      */
-    public static String parse(String cmd, Ui ui, TaskList tl, Storage st) throws JojoException {
-        String response = "";
+    public static String parse(String cmd, Ui ui, TaskList tl) throws JojoException {
+        String response;
         if (cmd.strip().equals("list")) {
-            response = ui.printList(tl);
+            response = ui.ListToString(tl);
         } else if (cmd.startsWith("mark")) {
-            response = ui.printMark(tl, cmd);
+            response = ui.MarkToString(tl, cmd);
         } else if (cmd.startsWith("unmark")) {
-            response = ui.printUnmark(tl, cmd);
+            response = ui.UnmarkToString(tl, cmd);
         } else if (cmd.startsWith("delete")) {
-            response = ui.printDelete(tl, cmd);
+            response = ui.DeleteToString(tl, cmd);
         } else if (cmd.startsWith("todo")) {
-            response = ui.printToDo(tl, cmd);
+            response = ui.ToDoToString(tl, cmd);
         } else if (cmd.startsWith("deadline")) {
-            response = ui.printDeadline(tl, cmd);
+            response = ui.DeadlineToString(tl, cmd);
         } else if (cmd.startsWith("event")) {
-            response = ui.printEvent(tl, cmd);
+            response = ui.EventToString(tl, cmd);
         } else if (cmd.startsWith("find")) {
-            response = ui.printFind(tl, cmd);
+            response = ui.FindToString(tl, cmd);
         } else {
             throw new JojoUnknownTaskException();
         }

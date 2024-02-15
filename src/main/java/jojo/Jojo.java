@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * A CLI chatbot with the ability to save tasks.
+ * A chatbot with the ability to save tasks.
  */
 public class Jojo {
     private final Storage storage;
@@ -29,16 +29,13 @@ public class Jojo {
      * @throws JojoException when an invalid command is given.
      */
     public void run() throws JojoException {
-            System.out.println(ui.showWelcomeMessage());
-            System.out.println(storage.printList());
-            System.out.println(ui.showStartingQn());
+            System.out.println(getStartingMsg());
             System.out.println(ui.breakLines());
             Scanner sc = new Scanner(System.in);
             String cmd = sc.nextLine();
             while (!cmd.equals("bye")) {
                 getResponse(cmd);
-                String store_str = storage.storeList(tasks);
-                storage.save(store_str);
+                saveTasks();
                 System.out.println(ui.breakLines());
                 cmd = sc.nextLine();
             }
@@ -46,17 +43,32 @@ public class Jojo {
             System.out.println(ui.breakLines());
     }
 
+    /**
+     * Saves the tasks to the hardcoded file
+     * @throws JojoException when an invalid command is given.
+     */
     public void saveTasks() throws JojoException {
         String store_str = storage.storeList(tasks);
         storage.save(store_str);
     }
 
+    /**
+     * Returns the response by Jojo
+     * @param input from the user
+     * @return String
+     * @throws JojoException when an invalid command is given.
+     */
     public String getResponse(String input) throws JojoException {
-        String response = Parser.parse(input, ui, tasks, storage);
+        String response = Parser.parse(input, ui, tasks);
         System.out.println(response);
         return response;
     }
 
+    /**
+     * Returns the starting message
+     * @return String
+     * @throws JojoException when an invalid command is given.
+     */
     public String getStartingMsg() throws JojoException {
         StringBuilder msg = new StringBuilder();
         msg.append(ui.showWelcomeMessage());

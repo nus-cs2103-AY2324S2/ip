@@ -11,10 +11,9 @@ import jojo.Jojo;
 import java.io.IOException;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Jojo using FXML.
  */
 public class Main extends Application {
-
     private Jojo jojo = new Jojo("jojo.txt");
 
     @Override

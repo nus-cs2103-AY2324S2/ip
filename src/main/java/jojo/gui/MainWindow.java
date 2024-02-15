@@ -43,7 +43,7 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() throws JojoException {
+    private void handleUserInput() {
         String input = userInput.getText();
         try {
             if (input.strip().equals("bye")) {
@@ -64,12 +64,10 @@ public class MainWindow extends AnchorPane {
         } finally {
             userInput.clear();
         }
-
-
     }
 
     /**
-     * Prints the starting message.
+     * Returns the starting message.
      */
     public void showStartingMsg() throws JojoException {
         String response = jojo.getStartingMsg();

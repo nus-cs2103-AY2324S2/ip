@@ -1,6 +1,5 @@
 import exceptions.JojoUnknownTaskException;
 import jojo.Parser;
-import jojo.Storage;
 import jojo.TaskList;
 import jojo.Ui;
 import org.junit.jupiter.api.Test;
@@ -31,7 +30,7 @@ public class ParserTest {
     @Test
     public void testParseUnknownTask() {
         String cmd = "unknown-task";
-        assertThrows(JojoUnknownTaskException.class, () -> Parser.parse(cmd, new Ui(), new TaskList(new ArrayList<>()), new Storage("")));
+        assertThrows(JojoUnknownTaskException.class, () -> Parser.parse(cmd, new Ui(), new TaskList(new ArrayList<>())));
     }
 
 }

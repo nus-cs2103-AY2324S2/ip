@@ -8,14 +8,14 @@ import exceptions.JojoTaskNoDescException;
 public class Ui {
 
     /**
-     * Prints a welcome message.
+     * Returns a welcome message.
      */
     public String showWelcomeMessage() {
         return "Hello! I'm Jojo :)";
     }
 
     /**
-     * Prints the starting prompt.
+     * Returns the starting prompt.
      */
     public String showStartingQn() {
         return "What can I do for you?";
@@ -23,7 +23,7 @@ public class Ui {
 
 
     /**
-     * Prints break lines to show end of a command.
+     * Returns break lines to show end of a command.
      */
     public String breakLines() {
         StringBuilder sb = new StringBuilder();
@@ -34,10 +34,10 @@ public class Ui {
     }
 
     /**
-     * Prints a list of tasks.
+     * Returns a list of tasks.
      * @param tl TaskList
      */
-    public String printList(TaskList tl) {
+    public String ListToString(TaskList tl) {
         StringBuilder sb = new StringBuilder();
         sb.append("Here are the tasks in your list:");
         for (int j = 0; j < tl.size(); j++) { // printing out all items in the list
@@ -49,12 +49,12 @@ public class Ui {
     }
 
     /**
-     * Prints the task when marked as done.
+     * Returns the task when marked as done.
      * @param tl TaskList
      * @param cmd String
      * @throws JojoException when the task is invalid
      */
-    public String printMark(TaskList tl, String cmd) throws JojoException {
+    public String MarkToString(TaskList tl, String cmd) throws JojoException {
         try {
             StringBuilder sb = new StringBuilder();
             int taskNum = Parser.parseMark(cmd);
@@ -69,12 +69,12 @@ public class Ui {
     }
 
     /**
-     * Prints the task when marked as undone.
+     * Returns the task when marked as undone.
      * @param tl TaskList
      * @param cmd String
      * @throws JojoException when the task is invalid
      */
-    public String printUnmark(TaskList tl, String cmd) throws JojoException {
+    public String UnmarkToString(TaskList tl, String cmd) throws JojoException {
         try {
             StringBuilder sb = new StringBuilder();
             int taskNum = Parser.parseUnmark(cmd);
@@ -89,12 +89,12 @@ public class Ui {
     }
 
     /**
-     * Prints the task when deleted.
+     * Returns the task when deleted.
      * @param tl TaskList
      * @param cmd String
      * @throws JojoException when the task is invalid
      */
-    public String printDelete(TaskList tl, String cmd) throws JojoException {
+    public String DeleteToString(TaskList tl, String cmd) throws JojoException {
         int taskNum = Parser.parseDelete(cmd);
         StringBuilder sb = new StringBuilder();
         if (taskNum >= tl.size()) {
@@ -113,12 +113,12 @@ public class Ui {
     }
 
     /**
-     * Prints the todo when created.
+     * Returns the todo when created.
      * @param tl TaskList
      * @param cmd String
      * @throws JojoException when the todo is invalid
      */
-    public String printToDo(TaskList tl, String cmd) throws JojoException {
+    public String ToDoToString(TaskList tl, String cmd) throws JojoException {
         String test = Parser.parseToDoOrFind(cmd);
         StringBuilder sb = new StringBuilder();
         if (test.strip().equals("")) {
@@ -138,12 +138,12 @@ public class Ui {
     }
 
     /**
-     * Prints the deadline when created.
+     * Returns the deadline when created.
      * @param tl TaskList
      * @param cmd String
      * @throws JojoException when the deadline is invalid
      */
-    public String printDeadline(TaskList tl, String cmd) throws JojoException {
+    public String DeadlineToString(TaskList tl, String cmd) throws JojoException {
         String test = Parser.parseDeadline(cmd);
         StringBuilder sb = new StringBuilder();
         if (test.strip().equals("")) {
@@ -155,18 +155,20 @@ public class Ui {
             sb.append(System.getProperty("line.separator"));
             sb.append(t);
             sb.append(System.getProperty("line.separator"));
-            sb.append("Now you have " + tl.size() + " tasks in the list.");
+            sb.append("Now you have ");
+            sb.append(tl.size());
+            sb.append(" tasks in the list.");
         }
         return sb.toString();
     }
 
     /**
-     * Prints the event when created.
+     * Returns the event when created.
      * @param tl TaskList
      * @param cmd String
      * @throws JojoException when the event is invalid
      */
-    public String printEvent(TaskList tl, String cmd) throws JojoException {
+    public String EventToString(TaskList tl, String cmd) throws JojoException {
         String test = Parser.parseEventTest(cmd);
         StringBuilder sb = new StringBuilder();
         if (test.strip().equals("")) {
@@ -187,12 +189,12 @@ public class Ui {
     }
 
     /**
-     * Prints a list of task(s) that matches the keyword partially or fully.
+     * Returns a list of task(s) that matches the keyword partially or fully.
      * @param tl TaskList
      * @param cmd String 
      * @throws JojoException when find is invalid
      */
-    public String printFind(TaskList tl, String cmd) throws JojoException {
+    public String FindToString(TaskList tl, String cmd) throws JojoException {
         StringBuilder sb = new StringBuilder();
         String test = Parser.parseToDoOrFind(cmd);
         if (test.strip().equals("")) {
@@ -215,14 +217,14 @@ public class Ui {
     }
 
     /**
-     * Prints an exit message.
+     * Returns an exit message.
      */
     public String showExitMessage() {
         return "Bye. Hope to see you again soon!";
     }
 
     /**
-     * Prints an error message when the file does not load correctly.
+     * Returns an error message when the file does not load correctly.
      */
     public String showLoadingError() {
         return "Error loading tasks from file.";

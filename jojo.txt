@@ -1,4 +1,0 @@
-T | 0 | l
-T | 1 | e
-T | 0 | pilates
-T | 0 | swimming
