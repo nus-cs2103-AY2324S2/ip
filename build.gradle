@@ -42,7 +42,3 @@ run{
     standardInput = System.in
 }
 
-//tasks.register('runDuke', JavaExec) {
-//    main = 'Duke.Duke' // Specify the main class of your Duke application
-//    classpath = sourceSets.main.runtimeClasspath
-//}
