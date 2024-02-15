@@ -52,6 +52,11 @@ public class SecretaryW {
                     case "delete":
                         deleteTask(command[1]);
                         break;
+                    case "find":
+                        String keyword = command[1];
+                        ArrayList<Task> matchingTasks = taskList.findTasks(keyword);
+                        ui.showMatchingTasks(matchingTasks);
+                        break;
                     case "todo":
                         addTodoTask(command[1]);
                         break;
