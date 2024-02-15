@@ -40,6 +40,7 @@ public class Command {
 
     /**
      * Creates a command from the user input.
+     *
      * @param input The string input by the user.
      * @throws VirtueException If the string cannot be parsed into a command.
      */
@@ -66,6 +67,7 @@ public class Command {
 
     /**
      * Checks if a command is of type "bye".
+     *
      * @return True if the command is a "bye", false if not.
      */
     public boolean isBye() {

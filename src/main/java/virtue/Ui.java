@@ -25,6 +25,7 @@ public class Ui {
 
     /**
      * Prints with an indention.
+     *
      * @param str The string to be printed.
      */
     protected static void printWithIndent(String str) {

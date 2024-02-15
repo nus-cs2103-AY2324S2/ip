@@ -12,6 +12,7 @@ public class Storage {
 
     /**
      * Loads the task list from the designated file.
+     *
      * @return The task list saved in the file.
      * @throws VirtueDateTimeException If a date in one of the tasks is invalid or in the wrong format.
      */
@@ -44,6 +45,7 @@ public class Storage {
 
     /**
      * Saves the task list to the designated file.
+     *
      * @param taskList The task list to be saved.
      * @throws IOException If an I/O error occurs.
      */

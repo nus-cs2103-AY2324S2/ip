@@ -6,6 +6,7 @@ import java.time.format.DateTimeParseException;
 public class Parser {
     /**
      * Gets the first word of a string.
+     *
      * @param str The string to get the first word from.
      * @return The first word of a string.
      */
@@ -15,6 +16,7 @@ public class Parser {
 
     /**
      * Removes the first word of a string.
+     *
      * @param str The string to remove the first word from.
      * @return The string without the first word.
      */
@@ -24,6 +26,7 @@ public class Parser {
 
     /**
      * Gets the type of the command, which is its first word.
+     *
      * @param input The string input by the user.
      * @return The type of the command.
      * @throws UnknownCommandTypeException If the first word does not match a command type.
@@ -42,6 +45,7 @@ public class Parser {
 
     /**
      * Gets the index input by the user for a mark/unmark/delete command.
+     *
      * @param input The string input by the user.
      * @return The index for a mark/unmark/delete command.
      * @throws EmptyIndexException If the index does not exist.
@@ -60,6 +64,7 @@ public class Parser {
 
     /**
      * Gets the description for a todo/deadline/event command.
+     *
      * @param input The string input by the user.
      * @return The description for a todo/deadline/event command.
      * @throws EmptyDescriptionException If the description does not exist.
@@ -91,6 +96,7 @@ public class Parser {
 
     /**
      * Gets the deadline for a deadline command.
+     *
      * @param input The string input by the user.
      * @return The deadline date/time of the deadline command.
      * @throws VirtueDateTimeException If the date/time is invalid or not in the correct format.
@@ -107,6 +113,7 @@ public class Parser {
 
     /**
      * Gets the starting date/time for an event command.
+     *
      * @param input The string input by the user.
      * @return The starting date/time of the event command.
      * @throws VirtueDateTimeException If the date/time is invalid or not in the correct format.
@@ -124,6 +131,7 @@ public class Parser {
 
     /**
      * Gets the ending date/time for an event command.
+     *
      * @param input The string input by the user.
      * @return The ending date/time of the event command.
      * @throws VirtueDateTimeException If the date/time is invalid or not in the correct format.

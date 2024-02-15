@@ -15,6 +15,7 @@ public class VirtueTaskList {
 
     /**
      * Gets the number of tasks in the task list.
+     *
      * @return The number of tasks in the list.
      */
     protected int numTasks() {
@@ -23,6 +24,7 @@ public class VirtueTaskList {
 
     /**
      * Gets the i-th task in the task list, where i is the index input by the user.
+     *
      * @param index The index input by the user (starts from 1 and not 0).
      * @return The i-th task in the task list.
      */
@@ -32,6 +34,7 @@ public class VirtueTaskList {
 
     /**
      * Adds a todo task to the task list.
+     *
      * @param description The description of the todo task to be added.
      */
     private void addTodo(String description) {
@@ -48,6 +51,7 @@ public class VirtueTaskList {
 
     /**
      * Adds a deadline task to the task list.
+     *
      * @param description The description of the deadline task to be added.
      * @param by The date/time for the task to be completed.
      */
@@ -65,6 +69,7 @@ public class VirtueTaskList {
 
     /**
      * Adds an event task to the task list.
+     *
      * @param description The description of the event task to be added.
      * @param from The date/time of the start of the event.
      * @param to The date/time of the end of the event.
@@ -83,6 +88,7 @@ public class VirtueTaskList {
 
     /**
      * Marks the i-th task in the task list as done, where i is the index input by the user.
+     *
      * @param index The index input by the user (starts from 1 and not 0).
      */
     private void markTaskAsDone(int index) {
@@ -96,6 +102,7 @@ public class VirtueTaskList {
 
     /**
      * Marks the i-th task in the task list as not done, where i is the index input by the user.
+     *
      * @param index The index input by the user (starts from 1 and not 0).
      */
     private void markTaskAsNotDone(int index) {
@@ -122,6 +129,7 @@ public class VirtueTaskList {
 
     /**
      * Deletes the i-th task in the task list, where i is the index input by the user.
+     *
      * @param index The index input by the user (starts from 1 and not 0).
      */
     private void deleteTask(int index) {
@@ -136,6 +144,7 @@ public class VirtueTaskList {
 
     /**
      * Executes the command on this task list.
+     *
      * @param command The command to be executed on this task list.
      */
     public void executeCommand(Command command) {
@@ -165,6 +174,7 @@ public class VirtueTaskList {
 
     /**
      * Adds a task to the task list from a line in the saved file.
+     *
      * @param str A specific line from the saved file.
      * @throws VirtueDateTimeException If dates in a deadline/event file are not in the correct format.
      */
@@ -211,6 +221,7 @@ public class VirtueTaskList {
 
     /**
      * Creates the string to be saved in a file.
+     *
      * @return The concatenation of all fileFormat strings of all tasks in the list,
      * with each task separated by a line break.
      */

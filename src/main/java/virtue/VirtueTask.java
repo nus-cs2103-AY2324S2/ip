@@ -10,6 +10,7 @@ abstract public class VirtueTask {
 
     /**
      * Creates a new task, by default, it is not done.
+     *
      * @param description The description of the task.
      */
     public VirtueTask(String description) {
@@ -19,6 +20,7 @@ abstract public class VirtueTask {
 
     /**
      * Retrieves the status icon of the task, X if done, none if not done.
+     *
      * @return Status icon of task.
      */
     private String getStatusIcon() {
@@ -38,6 +40,7 @@ abstract public class VirtueTask {
     /**
      * Retrieves the string representation of this task
      * to be used for printing the list.
+     *
      * @return The string representation of this task.
      */
     @Override
@@ -48,6 +51,7 @@ abstract public class VirtueTask {
     /**
      * Retrieves the string representation of this task
      * to be used for saving the task in a file.
+     *
      * @return The file format of this task.
      */
     public String fileFormat() {

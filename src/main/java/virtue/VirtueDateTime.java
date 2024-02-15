@@ -10,6 +10,7 @@ public class VirtueDateTime {
 
     /**
      * Creates a date/time object from the string input.
+     *
      * @param str The date/time in ISO_LOCAL_DATE_TIME format.
      * @throws DateTimeParseException If not a valid date/time or not in the correct format.
      */
@@ -20,6 +21,7 @@ public class VirtueDateTime {
     /**
      * Generates the string representation when the task
      * containing this object is printed to the user.
+     *
      * @return The string representation when the task is printed to the user.
      */
     @Override
@@ -30,6 +32,7 @@ public class VirtueDateTime {
     /**
      * Generates the string representation when the
      * task containing this object is saved to the file.
+     *
      * @return The string representation when the task is saved to the file.
      */
     public String fileFormat() {
