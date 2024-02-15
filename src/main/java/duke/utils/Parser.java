@@ -122,16 +122,8 @@ public class Parser {
         return currentKey;
     }
 
-    public void setCurrentKey(KeyEnum currentKey) {
-        this.currentKey = currentKey;
-    }
-
     public String getInputDetail() {
         return inputDetail;
-    }
-
-    public void setInputDetail(String inputDetail) {
-        this.inputDetail = inputDetail;
     }
 
     public String getTo() {
@@ -146,15 +138,7 @@ public class Parser {
         return from;
     }
 
-    public void setFrom(String from) {
-        this.from = from;
-    }
-
     public Integer getIndex() {
         return index;
-    }
-
-    public void setIndex(Integer index) {
-        this.index = index;
     }
 }

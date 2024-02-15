@@ -17,7 +17,7 @@ import duke.tasks.Todo;
  * Class represent a file and contains functions processing a file.
  */
 public class Storage {
-    private String filePath = "./data/duke.txt";
+    private String filePath;
     private File file;
 
     /**
