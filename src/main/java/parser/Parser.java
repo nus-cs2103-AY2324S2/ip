@@ -68,20 +68,24 @@ public class Parser {
             // future error detection for non-numerals
             int convertedToNumber = Parser.convertStringIndexToIntZeroIndex(listStringNumber);
             // future error when list is empty
-            if (convertedToNumber < 0 || convertedToNumber >= taskList.getSize()) {
-                throw new JuxException("NUMBER NOT IN LIST, PLEASE ADD A TASK OR " +
-                        "CHOOSE A DIFFERENT NUMBER WITHIN 1 AND"
-                        + taskList.getSize());
-            }
-            if (taskList.isIndexedTaskChecked(convertedToNumber)) {
-                throw new JuxException("TASK ALREADY MARKED");
-            }
+            exceptionMarkString(taskList, convertedToNumber);
             taskList.toggleIndexedTask(convertedToNumber);
             output = taskList.printTaskMarked(ui, convertedToNumber);
         } else {
             throw new JuxException("PLEASE INSERT NUMBER TO MARK");
         }
         return output;
+    }
+
+    private static void exceptionMarkString(TaskList taskList, int convertedToNumber) throws JuxException {
+        if (convertedToNumber < 0 || convertedToNumber >= taskList.getSize()) {
+            throw new JuxException("NUMBER NOT IN LIST, PLEASE ADD A TASK OR " +
+                    "CHOOSE A DIFFERENT NUMBER WITHIN 1 AND"
+                    + taskList.getSize());
+        }
+        if (taskList.isIndexedTaskChecked(convertedToNumber)) {
+            throw new JuxException("TASK ALREADY MARKED");
+        }
     }
 
     private static String getunmarkString(String input, TaskList taskList, Ui ui) throws JuxException {
