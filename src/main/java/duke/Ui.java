@@ -35,7 +35,7 @@ public class Ui {
     /**
      * Shows the greeting message to the user.
      */
-    public String greet() {
+    public String showGreet() {
         return DIVIDER +
                 "Hello! I'm KwunTalk!\nWhat can I do for you?\n" +
                 DIVIDER;
@@ -45,7 +45,7 @@ public class Ui {
     /**
      * Shows the goodbye message to the user.
      */
-    public String goodbye() {
+    public String showBye() {
         return DIVIDER + "Bye. Hope to see you again soon!\n" + DIVIDER;
     }
 
@@ -76,7 +76,7 @@ public class Ui {
      * @param task Task that was deleted.
      * @param taskTotal Total number of tasks in the list after deleting.
      */
-    public String deleteTask(Task task, int taskTotal) {
+    public String showDeleteTask(Task task, int taskTotal) {
         String s = String.format("OK. I've deleted this task:\n%s\nNow you have %s tasks in the list.\n",
                 task, taskTotal);
         return DIVIDER + s + DIVIDER;
@@ -88,7 +88,7 @@ public class Ui {
      *
      * @param task Task to be marked.
      */
-    public String markTask(Task task) {
+    public String showMarkTask(Task task) {
         String s = String.format("Nice! I've marked this task as done:\n%s\n", task);
         return DIVIDER + s + DIVIDER;
     }
@@ -99,7 +99,7 @@ public class Ui {
      *
      * @param task Task to be unmarked.
      */
-    public String unmarkTask(Task task) {
+    public String showUnmarkTask(Task task) {
         String s = String.format("OK, I've marked this task as not done yet:\n%s\n", task);
         return DIVIDER + s + DIVIDER;
     }
@@ -111,7 +111,7 @@ public class Ui {
      * @param task Task to be added.
      * @param taskTotal Total number of tasks in the list after adding.
      */
-    public String addTask(Task task, int taskTotal) {
+    public String showAddTask(Task task, int taskTotal) {
         String s = String.format("Got it. I've added this task:\n%s\nNow you have %s tasks in the list.\n",
                 task, taskTotal);
         return DIVIDER + s + DIVIDER;
@@ -123,7 +123,7 @@ public class Ui {
      *
      * @param e Exception to be handled.
      */
-    public String error(DukeException e) {
+    public String showError(DukeException e) {
         return DIVIDER + e + DIVIDER;
     }
 
@@ -133,7 +133,7 @@ public class Ui {
      *
      * @param filteredList Filtered list of tasks.
      */
-    public String findTask(TaskList filteredList) {
+    public String showFindTask(TaskList filteredList) {
         if (filteredList.isEmpty()) {
             return DIVIDER + "There are no matching tasks in your list.\n" + DIVIDER;
 

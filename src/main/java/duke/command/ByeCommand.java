@@ -27,7 +27,7 @@ public class ByeCommand extends Command {
         try {
             ui.close();
             storage.saveTasksFile(taskList);
-            return ui.goodbye();
+            return ui.showBye();
         } catch (IOException e) {
             throw new TasksFileException();
         }

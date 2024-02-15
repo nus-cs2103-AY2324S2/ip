@@ -42,7 +42,7 @@ public class DeleteCommand extends Command {
             int taskId = Integer.parseInt(this.arguments);
             Task task = taskList.get(taskId);
             taskList.remove(taskId);
-            return ui.deleteTask(task, taskList.getLength());
+            return ui.showDeleteTask(task, taskList.getLength());
 
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new InvalidArgumentException("DELETE");

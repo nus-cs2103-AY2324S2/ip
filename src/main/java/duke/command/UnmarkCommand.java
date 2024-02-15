@@ -42,7 +42,7 @@ public class UnmarkCommand extends Command {
             int taskId = Integer.parseInt(this.arguments);
             Task task = taskList.get(taskId);
             task.changeMark("UNMARK");
-            return ui.unmarkTask(task);
+            return ui.showUnmarkTask(task);
 
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new InvalidArgumentException("UNMARK");

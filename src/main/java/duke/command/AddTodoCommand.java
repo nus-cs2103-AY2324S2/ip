@@ -39,7 +39,7 @@ public class AddTodoCommand extends Command {
         try {
             Task newTask = new Todo(this.arguments);
             taskList.add(newTask);
-            return ui.addTask(newTask, taskList.getLength());
+            return ui.showAddTask(newTask, taskList.getLength());
 
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new InvalidArgumentException("TODO");
