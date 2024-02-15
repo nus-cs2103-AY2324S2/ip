@@ -28,6 +28,7 @@ public class AddCommand extends Command {
      */
     public AddCommand(String taskType, String taskDescription) {
         super();
+        assert taskType.equals("todo") : "Task should be a todo";
         this.taskType = taskType;
         this.taskDescription = taskDescription;
     }
@@ -41,6 +42,7 @@ public class AddCommand extends Command {
      */
     public AddCommand(String taskType, String taskDescription, LocalDate deadline) {
         super();
+        assert taskType.equals("deadline") : "Task should be a deadline";
         this.taskType = taskType;
         this.taskDescription = taskDescription;
         this.deadline = deadline;
@@ -56,6 +58,7 @@ public class AddCommand extends Command {
      */
     public AddCommand(String taskType, String taskDescription, LocalDate eventStart, LocalDate eventEnd) {
         super();
+        assert taskType.equals("event") : "Task should be an event";
         this.taskType = taskType;
         this.taskDescription = taskDescription;
         this.eventStart = eventStart;

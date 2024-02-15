@@ -16,13 +16,14 @@ public class Logic {
     private Storage storage;
     private TaskList taskList;
 
+    private final String SAVE_FILE = "./data/tasks.txt";
+
     /**
      * Constructs a Duke object with the specified file path for task storage.
      */
     public Logic() {
-        String filepath = "./data/tasks.txt";
         try {
-            storage = new Storage(filepath);
+            storage = new Storage(SAVE_FILE);
             taskList = new TaskList(storage.load());
         } catch (DukeException e) {
             System.out.println(e.getMessage());
@@ -31,6 +32,7 @@ public class Logic {
     }
 
     public String getResponse(String input) {
+        assert input != null : "There should be an input";
         try {
             Command c = CommandParser.parse(input);
             if (c.isExit()) {

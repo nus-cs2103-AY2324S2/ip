@@ -25,6 +25,7 @@ public class CommandParser {
      * @throws DukeException If an error occurs during parsing or if the command is invalid.
      */
     public static Command parse(String fullCommand) throws DukeException {
+        assert fullCommand != null : "command should exist";
         String mainCommand = fullCommand.split(" ")[0];
         String subCommands = fullCommand.substring(fullCommand.indexOf(' ') + 1);
         boolean isSingleCommand = fullCommand.indexOf(' ') == -1;

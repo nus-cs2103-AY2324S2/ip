@@ -52,6 +52,7 @@ public class Storage {
      * @throws DukeException If an error occurs while updating the file.
      */
     public void update(TaskList taskList) throws DukeException {
+        assert taskList != null : "A task list should exist";
         try {
             FileWriter fw = new FileWriter(filepath);
             for (int i = 0; i < taskList.size(); i++) {
