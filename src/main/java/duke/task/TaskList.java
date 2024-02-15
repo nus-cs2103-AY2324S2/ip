@@ -61,52 +61,16 @@ public class TaskList {
         String res = "";
         switch (cmd) {
         case TODO:
-            try {
-                Todo taskTodo = new Todo(instr.split("todo ")[1]);
-                this.instrList.add(taskTodo);
-                thisStorage.saveTaskList(this.instrList);
-                res = "Got it. I've added this task: \n "
-                    + taskTodo.toString();
-                System.out.println(res);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new DukeException("OOPS!!! The description of a todo cannot be empty. \nTry again!");
-            }
+            res = processTodo(instr, thisStorage);
+            System.out.println(res);
             break;
         case DEADLINE:
-            try {
-                String deadlineDescription = instr.substring(9);
-                String[] tskNames = deadlineDescription.split(" /by ");
-                Deadline taskDeadline = new Deadline(tskNames[0], tskNames[1]);
-                this.instrList.add(taskDeadline);
-                thisStorage.saveTaskList(this.instrList);
-                res = "Got it. I've added this task: \n "
-                    + taskDeadline.toString();
-                System.out.println(res);
-            } catch (StringIndexOutOfBoundsException e) {
-                throw new DukeException("OOPS!!! You cannot leave the description"
-                    + " of a deadline to be empty. \nTry again!");
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new DukeException("OOPS!!! You missed out the deadline time of this task. \nTry again!");
-            }
+            res = processDeadline(instr, thisStorage);
+            System.out.println(res);
             break;
         case EVENT:
-            try {
-                String eventDescription = instr.substring(6);
-                String[] instrSubString = eventDescription.split(" /from ");
-                String name = instrSubString[0];
-                String[] startAndEnd = instrSubString[1].split(" /to ");
-                Event taskEvent = new Event(name, startAndEnd[0], startAndEnd[1]);
-                this.instrList.add(taskEvent);
-                thisStorage.saveTaskList(this.instrList);
-                res = "Got it. I've added this task: \n "
-                    + taskEvent.toString();
-                System.out.println(res);
-            } catch (StringIndexOutOfBoundsException e) {
-                throw new DukeException("OOPS!!! You cannot leave the"
-                    + " description of an event to be empty. \nTry again!");
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new DukeException("OOPS!!! You missed out the date of this task. \nTry again!");
-            }
+            res = processEvent(instr, thisStorage);
+            System.out.println(res);
             break;
         default:
             throw new DukeException("OOPS!!! What is that? I'm sorry,"
@@ -259,5 +223,80 @@ public class TaskList {
             throw new DukeException("OOOPS!!! You missed out the task to search for.");
         }
         return res;
+    }
+
+    /**
+     * Process todo task. 
+     *
+     * @param instr The string with the task information.
+     * @param thisStorage Task List manager.
+     * @return A string representing the result.
+     * @throws DukeException
+     */
+    public String processTodo(String instr, Storage thisStorage) throws DukeException {
+        try {
+            Todo taskTodo = new Todo(instr.split("todo ")[1]);
+            this.instrList.add(taskTodo);
+            thisStorage.saveTaskList(this.instrList);
+            String res = "Got it. I've added this task: \n "
+                + taskTodo.toString();
+            return res;   
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("OOPS!!! The description of a todo cannot be empty. \nTry again!");
+        }
+    }
+
+    /**
+     * Process deadline task.
+     *
+     * @param instr The string with the task information.
+     * @param thisStorage Task List manager.
+     * @return A string representing the result.
+     * @throws DukeException
+     */
+    public String processDeadline(String instr, Storage thisStorage) throws DukeException {
+        try {
+            String deadlineDescription = instr.substring(9);
+            String[] tskNames = deadlineDescription.split(" /by ");
+            Deadline taskDeadline = new Deadline(tskNames[0], tskNames[1]);
+            this.instrList.add(taskDeadline);
+            thisStorage.saveTaskList(this.instrList);
+            String res = "Got it. I've added this task: \n "
+                + taskDeadline.toString();
+            return res;
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new DukeException("OOPS!!! You cannot leave the description"
+                + " of a deadline to be empty. \nTry again!");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("OOPS!!! You missed out the deadline time of this task. \nTry again!");
+        }
+    }
+
+    /**
+     * Process event task.
+     *
+     * @param instr The string with the task information.
+     * @param thisStorage Task List manager.
+     * @return A string representing the result.
+     * @throws DukeException
+     */
+    public String processEvent(String instr, Storage thisStorage) throws DukeException {
+        try {
+            String eventDescription = instr.substring(6);
+            String[] instrSubString = eventDescription.split(" /from ");
+            String name = instrSubString[0];
+            String[] startAndEnd = instrSubString[1].split(" /to ");
+            Event taskEvent = new Event(name, startAndEnd[0], startAndEnd[1]);
+            this.instrList.add(taskEvent);
+            thisStorage.saveTaskList(this.instrList);
+            String res = "Got it. I've added this task: \n "
+                + taskEvent.toString();
+            return res;
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new DukeException("OOPS!!! You cannot leave the"
+                + " description of an event to be empty. \nTry again!");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("OOPS!!! You missed out the date of this task. \nTry again!");
+        }
     }
 }
