@@ -11,21 +11,30 @@ public class Dave {
     /** The task list to record tasks. */
     private TaskList taskList;
     /** The UI to print feedback to user. */
-    private Ui dave;
+    private Ui daveUi;
+    /** The filepath where task(s) are saved. */
+    private static final String SAVE_FILE = "data/tasks.txt";
 
     /**
-     * Creates new Dave object.
+     * The constructor for Dave chatbot.
      * This is the chatbot Dave.
      * 
-     * @param filepath File path to where tasks are stored for output.
      */
-    public Dave(String filepath) {
-        dave = new Ui();
-        storage = new Storage(filepath);
+    public Dave() {
+        daveUi = new Ui();
+        storage = new Storage(SAVE_FILE);
         try {
             taskList = new TaskList(storage.load());
         } catch (IOException exc) {
             taskList = new TaskList();
+        }
+    }
+
+    public String getLoadResult() {
+        if (taskList.getNumberOfTasks() != 0) {
+            return daveUi.showLoadingSuccess(taskList.getNumberOfTasks());
+        } else {
+            return daveUi.showLoadingError();
         }
     }
 
@@ -34,30 +43,38 @@ public class Dave {
      * Operations do not stop until the user has given the exit command, "bye".
      */
     public void run() {
-        dave.greet();
         boolean isExit = false;
         if (taskList.getNumberOfTasks() != 0) {
-            dave.showLoadingSuccess(taskList.getNumberOfTasks());
+            daveUi.showLoadingSuccess(taskList.getNumberOfTasks());
         } else {
-            dave.showLoadingError();
+            daveUi.showLoadingError();
         }
         while (!isExit) {
             try {
-                String fullCommand = dave.readCommand();
+                String fullCommand = daveUi.readCommand();
                 Command c = Parser.parse(fullCommand);
-                c.execute(taskList, dave, storage);
+                c.execute(taskList, daveUi, storage);
                 isExit = c.isExit();
             } catch (ChatbotException exc) {
-                dave.showError(exc.getMessage());
+                daveUi.showError(exc.getMessage());
             }
         }
     }
 
     /**
-     * The main program.
-     * @param args
+     * Get responses from the Chatbot Dave.
+     * Operations do not stop until the user has given the exit command, "bye".
+     * 
+     * @param input The user input.
+     * @return The message to show to the user.
      */
-    public static void main(String[] args) {
-        new Dave("data/tasks.txt").run();
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(taskList, daveUi, storage);
+        } catch (ChatbotException exc) {
+            return daveUi.showError(exc.getMessage());
+        }
     }
+
 }

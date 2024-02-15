@@ -41,20 +41,20 @@ public class Storage {
             String taskType = taskDescription[0];
 
             switch (taskType) {
-                case "TODO":
-                    taskList.add(new Todo(taskDescription[2]));
-                    break;
+            case "TODO":
+                taskList.add(new Todo(taskDescription[2]));
+                break;
 
-                case "DEADLINE":
-                    taskList.add(new Deadline(taskDescription[2], taskDescription[3]));
-                    break;
+            case "DEADLINE":
+                taskList.add(new Deadline(taskDescription[2], taskDescription[3]));
+                break;
 
-                case "EVENT":
-                    taskList.add(new Event(taskDescription[2], taskDescription[3], taskDescription[4]));
-                    break;
+            case "EVENT":
+                taskList.add(new Event(taskDescription[2], taskDescription[3], taskDescription[4]));
+                break;
 
-                default:
-                    throw new IOException();
+            default:
+                throw new IOException();
             }
 
             if (taskDescription[1].equals("COMPLETED")) {

@@ -26,21 +26,21 @@ public class ToggleTaskDoneCommand extends Command {
     /**
      * {@inheritDoc}
      * Marks the task as done if isDone = true, unmarks the task as not done otherwise.
+     * 
+     * @return Feedback to user about successful marking/unmarking of task.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             taskList.getTask(taskNumber).setDone(this.isDone);
             storage.rewriteOutput(taskList);
             if (this.isDone) {
-                ui.showTaskMarked(taskList.getTask(taskNumber));
+                return ui.showTaskMarked(taskList.getTask(taskNumber));
             } else {
-                ui.showTaskUnmarked(taskList.getTask(taskNumber));
+                return ui.showTaskUnmarked(taskList.getTask(taskNumber));
             }
         } catch (Exception exc) {
-            ui.showHorizontalLine();
-            System.out.println(new UnableToFindTaskException(taskList).getMessage());
-            ui.showHorizontalLine();
+            return new UnableToFindTaskException(taskList).getMessage();
         }
     }
 

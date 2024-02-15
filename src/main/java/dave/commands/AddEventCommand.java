@@ -27,16 +27,18 @@ public class AddEventCommand extends Command {
     /**
      * {@inheritDoc}
      * Adds an Event task to the task list and saves it to output file.
+     * 
+     * @return Feedback to user about successful task addition or error.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         taskList.addTask(this.toAdd);
         try {
             storage.saveTask(this.toAdd);
         } catch (IOException exc) {
-            System.out.println("Dave could not write the new task to the output file");
+            return "Dave could not write the new task to the output file";
         }
-        ui.showTaskAdded(this.toAdd, taskList);
+        return ui.showTaskAdded(this.toAdd, taskList);
     }
 
     /**

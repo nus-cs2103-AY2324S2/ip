@@ -25,19 +25,19 @@ public class AddTodoCommand extends Command {
     /**
      * {@inheritDoc}
      * Creates new AddTodoCommand.
-     * Parameters taken in are used to create the Todo object.
+     * Adds a Todo task to the task list and saves it to output file.
      * 
-     * @param taskName Name or description of the task.
+     * @return Feedback to user about successful task addition or error.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         taskList.addTask(this.toAdd);
         try {
             storage.saveTask(this.toAdd);
         } catch (IOException exc) {
-            System.out.println("Dave could not write the new task to the output file");
+            return "Dave could not write the new task to the output file";
         }
-        ui.showTaskAdded(this.toAdd, taskList);
+        return ui.showTaskAdded(this.toAdd, taskList);
     }
 
     /**

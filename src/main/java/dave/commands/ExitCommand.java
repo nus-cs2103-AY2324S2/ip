@@ -9,10 +9,12 @@ public class ExitCommand extends Command {
     /**
      * {@inheritDoc}
      * Outputs exit message.
+     * 
+     * @return Message to show user when exiting.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.sayBye();
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return ui.sayBye();
     }
 
     /**
