@@ -63,7 +63,6 @@ public abstract class Task {
     /** Sets this task as not done */
     public void setNotDone() {
         this.isDone = false;
-
     }
 
     @Override
