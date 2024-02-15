@@ -1,4 +1,5 @@
 package chimp.core;
+
 import java.util.HashMap;
 
 import chimp.task.Task;
@@ -6,13 +7,8 @@ import chimp.task.Task;
 public class Ui {
     private static final String DIVIDER = "____________________________________________________________\n";
 
-    /**
-     * Retrieves a HashMap of phrases used by the Chimp application.
-     *
-     * @return A HashMap containing phrases for various actions.
-     */
-    HashMap<String, String> getPhrases() {
-        HashMap<String, String> phrases = new HashMap<>();
+    static HashMap<String, String> phrases = new HashMap<>();
+    {
         String greet = " Hello! I'm Chimp\n" +
                 " What can I do for you?\n";
         String bye = "Bye. Hope to see you again soon!\n";
@@ -29,8 +25,6 @@ public class Ui {
         phrases.put("hoo", hoo);
         phrases.put("delete", delete);
         phrases.put("find", find);
-
-        return phrases;
     }
 
     /**
@@ -39,7 +33,7 @@ public class Ui {
      * @param key the key to retrieve the phrase from the hashmap
      */
     public void say(String key) {
-        String phrase = getPhrases().get(key);
+        String phrase = phrases.get(key);
         System.out.println(DIVIDER);
         System.out.println(phrase);
         System.out.println(DIVIDER);
@@ -60,14 +54,15 @@ public class Ui {
     }
 
     /**
-     * Prints a message to the console with information about a task and the current task list size.
+     * Prints a message to the console with information about a task and the current
+     * task list size.
      * 
      * @param key  the key to retrieve the phrase from the phrases map
-     * @param task  the task to be displayed
-     * @param list  the current task list
+     * @param task the task to be displayed
+     * @param list the current task list
      */
     public void say(String key, Task task, TaskList list) {
-        String phrase = getPhrases().get(key);
+        String phrase = phrases.get(key);
         System.out.println(DIVIDER);
         System.out.println(phrase);
         System.out.println(task);
@@ -76,7 +71,7 @@ public class Ui {
     }
 
     public void say(String key, Task[] matches, TaskList list) {
-        String phrase = getPhrases().get(key);
+        String phrase = phrases.get(key);
         System.out.println(DIVIDER);
         System.out.println(phrase);
         for (int i = 0; i < matches.length; i++) {
