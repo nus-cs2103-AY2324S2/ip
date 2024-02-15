@@ -35,6 +35,12 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
+        assert scrollPane != null : "ScrollPane is not initialized";
+        assert dialogContainer != null : "DialogContainer is not initialized";
+        assert userInput != null : "UserInput is not initialized";
+        assert sendButton != null : "SendButton is not initialized";
+        assert imgTop != null : "ImgTop is not initialized";
+
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         Image img = new Image(this.getClass().getResourceAsStream("/images/arrow-up.png"));
         ImageView view = new ImageView(img);
@@ -47,6 +53,8 @@ public class MainWindow extends AnchorPane {
 
     public void setPodz(Podz p) {
         this.podz = p;
+        assert podz != null : "Podz is not initialized";
+
         dialogContainer.getChildren().addAll(
             DialogBox.getDukeDialog(podz.getGreeting(), dukeImage)
         );

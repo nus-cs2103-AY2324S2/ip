@@ -30,6 +30,7 @@ public class Podz {
     public String getResponse(String input) {
         try {
             Command command = this.parser.parseCommand(input);
+            assert command != null : "command should not be null";
             command.setTasks(this.tasks);
             String responseStr = command.execute();
             if (command instanceof ByeCommand) {

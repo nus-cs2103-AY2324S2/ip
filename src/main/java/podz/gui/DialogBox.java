@@ -36,6 +36,9 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
+        assert dialog != null : "Label 'dialog' is not initialized";
+        assert displayPicture != null : "ImageView 'displayPicture' is not initialized";
+
         dialog.setText(text);
         Circle clip = new Circle(25, 25, 25);
         displayPicture.setImage(img);
