@@ -6,6 +6,7 @@ package seedu.duke.exception;
 public class InvalidCommandFormatException extends DukeException {
     /**
      * Constructor of InvalidCommandFormatException
+     *
      * @param message The error message to be shown
      */
     public InvalidCommandFormatException(String message) {

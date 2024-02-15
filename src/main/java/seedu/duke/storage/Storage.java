@@ -1,13 +1,17 @@
 package seedu.duke.storage;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import seedu.duke.common.Messages;
 import seedu.duke.common.TaskList;
 import seedu.duke.exception.StorageOperationException;
 import seedu.duke.task.Task;
-
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -32,7 +36,7 @@ public class Storage {
                 fileWriter.write("\n");
             }
             fileWriter.close();
-        }  catch (IOException e) {
+        } catch (IOException e) {
             throw new StorageOperationException(
                     String.format(Messages.MESSAGE_FAILED_STORAGE, "failed to save tasks."));
         }
@@ -55,8 +59,7 @@ public class Storage {
             return taskList;
         } catch (FileNotFoundException ignored) {
             return new ArrayList<>();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new StorageOperationException(
                     String.format(Messages.MESSAGE_FAILED_STORAGE, "File may be corrupted"));
         }

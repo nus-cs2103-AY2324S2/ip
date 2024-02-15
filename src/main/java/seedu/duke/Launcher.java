@@ -1,7 +1,10 @@
-package seedu.duke.gui;
+package seedu.duke;
 
 import javafx.application.Application;
 
+/**
+ * This class will launch the main class and launch the application
+ */
 public class Launcher {
     /**
      * Launch the application

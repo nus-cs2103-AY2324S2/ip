@@ -6,6 +6,7 @@ package seedu.duke.exception;
 public class StorageOperationException extends DukeException {
     /**
      * Constructor of StorageOperationException
+     *
      * @param errorMessage The error message to be shown
      */
 

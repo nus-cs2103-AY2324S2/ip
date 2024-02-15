@@ -1,4 +1,5 @@
 package seedu.duke.storage;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -27,6 +28,7 @@ public class TaskDecoder {
 
     /**
      * Returns a task object based on string using pre-defined pattern
+     *
      * @param taskString The task string to be decoded
      * @return the Task object that the string decoded into
      * @throws StorageOperationException If the string does not match any of the pattern or contains invalid contents

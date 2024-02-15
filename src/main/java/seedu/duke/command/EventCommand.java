@@ -52,14 +52,14 @@ public class EventCommand extends Command {
                     "Event start date cannot be after the end date"));
         }
 
-        for(int i = 0; i < taskList.getListSize(); i++) {
+        for (int i = 0; i < taskList.getListSize(); i++) {
             Task task = taskList.getTask(i);
-            if(task instanceof Event) {
+            if (task instanceof Event) {
                 boolean isSameDescription = task.getDescription().equals(description);
                 boolean isSameStartDate = ((Event) task).getStartDate().equals(startDate);
                 boolean isSameEndDate = ((Event) task).getEndDate().equals(endDate);
                 boolean isSameStatus = !task.getHasDone();
-                if(isSameDescription && isSameStatus && isSameStartDate && isSameEndDate) {
+                if (isSameDescription && isSameStatus && isSameStartDate && isSameEndDate) {
                     throw new DuplicateTaskException(task);
                 }
             }

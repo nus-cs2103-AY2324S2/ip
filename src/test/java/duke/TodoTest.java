@@ -1,4 +1,12 @@
 package duke;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+
+import org.junit.jupiter.api.Test;
 
 import seedu.duke.command.TodoCommand;
 import seedu.duke.common.TaskList;
@@ -6,14 +14,10 @@ import seedu.duke.exception.DuplicateTaskException;
 import seedu.duke.storage.Storage;
 import seedu.duke.task.Todo;
 import seedu.duke.ui.Ui;
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.argThat;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+
+
+
 
 public class TodoTest {
     @Test

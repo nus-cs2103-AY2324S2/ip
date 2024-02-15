@@ -1,13 +1,13 @@
 package seedu.duke.command;
 
+import java.time.LocalDateTime;
+
 import seedu.duke.common.TaskList;
 import seedu.duke.exception.DuplicateTaskException;
 import seedu.duke.storage.Storage;
 import seedu.duke.task.Deadline;
 import seedu.duke.task.Task;
 import seedu.duke.ui.Ui;
-
-import java.time.LocalDateTime;
 
 
 /**
@@ -46,7 +46,7 @@ public class DeadlineCommand extends Command {
                 boolean isSameDescription = description.equals(task.getDescription());
                 boolean isSameTime = deadline.equals(((Deadline) task).getDeadline());
                 boolean isSameStatus = !task.getHasDone();
-                if(isSameStatus && isSameDescription && isSameTime) {
+                if (isSameStatus && isSameDescription && isSameTime) {
                     throw new DuplicateTaskException(task);
                 }
             }

@@ -1,4 +1,10 @@
 package duke;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import org.junit.jupiter.api.Test;
 
 import seedu.duke.command.DeleteCommand;
 import seedu.duke.common.TaskList;
@@ -7,12 +13,10 @@ import seedu.duke.exception.InvalidInputException;
 import seedu.duke.storage.Storage;
 import seedu.duke.task.Task;
 import seedu.duke.ui.Ui;
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.mock;
+
+
+
 
 public class DeleteTest {
     @Test

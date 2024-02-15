@@ -1,4 +1,15 @@
 package duke;
+import static org.mockito.Mockito.argThat;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import org.junit.jupiter.api.Test;
 
 import seedu.duke.command.CheckCommand;
 import seedu.duke.common.TaskList;
@@ -6,13 +17,10 @@ import seedu.duke.exception.DukeException;
 import seedu.duke.storage.Storage;
 import seedu.duke.task.Deadline;
 import seedu.duke.ui.Ui;
-import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
-import static org.mockito.Mockito.*;
+
+
 
 public class CheckTest {
     @Test

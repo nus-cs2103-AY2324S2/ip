@@ -14,9 +14,10 @@ public class Deadline extends Task {
 
     /**
      * Constructor of the Deadline object
+     *
      * @param description The description of the deadline
-     * @param hasDone Whether the deadline is done
-     * @param deadline The datetime of the deadline
+     * @param hasDone     Whether the deadline is done
+     * @param deadline    The datetime of the deadline
      */
     public Deadline(String description, boolean hasDone, LocalDateTime deadline) {
         this.deadline = deadline;
@@ -24,31 +25,32 @@ public class Deadline extends Task {
         super.setDescription(description);
         super.setHasDone(hasDone);
     }
+
     /**
      * Returns the datetime of deadline
+     *
      * @return the datetime of deadline
      */
     public LocalDateTime getDeadline() {
         return deadline;
     }
-    /**
-     * Returns a string representation of the datetime of deadline
-     * @return the string representation of the datetime of deadline
-     */
-    public String getDeadlineString() {
-        return deadlineString;
-    }
-
-
-
-
 
     public void setDeadline(LocalDateTime deadline) {
         this.deadline = deadline;
     }
 
     /**
+     * Returns a string representation of the datetime of deadline
+     *
+     * @return the string representation of the datetime of deadline
+     */
+    public String getDeadlineString() {
+        return deadlineString;
+    }
+
+    /**
      * Returns a string representation of the deadline
+     *
      * @return the string representation of the deadline
      */
     @Override

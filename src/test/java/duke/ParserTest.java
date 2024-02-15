@@ -1,13 +1,24 @@
 package duke;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import seedu.duke.command.*;
+import org.junit.jupiter.api.Test;
+
+import seedu.duke.command.ByeCommand;
+import seedu.duke.command.CheckCommand;
+import seedu.duke.command.Command;
+import seedu.duke.command.DeleteCommand;
+import seedu.duke.command.EventCommand;
+import seedu.duke.command.ListCommand;
+import seedu.duke.command.MarkCommand;
+import seedu.duke.command.TodoCommand;
+import seedu.duke.command.UnmarkCommand;
 import seedu.duke.exception.InvalidCommandFormatException;
 import seedu.duke.exception.UnknownCommandException;
 import seedu.duke.parser.Parser;
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
+
 
 public class ParserTest {
 
@@ -58,18 +69,18 @@ public class ParserTest {
         assertTrue(c instanceof EventCommand);
 
 
-        assertThrows(InvalidCommandFormatException.class,
-                () -> Parser.parse("event /from 2022-10-10 18:00 /to 2022-10-11 18:00"));
+        assertThrows(InvalidCommandFormatException.class, (
+                ) -> Parser.parse("event /from 2022-10-10 18:00 /to 2022-10-11 18:00"));
 
 
-        assertThrows(InvalidCommandFormatException.class,
-                () -> Parser.parse("event asd /from 2022-10-10 18:00 "));
+        assertThrows(InvalidCommandFormatException.class, (
+                ) -> Parser.parse("event asd /from 2022-10-10 18:00 "));
 
-        assertThrows(InvalidCommandFormatException.class,
-                () -> Parser.parse("event  /to 2022-10-11 18:00"));
+        assertThrows(InvalidCommandFormatException.class, (
+                ) -> Parser.parse("event  /to 2022-10-11 18:00"));
 
-        assertThrows(InvalidCommandFormatException.class,
-                () -> Parser.parse("event  /from a /to b"));
+        assertThrows(InvalidCommandFormatException.class, (
+                ) -> Parser.parse("event  /from a /to b"));
     }
 
     @Test

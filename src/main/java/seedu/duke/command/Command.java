@@ -20,6 +20,7 @@ public abstract class Command {
 
     /**
      * Returns whether the Command is an exit command
+     *
      * @return Whether the command is an exit command
      */
     public boolean isExit() {

@@ -1,5 +1,4 @@
 package seedu.duke.gui.window;
-
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -41,6 +40,9 @@ public class MainWindow extends AnchorPane {
         duke = d;
     }
 
+    /**
+     * This method will display the initial message to the dialog box
+     */
     public void displayInitMessage() {
         assert duke != null;
         if (duke.getLoadingExceptionMessage() != null) {
@@ -55,7 +57,7 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-        if(duke.isExit()) {
+        if (duke.isExit()) {
             return;
         }
         String input = userInput.getText();

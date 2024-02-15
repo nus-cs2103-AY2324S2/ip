@@ -1,15 +1,17 @@
-package seedu.duke.gui;
+package seedu.duke;
+
+import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import seedu.duke.Duke;
 import seedu.duke.gui.window.MainWindow;
 
-import java.io.IOException;
-
+/**
+ * The Main class loads resources from FXML and set up the necessary scene and stages
+ */
 public class Main extends Application {
 
     private Duke duke = new Duke();
@@ -31,3 +33,4 @@ public class Main extends Application {
         }
     }
 }
+

@@ -6,6 +6,7 @@ package seedu.duke.exception;
 public class DukeException extends Exception {
     /**
      * Constructor of the DukeException
+     *
      * @param errorMessage The error message
      */
     public DukeException(String errorMessage) {

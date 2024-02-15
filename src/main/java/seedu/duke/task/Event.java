@@ -16,10 +16,11 @@ public class Event extends Task {
 
     /**
      * Constructor of Event object
+     *
      * @param description The description of the event
-     * @param hasDone Whether the event is done
-     * @param startDate the start date of the event
-     * @param endDate the end date of the event
+     * @param hasDone     Whether the event is done
+     * @param startDate   the start date of the event
+     * @param endDate     the end date of the event
      */
     public Event(String description, boolean hasDone, LocalDateTime startDate, LocalDateTime endDate) {
         this.startDate = startDate;
@@ -32,6 +33,7 @@ public class Event extends Task {
 
     /**
      * Returns the start date of an event
+     *
      * @return The start date of the event
      */
     public LocalDateTime getStartDate() {
@@ -40,6 +42,7 @@ public class Event extends Task {
 
     /**
      * Returns the end date of the event
+     *
      * @return The end date of the event
      */
     public LocalDateTime getEndDate() {
@@ -48,6 +51,7 @@ public class Event extends Task {
 
     /**
      * Returns the start date string representation
+     *
      * @return The start date string representation
      */
     public String getStartDateString() {
@@ -56,6 +60,7 @@ public class Event extends Task {
 
     /**
      * Returns the end date string representation
+     *
      * @return The end date representation
      */
     public String getEndDateString() {
@@ -65,6 +70,7 @@ public class Event extends Task {
 
     /**
      * Returns the string representation of an event
+     *
      * @return The string representation of an event task
      */
     @Override

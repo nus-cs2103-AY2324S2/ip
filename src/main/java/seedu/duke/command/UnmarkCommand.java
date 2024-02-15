@@ -21,6 +21,7 @@ public class UnmarkCommand extends Command {
 
     /**
      * Constructor of the unmark command
+     *
      * @param taskNumber the task number in the list that would mark as not done
      */
     public UnmarkCommand(int taskNumber) {
@@ -29,6 +30,7 @@ public class UnmarkCommand extends Command {
 
     /**
      * Marks the task with corresponds number in the list to be not done and show the result using ui.
+     *
      * @throws InvalidInputException If user keys in number that is not in the range of the list
      */
     @Override

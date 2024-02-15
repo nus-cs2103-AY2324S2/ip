@@ -1,8 +1,8 @@
 package seedu.duke.common;
+
 import java.util.List;
 
 import seedu.duke.task.Task;
-
 
 
 /**
@@ -13,6 +13,7 @@ public class TaskList {
 
     /**
      * Constructor of TaskList
+     *
      * @param tasks the initial tasks of the users
      */
     public TaskList(List<Task> tasks) {
@@ -21,6 +22,7 @@ public class TaskList {
 
     /**
      * Adds a task to the tasks created by the users
+     *
      * @param task The task to be added
      */
     public void addTask(Task task) {
@@ -29,6 +31,7 @@ public class TaskList {
 
     /**
      * Deletes a task with a given index
+     *
      * @param index The index of the task in the task list to be deleted
      */
     public void deleteTask(int index) {
@@ -37,6 +40,7 @@ public class TaskList {
 
     /**
      * Returns the number of tasks that users have
+     *
      * @return the number of tasks that users have
      */
     public int getListSize() {
@@ -45,6 +49,7 @@ public class TaskList {
 
     /**
      * Returns a task by giving the index of the task in the task list
+     *
      * @param index The index of the task
      * @return The task queried
      */

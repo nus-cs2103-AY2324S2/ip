@@ -1,11 +1,11 @@
 package seedu.duke.ui;
 
-import seedu.duke.common.TaskList;
-import seedu.duke.task.Task;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+
+import seedu.duke.common.TaskList;
+import seedu.duke.task.Task;
 
 
 /**
@@ -17,6 +17,7 @@ public class Ui {
 
     /**
      * Get the response of most recently run command
+     *
      * @return a string representing the result of the command
      */
     public String getResponse() {
@@ -26,6 +27,7 @@ public class Ui {
 
     /**
      * Get the welcome message
+     *
      * @return a string representing the welcome message
      */
     public String getWelcomeMessage() {

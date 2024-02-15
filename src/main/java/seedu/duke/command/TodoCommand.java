@@ -18,6 +18,7 @@ public class TodoCommand extends Command {
 
     /**
      * Constructor of the TodoCommand
+     *
      * @param description Description of the Todo task
      */
     public TodoCommand(String description) {
@@ -30,12 +31,12 @@ public class TodoCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DuplicateTaskException {
         Todo todo = new Todo(this.description, false);
-        for(int i = 0; i < taskList.getListSize(); i++) {
+        for (int i = 0; i < taskList.getListSize(); i++) {
             Task task = taskList.getTask(i);
-            if(task instanceof Todo) {
+            if (task instanceof Todo) {
                 boolean isSameDescription = task.getDescription().equals(description);
                 boolean isSameStatus = !task.getHasDone();
-                if(isSameDescription && isSameStatus) {
+                if (isSameDescription && isSameStatus) {
                     throw new DuplicateTaskException(task);
                 }
             }

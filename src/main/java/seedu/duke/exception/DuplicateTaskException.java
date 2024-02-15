@@ -8,6 +8,7 @@ import seedu.duke.task.Task;
 public class DuplicateTaskException extends DukeException {
     /**
      * The constructor of the exception
+     *
      * @param task the task that is being duplicated
      */
     public DuplicateTaskException(Task task) {

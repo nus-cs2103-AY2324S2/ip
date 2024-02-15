@@ -11,8 +11,9 @@ public class Todo extends Task {
 
     /**
      * Constructor of the Todo object
+     *
      * @param description The description of the todo
-     * @param hasDone whether the todo has done
+     * @param hasDone     whether the todo has done
      */
     public Todo(String description, Boolean hasDone) {
         super.setHasDone(hasDone);
@@ -21,6 +22,7 @@ public class Todo extends Task {
 
     /**
      * Returns the string representation of the todo
+     *
      * @return the string representation of the todo
      */
     @Override

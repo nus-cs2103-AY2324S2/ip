@@ -1,4 +1,5 @@
 package seedu.duke;
+
 import java.util.ArrayList;
 
 import seedu.duke.command.Command;
@@ -19,6 +20,7 @@ public class Duke {
     private Ui ui;
     private Boolean isExit = false;
     private String loadingExceptionMessage;
+
     /**
      * Constructor of the Duke program, it would create a new Ui, and load tasks that users have from storage
      */
@@ -38,6 +40,7 @@ public class Duke {
 
     /**
      * Get the initial message to be displayed when the GUI is loaded
+     *
      * @return A string representing the initial message to be displayed
      */
     public String getInitMessage() {
@@ -47,6 +50,7 @@ public class Duke {
 
     /**
      * Get the storage exception message if there is any
+     *
      * @return a string representing the exception message
      */
     public String getLoadingExceptionMessage() {
@@ -55,6 +59,7 @@ public class Duke {
 
     /**
      * This method will get the response from the ui
+     *
      * @param input the user input in the CLI
      * @return the response of the given command being run
      */
@@ -71,6 +76,7 @@ public class Duke {
 
     /**
      * Check whether the most recently run command would exit the application
+     *
      * @return a boolean variable indicating whether the user want to exit the application
      */
     public boolean isExit() {

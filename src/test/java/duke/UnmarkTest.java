@@ -1,4 +1,10 @@
 package duke;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import org.junit.jupiter.api.Test;
 
 import seedu.duke.command.UnmarkCommand;
 import seedu.duke.common.TaskList;
@@ -6,10 +12,9 @@ import seedu.duke.exception.InvalidInputException;
 import seedu.duke.storage.Storage;
 import seedu.duke.task.Task;
 import seedu.duke.ui.Ui;
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.*;
+
+
 
 public class UnmarkTest {
     @Test
@@ -25,7 +30,7 @@ public class UnmarkTest {
         verify(mockTask).setHasDone(false);
         verify(mockUi).generateMarkAsNotDoneResponse(mockTask);
 
-        assertThrows(InvalidInputException.class,
-                () -> new UnmarkCommand(0).execute(mockTaskList, mockUi, mockStorage));
+        assertThrows(InvalidInputException.class, (
+                ) -> new UnmarkCommand(0).execute(mockTaskList, mockUi, mockStorage));
     }
 }

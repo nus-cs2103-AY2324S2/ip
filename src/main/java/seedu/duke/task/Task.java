@@ -14,6 +14,7 @@ public class Task {
 
     /**
      * Constructor of the task
+     *
      * @param description the description of the task
      */
     public Task(String description) {
@@ -23,6 +24,7 @@ public class Task {
 
     /**
      * Returns the description of the task
+     *
      * @return the description of the task
      */
     public String getDescription() {
@@ -31,6 +33,7 @@ public class Task {
 
     /**
      * Sets the description of the task
+     *
      * @param description the description of the task
      */
     public void setDescription(String description) {
@@ -42,11 +45,9 @@ public class Task {
     }
 
 
-
-
-
     /**
      * Setter of whether the task is done
+     *
      * @param hasDone A boolean variable representing whether the task has done
      */
     public void setHasDone(boolean hasDone) {
@@ -55,6 +56,7 @@ public class Task {
 
     /**
      * Returns a String representation of the task
+     *
      * @return the string repreesntation of the task
      */
     @Override

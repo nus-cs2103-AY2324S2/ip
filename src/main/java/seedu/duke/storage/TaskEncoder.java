@@ -11,6 +11,7 @@ import seedu.duke.task.Todo;
 public class TaskEncoder {
     /**
      * Returns the encoded string of the task object using the predefined format
+     *
      * @param task the Task object to be encoded
      * @return The encoded string for a task
      */

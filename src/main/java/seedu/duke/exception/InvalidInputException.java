@@ -6,6 +6,7 @@ package seedu.duke.exception;
 public class InvalidInputException extends DukeException {
     /**
      * Constructor of InvalidInputException
+     *
      * @param errorMessage The error message to be shown
      */
     public InvalidInputException(String errorMessage) {
