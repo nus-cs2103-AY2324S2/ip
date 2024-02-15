@@ -35,4 +35,15 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Stops the running of the program.
+     *
+     * @throws Exception If there are any errors.
+     */
+    @Override
+    public void stop() throws Exception {
+        this.talkingBot.save();
+        super.stop();
+    }
 }

@@ -50,4 +50,15 @@ public class TalkingBot {
         Command curCommand = parser.parseCommand(text);
         return curCommand.runCommand(this.tasks, this.saveFile, this.ui);
     }
+
+    /**
+     * Saves the save file.
+     */
+    public void save() {
+        try {
+            this.saveFile.saveTasksToFile(this.tasks);
+        } catch (TalkingBotException e) {
+            System.out.println(e);
+        }
+    }
 }

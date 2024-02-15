@@ -48,29 +48,6 @@ public class Window extends AnchorPane {
         this.talkingBot = talkingBot;
     }
 
-    /**
-     * Sets the listeners available in the current layout.
-     */
-    public void setActions() {
-        this.sendButton.setOnMouseClicked((event) -> {
-            this.vBox.getChildren().add(getDialogLabel(this.textInput.getText()));
-            this.textInput.clear();
-        });
-
-        this.textInput.setOnAction((event) -> {
-            this.vBox.getChildren().add(getDialogLabel(this.textInput.getText()));
-            this.textInput.clear();
-        });
-
-        this.vBox.heightProperty().addListener((obs) -> this.scrollPane.setVvalue(1.0));
-    }
-
-    private Label getDialogLabel(String text) {
-        Label label = new Label(text);
-        label.setWrapText(true);
-        return label;
-    }
-
     @FXML
     private void handleUserInput() {
         String text = this.textInput.getText();
