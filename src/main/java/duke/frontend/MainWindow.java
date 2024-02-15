@@ -30,6 +30,10 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Sets the program to be run in the main window
+     * @param d Program to be run in main window
+     */
     public void setDuke(Toothless d) {
         duke = d;
         dialogContainer.getChildren().addAll(
