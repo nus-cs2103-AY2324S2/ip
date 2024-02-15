@@ -76,12 +76,22 @@ public class Parser {
         case "list": // List tasks
             // Check if date filter exists
             if (splitInput.size() > 1) { // List filtered tasks
+                boolean isArchived = false;
+                if (splitInput.get(1).equals("/archive")) {
+                    isArchived = true;
+                    splitInput.remove(1);
+                }
+
+                if (splitInput.size() <= 1) {
+                    return new ListCommand(isArchived);
+                }
+
                 switch (splitInput.get(1)) {
                 case "/date": // Filter by date
                     try {
                         Instant filterDate = userDateToInstant(splitInput.get(2), "00:00");
 
-                        return new ListCommand(filterDate, false);
+                        return new ListCommand(filterDate, isArchived);
                     } catch (NumberFormatException | DateTimeException | IndexOutOfBoundsException e) {
                         throw new InvalidArgumentException(
                                 "Date/time format is invalid. Please enter the date/time in the format 'YYYY/MM/DD'");
