@@ -173,6 +173,8 @@ public class Hirwan {
         try {
             int input = Parser.translate(text);
 
+            assert input < 9 && input > 0;
+
             if (input == 8) {
             } else if (input == 1) {
                 output = "";
@@ -193,6 +195,9 @@ public class Hirwan {
                 try {
                     String delimiter = " /by";
                     int index = text.indexOf(delimiter);
+
+                    assert index != -1;
+
                     String Day = text.substring(index + 5);
                     String item = text.substring(9, index);
 
@@ -213,6 +218,10 @@ public class Hirwan {
                     String delimiterend = " /to";
                     int indexStart = text.indexOf(delimiterstart);
                     int indexEnd = text.indexOf(delimiterend);
+
+                    assert indexStart != -1;
+                    assert indexEnd != -1;
+
                     String start = text.substring(indexStart + 7, indexEnd);
                     String end = text.substring(indexEnd + 5);
                     String item = text.substring(6, indexStart);
@@ -285,6 +294,8 @@ public class Hirwan {
             output = e.getMessage();
         }
         tasks.deleteList();
+
+        assert !output.isEmpty();
         return output;
     }
 
