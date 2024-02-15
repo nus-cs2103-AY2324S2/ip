@@ -1,12 +1,15 @@
 package friendlytool.process;
 
-import friendlytool.command.Parser;
-import friendlytool.task.*;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+
+import friendlytool.command.Parser;
+import friendlytool.task.Deadline;
+import friendlytool.task.Event;
+import friendlytool.task.Task;
+import friendlytool.task.ToDo;
 
 /**
  * A class that manages storing data for future use,
@@ -17,9 +20,9 @@ public class Storage {
      * Loads Tasks to the list from the saved file. If not exists, create a new file in the directory.
      *
      * @param myList lists that will receive tasks.
-     * @throws FTException
+     * @throws FtException
      */
-    public static void loadTask(TaskList myList) throws FTException {
+    public static void loadTask(TaskList myList) throws FtException {
         try {
             File save = new File("./data/myTask.txt");
             if (!save.exists()) {
@@ -46,12 +49,12 @@ public class Storage {
                             new Date(parsedSave[4])));
                     break;
                 default:
-                    throw new FTException("    Warning: The file is corrupted. Please delete the file");
+                    throw new FtException("    Warning: The file is corrupted. Please delete the file");
                 }
                 s.nextLine();
             }
         } catch (IOException e) {
-            throw new FTException("File not found");
+            throw new FtException("File not found");
         }
     }
 
@@ -59,9 +62,9 @@ public class Storage {
      * Updates the save file based on the given list.
      *
      * @param list given list with tasks.
-     * @throws FTException
+     * @throws FtException
      */
-    public static void updateTask(TaskList list) throws FTException {
+    public static void updateTask(TaskList list) throws FtException {
         try {
             FileWriter fw = new FileWriter("./data/myTask.txt");
             for (int i = 0; i < list.size(); i++) {
@@ -70,7 +73,7 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            throw new FTException("Error in updating the task");
+            throw new FtException("Error in updating the task");
         }
     }
 

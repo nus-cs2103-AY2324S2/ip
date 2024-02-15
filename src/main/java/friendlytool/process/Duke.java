@@ -1,9 +1,9 @@
 package friendlytool.process;
 
+import java.util.Scanner;
+
 import friendlytool.command.CommandTypes;
 import friendlytool.command.Parser;
-
-import java.util.Scanner;
 
 /**
  * Main class for this app.
@@ -32,7 +32,7 @@ public class Duke {
         UI.printInitMsg();
         try {
             Storage.loadTask(tasks);
-        } catch (FTException e) {
+        } catch (FtException e) {
             System.out.println(e.getMessage());
         }
         Scanner sc = new Scanner(System.in);
@@ -40,7 +40,7 @@ public class Duke {
             String input = sc.nextLine();
             try {
                 findNextAction(input);
-            } catch (FTException e) {
+            } catch (FtException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -51,11 +51,11 @@ public class Duke {
      * Decides the next action based on the input.
      *
      * @param input user input.
-     * @throws FTException
+     * @throws FtException
      */
-    private void findNextAction(String input) throws FTException {
+    private void findNextAction(String input) throws FtException {
         if (input.isEmpty()) {
-            throw new FTException("Error: Please Type Command");
+            throw new FtException("Error: Please Type Command");
         }
         try {
             CommandTypes command = Parser.parseType(input);
@@ -94,11 +94,10 @@ public class Duke {
                 TaskFinder.findTask(tasks, input);
                 break;
             default:
-                throw new FTException("Unknown Command: Please use a correct command");
+                throw new FtException("Unknown Command: Please use a correct command");
             }
-        } catch (
-                IllegalArgumentException e) {
-            throw new FTException("Unknown Command: Please use a correct command");
+        } catch (IllegalArgumentException e) {
+            throw new FtException("Unknown Command: Please use a correct command");
         }
     }
 }

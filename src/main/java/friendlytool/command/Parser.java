@@ -1,10 +1,9 @@
 package friendlytool.command;
 
-
-import friendlytool.process.FTException;
-
 import java.util.Arrays;
 import java.util.StringTokenizer;
+
+import friendlytool.process.FtException;
 
 /**
  * Parser for identifying commands.
@@ -120,13 +119,13 @@ public class Parser {
      *
      * @param s user input.
      * @return index for finding tasks.
-     * @throws FTException
+     * @throws FtException
      */
-    public static int parseNumber(String s) throws FTException {
+    public static int parseNumber(String s) throws FtException {
         StringTokenizer st = new StringTokenizer(s);
         st.nextToken();
         if (!st.hasMoreTokens()) {
-            throw new FTException("Error: No index provided");
+            throw new FtException("Error: No index provided");
         }
         return Integer.parseInt(st.nextToken());
     }
@@ -146,16 +145,16 @@ public class Parser {
      *
      * @param s user input
      * @return keyword that user provided
-     * @throws FTException
+     * @throws FtException
      */
-    public static String parseKeyword(String s) throws FTException {
+    public static String parseKeyword(String s) throws FtException {
         String[] strings = s.split(" ");
         if (strings.length < 2) {
-            throw new FTException("Please provide keyword!");
+            throw new FtException("Please provide keyword!");
         } else if (strings.length == 2) {
             return strings[1];
         } else {
-            throw new FTException("Please provide one word");
+            throw new FtException("Please provide one word");
         }
     }
 }
