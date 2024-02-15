@@ -38,6 +38,10 @@ public abstract class Task {
         return false;
     }
 
+    public boolean hasKeyword(String keyword) {
+        return description.contains(keyword);
+    }
+
     @Override
     public String toString() {
         return '[' + getStatusIcon() + "] " + description;

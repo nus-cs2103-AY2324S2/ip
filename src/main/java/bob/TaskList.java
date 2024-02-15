@@ -50,6 +50,10 @@ public class TaskList {
         return listWithFilter(task -> task.isDueIn(days));
     }
 
+    public ArrayList<Task> listKeyword(String keyword) {
+        return listWithFilter(task -> task.hasKeyword(keyword));
+    }
+
     public Task addTodo(String description) {
         Task task = new Todo(description);
         tasks.add(task);

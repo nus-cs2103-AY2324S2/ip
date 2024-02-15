@@ -5,16 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import bob.command.AddDeadlineCommand;
-import bob.command.AddEventCommand;
-import bob.command.AddTodoCommand;
-import bob.command.Command;
-import bob.command.DeleteCommand;
-import bob.command.ExitCommand;
-import bob.command.ListCommand;
-import bob.command.ListDueInCommand;
-import bob.command.ListOnDateCommand;
-import bob.command.MarkCommand;
+import bob.command.*;
 import bob.exception.BobException;
 import bob.exception.EmptyDescriptionException;
 import bob.exception.InvalidCommandException;
@@ -32,6 +23,8 @@ public class Parser {
     private static final String DEADLINE = "deadline";
     private static final String EVENT = "event";
     private static final String DELETE = "delete";
+    // TODO: Sort constants
+    private static final String FIND = "find";
 
     private static final String DATE_PATTERN = "d/M/yyyy";
     private static final DateTimeFormatter DATE_FORMATTER
@@ -150,7 +143,18 @@ public class Parser {
         }
     }
 
+    public static Command parseFind(String[] commandArgs) throws EmptyDescriptionException {
+        // TODO: Add comments
+        if (commandArgs.length == 1) {
+            throw new EmptyDescriptionException(commandArgs[0]);
+        }
+
+        String keyword = commandArgs[1];
+        return new ListKeywordCommand(keyword);
+    }
+
     public static Command parse(String command) throws BobException {
+        // TODO: Remove Parser. since we are in the same class
         // TODO: Use regex
         String[] commandArgs = command.trim().split(" ", 2);
 
@@ -175,6 +179,8 @@ public class Parser {
             // Fallthrough
         case Parser.EVENT:
             return parseAdd(commandArgs);
+        case Parser.FIND:
+            return parseFind(commandArgs);
         default:
             throw new InvalidCommandException();
         }

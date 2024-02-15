@@ -21,6 +21,7 @@ public class Ui {
     private static final String NUMBER_OF_TASKS = "now you have %d task(s)";
 
     private static final String LIST_HEADER = "list of tasks:";
+    private static final String FIND_HEADER = "matching tasks:";
 
     private static final String MARK_HEADER = "good job!";
     private static final String UNMARK_HEADER = "ok you just undid this task";
@@ -89,15 +90,23 @@ public class Ui {
     public void showDelete(Task task, int numberOfTasks) {
         show(new String[] { DELETE_HEADER, " ".repeat(2) + task, String.format(DELETE_FOOTER, numberOfTasks) });
     }
-    public void showList(ArrayList<Task> tasks) {
+    public void showList(ArrayList<Task> tasks, String header) {
         String[] lines = new String[tasks.size() + 1];
-        lines[0] = LIST_HEADER;
+        lines[0] = header;
 
         for (int i = 0; i < tasks.size(); i++) {
             lines[i + 1] = (i + 1) + ". " + tasks.get(i);
         }
 
         show(lines);
+    }
+
+    public void showList(ArrayList<Task> tasks) {
+        showList(tasks, LIST_HEADER);
+    }
+
+    public void showFind(ArrayList<Task> tasks) {
+        showList(tasks, FIND_HEADER);
     }
 
     public void showExit() {
