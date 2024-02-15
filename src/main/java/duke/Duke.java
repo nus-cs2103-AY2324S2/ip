@@ -48,6 +48,8 @@ public class Duke {
         try {
             Command c = Parser.parse(input);
             c.execute(this.taskList, this.storage);
+            assert c.getResponse() != null: "Response should be available";
+
             return c.getResponse();
         } catch (DukeException e) {
             return e.getMessage();
