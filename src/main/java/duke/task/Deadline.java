@@ -40,6 +40,9 @@ public class Deadline extends Task {
             this.by = null;
         }
 
+        assert !(this.by != null && !this.byString.isEmpty()) : "Both LocalDateTime and byString should not be non-null.";
+        assert (this.by == null && this.byString.isEmpty()) : "Didnt enter correctly";
+
         if (this.by == null && this.byString.isEmpty()) {
             throw new DukeException("By when? You forgot to enter \"/by\"");
         } else if (description.isEmpty()) {
@@ -53,6 +56,8 @@ public class Deadline extends Task {
      * @return The deadline as an Object (either LocalDateTime or String).
      */
     public Object getBy() {
+        assert (this.by != null || !this.byString.isEmpty()) : "Either LocalDateTime or byString should be non-null.";
+        assert !(this.by != null && !this.byString.isEmpty()) : "Both LocalDateTime and byString should not be non-null.";
         return (this.by != null) ? this.by : this.byString;
     }
     /**
@@ -61,6 +66,7 @@ public class Deadline extends Task {
      * @return The deadline as a LocalDateTime object.
      */
     public LocalDateTime getByTime() {
+        assert this.by == null || !this.byString.isEmpty() : "Either LocalDateTime should be null or byString should not be empty.";
         return this.by;
     }
 
@@ -70,6 +76,7 @@ public class Deadline extends Task {
      * @return The deadline as a string.
      */
     public String getByString() {
+        assert this.by == null || !this.byString.isEmpty() : "Either LocalDateTime should be null or byString should not be empty.";
         return this.byString;
     }
     /**
@@ -81,6 +88,9 @@ public class Deadline extends Task {
         String byStringFormatted = (by != null) ?
                 " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")" :
                 (this.byString != null ? " (by: " + this.byString + ")" : "");
+
+        assert (this.by != null || !this.byString.isEmpty()) : "Either LocalDateTime or byString should be non-null.";
+        assert !(this.by != null && !this.byString.isEmpty()) : "Both LocalDateTime and byString should not be non-null.";
 
         return ui.printMessage("Got it. I've added this task:\n [D][" + getStatusIcon() + "] " + getDescription() + byStringFormatted); // + by.getClass();
     }

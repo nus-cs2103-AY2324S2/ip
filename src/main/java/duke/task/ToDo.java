@@ -18,6 +18,7 @@ public class ToDo extends Task {
     public ToDo(String description, Ui ui) throws DukeException {
         super(TaskType.T, description);
         this.ui = ui;
+        assert this.ui != null : "UI should not be null.";
     }
 
     /**
@@ -26,6 +27,7 @@ public class ToDo extends Task {
      * @return A string representation of the ToDo task.
      */
     public String getMessage() {
-         return ui.printMessage("Got it. I've added this task: \n [T][" + getStatusIcon() + "] " + getDescription());
+        assert this.ui != null : "UI should not be null.";
+        return ui.printMessage("Got it. I've added this task: \n [T][" + getStatusIcon() + "] " + getDescription());
     }
 }

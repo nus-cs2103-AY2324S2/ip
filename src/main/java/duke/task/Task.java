@@ -22,9 +22,14 @@ public class Task {
      */
     public Task(TaskType type, String description) {
         this.type = type;
+        assert this.type != null : "Task type should not be null.";
+
         this.description = description;
+        assert this.description != null : "Task description should not be null.";
+
         this.isDone = false;
         updateStatusIcon();
+        assert this.statusIcon != null : "Status icon should not be null after updating.";
     }
 
     /**
@@ -34,6 +39,7 @@ public class Task {
      */
     public Task(String description) {
         this.description = description;
+        assert this.description != null : "Task description should not be null.";
     }
 
     /**
@@ -42,6 +48,7 @@ public class Task {
      * @return True if the task is marked as done, false otherwise.
      */
     public boolean checkStatus() {
+        assert this.isDone || !this.isDone : "Completion status should be either true or false.";
         return this.isDone;
     }
 
@@ -51,6 +58,7 @@ public class Task {
      * @return The type of the task (e.g., ToDo, Deadline, Event).
      */
     public TaskType getType() {
+        assert this.type != null : "Task type should not be null.";
         return this.type;
     }
 
@@ -59,6 +67,7 @@ public class Task {
      */
     private void updateStatusIcon() {
         this.statusIcon = (isDone ? "X" : " ");
+        assert this.statusIcon != null : "Status icon should not be null after updating.";
     }
 
     /**
@@ -67,6 +76,7 @@ public class Task {
      * @return The status icon ("X" if done, " " if not done).
      */
     public String getStatusIcon() {
+        assert this.statusIcon != null : "Status icon should not be null.";
         return (isDone ? "X" : " ");
     }
 
@@ -76,6 +86,7 @@ public class Task {
      * @return The description of the task.
      */
     public String getDescription() {
+        assert this.description != null : "Task description should not be null.";
         return this.description;
     }
 

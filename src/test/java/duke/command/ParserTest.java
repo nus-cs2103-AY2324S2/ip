@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.ui.Ui;
 import org.junit.jupiter.api.Test;
 
 import duke.exception.DukeException;

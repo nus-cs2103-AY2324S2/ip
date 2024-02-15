@@ -48,6 +48,10 @@ public class Event extends Task {
         }
 
         validateInputs();
+        assert (this.from != null || !this.fromString.isEmpty()) : "Either LocalDateTime or fromString should be non-null.";
+        assert (this.to != null || !this.toString.isEmpty()) : "Either LocalDateTime or toString should be non-null.";
+        assert !(this.from != null && !this.fromString.isEmpty()) : "Both LocalDateTime and fromString should not be non-null.";
+        assert !(this.to != null && !this.toString.isEmpty()) : "Both LocalDateTime and toString should not be non-null.";
     }
 
     /**
@@ -82,6 +86,11 @@ public class Event extends Task {
         } else if (description.isEmpty()) {
             throw new DukeException("You didn't specify the event!");
         }
+        assert (from == null && to == null) || (!fromString.isEmpty() && !toString.isEmpty()) :
+                "Either both LocalDateTime objects (from and to) should be null, or both fromString and toString should be non-empty.";
+        assert !(from == null && fromString.isEmpty()) : "Either from LocalDateTime object should be non-null, or fromString should be non-empty.";
+        assert !(to == null && toString.isEmpty()) : "Either to LocalDateTime object should be non-null, or toString should be non-empty.";
+        assert description != null : "Description should not be null.";
     }
 
 

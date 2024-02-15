@@ -21,16 +21,17 @@ public class Duke {
     /**
      * Constructs a Duke object.
      *
-     * @param filePath The file path for storing tasks.
      */
     public Duke() {
         ui = new Ui();
         storage = new Storage();
         try {
             tasks = new TaskList(storage.load(), ui);
+            assert tasks != null : "TaskList should not be null after loading.";
         } catch (DukeException e) {
             ui.showLoadingError();
             tasks = new TaskList();
+            assert tasks != null : "TaskList should not be null after initializing.";
         }
     }
 
@@ -63,7 +64,10 @@ public class Duke {
      * @param args Command-line arguments.
      */
     public static void main(String[] args) {
-        new Duke().run(); //"./data/tasks.txt"
+        Duke duke = new Duke();
+        assert duke != null : "Duke instance should not be null after initialization.";
+
+        duke.run(); //"./data/tasks.txt"
     }
 
 
