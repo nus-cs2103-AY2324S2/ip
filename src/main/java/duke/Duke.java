@@ -10,7 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-//import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -57,13 +56,6 @@ public class Duke extends Application {
             this.tasks = new TaskList(); // Ensure tasks is always initialized to prevent NullPointerException
         }
     }
-
-    //        try {
-    //            tasks = new TaskList(storage.load());
-    //        } catch (DukeException e) {
-    //            ui.showLoadingError();
-    //            tasks = new TaskList();
-    //  }
     /**
      * Initializes a new Duke application instance.
      *
@@ -76,8 +68,6 @@ public class Duke extends Application {
         this.tasks = new TaskList();
 
     }
-
-
     /**
      * Runs the Duke program, starting the chatbot interaction.
      */
@@ -228,15 +218,7 @@ public class Duke extends Application {
         // Clear the user input TextField
         userInput.clear();
     }
-    //    public String getResponse(String input, TaskList tasks, Ui ui, Storage storage) {
-    //        try {
-    //            Parser parser = new Parser(input);
-    //            Command command = parser.parse();
-    //            return command.execute(tasks, ui, storage);
-    //        } catch (DukeException e) {
-    //            return "Error: " + e.getMessage();
-    //        }
-    //  }
+
     /**
     * Gets the response from the user input.
     *
@@ -252,8 +234,5 @@ public class Duke extends Application {
             return "Error: " + e.getMessage();
         }
     }
-
-
-
 }
 

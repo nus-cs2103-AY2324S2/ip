@@ -162,7 +162,6 @@ public class Ui {
         addMessage("Hello! I'm Aether!");
         addMessage("What can I do for you?");
     }
-
     /**
      * Displays an error message for failed task loading.
      */
@@ -184,23 +183,23 @@ public class Ui {
      */
     public void showErrorMessage(String errorMessage) {
         addMessage("OOPS!!! " + errorMessage);
-        addMessage("_____________________________");
+        //addMessage("_____________________________");
+        showSeparator();
     }
 
     /**
      * Displays the list of tasks.
      *
-     * @param taskList The task list to display.
+     * @param tasks The task list to display.
      */
-    public void showTaskList(TaskList taskList) {
+    public String showTaskList(List<Task> tasks) {
         StringBuilder tasksMessage = new StringBuilder();
         tasksMessage.append("Here are the tasks in your list:\n");
-        List<Task> tasks = taskList.getTasks();
         for (int i = 0; i < tasks.size(); i++) {
             tasksMessage.append((i + 1) + "." + tasks.get(i) + "\n");
         }
-        tasksMessage.append("_____________________________");
-        addMessage(tasksMessage.toString());
+        showSeparator();
+        return tasksMessage.toString();
     }
 
     /**
@@ -209,11 +208,13 @@ public class Ui {
      * @param task       The added task.
      * @param taskCount  The total number of tasks after adding.
      */
-    public void showTaskAdded(Task task, int taskCount) {
-        addMessage("Got it. I've added this task:");
-        addMessage("  " + task);
-        addMessage("Now you have " + taskCount + " tasks in the list.");
-        addMessage("_____________________________");
+    public String showTaskAdded(Task task, int taskCount) {
+        StringBuilder message = new StringBuilder();
+        message.append("Got it. I've added this task:\n")
+                .append("  ").append(task).append("\n")
+                .append("Now you have ").append(taskCount).append(" tasks in the list.\n");
+        showSeparator();
+        return message.toString();
     }
 
     /**
@@ -222,11 +223,13 @@ public class Ui {
      * @param deletedTask      The deleted task.
      * @param remainingTasks   The remaining number of tasks after deletion.
      */
-    public void showTaskDeleted(Task deletedTask, int remainingTasks) {
-        addMessage("Noted. I've removed this task:");
-        addMessage("  " + deletedTask);
-        addMessage("Now you have " + remainingTasks + " tasks in the list.");
-        addMessage("_____________________________");
+    public String showTaskDeleted(Task deletedTask, int remainingTasks) {
+        StringBuilder message = new StringBuilder();
+        message.append("Noted. I've removed this task:\n")
+                .append("  ").append(deletedTask).append("\n")
+                .append("Now you have ").append(remainingTasks).append(" tasks in the list.");
+        showSeparator();
+        return message.toString();
     }
     /**
      * Displays a message for an invalid task index.
@@ -240,10 +243,12 @@ public class Ui {
      *
      * @param markedTask The marked task.
      */
-    public void showTaskMarked(Task markedTask) {
-        addMessage("Nice! I've marked this task as done:");
-        addMessage("  " + markedTask);
-        addMessage("_____________________________");
+    public String showTaskMarked(Task markedTask) {
+        StringBuilder message = new StringBuilder();
+        message.append("Nice! I've marked this task as done:\n")
+                .append("  ").append(markedTask);
+        showSeparator();
+        return message.toString();
     }
 
     /**
@@ -251,10 +256,12 @@ public class Ui {
      *
      * @param unmarkedTask The unmarked task.
      */
-    public void showTaskUnmarked(Task unmarkedTask) {
-        addMessage("OK, I've marked this task as not done yet:");
-        addMessage("  " + unmarkedTask);
-        addMessage("_____________________________");
+    public String showTaskUnmarked(Task unmarkedTask) {
+        StringBuilder message = new StringBuilder();
+        message.append("OK, I've marked this task as not done yet:\n")
+                .append("  ").append(unmarkedTask).append("\n");
+        showSeparator();
+        return message.toString();
     }
 
     /**
@@ -266,26 +273,29 @@ public class Ui {
      *
      * @param matchingTasks List of tasks that match a certain criterion.
      */
-    public void showMatchingTasks(List<Task> matchingTasks) {
+    public String showMatchingTasks(List<Task> matchingTasks) {
+        StringBuilder responseBuilder = new StringBuilder();
         if (matchingTasks.isEmpty()) {
-            addMessage("No matching tasks found.");
+            responseBuilder.append("No matching tasks found.");
         } else {
-            StringBuilder matchingTasksMessage = new StringBuilder();
-            matchingTasksMessage.append("Here are the matching tasks in your list:\n");
+            responseBuilder.append("Here are the matching tasks in your list:\n");
             for (Task task : matchingTasks) {
-                matchingTasksMessage.append(task).append("\n");
+                responseBuilder.append(task).append("\n");
             }
-            addMessage(matchingTasksMessage.toString());
         }
-        addMessage("_____________________________");
+        showSeparator();
+        return responseBuilder.toString();
     }
 
     /**
      * Displays a goodbye message.
      */
-    public void showGoodbye() {
+    public String showGoodbye() {
+        StringBuilder goodbyeMessage = new StringBuilder();
         addMessage("Goodbye. Hope to see you again soon!");
-        addMessage("_____________________________");
+        showSeparator();
+        goodbyeMessage.append("Goodbye. Hope to see you again soon!\n");
+        return goodbyeMessage.toString();
     }
 
     public String getResponseAndClear() {

@@ -9,9 +9,9 @@ import java.time.format.DateTimeParseException;
  */
 
 public class Event extends Task {
+    private static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm";
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-
     /**
      * Constructs an Event object with the specified description, start time, and end time.
      *
@@ -24,11 +24,11 @@ public class Event extends Task {
     public Event(String description, String startTime, String endTime) {
         super(description);
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
             this.startTime = LocalDateTime.parse(startTime, formatter);
             this.endTime = LocalDateTime.parse(endTime, formatter);
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid date/time format. Please use: yyyy-MM-dd HH:mm");
+            System.out.println("Invalid date/time format. Please use: " + DATE_TIME_FORMAT);
             // Handle the exception as needed, e.g., log it or inform the user
             throw e;
         }
@@ -62,7 +62,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         assert startTime != null && endTime != null : "Start and end times should not be null";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
         String formattedStartTime = startTime.format(formatter);
         String formattedEndTime = endTime.format(formatter);
         return "[E]" + super.toString() + " (from: " + formattedStartTime + " to: " + formattedEndTime + ")";

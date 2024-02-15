@@ -47,6 +47,8 @@ package duke;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+
 /**
  * Represents a task with a deadline in the Duke program.
  */
@@ -59,7 +61,6 @@ public class Deadline extends Task {
      * @param by The deadline of the task in the format "yyyy-MM-dd HHmm".
      * @throws DateTimeException If there is an error parsing the deadline format.
      */
-
     public Deadline(String description, String by) throws DateTimeException {
         super(description);
         try {
@@ -69,17 +70,14 @@ public class Deadline extends Task {
             throw e;
         }
     }
-
     /**
      * Gets the deadline of the task.
      *
      * @return The LocalDateTime representing the deadline.
      */
     public LocalDateTime getBy() {
-
         return by;
     }
-
     /**
      * Returns a string representation of the Deadline object.
      *
@@ -90,7 +88,6 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: "
                 + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm")) + ")";
     }
-
     /**
      * Returns a string representation of the Deadline object for saving to a file.
      *
