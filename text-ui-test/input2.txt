@@ -1,8 +1,10 @@
 clear
-event project meeting /from 01/10/2023 0000 /to 01/12/2024 2359
 event long project meeting /from 01/05/2000 0001 /to 01/05/2020 1000
 deadline return book /by 01/05/2020 1000
-deadline do homework /by no idea :-p
+event project meeting /p 11 /from 01/10/2023 0000 /to 01/12/2024 2359
+event long project meeting /p 4 /from 01/05/2000 0001 /to 01/05/2020 1000
+deadline return book /p 90 /by 01/05/2020 1000
+deadline do homework /p 10 /by no idea :-p
 list
 event project meeting 2 /from Mon 2pm /to 5pm
 deadline return book /by today

@@ -1,14 +1,13 @@
-clear
-todo borrow book
-todo return book
+todo borrow book /p 8
+todo return book /p 10
 list
-event project meeting /from Mon 2pm /to 4pm
-deadline return book /by Sunday
-deadline do homework /by no idea :-p
+event project meeting /p 1 /from Mon 2pm /to 4pm
+deadline return book /p 2 /by Sunday
+deadline do homework /p 3 /by no idea :-p
 list
 todo
-event project meeting 2 /from Mon 2pm
-event project meeting 3 /to 4pm
+event project meeting 2 /p 5 /from Mon 2pm
+event project meeting 3 /p 6 /to 4pm
 deadline return book
 mark 2
 mark 5
