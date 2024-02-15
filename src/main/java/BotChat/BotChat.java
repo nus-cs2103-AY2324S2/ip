@@ -73,7 +73,7 @@ public class BotChat {
     private String showHelpMessage() {
         StringBuilder helpMessage = new StringBuilder("   === Help ===\n");
         helpMessage.append("   Here are the available commands:\n");
-        helpMessage.append("   /bye - Exit the application\n");
+        helpMessage.append("   /bye - Exit the chatbot\n");
         helpMessage.append("   /list - List all tasks\n");
         helpMessage.append("   /mark [taskIndex] - Mark a task as done\n");
         helpMessage.append("   /unmark [taskIndex] - Unmark a task as undone\n");
