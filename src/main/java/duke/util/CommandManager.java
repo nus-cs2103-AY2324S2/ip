@@ -118,7 +118,7 @@ public class CommandManager {
     public ArrayList<String> rescheduleCommand(String[] reqParts) throws TaskException{
         int position;
         try {
-            position = Integer.parseInt(reqParts[0]);
+            position = Integer.parseInt(reqParts[0]) - 1;
         } catch (NumberFormatException e) {
             return ui.showError("Please reschedule a valid task from the list");
         }
