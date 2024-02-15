@@ -32,6 +32,12 @@ public class Ui {
         return "Bye from Martin";
     }
 
+    /**
+     * Prints the found tasks in a formatted string.
+     *
+     * @param foundTasks The list of tasks to be printed.
+     * @return A string containing the formatted representation of the found tasks.
+     */
     public String printFoundTasks(ArrayList<Task> foundTasks) {
         String response = ("Here are the matching tasks in your list:" + "\n");
         for (int i = 0; i < foundTasks.size(); i++) {
@@ -40,6 +46,12 @@ public class Ui {
         return response;
     }
 
+    /**
+     * Returns a string representation of the deleted task.
+     *
+     * @param removed The task that was removed.
+     * @return A string indicating that the task has been removed.
+     */
     public String sayDeleted(Task removed) {
         return "Noted. I've removed this task:\n" + removed + "\n";
     }
