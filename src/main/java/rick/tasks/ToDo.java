@@ -1,6 +1,6 @@
 package rick.tasks;
 
-import rick.RickException;
+import rick.logic.RickException;
 
 /**
  * The to-do tasks.

@@ -2,10 +2,16 @@ package rick;
 
 import java.util.Scanner;
 
+import rick.logic.RickException;
+import rick.ui.Ui;
+import rick.util.Storage;
+import rick.util.TaskList;
+
 /**
  * A Rick chatbot.
  */
 public class Rick {
+
 
     private Storage storage;
     private TaskList tasks;
@@ -13,12 +19,11 @@ public class Rick {
 
     /**
      * Creates a new instance of the Rick chatbot with specified filePath to store data on hard drive.
-     * @param filePath filePath relative to the project directory, where local data is stored.
      */
 
-    public Rick(String filePath) {
+    public Rick() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage();
         try {
             tasks = new TaskList(storage.load());
         } catch (RickException e) {
@@ -66,10 +71,15 @@ public class Rick {
 
     }
 
+    //TODO
+    public String getResponse(String input) {
+        return "Rick heard: " + input;
+    }
+
     /**
      * Creates a new Rick instance and run it. Executes the programme.
      */
     public static void main(String[] args) {
-        new Rick("data/tasks.txt").run();
+        new Rick().run();
     }
 }

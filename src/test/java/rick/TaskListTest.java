@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Test;
 
 import rick.tasks.Task;
 import rick.tasks.ToDo;
+import rick.logic.RickException;
+import rick.util.Storage;
+import rick.util.TaskList;
 
 
 public class TaskListTest {
@@ -35,7 +38,7 @@ public class TaskListTest {
     public void addToListTest() {
         ArrayList<Task> list = new ArrayList<>();
         TaskList taskList = new TaskList(list);
-        Storage storage = new Storage("data/test.txt");
+        Storage storage = new Storage();
         try {
             storage.load();
         } catch (RickException e) {

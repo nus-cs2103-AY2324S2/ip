@@ -1,4 +1,4 @@
-package rick;
+package rick.ui;
 
 /**
  * UI of the application.

@@ -3,6 +3,7 @@ package rick;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
+import rick.logic.RickException;
 
 public class RickExceptionTest {
     @Test

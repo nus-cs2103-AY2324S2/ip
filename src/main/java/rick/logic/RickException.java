@@ -1,4 +1,4 @@
-package rick;
+package rick.logic;
 
 /**
  * Exeptions for Rick application.

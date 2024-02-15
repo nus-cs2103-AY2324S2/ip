@@ -3,7 +3,7 @@ package rick.tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import rick.RickException;
+import rick.logic.RickException;
 
 /**
  * The event tasks.

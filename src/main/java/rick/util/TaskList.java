@@ -1,7 +1,8 @@
-package rick;
+package rick.util;
 
 import java.util.ArrayList;
 
+import rick.logic.RickException;
 import rick.tasks.Deadline;
 import rick.tasks.Event;
 import rick.tasks.Task;
@@ -174,7 +175,7 @@ public class TaskList {
         try {
             Task task = this.items.remove(i);
             storage.update();
-            return  "Noted. I've removed this task: \n"
+            return "Noted. I've removed this task:\n"
                     + task
                     + "\nNow you have " + this.items.size() + " tasks in the list.";
         } catch (Exception e) {
