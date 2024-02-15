@@ -17,7 +17,7 @@ import bob.task.TaskStub;
 
 public class TaskListTest {
     @Test
-    public void testList() {
+    public void list() {
         ArrayList<Task> tasks = new TaskList(new ArrayList<>(Arrays.asList(
                 new TaskStub("a"),
                 new TaskStub("a"),
@@ -29,7 +29,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void testListOn() {
+    public void listOn() {
         ArrayList<Task> tasks = new TaskList(new ArrayList<>(Arrays.asList(
                 new TaskStub("a"),
                 new TaskStub("b"),
@@ -41,7 +41,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void testListDueIn() {
+    public void listDueIn() {
         ArrayList<Task> tasks = new TaskList(new ArrayList<>(Arrays.asList(
                 new TaskStub("a"),
                 new TaskStub("b"),
