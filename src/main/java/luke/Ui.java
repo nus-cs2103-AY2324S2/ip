@@ -99,6 +99,19 @@ public class Ui {
                         System.out.println(e.getMessage());
                     }
                     break;
+            case "find":
+                try {
+                    String keyword = parser.commandFind(this.input);
+                    TaskList tasksFound = taskList.search(keyword);
+                    if (tasksFound.getNoTasks() == 0) {
+                        System.out.println("No tasks with the keyword found.");
+                    } else {
+                        tasksSuccessfullyFound(tasksFound);
+                    }
+                } catch (LukeException e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
             }
             Scanner scanner = new Scanner (System.in);
             this.input = scanner.nextLine();
