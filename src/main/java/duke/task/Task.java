@@ -4,7 +4,7 @@ package duke.task;
  * Represents a generic task in the Duke application.
  */
 
-public class Task {
+public abstract class Task {
 
     /**
      * The description of the task.
@@ -75,6 +75,21 @@ public class Task {
     public String getDescription() {
         return this.description;
     }
+
+    /**
+     * Checks if this task is equal to another object.
+     *
+     * @param obj The object to compare to.
+     * @return True if the objects are equal, false otherwise.
+     */
+    public boolean equals(Object obj) {
+        if (obj instanceof Task) {
+            Task task = (Task) obj;
+            return this.getDescription().equals(task.getDescription());
+        }
+        return false;
+    }
+
 
     /**
      * Converts the task to a string representation.

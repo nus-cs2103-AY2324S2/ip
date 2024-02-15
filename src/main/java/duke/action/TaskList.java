@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import duke.task.Task;
+import duke.task.ToDo;
 
 
 /**
@@ -171,6 +172,15 @@ public class TaskList implements Iterable<Task> {
     @Override
     public Iterator<Task> iterator() {
         return mylist.iterator();
+    }
+
+    public boolean contains(Task task) {
+        for (Task t : mylist) {
+            if (t.equals(task)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

@@ -57,6 +57,16 @@ public class Event extends Task {
         return this.to;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Event) {
+            Event event = (Event) obj;
+            return this.getDescription().equals(event.getDescription()) && this.getTo().equals(event.getTo())
+                    && this.getFrom().equals(event.getFrom());
+        }
+        return false;
+    }
+
     /**
      * Converts the task to a string representation.
      *

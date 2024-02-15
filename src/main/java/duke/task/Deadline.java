@@ -42,6 +42,15 @@ public class Deadline extends Task {
         return "D";
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Deadline) {
+            Deadline deadline = (Deadline) obj;
+            return this.getDescription().equals(deadline.getDescription()) && this.getBy().equals(deadline.getBy());
+        }
+        return false;
+    }
+
     /**
      * Converts the task to a string representation.
      *

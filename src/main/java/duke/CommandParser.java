@@ -12,15 +12,7 @@ import duke.action.Match;
 import duke.action.MyList;
 import duke.action.TaskList;
 import duke.action.Unmark;
-import duke.exception.DukeException;
-import duke.exception.EmptyDescriptionException;
-import duke.exception.InvalidEventFormatException;
-import duke.exception.MissingIndexException;
-import duke.exception.NoIndexException;
-import duke.exception.NoWordException;
-import duke.exception.UnknownCommandException;
-import duke.exception.WrongDateFormatException;
-import duke.exception.WrongDateOrderingException;
+import duke.exception.*;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.ToDo;
@@ -88,9 +80,13 @@ public class CommandParser {
                         throw new EmptyDescriptionException();
                     }
                     ToDo todo = new ToDo(description);
-                    taskList.addTask(todo);
-                    return new Echo("Got it. I've added this task:\n  " + todo + "\nNow you have "
-                            + taskList.size() + " tasks in the list.");
+                    if (taskList.contains(todo)) {
+                        throw new DuplicateTaskException();
+                    } else {
+                        taskList.addTask(todo);
+                        return new Echo("Got it. I've added this task:\n  " + todo + "\nNow you have "
+                                + taskList.size() + " tasks in the list.");
+                    }
                 } else {
                     throw new EmptyDescriptionException();
                 }
@@ -112,9 +108,13 @@ public class CommandParser {
                         }
                         LocalDate by = LocalDate.parse(parts[1].trim());
                         Deadline deadline = new Deadline(description, by);
-                        taskList.addTask(deadline);
-                        return new Echo("Got it. I've added this task:\n  " + deadline + "\nNow "
-                                + "you have " + taskList.size() + " tasks in the list.");
+                        if (taskList.contains(deadline)) {
+                            throw new DuplicateTaskException();
+                        } else {
+                            taskList.addTask(deadline);
+                            return new Echo("Got it. I've added this task:\n  " + deadline + "\nNow "
+                                    + "you have " + taskList.size() + " tasks in the list.");
+                        }
                     } catch (DateTimeParseException e) {
                         throw new WrongDateFormatException();
                     }
@@ -136,9 +136,13 @@ public class CommandParser {
                             throw new WrongDateOrderingException();
                         }
                         Event event = new Event(description, from, to);
-                        taskList.addTask(event);
-                        return new Echo("Got it. I've added this task:\n  " + event
-                                + "\nNow you have " + taskList.size() + " tasks in the list.");
+                        if (taskList.contains(event)) {
+                            throw new DuplicateTaskException();
+                        } else {
+                            taskList.addTask(event);
+                            return new Echo("Got it. I've added this task:\n  " + event
+                                    + "\nNow you have " + taskList.size() + " tasks in the list.");
+                        }
                     } catch (DateTimeParseException e) {
                         throw new WrongDateFormatException();
                     }

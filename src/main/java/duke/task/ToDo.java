@@ -24,6 +24,16 @@ public class ToDo extends Task {
         return "T";
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof ToDo) {
+            ToDo toDo = (ToDo) obj;
+            return this.getDescription().equals(toDo.getDescription());
+        }
+        return false;
+    }
+
+
     /**
      * Converts the task to a string representation.
      *
