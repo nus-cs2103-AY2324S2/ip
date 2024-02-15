@@ -1,16 +1,20 @@
 package remi.storage;
 
-import remi.model.Deadline;
-import remi.model.Event;
-import remi.model.StoredTaskList;
-import remi.model.ToDo;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import remi.model.Deadline;
+import remi.model.Event;
+import remi.model.StoredTaskList;
+import remi.model.Task;
+import remi.model.ToDo;
 
 /**
  * Class for handling storing and getting saved data. This saved data is in the form of a StoredTaskList.
@@ -18,43 +22,59 @@ import java.util.stream.Stream;
 public class Storage {
     private static final String FILE_PATH = "tasks.txt";
 
+    private static Task parseLine(ArrayList<String> line) {
+        if (line.size() < 3) {
+            // early exit
+            return null;
+        }
+
+        Task res = null;
+
+        String type = line.get(0);
+        boolean isDone = line.get(1).equals("X");
+        String description = line.get(2);
+        List<String> params = line.subList(3, line.size());
+
+        switch(type) {
+        case "T":
+            res = new ToDo(description);
+            break;
+        case "E":
+            if (params.size() < 2) {
+                return null;
+            }
+            String from = params.get(0);
+            String to = params.get(1);
+            res = new Event(description, from, to);
+            break;
+        case "D":
+            if (params.isEmpty()) {
+                return null;
+            }
+            String by = params.get(0);
+            res = new Deadline(description, by);
+            break;
+        default:
+            return null;
+        }
+
+        if (isDone) {
+            res.mark();
+        } else {
+            res.unmark();
+        }
+
+        return res;
+    }
+
     private static StoredTaskList parseData(ArrayList<ArrayList<String>> data) {
         StoredTaskList res = new StoredTaskList();
         for (ArrayList<String> line: data) {
-            if (line.size() < 3) {
-                // early exit
-                return res;
-            }
-            String type = line.get(0);
-            boolean isDone = (line.get(1).equals("X"));
-            String description = line.get(2);
-            List<String> params = line.subList(3, line.size());
-            switch(type) {
-            case "T":
-                res.addTask(new ToDo(description));
+            Task lineTask = parseLine(line);
+            if (lineTask == null) {
                 break;
-            case "E":
-                if (params.size() < 2) {
-                    return res;
-                }
-                String from = params.get(0);
-                String to = params.get(1);
-                res.addTask(new Event(description, from, to));
-                break;
-            case "D":
-                if (params.isEmpty()) {
-                    return res;
-                }
-                String by = params.get(0);
-                res.addTask(new Deadline(description, by));
-                break;
-            default:
-                return res;
             }
-
-            if (isDone) {
-                res.markTask(res.size());
-            }
+            res.addTask(lineTask);
         }
         return res;
     }
