@@ -9,17 +9,17 @@ public class Ui {
     private Scanner sc;
 
     /** The task list the commands will be applied to. */
-    private VirtueTaskList taskList;
+    private VirtueTaskList tasks;
 
     private Storage storage;
 
     /** A horizontal line. */
-    private static final String HORIZONTAL_LINE = "____________________________________________________________";
+    private static final String HORIZONTAL_LINE = "_".repeat(60);
 
     /** Initiates a new user interface. */
     public Ui(VirtueTaskList taskList, Storage storage) {
         sc = new Scanner(System.in);
-        this.taskList = taskList;
+        this.tasks = taskList;
         this.storage = storage;
     }
 
@@ -71,8 +71,8 @@ public class Ui {
                 break;
             } else {
                 try {
-                    taskList.executeCommand(currentCommand);
-                    storage.saveToFile(taskList);
+                    tasks.executeCommand(currentCommand);
+                    storage.saveToFile(tasks);
                 } catch (IOException e) {
                     System.out.println("OOPS! An error occurred while taking the inputs: " + e.toString());
                 }

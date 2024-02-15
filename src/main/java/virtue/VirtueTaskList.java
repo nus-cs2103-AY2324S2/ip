@@ -6,11 +6,11 @@ import java.util.List;
 
 /** A task list used in this chatbot. */
 public class VirtueTaskList {
-    private List<VirtueTask> taskList;
+    private List<VirtueTask> tasks;
 
     /** Creates a new task list. */
     public VirtueTaskList() {
-        taskList = new ArrayList<>();
+        tasks = new ArrayList<>();
     }
 
     /**
@@ -19,7 +19,7 @@ public class VirtueTaskList {
      * @return The number of tasks in the list.
      */
     protected int numTasks() {
-        return taskList.size();
+        return tasks.size();
     }
 
     /**
@@ -29,7 +29,7 @@ public class VirtueTaskList {
      * @return The i-th task in the task list.
      */
     private VirtueTask getTask(int index) {
-        return taskList.get(index - 1);
+        return tasks.get(index - 1);
     }
 
     /**
@@ -39,7 +39,7 @@ public class VirtueTaskList {
      */
     private void addTodo(String description) {
         Todo todo = new Todo(description);
-        taskList.add(todo);
+        tasks.add(todo);
         int numTasks = numTasks();
         String sOrNone = numTasks == 1 ? "" : "s";
         Ui.printHorizontalLine();
@@ -57,7 +57,7 @@ public class VirtueTaskList {
      */
     private void addDeadline(String description, VirtueDateTime by) {
         Deadline deadline = new Deadline(description, by);
-        taskList.add(deadline);
+        tasks.add(deadline);
         int numTasks = numTasks();
         String sOrNone = numTasks == 1 ? "" : "s";
         Ui.printHorizontalLine();
@@ -76,7 +76,7 @@ public class VirtueTaskList {
      */
     private void addEvent(String description, VirtueDateTime from, VirtueDateTime to) {
         Event event = new Event(description, from, to);
-        taskList.add(event);
+        tasks.add(event);
         int numTasks = numTasks();
         String sOrNone = numTasks == 1 ? "" : "s";
         Ui.printHorizontalLine();
@@ -116,12 +116,12 @@ public class VirtueTaskList {
 
     /** Prints out the task list with all the tasks contained in it. */
     protected void printOut() {
-        int numOfTasks = taskList.size();
+        int numOfTasks = tasks.size();
         Ui.printHorizontalLine();
         Ui.printWithIndent(" Here are the tasks in your list:");
 
         for (int index = 1; index <= numOfTasks; index++) {
-            Ui.printWithIndent(" " + index + "." + taskList.get(index - 1));
+            Ui.printWithIndent(" " + index + "." + tasks.get(index - 1));
         }
 
         Ui.printHorizontalLine();
@@ -133,7 +133,7 @@ public class VirtueTaskList {
      * @param index The index input by the user (starts from 1 and not 0).
      */
     private void deleteTask(int index) {
-        VirtueTask deletedTask = taskList.remove(index - 1);
+        VirtueTask deletedTask = tasks.remove(index - 1);
         int numTasks = numTasks();
         Ui.printHorizontalLine();
         Ui.printWithIndent(" Noted. I've removed this task:");
@@ -148,13 +148,13 @@ public class VirtueTaskList {
      * @param keyword The keyword to filter the list with.
      */
     private void printTasksWithWord(String keyword) {
-        int numOfTasks = taskList.size();
+        int numOfTasks = tasks.size();
         Ui.printHorizontalLine();
         Ui.printWithIndent(" Here are the matching tasks in your list:");
 
         for (int index = 1; index <= numOfTasks; index++) {
             if (getTask(index).hasKeyword(keyword)) {
-                Ui.printWithIndent(" " + index + "." + taskList.get(index - 1));
+                Ui.printWithIndent(" " + index + "." + tasks.get(index - 1));
             }
         }
 
@@ -168,29 +168,28 @@ public class VirtueTaskList {
      */
     public void executeCommand(Command command) {
         switch (command.type) {
-            case LIST:
-                printOut();
-                break;
-            case MARK:
-                markTaskAsDone(command.index);
-                break;
-            case UNMARK:
-                markTaskAsNotDone(command.index);
-                break;
-            case DELETE:
-                deleteTask(command.index);
-                break;
-            case TODO:
-                addTodo(command.description);
-                break;
-            case DEADLINE:
-                addDeadline(command.description, command.by);
-                break;
-            case EVENT:
-                addEvent(command.description, command.from, command.to);
-                break;
-            case FIND:
-                printTasksWithWord(command.description);
+        case LIST:
+            printOut();
+            break;
+        case MARK:
+            markTaskAsDone(command.index);
+            break;
+        case UNMARK:
+            markTaskAsNotDone(command.index);
+            break;
+        case DELETE:
+            deleteTask(command.index);
+            break;
+        case TODO:
+            addTodo(command.description);
+            break;
+        case DEADLINE:
+            addDeadline(command.description, command.by);
+            break;
+        case EVENT:
+            addEvent(command.description, command.from, command.to);
+        case FIND:
+            printTasksWithWord(command.description);
         }
     }
 
@@ -206,34 +205,35 @@ public class VirtueTaskList {
         int marked = Integer.parseInt(str.split(" \\| ")[1]);
 
         switch (taskType) {
-            case "T":
-                taskList.add(new Todo(description));
+        case "T":
+            tasks.add(new Todo(description));
+            break;
+        case "D":
+            try {
+                VirtueDateTime dateTime = new VirtueDateTime(str.split(" \\| ")[3]);
+                tasks.add(new Deadline(description, dateTime));
                 break;
-            case "D":
-                try {
-                    VirtueDateTime dateTime = new VirtueDateTime(str.split(" \\| ")[3]);
-                    taskList.add(new Deadline(description, dateTime));
-                    break;
-                } catch (DateTimeParseException e) {
-                    throw new VirtueDateTimeException("by", "deadline");
-                }
-            case "E":
-                VirtueDateTime fromDateTime;
-                VirtueDateTime toDateTime;
+            } catch (DateTimeParseException e) {
+                throw new VirtueDateTimeException("by", "deadline");
+            }
+        case "E":
+            VirtueDateTime fromDateTime;
+            VirtueDateTime toDateTime;
 
-                try {
-                    fromDateTime = new VirtueDateTime(str.split(" \\| ")[3]);
-                } catch (DateTimeParseException e) {
-                    throw new VirtueDateTimeException("from", "event");
-                }
+            try {
+                fromDateTime = new VirtueDateTime(str.split(" \\| ")[3]);
+            } catch (DateTimeParseException e) {
+                throw new VirtueDateTimeException("from", "event");
+            }
 
-                try {
-                    toDateTime = new VirtueDateTime(str.split(" \\| ")[4]);
-                } catch (DateTimeParseException e) {
-                    throw new VirtueDateTimeException("to", "event");
-                }
+            try {
+                toDateTime = new VirtueDateTime(str.split(" \\| ")[4]);
+            } catch (DateTimeParseException e) {
+                throw new VirtueDateTimeException("to", "event");
+            }
 
-                taskList.add(new Event(description, fromDateTime, toDateTime));
+            tasks.add(new Event(description, fromDateTime, toDateTime));
+            break;
         }
 
         if (marked == 1) {
