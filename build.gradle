@@ -51,13 +51,13 @@ test {
 }
 
 application {
-    mainClass.set("duke.Launcher");
+    mainClass.set("nicky.Launcher");
 }
 
 
 shadowJar {
-    archiveBaseName = "duke"
-    archiveFileName = 'duke.jar'
+    archiveBaseName = "nicky"
+    archiveFileName = 'nicky.jar'
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
