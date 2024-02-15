@@ -17,7 +17,8 @@ public class AddCommand extends Command {
 
     @Override
     public String perform(TaskList tasks, UI ui) throws PingException {
-        if (task == null) {
+        boolean isTaskEmpty = task == null;
+        if (isTaskEmpty) {
             throw new PingException("Task cannot be empty");
         } else {
             tasks.addTask(task);
