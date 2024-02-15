@@ -22,16 +22,23 @@ public class TaskList {
      * Adds a task to the list of duke tasks.
      * @param task The task to be added.
      */
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         list.add(task);
+        String m1 = " Got it. I've added this task:\n";
+        String m2 = "\n Now you have " + (this.getSize()) + " tasks in the list.\n";
+        return m1 + task.toString() + m2;
     }
 
     /**
      * Deletes a task from the list of duke tasks.
      * @param index The index of the task to be deleted.
      */
-    public void deleteTask(int index) {
+    public String deleteTask(int index) {
+
         list.remove(index - 1);
+        String m1 = "I remove this one alrdy: \n";
+        String m2 = "\n Now you have " + (this.getSize() - 1) + " duke.tasks in the list.\n";
+        return m1 + this.getTask(index - 1).toString() + m2;
     }
 
     /**
@@ -65,4 +72,26 @@ public class TaskList {
         }
         return found;
     }
+
+    public String markTask(int index) {
+        return list.get(index).toggle();
+    }
+
+    public String unmarkTask(int index) {
+        return list.get(index).toggle();
+    }
+
+    /**
+     * Shows the list of duke tasks to the user..
+     */
+    public String showList() {
+        String message = "Here are the tasks in your list";
+        StringBuilder tasks = new StringBuilder();
+        for (int i = 0; i < this.getSize(); i++) {
+            tasks.append(" ").append(i + 1).append(". ").append(this.getTask(i).toString()).append("\n");
+        }
+        message = message + "\n" + tasks;
+        return message;
+    }
+
 }

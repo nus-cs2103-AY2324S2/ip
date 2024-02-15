@@ -31,39 +31,33 @@ public class Parser {
         String[] inputParts = original.split("\\s+");
 
         String command = inputParts[0];
+        String details = original.replace(command, "").trim();
 
         switch(command) {
             case "mark":
+                return list.markTask(Integer.parseInt(inputParts[1]) - 1);
             case "unmark":
-                int taskIndex = Integer.parseInt(inputParts[1]);
-                return list.getTask(taskIndex - 1).toggle();
+                return list.unmarkTask(Integer.parseInt(inputParts[1]) - 1);
             case "list":
-                return showList(list);
+                return list.showList();
             case "todo":
-                String description = original.replace("todo", "");
-                if (description.isEmpty()) {
+                if (details.isEmpty()) {
                     throw new DukeException("oi todo what. todo WHATTTTTT!!!!!!!!");
                 }
-                Task task = new ToDo(description);
-                list.addTask(task);
-                return addMessage(task, list);
+                return list.addTask(new ToDo(details));
             case "deadline":
-                String[] parts1 = original.replace("deadline", "").split(" /");
+                String[] parts1 = details.split(" /");
                 Task deadlineTask = new Deadline(parts1[0], parts1[1].replace("by ", ""));
-                list.addTask(deadlineTask);
-                return addMessage(deadlineTask, list);
+                return list.addTask(deadlineTask);
             case "event":
-                String[] parts2 = original.replace("event", "").split(" /");
+                String[] parts2 = details.split(" /");
                 Task eventTask = new Event(parts2[0], parts2[1].replace("from ", ""), parts2[2].replace("to ", ""));
-                list.addTask(eventTask);
-                return addMessage(eventTask, list);
+                return list.addTask(eventTask);
             case "delete":
-                int inputInt = Integer.parseInt(inputParts[1]);
-                list.deleteTask(inputInt);
-                return deleteMessage(inputInt, list);
+                return list.deleteTask(Integer.parseInt(inputParts[1]));
             case "find":
                 TaskList found = list.findTasks(inputParts[1]);
-                return showList(found);
+                return found.showList();
             case "bye":
                 Storage.writeToFile(list);
                 return showOutro();
@@ -87,42 +81,8 @@ public class Parser {
         return e;
     }
 
-    /**
-     * Shows the list of duke tasks to the user.
-     *
-     * @param list The list of duke tasks to be shown.
-     */
-    public String showList(TaskList list) {
-        String message = "Here are the tasks in your list";
-        StringBuilder tasks = new StringBuilder();
-        for (int i = 0; i < list.getSize(); i++) {
-            tasks.append(" ").append(i + 1).append(". ").append(list.getTask(i).toString()).append("\n");
-        }
-        message = message + "\n" + tasks;
-        return message;
-    }
 
-    /**
-     * Returns message string for "delete" action.
-     *
-     * @param i index of task to delete.
-     */
-    public String deleteMessage(int i, TaskList list) {
-        String m1 = "I remove this one alrdy: \n";
-        String m2 = "\n Now you have " + (list.getSize() - 1) + " duke.tasks in the list.\n";
-        return m1 + list.getTask(i - 1).toString() + m2;
-    }
 
-    /**
-     * Returns message string for "add" action.
-     *
-     * @param task new task to add to list.
-     */
-    public String addMessage(Task task, TaskList list) {
-        String m1 = " Got it. I've added this task:\n";
-        String m2 = "\n Now you have " + (list.getSize()) + " tasks in the list.\n";
-        return m1 + task.toString() + m2;
-    }
 }
 
 
