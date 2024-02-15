@@ -2,8 +2,18 @@ package alpa.commands;
 
 import alpa.exceptions.AlpaException;
 
+/**
+ * The Parser class is responsible for parsing user input and returning the corresponding Command object.
+ */
 public class Parser {
 
+  /**
+   * Parses the user input and returns the corresponding Command object.
+   *
+   * @param userInput the user input to be parsed
+   * @return the Command object corresponding to the user input
+   * @throws AlpaException if there is an error during parsing
+   */
   public static Command parse(String userInput) throws AlpaException {
     String[] words= userInput.trim().split("\\s+", 2);
     String commandWord = words[0];

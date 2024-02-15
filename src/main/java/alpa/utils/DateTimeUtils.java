@@ -15,8 +15,15 @@ import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+/**
+ * Utility class for parsing and formatting date and time values.
+ */
 public class DateTimeUtils {
 
+  /**
+   * Array of date patterns used for parsing and formatting dates.
+   * The patterns include variations with and without the year component, as well as patterns with month names.
+   */
   private static final String[] DATE_PATTERNS = {
     "d/M/yyyy", 
     "d-M-yyyy",
@@ -41,6 +48,10 @@ public class DateTimeUtils {
     "MMM d",
   };
 
+  /**
+   * Array of date patterns without the year component.
+   * Used by the parseDeadlineDateTime method to parse date-only strings without a year component when time is not specified.
+   */
   private static final String[] DATE_WITHOUT_YEAR_PATTERNS = {
     "d/M",
     "d/MMM",
@@ -49,6 +60,11 @@ public class DateTimeUtils {
     "MMM d",
   };
 
+  /**
+   * An array of time patterns used for parsing and formatting time values.
+   * The patterns include 12-hour and 24-hour clock format and variations with and without minutes,
+   * as well as patterns with AM/PM indicators.
+   */
   private static final String[] TIME_PATTERNS = {
     "HHmm", 
     "HH:mm", 
@@ -58,6 +74,9 @@ public class DateTimeUtils {
     "ha",
   };
 
+  /**
+   * A list of DateTimeFormatters used for parsing and formatting date and time values.
+   */
   private static final List<DateTimeFormatter> FORMATTERS = new ArrayList<>();
 
   static {
@@ -93,6 +112,13 @@ public class DateTimeUtils {
     }
   }
 
+  /**
+   * Parses a string representation of date and time into a {@link LocalDateTime} object.
+   * 
+   * @param dateTimeStr the string representation of date and time
+   * @return the parsed {@link LocalDateTime} object
+   * @throws DateTimeParseException if the input string is not in a valid date and time format
+   */
   public static LocalDateTime parseDateTime(String dateTimeStr) throws DateTimeParseException {
     // Preprocess the input string to normalize formatting 
     String normalizedDateTimeStr = normalizeDateTimeString(dateTimeStr);
@@ -106,6 +132,15 @@ public class DateTimeUtils {
     }
     throw new DateTimeParseException("Invalid date or time format", dateTimeStr, 0);
   }
+
+  /**
+   * Normalizes a given date-time string by removing leading and trailing whitespace,
+   * normalizing space around slashes (/) and dashes (-) for dates,
+   * normalizing space before AM/PM markers, and ensuring AM/PM markers are uppercase.
+   *
+   * @param dateTimeStr the date-time string to be normalized
+   * @return the normalized date-time string
+   */
   private static String normalizeDateTimeString(String dateTimeStr) {
     // Trim leading and trailing whitespace
     String normalized = dateTimeStr.trim();
@@ -123,6 +158,13 @@ public class DateTimeUtils {
     return normalized;
   }
     
+  /**
+   * Parses a string representation of a deadline into a {@link LocalDateTime} object.
+   * 
+   * @param dateTimeStr the string representation of the date and time
+   * @return the parsed {@link LocalDateTime} object
+   * @throws DateTimeParseException if the input string is not in a valid date and time format
+   */
   public static LocalDateTime parseDeadlineDateTime(String deadlineStr) throws DateTimeParseException {
     // Attempt to parse the string directly with existing formatters
     try {
@@ -148,6 +190,13 @@ public class DateTimeUtils {
     }
   }  
 
+  /**
+   * Attempts to parse the end time of an event task, given the end time string and the start date.
+   * 
+   * @param endStr the string representation of the end time
+   * @param startDate the start date of the event
+   * @return the parsed {@link LocalDateTime} object
+   */
   public static LocalDateTime tryParseEndDateTime(String endStr, LocalDate startDate) {
     for (String timePattern : TIME_PATTERNS) {
       try {

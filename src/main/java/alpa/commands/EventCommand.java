@@ -12,13 +12,30 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
+/**
+ * Represents a command to add an event task.
+ */
 public class EventCommand implements Command {
   private final String details;
 
+  /**
+   * Constructs an EventCommand object with the specified details.
+   *
+   * @param details the details of the event task
+   */
   public EventCommand(String details) {
     this.details = details;
   }
 
+  /**
+   * Executes the event command, adding the event task to the task list, displaying the added task,
+   * and saving the tasks to storage.
+   *
+   * @param taskList the task list
+   * @param ui the user interface
+   * @param storage the storage
+   * @throws AlpaException if there is an error executing the command
+   */
   @Override
   public void executeCommand(TaskList taskList, Ui ui, Storage storage) throws AlpaException {
     try {
@@ -48,6 +65,11 @@ public class EventCommand implements Command {
     }
   }
 
+  /**
+   * Checks if the command is an exit command.
+   *
+   * @return true if the command is an exit command, false otherwise
+   */
   @Override
   public boolean isExit() {
     return false;

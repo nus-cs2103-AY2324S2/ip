@@ -15,14 +15,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * The Storage class is responsible for loading and saving tasks to a file.
+ */
 public class Storage {
   private String filePath; 
 
+  /**
+   * Constructs a Storage object with the specified file path.
+   * 
+   * @param filePath The path of the file to be managed by the storage.
+   */
   public Storage(String filePath) {
     this.filePath = filePath;
     ensureDirectoryExists();
   }
 
+  /**
+   * Ensures that the directory containing the file path exists.
+   */
   private void ensureDirectoryExists() {
     File directory = new File(filePath).getParentFile();
     if (!directory.exists()) {
@@ -30,6 +41,12 @@ public class Storage {
     }
   }
 
+  /**
+   * Loads tasks from a file and returns them as a list.
+   *
+   * @return The list of loaded tasks.
+   * @throws AlpaException If the file is not found or an error occurs while reading the file.
+   */
   public List<Task> loadTasks() throws AlpaException {
     List<Task> loadedTasks = new ArrayList<>();
     File file = new File(filePath);
@@ -48,6 +65,13 @@ public class Storage {
     return loadedTasks;
   }
 
+  /**
+   * Parses a line from the file to a task. 
+   * 
+   * @param line The line to be parsed.
+   * @return The task parsed from the line.
+   * @throws AlpaException If the line is in an invalid format.
+   */
   private Task parseLineToTask(String line) throws AlpaException {
     try {
       String[] parts = line.split(" \\| ");
@@ -88,6 +112,12 @@ public class Storage {
     }
   }
 
+  /**
+   * Saves the given list of tasks to the file.
+   *
+   * @param tasks The list of tasks to be saved.
+   * @throws AlpaException If an error occurs while saving the tasks.
+   */
   public void saveTasks(List<Task> tasks) throws AlpaException {
     try (FileWriter fw = new FileWriter(filePath);
         BufferedWriter bw = new BufferedWriter(fw);
