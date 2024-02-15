@@ -3,11 +3,19 @@ package bob;
 import bob.command.Command;
 import bob.exception.BobException;
 
+/**
+ * Represents Bob itself. A <code>Bob</code> object corresponds to an instance of the program.
+ */
 public class Bob {
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
 
+    /**
+     * Returns an instance of the program with its own storage, task list and UI.
+     *
+     * @param dataPath The file path of the storage.
+     */
     public Bob(String dataPath) {
         ui = new Ui();
         storage = new Storage();
@@ -19,6 +27,9 @@ public class Bob {
         }
     }
 
+    /**
+     * Reads and executes the command given by the user until an exit command is encountered.
+     */
     private void runCommandLoopUntilExitCommand() {
         boolean isExit = false;
         while (!isExit) {
@@ -41,6 +52,11 @@ public class Bob {
         runCommandLoopUntilExitCommand();
     }
 
+    /**
+     * The entry point for the program.
+     *
+     * @param args The arguments passed to the <code>main</code> function.
+     */
     public static void main(String[] args) {
         new Bob(Storage.DATA_PATH).run();
     }

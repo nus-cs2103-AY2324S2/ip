@@ -19,6 +19,10 @@ import bob.task.Event;
 import bob.task.Task;
 import bob.task.Todo;
 
+/**
+ * Represents the storage for the program. A <code>Storage</code> object corresponds to
+ * a file acting as the storage for the program.
+ */
 public class Storage {
     private static final String DATA_DIR = "data";
     public static final String DATA_PATH = DATA_DIR + "/bob.txt";
@@ -27,6 +31,14 @@ public class Storage {
 
     private File dataFile;
 
+    /**
+     * Retrieves the data file to be loaded from hard disk,
+     * creating the required directory and/or the file if necessary.
+     *
+     * @param dataPath The path on which the data file lives.
+     * @return The retrieved data file to be loaded from hard disk.
+     * @throws IOException If there has been an error creating the directory and/or file.
+     */
     private static File createOrRetrieve(String dataPath) throws IOException {
         Path path = Paths.get(dataPath);
         Path parent = path.getParent();
@@ -37,6 +49,13 @@ public class Storage {
         return path.toFile();
     }
 
+    /**
+     * Makes sense of a line in the data file to be converted into a task.
+     *
+     * @param line A line in the data file.
+     * @return The task represented by the given line.
+     * @throws LoadingException If the given line is of incorrect format and does not represent any task.
+     */
     // TODO: Once extractParameter is more generalised, we can move this to Parser
     private static Task parseStorageLine(String line) throws LoadingException {
         String[] parameters = line.split(" \\| ");
@@ -71,10 +90,24 @@ public class Storage {
         return task;
     }
 
+    /**
+     * Utility method to format the given <code>LocalDateTime</code>
+     * using the predefined <code>DateTimeFormatter</code>.
+     *
+     * @param dateTime The given <code>LocalDateTime</code>.
+     * @return The formatted string to be stored in the storage.
+     */
     public static String formatDateTime(LocalDateTime dateTime) {
         return dateTime.format(DATETIME_FORMATTER);
     }
 
+    /**
+     * Loads data from hard disk.
+     *
+     * @param dataPath The file path in which the data to be loaded is stored.
+     * @return A list of tasks loaded from hard disk.
+     * @throws LoadingException If an error occurred while loading the tasks from hard disk.
+     */
     public ArrayList<Task> load(String dataPath) throws LoadingException {
         try {
             dataFile = createOrRetrieve(dataPath);
@@ -94,6 +127,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves a new task to hard disk.
+     *
+     * @param task The new task to be saved to hard disk.
+     * @throws SavingException If an error occurred while saving the new task to hard disk.
+     */
     public void saveTask(Task task) throws SavingException {
         try {
             FileWriter fw = new FileWriter(dataFile.getAbsoluteFile(), true);
@@ -107,6 +146,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Update the storage with a specified list of tasks.
+     *
+     * @param tasks The list of tasks to update the storage with.
+     * @throws SavingException If an error occurred while saving the tasks in the list of tasks to hard disk.
+     */
     public void refresh(ArrayList<Task> tasks) throws SavingException {
         try {
             FileWriter fw = new FileWriter(dataFile.getAbsoluteFile());
