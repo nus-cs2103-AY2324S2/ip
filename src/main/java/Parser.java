@@ -20,6 +20,12 @@ public class Parser {
             String keyword = inputArr[0];
             Command output;
             switch (keyword) {
+                case "hi":
+                    output = new GreetCommand();
+                    break;
+                case "bye":
+                    output = new ExitCommand();
+                    break;
                 case "log":
                     output = new LogCommand();
                     break;
@@ -43,6 +49,7 @@ public class Parser {
                     if (toDoMatcher.matches()) {
                         String desc = toDoMatcher.group(1);
                         output = new ToDoCommand(desc);
+                        break;
                     }
                     output = new DefaultCommand(1);
                     break;
@@ -59,6 +66,7 @@ public class Parser {
                         LocalDateTime byDateTime = formatDateTime(by);
 
                         output = new DueCommand(desc, byDateTime);
+                        break;
                     }
                     output = new DefaultCommand(1);
                     break;
@@ -77,6 +85,7 @@ public class Parser {
                         LocalDateTime endDateTime = formatDateTime(end);
 
                         output = new EventCommand(desc, startDateTime, endDateTime);
+                        break;
                     }
                     output = new DefaultCommand(1);
                     break;

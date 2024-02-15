@@ -6,17 +6,6 @@ public class UI {
         System.out.println("----------------------------------------------------------------------------------");
     }
 
-    public String receiveCommand() {
-        Scanner sc = new Scanner(System.in);
-        StringBuilder output = new StringBuilder();
-
-        while (sc.hasNextLine()) {
-            String input = sc.nextLine().toLowerCase().trim();
-            output.append(input);
-        }
-        return output.toString();
-    }
-
     public void greet() {
         showLine();
         System.out.println("BMO chop! ヾ(⌐■_■)ノ♪");
@@ -42,7 +31,7 @@ public class UI {
                 + "7. redo <task number> [uncheck task]\n"
                 + "8. delete <task number> [delete task]\n"
                 + "9. find <keyword> [search for task]\n"
-                + "10. commands [view commands]\n";
+                + "10. commands [view commands]";
         showLine();
         System.out.println(TUTORIAL_PRINT);
         showLine();
@@ -63,6 +52,13 @@ public class UI {
         }
         showLine();
         System.out.println(logPrint.toString());
+        showLine();
+    }
+
+    public void printEmptyStorage() {
+        showLine();
+        System.out.println("BMO cache has no saved tasks");
+        System.out.println("your log is currently empty ᕦ(ò_óˇ)ᕤ");
         showLine();
     }
 
