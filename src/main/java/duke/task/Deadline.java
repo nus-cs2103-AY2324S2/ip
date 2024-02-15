@@ -3,6 +3,7 @@ package duke.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 
 
 /**
@@ -32,6 +33,10 @@ public class Deadline extends Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
         return "[D]" + (this.checkDone() ? "[X] " : "[ ] ") + this.getDescription() + " (by: " + this.by.format(formatter) + ")";
 
+    }
+
+    public LocalDate getRawDate() {
+        return this.by.toLocalDate();
     }
 
     /**

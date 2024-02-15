@@ -93,6 +93,10 @@ public class Parser {
                     ArrayList<Task> temp = taskList.find(str.substring(5));
                     result = io.displaySearchResults(temp);
                     break;
+                case "view":
+                    ArrayList<Task> tempList = taskList.checkSchedule(str.substring(5));
+                    result = io.displayScheduledTasks(tempList);
+                    break;
                 default:
                     throw new DukeException(" Oopsie doodle! I can not understand what you mean.");
             }

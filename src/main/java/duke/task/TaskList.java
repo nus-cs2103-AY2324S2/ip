@@ -11,6 +11,8 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
+import java.time.LocalDate;
+import duke.task.Event;
 
 /**
  * Manages all the operations of tasks on the list.
@@ -148,6 +150,30 @@ public class TaskList {
             }
         }
         return searchedTasks;
+    }
+
+    public ArrayList<Task> checkSchedule(String cmd) {
+        ArrayList<Task> searchTaskOnSpecificDate = new ArrayList<>();
+        try{
+            LocalDate target = LocalDate.parse(cmd, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            for (int i = 0; i < listOfTasks.size(); i++) {
+                Task task = listOfTasks.get(i);
+                if (task instanceof Event) {
+                    LocalDate date = ((Event) task).getRawDate();
+                    if (target.equals(date)) {
+                        searchTaskOnSpecificDate.add(task);
+                    }
+                } else if (task instanceof Deadline) {
+                    LocalDate date = ((Deadline) task).getRawDate();
+                    if (target.equals(date)) {
+                        searchTaskOnSpecificDate.add(task);
+                    }
+                }
+            }
+        } catch (DateTimeParseException e) {
+            throw new IllegalDateFormatException("Invalid Date Format", cmd);
+        }
+        return searchTaskOnSpecificDate;
     }
 
 }
