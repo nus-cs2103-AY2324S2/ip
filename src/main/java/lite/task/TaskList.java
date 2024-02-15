@@ -4,6 +4,8 @@ import lite.Storage;
 import lite.util.Printer;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -44,8 +46,12 @@ public class TaskList {
      * Adds a task to the array list
      * @param task Task to be added
      */
-    public void add (Task task) {
+    public boolean add (Task task) {
+        if (tasks.contains(task)) {
+            return true;
+        }
         this.tasks.add(task);
+        return false;
     }
 
     /**

@@ -53,4 +53,8 @@ public class Printer {
     public static String printNotFound() {
         return "There are no tasks that correspond with your input";
     }
+
+    public static String printDuplicateFound() {
+        return "This task is already in your Task List.";
+    }
 }
