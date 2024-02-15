@@ -1,21 +1,31 @@
 package ChatbotRan;
 
+import java.io.IOException;
+
+import ChatbotRan.components.MainWindow;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * A GUI for Duke using FXML.
+ */
 public class RanApplication extends Application {
-    public RanApplication() {
 
-    }
     @Override
-    public void start(Stage stage) throws Exception {
-
-        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
-        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
-
-        stage.setScene(scene); // Setting the stage to show our screen
-        stage.show(); // Render the stage.
+    public void start(Stage stage) {
+        try {
+            Ran ran = new Ran(new TaskIo("data/ran.txt"), new RanUi());
+            FXMLLoader fxmlLoader = new FXMLLoader(RanApplication.class.getResource("/view/MainWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            stage.setScene(scene);
+            fxmlLoader.<MainWindow>getController().setRan(ran);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

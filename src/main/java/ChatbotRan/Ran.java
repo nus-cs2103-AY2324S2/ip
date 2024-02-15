@@ -1,5 +1,7 @@
 package ChatbotRan;
 
+import javafx.scene.layout.VBox;
+
 import java.util.Scanner;
 
 /**
@@ -16,41 +18,29 @@ public class Ran {
      *
      * @param taskIo Storage of tasks
      */
-    public Ran(TaskIo taskIo) {
+    public Ran(TaskIo taskIo, RanUi ranUi) {
         this.taskList = new TaskList(taskIo);
+        this.ui = ranUi;
         this.taskIo = taskIo;
-        this.ui = new RanUi();
         this.parser = new Parser();
     }
 
-    /**
-     * Runs the chatbot on startup.
-     *
-     * @param args unused
-     */
-    public static void main(String[] args) {
-        TaskIo ti = new TaskIo("data/ran.txt");
-        Ran chatbot = new Ran(ti);
-        chatbot.run();
+    public void respond(String input) {
+        try {
+            parser.exec(input, taskList, ui);
+        } catch (TaskException e) {
+            ui.displayError(e);
+        }
+        if (!parser.running()) {
+            ui.bye();
+        }
     }
 
-    /**
-     * Starts the chatbot.
-     */
-    public void run() {
-        ui.greet();
-        Scanner sc = new Scanner(System.in);
-        do {
-            ui.line();
-            try {
-                parser.exec(sc.nextLine(), taskList, ui);
-            } catch (TaskException e) {
-                ui.error(e);
-            }
-        } while (parser.running());
-
-        ui.bye();
+    public void setContainer(VBox dialogContainer) {
+        this.ui.setContainer(dialogContainer);
     }
-
+    public boolean running() {
+        return this.parser.running();
+    }
 }
 

@@ -1,32 +1,37 @@
 package ChatbotRan;
 
+import ChatbotRan.components.DialogBox;
+import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
+
 import java.util.ArrayList;
 
 /**
- * Displays chatbot responses to the CLI.
+ * Displays chatbot responses to the window.
  */
 public class RanUi {
+    private VBox container;
+
+    private StringBuilder sb = new StringBuilder();
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image ranImage = new Image(this.getClass().getResourceAsStream("/images/DaRan.png"));
+
     /**
      * Prints the startup message.
      */
     public void greet() {
-        System.out.println("Hello. I am ");
+        addOutputLn("Hello. I am ");
         String art = "__________                \n" +
                 "\\______   \\_____    ____  \n" +
                 " |       _/\\__  \\  /    \\ \n" +
                 " |    |   \\ / __ \\|   |  \\\n" +
                 " |____|_  /(____  /___|  /\n" +
                 "        \\/      \\/     \\/ ";
-        System.out.println(art);
-        System.out.println("What would you like to do today?");
+        addOutputLn(art);
+        addOutputLn("What would you like to do today?");
+        displayBuiltOutput();
     }
 
-    /**
-     * Prints a line to separate the next command.
-     */
-    public void line() {
-        System.out.println("____________________________________________________________");
-    }
 
     /**
      * Prints all tasks in the TaskList.
@@ -36,10 +41,10 @@ public class RanUi {
     public void printTasks(TaskList taskList) {
         int size = taskList.size();
         if (size == 0) {
-            System.out.println("You haven't got any tasks.");
+            addOutputLn("You haven't got any tasks.");
         } else {
             for (int i = 0; i < size; i++) {
-                System.out.println("Task " + (i + 1) + ":" + taskList.get(i));
+                addOutputLn("Task " + (i + 1) + ":" + taskList.get(i));
             }
         }
     }
@@ -49,7 +54,7 @@ public class RanUi {
      */
     public void unknown() {
 
-        System.out.println("I didn't understand that.");
+        addOutputLn("I didn't understand that.");
     }
 
     /**
@@ -58,15 +63,15 @@ public class RanUi {
      * @param task task
      */
     public void addTask(Task task) {
-        System.out.println("I've added this task to the list: ");
-        System.out.println(task);
+        addOutputLn("I've added this task to the list: ");
+        addOutputLn(task.toString());
     }
 
     void printNumber(int size) {
         if (size == 1) {
-            System.out.println("There is now 1 task in the list");
+            addOutputLn("There is now 1 task in the list");
         } else {
-            System.out.println("There are now " + size + " tasks in the list");
+            addOutputLn("There are now " + size + " tasks in the list");
         }
     }
 
@@ -76,15 +81,15 @@ public class RanUi {
      * @param task task
      */
     public void delete(Task task) {
-        System.out.println("I've deleted this task: ");
-        System.out.println(task);
+        addOutputLn("I've deleted this task: ");
+        addOutputLn(task.toString());
     }
 
     /**
      * Prints the shutdown message.
      */
     public void bye() {
-        System.out.println("Goodbye, please return soon.");
+        addOutputLn("Goodbye, please return soon.");
     }
 
     /**
@@ -94,9 +99,9 @@ public class RanUi {
      */
     public void unmark(boolean completed) {
         if (completed) {
-            System.out.println("If that's the case, I'll set that task as incomplete: ");
+            addOutputLn("If that's the case, I'll set that task as incomplete: ");
         } else {
-            System.out.println("That task is already incomplete: ");
+            addOutputLn("That task is already incomplete: ");
 
         }
     }
@@ -109,9 +114,9 @@ public class RanUi {
     public void mark(boolean completed) {
 
         if (!completed) {
-            System.out.println("Alright. I have marked this task as complete: ");
+            addOutputLn("Alright. I have marked this task as complete: ");
         } else {
-            System.out.println("That task is already complete: ");
+            addOutputLn("That task is already complete: ");
         }
     }
 
@@ -121,7 +126,7 @@ public class RanUi {
      * @param task task
      */
     public void printTask(Task task) {
-        System.out.println(task);
+        addOutputLn(task.toString());
     }
 
     /**
@@ -129,18 +134,37 @@ public class RanUi {
      *
      * @param e error from parsing a task
      */
-    public void error(TaskException e) {
+    public void displayError(TaskException e) {
         System.out.println(e.getMessage());
     }
 
     public void found(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
-            System.out.println("No tasks contain that string.");
+            addOutputLn("No tasks contain that string.");
         } else {
-            System.out.println("Found "+tasks.size()+" match"+(tasks.size()==1?"":"es"));
+            addOutputLn("Found "+tasks.size()+" match"+(tasks.size()==1?"":"es"));
             for (Task t: tasks) {
                 printTask(t);
             };
         }
+    }
+    public void addOutputLn(String s) {
+        this.sb.append(s);
+        this.sb.append("\n");
+    }
+    public void displayBuiltOutput() {
+        if (sb.length() == 0) {
+            return;
+        }
+        String response = sb.toString();
+        sb.setLength(0);
+        container.getChildren().add(DialogBox.getDukeDialog(response, ranImage));
+    }
+    public void setContainer(VBox dialogContainer) {
+        this.container = dialogContainer;
+    }
+
+    public void displayInput(String input) {
+        container.getChildren().add(DialogBox.getUserDialog(input, userImage));
     }
 }
