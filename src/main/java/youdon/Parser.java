@@ -1,10 +1,8 @@
 package youdon;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
-import java.io.IOException;
-
 import java.util.Scanner;
 
 /**
@@ -75,7 +73,7 @@ public class Parser {
                 // if input == "find", find all tasks with the given word
                 if (command.equals("find")) {
                     TaskList foundList = new TaskList();
-                    for(int i = 0; i < tasks.size(); i++) {
+                    for (int i = 0; i < tasks.size(); i++) {
                         Task currTask = tasks.get(i);
                         if (currTask.toString().contains(task)) {
                             foundList.add(currTask);
