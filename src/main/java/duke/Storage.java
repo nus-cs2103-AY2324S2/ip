@@ -34,6 +34,7 @@ public class Storage {
      */
     public static void loadFileContents(TaskList list) throws DukeException {
         File f = new File(FILE_PATH);
+        assert list != null : "Task list should not be null";
         try {
             if (f.exists()) {
                 try (Scanner scanner = new Scanner(f)) {
@@ -62,6 +63,7 @@ public class Storage {
      * @throws DukeException If there is a problem with loading the line.
      */
     public static void loadLine(String original, TaskList list) throws DukeException {
+        assert list != null : "Task list should not be null";
         String[] inputParts = original.split("\\s+");
 
         if (inputParts[0].equals("todo")) {
@@ -98,6 +100,7 @@ public class Storage {
      * @throws DukeException If there is a problem with writing into file.
      */
     public static void writeToFile(TaskList list) throws DukeException {
+        assert list != null : "Task list should not be null";
         try {
             FileWriter fw = new FileWriter(FILE_PATH);
             for (int i = 0; i < list.getSize(); i++) {
