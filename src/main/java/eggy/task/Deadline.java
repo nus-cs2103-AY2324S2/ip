@@ -53,4 +53,16 @@ public class Deadline extends Task {
     public String toFileString() {
         return "D | " + super.toFileString() + " | " + this.by;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj instanceof Deadline) {
+            Deadline deadline = (Deadline) obj;
+            return this.name.equals(deadline.name) && this.by.equals(deadline.by);
+        }
+        return false;
+    }
 }

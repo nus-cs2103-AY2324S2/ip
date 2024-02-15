@@ -1,7 +1,8 @@
 package eggy.command;
 
-import eggy.exception.EggyException;
+import eggy.exception.DuplicatedTaskException;
 import eggy.exception.IncompleteTaskException;
+import eggy.exception.SaveTasksException;
 import eggy.response.Response;
 import eggy.storage.Storage;
 import eggy.task.Task;
@@ -34,10 +35,12 @@ public class TodoCommand extends Command {
      * @param tasks The task list of the chatbot.
      * @param response The response of the chatbot.
      * @param storage The storage of the chatbot.
-     * @throws EggyException If there is an error saving the task list to the storage.
+     * @throws SaveTasksException If there is an error saving the task list to the storage.
+     * @throws DuplicatedTaskException If the task to be added is already in the task list.
      */
     @Override
-    public void execute(TaskList tasks, Response response, Storage storage) throws EggyException {
+    public void execute(TaskList tasks, Response response, Storage storage)
+            throws SaveTasksException, DuplicatedTaskException {
         Task newTodo = new Todo(this.name);
         tasks.addTask(newTodo);
         response.setTaskAddedResponse(newTodo, tasks.getSize());

@@ -3,6 +3,7 @@ package eggy.command;
 import java.time.LocalDateTime;
 
 import eggy.exception.DateTimeFormatException;
+import eggy.exception.DuplicatedTaskException;
 import eggy.exception.IncompleteTaskException;
 import eggy.exception.SaveTasksException;
 import eggy.response.Response;
@@ -48,9 +49,11 @@ public class EventCommand extends Command {
      * @param response The response of the chatbot.
      * @param storage The storage of the chatbot.
      * @throws SaveTasksException If there is an error saving the task list to the storage.
+     * @throws DuplicatedTaskException If the task to be added is already in the task list.
      */
     @Override
-    public void execute(TaskList tasks, Response response, Storage storage) throws SaveTasksException {
+    public void execute(TaskList tasks, Response response, Storage storage)
+            throws SaveTasksException, DuplicatedTaskException {
         Event newEvent = new Event(this.name, this.start, this.end);
         tasks.addTask(newEvent);
         response.setTaskAddedResponse(newEvent, tasks.getSize());
