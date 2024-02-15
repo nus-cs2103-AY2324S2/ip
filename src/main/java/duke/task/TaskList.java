@@ -14,14 +14,15 @@ public class TaskList implements Iterable<Task> {
 
     @Override
     public String toString() {
-        String out = "Here is the list of things I remember!\n";
+        StringBuilder out = new StringBuilder("Here is the list of things I remember!\n");
 
         for (Task currentItem : this.taskList) {
-            out += this.taskList.indexOf(currentItem) + 1 + "." + currentItem + "\n";
+            out.append(this.taskList.indexOf(currentItem) + 1 + "." + currentItem + "\n");
         }
-        return out.equals("Here is the list of things I remember!\n")
-                ? "Looks like you have nothing to do! Yay!\n"
-                : out;
+
+        return out.toString().equals("Here is the list of things I remember!\n")
+                ? "Looks like you have no tasks to do! Yay!\n"
+                : out.toString();
     }
 
     @Override
@@ -83,6 +84,8 @@ public class TaskList implements Iterable<Task> {
      * @return
      */
     public String find(String searchWord) {
+        assert searchWord != null : "Search word cannot be null";
+
         StringBuilder out = new StringBuilder();
         int count = 0;
 

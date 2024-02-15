@@ -33,6 +33,7 @@ public class Storage {
     public Storage(String filePath) {
         this.file = new File(filePath);
         this.filePath = filePath;
+
         try {
             // Check if the parent directory exists; if not, create it
             File parentDir = file.getParentFile();
@@ -62,6 +63,7 @@ public class Storage {
      * @param taskList TaskList instance to save.
      */
     public void save(TaskList taskList) {
+        assert taskList != null : "Task list cannot be null";
         try {
             FileWriter fw = new FileWriter(this.filePath);
             for (Task task : taskList) {
@@ -80,6 +82,8 @@ public class Storage {
      * @throws StorageException If file not found.
      */
     public TaskList load() throws StorageException {
+        assert this.file != null : "File cannot be null";
+
         TaskList taskList = new TaskList();
 
         try {
@@ -105,6 +109,7 @@ public class Storage {
      */
     private Task parseLineFromStorage(String tokens) throws StorageException {
         try {
+            assert tokens != null : "Tokens cannot be null";
             String[] data = tokens.split(",");
             switch (data[0]) {
             case "TODO":
