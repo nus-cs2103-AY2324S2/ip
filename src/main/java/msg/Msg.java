@@ -42,6 +42,8 @@ public class Msg {
     public void print() {
         System.out.println(this.text);
     }
+
+
     /**
      * Returns string value of message object, which is just the text
      */

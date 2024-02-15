@@ -8,6 +8,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
+import java.util.Scanner;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -47,6 +50,9 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
         Label dukeText = new Label(getResponse(userInput.getText()));
+        // Right now we have SirDuke returning all his responses to the terminal. Now
+        // we need to capture the output and paste it into the DialogBox
+        // look at Socket and getInputStream and getOutputStream
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(userImage)),
                 DialogBox.getDukeDialog(dukeText, new ImageView(dukeImage))
