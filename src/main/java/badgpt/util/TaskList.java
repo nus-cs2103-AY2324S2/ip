@@ -35,6 +35,7 @@ public class TaskList {
         if (tasks.size() == 100) {
             throw new ListFullException("Your todo list is currently full.");
         } else {
+            assert tasks.size() < 100;
             tasks.add(task);
             tasksUi.printAddTask(task, tasks.size());
             hasChanges = true;
@@ -152,6 +153,7 @@ public class TaskList {
      * Finds any tasks containing the specified keyword.
      *
      * @param keyword The term of interest to filter out tasks.
+     * @throws ListEmptyException If there are no tasks containing the keyword.
      */
     public void find(String keyword) throws ListEmptyException {
         List<Task> filtered = new ArrayList<>();
