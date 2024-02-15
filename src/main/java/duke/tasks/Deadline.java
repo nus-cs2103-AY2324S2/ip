@@ -2,6 +2,7 @@ package duke.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  * A class that encapsulates the Deadlines tasks, a type of Task.
@@ -27,9 +28,10 @@ public class Deadline extends Task {
      * 
      * @param name    A String value that states the name of the Task.
      * @param endTime A LocalDate to state the date of deadline.
+     * @param tags    A list of tags to identify the task.
      */
-    public Deadline(String name, LocalDate endDate) {
-        super(name, TYPE, false);
+    public Deadline(String name, LocalDate endDate, ArrayList<String> tags) {
+        super(name, TYPE, false, tags);
         this.endDate = endDate;
     }
 
@@ -39,9 +41,10 @@ public class Deadline extends Task {
      * @param name      A String value that states the name of the Task.
      * @param endDate   LocalDate of when the deadline is.
      * @param completed Boolean of whether Task is completed.
+     * @param tags      A list of tags to identify the task.
      */
-    public Deadline(String name, LocalDate endDate, boolean IsCompleted) {
-        super(name, TYPE, IsCompleted);
+    public Deadline(String name, LocalDate endDate, boolean IsCompleted, ArrayList<String> tags) {
+        super(name, TYPE, IsCompleted, tags);
         this.endDate = endDate;
     }
 
@@ -63,7 +66,7 @@ public class Deadline extends Task {
      */
     @Override
     public String convertToStorageFormat() {
-        return super.convertToStorageFormat() + " | " + this.endDate.format(STORAGEFORMAT);
+        return super.convertToStorageFormat() + " | " + this.endDate.format(STORAGEFORMAT) + " | " + super.tagsToStorageFormat();
     }
 
     /**
@@ -75,6 +78,6 @@ public class Deadline extends Task {
     public String toString() {
         // [T][X] name (by: time)
         String formattedDeadline = this.endDate.format(PRINTFORMAT);
-        return super.toString() + " (by: " + formattedDeadline + ")"; // [T][X] name (by: time)
+        return super.toString() + " (by: " + formattedDeadline + ") Tags:" + super.getTags(); // [T][X] name (by: time)
     }
 }

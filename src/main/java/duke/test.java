@@ -5,7 +5,9 @@ import java.time.format.DateTimeFormatter;
 
 public class test {
     public static void main(String[] args) throws IOException {
-        timetest();
+    String s = "something /tag ";
+    String[] split = s.split("/tag");
+    System.out.println(split[1]);
     }
 
     public static void timetest() {

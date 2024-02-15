@@ -1,15 +1,2 @@
-T | X | sleep
-T | X | more sleep
-T | X | even more sleep
-T | X | too much sleep
-T | X | more sleep
-T | X | more sleep
-T | X | more sleep
-T | X | more sleep
-T | X | more sleep
-T | X | more sleeo
-T | X | more selep
-T | X | more sleep
-T | X | more sleep
-T | X | more sleep
-T | X | more sleep
+T |   | sleep | 
+T |   | more sleep | 

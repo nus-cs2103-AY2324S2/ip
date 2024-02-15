@@ -126,7 +126,7 @@ public class KBot extends Application {
 
         userText.setFont(Font.font("Verdana", FontWeight.NORMAL, 8)); // Set font type and size
         dukeText.setFont(Font.font("Verdana", FontWeight.NORMAL, 8)); // Set font type and size
-        
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
                 DialogBox.getDukeDialog(dukeText, new ImageView(duke)));
@@ -138,7 +138,13 @@ public class KBot extends Application {
      * Replace this stub with your completed method.
      */
     private String getResponse(String input) {
-        return parse(input);
+        String response = parse(input);
+        if (response.equals("bye")) {
+            Platform.exit();
+            return null;
+        } else {
+            return response;
+        }
     }
 
     /**
@@ -149,7 +155,7 @@ public class KBot extends Application {
     public static String parse(String userInput) {
         assert userInput != null && userInput.length() > 0 : "Cannot simulate: no user input!";
         if (userInput.equals("bye")) { // stops the program
-            return "";
+            return userInput;
         } else {
             try {
                 Command c = Parser.parse(userInput);

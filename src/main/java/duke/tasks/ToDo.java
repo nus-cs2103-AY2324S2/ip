@@ -1,5 +1,7 @@
 package duke.tasks;
 
+import java.util.ArrayList;
+
 /**
  * A class that encapsulates the ToDo tasks, a type of Task.
  * 
@@ -14,9 +16,10 @@ public class ToDo extends Task {
      * Constructor for the ToDo.
      * 
      * @param name A String value that states the name of the Task.
+     * @param tags A list of tags to identify the task.
      */
-    public ToDo(String name) {
-        super(name, TYPE, false);
+    public ToDo(String name, ArrayList<String> tags) {
+        super(name, TYPE, false, tags);
     }
 
     /**
@@ -24,9 +27,10 @@ public class ToDo extends Task {
      * 
      * @param name      A String value that states the name of the Task.
      * @param completed Boolean of whether Task is completed.
+     * @param tags      A list of tags to identify the task.
      */
-    public ToDo(String name, boolean isCompleted) {
-        super(name, TYPE, isCompleted);
+    public ToDo(String name, boolean isCompleted, ArrayList<String> tags) {
+        super(name, TYPE, isCompleted, tags);
     }
 
     /**
@@ -47,7 +51,7 @@ public class ToDo extends Task {
      */
     @Override
     public String convertToStorageFormat() {
-        return super.convertToStorageFormat();
+        return super.convertToStorageFormat() + " | " + super.tagsToStorageFormat();
     }
 
     /**
@@ -57,6 +61,6 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
-        return super.toString();
+        return super.toString() + " Tags:" + super.getTags();
     }
 }

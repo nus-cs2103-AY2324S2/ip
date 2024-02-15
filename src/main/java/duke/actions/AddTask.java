@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 import duke.exceptions.InvalidInputException;
 import duke.kbot.TaskFileManager;
@@ -52,9 +53,15 @@ public class AddTask extends Command {
     public String execute() throws IOException, InvalidInputException {
         Task t = null;
         assert instruction != null && instruction.length() > 0 : "Command is not initialised or is empty.";
+        String[] tagSplit = instruction.split("/tags");
+        ArrayList<String> tags = new ArrayList<>();
+        if (tagSplit.length > 1) {
+            ParseTags parsedTags = new ParseTags(tagSplit[1]);
+            tags = parsedTags.tagsStringToArray();
+        }
         switch (instruction) {
             case "todo":
-                t = new ToDo(parameter);
+                t = new ToDo(parameter, tags);
                 break;
             case "deadline":
                 String[] deadlineParameter = parameter.split(" /by ", 2);
@@ -65,7 +72,7 @@ public class AddTask extends Command {
                 String deadlineEndDate = deadlineParameter[1].trim();
                 try {
                     LocalDate deadline = LocalDate.parse(deadlineEndDate, PRINTFORMAT);
-                    t = new Deadline(deadlineName, deadline);
+                    t = new Deadline(deadlineName, deadline, tags);
                 } catch (DateTimeParseException e) {
                     return ("Error while parsing date: Format should be d-M-yy.");
                 }
@@ -86,7 +93,7 @@ public class AddTask extends Command {
                 try {
                     LocalDate start = LocalDate.parse(eventStartDate, PRINTFORMAT);
                     LocalDate end = LocalDate.parse(eventEndDate, PRINTFORMAT);
-                    t = new Event(eventName, start, end);
+                    t = new Event(eventName, start, end, tags);
                 } catch (DateTimeParseException e) {
                     return ("Error while parsing date: Format should be d-M-yy.");
                 }

@@ -1,5 +1,7 @@
 package duke.tasks;
 
+import java.util.ArrayList;
+
 /**
  * Encapsulate a Task with a name and status of boolean to represent whether it
  * has been completed.
@@ -17,15 +19,22 @@ public class Task {
     /** A boolean value that states whether the Task has been completed or not. */
     private boolean isCompleted;
 
+    /** An array of tags to identify the task */
+    private ArrayList<String> tags;
+
     /**
      * Constructor for the Task.
      * 
-     * @param name A String value that states the name of the Task.
+     * @param name        A String value that states the name of the Task.
+     * @param type        Type of task.
+     * @param isCompleted Whether the task has been completed.
+     * @param tags        A list of tags to identify the task.
      */
-    public Task(String name, String type, boolean isCompleted) {
+    public Task(String name, String type, boolean isCompleted, ArrayList<String> tags) {
         this.name = name;
         this.type = type;
         this.isCompleted = isCompleted;
+        this.tags = tags;
     }
 
     /**
@@ -66,6 +75,19 @@ public class Task {
     public String convertToStorageFormat() {
         String mark = isCompleted ? "X" : " ";
         return this.type + " | " + mark + " | " + this.name;
+    }
+
+    public String tagsToStorageFormat() {
+        StringBuilder tagsStorage = new StringBuilder();
+        for (String tag : tags) {
+            // Append the current element followed by a space
+            tagsStorage.append(tag).append(" ");
+        }
+        return tagsStorage.toString().trim();
+    }
+
+    public ArrayList<String> getTags() {
+        return this.tags;
     }
 
     /**

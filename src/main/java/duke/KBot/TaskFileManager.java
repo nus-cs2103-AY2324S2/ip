@@ -3,6 +3,7 @@ package duke.kbot;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import duke.actions.ParseTags;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
@@ -89,34 +90,42 @@ public class TaskFileManager {
         assert instruction != null && instruction.length() > 0 : "File may be corrupted: Task type is not found!";
         Task t = null;
         switch (instruction) {
-            case "T":
-                String[] todoInput = parameter.split(" \\| ", 2);
-                boolean todoIsCompleted = (todoInput[0].trim() != "");
-                String tName = todoInput[1];
-                t = new ToDo(tName, todoIsCompleted);
+            case "T": {
+                String[] todoInput = parameter.split(" \\| ", 3);
+                boolean isCompleted = (todoInput[0].trim() != "");
+                String name = todoInput[1];
+                String tags = todoInput[2];
+                ParseTags pt = new ParseTags(tags);
+                t = new ToDo(name, isCompleted, pt.tagsStringToArray());
                 break;
-            case "D":
-                String[] deadlineInputs = parameter.split(" \\| ", 3);
-                boolean deadlineIsCompleted = (deadlineInputs[0].trim() != "");
-                String deadlineName = deadlineInputs[1];
-                String deadlineDate = deadlineInputs[2];
+            }
+            case "D": {
+                String[] deadlineInputs = parameter.split(" \\| ", 4);
+                boolean isCompleted = (deadlineInputs[0].trim() != "");
+                String name = deadlineInputs[1];
+                String date = deadlineInputs[2];
+                String tags = deadlineInputs[3];
+                ParseTags pt = new ParseTags(tags);
                 try {
-                    LocalDate deadline = LocalDate.parse(deadlineDate, STORAGEFORMAT);
-                    t = new Deadline(deadlineName, deadline, deadlineIsCompleted);
+                    LocalDate deadline = LocalDate.parse(date, STORAGEFORMAT);
+                    t = new Deadline(name, deadline, isCompleted, pt.tagsStringToArray());
                 } catch (DateTimeParseException e) {
                     System.out.println(e.getMessage());
                 }
                 break;
+            }
             case "E":
-                String[] eventInputs = parameter.split(" \\| ", 4);
-                boolean eventIsCompleted = (eventInputs[0].trim() != "");
-                String eventName = eventInputs[1];
-                String eventFrom = eventInputs[2];
-                String eventTo = eventInputs[3];
+                String[] eventInputs = parameter.split(" \\| ", 5);
+                boolean isCompleted = (eventInputs[0].trim() != "");
+                String name = eventInputs[1];
+                String fromDate = eventInputs[2];
+                String toDate = eventInputs[3];
+                String tags = eventInputs[4];
+                ParseTags pt = new ParseTags(tags);
                 try {
-                    LocalDate from = LocalDate.parse(eventFrom, STORAGEFORMAT);
-                    LocalDate to = LocalDate.parse(eventTo, STORAGEFORMAT);
-                    t = new Event(eventName, from, to, eventIsCompleted);
+                    LocalDate from = LocalDate.parse(fromDate, STORAGEFORMAT);
+                    LocalDate to = LocalDate.parse(toDate, STORAGEFORMAT);
+                    t = new Event(name, from, to, isCompleted, pt.tagsStringToArray());
                 } catch (DateTimeParseException f) {
                     System.out.println(f.getMessage());
                 }

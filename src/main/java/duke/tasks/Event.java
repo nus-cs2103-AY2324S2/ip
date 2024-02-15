@@ -2,6 +2,7 @@ package duke.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  * A class that encapsulates the ToDo tasks, a type of Task.
@@ -28,9 +29,10 @@ public class Event extends Task {
      * @param name      A String value that states the name of the Task.
      * @param startDate A LocalDate representation of the start of the event.
      * @param endDate   A LocalDate representation of the end of the event.
+     * @param tags      A list of tags to identify the task.
      */
-    public Event(String name, LocalDate startDate, LocalDate endDate) {
-        super(name, TYPE, false);
+    public Event(String name, LocalDate startDate, LocalDate endDate, ArrayList<String> tags) {
+        super(name, TYPE, false, tags);
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -42,9 +44,10 @@ public class Event extends Task {
      * @param startDate   A LocalDateTime to state the start of event.
      * @param endDate     A LocalDateTime to state the end of event.
      * @param isCompleted Boolean of whether Task is completed.
+     * @param tags        A list of tags to identify the task.
      */
-    public Event(String name, LocalDate startDate, LocalDate endDate, boolean isCompleted) {
-        super(name, TYPE, isCompleted);
+    public Event(String name, LocalDate startDate, LocalDate endDate, boolean isCompleted, ArrayList<String> tags) {
+        super(name, TYPE, isCompleted, tags);
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -68,7 +71,7 @@ public class Event extends Task {
     @Override
     public String convertToStorageFormat() {
         return super.convertToStorageFormat() + " | " + this.startDate.format(STORAGEFORMAT) + " | "
-                + this.endDate.format(STORAGEFORMAT);
+                + this.endDate.format(STORAGEFORMAT) + " | " + super.tagsToStorageFormat();
     }
 
     /**
@@ -80,6 +83,6 @@ public class Event extends Task {
     public String toString() {
         // [T][X] name (from: startTime to: endTime)
         return super.toString() + " (from: " + this.startDate.format(PRINTFORMAT) + " to: "
-                + this.endDate.format(PRINTFORMAT) + ")";
+                + this.endDate.format(PRINTFORMAT) + ") Tags:" + super.getTags();
     }
 }
