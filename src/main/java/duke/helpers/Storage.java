@@ -26,11 +26,10 @@ public class Storage {
     /**
      * Gets memory from hard disk.
      *
-     * @param tasks storage to store the read memory.
      */
     public void getStorageFromHardDisk(TaskList tasks) {
         try {
-            FileManaging.readFileContent(CommandType.FILEPATH.toString(), tasks);
+            FileManaging.readFileContent(filePath, tasks);
         } catch (DukeException e) {
             ui.displayToScreen(e.getMessage());
         } catch (FileNotFoundException e) {

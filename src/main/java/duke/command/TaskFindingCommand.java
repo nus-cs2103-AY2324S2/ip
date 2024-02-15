@@ -21,7 +21,7 @@ public class TaskFindingCommand extends Command {
     }
 
     @Override
-    public String getExecutionMessage(TaskList tasks, Ui ui, Storage storage) {
+    public String getExecutionMessage(TaskList tasks, Ui ui, Storage storage, Storage secondaryStorage) {
         try {
             return tasks.findTask(commandArr.length > 1 ? commandArr[1] : "");
         } catch (DukeException e) {

@@ -296,4 +296,11 @@ public class TaskList {
             return e.getMessage() + ". Please use format : " + CommandType.CHECKDATE.getCommand();
         }
     }
+
+    /**
+     * Removes all items in list.
+     */
+    public void removeAll() {
+        this.storage.removeAll(storage);
+    }
 }

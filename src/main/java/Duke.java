@@ -12,6 +12,7 @@ public class Duke {
     private Ui ui;
     private TaskList tasks;
     private Storage storage;
+    private Storage secondaryStorage;
 
     /**
      * Constructor of Duke.
@@ -21,6 +22,7 @@ public class Duke {
         this.tasks = new TaskList();
         this.storage = new Storage(CommandType.FILEPATH.toString());
         this.storage.getStorageFromHardDisk(this.tasks);
+        this.secondaryStorage = new Storage(CommandType.SECONDARYFILEPATH.toString());
     }
 
 
@@ -32,6 +34,6 @@ public class Duke {
     public String getResponseMessage(String userInput) {
         assert userInput != null;
         Command command = Parser.parse(userInput);
-        return command.getExecutionMessage(tasks, ui, storage);
+        return command.getExecutionMessage(tasks, ui, storage, secondaryStorage);
     }
 }

@@ -24,10 +24,11 @@ public class TaskMarkingCommand extends Command {
     }
 
     @Override
-    public String getExecutionMessage(TaskList tasks, Ui ui, Storage storage) {
+    public String getExecutionMessage(TaskList tasks, Ui ui, Storage storage, Storage secondaryStorage) {
         try {
             String output = tasks.markDone(commandArr.length > 1 ? commandArr[1] : "");
-            FileManaging.writeToFile(CommandType.FILEPATH.toString(), tasks);
+            FileManaging.writeToFile(CommandType.FILEPATH.toString(),
+                    CommandType.SECONDARYFILEPATH.toString(), tasks);
             return output;
         } catch (DukeException e) {
             return e.getMessage();

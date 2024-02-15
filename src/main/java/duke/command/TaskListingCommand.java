@@ -9,7 +9,7 @@ import duke.task.TaskList;
  */
 public class TaskListingCommand extends Command {
     @Override
-    public String getExecutionMessage(TaskList tasks, Ui ui, Storage storage) {
+    public String getExecutionMessage(TaskList tasks, Ui ui, Storage storage, Storage secondaryStorage) {
         return tasks.getListTasksMessage();
     }
 }

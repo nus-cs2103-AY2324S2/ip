@@ -16,7 +16,7 @@ public class TasksPrintingCommand extends Command {
      * @param storage External storage in hard disk.
      */
     @Override
-    public String getExecutionMessage(TaskList tasks, Ui ui, Storage storage) {
+    public String getExecutionMessage(TaskList tasks, Ui ui, Storage storage, Storage secondaryStorage) {
         return ui.getCommandList();
     }
 }
