@@ -1,32 +1,28 @@
 package tasklist;
 
-import parser.Parser;
+import jux.JuxException;
+import parser.DateTimeParser;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.DateTimeException;
 
 public class Deadline extends Task {
     private LocalDateTime dateTime;
-    public Deadline (String desc, String dateOrDateTimeUnformatted) {
+    public Deadline (String desc, String dateOrDateTimeUnformatted) throws JuxException {
         super(desc);
-        try {
-            this.dateTime = Parser.inputConvertToDateTime(dateOrDateTimeUnformatted);
-        } catch (DateTimeException e) {
-            System.out.println(e.getMessage());
-        }
+        this.dateTime = DateTimeParser.inputConvertToDateTime(dateOrDateTimeUnformatted);
     }
     public Deadline (String desc, boolean isDone, String dateOrDateTimeStorage) {
         super(desc, isDone);
-        this.dateTime = Parser.storageConvertToDateTime(dateOrDateTimeStorage);
+        this.dateTime = DateTimeParser.storageConvertToDateTime(dateOrDateTimeStorage);
     }
     @Override
     public String saveStorage(){
         String details = super.saveStorage();
-            details = "D|" + details +"|" +  Parser.convertDateTimeToStringStorage(this.dateTime);
+            details = "D|" + details +"|" +  DateTimeParser.convertDateTimeToStringStorage(this.dateTime);
             return details;
     }
     public String toString() {
-        return "[D]" + super.toString() + "(" + Parser.convertDateTimeToStringUI(this.dateTime) + ")";
+        return "[D]" + super.toString() + "(" + DateTimeParser.convertDateTimeToStringUI(this.dateTime) + ")";
     }
 }

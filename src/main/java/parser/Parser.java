@@ -4,10 +4,6 @@ import tasklist.Task;
 import tasklist.TaskList;
 import ui.Ui;
 
-import java.time.DateTimeException;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Parser {
@@ -330,68 +326,11 @@ public class Parser {
      * Returns a boolean value of whether
      * the user wants to exit the program
      * @param input user input
-     * @return boolean value depending if input is equal to bye
+     * @return boolean value depending on if input is equal to bye
      */
     public static boolean isExit(String input) {
         return input.equals("bye") ? true : false;
     }
 
-    /**
-     * Convert the localDateTime variable in the task to
-     * a presentable format
-     * @param localDateTime date time stored in the task
-     * @return formatted string to be printed
-     */
-    public static String convertDateTimeToStringUI(LocalDateTime localDateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
-        if(localDateTime.toLocalTime().equals(LocalTime.MIDNIGHT)) {
-            formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-        }
-
-        return localDateTime.format(formatter);
-    }
-
-    /**
-     * Converts the localDateTime date to string to be stored in the datafile
-     * @param localDateTime date time stored in the task
-     * @return formatted string to be stored
-     */
-    public static String convertDateTimeToStringStorage(LocalDateTime localDateTime) {
-        String formattedDateTime = localDateTime.format(DateTimeFormatter.ISO_DATE_TIME);
-        return formattedDateTime;
-    }
-
-    /**
-     * Converts the String dateTime in the storage to LocalDateTime
-     * @param date date string stored in storage
-     * @return the local date time to be stored in the task
-     */
-    public static LocalDateTime storageConvertToDateTime(String date) {
-        return LocalDateTime.parse(date, DateTimeFormatter.ISO_DATE_TIME);
-    }
-
-    /**
-     * Converts the String input to LocalDateTime
-     * @param date String date input
-     * @return local date time format
-     * @throws DateTimeException if invalid format
-     */
-    public static LocalDateTime inputConvertToDateTime(String date) throws DateTimeException{
-        try {
-            String timeFormat = date;
-            if (date.contains(":")) {
-                int timeIndex = Util.findNthDividerIndex(date, ' ', 1);
-                timeFormat = date.substring(0, timeIndex) + "T" + date.substring(timeIndex + 1);
-            } else {
-                timeFormat = timeFormat + "T00:00";
-            }
-
-            //System.out.println(timeFormat);
-            LocalDateTime localDateTime = LocalDateTime.parse(timeFormat,DateTimeFormatter.ISO_DATE_TIME);
-            return localDateTime;
-        } catch (DateTimeException e) {
-            throw new DateTimeException("enter using the format:/2019-10-15 or /2019-10-15 18:30" );
-        }
-    }
 }
 

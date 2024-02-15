@@ -1,41 +1,36 @@
 package tasklist;
 
-import parser.Parser;
+import jux.JuxException;
+import parser.DateTimeParser;
 
 import java.time.DateTimeException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Event extends Task{
     private LocalDateTime  startDateTime;
     private LocalDateTime endDateTime;
-    public Event(String desc, String startDate, String endDate){
+    public Event(String desc, String startDate, String endDate) throws JuxException {
         super(desc);
-        try{
-            this.startDateTime = Parser.inputConvertToDateTime(startDate);
-            this.endDateTime = Parser.inputConvertToDateTime(endDate);
-        } catch(DateTimeException e) {
-            System.out.println(e.getMessage());
-        }
-
+            this.startDateTime = DateTimeParser.inputConvertToDateTime(startDate);
+            this.endDateTime = DateTimeParser.inputConvertToDateTime(endDate);
     }
     public Event(String desc, boolean isDone, String startDateStorage, String endDateStorage){
         super(desc, isDone);
-        this.startDateTime = Parser.storageConvertToDateTime(startDateStorage);
-        this.endDateTime = Parser.storageConvertToDateTime(endDateStorage);
+        this.startDateTime = DateTimeParser.storageConvertToDateTime(startDateStorage);
+        this.endDateTime = DateTimeParser.storageConvertToDateTime(endDateStorage);
     }
 
     @Override
     public String saveStorage(){
         String details = super.saveStorage();
-        details = "E|" + details + "|" + Parser.convertDateTimeToStringStorage(startDateTime)
-                + "|" + Parser.convertDateTimeToStringStorage(endDateTime);
+        details = "E|" + details + "|" + DateTimeParser.convertDateTimeToStringStorage(startDateTime)
+                + "|" + DateTimeParser.convertDateTimeToStringStorage(endDateTime);
         return details;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(" + Parser.convertDateTimeToStringUI(startDateTime)
-                + " - " + Parser.convertDateTimeToStringUI(endDateTime) + ")";
+        return "[E]" + super.toString() + "(" + DateTimeParser.convertDateTimeToStringUI(startDateTime)
+                + " - " + DateTimeParser.convertDateTimeToStringUI(endDateTime) + ")";
     }
 }
