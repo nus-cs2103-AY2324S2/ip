@@ -16,14 +16,14 @@ public class TaskListTest {
         for (int i = 0; i < 10; i++) {
             testArrList.add(new Todo("test " + i));
         }
-        TaskList testTasks = new TaskList(testArrList);
+        TaskList testTasks = new TaskList(testArrList.toArray(new Task[0]));
         assertEquals(10, testTasks.getLength());
     }
 
     @Test
     public void testIsEmpty() {
         ArrayList<Task> testArrList = new ArrayList<>();
-        TaskList testTasks = new TaskList(testArrList);
+        TaskList testTasks = new TaskList(testArrList.toArray(new Task[0]));
 
         assertTrue(testTasks.isEmpty());
     }
@@ -33,7 +33,7 @@ public class TaskListTest {
         ArrayList<Task> testArrList = new ArrayList<>();
         Task test = new Todo("test");
         testArrList.add(test);
-        TaskList testTasks = new TaskList(testArrList);
+        TaskList testTasks = new TaskList(testArrList.toArray(new Task[0]));
 
         assertEquals(test, testTasks.get(1));
     }
@@ -41,7 +41,7 @@ public class TaskListTest {
     @Test
     public void testAdd() {
         ArrayList<Task> testArrList = new ArrayList<>();
-        TaskList testTasks = new TaskList(testArrList);
+        TaskList testTasks = new TaskList(testArrList.toArray(new Task[0]));
         Task test = new Todo("test");
         testTasks.add(test);
 
@@ -53,7 +53,7 @@ public class TaskListTest {
         ArrayList<Task> testArrList = new ArrayList<>();
         Task test = new Todo("test");
         testArrList.add(test);
-        TaskList testTasks = new TaskList(testArrList);
+        TaskList testTasks = new TaskList(testArrList.toArray(new Task[0]));
         testTasks.remove(1);
 
         assertTrue(testTasks.isEmpty());
