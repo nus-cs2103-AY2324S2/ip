@@ -64,6 +64,7 @@ public class Storage {
     /**
      * Saves tasks from the task list into the data file.
      * @param list Task list to save the tasks from.
+     * @param dest Destination to save the tasks to.
      */
     public void saveData(TaskList list, String... dest) throws Exception {
         File destFile = this.dataFile;
