@@ -268,7 +268,7 @@ public class TaskList {
         StringBuilder tasks = new StringBuilder();
 
         IntStream
-                .range(0, taskArray.size())
+                .range(0, taskList.size())
                 .mapToObj(index -> String.format("%d.%s\n", index + 1, taskList.get(index).toString()))
                 .forEach(task -> tasks.append(task));
 
