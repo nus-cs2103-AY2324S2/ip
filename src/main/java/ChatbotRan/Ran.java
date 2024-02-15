@@ -14,7 +14,7 @@ public class Ran {
     /**
      * Constructs the object using given input
      *
-     * @param taskIO Storage of tasks
+     * @param taskIo Storage of tasks
      */
     public Ran(TaskIo taskIo) {
         this.taskList = new TaskList(taskIo);
