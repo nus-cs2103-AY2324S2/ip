@@ -131,6 +131,9 @@ public class Ui {
         scanner.close();
     }
 
+    /**
+     * Displays the available commands and their descriptions.
+     */
     public void showHelp() {
         System.out.println("Here are the available commands:");
         System.out.println("  - help: show commands");

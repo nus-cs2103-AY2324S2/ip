@@ -21,6 +21,8 @@ import javafx.util.Duration;
  */
 public class MainWindow extends AnchorPane {
 
+    private static TaskList taskList;
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -31,8 +33,7 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Duke duke;
-    private static TaskList taskList;
-    private static Ui ui;
+
 
     // Images for user and Duke (bot) avatars
     private final Image userImage = new Image(Objects.requireNonNull(
@@ -63,14 +64,14 @@ public class MainWindow extends AnchorPane {
 
         // Show help if no tasks are loaded
         if (taskList.getSize() == 0) {
-            String helpMessage = "Welcome! I'm FICIN.\nWhat can I do for you?\n" +
-                    "\nHere are the available commands:\n" +
-                    "  - help: show commands\n" +
-                    "  - find: Find tasks\n" +
-                    "  - list: List all tasks\n" +
-                    "  - todo <description>: Add a todo task\n" +
-                    "  - deadline <description> /by <date/time>: Add a deadline task\n" +
-                    "  - event <description> /from <start date/time> /to <end date/time>: Add an event task";
+            String helpMessage = "Welcome! I'm FICIN.\nWhat can I do for you?\n"
+                    + "\nHere are the available commands:\n"
+                    + "  - help: show commands\n"
+                    + "  - find: Find tasks\n"
+                    + "  - list: List all tasks\n"
+                    + "  - todo <description>: Add a todo task\n"
+                    + "  - deadline <description> /by <date/time>: Add a deadline task\n"
+                    + "  - event <description> /from <start date/time> /to <end date/time>: Add an event task";
             dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(helpMessage, dukeImage)
             );
