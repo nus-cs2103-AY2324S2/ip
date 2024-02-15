@@ -39,7 +39,7 @@ public class TodoList {
             int index = Integer.parseInt(input);
             list.get(index - 1).markAsDone();
             String markString = "_______________________\n"
-                    +"Marked item " + index + " as done dawg."
+                    + "Marked item " + index + " as done dawg."
                     + "_______________________\n";
             return markString;
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
@@ -60,7 +60,7 @@ public class TodoList {
             int index = Integer.parseInt(input);
             list.get(index - 1).markAsUndone();
             String unmarkString = "_______________________\n"
-                    +"Unmarked item " + index + " as done.\n"
+                    + "Unmarked item " + index + " as done.\n"
                     + "_______________________\n";
             return unmarkString;
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
@@ -96,8 +96,8 @@ public class TodoList {
      * Prints the list of tasks.
      */
     public String print() {
-        String printString =  "_______________________\n"
-        + "Here are the tony.tasks in your list: \n";
+        String printString = "_______________________\n"
+            + "Here are the tony.tasks in your list: \n";
 
         for (int i = 0; i < list.size(); i++) {
             printString += list.get(i).toString() + "\n";
@@ -137,40 +137,50 @@ public class TodoList {
      */
     private Task createTaskFromLine(String line) throws InvalidTaskException {
         String[] parts = line.split("\\|");
-
-        if (parts.length >= 3) {
-            String taskType = parts[0];
-            int completionStatus = Integer.parseInt(parts[1]);
-            String taskDetails = parts[2];
-
-            if (taskType.equals("T")) {
-                Task todo = new TaskFactory().createTask(TaskType.TODO, taskDetails);
-                if (completionStatus == 1) {
-                    todo.markAsDone();
-                }
-                return todo;
-            } else if (taskType.equals("D")) {
-                String deadlineDate = parts[3];
-                Task deadline = new TaskFactory().createTask(TaskType.DEADLINE, taskDetails, "by: " + deadlineDate);
-                if (completionStatus == 1) {
-                    deadline.markAsDone();
-                }
-                return deadline;
-            } else if (taskType.equals("E")) {
-                Task event = new TaskFactory().createTask(TaskType.EVENT, taskDetails,
-                        "from: " + parts[3], "to:" + parts[4]);
-                if (completionStatus == 1) {
-                    event.markAsDone();
-                }
-                return event;
-            }
+        if (parts.length < 3) {
+            throw new InvalidTaskException("Task information incomplete");
         }
-        return null;
+        String taskType = parts[0];
+        int completionStatus;
+        try {
+            completionStatus = Integer.parseInt(parts[1]);
+        } catch (NumberFormatException e) {
+            throw new InvalidTaskException("Invalid completion status format");
+        }
+        String taskDetails = parts[2];
+        TaskFactory taskFactory = new TaskFactory();
+        Task task = null;
+        switch (taskType) {
+        case "T":
+            task = taskFactory.createTask(TaskType.TODO, taskDetails);
+            break;
+        case "D":
+            if (parts.length >= 4) {
+                String deadlineDate = parts[3];
+                task = taskFactory.createTask(TaskType.DEADLINE, taskDetails, "by: " + deadlineDate);
+            } else {
+                throw new InvalidTaskException("Deadline task information incomplete");
+            }
+            break;
+        case "E":
+            if (parts.length >= 5) {
+                String startDate = parts[3];
+                String endDate = parts[4];
+                task = taskFactory.createTask(TaskType.EVENT, taskDetails, "from: " + startDate, "to: " + endDate);
+            } else {
+                throw new InvalidTaskException("Event task information incomplete");
+            }
+            break;
+        default:
+            throw new InvalidTaskException("Invalid task type: " + taskType);
+        }
+        if (task != null && completionStatus == 1) {
+            task.markAsDone();
+        }
+        return task;
     }
 
-    private static void line() {
-        System.out.println("_______________________\n");
-    }
+
 
     /**
      * Function to find tasks via description
@@ -180,29 +190,26 @@ public class TodoList {
     public String find(String input) {
         int count = 1;
         List<String> output = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++) {
-            Task task = list.get(i);
+        for (Task task : list) {
             String description = task.getDescription();
             if (description.contains(input)) {
                 output.add("" + count + ". " + task.toString() + "\n");
                 count++;
             }
         }
+        StringBuilder findString = new StringBuilder("_______________________\n");
         if (count == 1) {
-            String findString = "_______________________\n"
-                    + "Sorry there are no tasks matching " + input + "\n"
-                    + "_______________________\n";
-            return findString;
+            findString.append("Sorry there are no tasks matching ").append(input).append("\n");
         } else {
-            String findString = "_______________________\n" +
-            "Here are the matching tasks in your list: \n";
-            for (int i = 0; i < count - 1; i++) {
-                findString += output.get(i) + "\n";
+            findString.append("Here are the matching tasks in your list: \n");
+            for (String taskString : output) {
+                findString.append(taskString).append("\n");
             }
-            findString += "_______________________\n";
-            return findString;
         }
+        findString.append("_______________________\n");
+        return findString.toString();
     }
+
 
     public int size() {
         return list.size();

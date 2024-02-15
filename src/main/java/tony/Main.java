@@ -2,12 +2,12 @@ package tony;
 
 import java.io.IOException;
 
-import tony.frontend.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import tony.frontend.MainWindow;
 
 /**
  * A GUI for Duke using FXML.
