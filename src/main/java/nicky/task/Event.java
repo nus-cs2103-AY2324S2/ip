@@ -1,16 +1,11 @@
-/*
- * Event.java
- * This class represents an event task in the Duke application.
- * It extends the Task class and includes specific start and end date and time.
- */
-
-package duke.task;
+package nicky.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents an event task in the Duke application.
+ * Represents an event task in the Nicky application.
+ * It extends the Task class and includes specific start and end date and time.
  */
 public class Event extends Task {
     protected LocalDateTime from;

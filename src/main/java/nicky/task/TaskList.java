@@ -1,18 +1,13 @@
-/*
- * TaskList.java
- * This class represents a list of tasks in the Duke application.
- * It provides methods for managing tasks such as adding, removing, and listing tasks.
- */
-
-package duke.task;
+package nicky.task;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import duke.DukeException;
+import nicky.NickyException;
 
 /**
- * Represents a list of tasks in the Duke application.
+ * Represents a list of tasks in the Nicky application.
+ * It provides methods for managing tasks such as adding, removing, and listing tasks.
  */
 public class TaskList {
     private final List<Task> tasks;
@@ -29,11 +24,11 @@ public class TaskList {
      *
      * @param index The index of the task to be removed.
      * @return The removed Task object.
-     * @throws DukeException If the index is out of range.
+     * @throws NickyException If the index is out of range.
      */
-    public Task removeTask(int index) throws DukeException {
+    public Task removeTask(int index) throws NickyException {
         if (index < 0 || index >= tasks.size()) {
-            throw new DukeException("duke.task.Task number out of range.");
+            throw new NickyException("Task number out of range.");
         }
         return tasks.remove(index);
     }

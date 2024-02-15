@@ -1,13 +1,8 @@
-/*
- * Task.java
- * This class represents a task in the Duke application.
- * It includes a description and a boolean flag to indicate whether the task is done or not.
- */
-
-package duke.task;
+package nicky.task;
 
 /**
- * Represents a task in the Duke application.
+ * Represents a task in the Nicky application.
+ * It includes a description and a boolean flag to indicate whether the task is done or not.
  */
 public class Task {
     protected String description;

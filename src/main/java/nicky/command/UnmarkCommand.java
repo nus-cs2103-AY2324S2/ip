@@ -1,21 +1,16 @@
-/*
- * UnmarkCommand.java
- * This class represents a command to unmark a task as not done in the Duke application.
- * It allows the user to mark a completed task as not done by specifying its index in the task list.
- */
-
-package duke.command;
+package nicky.command;
 
 import java.io.IOException;
 
-import duke.DukeException;
-import duke.Ui;
-import duke.task.Storage;
-import duke.task.Task;
-import duke.task.TaskList;
+import nicky.NickyException;
+import nicky.Ui;
+import nicky.task.Storage;
+import nicky.task.Task;
+import nicky.task.TaskList;
 
 /**
- * Represents a command to unmark a task as not done in the Duke application.
+ * Represents a command to unmark a task as not done in the Nicky application.
+ * It allows the user to mark a completed task as not done by specifying its index in the task list.
  */
 public class UnmarkCommand extends Command {
     private final String fullCommand;
@@ -25,18 +20,18 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NickyException, IOException {
         String response;
         try {
             int index = Integer.parseInt(fullCommand.substring(7).trim()) - 1;
             if (index < 0 || index >= tasks.size()) {
-                throw new DukeException("duke.Task number " + (index + 1) + " does not exist.");
+                throw new NickyException("Task number " + (index + 1) + " does not exist.");
             }
             Task task = tasks.getTasks().get(index);
             response = ui.showUnmarkedMessage(task);
             task.markAsNotDone();
         } catch (NumberFormatException e) {
-            throw new DukeException("Please enter a valid task number to unmark.");
+            throw new NickyException("Please enter a valid task number to unmark.");
         }
         storage.saveTasks(tasks);
         return response;

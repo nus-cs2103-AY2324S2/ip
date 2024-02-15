@@ -1,4 +1,4 @@
-package duke;
+package nicky;
 
 import java.io.IOException;
 
@@ -21,8 +21,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 /**
- * DialogBox class represents a custom control used to display messages in the Duke application.
- * It includes an image and a text area to show messages from both the user and Duke.
+ * DialogBox class represents a custom control used to display messages in the Nicky application.
+ * It includes an image and a text area to show messages from both the user and Nicky.
  */
 public class DialogBox extends HBox {
     @FXML
@@ -45,11 +45,11 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Configures the dialog box with appropriate settings based on whether the dialog is for Duke or the user.
-     * @param isDuke A boolean flag indicating whether the dialog box is for Duke (true) or the user (false).
+     * Configures the dialog box with appropriate settings based on whether the dialog is for Nicky or the user.
+     * @param isNicky A boolean flag indicating whether the dialog box is for Nicky (true) or the user (false).
      *               This affects the background color and alignment of the dialog box.
      */
-    private void setupDialogBox(boolean isDuke) {
+    private void setupDialogBox(boolean isNicky) {
         dialog.setWrapText(true);
         dialog.setMaxWidth(Double.MAX_VALUE);
         HBox.setHgrow(dialog, Priority.ALWAYS);
@@ -58,11 +58,11 @@ public class DialogBox extends HBox {
         this.setAlignment(Pos.CENTER_RIGHT);
         this.setSpacing(10);
         this.setPadding(new Insets(10));
-        Color bgColor = isDuke ? Color.LIGHTBLUE : Color.LIGHTGRAY;
+        Color bgColor = isNicky ? Color.LIGHTBLUE : Color.LIGHTGRAY;
         BackgroundFill fill = new BackgroundFill(bgColor, new CornerRadii(5.0), Insets.EMPTY);
         this.setBackground(new Background(fill));
 
-        if (isDuke) {
+        if (isNicky) {
             flip();
         }
     }
@@ -83,12 +83,12 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Creates a dialog box for Duke's response with specified text and image.
+     * Creates a dialog box for Nicky's response with specified text and image.
      * @param text The text to be displayed in the dialog box.
-     * @param img The image associated with the dialog box (typically Duke's avatar).
-     * @return A DialogBox instance configured for displaying Duke's response.
+     * @param img The image associated with the dialog box (typically Nicky's avatar).
+     * @return A DialogBox instance configured for displaying Nicky's response.
      */
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getNickyDialog(String text, Image img) {
         DialogBox dialogBox = new DialogBox();
         dialogBox.dialog.setText(text);
         dialogBox.displayPicture.setImage(img);
@@ -107,7 +107,7 @@ public class DialogBox extends HBox {
 
     /**
      * Flips the dialog box to change the orientation of the text and image.
-     * This method is typically used to differentiate between user messages and Duke's responses.
+     * This method is typically used to differentiate between user messages and Nicky's responses.
      */
     private void flip() {
         ObservableList<Node> tmp = this.getChildren();

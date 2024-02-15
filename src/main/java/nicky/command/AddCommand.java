@@ -1,25 +1,20 @@
-/*
- * AddCommand.java
- * This class represents a command to add tasks to the Duke application.
- * It handles the addition of Todo, Deadline, and Event tasks based on user input.
- */
-
-package duke.command;
+package nicky.command;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-import duke.DukeException;
-import duke.Ui;
-import duke.task.DateTimeUtil;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Storage;
-import duke.task.TaskList;
-import duke.task.Todo;
+import nicky.NickyException;
+import nicky.Ui;
+import nicky.task.DateTimeUtil;
+import nicky.task.Deadline;
+import nicky.task.Event;
+import nicky.task.Storage;
+import nicky.task.TaskList;
+import nicky.task.Todo;
 
 /**
- * Represents a command to add tasks to the Duke application.
+ * Represents a command to add tasks to the Nicky application.
+ * It handles the addition of Todo, Deadline, and Event tasks based on user input.
  */
 public class AddCommand extends Command {
     private final String fullCommand;
@@ -34,14 +29,14 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NickyException, IOException {
         assert tasks != null : "TaskList cannot be null";
         assert ui != null : "Ui cannot be null";
         assert storage != null : "Storage cannot be null";
 
         String[] commandParts = fullCommand.split(" ", 2);
         if (commandParts.length < 2 || commandParts[1].trim().isEmpty()) {
-            throw new DukeException("The description cannot be empty.");
+            throw new NickyException("The description cannot be empty.");
         }
 
         String taskType = commandParts[0];
@@ -55,7 +50,7 @@ public class AddCommand extends Command {
         case "event":
             return addEventTask(tasks, ui, storage, description);
         default:
-            throw new DukeException("Please enter a valid task type.");
+            throw new NickyException("Please enter a valid task type.");
         }
     }
 
@@ -73,10 +68,10 @@ public class AddCommand extends Command {
     }
 
     private String addDeadlineTask(TaskList tasks, Ui ui, Storage storage,
-                                   String description) throws DukeException, IOException {
+                                   String description) throws NickyException, IOException {
         String[] deadlineParts = description.split(" /by ");
         if (deadlineParts.length < 2 || deadlineParts[1].trim().isEmpty()) {
-            throw new DukeException("The deadline time or task name is missing.");
+            throw new NickyException("The deadline time or task name is missing.");
         }
         LocalDateTime deadlineTime = DateTimeUtil.parseDateTime(deadlineParts[1].trim());
         tasks.add(new Deadline(deadlineParts[0].trim(), deadlineTime));
@@ -86,15 +81,15 @@ public class AddCommand extends Command {
     }
 
     private String addEventTask(TaskList tasks, Ui ui, Storage storage,
-                                String description) throws DukeException, IOException {
+                                String description) throws NickyException, IOException {
         String[] eventParts = description.split(" /from ", 2);
         if (eventParts.length < 2 || eventParts[1].trim().isEmpty()) {
-            throw new DukeException("The event time details or event times are missing.");
+            throw new NickyException("The event time details or event times are missing.");
         }
         String eventDescription = eventParts[0].trim();
         String[] timeParts = eventParts[1].split(" /to ", 2);
         if (timeParts.length < 2) {
-            throw new DukeException("Incomplete event time details. Both start and end times are required.");
+            throw new NickyException("Incomplete event time details. Both start and end times are required.");
         }
         LocalDateTime startTime = DateTimeUtil.parseDateTime(timeParts[0].trim());
         LocalDateTime endTime = DateTimeUtil.parseDateTime(timeParts[1].trim());

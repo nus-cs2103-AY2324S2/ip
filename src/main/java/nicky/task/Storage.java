@@ -1,10 +1,4 @@
-/*
- * Storage.java
- * This class handles reading and writing tasks to a storage file in the Duke application.
- * It is responsible for loading tasks from a file and saving tasks to a file.
- */
-
-package duke.task;
+package nicky.task;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,10 +8,11 @@ import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import duke.DukeException;
+import nicky.NickyException;
 
 /**
- * Handles reading and writing tasks to a storage file in the Duke application.
+ * Handles reading and writing tasks to a storage file in the Nicky application.
+ * It is responsible for loading tasks from a file and saving tasks to a file.
  */
 public class Storage {
     private final String filePath;
@@ -73,7 +68,7 @@ public class Storage {
             }
         } catch (IOException e) {
             throw new IOException("Error reading from file: " + filePath, e);
-        } catch (DukeException e) {
+        } catch (NickyException e) {
             throw new RuntimeException("Error parsing date-time: " + e.getMessage(), e);
         }
         assert tasks != null : "TaskList should not be null after loading tasks";

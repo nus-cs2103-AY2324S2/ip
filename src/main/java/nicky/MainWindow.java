@@ -1,4 +1,4 @@
-package duke;
+package nicky;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -12,7 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 
 /**
- * Controller class for the main window of the Duke application.
+ * Controller class for the main window of the Nicky application.
  * Manages the interaction between the user and the application's GUI.
  */
 public class MainWindow {
@@ -25,10 +25,10 @@ public class MainWindow {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Nicky nicky;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image nickyImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     /**
      * Initializes the main window components and binds properties for dynamic layout changes.
@@ -39,11 +39,11 @@ public class MainWindow {
     }
 
     /**
-     * Sets the Duke instance for the window and displays the welcome message.
-     * @param d Instance of Duke to be used.
+     * Sets the Nicky instance for the window and displays the welcome message.
+     * @param n Instance of Nicky to be used.
      */
-    public void setDuke(Duke d) {
-        this.duke = d;
+    public void setNicky(Nicky n) {
+        this.nicky = n;
         showWelcomeMessage();
     }
 
@@ -51,21 +51,21 @@ public class MainWindow {
      * Displays the welcome message in the dialog container.
      */
     private void showWelcomeMessage() {
-        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(duke.getWelcomeMessage(), dukeImage));
+        dialogContainer.getChildren().addAll(DialogBox.getNickyDialog(nicky.getWelcomeMessage(), nickyImage));
     }
 
     /**
-     * Method to handle user input and generate Duke's response.
+     * Method to handle user input and generate Nicky's response.
      * It also checks for an exit command to close the application.
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = nicky.getResponse(input);
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getNickyDialog(response, nickyImage)
         );
         userInput.clear();
 

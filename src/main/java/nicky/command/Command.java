@@ -1,20 +1,15 @@
-/*
- * Command.java
- * This class is the base class for all command-related classes in the Duke application.
- * It defines the common interface and properties that all command classes must have.
- */
-
-package duke.command;
+package nicky.command;
 
 import java.io.IOException;
 
-import duke.DukeException;
-import duke.Ui;
-import duke.task.Storage;
-import duke.task.TaskList;
+import nicky.NickyException;
+import nicky.Ui;
+import nicky.task.Storage;
+import nicky.task.TaskList;
 
 /**
- * Represents a command in the Duke application.
+ * Represents a command in the Nicky application.
+ * It defines the common interface and properties that all command classes must have.
  */
 public abstract class Command {
     /**
@@ -25,10 +20,10 @@ public abstract class Command {
      * @param ui      The Ui object for interacting with the user interface.
      * @param storage The Storage object for reading from or writing to the storage file.
      * @return A String representing the outcome of the command execution.
-     * @throws DukeException If an application-specific error occurs during command execution.
+     * @throws NickyException If an application-specific error occurs during command execution.
      * @throws IOException   If an I/O error occurs while accessing the storage file.
      */
-    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws NickyException, IOException;
 
     /**
      * Determines whether this command is an "exit" command that should signal the application to terminate.

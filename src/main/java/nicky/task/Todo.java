@@ -1,13 +1,7 @@
-/*
- * Todo.java
- * This class represents a todo task in the Duke application.
- * It extends the Task class and does not have specific date and time.
- */
-
-package duke.task;
+package nicky.task;
 
 /**
- * Represents a todo task in the Duke application.
+ * Represents a todo task in the Nicky application.
  */
 public class Todo extends Task {
     /**

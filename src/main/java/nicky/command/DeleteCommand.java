@@ -1,21 +1,16 @@
-/*
- * DeleteCommand.java
- * This class represents a command to delete a task from the Duke application.
- * It allows the user to remove a task by specifying its index in the task list.
- */
-
-package duke.command;
+package nicky.command;
 
 import java.io.IOException;
 
-import duke.DukeException;
-import duke.Ui;
-import duke.task.Storage;
-import duke.task.Task;
-import duke.task.TaskList;
+import nicky.NickyException;
+import nicky.Ui;
+import nicky.task.Storage;
+import nicky.task.Task;
+import nicky.task.TaskList;
 
 /**
- * Represents a command to delete a task from the Duke application.
+ * Represents a command to delete a task from the Nicky application.
+ * It allows the user to remove a task by specifying its index in the task list.
  */
 public class DeleteCommand extends Command {
     private final String fullCommand;
@@ -25,17 +20,17 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NickyException, IOException {
         String response;
         try {
             int index = Integer.parseInt(fullCommand.substring(7).trim()) - 1;
             if (index < 0 || index >= tasks.size()) {
-                throw new DukeException("Task number " + (index + 1) + " does not exist.");
+                throw new NickyException("Task number " + (index + 1) + " does not exist.");
             }
             Task removedTask = tasks.removeTask(index);
             response = ui.showDeletedMessage(tasks, removedTask);
         } catch (NumberFormatException e) {
-            throw new DukeException("Please enter a valid task number to delete.");
+            throw new NickyException("Please enter a valid task number to delete.");
         }
         storage.saveTasks(tasks);
         return response;

@@ -1,23 +1,18 @@
-/*
- * Parser.java
- * This class provides utility methods to parse user input commands and create corresponding Command objects.
- * It is used for interpreting user commands in the Duke application.
- */
+package nicky.task;
 
-package duke.task;
-
-import duke.DukeException;
-import duke.command.AddCommand;
-import duke.command.Command;
-import duke.command.DeleteCommand;
-import duke.command.ExitCommand;
-import duke.command.FindCommand;
-import duke.command.ListCommand;
-import duke.command.MarkCommand;
-import duke.command.UnmarkCommand;
+import nicky.NickyException;
+import nicky.command.AddCommand;
+import nicky.command.Command;
+import nicky.command.DeleteCommand;
+import nicky.command.ExitCommand;
+import nicky.command.FindCommand;
+import nicky.command.ListCommand;
+import nicky.command.MarkCommand;
+import nicky.command.UnmarkCommand;
 
 /**
  * Provides utility methods to parse user input commands and create corresponding Command objects.
+ * It is used for interpreting user commands in the Nicky application.
  */
 public class Parser {
     /**
@@ -25,9 +20,9 @@ public class Parser {
      *
      * @param fullCommand The full user command to parse.
      * @return The Command object corresponding to the parsed user command.
-     * @throws DukeException If the command is unrecognized or has invalid format.
+     * @throws NickyException If the command is unrecognized or has invalid format.
      */
-    public static Command parse(String fullCommand) throws DukeException {
+    public static Command parse(String fullCommand) throws NickyException {
         assert fullCommand != null && !fullCommand.trim().isEmpty() : "Full command cannot be null or empty";
         String[] parts = fullCommand.split(" ", 2);
         String commandWord = parts[0];
@@ -50,7 +45,7 @@ public class Parser {
         case "find":
             return new FindCommand(fullCommand);
         default:
-            throw new DukeException("Unrecognized command.");
+            throw new NickyException("Unrecognized command.");
         }
     }
 }

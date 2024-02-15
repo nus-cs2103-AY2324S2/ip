@@ -1,18 +1,13 @@
-/*
- * Deadline.java
- * This class represents a deadline task in the Duke application.
- * It extends the Task class and includes a specific deadline date and time.
- */
-
-package duke.task;
+package nicky.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import duke.DukeException;
+import nicky.NickyException;
 
 /**
- * Represents a deadline task in the Duke application.
+ * Represents a deadline task in the Nicky application.
+ * It extends the Task class and includes a specific deadline date and time.
  */
 public class Deadline extends Task {
     protected LocalDateTime by;
@@ -22,9 +17,9 @@ public class Deadline extends Task {
      *
      * @param description The description of the deadline task.
      * @param by          The deadline date and time.
-     * @throws DukeException If there is an issue with the task creation.
+     * @throws NickyException If there is an issue with the task creation.
      */
-    public Deadline(String description, LocalDateTime by) throws DukeException {
+    public Deadline(String description, LocalDateTime by) throws NickyException {
         super(description);
         this.by = by;
     }

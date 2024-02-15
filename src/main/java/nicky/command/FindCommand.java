@@ -1,24 +1,19 @@
-/*
- * FindCommand.java
- * This class represents a command to find tasks in the Duke application.
- * It searches for tasks that contain a specific keyword in their descriptions.
- */
-
-package duke.command;
+package nicky.command;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import duke.DukeException;
-import duke.Ui;
-import duke.task.Storage;
-import duke.task.Task;
-import duke.task.TaskList;
+import nicky.NickyException;
+import nicky.Ui;
+import nicky.task.Storage;
+import nicky.task.Task;
+import nicky.task.TaskList;
 
 /**
- * Represents a command to find tasks in the Duke application.
+ * Represents a command to find tasks in the Nicky application.
+ * It searches for tasks that contain a specific keyword in their descriptions.
  */
 public class FindCommand extends Command {
     private final String keyword;
@@ -39,14 +34,13 @@ public class FindCommand extends Command {
      * @param tasks   The TaskList containing the list of tasks.
      * @param ui      The Ui object for user interaction.
      * @param storage The Storage object for saving and loading tasks.
-     * @throws DukeException If there is an issue executing the command.
+     * @throws NickyException If there is an issue executing the command.
      * @throws IOException  If there is an issue saving the tasks to the file.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
-        String response;
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NickyException, IOException {
         if (keyword.isEmpty()) {
-            throw new DukeException("Please provide a keyword to search for.");
+            throw new NickyException("Please provide a keyword to search for.");
         }
 
         List<Task> filteredTasks = tasks.getTasks().stream()

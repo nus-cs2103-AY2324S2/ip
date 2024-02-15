@@ -1,10 +1,4 @@
-/*
- * DateTimeUtil.java
- * This class provides utility methods for parsing date-time strings in various formats.
- * It is used for handling date and time related functionality in the Duke application.
- */
-
-package duke.task;
+package nicky.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -12,10 +6,11 @@ import java.time.format.DateTimeParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import duke.DukeException;
+import nicky.NickyException;
 
 /**
  * Provides utility methods for parsing date-time strings in various formats.
+ * It is used for handling date and time related functionality in the Nicky application.
  */
 public class DateTimeUtil {
     private static final Logger LOGGER = Logger.getLogger(DateTimeUtil.class.getName());
@@ -25,9 +20,9 @@ public class DateTimeUtil {
      *
      * @param dateTimeString The date-time string to parse.
      * @return The LocalDateTime object representing the parsed date and time.
-     * @throws DukeException If the date-time string is in an invalid format.
+     * @throws NickyException If the date-time string is in an invalid format.
      */
-    public static LocalDateTime parseDateTime(String dateTimeString) throws DukeException {
+    public static LocalDateTime parseDateTime(String dateTimeString) throws NickyException {
         DateTimeFormatter isoFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
         String[] dateTimeFormats = {
             "yyyy-MM-dd HH:mm", "dd/MM/yyyy HH:mm", "MM/dd/yyyy HH:mm",
@@ -52,7 +47,7 @@ public class DateTimeUtil {
             }
         }
 
-        throw new DukeException("Invalid date-time format. "
+        throw new NickyException("Invalid date-time format. "
                 + "Please use a valid format such as yyyy-MM-dd HH:mm or dd/MM/yyyy HH:mm.");
     }
 }

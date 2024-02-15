@@ -1,16 +1,10 @@
-/*
- * Ui.java
- * This class handles the user interface for the Duke application, including input and output.
- * It provides methods for reading user commands and displaying messages.
- */
+package nicky;
 
-package duke;
-
-import duke.task.Task;
-import duke.task.TaskList;
+import nicky.task.Task;
+import nicky.task.TaskList;
 
 /**
- * Handles the user interface for the Duke application, including input and output.
+ * Handles the user interface for the Nicky application, including input and output.
  */
 public class Ui {
 
