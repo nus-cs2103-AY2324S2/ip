@@ -7,6 +7,9 @@ public class EventCommand extends Command {
     private String fullCommand;
 
     public EventCommand(String fullCommand, TaskList tasks) {
+
+        assert fullCommand.equals("") : "Should not happen";
+
         this.fullCommand = fullCommand;
         this.tasks = tasks;
     }
