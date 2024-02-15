@@ -11,6 +11,10 @@ class Todo extends Task {
         }
     }
 
+    Todo(String name, boolean doneStatus) {
+        super(name, doneStatus);
+    }
+
     @Override
     public String toString() {
         return String.format("[T]%s", super.toString());

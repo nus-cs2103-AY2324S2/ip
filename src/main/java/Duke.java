@@ -1,216 +1,69 @@
 import java.io.File;
-import java.io.FileWriter;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 
 public class Duke {
-    private static final String LINE = "    ___________________________________________________________\n";
-    private static final String[] dateFormats = { "yyyy-MM-dd", "dd-MM-yyyy", "MM-dd-yyyy", "dd/MM/yyyy", "MM/dd/yyyy",
-            "yyyy/MM/dd", "dd MMM yyyy", "MMM dd yyyy", "yyyy MMM dd", "dd MMM yyyy", "yyyy-MM-d", "d-MM-yyyy",
-            "MM-d-yyyy", "d/MM/yyyy", "MM/d/yyyy", "yyyy/MM/d", "d MMM yyyy", "MMM d yyyy", "yyyy MMM d",
-            "d MMM yyyy" };
-    private static final String[] timeFormats = { "HH:mm", "HH:mm", "h:mm a", "HHmm", "hh:mm a" };
 
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        ArrayList<Task> listOfTasks = new ArrayList<>();
-        boolean hasEnded = false;
         String botName = "Yube";
         File file = new File("./yube.txt");
         file.createNewFile();
+        Ui ui = new Ui();
+        Storage storage = new Storage("./yube.txt");
+        TaskList taskList = new TaskList(storage.loadTasks());
 
-        greet(botName);
-        while (!(hasEnded)) {
+        ui.showWelcomeMessage(botName);
+        while (true) {
             try {
                 String input = reader.readLine();
                 if (input.equals("bye")) {
-                    bye();
-                    writeArrayListToFile(listOfTasks, "./yube.txt");
-                    hasEnded = true;
+                    ui.showExitMessage();
+                    storage.writeArrayListToFile(taskList);
+                    break;
                 } else if (input.equals("list")) {
-                    printList(listOfTasks);
+                    ui.printList(taskList);
                 } else if (input.contains("mark")) {
                     String[] parts = input.split(" ");
                     int index = Integer.parseInt(parts[1]);
+                    Task task = taskList.getTask(index - 1);
                     if (input.contains("unmark")) {
-                        unmark(listOfTasks.get(index - 1));
+                        task.setNotDone();
+                        ui.showUnmark(task);
                     } else {
-                        mark(listOfTasks.get(index - 1));
+                        task.setDone();
+                        ui.showMark(task);
                     }
 
                 } else if (input.contains("todo")) {
                     Task newTask = new Todo(input.substring(5));
-                    listOfTasks.add(newTask);
-                    repeatFunction(newTask, listOfTasks);
+                    taskList.addTask(newTask);
+                    ui.showRepeatFunction(newTask, taskList);
                 } else if (input.contains("deadline")) {
                     String[] parts = input.substring(9).split(" /");
-                    LocalDateTime by = convertDateTime(parts[1].substring(3));
-                    Task newTask = new Deadline(parts[0], by);
-                    listOfTasks.add(newTask);
-                    repeatFunction(newTask, listOfTasks);
+                    Task newTask = new Deadline(parts[0], parts[1].substring(3));
+                    taskList.addTask(newTask);
+                    ui.showRepeatFunction(newTask, taskList);
                 } else if (input.contains("event")) {
                     String[] parts = input.substring(6).split(" /");
-                    LocalDateTime from = convertDateTime(parts[1].substring(5));
-                    LocalDateTime to = convertDateTime(parts[2].substring(3));
-                    Task newTask = new Event(parts[0], from, to);
-                    listOfTasks.add(newTask);
-                    repeatFunction(newTask, listOfTasks);
+                    Task newTask = new Event(parts[0], parts[1].substring(5),
+                            parts[2].substring(3));
+                    taskList.addTask(newTask);
+                    ui.showRepeatFunction(newTask, taskList);
                 } else if (input.contains("delete")) {
                     String[] parts = input.split(" ");
                     int deleteIndex = Integer.parseInt(parts[1]) - 1;
-                    Task deletedTask = listOfTasks.get(deleteIndex);
-                    listOfTasks.remove(deleteIndex);
-                    deleteTask(deletedTask, listOfTasks);
+                    Task deletedTask = taskList.getTask(deleteIndex);
+                    taskList.removeTask(deleteIndex);
+                    ui.deleteTask(deletedTask, taskList);
                 } else {
                     throw new DukeException("Unable to read input");
                 }
             } catch (DukeException e) {
-                System.out.print(LINE);
-                System.out.println("     " + e);
-                System.out.println(LINE);
+                ui.showErrorMessage(e.toString());
             }
         }
 
-    }
-
-    /**
-     * Displays a greeting message.
-     * 
-     * @param botName Name of the bot.
-     */
-    public static void greet(String botName) {
-        System.out.println(String.format(
-                "%s     Hello! I'm %s \n     What can I do for you? \n%s", LINE, botName, LINE));
-    }
-
-    /**
-     * 
-     * @param dateTimeString
-     * @return
-     */
-    public static LocalDateTime convertDateTime(String dateTimeString) {
-        for (String dateFormat : dateFormats) {
-            for (String timeFormat : timeFormats) {
-                try {
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(timeFormat + " " + dateFormat);
-                    return LocalDateTime.parse(dateTimeString, formatter);
-                } catch (DateTimeParseException e) {
-
-                }
-                try {
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat + " " + timeFormat);
-                    return LocalDateTime.parse(dateTimeString, formatter);
-                } catch (DateTimeParseException e) {
-
-                }
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Adds text into fileName
-     * 
-     * @param list     List of Task
-     * @param fileName Filename
-     */
-    public static void writeArrayListToFile(ArrayList<Task> list, String fileName) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
-            for (Task element : list) {
-                writer.write(element.toString());
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Marks a task as done.
-     * 
-     * @param task
-     */
-    public static void mark(Task task) {
-        System.out.println(LINE);
-        System.out.println("     Nice! I've marked this task as done:");
-        task.setDone();
-        System.out.println("       " + task.toString());
-        System.out.println(LINE);
-    }
-
-    /**
-     * Displays a message of the deleted task and the number of task in the list
-     * 
-     * @param task
-     * @param listOfTasks
-     */
-    public static void deleteTask(Task task, ArrayList<? extends Task> listOfTasks) {
-        System.out.print(LINE);
-        System.out.println("     Noted. I've removed this task:");
-        System.out.println("       " + task);
-        int len = listOfTasks.size();
-        System.out.println(String.format("     Now you have %d tasks in the list.", len));
-        System.out.println(LINE);
-    }
-
-    /**
-     * Marks a task as not done.
-     * 
-     * @param task
-     */
-    public static void unmark(Task task) {
-        System.out.println(LINE);
-        System.out.println("     OK, I've marked this task as not done yet:");
-        task.setNotDone();
-        System.out.println("       " + task.toString());
-        System.out.println(LINE);
-    }
-
-    /**
-     * Displays a farewell message.
-     */
-    public static void bye() {
-        System.out.println(String.format(
-                "%s     Bye. Hope to see you again soon! \n%s", LINE, LINE));
-    }
-
-    /**
-     * Displays a repeated message of the input by the user and number of task in
-     * list.
-     * 
-     * @param task        Task input
-     * @param listOfTasks List of all tasks
-     */
-    public static void repeatFunction(Task task, ArrayList<? extends Task> listOfTasks) {
-        System.out.print(LINE);
-        System.out.println("     Got it. I've added this task:");
-        System.out.println("       " + task);
-        int len = listOfTasks.size();
-        System.out.println(String.format("     Now you have %d tasks in the list.", len));
-        System.out.println(LINE);
-    }
-
-    /**
-     * Displays the list of Strings.
-     * 
-     * @param listOfStrings list of Strings.
-     */
-    public static void printList(ArrayList<? extends Task> listOfTasks) {
-        StringBuilder finalString = new StringBuilder();
-        finalString.append(LINE);
-        finalString.append("     Here are the tasks in your list:\n");
-        int counter = 1;
-        for (Task c : listOfTasks) {
-            finalString.append(String.format("     %d. %s\n", counter, c));
-            counter++;
-        }
-        finalString.append(LINE);
-        System.out.println(finalString.toString());
     }
 }

@@ -1,6 +1,5 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * Represents a Deadline task, which is a type of task that needs to be
@@ -15,9 +14,9 @@ class Deadline extends Task {
             "d MMM yyyy" };
     public String[] timeFormats = { "HH:mm:ss", "HH:mm", "h:mm a", "HHmm", "hh:mm:ss a" };
 
-    Deadline(String name, LocalDateTime by) throws DukeException {
+    Deadline(String name, String byText) throws DukeException {
         super(name);
-        this.by = by;
+        this.by = super.convertDateTime(byText);
         if (name == null || name.isEmpty()) {
             throw new DukeException("Task name cannot be empty");
         } else if (by == null) {
@@ -25,8 +24,16 @@ class Deadline extends Task {
         }
     }
 
+    Deadline(String name, boolean doneStatus) {
+        super(name, doneStatus);
+        this.by = null;
+    }
+
     @Override
     public String toString() {
+        if (by == null) {
+            return String.format("[D]%s", super.toString());
+        }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
         return String.format("[D]%s (by: %s)", super.toString(), by.format(formatter));
     }
