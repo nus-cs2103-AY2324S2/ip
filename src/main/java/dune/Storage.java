@@ -51,8 +51,8 @@ public class Storage {
             }
         } else {
             createFile(this.filePath);
-            return;
         }
+        assert !java.nio.file.Files.exists(this.filePath);
     }
 
     // Dates are in the format yyyy-mm-ddTHH:MM, unlike what's printed
