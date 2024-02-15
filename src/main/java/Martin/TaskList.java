@@ -54,8 +54,9 @@ public class TaskList {
      * @return A string representation of the marked task.
      */
     public String markAsDone(int index) {
-        tasks.get(index).markAsDone();
-        return tasks.get(index).toString();
+        Task task = tasks.get(index);
+        task.markAsDone();
+        return task.toString();
     }
 
     /**
@@ -65,8 +66,9 @@ public class TaskList {
      * @return A string representation of the unmarked task.
      */
     public String unmarkAsDone(int index) {
-        tasks.get(index).unmarkAsDone();
-        return tasks.get(index).toString();
+        Task task = tasks.get(index);
+        task.unmarkAsDone();
+        return task.toString();
     }
 
     /**
