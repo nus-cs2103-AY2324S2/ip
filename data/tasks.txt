@@ -1,4 +1,4 @@
+T | 0 | homework | NILL | NILL
 T | 0 | Read Book | NILL | NILL
 D | 1 | CS2103 Assignment 1 | 12/12/2023 1800 | NILL
-E | 1 | CS2103 Assignment 2 | 12/12/2023 1800 | 13/12/2023 1700
-E | 0 | CS2103 Assignment 3 | 12/12/2023 1200 | 12/12/2023 1400
+E | 0 | CS2103 Assignment 2 | 12/12/2023 1800 | 13/12/2023 1700

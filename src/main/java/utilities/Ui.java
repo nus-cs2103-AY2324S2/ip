@@ -54,15 +54,22 @@ public class Ui {
     }
 
     /**
-     * Loads tasks into the arraylist
+     * Loads tasks into the arraylist. If the file does not exist, initializes an empty list first.
      */
     public void loadTasks() {
         try {
             this.storage = new Storage(filePath);
             List<Task> tasks = this.storage.loadFromFile();
             this.taskList = new TaskList(tasks);
-        } catch (FileNotFoundException | WilliamException e) {
+        } catch (FileNotFoundException e) {
+            System.out.println(
+                    "File not found at " + filePath + ", hence initializing an empty task list.\n");
+            this.taskList = new TaskList();
+        } catch (WilliamException e) {
             System.out.println(e.getMessage() + "\n");
         }
+
+        // Assertion to check that taskList has been initialized to a non-null value
+        assert this.taskList != null : "TaskList should not be null after attempting to load tasks or after being initialised with an empty list";
     }
 }
