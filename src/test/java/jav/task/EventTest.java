@@ -1,9 +1,9 @@
 package jav.task;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
 
 public class EventTest {
     @Test
@@ -24,14 +24,14 @@ public class EventTest {
             assertEquals("Invalid param for event", e.getMessage());
         }
     }
-    
+
     @Test
     public void event_updateMark_true() {
         Event e = new Event("do smt /from today /to tmr", false);
         e.updateMark(true);
         assertEquals(e.isMarked(), true);
     }
-    
+
     @Test
     public void event_updateMark_false() {
         Event e = new Event("do smt /from today /to tmr", true);

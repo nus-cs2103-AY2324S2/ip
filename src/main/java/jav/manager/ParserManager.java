@@ -25,10 +25,9 @@ public class ParserManager {
 
     /**
      * Checks if the given command is a valid command and returns the requested command.
-     * 
+     *
      * @param cmd the command to check.
      * @param param the parameters of the command.
-     * 
      * @return the requested command.
      */
     public Command checkCommand(String cmd, String param) throws InvalidCommandException {

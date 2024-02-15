@@ -12,7 +12,6 @@ public class FindTaskCommand extends TaskCommand {
      * Constructs a new FindTaskCommand.
      *
      * @param param the parameter of the command.
-     * 
      * @return a new FindTaskCommand.
      */
     public FindTaskCommand(String param) {

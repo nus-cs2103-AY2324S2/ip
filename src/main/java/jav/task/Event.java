@@ -14,11 +14,11 @@ public class Event extends Task {
 
     /** Non-date formatted end date. */
     protected String endText;
-    
-    /**Date formatted start date. */
+
+    /** Date formatted start date. */
     protected LocalDate startDate;
 
-    /**Date formatted end date. */
+    /** Date formatted end date. */
     protected LocalDate endDate;
 
     /**
@@ -31,20 +31,18 @@ public class Event extends Task {
         description = "event";
         startText = "(NOW)";
         endText = "(NOW)";
-        startDate = LocalDate.now(); 
-        endDate = LocalDate.now(); 
+        startDate = LocalDate.now();
+        endDate = LocalDate.now();
         isMarked = false;
-    
+
     }
-    
+
     /**
      * Constructs a new Event.
      *
      * @param params a string containing the information about the event.
      * @param isMarked whether the event is marked.
-     *
      * @return a new Event.
-     * 
      * @throws InvalidParamException if the parameters are invalid.
      */
     public Event(String params, boolean isMarked) throws InvalidParamException {
@@ -62,7 +60,7 @@ public class Event extends Task {
         type = "Event";
         description = params.substring(0, start);
         String n = params.substring(start + 7);
-        
+
         // Set the event values
         startText = n.substring(0, n.indexOf(" /to "));
         endText = n.substring(n.indexOf(" /to ") + 5);
@@ -75,12 +73,12 @@ public class Event extends Task {
         }
 
         this.isMarked = isMarked;
-    } 
+    }
 
     @Override
     public String toString() {
         String s = "[E]"
-                 + super.toString() 
+                 + super.toString()
                  + String.format(" (from: %s to: %s)",
                                 startDate != null ? startDate.toString() : startText,
                                 endDate != null ? endDate.toString() : endText);

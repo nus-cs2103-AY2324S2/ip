@@ -17,6 +17,7 @@ public class Jav {
     private static boolean isExiting = false;
     public static void main(String[] args) {
         // Print any neccessary UI upon starting up
+        // Got ASCII Word Art from https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Jav
         String logo =
                   "      ____.  _________   ____\n"
                 + "     |    | /  _  \\   \\ /   /\n"
@@ -25,11 +26,11 @@ public class Jav {
                 + " \\________\\____|__  /\\___/\n"
                 + "                  \\/\n"
                 + "The Joy Amplifying Virtuoso!\n";
-                // Got ASCII Word Art from https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Jav
+
         System.out.println("Hello from\n" + logo);
         System.out.println("<---------------------------------------------------------->");
         UiManager.getInstance().printGreeting();
-        
+
         // Load any neccessary data
         Scanner scan = new Scanner(System.in);
         try {
@@ -44,7 +45,7 @@ public class Jav {
             System.out.println("| User Input:");
             System.out.print("> ");
             String s = scan.nextLine();
-            
+
             // Check if requested command can be found
             try {
                 String cmd = s;
@@ -55,7 +56,7 @@ public class Jav {
                     cmd = s.substring(0, s.indexOf(' '));
                     param = s.substring(s.indexOf(' ') + 1);
                 }
-                
+
                 // Parse and execute command
                 Command c = ParserManager.getInstance().checkCommand(cmd, param);
                 c.execute();

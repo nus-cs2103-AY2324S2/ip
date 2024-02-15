@@ -13,10 +13,10 @@ public class UiManager {
     public static UiManager getInstance() {
         return LazyHolder.INSTANCE;
     }
-    
+
     /**
      * Prints the custom message along with the contents of the storage.
-     * 
+     *
      * @param storageString the contents of the storage
      */
     public void printStorage(String storageString) {
@@ -43,8 +43,8 @@ public class UiManager {
     /**
      * Prints the custom message upon an echo request.
      */
-    public void echo(String _input) {
-        String msg = "| Echoing input \n| " + _input;
+    public void echo(String input) {
+        String msg = "| Echoing input \n| " + input;
         System.out.println(msg);
     }
 
@@ -56,7 +56,7 @@ public class UiManager {
                    + "| How may I sprinkle a bit of happiness into your day today?";
         System.out.println(msg);
     }
-    
+
     /**
      * Prints the custom message when the user exits.
      */
@@ -104,7 +104,7 @@ public class UiManager {
 
     /**
      * Prints the custom message upon finding tasks with the given keyword.
-     * 
+     *
      * @param foundTasksString the tasks with the given keyword.
      */
     public void printFindTask(String foundTasksString) {
@@ -114,7 +114,7 @@ public class UiManager {
                 + "| Shall we recalibrate our keyword quest to find a different task?";
         } else {
             msg = "| Let the search commence!\n"
-                + "| Here's what I've found:\n" 
+                + "| Here's what I've found:\n"
                 + foundTasksString;
         }
 

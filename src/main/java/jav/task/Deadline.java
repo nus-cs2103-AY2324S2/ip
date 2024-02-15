@@ -13,7 +13,7 @@ public class Deadline extends Task {
     /** Non-date formatted due date. */
     protected String dueText;
 
-    /**Date formatted due date. */
+    /** Date formatted due date. */
     protected LocalDate dueDate;
 
     /**
@@ -21,21 +21,19 @@ public class Deadline extends Task {
      *
      * @return a new Deadline.
      */
-    public Deadline() { 
+    public Deadline() {
         type = "Deadline";
         description = "deadline";
-        dueDate = LocalDate.now(); 
-        isMarked = false; 
+        dueDate = LocalDate.now();
+        isMarked = false;
     }
 
     /**
      * Constructs a new Deadline.
-     * 
+     *
      * @param params a string containing the information about the deadline.
      * @param isMarked whether the deadline is marked.
-     *
      * @return a new Deadline.
-     * 
      * @throws InvalidParamException if the parameters are invalid.
      */
     public Deadline(String params, boolean isMarked) throws InvalidParamException {
@@ -54,12 +52,12 @@ public class Deadline extends Task {
             dueDate = null;
         }
         this.isMarked = isMarked;
-    } 
+    }
 
     @Override
-    public String toString() { 
+    public String toString() {
         String s = "[D]"
-                 + super.toString() 
+                 + super.toString()
                  + String.format(" (by: %s)", dueDate != null ? dueDate.toString() : dueText);
 
         if (dueDate != null) {

@@ -10,7 +10,7 @@ import jav.manager.UiManager;
 /**
  * StoreTaskCommand handles the executing of storing of tasks.
  */
-public class StoreTaskCommand extends TaskCommand { 
+public class StoreTaskCommand extends TaskCommand {
     /** The type of task to store. */
     private StorageManager.StorageType type;
 
@@ -19,7 +19,6 @@ public class StoreTaskCommand extends TaskCommand {
      *
      * @param storageType the storage type.
      * @param param the parameter of the command.
-     * 
      * @return a new StoreTaskCommand.
      */
     public StoreTaskCommand(StorageManager.StorageType storageType, String param) {

@@ -12,7 +12,6 @@ public class DeleteTaskCommand extends TaskCommand {
      * Constructs a new DeleteTaskCommand.
      *
      * @param param the parameter of the command.
-     * 
      * @return a new DeleteTaskCommand.
      */
     public DeleteTaskCommand(String param) {

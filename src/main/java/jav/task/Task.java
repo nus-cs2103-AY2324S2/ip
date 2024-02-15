@@ -20,56 +20,54 @@ public class Task {
      *
      * @return a new Task.
      */
-    public Task() { 
+    public Task() {
         type = "Task";
         description = "task";
         isMarked = false;
     }
-    
+
     /**
      * Constructs a new Task.
-     * 
+     *
      * @param params a string containing the information about the task.
      * @param isMarked whether the task is marked.
-     *
      * @return a new Task.
-     * 
      * @throws InvalidParamException if the parameters are invalid.
      */
-    public Task(String params, boolean isMarked) throws InvalidParamException { 
-        type = "Task"; 
-        description = params; 
+    public Task(String params, boolean isMarked) throws InvalidParamException {
+        type = "Task";
+        description = params;
         this.isMarked = isMarked;
-    } 
+    }
 
     public String getDescription() {
         return description;
     }
 
-    public String getType() { 
+    public String getType() {
         return type;
     }
 
-    public boolean isMarked() { 
+    public boolean isMarked() {
         return isMarked;
     }
 
     /**
      * Updates whether the task is marked or not.
      */
-    public void updateMark(boolean _flag) { 
-        isMarked = _flag;
+    public void updateMark(boolean isMarked) {
+        this.isMarked = isMarked;
     }
 
     /**
      * Returns a string representation of the task.
-     * 
+     *
      * @return a string representation of the task.
      */
-    public String toString() { 
+    public String toString() {
         return String.format("[%s] %s",
                             isMarked ? "X" : " ",
-                            description);                                
+                            description);
     }
 
     /**

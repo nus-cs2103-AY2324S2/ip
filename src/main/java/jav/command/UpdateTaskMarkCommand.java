@@ -7,7 +7,7 @@ import jav.manager.UiManager;
 /**
  * UpdateTaskMarkCommand handles the executing of updating tasks to marked/unmarked.
  */
-public class UpdateTaskMarkCommand extends TaskCommand { 
+public class UpdateTaskMarkCommand extends TaskCommand {
     /** Whether the task is going to be marked or unmarked. */
     private boolean isMarking;
 
@@ -16,7 +16,6 @@ public class UpdateTaskMarkCommand extends TaskCommand {
      *
      * @param isMarking whether the task is marked or unmarked.
      * @param param the parameter of the command.
-     * 
      * @return a new UpdateTaskMarkCommand.
      */
     public UpdateTaskMarkCommand(Boolean isMarking, String param) {

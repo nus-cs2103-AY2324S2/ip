@@ -12,6 +12,9 @@ import jav.task.ToDo;
 * StorageManager manages and stores tasks into a storage.
 */
 public class StorageManager {
+    /** The currently stored tasks. */
+    private ArrayList<Task> tasks;
+
     // Singleton pattern but lazy loaded from wiki https://en.wikipedia.org/wiki/Initialization-on-demand_holder_idiom
     // Wanted a singleton pattern and this seemed the best.
     private StorageManager() {}
@@ -28,9 +31,6 @@ public class StorageManager {
         DEADLINE,
         EVENT
     }
-
-    /** The currently stored tasks. */
-    private ArrayList<Task> tasks;
 
     /**
      * Returns the currently stored tasks as a string.
@@ -50,13 +50,12 @@ public class StorageManager {
      * Returns the given tasks as a string.
      *
      * @param tasks the given tasks.
-     * 
      * @return a string representation of the given tasks.
      */
     public String printTasks(ArrayList<Task> tasks) {
         int i = 1;
         String s = "";
-        for(Task t : tasks) {
+        for (Task t : tasks) {
             s += "| " + i + ".";
             s += t.toString();
             s += "\n";
@@ -85,13 +84,15 @@ public class StorageManager {
      * @param isMarked whether the task should be marked.
      */
     public void store(String param, StorageType type, boolean isMarked) throws InvalidParamException {
-        if (tasks == null) tasks = new ArrayList<>();
+        if (tasks == null) {
+            tasks = new ArrayList<>();
+        }
 
         Task task;
         try {
             switch (type) {
             case TODO:
-                task = new ToDo(param, isMarked);   
+                task = new ToDo(param, isMarked);
                 break;
             case DEADLINE:
                 task = new Deadline(param, isMarked);
@@ -100,7 +101,7 @@ public class StorageManager {
                 task = new Event(param, isMarked);
                 break;
             default:
-                task = new Task(param, isMarked);   
+                task = new Task(param, isMarked);
                 break;
             }
             tasks.add(task);
@@ -114,11 +115,12 @@ public class StorageManager {
      *
      * @param index the index of the task.
      * @param isMarked whether the task should be marked.
-     * 
      * @return whether the specified task exists or not.
      */
     public boolean updateTask(int index, boolean isMarked) {
-        if (tasks == null) return false;
+        if (tasks == null) {
+            return false;
+        }
 
         if (tasks.size() >= index + 1) {
             tasks.get(index).updateMark(isMarked);
@@ -132,11 +134,13 @@ public class StorageManager {
      * Deletes a specific task.
      *
      * @param index the index of the task.
-     * 
+     *
      * @return whether the specified task exists or not.
      */
     public boolean deleteTask(int index) {
-        if (tasks == null) return false;
+        if (tasks == null) {
+            return false;
+        }
 
         if (tasks.size() >= index + 1) {
             tasks.remove(index);
@@ -156,9 +160,9 @@ public class StorageManager {
         String result = "";
 
         for (Task task : tasks) {
-            result += "type=" + task.getType() + 
-                    ",marked=" + (task.isMarked() ? "T" : "F") +
-                    ",param=" + task.getFileFormatParam() +"\n";
+            result += "type=" + task.getType()
+                   + ",marked=" + (task.isMarked() ? "T" : "F")
+                   + ",param=" + task.getFileFormatParam() + "\n";
         }
 
         return result;
@@ -169,10 +173,10 @@ public class StorageManager {
      */
     public void load(String savedData) {
         if (!savedData.equals("")) {
-            String strings[] = savedData.split("\n");
+            String[] strings = savedData.split("\n");
 
             for (String str : strings) {
-                String tokens[] = str.split(",marked=");
+                String[] tokens = str.split(",marked=");
                 String type = tokens[0].substring(5);
                 tokens = tokens[1].split(",param=");
                 String isMarked = tokens[0];
@@ -185,15 +189,14 @@ public class StorageManager {
 
     /**
      * A helper function to convert a string to a storage type.
-     * 
-     * @param a string to convert.
-     * 
+     *
+     * @param typeStr string to convert.
      * @return the converted storage type.
      */
-    public StorageType stringToStorageType(String _type) {
-        if (_type.equals("Event")) {
+    public StorageType stringToStorageType(String typeStr) {
+        if (typeStr.equals("Event")) {
             return StorageType.EVENT;
-        } else if (_type.equals("Deadline")) {
+        } else if (typeStr.equals("Deadline")) {
             return StorageType.DEADLINE;
         } else {
             return StorageType.TODO;
@@ -204,8 +207,7 @@ public class StorageManager {
      * Finds tasks that match the given keyword.
      *
      * @param param the keyword to search for.
-     * 
-     * @return a string representation of the found tasks
+     * @return a string representation of the found tasks.
      */
     public String findTask(String param) {
         ArrayList<Task> foundTasks = new ArrayList<Task>();

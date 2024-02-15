@@ -11,29 +11,27 @@ public class ToDo extends Task {
      *
      * @return a new ToDo.
      */
-    public ToDo() { 
+    public ToDo() {
         description = "todo";
         isMarked = false;
     }
-    
+
     /**
      * Constructs a new todo.
      *
      * @param params a string containing the information about the todo.
      * @param isMarked whether the todo is marked.
-     *
      * @return a new todo.
      * @throws InvalidParamException if the parameters are invalid.
      */
-    public ToDo(String params, boolean isMarked) throws InvalidParamException { 
+    public ToDo(String params, boolean isMarked) throws InvalidParamException {
         description = params;
         this.isMarked = isMarked;
     }
 
     @Override
-    public String toString() { 
+    public String toString() {
         return "[T]" + super.toString();
-                                
     }
 
     @Override
