@@ -44,10 +44,12 @@ public class Parser {
     }
 
     /**
-     * Parses the input string for a deadline task and returns an array containing the task description and deadline.
+     * Parses the input string for a deadline task and returns an array containing
+     * the task description and deadline.
      *
      * @param input the input string
-     * @return an array where the first element is the task description and the second element is the deadline
+     * @return an array where the first element is the task description and the
+     *         second element is the deadline
      */
     public String[] parseDeadline(String input) {
         String[] deadlineArray = input.split(" /by ");
@@ -57,10 +59,12 @@ public class Parser {
     }
 
     /**
-     * Parses the input string for an event task and returns an array containing the task description, start time, and end time.
+     * Parses the input string for an event task and returns an array containing the
+     * task description, start time, and end time.
      *
      * @param input the input string
-     * @return an array where the first element is the task description, the second element is the start time, and the third element is the end time
+     * @return an array where the first element is the task description, the second
+     *         element is the start time, and the third element is the end time
      */
     public String[] parseEvent(String input) {
         String[] eventArray = input.split(" /at ");
@@ -73,12 +77,12 @@ public class Parser {
     }
 
     /**
-     * Removes the first word from the input string and returns the remaining words.
+     * Removes the command word from the input string and returns the remaining words.
      *
      * @param input the input string
-     * @return the input string without the first word
+     * @return the input string without the command word
      */
-    public String getRemainingWords(String input) {
+    public String removeCommandWord(String input) {
         String[] inputArray = input.split(" ");
         return input.substring(inputArray[0].length()).strip();
     }
