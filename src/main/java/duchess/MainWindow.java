@@ -41,6 +41,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         try {
+            assert userImage != null : "User image is null";
+            assert duchessImage != null : "Duchess image is null";
             String input = userInput.getText();
             String response = duchess.getResponse(input);
             dialogContainer.getChildren().addAll(
