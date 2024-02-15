@@ -19,12 +19,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.application.Application;
 
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 public class BadPingGuo extends Application {
     private ScrollPane scrollPane;
@@ -152,8 +150,8 @@ public class BadPingGuo extends Application {
         try {
             Storage.loadSave(new File(FILENAME));
             dialogContainer.getChildren().add(DialogBox.getDukeDialog(
-                    new Label(TaskList.listTasks(new BufferedReader(new FileReader(FILENAME)))),
-                    new ImageView(duke)));
+                    (TaskList.listTasks(new BufferedReader(new FileReader(FILENAME)))),
+                    (duke)));
         } catch (IOException e) {
             dialogContainer.getChildren().add(getDialogLabel("FAILED"));
         }
@@ -193,22 +191,16 @@ public class BadPingGuo extends Application {
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        userText.setFont(Font.font("Comic Sans MS", 24));
-        try {
-            Label dukeText = new Label(getResponse(userInput.getText()));
-            dukeText.setFont(Font.font("Comic Sans MS", 24));
-            dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(userText, new ImageView(user)),
-                    DialogBox.getDukeDialog(dukeText, new ImageView(duke))
-            );
-        } catch (IOException e) {
-            Label dukeText = new Label("FAILED");
-            dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(userText, new ImageView(user)),
-                    DialogBox.getDukeDialog(dukeText, new ImageView(duke))
-            );
-        }
+        // Label userText = new Label(userInput.getText());
+        // userText.setFont(Font.font("Comic Sans MS", 24));
+        // Label dukeText = new Label(getResponse(userInput.getText()));
+        // dukeText.setFont(Font.font("Comic Sans MS", 24));
+        String userText = userInput.getText();
+        String dukeText = getResponse(userInput.getText());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userText, (user)),
+                DialogBox.getDukeDialog(dukeText, (duke))
+        );
 
         userInput.clear();
     }
@@ -217,8 +209,12 @@ public class BadPingGuo extends Application {
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    private String getResponse(String input) throws IOException{
-        return Parser.ProcessQuery(input);
+    protected String getResponse(String input){
+        try {
+            return Parser.ProcessQuery(input);
+        } catch (IOException e) {
+            return "FAILED";
+        }
     }
 
 }
