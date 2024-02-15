@@ -19,8 +19,6 @@ public class DateHandler {
             Pattern.compile("([a-zA-Z]+)?\\s?(?<d>\\d{1,2})[-/](?<m>\\d{1,2})[-/](?<y>\\d{2,4})\\s?([a-zA-Z]+)?");
     private static final Pattern TIME_PATTERN =
             Pattern.compile("(.+)?\\s?(?<time>(\\d{2}:?\\d{2}))(?<indicator>(?i)\\s?[ap]m)?\\s?(.+)?");
-
-    //For formatting of the date
     private static final DateTimeFormatter FORMAT_DATE = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
     /**
@@ -49,7 +47,7 @@ public class DateHandler {
         int date = Integer.parseInt(d);
         int month = Integer.parseInt(m);
         if (!(0 <= date && date <= 31) || !(0 <= month && month <= 12)) {
-            throw new DukeException("DateOutOfRange");
+            throw new DukeException("dateOutOfRangeError");
         }
         int year = Integer.parseInt(y);
         LocalDate convert = LocalDate.of(year, month, date);

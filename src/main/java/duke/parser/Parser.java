@@ -60,7 +60,7 @@ public class Parser {
 
 
     /**
-     * @returns Checks if it is time to exit the program.
+     * @return Whether duke should close the chat-bot.
      */
     public static boolean isExit() {
         return isDead;

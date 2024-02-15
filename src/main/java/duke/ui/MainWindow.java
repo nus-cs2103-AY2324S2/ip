@@ -12,7 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 /**
- * Main controller for the Main screen of the chatbot.
+ * Main controller for the Main window of the chat application.
  */
 public class MainWindow extends AnchorPane {
 

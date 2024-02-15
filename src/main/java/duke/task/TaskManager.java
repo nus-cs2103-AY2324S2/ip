@@ -246,9 +246,9 @@ public class TaskManager {
 
 
     /**
-     * Querys the task with the corresponding query action.
+     * Query the task with the corresponding query action.
      *
-     * @param act         a valid qeury action
+     * @param act         a valid query action
      * @param instruction query parameters to find
      * @return A String array of values to return to the Ui to print.
      * @throws DukeException Invalid query of tasks.
