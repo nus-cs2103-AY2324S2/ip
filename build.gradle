@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("Duke.Duke")
 }
 
 shadowJar {
@@ -40,3 +40,8 @@ shadowJar {
 run{
     standardInput = System.in
 }
+
+//tasks.register('runDuke', JavaExec) {
+//    main = 'Duke.Duke' // Specify the main class of your Duke application
+//    classpath = sourceSets.main.runtimeClasspath
+//}

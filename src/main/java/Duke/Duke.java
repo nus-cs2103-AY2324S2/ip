@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static <string> void main(String[] args) throws DukeException, IOException {
+    public static void main(String[] args) throws DukeException, IOException {
 
         UI.showLogo();
         UI.showAvailCommands();
