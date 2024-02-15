@@ -116,30 +116,30 @@ public class Parser {
     }
 
     private void parseTodo(String input) throws InvalidBanterUsageError {
-        String[] tokens = getTokens(input);
-        if (tokens.length == 1) {
+        String[] words = getWords(input);
+        if (words.length == 1) {
             throw Errors.MISSING_TODO_DESCRIPTION_ERROR;
         }
-        String description = joinTokens(tokens, 1, tokens.length - 1);
+        String description = joinWords(words, 1, words.length - 1);
         Card taskAddedMessage = new Card(taskList.addTodo(description));
         storage.saveTaskList(taskList);
         taskAddedMessage.print();
     }
 
     private void parseDeadline(String input) throws InvalidBanterUsageError {
-        String[] tokens = getTokens(input);
+        String[] words = getWords(input);
 
-        int indexOfDueDate = indexOf(tokens, DEADLINE_DUE_DATE);
+        int indexOfDueDate = indexOf(words, DEADLINE_DUE_DATE);
         if (indexOfDueDate == -1) {
             throw Errors.MISSING_DEADLINE_DUE_DATE_ERROR;
         }
-        String dueDateStr = joinTokens(tokens, indexOfDueDate + 1, tokens.length - 1);
+        String dueDateStr = joinWords(words, indexOfDueDate + 1, words.length - 1);
         if (dueDateStr.isEmpty()) {
             throw Errors.MISSING_DEADLINE_DUE_DATE_ERROR;
         }
         LocalDateTime dueDate = DateTime.getDateTimeFromUserInput(dueDateStr);
 
-        String description = joinTokens(tokens, 1, indexOfDueDate - 1);
+        String description = joinWords(words, 1, indexOfDueDate - 1);
         if (description.isEmpty()) {
             throw Errors.MISSING_DEADLINE_DESCRIPTION_ERROR;
         }
@@ -150,29 +150,29 @@ public class Parser {
     }
 
     private void parseEvent(String input) throws InvalidBanterUsageError {
-        String[] tokens = getTokens(input);
+        String[] words = getWords(input);
 
-        int indexOfEnd = indexOf(tokens, EVENT_END);
+        int indexOfEnd = indexOf(words, EVENT_END);
         if (indexOfEnd == -1) {
             throw Errors.MISSING_EVENT_END_ERROR;
         }
-        String endStr = joinTokens(tokens, indexOfEnd + 1, tokens.length - 1);
+        String endStr = joinWords(words, indexOfEnd + 1, words.length - 1);
         if (endStr.isEmpty()) {
             throw Errors.MISSING_EVENT_END_ERROR;
         }
         LocalDateTime end = DateTime.getDateTimeFromUserInput(endStr);
 
-        int indexOfStart = indexOf(tokens, EVENT_START);
+        int indexOfStart = indexOf(words, EVENT_START);
         if (indexOfStart == -1) {
             throw Errors.MISSING_EVENT_START_ERROR;
         }
-        String startStr = joinTokens(tokens, indexOfStart + 1, indexOfEnd - 1);
+        String startStr = joinWords(words, indexOfStart + 1, indexOfEnd - 1);
         if (startStr.isEmpty()) {
             throw Errors.MISSING_EVENT_START_ERROR;
         }
         LocalDateTime start = DateTime.getDateTimeFromUserInput(startStr);
 
-        String description = joinTokens(tokens, 1, indexOfStart - 1);
+        String description = joinWords(words, 1, indexOfStart - 1);
         if (description.isEmpty()) {
             throw Errors.MISSING_EVENT_DESCRIPTION_ERROR;
         }
@@ -183,10 +183,10 @@ public class Parser {
     }
 
     private void parseMark(String input) throws InvalidBanterUsageError {
-        String[] tokens = getTokens(input);
+        String[] words = getWords(input);
         int taskNumber;
         try {
-            taskNumber = getTaskNumber(tokens);
+            taskNumber = getTaskNumber(words);
         } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
             throw Errors.INVALID_MARK_TASK_NUMBER_ERROR;
         }
@@ -196,10 +196,10 @@ public class Parser {
     }
 
     private void parseUnmark(String input) throws InvalidBanterUsageError {
-        String[] tokens = getTokens(input);
+        String[] words = getWords(input);
         int taskNumber;
         try {
-            taskNumber = getTaskNumber(tokens);
+            taskNumber = getTaskNumber(words);
         } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
             throw Errors.INVALID_UNMARK_TASK_NUMBER_ERROR;
         }
@@ -209,10 +209,10 @@ public class Parser {
     }
 
     private void parseDelete(String input) throws InvalidBanterUsageError {
-        String[] tokens = getTokens(input);
+        String[] words = getWords(input);
         int taskNumber;
         try {
-            taskNumber = getTaskNumber(tokens);
+            taskNumber = getTaskNumber(words);
         } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
             throw Errors.INVALID_DELETE_TASK_NUMBER_ERROR;
         }
@@ -227,42 +227,42 @@ public class Parser {
      * @throws InvalidBanterUsageError
      */
     private void parseFind(String input) throws InvalidBanterUsageError {
-        String[] tokens = getTokens(input);
-        if (tokens.length == 1) {
+        String[] words = getWords(input);
+        if (words.length == 1) {
             throw Errors.MISSING_KEYWORD_ERROR;
         }
-        String keyword = joinTokens(tokens, 1, tokens.length - 1);
+        String keyword = joinWords(words, 1, words.length - 1);
         Card taskFoundMessage = new Card(taskList.findTasks(keyword));
         taskFoundMessage.print();
     }
 
 
     // Helper methods
-    private String[] getTokens(String input) {
+    private String[] getWords(String input) {
         return input.split(SEPARATOR);
     }
 
-    private String joinTokens(String[] tokens, int start, int end) {
+    private String joinWords(String[] words, int start, int end) {
         StringBuilder result = new StringBuilder();
         for (int i = start; i <= end; i++) {
             if (result.length() != 0) {
                 result.append(SEPARATOR);
             }
-            result.append(tokens[i]);
+            result.append(words[i]);
         }
         return result.toString();
     }
 
-    private int indexOf(String[] tokens, String prefix) {
-        for (int i = 0; i < tokens.length; i++) {
-            if (tokens[i].equals(prefix)) {
+    private int indexOf(String[] words, String prefix) {
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].equals(prefix)) {
                 return i;
             }
         }
         return -1;
     }
 
-    private int getTaskNumber(String[] tokens) throws IndexOutOfBoundsException, IllegalArgumentException {
-        return Integer.parseInt(tokens[1]);
+    private int getTaskNumber(String[] words) throws IndexOutOfBoundsException, IllegalArgumentException {
+        return Integer.parseInt(words[1]);
     }
 }
