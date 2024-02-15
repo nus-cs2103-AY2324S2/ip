@@ -28,6 +28,7 @@ public class Bridge {
     public void link(VBox dialogContainer, Image wisImage) {
         String message = chatBox.launch();
         if (!message.equals("")) {
+            // display fail-to-load error message to user
             Label errorText = new Label(message);
             dialogContainer.getChildren().addAll(
                     new DialogBox(errorText, new ImageView(wisImage)));

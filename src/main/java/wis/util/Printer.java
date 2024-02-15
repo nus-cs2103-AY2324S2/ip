@@ -75,15 +75,14 @@ public class Printer {
      */
     public static String printActionAttach(Action action, TaskList tasks) {
         StringBuilder sb = new StringBuilder();
-        if (action == Action.LIST) {
-            sb.append(DECORATOR);
-            sb.append(Printer.println("Here are the tasks in your list:"));
-            sb.append(tasks.print());
-            sb.append(DECORATOR);
-            return sb.toString();
-        } else {
+        if (action != Action.LIST) {
             throw new IllegalArgumentException("Illegal action argument provided.\n");
         }
+        sb.append(DECORATOR);
+        sb.append(Printer.println("Here are the tasks in your list:"));
+        sb.append(tasks.print());
+        sb.append(DECORATOR);
+        return sb.toString();
     }
 
     /**
@@ -91,31 +90,28 @@ public class Printer {
      */
     public static String printActionAttach(Action action) {
         StringBuilder sb = new StringBuilder();
-        if (action == Action.GREET) {
-            sb.append(DECORATOR);
-            sb.append(Printer.println("Hello! I'm Wis."));
-            sb.append(Printer.println("What can I do for you?"));
-            sb.append(DECORATOR);
-            return sb.toString();
-        } else {
+        if (action != Action.GREET) {
             throw new IllegalArgumentException("Illegal action argument provided.\n");
         }
+        sb.append(DECORATOR);
+        sb.append(Printer.println("Hello! I'm Wis."));
+        sb.append(Printer.println("What can I do for you?"));
+        sb.append(DECORATOR);
+        return sb.toString();
     }
-
 
     public static String printActionAttach(Action action, ArrayList<Pair<Integer, Task>> matchingTasks) {
         StringBuilder sb = new StringBuilder();
-        if (action == Action.FIND) {
-            sb.append(DECORATOR);
-            sb.append(Printer.println("Here are the matching tasks in your list:"));
-            for (Pair<Integer, Task> pair : matchingTasks) {
-                sb.append(Printer.printlnFurtherIndent(pair.first + ". " + pair.second.toString()));
-            }
-            sb.append(DECORATOR);
-            return sb.toString();
-        } else {
+        if (action != Action.FIND) {
             throw new IllegalArgumentException("Illegal action argument provided.\n");
         }
+        sb.append(DECORATOR);
+        sb.append(Printer.println("Here are the matching tasks in your list:"));
+        for (Pair<Integer, Task> pair : matchingTasks) {
+            sb.append(Printer.printlnFurtherIndent(pair.first + ". " + pair.second.toString()));
+        }
+        sb.append(DECORATOR);
+        return sb.toString();
     }
 }
 

@@ -72,6 +72,16 @@ public class InputParser extends Parser {
         return parts.length == 2;
     }
 
+    private static boolean isValidDeadline(Matcher matcher, String input) {
+        return matcher.find() && isSingleOccurrence("/by", input);
+    }
+
+    private static boolean isValidEvent(Matcher matcher, String input) {
+        return (matcher.find() &&
+                isSingleOccurrence("/from", input) &&
+                isSingleOccurrence("/to", input));
+    }
+
     /**
      * Parses user input for description and deadline of deadline task.
      *
@@ -84,12 +94,11 @@ public class InputParser extends Parser {
         String[] ret = new String[3];
         Pattern pattern = Pattern.compile("^deadline ([^ ].*) /by ([^ ].*)$");
         Matcher matcher = pattern.matcher(input);
-        if (matcher.find() && isSingleOccurrence("/by", input)) {
-            ret[0] = matcher.group(1);
-            ret[1] = matcher.group(2);
-        } else {
+        if (!isValidDeadline(matcher, input)) {
             throw new InputMismatchException("Unknown input format");
         }
+        ret[0] = matcher.group(1);
+        ret[1] = matcher.group(2);
         return ret;
     }
 
@@ -106,15 +115,12 @@ public class InputParser extends Parser {
         String[] ret = new String[3];
         Pattern pattern = Pattern.compile("^event ([^ ].*) /from ([^ ].*) /to ([^ ].*)$");
         Matcher matcher = pattern.matcher(input);
-        if (matcher.find() &&
-                isSingleOccurrence("/from", input) &&
-                isSingleOccurrence("/to", input)) {
-            ret[0] = matcher.group(1);
-            ret[1] = matcher.group(2);
-            ret[2] = matcher.group(3);
-        } else {
+        if (!isValidEvent(matcher, input)) {
             throw new InputMismatchException("Unknown input format");
         }
+        ret[0] = matcher.group(1);
+        ret[1] = matcher.group(2);
+        ret[2] = matcher.group(3);
         return ret;
     }
 

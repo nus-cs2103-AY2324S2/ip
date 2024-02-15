@@ -22,16 +22,16 @@ public class FileDataParser extends Parser {
      */
     public static Task parseLine(String line) throws InputMismatchException {
         String[] words = line.split("#!#");
-        if (words[0].equals("T")) {
+        switch (words[0]) {
+        case "T":
             return FileDataParser.parseTodo(words);
-        }
-        if (words[0].equals("D")) {
+        case "D":
             return FileDataParser.parseDeadline(words);
-        }
-        if (words[0].equals("E")) {
+        case "E":
             return FileDataParser.parseEvent(words);
+        default:
+            throw new InputMismatchException();
         }
-        throw new InputMismatchException();
     }
 
     private static Todo parseTodo(String[] words) {
