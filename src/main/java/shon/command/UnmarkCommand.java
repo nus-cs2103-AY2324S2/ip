@@ -29,7 +29,8 @@ public class UnmarkCommand extends Command {
      * @throws ParameterException If the given index is invalid.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) throws ParameterException {
-        ui.print(tasks.unmark(this.idx));
+    public String execute(TaskList tasks) throws ParameterException {
+        return String.join("\n", tasks.unmark(this.idx));
+
     }
 }

@@ -4,6 +4,7 @@ import java.time.format.DateTimeParseException;
 
 import component.DialogBox;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -45,31 +46,31 @@ public class Shon extends Application {
 
 
     public static void main(String[] args) {
-        new Shon().run();
+//        new Shon().run();
     }
 
-    /**
-     * Runs the chatbot and takes in commands from the standard input.
-     * Terminates when the <code>bye</code> command is received.
-     */
-    private void run() {
-        this.ui.greet();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String input = this.ui.readInput();
-                Command command = Parser.parse(input);
-                command.execute(this.list, this.ui);
-                this.storage.updateData(this.list.formatData());
-                isExit = command.isExit();
-            } catch (ParameterException | CommandException e) {
-                this.ui.print(e.getMessage());
-            } catch (DateTimeParseException e) {
-                this.ui.print(e.getParsedString() + " is not a valid date/time",
-                        "Please enter the date/time in \"dd/mm/yyyy hhmm\" format with valid values.");
-            }
-        }
-    }
+//    /**
+//     * Runs the chatbot and takes in commands from the standard input.
+//     * Terminates when the <code>bye</code> command is received.
+//     */
+//    private void run() {
+//        this.ui.greet();
+//        boolean isExit = false;
+//        while (!isExit) {
+//            try {
+//                String input = this.ui.readInput();
+//                Command command = Parser.parse(input);
+//                command.execute(this.list, this.ui);
+//                this.storage.updateData(this.list.formatData());
+//                isExit = command.isExit();
+//            } catch (ParameterException | CommandException e) {
+//                this.ui.print(e.getMessage());
+//            } catch (DateTimeParseException e) {
+//                this.ui.print(e.getParsedString() + " is not a valid date/time",
+//                        "Please enter the date/time in \"dd/mm/yyyy hhmm\" format with valid values.");
+//            }
+//        }
+//    }
 
     @Override
     public void start(Stage stage) {
@@ -106,7 +107,6 @@ public class Shon extends Application {
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
 
-        //You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
         userInput.setPrefWidth(325.0);
@@ -132,6 +132,9 @@ public class Shon extends Application {
 
         //Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+        // Set greeting
+        Label dukeGreeting = new Label("Hello! I'm Shon. What can I do for you?");
+        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(dukeGreeting, new ImageView(duke)));
     }
 
     /**
@@ -140,6 +143,9 @@ public class Shon extends Application {
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
+        if (userInput.getText().equals("bye")) {
+            Platform.exit();
+        }
         Label userText = new Label(userInput.getText());
         Label dukeText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
@@ -154,6 +160,16 @@ public class Shon extends Application {
      * Replace this stub with your completed method.
      */
     private String getResponse(String input) {
-        return "Duke heard: " + input;
+        try {
+            Command command = Parser.parse(input);
+            String output = command.execute(this.list);
+            this.storage.updateData(this.list.formatData());
+            return output;
+        } catch (ParameterException | CommandException e) {
+            return e.getMessage();
+        } catch (DateTimeParseException e) {
+            return e.getParsedString() + " is not a valid date/time. "
+                    + "Please enter the date/time in \"dd/mm/yyyy hhmm\" format with valid values.";
+        }
     }
 }

@@ -23,11 +23,10 @@ public class DeleteTaskCommand extends Command {
      * Deletes the task from the tasks <code>TaskList</code>, and outputs the result of the command.
      *
      * @param tasks The <code>TaskList</code> to delete the <code>Task</code> from.
-     * @param ui The <code>Ui</code> used to output the result of the command.
      * @throws ParameterException If the given index is invalid.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) throws ParameterException {
-        ui.print(tasks.deleteTask(this.idx));
+    public String execute(TaskList tasks) throws ParameterException {
+        return String.join("\n", tasks.deleteTask(this.idx));
     }
 }
