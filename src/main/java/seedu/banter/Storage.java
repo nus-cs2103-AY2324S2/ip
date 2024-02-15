@@ -58,6 +58,7 @@ public class Storage {
                     assert false : "Invalid task type in storage file";
                 }
             }
+            taskList.sortByDateTime();
             return taskList;
         } catch (FileNotFoundException e) {
             handleFileNotFound();
@@ -82,6 +83,7 @@ public class Storage {
     public void saveTaskList(TaskList taskList) {
         try {
             FileWriter fw = new FileWriter(TASK_LIST_FILE_PATH);
+            taskList.sortByDateTime();
             fw.write(toStorageFormat(taskList));
             fw.close();
         } catch (IOException e) {

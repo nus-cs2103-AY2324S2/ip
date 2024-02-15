@@ -2,6 +2,8 @@ package seedu.banter.tasks;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 
 import seedu.banter.errors.Errors;
@@ -27,7 +29,7 @@ public class TaskList implements Iterable<Task> {
      * @param description Description of the Todo task.
      * @return String representation of the Todo task.
      */
-    public String addTodo(String description) {
+    public String addNewTodo(String description) {
         Todo todo = new Todo(description);
         taskList.add(todo);
         Assertions.assertTaskIsUnmarked(todo);
@@ -51,7 +53,7 @@ public class TaskList implements Iterable<Task> {
      * @param dueDate Due date of the Deadline task.
      * @return String representation of the Deadline task.
      */
-    public String addDeadline(String description, LocalDateTime dueDate) {
+    public String addNewDeadline(String description, LocalDateTime dueDate) {
         Deadline deadline = new Deadline(description, dueDate);
         taskList.add(deadline);
         Assertions.assertDateTimeIsInTheFuture(dueDate);
@@ -78,7 +80,7 @@ public class TaskList implements Iterable<Task> {
      * @param end End time of the Event task.
      * @return String representation of the Event task.
      */
-    public String addEvent(String eventDescription, LocalDateTime start, LocalDateTime end) {
+    public String addNewEvent(String eventDescription, LocalDateTime start, LocalDateTime end) {
         Event event = new Event(eventDescription, start, end);
         taskList.add(event);
         Assertions.assertDateTimeIsInTheFuture(start);
@@ -106,6 +108,7 @@ public class TaskList implements Iterable<Task> {
      */
     @Override
     public String toString() {
+        this.sortByDateTime();
         StringBuilder sb = new StringBuilder("Here are the banter.tasks in your list:");
         for (int i = 0; i < taskList.size(); i++) {
             sb.append("\n" + (i + 1) + ". " + taskList.get(i));
@@ -169,17 +172,33 @@ public class TaskList implements Iterable<Task> {
      * @return String representation of the list of tasks in TaskList that contain the keyword.
      */
     public String findTasks(String ...keyword) {
-        StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:");
-        int count = 0;
-        for (Task task : taskList) {
+        TaskList result = new TaskList();
+        for (Task task : this.taskList) {
             if (task.contains(keyword)) {
-                sb.append("\n" + (count + 1) + ". " + task);
-                count++;
+                result.taskList.add(task);
             }
         }
-        if (count == 0) {
+        result.sortByDateTime();
+
+        StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:");
+        if (result.taskList.size() == 0) {
             return "No matching tasks found.";
         }
+        for (int i = 0; i < result.taskList.size(); i++) {
+            sb.append("\n" + (i + 1) + ". " + result.taskList.get(i));
+        }
         return sb.toString();
+    }
+
+    /**
+     * Sorts the TaskList by datetime.
+     */
+    public void sortByDateTime() {
+        Collections.sort(taskList, new Comparator<Task>() {
+            @Override
+            public int compare(Task task1, Task task2) {
+                return task1.getDateTimePriority().compareTo(task2.getDateTimePriority());
+            }
+        });
     }
 }

@@ -1,5 +1,6 @@
 package seedu.banter.tasks;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 /**
@@ -58,12 +59,6 @@ public abstract class Task { // default access modifier
     }
 
     /**
-     * Returns icon representing a task type.
-     * @return Icon representing a task type.
-     */
-    public abstract String getTaskType();
-
-    /**
      * Returns the description of a task.
      * @return Description of a task.
      */
@@ -88,4 +83,12 @@ public abstract class Task { // default access modifier
         return Arrays.stream(keywords)
                 .allMatch(keyword -> description.toLowerCase().contains(keyword.toLowerCase()));
     }
+
+    /**
+     * Returns icon representing a task type.
+     * @return Icon representing a task type.
+     */
+    public abstract String getTaskType();
+
+    public abstract LocalDateTime getDateTimePriority();
 }

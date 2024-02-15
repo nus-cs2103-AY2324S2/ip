@@ -1,6 +1,11 @@
 package seedu.banter.tasks;
 
 
+import seedu.banter.utilities.DateTime;
+
+import java.time.LocalDateTime;
+import java.util.Date;
+
 /**
  * Represents a task of type Todo in a task list.
  * A Todo task has a description and a boolean indicating whether it is done.
@@ -47,5 +52,13 @@ public class Todo extends Task {
     @Override
     public String toString() {
         return "[" + getTaskType() + "]" + super.toString();
+    }
+
+    /**
+     * Returns maximum datetime as sorting priority of a Todo task.
+     * @return Maximum datetime as sorting priority of a Todo task.
+     */
+    public LocalDateTime getDateTimePriority() {
+        return LocalDateTime.MAX;
     }
 }

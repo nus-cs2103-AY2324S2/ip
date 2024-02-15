@@ -121,7 +121,7 @@ public class Parser {
             throw Errors.MISSING_TODO_DESCRIPTION_ERROR;
         }
         String description = joinWords(words, 1, words.length - 1);
-        Card taskAddedMessage = new Card(taskList.addTodo(description));
+        Card taskAddedMessage = new Card(taskList.addNewTodo(description));
         storage.saveTaskList(taskList);
         taskAddedMessage.print();
     }
@@ -144,7 +144,7 @@ public class Parser {
             throw Errors.MISSING_DEADLINE_DESCRIPTION_ERROR;
         }
 
-        Card taskAddedMessage = new Card(taskList.addDeadline(description, dueDate));
+        Card taskAddedMessage = new Card(taskList.addNewDeadline(description, dueDate));
         storage.saveTaskList(taskList);
         taskAddedMessage.print();
     }
@@ -177,7 +177,7 @@ public class Parser {
             throw Errors.MISSING_EVENT_DESCRIPTION_ERROR;
         }
 
-        Card taskAddedMessage = new Card(taskList.addEvent(description, start, end));
+        Card taskAddedMessage = new Card(taskList.addNewEvent(description, start, end));
         storage.saveTaskList(taskList);
         taskAddedMessage.print();
     }

@@ -76,4 +76,12 @@ public class Event extends Task {
     public LocalDateTime getEndDateTime() {
         return to;
     }
+
+    /**
+     * Returns the start time of an Event task as the sorting priority.
+     * @return The start time of an Event task as the sorting priority.
+     */
+    public LocalDateTime getDateTimePriority() {
+        return from;
+    }
 }

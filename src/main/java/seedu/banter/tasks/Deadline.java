@@ -61,4 +61,12 @@ public class Deadline extends Task {
     public LocalDateTime getDueDate() {
         return by;
     }
+
+    /**
+     * Returns the due date of a Deadline task as the sorting priority.
+     * @return The due date of a Deadline task as the sorting priority.
+     */
+    public LocalDateTime getDateTimePriority() {
+        return by;
+    }
 }
