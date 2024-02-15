@@ -21,6 +21,7 @@ import capone.commands.ListCommand;
 import capone.commands.MarkCommand;
 import capone.commands.TodoCommand;
 import capone.commands.UnmarkCommand;
+import capone.commands.UpdateCommand;
 import capone.exceptions.CaponeException;
 import capone.exceptions.InvalidDateException;
 import capone.exceptions.InvalidTimeException;
@@ -44,27 +45,6 @@ public class Parser {
      */
     public static ArrayList<String> splitInput(String input) {
         return new ArrayList<>(Arrays.asList(input.split("\\s+")));
-    }
-
-    /**
-     * Reads a line of user input from the console.
-     *
-     * @return The user input as a String.
-     */
-    public static String readUserInput() {
-        return Parser.scanner.nextLine();
-    }
-
-    /**
-     * Processes user inputs and returns the appropriate
-     * Command instance based on the first word of the input.
-     *
-     * @return Command object corresponding to the user input.
-     */
-    public static Command processInputs() {
-        Parser.inputList = Parser.splitInput(Parser.readUserInput());
-        String firstWord = inputList.get(0);
-        return Parser.findCommand(firstWord);
     }
 
     /**
@@ -95,13 +75,15 @@ public class Parser {
         } else if (command.equalsIgnoreCase("todo")) {
             return new TodoCommand(Parser.inputList);
         } else if (command.equalsIgnoreCase("deadline")) {
-            return new DeadlineCommand(inputList);
+            return new DeadlineCommand(Parser.inputList);
         } else if (command.equalsIgnoreCase("event")) {
-            return new EventCommand(inputList);
+            return new EventCommand(Parser.inputList);
         } else if (command.equalsIgnoreCase("delete")) {
-            return new DeleteCommand(inputList);
+            return new DeleteCommand(Parser.inputList);
         } else if (command.equalsIgnoreCase("find")) {
-            return new FindCommand(inputList);
+            return new FindCommand(Parser.inputList);
+        } else if (command.equalsIgnoreCase("update")) {
+            return new UpdateCommand(Parser.inputList);
         } else if (command.equalsIgnoreCase("bye")) {
             return new ByeCommand(scanner);
         } else if (command.equalsIgnoreCase("help")) {

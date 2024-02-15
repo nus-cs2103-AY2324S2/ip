@@ -108,7 +108,9 @@ public class Ui {
                 + "5. mark [index] - Marks a task as completed. Use this in conjunction with the 'list' command!\n"
                 + "6. unmark [index] - Unmarks a task. Use this in conjunction with the 'list' command!\n"
                 + "7. delete [index] - Deletes a task. Use this in conjunction with the 'list' command!\n"
-                + "8. find [keyword] - Finds all tasks that matches the given input keyword.\n";
+                + "8. find [keyword] - Finds all tasks that matches the given input keyword.\n"
+                + "9. update [index] [new description] - Updates a task's description. Use this in"
+                + " conjunction with the 'list' command!.\n";
         System.out.printf(output);
         return output;
     }
@@ -170,6 +172,19 @@ public class Ui {
      */
     public String sendUnmark(Task task) {
         String output = "Nice! I've marked this task as incomplete:\n" + task.toString() + "\n";
+        System.out.printf(output);
+        return output;
+    }
+
+    /**
+     * Sends a formatted message after the user updates a task description.
+     *
+     * @param task The task to be updated.
+     * @return The formatted output of the command.
+     */
+    public String sendUpdate(Task task) {
+        String output = "Nice! I've updated the task description to '" + task.getDescription() + "'\n"
+                + "The task looks like this now:\n" + task.toString() + "\n";
         System.out.printf(output);
         return output;
     }

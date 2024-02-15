@@ -68,6 +68,13 @@ public abstract class Task {
     }
 
     /**
+     * Sets the description of the task.
+     */
+    public void setDescription(String newDescription) {
+        this.description = newDescription;
+    }
+
+    /**
      * Gets the completion status of the task.
      *
      * @return The completion status of the task.

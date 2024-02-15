@@ -1,13 +1,13 @@
 package capone.commands;
 
 import java.util.ArrayList;
+import java.util.stream.StreamSupport;
 
 import capone.Storage;
 import capone.TaskList;
 import capone.exceptions.CaponeException;
 import capone.exceptions.InsufficientArgumentException;
 import capone.exceptions.InvalidCommandException;
-import capone.tasks.Task;
 import capone.ui.Ui;
 
 /**
@@ -54,17 +54,14 @@ public class FindCommand extends Command {
 
         TaskList filteredList = new TaskList();
 
-        for (Task task : taskList) {
-            if (task.getDescription().contains(keyword)) {
-                filteredList.addTask(task);
-            }
-        }
+        StreamSupport.stream(taskList.spliterator(), false)
+                .filter(task -> task.getDescription().contains(keyword))
+                .forEach(filteredList::addTask);
 
         if (filteredList.isEmpty()) {
             return ui.sendNoResults(keyword);
         } else {
-            new ListCommand().execute(filteredList, ui, storage);
+            return new ListCommand().execute(filteredList, ui, storage);
         }
-        return null;
     }
 }
