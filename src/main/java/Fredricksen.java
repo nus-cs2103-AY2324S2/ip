@@ -1,23 +1,26 @@
 import java.io.IOException;
 import java.util.NoSuchElementException;
 
-import formatter.ParseInput;
 import commands.ByeCommand;
 import commands.Command;
+import formatter.ParseInput;
 import storages.Storage;
 import tasks.TaskList;
 import ui.Ui;
 
 public class Fredricksen {
-    private Ui ui = new Ui();
-    private Storage store = new Storage("data/Fredricksen.txt");
+    private Ui ui;
+    private Storage store;
     private TaskList list;
 
     public Fredricksen() {
+        this.ui = new Ui();
+        this.store = new Storage("data/Fredricksen.txt");
         try {
+            this.store.createFileInData();
             this.list = new TaskList(store.loadFile());
         } catch (IOException error) {
-            ui.showError(error);
+            this.ui.showError(error);
             this.list = new TaskList();
         }
     }
