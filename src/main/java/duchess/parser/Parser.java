@@ -45,6 +45,7 @@ public class Parser {
         default:
             System.out.println("Unknown task type: " + type);
         }
+
         return task;
     }
 
