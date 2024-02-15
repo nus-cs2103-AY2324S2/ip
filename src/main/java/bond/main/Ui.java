@@ -15,9 +15,7 @@ import bond.task.TaskList;
  */
 public class Ui {
 
-    private static final String LINE = "____________________________________________________________";
     private Scanner scanner;
-
     /**
      * Constructor for the Ui class.
      */
@@ -25,36 +23,24 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
-    public String showLine() {
-        System.out.println(Ui.LINE);
-        return Ui.LINE;
-    }
-
     public String newLine() {
-        System.out.println();
         return System.lineSeparator();
     }
 
     /**
      * Shows the welcome message when the program starts.
      */
-    public void showWelcome() {
-        System.out.println(String.format("Hello! I'm %s. \nWhat can I do for you?\n", "Bond"));
-        this.showLine();
-        this.newLine();
+    public String showWelcome() {
+        return "Hello! I'm Bond.\nWhat can I do for you?";
     }
 
     /**
      * Shows the taskList is empty message.
      */
     public String showTasklistEmpty() {
-        String message = "\n    There are no tasks in the list.";
+        String message = "There are no tasks in the list.";
         StringBuilder builder = new StringBuilder();
-        builder.append(this.showLine());
         builder.append(message);
-        System.out.println(message);
-        builder.append(this.showLine());
-        builder.append(this.newLine());
         return message;
     }
 
@@ -81,14 +67,10 @@ public class Ui {
      */
     public String taskAdded(Task newTask, TaskList taskList) {
         String message = String.format(
-                "\n    Got it. I've added this task:\n      %s \n    Now you have %d tasks in the list.",
+                "Got it. I've added this task:\n      %s\nNow you have %d tasks in the list.",
                 newTask.toString(), taskList.numberOfTasks());
         StringBuilder builder = new StringBuilder();
-        builder.append(this.showLine());
         builder.append(message);
-        System.out.println(message);
-        builder.append(this.showLine());
-        builder.append(this.newLine());
         return message;
     }
 
@@ -100,14 +82,10 @@ public class Ui {
      */
     public String taskDeleted(Task deletedTask, TaskList taskList) {
         String message = String.format(
-                "\n    Got it. I've removed this task:\n      %s \n    Now you have %d tasks in the list.",
+                "Got it. I've removed this task:\n      %s\nNow you have %d tasks in the list.",
                 deletedTask.toString(), taskList.numberOfTasks());
         StringBuilder builder = new StringBuilder();
-        builder.append(this.showLine());
         builder.append(message);
-        System.out.println(message);
-        builder.append(this.showLine());
-        builder.append(this.newLine());
         return message;
     }
 
@@ -119,14 +97,10 @@ public class Ui {
      */
     public String taskMarked(Task markedTask, TaskList taskList) {
         String message = String.format(
-                "\n    Nice! I've marked this task as done:\n      %s",
+                "Nice! I've marked this task as done:\n      %s",
                 markedTask.toString());
         StringBuilder builder = new StringBuilder();
-        builder.append(this.showLine());
         builder.append(message);
-        System.out.println(message);
-        builder.append(this.showLine());
-        builder.append(this.newLine());
         return message;
     }
 
@@ -138,14 +112,10 @@ public class Ui {
      */
     public String taskUnmarked(Task unmarkedTask, TaskList taskList) {
         String message = String.format(
-                "\n    OK, I've marked this task as not done yet:\n      %s",
+                "OK, I've marked this task as not done yet:\n      %s",
                 unmarkedTask.toString());
         StringBuilder builder = new StringBuilder();
-        builder.append(this.showLine());
         builder.append(message);
-        System.out.println(message);
-        builder.append(this.showLine());
-        builder.append(this.newLine());
         return message;
     }
 
@@ -155,23 +125,22 @@ public class Ui {
      * @param taskList The task list containing all tasks found.
      */
     public String showFoundTasks(TaskList taskList) {
-        String message = String.format("\n    Here are the matching tasks in your list:");
+        String message = String.format("Here are the matching tasks in your list:");
         StringBuilder builder = new StringBuilder();
-        builder.append(this.showLine());
         builder.append(message);
-        System.out.println(message);
 
         ListIterator<Task> tasks = taskList.getTasks();
 
         while (tasks.hasNext()) {
             String foundTask = String.format("    %d. %s",
                     tasks.nextIndex() + 1, tasks.next().toString());
-            builder.append(foundTask);
-            System.out.println(foundTask);
-        }
 
-        builder.append(this.showLine());
-        builder.append(this.newLine());
+            if (tasks.hasNext()) {
+                foundTask += this.newLine();
+            }
+
+            builder.append(foundTask);
+        }
 
         return builder.toString();
     }
@@ -182,23 +151,22 @@ public class Ui {
      * @param taskList The task list to read from.
      */
     public String showList(TaskList taskList) {
-        String message = "\n    Here are the tasks in your list:";
+        String message = "Here are the tasks in your list:\n";
         StringBuilder builder = new StringBuilder();
-        builder.append(this.showLine());
         builder.append(message);
-        System.out.println(message);
 
         ListIterator<Task> tasks = taskList.getTasks();
 
         while (tasks.hasNext()) {
             String task = String.format("    %d. %s",
                     tasks.nextIndex() + 1, tasks.next().toString());
-            builder.append(task);
-            System.out.println(task);
-        }
 
-        builder.append(this.showLine());
-        builder.append(this.newLine());
+            if (tasks.hasNext()) {
+                task += this.newLine();
+            }
+
+            builder.append(task);
+        }
 
         return builder.toString();
     }
@@ -209,12 +177,9 @@ public class Ui {
      * @param e The exception to be shown.
      */
     public String showError(Exception e) {
-        String message = String.format("\n    %s", e.getMessage());
+        String message = e.getMessage();
         StringBuilder builder = new StringBuilder();
-        builder.append(this.showLine());
         builder.append(message);
-        System.out.println(message);
-        builder.append(this.showLine());
         builder.append(this.newLine());
         return message;
     }
@@ -223,12 +188,9 @@ public class Ui {
      * Shows the goodbye message when the user exits the program.
      */
     public String showGoodbye() {
-        String message = "\n    Bye. Hope to see you again soon!";
+        String message = "Bye. Hope to see you again soon!";
         StringBuilder builder = new StringBuilder();
-        builder.append(this.showLine());
         builder.append(message);
-        System.out.println(message);
-        builder.append(this.showLine());
         builder.append(this.newLine());
         return message;
     }

@@ -21,18 +21,18 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Bond duke;
+    private Bond bond;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Anya.jpeg"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Bond.jpeg"));
+    private Image bondImage = new Image(this.getClass().getResourceAsStream("/images/Bond.jpeg"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Bond d) {
-        duke = d;
+    public void setBond(Bond d) {
+        bond = d;
     }
 
     /**
@@ -42,10 +42,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = bond.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, bondImage)
         );
         userInput.clear();
     }
