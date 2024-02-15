@@ -2,7 +2,8 @@ package duke.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +20,7 @@ public class ParserTest {
     @Test
     public void testStringToDate() throws DukeException {
         Parser parser = new Parser();
-        LocalDate date = LocalDate.parse("2019-12-12");
-        assertEquals(date, parser.stringToDate("2019-12-12"));
+        LocalDateTime date = LocalDateTime.parse("2012-12-12 12:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        assertEquals(date, parser.stringToDateTime("2012-12-12 12:00"));
     }
 }

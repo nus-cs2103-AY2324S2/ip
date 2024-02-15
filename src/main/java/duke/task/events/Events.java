@@ -1,5 +1,8 @@
 package duke.task.events;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import duke.task.Task;
 
 /**
@@ -7,8 +10,8 @@ import duke.task.Task;
  * @author Tang Hao Liang
  */
 public class Events extends Task {
-    protected String from;
-    protected String to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
     /**
      * Constructor that updates description and duration for the task.
@@ -17,7 +20,7 @@ public class Events extends Task {
      * @param from Event's Start
      * @param to Event's End
      */
-    public Events(String description, String from, String to) {
+    public Events(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -25,15 +28,22 @@ public class Events extends Task {
 
     @Override
     public String toString() {
-        return "  [E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        String fromText = from.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+        String toText = to.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+
+        return "  [E]" + super.toString() + " (from: " + fromText + " to: " + toText + ")";
     }
 
     @Override
     public String toFile() {
+        LocalDateTime.parse("2012-12-12 12:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        String fromText = from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        String toText = to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+
         if (isDone) {
-            return "E|1|" + description + "|" + from + "|" + to;
+            return "E|1|" + description + "|" + fromText + "|" + toText;
         } else {
-            return "E|0|" + description + "|" + from + "|" + to;
+            return "E|0|" + description + "|" + fromText + "|" + toText;
         }
     }
 }

@@ -1,6 +1,7 @@
 package duke.parser;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import duke.dukeexception.DukeException;
@@ -109,17 +110,18 @@ public class Parser {
     }
 
     /**
-     * Converts string to LocalDate.
+     * Converts string to LocalDateTime.
      *
-     * @param date Date in String.
-     * @return Date in LocalDate.
-     * @throws DukeException If date is not in correct format.
+     * @param dateTime Date and time in String.
+     * @return Date and Time in LocalDateTime.
+     * @throws DukeException If date and time is not in correct format.
      */
-    public LocalDate stringToDate(String date) throws DukeException {
+    public LocalDateTime stringToDateTime(String dateTime) throws DukeException {
         try {
-            return LocalDate.parse(date.strip());
+            DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            return LocalDateTime.parse(dateTime.strip(), dateTimeFormat);
         } catch (DateTimeParseException e) {
-            throw new DukeException("Please enter the date in format of yyyy-mm-dd.\n");
+            throw new DukeException("Please enter the date in format of yyyy-mm-dd HH:mm.\n");
         }
     }
 

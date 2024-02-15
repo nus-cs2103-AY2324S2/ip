@@ -1,6 +1,7 @@
 package duke;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import duke.dukeexception.DukeException;
@@ -57,15 +58,13 @@ public class Duke {
                 output = tasks.toDo(description);
             } else if (parse[0].equalsIgnoreCase("deadline")) {
                 String[] split = parser.deadline(parse[1]);
-                output = tasks.deadline(split[0], parser.stringToDate(split[1]));
+                LocalDateTime by = parser.stringToDateTime(split[1]);
+                output = tasks.deadline(split[0], by);
             } else if (parse[0].equalsIgnoreCase("event")) {
                 String[] split = parser.event(parse[1]);
-                output = tasks.event(split[0], split[1], split[2]);
-                assert output.equals("Got it. I've added this task: \n"
-                                     + "  [E][ ] " + split[0] + " (from: " + split[1] + " to: " + split[2] + ")"
-                                     + "\nNow you have "
-                                     + tasks.getNumberOfTasks()
-                                     + " tasks in the list.");
+                LocalDateTime from = parser.stringToDateTime(split[1]);
+                LocalDateTime to = parser.stringToDateTime(split[2]);
+                output = tasks.event(split[0], from, to);
             } else if (parse[0].equalsIgnoreCase("delete")) {
                 int num = parser.stringToNum(parse[1]);
                 int numOfTasks = tasks.getNumberOfTasks();

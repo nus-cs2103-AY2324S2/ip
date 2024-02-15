@@ -1,4 +1,2 @@
-T|0|read book
-E|0|project meeting|Mon 2pm|6pm
-T|0|help
-D|0|help|2012-12-12
+D|0|task|2012-12-12 16:00
+E|0|task|2012-12-12 12:00|2012-12-12 16:00

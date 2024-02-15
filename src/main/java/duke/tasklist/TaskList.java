@@ -1,6 +1,6 @@
 package duke.tasklist;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import duke.dukeexception.DukeException;
@@ -80,7 +80,7 @@ public class TaskList {
      * @param date Task's Deadline.
      * @return Display text for add deadlines.
      */
-    public String deadline(String description, LocalDate date) {
+    public String deadline(String description, LocalDateTime date) {
         Task task = new Deadlines(description, date);
         taskList.add(task);
         return Ui.printAdd(task.toString(), taskList.size());
@@ -94,7 +94,7 @@ public class TaskList {
      * @param to Event's End.
      * @return Display text for add events.
      */
-    public String event(String description, String from, String to) {
+    public String event(String description, LocalDateTime from, LocalDateTime to) {
         Task task = new Events(description, from, to);
         taskList.add(task);
         return Ui.printAdd(task.toString(), taskList.size());

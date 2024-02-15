@@ -3,7 +3,8 @@ package duke.storage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -20,6 +21,7 @@ import duke.task.todos.ToDos;
 public class Storage {
 
     private static File file;
+
 
     /**
      * Constructor to create a new File class with the path to file.
@@ -48,13 +50,18 @@ public class Storage {
         while (s.hasNext()) {
             String str = s.nextLine();
             String[] split = str.split("[|]");
+            DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
             if (split[0].equalsIgnoreCase("T")) {
                 taskList.add(new ToDos(split[2]));
             } else if (split[0].equalsIgnoreCase("D")) {
-                taskList.add(new Deadlines(split[2], LocalDate.parse(split[3].strip())));
+                LocalDateTime by = LocalDateTime.parse(split[3].strip(), dateTimeFormat);
+                taskList.add(new Deadlines(split[2], by));
             } else if (split[0].equalsIgnoreCase("E")) {
-                taskList.add(new Events(split[2], split[3], split[4]));
+
+                LocalDateTime from = LocalDateTime.parse(split[3], dateTimeFormat);
+                LocalDateTime to = LocalDateTime.parse(split[4], dateTimeFormat);
+                taskList.add(new Events(split[2], from, to));
             }
 
             if (split[1].equals("1")) {
