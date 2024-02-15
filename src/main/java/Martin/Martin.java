@@ -1,7 +1,6 @@
 package Martin;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.io.IOException;
 
 /**
@@ -59,13 +58,4 @@ public class Martin {
         return response;
     }
 
-    /**
-     * The entry point of the program.
-     * Initializes an instance of the Martin class and calls its run method.
-     *
-     * @param args The command-line arguments passed to the program.
-     */
-    public static void main(String[] args) {
-        Martin martin = new Martin();
-    }
 }
