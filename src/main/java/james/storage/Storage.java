@@ -24,6 +24,7 @@ public class Storage {
      * @param filePath File path to store the tasks in.
      */
     public Storage(String filePath) {
+        assert filePath != null : "File path cannot be null";
         this.filePath = filePath;
     }
 
@@ -35,6 +36,7 @@ public class Storage {
      */
     public ArrayList<Task> load() throws IOException {
         Path path = Paths.get(this.filePath);
+        assert Files.exists(path) || Files.notExists(path.getParent()) : "Task file or parent directory state is inconsistent";
         if (!Files.exists(path)) {
             Files.createDirectories(path.getParent());
             Files.createFile(path);
