@@ -6,9 +6,11 @@ import chatbot.action.exception.InvalidArgumentValueException;
 import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
 import chatbot.action.util.ExpectedArgument;
+import chatbot.action.util.SuppliedArgument;
 import chatbot.task.Task;
 import chatbot.task.TaskList;
 import chatbot.ui.PrintFormatter;
+import chatbot.value.IntegerStringValue;
 
 /**
  * This encapsulates the behaviour of marking a {@link Task} as done.
@@ -18,7 +20,7 @@ import chatbot.ui.PrintFormatter;
 public final class MarkAction extends IndexableAction {
     /** The command for marking a {@link Task} as done. */
     private static final Command COMMAND = new Command(
-            new ExpectedArgument("mark", "index")
+            new ExpectedArgument("mark", "index", IntegerStringValue.class)
     );
 
     /**
@@ -27,7 +29,7 @@ public final class MarkAction extends IndexableAction {
      * @param arguments The {@link Argument}(s) supplied with the {@link Command}.
      * @throws ActionException If the action fails has unrecognizable or missing {@link Argument}(s).
      */
-    public MarkAction(Argument[] arguments) throws ActionException {
+    public MarkAction(SuppliedArgument[] arguments) throws ActionException {
         super(COMMAND, arguments);
     }
 
@@ -35,15 +37,14 @@ public final class MarkAction extends IndexableAction {
      * Marks the task.
      *
      * @param taskList The {@link TaskList} that is used with the {@link ChatBot}.
-     * @return The success message from performing the action.
      * @throws InvalidArgumentValueException If the action fails certain validation checks due to invalid input.
      */
     @Override
-    public String execute(TaskList taskList) throws InvalidArgumentValueException {
+    public void execute(TaskList taskList) throws InvalidArgumentValueException {
         // Perform behaviour
         Task markedTask = performIndexingAction(taskList::markTask);
 
-        return PrintFormatter.formatMessages(
+        PrintFormatter.addToFormatterQueue(
                 "Nice! I've marked this task as done:",
                 "    " + markedTask
         );

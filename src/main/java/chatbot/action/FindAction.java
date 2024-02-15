@@ -5,9 +5,11 @@ import chatbot.action.exception.ActionException;
 import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
 import chatbot.action.util.ExpectedArgument;
+import chatbot.action.util.SuppliedArgument;
 import chatbot.task.Task;
 import chatbot.task.TaskList;
 import chatbot.ui.PrintFormatter;
+import chatbot.value.StringValue;
 
 /**
  * This encapsulates the finding of a {@link Task} by name,
@@ -18,7 +20,7 @@ import chatbot.ui.PrintFormatter;
 public class FindAction extends Action {
     /** The {@link Command} for finding a {@link Task}. */
     private static final Command COMMAND = new Command(
-            new ExpectedArgument("find", "name")
+            new ExpectedArgument("find", "name", StringValue.class)
     );
 
     /**
@@ -27,7 +29,7 @@ public class FindAction extends Action {
      * @param arguments The {@link Argument}(s) supplied with the {@link Command}.
      * @throws ActionException If the action fails has unrecognizable or missing {@link Argument}(s).
      */
-    public FindAction(Argument[] arguments) throws ActionException {
+    public FindAction(SuppliedArgument[] arguments) throws ActionException {
         super(COMMAND, arguments);
     }
 
@@ -35,15 +37,14 @@ public class FindAction extends Action {
      * Finds matching {@link Task}(s) from the {@link TaskList}.
      *
      * @param taskList The {@link TaskList} that is used with the {@link ChatBot}.
-     * @return The success message from performing the action.
      */
     @Override
-    public String execute(TaskList taskList) {
+    public void execute(TaskList taskList) {
         String pattern = findDefaultArgument().toString();
 
         // Perform behaviour
         int[] matchingSortedTaskIndices = taskList.findMatchingTaskIndices(pattern);
-        return PrintFormatter.formatMessages(
+        PrintFormatter.addToFormatterQueue(
                 "Here are the matching tasks in your list: ",
                 taskList.toString(matchingSortedTaskIndices)
         );

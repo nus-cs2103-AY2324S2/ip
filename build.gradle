@@ -59,6 +59,8 @@ shadowJar {
 
 run{
     standardInput = System.in
+    standardOutput = System.out
+    enableAssertions = true
 }
 
 runShadow{

@@ -3,6 +3,7 @@ package chatbot.action.util;
 import chatbot.action.exception.ActionException;
 import chatbot.action.exception.MissingArgumentValueException;
 import chatbot.action.exception.UnexpectedArgumentValueException;
+import chatbot.value.StringValue;
 
 /**
  * This encapsulates the behaviour of an {@link Argument} that a {@link Command} can expect.
@@ -10,7 +11,9 @@ import chatbot.action.exception.UnexpectedArgumentValueException;
  *
  * @author Titus Chew
  */
-public final class ExpectedArgument extends Argument {
+public class ExpectedArgument extends Argument {
+    /** Stores the type of the value of this. */
+    private Class<? extends StringValue> expectedType;
 
     /**
      * Constructor for this {@link Argument} without a value.
@@ -26,9 +29,11 @@ public final class ExpectedArgument extends Argument {
      *
      * @param name The name of this argument, which should not be null.
      * @param valueUsageName The value of this argument, as a descriptive name of its purpose.
+     * @param expectedType The expected type of the value of this argument, which is a subtype of StringValue.
      */
-    public ExpectedArgument(String name, String valueUsageName) {
+    public ExpectedArgument(String name, String valueUsageName, Class<? extends StringValue> expectedType) {
         super(name, valueUsageName);
+        this.expectedType = expectedType;
     }
 
     /**
@@ -40,7 +45,7 @@ public final class ExpectedArgument extends Argument {
      * @param suppliedArgument The other {@link Argument} to compare with.
      * @throws ActionException If the {@link Argument} has a missing or unexpected value.
      */
-    public void validateArgument(Command command, Argument suppliedArgument) throws ActionException {
+    public void validateArgumentValue(Command command, Argument suppliedArgument) throws ActionException {
         if (hasSameArgumentName(suppliedArgument)) {
             if (getValue() != null && suppliedArgument.getValue() == null) {
                 throw new MissingArgumentValueException(command, this);
@@ -49,5 +54,9 @@ public final class ExpectedArgument extends Argument {
             }
             // else argument is valid and we do nothing
         }
+    }
+
+    public Class<? extends StringValue> getExpectedType() {
+        return expectedType;
     }
 }

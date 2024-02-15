@@ -89,7 +89,9 @@ public final class LocalStorage {
             return new TaskList();
         }
 
-        return readSaveFile();
+        TaskList taskList = readSaveFile();
+        SaveState.saveCurrentState(taskList.saveState());
+        return taskList;
     }
 
     /**

@@ -33,7 +33,7 @@ public abstract class Task {
      *
      * @param name The name of this task.
      */
-    public Task(String name) {
+    Task(String name) {
         this.name = name.trim();
     }
 
@@ -43,7 +43,7 @@ public abstract class Task {
      * @param matcher The matcher that has the relevant captured groups.
      * @throws InvalidTaskStringException If the regex doesn't match the pattern
      */
-    public Task(Matcher matcher) throws InvalidTaskStringException {
+    Task(Matcher matcher) throws InvalidTaskStringException {
         Matcher taskPatternMatcher = REGEX_PATTERN.matcher(matcher.group("task"));
 
         if (!taskPatternMatcher.find()) {
@@ -52,6 +52,34 @@ public abstract class Task {
 
         this.isCompleted = isStatusIconCompleted(taskPatternMatcher.group("status"));
         this.name = taskPatternMatcher.group("name").trim();
+    }
+
+    /**
+     * Copy constructor for this task.
+     *
+     * @param task The task to copy.
+     */
+    Task(Task task) {
+        this.name = task.name;
+        this.isCompleted = task.isCompleted;
+    }
+
+    /**
+     * Copies the task.
+     *
+     * @param task The non-null task to copy.
+     */
+    static Task copy(Task task) {
+        assert task != null;
+        if (task instanceof Event) {
+            return new Event((Event) task);
+        } else if (task instanceof Deadline) {
+            return new Deadline((Deadline) task);
+        } else if (task instanceof ToDo) {
+            return new ToDo((ToDo) task);
+        } else {
+            throw new AssertionError("Invalid task type!");
+        }
     }
 
     /**
@@ -85,7 +113,10 @@ public abstract class Task {
      * @return True, if the name matches the pattern, otherwise false.
      */
     public boolean isContainingPattern(String pattern) {
-        return Pattern.compile(pattern).matcher(name).find();
+        return Pattern
+                .compile(Pattern.quote(pattern))
+                .matcher(name)
+                .find();
     }
 
     /**

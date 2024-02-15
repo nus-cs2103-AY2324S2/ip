@@ -48,6 +48,16 @@ public final class Deadline extends Task {
     }
 
     /**
+     * Copy constructor for this deadline.
+     *
+     * @param deadline The deadline to copy.
+     */
+    public Deadline(Deadline deadline) {
+        super(deadline);
+        this.deadline = deadline.deadline;
+    }
+
+    /**
      * Parses a deadline from a human-readable string.
      *
      * @param readableString The deadline as a human-readable string.

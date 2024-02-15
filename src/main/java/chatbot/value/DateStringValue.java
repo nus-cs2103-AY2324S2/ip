@@ -51,15 +51,6 @@ public final class DateStringValue extends StringValue {
         }
     }
 
-    /**
-     * Takes in a {@link StringValue}, but tries to convert it to a {@link LocalDate}.
-     *
-     * @param value The value as a {@link StringValue}.
-     */
-    public DateStringValue(StringValue value) {
-        this(value.toString());
-    }
-
     @Override
     public String toString() {
         if (dateValue != null) {

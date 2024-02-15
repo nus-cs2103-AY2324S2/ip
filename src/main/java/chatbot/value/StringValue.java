@@ -2,6 +2,8 @@ package chatbot.value;
 
 /**
  * This encapsulates a value which must be a {@link String}.
+ * <p>
+ * All subclasses must implement a constructor that takes in a {@link String}.
  *
  * @author Titus Chew
  */

@@ -1,20 +1,23 @@
 package chatbot.action.util;
 
+import java.util.Optional;
+
 import chatbot.value.StringValue;
 
 /**
  * This stores a {@link Command} argument's name, and it's associated value.
  * <li>The argument must have a name.
  * <li>If the name matches the command, it is defined to be the default argument.
+ * <li>The default argument doesn't have a "{@code /}" at the front.
  *
  * @author Titus Chew
  */
-public class Argument {
+public abstract class Argument {
     /** Stores the name of this */
     private final String name;
 
     /** Stores the value of this */
-    private final StringValue value;
+    private StringValue value;
 
     /**
      * Constructor for this argument without a value
@@ -48,6 +51,10 @@ public class Argument {
         return value;
     }
 
+    void setValue(StringValue stringValue) {
+        value = stringValue;
+    }
+
     /**
      * Checks if the other argument has the same name as this.
      *
@@ -68,5 +75,16 @@ public class Argument {
      */
     public boolean hasSameArgumentName(String otherArgumentName) {
         return name.equals(otherArgumentName);
+    }
+
+    /**
+     * Returns the human-readable string of this.
+     */
+    @Override
+    public String toString() {
+        return ("/" + getName() + " " + Optional.ofNullable(getValue())
+                .map(val -> "<" + val + ">")
+                .orElse(""))
+                .trim();
     }
 }

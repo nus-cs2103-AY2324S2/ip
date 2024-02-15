@@ -4,25 +4,27 @@ import chatbot.action.exception.ActionException;
 import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
 import chatbot.action.util.ExpectedArgument;
+import chatbot.action.util.SuppliedArgument;
 import chatbot.task.Event;
 import chatbot.task.Task;
 import chatbot.task.TaskList;
 import chatbot.ui.PrintFormatter;
 import chatbot.value.DateStringValue;
+import chatbot.value.StringValue;
 
 /**
  * This encapsulates the behaviour of adding an {@link Event}.
  *
  * @author Titus Chew
  */
-public final class AddEventAction extends Action {
+public final class AddEventAction extends ModifyAction {
     /**
      * The {@link Command} for adding an {@link Event}.
      */
     private static final Command COMMAND = new Command(
-            new ExpectedArgument("event", "name"),
-            new ExpectedArgument("from", "start_date"),
-            new ExpectedArgument("to", "end_date")
+            new ExpectedArgument("event", "name", StringValue.class),
+            new ExpectedArgument("from", "start_date", DateStringValue.class),
+            new ExpectedArgument("to", "end_date", DateStringValue.class)
     );
 
     /**
@@ -31,7 +33,7 @@ public final class AddEventAction extends Action {
      * @param arguments The {@link Argument}(s) supplied with the {@link Command}.
      * @throws ActionException If the action fails has unrecognizable or missing {@link Argument}(s).
      */
-    public AddEventAction(Argument[] arguments) throws ActionException {
+    public AddEventAction(SuppliedArgument[] arguments) throws ActionException {
         super(COMMAND, arguments);
     }
 
@@ -39,17 +41,16 @@ public final class AddEventAction extends Action {
      * Adds an {@link Event} to the {@link TaskList}.
      *
      * @param taskList The {@link TaskList} to modify.
-     * @return The success message from performing the action.
      */
     @Override
-    public String execute(TaskList taskList) {
+    public void execute(TaskList taskList) {
         String name = findDefaultArgument().toString();
-        DateStringValue from = new DateStringValue(findArgument("from"));
-        DateStringValue to = new DateStringValue(findArgument("to"));
+        DateStringValue from = findArgument("from");
+        DateStringValue to = findArgument("to");
 
         // Perform behaviour
         Task task = taskList.addEvent(name, from, to);
-        return PrintFormatter.formatMessages(
+        PrintFormatter.addToFormatterQueue(
                 "Got it. I've added this event:",
                 "    " + task,
                 taskList.getSizeMessage()

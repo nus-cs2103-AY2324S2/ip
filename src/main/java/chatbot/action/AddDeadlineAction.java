@@ -4,22 +4,24 @@ import chatbot.action.exception.ActionException;
 import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
 import chatbot.action.util.ExpectedArgument;
+import chatbot.action.util.SuppliedArgument;
 import chatbot.task.Deadline;
 import chatbot.task.Task;
 import chatbot.task.TaskList;
 import chatbot.ui.PrintFormatter;
 import chatbot.value.DateStringValue;
+import chatbot.value.StringValue;
 
 /**
  * This encapsulates the behaviour of adding a {@link Deadline}.
  *
  * @author Titus Chew
  */
-public final class AddDeadlineAction extends Action {
+public final class AddDeadlineAction extends ModifyAction {
     /** The {@link Command} for adding a {@link Deadline}. */
     private static final Command COMMAND = new Command(
-            new ExpectedArgument("deadline", "name"),
-            new ExpectedArgument("by", "by_date")
+            new ExpectedArgument("deadline", "name", StringValue.class),
+            new ExpectedArgument("by", "by_date", DateStringValue.class)
     );
 
     /**
@@ -28,7 +30,7 @@ public final class AddDeadlineAction extends Action {
      * @param arguments The {@link Argument}(s) supplied with the command.
      * @throws ActionException If the action fails has unrecognizable or missing {@link Argument}(s).
      */
-    public AddDeadlineAction(Argument[] arguments) throws ActionException {
+    public AddDeadlineAction(SuppliedArgument[] arguments) throws ActionException {
         super(COMMAND, arguments);
     }
 
@@ -36,16 +38,15 @@ public final class AddDeadlineAction extends Action {
      * Adds a {@link Deadline} to the user's list.
      *
      * @param taskList The {@link TaskList} to modify.
-     * @return The success message from performing the action.
      */
     @Override
-    public String execute(TaskList taskList) {
+    public void execute(TaskList taskList) {
         String name = findDefaultArgument().toString();
-        DateStringValue by = new DateStringValue(findArgument("by"));
+        DateStringValue by = findArgument("by");
 
         // Perform behaviour
         Task task = taskList.addDeadline(name, by);
-        return PrintFormatter.formatMessages(
+        PrintFormatter.addToFormatterQueue(
                 "Got it. I've added this deadline:",
                 "    " + task,
                 taskList.getSizeMessage()

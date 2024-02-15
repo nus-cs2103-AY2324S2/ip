@@ -41,6 +41,15 @@ public final class ToDo extends Task {
     }
 
     /**
+     * Copy constructor for this to-do.
+     *
+     * @param todo The to-do to copy.
+     */
+    public ToDo(ToDo todo) {
+        super(todo);
+    }
+
+    /**
      * Parses a to-do from a human-readable string.
      *
      * @param readableString The to-do as a human-readable string.

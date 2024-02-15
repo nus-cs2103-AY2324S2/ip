@@ -128,7 +128,7 @@ public class MainWindow {
      * and removes them from the {@link PrintFormatter}.
      */
     public void getChatBotMessages() {
-        String chatBotText = PrintFormatter.formatMessages();
+        String chatBotText = PrintFormatter.getMessages();
         dialogContainer.getChildren().addAll(
                 DialogBox.getChatBotDialog(chatBotText)
         );
