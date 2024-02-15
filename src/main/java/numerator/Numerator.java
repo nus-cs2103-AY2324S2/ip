@@ -1,7 +1,6 @@
 package numerator;
 
 import java.nio.file.Path;
-import java.util.Scanner;
 
 import numerator.exceptions.NumeratorException;
 import numerator.exceptions.storage.LoadingException;
@@ -38,14 +37,6 @@ public class Numerator {
         }
     }
 
-    /**
-     * Instantiates The entry point of the Numerator program
-     *
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        new Numerator().run();
-    }
 
     /**
      * Gets the response from the Numerator program in response to a user's input
@@ -62,34 +53,5 @@ public class Numerator {
         }
     }
 
-    /**
-     * Runs the Numerator program
-     */
-    public void run() {
-        Ui.printLogo();
-        Scanner sc = new Scanner(System.in);
-
-        String input;
-        while (sc.hasNext()) {
-            try {
-                input = sc.nextLine();
-                Ui.printLine();
-                String response = Parser.parseArguments(input, taskList, storage);
-                storage.saveFile(taskList);
-
-                if (response.equals(Parser.BYE_STRING)) {
-                    Ui.printExit();
-                    break;
-                }
-            } catch (NumeratorException e) {
-                Ui.printError(e);
-            } finally {
-                Ui.printLine();
-            }
-        }
-
-        sc.close();
-
-    }
 }
 

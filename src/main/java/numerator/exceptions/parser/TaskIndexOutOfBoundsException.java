@@ -6,10 +6,8 @@ package numerator.exceptions.parser;
 public class TaskIndexOutOfBoundsException extends ParserException {
     /**
      * Constructs a TaskIndexOutOfBoundsException with the specified detail message
-     *
-     * @param message should contain information about the exception
      */
-    public TaskIndexOutOfBoundsException(String message) {
-        super(message);
+    public TaskIndexOutOfBoundsException() {
+        super("Task does not exist at the specified index!");
     }
 }

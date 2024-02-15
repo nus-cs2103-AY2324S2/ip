@@ -45,11 +45,46 @@ public class Parser {
         assert storage != null;
         assert input != null;
 
+        final boolean isToAddTask = input.startsWith(INPUT_TODO)
+                || input.startsWith(INPUT_DEADLINE)
+                || input.startsWith(INPUT_EVENT);
 
+        final boolean isToModifyTask = input.startsWith(INPUT_MARK)
+                || input.startsWith(INPUT_UNMARK)
+                || input.startsWith(INPUT_DELETE);
+
+        final boolean isUiInteraction = input.equals(INPUT_BYE)
+                || input.equals(INPUT_LIST)
+                || input.isBlank()
+                || input.startsWith(INPUT_FIND);
+
+        if (isUiInteraction) {
+            return parseUiInteractionReducer(input, taskList);
+        } else if (isToModifyTask) {
+            return parseModifyTaskReducer(input, taskList, storage);
+        } else if (isToAddTask) {
+            return parseAddTaskReducer(input, taskList, storage);
+        } else {
+            throw new InputNotRecognisedException();
+        }
+    }
+
+    private static String parseUiInteractionReducer(String input, TaskList taskList) throws NumeratorException {
         if (input.equals(INPUT_BYE)) {
             return BYE_STRING;
+        } else if (input.equals(INPUT_LIST)) {
+            return taskList.toString();
+        } else if (input.isBlank()) {
+            throw new InputFormatException("Please enter something");
+        } else if (input.startsWith(INPUT_FIND)) {
+            return parseFind(input, taskList);
+        } else {
+            throw new IllegalArgumentException("Invalid input");
+        }
+    }
 
-        } else if (input.startsWith(INPUT_MARK)) {
+    private static String parseModifyTaskReducer(String input, TaskList taskList, Storage storage) throws NumeratorException {
+        if (input.startsWith(INPUT_MARK)) {
             return parseMark(input, taskList, storage);
 
         } else if (input.startsWith(INPUT_UNMARK)) {
@@ -57,29 +92,23 @@ public class Parser {
 
         } else if (input.startsWith(INPUT_DELETE)) {
             return parseDelete(input, taskList, storage);
-
-        } else if (input.startsWith(INPUT_TODO)) {
-            return parseTodo(input, taskList, storage);
-
-        } else if (input.startsWith(INPUT_DEADLINE)) {
-            return parseDeadline(input, taskList, storage);
-
-        } else if (input.startsWith(INPUT_EVENT)) {
-            return parseEvent(input, taskList, storage);
-
-        } else if (input.equals(INPUT_LIST)) {
-            return taskList.toString();
-
-        } else if (input.startsWith(INPUT_FIND)) {
-            return parseFind(input, taskList);
-
-        } else if (input.isBlank()) {
-            throw new InputFormatException("Please enter something");
-
         } else {
-            throw new InputNotRecognisedException();
+            throw new IllegalArgumentException("Invalid input");
         }
     }
+
+    private static String parseAddTaskReducer(String input, TaskList taskList, Storage storage) throws NumeratorException {
+        if (input.startsWith(INPUT_TODO)) {
+            return parseTodo(input, taskList, storage);
+        } else if (input.startsWith(INPUT_DEADLINE)) {
+            return parseDeadline(input, taskList, storage);
+        } else if (input.startsWith(INPUT_EVENT)) {
+            return parseEvent(input, taskList, storage);
+        } else {
+            throw new IllegalArgumentException("Invalid input");
+        }
+    }
+
 
     private static String parseFind(String input, TaskList taskList) throws InputFormatException {
         Matcher m = getMatcher(
@@ -150,7 +179,7 @@ public class Parser {
             storage.saveFile(taskList);
             return taskList.getDeleteTaskString(t);
         } catch (IndexOutOfBoundsException e) {
-            throw new TaskIndexOutOfBoundsException("Task does not exist");
+            throw new TaskIndexOutOfBoundsException();
         }
     }
 
@@ -166,7 +195,7 @@ public class Parser {
             storage.saveFile(taskList);
             return "OK, I've marked this task as not done yet:" + taskList.getTaskAtIndex(taskNum);
         } catch (IndexOutOfBoundsException e) {
-            throw new TaskIndexOutOfBoundsException("Task does not exist");
+            throw new TaskIndexOutOfBoundsException();
         }
     }
 
@@ -184,7 +213,7 @@ public class Parser {
             storage.saveFile(taskList);
             return "Nice! I've marked this task as done:\n" + taskList.getTaskAtIndex(taskNum);
         } catch (IndexOutOfBoundsException e) {
-            throw new TaskIndexOutOfBoundsException("Task does not exist");
+            throw new TaskIndexOutOfBoundsException();
         }
     }
 
