@@ -13,6 +13,7 @@ import duke.search.Search;
 import duke.tasks.Task;
 
 
+
 /**
  * The `TempStorage` class is responsible for temporary storage and management of tasks in memory.
  * It allows adding, deleting, marking, unmarking tasks, loading tasks from encoded strings, and
@@ -161,7 +162,7 @@ public class TempStorage {
         return joiner.toString();
     }
     public void restore(ArrayList<Task> newList) {
-        list = newList;
+        list = SerializationUtils.clone(newList);
     }
     public ArrayList<Task> getCurrentList() {
         return SerializationUtils.clone(list);

@@ -13,7 +13,6 @@ import duke.tasks.Task;
  * placeholder
  */
 public class State implements Serializable {
-    protected static final State EMPTY_STATE = new State(Command.UNDO, new ArrayList<>());
     private static final long serialVersionUID = 5L;
     private final Command command;
     private final ArrayList<Task> taskList;

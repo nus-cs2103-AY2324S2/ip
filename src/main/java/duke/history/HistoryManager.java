@@ -25,24 +25,25 @@ public class HistoryManager {
      * @param fileDirectory placeholder
      * @param fileName      placeholder
      */
-    public HistoryManager(String fileDirectory, String fileName) throws StartUpException {
+    public HistoryManager(String fileDirectory, String fileName, State startState) throws StartUpException {
         historyFilePath = fileDirectory + fileName;
         new File(fileDirectory).mkdir();
         historyFile = new File(historyFilePath);
-        startUpHistory();
+        startUpHistory(startState);
     }
 
-    private void startUpHistory() throws StartUpException {
+    private void startUpHistory(State startState) throws StartUpException {
         assert history == null;
         try {
             boolean hasCreatedNewFile = historyFile.createNewFile();
             if (hasCreatedNewFile) {
                 System.out.println("History file not found! Created an new one!");
-                history = new History();
+                history = new History(startState);
                 saveHistory();
             } else {
                 System.out.println("History file found! Loading old history...");
                 history = loadHistory();
+                history.addState(startState);
             }
         } catch (ProcessingException e) {
             throw new StartUpException(e.getMessage(), e);

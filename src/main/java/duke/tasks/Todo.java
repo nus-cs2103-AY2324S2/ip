@@ -31,13 +31,4 @@ public class Todo extends Task {
     public String getTaskName() {
         return super.getTaskName();
     }
-    @Override
-    public Todo clone() {
-        try {
-            Todo clone = (Todo) super.clone();
-            return clone;
-        } catch (CloneNotSupportedException e) {
-            throw new AssertionError();
-        }
-    }
 }

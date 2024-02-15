@@ -17,9 +17,9 @@ public class History implements Serializable {
     /**
      * placeholder
      */
-    public History() {
+    public History(State startState) {
         states = new ArrayList<>();
-        states.add(State.EMPTY_STATE);
+        states.add(startState);
         currStateIdx = 0;
     }
     private void removeStatesAfterCurrentState() {
