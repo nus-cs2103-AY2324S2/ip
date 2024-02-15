@@ -81,7 +81,7 @@ public class BotChat {
         helpMessage.append("   /deadline [deadline details] /by [date/time] - Add a deadline task\n");
         helpMessage.append("   /todo [task details] - Add a todo task\n");
         helpMessage.append("   /delete [taskIndex] - Delete a task\n");
-        helpMessage.append("   /find [keyword] - Find tasks containing a keyword\n");
+        helpMessage.append("   /find [keyword] - Find tasks containing the keyword\n");
         helpMessage.append("   /help - Display this help message\n");
         return helpMessage.toString();
     }
