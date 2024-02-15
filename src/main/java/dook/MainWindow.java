@@ -32,6 +32,10 @@ public class MainWindow extends AnchorPane {
                     + "　　 　｜　　 _⊃　　♪\n"
                     + "　　　 し -,"));
 
+    private static final String WELCOME_STRING = "Hello from Dook! :D meow";
+
+    private static final String PROMPT_STRING = "What can I do for you?? uwu";
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -62,12 +66,12 @@ public class MainWindow extends AnchorPane {
                         event -> dialogContainer
                                 .getChildren()
                                 .addAll(DialogBox
-                                        .getDukeDialog("Hello from Dook! :D meow", dookImage))),
+                                        .getDukeDialog(WELCOME_STRING, dookImage))),
                 new KeyFrame(Duration.seconds(3.0),
                         event -> dialogContainer
                                 .getChildren()
                                 .addAll(DialogBox
-                                        .getDukeDialog("What can I do for you?? uwu", dookImage)))
+                                        .getDukeDialog(PROMPT_STRING, dookImage)))
         );
         timeline.play();
         danceAnimation = new Timeline();
