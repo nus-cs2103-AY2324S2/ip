@@ -22,6 +22,6 @@ public class MarkCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.markTaskAsDone(taskNum);
-        return null;
+        return ui.showMarkDoneTaskText() + tasks.getTask(taskNum).toString();
     }
 }

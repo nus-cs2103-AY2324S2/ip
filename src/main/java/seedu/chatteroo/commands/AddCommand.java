@@ -21,7 +21,7 @@ public class AddCommand extends Command {
 
     @Override
     public String execute(TaskList listStore, Ui ui, Storage storage) {
-        listStore.add(newTask);
+        listStore.addTask(newTask);
         int listCount = listStore.getTaskListSize();
         return ui.showAddTaskText(newTask, listCount);
     }

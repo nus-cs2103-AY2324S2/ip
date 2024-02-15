@@ -2,6 +2,7 @@ package seedu.chatteroo.ui;
 
 import seedu.chatteroo.tasks.Task;
 
+
 /**
  * Represents the user interface of the Chatteroo ChatBot program.
  */
@@ -26,12 +27,6 @@ public class Ui {
         return "Chatteroo says bye and hopes to see you again soon!\n";
     }
 
-    /**
-     * Shows the specified text when the list contains no tasks.
-     */
-    public void showNoTaskText() {
-        System.out.println("There are no tasks in the list.\n");
-    }
 
     public String showAddTaskText(Task newTask, int listCount) {
         String message = "Got it. I've added this task:\n" + newTask.toString() + "\n";
@@ -45,13 +40,29 @@ public class Ui {
         return message;
     }
 
-    public String showFindTaskText(String keyword, int count) {
-        String message = "";
-        if (count == 0) {
-            message = "There are no matching tasks in your list.\n";
-        } else {
-            message = "Here are the matching tasks in your list:\n";
+    public String showFindTaskText(int listCount) {
+        if (listCount == 0) {
+            return "There are no matching tasks in your list.\n";
         }
-        return message;
+            return "Here are the matching tasks in your list:\n";
     }
+
+    /**
+     * Shows the specified text when the list contains no tasks.
+     */
+    public String showListTaskText(int listCount) {
+        if (listCount == 0) {
+            return "There are no tasks in the list.\n";
+        }
+        return "Here are the tasks in your list:\n";
+    }
+
+    public String showMarkDoneTaskText() {
+        return "Nice! I've marked this task as done:\n";
+    }
+
+    public String showMarkNotDoneTaskText() {
+        return "OK, I've marked this task as not done yet:\n";
+    }
+
 }

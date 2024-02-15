@@ -1,10 +1,1 @@
 T | 0 | read
-T | 0 | read a book
-T | 1 | read
-E | 0 | meeting  | 2023-11-01 1800 | 2023-11-01 1900
-T | 0 | go home
-T | 0 | run
-T | 0 | sleep
-T | 0 | sleep
-T | 0 | sleeeeep
-T | 0 | go home

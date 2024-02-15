@@ -22,6 +22,6 @@ public class UnmarkCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.markTaskAsNotDone(taskNum);
-        return null;
+        return ui.showMarkNotDoneTaskText() + tasks.getTask(taskNum).toString();
     }
 }

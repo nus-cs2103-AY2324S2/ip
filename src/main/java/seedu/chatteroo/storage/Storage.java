@@ -86,7 +86,7 @@ public class Storage {
      */
     public void saveTasks(TaskList listStore) throws IOException{
         FileWriter fw = new FileWriter(Paths.get(DIRECTORY, FILE_NAME).toString());
-        for (int i = 0; i < listStore.getTaskListSize(); i++) {
+        for (int i = 1; i <= listStore.getTaskListSize(); i++) {
             Task currTask = listStore.getTask(i);
             String taskType = currTask.getTaskType();
             String taskStatus = "";

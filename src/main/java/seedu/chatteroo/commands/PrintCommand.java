@@ -20,10 +20,8 @@ public class PrintCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         int listCount = tasks.getTaskListSize();
         if (listCount == 0) {
-            ui.showNoTaskText();
-        } else {
-            tasks.printTasks(listCount);
+            return ui.showListTaskText(listCount);
         }
-        return null;
+        return ui.showListTaskText(listCount) + tasks.getTaskListString();
     }
 }

@@ -28,20 +28,13 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        int listCount = tasks.getTaskListSize();
-        int count = 0;
-        for (int i = 0; i < listCount; i++) {
-            if (tasks.getTask(i).getDescription().contains(keyword)) {
-                count++;
-                if (count == 1) {
-                    System.out.println("Here are the matching tasks in your list:");
-                }
-                System.out.println(count + ". " + tasks.getTask(i).toString());
-            }
+        TaskList filteredTasks = tasks.findTasks(keyword);
+        int listCount = filteredTasks.getTaskListSize();
+        String findTaskUi = ui.showFindTaskText(listCount);
+        if (listCount == 0) {
+            return findTaskUi;
         }
-        if (count == 0) {
-            System.out.println("There are no matching tasks in your list.");
-        }
-        return null;
+        return findTaskUi + filteredTasks.getTaskListString();
+
     }
 }
