@@ -31,4 +31,10 @@ public class Todo extends Task {
         }
         return false;
     }
+
+    @Override
+    public int hashCode() {
+        String hashString = String.format("todo,%s", name);
+        return hashString.hashCode();
+    }
 }

@@ -67,7 +67,6 @@ public class TaskList {
      * @return true if the task is successfully added.
      */
     public boolean addTask(Task task) {
-        UI.print(hashTasks);
         if (this.hashTasks.add(task)) {
             return this.tasks.add(task);
         } else {

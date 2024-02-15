@@ -59,4 +59,10 @@ public class Event extends Task {
         }
         return false;
     }
+
+    @Override
+    public int hashCode() {
+        String hashString = String.format("event,%s,%s,%s", name, startDate.toString(), endDate.toString());
+        return hashString.hashCode();
+    }
 }

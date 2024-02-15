@@ -51,4 +51,10 @@ public class Deadline extends Task {
         }
         return false;
     }
+
+    @Override
+    public int hashCode() {
+        String hashString = String.format("deadline,%s,%s", name, endDate.toString());
+        return hashString.hashCode();
+    }
 }
