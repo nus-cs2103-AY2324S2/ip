@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Reacher {
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> memory = new ArrayList<>();
