@@ -49,7 +49,7 @@ test {
 }
 
 application {
-    mainClass.set("seiki.Seiki")
+    mainClass.set("seiki.Launcher")
 }
 
 shadowJar {
