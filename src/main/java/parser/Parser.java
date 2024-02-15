@@ -12,6 +12,7 @@ import tasklist.MarkTask;
 import tasklist.SearchTask;
 import tasks.Task;
 import ui.Ui;
+import helper.WordsSplit;
 
 /**
  * Deals with making sense of the suer command
@@ -39,11 +40,8 @@ public class Parser {
     public static String executeCommand(String input, List<List<Task>> tasksList) {
         String response = null;
 
-        int splitFirstWhitespace = 2;
-        String[] userInputSplit = input.split(" ", splitFirstWhitespace);
-
-        int actionIdx = 0;
-        String actionCalled = userInputSplit[actionIdx];
+        String[] userInputSplit = WordsSplit.separateWords(input, " ", true);
+        String actionCalled = WordsSplit.getWord(userInputSplit, 0);
         Commands cmd = getCommands(actionCalled);
 
         // Switch between different calls

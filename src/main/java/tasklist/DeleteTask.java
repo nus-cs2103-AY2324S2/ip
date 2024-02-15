@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import exceptions.TaylorException;
+import helper.WordsSplit;
 import tasks.Task;
 
 /**
@@ -28,10 +29,11 @@ public class DeleteTask {
     // delete event 1
     public static String execDeleteTask(String input, List<List<Task>> taskList) throws TaylorException {
         StringBuilder response = new StringBuilder();
-        String[] wordPartition = input.split(" ");
+        String[] wordPartition = WordsSplit.separateWords(input, " ", false);
         try {
             int idxToGetTaskType = 1;
-            String taskType = wordPartition[idxToGetTaskType].toUpperCase();
+            String taskType = WordsSplit.getWord(wordPartition, idxToGetTaskType).toUpperCase();
+
             boolean isEvent = taskType.equals("EVENT");
             boolean isDeadline = taskType.equals("DEADLINE");
             boolean isTodo = taskType.equals("TODO");
