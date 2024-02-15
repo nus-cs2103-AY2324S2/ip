@@ -2,36 +2,78 @@ package Martin;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 
+    /**
+     * Constructs a TaskList object with the given list of tasks.
+     *
+     * @param tasks The list of tasks.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Retrieves the list of tasks.
+     *
+     * @return The list of tasks.
+     */
     public ArrayList<Task> getTodoList() {
         return this.tasks;
     }
 
+    /**
+     * Adds a task to the list.
+     *
+     * @param task The task to be added.
+     * @return A string representation of the added task.
+     */
     public String add(Task task) {
         tasks.add(task);
         return "task added: " + task.toString() + "\n";
     }
 
+    /**
+     * Removes a task from the list at the specified index.
+     *
+     * @param index The index of the task to be removed.
+     * @return The removed task.
+     */
     public Task remove(int index) {
         return tasks.remove(index);
     }
 
+    /**
+     * Marks a task at the specified index as done.
+     *
+     * @param index The index of the task to be marked as done.
+     * @return A string representation of the marked task.
+     */
     public String markAsDone(int index) {
         tasks.get(index).markAsDone();
         return tasks.get(index).toString();
     }
 
+    /**
+     * Marks a task at the specified index as not done.
+     *
+     * @param index The index of the task to be marked as not done.
+     * @return A string representation of the unmarked task.
+     */
     public String unmarkAsDone(int index) {
         tasks.get(index).unmarkAsDone();
         return tasks.get(index).toString();
     }
 
+    /**
+     * Prints the list of tasks.
+     *
+     * @return A string representation of the list of tasks.
+     */
     public String printList() {
         // 1-indexed todolist
         String list = "";
@@ -41,6 +83,12 @@ public class TaskList {
         return list;
     }
 
+    /**
+     * Finds tasks that contain the specified keyword.
+     *
+     * @param keyword The keyword to search for.
+     * @return A list of tasks that contain the keyword.
+     */
     public ArrayList<Task> find(String keyword) {
         ArrayList<Task> foundTasks = new ArrayList<>();
         for (Task task : tasks) {

@@ -45,7 +45,9 @@ public class Storage {
                 fw.write("T | 1 | dummy offset\n");
                 fw.close();
             }
-            return loadFromFile(martinFile);
+            ArrayList<Task> todoList = loadFromFile(martinFile);
+            assert todoList.size() > 0 : "todoList should not be empty";
+            return todoList;
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
