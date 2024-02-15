@@ -19,11 +19,16 @@ public class Todo extends Task {
     @Override
     public String toString() {
         String status = getStatusIcon();
-        return "[T][" + status + "] " + super.toString();
+        String todoStatus = "[T][" + status + "] ";
+        String desc = super.toString();
+
+        return todoStatus + desc;
     }
 
     @Override
     public String toFileString() {
-        return "T | " + (isDone ? "1" : "0") + " | " + description;
+        String todoStatus = "T | " + (isDone ? "1" : "0");
+
+        return todoStatus + " | " + description;
     }
 }
