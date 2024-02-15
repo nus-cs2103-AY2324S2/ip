@@ -1,17 +1,26 @@
 package talkingbot;
 
 import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import talkingbot.logic.TalkingBot;
 import talkingbot.gui.Window;
+import talkingbot.logic.TalkingBot;
 
+/**
+ * Main class connecting the logic and the GUI of the application.
+ */
 public class Main extends Application {
     private TalkingBot talkingBot = new TalkingBot();
 
+    /**
+     * Loads the main window of the application and displays it.
+     *
+     * @param stage Stage for the application.
+     */
     @Override
     public void start(Stage stage) {
         try {
