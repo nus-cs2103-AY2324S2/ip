@@ -25,6 +25,7 @@ public class FileManaging {
     public static void readFileContent(String filePath, TaskList storage) throws FileNotFoundException, DukeException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
+        storage.removeAll();
 
         while (s.hasNext()) {
             // Create a duke.task.Task object and store into local array.
@@ -53,12 +54,26 @@ public class FileManaging {
      * Stores storage memory into hard disk.
      *
      * @param filePath path to store the memory.
+     * @param filePath2 path to store the secondary memory.
      * @param storage the storage that will be stored in memory.
      * @throws IOException
      */
-    public static void writeToFile(String filePath, TaskList storage) throws IOException {
-        FileWriter fw = new FileWriter(filePath);
+    public static void writeToFile(String filePath, String filePath2, TaskList storage) throws IOException {
+        FileWriter fw2 = new FileWriter(filePath2);
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        StringBuilder output = new StringBuilder("");
 
+        while (s.hasNext()) {
+            String line = s.nextLine();
+            output.append(line);
+            output.append("\n");
+        }
+        fw2.write(output.toString());
+        fw2.close();
+
+
+        FileWriter fw = new FileWriter(filePath);
         fw.write(storage.storageListing());
         fw.close();
     }

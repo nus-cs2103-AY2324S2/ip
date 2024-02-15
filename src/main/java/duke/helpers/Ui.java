@@ -62,7 +62,9 @@ public class Ui {
                 + CommandType.CHECKDATE.getCommand() + "\n";
         String line11 = "9. To find tasks related to a matching word : "
                 + CommandType.FIND.getCommand() + "\n";
-        String line12 = "10. Close chatbot : " + CommandType.BYE.getCommand() + "\n";
+        String line12 = "10. To undo :"
+                + CommandType.UNDO.getCommand() + "\n";
+        String line13 = "10. Close chatbot : " + CommandType.BYE.getCommand() + "\n";
         output.append(line1);
         output.append(line2);
         output.append(line3);
@@ -75,6 +77,7 @@ public class Ui {
         output.append(line10);
         output.append(line11);
         output.append(line12);
+        output.append(line13);
         return output.toString();
     }
 

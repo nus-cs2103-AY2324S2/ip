@@ -1,16 +1,6 @@
 package duke.helpers;
 
-import duke.command.ByeCommand;
-import duke.command.CheckDateCommand;
-import duke.command.Command;
-import duke.command.CommandType;
-import duke.command.TaskAddingCommand;
-import duke.command.TaskDeletingCommand;
-import duke.command.TaskFindingCommand;
-import duke.command.TaskListingCommand;
-import duke.command.TaskMarkingCommand;
-import duke.command.TaskUnmarkingCommand;
-import duke.command.TasksPrintingCommand;
+import duke.command.*;
 
 /**
  * Parser class
@@ -31,6 +21,8 @@ public class Parser {
             return new TasksPrintingCommand();
         } else if (command.equals(CommandType.LIST.toString())) {
             return new TaskListingCommand();
+        } else if (command.equals(CommandType.UNDO.toString())) {
+            return new UndoCommand();
         } else if (commandArr[0].equals(CommandType.CHECKDATE.toString())) {
             return new CheckDateCommand(commandArr);
         } else if (commandArr[0].equals(CommandType.MARK.toString())) {

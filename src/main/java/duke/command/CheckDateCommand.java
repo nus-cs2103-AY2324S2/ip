@@ -20,7 +20,7 @@ public class CheckDateCommand extends Command {
     }
 
     @Override
-    public String getExecutionMessage(TaskList tasks, Ui ui, Storage storage) {
+    public String getExecutionMessage(TaskList tasks, Ui ui, Storage storage, Storage secondaryStorage) {
         return tasks.checkDate(commandArr.length > 1 ? commandArr[1] : "");
     }
 }

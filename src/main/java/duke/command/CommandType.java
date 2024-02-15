@@ -4,7 +4,8 @@ package duke.command;
  * Enums of all command type.
  */
 public enum CommandType {
-    TODO, DEADLINE, EVENT, TASK, LIST, LISTCOMMANDS, MARK, UNMARK, DELETE, BYE, FILEPATH, CHECKDATE, FIND;
+    TODO, DEADLINE, EVENT, TASK, LIST, LISTCOMMANDS, MARK, UNMARK, DELETE, BYE, FILEPATH, CHECKDATE, FIND,
+    SECONDARYFILEPATH, UNDO;
 
     /**
      * Returns Command line of respective enums.
@@ -45,6 +46,9 @@ public enum CommandType {
 
         case FIND:
             return "find [word]";
+
+        case UNDO:
+            return "undo";
 
         default:
             return null;
@@ -92,11 +96,17 @@ public enum CommandType {
         case FILEPATH:
             return "storage.txt";
 
+        case SECONDARYFILEPATH:
+            return "secondary_storage.txt";
+
         case CHECKDATE:
             return "checkdate";
 
         case FIND:
             return "find";
+
+        case UNDO:
+            return "undo";
 
         default:
             return null;
