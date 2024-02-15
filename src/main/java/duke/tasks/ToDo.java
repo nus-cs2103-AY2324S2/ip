@@ -35,8 +35,9 @@ public class ToDo extends Task {
      * @param key String to find in the name.
      * @return Boolean if key is found or not.
      */
-    public boolean find(String key) {
-        return super.find(key);
+    @Override
+    public boolean containsWord(String key) {
+        return super.containsWord(key);
     }
 
     /**
