@@ -99,10 +99,13 @@ public class Ui {
      *          text based UI
      */
     public String getResponse() {
+        int n = response.length;
+        assert n > 0;
         StringBuilder res = new StringBuilder();
-        for (String line: response) {
-            res.append(PADDING).append(line).append(NEWLINE);
+        for (int i = 0; i < n - 1; ++i) {
+            res.append(PADDING).append(response[i]).append(NEWLINE);
         }
+        res.append(PADDING).append(response[n - 1]); // last line has no newline
         return res.toString();
     }
 }

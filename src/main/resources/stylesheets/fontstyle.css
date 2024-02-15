@@ -1,8 +1,0 @@
-@font-face {
-    src: url(../fonts/FiraCode-Bold.ttf);
-}
-
-.label {
-    -fx-font-family: 'Fira Code Bold';
-    -fx-font-size: 12;
-}
