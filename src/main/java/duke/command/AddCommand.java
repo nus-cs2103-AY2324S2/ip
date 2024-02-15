@@ -39,64 +39,13 @@ public class AddCommand extends Command {
         try {
             switch (inputs[0]) {
             case "event":
-                if (inputs.length == 1) {
-                    throw new DescriptionFormatException("Wrong format!, please use this format: "
-                            + Event.getFormat());
-                } else {
-                    name = com.split("event ");
-                    String[] desFromTo = name[1].split(" /from ");
-                    String[] fromTo = desFromTo[1].split(" /to ");
-                    if (desFromTo.length != 2 || fromTo.length != 2) {
-                        throw new DescriptionFormatException("Wrong format!, please use this format: "
-                                + Event.getFormat());
-                    }
-                    LocalDateTime ldtF = LocalDateTime.parse(fromTo[0], DATE_FORMAT_INP);
-                    LocalDateTime ldtT = LocalDateTime.parse(fromTo[1], DATE_FORMAT_INP);
-                    String out = tL.addTask(new Event(desFromTo[0], ldtF, ldtT));
-                    ui.showMessage(out);
-                    st.write(tL.getList());
-                    setOut(out);
-                }
+                createEvent(inputs, tL, ui, st);
                 break;
             case "todo":
-                if ((inputs.length == 1)) {
-                    throw new DescriptionFormatException("Wrong format!, please use this format: "
-                            + ToDos.getFormat());
-                } else {
-                    name = com.split("todo ");
-                    if (name.length != 2) {
-                        throw new DescriptionFormatException("Wrong format!, please use this format: "
-                                + ToDos.getFormat());
-                    } else {
-                        name = com.split("todo ");
-                        if (name.length != 2) {
-                            throw new DescriptionFormatException("Wrong format!, please use this format: "
-                                    + ToDos.getFormat());
-                        }
-                    }
-                    String out = tL.addTask(new ToDos(name[1]));
-                    ui.showMessage(out);
-                    st.write(tL.getList());
-                    setOut(out);
-                }
+                createToDo(inputs, tL, ui, st);
                 break;
             case "deadline":
-                if (inputs.length == 1) {
-                    throw new DescriptionFormatException("Wrong format!, please use this format: "
-                            + Deadline.getFormat());
-                } else {
-                    name = com.split("deadline ");
-                    String[] desBy = name[1].split(" /by ");
-                    if (desBy.length != 2) {
-                        throw new DescriptionFormatException("Wrong format!, please use this format: "
-                                + Deadline.getFormat());
-                    }
-                    LocalDateTime ldt = LocalDateTime.parse(desBy[1], DATE_FORMAT_INP);
-                    String out = tL.addTask(new Deadline(desBy[0], ldt));
-                    ui.showMessage(out);
-                    st.write(tL.getList());
-                    setOut(out);
-                }
+                createDeadline(inputs, tL, ui, st);
                 break;
             default:
             }
@@ -119,5 +68,91 @@ public class AddCommand extends Command {
      */
     public String getCom() {
         return com;
+    }
+
+    /**
+     * Create new ToDos task and add it to the task list.
+     *
+     * @param inputs string array of the input.
+     * @param tL TaskList for executing command.
+     * @param ui Ui for printing string.
+     * @param st Storage for saving/loading in file.
+     */
+    public void createToDo(String[] inputs, TaskList tL, Ui ui, Storage st) throws DescriptionFormatException,
+            IOException {
+        if ((inputs.length == 1)) {
+            throw new DescriptionFormatException("Wrong format!, please use this format: "
+                    + ToDos.getFormat());
+        }
+        String[] name = com.split("todo ");
+        if (name.length != 2) {
+            throw new DescriptionFormatException("Wrong format!, please use this format: "
+                    + ToDos.getFormat());
+        }
+        name = com.split("todo ");
+        if (name.length != 2) {
+            throw new DescriptionFormatException("Wrong format!, please use this format: "
+                    + ToDos.getFormat());
+        }
+        String out = tL.addTask(new ToDos(name[1]));
+        ui.showMessage(out);
+        st.write(tL.getList());
+        setOut(out);
+    }
+
+    /**
+     * Create new Event task and add it to the task list.
+     *
+     * @param inputs string array of the input.
+     * @param tL TaskList for executing command.
+     * @param ui Ui for printing string.
+     * @param st Storage for saving/loading in file.
+     */
+    public void createEvent(String[] inputs, TaskList tL, Ui ui, Storage st) throws DescriptionFormatException,
+            IOException {
+        if (inputs.length == 1) {
+            throw new DescriptionFormatException("Wrong format!, please use this format: "
+                    + Event.getFormat());
+        }
+        String[] name = com.split("event ");
+        String[] desFromTo = name[1].split(" /from ");
+        String[] fromTo = desFromTo[1].split(" /to ");
+        if (desFromTo.length != 2 || fromTo.length != 2) {
+            throw new DescriptionFormatException("Wrong format!, please use this format: "
+                    + Event.getFormat());
+        }
+        LocalDateTime ldtF = LocalDateTime.parse(fromTo[0], DATE_FORMAT_INP);
+        LocalDateTime ldtT = LocalDateTime.parse(fromTo[1], DATE_FORMAT_INP);
+        String out = tL.addTask(new Event(desFromTo[0], ldtF, ldtT));
+        ui.showMessage(out);
+        st.write(tL.getList());
+        setOut(out);
+    }
+
+    /**
+     * Create new Deadline task and add it to the task list.
+     *
+     * @param inputs string array of the input.
+     * @param tL TaskList for executing command.
+     * @param ui Ui for printing string.
+     * @param st Storage for saving/loading in file.
+     */
+    public void createDeadline(String[] inputs, TaskList tL, Ui ui, Storage st) throws DescriptionFormatException,
+            IOException {
+        if (inputs.length == 1) {
+            throw new DescriptionFormatException("Wrong format!, please use this format: "
+                    + Deadline.getFormat());
+        }
+        String[] name = com.split("deadline ");
+        String[] desBy = name[1].split(" /by ");
+        if (desBy.length != 2) {
+            throw new DescriptionFormatException("Wrong format!, please use this format: "
+                    + Deadline.getFormat());
+        }
+        LocalDateTime ldt = LocalDateTime.parse(desBy[1], DATE_FORMAT_INP);
+        String out = tL.addTask(new Deadline(desBy[0], ldt));
+        ui.showMessage(out);
+        st.write(tL.getList());
+        setOut(out);
     }
 }

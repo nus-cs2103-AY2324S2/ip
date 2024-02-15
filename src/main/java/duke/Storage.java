@@ -44,27 +44,26 @@ public class Storage {
      */
     public ArrayList<Task> load() throws FileNotFoundException {
         ArrayList<Task> taskF = new ArrayList<>();
-        if (data.exists()) {
-            Scanner sc = new Scanner(data);
-            while (sc.hasNext()) {
-                String dt = sc.nextLine();
-                String[] dtl = dt.split("/");
-                switch (dtl[0]) {
-                case "T":
-                    taskF.add(new ToDos(dtl[1], dtl[2]));
-                    break;
-                case "D":
-                    taskF.add(new Deadline(dtl[1], dtl[2], LocalDateTime.parse(dtl[3], DATE_FORMAT_INP)));
-                    break;
-                case "E":
-                    taskF.add(new Event(dtl[1], dtl[2], LocalDateTime.parse(dtl[3], DATE_FORMAT_INP),
-                            LocalDateTime.parse(dtl[4], DATE_FORMAT_INP)));
-                    break;
-                default:
-                }
-            }
-        } else {
+        if (!data.exists()) {
             throw new FileNotFoundException("No saved data before, making new one");
+        }
+        Scanner sc = new Scanner(data);
+        while (sc.hasNext()) {
+            String dt = sc.nextLine();
+            String[] dtl = dt.split("/");
+            switch (dtl[0]) {
+            case "T":
+                taskF.add(new ToDos(dtl[1], dtl[2]));
+                break;
+            case "D":
+                taskF.add(new Deadline(dtl[1], dtl[2], LocalDateTime.parse(dtl[3], DATE_FORMAT_INP)));
+                break;
+            case "E":
+                taskF.add(new Event(dtl[1], dtl[2], LocalDateTime.parse(dtl[3], DATE_FORMAT_INP),
+                        LocalDateTime.parse(dtl[4], DATE_FORMAT_INP)));
+                break;
+            default:
+            }
         }
         return taskF;
     }
