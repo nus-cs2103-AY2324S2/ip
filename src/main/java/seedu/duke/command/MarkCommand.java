@@ -27,10 +27,6 @@ public class MarkCommand extends Command {
 
     /**
      * Marks the selected task as done and show the result to the user using ui
-     *
-     * @param taskList
-     * @param ui
-     * @param storage
      * @throws InvalidInputException If user keyed in task number out of range
      */
     @Override

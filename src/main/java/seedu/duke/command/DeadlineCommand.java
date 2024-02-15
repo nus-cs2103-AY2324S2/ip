@@ -33,10 +33,6 @@ public class DeadlineCommand extends Command {
 
     /**
      * Creates a deadline task, save it to the task list and then display the result to the user
-     *
-     * @param taskList
-     * @param ui
-     * @param storage
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DuplicateTaskException {

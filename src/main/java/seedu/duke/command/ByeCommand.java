@@ -16,10 +16,6 @@ public class ByeCommand extends Command {
 
     /**
      * Sets the variable representing whether the command wants to exit to true and save all tasks to the file
-     *
-     * @param taskList
-     * @param ui
-     * @param storage
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
