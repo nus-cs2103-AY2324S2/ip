@@ -26,11 +26,11 @@ public class Storage {
                 file.createNewFile();
             }
 
-            BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
             for (int i = 0; i < tasks.size(); i++) {
-                bw.write(tasks.get(i).saveToFile());
+                bufferedWriter.write(tasks.get(i).saveToFile());
             }
-            bw.close();
+            bufferedWriter.close();
         } catch (IOException e) {
             LiteException.saveException(e);
         }
@@ -49,11 +49,11 @@ public class Storage {
             return tasks;
         }
 
-        BufferedReader br = new BufferedReader(new FileReader(file));
-        String s = br.readLine();
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+        String s = bufferedReader.readLine();
         while(s != null) {
             tasks.add(FileParseInput.parse(s));
-            s = br.readLine();
+            s = bufferedReader.readLine();
         }
         return tasks;
     }
