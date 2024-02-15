@@ -40,6 +40,8 @@ public class Parser {
         case "deadline":
             // Fallthrough
         case "event":
+            // Fallthrough
+        case "do_within_period":
             return new TaskCommand(curCommand);
         case "delete":
             return new DeleteCommand(curCommand);

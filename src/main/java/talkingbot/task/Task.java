@@ -19,8 +19,11 @@ public abstract class Task {
             + " nor only containing whitespaces.";
     private static final String DEADLINE_ERROR_MSG = "ERROR! deadline descriptions cannot be empty and must have a /by"
             + " property.";
-    private static final String EVENT_ERROR_MSG = "ERROR! event descriptions cannot be empty, and must have"
+    private static final String EVENT_ERROR_MSG = "ERROR! event descriptions cannot be empty,"
+            + " and must have"
             + " /from and /to properties.";
+    private static final String DO_WITHIN_PERIOD_ERROR_MSG = "ERROR! do_within_period descriptions"
+            + " cannot be empty and must have /between and /and properties";
     private final String description;
     private boolean isDone;
     private final TaskType taskType;
@@ -61,12 +64,19 @@ public abstract class Task {
             } catch (IndexOutOfBoundsException err) {
                 throw new TalkingBotException(DEADLINE_ERROR_MSG);
             }
-        } else {
+        } else if (type.equals("event")) {
             String[] splitArr = fullDescription.split("( /from )|( /to )");
             try {
                 return new Event(splitArr[0], false, splitArr[1], splitArr[2]);
             } catch (IndexOutOfBoundsException err) {
                 throw new TalkingBotException(EVENT_ERROR_MSG);
+            }
+        } else {
+            String[] splitArr = fullDescription.split("( /between )|( /and )");
+            try {
+                return new DoWithinPeriod(splitArr[0], false, splitArr[1], splitArr[2]);
+            } catch (IndexOutOfBoundsException err) {
+                throw new TalkingBotException(DO_WITHIN_PERIOD_ERROR_MSG);
             }
         }
     }
@@ -84,8 +94,10 @@ public abstract class Task {
             return new Todo(lineArr[2], mark);
         } else if (lineArr[0].equals("D")) {
             return new Deadline(lineArr[2], mark, lineArr[3]);
-        } else {
+        } else if (lineArr[0].equals("E")) {
             return new Event(lineArr[2], mark, lineArr[3], lineArr[4]);
+        } else {
+            return new DoWithinPeriod(lineArr[2], mark, lineArr[3], lineArr[4]);
         }
     }
 
