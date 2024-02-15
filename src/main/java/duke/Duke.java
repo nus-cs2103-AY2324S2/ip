@@ -154,6 +154,7 @@ public class Duke extends Application {
     public String getResponse(String input) {
         try {
             Command command = Parser.parseCommand(input);
+            assert command != null : "Command should not be null";
             return command.execute(this.taskList, UI);
         } catch (Exception e) {
             String output = e.getMessage();
