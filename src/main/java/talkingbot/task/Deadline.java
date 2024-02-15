@@ -29,7 +29,7 @@ public class Deadline extends Task {
      *
      * @return Deadline ending time.
      */
-    public LocalDateTime getEndTime() {
+    private LocalDateTime getEndTime() {
         return this.endTime;
     }
 

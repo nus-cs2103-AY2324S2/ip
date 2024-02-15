@@ -33,7 +33,7 @@ public class Event extends Task {
      *
      * @return Event starting time.
      */
-    public LocalDateTime getStartTime() {
+    private LocalDateTime getStartTime() {
         return this.startTime;
     }
 
@@ -42,7 +42,7 @@ public class Event extends Task {
      *
      * @return Event ending time.
      */
-    public LocalDateTime getEndTime() {
+    private LocalDateTime getEndTime() {
         return this.endTime;
     }
 
