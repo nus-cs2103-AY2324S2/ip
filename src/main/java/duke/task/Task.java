@@ -90,6 +90,13 @@ public abstract class Task {
         return String.join(",", this.description, String.valueOf(this.isDone));
     }
 
+    /**
+     * Gets the start time of task.
+     *
+     * @return LocalDate object representing start time of task.
+     */
+    public abstract LocalDate getStartDateTime();
+
 }
 
 
