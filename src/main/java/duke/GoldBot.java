@@ -2,6 +2,7 @@ package duke;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
 import duke.exceptions.FileCorruptionException;
 
 public class GoldBot {

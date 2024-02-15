@@ -10,8 +10,8 @@ import java.util.Optional;
  * Event class to represent tasks with a start and end time
  */
 public class Event extends Task {
-    public Optional<LocalDateTime> fromDate;
-    public Optional<LocalDateTime> toDate;
+    private Optional<LocalDateTime> fromDate;
+    private Optional<LocalDateTime> toDate;
 
     public Event(String name) {
         super(name);

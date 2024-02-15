@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
+
 import duke.exceptions.FileCorruptionException;
 import duke.tasks.Deadline;
 import duke.tasks.Event;

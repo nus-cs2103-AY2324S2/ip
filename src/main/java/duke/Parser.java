@@ -1,6 +1,7 @@
 package duke;
 
 import java.util.List;
+
 import duke.commands.Bye;
 import duke.commands.DeadlineCommand;
 import duke.commands.Delete;
@@ -17,7 +18,7 @@ import duke.exceptions.InvalidParametersException;
  * Parser class to handle parsing of commands
  */
 public class Parser {
-    public List<NamedCommand> commandList;
+    private List<NamedCommand> commandList;
     private ChatSession session;
 
     Parser(ChatSession session) {

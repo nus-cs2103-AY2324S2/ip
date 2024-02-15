@@ -5,13 +5,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import duke.tasks.Task;
 
 /**
  * TaskList class to handle task operations
  */
 public class TaskList {
-    public List<Task> internalList;
+    private List<Task> internalList;
     private File dataFile;
 
     /**

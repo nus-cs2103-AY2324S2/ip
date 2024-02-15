@@ -6,7 +6,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * SubcommandParser utility class to handle parsing of commands with subcommands (eg. event task /from 2020-12-12 /to 2020-12-13)
+ * SubcommandParser utility class to handle parsing of commands with subcommands
+ * (eg. event task /from 2020-12-12 /to 2020-12-13)
  */
 public class SubcommandParser {
     /**

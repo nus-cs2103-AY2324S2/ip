@@ -10,7 +10,7 @@ import java.util.Optional;
  * Deadline class for tasks with deadlines
  */
 public class Deadline extends Task {
-    public Optional<LocalDateTime> byDate;
+    private Optional<LocalDateTime> byDate;
 
     public Deadline(String name) {
         super(name);
