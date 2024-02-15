@@ -1,5 +1,7 @@
 package model;
 
+import exceptions.BadDateException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -10,9 +12,16 @@ public class Deadline extends Task {
 
     public Deadline(String description, String by) {
         super(description);
-        LocalDateTime moment = super.parseDateTime(by);
-        this.by = moment;
         this.byString = by;
+        try {
+            LocalDateTime moment = super.parseDateTime(by);
+            this.by = moment;
+        } catch (Exception e) {
+            String expectedDateFormat = "YYYY-MM-DD or YYYY/MM/DD or DD-MM-YYYY or DD/MM/YYYY";
+            String example = "2024-12-14";
+            throw new BadDateException(e.getMessage(), expectedDateFormat, example, by);
+        }
+
     }
 
 

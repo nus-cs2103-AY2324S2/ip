@@ -131,7 +131,11 @@ public class Storage {
      */
     public void updateRecords(TaskList taskList) throws RuntimeException { //TODO: to continue, need to add delete task fn, mark, unmark, list
         assert(this.filePath != null);
+        assert(taskList != null);
         File file = new File(this.filePath);
+        if (taskList.size() == 0) {
+            return;
+        }
         try (FileWriter writer = new FileWriter(file)) { // true for append mode
             writer.write(taskList.get(0).fileSavingString());
             for (int i = 1; i < taskList.size(); i++) {
