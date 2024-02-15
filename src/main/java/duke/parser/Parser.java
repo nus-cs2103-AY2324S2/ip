@@ -22,7 +22,9 @@ public class Parser {
      */
     public String[] parse(String input) throws DukeException {
         String[] split = input.split(" ", 2);
-        if (split[0].equalsIgnoreCase("bye") || split[0].equalsIgnoreCase("list")) {
+        if (split[0].equalsIgnoreCase("bye")
+                || split[0].equalsIgnoreCase("list")
+                || split[0].equalsIgnoreCase("help")) {
             return split;
         } else if (split.length == 1) {
             throw new DukeException("Please enter something that you want to do. \n");

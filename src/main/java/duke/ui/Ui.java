@@ -42,6 +42,40 @@ public class Ui {
     }
 
     /**
+     * Returns the help message
+     * @return Display text for help.
+     */
+    public static String showHelp() {
+        return "Brief information of the builtin commands for the application\n\n"
+                + "Command summary (All date and time should be in yyyy-MM-dd HH:mm): \n\n"
+                + "- todo [Todo description]\n"
+                + "     Add task that you want to do without deadline\n"
+                + "     eg. todo Read book\n\n"
+                + "- deadline [Deadline description] /by [Date and Time]\n"
+                + "     Add task that you want to do with deadline\n"
+                + "     eg. deadline Return book /by 2019-12-12 12:00\n\n"
+                + "- event [Event description] /from [Start date and time] /to [End date and time]\n"
+                + "     Add event with a duration\n"
+                + "     eg. event Project meeting /from 2019-12-12 12:00 /to 2019-12-12 16:00\n\n"
+                + "- list\n"
+                + "     List all tasks that you have inputted\n\n"
+                + "- mark [Task number]\n"
+                + "     Mark tasks that you have done\n"
+                + "     eg. mark 1\n\n"
+                + "- unmark [Task number]\n"
+                + "     Unmark tasks that you have done previously but requires further changes\n"
+                + "     eg. unmark 1\n\n"
+                + "- delete [Task number]\n"
+                + "     Delete tasks that are done or not required anymore\n"
+                + "     eg. delete 1\n\n"
+                + "- find [Keyword]\n"
+                + "     Find specific tasks with the common keyword\n"
+                + "     eg. find book\n\n"
+                + "- bye\n"
+                + "     Quits the application";
+    }
+
+    /**
      * Returns string of all tasks in the list.
      *
      * @param taskList List of tasks.

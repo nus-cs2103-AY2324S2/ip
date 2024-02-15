@@ -41,10 +41,12 @@ public class Duke {
 
     public String getResponse(String input) {
         try {
-            String output = "";
+            String output;
             String[] parse = parser.parse(input);
             if (parse[0].equalsIgnoreCase("bye")) {
                 output = Ui.showEnd();
+            } else if (parse[0].equalsIgnoreCase("help")) {
+                output = Ui.showHelp();
             } else if (parse[0].equalsIgnoreCase("list")) {
                 output = Ui.printList(tasks.getList());
             } else if (parse[0].equalsIgnoreCase("mark")) {
