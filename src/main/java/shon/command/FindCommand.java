@@ -23,10 +23,9 @@ public class FindCommand extends Command {
      * Outputs the tasks with description containing the keyword.
      *
      * @param tasks The <code>TaskList</code> containing all the tasks to look through.
-     * @param ui The <code>Ui</code> used to output the result of the command.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
-        ui.print(tasks.filterByKeyword(this.keyword));
+    public String execute(TaskList tasks) {
+        return String.join("\n", tasks.filterByKeyword(this.keyword));
     }
 }

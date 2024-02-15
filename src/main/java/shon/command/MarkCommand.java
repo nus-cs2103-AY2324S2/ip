@@ -25,11 +25,10 @@ public class MarkCommand extends Command {
      * outputs the result of the command.
      *
      * @param tasks The <code>TaskList</code> containing the task to be marked as done.
-     * @param ui The <code>Ui</code> used to output the result of the command.
      * @throws ParameterException If the given index is invalid.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) throws ParameterException {
-        ui.print(tasks.mark(this.idx));
+    public String execute(TaskList tasks) throws ParameterException {
+        return String.join("\n", tasks.mark(this.idx));
     }
 }

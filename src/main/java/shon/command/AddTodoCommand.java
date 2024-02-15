@@ -20,10 +20,9 @@ public class AddTodoCommand extends AddTaskCommand {
      * Adds the <code>Todo</code> task to the list tasks, and outputs the result of the command.
      *
      * @param tasks The <code>TaskList</code> to add the <code>Deadline</code> task to.
-     * @param ui The <code>Ui</code> used to output the result of the command.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
-        ui.print(tasks.addTodo(this.description));
+    public String execute(TaskList tasks) {
+        return String.join("\n", tasks.addTodo(this.description));
     }
 }

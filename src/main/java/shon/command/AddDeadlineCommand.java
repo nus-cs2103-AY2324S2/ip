@@ -26,11 +26,10 @@ public class AddDeadlineCommand extends AddTaskCommand {
      * Adds the <code>Deadline</code> task to the list tasks, and outputs the result of the command.
      *
      * @param tasks The <code>TaskList</code> to add the <code>Deadline</code> task to.
-     * @param ui The <code>Ui</code> used to output the result of the command.
      * @throws DateTimeParseException If the given by datetime does not adhere to the expected parse format.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) throws DateTimeParseException {
-        ui.print(tasks.addDeadline(this.description, this.by));
+    public String execute(TaskList tasks) throws DateTimeParseException {
+        return String.join("\n", tasks.addDeadline(this.description, this.by));
     }
 }
