@@ -34,6 +34,7 @@ public class Storage {
      */
     public static void loadFileContents(TaskList list) throws DukeException {
         File f = new File(FILE_PATH);
+        assert list != null : "Task list should not be null";
         try {
             if (f.exists()) {
                 try (Scanner scanner = new Scanner(f)) {
@@ -62,34 +63,35 @@ public class Storage {
      * @throws DukeException If there is a problem with loading the line.
      */
     public static void loadLine(String original, TaskList list) throws DukeException {
+        assert list != null : "Task list should not be null";
         String[] inputParts = original.split("\\s+");
 
-        if (inputParts[0].equals("todo")) {
-            //handle "todoo"
-            String description = original.replace("todo", "");
-            if (description.isEmpty()) {
-                throw new DukeException("oi todo what. todo WHATTTTTT!!!!!!!!");
-            }
-            Task task = new ToDo(description);
-            list.addTask(task);
-        } else if (inputParts[0].equals("deadline")) {
-            //handle "deadline"
-            String[] parts = original.replace("deadline", "").split(" /");
-            Task task = new Deadline(parts[0], parts[1].replace("by ", ""));
-            list.addTask(task);
-        } else if (inputParts[0].equals("event")) {
-            //handle event
-            String[] parts = original.replace("event", "").split(" /");
-            Task task = new Event(parts[0], parts[1].replace("from ", ""), parts[2].replace("to ", ""));
-            list.addTask(task);
-        } else if (inputParts[0].equals("delete")) {
-            //handle delete
-            int inputInt = Integer.parseInt(inputParts[1]);
-            list.deleteTask(inputInt);
-        } else {
-            throw new DukeException("harh what u talking sia walao");
+        switch (inputParts[0]) {
+            case ("todo"):
+                String description = original.replace("todo", "");
+                if (description.isEmpty()) {
+                    throw new DukeException("oi todo what. todo WHATTTTTT!!!!!!!!");
+                }
+                Task task = new ToDo(description);
+                list.addTask(task);
+                break;
+            case ("deadline"):
+                String[] parts = original.replace("deadline", "").split(" /");
+                Task deadlineTask = new Deadline(parts[0], parts[1].replace("by ", ""));
+                list.addTask(deadlineTask);
+                break;
+            case ("event"):
+                String[] parts2 = original.replace("event", "").split(" /");
+                Task eventTask = new Event(parts2[0], parts2[1].replace("from ", ""), parts2[2].replace("to ", ""));
+                list.addTask(eventTask);
+                break;
+            case ("delete"):
+                int inputInt = Integer.parseInt(inputParts[1]);
+                list.deleteTask(inputInt);
+                break;
+            default:
+                throw new DukeException("harh what u talking sia walao");
         }
-
     }
 
     /**
@@ -98,6 +100,7 @@ public class Storage {
      * @throws DukeException If there is a problem with writing into file.
      */
     public static void writeToFile(TaskList list) throws DukeException {
+        assert list != null : "Task list should not be null";
         try {
             FileWriter fw = new FileWriter(FILE_PATH);
             for (int i = 0; i < list.getSize(); i++) {
