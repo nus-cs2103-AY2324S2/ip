@@ -2,7 +2,6 @@ package wis;
 
 import java.io.IOException;
 import java.util.InputMismatchException;
-import java.util.Scanner;
 
 import wis.task.TaskList;
 import wis.util.Printer;
@@ -28,10 +27,8 @@ public class ChatBox {
             this.tasks = new TaskList(Storage.loadTasks());
             Printer.printActionAttach(Action.GREET);
             return "";
-        } catch (IOException e) {
-            return WisException.loadFileExceptionHandler();
-        } catch (InputMismatchException e) {
-            return WisException.loadFileExceptionHandler();
+        } catch (IOException | InputMismatchException e) {
+            return WisException.handleLoadFileException();
         }
     }
 

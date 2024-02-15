@@ -5,15 +5,15 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TaskTest {
-    private class TaskSlub extends Task {
-        public TaskSlub(String description) {
+    private class TaskStub extends Task {
+        public TaskStub(String description) {
             super(description);
         }
     }
 
     @Test
     public void toSavedStringTest() {
-        TaskSlub task = new TaskSlub("someTask");
+        TaskStub task = new TaskStub("someTask");
         assertEquals("0#!#someTask", task.toSavedString());
         task.setDone();
         assertEquals("1#!#someTask", task.toSavedString());

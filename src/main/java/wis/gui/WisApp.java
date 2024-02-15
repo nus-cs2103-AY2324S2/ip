@@ -13,28 +13,52 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 import javafx.stage.Stage;
-import wis.ChatBox;
 
 
-public class Wis extends Application {
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
+public class WisApp extends Application {
+    private ScrollPane scrollPane;  // contained in scene
+    private VBox dialogContainer;  // contained in scrollPane
     private TextField userInput;
 
     private Button sendButton;
     private Scene scene;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image wisImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
-    private ChatBox chatBox = new ChatBox();
+    Bridge bridge = new Bridge();
 
-    public Wis() {
+    public WisApp() {
 
     }
 
+    /**
+     * {@inheritDoc}
+     * Load the main scene, launch the app and listen for user input.
+     *
+     * @param stage the primary stage for this application, onto which
+     * the application scene can be set.
+     * Applications may create other stages, if needed, but they will not be
+     * primary stages.
+     */
     @Override
     public void start(Stage stage) {
-        //The container for the content of the chat to scroll.
+        AnchorPane mainLayout = new AnchorPane();
+
+        createUiElements(stage, mainLayout);
+        setUiParameters(stage, mainLayout);
+
+        bridge.link(dialogContainer, wisImage);
+
+        // Handle user input.
+        sendButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+        });
+    }
+
+    private void createUiElements(Stage stage, AnchorPane mainLayout) {
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
@@ -42,15 +66,15 @@ public class Wis extends Application {
         userInput = new TextField();
         sendButton = new Button("Send");
 
-        AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
 
         scene = new Scene(mainLayout);
 
         stage.setScene(scene);
         stage.show();
+    }
 
-        // step 2
+    private void setUiParameters(Stage stage, AnchorPane mainLayout) {
         stage.setTitle("Wis");
         stage.setResizable(true);
         stage.setMinHeight(600.0);
@@ -79,48 +103,26 @@ public class Wis extends Application {
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
-        //Scroll down to the end every time dialogContainer's height changes.
+        // Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-
-        initializeChatbox();
-
-        //Step 3. Add functionality to handle user input.
-        sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
-
-        userInput.setOnAction((event) -> {
-            handleUserInput();
-        });
     }
 
     @Override
     public void stop() {
-        chatBox.save();
+        bridge.quit();
     }
 
     /**
-     * Iteration 2:
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(chatBox.getResponse(userInput.getText()));
+        Label dukeText = new Label(bridge.getResponse(userInput));
         dialogContainer.getChildren().addAll(
-                new DialogBox(userText, new ImageView(user)),
-                new DialogBox(dukeText, new ImageView(duke))
+                new DialogBox(userText, new ImageView(userImage)),
+                new DialogBox(dukeText, new ImageView(wisImage))
         );
         userInput.clear();
-    }
-
-    private void initializeChatbox() {
-        String message = chatBox.launch();
-        if (!message.equals("")) {
-            Label errorText = new Label(message);
-            dialogContainer.getChildren().addAll(
-                    new DialogBox(errorText, new ImageView(duke))
-            );
-        }
     }
 }

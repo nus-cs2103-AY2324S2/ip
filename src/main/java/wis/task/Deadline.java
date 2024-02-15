@@ -10,11 +10,11 @@ import java.util.Locale;
  * the task is inherited from Task class.
  */
 public class Deadline extends Task {
-    private LocalDateTime time;
+    private LocalDateTime dueDateTime;
 
-    public Deadline(String description, LocalDateTime time) {
+    public Deadline(String description, LocalDateTime dueDateTime) {
         super(description);
-        this.time = time;
+        this.dueDateTime = dueDateTime;
     }
 
     /**
@@ -26,10 +26,10 @@ public class Deadline extends Task {
     public String toString() {
         return String.format("[D]%s (by: %s %d %d, %s)",
                 super.toString(),
-                time.getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH).toUpperCase(),
-                time.getDayOfMonth(),
-                time.getYear(),
-                LocalTime.of(time.getHour(), time.getMinute()));
+                dueDateTime.getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH).toUpperCase(),
+                dueDateTime.getDayOfMonth(),
+                dueDateTime.getYear(),
+                LocalTime.of(dueDateTime.getHour(), dueDateTime.getMinute()));
     }
 
     /**
@@ -39,6 +39,6 @@ public class Deadline extends Task {
     public String toSavedString() {
         return String.format("D#!#%s#!#%s\n",
                 super.toSavedString(),
-                time.toString());
+                dueDateTime.toString());
     }
 }

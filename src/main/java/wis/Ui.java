@@ -56,7 +56,7 @@ public class Ui {
         case FIND:
             return find(words, tasks);
         case INVALID:
-            return WisException.actionExceptionHandler(Action.INVALID);
+            return WisException.handleActionException(Action.INVALID);
         default:
             throw new IllegalArgumentException("Illegal action argument provided.\n");
         }
@@ -68,7 +68,7 @@ public class Ui {
             tasks.add(todo);
             return Printer.printActionAttach(Action.ADD_TODO, todo, tasks);
         } catch (InputMismatchException e) {
-            return WisException.actionExceptionHandler(Action.ADD_TODO);
+            return WisException.handleActionException(Action.ADD_TODO);
         }
     }
 
@@ -80,11 +80,9 @@ public class Ui {
             tasks.add(deadline);
             return Printer.printActionAttach(Action.ADD_DEADLINE, deadline, tasks);
         } catch (InputMismatchException e) {
-            return WisException.actionExceptionHandler(Action.ADD_DEADLINE);
-        } catch (DateTimeParseException e) {
-            return WisException.dateTimeExceptionHandler(e);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return WisException.dateTimeExceptionHandler(e);
+            return WisException.handleActionException(Action.ADD_DEADLINE);
+        } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
+            return WisException.handleDateTimeException(e);
         }
     }
 
@@ -97,11 +95,9 @@ public class Ui {
             tasks.add(event);
             return Printer.printActionAttach(Action.ADD_EVENT, event, tasks);
         } catch (InputMismatchException e) {
-            return WisException.actionExceptionHandler(Action.ADD_EVENT);
-        } catch (DateTimeParseException e) {
-            return WisException.dateTimeExceptionHandler(e);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return WisException.dateTimeExceptionHandler(e);
+            return WisException.handleActionException(Action.ADD_EVENT);
+        } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
+            return WisException.handleDateTimeException(e);
         }
     }
 
@@ -111,10 +107,8 @@ public class Ui {
             task.setDone();
             Storage.saveTasks(tasks);
             return Printer.printActionAttach(Action.MARK, task);
-        } catch (IndexOutOfBoundsException e) {
-            return WisException.actionExceptionHandler(Action.MARK);
-        } catch (NumberFormatException e) {
-            return WisException.actionExceptionHandler(Action.MARK);
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            return WisException.handleActionException(Action.MARK);
         }
     }
 
@@ -124,10 +118,8 @@ public class Ui {
             task.setUndone();
             Storage.saveTasks(tasks);
             return Printer.printActionAttach(Action.UNMARK, task);
-        } catch (IndexOutOfBoundsException e) {
-            return WisException.actionExceptionHandler(Action.UNMARK);
-        } catch (NumberFormatException e) {
-            return WisException.actionExceptionHandler(Action.UNMARK);
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            return WisException.handleActionException(Action.UNMARK);
         }
     }
 
@@ -136,10 +128,8 @@ public class Ui {
             Task task = tasks.remove(Integer.parseInt(words[1]) - 1);
             Storage.saveTasks(tasks);
             return Printer.printActionAttach(Action.DELETE, task, tasks);
-        } catch (IndexOutOfBoundsException e) {
-            return WisException.actionExceptionHandler(Action.DELETE);
-        } catch (NumberFormatException e) {
-            return WisException.actionExceptionHandler(Action.DELETE);
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            return WisException.handleActionException(Action.DELETE);
         }
     }
 
@@ -148,7 +138,7 @@ public class Ui {
             ArrayList<Pair<Integer, Task>> matchingTasks = tasks.find(words[1]);
             return Printer.printActionAttach(Action.FIND, matchingTasks);
         } catch (IndexOutOfBoundsException e) {
-            return WisException.actionExceptionHandler(Action.FIND);
+            return WisException.handleActionException(Action.FIND);
         }
     }
 }
