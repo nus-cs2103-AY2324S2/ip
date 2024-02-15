@@ -37,7 +37,7 @@ public class FindCommand extends Command {
     public String generateReply(TaskList taskList, Ui ui, Storage storage) throws InvalidArgumentException {
         try {
             TaskList filteredList = taskList.filter(this.arguments);
-            return ui.findTask(filteredList);
+            return ui.showFindTask(filteredList);
 
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new InvalidArgumentException("TODO");

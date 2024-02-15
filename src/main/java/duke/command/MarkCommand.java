@@ -42,7 +42,7 @@ public class MarkCommand extends Command {
             int taskId = Integer.parseInt(this.arguments);
             Task task = taskList.get(taskId);
             task.changeMark("MARK");
-            return ui.markTask(task);
+            return ui.showMarkTask(task);
 
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new InvalidArgumentException("MARK");

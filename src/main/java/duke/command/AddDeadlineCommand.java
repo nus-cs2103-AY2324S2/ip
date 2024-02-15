@@ -53,7 +53,7 @@ public class AddDeadlineCommand extends Command {
 
             Task newTask = new Deadline(argParts[0], dueDateTime);
             taskList.add(newTask);
-            return ui.addTask(newTask, taskList.getLength());
+            return ui.showAddTask(newTask, taskList.getLength());
 
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new InvalidArgumentException("DEADLINE");

@@ -56,7 +56,7 @@ public class AddEventCommand extends Command {
 
             Task newTask = new Event(taskName, fromDateTime, toDateTime);
             taskList.add(newTask);
-            return ui.addTask(newTask, taskList.getLength());
+            return ui.showAddTask(newTask, taskList.getLength());
 
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new InvalidArgumentException("EVENT");

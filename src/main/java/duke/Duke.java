@@ -29,13 +29,13 @@ public class Duke {
                     .toArray(new Task[0])
             );
         } catch (DukeException e) {
-            this.ui.error(e);
+            this.ui.showError(e);
 
         }
     }
 
     private void run() {
-        System.out.println(this.ui.greet());
+        System.out.println(this.ui.showGreet());
 
         while (!isExit) {
             String input = this.ui.readInput();
@@ -56,7 +56,7 @@ public class Duke {
             this.isExit = cmd.isExit();
             return response;
         } catch (DukeException e) {
-            return ui.error(e);
+            return ui.showError(e);
         }
     }
 
