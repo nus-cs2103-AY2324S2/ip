@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import eggy.exception.DuplicatedTaskException;
+
 /**
  * Represents a list of tasks.
  */
@@ -51,8 +53,12 @@ public class TaskList {
      * Adds a task to the task list.
      *
      * @param task Task to be added.
+     * @throws DuplicatedTaskException If the task to be added is already in the task list.
      */
-    public void addTask(Task task) {
+    public void addTask(Task task) throws DuplicatedTaskException {
+        if (this.tasks.contains(task)) {
+            throw new DuplicatedTaskException();
+        }
         this.tasks.add(task);
     }
 

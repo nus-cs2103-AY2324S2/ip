@@ -60,4 +60,17 @@ public class Event extends Task {
     public String toFileString() {
         return "E | " + super.toFileString() + " | " + this.start + " | " + this.end;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj instanceof Event) {
+            Event event = (Event) obj;
+            return this.name.equals(event.name) && this.start.equals(event.start)
+                    && this.end.equals(event.end);
+        }
+        return false;
+    }
 }

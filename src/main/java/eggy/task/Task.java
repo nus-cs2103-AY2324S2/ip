@@ -5,7 +5,7 @@ package eggy.task;
  */
 public abstract class Task {
     /** The name of the task. */
-    private final String name;
+    protected final String name;
     /** Whether the task is done. */
     private boolean isDone;
 
