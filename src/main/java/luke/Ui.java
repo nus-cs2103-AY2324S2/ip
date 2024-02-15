@@ -1,4 +1,4 @@
-package Luke;
+package luke;
 
 import java.util.Scanner;
 
@@ -48,58 +48,58 @@ public class Ui {
                 this.command = "";
             }
             switch (this.command) {
-                case "list":
-                    this.list();
-                    parser.commandList(taskList);
-                    break;
-                case "mark":
-                    try {
-                        Task taskMarked = parser.commandMark(this.input);
-                        markSuccess(taskMarked);
-                    } catch (LukeException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-                case "unmark":
-                    try {
-                        Task taskUnmarked = parser.commandUnmark(this.input);
-                        unmarkSuccess(taskUnmarked);
-                    } catch (LukeException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-                case "delete":
-                    try {
-                        Task taskDeleted = parser.commandDelete(this.input);
-                        deleteSuccess(taskDeleted, taskList.getNoTasks());
-                    } catch (LukeException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-                case "todo":
-                    try {
-                        Task todoAdded = parser.commandTodo(this.input);
-                        taskSuccessfullyAdded(todoAdded, taskList.getNoTasks());
-                    } catch (LukeException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-                case "deadline":
-                    try {
-                        Task deadlineAdded = parser.commandDeadline(this.input);
-                        taskSuccessfullyAdded(deadlineAdded, taskList.getNoTasks());
-                    } catch (LukeException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-                case "event":
-                    try {
-                        Task eventAdded = parser.commandEvent(this.input);
-                        taskSuccessfullyAdded(eventAdded, taskList.getNoTasks());
-                    } catch (LukeException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
+            case "list":
+                this.list();
+                parser.commandList(taskList);
+                break;
+            case "mark":
+                try {
+                    Task taskMarked = parser.commandMark(this.input);
+                    markSuccess(taskMarked);
+                } catch (LukeException e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
+            case "unmark":
+                try {
+                    Task taskUnmarked = parser.commandUnmark(this.input);
+                    unmarkSuccess(taskUnmarked);
+                } catch (LukeException e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
+            case "delete":
+                try {
+                    Task taskDeleted = parser.commandDelete(this.input);
+                    deleteSuccess(taskDeleted, taskList.getNoTasks());
+                } catch (LukeException e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
+            case "todo":
+                try {
+                    Task todoAdded = parser.commandTodo(this.input);
+                    taskSuccessfullyAdded(todoAdded, taskList.getNoTasks());
+                } catch (LukeException e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
+            case "deadline":
+                try {
+                    Task deadlineAdded = parser.commandDeadline(this.input);
+                    taskSuccessfullyAdded(deadlineAdded, taskList.getNoTasks());
+               } catch (LukeException e) {
+                    System.out.println(e.getMessage());
+               }
+                break;
+            case "event":
+                try {
+                    Task eventAdded = parser.commandEvent(this.input);
+                    taskSuccessfullyAdded(eventAdded, taskList.getNoTasks());
+                } catch (LukeException e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
             }
             Scanner scanner = new Scanner (System.in);
             this.input = scanner.nextLine();

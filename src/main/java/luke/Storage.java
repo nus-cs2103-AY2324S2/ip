@@ -1,4 +1,4 @@
-package Luke;
+package luke;
 
 import java.io.File;
 import java.io.FileNotFoundException;

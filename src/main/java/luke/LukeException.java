@@ -1,4 +1,4 @@
-package Luke;
+package luke;
 
 /**
  * Custom exception class for Luke program.

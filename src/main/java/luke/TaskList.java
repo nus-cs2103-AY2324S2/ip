@@ -1,4 +1,4 @@
-package Luke;
+package luke;
 
 import java.util.ArrayList;
 

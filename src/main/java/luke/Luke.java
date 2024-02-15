@@ -1,4 +1,4 @@
-package Luke;
+package luke;
 
 /**
  * Represents the main class of the Luke program.

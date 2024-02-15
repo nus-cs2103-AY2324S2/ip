@@ -1,4 +1,4 @@
-package Luke;
+package luke;
 
 import org.junit.jupiter.api.Test;
 

@@ -1,4 +1,4 @@
-package Luke;
+package luke;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

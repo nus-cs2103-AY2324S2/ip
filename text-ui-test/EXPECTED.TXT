@@ -1,4 +1,4 @@
-Hello! I'm Luke.Luke
+Hello! I'm luke.luke
 What can I do for you?
 Got it. I've added this task:
 [T][ ] borrow book
@@ -23,23 +23,23 @@ Here are the tasks in your list:
 1.[T][ ] borrow book
 2.[D][X] return book (by: Sunday)
 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
-Luke.LukeException: Luke.Task does not exist. Please give a valid task number.
-Luke.LukeException: Luke.Task does not exist. Please give a valid task number.
+luke.LukeException: luke.Task does not exist. Please give a valid task number.
+luke.LukeException: luke.Task does not exist. Please give a valid task number.
 Noted. I've removed this task:
 [E][ ] project meeting (from: Mon 2pm  to: 4pm)
 Now you have 2 tasks in the list.
-Luke.LukeException: Invalid command/task type.
-Luke.LukeException: Invalid command. The description cannot be empty.
-Luke.LukeException: Invalid command. Please follow the format for deadline tasks.
-Luke.LukeException: Invalid command. Please follow the format for deadline tasks.
-Luke.LukeException: Invalid command. The description cannot be empty.
-Luke.LukeException: Invalid command. The deadline cannot be empty.
-Luke.LukeException: Invalid command. Please follow the format for event tasks.
-Luke.LukeException: Invalid command. Please follow the format for event tasks.
-Luke.LukeException: Invalid command. Please follow the format for event tasks.
-Luke.LukeException: Invalid command. The description cannot be empty.
-Luke.LukeException: Invalid command. The from section cannot be empty.
-Luke.LukeException: Invalid command. The to section cannot be empty.
+luke.LukeException: Invalid command/task type.
+luke.LukeException: Invalid command. The description cannot be empty.
+luke.LukeException: Invalid command. Please follow the format for deadline tasks.
+luke.LukeException: Invalid command. Please follow the format for deadline tasks.
+luke.LukeException: Invalid command. The description cannot be empty.
+luke.LukeException: Invalid command. The deadline cannot be empty.
+luke.LukeException: Invalid command. Please follow the format for event tasks.
+luke.LukeException: Invalid command. Please follow the format for event tasks.
+luke.LukeException: Invalid command. Please follow the format for event tasks.
+luke.LukeException: Invalid command. The description cannot be empty.
+luke.LukeException: Invalid command. The from section cannot be empty.
+luke.LukeException: Invalid command. The to section cannot be empty.
 Bye. Hope to see you again soon!
 
 
