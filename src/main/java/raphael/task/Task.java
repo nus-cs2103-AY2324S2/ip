@@ -36,9 +36,12 @@ public class Task implements FileFormattable {
      */
     public int check() {
         if (this.isDone) {
+            this.checkIsDone(true);
             return -1;
         } else {
+            this.checkIsDone(false);
             this.isDone = true;
+            this.checkIsDone(true);
             return 0;
         }
     }
@@ -50,9 +53,12 @@ public class Task implements FileFormattable {
      */
     public int uncheck() {
         if (!this.isDone) {
+            this.checkIsDone(false);
             return -1;
         } else {
+            this.checkIsDone(true);
             this.isDone = false;
+            this.checkIsDone(false);
             return 0;
         }
     }
@@ -61,6 +67,11 @@ public class Task implements FileFormattable {
     }
     public String toFileFormat() {
         return String.format("%d |&| %s", this.isDone ? 1 : 0, this.description);
+    }
+    private void checkIsDone(boolean expected) {
+        String assertionErrorMessage = String.format(
+                "The task should be %s", expected ? "done" : "not done");
+        assert this.isDone == expected : assertionErrorMessage;
     }
     @Override
     public String toString() {
