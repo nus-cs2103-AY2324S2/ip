@@ -23,8 +23,6 @@ import seiki.data.task.Task;
  */
 public class Ui {
 
-    private static final String DIVIDER = "────────────────────────────────────────────────────────────";
-
     private final Scanner in;
     private StringBuilder out;
     public Ui() {
