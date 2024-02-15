@@ -8,19 +8,19 @@ import org.junit.jupiter.api.Test;
 public class TaskTest {
     @Test
     public void check_doneTask() {
-        assertEquals(-1, new Task("stub", true).check());
+        assertEquals(-1, new Task("stub", true).markTaskAsDone());
     }
     @Test
     public void check_undoneTask() {
-        assertEquals(0, new Task("stub", false).check());
+        assertEquals(0, new Task("stub", false).markTaskAsDone());
     }
     @Test
     public void uncheck_doneTask() {
-        assertEquals(0, new Task("stub", true).uncheck());
+        assertEquals(0, new Task("stub", true).markTaskAsUndone());
     }
     @Test
     public void uncheck_undoneTask() {
-        assertEquals(-1, new Task("stub", false).uncheck());
+        assertEquals(-1, new Task("stub", false).markTaskAsUndone());
     }
     @Test
     public void isContaining_positiveResult() {

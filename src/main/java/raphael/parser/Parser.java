@@ -1,7 +1,7 @@
 package raphael.parser;
 
 import raphael.command.AddCommand;
-import raphael.command.CheckCommand;
+import raphael.command.MarkCommand;
 import raphael.command.Command;
 import raphael.command.DeleteCommand;
 import raphael.command.EditCommand;
@@ -76,7 +76,7 @@ public class Parser {
         case "list":
             return new ListCommand();
         case "any":
-            return new CheckCommand();
+            return new MarkCommand();
         case "find":
             if (inputArr.length == 1) {
                 throw new raphael.exception.RaphaelException("find [keyword]");
