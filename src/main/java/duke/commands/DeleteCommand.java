@@ -18,13 +18,20 @@ public class DeleteCommand extends Command {
     private int index;
 
     /**
+     * Visibility of the task to delete
+     */
+    private boolean isArchived;
+
+    /**
      * Creates a delete command
      *
-     * @param index Index of task to mark
+     * @param index      Index of task to delete
+     * @param isArchived Visibility of the task to delete
      */
-    public DeleteCommand(int index) {
+    public DeleteCommand(int index, boolean isArchived) {
         super(false);
         this.index = index;
+        this.isArchived = isArchived;
     }
 
     /**
@@ -37,7 +44,7 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(TaskList taskList) throws DukeException {
         // Delete the task
-        Task deletedTask = taskList.deleteTask(this.index);
+        Task deletedTask = taskList.deleteTask(this.index, isArchived);
 
         return "Noted. I've removed this task:\n"
                 + String.format("  %s\n", deletedTask.toString())
@@ -74,7 +81,9 @@ public class DeleteCommand extends Command {
         if (obj instanceof DeleteCommand) {
             DeleteCommand command = (DeleteCommand) obj;
 
-            return super.equals(command) && this.index == command.index;
+            return super.equals(command)
+                    && this.index == command.index
+                    && this.isArchived == command.isArchived;
         }
 
         return false;

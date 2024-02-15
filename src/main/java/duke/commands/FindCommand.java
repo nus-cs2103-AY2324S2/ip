@@ -16,21 +16,32 @@ public class FindCommand extends Command {
     private String keyword;
 
     /**
-     * Creates a find command without any keyword
+     * Visibility of the tasks to find
      */
-    public FindCommand() {
+    private boolean isArchived;
+
+    /**
+     * Creates a find command without any keyword
+     *
+     * @param isArchived Visibility of the tasks to find
+     */
+    public FindCommand(boolean isArchived) {
         super(false);
         this.keyword = "";
+        this.isArchived = isArchived;
     }
 
     /**
      * Creates a find command with a keyword
      *
-     * @param keyword Keyword for the find command
+     * @param keyword    Keyword for the find command
+     * @param isArchived Visibility of the tasks to find
+     *
      */
-    public FindCommand(String keyword) {
+    public FindCommand(String keyword, boolean isArchived) {
         super(false);
         this.keyword = keyword;
+        this.isArchived = isArchived;
     }
 
     /**
@@ -44,9 +55,9 @@ public class FindCommand extends Command {
     public String execute(TaskList taskList) {
         String tasks;
         if (this.keyword.equals("")) {
-            tasks = taskList.getTasks();
+            tasks = taskList.getTasks(this.isArchived);
         } else {
-            tasks = taskList.getTasks(keyword);
+            tasks = taskList.getTasks(keyword, this.isArchived);
         }
 
         return tasks;
@@ -83,9 +94,11 @@ public class FindCommand extends Command {
             FindCommand command = (FindCommand) obj;
 
             if (this.keyword != null && command.keyword != null) {
-                return super.equals(command) && this.keyword.equals(command.keyword);
+                return super.equals(command)
+                        && this.keyword.equals(command.keyword)
+                        && this.isArchived == command.isArchived;
             } else if (this.keyword == null && command.keyword == null) {
-                return super.equals(command);
+                return super.equals(command) && this.isArchived == command.isArchived;
             }
         }
 
