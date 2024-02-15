@@ -48,7 +48,8 @@
 //     * @throws DukeException If an error occurs during command processing.
 //     */
 //    @Test
-//    void processCommandListCommand_shouldPrintTaskList() throws DukeException { //only line separators is an issue, but produces correct output
+//    void processCommandListCommand_shouldPrintTaskList() throws
+//    DukeException { //only line separators is an issue, but produces correct output
 //        TaskList taskList = new TaskList();
 //        taskList.addToDoTask(new ToDo("Test Task"));
 //        Storage storage = new Storage();
@@ -61,8 +62,9 @@
 //        parser.setCommand("list");
 //        parser.processCommand();
 //
-//        assertEquals("-------------------------------\n" +
-//                "Here is the task in your list:\n1.[T][ ] Test Task\n-------------------------------", outputStream.toString().trim());
+//        assertEquals("-------------------------------\n"
+//                + "Here is the task in your list:\n1.[T][ ]
+//                Test Task\n-------------------------------", outputStream.toString().trim());
 //
 //        System.setOut(System.out);
 //    }

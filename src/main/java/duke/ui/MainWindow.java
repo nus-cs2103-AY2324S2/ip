@@ -27,6 +27,15 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Initializes the JavaFX controller.
+     *
+     * This method is automatically called by JavaFX after the FXML file is loaded.
+     * It sets up the initial state of the user interface and displays the welcome message.
+     * The scroll pane is configured to automatically scroll to the bottom whenever the
+     * height of the dialog container changes.
+     *
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
