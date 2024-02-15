@@ -51,6 +51,7 @@ public class AddTask extends Command {
     @Override
     public String execute() throws IOException, InvalidInputException {
         Task t = null;
+        assert instruction != null && instruction.length() > 0 : "Command is not initialised or is empty.";
         switch (instruction) {
             case "todo":
                 t = new ToDo(parameter);

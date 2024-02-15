@@ -129,6 +129,7 @@ public class Main extends Application {
      * Replace this stub with your completed method.
      */
     private String getResponse(String input) {
+        assert input != null && input.length() > 0 : "Please input something";
         return KBot.simulate(input);
     }
 
