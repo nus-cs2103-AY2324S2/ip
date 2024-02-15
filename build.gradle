@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("bond.main.Bond")
+    mainClass.set("bond.main.Launcher")
 }
 
 checkstyle {
@@ -53,7 +53,7 @@ checkstyle {
 
 shadowJar {
     archiveBaseName = "Bond"
-    archiveVersion = "v0.1"
+    archiveVersion = "v0.2"
     archiveFileName = "Bond.jar"
     archiveClassifier = null
     dependsOn("distZip", "distTar")

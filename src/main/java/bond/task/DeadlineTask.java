@@ -36,6 +36,10 @@ public class DeadlineTask extends Task {
             BondException.raiseException("deadline", "INVALID_DATE_FORMAT");
         }
 
+        if (dateTime.length != 2) {
+            BondException.raiseException("deadline", "INVALID_DATE_FORMAT");
+        }
+
         if (Parser.isNumber(dateTime[1])) {
             int hours = Integer.valueOf(dateTime[1].substring(0, 2));
             int minutes = Integer.valueOf(dateTime[1].substring(2));

@@ -1,7 +1,6 @@
 package bond.main;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -166,9 +165,6 @@ public class Storage {
 
             return loadedTasks;
 
-        } catch (FileNotFoundException e) {
-            BondException.raiseException("load", "LOAD_FAILURE");
-            return null;
         } catch (IOException e) {
             BondException.raiseException("load", "LOAD_FAILURE");
             return null;

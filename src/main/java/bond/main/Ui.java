@@ -125,7 +125,7 @@ public class Ui {
      * @param taskList The task list containing all tasks found.
      */
     public String showFoundTasks(TaskList taskList) {
-        String message = String.format("Here are the matching tasks in your list:");
+        String message = String.format("Here are the matching tasks in your list:\n");
         StringBuilder builder = new StringBuilder();
         builder.append(message);
 

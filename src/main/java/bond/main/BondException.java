@@ -52,9 +52,9 @@ public class BondException extends Exception {
         } else if (exceptionType.equals(ExceptionType.LOAD_FAILURE.toString())) {
             message = String.format("I COULD NOT %s your tasks!!!", taskName.toUpperCase());
         } else if (exceptionType.equals(ExceptionType.INVALID_DATE_FORMAT.toString())) {
-            message = String.format("Give the DATE(s) in the CORRECT FORMAT!!!");
+            message = "Give the DATE(s) in the CORRECT FORMAT!!!";
         } else if (exceptionType.equals(ExceptionType.INVALID_KEYWORD.toString())) {
-            message = String.format("Give me a PROPER KEYWORD to search for!!!");
+            message = "Give me a PROPER KEYWORD to search for!!!";
         }
 
         throw new BondException(message);

@@ -128,9 +128,8 @@ public abstract class Parser {
         String[] components = userCommand.split(" ");
 
         // Invalid Command syntax
-        if (!Parser.isValidCommand(components[0])) {
-            BondException.raiseException("",
-                    "INVALID_COMMAND_TYPE");
+        if (components.length == 0 || !Parser.isValidCommand(components[0])) {
+            BondException.raiseException("", "INVALID_COMMAND_TYPE");
         }
 
         if (components[0].equalsIgnoreCase("todo")) {

@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
@@ -18,10 +19,13 @@
          <font>
             <Font name="Comic Sans MS" size="14.0" />
          </font></Label>
-        <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="displayPicture" blendMode="SRC_ATOP" fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
          <HBox.margin>
             <Insets left="20.0" right="20.0" />
-         </HBox.margin></ImageView>
+         </HBox.margin>
+         <image>
+            <Image url="@../../../../../../Pictures/Saved%20Pictures/Anya.jpg" />
+         </image></ImageView>
     </children>
     <padding>
         <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
