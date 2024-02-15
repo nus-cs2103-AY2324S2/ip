@@ -13,11 +13,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import jivox.exception.DataHandlerException;
-import jivox.task.Deadline;
-import jivox.task.Event;
-import jivox.task.Task;
-import jivox.task.TaskList;
-import jivox.task.Todo;
+import jivox.task.*;
 
 /**
  * DatabaseHandler handles saving and loading tasks from a file database.
@@ -97,29 +93,23 @@ public class DatabaseHandler {
                 String[] split = line.split("\\|");
                 switch (split[0].trim()) {
                 case "D":
-                    Deadline d = new Deadline(split[2].trim(),
-                                LocalDateTime.parse(split[3].replaceFirst(" ", ""), formatter));
-                    if (split[1].trim().equals("1")) {
-                        d.mark();
-                    }
+                    Deadline d = getDeadline(split, formatter);
                     list.add(d);
                     break;
                 case "E":
-                    String[] startend = split[3].split(" to ");
-                    Event e = new Event(split[2].trim(),
-                            LocalDateTime.parse(startend[0].replaceFirst(" ", ""), formatter),
-                            LocalDateTime.parse(startend[1], formatter));
-                    if (split[1].trim().equals("1")) {
-                        e.mark();
-                    }
+                    Event e = getEvent(split, formatter);
                     list.add(e);
                     break;
                 case "T":
-                    Todo t = new Todo(split[2].trim());
+                    String[] split2 = split[2].split(" tag ");
+                    Todo t = new Todo(split2[0].trim());
                     if (split[1].trim().equals("1")) {
                         t.mark();
                     }
                     list.add(t);
+                    if(!split2[1].equals("None")){
+                        t.setTag(new Tag(split2[1].trim()));
+                    }
                     break;
                 default:
                     System.out.println("Invalid Entry");
@@ -129,6 +119,38 @@ public class DatabaseHandler {
             System.out.println(e.getMessage());
         }
         return list;
+    }
+
+    private static Deadline getDeadline(String[] split, DateTimeFormatter formatter) {
+        String[] tagSplit = split[3].split(" tag ");
+        String deadline = tagSplit[0].replaceFirst(" ", "")
+                .replaceFirst("\\s++$", "");
+        Deadline d = new Deadline(split[2].trim(),
+                    LocalDateTime.parse(deadline, formatter));
+        if (split[1].trim().equals("1")) {
+            d.mark();
+        }
+        if(!tagSplit[1].equals("None")) {
+            d.setTag(new Tag(tagSplit[1].trim()));
+        }
+        return d;
+    }
+
+    private static Event getEvent(String[] split, DateTimeFormatter formatter) {
+        String[] startend = split[3].split(" to ");
+        String[] endtag = startend[1].split(" tag ");
+        String endDate = endtag[0];
+        System.out.println(endDate);
+        Event e = new Event(split[2].trim(),
+                LocalDateTime.parse(startend[0].replaceFirst(" ", ""), formatter),
+                LocalDateTime.parse(endDate, formatter));
+        if (split[1].trim().equals("1")) {
+            e.mark();
+        }
+        if(!endtag[1].equals("None")){
+            e.setTag(new Tag(endtag[1].trim()));
+        }
+        return e;
     }
 
 

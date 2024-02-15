@@ -4,14 +4,9 @@ package jivox;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Objects;
 
 import jivox.exception.JivoxException;
-import jivox.task.Deadline;
-import jivox.task.Event;
-import jivox.task.Task;
-import jivox.task.TaskList;
-import jivox.task.Todo;
+import jivox.task.*;
 
 /**
  * Jivox handles the core functionality of the to-do list application.
@@ -85,22 +80,20 @@ public class Jivox {
         if (to.isBefore(from)) {
             throw new JivoxException("Invalid event ! To is before From");
         }
-        this.tasks.add(new Event(first[0].trim(), from, to));
+        Event task = new Event(first[0].trim(), from, to);
+        if(this.checkDuplicateTask(task)){
+            throw new JivoxException("Duplicate Event, Task already exists!");
+        } else {
+            this.tasks.add(task);
+        }
     }
 
-    private void addTodo(String content) {
-        assert !Objects.equals(content, "");
-        this.tasks.add(new Todo(content));
-    }
-
-    /**
-     * Saves the tasks into the Local Database
-     */
-    public void saveDb() {
-        try {
-            this.dbHandler.save(this.tasks);
-        } catch (JivoxException e) {
-            this.ui.showException(e);
+    private void addTodo(String content) throws JivoxException {
+        Todo task = new Todo(content);
+        if(this.checkDuplicateTask(task)){
+            throw new JivoxException("Duplicate Todo , Task already exists!");
+        } else {
+            this.tasks.add(task);
         }
     }
 
@@ -110,7 +103,22 @@ public class Jivox {
             throw new JivoxException("Oooops! Please provide a deadline");
         }
         LocalDateTime deadline = LocalDateTime.parse(in[1], formatter);
-        this.tasks.add(new Deadline(in[0].trim(), deadline));
+        Deadline task = new Deadline(in[0].trim(), deadline);
+        if(this.checkDuplicateTask(task)) {
+            throw new JivoxException("Duplicate Deadline Task , Task already exists !");
+        } else {
+            this.tasks.add(task);
+        }
+    }
+
+
+    private boolean checkDuplicateTask(Task t){
+        for(int i = 0; i < this.tasks.getLength(); i++){
+            if(this.tasks.getTask(i).equals(t)){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -167,6 +175,14 @@ public class Jivox {
         return this.ui.showFind(this.tasks, input);
     }
 
+    public String tag(String input){
+        String[] in = parser.parseInput(input);
+        int taskNum = Integer.parseInt(in[0]) - 1;
+        Task t = this.tasks.getTask(taskNum);
+        t.setTag(new Tag(in[1]));
+        return this.ui.showTag(t,in[1]);
+    }
+
 
     public String getResponse(String rawInput) {
         Commands type;
@@ -219,6 +235,11 @@ public class Jivox {
                     throw new JivoxException("Please Provide a Keyword for find!");
                 }
                 return this.find(input[1]);
+            case TAG:
+                if(input.length == 0){
+                    throw new JivoxException("Please provide a valid Tag Command!");
+                }
+                return this.tag(input[1]);
             default:
                 throw new JivoxException("Sorry ! , I can't Understand your Command");
             }
