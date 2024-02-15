@@ -22,8 +22,8 @@ public class WisApp extends Application {
 
     private Button sendButton;
     private Scene scene;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image wisImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     Bridge bridge = new Bridge();
 
@@ -42,6 +42,23 @@ public class WisApp extends Application {
      */
     @Override
     public void start(Stage stage) {
+        AnchorPane mainLayout = new AnchorPane();
+
+        createUiElements(stage, mainLayout);
+        setUiParameters(stage, mainLayout);
+
+        bridge.link(dialogContainer, wisImage);
+
+        // Handle user input.
+        sendButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+        });
+    }
+
+    private void createUiElements(Stage stage, AnchorPane mainLayout) {
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
@@ -49,15 +66,15 @@ public class WisApp extends Application {
         userInput = new TextField();
         sendButton = new Button("Send");
 
-        AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
 
         scene = new Scene(mainLayout);
 
         stage.setScene(scene);
         stage.show();
+    }
 
-        // Adjust parameters of display
+    private void setUiParameters(Stage stage, AnchorPane mainLayout) {
         stage.setTitle("Wis");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
@@ -88,17 +105,6 @@ public class WisApp extends Application {
 
         // Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-
-        bridge.link(dialogContainer, duke);
-
-        // Handle user input.
-        sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
-
-        userInput.setOnAction((event) -> {
-            handleUserInput();
-        });
     }
 
     @Override
@@ -114,8 +120,8 @@ public class WisApp extends Application {
         Label userText = new Label(userInput.getText());
         Label dukeText = new Label(bridge.getResponse(userInput));
         dialogContainer.getChildren().addAll(
-                new DialogBox(userText, new ImageView(user)),
-                new DialogBox(dukeText, new ImageView(duke))
+                new DialogBox(userText, new ImageView(userImage)),
+                new DialogBox(dukeText, new ImageView(wisImage))
         );
         userInput.clear();
     }
