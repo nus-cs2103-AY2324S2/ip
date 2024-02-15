@@ -5,17 +5,21 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * The Deadline class represents a task with a specific deadline date and time.
- * It is a subclass of the Task class.
+ * Represents a task with a specific deadline. This class extends {@link Task} to include
+ * functionality for handling deadline dates and times.
  */
 public class Deadline extends Task {
-    private final LocalDateTime byDateTime; // Consider changing to private if no outside access is required
+    private static final DateTimeFormatter FILE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static final DateTimeFormatter USER_DATE_FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy");
+    private static final DateTimeFormatter USER_TIME_FORMATTER = DateTimeFormatter.ofPattern("hh:mm a");
+
+    private final LocalDateTime byDateTime;
 
     /**
-     * Constructs a Deadline object with a description and a specific deadline date and time.
+     * Constructs a new Deadline instance with a description and deadline date and time.
      *
-     * @param description A description of the deadline task.
-     * @param byDateTime  The deadline date and time.
+     * @param description the description of the deadline task
+     * @param byDateTime the deadline date and time
      */
     public Deadline(String description, LocalDateTime byDateTime) {
         super(description);
@@ -23,10 +27,10 @@ public class Deadline extends Task {
     }
 
     /**
-     * Constructs a Deadline object with a description and a specific deadline date (time is set to midnight).
+     * Constructs a new Deadline instance with a description and a deadline date. The time is set to midnight.
      *
-     * @param description A description of the deadline task.
-     * @param byDate      The deadline date.
+     * @param description the description of the deadline task
+     * @param byDate the deadline date
      */
     public Deadline(String description, LocalDate byDate) {
         super(description);
@@ -34,29 +38,32 @@ public class Deadline extends Task {
     }
 
     /**
-     * Converts the Deadline object to a string that can be saved to a file.
+     * Returns a string representation of the deadline suitable for saving to a file.
+     * The format includes the task type, status, description, and deadline date and time.
      *
-     * @return A formatted string representing the Deadline object.
+     * @return a formatted string representing the deadline for file storage
      */
     @Override
     public String toFileString() {
         return "D | " + getStatusNumber() + " | " + description + " | "
-                + byDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                + byDateTime.format(FILE_FORMATTER);
     }
 
     /**
-     * Converts the Deadline object to a user-friendly string representation.
+     * Returns a string representation of the deadline for display to the user.
+     * The format includes the task type, status, description, and a user-friendly
+     * representation of the deadline date and time.
      *
-     * @return A string representing the Deadline object in a user-friendly format.
+     * @return a string representing the deadline in a format suitable for user viewing
      */
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("[D]").append(super.toString()).append(" (by: ")
-                .append(byDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+                .append(byDateTime.format(USER_DATE_FORMATTER));
 
         if (byDateTime.toLocalTime().getHour() != 0 || byDateTime.toLocalTime().getMinute() != 0) {
-            builder.append(" at ").append(byDateTime.format(DateTimeFormatter.ofPattern("hh:mm a")));
+            builder.append(" at ").append(byDateTime.format(USER_TIME_FORMATTER));
         }
 
         builder.append(")");
