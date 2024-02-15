@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-import jivox.exception.DataHandlerException;
 import jivox.exception.JivoxException;
 import jivox.task.Deadline;
 import jivox.task.Event;
@@ -89,7 +88,7 @@ public class Jivox {
         this.tasks.add(new Event(first[0].trim(), from, to));
     }
 
-    private void addTodo(String content) throws DataHandlerException {
+    private void addTodo(String content) {
         assert !Objects.equals(content, "");
         this.tasks.add(new Todo(content));
     }
@@ -170,7 +169,7 @@ public class Jivox {
 
 
     public String getResponse(String rawInput) {
-        Commands type = null;
+        Commands type;
         String[] input;
         try {
             type = parser.parseCommand(rawInput);
