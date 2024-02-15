@@ -61,6 +61,7 @@ public class TimeManager {
         for (DateTimeFormatter formatter : formatters) {
             try {
                 LocalDateTime currTime = LocalDateTime.parse(input, formatter);
+                currTime.format(outputFormatter);
                 return currTime;
             } catch (DateTimeParseException e) {
                 continue;
@@ -69,8 +70,11 @@ public class TimeManager {
         throw new TaskException("Cannot convert time");
     }
 
-    public static String addDays(LocalDateTime currTime, int days) {
+    public static String addDays(String time, int days) throws TaskException {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy, h:mm a");
-        return currTime.format(outputFormatter);
+        LocalDateTime currTime = TimeManager.convertTime(time);
+        LocalDateTime newTime;
+        newTime = currTime.plusDays(days);
+        return newTime.format(outputFormatter);
     }
 }

@@ -101,6 +101,7 @@ public class Ui {
     public ArrayList<String> snooze(Task task) {
         ArrayList<String> total = new ArrayList<>();
         String first = "This task has been delayed by a day:";
+        total.add(first);
         total.add( "  " + task.getStatus());
         return total;
     }
@@ -108,12 +109,14 @@ public class Ui {
     public ArrayList<String> postpone(Task task, int days) {
         ArrayList<String> total = new ArrayList<>();
         String first = "This task has been delayed by " + Integer.toString(days) + " days:";
+        total.add(first);
         total.add( "  " + task.getStatus());
         return total;
     }
     public ArrayList<String> reschedule(Task task) {
         ArrayList<String> total = new ArrayList<>();
         String first = "This task has been rescheduled:";
+        total.add(first);
         total.add( "  " + task.getStatus());
         return total;
     }
