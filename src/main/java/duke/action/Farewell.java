@@ -13,6 +13,7 @@ public class Farewell implements Action {
      */
     @Override
     public String response() {
+        System.exit(0);
         return " Bye. Hope to see you again soon!";
     }
 

@@ -25,6 +25,7 @@ public class Delete implements Action {
         }
         this.index = index;
         this.deletedTask = tasks.get(index); // Retrieve the task before deletion
+        assert deletedTask != null : "Deleted task cannot be null";
         tasks.deleteTask(index);
         this.tasks = tasks;
     }
