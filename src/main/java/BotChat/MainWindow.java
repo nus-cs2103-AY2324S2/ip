@@ -39,7 +39,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
-                DialogBox.getBotChatDialog("Hello! I'm botChat\nWhat can I do for you?\n", botchatImage)
+                DialogBox.getBotChatDialog("Hello! I'm botChat :D\nWhat can I do for you?\n", botchatImage)
         );
 
         sendButton.setOnAction(event -> handleUserInput());
