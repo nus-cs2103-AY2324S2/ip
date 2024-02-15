@@ -27,7 +27,7 @@ public class MainWindow extends AnchorPane {
 
     private Image userImage = new Image(
             this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(
+    private Image earlImage = new Image(
             this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @FXML
@@ -42,7 +42,7 @@ public class MainWindow extends AnchorPane {
     /** Displays the initial message on startup. */
     public void showGreeting() {
         dialogContainer.getChildren().addAll(
-                DialogBox.getEarlDialog(earl.getResponse(), dukeImage));
+                DialogBox.getEarlDialog(earl.getResponse(), earlImage));
     }
 
     /**
@@ -61,16 +61,21 @@ public class MainWindow extends AnchorPane {
         displayDialog(input, response);
     }
 
+    /** Signals the Earl object to terminate execution. */
     public void handleExit() {
-        String input = "bye";
-        String response = earl.getResponse(input);
-        displayDialog(input, response);
+        earl.getResponse("bye");
     }
 
+    /**
+     * Displays the dialog boxes on the GUI.
+     *
+     * @param input     text to display on the user's side
+     * @param response  text to display on the application's side
+     */
     private void displayDialog(String input, String response) {
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input + " ".repeat(4), userImage),
-                DialogBox.getEarlDialog(response, dukeImage));
+                DialogBox.getEarlDialog(response, earlImage));
         userInput.clear();
     }
 }
