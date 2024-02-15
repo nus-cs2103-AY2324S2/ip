@@ -20,6 +20,7 @@ public class Launcher extends Application {
         Scene scene = new Scene(ap);
         stage.setScene(scene);
         loader.<MainWindow>getController().setBotInstance(baron);
+        stage.setTitle("Baron.");
         stage.show();
     }
 }
