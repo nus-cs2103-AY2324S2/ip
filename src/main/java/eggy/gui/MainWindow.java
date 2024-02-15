@@ -49,6 +49,8 @@ public class MainWindow extends AnchorPane {
      * Shows the initial message from Eggy.
      */
     public void showInitMessage() {
+        assert eggy != null : "Eggy should not be null";
+        assert dialogContainer != null : "Dialog container should not be null";
         if (eggy.getInitExceptionMessage() != null) {
             dialogContainer.getChildren().addAll(DialogBox.getEggyDialog(eggy.getInitExceptionMessage(), eggyImage));
         }
@@ -61,6 +63,9 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        assert userInput != null : "User input should not be null";
+        assert eggy != null : "Eggy should not be null";
+        assert dialogContainer != null : "Dialog container should not be null";
         String input = userInput.getText();
         String response = eggy.getResponse(input);
 

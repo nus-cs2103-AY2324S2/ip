@@ -83,6 +83,7 @@ public class Storage {
      */
     private Task processTaskLine(String line) throws InvalidTaskTypeException {
         String[] taskStrings = line.split(" \\| ");
+        assert taskStrings.length >= 3 : "Invalid task format stored in file";
         try {
             TaskType taskType = TaskType.valueOf(taskStrings[0]);
             return createTask(taskType, taskStrings);
@@ -121,6 +122,7 @@ public class Storage {
      * @throws SaveTasksException If there is an error saving the tasks.
      */
     public void save(TaskList tasks) throws SaveTasksException {
+        assert tasks != null : "Task list should not be null";
         try {
             File file = openFile();
             FileWriter fw = new FileWriter(file);
