@@ -68,7 +68,8 @@ public class Storage {
                 Task task;
                 switch (TaskType.valueOf(entry.getString("type"))) {
                 case TODO:
-                    task = new Todo(entry.getString("description"), entry.getBoolean("isCompleted"),
+                    task = new Todo(entry.getString("description"),
+                            entry.getBoolean("isCompleted"),
                             entry.getBoolean("isArchived"));
                     break;
 
