@@ -46,6 +46,14 @@ public class TaskList {
             list.remove(num - 1);
             storage.saveTasksToFile(list);
             System.out.println("Now you have " + list.size() + " tasks in the list.");
+        } else if (command.contains("find")) {
+            int space = command.indexOf(" ");
+            String search_phrase = command.substring(space + 1);
+            System.out.println("Here are the matching tasks in your list:\n");
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).getItem().contains(search_phrase))
+                    System.out.println(i + 1 + "." + list.get(i).stringify());
+            }
         } else if (command.contains("todo") || command.contains("deadline") || command.contains("event")) {
             // create Task object with command
             if (command.equals("todo") || command.equals("deadline") || command.equals("event")) {

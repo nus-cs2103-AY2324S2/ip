@@ -19,7 +19,6 @@ public class Lumiere {
     public void run() throws IOException {
         Lumiere lumiere = new Lumiere();
         lumiere.ui.run(lumiere.tasks, lumiere.storage);
-        // lumiere.storage.save(lumiere.tasks); // for what
     }
 
     public static void main(String[] args) throws IOException {
