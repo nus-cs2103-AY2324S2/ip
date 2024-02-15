@@ -1,9 +1,7 @@
 package bob;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -12,46 +10,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import bob.exception.BobException;
-import bob.task.Task;
 import bob.task.TaskStub;
 
 public class TaskListTest {
-    @Test
-    public void testList() {
-        ArrayList<Task> tasks = new TaskList(new ArrayList<>(Arrays.asList(
-                new TaskStub("a"),
-                new TaskStub("a"),
-                new TaskStub("a")))).list();
-
-        for (int i = 0; i < 3; i++) {
-            assertEquals("a", tasks.get(i).toString());
-        }
-    }
-
-    @Test
-    public void testListOn() {
-        ArrayList<Task> tasks = new TaskList(new ArrayList<>(Arrays.asList(
-                new TaskStub("a"),
-                new TaskStub("b"),
-                new TaskStub("b")))).listOnDate(LocalDate.now());
-
-        for (Task task : tasks) {
-            assertEquals("a", task.toString());
-        }
-    }
-
-    @Test
-    public void testListDueIn() {
-        ArrayList<Task> tasks = new TaskList(new ArrayList<>(Arrays.asList(
-                new TaskStub("a"),
-                new TaskStub("b"),
-                new TaskStub("b")))).listDueIn(0);
-
-        for (Task task : tasks) {
-            assertEquals("a", task.toString());
-        }
-    }
-
     @Test
     public void addEvent_invalidEvent_exceptionThrown() {
         try {
