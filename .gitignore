@@ -1,5 +1,8 @@
-# Java files
+# Project-specific
+tasklist.dat
+*.jar
 
+# Java files
 *.class
 
 # IDEA files
