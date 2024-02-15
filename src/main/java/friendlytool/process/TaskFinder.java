@@ -12,9 +12,9 @@ public class TaskFinder {
      *
      * @param tasks given task
      * @param input keyword
-     * @throws FTException
+     * @throws FtException
      */
-    public static void findTask(TaskList tasks, String input) throws FTException {
+    public static void findTask(TaskList tasks, String input) throws FtException {
         int counter = 0;
         String keyword = Parser.parseKeyword(input);
         UI.printMatchingMsg();

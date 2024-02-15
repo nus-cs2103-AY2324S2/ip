@@ -7,8 +7,8 @@ import java.time.format.DateTimeFormatter;
  * Class for managing date used for tasks.
  */
 public class Date {
-    LocalDateTime date;
-    String dateStr;
+    private LocalDateTime date;
+    private String dateStr;
 
 
     /**

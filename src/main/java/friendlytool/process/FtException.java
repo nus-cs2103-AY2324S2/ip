@@ -3,13 +3,13 @@ package friendlytool.process;
 /**
  * Class for handling exceptions
  */
-public class FTException extends Exception {
+public class FtException extends Exception {
     /**
      * Prints out the message
      *
      * @param message
      */
-    public FTException(String message) {
+    public FtException(String message) {
         super(message);
     }
 }
