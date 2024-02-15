@@ -31,22 +31,31 @@ public class Parser {
     private static Command handleCommand(CommandType commandType, String args) throws HenryException {
         switch (commandType) {
         case LIST:
+            assert args.isBlank() : "Command does not accept arguments";
             return new ListCommand();
         case FIND:
+            assert !args.isBlank() : "Command expects arguments";
             return new FindCommand(args);
         case MARK:
+            assert !args.isBlank() : "Command expects arguments";
             return new MarkCommand(args);
         case UNMARK:
+            assert !args.isBlank() : "Command expects arguments";
             return new UnmarkCommand(args);
         case TODO:
+            assert !args.isBlank() : "Command expects arguments";
             return new TodoCommand(args);
         case DEADLINE:
+            assert !args.isBlank() : "Command expects arguments";
             return new DeadlineCommand(args);
         case EVENT:
+            assert !args.isBlank() : "Command expects arguments";
             return new EventCommand(args);
         case DELETE:
+            assert !args.isBlank() : "Command expects arguments";
             return new DeleteCommand(args);
         case BYE:
+            assert args.isBlank() : "Command does not accept arguments";
             return new ByeCommand();
         default:
             return new UnknownCommand();
