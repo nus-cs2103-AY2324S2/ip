@@ -95,8 +95,10 @@ public class Storage {
         StringBuilder sb = new StringBuilder();
         File file = new File(this.filePath);
         try (Scanner scanner = new Scanner(file)) {
+            int count = 1;
             while (scanner.hasNext()) {
-                sb.append(scanner.nextLine()).append("\n");
+                sb.append(count).append(". ").append(scanner.nextLine()).append("\n");
+                count++;
             }
         } catch (FileNotFoundException e) {
             return "File is not found...";

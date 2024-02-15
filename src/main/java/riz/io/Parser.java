@@ -21,7 +21,7 @@ public class Parser {
         StringBuilder sb = new StringBuilder();
         String[] token = input.split(" ", 2);
         if (token[0].equals("clear")) {
-            taskList.clear();
+            taskList.clearList();
             storage.writeToFile(taskList.getTaskList());
             sb.append(Ui.printAllCleared());
         } else if (token[0].equals("find")) {
@@ -70,7 +70,6 @@ public class Parser {
             sb.append("Oops... Guess it's not done yet...").append("\n");
             sb.append(task).append("\n\n");
         } else if (token[0].equals("list")) {
-            int size = taskList.size();
             sb.append("Here are the items in your To-Do List...\n");
             sb.append(storage.printFromFile()).append("\n\n");
         } else if (token[0].equals("delete")) {

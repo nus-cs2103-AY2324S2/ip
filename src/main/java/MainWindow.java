@@ -21,6 +21,20 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
     @FXML
     private Button todoButton;
+    @FXML
+    private Button deadlineButton;
+    @FXML
+    private Button eventButton;
+    @FXML
+    private Button listButton;
+    @FXML
+    private Button markButton;
+    @FXML
+    private Button unmarkButton;
+    @FXML
+    private Button findButton;
+    @FXML
+    private Button clearListButton;
 
     private Riz riz;
 
@@ -57,6 +71,62 @@ public class MainWindow extends AnchorPane {
     private void handleToDoButton() {
         userInput.requestFocus();
         userInput.setText("todo ");
+        userInput.positionCaret(5);
+    }
+
+    @FXML
+    private void handleDeadlineButton() {
+        userInput.requestFocus();
+        userInput.setText("deadline /by ");
+        userInput.positionCaret(9);
+    }
+
+    @FXML
+    private void handleEventButton() {
+        userInput.requestFocus();
+        userInput.setText("event /from /to");
+        userInput.positionCaret(6);
+    }
+
+    @FXML
+    private void handleMarkButton() {
+        userInput.requestFocus();
+        userInput.setText("mark ");
+        userInput.positionCaret(5);
+    }
+    @FXML
+    private void handleUnmarkButton() {
+        userInput.requestFocus();
+        userInput.setText("unmark ");
+        userInput.positionCaret(7);
+    }
+
+    @FXML
+    private void handleListButton() {
+        Label userText = new Label("list ");
+        Label RizText = new Label(riz.getResponse("list"));
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userText, new ImageView(userImage)),
+                DialogBox.getRizDialog(RizText, new ImageView(rizImage))
+        );
+        userInput.clear();
+    }
+
+    @FXML
+    private void handleClearListButton() {
+        Label userText = new Label("clear ");
+        Label RizText = new Label(riz.getResponse("clear"));
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userText, new ImageView(userImage)),
+                DialogBox.getRizDialog(RizText, new ImageView(rizImage))
+        );
+        userInput.clear();
+    }
+
+    @FXML
+    private void handleFindButton() {
+        userInput.requestFocus();
+        userInput.setText("find ");
         userInput.positionCaret(5);
     }
 }

@@ -62,7 +62,7 @@ public class TaskList {
     /**
      * Empties out the TaskList of all it's tasks.
      */
-    public void clear() {
+    public void clearList() {
         this.taskList.clear();
     }
 
@@ -72,7 +72,7 @@ public class TaskList {
      */
     public String find(String word) {
         StringBuilder sb = new StringBuilder();
-        sb.append("Here are the tasks matching " + "\"" + word + "\"...");
+        sb.append("Here are the tasks matching " + "\"" + word + "\"...\n");
         int count = 1;
         for (Task task : this.taskList) {
             if (task.find(word)) {
