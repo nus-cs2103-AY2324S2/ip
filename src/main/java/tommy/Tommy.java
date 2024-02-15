@@ -50,5 +50,13 @@ public class Tommy {
 
         }
     }
+
+    public boolean isActive() {
+        return this.isActive;
+    }
+
+    public String getGreetings() {
+        return this.ui.greet();
+    }
 }
 
