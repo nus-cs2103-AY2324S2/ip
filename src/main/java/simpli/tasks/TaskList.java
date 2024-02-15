@@ -25,6 +25,11 @@ public class TaskList {
         this.tasks = tasks;
     }
 
+    /**
+     * Marks a specific as completed.
+     *
+     * @param taskNum A specific task number.
+     */
     public void mark(int taskNum) {
         int itemIndex = taskNum - 1;
         tasks.get(itemIndex).done();
@@ -137,6 +142,7 @@ public class TaskList {
 
     /**
      * Returns the task list String representation.
+     *
      * @return String representation of the task list.
      */
     @Override

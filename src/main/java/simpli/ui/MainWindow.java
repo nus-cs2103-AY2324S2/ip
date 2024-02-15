@@ -1,7 +1,8 @@
 package simpli.ui;
 
+import java.util.Objects;
+
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -9,10 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import simpli.core.Simpli;
-
-import java.util.Objects;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -34,6 +32,9 @@ public class MainWindow extends AnchorPane {
     private Image simpliImage = new Image(Objects.requireNonNull(
             this.getClass().getResourceAsStream("/images/Simpli.jpg")));
 
+    /**
+     * Driver code for MainWindow.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

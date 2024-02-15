@@ -1,6 +1,7 @@
 package simpli.core;
 
-import simpli.actions.Action;
+import java.io.IOException;
+
 import simpli.configs.SimpliConfiguration;
 import simpli.exceptions.ActionException;
 import simpli.exceptions.TaskException;
@@ -8,8 +9,6 @@ import simpli.interpreter.Interpreter;
 import simpli.parser.Parser;
 import simpli.storage.Storage;
 import simpli.tasks.TaskList;
-
-import java.io.IOException;
 
 /**
  * Main chatbot.
@@ -37,19 +36,22 @@ public class Simpli {
         try {
             storage.loadTasksFromFile(SimpliConfiguration.DATAPATH);
         } catch (TaskException e) {
-
+            System.out.println("Error in task.");
         } catch (ActionException e) {
-
+            System.out.println("Error in actions");
         } catch (IOException e) {
-
+            System.out.println("Error in opening file.");
         }
     }
 
+    /**
+     * Stops the chatbot and perform saving of tasks before quitting.
+     */
     public void stop() {
         try {
             storage.saveTasksToFile(SimpliConfiguration.DATAPATH);
         } catch (IOException e) {
-
+            System.out.println("Error in opening file.");
         }
     }
 
@@ -59,8 +61,8 @@ public class Simpli {
      * @return goodbye message.
      */
     public String greet() {
-        return "Hello! I'm SIMP-LI\n" +
-                "How can I simp-lify your life?";
+        return "Hello! I'm SIMP-LI\n"
+            + "How can I simp-lify your life?";
     }
 
     /**
@@ -72,6 +74,12 @@ public class Simpli {
         return "Bye. Hope to simp for you again soon!";
     }
 
+    /**
+     * Processes the user input string from start to end.
+     *
+     * @param input User input String.
+     * @return resposne String.
+     */
     public String processInput(String input) {
         try {
             String[] tokens = parser.parseCommand(input);

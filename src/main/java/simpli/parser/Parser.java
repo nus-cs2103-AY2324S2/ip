@@ -1,10 +1,11 @@
 package simpli.parser;
 
+import java.util.Arrays;
+import java.util.HashSet;
+
 import simpli.actions.Action;
 import simpli.exceptions.ActionException;
 
-import java.util.Arrays;
-import java.util.HashSet;
 
 /**
  * Parses various strings into an array of tokens.
@@ -33,7 +34,7 @@ public final class Parser {
         String[] parsedTokens = new String[MAX_TOKENS];
         Arrays.fill(parsedTokens, "");
 
-        String[] tokens = content.split(" /[a-zA-Z]* ");  // 1:
+        String[] tokens = content.split(" /[a-zA-Z]* ");
         String[] taskInfo = tokens[0].split(" ", 2);
 
         parsedTokens[0] = taskInfo[0];

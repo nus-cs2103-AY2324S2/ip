@@ -3,6 +3,9 @@ package simpli.tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Deadline task to know when is the task due by.
+ */
 public class Deadline extends Task {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     protected LocalDateTime by;
@@ -19,12 +22,19 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * Returns the deadline task as a comma-separated values (csv) String representation.
+     *
+     * @return String representing the csv value for the deadline task.
+     */
+    @Override
     public String toCsv() {
         return String.format("Deadline,%s,%s", super.toCsv(), this.by.format(FORMATTER));
     }
 
     /**
      * Returns the deadline task String representation.
+     *
      * @return String representation of the deadline task.
      */
     @Override

@@ -1,16 +1,16 @@
 package simpli.storage;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
 import simpli.exceptions.ActionException;
 import simpli.exceptions.TaskException;
 import simpli.interpreter.Interpreter;
 import simpli.parser.Parser;
 import simpli.tasks.Task;
 import simpli.tasks.TaskList;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * Handles the saving and loading of tasks to and from the filesystem.

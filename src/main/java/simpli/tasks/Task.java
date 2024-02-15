@@ -1,5 +1,8 @@
 package simpli.tasks;
 
+/**
+ * Task to keep track of the things for user.
+ */
 public class Task {
     private final String name;
     private boolean isDone;
@@ -40,6 +43,7 @@ public class Task {
 
     /**
      * Converts the task into a comma-separated values (csv) String representation.
+     *
      * @return String representing the csv value for the task.
      */
     public String toCsv() {
@@ -48,6 +52,7 @@ public class Task {
 
     /**
      * Returns the task String representation.
+     *
      * @return String representation of the task.
      */
     public String toString() {
