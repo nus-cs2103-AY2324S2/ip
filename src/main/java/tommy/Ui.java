@@ -14,7 +14,6 @@ public class Ui {
 
     private static final String NAME = "Tommy";
     private Scanner scanner;
-//    private static final String DIVIDER = "____________________________";
 
     /**
      * Constructor for an Ui object that initialises the scanner.
@@ -24,18 +23,18 @@ public class Ui {
     }
 
     /**
-     * Prints the greeting message for the user when the Chatbot boots up.
+     * Returns the greeting message for the user when the Chatbot boots up.
      *
      * @return Greeting messages for the user.
      */
     public String greet() {
         //Greetings
 
-        return "\nHello! I'm " + this.NAME + "\nWhat can I do for you?\n";
+        return "Hello! I'm " + this.NAME + "\nWhat can I do for you?";
     }
 
     /**
-     * Prints the farewell message for the user when the Chatbot terminates.
+     * Returns farewell message for the user when the Chatbot terminates.
      *
      * @return Farewell message to user.
      */
@@ -55,9 +54,10 @@ public class Ui {
     }
 
     /**
-     * Prints the entire list of tasks in the taskList numbered.
+     * Numbers the entire taskList and as a single String so all the tasks can be displayed in a list.
      *
-     * @param taskList List of tasks to be printed.
+     * @param taskList List of tasks to be numbered.
+     * @returns Numbered list of tasks as a String.
      */
     public static String displayAllTasks(TaskList taskList) {
         StringBuilder acc = new StringBuilder("Here are the tasks in your list:\n");
@@ -73,10 +73,11 @@ public class Ui {
     }
 
     /**
-     * Prints the description of the task that is deleted.
+     * Returns the confirmation description of the task that is deleted.
      *
      * @param taskList List of tasks after deletion.
      * @param task Task that is deleted.
+     * @return Confirmation description of the deleted task.
      */
     public static String displayDeletedTask(TaskList taskList, Task task) {
         String descOfTaskToDelete = task.toString();
@@ -87,10 +88,11 @@ public class Ui {
     }
 
     /**
-     * Prints the description of the task that was marked.
+     * Returns the description of the task that was marked.
      *
      * @param taskList List of tasks from which the task was marked.
      * @param position Position of the task that was marked in the taskList.
+     * @return Description of the marked task.
      */
     public static String displayMarkedTask(TaskList taskList, int position) {
         Task markedTask = taskList.getTaskAtPosition(position);
@@ -101,10 +103,11 @@ public class Ui {
     }
 
     /**
-     * Prints the description of the task that was unmarked.
+     * Returns the description of the task that was unmarked.
      *
      * @param taskList List of tasks from which the task was unmarked.
      * @param position Position of the task that was unmarked in the taskList.
+     * @return Description of the unmarked task.
      */
     public static String displayUnmarkedTask(TaskList taskList, int position) {
         Task unmarkedTask = taskList.getTaskAtPosition(position);
@@ -116,10 +119,11 @@ public class Ui {
     }
 
     /**
-     * Prints the description of the task that was newly created.
+     * Returns the description of the task that was newly created.
      *
      * @param task Newly created task.
      * @param taskList List of tasks from which the task was added to.
+     * @return Description of the newly created task.
      */
     public static String displayNewTask(Task task, TaskList taskList) {
         String descToDisplay = "Got it. I've added this task:\n" +
@@ -129,10 +133,11 @@ public class Ui {
     }
 
     /**
-     * Prints the list of tasks in the taskList that matches the keyword.
+     * Returns the list of tasks in the taskList that matches the keyword.
      *
      * @param taskList List of tasks to match the keyword with.
      * @param keyword Keyword to match the task description with.
+     * @return All the tasks with matched description.
      */
     public static String displayMatchingTasks(TaskList taskList, String keyword) {
         StringBuilder descToDisplay = new StringBuilder("Here are the matching tasks in your list:");
@@ -152,7 +157,9 @@ public class Ui {
     }
 
     /**
-     * Prints the relevant error message for the TommyException thrown.
+     * Returns the relevant error message for the TommyException thrown.
+     *
+     * @return Error message due to TommyException thrown.
      */
     public static String printError(TommyException e) {
         return e.errorMessage() ;

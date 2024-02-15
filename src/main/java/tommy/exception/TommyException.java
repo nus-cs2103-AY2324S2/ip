@@ -16,7 +16,7 @@ public abstract class TommyException extends Exception {
     }
 
     /**
-     * Prints the descriptive message of the exception error for the user.
+     * Returns the descriptive message of the exception error for the user.
      *
      * @return Descriptive error message.
      */

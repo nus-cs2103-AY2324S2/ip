@@ -30,7 +30,6 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(Storage storage, TaskList taskList, Ui ui) throws InvalidArgumentException {
         try {
-            // Delete the task
             Task taskToDelete = taskList.getTaskAtPosition(positionToDelete);
             taskList.deleteTaskAtPosition(positionToDelete);
             return ui.displayDeletedTask(taskList, taskToDelete);

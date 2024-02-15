@@ -14,7 +14,6 @@ public class Tommy {
     private Storage storage;
     private TaskList tasks;
 
-    // deals with interactions with the user
     private Ui ui;
     private boolean isActive = true;
 
@@ -38,7 +37,12 @@ public class Tommy {
 
     }
 
-
+    /**
+     * Dissects the input, computes and executes the command.
+     *
+     * @param input User input for the chatbot.
+     * @return The response text (error/confirmation message) displayed to the user.
+     */
     public String getResponse(String input) {
         try {
             Command command = Parser.parseCommand(input);
@@ -51,10 +55,21 @@ public class Tommy {
         }
     }
 
+    /**
+     * Retrieves the availability of the chatbot, which can be used to terminate the chatbot when BYE command is
+     * executed.
+     *
+     * @return The availability of the chatbot as a boolean.
+     */
     public boolean isActive() {
         return this.isActive;
     }
 
+    /**
+     * Retrieves the greetings to be displayed to the user when the chatbot first boots up.
+     *
+     * @return Greetings to be displayed to the user.
+     */
     public String getGreetings() {
         return this.ui.greet();
     }
