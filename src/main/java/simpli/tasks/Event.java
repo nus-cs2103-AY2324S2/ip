@@ -5,8 +5,8 @@ import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-    protected LocalDateTime from;
-    protected LocalDateTime to;
+    private LocalDateTime from;
+    private LocalDateTime to;
 
     /**
      * Initializes an event task with the specified attributes.

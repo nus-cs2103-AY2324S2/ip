@@ -5,7 +5,6 @@ import simpli.exceptions.ActionException;
 import simpli.exceptions.TaskException;
 import simpli.tasks.Task;
 import simpli.tasks.TaskList;
-import simpli.ui.Ui;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -17,17 +16,14 @@ import java.util.Arrays;
  * Interpret and executes the tokens.
  */
 public class Interpreter {
-    private Ui ui;
     private TaskList taskList;
 
     /**
      * Initializes the interpreter with the specified ui object and taskList.
      *
-     * @param ui Handles printing.
      * @param taskList Manages tasks and their actions.
      */
-    public Interpreter(Ui ui, TaskList taskList) {
-        this.ui = ui;
+    public Interpreter(TaskList taskList) {
         this.taskList = taskList;
     }
 
@@ -37,8 +33,9 @@ public class Interpreter {
      * @param tokens Array of token.
      * @throws ActionException When no such action exists.
      * @throws TaskException When task have invalid parameters.
+     * @return the String to be shown to the user.
      */
-    public void interpret(String[] tokens) throws ActionException, TaskException {
+    public String interpret(String[] tokens) throws ActionException, TaskException {
         // interpret the string date and time as LocalDateTime object
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         LocalDateTime[] dates = new LocalDateTime[tokens.length];
@@ -58,61 +55,68 @@ public class Interpreter {
         Action actionType = Action.valueOf(tokens[0].toUpperCase());
         switch (actionType) {
         case LIST:  // list stored tasks
-            ui.display(taskList.toString());
-            break;
+            return taskList.toString();
         case MARK: {  // mark task as done
             int taskNum = Integer.parseInt(tokens[2]);
             taskList.mark(taskNum);
-            ui.display("Nice! I've marked this task as done:\n\t" +
-                    taskList.getTask(taskNum));
-            break;
+            return "Nice! I've marked this task as done:\n\t" +
+                    taskList.getTask(taskNum);
         }
         case UNMARK: {  // mark task as undone
             int taskNum = Integer.parseInt(tokens[2]);
             taskList.unmark(taskNum);
-            ui.display("OK, I've marked this task as not done yet:\n\t" +
-                    taskList.getTask(taskNum));
-            break;
+            return "OK, I've marked this task as not done yet:\n\t" +
+                    taskList.getTask(taskNum);
         }
         case DELETE: {  // delete task
             int taskNum = Integer.parseInt(tokens[2]);
             Task removedTask = taskList.deleteTask(taskNum);
-            ui.display("Noted. I've removed this task:\n" +
+            return "Noted. I've removed this task:\n" +
                     removedTask + "\n" +
-                    "Now you have " + taskList.size() + " task(s) in the list.");
-            break;
+                    "Now you have " + taskList.size() + " task(s) in the list.";
         }
         case FIND: {  // find tasks with the given keyword
             ArrayList<Task> tasks = taskList.findTasks(tokens[2]);
             TaskList foundTasks = new TaskList(tasks);
-            ui.display("Here are the matching tasks in your list:\n" +
-                    foundTasks.toString());
-            break;
+            return "Here are the matching tasks in your list:\n" +
+                    foundTasks.toString();
         }
         case TODO: {  // creates todo task
             Task addedTask = taskList.addTodo(tokens);
-            ui.display("Got it. I've added this task:\n\t" +
+            return "Got it. I've added this task:\n\t" +
                     addedTask + "\n" +
-                    "Now you have " + taskList.size() + " task(s) in the list.");
-            break;
+                    "Now you have " + taskList.size() + " task(s) in the list.";
         }
         case DEADLINE: {  // creates deadline task
+            if (!isValidDateTime(dates)) {
+                throw new TaskException();
+            }
             Task addedTask = taskList.addDeadline(tokens, dates);
-            ui.display("Got it. I've added this task:\n\t" +
+            return "Got it. I've added this task:\n\t" +
                     addedTask + "\n" +
-                    "Now you have " + taskList.size() + " task(s) in the list.");
-            break;
+                    "Now you have " + taskList.size() + " task(s) in the list.";
         }
         case EVENT: {  // creates event task
+            if (!isValidDateTime(dates)) {
+                throw new TaskException();
+            }
             Task addedTask = taskList.addEvent(tokens, dates);
-            ui.display("Got it. I've added this task:\n\t" +
+            return "Got it. I've added this task:\n\t" +
                     addedTask + "\n" +
-                    "Now you have " + taskList.size() + " task(s) in the list.");
-            break;
+                    "Now you have " + taskList.size() + " task(s) in the list.";
+        }
+        case BYE: {
+            return "exit";
         }
         default: {
             throw new ActionException();
         }
         }
+    }
+
+    private boolean isValidDateTime(LocalDateTime[] dates) {
+        return Arrays.stream(dates)
+                .allMatch((localDateTime) -> localDateTime.isAfter(LocalDateTime.now()) ||
+                        localDateTime.isEqual(LocalDateTime.MIN));
     }
 }

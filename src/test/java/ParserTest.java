@@ -1,10 +1,10 @@
 package simpli.parser;  //same package as the class being tested
 
-import org.junit.jupiter.api.Test;
 import simpli.exceptions.ActionException;
-import simpli.exceptions.TaskException;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ParserTest {
     @Test
