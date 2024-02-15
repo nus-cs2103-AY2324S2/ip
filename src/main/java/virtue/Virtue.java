@@ -8,7 +8,7 @@ public class Virtue {
     private Storage storage;
 
     // The task list to be used by the chatbot.
-    private VirtueTaskList taskList;
+    private VirtueTaskList tasks;
 
     public Virtue() {
         storage = new Storage();
@@ -17,8 +17,8 @@ public class Virtue {
     // Runs the chatbot.
     private void run() {
         try {
-            taskList = storage.loadTaskList();
-            ui = new Ui(taskList, storage);
+            tasks = storage.loadTaskList();
+            ui = new Ui(tasks, storage);
             ui.run();
         } catch (VirtueDateTimeException e) {
             System.out.println("OOPS! There is a date not in the correct format.");

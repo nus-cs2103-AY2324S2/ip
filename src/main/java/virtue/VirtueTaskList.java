@@ -1,33 +1,31 @@
 package virtue;
 
-
-import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class VirtueTaskList {
     // The task list.
-    private List<VirtueTask> taskList;
+    private List<VirtueTask> tasks;
 
     public VirtueTaskList() {
-        taskList = new ArrayList<>();
+        tasks = new ArrayList<>();
     }
 
     // Gets the number of tasks in the task list.
     protected int numTasks() {
-        return taskList.size();
+        return tasks.size();
     }
 
     // Gets the i-th task from the task list, where i is the index.
     private VirtueTask getTask(int index) {
-        return taskList.get(index - 1);
+        return tasks.get(index - 1);
     }
 
     // Adds a todo task to the task list.
     private void addTodo(String description) {
         Todo todo = new Todo(description);
-        taskList.add(todo);
+        tasks.add(todo);
         int numTasks = numTasks();
         String sOrNone = numTasks == 1 ? "" : "s";
         Ui.printHorizontalLine();
@@ -40,7 +38,7 @@ public class VirtueTaskList {
     // Adds a deadline task to the task list.
     private void addDeadline(String description, VirtueDateTime by) {
         Deadline deadline = new Deadline(description, by);
-        taskList.add(deadline);
+        tasks.add(deadline);
         int numTasks = numTasks();
         String sOrNone = numTasks == 1 ? "" : "s";
         Ui.printHorizontalLine();
@@ -53,7 +51,7 @@ public class VirtueTaskList {
     // Adds an event task to the task list.
     private void addEvent(String description, VirtueDateTime from, VirtueDateTime to) {
         Event event = new Event(description, from, to);
-        taskList.add(event);
+        tasks.add(event);
         int numTasks = numTasks();
         String sOrNone = numTasks == 1 ? "" : "s";
         Ui.printHorizontalLine();
@@ -85,12 +83,12 @@ public class VirtueTaskList {
 
     // Prints out the task list.
     protected void printOut() {
-        int numOfTasks = taskList.size();
+        int numOfTasks = tasks.size();
         Ui.printHorizontalLine();
         Ui.printWithIndent(" Here are the tasks in your list:");
 
         for (int index = 1; index <= numOfTasks; index++) {
-            Ui.printWithIndent(" " + index + "." + taskList.get(index - 1));
+            Ui.printWithIndent(" " + index + "." + tasks.get(index - 1));
         }
 
         Ui.printHorizontalLine();
@@ -98,7 +96,7 @@ public class VirtueTaskList {
 
     // Deletes the i-th task in the task list, where i is the index.
     private void deleteTask(int index) {
-        VirtueTask deletedTask = taskList.remove(index - 1);
+        VirtueTask deletedTask = tasks.remove(index - 1);
         int numTasks = numTasks();
         Ui.printHorizontalLine();
         Ui.printWithIndent(" Noted. I've removed this task:");
@@ -109,26 +107,26 @@ public class VirtueTaskList {
 
     public void executeCommand(Command command) {
         switch (command.type) {
-            case LIST:
-                printOut();
-                break;
-            case MARK:
-                markTaskAsDone(command.index);
-                break;
-            case UNMARK:
-                markTaskAsNotDone(command.index);
-                break;
-            case DELETE:
-                deleteTask(command.index);
-                break;
-            case TODO:
-                addTodo(command.description);
-                break;
-            case DEADLINE:
-                addDeadline(command.description, command.by);
-                break;
-            case EVENT:
-                addEvent(command.description, command.from, command.to);
+        case LIST:
+            printOut();
+            break;
+        case MARK:
+            markTaskAsDone(command.index);
+            break;
+        case UNMARK:
+            markTaskAsNotDone(command.index);
+            break;
+        case DELETE:
+            deleteTask(command.index);
+            break;
+        case TODO:
+            addTodo(command.description);
+            break;
+        case DEADLINE:
+            addDeadline(command.description, command.by);
+            break;
+        case EVENT:
+            addEvent(command.description, command.from, command.to);
         }
     }
 
@@ -138,34 +136,35 @@ public class VirtueTaskList {
         int marked = Integer.parseInt(str.split(" \\| ")[1]);
 
         switch (taskType) {
-            case "T":
-                taskList.add(new Todo(description));
+        case "T":
+            tasks.add(new Todo(description));
+            break;
+        case "D":
+            try {
+                VirtueDateTime dateTime = new VirtueDateTime(str.split(" \\| ")[3]);
+                tasks.add(new Deadline(description, dateTime));
                 break;
-            case "D":
-                try {
-                    VirtueDateTime dateTime = new VirtueDateTime(str.split(" \\| ")[3]);
-                    taskList.add(new Deadline(description, dateTime));
-                    break;
-                } catch (DateTimeParseException e) {
-                    throw new VirtueDateTimeException("by", "deadline");
-                }
-            case "E":
-                VirtueDateTime fromDateTime;
-                VirtueDateTime toDateTime;
+            } catch (DateTimeParseException e) {
+                throw new VirtueDateTimeException("by", "deadline");
+            }
+        case "E":
+            VirtueDateTime fromDateTime;
+            VirtueDateTime toDateTime;
 
-                try {
-                    fromDateTime = new VirtueDateTime(str.split(" \\| ")[3]);
-                } catch (DateTimeParseException e) {
-                    throw new VirtueDateTimeException("from", "event");
-                }
+            try {
+                fromDateTime = new VirtueDateTime(str.split(" \\| ")[3]);
+            } catch (DateTimeParseException e) {
+                throw new VirtueDateTimeException("from", "event");
+            }
 
-                try {
-                    toDateTime = new VirtueDateTime(str.split(" \\| ")[4]);
-                } catch (DateTimeParseException e) {
-                    throw new VirtueDateTimeException("to", "event");
-                }
+            try {
+                toDateTime = new VirtueDateTime(str.split(" \\| ")[4]);
+            } catch (DateTimeParseException e) {
+                throw new VirtueDateTimeException("to", "event");
+            }
 
-                taskList.add(new Event(description, fromDateTime, toDateTime));
+            tasks.add(new Event(description, fromDateTime, toDateTime));
+            break;
         }
 
         if (marked == 1) {
