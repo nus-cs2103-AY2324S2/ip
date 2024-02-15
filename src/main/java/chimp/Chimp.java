@@ -29,30 +29,38 @@ public class Chimp extends Application {
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image duke = new Image(getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    private Ui ui;
+    private TaskList tasks;
+    private Storage storage;
+
     public Chimp() {
-        //...
+        this.ui = new Ui();
+        this.tasks = new TaskList();
+        this.storage = new Storage();
     }
 
     @Override
     public void start(Stage stage) {
-        // Step 1. Setting up required components
+        AnchorPane mainLayout = getMainLayout(stage);
 
-        // The container for the content of the chat to scroll.
-        scrollPane = new ScrollPane();
-        dialogContainer = new VBox();
-        scrollPane.setContent(dialogContainer);
+        formatWindow(stage, mainLayout);
 
-        userInput = new TextField();
-        sendButton = new Button("Send");
+        addFunctionality();
 
-        AnchorPane mainLayout = new AnchorPane();
-        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+    }
 
-        scene = new Scene(mainLayout);
+    private void addFunctionality() {
+        // Part 3. Add functionality to handle user input.
+        sendButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
 
-        stage.setScene(scene);
-        stage.show();
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+        });
+    }
 
+    private void formatWindow(Stage stage, AnchorPane mainLayout) {
         // Step 2. Formatting the window to look as expected
         stage.setTitle("Duke");
         stage.setResizable(false);
@@ -85,16 +93,27 @@ public class Chimp extends Application {
 
         // Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+    }
 
-        // Part 3. Add functionality to handle user input.
-        sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
+    private AnchorPane getMainLayout(Stage stage) {
+        // Step 1. Setting up required components
 
-        userInput.setOnAction((event) -> {
-            handleUserInput();
-        });
+        // The container for the content of the chat to scroll.
+        scrollPane = new ScrollPane();
+        dialogContainer = new VBox();
+        scrollPane.setContent(dialogContainer);
 
+        userInput = new TextField();
+        sendButton = new Button("Send");
+
+        AnchorPane mainLayout = new AnchorPane();
+        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+
+        scene = new Scene(mainLayout);
+
+        stage.setScene(scene);
+        stage.show();
+        return mainLayout;
     }
 
     /**
@@ -104,20 +123,26 @@ public class Chimp extends Application {
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
+        String input = userInput.getText();
+        Label userText = new Label(input);
+        String response = generateResponse();
+        Label dukeText = new Label(response);
         dialogContainer.getChildren().addAll(
                 new DialogBox(userText, new ImageView(user)),
                 new DialogBox(dukeText, new ImageView(duke)));
         userInput.clear();
     }
 
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
-    private String getResponse(String input) {
-        return "Duke heard: " + input;
+    private String generateResponse(){
+        String input = userInput.getText();
+        try {
+            String response = Parser.parse(input).execute(this.tasks, this.ui, this.storage);
+            return response;
+        } catch (InvalidCommandException | CommandParseException | CommandExecuteException e) {
+            return ui.say("hoo");
+        } catch (IndexOutOfBoundsException e) {
+            return ui.say("hoo");
+        }
     }
 
     /**
