@@ -113,6 +113,48 @@ public class Printer {
         sb.append(DECORATOR);
         return sb.toString();
     }
+
+    public static String printNothingToUndo() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(DECORATOR);
+        sb.append(Printer.println("There is nothing to undo."));
+        sb.append(DECORATOR);
+        return sb.toString();
+    }
+
+    public static String printUndoAdd(Task task) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(DECORATOR);
+        sb.append(Printer.println("Undo successful. The following task has been removed:"));
+        sb.append(Printer.printlnFurtherIndent(task.toString()));
+        sb.append(DECORATOR);
+        return sb.toString();
+    }
+
+    public static String printUndoMark() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(DECORATOR);
+        sb.append(Printer.println("Undo mark successful."));
+        sb.append(DECORATOR);
+        return sb.toString();
+    }
+
+    public static String printUndoUnmark() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(DECORATOR);
+        sb.append(Printer.println("Undo unmark successful."));
+        sb.append(DECORATOR);
+        return sb.toString();
+    }
+
+    public static String printUndoDelete(Task task) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(DECORATOR);
+        sb.append(Printer.println("Undo delete successful. The following task is put back:"));
+        sb.append(Printer.printlnFurtherIndent(task.toString()));
+        sb.append(DECORATOR);
+        return sb.toString();
+    }
 }
 
 

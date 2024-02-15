@@ -7,5 +7,6 @@ public enum Action {
     MARK, UNMARK,
     ADD_TODO, ADD_DEADLINE, ADD_EVENT,
     DELETE,
+    UNDO,
     INVALID
 }

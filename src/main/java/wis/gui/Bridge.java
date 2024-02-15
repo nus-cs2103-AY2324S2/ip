@@ -1,6 +1,7 @@
 package wis.gui;
 
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -29,7 +30,7 @@ public class Bridge {
         String message = chatBox.launch();
         if (!message.equals("")) {
             // display fail-to-load error message to user
-            Label errorText = new Label(message);
+            TextArea errorText = new TextArea(message);
             dialogContainer.getChildren().addAll(
                     new DialogBox(errorText, new ImageView(wisImage)));
         }
