@@ -9,7 +9,7 @@ import static bytebuddy.constants.ExceptionErrorMessages.NUMBER_FORMAT_ERROR_MES
 import static bytebuddy.constants.FilePaths.RELATIVE_OUTPUT_TXT_FILE_PATH;
 import static bytebuddy.constants.Formats.DEADLINE_FORMAT;
 import static bytebuddy.constants.Formats.EVENT_FORMAT;
-import static bytebuddy.constants.Formats.LIST_FORMAT;
+import static bytebuddy.constants.Formats.FIND_FORMAT;
 import static bytebuddy.parser.Parser.splitStringWithTrim;
 import static bytebuddy.storage.Storage.writeToFile;
 import static bytebuddy.ui.Ui.printWithSolidLineBreak;
@@ -389,7 +389,7 @@ public class TaskList {
      */
     public String findTaskWithKeywordInTaskList(List<String> keywords) throws ByteBuddyException {
         if (keywords.isEmpty()) {
-            throw new ByteBuddyException(EMPTY_KEYWORD_ERROR_MESSAGE + "\n\t Usage: " + LIST_FORMAT);
+            throw new ByteBuddyException(EMPTY_KEYWORD_ERROR_MESSAGE + "\n\t Usage: " + FIND_FORMAT);
         }
 
         boolean foundTask = false;
