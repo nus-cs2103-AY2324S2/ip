@@ -17,6 +17,7 @@ import javafx.scene.layout.HBox;
  * A class to display message bubbles.
  */
 public class Message extends HBox {
+    private static final String MESSAGE_FXML_PATH = "/gui/Message.fxml";
     @FXML
     private ImageView displayPicture;
     @FXML
@@ -32,7 +33,7 @@ public class Message extends HBox {
      */
     private Message(Image displayPicture, String displayText, String displayName) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Window.class.getResource("/gui/Message.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Window.class.getResource(MESSAGE_FXML_PATH));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();

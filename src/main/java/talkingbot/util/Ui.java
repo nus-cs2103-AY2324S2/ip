@@ -136,22 +136,4 @@ public class Ui {
     public String getGoodbyeMsg() {
         return String.format("%s\n", GOODBYE);
     }
-
-    /**
-     * Sets whether the application should continue running.
-     *
-     * @param continueIter Boolean value setting the application's status.
-     */
-    public void setContinueIter(boolean continueIter) {
-        this.continueIter = continueIter;
-    }
-
-    /**
-     * Returns a boolean indicating whether the application should continue running.
-     *
-     * @return Boolean value indicating the application's status.
-     */
-    public boolean getContinueIter() {
-        return this.continueIter;
-    }
 }

@@ -14,6 +14,12 @@ import talkingbot.logic.TalkingBot;
  * Window class for the GUI of the application.
  */
 public class Window extends AnchorPane {
+
+    private static final String BOT_NAME = "TalkingBot";
+    private static final String USER_NAME = "You";
+    private static final String BOT_IMAGE_PATH = "/gui/TalkingBot.jpg";
+    private static final String USER_IMAGE_PATH = "/gui/You.jpg";
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -23,10 +29,8 @@ public class Window extends AnchorPane {
     @FXML
     private Button sendButton;
     private TalkingBot talkingBot;
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/gui/You.jpg"));
-    private final Image botImage = new Image(this.getClass().getResourceAsStream("/gui/TalkingBot.jpg"));
-    private final String userName = "You";
-    private final String botName = "TalkingBot";
+    private final Image userImage = new Image(this.getClass().getResourceAsStream(USER_IMAGE_PATH));
+    private final Image botImage = new Image(this.getClass().getResourceAsStream(BOT_IMAGE_PATH));
 
     /**
      * Initializes the scrollPane and binds it to the vBox.
@@ -72,8 +76,8 @@ public class Window extends AnchorPane {
         String text = this.textInput.getText();
         String botResponse = this.talkingBot.process(this.textInput.getText());
         this.vBox.getChildren().addAll(
-                Message.getUserMessage(this.userImage, text, this.userName),
-                Message.getBotMessage(this.botImage, botResponse, this.botName)
+                Message.getUserMessage(this.userImage, text, this.USER_NAME),
+                Message.getBotMessage(this.botImage, botResponse, this.BOT_NAME)
         );
         this.textInput.clear();
     }

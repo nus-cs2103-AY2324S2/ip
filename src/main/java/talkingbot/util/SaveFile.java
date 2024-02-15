@@ -14,6 +14,8 @@ import talkingbot.task.Task;
  * Class representing the save file.
  */
 public class SaveFile {
+    private static final String IO_EXCEPTION_MSG = "ERROR! Cannot read from file!";
+    private static final String FILE_NOT_FOUND_EXCEPTION_MSG = "ERROR! File not found!";
     private final File saveFile;
     private final File directory;
     private final String path;
@@ -61,9 +63,9 @@ public class SaveFile {
             }
             return tasks;
         } catch (FileNotFoundException e) {
-            throw new TalkingBotException("ERROR! File not found!");
+            throw new TalkingBotException(FILE_NOT_FOUND_EXCEPTION_MSG);
         } catch (Exception e) {
-            throw new TalkingBotException("ERROR! Cannot read from file!");
+            throw new TalkingBotException(IO_EXCEPTION_MSG);
         }
     }
 

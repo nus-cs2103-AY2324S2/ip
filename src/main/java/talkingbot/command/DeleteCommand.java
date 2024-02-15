@@ -31,7 +31,8 @@ public class DeleteCommand extends Command {
     @Override
     public String runCommand(TaskList tasks, SaveFile saveFile, Ui ui) {
         String[] curCommand = super.getCommandArr();
-        int deleteIdxInt = Integer.valueOf(curCommand[1]);
+        String deleteIdxStr = curCommand[1];
+        int deleteIdxInt = Integer.valueOf(deleteIdxStr);
         Task removedTask = tasks.removeTask(deleteIdxInt - 1);
         assert !tasks.getTask(deleteIdxInt - 1).equals(removedTask) : "task should already be removed";
         return ui.getDeleteTaskMsg(removedTask, tasks.getSize());
