@@ -34,14 +34,18 @@ public class FindTask extends Command {
         assert TaskManager.getTasks().size() > 0 : "There are no tasks in the tasklist to find!";
         ArrayList<Task> tasksFound = new ArrayList<>();
         for (Task t : TaskManager.getTasks()) {
-            if (t.find(key)) {
+            if (t.containsWord(key)) {
                 tasksFound.add(t);
             }
         }
+
         StringBuilder response = new StringBuilder();
         response.append("Here are the matching tasks in your list:\n");
         for (int i = 0; i < tasksFound.size(); i++) {
-            response.append((i + 1)).append(". ").append(tasksFound.get(i)).append("\n");
+            response.append((i + 1))
+                    .append(". ")
+                    .append(tasksFound.get(i))
+                    .append("\n");
         }
         return response.toString();
     }

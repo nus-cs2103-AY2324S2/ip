@@ -48,7 +48,7 @@ public class Task {
      * @param key String to find in the name.
      * @return Boolean if key is found or not.
      */
-    public boolean find(String key) {
+    public boolean containsWord(String key) {
         String[] words = this.name.split(" ");
         for (String s : words) {
             if (s.equals(key)) {

@@ -26,7 +26,10 @@ public class ListTask extends Command {
         StringBuilder response = new StringBuilder();
         response.append("Here are the tasks in your list:\n");
         for (int i = 0; i < TaskManager.getTasks().size(); i++) {
-            response.append((i + 1)).append(". ").append(TaskManager.getTasks().get(i)).append("\n");
+            response.append((i + 1))
+            .append(". ")
+            .append(TaskManager.getTasks().get(i))
+            .append("\n");
         }
         return response.toString();
     }
