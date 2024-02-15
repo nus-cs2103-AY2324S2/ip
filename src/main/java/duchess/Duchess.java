@@ -123,4 +123,9 @@ public class Duchess {
             return e.getMessage();
         }
     }
+
+    public void restartDuchess() {
+        this.isRunning = true;
+        this.ui = new Ui();
+    }
 }

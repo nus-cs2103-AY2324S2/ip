@@ -192,7 +192,6 @@ public class TaskList {
         return sb.toString();
     }
 
-
     /**
      * Checks if the task index is valid.
      *

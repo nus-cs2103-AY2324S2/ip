@@ -42,6 +42,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         try {
+            assert userImage != null : "User image is null";
+            assert duchessImage != null : "Duchess image is null";
             String input = userInput.getText();
             String response = duchess.getResponse(input);
             dialogContainer.getChildren().addAll(
@@ -52,7 +54,8 @@ public class MainWindow extends AnchorPane {
             if (input.equals("bye")) {
                 setCanClose(true);
             } else {
-                setCanClose(false);
+                setCanClose(false); // Set canClose to false for any other input
+                duchess.restartDuchess();
             }
 
             userInput.clear();
