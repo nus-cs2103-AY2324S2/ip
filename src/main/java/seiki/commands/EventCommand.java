@@ -25,33 +25,33 @@ public class EventCommand extends Command {
 
     @Override
     public String execute(Storage storage, TaskList taskList, Ui ui) throws SeikiException {
-        if (!this.args.contains("/from") && !this.args.contains("/to")) {
+        if (!args.contains("/from") && !args.contains("/to")) {
             throw new SeikiException("The date time for the task is missing.\n"
                     + "Please use the following format: event [task title] /from [startdatetime] /to [enddatetime]");
-        } else if (this.args.contains("/from")
-                && this.args.contains("/to")
-                && (this.args.subList(0, this.args.indexOf("/from")).size() == 0
-                && this.args.subList(this.args.indexOf("/to") + 1, this.args.size()).size() == 0
-                && this.args.subList(this.args.indexOf("/from") + 1, this.args.indexOf("/to")).size() == 0)) {
+        } else if (args.contains("/from")
+                && args.contains("/to")
+                && (args.subList(0, args.indexOf("/from")).size() == 0
+                && args.subList(args.indexOf("/to") + 1, args.size()).size() == 0
+                && args.subList(args.indexOf("/from") + 1, args.indexOf("/to")).size() == 0)) {
             throw new SeikiException("The task title, start and end date time for the task is missing.\n"
                     + "Please use the following format: event [task title] /from [startdatetime] /to [enddatetime]");
-        } else if (!this.args.contains("/to")
-                || this.args.subList(this.args.indexOf("/to") + 1, this.args.size()).size() == 0) {
+        } else if (!args.contains("/to")
+                || args.subList(args.indexOf("/to") + 1, args.size()).size() == 0) {
             throw new SeikiException("The date time for the task is missing.\n"
                     + "Please use the following format: event [task title] /from [startdatetime] /to [enddatetime]");
-        } else if (!this.args.contains("/from")
-                || this.args.subList(this.args.indexOf("/from") + 1, this.args.indexOf("/to")).size() == 0) {
+        } else if (!args.contains("/from")
+                || args.subList(args.indexOf("/from") + 1, args.indexOf("/to")).size() == 0) {
             throw new SeikiException("The date time for the task is missing.\n"
                     + "Please use the following format: event [task title] /from [startdatetime] /to [enddatetime]");
-        } else if (this.args.subList(0, this.args.indexOf("/from")).size() == 0) {
+        } else if (args.subList(0, args.indexOf("/from")).size() == 0) {
             throw new SeikiException("The task title is missing.\n"
                     + "Please use the following format: event [task title] /from [startdatetime] /to [enddatetime]");
         } else {
-            String taskName = String.join(" ", this.args.subList(0, this.args.indexOf("/from")));
+            String taskName = String.join(" ", args.subList(0, args.indexOf("/from")));
             String startDateTimeStr = String.join(" ",
-                    this.args.subList(this.args.indexOf("/from") + 1, this.args.indexOf("/to")));
+                    args.subList(args.indexOf("/from") + 1, args.indexOf("/to")));
             String endDateTimeStr = String.join(" ",
-                    this.args.subList(this.args.indexOf("/to") + 1, this.args.size()));
+                    args.subList(args.indexOf("/to") + 1, args.size()));
             try {
                 LocalDateTime startDateTime = LocalDateTime.parse(startDateTimeStr, DATE_TIME_FORMATTER);
                 LocalDateTime endDateTime = LocalDateTime.parse(endDateTimeStr, DATE_TIME_FORMATTER);

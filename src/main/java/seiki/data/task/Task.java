@@ -43,10 +43,10 @@ public class Task {
     }
     @Override
     public String toString() {
-        return this.taskTitle + this.getStatusIcon();
+        return taskTitle + getStatusIcon();
     }
 
     public String toFile() {
-        return "| " + (this.isDone ? 1 : 0) + " | " + this.taskTitle;
+        return "| " + (isDone ? 1 : 0) + " | " + taskTitle;
     }
 }

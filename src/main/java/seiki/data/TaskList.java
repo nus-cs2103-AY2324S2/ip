@@ -16,8 +16,8 @@ public class TaskList {
      * Creates an empty task list.
      */
     public TaskList() {
-        this.taskList = new ArrayList<>();
-        this.taskCount = 0;
+        taskList = new ArrayList<>();
+        taskCount = 0;
     }
 
     /**
@@ -25,8 +25,8 @@ public class TaskList {
      * @param tasks
      */
     public TaskList(ArrayList<Task> tasks) {
-        this.taskList = tasks;
-        this.taskCount = tasks.size();
+        taskList = tasks;
+        taskCount = tasks.size();
     }
 
     /**
@@ -52,11 +52,11 @@ public class TaskList {
     }
 
     public int getTaskCount() {
-        return this.taskCount;
+        return taskCount;
     }
 
     public ArrayList<Task> getAllTasks() {
-        return this.taskList;
+        return taskList;
     }
 
     /**

@@ -33,13 +33,13 @@ public class DeadlineTask extends Task {
     @Override
     public String toString() {
         return "[D] " + super.taskTitle + " (by: "
-                + this.dateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy HHmm"))
+                + dateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy HHmm"))
                 + ")" + super.getStatusIcon();
     }
 
     @Override
     public String toFile() {
         return "D " + super.toFile() + " | "
-                + this.dateTime.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
+                + dateTime.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
     }
 }

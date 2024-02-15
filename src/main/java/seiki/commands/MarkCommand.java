@@ -24,7 +24,7 @@ public class MarkCommand extends Command {
         if (taskList.getTaskCount() == 0) {
             throw new SeikiException("There are currently no tasks to be marked.");
         } else {
-            int taskNumber = Integer.parseInt(this.args.get(0));
+            int taskNumber = Integer.parseInt(args.get(0));
             if (taskNumber < 1 || taskNumber > taskList.getTaskCount()) {
                 throw new SeikiException("Please enter a valid task number.");
             } else {

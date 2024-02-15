@@ -12,7 +12,6 @@ import static seiki.common.Messages.MESSAGE_REMAINING_TASKS;
 import static seiki.common.Messages.MESSAGE_TASK;
 import static seiki.common.Messages.MESSAGE_UNMARK_SUCCESS;
 
-import java.io.InputStream;
 import java.util.Scanner;
 
 import seiki.data.TaskList;
@@ -25,18 +24,13 @@ public class Ui {
 
     private final Scanner in;
     private StringBuilder out;
-    public Ui() {
-        this(System.in, new StringBuilder());
-    }
 
     /**
      * Initializes the input and output of the chatbot.
-     * @param in
-     * @param out
      */
-    public Ui(InputStream in, StringBuilder out) {
-        this.in = new Scanner(in);
-        this.out = out;
+    public Ui() {
+        in = new Scanner(System.in);
+        out = new StringBuilder();
     }
 
     /**

@@ -38,15 +38,15 @@ public class EventTask extends Task {
     @Override
     public String toString() {
         return "[E] " + super.taskTitle + " (from: "
-                + this.startDateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy HHmm")) + " to: "
-                + this.endDateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy HHmm")) + ")"
+                + startDateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy HHmm")) + " to: "
+                + endDateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy HHmm")) + ")"
                 + super.getStatusIcon();
     }
 
     @Override
     public String toFile() {
         return "E " + super.toFile() + " | "
-                + this.startDateTime.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm")) + "-"
-                + this.endDateTime.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
+                + startDateTime.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm")) + "-"
+                + endDateTime.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
     }
 }

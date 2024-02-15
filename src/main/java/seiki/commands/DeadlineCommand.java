@@ -25,17 +25,17 @@ public class DeadlineCommand extends Command {
     @Override
     public String execute(Storage storage, TaskList taskList, Ui ui) throws SeikiException {
         StringBuilder sb = new StringBuilder();
-        if (!this.args.contains("/by")
-                || this.args.subList(this.args.indexOf("/by") + 1, this.args.size()).size() == 0) {
+        if (!args.contains("/by")
+                || args.subList(args.indexOf("/by") + 1, args.size()).size() == 0) {
             throw new SeikiException("The date time for the task is not found.\n"
                     + "Please use the following format: deadline [task title] /by [datetime]");
-        } else if (this.args.subList(0, this.args.indexOf("/by")).size() == 0) {
+        } else if (args.subList(0, args.indexOf("/by")).size() == 0) {
             throw new SeikiException("The task title is missing.\n"
                     + "Please use the following format: deadline [task title] /by [datetime]");
         } else {
-            String taskName = String.join(" ", this.args.subList(0, this.args.indexOf("/by")));
+            String taskName = String.join(" ", args.subList(0, args.indexOf("/by")));
             String dateTimeStr = String.join(" ",
-                    this.args.subList(this.args.indexOf("/by") + 1, this.args.size()));
+                    args.subList(args.indexOf("/by") + 1, args.size()));
             try {
                 LocalDateTime dateTime = LocalDateTime.parse(dateTimeStr, DATE_TIME_FORMATTER);
                 DeadlineTask task = new DeadlineTask(taskName, dateTime);

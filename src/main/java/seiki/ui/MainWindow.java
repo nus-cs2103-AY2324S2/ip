@@ -32,9 +32,9 @@ public class MainWindow extends AnchorPane {
     private Seiki seiki;
 
     private final Image userImage = new Image(Objects.requireNonNull(
-            this.getClass().getResourceAsStream("/images/DaUser.png")));
+            getClass().getResourceAsStream("/images/DaUser.png")));
     private final Image seikiImage = new Image(Objects.requireNonNull(
-            this.getClass().getResourceAsStream("/images/SeikiIcon.png")));
+            getClass().getResourceAsStream("/images/SeikiIcon.png")));
 
     @FXML
     public void initialize() {
