@@ -14,9 +14,9 @@ public class FindCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws CommandExecuteException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws CommandExecuteException {
         Task[] matches = tasks.find(arg);
-        ui.say("find", matches, tasks);
+        return ui.say("find", matches, tasks);
     }
 
     @Override

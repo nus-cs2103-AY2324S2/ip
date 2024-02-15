@@ -18,12 +18,12 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws CommandExecuteException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws CommandExecuteException {
         if (num < 1 || num > tasks.size()) {
             throw new CommandExecuteException("unmark must have number argument");
         }
         tasks.get(num - 1).unmark();
-        ui.say("unmark", tasks.get(num - 1), tasks);
+        return ui.say("unmark", tasks.get(num - 1), tasks);
     }
 
 }
