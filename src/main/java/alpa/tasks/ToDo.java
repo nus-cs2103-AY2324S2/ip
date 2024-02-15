@@ -1,12 +1,12 @@
 package alpa.tasks;
 
 public class ToDo extends Task {
-  public ToDo(String description) {
-    super(description, TaskType.TODO);
-  }
+    public ToDo(String description) {
+        super(description, TaskType.TODO);
+    }
 
-  @Override
-  public String toString() {
-    return "[ T ]" + super.toString();
-  }
+    @Override
+    public String toString() {
+        return "[ T ]" + super.toString();
+    }
 }
