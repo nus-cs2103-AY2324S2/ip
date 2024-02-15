@@ -1,15 +1,7 @@
 package asher.Commands;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
-
 import asher.BotException;
-import asher.Tasks.Deadline;
-import asher.Tasks.Event;
-import asher.Tasks.Task;
 import asher.Tasks.TaskList;
-import asher.Tasks.Todo;
 import asher.Ui.Ui;
 
 public class Parser {
@@ -21,42 +13,35 @@ public class Parser {
         this.taskList = taskList;
     }
 
-    public void parseCommand(String input) throws BotException {
+    public static Command parseCommand(String input) throws BotException {
         String[] word = input.split(" ");
         String inputType = word[0];
+
         switch (inputType) {
-            case "bye":
-                break;
-            case "list":
-                ui.showTaskList(taskList);
-                break;  
-            case "mark":
-                parseMarkCommand(input, taskList, ui);
-                break;
-            case "unmark":
-                parseUnmarkCommand(input, taskList, ui);
-                break;
-            case "todo":
-                parseToDoCommand(input);
-                break;
-            case "deadline":
-                parseDeadlineCommand(input);
-                break;
-            case "event":
-                parseEventCommand(input);
-                break;
-            case "delete":
-                parseDeleteCommand(input, taskList, ui);
-                break;
-            case "find":
-                parseFindCommand(input);
-                break;
-            default:
-                throw new BotException("Invalid Command!");
+        case "bye":
+            return new ExitCommand("bye");
+        case "list":
+            return new ListCommand("list");
+        case "mark":
+            return new MarkCommand(input);
+        case "unmark":
+            return new UnmarkCommand(input);
+        case "todo":
+            return new ToDoCommand(input);
+        case "deadline":
+            return new DeadlineCommand(input);
+        case "event":
+            return new EventCommand(input);
+        case "delete":
+            return new DeleteCommand(input);
+        case "find":
+            return new FindCommand(input);
+        default:
+            throw new BotException("Invalid Command!");
         }
     }
 
-    public static Todo createToDoCommand(String input) throws BotException {
+    /*public static Todo createToDoCommand(String input) throws BotException {
         String[] parts = input.split(" ", 2);
         if (parts.length < 2) {
             throw new BotException("Todo command is invalid!");
@@ -205,5 +190,5 @@ public class Parser {
         String keyword = input.substring(5).trim();
         ArrayList<Task> matchingTasks = taskList.searchKeyword(keyword);
         ui.showMatchingTasks(matchingTasks);
-    }
+    }*/
 }

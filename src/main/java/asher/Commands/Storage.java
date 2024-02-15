@@ -14,10 +14,7 @@ import asher.Tasks.Todo;
 import asher.Tasks.Task;
 
 public class Storage {
-    protected String filePath;
-
-    public Storage(String filePath) {
-        this.filePath = filePath;
+    public Storage() {
     }
 
     public void getFileContents(String filePath, TaskList tasks) {
