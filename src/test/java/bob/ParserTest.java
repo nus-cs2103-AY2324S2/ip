@@ -158,6 +158,16 @@ public class ParserTest {
     }
 
     @Test
+    public void parse_findEmptyDescription_exceptionThrown() {
+        try {
+            Parser.parse("find");
+            fail();
+        } catch (BobException e) {
+            assertEquals("find what", e.getMessage());
+        }
+    }
+
+    @Test
     public void parse_invalidCommand_exceptionThrown() {
         try {
             Parser.parse("");

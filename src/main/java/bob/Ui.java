@@ -24,6 +24,7 @@ public class Ui {
 
     private static final String HEADER_ADD = "added:";
     private static final String HEADER_DELETE = "removed:";
+    private static final String HEADER_FIND = "matching tasks:";
     private static final String HEADER_LIST = "list of tasks:";
     private static final String HEADER_MARK = "good job!";
     private static final String HEADER_UNMARK = "ok you just undid this task";
@@ -149,11 +150,12 @@ public class Ui {
      * Displays a specified list of tasks.
      *
      * @param tasks The specified list of tasks to be displayed.
+     * @param header The header of the display.
      */
-    public void showList(ArrayList<Task> tasks) {
+    public void showList(ArrayList<Task> tasks, String header) {
         // Prepare an array to store the lines to display, setting the first element as the header line
         String[] lines = new String[tasks.size() + 1];
-        lines[0] = HEADER_LIST;
+        lines[0] = header;
 
         // Go through the given list and add them into lines
         for (int i = 0; i < tasks.size(); i++) {
@@ -162,6 +164,14 @@ public class Ui {
 
         // Display the lines
         show(lines);
+    }
+
+    public void showList(ArrayList<Task> tasks) {
+        showList(tasks, HEADER_LIST);
+    }
+
+    public void showFind(ArrayList<Task> tasks) {
+        showList(tasks, HEADER_FIND);
     }
 
     /**

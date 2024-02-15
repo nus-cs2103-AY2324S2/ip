@@ -79,6 +79,10 @@ public abstract class Task {
         return false;
     }
 
+    public boolean hasKeyword(String keyword) {
+        return description.contains(keyword);
+    }
+
     /**
      * Returns the string representation of the task.
      *

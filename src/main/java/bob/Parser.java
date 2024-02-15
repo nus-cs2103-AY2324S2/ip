@@ -13,6 +13,7 @@ import bob.command.DeleteCommand;
 import bob.command.ExitCommand;
 import bob.command.ListCommand;
 import bob.command.ListDueInCommand;
+import bob.command.ListKeywordCommand;
 import bob.command.ListOnDateCommand;
 import bob.command.MarkCommand;
 import bob.exception.BobException;
@@ -31,6 +32,7 @@ public class Parser {
     private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_EVENT = "event";
     private static final String COMMAND_EXIT = "exit";
+    private static final String COMMAND_FIND = "find";
     private static final String COMMAND_LIST = "list";
     private static final String COMMAND_MARK = "mark";
     private static final String COMMAND_TODO = "todo";
@@ -194,6 +196,16 @@ public class Parser {
         }
     }
 
+    public static Command parseFind(String[] commandArgs) throws EmptyDescriptionException {
+        // TODO: Add comments
+        if (commandArgs.length == 1) {
+            throw new EmptyDescriptionException(commandArgs[0]);
+        }
+
+        String keyword = commandArgs[1];
+        return new ListKeywordCommand(keyword);
+    }
+
     /**
      * Makes sense of the given user command.
      *
@@ -202,6 +214,7 @@ public class Parser {
      * @throws BobException If there is an error parsing the given user command.
      */
     public static Command parse(String command) throws BobException {
+        // TODO: Remove Parser. since we are in the same class
         // TODO: Use regex
         String[] commandArgs = command.trim().split(" ", 2);
 
@@ -229,6 +242,8 @@ public class Parser {
             // Fallthrough
         case Parser.COMMAND_EVENT:
             return parseAdd(commandArgs);
+        case Parser.COMMAND_FIND:
+            return parseFind(commandArgs);
         default:
             throw new InvalidCommandException();
         }

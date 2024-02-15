@@ -88,6 +88,10 @@ public class TaskList {
         return listWithFilter(task -> task.isDueIn(days));
     }
 
+    public ArrayList<Task> listKeyword(String keyword) {
+        return listWithFilter(task -> task.hasKeyword(keyword));
+    }
+
     /**
      * Adds a todo to the list of tasks.
      *
