@@ -167,14 +167,14 @@ public class Storage {
                 fileTasks.add(new Deadline(
                         stringAttributes[2].trim(),
                         stringAttributes[1].trim().equals("1") ? true : false,
-                        PriorityLevel.valueOf(stringAttributes[3].trim()),
+                        PriorityLevel.valueOf(stringAttributes[4].trim()),
                         DateTimeManager.convertStringToLocalDateTime(stringAttributes[3].trim())));
 
             } else if (stringAttributes[0].trim().equals("E")) {
                 fileTasks.add(new Event(
                         stringAttributes[2].trim(),
                         stringAttributes[1].trim().equals("1") ? true : false,
-                        PriorityLevel.valueOf(stringAttributes[3].trim()),
+                        PriorityLevel.valueOf(stringAttributes[5].trim()),
                         DateTimeManager.convertStringToLocalDateTime(stringAttributes[3].trim()),
                         DateTimeManager.convertStringToLocalDateTime(stringAttributes[4].trim())));
             }
