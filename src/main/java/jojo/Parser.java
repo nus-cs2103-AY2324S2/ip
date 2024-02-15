@@ -21,7 +21,7 @@ public class Parser {
      */
     public static String parse(String cmd, Ui ui, TaskList tl, Storage st) throws JojoException {
         String response = "";
-        if (cmd.equals("list")) {
+        if (cmd.strip().equals("list")) {
             response = ui.printList(tl);
         } else if (cmd.startsWith("mark")) {
             response = ui.printMark(tl, cmd);
@@ -37,6 +37,8 @@ public class Parser {
             response = ui.printEvent(tl, cmd);
         } else if (cmd.startsWith("find")) {
             response = ui.printFind(tl, cmd);
+        } else if(cmd.strip().equals("bye")) {
+            response = ui.showExitMessage();
         } else {
             throw new JojoUnknownTaskException();
         }
@@ -45,7 +47,7 @@ public class Parser {
 
     /**
      * Returns the index of the taskList to mark as done.
-     * @param cmd
+     * @param cmd String
      * @return int index
      */
     public static int parseMark(String cmd) {
@@ -54,7 +56,7 @@ public class Parser {
 
     /**
      * Returns the index of the taskList to mark as undone.
-     * @param cmd
+     * @param cmd String
      * @return int index
      */
     public static int parseUnmark(String cmd) {
@@ -63,7 +65,7 @@ public class Parser {
 
     /**
      * Returns the index of the taskList to delete.
-     * @param cmd
+     * @param cmd String
      * @return int index
      */
     public static int parseDelete(String cmd) {
@@ -72,7 +74,7 @@ public class Parser {
 
     /**
      * Returns the String of the description after "todo" or "find".
-     * @param cmd
+     * @param cmd String
      * @return String desc
      */
     public static String parseToDoOrFind(String cmd) {
@@ -81,7 +83,7 @@ public class Parser {
 
     /**
      * Returns the String of the description and date-time after "deadline".
-     * @param cmd
+     * @param cmd String
      * @return String desc and date-time
      */
     public static String parseDeadline(String cmd) {
@@ -90,7 +92,7 @@ public class Parser {
 
     /**
      * Returns the String of the description after "deadline".
-     * @param cmd
+     * @param cmd String
      * @return String desc
      */
     public static String parseDeadlineDesc(String cmd) {
@@ -100,7 +102,7 @@ public class Parser {
 
     /**
      * Returns the String of the description and duration after "event".
-     * @param cmd
+     * @param cmd String
      * @return String desc and duration
      */
     public static String parseEventTest(String cmd) {
@@ -109,7 +111,7 @@ public class Parser {
 
     /**
      * Returns the String[] of the description and duration after "event" with no beginning empty space.
-     * @param cmd
+     * @param cmd String
      * @return String[]
      */
     public static String[] parseEvent(String cmd) {
@@ -125,7 +127,7 @@ public class Parser {
 
     /**
      * Returns a LocalDateTime of the date-time after "deadline" with no beginning empty space.
-     * @param cmd
+     * @param cmd String
      * @return LocalDateTime
      */
     public static LocalDateTime parseDeadlineBy(String cmd) {

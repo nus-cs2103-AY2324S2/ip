@@ -19,7 +19,7 @@ public class Jojo {
         try {
             tasks = new TaskList(storage.load());
         } catch (JojoException e) {
-            this.ui.showLoadingError();
+            ui.showLoadingError();
             tasks = new TaskList(new ArrayList<>());
         }
     }
@@ -29,25 +29,27 @@ public class Jojo {
      * @throws JojoException when an invalid command is given.
      */
     public void run() throws JojoException {
-            ui.showWelcomeMessage();
-            storage.printList();
-            ui.showStartingQn();
-            ui.breakLines();
+            System.out.println(ui.showWelcomeMessage());
+            System.out.println(storage.printList());
+            System.out.println(ui.showStartingQn());
+            System.out.println(ui.breakLines());
             Scanner sc = new Scanner(System.in);
             String cmd = sc.nextLine();
             while (!cmd.equals("bye")) {
                 getResponse(cmd);
                 String store_str = storage.storeList(tasks);
                 storage.save(store_str);
-                ui.breakLines();
+                System.out.println(ui.breakLines());
                 cmd = sc.nextLine();
             }
-            ui.showExitMessage();
-            ui.breakLines();
+            System.out.println(ui.showExitMessage());
+            System.out.println(ui.breakLines());
     }
 
     public String getResponse(String input) throws JojoException {
-        return Parser.parse(input, ui, tasks, storage);
+        String response = Parser.parse(input, ui, tasks, storage);
+        System.out.println(response);
+        return response;
     }
 
     public String getStartingMsg() throws JojoException {

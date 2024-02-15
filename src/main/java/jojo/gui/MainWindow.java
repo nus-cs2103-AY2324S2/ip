@@ -43,13 +43,19 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() throws JojoException {
-        String input = userInput.getText();
-        String response = jojo.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getJojoDialog(response, jojoImage)
-        );
-        userInput.clear();
+        try {
+            String input = userInput.getText();
+            String response = jojo.getResponse(input);
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getJojoDialog(response, jojoImage)
+            );
+            userInput.clear();
+        } catch (JojoException e) {
+            System.out.println(e.getMessage());
+        }
+
+
     }
 
     /**

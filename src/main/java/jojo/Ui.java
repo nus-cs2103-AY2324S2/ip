@@ -25,9 +25,12 @@ public class Ui {
     /**
      * Prints break lines to show end of a command.
      */
-    public void breakLines() {
-        System.out.println("-----------------------------------------------------------------------");
-        System.out.println("-----------------------------------------------------------------------");
+    public String breakLines() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("-----------------------------------------------------------------------");
+        sb.append(System.getProperty("line.separator"));
+        sb.append("-----------------------------------------------------------------------");
+        return sb.toString();
     }
 
     /**
