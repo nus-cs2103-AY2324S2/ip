@@ -20,6 +20,10 @@ import ghbot.task.Todo;
  * It deals with loading tasks from the file and saving tasks into the file.
  */
 public class Storage {
+    private static final String TODO = "T";
+    private static final String DEADLINE = "D";
+    private static final String EVENT = "E";
+    private static final String COMPLETED = "1";
     private final String fileName;
 
     /**
@@ -42,29 +46,14 @@ public class Storage {
             while (sc.hasNextLine()) {
                 String str = sc.nextLine();
                 String[] subStr = str.split("\\| ");
-                if (subStr[0].trim().equalsIgnoreCase("T")) {
-                    Todo todo = new Todo(subStr[2]);
-                    if (subStr[1].trim().equalsIgnoreCase("1")) {
-                        todo.isCompleted();
-                    } else {
-                        todo.isNotCompleted();
-                    }
+                if (subStr[0].trim().equalsIgnoreCase(TODO)) {
+                    Todo todo = getTodoTask(subStr);
                     lst.add(todo);
-                } else if (subStr[0].trim().equalsIgnoreCase("D")) {
-                    Deadline deadline = new Deadline(subStr[2], subStr[3]);
-                    if (subStr[1].trim().equalsIgnoreCase("1")) {
-                        deadline.isCompleted();;
-                    } else {
-                        deadline.isNotCompleted();
-                    }
+                } else if (subStr[0].trim().equalsIgnoreCase(DEADLINE)) {
+                    Deadline deadline = getDeadlineTask(subStr);
                     lst.add(deadline);
-                } else if (subStr[0].trim().equalsIgnoreCase("E")) {
-                    Event event = new Event(subStr[2], subStr[3], subStr[4]);
-                    if (subStr[1].trim().equalsIgnoreCase("1")) {
-                        event.isCompleted();;
-                    } else {
-                        event.isNotCompleted();
-                    }
+                } else if (subStr[0].trim().equalsIgnoreCase(EVENT)) {
+                    Event event = getEventTask(subStr);
                     lst.add(event);
                 }
             }
@@ -72,6 +61,51 @@ public class Storage {
             System.out.println("Chat history are not present!");
         }
         return lst;
+    }
+
+    /**
+     * Returns a todo task.
+     * @param subStr A string array containing information about the task.
+     * @return A todo task.
+     */
+    public Todo getTodoTask(String[] subStr) {
+        Todo todo = new Todo(subStr[2]);
+        if (subStr[1].trim().equalsIgnoreCase(COMPLETED)) {
+            todo.isCompleted();
+        } else {
+            todo.isNotCompleted();
+        }
+        return todo;
+    }
+
+    /**
+     * Returns a deadline task.
+     * @param subStr A string array containing information about the task.
+     * @return A deadline task.
+     */
+    public Deadline getDeadlineTask(String[] subStr) {
+        Deadline deadline = new Deadline(subStr[2], subStr[3]);
+        if (subStr[1].trim().equalsIgnoreCase(COMPLETED)) {
+            deadline.isCompleted();
+        } else {
+            deadline.isNotCompleted();
+        }
+        return deadline;
+    }
+
+    /**
+     * Returns an event task.
+     * @param subStr A string array containing information about the task.
+     * @return An event task.
+     */
+    public Event getEventTask(String[] subStr) {
+        Event event = new Event(subStr[2], subStr[3], subStr[4]);
+        if (subStr[1].trim().equalsIgnoreCase(COMPLETED)) {
+            event.isCompleted();
+        } else {
+            event.isNotCompleted();
+        }
+        return event;
     }
 
     /**
