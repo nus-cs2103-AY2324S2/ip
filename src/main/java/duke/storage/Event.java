@@ -29,7 +29,7 @@ public class Event extends Task {
      * @param endDate     End date of the event
      */
     public Event(String description, Instant startDate, Instant endDate) {
-        super(description, TaskType.EVENT, false);
+        super(description, TaskType.EVENT, false, false);
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -41,9 +41,10 @@ public class Event extends Task {
      * @param startDate   Start date of the event
      * @param endDate     End date of the event
      * @param isCompleted Status of the event
+     * @param isArchived  Visibility of the event
      */
-    public Event(String description, Instant startDate, Instant endDate, boolean isCompleted) {
-        super(description, TaskType.EVENT, isCompleted);
+    public Event(String description, Instant startDate, Instant endDate, boolean isCompleted, boolean isArchived) {
+        super(description, TaskType.EVENT, isCompleted, isArchived);
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -55,9 +56,10 @@ public class Event extends Task {
      * @param startDate   Start date of the event (in epoch milliseconds)
      * @param endDate     End date of the event (in epoch milliseconds)
      * @param isCompleted Status of the event
+     * @param isArchived  Visibility of the event
      */
-    public Event(String description, long startDate, long endDate, boolean isCompleted) {
-        super(description, TaskType.EVENT, isCompleted);
+    public Event(String description, long startDate, long endDate, boolean isCompleted, boolean isArchived) {
+        super(description, TaskType.EVENT, isCompleted, isArchived);
         this.startDate = Instant.ofEpochMilli(startDate);
         this.endDate = Instant.ofEpochMilli(endDate);
     }

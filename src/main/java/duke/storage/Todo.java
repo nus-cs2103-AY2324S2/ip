@@ -12,7 +12,7 @@ public class Todo extends Task {
      * @param description Description of the todo task
      */
     public Todo(String description) {
-        super(description, TaskType.TODO, false);
+        super(description, TaskType.TODO, false, false);
     }
 
     /**
@@ -20,9 +20,10 @@ public class Todo extends Task {
      *
      * @param description Description of the todo task
      * @param isCompleted Status of the task
+     * @param isArchived  Visibility of the task
      */
-    public Todo(String description, boolean isCompleted) {
-        super(description, TaskType.TODO, isCompleted);
+    public Todo(String description, boolean isCompleted, boolean isArchived) {
+        super(description, TaskType.TODO, isCompleted, isArchived);
     }
 
     /**
