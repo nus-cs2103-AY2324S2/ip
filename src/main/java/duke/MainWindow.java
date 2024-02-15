@@ -57,13 +57,18 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() throws DukeException {
         String input = userInput.getText();
         String response = duke.getResponse(input);
+        displayDialogBoxes(input, response);
+        userInput.clear();
+
+        if (duke.isExit) {
+            javafx.application.Platform.exit();
+        }
+    }
+
+    private void displayDialogBoxes(String input, String response) {
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getCookieDialog(response, dukeImage)
         );
-        userInput.clear();
-        if (duke.isExit) {
-            javafx.application.Platform.exit();
-        }
     }
 }
