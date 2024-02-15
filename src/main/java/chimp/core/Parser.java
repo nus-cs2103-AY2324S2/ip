@@ -68,15 +68,15 @@ public class Parser {
             String by = bySubCommand.substring(3);
             by = by.strip();
 
+            if (by == null || by.equals("")) {
+                throw new CommandParseException("deadline needs by date/time!");
+            }
+
             LocalDate byDate;
             try {
                 byDate = LocalDate.parse(by);
             } catch (Exception e) {
                 throw new CommandParseException("Invalid date format provided to deadline");
-            }
-
-            if (by == null || by.equals("")) {
-                throw new CommandParseException("deadline needs by date/time!");
             }
 
             // TODO: switch case scoping best practice?
