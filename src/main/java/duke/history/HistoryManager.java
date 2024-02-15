@@ -90,7 +90,6 @@ public class HistoryManager {
         history.rollBackState();
         //saveHistory();
         State currState = history.getCurrState();
-        System.out.println(history.toString());
         storage.restoreState(currState);
         return String.format("Your %s command was undone!\nThis is your current list\n%s",
                 prevState.getCommand(),
@@ -119,7 +118,6 @@ public class HistoryManager {
             return;
         }
         history.addState(state);
-        System.out.println(history.getCurrStateIdx());
         //saveHistory();
     }
 }

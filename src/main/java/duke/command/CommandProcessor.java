@@ -89,7 +89,6 @@ public class CommandProcessor {
         }
 
         State currState = storage.update(command);
-        System.out.println(currState);
         historyManager.updateHistory(currState);
         return result;
     }

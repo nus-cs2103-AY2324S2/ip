@@ -58,9 +58,9 @@ public class TempStorage {
             Task task = list.get(i);
             if (!task.getDone()) {
                 task.markDone();
-                return String.format("I have marked this:\n%s\n", task);
+                return String.format("I have marked this:\n%s", task);
             } else {
-                throw new ProcessingException(String.format("%s is already marked!\n", task));
+                throw new ProcessingException(String.format("%s is already marked!", task));
             }
         } catch (IndexOutOfBoundsException e) {
             throw ProcessingException.exceptionCommandExecution(Command.MARK, e);
@@ -78,9 +78,9 @@ public class TempStorage {
             Task task = list.get(i);
             if (task.getDone()) {
                 task.markUndone();
-                return String.format("I have unmarked this:\n%s\n", task);
+                return String.format("I have unmarked this:\n%s", task);
             } else {
-                return String.format("%s is already unmarked!\n", task);
+                return String.format("%s is already unmarked!", task);
             }
 
         } catch (IndexOutOfBoundsException e) {
