@@ -9,7 +9,7 @@ public abstract class Task implements Serializable {
     private static final long serialVersionUID = 1L;
     protected String identifier;
     private Boolean done;
-    private String taskName;
+    private final String taskName;
 
 
     /**

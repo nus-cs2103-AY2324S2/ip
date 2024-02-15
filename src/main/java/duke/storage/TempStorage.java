@@ -80,7 +80,7 @@ public class TempStorage {
                 task.markUndone();
                 return String.format("I have unmarked this:\n%s", task);
             } else {
-                return String.format("%s is already unmarked!", task);
+                throw new ProcessingException(String.format("%s is already unmarked!", task));
             }
 
         } catch (IndexOutOfBoundsException e) {

@@ -13,7 +13,7 @@ import duke.exceptions.ProcessingException;
 public class History implements Serializable {
     private static final long serialVersionUID = 6L;
     private int currStateIdx;
-    private ArrayList<State> states;
+    private final ArrayList<State> states;
     /**
      * placeholder
      */
@@ -49,7 +49,7 @@ public class History implements Serializable {
 
     /**
      * @param state placeholder
-     * @throws ProcessingException
+     * @throws ProcessingException placeholder
      */
     public void addState(State state) throws ProcessingException {
         removeStatesAfterCurrentState();
@@ -61,9 +61,6 @@ public class History implements Serializable {
     }
     private void writeObject(ObjectOutputStream out) throws IOException, ClassNotFoundException {
         out.defaultWriteObject();
-    }
-    public int getCurrStateIdx() {
-        return currStateIdx;
     }
     @Override
     public String toString() {
