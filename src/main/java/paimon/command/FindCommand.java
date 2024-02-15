@@ -28,15 +28,15 @@ public class FindCommand extends Command {
      * a {@link ChatException} is thrown to indicate that no matching tasks were found.
      *
      * @param taskList The task list to search for matching tasks.
-     * @param ui The UI handler for displaying the search results or an error message to the user.
+     * @return A String to be displayed.
      * @throws ChatException If no tasks containing the keyword are found.
      */
-    public void execute(TaskList taskList, UiHandler ui) throws ChatException {
+    public String execute(TaskList taskList) throws ChatException {
         String foundTasks = taskList.getFoundString(keyword);
         if (foundTasks.isEmpty()) {
             throw new ChatException("Could not find any tasks with that keyword");
         } else {
-            ui.displayFoundTasksMessage(foundTasks);
+            return UiHandler.getFoundTasksMessage(foundTasks);
         }
     }
 

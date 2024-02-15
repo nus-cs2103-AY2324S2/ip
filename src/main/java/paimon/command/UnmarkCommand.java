@@ -28,22 +28,22 @@ public class UnmarkCommand extends Command {
      * Provides feedback to the user through the UI handler.
      *
      * @param taskList The task list from which a task will be marked as not done.
-     * @param ui       The UI handler for interacting with the user and displaying feedback.
+     * @return A String to be displayed.
      * @throws ChatException If the index string cannot be converted to a valid integer,
      *                       or if the index is out of bounds for the task list.
      */
-    public void execute(TaskList taskList, UiHandler ui) throws ChatException {
+    public String execute(TaskList taskList) throws ChatException {
         try {
             int markIndex = Integer.parseInt(indexString);
             if (markIndex >= 1 && markIndex <= taskList.getSize()) {
                 Task markTask = taskList.getTask(markIndex - 1);
                 if (taskList.markTask(markIndex - 1, false)) {
-                    ui.displayMarkTaskMessage(markTask.getTask(), true);
+                    return UiHandler.getMarkTaskMessage(markTask.getTask(), true);
                 } else {
-                    System.out.println("Traveller, this task is already unmarked.");
+                    throw new ChatException("Traveller, this task is already unmarked.");
                 }
             } else {
-                System.out.println("Sorry Traveller, that task does not exist");
+                throw new ChatException("Sorry Traveller, that task does not exist");
             }
         } catch (NumberFormatException e) {
             throw new ChatException("Sorry Traveller, your input is invalid");

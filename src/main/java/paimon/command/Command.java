@@ -17,10 +17,10 @@ public abstract class Command {
      * through the UI, depending on the specific command type.
      *
      * @param tasks The task list that the command will operate on.
-     * @param ui    The UI handler for interacting with the user.
+     * @return A String to be displayed.
      * @throws ChatException If an error occurs during command execution.
      */
-    public abstract void execute(TaskList tasks, UiHandler ui) throws ChatException;
+    public abstract String execute(TaskList tasks) throws ChatException;
 
     /**
      * Determines whether the command is an exit command.

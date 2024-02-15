@@ -36,14 +36,14 @@ public class DeadlineCommand extends Command {
      * and adding it to the task list. Notifies the user through the UI handler.
      *
      * @param tasks The task list to which the deadline task is added.
-     * @param ui    The UI handler for interacting with the user.
+     * @return A String to be displayed.
      * @throws ChatException If the end date string cannot be parsed into a valid date/time.
      */
-    public void execute(TaskList tasks, UiHandler ui) throws ChatException {
+    public String execute(TaskList tasks) throws ChatException {
         LocalDateTime endDate = DateParser.parseDate(endDateString);
         Task deadlineTask = new DeadlineTask(this.description, endDate);
         tasks.addTask(deadlineTask);
-        ui.displayAddTaskMessage(deadlineTask.getTask(), tasks.getSize());
+        return UiHandler.getAddTaskMessage(deadlineTask.getTask(), tasks.getSize());
     }
 
     /**

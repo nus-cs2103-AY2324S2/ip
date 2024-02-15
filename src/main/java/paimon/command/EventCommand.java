@@ -39,15 +39,15 @@ public class EventCommand extends Command {
      * and adding it to the task list. Notifies the user of the added task through the UI handler.
      *
      * @param tasks The task list to which the event task is added.
-     * @param ui    The UI handler for interacting with the user.
+     * @return A String to be displayed.
      * @throws ChatException If the start or end date strings cannot be parsed into valid dates/times.
      */
-    public void execute(TaskList tasks, UiHandler ui) throws ChatException {
+    public String execute(TaskList tasks) throws ChatException {
         LocalDateTime startDate = DateParser.parseDate(startDateString);
         LocalDateTime endDate = DateParser.parseDate(endDateString);
         Task eventTask = new EventTask(this.description, startDate, endDate);
         tasks.addTask(eventTask);
-        ui.displayAddTaskMessage(eventTask.getTask(), tasks.getSize());
+        return UiHandler.getAddTaskMessage(eventTask.getTask(), tasks.getSize());
     }
 
     /**

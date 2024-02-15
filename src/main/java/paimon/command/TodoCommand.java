@@ -29,15 +29,15 @@ public class TodoCommand extends Command {
      * of the new task and the updated number of tasks in the list.
      *
      * @param taskList The task list to which the new to-do task will be added.
-     * @param ui       The UI handler for interacting with the user and displaying feedback.
+     * @return A String to be displayed.
      * @throws ChatException If any errors occur during the execution of the command. In the current
      *                       implementation, this exception is unlikely to be thrown, but it is included to conform
      *                       to the abstract method's signature.
      */
-    public void execute(TaskList taskList, UiHandler ui) throws ChatException {
+    public String execute(TaskList taskList) throws ChatException {
         Task eventTask = new TodoTask(this.description);
         taskList.addTask(eventTask);
-        ui.displayAddTaskMessage(eventTask.getTask(), taskList.getSize());
+        return UiHandler.getAddTaskMessage(eventTask.getTask(), taskList.getSize());
     }
 
     /**

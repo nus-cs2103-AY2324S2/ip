@@ -19,12 +19,12 @@ public class ListCommand extends Command {
      * type (todo, deadline, event), and descriptions.
      *
      * @param tasks The task list containing the tasks to be listed.
-     * @param ui    The UI handler responsible for displaying the list of tasks to the user.
+     * @return A String to be displayed.
      * @throws ChatException Not thrown by this command but declared due to the method signature.
      */
     @Override
-    public void execute(TaskList tasks, UiHandler ui) throws ChatException {
-        ui.displayListMessage(tasks);
+    public String execute(TaskList tasks) throws ChatException {
+        return UiHandler.getListMessage(tasks);
     }
 
     /**

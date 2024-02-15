@@ -18,12 +18,12 @@ public class ExitCommand extends Command {
      * should exit.
      *
      * @param tasks The task list, not used by this command.
-     * @param ui    The UI handler, not used by this command.
+     * @return A String to be displayed.
      * @throws ChatException Not thrown by this command.
      */
     @Override
-    public void execute(TaskList tasks, UiHandler ui) throws ChatException {
-
+    public String execute(TaskList tasks) throws ChatException {
+        return "";
     }
 
     /**

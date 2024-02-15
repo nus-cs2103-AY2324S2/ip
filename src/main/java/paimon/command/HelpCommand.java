@@ -18,12 +18,12 @@ public class HelpCommand extends Command {
      * and their usage within the application.
      *
      * @param tasks The task list, not directly used by this command but required by the method signature.
-     * @param ui    The UI handler responsible for displaying the help message to the user.
+     * @return A String to be displayed.
      * @throws ChatException Not thrown by this command but declared due to the method signature.
      */
     @Override
-    public void execute(TaskList tasks, UiHandler ui) throws ChatException {
-        ui.displayHelpMessage();
+    public String execute(TaskList tasks) throws ChatException {
+        return UiHandler.getHelpMessage();
     }
 
 
