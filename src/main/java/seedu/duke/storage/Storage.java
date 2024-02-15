@@ -15,7 +15,7 @@ import java.util.List;
  * load the tasks from the file
  */
 public class Storage {
-    public static final String FILE_PATH = "duke.txt";
+    public static final String FILE_PATH = "data.txt";
 
     /**
      * Saves the tasks created by the users to a given file by encoding them with pre-defined format
@@ -32,9 +32,7 @@ public class Storage {
                 fileWriter.write("\n");
             }
             fileWriter.close();
-        } catch (FileNotFoundException ignored) {
-
-        } catch (IOException e) {
+        }  catch (IOException e) {
             throw new StorageOperationException(
                     String.format(Messages.MESSAGE_FAILED_STORAGE, "failed to save tasks."));
         }
@@ -55,7 +53,10 @@ public class Storage {
                 taskList.add(TaskDecoder.decodeTask(line));
             }
             return taskList;
-        } catch (IOException e) {
+        } catch (FileNotFoundException ignored) {
+            return new ArrayList<>();
+        }
+        catch (IOException e) {
             throw new StorageOperationException(
                     String.format(Messages.MESSAGE_FAILED_STORAGE, "File may be corrupted"));
         }
