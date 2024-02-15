@@ -1,0 +1,2 @@
+1 | T | 0 | borrow book
+2 | D | 1 | return book | 2023-01-01
