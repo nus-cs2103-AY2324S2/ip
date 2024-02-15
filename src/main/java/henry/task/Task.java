@@ -2,6 +2,9 @@ package henry.task;
 
 import henry.HenryException;
 
+/**
+ * Represents a Task.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;

@@ -1,15 +1,19 @@
 package henry.task;
 
-import henry.HenryException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import henry.HenryException;
+
+/**
+ * Represents an Event Task.
+ */
 public class Event extends Task {
-    private final LocalDateTime from;
-    private final LocalDateTime to;
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+
+    private final LocalDateTime from;
+    private final LocalDateTime to;
 
     /**
      * Creates an Event object.
