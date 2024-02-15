@@ -9,6 +9,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class AddTaskProcessor extends Processor {
 
 
@@ -37,17 +40,23 @@ public class AddTaskProcessor extends Processor {
         }
 
         String command = componentsSplitBySpace[0];
-        String todoDescription = componentsSplitBySpace[1].trim();
 
-        if (!(command.equals("todo") || command.equals("deadline") || command.equals("event"))) {
+        List<String> validCommands = Arrays.asList("todo", "deadline", "event");
+
+        if (!validCommands.stream().anyMatch(command::equals)) {
             System.out.println(chatbotUi.dividerWrapper("I do not know what type of task that is!"));
             return;
         }
+
         if (componentsSplitBySpace.length == 1) {
             System.out.println(chatbotUi.dividerWrapper("Description of todo can't be blank!"));
             return;
         }
 
+        
+        String todoDescription = componentsSplitBySpace[1].trim();
+
+        
         String[] componentsSplitByTime = userInput.split("//");
 
         
