@@ -6,8 +6,6 @@
  * @since 2024-02-01
  */
 
-import javafx.scene.control.SplitPane;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
