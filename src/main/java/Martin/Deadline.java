@@ -28,17 +28,19 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.due.format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT))
-                + ")";
+        String formattedDate = this.due.format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT));
+        return "[D]" + super.toString() + " (by: " + formattedDate + ")";
     }
 
     /**
-     * Returns a string representation of the Deadline object in a format suitable for saving to a file.
+     * Returns a string representation of the Deadline object in a format suitable
+     * for saving to a file.
      *
      * @return A string representation of the Deadline object for file storage.
      */
     @Override
     public String toFileString() {
-        return "D | " + (this.getIsDone() ? "1" : "0") + " | " + this.getDescription() + " | " + this.due;
+        String taskStatus = this.getIsDone() ? "1" : "0";
+        return "D | " + taskStatus + " | " + this.getDescription() + " | " + this.due;
     }
 }
