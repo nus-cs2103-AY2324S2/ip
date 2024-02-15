@@ -60,10 +60,7 @@ public final class InputParser {
             }
         }
         arguments.add(parseArgument(argName, argValue.toString()));
-
-        Argument[] argumentsArray = new Argument[arguments.size()];
-        arguments.toArray(argumentsArray);
-        return argumentsArray;
+        return arguments.toArray(Argument[]::new);
     }
 
     /**

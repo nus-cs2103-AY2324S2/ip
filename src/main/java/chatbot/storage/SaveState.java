@@ -1,9 +1,12 @@
 package chatbot.storage;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 /**
- * This encapsulates the histories of a task list states.
+ * This encapsulates the histories of a task list states
+ * and modifying command inputs that are successful.
  * <p>
  * We save the task list state at certain points in time,
  * and keep a log of forward actions so that
@@ -13,7 +16,10 @@ import java.util.Stack;
  */
 public final class SaveState {
     /** Stores the task list states. */
-    private static final Stack<TaskListMemento> SAVED_STATES = new Stack<>();
+    private static final Stack<TaskListMemento> SAVED_TASK_LISTS = new Stack<>();
+
+    /** Stores the saved command input lines */
+    private static final Stack<String> SAVED_COMMAND_LINES = new Stack<>();
 
     /**
      * Restores the previous state of the task list,
@@ -23,17 +29,49 @@ public final class SaveState {
      * The initial state must be present before any rollback.
      *
      * @param rollbackBy The number of states to rollback by.
-     * @return The previous state of the task list.
+     * @return The command line input that are rolled back.
      */
-    public static TaskListMemento rollback(int rollbackBy) {
+    public static String[] rollback(int rollbackBy) {
         assert rollbackBy > 0;
-        assert !SAVED_STATES.isEmpty();
+        assert !SAVED_TASK_LISTS.isEmpty();
 
-        for (int i = 0; SAVED_STATES.size() > 1 && i < rollbackBy; i++) {
-            SAVED_STATES.pop();
+        List<String> rolledBackCommands = new ArrayList<>();
+
+        // perform the rollback
+        for (int i = 0; canRollbackOnce() && i < rollbackBy; i++) {
+            SAVED_TASK_LISTS.pop();
+            rolledBackCommands.add(SAVED_COMMAND_LINES.pop());
         }
 
-        return SAVED_STATES.peek();
+        return rolledBackCommands
+                .stream()
+                .toArray(String[]::new);
+    }
+
+    /**
+     * Checks if the saved state can be rolled back.
+     *
+     * @return True if the saved state can be rolled back, otherwise false.
+     */
+    private static boolean canRollbackOnce() {
+        return SAVED_TASK_LISTS.size() > 1 && SAVED_COMMAND_LINES.size() > 0;
+    }
+
+    /**
+     * Queries the current state of the task list in the history.
+     */
+    public static TaskListMemento queryCurrentState() {
+        assert !SAVED_TASK_LISTS.isEmpty();
+        return SAVED_TASK_LISTS.peek();
+    }
+
+    /**
+     * Saves the current state of the task list in the history.
+     *
+     * @param currentState The current state of the task list.
+     */
+    public static void saveCurrentState(TaskListMemento currentState) {
+        SAVED_TASK_LISTS.push(currentState);
     }
 
     /**
@@ -41,7 +79,8 @@ public final class SaveState {
      *
      * @param currentState The current state of the task list.
      */
-    public static void saveCurrentState(TaskListMemento currentState) {
-        SAVED_STATES.push(currentState);
+    public static void saveCurrentState(TaskListMemento currentState, String commandLineInput) {
+        saveCurrentState(currentState);
+        SAVED_COMMAND_LINES.push(commandLineInput.trim());
     }
 }

@@ -71,7 +71,7 @@ public class ChatBot extends Application {
         userAction.execute(USER_TASK_LIST);
 
         if (userAction instanceof ModifyAction) {
-            SaveState.saveCurrentState(USER_TASK_LIST.saveState());
+            SaveState.saveCurrentState(USER_TASK_LIST.saveState(), commandLineInput);
         }
 
         if (userAction instanceof ByeAction) {

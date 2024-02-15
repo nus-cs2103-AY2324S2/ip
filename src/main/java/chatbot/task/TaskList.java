@@ -31,8 +31,11 @@ public final class TaskList {
      * @param taskList The task list to copy.
      */
     public TaskList(TaskList taskList) {
-        this.tasks = taskList
-                .tasks
+        this.tasks = taskList.copyTasks();
+    }
+
+    private List<Task> copyTasks() {
+        return tasks
                 .stream()
                 .map(Task::copy)
                 .collect(Collectors.toList());
@@ -53,7 +56,7 @@ public final class TaskList {
      * @param taskListMemento The memento to restore from.
      */
     public void restoreState(TaskListMemento taskListMemento) {
-        tasks = taskListMemento.getSavedState().tasks;
+        tasks = taskListMemento.getSavedState().copyTasks();
         LocalStorage.saveTaskList(this);
     }
 

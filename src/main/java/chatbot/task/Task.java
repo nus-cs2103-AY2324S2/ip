@@ -113,7 +113,10 @@ public abstract class Task {
      * @return True, if the name matches the pattern, otherwise false.
      */
     public boolean isContainingPattern(String pattern) {
-        return Pattern.compile(pattern).matcher(name).find();
+        return Pattern
+                .compile(Pattern.quote(pattern))
+                .matcher(name)
+                .find();
     }
 
     /**
