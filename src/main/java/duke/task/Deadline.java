@@ -35,4 +35,14 @@ public class Deadline extends Task {
         return String.join(",", TaskType.DEADLINE.toString(),
                 super.getTokens(), this.by.format(Task.getDateFormat()));
     }
+
+    /**
+     * @inheritDoc
+     *
+     * @return Deadline date.
+     */
+    @Override
+    public LocalDate getStartDateTime() {
+        return this.by;
+    }
 }

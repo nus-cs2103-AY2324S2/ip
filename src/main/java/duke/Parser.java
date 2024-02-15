@@ -11,6 +11,7 @@ import duke.command.EventCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
+import duke.command.SortCommand;
 import duke.command.ToDoCommand;
 import duke.command.UnmarkCommand;
 import duke.exceptions.DukeException;
@@ -42,6 +43,8 @@ public class Parser {
             return new ByeCommand();
         } else if (clean.equals("list") || clean.equals("ls")) {
             return new ListCommand();
+        } else if (clean.equals("sort")) {
+            return new SortCommand();
         } else if (tokens.length == 1) {
             //no more one word commands -> throw error
             throw new MissingInfoException("Masterrr, please tell me more! I dont understand your command or "

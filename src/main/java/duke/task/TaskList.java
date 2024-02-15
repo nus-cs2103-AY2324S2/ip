@@ -1,6 +1,9 @@
 package duke.task;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -98,5 +101,12 @@ public class TaskList implements Iterable<Task> {
         out.insert(0, "Here are the matching tasks! ");
 
         return out.toString();
+    }
+
+    /**
+     * Sorts task in ascending date order (closest date coming first).
+     */
+    public void sort() {
+        Collections.sort(this.taskList, Comparator.comparing(Task::getStartDateTime));
     }
 }

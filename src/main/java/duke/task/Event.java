@@ -40,5 +40,15 @@ public class Event extends Task {
                 this.from.format(Task.getDateFormat()),
                 this.to.format(Task.getDateFormat()));
     }
+
+    /**
+     * @inheritDoc
+     *
+     * @return Start date of event.
+     */
+    @Override
+    public LocalDate getStartDateTime() {
+        return this.from;
+    }
 }
 
