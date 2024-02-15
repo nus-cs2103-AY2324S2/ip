@@ -33,10 +33,12 @@ public class ModifyMarkCommand extends Command {
     @Override
     public String runCommand(TaskList tasks, SaveFile saveFile, Ui ui) {
         String[] curCommand = super.getCommandArr();
-        int markIdxInt = Integer.valueOf(curCommand[1]);
+        String markIdxStr = curCommand[1];
+        int markIdxInt = Integer.valueOf(markIdxStr);
         Task modifiedTask = tasks.getTask(markIdxInt - 1);
         String msg;
-        if (curCommand[0].equals("mark")) {
+        boolean isMark = curCommand[0].equals("mark");
+        if (isMark) {
             modifiedTask.setDone(true);
             msg = ui.getTaskDoneMsg(modifiedTask);
         } else {

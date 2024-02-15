@@ -22,6 +22,7 @@ public class Message extends HBox {
     private Label displayText;
     @FXML
     private Label displayName;
+    private static final String MESSAGE_FXML_PATH = "/gui/Message.fxml";
 
     /**
      * Constructor for the Message class.
@@ -31,7 +32,7 @@ public class Message extends HBox {
      */
     private Message(Image displayPicture, String displayText, String displayName) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Window.class.getResource("/gui/Message.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Window.class.getResource(MESSAGE_FXML_PATH));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();

@@ -29,6 +29,7 @@ public class FindCommand extends Command {
     @Override
     public String runCommand(TaskList tasks, SaveFile saveFile, Ui ui) {
         String[] commandArr = super.getCommandArr();
-        return tasks.filterList(commandArr[1]);
+        String filterCondition = commandArr[1];
+        return tasks.filterList(filterCondition);
     }
 }

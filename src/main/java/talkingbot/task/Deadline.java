@@ -8,6 +8,8 @@ import talkingbot.type.TaskType;
  * A class that represents the Deadline task.
  */
 public class Deadline extends Task {
+    private static final String DEADLINE_SAVE_FILE_FORMAT = "D | %d | %s | %s";
+    private static final String DEADLINE_DISPLAY_FORMAT = "[D] %s (by: %s)";
     private final LocalDateTime endTime;
 
     /**
@@ -38,7 +40,7 @@ public class Deadline extends Task {
      */
     @Override
     public String getSaveFileString() {
-        return String.format("D | %d | %s | %s", super.getDoneAsInt(),
+        return String.format(this.DEADLINE_SAVE_FILE_FORMAT, super.getDoneAsInt(),
                 super.getDescription(),
                 this.getEndTime().format(super.DATE_TIME_ENTRY_FORMAT));
     }
@@ -50,7 +52,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[D] %s (by: %s)", super.toString(),
+        return String.format(this.DEADLINE_DISPLAY_FORMAT, super.toString(),
                 this.getEndTime().format(super.DATE_TIME_OUT_FORMAT));
     }
 }
