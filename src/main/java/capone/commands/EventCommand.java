@@ -19,6 +19,10 @@ import capone.ui.Ui;
  * @author Tay Rui-Jie
  */
 public class EventCommand extends Command {
+    /**
+     * Constant string that provides information to the user on how to use the command.
+     */
+    private static final String USAGE_STRING = "Usage: event [description] /from [date] /to [date]";
 
     /** List containing input parameters for EventCommand. */
     private final ArrayList<String> inputList;
@@ -46,7 +50,7 @@ public class EventCommand extends Command {
         // If the inputList has only one string, throw error (insufficient args).
         if (inputList.size() == 1) {
             throw new InsufficientArgumentException("Insufficient arguments!\n"
-                    + "Usage: event [description] /from [date] /to [date]");
+                    + EventCommand.USAGE_STRING);
         }
 
         int fromNdx = inputList.indexOf("/from");
@@ -55,7 +59,7 @@ public class EventCommand extends Command {
         // If /to is specified before /from, throw error.
         if (toNdx < fromNdx) {
             throw new InvalidCommandException("Please input from date followed by to date!\n"
-                    + "Usage: event [description] /from [date] /to [date]");
+                    + EventCommand.USAGE_STRING);
         }
 
         // The index of the word that is not found in a list would be -1.
@@ -65,7 +69,7 @@ public class EventCommand extends Command {
         // Catch potential errors from date entry.
         if (fromNdx == commandNotFound || fromNdx == lastWord || toNdx == lastWord) {
             throw new InsufficientArgumentException("Please enter a start and end date!\n"
-                    + "Usage: event [description] /from [date] /to [date]");
+                    + EventCommand.USAGE_STRING);
         }
 
         // The starting index of the words that contain the description.
@@ -76,7 +80,7 @@ public class EventCommand extends Command {
 
         if (description.equalsIgnoreCase("")) {
             throw new InsufficientArgumentException("Insufficient arguments!\n"
-                    + "Usage: event [description] /from [date] /to [date]");
+                    + EventCommand.USAGE_STRING);
         }
 
         LocalDateTime fromDateTime = Parser.parseDateTime(fromNdx + 1, toNdx, inputList);

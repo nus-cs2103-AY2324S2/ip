@@ -13,8 +13,7 @@ import javafx.stage.Stage;
  * A GUI for Capone using FXML.
  */
 public class Main extends Application {
-
-    /** The Capone instance assocaited with this application. */
+    /** The Capone instance associated with this application. */
     private Capone capone = new Capone();
 
     /**
@@ -31,8 +30,8 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setCapone(this.capone);
+            fxmlLoader.<MainWindow>getController().runCapone(this.capone);
             stage.show();
-            this.capone.runGui();
         } catch (IOException e) {
             e.printStackTrace();
         }

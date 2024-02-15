@@ -17,6 +17,10 @@ import capone.ui.Ui;
  * @author Tay Rui-Jie
  */
 public class DeleteCommand extends Command {
+    /**
+     * Constant string that provides information to the user on how to use the command.
+     */
+    private static final String USAGE_STRING = "Usage: delete [index]";
 
     /** List containing input parameters for DeleteCommand. */
     private final ArrayList<String> inputList;
@@ -44,16 +48,13 @@ public class DeleteCommand extends Command {
         // If the inputList has more than two arguments, throw exception.
         if (inputList.size() == 1) {
             throw new InsufficientArgumentException("Please enter an index of a task you'd like to delete.\n"
-                    + "You can view all tasks using the 'list' command.\n"
-                    + "Usage: delete [index]");
+                    + "You can view all tasks using the 'list' command.\n" + DeleteCommand.USAGE_STRING);
         } else if (inputList.size() > 2) {
             throw new InvalidIndexException("Please enter only one index you would like to delete.\n"
-                    + "You can view all tasks using the 'list' command.\n"
-                    + "Usage: delete [index]");
+                    + "You can view all tasks using the 'list' command.\n" + DeleteCommand.USAGE_STRING);
         }
 
         try {
-            // Remove the task from the tasks ArrayList.
             Task removedTask = taskList.removeTask(Integer.parseInt(inputList.get(1)) - 1);
 
             storage.writeTasksToJsonFile(taskList);
@@ -61,7 +62,8 @@ public class DeleteCommand extends Command {
             return ui.sendDelete(taskList, removedTask);
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             throw new InvalidIndexException("Sorry, you have entered an invalid index.\n"
-                    + "You can check the list of valid indices using the 'list' command.");
+                    + "You can check the list of valid indices using the 'list' command.\n"
+                    + DeleteCommand.USAGE_STRING);
         }
     }
 }

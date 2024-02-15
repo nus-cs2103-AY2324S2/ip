@@ -19,6 +19,10 @@ import capone.ui.Ui;
  * @author Tay Rui-Jie
  */
 public class UpdateCommand extends Command {
+    /**
+     * Constant string that provides information to the user on how to use the command.
+     */
+    private static final String USAGE_STRING = "Usage: update [index] [new description]";
 
     /** List containing input parameters for MarkCommand. */
     private final ArrayList<String> inputList;
@@ -46,30 +50,30 @@ public class UpdateCommand extends Command {
         if (inputList.size() < 3) {
             throw new InsufficientArgumentException("Insufficient arguments.\n"
                     + "You can view all tasks and their respective indices using the 'list' command.\n"
-                    + "Usage: update [index] [new description]");
+                    + UpdateCommand.USAGE_STRING);
         }
 
-        // Mark task as done.
         try {
             // Index of the task in the TaskList object (zero-indexed).
             final int taskIndex = Integer.parseInt(inputList.get(1)) - 1;
-            Task newTaskDesc = taskList.getTask(taskIndex);
+            Task editTaskDesc = taskList.getTask(taskIndex);
 
-            // The starting index of the words that contain the description.
-            final int descNdx = 2;
+            // The starting index of the word(s) that contain the new description.
+            final int descriptionNdx = 2;
 
             // Get the new description from the user and update the task's description.
-            String newDescription = Parser.parseDescription(descNdx, inputList.size(), inputList);
-            newTaskDesc.setDescription(newDescription);
+            String newDescription = Parser.parseDescription(descriptionNdx, inputList.size(), inputList);
+            editTaskDesc.setDescription(newDescription);
 
             // Update the task list file.
             storage.writeTasksToJsonFile(taskList);
 
-            // Inform the user that the task has been marked.
-            return ui.sendUpdate(newTaskDesc);
+            // Inform the user that the task description has been updated.
+            return ui.sendUpdate(editTaskDesc);
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             throw new InvalidIndexException("Sorry, you have entered an invalid index.\n"
-                    + "You can check the list of valid indices using the 'list' command.");
+                    + "You can check the list of valid indices using the 'list' command.\n"
+                    + UpdateCommand.USAGE_STRING);
         }
     }
 }

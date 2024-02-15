@@ -17,6 +17,10 @@ import capone.ui.Ui;
  * @author Tay Rui-Jie
  */
 public class MarkCommand extends Command {
+    /**
+     * Constant string that provides information to the user on how to use the command.
+     */
+    private static final String USAGE_STRING = "Usage: mark [index]";
 
     /** List containing input parameters for MarkCommand. */
     private final ArrayList<String> inputList;
@@ -43,15 +47,12 @@ public class MarkCommand extends Command {
     public String execute(TaskList taskList, Ui ui, Storage storage) throws CaponeException {
         if (inputList.size() == 1) {
             throw new InsufficientArgumentException("Please enter an index of a task you'd like to mark.\n"
-                    + "You can view all tasks using the 'list' command.\n"
-                    + "Usage: mark [index]");
+                    + "You can view all tasks using the 'list' command.\n" + MarkCommand.USAGE_STRING);
         } else if (inputList.size() > 2) {
             throw new InvalidIndexException("Please enter only one index you would like to mark.\n"
-                    + "You can view all tasks using the 'list' command.\n"
-                    + "Usage: mark [index]");
+                    + "You can view all tasks using the 'list' command.\n" + MarkCommand.USAGE_STRING);
         }
 
-        // Mark task as done.
         try {
             Task markedTask = taskList.getTask(Integer.parseInt(inputList.get(1)) - 1);
             markedTask.markTask();
@@ -61,7 +62,8 @@ public class MarkCommand extends Command {
             return ui.sendMark(markedTask);
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             throw new InvalidIndexException("Sorry, you have entered an invalid index.\n"
-                    + "You can check the list of valid indices using the 'list' command.");
+                    + "You can check the list of valid indices using the 'list' command.\n"
+                    + MarkCommand.USAGE_STRING);
         }
     }
 }

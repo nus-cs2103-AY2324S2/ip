@@ -17,6 +17,10 @@ import capone.ui.Ui;
  * @author Tay Rui-Jie
  */
 public class TodoCommand extends Command {
+    /**
+     * Constant string that provides information to the user on how to use the command.
+     */
+    private static final String USAGE_STRING = "Usage: todo [description]";
 
     /** List containing input parameters for TodoCommand. */
     private final ArrayList<String> inputList;
@@ -44,7 +48,7 @@ public class TodoCommand extends Command {
         // If the inputList has only one string, throw an error (insufficient args).
         if (inputList.size() == 1) {
             throw new InsufficientArgumentException("Please enter a description for this capone.tasks.ToDo task!\n"
-                    + "Usage: todo [description]");
+                    + TodoCommand.USAGE_STRING);
         }
 
         // The starting index of the words that contain the description.

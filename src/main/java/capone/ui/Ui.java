@@ -11,7 +11,6 @@ import capone.tasks.Task;
  * @author Tay Rui-Jie
  */
 public class Ui {
-
     /**
      * Prints a welcome message with the Capone logo.
      *
@@ -126,6 +125,16 @@ public class Ui {
             return "The current task list is empty.\n";
         }
 
+        return this.formatList(taskList);
+    }
+
+    /**
+     * Formats a task list with numbers.
+     *
+     * @param taskList The list of tasks to be formatted.
+     * @return The formatted output of the task list.
+     */
+    private String formatList(TaskList taskList) {
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < taskList.getSize(); i++) {
             String task = String.format("%d. %s\n", i + 1, taskList.getTask(i).toString());
@@ -133,8 +142,8 @@ public class Ui {
             output.append(task);
         }
 
-
         assert !output.toString().isEmpty() : "Formatted task list output should not be empty";
+
         return output.toString();
     }
 
