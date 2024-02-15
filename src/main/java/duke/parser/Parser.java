@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import duke.commands.AddCommand;
+import duke.commands.ArchiveCommand;
 import duke.commands.Command;
 import duke.commands.DeleteCommand;
 import duke.commands.ExitCommand;
@@ -224,6 +225,17 @@ public class Parser {
 
             // Return new add todo command
             return new FindCommand(keyword, false);
+
+        case "archive":
+            if (splitInput.size() <= 1) {
+                throw new MissingArgumentException("Missing argument - Index of task required");
+            }
+
+            try {
+                return new ArchiveCommand(Integer.parseInt(splitInput.get(1)) - 1, true);
+            } catch (NumberFormatException e) {
+                throw new InvalidArgumentException("Index to archive is not an integer");
+            }
 
         default:
             throw new InvalidCommandException(String.format("Unknown command '%s'", splitInput.get(0)));
