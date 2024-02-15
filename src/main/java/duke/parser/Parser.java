@@ -42,6 +42,8 @@ public class Parser {
             return new String[]{Ui.sayBye()};
         } else if (command.matches("((?i)list)")) {
             return manager.listItems();
+        } else if (command.matches("((?i)clear)")) {
+            return CLEAR;
         } else if (manageMatch.matches()) {
             Manage act = Manage.valueOf(manageMatch.group(1).toUpperCase());
             return manager.manageTask(act, manageMatch.group(2));
@@ -51,8 +53,6 @@ public class Parser {
         } else if (queryMatch.matches()) {
             Query act = Query.valueOf(queryMatch.group(1).toUpperCase());
             return manager.queryTasks(act, queryMatch.group(2).trim());
-        } else if (command.matches("((?i)clear)")) {
-            return CLEAR;
         } else {
             throw new DukeException("invalid");
         }
