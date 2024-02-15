@@ -33,6 +33,10 @@ public class Toothless {
     private String currentCommand;
     //private Image userImage = new Image(this.getClass().getResourceAsStream("/images/bunny.jpeg"));
     //private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/wisdom.jpeg"));
+
+    /**
+     * Method to instantiate the Toothless class. Toothless is instantiated when Launcher is run, which will run the main class and call this method.
+     */
     public Toothless() {
         this.ui = new Ui();
         this.currentCommand = "";
@@ -58,6 +62,12 @@ public class Toothless {
         this.taskList = fileParser.getTaskList();
 
     }
+
+    /**
+     * Collects the user input and returns a string as response
+     * @param input Command that user inputs
+     * @return String response
+     */
     public String getResponse(String input) {
         this.currentCommand = input;
         Pair<TaskList, String> output = parser.parse(this.taskList, input);
@@ -87,6 +97,10 @@ public class Toothless {
 
     }
 
+    /**
+     * Prints out task list
+     * @param tasksList task list to be printed out
+     */
     static void printTasks(ArrayList<Task> tasksList) {
         int taskCount = 1;
         for (Task t : tasksList) {
@@ -95,6 +109,9 @@ public class Toothless {
         }
     }
 
+    /**
+     * Prints out line for formatting purposes when not running GUI
+     */
     static void printLines() {
         System.out.println("____________________________________________________________");
     }
