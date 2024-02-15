@@ -2,6 +2,7 @@ package duke;
 import command.AddDeadlineCommand;
 import command.AddEventCommand;
 import command.AddTodoCommand;
+import command.ArchiveCommand;
 import command.Command;
 import command.DeleteCommand;
 import command.ExitCommand;
@@ -90,6 +91,8 @@ public class Parser {
             }
             description = input[1];
             return new FindCommand(description);
+        case "ARCHIVE":
+            return new ArchiveCommand();
         default:
             throw new UnknownCommandException();
         }
