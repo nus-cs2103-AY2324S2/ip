@@ -18,11 +18,18 @@ public class DeleteCommand extends Command {
     @Override
     public String perform(TaskList tasks, UI ui) throws PingException {
         // handle the exception
-        if (this.idx < 0 || this.idx >= tasks.taskSize()) {
+        if (isInvalidIndex(tasks)) {
             throw new PingException("Invalid number in the list");
         } else {
             Task deletedTask = tasks.deleteTask(this.idx);
             return ui.deleteTaskMessage(this.idx, deletedTask, tasks.taskSize());
         }
     }
+
+    private boolean isInvalidIndex(TaskList tasks) {
+        boolean isLessThanZero = this.idx < 0;
+        boolean isMoreThanSize = this.idx >= tasks.taskSize();
+        return isLessThanZero || isMoreThanSize;
+    }
 }
+

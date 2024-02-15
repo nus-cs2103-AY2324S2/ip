@@ -1,5 +1,6 @@
 package Ping;
 
+import java.util.List;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -13,12 +14,13 @@ import Command.HiCommand;
 import Command.ListCommand;
 import Command.MarkCommand;
 import Command.UnmarkCommand;
+
 /**
  * This class is used to parse the command input by the user
  */
 public class Parser {
     /**
-    * This method is used to parse the command input by the user
+     * This method is used to parse the command input by the user
      * @param input the command input by the user
      * @return the command object
      */
@@ -53,6 +55,7 @@ public class Parser {
                     + "Valid commands are: bye, list, blah, todo, event, deadline, mark, unmark, delete, hi");
         }
     }
+
     // Add assert to check the input
     private static Command parseMark(String[] restCommands) throws PingException {
         try {
@@ -66,7 +69,7 @@ public class Parser {
 
     private static Command parseUnmark(String[] restCommands) throws PingException {
         try {
-            assert restCommands.length >= 2 : "Invalid number of arguments";
+            assert restCommands.length >= 2 : "Assert: Invalid number of arguments";
             int i = Integer.parseInt(restCommands[1]) - 1;
             return new UnmarkCommand(i);
         } catch (Exception e) {
@@ -92,42 +95,30 @@ public class Parser {
 
     private static Command parseDelete(String[] delCommand) throws PingException {
         try {
-            assert delCommand.length >= 2 : "Invalid number of arguments";
+            assert delCommand.length >= 2 : "Assert: Invalid number of arguments";
             int i = Integer.parseInt(delCommand[1]) - 1;
             return new DeleteCommand(i);
         } catch (Exception e) {
             throw new PingException("Invalid number");
         }
-        
+
     }
 
     private static Command parseDeadline(String[] dlCommand) throws PingException {
         StringBuilder rest = new StringBuilder();
         StringBuilder date = new StringBuilder();
         try {
-            int idx = 0;
-            for (int i = 1; i < dlCommand.length; i++) {
-                if (dlCommand[i].equals("/by")) {
-                    idx = i;
-                    break;
-                } else {
-                    rest.append(dlCommand[i]).append(" ");
-                }
-            }
-            // Check for weekdays or month
-            int check = idx + 1;
-            for (int j = idx + 1; j < dlCommand.length; j++) {
-                if (check != dlCommand.length - 1) {
-                    date.append(dlCommand[j]).append(" ");
-                    check++;
-                } else {
-                    date.append(dlCommand[j]);
-                }
-            }
+            List<StringBuilder> list = parseDeadlineAlgorithm(rest, date, dlCommand);
+            rest = list.get(0);
+            date = list.get(1);
 
-            LocalDate dt = DateTimeCheck.timeCheckOnDate(date.toString());
-            Deadline dl = new Deadline(rest.toString(), dt);
-            if (rest.length() > 0 && dt != null) {
+            LocalDate dateTime = DateTimeCheck.timeCheckOnDate(date.toString());
+            Deadline dl = new Deadline(rest.toString(), dateTime);
+
+            boolean isRestBiggerThanZero = rest.length() > 0;
+            boolean isDateNotNull = dateTime != null;
+
+            if (isRestBiggerThanZero && isDateNotNull) {
                 return new AddCommand(dl);
             } else {
                 throw new PingException("Did you type right?");
@@ -139,43 +130,49 @@ public class Parser {
         }
     }
 
+    private static List<StringBuilder> parseDeadlineAlgorithm(StringBuilder rest, StringBuilder date, String[] dlCommand) {
+        int idx = 0;
+        for (int i = 1; i < dlCommand.length; i++) {
+            if (dlCommand[i].equals("/by")) {
+                idx = i;
+                break;
+            } else {
+                rest.append(dlCommand[i]).append(" ");
+            }
+        }
+        // Check for weekdays or month
+        int check = idx + 1; // Can't declare at the top of this method
+        for (int j = idx + 1; j < dlCommand.length; j++) {
+            if (check != dlCommand.length - 1) {
+                date.append(dlCommand[j]).append(" ");
+                check++;
+            } else {
+                date.append(dlCommand[j]);
+            }
+        }
+        return List.of(rest, date);
+    }        
+
     private static Command parseEvent(String[] evCommand) throws PingException {
         StringBuilder rest = new StringBuilder();
-        StringBuilder date1 = new StringBuilder();
-        StringBuilder date2 = new StringBuilder();
+        StringBuilder dateFromString = new StringBuilder();
+        StringBuilder dateToString = new StringBuilder();
         try {
-            int idx = 0;
-            for (int i = 1; i < evCommand.length; i++) {
-                if (evCommand[i].equals("/from")) {
-                    idx = i;
-                    break;
-                } else {
-                    rest.append(evCommand[i]).append(" ");
-                }
-            }
-            int idx2 = 0;
-            for (int j = idx + 1; j < evCommand.length; j++) {
-                if (evCommand[j].equals("/to")) {
-                    idx2 = j;
-                    break;
-                } else {
-                    date1.append(evCommand[j]).append(" ");
-                }
-            }
-            int check = idx2 + 1;
-            for (int k = idx2 + 1; k < evCommand.length; k++) {
-                if (check != evCommand.length - 1) {
-                    date2.append(evCommand[k]).append(" ");
-                    check++;
-                } else {
-                    date2.append(evCommand[k]);
-                }
-            }
-            LocalDateTime dt1 = DateTimeCheck.timeCheckOnTime(date1.toString().stripTrailing());
-            LocalDateTime dt2 = DateTimeCheck.timeCheckOnTime(date2.toString());
-            boolean compareOfTime = DateTimeCheck.timeCompare(dt1, dt2);
-            Event e = new Event(rest.toString(), dt1, dt2);
-            if ((rest.length() > 0) && dt1 != null && dt2 != null && compareOfTime) {
+            List<StringBuilder> list = parseEventAlgorithm(rest, dateFromString, dateToString, evCommand);
+            rest = list.get(0);
+            dateFromString = list.get(1);
+            dateToString = list.get(2);
+
+            LocalDateTime dateFrom = DateTimeCheck.timeCheckOnTime(dateFromString.toString().stripTrailing());
+            LocalDateTime dateTo = DateTimeCheck.timeCheckOnTime(dateToString.toString());
+
+            boolean isRestBiggerThanZero = rest.length() > 0;
+            boolean isDateFromNotNull = dateFrom != null;
+            boolean isDateToNotNull = dateTo != null;
+            boolean compareOfTime = DateTimeCheck.timeCompare(dateFrom, dateTo);
+
+            Event e = new Event(rest.toString(), dateFrom, dateTo);
+            if (isRestBiggerThanZero && isDateFromNotNull && isDateToNotNull && compareOfTime) {
                 return new AddCommand(e);
             } else {
                 throw new PingException("Did you type right?");
@@ -187,8 +184,39 @@ public class Parser {
         }
     }
 
+    private static List<StringBuilder> parseEventAlgorithm(StringBuilder rest, StringBuilder dateFromString, StringBuilder dateToString, String[] evCommand) {
+        int idx = 0;
+        int idxForTo = 0;
+        for (int i = 1; i < evCommand.length; i++) {
+            if (evCommand[i].equals("/from")) {
+                idx = i;
+                break;
+            } else {
+                rest.append(evCommand[i]).append(" ");
+            }
+        }
+        for (int j = idx + 1; j < evCommand.length; j++) {
+            if (evCommand[j].equals("/to")) {
+                idxForTo = j;
+                break;
+            } else {
+                dateFromString.append(evCommand[j]).append(" ");
+            }
+        }
+        int check = idxForTo + 1; // Can't declare at the top of this method
+        for (int k = idxForTo + 1; k < evCommand.length; k++) {
+            if (check != evCommand.length - 1) {
+                dateToString.append(evCommand[k]).append(" ");
+                check++;
+            } else {
+                dateToString.append(evCommand[k]);
+            }
+        }
+        return List.of(rest, dateFromString, dateToString);
+    }
+
     // This function after prCommand[0] is the string that need to be found in ArrayList<Task>
-    // After matching, it will return the list of tasks that contain the string 
+    // After matching, it will return the list of tasks that contain the string
     private static Command parseFind(String[] prCommand) {
         StringBuilder rest = new StringBuilder();
         for (int i = 1; i < prCommand.length; i++) {
