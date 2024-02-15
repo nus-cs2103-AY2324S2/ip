@@ -44,13 +44,12 @@ public class TaskList {
      * @throws DuchessException if an error occurs while adding the task
      */
     private Task addTask(Task task) throws DuchessException {
-        if (this.taskCount < MAX_TASKS) {
-            this.tasks.add(task);
-            this.taskCount++;
-            return task;
-        } else {
+        if (this.taskCount >= MAX_TASKS) {
             throw new DuchessException("The task list is full. I cannot add more tasks.");
         }
+        this.tasks.add(task);
+        this.taskCount++;
+        return task;
     }
 
     /**
@@ -60,13 +59,12 @@ public class TaskList {
      * @throws DuchessException if the task index is invalid
      */
     public Task deleteTask(int taskIndex) throws DuchessException {
-        if (isValidTaskIndex(taskIndex)) {
-            Task deletedTask = this.tasks.remove(taskIndex);
-            this.taskCount--;
-            return deletedTask;
-        } else {
+        if (isInvalidTaskIndex(taskIndex)) {
             throw new DuchessException("Invalid task index.");
         }
+        Task deletedTask = this.tasks.remove(taskIndex);
+        this.taskCount--;
+        return deletedTask;
     }
 
     /**
@@ -76,13 +74,12 @@ public class TaskList {
      * @throws DuchessException if the task index is invalid
      */
     public Task markTaskAsDone(int taskIndex) throws DuchessException {
-        if (isValidTaskIndex(taskIndex)) {
-            Task task = this.tasks.get(taskIndex);
-            task.markAsDone();
-            return task;
-        } else {
+        if (isInvalidTaskIndex(taskIndex)) {
             throw new DuchessException("Invalid task index.");
         }
+        Task task = this.tasks.get(taskIndex);
+        task.markAsDone();
+        return task;
     }
 
     /**
@@ -92,13 +89,12 @@ public class TaskList {
      * @throws DuchessException if the task index is invalid
      */
     public Task unmarkTaskAsDone(int taskIndex) throws DuchessException {
-        if (isValidTaskIndex(taskIndex)) {
-            Task task = this.tasks.get(taskIndex);
-            task.unmarkAsDone();
-            return task;
-        } else {
+        if (isInvalidTaskIndex(taskIndex)) {
             throw new DuchessException("Invalid task index.");
         }
+        Task task = this.tasks.get(taskIndex);
+        task.unmarkAsDone();
+        return task;
     }
 
     /**
@@ -126,12 +122,11 @@ public class TaskList {
      * @throws DuchessException if an error occurs while adding the task
      */
     public Task addToDo(String description) throws DuchessException {
-        if (description.length() > 1) {
-            ToDo newToDo = new ToDo(description);
-            return addTask(newToDo);
-        } else {
+        if (description.isEmpty()) {
             throw new DuchessException("Oh dear! That is an invalid command. Try: todo <description>");
         }
+        ToDo newToDo = new ToDo(description);
+        return addTask(newToDo);
     }
 
     /**
@@ -142,15 +137,15 @@ public class TaskList {
      */
     public Task addDeadline(String userInput) throws DuchessException {
         String[] deadlineTokens = userInput.split("/by");
-        if (deadlineTokens.length > 1) {
-            String description = deadlineTokens[0].trim();
-            String by = deadlineTokens[1].trim();
-            Deadline newDeadline = new Deadline(description, by);
-            return addTask(newDeadline);
-        } else {
+        if (deadlineTokens.length <= 1) {
             throw new DuchessException("Oh dear! That is an invalid command. Try: deadline <description> "
                     + "/by <deadline>");
         }
+
+        String description = deadlineTokens[0].trim();
+        String by = deadlineTokens[1].trim();
+        Deadline newDeadline = new Deadline(description, by);
+        return addTask(newDeadline);
     }
 
     /**
@@ -161,16 +156,15 @@ public class TaskList {
      */
     public Task addEvent(String userInput) throws DuchessException {
         String[] eventTokens = userInput.split("/from | /to");
-        if (eventTokens.length > 1) {
-            String description = eventTokens[0].trim();
-            String from = eventTokens[1].trim(); // from is everything after
-            String to = eventTokens[2].trim(); // to is everything after
-            Event newEvent = new Event(description, from, to);
-            return addTask(newEvent);
-        } else {
+        if (eventTokens.length <= 1) {
             throw new DuchessException("Oh dear! That is an invalid command. Try: event <description> "
                     + "/from <start> /to <end>");
         }
+        String description = eventTokens[0].trim();
+        String from = eventTokens[1].trim(); // from is everything after
+        String to = eventTokens[2].trim(); // to is everything after
+        Event newEvent = new Event(description, from, to);
+        return addTask(newEvent);
     }
 
     /**
@@ -198,8 +192,8 @@ public class TaskList {
      * @param taskIndex the index of the task to be checked
      * @return true if the task index is valid, false otherwise
      */
-    private boolean isValidTaskIndex(int taskIndex) {
-        return taskIndex >= 0 && taskIndex < this.taskCount;
+    private boolean isInvalidTaskIndex(int taskIndex) {
+        return taskIndex < 0 || taskIndex >= this.taskCount;
     }
 
     /**
