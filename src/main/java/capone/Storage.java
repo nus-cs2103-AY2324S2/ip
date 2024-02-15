@@ -174,7 +174,6 @@ public class Storage {
         if (!file.exists()) {
             try (FileWriter fileWriter = new FileWriter(file)) {
                 fileWriter.write("[]");
-                
                 assert (new String(Files.readAllBytes(Paths.get(this.getFullPath()))).equals("[]"))
                         : "New task file created is not initialised properly (i.e. does not contain '[]'`)";
             } catch (IOException e) {

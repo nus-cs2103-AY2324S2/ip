@@ -54,7 +54,7 @@ public class MainWindow extends AnchorPane {
      * @param capone The Capone application instance to be set.
      */
     public void setCapone(Capone capone) {
-            this.capone = capone;
+        this.capone = capone;
     }
 
     /**
