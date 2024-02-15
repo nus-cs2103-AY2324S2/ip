@@ -27,10 +27,10 @@ public class Parser {
             case "list":
                 return new ListCommand();
             case "mark":
-                num = Integer.parseInt(arg);
+                num = Integer.parseInt(arg.trim());
                 return new MarkCommand(num);
             case "unmark":
-                num = Integer.parseInt(arg);
+                num = Integer.parseInt(arg.trim());
                 return new UnmarkCommand(num);
             case "todo":
                 if (arg == null || arg.equals("")) {
