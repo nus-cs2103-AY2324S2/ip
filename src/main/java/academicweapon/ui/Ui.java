@@ -70,7 +70,7 @@ public class Ui {
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(markTask.toString());
         sb.append("Nice! I've marked this task as done:\n");
-        sb.append(markTask.toString());
+        sb.append(markTask.toString() + "\n");
         return sb.toString();
     }
 
@@ -84,7 +84,7 @@ public class Ui {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(unmarkTask.toString());
         sb.append("OK, I've marked this task as not done yet:\n");
-        sb.append(unmarkTask.toString());
+        sb.append(unmarkTask.toString() + "\n");
         return sb.toString();
     }
 
@@ -98,9 +98,9 @@ public class Ui {
         StringBuilder sb = new StringBuilder();
         System.out.println("Got it. I've added this task:");
         System.out.println(addTask.toString());
-        System.out.println("Now you have " + size + " tasks in the list.");
+        System.out.println("Now you have " + size + " tasks in the list.\n");
         sb.append("Got it. I've added this task:\n");
-        sb.append(addTask.toString());
+        sb.append(addTask.toString() + "\n");
         sb.append("Now you have " + size + " tasks in the list.\n");
         return sb.toString();
     }
@@ -117,7 +117,7 @@ public class Ui {
         System.out.println(toBeRemoved.toString());
         System.out.println("Now you have " + size + " tasks in the list.");
         sb.append("Noted. I've removed this task:\n");
-        sb.append(toBeRemoved.toString());
+        sb.append(toBeRemoved.toString() + "\n");
         sb.append("Now you have " + size + " tasks in the list.\n");
         return sb.toString();
     }

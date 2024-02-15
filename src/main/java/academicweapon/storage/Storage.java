@@ -52,6 +52,38 @@ public class Storage {
     }
 
     /**
+     * Loads deadline tasks from the file and constructs a formatted string representation.
+     * @return A formatted string containing information about loaded deadline tasks.
+     */
+    public String loadDeadline() {
+        StringBuilder sb = new StringBuilder();
+        try {
+            Scanner sc = new Scanner(this.file);
+            System.out.println("This is retrieved from the file.");
+            sb.append("Take note! There are some deadlines to meet!\n");
+            while (sc.hasNext()) {
+                String currentLine = sc.nextLine();
+                DukeExceptions.checkCorruptedFile(currentLine);
+                String[] currentLineSplit = currentLine.split("\\|");
+                if (currentLineSplit[0].trim().equals("D")) {
+                    sb.append(currentLine + "\n");
+                }
+                System.out.println(currentLine);
+            }
+            System.out.println("____________________________________________________________");
+        } catch (FileNotFoundException e) {
+            System.out.println("Sorry, I can't seem to find the file that you want.");
+        } catch (DukeExceptions e) {
+            System.out.println(e.getMessage());
+        }
+        if (sb.toString().equals("Take note! There are some deadlines to meet!\n")) {
+            return "No deadlines to meet";
+        } else {
+            return sb.toString();
+        }
+    }
+
+    /**
      * Loads tasks from the file and returns them as a list of strings.
      *
      * @return ArrayList containing tasks read from the file

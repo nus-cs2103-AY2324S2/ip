@@ -146,6 +146,11 @@ public class Duke {
         return sb.toString();
     }
 
+    public String printDeadlineTasks() {
+        //System.out.println(this.storage.loadDeadline());
+        return this.storage.loadDeadline();
+    }
+
     /**
      * Executes the main logic for handling user input in the GUI.
      * @param input The user input to be processed.
@@ -154,7 +159,7 @@ public class Duke {
     public String runGui(String input) {
         StringBuilder sb = new StringBuilder();
         ArrayList<String> actions = new ArrayList<>();
-
+        //System.out.println(this.printDeadlineTasks());
         try {
             actions = Parser.parse(input);
         } catch (DukeExceptions e) {

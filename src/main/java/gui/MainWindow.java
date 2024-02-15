@@ -29,9 +29,16 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
+        StringBuilder sb = new StringBuilder();
+        this.duke = new Duke("./src/main/data/acadList.txt");
+        sb.append("Hello! Academic weapon here. \n");
+        sb.append("What can I do for you?\n");
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren()
-                .addAll(DialogBox.getDukeDialog("Hello! Academic weapon here. \n What can I do for you?", dukeImage));
+                .addAll(DialogBox.getDukeDialog(sb.toString(), dukeImage));
+        String deadlineTasks = duke.printDeadlineTasks();
+        dialogContainer.getChildren()
+                .addAll(DialogBox.getDukeDialog(deadlineTasks, dukeImage));
     }
 
     public void setDuke(String filename) {
