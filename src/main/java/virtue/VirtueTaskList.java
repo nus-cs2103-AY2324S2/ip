@@ -1,30 +1,42 @@
 package virtue;
 
-
-import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+/** A task list used in this chatbot. */
 public class VirtueTaskList {
-    // The task list.
     private List<VirtueTask> taskList;
 
+    /** Creates a new task list. */
     public VirtueTaskList() {
         taskList = new ArrayList<>();
     }
 
-    // Gets the number of tasks in the task list.
+    /**
+     * Gets the number of tasks in the task list.
+     *
+     * @return The number of tasks in the list.
+     */
     protected int numTasks() {
         return taskList.size();
     }
 
-    // Gets the i-th task from the task list, where i is the index.
+    /**
+     * Gets the i-th task in the task list, where i is the index input by the user.
+     *
+     * @param index The index input by the user (starts from 1 and not 0).
+     * @return The i-th task in the task list.
+     */
     private VirtueTask getTask(int index) {
         return taskList.get(index - 1);
     }
 
-    // Adds a todo task to the task list.
+    /**
+     * Adds a todo task to the task list.
+     *
+     * @param description The description of the todo task to be added.
+     */
     private void addTodo(String description) {
         Todo todo = new Todo(description);
         taskList.add(todo);
@@ -37,7 +49,12 @@ public class VirtueTaskList {
         Ui.printHorizontalLine();
     }
 
-    // Adds a deadline task to the task list.
+    /**
+     * Adds a deadline task to the task list.
+     *
+     * @param description The description of the deadline task to be added.
+     * @param by The date/time for the task to be completed.
+     */
     private void addDeadline(String description, VirtueDateTime by) {
         Deadline deadline = new Deadline(description, by);
         taskList.add(deadline);
@@ -50,7 +67,13 @@ public class VirtueTaskList {
         Ui.printHorizontalLine();
     }
 
-    // Adds an event task to the task list.
+    /**
+     * Adds an event task to the task list.
+     *
+     * @param description The description of the event task to be added.
+     * @param from The date/time of the start of the event.
+     * @param to The date/time of the end of the event.
+     */
     private void addEvent(String description, VirtueDateTime from, VirtueDateTime to) {
         Event event = new Event(description, from, to);
         taskList.add(event);
@@ -63,7 +86,11 @@ public class VirtueTaskList {
         Ui.printHorizontalLine();
     }
 
-    // Marks the i-th task in the task list as done, where i is the index.
+    /**
+     * Marks the i-th task in the task list as done, where i is the index input by the user.
+     *
+     * @param index The index input by the user (starts from 1 and not 0).
+     */
     private void markTaskAsDone(int index) {
         VirtueTask task = getTask(index);
         task.markAsDone();
@@ -73,7 +100,11 @@ public class VirtueTaskList {
         Ui.printHorizontalLine();
     }
 
-    // Marks the i-th task in the task list as not done, where i is the index.
+    /**
+     * Marks the i-th task in the task list as not done, where i is the index input by the user.
+     *
+     * @param index The index input by the user (starts from 1 and not 0).
+     */
     private void markTaskAsNotDone(int index) {
         VirtueTask task = getTask(index);
         task.markAsNotDone();
@@ -83,7 +114,7 @@ public class VirtueTaskList {
         Ui.printHorizontalLine();
     }
 
-    // Prints out the task list.
+    /** Prints out the task list with all the tasks contained in it. */
     protected void printOut() {
         int numOfTasks = taskList.size();
         Ui.printHorizontalLine();
@@ -96,7 +127,11 @@ public class VirtueTaskList {
         Ui.printHorizontalLine();
     }
 
-    // Deletes the i-th task in the task list, where i is the index.
+    /**
+     * Deletes the i-th task in the task list, where i is the index input by the user.
+     *
+     * @param index The index input by the user (starts from 1 and not 0).
+     */
     private void deleteTask(int index) {
         VirtueTask deletedTask = taskList.remove(index - 1);
         int numTasks = numTasks();
@@ -126,6 +161,11 @@ public class VirtueTaskList {
         Ui.printHorizontalLine();
     }
 
+    /**
+     * Executes the command on this task list.
+     *
+     * @param command The command to be executed on this task list.
+     */
     public void executeCommand(Command command) {
         switch (command.type) {
             case LIST:
@@ -154,6 +194,12 @@ public class VirtueTaskList {
         }
     }
 
+    /**
+     * Adds a task to the task list from a line in the saved file.
+     *
+     * @param str A specific line from the saved file.
+     * @throws VirtueDateTimeException If dates in a deadline/event file are not in the correct format.
+     */
     public void addFromFile(String str) throws VirtueDateTimeException {
         String taskType = str.split(" \\| ")[0];
         String description = str.split(" \\| ")[2];
@@ -195,6 +241,12 @@ public class VirtueTaskList {
         }
     }
 
+    /**
+     * Creates the string to be saved in a file.
+     *
+     * @return The concatenation of all fileFormat strings of all tasks in the list,
+     * with each task separated by a line break.
+     */
     public String fileFormat() {
         String str = "";
 

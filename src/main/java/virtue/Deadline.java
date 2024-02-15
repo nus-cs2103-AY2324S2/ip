@@ -1,8 +1,6 @@
 package virtue;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
+/** Represents a deadline task. */
 public class Deadline extends VirtueTask {
     private VirtueDateTime by;
 
