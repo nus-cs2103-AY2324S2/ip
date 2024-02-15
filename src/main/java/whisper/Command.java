@@ -1,15 +1,39 @@
 package whisper;
 import java.util.ArrayList;
 
+/**
+ * The Command interface represents an executable command in the Whisper application.
+ */
 public interface Command {
+    /**
+     * Executes the command with the given parameters.
+     *
+     * @param tasks   The list of tasks on which the command operates.
+     * @param ui      The user interface to interact with the user.
+     * @param storage The storage to save changes persistently.
+     * @throws WhisperException If there is an error executing the command.
+     */
     void execute(ArrayList<Task> tasks, Ui ui, Storage storage) throws WhisperException;
+
+    /**
+     * Indicates whether the command should exit the application.
+     *
+     * @return True if the command triggers an application exit, false otherwise.
+     */
     boolean isExit();
 }
 
-// Add Command
+/**
+ * The AddCommand class represents a command to add a new task to the task list.
+ */
 class AddCommand implements Command {
     private Task taskToAdd;
 
+    /**
+     * Constructs an AddCommand with the specified task to add.
+     *
+     * @param taskToAdd The task to be added.
+     */
     public AddCommand(Task taskToAdd) {
         this.taskToAdd = taskToAdd;
     }
@@ -33,10 +57,17 @@ class AddCommand implements Command {
     }
 }
 
-// Delete Command
+/**
+ * The DeleteCommand class represents a command to delete a task from the task list.
+ */
 class DeleteCommand implements Command {
     private int taskIndex;
 
+    /**
+     * Constructs a DeleteCommand with the specified task index to delete.
+     *
+     * @param taskIndex The index of the task to be deleted.
+     */
     public DeleteCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
@@ -62,7 +93,9 @@ class DeleteCommand implements Command {
     }
 }
 
-// Exit Command
+/**
+ * The ExitCommand class represents a command to exit the Whisper application.
+ */
 class ExitCommand implements Command {
     @Override
     public void execute(ArrayList<Task> tasks, Ui ui, Storage storage) {
@@ -75,7 +108,9 @@ class ExitCommand implements Command {
     }
 }
 
-// List Command
+/**
+ * The ListCommand class represents a command to list all tasks in the task list.
+ */
 class ListCommand implements Command {
     @Override
     public void execute(ArrayList<Task> tasks, Ui ui, Storage storage) {
@@ -88,10 +123,17 @@ class ListCommand implements Command {
     }
 }
 
-// Mark Command
+/**
+ * The MarkCommand class represents a command to mark a task as done in the task list.
+ */
 class MarkCommand implements Command {
     private int taskIndex;
 
+    /**
+     * Constructs a MarkCommand with the specified task index to mark as done.
+     *
+     * @param taskIndex The index of the task to be marked as done.
+     */
     public MarkCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
@@ -117,10 +159,17 @@ class MarkCommand implements Command {
     }
 }
 
-// Unmark command
+/**
+ * The UnmarkCommand class represents a command to mark a task as not done in the task list.
+ */
 class UnmarkCommand implements Command {
     private int taskIndex;
 
+    /**
+     * Constructs an UnmarkCommand with the specified task index to mark as not done.
+     *
+     * @param taskIndex The index of the task to be marked as not done.
+     */
     public UnmarkCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }

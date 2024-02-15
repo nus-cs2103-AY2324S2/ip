@@ -1,11 +1,19 @@
 package whisper;
 
+/**
+ * The Whisper class represents the main application that interacts with the user, manages tasks, and handles input/output.
+ */
 public class Whisper {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a new Whisper instance.
+     *
+     * @param filePath The file path for storing and loading tasks.
+     */
     public Whisper(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -17,6 +25,9 @@ public class Whisper {
         }
     }
 
+    /**
+     * Runs the main loop of the Whisper application, continuously accepting and processing user commands until an exit command is received.
+     */
     public void run() {
         ui.showWelcomeMsg();
         boolean isExit = false;
@@ -34,6 +45,11 @@ public class Whisper {
         }
     }
 
+    /**
+     * The entry point for the Whisper application.
+     *
+     * @param args Command-line arguments (not used in this application).
+     */
     public static void main(String[] args) {
         Whisper whisper = new Whisper("data/whisper.txt");
         whisper.run();

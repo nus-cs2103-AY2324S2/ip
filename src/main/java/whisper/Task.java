@@ -2,6 +2,9 @@ package whisper;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The Task class represents a task in the Whisper application.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -13,44 +16,81 @@ public class Task {
     protected LocalDateTime eventFromDateTime;
     protected LocalDateTime eventToDateTime;
 
-    // Constuctor for each task category
+    /**
+     * Constructs a task with the specified description and category.
+     *
+     * @param description The description of the task.
+     * @param cat         The category of the task.
+     */
     public Task(String description, TaskCategory cat) {
         this.description = description;
         this.isDone = false;
         this.category = cat;
     }
 
-    // Deadline constructor
+    /**
+     * Constructs a deadline task with the specified description, category, and deadline.
+     *
+     * @param description The description of the deadline task.
+     * @param cat         The category of the task (deadline).
+     * @param deadline    The deadline of the task.
+     */
     public Task(String description, TaskCategory cat, LocalDateTime deadline) {
         this(description, cat);
         this.deadline = deadline;
     }
 
-    // Event constructor
+    /**
+     * Constructs an event task with the specified description, category, start date and time, and end date and time.
+     *
+     * @param description      The description of the event task.
+     * @param cat              The category of the task (event).
+     * @param fromDateTime     The start date and time of the event.
+     * @param toDateTime       The end date and time of the event.
+     */
     public Task(String description, TaskCategory cat, LocalDateTime fromDateTime, LocalDateTime toDateTime) {
         this(description, cat);
         this.eventFromDateTime = fromDateTime;
         this.eventToDateTime = toDateTime;
     }
 
-    // update task as done
+    /**
+     * Marks the task as done.
+     */
     public void markAsDone() {
         this.isDone = true;
     }
 
-    // update status of task as not done
+    /**
+     * Marks the task as not done.
+     */
     public void markAsUndone() {
         this.isDone = false;
     }
 
+    /**
+     * Gets the description of the task.
+     *
+     * @return The description of the task.
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Gets the status icon of the task.
+     *
+     * @return The status icon, indicating whether the task is done or not.
+     */
     public String getStatusIcon() {
         return (isDone ? "[X] " : "[ ] "); // mark done task with X
     }
 
+    /**
+     * Gets the category of the task.
+     *
+     * @return The category of the task.
+     */
     public TaskCategory getTaskCat() {
         return category;
     }
@@ -118,6 +158,9 @@ public class Task {
                 category.getDetails(this);
     }
 
+    /**
+     * The TaskCategory enum represents different categories of tasks.
+     */
     public enum TaskCategory {
         T {
             @Override
@@ -143,7 +186,12 @@ public class Task {
             }
         };
 
+        /**
+         * Returns additional details specific to the task category.
+         *
+         * @param task The task for which details are requested.
+         * @return Additional details for the task category.
+         */
         public abstract String getDetails(Task task);
     }
-
 }

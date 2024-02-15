@@ -1,21 +1,35 @@
 package whisper;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The Storage class manages the loading and saving of tasks to and from a file for the Whisper application.
+ */
 public class Storage {
     private String FILE_PATH;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param FILE_PATH The file path for storing tasks.
+     */
     public Storage(String FILE_PATH) {
         this.FILE_PATH = FILE_PATH;
     }
 
+    /**
+     * Loads tasks from the file specified by the file path.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     * @throws WhisperException If there is an error loading tasks from the file.
+     */
     public ArrayList<Task> load() throws WhisperException {
         ArrayList<Task> tasks = new ArrayList<>();
 
@@ -31,6 +45,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves tasks to the file specified by the file path.
+     *
+     * @param tasks The ArrayList of tasks to be saved.
+     * @throws WhisperException If there is an error saving tasks to the file.
+     */
     public void saveFile(ArrayList<Task> tasks) throws WhisperException {
         try (FileWriter fw = new FileWriter(FILE_PATH)) {
             for (Task task : tasks) {
@@ -41,6 +61,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Converts a task into a formatted string for storage in the file.
+     *
+     * @param task The task to be converted.
+     * @return A formatted string representation of the task.
+     */
     String taskToFormattedString(Task task) {
         StringBuilder sb = new StringBuilder();
         sb.append(task.getTaskCat().name()).append(" | ")
@@ -61,6 +87,13 @@ public class Storage {
         return sb.toString();
     }
 
+    /**
+     * Parses a string representation of a task from the file.
+     *
+     * @param input The string representation of the task.
+     * @return The parsed Task object.
+     * @throws WhisperException If there is an error parsing the task from the file.
+     */
     Task parseTaskFromString(String input) throws WhisperException {
         try {
             String[] parts = input.split("\\|");
@@ -118,6 +151,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses a string into a LocalDateTime object.
+     *
+     * @param dateTime The string representation of the date and time.
+     * @return The parsed LocalDateTime object.
+     * @throws WhisperException If there is an error parsing the date and time.
+     */
     LocalDateTime parseDateTime(String dateTime) throws WhisperException {
         try {
             return LocalDateTime.parse(dateTime.trim(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
