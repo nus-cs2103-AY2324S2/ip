@@ -21,7 +21,7 @@ public class Storage {
      * @param path The path to the file.
      * @throws DukeIoException If an error occurs during file creation.
      */
-    public Storage(String path) {
+    public Storage(String path) throws DukeIoException {
         this.path = path;
         File f = new File(path);
 

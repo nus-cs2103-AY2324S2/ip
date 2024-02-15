@@ -41,6 +41,7 @@ public class TaskList {
 
     /**
      * Adds a ToDo task to TaskList.
+     *
      * @param toDoDescription The description of the ToDo task.
      * @return String with return message.
      * @throws DukeIllegalArgumentException If the description is black.
@@ -57,6 +58,7 @@ public class TaskList {
 
     /**
      * Adds a Deadline task to TaskList.
+     *
      * @param deadlineDescription The description of the Deadline task.
      * @return String with return message.
      * @throws DukeIllegalArgumentException If the description is blank.
@@ -74,6 +76,7 @@ public class TaskList {
 
     /**
      * Adds a Event task to TaskList.
+     *
      * @param eventDescription The description of the Event task.
      * @return String with return message.
      * @throws DukeIllegalArgumentException If the description is blank.
@@ -94,6 +97,7 @@ public class TaskList {
 
     /**
      * Marks a task in TaskList as completed.
+     *
      * @param taskIndex The index of the task in TaskList.
      * @return String with return message.
      * @throws DukeIllegalArgumentException If the taskIndex is missing.
@@ -110,6 +114,7 @@ public class TaskList {
 
     /**
      * Unmarks a task in TaskList as not completed.
+     *
      * @param taskIndex The index of the task in TaskList.
      * @return String with return message.
      * @throws DukeIllegalArgumentException If the taskIndex is missing.
@@ -126,6 +131,7 @@ public class TaskList {
 
     /**
      * Deletes a task in TaskList.
+     *
      * @param taskIndex The index of the task to be deleted in TaskList.
      * @return String with return message.
      * @throws DukeIllegalArgumentException If the taskIndex is missing.
@@ -142,6 +148,7 @@ public class TaskList {
 
     /**
      * Finds tasks that contains the keyword given.
+     *
      * @param keyword Keyword to find in the taskList.
      * @return String with return message.
      * @throws DukeIllegalArgumentException If the keyword is missing.
@@ -161,10 +168,6 @@ public class TaskList {
         return String.format(FIND_TASK_MESSAGE, sb);
     }
 
-    /**
-     * Returns the string representation of the TaskList.
-     * @return The string representation of the TaskList.
-     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -205,6 +208,16 @@ public class TaskList {
         }
     }
 
+    /**
+     * Syncs the current taskList with the tasks stored in storage.
+     *
+     * @param taskType The type of task
+     * @param status Status of the task
+     * @param description The task description
+     * @param by The deadline to complete deadline tasks by
+     * @param from The starting date and time for event tasks
+     * @param to The ending date and time for event tasks
+     */
     private void syncListWithStorage(String taskType, String status, String description,
                                      String by, String from, String to) {
         if (taskType.equals("T")) {
@@ -237,7 +250,7 @@ public class TaskList {
     private void updateStorage() {
         StringBuilder sb = new StringBuilder();
         for (Task t : taskList) {
-            sb.append(t.taskFileTemplate()).append("\n");
+            sb.append(t.toTaskFileTemplate()).append("\n");
         }
         try {
             taskStorage.saveToFile(sb.toString());

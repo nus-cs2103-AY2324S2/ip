@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -22,9 +23,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TextField userInput;
     private Duke duke;
-    private Image userImage = new Image(Objects.requireNonNull(
+    private final Image userImage = new Image(Objects.requireNonNull(
             this.getClass().getResourceAsStream("/images/DaUser.png")));
-    private Image dukeImage = new Image(Objects.requireNonNull(
+    private final Image dukeImage = new Image(Objects.requireNonNull(
             this.getClass().getResourceAsStream("/images/surprised_pikachu.png")));
 
     @FXML
@@ -58,9 +59,13 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = duke.getResponse(input);
+        DialogBox userDialog = DialogBox.getUserDialog(input, userImage);
+        DialogBox dukeDialog = DialogBox.getDukeDialog(response, dukeImage);
+        userDialog.setMinHeight(Region.USE_PREF_SIZE);
+        dukeDialog.setMinHeight(Region.USE_PREF_SIZE);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                userDialog,
+                dukeDialog
         );
         userInput.clear();
     }

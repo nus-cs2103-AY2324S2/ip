@@ -31,8 +31,8 @@ public class Deadline extends Task {
      *
      * @return The string representation of the deadline task for saving to a file.
      */
-    public String taskFileTemplate() {
-        return String.format(DEADLINE_FILE_TEMPLATE, super.taskFileTemplate(), deadline);
+    public String toTaskFileTemplate() {
+        return String.format(DEADLINE_FILE_TEMPLATE, super.toTaskFileTemplate(), deadline);
     }
 
     /**

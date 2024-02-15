@@ -23,8 +23,8 @@ public class ToDo extends Task {
      *
      * @return The string representation of the to-do task for saving to a file.
      */
-    public String taskFileTemplate() {
-        return String.format(TODO_FILE_TEMPLATE, super.taskFileTemplate());
+    public String toTaskFileTemplate() {
+        return String.format(TODO_FILE_TEMPLATE, super.toTaskFileTemplate());
     }
 
     /**
