@@ -85,7 +85,7 @@ public class TaskList {
                         .append("\nNow you have ").append(this.tasks.size())
                         .append(" tasks in the list.\n");
             } catch (IndexOutOfBoundsException | NumberFormatException e) {
-                return "Invalid task ID. Please enter a valid number! + \n";
+                return "Invalid task ID. Please enter a valid number!\n";
             }
         }
         return sb.toString();

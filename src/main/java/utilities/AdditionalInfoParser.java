@@ -1,7 +1,6 @@
 package utilities;
 
 import java.util.ArrayList;
-
 import exceptions.WilliamException;
 
 /**
@@ -18,6 +17,9 @@ public class AdditionalInfoParser {
     public static String[] retrieveTexts(String input) {
         String[] resultOfSplit = new String[2];
         int indexOfFirstSpace = input.indexOf(" ");
+        // Assertion to check the input is not null, as input is expected to be non-null
+        assert input != null : "Input should not be null";
+
         if (indexOfFirstSpace == -1) {
             resultOfSplit[0] = input;
             resultOfSplit[1] = null;
@@ -33,7 +35,7 @@ public class AdditionalInfoParser {
      * 
      * @param input Input that is the additional details
      * @param keywords The splitting conditions
-     * @return string[] An array of String that contains the name and dates in seperated form
+     * @return string[] An array of String that contains the name and dates in separated form
      * @throws WilliamException If the input does not contain the keywords
      */
     public static String[] splitInput(String input, String... keywords) throws WilliamException {
@@ -43,17 +45,20 @@ public class AdditionalInfoParser {
         String currentPart = input;
 
         for (String keyword : keywords) {
-            String[] splitParts = currentPart.split(keyword, 2);
-            if (splitParts.length < 2) {
+            if (currentPart.contains(keyword)) {
+                String[] splitParts = currentPart.split(keyword, 2);
+                parts.add(splitParts[0].trim());
+                currentPart = splitParts.length > 1 ? splitParts[1] : "";
+            } else {
                 throw new WilliamException("The input does not contain the required '" + keyword
-                        + "' keyword or is missing text before/after '" + keyword
                         + "' keyword. Please try again!");
             }
-            parts.add(splitParts[0]);
-            currentPart = splitParts[1];
         }
 
-        parts.add(currentPart);
+        parts.add(currentPart.trim());
+
+        // Assertion to check that the array is not empty after splitting
+        assert parts.isEmpty() == false : "Array should not be empty after splitting by keywords";
 
         return parts.toArray(new String[0]);
     }
@@ -70,5 +75,8 @@ public class AdditionalInfoParser {
             throw new WilliamException(
                     "The description of a task should not be empty. Please try again!");
         }
+
+        // Assertion to check that input is not empty after passing the initial check
+        assert input != null && input.trim().isEmpty() == false : "Input should not be null";
     }
 }
