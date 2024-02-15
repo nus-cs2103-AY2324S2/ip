@@ -33,11 +33,11 @@ public class Damon {
             } else if (inputString.startsWith("unmark")) {
                 int index = Integer.parseInt(inputString.substring(7)) - 1;
                 unmark(index);
-            } else if (inputString.startsWith("todo")
-                    || inputString.startsWith("deadline") || inputString.startsWith("event")){
-                storeInput(inputString);
+            } else if (inputString.startsWith("delete")){
+                int index = Integer.parseInt(inputString.substring(7)) - 1;
+                delete(index);
             } else {
-                echo(inputString);
+                storeInput(inputString);
             }
         }
     }
@@ -66,6 +66,7 @@ public class Damon {
             ToDo newToDo = new ToDo(description);
             storage.add(newToDo);
             newTask = newToDo;
+
         } else if (inputString.startsWith("deadline")) {
             String[] splittedString = inputString.substring(9).split(" /by ");
             String description = splittedString[0];
@@ -112,5 +113,12 @@ public class Damon {
                 + "____________________________________________________________\n");
     }
 
-
+    static void delete(int index) {
+        System.out.println("____________________________________________________________\n"
+                + "Noted. I've removed this task:\n"
+                + storage.get(index).toString()
+                + "Now you have " + (storage.size() - 1) + " tasks in the list.\n"
+                + "____________________________________________________________\n");
+        storage.remove(index);
+    }
 }
