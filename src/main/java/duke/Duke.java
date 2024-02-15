@@ -102,34 +102,6 @@ public class Duke {
        new Duke("./src/main/java/data/duke.txt");
     }
 
-    /**
-     * With a Duke object, .run() is the main entry point of the program, running all its processes.
-     *
-     */
-    public void run(String input) {
-        //do something
-        ui.formalities("greet");
-
-        //Load existing information
-        try {
-            storage.loadInfo(taskList);
-        } catch (Exception e) {
-            e.getMessage();
-            taskList = null;
-        }
-
-        while (true) {
-            //Parsing user input.
-            String command = new Parser().parse();
-
-            //Process user command
-            try {
-                processCommand(command, taskList, true);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
-    }
 
     /**
      * With a Duke object, .run() is the main entry point of the program, running all its processes.
@@ -160,6 +132,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("./src/main/java/data/duke.txt").run();
+        new Duke("./data/duke.txt").run();
     }
 }

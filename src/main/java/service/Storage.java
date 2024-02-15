@@ -93,21 +93,19 @@ public class Storage {
     private void openStoredFile(TaskList taskList) throws Exception {
 
         //See if file already exists then parse it
-
         File file = new File(this.filePath);
 
         try {
             if (!file.exists()) { //Create if don't exist
                 createFile(file);
-            } else { //file does exist
-                if (isCorrupt(file)) {
-                    //file corrupt
-                    System.out.println("File Corrupt! Creating new file");
-                    createFile(file);
-                } else {
-                    //parse current info and return.
-                    parseTodoFile(file, taskList);
-                }
+            } else if (isCorrupt(file)) { //file does exist
+                //file corrupt
+                System.out.println("File Corrupt! Creating new file");
+                createFile(file);
+            } else {
+                //parse current info and return.
+                System.out.println("Found file! Parsing...");
+                parseTodoFile(file, taskList);
             }
         } catch (Exception e) {
             System.out.println("Oh no!");
