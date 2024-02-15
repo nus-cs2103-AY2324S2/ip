@@ -16,6 +16,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import javax.swing.*;
+
 /**
  * An example of a custom control using FXML.
  * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
@@ -68,5 +70,9 @@ public class DialogBox extends HBox {
         var db = new DialogBox(text, img, false);
         db.flip();
         return db;
+    }
+
+    public Label getTextLabel() {
+        return this.dialog;
     }
 }

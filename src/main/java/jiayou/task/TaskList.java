@@ -81,9 +81,9 @@ public class TaskList {
 
             updateStorage();
         } catch (NumberFormatException e) {
-            System.out.println("OOPS!!! Please enter a valid task number!");
+            return "OOPS!!! Please enter a valid task number!";
         } catch (JiayouException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
         return response;
     }
@@ -116,9 +116,9 @@ public class TaskList {
             }
             updateStorage();
         } catch (NumberFormatException e) {
-            System.out.println("OOPS!!! Please enter a valid task number!");
+            return "OOPS!!! Please enter a valid task number!";
         } catch (JiayouException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
         return response;
     }
@@ -152,9 +152,9 @@ public class TaskList {
             }
             updateStorage();
         } catch (NumberFormatException e) {
-            System.out.println("OOPS!!! Please enter a valid task number!");
+            return "OOPS!!! Please enter a valid task number!";
         } catch (JiayouException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
         return response;
     }

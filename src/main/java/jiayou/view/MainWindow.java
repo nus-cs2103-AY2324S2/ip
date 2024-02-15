@@ -2,13 +2,17 @@ package jiayou.view;
 
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import jiayou.function.Jiayou;
+
+
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -23,7 +27,7 @@ public class MainWindow extends AnchorPane {
     private Jiayou jiayou;
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/JiaUser.PNG"));
     private Image jiayouImage = new Image(this.getClass().getResourceAsStream("/images/JiaJiayou.PNG"));
-
+    private static final String SIGN_OF_ERROR = "OOPS!!!";
     /**
      * Initializes the main window and prints out the greeting message.
      */
@@ -67,10 +71,25 @@ public class MainWindow extends AnchorPane {
             PauseTransition delay = new PauseTransition(Duration.seconds(0.5));
             delay.setOnFinished(event -> {
                 dialogContainer.getChildren().add(
-                        DialogBox.getJiayouDialog(response, jiayouImage)
+                        createJiayouDialog(response)
                 );
             });
             delay.play();
         }
+    }
+
+    /**
+     * Creates a dialog box for Jiayou's response.
+     *
+     * @param input the response message to be included in the dialog box.
+     * @return the DialogBox object for this dialog.
+     */
+    private DialogBox createJiayouDialog(String input) {
+        DialogBox db = DialogBox.getJiayouDialog(input, jiayouImage);
+        if (input.contains(SIGN_OF_ERROR)) {
+            Label textLabel = db.getTextLabel();
+            textLabel.setTextFill(Color.RED);
+        }
+        return db;
     }
 }

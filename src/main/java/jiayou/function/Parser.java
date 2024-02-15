@@ -104,7 +104,7 @@ public class Parser {
 
                 String[] partsOfReschedule = content.split(" ", 3);
                 if (partsOfReschedule.length < 3) {
-                    throw new JiayouException("Incorrect format for rescheduling.\n"
+                    throw new JiayouException("OOPS!!! Incorrect format for rescheduling.\n"
                             + "Please use the format: reschedule <ID> /from <date> or /to <date> or /by <date>.");
                 }
 
