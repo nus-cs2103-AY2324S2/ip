@@ -122,6 +122,8 @@ public class TaskList {
             this.tasks.add(task);
             this.taskCount++;
 
+            assert taskCount == tasks.size() : "Task count mismatch after adding task";
+
             System.out.println(" Understood. I've added this " + taskType + " task:");
             System.out.println(task.toString());
             System.out.println("Now you have " + this.taskCount + " tasks in the list.");

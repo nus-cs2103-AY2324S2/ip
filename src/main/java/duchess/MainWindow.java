@@ -52,6 +52,7 @@ public class MainWindow extends AnchorPane {
                 setCanClose(true); // Set canClose to true if user input is "bye"
             } else {
                 setCanClose(false); // Set canClose to false for any other input
+                duchess.restartDuchess();
             }
 
             userInput.clear();

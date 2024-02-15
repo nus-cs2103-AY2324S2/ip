@@ -88,7 +88,6 @@ public class Duchess {
         } catch (DuchessException e) {
             System.out.println(e.getMessage());
         }
-
     }
 
     /**
@@ -107,12 +106,17 @@ public class Duchess {
         }
     }
 
+    public void restartDuchess() {
+        this.isRunning = true;
+        this.ui = new Ui();
+    }
+
     /**
      * Exits the Duchess program.
      * Closes the scanner used for user input, saves the task list data, and sets the program state to not running.
      */
     public void exit() {
-        assert this.isRunning;
+        assert this.isRunning : "Duchess is not running already, can't exit";
         this.ui.closeScanner();
         this.storage.saveData(this.taskList);
         this.isRunning = false;

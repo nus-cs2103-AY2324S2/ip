@@ -35,7 +35,8 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        assert text != null : "Dialog text must be initialised";
+        assert img != null : "Display image must be initialised";
         dialog.setText(text);
         displayPicture.setImage(img);
     }
