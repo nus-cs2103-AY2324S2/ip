@@ -31,6 +31,8 @@ public class Task {
         return isDone;
     }
 
+    public LocalDateTime getStart() { return null; }
+
     /**
      * Updates status of the task
      *

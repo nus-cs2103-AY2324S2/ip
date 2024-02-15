@@ -47,12 +47,12 @@ public class Storage {
         // Append the deadline or event time if applicable
         if (task instanceof Deadline) {
             Deadline deadline = (Deadline) task;
-            sb.append(" | ").append(deadline.getBy()); // Append the 'by' time for deadlines
+            sb.append(" | ").append(deadline.getStart()); // Append the 'by' time for deadlines
         } else if (task instanceof Event) {
             Event event = (Event) task;
 
             // Append the 'from - to' times for events
-            sb.append(" | ").append(event.getFrom()).append(" - ").append(event.getTo());
+            sb.append(" | ").append(event.getStart()).append(" - ").append(event.getTo());
         }
 
         return sb.toString();

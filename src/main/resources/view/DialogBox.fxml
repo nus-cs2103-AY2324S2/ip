@@ -10,7 +10,7 @@
     <children>
         <Label fx:id="dialog" lineSpacing="3.0" text="Label" wrapText="true">
          <font>
-            <Font name="Menlo Regular" size="12.0" />
+            <Font name="Menlo Regular" size="10.0" />
          </font>
          <padding>
             <Insets left="5.0" right="5.0" />
