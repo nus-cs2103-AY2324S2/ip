@@ -2,7 +2,6 @@ package secretaryw;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 class Task {
     protected TaskType type;
@@ -13,7 +12,7 @@ class Task {
     protected LocalDate startTime;
     protected LocalDate endTime;
 
-    //constructor for TODO
+    // Constructor for TODO
     public Task(TaskType type, String description) {
         this.type = type;
         this.description = description;
@@ -28,7 +27,7 @@ class Task {
         this.deadline = LocalDate.parse(deadline, DateTimeFormatter.ofPattern("d/M/yyyy"));
     }
 
-    //constructor for EVENT
+    // Constructor for EVENT
     public Task(TaskType type, String description, String startTime, String endTime) {
         this.type = type;
         this.description = description;
@@ -52,7 +51,6 @@ class Task {
         this.deadline = LocalDate.parse(deadline);
     }
 
-
     // Constructor for creating EVENT Task from file data
     public Task(TaskType type, String description, String startTime, String endTime, boolean isDone) {
         this.type = type;
@@ -61,6 +59,7 @@ class Task {
         this.endTime = LocalDate.parse(endTime);
         this.isDone = isDone;
     }
+
     public String getDescription() {
         return this.description;
     }
@@ -98,15 +97,16 @@ class Task {
                 return "";
         }
     }
+
     @Override
     public String toString() {
         switch (type) {
-            case TODO: //todo
+            case TODO:
                 return "[T]" + getStatusIcon() + " " + description;
-            case DEADLINE: // deadline
+            case DEADLINE:
                 String formattedDeadline = deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
                 return "[D]" + getStatusIcon() + " " + description + " (by: " + formattedDeadline + ")";
-            case EVENT: // event
+            case EVENT:
                 String formattedStart = startTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
                 String formattedEnd = endTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
                 return "[E]" + getStatusIcon() + " " + description + " (from: " + formattedStart + " to: " + formattedEnd + ")";
