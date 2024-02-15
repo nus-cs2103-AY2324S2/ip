@@ -1,8 +1,7 @@
 package duke;
 
-import duke.Tasks.TaskList;
+import duke.tasks.TaskList;
 import javafx.util.Pair;
-import java.util.Scanner;
 
 /**
  * Handles interaction with the user by printing out the response generated from each command in the console log/
@@ -14,24 +13,6 @@ public class Ui {
 
     /**
      *
-     * @param parser to make sense of the user command and execute action
-     * @param taskList adds/deletes/marks/unmarks tasks in taskList depending on user input
-     * @return the modified taskList
-     */
-    public TaskList run(Parser parser, TaskList taskList) {
-        Scanner scanner = new Scanner(System.in);
-        String input = "";
-        this.greet();
-        while (!input.toLowerCase().equals("bye")) {
-            input = scanner.nextLine();
-            taskList = this.printMessage(input, parser, taskList);
-        }
-        this.bye();
-        return taskList;
-    }
-
-    /**
-     *
      * @param message command from user
      * @param parser parser created
      * @param taskList current taskList
@@ -39,6 +20,7 @@ public class Ui {
      */
 
     public TaskList printMessage(String message, Parser parser, TaskList taskList) {
+        assert message != null : "No command received";
         Pair<TaskList, String> output =  parser.parse(taskList, message);
         System.out.println(output.getValue());
         return output.getKey();

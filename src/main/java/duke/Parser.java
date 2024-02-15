@@ -1,11 +1,19 @@
 package duke;
 
-import duke.Exceptions.InvalidInstructionException;
-import duke.Exceptions.MissingTaskToMarkException;
-import duke.Exceptions.MissingToDoNameException;
-import duke.Parsers.DateTimeParser;
-import duke.Tasks.*;
+import duke.exceptions.InvalidInstructionException;
+import duke.exceptions.MissingTaskToMarkException;
+import duke.exceptions.MissingToDoNameException;
+import duke.parsers.DateTimeParser;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
+import duke.tasks.ToDo;
 import javafx.util.Pair;
+
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.ArrayList;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -80,18 +88,12 @@ public class Parser {
                 output += this.line;
 
             } else if (input.toLowerCase().startsWith("unmark")) {
-                try {
-                    if (input.split(" ").length == 1) {
-                        throw new MissingTaskToMarkException("Please provide a task to unmark :)");
+                assert (input.split(" ").length != 1) : "Please provide a task to unmark :)";
 
-                    } else {
-                        int index = Integer.parseInt(input.substring(7));
-                        String response = tasksList.unmark(index);
-                        output += (response);
-                    }
-                } catch (MissingTaskToMarkException err) {
-                    output += (err.getMessage());
-                }
+                int index = Integer.parseInt(input.substring(7));
+                String response = tasksList.unmark(index);
+                output += (response);
+
 
             } else if (input.toLowerCase().startsWith("mark")) {
                 try {
@@ -111,21 +113,18 @@ public class Parser {
                 int index = Integer.parseInt(input.substring(7));
                 String response = tasksList.delete(index);
                 output += (response);
-
+            //task name can partially contain keyword
             } else if (input.toLowerCase().startsWith("find")) {
                 String keyword = input.split(" ")[1];
-                TaskList temp = new TaskList();
-                for (Task t : tasksList.getTasksList()) {
-                    if (t.getTaskName().contains(keyword)) {
-                        temp.add(t);
-                    }
-
-                }
+                //TaskList temp = new TaskList();
+                TaskList temp = new TaskList(tasksList.getTasksList().stream()
+                        .filter(t -> t.getTaskName().contains(keyword))
+                        .collect(Collectors
+                                .toCollection(ArrayList::new)));
                 output += this.line;
                 output += "Here are the matching tasks in your list:\n";
                 output += temp.toString();
                 output += ("\n" + this.line);
-
             } else {
                 output += ("Try entering a valid instruction! Eg. 'Todo Chores' or 'Mark 2'\n");
             }

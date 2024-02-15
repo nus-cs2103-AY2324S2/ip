@@ -4,9 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
 
-import duke.Parsers.DateTimeParser;
-import duke.Tasks.Task;
-import duke.Tasks.TaskList;
+import duke.parsers.DateTimeParser;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
 
 import java.nio.file.Paths;
 import java.nio.file.Path;
