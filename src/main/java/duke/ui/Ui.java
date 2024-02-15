@@ -50,7 +50,8 @@ public class Ui {
     public static String printList(ArrayList<Task> taskList) {
         //Function to produce the string for the list to be printed
         String out = "Here are the tasks in your list:\n";
-        for (int i = 1; i < taskList.size() + 1; i++) {
+        int lastNumber = taskList.size() + 1;
+        for (int i = 1; i < lastNumber; i++) {
             out += i + "." + taskList.get(i - 1) + "\n";
         }
 
