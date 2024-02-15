@@ -85,6 +85,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the action for saying goodbye.
+     * This method displays a goodbye message, closes the scanner, exits the program,
+     * and returns an empty string.
+     *
+     * @return An empty string.
+     */
     private String handleGoodbye() {
         new Goodbye().displayMessage();
         scanner.close();
@@ -92,6 +99,14 @@ public class Parser {
         return "";
     }
 
+
+    /**
+     * Handles marking a task as completed.
+     *
+     * @param userInput The user input containing the task number to mark.
+     * @param tasks The TaskList containing the tasks.
+     * @return A message indicating the result of marking the task.
+     */
     private String handleMarkTask(String userInput, TaskList tasks) {
         assert tasks != null : "TaskList (tasks) must not be null";
         try {
@@ -107,6 +122,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles unmarking a completed task.
+     *
+     * @param userInput The user input containing the task number to unmark.
+     * @param tasks The TaskList containing the tasks.
+     * @return A message indicating the result of unmarking the task.
+     */
     private String handleUnmarkTask(String userInput, TaskList tasks) {
         assert tasks != null : "TaskList (tasks) must not be null";
         try {
@@ -121,6 +143,7 @@ public class Parser {
             return handleException(e);
         }
     }
+
 
     /**
      * Handles the tagging of a task with a user-provided tag.
