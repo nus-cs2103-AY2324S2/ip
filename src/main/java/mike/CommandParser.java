@@ -75,9 +75,11 @@ class CommandParser {
         if (match(TokenType.FORWARD_DASH) && match(TokenType.PARAM)) {
             usage = usage + " /view [type] /attribute [attribute]";
             Token paramToken = previousToken();
+
             if (!paramToken.getText().equals("view")) {
                 throw error(usage);
             }
+
             consume(TokenType.LITERAL, usage);
             String type = previousToken().getText().strip();
 

@@ -9,8 +9,32 @@ import mike.command.Command;
  */
 public class Mike {
     private static final String FILE_PATH = "./data/mike.txt";
+    private static final String GREETING =
+            " Hello! I'm mike WAZOWSKI.\n"
+                    + " What can I do for you?";
+    private static final String LOGO = "                   .\n"
+            + "          &#  #*&/,,(@%*. (#\n"
+            + "           %#((,.      #%,*,\n"
+            + "         %%%(/,.. *(     /,.**\n"
+            + "      .%%%%#/**,%(@@&@    /.,,/\n"
+            + "      %%%%#(((/*(#*(%&    ..,,,*(\n"
+            + "    *#%%%##(/,#(/**,,...,...,,,**/\n"
+            + "   .#%%%%%##(((//#(//*......,,,**//\n"
+            + "   &#%%%%%%###(///*,,..,,,,,,,***/#*\n"
+            + "   &#%%%%%%#####@@@@@@(,,**,****/(#*\n"
+            + "  *&%#%%&&&%%%@@@@@@@@@@&**/////(.&/*\n"
+            + "  #&, #%&&&&&&%(((/*****((((((##.  #(\n"
+            + "  ##    #&&&&&&&&&&%%%%%%###%%(    (*\n"
+            + "  .#/     /%%%%%%%%%%%%%%%%#       //\n"
+            + "   #(     /##            *#,       (/\n"
+            + "   %*     /#(             #,       //\n"
+            + "   %(/.    %(            .%&      //*/\n"
+            + "   %/,&,   &(            #%/      (#//,\n"
+            + "   /(*     ##*           #%       &*#%\n"
+            + "     @/@*  (#*.          #(.      /%%\n"
+            + "      (/(/##(...........##(//&#(&/.\n"
+            + "     (@%(&@@,#,..........,*@@&&@&*,\n";
     private final TaskList taskList;
-    private final Ui ui;
     private final Storage storage;
 
     /**
@@ -18,64 +42,40 @@ public class Mike {
      */
     public Mike() {
         // Referenced from https://nus-cs2103-ay2324s2.github.io/website/schedule/week3/project.html#a-moreoop
-        this.ui = new Ui();
         this.storage = new Storage(FILE_PATH);
         this.taskList = storage.load();
     }
-
-    /**
-     * Starts the main control loop of Mike.
-     */
-    public void run() {
-        ui.displayWelcome();
-
-        boolean isExit = false;
-
-        // Referenced from https://nus-cs2103-ay2324s2.github.io/website/schedule/week3/project.html#a-moreoop
-        while (!isExit) {
-            try {
-                String userInput = ui.scanInput();
-                Ui.displayLine();
-
-                List<Token> tokens = new CommandScanner(userInput).scanTokens();
-
-                Command command = new CommandParser(tokens).parse();
-
-                String response = command.execute(taskList);
-                Ui.display(response);
-
-                if (command.isExit()) {
-                    isExit = true;
-                }
-            } catch (MikeException e) {
-                Ui.displayError(e.getMessage());
-            } finally {
-                Ui.displayLine();
-            }
-        }
-
-        storage.writeToFile(taskList);
-        Ui.display("Session terminated: data saved successfully.");
-    }
-
     /**
      * Saves the tasklist into file.
      */
     public void save() {
-        // ui.close();
         storage.writeToFile(taskList);
     }
 
-    public String getResponse(String userInput) {
+    public MikeResponse getResponse(String userInput) {
         try {
             List<Token> tokens = new CommandScanner(userInput).scanTokens();
             Command command = new CommandParser(tokens).parse();
             String response = command.execute(taskList);
-            return response;
+            return new MikeResponse(response, command.isExit());
         } catch (MikeException e) {
-            return e.getMessage();
-        } catch (NullPointerException e) {
-            return e.getMessage();
+            return new MikeResponse(e.getMessage());
         }
+    }
+
+    /**
+     * Gets the logo.
+     * @return String representation of the logo.
+     */
+    public String getLogo() {
+        return LOGO;
+    }
+
+    /**
+     * Gets the greeting message.
+     * @return a string with the greeting message.
+     */
+    public String getGreeting() {
+        return GREETING;
     }
 }

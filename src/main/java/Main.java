@@ -12,19 +12,37 @@ import mike.Mike;
  */
 public class Main extends Application {
 
-    private final Mike mike = new Mike();
+    private static final Mike MIKE = new Mike();
+    private static final String STAGE_TITLE = "Mike";
+
+    private Stage window;
 
     @Override
     public void start(Stage stage) {
         try {
+            window = stage;
+            window.setTitle(STAGE_TITLE);
+
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
-            stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setMike(mike);
-            stage.show();
+            window.setScene(scene);
+            fxmlLoader.<MainWindow>getController().setMike(MIKE);
+            fxmlLoader.<MainWindow>getController().start();
+            window.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void stop() {
+        closeProgram();
+    }
+
+    private void closeProgram() {
+        MIKE.save();
+        System.out.println("Session terminated: data saved successfully.");
+        window.close();
     }
 }
