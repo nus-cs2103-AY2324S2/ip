@@ -1,12 +1,12 @@
-# Bytebuddy
+# ByteBuddy
 
 > "10/10 app - a loyal fan"
 
-Bytebuddy frees your mind of having to remember things you need to do. It's,
+ByteBuddy frees your mind of having to remember things you need to do. It's,
 
 * text-based
 * Easy to learn
-* ~FAST~ _SUPER_ FAST to use
+* _SUPER_ FAST to use
 
 All you need to do is, 
 1. download it from [here](https://github.com/NeoHW/ip)
@@ -33,7 +33,7 @@ How to use:
    1. If there are any more prompts, please feel free to accept the defaults.
 1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
    In the same dialogue, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/ByteBuddy.java` file, right-click it, and choose `Run ByteBuddy.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see a GUI that allows you to use ByteBuddy!
+1. After that, locate the `src/main/java/gui/Launcher.java` file, right-click it, and choose `Run Launcher.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see a GUI that allows you to use ByteBuddy!
 
 ---
 
