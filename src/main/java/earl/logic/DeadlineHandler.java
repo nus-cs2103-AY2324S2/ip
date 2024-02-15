@@ -35,9 +35,8 @@ public class DeadlineHandler extends Handler {
                             + ui.appendNewline("Example use:")
                             + ui.leftPad("deadline <name> /by <due>"));
         } catch (Exception e) {
-            throw new EarlException(
-                    ui.appendNewline("Command hath faltered: "
-                            + "obscure employment of mark."));
+            throw new EarlException("Command hath faltered: "
+                    + "obscure employment of delete.");
         }
     }
 }

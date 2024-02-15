@@ -38,9 +38,8 @@ public final class MarkHandler extends MassOperableHandler {
         } catch (EarlException e) {
             throw e;
         } catch (Exception e) {
-            throw new EarlException(
-                    ui.appendNewline("Command hath faltered: "
-                            + "obscure employment of mark."));
+            throw new EarlException("Command hath faltered: "
+                    + "obscure employment of mark.");
         }
     }
 }

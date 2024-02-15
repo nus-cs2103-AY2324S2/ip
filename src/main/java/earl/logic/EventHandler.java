@@ -35,9 +35,8 @@ public class EventHandler extends Handler {
                             + ui.leftPad("event <name>"
                                     + " /from <start> /to <end>"));
         } catch (Exception e) {
-            throw new EarlException(
-                    ui.appendNewline("Command hath faltered: "
-                            + "obscure employment of mark."));
+            throw new EarlException("Command hath faltered: "
+                    + "obscure employment of event.");
         }
     }
 }

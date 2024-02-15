@@ -32,9 +32,8 @@ public class TodoHandler extends Handler {
                     ui.appendNewline("An error befalls. Example use:")
                             + ui.leftPad("todo <name>"));
         } catch (Exception e) {
-            throw new EarlException(
-                    ui.appendNewline("Command hath faltered: "
-                            + "obscure employment of todo."));
+            throw new EarlException("Command hath faltered: "
+                    + "obscure employment of todo.");
         }
     }
 }

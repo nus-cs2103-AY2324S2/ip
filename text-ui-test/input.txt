@@ -9,6 +9,6 @@ unmark 2
 todo a
 todo b
 todo c
-delete 2 3
+delete 1-6
 list
 bye
