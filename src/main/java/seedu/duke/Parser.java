@@ -25,6 +25,7 @@ public class Parser {
      * @throws DukeException
      */
     public static int parseNum(String input) throws DukeException {
+        assert !input.isEmpty() : "unable to parse empty input";
         String[] items = input.split(" ");
         if (items.length == 1) {
             throw new DukeException("Oops! Please state the task number.");
@@ -42,6 +43,7 @@ public class Parser {
      * @throws DukeException
      */
     public static String parseTodo(String input) throws DukeException{
+        assert !input.isEmpty() : "unable to parse empty input";
         String[] items = input.split(" ", 2);
         if (items.length == 1) {
             UI.emptyDesc("todo");
@@ -58,6 +60,7 @@ public class Parser {
      * @throws DukeException
      */
     public static String parseDeadlineTask(String input) throws DukeException{
+        assert !input.isEmpty() : "unable to parse empty input";
         String task = "";
         String[] items = input.split(" ", 2);
         if (items.length == 1) {
@@ -78,6 +81,7 @@ public class Parser {
      * @throws DukeException
      */
     public static LocalDateTime parseDeadline(String input) throws DukeException{
+        assert !input.isEmpty() : "unable to parse empty input";
         String[] items = input.split(" ", 2);
         if (items.length == 1) {
             UI.emptyDesc("deadline");
@@ -102,6 +106,7 @@ public class Parser {
      * @throws DukeException
      */
     public static String[] parseEvent(String input) throws DukeException{
+        assert !input.isEmpty() : "unable to parse empty input";
         String[] items = input.split(" ", 2);
         try {
             if (items.length == 1) {
@@ -127,6 +132,7 @@ public class Parser {
      * @throws DukeException
      */
     public static String parseFind(String input) throws DukeException{
+        assert !input.isEmpty() : "unable to parse empty input";
         String[] items = input.split(" ", 2);
         if (items.length == 1) {
             throw new DukeException("Oops, please state the description of the task you want to find.");
