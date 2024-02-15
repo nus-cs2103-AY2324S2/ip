@@ -35,9 +35,6 @@ public class Deadline extends Task {
         return deadline;
     }
 
-    public void setDeadline(LocalDateTime deadline) {
-        this.deadline = deadline;
-    }
 
     /**
      * Returns a string representation of the datetime of deadline

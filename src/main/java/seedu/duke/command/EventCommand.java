@@ -38,10 +38,6 @@ public class EventCommand extends Command {
 
     /**
      * Creates an event task and add it to the TaskList, then show the result to the user.
-     *
-     * @param taskList
-     * @param ui
-     * @param storage
      * @throws InvalidInputException If the start date is later than the end date
      */
     @Override
