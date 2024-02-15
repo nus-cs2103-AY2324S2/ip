@@ -5,7 +5,6 @@ import exceptions.JojoUnknownTaskException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
 
 /**
  * Deals with making sense of the user command.
@@ -14,39 +13,34 @@ public class Parser {
 
     /**
      * Parses the commands entered by the user.
-     * @param sc Scanner
+     * @param cmd String
      * @param ui ui
      * @param tl TaskList
      * @param st storage
      * @throws JojoException if the tasks are invalid
      */
-    public static void parse(Scanner sc, Ui ui, TaskList tl, Storage st) throws JojoException {
-        String cmd = sc.nextLine();
-        while (!cmd.equals("bye")) {
-            if (cmd.equals("list")) {
-                ui.printList(tl);
-            } else if (cmd.startsWith("mark")) {
-                ui.printMark(tl, cmd);
-            } else if (cmd.startsWith("unmark")) {
-                ui.printUnmark(tl, cmd);
-            } else if (cmd.startsWith("delete")) {
-                ui.printDelete(tl, cmd);
-            } else if (cmd.startsWith("todo")) {
-                ui.printToDo(tl, cmd);
-            } else if (cmd.startsWith("deadline")) {
-                ui.printDeadline(tl, cmd);
-            } else if (cmd.startsWith("event")) {
-                ui.printEvent(tl, cmd);
-            } else if (cmd.startsWith("find")) {
-                ui.printFind(tl, cmd);
-            } else {
-                throw new JojoUnknownTaskException();
-            }
-            String store_str = st.storeList(tl);
-            st.save(store_str);
-            ui.breakLines();
-            cmd = sc.nextLine();
+    public static String parse(String cmd, Ui ui, TaskList tl, Storage st) throws JojoException {
+        String response = "";
+        if (cmd.equals("list")) {
+            response = ui.printList(tl);
+        } else if (cmd.startsWith("mark")) {
+            response = ui.printMark(tl, cmd);
+        } else if (cmd.startsWith("unmark")) {
+            response = ui.printUnmark(tl, cmd);
+        } else if (cmd.startsWith("delete")) {
+            response = ui.printDelete(tl, cmd);
+        } else if (cmd.startsWith("todo")) {
+            response = ui.printToDo(tl, cmd);
+        } else if (cmd.startsWith("deadline")) {
+            response = ui.printDeadline(tl, cmd);
+        } else if (cmd.startsWith("event")) {
+            response = ui.printEvent(tl, cmd);
+        } else if (cmd.startsWith("find")) {
+            response = ui.printFind(tl, cmd);
+        } else {
+            throw new JojoUnknownTaskException();
         }
+        return response;
     }
 
     /**

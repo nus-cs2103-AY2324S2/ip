@@ -42,7 +42,7 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() {
+    private void handleUserInput() throws JojoException {
         String input = userInput.getText();
         String response = jojo.getResponse(input);
         dialogContainer.getChildren().addAll(

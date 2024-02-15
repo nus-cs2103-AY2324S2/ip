@@ -9,12 +9,11 @@ import java.util.Scanner;
  * A CLI chatbot with the ability to save tasks.
  */
 public class Jojo {
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
 
     public Jojo(String filePath) {
-        ui = new Ui();
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -35,13 +34,20 @@ public class Jojo {
             ui.showStartingQn();
             ui.breakLines();
             Scanner sc = new Scanner(System.in);
-            Parser.parse(sc, ui, tasks, storage);
-            this.ui.showExitMessage();
-            this.ui.breakLines();
+            String cmd = sc.nextLine();
+            while (!cmd.equals("bye")) {
+                getResponse(cmd);
+                String store_str = storage.storeList(tasks);
+                storage.save(store_str);
+                ui.breakLines();
+                cmd = sc.nextLine();
+            }
+            ui.showExitMessage();
+            ui.breakLines();
     }
 
-    public String getResponse(String response) {
-        return ui.getResponse(response);
+    public String getResponse(String input) throws JojoException {
+        return Parser.parse(input, ui, tasks, storage);
     }
 
     public String getStartingMsg() throws JojoException {
