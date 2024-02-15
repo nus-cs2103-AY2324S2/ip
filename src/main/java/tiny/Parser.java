@@ -290,7 +290,7 @@ public class Parser {
     }
 
     /**
-     * Handles the “delete task” command.
+     * Handles the delete task command.
      *
      * @return The message to be displayed to the user.
      * @throws TinyException When input is invalid.
@@ -315,7 +315,7 @@ public class Parser {
     }
 
     /**
-     * Handles the “find” command.
+     * Handles the find command.
      *
      * @return The message to be displayed to the user.
      * @throws TinyException When input is invalid.
@@ -332,6 +332,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the client command.
+     *
+     * @return The message to be displayed to the user.
+     * @throws TinyException When input is invalid.
+     */
     private String client() throws TinyException {
         try {
             String[] s = input.split(" ");
@@ -345,6 +351,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the contact command.
+     *
+     * @return The message to be displayed to the user.
+     * @throws TinyException When input is invalid.
+     */
     private String contact() throws TinyException {
         try {
             String[] s = input.split(" ");
@@ -358,6 +370,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the expense command.
+     *
+     * @return The message to be displayed to the user.
+     * @throws TinyException When input is invalid.
+     */
     private String expense() throws TinyException {
         try {
             String[] s = input.split(" ");
@@ -372,6 +390,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the loan given command.
+     *
+     * @return The message to be displayed to the user.
+     * @throws TinyException When input is invalid.
+     */
     private String loanGiven() throws TinyException {
         try {
             String[] onSplit = input.split("/on ");
@@ -388,6 +412,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the loan taken command.
+     *
+     * @return The message to be displayed to the user.
+     * @throws TinyException When input is invalid.
+     */
     private String loanTaken() throws TinyException {
         try {
             String[] onSplit = input.split("/on ");
@@ -403,6 +433,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the merchandise command.
+     *
+     * @return The message to be displayed to the user.
+     * @throws TinyException When input is invalid.
+     */
     private String merchandise() throws TinyException {
         try {
             String[] s = input.split(" ");
@@ -418,6 +454,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the note command.
+     *
+     * @return The message to be displayed to the user.
+     * @throws TinyException When input is invalid.
+     */
     private String note() throws TinyException {
         try {
             String[] s = input.split(" ");
@@ -430,6 +472,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the place command.
+     *
+     * @return The message to be displayed to the user.
+     * @throws TinyException When input is invalid.
+     */
     private String place() throws TinyException {
         try {
             String[] s = input.split(" ");
@@ -442,6 +490,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the trivia command.
+     *
+     * @return The message to be displayed to the user.
+     * @throws TinyException When input is invalid.
+     */
     private String trivia() throws TinyException {
         try {
             String[] s = input.split(" ");
@@ -452,6 +506,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the delete client command.
+     *
+     * @return The message to be displayed to the user.
+     * @throws TinyException When input is invalid.
+     */
     private String deleteClient() throws TinyException {
         try {
             String[] s = input.split(" ");
@@ -467,6 +527,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the delete contact command.
+     *
+     * @return The message to be displayed to the user.
+     * @throws TinyException When input is invalid.
+     */
     private String deleteContact() throws TinyException {
         try {
             String[] s = input.split(" ");
@@ -482,6 +548,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the delete expense command.
+     *
+     * @return The message to be displayed to the user.
+     * @throws TinyException When input is invalid.
+     */
     private String deleteExpense() throws TinyException {
         try {
             String[] s = input.split(" ");
@@ -497,6 +569,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the delete loan given command.
+     *
+     * @return The message to be displayed to the user.
+     * @throws TinyException When input is invalid.
+     */
     private String deleteLoanGiven() throws TinyException {
         try {
             String[] s = input.split(" ");
@@ -513,6 +591,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the delete loan taken command.
+     *
+     * @return The message to be displayed to the user.
+     * @throws TinyException When input is invalid.
+     */
     private String deleteLoanTaken() throws TinyException {
         try {
             String[] s = input.split(" ");
@@ -529,6 +613,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the delete merchandise command.
+     *
+     * @return The message to be displayed to the user.
+     * @throws TinyException When input is invalid.
+     */
     private String deleteMerchandise() throws TinyException {
         try {
             String[] s = input.split(" ");
@@ -545,6 +635,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the delete note command.
+     *
+     * @return The message to be displayed to the user.
+     * @throws TinyException When input is invalid.
+     */
     private String deleteNote() throws TinyException {
         try {
             String[] s = input.split(" ");
@@ -560,6 +656,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the delete place command.
+     *
+     * @return The message to be displayed to the user.
+     * @throws TinyException When input is invalid.
+     */
     private String deletePlace() throws TinyException {
         try {
             String[] s = input.split(" ");
@@ -575,6 +677,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the delete trivia command.
+     *
+     * @return The message to be displayed to the user.
+     * @throws TinyException When input is invalid.
+     */
     private String deleteTrivia() throws TinyException {
         try {
             String[] s = input.split(" ");
