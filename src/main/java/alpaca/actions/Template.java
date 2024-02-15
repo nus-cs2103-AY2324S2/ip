@@ -1,7 +1,6 @@
 package alpaca.actions;
 
 import alpaca.exceptions.InvalidInput;
-import alpaca.exceptions.ValueNotFound;
 import alpaca.tasks.Task;
 
 import java.util.ArrayList;
@@ -41,17 +40,11 @@ public abstract class Template {
                 "That task is not available. Please try that on a valid index.");
     }
 
-    protected static void numOfTasks(ArrayList<Task> list) {
+    protected static String numOfTasks(ArrayList<Task> list) {
         if (list.size() == 0) {
-            System.out.println("Now you have no tasks in the list.");
-            return;
+            return "Now you have no tasks in the list.";
         }
-        System.out.println("Now you have " + list.size() + " task" 
-                + (list.size() == 1 ? "" : "s") + " in the list.");
-    }
-
-    public static boolean run(String input, ArrayList<Task> list)
-            throws ArrayIndexOutOfBoundsException, ValueNotFound, InvalidInput {
-        throw new ValueNotFound("Don't call template");
+        return "Now you have " + list.size() + " task" 
+                + (list.size() == 1 ? "" : "s") + " in the list.";
     }
 }

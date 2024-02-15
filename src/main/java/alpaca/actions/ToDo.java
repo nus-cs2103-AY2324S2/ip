@@ -28,7 +28,7 @@ public abstract class ToDo extends Template {
      * @throws InvalidInput                   If the information following the
      *                                        command is not comprehesible
      **/
-    public static boolean run(String input, ArrayList<Task> list)
+    public static boolean check(String input, ArrayList<Task> list)
             throws ArrayIndexOutOfBoundsException, ValueNotFound, InvalidInput {
         if (isTrigger(input, trigger)) {
             throw new ValueNotFound("You need to provide a value for todo");
@@ -36,11 +36,16 @@ public abstract class ToDo extends Template {
         if (!isTriggerPrefix(input, trigger)) {
             return false;
         }
+        return true;
+    }
+    
+    public static String run(String input, ArrayList<Task> list) {
+        String result = "";
         Task task = new alpaca.tasks.ToDo(removePrefix(input, trigger));
         list.add(task);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("added: " + task.toString());
-        numOfTasks(list);
-        return true;
+        result += "Got it. I've added this task:\n";
+        result += "added: " + task.toString() + "\n";
+        result += numOfTasks(list);
+        return result;
     }
 }

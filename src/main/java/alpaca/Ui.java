@@ -22,83 +22,59 @@ public class Ui {
     Scanner scanner;
     ArrayList<Task> list = new ArrayList<Task>();
 
-    private void divide() {
-        System.out.println("____________________________________________________________\n");
+    public String greet() {
+        return "Hihi! I'm " + Ui.NAME + "\nWhat can I do for you?";
     }
 
-    private void greet() {
-        divide();
-        System.out.println("Hihi! I'm " + Ui.NAME + "\nWhat can I do for you?");
-        divide();
+    private String bye() {
+        return "cucu";
     }
 
-    private void bye() {
-        System.out.println("cucu");
-        divide();
-    }
-
-    private void list() {
+    private String list() {
         if (list.size() == 0) {
-            System.out.println("Sorry, you haven't created any tasks yet :(");
-            return;
+            return "Sorry, you haven't created any tasks yet :(";
         }
-        System.out.println(" Here are the tasks in your list:");
+        String result = "";
+        result += " Here are the tasks in your list:";
         int counter = 1;
         for (Task i : list) {
-            System.out.println(counter + "." + (i.toString()));
+            result += "\n" + counter + "." + (i.toString());
             counter++;
         }
+        return result;
     }
 
-    private void processInput() {
-        String input = scanner.nextLine();
-        divide();
+    public String processInput(String input) {
         if (input.toLowerCase().equals("bye")) {
-            bye();
-            return;
+            return bye();
         } else if (input.toLowerCase().equals("list")) {
-            list();
-        } else {
-            trying: try {
-                if (Deadline.run(input, list)) {
-                    break trying;
-                }
-                if (Delete.run(input, list)) {
-                    break trying;
-                }
-                if (Event.run(input, list)) {
-                    break trying;
-                }
-                if (Find.run(input, list)) {
-                    break trying;
-                }
-                if (Mark.run(input, list)) {
-                    break trying;
-                }
-                if (ToDo.run(input, list)) {
-                    break trying;
-                }
-                if (Unmark.run(input, list)) {
-                    break trying;
-                }
-                System.out.println("Me no understand :(");
-            } catch (ArrayIndexOutOfBoundsException | ValueNotFound | InvalidInput e) {
-                System.out.println(e.getMessage());
-            }
+            return list();
         }
-        divide();
-        processInput();
-    }
-
-    /**
-     * Handles the start and end of a run with all the necessary resource handling.
-     **/
-    public void run() {
-        greet();
-        scanner = new Scanner(System.in);
-        ReadData.read(list);
-        processInput();
-        ReadData.write(list);
-        scanner.close();
+        try {
+            if (Deadline.check(input, list)) {
+                return Deadline.run(input, list);
+            }
+            if (Delete.check(input, list)) {
+                return Delete.run(input, list);
+            }
+            if (Event.check(input, list)) {
+                return Event.run(input, list);
+            }
+            if (Find.check(input, list)) {
+                return Find.run(input, list);
+            }
+            if (Mark.check(input, list)) {
+                return Mark.run(input, list);
+            }
+            if (ToDo.check(input, list)) {
+                return ToDo.run(input, list);
+            }
+            if (Unmark.check(input, list)) {
+                return Unmark.run(input, list);
+            }
+        } catch (ArrayIndexOutOfBoundsException | ValueNotFound | InvalidInput e) {
+            return e.getMessage();
+        }
+        return "Me no understand :(";
     }
 }

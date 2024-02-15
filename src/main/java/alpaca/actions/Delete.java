@@ -29,7 +29,7 @@ public abstract class Delete extends Template {
      * @throws InvalidInput                   If the information following the
      *                                        command is not comprehesible
      **/
-    public static boolean run(String input, ArrayList<Task> list)
+    public static boolean check(String input, ArrayList<Task> list)
             throws ArrayIndexOutOfBoundsException, ValueNotFound, InvalidInput {
         if (input.toLowerCase().equals(trigger)) {
             throw new ValueNotFound("Delete needs a index");
@@ -44,11 +44,17 @@ public abstract class Delete extends Template {
         if (index < 0 || index >= list.size()) {
             throw new ArrayIndexOutOfBoundsException("An item does not exist at that index");
         }
+        return true;
+    }
+
+    public static String run(String input, ArrayList<Task> list) throws InvalidInput{
+        String result = "";
+        int index = getNumber(input, trigger) - 1;
         Task task = list.get(index);
         list.remove(task);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task.toString());
-        numOfTasks(list);
-        return true;
+        result += "Noted. I've removed this task:\n";
+        result += task.toString() + "\n";
+        result += numOfTasks(list);
+        return result;
     }
 }
