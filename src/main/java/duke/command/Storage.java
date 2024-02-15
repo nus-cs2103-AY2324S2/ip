@@ -62,34 +62,34 @@ public class Storage {
         String description = parts[2];
 
         switch (type) {
-            case "T":
-                Todo todo = new Todo(description);
-                if (isDone) {
-                    todo.markAsDone();
-                }
-                return todo;
-            case "D":
-                String byString = parts[3];
-                LocalDate by = LocalDate.parse(byString);
-                Deadline deadline = new Deadline(description, by);
-                if (isDone) {
-                    deadline.markAsDone();
-                }
-                return deadline;
-            case "E":
-                String fromTo = parts[3];
-                String[] fromToParts = fromTo.split(" ");
-                LocalDate fromDate = LocalDate.parse(fromToParts[0]);
-                String fromTime = fromToParts[1];
-                LocalDate toDate = LocalDate.parse(fromToParts[2]);
-                String toTime = fromToParts[3];
-                Event event = new Event(description, fromDate, fromTime, toDate, toTime);
-                if (isDone) {
-                    event.markAsDone();
-                }
-                return event;
-            default:
-                return null; // Unknown type
+        case "T":
+            Todo todo = new Todo(description);
+            if (isDone) {
+                todo.markAsDone();
+            }
+            return todo;
+        case "D":
+            String byString = parts[3];
+            LocalDate by = LocalDate.parse(byString);
+            Deadline deadline = new Deadline(description, by);
+            if (isDone) {
+                deadline.markAsDone();
+            }
+            return deadline;
+        case "E":
+            String fromTo = parts[3];
+            String[] fromToParts = fromTo.split(" ");
+            LocalDate fromDate = LocalDate.parse(fromToParts[0]);
+            String fromTime = fromToParts[1];
+            LocalDate toDate = LocalDate.parse(fromToParts[2]);
+            String toTime = fromToParts[3];
+            Event event = new Event(description, fromDate, fromTime, toDate, toTime);
+            if (isDone) {
+                event.markAsDone();
+            }
+            return event;
+        default:
+            return null; // Unknown type
         }
     }
 
