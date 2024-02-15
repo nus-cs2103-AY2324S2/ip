@@ -14,6 +14,6 @@ public class DeadlineTest {
     @Test
     public void testDeadlineToStorageFormat() {
         Deadline deadline = new Deadline("Test!", "16-Jan-2001", true);
-        assertEquals(deadline.toStorageFormat(), "D♢X♢Test!♢16-Jan-2001");
+        assertEquals(deadline.toStorageFormat(), "D;;X;;Test!;;16-Jan-2001");
     }
 }

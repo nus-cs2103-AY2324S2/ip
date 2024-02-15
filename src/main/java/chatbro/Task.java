@@ -70,7 +70,7 @@ public abstract class Task {
      * @return String representation of the task in storage format.
      */
     public String toStorageFormat() { // for easy retrieval from file
-        return this.getType() + "♢" + this.getStatusIcon() + "♢" + this.getDescription(); // ♢ used as delimiter
+        return this.getType() + ";;" + this.getStatusIcon() + ";;" + this.getDescription(); // ;; used as delimiter
     }
 
     /**

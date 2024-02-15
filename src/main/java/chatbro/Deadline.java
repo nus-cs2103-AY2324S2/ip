@@ -26,6 +26,6 @@ public class Deadline extends Task {
     }
     @Override
     public String toStorageFormat() {
-        return super.toStorageFormat() + "♢" + this.by;
+        return super.toStorageFormat() + ";;" + this.by;
     }
 }

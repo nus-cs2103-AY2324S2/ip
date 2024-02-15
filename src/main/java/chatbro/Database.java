@@ -46,7 +46,7 @@ public class Database {
      */
     public static Task parseTask(String taskString) throws WrongFileFormatException {
         try {
-            String[] splitString = taskString.split("♢");
+            String[] splitString = taskString.split(";;");
             for (String s : splitString) {
                 if (s.isEmpty()) { // if any information is missing
                     throw new WrongFileFormatException("savedTasks.txt is in the wrong format.\nPlease delete the file and restart the program.");
@@ -76,7 +76,7 @@ public class Database {
             default:
                 throw new WrongFileFormatException("savedTasks.txt is in the wrong format.\nPlease delete the file and restart the program.");
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException e) { // fix
             throw new WrongFileFormatException("savedTasks.txt is in the wrong format.\nPlease delete the file and restart the program.");
         }
     }

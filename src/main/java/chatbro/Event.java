@@ -31,6 +31,6 @@ public class Event extends Task {
     }
     @Override
     public String toStorageFormat() {
-        return super.toStorageFormat() + "♢" + this.startTime + "♢" + this.endTime;
+        return super.toStorageFormat() + ";;" + this.startTime + ";;" + this.endTime;
     }
 }
