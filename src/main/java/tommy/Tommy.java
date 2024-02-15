@@ -1,10 +1,9 @@
 package tommy;
 
-import tommy.command.Command;
-import tommy.task.TaskList;
-import tommy.exception.TommyException;
-
 import javafx.scene.image.Image;
+import tommy.command.Command;
+import tommy.exception.TommyException;
+import tommy.task.TaskList;
 
 /**
  * Represents the Chatbot.
@@ -74,4 +73,3 @@ public class Tommy {
         return this.ui.greet();
     }
 }
-

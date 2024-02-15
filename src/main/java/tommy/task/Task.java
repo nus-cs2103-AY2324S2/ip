@@ -3,7 +3,7 @@ package tommy.task;
 /**
  * Abstract class that is the parent class of all types of tasks.
  */
-abstract public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -54,14 +54,14 @@ abstract public class Task {
         String description = components[2];
 
         switch (type) {
-            case "T":
-                return new Todo(description, isDone);
-            case "D":
-                return new Deadline(description, isDone);
-            case "E":
-                return new Event(description, isDone);
-            default:
-                return null;
+        case "T":
+            return new Todo(description, isDone);
+        case "D":
+            return new Deadline(description, isDone);
+        case "E":
+            return new Event(description, isDone);
+        default:
+            return null;
         }
     }
 

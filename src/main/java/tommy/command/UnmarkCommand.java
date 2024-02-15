@@ -1,11 +1,9 @@
 package tommy.command;
 
-import tommy.Ui;
 import tommy.Storage;
-
-import tommy.task.TaskList;
-
+import tommy.Ui;
 import tommy.exception.InvalidArgumentException;
+import tommy.task.TaskList;
 
 /**
  * Represents the command to mark a task in the taskList.

@@ -1,13 +1,14 @@
 package tommy;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
 import tommy.task.Task;
 import tommy.task.TaskList;
 import tommy.task.Todo;
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-public class DukeTest {
+public class TommyTest {
 
     /*
     Test for date formatter
@@ -17,7 +18,7 @@ public class DukeTest {
     dd/MM/yyyy
      */
     @Test
-    public void formatDateTest(){
+    public void formatDateTest() {
         assertEquals("Dec 31 3000", Parser.formatDate("3000-12-31"));
         assertEquals("Jan 1 0001", Parser.formatDate("0001-01-01"));
         assertEquals("Dec 31 9999", Parser.formatDate("9999-12-31"));

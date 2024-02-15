@@ -1,14 +1,13 @@
 package tommy.command;
 
-import tommy.Ui;
 import tommy.Parser;
 import tommy.Storage;
-
+import tommy.Ui;
+import tommy.exception.InvalidArgumentException;
+import tommy.task.Event;
 import tommy.task.Task;
 import tommy.task.TaskList;
-import tommy.task.Event;
 
-import tommy.exception.InvalidArgumentException;
 
 /**
  * Represents the command to add an Event task to the taskList.
@@ -30,7 +29,7 @@ public class AddEventCommand extends Command {
     public String execute(Storage storage, TaskList taskList, Ui ui) throws InvalidArgumentException {
         try {
             String[] components = this.description.split(" /from | /to ", 3);
-            String eventDetails = components[0];
+            String eventDetail = components[0];
             String fromDate = components[1];
             String toDate = components[2];
 
@@ -39,7 +38,8 @@ public class AddEventCommand extends Command {
             String formattedToDate = Parser.formatDate(toDate);
 
             // instantiate event
-            String formattedDescription = eventDetails + " (from: " + formattedFromDate + " to: " + formattedToDate + ")";
+            String formattedDescription = eventDetail
+                    + " (from: " + formattedFromDate + " to: " + formattedToDate + ")";
             Task event = new Event(formattedDescription);
 
             taskList.addTask(event);

@@ -2,10 +2,9 @@ package tommy;
 
 import java.util.Scanner;
 
+import tommy.exception.TommyException;
 import tommy.task.Task;
 import tommy.task.TaskList;
-
-import tommy.exception.TommyException;
 
 /**
  * Represents the class that deals with all displays and interactions with the user.
@@ -81,8 +80,8 @@ public class Ui {
      */
     public static String displayDeletedTask(TaskList taskList, Task task) {
         String descOfTaskToDelete = task.toString();
-        String descToDisplay = "Noted. I've removed this task:\n  " + descOfTaskToDelete +
-                "\nNow you have " + taskList.getSize() + " tasks in the list.";
+        String descToDisplay = "Noted. I've removed this task:\n  " + descOfTaskToDelete
+                + "\nNow you have " + taskList.getSize() + " tasks in the list.";
 
         return descToDisplay;
     }
@@ -112,8 +111,8 @@ public class Ui {
     public static String displayUnmarkedTask(TaskList taskList, int position) {
         Task unmarkedTask = taskList.getTaskAtPosition(position);
 
-        String descToDisplay = "OK, I've marked this task as not done yet:\n" +
-                "  " + unmarkedTask.toString();
+        String descToDisplay = "OK, I've marked this task as not done yet:\n"
+                + "  " + unmarkedTask.toString();
 
         return descToDisplay;
     }
@@ -126,8 +125,8 @@ public class Ui {
      * @return Description of the newly created task.
      */
     public static String displayNewTask(Task task, TaskList taskList) {
-        String descToDisplay = "Got it. I've added this task:\n" +
-                "  " + task.toString() + "\nNow you have " + taskList.getSize() + " tasks in the list.";
+        String descToDisplay = "Got it. I've added this task:\n"
+                + "  " + task.toString() + "\nNow you have " + taskList.getSize() + " tasks in the list.";
 
         return descToDisplay;
     }
@@ -162,7 +161,7 @@ public class Ui {
      * @return Error message due to TommyException thrown.
      */
     public static String printError(TommyException e) {
-        return e.errorMessage() ;
+        return e.getErrorMessage();
     }
 
     /**

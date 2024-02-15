@@ -1,11 +1,9 @@
 package tommy.command;
 
-import tommy.Ui;
 import tommy.Storage;
-
-import tommy.task.TaskList;
-
+import tommy.Ui;
 import tommy.exception.InvalidArgumentException;
+import tommy.task.TaskList;
 
 /**
  * Abstract class that is the parent class of all commands.

@@ -20,5 +20,5 @@ public abstract class TommyException extends Exception {
      *
      * @return Descriptive error message.
      */
-    public abstract String errorMessage();
+    public abstract String getErrorMessage();
 }

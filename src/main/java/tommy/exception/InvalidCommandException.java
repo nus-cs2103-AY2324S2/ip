@@ -16,7 +16,7 @@ public class InvalidCommandException extends TommyException {
     }
 
     @Override
-    public String errorMessage() {
+    public String getErrorMessage() {
         return "Invalid Command";
     }
 }

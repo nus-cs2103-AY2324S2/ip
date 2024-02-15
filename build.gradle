@@ -5,10 +5,11 @@ plugins {
     id 'checkstyle'
 }
 
+mainClassName = 'tommy.Tommy'
+
 checkstyle {
     toolVersion = '10.2'
 }
-
 
 repositories {
     mavenCentral()
@@ -49,11 +50,12 @@ test {
 }
 
 application {
-    mainClass.set("duke.Duke")
+    mainClass.set("tommy.Tommy")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveFileName = 'tommy.jar'
+    archiveBaseName = "tommy"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

@@ -1,23 +1,21 @@
 package tommy;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 import tommy.command.AddDeadlineCommand;
 import tommy.command.AddEventCommand;
 import tommy.command.AddTodoCommand;
-import tommy.command.ListCommand;
 import tommy.command.ByeCommand;
+import tommy.command.Command;
 import tommy.command.DeleteCommand;
+import tommy.command.FindCommand;
+import tommy.command.ListCommand;
 import tommy.command.MarkCommand;
 import tommy.command.UnmarkCommand;
-import tommy.command.Command;
-import tommy.command.FindCommand;
-
 import tommy.exception.InvalidArgumentException;
 import tommy.exception.InvalidCommandException;
 
@@ -129,6 +127,7 @@ public class Parser {
                 break;
 
             } catch (DateTimeParseException e) {
+                System.out.println("Does not match the pattern: " + e.getMessage());
             }
         }
         if (parsedDateTime == null) {

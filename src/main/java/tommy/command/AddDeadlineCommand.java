@@ -1,14 +1,12 @@
 package tommy.command;
 
-import tommy.Ui;
 import tommy.Parser;
 import tommy.Storage;
-
+import tommy.Ui;
+import tommy.exception.InvalidArgumentException;
+import tommy.task.Deadline;
 import tommy.task.Task;
 import tommy.task.TaskList;
-import tommy.task.Deadline;
-
-import tommy.exception.InvalidArgumentException;
 
 /**
  * Represents the command to add a Deadline task to the taskList.
@@ -30,11 +28,11 @@ public class AddDeadlineCommand extends Command {
     public String execute(Storage storage, TaskList taskList, Ui ui) throws InvalidArgumentException {
         try {
             String[] components = this.description.split(" /by ", 2);
-            String deadlineDetails = components[0];
+            String deadlineDetail = components[0];
             String byDate = components[1];
 
             String formattedByDate = Parser.formatDate(byDate);
-            String formattedDescription = deadlineDetails + " (by: " + formattedByDate + ")";
+            String formattedDescription = deadlineDetail + " (by: " + formattedByDate + ")";
 
             Task deadline = new Deadline(formattedDescription);
 

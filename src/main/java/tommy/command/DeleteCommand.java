@@ -1,12 +1,10 @@
 package tommy.command;
 
-import tommy.Ui;
 import tommy.Storage;
-
+import tommy.Ui;
+import tommy.exception.InvalidArgumentException;
 import tommy.task.Task;
 import tommy.task.TaskList;
-
-import tommy.exception.InvalidArgumentException;
 
 /**
  * Represents the command to delete a task from the taskList.
@@ -33,7 +31,7 @@ public class DeleteCommand extends Command {
             Task taskToDelete = taskList.getTaskAtPosition(positionToDelete);
             taskList.deleteTaskAtPosition(positionToDelete);
             return ui.displayDeletedTask(taskList, taskToDelete);
-        } catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             throw new InvalidArgumentException("The index is out of range >.<");
         }
     }

@@ -1,13 +1,11 @@
 package tommy.command;
 
-import tommy.Ui;
 import tommy.Storage;
-
+import tommy.Ui;
+import tommy.exception.InvalidArgumentException;
 import tommy.task.Task;
 import tommy.task.TaskList;
 import tommy.task.Todo;
-
-import tommy.exception.InvalidArgumentException;
 
 /**
  * Represents the command to add a Todo task to the taskList.

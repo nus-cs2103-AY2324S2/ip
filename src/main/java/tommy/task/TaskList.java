@@ -68,8 +68,8 @@ public class TaskList {
      * @param position Position of task in the taskList to be marked as done.
      */
     public void markTask(int position) {
-            Task task = taskList.get(position - 1);
-            task.setDone(true);
+        Task task = taskList.get(position - 1);
+        task.setDone(true);
     }
 
     /**

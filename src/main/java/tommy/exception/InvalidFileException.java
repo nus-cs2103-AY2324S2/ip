@@ -16,7 +16,7 @@ public class InvalidFileException extends TommyException {
     }
 
     @Override
-    public String errorMessage() {
+    public String getErrorMessage() {
         return "File error:" + getMessage();
     }
 }
