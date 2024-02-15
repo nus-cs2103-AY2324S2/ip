@@ -1,5 +1,7 @@
 package seedu.banter.tasks;
 
+import java.util.Arrays;
+
 /**
  * Represents a task.
  */
@@ -79,15 +81,11 @@ public abstract class Task { // default access modifier
 
     /**
      * Returns true if the description of the task contains the keyword.
-     * @param keyword
+     * @param keywords
      * @return True if the description of the task contains the keyword.
      */
-    public boolean contains(String ...keyword) {
-        for (String k : keyword) {
-            if (!description.contains(k)) {
-                return false;
-            }
-        }
-        return true;
+    public boolean contains(String ...keywords) {
+        return Arrays.stream(keywords)
+                .allMatch(keyword -> description.toLowerCase().contains(keyword.toLowerCase()));
     }
 }
