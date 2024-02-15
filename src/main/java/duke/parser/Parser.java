@@ -247,6 +247,17 @@ public class Parser {
                 throw new InvalidArgumentException("Index to archive is not an integer");
             }
 
+        case "unarchive":
+            if (splitInput.size() <= 1) {
+                throw new MissingArgumentException("Missing argument - Index of task required");
+            }
+
+            try {
+                return new ArchiveCommand(Integer.parseInt(splitInput.get(1)) - 1, false);
+            } catch (NumberFormatException e) {
+                throw new InvalidArgumentException("Index to unarchive is not an integer");
+            }
+
         default:
             throw new InvalidCommandException(String.format("Unknown command '%s'", splitInput.get(0)));
         }
