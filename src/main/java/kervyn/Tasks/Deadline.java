@@ -13,11 +13,11 @@ public class Deadline extends Task {
      * Constructs a Deadline task with a description, status, and deadline.
      *
      * @param description The description of the deadline task.
-     * @param status The completion status of the deadline task.
+     * @param isCompleted The completion status of the deadline task.
      * @param deadline The LocalDateTime representing the deadline of the task.
      */
-    public Deadline(String description, boolean status, LocalDateTime deadline) {
-        super(description, status, Type.DEADLINE);
+    public Deadline(String description, boolean isCompleted, LocalDateTime deadline) {
+        super(description, isCompleted, Type.DEADLINE);
         this.deadline = deadline;
     }
 
@@ -38,7 +38,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        char check = this.getStatus() ? 'X' : ' ';
+        char check = this.getCompleted() ? 'X' : ' ';
         return "\t[" + this.getCapitalType() + "]" + " [" + check + "] " + this.getDescription() + " (by: " + this.getDeadline() + ")";
     }
 

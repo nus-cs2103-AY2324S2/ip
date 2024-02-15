@@ -60,7 +60,7 @@ public class TaskList {
         textToOutput.append("\tHere are the tasks on your list:\n");
         for (int i = 0; i < userTasks.size(); i++) {
             Task task = userTasks.get(i);
-            char check = task.getStatus() ? 'X' : ' ';
+            char check = task.getCompleted() ? 'X' : ' ';
             char type = task.getCapitalType();
             switch (type) {
                 case 'T':
@@ -102,7 +102,7 @@ public class TaskList {
     public short markTask(ArrayList<Task> userTasks, String[] processedUserInput, Image kervynImage, VBox dialogContainer) {
         try {
             Task task = userTasks.get(Integer.parseInt(processedUserInput[1]) - 1);
-            if (task.getStatus()) {
+            if (task.getCompleted()) {
                 taskAlreadyMarked(dialogContainer, kervynImage);
             } else {
                 dialogContainer.getChildren().add(
@@ -135,7 +135,7 @@ public class TaskList {
     public short unMarkTask(ArrayList<Task> userTasks, String[] processedUserInput, Image kervynImage, VBox dialogContainer) {
         try {
             Task task = userTasks.get(Integer.parseInt(processedUserInput[1]) - 1);
-            if (!task.getStatus()) {
+            if (!task.getCompleted()) {
                 taskAlreadyUnMarked(dialogContainer, kervynImage);
             } else {
                 dialogContainer.getChildren().add(
