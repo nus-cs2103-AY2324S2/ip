@@ -4,6 +4,8 @@ import chatbot.action.exception.ActionException;
 import chatbot.action.exception.UnrecognizedCommandException;
 import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
+import chatbot.action.util.ExpectedArgument;
+import chatbot.action.util.SuppliedArgument;
 import chatbot.task.Task;
 import chatbot.task.TaskList;
 import chatbot.ui.PrintFormatter;
@@ -33,10 +35,11 @@ public abstract class Action {
      * @param suppliedArguments The {@link Argument}(s) supplied with the command.
      * @throws ActionException If the action fails has unrecognizable or missing {@link Argument}(s).
      */
-    Action(Command command, Argument... suppliedArguments) throws ActionException {
+    Action(Command command, SuppliedArgument... suppliedArguments) throws ActionException {
         this.command = command;
         this.suppliedArguments = suppliedArguments;
         command.validateSuppliedArguments(suppliedArguments);
+        command.castSuppliedArgumentValues(suppliedArguments);
     }
 
     /**
@@ -47,7 +50,7 @@ public abstract class Action {
      * @return The action instance.
      * @throws ActionException If the {@link Command} or {@link Argument}(s) are not one of the expected values.
      */
-    public static Action of(String command, Argument[] parsedArguments) throws ActionException {
+    public static Action of(String command, SuppliedArgument[] parsedArguments) throws ActionException {
         if (command.equals(ByeAction.getName())) {
             return new ByeAction(parsedArguments);
         } else if (command.equals(ListAction.getName())) {
@@ -85,27 +88,32 @@ public abstract class Action {
     /**
      * Finds the value of this action's {@link Argument} by the {@link Argument} name.
      *
+     * @param <T> The same type of the {@link StringValue} that the corresponding {@link ExpectedArgument} specified.
      * @param name The non-null name of the {@link Argument} to find.
      * @return The value of the {@link Argument} with that name, or null if not found.
      */
-    final StringValue findArgument(String name) {
+    final <T extends StringValue> T findArgument(String name) {
         for (Argument arg : suppliedArguments) {
             if (arg.hasSameArgumentName(name)) {
-                return arg.getValue();
+                // It is safe to cast to T as the argument value has already been
+                // validated and cast to the appropriate type in the constructor.
+                @SuppressWarnings("unchecked")
+                T tmp = (T) arg.getValue();
+                return tmp;
             }
         }
 
-        // this represents that the argument of that name does not exist,
-        // which should not happen, since the argument has been validated.
-        throw new AssertionError("Invalid argument states!");
+        // when the argument of that name does not exist, it is an optional argument that is not present
+        return null;
     }
 
     /**
      * Finds the default {@link Argument} of this action.
      *
+     * @param <T> The same type of the {@link StringValue} that the corresponding {@link ExpectedArgument} specified.
      * @return The value of the default {@link Argument}.
      */
-    final StringValue findDefaultArgument() {
+    final <T extends StringValue> T findDefaultArgument() {
         return findArgument(command.getName());
     }
 

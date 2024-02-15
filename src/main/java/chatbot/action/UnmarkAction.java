@@ -6,9 +6,11 @@ import chatbot.action.exception.InvalidArgumentValueException;
 import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
 import chatbot.action.util.ExpectedArgument;
+import chatbot.action.util.SuppliedArgument;
 import chatbot.task.Task;
 import chatbot.task.TaskList;
 import chatbot.ui.PrintFormatter;
+import chatbot.value.IntegerStringValue;
 
 /**
  * This encapsulates the behaviour of marking a {@link Task} as not done.
@@ -18,7 +20,7 @@ import chatbot.ui.PrintFormatter;
 public final class UnmarkAction extends IndexableAction {
     /** The {@link Command} for marking a {@link Task} as not done. */
     private static final Command COMMAND = new Command(
-            new ExpectedArgument("unmark", "index")
+            new ExpectedArgument("unmark", "index", IntegerStringValue.class)
     );
 
     /**
@@ -27,7 +29,7 @@ public final class UnmarkAction extends IndexableAction {
      * @param arguments The {@link Argument}(s) supplied with the {@link Command}.
      * @throws ActionException If the action fails has unrecognizable or missing {@link Argument}(s).
      */
-    public UnmarkAction(Argument[] arguments) throws ActionException {
+    public UnmarkAction(SuppliedArgument[] arguments) throws ActionException {
         super(COMMAND, arguments);
     }
 

@@ -4,6 +4,7 @@ import chatbot.action.exception.ActionException;
 import chatbot.action.exception.InvalidArgumentValueException;
 import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
+import chatbot.action.util.SuppliedArgument;
 import chatbot.exception.ThrowableFunction;
 import chatbot.task.Task;
 import chatbot.task.exception.OutOfBoundsException;
@@ -16,7 +17,6 @@ import chatbot.value.exception.InvalidValueTypeException;
  * @author Titus Chew
  */
 public abstract class IndexableAction extends ModifyAction {
-
     /**
      * Constructor for this indexable action.
      *
@@ -24,7 +24,7 @@ public abstract class IndexableAction extends ModifyAction {
      * @param suppliedArguments The {@link Argument}(s) supplied with the command.
      * @throws ActionException If the action fails has unrecognizable or missing {@link Argument}(s).
      */
-    IndexableAction(Command command, Argument[] suppliedArguments) throws ActionException {
+    IndexableAction(Command command, SuppliedArgument[] suppliedArguments) throws ActionException {
         super(command, suppliedArguments);
     }
 
@@ -32,20 +32,14 @@ public abstract class IndexableAction extends ModifyAction {
      * Gets the 1-indexed index from the default argument.
      *
      * @return The 1-indexed index from the default argument.
-     * @throws InvalidArgumentValueException If the action fails certain validation checks due to invalid input.
      */
-    private int getIndex() throws InvalidArgumentValueException {
-        // Validate indexString as an integer
+    private int getIndex() {
         try {
             // minus one, as we pass in 1-indexed values from the command line
-            return new IntegerStringValue(findDefaultArgument())
-                    .tryGetIntegerValue() - 1;
+            IntegerStringValue index = findDefaultArgument();
+            return index.tryGetIntegerValue() - 1;
         } catch (InvalidValueTypeException e) {
-            throw new InvalidArgumentValueException(
-                    getCommand(),
-                    "index",
-                    e.getMessage()
-            );
+            throw new AssertionError("The value should have already been validated as an integer!");
         }
     }
 

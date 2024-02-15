@@ -5,6 +5,7 @@ import chatbot.action.exception.ActionException;
 import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
 import chatbot.action.util.ExpectedArgument;
+import chatbot.action.util.SuppliedArgument;
 import chatbot.task.TaskList;
 import chatbot.ui.PrintFormatter;
 
@@ -25,7 +26,7 @@ public final class ByeAction extends Action {
      * @param arguments The {@link Argument}(s) supplied with the {@link Command}.
      * @throws ActionException If the action fails has unrecognizable or missing {@link Argument}(s).
      */
-    public ByeAction(Argument[] arguments) throws ActionException {
+    public ByeAction(SuppliedArgument[] arguments) throws ActionException {
         super(COMMAND, arguments);
     }
 

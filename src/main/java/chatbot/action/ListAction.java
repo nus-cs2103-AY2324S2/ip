@@ -5,6 +5,7 @@ import chatbot.action.exception.ActionException;
 import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
 import chatbot.action.util.ExpectedArgument;
+import chatbot.action.util.SuppliedArgument;
 import chatbot.task.Task;
 import chatbot.task.TaskList;
 import chatbot.ui.PrintFormatter;
@@ -26,7 +27,7 @@ public final class ListAction extends Action {
      * @param arguments the {@link Argument}(s) supplied with the {@link Command}
      * @throws ActionException If the action fails has unrecognizable or missing {@link Argument}(s).
      */
-    public ListAction(Argument[] arguments) throws ActionException {
+    public ListAction(SuppliedArgument[] arguments) throws ActionException {
         super(COMMAND, arguments);
     }
 

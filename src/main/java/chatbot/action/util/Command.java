@@ -2,11 +2,12 @@ package chatbot.action.util;
 
 import java.util.Arrays;
 import java.util.Optional;
-import java.util.function.Function;
 
 import chatbot.action.exception.ActionException;
+import chatbot.action.exception.InvalidArgumentValueException;
 import chatbot.action.exception.MissingArgumentException;
 import chatbot.action.exception.UnrecognizedArgumentException;
+import chatbot.value.exception.InvalidValueTypeException;
 
 /**
  * This defines the {@link Argument}(s) of a {@link Command}.
@@ -47,17 +48,10 @@ public final class Command {
      * @return The usage hint.
      */
     private String generateUsageHint(ExpectedArgument[] arguments) {
-        // converts an expected argument to a usage hint for that argument
-        Function<ExpectedArgument, String> expectedArgumentMapper = arg ->
-                arg.getName() + " "
-                + Optional.ofNullable(arg.getValue())
-                        .map(val -> "<" + val + ">")
-                        .orElse("");
-
         return Arrays
                 .stream(arguments)
-                .map(expectedArgumentMapper)
-                .reduce("", (concatenated, element) -> concatenated + " /" + element)
+                .map(Argument::toString)
+                .reduce("", (concatenated, element) -> concatenated + " " + element)
                 .trim()
                 // remove redundant slash at the start
                 .substring(1);
@@ -84,23 +78,24 @@ public final class Command {
     }
 
     /**
-     * Validates the supplied {@link Argument} names and values.
+     * Validates the {@link SuppliedArgument} names and values.
      *
-     * @param suppliedArguments The {@link Argument} names.
-     * @throws ActionException If an {@link Argument} is missing or invalid, or unrecognized.
+     * @param suppliedArguments The {@link SuppliedArgument} names.
+     * @throws ActionException If an {@link SuppliedArgument} is missing or invalid, or unrecognized.
      */
-    public void validateSuppliedArguments(Argument[] suppliedArguments) throws ActionException {
+    public void validateSuppliedArguments(SuppliedArgument[] suppliedArguments) throws ActionException {
         validateArgumentsRecognized(suppliedArguments);
         validateArgumentsPresentAndValid(suppliedArguments);
     }
 
     /**
-     * Validates the {@link Argument} names, that they are recognizable.
+     * Validates the {@link SuppliedArgument} names, that they are recognizable.
      *
-     * @throws UnrecognizedArgumentException If an {@link Argument} is unrecognizable.
+     * @throws UnrecognizedArgumentException If an {@link SuppliedArgument} is unrecognizable.
      */
-    private void validateArgumentsRecognized(Argument[] suppliedArguments) throws UnrecognizedArgumentException {
-        Optional<Argument> unrecognizedArgument = Arrays
+    private void validateArgumentsRecognized(SuppliedArgument[] suppliedArguments)
+            throws UnrecognizedArgumentException {
+        Optional<SuppliedArgument> unrecognizedArgument = Arrays
                 .stream(suppliedArguments)
                 .filter(arg -> !hasArgumentName(arg))
                 .findAny();
@@ -111,22 +106,53 @@ public final class Command {
     }
 
     /**
-     * Validates that all {@link Argument} names expected are present and not invalid.
+     * Validates that all {@link SuppliedArgument} names expected are present and not invalid.
      *
-     * @throws ActionException If an {@link Argument} is missing or invalid.
+     * @throws ActionException If an {@link SuppliedArgument} is missing or invalid.
      */
-    private void validateArgumentsPresentAndValid(Argument[] suppliedArguments) throws ActionException {
+    private void validateArgumentsPresentAndValid(SuppliedArgument[] suppliedArguments) throws ActionException {
         for (ExpectedArgument expectedArg : this.arguments) {
-            Optional<Argument> matchingArgument = Arrays
+            Optional<SuppliedArgument> matchingArgument = Arrays
+                    .stream(suppliedArguments)
+                    .filter(expectedArg::hasSameArgumentName)
+                    .findAny();
+
+            // missing argument exception if the argument is expected and mandatory
+            if (matchingArgument.isEmpty() && !(expectedArg instanceof OptionalArgument)) {
+                throw new MissingArgumentException(this, expectedArg);
+            }
+
+            if (matchingArgument.isPresent()) {
+                expectedArg.validateArgumentValue(this, matchingArgument.get());
+            }
+        }
+    }
+
+    /**
+     * Casts the {@link SuppliedArgument} to their expected type.
+     *
+     * @throws InvalidArgumentValueException If the value cannot be cast successfully.
+     */
+    public void castSuppliedArgumentValues(SuppliedArgument[] suppliedArguments) throws InvalidArgumentValueException {
+        for (ExpectedArgument expectedArg : this.arguments) {
+            Optional<SuppliedArgument> matchingArgument = Arrays
                     .stream(suppliedArguments)
                     .filter(expectedArg::hasSameArgumentName)
                     .findAny();
 
             if (matchingArgument.isEmpty()) {
-                throw new MissingArgumentException(this, expectedArg);
+                continue;
             }
 
-            expectedArg.validateArgument(this, matchingArgument.get());
+            try {
+                matchingArgument.get().castValue(expectedArg);
+            } catch (InvalidValueTypeException e) {
+                throw new InvalidArgumentValueException(
+                        this,
+                        expectedArg.getValue().toString(),
+                        e.getMessage()
+                );
+            }
         }
     }
 }

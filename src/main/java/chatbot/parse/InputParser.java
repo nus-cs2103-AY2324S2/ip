@@ -8,6 +8,7 @@ import chatbot.action.Action;
 import chatbot.action.exception.ActionException;
 import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
+import chatbot.action.util.SuppliedArgument;
 
 /**
  * Parses the input of a {@link ChatBot} into {@link Argument} list.
@@ -34,13 +35,13 @@ public final class InputParser {
      * <li>"/" is a special character, when at the start of a word, it denotes the start of an {@link Argument}.
      * <li>"/" not at the start of a word, will not be recognized as a special character.
      *
-     * @return The parsed {@link Argument} list.
+     * @return The parsed {@link SuppliedArgument} list.
      */
-    private static Argument[] parseArguments(String commandLineInput) {
+    private static SuppliedArgument[] parseArguments(String commandLineInput) {
         // split input by words (space-separated)
         String[] tokens = commandLineInput.split(" ");
 
-        List<Argument> arguments = new ArrayList<>();
+        List<SuppliedArgument> arguments = new ArrayList<>();
 
         // scan through each word, check if it is an argument
         // first word is always argument name
@@ -60,7 +61,7 @@ public final class InputParser {
             }
         }
         arguments.add(parseArgument(argName, argValue.toString()));
-        return arguments.toArray(Argument[]::new);
+        return arguments.toArray(SuppliedArgument[]::new);
     }
 
     /**
@@ -68,11 +69,11 @@ public final class InputParser {
      *
      * @param argumentName The string representing the {@link Argument} name.
      * @param argumentValue The string representing the {@link Argument} value.
-     * @return The {@link Argument} that is formed.
+     * @return The {@link Argument} for the action, that is formed.
      */
-    private static Argument parseArgument(String argumentName, String argumentValue) {
+    private static SuppliedArgument parseArgument(String argumentName, String argumentValue) {
         String parsedArgumentValue = argumentValue.trim();
         parsedArgumentValue = (parsedArgumentValue.equals("")) ? null : parsedArgumentValue;
-        return new Argument(argumentName, parsedArgumentValue);
+        return new SuppliedArgument(argumentName, parsedArgumentValue);
     }
 }

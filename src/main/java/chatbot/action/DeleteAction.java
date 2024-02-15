@@ -6,9 +6,11 @@ import chatbot.action.exception.InvalidArgumentValueException;
 import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
 import chatbot.action.util.ExpectedArgument;
+import chatbot.action.util.SuppliedArgument;
 import chatbot.task.Task;
 import chatbot.task.TaskList;
 import chatbot.ui.PrintFormatter;
+import chatbot.value.IntegerStringValue;
 
 /**
  * This encapsulates behaviour of deleting a {@link Task} from the {@link TaskList}.
@@ -16,7 +18,7 @@ import chatbot.ui.PrintFormatter;
 public final class DeleteAction extends IndexableAction {
     /** The {@link Command} for deleting a {@link Task}. */
     private static final Command COMMAND = new Command(
-            new ExpectedArgument("delete", "index")
+            new ExpectedArgument("delete", "index", IntegerStringValue.class)
     );
 
     /**
@@ -25,7 +27,7 @@ public final class DeleteAction extends IndexableAction {
      * @param arguments The {@link Argument}(s) supplied with the {@link Command}.
      * @throws ActionException If the action fails has unrecognizable or missing {@link Argument}(s).
      */
-    public DeleteAction(Argument[] arguments) throws ActionException {
+    public DeleteAction(SuppliedArgument[] arguments) throws ActionException {
         super(COMMAND, arguments);
     }
 

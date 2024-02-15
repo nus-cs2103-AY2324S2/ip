@@ -4,10 +4,12 @@ import chatbot.action.exception.ActionException;
 import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
 import chatbot.action.util.ExpectedArgument;
+import chatbot.action.util.SuppliedArgument;
 import chatbot.task.Task;
 import chatbot.task.TaskList;
 import chatbot.task.ToDo;
 import chatbot.ui.PrintFormatter;
+import chatbot.value.StringValue;
 
 /**
  * This encapsulates the behaviour of adding a {@link ToDo}.
@@ -17,7 +19,7 @@ import chatbot.ui.PrintFormatter;
 public final class AddTodoAction extends ModifyAction {
     /** The {@link Command} for adding a {@link ToDo}. */
     private static final Command COMMAND = new Command(
-            new ExpectedArgument("todo", "name")
+            new ExpectedArgument("todo", "name", StringValue.class)
     );
 
     /**
@@ -26,7 +28,7 @@ public final class AddTodoAction extends ModifyAction {
      * @param arguments The {@link Argument}(s) supplied with the {@link Command}.
      * @throws ActionException If the action fails has unrecognizable or missing {@link Argument}(s).
      */
-    public AddTodoAction(Argument[] arguments) throws ActionException {
+    public AddTodoAction(SuppliedArgument[] arguments) throws ActionException {
         super(COMMAND, arguments);
     }
 

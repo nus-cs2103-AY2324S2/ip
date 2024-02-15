@@ -33,16 +33,6 @@ public final class IntegerStringValue extends StringValue {
     }
 
     /**
-     * Factory method for taking in a {@link StringValue}, but tries to convert it to an {@link Integer}.
-     *
-     * @param value The value as a {@link StringValue}.
-     * @throws InvalidValueTypeException If the value cannot be converted.
-     */
-    public IntegerStringValue(StringValue value) throws InvalidValueTypeException {
-        this(value.toString());
-    }
-
-    /**
      * Tries to get the int value.
      *
      * @return The value as an int.
@@ -51,6 +41,19 @@ public final class IntegerStringValue extends StringValue {
     public int tryGetIntegerValue() throws InvalidValueTypeException {
         if (integerValue == null) {
             throw new InvalidValueTypeException("integer", super.toString());
+        }
+        return integerValue;
+    }
+
+    /**
+     * Gets an int value, and returns a default value if it cannot be converted.
+     *
+     * @param defaultValue The default value to return if it cannot be converted.
+     * @return The value as an int.
+     */
+    public int getIntegerValue(int defaultValue) {
+        if (integerValue == null) {
+            return defaultValue;
         }
         return integerValue;
     }
