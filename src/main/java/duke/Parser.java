@@ -30,49 +30,46 @@ public class Parser {
     public String processLine(String original, TaskList list) throws DukeException {
         String[] inputParts = original.split("\\s+");
 
-        //handle mark || unmark
-        if (inputParts.length == 2 && (inputParts[0].equals("mark") || inputParts[0].equals("unmark"))) {
-            int inputInt = Integer.parseInt(inputParts[1]);
-            return list.getTask(inputInt - 1).toggle();
-        } else if (original.equals("list")) {
-            //handle "list"
-            return showList(list);
-        } else if (inputParts[0].equals("todo")) {
-            //handle "todoo"
-            String description = original.replace("todo", "");
-            if (description.isEmpty()) {
-                throw new DukeException("oi todo what. todo WHATTTTTT!!!!!!!!");
-            }
-            Task task = new ToDo(description);
-            list.addTask(task);
-            return addMessage(task, list);
-        } else if (inputParts[0].equals("deadline")) {
-            //handle "deadline"
-            String[] parts = original.replace("deadline", "").split(" /");
-            Task task = new Deadline(parts[0], parts[1].replace("by ", ""));
-            list.addTask(task);
-            return addMessage(task, list);
-        } else if (inputParts[0].equals("event")) {
-            //handle event
-            String[] parts = original.replace("event", "").split(" /");
-            Task task = new Event(parts[0], parts[1].replace("from ", ""), parts[2].replace("to ", ""));
-            list.addTask(task);
-            return addMessage(task, list);
-        } else if (inputParts[0].equals("delete")) {
-            //handle delete
-            int inputInt = Integer.parseInt(inputParts[1]);
-            list.deleteTask(inputInt);
-            return deleteMessage(inputInt, list);
-        } else if (inputParts[0].equals("find")) {
-            TaskList found = list.findTasks(inputParts[1]);
-            return showList(found);
-        } else if (original.equals("bye")) {
-            Storage.writeToFile(list);
-            return showOutro();
-        } else {
-            throw new DukeException("harh what u talking sia walao");
-        }
+        String command = inputParts[0];
 
+        switch(command) {
+            case "mark":
+            case "unmark":
+                int taskIndex = Integer.parseInt(inputParts[1]);
+                return list.getTask(taskIndex - 1).toggle();
+            case "list":
+                return showList(list);
+            case "todo":
+                String description = original.replace("todo", "");
+                if (description.isEmpty()) {
+                    throw new DukeException("oi todo what. todo WHATTTTTT!!!!!!!!");
+                }
+                Task task = new ToDo(description);
+                list.addTask(task);
+                return addMessage(task, list);
+            case "deadline":
+                String[] parts1 = original.replace("deadline", "").split(" /");
+                Task deadlineTask = new Deadline(parts1[0], parts1[1].replace("by ", ""));
+                list.addTask(deadlineTask);
+                return addMessage(deadlineTask, list);
+            case "event":
+                String[] parts2 = original.replace("event", "").split(" /");
+                Task eventTask = new Event(parts2[0], parts2[1].replace("from ", ""), parts2[2].replace("to ", ""));
+                list.addTask(eventTask);
+                return addMessage(eventTask, list);
+            case "delete":
+                int inputInt = Integer.parseInt(inputParts[1]);
+                list.deleteTask(inputInt);
+                return deleteMessage(inputInt, list);
+            case "find":
+                TaskList found = list.findTasks(inputParts[1]);
+                return showList(found);
+            case "bye":
+                Storage.writeToFile(list);
+                return showOutro();
+            default:
+                throw new DukeException("harh what u talking sia walao");
+        }
     }
 
     /** Shows intro message to the user */
