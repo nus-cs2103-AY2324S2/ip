@@ -12,7 +12,9 @@ import javafx.util.Pair;
  * Main class for Chaterpillar chatbot.
  */
 public class Chaterpillar {
-
+    private static final String GREETING_MESSAGE = """
+            Hello! I'm Chaterpillar!
+            What can I do for you?""";
     private final Storage storage;
     private final TaskList tasks;
     private final Ui ui;
@@ -34,8 +36,7 @@ public class Chaterpillar {
      * @return message
      */
     public static String greet() {
-        return "Hello! I'm Chaterpillar!\n"
-                + "What can I do for you?";
+        return GREETING_MESSAGE;
     }
 
     /**
@@ -51,27 +52,4 @@ public class Chaterpillar {
         boolean hasExited = command.hasExited();
         return new Pair<>(response, hasExited);
     }
-
-    /* Potentially obsolete code
-    public void run() {
-        ui.greet();
-        boolean hasExited = false;
-
-        while (!hasExited) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command command = Parser.parse(fullCommand);
-                command.execute(tasks, ui, storage);
-                hasExited = command.hasExited();
-            } catch (ChaterpillarException | IOException e) {
-                ui.echo(e.getMessage());
-            } finally {
-                ui.printHorizontalLine();
-            }
-        }
-    }
-
-    public static void main(String[] args) throws ChaterpillarException, IOException {
-        new Chaterpillar().run();
-    }*/
 }

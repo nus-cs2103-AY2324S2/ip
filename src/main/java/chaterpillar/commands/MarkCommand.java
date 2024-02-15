@@ -34,16 +34,15 @@ public class MarkCommand extends Command {
             throw new ChaterpillarException(
                     "Sorry! That item does not exist in the list.\n"
                     + "You currently have " + tasks.size() + " tasks in the list.");
-        } else {
-            Task currTask = tasks.get(index - 1);
-            currTask.mark();
-
-            storage.saveAllToFile(tasks);
-
-            String output = "Nice! I've marked this task as done:\n" + currTask;
-
-            ui.echo(output);
-            return output;
         }
+        Task currTask = tasks.get(index - 1);
+        currTask.mark();
+
+        storage.saveAllToFile(tasks);
+
+        String output = "Nice! I've marked this task as done:\n" + currTask;
+
+        ui.echo(output);
+        return output;
     }
 }

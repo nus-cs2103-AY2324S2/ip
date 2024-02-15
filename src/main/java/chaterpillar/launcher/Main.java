@@ -17,7 +17,7 @@ public class Main extends Application {
 
     private final Chaterpillar chaterpillar = new Chaterpillar();
 
-    public Main() throws ChaterpillarException, IOException {
+    public Main() throws ChaterpillarException {
     }
 
     @Override

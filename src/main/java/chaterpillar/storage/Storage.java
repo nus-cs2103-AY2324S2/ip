@@ -11,11 +11,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import chaterpillar.exceptions.ChaterpillarException;
-import chaterpillar.tasks.DeadlineTask;
-import chaterpillar.tasks.EventTask;
+import chaterpillar.parser.Parser;
 import chaterpillar.tasks.Task;
 import chaterpillar.tasks.TaskList;
-import chaterpillar.tasks.TodoTask;
 
 /**
  * Custom <code>Storage</code> for file reading/writing pero=sona.
@@ -66,37 +64,8 @@ public class Storage {
         try (BufferedReader reader = Files.newBufferedReader(path)) {
             String str;
             while ((str = reader.readLine()) != null) {
-                try {
-                    String[] eachLine = str.split("\\|");
-                    String taskType = eachLine[0];
-                    boolean isMarked = Boolean.parseBoolean(eachLine[1]);
-                    String taskName = eachLine[2];
-                    switch (taskType) {
-                    case "T": {
-                        Task task = new TodoTask(taskName, isMarked);
-                        newList.add(task);
-                        break;
-                    }
-                    case "D": {
-                        String dueDate = eachLine[3];
-                        Task task = new DeadlineTask(taskName, isMarked, dueDate);
-                        newList.add(task);
-                        break;
-                    }
-                    case "E": {
-                        String startDate = eachLine[3];
-                        String endDate = eachLine[4];
-                        Task task = new EventTask(taskName, isMarked, startDate, endDate);
-                        newList.add(task);
-                        break;
-                    }
-                    default:
-                        throw new ChaterpillarException(
-                                "Error in type of task of this line: \n" + str);
-                    }
-                } catch (IndexOutOfBoundsException e) {
-                    throw new ChaterpillarException("Error in formatting of this line: \n" + str);
-                }
+                Task task = Parser.parseFromFile(str);
+                newList.add(task);
             }
         } catch (IOException e) {
             throw new ChaterpillarException("Error in opening the file.");
