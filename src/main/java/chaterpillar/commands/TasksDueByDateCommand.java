@@ -42,12 +42,13 @@ public class TasksDueByDateCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws ChaterpillarException {
         TaskList tasksNew = tasks.getTasksOnDate(this.date);
         String output = String.format("For %s,\n", this.date);
+
         if (tasksNew.size() == 0) {
             output += "Congrats! You have no tasks for today. :)";
+            ui.echo(output);
+            return output;
         } else {
             return output + new ListCommand(tasksNew).execute(tasks, ui, storage);
         }
-        ui.echo(output);
-        return output;
     }
 }
