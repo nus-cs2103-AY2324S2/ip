@@ -9,7 +9,7 @@ import processor.*;
  * to the appropriate methods in the Processor class.
  */
 public class Parser {
-    
+
     private final Factory factory;
     private final AddTaskProcessor addTaskProcessor;
     private final DeleteTaskProcessor deleteTaskProcessor;
@@ -34,7 +34,7 @@ public class Parser {
      * @param userInput the user command to be processed
      * @throws IOException if an I/O error occurs while processing the command
      */
-    public void processCommand(String userInput) throws IOException {
+    public void parse(String userInput) throws IOException {
 
         if (userInput.startsWith("find")) {
             findTaskProcessor.processCommand(userInput);

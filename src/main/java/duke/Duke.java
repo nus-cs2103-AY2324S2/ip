@@ -40,7 +40,7 @@ import ui.Ui;
                 if (userInput.equals("bye")) {
                     break;
                 } else {
-                    parser.processCommand(userInput);
+                    parser.parse(userInput);
                 }
             } while (true);
             System.out.println(chatbotUi.dividerWrapper(Ui.bye()));

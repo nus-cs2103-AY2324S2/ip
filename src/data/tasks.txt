@@ -1,4 +1,2 @@
-[T][ ] a
-[D][X] task  (by 10)
-[D][ ] task  (Dec 10 2023, 6PM)
-[E][ ] something  (from 10 to 6)
+[T][ ] b
+[T][ ] c
