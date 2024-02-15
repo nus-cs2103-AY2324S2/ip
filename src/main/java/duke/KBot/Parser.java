@@ -30,6 +30,7 @@ public class Parser {
      * @return Returns a Command to be executed.
      */
     public static Command parse(String userInput) throws InvalidCommandException, InvalidInputException {
+        assert userInput != null && userInput.length() > 0 : "Cannot parse empty String!";
         String[] inputs = userInput.trim().split(" ", 2);
         String instruction = inputs[0];
         if (inputs.length > 1) { // for ins with parameter

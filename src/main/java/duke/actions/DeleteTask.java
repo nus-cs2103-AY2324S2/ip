@@ -37,6 +37,7 @@ public class DeleteTask extends Command {
      */
     public String execute() throws IndexOutOfBoundsException, IOException {
         try {
+            assert TaskManager.getTasks().size() > 0 : "There are no tasks in the tasklist to delete!";
             Task taskToDelete = TaskManager.getTasks().remove(index); // may throw IndexOutOfBoundsException
             TaskFileManager.saveTasksToFile(TaskManager.getTasks()); // may throw IOException
             return ("OK, I've deleted this task:\n" + taskToDelete
