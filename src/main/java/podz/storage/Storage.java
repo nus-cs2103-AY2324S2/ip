@@ -62,25 +62,16 @@ public class Storage {
             String task;
             while ((task = reader.readLine()) != null) {
                 String[] taskInfo = task.split(" \\| ");
+                boolean isTodoTask = taskInfo[0].equals("T");
+                boolean isDeadlineTask = taskInfo[0].equals("D");
+                boolean isEventTask = taskInfo[0].equals("E");
 
-                if (taskInfo[0].equals("T")) {
-                    Todo todo = new Todo(taskInfo[2]);
-                    if (Integer.parseInt(taskInfo[1]) == 1) {
-                        todo.mark();
-                    }
-                    tasks.add(todo);
-                } else if (taskInfo[0].equals("D")) {
-                    Deadline deadline = new Deadline(taskInfo[2], taskInfo[3]);
-                    if (Integer.parseInt(taskInfo[1]) == 1) {
-                        deadline.mark();
-                    }
-                    tasks.add(deadline);
-                } else if (taskInfo[0].equals("E")) {
-                    Event event = new Event(taskInfo[2], taskInfo[3], taskInfo[4]);
-                    if (Integer.parseInt(taskInfo[1]) == 1) {
-                        event.mark();
-                    }
-                    tasks.add(event);
+                if (isTodoTask) {
+                    addTodo(tasks, taskInfo);
+                } else if (isDeadlineTask) {
+                    addDeadline(tasks, taskInfo);
+                } else if (isEventTask) {
+                    addEvent(tasks, taskInfo);
                 }
             }
             reader.close();
@@ -92,6 +83,31 @@ public class Storage {
         }
 
         return tasks;
+    }
+
+    private void addEvent(ArrayList<Task> tasks, String[] taskInfo) {
+        Event event = new Event(taskInfo[2], taskInfo[3], taskInfo[4]);
+        checkMarked(taskInfo, event);
+        tasks.add(event);
+    }
+
+    private void addDeadline(ArrayList<Task> tasks, String[] taskInfo) {
+        Deadline deadline = new Deadline(taskInfo[2], taskInfo[3]);
+        checkMarked(taskInfo, deadline);
+        tasks.add(deadline);
+    }
+
+    private void addTodo(ArrayList<Task> tasks, String[] taskInfo) {
+        Todo todo = new Todo(taskInfo[2]);
+        checkMarked(taskInfo, todo);
+        tasks.add(todo);
+    }
+
+    private void checkMarked(String[] taskInfo, Task task) {
+        boolean isMarked = Integer.parseInt(taskInfo[1]) == 1;
+        if (isMarked) {
+            task.mark();
+        }
     }
 
     private static File initDataFile() throws IOException {
@@ -106,4 +122,3 @@ public class Storage {
         return data;
     }
 }
-

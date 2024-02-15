@@ -117,9 +117,9 @@ public class TaskList {
     @Override
     public String toString() {
         String taskStr = "Here are the tasks in your list:";
-        for (int i = 0; i < tasks.size(); i++) {
+        for (int i = 0; i < this.tasks.size(); i++) {
             int num = i + 1;
-            String nextTask = num + ". " + tasks.get(i);
+            String nextTask = num + ". " + this.tasks.get(i);
             taskStr += "\n" + nextTask;
         }
         return taskStr;

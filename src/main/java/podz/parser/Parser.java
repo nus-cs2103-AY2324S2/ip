@@ -90,13 +90,17 @@ public class Parser {
             return prepareFind(inputs);
 
         case UNKNOWN:
-            return new IncorrectCommand(
-                new PodzException(
-                    "ERROR!! The system did not recognize the command you entered."));
+            return prepareUnknown();
                     
         default:
             throw new AssertionError(cmd);
         }
+    }
+
+    private Command prepareUnknown() {
+        return new IncorrectCommand(
+            new PodzException(
+                "ERROR!! The system did not recognize the command you entered."));
     }
 
     private Command prepareMark(String[] inputs) {
