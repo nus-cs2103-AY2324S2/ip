@@ -18,6 +18,7 @@ public class Parser {
         input = input.toLowerCase();
         String command = input.split(" ")[0];
         String arg = null;
+        String text = null;
 
         assert command != null : "command should not be null";
 
@@ -27,73 +28,70 @@ public class Parser {
         }
 
         switch (command) {
-            case "list":
-                return new ListCommand();
-            case "mark":
-                num = Integer.parseInt(arg.trim());
-                return new MarkCommand(num);
-            case "unmark":
-                num = Integer.parseInt(arg.trim());
-                return new UnmarkCommand(num);
-            case "todo":
-                if (arg == null || arg.equals("")) {
-                    throw new CommandParseException("todo must have a desc");
-                }
-                return new TodoCommand(arg);
-            case "event":
-                String fromSubCommand = arg.split("/")[1];
-                String from = fromSubCommand.substring(fromSubCommand.indexOf(' '));
-                from = from.strip();
-                if (from == null || from.equals("")) {
-                    throw new CommandParseException("deadline needs by date/time!");
-                }
+        case "list":
+            return new ListCommand();
+        case "mark":
+            num = Integer.parseInt(arg.trim());
+            return new MarkCommand(num);
+        case "unmark":
+            num = Integer.parseInt(arg.trim());
+            return new UnmarkCommand(num);
+        case "todo":
+            if (arg == null || arg.equals("")) {
+                throw new CommandParseException("todo must have a desc");
+            }
+            return new TodoCommand(arg);
+        case "event":
+            String from = extractDateString(arg, 1);
+            String to = extractDateString(arg, 2);
 
-                String toSubCommand = arg.split("/")[2];
-                String to = toSubCommand.substring(toSubCommand.indexOf(' '));
-                to = to.strip();
-                if (to == null || to.equals("")) {
-                    throw new CommandParseException("deadline needs by date/time!");
-                }
+            LocalDate fromDate = parseStringToDate(from);
+            LocalDate toDate = parseStringToDate(to);
 
-                LocalDate fromDate;
-                LocalDate toDate;
-                try {
-                    fromDate = LocalDate.parse(from);
-                    toDate = LocalDate.parse(to);
-                } catch (Exception e) {
-                    throw new CommandParseException("Invalid date format provided to event");
-                }
+            text = extractTextArg(arg);
 
-                String text = arg.split("/")[0].strip();
-                return new EventCommand(text, fromDate, toDate);
-            case "deadline":
-                String bySubCommand = arg.split("/")[1];
-                String by = bySubCommand.substring(3);
-                by = by.strip();
+            return new EventCommand(text, fromDate, toDate);
+        case "deadline":
+            String by = extractDateString(arg, 1);
+            LocalDate byDate = parseStringToDate(by);
+            text = extractTextArg(arg);
 
-                LocalDate byDate;
-                try {
-                    byDate = LocalDate.parse(by);
-                } catch (Exception e) {
-                    throw new CommandParseException("Invalid date format provided to deadline");
-                }
-
-                if (by == null || by.equals("")) {
-                    throw new CommandParseException("deadline needs by date/time!");
-                }
-
-                // TODO: switch case scoping best practice?
-                text = arg.split("/")[0].strip();
-                return new DeadlineCommand(text, byDate);
-            case "delete":
-                num = Integer.parseInt(arg.strip());
-                return new DeleteCommand(num);
-            case "bye":
-                return new ExitCommand();
-            case "find":
-                return new FindCommand(arg);
-            default:
-                throw new InvalidCommandException("command \"" + command + "\" is invalid");
+            return new DeadlineCommand(text, byDate);
+        case "delete":
+            num = Integer.parseInt(arg.strip());
+            return new DeleteCommand(num);
+        case "bye":
+            return new ExitCommand();
+        case "find":
+            return new FindCommand(arg);
+        default:
+            throw new InvalidCommandException("command \"" + command + "\" is invalid");
         }
+    }
+
+    private static String extractDateString(String arg, int argPos) {
+        String fromSubCommand = arg.split("/")[argPos];
+        String from = fromSubCommand.substring(fromSubCommand.indexOf(' '));
+        from = from.strip();
+        return from;
+    }
+
+    private static String extractTextArg(String arg) {
+        return arg.split("/")[0].strip();
+    }
+
+    private static LocalDate parseStringToDate(String date) throws CommandParseException {
+        if (date == null || date.equals("")) {
+            throw new CommandParseException("command needs by date/time!");
+        }
+
+        LocalDate parsedDate;
+        try {
+            parsedDate = LocalDate.parse(date);
+        } catch (Exception e) {
+            throw new CommandParseException("Invalid date format provided to command");
+        }
+
+        return parsedDate;
     }
 }
