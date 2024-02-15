@@ -10,7 +10,13 @@ import duke.task.Task;
 public class Unmark implements Action {
     private int index;
     private TaskList tasks;
-
+    /**
+     * Constructs a Unmark action with the specified index and task list.
+     *
+     * @param index The index of the task to be unmarked.
+     * @param tasks The task list containing the tasks.
+     * @throws WrongIndexException If the index is invalid.
+     */
     public Unmark(int index, TaskList tasks) throws WrongIndexException {
         if (!(tasks.validateIndex(index))) {
             throw new WrongIndexException();

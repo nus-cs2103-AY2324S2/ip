@@ -2,12 +2,12 @@ package duke.exception;
 
 
 /**
- * Represents an exception thrown when a description is empty.
+ * Represents an exception thrown when no words were given for find.
  */
 public class NoWordException extends DukeException {
 
     /**
-     * Constructs an EmptyDescriptionException with no specified detail message.
+     * Constructs an NoWordDescriptionException with no specified detail message.
      */
     public NoWordException() {
         super();
@@ -20,6 +20,6 @@ public class NoWordException extends DukeException {
      */
     @Override
     public String getMessage() {
-        return super.getMessage() + "Please provide a word to search for.";
+        return super.getMessage() + "please provide a word to search for.";
     }
 }

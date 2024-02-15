@@ -11,6 +11,14 @@ public class Delete implements Action {
     private Task deletedTask;
     private TaskList tasks;
 
+    /**
+     * Constructs a Delete action with the specified index and task list.
+     *
+     * @param index The index of the task to be deleted.
+     * @param tasks The task list from which the task will be deleted.
+     * @throws WrongIndexException If the index is invalid.
+     */
+
     public Delete(int index, TaskList tasks) throws WrongIndexException {
         if (!tasks.validateIndex(index)) {
             throw new WrongIndexException();

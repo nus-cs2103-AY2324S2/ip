@@ -1,2 +1,4 @@
 T|X|eat
-T|O|drink
+T|X|drink
+E|O|Conference|2024-03-15|2024-03-17
+D|X|eat|2024-03-03

@@ -19,7 +19,7 @@ public class EmptyDescriptionException extends DukeException {
      */
     @Override
     public String getMessage() {
-        return super.getMessage() + "The description cannot be empty.";
+        return super.getMessage() + "the description cannot be empty.";
     }
 }
 

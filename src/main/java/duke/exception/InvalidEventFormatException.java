@@ -2,12 +2,12 @@ package duke.exception;
 
 
 /**
- * Represents an exception thrown when no index is provided for a task operation.
+ * Represents an exception thrown when the format provided for event is wrong.
  */
 public class InvalidEventFormatException extends DukeException {
 
     /**
-     * Constructs a NoIndexException with no specified detail message.
+     * Constructs a InvalidEventFormatException with no specified detail message.
      */
     public InvalidEventFormatException() {
         super();
@@ -20,6 +20,6 @@ public class InvalidEventFormatException extends DukeException {
      */
     @Override
     public String getMessage() {
-        return super.getMessage() + "Your event format is wrong.";
+        return super.getMessage() + "the event format provided is wrong.";
     }
 }

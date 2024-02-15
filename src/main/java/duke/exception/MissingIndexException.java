@@ -1,11 +1,11 @@
 package duke.exception;
 /**
- * Represents an exception thrown when a wrong index is provided for a task operation.
+ * Represents an exception thrown when there is a missing index.
  */
 public class MissingIndexException extends DukeException {
 
     /**
-     * Constructs a NoIndexException with no specified detail message.
+     * Constructs a MissingIndexException with no specified detail message.
      */
     public MissingIndexException() {
         super();
@@ -18,6 +18,6 @@ public class MissingIndexException extends DukeException {
      */
     @Override
     public String getMessage() {
-        return super.getMessage() + " no index were provided.";
+        return super.getMessage() + "no index were provided.";
     }
 }

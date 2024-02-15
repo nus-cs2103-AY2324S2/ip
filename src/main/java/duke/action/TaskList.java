@@ -173,7 +173,11 @@ public class TaskList implements Iterable<Task> {
         return mylist.iterator();
     }
 
-
+    /**
+     * Gets the response message containing the list of tasks.
+     *
+     * @return A string representing the response message.
+     */
     public String response() {
 
         StringBuilder stringBuilder = new StringBuilder();

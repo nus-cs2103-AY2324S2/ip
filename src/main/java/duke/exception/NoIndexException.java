@@ -19,6 +19,6 @@ public class NoIndexException extends DukeException {
      */
     @Override
     public String getMessage() {
-        return super.getMessage() + "Please provide the task index.";
+        return super.getMessage() + "please provide the task index.";
     }
 }

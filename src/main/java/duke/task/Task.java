@@ -55,7 +55,7 @@ public class Task {
      * @return A string representing the task type code.
      */
     public String getType() {
-        return "D";
+        return "A";
     }
 
     /**

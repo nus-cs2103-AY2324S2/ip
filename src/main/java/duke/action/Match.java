@@ -1,8 +1,8 @@
 package duke.action;
 
-import duke.task.Task;
-
 import java.util.ArrayList;
+
+import duke.task.Task;
 /**
  * Represents an action to find and display tasks matching a specific keyword.
  * Implements the Action interface.
@@ -24,7 +24,7 @@ public class Match implements Action {
     /**
      * Executes the action to find and display tasks matching a keyword.
      *
-     * @return An empty string, as the actual matching logic is handled in the TaskList class.
+     * @return A string with all the tasks with that matches keyword
      */
     @Override
     public String response() {

@@ -9,15 +9,15 @@ public class Echo implements Action {
     /**
      * The content of the response message.
      */
-    private final String stuff;
+    private final String word;
 
     /**
      * Constructs an Echo action with the specified content for the response message.
      *
-     * @param stuff The content of the response message.
+     * @param word The content of the response message.
      */
-    public Echo(String stuff) {
-        this.stuff = stuff;
+    public Echo(String word) {
+        this.word = word;
     }
 
     /**
@@ -27,7 +27,7 @@ public class Echo implements Action {
      */
     @Override
     public String response() {
-        return stuff;
+        return word;
     }
 }
 
