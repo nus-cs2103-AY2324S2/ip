@@ -31,6 +31,7 @@ public class Match implements Action {
     public String response() {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : taskList) {
+            assert task != null : "Task in TaskList cannot be null";
             if (task.getDescription().toLowerCase().contains(keyword)) { // Convert description to lowercase
                 matchingTasks.add(task);
             }

@@ -21,6 +21,6 @@ public class WrongIndexException extends DukeException {
      */
     @Override
     public String getMessage() {
-        return super.getMessage() + "The index provided is out of bounds.";
+        return super.getMessage() + "the index provided is out of bounds.";
     }
 }
