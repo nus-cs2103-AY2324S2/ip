@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import seiki.data.TaskList;
 import seiki.data.exception.SeikiException;
-import seiki.data.task.Deadline;
+import seiki.data.task.DeadlineTask;
 import seiki.storage.Storage;
 import seiki.ui.Ui;
 
@@ -38,7 +38,7 @@ public class DeadlineCommand extends Command {
                     this.args.subList(this.args.indexOf("/by") + 1, this.args.size()));
             try {
                 LocalDateTime dateTime = LocalDateTime.parse(dateTimeStr, DATE_TIME_FORMATTER);
-                Deadline task = new Deadline(taskName, dateTime);
+                DeadlineTask task = new DeadlineTask(taskName, dateTime);
                 taskList.addTask(task);
                 storage.save(taskList);
 

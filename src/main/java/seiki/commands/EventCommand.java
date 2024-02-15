@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import seiki.data.TaskList;
 import seiki.data.exception.SeikiException;
-import seiki.data.task.Event;
+import seiki.data.task.EventTask;
 import seiki.storage.Storage;
 import seiki.ui.Ui;
 
@@ -55,7 +55,7 @@ public class EventCommand extends Command {
             try {
                 LocalDateTime startDateTime = LocalDateTime.parse(startDateTimeStr, DATE_TIME_FORMATTER);
                 LocalDateTime endDateTime = LocalDateTime.parse(endDateTimeStr, DATE_TIME_FORMATTER);
-                Event task = new Event(taskName, startDateTime, endDateTime);
+                EventTask task = new EventTask(taskName, startDateTime, endDateTime);
                 taskList.addTask(task);
                 storage.save(taskList);
                 return ui.showAddTask(task, taskList);

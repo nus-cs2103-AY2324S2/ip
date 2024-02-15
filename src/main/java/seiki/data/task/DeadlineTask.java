@@ -4,28 +4,28 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a Deadline.
+ * Represents a DeadlineTask.
  */
-public class Deadline extends Task {
+public class DeadlineTask extends Task {
     protected LocalDateTime dateTime;
 
     /**
-     * Constructor of the Deadline.
+     * Constructor of the DeadlineTask.
      * @param taskName  the title of the task.
      * @param dateTime  the date & time of the task.
      */
-    public Deadline(String taskName, LocalDateTime dateTime) {
+    public DeadlineTask(String taskName, LocalDateTime dateTime) {
         super(taskName);
         this.dateTime = dateTime;
     }
 
     /**
-     * Constructor of the Deadline with status set.
+     * Constructor of the DeadlineTask with status set.
      * @param taskName  the title of the task.
      * @param dateTime  the date & time of the task.
      * @param isDone    the status of the task.
      */
-    public Deadline(String taskName, LocalDateTime dateTime, boolean isDone) {
+    public DeadlineTask(String taskName, LocalDateTime dateTime, boolean isDone) {
         super(taskName, isDone);
         this.dateTime = dateTime;
     }

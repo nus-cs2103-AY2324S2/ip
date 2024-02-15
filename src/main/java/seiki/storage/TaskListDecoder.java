@@ -9,10 +9,10 @@ import java.util.StringTokenizer;
 
 import seiki.data.TaskList;
 import seiki.data.exception.SeikiException;
-import seiki.data.task.Deadline;
-import seiki.data.task.Event;
+import seiki.data.task.DeadlineTask;
+import seiki.data.task.EventTask;
 import seiki.data.task.Task;
-import seiki.data.task.ToDo;
+import seiki.data.task.ToDoTask;
 
 /**
  * Decodes the storage data file into a {@code TaskList} object.
@@ -47,17 +47,17 @@ public class TaskListDecoder {
 
         switch (taskType) {
         case "T":
-            task = new ToDo(taskTitle, isDone);
+            task = new ToDoTask(taskTitle, isDone);
             break;
         case "D":
             LocalDateTime dateTime = LocalDateTime.parse(st.nextToken().trim(), DATE_TIME_FORMATTER);
-            task = new Deadline(taskTitle, dateTime, isDone);
+            task = new DeadlineTask(taskTitle, dateTime, isDone);
             break;
         case "E":
             String[] dateTimeArr = st.nextToken().split("-");
             LocalDateTime startDateTime = LocalDateTime.parse(dateTimeArr[0].trim(), DATE_TIME_FORMATTER);
             LocalDateTime endDateTime = LocalDateTime.parse(dateTimeArr[1].trim(), DATE_TIME_FORMATTER);
-            task = new Event(taskTitle, startDateTime, endDateTime, isDone);
+            task = new EventTask(taskTitle, startDateTime, endDateTime, isDone);
             break;
         default:
             throw new SeikiException("Invalid task type");

@@ -3,12 +3,12 @@ package seiki.data.task;
 /**
  * Represents a todo task.
  */
-public class ToDo extends Task {
-    public ToDo(String taskTitle) {
+public class ToDoTask extends Task {
+    public ToDoTask(String taskTitle) {
         super(taskTitle);
     }
 
-    public ToDo(String taskTitle, boolean isDone) {
+    public ToDoTask(String taskTitle, boolean isDone) {
         super(taskTitle, isDone);
     }
 

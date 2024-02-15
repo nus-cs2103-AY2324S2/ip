@@ -4,32 +4,32 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import seiki.data.task.ToDo;
+import seiki.data.task.ToDoTask;
 
-public class ToDoTest {
+public class ToDoTaskTest {
 
     @Test
     public void toString_unmarkedToDo() {
-        ToDo task = new ToDo("test");
+        ToDoTask task = new ToDoTask("test");
         assertEquals("[T] test", task.toString());
     }
 
     @Test
     public void toString_markedToDo() {
-        ToDo task = new ToDo("test");
+        ToDoTask task = new ToDoTask("test");
         task.markAsDone();
         assertEquals("[T] test ✓", task.toString());
     }
 
     @Test
     public void toFile_unmarkedToDo() {
-        ToDo task = new ToDo("test");
+        ToDoTask task = new ToDoTask("test");
         assertEquals("T | 0 | test", task.toFile());
     }
 
     @Test
     public void toFile_markedToDo() {
-        ToDo task = new ToDo("test");
+        ToDoTask task = new ToDoTask("test");
         task.markAsDone();
         assertEquals("T | 1 | test", task.toFile());
     }

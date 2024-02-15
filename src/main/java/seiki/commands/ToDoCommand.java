@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import seiki.data.TaskList;
 import seiki.data.exception.SeikiException;
-import seiki.data.task.ToDo;
+import seiki.data.task.ToDoTask;
 import seiki.storage.Storage;
 import seiki.ui.Ui;
 
@@ -22,7 +22,7 @@ public class ToDoCommand extends Command {
     @Override
     public String execute(Storage storage, TaskList taskList, Ui ui) throws SeikiException {
         String taskTitle = String.join(" ", this.args);
-        ToDo task = new ToDo(taskTitle);
+        ToDoTask task = new ToDoTask(taskTitle);
         taskList.addTask(task);
         storage.save(taskList);
         return ui.showAddTask(task, taskList);
