@@ -144,6 +144,9 @@ public class Duke {
     public String getUserName() {
         return ui.getName();
     }
+    public String getIntroMessage() {
+        return ui.introMessage();
+    }
 }
 
 

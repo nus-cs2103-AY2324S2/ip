@@ -50,10 +50,10 @@ public class Main extends Application {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
-            ap.getStylesheets().add(getClass().getResource("/view/MainWindow.css").toExternalForm());
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().introMessage();
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
