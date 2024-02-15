@@ -39,7 +39,9 @@ public class Event extends Task {
      */
     private String formatDT(String[] dateAndTime) {
         String formattedString;
-        if (dateAndTime.length >= 2) {
+        boolean isEventWithDateAndTime = dateAndTime.length >= 2;
+        
+        if (isEventWithDateAndTime) {
             LocalDate d1 = LocalDate.parse(dateAndTime[0]);
             int hour = Integer.parseInt(dateAndTime[1].substring(0, 2));
             int minute = Integer.parseInt(dateAndTime[1].substring(2));

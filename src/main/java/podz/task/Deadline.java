@@ -22,8 +22,9 @@ public class Deadline extends Task {
         this.by = by;
 
         String[] dateAndTime = by.split(" ");
+        boolean isDeadlineWithDateAndTime = dateAndTime.length >= 2;
 
-        if (dateAndTime.length >= 2) {
+        if (isDeadlineWithDateAndTime) {
             LocalDate d1 = LocalDate.parse(dateAndTime[0]);
             int hour = Integer.parseInt(dateAndTime[1].substring(0, 2));
             int minute = Integer.parseInt(dateAndTime[1].substring(2));

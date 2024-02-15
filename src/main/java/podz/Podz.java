@@ -2,6 +2,7 @@ package podz;
 
 import podz.commands.ByeCommand;
 import podz.commands.Command;
+import podz.exceptions.PodzException;
 import podz.parser.Parser;
 import podz.storage.Storage;
 import podz.task.TaskList;
@@ -24,22 +25,40 @@ public class Podz {
 
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Generates a response to user input.
+     *
+     * @param input the user input
+     * @return the response generated based on the input
      */
     public String getResponse(String input) {
         try {
-            Command command = this.parser.parseCommand(input);
-            assert command != null : "command should not be null";
-            command.setTasks(this.tasks);
-            String responseStr = command.execute();
-            if (command instanceof ByeCommand) {
-                isExit = true;
-            }
+            Command command = getCommand(input);
+            String responseStr = executeCommand(command);
+            checkIfByeCommand(command);
             return responseStr;
         } catch (Exception e) {
             return e.getMessage();
         }
+    }
+
+
+    private String executeCommand(Command command) throws PodzException {
+        return command.execute();
+    }
+
+
+    private void checkIfByeCommand(Command command) {
+        if (command instanceof ByeCommand) {
+            this.isExit = true;
+        }
+    }
+
+
+    private Command getCommand(String input) {
+        Command command = this.parser.parseCommand(input);
+        assert command != null : "command should not be null";
+        command.setTasks(this.tasks);
+        return command;
     }
 
     public String getGreeting() {

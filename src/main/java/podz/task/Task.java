@@ -6,6 +6,8 @@ package podz.task;
 public class Task {
     protected String description;
     protected boolean isDone;
+    static final String MARKED_STR = "X";
+    static final String UNMARKED_STR = "";
 
     /**
      * Constructs a Task object with the specified description.
@@ -23,7 +25,7 @@ public class Task {
      * @return the status icon of the task
      */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? MARKED_STR : UNMARKED_STR);
     }
 
     /**
