@@ -75,19 +75,18 @@ public class Parser {
     }
 
     private static Command parseEventCommand(String input) throws DukeException {
-        String toSplit = input.substring(6);
-        String[] parts = toSplit.split("/from");
+        String[] descTiming = splitDescTiming(input);
 
-        String taskDesc = parts[0].trim();
-        String[] timeParts = parts[1].split("/to");
+        String taskDesc = descTiming[0].trim();
+        String[] fromTo = descTiming[1].split("/to");
 
         // if format the to/from dates were not keyed in properly, throw exception
-        if (timeParts.length != 2) {
+        if (fromTo.length != 2) {
             throw new DukeException("UH OH! Invalid format for event task!");
         }
 
-        String from = timeParts[0].trim();
-        String to = timeParts[1].trim();
+        String from = fromTo[0].trim();
+        String to = fromTo[1].trim();
 
         // if there was no task description or to/from dates specified, throw exception
         if (taskDesc.isEmpty() || from.isEmpty() || to.isEmpty()) {
@@ -112,6 +111,12 @@ public class Parser {
 
         return new EventCommand("event", taskDesc, fromDate, fromTime, toDate, toTime);
 
+    }
+
+    private static String[] splitDescTiming(String input) {
+        String toSplit = input.substring(6);
+        String[] parts = toSplit.split("/from");
+        return parts;
     }
 
     private static Command parseMarkCommand(String input) throws DukeException {

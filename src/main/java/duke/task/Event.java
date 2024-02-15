@@ -35,12 +35,22 @@ public class Event extends Task {
     @Override
     public String toString() {
         String status = getStatusIcon();
-        return "[E][" + status + "] " + super.toString() + " (from: " + fromDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
-                + " " + fromTime + " to: " + toDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " + toTime + ")";
+
+        String eventStatus = "[E][" + status + "] ";
+        String description = super.toString();
+        String from = " (from: " + fromDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + " " + fromTime;
+        String to = " to: " + toDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " + toTime + ")";
+
+        return eventStatus + description + from + to;
     }
 
     public String toFileString() {
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + fromDate
-                + " " + fromTime + " " + toDate + " " + toTime;
+        String eventStatus = "E | " + (isDone ? "1" : "0");
+        String desc = " | " + description + " | ";
+        String from = fromDate + " " + fromTime + " ";
+        String to = toDate + " " + toTime;
+
+        return eventStatus + desc + from + to;
     }
 }

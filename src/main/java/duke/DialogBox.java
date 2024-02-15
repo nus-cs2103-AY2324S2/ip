@@ -48,15 +48,19 @@ public class DialogBox extends HBox {
         dialog.setText(text);
         displayPicture.setImage(img);
 
+        setBoxAlignment(isUser);
+
+        dialog.setStyle("-fx-background-color: #efe6dc; "
+                + "-fx-background-radius: 10; "
+                + "-fx-padding: 10px; ");
+    }
+
+    private void setBoxAlignment(boolean isUser) {
         if (!isUser) {
             setAlignment(Pos.TOP_LEFT);
             getChildren().setAll(displayPicture, dialog);
             setSpacing(5);
         }
-
-        dialog.setStyle("-fx-background-color: #efe6dc; "
-                + "-fx-background-radius: 10; "
-                + "-fx-padding: 10px; ");
     }
 
     /**
