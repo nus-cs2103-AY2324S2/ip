@@ -131,7 +131,7 @@ public class RanUi {
     }
 
     /**
-     * Prints results of a parsing error.
+     * Displays results of an error in a red dialog box.
      *
      * @param e error from parsing a task
      */
@@ -139,6 +139,11 @@ public class RanUi {
         container.getChildren().add(DialogBox.getErrorDialog(e.getMessage(), ranImage));
     }
 
+    /**
+     * Prints results of a search for a task.
+     *
+     * @param tasks result of the search
+     */
     public void found(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
             addOutputLn("No tasks contain that string.");
@@ -146,13 +151,23 @@ public class RanUi {
             addOutputLn("Found "+tasks.size()+" match"+(tasks.size()==1?"":"es"));
             for (Task t: tasks) {
                 printTask(t);
-            };
+            }
         }
     }
-    public void addOutputLn(String s) {
-        this.sb.append(s);
+
+    /**
+     * Prints one line to a new dialog.
+     *
+     * @param line line to add
+     */
+    public void addOutputLn(String line) {
+        this.sb.append(line);
         this.sb.append("\n");
     }
+
+    /**
+     * Flushes accumulated output into one new DialogBox.
+     */
     public void displayBuiltOutput() {
         if (sb.length() == 0) {
             return;
@@ -165,6 +180,10 @@ public class RanUi {
         this.container = dialogContainer;
     }
 
+    /**
+     * Displays user input in a dialog box.
+     * @param input user input
+     */
     public void displayInput(String input) {
         container.getChildren().add(DialogBox.getUserDialog(input, userImage));
     }

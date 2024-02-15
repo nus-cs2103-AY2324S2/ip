@@ -25,6 +25,10 @@ public class Ran {
         this.parser = new Parser();
     }
 
+    /**
+     * Displays input and response to an input.
+     * @param input input line
+     */
     public void respond(String input) {
         try {
             parser.exec(input, taskList, ui);
@@ -38,9 +42,6 @@ public class Ran {
 
     public void setContainer(VBox dialogContainer) {
         this.ui.setContainer(dialogContainer);
-    }
-    public boolean running() {
-        return this.parser.running();
     }
 }
 
