@@ -130,14 +130,17 @@ public class Ui {
     }
 
     /**
-     * Displays a message indicating successful marking of a task as done.
-     *
-     * @param task the task marked as done
+     * Displays a message indicating that the current tasks will be listed.
      */
     private void list() {
         System.out.println("Here are the tasks in your list:");
     }
 
+    /**
+     * Displays a message indicating successful marking of a task as done.
+     *
+     * @param task the task marked as done
+     */
     public void markSuccess(Task task) {
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(task.toString());
