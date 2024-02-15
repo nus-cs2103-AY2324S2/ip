@@ -28,19 +28,29 @@ public class Parser {
 
         switch (command) {
             case "list":
+                // intentional fallthrough
+            case "ls":
                 return new ListCommand();
             case "mark":
+                // intentional fallthrough
+            case "m":
                 num = Integer.parseInt(arg.trim());
                 return new MarkCommand(num);
             case "unmark":
+                // intentional fallthrough
+            case "u":
                 num = Integer.parseInt(arg.trim());
                 return new UnmarkCommand(num);
             case "todo":
+                // intentional fallthrough
+            case "t":
                 if (arg == null || arg.equals("")) {
                     throw new CommandParseException("todo must have a desc");
                 }
                 return new TodoCommand(arg);
             case "event":
+                // intentional fallthrough
+            case "e":
                 String fromSubCommand = arg.split("/")[1];
                 String from = fromSubCommand.substring(fromSubCommand.indexOf(' '));
                 from = from.strip();
@@ -67,6 +77,8 @@ public class Parser {
                 String text = arg.split("/")[0].strip();
                 return new EventCommand(text, fromDate, toDate);
             case "deadline":
+                // intentional fallthrough
+            case "d":
                 String bySubCommand = arg.split("/")[1];
                 String by = bySubCommand.substring(3);
                 by = by.strip();
