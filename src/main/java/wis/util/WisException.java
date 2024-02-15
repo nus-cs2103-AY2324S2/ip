@@ -2,7 +2,6 @@ package wis.util;
 
 import java.io.IOException;
 
-import javafx.beans.binding.StringBinding;
 import wis.Action;
 
 /**

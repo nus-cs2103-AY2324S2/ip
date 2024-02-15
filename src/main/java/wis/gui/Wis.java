@@ -52,7 +52,7 @@ public class Wis extends Application {
 
         // step 2
         stage.setTitle("Wis");
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.setMinHeight(600.0);
         stage.setMinWidth(800.0);
 
