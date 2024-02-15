@@ -44,6 +44,14 @@ public class Parser {
     private static final DateTimeFormatter DATETIME_FORMATTER
             = DateTimeFormatter.ofPattern(DATETIME_PATTERN);
 
+    /**
+     * Extracts the description and parameters from a given command.
+     *
+     * @param parametersString The given command excluding the first word (the command itself).
+     * @param parameters The parameters to extract.
+     * @return The description and the extracted parameters, respecting the indices of the specified parameters.
+     * @throws ParameterNotFoundException If one of the parameters to extract has not been found.
+     */
     private static String[] extractParameters(String parametersString,
                                              String[] parameters) throws ParameterNotFoundException {
         // TODO: generalise the method to any given parametersString, desiredParameters and separator
@@ -67,6 +75,15 @@ public class Parser {
         return result;
     }
 
+    /**
+     * Makes sense of the given user command that is either a "list", "list on" or "list due in".
+     *
+     * @param commandArgs The given user command split into the command itself and the remaining description.
+     * @return A <code>Command</code> object corresponding to the parsed command.
+     * @throws ParameterNotFoundException If command has description but is missing the "on" and "due_in" parameters.
+     * @throws InvalidDateTimeException If the user has given an invalid date and time.
+     * @throws InvalidDaysException If the user has given an invalid number of days.
+     */
     private static Command parseList(
             String[] commandArgs) throws ParameterNotFoundException, InvalidDateTimeException, InvalidDaysException {
         if (commandArgs.length == 1) {
@@ -101,6 +118,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Makes sense of the given user command that is either a "mark", "unmark" or "delete".
+     *
+     * @param commandArgs The given user command split into the command itself and the remaining description.
+     * @return A <code>Command</code> object corresponding to the parsed command.
+     * @throws InvalidTaskIndexException If the user has given an invalid task index.
+     * @throws EmptyDescriptionException If the given command does not have a description.
+     */
     private static Command parseDeleteOrMark(
             String[] commandArgs) throws InvalidTaskIndexException, EmptyDescriptionException {
         try {
@@ -117,6 +142,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Makes sense of the given user command that is either a "todo", "deadline" or "event".
+     *
+     * @param commandArgs The given user command split into the command itself and the remaining description.
+     * @return A <code>Command</code> object corresponding to the parsed command.
+     * @throws InvalidDateTimeException If the user has given an invalid date and time.
+     * @throws EmptyDescriptionException If the given command does not have a description.
+     * @throws ParameterNotFoundException If the given command does not have the expected parameters.
+     */
     private static Command parseAdd(
             String[] commandArgs) throws InvalidDateTimeException, EmptyDescriptionException, ParameterNotFoundException {
         if (commandArgs.length == 1) {

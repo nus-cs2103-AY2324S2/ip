@@ -31,6 +31,14 @@ public class Storage {
 
     private File dataFile;
 
+    /**
+     * Retrieves the data file to be loaded from hard disk,
+     * creating the required directory and/or the file if necessary.
+     *
+     * @param dataPath The path on which the data file lives.
+     * @return The retrieved data file to be loaded from hard disk.
+     * @throws IOException If there has been an error creating the directory and/or file.
+     */
     private static File createOrRetrieve(String dataPath) throws IOException {
         Path path = Paths.get(dataPath);
         Path parent = path.getParent();
@@ -41,6 +49,13 @@ public class Storage {
         return path.toFile();
     }
 
+    /**
+     * Makes sense of a line in the data file to be converted into a task.
+     *
+     * @param line A line in the data file.
+     * @return The task represented by the given line.
+     * @throws LoadingException If the given line is of incorrect format and does not represent any task.
+     */
     // TODO: Once extractParameter is more generalised, we can move this to Parser
     private static Task parseStorageLine(String line) throws LoadingException {
         String[] parameters = line.split(" \\| ");

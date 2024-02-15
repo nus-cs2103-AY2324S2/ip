@@ -27,6 +27,9 @@ public class Bob {
         }
     }
 
+    /**
+     * Reads and executes the command given by the user until an exit command is encountered.
+     */
     private void runCommandLoopUntilExitCommand() {
         boolean isExit = false;
         while (!isExit) {
