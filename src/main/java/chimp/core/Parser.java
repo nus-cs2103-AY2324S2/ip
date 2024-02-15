@@ -29,19 +29,29 @@ public class Parser {
 
         switch (command) {
         case "list":
+                // intentional fallthrough
+            case "ls":
             return new ListCommand();
         case "mark":
+                // intentional fallthrough
+            case "m":
             num = Integer.parseInt(arg.trim());
             return new MarkCommand(num);
         case "unmark":
+                // intentional fallthrough
+            case "u":
             num = Integer.parseInt(arg.trim());
             return new UnmarkCommand(num);
         case "todo":
+                // intentional fallthrough
+            case "t":
             if (arg == null || arg.equals("")) {
                 throw new CommandParseException("todo must have a desc");
             }
             return new TodoCommand(arg);
         case "event":
+                // intentional fallthrough
+            case "e":
             String from = extractDateString(arg, 1);
             String to = extractDateString(arg, 2);
 
@@ -52,6 +62,8 @@ public class Parser {
 
             return new EventCommand(text, fromDate, toDate);
         case "deadline":
+                // intentional fallthrough
+            case "d":
             String by = extractDateString(arg, 1);
             LocalDate byDate = parseStringToDate(by);
             text = extractTextArg(arg);
