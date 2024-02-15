@@ -9,7 +9,7 @@ import duke.exceptions.WrongFormatException;
  * Parser to read and understand user inputs. Stores the parsed information inside the object.
  */
 public class Parser {
-    private KeyEnum currentKey = KeyEnum.INVALID;
+    private KeyEnum currentKey;
     private String inputDetail;
     private String to;
     private String from;
@@ -111,6 +111,7 @@ public class Parser {
             currentKey = KeyEnum.INVALID;
             break;
         }
+        assert currentKey != null : "currentKey should not be null";
         if (this.currentKey.equals(KeyEnum.INVALID)) {
             // raise InvalidKeyException
             throw new InvalidKeyException();

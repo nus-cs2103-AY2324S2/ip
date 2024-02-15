@@ -91,6 +91,7 @@ public class TaskList {
             throw new EmptyBodyException();
         }
         tasks.add(task);
+        assert tasks.size() > 0 : "Task should be added";
         return task;
     }
 
@@ -108,6 +109,7 @@ public class TaskList {
             throw new OutOfBoundException();
         }
         this.tasks.get(id).setStatus(status);
+        assert this.tasks.get(id).getStatus() == status : "Task should be marked";
         return this.tasks.get(id);
     }
 

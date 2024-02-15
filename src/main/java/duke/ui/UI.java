@@ -69,7 +69,8 @@ public class UI {
      * @param taskList Task list after deletion.
      */
     public String onDelete(Task task, TaskList taskList) {
-        return "Noted. I've removed this task:\n" + task + "\n" + "Now you have " + taskList.getNumOfTasks() + " tasks in the list.";
+        return "Noted. I've removed this task:\n" + task + "\n" + "Now you have "
+            + taskList.getNumOfTasks() + " tasks in the list.";
     }
 
     /**
