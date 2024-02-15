@@ -48,8 +48,8 @@ public class SearchDateCommand extends Command {
      * @throws DukeException
      */
     @Override
-    public void execute(Storage storage, TaskList taskList) throws DukeException {
+    public String execute(Storage storage, TaskList taskList) throws DukeException {
         LocalDate localDate = Task.parseDate(date);
-        taskList.searchDate(localDate);
+        return taskList.searchDate(localDate);
     }
 }

@@ -82,9 +82,9 @@ public class AddTaskCommand extends Command {
      * @throws DukeException
      */
     @Override
-    public void execute(Storage storage, TaskList taskList) throws DukeException {
+    public String execute(Storage storage, TaskList taskList) throws DukeException {
         Task task = createTask();
         storage.addTask(task);
-        taskList.add(task);
+        return taskList.add(task);
     }
 }

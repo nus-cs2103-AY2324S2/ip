@@ -41,7 +41,7 @@ public class FindKeywordCommand extends Command {
      * @throws DukeException if the execution is unsuccessful
      */
     @Override
-    public void execute(Storage storage, TaskList taskList) throws DukeException {
-        taskList.searchKeyword(keyword);
+    public String execute(Storage storage, TaskList taskList) throws DukeException {
+        return taskList.searchKeyword(keyword);
     }
 }

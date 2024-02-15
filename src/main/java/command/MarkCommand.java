@@ -42,15 +42,16 @@ public class MarkCommand extends Command {
      * @throws DukeException
      */
     @Override
-    public void execute(Storage storage, TaskList taskList) throws DukeException {
+    public String execute(Storage storage, TaskList taskList) throws DukeException {
         Task task = taskList.retrieve(num);
         if (task.isDone()) {
-            System.out.println("Already done. No need to mark again.");
+            return "Already done. No need to mark again.\n";
         } else {
             task.mark();
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println("  " + task + '\n');
+            String result = "Nice! I've marked this task as done:\n";
+            result += "  " + task + '\n';
             storage.editLine(num, task);
+            return result;
         }
     }
 }

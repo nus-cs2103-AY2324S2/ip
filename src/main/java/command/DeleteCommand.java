@@ -41,11 +41,12 @@ public class DeleteCommand extends Command {
      * @throws DukeException
      */
     @Override
-    public void execute(Storage storage, TaskList taskList) throws DukeException {
+    public String execute(Storage storage, TaskList taskList) throws DukeException {
         Task task = taskList.remove(num);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + task);
-        taskList.countSize();
+        String result = "Noted. I've removed this task:\n";
+        result += "  " + task + "\n";
+        result += taskList.countSize();
         storage.deleteLine(num);
+        return result;
     }
 }

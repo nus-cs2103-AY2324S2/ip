@@ -26,7 +26,7 @@ public class ListCommand extends Command {
      * @param taskList Active during the execution of the program
      */
     @Override
-    public void execute(Storage storage, TaskList taskList) {
-        taskList.print();
+    public String execute(Storage storage, TaskList taskList) {
+        return taskList.print();
     }
 }

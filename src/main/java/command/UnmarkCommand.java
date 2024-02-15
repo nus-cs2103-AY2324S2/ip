@@ -42,15 +42,16 @@ public class UnmarkCommand extends Command {
      * @throws DukeException
      */
     @Override
-    public void execute(Storage storage, TaskList taskList) throws DukeException {
+    public String execute(Storage storage, TaskList taskList) throws DukeException {
         Task task = taskList.retrieve(num);
         if (!task.isDone()) {
-            System.out.println("Not done in the first place.");
+            return "Not done in the first place.";
         } else {
             task.unmark();
-            System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println("  " + task + '\n');
+            String result = "OK, I've marked this task as not done yet:";
+            result += "  " + task + '\n';
             storage.editLine(num, task);
+            return result;
         }
     }
 }

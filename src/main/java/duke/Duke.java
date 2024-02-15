@@ -1,6 +1,7 @@
 package duke;
 
 import command.Command;
+import javafx.fxml.FXML;
 
 /**
  * Represents the whole program that handles the user interaction, user prompt parsing, task list and file management,
@@ -37,7 +38,12 @@ public class Duke {
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    String getResponse(String input) {
-        return "Duke heard: " + input;
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input);
+            return command.execute(storage, taskList);
+        } catch (DukeException e) {
+            return e.toString();
+        }
     }
 }
