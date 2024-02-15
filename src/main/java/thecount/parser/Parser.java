@@ -49,10 +49,7 @@ public class Parser {
         while (true) {
             switch (getCommandType(userInput)) {
             case BYE:
-                new Goodbye().displayMessage();
-                scanner.close();
-                System.exit(0);
-                break;
+                return handleGoodbye();
             case LIST:
                 return tasks.printList();
             case MARK:
@@ -88,10 +85,18 @@ public class Parser {
         }
     }
 
+    private String handleGoodbye() {
+        new Goodbye().displayMessage();
+        scanner.close();
+        System.exit(0);
+        return "";
+    }
+
     private String handleMarkTask(String userInput, TaskList tasks) {
         assert tasks != null : "TaskList (tasks) must not be null";
         try {
             int taskNumber = Integer.parseInt(userInput.split("\\s+")[1]);
+
             String result = tasks.markTask(taskNumber, true);
             loader.write(tasks);
             return result;
@@ -106,6 +111,7 @@ public class Parser {
         assert tasks != null : "TaskList (tasks) must not be null";
         try {
             int taskNumber = Integer.parseInt(userInput.split("\\s+")[1]);
+
             String result = tasks.unmarkTask(taskNumber, true);
             loader.write(tasks);
             return result;
@@ -129,11 +135,13 @@ public class Parser {
             String[] parts = userInput.split("\\s+", 3);
             int taskNumber = Integer.parseInt(parts[1]);
             String tag = parts.length > 2 ? parts[2].trim() : "";
+
             if (parts.length < 3 || tag.isEmpty()) {
                 throw new TheCountException("Tag cannot be empty. Please provide a tag.");
             }
             String result = tasks.tagTask(taskNumber, tag);
             loader.write(tasks);
+
             return result;
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             return handleException("Please put a number. I can't count that!");
