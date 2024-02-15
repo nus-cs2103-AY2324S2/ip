@@ -52,6 +52,7 @@ public class Storage {
                     taskList.getTasks().add(task); // Add task to the list
                 }
             }
+
             fileScanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("File not found: " + e.getMessage());

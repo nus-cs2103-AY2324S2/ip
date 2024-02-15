@@ -35,7 +35,8 @@ public class MainWindow extends AnchorPane {
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * the dialog container. Sets dialog box to can close only if last message is bye.
+     * Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
@@ -48,9 +49,9 @@ public class MainWindow extends AnchorPane {
             );
 
             if (input.equals("bye")) {
-                setCanClose(true); // Set canClose to true if user input is "bye"
+                setCanClose(true);
             } else {
-                setCanClose(false); // Set canClose to false for any other input
+                setCanClose(false);
             }
 
             userInput.clear();
