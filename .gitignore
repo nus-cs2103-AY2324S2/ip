@@ -18,3 +18,4 @@ text-ui-test/EXPECTED-UNIX.TXT
 
 # Folder containing the data.txt for saving tasks
 src/main/data
+src/test/data
