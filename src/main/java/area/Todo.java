@@ -1,7 +1,8 @@
 package area;
 
 /**
- * Todo class is child of Task class. It is used to create objects that represent generic tasks that users want to keep track of.
+ * Todo class is child of Task class. It is used to create objects that
+ * represent generic tasks that users want to keep track of.
  */
 public class Todo extends Task {
 
@@ -10,7 +11,7 @@ public class Todo extends Task {
      * 
      * @param description
      */
-    public Todo(String description){
+    public Todo(String description) {
         super(description);
     }
 
@@ -20,7 +21,7 @@ public class Todo extends Task {
      * @return String
      */
     @Override
-    public String toString(){
+    public String toString() {
         return "[T]" + super.toString();
     }
 }

@@ -3,85 +3,95 @@ package area;
 import java.util.Scanner;
 
 /**
- * Represents the bot. An Area object corresponds to the chatbot.
+ *
+ * Main class.
  */
 public class Area {
+    public final String Storage = null;
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
     /**
-     * creates a Duke object with the filepath as a parameter
+     * Constructor for Area object
      * 
-     * @param filePath
-     * @throws Exception
+     *
+     *
      */
-    public Area(String filePath) throws Exception {
+    public Area() {
         this.ui = new Ui();
         this.tasks = new TaskList();
-        this.storage = new Storage(filePath,
-                tasks);
+        this.storage = new Storage(tasks);
         this.storage.createFile();
         this.storage.createFolder();
         this.storage.loadTasks();
     }
 
-    public void run() {
-        Scanner sc = new Scanner(System.in);
-        // instruction for the chatbot to follow
-        String instruction = "";
-        ui.greetUser();
-        boolean isChatting = true;
+    /**
+     * Takes in an instruction and execute respective command. If instruction is not valid, function throws an exception.
+     * @param instruction
+     * @return
+     */
+    public String allotTasks(String instruction) {
         Parser parser = new Parser();
-        while (isChatting) {
-            instruction = sc.nextLine();
-            String command = parser.parseCommand(instruction);
-            try {
-                if (command.equals("bye")) {
-                    storage.saveTasks();
-                    // command to end chat with chatbot
-                    ui.endChat();
-                    isChatting = false;
-                    break;
-                } else if (command.equals("list")) {
-                    ui.showList(tasks.getTaskList());
-                } else if (command.equals("todo")) {
-                    tasks.addTask(instruction);
-                    storage.addInstruction(instruction);
-                } else if (command.equals("deadline")) {
-                    tasks.addTask(instruction);
-                    storage.addInstruction(instruction);
-                } else if (command.equals("event")) {
-                    tasks.addTask(instruction);
-                    storage.addInstruction(instruction);
-                } else if (command.equals("mark")) {
-                    tasks.modifyTask(instruction);
-                    storage.addInstruction(instruction);
-                } else if (command.equals("unmark")) {
-                    tasks.modifyTask(instruction);
-                    storage.addInstruction(instruction);
-                } else if (command.equals("delete")) {
-                    tasks.modifyTask(instruction);
-                }else if (command.equals("find")){
-                    String keyword = parser.parseKeyword(instruction);
-                    tasks.findTask(keyword);
-                }
-            } catch (Exception e) {
-                System.out.println(e.toString() + "\n");
+        String command = parser.parseCommand(instruction);
+        String result = "";
+        try {
+            if (command.equals("bye")) {
+                // command to end chat with chatbot
+                result = ui.endChat();
+            } else if (command.equals("list")) {
+                storage.saveTask(instruction);
+                result = ui.showList(tasks.getTaskList());
+            } else if (command.equals("todo")) {
+                storage.saveTask(instruction);
+                result = tasks.addTask(instruction);
+                storage.addInstruction(instruction);
+            } else if (command.equals("deadline")) {
+                storage.saveTask(instruction);
+                result = tasks.addTask(instruction);
+                storage.addInstruction(instruction);
+            } else if (command.equals("event")) {
+                storage.saveTask(instruction);
+                result = tasks.addTask(instruction);
+                storage.addInstruction(instruction);
+            } else if (command.equals("mark")) {
+                storage.saveTask(instruction);
+                result = tasks.modifyTask(instruction);
+                storage.addInstruction(instruction);
+            } else if (command.equals("unmark")) {
+                storage.saveTask(instruction);
+                result = tasks.modifyTask(instruction);
+                storage.addInstruction(instruction);
+            } else if (command.equals("delete")) {
+                storage.saveTask(instruction);
+                result = tasks.modifyTask(instruction);
+            } else if (command.equals("find")) {
+                storage.saveTask(instruction);
+                String keyword = parser.parseKeyword(instruction);
+                result = tasks.findTask(keyword);
             }
+        } catch (Exception e) {
+            System.out.println(e.toString() + "\n");
         }
-        sc.close();
-
+        return result;
     }
 
     /**
-     * main to start chatbot program
-     * 
-     * @param args
-     * @throws Exception
+     * returns the greeting message as well as the list of tasks if any.
+     * @return String of greeting
      */
-    public static void main(String[] args) throws Exception {
-        new Area("./data/duke.txt").run();
+    public String greetUser() {
+        return ui.greetUser() + ui.showList(tasks.getTaskList());
+    }
+
+    /**
+     * takes in an input which is an instruction that when run through function allotTasks will return the respective output.
+     * @param input
+     * @return the respective output based on input
+     */
+    String getResponse(String input) {
+        return allotTasks(input);
     }
 
 }

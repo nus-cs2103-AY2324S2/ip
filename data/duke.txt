@@ -10,3 +10,9 @@ mark 2
 deadline return book /by 2019-06-06
 mark 1
 mark 4
+unmark 1
+list
+delete 3
+list
+delete 3
+list
