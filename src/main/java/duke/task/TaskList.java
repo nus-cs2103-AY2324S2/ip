@@ -1,6 +1,9 @@
 package duke.task;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import duke.core.ChatbotException;
 import duke.storage.Storage;
@@ -77,6 +80,37 @@ public class TaskList {
     public String listTask() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasksCount; i++) {
+            sb.append(i + 1).append(". ").append(tasks.get(i).getDescription()).append("\n");
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Sorts tasks stored in the tasklist by keeping Todo tasks at the front
+     * and sorting Event and Deadline tasks by date thereafter.
+     */
+    public String sortTask() {
+        Collections.sort(tasks, new Comparator<Task>() {
+            @Override
+            public int compare(Task t1, Task t2) {
+                if (t1 instanceof ToDo && t2 instanceof ToDo) {
+                    return 0; // Both are Todo, keep order
+                } else if (t1 instanceof ToDo) {
+                    return -1; // Keep t1 (Todo) before t2
+                } else if (t2 instanceof ToDo) {
+                    return 1; // Keep t2 (Todo) before t1
+                } else {
+                    // Both tasks are Event or Deadline, compare by LocalDateTime
+                    LocalDateTime t1Date = t1.getStart();
+                    LocalDateTime t2Date = t2.getStart();
+                    return t1Date.compareTo(t2Date);
+                }
+            }
+        });
+
+        // Building the sorted tasks list as a String
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
             sb.append(i + 1).append(". ").append(tasks.get(i).getDescription()).append("\n");
         }
         return sb.toString();

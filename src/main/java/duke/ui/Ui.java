@@ -30,7 +30,7 @@ public class Ui {
      * @param tasklist Tasklist with user-specified tasks
      */
     public static String listTasks(TaskList tasklist) {
-        String tasksListed = tasklist.listTask(); // Assumes this method exists and returns a formatted String
+        String tasksListed = tasklist.listTask();
         return String.format("Here are the tasks in your list: \n%s", tasksListed);
     }
 
@@ -67,7 +67,7 @@ public class Ui {
     }
 
     /**
-     * For deleting a task from the tasklist.
+     * For deleting a task from the tasklist
      * @param tasklist Tasklist with user-specified tasks
      * @param input user input
      */
@@ -80,13 +80,22 @@ public class Ui {
     }
 
     /**
-     * For finding task(s) with a given keyword from the tasklist.
+     * For finding task(s) with a given keyword from the tasklist
      * @param tasklist Tasklist with user-specified tasks
      * @param keyword
      */
     public static String find(TaskList tasklist, String keyword) {
         String foundTasks = tasklist.findTasks(keyword); // Assumes this method exists and returns a formatted String
         return String.format("Here are the matching tasks in your list:\n%s", foundTasks);
+    }
+
+    /**
+     * For sorting task(s) by date in a chronological order
+     * @param tasklist Tasklist with user-specified tasks
+     */
+    public static String sort(TaskList tasklist) {
+        String tasksSorted = tasklist.sortTask();
+        return String.format("Here are the tasks in your list: \n%s", tasksSorted);
     }
 }
 

@@ -44,6 +44,8 @@ public class Chatbot {
         } else if (input.contains("find")) {
             String[] parts = input.split("\\s+", 2);
             responseBuilder.append(Ui.find(tasklist, parts[1]));
+        } else if (input.contains("sort")) {
+            responseBuilder.append(Ui.sort(tasklist));
         } else {
             responseBuilder.append(Ui.addTask(tasklist, input));
         }

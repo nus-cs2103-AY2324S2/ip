@@ -30,7 +30,8 @@ public class Event extends Task {
         return "[E]" + super.getDescription() + " (from: " + strFrom + " to: " + strTo + ")";
     }
 
-    public LocalDateTime getFrom() {
+    @Override
+    public LocalDateTime getStart() {
         return from;
     }
 

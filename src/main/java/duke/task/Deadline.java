@@ -25,7 +25,8 @@ public class Deadline extends Task {
         return "[D]" + super.getDescription() + "(by: " + strBy + ")";
     }
 
-    public LocalDateTime getBy() {
+    @Override
+    public LocalDateTime getStart() {
         return by;
     }
 }
