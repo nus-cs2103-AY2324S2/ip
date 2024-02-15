@@ -51,6 +51,7 @@ public class Duke {
         String reply = "";
         try {
             arr = userInput.split(" ", 2); // String in Array format. Useful: https://www.geeksforgeeks.org/split-string-java-examples/
+            assert((arr.length) > 1);
             maybeCommand = arr[0];
         } catch (Exception e) {
             maybeCommand = null;
@@ -61,7 +62,6 @@ public class Duke {
 
         switch (command) {
         case Find:
-
             //add tasks with that keyword to a new arrayList, print items in that array list.
             if (isVerbose) {
                 TaskList matchingTasks = new TaskList();
@@ -270,6 +270,7 @@ public class Duke {
             e.getMessage();
             taskList = null;
         }
+
         while (true) {
             //Parsing user input.
             String command = new Parser().parse();
@@ -303,7 +304,7 @@ public class Duke {
         while (true) {
             //Parsing user input.
            String command = new Parser().parse();
-
+           assert(command != null);
             //Process user command
             try {
                 processCommand(command, taskList, true);
