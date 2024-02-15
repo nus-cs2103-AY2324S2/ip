@@ -1,8 +1,8 @@
 package parser;
 
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 import command.AddCommand;
 import command.Command;
@@ -66,11 +66,15 @@ public class Parser {
             case FIND:
                 c = parseFind(commandParts);
                 break;
+            case EDIT:
+                EditParser ep = parseEdit(commandParts);
+                c = ep.parseEdit();
+                break;
             default:
                 throw new BuddyException("Not a valid command!");
             }
         }
-        assert c != null; // variable c must be a valid Command object
+        assert c != null : "must have value"; // variable c must be a valid Command object
         return c;
     }
 
@@ -124,7 +128,7 @@ public class Parser {
             LocalDateTime by = LocalDateTime.parse(requestBody[1].trim(), DATE_TIME_PARSE_FORMAT);
             Deadline deadline = new Deadline(requestBody[0], by);
             return new AddCommand(deadline);
-        } catch (DateTimeParseException dtpe) {
+        } catch (DateTimeException dte) {
             throw new BuddyException("Not a valid date format!");
         }
     }
@@ -149,7 +153,7 @@ public class Parser {
             LocalDateTime to = LocalDateTime.parse(requestTime[1].trim(), DATE_TIME_PARSE_FORMAT);
             Event event = new Event(requestBody[0].trim(), from, to);
             return new AddCommand(event);
-        } catch (DateTimeParseException dtpe) {
+        } catch (DateTimeException dte) {
             throw new BuddyException("Not a valid date format!");
         }
     }
@@ -182,6 +186,27 @@ public class Parser {
 
             int index = Integer.parseInt(query[1].trim()) - 1;
             return new MarkCommand(index);
+        } catch (NumberFormatException nfe) {
+            throw new BuddyException("Not a valid task number buddy!");
+        }
+    }
+
+    private static EditParser parseEdit(String[] query) throws BuddyException {
+        try {
+            if (query.length == 1) {
+                throw new BuddyException("Incomplete command!");
+            }
+
+            String[] queryParts = query[1].split(" ", 2);
+            if (queryParts.length == 1) {
+                throw new BuddyException("Please include information to edit using /task, /by, /from or /to!");
+            }
+
+            String indexString = queryParts[0];
+            String queryFlags = queryParts[1];
+
+            int index = Integer.parseInt(indexString.trim()) - 1;
+            return new EditParser(index, queryFlags);
         } catch (NumberFormatException nfe) {
             throw new BuddyException("Not a valid task number buddy!");
         }

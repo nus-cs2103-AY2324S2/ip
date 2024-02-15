@@ -49,7 +49,7 @@ public class DeleteCommandTest {
     @Test
     public void execute_invalidIndex_exceptionThrown() {
         try {
-            DeleteCommand del = new DeleteCommand(-1);
+            DeleteCommand del = new DeleteCommand(99);
             del.execute(tasks, storage);
             assertEquals(tasks.size(), 2);
             fail();

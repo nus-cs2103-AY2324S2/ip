@@ -22,6 +22,14 @@ public class Event extends Task {
         this.to = to;
     }
 
+    public void setTo(LocalDateTime to) {
+        this.to = to;
+    }
+
+    public void setFrom(LocalDateTime from) {
+        this.from = from;
+    }
+
     @Override
     public String toWritableString() {
         return "E | " + super.toWritableString() + " | "
