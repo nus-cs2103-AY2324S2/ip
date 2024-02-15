@@ -39,7 +39,7 @@ application {
 }
 
 shadowJar {
-    archiveFileName = 'duke.jar'
+    archiveFileName = 'jojo.jar'
 }
 
 run{
