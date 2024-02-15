@@ -31,6 +31,7 @@ public class SaveFile {
                 System.out.println(e);
             }
         }
+        assert this.saveFile.exists() : "saveFile should exist";
     }
 
     /**
