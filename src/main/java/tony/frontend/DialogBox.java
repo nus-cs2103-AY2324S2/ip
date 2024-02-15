@@ -1,7 +1,6 @@
 package tony.frontend;
 
 import java.io.IOException;
-import java.util.Collections;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,12 +13,19 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+/**
+ * DialogBox Utility for Gui
+ */
 public class DialogBox extends HBox {
     @FXML
     private Label dialog;
     @FXML
     private ImageView displayPicture;
-
+    /**
+     * Constructor for DialogBox
+     * @param l String of the dialog.
+     * @param iv Image for the DialogBox.
+     */
     public DialogBox(String l, Image iv) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(
@@ -35,11 +41,17 @@ public class DialogBox extends HBox {
         displayPicture.setImage(iv);
     }
 
+    /**
+     * Creates Dialog Box for User
+     */
     public static DialogBox getUserDialog(String l, Image iv) {
         return new DialogBox(l, iv);
     }
 
-    public static DialogBox getDukeDialog(String l, Image iv) {
+    /**
+     * Creates Dialog Box for Tony
+     */
+    public static DialogBox getTonyDialog(String l, Image iv) {
         var db = new DialogBox(l, iv);
         db.flip();
         return db;
