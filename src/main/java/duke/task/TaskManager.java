@@ -299,8 +299,7 @@ public class TaskManager {
     public String[] viewByDate(String date) throws DukeException {
         LocalDate inputDate = DateHandler.checkDate(date).orElseThrow(() -> new DukeException("dateError"));
         System.out.println(inputDate);
-        List<String> foundDates = items.stream().filter(this::isValidDateTask)
-                                       .filter(item -> isMatchDate(item.getType(), item, inputDate))
+        List<String> foundDates = items.stream().filter(item -> isMatchDate(item.getType(), item, inputDate))
                                        .map(item -> items.indexOf(item) + 1 + ". " + item).collect(Collectors.toList());
 
         if (!foundDates.isEmpty()) {
@@ -308,14 +307,9 @@ public class TaskManager {
             return foundDates.toArray(String[]::new);
 
         } else {
-            System.out.println("Found nothing");
             return new String[]{RESPONSE_EMPTY_SEARCH};
 
         }
-    }
-
-    private boolean isValidDateTask(Task item) {
-        return item.getType().equals(SaveType.EVENT) || item.getType().equals(SaveType.DEADLINE);
     }
 
     private boolean isMatchDate(SaveType type, Task first, LocalDate second) {
@@ -328,7 +322,6 @@ public class TaskManager {
             Event test = (Event) first;
             Optional<LocalDateTime> compareDate = test.getDateTime();
             return compareDate.map(localDateTime -> localDateTime.toLocalDate().equals(second)).orElse(false);
-
 
         } else {
             return false;
