@@ -51,7 +51,7 @@ public class Deadline extends Task {
                 LocalDateTime dateTime = LocalDateTime.parse(by, INPUT_DATETIME_FORMATTER);
                 return dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
             } catch (Exception ex) {
-                return by; // If parsing fails, return the original string
+                return by;
             }
         }
     }

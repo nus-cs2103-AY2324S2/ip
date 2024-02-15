@@ -35,7 +35,6 @@ public class Parser {
      */
     public static Task convertTask(String line) {
         String taskType = line.substring(TASK_TYPE_INDEX, TASK_TYPE_INDEX + 1);
-        boolean isDone = line.substring(IS_DONE_INDEX, IS_DONE_INDEX + 1).equals("X");
         String description = line.substring(DESCRIPTION_INDEX);
 
         switch (taskType) {

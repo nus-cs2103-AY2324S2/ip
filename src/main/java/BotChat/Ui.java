@@ -6,15 +6,6 @@ package BotChat;
 public class Ui {
 
     /**
-     * Displays the welcome message when the botChat application starts.
-     */
-    public void showWelcomeMessage() {
-        System.out.println("____________________________________________________________\n"
-                + " Hello! I'm botChat\n What can I do for you?\n"
-                + "____________________________________________________________\n");
-    }
-
-    /**
      * Displays the goodbye message when the user exits the botChat application.
      */
     public void showGoodbyeMessage() {

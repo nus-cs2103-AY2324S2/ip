@@ -19,7 +19,6 @@ public class Storage {
      * @param filePath The file path where the task data is stored. Must not be null or empty.
      */
     public Storage(String filePath) {
-        // Assert that filePath is not null or empty
         assert filePath != null && !filePath.isEmpty() : "File path should not be null or empty";
         this.filePath = filePath;
     }
@@ -34,7 +33,6 @@ public class Storage {
         TaskList tasks = new TaskList();
         try {
             File file = new File(filePath);
-            // Assert that file exists
             assert file.exists() : "File does not exist";
 
             Scanner scanner = new Scanner(file);
@@ -58,7 +56,6 @@ public class Storage {
      * @param tasks The list of tasks to be saved to the hard disk. Must not be null.
      */
     public static void saveTaskToHardDisk(ArrayList<Task> tasks) {
-        // Assert that tasks is not null
         assert tasks != null : "Task list should not be null";
 
         try {

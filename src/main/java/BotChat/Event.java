@@ -51,7 +51,7 @@ public class Event extends Task {
                 LocalDateTime parsedDateTime = LocalDateTime.parse(date, INPUT_DATETIME_FORMATTER);
                 return parsedDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
             } catch (Exception ex) {
-                return date; // Return the original date if parsing fails
+                return date;
             }
         }
     }
