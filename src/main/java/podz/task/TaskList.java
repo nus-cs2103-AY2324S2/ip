@@ -1,5 +1,6 @@
 package podz.task;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import podz.storage.Storage;
 
@@ -98,13 +99,9 @@ public class TaskList {
      * @return the String representation of the filtered tasks
      */
     public String findTasks(String keyword) {
-        ArrayList<Task> filteredTasks = new ArrayList<>();
-
-        for (Task t : this.tasks) {
-            if (t.isRelevantTask(keyword)) {
-                filteredTasks.add(t);
-            }
-        }
+        ArrayList<Task> filteredTasks = this.tasks.stream()
+                .filter(t -> t.isRelevantTask(keyword))
+                .collect(Collectors.toCollection(ArrayList::new));
 
         return toString(filteredTasks);
     }
