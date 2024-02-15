@@ -30,6 +30,11 @@ import duke.task.ToDo;
  */
 
 public class CommandParser {
+    private static final int KEYWORD_START_INDEX = 5;
+    private static final int TODO_START_INDEX = 5;
+    private static final int DEADLINE_START_INDEX = 9;
+    private static final int EVENT_START_INDEX = 6;
+    private static final int MAX_SPLIT = 2;
 
     /**
      * Parses user commands and performs corresponding actions in the Duke application.
@@ -44,7 +49,7 @@ public class CommandParser {
             switch (commandWord) {
             case "find":
                 if (words.length > 1) {
-                    String keyword = command.substring(5).trim();
+                    String keyword = command.substring(KEYWORD_START_INDEX).trim();
                     taskList.matches(keyword);
                     return new Match(keyword, taskList);
                 } else {
@@ -78,7 +83,7 @@ public class CommandParser {
                 }
             case "todo":
                 if (words.length > 1) {
-                    String description = command.substring(5).trim();
+                    String description = command.substring(TODO_START_INDEX).trim();
                     if (description.isEmpty()) {
                         throw new EmptyDescriptionException();
                     }
@@ -100,8 +105,8 @@ public class CommandParser {
             case "deadline":
                 if (words.length > 1) {
                     try {
-                        String[] parts = command.split("/by", 2);
-                        String description = parts[0].substring(9).trim();
+                        String[] parts = command.split("/by", MAX_SPLIT);
+                        String description = parts[0].substring(DEADLINE_START_INDEX).trim();
                         if (description.isEmpty()) {
                             throw new EmptyDescriptionException();
                         }
@@ -119,12 +124,12 @@ public class CommandParser {
             case "event":
                 if (words.length > 1 && command.contains("/from") && command.contains("/to")) {
                     try {
-                        String[] parts = command.split("/from", 2);
-                        String description = parts[0].substring(6).trim();
+                        String[] parts = command.split("/from", MAX_SPLIT);
+                        String description = parts[0].substring(EVENT_START_INDEX).trim();
                         if (description.isEmpty()) {
                             throw new EmptyDescriptionException();
                         }
-                        String[] eventDetails = parts[1].split("/to", 2);
+                        String[] eventDetails = parts[1].split("/to", MAX_SPLIT);
                         LocalDate from = LocalDate.parse(eventDetails[0].trim());
                         LocalDate to = LocalDate.parse(eventDetails[1].trim());
                         if (to.isBefore(from)) {
