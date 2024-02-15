@@ -9,10 +9,10 @@ public class ToDo extends Task {
      * Constructs a ToDo task with a description and status.
      *
      * @param description The description of the to-do task.
-     * @param status The completion status of the to-do task.
+     * @param isCompleted The completion status of the to-do task.
      */
-    public ToDo(String description, boolean status) {
-        super(description, status, Type.TODO);
+    public ToDo(String description, boolean isCompleted) {
+        super(description, isCompleted, Type.TODO);
     }
 
     /**

@@ -16,9 +16,9 @@ public class Task {
      * @param status The status of the task, where true indicates completed and false indicates not completed.
      * @param type The type of the task, which can be TODO, DEADLINE, or EVENT.
      */
-    public Task(String description, boolean status, Type type) {
+    public Task(String description, boolean isCompleted, Type type) {
         this.description = description;
-        this.isCompleted = status;
+        this.isCompleted = isCompleted;
         this.type = type;
     }
 
