@@ -32,6 +32,8 @@ public class Storage {
     }
 
     private Task readTask(String taskEntry) {
+        assert !taskEntry.equals("") : "Task entry in tasks file should not be empty";
+
         String[] fields = taskEntry.split(" \\| ", 5);
 
         Task task = null;
@@ -52,6 +54,9 @@ public class Storage {
             task = new Event(fields[2], fromDateTime, toDateTime);
             break;
         }
+
+        assert task != null : "Task should never be null";
+
         if (fields[1].equals("1")) {
             task.changeMark("MARK");
         }
