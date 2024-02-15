@@ -6,10 +6,9 @@ import lite.task.Todo;
 import lite.task.Task;
 import lite.task.TaskList;
 
+import lite.util.Parser;
 import lite.util.Printer;
 import lite.util.LiteException;
-
-import java.lang.reflect.Array;
 
 public class Ui {
     private String input;
@@ -24,33 +23,10 @@ public class Ui {
      * @return True if it is a bye (terminating condition)
      */
     public String executeCommand(TaskList tasks) {
-        if (this.input.equals("list")) {
-            return tasks.outputTasks();
-        }
-        String output;
-        String instruction[] = this.input.split(" ", 2); // It only splits the first " "
-        if (instruction[0].equals("mark")) {
-            output = this.markTask(instruction, tasks);
-        } else if (instruction[0].equals("unmark")){
-            output = this.unmarkTask(instruction, tasks);
-        } else if (instruction[0].equals("delete")) {
-            output = this.deleteTask(instruction, tasks);
-        } else if (instruction[0].equals("todo")) {
-            output = this.addToDoTask(instruction, tasks);
-        } else if (instruction[0].equals("deadline")) {
-            output = this.addDeadlineTask(instruction, tasks);
-        } else if (instruction[0].equals("event")) {
-            output = this.addEventTask(instruction, tasks);
-        } else if (instruction[0].equals("find"))  {
-            output = this.findTask(instruction, tasks);
-        } else {
-            return LiteException.invalidInput();
-        }
-        Storage.save(tasks);
-        return output;
+        return Parser.parse(this.input, tasks, this);
     }
 
-    private String findTask(String instruction[], TaskList tasks) {
+    public String findTask(String instruction[], TaskList tasks) {
         String description = instruction[1];
         TaskList availableTasks = new TaskList();
         boolean isContains = false;
@@ -74,7 +50,7 @@ public class Ui {
      * @param instruction Parsed input
      * @param tasks List of tasks
      */
-    private String deleteTask(String instruction[], TaskList tasks) {
+    public String deleteTask(String instruction[], TaskList tasks) {
         try {
             int index = Integer.parseInt(instruction[1]) - 1;
             String output = Printer.printRemoveTask(tasks, index);
@@ -92,7 +68,7 @@ public class Ui {
      * @param instruction Parsed input
      * @param tasks List of tasks
      */
-    private String addToDoTask(String instruction[], TaskList tasks) {
+    public String addToDoTask(String instruction[], TaskList tasks) {
         try {
             String description = instruction[1];
             Task todo = new Todo(description);
@@ -110,7 +86,7 @@ public class Ui {
      * @param instruction Parsed input
      * @param tasks List of tasks
      */
-    private String addDeadlineTask(String instruction[], TaskList tasks) {
+    public String addDeadlineTask(String instruction[], TaskList tasks) {
         try {
             String splits[] = instruction[1].split("/");
             String description = splits[0];
@@ -130,7 +106,7 @@ public class Ui {
      * @param instruction Parsed input
      * @param tasks List of tasks
      */
-    private String addEventTask(String[] instruction, TaskList tasks) {
+    public String addEventTask(String[] instruction, TaskList tasks) {
         try {
             String splits[] = instruction[1].split("/");
             String description = splits[0];
@@ -151,7 +127,7 @@ public class Ui {
      * @param instruction Parsed input
      * @param tasks List of tasks
      */
-    private String unmarkTask(String instruction[], TaskList tasks) {
+    public String unmarkTask(String instruction[], TaskList tasks) {
         try {
             int index = Integer.parseInt(instruction[1]) - 1;
             return Printer.printUnmark(tasks.get(index));
@@ -165,7 +141,7 @@ public class Ui {
      * @param instruction Parsed input
      * @param tasks List of tasks
      */
-    private String markTask(String instruction[], TaskList tasks) {
+    public String markTask(String instruction[], TaskList tasks) {
         try {
             int index = Integer.parseInt(instruction[1]) - 1;
             return Printer.printMark(tasks.get(index));
