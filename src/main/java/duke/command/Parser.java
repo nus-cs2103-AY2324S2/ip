@@ -122,12 +122,14 @@ public class Parser {
     private static Command parseMarkCommand(String input) throws DukeException {
         String taskNum = input.substring(5);
         int taskNumber = Integer.parseInt(taskNum);
+        assert taskNumber > 0: "Task number has to be greater than 0";
         return new MarkCommand("mark", taskNumber);
     }
 
     private static Command parseDeleteCommand(String input) throws DukeException {
         String taskNum = input.substring(7);
         int taskNumber = Integer.parseInt(taskNum);
+        assert taskNumber > 0: "Task number has to be greater than 0";
         return new DeleteCommand("delete", taskNumber);
     }
 
