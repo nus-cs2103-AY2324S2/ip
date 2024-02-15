@@ -34,8 +34,8 @@ public class Event extends Task {
      *
      * @return The string representation of the event task for saving to a file.
      */
-    public String taskFileTemplate() {
-        return String.format(EVENT_FILE_TEMPLATE, super.taskFileTemplate(), startTime, endTime);
+    public String toTaskFileTemplate() {
+        return String.format(EVENT_FILE_TEMPLATE, super.toTaskFileTemplate(), startTime, endTime);
     }
 
     /**

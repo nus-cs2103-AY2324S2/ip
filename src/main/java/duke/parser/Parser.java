@@ -50,29 +50,14 @@ public class Parser {
         this.command = c;
     }
 
-    /**
-     * Returns the parsed command.
-     *
-     * @return The parsed command.
-     */
     public Command getCommand() {
         return this.command;
     }
 
-    /**
-     * Returns the parsed argument.
-     *
-     * @return The parsed argument.
-     */
     public String getArgument() {
         return this.argument;
     }
 
-    /**
-     * Returns the unknown command if the input is invalid.
-     *
-     * @return The unknown command.
-     */
     public String getUnknownCommand() {
         return this.unknownCommand;
     }

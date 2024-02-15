@@ -3,7 +3,7 @@ package duke.tasks;
 /**
  * The Task class represents a generic task in the Duke chatbot application.
  */
-public class Task {
+public abstract class Task {
 
     private static final String TASK_MESSAGE = "[%s] %s";
     private static final String TASK_FILE_TEMPLATE = "%s | %s";
@@ -47,7 +47,7 @@ public class Task {
      *
      * @return The string representation of the task for saving to a file.
      */
-    public String taskFileTemplate() {
+    public String toTaskFileTemplate() {
         return String.format(TASK_FILE_TEMPLATE, getStatusIcon(), description);
     }
 
