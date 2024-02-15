@@ -22,18 +22,15 @@ public class ListTask extends Command {
      */
     @Override
     public String execute() {
-        if (TaskManager.getTasks().size() == 0) {
-            return ("There are no tasks here. Please add a task!");
-        } else {
-            StringBuilder response = new StringBuilder();
-            response.append("Here are the tasks in your list:\n");
-            for (int i = 0; i < TaskManager.getTasks().size(); i++) {
-                response.append((i + 1))
-                        .append(". ")
-                        .append(TaskManager.getTasks().get(i))
-                        .append("\n");
-            }
-            return response.toString();
+        assert TaskManager.getTasks().size() > 0 : "There are no tasks here. Please add a task!";
+        StringBuilder response = new StringBuilder();
+        response.append("Here are the tasks in your list:\n");
+        for (int i = 0; i < TaskManager.getTasks().size(); i++) {
+            response.append((i + 1))
+            .append(". ")
+            .append(TaskManager.getTasks().get(i))
+            .append("\n");
         }
+        return response.toString();
     }
 }

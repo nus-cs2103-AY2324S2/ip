@@ -86,6 +86,7 @@ public class TaskFileManager {
      * @return Returns the Task that is loaded from the given instruction and info.
      */
     public static Task loadTask(String instruction, String parameter) {
+        assert instruction != null && instruction.length() > 0 : "File may be corrupted: Task type is not found!";
         Task t = null;
         switch (instruction) {
             case "T":

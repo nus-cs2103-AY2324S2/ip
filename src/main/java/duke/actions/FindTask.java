@@ -31,6 +31,7 @@ public class FindTask extends Command {
      */
     @Override
     public String execute() {
+        assert TaskManager.getTasks().size() > 0 : "There are no tasks in the tasklist to find!";
         ArrayList<Task> tasksFound = new ArrayList<>();
         for (Task t : TaskManager.getTasks()) {
             if (t.containsWord(key)) {

@@ -37,6 +37,7 @@ public class UnMarkTask extends Command {
      */
     public String execute() throws IndexOutOfBoundsException, IOException {
         try {
+            assert TaskManager.getTasks().size() > 0 : "There are no tasks in the tasklist to unmark!";
             Task taskToUnmark = TaskManager.getTasks().get(index); // may throw IndexOutOfBoundsException
             taskToUnmark.setNotCompleted();
             TaskFileManager.saveTasksToFile(TaskManager.getTasks()); // may throw IOException

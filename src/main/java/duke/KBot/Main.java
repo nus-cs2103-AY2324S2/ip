@@ -1,11 +1,5 @@
 package duke.kbot;
 
-import duke.actions.Command;
-import duke.exceptions.InvalidCommandException;
-import duke.exceptions.InvalidInputException;
-
-import java.io.IOException;
-
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -24,13 +18,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
- * Encapsulate a chatbot names kaipybara that takes in input from the user and
- * perform tasks such as creating a todo list.
- *
+ * Main class where we enter the program.
+ * 
  * @author: CHEN WENLONG
  * @version: CS2103T AY23/24 Semester 2
  */
-public class KBot extends Application {
+public class Main extends Application {
     /** Image used to represent user. */
     private Image user = new Image(this.getClass().getResourceAsStream("/images/aaron.jpg"));
 
@@ -123,10 +116,8 @@ public class KBot extends Application {
         }
         Label userText = new Label(userInput.getText());
         Label dukeText = new Label(getResponse(userInput.getText()));
-
         userText.setFont(Font.font("Verdana", FontWeight.NORMAL, 8)); // Set font type and size
         dukeText.setFont(Font.font("Verdana", FontWeight.NORMAL, 8)); // Set font type and size
-        
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
                 DialogBox.getDukeDialog(dukeText, new ImageView(duke)));
@@ -138,32 +129,8 @@ public class KBot extends Application {
      * Replace this stub with your completed method.
      */
     private String getResponse(String input) {
-        return parse(input);
-    }
-
-    /**
-     * Parses through the user input to return a command class to execute.
-     * 
-     * @param userInput The String input the user enters as a commmand.
-     */
-    public static String parse(String userInput) {
-        assert userInput != null && userInput.length() > 0 : "Cannot simulate: no user input!";
-        if (userInput.equals("bye")) { // stops the program
-            return "";
-        } else {
-            try {
-                Command c = Parser.parse(userInput);
-                return c.execute();
-            } catch (IOException e) {
-                return ("Error: " + e.getMessage());
-            } catch (IndexOutOfBoundsException e) {
-                return ("Error: " + e.getMessage());
-            } catch (InvalidInputException e) {
-                return ("Error: " + e.getMessage());
-            } catch (InvalidCommandException e) {
-                return ("Error: " + e.getMessage());
-            }
-        }
+        assert input != null && input.length() > 0 : "Please input something";
+        return KBot.simulate(input);
     }
 
 }
