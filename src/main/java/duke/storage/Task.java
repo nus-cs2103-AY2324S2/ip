@@ -101,6 +101,20 @@ public class Task {
     }
 
     /**
+     * Archive the task
+     */
+    public void archive() {
+        this.isArchived = true;
+    }
+
+    /**
+     * Unarchive the task
+     */
+    public void unarchive() {
+        this.isArchived = false;
+    }
+
+    /**
      * Check if task description contains keyword
      *
      * @param keyword Keyword to check against
