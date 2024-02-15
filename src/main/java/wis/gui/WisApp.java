@@ -13,10 +13,9 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 import javafx.stage.Stage;
-import wis.ChatBox;
 
 
-public class Wis extends Application {
+public class WisApp extends Application {
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
@@ -26,9 +25,9 @@ public class Wis extends Application {
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
-    private ChatBox chatBox = new ChatBox();
+    Bridge bridge = new Bridge();
 
-    public Wis() {
+    public WisApp() {
 
     }
 
@@ -82,7 +81,7 @@ public class Wis extends Application {
         //Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
 
-        initializeChatbox();
+        bridge.link(dialogContainer, duke);
 
         //Step 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> {
@@ -96,7 +95,7 @@ public class Wis extends Application {
 
     @Override
     public void stop() {
-        chatBox.save();
+        bridge.quit();
     }
 
     /**
@@ -106,21 +105,11 @@ public class Wis extends Application {
      */
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(chatBox.getResponse(userInput.getText()));
+        Label dukeText = new Label(bridge.getResponse(userInput));
         dialogContainer.getChildren().addAll(
                 new DialogBox(userText, new ImageView(user)),
                 new DialogBox(dukeText, new ImageView(duke))
         );
         userInput.clear();
-    }
-
-    private void initializeChatbox() {
-        String message = chatBox.launch();
-        if (!message.equals("")) {
-            Label errorText = new Label(message);
-            dialogContainer.getChildren().addAll(
-                    new DialogBox(errorText, new ImageView(duke))
-            );
-        }
     }
 }
