@@ -76,4 +76,12 @@ public class Task {
         return (this.isDone ? "1" : "0")
                 + "!" + this.description;
     }
+
+    @Override
+    public boolean equals (Object obj) {
+        Task task = (Task) obj;
+        System.out.println(this.toString());
+        System.out.println(task.toString());
+        return this.toString().equals(task.toString());
+    }
 }

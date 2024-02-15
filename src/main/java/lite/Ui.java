@@ -58,7 +58,7 @@ public class Ui {
             tasks.remove(index);
             assert tasks.size() == size - 1 : "size of array decreased by 1";
             return output;
-        } catch (NullPointerException | ArrayIndexOutOfBoundsException e){
+        } catch (NullPointerException | IndexOutOfBoundsException e){
             return LiteException.deleteException(tasks);
         }
     }
@@ -73,10 +73,13 @@ public class Ui {
             String description = instruction[1];
             Task todo = new Todo(description);
             int size = tasks.size();
-            tasks.add(todo);
+            boolean isDuplicate = tasks.add(todo);
+            if (isDuplicate) {
+                return Printer.printDuplicateFound();
+            }
             assert tasks.size() == size + 1 : "size of array increased by 1";
             return Printer.printTask(tasks, todo);
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             return LiteException.toDoException();
         }
     }
@@ -93,10 +96,13 @@ public class Ui {
             String due = splits[1];
             Task deadline = new Deadline(description, due);
             int size = tasks.size();
-            tasks.add(deadline);
+            boolean isDuplicate = tasks.add(deadline);
+            if (isDuplicate) {
+                return Printer.printDuplicateFound();
+            }
             assert tasks.size() == size + 1 : "size of array increased by 1";
             return Printer.printTask(tasks, deadline);
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             return LiteException.deadlineException();
         }
     }
@@ -114,10 +120,13 @@ public class Ui {
             String end = splits[2];
             Task event = new Event(description, start, end);
             int size = tasks.size();
-            tasks.add(event);
+            boolean isDuplicate = tasks.add(event);
+            if (isDuplicate) {
+                return Printer.printDuplicateFound();
+            }
             assert tasks.size() == size + 1 : "size of array increased by 1";
             return Printer.printTask(tasks, event);
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             return LiteException.eventException();
         }
     }
