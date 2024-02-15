@@ -23,7 +23,7 @@ public class Parser {
      * Creates a command object from the user input.
      * @param input The input of the user.
      * @return A command object with the type depends on the users input.
-     * @throws LivException If the command cannot is not valid.
+     * @throws LivException If the command is not valid.
      */
     public static Command parse(String input) throws LivException {
         if (input.equalsIgnoreCase("bye")) {
