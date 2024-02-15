@@ -37,11 +37,13 @@ public class Parser {
         case "list":
             return new ListCommand();
         case "todo":
+            assert parts.length == 2 : "Todo input should have two parts";
             if (parts.length < 2 || parts[1].trim().isEmpty()) {
                 throw new DukeException("The description of a todo cannot be empty.");
             }
             return new AddCommand(new Todo(parts[1].trim()));
         case "deadline":
+            assert parts.length == 2 : "Deadline input should have two parts";
             if (parts.length < 2 || parts[1].trim().isEmpty()) {
                 throw new DukeException("The description of a deadline cannot be empty.");
             }
@@ -51,6 +53,7 @@ public class Parser {
             }
             return new AddCommand(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));
         case "event":
+            assert parts.length == 2 : "Event input should have two parts";
             if (parts.length < 2 || parts[1].trim().isEmpty()) {
                 throw new DukeException("The description of an event cannot be empty.");
             }
@@ -111,6 +114,7 @@ public class Parser {
      * @throws DukeException If an error occurs during parsing.
      */
     public static Task parseLineToTask(String line) throws DukeException {
+        assert line != null : "Line to parse cannot be null";
         String[] parts = line.split(" \\| ");
 
         String type = parts[0].trim();
