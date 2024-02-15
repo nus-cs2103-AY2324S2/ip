@@ -79,11 +79,14 @@ public class TaskList {
      */
     public TaskList find(String input) {
         ArrayList<Task> filteredTaskList = new ArrayList<>();
-        for (Task task: taskList) {
-            if (task.getTitle().contains(input)) {
+        String lowerInput = input.toLowerCase();
+
+        for (Task task : taskList) {
+            if (task.getTitle().toLowerCase().contains(lowerInput)) {
                 filteredTaskList.add(task);
             }
         }
+
         return new TaskList(filteredTaskList);
     }
 }
