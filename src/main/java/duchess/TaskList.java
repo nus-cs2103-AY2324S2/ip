@@ -1,6 +1,6 @@
 package duchess;
 
-import java.util.ArrayList;
+import java.util.*;
 
 import duchess.task.Deadline;
 import duchess.task.Event;
@@ -206,6 +206,22 @@ public class TaskList {
 
     public int getTaskCount() {
         return this.taskCount;
+    }
+
+    public ArrayList<Pair<Integer, Task>> listDuplicateTasks() {
+        HashSet<Task> uniqueTasks = new HashSet<>();
+        ArrayList<Pair<Integer, Task>> duplicateTasks = new ArrayList<>();
+
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            System.out.println("Number" + i + " " + task);
+            if (!uniqueTasks.add(task)) {
+                // If task is already in the set, it's a duplicate
+                duplicateTasks.add(new Pair<>(i, task));
+            }
+        }
+
+        return duplicateTasks;
     }
 }
 
