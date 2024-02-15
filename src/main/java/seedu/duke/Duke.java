@@ -1,18 +1,13 @@
 package seedu.duke;
 
-import java.io.IOException;
 import java.util.Scanner;
-
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
 
 /**
  * Represents a task manager called <code>Duke</code>.
  */
 
-public class Duke extends Application {
+@SuppressWarnings("checkstyle:Regexp")
+public class Duke {
 
     private Storage storage;
     private TaskList tasks;
@@ -78,23 +73,15 @@ public class Duke extends Application {
         ui.closingMessage();
     }
 
+    /*
     /**
      * Main method in Duke.
      *
      * @param args
      * @throws IOException
-     */
+
     public static void main(String[] args) throws IOException {
         new Duke().run();
     }
-
-    @Override
-    public void start(Stage stage) {
-        Label helloWorld = new Label("bruh"); // Creating a new Label control
-        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
-
-        stage.setScene(scene); // Setting the stage to show our screen
-        stage.show(); // Render the stage.
-    }
-
+    */
 }
