@@ -60,6 +60,7 @@ public class DatabaseHandler {
      * @throws DataHandlerException If there is an error writing to the file.
      */
     public void save(TaskList tasks) throws DataHandlerException {
+        assert tasks != null;
         try {
             if (!db.exists()) {
                 create();

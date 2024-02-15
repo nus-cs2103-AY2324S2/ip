@@ -49,6 +49,7 @@ public class Jivox {
         if (i > this.tasks.getLength() || i < 0) {
             throw new JivoxException("Oops! There are only " + this.tasks.getLength() + " Tasks!");
         }
+        assert i > 0;
         Task t = this.tasks.getTask(i - 1);
         t.mark();
         return this.ui.showMark(t);
@@ -64,6 +65,7 @@ public class Jivox {
         if (i > this.tasks.getLength() || i < 0) {
             throw new JivoxException("Oops! There are only " + this.tasks.getLength() + " Tasks!");
         }
+        assert i > 0;
         Task t = this.tasks.getTask(i - 1);
         t.unmark();
         return this.ui.showUnmark(t);
@@ -71,12 +73,11 @@ public class Jivox {
 
     private void addEvent(String content) throws JivoxException {
         String[] first = this.parser.split(content, " /from ");
-        //    content.split(" /from ");
         if (first.length == 1) {
             throw new JivoxException("No time interval (from) received  for the event , Please try again!");
         }
+        assert first.length > 1;
         String[] second = this.parser.split(first[1], " /to ", 2);
-        //first[1].split(" /to ",2);
         if (second.length == 1) {
             throw new JivoxException("No time interval received (to) for the event , Please try again!");
         }
@@ -89,6 +90,7 @@ public class Jivox {
     }
 
     private void addTodo(String content) throws DataHandlerException {
+        assert !Objects.equals(content, "");
         this.tasks.add(new Todo(content));
     }
 
