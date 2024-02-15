@@ -47,6 +47,9 @@ public class InputParser extends Parser {
         if (words[0].equals("find")) {
             return Action.FIND;
         }
+        if (words[0].equals("undo")) {
+            return Action.UNDO;
+        }
         return Action.INVALID;
     }
 

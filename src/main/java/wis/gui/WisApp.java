@@ -118,7 +118,13 @@ public class WisApp extends Application {
      */
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(bridge.getResponse(userInput));
+        String response = bridge.getResponse(userInput);
+        if (response == "") {
+            return;
+        }
+
+        Label dukeText = new Label(response);
+
         dialogContainer.getChildren().addAll(
                 new DialogBox(userText, new ImageView(userImage)),
                 new DialogBox(dukeText, new ImageView(wisImage))

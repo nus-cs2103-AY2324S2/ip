@@ -56,6 +56,10 @@ public class TaskList {
         return this.list.remove(i);
     }
 
+    public Task removeLast() {
+        return remove(this.taskCount - 1);
+    }
+
     public ArrayList<Pair<Integer, Task>> find(String pattern) {
         ArrayList<Pair<Integer, Task>> matchingTasks = new ArrayList<>();
         for (int i = 0; i < taskCount; i++) {
