@@ -54,9 +54,25 @@ public class Parser {
         } else if (userWord.startsWith("find")) {
             String keyword = userWord.substring(5).trim();
             return handleFind(keyword);
+        } else if (userWord.equals("help")) {
+            return handleHelp();
         } else {
             return "ERROR!! I can't understand what you mean by that.";
         }
+    }
+
+    private String handleHelp() {
+        return "Here are some commands you can use:\n"
+                + "list - Displays all tasks in your list.\n"
+                + "todo <description> - Adds a ToDo task to your list.\n"
+                + "deadline <description> /by <datetime> - Adds a Deadline task. Datetime format: " + DATETIME_FORMAT + ".\n"
+                + "event <description> /at <date range> - Adds an Event task. Date range format: " + DATE_FORMAT + " to " + DATE_FORMAT + ".\n"
+                + "mark <task number> - Marks a task as done.\n"
+                + "unmark <task number> - Marks a task as not done.\n"
+                + "delete <task number> - Deletes a task from the list.\n"
+                + "find <keyword> - Finds tasks containing the given keyword.\n"
+                + "help - Shows this help message.\n"
+                + "bye - Exits the application.";
     }
 
     private String handleTodo(String userWord) throws DukeException, IOException {
