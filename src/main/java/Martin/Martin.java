@@ -27,6 +27,9 @@ public class Martin {
         this.storage = new Storage(FILEPATH); // fixed file path for now
         this.ui = new Ui();
         this.parser = new Parser();
+        todoList = storage.startUpSequence();
+        this.tasks = new TaskList(todoList);
+        this.command = new Command(tasks, storage, ui, parser);
     }
 
     /**
@@ -45,9 +48,6 @@ public class Martin {
      * until the user exits.
      */
     public String run(String input) {
-        todoList = storage.startUpSequence();
-        this.tasks = new TaskList(todoList);
-        this.command = new Command(tasks, storage, ui, parser);
         ChatbotKeyword command = parser.parse(input);
         String remainingWords = parser.getRemainingWords(input);
         String response = "";
