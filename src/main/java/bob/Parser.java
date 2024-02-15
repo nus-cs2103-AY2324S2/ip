@@ -41,8 +41,8 @@ public class Parser {
     private static final DateTimeFormatter FORMATTER_DATE_TIME
             = DateTimeFormatter.ofPattern(PATTERN_DATE_TIME);
 
-    private static String[] extractParameters(String parametersString,
-                                             String[] parameters) throws ParameterNotFoundException {
+    private static String[] extractParameters(
+            String parametersString, String[] parameters) throws ParameterNotFoundException {
         // TODO: generalise the method to any given parametersString, desiredParameters and separator
         // TODO: perform ParameterNotFoundException checks correctly
         // TODO: return a HashMap that maps each desiredParameter to its value
