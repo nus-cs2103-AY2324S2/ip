@@ -3,12 +3,26 @@ package secretaryw;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+/**
+ * This class handles the storage of tasks to and from a file.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructor for Storage class.
+     * @param filePath The file path where tasks will be stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
+
+    /**
+     * Loads tasks from the file and returns them as an ArrayList.
+     * @return An ArrayList containing the loaded tasks.
+     * @throws FileNotFoundException If the file specified by filePath does not exist.
+     */
     public ArrayList<Task> loadTasksFromFile() throws FileNotFoundException {
         ArrayList<Task> taskList = new ArrayList<>();
         File file = new File(filePath);
@@ -24,6 +38,11 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves tasks to the file.
+     * @param taskList The ArrayList of tasks to be saved.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
     public void saveTasksToFile(ArrayList<Task> taskList) throws IOException {
         try {
             FileWriter fileWriter = new FileWriter(filePath);
@@ -36,6 +55,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates a Task object from the given task data string.
+     * @param taskData The string containing task data in a specific format.
+     * @return The Task object created from the task data.
+     */
     private Task createTaskFromData(String taskData) {
         String[] parts = taskData.split("\\|");
         String type = parts[0].trim();

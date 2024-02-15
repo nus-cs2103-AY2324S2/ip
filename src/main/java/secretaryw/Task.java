@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a task with various attributes such as type, description, and completion status.
+ */
 class Task {
     protected TaskType type;
     protected String description;
@@ -13,14 +16,25 @@ class Task {
     protected LocalDate startTime;
     protected LocalDate endTime;
 
-    //constructor for TODO
+    /**
+     * Constructs a Task object for a TODO task with the given type and description.
+     * The task is initially marked as not done.
+     * @param type The type of the task.
+     * @param description The description of the task.
+     */
     public Task(TaskType type, String description) {
         this.type = type;
         this.description = description;
         this.isDone = false;
     }
 
-    // Constructor for DEADLINE
+    /**
+     * Constructs a Task object for a DEADLINE task with the given type, description, and deadline.
+     * The task is initially marked as not done.
+     * @param type The type of the task.
+     * @param description The description of the task.
+     * @param deadline The deadline of the task.
+     */
     public Task(TaskType type, String description, String deadline) {
         this.type = type;
         this.description = description;
@@ -28,7 +42,14 @@ class Task {
         this.deadline = LocalDate.parse(deadline, DateTimeFormatter.ofPattern("d/M/yyyy"));
     }
 
-    //constructor for EVENT
+    /**
+     * Constructs a Task object for an EVENT task with the given type, description, start time, and end time.
+     * The task is initially marked as not done.
+     * @param type The type of the task.
+     * @param description The description of the task.
+     * @param startTime The start time of the task.
+     * @param endTime The end time of the task.
+     */
     public Task(TaskType type, String description, String startTime, String endTime) {
         this.type = type;
         this.description = description;
@@ -37,14 +58,25 @@ class Task {
         this.endTime = LocalDate.parse(endTime, DateTimeFormatter.ofPattern("d/M/yyyy"));
     }
 
-    // Constructor for creating TODO Task from file data
+    /**
+     * Constructs a Task object from file data with the given type, description, and completion status.
+     * @param type The type of the task.
+     * @param description The description of the task.
+     * @param isDone The completion status of the task.
+     */
     public Task(TaskType type, String description, boolean isDone) {
         this.type = type;
         this.description = description;
         this.isDone = isDone;
     }
 
-    // Constructor for creating DEADLINE Task from file data
+    /**
+     * Constructs a Task object from file data for a DEADLINE task with the given type, description, deadline, and completion status.
+     * @param type The type of the task.
+     * @param description The description of the task.
+     * @param deadline The deadline of the task.
+     * @param isDone The completion status of the task.
+     */
     public Task(TaskType type, String description, String deadline, boolean isDone) {
         this.type = type;
         this.description = description;
@@ -53,7 +85,14 @@ class Task {
     }
 
 
-    // Constructor for creating EVENT Task from file data
+    /**
+     * Constructs a Task object from file data for an EVENT task with the given type, description, start time, end time, and completion status.
+     * @param type The type of the task.
+     * @param description The description of the task.
+     * @param startTime The start time of the task.
+     * @param endTime The end time of the task.
+     * @param isDone The completion status of the task.
+     */
     public Task(TaskType type, String description, String startTime, String endTime, boolean isDone) {
         this.type = type;
         this.description = description;
@@ -61,31 +100,57 @@ class Task {
         this.endTime = LocalDate.parse(endTime);
         this.isDone = isDone;
     }
+
+    /**
+     * Retrieves the description of the task.
+     * @return The description of the task.
+     */
     public String getDescription() {
         return this.description;
     }
 
+    /**
+     * Retrieves the type of the task.
+     * @return The type of the task.
+     */
     public TaskType getType() {
         return this.type;
     }
 
+    /**
+     * Checks if the task is marked as done.
+     * @return True if the task is marked as done, otherwise false.
+     */
     public boolean isDone() {
         return this.isDone;
     }
 
+    /**
+     * Marks the task as done.
+     */
     public void markAsDone() {
         this.isDone = true;
     }
 
+    /**
+     * Marks the task as undone.
+     */
     public void markAsUndone() {
         this.isDone = false;
     }
 
+    /**
+     * Retrieves the status icon of the task.
+     * @return The status icon of the task.
+     */
     public String getStatusIcon() {
         return (this.isDone ? "[X]" : "[ ]"); // mark done task with X
     }
 
-    // Method to convert a Task to a string for writing to the file
+    /**
+     * Converts the task to a string representation suitable for writing to a file.
+     * @return The string representation of the task for file storage.
+     */
     public String toFileString() {
         switch (type) {
             case TODO:
@@ -98,6 +163,11 @@ class Task {
                 return "";
         }
     }
+
+    /**
+     * Converts the task to a string representation.
+     * @return The string representation of the task.
+     */
     @Override
     public String toString() {
         switch (type) {
