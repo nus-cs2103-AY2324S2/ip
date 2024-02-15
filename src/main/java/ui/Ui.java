@@ -83,6 +83,7 @@ public class Ui {
      */
     public String printTaskAfterword(String task) {
         String output = "You entered:" + "\n" ;
+        assert task.length() != 0 : "task should not be empty";
         output += task;
         return output;
     }
