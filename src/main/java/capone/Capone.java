@@ -37,38 +37,12 @@ public class Capone {
     }
 
     /**
-     * Runs the instance, displaying a welcome message and reading tasks from storage.
-     * Continuously processes user commands in a loop till user exits.
-     */
-    public void runCli() {
-        this.ui.printWelcomeMsg();
-
-        try {
-            this.storage.readTasksFromJsonFile(this.tasks);
-        } catch (TaskListCorruptedException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    /**
-     * Runs the instance, displaying a welcome message and reading tasks from storage.
-     * Continuously processes user commands in a loop till user exits.
-     */
-    public void runGui() {
-        try {
-            this.storage.readTasksFromJsonFile(this.tasks);
-        } catch (TaskListCorruptedException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    /**
-     * The main method to start the Capone application.
+     * Initialises the instance, reading tasks from the task list file.
      *
-     * @param args Command-line arguments (not used).
+     * @throws TaskListCorruptedException If the task list file is corrupted.
      */
-    public static void main(String[] args) {
-        new Capone().runCli();
+    public void initCapone() throws TaskListCorruptedException {
+        this.storage.readTasksFromJsonFile(this.tasks);
     }
 
     /**

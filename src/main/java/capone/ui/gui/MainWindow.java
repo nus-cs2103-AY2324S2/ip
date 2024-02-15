@@ -1,6 +1,7 @@
 package capone.ui.gui;
 
 import capone.Capone;
+import capone.exceptions.TaskListCorruptedException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -53,10 +54,26 @@ public class MainWindow extends AnchorPane {
      * @param capone The Capone application instance to be set.
      */
     public void setCapone(Capone capone) {
-        this.capone = capone;
-        this.dialogContainer.getChildren().addAll(
+            this.capone = capone;
+    }
+
+    /**
+     * Runs the instance of the Capone application.
+     *
+     * @param capone The Capone application instance to be run.
+     * @throws TaskListCorruptedException If the task list file is corrupted.
+     */
+    public void runCapone(Capone capone) {
+        try {
+            this.dialogContainer.getChildren().addAll(
                 DialogBox.getCaponeDialog(this.capone.getUi().printWelcomeMsg(), this.caponeImage)
-        );
+            );
+            capone.initCapone();
+        } catch (TaskListCorruptedException e) {
+            this.dialogContainer.getChildren().addAll(
+                    DialogBox.getCaponeDialog(e.getMessage(), this.caponeImage)
+            );
+        }
     }
 
     /**
