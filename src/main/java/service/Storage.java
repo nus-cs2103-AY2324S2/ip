@@ -93,21 +93,19 @@ public class Storage {
     private void openStoredFile(TaskList taskList) throws Exception {
 
         //See if file already exists then parse it
-
         File file = new File(this.filePath);
 
         try {
             if (!file.exists()) { //Create if don't exist
                 createFile(file);
-            } else { //file does exist
-                if (isCorrupt(file)) {
-                    //file corrupt
-                    System.out.println("File Corrupt! Creating new file");
-                    createFile(file);
-                } else {
-                    //parse current info and return.
-                    parseTodoFile(file, taskList);
-                }
+            } else if (isCorrupt(file)) { //file does exist
+                //file corrupt
+                System.out.println("File Corrupt! Creating new file");
+                createFile(file);
+            } else {
+                //parse current info and return.
+                System.out.println("Found file! Parsing...");
+                parseTodoFile(file, taskList);
             }
         } catch (Exception e) {
             System.out.println("Oh no!");
@@ -131,7 +129,11 @@ public class Storage {
      */
     public void updateRecords(TaskList taskList) throws RuntimeException { //TODO: to continue, need to add delete task fn, mark, unmark, list
         assert(this.filePath != null);
+        assert(taskList != null);
         File file = new File(this.filePath);
+        if (taskList.size() == 0) {
+            return;
+        }
         try (FileWriter writer = new FileWriter(file)) { // true for append mode
             writer.write(taskList.get(0).fileSavingString());
             for (int i = 1; i < taskList.size(); i++) {

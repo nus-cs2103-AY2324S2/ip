@@ -1,3 +1,2 @@
 T | 0 | me
 T | 0 | you
-T | 0 | me
