@@ -125,7 +125,10 @@ public class Chimp extends Application {
     private void handleUserInput() {
         String input = userInput.getText();
         Label userText = new Label(input);
+        
         String response = generateResponse();
+        assert response != null : "response should not be null";
+
         Label dukeText = new Label(response);
         dialogContainer.getChildren().addAll(
                 new DialogBox(userText, new ImageView(user)),
