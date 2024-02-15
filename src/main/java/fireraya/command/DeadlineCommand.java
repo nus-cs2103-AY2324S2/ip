@@ -26,7 +26,7 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws FirerayaException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws FirerayaException {
         Deadline d;
 
         if (date == null) {
@@ -35,8 +35,10 @@ public class DeadlineCommand extends Command {
             d = new Deadline(task, date);
         }
         tasks.add(d);
-        ui.taskAddedMsg(d, tasks.size());
+        String a = ui.taskAddedMsg(d, tasks.size());
         storage.saveToFile(tasks.getTasks());
+
+        return a;
     }
 
 }

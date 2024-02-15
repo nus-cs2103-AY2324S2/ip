@@ -23,6 +23,8 @@ public class Fireraya {
     private Storage storage;
     private Ui ui;
 
+    private boolean isExit;
+
     /**
      * Initializer for main class. Loads previous saved file from memory.
      *
@@ -42,32 +44,18 @@ public class Fireraya {
     /**
      * The command to start the program.
      */
-    public void run() {
-
-        ui.startMessage();
-
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
+    public String getResponse(String input) {
+        try{
+            Command c = Parser.parse(input);
+            this.isExit = c.isExit();
+            return c.execute(tasks, ui, storage);
             } catch (FirerayaException e) {
-                ui.print(e.getMessage());
-            } finally {
-                ui.showLine();
-            }
+            return e.getMessage();
         }
     }
 
-    /**
-     * Main class to run program.
-     *
-     * @param args Input from cli.
-     */
-    public static void main(String[] args) {
-        new Fireraya("current_list.txt").run();
+    public boolean shouldExit() {
+        return this.isExit;
     }
 }
+

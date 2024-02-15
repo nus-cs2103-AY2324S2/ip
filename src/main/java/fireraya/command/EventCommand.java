@@ -19,11 +19,12 @@ public class EventCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws FirerayaException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws FirerayaException {
         Event e = new Event(description, from, to);
         tasks.add(e);
-        ui.taskAddedMsg(e, tasks.size());
+        String a = ui.taskAddedMsg(e, tasks.size());
         storage.saveToFile(tasks.getTasks());
+        return a;
     }
 
 }

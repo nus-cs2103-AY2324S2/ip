@@ -6,7 +6,8 @@ import fireraya.main.TaskList;
 import fireraya.main.Ui;
 
 public class Command {
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws FirerayaException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws FirerayaException {
+        return "Not overridden";
     }
 
     public boolean isExit() {

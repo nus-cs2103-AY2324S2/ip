@@ -13,15 +13,16 @@ public class DeleteCommand extends Command{
         this.index = index;
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws FirerayaException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws FirerayaException {
         if (tasks.size() <= index || index < 0) {
             throw new FirerayaException("That task does not exist!");
         }
 
-        ui.print("Noted. I've deleted this task:");
-        ui.listTaskAt(tasks.getTasks(), index);
+        String a = ui.print("Noted. I've deleted this task:\n");
+        String b = ui.listTaskAt(tasks.getTasks(), index);
         tasks.delete(index);
         storage.saveToFile(tasks.getTasks());
+        return a + b;
 
 
     }

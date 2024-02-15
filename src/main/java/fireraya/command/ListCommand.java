@@ -6,8 +6,8 @@ import fireraya.main.Ui;
 
 public class ListCommand extends Command {
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.listTasks(tasks.getTasks());
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.listTasks(tasks.getTasks());
     }
 
 }

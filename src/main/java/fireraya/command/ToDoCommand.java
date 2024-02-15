@@ -15,11 +15,12 @@ public class ToDoCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws FirerayaException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws FirerayaException {
         Todo todo = new Todo(description);
         tasks.add(todo);
-        ui.taskAddedMsg(todo, tasks.size());
+        String a = ui.taskAddedMsg(todo, tasks.size());
         storage.saveToFile(tasks.getTasks());
+        return a;
     }
 
 }

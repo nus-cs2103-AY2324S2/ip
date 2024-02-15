@@ -17,46 +17,52 @@ public class Ui {
         return sc.nextLine();
     }
 
-    public void startMessage() {
-        print("--------------------------------");
-        print("Hello, my name is Fireraya!");
-        print("What can I do for you today sir?");
-        print("--------------------------------");
+    public String startMessage() {
+        String a = print("--------------------------------\n" );
+        String b = print("Hello, my name is Fireraya!\n");
+        String c = print("What can I do for you today sir?\n");
+        String d = print("--------------------------------\n");
+        String combined = a + b + c + d;
+        return combined;
     }
-    public void print(String message) {
-        System.out.println(message);
+    public String print(String message) {
+        return message;
     }
-    public void displayLoadingError(String message) {
-        print("An error occurred at file load" + message);
-    }
-
-    public void showLine() {
-        print("----------------------------------------");
+    public String displayLoadingError(String message) {
+        return print("An error occurred at file load" + message);
     }
 
-    public void taskAddedMsg(Task t, int size) {
-        System.out.println("I've added this task:");
-        System.out.println(t);
-        System.out.println("You have " + size + " tasks currently.");
+    public String showLine() {
+        return print("----------------------------------------");
     }
 
-    public void listTasks(ArrayList<Task> tasks) {
-        print("Here is a list of your tasks!");
+    public String taskAddedMsg(Task t, int size) {
+        String a = print("I've added this task:\n");
+        String b = t.toString() + "\n";
+        String c = print("You have " + size + " tasks currently.\n");
+        String combined = a + b + c;
+        return combined;
+
+    }
+
+    public String listTasks(ArrayList<Task> tasks) {
+        String a = print("Here is a list of your tasks!\n");
         for (int i = 0; i < tasks.size(); i++) {
             Task current = tasks.get(i);
             int num = i + 1;
-            print(num + "." + current.toString());
+            a += print(num + "." + current.toString() + "\n");
         }
+        return a;
     }
 
-    public void listTaskAt(ArrayList<Task> tasks, int i) {
+    public String listTaskAt(ArrayList<Task> tasks, int i) {
         Task current = tasks.get(i);
         int num = i + 1;
-        print( num + "." + current.toString());
+        return print( num + "." + current.toString());
     }
 
-    public void end() {
-        print("Bye, hope to see you soon!");
+    public String end() {
+        return print("Bye, hope to see you soon!");
     }
 
 

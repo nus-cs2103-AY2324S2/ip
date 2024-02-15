@@ -15,9 +15,10 @@ public class FindCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         ArrayList<Task> filtered = tasks.filter(keyword);
-        ui.print("Here are some results I found in your list!");
-        ui.listTasks(filtered);
+        String a = ui.print("Here are some results I found in your list!\n");
+        String b = ui.listTasks(filtered);
+        return  a + b;
     }
 }
