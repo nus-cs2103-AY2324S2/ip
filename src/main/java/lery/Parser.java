@@ -67,6 +67,9 @@ public class Parser {
         } else if (command.startsWith("find")) {
             String d = command.substring(5);
             return this.parseFindTaskCommand(d);
+        } else if (command.startsWith("sort")) {
+            this.storage.sortTask();
+            return "\nList is sorted by their deadline and task type.\n";
         } else {
             return this.parseAddTaskCommand(command);
         }

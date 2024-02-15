@@ -1,6 +1,9 @@
 package lery.task;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Represents a collection of tasks in the Lery chatbot application.
@@ -83,5 +86,36 @@ public class TaskList {
         return list;
     }
 
+    private static class DeadlineComparator implements Comparator<Task> {
+        @Override
+        public int compare(Task task1, Task task2) {
+            // Compare tasks based on their deadlines
+            if (task1 instanceof Deadline && task2 instanceof Deadline) {
+                LocalDate deadline1 = ((Deadline) task1).getDeadline();
+                LocalDate deadline2 = ((Deadline) task2).getDeadline();
+                return deadline1.compareTo(deadline2);
+            } else {
+                // Handle other task types or non-deadline tasks
+                // You might want to customize this based on your requirements
+                return 0;
+            }
+        }
+    }
+    private static class TaskTypeComparator implements Comparator<Task> {
+        @Override
+        public int compare(Task task1, Task task2) {
+            // Compare tasks based on their types
+            String type1 = task1.getType();
+            String type2 = task2.getType();
+            return type1.compareTo(type2);
+        }
+    }
 
-}
+    public void sort() {
+        // Sort the task list using the custom comparator
+        Collections.sort(taskList, new TaskTypeComparator());
+        Collections.sort(taskList, new DeadlineComparator());
+    }
+
+
+    }

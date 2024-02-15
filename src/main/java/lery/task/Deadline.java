@@ -69,6 +69,10 @@ public class Deadline extends Task {
         return "(by: " + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
+    public LocalDate getDeadline() {
+        return this.deadline;
+    }
+
 }
 
 

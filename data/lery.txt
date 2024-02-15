@@ -2,8 +2,11 @@ T | 1 | read book
 D | 0 | return book | 2019-10-15
 E | 0 | project meeting | Aug 6th 2pm-4pm
 T | 1 | join sports club
-T | 0 | run
+D | 0 | buy toy | 2023-01-15
+D | 0 | buy toy | 2017-01-15
 E | 0 | project meeting | Mon 2pm-4pm
 T | 0 | run
 T | 0 | watch drama
-T | 0 | run
+D | 0 | return book | 2020-10-15
+D | 0 | return book | 2019-09-15
+D | 0 | return book | 2019-12-15
