@@ -3,21 +3,26 @@ package seedu.duke;
 import java.io.IOException;
 import java.util.Scanner;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
 /**
  * Represents a task manager called <code>Duke</code>.
  */
 
-public class Duke {
+public class Duke extends Application {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
     /**
-     * Constructor for the Duke class.
-     * @param filePath
+     * Constructor for Duke.
      */
-    public Duke(String filePath) {
+    public Duke() {
+        String filePath = "data/duke.txt";
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -80,8 +85,16 @@ public class Duke {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
-        // relative storage path for save and load feature
-        new Duke("data/tasks.txt").run();
+        new Duke().run();
+    }
+
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("bruh"); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
     }
 
 }
