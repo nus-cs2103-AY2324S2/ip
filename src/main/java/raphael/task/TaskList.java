@@ -1,12 +1,8 @@
 package raphael.task;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import raphael.exception.RaphaelException;
 import raphael.format.FileFormattable;
@@ -47,6 +43,13 @@ public class TaskList implements FileFormattable {
             }
         }
     }
+
+    /**
+     * The overriden constructor that initialize the task list to the given task list.
+     *
+     * @param tasks the given task list.
+     * @throws RaphaelException an exception exclusive to Raphael.
+     */
     public TaskList(List<? extends Task> tasks) throws RaphaelException {
         this.tasks = new ArrayList<>();
         this.tasks.addAll(tasks);

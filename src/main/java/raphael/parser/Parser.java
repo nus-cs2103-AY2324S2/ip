@@ -1,13 +1,13 @@
 package raphael.parser;
 
 import raphael.command.AddCommand;
-import raphael.command.MarkCommand;
 import raphael.command.Command;
 import raphael.command.DeleteCommand;
 import raphael.command.EditCommand;
 import raphael.command.ExitCommand;
 import raphael.command.FindCommand;
 import raphael.command.ListCommand;
+import raphael.command.MarkCommand;
 import raphael.exception.RaphaelException;
 import raphael.task.Deadline;
 import raphael.task.Event;

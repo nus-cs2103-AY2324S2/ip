@@ -1,5 +1,6 @@
 package raphael.command;
 import org.junit.jupiter.api.Test;
+
 import raphael.ui.Ui;
 
 public class ExitCommandTest {

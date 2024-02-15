@@ -40,6 +40,10 @@ public class Raphael {
             this.tasks = new TaskList();
         }
     }
+
+    /**
+     * Default constructor for Raphael.
+     */
     public Raphael() {
         this.tasks = new TaskList();
         this.ui = new Ui();

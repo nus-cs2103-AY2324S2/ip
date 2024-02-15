@@ -9,7 +9,6 @@ import raphael.task.TaskList;
  * The class for user interface.
  */
 public class Ui {
-    private String savedOutput = "stub";
     private static final String START_LINE = "----------------"
             + "------------[Rep"
             + "ort]------------"
@@ -28,6 +27,7 @@ public class Ui {
             + "----------------"
             + "----------------";
 
+    private String savedOutput = "stub";
     /**
      * Prints the starting line that acts as the upper border of the output.
      */
@@ -124,10 +124,21 @@ public class Ui {
         this.savedOutput = text;
         System.out.println(text);
     }
+
+    /**
+     * Provides output for marking task as done.
+     *
+     * @param text the output.
+     */
     public void showMarkOutput(String text) {
         this.savedOutput = text;
         System.out.println(text);
     }
+    /**
+     * Provides output for marking task as undone.
+     *
+     * @param text the output.
+     */
     public void showUnmarkOutput(String text) {
         this.savedOutput = text;
         System.out.println(text);
