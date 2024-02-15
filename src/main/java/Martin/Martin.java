@@ -28,6 +28,7 @@ public class Martin {
         this.parser = new Parser();
         todoList = storage.startUpSequence();
         this.tasks = new TaskList(todoList);
+        assert tasks != null : "tasks should not be null";
         this.command = new Command(tasks, storage, ui, parser);
     }
 
