@@ -24,13 +24,13 @@ public class FindCommand extends Command {
             throw new FindFormatException();
         }
         TaskList matchedTasks = new TaskList();
-        if (matchedTasks.isEmpty()) {
-            return NO_TASK_FOUND_MESSAGE;
-        }
         for (Task task : tasks) {
             if (task.getDescription().contains(message)) {
                 matchedTasks.addTasks(task);
             }
+        }
+        if (matchedTasks.isEmpty()) {
+            return NO_TASK_FOUND_MESSAGE;
         }
         return String.format(TASK_FOUND_MESSAGE, tasks.numTasks()) + "\n" + matchedTasks;
     }

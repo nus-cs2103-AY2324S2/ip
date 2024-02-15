@@ -10,6 +10,7 @@ import commands.ExitCommand;
 import commands.FindCommand;
 import commands.ListCommand;
 import commands.MarkCommand;
+import commands.RemindCommand;
 import commands.TodoCommand;
 import commands.UnmarkCommand;
 
@@ -50,6 +51,8 @@ public abstract class Parser {
             return new DeleteCommand(message);
         case FindCommand.COMMAND_WORD:
             return new FindCommand(message);
+        case RemindCommand.COMMAND_WORD:
+            return new RemindCommand();
         default:
             return new ExitCommand();
         }
