@@ -2,6 +2,7 @@ package duke.fileUtils;
 
 public final class FilePaths {
 
+
     public static final String LOGO_PATH = "graphics/logo.txt";
 
     public static final String HELP_PATH = "graphics/help.txt";

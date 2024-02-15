@@ -10,28 +10,8 @@ public class DeadlineTask extends Task {
         this.doneBy = doneBy;
     }
 
-    @Override
-    public void updateDoneIcon() {
-        super.updateDoneIcon();
-    }
-
-    @Override
-    public String getDoneIcon() {
-        return super.getDoneIcon();
-    }
-
     public LocalDate getDoneBy() {
         return this.doneBy;
-    }
-
-    @Override
-    public void markDone() {
-        super.markDone();
-    }
-
-    @Override
-    public void markNotDone() {
-        super.markNotDone();
     }
 
     @Override

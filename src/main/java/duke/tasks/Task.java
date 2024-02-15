@@ -30,19 +30,15 @@ public class Task {
     public void markDone() {
         this.isDone = true;
         updateDoneIcon();
-        System.out.println("_________________________________________\n");
         System.out.println("Nice! I've marked this task as done:\n");
         System.out.println(this);
-        System.out.println("_________________________________________\n");
     }
 
     public void markNotDone() {
         this.isDone = false;
         updateDoneIcon();
-        System.out.println("_________________________________________\n");
         System.out.println("OK, I've marked this task as not done yet:\n");
         System.out.println(this);
-        System.out.println("_________________________________________\n");
     }
     @Override
     public String toString() {

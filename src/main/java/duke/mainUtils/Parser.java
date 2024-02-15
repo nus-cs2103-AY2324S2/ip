@@ -59,61 +59,69 @@ public final class Parser {
     }
 
     public static Task parseSaveFile(String taskStringData) throws StorageException, InvalidDateException {
-        // Split taskStringData into array with sections {taskType, isDone, taskDescription, date etc.}
-        String[] sectionedString = taskStringData.trim().split("\\|");
-        String taskType;
-        boolean isDone;
-        try {
-            taskType = sectionedString[0].trim().toUpperCase();
-            isDone = sectionedString[1].trim().equals("[X]");
-        } catch (ArrayIndexOutOfBoundsException e) {
+        String[] sections = taskStringData.trim().split("\\|");
+
+        // Validate input data
+        if (sections.length < 3) {
             throw new StorageException();
         }
-        Task task;
-        Pattern pattern;
-        Matcher matcher;
+
+        String taskType = sections[0].trim().toUpperCase();
+        boolean isDone = sections[1].trim().equals("[X]");
+        String taskDescription = sections[2].trim();
 
         switch (taskType) {
-            case ("T"):
-                task = new ToDoTask(sectionedString[2].trim());
-                if (isDone) {
-                    task.markDone();
-                }
-                break;
+            case "T":
+                return parseSavedToDoTask(isDone, taskDescription);
 
-            case ("D"):
-                pattern = Pattern.compile("\\(by: (.*?)\\)");
-                matcher = pattern.matcher(sectionedString[3].trim());
-                if (matcher.find()) {
-                    String deadline = matcher.group(1);
-                    task = new DeadlineTask(sectionedString[2].trim(), Parser.parseDateTime(deadline));
-                    if (isDone) {
-                        task.markDone();
-                    }
-                } else {
-                    throw new StorageException();
-                }
-                break;
+            case "D":
+                return parseSavedDeadlineTask(isDone, taskDescription, sections[3].trim());
 
-            case ("E"):
-                pattern = Pattern.compile("\\(from: (.*?) to: (.*?)\\)");
-                matcher = pattern.matcher(sectionedString[3].trim());
-                if (matcher.find()) {
-                    String startBy = matcher.group(1);
-                    String endBy = matcher.group(2);
-                    task = new EventTask(sectionedString[2].trim(), Parser.parseDateTime(startBy), Parser.parseDateTime(endBy));
-                    if (isDone) {
-                        task.markDone();
-                    }
-                } else {
-                    throw new StorageException();
-                }
-                break;
+            case "E":
+                return parseSavedEventTask(isDone, taskDescription, sections[3].trim());
 
             default:
                 throw new StorageException();
         }
+    }
+
+    private static Task parseSavedToDoTask(boolean isDone, String description) {
+        Task task = new ToDoTask(description);
+        if (isDone) {
+            task.markDone();
+        }
         return task;
+    }
+
+    private static Task parseSavedDeadlineTask(boolean isDone, String description, String deadlineSection) throws InvalidDateException, StorageException {
+        Pattern pattern = Pattern.compile("\\(by: (.*?)\\)");
+        Matcher matcher = pattern.matcher(deadlineSection);
+        if (matcher.find()) {
+            String deadline = matcher.group(1);
+            Task task = new DeadlineTask(description, Parser.parseDateTime(deadline));
+            if (isDone) {
+                task.markDone();
+            }
+            return task;
+        } else {
+            throw new StorageException();
+        }
+    }
+
+    private static Task parseSavedEventTask(boolean isDone, String description, String eventSection) throws InvalidDateException, StorageException {
+        Pattern pattern = Pattern.compile("\\(from: (.*?) to: (.*?)\\)");
+        Matcher matcher = pattern.matcher(eventSection);
+        if (matcher.find()) {
+            String startBy = matcher.group(1);
+            String endBy = matcher.group(2);
+            Task task = new EventTask(description, Parser.parseDateTime(startBy), Parser.parseDateTime(endBy));
+            if (isDone) {
+                task.markDone();
+            }
+            return task;
+        } else {
+            throw new StorageException();
+        }
     }
 
     public static ToDoTask parseTodoTask(String[] details) throws InvalidTaskException {

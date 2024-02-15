@@ -6,6 +6,7 @@ import java.io.*;
 import java.net.URL;
 
 public class FileUtil {
+
     public static void displayFile(String filePath) throws StorageException {
         StringBuilder contentBuilder = new StringBuilder();
         try (InputStream inputStream = FileUtil.class.getClassLoader().getResourceAsStream(filePath);
