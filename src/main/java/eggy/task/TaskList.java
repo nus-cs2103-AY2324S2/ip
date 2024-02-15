@@ -3,6 +3,7 @@ package eggy.task;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Represents a list of tasks.
@@ -91,14 +92,9 @@ public class TaskList {
      */
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < this.getSize(); i++) {
-            sb.append("  ").append(i + 1).append(".").append(this.getTask(i));
-            if (i != this.getSize() - 1) {
-                sb.append("\n");
-            }
-        }
-        return sb.toString();
+        return IntStream.range(0, getSize())
+                .mapToObj(i -> "  " + (i + 1) + "." + this.getTask(i))
+                .collect(Collectors.joining("\n"));
     }
 
     /**
@@ -107,10 +103,8 @@ public class TaskList {
      * @return String representation of the task list to be saved in a file.
      */
     public String toFileString() {
-        StringBuilder fileString = new StringBuilder();
-        for (Task task : this.tasks) {
-            fileString.append(task.toFileString()).append("\n");
-        }
-        return fileString.toString();
+        return this.tasks.stream()
+                .map(task -> task.toFileString() + "\n")
+                .collect(Collectors.joining());
     }
 }
