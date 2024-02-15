@@ -22,6 +22,8 @@ public class TaskList {
      * @throws IOException If an I/O error occurs.
      */
     public TaskList(Storage storage, Ui ui) throws IOException {
+        assert storage != null : "Storage cannot be null";
+        assert ui != null : "UI cannot be null";
         this.storage = storage;
         this.ui = ui;
         l = storage.readFromFile();
@@ -43,6 +45,10 @@ public class TaskList {
         } else {
             return "Invalid task index. Please enter a valid number between 1 and " + l.size();
         }
+    }
+
+    private void validateIndex(int index) {
+        assert index >= 0 && index < l.size() : "Index out of bounds";
     }
 
 
@@ -164,7 +170,7 @@ public class TaskList {
      * @throws IOException If there is an error saving the updated task list to storage.
      */
     public String markTask(int index) throws IOException {
-        assert index >= 0 && index < l.size();
+        validateIndex(index);
         if (index >= 0 && index < l.size()) {
             Task task = l.get(index);
             task.markDone();
@@ -182,7 +188,7 @@ public class TaskList {
      * @throws IOException If there is an error saving the updated task list to storage.
      */
     public String unmarkTask(int index) throws IOException {
-        assert index >= 0 && index < l.size();
+        validateIndex(index);
         if (index >= 0 && index < l.size()) {
             Task task = l.get(index);
             task.mark_not_done();
