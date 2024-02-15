@@ -19,6 +19,10 @@ public class ParseInput {
 
     public Command getCommand(String userInput, TaskList tasks) {
         String[] inputCommand = userInput.split(" ");
+
+        // assert method 1
+        assert inputCommand[0] != "" : "Processing command";
+
         switch (inputCommand[0]) {
         case "list":
             return new ListCommand(tasks);

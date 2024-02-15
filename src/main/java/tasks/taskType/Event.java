@@ -8,6 +8,10 @@ public class Event extends Task {
     public String formatFromDtPattern(String fullCommand) {
         int fromStartIndex = fullCommand.indexOf("/from");
         int toStartIndex = fullCommand.indexOf("/to");
+
+        assert fromStartIndex != -1 : "Should not happen";
+        assert toStartIndex != -1 : "Should not happen";
+
         String fromDate = fullCommand.substring(fromStartIndex + 6, toStartIndex - 1);
         return this.formatDates(fromDate);
     }

@@ -20,6 +20,9 @@ public class Command {
 
     public String displayTask(Task task, TaskList tasks) {
         String singular = tasks.size() == 1 ? "task" : "tasks";
+
+        assert tasks.size() == 1 : "task";
+
         int num = tasks.size();
         return "Got it. I've added this task: \n"
                 + "    " + task
