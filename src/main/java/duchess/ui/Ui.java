@@ -63,6 +63,7 @@ public class Ui {
 
     /**
      * Displays the closing farewell message.
+     *
      * @return The closing farewell message.
      */
     public String showClosingGreeting() {
@@ -72,9 +73,9 @@ public class Ui {
     /**
      * Displays a confirmation message after adding a task.
      *
-     * @param task The task that was added.
+     * @param task      The task that was added.
      * @param taskCount The total number of tasks.
-     * @param taskType The type of task added (e.g., todo, deadline, event).
+     * @param taskType  The type of task added (e.g., todo, deadline, event).
      * @return The confirmation message.
      */
     public String showAdd(Task task, int taskCount, String taskType) {
@@ -97,7 +98,7 @@ public class Ui {
     /**
      * Displays a confirmation message after deleting a task.
      *
-     * @param task The task that was deleted.
+     * @param task      The task that was deleted.
      * @param taskCount The total number of tasks after deletion.
      * @return The confirmation message.
      */
@@ -132,26 +133,23 @@ public class Ui {
                         + task.toString() + "\n");
     }
 
-    /**
-     * Displays the list of matching tasks found after a search.
-     *
-     * @param matchingTasks The list of matching tasks found.
-     * @return The list of matching tasks as a formatted String.
-     */
-    public String showFind(ArrayList<Pair<Integer, Task>> matchingTasks) {
+
+    public String showSubList(ArrayList<Pair<Integer, Task>> subListTasks, String subListType) {
         StringBuilder sb = new StringBuilder();
 
-        if (!matchingTasks.isEmpty()) {
-            sb.append("Here are the matching tasks in your list:\n");
-            for (Pair<Integer, Task> pair : matchingTasks) {
+        if (!subListTasks.isEmpty()) {
+            sb.append("Here are the ").append(subListType).append(" tasks in your list:\n");
+            for (Pair<Integer, Task> pair : subListTasks) {
                 int originalIndex = pair.getKey() + 1; // Add 1 to match the original index
                 Task task = pair.getValue();
-                sb.append(" ").append(originalIndex).append(". ").append(task.toString()).append("\n");;
+                sb.append(" ").append(originalIndex).append(". ").append(task.toString()).append("\n");
+                ;
             }
         } else {
-            sb.append("No matching tasks found.");
+            sb.append("No ").append(subListType).append(" tasks found.");
         }
 
         return sb.toString();
     }
+
 }

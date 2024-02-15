@@ -1,5 +1,7 @@
 package duchess.task;
 
+import java.util.Objects;
+
 /**
  * Task class represents a generic task in the Duchess program.
  * It provides methods to manipulate tasks, such as marking them as done and converting them to string format.
@@ -70,5 +72,20 @@ public class Task {
     public String toFileString() {
         return "duchess.task.Task |" + (isDone ? "1" : "0")
                 + " | " + description;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Task other = (Task) obj;
+        // Compare the description fields for equality
+        return Objects.equals(description, other.description);
+    }
+
+    @Override
+    public int hashCode() {
+        // Generate a hash code based on the description field
+        return Objects.hash(description);
     }
 }

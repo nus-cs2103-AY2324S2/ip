@@ -106,8 +106,8 @@ public class Duchess {
                 return this.ui.showDelete(deletedTask, this.taskList.getTaskCount());
             case FIND:
                 String keywords = Parser.parseArgs(input);
-                ArrayList<Pair<Integer, Task>> matchingTasks = taskList.findTasksByKeyword(keywords);
-                return this.ui.showFind(matchingTasks);
+                ArrayList<Pair<Integer, Task>> matchingTasks = this.taskList.findTasksByKeyword(keywords);
+                return this.ui.showSubList(matchingTasks, "matching");
             case MARK:
                 int taskIndexToMark = Integer.parseInt(Parser.parseArgs(input)) - 1;
                 Task markedTask = this.taskList.markTaskAsDone(taskIndexToMark);
@@ -116,6 +116,9 @@ public class Duchess {
                 int taskIndexToUnmark = Integer.parseInt(Parser.parseArgs(input)) - 1;
                 Task unmarkedTask = this.taskList.unmarkTaskAsDone(taskIndexToUnmark);
                 return this.ui.showUnmarked(unmarkedTask);
+            case DUPLICATES:
+                ArrayList<Pair<Integer, Task>> duplicateTasks = this.taskList.listDuplicateTasks();
+                return this.ui.showSubList(duplicateTasks, "duplicate");
             default:
                 throw new DuchessException("Oh dear, I can't make out what that is.");
             }

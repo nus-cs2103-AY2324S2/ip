@@ -78,6 +78,8 @@ public class Parser {
             return CommandType.MARK;
         } else if (input.startsWith("unmark")) {
             return CommandType.UNMARK;
+        } else if (input.startsWith("duplicates")) {
+            return CommandType.DUPLICATES;
         } else {
             // Unknown command
             return CommandType.UNKNOWN;
