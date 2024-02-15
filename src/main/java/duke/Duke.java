@@ -12,7 +12,9 @@ import ui.UI;
 
 public class Duke {
 
-    StringBuilder response = new StringBuilder();
+    private static TaskList taskList;
+    private static UI ui;
+    private static Storage storage;
 
     /**
      * You should have your own function to generate a response to user input.
@@ -21,7 +23,6 @@ public class Duke {
     public String getResponse(String input) {
         return processCommand(input, taskList, true);
     }
-
 
     public enum Command {
         TODO, DEADLINE, EVENT, DELETE, MARK, UNMARK, LIST, BYE, UNKNOWN, FIND;
@@ -84,10 +85,6 @@ public class Duke {
         }
     }
 
-    private static TaskList taskList;
-    private static UI ui;
-    private static Storage storage;
-
     /**
      * Constructor of Duke
      * @param filePath file storage location to save and retrieve list of tasks
@@ -98,6 +95,9 @@ public class Duke {
         storage = new Storage(filePath);
     }
 
+    /**
+     * Constructor of Duke without parameters 
+     */
     public Duke() {
        new Duke("./src/main/java/data/duke.txt");
     }
