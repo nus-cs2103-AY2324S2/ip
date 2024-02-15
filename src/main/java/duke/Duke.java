@@ -151,7 +151,7 @@ public class Duke extends Application {
      * @return chatbot response.
      */
     public String getResponse(String text) {
-        String out = "Your input is invalid!";
+        String out;
         String cmd = parser.parseCmd(text);
         try {
             if (cmd.equals("bye")) {
