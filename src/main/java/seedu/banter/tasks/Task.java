@@ -19,6 +19,8 @@ public abstract class Task { // default access modifier
 
     Task(String description) { // default access modifier
         this.description = description;
+        this.isDone = false;
+        Assertions.assertTaskIsUnmarked(this);
     }
 
     Task(String description, boolean isDone) { // default access modifier

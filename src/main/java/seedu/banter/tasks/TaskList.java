@@ -30,6 +30,7 @@ public class TaskList implements Iterable<Task> {
     public String addTodo(String description) {
         Todo todo = new Todo(description);
         taskList.add(todo);
+        Assertions.assertTaskIsUnmarked(todo);
         return "Got it. I've added this task:\n" + todo
                 + "\nNow you have " + taskList.size() + " banter.tasks in the list.";
     }
@@ -53,6 +54,8 @@ public class TaskList implements Iterable<Task> {
     public String addDeadline(String description, LocalDateTime dueDate) {
         Deadline deadline = new Deadline(description, dueDate);
         taskList.add(deadline);
+        Assertions.assertDateTimeIsInTheFuture(dueDate);
+        Assertions.assertTaskIsUnmarked(deadline);
         return "Got it. I've added this task:\n" + deadline
                 + "\nNow you have " + taskList.size() + " banter.tasks in the list.";
     }
@@ -78,6 +81,9 @@ public class TaskList implements Iterable<Task> {
     public String addEvent(String eventDescription, LocalDateTime start, LocalDateTime end) {
         Event event = new Event(eventDescription, start, end);
         taskList.add(event);
+        Assertions.assertDateTimeIsInTheFuture(start);
+        Assertions.assertDateTimeIsInTheFuture(end);
+        Assertions.assertTaskIsUnmarked(event);
         return "Got it. I've added this task:\n" + event
                 + "\nNow you have " + taskList.size() + " banter.tasks in the list.";
     }

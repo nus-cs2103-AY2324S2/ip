@@ -9,17 +9,18 @@ public class Todo extends Task {
     private static final String TODO_ICON = "T";
 
     /**
-     * Constructs a Todo task with the specified description.
+     * Constructs a Todo task that should be unmarked.
      *
      * @param description The description of the Todo task.
      * @param description
      */
     public Todo(String description) { // default access modifier
         super(description);
+        Assertions.assertTaskIsUnmarked(this);
     }
 
     /**
-     * Constructs a Todo task with the specified description and done status.
+     * Constructs a Todo task without restrictions on done status.
      *
      * @param description The description of the Todo task.
      * @param isDone The done status of the Todo task.
