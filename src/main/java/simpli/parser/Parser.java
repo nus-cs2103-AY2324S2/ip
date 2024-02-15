@@ -4,6 +4,7 @@ import simpli.actions.Action;
 import simpli.exceptions.ActionException;
 
 import java.util.Arrays;
+import java.util.HashSet;
 
 /**
  * Parses various strings into an array of tokens.
@@ -44,7 +45,12 @@ public final class Parser {
         } catch (IllegalArgumentException e) {
             throw new ActionException("No such command!");
         }
-        parsedTokens[2] = !actionType.equals(Action.LIST) ? taskInfo[1] : "";
+
+        HashSet<Action> singleCommands = new HashSet<>();
+        singleCommands.add(Action.LIST);
+        singleCommands.add(Action.GREET);
+        singleCommands.add(Action.BYE);
+        parsedTokens[2] = !singleCommands.contains(actionType) ? taskInfo[1] : "";
 
         System.arraycopy(tokens, 1, parsedTokens, 3, tokens.length - 1);
 

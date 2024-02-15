@@ -6,6 +6,7 @@ public class Task {
 
     /**
      * Initializes a task with the specified attributes.
+     *
      * @param isDone boolean representing if a task is completed or not.
      * @param name String.
      */

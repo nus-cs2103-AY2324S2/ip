@@ -1,5 +1,7 @@
 package simpli.ui;
 
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import simpli.core.Simpli;
 
 import java.util.Objects;
@@ -26,16 +29,20 @@ public class MainWindow extends AnchorPane {
 
     private Simpli simpli;
 
-    private Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/User.jpg")));
-    private Image simpliImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/Simpli.jpg")));
+    private Image userImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/images/User.jpg")));
+    private Image simpliImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/images/Simpli.jpg")));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
     }
 
     public void setSimpli(Simpli simpli) {
         this.simpli = simpli;
+        dialogContainer.getChildren().add(DialogBox.getSimpliDialog(simpli.greet(), simpliImage));
     }
 
     /**
@@ -46,6 +53,10 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = simpli.processInput(input);
+
+        if (response.equals("exit")) {
+            Platform.exit();
+        }
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),

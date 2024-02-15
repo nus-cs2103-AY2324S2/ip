@@ -4,6 +4,7 @@ package simpli.actions;
  * Contains actions executable.
  */
 public enum Action {
+    GREET,
     LIST,
     MARK,
     UNMARK,
@@ -11,5 +12,6 @@ public enum Action {
     FIND,
     TODO,
     DEADLINE,
-    EVENT
+    EVENT,
+    BYE
 }

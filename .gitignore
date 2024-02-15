@@ -13,8 +13,8 @@ src/main/resources/docs/
 *.iml
 bin/
 
-/text-ui-test/ACTUAL.TXT
-text-ui-test/EXPECTED-UNIX.TXT
+/text-cli-test/ACTUAL.TXT
+text-cli-test/EXPECTED-UNIX.TXT
 
 # Data files
 /data/

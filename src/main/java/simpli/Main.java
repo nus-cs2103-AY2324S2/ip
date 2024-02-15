@@ -1,13 +1,14 @@
 package simpli;
 
+import javafx.application.Application;
 import simpli.core.Simpli;
+import simpli.ui.Gui;
 
 /**
  * Main entry point of the program.
  */
 public class Main {
     public static void main(String[] args) {
-        Simpli simpli = new Simpli();
-        simpli.start();
+        Application.launch(Gui.class, args);
     }
 }
