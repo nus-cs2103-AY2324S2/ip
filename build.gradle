@@ -42,12 +42,12 @@ test {
 }
 
 application {
-    mainClass.set("jiayou.Launcher")
+    mainClass.set("jiayou.view.Launcher")
 }
 
 shadowJar {
     archiveBaseName = "jiayou"
-    archiveClassifier = "0.4"
+    archiveClassifier = "0.2"
     dependsOn("distZip", "distTar")
     from 'src/main/resources'
 }
