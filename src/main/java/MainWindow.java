@@ -2,7 +2,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -24,12 +23,10 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
 
     private Mike mike;
 
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/sully.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/cartoon_sully.png"));
     private final Image mikeImage = new Image(this.getClass().getResourceAsStream("/images/mike.png"));
 
     @FXML
@@ -102,7 +99,5 @@ public class MainWindow extends AnchorPane {
 }
 
 /* TODO for the next commit:
- *  3. rethink the user interface
- *  4. introduce css styling
  *  5. change completed tasks to have strikethrough
  */

@@ -5,12 +5,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 
 /**
  * An example of a custom control using FXML.
@@ -21,7 +24,9 @@ public class DialogBox extends HBox {
     @FXML
     private Label dialog;
     @FXML
-    private ImageView displayPicture;
+    private Circle displayPicture;
+    @FXML
+    private HBox pictureContainer;
 
     private DialogBox(String text, Image img) {
         try {
@@ -33,8 +38,24 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
+        this.setPadding(new Insets(7, 5, 7, 5));
+        initializeDialog(text);
+        initializeDisplayPicture(img);
+    }
+
+    private void initializeDialog(String text) {
+        dialog.setPadding(new Insets(7, 7, 7, 7));
+        dialog.setLineSpacing(1.2);
+        dialog.setOpacity(0.8);
         dialog.setText(text);
-        displayPicture.setImage(img);
+    }
+
+    private void initializeDisplayPicture(Image img) {
+        pictureContainer.setPadding(new Insets(0, 5, 0, 5));
+        displayPicture.setStroke(Color.LIGHTGRAY);
+        displayPicture.setStrokeWidth(1);
+        displayPicture.setRadius(40);
+        displayPicture.setFill(new ImagePattern(img));
     }
 
     /**
