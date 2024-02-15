@@ -2,6 +2,8 @@ package friday.task;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import friday.storage.Storage;
@@ -42,25 +44,23 @@ public class TaskList {
      * @return A message indicating the task has been marked as done, or an error message.
      */
     public String markTask(String userInput) {
-        assert userInput != null : "User input must not be null";
-
-        String num = userInput.substring(4).trim();
-        if (num.isEmpty()) {
+        if (userInput.substring(4).trim().isEmpty()) {
             return "Error. Unknown task number to be marked.";
-        } else {
-            int id = Integer.parseInt(num);
-            assert id > 0 && id <= tasks.size() : "Task number is out of bounds";
+        }
+        String[] nums = userInput.substring(4).split(",");
+        StringBuilder sb = new StringBuilder();
+        sb.append("Nice! I will mark these tasks as done: ");
+        sb.append(System.lineSeparator());
+        for (String num : nums) {
+            int id = Integer.parseInt(num.trim());
             if (id > tasks.size()) {
                 return "Error. Task number does not exist.";
             } else {
-                StringBuilder sb = new StringBuilder();
-                sb.append("Nice! I have marked this task as done: ");
-                sb.append(System.lineSeparator());
                 tasks.get(id - 1).markAsDone();
-                sb.append(tasks.get(id - 1).toString());
-                return sb.toString();
+                sb.append(tasks.get(id - 1).toString() + System.lineSeparator());
             }
         }
+        return sb.toString();
     }
 
     /**
@@ -70,25 +70,23 @@ public class TaskList {
      * @return A message indicating the task has been marked as undone, or an error message.
      */
     public String unmarkTask(String userInput) {
-        assert userInput != null : "User input must not be null";
-
-        String num = userInput.substring(6).trim();
-        if (num.isEmpty()) {
+        if (userInput.substring(6).trim().isEmpty()) {
             return "Error. Unknown task number to be unmarked.";
-        } else {
-            int id = Integer.parseInt(num);
-            assert id > 0 && id <= tasks.size() : "Task number is out of bounds";
+        }
+        String[] nums = userInput.substring(6).split(",");
+        StringBuilder sb = new StringBuilder();
+        sb.append("Okay. I have unmarked these tasks: ");
+        sb.append(System.lineSeparator());
+        for (String num : nums) {
+            int id = Integer.parseInt(num.trim());
             if (id > tasks.size()) {
                 return "Error. Task number does not exist.";
             } else {
-                StringBuilder sb = new StringBuilder();
-                sb.append("Okay. I have unmarked this task: ");
-                sb.append(System.lineSeparator());
                 tasks.get(id - 1).markAsUndone();
-                sb.append(tasks.get(id - 1).toString());
-                return sb.toString();
+                sb.append(tasks.get(id - 1).toString() + System.lineSeparator());
             }
         }
+        return sb.toString();
     }
 
     /**
@@ -98,24 +96,33 @@ public class TaskList {
      * @return A message indicating the task has been deleted, or an error message.
      */
     public String deleteTask(String userInput) {
-        assert userInput != null : "User input must not be null";
-        String num = userInput.substring(6).trim();
-        if (num.isEmpty()) {
+        if (userInput.substring(6).trim().isEmpty()) {
             return "Error. Unknown task number to be deleted.";
-        } else {
-            int id = Integer.parseInt(num);
-            assert id > 0 && id <= tasks.size() : "Task number is out of bounds";
+        }
+        String[] nums = userInput.substring(7).split(",");
+        Integer[] idsToDelete = new Integer[nums.length];
+        int pos = 0;
+        StringBuilder sb = new StringBuilder("Okay. I am going to delete: ");
+        sb.append(System.lineSeparator());
+        for (String num : nums) {
+            int id = Integer.parseInt(num.trim());
             if (id > tasks.size()) {
                 return "Error. Task number does not exist.";
             } else {
-                StringBuilder sb = new StringBuilder("Okay. I have deleted this task: ");
-                sb.append(System.lineSeparator());
                 sb.append(tasks.get(id - 1).toString() + System.lineSeparator());
-                tasks.remove(id - 1);
-                sb.append(displayCounter(tasks.size()));
-                return sb.toString();
+                idsToDelete[pos] = id - 1;
+                pos++;
             }
         }
+        Arrays.sort(idsToDelete);
+        Collections.reverse(Arrays.asList(idsToDelete)); // Sort the ids of the tasks to be deleted in reverse order
+        // so that deleting from the back will not affect the id of other tasks.
+        for (int i : idsToDelete) {
+            tasks.remove(i);
+        }
+        sb.append(displayCounter(tasks.size()));
+        return sb.toString();
+
     }
 
     /**
