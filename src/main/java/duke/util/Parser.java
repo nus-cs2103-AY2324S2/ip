@@ -79,7 +79,7 @@ public class Parser {
         } else if (current.startsWith("find")) {
             String[] reqList = current.split(" ");
             if (reqList.length < 2) {
-                throw new TaskException("What do you want me to find? Please specify");
+                return ui.showError("What do you want me to find? Please specify");
             }
             return commander.findTaskCommand(reqList);
         } else if (current.startsWith("snooze")) {

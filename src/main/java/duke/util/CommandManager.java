@@ -97,7 +97,7 @@ public class CommandManager {
         return current;
     }
 
-    public ArrayList<String> snoozeCommand(int index) throws TaskException{
+    public ArrayList<String> snoozeCommand(int index){
         Task curr = tasks.getTask(index);
         if (curr instanceof Todo) {
             ArrayList<String> errorList = new ArrayList<String>(Arrays.asList("Todo task cannot be snoozed"));
@@ -106,7 +106,7 @@ public class CommandManager {
         curr.snooze();
         return ui.snooze(curr);
     }
-    public ArrayList<String> postponeCommand(int index, int days) throws TaskException{
+    public ArrayList<String> postponeCommand(int index, int days){
         Task curr = tasks.getTask(index);
         if (curr instanceof Todo) {
             ArrayList<String> errorList = new ArrayList<String>(Arrays.asList("Todo task cannot be snoozed"));
@@ -115,7 +115,7 @@ public class CommandManager {
         curr.postpone(days);
         return ui.postpone(curr, days);
     }
-    public ArrayList<String> rescheduleCommand(String[] reqParts) throws TaskException{
+    public ArrayList<String> rescheduleCommand(String[] reqParts){
         int position;
         try {
             position = Integer.parseInt(reqParts[0]) - 1;
@@ -128,11 +128,11 @@ public class CommandManager {
         }
         if (curr instanceof Event) {
             if (!Arrays.asList(reqParts).contains("/from") && !Arrays.asList(reqParts).contains("/to")){
-                throw new TaskException("Please specify the new event timeframe");
+                return ui.showError("Please specify the new event timeframe");
             } else if (!Arrays.asList(reqParts).contains("/from")){
-                throw new TaskException("Please specify when the new start time.");
+                return ui.showError("Please specify when the new start time.");
             } else if (!Arrays.asList(reqParts).contains("/to")){
-                throw new TaskException("Please specify when the new end time.");
+                return ui.showError("Please specify when the new end time.");
             }
 
             int fromIndex = finder("/from", reqParts);
