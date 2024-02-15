@@ -10,9 +10,6 @@ package lery;
  * one without a message and another with a customizable error message.
  */
 public class LeryException extends Exception {
-    public LeryException() {
-        super();
-    }
 
     public LeryException(String message) {
         super(message);

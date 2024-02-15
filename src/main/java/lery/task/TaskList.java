@@ -79,7 +79,6 @@ public class TaskList {
                     + "]" + "[" + task.getStatusIcon() + "] " + task.getDescription()
                     + task.getExtraInfo() + "\n";
             list += message;
-
         }
         return list;
     }

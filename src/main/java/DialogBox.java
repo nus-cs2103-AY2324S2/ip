@@ -38,7 +38,6 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         dialog.setText(text);
         displayPicture.setImage(img);
     }
@@ -77,6 +76,4 @@ public class DialogBox extends HBox {
         db.flip();
         return db;
     }
-
-
 }

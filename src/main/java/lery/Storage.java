@@ -1,3 +1,4 @@
+
 package lery;
 
 import lery.task.Deadline;
@@ -58,22 +59,23 @@ public class Storage {
                     if (splitLine.length < 3 || splitLine.length > 4) {
                         throw new LeryException("Erm... Textfile not in correct format!" + splitLine.length);
                     }
-                    if (type.equalsIgnoreCase("T")) {
+                    switch (type) {
+                    case "T":
                         newTask = new Todo(event);
-                    } else if (type.equalsIgnoreCase("D")) {
+                        break;
+                    case "D":
                         String extraInfo = splitLine[3];
                         checkDateFormat(extraInfo);
-
                         newTask = new Deadline(event, extraInfo);
-                    } else if (type.equalsIgnoreCase("E")) {
-                        String extraInfo = splitLine[3];
-                        assert extraInfo.contains("-") : "Event Command in text file should contain '-'";
-                        newTask = new Event(event, extraInfo);
-                    } else {
+                        break;
+                    case "E":
+                        String extra = splitLine[3];
+                        newTask = new Event(event, extra);
+                        break;
+                    default:
                         throw new LeryException("Erm... Invalid type!" + type);
                     }
                     this.taskList.add(newTask);
-
                 }
                 s.close();
             }
@@ -114,11 +116,9 @@ public class Storage {
      */
     public void checkDateFormat(String date) throws LeryException {
         try {
-            LocalDate d = LocalDate.parse(date, this.formatter);
+            LocalDate.parse(date, this.formatter);
         } catch (Exception ex) {
-
             throw new LeryException("Erm... Date not keyed in correct format! Correct format is yyyy-MM-dd" + ex);
-
         }
     }
 

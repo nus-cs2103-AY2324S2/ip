@@ -22,7 +22,6 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setLery(lery);
             fxmlLoader.<MainWindow>getController().greet();
-
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
