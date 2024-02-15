@@ -16,7 +16,7 @@ public class FindExecutor extends Executor {
      * @param description A description of the word the user is finding.
      */
     public FindExecutor(String description) {
-        this.description = description;
+        this.description = description.toLowerCase();
         this.executeStr = "";
     }
 
@@ -29,7 +29,7 @@ public class FindExecutor extends Executor {
         for (int i = 0; i < this.taskList.taskSize(); i++) {
             String[] words = this.taskList.getTask(i).toString().split(" ");
             for (int j = 0; j < words.length; j++) {
-                if (this.description.equalsIgnoreCase(words[j])) {
+                if (words[j].toLowerCase().startsWith(this.description)) {
                     matchedLst.add(this.taskList.getTask(i).toString());
                     break;
                 }
