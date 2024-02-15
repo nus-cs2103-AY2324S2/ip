@@ -5,7 +5,6 @@ import duke.task.TaskException;
 import duke.task.TaskList;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Parses user input and executes commands based on the input.
@@ -93,8 +92,7 @@ public class Parser {
             return commander.postponeCommand(position, days);
         } else if (current.startsWith("reschedule")) {
             String[] marking = current.split(" ");
-            String[] input = Arrays.copyOfRange(marking, 1, marking.length);
-            return commander.rescheduleCommand(input);
+            return commander.rescheduleCommand(marking);
         } else {
             Task curr = identify(current);
             tasks.addTask(curr);

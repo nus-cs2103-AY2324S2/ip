@@ -59,8 +59,9 @@ public class Event extends Task {
     @Override
     public void snooze() {
         try {
-            String newTime = TimeManager.addDays(this.end, 1);
-            this.end = newTime;
+            LocalDateTime newTime = TimeManager.convertTime(this.end);
+            newTime = newTime.plusDays(1);
+            this.end = TimeManager.parseTime(String.valueOf(newTime));
         } catch (TaskException e) {
             this.end = "Day after " + this.end;
         }
@@ -69,22 +70,10 @@ public class Event extends Task {
     @Override
     public void postpone(int days) {
         try {
-            String newTime = TimeManager.addDays(this.end, days);
-            this.end = newTime;
+            LocalDateTime currTime = TimeManager.convertTime(this.end);
+            this.end = TimeManager.addDays(currTime, days);
         } catch (TaskException e) {
             this.end = "Day after " + this.end;
-        }
-    }
-
-    @Override
-    public void reschedule(String start, String end){
-        try {
-            LocalDateTime newStartTime = TimeManager.convertTime(end);
-            this.start = TimeManager.parseTime(String.valueOf(newStartTime));
-            LocalDateTime newEndTime = TimeManager.convertTime(end);
-            this.end = TimeManager.parseTime(String.valueOf(newEndTime));
-        } catch (TaskException e) {
-            this.end = end;
         }
     }
 }
