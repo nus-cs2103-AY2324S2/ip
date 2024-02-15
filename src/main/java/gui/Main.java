@@ -6,7 +6,9 @@ import academicweapon.Duke;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -15,11 +17,12 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private Duke duke;
+    private VBox dialogContainer;
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @Override
     public void start(Stage stage) {
         duke = new Duke("./src/main/data/acadList.txt");
-        //duke = new Duke("duke");
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
