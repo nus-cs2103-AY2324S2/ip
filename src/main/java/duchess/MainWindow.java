@@ -27,7 +27,7 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty()); //Uses Streams
     }
 
     public void setDuchess(Duchess d) {
