@@ -8,6 +8,11 @@ import java.util.Arrays;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * A type of task with a Date to indicate
+ * when a task should be completed. It can also
+ * extract details to fill its relevant fields
+ */
 public class Deadline extends Task {
     protected LocalDate by;
     private Deadline(String desc, String by) {

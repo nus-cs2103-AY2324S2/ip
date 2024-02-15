@@ -5,6 +5,10 @@ import BadApple.main.BadAppleException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * A type of Task that has a start time and end time
+ * It can also extract details to fill its relevant fields
+ */
 public class Event extends Task {
     protected String from;
     protected String to;

@@ -2,9 +2,7 @@ package BadApple.task;
 
 import java.util.Random;
 
-import static java.lang.Integer.parseInt;
-
-public class Tracker {
+public class Messenger {
     public static boolean suppressMessages = false;
     /**
      * When a user adds a task, a response of PrependMessages + task is rendered
