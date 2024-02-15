@@ -23,7 +23,11 @@ public class Parser {
      * @throws InvalidArgumentException If the argument is missing and invalid.
      */
     public static Command parse(String input) throws InvalidCommandException, InvalidArgumentException {
+        assert input != null : "User's input should never be null";
+
         String[] parts = input.split(" ", 2);
+
+        assert parts[0] != null : "Command should never be null";
 
         String command = parts[0].toUpperCase();
 
