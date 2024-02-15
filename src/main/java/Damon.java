@@ -51,16 +51,39 @@ public class Damon {
                 + "Here are the tasks in your list:\n");
         for (int i = 0; i < n; i++) {
             Task currentTask = storage.get(i);
-            System.out.println((i + 1) + "." + "[" + storage.get(i).getStatusIcon() + "] "
-                    + currentTask.description + "\n");
+            System.out.println((i + 1) + "." + currentTask.toString() + "\n");
         }
         System.out.println("__________________________________________________________\n");
     }
 
     static void storeInput(String inputString) {
-        storage.add(new Task(inputString));
+        Task newTask;
+        if (inputString.startsWith("todo")) {
+            String description = inputString.substring(5);
+            ToDo newToDo = new ToDo(description);
+            storage.add(newToDo);
+            newTask = newToDo;
+        } else if (inputString.startsWith("deadline")) {
+            String[] splittedString = inputString.substring(9).split(" /by ");
+            String description = splittedString[0];
+            String by = splittedString[1];
+            Deadline newDeadline = new Deadline(description, by);
+            storage.add(newDeadline);
+            newTask = newDeadline;
+        } else {
+            String[] firstSplittedString = inputString.substring(6).split(" /from ");
+            String description = firstSplittedString[0];
+            String[] secondSplittedString = firstSplittedString[1].split(" /to ");
+            String startTime = secondSplittedString[0];
+            String endTime = secondSplittedString[1];
+            Event newEvent = new Event(description, startTime, endTime);
+            storage.add(newEvent);
+            newTask = newEvent;
+        }
         System.out.println("__________________________________________________________\n"
-                + "add: " + inputString + "\n"
+                + "Got it. I've added this task:\n"
+                + newTask.toString() + "\n"
+                + "Now you have " + storage.size() + " tasks in the list.\n"
                 + "__________________________________________________________\n");
     }
 
@@ -74,8 +97,7 @@ public class Damon {
         storage.get(index).markAsDone();
         System.out.println("__________________________________________________________\n"
                 + "Nice! I've marked this task as done:\n"
-                + "  [" + storage.get(index).getStatusIcon() + "] "
-                + storage.get(index).description + "\n"
+                + storage.get(index).toString() + "\n"
                 + "__________________________________________________________\n");
     }
 
@@ -83,8 +105,9 @@ public class Damon {
         storage.get(index).markBackNotDone();
         System.out.println("__________________________________________________________\n"
                 + "OK, I've marked this task as not done yet:\n"
-                + "  [" + storage.get(index).getStatusIcon() + "] "
-                + storage.get(index).description + "\n"
+                + storage.get(index).toString() + "\n"
                 + "__________________________________________________________\n");
     }
+
+
 }
