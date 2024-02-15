@@ -108,14 +108,14 @@ public class Ui {
      */
 
     public String showFind(TaskList list, String input) {
-        List<Task> matchedTasks = list.getTasks().stream().filter(t -> t.contains(input)).collect( Collectors.toList());
+        List<Task> matchedTasks = list.getTasks().stream().filter(t -> t.contains(input)).collect(Collectors.toList());
 
         if (matchedTasks.isEmpty()) {
             return "No Matching tasks found in the list!";
         } else {
-            return "Following are Matching tasks in your list:-\n" +
-                    matchedTasks.stream()
-                            .map(Task::toString) // Map tasks to their string representation
+            return "Following are Matching tasks in your list:-\n"
+                    + matchedTasks.stream()
+                            .map(Task::toString)
                             .collect(Collectors.joining("\n"));
         }
     }

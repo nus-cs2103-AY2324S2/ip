@@ -94,10 +94,13 @@ public class Jivox {
         this.tasks.add(new Todo(content));
     }
 
-    public void saveDb(){
+    /**
+     * Saves the tasks into the Local Database
+     */
+    public void saveDb() {
         try {
             this.dbHandler.save(this.tasks);
-        } catch (JivoxException e){
+        } catch (JivoxException e) {
             this.ui.showException(e);
         }
     }
@@ -208,12 +211,12 @@ public class Jivox {
             case LIST:
                 return this.ui.showTasks(this.tasks);
             case SHOW:
-                if (input.length == 1){
+                if (input.length == 1) {
                     throw new JivoxException("Please Provide a Date to show Tasks!");
                 }
                 return this.show(input[1]);
             case FIND:
-                if (input.length == 1){
+                if (input.length == 1) {
                     throw new JivoxException("Please Provide a Keyword for find!");
                 }
                 return this.find(input[1]);

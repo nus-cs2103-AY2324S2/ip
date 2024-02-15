@@ -42,7 +42,7 @@ public class TaskList {
      *
      * @return the List of tasks.
      */
-    public List<Task> getTasks(){
+    public List<Task> getTasks() {
         return this.tasks;
     }
 
