@@ -26,6 +26,8 @@ public class Parser {
             return new ByeCommand();
         case LIST:
             return new ListCommand();
+        case FIND:
+            return new FindCommand(taskInfo);
         case MARK:
             return new MarkCommand(taskInfo);
         case UNMARK:

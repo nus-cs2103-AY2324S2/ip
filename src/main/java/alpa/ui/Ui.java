@@ -139,6 +139,24 @@ public class Ui {
     }
 
     /**
+     * Displays the found tasks to the user.
+     *
+     * @param tasks The list of tasks to be displayed.
+     */
+    public void showFoundTasks(List<Task> tasks) {
+        StringBuilder messageBuilder = new StringBuilder();
+        if (tasks.isEmpty()) {
+            messageBuilder.append("\nHuman! There are no tasks!!");
+        } else {
+            messageBuilder.append("\nHere are the matching tasks in your list human:\n");
+            for (int i = 0; i < tasks.size(); i++) {
+                messageBuilder.append((i + 1) + ". " + tasks.get(i).toString()).append("\n");
+            }
+        }
+        printDecoratedMessage(messageBuilder.toString());
+    }
+
+    /**
      * Displays a message indicating that a task has been deleted.
      *
      * @param task The task that has been deleted.
