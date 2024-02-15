@@ -17,13 +17,20 @@ public class Bridge {
 
     }
 
-    public void link(VBox dialogContainer, Image duke) {
+    /**
+     * Link the GUI to the main chatBox program which processes user input and
+     * generates output.
+     *
+     * @param dialogContainer Visual container displaying dialog between user
+     *                        and Wis.
+     * @param wisImage Profile image of Wis.
+     */
+    public void link(VBox dialogContainer, Image wisImage) {
         String message = chatBox.launch();
         if (!message.equals("")) {
             Label errorText = new Label(message);
             dialogContainer.getChildren().addAll(
-                    new DialogBox(errorText, new ImageView(duke))
-            );
+                    new DialogBox(errorText, new ImageView(wisImage)));
         }
     }
 

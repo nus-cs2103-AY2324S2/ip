@@ -2,7 +2,6 @@ package wis.util;
 
 import java.io.IOException;
 
-import javafx.beans.binding.StringBinding;
 import wis.Action;
 
 /**
@@ -12,7 +11,7 @@ public class WisException {
     /**
      * Handles exceptions thrown by actions that fail to execute.
      */
-    public static String actionExceptionHandler(Action action) {
+    public static String handleActionException(Action action) {
         StringBuilder sb = new StringBuilder();
         switch (action) {
         case ADD_TODO:
@@ -71,7 +70,7 @@ public class WisException {
     /**
      * Handles exceptions due to failure to save file.
      */
-    public static String saveFileExceptionHandler(IOException e) {
+    public static String handleSaveFileException(IOException e) {
         StringBuilder sb = new StringBuilder();
         sb.append(Printer.DECORATOR);
         sb.append(Printer.println("Failed to save file to local."));
@@ -83,7 +82,7 @@ public class WisException {
     /**
      * Handles exceptions due to failure to load file.
      */
-    public static String loadFileExceptionHandler() {
+    public static String handleLoadFileException() {
         StringBuilder sb = new StringBuilder();
         sb.append(Printer.DECORATOR);
         sb.append(Printer.println("Failed to load tasks from local."));
@@ -95,7 +94,7 @@ public class WisException {
     /**
      * Handles exceptions due to wrong format of date and time.
      */
-    public static String dateTimeExceptionHandler(Exception e) {
+    public static String handleDateTimeException(Exception e) {
         StringBuilder sb = new StringBuilder();
         sb.append(Printer.DECORATOR);
         sb.append(Printer.println(e.getMessage()));

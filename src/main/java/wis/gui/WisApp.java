@@ -16,8 +16,8 @@ import javafx.stage.Stage;
 
 
 public class WisApp extends Application {
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
+    private ScrollPane scrollPane;  // contained in scene
+    private VBox dialogContainer;  // contained in scrollPane
     private TextField userInput;
 
     private Button sendButton;
@@ -31,9 +31,17 @@ public class WisApp extends Application {
 
     }
 
+    /**
+     * {@inheritDoc}
+     * Load the main scene, launch the app and listen for user input.
+     *
+     * @param stage the primary stage for this application, onto which
+     * the application scene can be set.
+     * Applications may create other stages, if needed, but they will not be
+     * primary stages.
+     */
     @Override
     public void start(Stage stage) {
-        //The container for the content of the chat to scroll.
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
@@ -49,7 +57,7 @@ public class WisApp extends Application {
         stage.setScene(scene);
         stage.show();
 
-        // step 2
+        // Adjust parameters of display
         stage.setTitle("Wis");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
@@ -78,12 +86,12 @@ public class WisApp extends Application {
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
-        //Scroll down to the end every time dialogContainer's height changes.
+        // Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
 
         bridge.link(dialogContainer, duke);
 
-        //Step 3. Add functionality to handle user input.
+        // Handle user input.
         sendButton.setOnMouseClicked((event) -> {
             handleUserInput();
         });
@@ -99,7 +107,6 @@ public class WisApp extends Application {
     }
 
     /**
-     * Iteration 2:
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */

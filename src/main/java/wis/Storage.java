@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 
@@ -38,7 +37,7 @@ public class Storage {
             bufferedWriter.close();
 
         } catch (IOException e) {
-            WisException.saveFileExceptionHandler(e);
+            WisException.handleSaveFileException(e);
         }
     }
 
