@@ -36,7 +36,10 @@ public class Storage {
         path = new File(Paths.get(".").toAbsolutePath().normalize().toString() + "/data");
 
         if (!path.exists()) {
-            path.mkdir();
+            boolean isCreated = path.mkdir();
+
+            assert isCreated : "path should be created";
+
             Files.createFile(Paths.get(path.toString() + "/data.txt"));
         }
 
@@ -50,17 +53,28 @@ public class Storage {
         while(br.ready()) {
             String[] text = br.readLine().split(Pattern.quote(" | "));
 
-            if (text[0].isEmpty()) break;
+            if (text[0].isEmpty()) {
+                break;
+            }
 
             if (text[0].equals("T")) {
+
+                assert text.length == 3 : "length should be 3";
+
                 Todo temp = new Todo(text[2]);
                 temp.setCheck(text[1].equals("1"));
                 tasks.add(temp);
             } else if (text[0].equals("D")) {
+
+                assert text.length == 4 : "length should be 4";
+
                 Deadline temp = new Deadline(text[2], LocalDate.parse(text[3]));
                 temp.setCheck(text[1].equals("1"));
                 tasks.add(temp);
             } else {
+
+                assert text.length == 4 : "length should be 4";
+
                 String[] time = text[3].split("-");
                 Event temp = new Event(text[2], time[0], time[1]);
                 temp.setCheck(text[1].equals("1"));
