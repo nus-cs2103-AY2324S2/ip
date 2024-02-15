@@ -1,6 +1,12 @@
 package raphael.task;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import raphael.exception.RaphaelException;
 import raphael.format.FileFormattable;
@@ -10,7 +16,7 @@ import raphael.format.Formatter;
  * The task list.
  */
 public class TaskList implements FileFormattable {
-    private final ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
 
     /**
      * The overridden constructor of the task list.
@@ -21,6 +27,9 @@ public class TaskList implements FileFormattable {
         this.tasks = new ArrayList<>();
         final String[] tasksArr = tasks.split("\n");
         for (String task : tasksArr) {
+            if (task.isEmpty() || task.equals("\n")) {
+                continue;
+            }
             final String[] taskArr = task.split(" \\|&\\| ");
             switch (taskArr[0]) {
             case "T":
@@ -37,6 +46,10 @@ public class TaskList implements FileFormattable {
                 throw new RaphaelException("Error in loading the tasks!");
             }
         }
+    }
+    public TaskList(List<? extends Task> tasks) throws RaphaelException {
+        this.tasks = new ArrayList<>();
+        this.tasks.addAll(tasks);
     }
     public TaskList() {
         this.tasks = new ArrayList<>();
@@ -99,6 +112,8 @@ public class TaskList implements FileFormattable {
 
     public void addTask(Task t) {
         this.tasks.add(t);
+        this.tasks = this.tasks.parallelStream().sorted().collect(
+                Collectors.toCollection(ArrayList::new));
     }
 
     /**
@@ -115,6 +130,8 @@ public class TaskList implements FileFormattable {
         } else {
             Task temp = this.tasks.get(idx);
             this.tasks.remove(idx);
+            this.tasks = this.tasks.parallelStream().sorted().collect(
+                    Collectors.toCollection(ArrayList::new));
             return temp;
         }
     }
@@ -137,20 +154,14 @@ public class TaskList implements FileFormattable {
      * @return all the matching tasks in a single string.
      */
     public String find(String keyword) {
-        String res = "";
-        for (Task task : this.tasks) {
-            if (task.isContaining(keyword)) {
-                if (res.isEmpty()) {
-                    res = task.toString();
-                } else {
-                    res = String.format("%s\n%s", res, task);
-                }
-            }
-        }
+        String res = this.tasks.stream()
+                .filter(t -> t.isContaining(keyword))
+                .map(Task::toString)
+                .reduce("", (acc, t) -> String.format("%s\n\t%s", acc, t));
         if (res.isEmpty()) {
             return "There are no matching tasks.";
         } else {
-            return String.format("Here are the matching tasks in your list:\n\t%s", res);
+            return String.format("Here are the matching tasks in your list:\t%s", res);
         }
     }
     @Override
@@ -168,14 +179,10 @@ public class TaskList implements FileFormattable {
 
     @Override
     public String toFileFormat() {
-        String fileFormat = "";
-        for (Task task : this.tasks) {
-            if (fileFormat.isEmpty()) {
-                fileFormat = task.toFileFormat();
-            } else {
-                fileFormat = String.format("%s\n%s", fileFormat, task.toFileFormat());
-            }
-        }
-        return fileFormat;
+        return this.tasks.stream()
+                .map(Task::toFileFormat)
+                .reduce("", (acc, task) -> (
+                        String.format("%s\n%s", acc, task)
+                        ));
     }
 }

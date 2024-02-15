@@ -6,8 +6,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 import raphael.exception.RaphaelException;
+import raphael.task.Task;
 
 /**
  * Handles task file I/O.
@@ -36,16 +39,19 @@ public class Storage {
      * @return the content of the task file.
      * @throws RaphaelException the exception exclusive for Raphael.
      */
-    public String load() throws RaphaelException {
+    public List<Task> load() throws RaphaelException {
         try {
             BufferedReader br = Files.newBufferedReader(this.filePath);
             String line;
-            StringBuilder tasks = new StringBuilder();
-            while ((line = br.readLine()) != null && !line.equals("\n")) {
-                tasks.append(line).append("\n");
+            ArrayList<Task> res = new ArrayList<>();
+            while ((line = br.readLine()) != null) {
+                if (line.isEmpty() || line.equals("\n")) {
+                    continue;
+                }
+                res.add(Task.of(line));
             }
             br.close();
-            return tasks.toString();
+            return res;
         } catch (IOException e) {
             throw new RaphaelException(RaphaelException.Type.READ_IO_EXCEPTION);
         }
