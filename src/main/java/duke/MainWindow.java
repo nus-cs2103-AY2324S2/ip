@@ -47,10 +47,9 @@ public class MainWindow extends AnchorPane{
         String response = duke.getResponse(input);
         DialogBox user = DialogBox.getUserDialog(input, userImage);
         DialogBox bot = DialogBox.getBotDialog(response, botImage);
+
+
         dialogContainer.getChildren().addAll(user, bot);
-
-        VBox.setVgrow(bot, Priority.ALWAYS);
-
         userInput.clear();
     }
 

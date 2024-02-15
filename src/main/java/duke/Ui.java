@@ -57,24 +57,34 @@ public class Ui {
 
     /**
      * Print to inform users that task is marked done.
-     *
-     * @param task Specifics of the task to be marked done.
+     * @param taskNum The task number entered by users.
+     * @param taskList The existing taskList
+     * @return A string to inform users that task is marked done.
      */
-    public String printMarkDone(String task) {
+    public String MarkDone(int taskNum, TaskList taskList) {
+        Task task = taskList.get(taskNum - 1);
+        task.mark();
+        String taskString = task.toString();
+
         return "Good job! I've marked this task as done: \n"
                 + "  "
-                + task;
+                + taskString;
     }
 
     /**
-     * Print to inform users that task is marked undone.
+     * Print to inform users that task is marked not done.
      *
-     * @param task Specifics of the task to be marked undone.
+     * @param taskNum The task number entered by users.
+     * @param taskList The existing taskList
+     * @return A string to inform users that task is marked not done.
      */
-    public String printMarkNotDone(String task) {
-       return "Okie, Marked this task as not done yet:"
+    public String MarkNotDone(int taskNum, TaskList taskList) {
+        Task task = taskList.get(taskNum - 1);
+        task.unmark();
+        String taskString = task.toString();
+       return "Okie, Marked this task as not done yet: \n"
                + "  "
-               + task;
+               + taskString;
     }
 
     /**
@@ -82,21 +92,88 @@ public class Ui {
      *
      * @param task Specifics of the task to be added.
      */
-    public String printAdded(String task, TaskList taskList) {
+    private String printAdded(String task, TaskList taskList) {
         return "  Got it. I've added this task:"+ "\n"
                 + "  " + task + "\n"
                 + "  Now u have " + taskList.getSize() +
                 " tasks in the list.";
     }
 
+    protected String addTask(String[] cmd, TaskList ls) {
+        if (cmd[0].equals("todo")) {
+            try {
+                Task t = new ToDo(cmd[1]);
+                ls.add(t);
+
+                String taskString = t.toString();
+                return printAdded(taskString, ls);
+
+            } catch (Exception exc) {
+                return invalidDescription();
+
+            }
+        }
+        else if (cmd[0].equals("deadline")) {
+            try {
+                String[] date = cmd[1].split("/by",
+                        2);
+                try {
+                    String d = date[1].trim();
+                    Task t = new Deadline(date[0], d);
+                    ls.add(t);
+                    String taskString = t.toString();
+                    return printAdded(taskString, ls);
+
+                }
+                catch (Exception exc) {
+                    return invalidDdlFormat();
+
+                }
+            } catch (Exception exc) {
+                return invalidDescription();
+
+            }
+        } else if (cmd[0].equals("event")) {
+            try {
+                String[] date = cmd[1].split("/", 3);
+                try {
+                    Task t = new Event(date[0],
+                            date[1],
+                            date[2]);
+                    ls.add(t);
+                    String taskString = t.toString();
+                    return printAdded(taskString, ls);
+
+                } catch (Exception exc) {
+                    return invalidEventFormat();
+
+                }
+            } catch (Exception exc) {
+                return invalidDescription();
+
+            }
+        }
+        else {
+            return invalidInput();
+
+        }
+    }
+
+
     /**
      * Print to inform users that task is removed.
      *
-     * @param task Specifics of the task to be removed.
+     * @param taskNum The task number entered by users.
+     * @param taskList The existing taskList
+     * @return A string to inform users that task is removed.
      */
-    public String printRemoved(String task, TaskList taskList) {
-        return "Noted. Task Removed:" + "\n"
-                + "  " + task + "\n"
+    public String taskRemoved(int taskNum, TaskList taskList) {
+        Task task = taskList.get(taskNum - 1);
+        String taskString = task.toString();
+        taskList.remove(taskNum - 1);
+
+        return "Noted. The following task is removed:" + "\n"
+                + "  " + taskString + "\n"
                 + "  Now u have " + taskList.getSize() +
                 " tasks in the list.";
     }
