@@ -1,6 +1,8 @@
-package Duke;
-import org.junit.jupiter.api.Test;
+package duke;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * JUnit test for TaskList class.

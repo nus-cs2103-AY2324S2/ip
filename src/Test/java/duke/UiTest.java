@@ -1,10 +1,13 @@
-package Duke;
-import org.junit.jupiter.api.Test;
+package duke;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * JUnit test for Ui class.
@@ -41,10 +44,10 @@ public class UiTest {
         Ui ui = new Ui();
         ui.showTasks(tasks, taskNum);
 
-        String expectedOutput = "    _______________________________________________________\n" +
-                "     1. [ ] Task 1\n" +
-                "     2. [ ] Task 2\n" +
-                "    _______________________________________________________\n";
+        String expectedOutput = "    ____________________________________________________________\n"
+                + "     1. [ ] Task 1\n"
+                + "     2. [ ] Task 2\n"
+                + "    ____________________________________________________________\n";
         assertEquals(expectedOutput, outputStream.toString());
 
         System.setOut(System.out);

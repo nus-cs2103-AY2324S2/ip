@@ -1,11 +1,11 @@
-package Duke;
+package duke;
 
-import java.io.IOException;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -23,7 +23,7 @@ public class Storage {
      * @param filePath The file path to store the tasks.
      */
     public Storage(String filePath) {
-        if(filePath == null) {
+        if (filePath == null) {
             throw new IllegalArgumentException("File path cannot be null");
         }
         this.filePath = filePath;
@@ -76,15 +76,15 @@ public class Storage {
                 char taskType = line.charAt(0);
                 boolean isDone = line.charAt(4) == '1';
 
-                int Sep1 = line.indexOf("|", 4);
+                int sep1 = line.indexOf("|", 4);
 
                 if (taskType == 'T') {
-                    String description = line.substring(Sep1 + 2);
+                    String description = line.substring(sep1 + 2);
                     loadedTasks[loadedTaskNum] = new Todo(description);
                 } else if (taskType == 'D') {
-                    int Sep2 = line.indexOf(" | ", Sep1 + 3);
-                    String description = (Sep2 != -1) ? line.substring(Sep1 + 2, Sep2) :
-                            line.substring(Sep2 + 3);
+                    int sep2 = line.indexOf(" | ", sep1 + 3);
+                    String description = (sep2 != -1) ? line.substring(sep1 + 2, sep2)
+                            : line.substring(sep2 + 3);
 
                     String dateString = line.substring(line.lastIndexOf("|") + 1).trim();
 
@@ -93,11 +93,11 @@ public class Storage {
 
                     loadedTasks[loadedTaskNum] = new Deadline(description, deadlineDateTime);
                 } else if (taskType == 'E') {
-                    int Sep2 = line.indexOf(" | ", Sep1 + 3);
-                    int to = line.indexOf(" - ", Sep2 + 3);
-                    String description = (Sep2 != -1) ? line.substring(Sep1 + 2, Sep2) :
-                            line.substring(Sep2 + 3);
-                    String from = line.substring(Sep2 + 3, to);
+                    int sep2 = line.indexOf(" | ", sep1 + 3);
+                    int to = line.indexOf(" - ", sep2 + 3);
+                    String description = (sep2 != -1) ? line.substring(sep1 + 2, sep2)
+                            : line.substring(sep2 + 3);
+                    String from = line.substring(sep2 + 3, to);
                     String too = line.substring(to + 3);
                     loadedTasks[loadedTaskNum] = new Event(description, from, too);
                 }

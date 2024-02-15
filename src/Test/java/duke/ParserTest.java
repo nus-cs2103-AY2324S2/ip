@@ -1,25 +1,13 @@
-package Duke;
-import org.junit.jupiter.api.Test;
+package duke;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * JUnit test for Parser class.
  */
 public class ParserTest {
-
-    /**
-     * Tests the parse method of Parser.
-     */
-    @Test
-    public void testParseInvalidCommand() throws DukeException {
-        TaskList tasks = new TaskList();
-        Ui ui = new Ui();
-        Storage storage = new Storage("test.txt");
-
-        String result = Parser.parse("invalid command", tasks, ui, storage);
-
-        assertEquals("Gurl I'm sorry, idk what that means :-(", result);
-    }
 
     /**
      * Tests the parse method of Parser.

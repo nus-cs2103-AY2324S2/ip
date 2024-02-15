@@ -1,4 +1,4 @@
-package Duke;
+package duke;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -33,8 +33,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " +
-                date.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mma")) + ")";
+        return "[D]" + super.toString() + " (by: "
+                + date.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mma")) + ")";
     }
 
     /**
@@ -43,7 +43,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toSaveString() {
-        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " +
-                date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        return "D | " + (isDone ? "1" : "0") + " | " + description + " | "
+                + date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 }

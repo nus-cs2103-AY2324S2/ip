@@ -1,4 +1,4 @@
-package Duke;
+package duke;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -8,12 +8,21 @@ import java.util.Scanner;
  * Represents the user interface of the Duke program.
  */
 public class Ui {
-    Scanner inputs = new Scanner(System.in);
+
+    private Scanner inputs = new Scanner(System.in);
+
+    /**
+     * Reads the input from the user.
+     * @return The input from the user.
+     */
+    public String readInput() {
+        return inputs.nextLine();
+    }
 
     /**
      * Shows the welcome message.
      */
-    public void welcomeMessage () {
+    public void welcomeMessage() {
         System.out.println("    ____________________________________________________________");
         System.out.println("     Hello! I'm TALKTOMEORILLDIE");
         System.out.println("     What can I do for you?");
@@ -23,7 +32,7 @@ public class Ui {
     /**
      * Shows the goodbye message.
      */
-    public void goodbyeMessage () {
+    public void goodbyeMessage() {
         System.out.println("    ____________________________________________________________");
         System.out.println("     Bye. Hope to see you again soon!");
         System.out.println("    ____________________________________________________________");
@@ -32,7 +41,7 @@ public class Ui {
     /**
      * Shows the task marked as done message.
      */
-    public void showMarkedAsDone (Task task){
+    public void showMarkedAsDone(Task task) {
         System.out.println("    ____________________________________________________________");
         System.out.println("     Nice! I've marked this task as done:");
         System.out.println("       " + task);
@@ -42,7 +51,7 @@ public class Ui {
     /**
      * Shows the task marked as not done message.
      */
-    public void showMarkedAsNotDone (Task task){
+    public void showMarkedAsNotDone(Task task) {
         System.out.println("    ____________________________________________________________");
         System.out.println("     Nice! I've marked this task as not done:");
         System.out.println("       " + task);
@@ -52,7 +61,7 @@ public class Ui {
     /**
      * Shows the added task message.
      */
-    public void showAddedTask (Task task,int taskNum){
+    public void showAddedTask(Task task, int taskNum) {
         System.out.println("    ____________________________________________________________");
         System.out.println("     Got it. I've added this task:");
         System.out.println("       " + task);
@@ -63,7 +72,7 @@ public class Ui {
     /**
      * Shows the deleted task message.
      */
-    public void showDeleteTask (Task task,int taskNum){
+    public void showDeleteTask(Task task, int taskNum) {
         System.out.println("    ____________________________________________________________");
         System.out.println("     Noted. I've removed this task:");
         System.out.println("       " + task);
@@ -74,10 +83,10 @@ public class Ui {
     /**
      * Shows the tasks on a specific date.
      */
-    public void showDeadlinesEventsOnDate (Task[]tasks, int taskNum, LocalDate dateToCheck){
+    public void showDeadlinesEventsOnDate(Task[]tasks, int taskNum, LocalDate dateToCheck) {
         System.out.println("    ____________________________________________________________");
-        System.out.println("     Deadlines/Events occurring on " +
-                dateToCheck.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ":");
+        System.out.println("     Deadlines/Events occurring on "
+                + dateToCheck.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ":");
         for (int i = 0; i < taskNum; i++) {
             if (tasks[i] instanceof Deadline) {
                 Deadline deadline = (Deadline) tasks[i];
@@ -92,14 +101,14 @@ public class Ui {
     /**
      * Shows the loading error message.
      */
-    public static void showLoadingError () {
+    public static void showLoadingError() {
         System.out.println("Error: Your file can't be loaded");
     }
 
     /**
      * Shows the tasks.
      */
-    public void showTasks(Task[] task,int taskNum) {
+    public void showTasks(Task[] task, int taskNum) {
         System.out.println("    ____________________________________________________________");
         if (taskNum == 0) {
             System.out.println("     You are doing absolutely nothing, lazy :))");
@@ -128,14 +137,6 @@ public class Ui {
             System.out.println("     No matching tasks found.");
         }
         System.out.println("    ____________________________________________________________");
-    }
-
-    /**
-     * Reads the input from the user.
-     * @return The input from the user.
-     */
-    public String readInput() {
-        return inputs.nextLine();
     }
 
     /**
