@@ -26,9 +26,9 @@ public class Storage {
     private static String filePath;
     private static TaskList taskList;
     public Storage(String filePath, TaskList taskList) { //constructor
-        this.filePath = filePath;
+        Storage.filePath = filePath;
         f = new File(filePath);
-        this.taskList = taskList;
+        Storage.taskList = taskList;
     }
 
     /**
@@ -44,9 +44,9 @@ public class Storage {
             String task = scanner.nextLine();
             String[] taskDetails = task.split(" \\| ");
             Task newTask;
-            if (taskDetails.length == 3) { //todo task
+            if (taskDetails.length == 3) { //means that it is a todo task
                 newTask = new Task(taskDetails[2]);
-            } else if (taskDetails.length == 4) { //deadline
+            } else if (taskDetails.length == 4) { //means that it is deadline
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM uuuu HHmm");
                 LocalDateTime deadline = LocalDateTime.parse(taskDetails[3], formatter);
                 newTask = new Deadline(taskDetails[2], deadline);
@@ -59,7 +59,7 @@ public class Storage {
             tasksToLoad.add(newTask);
         }
         scanner.close();
-        tasksToLoad.forEach(x -> this.taskList.addItem(x, false));
+        tasksToLoad.forEach(x -> Storage.taskList.addItem(x, false));
     }
 
     /**
@@ -130,7 +130,7 @@ public class Storage {
         Scanner s = new Scanner(f);
         String lowercaseInput = input.toLowerCase();
         int ptr = 1;
-        int count = 0;
+        int count = 0; //to keep track of the number of matching task to list out respectively
         String result = "";
         while (s.hasNextLine()) {
             if (s.nextLine().toLowerCase().contains(lowercaseInput)) {

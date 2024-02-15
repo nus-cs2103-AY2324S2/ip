@@ -30,7 +30,6 @@ public class Duke {
     private TaskList taskList;
 
     public Duke(String filePath) {
-        ui = new UI();
         taskList = new TaskList();
         store = new Storage(filePath, taskList);
         try {
@@ -64,9 +63,9 @@ public class Duke {
             } else if (input.equalsIgnoreCase("list")) {
                 return taskList.printList();
             } else if (input.startsWith("find")) {
-                return store.findFromFile(Parser.parseFind(input));
+                return Storage.findFromFile(Parser.parseFind(input));
             } else if (input.equalsIgnoreCase("bye")){
-                return ui.bye();
+                return UI.bye();
             } else {
                 throw new DukeException();
             }
@@ -81,8 +80,6 @@ public class Duke {
         if (!f.exists()) {
             try {
                 Files.createFile(Paths.get(filePath));
-            } catch (FileAlreadyExistsException e) {
-                System.out.println(e.getMessage());
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }

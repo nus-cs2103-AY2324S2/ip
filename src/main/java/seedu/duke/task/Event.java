@@ -39,7 +39,7 @@ public class Event extends Task{
     }
 
     @Override
-    public String printTaskDesc(int num, boolean isLast){
+    public String printTaskDesc(int num){
         assert num >= 1 : "task number should be more than or equals to 1";
         if (num == 1) {
             return String.format("Here are the tasks in your list:\n %d.[%s][%s] %s (from: %s to: %s)\n",
