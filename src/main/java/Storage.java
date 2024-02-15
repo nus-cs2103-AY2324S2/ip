@@ -1,49 +1,55 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Scanner;
 
 public class Storage {
 
+    private static final String FILE_PATH = "./data/task_data.txt";
+    private static File dataFile;
+
     public Storage() {
         try {
-            String projectPath = System.getProperty("user.dir");
-            java.nio.file.Path filePath = java.nio.file.Paths.get(projectPath, "src",
-                    "main", "resources", "data", "bmo_data.txt");
-            boolean isFileExists = java.nio.file.Files.exists(filePath);
-            if (!isFileExists) {
-                Files.createDirectories(filePath.getParent());
-                Files.createFile(filePath);
-                System.out.println("Info: Data file not found. Created a new file.");
-            }
+            dataFile = new File(FILE_PATH);
+            dataFile.getParentFile().mkdirs();
+            dataFile.createNewFile();
         } catch (IOException e) {
             System.out.println("Error: Unable to load data. " + e.getMessage());
         }
     }
 
     public String loadData() throws IOException{
-        String projectPath = System.getProperty("user.dir");
-        java.nio.file.Path filePath = java.nio.file.Paths.get(projectPath, "src",
-                "main", "resources", "data", "bmo_data.txt");
-        return Files.readString(filePath);
+        try {
+            Scanner sc = new Scanner(dataFile);
+            StringBuilder output = new StringBuilder();
+            while (sc.hasNext()) {
+                output.append(sc.nextLine());
+                if (sc.hasNext()) {
+                    output.append("\n");
+                }
+            }
+            return output.toString();
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+            return "";
+        }
     }
 
     public void saveData(TaskList tasks) {
+        StringBuilder taskContents = new StringBuilder();
+        for (Task task : tasks) {
+            taskContents.append(task.toSaveData());
+        }
         try {
-            StringBuilder tasksContent = new StringBuilder();
-            for (Task task : tasks) {
-                tasksContent.append(task.toSaveData());
-            }
-
-            String projectPath = System.getProperty("user.dir");
-            java.nio.file.Path filePath = java.nio.file.Paths.get(projectPath, "src",
-                    "main", "resources", "data", "bmo_data.txt");
-
-            Files.createDirectories(filePath.getParent());
-            Files.write(filePath, tasksContent.toString().getBytes());
-            System.out.println("Tasks saved successfully.");
+            FileWriter fileWriter = new FileWriter(FILE_PATH);
+            fileWriter.write(taskContents.toString());
+            fileWriter.close();
         } catch (IOException e) {
-            System.out.println("Error: Unable to save data. " + e.getMessage());
+            System.out.println(e);
         }
     }
 }

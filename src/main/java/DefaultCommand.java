@@ -15,5 +15,10 @@ public class DefaultCommand extends Command {
             ui.printErrInvalidTask();
             return;
         }
+
+        if (this.type == 2) {
+            ui.printErrInvalidDate();
+            return;
+        }
     }
 }

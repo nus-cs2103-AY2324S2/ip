@@ -9,7 +9,7 @@ public class ToDoCommand extends Command{
     }
 
     public void execute(TaskList tasks, UI ui, Storage storage) {
-        Task newTask = new ToDos(this.desc);
+        Task newTask = new ToDo(this.desc);
         tasks.add(newTask);
         ui.printAddTask(newTask, tasks.size());
     }

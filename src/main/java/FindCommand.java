@@ -7,6 +7,6 @@ public class FindCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) {
-
+        System.out.println("BMO has not updated this feature yet");
     }
 }
