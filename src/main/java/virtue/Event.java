@@ -1,5 +1,6 @@
 package virtue;
 
+/** Represents an event task. */
 public class Event extends VirtueTask {
     private VirtueDateTime from;
     private VirtueDateTime to;

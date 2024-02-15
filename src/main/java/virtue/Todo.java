@@ -1,5 +1,6 @@
 package virtue;
 
+/** Represents a todo task. */
 public class Todo extends VirtueTask {
     public Todo(String description) {
         super(description);

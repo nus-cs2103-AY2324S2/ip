@@ -2,19 +2,32 @@ package virtue;
 
 import java.time.format.DateTimeParseException;
 
+/** A parser that parses user inputs to help generate commands. */
 public class Parser {
-
-    // Gets the first word of a string.
+    /**
+     * Gets the first word of a string.
+     * @param str The string to get the first word from.
+     * @return The first word of a string.
+     */
     private static String getFirstWord(String str) {
         return str.split(" ", 2)[0];
     }
 
-    // Removes the first word of a string.
+    /**
+     * Removes the first word of a string.
+     * @param str The string to remove the first word from.
+     * @return The string without the first word.
+     */
     private static String removeFirstWord(String str) {
         return str.split(" ", 2)[1];
     }
 
-    // Gets the type of the command, which is its first word.
+    /**
+     * Gets the type of the command, which is its first word.
+     * @param input The string input by the user.
+     * @return The type of the command.
+     * @throws UnknownCommandTypeException If the first word does not match a command type.
+     */
     public static Command.CommandType getCommandType(String input) throws UnknownCommandTypeException {
         String firstWord = getFirstWord(input);
 
@@ -27,7 +40,13 @@ public class Parser {
         throw new UnknownCommandTypeException();
     }
 
-    // Gets the index input by the user for a mark/unmark/delete command.
+    /**
+     * Gets the index input by the user for a mark/unmark/delete command.
+     * @param input The string input by the user.
+     * @return The index for a mark/unmark/delete command.
+     * @throws EmptyIndexException If the index does not exist.
+     * @throws IndexFormatException If the index is not an integer.
+     */
     public static int getIndex(String input) throws EmptyIndexException, IndexFormatException {
         String type = getFirstWord(input);
         try {
@@ -39,7 +58,12 @@ public class Parser {
         }
     }
 
-    // Gets the description for a todo/deadline/event command.
+    /**
+     * Gets the description for a todo/deadline/event command.
+     * @param input The string input by the user.
+     * @return The description for a todo/deadline/event command.
+     * @throws EmptyDescriptionException If the description does not exist.
+     */
     public static String getDescription(String input) throws EmptyDescriptionException {
         String description;
         String firstWordRemoved;
@@ -65,7 +89,12 @@ public class Parser {
         return description;
     }
 
-    // Gets the deadline for a deadline command.
+    /**
+     * Gets the deadline for a deadline command.
+     * @param input The string input by the user.
+     * @return The deadline date/time of the deadline command.
+     * @throws VirtueDateTimeException If the date/time is invalid or not in the correct format.
+     */
     public static VirtueDateTime getBy(String input) throws VirtueDateTimeException {
         String firstWordRemoved = removeFirstWord(input);
         String dateTimeStr = firstWordRemoved.split(" /by ", 2)[1];
@@ -76,7 +105,12 @@ public class Parser {
         }
     }
 
-    // Gets the start for a deadline command.
+    /**
+     * Gets the starting date/time for an event command.
+     * @param input The string input by the user.
+     * @return The starting date/time of the event command.
+     * @throws VirtueDateTimeException If the date/time is invalid or not in the correct format.
+     */
     public static VirtueDateTime getFrom(String input) throws VirtueDateTimeException {
         String firstWordRemoved = removeFirstWord(input);
         String fromAndTo = firstWordRemoved.split(" /from ", 2)[1];
@@ -88,7 +122,12 @@ public class Parser {
         }
     }
 
-    // Gets the end for a deadline command.
+    /**
+     * Gets the ending date/time for an event command.
+     * @param input The string input by the user.
+     * @return The ending date/time of the event command.
+     * @throws VirtueDateTimeException If the date/time is invalid or not in the correct format.
+     */
     public static VirtueDateTime getTo(String input) throws VirtueDateTimeException {
         String firstWordRemoved = removeFirstWord(input);
         String fromAndTo = firstWordRemoved.split(" /from ", 2)[1];

@@ -3,49 +3,54 @@ package virtue;
 import java.io.IOException;
 import java.util.Scanner;
 
+/** A user interface that interacts with the user. */
 public class Ui {
-    // The scanner the chatbot uses to scan users' inputs.
+    /** The scanner the chatbot uses to scan users' inputs. */
     private Scanner sc;
 
-    // The task list the commands will be applied to.
+    /** The task list the commands will be applied to. */
     private VirtueTaskList taskList;
 
     private Storage storage;
 
-    // A horizontal line.
+    /** A horizontal line. */
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
 
+    /** Initiates a new user interface. */
     public Ui(VirtueTaskList taskList, Storage storage) {
         sc = new Scanner(System.in);
         this.taskList = taskList;
         this.storage = storage;
     }
 
-    // Prints with an indention.
+    /**
+     * Prints with an indention.
+     * @param str The string to be printed.
+     */
     protected static void printWithIndent(String str) {
         System.out.println("    " + str);
     }
 
-    // Prints a horizontal line.
+    /** Prints a horizontal line. */
     protected static void printHorizontalLine() {
         printWithIndent(HORIZONTAL_LINE);
     }
 
-    // Greets the user.
+    /** Greets the user. */
     private static void greet() {
         printHorizontalLine();
         printWithIndent("Hello! I'm Virtue \n    What can I do for you?");
         printHorizontalLine();
     }
 
-    // Exits with a goodbye message.
+    /** Exits with a goodbye message. */
     private static void bye() {
         printHorizontalLine();
         printWithIndent("Bye. Hope to see you again soon!");
         printHorizontalLine();
     }
 
-    // Takes inputs from user until bye has been input.
+    /** Takes inputs from user until bye has been input. */
     private void takeInputsUntilBye() {
         Command currentCommand;
         // While user hasn't input bye, add task to task list
@@ -74,6 +79,7 @@ public class Ui {
         }
     }
 
+    /** Greets the user, takes inputs until a "bye" command, then says bye to the user. */
     public void run() {
         greet();
         takeInputsUntilBye();
