@@ -34,7 +34,7 @@ public class Task implements FileFormattable {
      *
      * @return 0 if the current task is not done yet, and hence a successful operation can be carried out; -1 otherwise.
      */
-    public int check() {
+    public int markTaskAsDone() {
         if (this.isDone) {
             this.checkIsDone(true);
             return -1;
@@ -51,7 +51,7 @@ public class Task implements FileFormattable {
      *
      * @return 0 if the current task is done, and hence a successful operation can be carried out; -1 otherwise.
      */
-    public int uncheck() {
+    public int markTaskAsUndone() {
         if (!this.isDone) {
             this.checkIsDone(false);
             return -1;

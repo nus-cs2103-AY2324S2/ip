@@ -57,11 +57,11 @@ public class TaskList implements FileFormattable {
      * @return 0 if the operation is successful, -1 otherwise.
      * @throws raphael.exception.RaphaelException exception exclusive to Raphael.
      */
-    public String checkTask(int idx) throws RaphaelException {
+    public String markTaskAsDone(int idx) throws RaphaelException {
         if (idx < 0 || idx >= this.tasks.size()) {
             throw new RaphaelException(RaphaelException.Type.INVALID_TASK_INDEX);
         } else {
-            if (this.tasks.get(idx).check() == 0) {
+            if (this.tasks.get(idx).markTaskAsDone() == 0) {
                 return String.format("Hooray! Congrats on completing the following task!:\n"
                         + "\t%s\n", this.tasks.get(idx));
             } else {
@@ -77,11 +77,11 @@ public class TaskList implements FileFormattable {
      * @return 0 if the operation is successful, -1 otherwise.
      * @throws raphael.exception.RaphaelException exception exclusive to Raphael.
      */
-    public String uncheckTask(int idx) throws RaphaelException {
+    public String markTaskAsUndone(int idx) throws RaphaelException {
         if (idx < 0 || idx >= this.tasks.size()) {
             throw new RaphaelException(RaphaelException.Type.INVALID_TASK_INDEX);
         } else {
-            if (this.tasks.get(idx).uncheck() == 0) {
+            if (this.tasks.get(idx).markTaskAsUndone() == 0) {
                 return String.format("Uh oh! Workload + 1 by having the following task:\n"
                         + "\t%s\n", this.tasks.get(idx));
             } else {

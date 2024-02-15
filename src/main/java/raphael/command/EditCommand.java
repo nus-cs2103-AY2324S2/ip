@@ -37,9 +37,9 @@ public class EditCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws RaphaelException {
         if (this.isMark) {
-            ui.showMarkOutput(tasks.checkTask(this.idx));
+            ui.showMarkOutput(tasks.markTaskAsDone(this.idx));
         } else {
-            ui.showUnmarkOutput(tasks.uncheckTask(this.idx));
+            ui.showUnmarkOutput(tasks.markTaskAsUndone(this.idx));
         }
         storage.write(tasks.toFileFormat());
     }
