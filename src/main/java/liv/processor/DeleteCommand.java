@@ -26,10 +26,11 @@ public class DeleteCommand extends Command {
      * @throws LivException
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) throws LivException {
+    public String execute(TaskList tasks, Ui ui) throws LivException {
         int trueIndex = index - 1;
         Task removed = tasks.deleteTask(trueIndex);
-        Ui.displayDeleteCommand(removed);
+        String message = Ui.getDeleteMessage(removed);
+        return message;
     }
 
     /**

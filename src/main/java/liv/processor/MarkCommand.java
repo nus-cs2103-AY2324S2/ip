@@ -26,7 +26,7 @@ public class MarkCommand extends Command {
      * @throws LivException
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) throws LivException {
+    public String execute(TaskList tasks, Ui ui) throws LivException {
         int trueIndex = index - 1;
         Task task = TaskList.getTask(trueIndex);
         boolean currentState = task.getStatus();
@@ -34,6 +34,7 @@ public class MarkCommand extends Command {
             throw new LivException("Mission already marked!");
         }
         task.markAsDone();
-        Ui.displayMarkCommand(task);
+        String message = Ui.getMarkMessage(task);
+        return message;
     }
 }

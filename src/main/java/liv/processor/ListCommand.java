@@ -15,7 +15,8 @@ public class ListCommand extends Command {
      * @throws LivException
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) throws LivException {
-        Ui.displayListCommand();
+    public String execute(TaskList tasks, Ui ui) throws LivException {
+        String message = Ui.getListMessage();
+        return message;
     }
 }

@@ -24,9 +24,10 @@ public class DeadlineCommand extends Command {
      * @param ui The Ui to gives interaction with users.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         tasks.addTask(deadline);
-        Ui.displayDeadlineCommand(deadline);
+        String message = Ui.getDeadlineMessage(deadline);
+        return message;
     }
 
     /**

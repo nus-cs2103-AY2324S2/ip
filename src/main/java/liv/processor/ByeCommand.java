@@ -15,8 +15,9 @@ public class ByeCommand extends Command {
      * @throws LivException
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) throws LivException {
-        Ui.displayByeCommand();
+    public String execute(TaskList tasks, Ui ui) throws LivException {
+        String message = Ui.getByeMessage();
+        return message;
     }
 
     /**
