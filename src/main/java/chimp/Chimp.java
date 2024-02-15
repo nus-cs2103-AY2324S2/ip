@@ -136,7 +136,17 @@ public class Chimp extends Application {
     private String generateResponse(){
         String input = userInput.getText();
         try {
-            String response = Parser.parse(input).execute(this.tasks, this.ui, this.storage);
+            Command c = Parser.parse(input);
+            String response = c.execute(this.tasks, this.ui, this.storage);
+            // TODO: This does not belong here
+            if (c.isExit()) {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.exit(0);
+            }
             return response;
         } catch (InvalidCommandException | CommandParseException | CommandExecuteException e) {
             return ui.say("hoo");
