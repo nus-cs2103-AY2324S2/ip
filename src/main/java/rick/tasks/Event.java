@@ -1,10 +1,14 @@
 package rick.tasks;
-import rick.RickException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Event implements Item {
+import rick.RickException;
+
+/**
+ * The event tasks.
+ */
+public class Event implements Task {
     private String name;
     private String status;
     private LocalDateTime from;
@@ -40,8 +44,8 @@ public class Event implements Item {
                     ? LocalDateTime.parse(to + "T00:00:00")
                     : LocalDateTime.parse(to);
         } catch (Exception e) {
-            throw new RickException("Something wrong with your input! " +
-                    "Follow 'event [event] /by yyyy-mm-ddTHH:mm:ss'");
+            throw new RickException("Something wrong with your input! "
+                    + "Follow 'event [event] /by yyyy-mm-ddTHH:mm:ss'");
         }
     }
 
@@ -50,15 +54,15 @@ public class Event implements Item {
      * @return a user-friendly string representation for the item.
      */
     @Override
-    public String toString(){
+    public String toString() {
         if (this.includeTime) {
-            return "[E]" + this.status + " " + this.name +
-                    " (from: " + this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm:ss")) +
-                    " to: " + this.to.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm:ss")) + ")";
+            return "[E]" + this.status + " " + this.name
+                    + " (from: " + this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm:ss"))
+                    + " to: " + this.to.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm:ss")) + ")";
         } else {
-            return "[E]" + this.status + " " + this.name +
-                    " (from: " + this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) +
-                    " to: " + this.to.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+            return "[E]" + this.status + " " + this.name
+                    + " (from: " + this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
+                    + " to: " + this.to.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
         }
     }
 

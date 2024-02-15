@@ -2,7 +2,7 @@ package rick;
 
 import rick.tasks.Deadline;
 import rick.tasks.Event;
-import rick.tasks.Item;
+import rick.tasks.Task;
 import rick.tasks.ToDo;
 
 import java.io.BufferedReader;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class Storage {
     private Path directoryPath;
     private Path filePath;
-    private ArrayList<Item> items = new ArrayList<>();
+    private ArrayList<Task> items = new ArrayList<>();
 
     /**
      * Creates a new instance of Storage with designated filePath.
@@ -30,7 +30,7 @@ public class Storage {
     /**
      * Returns an ArrayList that contains the list of items stored in local data.
      */
-    public ArrayList<Item> load() throws RickException {
+    public ArrayList<Task> load() throws RickException {
         try {
             //If directory data does not exist, create it
             if (!Files.isDirectory(directoryPath)) {
@@ -81,7 +81,7 @@ public class Storage {
     public void update() throws RickException {
         try {
             BufferedWriter writer = Files.newBufferedWriter(filePath);
-            for (Item i : items) {
+            for (Task i : items) {
                 writer.write(i.store());
                 writer.newLine();
             }

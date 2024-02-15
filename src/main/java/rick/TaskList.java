@@ -1,19 +1,23 @@
 package rick;
 
-import rick.tasks.Deadline;
-import rick.tasks.Event;
-import rick.tasks.Item;
-import rick.tasks.ToDo;
-
 import java.util.ArrayList;
 
+import rick.tasks.Deadline;
+import rick.tasks.Event;
+import rick.tasks.Task;
+import rick.tasks.ToDo;
+
+
+/**
+ * List to store the items that the user creates.
+ */
 public class TaskList {
-    private ArrayList<Item> items;
+    private ArrayList<Task> items;
 
     /**
      * Creates a new instance of TaskList.
      */
-    public TaskList () {
+    public TaskList() {
         this.items = new ArrayList<>();
     }
 
@@ -21,7 +25,7 @@ public class TaskList {
      * Creates a new instance of TaskList with an existing ArrayList.
      * @param list an ArrayList to be transformed into a TaskList.
      */
-    public TaskList (ArrayList<Item> list) {
+    public TaskList(ArrayList<Task> list) {
         this.items = list;
     }
 
@@ -34,7 +38,7 @@ public class TaskList {
         String divider = "____________________________________________________________";
         string.append(divider + "\n");
         for (int i = 0; i < items.size(); i++) {
-            string.append((i+1) + ". " + items.get(i) + "\n");
+            string.append((i + 1) + ". " + items.get(i) + "\n");
         }
         string.append(divider);
         return string.toString();
@@ -47,8 +51,8 @@ public class TaskList {
      * @return a string that tells the user that the item has been added successfully.
      * @throws RickException when there is an error with the input command.
      */
-    public String addToList (String arg, Storage storage) throws RickException {
-        Item newItem;
+    public String addToList(String arg, Storage storage) throws RickException {
+        Task newTask;
         String[] splited = arg.split("\\s+");
         int last = splited.length - 1;
         if (splited.length == 1) {
@@ -57,8 +61,8 @@ public class TaskList {
         try {
             switch (splited[0]) {
             case "todo":
-                newItem = new ToDo(arg.substring(5), "[ ]");
-                this.items.add(newItem);
+                newTask = new ToDo(arg.substring(5), "[ ]");
+                this.items.add(newTask);
                 break;
             case "deadline": {
                 if (!arg.contains(" /by ") || splited[last].equals("/by")) {
@@ -70,12 +74,13 @@ public class TaskList {
                 int i = arg.indexOf("/by");
                 String ddl = arg.substring(i + 4);
                 String name = arg.substring(9, i - 1);
-                newItem = new Deadline(name, "[ ]", ddl);
-                this.items.add(newItem);
+                newTask = new Deadline(name, "[ ]", ddl);
+                this.items.add(newTask);
                 break;
             }
             case "event": {
-                if (!arg.contains(" /from ") || !arg.contains(" /to ") || splited[last].equals("/to") || splited[last].equals("/from")) {
+                if (!arg.contains(" /from ") || !arg.contains(" /to ")
+                        || splited[last].equals("/to") || splited[last].equals("/from")) {
                     throw new RickException("WHEN is the event?");
                 }
                 if (splited[1].equals("/from") || splited[1].equals("/to")) {
@@ -87,8 +92,8 @@ public class TaskList {
 
                 String from = arg.substring(i + 6, j - 1);
                 String to = arg.substring(j + 4);
-                newItem = new Event(name, "[ ]", from, to);
-                this.items.add(newItem);
+                newTask = new Event(name, "[ ]", from, to);
+                this.items.add(newTask);
                 break;
             }
             default:
@@ -97,13 +102,14 @@ public class TaskList {
         } catch (RickException e) {
             throw e;
         } catch (Exception e1) {
-            throw new RickException("ERROR: Congratulations! You have input a message that the developer did not expect. " +
-                    "Report this issue here: https://forms.gle/hnnDTA7qYMnhJvQ46.");
+            throw new RickException("ERROR: Congratulations! "
+                    + "You have input a message that the developer did not expect. "
+                    + "Report this issue here: https://forms.gle/hnnDTA7qYMnhJvQ46.");
         }
         storage.update();
-        return "Got it. I've added this task:\n" +
-                newItem +
-                "\nNow you have " + items.size() + " tasks in the list.";
+        return "Got it. I've added this task:\n"
+                + newTask
+                + "\nNow you have " + items.size() + " tasks in the list.";
     }
 
     /**
@@ -122,10 +128,10 @@ public class TaskList {
         if (i >= this.items.size()) {
             throw new RickException("rick.tasks.Item not found QAQ");
         } else {
-            Item item = this.items.get(i);
-            item.mark();
+            Task task = this.items.get(i);
+            task.mark();
             storage.update();
-            return "Nice! I've marked this task as done:\n"+ item;
+            return "Nice! I've marked this task as done:\n" + task;
         }
     }
 
@@ -145,10 +151,10 @@ public class TaskList {
         if (i >= this.items.size()) {
             throw new RickException("rick.tasks.Item not found QAQ");
         } else {
-            Item item = this.items.get(i);
-            item.unmark();
+            Task task = this.items.get(i);
+            task.unmark();
             storage.update();
-            return "OK, I've marked this task as not done yet:\n"+ item;
+            return "OK, I've marked this task as not done yet:\n" + task;
         }
     }
 
@@ -166,16 +172,21 @@ public class TaskList {
         }
         int i = arg.charAt(7) - 49;
         try {
-            Item item = this.items.remove(i);
+            Task task = this.items.remove(i);
             storage.update();
-            return  "Noted. I've removed this task:\n" +
-                    item +
-                    "\nNow you have " + this.items.size() + " tasks in the list.";
+            return  "Noted. I've removed this task: \n"
+                    + task
+                    + "\nNow you have " + this.items.size() + " tasks in the list.";
         } catch (Exception e) {
             throw new RickException("Index wrong lah! :(");
         }
     }
 
+    /**
+     * Find items containing a specific substring.
+     * @param arg the substring to look for.
+     * @return list of items which contain the substring.
+     */
     public String find(String arg) {
         StringBuilder results = new StringBuilder();
         boolean isFound = false;

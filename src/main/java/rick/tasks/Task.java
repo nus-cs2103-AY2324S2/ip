@@ -1,6 +1,9 @@
 package rick.tasks;
 
-public interface Item {
+/**
+ * Interface for all tasks.
+ */
+public interface Task {
     /**
      * Marks the item as done.
      */

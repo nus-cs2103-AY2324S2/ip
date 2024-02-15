@@ -1,11 +1,15 @@
 package rick;
 
+/**
+ * UI of the application.
+ */
+
 public class Ui {
 
     /**
      * Shows loading message when the programme loads local data
      */
-    public void showLoadingMessage () {
+    public void showLoadingMessage() {
         reply("Loading local data...");
     }
 
@@ -13,8 +17,8 @@ public class Ui {
      * Greets the user.
      */
     public static void hello() {
-        String hello = "Hello! I'm rick.Rick\n"+
-                "Tell me about your plan !";
+        String hello = "Hello! I'm rick.Rick\n"
+                + "Tell me about your plan !";
         reply(hello);
     }
 
@@ -30,7 +34,7 @@ public class Ui {
     /**
      * Greets the users off when they exit.
      */
-    public static void exit(){
+    public static void exit() {
         String exit = "Bye. Hope to see you again soon !";
         reply(exit);
     }
@@ -38,7 +42,7 @@ public class Ui {
     /**
      * Indicates to the user that there is an error when loading their local data.
      */
-    public void showLoadingError () {
+    public void showLoadingError() {
         reply("Loading error!");
     }
 }

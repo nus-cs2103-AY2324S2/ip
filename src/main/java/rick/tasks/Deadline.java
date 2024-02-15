@@ -1,11 +1,14 @@
 package rick.tasks;
 
-import rick.RickException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Deadline implements Item {
+import rick.RickException;
+
+/**
+ * The deadline task.
+ */
+public class Deadline implements Task {
     private String name;
     private String status;
     private LocalDateTime dueDateTime;
@@ -33,8 +36,8 @@ public class Deadline implements Item {
                     : LocalDateTime.parse(ddl);
             this.status = status;
         } catch (Exception e) {
-            throw new RickException("Something wrong with your input! " +
-                    "Follow 'deadline [ddl] /by yyyy-mm-ddTHH:mm:ss'");
+            throw new RickException("Something wrong with your input! "
+                    + "Follow 'deadline [ddl] /by yyyy-mm-ddTHH:mm:ss'");
         }
     }
 
@@ -43,13 +46,13 @@ public class Deadline implements Item {
      * @return a user-friendly string representation for the item.
      */
     @Override
-    public String toString(){
+    public String toString() {
         if (this.includesTime) {
-            return "[D]" + this.status + " " + this.name + " (by: " +
-                    this.dueDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm:ss")) + ")";
+            return "[D]" + this.status + " " + this.name + " (by: "
+                    + this.dueDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm:ss")) + ")";
         } else {
-            return "[D]" + this.status + " " + this.name + " (by: " +
-                    this.dueDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+            return "[D]" + this.status + " " + this.name + " (by: "
+                    + this.dueDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
         }
 
     }

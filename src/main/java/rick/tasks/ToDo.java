@@ -2,7 +2,10 @@ package rick.tasks;
 
 import rick.RickException;
 
-public class ToDo implements Item {
+/**
+ * The to-do tasks.
+ */
+public class ToDo implements Task {
     private String name;
     private String status;
 
@@ -25,7 +28,7 @@ public class ToDo implements Item {
      * @return a user-friendly string representation for the item.
      */
     @Override
-    public String toString(){
+    public String toString() {
         return "[T]" + this.status + " " + this.name;
     }
 

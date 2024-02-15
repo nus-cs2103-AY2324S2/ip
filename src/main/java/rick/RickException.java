@@ -1,5 +1,9 @@
 package rick;
 
+/**
+ * Exeptions for Rick application.
+ */
+
 public class RickException extends Exception {
     private String message;
 
