@@ -1,2 +1,0 @@
-D | 1 | abc | 10pm
-E | 0 | def | 11pm | 12am
