@@ -97,12 +97,6 @@ public class Parser {
         }
     }
 
-    private Command prepareUnknown() {
-        return new IncorrectCommand(
-            new PodzException(
-                "ERROR!! The system did not recognize the command you entered."));
-    }
-
     private Command prepareMark(String[] inputs) {
         try {
             if (inputs.length != 2) {
@@ -222,5 +216,11 @@ public class Parser {
         } catch (PodzException e) {
             return new IncorrectCommand(e);
         }
+    }
+
+    private Command prepareUnknown() {
+        return new IncorrectCommand(
+            new PodzException(
+                "ERROR!! The system did not recognize the command you entered."));
     }
 }
