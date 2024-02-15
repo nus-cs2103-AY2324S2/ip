@@ -37,10 +37,7 @@ public class AddCommand extends Command {
     @Override
     public String execute(TaskList taskList) throws DukeException {
         // Add task
-        taskList.addTask(task);
-
-        // Save to file
-        taskList.saveTasks();
+        taskList.addTask(task, false);
 
         return "Got it. I've added this task:\n"
                 + String.format("  %s\n", task.toString())

@@ -60,7 +60,7 @@ public class ParserTest {
      */
     @Test
     public void parse_listNoFilter_success() throws DukeException {
-        Command expected = new ListCommand();
+        Command expected = new ListCommand(false);
 
         assertEquals(expected, Parser.parse("list"));
         assertEquals(expected, Parser.parse("list "));
@@ -74,7 +74,7 @@ public class ParserTest {
      */
     @Test
     public void parse_listDateFilter_success() throws DukeException {
-        Command expected = new ListCommand(Instant.ofEpochSecond(1706457600));
+        Command expected = new ListCommand(Instant.ofEpochSecond(1706457600), false);
 
         assertEquals(expected, Parser.parse("list /date 2024/01/29"));
         assertEquals(expected, Parser.parse("list /date 2024/01/29 "));
@@ -251,7 +251,7 @@ public class ParserTest {
      */
     @Test
     public void parse_delete_success() throws DukeException {
-        Command expected = new DeleteCommand(0);
+        Command expected = new DeleteCommand(0, false);
 
         assertEquals(expected, Parser.parse("delete 1"));
         assertEquals(expected, Parser.parse("delete 1 "));
@@ -477,15 +477,21 @@ public class ParserTest {
         assertEquals(expectedMessage, exception.getMessage());
 
         exception = assertThrows(
-                InvalidArgumentException.class, () -> Parser.parse("event test /from 2024/12/12 /to test"));
+                InvalidArgumentException.class, (
+
+                ) -> Parser.parse("event test /from 2024/12/12 /to test"));
         assertEquals(expectedMessage, exception.getMessage());
 
         exception = assertThrows(
-                InvalidArgumentException.class, () -> Parser.parse("event test /from 2024-122-12 /to 2024/12/12"));
+                InvalidArgumentException.class, (
+
+                ) -> Parser.parse("event test /from 2024-122-12 /to 2024/12/12"));
         assertEquals(expectedMessage, exception.getMessage());
 
         exception = assertThrows(
-                InvalidArgumentException.class, () -> Parser.parse("event test /from 2024-25-25 /to 2024/12/12"));
+                InvalidArgumentException.class, (
+
+                ) -> Parser.parse("event test /from 2024-25-25 /to 2024/12/12"));
         assertEquals(expectedMessage, exception.getMessage());
 
         exception = assertThrows(
@@ -497,7 +503,9 @@ public class ParserTest {
         assertEquals(expectedMessage, exception.getMessage());
 
         exception = assertThrows(
-                InvalidArgumentException.class, () -> Parser.parse("event test /from 2024/12/12 14:00 /to 2024/12/12"));
+                InvalidArgumentException.class, (
+
+                ) -> Parser.parse("event test /from 2024/12/12 14:00 /to 2024/12/12"));
         assertEquals(expectedMessage, exception.getMessage());
     }
 
@@ -506,7 +514,7 @@ public class ParserTest {
      */
     @Test
     public void parse_find_success() throws DukeException {
-        Command expected = new FindCommand("Back To Alonica");
+        Command expected = new FindCommand("Back To Alonica", false);
 
         assertEquals(expected, Parser.parse("find Back To Alonica"));
         assertEquals(expected, Parser.parse("find Back To Alonica "));
@@ -516,7 +524,7 @@ public class ParserTest {
         // assertNotEquals(expected, Parser.parse("find Back To Alonica")));
 
         // Test no arguments
-        expected = new FindCommand();
+        expected = new FindCommand(false);
         assertEquals(expected, Parser.parse("find"));
         assertEquals(expected, Parser.parse(" find"));
         assertEquals(expected, Parser.parse("find "));

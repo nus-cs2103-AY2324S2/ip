@@ -23,7 +23,7 @@ public class Deadline extends Task {
      * @param dueDate     Due date of the deadline
      */
     public Deadline(String description, Instant dueDate) {
-        super(description, TaskType.DEADLINE, false);
+        super(description, TaskType.DEADLINE, false, false);
         this.dueDate = dueDate;
     }
 
@@ -33,9 +33,10 @@ public class Deadline extends Task {
      * @param description Description of the deadline
      * @param dueDate     Due date of the deadline
      * @param isCompleted Status of the deadline
+     * @param isArchived  Visibility of the deadline
      */
-    public Deadline(String description, Instant dueDate, boolean isCompleted) {
-        super(description, TaskType.DEADLINE, isCompleted);
+    public Deadline(String description, Instant dueDate, boolean isCompleted, boolean isArchived) {
+        super(description, TaskType.DEADLINE, isCompleted, false);
         this.dueDate = dueDate;
     }
 
@@ -45,9 +46,10 @@ public class Deadline extends Task {
      * @param description Description of the deadline
      * @param dueDate     Due date of the deadline (in epoch Milliseconds)
      * @param isCompleted Status of the deadline
+     * @param isArchived  Visibility of the deadline
      */
-    public Deadline(String description, long dueDate, boolean isCompleted) {
-        super(description, TaskType.DEADLINE, isCompleted);
+    public Deadline(String description, long dueDate, boolean isCompleted, boolean isArchived) {
+        super(description, TaskType.DEADLINE, isCompleted, isArchived);
         this.dueDate = Instant.ofEpochMilli(dueDate);
     }
 

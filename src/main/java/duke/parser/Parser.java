@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import duke.commands.AddCommand;
+import duke.commands.ArchiveCommand;
 import duke.commands.Command;
 import duke.commands.DeleteCommand;
 import duke.commands.ExitCommand;
@@ -75,12 +76,22 @@ public class Parser {
         case "list": // List tasks
             // Check if date filter exists
             if (splitInput.size() > 1) { // List filtered tasks
+                boolean isArchived = false;
+                if (splitInput.get(1).equals("/archive")) {
+                    isArchived = true;
+                    splitInput.remove(1);
+                }
+
+                if (splitInput.size() <= 1) {
+                    return new ListCommand(isArchived);
+                }
+
                 switch (splitInput.get(1)) {
                 case "/date": // Filter by date
                     try {
                         Instant filterDate = userDateToInstant(splitInput.get(2), "00:00");
 
-                        return new ListCommand(filterDate);
+                        return new ListCommand(filterDate, isArchived);
                     } catch (NumberFormatException | DateTimeException | IndexOutOfBoundsException e) {
                         throw new InvalidArgumentException(
                                 "Date/time format is invalid. Please enter the date/time in the format 'YYYY/MM/DD'");
@@ -91,7 +102,7 @@ public class Parser {
                             String.format("Unknown argument '%s' for the 'list' command", splitInput.get(1)));
                 }
             } else { // Return full list
-                return new ListCommand();
+                return new ListCommand(false);
             }
 
         case "mark": // Mark task
@@ -122,7 +133,7 @@ public class Parser {
             }
 
             try {
-                return new DeleteCommand(Integer.parseInt(splitInput.get(1)) - 1);
+                return new DeleteCommand(Integer.parseInt(splitInput.get(1)) - 1, false);
             } catch (NumberFormatException e) {
                 throw new InvalidArgumentException("Index to delete is not an integer");
             }
@@ -217,13 +228,35 @@ public class Parser {
 
         case "find":
             if (splitInput.size() <= 1) { // no arguments
-                return new FindCommand();
+                return new FindCommand(false);
             }
 
             String keyword = String.join(" ", splitInput.subList(1, splitInput.size()));
 
             // Return new add todo command
-            return new FindCommand(keyword);
+            return new FindCommand(keyword, false);
+
+        case "archive":
+            if (splitInput.size() <= 1) {
+                throw new MissingArgumentException("Missing argument - Index of task required");
+            }
+
+            try {
+                return new ArchiveCommand(Integer.parseInt(splitInput.get(1)) - 1, true);
+            } catch (NumberFormatException e) {
+                throw new InvalidArgumentException("Index to archive is not an integer");
+            }
+
+        case "unarchive":
+            if (splitInput.size() <= 1) {
+                throw new MissingArgumentException("Missing argument - Index of task required");
+            }
+
+            try {
+                return new ArchiveCommand(Integer.parseInt(splitInput.get(1)) - 1, false);
+            } catch (NumberFormatException e) {
+                throw new InvalidArgumentException("Index to unarchive is not an integer");
+            }
 
         default:
             throw new InvalidCommandException(String.format("Unknown command '%s'", splitInput.get(0)));

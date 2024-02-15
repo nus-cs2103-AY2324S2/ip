@@ -19,21 +19,32 @@ public class ListCommand extends Command {
     private Instant date;
 
     /**
-     * Creates a list command without any filters
+     * Visibility of the tasks to list
      */
-    public ListCommand() {
+    private boolean isArchived;
+
+    /**
+     * Creates a list command without any filters
+     *
+     * @param isArchived Visibility of the tasks to find
+     *
+     */
+    public ListCommand(boolean isArchived) {
         super(false);
         this.date = null;
+        this.isArchived = isArchived;
     }
 
     /**
      * Creates a list command with a date filter
      *
-     * @param date Date to filter
+     * @param date       Date to filter
+     * @param isArchived Visibility of the tasks to find
      */
-    public ListCommand(Instant date) {
+    public ListCommand(Instant date, boolean isArchived) {
         super(false);
         this.date = date;
+        this.isArchived = isArchived;
     }
 
     /**
@@ -47,9 +58,9 @@ public class ListCommand extends Command {
     public String execute(TaskList taskList) throws InvalidArgumentException {
         String tasks;
         if (this.date != null) {
-            tasks = taskList.getTasks(this.date);
+            tasks = taskList.getTasks(this.date, isArchived);
         } else {
-            tasks = taskList.getTasks();
+            tasks = taskList.getTasks(isArchived);
         }
 
         return tasks;
@@ -86,9 +97,11 @@ public class ListCommand extends Command {
             ListCommand command = (ListCommand) obj;
 
             if (this.date != null && command.date != null) {
-                return super.equals(command) && this.date.equals(command.date);
+                return super.equals(command)
+                        && this.date.equals(command.date)
+                        && this.isArchived == command.isArchived;
             } else if (this.date == null && command.date == null) {
-                return super.equals(command);
+                return super.equals(command) && this.isArchived == command.isArchived;
             }
         }
 

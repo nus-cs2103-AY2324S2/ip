@@ -6,32 +6,32 @@ import duke.storage.TaskList;
 import duke.ui.Ui;
 
 /**
- * The DeleteCommand class defines a command to delete tasks stored in the Duke
- * application
+ * The ArchiveCommand class defines a command to archive/unarchive tasks stored
+ * in the Duke application
  *
  * @author Ryan NgWH
  */
-public class DeleteCommand extends Command {
+public class ArchiveCommand extends Command {
     /**
-     * Index of task to delete
+     * Index of task to archive/unarchive
      */
     private int index;
 
     /**
-     * Visibility of the task to delete
+     * Visibility to apply to the task
      */
-    private boolean isArchived;
+    private boolean toArchive;
 
     /**
-     * Creates a delete command
+     * Creates a Archive command
      *
-     * @param index      Index of task to delete
-     * @param isArchived Visibility of the task to delete
+     * @param index     Index of task to mark
+     * @param toArchive Visibility to apply to the task
      */
-    public DeleteCommand(int index, boolean isArchived) {
+    public ArchiveCommand(int index, boolean toArchive) {
         super(false);
         this.index = index;
-        this.isArchived = isArchived;
+        this.toArchive = toArchive;
     }
 
     /**
@@ -43,16 +43,21 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList) throws DukeException {
-        // Delete the task
-        Task deletedTask = taskList.deleteTask(this.index, isArchived);
+        // Archive/unarchive the task
+        Task updatedTask = taskList.archiveTask(this.index, this.toArchive);
 
-        return "Noted. I've removed this task:\n"
-                + String.format("  %s\n", deletedTask.toString())
-                + String.format("Now you have %d tasks in the list.\n", taskList.size());
+        // Print success message
+        String response;
+        if (toArchive) {
+            response = "Nice! I've archived this task:\n";
+        } else {
+            response = "Nice! I've unarchived this task:\n";
+        }
+        return response + String.format("  %s", updatedTask.toString());
     }
 
     /**
-     * Executes the delete command
+     * Executes the mark command
      *
      * @param taskList Tasklist used for the command
      * @param ui       UI used for the command
@@ -61,8 +66,8 @@ public class DeleteCommand extends Command {
     public void execute(TaskList taskList, Ui ui) throws DukeException {
         String successMessage = this.execute(taskList);
 
-        // Print success message
-        System.out.print(successMessage);
+        // Print tasks
+        System.out.println(successMessage);
     }
 
     /**
@@ -78,14 +83,16 @@ public class DeleteCommand extends Command {
             return true;
         }
 
-        if (obj instanceof DeleteCommand) {
-            DeleteCommand command = (DeleteCommand) obj;
+        if (obj instanceof ArchiveCommand) {
+            ArchiveCommand command = (ArchiveCommand) obj;
 
             return super.equals(command)
                     && this.index == command.index
-                    && this.isArchived == command.isArchived;
+                    && this.toArchive == command.toArchive;
         }
 
         return false;
     }
+
+    // TODO: Add test cases
 }

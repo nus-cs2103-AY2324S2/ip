@@ -80,6 +80,7 @@ public class DeleteCommandTest {
      */
     @AfterEach
     public void resetEnvironment() {
+        testFile.delete();
     }
 
     /**
@@ -92,8 +93,8 @@ public class DeleteCommandTest {
                 + "Now you have 0 tasks in the list.\n";
 
         Task todo = new Todo("buy lunch");
-        taskList.addTask(todo);
-        DeleteCommand deleteCommand = new DeleteCommand(0);
+        taskList.addTask(todo, false);
+        DeleteCommand deleteCommand = new DeleteCommand(0, false);
 
         deleteCommand.execute(taskList, ui);
         assertEquals(expected, outContent.toString());
