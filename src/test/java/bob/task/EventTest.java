@@ -12,64 +12,49 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class EventTest {
     @Test
-    public void toStorageFormat_notDone_success() {
+    public void getStorageFormat() {
         assertEquals("E | false | a | 2024-02-11T19:37:00 | 2024-02-12T19:37:00", new Event("a",
                 LocalDateTime.of(2024, Month.FEBRUARY, 11, 19, 37, 0),
                 LocalDateTime.of(2024, Month.FEBRUARY, 12, 19, 37, 0))
-                .toStorageFormat());
-    }
+                .getStorageFormat());
 
-    @Test
-    public void toStorageFormat_done_success() {
         Event event = new Event("a",
                 LocalDateTime.of(2024, Month.FEBRUARY, 11, 19, 37, 0),
                 LocalDateTime.of(2024, Month.FEBRUARY, 12, 19, 37, 0));
         event.setDone(true);
-        assertEquals("E | true | a | 2024-02-11T19:37:00 | 2024-02-12T19:37:00", event.toStorageFormat());
+        assertEquals("E | true | a | 2024-02-11T19:37:00 | 2024-02-12T19:37:00", event.getStorageFormat());
     }
 
     @Test
-    public void isOccurringOn_beforeFrom_false() {
-        Event event = new Event("a",
+    public void isOccurringOn() {
+        assertFalse(new Event("a",
                 LocalDateTime.of(2024, Month.FEBRUARY, 11, 19, 37, 0),
-                LocalDateTime.of(2024, Month.FEBRUARY, 13, 19, 37, 0));
-        assertFalse(event.isOccurringOn(LocalDate.of(2024, Month.FEBRUARY, 10)));
-    }
+                LocalDateTime.of(2024, Month.FEBRUARY, 13, 19, 37, 0))
+                .isOccurringOn(LocalDate.of(2024, Month.FEBRUARY, 10)));
 
-    @Test
-    public void isOccurringOn_from_true() {
-        Event event = new Event("a",
+        assertTrue(new Event("a",
                 LocalDateTime.of(2024, Month.FEBRUARY, 11, 19, 37, 0),
-                LocalDateTime.of(2024, Month.FEBRUARY, 13, 19, 37, 0));
-        assertTrue(event.isOccurringOn(LocalDate.of(2024, Month.FEBRUARY, 11)));
-    }
+                LocalDateTime.of(2024, Month.FEBRUARY, 13, 19, 37, 0))
+                .isOccurringOn(LocalDate.of(2024, Month.FEBRUARY, 11)));
 
-    @Test
-    public void isOccurringOn_betweenFromAndTo_true() {
-        Event event = new Event("a",
+        assertTrue(new Event("a",
                 LocalDateTime.of(2024, Month.FEBRUARY, 11, 19, 37, 0),
-                LocalDateTime.of(2024, Month.FEBRUARY, 13, 19, 37, 0));
-        assertTrue(event.isOccurringOn(LocalDate.of(2024, Month.FEBRUARY, 12)));
-    }
+                LocalDateTime.of(2024, Month.FEBRUARY, 13, 19, 37, 0))
+                .isOccurringOn(LocalDate.of(2024, Month.FEBRUARY, 12)));
 
-    @Test
-    public void isOccurringOn_to_true() {
-        Event event = new Event("a",
+        assertTrue(new Event("a",
                 LocalDateTime.of(2024, Month.FEBRUARY, 11, 19, 37, 0),
-                LocalDateTime.of(2024, Month.FEBRUARY, 13, 19, 37, 0));
-        assertTrue(event.isOccurringOn(LocalDate.of(2024, Month.FEBRUARY, 13)));
-    }
+                LocalDateTime.of(2024, Month.FEBRUARY, 13, 19, 37, 0))
+                .isOccurringOn(LocalDate.of(2024, Month.FEBRUARY, 13)));
 
-    @Test
-    public void isOccurringOn_afterTo_false() {
-        Event event = new Event("a",
+        assertFalse(new Event("a",
                 LocalDateTime.of(2024, Month.FEBRUARY, 11, 19, 37, 0),
-                LocalDateTime.of(2024, Month.FEBRUARY, 13, 19, 37, 0));
-        assertFalse(event.isOccurringOn(LocalDate.of(2024, Month.FEBRUARY, 14)));
+                LocalDateTime.of(2024, Month.FEBRUARY, 13, 19, 37, 0))
+                .isOccurringOn(LocalDate.of(2024, Month.FEBRUARY, 14)));
     }
 
     @Test
-    public void toString_notDone_success() {
+    public void toString_notDone() {
         assertEquals("[E][ ] a (from: Feb 11 2024 1937 to: Feb 12 2024 1937)", new Event("a",
                 LocalDateTime.of(2024, Month.FEBRUARY, 11, 19, 37, 0),
                 LocalDateTime.of(2024, Month.FEBRUARY, 12, 19, 37, 0))
@@ -77,7 +62,7 @@ public class EventTest {
     }
 
     @Test
-    public void toString_done_success() {
+    public void toString_done() {
         Event event = new Event("a",
                 LocalDateTime.of(2024, Month.FEBRUARY, 11, 19, 37, 0),
                 LocalDateTime.of(2024, Month.FEBRUARY, 12, 19, 37, 0));

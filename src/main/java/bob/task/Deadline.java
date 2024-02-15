@@ -33,8 +33,8 @@ public class Deadline extends Task {
      * @return The string representation of the deadline in storage.
      */
     @Override
-    public String toStorageFormat() {
-        return STORAGE_INDICATOR + " | " + super.toStorageFormat() + " | "
+    public String getStorageFormat() {
+        return STORAGE_INDICATOR + " | " + super.getStorageFormat() + " | "
                 + Storage.formatDateTime(by);
     }
 

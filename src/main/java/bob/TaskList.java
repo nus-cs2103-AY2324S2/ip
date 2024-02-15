@@ -123,10 +123,12 @@ public class TaskList {
      * @throws InvalidEventException If the end time of the event is earlier than its start time.
      */
     public Task addEvent(String description, LocalDateTime from, LocalDateTime to) throws InvalidEventException {
+        // Check whether event is invalid
         if (to.isBefore(from)) {
             throw new InvalidEventException();
         }
 
+        // Add and return the event
         Task task = new Event(description, from, to);
         tasks.add(task);
         return task;
@@ -141,13 +143,14 @@ public class TaskList {
      * @throws InvalidTaskIndexException If the given task index is invalid.
      */
     public Task mark(int taskIndex, boolean isDone) throws InvalidTaskIndexException {
+        // Check whether task index is out of bounds
         if (taskIndex < 0 || taskIndex >= getSize()) {
             throw new InvalidTaskIndexException(String.valueOf(taskIndex + 1), getSize());
         }
 
+        // Mark the task using isDone and return it
         Task task = tasks.get(taskIndex);
         task.setDone(isDone);
-
         return task;
     }
 
@@ -159,13 +162,14 @@ public class TaskList {
      * @throws InvalidTaskIndexException If the given task index is invalid.
      */
     public Task delete(int taskIndex) throws InvalidTaskIndexException {
+        // Check whether task index is out of bounds
         if (taskIndex < 0 || taskIndex >= getSize()) {
             throw new InvalidTaskIndexException(String.valueOf(taskIndex + 1), getSize());
         }
 
+        // Delete and return the task
         Task task = tasks.get(taskIndex);
         tasks.remove(taskIndex);
-
         return task;
     }
 

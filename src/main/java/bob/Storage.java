@@ -27,7 +27,7 @@ public class Storage {
     private static final String DATA_DIR = "data";
     public static final String DATA_PATH = DATA_DIR + "/bob.txt";
 
-    private static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+    private static final DateTimeFormatter FORMATTER_DATE_TIME = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
     private File dataFile;
 
@@ -58,29 +58,40 @@ public class Storage {
      */
     // TODO: Once extractParameter is more generalised, we can move this to Parser
     private static Task parseStorageLine(String line) throws LoadingException {
+        // Split the line with  " | " as separator
         String[] parameters = line.split(" \\| ");
 
+        // The first part of the split indicates the task type
         String taskType = parameters[0];
 
+        // The second part of the split indicates whether the task is done, and therefore should only be true or false
         if (!parameters[1].equals("true") && !parameters[1].equals("false")) {
             throw new LoadingException("invalid value for isDone detected");
         }
 
+        // Store the second part of the split
         boolean isDone = Boolean.parseBoolean(parameters[1]);
+        return getTask(parameters, taskType, isDone);
+    }
+
+    private static Task getTask(String[] parameters, String taskType, boolean isDone) throws LoadingException {
+        // TODO: Add JavaDoc header comment
+        // The third part of the split indicates the task description
         String description = parameters[2];
 
+        // Parse the remaining parts of the split according to the task type
         Task task;
         switch (taskType) {
         case Todo.STORAGE_INDICATOR:
             task = new Todo(description);
             break;
         case Deadline.STORAGE_INDICATOR:
-            LocalDateTime by = LocalDateTime.parse(parameters[3], DATETIME_FORMATTER);
+            LocalDateTime by = LocalDateTime.parse(parameters[3], FORMATTER_DATE_TIME);
             task = new Deadline(description, by);
             break;
         case Event.STORAGE_INDICATOR:
-            LocalDateTime from = LocalDateTime.parse(parameters[3], DATETIME_FORMATTER);
-            LocalDateTime to = LocalDateTime.parse(parameters[4], DATETIME_FORMATTER);
+            LocalDateTime from = LocalDateTime.parse(parameters[3], FORMATTER_DATE_TIME);
+            LocalDateTime to = LocalDateTime.parse(parameters[4], FORMATTER_DATE_TIME);
             task = new Event(description, from, to);
             break;
         default:
@@ -98,7 +109,7 @@ public class Storage {
      * @return The formatted string to be stored in the storage.
      */
     public static String formatDateTime(LocalDateTime dateTime) {
-        return dateTime.format(DATETIME_FORMATTER);
+        return dateTime.format(FORMATTER_DATE_TIME);
     }
 
     /**
@@ -110,15 +121,15 @@ public class Storage {
      */
     public ArrayList<Task> load(String dataPath) throws LoadingException {
         try {
+            // Create or retrieve the data file
             dataFile = createOrRetrieve(dataPath);
 
+            // Read the data file and load its content into tasks.
             try (Scanner s = new Scanner(dataFile)) {
                 ArrayList<Task> tasks = new ArrayList<>();
-
                 while (s.hasNext()) {
                     tasks.add(parseStorageLine(s.nextLine()));
                 }
-
                 return tasks;
             }
         } catch (Exception e) {
@@ -137,7 +148,7 @@ public class Storage {
         try {
             FileWriter fw = new FileWriter(dataFile.getAbsoluteFile(), true);
             try (BufferedWriter bw = new BufferedWriter(fw)) {
-                bw.write(task.toStorageFormat());
+                bw.write(task.getStorageFormat());
                 bw.newLine();
             }
         } catch (IOException e) {
@@ -157,7 +168,7 @@ public class Storage {
             FileWriter fw = new FileWriter(dataFile.getAbsoluteFile());
             try (BufferedWriter bw = new BufferedWriter(fw)) {
                 for (Task task : tasks) {
-                    bw.write(task.toStorageFormat());
+                    bw.write(task.getStorageFormat());
                     bw.newLine();
                 }
                 bw.flush();

@@ -55,7 +55,7 @@ public abstract class Task {
      *
      * @return The string representation of the task in storage.
      */
-    public String toStorageFormat() {
+    public String getStorageFormat() {
         return (isDone ? "true" : "false") + " | " + description;
     }
 

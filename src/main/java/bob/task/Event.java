@@ -35,8 +35,8 @@ public class Event extends Task {
      * @return The string representation of the event in storage.
      */
     @Override
-    public String toStorageFormat() {
-        return STORAGE_INDICATOR + " | " + super.toStorageFormat() + " | "
+    public String getStorageFormat() {
+        return STORAGE_INDICATOR + " | " + super.getStorageFormat() + " | "
                 + Storage.formatDateTime(from) + " | " + Storage.formatDateTime(to);
     }
 

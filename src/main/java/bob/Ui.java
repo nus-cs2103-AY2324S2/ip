@@ -16,28 +16,24 @@ public class Ui {
 
     private static final int INDENT_SPACE_COUNT = 4;
 
+    private static final String EXIT = "ok";
+    private static final String[] GREET = new String[]{ "yo im bob", "what do you want" };
     private static final String LINE
             = ".-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-.";
-
-    private static final String[] GREET = new String[]{ "yo im bob", "what do you want" };
-
-    private static final String ADD_HEADER = "added:";
-    private static final String NUMBER_OF_TASKS = "now you have %d task(s)";
-
-    private static final String LIST_HEADER = "list of tasks:";
-
-    private static final String MARK_HEADER = "good job!";
-    private static final String UNMARK_HEADER = "ok you just undid this task";
-
-    private static final String DELETE_HEADER = "removed:";
-    private static final String DELETE_FOOTER = "%d task(s) left";
-
-    private static final String DATETIME_FORMAT = "MMM dd yyyy HHmm";
-    private static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern(DATETIME_FORMAT);
-
     private static final String LOADING_ERROR = "wait what happened i cant load any data";
 
-    private static final String EXIT = "ok";
+    private static final String HEADER_ADD = "added:";
+    private static final String HEADER_DELETE = "removed:";
+    private static final String HEADER_LIST = "list of tasks:";
+    private static final String HEADER_MARK = "good job!";
+    private static final String HEADER_UNMARK = "ok you just undid this task";
+
+    private static final String FOOTER_DELETE = "%d task(s) left";
+    private static final String FOOTER_NUMBER_OF_TASKS = "now you have %d task(s)";
+
+    private static final String PATTERN_DATE_TIME = "MMM dd yyyy HHmm";
+
+    private static final DateTimeFormatter FORMATTER_DATE_TIME = DateTimeFormatter.ofPattern(PATTERN_DATE_TIME);
 
     /**
      * Initialises the scanner to be used to read inputs from the user.
@@ -63,7 +59,7 @@ public class Ui {
      * @return The formatted string to be displayed to the user.
      */
     public static String formatDateTime(LocalDateTime dateTime) {
-        return dateTime.format(DATETIME_FORMATTER);
+        return dateTime.format(FORMATTER_DATE_TIME);
     }
 
     /**
@@ -123,9 +119,9 @@ public class Ui {
      */
     public void showAdd(Task task, int numberOfTasks) {
         show(new String[] {
-                ADD_HEADER,
+                HEADER_ADD,
                 " ".repeat(2) + task,
-                String.format(NUMBER_OF_TASKS, numberOfTasks)
+                String.format(FOOTER_NUMBER_OF_TASKS, numberOfTasks)
         });
     }
 
@@ -136,7 +132,7 @@ public class Ui {
      * @param isDone Whether the task is marked or unmarked.
      */
     public void showMark(Task task, boolean isDone) {
-        show(new String[] { isDone ? MARK_HEADER : UNMARK_HEADER, " ".repeat(2) + task });
+        show(new String[] { isDone ? HEADER_MARK : HEADER_UNMARK, " ".repeat(2) + task });
     }
 
     /**
@@ -146,7 +142,7 @@ public class Ui {
      * @param numberOfTasks The number of tasks after deleting the task.
      */
     public void showDelete(Task task, int numberOfTasks) {
-        show(new String[] { DELETE_HEADER, " ".repeat(2) + task, String.format(DELETE_FOOTER, numberOfTasks) });
+        show(new String[] {HEADER_DELETE, " ".repeat(2) + task, String.format(FOOTER_DELETE, numberOfTasks) });
     }
 
     /**
@@ -155,13 +151,16 @@ public class Ui {
      * @param tasks The specified list of tasks to be displayed.
      */
     public void showList(ArrayList<Task> tasks) {
+        // Prepare an array to store the lines to display, setting the first element as the header line
         String[] lines = new String[tasks.size() + 1];
-        lines[0] = LIST_HEADER;
+        lines[0] = HEADER_LIST;
 
+        // Go through the given list and add them into lines
         for (int i = 0; i < tasks.size(); i++) {
             lines[i + 1] = (i + 1) + ". " + tasks.get(i);
         }
 
+        // Display the lines
         show(lines);
     }
 

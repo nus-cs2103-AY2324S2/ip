@@ -112,7 +112,7 @@ public class StorageTest {
     }
 
     @Test
-    public void testSaveTask() throws IOException {
+    public void saveTask() throws IOException {
         Path dataPath = sharedTempDir.resolve("bob.txt");
 
         try {
@@ -131,7 +131,7 @@ public class StorageTest {
     }
 
     @Test
-    public void testRefresh() throws IOException {
+    public void refresh() throws IOException {
         Path dataPath = sharedTempDir.resolve("bob.txt");
 
         String[] fileContents = new String[] {

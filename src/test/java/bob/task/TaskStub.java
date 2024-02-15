@@ -19,7 +19,7 @@ public class TaskStub extends Task {
     }
 
     @Override
-    public String toStorageFormat() {
+    public String getStorageFormat() {
         return "storage format";
     }
 
