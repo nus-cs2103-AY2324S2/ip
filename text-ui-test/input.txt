@@ -1,0 +1,15 @@
+
+hi
+todo Finish level-7
+deadline Apply grants /by 25 Jan 2024
+mark 1
+mark 1
+unmark 1
+unmark 2
+event Dinner /from 7 pm to 9 pm
+list
+unmark 4
+yay
+LIST
+byee
+bye

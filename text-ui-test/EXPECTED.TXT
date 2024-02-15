@@ -3,5 +3,47 @@ Hello from
 |  _ \ _   _| | _____ 
 | | | | | | | |/ / _ \
 | |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+|____/ \__,_|_|\_\___|   Leto
 
+===================================
+
+  <<Duke Leto>>
+   >> Supported commands:
+  list     -  list all tasks
+  mark     -  mark task as done
+                usage: mark <index>
+  unmark   -  unmark task as done, :(
+                usage: unmark <index>
+  todo     -  create a task of type todo 
+                usage: todo <details>
+  deadline -  create a task of type deadline
+                usage: event <details> /by <end_time>
+  event    -  create a task of type event    
+                usage: event <details> /from <start_time> /to <end_time>
+  bye      -  exit
+  <<Duke Leto>>
+   >> Supported commands:
+  list     -  list all tasks
+  mark     -  mark task as done
+                usage: mark <index>
+  unmark   -  unmark task as done, :(
+                usage: unmark <index>
+  todo     -  create a task of type todo 
+                usage: todo <details>
+  deadline -  create a task of type deadline
+                usage: event <details> /by <end_time>
+  event    -  create a task of type event    
+                usage: event <details> /from <start_time> /to <end_time>
+  bye      -  exit
+  << Duke Leto >>
+  > Task added, [[T][ ] todo Finish level-7]
+  > You have 1 tasks.
+  << Duke Leto >>
+  > Task added, [[D][ ] Apply grants (by: 25 Jan 2024)]
+  > You have 2 tasks.
+  << Duke Leto >>
+  > Task marked as completed! Congratulations
+  <<Duke Leto>>
+   >> We have a problem! Task already completed
+  << Duke Leto >>
+  > Task marked as uncompleted! Things happen, dont worry we account for it
