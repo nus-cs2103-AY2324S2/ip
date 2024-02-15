@@ -11,6 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import duke.exceptions.StorageException;
 import duke.exceptions.TaskCorruptedException;
 import duke.exceptions.TaskNotSupportedException;
 import duke.storage.Task.TaskType;
@@ -46,7 +47,7 @@ public class Storage {
      * @param file     File to load values from
      */
     public static void loadFromFile(TaskList taskList, File file)
-            throws TaskNotSupportedException, FileNotFoundException, TaskCorruptedException {
+            throws TaskNotSupportedException, FileNotFoundException, TaskCorruptedException, StorageException {
         // Check if file is readable
         if (!file.canRead()) {
             throw new FileNotFoundException("File cannot be read");
@@ -94,7 +95,7 @@ public class Storage {
                 assert task != null; // Task should exist
 
                 // Add task to storage array
-                taskList.addTask(task);
+                taskList.addTask(task, task.getIsArchived());
             }
         } catch (IllegalArgumentException | JSONException e) {
             throw new TaskCorruptedException("Task corrupted, will not be loaded");
