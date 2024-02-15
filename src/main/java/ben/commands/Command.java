@@ -18,7 +18,7 @@ public abstract class Command {
      * @param storage The storage to save the task list changes.
      * @throws BenException If an error occurs during the execution of the command.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws BenException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws BenException {
         throw new UnsupportedOperationException("This method is meant to be used by a child class.");
     }
 

@@ -22,25 +22,25 @@ public class Ui {
      *
      * @param message The message to be displayed.
      */
-    public static void show(String message) {
-        System.out.println("      " + message);
+    public static String show(String message) {
+        return "      " + message + "\n";
     }
 
     /**
      * Displays the welcome message to the user.
      */
-    public void showWelcome() {
-        show("______________________________________________");
-        show("Hello! I'm Ben");
-        show("What can I do for you?");
-        show("______________________________________________");
+    public String showWelcome() {
+        return show("______________________________________________") +
+                show("Hello! I'm Ben") +
+                show("What can I do for you?") +
+                show("______________________________________________");
     }
 
     /**
      * Displays a line separator.
      */
-    public void showLine() {
-        show("______________________________________________");
+    public String showLine() {
+        return show("______________________________________________");
     }
 
     /**
@@ -57,22 +57,22 @@ public class Ui {
      *
      * @param message The error message to be displayed.
      */
-    public void showError(String message) {
-        show(message);
+    public String showError(String message) {
+        return show(message);
     }
 
     /**
      * Displays the exit message to the user.
      */
-    public void showExitMessage() {
-        show("Bye. Hope to see you again soon!");
+    public String showExitMessage() {
+        return show("Bye. Hope to see you again soon!");
     }
 
     /**
      * Displays the message for listing tasks to the user.
      */
-    public void showListMessage() {
-        show("Here are the tasks in your list:");
+    public String showListMessage() {
+        return show("Here are the tasks in your list:");
     }
 
     /**
@@ -80,8 +80,8 @@ public class Ui {
      *
      * @param task The task to be displayed.
      */
-    public void showTask(Task task) {
-        show(task.toString());
+    public String showTask(Task task) {
+        return show(task.toString());
     }
 
     /**
@@ -90,8 +90,8 @@ public class Ui {
      * @param tasks The TaskList containing tasks.
      * @param index The index of the task to be displayed.
      */
-    public void showTask(TaskList tasks, int index) {
-        show(tasks.toString(index));
+    public String showTask(TaskList tasks, int index) {
+        return show(tasks.toString(index));
     }
 
     /**
@@ -99,29 +99,29 @@ public class Ui {
      *
      * @param tasks The TaskList containing tasks.
      */
-    public void showTaskList(TaskList tasks) {
-        tasks.showTaskList();
+    public String showTaskList(TaskList tasks) {
+        return tasks.showTaskList();
     }
 
     /**
      * Displays a message for a marked task to the user.
      */
-    public void showMarkedTaskMessage() {
-        show("Nice! I've marked this task as done:");
+    public String showMarkedTaskMessage() {
+        return show("Nice! I've marked this task as done:");
     }
 
     /**
      * Displays a message for an unmarked task to the user.
      */
-    public void showUnmarkedTaskMessage() {
-        show("OK, I've marked this task as not done yet:");
+    public String showUnmarkedTaskMessage() {
+        return show("OK, I've marked this task as not done yet:");
     }
 
     /**
      * Displays a message for an added task to the user.
      */
-    public void showAddedTaskMessage() {
-        show("Got it. I've added this task:");
+    public String showAddedTaskMessage() {
+        return show("Got it. I've added this task:");
     }
 
     /**
@@ -129,28 +129,28 @@ public class Ui {
      *
      * @param tasks The TaskList containing tasks.
      */
-    public void showCurrNoOfTasks(TaskList tasks) {
-        show("Now you have " + tasks.size() + " tasks in the list.");
+    public String showCurrNoOfTasks(TaskList tasks) {
+        return show("Now you have " + tasks.size() + " tasks in the list.");
     }
 
     /**
      * Displays a message for a deleted task to the user.
      */
-    public void showDeletedTaskMessage() {
-        show("Noted. I've removed this task:");
+    public String showDeletedTaskMessage() {
+        return show("Noted. I've removed this task:");
     }
 
     /**
      * Displays a message indicating that matching tasks have been found.
      */
-    public void showTasksFoundMessage() {
-        show("Here are the matching tasks in your list:");
+    public String showTasksFoundMessage() {
+        return show("Here are the matching tasks in your list:");
     }
 
     /**
      * Displays a message indicating that no matching tasks have been found.
      */
-    public void showNoTasksFoundMessage() {
-        show("Sorry, there are no matching tasks... Try another keyword!");
+    public String showNoTasksFoundMessage() {
+        return show("Sorry, there are no matching tasks... Try another keyword!");
     }
 }

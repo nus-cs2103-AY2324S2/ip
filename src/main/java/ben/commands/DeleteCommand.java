@@ -30,7 +30,7 @@ public class DeleteCommand extends Command {
      * @throws BenException If an error occurs during the execution of the command.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws BenException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws BenException {
         if (tasks.isEmpty()) {
             throw new BenException("   No tasks to delete :)");
         }
@@ -41,7 +41,7 @@ public class DeleteCommand extends Command {
 
         Task deletedTask = tasks.removeTask(index);
 
-        ui.showDeletedTaskMessage();
-        ui.showTask(deletedTask);
+        return ui.showDeletedTaskMessage() +
+                ui.showTask(deletedTask);
     }
 }

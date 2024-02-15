@@ -30,18 +30,21 @@ public class FindCommand extends Command {
      * @param storage The storage for saving and loading tasks.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         // obtain list of matched tasks
         List<Task> matchedTasks = tasks.findTasks(keyword);
 
         if (matchedTasks.isEmpty()) {
-            ui.showNoTasksFoundMessage();
+            return ui.showNoTasksFoundMessage();
         } else {
-            ui.showTasksFoundMessage();
+            StringBuilder output = new StringBuilder();
+            output.append(ui.showTasksFoundMessage());
             for (int i = 0; i < matchedTasks.size(); i++) {
                 Task currTask = matchedTasks.get(i);
-                Ui.show((i + 1) + ". " + currTask);
+                output.append(Ui.show((i + 1) + ". " + currTask));
             }
+
+            return output.toString();
         }
     }
 }

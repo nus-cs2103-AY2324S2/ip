@@ -32,8 +32,8 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Ben d) {
-        ben = d;
+    public void setBen(Ben ben) {
+        this.ben = ben;
     }
 
     /**

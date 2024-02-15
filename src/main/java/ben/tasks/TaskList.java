@@ -139,11 +139,15 @@ public class TaskList {
     /**
      * Displays the entire TaskList.
      */
-    public void showTaskList() {
+    public String showTaskList() {
+        StringBuilder output = new StringBuilder();
+
         for (int i = 0; i < this.tasks.size(); i++) {
             Task currTask = this.tasks.get(i);
-            Ui.show((i + 1) + ". " + currTask);
+            output.append(i + 1).append(". ").append(currTask).append("\n");
         }
+
+        return output.toString();
     }
 
     /**

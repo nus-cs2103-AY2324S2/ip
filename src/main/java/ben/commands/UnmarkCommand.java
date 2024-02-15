@@ -29,7 +29,7 @@ public class UnmarkCommand extends Command {
      * @throws BenException If an error occurs during the execution of the command.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws BenException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws BenException {
 
         // check if task list is empty
         if (tasks.isEmpty()) {
@@ -43,7 +43,7 @@ public class UnmarkCommand extends Command {
 
         tasks.unmarkTask(index);
 
-        ui.showUnmarkedTaskMessage();
-        ui.showTask(tasks, index);
+        return ui.showUnmarkedTaskMessage() +
+                ui.showTask(tasks, index);
     }
 }

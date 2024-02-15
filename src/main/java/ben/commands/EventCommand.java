@@ -37,12 +37,12 @@ public class EventCommand extends Command {
      * @param storage The storage to save the updated task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task newEvent = new Event(false, description, startDate, endDate);
         tasks.addTask(newEvent);
 
-        ui.showAddedTaskMessage();
-        ui.show(newEvent.toString());
-        ui.showCurrNoOfTasks(tasks);
+        return ui.showAddedTaskMessage() +
+                ui.show(newEvent.toString()) +
+                ui.showCurrNoOfTasks(tasks);
     }
 }

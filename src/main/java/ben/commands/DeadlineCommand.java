@@ -34,12 +34,12 @@ public class DeadlineCommand extends Command {
      * @param storage The storage to save the updated task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task newDeadline = new Deadline(false, description, deadline);
         tasks.addTask(newDeadline);
 
-        ui.showAddedTaskMessage();
-        ui.show(newDeadline.toString());
-        ui.showCurrNoOfTasks(tasks);
+        return ui.showAddedTaskMessage() +
+                ui.show(newDeadline.toString()) +
+                ui.showCurrNoOfTasks(tasks);
     }
 }

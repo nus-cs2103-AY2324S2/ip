@@ -19,7 +19,6 @@ public class Ben {
     private Ui ui;
 
     public Ben() {
-        // ...
     }
 
     /**
@@ -65,15 +64,20 @@ public class Ben {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
-    }
 
-    /**
-     * The main method to start the Ben task management application.
-     *
-     * @param args The command-line arguments.
-     */
-    public static void main(String[] args) {
-        new Ben("data/tasks.txt").run();
+        String output = "";
+
+        try {
+            output += ui.showLine(); // show the divider line ("_______")
+            Command c = Parser.parse(input);
+            output += c.execute(tasks, ui, storage);
+            storage.save(tasks.formatSave());
+        } catch (BenException e) {
+            output += ui.showError(e.getMessage());
+        } finally {
+            output += ui.showLine();
+        }
+
+        return output;
     }
 }
