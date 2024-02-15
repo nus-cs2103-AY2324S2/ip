@@ -52,11 +52,11 @@ public class TaskList {
      *
      */
     public String listTask() {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            result += (i + 1) + ". " + tasks.get(i) + "\n";
+            result.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
         }
-        return result;
+        return result.toString();
     }
 
     /**
@@ -137,15 +137,14 @@ public class TaskList {
      * @return Matched task list.
      */
     public TaskList findTasks(String word) {
-        ArrayList<Task> matchedTasksArr = new ArrayList<>();
-        // iterate through the task list
+        ArrayList<Task> matchedTasks = new ArrayList<>();
+        // Iterate through the task list
         System.out.println(word);
         for (Task task : tasks) {
             if (task.getDetail().contains(word)) {
-                matchedTasksArr.add(task);
+                matchedTasks.add(task);
             }
         }
-        TaskList matchedTasks = new TaskList(matchedTasksArr);
-        return matchedTasks;
+        return new TaskList(matchedTasks);
     }
 }

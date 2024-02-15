@@ -10,13 +10,6 @@ import duke.tasks.TaskList;
 import duke.ui.UI;
 import duke.utils.KeyEnum;
 import duke.utils.Parser;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.layout.VBox;
-
 
 /**
  * Main chatbot class.
@@ -25,19 +18,12 @@ public class Duke {
     private TaskList tasks;
     private Storage storage;
     private UI ui;
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/bot.png"));
 
     /**
      * Initializes the chatbot.
      */
     public Duke() {
-        this("./data/duke.txt");
+        this("./data/plaudern.txt");
     }
 
     /**
@@ -61,7 +47,7 @@ public class Duke {
      */
     public void run() {
         ui.onEnter();
-        String response = "";
+        String response;
         do {
             response = getResponse(ui.getUserInput());
         } while (!Objects.equals(response, "Bye. Hope to see you again soon!"));
