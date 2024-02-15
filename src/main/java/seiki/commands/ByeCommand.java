@@ -12,9 +12,8 @@ public class ByeCommand extends Command {
     public static final String COMMAND_WORD = "bye";
 
     @Override
-    public void execute(Storage storage, TaskList taskList, Ui ui) throws SeikiException {
-        ui.showEnd();
-        System.exit(0);
+    public String execute(Storage storage, TaskList taskList, Ui ui) throws SeikiException {
+        return ui.showEnd();
     }
 
     @Override

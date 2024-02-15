@@ -20,7 +20,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(Storage storage, TaskList taskList, Ui ui) throws SeikiException {
+    public String execute(Storage storage, TaskList taskList, Ui ui) throws SeikiException {
         if (taskList.getTaskCount() == 0) {
             throw new SeikiException("There are currently no tasks to search from.");
         } else {
@@ -30,7 +30,7 @@ public class FindCommand extends Command {
             if (resultList.getTaskCount() == 0) {
                 throw new SeikiException("There are no task that matches the keyword: " + keyword);
             } else {
-                ui.showFindTask(keyword, resultList);
+                return ui.showFindTask(keyword, resultList);
             }
         }
     }

@@ -20,7 +20,7 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(Storage storage, TaskList taskList, Ui ui) throws SeikiException {
+    public String execute(Storage storage, TaskList taskList, Ui ui) throws SeikiException {
         if (taskList.getTaskCount() == 0) {
             throw new SeikiException("There are currently no tasks to be unmarked.");
         } else {
@@ -31,7 +31,7 @@ public class UnmarkCommand extends Command {
                 Task task = taskList.getTaskByNumber(taskNumber);
                 task.markAsNotDone();
                 storage.save(taskList);
-                ui.showUnmarkTask(task);
+                return ui.showUnmarkTask(task);
             }
         }
     }

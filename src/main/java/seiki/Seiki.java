@@ -12,47 +12,44 @@ import seiki.ui.Ui;
  * Runs the bot and starts the interaction with the user.
  */
 public class Seiki {
+    public static final String FILE_PATH = "data/tasks.txt";
+    private boolean isExit;
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
 
     /**
-     * Sets up the required objects, loads up the data from the storage file, and prints the welcome message.
-     * @param filePath
+     * Constructor for Seiki chatbot.
+     * Sets up the required objects, loads up the data from the storage file.
      */
-    public Seiki(String filePath) {
+    public Seiki() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(FILE_PATH);
+        isExit = false;
         try {
             tasks = storage.load();
+            ui.showWelcome();
         } catch (SeikiException e) {
             tasks = new TaskList();
         }
     }
 
+    public boolean isExit() {
+        return isExit;
+    }
+
     /**
-     * Runs the program until termination.
+     * Main run method of the chatbot.
      */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command c = Parser.parse(fullCommand);
-                c.execute(storage, tasks, ui);
-                isExit = c.isExit();
-            } catch (SeikiException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            if (c.isExit()) {
+                isExit = true;
             }
+            return c.execute(storage, tasks, ui);
+        } catch (SeikiException e) {
+            return ui.showError(e.getMessage());
         }
     }
-
-    public static void main(String[] args) {
-        new Seiki("data/tasks.txt").run();
-    }
-
 }

@@ -20,6 +20,6 @@ public class Messages {
     public static final String MESSAGE_LIST_SUCCESS = "Here are the task(s) you have:";
     public static final String MESSAGE_MARK_SUCCESS = "The following task has been marked.";
     public static final String MESSAGE_REMAINING_TASKS = "You have a total of %1$d tasks in the list.";
-    public static final String MESSAGE_TASK = "→ %1$s";
+    public static final String MESSAGE_TASK = "\u2794 %1$s";
     public static final String MESSAGE_UNMARK_SUCCESS = "The following task has been unmarked.";
 }

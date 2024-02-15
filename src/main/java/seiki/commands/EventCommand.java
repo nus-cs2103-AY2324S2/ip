@@ -24,7 +24,7 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(Storage storage, TaskList taskList, Ui ui) throws SeikiException {
+    public String execute(Storage storage, TaskList taskList, Ui ui) throws SeikiException {
         if (!this.args.contains("/from") && !this.args.contains("/to")) {
             throw new SeikiException("The date time for the task is missing.\n"
                     + "Please use the following format: event [task title] /from [startdatetime] /to [enddatetime]");
@@ -58,7 +58,7 @@ public class EventCommand extends Command {
                 Event task = new Event(taskName, startDateTime, endDateTime);
                 taskList.addTask(task);
                 storage.save(taskList);
-                ui.showAddTask(task, taskList);
+                return ui.showAddTask(task, taskList);
             } catch (DateTimeParseException e) {
                 throw new SeikiException("The format of the date time is incorrect.\n"
                         + "Please use the following format: yyyy/MM/dd HHmm");
