@@ -1,5 +1,7 @@
 package remi.model.commands;
 
+import java.util.HashMap;
+import java.util.List;
 import remi.io.Message;
 import remi.model.Deadline;
 import remi.model.Event;
@@ -8,9 +10,6 @@ import remi.model.TaskList;
 import remi.model.ToDo;
 import remi.model.Ui;
 import remi.utils.RemiError;
-
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * A list of all the commands. This class's responsibility is to parse commands as strings and run them.
@@ -35,16 +34,15 @@ public class CommandList {
         /// TODO: handle this
         if (idx == -1) {
             throw new RemiError("I couldn't find a " + option + ", please specify it by adding a " + option);
-        } else {
-            int endIdx = input.indexOf("/", idx + 1);
-            if (endIdx == -1) {
-                endIdx = input.length();
-            } else {
-                // decrement to get the space before the /
-                endIdx = endIdx - 1;
-            }
-            return input.substring(idx + option.length() + 1, endIdx);
         }
+        int endIdx = input.indexOf("/", idx + 1);
+        if (endIdx == -1) {
+            endIdx = input.length();
+        } else {
+            // decrement to get the space before the /
+            endIdx = endIdx - 1;
+        }
+        return input.substring(idx + option.length() + 1, endIdx);
     }
 
     private String getLabel(String input) throws RemiError {
