@@ -6,7 +6,7 @@ import tasks.Task;
 import tasks.TaskList;
 import ui.Ui;
 
-public class DeleteTaskProcessor extends Processor{
+public class DeleteTaskProcessor extends Processor {
 
     /**
      * Constructor for Processor element

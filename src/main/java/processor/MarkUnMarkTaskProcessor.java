@@ -5,7 +5,7 @@ import ui.Ui;
 
 import java.io.IOException;
 
-public class MarkUnMarkTaskProcessor extends Processor{
+public class MarkUnMarkTaskProcessor extends Processor {
 
     /**
      * Constructor for Processor element
@@ -25,8 +25,6 @@ public class MarkUnMarkTaskProcessor extends Processor{
     public void processCommand(String userInput) throws IOException {
         String[] array = userInput.split(" ");
         String command = array[0];
-
-        
 
         try {
             int number = Integer.parseInt(array[1]);

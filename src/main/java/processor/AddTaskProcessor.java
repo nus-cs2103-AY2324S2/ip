@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class AddTaskProcessor extends Processor{
+public class AddTaskProcessor extends Processor {
 
 
     /**
@@ -28,48 +28,48 @@ public class AddTaskProcessor extends Processor{
      * @throws IOException if an I/O error occurs while processing the command
      */
     public void processCommand(String userInput) throws IOException {
-        String[] tokens = userInput.split(" ", 2);
+        String[] componentsSplitBySpace = userInput.split(" ", 2);
         int previousSize = taskList.size();
 
-        if (tokens.length == 0) {
+        if (componentsSplitBySpace.length == 0) {
             System.out.println(chatbotUi.dividerWrapper("Can not type a blank input!"));
             return;
         }
 
-        String command = tokens[0];
+        String command = componentsSplitBySpace[0];
+        String todoDescription = componentsSplitBySpace[1].trim();
 
         if (!(command.equals("todo") || command.equals("deadline") || command.equals("event"))) {
             System.out.println(chatbotUi.dividerWrapper("I do not know what type of task that is!"));
             return;
         }
-        if (tokens.length == 1) {
+        if (componentsSplitBySpace.length == 1) {
             System.out.println(chatbotUi.dividerWrapper("Description of todo can't be blank!"));
             return;
         }
 
-        String description = tokens[1].trim();
+        String[] componentsSplitByTime = userInput.split("//");
 
-        String[] times = userInput.split("//");
-
-
-        String desc = times[0];
-        int firstSpaceIndex = desc.indexOf(' ');
-        String substringAfterSpace = desc.substring(
-                firstSpaceIndex + 1);
+        
+        String deadlineOrEventDescription = componentsSplitByTime[0].substring(
+            componentsSplitByTime[0].indexOf(' ') + 1);
 
         switch (command) {
+        // Case for adding a todo task
         case "todo":
-            taskList.addTask(new Task(description, false));
+            taskList.addTask(new Task(todoDescription, false));
             System.out.println(chatbotUi.dividerWrapper(
                     "Got it. I've added this task:\n" + taskList.getTaskAtIndex(taskList.size() - 1)
                     + "\nNow you have " + taskList.size() + " tasks in the list."));
             break;
+        // Case for adding a deadline task
         case "deadline":
-            if (times.length < 2) {
+            if (componentsSplitByTime.length < 2) {
                 System.out.println(chatbotUi.dividerWrapper("Wrong syntax! Must be `deadline <task> //by <deadline>`"));
                 return;
             }
-            String deadline = times[1].trim();
+
+            String deadline = componentsSplitByTime[1].trim();
 
             if (!deadline.startsWith("by ")) {
                 System.out.println(chatbotUi.dividerWrapper("You must start the statement with the word `//by`."));
@@ -77,16 +77,19 @@ public class AddTaskProcessor extends Processor{
             }
 
             try {
-                //System.out.println(deadline + " test");
                 LocalDateTime deadlineDateTime = LocalDateTime.parse(
                         deadline.substring(3), DateTimeFormatter.ofPattern("M/d/yyyy HHmm"));
+
                 String formattedDeadline = deadlineDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy, ha"));
-                taskList.addDeadlineTask(substringAfterSpace, formattedDeadline);
+                
+                taskList.addDeadlineTask(deadlineOrEventDescription, formattedDeadline);
+
             } catch (DateTimeParseException e) {
                 System.out.println(chatbotUi.recommenderWrapper(
                         "Added the task, but recommend using"
                                 + " the date/time format `M/d/yyyy HHmm` for better experience."));
-                taskList.addDeadlineTask(substringAfterSpace, deadline);
+                
+                taskList.addDeadlineTask(deadlineOrEventDescription, deadline);
             }
 
             System.out.println(chatbotUi.dividerWrapper(
@@ -94,15 +97,16 @@ public class AddTaskProcessor extends Processor{
                     + "\nNow you have " + taskList.size() + " tasks in the list."));
             break;
 
+        // Case for adding an event task
         case "event":
 
-            if (times.length < 3) {
+            if (componentsSplitByTime.length < 3) {
                 System.out.println(chatbotUi.dividerWrapper(
                         "Wrong syntax! Must be `event <task> //from <start date> //to <end date>`"));
                 return;
             }
-            String start = times[1].trim();
-            String end = times[2].trim();
+            String start = componentsSplitByTime[1].trim();
+            String end = componentsSplitByTime[2].trim();
 
             if (!start.startsWith("from ") || !end.startsWith("to ")) {
                 System.out.println(chatbotUi.dividerWrapper(
@@ -119,13 +123,13 @@ public class AddTaskProcessor extends Processor{
                         DateTimeFormatter.ofPattern("MMM dd yyyy, ha"));
                 String formattedEnd = endDateTime.format(
                         DateTimeFormatter.ofPattern("MMM dd yyyy, ha"));
-                taskList.addEventTask(substringAfterSpace, formattedStart, formattedEnd);
+                taskList.addEventTask(deadlineOrEventDescription, formattedStart, formattedEnd);
             } catch (DateTimeParseException e) {
                 System.out.println(chatbotUi.recommenderWrapper(
                         "Added the task, but recommend using"
                                 + " the date/time format `M/d/yyyy HHmm` "
                                 + "on both start and end dates for better experience."));
-                taskList.addEventTask(substringAfterSpace, start, end.substring(3)); //substring(3) to remove "to "
+                taskList.addEventTask(deadlineOrEventDescription, start, end.substring(3)); //substring(3) to remove "to "
             }
 
             assert taskList.size() > previousSize : "Task list size should have increased";
@@ -140,7 +144,6 @@ public class AddTaskProcessor extends Processor{
 
         try {
             storage.writeToFile();
-
         } catch (IOException e) {
             System.out.println(chatbotUi.dividerWrapper("Error writing to file in storage."));
 

@@ -7,6 +7,10 @@ import storage.Storage;
 import tasks.TaskList;
 import ui.Ui;
 
+/**
+ * The Processor abstract class performs commands and defines a command function for it's children.
+ * It interacts with the TaskList, Ui, and Storage classes to handle user commands and manage tasks.
+ */
 public abstract class Processor {
     protected TaskList taskList;
     protected Ui chatbotUi;

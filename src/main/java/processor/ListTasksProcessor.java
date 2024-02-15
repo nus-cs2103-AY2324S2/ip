@@ -9,7 +9,7 @@ import ui.Ui;
  * The Processor class is responsible for processing user input and performing operations on the TaskList.
  * It interacts with the TaskList, Ui, and Storage classes to handle user commands and manage tasks.
  */
-public class ListTasksProcessor extends Processor{
+public class ListTasksProcessor extends Processor {
     
 
     /**
