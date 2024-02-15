@@ -69,4 +69,14 @@ public abstract class Task {
     public String getDescription() {
         return this.task;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Task) {
+            Task task = (Task) obj;
+            return this.task.equals(task.task);
+        } else {
+            return false;
+        }
+    }
 }

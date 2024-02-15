@@ -1,5 +1,6 @@
 package duke;
 
+import duke.exception.DuplicateTaskException;
 import duke.task.Task;
 import duke.task.Todo;
 import org.junit.jupiter.api.Test;
@@ -43,7 +44,11 @@ public class TaskListTest {
         ArrayList<Task> testArrList = new ArrayList<>();
         TaskList testTasks = new TaskList(testArrList.toArray(new Task[0]));
         Task test = new Todo("test");
-        testTasks.add(test);
+
+        try {
+            testTasks.add(test);
+        } catch (DuplicateTaskException ignored) {
+        }
 
         assertEquals(test, testTasks.get(1));
     }

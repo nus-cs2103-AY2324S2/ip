@@ -3,6 +3,7 @@ package duke.command;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
+import duke.exception.DuplicateTaskException;
 import duke.exception.InvalidArgumentException;
 import duke.task.Task;
 import duke.task.Todo;
@@ -35,7 +36,8 @@ public class AddTodoCommand extends Command {
      * @throws InvalidArgumentException If command has invalid or missing arguments.
      */
     @Override
-    public String generateReply(TaskList taskList, Ui ui, Storage storage) throws InvalidArgumentException {
+    public String generateReply(TaskList taskList, Ui ui, Storage storage)
+            throws InvalidArgumentException, DuplicateTaskException {
         try {
             Task newTask = new Todo(this.arguments);
             taskList.add(newTask);

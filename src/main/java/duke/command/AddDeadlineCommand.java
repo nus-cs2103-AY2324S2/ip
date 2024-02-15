@@ -3,6 +3,7 @@ package duke.command;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
+import duke.exception.DuplicateTaskException;
 import duke.exception.InvalidArgumentException;
 import duke.exception.InvalidDateTimeFormatException;
 import duke.task.Deadline;
@@ -43,7 +44,7 @@ public class AddDeadlineCommand extends Command {
      */
     @Override
     public String generateReply(TaskList taskList, Ui ui, Storage storage)
-            throws InvalidArgumentException, InvalidDateTimeFormatException {
+            throws InvalidArgumentException, InvalidDateTimeFormatException, DuplicateTaskException {
 
         try {
             String[] argParts = this.arguments.split(" /by ", 2);
