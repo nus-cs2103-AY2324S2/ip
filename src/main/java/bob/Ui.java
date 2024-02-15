@@ -166,10 +166,20 @@ public class Ui {
         show(lines);
     }
 
+    /**
+     * Displays a specified list of tasks using the default list header.
+     *
+     * @param tasks The specified list of tasks to be displayed.
+     */
     public void showList(ArrayList<Task> tasks) {
         showList(tasks, HEADER_LIST);
     }
 
+    /**
+     * Displays a specified list of tasks using the find header.
+     *
+     * @param tasks The specified list of tasks to be displayed.
+     */
     public void showFind(ArrayList<Task> tasks) {
         showList(tasks, HEADER_FIND);
     }

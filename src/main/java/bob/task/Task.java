@@ -79,6 +79,12 @@ public abstract class Task {
         return false;
     }
 
+    /**
+     * Returns whether the task matches a specified keyword.
+     *
+     * @param keyword The keyword which the task is said to match.
+     * @return Whether the task has the specified keyword.
+     */
     public boolean hasKeyword(String keyword) {
         return description.contains(keyword);
     }

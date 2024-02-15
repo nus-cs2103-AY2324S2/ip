@@ -196,12 +196,20 @@ public class Parser {
         }
     }
 
+    /**
+     * Makes sense of the "find" command.
+     *
+     * @param commandArgs The given user command split into the command itself and the remaining description.
+     * @return A <code>Command</code> object corresponding to the parsed command.
+     * @throws EmptyDescriptionException If the given command does not have a description.
+     */
     public static Command parseFind(String[] commandArgs) throws EmptyDescriptionException {
-        // TODO: Add comments
+        // Find command without a description
         if (commandArgs.length == 1) {
             throw new EmptyDescriptionException(commandArgs[0]);
         }
 
+        // The remaining portion of the command is the keyword
         String keyword = commandArgs[1];
         return new ListKeywordCommand(keyword);
     }

@@ -88,6 +88,12 @@ public class TaskList {
         return listWithFilter(task -> task.isDueIn(days));
     }
 
+    /**
+     * Returns the list of tasks matching a specified keyword.
+     *
+     * @param keyword The keyword which the returned tasks will match.
+     * @return The list of tasks matching the specified keyword.
+     */
     public ArrayList<Task> listKeyword(String keyword) {
         return listWithFilter(task -> task.hasKeyword(keyword));
     }
