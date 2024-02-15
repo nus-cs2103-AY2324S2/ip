@@ -1,5 +1,6 @@
 package remi.model.commands;
 
+import java.util.HashMap;
 import remi.io.Message;
 import remi.model.Deadline;
 import remi.model.Event;
@@ -8,8 +9,6 @@ import remi.model.TaskList;
 import remi.model.ToDo;
 import remi.model.Ui;
 import remi.utils.RemiError;
-
-import java.util.HashMap;
 
 public class CommandList {
     private HashMap<String, Command> commandLookup;
