@@ -2,6 +2,8 @@ package utilities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import exceptions.WilliamException;
 import tasks.Task;
@@ -41,16 +43,14 @@ public class TaskList {
      * @return A string listing all tasks or stating that the list is empty
      */
     public String printList() {
-        StringBuilder sb = new StringBuilder();
         if (this.tasks.isEmpty()) {
             return "Your list is empty. Please add some tasks to the list first!\n";
         } else {
-            sb.append("Here are the tasks in your list:\n");
-            for (int i = 0; i < this.tasks.size(); i++) {
-                sb.append(i + 1).append(". ").append(this.tasks.get(i).toString()).append("\n");
-            }
+            List<String> tasks = IntStream.range(0, this.tasks.size())
+                    .mapToObj(i -> (i + 1) + ". " + this.tasks.get(i).toString())
+                    .collect(Collectors.toList());
+            return "Here are the tasks in your list:\n" + String.join("\n", tasks) + "\n";
         }
-        return sb.toString();
     }
 
 
@@ -85,7 +85,7 @@ public class TaskList {
                         .append("\nNow you have ").append(this.tasks.size())
                         .append(" tasks in the list.\n");
             } catch (IndexOutOfBoundsException | NumberFormatException e) {
-                return "Invalid task ID. Please enter a valid number! + \n";
+                return "Invalid task ID. Please enter a valid number!\n";
             }
         }
         return sb.toString();
@@ -112,24 +112,16 @@ public class TaskList {
      * @throws WilliamException If no tasks match the provided input
      */
     public String findTasks(String input) throws WilliamException {
-        StringBuilder sb = new StringBuilder();
-        boolean isFound = false;
-        int counter = 0;
-        for (int i = 0; i < this.tasks.size(); i++) {
-            String currTask = this.tasks.get(i).getName();
-            if (currTask.contains(input)) {
-                if (isFound == false) {
-                    sb.append("Here are the matching tasks in your list:\n");
-                    isFound = true;
-                }
-                counter++;
-                sb.append(counter).append(". ").append(this.tasks.get(i).toString()).append("\n");
-            }
-        }
-        if (isFound == false) {
+        List<String> tasks = IntStream.range(0, this.tasks.size())
+                .filter(i -> this.tasks.get(i).getName().contains(input))
+                .mapToObj(i -> (i + 1) + ". " + this.tasks.get(i).toString())
+                .collect(Collectors.toList());
+
+        if (tasks.isEmpty()) {
             throw new WilliamException(
                     "No tasks match the provided input: " + input + ". Please try again!");
         }
-        return sb.toString();
+
+        return "Here are the matching tasks in your list:\n" + String.join("\n", tasks) + "\n";
     }
 }

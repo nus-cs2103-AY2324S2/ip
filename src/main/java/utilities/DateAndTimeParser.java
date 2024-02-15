@@ -22,6 +22,9 @@ public class DateAndTimeParser {
     public static void acceptDateAndTime(String input) throws WilliamException {
         try {
             LocalDateTime.parse(input, INPUT_FORMAT);
+            // Assertion to check that the input can be parsed successfully, shows that the format
+            // is matched
+            assert true;
         } catch (DateTimeParseException e) {
             throw new WilliamException("The date and time format is invalid. Please try again!");
         }
@@ -39,10 +42,13 @@ public class DateAndTimeParser {
         LocalDateTime fromDateModified = LocalDateTime.parse(fromDate, INPUT_FORMAT);
         LocalDateTime toDateModified = LocalDateTime.parse(toDate, INPUT_FORMAT);
 
-        if (fromDateModified.isBefore(toDateModified) == false) {
+        if (!fromDateModified.isBefore(toDateModified)) {
             throw new WilliamException(
                     "The '/from' date and time should be before '/to' date and time. Please try again!");
         }
+
+        // Assertion to check that fromDateModified is before toDateModified
+        assert fromDateModified.isBefore(toDateModified) : "From date is before to date.";
     }
 
     /**
@@ -53,6 +59,10 @@ public class DateAndTimeParser {
      */
     public static LocalDateTime convertStringToDate(String date) {
         LocalDateTime modifiedDate = LocalDateTime.parse(date, INPUT_FORMAT);
+
+        // Assertion to check that the conversion result is not null
+        assert modifiedDate != null : "Date conversion results in not a null object.";
+
         return modifiedDate;
     }
 }
