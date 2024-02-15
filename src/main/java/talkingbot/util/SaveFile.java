@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import talkingbot.exception.TalkingBotException;
@@ -16,6 +17,7 @@ public class SaveFile {
     private static final String IO_EXCEPTION_MSG = "ERROR! Cannot read from file!";
     private static final String FILE_NOT_FOUND_EXCEPTION_MSG = "ERROR! File not found!";
     private final File saveFile;
+    private final File directory;
     private final String path;
 
     /**
@@ -26,13 +28,23 @@ public class SaveFile {
     public SaveFile(String path) {
         this.saveFile = new File(path);
         this.path = path;
+        String[] splitString = this.path.split("/");
+        this.directory = new File(
+                Arrays.stream(splitString)
+                        .limit(splitString.length - 1)
+                        .reduce("", (a, b) -> a + "/" + b).substring(1));
+
         if (!this.saveFile.exists()) {
             try {
+                if (!this.directory.exists()) {
+                    this.directory.mkdirs();
+                }
                 this.saveFile.createNewFile();
             } catch (IOException e) {
                 System.out.println(e);
             }
         }
+        assert this.saveFile.exists() : "saveFile should exist";
     }
 
     /**

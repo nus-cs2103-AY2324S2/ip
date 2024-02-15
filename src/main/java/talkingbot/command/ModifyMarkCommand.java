@@ -40,12 +40,15 @@ public class ModifyMarkCommand extends Command {
         boolean isMark = curCommand[0].equals("mark");
         if (isMark) {
             modifiedTask.setDone(true);
+            assert modifiedTask.getDone() : "task should be set as done";
             msg = ui.getTaskDoneMsg(modifiedTask);
         } else {
             modifiedTask.setDone(false);
+            assert !modifiedTask.getDone() : "task should be set as undone";
             msg = ui.getTaskSetUndoneMsg(modifiedTask);
         }
         tasks.setTask(markIdxInt - 1, modifiedTask);
+        assert tasks.getTask(markIdxInt - 1).equals()
         return msg;
     }
 }
