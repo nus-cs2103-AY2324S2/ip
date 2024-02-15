@@ -76,7 +76,7 @@ public class WisApp extends Application {
 
     private void setUiParameters(Stage stage, AnchorPane mainLayout) {
         stage.setTitle("Wis");
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.setMinHeight(600.0);
         stage.setMinWidth(800.0);
 

@@ -31,6 +31,8 @@ public class Storage {
                 file.createNewFile();
             }
 
+            assert file.exists() : "failed to create file";
+
             FileWriter fileWriter = new FileWriter(file, false);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             tasks.save(bufferedWriter);
