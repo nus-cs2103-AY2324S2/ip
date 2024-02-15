@@ -23,6 +23,7 @@ public class Parser {
      */
     public String identify(String command) {
         String[] strings = command.split(" ");
+        assert strings.length != 0 : "command should not be empty";
         return strings[0];
     }
 
