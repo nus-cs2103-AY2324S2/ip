@@ -48,7 +48,7 @@ test {
 }
 
 application {
-    mainClass.set("talkingbot.TalkingBot")
+    mainClass.set("talkingbot.Launcher")
 }
 
 shadowJar {
