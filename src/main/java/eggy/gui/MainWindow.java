@@ -68,6 +68,7 @@ public class MainWindow extends AnchorPane {
         assert dialogContainer != null : "Dialog container should not be null";
         String input = userInput.getText();
         String response = eggy.getResponse(input);
+
         dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage));
         PauseTransition pause = new PauseTransition(Duration.seconds(0.4));
         pause.setOnFinished(event ->
@@ -75,6 +76,7 @@ public class MainWindow extends AnchorPane {
         );
         pause.play();
         userInput.clear();
+
         if (eggy.isExit()) {
             PauseTransition exitPause = new PauseTransition(Duration.seconds(3));
             exitPause.setOnFinished(event -> System.exit(0));
