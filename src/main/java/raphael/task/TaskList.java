@@ -98,7 +98,10 @@ public class TaskList implements FileFormattable {
      */
 
     public void addTask(Task t) {
+        int prevSize = this.tasks.size();
+        String assertionErrorMessage = "The number of tasks should be increase by 1!";
         this.tasks.add(t);
+        assert this.tasks.size() == prevSize + 1 : assertionErrorMessage;
     }
 
     /**
@@ -113,8 +116,11 @@ public class TaskList implements FileFormattable {
         if (idx < 0 || idx >= this.tasks.size()) {
             throw new RaphaelException(RaphaelException.Type.INVALID_TASK_INDEX);
         } else {
+            int prevSize = this.tasks.size();
+            String assertionErrorMessage = "The number of tasks should decrease by 1!";
             Task temp = this.tasks.get(idx);
             this.tasks.remove(idx);
+            assert this.tasks.size() == prevSize - 1 : assertionErrorMessage;
             return temp;
         }
     }
