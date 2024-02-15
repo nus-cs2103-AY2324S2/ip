@@ -112,7 +112,7 @@ public class Save {
                         isDone = false;
                     }
                     if (parts[0].equals("T")) {
-                        ToDos t = new ToDos(parts[2]);
+                        ToDo t = new ToDo(parts[2]);
                         if (isDone) {
                             t.markAsDone();
                         }
@@ -121,7 +121,7 @@ public class Save {
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
                         LocalDateTime localDateTimeFrom = LocalDateTime.parse(parts[3], formatter);
                         LocalDateTime localDateTimeTo = LocalDateTime.parse(parts[4], formatter);
-                        Events e = new Events(parts[2], localDateTimeFrom, localDateTimeTo);
+                        Event e = new Event(parts[2], localDateTimeFrom, localDateTimeTo);
                         if (isDone) {
                             e.markAsDone();
                         }
@@ -129,7 +129,7 @@ public class Save {
                     } else if (parts[0].equals("D")) {
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
                         LocalDateTime localDateTime = LocalDateTime.parse(parts[3], formatter);
-                        Deadlines d = new Deadlines(parts[2], localDateTime);
+                        Deadline d = new Deadline(parts[2], localDateTime);
                         if (isDone) {
                             d.markAsDone();
                         }

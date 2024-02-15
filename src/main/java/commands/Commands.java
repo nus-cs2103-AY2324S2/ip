@@ -96,7 +96,7 @@ public class Commands {
      * @return The newly created ToDos task.
      * @throws EmptyTaskException If the task description is empty.
      */
-    public static ToDos todosCommand (String input, Storage storage) throws EmptyTaskException {
+    public static ToDo todosCommand (String input, Storage storage) throws EmptyTaskException {
         List<String> inputParts = Arrays.asList(input.split(" "));
         String descriptor = "";
         for (int i=1; i<inputParts.size(); i++) {
@@ -106,7 +106,7 @@ public class Commands {
         if (descriptor.isEmpty()) {
             throw new EmptyTaskException();
         }
-        ToDos t = new ToDos(descriptor);
+        ToDo t = new ToDo(descriptor);
         storage.add(t);
         return t;
     }
@@ -120,7 +120,7 @@ public class Commands {
      * @throws EmptyTaskException If the task description is empty.
      * @throws WrongFormatException If the input format is incorrect.
      */
-    public static Deadlines deadlinesCommand (String input, Storage storage) throws EmptyTaskException, WrongFormatException {
+    public static Deadline deadlinesCommand (String input, Storage storage) throws EmptyTaskException, WrongFormatException {
         List<String> inputParts = Arrays.asList(input.split(" "));
         int index = inputParts.indexOf("/by");
         if (index == -1) {
@@ -142,7 +142,7 @@ public class Commands {
         if (descriptor.isEmpty()) {
             throw new EmptyTaskException();
         }
-        Deadlines d = new Deadlines(descriptor, localDateTime);
+        Deadline d = new Deadline(descriptor, localDateTime);
         storage.add(d);
         return d;
     }
@@ -156,7 +156,7 @@ public class Commands {
      * @throws DukeExceptions If any Duke-specific exception occurs.
      * @throws WrongFormatException If the input format is incorrect.
      */
-    public static Events eventsCommand (String input, Storage storage) throws DukeExceptions, WrongFormatException {
+    public static Event eventsCommand (String input, Storage storage) throws DukeExceptions, WrongFormatException {
         List<String> inputParts = Arrays.asList(input.split(" "));
         int index1 = inputParts.indexOf("/from");
         int index2 = inputParts.indexOf("/to");
@@ -184,7 +184,7 @@ public class Commands {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
         LocalDateTime localDateTimeFrom = LocalDateTime.parse(from, formatter);
         LocalDateTime localDateTimeTo = LocalDateTime.parse(to, formatter);
-        Events e =  new Events(descriptor, localDateTimeFrom, localDateTimeTo);
+        Event e =  new Event(descriptor, localDateTimeFrom, localDateTimeTo);
         storage.add(e);
         return e;
     }

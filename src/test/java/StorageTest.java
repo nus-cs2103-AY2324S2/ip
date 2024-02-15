@@ -1,6 +1,5 @@
-import duke.ToDos;
+import duke.ToDo;
 import duke.Storage;
-import duke.Deadlines;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -9,7 +8,7 @@ public class StorageTest {
     @Test
     public void checkStorageAdd() {
         Storage storage = new Storage();
-        ToDos t = new ToDos("Read book");
+        ToDo t = new ToDo("Read book");
 
         storage.add(t);
         String output = storage.addToListOutput(t);
@@ -23,7 +22,7 @@ public class StorageTest {
     public void checkStorageList() {
         Storage storage = new Storage();
 
-        storage.add(new ToDos("Read book"));
+        storage.add(new ToDo("Read book"));
 
         String newOutput = storage.printList();
         assertEquals(newOutput, "1. [T][ ] Read book\n");

@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 
 public class NewDuke {
     private Storage storage;
-    private UI ui;
+    private Ui ui;
     private Save saver;
     private Parser parser;
 
@@ -24,7 +24,7 @@ public class NewDuke {
 
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-        ui = new UI();
+        ui = new Ui();
         storage = new Storage();
         saver = new Save(filePath);
         parser = new Parser(storage);

@@ -3,13 +3,13 @@ package duke;
 /**
  * The UI class handles user interface interactions.
  */
-public class UI {
+public class Ui {
     //private final String LINE = "______________________________________________________\n";
 
     /**
      * Constructs a new UI instance.
      */
-    public UI() {}
+    public Ui() {}
 
     /**
      * Displays a welcome message when the program starts.
