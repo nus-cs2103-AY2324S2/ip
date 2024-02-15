@@ -81,7 +81,8 @@ public class Storage {
                         }
                     });
         } catch (Exception e) {
-            throw new EarlException("Fatal error while saving to storage.");
+            throw new EarlException("Alas, a grievous misfortune occurred "
+                    + "during the endeavour to save.");
         }
     }
 }

@@ -22,20 +22,22 @@ public class DeadlineHandler extends Handler {
         try {
             String[] data = args.split("\\s+/by\\s+");
             Task added = tasks.add(TaskType.DEADLINE.createTask(data));
-            ui.buildResponse("Added new deadline.");
+            ui.buildResponse("A new deadline, by virtue of your decree,");
+            ui.buildResponse(
+                    "hath been appended to the roster of responsibilities.");
             ui.buildResponse(ui.leftPad(added.toString()));
-            ui.buildResponse("There are " + tasks.getSize()
-                    + " task(s) tracked.");
+            ui.buildResponse("The ledger of tasks bears witness to "
+                    + tasks.getSize() + " endeavours.");
             ui.completeResponse();
         } catch (IndexOutOfBoundsException e) {
             throw new EarlException(
-                    ui.appendNewline("Error, invalid deadline format.")
+                    ui.appendNewline("An error befalls.")
                             + ui.appendNewline("Example use:")
                             + ui.leftPad("deadline <name> /by <due>"));
         } catch (Exception e) {
             throw new EarlException(
-                    ui.appendNewline("Error, unknown use of deadline.")
-                            + ui.leftPad(e.getMessage()));
+                    ui.appendNewline("Command hath faltered: "
+                            + "obscure employment of mark."));
         }
     }
 }

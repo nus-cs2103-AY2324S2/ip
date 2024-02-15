@@ -20,19 +20,21 @@ public class TodoHandler extends Handler {
     public void handle(TaskList tasks, Ui ui) throws EarlException {
         try {
             Task added = tasks.add(TaskType.TODO.createTask(args));
-            ui.buildResponse("Added new todo.");
+            ui.buildResponse("A new todo, by virtue of your decree,");
+            ui.buildResponse(
+                    "hath been appended to the roster of responsibilities.");
             ui.buildResponse(ui.leftPad(added.toString()));
-            ui.buildResponse("There are " + tasks.getSize()
-                    + " task(s) tracked.");
+            ui.buildResponse("The ledger of tasks bears witness to "
+                    + tasks.getSize() + " endeavours.");
             ui.completeResponse();
         } catch (IndexOutOfBoundsException e) {
             throw new EarlException(
-                    ui.appendNewline("Error, missing task name. Example use:")
+                    ui.appendNewline("An error befalls. Example use:")
                             + ui.leftPad("todo <name>"));
         } catch (Exception e) {
             throw new EarlException(
-                    ui.appendNewline("Error, unknown use of todo.")
-                            + ui.leftPad(e.getMessage()));
+                    ui.appendNewline("Command hath faltered: "
+                            + "obscure employment of todo."));
         }
     }
 }

@@ -19,20 +19,21 @@ public final class DeleteHandler extends MassOperableHandler {
         try {
             Integer[] indices = getValidIndices(tasks, args);
             if (indices.length == 0) {
-                ui.makeResponse("Error, no valid indices in range.");
+                ui.makeResponse("An error proclaims the absence of "
+                        + "valid indices in range.");
                 return;
             }
             for (int idx : indices) {
                 addDisplayEntry(idx + 1 + "." + tasks.delete(idx).toString());
             }
-            addDisplayEntry("Item(s) deleted.");
+            addDisplayEntry("Item(s) heretofore have been expunged.");
             ui.makeResponse(getDisplay());
         } catch (EarlException e) {
             throw e;
         } catch (Exception e) {
             throw new EarlException(
-                    ui.appendNewline("Error, unknown use of delete.")
-                            + ui.leftPad(e.getMessage()));
+                    ui.appendNewline("Command hath faltered: "
+                            + "obscure employment of mark."));
         }
     }
 }

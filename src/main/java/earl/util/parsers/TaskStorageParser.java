@@ -31,11 +31,11 @@ public class TaskStorageParser implements Parser<Task> {
             }
             return task;
         } catch (IllegalArgumentException e) {
-            throw new EarlException("Storage file is corrupted... "
-                    + "starting with empty list.");
+            throw new EarlException("Storage hath succumb to corruption... "
+                    + "initiating an unfortunate state of emptiness.");
         } catch (Exception e) {
-            throw new EarlException("Unknown exception occurred "
-                    + "when attempting to parse storage file: "
+            throw new EarlException("An enigmatic malady has manifested and "
+                    + "obstructed the parsing of the storage file: "
                     + e.getMessage());
         }
     }
