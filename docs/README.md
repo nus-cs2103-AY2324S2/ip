@@ -1,6 +1,4 @@
-# Duke User Guide
-
-// Update the title above to match the actual product name
+# Wis User Guide
 
 // Product screenshot goes here
 
@@ -28,3 +26,9 @@ expected output
 ## Feature XYZ
 
 // Feature details
+
+
+## Acknowledgement
+Code in wis.gui package is adapted from JavaFX tutorial @SE-EDU/guides
+Link: https://se-education.org/guides/tutorials/javaFx.html
+
