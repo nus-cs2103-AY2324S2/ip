@@ -1,4 +1,4 @@
-package duke;
+package lilybot;
 
 /**
  * Ui class handles interactions with users.

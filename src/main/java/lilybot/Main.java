@@ -1,4 +1,4 @@
-package duke;
+package lilybot;
 
 import java.io.IOException;
 
@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke(Storage.getFilePathToDukeTxt());
+    private LilyBot lilyBot = new LilyBot(Storage.getFilePathToLilyBotTxt());
 
     public Main() throws IOException {
     }
@@ -25,7 +25,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setLilyBot(lilyBot);
 
             stage.show();
         } catch (IOException e) {

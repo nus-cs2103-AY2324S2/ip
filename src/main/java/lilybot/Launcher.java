@@ -1,4 +1,4 @@
-package duke;
+package lilybot;
 
 import javafx.application.Application;
 

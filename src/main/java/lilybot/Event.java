@@ -1,4 +1,4 @@
-package duke;
+package lilybot;
 
 public class Event extends Task{
     /** Start time of event */

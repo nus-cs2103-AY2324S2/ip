@@ -1,13 +1,11 @@
-package duke;
+package lilybot;
 
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -22,7 +20,7 @@ public class MainWindow extends AnchorPane{
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private LilyBot lilyBot;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaDog.jpeg"));
     private Image botImage = new Image(this.getClass().getResourceAsStream("/images/DaMorningDog.jpeg"));
@@ -32,8 +30,8 @@ public class MainWindow extends AnchorPane{
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setLilyBot(LilyBot l) {
+        lilyBot = l;
     }
 
 
@@ -44,7 +42,7 @@ public class MainWindow extends AnchorPane{
     @FXML
     public void handleUserInput() throws IOException {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = lilyBot.getResponse(input);
         DialogBox user = DialogBox.getUserDialog(input, userImage);
         DialogBox bot = DialogBox.getBotDialog(response, botImage);
 

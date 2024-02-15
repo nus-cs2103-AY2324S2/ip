@@ -1,4 +1,4 @@
-package duke;
+package lilybot;
 
 /**
  * Parser class for helping the bot understand user commands.

@@ -1,4 +1,4 @@
-package duke;
+package lilybot;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -33,9 +33,9 @@ public class Storage {
         return file;
     }
 
-    public static String getFilePathToDukeTxt() {
+    public static String getFilePathToLilyBotTxt() {
         String filePath = new File("").getAbsolutePath();
-        filePath += "/duke.txt";
+        filePath += "/lilybot.txt";
         return filePath;
     }
 

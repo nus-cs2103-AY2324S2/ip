@@ -1,24 +1,9 @@
-package duke;
+package lilybot;
 
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.File;
-import java.io.FileNotFoundException;
-
-import java.lang.reflect.Field;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
-import javafx.stage.Stage;
 
 
-
-public class Duke {
+public class LilyBot {
 
     private Storage storage;
     private TaskList ls;
@@ -31,7 +16,7 @@ public class Duke {
      * @param filePath For file duke.txt.
      * @throws IOException For input error.
      */
-    public Duke(String filePath) throws IOException{
+    public LilyBot(String filePath) throws IOException{
         ui = new Ui();
         storage = new Storage(filePath);
         ls = new TaskList(storage.loadFile());
@@ -39,7 +24,7 @@ public class Duke {
 
 
     /**
-     * Initialize Duke
+     * Initialize LilyBot
      *
      * @throws IOException For input error.
      */
