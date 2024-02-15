@@ -84,7 +84,7 @@ public abstract class Task {
      * @return A formatted string for saving the task to a file.
      */
     public String toFileString() {
-        return "filestring";
+        return "file string";
     }
 }
 

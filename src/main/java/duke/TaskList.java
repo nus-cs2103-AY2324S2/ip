@@ -26,6 +26,7 @@ public class TaskList {
      * @param tasks The initial list of tasks.
      */
     public TaskList(ArrayList<Task> tasks) {
+        assert tasks != null : "Initial task list cannot be null";
         this.tasks = tasks;
     }
 
@@ -35,6 +36,7 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void addTask(Task task) {
+        assert task != null : "Cannot add a null task";
         tasks.add(task);
     }
 
@@ -44,21 +46,18 @@ public class TaskList {
      * @param taskIndex The index of the task to be removed.
      */
     public void deleteTask(int taskIndex) {
+        assert taskIndex >= 0 && taskIndex < tasks.size() : "Task index is out of bounds";
         tasks.remove(taskIndex);
     }
-
     /**
      * Marks a task at the specified index as completed.
      *
      * @param taskIndex The index of the task to be marked as done.
      */
     public void completeTask(int taskIndex) {
-        if (taskIndex >= 0 && taskIndex < tasks.size()) {
-            Task task = tasks.get(taskIndex);
-            task.markAsDone();
-        } else {
-            System.out.println("Invalid task index.");
-        }
+        assert taskIndex >= 0 && taskIndex < tasks.size() : "Task index is out of bounds";
+        Task task = tasks.get(taskIndex);
+        task.markAsDone();
     }
 
     /**
@@ -109,10 +108,8 @@ public class TaskList {
      * @return The task at the specified index, or null if the index is invalid.
      */
     public Task getTask(int index) {
-        if (index >= 0 && index < tasks.size()) {
-            return tasks.get(index);
-        }
-        return null;
+        assert index >= 0 && index < tasks.size() : "Task index is out of bounds";
+        return tasks.get(index);
     }
 
     /**
@@ -122,6 +119,7 @@ public class TaskList {
      * @return A list of tasks that contain the keyword.
      */
     public List<Task> findTasks(String keyword) {
+        assert keyword != null && !keyword.isEmpty() : "Search keyword cannot be null or empty";
         List<Task> matchedTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task.getDescription().contains(keyword)) {
@@ -130,4 +128,5 @@ public class TaskList {
         }
         return matchedTasks;
     }
+
 }

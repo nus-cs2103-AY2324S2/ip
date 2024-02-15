@@ -9,7 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -35,6 +34,7 @@ public class MainWindow extends AnchorPane {
 
     public void setDuke(Duke d) {
         duke = d;
+        assert duke != null : "Duke instance should not be null after being set";
     }
 
     /**
@@ -43,10 +43,9 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        assert duke != null : "Duke instance should not be null when handling user input";
         String input = userInput.getText();
         String response = duke.getResponse(input);
-        //Ui ui = duke.getUi();
-        //String lastMessage = ui.getLastMessage();
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
@@ -57,6 +56,7 @@ public class MainWindow extends AnchorPane {
             closeMainWindow();
         }
     }
+
 
     private void closeMainWindow() {
         Platform.exit();

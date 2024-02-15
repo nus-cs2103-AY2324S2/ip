@@ -1,8 +1,6 @@
 package duke;
 
 import java.io.IOException;
-import javafx.application.Platform;
-import javafx.scene.text.Text;
 
 import duke.command.Command;
 import javafx.application.Application;
@@ -58,6 +56,7 @@ public class Duke extends Application {
         try {
             this.storage = new Storage(filePath);
             this.tasks = new TaskList(storage.load());
+            assert storage != null : "Storage must not be null after initialization";
         } catch (IOException ie) {
             System.exit(0);
         } catch (JamieException e) {
@@ -186,7 +185,6 @@ public class Duke extends Application {
             parser = new Parser(input);
             Command command = parser.parse(input);
             return command.execute(tasks, ui, storage);
-            //return this.lastMessage = ui.getLastMessage();
         } catch (JamieException e) {
             return "Invalid input! Please only use the available functions.";
         }
