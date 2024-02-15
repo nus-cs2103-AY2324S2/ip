@@ -78,7 +78,9 @@ public class Ui {
         try {
             int index = Integer.parseInt(instruction[1]) - 1;
             String output = Printer.printRemoveTask(tasks, index);
+            int size = tasks.size();
             tasks.remove(index);
+            assert tasks.size() == size - 1 : "size of array decreased by 1";
             return output;
         } catch (NullPointerException | ArrayIndexOutOfBoundsException e){
             return LiteException.deleteException(tasks);
@@ -94,7 +96,9 @@ public class Ui {
         try {
             String description = instruction[1];
             Task todo = new Todo(description);
+            int size = tasks.size();
             tasks.add(todo);
+            assert tasks.size() == size + 1 : "size of array increased by 1";
             return Printer.printTask(tasks, todo);
         } catch (ArrayIndexOutOfBoundsException e) {
             return LiteException.toDoException();
@@ -112,7 +116,9 @@ public class Ui {
             String description = splits[0];
             String due = splits[1];
             Task deadline = new Deadline(description, due);
+            int size = tasks.size();
             tasks.add(deadline);
+            assert tasks.size() == size + 1 : "size of array increased by 1";
             return Printer.printTask(tasks, deadline);
         } catch (ArrayIndexOutOfBoundsException e) {
             return LiteException.deadlineException();
@@ -131,7 +137,9 @@ public class Ui {
             String start = splits[1];
             String end = splits[2];
             Task event = new Event(description, start, end);
+            int size = tasks.size();
             tasks.add(event);
+            assert tasks.size() == size + 1 : "size of array increased by 1";
             return Printer.printTask(tasks, event);
         } catch (ArrayIndexOutOfBoundsException e) {
             return LiteException.eventException();
