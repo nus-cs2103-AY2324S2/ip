@@ -7,19 +7,21 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Reacher {
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
 
+    public Reacher(String filePath) {
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
+        tasks = new TaskList(storage.loadList());
+    }
     public static void main(String[] args) {
+        new Reacher("./storage.txt").run();
+    }
+    public void run() {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> memory = new ArrayList<>();
-        Storage storage = new Storage();
-        if (!storage.isEmpty()) {
-            memory = storage.loadList();
-        }
-
-        System.out.println("Hello!\n" +
-                "I'm Reacher.\n" +
-                "Give me tasks.\n" +
-                "Functions are edit, list, delete and bye");
+        ui.printWelcome();
         while (true) {
             try {
                 String input = scanner.nextLine();
@@ -30,21 +32,16 @@ public class Reacher {
                     System.out.println("bye");
                     break;
                 } else if (input.equalsIgnoreCase("list")) {// check for list request
-                    System.out.println("Tasks:");
-                    int c = 1;
-                    for (Task task : memory) {
-                        System.out.println(c + task.toString());
-                        c++;
-                    }
+                    ui.printList(tasks.getTasks());
                 } else if (input.equalsIgnoreCase("edit")) {
                     System.out.println("Which task number would u like to edit?");
                     try {
                         int num = scanner.nextInt();
                         scanner.nextLine();
-                        if (num > memory.size() || num < 1) {
+                        if (num > tasks.noOfTasks() || num < 1) {
                             throw new ReacherException("No such task number");
                         }
-                        Task task = memory.get(num - 1);
+                        Task task = tasks.getTask(num - 1);
                         System.out.println("Mark Done or Undone or Delete?");
                         String change = scanner.nextLine();
                         if (change.equalsIgnoreCase("done")) {
@@ -54,12 +51,12 @@ public class Reacher {
                             task.markNotDone();
                             System.out.println("Task " + num + " marked Undone");
                         } else if (change.equalsIgnoreCase("delete")) {
-                            memory.remove(num - 1);
+                            tasks.delete(num - 1);
                             System.out.println("Task " + num + " deleted");
                         }else {
                             throw new ReacherException("u did not write done, undone or delete.");
                         }
-                        storage.storeList(memory);
+                        storage.storeList(tasks.getTasks());
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
@@ -69,13 +66,13 @@ public class Reacher {
                         String type = scanner.nextLine();
                         if (type.equalsIgnoreCase("todo")) {
                             Todos t = new Todos(input);
-                            memory.add(t);
+                            tasks.addTask(t);
                             System.out.println("I've added " + t.toString());
                         } else if (type.equalsIgnoreCase("deadline")) {
                             System.out.println("When is the deadline?");
                             LocalDate deadline = LocalDate.parse(scanner.nextLine());
                             Deadline t = new Deadline(input, deadline);
-                            memory.add(t);
+                            tasks.addTask(t);
                             System.out.println("I've added " + t.toString());
                         } else if (type.equalsIgnoreCase("event")) {
                             System.out.println("When is the start?");
@@ -86,12 +83,12 @@ public class Reacher {
                                 throw new ReacherException("End cannot be before start.");
                             }
                             Events t = new Events(input, start, end);
-                            memory.add(t);
+                            tasks.addTask(t);
                             System.out.println("I've added " + t.toString());
                         } else {
                             throw new ReacherException("That is not a type of task.");
                         }
-                        storage.storeList(memory);
+                        storage.storeList(tasks.getTasks());
                     } catch (ReacherException e) {
                         System.out.println(e.getMessage());
                     } catch (DateTimeParseException e) {
