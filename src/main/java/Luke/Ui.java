@@ -2,6 +2,9 @@ package Luke;
 
 import java.util.Scanner;
 
+/**
+ * Represents the user interface for interacting with the task list.
+ */
 public class Ui {
     protected String input;
 
@@ -11,18 +14,29 @@ public class Ui {
     protected String[] validCommands = {"bye", "list", "unmark", "mark", "todo", "event", "deadline", "delete"};
 
     protected Parser parser;
+    /**
+     * Constructs a Ui object with an empty task list.
+     */
     Ui() {
         this.input = "";
         this.taskList = new TaskList();
         this.parser = new Parser(validCommands, taskList);
     }
 
+    /**
+     * Constructs a Ui object with the given task list.
+     *
+     * @param taskList the task list to use
+     */
     Ui(TaskList taskList) {
         this.input = "";
         this.taskList = taskList;
         this.parser = new Parser(validCommands, taskList);
     }
 
+    /**
+     * Handles user input and executes corresponding commands until the user exits.
+     */
     protected void handleInput() {
         while (!this.command.equals("bye")) {
             try {
@@ -92,9 +106,16 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays a message indicating a loading error when the file is not found.
+     */
     public void showLoadingError() {
         System.out.println("File not found.");
     }
+
+    /**
+     * Displays a welcome message and prompts the user for input.
+     */
     public void welcome() {
         String name = "Luke";
         System.out.println("Hello! I'm " + name + "\nWhat can I do for you?");
@@ -108,6 +129,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays a message indicating successful marking of a task as done.
+     *
+     * @param task the task marked as done
+     */
     private void list() {
         System.out.println("Here are the tasks in your list:");
     }
@@ -117,38 +143,43 @@ public class Ui {
         System.out.println(task.toString());
     }
 
+    /**
+     * Displays a message indicating successful marking of a task as not done yet.
+     *
+     * @param task the task marked as not done yet
+     */
     public void unmarkSuccess(Task task) {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(task.toString());
     }
 
+    /**
+     * Displays a message indicating successful deletion of a task.
+     *
+     * @param task the task deleted
+     * @param noTasks the number of tasks remaining in the list
+     */
     public void deleteSuccess(Task task, int noTasks) {
         System.out.println("Noted. I've removed this task:");
         System.out.println(task.toString());
         System.out.println("Now you have " + noTasks + " tasks in the list.");
     }
 
+    /**
+     * Displays a message indicating successful addition of a task.
+     *
+     * @param task the task added
+     * @param noTasks the number of tasks in the list after addition
+     */
     public void taskSuccessfullyAdded(Task task, int noTasks) {
         System.out.println("I've added this task: ");
         System.out.println(task.toString());
         System.out.println("Now you have " + noTasks + " tasks in the list.");
     }
 
-    public void inputError(String type) {
-        switch (type) {
-            case "taskNumberInvalid":
-                System.out.println("Luke.Task does not exist. Please give a valid task number.");
-            case "descriptionEmpty":
-                System.out.println("Invalid command. The description cannot be empty.");
-            case "deadlineEmpty":
-                System.out.println("Invalid command. The deadline cannot be empty.");
-            case "eventFromEmpty":
-                System.out.println("Invalid command. The from section cannot be empty.");
-            case "eventToEmpty":
-                System.out.println("Invalid command. The to section cannot be empty.");
-        }
-    }
-
+    /**
+     * Displays a farewell message when the user exits.
+     */
     public void end() {
         System.out.println("Bye. Hope to see you again soon!");
     }

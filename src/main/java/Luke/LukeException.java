@@ -1,6 +1,15 @@
 package Luke;
 
+/**
+ * Custom exception class for Luke program.
+ * <p>
+ * Represents exceptions that can occur during the execution of the Luke program.
+ * </p>
+ */
 public class LukeException extends Exception {
+    /**
+     * Enumeration of exception types.
+     */
     public enum ExceptionType {
 
         commandInvalid,
@@ -15,15 +24,28 @@ public class LukeException extends Exception {
 
     private ExceptionType type;
 
+    /**
+     * Constructs a LukeException object with the specified exception type.
+     *
+     * @param type the type of exception
+     */
     public LukeException(ExceptionType type) {
         super();
         this.type = type;
     }
 
+    /**
+     * Constructs a default LukeException if no type is given object.
+     */
     public LukeException() {
         super();
     }
 
+    /**
+     * Returns a message describing the exception.
+     *
+     * @return a message describing the exception
+     */
     @Override
     public String getMessage() {
         return switch (type) {

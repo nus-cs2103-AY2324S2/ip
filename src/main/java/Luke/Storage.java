@@ -7,14 +7,29 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles the loading and saving of tasks from and to a file.
+ */
 public class Storage {
     private final String filepath;
     private final File file;
+
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filepath the file path for storing tasks
+     */
     Storage(String filepath) {
         this.filepath = filepath;
         this.file = new File(filepath);
     }
 
+    /**
+     * Loads tasks from the file.
+     *
+     * @return an ArrayList containing the tasks loaded from the file
+     * @throws LukeException if an error occurs during file loading
+     */
     public ArrayList<String> loadFile() throws LukeException {
         ArrayList<String> taskList = new ArrayList<>();
         try {
@@ -45,6 +60,11 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves tasks to the file.
+     *
+     * @param taskListObject the TaskList object containing the tasks to be saved
+     */
     public void saveFile(TaskList taskListObject) {
         try {
             ArrayList<Task> taskList = taskListObject.getTaskList();

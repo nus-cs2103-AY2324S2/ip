@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a task with a scheduled event with a start and end time.
+ */
 public class Event extends Task {
     protected String from;
     protected String to;
@@ -17,6 +20,13 @@ public class Event extends Task {
 
     protected DateTimeFormatter dateTimeStringFormatter = DateTimeFormatter.ofPattern("dd MMM uuuu hh:mma");
 
+    /**
+     * Constructs an Event object with the given description, start date, and end date.
+     *
+     * @param description the description of the event
+     * @param from the start date of the event, in the format "M/dd/yyyy HHmm" (e.g., "2/12/2022 1800")
+     * @param to the end date of the event, in the format "M/dd/yyyy HHmm" (e.g., "2/12/2022 2200")
+     */
     public Event(String description, String from, String to) {
         super(description);
         try {
@@ -36,6 +46,11 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Returns a string representation of the event task.
+     *
+     * @return a string representation of the event task
+     */
     @Override
     public String toString() {
         if (hasFromDate && hasToDate) {
