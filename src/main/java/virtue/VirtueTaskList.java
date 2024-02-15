@@ -107,6 +107,25 @@ public class VirtueTaskList {
         Ui.printHorizontalLine();
     }
 
+    /**
+     * Prints the tasks in the list that contains a certain keyword.
+     *
+     * @param keyword The keyword to filter the list with.
+     */
+    private void printTasksWithWord(String keyword) {
+        int numOfTasks = taskList.size();
+        Ui.printHorizontalLine();
+        Ui.printWithIndent(" Here are the matching tasks in your list:");
+
+        for (int index = 1; index <= numOfTasks; index++) {
+            if (getTask(index).hasKeyword(keyword)) {
+                Ui.printWithIndent(" " + index + "." + taskList.get(index - 1));
+            }
+        }
+
+        Ui.printHorizontalLine();
+    }
+
     public void executeCommand(Command command) {
         switch (command.type) {
             case LIST:
@@ -129,6 +148,9 @@ public class VirtueTaskList {
                 break;
             case EVENT:
                 addEvent(command.description, command.from, command.to);
+                break;
+            case FIND:
+                printTasksWithWord(command.description);
         }
     }
 

@@ -21,6 +21,16 @@ abstract public class VirtueTask {
         this.isDone = false;
     }
 
+    /**
+     * Checks if the task's description contains a keyword or not.
+     *
+     * @param keyword The keyword to be searched in the description.
+     * @return True if the description contains the keyword, and false if not.
+     */
+    public boolean hasKeyword(String keyword) {
+        return description.toLowerCase().contains(keyword.toLowerCase());
+    }
+
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;

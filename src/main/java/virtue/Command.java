@@ -13,7 +13,8 @@ public class Command {
         TODO ("todo", false, true),
         DEADLINE ("deadline", false, true),
         EVENT ("event", false, true),
-        DELETE("delete", true, false);
+        DELETE("delete", true, false),
+        FIND("find", false, true);
 
         private final String string;
         private final boolean hasIndex;
