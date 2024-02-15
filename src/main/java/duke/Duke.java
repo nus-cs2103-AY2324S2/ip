@@ -77,7 +77,7 @@ public class Duke {
             } else {
                 throw new DukeException("Please do enter a new proper command.\n");
             }
-            storage.arrayToFile(tasks.getList());
+            storage.saveToFile(tasks.getList());
             return output;
         } catch (DukeException e) {
             return e.toString();

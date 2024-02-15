@@ -57,17 +57,12 @@ public class Storage {
                 taskList.add(new Events(split[2], split[3], split[4]));
             }
 
-            if (Boolean.parseBoolean(split[0])) {
+            if (split[1].equals("1")) {
                 taskList.get(count).markAsDone();
             }
+            count++;
         }
         return taskList;
-    }
-
-    private void appendToFile(String str) throws IOException {
-        FileWriter fw = new FileWriter(file, true);
-        fw.write(str + "\n");
-        fw.close();
     }
 
     /**
@@ -76,15 +71,17 @@ public class Storage {
      * @param taskList Current task list
      * @throws DukeException If file is corrupted.
      */
-    public void arrayToFile(ArrayList<Task> taskList) throws DukeException {
+    public void saveToFile(ArrayList<Task> taskList) throws DukeException {
         try {
             FileWriter fw = new FileWriter(file);
             fw.write("");
             fw.close();
 
+            fw = new FileWriter(file, true);
             for (Task task : taskList) {
-                appendToFile(task.toFile());
+                fw.write(task.toFile() + "\n");
             }
+            fw.close();
         } catch (IOException e) {
             throw new DukeException("Error when writing to file\n");
         }

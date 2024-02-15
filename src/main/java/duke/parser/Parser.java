@@ -94,18 +94,16 @@ public class Parser {
         if (input.length() <= 1) {
             throw new DukeException("Please enter something that you want to do. \n");
         } else {
-            String[] split1 = input.split(" /from ");
-            if (split1[0].length() <= 1) {
+            String[] descriptionDurationSplit = input.split(" /from ");
+            String[] fromToSplit = descriptionDurationSplit[1].split(" /to ");
+            if (descriptionDurationSplit[0].length() <= 1) {
                 throw new DukeException("Please enter something that you want to do. \n");
-            } else if (split1.length != 2) {
+            } else if (descriptionDurationSplit.length != 2) {
                 throw new DukeException("Please enter the duration of the event. \n");
+            } else if (fromToSplit.length != 2) {
+                throw new DukeException("Please enter the ending time of the event. \n");
             } else {
-                String[] split2 = split1[1].split(" /to ");
-                if (split2.length != 2) {
-                    throw new DukeException("Please enter the ending time of the event. \n");
-                } else {
-                    return new String[]{split1[0], split2[0], split2[1]};
-                }
+                return new String[]{descriptionDurationSplit[0], fromToSplit[0], fromToSplit[1]};
             }
         }
     }
