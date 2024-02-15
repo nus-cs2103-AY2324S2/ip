@@ -1,7 +1,6 @@
 package jav.frontend;
 
 import jav.Main;
-
 import javafx.application.Application;
 
 /**

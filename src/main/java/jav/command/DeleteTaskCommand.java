@@ -19,10 +19,10 @@ public class DeleteTaskCommand extends TaskCommand {
     }
 
     @Override
-    public void execute() throws InvalidParamException {
+    public String execute() throws InvalidParamException {
         if (Integer.parseInt(param) >= 1) {
             if (StorageManager.getInstance().deleteTask(Integer.parseInt(param) - 1)) {
-                UiManager.getInstance().printDeletingTask();
+                return UiManager.getInstance().printDeletingTask();
             } else {
                 throw new InvalidParamException("Cannot delete task, given num is out of scope", null);
             }

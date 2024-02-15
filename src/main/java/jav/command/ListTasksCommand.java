@@ -9,7 +9,7 @@ import jav.manager.UiManager;
  */
 public class ListTasksCommand extends TaskCommand {
     @Override
-    public void execute() throws InvalidParamException {
-        UiManager.getInstance().printStorage(StorageManager.getInstance().printStoredTasks());
+    public String execute() throws InvalidParamException {
+        return UiManager.getInstance().printStorage(StorageManager.getInstance().printStoredTasks());
     }
 }

@@ -18,106 +18,126 @@ public class UiManager {
      * Prints the custom message along with the contents of the storage.
      *
      * @param storageString the contents of the storage
+     * @return String response upon recieving a list command.
      */
-    public void printStorage(String storageString) {
-        System.out.println("| Here's everything that I'd stored!");
-        System.out.print(storageString);
+    public String printStorage(String storageString) {
+        String msg = "Here's everything that I'd stored!\n" + storageString;
+        return msg;
     }
 
     /**
      * Prints the custom message upon a storing command.
+     *
+     * @return String response upon recieving a storing command.
      */
-    public void printStoring() {
-        String msg = "| Sure I'll store it right away!";
-        System.out.println(msg);
+    public String printStoring() {
+        String msg = "Sure I'll store it right away!";
+        return msg;
     }
 
     /**
      * Prints the custom message upon a invalid command.
+     *
+     * @return String response upon recieving an invalid command.
      */
-    public void printInvalidCommand() {
-        String msg = "| I'm not sure what that command is...";
-        System.out.println(msg);
+    public String printInvalidCommand() {
+        String msg = "I'm not sure what that command is...";
+        return msg;
     }
 
     /**
      * Prints the custom message upon an echo request.
+     *
+     * @return String of the given input.
      */
-    public void echo(String input) {
-        String msg = "| Echoing input \n| " + input;
-        System.out.println(msg);
+    public String echo(String input) {
+        String msg = "Echoing input \n" + input;
+        return msg;
     }
 
     /**
      * Prints the custom message when the user enters.
+     *
+     * @return String for when the bot is greeting the user.
      */
-    public void printGreeting() {
-        String msg = "| Welcome! I'm JAV\n"
-                   + "| How may I sprinkle a bit of happiness into your day today?";
-        System.out.println(msg);
+    public String printGreeting() {
+        String msg = "Welcome! I'm JAV\n"
+                   + "How may I sprinkle a bit of happiness into your day today?";
+        return msg;
     }
 
     /**
      * Prints the custom message when the user exits.
+     *
+     * @return String for when the user exits.
      */
-    public void printExit() {
-        String msg = "| Farewell!\n"
-                   + "| May your days be filled with laughter and warmth!";
-        System.out.println(msg);
+    public String printExit() {
+        String msg = "Farewell!\n"
+                   + "May your days be filled with laughter and warmth!";
+        return msg;
     }
 
     /**
      * Prints the custom message upon marking a task.
+     *
+     * @return String response upon recieving a mark request.
      */
-    public void printMarkingTask() {
-        String msg = "| Fantastic news!\n"
-                   + "| You've just upgraded that task from a to-do to a ta-daa!";
-        System.out.println(msg);
+    public String printMarkingTask() {
+        String msg = "Fantastic news!\n"
+                   + "You've just upgraded that task from a to-do to a ta-daa!";
+        return msg;
     }
 
     /**
      * Prints the custom message upon unmarking a task.
+     *
+     * @return String response upon recieving an unmark request.
      */
-    public void printUnmarkingTask() {
-        String msg = "| Task status reversed!\n"
-                   + "| Sometimes even completed tasks could use an encore.";
-        System.out.println(msg);
+    public String printUnmarkingTask() {
+        String msg = "Task status reversed!\n"
+                   + "Sometimes even completed tasks could use an encore.";
+        return msg;
     }
 
     /**
      * Prints the custom message upon deleting a task.
+     *
+     * @return String response upon recieving a delete request.
      */
-    public void printDeletingTask() {
-        String msg = "| Sure! Time to delete it from the storage!\n"
-                   + "| Now, isn't that a task-tastic disappearing act?";
-        System.out.println(msg);
+    public String printDeletingTask() {
+        String msg = "Sure! Time to delete it from the storage!\n"
+                   + "Now, isn't that a task-tastic disappearing act?";
+        return msg;
     }
 
     /**
      * Prints the custom message upon a valid request but invalid parameters.
+     *
+     * @return String response upon recieving invalid parameters for a request.
      */
-    public void printInvalidParameters() {
-        String msg = "| It appears the parameters might be doing a little dance of confusion!\n"
-                   + "| Could you please check the parameters and give them another whirl?";
-        System.out.println(msg);
+    public String printInvalidParameters() {
+        String msg = "It appears the parameters might be doing a little dance of confusion!\n"
+                   + "Could you please check the parameters and give them another whirl?";
+        return msg;
     }
 
     /**
      * Prints the custom message upon finding tasks with the given keyword.
      *
      * @param foundTasksString the tasks with the given keyword.
+     * @return String response upon recieving a find request.
      */
-    public void printFindTask(String foundTasksString) {
+    public String printFindTask(String foundTasksString) {
         String msg = "";
         if (foundTasksString == "") {
-            msg = "| It appears that this road is a deadend and no tasks were found with the keyword!\n"
-                + "| Shall we recalibrate our keyword quest to find a different task?";
+            msg = "It appears that this road is a deadend and no tasks were found with the keyword!\n"
+                + "Shall we recalibrate our keyword quest to find a different task?";
         } else {
-            msg = "| Let the search commence!\n"
-                + "| Here's what I've found:\n"
+            msg = "Let the search commence!\n"
+                + "Here's what I've found:\n"
                 + foundTasksString;
         }
 
-        System.out.print(msg);
+        return msg;
     }
 }

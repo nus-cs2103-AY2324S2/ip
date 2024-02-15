@@ -56,7 +56,7 @@ public class StorageManager {
         int i = 1;
         String s = "";
         for (Task t : tasks) {
-            s += "| " + i + ".";
+            s += i + ".";
             s += t.toString();
             s += "\n";
             i++;
