@@ -1,6 +1,8 @@
 package duke.tasks;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import duke.exceptions.EmptyBodyException;
 import duke.exceptions.InvalidDateTimeException;
@@ -70,7 +72,7 @@ public class TaskList {
      * @throws EmptyBodyException       If the command body is empty.
      * @throws InvalidDateTimeException If the due date for deadline is not in recognisable format.
      */
-    public Task addTask(String detail, String from, String to, KeyEnum currentKey)
+    public Task addTask(String detail, LocalDate from, LocalDate to, KeyEnum currentKey)
             throws EmptyBodyException, InvalidDateTimeException {
         Task task = null;
         switch (currentKey) {
@@ -139,12 +141,54 @@ public class TaskList {
     public TaskList findTasks(String word) {
         ArrayList<Task> matchedTasks = new ArrayList<>();
         // Iterate through the task list
-        System.out.println(word);
         for (Task task : tasks) {
             if (task.getDetail().contains(word)) {
                 matchedTasks.add(task);
             }
         }
         return new TaskList(matchedTasks);
+    }
+
+    /**
+     * Finds the list of tasks that are due next.
+     * @param numOfTasks number of tasks to be returned
+     * @return list of task that most recent due
+     */
+    public TaskList findNextDueTasks(int numOfTasks) {
+        ArrayList<Task> nextTasks = new ArrayList<>(tasks);
+        nextTasks.sort(new Comparator<Task>() {
+            @Override
+            public int compare(Task o1, Task o2) {
+                if (o1 instanceof Deadline && o2 instanceof Deadline) {
+                    return ((Deadline) o1).getBy().compareTo(((Deadline) o2).getBy());
+                } else if (o1 instanceof Event && o2 instanceof Event) {
+                    return ((Event) o1).getBy().compareTo(((Event) o2).getBy());
+                } else if (o1 instanceof Todo) {
+                    return 1;
+                } else if (o2 instanceof Todo) {
+                    return -1;
+                }
+                return 0;
+            }
+        });
+
+        if (nextTasks.size() <= numOfTasks) {
+            return new TaskList(nextTasks);
+        }
+
+        ArrayList<Task> tempTasks = new ArrayList<>();
+        int counter = numOfTasks;
+        for (Task task: nextTasks) {
+            if (counter <= 0) {
+                break;
+            }
+            tempTasks.add(task);
+            counter--;
+        }
+        return new TaskList(tempTasks);
+    }
+
+    public String nextDueTasksToString(int numOfTasks) {
+        return "==Reminder==\nThose Tasks are due next:\n" + findNextDueTasks(numOfTasks).listTask();
     }
 }

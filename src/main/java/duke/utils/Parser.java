@@ -1,6 +1,10 @@
 package duke.utils;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import duke.exceptions.EmptyBodyException;
+import duke.exceptions.InvalidDateTimeException;
 import duke.exceptions.InvalidKeyException;
 import duke.exceptions.InvalidNumberException;
 import duke.exceptions.WrongFormatException;
@@ -9,10 +13,11 @@ import duke.exceptions.WrongFormatException;
  * Parser to read and understand user inputs. Stores the parsed information inside the object.
  */
 public class Parser {
+    public static final DukeDateFormater FORMATER = new DukeDateFormater();
     private KeyEnum currentKey;
     private String inputDetail;
-    private String to;
-    private String from;
+    private LocalDate to;
+    private LocalDate from;
     private Integer index;
 
     /**
@@ -25,7 +30,7 @@ public class Parser {
      * @throws InvalidNumberException If the number in the command is not a number.
      */
     public void parse(String userInput) throws InvalidKeyException, EmptyBodyException,
-            WrongFormatException, InvalidNumberException {
+            WrongFormatException, InvalidNumberException, DateTimeParseException {
         String[] userInputSplit = userInput.split(" ");
         this.determineCurrentKey(userInputSplit[0]);
         switch (this.currentKey) {
@@ -35,7 +40,7 @@ public class Parser {
             }
             try {
                 inputDetail = userInput.substring(9, userInput.indexOf("/by"));
-                to = userInput.substring(userInput.indexOf("/by") + 4);
+                to = formatDate(userInput.substring(userInput.indexOf("/by") + 4));
             } catch (Exception e) {
                 throw new WrongFormatException("\"deadline content /by yyyy-mm-dd\"");
             }
@@ -53,10 +58,10 @@ public class Parser {
             }
             try {
                 inputDetail = userInput.substring(6, userInput.indexOf("/from"));
-                from = userInput.substring(userInput.indexOf("/from") + 6, userInput.indexOf("/to") - 1);
-                to = userInput.substring(userInput.indexOf("/to") + 4);
+                from = formatDate(userInput.substring(userInput.indexOf("/from") + 6, userInput.indexOf("/to") - 1));
+                to = formatDate(userInput.substring(userInput.indexOf("/to") + 4));
             } catch (Exception e) {
-                throw new WrongFormatException("\"deadline content /from time /to time\"");
+                throw new WrongFormatException("\"event content /from yyyy-mm-dd /to yyyy-mm-dd\"");
             }
             break;
         case MARK:
@@ -118,6 +123,24 @@ public class Parser {
         }
     }
 
+    /**
+     * Changes date from string to LocalDate object.
+     *
+     * @param str date in string form
+     * @return date in LocalDate form
+     */
+    public static LocalDate formatDate(String str) {
+        LocalDate date = null;
+        System.out.println(str);
+        try {
+            date = FORMATER.stringToDate(str);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException();
+        }
+        assert date != null;
+        return date;
+    }
+
     public KeyEnum getCurrentKey() {
         return currentKey;
     }
@@ -126,15 +149,15 @@ public class Parser {
         return inputDetail;
     }
 
-    public String getTo() {
+    public LocalDate getTo() {
         return to;
     }
 
-    public void setTo(String to) {
+    public void setTo(LocalDate to) {
         this.to = to;
     }
 
-    public String getFrom() {
+    public LocalDate getFrom() {
         return from;
     }
 

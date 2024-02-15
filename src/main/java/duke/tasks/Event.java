@@ -1,11 +1,16 @@
 package duke.tasks;
 
+import java.time.LocalDate;
+
+import duke.utils.Parser;
+
+
 /**
  * Class represent Task type Event.
  */
 public class Event extends Task {
-    private String start;
-    private String by;
+    private LocalDate start;
+    private LocalDate by;
 
     /**
      * Initializes an Event object with given params.
@@ -15,7 +20,7 @@ public class Event extends Task {
      * @param start  task start time.
      * @param by     task end time.
      */
-    public Event(Boolean status, String detail, String start, String by) {
+    public Event(Boolean status, String detail, LocalDate start, LocalDate by) {
         super(status, detail);
         this.start = start;
         this.by = by;
@@ -28,11 +33,21 @@ public class Event extends Task {
      */
     @Override
     public String inFileStringFormat() {
-        return "E|" + super.inFileStringFormat() + "|" + this.start + "|" + this.by;
+        return "E|" + super.inFileStringFormat() + "|" + start
+            + "|" + by;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from: " + start + " to: " + by + ")";
+        return "[E]" + super.toString() + "(from: " + Parser.FORMATER.dateToString(start)
+            + " to: " + Parser.FORMATER.dateToString(by) + ")";
+    }
+
+    public LocalDate getStart() {
+        return start;
+    }
+
+    public LocalDate getBy() {
+        return by;
     }
 }

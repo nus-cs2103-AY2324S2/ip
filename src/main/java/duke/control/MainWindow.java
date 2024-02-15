@@ -3,6 +3,9 @@ package duke.control;
 import java.util.Objects;
 
 import duke.Duke;
+import duke.exceptions.BaseException;
+import duke.ui.UI;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -10,11 +13,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
+    private static final String WELCOME_MESSAGE = new UI().onEnter();
+    private static final String ERROR_MASSAGE = "Oops, some error occurs";
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -31,13 +37,26 @@ public class MainWindow extends AnchorPane {
     private final Image dukeImage =
         new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/bot.png")));
 
+    /**
+     * Initializes the chatbot.
+     */
     @FXML
     public void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-    }
-
-    public void setDuke(Duke d) {
-        duke = d;
+        try {
+            this.duke = new Duke();
+            String welcomeString = WELCOME_MESSAGE + "\n" + duke.getNextDueTasks();
+            scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+            dialogContainer.getChildren().add(
+                DialogBox.getDukeDialog(welcomeString, dukeImage)
+            );
+        } catch (BaseException e) {
+            dialogContainer.getChildren().add(
+                DialogBox.getDukeDialog(ERROR_MASSAGE, dukeImage)
+            );
+            PauseTransition pause = new PauseTransition(Duration.seconds(3));
+            pause.setOnFinished(event -> System.exit(0));
+            pause.play();
+        }
     }
 
     /**
@@ -53,6 +72,12 @@ public class MainWindow extends AnchorPane {
             DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
+        if (response.equals(new UI().onExit())) {
+            // Close the window after 2 seconds
+            PauseTransition pause = new PauseTransition(Duration.seconds(2));
+            pause.setOnFinished(event -> System.exit(0));
+            pause.play();
+        }
     }
 }
 
