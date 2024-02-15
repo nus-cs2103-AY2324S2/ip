@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
 }
 
 repositories {
@@ -35,7 +36,10 @@ shadowJar {
     archiveFileName = 'duke.jar'
 }
 
+checkstyle {
+    toolVersion = '10.2'
+}
 
-run{
+run {
     standardInput = System.in
 }
