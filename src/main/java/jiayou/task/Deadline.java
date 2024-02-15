@@ -16,9 +16,9 @@ public class Deadline extends Task {
      * @param description the description of the event task.
      * @param by the deadline date.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDate by) {
         super(description);
-        this.by = LocalDate.parse(by);
+        this.by = by;
     }
 
     public LocalDate getByTime() {

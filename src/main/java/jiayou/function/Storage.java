@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.List;
 
 import jiayou.task.Deadline;
@@ -87,7 +88,7 @@ public class Storage {
             newTask = createEvent(content);
             break;
         case "D":
-            newTask = createEvent(content);
+            newTask = createDeadline(content);
             break;
         default:
             break;
@@ -107,8 +108,8 @@ public class Storage {
         String description = eventParts[0];
         String datePart = eventParts[1];
         String[] dates = datePart.split(" to ");
-        String startDate = dates[0].substring(dates[0].indexOf("from") + 5).trim();
-        String endDate = dates[1].trim();
+        LocalDate startDate = LocalDate.parse(dates[0].substring(dates[0].indexOf("from") + 5).trim());
+        LocalDate endDate = LocalDate.parse(dates[1].trim());
         Event newEvent = new Event(description, startDate, endDate);
         return newEvent;
     }
@@ -120,7 +121,8 @@ public class Storage {
      */
     private Deadline createDeadline(String input) {
         String[] deadlineParts = input.split(" \\| by");
-        Deadline newDeadline = new Deadline(deadlineParts[0], deadlineParts[1]);
+        LocalDate by = LocalDate.parse(deadlineParts[1]);
+        Deadline newDeadline = new Deadline(deadlineParts[0], by);
         return newDeadline;
     }
 }

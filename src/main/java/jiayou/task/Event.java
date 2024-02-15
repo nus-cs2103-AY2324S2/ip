@@ -18,10 +18,10 @@ public class Event extends Task {
      * @param from the start of the event.
      * @param to the end of the event.
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDate from, LocalDate to) {
         super(description);
-        this.from = LocalDate.parse(from);
-        this.to = LocalDate.parse(to);
+        this.from = from;
+        this.to = to;
     }
 
     public LocalDate getFrom() {

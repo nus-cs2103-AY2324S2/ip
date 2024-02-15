@@ -166,7 +166,7 @@ public class TaskList {
      * @return a response message.
      */
     public String searchByDate(LocalDate date) {
-        String response = "Here are the task(s) on " + date + " in your list:\n";
+        String response = ">w< Search done!\nHere are the task(s) on " + date + " in your list:\n";
         int count = 0;
 
         for (int i = 0; i < this.tasks.size(); i++) {
@@ -208,7 +208,7 @@ public class TaskList {
         if (matchedTasks.isEmpty()) {
             return "I am sorry.\nThere is no task with the keyword " + keyword + ".\nTry some other keywords! > <";
         } else {
-            return "Here are the task(s) with the keyword " + keyword + " in your list:\n"
+            return ">w< Search done!\nHere are the task(s) with the keyword " + keyword + " in your list:\n"
                     + String.join("\n", matchedTasks);
         }
     }
@@ -291,7 +291,7 @@ public class TaskList {
             return "Your list is empty now!\nPlease add some new tasks > <";
         }
 
-        String response = "Here are the task(s) in your list:\n";
+        String response = ">w< Here are the task(s) in your list:\n";
         String taskListString = IntStream.range(0, tasks.size())
                 .mapToObj(i -> (i + 1) + ". " + tasks.get(i).toString())
                 .collect(Collectors.joining("\n"));
