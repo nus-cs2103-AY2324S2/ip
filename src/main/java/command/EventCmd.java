@@ -5,9 +5,10 @@ import java.time.LocalDateTime;
 public class EventCmd extends Command {
     private Event task;
     @Override
-    public void execute() {
+    public String execute() {
         tasks.add(task);
-        ui.addedResponse(task.toString());
+        response = ui.addedResponse(task.toString());
+        return response;
     }
 
     public Event getTask() {

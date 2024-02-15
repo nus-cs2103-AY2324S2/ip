@@ -7,10 +7,11 @@ public class FindCmd extends Command {
     private String query;
     private BarebonesTaskList result;
     @Override
-    public void execute() {
+    public String execute() {
         // return another taskList
         result = tasks.find(query);
-        ui.printTasks(result);
+        response = ui.printTasks(result);
+        return response;
     }
 
     public BarebonesTaskList getResult() {

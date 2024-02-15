@@ -1,13 +1,16 @@
 package command;
 
-import task.Todo;
+import task.Task;
 
 public class DeleteCmd extends Command {
-    public int index;
+    private int index;
+    private Task task;
     @Override
-    public void execute() {
+    public String execute() {
+        task = tasks.getTask(index);
         tasks.delete(index);
-
+        response = ui.deleteResponse(task.toString());
+        return response;
     }
 
     public DeleteCmd(int i) {

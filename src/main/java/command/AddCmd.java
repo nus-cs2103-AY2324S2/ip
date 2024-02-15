@@ -4,9 +4,10 @@ import task.Task;
 public class AddCmd extends Command {
     public Task task;
     @Override
-    public void execute() {
+    public String execute() {
         tasks.add(task);
-        ui.addedResponse(task.toString());
+        response = ui.addedResponse(task.toString());
+        return response;
     }
 
     public AddCmd(String userInput) {

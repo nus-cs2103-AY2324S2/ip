@@ -5,9 +5,10 @@ import java.time.LocalDateTime;
 public class DeadlineCmd extends Command {
     private Deadline task;
     @Override
-    public void execute() {
+    public String execute() {
         tasks.add(task);
-        ui.addedResponse(task.toString());
+        response = ui.addedResponse(task.toString());
+        return response;
     }
 
     public Deadline getTask() {

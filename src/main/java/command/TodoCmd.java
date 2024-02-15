@@ -5,9 +5,10 @@ import task.Todo;
 public class TodoCmd extends Command {
     public Todo task;
     @Override
-    public void execute() {
+    public String execute() {
         tasks.add(task);
-        ui.addedResponse(task.toString());
+        response = ui.addedResponse(task.toString());
+        return response;
     }
 
     public TodoCmd(String userInput) {

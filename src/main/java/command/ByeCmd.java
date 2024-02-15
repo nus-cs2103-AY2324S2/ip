@@ -2,8 +2,9 @@ package command;
 
 public class ByeCmd extends Command{
     @Override
-    public void execute() {
-        ui.bye();
+    public String execute() {
+        response = ui.bye();
+        return response;
     }
 
     public ByeCmd() {

@@ -27,7 +27,7 @@ public enum StdMsgs {
         this.msg.print();
     }
     /**
-     * Returns the message in StdMsgs is a message
+     * Returns the message in StdMsgs
      */
     @Override
     public String toString() {

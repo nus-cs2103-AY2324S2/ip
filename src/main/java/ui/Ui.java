@@ -37,48 +37,62 @@ public class Ui {
         StdMsgs.LOADINGDONE.print();
     }
 
-    public void welcome() {
+    public String welcome() {
         StdMsgs.LOGO.print();
         StdMsgs.WELCOME.print();
+        return StdMsgs.LOGO + "\n" + StdMsgs.WELCOME;
     }
 
-    public void bye() {
+    public String bye() {
         StdMsgs.BYE.print();
+        return StdMsgs.BYE.toString();
     }
 
-    public void printTasks() {
-        new Msg(tasks.toString()).print();
+    public String printTasks() {
+        Msg response = new Msg(tasks.toString());
+        response.print();
+        return response.toString();
     }
-    public void printTasks(BarebonesTaskList tasks) {
-        new Msg(tasks.toString()).print();
+    public String printTasks(BarebonesTaskList tasks) {
+        Msg response = new Msg(tasks.toString());
+        response.print();
+        return response.toString();
     }
 
-    public void addedResponse(String addedTask) {
-        new Msg(
+    public String addedResponse(String addedTask) {
+        Msg response = new Msg(
                 "Got it. I've added this task:\n" +
                         addedTask +
                         "\n" +
                         String.format("Now you have %d tasks in the list.", tasks.getTaskCount())
-        ).print();
+        );
+        response.print();
+        return response.toString();
     }
 
-    public void deleteResponse(String deletedTask) {
-        new Msg(
+    public String deleteResponse(String deletedTask) {
+        Msg response = new Msg(
                 "Got it. I've deleted this task:\n" +
                         deletedTask +
                         "\n" +
                         String.format("Now you have %d tasks in the list.", tasks.getTaskCount())
-        ).print();
+        );
+        response.print();
+        return response.toString();
     }
 
-    public void unmarkResponse(String unMarkedTask) {
+    public String unmarkResponse(String unMarkedTask) {
+        Msg response = new Msg(unMarkedTask);
         StdMsgs.UNMARK.print();
-        new Msg(unMarkedTask).print();
+        response.print();
+        return StdMsgs.UNMARK + "\n" + response.toString();
     }
 
-    public void markResponse(String markedTask) {
+    public String markResponse(String markedTask) {
+        Msg response = new Msg(markedTask);
         StdMsgs.MARK.print();
-        new Msg(markedTask).print();
+        response.print();
+        return StdMsgs.MARK + "\n" + response.toString();
     }
     /**
      * Wrapper to show error msg. This general function is used to catch exceptions
@@ -86,7 +100,9 @@ public class Ui {
      *
      * @param err
      */
-    public void errorMsg(String err) {
-        new Msg(err).print();
+    public String errorMsg(String err) {
+        Msg response = new Msg(err);
+        response.print();
+        return response.toString();
     }
 }

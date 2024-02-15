@@ -35,24 +35,25 @@ public class SirDuke{
         }
     }
 
-    public void run() {
+    public String run() {
         ui.welcome();
         Boolean isBye = false;
+        String response = "";
         while (!isBye) {
             try {
                 String cmd = ui.readCommand();
                 Command c = parser.parseCommand(cmd);
                 // i set tasks and ui here so that I dont have to pass it to parse command
                 c.setTasksAndUi(tasks, ui);
-                c.execute();
+                response = c.execute();
                 isBye = c.getIsBye();
             } catch (DukeException e) {
                 ui.errorMsg(e.getMessage());
             }
         }
+        return response;
     }
 
-    public String
 
     /**
      * Runs Sir Duke
