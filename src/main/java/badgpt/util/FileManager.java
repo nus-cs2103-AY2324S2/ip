@@ -40,6 +40,7 @@ public class FileManager {
      * @param taskList The current TaskList instance.
      */
     public void readFile(TaskList taskList) {
+        assert file.exists();
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
             String line = br.readLine();
@@ -88,6 +89,7 @@ public class FileManager {
      * @param data The data to be written.
      */
     public void writeToFile(String data) {
+        assert file.exists();
         try {
             FileWriter fw = new FileWriter(file);
             fw.write(data);
