@@ -4,12 +4,12 @@ package baron.enums;
  * Handles different types of user commands and input.
  */
 public enum Command {
-    LIST("list"),
+    LIST_TASKS("tasks"),
     LIST_CLIENTS("clients"),
     FIND("find"),
     MARK("mark"),
     UNMARK("unmark"),
-    DELETE("delete"),
+    DELETE_TASK("delete"),
     DELETE_CLIENT("discharge"),
     BYE("bye");
 

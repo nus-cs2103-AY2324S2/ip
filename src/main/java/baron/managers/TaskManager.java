@@ -52,7 +52,7 @@ public class TaskManager {
                 return addEvent(input);
             } else if (command.equals(ClientDao.NAME)) {
                 return addClient(input);
-            } else if (command.equals(Command.LIST.getCommand())) {
+            } else if (command.equals(Command.LIST_TASKS.getCommand())) {
                 return UiManager.list(this.tasks);
             } else if (command.equals(Command.LIST_CLIENTS.getCommand())) {
                 return UiManager.list(this.clients);
@@ -60,7 +60,7 @@ public class TaskManager {
                 return mark(input, true);
             } else if (command.equals(Command.UNMARK.getCommand())) {
                 return mark(input, false);
-            } else if (command.equals(Command.DELETE.getCommand())) {
+            } else if (command.equals(Command.DELETE_TASK.getCommand())) {
                 return delete(input);
             } else if (command.equals(Command.DELETE_CLIENT.getCommand())) {
                 return deleteClient(input);
@@ -115,7 +115,7 @@ public class TaskManager {
     }
 
     protected String delete(String input) {
-        int i = Integer.parseInt(StringUtils.getValueOfCommand(input, Command.DELETE.getCommand(), null)) - 1;
+        int i = Integer.parseInt(StringUtils.getValueOfCommand(input, Command.DELETE_TASK.getCommand(), null)) - 1;
         Task task = this.tasks.remove(i);
         TaskType type = getTaskType(task);
         TaskDao.delete(type.getTaskType(), task.getId());
