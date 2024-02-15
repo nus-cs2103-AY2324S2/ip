@@ -25,6 +25,8 @@ import capone.tasks.ToDo;
  * @author Tay Rui-Jie
  */
 public class Storage {
+    protected static final String STORAGE_PATH = "./data/";
+    protected static final String STORAGE_FILE = "tasks.json";
     private final String jsonFilename;
     private final String jsonFilepath;
 
@@ -107,14 +109,30 @@ public class Storage {
      */
     public void readTasksFromJsonFile(TaskList taskList) throws TaskListCorruptedException {
         try {
-            this.initFileIfNotExist();
-
-            assert (new String(Files.readAllBytes(Paths.get(this.getFullPath()))).equals("[]"))
-                    : "New task file created is not initialised properly (i.e. does not contain '[]'`)";
+            this.initFile();
 
             String jsonContent = new String(Files.readAllBytes(Paths.get(this.getFullPath())));
             JSONArray jsonArray = new JSONArray(jsonContent);
 
+            this.initTaskObjects(taskList, jsonArray);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            this.initFile();
+            throw new TaskListCorruptedException("Detected corrupted task list file."
+                    + " New task list file will be created when new tasks are created.");
+        }
+    }
+
+    /**
+     * Converts JSON objects to Tasks and adds them to the task list.
+     *
+     * @param taskList The TaskList where tasks will be added.
+     * @param jsonArray The JSON array containing task details in JSON format.
+     * @throws TaskListCorruptedException If the JSON object(s) contain an invalid format.
+     */
+    private void initTaskObjects(TaskList taskList, JSONArray jsonArray) throws TaskListCorruptedException {
+        try {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonTask = jsonArray.getJSONObject(i);
 
@@ -133,19 +151,17 @@ public class Storage {
                     taskList.addTask(new Event(description, status, fromDate, toDate));
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (JSONException e) {
-            initFileIfNotExist();
-            throw new TaskListCorruptedException("Detected corrupted task list file."
-                    + " New file will be created when new tasks are created.");
+            this.initFile();
+            throw new TaskListCorruptedException("Detected corrupted JSON object."
+                    + " New task list file will be created when new tasks are created.");
         }
     }
 
     /**
      * Initializes the JSON file if it does not exist.
      */
-    public void initFileIfNotExist() {
+    public void initFile() {
         // Create the folder if it doesn't exist
         File folder = new File(this.getFilePath());
         if (!folder.exists()) {
@@ -158,6 +174,9 @@ public class Storage {
         if (!file.exists()) {
             try (FileWriter fileWriter = new FileWriter(file)) {
                 fileWriter.write("[]");
+                
+                assert (new String(Files.readAllBytes(Paths.get(this.getFullPath()))).equals("[]"))
+                        : "New task file created is not initialised properly (i.e. does not contain '[]'`)";
             } catch (IOException e) {
                 e.printStackTrace();
             }

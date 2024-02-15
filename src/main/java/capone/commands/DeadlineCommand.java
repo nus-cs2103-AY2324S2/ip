@@ -18,6 +18,10 @@ import capone.ui.Ui;
  * @author Tay Rui-Jie
  */
 public class DeadlineCommand extends Command {
+    /**
+     * Constant string that provides information to the user on how to use the command.
+     */
+    private static final String USAGE_STRING = "Usage: deadline [description] /by [date]";
 
     /** List containing input parameters for DeadlineCommand. */
     private final ArrayList<String> inputList;
@@ -44,8 +48,7 @@ public class DeadlineCommand extends Command {
     public String execute(TaskList taskList, Ui ui, Storage storage) throws CaponeException {
         // If the inputList has only one string, throw error (insufficient args).
         if (inputList.size() == 1) {
-            throw new InsufficientArgumentException("Insufficient arguments!\n"
-                    + "Usage: deadline [description] /by [date]");
+            throw new InsufficientArgumentException("Insufficient arguments!\n" + DeadlineCommand.USAGE_STRING);
         }
 
         // Find the index of the /by command.
@@ -54,7 +57,7 @@ public class DeadlineCommand extends Command {
         // Catch potential errors from date entry.
         if (byNdx == inputList.size() - 1 || byNdx == -1) {
             throw new InsufficientArgumentException("Please enter a date for this deadline task!\n"
-                    + "Usage: deadline [description] /by [date]");
+                    + DeadlineCommand.USAGE_STRING);
         }
 
         // The starting index of the words that contain the description.
@@ -65,7 +68,7 @@ public class DeadlineCommand extends Command {
 
         if (description.toString().equalsIgnoreCase("")) {
             throw new InsufficientArgumentException("Insufficient arguments!\n"
-                    + "Usage: deadline [description] /by [date]");
+                    + DeadlineCommand.USAGE_STRING);
         }
 
         LocalDateTime byDateTime = Parser.parseDateTime(byNdx + 1, inputList.size(), inputList);

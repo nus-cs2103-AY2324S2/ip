@@ -17,6 +17,10 @@ import capone.ui.Ui;
  * @author Tay Rui-Jie
  */
 public class UnmarkCommand extends Command {
+    /**
+     * Constant string that provides information to the user on how to use the command.
+     */
+    private static final String USAGE_STRING = "Usage: unmark [index]";
 
     /** List containing input parameters for UnmarkCommand. */
     private final ArrayList<String> inputList;
@@ -44,11 +48,11 @@ public class UnmarkCommand extends Command {
         if (inputList.size() == 1) {
             throw new InsufficientArgumentException("Please enter an index of a task you'd like to unmark.\n"
                     + "You can view all tasks using the 'list' command.\n"
-                    + "Usage: unmark [index]");
+                    + UnmarkCommand.USAGE_STRING);
         } else if (inputList.size() > 2) {
             throw new InsufficientArgumentException("Please enter only one index you would like to unmark.\n"
                     + "You can view all tasks using the 'list' command.\n"
-                    + "Usage: unmark [index]");
+                    + UnmarkCommand.USAGE_STRING);
         }
 
         try {
@@ -60,7 +64,8 @@ public class UnmarkCommand extends Command {
             return ui.sendUnmark(unmarkedTask);
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             throw new InvalidIndexException("Sorry, you have entered an invalid index.\n"
-                    + "You can check the list of valid indices using the 'list' command.");
+                    + "You can check the list of valid indices using the 'list' command.\n"
+                    + UnmarkCommand.USAGE_STRING);
         }
     }
 }

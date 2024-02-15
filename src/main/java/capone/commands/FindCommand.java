@@ -17,6 +17,10 @@ import capone.ui.Ui;
  * @author Tay Rui-Jie
  */
 public class FindCommand extends Command {
+    /**
+     * Constant string that provides information to the user on how to use the command.
+     */
+    private static final String USAGE_STRING = "Usage: find [keyword]";
 
     /** The list of input strings provided by the user for the find command. */
     private final ArrayList<String> inputList;
@@ -44,12 +48,13 @@ public class FindCommand extends Command {
         // If the inputList has only one string, throw error (insufficient args).
         if (this.inputList.size() == 1) {
             throw new InsufficientArgumentException("Insufficient arguments!\n"
-                    + "Usage: deadline [description] /by [date]");
+                    + FindCommand.USAGE_STRING);
         } else if (this.inputList.size() > 2) {
             throw new InvalidCommandException("Too many arguments entered - Please only enter one keyword:\n"
-                    + "Usage: find [keyword]");
+                    + FindCommand.USAGE_STRING);
         }
 
+        // The second word entered by the user is the keyword to be searched.
         String keyword = inputList.get(1);
 
         TaskList filteredList = new TaskList();

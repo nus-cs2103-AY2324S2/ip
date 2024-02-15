@@ -12,7 +12,6 @@ import capone.ui.Ui;
  * @author Tay Rui-Jie
  */
 public class HelpCommand extends Command {
-
     /**
      * Executes the HelpCommand, displaying a list of supported commands.
      *
