@@ -19,14 +19,13 @@ public class Storage {
      *
      * @param fileFolder The directory of the file
      * @param fileName   Name of the file
-     * @throws DukeException If the creation of file is unsuccessful.
      */
-    Storage(String fileFolder, String fileName) throws DukeException {
+    Storage(String fileFolder, String fileName) {
         File directory = new File(fileFolder);
         if (!directory.exists()) {
             boolean isDirMade = directory.mkdirs();
             if (!isDirMade) {
-                throw new DukeException("Oops! Something is wrong with directory creation!");
+                System.out.println("Oops! Something is wrong with directory creation!");
             }
         }
         file = new File(fileFolder + "/" + fileName);
@@ -34,7 +33,7 @@ public class Storage {
             try {
                 boolean isCreated = file.createNewFile();
                 if (!isCreated) {
-                    throw new DukeException("Oops! Something is wrong with file creation!");
+                    System.out.println("Oops! Something is wrong with file creation!");
                 }
             } catch (IOException e) {
                 System.out.println("Oops! Something is wrong with file creation!");
@@ -46,9 +45,8 @@ public class Storage {
      * Loads the tasks from an existing file, and sends the tasks to the initialization stage of the program.
      *
      * @return An ArrayList of the lines in the file
-     * @throws DukeException if the file is not found.
      */
-    ArrayList<String> load() throws DukeException {
+    ArrayList<String> load() {
         ArrayList<String> result = new ArrayList<>();
         try {
             Scanner sc = new Scanner(file);
@@ -58,7 +56,8 @@ public class Storage {
             }
             return result;
         } catch (FileNotFoundException e) {
-            throw new DukeException("Oops! No file in the directory!");
+            System.out.println("Oops! No file in the directory!");
+            return result;
         }
     }
 

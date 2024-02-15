@@ -16,10 +16,14 @@ public class TaskList {
      * @param load The ArrayLisst provided by the file
      * @throws DukeException if the initialization is unsuccessful.
      */
-    TaskList(ArrayList<String> load) throws DukeException {
+    TaskList(ArrayList<String> load) {
         tasks = new ArrayList<>();
-        for (String task : load) {
-            tasks.add(lineToTask(task));
+        try {
+            for (String task : load) {
+                tasks.add(lineToTask(task));
+            }
+        } catch (DukeException e) {
+            System.out.println(e);
         }
     }
 
