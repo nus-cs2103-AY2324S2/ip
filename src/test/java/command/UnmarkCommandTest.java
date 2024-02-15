@@ -43,8 +43,8 @@ public class UnmarkCommandTest {
         UnmarkCommand unmark = new UnmarkCommand(2);
         unmark.execute(tasks, storage);
         assertEquals(tasks.getTask(0).getStatusIcon(), "X");
-        assertEquals(tasks.getTask(1).getStatusIcon(), " ");
-        assertEquals(tasks.getTask(2).getStatusIcon(), "X");
+        assertEquals(tasks.getTask(1).getStatusIcon(), "X");
+        assertEquals(tasks.getTask(2).getStatusIcon(), " ");
     }
 
     @Test

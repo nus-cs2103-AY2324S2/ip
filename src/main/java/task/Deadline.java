@@ -19,6 +19,10 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public void setBy(LocalDateTime by) {
+        this.by = by;
+    }
+
     @Override
     public String toWritableString() {
         return "D | " + super.toWritableString() + " | "

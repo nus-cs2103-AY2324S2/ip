@@ -75,7 +75,6 @@ public class Storage {
         Scanner sc = new Scanner(f);
         while (sc.hasNext()) {
             String data = sc.nextLine();
-            System.out.println(data);
             parseData(data);
         }
     }

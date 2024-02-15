@@ -37,7 +37,7 @@ public class MarkCommandTest {
 
     @Test
     public void execute_normalInput_success() throws Exception {
-        MarkCommand mark = new MarkCommand(2);
+        MarkCommand mark = new MarkCommand(1);
         mark.execute(tasks, storage);
         assertEquals(tasks.getTask(0).getStatusIcon(), " ");
         assertEquals(tasks.getTask(1).getStatusIcon(), "X");

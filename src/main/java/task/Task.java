@@ -22,6 +22,10 @@ public class Task {
         this.description = description;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public void setDone(boolean isDone) {
         this.isDone = isDone;
     }
