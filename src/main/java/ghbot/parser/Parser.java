@@ -75,6 +75,9 @@ public class Parser {
         } else if (instr.equalsIgnoreCase(Instruction.FIND.toString())) {
             return new FindExecutor(input[1]);
 
+        } else {
+            // Unreachable code as ui.validateInput already checks for all possible instructions
+            assert false : instr;
         }
         return null;
     }
