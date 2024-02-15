@@ -148,4 +148,8 @@ public class Storage {
     public void deleteTask(Task t) {
         this.taskList.delete(t);
     }
+    public void sortTask() {
+        this.taskList.sort();
+    }
+
 }
