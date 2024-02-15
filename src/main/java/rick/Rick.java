@@ -2,7 +2,9 @@ package rick;
 
 import java.util.Scanner;
 
-
+/**
+ * A Rick chatbot.
+ */
 public class Rick {
 
     private Storage storage;
@@ -55,7 +57,9 @@ public class Rick {
             } catch (RickException e) {
                 Ui.reply(e.getMessage());
             } catch (Exception e1) {
-                Ui.reply("ERROR: Congratulations! You have input a message that the developer did not expect. Report this issue here: https://forms.gle/hnnDTA7qYMnhJvQ46.");
+                Ui.reply("ERROR: Congratulations! "
+                        + "You have input a message that the developer did not expect. "
+                        + "Report this issue here: https://forms.gle/hnnDTA7qYMnhJvQ46.");
                 return;
             }
         }
