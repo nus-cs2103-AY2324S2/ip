@@ -79,20 +79,20 @@ public class Storage {
      * @param s The string representing the matching tasks.
      */
     public String find(String s) {
-        String output = "";
+        StringBuilder output = new StringBuilder();
         try {
             for (int i=0; i<this.storage.size(); i++) {
                 if (this.storage.get(i).description.contains(s)) {
-                    output += String.format("%d. ", i+1);
-                    output += this.storage.get(i).toString() + "\n";
+                    output.append(String.format("%d. ", i + 1));
+                    output.append(this.storage.get(i).toString()).append("\n");
                 }
             }
-            if (output.isEmpty()) throw new DukeExceptions();
+            if (output.length() == 0) throw new DukeExceptions();
 
         } catch (DukeExceptions d) {
             System.out.println("Nothing was found");
         }
-        return output;
+        return output.toString();
     }
 
     /**
@@ -101,12 +101,12 @@ public class Storage {
      * @return The formatted string representing the list of tasks.
      */
     public String printList() {
-        String output = "";
+        StringBuilder output = new StringBuilder();
         for (int i=0; i<this.storage.size(); i++) {
-            output += String.format("%d. ", i+1);
-            output += this.storage.get(i).toString() + "\n";
+            output.append(String.format("%d. ", i + 1));
+            output.append(this.storage.get(i).toString()).append("\n");
         }
-        return output;
+        return output.toString();
     }
 
     /**
@@ -116,9 +116,8 @@ public class Storage {
      * @return The formatted string representing the output.
      */
     public String addToListOutput(Task t) {
-        String output = "Got it. I've added this task:\n" +
+        return "Got it. I've added this task:\n" +
                 String.format("  %s\nNow you have %d tasks in the list.", t.toString(), this.size());
-        return output;
     }
 
 

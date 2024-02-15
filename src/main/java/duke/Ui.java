@@ -4,7 +4,6 @@ package duke;
  * The UI class handles user interface interactions.
  */
 public class Ui {
-    //private final String LINE = "______________________________________________________\n";
 
     /**
      * Constructs a new UI instance.

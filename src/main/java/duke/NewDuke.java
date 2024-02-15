@@ -35,17 +35,6 @@ public class NewDuke {
         this("data/duke.txt");
     }
 
-//    public void run() {
-//        ui.onStart();
-//        parser.run();
-//        ui.onEnd();
-//        saver.saveData(storage);
-//    }
-//
-//    public static void main(String[] args) {
-//        new NewDuke("data/duke.txt").run();
-//    }
-
     public String getResponse(String input) {
         if (input.equals("bye")) {
             return ui.onEnd();
@@ -83,8 +72,9 @@ public class NewDuke {
             }
         } catch (DukeExceptions e) {
             return (e.output());
+        } finally {
+            saver.saveData(storage);
         }
+
     }
-
-
 }
