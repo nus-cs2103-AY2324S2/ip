@@ -20,10 +20,10 @@ public class Ui {
     private Parser parser;
 
     public Ui() {
-        this.isFinished = false;
-        this.taskList = Storage.get();
-        this.commandList = new CommandList(this.taskList, this);
-        this.parser = new Parser(this.commandList);
+        isFinished = false;
+        taskList = Storage.get();
+        commandList = new CommandList(taskList, this);
+        parser = new Parser(commandList);
     }
 
 
