@@ -67,7 +67,7 @@ public class TaskList {
      * @throws DukeException If the index is invalid.
      */
     public Task markTaskAsDone(int index) throws DukeException {
-        assert index >= 0 && index < tasks.size() : "Index should be within the list range";
+        //assert index >= 0 && index < tasks.size() : "Index should be within the list range";
         if (index >= 0 && index < tasks.size()) {
             Task task = tasks.get(index);
             task.markAsDone();
