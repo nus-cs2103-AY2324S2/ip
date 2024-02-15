@@ -53,6 +53,7 @@ public class TaskList {
      * @param num index of task to be deleted from the task list
      */
     public String delete(int num) throws DukeException{
+        assert num >= 0 : "task number should be a valid array index (>=0)";
         if (num - 1 >= tasks.size()) {
             throw new DukeException("Oops, there isn't that task number in your list. Run list to check again.");
         }
@@ -72,6 +73,7 @@ public class TaskList {
      * @param num index of task to be marked done.
      */
     public String mark(int num) throws DukeException, IOException {
+        assert num >= 0 : "task number should be a valid array index (>=0)";
         if (num - 1 >= tasks.size()) {
             throw new DukeException("Oops, there isn't that task number in your list. Run list to check again.");
         }
@@ -89,6 +91,7 @@ public class TaskList {
      * @param num index of task to be marked undone.
      */
     public String unmark(int num) throws DukeException, IOException {
+        assert num >= 0 : "task number should be a valid array index (>=0)";
         if (num - 1 >= tasks.size()) {
             throw new DukeException("Oops, there isn't that task number in your list. Run list to check again.");
         }
@@ -107,6 +110,7 @@ public class TaskList {
      * @return Task object that is in the position of the index in the arraylist.
      */
     public Task getTask(int index) {
+        assert index >= 0 : "task number should be a valid array index (>=0)";
         return tasks.get(index);
     }
 

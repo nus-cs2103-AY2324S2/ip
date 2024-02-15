@@ -56,31 +56,13 @@ public class Task {
     }
 
     public String printTaskDesc(int num, boolean isLast){
+        assert num >= 1 : "task number should be more than or equals to 1";
         if (num == 1) {
             return String.format("Here are the tasks in your list:\n %d.[%s][%s] %s\n",
                     num, getTag(), getStatusIcon(), getDescription());
         } else {
             return String.format(" %d.[%s][%s] %s\n", num, getTag(), getStatusIcon(), getDescription());
         }
-//        if (!isLast) {
-//            if (num == 1) {
-//                System.out.print("      _________________________________________________________________________\n");
-//                System.out.printf("      Here are the tasks in your list:\n      %d.[%s][%s] %s\n",
-//                        num, getTag(), getStatusIcon(), getDescription());
-//            } else {
-//                System.out.printf("      %d.[%s][%s] %s\n", num, getTag(), getStatusIcon(), getDescription());
-//            }
-//        } else {
-//            if (num == 1) {
-//                System.out.print("      _________________________________________________________________________\n");
-//                System.out.printf("      Here are the tasks in your list:\n      %d.[%s][%s] %s\n",
-//                        num, getTag(), getStatusIcon(), getDescription());
-//                System.out.print("      _________________________________________________________________________\n");
-//            } else {
-//                System.out.printf("      %d.[%s][%s] %s \n", num, getTag(), getStatusIcon(), getDescription());
-//                System.out.print("      _________________________________________________________________________\n");
-//            }
-//        }
     }
 
     public String printFullDesc() {
@@ -88,6 +70,7 @@ public class Task {
     }
 
     public String printMatchDesc(int num) {
+        assert num >= 1 : "task number should be more than or equals to 1";
         return String.format(" %d.[%s][%s] %s\n", num, getTag(), getStatusIcon(), getDescription());
     }
 
