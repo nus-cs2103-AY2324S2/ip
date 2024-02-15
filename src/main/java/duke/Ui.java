@@ -1,11 +1,7 @@
 package duke;
 
-import javafx.application.Platform;
 import java.util.ArrayList;
-//import java.util.LinkedList;
 import java.util.List;
-//import java.util.Queue;
-
 
 import duke.task.Task;
 
@@ -16,7 +12,6 @@ import duke.task.Task;
  */
 public class Ui {
 
-    private StringBuilder response = new StringBuilder();
 
     /**
      * Displays a welcome message to the user.
@@ -54,6 +49,7 @@ public class Ui {
      * @param tasks The TaskList containing the tasks to be displayed.
      */
     public String showTaskList(TaskList tasks) {
+        assert tasks != null : "The task list provided cannot be null";
         ArrayList<Task> taskArrayList = tasks.getTasks();
         if (taskArrayList.isEmpty()) {
             return "The task list is empty.";
@@ -98,6 +94,7 @@ public class Ui {
      * @param task The task that has been marked as done.
      */
     public String showMarkAsDoneMessage(Task task) {
+        assert task != null : "The task provided cannot be null";
         return "Nice! I've marked this task as done:\n" + task;
     }
 
@@ -118,7 +115,9 @@ public class Ui {
      * @param tasks The updated TaskList after the task has been deleted.
      */
     public String showDeleteMessage(Task removedTask, TaskList tasks) {
-        String deleteTaskMessage = "Noted. I've removed this task:\n" + removedTask.toString();
+        assert removedTask != null : "The removed task cannot be null";
+        assert tasks != null : "The task list provided cannot be null";
+        String deleteTaskMessage = "Noted. I've removed this task:\n" + removedTask;
         String numOfTasksMessage = showNumTasks(tasks);
         return deleteTaskMessage + ". \n" + numOfTasksMessage;
 

@@ -3,6 +3,7 @@ package duke.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import duke.JamieException;
 
 /**
@@ -21,6 +22,8 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) throws JamieException {
         super(description);
+        assert description != null && !description.isEmpty() : "Description cannot be null or empty";
+        assert by != null && !by.isEmpty() : "Deadline string cannot be null or empty";
         this.byDateTime = parseDateTime(by);
     }
 
@@ -34,6 +37,8 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by, boolean isDone) throws JamieException {
         super(description, isDone);
+        assert description != null && !description.isEmpty() : "Description cannot be null or empty";
+        assert by != null && !by.isEmpty() : "Deadline string cannot be null or empty";
         this.byDateTime = parseDateTime(by);
     }
 
@@ -47,11 +52,13 @@ public class Deadline extends Task {
     private LocalDateTime parseDateTime(String by) throws JamieException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-            return LocalDateTime.parse(by, formatter);
+            LocalDateTime dateTime = LocalDateTime.parse(by, formatter);
+            return dateTime;
         } catch (DateTimeParseException e) {
             throw new JamieException("Invalid date format. Please use 'dd/MM/yyyy HHmm'.");
         }
     }
+
 
     /**
      * Returns the deadline date and time.
