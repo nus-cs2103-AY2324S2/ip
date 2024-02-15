@@ -3,6 +3,7 @@ package ui;
 import java.util.Collections;
 import java.util.List;
 
+import exceptions.TaylorException;
 import tasks.Task;
 
 /**
@@ -67,6 +68,38 @@ public class Ui {
             Ui.appendResponse(response, currList);
             response.append("________________ \n");
         }
+        return response;
+    }
+
+    public static StringBuilder markTask(StringBuilder response, List<Task> listToEdit, int noToEdit, String action) {
+        if (action.equals("MARK")) {
+            listToEdit.get(noToEdit).markIt();
+            response.append("Nice! I've marked this task as done:\n");
+            response.append(listToEdit.get(noToEdit));
+        } else if (action.equals("UNMARK")) {
+            listToEdit.get(noToEdit).unMark();
+            response.append("OK, I've marked this task as not done yet:\n");
+            response.append(listToEdit.get(noToEdit));
+        } else {
+            throw new TaylorException("Invalid command -  Only use mark/unmark");
+        }
+        return response;
+    }
+
+    public static StringBuilder deleteTask(StringBuilder response, List<Task> listToEdit, int noToEdit) {
+        int idx = noToEdit - 1;
+        Task taskRemoved = listToEdit.get(idx);
+        listToEdit.remove(idx);
+        response.append("Noted. I've removed this tasks:\n");
+        response.append(taskRemoved).append("\n");
+        return response;
+    }
+
+    public static StringBuilder addTask(StringBuilder response, List<Task> lst, Task tsk) {
+        lst.add(tsk);
+        response.append(tsk).append("\n");
+        response.append("Got it. I've added this task:\n");
+        response.append("Now you have ").append(lst.size()).append(" tasks in the list.").append("\n");
         return response;
     }
 }

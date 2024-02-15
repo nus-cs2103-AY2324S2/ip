@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import exceptions.TaylorException;
+import helper.CheckValid;
+import helper.TaskEditor;
+import helper.WordsSplit;
 import tasks.Task;
+import ui.Ui;
 
 /**
  * Mark/Unmark task as done
@@ -25,52 +29,23 @@ public class MarkTask {
      */
     public static String execMarkTask(String input, List<List<Task>> taskList) {
         StringBuilder response = new StringBuilder();
-        String[] wordPartition = input.split(" ");
+        String[] wordPartition = WordsSplit.separateWords(input, " ", false);
         int idxToGetType = 0;
-        String action = wordPartition[idxToGetType];
+        String action = WordsSplit.getWord(wordPartition, idxToGetType).toUpperCase();
 
         try {
             int idxToGetTaskType = 1;
-            String taskType = wordPartition[idxToGetTaskType].toUpperCase();
-            boolean isEvent = taskType.equals("EVENT");
-            boolean isDeadline = taskType.equals("DEADLINE");
-            boolean isTodo = taskType.equals("TODO");
-            if (!isTodo && !isDeadline && !isEvent) {
-                throw new TaylorException("<TaskType> only accepts EVENT/DEADLINE/TODO");
-            }
+            String taskType = WordsSplit.getWord(wordPartition, idxToGetTaskType).toUpperCase();
+            CheckValid.checkValidType(taskType);
 
             int idxToGetTaskNo = 2;
-            int retrieverNum = Integer.parseInt(wordPartition[idxToGetTaskNo]) - 1;
+            int retrieverNum = Integer.parseInt(WordsSplit.getWord(wordPartition, idxToGetTaskNo)) - 1;
 
-            if (retrieverNum < 0 || retrieverNum >= taskList.size()) {
-                throw new TaylorException("Invalid task number");
-            }
+            List<Task> listToEdit = new ArrayList<>();
+            TaskEditor.listEdit(taskList, taskType, listToEdit);
+            CheckValid.checkValidNum(retrieverNum, listToEdit);
 
-            List<? extends Task> listToEdit = new ArrayList<>();
-            if (isDeadline) {
-                int deadlineListIdx = 0;
-                listToEdit = taskList.get(deadlineListIdx);
-            } else if (isEvent) {
-                int eventListIdx = 1;
-                listToEdit = taskList.get(eventListIdx);
-            } else if (isTodo) {
-                int todoListIdx = 2;
-                listToEdit = taskList.get(todoListIdx);
-            } else {
-                assert false : "Program should not run here";
-            }
-
-            if (action.equals("mark")) {
-                listToEdit.get(retrieverNum).markIt();
-                response.append("Nice! I've marked this task as done:\n");
-                response.append(listToEdit.get(retrieverNum));
-            } else if (action.equals("unmark")) {
-                listToEdit.get(retrieverNum).unMark();
-                response.append("OK, I've marked this task as not done yet:\n");
-                response.append(listToEdit.get(retrieverNum));
-            } else {
-                throw new TaylorException("Invalid command -  Only use mark/unmark");
-            }
+            Ui.markTask(response, listToEdit, retrieverNum, action);
         } catch (Exception err) {
             throw new TaylorException("Please ensure the following format: MARK/UNMARK <TaskType> <TaskNumber>");
         }
