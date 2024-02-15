@@ -48,7 +48,6 @@ public class TalkingBot {
     public String process(String text) {
         Parser parser = new Parser();
         Command curCommand = parser.parseCommand(text);
-        String response = curCommand.runCommand(this.tasks, this.saveFile, this.ui);
-        return response;
+        return curCommand.runCommand(this.tasks, this.saveFile, this.ui);
     }
 }

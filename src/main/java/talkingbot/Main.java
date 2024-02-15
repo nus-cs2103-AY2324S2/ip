@@ -1,13 +1,15 @@
 package talkingbot;
 
 import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import talkingbot.logic.TalkingBot;
+
 import talkingbot.gui.Window;
+import talkingbot.logic.TalkingBot;
 
 public class Main extends Application {
     private TalkingBot talkingBot = new TalkingBot();

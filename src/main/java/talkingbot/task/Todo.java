@@ -6,6 +6,8 @@ import talkingbot.type.TaskType;
  * A class that represents the Todo task.
  */
 public class Todo extends Task {
+    private static final String TODO_SAVE_FILE_FORMAT = "T | %d | %s";
+    private static final String TODO_DISPLAY_FORMAT = "[T] %s";
     /**
      * Constructor for the Todo class.
      *
@@ -24,7 +26,7 @@ public class Todo extends Task {
      */
     @Override
     public String getSaveFileString() {
-        return String.format("T | %d | %s", super.getDoneAsInt(),
+        return String.format(TODO_SAVE_FILE_FORMAT, super.getDoneAsInt(),
                 super.getDescription());
     }
 
@@ -35,6 +37,6 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[T] %s", super.toString());
+        return String.format(TODO_DISPLAY_FORMAT, super.toString());
     }
 }

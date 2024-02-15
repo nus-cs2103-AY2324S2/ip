@@ -23,6 +23,23 @@ public class TaskCommand extends Command {
     }
 
     /**
+     * Parses the command String array and returns a formatted version of it.
+     *
+     * @return Parsed String representing the command.
+     */
+    private String parseTask() {
+        String[] curCommand = super.getCommandArr();
+        StringBuilder sbDescription = new StringBuilder();
+        for (int i = 1; i < curCommand.length; i++) {
+            sbDescription.append(curCommand[i]);
+            if (i < curCommand.length - 1) {
+                sbDescription.append(" ");
+            }
+        }
+        return sbDescription.toString();
+    }
+
+    /**
      * Runs this command.
      * Creates a String containing information about the Task,
      * passes it to a static method for a Task to be generated,
@@ -36,14 +53,7 @@ public class TaskCommand extends Command {
     @Override
     public String runCommand(TaskList tasks, SaveFile saveFile, Ui ui) {
         String[] curCommand = super.getCommandArr();
-        StringBuilder sbDescription = new StringBuilder();
-        for (int idx = 1; idx < curCommand.length; idx++) {
-            sbDescription.append(curCommand[idx]);
-            if (idx < curCommand.length - 1) {
-                sbDescription.append(" ");
-            }
-        }
-        String fullDescription = sbDescription.toString();
+        String fullDescription = this.parseTask();
         String msg;
         try {
             Task curTask = Task.generateTask(fullDescription, curCommand[0]);

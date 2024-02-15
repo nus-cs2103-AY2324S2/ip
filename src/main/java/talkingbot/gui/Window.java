@@ -19,8 +19,7 @@ public class Window extends AnchorPane {
     private static final String USER_NAME = "You";
     private static final String BOT_IMAGE_PATH = "/gui/TalkingBot.jpg";
     private static final String USER_IMAGE_PATH = "/gui/You.jpg";
-    private static final Image BOT_IMAGE = new Image(this.getClass().getResourceAsStream(BOT_IMAGE_PATH));
-    private static final Image USER_IMAGE = new Image(this.getClass().getResourceAsStream(USER_IMAGE_PATH));
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -30,7 +29,8 @@ public class Window extends AnchorPane {
     @FXML
     private Button sendButton;
     private TalkingBot talkingBot;
-
+    private final Image userImage = new Image(this.getClass().getResourceAsStream(USER_IMAGE_PATH));
+    private final Image botImage = new Image(this.getClass().getResourceAsStream(BOT_IMAGE_PATH));
 
     /**
      * Initializes the scrollPane and binds it to the vBox.
@@ -76,8 +76,8 @@ public class Window extends AnchorPane {
         String text = this.textInput.getText();
         String botResponse = this.talkingBot.process(this.textInput.getText());
         this.vBox.getChildren().addAll(
-                Message.getUserMessage(this.USER_IMAGE, text, this.USER_NAME),
-                Message.getBotMessage(this.BOT_IMAGE, botResponse, this.BOT_NAME)
+                Message.getUserMessage(this.userImage, text, this.USER_NAME),
+                Message.getBotMessage(this.botImage, botResponse, this.BOT_NAME)
         );
         this.textInput.clear();
     }

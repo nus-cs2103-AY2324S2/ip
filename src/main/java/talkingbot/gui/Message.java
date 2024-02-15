@@ -1,5 +1,7 @@
 package talkingbot.gui;
 
+import java.io.IOException;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,19 +12,18 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import java.io.IOException;
 
 /**
  * A class to display message bubbles.
  */
 public class Message extends HBox {
+    private static final String MESSAGE_FXML_PATH = "/gui/Message.fxml";
     @FXML
     private ImageView displayPicture;
     @FXML
     private Label displayText;
     @FXML
     private Label displayName;
-    private static final String MESSAGE_FXML_PATH = "/gui/Message.fxml";
 
     /**
      * Constructor for the Message class.

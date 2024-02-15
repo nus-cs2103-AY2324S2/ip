@@ -21,7 +21,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, boolean isDone, String endTime) {
         super(description, isDone, TaskType.DEADLINE);
-        this.endTime = LocalDateTime.parse(endTime, super.DATE_TIME_ENTRY_FORMAT);
+        this.endTime = LocalDateTime.parse(endTime, DATE_TIME_ENTRY_FORMAT);
     }
 
     /**
@@ -40,9 +40,9 @@ public class Deadline extends Task {
      */
     @Override
     public String getSaveFileString() {
-        return String.format(this.DEADLINE_SAVE_FILE_FORMAT, super.getDoneAsInt(),
+        return String.format(DEADLINE_SAVE_FILE_FORMAT, super.getDoneAsInt(),
                 super.getDescription(),
-                this.getEndTime().format(super.DATE_TIME_ENTRY_FORMAT));
+                this.getEndTime().format(DATE_TIME_ENTRY_FORMAT));
     }
 
     /**
@@ -52,7 +52,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return String.format(this.DEADLINE_DISPLAY_FORMAT, super.toString(),
-                this.getEndTime().format(super.DATE_TIME_OUT_FORMAT));
+        return String.format(DEADLINE_DISPLAY_FORMAT, super.toString(),
+                this.getEndTime().format(DATE_TIME_OUT_FORMAT));
     }
 }

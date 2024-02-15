@@ -8,6 +8,8 @@ import talkingbot.type.TaskType;
  * A class that represents the Event task.
  */
 public class Event extends Task {
+    private static final String EVENT_SAVE_FILE_FORMAT = "E | %d | %s | %s | %s";
+    private static final String EVENT_DISPLAY_FORMAT = "[E] %s (from: %s to: %s)";
     private final LocalDateTime startTime;
     private final LocalDateTime endTime;
 
@@ -21,8 +23,8 @@ public class Event extends Task {
      */
     public Event(String description, boolean isDone, String startTime, String endTime) {
         super(description, isDone, TaskType.EVENT);
-        this.startTime = LocalDateTime.parse(startTime, super.DATE_TIME_ENTRY_FORMAT);
-        this.endTime = LocalDateTime.parse(endTime, super.DATE_TIME_ENTRY_FORMAT);
+        this.startTime = LocalDateTime.parse(startTime, DATE_TIME_ENTRY_FORMAT);
+        this.endTime = LocalDateTime.parse(endTime, DATE_TIME_ENTRY_FORMAT);
     }
 
 
@@ -51,8 +53,8 @@ public class Event extends Task {
      */
     @Override
     public String getSaveFileString() {
-        return String.format("E | %d | %s | %s | %s", super.getDoneAsInt(),
-                super.getDescription(), this.getStartTime().format(super.DATE_TIME_ENTRY_FORMAT),
+        return String.format(EVENT_SAVE_FILE_FORMAT, super.getDoneAsInt(),
+                super.getDescription(), this.getStartTime().format(DATE_TIME_ENTRY_FORMAT),
                 this.getEndTime().format(DATE_TIME_ENTRY_FORMAT));
     }
 
@@ -63,7 +65,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[E] %s (from: %s to: %s)", super.toString(),
+        return String.format(EVENT_DISPLAY_FORMAT, super.toString(),
                 this.getStartTime().format(DATE_TIME_OUT_FORMAT),
                 this.getEndTime().format(DATE_TIME_OUT_FORMAT));
     }

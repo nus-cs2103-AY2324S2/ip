@@ -8,6 +8,9 @@ import talkingbot.task.Task;
  * Class representing the list of tasks.
  */
 public class TaskList {
+    private static final String FILTER_LIST_MSG = "\tHere are the tasks with descriptions matching your query:\n";
+    private static final String DISPLAY_LIST_MSG = "\tHere are the tasks in your list:\n";
+    private static final String LIST_ITEM_FORMAT = "\t%d. %s";
     private final ArrayList<Task> tasks;
 
     /**
@@ -83,13 +86,13 @@ public class TaskList {
      */
     public String filterList(String filterString) {
         StringBuilder returnedString = new StringBuilder();
-        returnedString.append("\tHere are the tasks with descriptions matching your query:\n");
+        returnedString.append(FILTER_LIST_MSG);
 
         for (int idx = 0; idx < this.tasks.size(); idx++) {
             Task curTask = this.getTask(idx);
 
             if (curTask.getDescription().contains(filterString)) {
-                returnedString.append(String.format("\t%d. %s", idx + 1, this.getTask(idx).toString()));
+                returnedString.append(String.format(LIST_ITEM_FORMAT, idx + 1, this.getTask(idx).toString()));
 
                 returnedString.append("\n");
             }
@@ -106,10 +109,10 @@ public class TaskList {
     @Override
     public String toString() {
         StringBuilder returnedString = new StringBuilder();
-        returnedString.append("\tHere are the tasks in your list:\n");
+        returnedString.append(DISPLAY_LIST_MSG);
 
         for (int idx = 0; idx < this.tasks.size(); idx++) {
-            returnedString.append(String.format("\t%d. %s", idx + 1, this.getTask(idx).toString()));
+            returnedString.append(String.format(LIST_ITEM_FORMAT, idx + 1, this.getTask(idx).toString()));
 
             if (idx != this.getSize() - 1) {
                 returnedString.append("\n");
