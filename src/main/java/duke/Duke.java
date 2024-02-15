@@ -1,13 +1,13 @@
 package duke;
 
+import java.util.Scanner;
+
 import duke.command.Parser;
 import duke.exception.DukeException;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 import javafx.application.Platform;
-
-import java.util.Scanner;
 
 /**
  * The Duke class represents the main class for the Duke application.

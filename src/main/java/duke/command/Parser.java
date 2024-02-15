@@ -1,5 +1,10 @@
 package duke.command;
 
+import java.io.IOException;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import duke.exception.DukeException;
 import duke.storage.Storage;
 import duke.task.Deadline;
@@ -10,10 +15,7 @@ import duke.task.TaskPriority;
 import duke.task.ToDo;
 import duke.ui.Ui;
 
-import java.io.IOException;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 /**
  * The Parser class handles the parsing of user commands and executes corresponding actions.
@@ -22,9 +24,9 @@ import java.util.regex.Pattern;
  */
 public class Parser {
 
-    static final int validCommandLength = 1;
-    static final int fullToDoCommandLength = 5;
-    static final int fullFindCommandLength = 5;
+    static final int VALID_COMMAND_LENGTH = 1;
+    static final int FULL_TODO_COMMAND_LENGTH = 5;
+    static final int FULL_FIND_COMMAND_LENGTH = 5;
     protected Storage storage;
     protected Scanner scanner;
     protected boolean isRunning;
@@ -159,7 +161,7 @@ public class Parser {
      * @throws DukeException If there is an issue handling the 'mark' command.
      */
     private void handleMarkCommand(String[] words) throws IOException, DukeException {
-        if (words.length <= validCommandLength) {
+        if (words.length <= VALID_COMMAND_LENGTH) {
             String error = "mark what? Please re-enter correctly with the task number!";
             Ui.showError(error);
             this.response = error;
@@ -189,7 +191,7 @@ public class Parser {
      * @throws DukeException If there is an issue handling the 'unmark' command.
      */
     private void handleUnmarkCommand(String[] words) throws IOException, DukeException {
-        if (words.length <= validCommandLength) {
+        if (words.length <= VALID_COMMAND_LENGTH) {
             String error = "unmark what? Please re-enter correctly with the task number!";
             Ui.showError(error);
             this.response = error;
@@ -240,7 +242,7 @@ public class Parser {
      */
     private void handleDeleteCommand(String[] words) throws DukeException, IOException {
         int taskNumber = Integer.parseInt(words[1]) - 1;
-        if (words.length <= validCommandLength) {
+        if (words.length <= VALID_COMMAND_LENGTH) {
             String error = "delete what? Please re-enter correctly with the task number!";
             Ui.showError(error);
             this.response = error;
@@ -266,7 +268,7 @@ public class Parser {
         Matcher toDoMatcher = Pattern.compile("todo\\s+(\\S.+?)(?:\\s*/p|$)").matcher(command);
         String todoTask = toDoMatcher.find() ? toDoMatcher.group(1).trim() : "";
 
-        if (command.length() <= fullToDoCommandLength) {
+        if (command.length() <= FULL_TODO_COMMAND_LENGTH) {
             String reply = "you gotta enter some task TO DO!";
             ui.showError(reply);
             this.response = reply;
@@ -386,7 +388,7 @@ public class Parser {
      * @throws DukeException If there is an issue handling the 'find' command.
      */
     private void handleFindCommand() throws DukeException {
-        if (command.length() <= fullFindCommandLength) {
+        if (command.length() <= FULL_FIND_COMMAND_LENGTH) {
             String reply = "find what? Please re-enter correctly!";
             ui.showError(reply);
             this.response = reply;

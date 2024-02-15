@@ -1,11 +1,11 @@
 package duke.task;
 
-import duke.exception.DukeException;
-import duke.ui.Ui;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import duke.exception.DukeException;
+import duke.ui.Ui;
 
 /**
  * The Event class represents a task that spans a specific duration.
@@ -46,6 +46,13 @@ public class Event extends Task {
         initializeEvent();
     }
 
+    /**
+     * Initializes the event by parsing the "from" and "to" date-time strings using the specified date-time format.
+     * Validates the inputs and ensures that either LocalDateTime or its corresponding string representation is
+     * non-null.
+     *
+     * @throws DukeException If there is an issue with the date-time parsing or if the inputs are invalid.
+     */
     public void initializeEvent() throws DukeException {
         try {
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");

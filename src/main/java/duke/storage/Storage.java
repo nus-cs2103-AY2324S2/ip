@@ -1,5 +1,14 @@
 package duke.storage;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import duke.exception.DukeException;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -10,17 +19,6 @@ import duke.task.TaskStatus;
 import duke.task.TaskType;
 import duke.task.ToDo;
 import duke.ui.Ui;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
-import java.util.ArrayList;
-import java.util.Scanner;
 
 
 /**
