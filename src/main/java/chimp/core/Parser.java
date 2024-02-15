@@ -18,6 +18,9 @@ public class Parser {
         input = input.toLowerCase();
         String command = input.split(" ")[0];
         String arg = null;
+
+        assert command != null : "command should not be null";
+
         if (input.split(" ").length > 1) {
             // split at first space, and take everything on the right
             arg = input.substring(input.indexOf(' '), input.length());
