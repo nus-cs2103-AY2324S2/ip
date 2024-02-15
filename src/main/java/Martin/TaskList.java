@@ -23,7 +23,6 @@ public class TaskList {
      * @return The list of tasks.
      */
     public ArrayList<Task> getTodoList() {
-        
         return this.tasks;
     }
 
