@@ -26,7 +26,7 @@ public abstract class Find extends Template {
      * @throws InvalidInput                   If the information following the
      *                                        command is not comprehesible
      **/
-    public static boolean run(String input, ArrayList<Task> list)
+    public static boolean check(String input, ArrayList<Task> list)
             throws ValueNotFound, InvalidInput {
         if (isTrigger(input, trigger)) {
             throw new ValueNotFound("You need to provide a value for find");
@@ -34,9 +34,13 @@ public abstract class Find extends Template {
         if (!isTriggerPrefix(input, trigger)) {
             return false;
         }
+        return true;
+    }
+
+    public static String run(String input, ArrayList<Task> list) {
+        String result = "";
         if (list.size() == 0) {
-            System.out.println("Sorry, you haven't created any tasks yet :(");
-            return true;
+            return "Sorry, you haven't created any tasks yet :(\n";
         }
         Pattern pattern = Pattern.compile(removePrefix(input, trigger).toLowerCase());
         Matcher matcher;
@@ -49,16 +53,15 @@ public abstract class Find extends Template {
             }
         }
         if (!oneMatch) {
-            System.out.println("Sorry, there are no matching tasks :(");
-            return true;
+            return "Sorry, there are no matching tasks :(\n";
         }
-        System.out.println(" Here are matching the tasks in your list:");
+        result += " Here are matching the tasks in your list:\n";
         for (int i = 0; i < list.size(); i++) {
             matcher = pattern.matcher(list.get(i).toString());
             if (matcher.find()) {
-                System.out.println(i + 1 + "." + (list.get(i).toString()));
+                result += i + 1 + "." + (list.get(i).toString()) + "\n";
             }
         }
-        return true;
+        return result;
     }
 }

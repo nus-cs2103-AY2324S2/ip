@@ -13,14 +13,10 @@ public class Alpaca {
         ui = new Ui();
     }
 
-    private void run() {
-        ui.run();
-    }
-
     /**
      * Creates and runs an instance of alpaca.
      **/
     public static void main(String[] args) {
-        new Alpaca().run();
+        return;
     }
 }

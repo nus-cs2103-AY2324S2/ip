@@ -29,7 +29,7 @@ public abstract class Unmark extends Template {
      * @throws InvalidInput                   If the information following the
      *                                        command is not comprehesible
      **/
-    public static boolean run(String input, ArrayList<Task> list)
+    public static boolean check(String input, ArrayList<Task> list)
             throws ArrayIndexOutOfBoundsException, ValueNotFound, InvalidInput {
         if (input.toLowerCase().equals(trigger)) {
             throw new ValueNotFound("Unmark needs a index");
@@ -44,10 +44,16 @@ public abstract class Unmark extends Template {
         if (index < 0 || index >= list.size()) {
             throw new ArrayIndexOutOfBoundsException("An item does not exist at that index");
         }
+        return true;
+    }
+
+    public static String run(String input, ArrayList<Task> list) throws InvalidInput{
+        String result = "";
+        int index = getNumber(input, trigger) - 1;
         Task task = list.get(index);
         task.setUndone();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task.toString());
-        return true;
+        result += "OK, I've marked this task as not done yet:\n";
+        result += task.toString();
+        return result;
     }
 }
