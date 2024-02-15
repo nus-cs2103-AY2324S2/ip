@@ -3,6 +3,7 @@ package alpa.tasks;
 import alpa.exceptions.AlpaException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TaskList {
   private List<Task> tasks;
@@ -19,6 +20,18 @@ public class TaskList {
     tasks.add(task);
   }
 
+    /**
+     * Finds tasks in the task list that contain the specified keyword in their description.
+     *
+     * @param keyword the keyword to search for in the task descriptions
+     * @return a list of tasks that contain the specified keyword in their description
+     */
+    public List<Task> findTasksByKeyword(String keyword) {
+        return tasks.stream()
+                    .filter(task -> task.getDescription().toLowerCase().contains(keyword.toLowerCase()))
+                    .collect(Collectors.toList());
+    }
+  
   public Task deleteTask(int index) throws AlpaException {
     if (index >= 0 && index < tasks.size()) {
       return tasks.remove(index);

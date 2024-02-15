@@ -27,6 +27,15 @@ public class Task {
     return (isDone ? "[ X ]" : "[   ]");
   }
 
+    /**
+     * Returns the description of the task.
+     *
+     * @return the description of the task
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
   public String toFileFormat() {
     String status = isDone ? "1" : "0";
     return getType().getShortName() + " | " + status + " | " + description;

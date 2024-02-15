@@ -1,7 +1,7 @@
 package alpa.commands;
 
 public enum CommandType {
-    BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID;
+    BYE, LIST, MARK, UNMARK, FIND, TODO, DEADLINE, EVENT, DELETE, INVALID;
 
     public static CommandType fromString(String commandString) {
         try {
