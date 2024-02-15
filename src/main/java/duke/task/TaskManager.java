@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import duke.DukeException;
 import duke.parser.DateHandler;
@@ -276,12 +277,13 @@ public class TaskManager {
      * @return A list of items containing the search results.
      */
     public String[] findTask(String search) {
-        List<String> foundTask = items.stream().filter(item -> item.toString().contains(search))
-                                      .map(item -> items.indexOf(item) + 1 + ". " + item).collect(Collectors.toList());
+        List<String> foundTask = items.stream().map(Task::toString).filter(string -> string.contains(search))
+                                      .collect(Collectors.toList());
 
         if (!foundTask.isEmpty()) {
-            foundTask.add(0, RESPONSE_FIND);
-            return foundTask.toArray(String[]::new);
+            List<String> print = iterateWithIndex(foundTask);
+            print.add(0, RESPONSE_FIND);
+            return print.toArray(String[]::new);
 
         } else {
             return new String[]{RESPONSE_EMPTY_SEARCH};
@@ -299,17 +301,24 @@ public class TaskManager {
     public String[] viewByDate(String date) throws DukeException {
         LocalDate inputDate = DateHandler.checkDate(date).orElseThrow(() -> new DukeException("dateError"));
         System.out.println(inputDate);
-        List<String> foundDates = items.stream().filter(item -> isMatchDate(item.getType(), item, inputDate))
-                                       .map(item -> items.indexOf(item) + 1 + ". " + item).collect(Collectors.toList());
+        List<String> foundDates =
+                items.stream().filter(item -> isMatchDate(item.getType(), item, inputDate)).map(Task::toString)
+                     .collect(Collectors.toList());
 
         if (!foundDates.isEmpty()) {
-            foundDates.add(0, RESPONSE_VIEW_DATES);
-            return foundDates.toArray(String[]::new);
+            List<String> print = iterateWithIndex(foundDates);
+            print.add(0, RESPONSE_VIEW_DATES);
+            return print.toArray(String[]::new);
 
         } else {
             return new String[]{RESPONSE_EMPTY_SEARCH};
 
         }
+    }
+
+    private static List<String> iterateWithIndex(List<String> toReturn) {
+        return IntStream.range(0, toReturn.size()).mapToObj(i -> (i + 1) + ". " + toReturn.get(i))
+                        .collect(Collectors.toList());
     }
 
     private boolean isMatchDate(SaveType type, Task first, LocalDate second) {
