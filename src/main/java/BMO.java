@@ -1,19 +1,13 @@
-import javax.xml.crypto.Data;
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.time.LocalDateTime;
-import java.util.*;
-import java.lang.*;
-import java.time.format.DateTimeFormatter;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.lang.String;
+import java.util.Scanner;
 
 public class BMO {
 
     private Storage storage;
     private TaskList tasks;
     private UI ui;
+    private boolean isExit = false;
 
     public BMO() {
         ui = new UI();
@@ -22,7 +16,7 @@ public class BMO {
             tasks = new TaskList(storage.loadData(), ui, storage);
         } catch (IOException e) {
             System.out.println("Error: Unable to load data. " + e.getMessage());
-            tasks = new TaskList();
+            tasks = new TaskList(ui);
         }
     }
 
@@ -30,21 +24,17 @@ public class BMO {
         ui.greet();
         ui.printTutorial();
 
-        boolean isExit = false;
-        while (!isExit) {
+        Scanner sc = new Scanner(System.in);
+        do {
+            String input = sc.nextLine().toLowerCase().trim();
             try {
-                String fullCommand = ui.receiveCommand();
-                ui.showLine();
-                Command c = Parser.parse(fullCommand);
+                Command c = Parser.parse(input);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (IOException e) {
                 ui.printErrInvalidCommand();
             }
-        }
-
-        storage.saveData(tasks.toString());
-        ui.salute();
+        } while (!isExit);
     }
 
     public static void main(String[] args) {

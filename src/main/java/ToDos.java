@@ -8,4 +8,9 @@ public class ToDos extends Task {
     public String toString() {
         return "[T] " + super.toString();
     }
+
+    public String toSaveData() {
+        String done = super.getStatus() ? "1" : "0";
+        return "T | " + done + " | " + super.toString() + "\n";
+    }
 }

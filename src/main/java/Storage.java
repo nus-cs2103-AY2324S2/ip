@@ -28,13 +28,19 @@ public class Storage {
         return Files.readString(filePath);
     }
 
-    public void saveData(String content) {
+    public void saveData(TaskList tasks) {
         try {
+            StringBuilder tasksContent = new StringBuilder();
+            for (Task task : tasks) {
+                tasksContent.append(task.toSaveData());
+            }
+
             String projectPath = System.getProperty("user.dir");
-            Path filePath = Paths.get(projectPath, "src", "main", "resources", "data", "bmo_data.txt");
+            java.nio.file.Path filePath = java.nio.file.Paths.get(projectPath, "src",
+                    "main", "resources", "data", "bmo_data.txt");
 
             Files.createDirectories(filePath.getParent());
-            Files.write(filePath, content.getBytes());
+            Files.write(filePath, tasksContent.toString().getBytes());
             System.out.println("Tasks saved successfully.");
         } catch (IOException e) {
             System.out.println("Error: Unable to save data. " + e.getMessage());

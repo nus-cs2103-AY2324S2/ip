@@ -4,19 +4,20 @@ import java.util.List;
 public class TaskList extends ArrayList<Task> {
     private final List<Task> taskLog;
 
-    public TaskList() {
+    public TaskList(UI ui) {
         taskLog = new ArrayList<>();
+        ui.printEmptyStorage();
     }
 
     public TaskList(String content, UI ui, Storage storage) {
         if (content.isBlank()) {
             taskLog = new ArrayList<>();
+            ui.printEmptyStorage();
             return;
         }
-
         taskLog = new ArrayList<>();
         String[] lines = content.split("\n");
-        Integer indexCounter = 0;
+        Integer indexCounter = 1;
 
         for (String line : lines) {
             System.out.println(line);
@@ -29,7 +30,8 @@ public class TaskList extends ArrayList<Task> {
             switch (taskType) {
                 case "T":
                     try {
-                        Parser.parse("todo " + taskDescription);
+                        Command c = Parser.parse("todo " + taskDescription);
+                        c.execute(this, ui, storage);
                         if (isDone) {
                             Command done = new DoneCommand(indexCounter.toString());
                             done.execute(this, ui, storage);
@@ -43,7 +45,8 @@ public class TaskList extends ArrayList<Task> {
                 case "D":
                     String taskDueDate = info[3].trim();
                     try {
-                        Parser.parse("due " + taskDescription + " /by " + taskDueDate);
+                        Command c = Parser.parse("due " + taskDescription + " /by " + taskDueDate);
+                        c.execute(this, ui, storage);
                         if (isDone) {
                             Command done = new DoneCommand(indexCounter.toString());
                             done.execute(this, ui, storage);
@@ -58,7 +61,8 @@ public class TaskList extends ArrayList<Task> {
                     String taskStart = info[3].trim();
                     String taskEnd = info[4].trim();
                     try {
-                        Parser.parse("event " + taskDescription + " /from " + taskStart + " /to " + taskEnd);
+                        Command c = Parser.parse("event " + taskDescription + " /from " + taskStart + " /to " + taskEnd);
+                        c.execute(this, ui, storage);
                         if (isDone) {
                             Command done = new DoneCommand(indexCounter.toString());
                             done.execute(this, ui, storage);
