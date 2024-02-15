@@ -1,15 +1,17 @@
 package henry.task;
 
-import henry.HenryException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import henry.HenryException;
+
+/**
+ * Represents a Deadline Task.
+ */
 public class Deadline extends Task {
-    private final LocalDateTime date;
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
-
+    private final LocalDateTime date;
     /**
      * Creates a Deadline object.
      *

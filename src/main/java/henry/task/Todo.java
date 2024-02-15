@@ -2,6 +2,9 @@ package henry.task;
 
 import henry.HenryException;
 
+/**
+ * Represents a Todo Task.
+ */
 public class Todo extends Task {
     /**
      * Creates a Todo object.
