@@ -3,6 +3,7 @@ package tiny;
 import java.io.IOException;
 
 import tiny.exceptions.TinyException;
+import tiny.lists.ControlList;
 
 /**
  * Represents the class of our program.
@@ -10,7 +11,7 @@ import tiny.exceptions.TinyException;
 public class Tiny {
     private static final String FILE_PATH = "../../../data/tasks.txt";
     private Storage storage;
-    private TaskList tasks;
+    private ControlList controlList;
     private Ui ui;
     private Parser parser = new Parser();
     private boolean isExit = false; 
@@ -22,10 +23,11 @@ public class Tiny {
         ui = new Ui();
         storage = new Storage(FILE_PATH);
         try {
-            tasks = new TaskList(storage.load());
+            controlList = new ControlList();
+            controlList.processData(storage.loadData());
         } catch (TinyException e) {
             ui.showLoadingError();
-            tasks = new TaskList();
+            controlList = new ControlList();        
         }
     }
 
@@ -39,11 +41,14 @@ public class Tiny {
         while (!isExit) {
             try {
                 String input = ui.readCommand();
-                printContent(parser.parse(input, tasks));
-                storage.save(tasks.toSave());
+                printContent(parser.parse(input, controlList));
+                storage.saveData(controlList.formatToSave());
                 isExit = parser.isExit();
             } catch (TinyException e) {
+                assert isExit == false;
+                printLine();
                 ui.showError(e.getMessage());
+                printLine();
             }
         }
     }
@@ -53,8 +58,9 @@ public class Tiny {
      */
     public String getResponse(String input) {
         try {
-            String message = parser.parse(input, tasks);
+            String message = parser.parse(input, controlList);
             isExit = parser.isExit();
+            storage.saveData(controlList.formatToSave());
             return message;
         } catch (TinyException e) {
             return e.getMessage();            
@@ -85,7 +91,7 @@ public class Tiny {
 
     private static void printContent(String input) {
         printLine();
-        tabPrint(input);
+        System.out.println(input);
         printLine();
     }
 

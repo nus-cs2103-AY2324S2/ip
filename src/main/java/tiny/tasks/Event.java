@@ -58,9 +58,10 @@ public class Event extends Task {
         String errorMsg = "Please ensure that you are using the format event <description> "
                 + "/from yyyy-MM-dd <time> /to <end date>. "
                 + "eg. event meeting /from 2024-01-29 1835 /to 2035";
-        // Date
+        // Processes the date
         try {
             String[] dateSplit = dateTimeSplit[0].split("-");
+            assert dateSplit.length == 3;
             year = Integer.parseInt(dateSplit[0]);
             month = Integer.parseInt(dateSplit[1]);
             day = Integer.parseInt(dateSplit[2]);
@@ -69,14 +70,15 @@ public class Event extends Task {
             throw new TinyException(errorMsg);
         }
 
-        // Time
+        // Processes the time
         if (dateTimeSplit[1].length() == 4) {
             try {
                 int time = Integer.parseInt(dateTimeSplit[1]);
-                if (time >= 2400 || time < 0) {
+                if (isValidTime(time)) {
                     throw new TinyException("Please choose a time from 0000 to 2359!");
                 }
                 String[] hourMinuteSplit = dateTimeSplit[1].split("");
+                assert hourMinuteSplit.length == 4;
                 hour = Integer.parseInt(hourMinuteSplit[0] + hourMinuteSplit[1]);
                 minute = Integer.parseInt(hourMinuteSplit[2] + hourMinuteSplit[3]);
             } catch (Exception e) {
@@ -104,10 +106,11 @@ public class Event extends Task {
                 + "eg. event meeting /from 2024-01-29 1835 /to 2035";
         int time = Integer.parseInt(timeStr);
         try {
-            if (time >= 2400 || time < 0) {
+            if (isValidTime(time)) {
                 throw new TinyException("Please choose your end time from 0000 to 2359!");
             }
             String[] hourMinuteSplit = timeStr.split("");
+            assert hourMinuteSplit.length == 4;
             int hour = Integer.parseInt(hourMinuteSplit[0] + hourMinuteSplit[1]);
             int minute = Integer.parseInt(hourMinuteSplit[2] + hourMinuteSplit[3]);
             return LocalTime.of(hour, minute);
@@ -157,14 +160,18 @@ public class Event extends Task {
         return endTime.format(formatter);
     }
 
+    private boolean isValidTime(int time) {
+        return time >= 2400 || time < 0;
+    }
+
     /**
      * Formats the task into the correct format to save.
      *
      * @return String of the task in the correct format to save.
      */       
     @Override
-    public String toSave() {
-        return "E" + super.toSave() + " | " + startDatetimeSaveFormat() + " | " + endTimeSaveFormat();
+    public String formatToSave() {
+        return "E" + super.formatToSave() + " | " + startDatetimeSaveFormat() + " | " + endTimeSaveFormat();
     }
 
     @Override

@@ -29,7 +29,7 @@ public class Storage {
      *
      * @return An ArrayList that contains the details of the tasks in each entry.
      */
-    public ArrayList<String> load() throws TinyException {
+    public ArrayList<String> loadData() throws TinyException {
         try {
             if (!new File("../../../data").exists()) {
                 new File("../../../data").mkdirs();
@@ -51,17 +51,17 @@ public class Storage {
     /**
      * Writes (save) tasks data to a specified file path.
      *
-     * @param tasksToSave The list of data to be saved.
+     * @param dataToSave The list of data to be saved.
      */
-    public void save(ArrayList<String> tasksToSave) {
+    public void saveData(ArrayList<String> dataToSave) {
         try {
             new FileWriter(filePath).close();
 
-            FileWriter myWriter = new FileWriter(filePath);
-            for (int i = 0; i < tasksToSave.size(); i++) {
-                myWriter.write(tasksToSave.get(i) + "\n");
+            FileWriter fileWriter = new FileWriter(filePath);
+            for (int i = 0; i < dataToSave.size(); i++) {
+                fileWriter.write(dataToSave.get(i) + "\n");
             }
-            myWriter.close();
+            fileWriter.close();
         } catch (IOException e) {
             System.out.println("An error occurred when saving.");
         }

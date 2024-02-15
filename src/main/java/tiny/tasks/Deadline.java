@@ -50,9 +50,10 @@ public class Deadline extends Task {
         int minute = 0;
         String errorMsg = "Please ensure that you are using the format deadline <description> /by "
                 + "yyyy-MM-dd <time>. eg. deadline assignment /by 2024-01-29 1835";
-        // Date
+        // Processes the date
         try {
             String[] dateSplit = dateTimeSplit[0].split("-");
+            assert dateSplit.length == 3;
             year = Integer.parseInt(dateSplit[0]);
             month = Integer.parseInt(dateSplit[1]);
             day = Integer.parseInt(dateSplit[2]);
@@ -61,14 +62,15 @@ public class Deadline extends Task {
             throw new TinyException(errorMsg);
         }
 
-        // Time
+        // Processes the time
         if (dateTimeSplit[1].length() == 4) {
             try {
                 int time = Integer.parseInt(dateTimeSplit[1]);
-                if (time >= 2400 || time < 0) {
+                if (isValidTime(time)) {
                     throw new TinyException("Please choose a time from 0000 to 2359!");
                 }
                 String[] hourMinuteSplit = dateTimeSplit[1].split("");
+                assert hourMinuteSplit.length == 4;
                 hour = Integer.parseInt(hourMinuteSplit[0] + hourMinuteSplit[1]);
                 minute = Integer.parseInt(hourMinuteSplit[2] + hourMinuteSplit[3]);
             } catch (Exception e) {
@@ -103,14 +105,18 @@ public class Deadline extends Task {
         return endDatetime.format(formatter);
     }
 
+    private boolean isValidTime(int time) {
+        return time >= 2400 || time < 0;
+    }
+
     /**
      * Formats the task into the correct format to save.
      *
      * @return String of the task in the correct format to save.
      */       
     @Override
-    public String toSave() {
-        return "D" + super.toSave() + " | " + endDatetimeSaveFormat();
+    public String formatToSave() {
+        return "D" + super.formatToSave() + " | " + endDatetimeSaveFormat();
     }
 
     @Override
