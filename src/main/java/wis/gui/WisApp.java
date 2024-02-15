@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,7 +24,7 @@ public class WisApp extends Application {
     private Button sendButton;
     private Scene scene;
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image wisImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image wisImage = new Image(this.getClass().getResourceAsStream("/images/Wis.png"));
 
     Bridge bridge = new Bridge();
 
@@ -91,7 +92,7 @@ public class WisApp extends Application {
 
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
-        userInput.setPrefWidth(325.0);
+        userInput.setPrefWidth(625.0);
 
         sendButton.setPrefWidth(55.0);
 
@@ -117,13 +118,13 @@ public class WisApp extends Application {
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
+        TextArea userText = new TextArea(userInput.getText());
         String response = bridge.getResponse(userInput);
         if (response == "") {
             return;
         }
 
-        Label dukeText = new Label(response);
+        TextArea dukeText = new TextArea(response);
 
         dialogContainer.getChildren().addAll(
                 new DialogBox(userText, new ImageView(userImage)),
