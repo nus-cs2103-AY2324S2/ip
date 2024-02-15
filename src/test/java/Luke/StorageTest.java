@@ -2,9 +2,6 @@ package Luke;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.IOException;
-import java.time.format.DateTimeFormatter;
-
 import org.junit.jupiter.api.Test;
 
 public class StorageTest {
