@@ -33,27 +33,30 @@ public class Damon {
             } else if (inputString.startsWith("unmark")) {
                 int index = Integer.parseInt(inputString.substring(7)) - 1;
                 unmark(index);
-            } else {
+            } else if (inputString.startsWith("todo")
+                    || inputString.startsWith("deadline") || inputString.startsWith("event")){
                 storeInput(inputString);
+            } else {
+                echo(inputString);
             }
         }
     }
 
     static void stop() {
-        System.out.println("__________________________________________________________\n"
+        System.out.println("____________________________________________________________\n"
                 + "Bye. Hope to see you again soon!\n"
-                + "__________________________________________________________\n");
+                + "____________________________________________________________\n");
     }
 
     static void showList () {
         int n = storage.size();
-        System.out.println("__________________________________________________________\n"
+        System.out.println("____________________________________________________________\n"
                 + "Here are the tasks in your list:\n");
         for (int i = 0; i < n; i++) {
             Task currentTask = storage.get(i);
             System.out.println((i + 1) + "." + currentTask.toString() + "\n");
         }
-        System.out.println("__________________________________________________________\n");
+        System.out.println("____________________________________________________________\n");
     }
 
     static void storeInput(String inputString) {
@@ -80,33 +83,33 @@ public class Damon {
             storage.add(newEvent);
             newTask = newEvent;
         }
-        System.out.println("__________________________________________________________\n"
+        System.out.println("____________________________________________________________\n"
                 + "Got it. I've added this task:\n"
                 + newTask.toString() + "\n"
                 + "Now you have " + storage.size() + " tasks in the list.\n"
-                + "__________________________________________________________\n");
+                + "____________________________________________________________\n");
     }
 
     static void echo(String inputString) {
-            System.out.println("__________________________________________________________\n"
+            System.out.println("____________________________________________________________\n"
                     + inputString + "\n"
-                    + "__________________________________________________________\n");
+                    + "____________________________________________________________\n");
     }
 
     static void mark(int index) {
         storage.get(index).markAsDone();
-        System.out.println("__________________________________________________________\n"
+        System.out.println("____________________________________________________________\n"
                 + "Nice! I've marked this task as done:\n"
                 + storage.get(index).toString() + "\n"
-                + "__________________________________________________________\n");
+                + "____________________________________________________________\n");
     }
 
     static void unmark(int index) {
         storage.get(index).markBackNotDone();
-        System.out.println("__________________________________________________________\n"
+        System.out.println("____________________________________________________________\n"
                 + "OK, I've marked this task as not done yet:\n"
                 + storage.get(index).toString() + "\n"
-                + "__________________________________________________________\n");
+                + "____________________________________________________________\n");
     }
 
 
