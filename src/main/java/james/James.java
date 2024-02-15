@@ -161,15 +161,6 @@ public class James extends Application {
     public String getResponse(String input) {
         return "James heard: " + input;
     }
-    // private void processCommand(String input) {
-    //     try {
-    //         Command command = Parser.parse(input);
-    //         String response = command.execute(tasks, ui, storage);
-    //         dialogContainer.getChildren().add(new Label(response)); // Display the response
-    //     } catch (DukeException e) {
-    //         dialogContainer.getChildren().add(new Label(e.getMessage())); // Display the error message
-    //     }
-    // }
 
     public static void main(String[] args) {
         launch(args); // Launch the JavaFX application
