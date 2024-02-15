@@ -14,8 +14,8 @@ public class UI {
     /**
      * Displays greeting sentence.
      */
-    public void onEnter() {
-        System.out.println("Hello! I'm Plaudern\nWhat can I do for you?");
+    public String onEnter() {
+        return "Hello! I'm Plaudern\nWhat can I do for you?\n";
     }
 
     /**

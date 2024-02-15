@@ -46,8 +46,8 @@ public class Duke {
      * Runs the chatbot.
      */
     public void run() {
-        ui.onEnter();
-        String response;
+        System.out.println(ui.onEnter());
+        String response = "";
         do {
             response = getResponse(ui.getUserInput());
         } while (!Objects.equals(response, "Bye. Hope to see you again soon!"));
@@ -69,7 +69,6 @@ public class Duke {
             // the parser object contains all the current user input line information
             Parser parser = new Parser();
             parser.parse(userInput);
-            System.out.println(userInput);
 
             // check for end the session
             if (parser.getCurrentKey().equals(KeyEnum.EXITKEY)) {
@@ -119,5 +118,13 @@ public class Duke {
             response = ui.showLoadingError();
         }
         return response;
+    }
+
+    /**
+     * Gets next due tasks.
+     * @return next due tasks
+     */
+    public String getNextDueTasks() {
+        return tasks.nextDueTasksToString(2);
     }
 }

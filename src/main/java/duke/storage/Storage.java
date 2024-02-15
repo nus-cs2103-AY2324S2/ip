@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,6 +14,7 @@ import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
 import duke.tasks.Todo;
+import duke.utils.Parser;
 
 /**
  * Class represent a file and contains functions processing a file.
@@ -95,7 +98,7 @@ public class Storage {
      * @param str String format of the task
      * @return The respective task object
      */
-    private Task stringToTask(String str) throws IOException {
+    private Task stringToTask(String str) throws IOException, DateTimeParseException {
         assert str != null : "String should not be null";
         String[] strSplit = str.split("\\|");
         if (strSplit.length <= 1) {
@@ -109,12 +112,12 @@ public class Storage {
             task = new Todo(status, detail);
             break;
         case "D":
-            String by = strSplit[3];
+            LocalDate by = Parser.formatDate(strSplit[3]);
             task = new Deadline(status, detail, by);
             break;
         case "E":
-            String from = strSplit[3];
-            String to = strSplit[4];
+            LocalDate from = Parser.formatDate(strSplit[3]);
+            LocalDate to = Parser.formatDate(strSplit[4]);
             task = new Event(status, detail, from, to);
             break;
         default:
