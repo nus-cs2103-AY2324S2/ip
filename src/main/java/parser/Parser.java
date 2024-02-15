@@ -52,6 +52,13 @@ public class Parser {
         return output;
     }
 
+    /**
+     * Returns the list to be printed in the gui
+     * @param taskList task list
+     * @param ui ui
+     * @return the task list to be printed
+     * @throws JuxException if list is empty
+     */
     private static String getListString(TaskList taskList, Ui ui) throws JuxException {
         String output;
         if (taskList.isEmpty()) {
@@ -61,6 +68,14 @@ public class Parser {
         return output;
     }
 
+    /**
+     * Returns the string to be printed in the Gui
+     * @param input user input
+     * @param taskList task list
+     * @param ui ui
+     * @return the marked string to be printed
+     * @throws JuxException exception for incorrect input
+     */
     private static String getmarkString(String input, TaskList taskList, Ui ui) throws JuxException {
         String output;
         if (input.length() > 5) {
@@ -77,6 +92,12 @@ public class Parser {
         return output;
     }
 
+    /**
+     * Exception for input for mark string
+     * @param taskList task list
+     * @param convertedToNumber the index of the task in tasklist
+     * @throws JuxException the exception to the rule that it violates
+     */
     private static void exceptionMarkString(TaskList taskList, int convertedToNumber) throws JuxException {
         if (convertedToNumber < 0 || convertedToNumber >= taskList.getSize()) {
             throw new JuxException("NUMBER NOT IN LIST, PLEASE ADD A TASK OR " +
@@ -88,12 +109,33 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns the unmarked string to be printed in the Gui
+     * @param input user input
+     * @param taskList task list
+     * @param ui ui
+     * @return the unmarked string to be printed
+     * @throws JuxException exception for incorrect input
+     */
     private static String getunmarkString(String input, TaskList taskList, Ui ui) throws JuxException {
         String output;
         String listStringNumber = input.substring(7);
         // future error detection for non-numerals
         int convertedToNumber = Parser.convertStringIndexToIntZeroIndex(listStringNumber);
         // future error when list is empty
+        exceptionUnMarkString(taskList, convertedToNumber);
+        taskList.toggleIndexedTask(convertedToNumber);
+        output = taskList.printTaskUnMarked(ui, convertedToNumber);
+        return output;
+    }
+
+    /**
+     * Exceptions for input for unMark string
+     * @param taskList task list
+     * @param convertedToNumber the task index in the task list
+     * @throws JuxException the exception to the rule that it violates
+     */
+    private static void exceptionUnMarkString(TaskList taskList, int convertedToNumber) throws JuxException {
         if (convertedToNumber < 0 || convertedToNumber >= taskList.getSize()) {
             throw new JuxException("NUMBER NOT IN LIST, PLEASE ADD A TASK OR " +
                     "CHOOSE A DIFFERENT NUMBER WITHIN 1 AND"
@@ -102,11 +144,15 @@ public class Parser {
         if (!taskList.isIndexedTaskChecked(convertedToNumber)) {
             throw new JuxException("TASK ALREADY UNMARKED");
         }
-        taskList.toggleIndexedTask(convertedToNumber);
-        output = taskList.printTaskUnMarked(ui, convertedToNumber);
-        return output;
     }
 
+    /**
+     * Returns the find string to be printed in Gui
+     * @param input user input
+     * @param taskList task list
+     * @param ui ui
+     * @return string from find action
+     */
     private static String getFindString(String input, TaskList taskList, Ui ui) {
         String output;
         String findTask = Parser.parseFind(input);
@@ -119,6 +165,14 @@ public class Parser {
         return output;
     }
 
+    /**
+     * Returns the add task string to be printed in the Gui
+     * @param input user input
+     * @param taskList task list
+     * @param ui ui
+     * @return string for Gui
+     * @throws JuxException
+     */
     private static String getAddTaskString(String input, TaskList taskList, Ui ui) throws JuxException {
         String output;
         String typeOfTask = Parser.typeOfTask(input);
@@ -126,6 +180,15 @@ public class Parser {
         return output;
     }
 
+    /**
+     * Returns the string to be shown in the Gui after
+     * checking whether it violates any exceptions
+     * @param input user input
+     * @param taskList the task list
+     * @param ui the ui
+     * @return
+     * @throws JuxException
+     */
     private static String getDeleteString(String input, TaskList taskList, Ui ui) throws JuxException {
         String output;
         String deleteListStringNumber =  input.substring(7);
@@ -141,6 +204,11 @@ public class Parser {
         return output;
     }
 
+    /**
+     * Returns the string to find
+     * @param input user input
+     * @return the string to find
+     */
     public static  String parseFind(String input) {
         return input.substring(5);
     }
