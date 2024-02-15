@@ -21,24 +21,6 @@ public class Duke {
         assert taskList != null : "Task list should not be null";
     }
 
-    // /** Function to start running the chatbot */
-    // public void run() {
-    //     Scanner scanner = new Scanner(System.in);
-    //     do { // continue the program until 'bye' command is inputted.
-    //         String input = scanner.nextLine().trim();
-    //         Command c = Parser.parseCommand(input);
-    //         c.execute(this.taskList, this.ui, this.storage);
-    //         this.storage.saveTasks(taskList);
-    //         System.out.println("____________________________________________________________");
-    //     } while (ui.isRunning);
-    //     scanner.close();
-    // }
-
-    // /** Main method to run the chatbot */
-    // public static void main(String[] args) {
-    //     new Duke().run();
-    // }
-
     public String processResponse(String input) {
         Command outputCommand = Parser.parseCommand(input);
         String output = outputCommand.execute(taskList, ui, storage);
