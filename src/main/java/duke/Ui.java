@@ -164,4 +164,16 @@ public class Ui {
         this.showLine();
         return output.toString();
     }
+
+    /**
+     * Shows the archive message to the user.
+     * @param archiveName Name of the archive file.
+     * @return The archive message to be shown to the user.
+     */
+    public String showArchiveMessage(String archiveName) {
+        String output = "\tTasks have been archived to " + archiveName;
+        System.out.println(output);
+        this.showLine();
+        return output;
+    }
 }

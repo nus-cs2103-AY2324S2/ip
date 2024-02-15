@@ -64,9 +64,14 @@ public class Storage {
     /**
      * Saves tasks from the task list into the data file.
      * @param list Task list to save the tasks from.
+     * @param dest Destination to save the tasks to.
      */
-    public void saveData(TaskList list) throws Exception {
-        java.io.FileWriter fw = new java.io.FileWriter(this.dataFile);
+    public void saveData(TaskList list, String... dest) throws Exception {
+        File destFile = this.dataFile;
+        if (dest.length > 0) {
+            destFile = new File(Paths.get("data", dest[0]).toString());
+        }
+        java.io.FileWriter fw = new java.io.FileWriter(destFile);
         for (Task task : list.getList()) {
             String type = "";
             String description = task.getDescription();
