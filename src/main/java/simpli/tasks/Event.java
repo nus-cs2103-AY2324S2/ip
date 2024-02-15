@@ -3,6 +3,9 @@ package simpli.tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Event task to know the start and end date and time of the event.
+ */
 public class Event extends Task {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     private LocalDateTime from;
@@ -22,6 +25,12 @@ public class Event extends Task {
         this.to = to;
     }
 
+    /**
+     * Returns the event task as a comma-separated values (csv) String representation.
+     *
+     * @return String representing the csv value for the event task.
+     */
+    @Override
     public String toCsv() {
         return String.format("Event,%s,%s,%s", super.toCsv(),
                 this.from.format(FORMATTER), this.to.format(FORMATTER));
@@ -29,6 +38,7 @@ public class Event extends Task {
 
     /**
      * Returns the event task String representation.
+     *
      * @return String representation of the event task.
      */
     @Override

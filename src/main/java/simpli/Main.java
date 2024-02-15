@@ -1,7 +1,6 @@
 package simpli;
 
 import javafx.application.Application;
-import simpli.core.Simpli;
 import simpli.ui.Gui;
 
 /**
