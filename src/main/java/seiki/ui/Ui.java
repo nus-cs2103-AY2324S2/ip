@@ -62,6 +62,10 @@ public class Ui {
         return temp;
     }
 
+    /**
+     * Generates and prints out the error message.
+     * @param message
+     */
     public String showError(String message) {
         return showToUser(message);
     }
