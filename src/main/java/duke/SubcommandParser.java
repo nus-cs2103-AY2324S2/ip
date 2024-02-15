@@ -1,4 +1,5 @@
 package duke;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -10,8 +11,8 @@ import java.util.regex.Pattern;
 public class SubcommandParser {
     /**
      * Parses subcommands from a string
-     * 
-     * @param text String to parse
+     *
+     * @param text        String to parse
      * @param initializer Initializer for subcommands
      * @return Pair of initial argument and list of subcommands
      */

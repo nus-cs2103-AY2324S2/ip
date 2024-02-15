@@ -1,6 +1,6 @@
 package duke.commands;
-import java.util.List;
 
+import java.util.List;
 import duke.ChatSession;
 import duke.Pair;
 import duke.SubcommandParser;
@@ -10,12 +10,14 @@ import duke.tasks.Deadline;
  * DeadlineCommand class to handle the execution of deadline command
  */
 public class DeadlineCommand implements NamedCommand {
-    public String getName() { return "deadline"; }
+    public String getName() {
+        return "deadline";
+    }
 
     /**
      * Adds a deadline task to the task list
-     * 
-     * @param session Chat session
+     *
+     * @param session     Chat session
      * @param commandArgs Command arguments
      */
     public void execute(ChatSession session, String commandArgs) {
@@ -27,13 +29,13 @@ public class DeadlineCommand implements NamedCommand {
         for (Pair<String, String> subcommPair : subcommPairs) {
             String subcommString = subcommPair.getFirst();
             switch (subcommString) {
-                case "/by":
-                    String date = subcommPair.getSecond();
-                    t.setByDate(date);
-                    break;
-                default:
-                    // add exception handling later
-                    break;
+            case "/by":
+                String date = subcommPair.getSecond();
+                t.setByDate(date);
+                break;
+            default:
+                // add exception handling later
+                break;
             }
         }
 

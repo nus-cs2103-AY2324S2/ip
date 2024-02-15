@@ -1,10 +1,10 @@
 package duke;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import duke.tasks.Task;
 
 /**
@@ -16,6 +16,7 @@ public class TaskList {
 
     /**
      * Constructor for TaskList class
+     *
      * @param dataFile File object
      */
     TaskList(File dataFile) {
@@ -29,6 +30,7 @@ public class TaskList {
 
     /**
      * Generates a string representation of the current list
+     *
      * @return String of tasks
      */
     public String generateName() {
@@ -46,6 +48,7 @@ public class TaskList {
 
     /**
      * Adds task to list
+     *
      * @param t Task to add
      */
     public void add(Task t) {
@@ -55,6 +58,7 @@ public class TaskList {
 
     /**
      * Deletes task from list
+     *
      * @param index 1-indexed index of task to delete
      */
     public void delete(int index) {
@@ -64,6 +68,7 @@ public class TaskList {
 
     /**
      * Deletes and return task from list
+     *
      * @param index 1-indexed index of task to mark
      */
     public Task pop(int index) {

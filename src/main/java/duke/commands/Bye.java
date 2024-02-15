@@ -1,4 +1,5 @@
 package duke.commands;
+
 import duke.ChatSession;
 
 /**
@@ -13,8 +14,8 @@ public class Bye implements NamedCommand {
 
     /**
      * Executes the command
-     * 
-     * @param session Chat session
+     *
+     * @param session     Chat session
      * @param commandArgs Command arguments
      */
     public void execute(ChatSession session, String commandArgs) {

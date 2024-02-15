@@ -1,4 +1,5 @@
 package duke.commands;
+
 import duke.ChatSession;
 import duke.tasks.Task;
 
@@ -6,12 +7,14 @@ import duke.tasks.Task;
  * Mark class to handle the execution of mark command
  */
 public class Mark implements NamedCommand {
-    public String getName() { return "mark"; }
+    public String getName() {
+        return "mark";
+    }
 
     /**
      * Marks a task as done
-     * 
-     * @param session Chat session
+     *
+     * @param session     Chat session
      * @param commandArgs Command arguments
      */
     public void execute(ChatSession session, String commandArgs) {
