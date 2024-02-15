@@ -1,8 +1,10 @@
-public class Events extends Task {
-    protected String start;
-    protected String end;
+import java.time.LocalDate;
 
-    public Events(String description, String start, String end) {
+public class Events extends Task {
+    protected LocalDate start;
+    protected LocalDate end;
+
+    public Events(String description, LocalDate start, LocalDate end) {
         super(description);
         this.start = start;
         this.end = end;

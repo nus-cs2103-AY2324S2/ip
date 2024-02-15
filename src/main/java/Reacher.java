@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -69,15 +72,18 @@ public class Reacher {
                             System.out.println("I've added " + t.toString());
                         } else if (type.equalsIgnoreCase("deadline")) {
                             System.out.println("When is the deadline?");
-                            String deadline = scanner.nextLine();
+                            LocalDate deadline = LocalDate.parse(scanner.nextLine());
                             Deadline t = new Deadline(input, deadline);
                             memory.add(t);
                             System.out.println("I've added " + t.toString());
                         } else if (type.equalsIgnoreCase("event")) {
                             System.out.println("When is the start?");
-                            String start = scanner.nextLine();
+                            LocalDate start = LocalDate.parse(scanner.nextLine());
                             System.out.println("When is the end?");
-                            String end = scanner.nextLine();
+                            LocalDate end = LocalDate.parse(scanner.nextLine());
+                            if (start.isAfter(end)){
+                                throw new ReacherException("End cannot be before start.");
+                            }
                             Events t = new Events(input, start, end);
                             memory.add(t);
                             System.out.println("I've added " + t.toString());
@@ -87,6 +93,8 @@ public class Reacher {
                         storage.storeList(memory);
                     } catch (ReacherException e) {
                         System.out.println(e.getMessage());
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Pls enter a valid date format, yyyy-mm-dd");
                     }
                 }
             } catch (Exception e) {
