@@ -49,6 +49,7 @@ public class Parser {
         int n = parameters.length;
         String[] result = new String[n + 1];
 
+        // Split the string repeatedly to extract the rightmost parameter
         String[] splitString = new String[] { parametersString };
         for (int i = n - 1; i >= 0; i--) {
             splitString = splitString[0].split(" /" + parameters[i] + ' ', 2);
@@ -59,8 +60,8 @@ public class Parser {
             result[i + 1] = splitString[1];
         }
 
+        // Assign result[0] to be the description before returning result
         result[0] = splitString[0];
-
         return result;
     }
 
@@ -72,12 +73,15 @@ public class Parser {
             // TODO: use extractParameters once it has been generalised
             String remaining = commandArgs[1];
 
+            // Try to extract "on" and "due_in" from the remaining portion of the command
             String[] onSplit = remaining.split("/on ", 2);
             String[] dueInSplit = remaining.split("/due_in ", 2);
 
+            // Check which parameter is being extracted
             boolean hasOn = onSplit.length > 1;
             boolean hasDueIn = dueInSplit.length > 1;
 
+            // Return the corresponding Command depending on the parameter extracted
             if (hasOn) {
                 try {
                     LocalDate on = LocalDate.parse(onSplit[1], FORMATTER_DATE);
@@ -117,6 +121,7 @@ public class Parser {
     private static Command parseAdd(
             String[] commandArgs) throws InvalidDateTimeException,
             EmptyDescriptionException, ParameterNotFoundException {
+        // Add command without a description
         if (commandArgs.length == 1) {
             throw new EmptyDescriptionException(commandArgs[0]);
         }
@@ -128,6 +133,7 @@ public class Parser {
         String[] parameters;
         String description;
 
+        // Return the corresponding Command depending on the type of task to be added
         try {
             switch (taskType) {
             case COMMAND_TODO:
@@ -155,12 +161,15 @@ public class Parser {
         // TODO: Use regex
         String[] commandArgs = command.trim().split(" ", 2);
 
+        // Set command to be the command entered by the user, rather than the entire line of string
         command = commandArgs[0];
 
+        // Return an ExitCommand if we encounter an exit command
         if (command.equals(Parser.COMMAND_EXIT)) {
             return new ExitCommand();
         }
 
+        // Parse the command differently depending on the type of command encountered
         switch (command) {
         case Parser.COMMAND_LIST:
             return parseList(commandArgs);

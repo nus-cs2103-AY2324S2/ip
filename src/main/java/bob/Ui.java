@@ -86,13 +86,16 @@ public class Ui {
         show(new String[] {HEADER_DELETE, " ".repeat(2) + task, String.format(FOOTER_DELETE, numberOfTasks) });
     }
     public void showList(ArrayList<Task> tasks) {
+        // Prepare an array to store the lines to display, setting the first element as the header line
         String[] lines = new String[tasks.size() + 1];
         lines[0] = HEADER_LIST;
 
+        // Go through the given list and add them into lines
         for (int i = 0; i < tasks.size(); i++) {
             lines[i + 1] = (i + 1) + ". " + tasks.get(i);
         }
 
+        // Display the lines
         show(lines);
     }
 

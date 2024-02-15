@@ -39,17 +39,28 @@ public class Storage {
 
     // TODO: Once extractParameter is more generalised, we can move this to Parser
     private static Task parseStorageLine(String line) throws LoadingException {
+        // Split the line with  " | " as separator
         String[] parameters = line.split(" \\| ");
 
+        // The first part of the split indicates the task type
         String taskType = parameters[0];
 
+        // The second part of the split indicates whether the task is done, and therefore should only be true or false
         if (!parameters[1].equals("true") && !parameters[1].equals("false")) {
             throw new LoadingException("invalid value for isDone detected");
         }
 
+        // Store the second part of the split
         boolean isDone = Boolean.parseBoolean(parameters[1]);
+        return getTask(parameters, taskType, isDone);
+    }
+
+    private static Task getTask(String[] parameters, String taskType, boolean isDone) throws LoadingException {
+        // TODO: Add JavaDoc header comment
+        // The third part of the split indicates the task description
         String description = parameters[2];
 
+        // Parse the remaining parts of the split according to the task type
         Task task;
         switch (taskType) {
         case Todo.STORAGE_INDICATOR:
@@ -77,15 +88,15 @@ public class Storage {
 
     public ArrayList<Task> load(String dataPath) throws LoadingException {
         try {
+            // Create or retrieve the data file
             dataFile = createOrRetrieve(dataPath);
 
+            // Read the data file and load its content into tasks.
             try (Scanner s = new Scanner(dataFile)) {
                 ArrayList<Task> tasks = new ArrayList<>();
-
                 while (s.hasNext()) {
                     tasks.add(parseStorageLine(s.nextLine()));
                 }
-
                 return tasks;
             }
         } catch (Exception e) {
