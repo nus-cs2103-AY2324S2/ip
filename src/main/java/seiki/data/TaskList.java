@@ -81,7 +81,7 @@ public class TaskList {
         } else {
             for (int i = 0; i < taskList.size(); i++) {
                 int taskNum = i + 1;
-                String taskString = "→ " + taskNum + ". " + taskList.get(i).toString();
+                String taskString = "\u2794 " + taskNum + ". " + taskList.get(i).toString();
                 sb.append(taskString);
                 if (taskNum != taskList.size()) {
                     sb.append("\n");

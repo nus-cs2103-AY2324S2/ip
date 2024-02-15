@@ -35,7 +35,7 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return isDone ? " ✓" : "";
+        return isDone ? " \u2713" : "";
     }
 
     public boolean hasKeyword(String keyword) {

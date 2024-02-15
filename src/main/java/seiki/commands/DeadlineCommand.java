@@ -23,7 +23,8 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(Storage storage, TaskList taskList, Ui ui) throws SeikiException {
+    public String execute(Storage storage, TaskList taskList, Ui ui) throws SeikiException {
+        StringBuilder sb = new StringBuilder();
         if (!this.args.contains("/by")
                 || this.args.subList(this.args.indexOf("/by") + 1, this.args.size()).size() == 0) {
             throw new SeikiException("The date time for the task is not found.\n"
@@ -40,7 +41,8 @@ public class DeadlineCommand extends Command {
                 Deadline task = new Deadline(taskName, dateTime);
                 taskList.addTask(task);
                 storage.save(taskList);
-                ui.showAddTask(task, taskList);
+
+                return ui.showAddTask(task, taskList);
             } catch (DateTimeParseException e) {
                 throw new SeikiException("The format of the date time is incorrect.\n"
                         + "Please use the following format: yyyy/MM/dd HHmm");

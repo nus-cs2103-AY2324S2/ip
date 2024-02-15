@@ -13,7 +13,6 @@ import static seiki.common.Messages.MESSAGE_TASK;
 import static seiki.common.Messages.MESSAGE_UNMARK_SUCCESS;
 
 import java.io.InputStream;
-import java.io.PrintStream;
 import java.util.Scanner;
 
 import seiki.data.TaskList;
@@ -27,9 +26,9 @@ public class Ui {
     private static final String DIVIDER = "────────────────────────────────────────────────────────────";
 
     private final Scanner in;
-    private final PrintStream out;
+    private StringBuilder out;
     public Ui() {
-        this(System.in, System.out);
+        this(System.in, new StringBuilder());
     }
 
     /**
@@ -37,7 +36,7 @@ public class Ui {
      * @param in
      * @param out
      */
-    public Ui(InputStream in, PrintStream out) {
+    public Ui(InputStream in, StringBuilder out) {
         this.in = new Scanner(in);
         this.out = out;
     }
@@ -46,99 +45,91 @@ public class Ui {
      * Generates and prints the welcome message upon the start of the chatbot.
      */
     public void showWelcome() {
-        showToUser(DIVIDER,
-                MESSAGE_LOGO,
-                MESSAGE_GREETING,
-                DIVIDER);
+        showToUser(MESSAGE_LOGO,
+                MESSAGE_GREETING);
     }
 
     /**
      * Shows the message(s) to the user.
      * @param message
      */
-    public void showToUser(String... message) {
+    public String showToUser(String... message) {
         for (String m : message) {
-            out.println(m);
+            out.append(m).append("\n");
         }
+        String temp = out.toString();
+        out = new StringBuilder();
+        return temp;
     }
 
-    public String readCommand() {
-        return in.nextLine();
-    }
-
-    public void showLine() {
-        showToUser(DIVIDER);
-    }
-
-    public void showError(String message) {
-        showToUser(message);
+    public String showError(String message) {
+        return showToUser(message);
     }
 
     /**
      * Generates and prints out the farewell message upon termination.
      */
-    public void showEnd() {
-        showToUser(MESSAGE_FAREWELL,
-                DIVIDER);
+    public String showEnd() {
         in.close();
+        return showToUser(MESSAGE_FAREWELL);
     }
 
     /**
-     * Generates and prints out the newly added task upon success.
+     * Generates and returns the newly added task upon success.
      * @param task
      * @param taskList
      */
-    public void showAddTask(Task task, TaskList taskList) {
-        showToUser(MESSAGE_ADD_SUCCESS,
+    public String showAddTask(Task task, TaskList taskList) {
+        return showToUser(MESSAGE_ADD_SUCCESS,
                 String.format(MESSAGE_TASK, task),
                 String.format(MESSAGE_REMAINING_TASKS, taskList.getTaskCount()));
     }
 
     /**
-     * Generates and prints out all tasks.
+     * Generates and returns all tasks.
      * @param taskList
      */
-    public void showList(TaskList taskList) {
-        showToUser(MESSAGE_LIST_SUCCESS,
+    public String showList(TaskList taskList) {
+        return showToUser(MESSAGE_LIST_SUCCESS,
                 taskList.toString());
     }
 
     /**
-     * Generates and prints out the newly marked task upon success.
+     * Generates and returns the newly marked task upon success.
      * @param task
      */
-    public void showMarkTask(Task task) {
-        showToUser(MESSAGE_MARK_SUCCESS,
+    public String showMarkTask(Task task) {
+        return showToUser(MESSAGE_MARK_SUCCESS,
                 String.format(MESSAGE_TASK, task));
     }
 
     /**
-     * Generates and prints out the newly unmarked task upon success.
+     * Generates and returns the newly unmarked task upon success.
      * @param task
      */
-    public void showUnmarkTask(Task task) {
-        showToUser(MESSAGE_UNMARK_SUCCESS,
+    public String showUnmarkTask(Task task) {
+        return showToUser(MESSAGE_UNMARK_SUCCESS,
                 String.format(MESSAGE_TASK, task));
     }
 
     /**
-     * Generates and prints out the deleted task upon success.
+     * Generates and returns the deleted task upon success.
      * @param task
      * @param taskList
      */
-    public void showDeleteTask(Task task, TaskList taskList) {
-        showToUser(MESSAGE_DELETE_SUCCESS,
+    public String showDeleteTask(Task task, TaskList taskList) {
+        return showToUser(MESSAGE_DELETE_SUCCESS,
                 String.format(MESSAGE_TASK, task),
                 String.format(MESSAGE_REMAINING_TASKS, taskList.getTaskCount()));
     }
 
     /**
-     * Generates and prints out the found tasks upon success.
+     * Generates and returns the found tasks upon success.
      * @param keyword
      * @param resultList
      */
-    public void showFindTask(String keyword, TaskList resultList) {
-        showToUser(String.format(MESSAGE_FIND_SUCCESS, keyword),
+    public String showFindTask(String keyword, TaskList resultList) {
+        return showToUser(String.format(MESSAGE_FIND_SUCCESS, keyword),
                 resultList.toString());
     }
 }

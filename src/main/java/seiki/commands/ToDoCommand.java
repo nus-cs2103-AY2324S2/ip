@@ -20,12 +20,12 @@ public class ToDoCommand extends Command {
     }
 
     @Override
-    public void execute(Storage storage, TaskList taskList, Ui ui) throws SeikiException {
+    public String execute(Storage storage, TaskList taskList, Ui ui) throws SeikiException {
         String taskTitle = String.join(" ", this.args);
         ToDo task = new ToDo(taskTitle);
         taskList.addTask(task);
         storage.save(taskList);
-        ui.showAddTask(task, taskList);
+        return ui.showAddTask(task, taskList);
     }
 
     @Override

@@ -20,7 +20,7 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(Storage storage, TaskList taskList, Ui ui) throws SeikiException {
+    public String execute(Storage storage, TaskList taskList, Ui ui) throws SeikiException {
         if (taskList.getTaskCount() == 0) {
             throw new SeikiException("There are currently no tasks to be marked.");
         } else {
@@ -31,7 +31,7 @@ public class MarkCommand extends Command {
                 Task task = taskList.getTaskByNumber(taskNumber);
                 task.markAsDone();
                 storage.save(taskList);
-                ui.showMarkTask(task);
+                return ui.showMarkTask(task);
             }
         }
     }

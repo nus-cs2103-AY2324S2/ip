@@ -20,7 +20,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(Storage storage, TaskList taskList, Ui ui) throws SeikiException {
+    public String execute(Storage storage, TaskList taskList, Ui ui) throws SeikiException {
         if (taskList.getTaskCount() == 0) {
             throw new SeikiException("There are currently no tasks to be deleted.");
         } else {
@@ -34,7 +34,7 @@ public class DeleteCommand extends Command {
                     Task task = taskList.getTaskByNumber(taskNumber);
                     taskList.deleteTask(task);
                     storage.save(taskList);
-                    ui.showDeleteTask(task, taskList);
+                    return ui.showDeleteTask(task, taskList);
                 }
             }
         }
