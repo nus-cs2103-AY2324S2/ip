@@ -26,15 +26,15 @@ public abstract class Task {
         isDone = done;
     }
 
-    public String toStorageFormat() {
+    public String getStorageFormat() {
         return (isDone ? "true" : "false") + " | " + description;
     }
 
-    public boolean isOccurringOn(LocalDate date) {
+    public boolean checkOccurringOn(LocalDate date) {
         return false;
     }
 
-    public boolean isDueIn(int days) {
+    public boolean checkDueIn(int days) {
         return false;
     }
 

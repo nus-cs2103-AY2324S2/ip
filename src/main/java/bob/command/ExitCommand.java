@@ -11,7 +11,7 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public boolean isExit() {
+    public boolean checkExit() {
         return true;
     }
 }

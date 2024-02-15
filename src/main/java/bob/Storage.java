@@ -98,7 +98,7 @@ public class Storage {
         try {
             FileWriter fw = new FileWriter(dataFile.getAbsoluteFile(), true);
             try (BufferedWriter bw = new BufferedWriter(fw)) {
-                bw.write(task.toStorageFormat());
+                bw.write(task.getStorageFormat());
                 bw.newLine();
             }
         } catch (IOException e) {
@@ -112,7 +112,7 @@ public class Storage {
             FileWriter fw = new FileWriter(dataFile.getAbsoluteFile());
             try (BufferedWriter bw = new BufferedWriter(fw)) {
                 for (Task task : tasks) {
-                    bw.write(task.toStorageFormat());
+                    bw.write(task.getStorageFormat());
                     bw.newLine();
                 }
                 bw.flush();

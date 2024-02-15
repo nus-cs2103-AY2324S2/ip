@@ -15,7 +15,7 @@ public class DeadlineTest {
     public void toStorageFormat_notDone_success() {
         assertEquals("D | false | a | 2024-02-12T19:37:00", new Deadline("a",
                 LocalDateTime.of(2024, Month.FEBRUARY, 12, 19, 37, 0))
-                .toStorageFormat());
+                .getStorageFormat());
     }
 
     @Test
@@ -23,48 +23,48 @@ public class DeadlineTest {
         Deadline deadline = new Deadline("a",
                 LocalDateTime.of(2024, Month.FEBRUARY, 12, 19, 37, 0));
         deadline.setDone(true);
-        assertEquals("D | true | a | 2024-02-12T19:37:00", deadline.toStorageFormat());
+        assertEquals("D | true | a | 2024-02-12T19:37:00", deadline.getStorageFormat());
     }
 
     @Test
     public void isOccurringOn_differentDate_false() {
         assertFalse(new Deadline("",
                 LocalDateTime.of(2024, Month.FEBRUARY, 12, 19, 37, 0))
-                .isOccurringOn(LocalDate.of(2024, Month.FEBRUARY, 11)));
+                .checkOccurringOn(LocalDate.of(2024, Month.FEBRUARY, 11)));
     }
 
     @Test
     public void isOccurringOn_sameDate_true() {
         assertTrue(new Deadline("",
                 LocalDateTime.of(2024, Month.FEBRUARY, 12, 19, 37, 0))
-                .isOccurringOn(LocalDate.of(2024, Month.FEBRUARY, 12)));
+                .checkOccurringOn(LocalDate.of(2024, Month.FEBRUARY, 12)));
     }
 
     @Test
     public void isDueIn_moreThanDays_false() {
-        assertFalse(new Deadline("", LocalDateTime.now().plusDays(9)).isDueIn(7));
+        assertFalse(new Deadline("", LocalDateTime.now().plusDays(9)).checkDueIn(7));
     }
 
     @Test
     public void isDueIn_afterBy_false() {
-        assertFalse(new Deadline("", LocalDateTime.now().minusDays(1)).isDueIn(0));
+        assertFalse(new Deadline("", LocalDateTime.now().minusDays(1)).checkDueIn(0));
     }
 
     @Test
     public void isDueIn_negativeDays_false() {
         assertFalse(new Deadline("",
                 LocalDateTime.of(2024, Month.FEBRUARY, 12, 19, 37, 0))
-                .isDueIn(-1));
+                .checkDueIn(-1));
     }
 
     @Test
     public void isDueIn_todayNotDueYet_true() {
-        assertTrue(new Deadline("", LocalDateTime.now().plusHours(1)).isDueIn(0));
+        assertTrue(new Deadline("", LocalDateTime.now().plusHours(1)).checkDueIn(0));
     }
 
     @Test
     public void isDueIn_todayDue_false() {
-        assertFalse(new Deadline("", LocalDateTime.now().minusHours(1)).isDueIn(0));
+        assertFalse(new Deadline("", LocalDateTime.now().minusHours(1)).checkDueIn(0));
     }
 
     @Test

@@ -43,11 +43,11 @@ public class TaskList {
     }
 
     public ArrayList<Task> listOnDate(LocalDate date) {
-        return listWithFilter(task -> task.isOccurringOn(date));
+        return listWithFilter(task -> task.checkOccurringOn(date));
     }
 
     public ArrayList<Task> listDueIn(int days) {
-        return listWithFilter(task -> task.isDueIn(days));
+        return listWithFilter(task -> task.checkDueIn(days));
     }
 
     public Task addTodo(String description) {

@@ -9,17 +9,17 @@ public class TaskStub extends Task {
     }
 
     @Override
-    public boolean isOccurringOn(LocalDate date) {
+    public boolean checkOccurringOn(LocalDate date) {
         return description.equals("a");
     }
 
     @Override
-    public boolean isDueIn(int days) {
+    public boolean checkDueIn(int days) {
         return description.equals("a");
     }
 
     @Override
-    public String toStorageFormat() {
+    public String getStorageFormat() {
         return "storage format";
     }
 

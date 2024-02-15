@@ -20,13 +20,13 @@ public class Event extends Task {
     }
 
     @Override
-    public String toStorageFormat() {
-        return STORAGE_INDICATOR + " | " + super.toStorageFormat() + " | "
+    public String getStorageFormat() {
+        return STORAGE_INDICATOR + " | " + super.getStorageFormat() + " | "
                 + Storage.formatDateTime(from) + " | " + Storage.formatDateTime(to);
     }
 
     @Override
-    public boolean isOccurringOn(LocalDate date) {
+    public boolean checkOccurringOn(LocalDate date) {
         return !(date.isBefore(from.toLocalDate()) || date.isAfter(to.toLocalDate()));
     }
 

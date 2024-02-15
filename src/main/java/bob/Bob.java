@@ -27,7 +27,7 @@ public class Bob {
                 ui.showLine();
                 Command command = Parser.parse(fullCommand);
                 command.execute(ui, storage, tasks);
-                isExit = command.isExit();
+                isExit = command.checkExit();
             } catch (BobException e) {
                 ui.show(e.getMessage());
             } finally {

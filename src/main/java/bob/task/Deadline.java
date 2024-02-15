@@ -19,18 +19,18 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String toStorageFormat() {
-        return STORAGE_INDICATOR + " | " + super.toStorageFormat() + " | "
+    public String getStorageFormat() {
+        return STORAGE_INDICATOR + " | " + super.getStorageFormat() + " | "
                 + Storage.formatDateTime(by);
     }
 
     @Override
-    public boolean isOccurringOn(LocalDate date) {
+    public boolean checkOccurringOn(LocalDate date) {
         return by.toLocalDate().equals(date);
     }
 
     @Override
-    public boolean isDueIn(int days) {
+    public boolean checkDueIn(int days) {
         boolean isUpcoming = by.isAfter(LocalDateTime.now());
         boolean isWithin = ChronoUnit.DAYS.between(LocalDateTime.now(), by) <= days;
         return isUpcoming && isWithin;

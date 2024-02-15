@@ -8,8 +8,8 @@ public class Todo extends Task {
     }
 
     @Override
-    public String toStorageFormat() {
-        return STORAGE_INDICATOR + " | " + super.toStorageFormat();
+    public String getStorageFormat() {
+        return STORAGE_INDICATOR + " | " + super.getStorageFormat();
     }
 
     @Override
