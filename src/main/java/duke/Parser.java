@@ -46,6 +46,7 @@ public class Parser {
     public static Command parse(String command) throws CommandInvalidException {
         if (isValid(command)) {
             String[] inputs = command.split(" ");
+            assert inputs.length > 0;
             if (command.equals("bye")) { //if the user use bye command
                 return new ByeCommand();
             } else if (inputs[0].equals("mark") || inputs[0].equals("unmark")) {
