@@ -29,8 +29,8 @@ public class Duke {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-    private Image user;
-    private Image duke;
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/Kuromi.png"));
+    private Image duke = new Image(this.getClass().getResourceAsStream("/images/bot.jpg"));
 
     private boolean isExit;
 
@@ -65,9 +65,13 @@ public class Duke {
             ui.showMessage(e.getMessage());
             tasks = new TaskList();
         }
-        user = new Image(this.getClass().getResourceAsStream("/images/Kuromi.png"));
-        duke = new Image(this.getClass().getResourceAsStream("/images/bot.jpg"));
         isExit = false;
+        assert ui != null;
+        assert storage != null;
+        assert tasks != null;
+        assert isExit == false;
+        assert duke != null;
+        assert user != null;
     }
 
     /**

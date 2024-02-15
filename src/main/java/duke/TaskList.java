@@ -51,6 +51,7 @@ public class TaskList {
      * @return a string.
      */
     public String mark(int n) {
+        assert tasks.size() > n;
         tasks.get(n).setMark();
         String a = "Nice! I've marked this task as done:\n";
         String b = tasks.get(n).toString();
@@ -65,6 +66,7 @@ public class TaskList {
      * @return a string.
      */
     public String unMark(int n) {
+        assert tasks.size() > n;
         tasks.get(n).setUnMark();
         String a = "OK, I've marked this task as not done yet:\n";
         String b = tasks.get(n).toString();
@@ -79,6 +81,7 @@ public class TaskList {
      * @return a string.
      */
     public String delete(int n) {
+        assert tasks.size() > n;
         Task delT = tasks.get(n);
         tasks.remove(n);
         String a = "Noted. I've removed this task:\n";

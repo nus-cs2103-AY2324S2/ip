@@ -35,6 +35,7 @@ public class AddCommand extends Command {
     @Override
     public void execute(TaskList tL, Ui ui, Storage st) {
         String[] inputs = com.split(" ");
+        assert inputs.length > 0;
         String[] name;
         try {
             switch (inputs[0]) {

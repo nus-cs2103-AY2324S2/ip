@@ -29,6 +29,7 @@ public class DeleteCommand extends Command {
     public void execute(TaskList tL, Ui ui, Storage st) {
         int noArr;
         String[] inputs = com.split(" ");
+        assert inputs.length > 0;
         try {
             if (!(inputs.length == 2)) {
                 throw new CommandFormatException();
