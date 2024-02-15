@@ -27,19 +27,32 @@ public class TaskList {
     }
 
     /**
-     * Prints out of all the tasks
+     * Getter method for task
+     * 
+     * @return arraylist Arraylist of tasks
      */
-    public void printList() {
+    public List<Task> getTasks() {
+        return this.tasks;
+    }
+
+    /**
+     * Returns a string representation of all the tasks in the list
+     * 
+     * @return A string listing all tasks or stating that the list is empty
+     */
+    public String printList() {
+        StringBuilder sb = new StringBuilder();
         if (this.tasks.isEmpty()) {
-            System.out.println("Your list is empty. Please add some task to the list first!");
+            return "Your list is empty. Please add some tasks to the list first!\n";
         } else {
-            System.out.println("Here are the tasks in your list: ");
+            sb.append("Here are the tasks in your list:\n");
             for (int i = 0; i < this.tasks.size(); i++) {
-                System.out.println((i + 1) + ". " + this.tasks.get(i).toString());
+                sb.append(i + 1).append(". ").append(this.tasks.get(i).toString()).append("\n");
             }
         }
-        System.out.println();
+        return sb.toString();
     }
+
 
     /**
      * Adds task into the list of tasks
@@ -54,23 +67,30 @@ public class TaskList {
     }
 
     /**
-     * Deletes the specified task from the list
+     * Deletes the specified task from the list and returns a message of the task being deleted
      * 
-     * @param input The ID of the task
+     * @param input The ID of the task to delete
+     * @return String that says whether the task has been deleted
      */
-    public void deleteFromList(String input) {
+    public String deleteFromList(String input) {
+        StringBuilder sb = new StringBuilder();
         if (this.tasks.isEmpty()) {
-            System.out.println(
-                    "There are no task to be deleted. Please add some task to the list first!\n");
+            return "There are no tasks to be deleted. Please add some tasks to the list first!\n";
         } else {
-            int idOfItem = Integer.parseInt(input);
-            int actualId = idOfItem - 1;
-            System.out.println("Noted. I've removed this task:");
-            System.out.println(this.tasks.get(actualId).toString());
-            this.tasks.remove(actualId);
-            System.out.println("Now you have " + this.tasks.size() + " tasks in the list.\n");
+            try {
+                int idOfItem = Integer.parseInt(input);
+                int actualId = idOfItem - 1;
+                Task removedTask = this.tasks.remove(actualId);
+                sb.append("Noted. I've removed this task:\n").append(removedTask.toString())
+                        .append("\nNow you have ").append(this.tasks.size())
+                        .append(" tasks in the list.\n");
+            } catch (IndexOutOfBoundsException | NumberFormatException e) {
+                return "Invalid task ID. Please enter a valid number! + \n";
+            }
         }
+        return sb.toString();
     }
+
 
     /**
      * Unmarks/marks the task based on the ID
@@ -85,38 +105,31 @@ public class TaskList {
     }
 
     /**
-     * Find the task based on whether the currTask contains the input
+     * Finds tasks based on whether their description contains the input
      * 
-     * @param input Input from user to find the task
+     * @param input Input from the user to find the task
+     * @return A message with the matching tasks or a message that says no task is found
+     * @throws WilliamException If no tasks match the provided input
      */
-    public void findTasks(String input) throws WilliamException {
+    public String findTasks(String input) throws WilliamException {
+        StringBuilder sb = new StringBuilder();
         boolean isFound = false;
         int counter = 0;
         for (int i = 0; i < this.tasks.size(); i++) {
             String currTask = this.tasks.get(i).getName();
             if (currTask.contains(input)) {
                 if (isFound == false) {
-                    System.out.println("Here are the matching tasks in your list:");
+                    sb.append("Here are the matching tasks in your list:\n");
                     isFound = true;
                 }
                 counter++;
-                System.out.println(counter + ". " + this.tasks.get(i).toString());
+                sb.append(counter).append(". ").append(this.tasks.get(i).toString()).append("\n");
             }
         }
-        System.out.println();
-
         if (isFound == false) {
             throw new WilliamException(
                     "No tasks match the provided input: " + input + ". Please try again!");
         }
-    }
-
-    /**
-     * Getter method for task
-     * 
-     * @return arraylist Arraylist of tasks
-     */
-    public List<Task> getTasks() {
-        return this.tasks;
+        return sb.toString();
     }
 }

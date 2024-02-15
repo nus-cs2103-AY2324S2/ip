@@ -1,23 +1,22 @@
 package utilities;
 
-import java.util.Scanner;
+import java.io.FileNotFoundException;
+import java.util.List;
 
 import commands.Commands;
 import exceptions.WilliamException;
+import tasks.Task;
 
 /**
  * Deals with interactions with the user
  */
 public class Ui {
-    private Scanner sc = new Scanner(System.in);
+    private static String filePath = "data/tasks.txt";
+    private TaskList taskList = new TaskList();
+    private Storage storage;
 
-    /**
-     * Adds the opening message in the William Chatbot
-     */
-    public void openingTitle() {
-        String logo = "William";
-        System.out.println("Hello! I'm " + logo);
-        System.out.println("What can I do for you?\n");
+    public Ui() {
+        this.loadTasks();
     }
 
     /**
@@ -37,26 +36,33 @@ public class Ui {
     }
 
     /**
-     * Interacts with the user and operate based on their input
-     * 
-     * @param parser Contains the list of tasks and storage class
+     * Processes user input and returns a response
+     *
+     * @param userInput The user input to process
+     * @return A response based on the processed input
      */
-    public void interactWithUser(Parser parser) {
-        while (true) {
-            String input = sc.nextLine();
-            Commands command = null;
-            String[] texts = AdditionalInfoParser.retrieveTexts(input);
-            try {
-                command = retrieveCommand(texts[0]);
-            } catch (WilliamException e) {
-                System.out.println(e.getMessage() + "\n");
-                continue;
-            }
+    public String interactWithUser(String userInput) {
+        Parser parser = new Parser(taskList, storage);
+        Commands command = null;
+        String[] texts = AdditionalInfoParser.retrieveTexts(userInput);
+        try {
+            command = retrieveCommand(texts[0]);
+        } catch (WilliamException e) {
+            return e.getMessage() + "\n";
+        }
+        return parser.parseCommands(command, texts[1]);
+    }
 
-            boolean checkExit = parser.parseCommands(command, texts[1]);
-            if (checkExit == false) {
-                break;
-            }
+    /**
+     * Loads tasks into the arraylist
+     */
+    public void loadTasks() {
+        try {
+            this.storage = new Storage(filePath);
+            List<Task> tasks = this.storage.loadFromFile();
+            this.taskList = new TaskList(tasks);
+        } catch (FileNotFoundException | WilliamException e) {
+            System.out.println(e.getMessage() + "\n");
         }
     }
 }
