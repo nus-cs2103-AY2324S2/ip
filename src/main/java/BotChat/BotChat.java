@@ -57,7 +57,7 @@ public class BotChat {
             return tasks.findTasks(input);
         case HELP:
             showHelpWindow();
-            return "See help window! Close help window first before keying in next command :)";
+            return "See help window! Please close the help window before keying in next command :)";
         case UNKNOWN:
             throw new BotChatException("Sorry, I do not understand that command. Please try again.");
         default:
