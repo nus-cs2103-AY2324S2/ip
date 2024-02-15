@@ -25,12 +25,12 @@ public class Deadline extends Task {
     }
 
     @Override
-    public boolean checkOccurringOn(LocalDate date) {
+    public boolean isOccurringOn(LocalDate date) {
         return by.toLocalDate().equals(date);
     }
 
     @Override
-    public boolean checkDueIn(int days) {
+    public boolean isDueIn(int days) {
         boolean isUpcoming = by.isAfter(LocalDateTime.now());
         boolean isWithin = ChronoUnit.DAYS.between(LocalDateTime.now(), by) <= days;
         return isUpcoming && isWithin;

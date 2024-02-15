@@ -9,12 +9,12 @@ public class TaskStub extends Task {
     }
 
     @Override
-    public boolean checkOccurringOn(LocalDate date) {
+    public boolean isOccurringOn(LocalDate date) {
         return description.equals("a");
     }
 
     @Override
-    public boolean checkDueIn(int days) {
+    public boolean isDueIn(int days) {
         return description.equals("a");
     }
 

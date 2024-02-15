@@ -26,7 +26,7 @@ public class Event extends Task {
     }
 
     @Override
-    public boolean checkOccurringOn(LocalDate date) {
+    public boolean isOccurringOn(LocalDate date) {
         return !(date.isBefore(from.toLocalDate()) || date.isAfter(to.toLocalDate()));
     }
 

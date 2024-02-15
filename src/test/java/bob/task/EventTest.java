@@ -26,31 +26,31 @@ public class EventTest {
     }
 
     @Test
-    public void checkOccurringOn() {
+    public void isOccurringOn() {
         assertFalse(new Event("a",
                 LocalDateTime.of(2024, Month.FEBRUARY, 11, 19, 37, 0),
                 LocalDateTime.of(2024, Month.FEBRUARY, 13, 19, 37, 0))
-                .checkOccurringOn(LocalDate.of(2024, Month.FEBRUARY, 10)));
+                .isOccurringOn(LocalDate.of(2024, Month.FEBRUARY, 10)));
 
         assertTrue(new Event("a",
                 LocalDateTime.of(2024, Month.FEBRUARY, 11, 19, 37, 0),
                 LocalDateTime.of(2024, Month.FEBRUARY, 13, 19, 37, 0))
-                .checkOccurringOn(LocalDate.of(2024, Month.FEBRUARY, 11)));
+                .isOccurringOn(LocalDate.of(2024, Month.FEBRUARY, 11)));
 
         assertTrue(new Event("a",
                 LocalDateTime.of(2024, Month.FEBRUARY, 11, 19, 37, 0),
                 LocalDateTime.of(2024, Month.FEBRUARY, 13, 19, 37, 0))
-                .checkOccurringOn(LocalDate.of(2024, Month.FEBRUARY, 12)));
+                .isOccurringOn(LocalDate.of(2024, Month.FEBRUARY, 12)));
 
         assertTrue(new Event("a",
                 LocalDateTime.of(2024, Month.FEBRUARY, 11, 19, 37, 0),
                 LocalDateTime.of(2024, Month.FEBRUARY, 13, 19, 37, 0))
-                .checkOccurringOn(LocalDate.of(2024, Month.FEBRUARY, 13)));
+                .isOccurringOn(LocalDate.of(2024, Month.FEBRUARY, 13)));
 
         assertFalse(new Event("a",
                 LocalDateTime.of(2024, Month.FEBRUARY, 11, 19, 37, 0),
                 LocalDateTime.of(2024, Month.FEBRUARY, 13, 19, 37, 0))
-                .checkOccurringOn(LocalDate.of(2024, Month.FEBRUARY, 14)));
+                .isOccurringOn(LocalDate.of(2024, Month.FEBRUARY, 14)));
     }
 
     @Test

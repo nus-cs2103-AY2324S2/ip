@@ -30,11 +30,11 @@ public abstract class Task {
         return (isDone ? "true" : "false") + " | " + description;
     }
 
-    public boolean checkOccurringOn(LocalDate date) {
+    public boolean isOccurringOn(LocalDate date) {
         return false;
     }
 
-    public boolean checkDueIn(int days) {
+    public boolean isDueIn(int days) {
         return false;
     }
 

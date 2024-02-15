@@ -24,25 +24,25 @@ public class DeadlineTest {
     }
 
     @Test
-    public void checkOccurringOn() {
+    public void isOccurringOn() {
         assertFalse(new Deadline("",
                 LocalDateTime.of(2024, Month.FEBRUARY, 12, 19, 37, 0))
-                .checkOccurringOn(LocalDate.of(2024, Month.FEBRUARY, 11)));
+                .isOccurringOn(LocalDate.of(2024, Month.FEBRUARY, 11)));
 
         assertTrue(new Deadline("",
                 LocalDateTime.of(2024, Month.FEBRUARY, 12, 19, 37, 0))
-                .checkOccurringOn(LocalDate.of(2024, Month.FEBRUARY, 12)));
+                .isOccurringOn(LocalDate.of(2024, Month.FEBRUARY, 12)));
     }
 
     @Test
-    public void checkDueIn() {
-        assertFalse(new Deadline("", LocalDateTime.now().plusDays(9)).checkDueIn(7));
-        assertFalse(new Deadline("", LocalDateTime.now().minusDays(1)).checkDueIn(0));
+    public void isDueIn() {
+        assertFalse(new Deadline("", LocalDateTime.now().plusDays(9)).isDueIn(7));
+        assertFalse(new Deadline("", LocalDateTime.now().minusDays(1)).isDueIn(0));
         assertFalse(new Deadline("",
                 LocalDateTime.of(2024, Month.FEBRUARY, 12, 19, 37, 0))
-                .checkDueIn(-1));
-        assertTrue(new Deadline("", LocalDateTime.now().plusHours(1)).checkDueIn(0));
-        assertFalse(new Deadline("", LocalDateTime.now().minusHours(1)).checkDueIn(0));
+                .isDueIn(-1));
+        assertTrue(new Deadline("", LocalDateTime.now().plusHours(1)).isDueIn(0));
+        assertFalse(new Deadline("", LocalDateTime.now().minusHours(1)).isDueIn(0));
     }
 
     @Test
