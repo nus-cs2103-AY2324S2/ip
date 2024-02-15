@@ -5,6 +5,7 @@ import dave.TaskList;
 import dave.Ui;
 
 import dave.tasks.Task;
+import dave.exceptions.ChatbotException;
 import dave.exceptions.UnableToFindTaskException;
 
 public class DeleteTaskCommand extends Command {
@@ -24,18 +25,18 @@ public class DeleteTaskCommand extends Command {
     /**
      * {@inheritDoc}
      * Deletes the task from the task list and output file.
+     * 
+     * @return Feedback to user about successful task deletion or error.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             Task toDelete = taskList.getTask(this.taskNumber);
             taskList.deleteTask(this.taskNumber);
             storage.rewriteOutput(taskList);
-            ui.showTaskDeleted(toDelete, taskList);    
+            return ui.showTaskDeleted(toDelete, taskList);    
         } catch (Exception exc) {
-            ui.showHorizontalLine();
-            System.out.println(new UnableToFindTaskException(taskList).getMessage());
-            ui.showHorizontalLine();
+            return new UnableToFindTaskException(taskList).getMessage();
         }
     }
 

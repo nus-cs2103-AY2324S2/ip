@@ -63,7 +63,7 @@ public class Parser {
                     try {
                         return new DeleteTaskCommand(deleteNumber);
                     } catch (Exception exc) {
-                        System.out.println(exc.getMessage());
+                        return new InvalidCommand(new ChatbotException(exc.getMessage()));
                     }
                 case MARK:
                     int markNumber = Integer.parseInt(inputArr[1]) - 1;

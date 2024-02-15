@@ -23,12 +23,12 @@ public class InvalidCommand extends Command {
     /**
      * {@inheritDoc}
      * Prints the error or message to user on why the command was invalid.
+     * 
+     * @return Show the error that occurred due to invalid command execution.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.showHorizontalLine();
-        System.out.println(exc.getMessage());
-        ui.showHorizontalLine();
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return exc.getMessage();
     }
 
     /**

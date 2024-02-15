@@ -14,8 +14,9 @@ public abstract class Command {
      * @param ui User interface to display some feedback after executing the command.
      * @param storage Storage to store task information when tasks are modified/deleted.
      * @throws ChatbotException
+     * @return Feedback to user about successful command execution.
      */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws ChatbotException;
+    public abstract String execute(TaskList taskList, Ui ui, Storage storage) throws ChatbotException;
 
     /**
      * Checks if the command is the exit command.

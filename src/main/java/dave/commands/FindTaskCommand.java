@@ -21,20 +21,21 @@ public class FindTaskCommand extends Command {
     /**
      * {@inheritDoc}
      * Finds the tasks in the task list that contain the keyword.
+     * 
+     * @return Show tasks matching the keyword.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.showHorizontalLine();
-        System.out.println("\nDave has found the following matching tasks:\n");
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        String loadResult = "Dave has found the following matching tasks:";
         int noOfResults = 0;
         for (int i = 0; i < taskList.getNumberOfTasks(); i++) {
             Task currTask = taskList.getTask(i);
             if (currTask.getTaskName().contains(this.keyword)) {
-                System.out.println(String.format("%d. %s", noOfResults+1, taskList.getTask(i).toString()));
+                loadResult += String.format("\n%d. %s", noOfResults+1, taskList.getTask(i).toString());
                 noOfResults++;
             }
         }
-        ui.showHorizontalLine();
+        return loadResult;
     }
 
     /**
