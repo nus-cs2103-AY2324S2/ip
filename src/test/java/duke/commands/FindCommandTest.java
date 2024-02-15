@@ -82,13 +82,13 @@ public class FindCommandTest {
                 + "3.[E][ ] taengoo concert (from: 29-Jan-2024 05:39PM to: 29-Jan-2024 07:39PM)\n"
                 + "4.[D][ ] go school (by: 30-Jan-2024 07:39PM)\n";
 
-        taskList.addTask(new Todo("buy lunch"));
-        taskList.addTask(new Deadline("eat lunch", Instant.ofEpochSecond(1706513963)));
+        taskList.addTask(new Todo("buy lunch"), false);
+        taskList.addTask(new Deadline("eat lunch", Instant.ofEpochSecond(1706513963)), false);
         taskList.addTask(new Event("taengoo concert", Instant.ofEpochSecond(1706521160), Instant.ofEpochSecond(
-                1706528360)));
-        taskList.addTask(new Deadline("go school", Instant.ofEpochSecond(1706614760)));
+                1706528360)), false);
+        taskList.addTask(new Deadline("go school", Instant.ofEpochSecond(1706614760)), false);
 
-        FindCommand findCommand = new FindCommand();
+        FindCommand findCommand = new FindCommand(false);
 
         findCommand.execute(taskList, ui);
         assertEquals(expected, outContent.toString());
@@ -103,13 +103,13 @@ public class FindCommandTest {
         String expected = "1.[T][ ] buy lunch\n"
                 + "2.[D][ ] eat lunch (by: 29-Jan-2024 03:39PM)\n";
 
-        taskList.addTask(new Todo("buy lunch"));
-        taskList.addTask(new Deadline("eat lunch", Instant.ofEpochSecond(1706513963)));
+        taskList.addTask(new Todo("buy lunch"), false);
+        taskList.addTask(new Deadline("eat lunch", Instant.ofEpochSecond(1706513963)), false);
         taskList.addTask(new Event("taengoo concert", Instant.ofEpochSecond(1706521160), Instant.ofEpochSecond(
-                1706528360)));
-        taskList.addTask(new Deadline("go school", Instant.ofEpochSecond(1706614760)));
+                1706528360)), false);
+        taskList.addTask(new Deadline("go school", Instant.ofEpochSecond(1706614760)), false);
 
-        FindCommand findCommand = new FindCommand("lunch");
+        FindCommand findCommand = new FindCommand("lunch", false);
 
         findCommand.execute(taskList, ui);
         assertEquals(expected, outContent.toString());
@@ -123,13 +123,13 @@ public class FindCommandTest {
     public void execute_keywordPopulated_empty() throws DukeException {
         String expected = "\n";
 
-        taskList.addTask(new Todo("buy lunch"));
-        taskList.addTask(new Deadline("eat lunch", Instant.ofEpochSecond(1706513963)));
+        taskList.addTask(new Todo("buy lunch"), false);
+        taskList.addTask(new Deadline("eat lunch", Instant.ofEpochSecond(1706513963)), false);
         taskList.addTask(new Event("taengoo concert", Instant.ofEpochSecond(1706521160), Instant.ofEpochSecond(
-                1706528360)));
-        taskList.addTask(new Deadline("go school", Instant.ofEpochSecond(1706614760)));
+                1706528360)), false);
+        taskList.addTask(new Deadline("go school", Instant.ofEpochSecond(1706614760)), false);
 
-        FindCommand findCommand = new FindCommand("Alonica");
+        FindCommand findCommand = new FindCommand("Alonica", false);
 
         findCommand.execute(taskList, ui);
         assertEquals(expected, outContent.toString());
@@ -143,7 +143,7 @@ public class FindCommandTest {
     public void execute_noKeywordUnpopulated_success() throws DukeException {
         String expected = "\n";
 
-        FindCommand findCommand = new FindCommand();
+        FindCommand findCommand = new FindCommand(false);
 
         findCommand.execute(taskList, ui);
         assertEquals(expected, outContent.toString());
@@ -157,7 +157,7 @@ public class FindCommandTest {
     public void execute_keywordUnpopulated_success() throws DukeException {
         String expected = "\n";
 
-        FindCommand findCommand = new FindCommand("Alonica");
+        FindCommand findCommand = new FindCommand("Alonica", false);
 
         findCommand.execute(taskList, ui);
         assertEquals(expected, outContent.toString());

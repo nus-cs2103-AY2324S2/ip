@@ -64,15 +64,15 @@ public class MarkCommandTest {
      * Create testing environment for each test
      */
     @BeforeEach
-    public void createEnvironment() {
+    public void createEnvironment() throws DukeException {
         taskList = new TaskList(testFile);
         ui = new Cli();
 
-        taskList.addTask(new Todo("buy lunch"));
-        taskList.addTask(new Deadline("eat lunch", Instant.ofEpochSecond(1706513963)));
+        taskList.addTask(new Todo("buy lunch"), false);
+        taskList.addTask(new Deadline("eat lunch", Instant.ofEpochSecond(1706513963)), false);
         taskList.addTask(new Event("taengoo concert", Instant.ofEpochSecond(1706521160), Instant.ofEpochSecond(
-                1706528360)));
-        taskList.addTask(new Deadline("go school", Instant.ofEpochSecond(1706614760)));
+                1706528360)), false);
+        taskList.addTask(new Deadline("go school", Instant.ofEpochSecond(1706614760)), false);
 
         outContent.reset();
     }

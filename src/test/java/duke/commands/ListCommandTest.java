@@ -82,13 +82,13 @@ public class ListCommandTest {
                 + "3.[E][ ] taengoo concert (from: 29-Jan-2024 05:39PM to: 29-Jan-2024 07:39PM)\n"
                 + "4.[D][ ] go school (by: 30-Jan-2024 07:39PM)\n";
 
-        taskList.addTask(new Todo("buy lunch"));
-        taskList.addTask(new Deadline("eat lunch", Instant.ofEpochSecond(1706513963)));
+        taskList.addTask(new Todo("buy lunch"), false);
+        taskList.addTask(new Deadline("eat lunch", Instant.ofEpochSecond(1706513963)), false);
         taskList.addTask(new Event("taengoo concert", Instant.ofEpochSecond(1706521160), Instant.ofEpochSecond(
-                1706528360)));
-        taskList.addTask(new Deadline("go school", Instant.ofEpochSecond(1706614760)));
+                1706528360)), false);
+        taskList.addTask(new Deadline("go school", Instant.ofEpochSecond(1706614760)), false);
 
-        ListCommand listCommand = new ListCommand();
+        ListCommand listCommand = new ListCommand(false);
 
         listCommand.execute(taskList, ui);
         assertEquals(expected, outContent.toString());
@@ -103,13 +103,13 @@ public class ListCommandTest {
         String expected = "1.[D][ ] eat lunch (by: 29-Jan-2024 03:39PM)\n"
                 + "2.[E][ ] taengoo concert (from: 29-Jan-2024 05:39PM to: 29-Jan-2024 07:39PM)\n";
 
-        taskList.addTask(new Todo("buy lunch"));
-        taskList.addTask(new Deadline("eat lunch", Instant.ofEpochSecond(1706513963)));
+        taskList.addTask(new Todo("buy lunch"), false);
+        taskList.addTask(new Deadline("eat lunch", Instant.ofEpochSecond(1706513963)), false);
         taskList.addTask(new Event("taengoo concert", Instant.ofEpochSecond(1706521160), Instant.ofEpochSecond(
-                1706528360)));
-        taskList.addTask(new Deadline("go school", Instant.ofEpochSecond(1706614760)));
+                1706528360)), false);
+        taskList.addTask(new Deadline("go school", Instant.ofEpochSecond(1706614760)), false);
 
-        ListCommand listCommand = new ListCommand(Instant.ofEpochSecond(1706513963));
+        ListCommand listCommand = new ListCommand(Instant.ofEpochSecond(1706513963), false);
 
         listCommand.execute(taskList, ui);
         assertEquals(expected, outContent.toString());
@@ -123,13 +123,13 @@ public class ListCommandTest {
     public void execute_dateFilterPopulated_empty() throws DukeException {
         String expected = "\n";
 
-        taskList.addTask(new Todo("buy lunch"));
-        taskList.addTask(new Deadline("eat lunch", Instant.ofEpochSecond(1706513963)));
+        taskList.addTask(new Todo("buy lunch"), false);
+        taskList.addTask(new Deadline("eat lunch", Instant.ofEpochSecond(1706513963)), false);
         taskList.addTask(new Event("taengoo concert", Instant.ofEpochSecond(1706521160), Instant.ofEpochSecond(
-                1706528360)));
-        taskList.addTask(new Deadline("go school", Instant.ofEpochSecond(1706614760)));
+                1706528360)), false);
+        taskList.addTask(new Deadline("go school", Instant.ofEpochSecond(1706614760)), false);
 
-        ListCommand listCommand = new ListCommand(Instant.ofEpochSecond(1707513963));
+        ListCommand listCommand = new ListCommand(Instant.ofEpochSecond(1707513963), false);
 
         listCommand.execute(taskList, ui);
         assertEquals(expected, outContent.toString());
@@ -143,7 +143,7 @@ public class ListCommandTest {
     public void execute_noFilterUnpopulated_success() throws DukeException {
         String expected = "\n";
 
-        ListCommand listCommand = new ListCommand();
+        ListCommand listCommand = new ListCommand(false);
 
         listCommand.execute(taskList, ui);
         assertEquals(expected, outContent.toString());
@@ -157,7 +157,7 @@ public class ListCommandTest {
     public void execute_dateFilterUnpopulated_success() throws DukeException {
         String expected = "\n";
 
-        ListCommand listCommand = new ListCommand(Instant.ofEpochSecond(1706513963));
+        ListCommand listCommand = new ListCommand(Instant.ofEpochSecond(1706513963), false);
 
         listCommand.execute(taskList, ui);
         assertEquals(expected, outContent.toString());
