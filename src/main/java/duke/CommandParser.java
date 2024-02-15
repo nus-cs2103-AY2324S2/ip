@@ -34,12 +34,14 @@ public class CommandParser {
     /**
      * Parses user commands and performs corresponding actions in the Duke application.
      */
-    public static Action parseCommand(String command, TaskList taskList) throws
-            DukeException {
+    public static Action parseCommand(String command, TaskList taskList) throws DukeException {
         try {
             String[] words = command.split(" ");
 
-            switch (words[0]) {
+            // Convert the first word to lowercase for case-insensitive comparison
+            String commandWord = words[0].toLowerCase();
+
+            switch (commandWord) {
             case "find":
                 if (words.length > 1) {
                     String keyword = command.substring(5).trim();
@@ -144,7 +146,6 @@ public class CommandParser {
             }
         } catch (Exception e) {
             throw e;
-
         }
     }
 }
