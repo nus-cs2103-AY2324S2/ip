@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a task with a deadline.
+ */
 public class Deadline extends Task {
     protected String by;
     protected LocalDateTime byDate;
@@ -11,6 +14,13 @@ public class Deadline extends Task {
     protected DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("M/dd/yyyy HHmm");
 
     protected DateTimeFormatter dateTimeStringFormatter = DateTimeFormatter.ofPattern("dd MMM uuuu hh:mma");
+
+    /**
+     * Constructs a Deadline object with the given description and deadline.
+     *
+     * @param description the description of the task
+     * @param by the deadline of the task, in the format "M/dd/yyyy HHmm" (e.g., "2/12/2022 1800")
+     */
     public Deadline(String description, String by) {
         super(description);
         try {
@@ -23,6 +33,11 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Returns a string representation of the deadline task.
+     *
+     * @return a string representation of the deadline task
+     */
     @Override
     public String toString() {
         if (hasByDate) {
