@@ -1,10 +1,12 @@
 package dav;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * Handles the loading and saving of tasks from/to a file.
  */

@@ -1,4 +1,5 @@
 package dav;
+
 /**
  * Custom exception class for Dav application.
  * Represents exceptions specific to the Duke application.
