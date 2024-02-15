@@ -74,4 +74,15 @@ public class Task {
         String s = this.getStatusIcon() + " | " + this.description;
         return s;
     }
+
+    /**
+     * Check whether the task instance
+     * is equal to other task instance.
+     *
+     * @param task Task instance to be checked.
+     * @return boolean result of the check.
+     */
+    public boolean isEqual(Task task) {
+        return description.equals(description);
+    }
 }

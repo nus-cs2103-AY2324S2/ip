@@ -36,9 +36,14 @@ public class TaskList {
      * @return a string.
      */
     public String addTask(Task t) {
+        String b = t.toString() + "\n";
+        if (isDuplicate(t)) {
+            String a = "This task has been added to the list before:\n";
+            String c = "So, the task will not be added again!";
+            return a + b + c;
+        }
         tasks.add(t);
         String a = "Got it. I've added this task:\n";
-        String b = tasks.get(tasks.size() - 1).toString() + "\n";
         String c = "Now you have " + tasks.size() + " tasks in the list.";
         return a + b + c;
     }
@@ -131,5 +136,25 @@ public class TaskList {
             sl = "Not found task with keyword: " + key;
         }
         return sl;
+    }
+    /**
+     * Check whether a task is duplicate.
+     * Duplicate means the task instance checked has
+     * the same details of another task instance that
+     * is already on the list.
+     *
+     * @param task Task instance to be checked.
+     * @return boolean result of the check.
+     */
+    public boolean isDuplicate(Task task) {
+        boolean isDp = false;
+        for (int i = 0; i < tasks.size(); i++) {
+            isDp = tasks.get(i).isEqual(task);
+            System.out.println(isDp);
+            if (isDp) {
+                break;
+            }
+        }
+        return isDp;
     }
 }
