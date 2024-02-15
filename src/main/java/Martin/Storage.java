@@ -8,7 +8,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Handles the storage of tasks in a file.
@@ -71,7 +70,6 @@ public class Storage {
             while ((line = br.readLine()) != null) {
                 System.out.println("line: " + line);
                 String[] lineArray = line.split(" \\| ", 3);
-                System.out.println(Arrays.toString(lineArray));
                 String taskType = lineArray[0];
                 boolean isDone = lineArray[1].equals("1");
                 String taskDescription = lineArray[2];
@@ -112,11 +110,17 @@ public class Storage {
             System.out.println("File not found");
         } catch (IOException e) {
             System.out.println("Error reading file");
-        }
+        } 
 
         return todoList;
     }
 
+    /**
+     * Rewrites the file with the tasks from the given task list.
+     *
+     * @param taskList The task list containing the tasks to be written to the file.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
     public void rewriteFile(TaskList taskList) throws IOException {
         try {
             FileWriter fw = new FileWriter(filePath);
@@ -130,6 +134,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Appends a line of text to the file.
+     *
+     * @param line the line of text to be appended
+     */
     public void appendToFile(String line) {
         try {
             FileWriter fw = new FileWriter(filePath, true);
