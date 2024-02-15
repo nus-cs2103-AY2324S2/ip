@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import duke.duke.Duke;
+import duke.ui.Skibidi;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -30,31 +32,33 @@ import duke.tasks.Todo;
 @ExtendWith(MockitoExtension.class)
 class ParserTest {
     private Parser p = new Parser();
+    private Duke d = new Duke("/data/", "duke.txt");
     @Test
     void byeShouldReturnNull() {
-        TaskList tl = new TaskList();
-        String in = "bye";
-        Storage store = new Storage();
-        assertNull(p.parse(in, tl, store));
+        String input = "bye";
+        assertEquals(Skibidi.BYE, p.parse(input));
     }
 
     @Test
     void listShouldCallPrintList() {
         TaskList tl = mock(TaskList.class);
-        String in = "list";
-        Storage store = new Storage();
-        p.parse(in, tl, store);
+        Duke.tasks = tl;
+        String input = "list";
+        p.parse(input);
         verify(tl).printList();
     }
 
     @Test
     void saveShouldCallStorageSaveSuccess() {
         TaskList tl = new TaskList();
-        String in = "save";
+        String input = "save";
         Storage store = mock(Storage.class);
+
+        Duke.storage = store;
+        Duke.tasks = tl;
         boolean thrown = false;
         try {
-            p.parse(in, tl, store);
+            p.parse(input);
             verify(store).save(tl);
         } catch (IOException e) {
             thrown = true;
@@ -65,13 +69,16 @@ class ParserTest {
     @Test
     void markShouldReturnMarkedTasks() {
         List<Task> lstBefore = new ArrayList<>(Arrays.asList(new Todo("task1"), new Todo("task2")));
-        List<Task> lstAfter = new ArrayList<>(Arrays.asList(new Todo("task1"),
+        List<Task> lstAfter = new ArrayList<>(Arrays.asList(
+                new Todo("task1"),
                 new Todo(true, "task2")));
         TaskList tl1 = new TaskList(lstBefore);
         TaskList tl2 = new TaskList(lstAfter);
-        String in = "mark 2";
-        Storage store = new Storage();
-        tl1 = p.parse(in, tl1, store);
+
+        String input = "mark 2";
+        Duke.tasks = tl1;
+
+        p.parse(input);
         assertEquals(tl2, tl1);
     }
 
@@ -82,9 +89,11 @@ class ParserTest {
         List<Task> lstAfter = new ArrayList<>(Arrays.asList(new Todo("task1"), new Todo("task2")));
         TaskList tl1 = new TaskList(lstBefore);
         TaskList tl2 = new TaskList(lstAfter);
-        String in = "unmark 2";
-        Storage store = new Storage();
-        tl1 = p.parse(in, tl1, store);
+
+        String input = "unmark 2";
+        Duke.tasks = tl1;
+
+        p.parse(input);
         assertEquals(tl2, tl1);
     }
 
@@ -94,9 +103,11 @@ class ParserTest {
         List<Task> lstAfter = new ArrayList<>(Arrays.asList(new Todo("task1")));
         TaskList tl1 = new TaskList(lstBefore);
         TaskList tl2 = new TaskList(lstAfter);
-        String in = "delete 2";
-        Storage store = new Storage();
-        tl1 = p.parse(in, tl1, store);
+
+        String input = "delete 2";
+        Duke.tasks = tl1;
+
+        p.parse(input);
         assertEquals(tl2, tl1);
     }
 
@@ -106,8 +117,11 @@ class ParserTest {
         List<Task> lstAfter = new ArrayList<>(Arrays.asList(new Todo("task1"), new Todo("task2")));
         TaskList tl1 = new TaskList(lstBefore);
         TaskList tl2 = new TaskList(lstAfter);
-        String in = "todo task2";
-        tl1 = p.addTask(in, tl1);
+
+        String input = "todo task2";
+        Duke.tasks = tl1;
+
+        p.parse(input);
         assertEquals(tl2, tl1);
     }
 
@@ -118,8 +132,11 @@ class ParserTest {
                 new Todo("task1"), new Deadline("task2", "2024-01-31")));
         TaskList tl1 = new TaskList(lstBefore);
         TaskList tl2 = new TaskList(lstAfter);
-        String in = "deadline task2 /by 2024-01-31";
-        tl1 = p.addTask(in, tl1);
+
+        String input = "deadline task2 /by 2024-01-31";
+        Duke.tasks = tl1;
+
+        p.parse(input);
         assertEquals(tl2, tl1);
     }
 
@@ -130,164 +147,128 @@ class ParserTest {
                 new Todo("task1"), new Event("task2", "2024-01-31", "2024-02-01")));
         TaskList tl1 = new TaskList(lstBefore);
         TaskList tl2 = new TaskList(lstAfter);
-        String in = "event task2 /from 2024-01-31 /to 2024-02-01";
-        tl1 = p.addTask(in, tl1);
+        String input = "event task2 /from 2024-01-31 /to 2024-02-01";
+        Duke.tasks = tl1;
+
+        p.parse(input);
         assertEquals(tl2, tl1);
     }
 
     @Test
     void emptyTodoShouldThrowEmptyArgumentException() {
-        boolean thrown = false;
-        try {
-            TaskList tl = new TaskList();
-            String in = "todo ";
-            p.addTask(in, tl);
-        } catch (DukeEmptyArgumentException e) {
-            thrown = true;
-        }
-        assertTrue(thrown);
+        String input = "todo ";
+
+        String reply = p.parse(input);
+
+        assertEquals("There is an argument that is empty!!!", reply);
     }
 
     @Test
     void emptyDeadlineShouldThrowEmptyArgumentException() {
-        boolean thrown = false;
-        try {
-            TaskList tl = new TaskList();
-            String in = "deadline /by 2024-01-01";
-            p.addTask(in, tl);
-        } catch (DukeEmptyArgumentException e) {
-            thrown = true;
-        }
-        assertTrue(thrown);
+        String input = "deadline /by 2024-01-01";
+
+        String reply = p.parse(input);
+
+        assertEquals("There is an argument that is empty!!!", reply);
     }
 
     @Test
     void emptyDeadlineDateTimeShouldThrowEmptyArgumentException() {
-        boolean thrown = false;
-        try {
-            TaskList tl = new TaskList();
-            String in = "deadline test /by ";
-            p.addTask(in, tl);
-        } catch (DukeEmptyArgumentException e) {
-            thrown = true;
-        }
-        assertTrue(thrown);
+        String input = "deadline test /by ";
+
+        String reply = p.parse(input);
+
+        assertEquals("There is an argument that is empty!!!", reply);
     }
 
     @Test
     void erroneousDeadlineShouldThrowErroneousArgumentException() {
-        boolean thrown = false;
-        try {
-            TaskList tl = new TaskList();
-            String in = "deadline test /by2024-01-01";
-            p.addTask(in, tl);
-        } catch (DukeErroneousArgumentException e) {
-            thrown = true;
-        }
-        assertTrue(thrown);
+        String input = "deadline test /b 2024-01-01";
+
+        String reply = p.parse(input);
+
+        assertEquals("There is an argument in the wrong format!!!", reply);
     }
 
     @Test
     void erroneousDeadLineFormatShouldThrowDateTimeException() {
-        boolean thrown = false;
-        try {
-            TaskList tl = new TaskList();
-            String in = "deadline test /by 2024-0-01";
-            p.addTask(in, tl);
-        } catch (DateTimeException e) {
-            thrown = true;
-        }
-        assertTrue(thrown);
+        String input = "deadline test /by 2024-0-01";
+
+        String reply = p.parse(input);
+
+        String expected = "The format of your date is wrong! Make sure it is of the form 'yyyy-MM-dd'.\n"
+                + "More specifically: \n"
+                + "Text '2024-0-01' could not be parsed at index 5";
+
+        assertEquals(expected, reply);
     }
 
     @Test
     void emptyEventShouldThrowEmptyArgumentException() {
-        boolean thrown = false;
-        try {
-            TaskList tl = new TaskList();
-            String in = "event /from 2024-01-01 /to 2024-01-02";
-            p.addTask(in, tl);
-        } catch (DukeEmptyArgumentException e) {
-            thrown = true;
-        }
-        assertTrue(thrown);
+        String input = "event /from 2024-01-01 /to 2024-01-02";
+
+        String reply = p.parse(input);
+
+        assertEquals("There is an argument that is empty!!!", reply);
     }
 
     @Test
     void emptyEventDateTimeShouldThrowEmptyArgumentException1() {
-        boolean thrown = false;
-        try {
-            TaskList tl = new TaskList();
-            String in = "event test /from  /to 2024-01-02";
-            p.addTask(in, tl);
-        } catch (DukeEmptyArgumentException e) {
-            thrown = true;
-        }
-        assertTrue(thrown);
+        String input = "event test /from /to 2024-01-02";
+
+        String reply = p.parse(input);
+
+        assertEquals("There is an argument that is empty!!!", reply);
     }
 
     @Test
     void emptyEventDateTimeShouldThrowEmptyArgumentException2() {
-        boolean thrown = false;
-        try {
-            TaskList tl = new TaskList();
-            String in = "event test /from 2024-01-02 /to ";
-            p.addTask(in, tl);
-        } catch (DukeEmptyArgumentException e) {
-            thrown = true;
-        }
-        assertTrue(thrown);
+        String input = "event test /from 2024-01-02 /to ";
+
+        String reply = p.parse(input);
+
+        assertEquals("There is an argument that is empty!!!", reply);
     }
 
     @Test
     void erroneousEventShouldThrowErroneousArgumentException1() {
-        boolean thrown = false;
-        try {
-            TaskList tl = new TaskList();
-            String in = "event test /from2024-01-01 /to 2024-01-02";
-            p.addTask(in, tl);
-        } catch (DukeErroneousArgumentException e) {
-            thrown = true;
-        }
-        assertTrue(thrown);
+        String input = "event test /fro 2024-01-01 /to 2024-01-02";
+
+        String reply = p.parse(input);
+
+        assertEquals("There is an argument in the wrong format!!!", reply);
     }
 
     @Test
     void erroneousEventShouldThrowErroneousArgumentException2() {
-        boolean thrown = false;
-        try {
-            TaskList tl = new TaskList();
-            String in = "event test /from 2024-01-01 /to2024-01-02";
-            p.addTask(in, tl);
-        } catch (DukeErroneousArgumentException e) {
-            thrown = true;
-        }
-        assertTrue(thrown);
+        String input = "event test /from 2024-01-01 /t 2024-01-02";
+
+        String reply = p.parse(input);
+
+        assertEquals("There is an argument in the wrong format!!!", reply);
     }
 
     @Test
     void erroneousEventFormatShouldThrowDateTimeException1() {
-        boolean thrown = false;
-        try {
-            TaskList tl = new TaskList();
-            String in = "event test /from 2024-00-01 /to 2024-01-02";
-            p.addTask(in, tl);
-        } catch (DateTimeException e) {
-            thrown = true;
-        }
-        assertTrue(thrown);
+        String input = "event test /from 2024-00-01 /to 2024-01-02";
+
+        String reply = p.parse(input);
+        String expected = "The format of your date is wrong! Make sure it is of the form 'yyyy-MM-dd'.\n"
+                + "More specifically: \n"
+                + "Text '2024-00-01' could not be parsed: Invalid value for MonthOfYear (valid values 1 - 12): 0";
+
+        assertEquals(expected, reply);
     }
 
     @Test
     void erroneousEventFormatShouldThrowDateTimeException2() {
-        boolean thrown = false;
-        try {
-            TaskList tl = new TaskList();
-            String in = "event test /from 2024-01-01 /to 2024-00-02";
-            p.addTask(in, tl);
-        } catch (DateTimeException e) {
-            thrown = true;
-        }
-        assertTrue(thrown);
+        String input = "event test /from 2024-01-01 /to 2024-00-02";
+
+        String reply = p.parse(input);
+        String expected = "The format of your date is wrong! Make sure it is of the form 'yyyy-MM-dd'.\n"
+                + "More specifically: \n"
+                + "Text '2024-00-02' could not be parsed: Invalid value for MonthOfYear (valid values 1 - 12): 0";
+
+        assertEquals(expected, reply);
     }
 }

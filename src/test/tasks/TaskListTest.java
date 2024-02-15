@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import duke.duke.Duke;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,11 +40,10 @@ class TaskListTest {
         Todo todo = new Todo("task1");
         List<Task> lst = new ArrayList<>(List.of(todo));
         TaskList tl = new TaskList(lst);
-        tl.printList();
-        assertEquals("Here are the tasks in your list:"
-                + System.lineSeparator()
+        String output = tl.printList();
+        assertEquals("Here are the tasks in your list:\n"
                 + "1. "
-                + todo, outContent.toString());
+                + todo, output);
     }
 
     @Test
@@ -66,13 +66,14 @@ class TaskListTest {
         Event event = new Event("task3", "2024-01-01", "2024-01-02");
         List<Task> lst = new ArrayList<>(Arrays.asList(todo, deadline, event));
         TaskList tl = new TaskList(lst);
-        tl.find("find task");
-        assertEquals("Here are the matching tasks in your list:"
-                + System.lineSeparator()
+        Duke.tasks = tl;
+
+        String output = tl.find("task");
+        assertEquals("Here are the matching tasks in your list:\n"
                 + "1. "
                 + deadline
                 + "2. "
-                + event, outContent.toString());
+                + event, output);
     }
 
 }
