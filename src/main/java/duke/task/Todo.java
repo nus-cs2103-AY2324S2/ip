@@ -1,4 +1,9 @@
 package duke.task;
+
+/**
+ * The Todo class represents a simple todo task in the Duke application.
+ * It extends the Task class and includes additional functionality to handle todo tasks.
+ */
 public class Todo extends Task {
 
     /**

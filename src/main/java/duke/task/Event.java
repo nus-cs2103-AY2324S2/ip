@@ -1,5 +1,9 @@
 package duke.task;
 
+/**
+ * The Event class represents a task with a specific event in the Duke application.
+ * It extends the Task class and includes additional functionality to handle events.
+ */
 public class Event extends Task {
     protected String from;
     protected String to;

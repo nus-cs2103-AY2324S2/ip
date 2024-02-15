@@ -1,10 +1,16 @@
 package duke;
 
-import duke.ui.Ui;
+import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.task.TaskList;
-import duke.parser.Parser;
+import duke.ui.Ui;
 
+/**
+ * The main class for the Duke application. Duke is a simple task management
+ * application that allows users to add, delete, mark as done, and list tasks.
+ * Tasks are stored in a file specified by the user upon starting the application.
+ * Duke provides a command-line interface (CLI) for users to interact with.
+ */
 public class Duke {
     private Storage storage;
     private TaskList tasks;

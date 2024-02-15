@@ -1,11 +1,15 @@
 package duke.task;
 
-import duke.DukeException;
-
-
 import java.util.ArrayList;
 import java.util.List;
 
+import duke.DukeException;
+
+/**
+ * The TaskList class represents a collection of tasks in the Duke application.
+ * It provides methods to manipulate the list of tasks, such as adding, deleting,
+ * marking as done, listing, and finding tasks.
+ */
 public class TaskList {
     private List<Task> tasks;
 

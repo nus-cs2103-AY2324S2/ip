@@ -4,6 +4,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The Deadline class represents a task with a deadline in the Duke application.
+ * It extends the Task class and includes additional functionality to handle deadlines.
+ */
 public class Deadline extends Task {
     protected LocalDateTime by;
 
@@ -33,7 +37,11 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileFormat() {
-        return String.format("D | %d | %s | %s", isComplete ? 1 : 0, description, by.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")));
+        return String.format("D | %d | %s | %s",
+            isComplete ? 1 : 0,
+            description,
+            by.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")));
+
     }
 
     /**
@@ -43,6 +51,10 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "D | " + (isComplete ? 1 : 0) + " | " + description + " | " + by.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+        return "D | "
+            + (isComplete ? 1 : 0)
+            + " | " + description
+            + " | " + by.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+
     }
 }

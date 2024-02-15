@@ -2,6 +2,10 @@ package duke.ui;
 
 import java.util.Scanner;
 
+/**
+ * The Ui class is responsible for handling user interface interactions
+ * in the Duke application, including reading user input and displaying messages.
+ */
 public class Ui {
     private Scanner scanner;
 

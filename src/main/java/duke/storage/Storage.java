@@ -1,11 +1,5 @@
 package duke.storage;
 
-import duke.DukeException;
-import duke.task.Task;
-import duke.task.Todo;
-import duke.task.Deadline;
-import duke.task.Event;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,6 +8,16 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import duke.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
+/**
+ * The Storage class is responsible for handling the loading and saving of tasks
+ * to and from a file in the Duke application.
+ */
 public class Storage {
     private String filePath;
 
@@ -40,15 +44,17 @@ public class Storage {
                 String[] parts = line.split(" \\| ");
                 Task task = null;
                 switch (parts[0]) {
-                    case "T":
-                        task = new Todo(parts[2], parts[1].equals("1"));
-                        break;
-                    case "D":
-                        task = new Deadline(parts[2], parts[3], parts[1].equals("1"));
-                        break;
-                    case "E":
-                        task = new Event(parts[2], parts[3], parts[4], parts[1].equals("1"));
-                        break;
+                case "T":
+                    task = new Todo(parts[2], parts[1].equals("1"));
+                    break;
+                case "D":
+                    task = new Deadline(parts[2], parts[3], parts[1].equals("1"));
+                    break;
+                case "E":
+                    task = new Event(parts[2], parts[3], parts[4], parts[1].equals("1"));
+                    break;
+                default:
+                    throw new DukeException("I'm sorry, but I don't know what that means :-(");
                 }
                 if (task != null) {
                     loadedTasks.add(task);

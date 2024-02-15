@@ -1,5 +1,9 @@
 package duke.task;
 
+/**
+ * The Task class represents a generic task in the Duke application.
+ * It is an abstract class providing common functionality for all types of tasks.
+ */
 public abstract class Task {
     protected String description;
     protected boolean isComplete;
