@@ -115,7 +115,8 @@ public class Parser {
     }
 
     private static Command parseAdd(
-            String[] commandArgs) throws InvalidDateTimeException, EmptyDescriptionException, ParameterNotFoundException {
+            String[] commandArgs) throws InvalidDateTimeException,
+            EmptyDescriptionException, ParameterNotFoundException {
         if (commandArgs.length == 1) {
             throw new EmptyDescriptionException(commandArgs[0]);
         }
