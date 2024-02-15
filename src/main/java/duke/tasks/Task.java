@@ -30,12 +30,12 @@ public class Task implements Serializable {
         isDone = false;
     }
 
-    public String getDescription() {
-        return description;
+    public boolean isDone() {
+        return this.isDone;
     }
 
-    public boolean isDone() {
-        return isDone;
+    public String getDescription() {
+        return description;
     }
 
     @Override
