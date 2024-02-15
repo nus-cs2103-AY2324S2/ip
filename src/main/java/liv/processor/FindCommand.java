@@ -16,8 +16,9 @@ public class FindCommand  extends Command {
      * {@inheritDoc}
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) throws LivException {
+    public String execute(TaskList tasks, Ui ui) throws LivException {
         ArrayList<String> matchingTasks = tasks.findMatchingTasks(keyword);
-        Ui.displayFindCommand(matchingTasks);
+        String message = Ui.getFindMessage(matchingTasks);
+        return message;
     }
 }

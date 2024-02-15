@@ -24,9 +24,10 @@ public class TodoCommand extends Command {
      * @param ui The Ui to gives interaction with users.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         tasks.addTask(todo);
-        Ui.displayTodoCommand(todo);
+        String message = Ui.getTodoMessage(todo);
+        return message;
     }
 
     /**

@@ -9,6 +9,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import liv.Liv;
+import liv.exception.LivException;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -41,9 +43,9 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() {
+    private void handleUserInput() throws LivException {
         String input = userInput.getText();
-        String response = Liv.getResponse(input);
+        String response = liv.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getLivDialog(response, livImage)

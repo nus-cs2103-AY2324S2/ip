@@ -14,7 +14,7 @@ public abstract class Command {
      * @param ui The Ui to gives interaction with users.
      * @throws LivException
      */
-    public abstract void execute(TaskList tasks, Ui ui) throws LivException;
+    public abstract String execute(TaskList tasks, Ui ui) throws LivException;
 
     /**
      * Checks if this command is a bye command to exit the chatbot.

@@ -26,7 +26,7 @@ public class UnmarkCommand extends Command {
      * @throws LivException
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) throws LivException {
+    public String execute(TaskList tasks, Ui ui) throws LivException {
         int trueIndex = index - 1;
         Task task = TaskList.getTask(trueIndex);
         boolean currentState = task.getStatus();
@@ -34,6 +34,7 @@ public class UnmarkCommand extends Command {
             throw new LivException("Mission already unmarked!");
         }
         task.markAsNotDone();
-        Ui.displayUnmarkCommand(task);
+        String message = Ui.getUnmarkMessage(task);
+        return message;
     }
 }

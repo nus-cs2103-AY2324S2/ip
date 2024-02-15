@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.Region;
@@ -69,7 +68,7 @@ public class Liv extends Application {
         stage.setScene(scene);
         stage.show();
 
-        stage.setTitle("Duke");
+        stage.setTitle("Liv");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
@@ -136,11 +135,16 @@ public class Liv extends Application {
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label livText = new Label(getResponse(userInput.getText()));
+        String input = userInput.getText();
+        String response = null;
+        try {
+            response = getResponse(input);
+        } catch (LivException e) {
+            throw new RuntimeException(e);
+        }
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(userImage)),
-                DialogBox.getLivDialog(livText, new ImageView(livImage))
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getLivDialog(response, livImage)
         );
         userInput.clear();
     }
@@ -151,8 +155,13 @@ public class Liv extends Application {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) throws LivException {
-        Command c = Parser.parse(input);
-        c.execute(tasks, ui);
+        try {
+            Command command = Parser.parse(input);
+            String response = command.execute(tasks, ui);
+            return response;
+        } catch (LivException e) {
+            return e.getMessage();
+        }
     }
 //    /**
 //     * The main logic structure of the chatbot.
