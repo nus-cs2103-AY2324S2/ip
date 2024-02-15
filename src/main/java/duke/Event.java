@@ -3,10 +3,30 @@ package duke;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Event extends Task{
+/**
+ * The Event class represents a task that occurs within a specific time range.
+ * It extends the Task class and adds functionality to store and display the start and end times of the event.
+ * Event is a subclass of {@link Task}, inheriting its properties and methods
+ */
+public class Event extends Task {
+
+    /**
+     * The start time of the event.
+     */
     public LocalDateTime from;
+
+    /**
+     * The end time of the event.
+     */
     public LocalDateTime to;
 
+    /**
+     * Constructs an Event object with the given description, start time, and end time.
+     *
+     * @param description A string representing the description of the event.
+     * @param from        The start time of the event.
+     * @param to          The end time of the event.
+     */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;

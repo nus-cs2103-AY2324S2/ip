@@ -22,6 +22,13 @@ public class Parser {
 
     }
 
+    /**
+     * Parses the input string to extract the action keyword.
+     * The action keyword is the first word in the input string.
+     *
+     * @param input A string representing the input to be parsed.
+     * @return The action keyword extracted from the input string.
+     */
     public String parseAction(String input) {
         return input.split(" ")[0];
     }

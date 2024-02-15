@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * The Deadlines class represents a task with a deadline.
  * It extends the Task class and adds functionality to store and display the deadline of the task.
+ * Deadline is a subclass of {@link Task}, inheriting its properties and methods
  */
 public class Deadline extends Task {
 
