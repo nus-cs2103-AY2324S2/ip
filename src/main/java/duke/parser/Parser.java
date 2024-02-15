@@ -11,15 +11,6 @@ import duke.dukeexception.DukeException;
  */
 public class Parser {
 
-    private boolean isFinished;
-
-    /**
-     * Constructor that sets the isFinished to false.
-     */
-    public Parser() {
-        isFinished = false;
-    }
-
     /**
      * Returns Array of string split into command and description.
      * If the input is bye or list, return spilt.
@@ -37,22 +28,6 @@ public class Parser {
         } else {
             return split;
         }
-    }
-
-    /**
-     * Returns status of program.
-     *
-     * @return Program Status.
-     */
-    public boolean isFinished() {
-        return isFinished;
-    }
-
-    /**
-     * Sets status to finished.
-     */
-    public void bye() {
-        isFinished = true;
     }
 
     /**

@@ -30,7 +30,9 @@ public class Duke {
         storage = new Storage(filePath);
         parser = new Parser();
         try {
-            tasks = new TaskList(storage.load());
+            ArrayList<Task> storageList = storage.load();
+            tasks = new TaskList(storageList);
+            assert storageList.size() == tasks.getNumberOfTasks();
         } catch (IOException e) {
             Ui.showLoadingError();
         }
@@ -59,9 +61,16 @@ public class Duke {
             } else if (parse[0].equalsIgnoreCase("event")) {
                 String[] split = parser.event(parse[1]);
                 output = tasks.event(split[0], split[1], split[2]);
+                assert output.equals("Got it. I've added this task: \n"
+                                     + "  [E][ ] " + split[0] + " (from: " + split[1] + " to: " + split[2] + ")"
+                                     + "\nNow you have "
+                                     + tasks.getNumberOfTasks()
+                                     + " tasks in the list.");
             } else if (parse[0].equalsIgnoreCase("delete")) {
                 int num = parser.stringToNum(parse[1]);
+                int numOfTasks = tasks.getNumberOfTasks();
                 output = tasks.delete(num);
+                assert numOfTasks == tasks.getNumberOfTasks() + 1;
             } else if (parse[0].equalsIgnoreCase("find")) {
                 ArrayList<Task> contains = tasks.findContains(parse[1]);
                 output = Ui.printList(contains);

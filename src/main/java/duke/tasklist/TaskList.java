@@ -140,4 +140,9 @@ public class TaskList {
     public ArrayList<Task> getList() {
         return taskList;
     }
+
+
+    public int getNumberOfTasks() {
+        return taskList.size();
+    }
 }
