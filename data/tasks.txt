@@ -1,4 +1,2 @@
 T | X | go home
 D |   | read book | 2024-01-01T12:00
-T | X | read book
-T |   | gym
