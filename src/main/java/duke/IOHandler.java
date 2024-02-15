@@ -1,9 +1,11 @@
 package duke;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 import duke.task.Task;
 import duke.task.TaskList;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+import duke.task.Event;
 
 /**
  * Responsible for handling Input Output tasks in the application.
@@ -22,7 +24,7 @@ public class IOHandler {
      * Displays welcome Message.
      */
     public String welcomeMessage() {
-        String result = "Hello! I'm Duckbot\n\n";
+        String result = "Hello! I'm Shaunbot\n\n";
         result += "What can I do for you?";
         return result;
     }
@@ -88,6 +90,19 @@ public class IOHandler {
         result.append("Here are the matching tasks in your list: \n");
         for (int i = 0; i < list.size(); i++) {
             result.append(i + 1).append(".").append(list.get(i)).append("\n");
+        }
+        return result.toString();
+    }
+
+    public String displayScheduledTasks(ArrayList<Task> ls) {
+        StringBuilder result = new StringBuilder();
+        String message = "Hi!, Following are your scheduled Tasks for the day\n";
+        result.append(message);
+        if (ls.size() == 0) {
+            return "No Scheduled Tasks for the Date";
+        }
+        for (int i = 0; i < ls.size(); i++) {
+            result.append(i + 1).append(".").append(ls.get(i)).append("\n");
         }
         return result.toString();
     }

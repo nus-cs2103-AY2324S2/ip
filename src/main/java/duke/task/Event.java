@@ -25,6 +25,7 @@ package duke.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 
 /**
  * Contains the details of events as a part of task.
@@ -56,6 +57,10 @@ public class Event extends Task {
     public String getDate() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
         return this.start.format(formatter) + "-" + this.end.format(formatter);
+    }
+
+    public LocalDate getRawDate() {
+        return this.start.toLocalDate();
     }
 
     public LocalDateTime getEnd() {
