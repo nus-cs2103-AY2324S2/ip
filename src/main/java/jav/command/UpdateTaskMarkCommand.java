@@ -9,17 +9,17 @@ import jav.manager.UiManager;
  */
 public class UpdateTaskMarkCommand extends TaskCommand {
     /** Whether the task is going to be marked or unmarked. */
-    private boolean isMarking;
+    private boolean shouldMark;
 
     /**
      * Constructs a new UpdateTaskMarkCommand.
      *
-     * @param isMarking whether the task is marked or unmarked.
+     * @param shouldMark whether the task should be marked or unmarked.
      * @param param the parameter of the command.
      * @return a new UpdateTaskMarkCommand.
      */
-    public UpdateTaskMarkCommand(Boolean isMarking, String param) {
-        this.isMarking = isMarking;
+    public UpdateTaskMarkCommand(Boolean shouldMark, String param) {
+        this.shouldMark = shouldMark;
         this.param = param;
     }
 
@@ -31,11 +31,12 @@ public class UpdateTaskMarkCommand extends TaskCommand {
         }
 
         // Check if given an index bigger than size of list
-        if (!StorageManager.getInstance().updateTask(Integer.parseInt(param) - 1, isMarking)) {
+        if (!StorageManager.getInstance().updateTask(Integer.parseInt(param) - 1, shouldMark)) {
             throw new InvalidParamException("Cannot mark/unmark task, given num is out of scope", null);
         }
 
-        if (isMarking) {
+        // Update the task mark based on the parameters
+        if (shouldMark) {
             return UiManager.getInstance().printMarkingTask();
         } else {
             return UiManager.getInstance().printUnmarkingTask();

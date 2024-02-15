@@ -3,9 +3,7 @@ package jav;
 import jav.command.Command;
 import jav.exception.InvalidCommandException;
 import jav.exception.InvalidParamException;
-import jav.manager.FileManager;
 import jav.manager.ParserManager;
-import jav.manager.StorageManager;
 import jav.manager.UiManager;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -44,6 +42,7 @@ public class Jav extends Application {
             Command c = ParserManager.getInstance().checkCommand(cmd, param);
             output = c.execute();
 
+            // Check if recieved exit command
             if (output == "SHUTDOWN") {
                 shutdown();
             }
@@ -63,32 +62,5 @@ public class Jav extends Application {
      */
     public void shutdown() {
         Platform.exit();
-    }
-
-    // Old text ui.
-    private void printAsciiGreeting() {
-        // Print any neccessary UI upon starting up
-        // Got ASCII Word Art from https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Jav
-        String logo =
-                  "      ____.  _________   ____\n"
-                + "     |    | /  _  \\   \\ /   /\n"
-                + "     |    |/  /_\\  \\   Y   /\n"
-                + " /\\__|    /    |    \\     /\n"
-                + " \\________\\____|__  /\\___/\n"
-                + "                  \\/\n"
-                + "The Joy Amplifying Virtuoso!\n";
-
-        System.out.println("Hello from\n" + logo);
-        System.out.println("<---------------------------------------------------------->");
-        UiManager.getInstance().printGreeting();
-    }
-
-    // Old text ui.
-    private void loadStorageData() {
-        try {
-            StorageManager.getInstance().load(FileManager.getInstance().loadStorageData());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
     }
 }

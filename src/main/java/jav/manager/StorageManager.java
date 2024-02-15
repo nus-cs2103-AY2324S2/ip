@@ -56,9 +56,8 @@ public class StorageManager {
         int i = 1;
         String s = "";
         for (Task t : tasks) {
-            s += i + ".";
-            s += t.toString();
-            s += "\n";
+            String taskString = String.format("%d. %s\n", i, t.toString());
+            s += taskString;
             i++;
         }
 
@@ -81,9 +80,9 @@ public class StorageManager {
      *
      * @param param the information about the task.
      * @param type the type of task.
-     * @param isMarked whether the task should be marked.
+     * @param shouldMark whether the task should be marked.
      */
-    public void store(String param, StorageType type, boolean isMarked) throws InvalidParamException {
+    public void store(String param, StorageType type, boolean shouldMark) throws InvalidParamException {
         if (tasks == null) {
             tasks = new ArrayList<>();
         }
@@ -92,16 +91,16 @@ public class StorageManager {
         try {
             switch (type) {
             case TODO:
-                task = new ToDo(param, isMarked);
+                task = new ToDo(param, shouldMark);
                 break;
             case DEADLINE:
-                task = new Deadline(param, isMarked);
+                task = new Deadline(param, shouldMark);
                 break;
             case EVENT:
-                task = new Event(param, isMarked);
+                task = new Event(param, shouldMark);
                 break;
             default:
-                task = new Task(param, isMarked);
+                task = new Task(param, shouldMark);
                 break;
             }
             tasks.add(task);
@@ -114,16 +113,16 @@ public class StorageManager {
      * Update whether a specific task is marked or not.
      *
      * @param index the index of the task.
-     * @param isMarked whether the task should be marked.
+     * @param shouldMark whether the task should be marked.
      * @return whether the specified task exists or not.
      */
-    public boolean updateTask(int index, boolean isMarked) {
+    public boolean updateTask(int index, boolean shouldMark) {
         if (tasks == null) {
             return false;
         }
 
         if (tasks.size() >= index + 1) {
-            tasks.get(index).updateMark(isMarked);
+            tasks.get(index).updateMark(shouldMark);
             return true;
         } else {
             return false;
@@ -172,18 +171,19 @@ public class StorageManager {
      * Load the saved data into the storage.
      */
     public void load(String savedData) {
-        if (!savedData.equals("")) {
-            String[] strings = savedData.split("\n");
+        if (savedData.equals("")) {
+            return;
+        }
 
-            for (String str : strings) {
-                String[] tokens = str.split(",marked=");
-                String type = tokens[0].substring(5);
-                tokens = tokens[1].split(",param=");
-                String isMarked = tokens[0];
-                String param = tokens[1];
-
-                store(param, stringToStorageType(type), (isMarked.equals("T") ? true : false));
-            }
+        // Tokenize the data and store it into the storage
+        String[] strings = savedData.split("\n");
+        for (String str : strings) {
+            String[] tokens = str.split(",marked=");
+            String type = tokens[0].substring(5);
+            tokens = tokens[1].split(",param=");
+            String isMarked = tokens[0];
+            String param = tokens[1];
+            store(param, stringToStorageType(type), (isMarked.equals("T") ? true : false));
         }
     }
 

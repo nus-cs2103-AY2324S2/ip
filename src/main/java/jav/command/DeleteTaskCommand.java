@@ -20,14 +20,16 @@ public class DeleteTaskCommand extends TaskCommand {
 
     @Override
     public String execute() throws InvalidParamException {
-        if (Integer.parseInt(param) >= 1) {
-            if (StorageManager.getInstance().deleteTask(Integer.parseInt(param) - 1)) {
-                return UiManager.getInstance().printDeletingTask();
-            } else {
-                throw new InvalidParamException("Cannot delete task, given num is out of scope", null);
-            }
-        } else {
+        // Check if given a -ve index
+        if (Integer.parseInt(param) < 1) {
             throw new InvalidParamException("Cannot delete task, given num is -ve", null);
+        }
+
+        // Check if given an index bigger than size of list
+        if (StorageManager.getInstance().deleteTask(Integer.parseInt(param) - 1)) {
+            return UiManager.getInstance().printDeletingTask();
+        } else {
+            throw new InvalidParamException("Cannot delete task, given num is out of scope", null);
         }
     }
 }
