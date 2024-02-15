@@ -15,11 +15,12 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private final Earl earl = new Earl("./data/earl.txt");
+    private FXMLLoader fxmlLoader;
 
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(
+            fxmlLoader = new FXMLLoader(
                     Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
@@ -38,6 +39,7 @@ public class Main extends Application {
 
     @Override
     public void stop() {
-        earl.getResponse("bye");
+        assert fxmlLoader != null;
+        fxmlLoader.<MainWindow>getController().handleExit();
     }
 }

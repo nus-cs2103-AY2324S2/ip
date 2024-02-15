@@ -14,13 +14,11 @@ public class Ui {
     private static final String NEWLINE = System.lineSeparator();
     private static final String GREETING_MESSAGE = "Hello! I'm Earl" + NEWLINE
             + PADDING + "What can I do for you?";
-
     private static final String GOODBYE_MESSAGE = "Goodbye! See you soon.";
 
     private final Scanner sc;
     private final List<String> delayedResponse;
-
-    private String[] response;
+    private String[] response;  // the lines of the previous response
 
     /** Class constructor. */
     public Ui() {
@@ -30,7 +28,11 @@ public class Ui {
         delayedResponse = new ArrayList<>();
     }
 
-    /** Displays horizontal divider. */
+    private void setPrevResponse(String... arr) {
+        response = arr;
+    }
+
+    /** Displays a horizontal divider for TUI mode. */
     private static void printDivider() {
         System.out.println(PADDING + DIVIDER);
     }
@@ -42,8 +44,20 @@ public class Ui {
         }
     }
 
-    private void setPrevResponse(String... arr) {
-        response = arr;
+    /**
+     * Formats and prints the arguments for the user to read.
+     * <p>
+     * Each argument is automatically put on a new line. A padding
+     * of 4 spaces is also added automatically to give the user a
+     * better sense of which text is outputted by Earl.
+     *
+     * @param arr  a number of lines to print
+     */
+    public void makeResponse(String... arr) {
+        setPrevResponse(arr);
+        printDivider();
+        printStrings(arr);
+        printDivider();
     }
 
     /** Adds strings to be displayed later. */
@@ -55,22 +69,6 @@ public class Ui {
     public void completeResponse() {
         makeResponse(delayedResponse.toArray(String[]::new));
         delayedResponse.clear();
-    }
-
-    /**
-     * Formats and prints the arguments for the user to read.
-     * <p>
-     * Each argument is automatically put on a new line. A padding
-     * of 4 spaces is also added automatically to give the user a
-     * better sense of which text is outputted by Earl.
-     *
-     * @param arr  a vararg of strings to print
-     */
-    public void makeResponse(String... arr) {
-        setPrevResponse(arr);
-        printDivider();
-        printStrings(arr);
-        printDivider();
     }
 
     public String getUserInput() {
@@ -101,11 +99,10 @@ public class Ui {
      *          text based UI
      */
     public String getResponse() {
-        StringBuilder res = new StringBuilder(PADDING + DIVIDER + NEWLINE);
+        StringBuilder res = new StringBuilder();
         for (String line: response) {
             res.append(PADDING).append(line).append(NEWLINE);
         }
-        res.append(PADDING).append(DIVIDER).append(NEWLINE);
         return res.toString();
     }
 }

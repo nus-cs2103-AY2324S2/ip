@@ -42,7 +42,7 @@ public class MainWindow extends AnchorPane {
     /** Displays the initial message on startup. */
     public void showGreeting() {
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(earl.getResponse(), dukeImage));
+                DialogBox.getEarlDialog(earl.getResponse(), dukeImage));
     }
 
     /**
@@ -53,13 +53,24 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = earl.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input + " ".repeat(4), userImage),
-                DialogBox.getDukeDialog(response, dukeImage));
-        userInput.clear();
         if (input.equals("bye")) {
             Platform.exit();
+            return;
         }
+        String response = earl.getResponse(input);
+        displayDialog(input, response);
+    }
+
+    public void handleExit() {
+        String input = "bye";
+        String response = earl.getResponse(input);
+        displayDialog(input, response);
+    }
+
+    private void displayDialog(String input, String response) {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input + " ".repeat(4), userImage),
+                DialogBox.getEarlDialog(response, dukeImage));
+        userInput.clear();
     }
 }

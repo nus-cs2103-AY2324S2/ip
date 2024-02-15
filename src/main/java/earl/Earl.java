@@ -68,7 +68,7 @@ public class Earl {
         ui.showGoodbye();
     }
 
-    /** Returns greeting for GUI startup. */
+    /** Returns the previous response. */
     public String getResponse() {
         return ui.getResponse();
     }
