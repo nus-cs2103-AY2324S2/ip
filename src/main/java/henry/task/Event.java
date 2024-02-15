@@ -38,11 +38,13 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), from.format(OUTPUT_FORMATTER), to.format(OUTPUT_FORMATTER));
+        return String.format("[E]%s (from: %s to: %s)", super.toString(),
+                from.format(OUTPUT_FORMATTER), to.format(OUTPUT_FORMATTER));
     }
 
     @Override
     public String toFileString() {
-        return String.format("E | %s | %s | %s", super.toFileString(), from.format(INPUT_FORMATTER), to.format(INPUT_FORMATTER));
+        return String.format("E | %s | %s | %s", super.toFileString(),
+                from.format(INPUT_FORMATTER), to.format(INPUT_FORMATTER));
     }
 }
