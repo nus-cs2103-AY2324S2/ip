@@ -12,9 +12,13 @@ public class Ui {
     private static final String PADDING = " ".repeat(4);
     private static final String DIVIDER = "_".repeat(60);
     private static final String NEWLINE = System.lineSeparator();
-    private static final String GREETING_MESSAGE = "Hello! I'm Earl" + NEWLINE
-            + PADDING + "What can I do for you?";
-    private static final String GOODBYE_MESSAGE = "Goodbye! See you soon.";
+    private static final String GREETING_MESSAGE =
+            "Greetings, I, Earl, extend my esteemed salutations." + NEWLINE
+            + PADDING + "Pray, how may I be of service to you"
+                    + " on this auspicious day?";
+    private static final String GOODBYE_MESSAGE =
+            "Farewell, dear interlocutor!" + NEWLINE
+            + PADDING + "Until our paths intertwine again, I bid you adieu.";
 
     private final Scanner sc;
     private final List<String> delayedResponse;

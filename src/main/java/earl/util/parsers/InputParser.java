@@ -26,7 +26,7 @@ public class InputParser implements Parser<Handler> {
             HandlerType handlerType = HandlerType.valueOf(command);
             return handlerType.createHandler(args);
         } catch (Exception e) {
-            throw new EarlException("Unable to parse input: " + input);
+            throw new EarlException("Input defies parsing: " + input);
         }
     }
 }

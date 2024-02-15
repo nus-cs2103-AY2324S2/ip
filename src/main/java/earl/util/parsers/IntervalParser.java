@@ -38,10 +38,10 @@ public class IntervalParser implements Parser<Stream<Integer>> {
             return result.distinct().sorted(Collections.reverseOrder());
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             throw new EarlException(
-                    "Error, indices format invalid."
+                    "The indices' format is fraught with invalidity."
                             + " Example format: 1 4-7 9-10");
         } catch (Exception e) {
-            throw new EarlException("Error, unknown argument format");
+            throw new EarlException("The argument format is most confounding.");
         }
     }
 }

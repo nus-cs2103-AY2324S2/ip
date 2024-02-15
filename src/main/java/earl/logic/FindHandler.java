@@ -21,10 +21,11 @@ public class FindHandler extends MassOperableHandler {
                 .filter((str) -> str.contains(args))
                 .toArray(String[]::new);
         if (matches.length == 0) {
-            ui.makeResponse("There are no matches.");
+            ui.makeResponse("No matches have been discerned.");
             return;
         }
-        String header = "There are " + matches.length + " matching entries.";
+        String header = matches.length + " entries of congruence "
+                + "have been uncovered.";
         String[] result = Stream.concat(Stream.of(header), Stream.of(matches))
                 .toArray(String[]::new);
         ui.makeResponse(result);

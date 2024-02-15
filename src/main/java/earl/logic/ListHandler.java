@@ -15,9 +15,11 @@ public final class ListHandler extends Handler {
     @Override
     public void handle(TaskList tasks, Ui ui) {
         if (tasks.isEmpty()) {
-            ui.makeResponse("There is nothing to list.");
+            ui.makeResponse("A void of contents prevails.");
             return;
         }
-        ui.makeResponse(tasks.getAsIndexedStream().toArray(String[]::new));
+        ui.buildResponse("The ledger of tasks:");
+        ui.buildResponse(tasks.getAsIndexedStream().toArray(String[]::new));
+        ui.completeResponse();
     }
 }
