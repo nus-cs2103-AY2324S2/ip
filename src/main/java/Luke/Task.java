@@ -1,20 +1,20 @@
-package Luke;
+package luke;
 
 public class Task {
     protected boolean done;
-    protected String name;
+    protected String description;
 
-    public Task (String name) {
+    public Task (String description) {
         this.done = false;
-        this.name = name;
+        this.description = description;
     }
 
     @Override
     public String toString() {
         if (done) {
-            return "[X] " + name;
+            return "[X] " + description;
         } else {
-            return "[ ] " + name;
+            return "[ ] " + description;
         }
     }
 
@@ -25,4 +25,10 @@ public class Task {
     public void setToNotDone() {
         this.done = false;
     }
+
+    /**
+     * Returns the description of the task.
+     * @return description of the task
+     */
+    public String getDescription() { return this.description; }
 }

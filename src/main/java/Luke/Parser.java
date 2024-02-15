@@ -1,4 +1,4 @@
-package Luke;
+package luke;
 
 public class Parser {
     private String[] validCommands;
@@ -123,4 +123,11 @@ public class Parser {
         return taskList.getMostRecentTask();
     }
 
+    protected String commandFind(String input) throws LukeException {
+        String keyword = input.substring(4).trim();
+        if (keyword.isEmpty()) {
+            throw new LukeException(LukeException.ExceptionType.findKeywordEmpty);
+        }
+        return keyword;
+    }
 }

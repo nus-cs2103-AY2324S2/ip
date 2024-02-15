@@ -1,4 +1,4 @@
-package Luke;
+package luke;
 
 import java.util.ArrayList;
 
@@ -81,6 +81,23 @@ public class TaskList {
         taskList.remove(taskNo);
         noTasks--;
         return taskDeleted;
+    }
+
+    /**
+     * Searches for tasks containing the specified keyword in their descriptions.
+     * Creates a new TaskList containing tasks matching the keyword.
+     *
+     * @param keyword the keyword to search for in task descriptions
+     * @return a new TaskList containing tasks with descriptions matching the keyword
+     */
+    public TaskList search(String keyword) {
+        ArrayList<String> tasksWithKeyword = new ArrayList<>();
+        for (Task task: taskList) {
+            if (task.getDescription().contains(keyword)) {
+                tasksWithKeyword.add(task.toString());
+            }
+        }
+        return new TaskList(tasksWithKeyword);
     }
 
     public ArrayList<Task> getTaskList() {

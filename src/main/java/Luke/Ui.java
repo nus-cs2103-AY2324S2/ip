@@ -1,4 +1,4 @@
-package Luke;
+package luke;
 
 import java.util.Scanner;
 
@@ -8,7 +8,7 @@ public class Ui {
     protected String command;
 
     protected TaskList taskList;
-    protected String[] validCommands = {"bye", "list", "unmark", "mark", "todo", "event", "deadline", "delete"};
+    protected String[] validCommands = {"bye", "list", "unmark", "mark", "todo", "event", "deadline", "delete", "find"};
 
     protected Parser parser;
     Ui() {
@@ -86,6 +86,19 @@ public class Ui {
                         System.out.println(e.getMessage());
                     }
                     break;
+            case "find":
+                try {
+                    String keyword = parser.commandFind(this.input);
+                    TaskList tasksFound = taskList.search(keyword);
+                    if (tasksFound.getNoTasks() == 0) {
+                        System.out.println("No tasks with the keyword found.");
+                    } else {
+                        tasksSuccessfullyFound(tasksFound);
+                    }
+                } catch (LukeException e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
             }
             Scanner scanner = new Scanner (System.in);
             this.input = scanner.nextLine();
@@ -112,41 +125,37 @@ public class Ui {
         System.out.println("Here are the tasks in your list:");
     }
 
-    public void markSuccess(Task task) {
+    private void markSuccess(Task task) {
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(task.toString());
     }
 
-    public void unmarkSuccess(Task task) {
+    private void unmarkSuccess(Task task) {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(task.toString());
     }
 
-    public void deleteSuccess(Task task, int noTasks) {
+    private void deleteSuccess(Task task, int noTasks) {
         System.out.println("Noted. I've removed this task:");
         System.out.println(task.toString());
         System.out.println("Now you have " + noTasks + " tasks in the list.");
     }
 
-    public void taskSuccessfullyAdded(Task task, int noTasks) {
+    private void taskSuccessfullyAdded(Task task, int noTasks) {
         System.out.println("I've added this task: ");
         System.out.println(task.toString());
         System.out.println("Now you have " + noTasks + " tasks in the list.");
     }
 
-    public void inputError(String type) {
-        switch (type) {
-            case "taskNumberInvalid":
-                System.out.println("Luke.Task does not exist. Please give a valid task number.");
-            case "descriptionEmpty":
-                System.out.println("Invalid command. The description cannot be empty.");
-            case "deadlineEmpty":
-                System.out.println("Invalid command. The deadline cannot be empty.");
-            case "eventFromEmpty":
-                System.out.println("Invalid command. The from section cannot be empty.");
-            case "eventToEmpty":
-                System.out.println("Invalid command. The to section cannot be empty.");
-        }
+    /**
+     * Displays a message indicating successful retrieval of tasks matching a keyword
+     * and the tasks with the keyword.
+     *
+     * @param taskListWithKeyword the TaskList containing tasks matching the keyword
+     */
+    private void tasksSuccessfullyFound(TaskList taskListWithKeyword) {
+        System.out.println("Here are the matching tasks in your list:");
+        taskListWithKeyword.list();
     }
 
     public void end() {
