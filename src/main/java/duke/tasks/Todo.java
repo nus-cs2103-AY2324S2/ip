@@ -5,6 +5,7 @@ package duke.tasks;
  * It extends the `Task` class and inherits its properties and methods.
  */
 public class Todo extends Task {
+    private static final long serialVersionUID = 2L;
     public Todo(String taskName) {
         this(taskName, false);
     }

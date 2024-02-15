@@ -5,6 +5,8 @@ import java.util.Scanner;
 import duke.command.Command;
 import duke.command.CommandProcessor;
 import duke.exceptions.HalException;
+import duke.history.HistoryManager;
+import duke.history.State;
 import duke.storage.Storage;
 import javafx.application.Platform;
 
@@ -12,7 +14,9 @@ import javafx.application.Platform;
  * The `UserInterface` class handles user interactions and serves as the main interface for the Duke application.
  */
 public class Logic {
-
+    private static final String DATA_FILE_DIRECTORY = "./data/";
+    private static final String SAVE_FILE_NAME = "savefile.txt";
+    private static final String HISTORY_FILE_NAME = "history.txt";
     private Scanner scan;
     private CommandProcessor cmd;
     private boolean isStartUpSuccess = false;
@@ -24,10 +28,10 @@ public class Logic {
     public Logic() {
         try {
             scan = new Scanner(System.in);
-            String fileDirectory = "./data/";
-            String fileName = "savefile.txt";
-            Storage storage = new Storage(fileDirectory, fileName);
-            cmd = new CommandProcessor(storage);
+            Storage storage = new Storage(DATA_FILE_DIRECTORY, SAVE_FILE_NAME);
+            State startState = storage.getCurrState(Command.BYE);
+            HistoryManager historyManager = new HistoryManager(DATA_FILE_DIRECTORY, HISTORY_FILE_NAME, startState);
+            cmd = new CommandProcessor(storage, historyManager);
             isStartUpSuccess = true;
         } catch (HalException e) {
             System.out.println(e.getMessage());
@@ -58,7 +62,7 @@ public class Logic {
     public String getResponse(String input) {
         if (!isStartUpSuccess) {
             startUpFailure();
-            return "";
+            return "Hi, you failed to start up properly! Sorry, please close the application";
         }
 
         try {
@@ -71,6 +75,7 @@ public class Logic {
                 return cmd.processData(command, input);
             }
         } catch (HalException e) {
+            e.printStackTrace();
             return e.getMessage();
         }
     }

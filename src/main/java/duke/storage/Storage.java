@@ -3,8 +3,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
+import duke.command.Command;
 import duke.exceptions.ProcessingException;
 import duke.exceptions.StartUpException;
+import duke.history.State;
 import duke.tasks.Task;
 
 /**
@@ -59,10 +61,11 @@ public class Storage {
      *
      * @throws ProcessingException If an error occurs while updating the save file.
      */
-    public void update() throws ProcessingException {
+    public State update(Command command) throws ProcessingException {
         try {
             Stream<String> stringStream = temp.save();
             local.save(stringStream);
+            return getCurrState(command);
 
         } catch (IOException e) {
             String message = "An error occurred while trying to update the save file. Try again";
@@ -92,5 +95,11 @@ public class Storage {
 
     public void close() {
         local.close();
+    }
+    public State getCurrState(Command cmd) {
+        return new State(cmd, temp.getCurrentList());
+    }
+    public void restoreState(State state) {
+        temp.restore(state.getTaskList());
     }
 }

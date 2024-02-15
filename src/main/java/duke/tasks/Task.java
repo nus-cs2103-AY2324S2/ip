@@ -1,9 +1,12 @@
 package duke.tasks;
 
+import java.io.Serializable;
+
 /**
  * The `Task` abstract class serves as the base class for various types of tasks in the Duke application.
  */
-public abstract class Task {
+public abstract class Task implements Serializable {
+    private static final long serialVersionUID = 1L;
     protected String identifier;
     private Boolean done;
     private String taskName;
@@ -47,7 +50,6 @@ public abstract class Task {
     public String[] encode() {
         return new String[]{identifier, done.toString(), taskName};
     }
-
 }
 
 

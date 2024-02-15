@@ -47,10 +47,6 @@ checkstyle {
     version = '10.2'
 }
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
     String javaFxVersion = '17.0.7'
 
@@ -68,3 +64,6 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
 }
 
+dependencies {
+    implementation 'org.apache.commons:commons-lang3:3.14.0'
+}
