@@ -21,7 +21,6 @@ public class Storage {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String task[] = scanner.nextLine().split(" \\| ");
-                //TODO can add layer of check to make sure there is no new line.
                 String type = task[0];
                 String done = task[1];
                 String desc = task[2];
@@ -131,6 +130,7 @@ public class Storage {
      * @throws RuntimeException
      */
     public void updateRecords(TaskList taskList) throws RuntimeException { //TODO: to continue, need to add delete task fn, mark, unmark, list
+        assert(this.filePath != null);
         File file = new File(this.filePath);
         try (FileWriter writer = new FileWriter(file)) { // true for append mode
             writer.write(taskList.get(0).fileSavingString());
