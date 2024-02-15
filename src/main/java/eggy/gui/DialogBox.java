@@ -69,6 +69,7 @@ public class DialogBox extends HBox {
      * @return The dialog box for the user.
      */
     public static DialogBox getUserDialog(String text, Image img) {
+        assert img != null : "User image should not be null";
         return new DialogBox(text, img);
     }
 
@@ -80,6 +81,7 @@ public class DialogBox extends HBox {
      * @return The dialog box for Eggy.
      */
     public static DialogBox getEggyDialog(String text, Image img) {
+        assert img != null : "Eggy image should not be null";
         var db = new DialogBox(text, img);
         db.flip();
         return db;
