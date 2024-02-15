@@ -23,11 +23,8 @@ public class Events extends Task{
     @Override
     public String toSaveData() {
         String done = super.getStatus() ? "1" : "0";
-        String startStr = this.start.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
-        String endStr = this.end.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
-
         return "E | " + done + " | " + super.toString() + " | "
-                + startStr + " | " + endStr +"\n";
+                + start + " | " + end +"\n";
     }
 
     @Override

@@ -16,8 +16,7 @@ public class Deadlines extends Task{
     @Override
     public String toSaveData() {
         String done = super.getStatus() ? "1" : "0";
-        String deadlineStr = this.deadline.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
-        return "D | " + done + " | " + super.toString() + " | " + deadlineStr + "\n";
+        return "D | " + done + " | " + super.toString() + " | " + by + "\n";
     }
 
     @Override
