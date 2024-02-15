@@ -2,6 +2,7 @@ package tony;
 
 import java.util.Scanner;
 
+import tony.exceptions.InvalidTaskException;
 import tony.tasks.Task;
 import tony.tasks.TaskType;
 
@@ -17,12 +18,10 @@ public class Tony {
 
     /**
      * Initializes a new instance of the Tony application.
-     *
-     * @param filePath The path to the file used for storing task data.
      */
-    public Tony(String filePath) {
+    public Tony() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage("data.txt");
         scanner = new Scanner(System.in);
         parser = new Parser();
         try {
@@ -33,70 +32,87 @@ public class Tony {
         }
 
     }
+
     /**
      * Runs the Tony application, allowing users to interact with tasks.
      */
-    public void run() {
-        ui.greeting();
-        String input = scanner.nextLine();
-        while (!input.equals("bye")) {
+    public String run(String input) {
+        if (!input.equals("bye")) {
             String command = parser.parseCommand(input);
             try {
                 switch (command) {
                 case "list":
-                    list.print();
-                    break;
+                    return handleListCommand();
                 case "unmark":
-                    String unmarkDescription = parser.parseDescription(input);
-                    list.unmark(unmarkDescription);
-                    break;
+                    return handleUnmarkCommand(input);
                 case "mark":
-                    String markIndex = parser.parseDescription(input);
-                    list.mark(markIndex);
-                    break;
+                    return handleMarkCommand(input);
                 case "todo":
-                    String todoDescription = parser.parseDescription(input);
-                    Task toDo = new TaskFactory().createTask(TaskType.TODO, todoDescription);
-                    list.add(toDo);
-                    break;
+                    return handleTodoCommand(input);
                 case "deadline":
-                    String[] deadlineParts = parser.parseTasksWithDate(input);
-                    Task deadline = new TaskFactory().createTask(TaskType.DEADLINE, deadlineParts);
-                    list.add(deadline);
-                    break;
+                    return handleDeadlineCommand(input);
                 case "event":
-                    String[] eventParts = parser.parseTasksWithDate(input);
-                    Task event = new TaskFactory().createTask(TaskType.EVENT, eventParts);
-                    list.add(event);
-                    break;
+                    return handleEventCommand(input);
                 case "delete":
-                    String deleteDescription = parser.parseDescription(input);
-                    list.delete(deleteDescription);
-                    break;
+                    return handleDeleteCommand(input);
                 case "find":
-                    String description = parser.parseDescription(input);
-                    list.find(description);
-                    break;
+                    return handleFindCommand(input);
                 default:
                     throw new IllegalArgumentException("Invalid command: " + command);
                 }
             } catch (IllegalArgumentException e) {
-                System.out.println("Error: " + e.getMessage());
+                return "Error: " + e.getMessage();
+            } catch (InvalidTaskException e) {
+                return "Error creating task: " + e.getMessage();
             } catch (Exception e) {
-                System.out.println("An unexpected error occurred: " + e.getMessage());
+                return "An unexpected error occurred: " + e.getMessage();
             }
-            input = scanner.nextLine();
+        } else {
+            storage.saveToFile(list.printTasksToString());
+            return ui.goodbye();
         }
-        storage.saveToFile(list.printTasksToString());
-        ui.goodbye();
     }
-    /**
-     * The main entry point of the Tony application.
-     *
-     * @param args The command-line arguments.
-     */
-    public static void main(String[] args) {
-        new Tony("data.txt").run();
+
+    private String handleListCommand() {
+        return list.print();
+    }
+
+    private String handleUnmarkCommand(String input) {
+        String unmarkDescription = parser.parseDescription(input);
+        return list.unmark(unmarkDescription);
+    }
+
+    private String handleMarkCommand(String input) {
+        String markIndex = parser.parseDescription(input);
+        return list.mark(markIndex);
+    }
+
+    private String handleTodoCommand(String input) throws InvalidTaskException {
+        String todoDescription = parser.parseDescription(input);
+        Task toDo = new TaskFactory().createTask(TaskType.TODO, todoDescription);
+        return list.add(toDo);
+    }
+
+    private String handleDeadlineCommand(String input) throws InvalidTaskException {
+        String[] deadlineParts = parser.parseTasksWithDate(input);
+        Task deadline = new TaskFactory().createTask(TaskType.DEADLINE, deadlineParts);
+        return list.add(deadline);
+    }
+
+    private String handleEventCommand(String input) throws InvalidTaskException {
+        String[] eventParts = parser.parseTasksWithDate(input);
+        Task event = new TaskFactory().createTask(TaskType.EVENT, eventParts);
+        return list.add(event);
+    }
+
+    private String handleDeleteCommand(String input) {
+        String deleteDescription = parser.parseDescription(input);
+        return list.delete(deleteDescription);
+    }
+
+    private String handleFindCommand(String input) {
+        String description = parser.parseDescription(input);
+        return list.find(description);
     }
 
 }

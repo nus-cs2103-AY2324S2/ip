@@ -2,6 +2,7 @@ package tony;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import tony.exceptions.InvalidTaskException;
 import tony.tasks.Task;
@@ -18,14 +19,15 @@ public class TodoList {
      *
      * @param item The task to be added.
      */
-    public void add(Task item) {
+    public String add(Task item) {
         list.add(item);
         int numberOfTasks = list.size();
-        line();
-        System.out.println("Got it dawg. I've added this task: \n");
-        System.out.println(item.toString() + "\n");
-        System.out.println("Now you got " + numberOfTasks + " tony.tasks fam \n");
-        line();
+        String addString = "_______________________\n"
+                + "Got it dawg. I've added this task: \n"
+                + item.toString() + "\n"
+                + "Now you got " + numberOfTasks + " tony.tasks fam \n"
+                + "_______________________\n";
+        return addString;
     }
 
     /**
@@ -33,17 +35,19 @@ public class TodoList {
      *
      * @param input The input representing the task to mark as done.
      */
-    public void mark(String input) {
+    public String mark(String input) {
         try {
             int index = Integer.parseInt(input);
             list.get(index - 1).markAsDone();
-            line();
-            System.out.println("Marked item " + index + " as done dawg.");
-            line();
+            String markString = "_______________________\n"
+                    + "Marked item " + index + " as done dawg."
+                    + "_______________________\n";
+            return markString;
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            line();
-            System.out.println("Invalid input for 'mark' command dawg.");
-            line();
+            String markString = "_______________________\n"
+                    + "Invalid input for 'mark' command dawg.\n"
+                    + "_______________________\n";
+            return markString;
         }
     }
 
@@ -52,17 +56,19 @@ public class TodoList {
      *
      * @param input The input representing the task to unmark as done.
      */
-    public void unmark(String input) {
+    public String unmark(String input) {
         try {
             int index = Integer.parseInt(input);
             list.get(index - 1).markAsUndone();
-            line();
-            System.out.println("Unmarked item " + index + " as done.");
-            line();
+            String unmarkString = "_______________________\n"
+                    + "Unmarked item " + index + " as done.\n"
+                    + "_______________________\n";
+            return unmarkString;
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            line();
-            System.out.println("Invalid input for 'unmark' command.");
-            line();
+            String unmarkString = "_______________________\n"
+                    + "Invalid input for 'unmark' command dawg.\n"
+                    + "_______________________\n";
+            return unmarkString;
         }
     }
 
@@ -71,32 +77,32 @@ public class TodoList {
      *
      * @param input The input representing the task to delete.
      */
-    public void delete(String input) {
+    public String delete(String input) {
         try {
             int index = Integer.parseInt(input);
             String task = list.get(index - 1).toString();
             list.remove(index - 1);
-            line();
-            System.out.println("Deleted item: \n" + task + "\n");
-            System.out.println("Now you have " + list.size() + " tony.tasks left in the list.");
-            line();
+            String deleteString = "_______________________\n"
+                    + "Deleted item: \n" + task + "\n"
+                    + "Now you have " + list.size() + " tony.tasks left in the list.\n"
+                    + "_______________________\n";
+            return deleteString;
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            line();
-            System.out.println("Invalid input for 'delete' command.");
-            line();
+            String deleteString = "Invalid input for 'delete' command.\n";
+            return deleteString;
         }
     }
 
     /**
      * Prints the list of tasks.
      */
-    public void print() {
-        line();
-        System.out.println("Here are the tony.tasks in your list: \n");
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(list.get(i).toString() + "\n");
-        }
-        line();
+    public String print() {
+        return "_______________________\n" +
+                "Here are the tony.tasks in your list: \n" +
+                list.stream()
+                        .map(Task::toString)
+                        .collect(Collectors.joining("\n")) +
+                "\n_______________________\n";
     }
 
     /**
@@ -105,11 +111,9 @@ public class TodoList {
      * @return A formatted string representing all tasks in the list.
      */
     public String printTasksToString() {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
-            sb.append(list.get(i).formattedString()).append("\n");
-        }
-        return sb.toString();
+        return list.stream()
+                .map(Task::formattedString)
+                .collect(Collectors.joining("\n"));
     }
 
     /**
@@ -130,68 +134,76 @@ public class TodoList {
      */
     private Task createTaskFromLine(String line) throws InvalidTaskException {
         String[] parts = line.split("\\|");
-
-        if (parts.length >= 3) {
-            String taskType = parts[0];
-            int completionStatus = Integer.parseInt(parts[1]);
-            String taskDetails = parts[2];
-
-            if (taskType.equals("T")) {
-                Task todo = new TaskFactory().createTask(TaskType.TODO, taskDetails);
-                if (completionStatus == 1) {
-                    todo.markAsDone();
-                }
-                return todo;
-            } else if (taskType.equals("D")) {
-                String deadlineDate = parts[3];
-                Task deadline = new TaskFactory().createTask(TaskType.DEADLINE, taskDetails, "by: " + deadlineDate);
-                if (completionStatus == 1) {
-                    deadline.markAsDone();
-                }
-                return deadline;
-            } else if (taskType.equals("E")) {
-                Task event = new TaskFactory().createTask(TaskType.EVENT, taskDetails,
-                        "from: " + parts[3], "to:" + parts[4]);
-                if (completionStatus == 1) {
-                    event.markAsDone();
-                }
-                return event;
-            }
+        if (parts.length < 3) {
+            throw new InvalidTaskException("Task information incomplete");
         }
-        return null;
+        String taskType = parts[0];
+        int completionStatus;
+        try {
+            completionStatus = Integer.parseInt(parts[1]);
+        } catch (NumberFormatException e) {
+            throw new InvalidTaskException("Invalid completion status format");
+        }
+        String taskDetails = parts[2];
+        TaskFactory taskFactory = new TaskFactory();
+        Task task = null;
+        switch (taskType) {
+        case "T":
+            task = taskFactory.createTask(TaskType.TODO, taskDetails);
+            break;
+        case "D":
+            if (parts.length >= 4) {
+                String deadlineDate = parts[3];
+                task = taskFactory.createTask(TaskType.DEADLINE, taskDetails, "by: " + deadlineDate);
+            } else {
+                throw new InvalidTaskException("Deadline task information incomplete");
+            }
+            break;
+        case "E":
+            if (parts.length >= 5) {
+                String startDate = parts[3];
+                String endDate = parts[4];
+                task = taskFactory.createTask(TaskType.EVENT, taskDetails, "from: " + startDate, "to: " + endDate);
+            } else {
+                throw new InvalidTaskException("Event task information incomplete");
+            }
+            break;
+        default:
+            throw new InvalidTaskException("Invalid task type: " + taskType);
+        }
+        if (task != null && completionStatus == 1) {
+            task.markAsDone();
+        }
+        return task;
     }
 
-    private static void line() {
-        System.out.println("_______________________\n");
-    }
+
 
     /**
      * Function to find tasks via description
      *
      * @param input The description of the tasks that want to be listed
      */
-    public void find(String input) {
-        int count = 1;
-        List<String> output = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++) {
-            Task task = list.get(i);
-            String description = task.getDescription();
-            if (description.contains(input)) {
-                output.add("" + count + ". " + task.toString() + "\n");
-                count++;
-            }
-        }
-        if (count == 1) {
-            line();
-            System.out.println("Sorry there are no tasks matching " + input + "\n");
-            line();
+    public String find(String input) {
+        List<String> output = list.stream()
+                .filter(task -> task.getDescription().contains(input))
+                .map(task -> task.toString())
+                .collect(Collectors.toList());
+
+        StringBuilder findString = new StringBuilder("_______________________\n");
+        if (output.isEmpty()) {
+            findString.append("Sorry there are no tasks matching ").append(input).append("\n");
         } else {
-            line();
-            System.out.println("Here are the matching tasks in your list: \n");
-            for (int i = 0; i < count - 1; i++) {
-                System.out.println(output.get(i));
-            }
-            line();
+            findString.append("Here are the matching tasks in your list: \n")
+                    .append(String.join("\n", output))
+                    .append("\n");
         }
+        findString.append("_______________________\n");
+        return findString.toString();
+    }
+
+
+    public int size() {
+        return list.size();
     }
 }

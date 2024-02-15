@@ -8,28 +8,21 @@ public class Ui {
     /**
      * Displays a greeting message when the program starts.
      */
-    public static void greeting() {
+    public static String greeting() {
         String greeting = "_______________________\n"
                 + "what is up dawg! I'm tony.Tony!\n"
                 + "What can I do for you mate?\n"
                 + "_________________________\n";
-        System.out.println(greeting);
+        return greeting;
     }
     /**
      * Displays a goodbye message and exits the program.
      */
-    public static void goodbye() {
-        String goodbye = "See ya later dawg!\n";
-        line();
-        System.out.println(goodbye);
-        line();
-        System.exit(0);
-    }
-    /**
-     * Displays a horizontal line as a separator.
-     */
-    public static void line() {
-        System.out.println("_______________________\n");
+    public static String goodbye() {
+        String goodbye = "_______________________\n"
+                + "See ya later dawg!\n"
+                + "_______________________\n";
+        return goodbye;
     }
 }
 

@@ -1,0 +1,11 @@
+package tony;
+import javafx.application.Application;
+
+/**
+ * Launcher for Tony
+ */
+public class Launcher {
+    public static void main(String[] args) {
+        Application.launch(Main.class, args);
+    }
+}

@@ -2,7 +2,8 @@
 > "The inner machinations of my mind are an enigma." – Patrick Star
 ## The Sickest Chat Bot you've ever seen :heart_eyes:
 
-Tony allows you to sit back, relax and enjoy life. No more need to remember your tasks, 
+Tony allows you to sit back, relax and enjoy life. No more need to remember your tasks,
+
 let Tony do it for you and actually start living. He's:
 * text-based
 * easy to learn
@@ -32,5 +33,6 @@ public class Main {
         Application.launch(Tony.class, args);
     }
 }
+
 ```
 
