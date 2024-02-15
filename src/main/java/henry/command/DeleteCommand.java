@@ -29,8 +29,8 @@ public class DeleteCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Storage storage) throws HenryException {
-        String ret = tasks.deleteTask(index);
+        String deletedTask = tasks.deleteTask(index);
         storage.save(tasks);
-        return ret;
+        return deletedTask;
     }
 }
