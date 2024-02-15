@@ -37,8 +37,6 @@ public class Parser {
             response = ui.printEvent(tl, cmd);
         } else if (cmd.startsWith("find")) {
             response = ui.printFind(tl, cmd);
-        } else if(cmd.strip().equals("bye")) {
-            response = ui.showExitMessage();
         } else {
             throw new JojoUnknownTaskException();
         }

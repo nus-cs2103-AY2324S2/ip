@@ -46,6 +46,11 @@ public class Jojo {
             System.out.println(ui.breakLines());
     }
 
+    public void saveTasks() throws JojoException {
+        String store_str = storage.storeList(tasks);
+        storage.save(store_str);
+    }
+
     public String getResponse(String input) throws JojoException {
         String response = Parser.parse(input, ui, tasks, storage);
         System.out.println(response);

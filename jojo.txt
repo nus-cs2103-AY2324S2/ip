@@ -1,3 +1,4 @@
 T | 0 | l
-T | 0 | e
-D | 0 | hw | Feb 02 2022 23:22
+T | 1 | e
+T | 0 | pilates
+T | 0 | swimming

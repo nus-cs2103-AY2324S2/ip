@@ -1,6 +1,7 @@
 package jojo.gui;
 
 import exceptions.JojoException;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -43,16 +44,25 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() throws JojoException {
+        String input = userInput.getText();
         try {
-            String input = userInput.getText();
+            if (input.strip().equals("bye")) {
+                Platform.exit();
+            }
             String response = jojo.getResponse(input);
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
                     DialogBox.getJojoDialog(response, jojoImage)
             );
-            userInput.clear();
+            jojo.saveTasks();
         } catch (JojoException e) {
-            System.out.println(e.getMessage());
+            String response = e.getMessage();
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getJojoDialog(response, jojoImage)
+            );
+        } finally {
+            userInput.clear();
         }
 
 
