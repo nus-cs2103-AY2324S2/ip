@@ -96,6 +96,7 @@ public class Storage {
      * @return The respective task object
      */
     private Task stringToTask(String str) throws IOException {
+        assert str != null : "String should not be null";
         String[] strSplit = str.split("\\|");
         if (strSplit.length <= 1) {
             return null;
