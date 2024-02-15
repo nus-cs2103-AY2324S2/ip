@@ -1,4 +1,4 @@
-package lumiere;
+package lumiere.lumiere;
 
 public class Todo extends Task {
     public Todo(String item, boolean marked) {

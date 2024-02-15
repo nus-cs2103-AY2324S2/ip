@@ -1,4 +1,4 @@
-package lumiere;
+package lumiere.lumiere;
 
 import java.util.Scanner;
 import java.io.IOException;

@@ -1,8 +1,10 @@
-package lumiere;
+package lumiere.lumiere;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class TaskList {
     List<Task> list = new ArrayList<>();
@@ -49,7 +51,6 @@ public class TaskList {
             if (command.equals("todo") || command.equals("deadline") || command.equals("event")) {
                 System.out.println("OOPS!!! The description of a todo cannot be empty.");
             } else {
-                System.out.println("Got it. I've added this task:");
                 int space = command.indexOf(" ");
                 String type = command.substring(0, space);
 
@@ -58,12 +59,24 @@ public class TaskList {
                     Todo task = new Todo(rest, false);
                     System.out.println(task.stringify());
                     list.add(task);
+                    System.out.println("Got it. I've added this task:");
+                    storage.saveTasksToFile(list);
+                    System.out.println("Now you have " + Integer.toString(list.size()) + " tasks in the list.");
                 } else if (type.equals("deadline")) {
                     String rest = command.substring(space + 1);
                     String[] description = rest.split(" /by ");
-                    Deadline task = new Deadline(description[0], false, description[1]);
-                    System.out.println(task.stringify());
-                    list.add(task);
+                    try {
+                        LocalDate time = LocalDate.parse(description[1]);
+                        Deadline task = new Deadline(description[0], false, time, description[1]);
+                        System.out.println(task.stringify());
+                        list.add(task);
+                        System.out.println("Got it. I've added this task:");
+                        storage.saveTasksToFile(list);
+                        System.out.println("Now you have " + Integer.toString(list.size()) + " tasks in the list.");
+                    } catch (DateTimeParseException err) {
+                        System.out.println(
+                                "Sorry! Your deadline is in the wrong format. Correct format is YYYY-MM-DD");
+                    }
                 } else if (type.equals("event")) {
                     String rest = command.substring(space + 1);
                     String[] description = rest.split(" /from ");
@@ -71,9 +84,10 @@ public class TaskList {
                     Event task = new Event(description[0], false, time[0], time[1]);
                     System.out.println(task.stringify());
                     list.add(task);
+                    System.out.println("Got it. I've added this task:");
+                    storage.saveTasksToFile(list);
+                    System.out.println("Now you have " + Integer.toString(list.size()) + " tasks in the list.");
                 }
-                storage.saveTasksToFile(list);
-                System.out.println("Now you have " + Integer.toString(list.size()) + " tasks in the list.");
             }
         } else {
             System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");

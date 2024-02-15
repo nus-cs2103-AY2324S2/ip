@@ -10,7 +10,7 @@ repositories {
 
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
-    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0' 
 }
 
 test {
@@ -28,11 +28,11 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("lumiere.Lumiere")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "lumiere"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

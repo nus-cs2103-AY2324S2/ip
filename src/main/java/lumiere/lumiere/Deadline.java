@@ -1,20 +1,20 @@
-package lumiere;
+package lumiere.lumiere;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
-    private String byWhen;
-    private LocalDate deadline;
+    private LocalDate byWhen;
+    private String byWhen_String;
 
-    public Deadline(String item, boolean marked, String byWhen) {
+    public Deadline(String item, boolean marked, LocalDate byWhen, String byWhen_String) {
         super(item, marked);
         this.byWhen = byWhen;
-        this.deadline = LocalDate.parse(byWhen);
+        this.byWhen_String = byWhen_String;
     }
 
     public String getbyWhen() {
-        return this.byWhen;
+        return this.byWhen_String;
     }
 
     @Override
@@ -25,6 +25,6 @@ public class Deadline extends Task {
         else
             m = "[ ]";
         return "[D]" + m + " " + super.stringify() + " (by: "
-                + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+                + this.byWhen.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }

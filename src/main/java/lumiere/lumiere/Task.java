@@ -1,4 +1,6 @@
-package lumiere;
+package lumiere.lumiere;
+
+import java.time.LocalDate;
 
 public class Task {
     private boolean marked;
@@ -47,7 +49,7 @@ public class Task {
             else
                 marked = false;
 
-            Deadline task = new Deadline(info[4], marked, info[6]);
+            Deadline task = new Deadline(info[4], marked, LocalDate.parse(info[6]), info[6]);
             return task;
         } else {
             boolean marked;
