@@ -44,9 +44,11 @@ public class CommandList {
      * @return the string value of the specific option
      */
     private String findOption(String option, String input) throws RemiError {
+        assert(!input.isEmpty());
+        assert(!option.isEmpty());
+
         int idx = input.indexOf(option);
 
-        /// TODO: handle this
         if (idx == -1) {
             throw new RemiError("I couldn't find a " + option + ", please specify it by adding a " + option);
         } else {
