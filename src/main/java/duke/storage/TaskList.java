@@ -251,6 +251,7 @@ public class TaskList {
         try {
             // Save to file
             JSONArray jsonArray = new JSONArray(taskArray);
+            jsonArray.putAll(new JSONArray(archivedTaskArray));
             Storage.saveToFile(jsonArray, Duke.getSaveFile());
         } catch (IOException e) {
             throw new StorageException(String.format("Failed to save to file - %s", e.getMessage()));
