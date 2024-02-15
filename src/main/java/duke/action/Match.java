@@ -3,6 +3,7 @@ package duke.action;
 import java.util.ArrayList;
 
 import duke.task.Task;
+
 /**
  * Represents an action to find and display tasks matching a specific keyword.
  * Implements the Action interface.
@@ -17,7 +18,7 @@ public class Match implements Action {
      * @param taskList The TaskList to search for matching tasks.
      */
     public Match(String keyword, TaskList taskList) {
-        this.keyword = keyword;
+        this.keyword = keyword.toLowerCase(); // Convert keyword to lowercase
         this.taskList = taskList;
     }
 
@@ -30,7 +31,7 @@ public class Match implements Action {
     public String response() {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : taskList) {
-            if (task.getDescription().contains(keyword)) {
+            if (task.getDescription().toLowerCase().contains(keyword)) { // Convert description to lowercase
                 matchingTasks.add(task);
             }
         }
