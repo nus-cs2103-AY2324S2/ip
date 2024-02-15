@@ -48,7 +48,7 @@ public class Storage {
      * Fetches the locally saved data containing the task list.
      * @throws IOException - an exception thrown if the data is not read
      */
-    public void readTasksFromData(TaskList taskList) throws IOException {
+    public void loadTaskListFromStorage(TaskList taskList) throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         File dataFile = new File("./data/data.txt");
         Scanner istream = new Scanner(dataFile);
@@ -88,7 +88,7 @@ public class Storage {
     /**
      * Saves the task list to a local save data.
      */
-    public void writeTasks(TaskList taskList) {
+    public void saveTaskListToStorage(TaskList taskList) {
         try {
             FileWriter ostream = new FileWriter("./data/data.txt");
             for (int i = 0; i < taskList.getSize(); i++) {

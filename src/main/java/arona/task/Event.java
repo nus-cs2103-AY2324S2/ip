@@ -14,25 +14,25 @@ import java.time.format.DateTimeParseException;
  */
 public class Event extends Task {
     /**
-     * The start time of the task.
+     * The start date of the task.
      */
-    LocalDate startTime;
+    LocalDate startDate;
     /**
-     * The end time of the task.
+     * The end date of the task.
      */
-    LocalDate endTime;
+    LocalDate endDate;
 
     /**
      * A public constructor for the task.Event.
      * @param desc - the description of the task
-     * @param startTime - the start time of the task
-     * @param endTime - the end time of the task
+     * @param startDate - the start time of the task
+     * @param endDate - the end time of the task
      */
-    public Event(String desc, String startTime, String endTime) throws AronaInvalidDateException {
+    public Event(String desc, String startDate, String endDate) throws AronaInvalidDateException {
         super(desc);
         try {
-            this.startTime = LocalDate.parse(startTime);
-            this.endTime = LocalDate.parse(endTime);
+            this.startDate = LocalDate.parse(startDate);
+            this.endDate = LocalDate.parse(endDate);
         } catch (DateTimeParseException e) {
             throw new AronaInvalidDateException("");
         }
@@ -40,7 +40,7 @@ public class Event extends Task {
 
     @Override
     public String toDataFormat() {
-        return "E|" + super.toDataFormat() + "|" + this.startTime + "|" + this.endTime;
+        return "E|" + super.toDataFormat() + "|" + this.startDate + "|" + this.endDate;
     }
 
     /**
@@ -51,7 +51,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() +
-                " (from: " + this.startTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
-                " to: " + this.endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+                " (from: " + this.startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
+                " to: " + this.endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }

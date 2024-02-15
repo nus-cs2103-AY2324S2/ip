@@ -104,7 +104,7 @@ public class TaskList {
      *
      * @param keyword Keyword the task needs to have
      */
-    public void listTasksWithKeyword(String keyword) {
+    public String listTasksWithKeyword(String keyword) {
         int id = 1;
         ArrayList<String> linesToPrint = new ArrayList<>();
         linesToPrint.add("Here are the matching tasks in your list:");
@@ -126,7 +126,7 @@ public class TaskList {
             lines[i] = linesToPrint.get(i);
         }
 
-        Ui.printLines(lines);
+        return Ui.getLines(lines);
     }
 
     @Override

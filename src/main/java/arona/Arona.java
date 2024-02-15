@@ -2,10 +2,7 @@ package arona;
 
 import arona.command.CommandType;
 
-import arona.exception.AronaIncompleteCommandException;
-import arona.exception.AronaInvalidCommandException;
-import arona.exception.AronaInvalidDateException;
-import arona.exception.AronaInvalidIndexException;
+import arona.exception.*;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -27,70 +24,85 @@ public class Arona {
     private static final TaskList tasks = new TaskList();
     private static final Parser parser = new Parser();
 
-    private void listTasks() {
-        Ui.printLines(tasks.toString());
+    private static String listTasks() {
+        return tasks.toString();
     }
 
-    private void addToDo(String str) {
+    private static String addToDo(String str) {
         ToDo task = new ToDo(str);
         tasks.addElements(task);
 
-        Ui.printLines("I've added this task, Sensei!",
-                "    " + task,
-                "Now, your task list has " + tasks.getSize() + " task"
-                + (tasks.getSize() == 1 ? "" : "s") + ".");
+        return "I've added this task, Sensei!" + "\n"
+                + "    " + task + "\n"
+                + "Now, your task list has " + tasks.getSize() + " task"
+                + (tasks.getSize() == 1 ? "" : "s") + ".";
     }
 
-    private void addDeadline(String str, String by) throws AronaInvalidDateException {
+    private static String addDeadline(String str, String by) throws AronaInvalidDateException {
         Deadline deadline = new Deadline(str, by);
         tasks.addElements(deadline);
-        Ui.printLines("I've added this deadline, Sensei!",
-                "    " + deadline,
-                "Now, your task list has " + tasks.getSize() + " task"
-                + (tasks.getSize() == 1 ? "" : "s") + ".");
+        return "I've added this deadline, Sensei!" + "\n"
+                + "    " + deadline + "\n"
+                + "Now, your task list has " + tasks.getSize() + " task"
+                + (tasks.getSize() == 1 ? "" : "s") + ".";
     }
 
-    private void addEvent(String str, String start, String end) throws AronaInvalidDateException {
+    private static String addEvent(String str, String start, String end) throws AronaInvalidDateException {
         Event event = new Event(str, start, end);
         tasks.addElements(event);
-        Ui.printLines("I've added this event, Sensei!",
-                "    " + event,
-                "Now, your task list has " + tasks.getSize() + " task"
-                + (tasks.getSize() == 1 ? "" : "s") + ".");
+        return "I've added this event, Sensei!" + "\n"
+                + "    " + event + "\n"
+                + "Now, your task list has " + tasks.getSize() + " task"
+                + (tasks.getSize() == 1 ? "" : "s") + ".";
     }
 
-    private void deleteTask(int id) {
+    private static String deleteTask(int id) {
         Task task = tasks.getTask(id);
         tasks.deleteElements(id);
-        Ui.printLines("I've removed this task, Sensei!",
-                "    " + task,
-                "Now, your task list has " + tasks.getSize() + " task"
-                + (tasks.getSize() == 1 ? "" : "s") + ".");
+        return "I've removed this task, Sensei!" + "\n"
+                + "    " + task + "\n"
+                + "Now, your task list has " + tasks.getSize() + " task"
+                + (tasks.getSize() == 1 ? "" : "s") + ".";
     }
 
-    private void markDone(int id) {
+    private static String markDone(int id) {
         tasks.markIndexAsDone(id);
-        Ui.printLines("I've marked this task as done, Sensei!",
-                "    " + tasks.getTask(id));
+        return "I've marked this task as done, Sensei!" + "\n"
+                + "    " + tasks.getTask(id);
     }
 
-    private void markUndone(int id) {
+    private static String markUndone(int id) {
         tasks.markIndexAsUndone(id);
-        Ui.printLines("I've marked this task as not done, Sensei!",
-                "    " + tasks.getTask(id));
+        return "I've marked this task as not done, Sensei!" + "\n"
+                + "    " + tasks.getTask(id);
     }
 
-    private void findTasks(String keyword) {
-        tasks.listTasksWithKeyword(keyword);
+    private static String findTasks(String keyword) {
+        return tasks.listTasksWithKeyword(keyword);
     }
 
-    private boolean processCommand(CommandType commandType, String[] commandSplit) throws
-            AronaIncompleteCommandException, AronaInvalidIndexException,
-            AronaInvalidCommandException, AronaInvalidDateException {
+    public static String enterArona() {
+        return "Welcome, sensei! Arona has been waiting for you.";
+    }
+
+    public static String exitArona() {
+        return "Thanks for the hard work, Sensei!";
+    }
+
+    /**
+     * Runs the command from the user input.
+     *
+     * @param commandType Type of command of the user input.
+     * @param commandSplit Arguments of the input.
+     * @return Response message to be sent by the bot.
+     */
+    private static String processCommand(CommandType commandType, String[] commandSplit)
+            throws AronaException {
+        String response = "";
         if (commandType == CommandType.BYE) {
-            return false;
+            response = exitArona();
         } else if (commandType == CommandType.LIST) {
-            listTasks();
+            response = listTasks();
         } else if (commandType == CommandType.MARK) {
             if (commandSplit.length == 1 || commandSplit[1].equals("")) {
                 throw new AronaIncompleteCommandException("index number");
@@ -101,7 +113,7 @@ public class Arona {
             }
 
             int index = Integer.parseInt(commandSplit[1]) - 1;
-            markDone(index);
+            response = markDone(index);
         } else if (commandType == CommandType.UNMARK) {
             if (commandSplit.length == 1 || commandSplit[1].equals("")) {
                 throw new AronaIncompleteCommandException("index number");
@@ -112,13 +124,13 @@ public class Arona {
             }
 
             int index = Integer.parseInt(commandSplit[1]) - 1;
-            markUndone(index);
+            response = markUndone(index);
         } else if (commandType == CommandType.TODO) {
             if (commandSplit.length == 1 || commandSplit[1].equals("")) {
                 throw new AronaIncompleteCommandException("task description");
             }
 
-            addToDo(commandSplit[1]);
+            response = addToDo(commandSplit[1]);
         } else if (commandType == CommandType.DEADLINE) {
             if (commandSplit.length == 1 || commandSplit[1].equals("")) {
                 throw new AronaIncompleteCommandException("task description");
@@ -130,7 +142,7 @@ public class Arona {
                 throw new AronaIncompleteCommandException("deadline time");
             }
 
-            addDeadline(deadlineSplit[0], deadlineSplit[1]);
+            response = addDeadline(deadlineSplit[0], deadlineSplit[1]);
         } else if (commandType == CommandType.EVENT) {
             if (commandSplit.length == 1 || commandSplit[1].equals("")) {
                 throw new AronaIncompleteCommandException("task description");
@@ -148,7 +160,7 @@ public class Arona {
                 throw new AronaIncompleteCommandException("end time");
             }
 
-            addEvent(eventSplit[0], eventSplitTime[0], eventSplitTime[1]);
+            response = addEvent(eventSplit[0], eventSplitTime[0], eventSplitTime[1]);
         } else if(commandType == CommandType.DELETE) {
             if (commandSplit.length == 1 || commandSplit[1].equals("")) {
                 throw new AronaIncompleteCommandException("index number");
@@ -159,30 +171,61 @@ public class Arona {
             }
 
             int index = Integer.parseInt(commandSplit[1]) - 1;
-            deleteTask(index);
+            response = deleteTask(index);
         } else if (commandType == CommandType.FIND) {
             if (commandSplit.length == 1 || commandSplit[1].equals("")) {
                 throw new AronaIncompleteCommandException("keyword");
             }
 
-            findTasks(commandSplit[1]);
+            response = findTasks(commandSplit[1]);
         } else {
             throw new AronaInvalidCommandException("");
         }
-        return true;
+        return response;
+    }
+
+    /**
+     * Gets all tasks from the data and store it in the storage.
+     */
+    public void loadTaskList() {
+        try {
+            storage.loadTaskListFromStorage(tasks);
+        } catch (IOException exception) {
+            return;
+        }
+    }
+
+    /**
+     * Gets the response message based on the User's input.
+     *
+     * @param userInput User input.
+     * @return Response message to be sent by the bot.
+     */
+    public String getResponse(String userInput) {
+        String response = "";
+
+        try {
+            CommandType command = parser.parseInput(userInput);
+            String[] inputs = userInput.split(" ", 2);
+
+            response = processCommand(command, inputs);
+            storage.saveTaskListToStorage(tasks);
+        } catch (AronaException exception) {
+            response = Ui.getLines(exception.getMessage());
+        }
+
+        return response;
     }
 
     public static void main(String[] args) {
-        Arona arona = new Arona();
         Scanner scanner = new Scanner(System.in);
         String command;
 
-        Ui.helloUser();
-
         try {
-            storage.readTasksFromData(tasks);
+            storage.loadTaskListFromStorage(tasks);
         } catch (IOException e) {
             Ui.printLines("Sorry, Sensei! I seem to be struggling to load the tasks :(");
+            return;
         }
 
         while (true) {
@@ -190,17 +233,15 @@ public class Arona {
                 command = scanner.nextLine();
                 CommandType commandType = parser.parseInput(command);
                 String[] inputs = command.split(" ", 2);
-                if (!arona.processCommand(commandType, inputs)) {
+                if (Arona.processCommand(commandType, inputs) == exitArona()) {
                     break;
                 }
-                storage.writeTasks(tasks);
+                storage.saveTaskListToStorage(tasks);
             } catch (Exception e) {
                 Ui.printLines(e.getMessage());
             }
         }
 
-        Ui.byeUser();
-        storage.writeTasks(tasks);
         scanner.close();
     }
 }
