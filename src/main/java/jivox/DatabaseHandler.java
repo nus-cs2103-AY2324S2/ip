@@ -13,7 +13,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import jivox.exception.DataHandlerException;
-import jivox.task.*;
+import jivox.task.Deadline;
+import jivox.task.Event;
+import jivox.task.Tag;
+import jivox.task.Task;
+import jivox.task.TaskList;
+import jivox.task.Todo;
 
 /**
  * DatabaseHandler handles saving and loading tasks from a file database.
@@ -107,7 +112,7 @@ public class DatabaseHandler {
                         t.mark();
                     }
                     list.add(t);
-                    if(!split2[1].equals("None")){
+                    if (!split2[1].equals("None")) {
                         t.setTag(new Tag(split2[1].trim()));
                     }
                     break;
@@ -130,7 +135,7 @@ public class DatabaseHandler {
         if (split[1].trim().equals("1")) {
             d.mark();
         }
-        if(!tagSplit[1].equals("None")) {
+        if (!tagSplit[1].equals("None")) {
             d.setTag(new Tag(tagSplit[1].trim()));
         }
         return d;
@@ -147,7 +152,7 @@ public class DatabaseHandler {
         if (split[1].trim().equals("1")) {
             e.mark();
         }
-        if(!endtag[1].equals("None")){
+        if (!endtag[1].equals("None")) {
             e.setTag(new Tag(endtag[1].trim()));
         }
         return e;

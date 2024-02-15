@@ -1,6 +1,6 @@
 package jivox.task;
 import java.time.LocalDateTime;
-import java.util.Objects;
+
 
 /**
  * Task is an abstract class representing a generic task.
@@ -17,7 +17,7 @@ public abstract class Task {
      *
      * @param content The task description.
      */
-    public Task(String content){
+    public Task(String content) {
         this.content = content;
         this.isDone = false;
     }
@@ -63,7 +63,7 @@ public abstract class Task {
      * Sets the tag of this task.
      *
      */
-    public void setTag(Tag tag){
+    public void setTag(Tag tag) {
         this.tag = tag;
     }
 
@@ -82,7 +82,7 @@ public abstract class Task {
      *
      * @return The type identifier.
      */
-    public String getTag(){
+    public String getTag() {
         return this.tag == null ? "" : this.tag.toString();
     }
 
@@ -108,12 +108,11 @@ public abstract class Task {
 
 
     @Override
-    public boolean equals(Object o){
-        if(o instanceof Task){
+    public boolean equals(Object o) {
+        if (o instanceof Task) {
             Task t = (Task) o;
             return this.content.equalsIgnoreCase(t.content);
-        }
-        else{
+        } else {
             return false;
         }
     }

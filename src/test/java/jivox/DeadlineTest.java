@@ -32,7 +32,7 @@ public class DeadlineTest {
 
     @Test
     public void testSaveFormat() {
-        String expected = "D | 0 | Submit report | 2023-02-15 13:30";
+        String expected = "D | 0 | Submit report | 2023-02-15 13:30 tag None";
         assertEquals(expected, deadline.saveFormat());
     }
 

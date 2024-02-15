@@ -1,7 +1,5 @@
 package jivox.task;
 
-import java.util.Objects;
-
 /**
  * Todo represents a simple todo task.
  * It extends Task.
@@ -28,8 +26,8 @@ public class Todo extends Task {
 
     @Override
     public String toString() {
-        return "[T]" + super.toString() + " " +
-                (this.getTag().isEmpty() ? "" : "#" + this.getTag());
+        return "[T]" + super.toString()
+                + (this.getTag().isEmpty() ? "" : " #" + this.getTag());
     }
 
     /**

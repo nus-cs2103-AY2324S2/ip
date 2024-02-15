@@ -42,7 +42,7 @@ public class EventTest {
 
     @Test
     public void testSaveFormat() {
-        String expected = "E | 0 | Team meeting | 2023-03-10 09:00 to 2023-03-10 12:00";
+        String expected = "E | 0 | Team meeting | 2023-03-10 09:00 to 2023-03-10 12:00 tag None";
         assertEquals(expected, event.saveFormat());
     }
 

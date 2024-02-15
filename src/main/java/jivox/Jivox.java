@@ -6,7 +6,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import jivox.exception.JivoxException;
-import jivox.task.*;
+import jivox.task.Deadline;
+import jivox.task.Event;
+import jivox.task.Tag;
+import jivox.task.Task;
+import jivox.task.TaskList;
+import jivox.task.Todo;
+
 
 /**
  * Jivox handles the core functionality of the to-do list application.
@@ -81,7 +87,7 @@ public class Jivox {
             throw new JivoxException("Invalid event ! To is before From");
         }
         Event task = new Event(first[0].trim(), from, to);
-        if(this.checkDuplicateTask(task)){
+        if (this.checkDuplicateTask(task)) {
             throw new JivoxException("Duplicate Event, Task already exists!");
         } else {
             this.tasks.add(task);
@@ -90,10 +96,21 @@ public class Jivox {
 
     private void addTodo(String content) throws JivoxException {
         Todo task = new Todo(content);
-        if(this.checkDuplicateTask(task)){
+        if (this.checkDuplicateTask(task)) {
             throw new JivoxException("Duplicate Todo , Task already exists!");
         } else {
             this.tasks.add(task);
+        }
+    }
+
+    /**
+     * Saves the tasks into the Local Database
+     */
+    public void saveDb() {
+        try {
+            this.dbHandler.save(this.tasks);
+        } catch (JivoxException e) {
+            this.ui.showException(e);
         }
     }
 
@@ -104,7 +121,7 @@ public class Jivox {
         }
         LocalDateTime deadline = LocalDateTime.parse(in[1], formatter);
         Deadline task = new Deadline(in[0].trim(), deadline);
-        if(this.checkDuplicateTask(task)) {
+        if (this.checkDuplicateTask(task)) {
             throw new JivoxException("Duplicate Deadline Task , Task already exists !");
         } else {
             this.tasks.add(task);
@@ -112,9 +129,9 @@ public class Jivox {
     }
 
 
-    private boolean checkDuplicateTask(Task t){
-        for(int i = 0; i < this.tasks.getLength(); i++){
-            if(this.tasks.getTask(i).equals(t)){
+    private boolean checkDuplicateTask(Task t) {
+        for (int i = 0; i < this.tasks.getLength(); i++) {
+            if (this.tasks.getTask(i).equals(t)) {
                 return true;
             }
         }
@@ -175,12 +192,18 @@ public class Jivox {
         return this.ui.showFind(this.tasks, input);
     }
 
-    public String tag(String input){
+
+    /**
+     * Sets the tag for a given task with a keyword
+     *
+     * @param input The date to show tasks for.
+     */
+    public String tag(String input) {
         String[] in = parser.parseInput(input);
         int taskNum = Integer.parseInt(in[0]) - 1;
         Task t = this.tasks.getTask(taskNum);
         t.setTag(new Tag(in[1]));
-        return this.ui.showTag(t,in[1]);
+        return this.ui.showTag(t, in[1]);
     }
 
 
@@ -236,7 +259,7 @@ public class Jivox {
                 }
                 return this.find(input[1]);
             case TAG:
-                if(input.length == 0){
+                if (input.length == 0) {
                     throw new JivoxException("Please provide a valid Tag Command!");
                 }
                 return this.tag(input[1]);

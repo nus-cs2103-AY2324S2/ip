@@ -150,7 +150,7 @@ public class Ui {
 
 
     public String showTag(Task t, String tag) {
-        return String.format("Following task has been tagged with %s :- \n %s",tag,t);
+        return String.format("Following task has been tagged with %s :- \n %s", tag ,t);
     }
 
     /**

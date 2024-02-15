@@ -33,10 +33,10 @@ public class TodoTest {
 
     @Test
     public void testSaveFormat() {
-        assertEquals("T | 0 | Take out trash", todo.saveFormat());
+        assertEquals("T | 0 | Take out trash tag None", todo.saveFormat());
 
         todo.mark();
-        assertEquals("T | 1 | Take out trash", todo.saveFormat());
+        assertEquals("T | 1 | Take out trash tag None", todo.saveFormat());
     }
 
     @Test
