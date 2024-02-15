@@ -139,6 +139,15 @@ public class TaskList {
     }
 
     /**
+     * Returns number of tasks in this TaskList object
+     *
+     * @return Number of tasks in this TaskList object
+     */
+    public int getNumTasks() {
+        return taskList.size();
+    }
+
+    /**
      * Marks specified task as complete
      *
      * @param taskNum Index of task on list
