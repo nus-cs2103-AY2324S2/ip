@@ -2,6 +2,7 @@ package tony;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import tony.exceptions.InvalidTaskException;
 import tony.tasks.Task;
@@ -96,14 +97,12 @@ public class TodoList {
      * Prints the list of tasks.
      */
     public String print() {
-        String printString = "_______________________\n"
-            + "Here are the tony.tasks in your list: \n";
-
-        for (int i = 0; i < list.size(); i++) {
-            printString += list.get(i).toString() + "\n";
-        }
-        printString += "_______________________\n";
-        return printString;
+        return "_______________________\n" +
+                "Here are the tony.tasks in your list: \n" +
+                list.stream()
+                        .map(Task::toString)
+                        .collect(Collectors.joining("\n")) +
+                "\n_______________________\n";
     }
 
     /**
@@ -112,11 +111,9 @@ public class TodoList {
      * @return A formatted string representing all tasks in the list.
      */
     public String printTasksToString() {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
-            sb.append(list.get(i).formattedString()).append("\n");
-        }
-        return sb.toString();
+        return list.stream()
+                .map(Task::formattedString)
+                .collect(Collectors.joining("\n"));
     }
 
     /**
@@ -188,23 +185,18 @@ public class TodoList {
      * @param input The description of the tasks that want to be listed
      */
     public String find(String input) {
-        int count = 1;
-        List<String> output = new ArrayList<>();
-        for (Task task : list) {
-            String description = task.getDescription();
-            if (description.contains(input)) {
-                output.add("" + count + ". " + task.toString() + "\n");
-                count++;
-            }
-        }
+        List<String> output = list.stream()
+                .filter(task -> task.getDescription().contains(input))
+                .map(task -> task.toString())
+                .collect(Collectors.toList());
+
         StringBuilder findString = new StringBuilder("_______________________\n");
-        if (count == 1) {
+        if (output.isEmpty()) {
             findString.append("Sorry there are no tasks matching ").append(input).append("\n");
         } else {
-            findString.append("Here are the matching tasks in your list: \n");
-            for (String taskString : output) {
-                findString.append(taskString).append("\n");
-            }
+            findString.append("Here are the matching tasks in your list: \n")
+                    .append(String.join("\n", output))
+                    .append("\n");
         }
         findString.append("_______________________\n");
         return findString.toString();
