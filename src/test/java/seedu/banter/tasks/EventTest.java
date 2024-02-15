@@ -27,9 +27,9 @@ class EventTest {
         LocalDateTime to = LocalDateTime.of(2022, 1, 30, 12, 0);
         Event event = new Event("Meeting", false, from, to);
 
-        LocalDateTime result = event.getStart();
+        LocalDateTime result = event.getStartDateTime();
 
-        assertEquals(from, result, "getStart() should return the expected start time");
+        assertEquals(from, result, "getStartDateTime() should return the expected start time");
     }
 
     @Test
@@ -38,8 +38,8 @@ class EventTest {
         LocalDateTime to = LocalDateTime.of(2022, 1, 30, 12, 0);
         Event event = new Event("Meeting", false, from, to);
 
-        LocalDateTime result = event.getEnd();
+        LocalDateTime result = event.getEndDateTime();
 
-        assertEquals(to, result, "getEnd() should return the expected end time");
+        assertEquals(to, result, "getEndDateTime() should return the expected end time");
     }
 }

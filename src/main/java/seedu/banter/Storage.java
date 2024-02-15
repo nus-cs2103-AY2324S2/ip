@@ -105,7 +105,7 @@ public class Storage {
                     + toStorageFormat(((Deadline) task).getDueDate());
         } else if (task instanceof Event) {
             return EVENT_REPRESENTATION + " | " + statusDescription + " | "
-                    + toStorageFormat(((Event) task).getStart()) + " | " + toStorageFormat(((Event) task).getEnd());
+                    + toStorageFormat(((Event) task).getStartDateTime()) + " | " + toStorageFormat(((Event) task).getEndDateTime());
         } else {
             return TODO_REPRESENTATION + " | " + statusDescription;
         }

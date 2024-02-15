@@ -62,7 +62,7 @@ public class Event extends Task {
      * Returns the start time of an Event task.
      * @return Start time of an Event task.
      */
-    public LocalDateTime getStart() {
+    public LocalDateTime getStartDateTime() {
         return from;
     }
 
@@ -70,7 +70,7 @@ public class Event extends Task {
      * Returns the end time of an Event task.
      * @return End time of an Event task.
      */
-    public LocalDateTime getEnd() {
+    public LocalDateTime getEndDateTime() {
         return to;
     }
 }
