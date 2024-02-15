@@ -124,21 +124,17 @@ public class Parser {
      * @return LocalDateTime object combining the date and time.
      */
     public static LocalDateTime processDateTime(LocalDate date, LocalTime time) {
-        if (date != null) {
-            if (time != null) {
-                return date.atTime(time);
-            } else {
-                return date.atStartOfDay();
-            }
-        } else {
-            if (time != null) {
-                return LocalDate.now().plusDays(1).atTime(time);
-            } else {
-                return null;
-            }
+        if (date == null && time == null) {
+            return null;
         }
+        if (date == null) {
+            return LocalDate.now().plusDays(1).atTime(time);
+        }
+        if (time == null) {
+            return date.atStartOfDay();
+        }
+        return date.atTime(time);
     }
-
 
     /**
      * Parses the input string into a LocalDate object.
@@ -185,6 +181,8 @@ public class Parser {
             throws CaponeException {
         LocalDate date = null;
         LocalTime time = null;
+
+        // Parse the user string into LocalDate or LocalTime objects.
         for (int i = startNdx; i < endNdx; i++) {
             if (Parser.isDateFormat(inputList.get(i))) {
                 date = Parser.parseDate(inputList.get(i));
@@ -194,6 +192,8 @@ public class Parser {
                 throw new InvalidDateException("Oops! You have entered an invalid date. Please try again.");
             }
         }
+
+        // Parse the LocalDate and LocalTime objects into a single LocalDateTime object.
         return Parser.processDateTime(date, time);
     }
 
