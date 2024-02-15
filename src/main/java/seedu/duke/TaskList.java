@@ -96,7 +96,6 @@ public class TaskList {
             throw new DukeException("Oops, there isn't that task number in your list. Run list to check again.");
         }
         Task toUnmark = tasks.get(num - 1);
-        String toDelete = toUnmark.toStore();
         String result = toUnmark.unmark();
         String toReplace = toUnmark.toStore();
         Storage.changeMarking(num - 1, toReplace);
@@ -125,11 +124,7 @@ public class TaskList {
         } else {
             String result = "";
             for (int i = 0; i < tasks.size(); i++) {
-                if (i < tasks.size() - 1 && tasks.size() != 1) { //not last element
-                    result += tasks.get(i).printTaskDesc(i + 1, false);
-                } else {
-                    result += tasks.get(i).printTaskDesc(i + 1, true);
-                }
+                result += tasks.get(i).printTaskDesc(i + 1);
             }
             return result;
         }

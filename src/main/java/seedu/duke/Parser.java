@@ -114,9 +114,10 @@ public class Parser {
             }
             String[] helper = input.split("/from ");
             String[] parts = new String[3];
-            parts[0] = helper[0].replaceFirst("event ", ""); //task
-            parts[1] = helper[1].split("/to ")[0]; //from
-            parts[2] = helper[1].split("/to ")[1]; //to
+
+            parts[0] = helper[0].replaceFirst("event ", ""); //to store event description
+            parts[1] = helper[1].split("/to ")[0]; //to store event start timing
+            parts[2] = helper[1].split("/to ")[1]; //to store event end timing
             return parts;
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException("Please state the details like this: event event_name /from timing /to timing.");

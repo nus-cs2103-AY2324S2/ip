@@ -52,7 +52,7 @@ public class UI {
     /**
      * Prints out a bye message when the user ends the program by running the command bye
      */
-    public String bye() {
+    public static String bye() {
         return "Bye! Have a great day ahead :>\n";
     }
 
