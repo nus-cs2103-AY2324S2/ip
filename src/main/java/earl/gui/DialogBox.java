@@ -54,12 +54,15 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
+        db.getStyleClass().add("user-dialog-box");
+        return db;
     }
 
     public static DialogBox getEarlDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
         db.flip();
+        db.getStyleClass().add("earl-dialog-box");
         return db;
     }
 }

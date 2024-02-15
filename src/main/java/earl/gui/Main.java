@@ -6,6 +6,7 @@ import earl.Earl;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -24,11 +25,13 @@ public class Main extends Application {
                     Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            stage.getIcons().add(new Image(this.getClass()
+                    .getResourceAsStream("/images/CrownIcon.png")));
             scene.getStylesheets().add(getClass().getResource(
-                    "/stylesheets/fontstyle.css").toExternalForm());
+                    "/stylesheets/style.css").toExternalForm());
+            stage.setResizable(false);
             stage.setScene(scene);
             stage.setTitle("Earl");
-            stage.setResizable(false);
             fxmlLoader.<MainWindow>getController().setEarl(earl);
             fxmlLoader.<MainWindow>getController().showGreeting();
             stage.show();

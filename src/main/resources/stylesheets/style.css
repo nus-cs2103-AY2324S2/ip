@@ -1,0 +1,20 @@
+@font-face {
+    src: url(../fonts/FiraCode-Bold.ttf);
+}
+
+.label {
+    -fx-font-family: 'Fira Code Bold';
+    -fx-font-size: 12;
+}
+
+.user-dialog-box {
+    -fx-background-color: #1BB1CF;
+    -fx-border-color: #000000;
+    -fx-border-width: 0px 1px 0px 4px;
+}
+
+.earl-dialog-box {
+    -fx-background-color: #ECCF42;
+    -fx-border-color: #000000;
+    -fx-border-width: 1px 1px 1px 4px;
+}
