@@ -23,6 +23,7 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.filePath = filePath;
+        assert filePath != null && !filePath.isEmpty(): "File path should not be null nor empty";
     }
 
     /**

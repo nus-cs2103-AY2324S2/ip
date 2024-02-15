@@ -28,6 +28,8 @@ public class Event extends Task {
         this.fromTime = fromTime;
         this.toDate = toDate;
         this.toTime = toTime;
+
+        assert fromDate.isBefore(toDate): "event cannot be from a later date to an earlier date";
     }
 
     @Override

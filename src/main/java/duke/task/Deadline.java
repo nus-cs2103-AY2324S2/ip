@@ -19,6 +19,7 @@ public class Deadline extends Task {
     public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
+        assert by.isAfter(LocalDate.now()): "deadline should be after the current date";
     }
 
     @Override
