@@ -6,6 +6,7 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.TaskList;
+import duke.task.TaskPriority;
 import duke.task.ToDo;
 import duke.ui.Ui;
 
@@ -210,6 +211,27 @@ public class Parser {
     }
 
     /**
+     * Processes a given task by adding it to the appropriate task list (ToDo, Deadline, or Event) in the TaskList.
+     * The method then saves the updated task list to the storage file, updates the response message, prints the
+     * number of tasks, and sets the 'hasChanged' flag to true.
+     *
+     * @param work The task to be processed.
+     * @throws IOException If an I/O error occurs during the processing of the task.
+     */
+    private void processTask(Task work) throws IOException {
+        if (work instanceof ToDo) {
+            tasks.addToDoTask((ToDo) work);
+        } else if (work instanceof Deadline) {
+            tasks.addDeadlineTask((Deadline) work);
+        } else if (work instanceof Event) {
+            tasks.addEventTask((Event) work);
+        }
+        storage.saveTasks(tasks);
+        this.response = work.getMessage() + "\n" + Ui.printNumberOfTasks(tasks);
+        hasChanged = true;
+    }
+
+    /**
      * Handles the 'delete' command by removing a task, saves the tasks, and sets the hasChanged flag.
      *
      * @param words An array of words obtained by splitting the user command.
@@ -238,17 +260,21 @@ public class Parser {
      * @throws IOException  If an I/O error occurs during command execution.
      */
     private void handleToDoCommand() throws DukeException, IOException {
+        Matcher priorityMatcher = Pattern.compile("/p\\s+(\\S.+)").matcher(command);
+        String priority = priorityMatcher.find() ? priorityMatcher.group(1).trim() : "";
+
+        Matcher toDoMatcher = Pattern.compile("todo\\s+(\\S.+?)(?:\\s*/p|$)").matcher(command);
+        String todoTask = toDoMatcher.find() ? toDoMatcher.group(1).trim() : "";
+
         if (command.length() <= fullToDoCommandLength) {
             String reply = "you gotta enter some task TO DO!";
             ui.showError(reply);
             this.response = reply;
             return;
         }
-        ToDo work = new ToDo(command.substring(5).trim(), ui);
-        tasks.addToDoTask(work);
-        storage.saveTasks(tasks);
-        this.response = work.getMessage() + "\n" + ui.printNumberOfTasks(tasks);
-        hasChanged = true;
+
+        ToDo work = new ToDo(todoTask, ui, priority.isEmpty() ? null : TaskPriority.valueOf(priority.toUpperCase()));
+        processTask(work);
     }
 
     /**
@@ -260,25 +286,37 @@ public class Parser {
      * @throws IOException  If an I/O error occurs during command execution.
      */
     private void handleDeadlineCommand(String[] words) throws DukeException, IOException {
-        Matcher byMatcher = Pattern.compile("/by\\s+(\\S.+)").matcher(command);
-        String deadlineDescription = "";
-        Matcher deadlineDescMatcher = Pattern.compile("deadline\\s+(.+?)\\s*/by").matcher(command);
+        Matcher priorityMatcher = Pattern.compile("/p\\s+(\\S.+)").matcher(command);
+        String priority = priorityMatcher.find() ? priorityMatcher.group(1).trim() : "";
+
+        Matcher byMatcher = Pattern.compile("/by\\s+(\\S.+?)(?:\\s*/p|$)").matcher(command);
+        String deadlineDescription = findDeadlineDescription(command);
+
         if (words.length <= 1) {
             String reply = "please include both task description and deadline correctly!";
             ui.showError(reply);
             this.response = reply;
             return;
-        } else {
-            if (deadlineDescMatcher.find()) {
-                deadlineDescription = deadlineDescMatcher.group(1).trim();
-            }
         }
+
         String by = byMatcher.find() ? byMatcher.group(1).trim() : "";
-        Deadline work = new Deadline(deadlineDescription, by, ui);
-        tasks.addDeadlineTask(work);
-        storage.saveTasks(tasks);
-        this.response = work.getMessage() + "\n" + Ui.printNumberOfTasks(tasks);
-        hasChanged = true;
+        Deadline work = new Deadline(deadlineDescription, by, ui, priority.isEmpty() ? null
+                : TaskPriority.valueOf(priority.toUpperCase()));
+        processTask(work);
+    }
+
+    /**
+     * Finds and extracts the description from a 'deadline' command.
+     *
+     * The method uses a regular expression to locate the description specified in the 'deadline' command.
+     * It searches for the substring following the "deadline" keyword and ending just before the "/by" keyword.
+     *
+     * @param command The user input command containing the 'deadline' task details.
+     * @return The extracted description from the 'deadline' command, or an empty string if not found.
+     */
+    private String findDeadlineDescription(String command) {
+        Matcher deadlineDescMatcher = Pattern.compile("deadline\\s+(.+?)\\s*/by").matcher(command);
+        return deadlineDescMatcher.find() ? deadlineDescMatcher.group(1).trim() : "";
     }
 
     /**
@@ -290,28 +328,55 @@ public class Parser {
      * @throws IOException  If an I/O error occurs during command execution.
      */
     private void handleEventCommand(String[] words) throws DukeException, IOException {
+        Matcher priorityMatcher = Pattern.compile("/p\\s+(\\S.+)").matcher(command);
+        String priority = priorityMatcher.find() ? priorityMatcher.group(1).trim() : "";
+
         Matcher fromMatcher = Pattern.compile("/from\\s+(\\S+[^/]+)").matcher(command);
-        Matcher toMatcher = Pattern.compile("/to\\s+(\\S.+)").matcher(command);
-        String eventDescription = "";
-        Matcher descriptionMatcher = Pattern.compile("event\\s+(.+?)\\s*/from").matcher(command);
+        String eventDescription = findEventDescription(command);
+
         if (words.length <= 1) {
             String reply = "you didn't enter the details or duration!";
             Ui.showError(reply);
             this.response = reply;
             return;
-        } else {
-            if (descriptionMatcher.find()) {
-                eventDescription = descriptionMatcher.group(1).trim();
-            }
         }
 
         String from = fromMatcher.find() ? fromMatcher.group(1).trim() : "";
-        String to = toMatcher.find() ? toMatcher.group(1).trim() : "";
-        Event job = new Event(eventDescription, from, to, ui);
-        tasks.addEventTask(job);
-        storage.saveTasks(tasks);
-        this.response = job.getMessage() + "\n" + Ui.printNumberOfTasks(tasks);
-        hasChanged = true;
+        String to = findEventTo(command, priority);
+
+        Event job = new Event(eventDescription, from, to, ui, priority.isEmpty() ? null
+                : TaskPriority.valueOf(priority.toUpperCase()));
+        processTask(job);
+    }
+
+    /**
+     * Finds and extracts the event description from an 'event' command.
+     *
+     * The method uses a regular expression to locate the description specified in the 'event' command.
+     * It searches for the substring following the "event" keyword and ending just before the "/from" keyword.
+     *
+     * @param command The user input command containing the 'event' task details.
+     * @return The extracted event description from the 'event' command, or an empty string if not found.
+     */
+    private String findEventDescription(String command) {
+        Matcher descriptionMatcher = Pattern.compile("event\\s+(.+?)\\s*/from").matcher(command);
+        return descriptionMatcher.find() ? descriptionMatcher.group(1).trim() : "";
+    }
+
+    /**
+     * Finds and extracts the 'to' information from an 'event' command.
+     *
+     * The method uses a regular expression to locate the 'to' information specified in the 'event' command.
+     * It searches for the substring following the "/to" keyword and ending either at the next specified marker ("/p")
+     * or at the end of the command.
+     *
+     * @param command  The user input command containing the 'event' task details.
+     * @param priority The priority extracted from the command.
+     * @return The extracted 'to' information from the 'event' command, or an empty string if not found.
+     */
+    private String findEventTo(String command, String priority) {
+        Matcher toMatcher = Pattern.compile("/to\\s+(\\S.+?)(?:\\s*/p|$)").matcher(command);
+        return toMatcher.find() ? toMatcher.group(1).trim() : "";
     }
 
     /**

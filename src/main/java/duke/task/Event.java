@@ -23,6 +23,7 @@ public class Event extends Task {
 
     /** The string representation of the end time (used when parsing or if LocalDateTime parsing fails). */
     protected String toString;
+    protected TaskPriority priority;
 
     private Ui ui;
 
@@ -32,15 +33,20 @@ public class Event extends Task {
      * @param description The description of the event.
      * @param fromString   The string representation of the start time.
      * @param toString     The string representation of the end time.
+     * @param priority    The priority of the task.
      * @throws DukeException If there are issues with the provided description or duration.
      */
-    public Event(String description, String fromString, String toString, Ui ui) throws DukeException {
-        super(TaskType.E, description);
-
+    public Event(String description, String fromString, String toString, Ui ui, TaskPriority priority)
+            throws DukeException {
+        super(TaskType.E, description, priority);
         this.fromString = fromString.trim();
         this.toString = toString.trim();
         this.ui = ui;
+        this.priority = priority;
+        initializeEvent();
+    }
 
+    public void initializeEvent() throws DukeException {
         try {
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
             this.from = LocalDateTime.parse(fromString, dateTimeFormatter);
@@ -157,7 +163,9 @@ public class Event extends Task {
                 ? " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))
                 : (this.toString != null ? " to: " + this.toString : "");
 
+        String priorityFormatted = (priority != null) ? " [Priority: " + priority + "]" : "";
+
         return ui.printMessage("Got it. I've added this task:\n [E][" + getStatusIcon() + "] " + getDescription()
-                + fromStringFormatted + toStringFormatted);
+                + fromStringFormatted + toStringFormatted + priorityFormatted);
     }
 }

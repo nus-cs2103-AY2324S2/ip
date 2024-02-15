@@ -5,6 +5,7 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.TaskList;
+import duke.task.TaskPriority;
 import duke.task.TaskStatus;
 import duke.task.TaskType;
 import duke.task.ToDo;
@@ -157,6 +158,10 @@ public class Storage {
     /**
      * Parses a line from the data file and converts it into a Task object.
      *
+     * The method splits the input line using the "|" delimiter and extracts the task type, description, and additional
+     * information. It then uses a switch statement to determine the task type and delegates the parsing to specific
+     * methods.
+     *
      * @param line The line from the data file representing a task.
      * @return A Task object parsed from the line.
      * @throws DukeException If there is an issue parsing the line into a Task object.
@@ -169,15 +174,83 @@ public class Storage {
 
         switch (taskType) {
         case T:
-            return new ToDo(description, ui);
+            return parseToDoTask(description, additionalInfo);
         case D:
-            return new Deadline(description, additionalInfo, ui);
+            return parseDeadlineTask(description, additionalInfo);
         case E:
-            String[] p = additionalInfo.split("-");
-            return new Event(description, p[0].trim(), p[1].trim(), ui);
+            return parseEventTask(description, additionalInfo);
         default:
-            return new Task(null, null);
+            return new Task(null, null, null);
         }
+    }
+
+    /**
+     * Parses a ToDo task from the given description and additional information.
+     *
+     * The method extracts the priority from the additional information and creates a new ToDo task.
+     *
+     * @param description     The description of the ToDo task.
+     * @param additionalInfo  The additional information containing priority.
+     * @return A ToDo task parsed from the description and additional information.
+     * @throws DukeException If there is an issue parsing the ToDo task.
+     */
+    private Task parseToDoTask(String description, String additionalInfo) throws DukeException {
+        TaskPriority priority = parsePriority(additionalInfo);
+        return new ToDo(description, ui, priority);
+    }
+
+    /**
+     * Parses a Deadline task from the given description and additional information.
+     *
+     * The method extracts the 'by' information and priority from the additional information and creates a new Deadline
+     * task.
+     *
+     * @param description     The description of the Deadline task.
+     * @param additionalInfo  The additional information containing 'by' and priority.
+     * @return A Deadline task parsed from the description and additional information.
+     * @throws DukeException If there is an issue parsing the Deadline task.
+     */
+    private Task parseDeadlineTask(String description, String additionalInfo) throws DukeException {
+        String by = additionalInfo;
+        TaskPriority priority = parsePriority(by);
+        return new Deadline(description, by, ui, priority);
+    }
+
+    /**
+     * Parses an Event task from the given description and additional information.
+     *
+     * The method extracts the 'from,' 'to,' and priority information from the additional information and creates
+     * a new Event task.
+     *
+     * @param description     The description of the Event task.
+     * @param additionalInfo  The additional information containing 'from,' 'to,' and priority.
+     * @return An Event task parsed from the description and additional information.
+     * @throws DukeException If there is an issue parsing the Event task.
+     */
+    private Task parseEventTask(String description, String additionalInfo) throws DukeException {
+        String[] parts = additionalInfo.split("-");
+        String from = parts[0].trim();
+        String to = parts[1].trim();
+        TaskPriority priority = parsePriority(to);
+        return new Event(description, from, to, ui, priority);
+    }
+
+    /**
+     * Parses the priority information from the given string.
+     *
+     * The method checks if the input string starts with the priority marker ("/p"). If it does, it extracts the
+     * priority
+     * string and converts it into a TaskPriority enum value.
+     *
+     * @param info The string containing priority information.
+     * @return The TaskPriority enum value parsed from the input string, or null if no priority is found.
+     */
+    private TaskPriority parsePriority(String info) {
+        if (info != null && info.startsWith(TaskPriority.PRIORITY_MARKER)) {
+            String priorityString = info.substring(TaskPriority.PRIORITY_MARKER.length()).trim();
+            return TaskPriority.valueOf(priorityString);
+        }
+        return null;
     }
 
 }

@@ -13,10 +13,11 @@ public class ToDo extends Task {
      * Constructs a ToDo task with the specified description.
      *
      * @param description The description of the ToDo task.
+     * @param priority The priority of the task.
      * @throws DukeException If there is an issue with the task creation.
      */
-    public ToDo(String description, Ui ui) throws DukeException {
-        super(TaskType.T, description);
+    public ToDo(String description, Ui ui, TaskPriority priority) throws DukeException {
+        super(TaskType.T, description, priority);
         this.ui = ui;
         assert this.ui != null : "UI should not be null.";
     }
@@ -28,6 +29,8 @@ public class ToDo extends Task {
      */
     public String getMessage() {
         assert this.ui != null : "UI should not be null.";
-        return ui.printMessage("Got it. I've added this task: \n [T][" + getStatusIcon() + "] " + getDescription());
+        String priorityFormatted = (priority != null) ? " [Priority: " + priority + "]" : "";
+        return ui.printMessage("Got it. I've added this task: \n [T][" + getStatusIcon() + "] " + getDescription()
+                + priorityFormatted);
     }
 }

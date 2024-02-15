@@ -180,7 +180,7 @@ public class TaskList {
             appendEventDetails(taskDetails, (Event) task);
         }
 
-        taskDetails.append("\n");
+        taskDetails.append(appendPriority(task)).append("\n");
     }
 
     /**
@@ -203,6 +203,19 @@ public class TaskList {
     private static void appendEventDetails(StringBuilder taskDetails, Event eventTask) {
         taskDetails.append(" (from: ").append(eventTask.getFrom()).append(" to: ")
                 .append(eventTask.getTo()).append(")");
+    }
+
+    /**
+     * Appends the priority details to a task's formatted string representation.
+     *
+     * This method checks if the task has a priority assigned and, if so, appends the priority information to the
+     * formatted string. If no priority is assigned, an empty string is returned.
+     *
+     * @param task The task for which priority details need to be appended.
+     * @return A string containing the priority details if available, or an empty string otherwise.
+     */
+    private static String appendPriority(Task task) {
+        return (task.getPriority() != null) ? " -> Priority: " + task.getPriority() : "";
     }
 
     /**

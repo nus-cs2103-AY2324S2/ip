@@ -28,13 +28,25 @@ public class Deadline extends Task {
      *
      * @param description The description of the deadline task.
      * @param byString    The string representation of the deadline.
+     * @param priority    The priority of the task.
      * @throws DukeException If there are issues with the provided description or deadline.
      */
-    public Deadline(String description, String byString, Ui ui) throws DukeException {
-        super(TaskType.D, description);
+    public Deadline(String description, String byString, Ui ui, TaskPriority priority) throws DukeException {
+        super(TaskType.D, description, priority);
         this.byString = byString.trim();
         this.ui = ui;
+        this.priority = priority;
+        initializeDeadline();
+    }
 
+    /**
+     * Initializes the deadline for a Deadline task. Parses the input deadline string and sets
+     * the corresponding LocalDateTime. Checks for errors in the input and displays appropriate
+     * error messages using the Ui class.
+     *
+     * @throws DukeException If there is an issue with initializing the deadline.
+     */
+    private void initializeDeadline() throws DukeException {
         try {
             if (!this.byString.isEmpty()) {
                 DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
@@ -100,11 +112,14 @@ public class Deadline extends Task {
                 ? " (by: " + by.format(formatter) + ")"
                 : (!this.byString.isEmpty() ? " (by: " + this.byString + ")" : "");
 
+        String priorityFormatted = (priority != null) ? " [Priority: " + priority + "]" : "";
+
         assert (this.by != null || !this.byString.isEmpty()) : "Either LocalDateTime or byString should be non-null.";
         assert !(this.by != null && !this.byString.isEmpty()) : "Both LocalDateTime and byString should not "
                 + "be non-null.";
 
-        return ui.printMessage("Got it. I've added this task:\n [D][" + getStatusIcon() + "] " + getDescription()
-                + byStringFormatted);
+        return ui.printMessage("Got it. I've added this task:\n [D][" + getStatusIcon() + "] "
+                + getDescription() + byStringFormatted + priorityFormatted);
     }
+
 }
