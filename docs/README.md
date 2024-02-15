@@ -1,6 +1,6 @@
 # WindBro User Guide
 
-![Ui.png.png](Ui.png.png)
+![Ui.png.png](Ui.png)
 
 WindBro is a desktop app that allows you to manage your tasks conveniently.
 It has a GUI while still allowing you to
