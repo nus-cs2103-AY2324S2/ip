@@ -39,8 +39,7 @@ public class MainWindow extends AnchorPane {
     }
 
     String getResponse(String input) {
-        String response = duke.runForGUI(input);
-        return "Duke heard: " + response;
+        return duke.runForGUI(input);
     }
 
     /**

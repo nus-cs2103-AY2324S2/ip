@@ -51,6 +51,7 @@ public class SirDuke{
             isBye = c.getIsBye();
         } catch (DukeException e) {
             ui.errorMsg(e.getMessage());
+            response = e.getMessage();
         }
         return response;
     }
