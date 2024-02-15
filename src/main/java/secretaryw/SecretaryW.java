@@ -7,6 +7,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Main class for the SecretaryW application.
+ */
 public class SecretaryW {
     private static final String FILE_PATH = "./data/SecretaryW.txt";
     private static final String line = "-----------------------------------------------------------------\n";
@@ -15,6 +18,9 @@ public class SecretaryW {
     private Ui ui;
     private TaskList taskList;
 
+    /**
+     * Constructs a new SecretaryW object.
+     */
     public SecretaryW() {
         this.parser = new Parser();
         this.storage = new Storage(FILE_PATH);
@@ -28,6 +34,9 @@ public class SecretaryW {
         }
     }
 
+    /**
+     * Starts the SecretaryW application.
+     */
     public void run() {
         ui.showGreeting();
 
@@ -75,6 +84,12 @@ public class SecretaryW {
         }
     }
 
+    /**
+     * Marks a task as done based on the specified index.
+     *
+     * @param argument The index of the task to mark as done.
+     * @throws WException If the index is out of bounds.
+     */
     private void markTaskAsDone(String argument) throws WException {
         int index = Integer.parseInt(argument.trim()) - 1;
         checkIndexBounds(index);
@@ -84,6 +99,12 @@ public class SecretaryW {
                 taskList.getTasks().get(index).getDescription());
     }
 
+    /**
+     * Deletes a task based on the specified index.
+     *
+     * @param argument The index of the task to delete.
+     * @throws WException If the index is out of bounds.
+     */
     private void markTaskAsUndone(String argument) throws WException {
         int index = Integer.parseInt(argument.trim()) - 1;
         checkIndexBounds(index);
@@ -93,6 +114,12 @@ public class SecretaryW {
                 taskList.getTasks().get(index).getDescription());
     }
 
+    /**
+     * Deletes a task based on the specified index.
+     *
+     * @param argument The index of the task to delete.
+     * @throws WException If the index is out of bounds.
+     */
     private void deleteTask(String argument) throws WException {
         int index = Integer.parseInt(argument.trim()) - 1;
         checkIndexBounds(index);
@@ -100,6 +127,12 @@ public class SecretaryW {
         ui.showMessage("Noted. I've removed this task:\n  " + removedTask);
     }
 
+    /**
+     * Adds a to do task with the specified description.
+     *
+     * @param argument The description of the to do task.
+     * @throws WException If the description is empty.
+     */
     private void addTodoTask(String argument) throws WException {
         if (argument.isEmpty()) {
             throw new WException("The description of a todo cannot be empty");
@@ -108,6 +141,12 @@ public class SecretaryW {
         ui.showTaskAdded(taskList.getTasks().get(taskList.size() - 1), taskList.size());
     }
 
+    /**
+     * Adds a deadline task with the specified description and deadline.
+     *
+     * @param argument The description and deadline of the deadline task.
+     * @throws WException If the format of the deadline is incorrect.
+     */
     private void addDeadlineTask(String argument) throws WException {
         String[] parts = argument.split("/by");
         if (parts.length != 2) {
@@ -120,6 +159,12 @@ public class SecretaryW {
         ui.showTaskAdded(taskList.getTasks().get(taskList.size() - 1), taskList.size());
     }
 
+    /**
+     * Adds an event task with the specified description and time period.
+     *
+     * @param argument The description and time period of the event task.
+     * @throws WException If the format of the time period is incorrect.
+     */
     private void addEventTask(String argument) throws WException {
         String[] parts = argument.split("/from");
         if (parts.length != 2) {
@@ -137,12 +182,24 @@ public class SecretaryW {
         ui.showTaskAdded(taskList.getTasks().get(taskList.size() - 1), taskList.size());
     }
 
+    /**
+     * Checks if the specified index is within the bounds of the task list.
+     *
+     * @param index The index to check.
+     * @throws WException If the index is out of bounds.
+     */
     private void checkIndexBounds(int index) throws WException {
         if (index < 0 || index >= taskList.size()) {
             throw new WException("Index is out of bounds!");
         }
     }
 
+    /**
+     * Checks if the specified deadline string has the correct date format.
+     *
+     * @param by The deadline string to check.
+     * @throws WException If the date format is incorrect.
+     */
     private void checkDeadline(String by) throws WException {
         try {
             LocalDate.parse(by, DateTimeFormatter.ofPattern("d/M/yyyy"));
@@ -151,6 +208,13 @@ public class SecretaryW {
         }
     }
 
+    /**
+     * Checks if the specified event start and end date strings have the correct date format.
+     *
+     * @param from The start date string of the event.
+     * @param to   The end date string of the event.
+     * @throws WException If the date format is incorrect.
+     */
     private void checkEvent(String from, String to) throws WException {
         try {
             LocalDate.parse(from, DateTimeFormatter.ofPattern("d/M/yyyy"));
@@ -160,6 +224,9 @@ public class SecretaryW {
         }
     }
 
+    /**
+     * Custom exception class used in the SecretaryW application to represent errors specific to the application's functionality.
+     */
     static class WException extends Exception {
         public WException(String msg) {
             super(msg);
