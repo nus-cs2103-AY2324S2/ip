@@ -34,7 +34,10 @@ public class ListCommand extends Command {
 
         int i = 1;
         for (Task eachTask : this.tasks.getTasks()) {
-            output.append(i++).append(". ").append(eachTask).append("\n");
+            output.append(i++)
+                    .append(". ")
+                    .append(eachTask)
+                    .append("\n");
         }
 
         ui.echo(output.toString());

@@ -9,6 +9,20 @@ import chaterpillar.ui.Ui;
  */
 public class HelpCommand extends Command {
 
+    private static final String HELP_MESSAGE = """
+            Hi! Here are the list of commands I recognise:\s
+
+            'list' - lists the tasks registered in the list
+            'today' - lists the tasks for today
+            'todo' - adds an item that has no due date
+            'deadline' - adds an item with a due date
+            'event' - adds an item that has a duration
+            'mark' - marks the task as completed
+            'unmark' - marks the task as not completed
+            'find' - finds the tasks containing the keyword specified
+            'help' - opens the list of commands available
+            'bye' - exits the chatbot""";
+
     /**
      * Prints out the commands that the application accepts.
      *
@@ -17,18 +31,7 @@ public class HelpCommand extends Command {
      * @param storage object that is used for storage.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        String helpMessage =
-                "Hi! Here are the list of commands I recognise: \n\n"
-                + "'list' - lists the tasks registered in the list\n"
-                + "'today' - lists the tasks for today\n"
-                + "'todo' - adds an item that has no due date\n"
-                + "'deadline' - adds an item with a due date\n"
-                + "'event' - adds an item that has a duration\n"
-                + "'mark' - marks the task as completed\n"
-                + "'unmark' - marks the task as not completed\n"
-                + "'help' - opens the list of commands available\n"
-                + "'bye' - exits the chatbot";
-        ui.echo(helpMessage);
-        return helpMessage;
+        ui.echo(HELP_MESSAGE);
+        return HELP_MESSAGE;
     }
 }

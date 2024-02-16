@@ -42,7 +42,7 @@ public class DateTime {
      * @param date date and time in <code>LocalDateTime</code> object
      */
     public DateTime(LocalDate date) {
-        this.hasOnlyDate = false;
+        this.hasOnlyDate = true;
         this.hasOnlyTime = false;
         this.dateTime = date.atTime(0, 0);
     }
@@ -161,8 +161,8 @@ public class DateTime {
             throws ChaterpillarException {
         assert !s.isBlank() : "DateTime String should not be blank";
         try {
-            TemporalAccessor dt = format.parseBest(
-                    s, LocalDateTime::from, LocalDate::from, LocalTime::from, YearMonth::from);
+            TemporalAccessor dt = format.parseBest(s, LocalDateTime::from,
+                    LocalDate::from, LocalTime::from, YearMonth::from);
 
             if (dt instanceof LocalDate) {
                 hasOnlyDate = true;
@@ -206,12 +206,15 @@ public class DateTime {
      *     and <code>false</code> if it is not.
      */
     public boolean isWithinDate(DateTime dtStart, DateTime dtEnd) {
-        if (dateTime.toLocalDate().isAfter(dtStart.dateTime.toLocalDate())
-            && dateTime.toLocalDate().isBefore(dtEnd.dateTime.toLocalDate())) {
+        boolean isAfterStartDate = dateTime.toLocalDate().isAfter(dtStart.dateTime.toLocalDate());
+        boolean isBeforeEndDate = dateTime.toLocalDate().isBefore(dtEnd.dateTime.toLocalDate());
+        boolean isEqualStartDate = dateTime.toLocalDate().isEqual(dtStart.dateTime.toLocalDate());
+        boolean isEqualEndDate = dateTime.toLocalDate().isEqual(dtEnd.dateTime.toLocalDate());
+
+        if (isAfterStartDate && isBeforeEndDate) {
             return true;
         } else {
-            return dateTime.toLocalDate().isEqual(dtStart.dateTime.toLocalDate())
-                    || dateTime.toLocalDate().isEqual(dtEnd.dateTime.toLocalDate());
+            return isEqualStartDate || isEqualEndDate;
         }
     }
     @Override
