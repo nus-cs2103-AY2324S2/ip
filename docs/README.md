@@ -10,11 +10,7 @@ _**Nollid**. The future of productivity._
 
 1. Ensure you have Java 11 or above installed.
 
-> [!TIP]
-> 
-> Execute the command `java --version` in your command prompt to check the version of Java you have!
-
-test
+> Tip: Execute the command `java --version` in your command prompt to check the version of Java you have!
 
 2. Download the latest version of Nollid from [the releases page](https://github.com/dillontkh/ip/releases).
 3. `cd` to the folder containing `Nollid.jar` and use `java -jar Nollid.jar` to start the application.
