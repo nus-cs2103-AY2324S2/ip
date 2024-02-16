@@ -18,7 +18,6 @@ class KaiYapTest {
     @BeforeEach
     void setUp() throws IOException {
         kaiYap = new KaiYap();
-        kaiYap.clearData();
     }
 
     @Test
