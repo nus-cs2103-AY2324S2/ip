@@ -1,11 +1,4 @@
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
-
+package reacher;
 public class Reacher {
     private Storage storage;
     private TaskList tasks;
@@ -24,6 +17,7 @@ public class Reacher {
         boolean isExit = false;
         while (!isExit) {
             try {
+                ui.print("Enter a command:");
                 String input = ui.readString();
                 Command command = Parser.parse(input);
                 command.execute(tasks, ui, storage);
