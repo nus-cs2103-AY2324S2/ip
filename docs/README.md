@@ -1,8 +1,8 @@
-# Duke User Guide
+# Hanxiao User Guide
 
-// Update the title above to match the actual product name
 
-// Product screenshot goes here
+![Screenshot](/docs/UI.png)
+
 
 // Product intro goes here
 
