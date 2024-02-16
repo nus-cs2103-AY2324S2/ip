@@ -44,8 +44,7 @@ public class CommandList {
      * @return the string value of the specific option
      */
     private String findOption(String option, String input) throws RemiError {
-        assert(!input.isEmpty());
-        assert(!option.isEmpty());
+        assert !option.isEmpty();
 
         int idx = input.indexOf(option);
 
@@ -85,6 +84,11 @@ public class CommandList {
         commandLookup.put("list", (args) -> {
             return new Message(taskList.toString());
         });
+
+        commandLookup.put("listsort", (args) -> {
+            return new Message(taskList.getSortedTasks().toString());
+        });
+
         commandLookup.put("mark", (args) -> {
             int idx = Integer.parseInt(args);
             taskList.markTask(idx);
