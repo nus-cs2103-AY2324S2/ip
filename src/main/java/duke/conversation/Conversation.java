@@ -39,9 +39,6 @@ public class Conversation {
      * @param username The optional username for personalized dialogues.
      */
     public void initializeDialogues(String username) {
-        addDialogue("starter", "Hello, " + username +
-                ". Nice to meet you!\n" +
-                "So, what can I do for you today?");
         addDialogue("bye", "Bye bye! See you later!");
         addDialogue("hello", "Hi there! How can I help you?");
         addDialogue("hello", "Greetings! What brings you here?");
@@ -77,8 +74,8 @@ public class Conversation {
                 dialogueMessage.append(dialogue).append("\n");
             }
         } else {
-            dialogueMessage.append("Sorry, I don't understand what you mean by ").append(message).append("\n")
-                    .append("Maybe try checking the spelling or ask me anything else!\n");
+            dialogueMessage.append("Sorry, I don't understand what you mean by ").append(message)
+                    .append("\n. Maybe try checking the spelling or ask me anything else!\n");
         }
         return dialogueMessage.toString();
     }
