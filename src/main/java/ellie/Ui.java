@@ -6,7 +6,7 @@ package ellie;
  */
 public class Ui {
 
-    final static String HORIZONTAL_LINE = "____________________________________________________________";
+    final static String HORIZONTAL_LINE = "____________________________________________________";
     final static String LOGO_ELLIE =
             " _______   ___       ___       ___  _______          \n"
                     + "|\\  ___ \\ |\\  \\     |\\  \\     |\\  \\|\\  ___ \\         \n"
