@@ -106,13 +106,13 @@ public class TaskList {
      */
     public Todo createTodo(String input) throws KaiYapException {
         if (input.equals("todo")) {
-            throw new MissingInputException("\tYour todo needs a description.\nPlease try again! UwU :3");
+            throw new MissingInputException("\tYour todo needs a description. Please try again! UwU :3");
         } else {
             String todoTask = input.substring(input.indexOf(' ') + 1);
             for (Task t : tasks) {
                 if (t instanceof Todo && todoTask.equals(t.getListItem())) {
                     throw new InvalidInputException("\tAre you sure? Methinks this todo exists already."
-                            + "\nPlease try again! UwU :3");
+                            + " Please try again! UwU :3");
                 }
             }
             return new Todo(todoTask, input);
@@ -129,14 +129,14 @@ public class TaskList {
         if (input.equals("deadline")) {
             throw new MissingInputException("Your deadline needs a description. Please try again! UwU :3");
         } else {
-            String deadlineTask = input.substring(input.indexOf(" ") + 1, input.indexOf("/by")).strip();
-            for (Task t : tasks) {
-                if (t instanceof Deadline && deadlineTask.equals(t.getListItem())) {
-                    throw new InvalidInputException("\tAre you sure? Methinks this deadline exists already."
-                            + "\nPlease try again! UwU :3");
-                }
-            }
             try {
+                String deadlineTask = input.substring(input.indexOf(" ") + 1, input.indexOf("/by")).strip();
+                for (Task t : tasks) {
+                    if (t instanceof Deadline && deadlineTask.equals(t.getListItem())) {
+                        throw new InvalidInputException("\tAre you sure? Methinks this deadline exists already."
+                                + " Please try again! UwU :3");
+                    }
+                }
                 return new Deadline(
                         deadlineTask,
                         input,
@@ -144,8 +144,8 @@ public class TaskList {
                                 input.indexOf("/by") + 3).strip(), DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"))
                 );
             } catch (DateTimeParseException d) {
-                ui.printError("\tYour deadline format is wrong - please use the dd/MM/yyyy MMhh format! UwU :3");
-                return null;
+                throw new InvalidInputException(
+                        "\tYour deadline format is wrong - please use the dd/MM/yyyy MMhh format! UwU :3");
             } catch (Exception e) {
                 throw new MissingInputException(
                         "\tYour deadline is missing some important information. Please try again! UwU :3");
@@ -163,14 +163,14 @@ public class TaskList {
         if (input.equals("event")) {
             throw new MissingInputException("Your event needs a description. Please try again! UwU :3");
         } else {
-            String eventTask = input.substring(input.indexOf(" ") + 1, input.indexOf("/from")).strip();
-            for (Task t : tasks) {
-                if (t instanceof Event && eventTask.equals(t.getListItem())) {
-                    throw new InvalidInputException("\tAre you sure? Methinks this event exists already."
-                            + "\nPlease try again! UwU :3");
-                }
-            }
             try {
+                String eventTask = input.substring(input.indexOf(" ") + 1, input.indexOf("/from")).strip();
+                for (Task t : tasks) {
+                    if (t instanceof Event && eventTask.equals(t.getListItem())) {
+                        throw new InvalidInputException("\tAre you sure? Methinks this event exists already."
+                                + " Please try again! UwU :3");
+                    }
+                }
                 return new Event(
                         eventTask,
                         input,
@@ -186,7 +186,7 @@ public class TaskList {
                 return null;
             } catch (Exception e) {
                 throw new MissingInputException(
-                        "Your deadline is missing some important information. Please try again! UwU :3");
+                        "\tYour event is missing some important information. Please try again! UwU :3");
             }
         }
     }

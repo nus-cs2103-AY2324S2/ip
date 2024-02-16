@@ -63,11 +63,20 @@ public class Ui {
      * @param error The error message to be printed.
      */
     public String printError(String error) {
-        return (SEPARATOR
-                + error
-                + "\n"
-                + SEPARATOR
-            );
+        StringBuilder output = new StringBuilder(SEPARATOR);
+        String[] errorWords = error.split(" ");
+        int count = 0;
+        for (String word : errorWords) {
+            if (count + word.length() > 40) {
+                count = word.length();
+                output.append("\n\t").append(word).append(" ");
+            } else {
+                output.append(word).append(" ");
+                count += word.length();
+            }
+        }
+        output.append("\n" + SEPARATOR);
+        return output.toString();
     }
 
     /**

@@ -103,13 +103,14 @@ public class KaiYap {
             case "delete":
                 return this.deleteTask(input);
             default:
-                Task task = taskList.taskCreator(input);
-                if (task == null) {
-                    throw new KaiYapException("Sorry, there seems to be some kind of error. Please try again! UwU :3");
+                try {
+                    Task task = taskList.taskCreator(input);
+                    this.taskList.add(task);
+                    storage.saveData();
+                    return this.ui.echo(task);
+                } catch (KaiYapException k) {
+                    return this.ui.printError(k.getMessage());
                 }
-                this.taskList.add(task);
-                storage.saveData();
-                return this.ui.echo(task);
             }
         } catch (KaiYapException e) {
             return this.ui.printError(e.getMessage());
