@@ -14,7 +14,7 @@ As an example, here's how you might use it:
 
 To try it out for yourself, download the jar file from [here](https://github.com/soons1/ip/releases/tag/v0.3) and type in your CLI:
 ```
-java -jar snowboy.jar
+java -jar duke.jar
 ```
 
 Here's a detailed guide of commands you can use:
