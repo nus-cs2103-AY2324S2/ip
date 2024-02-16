@@ -212,9 +212,9 @@ public class TaskList {
     }
 
     /**
-     * Adds a todo task to the task list based on the user input.
+     * Adds a tod0 task to the task list based on the user input.
      *
-     * @param input The user input containing the todo task details.
+     * @param input The user input containing the tod0 task details.
      * @return A response message or status.
      * @throws BotChatException If there's an error during the addition process.
      */
