@@ -262,15 +262,15 @@ public class TaskList {
 
     @Override
     public String toString() {
-        String output = "";
+        StringBuilder output = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             if (i != tasks.size() - 1) {
-                output += (i + 1) + ". " + tasks.get(i) + "\n";
+                output.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
             } else {
-                output += (i + 1) + ". " + tasks.get(i);
+                output.append(i + 1).append(". ").append(tasks.get(i));
             }
         }
-        return output;
+        return output.toString();
     }
 
     /**
@@ -279,21 +279,21 @@ public class TaskList {
      * @return The commands representation of the task list.
      */
     String getCommands() {
-        String output = "";
+        StringBuilder output = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             if (i != tasks.size() - 1) {
-                output += task.getCommand() + "\n";
+                output.append(task.getCommand()).append("\n");
                 if (task.isDone) {
-                    output += "mark " + (i + 1) + "\n";
+                    output.append("mark ").append(i + 1).append("\n");
                 }
             } else {
-                output += task.getCommand();
+                output.append(task.getCommand());
                 if (task.isDone) {
-                    output += "\nmark " + (i + 1);
+                    output.append("\nmark ").append(i + 1);
                 }
             }
         }
-        return output;
+        return output.toString();
     }
 }

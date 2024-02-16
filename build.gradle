@@ -45,7 +45,7 @@ test {
     }
 }
 
-mainClassName = "knight.Knight";
+mainClassName = "knight.Launcher";
 
 application {
     mainClass.set("knight.Knight")
