@@ -159,6 +159,7 @@ public class DateTime {
      */
     private LocalDateTime getDate(String s, DateTimeFormatter format)
             throws ChaterpillarException {
+        assert !s.isBlank() : "DateTime String should not be blank";
         try {
             TemporalAccessor dt = format.parseBest(
                     s, LocalDateTime::from, LocalDate::from, LocalTime::from, YearMonth::from);
