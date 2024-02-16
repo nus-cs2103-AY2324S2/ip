@@ -27,15 +27,16 @@ public class Ui {
      * @return A overview of the accepted commands by the chatbot.
      */
     public String printOtherInputMessage() {
-        return ("Sorry, Scribbles was unable to understand your instructions :(\n"
-                + "Try formatting your instructions as follows: \n"
+        return ("Try formatting your instructions as follows: \n"
                 + "- type \"list\" to view your current list of tasks\n"
                 + "- type \"mark [index]\" to mark task at index as completed\n"
                 + "- type \"unmark [index]\" to mark task at index as incomplete\n"
                 + "- type \"todo [task]\" to insert to-do task into your list\n"
-                + "- type \"deadline [task] /by [date]\" to insert task into your list with deadline as date\n"
-                + "- type \"event [task] /from [start] to [end]\" "
-                + "to insert task into your list with a start and end duration\n"
+                + "- type \"deadline [task] /by [date]\" to insert task into your list with deadline as date"
+                + " with deadline formatted dd/mm/yyyy HHmm\n"
+                + "- type \"event [task] /from [start] /to [end]\" "
+                + "to insert task into your list with a start and end duration"
+                + " with duration formatted as dd/mm/yyyy HHmm\n"
                 + "- type \"delete [index]\" to remove a task at index from your list\n"
                 + "- type \"find [keyword]\" to find tasks with matching keyword\n"
                 + "- type \"bye\" to exit Scribbles\n"
