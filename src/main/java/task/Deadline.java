@@ -11,9 +11,11 @@ import exception.DukeException;
  */
 public class Deadline extends Task {
     private LocalDateTime by;
+    private String name;
 
     public Deadline(String name, String byText) throws DukeException {
         super(name);
+        this.name = name;
         this.by = super.convertDateTime(byText);
         if (name == null || name.isEmpty()) {
             throw new DukeException("Task name cannot be empty");
@@ -22,8 +24,17 @@ public class Deadline extends Task {
         }
     }
 
+    public String getName() {
+        return this.name;
+    }
+
+    public LocalDateTime getBy() {
+        return this.by;
+    }
+
     public Deadline(String name, String byText, boolean doneStatus) throws DukeException {
         super(name, doneStatus);
+        this.name = name;
         this.by = super.convertDateTime(byText);
         if (name == null || name.isEmpty()) {
             throw new DukeException("Task name cannot be empty");

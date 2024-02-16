@@ -11,9 +11,11 @@ import exception.DukeException;
 public class Event extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
+    private String name;
 
     public Event(String name, String fromText, String toText) throws DukeException {
         super(name);
+        this.name = name;
         this.to = super.convertDateTime(toText);
         this.from = super.convertDateTime(fromText);
         if (name == null || name.isEmpty()) {
@@ -25,8 +27,21 @@ public class Event extends Task {
         }
     }
 
+    public String getName() {
+        return this.name;
+    }
+
+    public LocalDateTime getTo() {
+        return this.to;
+    }
+
+    public LocalDateTime getFrom() {
+        return this.from;
+    }
+
     public Event(String name, String fromText, String toText, boolean doneStatus) throws DukeException {
         super(name, doneStatus);
+        this.name = name;
         this.to = super.convertDateTime(toText);
         this.from = super.convertDateTime(fromText);
         if (name == null || name.isEmpty()) {
