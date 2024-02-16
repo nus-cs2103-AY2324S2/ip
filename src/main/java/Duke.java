@@ -44,15 +44,15 @@ public class Duke extends Application {
      */
     public void handleUserInput() {
         Label userText = new Label(ui.getUserInput().getText());
-        Label dukeText = new Label(getResponse(ui.userInput.getText()));
+        Label dukeText = getResponse(ui.userInput.getText());
         ui.addConversation(userText, dukeText);
     }
 
-    public String getResponse(String userMsg) {
+    public Label getResponse(String userMsg) {
         String[] userMsgParsed = userMsg.split(" ", 2);
         Command nextCommand = parser.parseUserMsg(userMsgParsed);
 
-        String dukeText = "";
+        Label dukeText = new Label();
 
         switch (nextCommand) {
             case LIST:
@@ -65,7 +65,7 @@ public class Duke extends Application {
                     userTaskList.get(taskInt).setDone(true);
                     storage.updateTask(taskInt, true);
 
-                    dukeText = ui.markTask(userTaskList, taskInt) + "\n";
+                    dukeText = ui.markTask(userTaskList, taskInt);
                 }
                 break;
             case UNMARK:
@@ -86,29 +86,29 @@ public class Duke extends Application {
 
                     dukeText = ui.printAddTask(task, userTaskList.size());
                 } catch (DukeException e) {
-                    dukeText = ui.printError(e);
+                    dukeText = ui.printError(e.getMessage());
                 }
                 break;
             case DEADLINE:
                 try {
                     Deadline task = new Deadline(userMsgParsed[1]);
                     userTaskList.add(task);
-                    storage.saveTask(userMsgParsed[1], TaskType.T);
+                    storage.saveTask(userMsgParsed[1], TaskType.D);
 
                     dukeText = ui.printAddTask(task, userTaskList.size());
                 } catch (DukeException e) {
-                    dukeText = ui.printError(e);
+                    dukeText = ui.printError(e.getMessage());
                 }
                 break;
             case EVENT:
                 try {
                     Event task = new Event(userMsgParsed[1]);
                     userTaskList.add(task);
-                    storage.saveTask(userMsgParsed[1], TaskType.T);
+                    storage.saveTask(userMsgParsed[1], TaskType.E);
 
                     dukeText = ui.printAddTask(task, userTaskList.size());
                 } catch (DukeException e) {
-                    dukeText = ui.printError(e);
+                    dukeText = ui.printError(e.getMessage());
                 }
                 break;
             case DELETE:
@@ -136,12 +136,12 @@ public class Duke extends Application {
                         userTaskList.get(taskInt).updateTime(updateTimeParsed[2]);;
                         dukeText = ui.printUpdateTime(userTaskList.get(taskInt));
                     } catch (DukeException e) {
-                        dukeText = ui.printError(e);
+                        dukeText = ui.printError(e.getMessage());
                     }
                 } 
                 break;
             case UNKNOWN:
-                dukeText = ui.printUnknownCommand();
+                dukeText = ui.printError("Unknown Command!");;
                 break;
             default:
                 break;

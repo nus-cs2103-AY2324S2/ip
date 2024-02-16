@@ -2,6 +2,7 @@ package Ui;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -33,10 +34,12 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(Label l, ImageView iv) {
+        l.setPadding(new Insets(0, 10, 0, 10));
         return new DialogBox(l, iv);
     }
 
     public static DialogBox getDukeDialog(Label l, ImageView iv) {
+        l.setPadding(new Insets(0, 10, 0, 10));
         var db = new DialogBox(l, iv);
         db.flip();
         return db;
