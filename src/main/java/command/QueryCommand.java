@@ -52,6 +52,7 @@ public class QueryCommand extends Command {
      *
      * @param tasks   The TaskList on which the query action is performed.
      * @param storage The Storage where changes are saved.
+     * @return A string containing the result message for this operation.
      */
     @Override
     public String execute(TaskList tasks, Storage storage) {
@@ -79,6 +80,7 @@ public class QueryCommand extends Command {
      * Finds tasks based on the specified query type and date, printing the results to the UI.
      *
      * @param tasks   The TaskList from which tasks are queried.
+     * @return A string containing the result message for this operation.
      */
     public String query(TaskList tasks) {
         String formattedDate = this.date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
@@ -112,6 +114,7 @@ public class QueryCommand extends Command {
      * Finds and prints tasks in the task list that match the specified query.
      *
      * @param tasks   The TaskList from which tasks are queried.
+     * @return A string containing the result message for this operation.
      */
     public String find(TaskList tasks) {
         UI.print("Here are the matching tasks in your list:");

@@ -39,6 +39,7 @@ public class ManageCommand extends Command {
      *
      * @param tasks   The TaskList on which the manage action is performed.
      * @param storage The Storage where changes are saved.
+     * @return A string containing the result message for this operation.
      */
     @Override
     public String execute(TaskList tasks, Storage storage) {
@@ -69,6 +70,7 @@ public class ManageCommand extends Command {
      *
      * @param tasks   The TaskList from which the task is marked.
      * @param storage The Storage where changes are saved.
+     * @return A string containing the result message for this operation.
      */
     public String mark(TaskList tasks, Storage storage) {
         String result = "";
@@ -108,6 +110,7 @@ public class ManageCommand extends Command {
      *
      * @param tasks   The TaskList from which the task is unmarked.
      * @param storage The Storage where changes are saved.
+     * @return A string containing the result message for this operation.
      */
     public String unmark(TaskList tasks, Storage storage) {
         String result = "";
@@ -146,6 +149,7 @@ public class ManageCommand extends Command {
      *
      * @param tasks   The TaskList from which the task is deleted.
      * @param storage The Storage where changes are saved.
+     * @return A string containing the result message for this operation.
      */
     public String delete(TaskList tasks, Storage storage) {
         String result = "";

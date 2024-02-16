@@ -38,6 +38,7 @@ public class AddCommand extends Command {
      *
      * @param tasks   The TaskList to which the task is added.
      * @param storage The Storage to save the task data.
+     * @return A string containing the result message for this operation.
      */
     @Override
     public String execute(TaskList tasks, Storage storage) {
