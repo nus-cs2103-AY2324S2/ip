@@ -167,6 +167,7 @@ public class Duke extends Application {
      * @return Responds to given input.
      */
     String getResponse(String input) {
+        assert !input.equals("") : "input should not be empty";
         return "Okay I heard: " + input;
     }
 
