@@ -32,9 +32,9 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Image user = new Image(
-            this.getClass().getResourceAsStream("/images/customer.png"));
+            this.getClass().getResourceAsStream("/images/dog.png"));
     private Image host = new Image(
-            this.getClass().getResourceAsStream("/images/host.png"));
+            this.getClass().getResourceAsStream("/images/missa.png"));
     private MissA missA;
 
     /**
@@ -43,8 +43,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
         // Sets background image.
-        Image img = new Image("/images/cat1.JPG", 400, 600, false, true);
+        // Solution below inspired by
+        // https://stackoverflow.com/questions/9738146/javafx-how-to-set-scene-background-image
+        Image img = new Image("/images/arab.jpeg", 400, 600, true, true);
         BackgroundImage backgroundImage = new BackgroundImage(
                 img,
                 BackgroundRepeat.REPEAT,

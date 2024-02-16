@@ -44,6 +44,8 @@ public class DialogBox extends HBox {
         }
 
         text.setText(content);
+
+        // Solution below inspired by https://stackoverflow.com/questions/42116313/how-to-set-an-image-in-a-circle
         cir.setFill(new ImagePattern(image));
         cir.setEffect(new DropShadow(+25d, 0d, +2d, Color.WHITE));
     }
