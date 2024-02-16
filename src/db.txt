@@ -1,9 +1,5 @@
-T|0|hihi its tyty 
-T|1|call mum 
-T|0|call mum 
+T|0|call mum|
 E|0|hall party |2023-12-12|2024-12-12
-E|0|rc party |2024-12-12|2024-12-12
-T|0|call dad 
-T|0|dsadsad 
-D|0|dsas |2022-11-11
-T|0|kms 
+T|0|call dad|
+D|0|do cs2103t tutorial |2022-12-12
+T|0|hihi |

@@ -17,42 +17,52 @@ import java.util.Objects;
  * */
 public class MarkCommand extends Command {
     /* The separated list of constituent words in the user-entered command. */
-    String[] commandList;
+    private final String[] commandList;
 
     /* Specifies the command type (mark or unmark). */
-    String type;
+    private final String type;
+    /* The chatbot notification to the user for marking a task as done. */
+    public static final String MARK_RESPONSE = "Nice! I've marked this task as done:\n  ";
+    /* The chatbot notification to the user for marking a task as done. */
+    public static final String UNMARK_RESPONSE = "Nice! I've marked this task as done:\n  ";
 
     public MarkCommand(String[] commandList, String type) {
         this.commandList = commandList;
         this.type = type;
     }
     public String execute(TaskList taskList, Ui ui, Storage storage) throws MarkInvalidException {
-        String response = "";
         String markMessage;
+
         if (Objects.equals(this.type, "mark")) {
-            markMessage = "Nice! I've marked this task as done:\n  ";
+            markMessage = MARK_RESPONSE;
         } else {
-            markMessage = "Ok, I've marked this task as not done yet:\n  ";
+            markMessage = UNMARK_RESPONSE;
         }
+
         try {
             if (this.commandList.length <= 1) {
                 throw new MarkInvalidException(this.type);
             }
+
             int index = Integer.parseInt(commandList[1].replaceAll("\\s", ""));
-            if (index < 1 || index > taskList.size()) {
+            boolean isZeroIndex = index < 1;
+            boolean isIndexOutOfBounds = index > taskList.size();
+            if (isZeroIndex || isIndexOutOfBounds) {
                 throw new MarkInvalidException(this.type);
             }
+
             Task currentTask = taskList.get(index - 1);
             currentTask.changeDone();
-            response = markMessage + currentTask;
+
+            markMessage += currentTask;
 
             storage.save(taskList);
         } catch (NumberFormatException e) {
             throw new MarkInvalidException(this.type);
         } catch (SaveStorageException e) {
-            response = ui.showError(e.getMessage());
+            markMessage = ui.showError(e.getMessage());
         }
-        return response;
+        return markMessage;
     }
 
     public boolean isExit() {

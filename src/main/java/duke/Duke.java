@@ -13,13 +13,11 @@ import duke.command.Command;
  * */
 public class Duke {
     /* The storage object used to load and save to disk. */
-    Storage storage;
-
+    private Storage storage;
     /* The taskList containing all current user-entered tasks. */
-    TaskList taskList;
-
+    private TaskList taskList;
     /* The user interaction object. */
-    Ui ui;
+    private Ui ui;
 
     /**
      * Generates a response to the user input.
@@ -28,6 +26,7 @@ public class Duke {
      * @return The response to the input.
      */
     public String getResponse(String input) {
+        assert input != null;
         String response;
         try {
             Command c = Parser.parseCommand(input);

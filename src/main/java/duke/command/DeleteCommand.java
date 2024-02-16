@@ -14,7 +14,9 @@ import duke.exception.SaveStorageException;
  * */
 public class DeleteCommand extends Command {
     /* The separated list of constituent words in the user-entered command. */
-    String[] commandList;
+    private final String[] commandList;
+    /* The chatbot default response to the user. */
+    public static final String RESPONSE = "Noted. I've removed this task:\n  ";
 
     public DeleteCommand(String[] commandList) {
         this.commandList = commandList;
@@ -22,18 +24,22 @@ public class DeleteCommand extends Command {
 
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DeleteInvalidException {
         String response = "";
-        String deleteMessage = "Noted. I've removed this task:\n  ";
+
         try {
             if (this.commandList.length <= 1) {
                 throw new DeleteInvalidException();
             }
+
             int deleteIndex = Integer.parseInt(commandList[1].replaceAll("\\s", ""));
+
             if (deleteIndex < 1 || deleteIndex > taskList.size()) {
                 throw new DeleteInvalidException();
             }
+
             Task deleteTask = taskList.get(deleteIndex - 1);
             taskList.remove(deleteTask);
-            response += deleteMessage + deleteTask;
+
+            response += RESPONSE + deleteTask;
 
             storage.save(taskList);
         } catch (NumberFormatException e) {

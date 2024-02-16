@@ -8,23 +8,25 @@ import java.util.Objects;
  * The class representing a deadline task.
  * */
 public class Deadline extends Task {
+    /* Type for Deadline task. */
+    public static final String TYPE = "D";
     /* Type indicator for Deadline task. */
-    String type = "[D]";
-
+    public static final String TYPE_INDICATOR = "[D]";
     /* Deadline of the current task. */
-    LocalDate deadline;
+    private final LocalDate deadline;
 
     public Deadline(String description, String deadline) {
         super(description);
+        assert deadline != null;
         this.deadline = LocalDate.parse(deadline.replace(" ", ""));
     }
 
     @Override
     public String toString() {
-        return this.type
-            + this.display
+        return TYPE_INDICATOR
+            + getDisplay()
             + " "
-            + this.description
+            + getDescription()
             + "(by: "
             + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
             + ")";
@@ -32,12 +34,6 @@ public class Deadline extends Task {
 
     @Override
     public String toDbString() {
-        String display;
-        if (Objects.equals(this.display, "[ ]")) {
-            display = "0";
-        } else {
-            display = "1";
-        }
-        return "D|" + display + "|" + this.description + "|" + this.deadline;
+        return TYPE + super.toDbString() + this.deadline;
     }
 }
