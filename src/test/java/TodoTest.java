@@ -8,20 +8,20 @@ import task.ToDo;
 public class TodoTest {
 
     @Test
-    public void todoConstructTest() {
+    public void todoConstructor_createToDo_Success() {
         Task task = new ToDo("Homework Test");
         assertEquals(task.toString(), "[T][ ] Homework Test");
     }
 
     @Test
-    public void taskMarkTest() {
+    public void todoConstructor_createToDoAndMark_Success() {
         Task task = new ToDo("Homework Test 2");
         task.mark();
         assertEquals(task.toString(), "[T][X] Homework Test 2");
     }
 
     @Test
-    public void taskUnmarkTest() {
+    public void todoConstructor_createToDoAndMarkAndUnmark_Success() {
         Task task = new ToDo("Homework Test 3");
         task.mark();
         task.unmark();
@@ -29,7 +29,7 @@ public class TodoTest {
     }
 
     @Test
-    public void taskFormatPrintTest() {
+    public void todoConstructor_checkFormatForSavingFile_Success() {
         Task task = new ToDo("Homework Test 4");
         task.mark();
         task.unmark();

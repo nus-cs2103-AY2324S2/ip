@@ -18,11 +18,11 @@ public class Deadline extends Task {
      * Creates a Deadline object.
      * Will call the super constructor with the task name variable.
      *
-     * @param c The name of the task.
+     * @param name The name of the task.
      * @param end The end of the event.
      */
-    public Deadline(String c, LocalDateTime endDateTime) {
-        super(c);
+    public Deadline(String name, LocalDateTime endDateTime) {
+        super(name);
         this.endDateTime = endDateTime;
     }
 
@@ -30,12 +30,12 @@ public class Deadline extends Task {
      * Creates a Deadline object.
      * Will call the super constructor with the task name variable.
      *
-     * @param c The name of the task.
+     * @param name The name of the task.
      * @param end The end of the event.
      * @param mark To indicate if this is marked or not.
      */
-    public Deadline(String c, String end, String mark) {
-        super(c);
+    public Deadline(String name, String end, String mark) {
+        super(name);
         this.endDateTime = LocalDateTime.parse(end.trim(), DATE_FORMAT);
         if (mark.equals("1")) {
             super.mark();
@@ -62,7 +62,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-
         String s = "[D]" + super.toString() + "(by: " + this.endDateTime.format(DATE_FORMAT) + ")";
         return s;
     }

@@ -11,7 +11,7 @@ import task.Task;
 public class DeadlineTest {
 
     @Test
-    public void deadlineConstructTest() {
+    public void deadlineConstructor_validDate_success() {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         LocalDateTime dueDate = LocalDateTime.parse("2025-01-01 0000", dateFormat);
         Task task = new Deadline("Homework Test", dueDate);
@@ -19,7 +19,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void deadlineFormatPrintTest() {
+    public void deadlineConstructor_validDateAndCompleted_success() {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         LocalDateTime dueDate = LocalDateTime.parse("2025-01-01 0000", dateFormat);
         Task task = new Deadline("Homework Test 2", dueDate);

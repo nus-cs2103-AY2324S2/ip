@@ -13,10 +13,10 @@ public class ToDo extends Task {
      * Creates a ToDo object.
      * Will call the super constructor with the task name variable.
      *
-     * @param c The name of the task.
+     * @param name The name of the task.
      */
-    public ToDo(String c) {
-        super(c);
+    public ToDo(String name) {
+        super(name);
     }
 
     /**
