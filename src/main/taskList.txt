@@ -1,0 +1,15 @@
+T | 0 | asdasd
+T | 0 | asdasfdfgfdgh
+T | 0 | asdas
+T | 0 | asfpdfogj
+T | 1 | asfsdf
+T | 0 | sadsadojn
+T | 0 | asfsdf
+T | 0 | asonasdo
+T | 0 | eat dinner later
+T | 0 | eat breakfast
+T | 0 | eat your mamammamam
+T | 0 | dfgdfgsg
+T | 0 | asdasd
+E | 0 | cny dinner | 09/02/2024 0000 | 13/02/2024 0000
+T | 0 | asdsad
