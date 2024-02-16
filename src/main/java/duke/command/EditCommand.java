@@ -34,7 +34,7 @@ public class EditCommand extends Command {
      * @throws DukeException For any error.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         // Index out of bound handler
         if (index >= tasks.getItems().size()) {
             throw new DukeException("The index of task cannot be larger than number of task.");
@@ -44,13 +44,13 @@ public class EditCommand extends Command {
 
         if (this.isMark) {
             tasks.markDone(index);
-            ui.mark(tasks.getItem(index));
         } else {
             tasks.unmarkDone(index);
-            ui.mark(tasks.getItem(index));
         }
 
+        String response = ui.mark(tasks.getItem(index));
         storage.saveChanges(tasks);
+        return response;
     }
 
     /**
