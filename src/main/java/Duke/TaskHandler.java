@@ -6,9 +6,12 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static java.lang.String.join;
 
 public class TaskHandler{
 
@@ -30,6 +33,22 @@ public class TaskHandler{
         } else if (input.equals("help")) {
             UI.showAvailCommands();
 
+        } else if (input.startsWith("find")) {
+            String[] temp = input.split(" ");
+            ArrayList<String> keywords = new ArrayList<>(Arrays.asList(temp));
+            try {
+                checkInput(temp, storage, UI.errorMsg("find"));
+                keywords.remove(0);
+                String keyword = String.join(" ", keywords);
+                TaskList matchedTasks = findMatchedTasks(keyword, storage);
+                String content = matchedTasks.showALlTask();
+                UI.printMatchedTasks(content);
+
+
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+            }
+
         } else if (input.equals("check dates")) {
             Scanner scan = new Scanner(System.in);
             UI.checkDatesMsg();
@@ -44,7 +63,8 @@ public class TaskHandler{
         } else if (input.startsWith("mark")) {
             String[] temp = input.split(" ");
             try {
-                int index = checkInput(temp, storage, UI.errorMsg("mark"));
+                checkInput(temp, storage, UI.errorMsg("mark"));
+                int index = Integer.parseInt(temp[1]);
                 boolean toMark = true;
                 Task task = storage.mark(index, toMark);
                 UI.markedMsg(task);
@@ -56,7 +76,8 @@ public class TaskHandler{
         } else if (input.startsWith("unmark")) {
             String[] temp = input.split(" ");
             try {
-                int index = checkInput(temp, storage, UI.errorMsg("unmark"));
+                checkInput(temp, storage, UI.errorMsg("unmark"));
+                int index = Integer.parseInt(temp[1]);
                 boolean toMark = false;
                 Task task = storage.mark(index, toMark);
                 UI.unMarkedMsg(task);
@@ -68,7 +89,8 @@ public class TaskHandler{
         } else if (input.startsWith("delete")) {
             String[] temp = input.split(" ");
             try {
-                int index = checkInput(temp, storage, UI.errorMsg("delete"));
+                checkInput(temp, storage, UI.errorMsg("delete"));
+                int index = Integer.parseInt(temp[1]);
                 Task task  = storage.delete(index);
                 UI.deleteMsg(task, storage);
 
@@ -209,19 +231,19 @@ public class TaskHandler{
      * @param temp
      * @param storage
      * @param errorMsg
-     * @return index of task mentioned by user input
      * @throws DukeException
      */
-    private static int checkInput(String[] temp, TaskList storage, String errorMsg) throws DukeException {
+    private static void checkInput(String[] temp, TaskList storage, String errorMsg) throws DukeException {
         if (temp.length <= 1) {
             throw new DukeException(errorMsg);
         }
-        int number = Integer.parseInt(temp[1]);
-        if (number > storage.size() || number <= 0) {
-            throw new DukeException("__________________________________\n" +
-                    "The task is not in the list!!");
+        if (temp[0].equals("mark") || temp[0].equals("unmark") || temp[0].equals("delete")) {
+            int number = Integer.parseInt(temp[1]);
+            if (number > storage.size() || number <= 0) {
+                throw new DukeException("__________________________________\n" +
+                        "The task is not in the list!!");
+            }
         }
-        return number;
     }
 
     /**
@@ -236,6 +258,25 @@ public class TaskHandler{
         if (temp.length <= 1) {
             throw new DukeException(errorMsg);
         }
+
+    }
+
+    private static TaskList findMatchedTasks(String keyword, TaskList storage) throws DukeException {
+        Pattern p = Pattern.compile(keyword);
+        TaskList matchedTasks = new TaskList();
+        for (Task task : storage) {
+            String taskMsg = task.toString();
+            Matcher m = p.matcher(taskMsg);
+            if (m.find()) {
+                matchedTasks.add(task);
+            }
+        }
+        if (matchedTasks.isEmpty()) {
+            throw new DukeException("__________________________________\n" +
+                    "There is no such matches!!\n" +
+                    "__________________________________");
+        }
+        return matchedTasks;
 
     }
 

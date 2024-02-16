@@ -37,7 +37,8 @@ public class UI {
                 4. todo {task}
                 5. event {task} /from {date} /to {date}
                 6. check dates
-                7. help
+                7. find
+                8. help
                 __________________________________
                 """;
         System.out.println(commands);
@@ -93,8 +94,10 @@ public class UI {
      * @param task
      */
     public static void markedMsg(Task task) {
-        String output = "OK, I've marked this task as done:\n" +
-                "   " + task.toString();
+        String output = "__________________________________\n" +
+                "OK, I've marked this task as done:\n" +
+                "   " + task.toString() +
+                "\n__________________________________";
         System.out.println(output);
     }
 
@@ -103,8 +106,10 @@ public class UI {
      * @param task
      */
     public static void unMarkedMsg(Task task) {
-        String output = "OK, I've marked this task as not done:\n" +
-                "   " + task.toString();
+        String output = "__________________________________\n" +
+                "OK, I've marked this task as not done:\n" +
+                "   " + task.toString() +
+                "\n__________________________________";
         System.out.println(output);
     }
 
@@ -119,6 +124,13 @@ public class UI {
                 "   " + task.toString() +
                 "\nNow you have " + storage.size() + " tasks in the list.";
         System.out.println(output);
+    }
+
+    public static void printMatchedTasks(String contents) {
+        System.out.println("__________________________________\n" +
+                "Here are the matching tasks in your list:\n" +
+                contents +
+                "__________________________________\n");
     }
 
     /**
@@ -152,6 +164,10 @@ public class UI {
         } else if (s.equals("event")) {
             output = "__________________________________\n" +
                     "Where is the Event task??\n" +
+                    "__________________________________\n";
+        } else if (s.equals("find")) {
+            output = "__________________________________\n" +
+                    "What do you want to find??\n" +
                     "__________________________________\n";
         }
         return output;
