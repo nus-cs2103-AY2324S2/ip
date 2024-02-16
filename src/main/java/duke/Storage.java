@@ -34,6 +34,7 @@ class Storage {
             // Create file if it does not exist
             file.createNewFile();
             // Read file
+            assert file.exists();
             Scanner sc = new Scanner(file);
             String lineRead;
             while (sc.hasNext()) {
