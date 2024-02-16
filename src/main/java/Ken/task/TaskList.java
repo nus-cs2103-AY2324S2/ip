@@ -48,6 +48,7 @@ public class TaskList {
      * Adds a task to the list.
      *
      * @param task The task to be added.
+     * @returns Response with information of task added.
      */
 
     Ui ui = new Ui();
@@ -68,6 +69,7 @@ public class TaskList {
      *
      * @param description The description of the todo task.
      * @throws KenException If the description is empty.
+     * @returns Response with information of todo task added.
      */
     public Response addTodoTask(String description) throws KenException {
         if (description.isEmpty()) {
@@ -82,6 +84,7 @@ public class TaskList {
      *
      * @param description The description of the deadline task.
      * @throws KenException If the description or deadline command is invalid.
+     * @returns Response with information of deadline task added.
      */
     public Response addDeadlineTask(String description) throws KenException {
         try {
@@ -106,6 +109,7 @@ public class TaskList {
      *
      * @param description The description of the event task.
      * @throws KenException If the description or event command is invalid.
+     * @returns Response with information of event task added.
      */
     public Response addEventTask(String description) throws KenException {
         try {
@@ -131,6 +135,7 @@ public class TaskList {
      * Deletes a task from the list.
      *
      * @param index The index of the task to be deleted.
+     * @returns Response with information of task deleted.
      */
     public Response deleteTask(int index) {
         if (index >= 1 && index <= tasks.size()) {
@@ -145,6 +150,7 @@ public class TaskList {
      * Marks a task as done.
      *
      * @param index The index of the task to be marked as done.
+     * @returns Response with information of task marked.
      */
     public Response markTask(int index) {
         if (index >= 1 && index <= tasks.size()) {
@@ -160,6 +166,7 @@ public class TaskList {
      * Unmarks a task as done.
      *
      * @param index The index of the task to be unmarked as done.
+     * @returns Response with information of task unmarked.
      */
     public Response unmarkTask(int index) {
         if (index >= 1 && index <= tasks.size()) {
@@ -173,7 +180,19 @@ public class TaskList {
     }
 
     /**
+     * Provides help.
+     * Gives information of all possible commands available.
+     *
+     * @returns Response with information of commands.
+     */
+    public Response giveHelp() {
+        return ui.helpMessage();
+    }
+
+    /**
      * Lists all tasks in the task list.
+     *
+     * @returns Response with information of all tasks in list.
      */
     public Response listTasks() {
 //        ui.listTasksMessage(tasks.isEmpty());
@@ -190,6 +209,7 @@ public class TaskList {
      * Finds tasks containing the specified keyword in their descriptions and displays the matching tasks.
      *
      * @param keyword The keyword to search for in task descriptions.
+     * @returns Response with information of tasks with provided keyword.
      */
     public Response findTasks(String keyword) {
         List<Task> matchingTasks = tasks.stream()
