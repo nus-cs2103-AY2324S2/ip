@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.NoSuchElementException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import duke.tasks.Deadline;
@@ -35,26 +36,13 @@ public class Storage {
             while (s.hasNext()) {
                 switch (s.nextLine()) {
                 case "TODO":
-                    taskList.add(new ToDo(s.nextLine(), parseSaveBoolean(s.nextLine())));
+                    loadTodo(s, taskList);
                     break;
                 case "DEADLINE":
-                    String deadlineDesc = s.nextLine();
-                    boolean deadlineIsDone = parseSaveBoolean(s.nextLine());
-                    String[] dateTime = s.nextLine().split(";");
-                    taskList.add(new Deadline(deadlineDesc, deadlineIsDone,
-                            LocalDate.parse(dateTime[0]),
-                            dateTime.length == 1 ? null : LocalTime.parse(dateTime[1])));
+                    loadDeadline(s, taskList);
                     break;
                 case "EVENT":
-                    String eventDesc = s.nextLine();
-                    boolean eventIsDone = parseSaveBoolean(s.nextLine());
-                    String[] dateTimeFrom = s.nextLine().split(";");
-                    String[] dateTimeTo = s.nextLine().split(";");
-                    taskList.add(new Event(eventDesc, eventIsDone,
-                            LocalDate.parse(dateTimeFrom[0]),
-                            dateTimeFrom.length == 1 ? null : LocalTime.parse(dateTimeFrom[1]),
-                            LocalDate.parse(dateTimeTo[0]),
-                            dateTimeTo.length == 1 ? null : LocalTime.parse(dateTimeTo[1])));
+                    loadEvent(s, taskList);
                     break;
                 default:
                     throw new NoSuchElementException(s.nextLine());
@@ -68,20 +56,45 @@ public class Storage {
         }
     }
 
+    private static void loadEvent(Scanner s, TaskList taskList) {
+        String eventDesc = s.nextLine();
+        boolean eventIsDone = parseSaveBoolean(s.nextLine());
+        String[] dateTimeFrom = s.nextLine().split(";");
+        String[] dateTimeTo = s.nextLine().split(";");
+        taskList.add(new Event(eventDesc, eventIsDone,
+                LocalDate.parse(dateTimeFrom[0]),
+                dateTimeFrom.length == 1 ? null : LocalTime.parse(dateTimeFrom[1]),
+                LocalDate.parse(dateTimeTo[0]),
+                dateTimeTo.length == 1 ? null : LocalTime.parse(dateTimeTo[1])));
+    }
+
+    private static void loadDeadline(Scanner s, TaskList taskList) {
+        String deadlineDesc = s.nextLine();
+        boolean deadlineIsDone = parseSaveBoolean(s.nextLine());
+        String[] dateTime = s.nextLine().split(";");
+        taskList.add(new Deadline(deadlineDesc, deadlineIsDone,
+                LocalDate.parse(dateTime[0]),
+                dateTime.length == 1 ? null : LocalTime.parse(dateTime[1])));
+    }
+
+    private static void loadTodo(Scanner s, TaskList taskList) {
+        taskList.add(new ToDo(s.nextLine(), parseSaveBoolean(s.nextLine())));
+    }
+
     /**
      * Parses the given string into a boolean value.
      *
      * @param str The string to be parsed
      * @return true or false depending on the string
-     * @throws java.util.InputMismatchException if string is not a valid boolean value
+     * @throws InputMismatchException if string is not a valid boolean value
      */
-    private static boolean parseSaveBoolean(String str) throws java.util.InputMismatchException {
+    private static boolean parseSaveBoolean(String str) throws InputMismatchException {
         if (str.equals("true")) {
             return true;
         } else if (str.equals("false")) {
             return false;
         } else {
-            throw new java.util.InputMismatchException();
+            throw new InputMismatchException();
         }
     }
 

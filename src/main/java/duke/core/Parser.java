@@ -23,6 +23,8 @@ import duke.tasks.TaskList;
  */
 public class Parser {
 
+    private static final int VISUAL_INDEX_OFFSET = 1;
+
     /**
      * Takes in user input and parses it into a Command that can be executed.
      * TaskList-specific Commands will be executed on the given TaskList.
@@ -101,54 +103,67 @@ public class Parser {
         String typeUpper = typeAndRemaining[0].toUpperCase();
         switch (typeUpper) {
         case "TODO":
-            try {
-                String todoDesc = typeAndRemaining[1].strip();
-                return new AddTodoCommand(taskList, todoDesc);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new InvalidCommandException(AddTodoCommand.getUsage());
-            }
+            return parseAddTodo(taskList, typeAndRemaining);
         case "DEADLINE":
-            try {
-                String[] descAndBy = typeAndRemaining[1].split("/by", 2);
-                String[] bydateAndBytime = descAndBy[1].strip().split(" ", 2);
-                LocalDate byDate = LocalDate.parse(bydateAndBytime[0]);
-                LocalTime byTime = null;
-                if (bydateAndBytime.length == 2) {
-                    byTime = LocalTime.parse(bydateAndBytime[1].strip());
-                }
-                return new AddDeadlineCommand(taskList, descAndBy[0], byDate, byTime);
-            } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
-                throw new InvalidCommandException(AddDeadlineCommand.getUsage());
-            }
+            return parseAddDeadline(taskList, typeAndRemaining);
         case "EVENT":
-            try {
-                String[] descAndRemaining = typeAndRemaining[1].split("/from", 2);
-                String[] fromAndTo = descAndRemaining[1].split("/to", 2);
-                String[] fromdateAndFromtime = fromAndTo[0].strip().split(" ", 2);
-                String[] todateAndTotime = fromAndTo[1].strip().split(" ", 2);
-
-                String eventDesc = descAndRemaining[0].strip();
-                if (eventDesc.isEmpty()) {
-                    throw new InvalidCommandException(AddEventCommand.getUsage());
-                }
-                LocalDate fromDate = LocalDate.parse(fromdateAndFromtime[0]);
-                LocalTime fromTime = null;
-                if (fromdateAndFromtime.length == 2) {
-                    fromTime = LocalTime.parse(fromdateAndFromtime[1].strip());
-                }
-                LocalDate toDate = LocalDate.parse(todateAndTotime[0]);
-                LocalTime toTime = null;
-                if (todateAndTotime.length == 2) {
-                    toTime = LocalTime.parse(todateAndTotime[1].strip());
-                }
-                return new AddEventCommand(taskList, eventDesc, fromDate, fromTime, toDate, toTime);
-            } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
-                throw new InvalidCommandException(AddEventCommand.getUsage());
-            }
+            return parseAddEvent(taskList, typeAndRemaining);
         default:
             throw new InvalidCommandException(AddCommand.getUsage());
         }
     }
+
+    private static AddEventCommand parseAddEvent(TaskList taskList, String[] typeAndRemaining) throws InvalidCommandException {
+        try {
+            String[] descAndRemaining = typeAndRemaining[1].split("/from", 2);
+            String[] fromAndTo = descAndRemaining[1].split("/to", 2);
+            String[] fromdateAndFromtime = fromAndTo[0].strip().split(" ", 2);
+            String[] todateAndTotime = fromAndTo[1].strip().split(" ", 2);
+
+            String eventDesc = descAndRemaining[0].strip();
+            if (eventDesc.isEmpty()) {
+                throw new InvalidCommandException(AddEventCommand.getUsage());
+            }
+            LocalDate fromDate = LocalDate.parse(fromdateAndFromtime[0]);
+            LocalTime fromTime = null;
+            if (fromdateAndFromtime.length == 2) {
+                fromTime = LocalTime.parse(fromdateAndFromtime[1].strip());
+            }
+            LocalDate toDate = LocalDate.parse(todateAndTotime[0]);
+            LocalTime toTime = null;
+            if (todateAndTotime.length == 2) {
+                toTime = LocalTime.parse(todateAndTotime[1].strip());
+            }
+            return new AddEventCommand(taskList, eventDesc, fromDate, fromTime, toDate, toTime);
+        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
+            throw new InvalidCommandException(AddEventCommand.getUsage());
+        }
+    }
+
+    private static AddDeadlineCommand parseAddDeadline(TaskList taskList, String[] typeAndRemaining) throws InvalidCommandException {
+        try {
+            String[] descAndBy = typeAndRemaining[1].split("/by", 2);
+            String[] bydateAndBytime = descAndBy[1].strip().split(" ", 2);
+            LocalDate byDate = LocalDate.parse(bydateAndBytime[0]);
+            LocalTime byTime = null;
+            if (bydateAndBytime.length == 2) {
+                byTime = LocalTime.parse(bydateAndBytime[1].strip());
+            }
+            return new AddDeadlineCommand(taskList, descAndBy[0], byDate, byTime);
+        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
+            throw new InvalidCommandException(AddDeadlineCommand.getUsage());
+        }
+    }
+
+    private static AddTodoCommand parseAddTodo(TaskList taskList, String[] typeAndRemaining) throws InvalidCommandException {
+        try {
+            String todoDesc = typeAndRemaining[1].strip();
+            return new AddTodoCommand(taskList, todoDesc);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InvalidCommandException(AddTodoCommand.getUsage());
+        }
+    }
+
 
     /**
      * Parses the following portion of user input after the "mark" keyword.
@@ -158,7 +173,7 @@ public class Parser {
      * @return The MarkCommand which marks the specified Task in the given TaskList as done.
      */
     protected static MarkCommand parseMark(String inputWithoutMark, TaskList taskList) {
-        int index = Integer.parseInt(inputWithoutMark) - 1;
+        int index = Integer.parseInt(inputWithoutMark) - VISUAL_INDEX_OFFSET;
         return new MarkCommand(taskList, index);
     }
 
@@ -170,7 +185,7 @@ public class Parser {
      * @return The UnmarkCommand which marks the specified Task in the given TaskList as not done.
      */
     protected static UnmarkCommand parseUnmark(String inputWithoutUnmark, TaskList taskList) {
-        int index = Integer.parseInt(inputWithoutUnmark) - 1;
+        int index = Integer.parseInt(inputWithoutUnmark) - VISUAL_INDEX_OFFSET;
         return new UnmarkCommand(taskList, index);
     }
 
@@ -182,7 +197,7 @@ public class Parser {
      * @return The DeleteCommand which deletes the specified Task from the given TaskList.
      */
     protected static DeleteCommand parseDelete(String inputWithoutDelete, TaskList taskList) {
-        int index = Integer.parseInt(inputWithoutDelete) - 1;
+        int index = Integer.parseInt(inputWithoutDelete) - VISUAL_INDEX_OFFSET;
         return new DeleteCommand(taskList, index);
     }
 }

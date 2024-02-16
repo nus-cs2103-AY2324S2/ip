@@ -9,6 +9,7 @@ import duke.tasks.TaskList;
 public class UnmarkCommand extends Command {
     private final int index;
     private final TaskList taskList;
+    private final int visualIndex;
 
     /**
      * Constructs a new UnmarkCommand that marks the Task at the given index of the given TaskList as not done.
@@ -19,6 +20,7 @@ public class UnmarkCommand extends Command {
     public UnmarkCommand(TaskList taskList, int index) {
         this.taskList = taskList;
         this.index = index;
+        this.visualIndex = index + 1;
     }
 
     /**
@@ -31,17 +33,17 @@ public class UnmarkCommand extends Command {
     @Override
     public String execute() throws MeanDukeException {
         try {
-            if (taskList.unmarkDone(index)) {
+            if (taskList.unmarkDone(this.index)) {
                 //Task successfully changed from done to not done
-                return "Marked task: " + (index + 1)
+                return "Marked task: " + this.visualIndex
                         + " as not completed.\nWhy did you mark this in the first place?";
             } else {
                 //Task was already not complete
-                return "Task " + (index + 1)
+                return "Task " + this.visualIndex
                         + " is already not completed.\nMaybe you should start working on it.";
             }
         } catch (IndexOutOfBoundsException e) {
-            throw new MeanDukeException("Dude... you don't even have a task " + (index + 1));
+            throw new MeanDukeException("Dude... you don't even have a task " + this.visualIndex);
         }
     }
 }

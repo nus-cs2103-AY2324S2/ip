@@ -31,6 +31,6 @@ public class AddTodoCommand extends AddCommand {
     @Override
     public String execute() {
         super.getTaskList().add(new ToDo(this.description));
-        return "Added ToDo task: " + description;
+        return "Added ToDo task: " + this.description;
     }
 }

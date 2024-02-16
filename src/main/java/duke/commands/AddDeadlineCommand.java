@@ -40,9 +40,9 @@ public class AddDeadlineCommand extends AddCommand {
     public String execute() {
         super.getTaskList().add(new Deadline(this.description,
                 false, this.deadlineDate, this.deadlineTime));
-        return "Added Deadline task: " + description
-                + "(by: " + deadlineDate
-                + (deadlineTime == null ? "" : " " + deadlineTime)
+        return "Added Deadline task: " + this.description
+                + "(by: " + this.deadlineDate
+                + (this.deadlineTime == null ? "" : " " + this.deadlineTime)
                 + ")";
     }
 }

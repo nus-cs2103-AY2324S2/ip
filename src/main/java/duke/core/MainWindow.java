@@ -26,9 +26,9 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(MeanDuke.initialise(this), dukeImage)
+        this.scrollPane.vvalueProperty().bind(this.dialogContainer.heightProperty());
+        this.dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(MeanDuke.initialise(this), this.dukeImage)
         );
     }
 
@@ -38,18 +38,18 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-        String input = userInput.getText();
+        String input = this.userInput.getText();
         String response = MeanDuke.getResponse(input, this);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+        this.dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, this.userImage),
+                DialogBox.getDukeDialog(response, this.dukeImage)
         );
-        userInput.clear();
+        this.userInput.clear();
     }
 
     public void showMessage(String message) {
-        dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(message, dukeImage)
+        this.dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(message, this.dukeImage)
         );
     }
 }
