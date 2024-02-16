@@ -14,7 +14,8 @@ Saopig ChatBot is here to assist you with:
 - managing tasks
 - make sure everything is as lovely and efficient as a well-tended garden! 📚🌼✨
 
-![product screenshot](/docs/Ui.png)
+>Product Screenshot
+![Ui.png](Ui.png)
 
 And it is **FREE & OPENSOURCE!**
 
