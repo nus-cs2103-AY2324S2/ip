@@ -1,4 +1,4 @@
-package duke;
+package destiny;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,15 +8,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Used to load/store TaskList from/to a duke.txt data file.
+ * Used to load/store TaskList from/to a destiny.txt data file.
  */
 public class Storage {
 
     private final String dataPath = System.getProperty("user.dir") + "/data";
-    private final String fileName = "duke.txt";
+    private final String fileName = "destiny.txt";
 
     /**
-     * Attempts to load data from a duke.txt file that would contain the previously saved TaskList.
+     * Attempts to load data from a destiny.txt file that would contain the previously saved TaskList.
      * Creates a new .txt file if it is not found.
      *
      * @return ArrayList of tasks that will be loaded into the Tasklist.
@@ -83,9 +83,9 @@ public class Storage {
     }
 
     /**
-     * Saves the TaskList given into the duke.txt data file.
+     * Saves the TaskList given into the destiny.txt data file.
      *
-     * @param tasks The TaskList containing all tasks currently saved by Duke.
+     * @param tasks The TaskList containing all tasks currently saved by Destiny.
      */
     public void saveData(TaskList tasks) {
         File directory = new File(dataPath);
