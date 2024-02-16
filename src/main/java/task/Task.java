@@ -31,38 +31,10 @@ public class Task {
         this.isDone = false;
     }
 
-<<<<<<< HEAD
     public String getName() {
         return this.name;
     }
 
-    /**
-     * 
-     * @param dateTimeString
-     * @return
-     */
-    public LocalDateTime convertDateTime(String dateTimeString) {
-        for (String dateFormat : dateFormats) {
-            for (String timeFormat : timeFormats) {
-                try {
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(timeFormat + " " + dateFormat);
-                    return LocalDateTime.parse(dateTimeString, formatter);
-                } catch (DateTimeParseException e) {
-
-                }
-                try {
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat + " " + timeFormat);
-                    return LocalDateTime.parse(dateTimeString, formatter);
-                } catch (DateTimeParseException e) {
-
-                }
-            }
-        }
-        return null;
-    }
-
-=======
->>>>>>> branch-A-JavaDoc
     @Override
     public String toString() {
         if (this.isDone) {

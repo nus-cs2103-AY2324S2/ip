@@ -14,8 +14,8 @@ import parser.Parser;
 public class Duke {
     private Ui ui;
     private Storage storage;
-    TaskList taskList;
-    String botName = "Yube";
+    private TaskList taskList;
+    private String botName = "Yube";
 
     public void run() {
         ui.showWelcomeMessage(botName);
@@ -26,7 +26,7 @@ public class Duke {
             try {
                 String input = ui.readLine();
                 Command command = Parser.parseCommand(input);
-                switch (command.inputType) {
+                switch (command.getInputType()) {
                     case BYE:
                         ui.showExitMessage();
                         storage.writeArrayListToFile(taskList);
