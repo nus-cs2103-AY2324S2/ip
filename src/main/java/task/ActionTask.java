@@ -84,51 +84,25 @@ public class ActionTask implements ParseExecutionable {
      */
     @Override
     public String execute(TaskStorage taskStorage) {
-        String printMessage = "";
+        assert taskStorage != null : "TaskStorage should not be not instantiated!";
         switch (this.action) {
         case LIST:
-            if (taskStorage.size() > 0) {
-                return taskStorage.toString();
-            }
-            return Messages.MESSAGE_EMPTY_LIST;
+            return this.listActions(taskStorage);
         case MARK:
-            printMessage += "Nicely done! I've marked this task as done: \n";
-            String resultMessage = taskStorage.markTask(this.taskId, true);
-            if (resultMessage.equals(Messages.MESSAGE_NO_SUCH_ELEMENTS)) {
-                return resultMessage;
-            }
-            printMessage += resultMessage;
-            return printMessage;
+            return this.markActions(taskStorage);
         case UNMARK:
-            printMessage += "Hey you! I've marked this task as not done, yet: \n";
-            resultMessage = taskStorage.markTask(this.taskId, false);
-            if (resultMessage.equals(Messages.MESSAGE_NO_SUCH_ELEMENTS)) {
-                return resultMessage;
-            }
-            printMessage += resultMessage;
-            return printMessage;
+            return this.unmarkActions(taskStorage);
         case DELETE:
-            printMessage += "Alright-o, I have deleted the following task: \n";
-            resultMessage = taskStorage.removeTask(this.taskId);
-            if (resultMessage.equals(Messages.MESSAGE_NO_SUCH_ELEMENTS)) {
-                return resultMessage;
-            }
-            printMessage += resultMessage;
-            return printMessage;
+            return this.deleteActions(taskStorage);
         case BYE:
-            this.isExit = true;
-            printMessage = "Bye, hope to see you again soon!";
-            return printMessage;
+            return this.byeActions(taskStorage);
         case FIND:
-            if (taskStorage.size() > 0) {
-                return taskStorage.searchForTask(this.searchKeyword);
-            }
-            return Messages.MESSAGE_EMPTY_LIST;
+            return this.findActions(taskStorage);
         default:
             return "Unrecognized command";
         }
     }
-  
+
     /**
      * Creates the String for the list command by listing all tasks in storage.
      *
