@@ -1,4 +1,4 @@
-package duke;
+package duke.cli;
 
 import duke.exception.EmptyTaskNameException;
 import duke.exception.NoTaskTypeException;
@@ -23,7 +23,7 @@ import java.nio.file.Paths;
 import java.time.format.DateTimeParseException;
 
 /**
- * Entry point for the application.
+ * Entry point for the application. CLI version.
  */
 public class Duke {
     private static Ui ui = new Ui(System.in);

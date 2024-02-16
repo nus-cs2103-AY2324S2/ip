@@ -4,6 +4,7 @@ import duke.task.TaskList;
 
 import java.io.InputStream;
 
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Scanner;
 public class Ui {
     Scanner in;
     String input;
-    private static final String LINE = "    ____________________________________________________________";
+    private static final String LINE = "    ____________________________________________________________\n";
     private static final String TAB = "  ";
 
     /**
@@ -21,6 +22,12 @@ public class Ui {
      * @param in InputStream to read input from.
      */
     public Ui(InputStream in) {
+        this.in = new Scanner(in);
+    }
+
+    public Ui () { }
+
+    public Ui(String in) {
         this.in = new Scanner(in);
     }
 
@@ -49,6 +56,17 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    public String getGreetings() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getMessage("Hello, I'm Buto!"))
+                        .append(getMessage("What can I do for you?"));
+        return sb.toString();
+    }
+
+    public String getMessage(String message) {
+        return String.format("     %s\n", message);
+    }
+
     /**
      * Prints the input message.
      *
@@ -70,6 +88,11 @@ public class Ui {
         printLine();
     }
 
+    public String getAddTaskMessage(String newTask) {
+        return getMessage("Got it. I've added this task:")
+                + getMessage(TAB + newTask);
+    }
+
     /**
      * Prints the message for marking a task.
      *
@@ -82,6 +105,11 @@ public class Ui {
         printLine();
     }
 
+    public String getMarkMessage(String task) {
+        return getMessage("Nice! I've marked this task as done:")
+                + getMessage(TAB + task);
+    }
+
     /**
      * Prints the message for unmarking a task.
      *
@@ -90,8 +118,13 @@ public class Ui {
     public void printUnmark(String task) {
         printLine();
         printMessage("OK, I've marked this task as not done yet:");
-        printMessage(task);
+        printMessage(TAB + task);
         printLine();
+    }
+
+    public String getUnmarkMessage(String task) {
+        return getMessage("OK, I've marked this task as not done yet:")
+                + getMessage(TAB + task);
     }
 
     /**
@@ -107,6 +140,12 @@ public class Ui {
         printLine();
     }
 
+    public String getDeleteMessage(String task, int size) {
+        return getMessage("Got it. I've removed this task:")
+                + getMessage(TAB + task)
+                + getMessage("Now you have " + size + " tasks in the list!");
+    }
+
     /**
      * Prints the list of tasks.
      *
@@ -119,6 +158,11 @@ public class Ui {
         printLine();
     }
 
+    public String getLists(TaskList tasks) {
+        return getMessage("Here are the tasks in your list:")
+                + tasks.toString();
+    }
+
     /**
      * Prints message for finding tasks matching a keyword.
      *
@@ -129,6 +173,11 @@ public class Ui {
         printMessage("Here are the matching tasks in your list:");
         System.out.print(tasks);
         printLine();
+    }
+
+    public String getFindMessage(String tasks) {
+        return getMessage("Here are the tasks in your list:")
+                + tasks;
     }
 
     /**
@@ -149,5 +198,9 @@ public class Ui {
         printLine();
         printMessage("Bye. Hope to see you again soon!");
         printLine();
+    }
+
+    public String getGoodbye() {
+        return getMessage("Bye. Hope to see you again soon!");
     }
 }

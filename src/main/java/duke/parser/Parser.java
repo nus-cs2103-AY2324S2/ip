@@ -5,6 +5,7 @@ import duke.exception.EmptyTaskNameException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
 
 /**
  * Parses user input.
@@ -22,6 +23,20 @@ public class Parser {
     public Parser(String userInput, String command) {
         this.userInput = userInput;
         this.command = command;
+    }
+
+    public Parser(String userInput) {
+        Scanner sc = new Scanner(userInput);
+        this.command = sc.next().trim();
+        if (sc.hasNext()) {
+            this.userInput = sc.nextLine().trim();
+        } else {
+            this.userInput = "";
+        }
+    }
+
+    public String getCommand() {
+        return this.command;
     }
 
     /**
@@ -83,7 +98,7 @@ public class Parser {
      *
      * @return Due date as LocalDateTime object.
      */
-    public LocalDateTime parseDueTime() {
+    public LocalDateTime parseDueTime(){
         return LocalDateTime.parse(getDue(), DateTimeFormatter.ofPattern("yyyy-MM-dd kk:mm"));
     }
 
