@@ -83,7 +83,7 @@ public class ParserTest {
      * @throws WrongFormatException if the input has an unexpected format
      */
     @Test
-    public void testParseEvent() throws WrongFormatException{
+    public void testParseEvent() throws WrongFormatException {
         assertEquals(new Event("CS2103T briefing", "16/02/2024 1600", "16/02/2024 1700"),
                 Parser.parseEvent("event CS2103T briefing /from 16/02/2024 1600 /to 16/02/2024 1700"));
 
