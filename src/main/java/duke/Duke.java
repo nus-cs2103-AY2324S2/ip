@@ -112,10 +112,6 @@ public class Duke extends Application {
         userInput.setOnAction((event) -> {
             handleUserInput();
         });
-
-        //Scroll down to the end every time dialogContainer's height changes.
-        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-        displayWelcomeMessage();
     }
 
     /**
@@ -136,8 +132,8 @@ public class Duke extends Application {
     /**
      * Displays the welcome message when Duke starts.
      */
-    public void displayWelcomeMessage() {
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(ui.message(), dukeImage));
+    public String displayWelcomeMessage() {
+        return ui.message();
     }
 
     /**
@@ -145,8 +141,8 @@ public class Duke extends Application {
      */
     private void handleUserInput() {
         String input = userInput.getText();
-        boolean result = true;
-        while (result) {
+        boolean isContinuing = true;
+        while (isContinuing) {
             getResponse(input);
         }
         userInput.clear();
