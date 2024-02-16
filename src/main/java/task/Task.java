@@ -34,7 +34,7 @@ public abstract class Task implements ParseExecutionable {
 
     /**
      * Changes the Task's completedness to marked.
-     *
+     * <p>
      * Changes the completedness to true.
      */
     public void mark() {
@@ -43,7 +43,7 @@ public abstract class Task implements ParseExecutionable {
 
     /**
      * Changes the Task's completedness to unmarked.
-     *
+     * <p>
      * Sets the completedness of the object to false.
      */
     public void unmark() {
