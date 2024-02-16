@@ -12,9 +12,25 @@ import java.util.regex.Pattern;
 
 public class FileHandler {
 
+    /**
+     * Checks if task is marked
+     *
+     * @param input
+     * @return boolean
+     */
     public static boolean isMarked(String input) {
         return String.valueOf(input.charAt(4)).equals("X");
     }
+
+    /**
+     * Checks if there is tasks logged in a file and load in back on to the ArrayList
+     * for use. Creates new file for logging of task if theres is no such file
+     *
+     * @param storage
+     * @param filePath
+     * @return Path of file used for logging tasks
+     * @throws IOException
+     */
     public static Path handleFile(TaskList storage, Path filePath) throws IOException {
         try {
             List<String> taskList = Files.readAllLines(filePath);
