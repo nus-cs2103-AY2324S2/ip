@@ -25,8 +25,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Artemis artemis;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image artemisImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
+    private Image artemisImage = new Image(this.getClass().getResourceAsStream("/images/Artemis.png"));
 
     /**
      * Initializes the main window.
