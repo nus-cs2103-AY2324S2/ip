@@ -36,12 +36,9 @@ public class TaskList {
      */
     public String list() {
         StringBuilder string = new StringBuilder();
-        String divider = "____________________________________________________________";
-        string.append(divider + "\n");
         for (int i = 0; i < items.size(); i++) {
             string.append((i + 1) + ". " + items.get(i) + "\n");
         }
-        string.append(divider);
         return string.toString();
     }
 
@@ -114,72 +111,49 @@ public class TaskList {
     }
 
     /**
-     * Marks a specified item as done.
-     * @param arg the user input.
-     * @param storage the storage instance used to store the changes to local data.
+     * Marks a specified task as done.
+     * @param index the index of task to be marked.
      * @return a string representation to tell user that the status has been updated successfully.
-     * @throws RickException if there is a problem with updating the specified item.
+     * @throws RickException if the index is out of range.
      */
-    public String mark(String arg, Storage storage) throws RickException {
-        String[] splited = arg.split("\\s+");
-        if (splited.length != 2 || !Character.isDigit(arg.charAt(5))) {
-            throw new RickException("You have to tell me the number to mark. Try 'mark 1'.");
-        }
-        int i = arg.charAt(5) - 49;
-        if (i >= this.items.size()) {
+    public Task mark(int index) throws RickException {
+        if (index >= this.items.size()) {
             throw new RickException("rick.tasks.Item not found QAQ");
         } else {
-            Task task = this.items.get(i);
+            Task task = this.items.get(index);
             task.mark();
-            storage.update();
-            return "Nice! I've marked this task as done:\n" + task;
+            return task;
         }
     }
 
     /**
-     * Unmarks a specified item as not done.
-     * @param arg the user input.
-     * @param storage the storage instance used to store the changes to local data.
+     * Unmarks a specified task as not done.
+     * @param index the index of task to be unmarked.
      * @return a string representation to tell user that the status has been updated successfully.
-     * @throws RickException if there is a problem with updating the specified item.
+     * @throws RickException if the index is out of range.
      */
-    public String unmark(String arg, Storage storage) throws RickException {
-        String[] splited = arg.split("\\s+");
-        if (splited.length != 2 || !Character.isDigit(arg.charAt(7))) {
-            throw new RickException("You have to tell me the number to unmark. Try 'unmark 1'.");
-        }
-        int i = arg.charAt(7) - 49;
-        if (i >= this.items.size()) {
+    public Task unmark(int index) throws RickException {
+        if (index >= this.items.size()) {
             throw new RickException("rick.tasks.Item not found QAQ");
         } else {
-            Task task = this.items.get(i);
+            Task task = this.items.get(index);
             task.unmark();
-            storage.update();
-            return "OK, I've marked this task as not done yet:\n" + task;
+            return task;
         }
     }
 
     /**
-     * Deletes a specified item as done.
-     * @param arg the user input.
-     * @param storage the storage instance used to store the changes to local data.
-     * @return a string representation to tell user that the item has been deleted successfully.
-     * @throws RickException if there is a problem with updating the specified item.
+     * Delete a specified task.
+     * @param index the index of task to be deleted.
+     * @return a string representation to tell user that the status has been updated successfully.
+     * @throws RickException if the index is out of range.
      */
-    public String delete(String arg, Storage storage) throws RickException {
-        String[] splited = arg.split("\\s+");
-        if (splited.length != 2 || !Character.isDigit(arg.charAt(7))) {
-            throw new RickException("You have to tell me the number to delete. Try 'delete 1'.");
-        }
-        int i = arg.charAt(7) - 49;
+    public Task delete(int index) throws RickException {
         try {
-            Task task = this.items.remove(i);
-            storage.update();
-            return "Noted. I've removed this task:\n"
-                    + task
-                    + "\nNow you have " + this.items.size() + " tasks in the list.";
+            Task task = this.items.remove(index);
+            return task;
         } catch (Exception e) {
-            throw new RickException("Index wrong lah! :(");
+            throw new RickException("Your index is wrong :(");
         }
     }
 
@@ -204,5 +178,8 @@ public class TaskList {
         } else {
             return "OOPS! There's no matching result in your list. ";
         }
+    }
+    public int getSize() {
+        return this.items.size();
     }
 }
