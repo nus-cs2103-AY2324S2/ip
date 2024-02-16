@@ -3,7 +3,7 @@ Welcome to Miss Minutes, your personal task manager. Miss Minutes is a versatile
 features to help you manage your tasks effectively and to keep you on track for success. Whether it's a simple todo, 
 a deadline, or an event, Miss Minutes has got you covered. 💼📆
 
-![Miss Minutes](ui.png)
+![Miss Minutes](Ui.png)
 
 ## Features (batteries included) ⚡
 Miss Minutes comes with a wide range of features, 
@@ -12,7 +12,8 @@ Miss Minutes comes with a wide range of features,
 - 💽 Persistent storage: Tasks are saved and loaded from disk
 
 
->[!warn](Please note that the output may vary between the CLI and GUI versions of the application.)
+>[!warning]
+> Please note that the output may vary between the CLI and GUI versions of the application.
 
 
 Fear not, the Miss Minutes task manager is smart, and will provide you with the correct input format, 
