@@ -32,6 +32,9 @@ public class Storage {
      * @param directory The directory where the file is located.
      */
     public Storage(String filePath, String directory) {
+        // Assertion: File path and directory cannot be null
+        assert filePath != null && directory != null : "File path or directory is null";
+
         // If (data) directory does not exist, create directory
         File dir = new File(directory);
         if (!dir.exists()) {
@@ -74,6 +77,9 @@ public class Storage {
             while (scanner.hasNext()) {
                 String[] parts = scanner.nextLine().split("\\|");
 
+                // Assertion: Task parts must have correct format
+                assert parts.length >= 3 : "Invalid task format";
+
                 switch(parts[0].charAt(0)) {
                 case 'T':
                     task = new Todo(parts[2], Integer.parseInt(parts[1]));
@@ -108,6 +114,9 @@ public class Storage {
         if (taskList.isEmpty()) {
             return;
         }
+
+        // Assertion: File must exist before saving tasks
+        assert f.exists() : "File does not exist";
 
         // Save tasks in txt file.
         try {

@@ -179,6 +179,8 @@ public class Parser {
             return new FindCommand(stringBody);
         }
 
+        // Handle unrecognized commands
+        assert type != Type.UNKNOWN : "Unknown command type";
         return new InvalidCommand("General Error! This line should not be reached.");
     }
 
