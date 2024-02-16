@@ -139,6 +139,15 @@ public class TaskList {
     }
 
     /**
+     * Returns number of tasks in this TaskList object
+     *
+     * @return Number of tasks in this TaskList object
+     */
+    public int getNumTasks() {
+        return taskList.size();
+    }
+
+    /**
      * Marks specified task as complete
      *
      * @param taskNum Index of task on list
@@ -151,7 +160,7 @@ public class TaskList {
         System.out.print(markedDoneText);
         System.out.print(taskText);
         System.out.print(dividerText);
-        String result = markedDoneText + "\n" + taskText;
+        String result = markedDoneText + taskText;
         return result;
     }
 
@@ -168,7 +177,7 @@ public class TaskList {
         System.out.print(markedUndoneText);
         System.out.print(taskText);
         System.out.print(dividerText);
-        String result = markedUndoneText + "\n" + taskText;
+        String result = markedUndoneText + taskText;
         return result;
     }
 
