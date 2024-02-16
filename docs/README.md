@@ -1,6 +1,6 @@
 # RoeBot User Guide
 
-![Alt text](UI.png)
+![Alt text](Ui.png)
 
 Note: There are three types of tasks: Todo, Deadline and Event.
 
