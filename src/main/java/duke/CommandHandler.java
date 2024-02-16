@@ -9,7 +9,6 @@ public class CommandHandler {
      * @param taskList the task list that stores all the tasks created by the user
      */
     public static String chat(String input, TaskList taskList) throws RiriException {
-
         if (input.matches("bye")) {
             return "Press the cross on your console";
         } else if (input.toLowerCase().matches("list")) {
