@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'checkstyle'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 repositories {
@@ -22,5 +23,10 @@ test {
 }
 
 application {
+    mainClassName = 'duke.Duke'
+}
+
+shadowJar {
+    archiveFileName = 'duke.jar'
     mainClassName = 'duke.Duke'
 }
