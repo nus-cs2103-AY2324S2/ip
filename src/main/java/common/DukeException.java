@@ -1,4 +1,4 @@
-package helperpackage;
+package common;
 
 public class DukeException extends Exception {
 
