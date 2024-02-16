@@ -31,7 +31,7 @@ public class Ui {
     private VBox dialogContainer;
     private Scene scene;
     private Image userImg;
-    private Image dukeImg;
+    private Image kewgyImg;
 
     public TextField userInput;
     public Button sendButton;
@@ -49,7 +49,7 @@ public class Ui {
         System.out.println(this.getClass().getResource("/").getPath());
 
         userImg = new Image(this.getClass().getResourceAsStream(USER_IMG));
-        dukeImg = new Image(this.getClass().getResourceAsStream(KEWGY_IMG));
+        kewgyImg = new Image(this.getClass().getResourceAsStream(KEWGY_IMG));
 
         userInput = new TextField();
         sendButton = new Button("Send");
@@ -92,10 +92,10 @@ public class Ui {
         AnchorPane.setBottomAnchor(userInput, 1.0);
     }
     
-    public void addConversation(Label userText, Label dukeText) {
+    public void addConversation(Label userText, Label kewgyText) {
         dialogContainer.getChildren().addAll(
             DialogBox.getUserDialog(userText, new ImageView(userImg)),
-            DialogBox.getDukeDialog(dukeText, new ImageView(dukeImg))
+            DialogBox.getKewgyDialog(kewgyText, new ImageView(kewgyImg))
         );
         userInput.clear();
     }
@@ -155,7 +155,7 @@ public class Ui {
     }
 
     public Label printError(String e) {
-        Label errorLabel = this.formatString(e);
+        Label errorLabel = this.formatString("Exception occured!\n" + e);
         errorLabel.setTextFill(Color.color(1, 0, 0));
 
         return errorLabel;
@@ -189,13 +189,13 @@ public class Ui {
     }
 
     public void printIntro() {
-        this.printDukeText("Hello from Kewgy!\nWhat can I do for you?\nType \"bye\" to exit!");
+        this.printKewgyText("Hello from Kewgy!\nWhat can I do for you?\nType \"bye\" to exit!");
     }
 
-    public void printDukeText(String msg) {
-        Label dukeText = this.formatString(msg); 
+    public void printKewgyText(String msg) {
+        Label kewgyText = this.formatString(msg); 
         dialogContainer.getChildren().addAll(
-            DialogBox.getDukeDialog(dukeText, new ImageView(dukeImg))
+            DialogBox.getKewgyDialog(kewgyText, new ImageView(kewgyImg))
         );
     }
 }

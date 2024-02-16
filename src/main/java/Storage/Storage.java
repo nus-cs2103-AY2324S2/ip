@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import Exceptions.DukeException;
+import Exceptions.KewgyException;
 import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
@@ -35,7 +35,7 @@ public class Storage {
      * 
      * @param taskInt index of task
      * @param isDone whether task is done
-     * @throws DukeException 
+     * @throws KewgyException 
      **/
     public void updateTask(int taskInt, Boolean isDone) {
         try {
@@ -49,7 +49,7 @@ public class Storage {
             }
 
             if (!saveFile.canWrite()) {
-                throw new DukeException("Cannot write to save file!");
+                throw new KewgyException("Cannot write to save file!");
             }
 
             List<String> tasks = new ArrayList<>();
@@ -75,10 +75,10 @@ public class Storage {
 
             saveFileBufferedWriter.close();
         } catch (IOException e) {
-            ui.printDukeText("An error occurred.");
+            ui.printKewgyText("An error occurred.");
             e.printStackTrace();
-        } catch (DukeException e) {
-            ui.printDukeText("DukeException occurred: " + e.toString());
+        } catch (KewgyException e) {
+            ui.printError(e.toString());
         }
     }
 
@@ -86,7 +86,7 @@ public class Storage {
      * Delete task in save file
      * 
      * @param taskInt index of task
-     * @throws DukeException 
+     * @throws KewgyException 
      **/
     public void deleteTask(int taskInt) {
         try {
@@ -100,7 +100,7 @@ public class Storage {
             }
 
             if (!saveFile.canWrite()) {
-                throw new DukeException("Cannot write to save file!");
+                throw new KewgyException("Cannot write to save file!");
             }
 
             List<String> tasks = new ArrayList<>();
@@ -122,10 +122,10 @@ public class Storage {
 
             saveFileBufferedWriter.close();
         } catch (IOException e) {
-            ui.printDukeText("An error occurred.");
+            ui.printKewgyText("An error occurred.");
             e.printStackTrace();
-        } catch (DukeException e) {
-            ui.printDukeText("DukeException occurred: " + e.toString());
+        } catch (KewgyException e) {
+            ui.printError(e.toString());
         }
     }
 
@@ -134,7 +134,7 @@ public class Storage {
      * 
      * @param userMsg Task description
      * @param taskType Type of task
-     * @throws DukeException 
+     * @throws KewgyException 
      **/
     public void saveTask(String userMsg, TaskType taskType) {
         try {
@@ -146,7 +146,7 @@ public class Storage {
             }
 
             if (!saveFile.canWrite()) {
-                throw new DukeException("Cannot write to save file!");
+                throw new KewgyException("Cannot write to save file!");
             }
 
             FileWriter saveFileWriter = new FileWriter(saveFile, true);
@@ -163,16 +163,16 @@ public class Storage {
                     saveFileBufferedWriter.write(TaskType.E.toString() + " false " + userMsg + "\n");
                     break;
                 default:
-                    ui.printDukeText("Unkown Task Type: " + taskType);
+                    ui.printKewgyText("Unkown Task Type: " + taskType);
                     break;
             }
 
             saveFileBufferedWriter.close();
         } catch (IOException e) {
-            ui.printDukeText("An error occurred.");
+            ui.printKewgyText("An error occurred.");
             e.printStackTrace();
-        } catch (DukeException e) {
-            ui.printDukeText("DukeException occurred: " + e.toString());
+        } catch (KewgyException e) {
+            ui.printError(e.toString());
         }
     }
 
@@ -193,7 +193,7 @@ public class Storage {
             }
 
             if (!saveFile.canRead()) {
-                throw new DukeException("Cannot read save file!");
+                throw new KewgyException("Cannot read save file!");
             }
 
             Scanner fileReader = new Scanner(saveFile);
@@ -228,10 +228,10 @@ public class Storage {
 
             return savedTasks;
         } catch (IOException e) {
-            ui.printDukeText("An error occurred.");
+            ui.printKewgyText("An error occurred.");
             e.printStackTrace();
-        } catch (DukeException e) {
-            ui.printDukeText("DukeException occurred: " + e.toString());
+        } catch (KewgyException e) {
+            ui.printError(e.toString());
         }
 
         return new ArrayList<>();
