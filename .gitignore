@@ -8,6 +8,8 @@
 /build/
 src/main/resources/docs/
 
+.env
+
 # MacOS custom attributes files created by Finder
 .DS_Store
 *.iml
@@ -19,3 +21,5 @@ text-ui-test/EXPECTED-UNIX.TXT
 src/main/META-INF/
 
 *.class
+
+
