@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Stream;
 
-import earl.exceptions.EarlException;
+import earl.exceptions.StorageException;
 import earl.util.parsers.ParseFunction;
 
 /**
@@ -39,6 +39,7 @@ public class Storage {
      */
     public <T> Stream<T> load(ParseFunction<T> parse) {
         try {
+            // Ensure file exists
             File file = new File(filePath);
             boolean isFolderMade = file.getParentFile().mkdirs();
             boolean isFileMade = file.createNewFile();
@@ -46,6 +47,8 @@ public class Storage {
             if (isFolderMade || isFileMade) {
                 return Stream.empty();
             }
+
+            // Read lines from file
             Scanner sc = new Scanner(file);
             List<T> result = new ArrayList<>();
             while (sc.hasNext()) {
@@ -54,6 +57,7 @@ public class Storage {
             }
             wasLoadSuccessful = true;
             return result.stream();
+
         } catch (Exception e) {
             return Stream.empty();
         }
@@ -67,10 +71,10 @@ public class Storage {
     /**
      * Saves given stream of {@code String} onto the disk.
      *
-     * @param dataStream      a {@code Stream} of {@code String} to be saved
-     * @throws EarlException  if the file could not be written to
+     * @param dataStream         a {@code Stream} of {@code String} to be saved
+     * @throws StorageException  if the file could not be written to
      */
-    public void save(Stream<String> dataStream) throws EarlException {
+    public void save(Stream<String> dataStream) throws StorageException {
         try (FileWriter fw = new FileWriter(filePath)) {
             dataStream.map((str) -> str + "\n")
                     .forEach((str) -> {
@@ -81,8 +85,7 @@ public class Storage {
                         }
                     });
         } catch (Exception e) {
-            throw new EarlException("Alas, a grievous misfortune occurred "
-                    + "during the endeavour to save.");
+            throw new StorageException();
         }
     }
 }

@@ -1,12 +1,12 @@
 package earl.util.parsers;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-import earl.exceptions.EarlException;
+import earl.exceptions.ParserException;
 
 class IntervalParserTest {
 
@@ -22,10 +22,8 @@ class IntervalParserTest {
         try {
             IntervalParser.parse("3 to 5");
             fail();
-        } catch (EarlException e) {
-            String expected = "The indices' format is fraught with invalidity."
-                    + " Example format: 1 4-7 9-10";
-            assertEquals(expected, e.getMessage());
+        } catch (Exception e) {
+            assertInstanceOf(ParserException.class, e);
         }
     }
 }

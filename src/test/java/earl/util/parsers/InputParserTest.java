@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-import earl.exceptions.EarlException;
+import earl.exceptions.ParserException;
 import earl.logic.Handler;
 import earl.logic.TodoHandler;
 
@@ -25,8 +25,8 @@ class InputParserTest {
         try {
             InputParser.parse("TODO ip");
             fail();
-        } catch (EarlException e) {
-            assertEquals("Input defies parsing: TODO ip", e.getMessage());
+        } catch (ParserException e) {
+            assertEquals("TODO ip", e.getMessage());
         }
     }
 }

@@ -2,7 +2,7 @@ package earl.util.parsers;
 
 import java.util.Arrays;
 
-import earl.exceptions.EarlException;
+import earl.exceptions.ParserException;
 import earl.tasks.Task;
 import earl.tasks.TaskType;
 
@@ -14,11 +14,11 @@ public class TaskStorageParser implements Parser<Task> {
     /**
      * Returns a {@code Task} object based on the stored string.
      *
-     * @param entry           storage entry string
-     * @return                a {@code Task} object
-     * @throws EarlException  if the storage entry is incomprehensible
+     * @param entry             storage entry string
+     * @return                  a {@code Task} object
+     * @throws ParserException  if the storage entry is incomprehensible
      */
-    public static Task parse(String entry) throws EarlException {
+    public static Task parse(String entry) throws ParserException {
         try {
             String[] data = entry.split(",");
             String type = data[0];
@@ -30,12 +30,8 @@ public class TaskStorageParser implements Parser<Task> {
                 task.markAsDone();
             }
             return task;
-        } catch (IllegalArgumentException e) {
-            throw new EarlException("Storage hath succumb to corruption... "
-                    + "initiating an unfortunate state of emptiness.");
         } catch (Exception e) {
-            throw new EarlException("An enigmatic malady has manifested and "
-                    + "obstructed the parsing of the storage file");
+            throw new ParserException();
         }
     }
 }

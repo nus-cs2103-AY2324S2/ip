@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import earl.exceptions.EarlException;
+import earl.exceptions.ParserException;
 
 /**
  * Class responsible for interpreting complex ranges input by the user.
@@ -14,11 +14,11 @@ public class IntervalParser implements Parser<Stream<Integer>> {
     /**
      * Returns a stream of unique indices in reverse sorted order.
      *
-     * @param input           the user input ranges
-     * @return                a {@code Stream} of indices
-     * @throws EarlException  if the user input is incomprehensible
+     * @param input             the user input ranges
+     * @return                  a {@code Stream} of indices
+     * @throws ParserException  if the user input is incomprehensible
      */
-    public static Stream<Integer> parse(String input) throws EarlException {
+    public static Stream<Integer> parse(String input) throws ParserException {
         try {
             String[] args = input.split("\\s+");
             Stream<Integer> result = Stream.empty();
@@ -36,12 +36,8 @@ public class IntervalParser implements Parser<Stream<Integer>> {
                         IntStream.range(start, end).boxed());
             }
             return result.distinct().sorted(Collections.reverseOrder());
-        } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            throw new EarlException(
-                    "The indices' format is fraught with invalidity."
-                            + " Example format: 1 4-7 9-10");
         } catch (Exception e) {
-            throw new EarlException("The argument format is most confounding.");
+            throw new ParserException();
         }
     }
 }
