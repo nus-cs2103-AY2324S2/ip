@@ -1,23 +1,13 @@
 package henry;
 
-import henry.command.ByeCommand;
-import henry.command.Command;
-import henry.command.DeadlineCommand;
-import henry.command.DeleteCommand;
-import henry.command.EventCommand;
-import henry.command.FindCommand;
-import henry.command.ListCommand;
-import henry.command.MarkCommand;
-import henry.command.TodoCommand;
-import henry.command.UnknownCommand;
-import henry.command.UnmarkCommand;
+import henry.command.*;
 
 /**
  * Represents a Parser object for processing commands.
  */
 public class Parser {
     private enum CommandType {
-        LIST, FIND, UNMARK, MARK, DELETE, TODO, DEADLINE, EVENT, BYE, UNKNOWN
+        LIST, FIND, UNMARK, MARK, DELETE, TODO, DEADLINE, EVENT, UPDATE, BYE, UNKNOWN
     }
 
     /**
@@ -48,6 +38,9 @@ public class Parser {
         case DEADLINE:
             assert !args.isBlank() : "Command expects arguments";
             return new DeadlineCommand(args);
+        case UPDATE:
+            assert !args.isBlank() : "Command expects arguments";
+            return new UpdateCommand(args);
         case EVENT:
             assert !args.isBlank() : "Command expects arguments";
             return new EventCommand(args);

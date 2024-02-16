@@ -2,7 +2,10 @@ package henry;
 
 import java.util.ArrayList;
 
+import henry.task.Deadline;
+import henry.task.Event;
 import henry.task.Task;
+import henry.task.Todo;
 
 /**
  * Represents a list of tasks.
@@ -25,6 +28,47 @@ public class TaskList {
      */
     public void addTask(Task task) {
         items.add(task);
+    }
+
+    /**
+     * Updates a task in the list.
+     * @param index The index of the task to be updated.
+     * @param description The new description of the task.
+     * @param to The new 'to' date of the task.
+     * @param from The new 'from' date of the task.
+     * @param by The new 'by' date of the task.
+     * @return The updated task.
+     */
+    public Task updateTask(int index, String description, String to, String from, String by) throws HenryException {
+        Task task = this.items.get(index);
+        if (description != null) {
+            task.setDescription(description);
+        }
+        if (task instanceof Todo) {
+            if (to != null || from != null || by != null) {
+                throw new HenryException("Todo tasks do not have a date.");
+            }
+        } else if (task instanceof Deadline) {
+            if (to != null || from != null) {
+                throw new HenryException("Deadline tasks only have a 'by' date.");
+            }
+            if (by != null) {
+                Deadline deadline = (Deadline) task;
+                deadline.setBy(by);
+            }
+        } else if (task instanceof Event) {
+            if (by != null) {
+                throw new HenryException("Event tasks do not have a 'by' date.");
+            }
+            Event event = (Event) task;
+            if (to != null) {
+                event.setTo(to);
+            }
+            if (from != null) {
+                event.setFrom(from);
+            }
+        }
+        return task;
     }
 
     /**
