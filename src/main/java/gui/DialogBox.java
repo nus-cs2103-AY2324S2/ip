@@ -75,7 +75,9 @@ public class DialogBox extends HBox {
      * @return A DialogBox instance for user messages.
      */
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        db.setStyle("-fx-background-color: #E8DAEF;");
+        return db;
     }
 
     /**
@@ -88,6 +90,7 @@ public class DialogBox extends HBox {
     public static DialogBox getEzraDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.setStyle("-fx-background-color: #D6EAF8;");
         return db;
     }
 }
