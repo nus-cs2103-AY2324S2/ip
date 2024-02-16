@@ -1,5 +1,11 @@
 package duke;
 
+import duke.command.ExitCommand;
+import duke.command.ListCommand;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.ToDo;
+import duke.ui.Ui;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -38,17 +44,7 @@ public class ParserTest {
             assertEquals(0, Parser.parseToCommand("test"));
             fail();
         } catch (DukeException ex) {
-            assertEquals("I'm sorry, I don't know what that means.\n" +
-                    "Please input valid commands (i.e. [command] [description]).\n" +
-                    "You can choose from the following available commands:\n" +
-                    "   * todo [desc]\n" +
-                    "   * event [desc] /from [desc] /to [desc]\n" +
-                    "   * deadline [desc] /by [desc]\n" +
-                    "   * list\n" +
-                    "   * mark [number]\n" +
-                    "   * unmark [number]\n" +
-                    "   * delete [number]",
-                    ex.getMessage());
+            assertEquals(Ui.unknownCommandError(), ex.getMessage());
         }
     }
 }

@@ -3,6 +3,7 @@ package duke;
 import duke.task.Task;
 import duke.command.*;
 import duke.task.*;
+import duke.ui.Ui;
 
 
 class Parser {
@@ -21,7 +22,7 @@ class Parser {
         for (int i = 0; i < stringComponents.length; i++) {
             stringComponents[i] = stringComponents[i].trim();
         }
-        boolean isDone = Boolean.valueOf(stringComponents[1]);
+        boolean isDone = Boolean.parseBoolean(stringComponents[1]);
 
         switch (stringComponents[0]) {
         case "T":
@@ -94,16 +95,7 @@ class Parser {
             command = new AddCommand(commandWord, description);
             break;
         default:
-            throw new DukeException("I'm sorry, I don't know what that means.\n" +
-                    "Please input valid commands (i.e. [command] [description]).\n" +
-                    "You can choose from the following available commands:\n" +
-                    "   * todo [desc]\n" +
-                    "   * event [desc] /from [desc] /to [desc]\n" +
-                    "   * deadline [desc] /by [desc]\n" +
-                    "   * list\n" +
-                    "   * mark [number]\n" +
-                    "   * unmark [number]\n" +
-                    "   * delete [number]");
+            throw new DukeException(Ui.unknownCommandError());
         }
         return command;
     }

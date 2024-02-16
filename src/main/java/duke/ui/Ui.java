@@ -47,4 +47,18 @@ public class Ui {
     public String findMessage(String str) {
         return "Here are the matching tasks in your list:\n" + str;
     }
+
+    public static String unknownCommandError() {
+        String errorMessage = "I'm sorry, I don't know what that means.\n" +
+                "Please input valid commands (i.e. [command] [description]).\n";
+        String availableCommands = "You can choose from the following available commands:\n" +
+                "   * todo [desc]\n" +
+                "   * event [desc] /from [desc] /to [desc]\n" +
+                "   * deadline [desc] /by [desc]\n" +
+                "   * list\n" +
+                "   * mark [number]\n" +
+                "   * unmark [number]\n" +
+                "   * delete [number]";
+        return errorMessage + availableCommands;
+    }
 }
