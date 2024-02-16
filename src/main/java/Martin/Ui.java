@@ -55,4 +55,17 @@ public class Ui {
     public String sayDeleted(Task removed) {
         return "Noted. I've removed this task:\n" + removed + "\n";
     }
+
+    public String sayHelp() {
+        return "Here are the commands you can use:\n"
+                + "1. list - list all tasks\n"
+                + "2. bye - exit the program\n"
+                + "3. mark - mark a task as done\n"
+                + "4. unmark - unmark a task as done\n"
+                + "5. todo - add a todo task\n"
+                + "6. event - add an event task\n"
+                + "7. deadline - add a deadline task\n"
+                + "8. delete - delete a task\n"
+                + "9. find - find tasks with a keyword\n";
+    }
 }
