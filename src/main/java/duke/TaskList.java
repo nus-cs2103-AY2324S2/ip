@@ -27,16 +27,17 @@ public class TaskList {
 
     public void markTask(int index) {
         Task selectedTask = taskList.get(index);
-        selectedTask.markDone();
+        selectedTask.setDone();
     }
 
     public void unmarkTask(int index) {
         Task selectedTask = taskList.get(index);
-        selectedTask.markNotDone();
+        selectedTask.setNotDone();
     }
 
     public void printTaskList() {
         System.out.println("Here are your tasks: \n");
+
         for (int i = 0; i < this.taskList.size(); i++) {
             Task currTask = taskList.get(i);
             System.out.println((i + 1) + currTask.toString());
@@ -52,6 +53,7 @@ public class TaskList {
         String[] taskArgs = saveString.split("\\|");
         String identifier = taskArgs[0];
         Task reconstructedTask = null;
+
         switch (identifier) {
         case "T":
             reconstructedTask = new ToDo(taskArgs[2]);
@@ -66,11 +68,12 @@ public class TaskList {
             System.out.println("Unable to reconstruct task.");
             break;
         }
+
         Boolean isDone = taskArgs[1].equals("1");
         if (isDone) {
-            reconstructedTask.markDone();
+            reconstructedTask.setDone();
         }
+
         return reconstructedTask;
     }
-
 }

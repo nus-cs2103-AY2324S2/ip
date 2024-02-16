@@ -26,11 +26,11 @@ public class Task {
         return isDone ? "X" : " ";
     }
 
-    public void markDone() {
+    public void setDone() {
         this.isDone = true;
     }
 
-    public void markNotDone() {
+    public void setNotDone() {
         this.isDone = false;
     }
 }
