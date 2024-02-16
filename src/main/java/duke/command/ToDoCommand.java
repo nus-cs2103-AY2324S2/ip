@@ -16,6 +16,7 @@ public class ToDoCommand extends Command {
             String task = message.split(" ", 2)[1];
             taskList.createToDo(task);
         } catch (ArrayIndexOutOfBoundsException e) {
+            ui.showWrongFormat();
             ui.showToDoFormat();
         }
     }
