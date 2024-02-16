@@ -20,7 +20,9 @@ public class Parser {
      * @return The digit that users entered.
      */
     public static int parseInt(String command) {
-        int taskNum = Integer.valueOf(command.replaceAll("[^0-9]", ""));
+        String[] cmd = command.split(" ", 2);
+        //int taskNum = Integer.valueOf(command.replaceAll("[^0-9]", ""));
+        int taskNum = Integer.valueOf(cmd[1]);
         return taskNum;
     }
 

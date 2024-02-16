@@ -198,7 +198,7 @@ public class Ui {
      * Inform users that the number entered is invalid.
      */
     public String invalidInputNumber() {
-        return "Plz tell me which task." + "\n";
+        return "Plz tell me which task. I want a valid task number" + "\n";
     }
 
     /**
