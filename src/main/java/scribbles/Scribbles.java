@@ -53,6 +53,7 @@ public class Scribbles {
     public String getResponse(String input) {
         Parser parsedInput = new Parser(input);
         String command = parsedInput.getCommand();
+        assert command != null: "command should not be null";
 
         switch (command) {
         case "bye":
