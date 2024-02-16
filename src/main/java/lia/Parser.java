@@ -29,7 +29,8 @@ public class Parser {
     public String parseCommand(String input) {
         try {
             if (input.equals("exit")) {
-                return ui.showGoodbye();
+                System.exit(0);
+                return "Goodbye!";
             } else if (input.equals("list")) {
                 ArrayList<Task> listTasks = tasks.getTasks();
                 if (listTasks.isEmpty()) {
