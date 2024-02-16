@@ -26,6 +26,8 @@ public class Parser {
             return createMarkCommand(parts);
         case "unmark":
             return createUnmarkCommand(parts);
+        case "find":
+            return createFindCommand(parts);
         default:
             //throw new WhisperException("Invalid command. Please enter a valid command.");
             throw WhisperException.unknownCommand();
@@ -104,6 +106,13 @@ public class Parser {
 
         int index = parseTaskIndex(parts[1]);
         return new UnmarkCommand(index);
+    }
+
+    public static Command createFindCommand(String[] parts) throws WhisperException {
+        if (parts.length < 2) {
+            throw new WhisperException("Keyword cannot be empty for find command. Try again.");
+        }
+        return new FindCommand(parts[1].trim());
     }
 
     private static int parseTaskIndex(String input) throws WhisperException {

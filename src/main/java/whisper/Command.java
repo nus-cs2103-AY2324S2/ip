@@ -4,6 +4,7 @@ import java.util.ArrayList;
 public interface Command {
     void execute(ArrayList<Task> tasks, Ui ui, Storage storage) throws WhisperException;
     boolean isExit();
+    boolean isKeywordMatch(String keyword);
 }
 
 // Add Command
@@ -29,6 +30,11 @@ class AddCommand implements Command {
 
     @Override
     public boolean isExit() {
+        return false;
+    }
+
+    @Override
+    public boolean isKeywordMatch(String keyword) {
         return false;
     }
 }
@@ -60,6 +66,11 @@ class DeleteCommand implements Command {
     public boolean isExit() {
         return false;
     }
+
+    @Override
+    public boolean isKeywordMatch(String keyword) {
+        return false;
+    }
 }
 
 // Exit Command
@@ -73,6 +84,11 @@ class ExitCommand implements Command {
     public boolean isExit() {
         return true;
     }
+
+    @Override
+    public boolean isKeywordMatch(String keyword) {
+        return false;
+    }
 }
 
 // List Command
@@ -84,6 +100,11 @@ class ListCommand implements Command {
 
     @Override
     public boolean isExit() {
+        return false;
+    }
+
+    @Override
+    public boolean isKeywordMatch(String keyword) {
         return false;
     }
 }
@@ -115,6 +136,11 @@ class MarkCommand implements Command {
     public boolean isExit() {
         return false;
     }
+
+    @Override
+    public boolean isKeywordMatch(String keyword) {
+        return false;
+    }
 }
 
 // Unmark command
@@ -143,5 +169,42 @@ class UnmarkCommand implements Command {
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public boolean isKeywordMatch(String keyword) {
+        return false;
+    }
+}
+
+// Find Command
+class FindCommand implements Command {
+    private String keyword;
+
+    public FindCommand(String keyword) {
+        this.keyword = keyword;
+    }
+
+    @Override
+    public void execute(ArrayList<Task> tasks, Ui ui, Storage storage) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                matchingTasks.add(task);
+            }
+        }
+        ui.printMatchingTasks(matchingTasks);
+    }
+
+    @Override
+    public boolean isExit() {
+        return false;
+    }
+
+    @Override
+    public boolean isKeywordMatch(String keyword) {
+        // check if the command matches the given keyword
+        return this.keyword.equalsIgnoreCase(keyword);
     }
 }
