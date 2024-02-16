@@ -22,7 +22,7 @@ public class Main extends Application {
      * @throws DukeException if the Duke instance cannot be initialised.
      */
     public Main() throws DukeException {
-        duke = new Duke("data/duke.txt");
+        duke = new Duke("duke.txt");
     }
 
     @Override
