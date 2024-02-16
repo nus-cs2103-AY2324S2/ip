@@ -22,7 +22,9 @@ public class Parser {
      * @throws DukeException If there is an error parsing the input.
      */
     public Command parse() throws DukeException {
-        if (input.equalsIgnoreCase("bye")) {
+        if (input.equalsIgnoreCase("hello")) {
+            return new Command(Command.CommandType.WELCOME, null);
+        } else if (input.equalsIgnoreCase("bye")) {
             return new Command(Command.CommandType.BYE, null);
         } else if (input.equalsIgnoreCase("list")) {
             return new Command(Command.CommandType.LIST, null);

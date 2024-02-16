@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -49,7 +51,7 @@ public class Duke extends Application {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         try {
-            List<Task> loadedTasks = storage.load();
+            List<duke.Task> loadedTasks = storage.load();
             this.tasks = new TaskList(loadedTasks);
         } catch (DukeException e) {
             ui.showLoadingError();
@@ -158,7 +160,6 @@ public class Duke extends Application {
 
         AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
-
         //More code to be added here later
         //Step 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> {
@@ -205,6 +206,25 @@ public class Duke extends Application {
      */
     private void handleUserInput() {
         String userMessage = userInput.getText(); // Retrieve user input text
+//        String response = getResponse(userMessage); // Get the response from the user's input
+//
+//        // Check if the response is the goodbye message
+//        if (response.equals(ui.showGoodbye())) {
+//            dialogContainer.getChildren().add(DialogBox.getDukeDialog(response, duke)); // Show goodbye message
+//            userInput.clear(); // Clear the user input
+//
+//            // Close the application after a short delay to allow the user to read the message
+//            new Thread(() -> {
+//                try {
+//                    Thread.sleep(2000); // Wait for 2 seconds
+//                } catch (InterruptedException e) {
+//                    Thread.currentThread().interrupt(); // Handle interrupted exception
+//                }
+//                Platform.exit(); // Close the application
+//            }).start();
+//
+//            return; // Exit the method to avoid adding more UI components
+//        }
         Label userTextLabel = new Label(userMessage); // Create a Label with user input text
         Label dukeTextLabel = new Label(getResponse(userMessage)); // Create a Label with Duke's response
 
@@ -229,6 +249,19 @@ public class Duke extends Application {
         try {
             Parser parser = new Parser(input);
             Command command = parser.parse();
+            if (command.getType() == Command.CommandType.BYE) {
+                Task<Void> exitTask = new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
+                        Thread.sleep(1000); // Wait for 1 second
+                        Platform.runLater(Platform::exit); // Schedule the exit to be run on the JavaFX thread
+                        return null;
+                    }
+                };
+                new Thread(exitTask).start(); // Start the thread to perform the sleep and then exit
+
+                return "Goodbye! Hope to see you again soon!"; // Provide a farewell message before initiating the delay
+            }
             return command.execute(tasks, ui, storage); // Use the class member directly
         } catch (DukeException e) {
             return "Error: " + e.getMessage();
