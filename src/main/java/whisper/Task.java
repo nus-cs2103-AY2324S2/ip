@@ -145,5 +145,4 @@ public class Task {
 
         public abstract String getDetails(Task task);
     }
-
 }

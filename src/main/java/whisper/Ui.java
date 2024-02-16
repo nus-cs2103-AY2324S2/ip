@@ -66,6 +66,11 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Prints tasks that match a given keyword.
+     *
+     * @param matchingTasks The list of tasks that match the keyword.
+     */
     public void printMatchingTasks(ArrayList<Task> matchingTasks) {
         printLine();
         if (matchingTasks.isEmpty()) {
