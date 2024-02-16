@@ -47,13 +47,19 @@ public class Storage {
             return list;
         }
 
-        Scanner sc = new Scanner(file);
-        while (sc.hasNextLine()) {
-            String line = sc.nextLine();
-            Task task = parseTask(line);
-            list.addTask(task);
+        try {
+            Scanner sc = new Scanner(file);
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine();
+                Task task = parseTask(line);
+                list.addTask(task);
+            }
+            sc.close();
+        } catch (FileNotFoundException e) {
+            // Handle the FileNotFoundException if it occurs
+            System.err.println("Error: Unable to read tasks from file: " + e.getMessage());
+            e.printStackTrace();
         }
-        sc.close();
         return list;
     }
 
