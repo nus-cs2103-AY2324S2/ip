@@ -38,6 +38,7 @@ public class TaskStorage {
      * @param t The Task object to be added to the ArrayList.
      */
     public void addTask(Task t) {
+        assert t != null: "Not instantiated object should not be added";
         this.storageList.add(t);
     }
 
@@ -47,6 +48,7 @@ public class TaskStorage {
      * @param id The id number of element to be removed from the ArrayList.
      */
     public String removeTask(int id) {
+        assert id > this.storageList.size(): "The id should not be more than the storage size!";
         Task t;
         try {
             t = this.storageList.get(id - 1);
@@ -64,6 +66,7 @@ public class TaskStorage {
      * @param mark To mark as complete or to unmark.
      */
     public String markTask(int id, boolean mark) {
+        assert id > this.storageList.size(): "The id should not be more than the storage size!";
         Task t;
         try {
             t = this.storageList.get(id - 1);
@@ -85,6 +88,7 @@ public class TaskStorage {
      * @param keyword Keyword that the we are looking for.
      */
     public String searchForTask(String keyword) {
+        assert keyword.length() != 0: "A keyword should be included during a search!";
         ArrayList<Task> keywordHits = new ArrayList<>();
         ArrayList<Integer> keywordHitIndexes = new ArrayList<>();
         int counter = 1;

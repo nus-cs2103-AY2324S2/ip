@@ -84,6 +84,7 @@ public class ActionTask implements ParseExecutionable {
      */
     @Override
     public String execute(TaskStorage taskStorage) {
+        assert taskStorage != null : "TaskStorage should not be not instantiated!"; 
         String printMessage = "";
         switch (this.action) {
         case LIST:
