@@ -30,6 +30,10 @@ public class Event extends Task {
         this.toDateTime = DateTimeUtility.parseStringToLocalDateTime(toDateTime);
     }
 
+    public LocalDateTime getToDateTime() {
+        return this.toDateTime;
+    }
+
     @Override
     public String toTaskListStringFormat() {
         return String.format("%s|%s|%s|%s",

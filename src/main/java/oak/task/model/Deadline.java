@@ -42,6 +42,10 @@ public class Deadline extends Task {
         this.byDateTime = DateTimeUtility.parseStringToLocalDateTime(byDateTime);
     }
 
+    public LocalDateTime getByDateTime() {
+        return this.byDateTime;
+    }
+
     @Override
     public String toTaskListStringFormat() {
         return String.format("%s|%s|%s",
