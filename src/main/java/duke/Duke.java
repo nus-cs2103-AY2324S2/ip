@@ -99,8 +99,6 @@ public class Duke {
         } catch (IOException e) {
             ui.printIoException();
         }
-        taskList.printTaskCount();
-        ui.printDivider();
     }
 
     private static void exitProgram() {
@@ -113,6 +111,7 @@ public class Duke {
     private static void printTasks() {
         ui.printDivider();
         taskList.printTaskList();
+        taskList.printTaskCount();
         ui.printDivider();
     }
 
@@ -153,6 +152,8 @@ public class Duke {
             ui.printDivider();
             ui.printCreateTaskSuccess();
             System.out.println(newToDo.toString() + "\n");
+            taskList.printTaskCount();
+            ui.printDivider();
         } else {
             throw new DukeException("todo command requires a description for the task."
                     + "\n\nPlease leave a space after 'todo' and enter"
@@ -169,6 +170,8 @@ public class Duke {
                 ui.printDivider();
                 ui.printCreateTaskSuccess();
                 System.out.println(newDeadline.toString() + "\n");
+                taskList.printTaskCount();
+                ui.printDivider();
             }
         } catch (IndexOutOfBoundsException | DateTimeParseException e) {
             ui.printDivider();
@@ -188,6 +191,8 @@ public class Duke {
                 ui.printDivider();
                 ui.printCreateTaskSuccess();
                 System.out.println(newEvent.toString() + "\n");
+                taskList.printTaskCount();
+                ui.printDivider();
             }
         } catch (IndexOutOfBoundsException | DateTimeParseException e) {
             ui.printDivider();
@@ -207,6 +212,7 @@ public class Duke {
             ui.printDivider();
             ui.printDeleteTaskSuccess();
             System.out.println(toDelete.toString() + "\n");
+            taskList.printTaskCount();
             ui.printDivider();
         } catch (IndexOutOfBoundsException e) {
             ui.printDivider();
