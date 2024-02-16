@@ -47,8 +47,8 @@ class KaiYapTest {
         // Add a couple of tasks and then find a specific one.
         String task1 = "Read a book";
         String task2 = "Write JUnit tests";
-        kaiYap.chatResponse("add " + task1);
-        kaiYap.chatResponse("add " + task2);
+        kaiYap.chatResponse("todo " + task1);
+        kaiYap.chatResponse("todo " + task2);
 
         String findResponse = kaiYap.chatResponse("find JUnit"); // Assuming "find" command searches task descriptions.
         assertTrue(findResponse.contains(task2), "Find response should contain the task related to the search term.");
