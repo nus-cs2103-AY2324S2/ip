@@ -37,6 +37,14 @@ public class Main extends Application {
     }
 
     /**
+     * Returns whether the bot is running.
+     * @return A boolean value.
+     */
+    public boolean getIsRunning() {
+        return this.talkingBot.getIsRunning();
+    }
+
+    /**
      * Stops the running of the program.
      *
      * @throws Exception If there are any errors.

@@ -7,7 +7,6 @@ import talkingbot.util.SaveFile;
 import talkingbot.util.TaskList;
 import talkingbot.util.Ui;
 
-
 /**
  * Class serving as the entry point of the application.
  */
@@ -16,6 +15,7 @@ public class TalkingBot {
     private final SaveFile saveFile;
     private TaskList tasks;
     private final Ui ui;
+    private boolean isRunning = true;
 
     /**
      * Constructor for the TalkingBot class.
@@ -48,7 +48,18 @@ public class TalkingBot {
     public String process(String text) {
         Parser parser = new Parser();
         Command curCommand = parser.parseCommand(text);
+        if (curCommand.getCommandArr()[0].equals("bye")) {
+            this.isRunning = false;
+        }
         return curCommand.runCommand(this.tasks, this.saveFile, this.ui);
+    }
+
+    /**
+     * Returns whether the bot is running.
+     * @return A boolean value.
+     */
+    public boolean getIsRunning() {
+        return this.isRunning;
     }
 
     /**
