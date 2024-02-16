@@ -44,7 +44,7 @@ public class Storage {
         try {
             s = new Scanner(f);
         } catch (IOException e) {
-            throw new DukeException("Sorry, I can't find the file to load from");
+            throw new DukeException("Sorry buddy, I can't find the file to load from");
         }
         while (s.hasNext()) {
             String[] taskArr = s.nextLine().split(" \\| ");
@@ -65,7 +65,7 @@ public class Storage {
                 loadedLst.add(newEvent);
                 break;
             default:
-                throw new DukeException("Sorry, I can't understand the file format");
+                throw new DukeException("Sorry buddy, I can't understand the file format");
             }
         }
         return loadedLst;
