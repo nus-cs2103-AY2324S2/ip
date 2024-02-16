@@ -60,6 +60,8 @@ public class MainWindow extends AnchorPane {
             Pair<String, Boolean> pair = chaterpillar.getResponse(input);
             String response = pair.getKey();
             boolean hasExited = pair.getValue();
+            assert !response.isBlank() : "Response should not be blank";
+
             if (!hasExited) {
                 dialogContainer.getChildren().addAll(
                         DialogBox.getUserDialog(input, userImage),

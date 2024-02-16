@@ -64,6 +64,7 @@ public class TaskList {
      */
     public void addTask(Task task) {
         this.tasks.add(task);
+        assert !this.tasks.isEmpty() : "ArrayList<Task> should not be empty after add function";
     }
 
     /**
