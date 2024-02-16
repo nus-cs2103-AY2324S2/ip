@@ -1,9 +1,9 @@
 package remi.model;
 
-import remi.utils.RemiError;
-
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import remi.utils.RemiError;
 
 /**
  * Stores the list of Tasks, allows you to add, remove, and find tasks by index.
@@ -12,7 +12,11 @@ public class TaskList {
     private ArrayList<Task> taskList;
 
     public TaskList() {
-        this.taskList = new ArrayList<>();
+        taskList = new ArrayList<>();
+    }
+
+    public TaskList(ArrayList<Task> taskList) {
+        this.taskList = taskList;
     }
 
     /**
@@ -64,6 +68,17 @@ public class TaskList {
             }
         }
         return res;
+    }
+
+    /**
+     * Creates a copy of this taskList that is sorted alphabetically based on label.
+     *
+     * @return a copy of the TaskList object that is sorted
+     */
+    public TaskList getSortedTasks() {
+        ArrayList<Task> sorted = new ArrayList<Task>(taskList);
+        sorted.sort(Comparator.comparing(Task::getLabel));
+        return new TaskList(sorted);
     }
 
     /**
