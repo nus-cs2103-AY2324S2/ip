@@ -15,6 +15,7 @@ public class Storage {
 
     private String dir;
     private Path filePath;
+    private String[] taskTypes = new String[] {"T", "D", "E"};
 
     private String errorTaskType = "Invalid task type";
 
@@ -51,8 +52,8 @@ public class Storage {
             }
         } else {
             createFile(this.filePath);
-            return;
         }
+        assert java.nio.file.Files.exists(this.filePath);
     }
 
     // Dates are in the format yyyy-mm-ddTHH:MM, unlike what's printed
@@ -69,18 +70,25 @@ public class Storage {
         // [type, T/F, task, deadline] for deadline, [type, T/F, task, start, end] for event
         String[] components = s.split("\\|");
         // System.out.println(components.length);
-        String eventType = components[0];
+        String taskType = components[0];
         // System.out.println(eventType);
         boolean isDone = (components[1].equals("1")) ? true: false;
-        if (eventType.equals("T")) {
+
+        boolean validTaskType = false;
+        for (int i = 0; i < this.taskTypes.length; i++) {
+            if (taskType.equals(this.taskTypes[i])) {
+                validTaskType = true;
+                break;
+            }
+        }
+        assert validTaskType;
+
+        if (taskType.equals("T")) {
             return new ToDo(components[2], isDone);
-        } else if (eventType.equals("D")) {
+        } else if (taskType.equals("D")) {
             return new Deadline(components[2], components[3], isDone);
-        } else if (eventType.equals("E")) {
-            return new Event(components[2], components[3], components[4], isDone);
         } else {
-            // System.out.println("Dune exception!");
-            throw new DuneException(errorTaskType);
+            return new Event(components[2], components[3], components[4], isDone);
         }
     }
 
@@ -94,6 +102,10 @@ public class Storage {
      * @throws DuneException
      */
     public String convertTaskToLine(Task t) throws DuneException {
+
+        boolean validTaskType = (t instanceof ToDo) || (t instanceof Deadline) || (t instanceof Event);
+        assert validTaskType;
+
         String ans = "";
         if (t instanceof ToDo) {
             ans = "T|" + (t.getIsDone() ? "1" : "0") + "|" + t.getDescription();
@@ -133,6 +145,8 @@ public class Storage {
             System.out.println("Error writing to file");
         } catch (DuneException d) {
             System.out.println(d.getMessage());
+        } finally {
+            assert java.nio.file.Files.exists(this.filePath);
         }
     }
 

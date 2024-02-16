@@ -45,8 +45,8 @@ public class Parser {
             {
                 try {
                     // make it more informative LOL
-                    throw new DuneException("I do not recognize your command. Tasks can only be of types todo, " +
-                            "deadline, or event.");
+                    throw new DuneException("I do not recognize your command. " +
+                            "Tasks can only be of types todo, deadline, or event.");
 
                 } catch (DuneException d) {
                     return d.toString();
