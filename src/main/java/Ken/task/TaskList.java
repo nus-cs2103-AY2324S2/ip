@@ -176,13 +176,6 @@ public class TaskList {
      * Lists all tasks in the task list.
      */
     public Response listTasks() {
-//        ui.listTasksMessage(tasks.isEmpty());
-//
-//        if (!tasks.isEmpty()) {
-//            for (int i = 0; i < tasks.size(); i++) {
-//                return new Response((i + 1) + ". " + tasks.get(i));
-//            }
-//        }
         return ui.listTasksMessage(tasks.isEmpty(), tasks);
     }
 
@@ -198,19 +191,5 @@ public class TaskList {
 
         return ui.displayMatchingTasksMessage(keyword, matchingTasks);
     }
-
-    /**
-     * Displays the list of matching tasks along with the specified keyword.
-     *
-     * @param matchingTasks The list of tasks matching the specified keyword.
-     * @param keyword The keyword used for the search.
-     */
-//    private void displayMatchingTasks(List<Task> matchingTasks, String keyword) {
-//        ui.displayMatchingTasksMessage(keyword);
-//        for (int i = 0; i < matchingTasks.size(); i++) {
-//            new Response((i + 1) + ". " + matchingTasks.get(i));
-//        }
-//        System.out.println("There, all found!\n");
-//    }
-
+    
 }
