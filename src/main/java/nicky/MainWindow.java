@@ -36,6 +36,9 @@ public class MainWindow {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.prefWidthProperty().bind(
+                scrollPane.widthProperty().subtract(20)
+        );
     }
 
     /**
@@ -69,8 +72,8 @@ public class MainWindow {
         );
         userInput.clear();
 
-        if (response.equals("Bye. See you again.")) {
-            waitAndExit(1000);
+        if (response.equals("Bye. Hope to see you again soon!")) {
+            waitAndExit(5000);
         }
     }
 
@@ -85,6 +88,7 @@ public class MainWindow {
             @Override
             public void run() {
                 Platform.runLater(Platform::exit);
+                System.exit(0);
             }
         }, millisDelay);
     }

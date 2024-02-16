@@ -84,7 +84,6 @@ public class Ui {
      * @return A string indicating that the specified task has been marked as not done,
      *      or that it was already marked as not done.
      */
-
     public String showUnmarkedMessage(Task task) {
         if (task.isDone()) {
             task.markAsNotDone();

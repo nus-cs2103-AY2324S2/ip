@@ -42,6 +42,7 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        this.setMaxWidth(Double.MAX_VALUE);
     }
 
     /**
@@ -51,14 +52,12 @@ public class DialogBox extends HBox {
      */
     private void setupDialogBox(boolean isNicky) {
         dialog.setWrapText(true);
-        dialog.setMaxWidth(Double.MAX_VALUE);
         HBox.setHgrow(dialog, Priority.ALWAYS);
-        dialog.setAlignment(Pos.CENTER_LEFT);
 
-        this.setAlignment(Pos.CENTER_RIGHT);
+        this.setAlignment(isNicky ? Pos.TOP_LEFT : Pos.TOP_RIGHT);
+        Color bgColor = isNicky ? Color.LIGHTBLUE : Color.LIGHTGRAY;
         this.setSpacing(10);
         this.setPadding(new Insets(10));
-        Color bgColor = isNicky ? Color.LIGHTBLUE : Color.LIGHTGRAY;
         BackgroundFill fill = new BackgroundFill(bgColor, new CornerRadii(5.0), Insets.EMPTY);
         this.setBackground(new Background(fill));
 
@@ -78,7 +77,7 @@ public class DialogBox extends HBox {
         dialogBox.dialog.setText(text);
         dialogBox.displayPicture.setImage(img);
         dialogBox.setupDisplayPicture();
-        dialogBox.setupDialogBox(false); // false for user
+        dialogBox.setupDialogBox(false); // User messages on right
         return dialogBox;
     }
 
@@ -93,7 +92,7 @@ public class DialogBox extends HBox {
         dialogBox.dialog.setText(text);
         dialogBox.displayPicture.setImage(img);
         dialogBox.setupDisplayPicture();
-        dialogBox.setupDialogBox(true); // true for chatbot
+        dialogBox.setupDialogBox(true); // Nicky messages on left
         return dialogBox;
     }
 
@@ -103,6 +102,9 @@ public class DialogBox extends HBox {
     private void setupDisplayPicture() {
         Circle clip = new Circle(50, 50, 50);
         displayPicture.setClip(clip);
+        displayPicture.setFitWidth(99);
+        displayPicture.setFitHeight(99);
+        displayPicture.setPreserveRatio(true);
     }
 
     /**
@@ -110,8 +112,9 @@ public class DialogBox extends HBox {
      * This method is typically used to differentiate between user messages and Nicky's responses.
      */
     private void flip() {
-        ObservableList<Node> tmp = this.getChildren();
+        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         FXCollections.reverse(tmp);
+        this.getChildren().setAll(tmp);
         this.setAlignment(Pos.TOP_LEFT);
     }
 }

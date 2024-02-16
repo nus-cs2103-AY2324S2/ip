@@ -28,8 +28,8 @@ public class MarkCommand extends Command {
                 throw new NickyException("Task number " + (index + 1) + " does not exist.");
             }
             Task task = tasks.getTasks().get(index);
-            task.markAsDone();
             response = ui.showMarkedMessage(task);
+            task.markAsDone();
         } catch (NumberFormatException e) {
             throw new NickyException("Please enter a valid task number to unmark.");
         }
