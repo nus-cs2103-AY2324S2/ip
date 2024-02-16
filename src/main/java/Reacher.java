@@ -25,9 +25,11 @@ public class Reacher {
         while (!isExit) {
             try {
                 String input = ui.readString();
-                isExit = Parser.parse(input, ui, tasks, storage);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+                Command command = Parser.parse(input);
+                command.execute(tasks, ui, storage);
+                isExit = command.isExit();
+            } catch (ReacherException e) {
+                ui.print(e.getMessage());
             }
         }
     }

@@ -11,7 +11,7 @@ public class Ui {
         System.out.println("Hello!\n" +
                 "I'm Reacher.\n" +
                 "Give me tasks.\n" +
-                "Functions are edit, list, delete and bye");
+                "Functions are edit, list, add and bye");
     }
     public void printList(ArrayList<Task> tasks){
         System.out.println("Tasks:");
@@ -32,5 +32,8 @@ public class Ui {
         int num = scanner.nextInt();
         scanner.nextLine();
         return num;
+    }
+    public void print(String message){
+        System.out.println(message);
     }
 }
