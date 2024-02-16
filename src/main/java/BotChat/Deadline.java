@@ -26,12 +26,6 @@ public class Deadline extends Task {
         super(description);
         this.by = convertDate(by);
     }
-
-    /**
-     * Gets the deadline of the task.
-     *
-     * @return The deadline.
-     */
     public String getBy() {
         return by;
     }
