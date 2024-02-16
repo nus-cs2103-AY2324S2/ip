@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import raphael.exception.DuplicateTaskException;
 import raphael.exception.RaphaelException;
 import raphael.format.FileFormattable;
 import raphael.format.Formatter;
@@ -113,8 +114,11 @@ public class TaskList implements FileFormattable {
      * @param t the task that is needed tobe added.
      */
 
-    public void addTask(Task t) {
+    public void addTask(Task t) throws RaphaelException {
         int prevSize = this.tasks.size();
+        if (this.isDuplicate(t)) {
+            throw new DuplicateTaskException();
+        }
         String assertionErrorMessage = "The number of tasks should be increase by 1!";
         this.tasks.add(t);
         this.tasks = this.tasks.parallelStream().sorted().collect(
@@ -172,6 +176,9 @@ public class TaskList implements FileFormattable {
         } else {
             return String.format("Here are the matching tasks in your list:\t%s", res);
         }
+    }
+    private boolean isDuplicate(Task task) {
+        return this.tasks.stream().anyMatch(t -> t.equals(task));
     }
     @Override
     public String toString() {

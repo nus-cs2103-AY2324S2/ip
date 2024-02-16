@@ -12,7 +12,8 @@ public class RaphaelException extends Exception {
     public enum Type {
         INVALID_TASK_INDEX("Invalid task index!"),
         READ_IO_EXCEPTION("Failed to read from the task file!"),
-        WRITE_IO_EXCEPTION("Failed to write to the task file!");
+        WRITE_IO_EXCEPTION("Failed to write to the task file!"),
+        DUPLICATE_TASK_EXCEPTION("Duplicate task detected!");
         private final String errorMessage;
         private Type(String errorMessage) {
             this.errorMessage = errorMessage;

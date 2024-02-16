@@ -65,4 +65,15 @@ public class Deadline extends Task {
     public String toFileFormat() {
         return String.format("D |&| %s |&| %s", super.toFileFormat(), this.deadline.format(this.inputFormat));
     }
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof Deadline)) {
+            return false;
+        }
+        Deadline deadlineToCompare = (Deadline) o;
+        return this.deadline.equals(deadlineToCompare.deadline) && super.equals(deadlineToCompare);
+    }
 }
