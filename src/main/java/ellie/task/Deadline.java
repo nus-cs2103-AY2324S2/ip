@@ -62,7 +62,7 @@ public class Deadline extends Task {
      * Returns a formatted string representation of the task with a deadline for listing.
      *
      * @return A formatted string representation of the task with a deadline,
-     * including completion status and description with the deadline date.
+     *     including completion status and description with the deadline date.
      */
     @Override
     public String listTaskString() {

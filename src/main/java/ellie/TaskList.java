@@ -1,6 +1,8 @@
 package ellie;
-import ellie.task.Task;
+
 import java.util.ArrayList;
+
+import ellie.task.Task;
 
 /**
  * The TaskList class represents a list of tasks and provides methods for managing tasks.
@@ -8,9 +10,9 @@ import java.util.ArrayList;
  */
 public class TaskList {
 
+    private static final String NEW_LINE = "\n";
     private final ArrayList<Task> taskArrayList;
     private final Storage storage;
-    private final String NEW_LINE = "\n";
 
     /**
      * Constructs a TaskList object with the specified Storage.
@@ -50,7 +52,7 @@ public class TaskList {
      */
     public String searchTask(String keyword) {
 
-        String NO_RESPONSE = "No matching tasks found.\n";
+        String noResponse = "No matching tasks found.\n";
 
         ArrayList<Task> matchingTasks = new ArrayList<>();
         String response = NEW_LINE;
@@ -62,7 +64,7 @@ public class TaskList {
         }
 
         if (matchingTasks.isEmpty()) {
-            response += NO_RESPONSE;
+            response += noResponse;
         } else {
             response += "Matching tasks: \n";
             int index = 0;
@@ -82,12 +84,12 @@ public class TaskList {
      * If the list is empty, prints a message indicating that there are no items in the list.
      */
     public String listTasks() {
-        String NO_TASKS_RESPONSE = "No items in list!\n";
+        String noTasksResponse = "No items in list!\n";
 
         String response = NEW_LINE;
 
         if (taskArrayList.isEmpty()) {
-            response += NO_TASKS_RESPONSE;
+            response += noTasksResponse;
             return response;
         }
 
@@ -117,12 +119,12 @@ public class TaskList {
      * @param index The index of the task to be marked as done.
      */
     public String markTaskIndex(int index) {
-        String INVALID_INDEX_RESPONSE = "Sorry! There doesn't seem to be enough tasks for there to be a task "
+        final String invalidIndexResponse = "Sorry! There doesn't seem to be enough tasks for there to be a task "
                                             + index + "!\n";
         String response = NEW_LINE;
 
         if (index > taskArrayList.size()) {
-            response += INVALID_INDEX_RESPONSE;
+            response += invalidIndexResponse;
             return response;
         }
 

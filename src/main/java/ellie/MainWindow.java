@@ -28,6 +28,11 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Initializes the controller after its root element has been completely processed.
+     * Sets up the initial dialog box with Duke's greeting message.
+     * Binds the vertical scroll property of the scroll pane to the height property of the dialog container.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -36,13 +41,21 @@ public class MainWindow extends AnchorPane {
         );
     }
 
+    /**
+     * Sets the Ellie object to be used by this controller.
+     *
+     * @param e The Ellie object to be used.
+     */
     public void setEllie(Ellie e) {
         ellie = e;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Handles the user input event.
+     * Processes the user input, gets the response from Ellie,
+     * updates the dialog container with the user input and Ellie's response.
+     * Clears the user input field after processing.
+     * Exits the application if the exit command is entered by the user.
      */
     @FXML
     private void handleUserInput() {

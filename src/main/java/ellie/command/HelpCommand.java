@@ -2,9 +2,12 @@ package ellie.command;
 
 import ellie.TaskList;
 
+/**
+ * Represents a command to display a list of supported commands.
+ */
 public class HelpCommand extends Command {
 
-    String NEW_LINE = "\n";
+    private static final String NEW_LINE = "\n";
 
     /**
      * Constructs a HelpCommand object.
@@ -14,6 +17,7 @@ public class HelpCommand extends Command {
     }
 
     /**
+     * {@inheritDoc}
      * Displays a list of supported commands.
      *
      * @param tasklist The TaskList to be operated on by the command.

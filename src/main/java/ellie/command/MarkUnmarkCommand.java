@@ -2,6 +2,9 @@ package ellie.command;
 
 import ellie.TaskList;
 
+/**
+ * Represents a command to mark or unmark a task.
+ */
 public class MarkUnmarkCommand extends Command {
 
     protected boolean isMark;

@@ -1,7 +1,7 @@
 package ellie;
 
-import ellie.command.Command;
 import ellie.command.AddCommand;
+import ellie.command.Command;
 import ellie.command.DeleteCommand;
 import ellie.command.ExitCommand;
 import ellie.command.FindCommand;
@@ -9,7 +9,6 @@ import ellie.command.HelpCommand;
 import ellie.command.InvalidCommand;
 import ellie.command.ListCommand;
 import ellie.command.MarkUnmarkCommand;
-
 import ellie.exception.InvalidTaskInputException;
 import ellie.exception.UnknownInputException;
 import ellie.task.Deadline;
@@ -101,8 +100,8 @@ public class Parser {
             try {
                 throw new UnknownInputException("Command Unknown or Missing");
             } catch (UnknownInputException e) {
-                return new InvalidCommand("Sorry! Not sure what you're referring to (╥_╥) \n" +
-                                        "Type 'help' to view the list of supported commands!\n");
+                return new InvalidCommand("Sorry! Not sure what you're referring to (╥_╥) \n"
+                                            + "Type 'help' to view the list of supported commands!\n");
             }
         }
 

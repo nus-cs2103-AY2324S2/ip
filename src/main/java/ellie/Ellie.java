@@ -2,6 +2,9 @@ package ellie;
 
 import ellie.command.Command;
 
+/**
+ * Represents the main class of the Ellie task management application.
+ */
 public class Ellie {
 
     private final TaskList taskList;

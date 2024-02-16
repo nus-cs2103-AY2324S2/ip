@@ -1,18 +1,16 @@
 package ellie;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import ellie.task.Deadline;
 import ellie.task.Event;
 import ellie.task.Task;
 import ellie.task.Todo;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-
-import java.util.Scanner;
-import java.io.FileNotFoundException;
-
-import java.util.ArrayList;
 
 /**
  * The Storage class is responsible for saving tasks to a file and loading tasks from a file.

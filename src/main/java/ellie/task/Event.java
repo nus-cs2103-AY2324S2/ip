@@ -15,7 +15,8 @@ public class Event extends Task {
     private String startDateString;
     private String endDateString;
 
-    private LocalDate startDate, endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
 
     /**
