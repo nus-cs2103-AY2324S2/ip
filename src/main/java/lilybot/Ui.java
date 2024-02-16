@@ -1,5 +1,7 @@
 package lilybot;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * Ui class handles interactions with users.
  */
@@ -27,14 +29,22 @@ public class Ui {
 
     public String findMatchingTask(String keyWord, TaskList ls) {
         StringBuilder s = new StringBuilder("Here're the matching tasks in ur list: \n");
-        int counter = 0;
-        for (int i = 0; i < ls.getSize(); i++) {
-            Task tk = ls.get(i);
-            if (tk.getDescription().contains(keyWord)) {
-                counter++;
-                s.append(counter + ". " + tk.toString() + "\n");
-            }
-        }
+        AtomicInteger counter = new AtomicInteger(1);
+//        for (int i = 0; i < ls.getSize(); i++) {
+//            Task tk = ls.get(i);
+//            if (tk.getDescription().contains(keyWord)) {
+//                counter++;
+//                s.append(counter + ". " + tk.toString() + "\n");
+//            }
+//        }
+
+        ls.getLs()
+                .stream()
+                .filter(t -> t.getDescription().contains(keyWord))
+                .forEach(tk -> {
+                    s.append(counter + ". " + tk.toString() + "\n");
+                    counter.getAndIncrement();});
+
         return s.toString();
     }
 

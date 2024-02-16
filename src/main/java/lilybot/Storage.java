@@ -110,7 +110,7 @@ public class Storage {
                         String timeOfTo = ("to " + toTime).trim();
                         Task t = new Event(arr[2], temp[0], timeOfTo);
                         ls.add(t);
-                    } else if (Integer.valueOf(arr[2]) == 1) {
+                    } else if (Integer.valueOf(arr[1]) == 1) {
                         //Event Finished
                         String[] temp = arr[3].split(" to ", 2);
                         String toTime = temp[1].trim();
