@@ -1,7 +1,5 @@
 package saopig.task;
 
-import java.time.LocalDateTime;
-
 /**
  * Represents a Task.
  */
