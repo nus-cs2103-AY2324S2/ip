@@ -29,6 +29,7 @@ public class Main extends Application {
             String css = this.getClass().getResource("/application.css").toExternalForm();
             scene.getStylesheets().add(css);
             stage.setScene(scene);
+            stage.setTitle("Grizzly");
             fxmlLoader.<MainWindow>getController().setGrizzly(grizzly);
             stage.show();
         } catch (IOException e) {
