@@ -42,6 +42,8 @@ public class MarkCommand extends Command {
             System.out.printf("Marked task %d as done: %s\nGood job! ~(^-^)\n", index + 1, task.getDescription());
         } catch (NumberFormatException e) {
             System.out.printf("Sigh.. That's not a valid number! Try 'mark <NUMBER>'.\n");
+        } catch (DukeException e) {
+            System.out.printf("%s", e.getMessage());
         }
 
         return tasks;
