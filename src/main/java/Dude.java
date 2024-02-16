@@ -4,6 +4,7 @@ import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.TaskList;
 import Tasks.Todo;
+import Utils.Command;
 import Utils.Storage;
 
 import java.util.NoSuchElementException;
@@ -53,38 +54,35 @@ public class  Dude {
                 break;
             }
 
-            String command = "";
-            try {
-                command = get_command(msg);
-            }catch (InvalidCommandException e){
-                System.out.println(echo(e.getMessage()));
-                continue;
-            }
+            Command command = getCommand(msg);
 
             switch (command) {
-            case "bye":
+            case BYE:
                 System.out.println(bye());
                 return;
-            case "list":
+            case LIST:
                 System.out.println(list());
                 break;
-            case "mark":
+            case MARK:
                 System.out.println(mark_as_done(msg));
                 break;
-            case "unmark":
+            case UNMARK:
                 System.out.println(mark_as_undone(msg));
                 break;
-            case "todo":
+            case TODO:
                 System.out.println(handle_todo_command(msg));
                 break;
-            case "event":
+            case EVENT:
                 System.out.println(handle_event_command(msg));
                 break;
-            case "deadline":
+            case DEADLINE:
                 System.out.println(handle_deadline_command(msg));
                 break;
-            case "delete":
+            case DELETE:
                 System.out.println(handle_delete_command(msg));
+                break;
+            case INVALID:
+                System.out.println(echo("I'm sorry, but I don't know what that means :-("));
                 break;
             }
 
@@ -217,20 +215,35 @@ public class  Dude {
         }
     }
 
-    private static String get_command(String msg) throws InvalidCommandException {
-        String cmd = msg.split(" ")[0];
-
-        for (String supported_command : supported_commands) {
-            if (cmd.equals(supported_command)) {
-                return cmd;
-            }
-        }
-        throw new InvalidCommandException("I'm sorry, but I don't know what\n\tthat means :-(");
+    private static boolean isCommandChangingState(Command command){
+        return command == Command.TODO || command == Command.EVENT || command == Command.DEADLINE
+                || command == Command.DELETE || command == Command.MARK || command == Command.UNMARK;
     }
 
-    private static boolean isCommandChangingState(String command){
-        return command.equals("todo") || command.equals("event") || command.equals("deadline")
-                || command.equals("delete") || command.equals("mark") || command.equals("unmark");
+    private static Command getCommand(String msg) {
+        String cmd = msg.split(" ")[0];
+
+        switch(cmd) {
+            case "bye":
+                return Command.BYE;
+            case "list":
+                return Command.LIST;
+            case "mark":
+                return Command.MARK;
+            case "unmark":
+                return Command.UNMARK;
+            case "todo":
+                return Command.TODO;
+            case "event":
+                return Command.EVENT;
+            case "deadline":
+                return Command.DEADLINE;
+            case "delete":
+                return Command.DELETE;
+            default:
+                return Command.INVALID;
+        }
+
     }
 
 }
