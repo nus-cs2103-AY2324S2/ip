@@ -25,11 +25,11 @@ public class MainWindow extends AnchorPane {
 
     private William william;
 
-    // This one is an absolute path, plan to ask teammates on how to solve this issue
-    // because "private final Image USER_IMAGE = new
-    // Image(this.getClass().getResourceAsStream("/images/luffy.jpeg")); private final Image
-    // WILLIAM_IMAGE = new Image(this.getClass().getResourceAsStream("/images/chopper.jpeg"));" does
-    // not work for me.
+    // This one is the given Path, not working for me
+    // private final Image USER_IMAGE = new Image(this.getClass().getResourceAsStream("/images/luffy.jpeg"));
+    // private final Image WILLIAM_IMAGE = new Image(this.getClass().getResourceAsStream("/images/chopper.jpeg"));
+
+    // This one is an absolute path, working for me
     private final Image USER_IMAGE =
             new Image("file:/Users/khoonsun/ip/src/main/resources/images/luffy.jpeg");
     private final Image WILLIAM_IMAGE =
