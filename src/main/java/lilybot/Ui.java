@@ -7,6 +7,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class Ui {
 
+    private Task deletedTask;
+
     /**
      * Constructor of Ui class.
      */
@@ -67,11 +69,14 @@ public class Ui {
 
     /**
      * Print to inform users that task is marked done.
-     * @param taskNum The task number entered by users.
+     * @param command The command entered by users.
      * @param taskList The existing taskList
      * @return A string to inform users that task is marked done.
      */
-    public String MarkDone(int taskNum, TaskList taskList) {
+    public String markDone(String command, TaskList taskList) {
+        int taskNum = Parser.parseInt(command);
+        assert taskNum > 0 : "Task number should be at least 1.";
+
         Task task = taskList.get(taskNum - 1);
         task.mark();
         String taskString = task.toString();
@@ -84,11 +89,14 @@ public class Ui {
     /**
      * Print to inform users that task is marked not done.
      *
-     * @param taskNum The task number entered by users.
+     * @param command The command entered by users.
      * @param taskList The existing taskList
      * @return A string to inform users that task is marked not done.
      */
-    public String MarkNotDone(int taskNum, TaskList taskList) {
+    public String markNotDone(String command, TaskList taskList) {
+        int taskNum = Parser.parseInt(command);
+        assert taskNum > 0 : "Task number should be at least 1.";
+
         Task task = taskList.get(taskNum - 1);
         task.unmark();
         String taskString = task.toString();
@@ -109,7 +117,9 @@ public class Ui {
                 " tasks in the list.";
     }
 
-    protected String addTask(String[] cmd, TaskList ls) {
+    protected String addTask(String command, TaskList ls) {
+        String[] cmd = Parser.parseCommand(command);
+
         if (cmd[0].equals("todo")) {
             try {
                 Task t = new ToDo(cmd[1]);
@@ -173,12 +183,16 @@ public class Ui {
     /**
      * Print to inform users that task is removed.
      *
-     * @param taskNum The task number entered by users.
+     * @param command The command entered by users.
      * @param taskList The existing taskList
      * @return A string to inform users that task is removed.
      */
-    public String taskRemoved(int taskNum, TaskList taskList) {
+    public String taskRemoved(String command, TaskList taskList) {
+        int taskNum = Parser.parseInt(command);
+        assert taskNum > 0 : "Task number should be at least 1.";
+
         Task task = taskList.get(taskNum - 1);
+        this.deletedTask = task;
         String taskString = task.toString();
         taskList.remove(taskNum - 1);
 
@@ -188,6 +202,37 @@ public class Ui {
                 " tasks in the list.";
     }
 
+
+    protected String undoTask(String lastCommand, TaskList taskList) {
+        if (lastCommand.equals("list")) {
+            return "Nothing to undo cuz last command is 'list'";
+        } else if (lastCommand.startsWith("find")) {
+            return "Nothing to undo cuz last command is 'find'";
+        } else if (lastCommand.startsWith("mark")) {
+            return markNotDone(lastCommand, taskList);
+        } else if (lastCommand.startsWith("unmark")) {
+            return markDone(lastCommand, taskList);
+        } else if (lastCommand.startsWith("delete")) {
+            int taskNum = Parser.parseInt(lastCommand);
+            taskList.add(taskNum - 1, this.deletedTask);
+
+            return printAdded(deletedTask.toString(), taskList);
+        } else if (lastCommand.startsWith("todo")
+                || lastCommand.startsWith("deadline")
+                || lastCommand.startsWith("event")) {
+            int size = taskList.getSize();
+            Task task = taskList.get(size - 1);
+            taskList.remove(size - 1);
+
+            String taskString = task.toString();
+            return "Noted. The following task is removed:" + "\n"
+                    + "  " + taskString + "\n"
+                    + "  Now u have " + taskList.getSize() +
+                    " tasks in the list.";
+        } else {
+            return "Unexpected command in undo.";
+        }
+    }
 
 
     /**
@@ -231,6 +276,10 @@ public class Ui {
         return "Plz enter a valid keyword";
     }
 
+    protected String noLasCommand() {
+        return "This is the first command. Unable to undo.";
+    }
+
     /**
      * Inform users that there is unknown file format.
      */
@@ -239,6 +288,7 @@ public class Ui {
         return "Oops, I don't understand the file format \n"
                 + "Line " + i + " in the given file will be ignored";
     }
+
 
 
 }
