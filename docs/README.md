@@ -1,10 +1,10 @@
-# ArtemisPro User Guide
+# Artemis User Guide
 
 ![Product Screenshots](https://kaiyi27.github.io/ip/Ui.png)
 
 ---
 
-ArtemisPro frees your mind of having to remember things you need to do. It's,
+Artemis frees your mind of having to remember things you need to do. It's,
 
 - text-based
 - easy to learn
@@ -147,7 +147,7 @@ Use bye to exit the application.
 Format: `bye`
 
 ## Saving the data
-Task list are saved in the hard disk automatically after exit the application. ArtemisPro data are saved automatically as a txt file `[JAR file location]/data/artemis.txt`. Advanced users are welcome to update data directly by editing that data file.
+Task list are saved in the hard disk automatically after exit the application. Artemis data are saved automatically as a txt file `[JAR file location]/data/artemis.txt`. Advanced users are welcome to update data directly by editing that data file.
 
 ---
 
