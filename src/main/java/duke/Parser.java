@@ -28,11 +28,16 @@ public class Parser {
             String firstWord = uCmd[0].trim();
             String furtherDetails = uCmd[1];
             System.out.println(furtherDetails);
+            assert !firstWord.equals("todos") : "You want to add 1 task at a time - todo";
+            assert !firstWord.equals("events") : "You want to add 1 task at a time - event";
+            assert !firstWord.equals("deadlines") : "You want to add 1 task at a time - deadline";
             if (firstWord.equals("mark") || firstWord.equals("unmark")) {
+                System.out.println("DO");
                 return new EditCommand(firstWord, furtherDetails);
             } else if (firstWord.equals("todo") || firstWord.equals("event") || firstWord.equals("deadline")) {
                 return new AddCommand(firstWord, furtherDetails);
             } else if (firstWord.equals("delete")) {
+                System.out.println("DO");
                 return new DeleteCommand(furtherDetails);
             } else if (firstWord.equals("find")) {
                 return new FindCommand(furtherDetails);

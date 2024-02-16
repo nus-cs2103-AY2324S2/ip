@@ -22,8 +22,6 @@ public class FindCommand extends Command{
             String counter = count + ". ";
             if (task_now.findingKeyword(keyword)) {
                 Response = Response + counter + task_now.toString() + "\n";
-//                System.out.print(counter);
-//                System.out.println(task_now.toString());
                 count+=1;
             }
         }

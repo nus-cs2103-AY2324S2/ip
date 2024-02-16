@@ -15,7 +15,6 @@ public class ListCommand extends Command {
         for (int i = 0; i < tasks.getSize(); i++) {
             int n = i + 1;
             Response = Response + n + ". " + tasks.getTask(i).toString() + "\n";
-//            System.out.println(n + ". " + tasks.getTask(i).toString());
         }
         return Response;
     }

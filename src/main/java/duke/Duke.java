@@ -57,15 +57,6 @@ public class Duke {
         try {
             Command newCommand = Parser.parse(userInput);
             Response = newCommand.execute(tasks, ui, storage);
-//            if (userInput.equals("bye")) {
-//                Command newCommand = Parser.parse(userInput);
-//                Response = newCommand.execute(tasks, ui, storage);
-//                return "Hope to see you again soon!";
-//            } else {
-//                System.out.println(userInput);
-//                Command newCommand = Parser.parse(userInput);
-//                Response = newCommand.execute(tasks, ui, storage);
-//            }
         } catch (NoCmdException e) {
             throw new RuntimeException(e);
         }

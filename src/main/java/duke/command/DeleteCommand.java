@@ -14,7 +14,8 @@ public class DeleteCommand extends Command {
     }
 
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-
+        assert !(index < 0 || index >= tasks.getSize()) : "this task doesn't exist!";
+        System.out.println("HERE");
         Task removed = tasks.tasks.remove(index);
         String Response = "Noted. I've removed this task:\n";
         String length = "" + tasks.getSize();

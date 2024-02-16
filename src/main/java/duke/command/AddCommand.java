@@ -97,13 +97,9 @@ public class AddCommand extends Command {
         String from = divided[0].trim();
         String to = divided[1].trim();
         boolean validateFromDate = from.matches("[0-9]{4}/[0-9]{2}/[0-9]{2} [0-9]{4}");
-        if (!validateFromDate) {
-            throw new DateException("Invalid format of the date");
-        }
+        assert !validateFromDate : "format of the event start date is WRONG!";
         boolean validateToDate = to.matches("[0-9]{4}/[0-9]{2}/[0-9]{2} [0-9]{4}");
-        if (!validateToDate) {
-            throw new DateException("Invalid format of the date");
-        }
+        assert !validateToDate : "format of the event end date is WRONG!";
         Task new_task = new Events(D, from, to);
         task.add(new_task);
         String Response = "Got it. I've added this task:\n";

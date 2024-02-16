@@ -43,12 +43,11 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Main")
+    mainClass.set("duke.Launcher")
 }
 
 
 shadowJar {
-    mainClassName = 'seedu.duke.Main'
     archiveBaseName = "duke"
     archiveFileName = 'duke.jar'
     archiveClassifier = null
@@ -56,5 +55,6 @@ shadowJar {
 }
 
 run{
+    enableAssertions = true
     standardInput = System.in
 }
