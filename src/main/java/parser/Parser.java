@@ -25,6 +25,8 @@ public class Parser {
                 return new Command(words, Duke.CommandType.DELETE);
             case "bye":
                 return new Command(words, Duke.CommandType.BYE);
+            case "find":
+                return new Command(words, Duke.CommandType.FIND);
             default:
                 return new Command(words, Duke.CommandType.UNKNOWN);
         }

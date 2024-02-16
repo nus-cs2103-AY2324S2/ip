@@ -115,6 +115,21 @@ public class Ui {
         showLine();
     }
 
+    public void findTask(TaskList taskList, String findString) {
+        showLine();
+        StringBuilder finalString = new StringBuilder();
+        finalString.append("     Here are the matching tasks in your list:\n");
+        int counter = 1;
+        for (Task c : taskList.getList()) {
+            if (c.getName().contains(findString)) {
+                finalString.append(String.format("     %d. %s\n", counter, c));
+                counter++;
+            }
+        }
+        System.out.println(finalString.toString());
+        showLine();
+    }
+
     public void showLoadingError(DukeException e) {
         showLine();
         System.out.println(e.toString() + "\n");
