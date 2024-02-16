@@ -24,6 +24,10 @@ public class Event extends Task {
         this.end = end;
     }
 
+    public LocalDateTime getStart() {
+        return this.start;
+    }
+
     /**
      * Gets the start date/time in LocalDateTime and returns it in String format.
      *

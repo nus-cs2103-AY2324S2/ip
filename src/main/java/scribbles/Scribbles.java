@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 import scribbles.parser.Parser;
+import scribbles.sorter.Sorter;
 import scribbles.storage.Storage;
 import scribbles.task.Deadline;
 import scribbles.task.Event;
@@ -160,6 +161,23 @@ public class Scribbles {
                 return ui.printTasksWithKeyword(keyword, taskList);
             } catch (IndexOutOfBoundsException e) {
                 return ui.printMissingKeywordMessage();
+            }
+        case "sortBy":
+            try {
+                String order = parsedInput.getSortingOrder();
+
+                Sorter sort = new Sorter();
+                sort.sortList(taskList, order);
+
+                storage.saveFileData(taskList);
+
+                return ui.printTasksSortedMessage();
+            } catch (IndexOutOfBoundsException e) {
+                return ui.printOrderNotFoundMessage();
+            } catch(IllegalArgumentException e) {
+                return ui.printOrderNotFoundMessage();
+            } catch (FileNotFoundException e) {
+                return ui.printFileNotFoundMessage();
             }
         case "help":
         default:

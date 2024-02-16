@@ -175,5 +175,16 @@ public class Parser {
         String keyword = this.input.split("\\s+", 2)[1].trim();
         return keyword;
     }
+
+    /**
+     * Gets the order in which the user wants to sort by.
+     *
+     * @return The order
+     * @throws IndexOutOfBoundsException If the command does not specify any order
+     */
+    public String getSortingOrder() throws IndexOutOfBoundsException {
+        String order = this.input.split("\\s+", 2)[1].trim();
+        return order;
+    }
 }
 
