@@ -158,7 +158,8 @@ public class Parser {
         String response = "default response";
         try {
             validateTodoCommand(input);
-            String todoDescription = input.replace("todo", "").trim();
+            String[] parameters = extractTodoParameters(input);
+            String todoDescription = parameters[0];
             response = existingTaskList.addTodo(todoDescription);
             Storage.saveTaskList(existingTaskList);
         } catch (Exception e) {

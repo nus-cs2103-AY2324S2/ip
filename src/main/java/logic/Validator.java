@@ -125,7 +125,7 @@ public class Validator {
 
     public static void validateTodoCommand(String command)
             throws MissingParametersException, IncorrectParametersException {
-        String todoDescription = command.replace("todo", "").trim();
+        String todoDescription = command.replaceFirst("(?i)todo", "").trim();
         if (todoDescription.equals("")) {
             throw new MissingParametersException(ErrorMessages.MISSING_TASK_DESCRIPTION);
         }

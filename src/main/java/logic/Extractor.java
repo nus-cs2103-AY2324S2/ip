@@ -1,9 +1,16 @@
 package logic;
 
 public class Extractor {
+    public static String[] extractTodoParameters(String command) {
+        String[] parameters = new String[1];
+        String todoDescription = command.replaceFirst("(?i)todo", "").trim();
+        parameters[0] = todoDescription;
+        return parameters;
+    }
+
     public static String[] extractDeadlineParameters(String command) {
         String[] parameters = new String[2];
-        String deadlineDescriptionDueDate = command.replace("deadline", "").trim();
+        String deadlineDescriptionDueDate = command.replaceFirst("(?i)deadline", "").trim();
         String[] deadlineDescriptionDueDateArray = deadlineDescriptionDueDate.split(" /by ");
         String deadlineDescription = deadlineDescriptionDueDateArray[0];
         String deadlineDueDate = deadlineDescriptionDueDateArray[1];
@@ -14,7 +21,7 @@ public class Extractor {
 
     public static String[] extractEventParameters(String command) {
         String[] parameters = new String[3];
-        String eventDescriptionFromTo = command.replace("event", "").trim();
+        String eventDescriptionFromTo = command.replaceFirst("(?i)event", "").trim();
         String[] eventDescriptionFromToArray = eventDescriptionFromTo.split(" /from ");
         String eventDescription = eventDescriptionFromToArray[0];
         String eventFromTo = eventDescriptionFromToArray[1].trim();
