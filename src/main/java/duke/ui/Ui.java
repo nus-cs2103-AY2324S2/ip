@@ -100,4 +100,24 @@ public class Ui {
         }
         return toPrint;
     }
+
+    /**
+     * Displays tasks containing the keyword.
+     *
+     * @param tasks The array containing the tasks.
+     * @return The formatted string representing the tasks containing the keyword.
+     */
+    public String displayTaggedTasks(Task[] tasks) {
+        String toPrint = "Here are the tagged tasks! \n";
+        int counter = 0;
+        Task t = tasks[counter];
+        while(t != null) {
+            String taskDesc = t.toString();
+            String tag = t.tagString();
+            toPrint += (counter + 1) + ". " + taskDesc + tag + "\n";
+            counter++;
+            t = tasks[counter];
+        }
+        return toPrint;
+    }
 }

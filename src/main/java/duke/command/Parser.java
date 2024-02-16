@@ -45,6 +45,9 @@ public class Parser {
         } else if (input.startsWith("find")) { //todo
             return parseFindCommand(input);
 
+        } else if (input.startsWith("display tagged")) {
+            return parseTagCommand(input);
+
         } else {
             throw new DukeException("UH OH! I don't understand what you mean.. sorry D:");
         }
@@ -163,5 +166,11 @@ public class Parser {
         String kw = input.substring(5);
         String keyword = kw.trim();
         return new FindCommand("find", keyword);
+    }
+
+    private static Command parseTagCommand(String input) throws DukeException {
+        String tagWithHash = input.substring(14);
+        String tag = (tagWithHash.trim()).substring(1);
+        return new DisplayTaggedCommand("find tag", tag);
     }
 }

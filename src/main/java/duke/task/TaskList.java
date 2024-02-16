@@ -1,5 +1,7 @@
 package duke.task;
 
+import java.util.Objects;
+
 /**
  * Represents a list of tasks in the Duke application.
  */
@@ -71,6 +73,21 @@ public class TaskList {
         }
 
         return containsKeywords;
+    }
+
+    public Task[] displayTagged(String tag) {
+        int count = 0;
+        Task[] tagged = new Task[100];
+
+        for (int i = 0; i < counter; i++) {
+            String taskTag = tasks[i].tag;
+            if (Objects.equals(taskTag, tag)) {
+                tagged[count] = tasks[i];
+                count++;
+            }
+        }
+
+        return tagged;
     }
 
     /**
