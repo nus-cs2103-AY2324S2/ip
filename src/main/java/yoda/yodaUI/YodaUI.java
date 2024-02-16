@@ -127,21 +127,39 @@ public class YodaUI {
         }
     }
 
+    /** Sets the task number to be updated.
+     * @param taskNumber The number of the task to be updated.
+     */
     public void setUpdatingTaskNumber(int taskNumber) {
         this.updatingTaskNumber = taskNumber;
     }
 
+    /** Sets the current state of the update process.
+     * @param state The current state of the update process.
+     */
     public void setUpdateState(UpdateState state) {
         this.updateState = state;
     }
 
+    /** Gets the number of the task to be updated.
+     * @return The number of the task to be updated.
+     */
     public int getUpdatingTaskNumber() {
         return this.updatingTaskNumber;
     }
 
+    /** Gets the current state of the update process.
+     * @return The current state of the update process.
+     */
     public UpdateState getUpdateState() {
         return this.updateState;
     }
+
+    /** Starts the process of updating a task.
+     * @param taskNumber The number of the task to be updated.
+     * @param input The user's input.
+     * @return The response to be displayed in the GUI.
+     */
     public String startUpdateProcess(int taskNumber, String input) {
         setUpdatingTaskNumber(taskNumber);
         try {
@@ -164,6 +182,11 @@ public class YodaUI {
         return Replies.UNKNOWN_COMMAND;
     }
 
+    /**
+     * Handles the update process for a task.
+     * @param input The user's input.
+     * @return The response to be displayed in the GUI.
+     */
     public String handleUpdateState(String input) {
         String response;
         switch (updateState) {
@@ -187,6 +210,10 @@ public class YodaUI {
         return response;
     }
 
+    /** Processes the user's choice of what to update for a task.
+     * @param input The user's input.
+     * @return The response to be displayed in the GUI.
+     */
     private String processUpdateChoice(String input) {
         Task task;
         try {
@@ -221,6 +248,10 @@ public class YodaUI {
         return Replies.INVALID_OPTION;
     }
 
+    /** Updates the description of a task.
+     * @param newDescription The new description to be updated.
+     * @return The response to be displayed in the GUI.
+     */
     private String updateDescription(String newDescription) {
         try {
             Task task = TASKLIST.getTask(updatingTaskNumber);
@@ -233,6 +264,10 @@ public class YodaUI {
         }
     }
 
+    /** Updates the deadline of a deadline task.
+     * @param newDeadline The new deadline to be updated.
+     * @return The response to be displayed in the GUI.
+     */
     private String updateDeadline(String newDeadline) {
         try {
             Task task = TASKLIST.getTask(updatingTaskNumber);
@@ -250,6 +285,11 @@ public class YodaUI {
         return "Invalid task type, this is.";
     }
 
+    /**
+     * Updates the start and end times of an event task.
+     * @param newTime The new start or end time to be updated.
+     * @return The response to be displayed in the GUI.
+     */
     private String updateEventTimes(String newTime) {
         try {
             Task task = TASKLIST.getTask(updatingTaskNumber);
