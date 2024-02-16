@@ -99,32 +99,40 @@ public class Command {
      */
     public void addDeadline(TaskList tasks, String input)
             throws NoTimingException,
-                   EmptyDescriptionException,
-                   IOException,
-                   DateTimeParseException {
+            EmptyDescriptionException,
+            IOException,
+            DateTimeParseException, DuplicateException {
         String[] parts2 = getStrings(tasks, input);
         String description = parts2[0].trim();
         String by = parts2[1].trim();
 
         // Automatically assume that if time is not given, then time is 0000hrs
         by = reformatTime(by);
-        // Format the date, time, and create Deadline object, add to list
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        LocalDateTime dateTime = LocalDateTime.parse(by, formatter);
-        Deadline itemDeadline = new Deadline(description, dateTime);
-        tasks.getTaskList().add(itemDeadline);
-        String itemStatus = itemDeadline.getStatusIcon().equals("X") ? "1" : "0";
-        String stringToSave = "D | " + itemStatus
-                + " | " + description + " | " + by + "\n";
 
-        // May produce IOException
-        storage.writeToFile(stringToSave);
-        int taskListSize = tasks.getTaskList().size();
-        this.storeString.append(Ui.showTaskAdded());
-        this.storeString.append(itemDeadline).append("\n");
-        this.storeString.append(Ui.showNumberOfTasks(taskListSize));
+        if (checkDuplicate(tasks, description, by)) {
+            throw new DuplicateException();
+        } else {
+            // Format the date, time, and create Deadline object, add to list
+            LocalDateTime dateTime = formatDateTime(by);
+            Deadline itemDeadline = new Deadline(description, dateTime);
+            tasks.getTaskList().add(itemDeadline);
+            String itemStatus = itemDeadline.getStatusIcon().equals("X") ? "1" : "0";
+            String stringToSave = "D | " + itemStatus
+                    + " | " + description + " | " + by + "\n";
+
+            // May produce IOException
+            storage.writeToFile(stringToSave);
+            int taskListSize = tasks.getTaskList().size();
+            this.storeString.append(Ui.showTaskAdded());
+            this.storeString.append(itemDeadline).append("\n");
+            this.storeString.append(Ui.showNumberOfTasks(taskListSize));
+        }
     }
 
+    private LocalDateTime formatDateTime(String by) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        return LocalDateTime.parse(by, formatter);
+    }
     private static String[] getStrings(TaskList tasks, String input) throws EmptyDescriptionException,
             NoTimingException {
         assert tasks != null : "TaskList reference cannot be null";
@@ -150,22 +158,26 @@ public class Command {
      * @throws EmptyDescriptionException if description not given.
      * @throws IOException if fails to write new task into file.
      */
-    public void addToDo(TaskList tasks, String input) throws EmptyDescriptionException, IOException {
+    public void addToDo(TaskList tasks, String input) throws EmptyDescriptionException, IOException, DuplicateException {
         String[] parts = input.split(" ",2);
         if (parts.length < 2) {
             throw new EmptyDescriptionException("Description is EMPTY!");
         }
         String toDo = parts[1];
-        Todo item_toDo = new Todo(toDo);
-        tasks.getTaskList().add(item_toDo);
-        String itemStatus = item_toDo.getStatusIcon().equals("X") ? "1" : "0";
-        String stringToSave = "T | " + itemStatus + " | " + toDo + "\n";
-        // May produce IOException
-        storage.writeToFile(stringToSave);
-        int taskListSize = tasks.getTaskList().size();
-        this.storeString.append(Ui.showTaskAdded());
-        this.storeString.append(item_toDo).append("\n");
-        this.storeString.append(Ui.showNumberOfTasks(taskListSize));
+        if (checkDuplicate(tasks, toDo)) {
+            throw new DuplicateException();
+        } else {
+            Todo item_toDo = new Todo(toDo);
+            tasks.getTaskList().add(item_toDo);
+            String itemStatus = item_toDo.getStatusIcon().equals("X") ? "1" : "0";
+            String stringToSave = "T | " + itemStatus + " | " + toDo + "\n";
+            // May produce IOException
+            storage.writeToFile(stringToSave);
+            int taskListSize = tasks.getTaskList().size();
+            this.storeString.append(Ui.showTaskAdded());
+            this.storeString.append(item_toDo).append("\n");
+            this.storeString.append(Ui.showNumberOfTasks(taskListSize));
+        }
     }
 
     /**
@@ -181,9 +193,9 @@ public class Command {
      */
     public void addEvent(TaskList tasks, String input)
             throws EmptyDescriptionException,
-                   NoTimingException,
-                   IOException,
-                   DateTimeParseException {
+            NoTimingException,
+            IOException,
+            DateTimeParseException, DuplicateException {
         String[] parts = input.split(" ",2);
         if (parts.length < 2) {
             throw new EmptyDescriptionException("Description is EMPTY!");
@@ -201,20 +213,23 @@ public class Command {
         // Reformat dateTime if from and to is missing time
         from = reformatTime(from);
         to = reformatTime(to);
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        LocalDateTime dateTimeFrom = LocalDateTime.parse(from, formatter);
-        LocalDateTime dateTimeTo = LocalDateTime.parse(to, formatter);
-        Event item_event = new Event(description, dateTimeFrom, dateTimeTo);
-        tasks.getTaskList().add(item_event);
-        String stringToSave = "E | "
-                + (item_event.getStatusIcon().equals("X") ? "1" : "0")
-                + " | " + description + " | " + from + " | " + to + "\n";
-        // May produce IOException
-        storage.writeToFile(stringToSave);
-        this.storeString.append("Yes Master, I've added this task: \n");
-        this.storeString.append(item_event).append("\n");
-        this.storeString.append(Ui.showNumberOfTasks(tasks.getTaskList().size()));
+        if (checkDuplicate(tasks, description, from, to)) {
+            throw new DuplicateException();
+        } else {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+            LocalDateTime dateTimeFrom = LocalDateTime.parse(from, formatter);
+            LocalDateTime dateTimeTo = LocalDateTime.parse(to, formatter);
+            Event item_event = new Event(description, dateTimeFrom, dateTimeTo);
+            tasks.getTaskList().add(item_event);
+            String stringToSave = "E | "
+                    + (item_event.getStatusIcon().equals("X") ? "1" : "0")
+                    + " | " + description + " | " + from + " | " + to + "\n";
+            // May produce IOException
+            storage.writeToFile(stringToSave);
+            this.storeString.append("Yes Master, I've added this task: \n");
+            this.storeString.append(item_event).append("\n");
+            this.storeString.append(Ui.showNumberOfTasks(tasks.getTaskList().size()));
+        }
     }
 
     /**
@@ -302,11 +317,55 @@ public class Command {
         return outPut;
     }
 
+    /**
+     * Returns a boolean to check whether the task to be added has a duplicate.
+     *
+     * @param tasks An array containing all tasks.
+     * @param args Variable arguments representing task attributes, where:
+     *             - args[0] is always the task description.
+     *             - For a To-do task, only args[0] is provided.
+     *             - For a Deadline task, args[1] contains the deadline date/time as a String.
+     *             - For an Event task, args[1] and args[2] contain the event's start and end date/time as Strings.
+     * @return boolean true if a duplicate is found, false otherwise.
+     */
+    private boolean checkDuplicate(TaskList tasks, String... args) {
+        String descriptionToCheck = args[0];
+        if (args.length == 1) {
+            return checkDuplicateTodo(tasks, descriptionToCheck);
+        } else if (args.length == 2) {
+            LocalDateTime dateTimeToCheck = formatDateTime(args[1]);
+            return checkDuplicateDeadline(tasks, descriptionToCheck, dateTimeToCheck);
+        } else if (args.length == 3) {
+            LocalDateTime dateTimeFrom = formatDateTime(args[1]);
+            LocalDateTime dateTimeTo = formatDateTime(args[2]);
+            return checkDuplicateEvent(tasks, descriptionToCheck, dateTimeFrom, dateTimeTo);
+        }
+        return false;
+    }
+
+    private boolean checkDuplicateTodo(TaskList tasks, String description) {
+        return tasks.getTaskList().stream()
+                .anyMatch(task -> task instanceof Todo && task.description.equals(description));
+    }
+
+    private boolean checkDuplicateDeadline(TaskList tasks, String description, LocalDateTime dateTime) {
+        return tasks.getTaskList().stream()
+                .anyMatch(task -> task instanceof Deadline && task.description.equals(description)
+                        && task.getDateTime().equals(dateTime));
+    }
+
+    private boolean checkDuplicateEvent(TaskList tasks, String description, LocalDateTime dateTimeFrom, LocalDateTime dateTimeTo) {
+        return tasks.getTaskList().stream()
+                .anyMatch(task -> task instanceof Event && task.description.equals(description)
+                        && task.getDateTimeFrom().equals(dateTimeFrom) && task.getDateTimeTo().equals(dateTimeTo));
+    }
+
     public String callCommand(String input, TaskList tasks)
             throws NoTimingException,
-                    EmptyDescriptionException,
-                    IOException,
-                    ExcessArgumentException {
+            EmptyDescriptionException,
+            IOException,
+            ExcessArgumentException,
+            DuplicateException {
         if (input.equalsIgnoreCase("list")) {
             list(tasks);
         } else if (input.split(" ",2)[0].equalsIgnoreCase("unmark")) {
