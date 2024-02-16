@@ -1,5 +1,8 @@
 package duke;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 import duke.task.Task;
 import duke.task.Todo;
@@ -113,6 +116,32 @@ public class TaskList {
         }
 
         return ui.printFindList(task);
+    }
+
+    /**
+     * Returns a Deadline task with the earliest expiring date.
+     * If there are no deadline tasks, the method will return none.
+     *
+     */
+    public String reminder() {
+        ArrayList<Deadline> task = new ArrayList<>();
+        for (Task t : list) {
+            if (t.getType().equals("D") && t.getCheck().equals(" ")) {
+                task.add((Deadline) t);
+            }
+        }
+        if (task.isEmpty()) {
+            return ui.showReminder("none");
+        }
+
+        task.sort(new Comparator<Deadline>() {
+            @Override
+            public int compare(Deadline o1, Deadline o2) {
+                return o1.getLocalDate().compareTo(o2.getLocalDate());
+            }
+        });
+
+        return ui.showReminder(task.get(0).getDesc(), task.get(0).getDate());
     }
 
     public ArrayList<Task> get() {

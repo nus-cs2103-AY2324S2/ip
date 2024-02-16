@@ -30,6 +30,10 @@ public class Deadline implements Task {
         return "by: " + date.format(pattern);
     }
 
+    public LocalDate getLocalDate() {
+        return date;
+    }
+
     public String getCheck() {
         return isMarked ? "X" : " ";
     }
