@@ -41,6 +41,7 @@ public class Storage {
                 FileInputStream f = new FileInputStream(file);
                 ObjectInputStream o = new ObjectInputStream(f);
 
+                //noinspection unchecked
                 taskList = (ArrayList<Task>) o.readObject();
 
                 o.close();
