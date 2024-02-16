@@ -19,6 +19,9 @@ public class TodoHandler extends Handler {
     @Override
     public void handle(TaskList tasks, Ui ui) throws EarlException {
         try {
+            if (args.isEmpty()) {
+                throw new EarlException("The description is devoid of detail.");
+            }
             Task added = tasks.add(TaskType.TODO.createTask(args));
             ui.buildResponse("A new todo, by virtue of your decree,");
             ui.buildResponse(
@@ -27,6 +30,8 @@ public class TodoHandler extends Handler {
             ui.buildResponse("The ledger of tasks bears witness to "
                     + tasks.getSize() + " endeavours.");
             ui.completeResponse();
+        } catch (EarlException e) {
+            throw e;
         } catch (IndexOutOfBoundsException e) {
             throw new EarlException(
                     ui.appendNewline("An error befalls. Example use:")

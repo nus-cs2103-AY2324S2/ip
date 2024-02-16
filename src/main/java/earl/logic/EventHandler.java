@@ -30,8 +30,7 @@ public class EventHandler extends Handler {
             ui.completeResponse();
         } catch (IndexOutOfBoundsException e) {
             throw new EarlException(
-                    ui.appendNewline("An error befalls.")
-                            + ui.appendNewline("Example use:")
+                    ui.appendNewline("An error befalls. Example use:")
                             + ui.leftPad("event <name>"
                                     + " /from <start> /to <end>"));
         } catch (Exception e) {

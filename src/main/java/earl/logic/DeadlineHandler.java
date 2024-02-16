@@ -31,8 +31,7 @@ public class DeadlineHandler extends Handler {
             ui.completeResponse();
         } catch (IndexOutOfBoundsException e) {
             throw new EarlException(
-                    ui.appendNewline("An error befalls.")
-                            + ui.appendNewline("Example use:")
+                    ui.appendNewline("An error befalls. Example use:")
                             + ui.leftPad("deadline <name> /by <due>"));
         } catch (Exception e) {
             throw new EarlException("Command hath faltered: "
