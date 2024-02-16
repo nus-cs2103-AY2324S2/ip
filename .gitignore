@@ -13,5 +13,11 @@ src/main/resources/docs/
 *.iml
 bin/
 
+#data
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+data/Tyler.txt
+
+#jar
+Tyler.jar
+ip.jar
