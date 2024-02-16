@@ -47,12 +47,14 @@ public class TaskList {
     }
 
     /**
-     * Adds task to list of tasks.
+     * Adds task to list of tasks, provided there is no duplicate.
      *
      * @param task
      */
     public void addTask(Task task) {
-        this.tasks.add(task);
+        if (!this.tasks.contains(task)) {
+            this.tasks.add(task);
+        }
     }
 
     /**
@@ -80,6 +82,10 @@ public class TaskList {
             }
         } catch (DuneException d) {
             return d.toString();
+        }
+
+        if (this.tasks.contains(x)) {
+            return "Task already exists in list\n";
         }
 
         this.tasks.add(x);

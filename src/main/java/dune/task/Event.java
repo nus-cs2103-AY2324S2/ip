@@ -67,6 +67,19 @@ public class Event extends Task {
         return this.end;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Event) {
+            Event e = (Event) o;
+            boolean x = e.getDescription().equals(this.getDescription());
+            boolean y = e.getStart().equals(this.getStart());
+            boolean z = e.getEnd().equals(this.getEnd());
+            return x && y && z;
+        } else {
+            return false;
+        }
+    }
+
 
     @Override
     public String toString() {
