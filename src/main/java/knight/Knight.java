@@ -20,6 +20,11 @@ public class Knight {
         tasks = Storage.readFromFile();
     }
 
+    /**
+     * The command line interface for the program.
+     *
+     * @param args The command line arguments.
+     */
     public static void main(String[] args) {
         tasks = Storage.readFromFile();
         Ui.speak("Greetings, Your Excellency! Thy humble knight"
@@ -46,10 +51,17 @@ public class Knight {
             }
         }
 
+        scan.close();
         Storage.writeToFile(tasks);
         Ui.speak("Farewell, Your Excellency! May we cross paths once more in the near future.");
     }
 
+    /**
+     * Returns the response of the knight to the user input.
+     *
+     * @param input The user input.
+     * @return The response of the knight to the user input.
+     */
     private static String knightExecute(String message) {
         Command command;
 

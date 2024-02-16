@@ -11,7 +11,7 @@ public class CommandParser {
      * @return The command type.
      * @throws NonstandardCommandException If the command is not recognised.
      */
-    static Command parseCommand(String s) {
+    static Command parseCommand(String s) throws NonstandardCommandException {
         if (s.equals("bye")) {
             return Command.BYE;
         } else if (s.equals("save")) {
@@ -32,8 +32,19 @@ public class CommandParser {
             return Command.EVENT;
         } else if (s.matches("find \\S.*")) {
             return Command.FIND;
+        } else {
+            handleNonstandardCommand(s);
+            return null;
         }
+    }
 
+    /**
+     * Handles nonstandard commands.
+     *
+     * @param s The user input.
+     * @throws NonstandardCommandException If the command is not recognised.
+     */
+    private static void handleNonstandardCommand(String s) throws NonstandardCommandException {
         if (s.startsWith("bye")) { // nonstandard command
             throw new NonstandardCommandException("Thou canst bid me farewell simply with:\nbye");
         } else if (s.startsWith("list")) {
