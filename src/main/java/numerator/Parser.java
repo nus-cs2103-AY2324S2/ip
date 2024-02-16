@@ -18,7 +18,6 @@ import numerator.task.TaskList;
 public class Parser {
 
     public static final String BYE_STRING = "Bye! Just close the window to exit";
-
     private static final String INPUT_BYE = "bye";
     private static final String INPUT_MARK = "mark";
     private static final String INPUT_UNMARK = "unmark";
@@ -29,6 +28,8 @@ public class Parser {
     private static final String INPUT_LIST = "list";
     private static final String INPUT_FIND = "find";
 
+    private Parser() {
+    }
 
     /**
      * Parses the input and performs the corresponding action
@@ -83,7 +84,8 @@ public class Parser {
         }
     }
 
-    private static String parseModifyTaskReducer(String input, TaskList taskList, Storage storage) throws NumeratorException {
+    private static String parseModifyTaskReducer(String input, TaskList taskList, Storage storage)
+            throws NumeratorException {
         if (input.startsWith(INPUT_MARK)) {
             return parseMark(input, taskList, storage);
 
@@ -97,7 +99,8 @@ public class Parser {
         }
     }
 
-    private static String parseAddTaskReducer(String input, TaskList taskList, Storage storage) throws NumeratorException {
+    private static String parseAddTaskReducer(String input, TaskList taskList, Storage storage)
+            throws NumeratorException {
         if (input.startsWith(INPUT_TODO)) {
             return parseTodo(input, taskList, storage);
         } else if (input.startsWith(INPUT_DEADLINE)) {
