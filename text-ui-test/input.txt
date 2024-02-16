@@ -1,0 +1,14 @@
+todo
+todo readbook
+deadline assignment
+deadline assignment /by wed
+deadline assignment/by wed
+deadline assignment /bywed
+deadline content /by wed
+event /from /to
+event meeting /from 3pm /to
+event meeting /from 3pm /to 4pm
+event meeting /to 4pm /from 3pm
+mark 1
+unmark 1
+delete 2
