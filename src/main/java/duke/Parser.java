@@ -37,26 +37,26 @@ public class Parser {
     public String parseArguments(String input) {
         StringTokenizer st = new StringTokenizer(input);
         st.nextToken();
-
+        
         String arguments = "";
         while(st.hasMoreTokens()) {
             arguments += st.nextToken() + " ";
         }
-
+        
         return arguments.trim();
     }
 
     public String[] parseDeadlineArguments(String input) {
         String[] deadlineInfo = new String[2];
         String[] inputSplit = input.split("/");
-
+        
         StringTokenizer st = new StringTokenizer(inputSplit[0].trim());
         String deadlineDesc = "";
         while (st.hasMoreTokens()) {
             deadlineDesc += st.nextToken() + " ";
         }
         deadlineInfo[0] = deadlineDesc.trim();
-
+        
         st = new StringTokenizer(inputSplit[1].trim());
         st.nextToken();
         String by = "";
@@ -64,7 +64,7 @@ public class Parser {
             by += st.nextToken() + " ";
         }
         deadlineInfo[1] = by.trim();
-
+        
         return deadlineInfo;
     }
 
@@ -78,7 +78,7 @@ public class Parser {
             eventDesc += st.nextToken() + " ";
         }
         eventInfo[0] = eventDesc.trim();
-
+        
         st = new StringTokenizer(inputSplit[1].trim());
         st.nextToken();
         String from = "";
@@ -97,6 +97,4 @@ public class Parser {
 
         return eventInfo;
     }
-
-
 }
