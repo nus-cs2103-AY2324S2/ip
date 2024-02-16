@@ -6,15 +6,16 @@ import duke.task.TaskList;
 import java.nio.file.Paths;
 
 public class Duke {
+    public static boolean isExit;
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
     private static final String FILE_NAME = "duke.txt";
     private static final String FILE_PATH = Paths.get(".", FILE_NAME).toString();
 
-    public Duke(String filePath) {
+    public Duke() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(FILE_PATH);
         try {
             tasks = new TaskList(storage.load());
         } catch (DukeException e) {
@@ -23,22 +24,23 @@ public class Duke {
         }
     }
 
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (DukeException e) {
-                ui.showError(e);
-            }
+    public String getResponse(String input) {
+        String s = "";
+        try {
+            Command c = Parser.parse(input);
+            isExit = c.isExit();
+            s = c.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            return ui.showError(e);
         }
+        return s;
     }
 
-    public static void main(String[] args) {
-        new Duke(FILE_PATH).run();
+    public String welcome() {
+        return Ui.showWelcome();
     }
+    public boolean isExit() {
+        return isExit;
+    }
+
 }

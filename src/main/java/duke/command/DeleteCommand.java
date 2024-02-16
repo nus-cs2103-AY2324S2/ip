@@ -36,15 +36,14 @@ public class DeleteCommand extends Command {
      * @throws DukeException If the index is out of bounds.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (tasks.size() <= index) {
             throw new DukeException("There is nothing to be deleted");
         } else {
             Task task = tasks.get(index);
             tasks.remove(index);
             storage.save(tasks);
-            ui.showDeleted(task);
-            ui.showSize(tasks);
+            return ui.showDeleted(task) + "\n" + ui.showSize(tasks);
         }
     }
 

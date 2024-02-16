@@ -56,11 +56,10 @@ public class AddCommand extends Command {
      * Displays the task that was added to the user.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.add(task);
         storage.save(tasks);
-        ui.showAdded(task);
-        ui.showTasksStatus(tasks);
+        return ui.showAdded(task) + ui.showTasksStatus(tasks);
     }
 
     @Override
