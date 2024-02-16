@@ -14,8 +14,8 @@ public class UnmarkCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             String number = message.split(" ")[1];
-            int n = Integer.parseInt(number);
-            taskList.unmark(n);
+            int integerNumber = Integer.parseInt(number);
+            taskList.unmark(integerNumber);
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.showForgetTaskNumber();
             ui.showUnmarkFormat();
