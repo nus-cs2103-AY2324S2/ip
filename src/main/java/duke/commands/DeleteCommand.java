@@ -9,6 +9,7 @@ import duke.tasks.TaskList;
 public class DeleteCommand extends Command {
     private final int index;
     private final TaskList taskList;
+    private final int visualIndex;
 
     /**
      * Constructs a DeleteCommand that deletes the task at the given index of the given TaskList.
@@ -19,6 +20,7 @@ public class DeleteCommand extends Command {
     public DeleteCommand(TaskList taskList, int index) {
         this.taskList = taskList;
         this.index = index;
+        this.visualIndex = index + 1;
     }
 
     /**
@@ -31,9 +33,9 @@ public class DeleteCommand extends Command {
     @Override
     public String execute() throws MeanDukeException {
         try {
-            return "deleted task:\n" + this.taskList.delete(index);
+            return "deleted task:\n" + this.taskList.delete(this.index);
         } catch (IndexOutOfBoundsException e) {
-            throw new MeanDukeException("Dude... you don't even have a task " + (this.index + 1));
+            throw new MeanDukeException("Dude... you don't even have a task " + this.visualIndex);
         }
     }
 }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
  * This class represents a list of Tasks of up to 100 Tasks
  */
 public class TaskList implements Savable {
+    private static final int VISUAL_INDEX_OFFSET = 1;
 
     private final ArrayList<Task> tasks;
 
@@ -13,7 +14,7 @@ public class TaskList implements Savable {
      * Constructs a new TaskList with initial capacity of 100
      */
     public TaskList() {
-        tasks = new ArrayList<Task>(100);
+        this.tasks = new ArrayList<Task>(100);
     }
 
     /**
@@ -32,7 +33,7 @@ public class TaskList implements Savable {
      * @return true if task was already done, else false
      */
     public boolean markDone(int index) {
-        return tasks.get(index).markDone();
+        return this.tasks.get(index).markDone();
     }
 
     /**
@@ -42,7 +43,7 @@ public class TaskList implements Savable {
      * @return true if task was already not done, else false
      */
     public boolean unmarkDone(int index) {
-        return tasks.get(index).unmarkDone();
+        return this.tasks.get(index).unmarkDone();
     }
 
     /**
@@ -65,10 +66,10 @@ public class TaskList implements Savable {
      */
     public String filter(String filterString) {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < tasks.size(); i++) {
-            String taskString = tasks.get(i).toString();
+        for (int i = 0; i < this.tasks.size(); i++) {
+            String taskString = this.tasks.get(i).toString();
             if (taskString.toUpperCase().contains(filterString.toUpperCase())) {
-                sb.append((i + 1) + ". " + tasks.get(i) + "\n");
+                sb.append((i + VISUAL_INDEX_OFFSET) + ". " + this.tasks.get(i) + "\n");
             }
         }
         return sb.toString();
@@ -87,8 +88,8 @@ public class TaskList implements Savable {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < tasks.size(); i++) {
-            sb.append((i + 1) + ". " + tasks.get(i) + "\n");
+        for (int i = 0; i < this.tasks.size(); i++) {
+            sb.append((i + VISUAL_INDEX_OFFSET) + ". " + this.tasks.get(i) + "\n");
         }
         return sb.toString();
     }

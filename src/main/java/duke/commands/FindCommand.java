@@ -31,6 +31,6 @@ public class FindCommand extends Command {
 
     @Override
     public String execute() {
-        return taskList.filter(searchString);
+        return this.taskList.filter(this.searchString);
     }
 }

@@ -47,9 +47,10 @@ public class AddEventCommand extends AddCommand {
 
     @Override
     public String execute() {
-        super.getTaskList().add(new Event(description, false, fromDate, fromTime, toDate, toTime));
-        return "Added Event task: " + description
-                + "\n(from: " + fromDate + (fromTime == null ? "" : " " + fromTime)
-                + "\n   to: " + toDate + (toTime == null ? "" : " " + toTime) + ")";
+        super.getTaskList().add(new Event(this.description, false, this.fromDate,
+                this.fromTime, this.toDate, this.toTime));
+        return "Added Event task: " + this.description
+                + "\n(from: " + this.fromDate + (this.fromTime == null ? "" : " " + this.fromTime)
+                + "\n   to: " + this.toDate + (this.toTime == null ? "" : " " + this.toTime) + ")";
     }
 }

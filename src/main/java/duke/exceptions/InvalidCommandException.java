@@ -8,6 +8,14 @@ public class InvalidCommandException extends MeanDukeException {
     private final String errorMessage;
 
     /**
+     * Constructs an InvalidCommandException class with the message being a general warning
+     */
+    public InvalidCommandException() {
+        super();
+        this.errorMessage = "What are you saying? Read the user manual, it was written for a reason";
+    }
+
+    /**
      * Constructs an InvalidCommandException class with the specified proper usage.
      *
      * @param usage Proper usage of the command that was given.
@@ -15,14 +23,6 @@ public class InvalidCommandException extends MeanDukeException {
     public InvalidCommandException(String usage) {
         super();
         this.errorMessage = usage;
-    }
-
-    /**
-     * Constructs an InvalidCommandException class with the message being a general warning
-     */
-    public InvalidCommandException() {
-        super();
-        this.errorMessage = "What are you saying? Read the user manual, it was written for a reason";
     }
 
     @Override
