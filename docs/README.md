@@ -21,6 +21,7 @@ applications.
 | `unmark`   | `<indices> [<indices>, ...]`                    |
 | `delete`   | `<indices> [<indices>, ...]`                    |
 | `bye`      | None                                            |
+
 ## Features
 
 ### Adding ToDos: `todo`
