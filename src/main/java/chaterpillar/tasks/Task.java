@@ -1,6 +1,7 @@
 package chaterpillar.tasks;
 
 import chaterpillar.datetime.DateTime;
+import chaterpillar.exceptions.ChaterpillarException;
 
 /**
  * Represents a task. A <code>tasks.Task</code> object contains its
@@ -9,7 +10,7 @@ import chaterpillar.datetime.DateTime;
  */
 public class Task {
     private boolean isMarked;
-    private final String taskName;
+    private String taskName;
     private boolean hasDate;
 
     /**
@@ -64,6 +65,30 @@ public class Task {
      */
     public boolean getHasDate() {
         return this.hasDate;
+    }
+
+    public void updateName(String updatedName) {
+        if (!updatedName.isBlank()) {
+            this.taskName = updatedName;
+        }
+    }
+
+    public void updateDate(String updatedDate) throws ChaterpillarException {
+        if (!updatedDate.isBlank()) {
+            throw new ChaterpillarException("This task type does not contain a date.");
+        }
+    }
+
+    public void updateStartDate(String updatedStartDate) throws ChaterpillarException {
+        if (!updatedStartDate.isBlank()) {
+            throw new ChaterpillarException("This task type does not contain a start or end date.");
+        }
+    }
+
+    public void updateEndDate(String updatedEndDate) throws ChaterpillarException {
+        if (!updatedEndDate.isBlank()) {
+            throw new ChaterpillarException("This task type does not contain a start or end date.");
+        }
     }
 
     /**

@@ -1,6 +1,7 @@
 package chaterpillar.parser;
 
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
 
 import chaterpillar.commands.Command;
 import chaterpillar.commands.DeleteCommand;
@@ -11,6 +12,7 @@ import chaterpillar.commands.ListAllCommand;
 import chaterpillar.commands.MarkCommand;
 import chaterpillar.commands.TaskCommand;
 import chaterpillar.commands.TasksTodayCommand;
+import chaterpillar.commands.UpdateCommand;
 import chaterpillar.commands.UnmarkCommand;
 import chaterpillar.commands.UnrecognisedCommand;
 import chaterpillar.exceptions.ChaterpillarException;
@@ -99,6 +101,8 @@ public class Parser {
         case "delete":
             tempInputArgs = input.split(" ");
             return handleDeleteFromInput(tempInputArgs);
+        case "update":
+            return handleUpdateFromInput(input);
         case "find":
             String keyword = input.substring(5);
             return new FindCommand(keyword);
@@ -187,5 +191,70 @@ public class Parser {
                     Sorry, the format for this command is wrong.
                     The correct way to use the command is: delete number""");
         }
+    }
+
+    private static UpdateCommand handleUpdateFromInput(String input) throws ChaterpillarException {
+        if (input.substring(8).isBlank()) {
+            throw new ChaterpillarException("Nothing to update?");
+        }
+
+        String[] tempInputArgs;
+        int index;
+        String updatedName = "";
+        String updatedDate = "";
+        String updatedStartDate = "";
+        String updatedEndDate = "";
+
+        tempInputArgs = input.split(" ");
+        try {
+            index = Integer.parseInt(tempInputArgs[1]) - 1;
+            if (index < 1) {
+                throw new ChaterpillarException("Index should not be less than 1.");
+            }
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            throw new ChaterpillarException("""
+                    Invalid update command! Missing index of item to update.
+                    The command should be as such:
+                    update 3 ...""");
+        }
+
+        tempInputArgs = input.split("/name");
+        if (tempInputArgs.length > 1) {
+            updatedName = parseUpdateArgs(tempInputArgs);
+        }
+
+        tempInputArgs = input.split("/date");
+        if (tempInputArgs.length > 1) {
+            updatedDate = parseUpdateArgs(tempInputArgs);
+        }
+
+        tempInputArgs = input.split("/start");
+        if (tempInputArgs.length > 1) {
+            updatedStartDate = parseUpdateArgs(tempInputArgs);
+        }
+
+        tempInputArgs = input.split("/end");
+        if (tempInputArgs.length > 1) {
+            updatedEndDate = parseUpdateArgs(tempInputArgs);
+        }
+
+        return new UpdateCommand(index, updatedName, updatedDate, updatedStartDate, updatedEndDate);
+    }
+
+    private static String parseUpdateArgs(String[] tempInputArgs) throws ChaterpillarException {
+        // ToDO: update this to work with DD/MM/YYYY format (I'm still not exactly sure how yet)
+        String output = tempInputArgs[1].split("/")[0].trim();
+
+        if (output.isBlank()) {
+            throw new ChaterpillarException("""
+                    Invalid update command! You can use the following tags:
+                    /name - to update the name of the task
+                    /date - to update the date of the task
+                    /start - tp update the start date of the task
+                    /end - to update the end date of the task
+                    
+                    e.g. update 3 /name new name of task /date new date""");
+        }
+        return output;
     }
 }
