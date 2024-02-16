@@ -50,7 +50,7 @@ public class AddDeadlineCommand extends Command {
 
         Storage.writeToStorage(deadlineTask);
 
-        super.commandResponse = Ui.printOutput("Got it. I've added this task:" + deadlineTask.toString(),
+        super.commandResponse = Ui.printOutput("Got it. I've added this task:\n" + deadlineTask.toString(),
                 "Now you have " + tasks.size() + " tasks in the list.");
     }
 
