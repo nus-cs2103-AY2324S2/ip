@@ -17,11 +17,13 @@ public class UI {
     /**
      * Returns the initial message.
      *
-     * @return
      */
-    public String startMsg() {
-        return "Greetings friend! I am Datuk\n"
-                + "How can I serve you today? ^_^' \n";
+    public String startMsg(String reminder) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Greetings friend! I am Datuk\n"
+                + "How can I serve you today? ^_^' \n\n");
+        sb.append(reminder);
+        return sb.toString();
     }
 
     /**
@@ -135,6 +137,26 @@ public class UI {
     public String showUnmark(String desc) {
         StringBuilder sb = new StringBuilder();
         sb.append("I have set this task < " + desc + " > as incomplete." );
+        return sb.toString();
+    }
+
+    /**
+     * Returns a String of the Task that is going to expire the earliest.
+     *
+     * @param desc the description of the Task.
+     * @param date that the task is due
+     */
+    public String showReminder(String desc, String... date) {
+        StringBuilder sb = new StringBuilder();
+
+        assert date.length == 1 : "There should only be one date";
+
+        if (desc.equals("none")) {
+            sb.append("There are no tasks due soon");
+        } else {
+            sb.append("REMINDER: Task " + desc + " expiring on " + date[0]);
+        }
+
         return sb.toString();
     }
 }

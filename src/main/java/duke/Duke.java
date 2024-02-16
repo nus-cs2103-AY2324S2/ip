@@ -92,7 +92,7 @@ public class Duke extends Application {
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
-        Label start = new Label(ui.startMsg());
+        Label start = new Label(ui.startMsg(tasks.reminder()));
         dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(start, new ImageView(duke)));
 
         sendButton.setOnMouseClicked((event) -> {
