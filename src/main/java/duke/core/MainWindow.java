@@ -40,10 +40,10 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = this.userInput.getText();
         String response = MeanDuke.getResponse(input, this);
+        assert !response.isEmpty();
         this.dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, this.userImage),
-                DialogBox.getDukeDialog(response, this.dukeImage)
-        );
+                DialogBox.getDukeDialog(response, this.dukeImage));
         this.userInput.clear();
     }
 
