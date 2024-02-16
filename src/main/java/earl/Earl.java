@@ -1,6 +1,8 @@
 package earl;
 
 import earl.exceptions.EarlException;
+import earl.exceptions.ParserException;
+import earl.exceptions.StorageException;
 import earl.logic.Handler;
 import earl.util.Storage;
 import earl.util.TaskList;
@@ -27,8 +29,8 @@ public class Earl {
         storage = new Storage(filePath);
         tasks = new TaskList(storage.load(TaskStorageParser::parse));
         if (!storage.wasLoadSuccessful()) {
-            ui.makeResponse("Failed to read from storage.",
-                    "Starting with empty file...");
+            ui.makeResponse("Storage hath succumb to corruption... ",
+                    "initiating an unfortunate state of emptiness.");
         }
         ui.showGreeting();
     }
@@ -53,8 +55,13 @@ public class Earl {
             try {
                 Handler handler = InputParser.parse(input);
                 handler.handle(tasks, ui);
+
             } catch (EarlException e) {
                 ui.makeResponse(e.getMessage());
+
+            } catch (ParserException e) {
+                ui.makeResponse("Input defies parsing:" + e.getMessage());
+
             } finally {
                 input = ui.getUserInput();
             }
@@ -62,7 +69,7 @@ public class Earl {
         // save to file
         try {
             storage.save(tasks.getAsStorageStringStream());
-        } catch (EarlException e) {
+        } catch (StorageException e) {
             ui.makeResponse(e.getMessage());
         }
         ui.showGoodbye();
@@ -86,6 +93,13 @@ public class Earl {
             return ui.getResponse();
         } catch (EarlException e) {
             ui.makeResponse(e.getMessage());
+            return ui.getResponse();
+        } catch (StorageException e) {
+            ui.makeResponse("Alas, a grievous misfortune occurred "
+                    + "during the endeavour to save.");
+            return ui.getResponse();
+        } catch (ParserException e) {
+            ui.makeResponse("Input defies parsing:" + e.getMessage());
             return ui.getResponse();
         }
     }

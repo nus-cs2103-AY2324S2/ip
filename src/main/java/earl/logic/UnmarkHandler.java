@@ -1,6 +1,7 @@
 package earl.logic;
 
 import earl.exceptions.EarlException;
+import earl.exceptions.ParserException;
 import earl.util.TaskList;
 import earl.util.Ui;
 
@@ -33,8 +34,10 @@ public final class UnmarkHandler extends MassOperableHandler {
             }
             addDisplayEntry("Item(s) persist as undone.");
             ui.makeResponse(getDisplay());
-        } catch (EarlException e) {
-            throw e;
+        } catch (ParserException e) {
+            throw new EarlException(
+                    "The indices' format is fraught with invalidity."
+                            + " Example format: 1 4-7 9-10");
         } catch (Exception e) {
             throw new EarlException("Command hath faltered: "
                             + "obscure employment of unmark.");

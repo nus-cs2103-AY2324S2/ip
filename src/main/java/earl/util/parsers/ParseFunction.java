@@ -1,7 +1,5 @@
 package earl.util.parsers;
 
-import earl.exceptions.EarlException;
-
 /**
  * Custom functional interface for parse functions.
  *
@@ -9,5 +7,5 @@ import earl.exceptions.EarlException;
  */
 @FunctionalInterface
 public interface ParseFunction<T> {
-    T apply(String str) throws EarlException;
+    T apply(String str) throws Exception;
 }

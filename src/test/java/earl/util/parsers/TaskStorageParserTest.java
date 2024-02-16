@@ -1,12 +1,13 @@
 package earl.util.parsers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-import earl.exceptions.EarlException;
+import earl.exceptions.ParserException;
 import earl.tasks.Task;
 
 class TaskStorageParserTest {
@@ -23,11 +24,8 @@ class TaskStorageParserTest {
         try {
             TaskStorageParser.parse("TASK, ,test");
             fail();
-        } catch (EarlException e) {
-            String expected = "Storage hath succumb to "
-                    + "corruption... initiating an unfortunate state of "
-                    + "emptiness.";
-            assertEquals(expected, e.getMessage());
+        } catch (Exception e) {
+            assertInstanceOf(ParserException.class, e);
         }
     }
 }
