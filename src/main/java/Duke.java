@@ -8,101 +8,28 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 
 import common.DukeException;
+import common.Storage;
+import common.Ui;
 import task.Deadline;
 import task.Event;
 import task.Task;
 import task.ToDo;
 
 public class Duke {
+    private Storage storage;
+    private Ui ui;
+
+    public Duke(String filepath) {
+        ui = new Ui();
+        storage = new Storage(filepath);
+    }
+
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("\nHello from\n" + logo);
-        System.out.println("________________________________________\n");
-
-        System.out.println("Hello! I'm NextGenerationJarvis.");
-        System.out.println("What can I do for you?");
-        System.out.println("________________________________________\n");
-
-        /** Used to store Tasks */
-        LinkedList<Task> taskList = new LinkedList<>();
-
-        // Read file
-        File file = new File("./data/duke.txt");
-        int currentAttempt = 0;
-        int maxAttempt = 2;
-
-        while (++currentAttempt <= maxAttempt) {
-            try {
-                System.out.println("Startup Attempt #" + currentAttempt + "/" + maxAttempt + ":");
-                if (file.createNewFile()) {
-                    System.out.println("duke.txt does not exist.");
-                    System.out.println("duke.txt successfully created.");
-                } else {
-                    System.out.println("duke.txt exist.");
-                    System.out.println("duke.txt successfully loaded.");
-                }
-                break;
-            } catch (IOException e) {
-                System.out.println("IOException occured: " + e.getMessage());
-
-                // creating directory
-                File dir = new File("./data");
-                boolean isDirectoryCreated = dir.mkdir();
-                if (isDirectoryCreated) {
-                    System.out.println("Directory ./data created.");
-                }
-            } finally {
-                System.out.println("________________________________________\n");
-            }
-        }
-
-        // Reading inputs from the file
-        // e.g. E | 1 | resiDANCE | *time*
-        try {
-            Scanner fileScanner = new Scanner(file);
-            boolean hasError = false;
-
-            while (fileScanner.hasNext()) {
-                String[] tasks = fileScanner.nextLine().split(" \\| ");
-                String type = tasks[0];
-                boolean isDone = Integer.parseInt(tasks[1]) == 1 ? true : false;
-
-                if (type.equals("T")) {
-                    ToDo td = new ToDo(isDone, tasks[2]);
-                    taskList.add(td);
-
-                } else if (type.equals("D")) {
-                    try {
-                        Deadline d = new Deadline(isDone, tasks[2], tasks[3]);
-                        taskList.add(d);
-
-                    } catch (DukeException e) {
-                        System.out.println(e.getMessage() + "\n");
-                        hasError = true;
-                    }
-
-                } else if (type.equals("E")) {
-                    try {
-                        Event e = new Event(isDone, tasks[2], tasks[3]);
-                        taskList.add(e);
-                    } catch (DukeException e) {
-                        System.out.println(e.getMessage() + "\n");
-                        hasError = true;
-                    }
-                }
-            }
-            fileScanner.close();
-            System.out.println(hasError
-                    ? "________________________________________\n"
-                    : "data.txt loaded without error.\n________________________________________\n");
-
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
+        new Duke("./data/tasks.txt").run();
+    }
+    public void run() {
+        ui.showWelcome();
+        LinkedList<Task> taskList = storage.loadData();
 
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine().strip();
@@ -179,22 +106,7 @@ public class Duke {
             userInput = scanner.nextLine();
         }
 
-        // writing to file
-        try {
-            FileWriter fw = new FileWriter(file, false);
-            for (Task t : taskList) {
-                fw.write(t.toData());
-                fw.write(System.lineSeparator());
-            }
-            fw.close();
-
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-
-        System.out.println("________________________________________\n");
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("________________________________________\n");
+        storage.saveDataAndExit(taskList);
 
         scanner.close();
     }
