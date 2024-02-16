@@ -1,5 +1,6 @@
 package command;
 
+import exceptions.DuplicateInsertionException;
 import storage.Storage;
 import task.Task;
 import tasklist.TaskList;
@@ -42,7 +43,8 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) {
-        if (tasks.addTask(this.task)) {
+        try {
+            tasks.addTask(this.task);
             storage.writeLine(this.saveData);
             UI.print("Got it. I've added this task:");
             UI.print("\t" + this.task);
@@ -52,9 +54,10 @@ public class AddCommand extends Command {
             result += "\t" + this.task + "\n";
             result += String.format("Now you have %d tasks in the list.\n", tasks.getSize());
             return result;
+        } catch (DuplicateInsertionException e) {
+            UI.print("You have already added this task into the task list");
+            return "You have already added this task into the task list\n";
         }
-        UI.print("You have already added this task into the task list");
-        return "You have already added this task into the task list\n";
     }
 
     /**

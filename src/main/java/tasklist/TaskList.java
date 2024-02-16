@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import exceptions.DuplicateInsertionException;
 import exceptions.InvalidStatusUpdateException;
 import task.Deadline;
 import task.Event;
@@ -66,12 +67,11 @@ public class TaskList {
      * @param task The task to be added.
      * @return true if the task is successfully added.
      */
-    public boolean addTask(Task task) {
+    public boolean addTask(Task task) throws DuplicateInsertionException {
         if (this.hashTasks.add(task)) {
             return this.tasks.add(task);
         } else {
-            UI.print("Duplicate task detected");
-            return false;
+            throw new DuplicateInsertionException();
         }
     }
 
