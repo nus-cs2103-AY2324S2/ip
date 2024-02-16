@@ -37,7 +37,7 @@ public class Duke {
     }
 
     /**
-     * The main method to start the Duke application.
+     * Main method.
      * 
      * @param args Command-line arguments.
      */
