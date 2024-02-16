@@ -44,11 +44,11 @@ test {
 }
 
 application {
-    mainClass.set("duke.core.Duke")
+    mainClass.set("duke.ui.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveFileName = 'Duke-GUI.jar'
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
