@@ -16,7 +16,7 @@ import oak.utility.FileUtility;
  */
 public class TaskService {
     /** An Array of all the tasks in the system */
-    private ArrayList<Task> tasks = new ArrayList<>();
+    public static ArrayList<Task> tasks = new ArrayList<>();
     /** The relative file path to the tasklist.txt where all the tasks are stored  */
     private final String tasklistFilePath = "/src/main/resources/tasklist.txt";
     /** The separator for the tasklist.txt */

@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import oak.exceptions.InvalidInputException;
 import oak.feedback.enums.CommandEnum;
+import oak.task.ReminderService;
 import oak.task.TaskService;
 
 /**
@@ -14,6 +15,8 @@ import oak.task.TaskService;
 public class FeedbackService {
     /** TaskService instance to be used */
     private TaskService taskService = new TaskService();
+    /** ReminderService instance to be used */
+    private ReminderService reminderService = new ReminderService();
 
     /**
      * Runs the feedback service on the user input
@@ -25,7 +28,6 @@ public class FeedbackService {
      * @throws IOException           the io exception
      */
     public String run(String userInput) throws InvalidInputException, IOException {
-
         String[] cur = userInput.split(" ");
         CommandEnum curCommand = CommandEnum.getCommandEnum(cur[0]);
         String feedback = null;
@@ -39,6 +41,9 @@ public class FeedbackService {
         // TODO: Exception Handling for incorrect input
         //  - [ ] DateTimeParseException
         switch (curCommand) {
+        case REMINDER:
+            feedback = reminderService.getReminders();
+            break;
         case BYE:
             feedback = this.getExitMessage();
             break;

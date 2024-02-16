@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import oak.controller.OakController;
 import oak.feedback.enums.CommandEnum;
+import oak.task.ReminderService;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -27,6 +28,7 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private OakController oak;
+    private ReminderService reminderService = new ReminderService();
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/oak_dex.png"));
     private Image oakImage = new Image(this.getClass().getResourceAsStream("/images/oak_dex.png"));
@@ -34,6 +36,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
+        String welcomeMessage = "Welcome to Oak-Dex!\n" + reminderService.getReminders();
+        dialogContainer.getChildren().add(DialogBox.getOakDialog(welcomeMessage, oakImage));
     }
 
     public void setOak(OakController d) {

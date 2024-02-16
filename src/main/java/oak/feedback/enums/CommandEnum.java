@@ -12,7 +12,8 @@ public enum CommandEnum {
     DELETE("delete"),
     TODO("todo"),
     DEADLINE("deadline"),
-    EVENT("event");
+    EVENT("event"),
+    REMINDER("reminder");
     public final String commandValue;
 
     private CommandEnum(String commandValue) {
