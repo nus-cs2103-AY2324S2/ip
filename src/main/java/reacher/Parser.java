@@ -1,4 +1,7 @@
 package reacher;
+
+import reacher.command.*;
+
 public class Parser {
     public static Command parse(String input) throws ReacherException {
         if (input.equalsIgnoreCase("bye")) { //check for end request

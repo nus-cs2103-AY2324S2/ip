@@ -1,4 +1,4 @@
-package reacher;
+package reacher.task;
 
 import java.time.LocalDate;
 

@@ -1,4 +1,9 @@
-package reacher;
+package reacher.command;
+
+import reacher.*;
+import reacher.task.Task;
+
+
 public class EditCommand extends Command{
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ReacherException {

@@ -1,4 +1,7 @@
 package reacher;
+
+import reacher.command.Command;
+
 public class Reacher {
     private Storage storage;
     private TaskList tasks;

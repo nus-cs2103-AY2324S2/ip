@@ -1,7 +1,7 @@
 package reacher;
 
 import java.util.ArrayList;
-
+import reacher.task.Task;
 public class TaskList {
     ArrayList<Task> tasks = new ArrayList<>();
     public TaskList(ArrayList<Task> tasks) {

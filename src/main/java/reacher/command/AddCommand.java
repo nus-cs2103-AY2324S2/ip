@@ -1,6 +1,9 @@
-package reacher;
+package reacher.command;
 
 import java.time.LocalDate;
+
+import reacher.*;
+import reacher.task.*;
 
 public class AddCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ReacherException {

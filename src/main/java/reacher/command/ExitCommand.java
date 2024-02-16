@@ -1,4 +1,8 @@
-package reacher;
+package reacher.command;
+
+import reacher.Storage;
+import reacher.TaskList;
+import reacher.Ui;
 
 public class ExitCommand extends Command{
     @Override
