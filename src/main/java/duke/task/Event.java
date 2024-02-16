@@ -32,6 +32,16 @@ public class Event extends Task {
         assert fromDate.isBefore(toDate): "event cannot be from a later date to an earlier date";
     }
 
+    public Event(String description, String tag, LocalDate fromDate, String fromTime, LocalDate toDate, String toTime) {
+        super(description, tag);
+        this.fromDate = fromDate;
+        this.fromTime = fromTime;
+        this.toDate = toDate;
+        this.toTime = toTime;
+
+        assert fromDate.isBefore(toDate): "event cannot be from a later date to an earlier date";
+    }
+
     @Override
     public String toString() {
         String status = getStatusIcon();
@@ -50,7 +60,7 @@ public class Event extends Task {
         String desc = " | " + description + " | ";
         String from = fromDate + " " + fromTime + " ";
         String to = toDate + " " + toTime;
-
-        return eventStatus + desc + from + to;
+        String tg = " | " + tag + " | ";
+        return eventStatus + desc + from + to + tg;
     }
 }

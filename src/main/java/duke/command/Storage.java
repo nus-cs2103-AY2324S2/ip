@@ -54,7 +54,7 @@ public class Storage {
 
     private Task createTaskFromString(String line) {
         String[] parts = line.split(" \\| ");
-        if (parts.length < 3) {
+        if (parts.length < 4) {
             return null; // Invalid format
         }
 
@@ -64,7 +64,8 @@ public class Storage {
 
         switch (type) {
         case "T":
-            Todo todo = new Todo(description);
+            String todoTag = parts[3];
+            Todo todo = new Todo(description, todoTag);
             if (isDone) {
                 todo.markAsDone();
             }
@@ -72,7 +73,8 @@ public class Storage {
         case "D":
             String byString = parts[3];
             LocalDate by = LocalDate.parse(byString);
-            Deadline deadline = new Deadline(description, by);
+            String deadlineTag = parts[4];
+            Deadline deadline = new Deadline(description, deadlineTag, by);
             if (isDone) {
                 deadline.markAsDone();
             }
@@ -84,7 +86,9 @@ public class Storage {
             String fromTime = fromToParts[1];
             LocalDate toDate = LocalDate.parse(fromToParts[2]);
             String toTime = fromToParts[3];
-            Event event = new Event(description, fromDate, fromTime, toDate, toTime);
+            String eventTag = parts[4];
+
+            Event event = new Event(description, eventTag, fromDate, fromTime, toDate, toTime);
             if (isDone) {
                 event.markAsDone();
             }

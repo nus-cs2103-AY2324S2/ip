@@ -2,6 +2,7 @@ package duke.command;
 
 import duke.DukeException;
 import duke.task.TaskList;
+import duke.task.Todo;
 import duke.ui.Ui;
 
 import java.time.LocalDate;
@@ -50,11 +51,23 @@ public class Parser {
     }
 
     private static Command parseTodoCommand(String input) throws DukeException {
-        String description = input.substring(5).trim();
+        String toSplit = input.substring(5).trim();
+
+        String[] parts = toSplit.split("#");
+
+        String description = parts[0].trim();
+
         if (description.isEmpty()) {
             throw new DukeException("UH OH! Description for todo cannot be empty!");
         }
+
+        String tag;
+        if (parts.length == 2) {
+            tag = parts[1].trim();
+            return new TodoCommand("todo", description, tag);
+        }
         return new TodoCommand("todo", description);
+
     }
 
     private static Command parseDeadlineCommand(String input) throws DukeException {
@@ -62,7 +75,9 @@ public class Parser {
         String[] parts = toSplit.split("/by");
 
         String taskDesc = parts[0].trim();
-        String deadline = parts[1].trim();
+
+        String[] deadlineTagParts = parts[1].split("#");
+        String deadline = deadlineTagParts[0].trim();
 
         // if there was no task description or deadline specified, throw exception
         if (taskDesc.isEmpty() || deadline.isEmpty()) {
@@ -70,6 +85,11 @@ public class Parser {
         }
 
         LocalDate by = LocalDate.parse(deadline);
+
+        if (deadlineTagParts.length == 2) {
+            String tag = deadlineTagParts[1].trim();
+            return new DeadlineCommand("deadline", taskDesc, by, tag);
+        }
 
         return new DeadlineCommand("deadline", taskDesc, by);
     }
@@ -103,14 +123,20 @@ public class Parser {
         String[] toParts = to.split(" ", 2);
         String tDate = toParts[0].trim();
         LocalDate toDate = LocalDate.parse(tDate);
-        String toTime = toParts[1].trim();
+        String[] toTimeAndTag = toParts[1].split("#");
+        String toTime = toTimeAndTag[0].trim();
 
         if (toDate.isBefore(fromDate)) {
             throw new DukeException("UH OH! The to date has to be later than the from date!!");
         }
 
-        return new EventCommand("event", taskDesc, fromDate, fromTime, toDate, toTime);
+        String tag;
+        if (toTimeAndTag.length == 2) {
+            tag = toTimeAndTag[1].trim();
+            return new EventCommand("event", taskDesc, fromDate, fromTime, toDate, toTime, tag);
+        }
 
+        return new EventCommand("event", taskDesc, fromDate, fromTime, toDate, toTime);
     }
 
     private static String[] splitDescTiming(String input) {

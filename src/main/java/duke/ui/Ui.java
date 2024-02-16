@@ -36,7 +36,7 @@ public class Ui {
      * @return The message confirming the addition of the task.
      */
     public String showAddTaskMessage(Task t, int counter) {
-        return "Got it. I've added this task: \n" + t.toString() + "\n" + "Now you have " + (counter + 1) + " tasks in the list.";
+        return "Got it. I've added this task: \n" + t.toString() + t.tagString() + "\n" + "Now you have " + (counter + 1) + " tasks in the list.";
     }
 
     /**
@@ -47,7 +47,7 @@ public class Ui {
      * @return The message confirming the removal of the task.
      */
     public String showRemoveTaskMessage(Task t, int counter) {
-        return "Noted. I've removed this task: \n" + t.toString() + "\n Now you have " + (counter - 1) + " tasks in the list.";
+        return "Noted. I've removed this task: \n" + t.toString() + t.tagString() + "\n Now you have " + (counter - 1) + " tasks in the list.";
     }
 
     /**
@@ -74,7 +74,8 @@ public class Ui {
         for (int i = 1; i <= counter; i++) {
             Task task = taskArr[i - 1];
             String taskDesc = task.toString();
-            toPrint = toPrint + i + ". " + taskDesc + '\n';
+            String tag = task.tagString();
+            toPrint = toPrint + i + ". " + taskDesc + tag + '\n';
         }
 
         return toPrint;
@@ -92,7 +93,8 @@ public class Ui {
         Task t = tasks[counter];
         while(t != null) {
             String taskDesc = t.toString();
-            toPrint += (counter + 1) + ". " + taskDesc + "\n";
+            String tag = t.tagString();
+            toPrint += (counter + 1) + ". " + taskDesc + tag + "\n";
             counter++;
             t = tasks[counter];
         }

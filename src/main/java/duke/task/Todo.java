@@ -16,6 +16,10 @@ public class Todo extends Task {
         super(description);
     }
 
+    public Todo(String description, String tag) {
+        super(description, tag);
+    }
+
     @Override
     public String toString() {
         String status = getStatusIcon();
@@ -28,7 +32,8 @@ public class Todo extends Task {
     @Override
     public String toFileString() {
         String todoStatus = "T | " + (isDone ? "1" : "0");
-
-        return todoStatus + " | " + description;
+        String desc = " | " + description;
+        String tg = " | " + tag + " | ";
+        return todoStatus + desc + tg;
     }
 }

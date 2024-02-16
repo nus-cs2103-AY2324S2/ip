@@ -22,6 +22,12 @@ public class Deadline extends Task {
         assert by.isAfter(LocalDate.now()): "deadline should be after the current date";
     }
 
+    public Deadline(String description, String tag, LocalDate by) {
+        super(description, tag);
+        this.by = by;
+        assert by.isAfter(LocalDate.now()): "deadline should be after the current date";
+    }
+
     @Override
     public String toString() {
         String status = getStatusIcon();
@@ -36,8 +42,8 @@ public class Deadline extends Task {
     @Override
     public String toFileString() {
         String deadlineStatus = "D | " + (isDone ? "1" : "0");
-        String desc = " | " + description + " | ";
-
-        return deadlineStatus + desc + by;
+        String desc = " | " + description;
+        String tg = " | " + tag + " | ";
+        return deadlineStatus + desc + by + tg;
     }
 }
