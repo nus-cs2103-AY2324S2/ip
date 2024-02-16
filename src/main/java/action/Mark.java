@@ -35,7 +35,7 @@ public class Mark implements Action {
         assert idx >= 0 && idx < taskList.size() : "Invalid task index";
 
         StringBuilder output = new StringBuilder();
-        output.append("Great job! You marked that task off your list! Believe it! ᕕ( ᐛ )ᕗ\n")
+        output.append("Great job! You marked that task off your list! Believe it!\n")
                 .append("\n").append(this.taskList.mark(idx));
         return output.toString();
     }

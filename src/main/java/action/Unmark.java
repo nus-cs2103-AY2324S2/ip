@@ -35,7 +35,7 @@ public class Unmark implements Action {
 
         StringBuilder message = new StringBuilder();
         message.append("You know, sometimes things don't go as planned, but that's okay! ")
-                .append("\nWe'll get there, one task at a time! ᕙ(⇀‸↼‶)ᕗ\n")
+                .append("\nWe'll get there, one task at a time!\n")
                 .append(this.taskList.unmark(i));
         return message.toString();
     }
