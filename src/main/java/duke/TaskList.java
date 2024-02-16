@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 
 public class TaskList {
-
+    private Ui ui = new Ui();
     private ArrayList<Task> myList;
 
     /**
@@ -29,7 +29,6 @@ public class TaskList {
     public String markList(String[] parts) {
         //System.out.println("");
         int index = Integer.parseInt(parts[1]) - 1;
-        Ui ui = new Ui();
 
         if (index >= 0 && index < myList.size()) {
             Task task = myList.get(index);
@@ -50,7 +49,6 @@ public class TaskList {
     public String unmarkList(String[] parts) {
         //System.out.println("");
         int index = Integer.parseInt(parts[1]) - 1;
-        Ui ui = new Ui();
 
         if (index >= 0 && index < myList.size()) {
             Task task = myList.get(index);
@@ -68,7 +66,6 @@ public class TaskList {
      * @return A string representing the list of tasks.
      */
     public String list() {
-        Ui ui = new Ui();
         StringBuilder result = new StringBuilder(ui.listDetails()); // Start with the UI details
         result.append(ui.separationLine());
         for (Task task : myList) {
@@ -88,7 +85,6 @@ public class TaskList {
      */
     public String remove(String[] parts) {
         int removed = Integer.parseInt(parts[1]) - 1;
-        Ui ui = new Ui();
         if (removed >= 0 && removed < myList.size()) {
             Task item = myList.get(removed);
             myList.remove(removed);
@@ -104,7 +100,6 @@ public class TaskList {
      * @return A string representing the list of tasks containing the keyword.
      */
     public String find(String[] parts) {
-        Ui ui = new Ui();
         StringBuilder result = new StringBuilder(ui.findListDetails()); // Start with the UI details
 
         String keyword = parts[1];
@@ -128,13 +123,12 @@ public class TaskList {
      * @return A string representing the information about the added task.
      */
     public String add(String command, String restOfInputs) {
-        Ui ui = new Ui();
 
         try {
             if (command.equals("todo")) {
                 try {
                     if (restOfInputs == null) {
-                        String errorMessage = ui.emptyErrorMessage();
+                        String errorMessage = ui.displayEmptyErrorMessage();
                         throw new DukeException(errorMessage);
 
                     } else {
@@ -153,7 +147,7 @@ public class TaskList {
 
                 try {
                     if (restOfInputs == null) {
-                        String errorMessage = ui.emptyErrorMessage();
+                        String errorMessage = ui.displayEmptyErrorMessage();
                         throw new DukeException(errorMessage);
 
                     } else {
@@ -177,7 +171,7 @@ public class TaskList {
 
                 try {
                     if (restOfInputs == null) {
-                        String errorMessage = ui.emptyErrorMessage();
+                        String errorMessage = ui.displayEmptyErrorMessage();
                         throw new DukeException(errorMessage);
 
                     } else {
@@ -200,7 +194,7 @@ public class TaskList {
                 }
 
             } else {
-                throw new DukeException(ui.errorMessage());
+                throw new DukeException(ui.displayErrorMessage());
             }
 
         } catch (DukeException e) {

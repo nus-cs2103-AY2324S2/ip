@@ -34,7 +34,7 @@ public class Ui {
      *
      * @return The error message for an empty task description.
      */
-    public String emptyErrorMessage() {
+    public String displayEmptyErrorMessage() {
         return "yes u have your task, but what your task plan to do? please indicate it.";
     }
 
@@ -43,7 +43,7 @@ public class Ui {
      *
      * @return The general error message for unexpected inputs.
      */
-    public String errorMessage() {
+    public String displayErrorMessage() {
         return "what? please check your input.";
     }
 

@@ -14,6 +14,7 @@ public class Parser {
     private ArrayList<Task> myList;
     private Ui ui;
 
+
     /**
      * Constructs a Parser with the specified user input and task list.
      *
@@ -39,35 +40,30 @@ public class Parser {
         String[] parts = userInput.split(" ", 2);
         String command = parts[0];
         String restOfInputs = parts.length > 1 ? parts[1] : "";
+        TaskList taskList = new TaskList(myList);
 
 
         if (command.equals("list")) {
-            TaskList taskList = new TaskList(myList);
             return taskList.list();
 
         } else if (command.equals("bye")) {
 
         } else if (command.equals("find")) {
-            TaskList taskList = new TaskList(myList);
             return taskList.find(parts);
 
         } else if (parts.length == 1) {
             return ui.commandError();
 
         } else if (command.equals("unmark")) {
-            TaskList taskList = new TaskList(myList);
             return taskList.unmarkList(parts);
 
         } else if (command.equals("mark")) {
-            TaskList taskList = new TaskList(myList);
             return taskList.markList(parts);
 
         } else if (command.equals("delete")) {
-            TaskList taskList = new TaskList(myList);
             return taskList.remove(parts);
 
         } else {
-            TaskList taskList = new TaskList(myList);
             return taskList.add(command, restOfInputs);
         }
         return ui.blank();
