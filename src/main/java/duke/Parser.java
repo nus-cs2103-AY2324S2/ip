@@ -52,6 +52,7 @@ public class Parser {
     */
     static String[] parseCommand(String cmdString) throws DukeException {
         String[] cmdSplit = cmdString.split(" ");
+        assert cmdSplit.length >= 1 : " Empty command!";
         String command = cmdSplit[0];
         switch (command) {
         case "end":
@@ -90,9 +91,9 @@ public class Parser {
             if (!cmds.contains(BY_CMD)) {
                 throw new DukeException(String.format(ferr1, BY_CMD));
             }
-            int by_idx = cmds.indexOf(BY_CMD);
-            String taskStr = cmdJoin(range(cmdSplit, 1, by_idx));
-            String deadline = cmdJoin(range(cmdSplit, by_idx + 1, cmds.size()));
+            int byIdx = cmds.indexOf(BY_CMD);
+            String taskStr = cmdJoin(range(cmdSplit, 1, byIdx));
+            String deadline = cmdJoin(range(cmdSplit, byIdx + 1, cmds.size()));
             if (taskStr.length() == 0) {
                 throw new DukeException(String.format(ferr2, "task"));
             }

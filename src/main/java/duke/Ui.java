@@ -13,8 +13,6 @@ import java.util.List;
 */
 public class Ui {
 
-    private static final String MESSAGE_DELINEATOR =
-        "______________________________________________________";
     private static final String GREET_FORMAT =
         "Hello! I'm %s! What can I do for you?";
     private static final String BYE_MESSAGE = "Bye. Hope to see you again soon!";
@@ -75,6 +73,7 @@ public class Ui {
         case "unmark": {
             boolean isMark = command.equals("mark");
             String ferr2 = "%s command: no such task numbered %s.";
+            assert arguments.length == 1 : String.format(" `%s` command expected 1 argument", command);
             String idxString = arguments[0];
             int idx = Integer.parseInt(idxString) - 1;
             if (!tasks.checkTaskIdx(idx)) {
@@ -88,6 +87,7 @@ public class Ui {
             return true;
         }
         case "todo": {
+            assert arguments.length == 1 : String.format(" `%s` command expected 1 argument", command);
             String taskStr = arguments[0];
             Task task = TaskList.createTodo(taskStr, false);
             tasks.addTask(task);
@@ -97,6 +97,7 @@ public class Ui {
             return true;
         }
         case "deadline": {
+            assert arguments.length == 2 : String.format(" `%s` command expected 2 argument", command);
             String taskStr = arguments[0];
             String deadline = arguments[1];
             Task task = TaskList.createDeadline(taskStr, deadline, false);
@@ -107,6 +108,7 @@ public class Ui {
             return true;
         }
         case "event": {
+            assert arguments.length == 3 : String.format(" `%s` command expected 3 argument", command);
             String taskStr = arguments[0];
             String fromStr = arguments[1];
             String toStr = arguments[2];
@@ -118,6 +120,7 @@ public class Ui {
             return true;
         }
         case "delete": {
+            assert arguments.length == 1 : String.format(" `%s` command expected 1 argument", command);
             String ferr2 = "%s command: no such task numbered %s.";
             String idxString = arguments[0];
             int idx = Integer.parseInt(idxString) - 1;
@@ -133,6 +136,7 @@ public class Ui {
             return true;
         }
         case "find": {
+            assert arguments.length == 1 : String.format(" `%s` command expected 1 argument", command);
             String query = arguments[0];
             reply(FIND_MESSAGE);
             int[] count = { 1 };
