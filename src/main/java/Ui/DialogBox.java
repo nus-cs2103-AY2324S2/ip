@@ -8,6 +8,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 public class DialogBox extends HBox {
 
@@ -35,11 +37,15 @@ public class DialogBox extends HBox {
 
     public static DialogBox getUserDialog(Label l, ImageView iv) {
         l.setPadding(new Insets(0, 10, 0, 10));
+        l.setFont(Font.font("Arial", FontWeight.BOLD, 12));
+
         return new DialogBox(l, iv);
     }
 
     public static DialogBox getDukeDialog(Label l, ImageView iv) {
         l.setPadding(new Insets(0, 10, 0, 10));
+        l.setFont(Font.font("Georgia", FontWeight.BOLD, 12));
+
         var db = new DialogBox(l, iv);
         db.flip();
         return db;
