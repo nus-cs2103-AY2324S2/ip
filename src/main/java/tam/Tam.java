@@ -1,14 +1,11 @@
 package tam;
 
 import gui.DialogBox;
-import gui.Launcher;
 import javafx.application.Platform;
-import parser.Parser;
+import logic.Parser;
 import storage.Storage;
 import tasks.TaskList;
 import ui.Ui;
-
-import java.util.Scanner;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
