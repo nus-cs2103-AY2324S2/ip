@@ -18,6 +18,6 @@ public class FindCommand implements Command {
     }
     @Override
     public String[] respond() {
-        return new String[]{this.substring};
+        return new String[]{"F", this.substring};
     }
 }

@@ -6,6 +6,6 @@ package rick.logic.command;
 public class ByeCommand implements Command {
     @Override
     public String[] respond() {
-        return new String[]{"Bye! See you next time."};
+        return new String[]{"B","Bye! See you next time."};
     }
 }

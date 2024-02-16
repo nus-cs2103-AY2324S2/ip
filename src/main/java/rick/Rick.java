@@ -59,43 +59,6 @@ public class Rick extends Application {
     }
 
     /**
-     * Runs an instance of Rick.
-     */
-    public void run() {
-        Ui.hello();
-        Scanner scanner = new Scanner(System.in);
-        while (scanner.hasNextLine()) {
-            try {
-                String input = scanner.nextLine();
-                if (input.equalsIgnoreCase("bye")) {
-                    Ui.exit();
-                    break;
-                } else if (input.equalsIgnoreCase("list")) {
-                    Ui.reply(tasks.list());
-                } else if (input.startsWith("mark")) {
-                    Ui.reply(tasks.mark(input, storage));
-                } else if (input.startsWith("unmark")) {
-                    Ui.reply(tasks.unmark(input, storage));
-                } else if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
-                    Ui.reply(tasks.addToList(input, storage));
-                } else if (input.startsWith("delete")) {
-                    Ui.reply(tasks.delete(input, storage));
-                } else {
-                    Ui.reply("I don't understand what you are saying... ㅜㅜ");
-                }
-            } catch (RickException e) {
-                Ui.reply(e.getMessage());
-            } catch (Exception e1) {
-                Ui.reply("ERROR: Congratulations! "
-                        + "You have input a message that the developer did not expect. "
-                        + "Report this issue here: https://forms.gle/hnnDTA7qYMnhJvQ46.");
-                return;
-            }
-        }
-
-    }
-
-    /**
      * Create a dialog label with text wrapped
      * @param text a string to be contained in the label
      * @return a label which contains the specified string
@@ -127,9 +90,8 @@ public class Rick extends Application {
     public String getResponse(String input) {
         Parser parser = new Parser(input);
         try {
-            Command parsedCommand = parser.parse();
             Executer executer = new Executer(this.tasks, this.storage);
-            return executer.execute(parsedCommand);
+            return executer.execute(parser.parse());
         } catch (RickException e) {
             return e.getMessage();
         } catch (Exception e) {

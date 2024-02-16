@@ -43,71 +43,48 @@ public class TaskList {
     }
 
     /**
-     * Adds an item into the list based on given input and update the local data.
-     * @param arg the user input which specifies the type, name, date and time of the item.
-     * @param storage the storage item to be used for storing the new item into local data.
-     * @return a string that tells the user that the item has been added successfully.
-     * @throws RickException when there is an error with the input command.
+     * Adds a new to-do task into the task list based on user input.
+     * @param name name of the to-do task.
+     * @return the new task
      */
-    public String addToList(String arg, Storage storage) throws RickException {
-        Task newTask;
-        String[] splited = arg.split("\\s+");
-        int last = splited.length - 1;
-        if (splited.length == 1) {
-            throw new RickException("What THING do you want to do...");
-        }
+    public Task addToList(String name) throws RickException {
         try {
-            switch (splited[0]) {
-            case "todo":
-                newTask = new ToDo(arg.substring(5), "[ ]");
-                this.items.add(newTask);
-                break;
-            case "deadline": {
-                if (!arg.contains(" /by ") || splited[last].equals("/by")) {
-                    throw new RickException("When is it due? You haven't told me!");
-                }
-                if (splited[1].equals("/by")) {
-                    throw new RickException("What's the deadline about?");
-                }
-                int i = arg.indexOf("/by");
-                String ddl = arg.substring(i + 4);
-                String name = arg.substring(9, i - 1);
-                newTask = new Deadline(name, "[ ]", ddl);
-                this.items.add(newTask);
-                break;
-            }
-            case "event": {
-                if (!arg.contains(" /from ") || !arg.contains(" /to ")
-                        || splited[last].equals("/to") || splited[last].equals("/from")) {
-                    throw new RickException("WHEN is the event?");
-                }
-                if (splited[1].equals("/from") || splited[1].equals("/to")) {
-                    throw new RickException("What event is this?");
-                }
-                int i = arg.indexOf("/from ");
-                int j = arg.indexOf("/to ");
-                String name = arg.substring(6, i - 1);
-
-                String from = arg.substring(i + 6, j - 1);
-                String to = arg.substring(j + 4);
-                newTask = new Event(name, "[ ]", from, to);
-                this.items.add(newTask);
-                break;
-            }
-            default:
-                throw new RickException("It seems that you are missing the space in your instruction. Homesick alien?");
-            }
+            ToDo newTodo = new ToDo(name, "[ ]");
+            this.items.add(newTodo);
+            return newTodo;
         } catch (RickException e) {
             throw e;
-        } catch (Exception e1) {
-            throw new RickException("ERROR: Congratulations! "
-                    + "You have input a message that the developer did not expect. "
-                    + "Report this issue here: https://forms.gle/hnnDTA7qYMnhJvQ46.");
         }
-        storage.update();
-        return "Got it. I've added this task:\n"
-                + newTask
-                + "\nNow you have " + items.size() + " tasks in the list.";
+    }
+
+    /**
+     * Adds a new deadline task into the task list based on user input.
+     * @param name name of the deadline task.
+     * @return the new task
+     */
+    public Task addToList(String name, String deadline) throws RickException {
+        try {
+            Deadline newDeadline = new Deadline(name, "[ ]", deadline);
+            this.items.add(newDeadline);
+            return newDeadline;
+        } catch (RickException e) {
+            throw e;
+        }
+    }
+
+    /**
+     * Adds a new event task into the task list based on user input.
+     * @param name name of the event task.
+     * @return the new task
+     */
+    public Task addToList(String name, String from, String to) throws RickException {
+        try {
+            Event newEvent = new Event(name, "[ ]", from, to);
+            this.items.add(newEvent);
+            return newEvent;
+        } catch (RickException e) {
+            throw e;
+        }
     }
 
     /**

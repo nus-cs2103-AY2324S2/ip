@@ -11,88 +11,73 @@ import rick.util.TaskList;
 public class Executer {
     private TaskList taskList;
     private Storage storage;
+
+    /**
+     * Constructor of executer. Initializes taskList and storage to the ones in the corresponding Rick instance.
+     * @param taskList the task list to use.
+     * @param storage the storage to use.
+     */
     public Executer(TaskList taskList, Storage storage) {
         this.taskList = taskList;
         this.storage = storage;
     }
 
     /**
-     * Executes bye commands.
-     * @param byeCommand the bye command.
-     * @return a string that says bye to user.
+     * Executes commands based on the type of command.
+     * @param command the parsed command.
+     * @return a string which is the response.
      */
-    public String execute(ByeCommand byeCommand) {
-        return "Bye! See you next time.";
-    }
-
-    /**
-     * Executes list commands.
-     * @param listCommand the list command.
-     * @return a list of all tasks in the task list.
-     */
-    public String execute(ListCommand listCommand) {
-        return this.taskList.list();
-    }
-
-    /**
-     * Executes mark commands.
-     * @param markCommand the mark or unmark command.
-     * @return a string that tells the user that the task is marked / unmarked.
-     */
-    public String execute(MarkCommand markCommand) throws RickException {
-        int index = Integer.parseInt(markCommand.respond()[0]);
+    public String execute(Command command) throws RickException {
         try {
-            Task task = this.taskList.mark(index);
-            storage.update();
-            return "Nice! I've marked this task as done:\n" + task;
-        } catch (RickException e) {
-            throw e;
-        }
-    }
-
-    /**
-     * Executes unmark commands.
-     * @param unmarkCommand the mark or unmark command.
-     * @return a string that tells the user that the task is marked / unmarked.
-     */
-    public String execute(UnmarkCommand unmarkCommand) throws RickException {
-        int index = Integer.parseInt(unmarkCommand.respond()[0]);
-        try {
-            Task task = this.taskList.unmark(index);
-            storage.update();
-            return "OK, I've marked this task as not done yet:\n" + task;
-        } catch (RickException e) {
-            throw e;
-        }
-    }
-
-    /**
-     * Executes delete commands.
-     * @param deleteCommand the delete command.
-     * @return a string that tells the user that the task is
-     */
-    public String execute(DeleteCommand deleteCommand) throws RickException {
-        int index = Integer.parseInt(deleteCommand.respond()[0]);
-        try {
-            Task task = this.taskList.delete(index);
-            storage.update();
-            return "Noted. I've removed this task:\n"
-                    + task
+            switch (command.respond()[0]) {
+            case ("B"):
+                return command.respond()[1];
+            case ("M"):
+                int mIndex = Integer.parseInt(command.respond()[1]);
+                Task markTask = this.taskList.mark(mIndex);
+                this.storage.update();
+                return "Nice! I've marked this task as done:\n" + markTask;
+            case ("U"):
+                int uIndex = Integer.parseInt(command.respond()[1]);
+                Task unmarkTask = this.taskList.unmark(uIndex);
+                this.storage.update();
+                return "OK, I've marked this task as not done yet:\n" + unmarkTask;
+            case ("L"):
+                return this.taskList.list();
+            case ("D"):
+                int dIndex = Integer.parseInt(command.respond()[1]);
+                Task task = this.taskList.delete(dIndex);
+                this.storage.update();
+                return "Noted. I've removed this task:\n"
+                        + task
+                        + "\nNow you have " + this.taskList.getSize() + " tasks in the list.";
+            case ("F"):
+                String substring = command.respond()[1];
+                return this.taskList.find(substring);
+            case ("T"):
+                Task tTask = this.taskList.addToList(command.respond()[1]);
+                this.storage.update();
+                return "Got it. I've added this task:\n"
+                    + tTask
                     + "\nNow you have " + this.taskList.getSize() + " tasks in the list.";
+            case ("DL"):
+                Task dTask = this.taskList.addToList(command.respond()[1], command.respond()[2]);
+                this.storage.update();
+                return "Got it. I've added this task:\n"
+                        + dTask
+                        + "\nNow you have " + this.taskList.getSize() + " tasks in the list.";
+            case ("E"):
+                Task eTask = this.taskList.addToList(command.respond()[1], command.respond()[2],
+                        command.respond()[3]);
+                this.storage.update();
+                return "Got it. I've added this task:\n"
+                        + eTask
+                        + "\nNow you have " + this.taskList.getSize() + " tasks in the list.";
+            default:
+                throw new RickException("Execution error: Unexpected first argument of command.");
+            }
         } catch (RickException e) {
             throw e;
         }
     }
-
-    /**
-     * Executes find commands.
-     * @param findCommand the find command
-     * @return a list of tasks found.
-     */
-    public String execute(FindCommand findCommand) throws RickException {
-        String substring = findCommand.respond()[0];
-        return this.taskList.find(substring);
-    }
-
-
 }

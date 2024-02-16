@@ -31,6 +31,6 @@ public class MarkCommand implements Command {
     }
     @Override
     public String[] respond() {
-        return new String[]{this.index};
+        return new String[]{"M", this.index};
     }
 }

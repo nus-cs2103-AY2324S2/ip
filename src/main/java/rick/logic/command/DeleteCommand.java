@@ -31,6 +31,6 @@ public class DeleteCommand implements Command {
     }
     @Override
     public String[] respond() {
-        return new String[]{this.index};
+        return new String[]{"D", this.index};
     }
 }

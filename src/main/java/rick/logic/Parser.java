@@ -31,7 +31,7 @@ public class Parser {
         case ("list"):
             return new ListCommand();
         case ("unmark"):
-            return new UnmarkCommand();
+            return new UnmarkCommand(this.input);
         case ("mark"):
             return new MarkCommand(this.input);
         case ("todo"):
