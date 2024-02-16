@@ -1,4 +1,3 @@
-
 package duke;
 
 import java.util.ArrayList;
@@ -18,6 +17,7 @@ import duke.task.Todo;
 public class Parser {
     /**
      * Identifies the type of task.
+     *
      * @param command User's inputted text.
      * @return The type of task the user wants to do.
      */
@@ -29,13 +29,13 @@ public class Parser {
 
     /**
      * Parses and executes user command to manage tasks.
-     * @param str User's inputed String (Command).
-     * @param io IoHandler object for input and output
+     *
+     * @param str      User's inputed String (Command).
+     * @param io       IoHandler object for input and output
      * @param taskList List containing Tasks.
-     * @param storage Acts as a storage object for saving tasks.
+     * @param storage  Acts as a storage object for saving tasks.
      * @return boolean value depicting whether application should run or should be exited.
      */
-
     public String parse(String str, IOHandler io, TaskList taskList, Storage storage) {
         String command = identify(str);
         String result;
@@ -106,5 +106,4 @@ public class Parser {
         }
         return result;
     }
-
 }
