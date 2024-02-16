@@ -30,7 +30,7 @@ public class Event extends Task {
         int statusValue = this.getStatus() ? 1 : 0;
 
         return String.format("event~%d~%s~%s~%s", statusValue, this.description,
-                Utils.inputFormat(this.from), Utils.inputFormat(this.to));
+                Utils.formatInput(this.from), Utils.formatInput(this.to));
     }
 
     /**
@@ -40,7 +40,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + Utils.outputFormat(this.from)
-                + " to: " + Utils.outputFormat(this.to) + ")";
+        return "[E]" + super.toString() + " (from: " + Utils.dateTimeToString(this.from)
+                + " to: " + Utils.dateTimeToString(this.to) + ")";
     }
 }

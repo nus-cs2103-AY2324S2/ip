@@ -18,7 +18,7 @@ public class Utils {
      * @return The method is returning a boolean value. It returns true if the given dateTime string is
      *         a valid date and time according to the specified format, and false otherwise.
      */
-    public static boolean isValidDateTime(String dateTime) {
+    public static boolean isValidDateTimeFormat(String dateTime) {
         dateTime = dateTime.trim();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(FORMAT);
         try {
@@ -39,7 +39,7 @@ public class Utils {
      *         equal to the toDateTime, and false otherwise. If either of the date strings cannot be
      *         parsed into LocalDateTime objects, it returns false.
      */
-    public static boolean isValidDateTime(String fromDateTime, String toDateTime) {
+    public static boolean isValidDateTimeFormat(String fromDateTime, String toDateTime) {
         fromDateTime = fromDateTime.trim();
         toDateTime = fromDateTime.trim();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(FORMAT);
@@ -61,7 +61,7 @@ public class Utils {
      *         object. The format of the string is "dd MMMM yyyy", which represents the day of the
      *         month, the full month name, and the year.
      */
-    public static String outputFormat(LocalDateTime dateTime) {
+    public static String dateTimeToString(LocalDateTime dateTime) {
         return dateTime.format(DateTimeFormatter.ofPattern("dd MMMM yyyy"));
     }
 
@@ -72,7 +72,7 @@ public class Utils {
      * @return The method is returning a formatted string representation of the given LocalDateTime
      *         object.
      */
-    public static String inputFormat(LocalDateTime dateTime) {
+    public static String formatInput(LocalDateTime dateTime) {
         return dateTime.format(DateTimeFormatter.ofPattern(FORMAT));
     }
 

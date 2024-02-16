@@ -15,11 +15,11 @@ public class Deadline extends Task {
      * Defines a constructor for the `Deadline` class.
      * 
      * @param description Description of the Deadline task.
-     * @param by The deadline date of the task.
+     * @param dateBy The deadline date of the task.
      */
-    public Deadline(String description, LocalDateTime by) {
+    public Deadline(String description, LocalDateTime dateBy) {
         super(description);
-        this.by = by;
+        this.by = dateBy;
     }
 
     /**
@@ -33,7 +33,7 @@ public class Deadline extends Task {
         int statusValue = this.getStatus() ? 1 : 0;
 
         return String.format("deadline~%d~%s~%s", statusValue, this.description,
-                Utils.inputFormat(this.by));
+                Utils.formatInput(this.by));
     }
 
     /**
@@ -43,7 +43,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + Utils.outputFormat(this.by) + ")";
+        return "[D]" + super.toString() + " (by: " + Utils.dateTimeToString(this.by) + ")";
     }
 
 }

@@ -51,7 +51,7 @@ public class AddEventCommand extends Command {
 
         String[] eventDetails = input[1].split("/from|/to");
 
-        if (!Utils.isValidDateTime(eventDetails[1], eventDetails[2])) {
+        if (!Utils.isValidDateTimeFormat(eventDetails[1], eventDetails[2])) {
             throw new CommandException(
                     "Datetime is in the wrong format. (format: event <your task>"
                             + " /from <dd/MM/yyyy HHmm> /to <dd/MM/yyyy HHmm>)");

@@ -46,7 +46,7 @@ public class AddDeadlineCommand extends Command {
 
         String[] deadlineDetails = input[1].split("/by");
 
-        if (!Utils.isValidDateTime(deadlineDetails[1])) {
+        if (!Utils.isValidDateTimeFormat(deadlineDetails[1])) {
             throw new CommandException(
                     "Datetime is in the wrong format. (format: deadline <your task> /by <dd/MM/yyyy HHmm>)");
         }

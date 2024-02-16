@@ -87,7 +87,7 @@ public class Storage {
         case "event":
             // format: event~status~description~<date>~<date>
             if (input.length < 5 || !(input[1].equals("0") || input[1].equals("1"))
-                    || !Utils.isValidDateTime(input[3], input[4])) {
+                    || !Utils.isValidDateTimeFormat(input[3], input[4])) {
                 // corrupted data
                 System.out.println("Error in loading an event task...");
                 return null;
@@ -114,7 +114,7 @@ public class Storage {
         case "deadline":
             // format: deadline~status~description~<date>
             if (input.length < 4 || !(input[1].equals("0") || input[1].equals("1"))
-                    || !Utils.isValidDateTime(input[3])) {
+                    || !Utils.isValidDateTimeFormat(input[3])) {
                 // corrupted data
                 System.out.println("Error in loading a deadline task...");
                 return null;

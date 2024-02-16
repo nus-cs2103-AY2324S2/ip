@@ -25,15 +25,15 @@ public class FindCommand extends Command {
                     "Please specify the keyword. (Format: find <keyword>)");
         }
 
-        ArrayList<Task> matchingTask = new ArrayList<>();
+        ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task.getDescription().contains(input[1].trim())) {
-                matchingTask.add(task);
+                matchingTasks.add(task);
             }
         }
 
-        if (!matchingTask.isEmpty()) {
-            super.commandResponse = Ui.printList(matchingTask);
+        if (!matchingTasks.isEmpty()) {
+            super.commandResponse = Ui.printList(matchingTasks);
         } else {
             super.commandResponse = Ui.printOutput(String.format(
                     "Hmmm... I can't find any task that corresponds to the keyword '%s'",
