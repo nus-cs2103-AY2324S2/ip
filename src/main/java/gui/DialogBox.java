@@ -1,5 +1,7 @@
 package gui;
 
+import ezra.Parser;
+
 import java.io.IOException;
 import java.util.Collections;
 
@@ -12,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
@@ -91,6 +94,9 @@ public class DialogBox extends HBox {
         var db = new DialogBox(text, img);
         db.flip();
         db.setStyle("-fx-background-color: #D6EAF8;");
+        if (text.startsWith("Invalid") || text.equals(Parser.wrongDateTimeFormatMessage)) {
+            db.dialogText.setFill(Paint.valueOf("red"));
+        }
         return db;
     }
 }
