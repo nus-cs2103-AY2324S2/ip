@@ -1,7 +1,5 @@
 package lia;
 
-import java.util.Scanner;
-
 /**
  * The Lia class represents the main class for the Lia task manger.
  * It orchestrates the interaction between the user interface, task storage, and command parser.
@@ -25,32 +23,17 @@ public class Lia {
         try {
             tasks.setTasks(storage.loadTasks());
         } catch (LiaException e) {
-            ui.showLoadingError();
+            e.getMessage();
         }
     }
 
     /**
-     * Runs the Lia application, displaying the welcome message and processing user commands until "exit" is entered.
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
      */
-    public void run() {
-        Scanner sc = new Scanner(System.in);
-
-        ui.showWelcomeMessage();
-
-        while (true) {
-            String input = sc.nextLine();
-            if (input.equals("exit")) {
-                break;
-            }
-
-            parser.parseCommand(input);
-            storage.saveTasks(tasks.getTasks());
-        }
-
-        ui.showGoodbye();
-    }
-
-    public static void main(String[] args) {
-        new Lia().run();
+    public String getResponse(String input) {
+        String response = parser.parseCommand(input);
+        storage.saveTasks(tasks.getTasks());
+        return response;
     }
 }

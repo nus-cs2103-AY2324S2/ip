@@ -77,4 +77,3 @@ public class Task {
         return "[" + getTaskIcon() + "]" + "[" + getStatusIcon() + "] " + description;
     }
 }
-
