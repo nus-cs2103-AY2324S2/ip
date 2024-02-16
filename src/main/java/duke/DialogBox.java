@@ -24,7 +24,7 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
-    private DialogBox(String text, Image img) {
+    public DialogBox(String text, Image img) {
         assert text != null : "Text cannot be null";
         assert img != null : "Image cannot be null";
         try {
