@@ -13,7 +13,7 @@ import parser.Parser;
 
 public class Duke {
     private Ui ui;
-    Storage storage;
+    private Storage storage;
     TaskList taskList;
     String botName = "Yube";
 
