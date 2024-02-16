@@ -12,12 +12,12 @@
         <HBox>
             <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />
             <VBox>
-              <Label fx:id="nameLabel" text="Scribbles" wrapText="true">
+              <Label fx:id="nameLabel" text="Scribbles" textFill="#d15d32" wrapText="true">
                <font>
-                  <Font name="Danielleescribbles Regular" size="18.0" />
+                  <Font name="Gill Sans Bold" size="14.0" />
                </font>
             </Label>
-                <Label fx:id="dialog" text="Label" wrapText="true">
+                <Label fx:id="dialog" minHeight="-Infinity" text="Label" wrapText="true">
                <font>
                   <Font name="Andale Mono" size="11.0" />
                </font>

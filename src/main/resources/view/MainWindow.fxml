@@ -14,13 +14,13 @@
          <font>
             <Font name="Andale Mono" size="11.0" />
          </font></TextField>
-        <Button fx:id="sendButton" contentDisplay="CENTER" layoutX="400.0" layoutY="658.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="100.0" text="enter">
+        <Button fx:id="sendButton" contentDisplay="CENTER" layoutX="400.0" layoutY="658.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF;" text="➤">
          <font>
-            <Font name="Danielleescribbles Regular" size="18.0" />
+            <Font name="Arial" size="20.0" />
          </font></Button>
         <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="658.0" prefWidth="500.0" vvalue="1.0">
             <content>
-                <VBox fx:id="dialogContainer" prefHeight="659.0" prefWidth="484.0">
+                <VBox fx:id="dialogContainer" prefHeight="659.0" prefWidth="484.0" style="-fx-background-color: #FFFFFF;">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding></VBox>
