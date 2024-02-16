@@ -42,13 +42,11 @@ public class UiTest {
         int taskNum = 2;
 
         Ui ui = new Ui();
-        ui.showTasks(tasks, taskNum);
+        String actualOutput = ui.showTasks(tasks, taskNum);
 
-        String expectedOutput = "    ____________________________________________________________\n"
-                + "     1. [ ] Task 1\n"
-                + "     2. [ ] Task 2\n"
-                + "    ____________________________________________________________\n";
-        assertEquals(expectedOutput, outputStream.toString());
+        String expectedOutput = "     1. [ ] Task 1\n"
+                + "     2. [ ] Task 2\n";
+        assertEquals(expectedOutput, actualOutput);
 
         System.setOut(System.out);
     }

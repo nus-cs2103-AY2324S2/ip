@@ -19,125 +19,124 @@ public class Ui {
         return inputs.nextLine();
     }
 
-    /**
-     * Shows the welcome message.
-     */
-    public void welcomeMessage() {
-        System.out.println("    ____________________________________________________________");
-        System.out.println("     Hello! I'm TALKTOMEORILLDIE");
-        System.out.println("     What can I do for you?");
-        System.out.println("    ____________________________________________________________");
+
+    public String welcomeMessage() {
+        StringBuilder result = new StringBuilder();
+        result.append("     Hello! I'm TALKTOMEORILLDIE\n");
+        result.append("     What can I do for you?\n");
+        return result.toString();
     }
 
     /**
-     * Shows the goodbye message.
+     * Generates the goodbye message.
+     * @return The goodbye message.
      */
-    public void goodbyeMessage() {
-        System.out.println("    ____________________________________________________________");
-        System.out.println("     Bye. Hope to see you again soon!");
-        System.out.println("    ____________________________________________________________");
+    public String goodbyeMessage() {
+        return "     Bye. Hope to see you again soon!";
     }
 
     /**
      * Shows the task marked as done message.
      */
-    public void showMarkedAsDone(Task task) {
-        System.out.println("    ____________________________________________________________");
-        System.out.println("     Nice! I've marked this task as done:");
-        System.out.println("       " + task);
-        System.out.println("    ____________________________________________________________");
+    public String showMarkedAsDone(Task task) {
+        StringBuilder result = new StringBuilder();
+        result.append("     Nice! I've marked this task as done:\n");
+        result.append("     ").append(task).append("\n");
+        return result.toString();
     }
 
     /**
      * Shows the task marked as not done message.
      */
-    public void showMarkedAsNotDone(Task task) {
-        System.out.println("    ____________________________________________________________");
-        System.out.println("     Nice! I've marked this task as not done:");
-        System.out.println("       " + task);
-        System.out.println("    ____________________________________________________________");
+    public String showMarkedAsNotDone(Task task) {
+        StringBuilder result = new StringBuilder();
+        result.append("     Nice! I've marked this task as not done:\n");
+        result.append("     ").append(task).append("\n");
+        return result.toString();
     }
 
     /**
      * Shows the added task message.
      */
-    public void showAddedTask(Task task, int taskNum) {
-        System.out.println("    ____________________________________________________________");
-        System.out.println("     Got it. I've added this task:");
-        System.out.println("       " + task);
-        System.out.println("     Now you have " + (taskNum) + " tasks in the list.");
-        System.out.println("    ____________________________________________________________");
+    public String showAddedTask(Task task, int taskNum) {
+        StringBuilder result = new StringBuilder();
+        result.append("     Got it. I've added this task:\n");
+        result.append("     ").append(task).append("\n");
+        result.append("     Now you have ").append(taskNum).append(" tasks in the list.\n");
+        return result.toString();
     }
 
     /**
      * Shows the deleted task message.
      */
-    public void showDeleteTask(Task task, int taskNum) {
-        System.out.println("    ____________________________________________________________");
-        System.out.println("     Noted. I've removed this task:");
-        System.out.println("       " + task);
-        System.out.println("     Now you have " + (taskNum + 1) + " tasks in the list.");
-        System.out.println("    ____________________________________________________________");
+    public String showDeleteTask(Task task, int taskNum) {
+        StringBuilder result = new StringBuilder();
+        result.append("     Noted. I've removed this task:\n");
+        result.append("     ").append(task).append("\n");
+        result.append("     Now you have ").append(taskNum + 1).append(" tasks in the list.\n");
+        return result.toString();
     }
 
     /**
      * Shows the tasks on a specific date.
      */
-    public void showDeadlinesEventsOnDate(Task[]tasks, int taskNum, LocalDate dateToCheck) {
-        System.out.println("    ____________________________________________________________");
-        System.out.println("     Deadlines/Events occurring on "
-                + dateToCheck.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ":");
+    public String showDeadlinesEventsOnDate(Task[] tasks, int taskNum, LocalDate dateToCheck) {
+        StringBuilder result = new StringBuilder();
+        result.append("     Deadlines/Events occurring on ")
+                .append(dateToCheck.format(DateTimeFormatter.ofPattern("MMM d yyyy")))
+                .append(":\n");
         for (int i = 0; i < taskNum; i++) {
             if (tasks[i] instanceof Deadline) {
                 Deadline deadline = (Deadline) tasks[i];
                 if (deadline.getDate().toLocalDate().isEqual(dateToCheck)) {
-                    System.out.println("       " + tasks[i].toString());
+                    result.append("     ").append(tasks[i].toString()).append("\n");
                 }
             }
         }
-        System.out.println("    ____________________________________________________________");
+        return result.toString();
     }
 
     /**
      * Shows the loading error message.
      */
-    public static void showLoadingError() {
-        System.out.println("Error: Your file can't be loaded");
+    public static String showLoadingError() {
+        return "     Error: Your file can't be loaded";
     }
 
     /**
      * Shows the tasks.
      */
-    public void showTasks(Task[] task, int taskNum) {
-        System.out.println("    ____________________________________________________________");
+    public String showTasks(Task[] tasks, int taskNum) {
+        StringBuilder result = new StringBuilder();
         if (taskNum == 0) {
-            System.out.println("     You are doing absolutely nothing, lazy :))");
+            result.append("     You are doing absolutely nothing, lazy :))\n");
         } else {
             for (int i = 0; i < taskNum; i++) {
-                System.out.println("     " + (i + 1) + ". " + task[i]);
+                result.append("     ").append(i + 1).append(". ").append(tasks[i]).append("\n");
             }
         }
-        System.out.println("    ____________________________________________________________");
+        return result.toString();
     }
 
     /**
      * Shows the matching tasks.
      */
-    public void showMatchingTasks(String keyword) {
-        System.out.println("    ____________________________________________________________");
-        System.out.println("     Here are the matching tasks in your list:");
+    public String showMatchingTasks(String keyword) {
+        StringBuilder result = new StringBuilder();
+        result.append("     Here are the matching tasks in your list:\n");
         int matchCount = 0;
         for (Task task : TaskList.getTasks()) {
             if (task != null && task.description.contains(keyword)) {
-                System.out.println("     " + (matchCount + 1) + "." + task);
+                result.append("     ").append(matchCount + 1).append(".").append(task).append("\n");
                 matchCount++;
             }
         }
         if (matchCount == 0) {
-            System.out.println("     No matching tasks found.");
+            result.append("     No matching tasks found.\n");
         }
-        System.out.println("    ____________________________________________________________");
+        return result.toString();
     }
+
 
     /**
      * Closes the scanner.

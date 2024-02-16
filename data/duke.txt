@@ -6,3 +6,5 @@ T | 0 | something
 E | 0 | project meeting | Mon 2pm - 4pm
 T | 0 | something with a book
 T | 0 | smt impt icr
+T | 0 | my work
+T | 0 | something not so impt

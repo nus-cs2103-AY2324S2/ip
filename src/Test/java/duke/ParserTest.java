@@ -18,7 +18,7 @@ public class ParserTest {
         Ui ui = new Ui();
         Storage storage = new Storage("test.txt");
 
-        String result = Parser.parse("todo Test Todo", tasks, ui, storage);
+        String result = Parser.parse("todo Test Todo", tasks, ui);
 
         assertEquals("I'm sorry, but I don't understand that command.", result);
     }
