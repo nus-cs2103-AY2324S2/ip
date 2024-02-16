@@ -11,13 +11,8 @@ import denify.ui.Ui;
  * It handles user interactions, parses commands, and performs operations on tasks.
  */
 public class Denify {
-    /**
-     * The file path where tasks are stored.
-     */
-    private static final String FILEPATH = "./data/denify.txt";
-    /**
-     * Represents the user interface component for interacting with the user.
-     */
+    private static final String DATA_DIRECTORY = "./data/";
+    private static final String FILENAME = "denify.txt";
     private final Ui ui;
     private final CommandHandler commandHandler;
     /**
@@ -25,7 +20,7 @@ public class Denify {
      */
     public Denify() {
         this.ui = new Ui();
-        Storage storage = new Storage(FILEPATH);
+        Storage storage = new Storage(DATA_DIRECTORY + FILENAME);
         TaskList tasks;
         try {
             tasks = new TaskList(storage.loadTasks());
@@ -43,13 +38,11 @@ public class Denify {
      */
     public String getResponse(String msg) {
         StringBuilder response = new StringBuilder();
-
         Parser parser = new Parser(msg);
         try {
             Command command = parser.parseCommand();
             assert command != null : "Command must not be null";
             response.append(commandHandler.execute(command, parser));
-
         } catch (DenifyException e) {
             response.append(e.getMessage());
         }
