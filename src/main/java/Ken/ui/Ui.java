@@ -11,79 +11,10 @@ import java.util.List;
  * It provides methods to display welcome and goodbye messages to the user.
  */
 public class Ui {
-
-//    /**
-//     * Displays a welcome message to the user.
-//     */
-//    public void welcomeMessage() {
-//        System.out.println("Hi Barbie!");
-//        System.out.println("I'm Ken!");
-//        System.out.println("What would you like to beach today?\n");
-//    }
-//
-//    /**
-//     * Displays a goodbye message to the user.
-//     */
-//    public void byeMessage() {
-//        System.out.println("Beach off!\n");
-//    }
-//
-//    public void deleteMessage(Task task, int size) {
-//        System.out.println("Ohh okayy...");
-//        System.out.println("deleted task: " + task);
-//        System.out.println("Now Barbie has " + size + " tasks in list.\n");
-//    }
-//
-//    public void markTaskMessage(int index, String details) {
-//        System.out.println("SUBLIME! Task " + index + " completed!\n " + details);
-//    }
-//
-//    public void invalidTaskMessage(int index) {
-//        System.out.println("Barbie has no task " + index);
-//    }
-//
-//    public void unmarkTaskMessage(int index, String details) {
-//        System.out.println("ookayy, so task " + index + " is not actually done\n " + details);
-//        System.out.println("You are not doing task very well :(");
-//    }
-//
-//    public void listTasksMessage(boolean isListEmpty) {
-//
-//        System.out.println("Hold my ice cream,");
-//
-//        if (isListEmpty) {
-//            System.out.println("actually, wait, i'm taking my ice cream back");
-//            System.out.println("no tasks yet");
-//        } else {
-//            System.out.println("Your tasks for today: \n");
-//        }
-//    }
-//
-//    public void displayMatchingTasksMessage(String keyword) {
-//        System.out.println("seeking...\n");
-//        System.out.println("These are all the " + keyword + "s in your list:");
-//    }
-//    public void invalidDeadlineMessage() {
-//        System.out.println("That's not how you declare a deadline. p.s. use /by.");
-//    }
-//
-//    public void invalidEventMessage() {
-//        System.out.println("That's not how you declare an event. p.s. use /from, and /to.");
-//    }
-//
-//    public void addTaskMessage(Task task, int size) {
-//        System.out.println("Got it!");
-//        System.out.println("added task: " + task);
-//        System.out.println("Now Barbie has " + size + " tasks in list\n");
-//    }
-//
-//    public void tooManyTaskMessage() {
-//        System.out.println("Way too many tasks for today Barbie!");
-//        System.out.println("Slow the Slayy\n");
-//    }
-public Response welcomeMessage() {
-    return new Response("Hi Barbie!\nI'm Ken!\nWhat would you like to beach today?\np.s. say help if you need!\n");
-}
+    
+    public Response welcomeMessage() {
+        return new Response("Hi Barbie!\nI'm Ken!\nWhat would you like to beach today?\np.s. say help if you need!\n");
+    }
 
     public Response byeMessage() {
         return new Response("Beach off!\n");
@@ -105,18 +36,6 @@ public Response welcomeMessage() {
         return new Response("ookayy, so task " + index + " is not actually done\n " + details +
                 "\nYou are not doing task very well :(");
     }
-
-//    public Response listTasksMessage(boolean isListEmpty) {
-//        if (isListEmpty) {
-//            return new Response("Hold my ice cream,\nactually, wait, I'm taking my ice cream back\nno tasks yet");
-//        } else {
-//            return new Response("Hold my ice cream,\nYour tasks for today:");
-//        }
-//    }
-
-//    public Response displayMatchingTasksMessage(String keyword) {
-//        return new Response("seeking...\n\nThese are all the " + keyword + "s in your list:");
-//    }
 
     public Response listTasksMessage(boolean isListEmpty, List<Task> tasks) {
         if (isListEmpty) {
