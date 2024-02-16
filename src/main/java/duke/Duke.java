@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -29,8 +28,6 @@ public class Duke extends Application {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-    private Image userImage = new Image(getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(getClass().getResourceAsStream("/images/DaDuke.png"));
 
     /**
      * Initializes Duke with storage and other components.
