@@ -1,4 +1,4 @@
-# Artemis User Guide
+# ArtemisPro User Guide
 
 ![Product Screenshots](https://kaiyi27.github.io/ip/Ui.png)
 
@@ -147,7 +147,7 @@ Use bye to exit the application.
 Format: `bye`
 
 ## Saving the data
-Task list are saved in the hard disk automatically after exit the application. Artemis data are saved automatically as a txt file `[JAR file location]/data/artemis.txt`. Advanced users are welcome to update data directly by editing that data file.
+Task list are saved in the hard disk automatically after exit the application. ArtemisPro data are saved automatically as a txt file `[JAR file location]/data/artemis.txt`. Advanced users are welcome to update data directly by editing that data file.
 
 ---
 
