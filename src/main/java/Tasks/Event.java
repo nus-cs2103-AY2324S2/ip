@@ -1,4 +1,10 @@
-public class Event extends Task{
+package Tasks;
+import Exceptions.InvalidArgumentException;
+import Exceptions.InvalidDescriptionException;
+import Exceptions.InvalidFormatException;
+import Utils.utils;
+
+public class Event extends Task {
 
     private final String from_time;
     private final String to_time;

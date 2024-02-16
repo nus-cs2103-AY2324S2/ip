@@ -1,4 +1,11 @@
-public class Deadline extends Task{
+package Tasks;
+
+import Exceptions.InvalidArgumentException;
+import Exceptions.InvalidDescriptionException;
+import Exceptions.InvalidFormatException;
+import Utils.utils;
+
+public class Deadline extends Task {
 
     public static Deadline from(String s) throws InvalidFormatException, InvalidDescriptionException, InvalidArgumentException {
         //Expects a string in the format "deadline <description> /by <deadline_date>"

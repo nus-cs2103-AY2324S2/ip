@@ -1,5 +1,9 @@
-import java.awt.*;
+package Tasks;
+
+import Tasks.Task;
+
 import java.util.ArrayList;
+import Exceptions.TaskListFullException;
 
 public class TaskList {
 
