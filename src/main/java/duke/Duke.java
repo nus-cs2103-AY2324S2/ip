@@ -85,6 +85,9 @@ public class Duke {
         case "delete":
             deleteTask(arguments);
             break;
+        case "find":
+            printIdentifiedTasks(arguments);
+            break;
         default:
             System.out.println("なに？！");
             break;
@@ -210,6 +213,16 @@ public class Duke {
             System.out.println("Invalid task index provided.\nPlease provide a valid task index.\n");
             ui.printDivider();
         }
+    }
 
+    /**
+     * Prints all tasks that have been identified to have the keyword in their descriptions.
+     *
+     * @param keyword Keyword to look for in task descriptions.
+     */
+    private static void printIdentifiedTasks(String keyword) {
+        ui.printDivider();
+        taskList.printTasksWithKeyword(keyword);
+        ui.printDivider();
     }
 }
