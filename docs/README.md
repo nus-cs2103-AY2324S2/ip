@@ -1,7 +1,7 @@
 # Hanxiao User Guide
 
 
-![Screenshot](/docs/UI.png)
+![Screenshot](https://github.com/wallacexuhanxiao/ip/tree/master/docs/UI.png)
 
 
 // Product intro goes here
