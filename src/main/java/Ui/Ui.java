@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import Tasks.Task;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,11 +17,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Ui {
 
-    final static String HORIZONTAL_LINE = "____________________________________________________________";
     final static String DUKE_IMG = "/images/DaUser.png";
     final static String USER_IMG = "/images/DaDuke.png";
     final static String NAME = "Kewgy";
@@ -66,11 +67,11 @@ public class Ui {
         stage.setTitle(NAME);
         stage.setResizable(false);
         stage.setMinHeight(600.0);
-        stage.setMinWidth(400.0);
+        stage.setMinWidth(500.0);
 
-        mainLayout.setPrefSize(400.0, 600.0);
+        mainLayout.setPrefSize(500.0, 600.0);
 
-        scrollPane.setPrefSize(385, 535);
+        scrollPane.setPrefSize(485, 535);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
@@ -79,7 +80,7 @@ public class Ui {
 
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
-        userInput.setPrefWidth(325.0);
+        userInput.setPrefWidth(425.0);
 
         sendButton.setPrefWidth(55.0);
 
@@ -116,7 +117,7 @@ public class Ui {
         return reader.nextLine().split(" ", 2);
     }
 
-    public String printTaskKeyword(List<Task> userTaskList, String keyword) {
+    public Label printTaskKeyword(List<Task> userTaskList, String keyword) {
         String tasks = IntStream.range(0, userTaskList.size())
                                 .filter(i -> userTaskList.get(i).getDescription().contains(keyword))
                                 .mapToObj(i -> i + ": " + userTaskList.get(i))
@@ -125,17 +126,13 @@ public class Ui {
         return this.formatString("Here are the matching tasks in your list:\n" + tasks);
     }
 
-    public String printGoodBye() {
+    public Label printGoodBye() {
         reader.close();
 
         return this.formatString("Bye! Hope to see you again soon!");
     }
 
-    public String printUnknownCommand() {
-        return this.formatString("Unknown Command!");
-    }
-
-    public String printDeleteTask(Task task, int taskSize) {
+    public Label printDeleteTask(Task task, int taskSize) {
         return this.formatString(
             "Noted. I've removed this task:\n" + 
             task + "\n" +
@@ -143,14 +140,14 @@ public class Ui {
         );
     }
 
-    public String printUpdateTime(Task task) {
+    public Label printUpdateTime(Task task) {
         return this.formatString(
             "Nice! I've updated this task:\n" +
             task.toString()
         );
     }
 
-    public String printAddTask(Task task, int taskSize) {
+    public Label printAddTask(Task task, int taskSize) {
         return this.formatString(
             "Got it. I've added this task to your list.\n" +
             task + "\n" +
@@ -158,18 +155,21 @@ public class Ui {
         );
     }
 
-    public String printError(Exception e) {
-        return this.formatString(e.getMessage());
+    public Label printError(String e) {
+        Label errorLabel = this.formatString(e);
+        errorLabel.setTextFill(Color.color(1, 0, 0));
+
+        return errorLabel;
     }
 
-    public String markTask(List<Task> userTaskList, int taskInt) {
+    public Label markTask(List<Task> userTaskList, int taskInt) {
         return this.formatString(
             "Nice! I've marked this task as done:\n" +
             userTaskList.get(taskInt).toString() + "\n"
         );
     }
 
-    public String printList(List<Task> taskList) {
+    public Label printList(List<Task> taskList) {
         String taskListStr = IntStream.range(0, taskList.size())
                                       .mapToObj(i -> (i + 1) + ": " + taskList.get(i))
                                       .collect(Collectors.joining("\n"));
@@ -177,14 +177,16 @@ public class Ui {
         return formatString("Here are the tasks in your list:\n" + taskListStr);
     }
 
-    public String formatString(String... msg) {
+    public Label formatString(String... msg) {
         String outputText = "";
 
         for (String s: msg) {
             outputText += s + "\n";
         }
 
-        return HORIZONTAL_LINE + "\n" + outputText + "\n" + HORIZONTAL_LINE;
+        Label formattedLabel = new Label(outputText);
+
+        return formattedLabel;
     }
 
     public void printIntro() {
@@ -192,7 +194,7 @@ public class Ui {
     }
 
     public void printDukeText(String msg) {
-        Label dukeText = new Label(this.formatString(msg)); 
+        Label dukeText = this.formatString(msg); 
         dialogContainer.getChildren().addAll(
             DialogBox.getDukeDialog(dukeText, new ImageView(dukeImg))
         );
