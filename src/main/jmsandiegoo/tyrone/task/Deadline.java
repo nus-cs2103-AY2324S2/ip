@@ -30,6 +30,17 @@ public class Deadline extends Task {
     }
 
     @Override
+    public Task copy() {
+        Deadline deadlineCopy = new Deadline(
+                super.description,
+                this.deadlineDateTime
+        );
+        deadlineCopy.isDone = this.isDone;
+
+        return deadlineCopy;
+    }
+
+    @Override
     public String serializeTask() {
         String taskTypeSerializedStr = "D | ";
         String deadlineDateTimeSerializedStr = " | "

@@ -6,8 +6,8 @@ import jmsandiegoo.tyrone.common.Messages;
  * Represents the abstract task item of the application.
  */
 public abstract class Task {
-    private final String description;
-    private boolean isDone;
+    protected final String description;
+    protected boolean isDone;
 
     /**
      * @param description - the description of the task.
@@ -45,10 +45,16 @@ public abstract class Task {
     public String toString() {
         String isDoneStr = "[" + (this.isDone ? "X" : " ") + "] ";
 
-        return
-                isDoneStr
+        return isDoneStr
                 + this.description;
     }
+
+    /**
+     * Returns a copy of the particular task object.
+     *
+     * @return Task.
+     */
+    public abstract Task copy();
 
     /**
      * Returns String the encoded format of the task to be stored for file storage.

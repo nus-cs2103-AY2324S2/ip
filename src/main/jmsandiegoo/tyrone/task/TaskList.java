@@ -161,6 +161,34 @@ public class TaskList {
     }
 
     /**
+     * Returns a new copy of the task list.
+     *
+     * @return TaskList.
+     */
+    public TaskList copy() {
+        TaskList taskListCopy = new TaskList();
+        for (Task item : this.items) {
+            taskListCopy.addItem(item.copy());
+        }
+
+        return taskListCopy;
+    }
+
+    /**
+     * Restores the current task list to the state provided as the
+     * parameter.
+     *
+     * @param restoreTaskList - the state to restore to.
+     */
+    public void restoreFromGivenList(TaskList restoreTaskList) {
+        this.items.clear();
+
+        for (int i = 0; i < restoreTaskList.getListSize(); ++i) {
+            this.items.add(restoreTaskList.getItem(i));
+        }
+    }
+
+    /**
      * Returns the task items from the list with the keyword.
      *
      * @param keyword - the target keyword to search for.

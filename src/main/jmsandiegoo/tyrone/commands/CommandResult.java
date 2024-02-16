@@ -13,6 +13,15 @@ public class CommandResult {
         this.commandResult = commandResultStr;
     }
 
+    public CommandResult chain(CommandResult... otherCommandResults) {
+        CommandResult newCommandResult = new CommandResult(this.commandResult);
+        for (CommandResult otherCommandResult : otherCommandResults) {
+            newCommandResult = new CommandResult(newCommandResult.commandResult
+                    + otherCommandResult.commandResult);
+        }
+        return newCommandResult;
+    }
+
     @Override
     public String toString() {
         return this.commandResult;
