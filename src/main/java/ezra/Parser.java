@@ -177,19 +177,6 @@ public class Parser {
     }
 
     /**
-     * Extracts task indices from a 'delete', 'mark', or 'unmark' command.
-     *
-     * @param input The user input command.
-     * @return The indices of the tasks to be deleted.
-     */
-    public static int[] extractTaskIndices(String input) {
-        String[] splitArray = input.split("\\s");
-        // First element in splitArray is the name of the command
-        String[] taskNumbers = Arrays.copyOfRange(splitArray, 1, splitArray.length);
-        return Arrays.stream(taskNumbers).mapToInt(x -> Integer.parseInt(x) - 1).toArray();
-    }
-
-    /**
      * Parses a 'mark' command from the user input.
      *
      * @param input The user input command.
@@ -217,6 +204,19 @@ public class Parser {
             throw new WrongFormatException("Invalid 'unmark' command format. Usage: unmark <existing task numbers>");
         }
         return extractTaskIndices(input);
+    }
+
+    /**
+     * Extracts task indices from a 'delete', 'mark', or 'unmark' command.
+     *
+     * @param input The user input command.
+     * @return The indices of the tasks to be deleted.
+     */
+    public static int[] extractTaskIndices(String input) {
+        String[] splitArray = input.split("\\s");
+        // First element in splitArray is the name of the command
+        String[] taskNumbers = Arrays.copyOfRange(splitArray, 1, splitArray.length);
+        return Arrays.stream(taskNumbers).mapToInt(x -> Integer.parseInt(x) - 1).toArray();
     }
 
     /**

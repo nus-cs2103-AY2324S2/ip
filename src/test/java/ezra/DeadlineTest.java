@@ -1,6 +1,7 @@
 package ezra;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.Test;
 
@@ -35,5 +36,21 @@ public class DeadlineTest {
         Deadline deadline2 = new Deadline("Finish assignment", "01/02/2024 0000");
         String expectedString2 = "D | 0 | Finish assignment | 01/02/2024 0000";
         assertEquals(expectedString2, deadline2.toStorageString());
+    }
+
+    /**
+     * Test cases for the {@link Deadline#equals(Object)} method.
+     */
+    @Test
+    public void testEquals() {
+        Deadline deadline = new Deadline("Return book", "29/01/2024 1800");
+        Deadline sameDescriptionAndBy = new Deadline("Return book", "29/01/2024 1800");
+        Deadline differentBy = new Deadline("Return book", "30/01/2024 1800");
+        Deadline differentDescription = new Deadline("Return books", "29/01/2024 1800");
+
+        assertEquals(deadline, sameDescriptionAndBy);
+        assertNotEquals(deadline, differentBy);
+        assertNotEquals(deadline, differentDescription);
+        assertNotEquals(differentBy, differentDescription);
     }
 }
