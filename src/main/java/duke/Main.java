@@ -24,8 +24,6 @@ public class Main extends Application {
             stage.setTitle("DOUMMI The Helper");
             fxmlLoader.<MainWindow>getController().setDuke(duke);
             stage.show();
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }

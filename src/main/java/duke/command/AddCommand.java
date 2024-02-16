@@ -10,6 +10,9 @@ public class AddCommand extends Command {
 
     private String description;
 
+    public final String ACKNOWLEDGEMENT = "Got it. I've added this task:\n";
+
+
     public AddCommand(String taskType, String description) {
         this.taskType = taskType;
         this.description = description;
@@ -44,20 +47,19 @@ public class AddCommand extends Command {
         }
     }
 
-    public static String processToDos(String description, ArrayList<Task> task) throws ToDosException {
+    public String processToDos(String description, ArrayList<Task> task) throws ToDosException {
         if (description.isEmpty()) {
             throw new ToDosException("What todos do you need to record?");
         }
         Task new_task = new ToDos(description);
         task.add(new_task);
-        String Response = "Got it. I've added this task:\n";
         String length = "" + task.size();
-        Response = Response + "\t" + new_task.toString() + "\n" +
+        String Response = ACKNOWLEDGEMENT + "\t" + new_task.toString() + "\n" +
                 "Now you have " + length + " tasks in the list.";
         return Response;
     }
 
-    public static String processDeadline(String description, ArrayList<Task> task) throws DeadlineException, DateException {
+    public String processDeadline(String description, ArrayList<Task> task) throws DeadlineException, DateException {
         if (description.isEmpty()) {
             throw new DeadlineException("What deadline do you need to record?");
         }
@@ -73,14 +75,13 @@ public class AddCommand extends Command {
         }
         Task new_task =  new Deadline(D, by);
         task.add(new_task);
-        String Response = "Got it. I've added this task:\n";
         String length = "" + task.size();
-        Response = Response + "\t" + new_task.toString() + "\n" +
+        String Response = ACKNOWLEDGEMENT + "\t" + new_task.toString() + "\n" +
                 "Now you have " + length + " tasks in the list.";
         return Response;
     }
 
-    public static String processEvents(String description, ArrayList<Task> task) throws EventException, DateException {
+    public String processEvents(String description, ArrayList<Task> task) throws EventException, DateException {
         if (description.isEmpty()) {
             throw new EventException("What event do you need to record?");
         }
@@ -102,9 +103,8 @@ public class AddCommand extends Command {
         assert !validateToDate : "format of the event end date is WRONG!";
         Task new_task = new Events(D, from, to);
         task.add(new_task);
-        String Response = "Got it. I've added this task:\n";
         String length = "" + task.size();
-        Response = Response + "\t" + new_task.toString() + "\n" +
+        String Response = ACKNOWLEDGEMENT + "\t" + new_task.toString() + "\n" +
                 "Now you have " + length + " tasks in the list.";
         return Response;
     }

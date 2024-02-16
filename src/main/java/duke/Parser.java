@@ -17,36 +17,39 @@ public class Parser {
     public static Command parse(String fullCommand) throws NoCmdException {
         String [] uCmd = fullCommand.split(" ", 2);
         if (uCmd.length < 2) {
-            if (fullCommand.equals("list")) {
-                return new ListCommand();
-            } else if (fullCommand.equals("bye")) {
-                return new ExitCommand();
-            } else {
-                throw new NoCmdException("Please tell me what you want me to do.");
-            }
+            return handleOneWordCommand(fullCommand);
         } else {
             String firstWord = uCmd[0].trim();
             String furtherDetails = uCmd[1];
-            System.out.println(furtherDetails);
-            assert !firstWord.equals("todos") : "You want to add 1 task at a time - todo";
-            assert !firstWord.equals("events") : "You want to add 1 task at a time - event";
-            assert !firstWord.equals("deadlines") : "You want to add 1 task at a time - deadline";
-            if (firstWord.equals("mark") || firstWord.equals("unmark")) {
-                System.out.println("DO");
-                return new EditCommand(firstWord, furtherDetails);
-            } else if (firstWord.equals("todo") || firstWord.equals("event") || firstWord.equals("deadline")) {
-                return new AddCommand(firstWord, furtherDetails);
-            } else if (firstWord.equals("delete")) {
-                System.out.println("DO");
-                return new DeleteCommand(furtherDetails);
-            } else if (firstWord.equals("find")) {
-                return new FindCommand(furtherDetails);
-            } else {
-                throw new NoCmdException("Please tell me what you want me to do.");
-            }
+            return handleLongCommand(firstWord, furtherDetails);
         }
+    }
 
+    public static Command handleOneWordCommand(String fullCommand) throws NoCmdException{
+        if (fullCommand.equals("list")) {
+            return new ListCommand();
+        } else if (fullCommand.equals("bye")) {
+            return new ExitCommand();
+        } else {
+            throw new NoCmdException("Please tell me what you want me to do.");
+        }
+    }
 
+    public static Command handleLongCommand(String firstWord, String furtherDetails) throws NoCmdException {
+        assert !firstWord.equals("todos") : "You want to add 1 task at a time - todo";
+        assert !firstWord.equals("events") : "You want to add 1 task at a time - event";
+        assert !firstWord.equals("deadlines") : "You want to add 1 task at a time - deadline";
+        if (firstWord.equals("mark") || firstWord.equals("unmark")) {
+            return new EditCommand(firstWord, furtherDetails);
+        } else if (firstWord.equals("todo") || firstWord.equals("event") || firstWord.equals("deadline")) {
+            return new AddCommand(firstWord, furtherDetails);
+        } else if (firstWord.equals("delete")) {
+            return new DeleteCommand(furtherDetails);
+        } else if (firstWord.equals("find")) {
+            return new FindCommand(furtherDetails);
+        } else {
+            throw new NoCmdException("Please tell me what you want me to do.");
+        }
     }
 }
 
