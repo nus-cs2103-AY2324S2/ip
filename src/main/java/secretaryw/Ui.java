@@ -27,25 +27,36 @@ public class Ui {
     /**
      * Displays a farewell message.
      */
-    public void showFarewell() {
-        System.out.println(LINE + "Bye. Hope to see you again soon!\n" + LINE);
+    public String showFarewell() {
+        return LINE + "Bye. Hope to see you again soon!\n" + LINE;
     }
 
     /**
      * Displays the list of tasks.
      * @param taskList The list of tasks to display.
      */
-    public void showTasks(ArrayList<Task> taskList) {
-        System.out.println(LINE);
+    public String showTasks(ArrayList<Task> taskList) {
+//        System.out.println(LINE);
+//        if (taskList.isEmpty()) {
+//            System.out.println("No tasks available");
+//            System.out.println(LINE);
+//        } else {
+//            System.out.println("Here are the tasks in your list:");
+//            for (int i = 0; i < taskList.size(); i++) {
+//                System.out.println(" " + (i + 1) + ". " + taskList.get(i));
+//            }
+//            System.out.println(LINE);
+//        }
         if (taskList.isEmpty()) {
-            System.out.println("No tasks available");
-            System.out.println(LINE);
+            String result =  LINE + "No tasks available\n" + LINE;
+            return result;
         } else {
-            System.out.println("Here are the tasks in your list:");
+            String result = "Here are the tasks in your list:\n";
             for (int i = 0; i < taskList.size(); i++) {
-                System.out.println(" " + (i + 1) + ". " + taskList.get(i));
+                result += (" " + (i + 1) + ". " + taskList.get(i) + "\n");
             }
-            System.out.println(LINE);
+            result = result + LINE;
+            return result;
         }
     }
 
@@ -63,41 +74,30 @@ public class Ui {
      * Retrieves user input.
      * @return The user's input as a string.
      */
-    public void showTaskAdded(Task task, int count) {
-        System.out.println(LINE + "Got it. I've added this task:\n" + task);
-        System.out.println(" Now you have " + count + " tasks in the list.\n" + LINE);
-    }
-
-    /**
-     * Displays a message indicating a task has been deleted.
-     * @param task The task that was deleted.
-     * @param count The total number of tasks in the list after deletion.
-     */
-    public void showTaskDeleted(Task task, int count) {
-        showLine();
-        System.out.println("Noted. I've removed this task:\n" + task);
-        System.out.println(" Now you have " + count + " tasks in the list.");
-        showLine();
+    public String showTaskAdded(Task task, int count) {
+        return LINE + "Got it. I've added this task:\n" + task + "\n" +
+                " Now you have " + count + " tasks in the list.\n" + LINE;
     }
 
     /**
      * Displays a general message.
      * @param message The message to display.
      */
-    public void showMessage(String message) {
-        System.out.println(LINE + message + "\n" + LINE);
+    public String showMessage(String message) {
+        return LINE + message + "\n" + LINE;
     }
 
-    public void showMatchingTasks(ArrayList<Task> matchingTasks) {
+    public String showMatchingTasks(ArrayList<Task> matchingTasks) {
         System.out.println(LINE);
         if (matchingTasks.isEmpty()) {
-            System.out.println("No matching tasks found.");
+            return LINE + "No matching tasks found.\n" + LINE;
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            String result = "Here are the matching tasks in your list:\n";
             for (int i = 0; i < matchingTasks.size(); i++) {
-                System.out.println(" " + (i + 1) + ". " + matchingTasks.get(i));
+                result += (" " + (i + 1) + ". " + matchingTasks.get(i)+ "\n");
             }
+            result += LINE;
+            return result;
         }
-        System.out.println(LINE);
     }
 }
