@@ -38,7 +38,7 @@ public class Todo extends Task {
         } else {
             mark = "0";
         }
-        String str = String.format("%s:todo:%s", mark, name);
+        String str = String.format("%s/todo/%s", mark, name);
         return str;
     }
 }

@@ -10,30 +10,39 @@ public class Input {
 
     public Command getCommand(String str) {
         switch (str) {
+        case "b":
         case "bye":
             this.currentCommand = Command.BYE;
             break;
+        case "m":
         case "mark":
             this.currentCommand = Command.MARK;
             break;
+        case "u":
         case "unmark":
             this.currentCommand = Command.UNMARK;
             break;
+        case "del":
         case "delete":
             this.currentCommand = Command.DELETE;
             break;
+        case "ls":
         case "list":
             this.currentCommand = Command.LIST;
             break;
+        case "e":
         case "event":
             this.currentCommand = Command.EVENT;
             break;
+        case "d":
         case "deadline":
             this.currentCommand = Command.DEADLINE;
             break;
+        case "t":
         case "todo":
             this.currentCommand = Command.TODO;
             break;
+        case "cl":
         case "clear":
             this.currentCommand = Command.CLEAR;
             break;
@@ -55,6 +64,8 @@ public class Input {
         String command = arr[0].toLowerCase();
         return command;
     }
+
+
 
 
 }

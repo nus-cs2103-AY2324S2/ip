@@ -1,11 +1,16 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
     private String name;
-    private String from;
-    private String to;
+    private LocalDateTime from;
+    private LocalDateTime to;
     private boolean done;
-
     private static String identifier = "[E]";
-    public Event(String name, String from, String to) {
+
+    DateTimeFormatter dtfoutput = DateTimeFormatter.ofPattern("dd MMM yyyy HHmm");
+
+    public Event(String name, LocalDateTime from, LocalDateTime to) {
         super(name);
         this.name = name;
         this.from = from;
@@ -13,7 +18,7 @@ public class Event extends Task {
         this.done = false;
     }
 
-    public Event(String name, String from, String to, boolean done) {
+    public Event(String name, LocalDateTime from, LocalDateTime to, boolean done) {
         super(name);
         this.name = name;
         this.from = from;
@@ -32,9 +37,9 @@ public class Event extends Task {
     @Override
     public String toString() {
         if (this.done) {
-            return "[X]" + identifier + " " + this.name + " (from" + from + "to" + to + ")";
+            return "[X]" + identifier + " " + this.name + " (from " + dtfoutput.format(from) + " to " + dtfoutput.format(to) + ")";
         } else {
-            return "[ ]" + identifier + " " + this.name + " (from" + from + "to" + to + ")";
+            return "[ ]" + identifier + " " + this.name + " (from " + dtfoutput.format(from) + " to " + dtfoutput.format(to) + ")";
         }
     }
 
@@ -45,7 +50,7 @@ public class Event extends Task {
         } else {
             mark = "0";
         }
-        String str = String.format("%s:event:%s:%s:%s", mark, name, from, to);
+        String str = String.format("%s/event/%s/%s/%s", mark, name, from, to);
         return str;
     }
 

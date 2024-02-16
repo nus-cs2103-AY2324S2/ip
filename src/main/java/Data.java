@@ -54,6 +54,16 @@ public class Data {
 
     }
 
+    public static void clear() {
+        String filePath = "data/Duke.txt";
+        try {
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(filePath, false));
+            bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void load(TaskList tasks) {
         String filePath = "data/Duke.txt";
 
@@ -61,16 +71,6 @@ public class Data {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
             String line = bufferedReader.readLine();
             while (line != null) {
-//                String[] arr = line.split(" ", 2);
-//                String command = arr[0].toLowerCase();
-//                Command cmd = null;
-//                if (command.equals("todo")) {
-//                    cmd = Command.TODO;
-//                } else if (command.equals("deadline")) {
-//                    cmd = Command.DEADLINE;
-//                } else if (command.equals("event")) {
-//                    cmd = Command.EVENT;
-//                }
 
                 try {
                     Task task = new Task().parseFromData(line);

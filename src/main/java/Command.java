@@ -116,22 +116,7 @@ public enum Command {
         }
         @Override
         public void execute(TaskList tasks, String description) throws DukeException {
-//            String[] arr = description.split(" ", 2);
-//            if (arr.length <= 1) {
-//                throw new DukeException("Please use the format: event <task> /from <date/time> /to <date/time>");
-//            }
-//
-//            String[] frarr = arr[1].split("/from", 2);
-//            if (frarr.length <= 1) {
-//                throw new DukeException("Please use the format: event /from <date/time> /to <date/time>");
-//            }
-//            String[] toarr = frarr[1].split("/to", 2);
-//            if (toarr.length <= 1) {
-//                throw new DukeException("Please use the format: event /from <date/time> /to <date/time>");
-//            }
-//            String name = frarr[0];
-//            String from = toarr[0];
-//            String to = toarr[1];
+
             Task task = new Task().parseFromInput(description);
             tasks.add(task);
             int n = tasks.size();
@@ -147,17 +132,7 @@ public enum Command {
         }
         @Override
         public void execute(TaskList tasks, String description) throws DukeException {
-//            String[] arr = description.split(" ", 2);
-//            if (arr.length <= 1) {
-//                throw new DukeException("Please use the format: deadline <task> /by <date/time>");
-//            }
-//
-//            String[] dlarr = arr[1].split("/by", 2);
-//            if (dlarr.length <= 1) {
-//                throw new DukeException("Please use the format: deadline <task> /by <deadline>.");
-//            }
-//            String name = dlarr[0];
-//            String by = dlarr[1];
+
             Task task = new Task().parseFromInput(description);
             tasks.add(task);
             int n = tasks.size();
@@ -174,10 +149,6 @@ public enum Command {
 
         @Override
         public void execute(TaskList tasks, String description) throws DukeException {
-//            String[] arr = description.split(" ", 2);
-//            if (arr.length <= 1) {
-//                throw new DukeException("Please use the format: todo <task>");
-//            }
             Task task = new Task().parseFromInput(description);
             tasks.add(task);
             int n = tasks.size();
@@ -207,6 +178,7 @@ public enum Command {
         @Override
         public void execute(TaskList tasks, String description) throws DukeException {
             tasks.clear();
+            Data.clear();
             System.out.println("List cleared.");
         }
     };
