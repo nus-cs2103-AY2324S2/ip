@@ -19,6 +19,7 @@ public class TaskList {
      * @param tasks The `ArrayList` of tasks.
      */
     public TaskList(ArrayList<Task> tasks) {
+        assert tasks != null : "Task list must not be null";
         this.tasks = tasks;
     }
     /**
@@ -34,6 +35,7 @@ public class TaskList {
      * @throws DenifyException If there is an issue saving tasks to storage.
      */
     public void saveToStorage(Storage storage) throws DenifyException {
+        assert storage != null : "Storage must not be null";
         storage.saveTasks(tasks);
     }
     /**
