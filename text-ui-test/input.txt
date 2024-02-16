@@ -1,0 +1,3 @@
+duke.task.Todo borrow book
+duke.task.Deadline return book /by Sunday
+duke.task.Event project meeting /from Mon 2pm /to 4pm
