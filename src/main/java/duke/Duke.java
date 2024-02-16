@@ -31,13 +31,11 @@ public class Duke {
     private TaskList tasks;
 
 
-
     /**
      * Constructor for a Duke instance (Different chatbot instances for different users)
      *
-     * @param  directoryPath directory for Storage to check
-     * @param  fileName name of file for Storage to check
-     *
+     * @param directoryPath directory for Storage to check
+     * @param fileName name of file for Storage to check
      */
     public Duke(String directoryPath, String fileName) {
         ui = new Ui();
@@ -145,9 +143,4 @@ public class Duke {
         return output;
     }
 
-
-
-    public static void main(String[] args) {
-        Duke balom = new Duke("C:/repos/cs2103t stuff/data", "duke.txt");
-    }
 }

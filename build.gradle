@@ -48,11 +48,11 @@ test {
 }
 
 application {
-    mainClass.set("C:\\repos\\cs2103t stuff\\src\\main\\java\\duke\\Launcher.java")
+    mainClass.set("duke.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "balom"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
