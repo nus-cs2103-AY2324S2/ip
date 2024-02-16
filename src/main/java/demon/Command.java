@@ -18,6 +18,7 @@ public class Command {
     public Command(String filePath) {
         this.storage = new Storage(filePath);
     }
+
     /**
      * Prints out all tasks saved numbered in sequence.
      * No tasks will be printed if there is no saved tasks.
@@ -106,7 +107,6 @@ public class Command {
         String description = parts2[0].trim();
         String by = parts2[1].trim();
 
-        // Automatically assume that if time is not given, then time is 0000hrs
         by = reformatTime(by);
         // Format the date, time, and create Deadline object, add to list
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
@@ -151,7 +151,7 @@ public class Command {
      * @throws IOException if fails to write new task into file.
      */
     public void addToDo(TaskList tasks, String input) throws EmptyDescriptionException, IOException {
-        String[] parts = input.split(" ",2);
+        String[] parts = splitInput(input);
         if (parts.length < 2) {
             throw new EmptyDescriptionException("Description is EMPTY!");
         }
@@ -184,17 +184,11 @@ public class Command {
                    NoTimingException,
                    IOException,
                    DateTimeParseException {
-        String[] parts = input.split(" ",2);
-        if (parts.length < 2) {
-            throw new EmptyDescriptionException("Description is EMPTY!");
-        }
+        String[] parts = splitInput(input);
         String description_date = parts[1];
-        String[] parts2 = description_date.split("/from ");
-        if (parts2.length < 2) {
-            throw new NoTimingException("WOI! Please include time!");
-        }
-        String[] details = parts2[1].split("/to ");
+        String[] parts2 = splitDescriptionDate(description_date);
         String description = parts2[0].trim();
+        String[] details = splitDetails(parts2[1]);
         String from = details[0].trim();
         String to = details[1].trim();
 
@@ -216,7 +210,29 @@ public class Command {
         this.storeString.append(item_event).append("\n");
         this.storeString.append(Ui.showNumberOfTasks(tasks.getTaskList().size()));
     }
+    private String[] splitInput(String input) throws EmptyDescriptionException {
+        String[] parts = input.split(" ",2);
+        if (parts.length < 2) {
+            throw new EmptyDescriptionException("Description is EMPTY!");
+        }
+        return parts;
+    }
 
+    private String[] splitDescriptionDate(String description_date) throws NoTimingException {
+        String[] parts2 = description_date.split("/from ");
+        if (parts2.length < 2) {
+            throw new NoTimingException("WOI! Please include time!");
+        }
+        return parts2;
+    }
+
+    private String[] splitDetails(String details) throws NoTimingException {
+        String[] detailParts = details.split("/to ");
+        if (detailParts.length < 2) {
+            throw new NoTimingException("Time range is incomplete, missing '/to'.");
+        }
+        return detailParts;
+    }
     /**
      * Returns the formatted dateTime String given in the parameter.
      * If given string does not include the time, we add 0000hrs by default to the date.
@@ -232,6 +248,18 @@ public class Command {
         return outPut;
     }
 
+    private void checkExcessLen(String[] parts, int num) throws ExcessArgumentException {
+        if (parts.length > num) {
+            throw new ExcessArgumentException("TOO MANY ARGUMENTS PROVIDED!");
+        }
+    }
+
+    private void checkOutOfRange(TaskList tasks, String[] parts) {
+        if (Integer.parseInt(parts[1]) > tasks.getTaskList().size() | Integer.parseInt(parts[1]) < 1) {
+            throw new IndexOutOfBoundsException("Integer provided out of range!");
+        }
+    }
+
     /**
      * Deletes a task in the given taskList array by specifying the index.
      *
@@ -244,18 +272,12 @@ public class Command {
             throws EmptyDescriptionException,
                     IOException,
                     ExcessArgumentException {
-        String[] parts = input.split(" ");
-        if (parts.length < 2) {
-            throw new EmptyDescriptionException("Description is EMPTY!");
-        } else if (parts.length > 2) {
-            throw new ExcessArgumentException("TOO MANY ARGUMENTS PROVIDED!");
-        }
-        if (Integer.parseInt(parts[1]) > tasks.getTaskList().size() | Integer.parseInt(parts[1]) < 1) {
-            throw new IndexOutOfBoundsException("Integer provided out of range!");
-        }
-
+        String[] parts = splitInput(input);
+        checkExcessLen(parts, 2);
+        checkOutOfRange(tasks, parts);
         String str = "Noted Master. I've removed this task: \n";
-        String itemRemoveStr = tasks.getTaskList().get(Integer.parseInt(parts[1]) - 1).toString() + "\n";
+        int indexToDelete = Integer.parseInt(parts[1]) - 1;
+        String itemRemoveStr = tasks.getTaskList().get(indexToDelete).toString() + "\n";
         this.storeString.append(str);
         this.storeString.append(itemRemoveStr);
         tasks.getTaskList().remove(Integer.parseInt(parts[1]) - 1);
@@ -273,27 +295,26 @@ public class Command {
      * @throws EmptyDescriptionException if description (keyword) not given.
      */
     public void findTask(TaskList tasks, String input) throws EmptyDescriptionException {
-        boolean hasMatched = false;
-        String[] parts = input.split(" ");
-        if (parts.length < 2) {
-            throw new EmptyDescriptionException("Description is EMPTY!");
-        }
-
+        String[] parts = splitInput(input);
         String keyword = parts[1].toLowerCase();
-        String str = "Here are your matching tasks in your list: \n";
-        this.storeString.append(str);
+        findMatchingTasks(this.storeString, tasks, keyword);
+    }
 
+    private void findMatchingTasks(StringBuilder storeString, TaskList tasks, String keyword) {
+        String str = "Here are your matching tasks in your list: \n ";
+        storeString.append(str);
+        boolean hasMatched = false;
         for (int i = 0; i < tasks.getSize(); i++) {
             Task task = tasks.getTask(i);
             String taskString = task.toString();
             if (taskString.toLowerCase().contains(keyword)) {
                 String matchedTask = i + 1 + ". " + taskString + "\n ";
-                this.storeString.append(matchedTask);
+                storeString.append(matchedTask);
                 hasMatched = true;
             }
         }
         if (!hasMatched) {
-            this.storeString.append("NONE!");
+            storeString.append("NONE!");
         }
     }
     private String outPutString() {
