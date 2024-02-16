@@ -8,6 +8,7 @@ import luke.exception.TaskException;
 import luke.task.*;
 import luke.ui.Ui;
 
+
 /**
  * Represents a parser that parses the user input and executes the corresponding command.
  */
@@ -32,11 +33,11 @@ public class Parser {
      * @param ui The user interface.
      * @param storage The storage of the tasks.
      */
-    public void parse(TaskList list, Ui ui, Storage storage) {
+    public String parse(TaskList list, Ui ui, Storage storage) {
         if (isExit()) {
-            return;
+            return ui.goodbye();
         } else if (this.input.equals("list")) {
-            ui.printList(list);
+            return ui.printList(list);
         } else if (this.input.contains("find")) {
             try {
                 if (input.equals("find")) {
@@ -47,10 +48,10 @@ public class Parser {
                 // 5 is the index after "find ", so starts from index 5
                 String keyword = input.substring(5);
                 TaskList foundList = list.find(keyword);
-                ui.printTaskFound(foundList);
+                return ui.printTaskFound(foundList);
 
             } catch (LukeException e) {
-                ui.getErrorMessage(e.getMessage());
+                return ui.getErrorMessage(e.getMessage());
             }
 
         } else if (this.input.contains("mark")) {
@@ -61,6 +62,7 @@ public class Parser {
                 }
 
                 try {
+                    String returnString = "";
                     String[] instruction = input.split(" ");
                     String markOrUnmark = instruction[0];
 
@@ -77,27 +79,28 @@ public class Parser {
 
                     if (markOrUnmark.equals("mark")) {
                         list.get(index).markAsDone();
-                        ui.printTaskMarked(list.get(index));
+                        returnString = ui.printTaskMarked(list.get(index));
 
                     } else if (markOrUnmark.equals("unmark")) {
                         list.get(index).markAsUndone();
-                        ui.printTaskMarked(list.get(index));
+                        returnString = ui.printTaskMarked(list.get(index));
 
                     } else {
                         throw new LukeException("Hold up!! I am sorry, but I don't know what you mean by that :'(");
                     }
 
                     storage.writeTask(list);
+                    return returnString;
 
                 } catch (NumberFormatException | IndexOutOfBoundsException e) {
                     throw new LukeException("Hold up!! Please enter a valid index after "
                             + input.split(" ")[0] + ".");
                 } catch (FileException e) {
-                    ui.getErrorMessage(e.getMessage());
+                    return ui.getErrorMessage(e.getMessage());
                 }
 
             } catch (LukeException e) {
-                ui.getErrorMessage(e.getMessage());
+                return ui.getErrorMessage(e.getMessage());
             }
         } else if (input.contains("delete")) {
             try {
@@ -107,6 +110,7 @@ public class Parser {
                 }
 
                 try {
+                    String returnString = "";
                     String[] instruction = input.split(" ");
                     String delete = instruction[0];
 
@@ -123,18 +127,18 @@ public class Parser {
 
                     Task removedTask = list.get(index);
                     list.remove(index);
-                    ui.printTaskDeleted(removedTask, list.size());
-
+                    returnString = ui.printTaskDeleted(removedTask, list.size());
                     storage.writeTask(list);
+                    return returnString;
 
                 } catch (NumberFormatException | IndexOutOfBoundsException e) {
                     throw new LukeException("Hold up!! Please enter a valid index after delete.");
                 } catch (FileException e) {
-                    ui.getErrorMessage(e.getMessage());
+                    return ui.getErrorMessage(e.getMessage());
                 }
 
             } catch (LukeException e) {
-                ui.getErrorMessage(e.getMessage());
+                return ui.getErrorMessage(e.getMessage());
             }
 
         } else {
@@ -188,12 +192,12 @@ public class Parser {
 
                 }
                 storage.writeTask(list);
-                ui.printTaskAdded(list.get(list.size() - 1), list.size());
+                return ui.printTaskAdded(list.get(list.size() - 1), list.size());
 
             } catch (LukeException | TaskException | FileException e) {
-                ui.getErrorMessage(e.getMessage());
+                return ui.getErrorMessage(e.getMessage());
             } catch (DateException e) {
-                ui.getErrorMessage(e.getMessage() + "\nPlease enter the date in proper format such as "
+                return ui.getErrorMessage(e.getMessage() + "\nPlease enter the date in proper format such as "
                         + "dd/MM/yyyy or yyyy-MM-dd\nYou can also enter the time in 24-hour format such as "
                         + "HH[:MM] after the date");
             }

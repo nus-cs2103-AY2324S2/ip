@@ -5,11 +5,14 @@ import luke.task.TaskList;
 
 import java.util.Scanner;
 
+import static java.lang.Thread.sleep;
+
 /**
  * Represents the user interface of the application.
  */
 public class Ui {
     Scanner sc;
+    private static final String LINE = "_________________________________________________________";
     /**
      * Constructs an Ui object, where the scanner is initialised.
      */
@@ -21,21 +24,17 @@ public class Ui {
     /**
      * Prints the welcome message when the application starts.
      */
-    public void welcome() {
-        System.out.println("________________________________________________________________________");
-        System.out.println("Hello! I'm Luke.Luke");
-        System.out.println("What can I do for you?");
-        System.out.println("________________________________________________________________________");
+    public String welcome() {
 
+        return LINE + "\nHello! I'm Luke!\nWhat can I do for you?\n" + LINE;
     }
 
     /**
      * Prints the goodbye message when the application exits.
      */
-    public void goodbye() {
-        System.out.println("________________________________________________________________________");
-        System.out.println("Bye! Hope to see you again soon!");
-        System.out.println("________________________________________________________________________");
+    public String goodbye() {
+        return LINE + "\nBye! Hope to see you again soon!\n" + LINE;
+
     }
 
     /**
@@ -43,10 +42,9 @@ public class Ui {
      *
      * @param message The error message to be printed.
      */
-    public void getErrorMessage(String message) {
-        System.out.println("________________________________________________________________________");
-        System.out.println(message);
-        System.out.println("________________________________________________________________________");
+    public String getErrorMessage(String message) {
+        return LINE + "\n" + message + "\n" + LINE;
+
     }
 
     /**
@@ -54,17 +52,19 @@ public class Ui {
      *
      * @param tasks The TaskList to be printed.
      */
-    public void printList(TaskList tasks) {
-        System.out.println("________________________________________________________________________");
-        System.out.println("Here are the tasks in your list:");
+    public String printList(TaskList tasks) {
+        StringBuilder listString = new StringBuilder();
+        listString = new StringBuilder(LINE + "\nHere are the tasks in your list:\n");
 
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i) != null) {
-                System.out.println(i + 1 + "." + tasks.get(i));
+                String taskString = i + 1 + "." + tasks.get(i);
+                listString.append(taskString).append("\n");
 
             }
         }
-        System.out.println("________________________________________________________________________");
+        listString.append(LINE);
+        return listString.toString();
     }
 
     /**
@@ -72,17 +72,16 @@ public class Ui {
      *
      * @param task The task that is marked or unmarked.
      */
-    public void printTaskMarked(Task task) {
+    public String printTaskMarked(Task task) {
         String status = "";
         if (task.getIsDone()) {
             status = "done:";
         } else {
             status = "not done yet:";
         }
-        System.out.println("________________________________________________________________________");
-        System.out.println("Nice! I've marked this task as " + status);
-        System.out.println(task);
-        System.out.println("________________________________________________________________________");
+
+        return LINE + "\nNice! I've marked this task as " + status + "\n" + task + "\n" + LINE;
+
     }
 
     /**
@@ -91,7 +90,7 @@ public class Ui {
      * @param task The task that is added.
      * @param size The size of the TaskList.
      */
-    public void printTaskAdded(Task task, int size) {
+    public String printTaskAdded(Task task, int size) {
         String taskStringType = "";
         if (size > 1) {
             taskStringType = "tasks";
@@ -99,11 +98,9 @@ public class Ui {
             taskStringType = "task";
         }
 
-        System.out.println("________________________________________________________________________");
-        System.out.println("Got it! I've added this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + size + " " + taskStringType + " in the list.");
-        System.out.println("________________________________________________________________________");
+        return LINE + "\nGot it! I've added this task:\n" + task + "\nNow you have " + size + " "
+                + taskStringType + " in the list.\n" + LINE;
+
     }
 
     /**
@@ -112,7 +109,7 @@ public class Ui {
      * @param task The task that is deleted.
      * @param size The size of the TaskList.
      */
-    public void printTaskDeleted(Task task, int size) {
+    public String printTaskDeleted(Task task, int size) {
         String taskStringType = "";
         if (size > 1) {
             taskStringType = "tasks";
@@ -120,11 +117,9 @@ public class Ui {
             taskStringType = "task";
         }
 
-        System.out.println("________________________________________________________________________");
-        System.out.println("Noted! I've removed this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + size + " " + taskStringType + " in the list.");
-        System.out.println("________________________________________________________________________");
+        return LINE + "\nNoted! I've removed this task:\n" + task + "\nNow you have " + size + " "
+                + taskStringType + " in the list.\n" + LINE;
+
     }
 
     /**
@@ -137,14 +132,18 @@ public class Ui {
 
     }
 
-    public void printTaskFound(TaskList tasks) {
-        System.out.println("________________________________________________________________________");
-        System.out.println("Here are the matching tasks in your list:");
+    public String printTaskFound(TaskList tasks) {
+        StringBuilder foundString = new StringBuilder();
+        foundString = new StringBuilder(LINE + "\nHere are the matching tasks in your list:\n");
+
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i) != null) {
-                System.out.println(i + 1 + "." + tasks.get(i));
+                String taskString = i + 1 + "." + tasks.get(i);
+                foundString.append(taskString).append("\n");
             }
         }
-        System.out.println("________________________________________________________________________");
+        foundString.append(LINE);
+        return foundString.toString();
+
     }
 }
