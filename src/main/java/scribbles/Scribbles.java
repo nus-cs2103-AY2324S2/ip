@@ -3,7 +3,6 @@ package scribbles;
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 
 import scribbles.parser.Parser;
 import scribbles.storage.Storage;
@@ -52,9 +51,21 @@ public class Scribbles {
      */
     public String getResponse(String input) {
         Parser parsedInput = new Parser(input);
+
         String command = parsedInput.getCommand();
         assert command != null: "command should not be null";
 
+        return respondToCommand(parsedInput, command);
+    }
+
+    /**
+     * Takes in the parsed input and command of input and returns the response.
+     *
+     * @param parsedInput Parsed input
+     * @param command Command of input
+     * @return Response to command
+     */
+    public String respondToCommand(Parser parsedInput, String command) {
         switch (command) {
         case "bye":
             return ui.printExitMessage();
