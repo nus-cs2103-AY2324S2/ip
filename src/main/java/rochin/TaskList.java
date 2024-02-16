@@ -1,7 +1,5 @@
 package rochin;
 
-import rochinoop.RochinOOP;
-
 import java.util.ArrayList;
 import java.util.List;
 
