@@ -3,15 +3,15 @@ package duke.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
 import duke.JamieException;
 
 /**
- * Represents a task with a deadline, which is a subclass of Task.
+ * Represents a task with a specific deadline.
  */
 public class Deadline extends Task {
 
-    protected LocalDateTime byDateTime;
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    private final LocalDateTime byDateTime;
 
     /**
      * Constructs a Deadline task with the specified description and deadline.
@@ -22,9 +22,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) throws JamieException {
         super(description);
-        assert description != null && !description.isEmpty() : "Description cannot be null or empty";
-        assert by != null && !by.isEmpty() : "Deadline string cannot be null or empty";
-        this.byDateTime = parseDateTime(by);
+        this.byDateTime = parseDateTime(by); // Using 'this' for consistency
     }
 
     /**
@@ -37,9 +35,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by, boolean isDone) throws JamieException {
         super(description, isDone);
-        assert description != null && !description.isEmpty() : "Description cannot be null or empty";
-        assert by != null && !by.isEmpty() : "Deadline string cannot be null or empty";
-        this.byDateTime = parseDateTime(by);
+        this.byDateTime = parseDateTime(by); // Ensuring the date is parsed consistently
     }
 
     /**
@@ -51,22 +47,19 @@ public class Deadline extends Task {
      */
     private LocalDateTime parseDateTime(String by) throws JamieException {
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-            LocalDateTime dateTime = LocalDateTime.parse(by, formatter);
-            return dateTime;
+            return LocalDateTime.parse(by, FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new JamieException("Invalid date format. Please use 'dd/MM/yyyy HHmm'.");
+            throw new JamieException("Invalid date format for deadline. Please use 'dd/MM/yyyy HHmm'.");
         }
     }
-
 
     /**
      * Returns the deadline date and time.
      *
-     * @return The deadline date and time.
+     * @return The deadline date and time as a LocalDateTime object.
      */
     public LocalDateTime getBy() {
-        return this.byDateTime;
+        return this.byDateTime; // Consistency in using 'this' for class fields
     }
 
     /**
@@ -76,8 +69,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString()
-                + " (by: " + byDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
+        return "[D]" + super.toString() + " (by: " + FORMATTER.format(this.byDateTime) + ")";
     }
 
     /**
@@ -87,7 +79,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        return "D | " + (getIsDone() ? "1" : "0") + " | " + getDescription() + " | "
-                + byDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+        return "D | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | "
+                + FORMATTER.format(this.byDateTime);
     }
 }

@@ -2,15 +2,17 @@ package duke.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
+import java.time.format.DateTimeParseException;
+import duke.JamieException;
 
 /**
- * Represents an event task with a start and end time, which is a subclass of Task.
+ * Represents an event task with a specified start and end time.
  */
 public class Event extends Task {
 
-    protected LocalDateTime fromDateTime;
-    protected LocalDateTime toDateTime;
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    private final LocalDateTime fromDateTime;
+    private final LocalDateTime toDateTime;
 
     /**
      * Constructs an Event task with the specified description, start time, and end time.
@@ -18,8 +20,9 @@ public class Event extends Task {
      * @param description The description of the event.
      * @param from        The start time in the format "dd/MM/yyyy HHmm".
      * @param to          The end time in the format "dd/MM/yyyy HHmm".
+     * @throws JamieException If the date format is invalid.
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String to) throws JamieException {
         super(description);
         this.fromDateTime = parseDateTime(from);
         this.toDateTime = parseDateTime(to);
@@ -32,8 +35,9 @@ public class Event extends Task {
      * @param from        The start time in the format "dd/MM/yyyy HHmm".
      * @param to          The end time in the format "dd/MM/yyyy HHmm".
      * @param isDone      True if the event is completed, false otherwise.
+     * @throws JamieException If the date format is invalid.
      */
-    public Event(String description, String from, String to, boolean isDone) {
+    public Event(String description, String from, String to, boolean isDone) throws JamieException {
         super(description, isDone);
         this.fromDateTime = parseDateTime(from);
         this.toDateTime = parseDateTime(to);
@@ -44,16 +48,20 @@ public class Event extends Task {
      *
      * @param dateTime The date and time in the format "dd/MM/yyyy HHmm".
      * @return The parsed LocalDateTime.
+     * @throws JamieException If the date format is invalid.
      */
-    private LocalDateTime parseDateTime(String dateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        return LocalDateTime.parse(dateTime, formatter);
+    private LocalDateTime parseDateTime(String dateTime) throws JamieException {
+        try {
+            return LocalDateTime.parse(dateTime, FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new JamieException("Invalid date format for event. Please use 'dd/MM/yyyy HHmm'.");
+        }
     }
 
     /**
      * Returns the start time of the event.
      *
-     * @return The start time of the event.
+     * @return The start time as a LocalDateTime object.
      */
     public LocalDateTime getFrom() {
         return this.fromDateTime;
@@ -62,7 +70,7 @@ public class Event extends Task {
     /**
      * Returns the end time of the event.
      *
-     * @return The end time of the event.
+     * @return The end time as a LocalDateTime object.
      */
     public LocalDateTime getTo() {
         return this.toDateTime;
@@ -76,8 +84,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString()
-                + " (from: " + fromDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))
-                + " to: " + toDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
+                + " (from: " + FORMATTER.format(this.fromDateTime)
+                + " to: " + FORMATTER.format(this.toDateTime) + ")";
     }
 
     /**
@@ -87,8 +95,8 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        return "E | " + (getIsDone() ? "1" : "0") + " | " + getDescription() + " | "
-                + fromDateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")) + " | "
-                + toDateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+        return "E | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | "
+                + FORMATTER.format(this.fromDateTime) + " | "
+                + FORMATTER.format(this.toDateTime);
     }
 }

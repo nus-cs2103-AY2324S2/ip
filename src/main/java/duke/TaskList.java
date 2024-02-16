@@ -11,7 +11,7 @@ import duke.task.Task;
  * information about the tasks.
  */
 public class TaskList {
-    private final ArrayList<Task> tasks;
+    private final List<Task> tasks;
 
     /**
      * Creates an empty TaskList.
@@ -25,9 +25,9 @@ public class TaskList {
      *
      * @param tasks The initial list of tasks.
      */
-    public TaskList(ArrayList<Task> tasks) {
+    public TaskList(List<Task> tasks) {
         assert tasks != null : "Initial task list cannot be null";
-        this.tasks = tasks;
+        this.tasks = new ArrayList<>(tasks); // Use a copy of the list to avoid modifying the original list
     }
 
     /**
@@ -42,36 +42,27 @@ public class TaskList {
 
     /**
      * Deletes a task from the task list at the specified index.
+     * Indexing for the user starts from 1, so 1 is subtracted for internal zero-based indexing.
      *
-     * @param taskIndex The index of the task to be removed.
+     * @param taskIndex The one-based index of the task to be removed.
      */
     public void deleteTask(int taskIndex) {
-        assert taskIndex >= 0 && taskIndex < tasks.size() : "Task index is out of bounds";
-        tasks.remove(taskIndex);
-    }
-    /**
-     * Marks a task at the specified index as completed.
-     *
-     * @param taskIndex The index of the task to be marked as done.
-     */
-    public void completeTask(int taskIndex) {
-        assert taskIndex >= 0 && taskIndex < tasks.size() : "Task index is out of bounds";
-        Task task = tasks.get(taskIndex);
-        task.markAsDone();
+        int zeroBasedIndex = taskIndex - 1;
+        assert zeroBasedIndex >= 0 && zeroBasedIndex < tasks.size() : "Task index is out of bounds";
+        tasks.remove(zeroBasedIndex);
     }
 
     /**
-     * Prints all the tasks in the list to the console.
+     * Marks a task at the specified index as completed.
+     * Indexing for the user starts from 1, so 1 is subtracted for internal zero-based indexing.
+     *
+     * @param taskIndex The one-based index of the task to be marked as done.
      */
-    public void listTasks() {
-        if (tasks.isEmpty()) {
-            System.out.println("No tasks to display.");
-        } else {
-            System.out.println(" Here are the tasks in your list:");
-            for (int i = 0; i < tasks.size(); i++) {
-                System.out.println(" " + (i + 1) + ". " + tasks.get(i));
-            }
-        }
+    public void completeTask(int taskIndex) {
+        int zeroBasedIndex = taskIndex - 1;
+        assert zeroBasedIndex >= 0 && zeroBasedIndex < tasks.size() : "Task index is out of bounds";
+        Task task = tasks.get(zeroBasedIndex);
+        task.markAsDone();
     }
 
     /**
@@ -86,30 +77,22 @@ public class TaskList {
     /**
      * Returns the list of tasks.
      *
-     * @return The ArrayList of tasks.
+     * @return The list of tasks.
      */
-    public ArrayList<Task> getTasks() {
-        return this.tasks;
+    public List<Task> getTasks() {
+        return this.tasks; // Returns direct reference; consider returning an unmodifiable list for encapsulation
     }
 
     /**
-     * Loads a list of tasks into the task list.
+     * Retrieves a task by its one-based index in the list.
      *
-     * @param loadedTasks The list of tasks to be loaded.
-     */
-    public void loadTasks(List<Task> loadedTasks) {
-        tasks.addAll(loadedTasks);
-    }
-
-    /**
-     * Retrieves a task by its index in the list.
-     *
-     * @param index The index of the task.
+     * @param index The one-based index of the task.
      * @return The task at the specified index, or null if the index is invalid.
      */
     public Task getTask(int index) {
-        assert index >= 0 && index < tasks.size() : "Task index is out of bounds";
-        return tasks.get(index);
+        int zeroBasedIndex = index - 1;
+        assert zeroBasedIndex >= 0 && zeroBasedIndex < tasks.size() : "Task index is out of bounds";
+        return tasks.get(zeroBasedIndex);
     }
 
     /**
@@ -119,7 +102,7 @@ public class TaskList {
      * @return A list of tasks that contain the keyword.
      */
     public List<Task> findTasks(String keyword) {
-        assert keyword != null && !keyword.isEmpty() : "Search keyword cannot be null or empty";
+        assert keyword != null && !keyword.isBlank() : "Search keyword cannot be null or blank";
         List<Task> matchedTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task.getDescription().contains(keyword)) {
@@ -128,5 +111,4 @@ public class TaskList {
         }
         return matchedTasks;
     }
-
 }

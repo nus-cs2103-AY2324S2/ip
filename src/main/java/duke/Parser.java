@@ -17,81 +17,83 @@ import duke.task.ToDo;
  */
 public class Parser {
 
-    private String userInput;
-
     /**
-     * Constructs a Parser instance with a given user input string.
-     *
-     * @param userInput The string input by the user to be parsed.
-     */
-    public Parser(String userInput) {
-        this.userInput = userInput;
-    }
-
-    /**
-     * Parses the user input and returns the corresponding Command object.
+     * Parses the user input into a Command object representing the action to be taken.
      * This method interprets the user input and translates it into specific
-     * commands understood by the Duke application, such as adding or deleting tasks.
+     * commands understood by the Duke application, such as adding, deleting, or completing tasks.
      *
      * @param userInput The user input string to be parsed.
      * @return Command object representing the action to be taken.
      * @throws JamieException If the user input cannot be understood or is invalid.
      */
     public static Command parse(String userInput) throws JamieException {
-        String[] words = userInput.split(" ", 2);
-        if (words.length < 1) {
-            throw new JamieException("OOPS!!! I'm sorry, but I don't know what that means :-(");
-        }
+        String[] words = userInput.trim().split("\\s+", 2); // Split by whitespace, limit to 2 parts
+        String commandWord = words[0].toLowerCase();
+        String commandArgs = words.length > 1 ? words[1] : "";
 
-        String command = words[0].toLowerCase();
-        String details = words.length > 1 ? words[1] : "";
-
-        switch (command) {
+        switch (commandWord) {
         case "bye":
             return new ExitTaskCommand();
-
         case "list":
             return new ListTasksCommand();
-
         case "done":
-            return new CompleteTaskCommand(Integer.parseInt(details));
-
+            return parseCompleteTaskCommand(commandArgs);
         case "delete":
-            return new DeleteTaskCommand(Integer.parseInt(details));
-
+            return parseDeleteTaskCommand(commandArgs);
         case "todo":
-            if (details.trim().isEmpty()) {
-                throw new JamieException("OOPS!!! The description of a todo cannot be empty.");
-            }
-            return new AddTaskCommand(new ToDo(details));
-
+            return parseAddTodoCommand(commandArgs);
         case "deadline":
-            String[] deadlineDetails = details.split(" /by ");
-            if (deadlineDetails.length != 2
-                    || deadlineDetails[0].trim().isEmpty() || deadlineDetails[1].trim().isEmpty()) {
-                throw new JamieException("OOPS!!! Invalid format for deadline. "
-                        + "Please use: deadline <description> /by <date>");
-            }
-            return new AddTaskCommand(new Deadline(deadlineDetails[0], deadlineDetails[1]));
-
+            return parseAddDeadlineCommand(commandArgs);
         case "event":
-            String[] eventDetails = details.split(" /from ");
-            if (eventDetails.length != 2) {
-                throw new JamieException("OOPS!!! Invalid format for event. "
-                        + "Please use: event <description> /from <start> /to <end>");
-            }
-            String[] eventTiming = eventDetails[1].split(" /to ");
-            if (eventTiming.length != 2 || eventTiming[0].trim().isEmpty() || eventTiming[1].trim().isEmpty()) {
-                throw new JamieException("OOPS!!! Invalid format for event timing. "
-                        + "Please use: event <description> /from <start> /to <end>");
-            }
-            return new AddTaskCommand(new Event(eventDetails[0], eventTiming[0], eventTiming[1]));
-
+            return parseAddEventCommand(commandArgs);
         case "find":
-            return new FindTaskCommand(details);
-
+            return new FindTaskCommand(commandArgs);
         default:
             throw new JamieException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
+    }
+
+    private static Command parseCompleteTaskCommand(String args) throws JamieException {
+        try {
+            int index = Integer.parseInt(args);
+            return new CompleteTaskCommand(index);
+        } catch (NumberFormatException e) {
+            throw new JamieException("Invalid task number for completion.");
+        }
+    }
+
+    private static Command parseDeleteTaskCommand(String args) throws JamieException {
+        try {
+            int index = Integer.parseInt(args);
+            return new DeleteTaskCommand(index);
+        } catch (NumberFormatException e) {
+            throw new JamieException("Invalid task number for deletion.");
+        }
+    }
+
+    private static Command parseAddTodoCommand(String details) throws JamieException {
+        if (details.isBlank()) {
+            throw new JamieException("OOPS!!! The description of a todo cannot be empty.");
+        }
+        return new AddTaskCommand(new ToDo(details));
+    }
+
+    private static Command parseAddDeadlineCommand(String details) throws JamieException {
+        String[] parts = details.split(" /by ", 2);
+        if (parts.length < 2 || parts[0].isBlank() || parts[1].isBlank()) {
+            throw new JamieException("OOPS!!! Invalid format for deadline. "
+                    + "Please use: deadline <description> /by <date>");
+        }
+        return new AddTaskCommand(new Deadline(parts[0], parts[1]));
+    }
+
+    private static Command parseAddEventCommand(String details) throws JamieException {
+        String[] eventDetails = details.split(" /at ", 2);
+        if (eventDetails.length < 2 || eventDetails[0].isBlank() || eventDetails[1].isBlank()) {
+            throw new JamieException("OOPS!!! Invalid format for event. "
+                    + "Please use: event <description> /at <date/time>");
+        }
+        String[] eventTiming = eventDetails[1].split(" /to ");
+        return new AddTaskCommand(new Event(eventDetails[0], eventTiming[0], eventTiming[1]));
     }
 }

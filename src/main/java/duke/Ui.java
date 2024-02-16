@@ -1,17 +1,14 @@
 package duke;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import duke.task.Task;
-
 
 /**
  * Represents the user interface of the Duke application.
  * This class handles interactions with the user, including displaying messages, errors, and task lists.
  */
 public class Ui {
-
 
     /**
      * Displays a welcome message to the user.
@@ -49,8 +46,7 @@ public class Ui {
      * @param tasks The TaskList containing the tasks to be displayed.
      */
     public String showTaskList(TaskList tasks) {
-        assert tasks != null : "The task list provided cannot be null";
-        ArrayList<Task> taskArrayList = tasks.getTasks();
+        List<Task> taskArrayList = tasks.getTasks();
         if (taskArrayList.isEmpty()) {
             return "The task list is empty.";
         } else {
@@ -73,7 +69,7 @@ public class Ui {
         } else {
             StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
             for (int i = 0; i < tasks.size(); i++) {
-                sb.append(i + 1).append(".").append(tasks.get(i)).append("\n");
+                sb.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
             }
             return sb.toString().trim();
         }
@@ -94,18 +90,16 @@ public class Ui {
      * @param task The task that has been marked as done.
      */
     public String showMarkAsDoneMessage(Task task) {
-        assert task != null : "The task provided cannot be null";
         return "Nice! I've marked this task as done:\n" + task;
     }
 
     /**
      * Displays a message indicating a task has been marked as not done.
      *
-     * @param task The task that has been marked as not done.
-     * @return A message indicating the task has been marked as not done.
+     * @param task The task that has been marked as not done yet.
      */
     public String showMarkAsUndoneMessage(Task task) {
-        return "Ok, I've marked this task as not done yet:\n" + task;
+        return "OK, I've marked this task as not done yet:\n" + task;
     }
 
     /**
@@ -115,23 +109,20 @@ public class Ui {
      * @param tasks The updated TaskList after the task has been deleted.
      */
     public String showDeleteMessage(Task removedTask, TaskList tasks) {
-        assert removedTask != null : "The removed task cannot be null";
-        assert tasks != null : "The task list provided cannot be null";
         String deleteTaskMessage = "Noted. I've removed this task:\n" + removedTask;
         String numOfTasksMessage = showNumTasks(tasks);
-        return deleteTaskMessage + ". \n" + numOfTasksMessage;
-
+        return deleteTaskMessage + "\n" + numOfTasksMessage;
     }
 
     /**
      * Displays a message indicating a task has been added to the task list.
      *
      * @param newTask The task that has been added.
-     * @param tasks The updated TaskList after the task has been deleted.
+     * @param tasks The updated TaskList after the task has been added.
      */
     public String showAddTaskMessage(Task newTask, TaskList tasks) {
-        String addTaskMessage = "Got it. I've added this task:\n " + newTask.toString();
+        String addTaskMessage = "Got it. I've added this task:\n" + newTask;
         String numOfTasksMessage = showNumTasks(tasks);
-        return addTaskMessage + ". \n" + numOfTasksMessage;
+        return addTaskMessage + "\n" + numOfTasksMessage;
     }
 }

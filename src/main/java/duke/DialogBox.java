@@ -15,9 +15,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 /**
- * An example of a custom control using FXML.
- * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
- * containing text from the speaker.
+ * Represents a dialog box consisting of an ImageView to represent the speaker's face and a label
+ * containing text from the speaker. This is used in the GUI to display messages from the user and Duke.
  */
 public class DialogBox extends HBox {
     @FXML
@@ -32,7 +31,7 @@ public class DialogBox extends HBox {
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Consider better error handling or logging
         }
 
         dialog.setText(text);
@@ -40,7 +39,8 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Flips the dialog box such that the ImageView is on the left and text on the right.
+     * Flips the dialog box to alternate the display of the ImageView and text, typically for differentiating
+     * between user messages and Duke's responses.
      */
     private void flip() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
@@ -49,13 +49,27 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Creates a DialogBox for the user with specified text and image.
+     *
+     * @param text The message text.
+     * @param img  The user's image.
+     * @return A new instance of DialogBox configured for the user.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Creates a DialogBox for Duke with specified text and image, flipping the orientation.
+     *
+     * @param text The message text.
+     * @param img  Duke's image.
+     * @return A new instance of DialogBox configured for Duke.
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
-        db.flip();
+        db.flip(); // Flips the dialog box to differentiate Duke's messages from the user's messages
         return db;
     }
 }
