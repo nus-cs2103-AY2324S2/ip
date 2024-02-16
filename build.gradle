@@ -45,11 +45,11 @@ test {
 }
 
 application {
-    mainClass.set("duke.Launcher")
+    mainClass.set("grizzly.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "grizzly"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

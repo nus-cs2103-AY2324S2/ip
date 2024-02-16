@@ -1,8 +1,8 @@
-<h1> CBWBot </h1>
+<h1> Grizzly </h1>
 
 > “Your mind is for having ideas, not holding them.” – David Allen ([source](https://dansilvestre.com/productivity-quotes/))
 
-CBWBot frees your mind of having to remember things you need to do. It's,
+Grizzly frees your mind of having to remember things you need to do. It's,
 - text-based
 - easy to learn
 - ~~FAST~~ SUPER FAST to use
@@ -22,7 +22,7 @@ Features:
 - [ ]  Managing deadlines
 - [ ]  Managing events
 - [ ]  Recording contacts
-      
+
 If you are a Java programmer, you can use it to practice Java too. Here's the main method:
 ```
 public class Main {
