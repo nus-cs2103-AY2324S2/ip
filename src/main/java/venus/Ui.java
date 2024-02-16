@@ -24,19 +24,19 @@ public class Ui {
         System.out.println(BORDER + "     " + message + "\n" + BORDER);
     }
 
-    public static void formatMark (Task task) {
+    public static void formatMark(Task task) {
         Ui.formatResponse("Nice! I've marked this task as done:\n"
                 + "       "
                 + task.toString());
     }
 
-    public static void formatUnmark (Task task) {
+    public static void formatUnmark(Task task) {
         Ui.formatResponse("OK, I've marked this task as not done yet:\n"
                 + "       "
                 + task.toString());
     }
 
-    public static void formatTask (Task task, int size) {
+    public static void formatTask(Task task, int size) {
         Ui.formatResponse("Got it. I've added this task:\n"
                 + "       "
                 + task.toString()
@@ -44,7 +44,7 @@ public class Ui {
                 + "     Now you have " + size + " tasks in the list.");
     }
 
-    public static void formatDelete (Task task, int size) {
+    public static void formatDelete(Task task, int size) {
         Ui.formatResponse("Noted. I've removed this task:\n"
                 + "       "
                 + task.toString()

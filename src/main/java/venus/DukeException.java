@@ -17,7 +17,7 @@ public class DukeException extends Exception {
     /**
      * An exception that is caused by problems related to project Duke with custom exception.
      */
-    public DukeException(String s){
+    public DukeException(String s) {
         super(s);
     }
 }

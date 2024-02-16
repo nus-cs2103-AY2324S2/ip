@@ -16,25 +16,25 @@ public class Task {
      *
      * @param item String representation of task.
      */
-    public Task(String item){
+    public Task(String item) {
         super();
         this.mark = false;
         this.item = item;
     }
 
-    public void mark(){
+    public void mark() {
         this.mark = true;
     }
 
-    public void unmark(){
+    public void unmark() {
         this.mark = false;
     }
 
-    public boolean getMark(){
+    public boolean getMark() {
         return mark;
     }
 
-    public String getItem(){
+    public String getItem() {
         return item;
     }
 
@@ -45,7 +45,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        String X = (mark) ? "X" : " ";
-        return ("[" + X + "] " + item);
+        String x = (mark) ? "X" : " ";
+        return ("[" + x + "] " + item);
     }
 }

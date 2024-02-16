@@ -1,11 +1,8 @@
 package venus;
 
 import java.time.LocalDate;
-
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
-import java.time.LocalDate;
 
 /**
  * This is a TaskList class that is used to save tasks.

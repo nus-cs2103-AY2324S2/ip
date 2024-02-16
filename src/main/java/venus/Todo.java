@@ -6,7 +6,7 @@ package venus;
  * @author peterXGD
  * @since 2024-02-05
  */
-public class Todo extends Task{
+public class Todo extends Task {
     public Todo(String s) {
         super(s);
     }
@@ -33,7 +33,7 @@ public class Todo extends Task{
      */
     @Override
     public String toString() {
-        String X = (this.getMark()) ? "X" : " ";
-        return ("[T]"+"[" + X + "] " + this.getItem());
+        String x = (this.getMark()) ? "X" : " ";
+        return ("[T]" + "[" + x + "] " + this.getItem());
     }
 }
