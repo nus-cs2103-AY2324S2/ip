@@ -11,6 +11,7 @@ public class ListCommand implements Command {
      *
      * @param tasks the TaskList where the Task are in
      * @param ui the UI that will be used to display the message
+     * @return a String of the UI message and a list of tasks that are in the TaskList
      */
     public String execute(TaskList tasks, Ui ui) throws DukeException {
         return ui.listMessage(tasks.toString());
