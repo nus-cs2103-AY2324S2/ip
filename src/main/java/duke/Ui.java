@@ -17,7 +17,6 @@ public class Ui {
         String logo = " KASSIM ";
         System.out.println("YOO I AM " + logo);
         System.out.println("What can I do for you?");
-        //return logo;
         return "YOO I AM " + logo + "\nWhat can I do for you?";
     }
 
@@ -55,7 +54,6 @@ public class Ui {
      * @return The error message for an unrecognized command.
      */
     public String commandError() {
-        //System.out.println("SORRY! but are you sure you enter the correct command? please check!");
         return "SORRY! but are you sure you enter the correct command? please check!";
     }
 
@@ -66,10 +64,6 @@ public class Ui {
      * @return A message indicating the task has been marked as done.
      */
     public String markInfo(Task task) {
-        /*System.out.println("------------------------------------------------------------");
-        System.out.println("Nice! I've marked this task as done: ");
-        System.out.println(task);
-        System.out.println("------------------------------------------------------------");*/
         return "Nice! I've marked this task as done: \n" + task;
     }
 
@@ -80,10 +74,6 @@ public class Ui {
      * @return A message indicating the task has been marked as not done.
      */
     public String unmarkInfo(Task task) {
-        /*System.out.println("------------------------------------------------------------");
-        System.out.println("Ok, I've marked this task as not done yet: ");
-        System.out.println(task);
-        System.out.println("------------------------------------------------------------");*/
         return "Ok, I've marked this task as not done yet: \n" + task;
     }
 
@@ -92,7 +82,6 @@ public class Ui {
      * @return The error message for an invalid task number.
      */
     public String invalidNum() {
-        //System.out.println("Invalid task number.");
         return "Invalid task number.";
     }
 
@@ -101,8 +90,6 @@ public class Ui {
      * @return A message indicating the list of tasks is shown.
      */
     public String listDetails() {
-        //System.out.println("------------------------------------------------------------");
-        //System.out.println("Here are the tasks in your list: ");
         return "Here are the tasks in your list: \n";
     }
 
@@ -111,9 +98,6 @@ public class Ui {
      * @return A message indicating the list of tasks user are finding.
      */
     public String findListDetails() {
-        //System.out.println("------------------------------------------------------------");
-        //System.out.println("Here are the matching tasks in your list: ");
-
         return "Here are the matching tasks in your list: ";
     }
 
@@ -126,9 +110,6 @@ public class Ui {
      */
 
     public String removeTop(Task task) {
-        //.out.println("------------------------------------------------------------");
-        //System.out.println("Noted. I've removed this task: ");
-        //System.out.println(task);
         return "Noted. I've removed this task: \n" + task;
     }
 
@@ -139,8 +120,6 @@ public class Ui {
      * @return A message indicating the number of tasks left in the list.
      */
     public String removeBottom(int size) {
-        //System.out.println("Now you have " + size + " tasks in the list.");
-        //.out.println("------------------------------------------------------------");
         return "\nNow you have " + size + " tasks in the list.";
     }
 
@@ -152,11 +131,6 @@ public class Ui {
      * @return A message indicating what todo task is added into the task and the number of tasks left in the list.
      */
     public String todoInfo(Todo newTodo, int size) {
-        /*System.out.println("------------------------------------------------------------");
-        System.out.println("Got it. I've added this task: ");
-        System.out.println(newTodo);
-        System.out.println("Now you have " + size + " tasks in the list.");
-        System.out.println("------------------------------------------------------------");*/
         return "Got it. I've added this task:\n" + newTodo
                 + "\nNow you have " + size + " tasks in the list.";
     }
@@ -169,11 +143,6 @@ public class Ui {
      * @return A message indicating what deadline task is added into the task and the number of task left in the list.
      */
     public String deadlineInfo(Deadline newDeadline, int size) {
-        /*System.out.println("------------------------------------------------------------");
-        System.out.println("Got it. I've added this task: ");
-        System.out.println(newDeadline);
-        System.out.println("Now you have " + size + " tasks in the list.");
-        System.out.println("------------------------------------------------------------");*/
         return "Got it. I've added this task: \n" + newDeadline
                 + "\nNow you have " + size + " tasks in the list.";
     }
@@ -186,11 +155,6 @@ public class Ui {
      * @return A message indicating what event task is added into the task and the number of task left in the list.
      */
     public String eventInfo(Event newEvent, int size) {
-        /*System.out.println("------------------------------------------------------------");
-        System.out.println("Got it. I've added this task: ");
-        System.out.println(newEvent);
-        System.out.println("Now you have " + size + " tasks in the list.");
-        System.out.println("------------------------------------------------------------");*/
         return "Got it. I've added this task: \n" + newEvent
                 + "\nNow you have " + size + " tasks in the list.";
     }
@@ -201,7 +165,6 @@ public class Ui {
      * @return Last message for the user before they exit the program.
      */
     public String finalMessage() {
-        System.out.println("------------------------------------------------------------");
         return "Bye! Hope to see you again!!";
     }
 
@@ -210,7 +173,6 @@ public class Ui {
      * @return A message indicating user enter a blank command.
      */
     public String blank() {
-        //System.out.print(" ");
         return "what?";
     }
 
@@ -219,7 +181,6 @@ public class Ui {
      * @return A separation line to separate the section.
      */
     public String separationLine() {
-        //System.out.println("------------------------------------------------------------");
         return "------------------------------------------------------------";
     }
 }

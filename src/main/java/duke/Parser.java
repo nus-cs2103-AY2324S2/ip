@@ -46,17 +46,22 @@ public class Parser {
             return taskList.list();
 
         } else if (command.equals("bye")) {
+
         } else if (command.equals("find")) {
             TaskList taskList = new TaskList(myList);
             return taskList.find(parts);
+
         } else if (parts.length == 1) {
             return ui.commandError();
+
         } else if (command.equals("unmark")) {
             TaskList taskList = new TaskList(myList);
             return taskList.unmarkList(parts);
+
         } else if (command.equals("mark")) {
             TaskList taskList = new TaskList(myList);
             return taskList.markList(parts);
+
         } else if (command.equals("delete")) {
             TaskList taskList = new TaskList(myList);
             return taskList.remove(parts);

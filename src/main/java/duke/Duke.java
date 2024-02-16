@@ -67,9 +67,6 @@ public class Duke extends Application {
 
         scene = new Scene(mainLayout);
 
-        // Set the background color of the root node (mainLayout) using CSS
-        mainLayout.setStyle("-fx-background-color: lightpink;");
-
         stage.setScene(scene);
         stage.show();
 
@@ -104,14 +101,6 @@ public class Duke extends Application {
         AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
-        //Step 3. Add functionality to handle user input.
-        sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
-
-        userInput.setOnAction((event) -> {
-            handleUserInput();
-        });
 
         //Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
@@ -138,18 +127,6 @@ public class Duke extends Application {
      */
     public void displayWelcomeMessage() {
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(ui.message(), dukeImage));
-    }
-
-    /**
-     * Handles user input and displays responses accordingly.
-     */
-    private void handleUserInput() {
-        String input = userInput.getText();
-        boolean result = true;
-        while (result) {
-            getResponse(input);
-        }
-        userInput.clear();
     }
 
     /**
