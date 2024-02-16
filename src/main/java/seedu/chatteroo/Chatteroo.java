@@ -6,21 +6,6 @@ import seedu.chatteroo.storage.Storage;
 import seedu.chatteroo.tasks.TaskList;
 import seedu.chatteroo.ui.Ui;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import javafx.scene.control.Label;
-import javafx.scene.layout.Region;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
-import java.util.Scanner;
-
 import java.io.IOException;
 
 /**
@@ -30,15 +15,7 @@ public class Chatteroo {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
 
-
-//    private Image user = new Image(this.getClass().getResourceAsStream("/images/buffkangaroo.jpg"));
-//    private Image duke = new Image(this.getClass().getResourceAsStream("/images/cutekangaroo.jpg"));
 
     /**
      * Constructor for the Chatteroo class.
@@ -48,6 +25,10 @@ public class Chatteroo {
         ui = new Ui();
         storage = new Storage();
         tasks = new TaskList(storage.loadTasks());
+
+        assert ui != null : "Ui should not be null";
+        assert storage != null : "Storage should not be null";
+        assert tasks != null : "TaskList should not be null";
     }
 
 

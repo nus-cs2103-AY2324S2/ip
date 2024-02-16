@@ -32,6 +32,8 @@ public class Parser {
      * @throws Exception If the input is invalid.
      */
     public static Command parseInput(String input) throws Exception {
+        assert input != null : "Input should not be null";
+
         String[] inputArr = input.split(" ");
         String command = inputArr[0].toUpperCase();
         switch (command) {
