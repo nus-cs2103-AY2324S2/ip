@@ -8,14 +8,27 @@ public class Event extends SpecialTask {
     LocalDate toDate;
     boolean hasDate;
 
+    /**
+     * Constructs Event object with specified String and the start and end LocalDate.
+     *
+     * @param msg
+     * @param fromDate
+     * @param toDate
+     */
     public Event(String msg, LocalDate fromDate, LocalDate toDate) {
         super(msg);
         this.fromDate = fromDate;
         this.toDate = toDate;
         this.hasDate = true;
     }
-    
 
+    /**
+     * Checks if event occurs within date range specified.
+     *
+     * @param startDate
+     * @param endDate
+     * @return boolean
+     */
     @Override
     public boolean inRange(LocalDate startDate, LocalDate endDate) {
         return (startDate.isBefore(toDate) && endDate.isAfter(fromDate))

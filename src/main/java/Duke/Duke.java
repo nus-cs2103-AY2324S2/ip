@@ -8,6 +8,13 @@ import java.util.Scanner;
 
 public class Duke {
 
+    /**
+     * Main function of the Duke program. Displays opening logo. Scans for user input.
+     *
+     * @param args
+     * @throws DukeException
+     * @throws IOException
+     */
     public static void main(String[] args) throws DukeException, IOException {
 
         UI.showLogo();
@@ -22,19 +29,8 @@ public class Duke {
                 UI.showExitMsg();
                 break;
             }
-            if (input.equals("check dates")) {
-                UI.checkDatesMsg();
-                String fromDate = scan.nextLine();
-                System.out.println("End: ");
-                String toDate = scan.nextLine();
-                ArrayList<Task> taskList = TaskHandler.checkSchedule(fromDate, toDate, storage);
-                UI.scheduledTaskMsg();
-                for (Task task : taskList) {
-                    System.out.println(task.toString());
-                }
-            } else {
-                TaskHandler.doTasks(input, storage, writeToFile);
-            }
+            TaskHandler.doTasks(input, storage, writeToFile);
+
             input = scan.nextLine();
 
         }

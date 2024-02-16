@@ -4,6 +4,10 @@ public class UI {
     /**
      * Contains methods to display output for User Interface
      */
+
+    /**
+     * Displays Logo.
+     */
     public static void showLogo() {
         String logo = "__________________________________\n" +
                 "Hello! I'm Tim \n" +
@@ -12,12 +16,18 @@ public class UI {
         System.out.println(logo);
     }
 
+    /**
+     * Displays exit message.
+     */
     public static void showExitMsg() {
         String exit = "Bye. Hope to see you again soon!\n" +
                 "__________________________________";
         System.out.println(exit);
     }
 
+    /**
+     * Displays available commands that can be used.
+     */
     public static void showAvailCommands() {
         String commands = """
                 __________________________________
@@ -33,6 +43,12 @@ public class UI {
         System.out.println(commands);
     }
 
+    /**
+     * Displays message that says tasks has been added to the list.
+     *
+     * @param task
+     * @param taskNum
+     */
     public static void printAddMsg(Task task, int taskNum){
         String output = "__________________________________\n" +
                 "Ok, I have added this task:\n" +
@@ -42,6 +58,11 @@ public class UI {
         System.out.println(output);
     }
 
+    /**
+     * Displays header message for when list command is used.
+     *
+     * @param contents
+     */
     public static void listMsg(String contents) {
         System.out.println("__________________________________\n" +
                 "Here are the tasks in your list:\n" +
@@ -49,29 +70,50 @@ public class UI {
                 "__________________________________\n");
     }
 
+    /**
+     * Displays output message for when check dates command is used.
+     */
     public static void scheduledTaskMsg() {
         System.out.println("__________________________________\n" +
                 "This are the tasks within the period you stated:");
     }
 
+    /**
+     * Displays header message for when check dates command is used.
+     */
     public static void checkDatesMsg() {
         System.out.println("__________________________________\n" +
                 "Input dates in the form dd/mm/yyyy:\n" +
                 "Start: ");
     }
 
+    /**
+     * Displays message for when a task is marked.
+     *
+     * @param task
+     */
     public static void markedMsg(Task task) {
         String output = "OK, I've marked this task as done:\n" +
                 "   " + task.toString();
         System.out.println(output);
     }
 
+    /**
+     * Displays message for when a task is unmarked.
+     * @param task
+     */
     public static void unMarkedMsg(Task task) {
         String output = "OK, I've marked this task as not done:\n" +
                 "   " + task.toString();
         System.out.println(output);
     }
 
+    /**
+     * Displays message for when a task is deleted.
+     *
+     * @param task
+     * @param storage
+     */
     public static void deleteMsg(Task task, TaskList storage) {
         String output = "OK, I've removed this task:\n" +
                 "   " + task.toString() +
@@ -79,6 +121,12 @@ public class UI {
         System.out.println(output);
     }
 
+    /**
+     *  Return specific string containing the error message to be used for certain commands.
+     *
+     * @param s
+     * @return String for specified error
+     */
     public static String errorMsg(String s) {
         String output = "";
         if (s.equals("delete")) {

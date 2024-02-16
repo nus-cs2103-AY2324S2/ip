@@ -6,11 +6,20 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TaskHandler{
 
+    /**
+     * Handles user input and performs operation based of it
+     *
+     * @param input
+     * @param storage
+     * @param filePath
+     * @throws IOException
+     */
     public static void doTasks(String input, TaskList storage, Path filePath) throws IOException {
         int taskNum = storage.size() + 1;
         if (input.equals("list")) {
@@ -21,6 +30,17 @@ public class TaskHandler{
         } else if (input.equals("help")) {
             UI.showAvailCommands();
 
+        } else if (input.equals("check dates")) {
+            Scanner scan = new Scanner(System.in);
+            UI.checkDatesMsg();
+            String fromDate = scan.nextLine();
+            System.out.println("End: ");
+            String toDate = scan.nextLine();
+            ArrayList<Task> taskList = TaskHandler.checkSchedule(fromDate, toDate, storage);
+            UI.scheduledTaskMsg();
+            for (Task task : taskList) {
+                System.out.println(task.toString());
+            }
         } else if (input.startsWith("mark")) {
             String[] temp = input.split(" ");
             try {
@@ -135,6 +155,14 @@ public class TaskHandler{
 
     }
 
+    /**
+     * Check for tasks that occur during the date range provided
+     *
+     * @param start
+     * @param end
+     * @param storage
+     * @return ArrayList<Task> containing task in the date range
+     */
     public static ArrayList<Task> checkSchedule(String start, String end, ArrayList<Task> storage) {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -155,6 +183,13 @@ public class TaskHandler{
         return tasks;
     }
 
+    /**
+     * Translate the date of String type into a LocalDate type
+     *
+     * @param msg
+     * @return LocalDate
+     * @throws DukeException
+     */
     private static LocalDate getDate(String msg) throws DukeException {
         Pattern p = Pattern.compile("(\\d+)/(\\d+)/(\\d+)");
         Matcher m = p.matcher(msg);
@@ -168,6 +203,15 @@ public class TaskHandler{
         }
     }
 
+    /**
+     * Check if user input is correct for the mark, unmark and delete commands
+     *
+     * @param temp
+     * @param storage
+     * @param errorMsg
+     * @return index of task mentioned by user input
+     * @throws DukeException
+     */
     private static int checkInput(String[] temp, TaskList storage, String errorMsg) throws DukeException {
         if (temp.length <= 1) {
             throw new DukeException(errorMsg);
@@ -180,6 +224,14 @@ public class TaskHandler{
         return number;
     }
 
+    /**
+     * Check if user input is correct for the tasks commands
+     *
+     * @param temp
+     * @param storage
+     * @param errorMsg
+     * @throws DukeException
+     */
     private static void checkTaskInput(String [] temp, TaskList storage, String errorMsg) throws DukeException {
         if (temp.length <= 1) {
             throw new DukeException(errorMsg);
