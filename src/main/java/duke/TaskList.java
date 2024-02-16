@@ -34,14 +34,12 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void addTask(Task task) {
-
         if (this.tasks == null) {
             this.tasks = new ArrayList<>(); // Initialize the list if it's null
         }
         this.tasks.add(task);
         assert tasks.contains(task) : "Task should be added to the list";
     }
-
     /**
      * Gets the list of tasks in the task list.
      *
@@ -127,5 +125,37 @@ public class TaskList {
                 .filter(task -> task.getDescription().contains(keyword))
                 .collect(Collectors.toList());
     }
+
+
+//        for (Task t : tasks) {
+//            if (t.getDescription().equals(task.getDescription())) {
+//                return true;
+//            }
+//        }
+//        return false;
+    public boolean containsTask(Task task) {
+        for (Task t : tasks) {
+            if (t.getDescription().equals(task.getDescription())) {
+                if (t instanceof Deadline && task instanceof Deadline) {
+                    Deadline d1 = (Deadline) t;
+                    Deadline d2 = (Deadline) task;
+                    if (d1.getBy().equals(d2.getBy())) {
+                        return true; // Both are Deadline tasks with same description and deadline
+                    }
+                } else if (t instanceof Event && task instanceof Event) {
+                    Event e1 = (Event) t;
+                    Event e2 = (Event) task;
+                    if (e1.getStartTime().equals(e2.getStartTime()) && e1.getEndTime().equals(e2.getEndTime())) {
+                        return true; // Both are Event tasks with same description, start, and end times
+                    }
+                } else if (t.getClass().equals(task.getClass())) {
+                    return true; // Both tasks are of the same type (ToDo) and have the same description
+                }
+                // If descriptions match but one is a Deadline and the other is an Event or ToDo, they are not considered duplicates
+            }
+        }
+        return false;
+
+}
 
 }

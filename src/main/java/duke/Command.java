@@ -136,7 +136,7 @@ public class Command {
      * * Enumerates the possible types of commands.
      */
     public enum CommandType {
-        BYE, LIST, TODO, DEADLINE, EVENT, DELETE, MARK, UNMARK, FIND, INVALID
+        WELCOME, BYE, LIST, TODO, DEADLINE, EVENT, DELETE, MARK, UNMARK, FIND, INVALID
     }
     private CommandType type;
     private String argument;
@@ -151,6 +151,9 @@ public class Command {
         this.argument = argument;
         //assert argument != null : "Argument should not be null or empty";
     }
+    public CommandType getType() {
+        return type;
+    }
     /**
      * Executes the command based on its type.
      *
@@ -163,6 +166,8 @@ public class Command {
 
         StringBuilder response = new StringBuilder();
         switch (type) {
+        case WELCOME:
+            return ui.showWelcome();
         case BYE:
             return ui.showGoodbye();
         case LIST:
@@ -263,7 +268,15 @@ public class Command {
      * @throws DukeException If there is an error handling the command.
      */
     public String handleTodoCommand(String argument, TaskList tasks, Ui ui, Storage storage) throws DukeException {
+//        ToDo todo = new ToDo(argument);
+//        tasks.addTask(todo);
+//        storage.saveTasks(tasks.getTasks());
+//        return ui.showTaskAdded(todo, tasks.getSize());
         ToDo todo = new ToDo(argument);
+        // Check if the task already exists
+        if (tasks.containsTask(todo)) {
+            return ui.showDuplicateTask(todo);
+        }
         tasks.addTask(todo);
         storage.saveTasks(tasks.getTasks());
         return ui.showTaskAdded(todo, tasks.getSize());
@@ -284,6 +297,9 @@ public class Command {
             throw new DukeException("Invalid deadline format. Please use: deadline <description> /by <date/time>");
         }
         Deadline deadline = new Deadline(deadlineDetails[0].trim(), deadlineDetails[1].trim());
+        if (tasks.containsTask(deadline)) {
+            return ui.showDuplicateTask(deadline);
+        }
         tasks.addTask(deadline);
         storage.saveTasks(tasks.getTasks());
         return ui.showTaskAdded(deadline, tasks.getSize());
@@ -304,6 +320,9 @@ public class Command {
             throw new DukeException("Invalid event format. Please use: event <description> /from <start> /to <end>");
         }
         Event event = new Event(eventDetails[0].trim(), eventDetails[1].trim(), eventDetails[2].trim());
+        if (tasks.containsTask(event)) {
+            return ui.showDuplicateTask(event);
+        }
         tasks.addTask(event);
         storage.saveTasks(tasks.getTasks());
         return ui.showTaskAdded(event, tasks.getSize());

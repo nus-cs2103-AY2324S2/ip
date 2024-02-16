@@ -158,9 +158,10 @@ public class Ui {
     /**
      * Displays a welcome message.
      */
-    public void showWelcome() {
-        addMessage("Hello! I'm Aether!");
-        addMessage("What can I do for you?");
+    public String showWelcome() {
+        String welcomeMessage = "Hello! I'm Aether!\n";
+        welcomeMessage += "What can I do for you?";
+        return welcomeMessage;
     }
     /**
      * Displays an error message for failed task loading.
@@ -181,10 +182,13 @@ public class Ui {
      *
      * @param errorMessage The error message to display.
      */
-    public void showErrorMessage(String errorMessage) {
-        addMessage("OOPS!!! " + errorMessage);
-        //addMessage("_____________________________");
+    public String showErrorMessage(String errorMessage) {
+//        addMessage("OOPS!!! " + errorMessage);
+//        showSeparator();
+        StringBuilder errorMessageBuilder = new StringBuilder();
+        errorMessageBuilder.append("OOPS!!! ").append(errorMessage).append("\n");
         showSeparator();
+        return errorMessageBuilder.toString();
     }
 
     /**
@@ -296,6 +300,20 @@ public class Ui {
         showSeparator();
         goodbyeMessage.append("Goodbye. Hope to see you again soon!\n");
         return goodbyeMessage.toString();
+    }
+    /**
+     * Displays a message indicating that a duplicate task was found.
+     *
+     * @param duplicateTask The duplicate task.
+     * @return The message indicating the duplicate task.
+     */
+    public String showDuplicateTask(Task duplicateTask) {
+        StringBuilder message = new StringBuilder();
+        message.append("Duplicate task found:\n")
+                .append("  ").append(duplicateTask).append("\n")
+                .append("This task was not added to the list.");
+        showSeparator();
+        return message.toString();
     }
 
     public String getResponseAndClear() {
