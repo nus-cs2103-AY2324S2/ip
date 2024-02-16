@@ -15,7 +15,7 @@
                 <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
             </padding>
         </TextFlow>
-        <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="displayPicture" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" />
     </children>
     <padding>
         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
