@@ -1,5 +1,8 @@
 package grizzly.commands;
 
+import java.util.Hashtable;
+
+import grizzly.exceptions.GrizzlyException;
 import grizzly.utils.Database;
 import grizzly.utils.Storage;
 
@@ -8,21 +11,32 @@ import grizzly.utils.Storage;
  */
 public class ListTaskCommand extends Command {
 
+    private String description;
     /**
      * Creates a ListTaskCommand, sets isExit to false.
      */
-    public ListTaskCommand() {
+    public ListTaskCommand(Hashtable<String, String> params) {
         super(false);
+        this.description = params.get("description");
     }
 
     /**
-     * Executes list task command, uses ui to print out tasks in provided TaskList.
+     * Executes list task command, returns tasks and contacts in provided TaskList.
      *
      * @param db the current database of records.
      * @param storage Storage object with save file.
      */
     @Override
-    public String execute(Database db, Storage storage) {
-        return db.toString();
+    public String execute(Database db, Storage storage) throws GrizzlyException {
+        switch (description.toLowerCase()) {
+        case "tasks":
+            return db.tasksToString();
+        case "contacts":
+            return db.contactsToString();
+        case "":
+            return db.toString();
+        default:
+            throw new GrizzlyException("Error: " + description + "is not stored in my database!");
+        }
     }
 }

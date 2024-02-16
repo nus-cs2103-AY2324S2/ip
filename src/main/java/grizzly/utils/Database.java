@@ -27,24 +27,41 @@ public class Database {
      * Prints out all items in the TaskList.
      *
      */
-
     @Override
     public String toString() {
+        return tasksToString() + contactsToString();
+    }
 
-        String listsString = "";
+    /**
+     * Prints out all stored tasks
+     *
+     */
+    public String tasksToString() {
+        String s = "";
 
-        listsString += "----------\nTasks\n----------\n";
+        s += "----------\nTasks\n----------\n";
 
         for (int i = 1; i <= taskList.size(); i++) {
-            listsString += i + "." + taskList.get(i - 1) + "\n";
+            s += i + "." + taskList.get(i - 1) + "\n";
         }
 
-        listsString += "----------\nContacts\n----------\n";
+        return s;
+    }
+
+    /**
+     * Prints out all stored contacts
+     *
+     */
+    public String contactsToString() {
+        String s = "";
+
+        s += "----------\nContacts\n----------\n";
 
         for (int i = 1; i <= contactList.size(); i++) {
-            listsString += i + "." + contactList.get(i - 1) + "\n";
+            s += i + "." + contactList.get(i - 1) + "\n";
         }
-        return listsString.trim();
+
+        return s;
     }
 
     /**

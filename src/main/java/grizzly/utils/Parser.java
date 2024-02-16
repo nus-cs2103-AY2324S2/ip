@@ -39,14 +39,14 @@ public class Parser {
 
         // Splitting action from parameters
         String[] inputSplit = input.split(" ", 2);
-
-        // Checking for parameters. If not present, assign array with empty string
         String action = inputSplit[0].toLowerCase();
+
+        // Checking for parameters. If not present, assign array with empty string to params
         String[] params = inputSplit.length == 2
                           ? inputSplit[1].split(" /")
                           : new String[]{""};
 
-        // Placing parameters into hashtable
+        // Placing parameters into hashtable with appropriate labels
         Hashtable<String, String> paramsTable = new Hashtable<>();
         paramsTable.put("description", params[0]);
         for (int i = 1; i < params.length; i++) {
@@ -62,7 +62,7 @@ public class Parser {
         case "bye":
             return new ExitCommand();
         case "list":
-            return new ListTaskCommand();
+            return new ListTaskCommand(paramsTable);
         case "find":
             return new FindCommand(paramsTable);
         case "todo":
