@@ -32,6 +32,7 @@ public class Fredricksen {
             String task = "";
             try {
                 task = ui.readCommand();
+                assert task.equals("") : "Valid command to process";
             } catch (NoSuchElementException e) {
                 System.out.println(e.getMessage());
                 break;
