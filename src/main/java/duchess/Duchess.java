@@ -127,6 +127,11 @@ public class Duchess {
         }
     }
 
+    /**
+     * Restarts the Duchess program by resetting the program state and user interface.
+     * This method sets the program to running state and creates a new instance of the user interface.
+     * After calling this method, the program will be ready to accept user input and execute commands.
+     */
     public void restartDuchess() {
         this.isRunning = true;
         this.ui = new Ui();

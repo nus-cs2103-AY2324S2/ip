@@ -76,8 +76,12 @@ public class Task {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
         Task other = (Task) obj;
         // Compare the description fields for equality
         return Objects.equals(description, other.description);

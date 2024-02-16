@@ -1,6 +1,7 @@
 package duchess;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 import duchess.task.Deadline;
 import duchess.task.Event;
@@ -168,6 +169,29 @@ public class TaskList {
     }
 
     /**
+     * Finds and returns a list of duplicate tasks in the task list.
+     * A duplicate task is defined as a task with the same content as another task in the list.
+     *
+     * @return an ArrayList of Pair objects containing the index of the duplicate task in the original list and the
+     *         duplicate task itself
+     */
+    public ArrayList<Pair<Integer, Task>> listDuplicateTasks() {
+        HashSet<Task> uniqueTasks = new HashSet<>();
+        ArrayList<Pair<Integer, Task>> duplicateTasks = new ArrayList<>();
+
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            System.out.println("Number" + i + " " + task);
+            if (!uniqueTasks.add(task)) {
+                // If task is already in the set, it's a duplicate
+                duplicateTasks.add(new Pair<>(i, task));
+            }
+        }
+
+        return duplicateTasks;
+    }
+
+    /**
      * Prints the task list.
      */
     @Override
@@ -206,22 +230,6 @@ public class TaskList {
 
     public int getTaskCount() {
         return this.taskCount;
-    }
-
-    public ArrayList<Pair<Integer, Task>> listDuplicateTasks() {
-        HashSet<Task> uniqueTasks = new HashSet<>();
-        ArrayList<Pair<Integer, Task>> duplicateTasks = new ArrayList<>();
-
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
-            System.out.println("Number" + i + " " + task);
-            if (!uniqueTasks.add(task)) {
-                // If task is already in the set, it's a duplicate
-                duplicateTasks.add(new Pair<>(i, task));
-            }
-        }
-
-        return duplicateTasks;
     }
 }
 

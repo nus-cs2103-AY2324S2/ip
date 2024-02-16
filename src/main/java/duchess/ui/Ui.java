@@ -30,10 +30,10 @@ public class Ui {
      * The opening greeting message when the program starts.
      */
     public String openingGreeting() {
-        String logo = "___  _     _ ____  _     _  ____ ____ ____ \n" +
-                " |     \\   |     |   |            |__|    |___  [__     [__  \n" +
-                " |__/   |__|   |___    |     |    |___  ___]  ___] \n" +
-                "                                   ";
+        String logo = "___  _     _ ____  _     _  ____ ____ ____ \n"
+                + " |     \\   |     |   |            |__|    |___  [__     [__  \n"
+                + " |__/   |__|   |___    |     |    |___  ___]  ___] \n"
+                + "                                   ";
         return String.format(logo + "\n" + "Hello! I'm Duchess.\n" + "What can I do for you today?\n");
     }
 
@@ -134,6 +134,13 @@ public class Ui {
     }
 
 
+    /**
+     * Finds and returns a list of duplicate tasks in the task list.
+     * A duplicate task is defined as a task with the same content as another task in the list.
+     *
+     * @return an ArrayList of Pair objects containing the index of the duplicate task in the original list and the
+     *         duplicate task itself
+     */
     public String showSubList(ArrayList<Pair<Integer, Task>> subListTasks, String subListType) {
         StringBuilder sb = new StringBuilder();
 
