@@ -70,9 +70,14 @@ public class Handler {
             output = handleTodo(input, isNewTask, tasks, ui);
             break;
 
+        case UPDATE:
+            output = handleUpdate(parts, tasks, ui, parser);
+            break;
+
         default:
             throw new InvalidKeywordException("You have entered an invalid keyword. " +
-                    "Valid keywords are ['mark', 'unmark', 'deadline', 'todo', 'event', 'bye', 'list', 'delete']");
+                    "Valid keywords are ['mark', 'unmark', 'deadline', 'todo', " +
+                    "'event', 'bye', 'list', 'delete', 'update']");
         }
 
         return output;
@@ -93,6 +98,17 @@ public class Handler {
         char isDone = getIsDone(input,isNewTask);
         input = getUpdatedInput(input, isNewTask);
 
+
+        Event newEventObj = new Event("*", null, null);
+        Task t = interpretAndUpdateEvent(newEventObj, input);
+        tasks.addTask(t);
+
+        String output = getTaskOutput(t, tasks, ui, isDone, isNewTask);
+        return output;
+    }
+
+    private Event interpretAndUpdateEvent(Event t, String input) throws InvalidDetailException {
+
         int fromStart = input.indexOf("/from");
         int toStart = input.indexOf("/to");
         if (fromStart == -1 || toStart == -1 || fromStart >= toStart) {
@@ -104,17 +120,25 @@ public class Handler {
         }
 
         String desc = input.substring(6, fromStart).strip();
+        if (!desc.equals("*")) {
+            t.setName(desc);
+        }
+
         String from = input.substring(fromStart + 6, toStart).strip();
+        if (!from.equals("*")) {
+            t.setFrom(from);
+        }
+
         String to = input.substring(toStart + 4).strip();
+        if (!to.equals("*")) {
+            t.setTo(to);
+        }
+
         if (desc.length() == 0 || from.length() == 0 || to.length() == 0) {
             throw new InvalidDetailException("Event description and/or to/from parameters cannot be empty");
         }
 
-        Task t = new Event(desc, from, to);
-        tasks.addTask(t);
-
-        String output = getTaskOutput(t, tasks, ui, isDone, isNewTask);
-        return output;
+        return t;
     }
 
     /**
@@ -133,6 +157,17 @@ public class Handler {
         char isDone = getIsDone(input,isNewTask);
         input = getUpdatedInput(input, isNewTask);
 
+
+        Deadline newDeadlineObj = new Deadline("*", null);
+        Task t = interpretAndUpdateDeadline(newDeadlineObj, input, parser);
+        tasks.addTask(t);
+        String output = getTaskOutput(t, tasks, ui, isDone, isNewTask);
+
+        return output;
+    }
+
+    private Deadline interpretAndUpdateDeadline(Deadline t, String input, Parser parser) throws InvalidDetailException {
+
         int byStart = input.indexOf("/by");
         if (byStart == -1) {
             throw new InvalidDetailException("Missing 'by' parameter in deadline detail");
@@ -141,18 +176,24 @@ public class Handler {
         if (9 == byStart || byStart + 4 >= input.length()) {
             throw new InvalidDetailException("Deadline description and/or by parameter cannot be empty");
         }
-
         String desc = input.substring(9, byStart).strip();
-        LocalDate by = parser.parseTimestamp(input.substring(byStart + 4).strip());
+        if (!desc.equals("*")) {
+            t.setName(desc);
+        }
+
+        String dateString = input.substring(byStart + 4).strip();
+
+        LocalDate by = t.getBy();
+        if (!dateString.equals("*")) {
+            by = parser.parseTimestamp(dateString);
+            t.setBy(by);
+        }
+
         if (desc.length() == 0 || by == null) {
             throw new InvalidDetailException("Invalid or empty deadline description and/or by parameter");
         }
 
-        Task t = new Deadline(desc, by);
-        tasks.addTask(t);
-        String output = getTaskOutput(t, tasks, ui, isDone, isNewTask);
-
-        return output;
+        return t;
     }
 
     /**
@@ -170,20 +211,31 @@ public class Handler {
         char isDone = getIsDone(input,isNewTask);
         input = getUpdatedInput(input, isNewTask);
 
-        if (5 >= input.length()) {
-            throw new InvalidDetailException("todo description cannot be an empty string. Please retry");
-        }
-        String desc = input.substring(5).strip();
+        Ui.print(input);
 
-        if (desc.length() == 0) {
-            throw new InvalidDetailException("todo description cannot be an empty string. Please retry");
-        }
-
-        Task t = new ToDo(desc);
+        Task t = interpretAndUpdateTodo(new ToDo("*"), input);
         tasks.addTask(t);
 
         String output = getTaskOutput(t, tasks, ui, isDone, isNewTask);
         return output;
+    }
+
+    private ToDo interpretAndUpdateTodo(ToDo task, String input) throws InvalidDetailException {
+
+        if (5 >= input.length()) {
+            throw new InvalidDetailException("todo description cannot be an empty string. Please retry");
+        }
+
+        String desc = input.substring(5).strip();
+        if (desc.length() == 0) {
+            throw new InvalidDetailException("todo description cannot be an empty string. Please retry");
+        }
+
+        if (!desc.equals("*")) {
+            task.setName(desc);
+        }
+
+        return task;
     }
 
     public String handleFind(String[] parts, TaskList tasks, Ui ui) throws  InvalidDetailException {
@@ -272,6 +324,45 @@ public class Handler {
     }
 
     /**
+     * Handles update of tasks. To update task name use the '/name' tag
+     *
+     * update 1 * /from * /to hello
+     *
+     * @param parts
+     * @param tasks
+     * @param ui
+     * @return
+     * @throws InvalidDetailException
+     */
+    public String handleUpdate(String[] parts, TaskList tasks, Ui ui, Parser parser) throws InvalidDetailException {
+        if (parts.length < 3) {
+            throw new InvalidDetailException("Invalid detail after update. Please retry");
+        }
+
+        int taskIdx = Integer.parseInt(parts[1]);
+        Task task = tasks.getItem(taskIdx - 1);
+        String input = partsToString(parts, 2, parts.length);
+
+        if (task instanceof ToDo) {
+            ToDo temp = (ToDo) task;
+            interpretAndUpdateTodo(temp, "todo " + input);
+        }
+
+        if (task instanceof Event) {
+            Event temp = (Event) task;
+            interpretAndUpdateEvent(temp, "event " + input);
+        }
+
+        if (task instanceof Deadline) {
+            Deadline temp = (Deadline) task;
+            interpretAndUpdateDeadline(temp, "deadline " + input, parser);
+        }
+
+        String output = ui.printTaskUpdate(task);
+        return output;
+    }
+
+    /**
      * checks if the user input is equivalent to 'bye'
      *
      * @param input user input
@@ -304,5 +395,16 @@ public class Handler {
     private String getUpdatedInput(String input, boolean isNewTask) {
         assert input != "" : "input cannot be empty";
         return isNewTask ? input : input.substring(0, input.length() - 1);
+    }
+
+    private String partsToString(String[] parts, int start, int end) {
+        Ui.print(parts);
+        String temp = "";
+
+        for (int i = start; i < end; i++) {
+            temp = temp + " " + parts[i];
+        }
+
+        return temp;
     }
 }

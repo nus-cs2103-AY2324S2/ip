@@ -71,6 +71,16 @@ public class TaskList {
         return this.tasks.get(i);
     }
 
+    public Task getTaskByName(String name) throws InvalidDetailException {
+        for(Task t : tasks) {
+            if (t.getName().equals(name)) {
+                return t;
+            }
+        }
+
+        throw new InvalidDetailException("Invalid task name, please retry");
+    }
+
     public TaskList findSublist(String term){
         TaskList sublist = new TaskList();
 

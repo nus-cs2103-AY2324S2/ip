@@ -35,6 +35,10 @@ public class Task {
         return this.name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public boolean getDone(){
         return this.isDone;
     }

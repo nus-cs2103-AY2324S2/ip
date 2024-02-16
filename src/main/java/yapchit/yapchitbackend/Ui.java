@@ -114,6 +114,19 @@ public class Ui {
         return output;
     }
 
+    public String printTaskUpdate(Task t) {
+        String output = Ui.printLine() + "\n";
+
+
+        output = output + "\t" + "Ok! I've updated this task:\n"
+                + "\t\t" + t.toString();
+
+
+        output = output + "\n" + Ui.printLine();
+
+        return output;
+    }
+
     /**
      * Prints the list of tasks currently stored in the TaskList (both completed or incomplete).
      *

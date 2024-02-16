@@ -45,4 +45,8 @@ public class Deadline extends Task {
     public LocalDate getBy() {
         return this.by;
     }
+
+    public void setBy(LocalDate by) {
+        this.by = by;
+    }
 }
