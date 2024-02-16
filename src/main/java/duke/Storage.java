@@ -12,10 +12,19 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+/**
+ * Encapsulates the file to store data and its path.
+ */
 public class Storage {
     public final Path path;
     public File file;
 
+    /**
+     * Constructs the class Storage.
+     *
+     * @param filePath Path for the storage file.
+     * @throws InvalidPathException The path is incorrect.
+     */
     public Storage(String filePath) throws InvalidPathException {
         path = Paths.get(filePath);
         if (!isValidPath(path)) {
@@ -42,6 +51,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the data from the file into a TaskList.
+     *
+     * @param tasks The TaskList where the data is loaded into.
+     */
     public void load(TaskList tasks) {
         Scanner fileScanner = null;
         try {
@@ -73,6 +87,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Stores a TaskList into the storage file.
+     *
+     * @param tasks The TaskList that is going to be stored.
+     */
     public void store(TaskList tasks) {
         reset();
         for (Task task : tasks.tasks) {

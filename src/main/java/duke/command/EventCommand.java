@@ -6,13 +6,27 @@ import duke.Ui;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * {@inheritDoc}
+ *
+ * This subclass executes when the user types in event command.
+ */
 public class EventCommand extends Command {
     private final String message;
+
+    /**
+     * Constructs the class EventCommand.
+     *
+     * @param message The command line that the user types in.
+     */
     public EventCommand(String message) {
         super();
         this.message = message;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             String task = message.split(" ", 2)[1];
@@ -37,6 +51,10 @@ public class EventCommand extends Command {
             ui.showEventFormat();
         }
     }
+
+    /**
+     * {@inheritDoc}
+     */
     public  boolean isExit() {
         return false;
     }
