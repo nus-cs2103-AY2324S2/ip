@@ -18,7 +18,8 @@ public class YapchitBackend {
         EVENT,
         TODO,
         DELETE,
-        FIND;
+        FIND,
+        UPDATE;
     }
 
     private Ui ui;

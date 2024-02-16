@@ -1,3 +1,4 @@
-todo bob0
-deadline 7 /by 2022-11-111
-event hhh /from a /to b1
+deadline bye /by 2001-10-110
+event bye /from a /to c1
+event * /from null /to null0
+todo hello0
