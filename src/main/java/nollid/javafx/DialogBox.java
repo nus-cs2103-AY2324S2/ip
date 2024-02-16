@@ -9,10 +9,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 /**
  * Represents a dialog box used in the user interface.
@@ -37,8 +40,10 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
+        Image roundedImage = roundImage(img);
+
         dialog.setText(text);
-        displayPicture.setImage(img);
+        displayPicture.setImage(roundedImage);
     }
 
     /**
@@ -55,6 +60,7 @@ public class DialogBox extends HBox {
     public static DialogBox getNollidDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.setBackGroundColor("#79e8b2");
         return db;
     }
 
@@ -67,9 +73,38 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+    }
 
+    /**
+     * Sets the background color of the DialogBox.
+     *
+     * @param colorHexCode The hexadecimal color code.
+     */
+    private void setBackGroundColor(String colorHexCode) {
         // Change background color to #79e8b2
-        this.dialog.setStyle(this.dialog.getStyle().replaceFirst(
-                "-fx-background-color: #(?:[A-Fa-f0-9]{3}){1,2}\\b;", "-fx-background-color: #79e8b2;"));
+        this.dialog.setStyle(this.dialog.getStyle().replaceFirst("-fx-background-color: #(?:[A-Fa-f0-9]{3}){1,2}\\b;",
+                "-fx-background-color: " + colorHexCode + ";"));
+    }
+
+    /**
+     * Rounds the corners of a square Image object to create a circular profile picture.
+     *
+     * @param image The original Image.
+     * @return The rounded Image.
+     */
+    private Image roundImage(Image image) {
+        // Solution below taken from https://stackoverflow.com/questions/68631386/javafx-crop-image-as-a-circle
+
+        // Params for creating circle object to crop user profile picture
+        double circleXCenter = image.getWidth() / 2;
+        double circleYCenter = image.getHeight() / 2;
+        double circleRadius = image.getWidth() / 2;
+
+        Circle clip = new Circle(circleXCenter, circleYCenter, circleRadius);
+        ImageView imageView = new ImageView(image);
+        imageView.setClip(clip);
+        SnapshotParameters parameters = new SnapshotParameters();
+        parameters.setFill(Color.TRANSPARENT);
+        return imageView.snapshot(parameters, null);
     }
 }
