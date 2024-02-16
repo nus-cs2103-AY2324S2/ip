@@ -73,6 +73,7 @@ public class Task {
      */
     @Override
     public String toString() {
+        assert (getStatusIcon().equals("X") || getStatusIcon().equals(" ")) : "Invalid status icon!";
         return "[" + this.getStatusIcon() + "] " + name;
     }
 }

@@ -102,6 +102,9 @@ public class Storage {
                         task.setCompleted();
                     }
                     tasks.add(task);
+                } else {
+                    //should not reach here
+                    assert false: "File format has been corrupted";
                 }
             }
         } catch (IOException e) {

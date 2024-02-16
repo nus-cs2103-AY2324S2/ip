@@ -45,6 +45,7 @@ public class Ypxmm {
     public String getResponse(String input) {
         try {
             ArrayList<String> parsed = Parser.parse(input);
+            assert !parsed.isEmpty() : "Parser has failed";
             Command command = Command.valueOf(parsed.get(0).toUpperCase());
             return command.execute(tasks, ui, storage, parsed);
         } catch (YpxmmException y) {
