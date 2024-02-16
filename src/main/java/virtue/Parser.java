@@ -81,14 +81,14 @@ public class Parser {
         }
 
         switch (type) {
-            case "deadline":
-                description = firstWordRemoved.split("/by", 2)[0];
-                break;
-            case "event":
-                description = firstWordRemoved.split(" /from ", 2)[0];
-                break;
-            default: // case TODO
-                description = firstWordRemoved;
+        case "deadline":
+            description = firstWordRemoved.split("/by", 2)[0];
+            break;
+        case "event":
+            description = firstWordRemoved.split(" /from ", 2)[0];
+            break;
+        default: // case TODO
+            description = firstWordRemoved;
         }
 
         return description;

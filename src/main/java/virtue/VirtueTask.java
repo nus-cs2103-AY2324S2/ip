@@ -1,7 +1,7 @@
 package virtue;
 
 /** Represents a task that can be handled by the chatbot. */
-abstract public class VirtueTask {
+public abstract class VirtueTask {
     /** The description of the task. */
     private String description;
 

@@ -5,6 +5,9 @@ import java.util.Scanner;
 
 /** A user interface that interacts with the user. */
 public class Ui {
+    /** A horizontal line. */
+    private static final String HORIZONTAL_LINE = "_".repeat(60);
+
     /** The scanner the chatbot uses to scan users' inputs. */
     private Scanner sc;
 
@@ -12,9 +15,6 @@ public class Ui {
     private VirtueTaskList tasks;
 
     private Storage storage;
-
-    /** A horizontal line. */
-    private static final String HORIZONTAL_LINE = "_".repeat(60);
 
     /** Initiates a new user interface. */
     public Ui(VirtueTaskList taskList, Storage storage) {
