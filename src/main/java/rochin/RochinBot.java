@@ -43,6 +43,7 @@ public class RochinBot {
         while (true) {
             ui.showCommandPrompt();
             String userInput = scanner.nextLine();
+            assert !userInput.isEmpty() : "OOPS!!! Input cannot be empty";
             CommandProcessor commandProcessor = new CommandProcessor(userInput);
 
             if (commandProcessor.isExitCommand()) {
