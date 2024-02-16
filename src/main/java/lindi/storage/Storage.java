@@ -56,8 +56,9 @@ public class Storage {
             File dataFile = new File(dir, dataFileName);
             dataFile.createNewFile();
 
-            this.fileWriter = new FileWriter(dataFile);
+            assert dataFile.exists() : "Data file should exist at this point";
 
+            this.fileWriter = new FileWriter(dataFile);
             this.fileWriter.write(sb.toString());
             this.fileWriter.close();
         } catch (IOException e) {
@@ -77,6 +78,7 @@ public class Storage {
             while (fileScanner.hasNextLine()) {
                 String parsedString = fileScanner.nextLine();
                 Task task = Task.createFromParsedString(parsedString);
+                assert task != null : "Task should not be null";
                 tasksToReturn.add(task);
             }
             return tasksToReturn;
