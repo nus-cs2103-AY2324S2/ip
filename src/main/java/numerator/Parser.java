@@ -27,6 +27,9 @@ public class Parser {
     private static final String INPUT_EVENT = "event";
     private static final String INPUT_LIST = "list";
     private static final String INPUT_FIND = "find";
+    private static final String INPUT_TAG = "tag";
+    private static final String INPUT_UNTAG = "untag";
+
 
     private Parser() {
     }
@@ -52,7 +55,10 @@ public class Parser {
 
         final boolean isToModifyTask = input.startsWith(INPUT_MARK)
                 || input.startsWith(INPUT_UNMARK)
-                || input.startsWith(INPUT_DELETE);
+                || input.startsWith(INPUT_DELETE)
+                || input.startsWith(INPUT_TAG)
+                || input.startsWith(INPUT_UNTAG);
+
 
         final boolean isUiInteraction = input.equals(INPUT_BYE)
                 || input.equals(INPUT_LIST)
@@ -91,13 +97,17 @@ public class Parser {
 
         } else if (input.startsWith(INPUT_UNMARK)) {
             return parseUnmark(input, taskList, storage);
-
         } else if (input.startsWith(INPUT_DELETE)) {
             return parseDelete(input, taskList, storage);
+        } else if (input.startsWith(INPUT_TAG)) {
+            return parseTag(input, taskList, storage);
+        } else if (input.startsWith(INPUT_UNTAG)) {
+            return parseUntag(input, taskList, storage);
         } else {
             throw new IllegalArgumentException("Invalid input");
         }
     }
+
 
     private static String parseAddTaskReducer(String input, TaskList taskList, Storage storage)
             throws NumeratorException {
@@ -112,8 +122,37 @@ public class Parser {
         }
     }
 
+    private static String parseUntag(String input, TaskList taskList, Storage storage)
+            throws NumeratorException {
+        Matcher m = getMatcher(
+                input,
+                "untag (\\d+) (\\S+.*)",
+                "Please use the format: untag <task number> <tag>"
+        );
+        int taskNum = Integer.parseInt(m.group(1)) - 1;
+        String tag = m.group(2);
+        taskList.untagTask(taskNum, tag);
+        storage.saveFile(taskList);
+        return "OK, I've untagged " + tag + "from the task.\n" + taskList.getTaskAtIndex(taskNum);
+    }
 
-    private static String parseFind(String input, TaskList taskList) throws InputFormatException {
+    private static String parseTag(String input, TaskList taskList, Storage storage)
+            throws NumeratorException {
+        Matcher m = getMatcher(
+                input,
+                "tag (\\d+) (\\S+.*)",
+                "Please use the format: tag <task number> <tag>"
+        );
+        int taskNum = Integer.parseInt(m.group(1)) - 1;
+        String tag = m.group(2);
+        taskList.tagTask(taskNum, tag);
+        storage.saveFile(taskList);
+        return "OK, I've tagged this task with " + tag + ":\n" + taskList.getTaskAtIndex(taskNum);
+    }
+
+
+    private static String parseFind(String input, TaskList taskList)
+            throws InputFormatException {
         Matcher m = getMatcher(
                 input,
                 "find (\\S+.*)",
@@ -124,7 +163,8 @@ public class Parser {
 
     }
 
-    private static String parseEvent(String input, TaskList taskList, Storage storage) throws NumeratorException {
+    private static String parseEvent(String input, TaskList taskList, Storage storage)
+            throws NumeratorException {
         Matcher m = getMatcher(
                 input,
                 "event (\\S+.*) /from (\\S+.*) /to (\\S+.*)",
@@ -139,7 +179,8 @@ public class Parser {
     }
 
 
-    private static String parseDeadline(String input, TaskList taskList, Storage storage) throws NumeratorException {
+    private static String parseDeadline(String input, TaskList taskList, Storage storage)
+            throws NumeratorException {
         Matcher m = getMatcher(
                 input,
                 "deadline (\\S+.*) /by (\\S+.*)",
@@ -158,7 +199,8 @@ public class Parser {
 
     }
 
-    private static String parseTodo(String input, TaskList taskList, Storage storage) throws NumeratorException {
+    private static String parseTodo(String input, TaskList taskList, Storage storage)
+            throws NumeratorException {
         Matcher m = getMatcher(
                 input,
                 "todo (\\S+.*)",
@@ -170,7 +212,8 @@ public class Parser {
         return taskList.getAddTaskString(t);
     }
 
-    private static String parseDelete(String input, TaskList taskList, Storage storage) throws NumeratorException {
+    private static String parseDelete(String input, TaskList taskList, Storage storage)
+            throws NumeratorException {
         try {
             Matcher m = getMatcher(
                     input,
@@ -186,7 +229,8 @@ public class Parser {
         }
     }
 
-    private static String parseUnmark(String input, TaskList taskList, Storage storage) throws NumeratorException {
+    private static String parseUnmark(String input, TaskList taskList, Storage storage)
+            throws NumeratorException {
         try {
             Matcher m = getMatcher(
                     input,
@@ -221,7 +265,8 @@ public class Parser {
     }
 
 
-    private static Matcher getMatcher(String input, String regex, String formatError) throws InputFormatException {
+    private static Matcher getMatcher(String input, String regex, String formatError)
+            throws InputFormatException {
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(input);
         if (!m.find()) {

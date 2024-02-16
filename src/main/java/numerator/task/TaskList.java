@@ -3,6 +3,8 @@ package numerator.task;
 import java.util.ArrayList;
 import java.util.stream.IntStream;
 
+import numerator.exceptions.NumeratorException;
+
 /**
  * Represents a list of tasks.
  */
@@ -41,21 +43,15 @@ public class TaskList {
         return matchedTasks.toString();
     }
 
-    // used only for findTasks
-    private void addTask(Task t) {
+    /**
+     * Adds a task to the task list
+     *
+     * @param t the task to be added
+     */
+    public void addTask(Task t) {
         this.taskList.add(t);
     }
 
-    /**
-     * Marks the last task in the list as done
-     */
-    public void markLastAsDone() {
-        if (this.taskList.isEmpty()) {
-            return;
-        }
-        Task t = this.taskList.get(this.taskList.size() - 1);
-        t.markAsDone();
-    }
 
     /**
      * Marks the task at the specified index as not done
@@ -68,6 +64,7 @@ public class TaskList {
         t.markAsNotDone();
 
     }
+
 
     /**
      * Removes the task at the specified index from the task list
@@ -188,5 +185,34 @@ public class TaskList {
                 });
         return sb.toString().stripTrailing();
 
+    }
+
+    /**
+     * Tags a task
+     *
+     * @param taskNum the task number
+     * @param tag     the tag to be added
+     * @throws NumeratorException if the task number does not exist
+     */
+    public void tagTask(int taskNum, String tag) throws NumeratorException {
+        try {
+            this.taskList.get(taskNum).addTag(tag);
+        } catch (IndexOutOfBoundsException e) {
+            throw new NumeratorException("Task number does not exist");
+        }
+    }
+
+    /**
+     * Untags a task
+     *
+     * @param taskNum the task number
+     * @param tag     the tag to be removed
+     */
+    public void untagTask(int taskNum, String tag) {
+        try {
+            this.taskList.get(taskNum).removeTag(tag);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Task number does not exist");
+        }
     }
 }

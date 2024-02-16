@@ -5,12 +5,17 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.format.DateTimeParseException;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import numerator.exceptions.storage.LoadingException;
 import numerator.exceptions.storage.SavingException;
+import numerator.task.Deadline;
+import numerator.task.Event;
+import numerator.task.Task;
 import numerator.task.TaskList;
+import numerator.task.ToDo;
 
 
 /**
@@ -29,31 +34,37 @@ public class Storage {
         this.filepath = filepath;
     }
 
+
     private static Consumer<String> readLineFromString(TaskList taskList) {
         return line -> {
-            String[] s = line.split(" \\| ");
-            String taskType = s[0];
-            boolean isDone = s[1].equals("1");
-            String taskDesc = s[2];
+            String[] strings = line.split(" \\| ");
+            String taskType = strings[0];
+            boolean isDone = strings[1].equals("1");
+            String taskDesc = strings[2];
+            Task t;
+
             switch (taskType) {
             case "T":
-                taskList.addToDo(taskDesc);
+                t = new ToDo(taskDesc, isDone, tagStringToSet(strings[3]));
                 break;
             case "D":
-                taskList.addDeadline(taskDesc, s[3]);
+                t = new Deadline(taskDesc, strings[3], isDone, tagStringToSet(strings[5]));
                 break;
             case "E":
-                taskList.addEvent(taskDesc, s[3], s[4]);
+                t = new Event(taskDesc, strings[3], strings[4], isDone, tagStringToSet(strings[5]));
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + taskType);
             }
 
-            if (isDone) {
-                taskList.markLastAsDone();
-            }
-
+            taskList.addTask(t);
         };
+    }
+
+
+    private static Set<String> tagStringToSet(String tagString) {
+        String[] tags = tagString.split(" ");
+        return Set.of(tags);
     }
 
     /**
@@ -64,29 +75,40 @@ public class Storage {
      */
     public TaskList loadFile() throws LoadingException {
         TaskList taskList = new TaskList();
+
+        if (startAnew()) {
+            throw new LoadingException("Error loading file");
+        }
+
+        // Solution below adapted from https://www.baeldung.com/reading-file-in-java
+        // Solution below adapted from https://stackoverflow.com/a/41514348
+        try (Stream<String> lines = Files.lines(this.filepath)) {
+            lines.forEach(readLineFromString(taskList));
+            return taskList;
+        } catch (IndexOutOfBoundsException | IllegalStateException | IOException | DateTimeParseException e) {
+            throw new LoadingException("Error loading file");
+        }
+    }
+
+    private boolean startAnew() throws LoadingException {
         try {
-            // Solution below adapted from https://stackoverflow.com/a/41514348
             if (!Files.exists(this.filepath)) {
 
                 // This assertion checks that the filepath does not conflict with existing files or directories
                 // in the path hierarchy
                 assert !Files.isRegularFile(this.filepath.getParent());
 
+                System.out.println("Creating new file" + this.filepath);
+                System.out.println("Parent file: " + this.filepath.getParent());
+
                 Files.createDirectories(this.filepath.getParent());
                 Files.createFile(this.filepath);
-                throw new LoadingException("File does not exist");
+                return true;
             }
-
-            // Solution below adapted from https://www.baeldung.com/reading-file-in-java
-            Stream<String> lines = Files.lines(this.filepath);
-            lines.forEach(readLineFromString(taskList));
-
-            lines.close();
-            return taskList;
-        } catch (IndexOutOfBoundsException | IllegalStateException | IOException | DateTimeParseException e) {
+        } catch (IOException e) {
             throw new LoadingException("Error loading file");
         }
-
+        return false;
     }
 
     /**

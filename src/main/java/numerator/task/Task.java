@@ -4,6 +4,12 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.regex.Pattern;
+
+import numerator.exceptions.parser.InputFormatException;
 
 /**
  * Represents a task
@@ -11,6 +17,7 @@ import java.time.format.DateTimeParseException;
 public abstract class Task {
     protected boolean isDone;
     final String description;
+    private final Set<String> tags = new HashSet<>();
 
     /**
      * Constructs a task with the specified description
@@ -20,6 +27,17 @@ public abstract class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    /**
+     * Constructs a task with the specified description and tags
+     *
+     * @param description should contain information about the task
+     * @param isDone      whether the task is done
+     */
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
     }
 
     /**
@@ -88,5 +106,73 @@ public abstract class Task {
      * @return a string to be saved in the file
      */
     public abstract String getSaveString();
+
+    /**
+     * Adds a tag to the task
+     *
+     * @param tag the tag to be added
+     */
+    public void addTag(String tag) throws InputFormatException {
+        if (tag.isEmpty()) {
+            return;
+        }
+        Pattern p = Pattern.compile("\\W");
+        if (p.matcher(tag).find()) {
+            throw new InputFormatException(
+                    "Tag can only contain alphanumeric characters without spaces"
+            );
+        }
+        this.tags.add(tag);
+    }
+
+    /**
+     * Adds a set of tags to the task
+     *
+     * @param tags the set of tags to be added
+     */
+    public void addTags(Collection<String> tags) {
+        this.tags.addAll(tags);
+    }
+
+    /**
+     * Removes a tag from the task
+     *
+     * @param tag the tag to be removed
+     */
+    public void removeTag(String tag) {
+        this.tags.remove(tag);
+    }
+
+    /**
+     * Returns a string representation of the tags
+     *
+     * @return a string representation of the tags
+     */
+    public String getTagsString() {
+        if (tags.isEmpty()) {
+            return " ";
+        }
+        StringBuilder z = new StringBuilder();
+        for (String tag : tags) {
+            z.append(" #").append(tag);
+        }
+        return z.toString().strip();
+    }
+
+    /**
+     * Returns a string representation of the tags for saving
+     *
+     * @return a string representation of the tags
+     */
+    public String getTagsSaveString() {
+        if (tags.isEmpty()) {
+            return " ";
+        }
+        StringBuilder z = new StringBuilder();
+        for (String tag : tags) {
+            z.append(" ").append(tag);
+        }
+        return z.toString().strip();
+    }
 
 }
