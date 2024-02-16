@@ -1,7 +1,6 @@
 package venus;
 
 import java.io.FileNotFoundException;
-
 import java.util.ArrayList;
 
 /**
@@ -18,7 +17,7 @@ public class TaskList {
         LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, ALL, INVALID, FIND;
     }
     private ArrayList<Task> tasks;
-    public TaskList () {
+    public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
@@ -43,7 +42,7 @@ public class TaskList {
     }
 
     /**
-     * Returns tasks stored as ArrayList<Task> in TaskList.
+     * Returns tasks stored as ArrayList in TaskList.
      * @return ArrayList of tasks.
      */
     public ArrayList<Task> getTasks() {

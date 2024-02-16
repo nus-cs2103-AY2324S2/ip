@@ -1,25 +1,21 @@
 package venus;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 /**
  * This is a Storage class that controls data to be stored or loaded from .txt data file.
  *
  * @author peterXGD
  * @since 2024-02-05
  */
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-
-import java.time.format.DateTimeParseException;
-
-import java.util.ArrayList;
-import java.util.Scanner;
-
 public class Storage {
     private String filePath;
 
@@ -29,8 +25,8 @@ public class Storage {
      *
      * @param filePath Relative filepath of data in project.
      */
-    public Storage (String filePath) {
-        File folder = new File (filePath.split(File.separator)[0]);
+    public Storage(String filePath) {
+        File folder = new File(filePath.split(File.separator)[0]);
         if (!folder.exists()) { // handling folder does not exist issues
             folder.mkdir();
             System.out.println("Folder does not exist, data folder is created");
@@ -97,7 +93,7 @@ public class Storage {
     }
 
     /**
-     * Loads file content into ArrayList<Task> ls.
+     * Loads file content into ArrayList ls.
      * @param ls A place where data from txt file is loaded to.
      * @throws FileNotFoundException Throws exception if file to be loaded cannot be found.
      */

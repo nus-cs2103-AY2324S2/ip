@@ -2,7 +2,6 @@ package venus;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-
 import java.util.Scanner;
 
 /**
@@ -13,8 +12,8 @@ import java.util.Scanner;
  */
 public class Venus {
 
-    Storage storage;
-    TaskList taskList;
+    private Storage storage;
+    private TaskList taskList;
 
     /**
      * Returns Venus object with storage set as relative file path and empty taskList.
