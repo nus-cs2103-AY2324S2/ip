@@ -1,4 +1,4 @@
-package duke;
+package destiny;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -14,7 +14,7 @@ public class Event extends Task {
     private DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma");
 
     /**
-     * Base constructor used by Duke to generate an Event object.
+     * Base constructor used by Destiny to generate an Event object.
      *
      * @param description Title of the task.
      * @param fromTime The start date of this Deadline task.
@@ -28,7 +28,7 @@ public class Event extends Task {
         if (description.trim().length() == 0 || fromTime.length() == 0 || toTime.length() == 0) {
             String errorMessage = "Please enter the following:";
             if (description.trim().length() == 0) {
-                errorMessage += "\na description for this duke.Deadline task";
+                errorMessage += "\na description for this destiny.Deadline task";
             }
             if (fromTime.length() == 0) {
                 errorMessage += "\na deadline after the '/from' command";
@@ -55,7 +55,7 @@ public class Event extends Task {
 
 
     /**
-     * Secondary constructor used by Duke to generate an Event object from a data txt file.
+     * Secondary constructor used by Destiny to generate an Event object from a data txt file.
      *
      * @param logic Indicates if this task should be marked.
      * @param description Title of the task.
@@ -70,7 +70,7 @@ public class Event extends Task {
         if (description.trim().length() == 0 || fromTime.length() == 0 || toTime.length() == 0) {
             String errorMessage = "Please enter the following:";
             if (description.trim().length() == 0) {
-                errorMessage += "\na description for this duke.Deadline task";
+                errorMessage += "\na description for this destiny.Deadline task";
             }
             if (fromTime.length() == 0) {
                 errorMessage += "\na deadline after the '/from' command";
@@ -105,7 +105,7 @@ public class Event extends Task {
     }
 
     /**
-     * Getter for from time in the input format, used to store the time in the duke.txt data file.
+     * Getter for from time in the input format, used to store the time in the destiny.txt data file.
      * @return Reformatted string of from time.
      */
     public String getFrom() {
@@ -113,7 +113,7 @@ public class Event extends Task {
     }
 
     /**
-     * Getter for to time in the input format, used to store the time in the duke.txt data file.
+     * Getter for to time in the input format, used to store the time in the destiny.txt data file.
      * @return Reformatted string of to time.
      */
     public String getTo() {

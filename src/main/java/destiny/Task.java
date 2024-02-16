@@ -1,4 +1,4 @@
-package duke;
+package destiny;
 
 /**
  * Base Task class which contains the base information and functions all tasks share.

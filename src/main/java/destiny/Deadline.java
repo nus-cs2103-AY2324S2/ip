@@ -1,4 +1,4 @@
-package duke;
+package destiny;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -14,7 +14,7 @@ public class Deadline extends Task {
     private DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma");
 
     /**
-     * Base constructor used by Duke to generate a Deadline object.
+     * Base constructor used by Destiny to generate a Deadline object.
      *
      * @param description Title of the task.
      * @param time The deadline of this Deadline task.
@@ -26,7 +26,7 @@ public class Deadline extends Task {
         if (description.trim().length() == 0 || time.length() == 0) {
             String errorMessage = "Please enter the following:";
             if (description.trim().length() == 0) {
-                errorMessage += "\na description for this duke.Deadline task";
+                errorMessage += "\na description for this destiny.Deadline task";
             }
             if (time.length() == 0) {
                 errorMessage += "\na deadline after the '/by' command";
@@ -43,7 +43,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Secondary constructor used by Duke to generate a deadline object from a data txt file.
+     * Secondary constructor used by Destiny to generate a deadline object from a data txt file.
      *
      * @param logic Indicates if this task should be marked.
      * @param description Title of the task.
@@ -56,7 +56,7 @@ public class Deadline extends Task {
         if (description.trim().length() == 0 || time.length() == 0) {
             String errorMessage = "Please enter the following:";
             if (description.trim().length() == 0) {
-                errorMessage += "\na description for this duke.Deadline task";
+                errorMessage += "\na description for this destiny.Deadline task";
             }
             if (time.length() == 0) {
                 errorMessage += "\na deadline after the '/by' command";

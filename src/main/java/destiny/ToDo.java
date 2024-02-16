@@ -1,11 +1,11 @@
-package duke;
+package destiny;
 
 /**
  * Extension of task that only contains a description of the task.
  */
 public class ToDo extends Task {
     /**
-     * Base constructor used by Duke to generate ToDo object.
+     * Base constructor used by Destiny to generate ToDo object.
      *
      * @param description Title of the task.
      * @throws DukeException If description is empty.
@@ -18,7 +18,7 @@ public class ToDo extends Task {
     }
 
     /**
-     * Secondary constructor used by Duke to generate a ToDo object from a data txt file.
+     * Secondary constructor used by Destiny to generate a ToDo object from a data txt file.
      *
      * @param logic Indicates if this task should be marked.
      * @param description Title of the task.

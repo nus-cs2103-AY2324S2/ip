@@ -1,4 +1,4 @@
-package duke;
+package destiny;
 
 /**
  * Used to understand the user input.

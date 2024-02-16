@@ -1,4 +1,4 @@
-package duke;
+package destiny;
 
 import java.util.ArrayList;
 
@@ -63,12 +63,13 @@ public class TaskList {
      * Adds given task into the task list like a stack.
      *
      * @param newTask Task that will be inserted into the TaskList.
+     * @return Message for successful addition of task.
      */
-    public void addTask(Task newTask) {
+    public String addTask(Task newTask) {
         taskList.add(newTask);
-        printWithLines("Got it. I've added this task:\n   " + newTask.toString()
+        return "Got it. I've added this task:\n   " + newTask.toString()
                 + "\nNow you have " + taskList.size() + (taskList.size() > 1 ? " tasks " : " task ")
-                + "in the list.");
+                + "in the list.";
     }
 
     /**
@@ -76,8 +77,9 @@ public class TaskList {
      *
      * @param index The index of the task to be deleted.
      * @throws DukeException If TaskList is empty, or the index is invalid.
+     * @return Message for successful deletion of task.
      */
-    public void delete(int index) throws DukeException {
+    public String delete(int index) throws DukeException {
         if (taskList.size() == 0) {
             throw new DukeException("Nothing is in the list yet");
         }
@@ -86,8 +88,8 @@ public class TaskList {
         }
         Task tempTask = taskList.get(index - 1);
         taskList.remove(index - 1);
-        printWithLines("Noted. I've removed this task:\n   " + tempTask.toString()
+        return "Noted. I've removed this task:\n   " + tempTask.toString()
                 + "\nNow you have " + taskList.size() + (taskList.size() > 1 ? " tasks " : " task ")
-                + "in the list.");
+                + "in the list.";
     }
 }
