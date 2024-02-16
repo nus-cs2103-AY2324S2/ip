@@ -1,4 +1,0 @@
-E|O|Conference|2024-03-15|2024-03-17
-T|O|drink coffee
-T|O|Conference
-D|O|Conference|2024-03-15

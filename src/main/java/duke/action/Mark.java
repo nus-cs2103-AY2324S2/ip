@@ -8,41 +8,45 @@ import duke.task.Task;
  */
 public class Mark implements Action {
 
-    /**
-     * The index of the task to be marked as done.
-     */
-    private int index;
-
-    /**
-     * The task list containing the tasks.
-     */
+    private int[] indices;
     private TaskList tasks;
 
-    /**
-     * Constructs a Mark action with the specified index and task list.
-     *
-     * @param index The index of the task to be marked as done.
-     * @param tasks The task list containing the tasks.
-     * @throws WrongIndexException If the index is invalid.
-     */
     public Mark(int index, TaskList tasks) throws WrongIndexException {
-        if (!(tasks.validateIndex(index))) {
-            throw new WrongIndexException();
+        this(new int[]{index}, tasks);
+    }
+
+    /**
+     * Constructs a Mark action with the specified indices and task list.
+     *
+     * @param indices The indices of the tasks to be marked as done.
+     * @param tasks   The task list containing the tasks.
+     * @throws WrongIndexException If any index is invalid.
+     */
+    public Mark(int[] indices, TaskList tasks) throws WrongIndexException {
+        for (int index : indices) {
+            if (!tasks.validateIndex(index)) {
+                throw new WrongIndexException();
+            }
         }
-        this.index = index;
-        tasks.markTask(index);
+        this.indices = indices;
+        for (int index : indices) {
+            tasks.markTask(index);
+        }
         this.tasks = tasks;
     }
 
     /**
-     * Gets the response message indicating the marking of the task as done.
+     * Gets the response message indicating the marking of the tasks as done.
      *
      * @return A string representing the response message.
      */
     @Override
     public String response() {
-        Task markedTask = tasks.get(index);
-        return "Nice! I've marked this task as done\n" + markedTask.toString();
+        StringBuilder response = new StringBuilder("Nice! I've marked the following tasks as done:\n");
+        for (int index : indices) {
+            Task markedTask = tasks.get(index);
+            response.append(markedTask.toString()).append("\n");
+        }
+        return response.toString();
     }
 }
-

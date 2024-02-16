@@ -3,42 +3,63 @@ package duke.action;
 import duke.exception.WrongIndexException;
 import duke.task.Task;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
- * Represents an action to delete a task.
+ * Represents an action to delete tasks.
  */
 public class Delete implements Action {
-    private int index;
-    private Task deletedTask;
+    private int[] indices;
+    private List<Task> deletedTasks;
     private TaskList tasks;
 
     /**
-     * Constructs a Delete action with the specified index and task list.
+     * Constructs a Delete action with the specified indices and task list.
      *
-     * @param index The index of the task to be deleted.
-     * @param tasks The task list from which the task will be deleted.
-     * @throws WrongIndexException If the index is invalid.
+     * @param indices The indices of the tasks to be deleted.
+     * @param tasks   The task list from which the tasks will be deleted.
+     * @throws WrongIndexException If any index is invalid.
      */
-
-    public Delete(int index, TaskList tasks) throws WrongIndexException {
-        if (!tasks.validateIndex(index)) {
-            throw new WrongIndexException();
+    public Delete(int[] indices, TaskList tasks) throws WrongIndexException {
+        this.indices = indices;
+        this.deletedTasks = new ArrayList<>();
+        for (int index : indices) {
+            if (!tasks.validateIndex(index)) {
+                throw new WrongIndexException();
+            }
+            this.deletedTasks.add(tasks.get(index)); // Retrieve the tasks before deletion
         }
-        this.index = index;
-        this.deletedTask = tasks.get(index); // Retrieve the task before deletion
-        assert deletedTask != null : "Deleted task cannot be null";
-        tasks.deleteTask(index);
         this.tasks = tasks;
+        Arrays.sort(indices);
+        deleteTasks();
     }
 
     /**
-     * Gets the response message indicating the successful deletion of a task.
+     * Deletes the tasks specified by the indices.
+     */
+    private void deleteTasks() {
+        for (int i = indices.length - 1; i >= 0; i--) {
+            tasks.deleteTask(indices[i]);
+        }
+    }
+
+    /**
+     * Gets the response message indicating the successful deletion of tasks.
      *
      * @return A string representing the response message.
      */
     @Override
     public String response() {
-        return "Noted. I've removed this task:\n" + deletedTask.toString() + "\nNow you have "
-                + tasks.size() + " tasks in the list.";
+        StringBuilder response = new StringBuilder("Noted. I've removed the following tasks:\n");
+        for (Task deletedTask : deletedTasks) {
+            response.append(deletedTask.toString()).append("\n");
+        }
+        response.append("Now you have ").append(tasks.size()).append(" tasks in the list.");
+        return response.toString();
     }
 }
+
+
 

@@ -11,7 +11,7 @@ import duke.task.ToDo;
  * Represents a list of tasks in the Duke application.
  */
 
-public class TaskList implements Iterable<Task> {
+public class TaskList extends ArrayList<Task> implements Iterable<Task> {
 
     /**
      * The list containing tasks.
@@ -198,7 +198,22 @@ public class TaskList implements Iterable<Task> {
         return stringBuilder.toString();
     }
 
+    public boolean removeAll(int[] indices) {
+        ArrayList<Integer> indicesList = new ArrayList<>();
+        for (int index : indices) {
+            indicesList.add(index);
+            System.out.println(index);
+        }
+        return super.removeAll(indicesList);
+    }
+
+
 }
+
+
+
+
+
 
 
 

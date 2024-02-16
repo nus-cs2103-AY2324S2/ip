@@ -59,17 +59,32 @@ public class CommandParser {
                 }
             case "mark":
                 if (words.length > 1) {
-                    int index = Integer.parseInt(words[1]) - 1;
-                    //taskList.markTask(index);
-                    return new Mark(index, taskList);
+                    String[] indicesString = command.substring(5).trim().split(" "); // Remove "mark" and split by spaces
+                    if (indicesString.length > 0) {
+                        int[] indices = new int[indicesString.length];
+                        for (int i = 0; i < indicesString.length; i++) {
+                            indices[i] = Integer.parseInt(indicesString[i]) - 1;
+                        }
+                        return new Mark(indices, taskList);
+                    } else {
+                        throw new NoIndexException();
+                    }
                 } else {
                     throw new NoIndexException();
                 }
             case "unmark":
                 if (words.length > 1) {
-                    int index = Integer.parseInt(words[1]) - 1;
-                    //taskList.unmarkTask(index);
-                    return new Unmark(index, taskList);
+                    String[] indicesString = command.substring(7).trim().split(" "); // Remove
+                    // "mark" and split by spaces
+                    if (indicesString.length > 0) {
+                        int[] indices = new int[indicesString.length];
+                        for (int i = 0; i < indicesString.length; i++) {
+                            indices[i] = Integer.parseInt(indicesString[i]) - 1;
+                        }
+                        return new Unmark(indices, taskList);
+                    } else {
+                        throw new NoIndexException();
+                    }
                 } else {
                     throw new NoIndexException();
                 }
@@ -90,11 +105,19 @@ public class CommandParser {
                 } else {
                     throw new EmptyDescriptionException();
                 }
-
             case "delete":
                 if (words.length > 1) {
-                    int index = Integer.parseInt(words[1]) - 1;
-                    return new Delete(index, taskList);
+                    String[] indicesString = command.substring(7).trim().split(" "); // Remove
+                    // "mark" and split by spaces
+                    if (indicesString.length > 0) {
+                        int[] indices = new int[indicesString.length];
+                        for (int i = 0; i < indicesString.length; i++) {
+                            indices[i] = Integer.parseInt(indicesString[i]) - 1;
+                        }
+                        return new Delete(indices, taskList);
+                    } else {
+                        throw new NoIndexException();
+                    }
                 } else {
                     throw new MissingIndexException();
                 }

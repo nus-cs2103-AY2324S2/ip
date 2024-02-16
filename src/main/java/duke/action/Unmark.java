@@ -8,7 +8,7 @@ import duke.task.Task;
  */
 
 public class Unmark implements Action {
-    private int index;
+    private int[] indices;
     private TaskList tasks;
     /**
      * Constructs a Unmark action with the specified index and task list.
@@ -18,11 +18,26 @@ public class Unmark implements Action {
      * @throws WrongIndexException If the index is invalid.
      */
     public Unmark(int index, TaskList tasks) throws WrongIndexException {
-        if (!(tasks.validateIndex(index))) {
-            throw new WrongIndexException();
+        this(new int[]{index}, tasks);
+    }
+
+    /**
+     * Constructs a Unmark action with the specified indices and task list.
+     *
+     * @param indices The indices of the tasks to be marked as done.
+     * @param tasks   The task list containing the tasks.
+     * @throws WrongIndexException If any index is invalid.
+     */
+    public Unmark(int[] indices, TaskList tasks) throws WrongIndexException {
+        for (int index : indices) {
+            if (!tasks.validateIndex(index)) {
+                throw new WrongIndexException();
+            }
         }
-        this.index = index;
-        tasks.unmarkTask(index);
+        this.indices = indices;
+        for (int index : indices) {
+            tasks.unmarkTask(index);
+        }
         this.tasks = tasks;
     }
 
@@ -33,7 +48,11 @@ public class Unmark implements Action {
      */
     @Override
     public String response() {
-        Task unmarkedTask = tasks.get(index);
-        return " OK, I've marked this task as not done yet:\n" + unmarkedTask.toString();
+        StringBuilder response = new StringBuilder("OK, I've marked this task as not done yet:\n");
+        for (int index : indices) {
+            Task markedTask = tasks.get(index);
+            response.append(markedTask.toString()).append("\n");
+        }
+        return response.toString();
     }
 }
