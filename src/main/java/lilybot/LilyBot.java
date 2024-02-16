@@ -28,36 +28,36 @@ public class LilyBot {
      *
      * @throws IOException For input error.
      */
-    public String getResponse(String command) throws IOException{
+    public String getResponse(String command, String lastCommand) throws IOException{
         ui.sayHi();
 
 
         while (!command.equals("bye")) {
             if (command.equals("list")) {
                 return ui.listTask(ls);
+            } else if (command.equals("undo")) {
+                if (lastCommand.equals(null)) {
+                    return ui.noLasCommand();
+                } else {
+                    return ui.undoTask(lastCommand, ls);
+                }
             } else if (command.startsWith("unmark")) {
                 try {
-                    int taskNum = Parser.parseInt(command);
-                    assert taskNum > 0 : "Task number should be at least 1.";
-                    return ui.MarkNotDone(taskNum, ls);
+                    return ui.markNotDone(command, ls);
                 } catch (Exception exc) {
                     return ui.invalidInputNumber();
                 }
 
             } else if (command.startsWith("mark")) {
                 try {
-                    int taskNum = Parser.parseInt(command);
-                    assert taskNum > 0 : "Task number should be at least 1.";
-                    return ui.MarkDone(taskNum, ls);
+                    return ui.markDone(command, ls);
                 } catch (Exception exc) {
                     return ui.invalidInputNumber();
                 }
 
             } else if (command.startsWith("delete")) {
                 try {
-                    int taskNum = Parser.parseInt(command);
-                    assert taskNum > 0 : "Task number should be at least 1.";
-                    return ui.taskRemoved(taskNum, ls);
+                    return ui.taskRemoved(command, ls);
                 } catch (Exception exc) {
                     return ui.invalidInputNumber();
                 }
@@ -71,8 +71,8 @@ public class LilyBot {
 
                 }
             } else {
-                String[] cmd = Parser.parseCommand(command);
-                return ui.addTask(cmd, ls);
+
+                return ui.addTask(command, ls);
             }
         }
 

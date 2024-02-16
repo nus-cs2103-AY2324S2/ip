@@ -21,6 +21,7 @@ public class MainWindow extends AnchorPane{
     private Button sendButton;
 
     private LilyBot lilyBot;
+    private String lastCommand;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaDog.jpeg"));
     private Image botImage = new Image(this.getClass().getResourceAsStream("/images/DaMorningDog.jpeg"));
@@ -42,12 +43,14 @@ public class MainWindow extends AnchorPane{
     @FXML
     public void handleUserInput() throws IOException {
         String input = userInput.getText();
-        String response = lilyBot.getResponse(input);
+        String response = lilyBot.getResponse(input, lastCommand);
         DialogBox user = DialogBox.getUserDialog(input, userImage);
         DialogBox bot = DialogBox.getBotDialog(response, botImage);
 
 
         dialogContainer.getChildren().addAll(user, bot);
+        this.lastCommand = input;
+
         userInput.clear();
     }
 

@@ -40,6 +40,10 @@ public class TaskList {
         getLs().add(t);
     }
 
+    public void add(int index, Task t) {
+        getLs().add(index, t);
+    }
+
     /**
      * Remove a task from taskList according to the task number entered.
      *
