@@ -1,7 +1,6 @@
-[T] | 0 | add something
-[T] | 1 | do homework
-[T] | 0 | maek
-[T] | 0 | kljsdk
-[T] | 0 | jdkjs
-[T] | 0 | kjjsdkjd
-[T] | 0 | jsdkja
+[T] | 0 | go to gym
+[T] | 0 | jdfjsjf
+[T] | 0 | nfdjkns
+[T] | 0 | kjsadj
+[T] | 0 | fkjsaf
+[T] | 0 | dfnksgjfg

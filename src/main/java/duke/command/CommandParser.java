@@ -28,7 +28,8 @@ public class CommandParser {
      */
     public CommandParser(String username) {
         taskManager = new TaskManager(username);
-        conversation = new Conversation(username);
+        conversation = new Conversation();
+        conversation.resetConversation();
         this.username = username;
     }
 
@@ -67,7 +68,7 @@ public class CommandParser {
             case "delete":
                 return handleDeleteCommand(userMessage, taskManager, input);
             default:
-                return conversation.printDialogue(input);
+                return conversation.generateResponse(input);
         }
     }
 

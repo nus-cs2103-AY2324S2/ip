@@ -1,82 +1,104 @@
 package duke.conversation;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-/**
- * The Conversation class manages dialogues and responses for interacting with the user.
- * It provides predefined dialogues and handles the display of responses.
- */
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Properties;
+
 public class Conversation {
 
-    protected Hashtable<String, List<String>> dialogues;
+    // OpenAI API endpoint
+    private static final String endpoint = "https://api.openai.com/v1/chat/completions";
 
-    /**
-     * Constructs a Conversation instance with an optional username for personalized dialogues.
-     *
-     * @param username The optional username for personalized dialogues.
-     */
-    public Conversation(String username) {
-        dialogues = new Hashtable<>();
-        initializeDialogues(username);
-    }
+    // API key
+    private String apiKey;
 
-    /**
-     * Adds a dialogue and response pair to the conversation.
-     *
-     * @param key      The key associated with the dialogue.
-     * @param response The response corresponding to the key.
-     */
-    public void addDialogue(String key, String response) {
-        key = key.toLowerCase();
-        dialogues.computeIfAbsent(key, k -> new ArrayList<>()).add(response);
-    }
+    // Conversation history
+    private List<String> conversationHistory = new LinkedList<>();
 
-    /**
-     * Initializes predefined dialogues based on the provided or default username.
-     *
-     * @param username The optional username for personalized dialogues.
-     */
-    public void initializeDialogues(String username) {
-        addDialogue("bye", "Bye bye! See you later!");
-        addDialogue("hello", "Hi there! How can I help you?");
-        addDialogue("hello", "Greetings! What brings you here?");
-        addDialogue("hey", "Hi! How are you?");
-        addDialogue("how are you", "I'm just a computer program, " +
-                "but thanks for asking!");
-        addDialogue("what's your name", "I'm Sophia. And I bet you " +
-                "have a pretty name. Tell me yours?");
-        addDialogue("what's your name", "I'm Sophia. And you?");
-    }
+    public Conversation() {
 
-    /**
-     * Retrieves the list of responses associated with a given key.
-     *
-     * @param key The key associated with the desired dialogues.
-     * @return The list of responses for the given key.
-     */
-    public List<String> getCommands(String key) {
-        key = key.toLowerCase();
-        return dialogues.get(key);
-    }
-
-    /**
-     * Prints the dialogues or an error message based on the user's input.
-     *
-     * @param message The user's input used to retrieve corresponding dialogues.
-     */
-    public String printDialogue(String message) {
-        StringBuilder dialogueMessage = new StringBuilder();
-        List<String> dialoguesList = getCommands(message);
-        if (dialoguesList != null && !dialoguesList.isEmpty()) {
-            for (String dialogue : dialoguesList) {
-                dialogueMessage.append(dialogue).append("\n");
+        try {
+            // Assuming your .env file is in the root directory of your project
+            Properties env = EnvLoader.loadEnvVariables(".env");
+            this.apiKey = env.getProperty("OPENAI_API_KEY");
+            if (this.apiKey == null || this.apiKey.isEmpty()) {
+                throw new IllegalStateException("API key not found in .env file.");
             }
-        } else {
-            dialogueMessage.append("Sorry, I don't understand what you mean by ").append(message)
-                    .append("\n. Maybe try checking the spelling or ask me anything else!\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to load .env file.");
         }
-        return dialogueMessage.toString();
+    }
+
+
+    /**
+     * Generates a response using OpenAI's API based on the user's input message.
+     *
+     * @param userInput The user's input message.
+     * @return The generated response.
+     */
+    public String generateResponse(String userInput) {
+        HttpClient httpClient = HttpClient.newHttpClient();
+        int maxResponseLength = 50;
+        double temperature = 0.8;
+
+        // Add user input to the conversation history
+        conversationHistory.add("{\"role\": \"user\", \"content\": \"" + userInput.replace("\"", "\\\"") + "\"}");
+
+        // Prepare the requestBody with the conversation history
+        String requestBody = String.format(
+                "{\"model\": \"gpt-3.5-turbo\", \"messages\": %s, \"max_tokens\": %d, \"temperature\": %f}",
+                conversationHistory.toString(), maxResponseLength, temperature
+        );
+
+        HttpRequest httpRequest = HttpRequest.newBuilder()
+                .uri(URI.create(endpoint))
+                .header("Content-Type", "application/json")
+                .header("Authorization", "Bearer " + this.apiKey)
+                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                .build();
+
+        try {
+            HttpResponse<String> httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+            if (httpResponse.statusCode() == 200) {
+                JSONObject jsonResponse = new JSONObject(httpResponse.body());
+                JSONArray choices = jsonResponse.getJSONArray("choices");
+                if (choices.length() > 0) {
+                    JSONObject firstChoice = choices.getJSONObject(0);
+                    JSONObject message = firstChoice.getJSONObject("message");
+                    String content = message.getString("content");
+
+                    // Add the bot's response to the conversation history
+                    conversationHistory.add("{\"role\": \"assistant\", \"content\": \"" + content.replace("\"", "\\\"") + "\"}");
+
+                    return content;
+                } else {
+                    return "Received unexpected response structure from API.";
+                }
+            } else {
+                System.out.println("Error Status Code: " + httpResponse.statusCode());
+                System.out.println("Error Body: " + httpResponse.body());
+                return "Error processing your request";
+            }
+        } catch (IOException | InterruptedException | JSONException e) {
+            e.printStackTrace();
+            return "Error parsing API response: " + e.getMessage();
+        }
+    }
+
+    /**
+     * Resets the conversation history, starting a new conversation.
+     */
+    public void resetConversation() {
+        conversationHistory.clear();
     }
 }
