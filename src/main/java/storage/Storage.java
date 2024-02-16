@@ -5,14 +5,20 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.util.ArrayList;
+
 import task.TaskList;
 import task.Task;
 import task.Deadline;
 import task.Event;
 import task.Todo;
+
 import exception.DukeException;
 
+/**
+ * Handles the reading from and writing to a file.
+ */
 public class Storage {
     private String filePath;
 
@@ -21,9 +27,9 @@ public class Storage {
     }
 
     /**
-     * Adds text into fileName
-     * 
-     * @param list List of Task
+     * Writes the contents of a TaskList to the file.
+     *
+     * @param list The TaskList containing tasks to be written to the file.
      */
     public void writeArrayListToFile(TaskList list) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
@@ -36,6 +42,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file and returns them as an ArrayList.
+     *
+     * @return An ArrayList containing tasks loaded from the file.
+     * @throws DukeException If there is an error reading the file.
+     */
     public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> taskList = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {

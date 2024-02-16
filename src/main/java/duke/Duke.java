@@ -1,22 +1,53 @@
 package duke;
 
 import ui.Ui;
+
 import storage.Storage;
+
 import task.TaskList;
 import task.Task;
 import task.Deadline;
 import task.Event;
 import task.Todo;
+
 import exception.DukeException;
+
 import command.Command;
+
 import parser.Parser;
 
+/**
+ * Represents the main class for the Duke application.
+ */
 public class Duke {
     private Ui ui;
-    Storage storage;
-    TaskList taskList;
-    String botName = "Yube";
+    private Storage storage;
+    private TaskList taskList;
+    private String botName = "Yube";
 
+    public Duke(String filePath) {
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
+        try {
+            this.taskList = new TaskList(storage.load());
+        } catch (DukeException e) {
+            ui.showLoadingError(e);
+            this.taskList = new TaskList();
+        }
+    }
+
+    /**
+     * The main method to start the Duke application.
+     * 
+     * @param args Command-line arguments.
+     */
+    public static void main(String[] args) {
+        new Duke("./yube.txt").run();
+    }
+
+    /**
+     * Runs the Duke application.
+     */
     public void run() {
         ui.showWelcomeMessage(botName);
         boolean hasEnded = true;
@@ -26,7 +57,7 @@ public class Duke {
             try {
                 String input = ui.readLine();
                 Command command = Parser.parseCommand(input);
-                switch (command.inputType) {
+                switch (command.getInputType()) {
                     case BYE:
                         ui.showExitMessage();
                         storage.writeArrayListToFile(taskList);
@@ -84,21 +115,9 @@ public class Duke {
         }
     }
 
-    public Duke(String filePath) {
-        this.ui = new Ui();
-        this.storage = new Storage(filePath);
-        try {
-            this.taskList = new TaskList(storage.load());
-        } catch (DukeException e) {
-            ui.showLoadingError(e);
-            this.taskList = new TaskList();
-        }
-    }
-
-    public static void main(String[] args) {
-        new Duke("./yube.txt").run();
-    }
-
+    /**
+     * Enum representing the types of commands Duke can handle.
+     */
     public enum CommandType {
         TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, BYE, UNKNOWN
     }
