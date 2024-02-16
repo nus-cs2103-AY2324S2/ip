@@ -2,8 +2,6 @@ package ellie;
 
 import ellie.command.Command;
 
-import java.util.Scanner;
-
 public class Ellie {
 
     private final TaskList taskList;
@@ -35,7 +33,7 @@ public class Ellie {
 
         if (command.isExit()) {
             isExit = true;
-            return Ui.goodbye();
+            return Ui.showGoodbyeMessage();
         }
 
         String response = command.runAndReturnResponse(taskList);
