@@ -5,11 +5,13 @@ import yoda.exceptions.UnknownCommandException;
 import yoda.exceptions.InvalidTaskException;
 import yoda.exceptions.InvalidDateTimeFormatException;
 import yoda.exceptions.TimeMissingException;
-import yoda.yodaUI.YodaUI;
 import yoda.task.Deadline;
 import yoda.task.Event;
-import yoda.task.TaskList;
 import yoda.task.Todo;
+import yoda.task.TaskList;
+import yoda.yodaUI.YodaUI;
+import yoda.parser.UpdateState;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import yoda.datetimeutil.DateTimeUtil;
@@ -33,6 +35,10 @@ public class Parser {
      * @throws Exception if an error occurs during command execution.
      */
     public String parseAndExecute(String input) throws Exception {
+        UpdateState updateState = YODA_UI.getUpdateState();
+        if (updateState != UpdateState.NONE) {
+            return YODA_UI.handleUpdateState(input);
+        }
         String[] parts = getSplitParts(input);
         Command command;
         try {
@@ -68,6 +74,13 @@ public class Parser {
                 return addTaskWithDateTime(parts, Command.DEADLINE);
             case EVENT:
                 return addTaskWithDateTime(parts, Command.EVENT);
+            case UPDATE:
+                if (parts.length > 1) {
+                    int taskNumber = Integer.parseInt(parts[1]);
+                    return YODA_UI.startUpdateProcess(taskNumber, input);
+                } else {
+                    return "Task number, specify you must.";
+                }
             default:
                 return Replies.UNKNOWN_COMMAND;
             }
@@ -212,6 +225,7 @@ public class Parser {
             throw new InvalidTaskException();
         }
     }
+
 
 
     /**

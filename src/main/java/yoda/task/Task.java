@@ -6,7 +6,7 @@ package yoda.task;
  */
 public abstract class Task {
 
-    private final String DESCRIPTION; // Description of the task
+    private String description; // Description of the task
     private boolean isDone;           // Flag to track if the task is done
 
     /**
@@ -15,7 +15,7 @@ public abstract class Task {
      * @param description The description of the task.
      */
     protected Task(String description) {
-        this.DESCRIPTION = description;
+        this.description = description;
         this.isDone = false; // Task is not done by default
     }
 
@@ -25,7 +25,7 @@ public abstract class Task {
      * @return The description of the task.
      */
     public String getDescription() {
-        return this.DESCRIPTION;
+        return this.description;
     }
 
     /**
@@ -58,6 +58,14 @@ public abstract class Task {
      * @return The type of the task.
      */
     public abstract String getType();
+
+    /**
+     * Sets the new description of the task.
+     * @param newDescription The new description for the task.
+     */
+    public void setDescription(String newDescription) {
+        this.description = newDescription;
+    }
 
     /**
      * Returns the status of the task.
