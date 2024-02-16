@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 class KaiYapTest {
 
     private KaiYap kaiYap;
-
     @BeforeEach
     void setUp() {
         kaiYap = new KaiYap(); // Assuming KaiYap can be instantiated without arguments for simplicity.

@@ -1,16 +1,12 @@
 package kaiyap;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class TaskListTest {
 
@@ -30,8 +26,8 @@ class TaskListTest {
         assertDoesNotThrow(() -> {
             Task task = taskList.taskCreator("todo Read a book");
             assertNotNull(task);
-            assertTrue(task instanceof Todo);
-            assertEquals("Read a book", task.getDescription());
+            assertInstanceOf(Todo.class, task);
+            assertEquals("Read a book", task.getListItem());
         });
     }
 
@@ -44,7 +40,7 @@ class TaskListTest {
 
         List<Task> foundTasks = taskList.findTasks("report");
         assertEquals(1, foundTasks.size());
-        assertTrue(foundTasks.get(0).getDescription().contains("Submit report"));
+        assertTrue(foundTasks.get(0).getListItem().contains("Submit report"));
     }
 
     @Test
