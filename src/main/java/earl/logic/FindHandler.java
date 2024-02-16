@@ -1,7 +1,5 @@
 package earl.logic;
 
-import java.util.stream.Stream;
-
 import earl.util.TaskList;
 import earl.util.Ui;
 
