@@ -15,6 +15,8 @@ import oak.task.TaskService;
 public class FeedbackService {
     /** TaskService instance to be used */
     private TaskService taskService = new TaskService();
+    /** ReminderService instance to be used */
+    private ReminderService reminderService = new ReminderService();
 
     /**
      * Runs the feedback service on the user input
@@ -39,6 +41,9 @@ public class FeedbackService {
         // TODO: Exception Handling for incorrect input
         //  - [ ] DateTimeParseException
         switch (curCommand) {
+        case REMINDER:
+            feedback = reminderService.getReminders();
+            break;
         case BYE:
             feedback = this.getExitMessage();
             break;

@@ -37,16 +37,8 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
-        String reminders = reminderService.getReminders();
-        if (reminders.length() > 1) {
-            reminders = "Welcome to Oak-Dex! Here are your daily reminders! \n" + reminders;
-        }
-        else {
-            reminders = "Welcome to Oak-Dex! \n" +
-                    "Congratulations! You have no reminders for any tasks!";
-        }
-
-        dialogContainer.getChildren().add(DialogBox.getOakDialog(reminders, oakImage));
+        String welcomeMessage = "Welcome to Oak-Dex!\n" + reminderService.getReminders();
+        dialogContainer.getChildren().add(DialogBox.getOakDialog(welcomeMessage, oakImage));
     }
 
     public void setOak(OakController d) {

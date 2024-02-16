@@ -34,6 +34,12 @@ public class ReminderService {
                 }
             }
         }
+        if (result.length() > 1) {
+            result.append("Here are your daily reminders! \n").append(result);
+        }
+        else {
+            result.append("Congratulations! You have no reminders for any tasks!");
+        }
 
         return result.toString();
     }
