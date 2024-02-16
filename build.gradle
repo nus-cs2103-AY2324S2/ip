@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("duke.core.MeanDuke")
+    mainClass.set("duke.core.Launcher")
 }
 
 shadowJar {
