@@ -103,7 +103,7 @@ public class ActionTask implements ParseExecutionable {
             return "Unrecognized command";
         }
     }
-    
+
     /**
      * Creates the String for the list command by listing all tasks in storage.
      *

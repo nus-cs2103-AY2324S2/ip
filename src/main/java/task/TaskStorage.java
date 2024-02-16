@@ -35,7 +35,7 @@ public class TaskStorage {
     /**
      * Adds an Task object to the end of the ArrayList.
      *
-     * @param t The Task object to be added to the ArrayList.
+     * @param task The Task object to be added to the ArrayList.
      */
     public void addTask(Task task) {
         assert task != null : "Not instantiated object should not be added";
