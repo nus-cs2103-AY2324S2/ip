@@ -3,6 +3,8 @@ package kaiyap;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.IOException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,15 +16,17 @@ class KaiYapTest {
 
     private KaiYap kaiYap;
     @BeforeEach
-    void setUp() {
-        kaiYap = new KaiYap(); // Assuming KaiYap can be instantiated without arguments for simplicity.
+    void setUp() throws IOException {
+        kaiYap = new KaiYap();
+        kaiYap.clearData();
     }
 
     @Test
     void testAddingTask() {
         // Simulate adding a task and expect a success message or task count to increase.
         String taskDescription = "Read a book";
-        kaiYap.chatResponse("add " + taskDescription); // Assuming chatResponse handles adding tasks.
+        kaiYap.chatResponse("todo " + taskDescription); // Assuming chatResponse handles adding tasks.
+        System.out.println(kaiYap.getTaskList().size());
         assertTrue(kaiYap.getTaskList().contains(taskDescription), "Task list should contain the added task.");
     }
 
@@ -30,11 +34,11 @@ class KaiYapTest {
     void testDeletingTask() {
         // Add a task, then delete it, and verify it's no longer in the list.
         String taskDescription = "Write JUnit tests";
-        kaiYap.chatResponse("add " + taskDescription);
+        kaiYap.chatResponse("todo " + taskDescription);
         assertTrue(kaiYap.getTaskList().contains(taskDescription),
                 "Task list should contain the added task before deletion.");
 
-        kaiYap.chatResponse("delete " + taskDescription); // Assuming chatResponse can handle deleting tasks.
+        kaiYap.chatResponse("delete 1"); // Assuming chatResponse can handle deleting tasks.
         assertFalse(kaiYap.getTaskList().contains(taskDescription), "Task list should not contain the deleted task.");
     }
 

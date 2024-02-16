@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import exceptions.KaiYapException;
@@ -83,5 +84,9 @@ public class Storage {
             ui.printError("\tUnfortunately, an error occurred. Please try again! "
                     + "We try our utmost best to satisfy you. UwU :3");
         }
+    }
+
+    public Path getPathName() {
+        return Paths.get(this.dataPath + this.fileName);
     }
 }

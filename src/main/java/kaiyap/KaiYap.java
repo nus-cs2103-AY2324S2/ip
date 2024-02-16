@@ -1,5 +1,7 @@
 package kaiyap;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,14 +34,6 @@ public class KaiYap {
      * The storage path is set to the user's home directory under a specific sub-folder for data storage.
      */
     public KaiYap() {
-        ScrollPane scrollPane = new ScrollPane();
-        VBox dialogContainer = new VBox();
-        scrollPane.setContent(dialogContainer);
-        TextField userInput = new TextField();
-        Button sendButton = new Button("Send");
-        AnchorPane mainLayout = new AnchorPane();
-        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-
         this.ui = new Ui();
         this.taskList = new TaskList(ui);
         this.ui.setTaskList(this.taskList);
@@ -49,8 +43,27 @@ public class KaiYap {
         storage.loadData();
     }
 
+    public void setupJavaFx() {
+        ScrollPane scrollPane = new ScrollPane();
+        VBox dialogContainer = new VBox();
+        scrollPane.setContent(dialogContainer);
+        TextField userInput = new TextField();
+        Button sendButton = new Button("Send");
+        AnchorPane mainLayout = new AnchorPane();
+        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+    }
+
     public TaskList getTaskList() {
         return taskList;
+    }
+
+    /**
+     * Deletes the specified file from the data path.
+     *
+     * @throws IOException If an I/O error occurs or the file cannot be deleted.
+     */
+    public void clearData() throws IOException {
+        Files.deleteIfExists(storage.getPathName());
     }
 
     /**

@@ -42,7 +42,7 @@ class TaskListTest {
         taskList.add(new Todo("Read a book", "todo"));
         taskList.add(new Deadline("Submit report", "deadline", LocalDateTime.now()));
         taskList.add(new Event("Team meeting", "event", LocalDateTime.now(), LocalDateTime.now().plusHours(1)));
-
+        System.out.println(taskList.size());
         List<Task> foundTasks = taskList.findTasks("report");
         assertEquals(1, foundTasks.size());
         assertTrue(foundTasks.get(0).getListItem().contains("Submit report"));

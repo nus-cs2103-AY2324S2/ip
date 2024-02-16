@@ -199,7 +199,7 @@ public class TaskList {
     public List<Task> findTasks(String keyword) {
         return tasks
                 .stream()
-                .filter(t -> t.getListItem().toUpperCase().contains(keyword))
+                .filter(t -> t.getListItem().toUpperCase().contains(keyword.toUpperCase()))
                 .collect(Collectors.toList());
     }
 
