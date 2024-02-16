@@ -1,5 +1,7 @@
 package demon;
 
+import java.time.LocalDateTime;
+
 /**
  * This class is a parent class of Deadline, Event, and To-do classes. The class stores the description of a task
  * and its status.
@@ -32,5 +34,17 @@ public class Task {
 
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
+    }
+
+    public LocalDateTime getDateTime() {
+        return null;
+    }
+
+    public LocalDateTime getDateTimeFrom() {
+        return null;
+    }
+
+    public LocalDateTime getDateTimeTo() {
+        return null;
     }
 }
