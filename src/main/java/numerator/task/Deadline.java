@@ -33,7 +33,8 @@ public class Deadline extends numerator.task.Task {
      * @param tags        should contain information about the tags
      * @throws DateTimeParseException if the date and time is not in the correct format
      */
-    public Deadline(String description, String by, boolean isDone, Collection<String> tags) throws DateTimeParseException {
+    public Deadline(String description, String by, boolean isDone, Collection<String> tags)
+            throws DateTimeParseException {
         super(description, isDone);
         assert by != null;
         this.by = Task.parseStringToLocalDatetime(by);
