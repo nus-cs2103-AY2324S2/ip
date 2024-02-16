@@ -10,7 +10,7 @@ import duke.Ui;
  * It provides methods to deletes task from the task list, and to decide whether the program should continue.
  * It extends the `Command` class.
  */
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
 
     private final int index;
 

@@ -10,7 +10,7 @@ import duke.Ui;
  * It provides methods to edit task's status in the task list, and to decide whether the program should continue.
  * It extends the `Command` class.
  */
-public class EditCommand extends Command{
+public class EditCommand extends Command {
 
     private final boolean isMark;
     private final int index;
@@ -55,7 +55,7 @@ public class EditCommand extends Command{
 
     /**
      * Returns False.
-
+     *
      * @return False.
      */
     @Override

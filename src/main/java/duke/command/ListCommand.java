@@ -10,7 +10,7 @@ import duke.Ui;
  * It provides methods to lists all tasks in the task list, and to decide whether the program should continue.
  * It extends the `Command` class.
  */
-public class ListCommand extends Command{
+public class ListCommand extends Command {
 
     /**
      * Executes the command.
@@ -27,7 +27,7 @@ public class ListCommand extends Command{
 
     /**
      * Returns False.
-
+     *
      * @return False.
      */
     @Override

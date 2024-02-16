@@ -10,7 +10,7 @@ import duke.Ui;
  * It provides methods to finds a task in the task list, and to decide whether the program should continue.
  * It extends the `Command` class.
  */
-public class FindCommand extends Command{
+public class FindCommand extends Command {
 
     private final String keyword;
 
@@ -38,7 +38,7 @@ public class FindCommand extends Command{
 
     /**
      * Returns False.
-
+     *
      * @return False.
      */
     @Override

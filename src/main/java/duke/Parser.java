@@ -5,18 +5,8 @@ import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.EditCommand;
 import duke.command.ExitCommand;
-import duke.command.ListCommand;
 import duke.command.FindCommand;
-
-import static duke.TaskType.BYE;
-import static duke.TaskType.LIST;
-import static duke.TaskType.MARK;
-import static duke.TaskType.UNMARK;
-import static duke.TaskType.TODO;
-import static duke.TaskType.DEADLINE;
-import static duke.TaskType.EVENT;
-import static duke.TaskType.DELETE;
-import static duke.TaskType.FIND;
+import duke.command.ListCommand;
 
 /**
  * The `Parser` class represents a tool to make sense of user input.
@@ -197,7 +187,8 @@ public class Parser {
 
         // Incorrect syntax: No content, no deadline
         if (splitedTask.length == 1) {
-            throw new DukeException("Syntax of deadline: deadline {task description} /by ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd})\n"
+            throw new DukeException("Syntax of deadline: deadline {task description} "
+                    + "/by ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd})\n"
                     + "E.g. deadline breakfast /by 2022-12-31 15:00");
         }
 
@@ -209,7 +200,8 @@ public class Parser {
 
         // Incorrect syntax: The remaining string doesn't separate to content and deadline
         if (splitedBy.length != 2) {
-            throw new DukeException("Syntax of deadline: deadline {task description} /by ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd})\n"
+            throw new DukeException("Syntax of deadline: deadline {task description} "
+                    + "/by ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd})\n"
                     + "E.g. deadline breakfast /by 2022-12-31 15:00");
         }
 
@@ -219,14 +211,16 @@ public class Parser {
 
         // Verify content and deadline (cannot be blank)
         if (content.isBlank() || deadline.isBlank()) {
-            throw new DukeException("Syntax of deadline: deadline {task description} /by ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd})\n"
+            throw new DukeException("Syntax of deadline: deadline {task description} "
+                    + "/by ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd})\n"
                     + "E.g. deadline breakfast /by 2022-12-31 15:00");
         }
 
         // Verify deadline (must be in format yyyy-MM-dd HH:mm or yyyy-mm-dd)
         String[] splitedDateTime = deadline.split(" ");
         if (splitedDateTime.length > 2) {
-            throw new DukeException("Syntax of deadline: deadline {task description} /by ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd})\n"
+            throw new DukeException("Syntax of deadline: deadline {task description} "
+                    + "/by ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd})\n"
                     + "E.g. deadline breakfast /by 2022-12-31 15:00");
         }
 
@@ -246,7 +240,8 @@ public class Parser {
 
         // Incorrect syntax: No content, no from, no to
         if (splitedTask.length == 1) {
-            throw new DukeException("Syntax of event: event {task description} /from ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd}) "
+            throw new DukeException("Syntax of event: event {task description} "
+                    + "/from ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd}) "
                     + "/to ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd})\n"
                     + "E.g. event exam /from 2022-12-31 15:00 /to 17:00");
         }
@@ -259,7 +254,8 @@ public class Parser {
 
         // Incorrect syntax: The remaining string doesn't separate to content, from and to
         if (splitedFrom.length != 2) {
-            throw new DukeException("Syntax of event: event {task description} /from ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd}) "
+            throw new DukeException("Syntax of event: event {task description} "
+                    + "/from ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd}) "
                     + "/to ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd})\n"
                     + "E.g. event exam /from 2022-12-31 15:00 /to 17:00");
         }
@@ -273,7 +269,8 @@ public class Parser {
 
         // Incorrect syntax: The remaining string doesn't separate to from and to
         if (splitedTo.length != 2) {
-            throw new DukeException("Syntax of event: event {task description} /from ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd}) "
+            throw new DukeException("Syntax of event: event {task description} "
+                    + "/from ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd}) "
                     + "/to ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd})\n"
                     + "E.g. event exam /from 2022-12-31 15:00 /to 17:00");
         }
@@ -284,7 +281,8 @@ public class Parser {
 
         // Verify content, from, and to (cannot be blank)
         if (content.isBlank() || from.isBlank() || to.isBlank()) {
-            throw new DukeException("Syntax of event: event {task description} /from ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd}) "
+            throw new DukeException("Syntax of event: event {task description} "
+                    + "/from ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd}) "
                     + "/to ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd})\n"
                     + "E.g. event exam /from 2022-12-31 15:00 /to 17:00");
         }
@@ -292,7 +290,8 @@ public class Parser {
         // Verify from (must be in format yyyy-MM-dd HH:mm or yyyy-mm-dd)
         String[] splitedFromDateTime = from.split(" ");
         if (splitedFromDateTime.length > 2) {
-            throw new DukeException("Syntax of event: event {task description} /from ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd}) "
+            throw new DukeException("Syntax of event: event {task description} "
+                    + "/from ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd}) "
                     + "/to ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd})\n"
                     + "E.g. event exam /from 2022-12-31 15:00 /to 17:00");
         }
@@ -300,7 +299,8 @@ public class Parser {
         // Verify to (must be in format yyyy-MM-dd HH:mm or yyyy-mm-dd)
         String[] splitedToDateTime = to.split(" ");
         if (splitedToDateTime.length > 2) {
-            throw new DukeException("Syntax of event: event {task description} /from ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd}) "
+            throw new DukeException("Syntax of event: event {task description} "
+                    + "/from ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd}) "
                     + "/to ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd})\n"
                     + "E.g. event exam /from 2022-12-31 15:00 /to 17:00");
         }

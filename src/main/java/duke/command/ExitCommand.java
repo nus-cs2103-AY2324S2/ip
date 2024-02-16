@@ -10,7 +10,7 @@ import duke.Ui;
  * It provides methods to exit the program, and to decide whether the program should continue.
  * It extends the `Command` class.
  */
-public class ExitCommand extends Command{
+public class ExitCommand extends Command {
 
     /**
      * Executes the command.
@@ -27,7 +27,7 @@ public class ExitCommand extends Command{
 
     /**
      * Returns True.
-
+     *
      * @return True.
      */
     @Override

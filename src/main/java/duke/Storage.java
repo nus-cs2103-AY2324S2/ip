@@ -1,23 +1,22 @@
 package duke;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.StringBuilder;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
 
 /**
  * The `Storage` class represents a tool to store tasks in file and read from file.
@@ -186,26 +185,26 @@ public class Storage {
      * @param tasks A list of existing tasks.
      * @throws IllegalArgumentException If error in accessing file to store tasks.
      */
-    public void saveChanges(TaskList tasks) throws DukeException{
+    public void saveChanges(TaskList tasks) throws DukeException {
         String home = System.getProperty("user.dir");
         Path filePath = Paths.get(home, this.filePath);
 
         StringBuilder textToAdd = new StringBuilder();
         for (Task t: tasks.getItems()) {
             switch (t.getClass().getName()) {
-                case "duke.task.Deadline": {
-                    textToAdd.append(t.getClass().getName() + "`" + t.getFields()[0] + "`" + t.getFields()[1]
-                            + "`" + t.getFields()[2] + "/end");
-                    break;
-                }
-                case "duke.task.Event": {
-                    textToAdd.append(t.getClass().getName() + "`" + t.getFields()[0] + "`" + t.getFields()[1]
-                            + "`" + t.getFields()[2] + "`" + t.getFields()[3] + "/end");
-                    break;
-                }
-                default: {
-                    textToAdd.append(t.getClass().getName() + "`" + t.getFields()[0] + "`" + t.getFields()[1] + "/end");
-                }
+            case "duke.task.Deadline": {
+                textToAdd.append(t.getClass().getName() + "`" + t.getFields()[0] + "`" + t.getFields()[1]
+                        + "`" + t.getFields()[2] + "/end");
+                break;
+            }
+            case "duke.task.Event": {
+                textToAdd.append(t.getClass().getName() + "`" + t.getFields()[0] + "`" + t.getFields()[1]
+                        + "`" + t.getFields()[2] + "`" + t.getFields()[3] + "/end");
+                break;
+            }
+            default: {
+                textToAdd.append(t.getClass().getName() + "`" + t.getFields()[0] + "`" + t.getFields()[1] + "/end");
+            }
             }
         }
 

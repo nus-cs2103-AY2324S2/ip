@@ -1,15 +1,16 @@
 package duke.task;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
 
 public class EventTest {
     @Test
-    public void getEventFromForDisplay_validFormat_returnsFormattedDateTime(){
+    public void getEventFromForDisplay_validFormat_returnsFormattedDateTime() {
         String content = "Project";
         String from = "2022-12-31 12:31";
         String to = "2023-01-02 03:04";
@@ -21,7 +22,7 @@ public class EventTest {
     }
 
     @Test
-    public void getEventToForDisplay_validFormat_returnsFormattedDateTime(){
+    public void getEventToForDisplay_validFormat_returnsFormattedDateTime() {
         String content = "Project";
         String from = "2022-12-31 12:31";
         String to = "2023-01-02 03:04";
