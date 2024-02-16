@@ -36,6 +36,7 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         dialog.setText(text);
         displayPicture.setImage(img);
         Circle clip = new Circle(49.5, 49.5, 49.5);
@@ -59,7 +60,6 @@ public class DialogBox extends HBox {
      * @param img the user's profile image.
      */
     public static DialogBox getUserDialog(String text, Image img) {
-        assert img != null: "User image not set!";
         return new DialogBox(text, img);
     }
 
@@ -70,7 +70,6 @@ public class DialogBox extends HBox {
      * @param img the Chatbot's profile image.
      */
     public static DialogBox getDukeDialog(String text, Image img) {
-        assert img != null: "DukeBot image not set!";
         var db = new DialogBox(text, img);
         db.flip();
         return db;
