@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import earl.util.stubs.TaskListStub;
 import earl.util.stubs.UiStub;
 
-class MarkHandlerTest {
+class DeleteHandlerTest {
 
     private static final PrintStream originalOut = System.out;
 
@@ -26,19 +26,18 @@ class MarkHandlerTest {
     }
 
     @Test
-    void handle_normalCommand_success() throws Exception {
-        Handler handler = HandlerType.mark.createHandler("1");
+    void handle_normalInput_success() throws Exception {
+        Handler handler = HandlerType.delete.createHandler("1");
         handler.handle(new TaskListStub(), new UiStub());
         String newLine = System.lineSeparator();
-        assertEquals("Item(s) duly accomplished." + newLine
-                + "1.TaskStub, " + newLine,
-                testingOut.toString());
+        assertEquals("Item(s) heretofore have been expunged." + newLine
+                + "1.TaskStub, " + newLine, testingOut.toString());
     }
 
     @Test
     void handle_nonIntegerInput_exceptionThrown() {
         try {
-            Handler handler = HandlerType.mark.createHandler("a");
+            Handler handler = HandlerType.delete.createHandler("a");
             handler.handle(new TaskListStub(), new UiStub());
             fail();
         } catch (Exception e) {

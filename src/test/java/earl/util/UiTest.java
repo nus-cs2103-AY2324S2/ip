@@ -16,32 +16,45 @@ class UiTest {
     private static final ByteArrayOutputStream testingOut =
             new ByteArrayOutputStream();
 
+    private static final String NEWLINE = System.lineSeparator();
+    private static final String DIVIDER = "_".repeat(60);
+    private static final String PADDING = " ".repeat(4);
+
     @BeforeEach
     void setUp() {
         System.setOut(new PrintStream(testingOut));
     }
 
     @Test
+    void getResponse_singleLine_success() {
+        Ui ui = new Ui();
+        ui.makeResponse("A");
+        String expected = PADDING + "A";
+        assertEquals(expected, ui.getResponse());
+    }
+
+    @Test
     void makeResponse_multipleLines_success() {
         Ui ui = new Ui();
         ui.makeResponse("A", "B");
-        String newLine = System.lineSeparator();
-        String padding = " ".repeat(4);
-        String divider = padding + "_".repeat(60) + newLine;
-        String expected = divider + padding + "A" + newLine
-                + padding + "B" + newLine + divider;
+        String expected = PADDING + DIVIDER + NEWLINE
+                + PADDING + "A" + NEWLINE
+                + PADDING + "B" + NEWLINE
+                + PADDING + DIVIDER + NEWLINE;
         assertEquals(expected, testingOut.toString());
     }
 
     @Test
-    void getResponse_singleLine_success() {
+    void buildResponse_multipleLines_success() {
         Ui ui = new Ui();
-        ui.makeResponse("A");
-        String newLine = System.lineSeparator();
-        String padding = " ".repeat(4);
-        String divider = padding + "_".repeat(60) + newLine;
-        String expected = divider + padding + "A" + newLine + divider;
-        assertEquals(expected, ui.getResponse());
+        ui.buildResponse("A");
+        ui.buildResponse("B");
+        ui.completeResponse();
+        String expected = PADDING + DIVIDER + NEWLINE
+                + PADDING + "A" + NEWLINE
+                + PADDING + "B" + NEWLINE
+                + PADDING + DIVIDER + NEWLINE;
+        assertEquals(expected, testingOut.toString());
     }
 
     @AfterEach

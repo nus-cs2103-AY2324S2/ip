@@ -1,4 +1,4 @@
-package earl.logic.stubs;
+package earl.util.stubs;
 
 import earl.util.Ui;
 

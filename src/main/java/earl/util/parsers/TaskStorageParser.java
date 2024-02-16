@@ -35,8 +35,7 @@ public class TaskStorageParser implements Parser<Task> {
                     + "initiating an unfortunate state of emptiness.");
         } catch (Exception e) {
             throw new EarlException("An enigmatic malady has manifested and "
-                    + "obstructed the parsing of the storage file: "
-                    + e.getMessage());
+                    + "obstructed the parsing of the storage file");
         }
     }
 }

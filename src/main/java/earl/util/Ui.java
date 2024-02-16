@@ -22,7 +22,7 @@ public class Ui {
 
     private final Scanner sc;
     private final List<String> delayedResponse;
-    private String[] response;  // the lines of the previous response
+    private String[] response; // the lines of the previous response
 
     /** Class constructor. */
     public Ui() {

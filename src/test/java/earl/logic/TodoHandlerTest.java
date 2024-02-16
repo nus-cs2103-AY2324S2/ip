@@ -10,10 +10,11 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import earl.exceptions.EarlException;
 import earl.util.stubs.TaskListStub;
 import earl.util.stubs.UiStub;
 
-class MarkHandlerTest {
+class TodoHandlerTest {
 
     private static final PrintStream originalOut = System.out;
 
@@ -27,23 +28,28 @@ class MarkHandlerTest {
 
     @Test
     void handle_normalCommand_success() throws Exception {
-        Handler handler = HandlerType.mark.createHandler("1");
+        Handler handler = HandlerType.todo.createHandler("test");
         handler.handle(new TaskListStub(), new UiStub());
         String newLine = System.lineSeparator();
-        assertEquals("Item(s) duly accomplished." + newLine
-                + "1.TaskStub, " + newLine,
-                testingOut.toString());
+        String padding = " ".repeat(4);
+        String expected = "A new todo, by virtue of your decree," + newLine
+                + "hath been appended to the roster of responsibilities."
+                + newLine
+                + padding + "TaskStub, " + newLine
+                + "The ledger of tasks bears witness to 10 endeavour(s)."
+                + newLine;
+        assertEquals(expected, testingOut.toString());
     }
 
     @Test
-    void handle_nonIntegerInput_exceptionThrown() {
+    void handle_emptyDescription_exceptionThrown() {
         try {
-            Handler handler = HandlerType.mark.createHandler("a");
+            Handler handler = HandlerType.todo.createHandler("");
             handler.handle(new TaskListStub(), new UiStub());
             fail();
-        } catch (Exception e) {
-            assertEquals("The indices' format is fraught with invalidity."
-                    + " Example format: 1 4-7 9-10", e.getMessage());
+        } catch (EarlException e) {
+            assertEquals("The description is devoid of detail.",
+                    e.getMessage());
         }
     }
 
