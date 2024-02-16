@@ -67,12 +67,24 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        if (input.isEmpty()) {
+            return;
+        }
+        
         String response = podz.getResponse(input);
+        setDialog(input, response);
+        userInput.clear();
+        closeGUIIfExit();
+    }
+
+    private void setDialog(String input, String response) {
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
-        userInput.clear();
+    }
+
+    private void closeGUIIfExit() {
         if (this.podz.hasExit()) {
             PauseTransition delay = new PauseTransition(Duration.seconds(2));
             delay.setOnFinished(event -> Platform.exit());
@@ -80,4 +92,3 @@ public class MainWindow extends AnchorPane {
         }
     }
 }
-
