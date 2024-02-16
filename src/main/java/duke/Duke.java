@@ -48,7 +48,7 @@ public class Duke extends Application {
      * Runs the chatbot.
      */
     public void run() {
-        ui.welcomeMessage();
+        ui.printWelcomeMessage();
         while (true) {
             try {
                 String input = ui.readCommand();
@@ -62,7 +62,7 @@ public class Duke extends Application {
                 break;
             }
         }
-        ui.goodByeMessage();
+        ui.printGoodByeMessage();
     }
 
     public static void main(String[] args) {

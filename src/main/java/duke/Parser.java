@@ -89,94 +89,14 @@ public class Parser {
                 ui.listSizeMessage(taskList);
                 break;
             case TODO:
-                String toDoDescription = ui.readCommandLine();
-                if (toDoDescription.isEmpty()) {
-                    try {
-                        ui.setIndentedLine();
-                        throw new DukeException("Sorry, " +
-                                "please give me a description of the todo as well! >.<\n" +
-                                "  " + "Format should be todo (description)!");
-                    } catch (DukeException e) {
-                        System.out.println("  " + e.getMessage());
-                        ui.setIndentedLine();
-                        return;
-                    }
-                }
-                ToDo toDo = new ToDo(toDoDescription);
-                taskList.addTask(toDo);
-                ui.setIndentedLine();
-                System.out.println("  " + toDo);
-                ui.listSizeMessage(taskList);
+                parseToDo(taskList, ui);
                 break;
             case DEADLINE:
-                String deadlineDescription = ui.readCommandLine();
-                if (!deadlineDescription.contains(" /by ")) {
-                    try {
-                        ui.setIndentedLine();
-                        throw new DukeException("Sorry, " +
-                                "please give me a description of the deadline as well! >.<\n" +
-                                "  " +
-                                "Format should be deadline (description) /by (yyyy-MM-dd HHmm!)");
-                    } catch (DukeException e) {
-                        System.out.println("  " + e.getMessage());
-                        ui.setIndentedLine();
-                        return;
-                    }
-                }
-                String[] deadlineArguments = deadlineDescription.split(" /by ");
-                String DLDescription = deadlineArguments[0];
-                String dateTime = deadlineArguments[1];
-
-                try {
-                    Deadline deadline = new Deadline(DLDescription, dateTime);
-                    taskList.addTask(deadline);
-                    ui.setIndentedLine();
-                    System.out.println("  " + deadline);
-                    ui.listSizeMessage(taskList);
-                    break;
-                } catch (DateTimeParseException e) {
-                    System.out.println("Sorry! " +
-                            "Format should be deadline (description) /by (yyyy-MM-dd HHmm!)");
-                    ui.setIndentedLine();
-                    return;
-                }
+                parseDeadline(taskList, ui);
+                break;
             case EVENT:
-                String eventDescription = ui.readCommandLine();
-                if (!eventDescription.contains(" /from ") || !eventDescription.contains(" /to ")) {
-                    try {
-                        ui.setIndentedLine();
-                        throw new DukeException("Sorry, " +
-                                "please give me a description of the event as well! >.<\n" +
-                                "  " +
-                                "Format should be event " +
-                                "(description) /from (yyyy-MM-dd HHmm) /to (yyyy-MM-dd HHmm)!");
-                    } catch (DukeException e) {
-                        System.out.println("  " + e.getMessage());
-                        ui.setIndentedLine();
-                        return;
-                    }
-                }
-                String[] eventArguments = eventDescription.split(" /from ");
-                String[] eventDuration = eventArguments[1].split(" /to ");
-                String EvDescription = eventArguments[0];
-                String startTime = eventDuration[0];
-                String endTime = eventDuration[1];
-
-                try {
-                    Event event = new Event(EvDescription, startTime, endTime);
-                    taskList.addTask(event);
-                    ui.setIndentedLine();
-                    System.out.println("  " + event);
-                    ui.listSizeMessage(taskList);
-                    break;
-                } catch (DateTimeParseException e) {
-                    System.out.println("  " +
-                            "Sorry! " +
-                            "Format should be event " +
-                            "(description) /from (yyyy-MM-dd HHmm) /to (yyyy-MM-dd HHmm)!");
-                    ui.setIndentedLine();
-                    return;
-                }
+                parseEvent(taskList, ui);
+                break;
             case FIND:
                 String findDescription = ui.readCommandLine();
                 ArrayList<Task> matchedTasks = taskList.find(findDescription);
@@ -189,6 +109,96 @@ public class Parser {
                     System.out.println("  " + e.getMessage());
                     ui.setIndentedLine();
                 }
+        }
+    }
+
+    public static void parseToDo(TaskList taskList, Ui ui) {
+        String toDoDescription = ui.readCommandLine();
+        if (toDoDescription.isEmpty()) {
+            try {
+                ui.setIndentedLine();
+                throw new DukeException("Sorry, " +
+                        "please give me a description of the todo as well! >.<\n" +
+                        "  " + "Format should be todo (description)!");
+            } catch (DukeException e) {
+                System.out.println("  " + e.getMessage());
+                ui.setIndentedLine();
+                return;
+            }
+        }
+        ToDo toDo = new ToDo(toDoDescription);
+        taskList.addTask(toDo);
+        ui.setIndentedLine();
+        System.out.println("  " + toDo);
+        ui.listSizeMessage(taskList);
+    }
+
+    public static void parseDeadline(TaskList taskList, Ui ui) {
+        String deadlineDescription = ui.readCommandLine();
+        if (!deadlineDescription.contains(" /by ")) {
+            try {
+                ui.setIndentedLine();
+                throw new DukeException("Sorry, " +
+                        "please give me a description of the deadline as well! >.<\n" +
+                        "  " +
+                        "Format should be deadline (description) /by (yyyy-MM-dd HHmm!)");
+            } catch (DukeException e) {
+                System.out.println("  " + e.getMessage());
+                ui.setIndentedLine();
+                return;
+            }
+        }
+        String[] deadlineArguments = deadlineDescription.split(" /by ");
+        String DLDescription = deadlineArguments[0];
+        String dateTime = deadlineArguments[1];
+
+        try {
+            Deadline deadline = new Deadline(DLDescription, dateTime);
+            taskList.addTask(deadline);
+            ui.setIndentedLine();
+            System.out.println("  " + deadline);
+            ui.listSizeMessage(taskList);
+        } catch (DateTimeParseException e) {
+            System.out.println("Sorry! " +
+                    "Format should be deadline (description) /by (yyyy-MM-dd HHmm!)");
+            ui.setIndentedLine();
+        }
+    }
+
+    public static void parseEvent(TaskList taskList, Ui ui) {
+        String eventDescription = ui.readCommandLine();
+        if (!eventDescription.contains(" /from ") || !eventDescription.contains(" /to ")) {
+            try {
+                ui.setIndentedLine();
+                throw new DukeException("Sorry, " +
+                        "please give me a description of the event as well! >.<\n" +
+                        "  " +
+                        "Format should be event " +
+                        "(description) /from (yyyy-MM-dd HHmm) /to (yyyy-MM-dd HHmm)!");
+            } catch (DukeException e) {
+                System.out.println("  " + e.getMessage());
+                ui.setIndentedLine();
+                return;
+            }
+        }
+        String[] eventArguments = eventDescription.split(" /from ");
+        String[] eventDuration = eventArguments[1].split(" /to ");
+        String EvDescription = eventArguments[0];
+        String startTime = eventDuration[0];
+        String endTime = eventDuration[1];
+
+        try {
+            Event event = new Event(EvDescription, startTime, endTime);
+            taskList.addTask(event);
+            ui.setIndentedLine();
+            System.out.println("  " + event);
+            ui.listSizeMessage(taskList);
+        } catch (DateTimeParseException e) {
+            System.out.println("  " +
+                    "Sorry! " +
+                    "Format should be event " +
+                    "(description) /from (yyyy-MM-dd HHmm) /to (yyyy-MM-dd HHmm)!");
+            ui.setIndentedLine();
         }
     }
 

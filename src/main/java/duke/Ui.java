@@ -19,7 +19,7 @@ public class Ui {
     }
 
     /**
-     * Method to print an indented line.
+     * Prints an indented line.
      *
      */
     public void setIndentedLine() {
@@ -27,10 +27,10 @@ public class Ui {
     }
 
     /**
-     * Method to print welcome message.
+     * Prints welcome message.
      *
      */
-    public void welcomeMessage() {
+    public void printWelcomeMessage() {
         setIndentedLine();
         System.out.println("  " + "Hey! I'm " + name + "\n" +
                 "  " + "Is there anything I can do for you?");
@@ -38,10 +38,10 @@ public class Ui {
     }
 
     /**
-     * Method to print goodbye message.
+     * Prints goodbye message.
      *
      */
-    public void goodByeMessage() {
+    public void printGoodByeMessage() {
         setIndentedLine();
         System.out.println("  " +
                 "Leaving so soon? Alright, have a great day ahead!");
@@ -49,7 +49,7 @@ public class Ui {
     }
 
     /**
-     * Method to print loading error message.
+     * Prints loading error message.
      *
      */
     public void loadErrorMessage() {
@@ -60,7 +60,7 @@ public class Ui {
     }
 
     /**
-     * Method to print unmark message.
+     * Prints unmark message.
      *
      * @param task Task that was unmarked.
      */
@@ -73,7 +73,7 @@ public class Ui {
     }
 
     /**
-     * Method to print mark message.
+     * Prints mark message.
      *
      * @param task Task that was marked.
      */
@@ -86,7 +86,7 @@ public class Ui {
     }
 
     /**
-     * Method to print delete message.
+     * Prints delete message.
      *
      * @param task Task that was deleted.
      */
@@ -99,7 +99,7 @@ public class Ui {
     }
 
     /**
-     * Method that prints how many tasks are in the list.
+     * Prints how many tasks are in the list.
      *
      * @param taskList List to be counted.
      */

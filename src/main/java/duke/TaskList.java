@@ -25,7 +25,7 @@ public class TaskList {
     }
 
     /**
-     * Method to add task.
+     * Adds task.
      *
      * @param task Task to be added.
      */
@@ -34,7 +34,7 @@ public class TaskList {
     }
 
     /**
-     * Method to delete task.
+     * Deletes task.
      *
      * @param deleteId Id of task to be deleted.
      * @param ui Ui to generate deleteMessage.
@@ -45,7 +45,7 @@ public class TaskList {
     }
 
     /**
-     * Method to unmark task.
+     * Unmarks task.
      *
      * @param unmarkId Id of task to be unmarked.
      * @param ui Ui to generate unmarkMessage.
@@ -56,7 +56,7 @@ public class TaskList {
     }
 
     /**
-     * Method to mark task.
+     * Marks task.
      *
      * @param markId Id of task to be marked.
      * @param ui Ui to generate markMessage.
@@ -67,7 +67,7 @@ public class TaskList {
     }
 
     /**
-     * Method to get tasks from taskList.
+     * Gets tasks from taskList.
      *
      * @return taskList.
      */
@@ -76,7 +76,7 @@ public class TaskList {
     }
 
     /**
-     * Method to get size of taskList.
+     * Gets size of taskList.
      *
      * @return size of taskList.
      */
@@ -85,7 +85,7 @@ public class TaskList {
     }
 
     /**
-     * Method to print list of tasks.
+     * Prints list of tasks.
      *
      * @param ui Ui to generate indented messages.
      */
@@ -106,7 +106,7 @@ public class TaskList {
     }
 
     /**
-     * Method to find tasks that match the search.
+     * Finds tasks that match the search.
      *
      * @param match The keyword to be used.
      * @return Arraylist of matched tasks.
@@ -122,7 +122,7 @@ public class TaskList {
     }
 
     /**
-     * Method to list out the tasks that match the search.
+     * Lists out the tasks that match the search.
      *
      * @param matchedTasks List that contains matched tasks.
      * @param ui Ui to set indented line.
