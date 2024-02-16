@@ -22,7 +22,7 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(ArrayList<Task> tasks, String[] input)
             throws CommandException, IOException {
-        if (input.length < 2) {
+        if (!isValidCommandLength(input)) {
             throw new CommandException(
                     "Please specify which task to delete. (format: delete <task no.>)");
         }

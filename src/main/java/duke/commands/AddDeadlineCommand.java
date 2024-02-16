@@ -30,16 +30,8 @@ public class AddDeadlineCommand extends Command {
     public void execute(ArrayList<Task> tasks, String[] input)
             throws CommandException, IOException {
         String pattern = "([^/]+)\\s+/by\\s+(\\d{1,2}/\\d{1,2}/\\d{4}\\s+\\d{4})";
-        Pattern regex = Pattern.compile(pattern);
 
-        if (input.length < 2) {
-            throw new CommandException(
-                    "Please enter the deadline details! (format: deadline <your task> /by <dd/MM/yyyy HHmm>)");
-        }
-
-        Matcher matcher = regex.matcher(input[1]);
-
-        if (!matcher.matches()) {
+        if(!isValidCommand(pattern, input)) {
             throw new CommandException(
                     "Wrong format! (format: deadline <your task> /by <dd/MM/yyyy HHmm>)");
         }
