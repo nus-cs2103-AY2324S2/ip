@@ -93,6 +93,8 @@ public class DialogBox extends HBox {
      * @return The rounded Image.
      */
     private Image roundImage(Image image) {
+        // Solution below taken from https://stackoverflow.com/questions/68631386/javafx-crop-image-as-a-circle
+
         // Params for creating circle object to crop user profile picture
         double circleXCenter = image.getWidth() / 2;
         double circleYCenter = image.getHeight() / 2;
