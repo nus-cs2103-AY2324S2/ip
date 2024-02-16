@@ -1,12 +1,16 @@
 package duke;
 
+import javafx.application.Application;
+import javafx.stage.Stage;
+
 /**
  * The Duke class represents a task manager bot.
  */
-public class Duke {
+public class Duke extends Application {
     private TaskList taskList;
     private Storage storage;
     private Ui ui;
+    private Gui gui;
 
     /**
      * Constructs a new Duke object.
@@ -17,6 +21,16 @@ public class Duke {
         this.ui = new Ui();
         try {
             this.storage = new Storage(filePath);
+            this.taskList = new TaskList(storage);
+        } catch (DukeException e) {
+            ui.printMessage(e.getMessage());
+        }
+    }
+
+    public Duke() {
+        this.ui = new Ui();
+        try {
+            this.storage = new Storage("./data/duke.txt");
             this.taskList = new TaskList(storage);
         } catch (DukeException e) {
             ui.printMessage(e.getMessage());
@@ -45,5 +59,11 @@ public class Duke {
         }
 
         bot.ui.showGoodbye();
+    }
+
+    @Override
+    public void start(Stage stage) {
+        gui = new Gui();
+        gui.showGui(stage);
     }
 }
