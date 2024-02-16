@@ -13,9 +13,9 @@ import parser.Parser;
 
 public class Duke {
     private Ui ui;
-    Storage storage;
-    TaskList taskList;
-    String botName = "Yube";
+    private Storage storage;
+    private TaskList taskList;
+    private String botName = "Yube";
 
     public void run() {
         ui.showWelcomeMessage(botName);
