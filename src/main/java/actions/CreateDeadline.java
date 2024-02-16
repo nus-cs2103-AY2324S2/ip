@@ -55,6 +55,8 @@ public class CreateDeadline implements Action {
      */
     @Override
     public String execute(Duke bot) {
+        assert(bot != null);
+        assert(bot.getTaskList() != null);
         Deadline d = new Deadline(desc, deadline);
         bot.getTaskList().addToList(d);
         return ("Deadline successfully added!");

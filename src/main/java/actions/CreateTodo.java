@@ -36,6 +36,8 @@ public class CreateTodo implements Action {
      */
     @Override
     public String execute(Duke bot) {
+        assert(bot != null);
+        assert(bot.getTaskList() != null);
         Todo task = new Todo(desc);
         bot.getTaskList().addToList(task);
         return ("Task successfully added!");

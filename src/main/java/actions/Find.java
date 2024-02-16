@@ -20,6 +20,8 @@ public class Find implements Action {
 
     @Override
     public String execute(Duke bot) {
+        assert(bot != null);
+        assert(bot.getTaskList() != null);
         ArrayList<Task> list = bot.getTaskList().getList();
         ArrayList<Task> matches = new ArrayList<>();
 
