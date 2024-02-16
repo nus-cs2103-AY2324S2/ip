@@ -14,7 +14,6 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.ToDo;
 
-
 /**
  * A utility class for handling storage operations, such as loading and saving tasks to a file.
  *
@@ -23,8 +22,9 @@ import duke.task.ToDo;
  * suitable for storage in a file. It also defines the file path where tasks are stored.</p>
  */
 public class Storage {
-    private static final String pathName = "data/tasks.txt";
-    private static final File storageFile = new File(pathName);
+    private static final String DIRECTORY_PATH = "data";
+    private static final String FILE_PATH = DIRECTORY_PATH + "/tasks.txt";
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /**
      * Loads tasks from the storage file into a TaskList object.
@@ -34,58 +34,49 @@ public class Storage {
      */
     public TaskList load() throws FileNotFoundException {
         TaskList list = new TaskList();
-        if (!storageFile.exists()) {
+
+        // Check if directory exists, if not, create it
+        File directory = new File(DIRECTORY_PATH);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        // Check if file exists, if not, return empty task list
+        File file = new File(FILE_PATH);
+        if (!file.exists()) {
             return list;
         }
 
-        Scanner sc = new Scanner(storageFile);
+        Scanner sc = new Scanner(file);
         while (sc.hasNextLine()) {
-            String instruction = sc.nextLine().strip();
-            String[] args = instruction.split("\\s\\|\\s");
-
-            String taskType = args[0];
-            boolean isDone = args[1].equals("[X]");
-            String description = args[2];
-
-            if (taskType.equals("[T]")) {
-                ToDo todo = new ToDo(description);
-                if (isDone) {
-                    todo.markAsDone();
-                }
-                list.addTask(todo);
-            } else if (taskType.equals("[D]")) {
-                String dateString = args[3];
-                LocalDateTime dateTime = LocalDateTime.parse(dateString,
-                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-                Deadline deadline = new Deadline(description, dateTime);
-                if (isDone) {
-                    deadline.markAsDone();
-                }
-                list.addTask(deadline);
-            } else {
-                String fromString = args[3];
-                String toString = args[4];
-                LocalDateTime fromDateTime = LocalDateTime.parse(fromString,
-                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-                LocalDateTime toDateTime = LocalDateTime.parse(toString,
-                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-                Event event = new Event(description, fromDateTime, toDateTime);
-                if (isDone) {
-                    event.markAsDone();
-                }
-                list.addTask(event);
-            }
+            String line = sc.nextLine();
+            Task task = parseTask(line);
+            list.addTask(task);
         }
+        sc.close();
         return list;
     }
 
+    private Task parseTask(String line) {
+        String[] parts = line.split("\\s\\|\\s");
+        String taskType = parts[0];
+        boolean isDone = parts[1].equals("[X]");
+        String description = parts[2];
 
-    private void writeToFile(String filePath, String textToAdd) throws IOException {
-        FileWriter fw = new FileWriter(filePath);
-        fw.write(textToAdd);
-        fw.close();
+        switch (taskType) {
+        case "[T]":
+            return new ToDo(description, isDone);
+        case "[D]":
+            LocalDateTime by = LocalDateTime.parse(parts[3], DATE_TIME_FORMATTER);
+            return new Deadline(description, by, isDone);
+        case "[E]":
+            LocalDateTime from = LocalDateTime.parse(parts[3], DATE_TIME_FORMATTER);
+            LocalDateTime to = LocalDateTime.parse(parts[4], DATE_TIME_FORMATTER);
+            return new Event(description, from, to, isDone);
+        default:
+            throw new IllegalArgumentException("Invalid task type found in storage file.");
+        }
     }
-
 
     /**
      * Saves tasks from a TaskList object to the storage file.
@@ -94,11 +85,16 @@ public class Storage {
      * @throws IOException If an I/O error occurs while writing to the storage file.
      */
     public void save(TaskList list) throws IOException {
-        StringBuilder record = new StringBuilder();
-        for (int i = 0; i < list.getNoOfTasks(); i++) {
-            Task task = list.getTask(i);
-            record.append(task.storageString()).append(System.lineSeparator());
+        StringBuilder sb = new StringBuilder();
+        for (Task task : list.getAllTasks()) {
+            sb.append(task.storageString()).append(System.lineSeparator());
         }
-        writeToFile(pathName, record.toString());
+        writeToFile(FILE_PATH, sb.toString());
+    }
+
+    private void writeToFile(String filePath, String textToAdd) throws IOException {
+        try (FileWriter fw = new FileWriter(filePath)) {
+            fw.write(textToAdd);
+        }
     }
 }
