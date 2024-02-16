@@ -7,6 +7,9 @@ public class Task {
     protected String description;
     protected boolean isCompleted;
 
+    private static final String COMPLETED_ICON = "[X]";
+    private static final String INCOMPLETED_ICON = "[ ]";
+
     /**
      * Constructs a new Task object with the given description.
      *
@@ -52,8 +55,8 @@ public class Task {
      */
     public String toString() {
         if (this.isCompleted) {
-            return "[X] " + this.description;
+            return COMPLETED_ICON + " " + this.description;
         }
-        return "[ ] " + this.description;
+        return INCOMPLETED_ICON + " " + this.description;
     }
 }
