@@ -21,8 +21,8 @@ public class ListCommand extends Command {
      * @throws DukeException For any error.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.list(tasks);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.list(tasks);
     }
 
     /**
