@@ -65,6 +65,9 @@ class Parser {
                 throw new DukeException("Invalid input format!");
             }
             index = Integer.parseInt(stringComponents[1]) - 1;
+            if (index <= 0) {
+                throw new DukeException("Index must be greater than 0!");
+            }
             command = new MarkCommand(index, true);
             break;
         case "unmark":
@@ -73,12 +76,18 @@ class Parser {
                 throw new DukeException("Invalid input format!");
             }
             index = Integer.parseInt(stringComponents[1]) - 1;
+            if (index <= 0) {
+                throw new DukeException("Index must be greater than 0!");
+            }
             command = new MarkCommand(index, false);
         case "delete":
             if (stringComponents.length < 2) {
                 throw new DukeException("Invalid input format!");
             }
             index = Integer.parseInt(stringComponents[1]) - 1;
+            if (index <= 0) {
+                throw new DukeException("Index must be greater than 0!");
+            }
             command = new DeleteCommand(index);
         case "find":
             if (stringComponents.length < 2) {

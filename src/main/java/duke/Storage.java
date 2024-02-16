@@ -41,6 +41,7 @@ class Storage {
             }
         }
         try {
+            assert file.exists();
             Scanner sc = new Scanner(file);
             String lineRead;
             while (sc.hasNext()) {

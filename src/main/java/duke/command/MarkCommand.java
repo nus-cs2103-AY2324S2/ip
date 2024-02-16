@@ -23,6 +23,7 @@ public class MarkCommand implements Command {
      * @throws DukeException if the index is greater than the number of Task in the TaskList
      */
     public String execute(TaskList tasks, Ui ui) throws DukeException {
+        assert index > 0;
         if (index + 1 > tasks.size()) {
             throw new DukeException("You only have " + tasks.size() + " tasks in the list.");
         }
