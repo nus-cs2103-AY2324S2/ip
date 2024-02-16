@@ -1,5 +1,9 @@
 package podz.parser;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 import podz.commands.ByeCommand;
 import podz.commands.Command;
 import podz.commands.DeadlineCommand;
@@ -35,6 +39,10 @@ public class Parser {
         BYE,
         UNKNOWN;
 
+        private final static ArrayList<String> COMMAND_STRINGS = Arrays.stream(Commands.values())
+                .map(Enum::name)
+                .collect(Collectors.toCollection(ArrayList::new));
+
         /**
          * Returns the enum value corresponding to the command input or a default value.
          * 
@@ -43,10 +51,19 @@ public class Parser {
          */
         public static Commands valueOfOrElse(String command) {
             try {
-                return Commands.valueOf(command);
+                return Commands.valueOf(mapToEnumString(command));
             } catch (IllegalArgumentException e) {
                 return UNKNOWN;
             }
+        }
+
+        private static String mapToEnumString(String command) {
+            for (String s : COMMAND_STRINGS) {
+                if (s.startsWith(command)) {
+                    return s;
+                }
+            }
+            return command;
         }
     }
 
