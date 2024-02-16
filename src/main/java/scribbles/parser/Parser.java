@@ -14,6 +14,8 @@ public class Parser {
     private String input;
     private Ui ui;
 
+    private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+
     /**
      * Constructs a new instance of Parser with the specified input string.
      *
@@ -96,8 +98,7 @@ public class Parser {
      */
     public LocalDateTime getDeadlineBy() throws IndexOutOfBoundsException, DateTimeParseException {
         String dateTime = this.input.split("\\s+", 2)[1].split("\\s+/by\\s+")[1].trim();
-        DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        LocalDateTime by = LocalDateTime.parse(dateTime, dateTimeFormat);
+        LocalDateTime by = LocalDateTime.parse(dateTime, DATE_TIME_FORMAT);
         return by;
     }
 
@@ -148,8 +149,7 @@ public class Parser {
     public LocalDateTime getStartDateTime() throws DateTimeParseException {
         String startString = this.input.split("\\s+/from\\s+", 2)[1].split("\\s+/to\\s+",
                 2)[0].trim();
-        DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        LocalDateTime start = LocalDateTime.parse(startString, dateTimeFormat);
+        LocalDateTime start = LocalDateTime.parse(startString, DATE_TIME_FORMAT);
         return start;
     }
 
@@ -161,8 +161,7 @@ public class Parser {
      */
     public LocalDateTime getEndDateTime() throws IndexOutOfBoundsException, DateTimeException {
         String endString = this.input.split("\\s+/to\\s+", 2)[1].trim();
-        DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        LocalDateTime end = LocalDateTime.parse(endString, dateTimeFormat);
+        LocalDateTime end = LocalDateTime.parse(endString, DATE_TIME_FORMAT);
         return end;
     }
 
