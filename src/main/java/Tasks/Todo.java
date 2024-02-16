@@ -1,6 +1,10 @@
-public class Todo extends Task{
+package Tasks;
+import Exceptions.InvalidDescriptionException;
+import Utils.utils;
 
-    static Todo from(String s) throws InvalidDescriptionException {
+public class Todo extends Task {
+
+    public static Todo from(String s) throws InvalidDescriptionException {
         //Expects a string in the format "todo <description>"
 
         //get rid of the command

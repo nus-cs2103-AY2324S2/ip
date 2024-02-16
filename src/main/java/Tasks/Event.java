@@ -1,4 +1,10 @@
-public class Event extends Task{
+package Tasks;
+import Exceptions.InvalidArgumentException;
+import Exceptions.InvalidDescriptionException;
+import Exceptions.InvalidFormatException;
+import Utils.utils;
+
+public class Event extends Task {
 
     private final String from_time;
     private final String to_time;
@@ -73,5 +79,13 @@ public class Event extends Task{
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from_time + " to: " + to_time + ")";
+    }
+
+    public String getFromTime() {
+        return from_time;
+    }
+
+    public String getToTime() {
+        return to_time;
     }
 }

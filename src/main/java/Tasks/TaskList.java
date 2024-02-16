@@ -1,5 +1,9 @@
-import java.awt.*;
+package Tasks;
+
+import Tasks.Task;
+
 import java.util.ArrayList;
+import Exceptions.TaskListFullException;
 
 public class TaskList {
 
@@ -7,6 +11,12 @@ public class TaskList {
 
     public TaskList(){
         list = new ArrayList<>();
+    }
+
+    public static TaskList from(ArrayList<Task> tasks) {
+        TaskList taskList = new TaskList();
+        taskList.list.addAll(tasks);
+        return taskList;
     }
 
     public String add_task(Task task) throws TaskListFullException {
@@ -69,4 +79,34 @@ public class TaskList {
         return result;
     }
 
+    /**
+     * Returns a deep copy of the list of tasks
+     * @return An ArrayList of Task objects
+     */
+    public ArrayList<Task> getList() {
+        ArrayList<Task> copy = new ArrayList<>();
+        for (Task task : list) {
+            if (task instanceof Deadline) {
+                copy.add(new Deadline(task.getDescription(), ((Deadline) task).getBy()));
+            } else if (task instanceof Event) {
+                copy.add(new Event(task.getDescription(), ((Event) task).getFromTime(), ((Event) task).getToTime()));
+            } else if (task instanceof Todo) {
+                copy.add(new Todo(task.getDescription()));
+            } else {
+                copy.add(new Task(task.getDescription()));
+            }
+        }
+        return copy;
+    }
+
+    public int getSize() {
+        return list.size();
+    }
+
+    public Task getTask(int index) throws IndexOutOfBoundsException{
+        if (index < 0 || index >= list.size()) {
+            throw new IndexOutOfBoundsException("Sorry, the provided id is invalid.");
+        }
+        return list.get(index);
+    }
 }
