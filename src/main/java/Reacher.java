@@ -20,14 +20,10 @@ public class Reacher {
         new Reacher("./storage.txt").run();
     }
     public void run() {
-        Scanner scanner = new Scanner(System.in);
         ui.printWelcome();
         while (true) {
             try {
-                String input = scanner.nextLine();
-                if (input.isEmpty()) {
-                    throw new ReacherException("pls type a task name.");
-                }
+                String input = ui.readString();
                 if (input.equalsIgnoreCase("bye")) { //check for end request
                     System.out.println("bye");
                     break;
@@ -36,14 +32,13 @@ public class Reacher {
                 } else if (input.equalsIgnoreCase("edit")) {
                     System.out.println("Which task number would u like to edit?");
                     try {
-                        int num = scanner.nextInt();
-                        scanner.nextLine();
+                        int num = ui.readInt();
                         if (num > tasks.noOfTasks() || num < 1) {
                             throw new ReacherException("No such task number");
                         }
                         Task task = tasks.getTask(num - 1);
                         System.out.println("Mark Done or Undone or Delete?");
-                        String change = scanner.nextLine();
+                        String change = ui.readString();
                         if (change.equalsIgnoreCase("done")) {
                             task.markDone();
                             System.out.println("Task " + num + " marked done");
@@ -63,22 +58,22 @@ public class Reacher {
                 } else {
                     System.out.println("What type of task is this?(Deadline, Event, Todo)");
                     try {
-                        String type = scanner.nextLine();
+                        String type = ui.readString();
                         if (type.equalsIgnoreCase("todo")) {
                             Todos t = new Todos(input);
                             tasks.addTask(t);
                             System.out.println("I've added " + t.toString());
                         } else if (type.equalsIgnoreCase("deadline")) {
                             System.out.println("When is the deadline?");
-                            LocalDate deadline = LocalDate.parse(scanner.nextLine());
+                            LocalDate deadline = LocalDate.parse(ui.readString());
                             Deadline t = new Deadline(input, deadline);
                             tasks.addTask(t);
                             System.out.println("I've added " + t.toString());
                         } else if (type.equalsIgnoreCase("event")) {
                             System.out.println("When is the start?");
-                            LocalDate start = LocalDate.parse(scanner.nextLine());
+                            LocalDate start = LocalDate.parse(ui.readString());
                             System.out.println("When is the end?");
-                            LocalDate end = LocalDate.parse(scanner.nextLine());
+                            LocalDate end = LocalDate.parse(ui.readString());
                             if (start.isAfter(end)){
                                 throw new ReacherException("End cannot be before start.");
                             }
@@ -99,6 +94,5 @@ public class Reacher {
                 System.out.println(e.getMessage());
             }
         }
-        scanner.close();
     }
 }
