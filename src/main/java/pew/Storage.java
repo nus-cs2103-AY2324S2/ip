@@ -1,4 +1,4 @@
-package duke;
+package pew;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,7 +13,7 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public ArrayList<Task> loadTasks() throws DukeException {
+    public ArrayList<Task> loadTasks() throws PewException {
         ArrayList<Task> task_arr = new ArrayList<>();
         int index = 0;
 
@@ -52,7 +52,7 @@ public class Storage {
             }
             scanner.close();
         } catch (FileNotFoundException e) {
-            throw new DukeException("File not found: " + e);
+            throw new PewException("File not found: " + e);
         }
 
         return task_arr;

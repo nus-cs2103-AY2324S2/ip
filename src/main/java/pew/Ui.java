@@ -1,4 +1,4 @@
-package duke;
+package pew;
 
 public class Ui {
     public void showLoadingError() {

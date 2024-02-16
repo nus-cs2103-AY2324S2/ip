@@ -1,4 +1,4 @@
-package duke;
+package pew;
 
 public class ToDo extends Task{
     protected String type = "T";

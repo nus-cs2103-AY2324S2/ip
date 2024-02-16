@@ -1,4 +1,4 @@
-package duke;
+package pew;
 
 public class Deadline extends Task {
     protected String type = "D";

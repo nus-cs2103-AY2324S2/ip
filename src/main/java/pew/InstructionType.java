@@ -1,4 +1,4 @@
-package duke;
+package pew;
 public enum InstructionType {
     TODO,
     DEADLINE,

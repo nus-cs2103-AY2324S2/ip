@@ -1,4 +1,4 @@
-package duke;
+package pew;
 
 public class Event extends Task {
     protected String type = "E";

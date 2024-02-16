@@ -13,8 +13,5 @@ src/main/resources/docs/
 *.iml
 bin/
 
-#test data files
-/data/duke.txt
-
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT

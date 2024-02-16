@@ -1,12 +1,10 @@
-package duke;
+package pew;
 
-import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Locale;
-import java.util.Objects;
 
 public class Parser {
     /**
@@ -54,7 +52,7 @@ public class Parser {
      */
     public static String parseUserInput(String userInput, TaskList taskList) {
         try {
-            DukeException.validateInstn(userInput);
+            PewException.validateInstn(userInput);
             int index = taskList.getTaskArr().size();
             InstructionType instr = InstructionType.valueOf(userInput.split(" ")[0].toUpperCase());
             switch (instr) {
@@ -76,30 +74,30 @@ public class Parser {
                     return taskList.listAllTasks();
                 } case UNMARK: {
                     int markedIndex = Integer.parseInt(userInput.replaceAll("[^0-9]", ""));
-                    DukeException.validateArrIndex(markedIndex, taskList.getTaskArr());
+                    PewException.validateArrIndex(markedIndex, taskList.getTaskArr());
                     taskList.unmarkTask(markedIndex);
                     return "OK, I've marked this task as not done yet:\n" + taskList.printSelectedTask(markedIndex);
                 } case MARK: {
                     int markedIndex = Integer.parseInt(userInput.replaceAll("[^0-9]", ""));
-                    DukeException.validateArrIndex(markedIndex, taskList.getTaskArr());
+                    PewException.validateArrIndex(markedIndex, taskList.getTaskArr());
                     taskList.markTask(markedIndex);
                     return "Nice! I've marked this task as done:\n" + taskList.printSelectedTask(markedIndex);
                 } case DELETE: {
                     int markedIndex = Integer.parseInt(userInput.replaceAll("[^0-9]", ""));
-                    DukeException.validateArrIndex(markedIndex - 1, taskList.getTaskArr());
+                    PewException.validateArrIndex(markedIndex - 1, taskList.getTaskArr());
                     String message = "Noted. I've removed this task:\n" + taskList.printSelectedTask(markedIndex) + "\n";
                     taskList.deleteTask(markedIndex);
                     message += "Now you have " + taskList.size() + " tasks in the list";
                     return message;
                 } case TODO: {
-                    DukeException.validateToDo(userInput);
+                    PewException.validateToDo(userInput);
                     taskList.addTask(new ToDo(index, userInput.substring(5)));
                     String message = "Got it. I've added this task:\n" + taskList.printSelectedTask(index + 1) + "\n";
                     message += "Now you have " + taskList.size() + " tasks in the list";
                     return message;
                 } case DEADLINE: {
                     String[] str = userInput.split("/by ");
-                    DukeException.validateDateTime(str[1]);
+                    PewException.validateDateTime(str[1]);
                     String deadline = "by " + formatDateTime(str[1]);
                     taskList.addTask(new Deadline(index, str[0], deadline));
                     String message = "Got it. I've added this task:\n" + taskList.printSelectedTask(index + 1) + "\n";
@@ -110,8 +108,8 @@ public class Parser {
                     String[] back = front[1].split("/to ");
                     String start = back[0].trim();
                     String end = back[1];
-                    DukeException.validateDateTime(start);
-                    DukeException.validateDateTime(end);
+                    PewException.validateDateTime(start);
+                    PewException.validateDateTime(end);
                     taskList.addTask(new Event(index, front[0], formatDateTime(start), formatDateTime(end)));
                     String message = "Got it. I've added this task:\n" + taskList.printSelectedTask(index + 1) + "\n";
                     message += "Now you have " + taskList.size() + " tasks in the list";
@@ -123,7 +121,7 @@ public class Parser {
                     return "Sorry, I don't understand. Please try again.";
                 }
             }
-        } catch (DukeException d) {
+        } catch (PewException d) {
             return d.toString();
         }
     }

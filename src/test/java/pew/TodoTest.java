@@ -1,4 +1,4 @@
-package duke;
+package pew;
 
 import org.junit.jupiter.api.Test;
 
@@ -9,16 +9,16 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class TodoTest {
     @Test
-    public void todo_getTask_success() throws DukeException{
+    public void todo_getTask_success() throws PewException {
         assertEquals("1. [T][ ] pray", new ToDo(0, "pray").getTask());
     }
 
     @Test
     public void deadline_getTask_invalidDate_exceptionThrown(){
         try {
-            DukeException.validateDateTime("111/11/1111");
+            PewException.validateDateTime("111/11/1111");
             assertEquals("fail", new Deadline(1, "fail", "111/11/1111").getTask());
-        } catch (DukeException d) {
+        } catch (PewException d) {
             String[] dateFormats = {
                     "M/d/yyyy[ HHmm]",
                     "yyyy-MM-dd[ HHmm]",

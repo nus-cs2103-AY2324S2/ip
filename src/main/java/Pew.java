@@ -1,11 +1,11 @@
-import duke.*;
+import pew.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Objects;
 import java.io.FileWriter;
 import java.io.IOException;
-public class Duke {
+public class Pew {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
@@ -14,12 +14,12 @@ public class Duke {
      * Constructs a Duke object
      * @param filePath the path to the file containing the tasks
      */
-    public Duke(String filePath) {
+    public Pew(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
             taskList = new TaskList(storage.loadTasks());
-        } catch (DukeException e) {
+        } catch (PewException e) {
             ui.showLoadingError();
             taskList = new TaskList(new ArrayList<>());
         }
@@ -28,8 +28,8 @@ public class Duke {
     /**
      * default constructor
      */
-    public Duke() {
-        this("data/duke.txt");
+    public Pew() {
+        this("data/pew.txt");
     }
 
     /**
@@ -41,7 +41,7 @@ public class Duke {
 
         while (!Objects.equals(userInput.toLowerCase(), "bye")) {
             try {
-                DukeException.validateInstn(userInput);
+                PewException.validateInstn(userInput);
                 String response = Parser.parseUserInput(userInput, taskList);
                 System.out.println(response);
                 if (userInput.contains("delete")) {
@@ -50,7 +50,7 @@ public class Duke {
                 // Save tasks to file after each user input
                 saveTasksToFile();
 
-            } catch (DukeException d) {
+            } catch (PewException d) {
                 System.out.println(d);
             }
             System.out.println("What else can I do for you? (try typing my name 3 times with no space in between)");
@@ -66,7 +66,7 @@ public class Duke {
 
     private void saveTasksToFile() {
         try {
-            FileWriter writer = new FileWriter("data/duke.txt");
+            FileWriter writer = new FileWriter("data/pew.txt");
             for (Task task : taskList.getTaskArr()) {
                 writer.write(task.save() + "\n");
             }
@@ -81,7 +81,7 @@ public class Duke {
             return "BYE";
         }
         try {
-            DukeException.validateInstn(userInput);
+            PewException.validateInstn(userInput);
             String result = Parser.parseUserInput(userInput, taskList);
             if (userInput.contains("delete")) {
                 taskList.reOrder();
@@ -89,7 +89,7 @@ public class Duke {
             // Save tasks to file after each user input
             saveTasksToFile();
             return result + "\n" + "What else can I do for you? (try typing my name 3 times with no space in between)";
-        } catch (DukeException d) {
+        } catch (PewException d) {
             return d.toString();
         }
     }
@@ -99,6 +99,6 @@ public class Duke {
      */
     public static void main(String[] args) {
         System.out.println("Hello! I'm PeWPeWPeW");
-        new Duke("data/duke.txt").run();
+        new Pew("data/pew.txt").run();
     }
 }

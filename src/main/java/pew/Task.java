@@ -1,4 +1,4 @@
-package duke;
+package pew;
 
 public class Task {
     protected String description;
