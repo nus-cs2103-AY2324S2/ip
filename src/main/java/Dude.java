@@ -4,13 +4,14 @@ import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.TaskList;
 import Tasks.Todo;
+import Utils.Storage;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class  Dude {
 
-    static TaskList taskList = new TaskList();
+    private static TaskList taskList = null;
 
     static final String[] supported_commands = {"bye", "list", "mark", "unmark", "todo", "event", "deadline", "delete"};
 
@@ -27,6 +28,16 @@ public class  Dude {
 //        System.out.println(logo + "\n");
 //        System.out.println("--------------------------------------");
 //        System.out.println("Dude v1.0 by Tahsin Hasem.\n");
+
+
+        try {
+            taskList = Storage.loadTasks();
+        }
+        catch (Exception e){
+            System.out.println(echo("An error occurred while loading the tasks. Deleting the storage and starting with an empty task list."));
+            Storage.deleteStorage();
+            taskList = new TaskList();
+        }
 
         System.out.println(greet());
 
@@ -50,32 +61,41 @@ public class  Dude {
                 continue;
             }
 
-            switch (command){
-                case "bye":
-                    System.out.println(bye());
-                    return;
-                case "list":
-                    System.out.println(list());
-                    break;
-                case "mark":
-                    System.out.println(mark_as_done(msg));
-                    break;
-                case "unmark":
-                    System.out.println(mark_as_undone(msg));
-                    break;
-                case "todo":
-                    System.out.println(handle_todo_command(msg));
-                    break;
-                case "event":
-                    System.out.println(handle_event_command(msg));
-                    break;
-                case "deadline":
-                    System.out.println(handle_deadline_command(msg));
-                    break;
-                case "delete":
-                    System.out.println(handle_delete_command(msg));
-                    break;
+            switch (command) {
+            case "bye":
+                System.out.println(bye());
+                return;
+            case "list":
+                System.out.println(list());
+                break;
+            case "mark":
+                System.out.println(mark_as_done(msg));
+                break;
+            case "unmark":
+                System.out.println(mark_as_undone(msg));
+                break;
+            case "todo":
+                System.out.println(handle_todo_command(msg));
+                break;
+            case "event":
+                System.out.println(handle_event_command(msg));
+                break;
+            case "deadline":
+                System.out.println(handle_deadline_command(msg));
+                break;
+            case "delete":
+                System.out.println(handle_delete_command(msg));
+                break;
             }
+
+            if (isCommandChangingState(command)) {
+                try {
+                    Storage.saveTasks(taskList);
+                } catch (Exception e) {
+                    System.out.println(echo("An error occurred while saving the tasks."));
+                }
+            }
+
         }
 
     }
@@ -206,6 +226,11 @@ public class  Dude {
             }
         }
         throw new InvalidCommandException("I'm sorry, but I don't know what\n\tthat means :-(");
+    }
+
+    private static boolean isCommandChangingState(String command){
+        return command.equals("todo") || command.equals("event") || command.equals("deadline")
+                || command.equals("delete") || command.equals("mark") || command.equals("unmark");
     }
 
 }
