@@ -1,0 +1,24 @@
+blah
+todo x
+todo
+todon
+list
+event y /from 1 /to 2
+event   /from 2 /to 3
+event i /from  /to 4
+event j /fron 4 /to 5
+deadline a /by 7
+deadliner
+deadline /by 7
+deadline b /by
+deadline c /by 2024-01-31
+mark 1
+mark 4
+unmark 1
+mark
+mark 2
+todo m
+delete 4
+delete 7
+delete a
+list
