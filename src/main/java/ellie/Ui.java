@@ -27,7 +27,7 @@ public class Ui {
     /**
      * Prints a welcome message, the Ellie logo, and a horizontal line.
      */
-    public static String hello() {
+    public static String showHelloMessage() {
         String helloMessage = "";
         helloMessage += "Hello! I'm Ellie, your CS2103T chat bot! I help by tracking your tasks!\n";
         helloMessage += LOGO_ELLIE + "\n" + HORIZONTAL_LINE + "\n";
@@ -38,7 +38,7 @@ public class Ui {
     /**
      * Prints a farewell message and a horizontal line.
      */
-    public static String goodbye() {
+    public static String showGoodbyeMessage() {
         String goodbyeMessage = "";
         goodbyeMessage += "\n Bye! Hope to see you again soon!";
         goodbyeMessage += "\n" + HORIZONTAL_LINE;
