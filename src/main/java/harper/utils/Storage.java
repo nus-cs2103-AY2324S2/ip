@@ -57,32 +57,24 @@ public class Storage {
             Scanner scanner = new Scanner(this.file);
             while (scanner.hasNextLine()) {
                 String[] taskString = scanner.nextLine().split(" \\| ");
-                boolean isDone;
-                if (taskString[1].equals("1")) {
-                    isDone = true;
-                } else if (taskString[1].equals("0")) {
-                    isDone = false;
-                } else {
-                    throw new HarperFileLoadingException();
-                }
+                boolean isOne = taskString[1].equals("1");
+                boolean isZero = taskString[1].equals("0");
+                boolean isDone = checkIsDone(isZero, isOne);
+                String description = taskString[2];
 
                 if (taskString[0].equals("T")) {
+                    addToDo(tasks, description, isDone);
                     assert taskString.length == 3 : "The format is wrong";
-                    Task task = new ToDo(taskString[2], isDone);
-                    tasks.add(task);
                 } else if (taskString[0].equals("D")) {
                     assert taskString.length == 4 : "The format is wrong";
                     String by = taskString[3];
-                    LocalDateTime byFormatted = LocalDateTime.parse(by, DATE_TIME_FORMATTER);
-                    Task task = new Deadline(taskString[2], isDone, byFormatted);
-                    tasks.add(task);
+                    addDeadline(tasks, description, isDone, by);
                 } else if (taskString[0].equals("E")) {
                     assert taskString.length == 4 : "The format is wrong";
                     String[] duration = taskString[3].split(" - ");
-                    LocalDateTime start = LocalDateTime.parse(duration[0], DATE_TIME_FORMATTER);
-                    LocalDateTime end = LocalDateTime.parse(duration[1], DATE_TIME_FORMATTER);
-                    Task task = new Event(taskString[2], isDone, start, end);
-                    tasks.add(task);
+                    String start = duration[0];
+                    String end = duration[1];
+                    addEvent(tasks, description, isDone, start, end);
                 } else {
                     throw new HarperFileLoadingException();
                 }
@@ -92,6 +84,65 @@ public class Storage {
         } catch (FileNotFoundException | ArrayIndexOutOfBoundsException | DateTimeParseException e) {
             throw new HarperFileLoadingException();
         }
+    }
+
+    /**
+     * Checks if the task is done.
+     *
+     * @param isZero Boolean indicates whether the value read from file is zero.
+     * @param isOne Boolean indicates whether the value read from file is one.
+     * @return True if isOne is true, else if isZero is true, false, else, error.
+     */
+    public boolean checkIsDone(boolean isZero, boolean isOne) {
+        if (isZero) {
+            return false;
+        } else if (isOne) {
+            return true;
+        } else {
+            throw new HarperFileLoadingException();
+        }
+    }
+
+    /**
+     * Adds the todo task read from hard disk into the list.
+     *
+     * @param tasks List to store the tasks.
+     * @param description Description of the task.
+     * @param isDone Indicator of whether the task is done.
+     */
+    public void addToDo(ArrayList<Task> tasks, String description, boolean isDone) {
+        Task task = new ToDo(description, isDone);
+        tasks.add(task);
+    }
+
+    /**
+     * Adds the deadline task read from hard disk into the list.
+     *
+     * @param tasks List to store the tasks.
+     * @param description Description of the task.
+     * @param isDone Indicator of whether the task is done.
+     * @param by Deadline of the task.
+     */
+    public void addDeadline(ArrayList<Task> tasks, String description, boolean isDone, String by) {
+        LocalDateTime byFormatted = LocalDateTime.parse(by, DATE_TIME_FORMATTER);
+        Task task = new Deadline(description, isDone, byFormatted);
+        tasks.add(task);
+    }
+
+    /**
+     * Adds the event task read from hard disk into the list.
+     *
+     * @param tasks List to store the tasks.
+     * @param description Description of the task.
+     * @param isDone Indicator of whether the task is done.
+     * @param start Start time of the task.
+     * @param end End time of the task.
+     */
+    public void addEvent(ArrayList<Task> tasks, String description, boolean isDone, String start, String end) {
+        LocalDateTime startDateTime = LocalDateTime.parse(start, DATE_TIME_FORMATTER);
+        LocalDateTime endDateTime = LocalDateTime.parse(end, DATE_TIME_FORMATTER);
+        Task task = new Event(description, isDone, startDateTime, endDateTime);
+        tasks.add(task);
     }
 
     /**

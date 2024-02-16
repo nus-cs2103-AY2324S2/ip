@@ -62,7 +62,8 @@ public class TaskList {
      */
     public Task deleteTask(int taskIndex) {
         try {
-            return this.tasks.remove(taskIndex);
+            Task taskRemoved = this.tasks.remove(taskIndex);
+            return taskRemoved;
         } catch (IndexOutOfBoundsException e) {
             assert taskIndex >= this.tasks.size() : "The index is not out of bound";
             throw new HarperInvalidIndexException();

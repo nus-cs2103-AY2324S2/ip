@@ -36,10 +36,9 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
-        dialogContainer.getChildren().addAll(
+        this.addDialogBoxIntoDialogContainer(
                 DialogBox.getHarperDialog("\nHello! I am Harper.\n" + "What can I do for you?\n",
-                        harperImage)
-        );
+                        harperImage));
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
@@ -55,19 +54,35 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = harper.getResponse(input);
-        dialogContainer.getChildren().addAll(
+        this.addDialogBoxIntoDialogContainer(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getHarperDialog(response, harperImage)
         );
         userInput.clear();
-        if (input.trim().equals("bye")) {
-            Timer timer = new Timer(1000, new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
+        checkIfBye(input);
+    }
+
+    public void addDialogBoxIntoDialogContainer(DialogBox... dialogBoxes) {
+        this.dialogContainer.getChildren().addAll(dialogBoxes);
+    }
+
+    /**
+     * Checks if the input is bye, if it is, exits the program,
+     * else, continue.
+     *
+     * @param input Input of the user.
+     */
+    public void checkIfBye(String input) {
+        String inputAfterTrim = input.trim();
+        if (!inputAfterTrim.equals("bye")) {
+            return;
+        }
+        Timer timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
                     System.exit(0);
                 }
-            });
-            timer.start();
-        }
+        });
+        timer.start();
     }
 }

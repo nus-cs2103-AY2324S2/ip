@@ -14,7 +14,7 @@ public class MarkCommand extends Command {
 
     //CHECKSTYLE.OFF: MissingJavadocMethod
     public MarkCommand(int taskIndex, boolean isMarked) {
-        super(false);
+        super();
         this.taskIndex = taskIndex;
         this.isMarked = isMarked;
     }

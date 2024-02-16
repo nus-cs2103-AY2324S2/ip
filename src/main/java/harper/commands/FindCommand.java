@@ -12,7 +12,7 @@ public class FindCommand extends Command {
 
     //CHECKSTYLE.OFF: MissingJavadocMethod
     public FindCommand(String keyword) {
-        super(false);
+        super();
         this.keyword = keyword;
     }
 

@@ -13,7 +13,7 @@ public class AddCommand extends Command {
 
     //CHECKSTYLE.OFF: MissingJavadocMethod
     public AddCommand(Task task) {
-        super(false);
+        super();
         this.task = task;
     }
 

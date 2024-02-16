@@ -84,11 +84,15 @@ public class Parser {
         if (parts.length != 2) {
             throw new HarperInvalidDeadlineException();
         }
+
         String description = parts[0].trim();
         String deadline = parts[1].trim();
-        if (description.isEmpty() || deadline.isEmpty()) {
+        boolean isDescriptionEmpty = description.isEmpty();
+        boolean isDeadlineEmpty = deadline.isEmpty();
+        if (isDescriptionEmpty || isDeadlineEmpty) {
             throw new HarperInvalidDeadlineException();
         }
+
         try {
             LocalDateTime deadlineFormatted = LocalDateTime.parse(deadline, DATE_TIME_FORMATTER);
             Task newDeadline = new Deadline(description, false, deadlineFormatted);
@@ -111,16 +115,22 @@ public class Parser {
         if (parts.length != 2) {
             throw new HarperInvalidEventException();
         }
+
         String description = parts[0].trim();
         String[] startAndEnd = parts[1].trim().split("/to", 2);
-        if (startAndEnd.length != 2 || description.isEmpty()) {
+        boolean isDescriptionEmpty = description.isEmpty();
+        if (startAndEnd.length != 2 || isDescriptionEmpty) {
             throw new HarperInvalidEventException();
         }
+
         String start = startAndEnd[0].trim();
         String end = startAndEnd[1].trim();
-        if (start.isEmpty() || end.isEmpty()) {
+        boolean isStartEmpty = start.isEmpty();
+        boolean isEndEmpty = end.isEmpty();
+        if (isStartEmpty || isEndEmpty) {
             throw new HarperInvalidEventException();
         }
+
         try {
             LocalDateTime startFormatted = LocalDateTime.parse(start, DATE_TIME_FORMATTER);
             LocalDateTime endFormatted = LocalDateTime.parse(end, DATE_TIME_FORMATTER);
