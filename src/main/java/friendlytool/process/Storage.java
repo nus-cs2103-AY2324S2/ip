@@ -28,9 +28,9 @@ public class Storage {
             if (!save.exists()) {
                 save.getParentFile().mkdirs();
                 boolean isSuccessful = save.createNewFile();
-                UI.printCreateSaveMsg(isSuccessful);
+                UI.getCreateSaveMsg(isSuccessful);
             } else {
-                UI.printLoadSaveMsg();
+                UI.getLoadSaveMsg();
             }
             Scanner s = new Scanner(save);
             while (s.hasNext()) {

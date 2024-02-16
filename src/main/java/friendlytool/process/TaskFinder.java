@@ -14,17 +14,17 @@ public class TaskFinder {
      * @param input keyword
      * @throws FtException
      */
-    public static void findTask(TaskList tasks, String input) throws FtException {
+    public static String findTask(TaskList tasks, String input) throws FtException {
         int counter = 0;
         String keyword = Parser.parseKeyword(input);
-        UI.printMatchingMsg();
+        UI.prepareMatchingMsg();
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             if (task.getName().toLowerCase().contains(keyword.toLowerCase())) {
                 counter++;
-                UI.printFindTaskMsg(counter, task);
+                UI.prepareFindTaskMsg(counter, task);
             }
         }
-        UI.printLine();
+        return UI.getFound();
     }
 }

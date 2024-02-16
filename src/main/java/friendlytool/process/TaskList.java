@@ -32,7 +32,7 @@ public class TaskList {
      * @param ct command type.
      * @throws FtException
      */
-    public void addTask(String s, CommandTypes ct) throws FtException {
+    public String addTask(String s, CommandTypes ct) throws FtException {
         Task task;
         switch (ct) {
         case TODO:
@@ -78,7 +78,7 @@ public class TaskList {
             throw new FtException("Error: Invalid Task Type");
         }
         myList.add(task);
-        UI.printUpdateTaskMsg(task, myList.size());
+        return UI.getUpdateTaskMsg(task, myList.size());
     }
 
 
@@ -88,12 +88,12 @@ public class TaskList {
      * @param s index for the task, in the string format.
      * @throws FtException
      */
-    public void mark(String s) throws FtException {
+    public String mark(String s) throws FtException {
         int i = Parser.parseNumber(s);
         if ((0 < i) && (i <= myList.size())) {
             Task task = myList.get(i - 1);
             task.mark();
-            UI.printMarkMsg(task);
+            return UI.getMarkMsg(task);
         } else {
             throw new FtException("Error: Please provide valid index");
         }
@@ -105,12 +105,12 @@ public class TaskList {
      * @param s index for the task, in the string format.
      * @throws FtException
      */
-    public void unmark(String s) throws FtException {
+    public String unmark(String s) throws FtException {
         int i = Parser.parseNumber(s);
         if ((0 < i) && (i <= myList.size())) {
             Task task = myList.get(i - 1);
             task.unmark();
-            UI.printUnmarkMsg(task);
+            return UI.getUnmarkMsg(task);
         } else {
             throw new FtException("Error: Please provide valid index");
         }
@@ -122,11 +122,11 @@ public class TaskList {
      * @param s index for the task, in the string format.
      * @throws FtException
      */
-    public void deleteTask(String s) throws FtException {
+    public String deleteTask(String s) throws FtException {
         int i = Parser.parseNumber(s);
         if ((0 < i) && (i <= myList.size())) {
             String task = myList.remove(i - 1).toString();
-            UI.printDeleteMsg(task, myList.size());
+            return UI.getDeleteMsg(task, myList.size());
         } else {
             throw new FtException("Error: Please provide valid index");
         }
