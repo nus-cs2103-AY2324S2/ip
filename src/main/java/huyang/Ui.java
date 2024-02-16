@@ -11,7 +11,7 @@ public class Ui {
      * Returns a greeting message.
      */
     public static String getGreetingMessage() {
-        return "Hello! I'm Huyang\nWhat can I do for you?";
+        return "Hello there! I'm Huyang\nWhat can I do for you?";
     }
 
     /**
@@ -27,14 +27,14 @@ public class Ui {
      * Returns a message for an unknown command.
      */
     public String getUnknownCommandMessage() {
-        return "I'm sorry, but I don't know what that means :-(";
+        return "I'm sorry master, but I don't know what that means :-(";
     }
 
     /**
      * Returns a farewell message.
      */
     public static String getFarewellMessage() {
-        return "Bye. Hope to see you again soon!";
+        return "Goodbye master. May the force be with you.\nHope to see you again soon!";
     }
 
     /**
@@ -43,7 +43,7 @@ public class Ui {
      * @param task The added task to be displayed.
      */
     public String getAddTaskMessage(Task task, int taskCount) {
-        return "Got it. I've added this task:\n  " + task
+        return "Affirmative, master. I've added this task:\n  " + task
                 + "\nNow you have " + taskCount + " tasks in the list.";
     }
 
@@ -55,7 +55,7 @@ public class Ui {
      */
     public String getMarkOrUnmarkMessage(Task task, boolean isMarked) {
         String status = isMarked ? "done" : "not done yet";
-        return "Nice! I've marked this task as " + status + ":\n  " + task;
+        return "Nice, master! I've marked this task as " + status + ":\n  " + task;
     }
 
     /**
@@ -65,7 +65,7 @@ public class Ui {
      * @param taskCount The current task count to be displayed.
      */
     public String getDeleteTaskMessage(Task task, int taskCount) {
-        return "Noted. I've removed this task:\n  " + task
+        return "Noted, master. I've removed this task:\n  " + task
                 + "\nNow you have " + taskCount + " tasks in the list.";
     }
 
@@ -76,7 +76,7 @@ public class Ui {
      */
     public String getTasksMessage(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
-            return "You have no tasks in your list.";
+            return "You have no tasks in your list, master.";
         }
         StringBuilder sb = new StringBuilder("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
@@ -92,7 +92,7 @@ public class Ui {
      */
     public String getFoundTasksMessage(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
-            return "No tasks found with the given keyword.";
+            return "No tasks found with the given keyword, master.";
         }
         StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
