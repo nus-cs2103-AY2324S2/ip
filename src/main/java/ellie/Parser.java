@@ -95,6 +95,7 @@ public class Parser {
         } else if (type == Type.LIST) {
             return new ListCommand();
         } else if (type == Type.HELP) {
+            // Extension: C-Help
             return new HelpCommand();
         } else if (type == Type.UNKNOWN) {
             try {
