@@ -1,5 +1,6 @@
 package actions;
 
+import exceptionhandling.DukeException;
 import ui.Duke;
 
 /**
@@ -15,8 +16,19 @@ public class Mark implements Action {
      *
      * @param index The index of the task to be marked as done in the task list.
      */
-    public Mark(int index) {
-        this.index = index;
+    public Mark(String command) throws DukeException {
+        String[] splitCommand = command.split(" ", 2);
+        if (splitCommand.length <= 1) {
+            throw new DukeException("Please include a task index to mark");
+        }
+        try {
+            String index = splitCommand[1];
+            this.index = Integer.parseInt(index);
+        }
+        catch (NumberFormatException e) {
+            throw new DukeException("Please enter a number as your index");
+        }
+
     }
 
     /**

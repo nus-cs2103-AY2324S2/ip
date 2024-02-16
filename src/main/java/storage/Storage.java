@@ -28,17 +28,21 @@ public class Storage {
     public Storage() {
         File file = new File(Storage.FILE_NAME);
         if (!file.exists()) {
-            try {
-                if (file.createNewFile()) {
-                    System.out.println("Save File created successfully.");
-                } else {
-                    System.out.println("Unable to create the Save file.");
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            createFile(file);
         }
 
+    }
+
+    private static void createFile(File file) {
+        try {
+            if (file.createNewFile()) {
+                System.out.println("Save File created successfully.");
+            } else {
+                System.out.println("Unable to create the Save file.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

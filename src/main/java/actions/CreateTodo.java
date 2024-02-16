@@ -1,5 +1,6 @@
 package actions;
 
+import exceptionhandling.DukeException;
 import tasks.Todo;
 import ui.Duke;
 
@@ -17,7 +18,12 @@ public class CreateTodo implements Action {
      *
      * @param desc The description of the new Todo task.
      */
-    public CreateTodo(String desc) {
+    public CreateTodo(String command) throws DukeException {
+        String[] splitCommand = command.split(" ", 2);
+        if (splitCommand.length <= 1) {
+            throw new DukeException("Please write a description for your task!");
+        }
+        String desc = splitCommand[1];
         this.desc = desc;
     }
 

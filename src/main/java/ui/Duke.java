@@ -81,8 +81,6 @@ public class Duke {
             return response;
         } catch (DukeException e) {
             return (e.getMessage());
-        } catch (NumberFormatException e) {
-            return ("Please enter a number as your index");
         }
     }
 }

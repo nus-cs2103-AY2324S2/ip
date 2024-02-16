@@ -1,7 +1,10 @@
 package actions;
 
+import exceptionhandling.DukeException;
 import java.time.LocalDate;
 
+import java.time.format.DateTimeParseException;
+import static parser.Parser.parseDate;
 import tasks.Deadline;
 import ui.Duke;
 
@@ -23,9 +26,23 @@ public class CreateDeadline implements Action {
      * @param desc     The description of the new Deadline task.
      * @param date The deadline date of the new Deadline task.
      */
-    public CreateDeadline(String desc, LocalDate date) {
-        this.desc = desc;
-        this.deadline = date;
+    public CreateDeadline(String command) throws DukeException {
+        String[] splitCommand = command.split(" ", 2);
+        if (splitCommand.length <= 1) {
+            throw new DukeException("Please write a description and a deadline for your task!");
+        }
+        String[] infoSplit = splitCommand[1].split("/by ", 2);
+        if (infoSplit.length <= 1) {
+            throw new DukeException("Please include a deadline by using by keyword like '/by Thursday'");
+        }
+        String deadlineDesc = infoSplit[0];
+        try {
+            LocalDate date = parseDate(infoSplit[1]);
+            this.desc = deadlineDesc;
+            this.deadline = date;
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Date is in the wrong format! Follow yyyy-MM-dd format");
+        }
     }
 
     /**

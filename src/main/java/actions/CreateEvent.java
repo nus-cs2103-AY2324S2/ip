@@ -1,5 +1,6 @@
 package actions;
 
+import exceptionhandling.DukeException;
 import tasks.Event;
 import ui.Duke;
 
@@ -23,8 +24,25 @@ public class CreateEvent implements Action {
      * @param from The start time of the new Event task.
      * @param to   The end time of the new Event task.
      */
-    public CreateEvent(String desc, String from, String to) {
-        this.desc = desc;
+    public CreateEvent(String command) throws DukeException {
+        String[] splitCommand = command.split(" ", 2);
+        if (splitCommand.length <= 1) {
+            throw new DukeException("Please write a description and the time period for your task!");
+        }
+        String[] infoSplit = splitCommand[1].split("/from ", 2);
+        if (infoSplit.length <= 1) {
+            throw new DukeException("Please include a time period by using from and to keyword such as"
+                    + "'/from today /to tomorrow");
+        }
+        String[] infoSplit2 = infoSplit[1].split("/to ", 2);
+        if (infoSplit2.length <= 1) {
+            throw new DukeException("Please include a time period by using from and to keyword such as"
+                    + "'/from today /to tomorrow");
+        }
+        String eventDesc = infoSplit[0];
+        String from = infoSplit2[0];
+        String to = infoSplit2[1];
+        this.desc = eventDesc;
         this.from = from;
         this.to = to;
     }
