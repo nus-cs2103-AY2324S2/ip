@@ -22,7 +22,7 @@ public class Earl {
     /**
      * Constructor of the Earl class.
      *
-     * @param filePath a path to the text file storing past data
+     * @param filePath  a path to the text file storing past data
      */
     public Earl(String filePath) {
         ui = new Ui();
@@ -35,44 +35,39 @@ public class Earl {
         ui.showGreeting();
     }
 
-    /**
-     * Main function for TUI mode.
-     */
+    /** Main function for TUI mode. */
     public static void main(String[] args) {
         new Earl("data/earl.txt").run();
     }
 
     /**
-     * Main program execution of the Earl class for TUI mode.
+     * Executes main loop of the Earl class for TUI mode.
      * <p>
      * Contains main program loop and displaying of greeting
      * and goodbye messages. Attempts to save to storage on exit.
      */
     public void run() {
-        // main loop
         String input = ui.getUserInput();
         while (!input.equals("bye")) {
-            try {
-                Handler handler = InputParser.parse(input);
-                handler.handle(tasks, ui);
-
-            } catch (EarlException e) {
-                ui.makeResponse(e.getMessage());
-
-            } catch (ParserException e) {
-                ui.makeResponse("Input defies parsing:" + e.getMessage());
-
-            } finally {
-                input = ui.getUserInput();
-            }
+            processUserInput(input);
+            input = ui.getUserInput();
         }
-        // save to file
-        try {
-            storage.save(tasks.getAsStorageStringStream());
-        } catch (StorageException e) {
-            ui.makeResponse(e.getMessage());
+        saveAndExit();
+    }
+
+    /**
+     * Returns a response to an interaction in GUI mode.
+     *
+     * @param input  the user input text
+     * @return       a {@code String} response
+     */
+    public String getResponse(String input) {
+        if (input.equals("bye")) { // terminate execution
+            saveAndExit();
+            return ui.getResponse();
         }
-        ui.showGoodbye();
+        processUserInput(input);
+        return ui.getResponse();
     }
 
     /** Returns the previous response. */
@@ -80,27 +75,24 @@ public class Earl {
         return ui.getResponse();
     }
 
-    /** Returns response to interaction with the GUI. */
-    public String getResponse(String input) {
+    private void processUserInput(String input) {
         try {
-            if (input.equals("bye")) { // terminate execution
-                storage.save(tasks.getAsStorageStringStream());
-                ui.showGoodbye();
-                return ui.getResponse();
-            }
             Handler handler = InputParser.parse(input);
             handler.handle(tasks, ui);
-            return ui.getResponse();
         } catch (EarlException e) {
             ui.makeResponse(e.getMessage());
-            return ui.getResponse();
+        } catch (ParserException e) {
+            ui.makeResponse("Input defies parsing:" + e.getMessage());
+        }
+    }
+
+    private void saveAndExit() {
+        try {
+            storage.save(tasks.getAsStorageStringStream());
+            ui.showGoodbye();
         } catch (StorageException e) {
             ui.makeResponse("Alas, a grievous misfortune occurred "
                     + "during the endeavour to save.");
-            return ui.getResponse();
-        } catch (ParserException e) {
-            ui.makeResponse("Input defies parsing:" + e.getMessage());
-            return ui.getResponse();
         }
     }
 }

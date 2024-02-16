@@ -3,7 +3,6 @@ package earl.util;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -32,7 +31,10 @@ public class Storage {
      * Returns a {@code Stream} of {@code T} read from the disk.
      * <p>
      * Attempts to find the storage file at the given file path.
-     * Starts with an empty file if no existing file is found.
+     * Starts with an empty file if no existing file is found. Note
+     * that while a {@code Stream} is returned, items are evaluated
+     * before conversion into a stream to prevent errors from escaping
+     * this method due to lazy evaluation.
      *
      * @param parse  a {@code ParseFunction} functional interface
      * @return       a {@code Stream} of {@code T} read
@@ -47,7 +49,6 @@ public class Storage {
             if (isFolderMade || isFileMade) {
                 return Stream.empty();
             }
-
             // Read lines from file
             Scanner sc = new Scanner(file);
             List<T> result = new ArrayList<>();
@@ -57,7 +58,6 @@ public class Storage {
             }
             wasLoadSuccessful = true;
             return result.stream();
-
         } catch (Exception e) {
             return Stream.empty();
         }
@@ -76,15 +76,12 @@ public class Storage {
      */
     public void save(Stream<String> dataStream) throws StorageException {
         try (FileWriter fw = new FileWriter(filePath)) {
-            dataStream.map((str) -> str + "\n")
-                    .forEach((str) -> {
-                        try {
-                            fw.write(str);
-                        } catch (IOException e) {
-                            throw new UncheckedIOException(e);
-                        }
-                    });
-        } catch (Exception e) {
+            String[] data = dataStream.map((str) -> str + "\n")
+                    .toArray(String[]::new);
+            for (String entry : data) {
+                fw.write(entry);
+            }
+        } catch (IOException e) {
             throw new StorageException();
         }
     }

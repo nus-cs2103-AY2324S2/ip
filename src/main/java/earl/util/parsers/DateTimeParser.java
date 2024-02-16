@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Class responsible for interpreting date time information.
+ * Class responsible for unified interpretation of date time information.
  */
 public class DateTimeParser implements Parser<LocalDateTime> {
 

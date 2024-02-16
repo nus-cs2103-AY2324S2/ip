@@ -41,7 +41,7 @@ public class TaskList {
         return tasks.get(i);
     }
 
-    /** Returns the added task. */
+    /** Returns the added task itself. */
     public Task add(Task task) {
         tasks.add(task);
         return task;

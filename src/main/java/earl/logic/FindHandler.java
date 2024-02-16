@@ -24,10 +24,10 @@ public class FindHandler extends MassOperableHandler {
             ui.makeResponse("No matches have been discerned.");
             return;
         }
-        String header = matches.length + " entries of congruence "
+        String header = matches.length + " task(s) of congruence "
                 + "have been uncovered.";
-        String[] result = Stream.concat(Stream.of(header), Stream.of(matches))
-                .toArray(String[]::new);
-        ui.makeResponse(result);
+        ui.buildResponse(header);
+        ui.buildResponse(matches);
+        ui.completeResponse();
     }
 }
