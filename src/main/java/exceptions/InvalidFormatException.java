@@ -29,6 +29,16 @@ public class InvalidFormatException extends InvalidInputException {
         case FIND:
             throw new InvalidFormatException("   To search for your task, enter\n" +
                     "   find <keyword>\n");
+        case DELETE:
+            throw new InvalidFormatException("   To delete a task, enter\n" +
+                    "   delete <task number in list>\n");
+        case MARK:
+            throw new InvalidFormatException("   To mark a task as done, enter\n" +
+                    "   mark <task number in list>\n");
+        case UNMARK:
+            throw new InvalidFormatException("   To un-mark a task as done, enter\n" +
+                    "   unmark <task number in list>\n");
+
 
 
 

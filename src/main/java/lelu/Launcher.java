@@ -1,4 +1,4 @@
-package ui;
+package lelu;
 import javafx.application.Application;
 import lelu.Lelu;
 
