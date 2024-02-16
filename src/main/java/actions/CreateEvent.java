@@ -1,5 +1,6 @@
 package actions;
 
+import static actions.CheckDuplicate.checkDuplicate;
 import exceptionhandling.DukeException;
 import tasks.Event;
 import ui.Duke;
@@ -20,9 +21,7 @@ public class CreateEvent implements Action {
     /**
      * Constructs a `CreateEvent` object with the specified description, start time, and end time.
      *
-     * @param desc The description of the new Event task.
-     * @param from The start time of the new Event task.
-     * @param to   The end time of the new Event task.
+     * @param command     The command string.
      */
     public CreateEvent(String command) throws DukeException {
         String[] splitCommand = command.split(" ", 2);
@@ -59,6 +58,9 @@ public class CreateEvent implements Action {
     public String execute(Duke bot) {
         assert(bot != null);
         assert(bot.getTaskList() != null);
+        if (checkDuplicate(bot, this.desc, "E")) {
+            return ("There is already an event with the same name!");
+        }
         Event e = new Event(desc, from, to);
         bot.getTaskList().addToList(e);
         return ("Event successfully added!");

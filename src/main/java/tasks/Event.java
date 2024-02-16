@@ -39,7 +39,7 @@ public class Event extends Task {
      * @return The description of the event task.
      */
     @Override
-    public String getDescription() {
+    public String toString() {
         return String.format("%s (from: %s to: %s)", this.description, this.from, this.to);
     }
 

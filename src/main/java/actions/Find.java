@@ -26,7 +26,7 @@ public class Find implements Action {
         ArrayList<Task> matches = new ArrayList<>();
 
         for (Task t : list) {
-            if (t.getDescription().contains(this.search)) {
+            if (t.toString().contains(this.search)) {
                 matches.add(t);
             }
         }
@@ -35,7 +35,7 @@ public class Find implements Action {
             int index = 1;
             for (Task task : matches) {
                 stringOfMatches.append(String.format("%d. [%s] [%s] %s\n",
-                        index, task.getTypeIcon(), task.getStatusIcon(), task.getDescription()));
+                        index, task.getTypeIcon(), task.getStatusIcon(), task.toString()));
                 index++;
             }
             return stringOfMatches.toString();

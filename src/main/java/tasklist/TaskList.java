@@ -67,7 +67,7 @@ public class TaskList {
         StringBuilder list = new StringBuilder();
         for (Task task : this.list) {
             list.append(String.format("%d. [%s] [%s] %s\n", index, task.getTypeIcon(), task.getStatusIcon(),
-                    task.getDescription()));
+                    task.toString()));
             index++;
         }
         return list.toString();
@@ -113,7 +113,7 @@ public class TaskList {
             StringBuilder remark = new StringBuilder();
             remark.append("Noted. The following task is removed!\n");
             remark.append(String.format("[%s] [%s] %s\n", t.getTypeIcon(),
-                    t.getStatusIcon(), t.getDescription()));
+                    t.getStatusIcon(), t.toString()));
             remark.append(String.format("Now you only have %d tasks left. %s\n",
                     this.getListSize(), this.getListUpdate()));
             return remark.toString();
@@ -130,6 +130,6 @@ public class TaskList {
      */
     public String addToList(Task t) {
         this.list.add(t);
-        return (String.format("Added: %s\n", t.getDescription()));
+        return (String.format("Added: %s\n", t.toString()));
     }
 }

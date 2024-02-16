@@ -37,7 +37,7 @@ public class Deadline extends Task {
      * @return The description of the deadline task.
      */
     @Override
-    public String getDescription() {
+    public String toString() {
         return String.format("%s (by: %s)", this.description, this.deadline);
     }
 

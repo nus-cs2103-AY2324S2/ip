@@ -15,7 +15,7 @@ public class Unmark implements Action {
     /**
      * Constructs an `Unmark` object with the specified index of the task to be unmarked.
      *
-     * @param index The index of the task to be unmarked in the task list.
+     * @param command     The command string.
      */
     public Unmark(String command) throws DukeException {
         String[] splitCommand = command.split(" ", 2);

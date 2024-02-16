@@ -14,7 +14,7 @@ public class Mark implements Action {
     /**
      * Constructs a `Mark` object with the specified index of the task to be marked as done.
      *
-     * @param index The index of the task to be marked as done in the task list.
+     * @param command     The command string.
      */
     public Mark(String command) throws DukeException {
         String[] splitCommand = command.split(" ", 2);

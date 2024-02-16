@@ -28,17 +28,22 @@ public class Task {
      *
      * @return The description of the task.
      */
-    public String getDescription() {
+    @Override
+    public String toString() {
         return this.description;
     }
 
+
+    public String getDescription() {
+        return this.description;
+    }
     /**
      * Marks the task as done and prints a message indicating the completion.
      */
     public String markAsDone() {
         this.isDone = true;
         return (String.format("Congratulations! Task completed:\n [%s] %s", this.getStatusIcon(),
-                this.getDescription()));
+                this.toString()));
     }
 
     /**
@@ -47,7 +52,7 @@ public class Task {
     public String maskAsUndone() {
         this.isDone = false;
         return (String.format("Task marked as undone:\n [%s] %s", this.getStatusIcon(),
-                this.getDescription()));
+                this.toString()));
     }
 
     /**

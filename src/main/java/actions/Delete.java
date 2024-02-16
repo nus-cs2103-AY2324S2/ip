@@ -14,7 +14,7 @@ public class Delete implements Action {
     /**
      * Constructs a `Delete` object with the specified index of the task to be deleted.
      *
-     * @param index The index of the task to be deleted from the task list.
+     * @param command     The command string.
      */
     public Delete(String command) throws DukeException {
         String[] splitCommand = command.split(" ", 2);

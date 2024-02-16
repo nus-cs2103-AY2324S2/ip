@@ -1,5 +1,6 @@
 package actions;
 
+import static actions.CheckDuplicate.checkDuplicate;
 import exceptionhandling.DukeException;
 import tasks.Todo;
 import ui.Duke;
@@ -16,7 +17,7 @@ public class CreateTodo implements Action {
     /**
      * Constructs a `CreateTodo` object with the specified description.
      *
-     * @param desc The description of the new Todo task.
+     * @param command     The command string.
      */
     public CreateTodo(String command) throws DukeException {
         String[] splitCommand = command.split(" ", 2);
@@ -38,6 +39,9 @@ public class CreateTodo implements Action {
     public String execute(Duke bot) {
         assert(bot != null);
         assert(bot.getTaskList() != null);
+        if (checkDuplicate(bot, this.desc, "T")) {
+            return ("There is already a todo with the same name!");
+        }
         Todo task = new Todo(desc);
         bot.getTaskList().addToList(task);
         return ("Task successfully added!");

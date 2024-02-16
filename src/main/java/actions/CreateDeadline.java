@@ -1,5 +1,6 @@
 package actions;
 
+import static actions.CheckDuplicate.checkDuplicate;
 import exceptionhandling.DukeException;
 import java.time.LocalDate;
 
@@ -23,8 +24,7 @@ public class CreateDeadline implements Action {
     /**
      * Constructs a `CreateDeadline` object with the specified description and deadline date.
      *
-     * @param desc     The description of the new Deadline task.
-     * @param date The deadline date of the new Deadline task.
+     * @param command     The command string.
      */
     public CreateDeadline(String command) throws DukeException {
         String[] splitCommand = command.split(" ", 2);
@@ -57,6 +57,9 @@ public class CreateDeadline implements Action {
     public String execute(Duke bot) {
         assert(bot != null);
         assert(bot.getTaskList() != null);
+        if (checkDuplicate(bot, this.desc, "D")) {
+            return ("There is already a deadline with the same name!");
+        }
         Deadline d = new Deadline(desc, deadline);
         bot.getTaskList().addToList(d);
         return ("Deadline successfully added!");
