@@ -41,39 +41,39 @@ public class Parser {
      * @throws ChatbotException If the user input represents an unknown command or fails to provide necessary details.
      * @throws DateTimeParseException If date/time information for deadline or event tasks is improperly formatted.
      */
-    public static void parse(String userInput, TaskList taskList, Storage storage) throws ChatbotException {
+    public static String parse(String userInput, TaskList taskList, Storage storage) throws ChatbotException {
         if (userInput.trim().toLowerCase().startsWith("todo")) {
-            handleTodoCommand(userInput, taskList, storage);
+            return handleTodoCommand(userInput, taskList, storage);
         } else if (userInput.trim().toLowerCase().startsWith("deadline")) {
-            handleDeadlineCommand(userInput, taskList, storage);
+            return handleDeadlineCommand(userInput, taskList, storage);
         } else if (userInput.trim().toLowerCase().startsWith("event")) {
-            handleEventCommand(userInput, taskList, storage);
+            return handleEventCommand(userInput, taskList, storage);
         } else if ("list".equalsIgnoreCase(userInput)) {
-            taskList.printTasks();
+            return taskList.printTasks();
         } else if (userInput.trim().toLowerCase().startsWith("mark")) {
-            handleMarkCommand(userInput, taskList, storage);
+            return handleMarkCommand(userInput, taskList, storage);
         } else if (userInput.trim().toLowerCase().startsWith("unmark")) {
-            handleUnmarkCommand(userInput, taskList, storage);
+            return handleUnmarkCommand(userInput, taskList, storage);
         } else if (userInput.trim().toLowerCase().startsWith("delete")) {
-            handleDeleteCommand(userInput, taskList, storage);
+            return handleDeleteCommand(userInput, taskList, storage);
         } else if (userInput.trim().toLowerCase().startsWith("find")) {
             String keyword = userInput.substring("find".length()).trim();
-            taskList.findTask(keyword);
+            return taskList.findTask(keyword);
         } else {
             throw new ChatbotException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 
-    private static void handleTodoCommand(String userInput, TaskList taskList, Storage storage) throws ChatbotException {
+    private static String handleTodoCommand(String userInput, TaskList taskList, Storage storage) throws ChatbotException {
         String taskDetails = userInput.substring("todo".length()).trim();
         if (taskDetails.isEmpty()) {
             throw new ChatbotException("The description of a todo cannot be empty.");
         }
         Task todo = new Todo(taskDetails, false);
-        taskList.addTask(todo, storage);
+        return taskList.addTask(todo, storage);
     }
 
-    private static void handleDeadlineCommand(String userInput, TaskList taskList, Storage storage) throws ChatbotException {
+    private static String handleDeadlineCommand(String userInput, TaskList taskList, Storage storage) throws ChatbotException {
         String taskDetails = userInput.substring("deadline".length()).trim();
         String[] details = taskDetails.split(" /by ", 2);
         if (details.length < 2 || details[0].isEmpty() || details[1].isEmpty()) {
@@ -81,13 +81,13 @@ public class Parser {
         }
         try {
             Task deadline = new Deadline(details[0], false, details[1]);
-            taskList.addTask(deadline, storage);
+            return taskList.addTask(deadline, storage);
         } catch (DateTimeParseException e) {
             throw new ChatbotException("Please use the format dd/MM/yyyy HHmm for dates.");
         }
     }
 
-    private static void handleEventCommand(String userInput, TaskList taskList, Storage storage) throws ChatbotException {
+    private static String handleEventCommand(String userInput, TaskList taskList, Storage storage) throws ChatbotException {
         String taskDetails = userInput.substring("event".length()).trim();
         String[] details = taskDetails.split(" /from ", 2);
         if (details.length < 2 || details[0].isEmpty()) {
@@ -99,25 +99,25 @@ public class Parser {
         }
         try {
             Task event = new Event(details[0], false, times[0], times[1]);
-            taskList.addTask(event, storage);
+            return taskList.addTask(event, storage);
         } catch (DateTimeParseException e) {
             throw new ChatbotException("Please use the format dd/MM/yyyy HHmm for dates.");
         }
     }
 
-    private static void handleMarkCommand(String userInput, TaskList taskList, Storage storage) throws ChatbotException {
+    private static String handleMarkCommand(String userInput, TaskList taskList, Storage storage) throws ChatbotException {
         int taskNumber = extractTaskNumber(userInput, "mark");
-        taskList.markTask(taskNumber, true, storage);
+        return taskList.markTask(taskNumber, true, storage);
     }
 
-    private static void handleUnmarkCommand(String userInput, TaskList taskList, Storage storage) throws ChatbotException {
+    private static String handleUnmarkCommand(String userInput, TaskList taskList, Storage storage) throws ChatbotException {
         int taskNumber = extractTaskNumber(userInput, "unmark");
-        taskList.markTask(taskNumber, false, storage);
+        return taskList.markTask(taskNumber, false, storage);
     }
 
-    private static void handleDeleteCommand(String userInput, TaskList taskList, Storage storage) throws ChatbotException {
+    private static String handleDeleteCommand(String userInput, TaskList taskList, Storage storage) throws ChatbotException {
         int taskNumber = extractTaskNumber(userInput, "delete");
-        taskList.deleteTask(taskNumber, storage);
+        return taskList.deleteTask(taskNumber, storage);
     }
 
     private static int extractTaskNumber(String userInput, String command) throws ChatbotException {

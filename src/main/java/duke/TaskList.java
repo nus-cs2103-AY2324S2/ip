@@ -35,16 +35,15 @@ public class TaskList {
      * @param newTask The new task to add to the list.
      * @param storage The storage handler to save tasks after adding the new task.
      */
-    public void addTask(Task newTask, Storage storage) {
+    public String addTask(Task newTask, Storage storage) {
         tasks.add(newTask);
         try {
             storage.saveTasks(tasks);
         } catch(IOException e) {
             System.out.print(e);
         }
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + newTask);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+
+        return "Got it. I've added this task: \n" + newTask + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
 
     /**
@@ -54,7 +53,7 @@ public class TaskList {
      * @param storage The storage handler to save tasks after deleting the task.
      * @throws ChatbotException If the task number is out of bounds (less than 1 or greater than the number of tasks).
      */
-    public void deleteTask(int taskNumber, Storage storage) throws ChatbotException {
+    public String deleteTask(int taskNumber, Storage storage) throws ChatbotException {
         if (taskNumber <= 0 || taskNumber > tasks.size()) {
             throw new ChatbotException("Unknown task number. Please try again");
         }
@@ -64,9 +63,8 @@ public class TaskList {
         } catch(IOException e) {
             System.out.print(e);
         }
-        System.out.println("Noted. I've removed this task: ");
-        System.out.println("  " + removedTask.toString());
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+
+        return "Noted. I've removed this task: \n" + removedTask.toString() + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
 
     /**
@@ -77,7 +75,7 @@ public class TaskList {
      * @param storage The storage handler to save tasks after updating the task's status.
      * @throws ChatbotException If the task number is out of bounds (less than 1 or greater than the number of tasks).
      */
-    public void markTask(int taskNumber, boolean isDone, Storage storage) throws ChatbotException {
+    public String markTask(int taskNumber, boolean isDone, Storage storage) throws ChatbotException {
         if (taskNumber <= 0 || taskNumber > tasks.size()) {
             throw new ChatbotException("Unknown task number. Please try again");
         }
@@ -92,16 +90,18 @@ public class TaskList {
         } catch(IOException e) {
             System.out.print(e);
         }
-        System.out.println("  " + task.toString());
+        return "  " + task.toString();
     }
 
     /**
      * Prints all tasks in the task list to the console.
      */
-    public void printTasks() {
+    public String printTasks() {
+        String finalString = "";
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i).toString());
+            finalString += (i + 1) + ". " + tasks.get(i).toString() + "\n";
         }
+        return finalString;
     }
 
     /**
@@ -109,19 +109,20 @@ public class TaskList {
      *
      * @param keyword The keyword to search for in task descriptions.
      */
-    public void findTask(String keyword) {
-        System.out.println("Here are the matching tasks in your list:");
+    public String findTask(String keyword) {
+        String finalString = "Here are the matching tasks in your list: \n";
         int matchCount = 0;
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             if (task.getDescription().contains(keyword)) {
-                System.out.println((i + 1) + "." + task);
+                finalString += (i + 1) + "." + task;
                 matchCount++;
             }
         }
         if (matchCount == 0) {
-            System.out.println("No tasks match your search.");
+            finalString = "No tasks match your search.";
         }
+        return finalString;
     }
 
     public ArrayList<Task> getTasks() {
