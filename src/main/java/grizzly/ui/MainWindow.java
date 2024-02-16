@@ -30,7 +30,7 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image grizzlyImage = new Image(this.getClass().getResourceAsStream("/images/Grizzly.png"));
 
-    private String startupMessage = "Heyo im Grizzy.\nWhat can I do for you?";
+    private String startupMessage = "Heyo im Grizzly.\nWhat can I do for you?";
     private String goodbyeMessage = "While waiting for you to return, I shall munch on these cookies I have here";
 
     /**
@@ -73,7 +73,7 @@ public class MainWindow extends AnchorPane {
             dialogContainer.getChildren().addAll(
                 DialogBox.getGrizzlyDialog(goodbyeMessage, grizzlyImage)
             );
-            PauseTransition pause = new PauseTransition(Duration.seconds(1));
+            PauseTransition pause = new PauseTransition(Duration.seconds(3));
             pause.setOnFinished(event -> Platform.exit());
             pause.play();
         }
