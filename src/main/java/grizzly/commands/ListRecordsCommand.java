@@ -36,7 +36,7 @@ public class ListRecordsCommand extends Command {
         case "":
             return db.toString();
         default:
-            throw new GrizzlyException("Error: " + description + "is not stored in my database!");
+            throw new GrizzlyException("Error: " + description + " is not stored in my database!");
         }
     }
 }

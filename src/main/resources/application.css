@@ -1,7 +1,11 @@
+.scroll-pane .viewport {
+   -fx-background-image: url("images/BG.jpg");
+   -fx-background-repeat: stretch;
+   -fx-background-position: center center;
+}
+
 #dialogContainer {
-    -fx-background-image: url("images/BG.jpg");
-    -fx-background-repeat: stretch;
-    -fx-background-position: center center;
+   -fx-background-color: transparent;
  }
 
  #dialog {
