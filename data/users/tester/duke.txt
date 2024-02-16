@@ -1,5 +1,1 @@
-[T] | 0 | add something
-[T] | 1 | do homework
-[T] | 0 | maek
-[T] | 0 | kljsdk
-[T] | 0 | kjjsdkjd
+

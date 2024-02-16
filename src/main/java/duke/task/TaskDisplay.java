@@ -21,6 +21,8 @@ public class TaskDisplay {
         String command = tokens[0].toLowerCase();
 
         if (!command.equalsIgnoreCase("list") && tokens.length == 1) {
+            // Ensure that the command is valid and has additional arguments
+            assert false : "Invalid command or missing arguments";
             message.append(printErrorMessage(input));
             return message.toString();
         }
@@ -31,14 +33,17 @@ public class TaskDisplay {
                 message.append(printTaskList(taskList));
                 break;
             case "mark":
+                assert tokens.length >= 2 : "Invalid mark command syntax";
                 index = Integer.parseInt(tokens[1]) - 1;
                 message.append(printMarkTask(taskList, index));
                 break;
             case "unmark":
+                assert tokens.length >= 2 : "Invalid unmark command syntax";
                 index = Integer.parseInt(tokens[1]) - 1;
                 message.append(printUnmarkTask(taskList, index));
                 break;
             case "delete":
+                assert tokens.length >= 2 : "Invalid delete command syntax";
                 index = Integer.parseInt(tokens[1]) - 1;
                 message.append(printDeletedTask(taskList, index));
                 break;
