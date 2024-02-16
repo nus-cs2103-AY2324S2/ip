@@ -47,10 +47,10 @@ test {
     }
 }
 
-mainClassName = 'duke.Duke'
+mainClassName = 'duke.Launcher'
 
 application {
-    mainClass.set("duke.Duke")
+    mainClassName = "duke.Launcher"
 }
 
 shadowJar {
