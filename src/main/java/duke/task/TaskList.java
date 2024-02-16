@@ -113,4 +113,8 @@ public class TaskList {
         // Return the final string representation of the task list
         return String.valueOf(listContent);
     }
+
+    public List<Task> getAllTasks() {
+        return List.copyOf(this.tasks);
+    }
 }
