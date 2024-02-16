@@ -128,7 +128,10 @@ public class Parser {
         try {
             validateDeleteCommand(input, existingTaskList);
             int taskNum = Integer.parseInt(input.split(" ")[1]);
+            int numTasks = existingTaskList.getNumTasks();
             response = existingTaskList.deleteTask(taskNum);
+            int newNumTasks = numTasks - 1;
+            assert existingTaskList.getNumTasks() == newNumTasks;
             Storage.saveTaskList(existingTaskList);
         } catch (Exception e) {
             response = e.getMessage();
@@ -141,6 +144,7 @@ public class Parser {
         try {
             validateDeleteAllCommand(input);
             response = existingTaskList.deleteAllTasks();
+            assert existingTaskList.getNumTasks() == 0;
             Storage.saveTaskList(existingTaskList);
         } catch (Exception e) {
             response = e.getMessage();
