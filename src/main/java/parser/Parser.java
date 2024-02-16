@@ -37,7 +37,7 @@ public class Parser {
      * @return an instance of ParseExecutionable to encapsulate the necessary action.
      */
     public ParseExecutionable parseInput(String userInput) {
-        assert userInput.length() != 0: "User input cannot be empty!";
+        assert userInput.length() != 0 : "User input cannot be empty!";
         String[] userInputSplit = userInput.split(" ");
         String commandType = userInputSplit[0];
         switch (commandType) {
@@ -125,12 +125,10 @@ public class Parser {
         if (inputSplit.length < 2) {
             return new IncorrectTask(Messages.MESSAGE_WRONG_PARAMETERS);
         }
-
         String searchKeyWord = "";
         for (int i = 1; i < inputSplit.length; i++) {
             searchKeyWord += inputSplit[i];
         }
-
         ActionTask t = new ActionTask(ActionType.FIND, searchKeyWord);
         return t;
     }

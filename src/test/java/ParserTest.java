@@ -11,7 +11,7 @@ import task.ToDo;
 public class ParserTest {
 
     @Test
-    public void parserReadTodoTest() {
+    public void parseLine_validTask_success() {
         Parser parser = new Parser();
         TaskStorage taskStorage = new TaskStorage();
         ParseExecutionable parseExecutionable = parser.parseInput("todo Homework!");
@@ -20,7 +20,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parserMarkTest() {
+    public void parseLine_validTaskandCompleted_success() {
         Parser parser = new Parser();
         TaskStorage taskStorage = new TaskStorage();
         Task task = new ToDo("Homework Test");
