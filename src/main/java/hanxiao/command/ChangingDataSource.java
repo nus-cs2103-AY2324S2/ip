@@ -11,7 +11,7 @@ import hanxiao.TaskList;
 /**
  * Class for change data source
  */
-public class ChangeDataSource implements Command {
+public class ChangingDataSource implements Command {
     private boolean status = true;
     private String filePath;
 
@@ -22,7 +22,7 @@ public class ChangeDataSource implements Command {
      * @param storage the current storage
      * @param tasks current task list
      */
-    public ChangeDataSource(String filePath, Storage storage, TaskList tasks) {
+    public ChangingDataSource(String filePath, Storage storage, TaskList tasks) {
         this.filePath = filePath;
         storage.resetStorage(filePath);
         try {

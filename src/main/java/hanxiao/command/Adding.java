@@ -18,7 +18,7 @@ import hanxiao.task.Todo;
 /**
  * Class for adding a task into task list
  */
-public class Add implements Command {
+public class Adding implements Command {
     static final int TODO_LENGTH = 5;
     static final int DEADLINE_LENGTH = 9;
     static final int BY_LENGTH = 3;
@@ -39,7 +39,7 @@ public class Add implements Command {
      * @param text the description of a task
      * @throws HanxiaoException wrong inputs might happens
      */
-    public Add(String text, TaskList taskList) throws HanxiaoException {
+    public Adding(String text, TaskList taskList) throws HanxiaoException {
         if (text.startsWith("todo")) {
             this.task = handleTodo(text);
         } else if (text.startsWith("deadline")) {

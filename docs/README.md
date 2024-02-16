@@ -85,9 +85,9 @@ Now you have 2 tasks in the list.
 
 ## Mark a task as finished
 
-**Usage:** mark `index`
+**Usage:** marking `index`
 
-**Example:** mark 1
+**Example:** marking 1
 
 ```
 Nice! I've marked this task as done:
@@ -96,9 +96,9 @@ Nice! I've marked this task as done:
 
 ## Unmark a finished task as not finished
 
-**Usage:** unmark `index`
+**Usage:** unmarking `index`
 
-**Example:** unmark 1
+**Example:** unmarking 1
 
 ```
 OK, I've marked this task as not done yet:

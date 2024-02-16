@@ -8,7 +8,7 @@ import hanxiao.exception.WrongIndexException;
 /**
  * Class for untag
  */
-public class Untag implements Command {
+public class Untagging implements Command {
     private int operand;
     private TaskList tasks;
 
@@ -20,7 +20,7 @@ public class Untag implements Command {
      * @param taskList task list
      * @throws HanxiaoException throw wrong index exception
      */
-    public Untag(int operand, String tagName, TaskList taskList) throws HanxiaoException {
+    public Untagging(int operand, String tagName, TaskList taskList) throws HanxiaoException {
         if (operand >= taskList.getListLength() || operand < 0) {
             throw new WrongIndexException(taskList.getListLength());
         }

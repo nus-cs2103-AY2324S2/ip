@@ -2,33 +2,30 @@ package hanxiao.command;
 
 import hanxiao.TaskList;
 import hanxiao.exception.HanxiaoException;
-import hanxiao.exception.TagExistException;
 import hanxiao.exception.WrongIndexException;
 
 /**
- * Class for tag
+ * Class for update
  */
-public class Tag implements Command {
-    private int operand;
+public class Updating implements Command {
+    private final int operand;
     private TaskList tasks;
 
     /**
      * Constructor
      *
      * @param operand index
-     * @param tagName tag name
+     * @param updateField update field
+     * @param updateValue update value
      * @param taskList task list
-     * @throws HanxiaoException throw wrong index exception
+     * @throws HanxiaoException can raise wrong index exception
      */
-    public Tag(int operand, String tagName, TaskList taskList) throws HanxiaoException {
+    public Updating(int operand, String updateField, String updateValue, TaskList taskList) throws HanxiaoException {
         if (operand >= taskList.getListLength() || operand < 0) {
             throw new WrongIndexException(taskList.getListLength());
         }
         this.operand = operand;
-        boolean status = taskList.getTask(this.operand).addTag(tagName);
-        if (!status) {
-            throw new TagExistException(tagName);
-        }
+        taskList.updateTask(operand, updateField, updateValue);
         this.tasks = taskList;
     }
 
@@ -39,6 +36,6 @@ public class Tag implements Command {
      */
     @Override
     public String reply() {
-        return String.format("Nice! I've tag this task:\n%s\n", tasks.getTask(operand));
+        return String.format("Nice! I've update this task:\n    %s\n", tasks.getTask(operand));
     }
 }

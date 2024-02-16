@@ -5,12 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import hanxiao.command.Unmarking;
 import org.junit.jupiter.api.Test;
 
 import hanxiao.command.CurrentTask;
-import hanxiao.command.List;
-import hanxiao.command.Mark;
-import hanxiao.command.Unmark;
+import hanxiao.command.Listing;
+import hanxiao.command.Marking;
 import hanxiao.exception.HanxiaoException;
 import hanxiao.task.Deadline;
 import hanxiao.task.Todo;
@@ -29,16 +29,16 @@ public class ParserTest {
         String textThree = "mark 1";
         String textFour = "unmark 1";
 
-        List ls = new List(tasks);
+        Listing ls = new Listing(tasks);
         assertEquals(ls.reply(), parser.parse(textOne).reply());
 
         CurrentTask curr = new CurrentTask(tasks);
         assertEquals(curr.reply(), parser.parse(textTwo).reply());
 
-        Mark mark = new Mark(0, tasks);
-        assertEquals(mark.reply(), parser.parse(textThree).reply());
+        Marking marking = new Marking(0, tasks);
+        assertEquals(marking.reply(), parser.parse(textThree).reply());
 
-        Unmark unmark = new Unmark(0, tasks);
-        assertEquals(unmark.reply(), parser.parse(textFour).reply());
+        Unmarking unmarking = new Unmarking(0, tasks);
+        assertEquals(unmarking.reply(), parser.parse(textFour).reply());
     }
 }

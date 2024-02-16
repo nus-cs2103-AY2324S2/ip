@@ -7,7 +7,7 @@ import hanxiao.task.Task;
 /**
  * Class for the delete command.
  */
-public class Delete implements Command {
+public class Deleting implements Command {
     private final int operand;
     private final Task deletedTask;
     private TaskList tasks;
@@ -16,7 +16,7 @@ public class Delete implements Command {
      *
      * @param operand the index count from 0;
      */
-    public Delete(int operand, TaskList taskList) throws WrongIndexException {
+    public Deleting(int operand, TaskList taskList) throws WrongIndexException {
         this.operand = operand;
         if (operand >= taskList.getListLength() || operand < 0) {
             throw new WrongIndexException(taskList.getListLength());

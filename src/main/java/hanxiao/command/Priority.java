@@ -6,7 +6,7 @@ import hanxiao.exception.HanxiaoException;
 /**
  * Class for tag priority
  */
-public class Priority extends Tag {
+public class Priority extends Tagging {
     private String priorityLevel;
 
     /**

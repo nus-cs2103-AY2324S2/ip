@@ -35,37 +35,37 @@ class Parser {
             return new Bye();
         }
         if (input.equals("list") || input.equals("ls")) {
-            return new List(tasks);
+            return new Listing(tasks);
         }
         if (input.equals("current") || input.equals("curr")) {
             return new CurrentTask(tasks);
         }
         if (input.equals("sort")) {
-            return new Sort(tasks);
+            return new Sorting(tasks);
         }
         if ((inputs[0].equals("change") || inputs[0].equals("cd")) && inputs.length == TOKEN_NUM) {
-            return new ChangeDataSource(inputs[1], storage, tasks);
+            return new ChangingDataSource(inputs[1], storage, tasks);
         }
         if (inputs[0].equals("find") && inputs.length == TOKEN_NUM) {
-            return new Find(inputs[1], tasks);
+            return new Finding(inputs[1], tasks);
         }
         if (inputs[0].equals("mark") && inputs.length == TOKEN_NUM) {
-            return new Mark(Integer.parseInt(inputs[1]) - 1, tasks);
+            return new Marking(Integer.parseInt(inputs[1]) - 1, tasks);
         }
         if (inputs[0].equals("priority") && inputs.length == TOKEN_NUM + 1) {
             return new Priority(Integer.parseInt(inputs[1]) - 1, inputs[2], tasks);
         }
         if (inputs[0].equals("unmark") && inputs.length == TOKEN_NUM) {
-            return new Unmark(Integer.parseInt(inputs[1]) - 1, tasks);
+            return new Unmarking(Integer.parseInt(inputs[1]) - 1, tasks);
         }
         if (inputs[0].equals("tag") && inputs.length == TOKEN_NUM + 1) {
-            return new Tag(Integer.parseInt(inputs[1]) - 1, inputs[2], tasks);
+            return new Tagging(Integer.parseInt(inputs[1]) - 1, inputs[2], tasks);
         }
         if (inputs[0].equals("untag") && inputs.length == TOKEN_NUM + 1) {
-            return new Untag(Integer.parseInt(inputs[1]) - 1, inputs[2], tasks);
+            return new Untagging(Integer.parseInt(inputs[1]) - 1, inputs[2], tasks);
         }
         if ((inputs[0].equals("delete") || inputs[0].equals("remove")) && inputs.length == TOKEN_NUM) {
-            return new Delete(Integer.parseInt(inputs[1]) - 1, tasks);
+            return new Deleting(Integer.parseInt(inputs[1]) - 1, tasks);
         }
         if (inputs[0].equals("update")) {
             if (inputs.length > 4) {
@@ -73,8 +73,8 @@ class Parser {
                     inputs[3] += " " + inputs[i];
                 }
             }
-            return new Update(Integer.parseInt(inputs[1]) - 1, inputs[2], inputs[3], tasks);
+            return new Updating(Integer.parseInt(inputs[1]) - 1, inputs[2], inputs[3], tasks);
         }
-        return new Add(input, tasks);
+        return new Adding(input, tasks);
     }
 }

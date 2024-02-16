@@ -6,7 +6,7 @@ import hanxiao.task.Task;
 /**
  * Class for sorting
  */
-public class Sort implements Command {
+public class Sorting implements Command {
     private TaskList taskList;
 
     /**
@@ -14,7 +14,7 @@ public class Sort implements Command {
      *
      * @param taskList task list
      */
-    public Sort(TaskList taskList) {
+    public Sorting(TaskList taskList) {
         taskList.sortTaskList();
         this.taskList = taskList;
     }

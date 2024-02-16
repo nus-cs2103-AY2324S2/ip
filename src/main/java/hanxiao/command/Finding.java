@@ -9,7 +9,7 @@ import hanxiao.task.Task;
 /**
  * Class for finding requested tasks.
  */
-public class Find implements Command {
+public class Finding implements Command {
     private ArrayList<Task> foundList;
 
     /**
@@ -18,7 +18,7 @@ public class Find implements Command {
      * @param keyWord Keyword for find.
      * @param tasks Task list to search with.
      */
-    public Find(String keyWord, TaskList tasks) {
+    public Finding(String keyWord, TaskList tasks) {
         assert keyWord.length() > 0 : "should have at least one character in keyword";
         this.foundList = new ArrayList<>();
         Pattern pattern = Pattern.compile(keyWord, Pattern.CASE_INSENSITIVE);

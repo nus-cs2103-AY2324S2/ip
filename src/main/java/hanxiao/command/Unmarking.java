@@ -4,25 +4,24 @@ import hanxiao.TaskList;
 import hanxiao.exception.WrongIndexException;
 
 /**
- * class for mark an task finish.
+ * Class for mark an task to undone.
  */
-public class Mark implements Command {
+public class Unmarking implements Command {
     private final int operand;
     private TaskList tasks;
 
     /**
-     * Constructor
-     * change the status of task to finished.
+     * Constructor change the status of task to unDone.
      *
      * @param operand which task to mark from 0
-     * @throws WrongIndexException invalid index
+     * @throws WrongIndexException index invalid
      */
-    public Mark(int operand, TaskList taskList) throws WrongIndexException {
+    public Unmarking(int operand, TaskList taskList) throws WrongIndexException {
         if (operand >= taskList.getListLength() || operand < 0) {
             throw new WrongIndexException(taskList.getListLength());
         }
         this.operand = operand;
-        taskList.getTask(this.operand).setDone();
+        taskList.getTask(this.operand).unDone();
         this.tasks = taskList;
     }
 
@@ -31,6 +30,6 @@ public class Mark implements Command {
      */
     @Override
     public String reply() {
-        return String.format("Nice! I've marked this task as done:\n%s\n", tasks.getTask(operand));
+        return String.format("OK, I've marked this task as not done yet:\n%s\n", tasks.getTask(operand));
     }
 }

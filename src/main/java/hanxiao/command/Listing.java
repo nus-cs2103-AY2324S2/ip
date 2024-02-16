@@ -6,9 +6,9 @@ import hanxiao.task.Task;
 /**
  * Class for listing all the tasks
  */
-public class List implements Command {
+public class Listing implements Command {
     private TaskList taskList;
-    public List(TaskList taskList) {
+    public Listing(TaskList taskList) {
         this.taskList = taskList;
     }
     /**
