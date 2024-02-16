@@ -1,14 +1,14 @@
 package alpa.commands;
 
-import alpa.utils.Storage;
 import alpa.tasks.TaskList;
 import alpa.ui.Ui;
+import alpa.utils.Storage;
 
 /**
  * Represents a command that displays a goodbye message and exits the program.
  */
 public class ByeCommand implements Command {
-  
+
     /**
      * Executes the ByeCommand, which displays a goodbye message and exits the program.
      *
@@ -31,7 +31,7 @@ public class ByeCommand implements Command {
     public boolean isExit() {
         return true;
     }
-  
+
     /**
      * Gets the name of the command.
      *

@@ -1,8 +1,5 @@
 package alpa.utils;
 
-import alpa.exceptions.AlpaException;
-import alpa.tasks.*;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,15 +12,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import alpa.exceptions.AlpaException;
+import alpa.tasks.*;
+
 /**
  * The Storage class is responsible for loading and saving tasks to a file.
  */
 public class Storage {
-    private String filePath; 
+    private String filePath;
 
     /**
      * Constructs a Storage object with the specified file path.
-     * 
+     *
      * @param filePath The path of the file to be managed by the storage.
      */
     public Storage(String filePath) {
@@ -66,8 +66,8 @@ public class Storage {
     }
 
     /**
-     * Parses a line from the file to a task. 
-     * 
+     * Parses a line from the file to a task.
+     *
      * @param line The line to be parsed.
      * @return The task parsed from the line.
      * @throws AlpaException If the line is in an invalid format.
@@ -89,17 +89,22 @@ public class Storage {
                 task = new ToDo(parts[2]);
                 break;
             case DEADLINE:
-                LocalDateTime deadlineDateTime = LocalDateTime.parse(parts[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                LocalDateTime deadlineDateTime = LocalDateTime.parse(parts[3],
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
                 task = new Deadline(parts[2], deadlineDateTime);
                 break;
             case EVENT:
-                String[] dateTimeParts = parts[3].split(" - "); // Assuming parts[3] contains "2022-12-02 14:00 - 2022-12-02 16:00"
+                String[] dateTimeParts = parts[3].split(" - ");
                 if (dateTimeParts.length != 2) {
                     throw new AlpaException("\nInvalid event time format, expected 'start - end'.");
                 }
-                LocalDateTime startDateTime = LocalDateTime.parse(dateTimeParts[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-                LocalDateTime endDateTime = LocalDateTime.parse(dateTimeParts[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                LocalDateTime startDateTime = LocalDateTime.parse(dateTimeParts[0],
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                LocalDateTime endDateTime = LocalDateTime.parse(dateTimeParts[1],
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
                 task = new Event(parts[2], startDateTime, endDateTime);
+                break;
+            default:
                 break;
             }
 

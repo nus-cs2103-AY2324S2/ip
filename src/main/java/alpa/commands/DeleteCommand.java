@@ -1,20 +1,20 @@
 package alpa.commands;
 
 import alpa.exceptions.AlpaException;
-import alpa.utils.Storage;
 import alpa.tasks.Task;
 import alpa.tasks.TaskList;
 import alpa.ui.Ui;
+import alpa.utils.Storage;
 
 /**
  * Represents a command to delete a task from the task list.
  */
 public class DeleteCommand implements Command {
     private final int index;
-  
+
     /**
      * Constructs a DeleteCommand object with the specified index.
-     * 
+     *
      * @param indexStr the index of the task to be deleted as a string
      * @throws AlpaException if the index is not a valid integer
      */

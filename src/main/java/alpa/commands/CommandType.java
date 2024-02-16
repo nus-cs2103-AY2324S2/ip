@@ -5,7 +5,7 @@ package alpa.commands;
  */
 public enum CommandType {
     BYE, LIST, MARK, UNMARK, FIND, TODO, DEADLINE, EVENT, DELETE, INVALID;
-    
+
     /**
      * Converts a string representation of a command into the corresponding CommandType.
      *
@@ -20,4 +20,3 @@ public enum CommandType {
         }
     }
 }
-

@@ -25,7 +25,7 @@ public enum TaskType {
             return "Unknown";
         }
     }
-    
+
     /**
      * Returns the TaskType enum value corresponding to the given short name.
      *

@@ -15,7 +15,7 @@ public class Parser {
      * @throws AlpaException if there is an error during parsing
      */
     public static Command parse(String userInput) throws AlpaException {
-        String[] words= userInput.trim().split("\\s+", 2);
+        String[] words = userInput.trim().split("\\s+", 2);
         String commandWord = words[0];
         String taskInfo = words.length > 1 ? words[1] : "";
 

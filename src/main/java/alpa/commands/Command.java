@@ -1,10 +1,13 @@
 package alpa.commands;
 
-import alpa.utils.Storage;
+import alpa.exceptions.AlpaException;
 import alpa.tasks.TaskList;
 import alpa.ui.Ui;
-import alpa.exceptions.AlpaException;
+import alpa.utils.Storage;
 
+/**
+ * Represents a command that can be executed in the application.
+ */
 public interface Command {
 
     /**
@@ -16,7 +19,7 @@ public interface Command {
      * @throws AlpaException if there is an error executing the command
      */
     void executeCommand(TaskList taskList, Ui ui, Storage storage) throws AlpaException;
-    
+
     /**
      * Checks if the command is an exit command.
      *

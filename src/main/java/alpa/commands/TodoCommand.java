@@ -1,10 +1,10 @@
 package alpa.commands;
 
 import alpa.exceptions.AlpaException;
-import alpa.utils.Storage;
-import alpa.tasks.ToDo;
 import alpa.tasks.TaskList;
+import alpa.tasks.ToDo;
 import alpa.ui.Ui;
+import alpa.utils.Storage;
 
 /**
  * Represents a command to add a todo task.
@@ -51,4 +51,3 @@ public class TodoCommand implements Command {
         return false;
     }
 }
-

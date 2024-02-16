@@ -1,9 +1,10 @@
 package alpa.tasks;
 
-import alpa.exceptions.AlpaException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import alpa.exceptions.AlpaException;
 
 /**
  * Represents a list of tasks.
@@ -47,7 +48,7 @@ public class TaskList {
                     .filter(task -> task.getDescription().toLowerCase().contains(keyword.toLowerCase()))
                     .collect(Collectors.toList());
     }
-  
+
     /**
      * Deletes a task from the task list at the specified index.
      *
