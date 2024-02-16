@@ -112,6 +112,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses toDo task.
+     * @param taskList The list.
+     * @param ui The Ui.
+     */
     public static void parseToDo(TaskList taskList, Ui ui) {
         String toDoDescription = ui.readCommandLine();
         if (toDoDescription.isEmpty()) {
@@ -133,6 +138,11 @@ public class Parser {
         ui.listSizeMessage(taskList);
     }
 
+    /**
+     * Parses deadline task.
+     * @param taskList The list.
+     * @param ui The ui.
+     */
     public static void parseDeadline(TaskList taskList, Ui ui) {
         String deadlineDescription = ui.readCommandLine();
         if (!deadlineDescription.contains(" /by ")) {
@@ -165,6 +175,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses event task.
+     * @param taskList The list.
+     * @param ui The ui.
+     */
     public static void parseEvent(TaskList taskList, Ui ui) {
         String eventDescription = ui.readCommandLine();
         if (!eventDescription.contains(" /from ") || !eventDescription.contains(" /to ")) {
