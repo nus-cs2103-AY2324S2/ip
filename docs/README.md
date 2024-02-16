@@ -1,7 +1,7 @@
 # MazeDeneroBot User Guide
 
 MazeDeneroBot is a personal assistant chatbot that helps manage your tasks. It can keep track of your tasks, deadlines, and events, so you don't have to.
-
+![image](Ui.png)
 ## Features
 
 ### 1. Adding Tasks
