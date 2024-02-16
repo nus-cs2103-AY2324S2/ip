@@ -23,10 +23,10 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws AlastorException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws AlastorException {
         tasks.add(task);
-        ui.showAdd(task, tasks);
         storage.saveAdd(task);
+        return ui.showAdd(task, tasks);
     }
 
     @Override
