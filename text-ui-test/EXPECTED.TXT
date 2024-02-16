@@ -27,4 +27,4 @@
     1.[T][ ] borrow book
     2.[D][X] return book (by: Sunday)
     3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
-    duke.command.Bye. Hope to see you again soon!
+    hanxiao.command.Bye. Hope to see you again soon!
