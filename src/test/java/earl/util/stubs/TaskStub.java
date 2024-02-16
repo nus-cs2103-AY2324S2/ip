@@ -1,4 +1,4 @@
-package earl.logic.stubs;
+package earl.util.stubs;
 
 import earl.tasks.Task;
 
@@ -23,6 +23,11 @@ public class TaskStub extends Task {
     @Override
     public boolean markAsDone() {
         return idx >= 0;
+    }
+
+    @Override
+    public String toString() {
+        return getDescription() + "," + getStatusIcon();
     }
 
     @Override

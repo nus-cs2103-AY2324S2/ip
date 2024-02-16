@@ -28,7 +28,7 @@ public class TodoHandler extends Handler {
                     "hath been appended to the roster of responsibilities.");
             ui.buildResponse(ui.leftPad(added.toString()));
             ui.buildResponse("The ledger of tasks bears witness to "
-                    + tasks.getSize() + " endeavours.");
+                    + tasks.getSize() + " endeavour(s).");
             ui.completeResponse();
         } catch (EarlException e) {
             throw e;

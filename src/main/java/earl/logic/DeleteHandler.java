@@ -24,7 +24,7 @@ public final class DeleteHandler extends MassOperableHandler {
                 return;
             }
             for (int idx : indices) {
-                addDisplayEntry(idx + 1 + "." + tasks.delete(idx).toString());
+                addDisplayEntry(idx + 1 + "." + tasks.delete(idx));
             }
             addDisplayEntry("Item(s) heretofore have been expunged.");
             ui.makeResponse(getDisplay());
