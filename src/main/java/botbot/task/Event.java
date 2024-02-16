@@ -23,4 +23,5 @@ public class Event extends Task {
     }
     @Override
     public String fileRep() { return "E|" + super.fileRep() + "|" + from + "|" + to; }
+
 }
