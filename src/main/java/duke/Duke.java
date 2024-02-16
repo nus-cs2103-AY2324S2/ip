@@ -28,6 +28,7 @@ public class Duke {
      * @return The response to the input.
      */
     public String getResponse(String input) {
+        assert input != null;
         String response;
         try {
             Command c = Parser.parseCommand(input);

@@ -19,6 +19,8 @@ public class Event extends Task {
 
     public Event(String description, String start, String end) {
         super(description);
+        assert start != null;
+        assert end != null;
         this.start = LocalDate.parse(start.replace(" ", ""));
         this.end = LocalDate.parse(end.replace(" ", ""));
     }
