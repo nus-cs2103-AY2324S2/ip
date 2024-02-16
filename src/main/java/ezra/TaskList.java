@@ -13,11 +13,11 @@ import java.util.stream.Collectors;
  */
 public class TaskList {
 
-    protected static final String LIST_MESSAGE_START = "Here are the tasks in your list:\n";
-    protected static final String DELETE_MESSAGE_START = "I've removed the following task(s):\n";
-    protected static final String MARK_MESSAGE_START = "I've marked the following task(s) as done:\n";
-    protected static final String UNMARK_MESSAGE_START = "I've marked the following task(s) as not done:\n";
-    protected static final String FIND_MESSAGE_START = "Here are the matching tasks in your list:\n";
+    protected static final String LIST_MESSAGE_START = "Here are the tasks in your list:";
+    protected static final String DELETE_MESSAGE_START = "I've removed the following task(s):";
+    protected static final String MARK_MESSAGE_START = "I've marked the following task(s) as done:";
+    protected static final String UNMARK_MESSAGE_START = "I've marked the following task(s) as not done:";
+    protected static final String FIND_MESSAGE_START = "Here are the matching tasks in your list:";
     protected ArrayList<Task> tasks = new ArrayList<>();
     protected ArrayList<Task> prevTasks;
 
@@ -82,7 +82,7 @@ public class TaskList {
 
         StringBuilder message = new StringBuilder(LIST_MESSAGE_START);
         for (int i = 0; i < this.tasks.size(); i++) {
-            message.append(String.format("%d. %s\n", i + 1, this.tasks.get(i)));
+            message.append(String.format("\n%d. %s", i + 1, this.tasks.get(i)));
         }
         return message.toString();
     }
@@ -108,7 +108,7 @@ public class TaskList {
         try {
             storage.writeToFile(this);
         } catch (IOException e) {
-            return String.format("Something went wrong: %s\n", e.getMessage());
+            return String.format("Something went wrong: %s", e.getMessage());
         }
         return invalidTaskNumbers + deletedTasks;
     }
@@ -124,7 +124,7 @@ public class TaskList {
         for (int taskIndex : taskIndices) {
             // Check for invalid taskIndex
             if (taskIndex < 0 || taskIndex >= this.tasks.size()) {
-                invalidTaskNumbers.append(String.format("%d is an invalid task number.\n", taskIndex + 1));
+                invalidTaskNumbers.append(String.format("\n%d is an invalid task number.", taskIndex + 1));
             }
         }
         return invalidTaskNumbers.toString();
@@ -149,7 +149,7 @@ public class TaskList {
             if (taskIndex < 0 || taskIndex >= this.tasks.size()) {
                 continue;
             }
-            deletedTasks.append(this.tasks.get(taskIndex)).append("\n");
+            deletedTasks.append("\n").append(this.tasks.get(taskIndex));
             this.tasks.remove(taskIndex);
         }
         return deletedTasks.toString();
@@ -170,10 +170,10 @@ public class TaskList {
         try {
             storage.writeToFile(this);
         } catch (IOException e) {
-            return String.format("Something went wrong: %s\n", e.getMessage());
+            return String.format("Something went wrong: %s", e.getMessage());
         }
 
-        return String.format("Got it. I've added this task:\n%s\nNow you have %d tasks in the list.\n",
+        return String.format("Got it. I've added this task:\n%s\nNow you have %d tasks in the list.",
                 task, this.tasks.size());
     }
 
@@ -199,7 +199,7 @@ public class TaskList {
         try {
             storage.writeToFile(this);
         } catch (IOException e) {
-            return String.format("Something went wrong: %s\n", e.getMessage());
+            return String.format("Something went wrong: %s", e.getMessage());
         }
         return invalidTaskNumbers + markedTasks;
     }
@@ -221,7 +221,7 @@ public class TaskList {
             }
 
             this.tasks.get(taskIndex).isDone = true;
-            markedTasks.append(this.tasks.get(taskIndex)).append("\n");
+            markedTasks.append("\n").append(this.tasks.get(taskIndex));
         }
         return markedTasks.toString();
     }
@@ -248,7 +248,7 @@ public class TaskList {
         try {
             storage.writeToFile(this);
         } catch (IOException e) {
-            return String.format("Something went wrong: %s\n", e.getMessage());
+            return String.format("Something went wrong: %s", e.getMessage());
         }
         return invalidTaskNumbers + unmarkedTasks;
     }
@@ -270,7 +270,7 @@ public class TaskList {
             }
 
             this.tasks.get(taskIndex).isDone = false;
-            unmarkedTasks.append(this.tasks.get(taskIndex)).append("\n");
+            unmarkedTasks.append("\n").append(this.tasks.get(taskIndex));
         }
         return unmarkedTasks.toString();
     }
@@ -315,7 +315,7 @@ public class TaskList {
 
         StringBuilder message = new StringBuilder(FIND_MESSAGE_START);
         for (Integer i : matchingTaskIndices) {
-            message.append(String.format("%d. %s\n", i + 1, this.tasks.get(i)));
+            message.append(String.format("\n%d. %s", i + 1, this.tasks.get(i)));
         }
         return message.toString();
     }
@@ -333,7 +333,7 @@ public class TaskList {
         try {
             storage.writeToFile(this);
         } catch (IOException e) {
-            return String.format("Something went wrong: %s\n", e.getMessage());
+            return String.format("Something went wrong: %s", e.getMessage());
         }
         return "Your previous command has been undone.";
     }

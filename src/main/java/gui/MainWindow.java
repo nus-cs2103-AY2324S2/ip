@@ -23,8 +23,8 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Ezra ezra;
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
+    private Image ezraImage = new Image(this.getClass().getResourceAsStream("/images/Ezra.png"));
 
     /**
      * Scrolls down to the end every time dialogContainer's height changes.
@@ -34,7 +34,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(
-                DialogBox.getEzraDialog("Hello! I'm Ezra.\nWhat can I do for you?", dukeImage)
+                DialogBox.getEzraDialog("Hello! I'm Ezra.\nWhat can I do for you?", ezraImage)
         );
     }
 
@@ -57,7 +57,7 @@ public class MainWindow extends AnchorPane {
         String response = ezra.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getEzraDialog(response, dukeImage)
+                DialogBox.getEzraDialog(response, ezraImage)
         );
         userInput.clear();
     }
