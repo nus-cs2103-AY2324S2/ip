@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import Tasks.Task;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -22,8 +21,8 @@ import javafx.stage.Stage;
 
 public class Ui {
 
-    final static String DUKE_IMG = "/images/DaUser.png";
-    final static String USER_IMG = "/images/DaDuke.png";
+    final static String KEWGY_IMG = "/images/kewgy.png";
+    final static String USER_IMG = "/images/user.png";
     final static String NAME = "Kewgy";
 
     private Scanner reader;
@@ -49,8 +48,8 @@ public class Ui {
 
         System.out.println(this.getClass().getResource("/").getPath());
 
-        userImg = new Image(this.getClass().getResourceAsStream(DUKE_IMG));
-        dukeImg = new Image(this.getClass().getResourceAsStream(USER_IMG));
+        userImg = new Image(this.getClass().getResourceAsStream(USER_IMG));
+        dukeImg = new Image(this.getClass().getResourceAsStream(KEWGY_IMG));
 
         userInput = new TextField();
         sendButton = new Button("Send");
