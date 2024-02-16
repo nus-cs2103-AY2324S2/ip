@@ -65,8 +65,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + start.format(Parser.OUTPUT_DT_FORMATTER)
-               + " to: " + end.format(Parser.OUTPUT_DT_FORMATTER) + ")";
+        return "[E]" + super.toString() + "\n(from: " + start.format(Parser.OUTPUT_DT_FORMATTER) + ")"
+               + "\n(to: " + end.format(Parser.OUTPUT_DT_FORMATTER) + ")";
     }
 
     /**
