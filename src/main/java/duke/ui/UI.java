@@ -1,31 +1,27 @@
 package duke.ui;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 import duke.DukeException;
+import duke.configuration.Info;
+import javafx.application.Platform;
 
 /**
  * Represents the user interface of the bot.
  */
 public class UI {
-    private static final String HORIZONTAL_LINE = "____________________________________________________________";
-    private String botName = "Sylvia";
-    private final BufferedReader reader;
+    /** The main window to take input and show output */
+    private MainWindow mainWindow;
 
     /**
      * Constructs a new user interface.
      *
      * @param name The name of the bot.
      */
-    public UI(String name) {
-        this.botName = name;
-        this.reader = new BufferedReader(new InputStreamReader(System.in));
+    public UI(MainWindow mainWindow) {
+        this.mainWindow = mainWindow;
     }
 
-    private void showLine() {
-        System.out.println(HORIZONTAL_LINE);
+    public void exit() {
+        Platform.exit();
     }
 
     /**
@@ -34,19 +30,14 @@ public class UI {
      * @param e The exception that caused the error.
      */
     public void showBotError(DukeException e) {
-        showLine();
-        System.out.println(e.getBotMessage());
-        showLine();
+        showResponse(new ErrorResponse(e.getBotMessage()));
     }
 
     /**
      * Shows the welcome message from the bot.
      */
     public void showWelcomeMessage() {
-        showLine();
-        System.out.println("Hello! I'm " + botName);
-        System.out.println("What can I do for you?");
-        showLine();
+        showResponse(new Response(Info.WELCOME_MESSAGE));
     }
 
     /**
@@ -55,29 +46,10 @@ public class UI {
      *
      * @param response The response from the bot.
      */
-    public void showResponse(String response) {
+    public void showResponse(Response response) {
         if (response == null) {
             return;
         }
-        showLine();
-        System.out.println(response);
-        showLine();
-    }
-
-    /**
-     * Reads a command from the user.
-     *
-     * @return The command from the user.
-     */
-    public String readCommand() {
-        String input = "";
-        try {
-            input = reader.readLine();
-        } catch (IOException e) {
-            showLine();
-            System.out.println("Something went wrong: " + e.getMessage());
-            showLine();
-        }
-        return input;
+        mainWindow.showResponse(response);
     }
 }
