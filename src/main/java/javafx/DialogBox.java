@@ -27,10 +27,10 @@ public class DialogBox extends HBox {
 
     private DialogBox(String text, Image img) {
         try {
-            // This one is an absolute path, plan to ask teammates on how to solve this issue
-            // because "FXMLLoader fxmlLoader = new
-            // FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));" does not work for
-            // me.
+            // This one is the given Path, not working for me
+            // FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/DialogBox.fxml"));
+
+            // This one is an absolute path, working for me
             FXMLLoader fxmlLoader = new FXMLLoader(
                     new File("/Users/khoonsun/ip/src/main/resources/view/DialogBox.fxml").toURI()
                             .toURL());
