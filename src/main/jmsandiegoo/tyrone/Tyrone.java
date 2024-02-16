@@ -1,24 +1,22 @@
 package jmsandiegoo.tyrone;
 
-import jmsandiegoo.tyrone.commands.ByeCommand;
-import jmsandiegoo.tyrone.commands.Command;
-import jmsandiegoo.tyrone.commands.CommandResult;
+import jmsandiegoo.tyrone.commands.*;
 import jmsandiegoo.tyrone.common.Messages;
 import jmsandiegoo.tyrone.exceptions.CommandExecutionException;
 import jmsandiegoo.tyrone.exceptions.IncorrectCommandException;
 import jmsandiegoo.tyrone.exceptions.StorageHelperException;
 import jmsandiegoo.tyrone.parser.Parser;
-import jmsandiegoo.tyrone.task.TaskList;
+import jmsandiegoo.tyrone.state.StateManager;
 
 /**
  * Represents the entry point of the application, the main class.
  */
 public class Tyrone {
-    private final TaskList taskList;
+    private final StateManager stateManager;
     private boolean isExit;
 
     public Tyrone() {
-        this.taskList = new TaskList();
+        this.stateManager = new StateManager();
         this.isExit = false;
     }
 
@@ -31,7 +29,7 @@ public class Tyrone {
      * */
     public void start() {
         try {
-            taskList.loadTaskListFromFile();
+            this.stateManager.getTaskList().loadTaskListFromFile();
         } catch (StorageHelperException e) {
             throw new RuntimeException(e);
         }
@@ -47,16 +45,23 @@ public class Tyrone {
     public String processUserCommand(String rawUserCommand) {
         try {
             Command command = new Parser().parseRawUserCommand(rawUserCommand);
-            command.initData(this.taskList);
+            command.initData(this.stateManager.getTaskList());
             CommandResult result = command.execute();
-
             assert result != null : "result should not be null";
+
+            if (command instanceof UndoCommand) {
+                result = result.chain(this.stateManager.popCommandFromStack());
+            }
+
+            if (command instanceof UndoableCommand) {
+                this.stateManager.addCommandToStack((UndoableCommand) command);
+            }
 
             if (command instanceof ByeCommand) {
                 this.isExit = true;
             }
 
-            taskList.saveTaskListToFile();
+            this.stateManager.getTaskList().saveTaskListToFile();
             return this.replyCommandResult(result);
         } catch (IncorrectCommandException | CommandExecutionException e) {
             return this.replyErrorOccurred(e);

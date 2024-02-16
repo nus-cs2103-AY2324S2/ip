@@ -2,12 +2,13 @@ package jmsandiegoo.tyrone.commands;
 
 import jmsandiegoo.tyrone.common.Messages;
 import jmsandiegoo.tyrone.exceptions.CommandExecutionException;
+import jmsandiegoo.tyrone.state.UndoState;
 import jmsandiegoo.tyrone.task.Task;
 
 /**
  * Represents the deletion command of task from the list.
  */
-public class DeleteCommand extends Command {
+public class DeleteCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "delete";
     private final int index;
 
@@ -26,6 +27,10 @@ public class DeleteCommand extends Command {
      */
     @Override
     public CommandResult execute() throws CommandExecutionException {
+        UndoState undoState = new UndoState();
+        undoState.setState(super.taskList);
+        super.undoState = undoState;
+
         try {
             Task delItem = super.taskList.deleteItem(this.index);
             return new CommandResult(
@@ -33,5 +38,11 @@ public class DeleteCommand extends Command {
         } catch (IndexOutOfBoundsException e) {
             throw new CommandExecutionException(String.format(Messages.MESSAGE_INCORRECT_COMMAND_INDEX, "delete"));
         }
+    }
+
+    @Override
+    public CommandResult undo() {
+        super.taskList.restoreFromGivenList(super.undoState.getState());
+        return new CommandResult(Messages.MESSAGE_DEADLINE_UNDO);
     }
 }

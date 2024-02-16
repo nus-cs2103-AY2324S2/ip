@@ -8,14 +8,6 @@ public class Messages {
     public static String MESSAGE_ADD_TASK = "Got it added homie:\n\n%1s\n"
             + "Now you have %2d in the list.";
 
-    public static String MESSAGE_VERTICAL_DIVIDER = " | ";
-
-    public static String MESSAGE_SQUARE_BRACKET_OPEN = "[";
-
-    public static String MESSAGE_SQUARE_BRACKET_CLOSE = "]";
-
-    public static String MESSAGE_EMPTY_SPACE = " ";
-
     /* General Exception messages */
     public static String MESSAGE_NOT_EXIST_CMD = "Command entered doesn't exist.";
 
@@ -33,6 +25,7 @@ public class Messages {
     /* Todo command messages */
     public static String MESSAGE_TODO_EMPTY_DESC = "Can't leave that to-do description hanging dry. "
             + "Gotta drop some words in there!";
+    public static String MESSAGE_TODO_UNDO = "Todo command undone.";
 
     /* Deadline command messages */
     public static String MESSAGE_DEADLINE_INCORRECT = String.format(
@@ -40,6 +33,7 @@ public class Messages {
             "deadline",
             "\"deadline <task description> /by <yyyy-mm-dd[ HH:mm]>\""
     );
+    public static String MESSAGE_DEADLINE_UNDO = "Deadline command undone.";
 
     /* Event command messages */
     public static String MESSAGE_EVENT_INCORRECT = String.format(
@@ -47,16 +41,20 @@ public class Messages {
             "event",
             "\"event <task description> /from <yyyy-mm-dd[ HH:mm]> /to <yyyy-mm-dd[ HH:mm]>\""
     );
+    public static String MESSAGE_EVENT_UNDO = "Event command undone.";
 
     /* Mark command messages */
     public static String MESSAGE_MARK = "Dope! Check it, I've tagged this task as handled:\n%1s";
+    public static String MESSAGE_MARK_UNDO = "Mark command undone.";
 
     /* Unmark command messages */
     public static String MESSAGE_UNMARK = "A'ight, I've stamped this task as still in the works:\n%1s";
 
+    public static String MESSAGE_UNMARK_UNDO = "Unmark command undone.";
     /* Delete command messages */
     public static String MESSAGE_DELETE = "Boom! Task officially evicted from the list. Consider it gone:\n%1s\n"
             + "Now you have %2d in the list.";
+    public static String MESSAGE_DELETE_UNDO = "Delete command undone.";
 
     /* Find command messages */
     public static String MESSAGE_FIND = "Yo, check it out, here's the lineup of tasks that match up:\n%1s";
@@ -65,4 +63,7 @@ public class Messages {
             "find",
             "\"find <keyword>\""
     );
+
+    /* Undo command messages */
+    public static String MESSAGE_UNDO = "Undo command detected: \n";
 }

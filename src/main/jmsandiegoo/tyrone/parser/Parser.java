@@ -55,6 +55,9 @@ public class Parser {
         case ListCommand.COMMAND_WORD:
             command = parseListCommandArgs(arguments);
             break;
+        case UndoCommand.COMMAND_WORD:
+            command = parseUndoCommandArgs(arguments);
+            break;
         case TodoCommand.COMMAND_WORD:
             command = parseTodoCommandArgs(arguments);
             break;
@@ -79,6 +82,7 @@ public class Parser {
         default:
             throw new IncorrectCommandException(Messages.MESSAGE_NOT_EXIST_CMD);
         }
+
         return command;
     }
 
@@ -97,6 +101,15 @@ public class Parser {
         }
 
         return new ListCommand();
+    }
+
+    private Command parseUndoCommandArgs(String arguments) throws IncorrectCommandException {
+        if (!arguments.trim().isEmpty()) {
+            throw new IncorrectCommandException(
+                    String.format(Messages.MESSAGE_INCORRECT_COMMAND_FORMAT, "undo", "no arguments allowed"));
+        }
+
+        return new UndoCommand();
     }
 
     private Command parseTodoCommandArgs(String arguments) throws IncorrectCommandException {

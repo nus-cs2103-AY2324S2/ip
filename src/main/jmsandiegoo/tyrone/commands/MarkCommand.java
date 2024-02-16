@@ -2,11 +2,12 @@ package jmsandiegoo.tyrone.commands;
 
 import jmsandiegoo.tyrone.common.Messages;
 import jmsandiegoo.tyrone.exceptions.CommandExecutionException;
+import jmsandiegoo.tyrone.state.UndoState;
 
 /**
  * Represents the command to mark items as done.
  */
-public class MarkCommand extends Command {
+public class MarkCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "mark";
     private final int index;
 
@@ -25,6 +26,10 @@ public class MarkCommand extends Command {
      */
     @Override
     public CommandResult execute() throws CommandExecutionException {
+        UndoState undoState = new UndoState();
+        undoState.setState(super.taskList);
+        super.undoState = undoState;
+
         try {
             super.taskList.markItemDone(this.index);
             return new CommandResult(
@@ -32,5 +37,11 @@ public class MarkCommand extends Command {
         } catch (IndexOutOfBoundsException e) {
             throw new CommandExecutionException(String.format(Messages.MESSAGE_INCORRECT_COMMAND_INDEX, "mark"));
         }
+    }
+
+    @Override
+    public CommandResult undo() {
+        super.taskList.restoreFromGivenList(super.undoState.getState());
+        return new CommandResult(Messages.MESSAGE_MARK_UNDO);
     }
 }

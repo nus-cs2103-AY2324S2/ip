@@ -17,6 +17,14 @@ public class ToDo extends Task {
     }
 
     @Override
+    public Task copy() {
+        ToDo todoCopy = new ToDo(super.description);
+        todoCopy.isDone = super.isDone;
+
+        return todoCopy;
+    }
+
+    @Override
     public String serializeTask() {
         String taskTypeSerializedStr = "T | ";
         return taskTypeSerializedStr

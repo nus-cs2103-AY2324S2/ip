@@ -32,6 +32,18 @@ public class Event extends Task {
     }
 
     @Override
+    public Task copy() {
+        Event eventCopy = new Event(
+                super.description,
+                this.startDateTime,
+                this.endDateTime
+        );
+        eventCopy.isDone = this.isDone;
+
+        return eventCopy;
+    }
+
+    @Override
     public String serializeTask() {
         String taskSerializedStr = "E | "
                 + super.serializeTask()
