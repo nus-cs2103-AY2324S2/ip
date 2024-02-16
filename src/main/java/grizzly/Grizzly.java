@@ -79,28 +79,36 @@ public class Grizzly {
     public String getResponse(String input) {
 
         if (isRunning) {
-            try {
-                Command c = Parser.parse(input);
-                String response = c.execute(db, storage);
-                if (storage != null) {
-                    storage.saveData(db);
-                }
-                if (c.isExitCommand()) {
-                    this.isRunning = false;
-                }
-                return response;
-            } catch (DateTimeParseException e) {
-                return "Error parsing datetime: " + e.getMessage()
-                        + "\nUse the format \"DD/MM/YYYY, HH:MM\" to enter date and time.";
-            } catch (IOException e) {
-                return e.getMessage();
-            } catch (GrizzlyException e) {
-                return e.getMessage();
-            }
+            return sendGrizzly(input);
         }
-
 
         assert !this.isRunning();
         return "Grizzly is not running";
+    }
+
+    private String sendGrizzly(String input) {
+        try {
+
+            Command c = Parser.parse(input);
+            String response = c.execute(db, storage);
+
+            if (storage != null) {
+                storage.saveData(db);
+            }
+
+            if (c.isExitCommand()) {
+                this.isRunning = false;
+            }
+
+            return response;
+
+        } catch (DateTimeParseException e) {
+            return "Error parsing datetime: " + e.getMessage()
+                    + "\nUse the format \"DD/MM/YYYY, HH:MM\" to enter date and time.";
+        } catch (IOException e) {
+            return e.getMessage();
+        } catch (GrizzlyException e) {
+            return e.getMessage();
+        }
     }
 }

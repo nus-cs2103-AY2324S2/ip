@@ -70,12 +70,19 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
 
         if (!grizzly.isRunning()) {
-            dialogContainer.getChildren().addAll(
-                DialogBox.getGrizzlyDialog(goodbyeMessage, grizzlyImage)
-            );
-            PauseTransition pause = new PauseTransition(Duration.seconds(3));
-            pause.setOnFinished(event -> Platform.exit());
-            pause.play();
+            shutdown();
         }
+    }
+
+    /**
+     * Shuts down the bot after a delay
+     */
+    private void shutdown() {
+        dialogContainer.getChildren().addAll(
+            DialogBox.getGrizzlyDialog(goodbyeMessage, grizzlyImage)
+        );
+        PauseTransition pause = new PauseTransition(Duration.seconds(3));
+        pause.setOnFinished(event -> Platform.exit());
+        pause.play();
     }
 }

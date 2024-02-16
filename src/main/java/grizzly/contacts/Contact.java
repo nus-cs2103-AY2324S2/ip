@@ -51,6 +51,7 @@ public class Contact {
         String email = filteredParams[1];
         String numString = filteredParams[2];
         int number;
+
         try {
             number = Integer.parseInt(numString);
         } catch (NumberFormatException e) {

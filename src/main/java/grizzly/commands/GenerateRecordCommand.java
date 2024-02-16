@@ -70,6 +70,8 @@ public class GenerateRecordCommand extends Command {
             return "Contact added!\n" + c.toString() + "\n"
                    + "You now have " + db.contactListSize() + " contacts.";
         default:
+            // this portion should never run due to usage of enum
+            assert false;
             return "Error generating task: No such task type";
         }
     }

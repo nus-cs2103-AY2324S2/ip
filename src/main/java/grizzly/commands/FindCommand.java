@@ -41,27 +41,59 @@ public class FindCommand extends Command {
         }
 
         String toFind = description.trim();
-        String foundRecords = "";
+        return findTasks(db, toFind) + findContacts(db, toFind);
 
-        foundRecords += "----------\nTasks\n----------\n";
+    }
+
+    /**
+     * Finds tasks with description matching to user input.
+     *
+     * @param db database to find
+     * @param toFind user input to match with task description
+     * @return
+     */
+    private String findTasks(Database db, String toFind) {
+        String foundTasks = "";
 
         for (int i = 1; i <= db.taskListSize(); i++) {
             Task task = db.getTask(i);
             if (task.getDescription().contains(toFind)) {
-                foundRecords += i + "." + task + "\n";
+                foundTasks += i + "." + task + "\n";
             }
         }
 
-        foundRecords += "----------\nContacts\n----------\n";
+        if (foundTasks.equals("")) {
+            foundTasks = "No tasks found\n";
+        } else {
+            foundTasks = "----------\nTasks\n----------\n" + foundTasks;
+        }
+
+        return foundTasks;
+    }
+
+    /**
+     * Finds tasks with description matching to user input.
+     *
+     * @param db database to find
+     * @param toFind user input to match with task description
+     * @return
+     */
+    private String findContacts(Database db, String toFind) {
+        String foundContacts = "";
 
         for (int i = 1; i <= db.contactListSize(); i++) {
             Contact contact = db.getContact(i);
             if (contact.toString().contains(toFind)) {
-                foundRecords += i + "." + db.getContact(i - 1) + "\n";
+                foundContacts += i + "." + db.getContact(i - 1) + "\n";
             }
         }
 
-        return foundRecords;
+        if (foundContacts.equals("")) {
+            foundContacts = "No contacts found\n";
+        } else {
+            foundContacts = "----------\nContacts\n----------\n" + foundContacts;
+        }
 
+        return foundContacts;
     }
 }

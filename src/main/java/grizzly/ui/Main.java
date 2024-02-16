@@ -24,14 +24,17 @@ public class Main extends Application {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             System.err.println(fxmlLoader.getLocation().toString());
+
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             String css = this.getClass().getResource("/application.css").toExternalForm();
             scene.getStylesheets().add(css);
+
             stage.setScene(scene);
             stage.setTitle("Grizzly");
             fxmlLoader.<MainWindow>getController().setGrizzly(grizzly);
             stage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }

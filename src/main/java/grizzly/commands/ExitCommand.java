@@ -29,10 +29,12 @@ public class ExitCommand extends Command {
      */
     @Override
     public String execute(Database db, Storage storage) {
+
+        if (storage == null) {
+            return "Data not saved: Storage initialisation not sucessful";
+        }
+
         try {
-            if (storage == null) {
-                return "Data not saved: Storage initialisation not sucessful";
-            }
             return storage.saveData(db);
         } catch (IOException e) {
             return "Data not saved: " + e.getMessage();

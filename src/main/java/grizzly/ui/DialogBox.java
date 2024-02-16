@@ -48,12 +48,7 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setFill(new ImagePattern(img));
-        DropShadow dropShadow = new DropShadow();
-        dropShadow.setRadius(5.0);
-        dropShadow.setOffsetX(1.5);
-        dropShadow.setOffsetY(1.5);
-        dropShadow.setColor(Color.color(0, 0, 0));
-        this.setEffect(dropShadow);
+        setDropShadow();
     }
 
     /**
@@ -76,8 +71,10 @@ public class DialogBox extends HBox {
      */
     public static DialogBox getUserDialog(String text, Image img) {
         DialogBox userDialog = new DialogBox(text, img);
+
         userDialog.arrow.setStyle("-fx-fill: aliceblue;");
         userDialog.dialog.setStyle("-fx-background-color: aliceblue;");
+
         return userDialog;
     }
 
@@ -90,8 +87,23 @@ public class DialogBox extends HBox {
     public static DialogBox getGrizzlyDialog(String text, Image img) {
         DialogBox grizzlyDialog = new DialogBox(text, img);
         grizzlyDialog.flip();
+
         grizzlyDialog.arrow.setStyle("-fx-fill: #a0522d;");
         grizzlyDialog.dialog.setStyle("-fx-background-color: #a0522d; -fx-text-fill: whitesmoke;");
+
         return grizzlyDialog;
+    }
+
+    /**
+     * Sets drop shadow effect for the dialog box.
+     */
+    private void setDropShadow() {
+        DropShadow dropShadow = new DropShadow();
+        dropShadow.setRadius(5.0);
+        dropShadow.setOffsetX(1.5);
+        dropShadow.setOffsetY(1.5);
+        dropShadow.setColor(Color.color(0, 0, 0));
+
+        this.setEffect(dropShadow);
     }
 }

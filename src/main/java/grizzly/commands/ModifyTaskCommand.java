@@ -42,38 +42,53 @@ public class ModifyTaskCommand extends Command {
     public String execute(Database db, Storage storage)
             throws TaskModificationException {
 
+        int index = parseIndex(db);
+
+        switch (this.modType) {
+        case MARK:
+            Task t1 = db.getTask(index);
+            t1.doTask();
+            assert t1.toString().substring(3, 6).equals("[X]");
+            return "Good job on finishing your task!:\n" + t1;
+        case UNMARK:
+            Task t2 = db.getTask(index);
+            t2.undoTask();
+            assert t2.toString().substring(3, 6).equals("[ ]");
+            return "I've marked this task as undone:\n" + t2;
+        default:
+            return "Error Modifying Task: No such modification type";
+        }
+    }
+
+    /**
+     * Parses indexInput into an integer index.
+     *
+     * @throws TaskModificationException
+     */
+    private int parseIndex(Database db) throws TaskModificationException {
+
+        int index;
+
+        // check if index is empty
         if (indexInput.equals("")) {
             throw new TaskModificationException("Input is missing task number\nList is of current length: "
                                                 + db.taskListSize());
         }
 
-        int index;
-
+        // check if index is a number
         try {
             index = Integer.parseInt(indexInput);
         } catch (NumberFormatException e) {
             throw new TaskModificationException("Invalid number input");
         }
 
+        // check if index is within bounds
         if (index < 1 || index > db.taskListSize()) {
             throw new TaskModificationException("Invalid Index " + index
                                                 + " for current list\nList is of current length: "
                                                 + db.taskListSize());
         }
 
-        switch (this.modType) {
-        case MARK:
-            Task t1 = db.getTask(index);
-            t1.doTask();
-            assert t1.toString().substring(0, 3).equals("[X]");
-            return "Good job on finishing your task!:\n  " + t1;
-        case UNMARK:
-            Task t2 = db.getTask(index);
-            t2.undoTask();
-            assert t2.toString().substring(0, 3).equals("[ ]");
-            return "I've marked this task as undone:\n  " + t2;
-        default:
-            return "Error Modifying Task: No such modification type";
-        }
+        return index;
     }
 }

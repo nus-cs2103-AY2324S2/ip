@@ -9,7 +9,7 @@ import grizzly.commands.DeleteRecordCommand;
 import grizzly.commands.ExitCommand;
 import grizzly.commands.FindCommand;
 import grizzly.commands.GenerateRecordCommand;
-import grizzly.commands.ListTaskCommand;
+import grizzly.commands.ListRecordsCommand;
 import grizzly.commands.ModifyTaskCommand;
 import grizzly.exceptions.MissingInformationException;
 import grizzly.exceptions.MissingParameterException;
@@ -62,7 +62,7 @@ public class Parser {
         case "bye":
             return new ExitCommand();
         case "list":
-            return new ListTaskCommand(paramsTable);
+            return new ListRecordsCommand(paramsTable);
         case "find":
             return new FindCommand(paramsTable);
         case "todo":
