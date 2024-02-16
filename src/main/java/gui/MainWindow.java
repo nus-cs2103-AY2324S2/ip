@@ -19,7 +19,7 @@ import javafx.scene.paint.Stop;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
-    private static Background DIALOGUE_BG = new Background(new BackgroundFill(
+    private static final Background DIALOGUE_BG = new Background(new BackgroundFill(
             new LinearGradient(
                     0, 0.5, 1, 0.5, true,
                     CycleMethod.NO_CYCLE,
@@ -39,6 +39,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Chad.png"));
     private Image destinyImage = new Image(this.getClass().getResourceAsStream("/images/Chadette.png"));
 
+    /**
+     * Initializes the user interface.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -48,17 +51,22 @@ public class MainWindow extends AnchorPane {
         //Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
         dialogContainer.getChildren().addAll(
-                DialogBox.getDestinyDialog(Destiny.greetingMessage, destinyImage)
+                DialogBox.getDestinyDialog(Destiny.GREETING_MSG, destinyImage)
         );
     }
 
+    /**
+     * Saves Destiny object for use by the GUI.
+     *
+     * @param d Instance of Destiny.
+     */
     public void setDestiny(Destiny d) {
         destiny = d;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Destiny's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one echoing user input and the other containing Destiny's reply
+     * and then appends them to the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {

@@ -25,8 +25,10 @@ import javafx.scene.shape.Circle;
  * containing text from the speaker.
  */
 public class DialogBox extends HBox {
-    private static Background USER_BG = new Background(new BackgroundFill(Color.web("#AAACD4"), null, null));
-    private static Background DESTINY_BG = new Background(new BackgroundFill(Color.web("B4D6D7"), null, null));
+    private static final Background USER_BG = new Background(new BackgroundFill(
+            Color.web("#AAACD4"), null, null));
+    private static final Background DESTINY_BG = new Background(new BackgroundFill(
+            Color.web("B4D6D7"), null, null));
     @FXML
     private Label dialog;
     @FXML
@@ -51,7 +53,7 @@ public class DialogBox extends HBox {
         // configuring image
         displayPicture.setImage(img);
         displayPicture.setPreserveRatio(false); // prevents cropping
-        Circle circleView = new Circle(50,50, 50);
+        Circle circleView = new Circle(50, 50, 50);
         displayPicture.setClip(circleView); // puts image in circle
 
         // ensure proper spacing

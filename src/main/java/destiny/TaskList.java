@@ -76,8 +76,8 @@ public class TaskList {
      * Removes the specified task from the TaskList.
      *
      * @param index The index of the task to be deleted.
-     * @throws DukeException If TaskList is empty, or the index is invalid.
      * @return Message for successful deletion of task.
+     * @throws DukeException If TaskList is empty, or the index is invalid.
      */
     public String delete(int index) throws DukeException {
         if (taskList.size() == 0) {
