@@ -25,13 +25,14 @@ public class Main extends Application {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
-            Scene scene = new Scene(ap);
+            Scene scene = new Scene(ap, 800, 600);
             stage.setScene(scene);
 
             MainWindow controller = fxmlLoader.getController();
             controller.setYoda(yoda);
 
             stage.setTitle("Yoda Chatbot");
+            stage.setFullScreen(true);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

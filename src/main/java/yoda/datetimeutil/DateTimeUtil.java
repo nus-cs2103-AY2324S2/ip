@@ -11,7 +11,7 @@ public class DateTimeUtil {
             DateTimeFormatter.ofPattern("MMM dd"), // e.g., Jan 30
             DateTimeFormatter.ofPattern("MMM dd yyyy"), // e.g., Jan 30 2024
             DateTimeFormatter.ofPattern("MMM d yyyy HHmm"), // e.g., Jan 30 2024 1306
-            DateTimeFormatter.ofPattern("yyyy-MM-dd "), // e.g., 2024-01-30
+            DateTimeFormatter.ofPattern("yyyy-MM-dd"), // e.g., 2024-01-30
             DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"), // e.g., 2024-01-30 1306
             DateTimeFormatter.ofPattern("d MMM yyyy"), // e.g., 30 Jan 2024
             DateTimeFormatter.ofPattern("d MMM yyyy HHmm"), // e.g., 30 Jan 2024 1306
