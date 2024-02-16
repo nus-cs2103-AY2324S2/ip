@@ -82,7 +82,7 @@ public class Ui {
 //        System.out.println("Slow the Slayy\n");
 //    }
 public Response welcomeMessage() {
-    return new Response("Hi Barbie!\nI'm Ken!\nWhat would you like to beach today?\n");
+    return new Response("Hi Barbie!\nI'm Ken!\nWhat would you like to beach today?\np.s. say help if you need!\n");
 }
 
     public Response byeMessage() {
@@ -139,6 +139,23 @@ public Response welcomeMessage() {
         return new Response(response.toString());
     }
 
+    public Response helpMessage() {
+        String HELP_LIST = "list\n-> Lists tasks.\n";
+        String HELP_TODO = "todo <task>\n-> Adds todo task.\n";
+        String HELP_DEADLINE = "deadline <task> /by <due by in YYYY-MM-DD HHmm>\n" +
+                "-> Adds task with deadline.\n";
+        String HELP_EVENT = "event <task> /from <from in YYYY-MM-DD HHmm> /to <to in YYYY-MM-DD HHmm>\n" +
+                "-> Adds event with duration.\n";
+        String HELP_DELETE = "delete <task index>\n-> Deletes task numbered 'index'.\n";
+        String HELP_HELP = "help\n-> Lists all commands you can give me - like this!\n";
+        String HELP_MARK = "mark <task index>\n-> Marks task numbered 'index' as done.\n";
+        String HELP_UNMARK = "unmark <task index>\n-> Marks task numbered 'index' as not done.\n";
+        String HELP_SEEK = "seek <keyword>\n-> Lists all tasks with 'keyword'.\n";
+        String HELP_BYE = "bye\n-> I'll see you next time!\n";
+        String tieTogether = "So... what do you want to beach today?\n";
+        return new Response(HELP_LIST + HELP_TODO + HELP_DEADLINE + HELP_EVENT
+                + HELP_MARK + HELP_UNMARK + HELP_DELETE + HELP_SEEK + HELP_HELP + HELP_BYE + tieTogether);
+    }
 
     public Response invalidDeadlineMessage() {
         return new Response("That's not how you declare a deadline. p.s. use /by.\n");

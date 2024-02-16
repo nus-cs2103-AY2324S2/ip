@@ -50,6 +50,8 @@ public class Parser {
             return taskList.deleteTask(Integer.parseInt(command.substring(7)));
         } else if (command.startsWith("todo ")) {
             return taskList.addTodoTask(command.substring(5));
+        } else if (command.equals("help")) {
+            return taskList.giveHelp();
         } else if (command.startsWith("deadline ")) {
             return taskList.addDeadlineTask(command.substring(9));
         } else if (command.startsWith("event ")) {
