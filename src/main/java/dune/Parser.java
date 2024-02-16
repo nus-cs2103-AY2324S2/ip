@@ -11,6 +11,10 @@ public class Parser {
 
     private static String[] taskTypes = new String[] {"todo", "deadline", "event"};
 
+    enum commands {
+        BYE, DELETE, LIST, MARK, UNMARK, FIND, TODO, DEADLINE, EVENT, HELP
+    }
+
     /**
      * Parses the user input and decides what to do.
      *
@@ -28,58 +32,64 @@ public class Parser {
         }
         return true;
     }
+    
 
-    public String createNewTaskAttempt(String text, TaskList taskList, Storage storage) {
-        // System.out.println(text);
-        boolean addedTask = false;
-        String check;
-        for (int i = 0; i < taskTypes.length; i++) {
-            check = taskTypes[i];
-            if (text.startsWith(check)) {
-                addedTask = true;
-                // to implement: ensure description is never empty
-                return taskList.addTask(i, text.substring(check.length()).trim(), storage);
-            }
-        }
-        if (!addedTask) {
-            {
-                try {
-                    // make it more informative LOL
-                    throw new DuneException("I do not recognize your command. " +
-                            "Tasks can only be of types todo, deadline, or event.");
-
-                } catch (DuneException d) {
-                    return d.toString();
-                }
-            }
-        }
-        return "";
-    }
-
+    /**
+     * Decides what to do with the user input.
+     * @param text
+     * @param taskList
+     * @param storage
+     * @return The response to the user input.
+     */
     public String response(String text, TaskList taskList, Storage storage) {
-        if (text.equals("bye")) {
-            return "Bye. Hope to see you again soon!";
-        } else if (text.startsWith("delete")) {
-            String ans = taskList.deleteTask(text.substring(6), storage);
-            return ans;
-        } else if (text.startsWith("list")) {
-            return taskList.toString();
-        } else if (text.startsWith("mark")) {
-            // abstract this into a method
-            try {
-                return markTask(text, taskList, storage);
-            } catch (IndexOutOfBoundsException i) {
-                return "Give a valid index to mark\n";
-            } catch (NumberFormatException n) {
-                return "Remaining characters do not match an integer\n";
-            } catch (DuneException d) {
-                return d.toString();
+        text = text.toLowerCase();
+        try {
+            String firstWord = text.split(" ")[0].toUpperCase();
+            switch(firstWord) {
+                case "BYE":
+                    return "Bye. Hope to see you again soon!";
+                case "DELETE":
+                    return taskList.deleteTask(text.substring(6), storage);
+                case "LIST":
+                    return taskList.toString();
+                case "MARK":
+                    try {
+                        return markTask(text, taskList, storage);
+                    } catch (IndexOutOfBoundsException i) {
+                        return "Give a valid index to mark\n";
+                    } catch (NumberFormatException n) {
+                        return "Remaining characters do not match an integer\n";
+                    } catch (DuneException d) {
+                        return d.toString();
+                    }
+//                case "UNMARK":
+//                    return unmarkTask(text, taskList, storage);
+                case "FIND":
+                    return taskList.find(text.substring(4).trim());
+                case "TODO":
+                    return taskList.addTask(0, text.substring(4).trim(), storage);
+                case "DEADLINE":
+                    return taskList.addTask(1, text.substring(9).trim(), storage);
+                case "EVENT":
+                    return taskList.addTask(2, text.substring(6).trim(), storage);
+                case "HELP":
+                    return "Here are the commands I understand:\n" +
+                            "bye\n" +
+                            "delete\n" +
+                            "list\n" +
+                            "mark\n" +
+                            "unmark\n" +
+                            "find\n" +
+                            "todo\n" +
+                            "deadline\n" +
+                            "event\n";
+                default:
+                    return "I do not know of this command. Please try again.";
             }
-        } else if (text.startsWith("find")) {
-            return taskList.find(text.substring(4).trim());
-        } else {
-            return createNewTaskAttempt(text, taskList, storage);
+        } catch (Exception e) {
+            return "An error occurred. Please try again.";
         }
+
     }
 
     // Do I need to list everything it can throw? No.

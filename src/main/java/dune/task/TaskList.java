@@ -58,7 +58,7 @@ public class TaskList {
     }
 
     /**
-     * Adds task to list of tasks given a string.
+     * Adds task to list of tasks given a string, provided there is no duplicate.
      *
      * @param i  Type of task.
      * @param text  Description of task.
@@ -71,9 +71,9 @@ public class TaskList {
                 if (i == 0) {
                     x = new ToDo(text.trim());
                 } else if (i == 1) {
-                    x = addDeadline(text);
+                    x = createDeadline(text);
                 } else if (i == 2) {
-                    x = addEvent(text);
+                    x = createEvent(text);
                 } else {
                     throw new DuneException("Unrecognized event type");
                 }
@@ -105,7 +105,7 @@ public class TaskList {
      * @throws DuneException
      * @throws DateTimeParseException
      */
-    public Task addDeadline(String text) throws DuneException, DateTimeParseException {
+    public Task createDeadline(String text) throws DuneException, DateTimeParseException {
         String[] parts = text.split("/by");
         if (parts.length < 2) {
             throw new DuneException("Deadlines need a deadline /by ... ");
@@ -124,7 +124,7 @@ public class TaskList {
      * @throws DuneException
      * @throws DateTimeParseException
      */
-    public Task addEvent(String text) throws DuneException, DateTimeParseException {
+    public Task createEvent(String text) throws DuneException, DateTimeParseException {
         String[] parts = text.split("/from");
 
         if (parts.length < 2) {
