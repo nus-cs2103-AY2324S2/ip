@@ -8,6 +8,19 @@ applications.
 
 ![](Ui.png)
 
+## Quick Reference
+
+| Command    | Arguments                                       |
+|------------|-------------------------------------------------|
+| `list`     | None                                            |
+| `todo`     | `<task name>`                                   |
+| `deadline` | `<task name> /by <date time>`                   |
+| `event`    | `<task name> /from <date time> /by <date time>` |
+| `find`     | `<pattern>`                                     |
+| `mark`     | `<indices> [<indices>, ...]`                    |
+| `unmark`   | `<indices> [<indices>, ...]`                    |
+| `delete`   | `<indices> [<indices>, ...]`                    |
+| `bye`      | None                                            |
 ## Features
 
 ### Adding ToDos: `todo`
