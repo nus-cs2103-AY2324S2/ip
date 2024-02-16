@@ -47,6 +47,9 @@ public class Ui {
      * @return Returns an array of String, containing the command.
      */
     public String[] readCommand(String input) {
-        return input.trim().split(" ", 2);
+        String[] inputArray = input.trim().split(" ", 2);
+        assert inputArray.length <= 2 : "Input array should always of size < 2 after splitting";
+
+        return inputArray;
     }
 }
