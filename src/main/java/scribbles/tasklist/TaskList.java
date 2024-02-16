@@ -127,6 +127,12 @@ public class TaskList {
         });
     }
 
+    /**
+     * Sorts task in the tasklist by the date.
+     * To-do tasks are placed at the bottom of the list as they do not contain any date.
+     * Deadlines and Events are sorted by their by date and time, and start date and time, respectively.
+     * They are sorted from tasks with earlier dates to later dates.
+     */
     public void sortByDate() {
         Collections.sort(taskList, new Comparator<Task>() {
             @Override

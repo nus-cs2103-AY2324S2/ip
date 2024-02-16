@@ -206,11 +206,21 @@ public class Ui {
                 "i.e. find [keyword]");
     }
 
+    /**
+     * Prints message to inform user that sorting task is completed.
+     *
+     * @return Message inform user that sorting task is completed.
+     */
     public String printTasksSortedMessage() {
         return ("Scribbles has sorted your tasks! :)\n"
                 + "type \"list\" to view your sorted task list.");
     }
 
+    /**
+     * Prints message if order to sort tasks in in the command is not an available order or not found.
+     *
+     * @return Error message.
+     */
     public String printOrderNotFoundMessage() {
         return ("Sorry, unfortunately Scribbles only allows the following to be ordered:\n"
                 + "- date: orders task by their dates\n"
