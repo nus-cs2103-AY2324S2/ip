@@ -16,7 +16,8 @@ public class Parser {
                 "todo",
                 "deadline",
                 "event",
-                "delete"));
+                "delete",
+                "find"));
     }
 
     public boolean checkValidCommand(String input) {
