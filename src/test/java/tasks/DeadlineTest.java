@@ -16,6 +16,7 @@ public class DeadlineTest {
             new Deadline("go home", "2023/09/02 1000");
             fail("Expected DateTimeParseException to be thrown");
         } catch (DateTimeParseException e) {
+            //Passed test as DateTimeParseException is thrown
         }
     }
 

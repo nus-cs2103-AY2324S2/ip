@@ -47,7 +47,7 @@ test {
 }
 
 application {
-    mainClass.set("lelu.Lelu")
+    mainClass.set("lelu.Main")
 }
 
 shadowJar {

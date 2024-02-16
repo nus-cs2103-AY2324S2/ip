@@ -22,38 +22,9 @@ public class Lelu {
         store.load(Lelu.tasks);
     }
 
-//    private Lelu(String filePath) {
-//        this.store = new Storage("./data/lelu.txt");
-//        store.load(Lelu.tasks);
-//
-////        while (true) {
-////            try {
-////                store.load(Lelu.tasks);
-////                this.listen(ui, store);
-////                break;
-////            } catch (DateTimeParseException e) {
-////                ui.dateFormatInstructions();
-////            } catch (LeluException e) {
-////                System.out.println(e.getMessage());
-////            }
-////        }
-//    }
-//
-//    public void listen(Ui ui, Storage store) throws LeluException {
-//        Scanner sc = new Scanner(System.in);
-//        while (true) {
-//            String message = sc.nextLine();
-//            Command command = Parser.parse(message, ui);
-//            command.execute(tasks, ui, store, message);
-//            if (command instanceof ByeCommand) {
-//                break;
-//            }
-//        }
-//    }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Returns a response to the user's input
      */
     public String getResponse(String input) {
         try {

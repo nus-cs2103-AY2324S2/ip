@@ -11,11 +11,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Lelu using FXML.
  */
 public class Main extends Application {
 
     private Lelu lelu = new Lelu();
+    private static final int exitDelay = 3000;
 
     public static void exitApplication() {
         Timer timer = new Timer();
@@ -24,7 +25,7 @@ public class Main extends Application {
             public void run() {
                 Platform.exit();
             }
-        }, 3000);
+        }, exitDelay);
     }
 
     @Override
