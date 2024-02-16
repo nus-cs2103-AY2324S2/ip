@@ -1,17 +1,11 @@
 package task;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
+/**
+ * Represents a task that needs to be done.
+ */
 public class Task {
     private String name;
     private boolean isDone;
-    private static final String[] dateFormats = { "yyyy-MM-dd", "dd-MM-yyyy", "MM-dd-yyyy", "dd/MM/yyyy", "MM/dd/yyyy",
-            "yyyy/MM/dd", "dd MMM yyyy", "MMM dd yyyy", "yyyy MMM dd", "dd MMM yyyy", "yyyy-MM-d", "d-MM-yyyy",
-            "MM-d-yyyy", "d/MM/yyyy", "MM/d/yyyy", "yyyy/MM/d", "d MMM yyyy", "MMM d yyyy", "yyyy MMM d",
-            "d MMM yyyy", "MMM dd yyyy" };
-    private static final String[] timeFormats = { "HH:mm", "HH:mm", "h:mm a", "HHmm", "hh:mm a" };
 
     Task(String name) {
         this.isDone = false;
@@ -37,6 +31,7 @@ public class Task {
         this.isDone = false;
     }
 
+<<<<<<< HEAD
     public String getName() {
         return this.name;
     }
@@ -66,6 +61,8 @@ public class Task {
         return null;
     }
 
+=======
+>>>>>>> branch-A-JavaDoc
     @Override
     public String toString() {
         if (this.isDone) {
