@@ -1,14 +1,19 @@
 package duke;
 
 import ui.Ui;
+
 import storage.Storage;
+
 import task.TaskList;
 import task.Task;
 import task.Deadline;
 import task.Event;
 import task.Todo;
+
 import exception.DukeException;
+
 import command.Command;
+
 import parser.Parser;
 
 public class Duke {
@@ -17,6 +22,29 @@ public class Duke {
     private TaskList taskList;
     private String botName = "Yube";
 
+    public Duke(String filePath) {
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
+        try {
+            this.taskList = new TaskList(storage.load());
+        } catch (DukeException e) {
+            ui.showLoadingError(e);
+            this.taskList = new TaskList();
+        }
+    }
+
+    /**
+     * Main method.
+     * 
+     * @param args Command-line arguments.
+     */
+    public static void main(String[] args) {
+        new Duke("./yube.txt").run();
+    }
+
+    /**
+     * Runs the Duke application.
+     */
     public void run() {
         ui.showWelcomeMessage(botName);
         boolean hasEnded = true;
@@ -86,21 +114,6 @@ public class Duke {
                 break;
             }
         }
-    }
-
-    public Duke(String filePath) {
-        this.ui = new Ui();
-        this.storage = new Storage(filePath);
-        try {
-            this.taskList = new TaskList(storage.load());
-        } catch (DukeException e) {
-            ui.showLoadingError(e);
-            this.taskList = new TaskList();
-        }
-    }
-
-    public static void main(String[] args) {
-        new Duke("./yube.txt").run();
     }
 
     public enum CommandType {

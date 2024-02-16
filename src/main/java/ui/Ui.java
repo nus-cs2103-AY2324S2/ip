@@ -115,6 +115,13 @@ public class Ui {
         showLine();
     }
 
+    /**
+     * Finds tasks in the given task list that contain the specified string.
+     * Displays the matching tasks along with their indices.
+     *
+     * @param taskList   The task list to search in.
+     * @param findString The string to search for in task names.
+     */
     public void findTask(TaskList taskList, String findString) {
         showLine();
         StringBuilder finalString = new StringBuilder();
@@ -130,12 +137,23 @@ public class Ui {
         showLine();
     }
 
+    /**
+     * Displays an error message when there is an issue loading data into Duke.
+     *
+     * @param e The DukeException indicating the loading error.
+     */
     public void showLoadingError(DukeException e) {
         showLine();
         System.out.println(e.toString() + "\n");
         showLine();
     }
 
+    /**
+     * Reads a line of input from the user.
+     *
+     * @return The line of input entered by the user.
+     * @throws DukeException If there is an error reading the input.
+     */
     public String readLine() throws DukeException {
         return reader.nextLine();
     }
