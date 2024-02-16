@@ -15,11 +15,6 @@ public class Ui {
     public String message() {
         // Displaying Duke logo and initial message
         String logo = " KASSIM ";
-<<<<<<< HEAD
-        System.out.println("YOO I AM " + logo);
-        System.out.println("What can I do for you?");
-=======
->>>>>>> branch-Level-10
         return "YOO I AM " + logo + "\nWhat can I do for you?";
     }
 

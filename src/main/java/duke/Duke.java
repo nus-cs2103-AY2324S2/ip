@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -101,36 +100,9 @@ public class Duke extends Application {
         AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
-<<<<<<< HEAD
 
         //Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-        displayWelcomeMessage();
-=======
-        //Step 3. Add functionality to handle user input.
-        sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
-
-        userInput.setOnAction((event) -> {
-            handleUserInput();
-        });
->>>>>>> branch-Level-10
-    }
-
-    /**
-     * Iteration 1:
-     * Creates a label with the specified text and adds it to the dialog container.
-     *
-     * @param text String containing text to add
-     * @return a label with the specified text that has word wrap enabled.
-     */
-    private Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-
-        return textToAdd;
     }
 
     /**
@@ -141,21 +113,6 @@ public class Duke extends Application {
     }
 
     /**
-<<<<<<< HEAD
-=======
-     * Handles user input and displays responses accordingly.
-     */
-    private void handleUserInput() {
-        String input = userInput.getText();
-        boolean isContinuing = true;
-        while (isContinuing) {
-            getResponse(input);
-        }
-        userInput.clear();
-    }
-
-    /**
->>>>>>> branch-Level-10
      * Processes user input and returns a boolean indicating whether to continue accepting input.
      *
      *
