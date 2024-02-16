@@ -57,6 +57,8 @@ public class CreateEvent implements Action {
      */
     @Override
     public String execute(Duke bot) {
+        assert(bot != null);
+        assert(bot.getTaskList() != null);
         Event e = new Event(desc, from, to);
         bot.getTaskList().addToList(e);
         return ("Event successfully added!");
