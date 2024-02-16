@@ -53,7 +53,6 @@ public class Ping {
 
 
     }
-
     public static void main(String[] args) throws PingException {
         try {
             new Ping().run();

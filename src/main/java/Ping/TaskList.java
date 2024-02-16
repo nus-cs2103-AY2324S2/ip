@@ -30,6 +30,15 @@ public class TaskList {
         return tasks;
     }
 
+    public boolean detectDuplicate(Task task) {
+        for (Task t : tasks) {
+            if (t.description.equals(task.description)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * This method is used to find tasks that contain the keyword
      *

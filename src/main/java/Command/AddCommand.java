@@ -18,8 +18,11 @@ public class AddCommand extends Command {
     @Override
     public String perform(TaskList tasks, UI ui) throws PingException {
         boolean isTaskEmpty = task == null;
+        boolean isDuplicate = tasks.detectDuplicate(task);
         if (isTaskEmpty) {
             throw new PingException("Task cannot be empty");
+        } else if (isDuplicate) {
+            throw new PingException("Task already exists");
         } else {
             tasks.addTask(task);
             return ui.addMessage(task, tasks.taskSize());
