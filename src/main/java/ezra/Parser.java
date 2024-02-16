@@ -8,8 +8,6 @@ import java.util.regex.Pattern;
  * Parses user input commands and performs corresponding actions.
  */
 public class Parser {
-    public static String wrongDateTimeFormatMessage = "Date time must be in this format:\n28/01/2023 1800";
-
     /**
      * Reads the user input, processes the command, updates the task list, and generates a reply.
      *
@@ -46,7 +44,7 @@ public class Parser {
         } catch (WrongFormatException e) {
             return e.getMessage();
         } catch (DateTimeParseException e) {
-            return wrongDateTimeFormatMessage;
+            return "Date time must be in this format:\n28/01/2023 1800";
         }
     }
 

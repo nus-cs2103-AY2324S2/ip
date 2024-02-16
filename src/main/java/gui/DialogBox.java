@@ -1,7 +1,5 @@
 package gui;
 
-import ezra.Parser;
-
 import java.io.IOException;
 import java.util.Collections;
 
@@ -94,7 +92,7 @@ public class DialogBox extends HBox {
         var db = new DialogBox(text, img);
         db.flip();
         db.setStyle("-fx-background-color: #D6EAF8;");
-        if (text.startsWith("Invalid") || text.equals(Parser.wrongDateTimeFormatMessage)) {
+        if (text.startsWith("Invalid") || text.startsWith("Date time must be in this format:")) {
             db.dialogText.setFill(Paint.valueOf("red"));
         }
         return db;
