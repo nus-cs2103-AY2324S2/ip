@@ -50,7 +50,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "lindi"
+    archiveBaseName = "lindiGUI"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
