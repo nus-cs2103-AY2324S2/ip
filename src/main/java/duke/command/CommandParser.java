@@ -1,147 +1,58 @@
 package duke.command;
 
 import duke.conversation.Conversation;
-import duke.task.Task;
 import duke.task.TaskDisplay;
 import duke.task.TaskManager;
-import duke.task.TaskType;
-
-import java.util.List;
 
 /**
- * The Parser class is responsible for parsing user commands and interacting with the TaskManager.
- * It interprets the input commands and executes corresponding actions.
+ * The CommandParser class is responsible for parsing user commands and interacting with the TaskManager.
+ * It interprets the input commands and delegates the execution to appropriate command handlers.
  */
 public class CommandParser {
-    TaskManager taskManager;
-    Conversation conversation;
-    private final String username;
+    private final TaskManager taskManager;
+    private final Conversation conversation;
+    private final TaskDisplay taskDisplay;
 
-    TaskDisplay taskDisplay = new TaskDisplay();
-
-    private static final String DELETE_ALL_COMMAND = "delete all";
-
-    /**
-     * Constructs a Parser with the specified username. Initializes the TaskManager and Conversation.
-     *
-     * @param username The username for which the Parser is created.
-     */
     public CommandParser(String username) {
-        taskManager = new TaskManager(username);
-        conversation = new Conversation(username);
-        this.username = username;
+        this.taskManager = new TaskManager(username);
+        this.conversation = new Conversation(username);
+        this.taskDisplay = new TaskDisplay();
     }
 
-    /**
-     * Parses the user input and executes the corresponding action.
-     *
-     * @param input The user input to be parsed and executed.
-     */
     public String parseInput(String input) {
-
         String[] userMessage = input.split(" ");
 
-        if (input.equalsIgnoreCase(DELETE_ALL_COMMAND)) {
-            taskManager.deleteAllTasks();
-            return "okay, noted. I've removed all tasks from the list.\n";
+        if (input.equalsIgnoreCase("delete all")) {
+            return handleDeleteAllCommand();
         }
 
-        switch (userMessage[0].toLowerCase()) {
+        CommandHandler handler = getCommandHandler(userMessage[0].toLowerCase());
+        return handler != null ? handler.handle(userMessage) : conversation.printDialogue(input);
+    }
+
+    private String handleDeleteAllCommand() {
+        taskManager.deleteAllTasks();
+        return "Okay, noted. I've removed all tasks from the list.\n";
+    }
+
+    private CommandHandler getCommandHandler(String command) {
+        switch (command) {
             case "find":
-                return handleFindCommand(userMessage, taskManager);
+                return new FindCommandHandler(taskManager, taskDisplay);
             case "list":
-                return taskManager.displayTask(input);
+                return new ListCommandHandler(taskManager);
             case "mark":
-                return handleMarkCommand(userMessage, taskManager, input);
+                return new MarkCommandHandler(taskManager);
             case "unmark":
-                return handleUnmarkCommand(userMessage, taskManager, input);
+                return new UnmarkCommandHandler(taskManager);
             case "todo":
-                taskManager.addTask(input, TaskType.Todo);
-                return taskManager.displayTask(input);
             case "deadline":
-                taskManager.addTask(input, TaskType.Deadline);
-                return taskManager.displayTask(input);
             case "event":
-                taskManager.addTask(input, TaskType.Event);
-                return taskManager.displayTask(input);
+                return new AddCommandHandler(taskManager);
             case "delete":
-                return handleDeleteCommand(userMessage, taskManager, input);
+                return new DeleteCommandHandler(taskManager);
             default:
-                return conversation.printDialogue(input);
+                return null;
         }
-    }
-
-    private String handleMarkCommand(String[] userMessage, TaskManager taskManager, String input) {
-        if (userMessage.length == 1 || !isNumeric(userMessage[1])) {
-            return printError(input);
-        }
-        taskManager.markAsComplete(Integer.parseInt(userMessage[1]) - 1);
-       return taskManager.displayTask(input);
-    }
-
-    private String handleUnmarkCommand(String[] userMessage, TaskManager taskManager, String input) {
-        if (userMessage.length == 1 || !isNumeric(userMessage[1])) {
-            return printError(input);
-        }
-        taskManager.markAsIncomplete(Integer.parseInt(userMessage[1]) - 1);
-        return taskManager.displayTask(input);
-    }
-
-    private String handleDeleteCommand(String[] userMessage, TaskManager taskManager, String input) {
-        String deletedTask = "";
-        if (userMessage.length == 1 || !isNumeric(userMessage[1])) {
-            return printError(input);
-        } else {
-            deletedTask = taskManager.displayTask(input);
-            taskManager.deleteTask(Integer.parseInt(userMessage[1]) - 1);
-        }
-        return deletedTask;
-    }
-
-    private String handleFindCommand(String[] userMessage, TaskManager taskManager) {
-        if (userMessage.length == 1) {
-            return "Can you specify a keyword after the find command" +
-                    "so that I can help you better?";
-        }
-
-        String keyword = userMessage[1];
-        List<Task> matchingTasks = taskManager.findTask(keyword);
-
-        String findTask = "";
-        if (!matchingTasks.isEmpty()) {
-           findTask = taskDisplay.printFindTaskList(matchingTasks);
-        }
-        return findTask;
-    }
-
-    public void saveAllTasks() {
-        taskManager.autoSaveTask();
-    }
-
-    /**
-     * Checks if a given string is numeric.
-     *
-     * @param str The string to check.
-     * @return True if the string is numeric, false otherwise.
-     */
-    private boolean isNumeric(String str) {
-        try {
-            Integer.parseInt(str);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    /**
-     * Prints an error message indicating that the TASK NUMBER is missing after the specified command.
-     *
-     * @param input The input command causing the error.
-     */
-    private String printError(String input) {
-        return "Sorry, " + " the task number " +
-                "is missing after " + input.toUpperCase() +
-                ". Can you please specify a valid task number from the list?";
     }
 }
-

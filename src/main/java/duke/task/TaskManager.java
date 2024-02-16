@@ -9,7 +9,7 @@ import java.util.List;
  * marking as complete or incomplete, and displaying tasks.
  */
 public class TaskManager {
-    private TaskDisplay taskDisplay = new TaskDisplay();
+    private TaskDisplay taskDisplay;
     private FileManager fileManager;
 
     private List<Task> taskList;
@@ -22,6 +22,7 @@ public class TaskManager {
      */
     public TaskManager(String username) {
         this.fileManager = new FileManager(username);
+        taskDisplay = new TaskDisplay();
         this.taskList = new ArrayList<>();
         loadSavedTasks();
     }
