@@ -28,10 +28,12 @@ public class Duke {
      */
     public static void main(String[] args) {
         initialSetup();
+
         ui.printLogo();
         ui.printDivider();
         ui.printGreeting();
         ui.printDivider();
+
         while (true) {
             try {
                 String input = ui.getUserInput();
@@ -55,6 +57,7 @@ public class Duke {
                 "./src/main/data/duke.txt");
         taskList = new TaskList();
         ui = new Ui();
+
         try {
             ArrayList<String> tasksFromFile = storage.readTaskListData();
             for (int i = 0; i < tasksFromFile.size(); i++) {
@@ -66,11 +69,13 @@ public class Duke {
         } catch (IOException e) {
             ui.printIoException();
         }
+
     }
 
     private static void executeCommand(String input) throws DukeException {
         String identifier = parser.parseCommand(input);
         String arguments = parser.parseArguments(input);
+
         switch (identifier) {
         case "bye":
             exitProgram();
@@ -100,6 +105,7 @@ public class Duke {
             System.out.println("なに？！");
             break;
         }
+
         try {
             if (!identifier.equals("list")) {
                 storage.writeTaskListData(taskList);
@@ -107,6 +113,7 @@ public class Duke {
         } catch (IOException e) {
             ui.printIoException();
         }
+
         taskList.printTaskCount();
         ui.printDivider();
     }
@@ -124,10 +131,11 @@ public class Duke {
         ui.printDivider();
     }
 
-    private static void markTask(String arguments) throws DukeException {
+    private static void markTask(String arguments) {
         try {
             int taskNum = parser.parseTaskIndex(arguments);
             taskList.markTask(taskNum);
+
             ui.printDivider();
             ui.printMarkTaskSuccess();
             System.out.println(taskList.getTask(taskNum).toString() + "\n");
@@ -139,10 +147,11 @@ public class Duke {
         }
     }
 
-    private static void unmarkTask(String arguments) throws DukeException {
+    private static void unmarkTask(String arguments) {
         try {
             int taskNum = parser.parseTaskIndex(arguments);
             taskList.unmarkTask(taskNum);
+
             ui.printDivider();
             ui.printUnmarkTaskSuccess();
             System.out.println(taskList.getTask(taskNum).toString() + "\n");
@@ -158,6 +167,7 @@ public class Duke {
         if (!arguments.isEmpty()) {
             ToDo newToDo = new ToDo(arguments);
             taskList.addTask(newToDo);
+
             ui.printDivider();
             ui.printCreateTaskSuccess();
             System.out.println(newToDo.toString() + "\n");
@@ -168,12 +178,14 @@ public class Duke {
         }
     }
 
-    private static void createDeadlineTask(String arguments) throws DukeException {
+    private static void createDeadlineTask(String arguments) {
         try {
             String[] deadlineArgs = parser.parseDeadlineArguments(arguments);
+
             if (deadlineArgs.length == 2) {
                 Deadline newDeadline = new Deadline(deadlineArgs[0], deadlineArgs[1]);
                 taskList.addTask(newDeadline);
+
                 ui.printDivider();
                 ui.printCreateTaskSuccess();
                 System.out.println(newDeadline.toString() + "\n");
@@ -187,12 +199,14 @@ public class Duke {
         }
     }
 
-    private static void createEventTask(String arguments) throws DukeException {
+    private static void createEventTask(String arguments) {
         try {
             String[] eventArgs = parser.parseEventArguments(arguments);
+
             if (!arguments.isEmpty()) {
                 Event newEvent = new Event(eventArgs[0], eventArgs[1], eventArgs[2]);
                 taskList.addTask(newEvent);
+
                 ui.printDivider();
                 ui.printCreateTaskSuccess();
                 System.out.println(newEvent.toString() + "\n");
@@ -204,14 +218,14 @@ public class Duke {
                     + "\nevent <Task Description> /from <Date in YYYY-MM-DD> /to <Date in YYYY-MM-DD>\n");
             ui.printDivider();
         }
-
     }
 
-    private static void deleteTask(String arguments) throws DukeException {
+    private static void deleteTask(String arguments) {
         try {
             int delIndex = parser.parseTaskIndex(arguments);
             Task toDelete = taskList.getTask(delIndex);
             taskList.deleteTask(delIndex);
+
             ui.printDivider();
             ui.printDeleteTaskSuccess();
             System.out.println(toDelete.toString() + "\n");
@@ -221,6 +235,5 @@ public class Duke {
             System.out.println("Invalid task index provided.\nPlease provide a valid task index.\n");
             ui.printDivider();
         }
-
     }
 }

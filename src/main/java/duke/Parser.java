@@ -67,10 +67,12 @@ public class Parser {
     public String parseArguments(String input) {
         StringTokenizer st = new StringTokenizer(input);
         st.nextToken();
+        
         String arguments = "";
         while(st.hasMoreTokens()) {
             arguments += st.nextToken() + " ";
         }
+        
         return arguments.trim();
     }
 
@@ -85,12 +87,14 @@ public class Parser {
     public String[] parseDeadlineArguments(String input) {
         String[] deadlineInfo = new String[2];
         String[] inputSplit = input.split("/");
+        
         StringTokenizer st = new StringTokenizer(inputSplit[0].trim());
         String deadlineDesc = "";
         while (st.hasMoreTokens()) {
             deadlineDesc += st.nextToken() + " ";
         }
         deadlineInfo[0] = deadlineDesc.trim();
+        
         st = new StringTokenizer(inputSplit[1].trim());
         st.nextToken();
         String by = "";
@@ -98,6 +102,7 @@ public class Parser {
             by += st.nextToken() + " ";
         }
         deadlineInfo[1] = by.trim();
+        
         return deadlineInfo;
     }
 
@@ -113,12 +118,14 @@ public class Parser {
     public String[] parseEventArguments(String input) {
         String[] eventInfo = new String[3];
         String[] inputSplit = input.split("/");
+        
         StringTokenizer st = new StringTokenizer(inputSplit[0].trim());
         String eventDesc = "";
         while(st.hasMoreTokens()) {
             eventDesc += st.nextToken() + " ";
         }
         eventInfo[0] = eventDesc.trim();
+        
         st = new StringTokenizer(inputSplit[1].trim());
         st.nextToken();
         String from = "";
@@ -126,6 +133,7 @@ public class Parser {
             from += st.nextToken() + " ";
         }
         eventInfo[1] = from.trim();
+
         st = new StringTokenizer(inputSplit[2].trim());
         st.nextToken();
         String end = "";
@@ -133,8 +141,7 @@ public class Parser {
             end += st.nextToken() + " ";
         }
         eventInfo[2] = end.trim();
+
         return eventInfo;
     }
-
-
 }

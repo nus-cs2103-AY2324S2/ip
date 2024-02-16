@@ -39,18 +39,22 @@ public class Storage {
     public ArrayList<String> readTaskListData() throws IOException {
         File read = new File(this.filePath);
         Path directory = Paths.get(this.directoryPath);
+
         if (!Files.exists(directory)) {
             Files.createDirectories(directory);
         }
+
         if (!read.exists()) {
             read.createNewFile();
         }
+
         Scanner sc = new Scanner(read);
         ArrayList<String> tasks = new ArrayList<>();
         while (sc.hasNextLine()) {
             String data = sc.nextLine();
             tasks.add(data);
         }
+
         return tasks;
     }
 
@@ -63,14 +67,17 @@ public class Storage {
      */
     public void writeTaskListData(TaskList taskList) throws IOException {
         File save = new File(this.filePath);
+
         try {
             if (!save.exists()) {
                 save.createNewFile();
             }
+
             FileWriter fw = new FileWriter(this.filePath);
             for (int i = 0; i < taskList.getTaskCount(); i++) {
                 fw.write(taskList.getTask(i).toTaskSaveString() + System.lineSeparator());
             }
+
             fw.close();
         } catch (IOException e) {
             System.out.println("An error has occurred.");
