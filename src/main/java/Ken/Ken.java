@@ -53,16 +53,6 @@ public class Ken extends Application {
      * //@param filePath The file path for storing tasks.
      */
 
-//    public Ken(String filePath) {
-//        ui = new Ui();
-//        storage = new Storage(filePath);
-//        try {
-//            tasks = new TaskList(storage.loadTask());
-//        } catch (KenException e) {
-//            tasks = new TaskList();
-//        }
-//    }
-
     public Ken() {
         ui = new Ui();
         storage = new Storage(FILE_PATH);

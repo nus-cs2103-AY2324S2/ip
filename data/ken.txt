@@ -1,2 +1,4 @@
 T | 1 | slay
 T | 0 | run
+D | 0 | chatbot | 2024-02-16 0000
+E | 0 | muadh birthday | 2024-02-24 0000 | 2024-02-24 2359
