@@ -26,7 +26,7 @@ public class DeleteCommand extends Command {
             throw new CommandException(
                     "Please specify which task to delete. (format: delete <task no.>)");
         }
-        if (Integer.parseInt(input[1]) > tasks.size()) {
+        if (Integer.parseInt(input[1]) > tasks.size() || Integer.parseInt(input[1]) < 0) {
             throw new CommandException("The tasks you indicated does not exist");
         }
         tasks.remove(Integer.parseInt(input[1]) - 1);

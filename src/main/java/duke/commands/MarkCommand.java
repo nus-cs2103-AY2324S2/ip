@@ -35,7 +35,7 @@ public class MarkCommand extends Command {
         int index = Integer.parseInt(input[1]) - 1;
 
         // check if index is within bounds
-        if (index >= tasks.size()) {
+        if (index >= tasks.size() || index < 0) {
             throw new CommandException("Task not found!");
         }
         // check if there's no change in status
