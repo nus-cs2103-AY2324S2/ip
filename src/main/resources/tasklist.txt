@@ -1,9 +1,6 @@
-
-
 T|0|test
 E|0|lecture|2019-12-12T08:00|2019-11-11T10:00
 D|0|return book|2019-12-22T13:00
 T|0|something
 T|0|testing
 T|0|test
-T|0|

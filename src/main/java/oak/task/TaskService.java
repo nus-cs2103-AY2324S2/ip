@@ -106,8 +106,12 @@ public class TaskService {
     public String addTodo(String taskName) throws IOException {
         Todo newTodo = new Todo(taskName);
 
+        int expectedLength = this.tasks.size() + 1;
+
         this.tasks.add(newTodo);
         this.saveTask(newTodo);
+
+        assert expectedLength == this.tasks.size();
 
         return String.format("Added new Todo: %s", taskName);
     }
@@ -123,8 +127,12 @@ public class TaskService {
     public String addDeadline(String taskName, String byDateTime) throws IOException {
         Deadline newDeadline = new Deadline(taskName, byDateTime);
 
+        int expectedLength = this.tasks.size() + 1;
+
         this.tasks.add(newDeadline);
         this.saveTask(newDeadline);
+
+        assert expectedLength == this.tasks.size();
 
         return String.format("Added new Deadline: %s with Due Date: %s", taskName, byDateTime);
     }
@@ -141,8 +149,12 @@ public class TaskService {
     public String addEvent(String taskName, String fromDateTime, String toDateTime) throws IOException {
         Event newEvent = new Event(taskName, fromDateTime, toDateTime);
 
+        int expectedLength = this.tasks.size() + 1;
+
         this.tasks.add(newEvent);
         this.saveTask(newEvent);
+
+        assert expectedLength == this.tasks.size();
 
         return String.format("Added new Event: %s occurring from %s to %s", taskName, fromDateTime, toDateTime);
     }
@@ -155,8 +167,12 @@ public class TaskService {
      * @throws IOException the io exception
      */
     public String deleteTask(int taskId) throws IOException {
+        int expectedLength = this.tasks.size() - 1;
+
         Task removedTask = this.tasks.remove(taskId);
         this.removeTask(removedTask);
+
+        assert expectedLength == this.tasks.size();
 
         return String.format("Are you giving up? Or is this task no longer needed?\n" +
                 "Hmmm.. I've deleted Task %s for you for now.\nBut, I'll be watching you.",
