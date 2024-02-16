@@ -10,6 +10,7 @@ import badgpt.tasks.Event;
 import badgpt.tasks.Task;
 import badgpt.tasks.ToDo;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -169,6 +170,30 @@ public class TaskList {
         } else {
             for (int i = 0; i < filtered.size(); i++) {
                 tasksUi.printTask(filtered.get(i), i + 1, filtered.size());
+            }
+        }
+    }
+
+    /**
+     * Finds any tasks (specifically events and deadlines) occurring before or during the specified date.
+     *
+     * @param date The date to check.
+     * @throws ListEmptyException If there are no such tasks found.
+     */
+    public void findByDate(LocalDate date) throws ListEmptyException {
+        List<Task> onThisDate = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.isHappening(date)) {
+                onThisDate.add(task);
+            }
+        }
+
+        if (onThisDate.isEmpty()) {
+            throw new ListEmptyException("There are no tasks containing the specified keyword.");
+        } else {
+            for (int i = 0; i < onThisDate.size(); i++) {
+                tasksUi.printTask(onThisDate.get(i), i + 1, onThisDate.size());
             }
         }
     }

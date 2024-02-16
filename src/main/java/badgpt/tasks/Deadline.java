@@ -32,6 +32,14 @@ public class Deadline extends Task {
      * @inheritDoc
      */
     @Override
+    public boolean isHappening(LocalDate date) {
+        return deadline.isAfter(date) || deadline.isEqual(date);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " +
                 deadline.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + ")";

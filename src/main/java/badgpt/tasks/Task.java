@@ -1,5 +1,7 @@
 package badgpt.tasks;
 
+import java.time.LocalDate;
+
 /**
  * Representation of a task object. The task can have a description and can be completed.
  */
@@ -56,6 +58,16 @@ public class Task {
      */
     public String saveTask() {
         return this.toString();
+    }
+
+    /**
+     * Checks if this task occurs before or during a given date.
+     *
+     * @param date The date to check.
+     * @return true if the task does occur before or during the date, false otherwise.
+     */
+    public boolean isHappening(LocalDate date) {
+        return false;
     }
 
     /**

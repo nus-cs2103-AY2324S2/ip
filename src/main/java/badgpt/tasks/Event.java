@@ -35,6 +35,16 @@ public class Event extends Task {
      * @inheritDoc
      */
     @Override
+    public boolean isHappening(LocalDate date) {
+        boolean isAfter = to.isAfter(date) || to.isEqual(date);
+        boolean isBefore = from.isBefore(date) || from.isEqual(date);
+        return isAfter && isBefore;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " +
                 from.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + " to: " +

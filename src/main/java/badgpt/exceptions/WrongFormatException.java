@@ -6,7 +6,7 @@ package badgpt.exceptions;
 public class WrongFormatException extends CommandException {
     private String rightUsage = "Please type in the command as follows: ";
     private String example;
-    private String brainrot;
+    private String brainrot = "";
 
     /**
      * Creates a new WrongFormatException with the specified message and command. The proper usage of the command along
@@ -22,12 +22,10 @@ public class WrongFormatException extends CommandException {
         case "mark":
             rightUsage += "mark taskNum\n";
             example = "mark 2";
-            brainrot = "";
             break;
         case "unmark":
             rightUsage += "unmark taskNum\n";
             example = "unmark 2";
-            brainrot = "";
             break;
         case "todo":
             rightUsage += "todo taskDescription\n";
@@ -37,22 +35,22 @@ public class WrongFormatException extends CommandException {
         case "deadline":
             rightUsage += "deadline taskDescription /by YYYY-MM-DD\n";
             example = "deadline return book /by 2024-01-31";
-            brainrot = "";
             break;
         case "event":
             rightUsage += "event taskDescription /from YYYY-MM-DD /to YYYY-MM-DD\n";
             example = "event holiday /from 2024-01-31 /to 2024-02-07";
-            brainrot = "";
             break;
         case "delete":
             rightUsage += "delete taskNum\n";
             example = "delete 2";
-            brainrot = "";
             break;
         case "find":
             rightUsage += "find keyword\n";
             example = "find book";
-            brainrot = "";
+            break;
+        case "date":
+            rightUsage += "date YYYY-MM-DD\n";
+            example = "date 2024-01-31";
             break;
         }
     }
@@ -62,6 +60,6 @@ public class WrongFormatException extends CommandException {
      */
     @Override
     public String toString() {
-        return rightUsage + "Example: " + example + brainrot;
+        return rightUsage + "Example usage: " + example + brainrot;
     }
 }

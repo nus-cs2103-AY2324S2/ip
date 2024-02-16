@@ -10,6 +10,7 @@ import badgpt.tasks.Deadline;
 import badgpt.tasks.Event;
 import badgpt.tasks.ToDo;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 /**
@@ -91,10 +92,20 @@ public class Parser {
             break;
         case "find":
             if (args.isEmpty()) {
-                System.out.println(args);
                 throw new WrongFormatException("No keyword is specified.", cmd);
             } else {
                 taskList.find(args);
+            }
+            break;
+        case "date":
+            if (args.isEmpty()) {
+                throw new WrongFormatException("No date is specified", cmd);
+            }
+
+            try {
+                taskList.findByDate(LocalDate.parse(args));
+            } catch (DateTimeParseException e) {
+                throw new WrongFormatException(e.getMessage(), cmd);
             }
             break;
         default:
