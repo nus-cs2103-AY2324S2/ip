@@ -3,7 +3,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import duke.command.MarkCommand;
@@ -50,7 +49,6 @@ public class MarkCommandTest {
     /**
      * Tests the behavior of marking a task with invalid input.
      */
-    @Disabled
     @Test
     public void testMarkInvalidInput() {
         TaskList tasks = new TaskList();
@@ -69,7 +67,6 @@ public class MarkCommandTest {
     /**
      * Tests the behavior of marking a task in an empty task list.
      */
-    @Disabled
     @Test
     public void testMarkTaskInEmptyList() {
         TaskList tasks = new TaskList();
@@ -86,7 +83,6 @@ public class MarkCommandTest {
     /**
      * Tests the behavior of marking a task when no index is provided.
      */
-    @Disabled
     @Test
     public void testMarkNoIndexProvided() {
         TaskList tasks = new TaskList();
