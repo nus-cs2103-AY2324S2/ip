@@ -1,23 +1,21 @@
-import com.sun.source.util.TaskListener;
-
 import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.File;
 import java.io.BufferedReader;
 import java.io.FileReader;
-public class Data {
+public class Storage {
     TaskList tasks;
-    Input input;
+    Ui input;
     Command command;
-    public Data() {
+    public Storage() {
         this.tasks = new TaskList();
-        this.input = new Input();
+        this.input = new Ui();
         this.command = Command.HELLO;
     }
-    public Data(TaskList taskList) {
+    public Storage(TaskList taskList) {
         this.tasks = taskList;
-        this.input = new Input();
+        this.input = new Ui();
         this.command = Command.HELLO;
     }
     public void createFile() {
@@ -73,7 +71,7 @@ public class Data {
             while (line != null) {
 
                 try {
-                    Task task = new Task().parseFromData(line);
+                    Task task = Parser.parseFromData(line);
                     tasks.add(task);
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());

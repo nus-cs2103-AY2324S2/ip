@@ -117,7 +117,7 @@ public enum Command {
         @Override
         public void execute(TaskList tasks, String description) throws DukeException {
 
-            Task task = new Task().parseFromInput(description);
+            Task task = Parser.parseFromInput(description);
             tasks.add(task);
             int n = tasks.size();
             System.out.println("added: " + task);
@@ -133,7 +133,7 @@ public enum Command {
         @Override
         public void execute(TaskList tasks, String description) throws DukeException {
 
-            Task task = new Task().parseFromInput(description);
+            Task task = Parser.parseFromInput(description);
             tasks.add(task);
             int n = tasks.size();
             System.out.println("added: " + task);
@@ -149,7 +149,7 @@ public enum Command {
 
         @Override
         public void execute(TaskList tasks, String description) throws DukeException {
-            Task task = new Task().parseFromInput(description);
+            Task task = Parser.parseFromInput(description);
             tasks.add(task);
             int n = tasks.size();
             System.out.println("added: " + task);
@@ -178,7 +178,7 @@ public enum Command {
         @Override
         public void execute(TaskList tasks, String description) throws DukeException {
             tasks.clear();
-            Data.clear();
+            Storage.clear();
             System.out.println("List cleared.");
         }
     };

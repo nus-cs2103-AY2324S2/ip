@@ -3,21 +3,21 @@ import java.util.ArrayList;
 
 public class Duke {
     private static TaskList tasks;
-    private Data data;
+    private Storage storage;
     private Command currentCommand;
 
-    private Input input;
+    private Ui ui;
 
     Duke() {
         this.tasks = new TaskList();
-        this.data = new Data(this.tasks);
-        this.input = new Input();
+        this.storage = new Storage(this.tasks);
+        this.ui = new Ui();
 
     }
 
     public void run() throws DukeException{
-        this.data.createFile();
-        this.data.load(tasks);
+        this.storage.createFile();
+        this.storage.load(tasks);
 
         Command currentCommand = Command.HELLO;
         currentCommand.execute();
@@ -26,9 +26,8 @@ public class Duke {
         boolean exit = false;
 
         while (!exit) {
-            String str = input.getNextLine();
-            String commandString = input.getCommandString(str);
-            Command command = input.getCommand(commandString);
+            String str = ui.getNextLine();
+            Command command = ui.getCommand(str);
 
             try {
                 command.execute(tasks, str);
@@ -38,7 +37,7 @@ public class Duke {
 
 
             if (command == Command.BYE) {
-                this.data.write(tasks);
+                this.storage.write(tasks);
                 exit = true;
             }
 

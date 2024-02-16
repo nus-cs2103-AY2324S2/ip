@@ -1,15 +1,17 @@
 import java.util.Scanner;
-public class Input {
+public class Ui {
 
     Scanner sc;
     Command currentCommand;
 
-    public Input() {
+    public Ui() {
         this.sc = new Scanner(System.in);
     }
 
     public Command getCommand(String str) {
-        switch (str) {
+        String cmdStr = getCommandString(str);
+
+        switch (cmdStr) {
         case "b":
         case "bye":
             this.currentCommand = Command.BYE;
