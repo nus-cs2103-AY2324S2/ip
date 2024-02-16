@@ -80,4 +80,12 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from_time + " to: " + to_time + ")";
     }
+
+    public String getFromTime() {
+        return from_time;
+    }
+
+    public String getToTime() {
+        return to_time;
+    }
 }

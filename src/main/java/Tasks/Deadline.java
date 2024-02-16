@@ -67,4 +67,7 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + deadline_date + ")";
     }
 
+    public String getBy() {
+        return deadline_date;
+    }
 }

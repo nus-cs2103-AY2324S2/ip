@@ -1,12 +1,15 @@
 package Utils;
 
-import java.io.File;
-import java.io.IOException;
+import Exceptions.TaskListFullException;
+import Tasks.*;
+
+import java.io.*;
+import java.util.ArrayList;
 
 public class Storage {
 
     static String filepath = "data/";
-    static String filename = "storage.txt";
+    static String filename = "tasklist.ser";
 
     /**
      * Creates a storage file if it does not exist.
@@ -44,7 +47,42 @@ public class Storage {
     }
 
 
-    public static void main(String[] args) throws IOException, SecurityException {
+    public static void saveTasks(TaskList taskList) throws IOException, SecurityException{
+
+        try{
+            FileOutputStream fos = new FileOutputStream(filepath + filename);
+            java.io.ObjectOutputStream oos = new java.io.ObjectOutputStream(fos);
+            oos.writeObject(taskList.getList());
+            oos.close();
+            fos.close();
+        }
+        catch (FileNotFoundException e){
+            throw new FileNotFoundException("The file to save the task list was not found.");
+        }
+        catch (IOException e){
+            throw new IOException("An error occurred while saving the task list.");
+        }
+
+    }
+    
+
+    public static void main(String[] args) throws IOException, TaskListFullException, SecurityException {
+        createStorage();
+
+        TaskList ls = new TaskList();
+
+        ls.add_task(new Event("event1", "from1", "to1"));
+        ls.add_task(new Event("event2", "from2", "to2"));
+        ls.add_task(new Todo("todo1"));
+        ls.add_task(new Todo("todo2"));
+        ls.add_task(new Deadline("deadline1", "by1"));
+        ls.add_task(new Deadline("deadline2", "by2"));
+
+        System.out.println(ls);
+
+        System.out.println(ls.getList());
+        saveTasks(ls);
+        System.out.println("Saved");
 
     }
 }

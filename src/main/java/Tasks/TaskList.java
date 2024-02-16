@@ -73,4 +73,24 @@ public class TaskList {
         return result;
     }
 
+    /**
+     * Returns a deep copy of the list of tasks
+     * @return An ArrayList of Task objects
+     */
+    public ArrayList<Task> getList() {
+        ArrayList<Task> copy = new ArrayList<>();
+        for (Task task : list) {
+            if (task instanceof Deadline) {
+                copy.add(new Deadline(task.getDescription(), ((Deadline) task).getBy()));
+            } else if (task instanceof Event) {
+                copy.add(new Event(task.getDescription(), ((Event) task).getFromTime(), ((Event) task).getToTime()));
+            } else if (task instanceof Todo) {
+                copy.add(new Todo(task.getDescription()));
+            } else {
+                copy.add(new Task(task.getDescription()));
+            }
+        }
+        return copy;
+    }
+
 }
