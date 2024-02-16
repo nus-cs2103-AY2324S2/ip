@@ -1,15 +1,18 @@
+package task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import exception.DukeException;
 
 /**
  * Represents an Event task, which is a type of task that needs to be completed.
  * Inherits from the Task class.
  */
-class Event extends Task {
+public class Event extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
 
-    Event(String name, String fromText, String toText) throws DukeException {
+    public Event(String name, String fromText, String toText) throws DukeException {
         super(name);
         this.to = super.convertDateTime(toText);
         this.from = super.convertDateTime(fromText);
@@ -22,7 +25,7 @@ class Event extends Task {
         }
     }
 
-    Event(String name, String fromText, String toText, boolean doneStatus) throws DukeException {
+    public Event(String name, String fromText, String toText, boolean doneStatus) throws DukeException {
         super(name, doneStatus);
         this.to = super.convertDateTime(toText);
         this.from = super.convertDateTime(fromText);

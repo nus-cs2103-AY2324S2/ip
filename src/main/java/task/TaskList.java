@@ -1,13 +1,15 @@
+package task;
+
 import java.util.ArrayList;
 
 public class TaskList {
     private final ArrayList<Task> listOfTasks;
 
-    TaskList() {
+    public TaskList() {
         this.listOfTasks = new ArrayList<>();
     }
 
-    TaskList(ArrayList<Task> taskList) {
+    public TaskList(ArrayList<Task> taskList) {
         this.listOfTasks = taskList;
     }
 

@@ -1,9 +1,14 @@
-import java.util.Scanner;
+package ui;
 
-class Ui {
+import java.util.Scanner;
+import task.TaskList;
+import task.Task;
+import exception.DukeException;
+
+public class Ui {
     Scanner reader;
 
-    Ui() {
+    public Ui() {
         this.reader = new Scanner(System.in);
     }
 

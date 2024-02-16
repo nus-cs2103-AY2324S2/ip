@@ -1,3 +1,8 @@
+package parser;
+
+import command.Command;
+import duke.Duke;
+
 public class Parser {
     public static Command parseCommand(String userInput) {
         String[] words = userInput.split(" ");

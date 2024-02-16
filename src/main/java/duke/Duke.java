@@ -1,3 +1,16 @@
+package duke;
+
+import ui.Ui;
+import storage.Storage;
+import task.TaskList;
+import task.Task;
+import task.Deadline;
+import task.Event;
+import task.Todo;
+import exception.DukeException;
+import command.Command;
+import parser.Parser;
+
 public class Duke {
     private Ui ui;
     Storage storage;
