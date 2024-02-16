@@ -13,6 +13,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Polygon;
 
 /**
  * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
@@ -22,7 +25,9 @@ public class DialogBox extends HBox {
     @FXML
     private Label dialog;
     @FXML
-    private ImageView displayPicture;
+    private Polygon arrow;
+    @FXML
+    private Circle displayPicture;
 
     /**
      * Creates a DialogBox for user and bot interactions.
@@ -41,7 +46,7 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
-        displayPicture.setImage(img);
+        displayPicture.setFill(new ImagePattern(img));
     }
 
     /**
@@ -51,7 +56,8 @@ public class DialogBox extends HBox {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
-        setAlignment(Pos.TOP_LEFT);
+        this.arrow.setRotate(180);
+        setAlignment(Pos.CENTER_LEFT);
         dialog.setAlignment(Pos.TOP_LEFT);
     }
 

@@ -26,6 +26,8 @@ public class Main extends Application {
             System.err.println(fxmlLoader.getLocation().toString());
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            String css = this.getClass().getResource("/application.css").toExternalForm();
+            scene.getStylesheets().add(css);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setDuke(duke);
             stage.show();
