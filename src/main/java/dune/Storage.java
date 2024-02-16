@@ -16,6 +16,8 @@ public class Storage {
     private String dir;
     private Path filePath;
 
+    private String errorTaskType = "Invalid task type";
+
     public Storage() {
         this.dir = System.getProperty("user.dir");
         this.filePath = Paths.get(dir, "data", "dune.txt");
@@ -28,8 +30,6 @@ public class Storage {
      */
     public void loadTasks(TaskList tasks) {
         boolean fileExists = java.nio.file.Files.exists(this.filePath);
-        // System.out.println(filePath);
-        // System.out.println("*****" + fileExists);
 
         if (fileExists) {
             try {
@@ -47,7 +47,7 @@ public class Storage {
             } catch (DuneException d) {
                 System.out.println(d.getMessage());
             } catch (IndexOutOfBoundsException i) {
-                System.out.println("Event was formatted incorrectly in file");
+                System.out.println("Task was formatted incorrectly in file");
             }
         } else {
             createFile(this.filePath);
@@ -80,7 +80,7 @@ public class Storage {
             return new Event(components[2], components[3], components[4], isDone);
         } else {
             // System.out.println("Dune exception!");
-            throw new DuneException("Invalid task type");
+            throw new DuneException(errorTaskType);
         }
     }
 
@@ -106,7 +106,7 @@ public class Storage {
             ans = "E|" + (t.getIsDone() ? "1" : "0") + "|" + t.getDescription() + "|"
                     + e.getStart() + "|" + e.getEnd();
         } else {
-            throw new DuneException("Invalid task type");
+            throw new DuneException(errorTaskType);
         }
         return ans;
     }

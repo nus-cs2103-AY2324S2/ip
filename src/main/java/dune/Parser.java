@@ -37,21 +37,17 @@ public class Parser {
             check = taskTypes[i];
             if (text.startsWith(check)) {
                 addedTask = true;
-                try {
-                    if (text.equals(check)) {
-                        throw new DuneException("The description of a to-do cannot be empty.");
-                    }
-                    return taskList.addTask(i, text.substring(check.length()).trim(), storage);
-                } catch (DuneException d) {
-                    return d.toString();
-                }
+                // to implement: ensure description is never empty
+                return taskList.addTask(i, text.substring(check.length()).trim(), storage);
             }
         }
         if (!addedTask) {
             {
                 try {
                     // make it more informative LOL
-                    throw new DuneException("I do not recognize your command. Tasks can only be of types todo, deadline, or event.");
+                    throw new DuneException("I do not recognize your command. Tasks can only be of types todo, " +
+                            "deadline, or event.");
+
                 } catch (DuneException d) {
                     return d.toString();
                 }
@@ -71,21 +67,7 @@ public class Parser {
         } else if (text.startsWith("mark")) {
             // abstract this into a method
             try {
-                if (text.equals("mark")) {
-                    throw new DuneException("Give an index to mark");
-                }
-                String remaining = "";
-                // remove all leading and trailing spaces
-                remaining = text.substring(4).trim();
-                // parseInt might throw NumberFormatException
-                int index = Integer.parseInt(remaining);
-                // Index... exception
-                taskList.getTask(index - 1).mark();
-                storage.saveTasks(taskList);
-                String ans = "Nice! I've marked this task as done:\n";
-                ans += taskList.getTask(index - 1) + "\n";
-                return ans;
-
+                return markTask(text, taskList, storage);
             } catch (IndexOutOfBoundsException i) {
                 return "Give a valid index to mark\n";
             } catch (NumberFormatException n) {
@@ -98,5 +80,23 @@ public class Parser {
         } else {
             return createNewTaskAttempt(text, taskList, storage);
         }
+    }
+
+    // Do I need to list everything it can throw? No.
+    public String markTask(String text, TaskList taskList, Storage storage) throws DuneException {
+        if (text.equals("mark")) {
+            throw new DuneException("Give an index to mark");
+        }
+        String remaining = "";
+        // remove all leading and trailing spaces
+        remaining = text.substring(4).trim();
+        // parseInt might throw NumberFormatException
+        int index = Integer.parseInt(remaining);
+        // Index... exception
+        taskList.getTask(index - 1).mark();
+        storage.saveTasks(taskList);
+        String ans = "Nice! I've marked this task as done:\n";
+        ans += taskList.getTask(index - 1) + "\n";
+        return ans;
     }
 }

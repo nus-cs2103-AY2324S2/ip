@@ -64,59 +64,24 @@ public class TaskList {
      */
     public String addTask(int i, String text, Storage storage) {
         Task x = null;
-        if (i == 0) {
-            x = new ToDo(text.trim());
-        } else if (i == 1) {
+        try {
             try {
-                String[] parts = text.split("/by");
-                if (parts.length < 2) {
-                    throw new DuneException("Deadlines need a deadline /by ... ");
-                } else if (parts.length > 2) {
-                    throw new DuneException("There can only be 1 instance of /by. String cannot be parsed...");
+                if (i == 0) {
+                    x = new ToDo(text.trim());
+                } else if (i == 1) {
+                    x = addDeadline(text);
+                } else if (i == 2) {
+                    x = addEvent(text);
+                } else {
+                    throw new DuneException("Unrecognized event type");
                 }
-                try {
-                    x = new Deadline(parts[0].trim(), parts[1].trim());
-                } catch (DateTimeParseException d) {
-                    if (d.getMessage().equals(before)) {
-                        return before;
-                    } else {
-                        return "Enter date in the format yyyy-mm-ddTHH:MM";
-                    }
-                }
-            } catch (DuneException d) {
-                return d.toString();
+            } catch (DateTimeParseException dt) {
+                throw new DuneException("Enter date in the format yyyy-mm-ddTHH:MM");
             }
-
-        } else if (i == 2) {
-            String[] parts = text.split("/from");
-
-            try {
-                if (parts.length < 2) {
-                    throw new DuneException("Events need a /from and a /to in this order");
-                }
-                String[] dates = parts[1].split("/to");
-                if (parts.length > 2 || dates.length > 2) {
-                    throw new DuneException("There can only be 1 instance of /from and /to\n" +
-                            "String cannot be parsed...");
-                } else if (dates.length < 2) {
-                    throw new DuneException("Events need a /from and a /to in this order");
-                }
-                try {
-                    x = new Event(parts[0].trim(), dates[0].trim(), dates[1].trim());
-                    storage.saveTasks(this);
-                } catch (DateTimeParseException d) {
-                    if (d.getMessage().equals(before)) {
-                        return d.getMessage();
-                    } else {
-                        return "Enter date in the format yyyy-mm-ddTHH:MM";
-                    }
-                }
-            } catch (DuneException d) {
-                System.out.println(d);
-                return d.toString();
-            }
-
+        } catch (DuneException d) {
+            return d.toString();
         }
+
         this.tasks.add(x);
         storage.saveTasks(this);
         StringBuilder sb = new StringBuilder();
@@ -124,6 +89,49 @@ public class TaskList {
         sb.append(x + "\n");
         sb.append("Now you have " + this.tasks.size() + " tasks in your list.\n");
         return sb.toString();
+    }
+
+    /**
+     * Creates a new Deadline with the given String.
+     *
+     * @param text
+     * @return The new task created.
+     * @throws DuneException
+     * @throws DateTimeParseException
+     */
+    public Task addDeadline(String text) throws DuneException, DateTimeParseException {
+        String[] parts = text.split("/by");
+        if (parts.length < 2) {
+            throw new DuneException("Deadlines need a deadline /by ... ");
+        } else if (parts.length > 2) {
+            throw new DuneException("There can only be 1 instance of /by. String cannot be parsed...");
+        }
+        return new Deadline(parts[0].trim(), parts[1].trim());
+    }
+
+
+    /**
+     * Creates a new Event with the given String.
+     *
+     * @param text
+     * @return The new task created.
+     * @throws DuneException
+     * @throws DateTimeParseException
+     */
+    public Task addEvent(String text) throws DuneException, DateTimeParseException {
+        String[] parts = text.split("/from");
+
+        if (parts.length < 2) {
+            throw new DuneException("Events need a /from and a /to in this order");
+        }
+        String[] dates = parts[1].split("/to");
+        if (parts.length > 2 || dates.length > 2) {
+            throw new DuneException("There can only be 1 instance of /from and /to\n" +
+                    "String cannot be parsed...");
+        } else if (dates.length < 2) {
+            throw new DuneException("Events need a /from and a /to in this order");
+        }
+        return new Event(parts[0].trim(), dates[0].trim(), dates[1].trim());
     }
 
     /**

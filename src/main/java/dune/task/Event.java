@@ -1,6 +1,8 @@
 package dune.task;
 
 import dune.DateTimePrinter;
+import dune.Dune;
+import dune.DuneException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -30,12 +32,12 @@ public class Event extends Task {
      * @param start Starting time of event.
      * @param end Ending time of event.
      */
-    public Event(String description, String start, String end) {
+    public Event(String description, String start, String end) throws DuneException {
         super(description);
         this.start = LocalDateTime.parse(start);
         this.end = LocalDateTime.parse(end);
         if (!this.start.isBefore(this.end)) {
-            throw new DateTimeParseException(BEFORE, "", 0);
+            throw new DuneException(BEFORE);
         }
     }
 
@@ -48,12 +50,12 @@ public class Event extends Task {
      * @param end Ending time of event.
      * @param isDone
      */
-    public Event(String description, String start, String end, boolean isDone) {
+    public Event(String description, String start, String end, boolean isDone) throws DuneException {
         super(description, isDone);
         this.start = LocalDateTime.parse(start);
         this.end = LocalDateTime.parse(end);
         if (this.start.isAfter(this.end)) {
-            throw new DateTimeParseException(BEFORE, "", 0);
+            throw new DuneException(BEFORE);
         }
     }
 
