@@ -13,21 +13,21 @@ public class ToDo extends Task {
      * Creates a ToDo object.
      * Will call the super constructor with the task name variable.
      *
-     * @param c The name of the task.
+     * @param name The name of the task.
      */
-    public ToDo(String c) {
-        super(c);
+    public ToDo(String name) {
+        super(name);
     }
 
     /**
      * Creates a ToDo object with a mark indicator to mark if it's completed.
      * Will call the super constructor with the task name variable.
      *
-     * @param c The name of the task.
+     * @param name The name of the task.
      * @param mark To indicate if this is marked or not.
      */
-    public ToDo(String c, String mark) {
-        super(c);
+    public ToDo(String name, String mark) {
+        super(name);
         if (mark.equals("1")) {
             super.mark();
         }
@@ -52,8 +52,8 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
-        String s = "[T]" + super.toString();
-        return s;
+        String totalString = "[T]" + super.toString();
+        return totalString;
     }
 
     /**

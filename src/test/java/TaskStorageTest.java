@@ -10,7 +10,7 @@ import task.ToDo;
 public class TaskStorageTest {
 
     @Test
-    public void taskStorageTest() {
+    public void taskStorage_addThreeTask_success() {
         TaskStorage taskStorage = new TaskStorage();
         Task t1Task = new ToDo("Test");
         Task t2Task = new ToDo("Test 2");
@@ -22,7 +22,7 @@ public class TaskStorageTest {
     }
 
     @Test
-    public void taskStorageDeleteTest() {
+    public void taskStorage_addThreeTaskAndDeleteSecond_success() {
         TaskStorage taskStorage = new TaskStorage();
         Task t1Task = new ToDo("Test");
         Task t2Task = new ToDo("Test 2");
@@ -36,7 +36,7 @@ public class TaskStorageTest {
     }
 
     @Test
-    public void taskStorageMarkTest() {
+    public void taskStorage_addThreeTaskAndMarkThird_success() {
         TaskStorage taskStorage = new TaskStorage();
         Task t1Task = new ToDo("Test");
         Task t2Task = new ToDo("Test 2");
