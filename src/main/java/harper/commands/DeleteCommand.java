@@ -13,7 +13,7 @@ public class DeleteCommand extends Command {
 
     //CHECKSTYLE.OFF: MissingJavadocMethod
     public DeleteCommand(int taskIndex) {
-        super(false);
+        super();
         this.taskIndex = taskIndex;
     }
 

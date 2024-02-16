@@ -66,7 +66,7 @@ public class Ui {
      * Prints out message for successful add.
      *
      * @param taskList task.Task list that being added.
-     * @param task task.Task that being added.
+     * @param task     task.Task that being added.
      * @return Message of adding task.
      */
     public String printSuccessfulAdd(TaskList taskList, Task task) {
@@ -81,7 +81,7 @@ public class Ui {
      * Prints out message for successful delete.
      *
      * @param taskList task.Task list that being deleted.
-     * @param task task.Task that being deleted.
+     * @param task     task.Task that being deleted.
      * @return Message of deleting task.
      */
     public String printSuccessfulDelete(TaskList taskList, Task task) {
@@ -98,13 +98,14 @@ public class Ui {
      * @return Error message.
      */
     public String showError(HarperException exception) {
-        return exception.getMessage();
+        String errorMessage = exception.getMessage();
+        return errorMessage;
     }
 
     /**
      * Prints out message for successful mark.
      *
-     * @param task task.Task to be marked.
+     * @param task     task.Task to be marked.
      * @param isMarked Indicates whether to mark as done or not done.
      * @return Message of marking task.
      */
@@ -116,14 +117,5 @@ public class Ui {
             return "\nOK, I've marked this task as not done yet:\n"
                     + task.toString() + "\n";
         }
-    }
-
-    /**
-     * Reads user's input.
-     *
-     * @return commands.Command entered by user.
-     */
-    public String readCommand() {
-        return this.scanner.nextLine().trim();
     }
 }

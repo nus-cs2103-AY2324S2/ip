@@ -10,7 +10,7 @@ import harper.utils.Ui;
 public class ExitCommand extends Command {
 
     public ExitCommand() {
-        super(true);
+        super();
     }
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {

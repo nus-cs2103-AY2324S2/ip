@@ -10,7 +10,7 @@ import harper.utils.Ui;
 public class ListCommand extends Command {
 
     public ListCommand() {
-        super(false);
+        super();
     }
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
