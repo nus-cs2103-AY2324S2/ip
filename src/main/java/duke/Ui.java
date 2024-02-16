@@ -19,7 +19,10 @@ public class Ui {
         return inputs.nextLine();
     }
 
-
+    /**
+     * Shows the welcome message.
+     * @return The welcome message.
+     */
     public String welcomeMessage() {
         StringBuilder result = new StringBuilder();
         result.append("     Hello! I'm TALKTOMEORILLDIE\n");
@@ -37,6 +40,8 @@ public class Ui {
 
     /**
      * Shows the task marked as done message.
+     * @param task The task marked as done.
+     * @return The task marked as done message.
      */
     public String showMarkedAsDone(Task task) {
         StringBuilder result = new StringBuilder();
@@ -47,6 +52,8 @@ public class Ui {
 
     /**
      * Shows the task marked as not done message.
+     * @param task The task marked as not done.
+     * @return The task marked as not done message.
      */
     public String showMarkedAsNotDone(Task task) {
         StringBuilder result = new StringBuilder();
@@ -57,6 +64,9 @@ public class Ui {
 
     /**
      * Shows the added task message.
+     * @param task The added task.
+     * @param taskNum The number of tasks.
+     * @return The added task message.
      */
     public String showAddedTask(Task task, int taskNum) {
         StringBuilder result = new StringBuilder();
@@ -68,6 +78,9 @@ public class Ui {
 
     /**
      * Shows the deleted task message.
+     * @param task The deleted task.
+     * @param taskNum The number of tasks.
+     * @return The deleted task message.
      */
     public String showDeleteTask(Task task, int taskNum) {
         StringBuilder result = new StringBuilder();
@@ -78,7 +91,10 @@ public class Ui {
     }
 
     /**
-     * Shows the tasks on a specific date.
+     * Shows the tasks.
+     * @param tasks The tasks.
+     * @param taskNum The number of tasks.
+     * @return The tasks.
      */
     public String showDeadlinesEventsOnDate(Task[] tasks, int taskNum, LocalDate dateToCheck) {
         StringBuilder result = new StringBuilder();
@@ -98,6 +114,7 @@ public class Ui {
 
     /**
      * Shows the loading error message.
+     * @return The loading error message.
      */
     public static String showLoadingError() {
         return "     Error: Your file can't be loaded";
@@ -105,6 +122,9 @@ public class Ui {
 
     /**
      * Shows the tasks.
+     * @param tasks The tasks.
+     * @param taskNum The number of tasks.
+     * @return The tasks.
      */
     public String showTasks(Task[] tasks, int taskNum) {
         StringBuilder result = new StringBuilder();
@@ -120,19 +140,18 @@ public class Ui {
 
     /**
      * Shows the matching tasks.
+     * @param matchingTasks The matching tasks.
+     * @return The matching tasks.
      */
-    public String showMatchingTasks(String keyword) {
+    public String showMatchingTasks(String... matchingTasks) {
         StringBuilder result = new StringBuilder();
         result.append("     Here are the matching tasks in your list:\n");
-        int matchCount = 0;
-        for (Task task : TaskList.getTasks()) {
-            if (task != null && task.description.contains(keyword)) {
-                result.append("     ").append(matchCount + 1).append(".").append(task).append("\n");
-                matchCount++;
-            }
-        }
-        if (matchCount == 0) {
+        if (matchingTasks.length == 0) {
             result.append("     No matching tasks found.\n");
+        } else {
+            for (int i = 0; i < matchingTasks.length; i++) {
+                result.append("     ").append(i + 1).append(".").append(matchingTasks[i]).append("\n");
+            }
         }
         return result.toString();
     }

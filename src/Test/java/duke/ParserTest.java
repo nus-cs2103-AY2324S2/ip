@@ -13,13 +13,14 @@ public class ParserTest {
      * Tests the parse method of Parser.
      */
     @Test
-    public void testParseTodoCommand() throws DukeException {
+    public void testParseByeCommand() throws DukeException {
+        String userInput = "bye";
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
-        Storage storage = new Storage("test.txt");
 
-        String result = Parser.parse("todo Test Todo", tasks, ui);
+        String expected = "     Bye. Hope to see you again soon!";
+        String actual = Parser.parse(userInput, tasks, ui);
 
-        assertEquals("I'm sorry, but I don't understand that command.", result);
+        assertEquals(expected, actual);
     }
 }

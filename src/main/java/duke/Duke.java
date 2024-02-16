@@ -1,5 +1,8 @@
 package duke;
 
+import java.io.IOException;
+import java.util.Objects;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -13,9 +16,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.util.Objects;
-
 /**
  * Represents the main class of the Duke program.
  */
@@ -24,14 +24,16 @@ public class Duke extends Application {
     private TaskList tasks;
     private final Ui ui;
 
-    private final Image user = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png")));
-    private final Image duke = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaDuke.png")));
+    private final Image user =
+            new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png")));
+    private final Image duke =
+            new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaDuke.png")));
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
 
     /**
-     * Empty constructor for Duke for Launcher to run.
+     * Constructor for Duke.
      */
     public Duke() {
         ui = new Ui();
@@ -173,8 +175,9 @@ public class Duke extends Application {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Gets the response from Duke based on the user input.
+     * @param input User input.
+     * @return Duke's response based on the user input.
      */
     String getResponse(String input) {
         try {

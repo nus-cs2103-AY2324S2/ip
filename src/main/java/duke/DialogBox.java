@@ -16,9 +16,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 
 /**
- * An example of a custom control using FXML.
- * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
- * containing text from the speaker.
+ * Represents a dialog box consisting of an ImageView to represent the speaker's face and a label containing text from
+ * the speaker.
  */
 public class DialogBox extends HBox {
     @FXML
@@ -28,6 +27,11 @@ public class DialogBox extends HBox {
 
     private String backgroundColor;
 
+    /**
+     * Constructor for DialogBox.
+     * @param text The text to display in the dialog box.
+     * @param img The image to display in the dialog box.
+     */
     private DialogBox(String text, Image img) {
         assert text != null : "Text cannot be null";
         assert img != null : "Image cannot be null";
@@ -59,6 +63,12 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Gets a dialog box for the user.
+     * @param text The text to display in the dialog box.
+     * @param img The image to display in the dialog box.
+     * @return The dialog box for the user.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         text += "    ";
         DialogBox dialogbox = new DialogBox(text, img);
@@ -66,6 +76,10 @@ public class DialogBox extends HBox {
         return dialogbox;
     }
 
+    /**
+     * Sets the background color of the dialog box.
+     * @param color The color to set the background to.
+     */
     public void setBackgroundColor(String color) {
         backgroundColor = color;
         if (backgroundColor != null) {
@@ -74,6 +88,12 @@ public class DialogBox extends HBox {
         }
     }
 
+    /**
+     * Gets a dialog box for Duke.
+     * @param text The text to display in the dialog box.
+     * @param img The image to display in the dialog box.
+     * @return The dialog box for Duke.
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

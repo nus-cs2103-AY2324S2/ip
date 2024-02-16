@@ -39,6 +39,7 @@ public class Parser {
                     throw new DukeException("     Invalid task number >:((");
                 }
             }
+            break;
         case "unmark":
             position = userInput.indexOf(" ");
             if (position != -1 && position + 1 < userInput.length()) {
