@@ -13,44 +13,33 @@ public class Alastor {
 
     /**
      * Constructs an Alastor object.
-     *
-     * @param filePath The file path to save and load tasks from.
      */
-    public Alastor(String filePath) {
+    public Alastor() {
+        String filePath = "./data/tasks.txt";
         ui = new Ui();
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
         } catch (AlastorException e) {
-            ui.showError(e.getMessage());
+            //ui.showError(e.getMessage());
             tasks = new TaskList();
         }
     }
 
     /**
-     * Runs the Alastor program.
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
      */
-    public void run() {
-        ui.showLine();
-        ui.showGreet();
-        ui.showLine();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command c = Parser.parseCommand(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (AlastorException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
-            }
+    protected String getResponse(String input) {
+        try {
+            Command c = Parser.parseCommand(input);
+            return c.execute(tasks, ui, storage);
+        } catch (AlastorException e) {
+            return e.getMessage();
         }
     }
 
-    public static void main(String[] args) {
-        new Alastor("./data/tasks.txt").run();
+    protected String greetings() {
+        return ui.showGreet();
     }
 }
