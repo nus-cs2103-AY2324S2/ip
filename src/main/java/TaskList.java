@@ -7,37 +7,8 @@ public class TaskList {
         this.listOfTasks = new ArrayList<>();
     }
 
-    TaskList(ArrayList<String> tasks) {
-        this.listOfTasks = new ArrayList<>();
-        for (String task : tasks) {
-            char taskType = task.charAt(1);
-            char taskStatus = task.charAt(4);
-            boolean isDone;
-            if (taskStatus == 'X') {
-                isDone = true;
-            } else {
-                isDone = false;
-            }
-            String taskDetails = task.substring(7);
-            Task addTask;
-            switch (taskType) {
-                case 'T':
-                    addTask = new Todo(taskDetails, isDone);
-                    listOfTasks.add(addTask);
-                    break;
-                case 'D':
-                    addTask = new Deadline(taskDetails, isDone);
-                    listOfTasks.add(addTask);
-                    break;
-                case 'E':
-                    addTask = new Event(taskDetails, isDone);
-                    listOfTasks.add(addTask);
-                    break;
-                // Add more cases for other subclasses if needed
-                default:
-                    System.out.println("Unknown task type: " + taskType);
-            }
-        }
+    TaskList(ArrayList<Task> taskList) {
+        this.listOfTasks = taskList;
     }
 
     public void addTask(Task newTask) {

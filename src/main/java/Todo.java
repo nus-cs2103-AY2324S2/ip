@@ -11,8 +11,11 @@ class Todo extends Task {
         }
     }
 
-    Todo(String name, boolean doneStatus) {
+    Todo(String name, boolean doneStatus) throws DukeException {
         super(name, doneStatus);
+        if (name == null || name.isEmpty()) {
+            throw new DukeException("Task name cannot be empty");
+        }
     }
 
     @Override

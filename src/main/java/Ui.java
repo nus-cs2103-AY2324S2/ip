@@ -1,6 +1,12 @@
 import java.util.Scanner;
 
 class Ui {
+    Scanner reader;
+
+    Ui() {
+        this.reader = new Scanner(System.in);
+    }
+
     private static final String LINE = "    ___________________________________________________________\n";
 
     public void showLine() {
@@ -102,5 +108,15 @@ class Ui {
         }
         System.out.println(finalString.toString());
         showLine();
+    }
+
+    public void showLoadingError(DukeException e) {
+        showLine();
+        System.out.println(e.toString() + "\n");
+        showLine();
+    }
+
+    public String readLine() throws DukeException {
+        return reader.nextLine();
     }
 }

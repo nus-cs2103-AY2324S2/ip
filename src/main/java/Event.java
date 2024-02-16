@@ -22,17 +22,21 @@ class Event extends Task {
         }
     }
 
-    Event(String name, boolean doneStatus) {
+    Event(String name, String fromText, String toText, boolean doneStatus) throws DukeException {
         super(name, doneStatus);
-        this.to = null;
-        this.from = null;
+        this.to = super.convertDateTime(toText);
+        this.from = super.convertDateTime(fromText);
+        if (name == null || name.isEmpty()) {
+            throw new DukeException("Task name cannot be empty");
+        } else if (from == null) {
+            throw new DukeException("Invalid from date format: Event dates should be in dd/mm/yyyy HHmm");
+        } else if (to == null) {
+            throw new DukeException("Invalid to date format: Event dates should be in dd/mm/yyyy HHmm");
+        }
     }
 
     @Override
     public String toString() {
-        if (to == null) {
-            return String.format("[E]%s", super.toString());
-        }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
         return String.format("[E]%s (from: %s to: %s)", super.toString(), from.format(formatter), to.format(formatter));
     }

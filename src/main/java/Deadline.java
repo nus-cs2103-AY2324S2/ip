@@ -8,11 +8,6 @@ import java.time.format.DateTimeFormatter;
  */
 class Deadline extends Task {
     private LocalDateTime by;
-    public String[] dateFormats = { "yyyy-MM-dd", "dd-MM-yyyy", "MM-dd-yyyy", "dd/MM/yyyy", "MM/dd/yyyy",
-            "yyyy/MM/dd", "dd MMM yyyy", "MMM dd yyyy", "yyyy MMM dd", "dd MMM yyyy", "yyyy-MM-d", "d-MM-yyyy",
-            "MM-d-yyyy", "d/MM/yyyy", "MM/d/yyyy", "yyyy/MM/d", "d MMM yyyy", "MMM d yyyy", "yyyy MMM d",
-            "d MMM yyyy" };
-    public String[] timeFormats = { "HH:mm:ss", "HH:mm", "h:mm a", "HHmm", "hh:mm:ss a" };
 
     Deadline(String name, String byText) throws DukeException {
         super(name);
@@ -24,16 +19,18 @@ class Deadline extends Task {
         }
     }
 
-    Deadline(String name, boolean doneStatus) {
+    Deadline(String name, String byText, boolean doneStatus) throws DukeException {
         super(name, doneStatus);
-        this.by = null;
+        this.by = super.convertDateTime(byText);
+        if (name == null || name.isEmpty()) {
+            throw new DukeException("Task name cannot be empty");
+        } else if (by == null) {
+            throw new DukeException("Invalid date format: Deadline dates should be in dd/mm/yyyy HHmm");
+        }
     }
 
     @Override
     public String toString() {
-        if (by == null) {
-            return String.format("[D]%s", super.toString());
-        }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
         return String.format("[D]%s (by: %s)", super.toString(), by.format(formatter));
     }

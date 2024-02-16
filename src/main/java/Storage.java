@@ -28,16 +28,46 @@ public class Storage {
         }
     }
 
-    public ArrayList<String> loadTasks() {
-        ArrayList<String> tasks = new ArrayList<>();
+    public ArrayList<Task> load() throws DukeException {
+        ArrayList<Task> taskList = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                tasks.add(line);
+            while (reader.ready()) {
+                String task = reader.readLine();
+                char taskType = task.charAt(1);
+                char taskStatus = task.charAt(4);
+                boolean isDone;
+                if (taskStatus == 'X') {
+                    isDone = true;
+                } else {
+                    isDone = false;
+                }
+                String entireTask = task.substring(7);
+                String taskDetail;
+                switch (taskType) {
+                    case 'T':
+                        taskList.add(new Todo(entireTask, isDone));
+                        break;
+                    case 'D':
+                        int startIndex = entireTask.indexOf("(by:");
+                        int endIndex = entireTask.length() - 1;
+                        String byDetails = entireTask.substring(startIndex + 5, endIndex);
+                        taskDetail = entireTask.substring(0, startIndex - 1);
+                        taskList.add(new Deadline(taskDetail, byDetails, isDone));
+                        break;
+                    case 'E':
+                        int toIndex = entireTask.indexOf("to:");
+                        int fromIndex = entireTask.indexOf("(from:");
+                        int toLastIndex = entireTask.length() - 1;
+                        taskDetail = entireTask.substring(0, fromIndex - 1);
+                        String toText = entireTask.substring(toIndex + 4, toLastIndex);
+                        String fromText = entireTask.substring(fromIndex + 7, toIndex - 1);
+                        taskList.add(new Event(taskDetail, fromText, toText, isDone));
+                        break;
+                }
             }
         } catch (IOException e) {
-            System.out.println("Unable to load tasks from file: " + e.getMessage());
+            throw new DukeException();
         }
-        return tasks;
+        return taskList;
     }
 }
