@@ -28,7 +28,7 @@ public class MainWindow {
     private Nicky nicky;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image nickyImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image nickyImage = new Image(this.getClass().getResourceAsStream("/images/DaNicky.png"));
 
     /**
      * Initializes the main window components and binds properties for dynamic layout changes.
