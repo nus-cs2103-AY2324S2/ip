@@ -8,6 +8,8 @@ import tasks.TaskList;
 import ui.Ui;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.stream.Stream;
 
 import static logic.Extractor.*;
 import static logic.Validator.*;
@@ -212,16 +214,11 @@ public class Parser {
         String response = "default response";
         try {
             validateHelpCommand(input);
-            response = "LIST OF COMMANDS\n" // USE STREAM TO PRINT COMMAND HELP MESSAGES
-                    + Commands.TODO.getHelpMessage() + "\n"
-                    + Commands.DEADLINE.getHelpMessage() + "\n"
-                    + Commands.EVENT.getHelpMessage() + "\n"
-                    + Commands.LIST.getHelpMessage() + "\n"
-                    + Commands.MARK.getHelpMessage() + "\n"
-                    + Commands.UNMARK.getHelpMessage() + "\n"
-                    + Commands.DELETE.getHelpMessage() + "\n"
-                    + Commands.FIND.getHelpMessage() + "\n"
-                    + Commands.BYE.getHelpMessage();
+            StringBuilder responseBuilder = new StringBuilder();
+            responseBuilder.append("LIST OF COMMANDS\n");
+            Stream<String> responseStream = Stream.of(Commands.values()).map(Commands::getHelpMessage);
+            responseStream.forEach(str -> responseBuilder.append(str).append("\n"));
+            response = responseBuilder.toString();
         } catch (Exception e) {
             response = e.getMessage();
         }
