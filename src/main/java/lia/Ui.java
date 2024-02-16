@@ -89,12 +89,4 @@ public class Ui {
     public String showInvalidCommand() {
         return "Invalid command.\nType help for a list of valid commands and their usages.";
     }
-
-    /**
-     * Displays a goodbye message.
-     */
-    public String showGoodbye() {
-        System.exit(0);
-        return "Goodbye!";
-    }
 }
