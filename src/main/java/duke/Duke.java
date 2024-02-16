@@ -101,10 +101,21 @@ public class Duke extends Application {
         AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
+<<<<<<< HEAD
 
         //Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
         displayWelcomeMessage();
+=======
+        //Step 3. Add functionality to handle user input.
+        sendButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
+
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+        });
+>>>>>>> branch-Level-10
     }
 
     /**
@@ -125,11 +136,26 @@ public class Duke extends Application {
     /**
      * Displays the welcome message when Duke starts.
      */
-    public void displayWelcomeMessage() {
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(ui.message(), dukeImage));
+    public String displayWelcomeMessage() {
+        return ui.message();
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Handles user input and displays responses accordingly.
+     */
+    private void handleUserInput() {
+        String input = userInput.getText();
+        boolean isContinuing = true;
+        while (isContinuing) {
+            getResponse(input);
+        }
+        userInput.clear();
+    }
+
+    /**
+>>>>>>> branch-Level-10
      * Processes user input and returns a boolean indicating whether to continue accepting input.
      *
      *
