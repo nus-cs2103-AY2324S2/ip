@@ -1,15 +1,6 @@
 package duke;
 
-import duke.command.Command;
-import duke.command.DeadlineCommand;
-import duke.command.DeleteCommand;
-import duke.command.EventCommand;
-import duke.command.ExitCommand;
-import duke.command.ListCommand;
-import duke.command.MarkCommand;
-import duke.command.ToDoCommand;
-import duke.command.UnmarkCommand;
-import duke.command.WrongCommand;
+import duke.command.*;
 
 /**
  * A class that resolves the meaning of a command line.
@@ -26,6 +17,8 @@ public class Parser {
         switch (firstWord) {
             case "list":
                 return new ListCommand();
+            case "find":
+                return new FindCommand(message);
             case "mark":
                 return new MarkCommand(message);
             case "unmark":

@@ -98,8 +98,18 @@ public class Ui {
     }
 
     /**
+<<<<<<< HEAD
      * Prints the correct format for creating an Event task.
      */
+=======
+     * Prints the correct format of find command.
+     */
+    public void showFindFormat() {
+        System.out.println("The correct format is:");
+        System.out.println("find <keyWord>\n");
+    }
+
+>>>>>>> branch-Level-9
     public void showEventFormat() {
         System.out.println("The correct format is:");
         System.out.println("event <description> /from <start time> /to <end time>\n");
@@ -114,12 +124,20 @@ public class Ui {
         System.out.println("Use 'mark' or 'unmark' for any of your tasks.\n");
     }
 
+<<<<<<< HEAD
     /**
      * Tells the user that a task has been successfully added.
      *
      * @param task The task that has been added to the list.
      * @param taskListSize The size of the list after the task has been added.
      */
+=======
+    public void showMatchingTasks(String matchingTasks) {
+        System.out.println("Here are the matching tasks in your list:");
+        System.out.println(matchingTasks);
+    }
+
+>>>>>>> branch-Level-9
     public void showCreateTask(Task task, int taskListSize) {
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
