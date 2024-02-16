@@ -23,6 +23,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setMissMinutes(mm);
+            stage.setTitle("Miss Minutes Task Manager");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
