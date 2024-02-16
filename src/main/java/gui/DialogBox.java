@@ -49,10 +49,10 @@ public class DialogBox extends HBox {
         dialog.setWrapText(true);
         DialogBox.setHgrow(dialog, Priority.ALWAYS);
         dialog.setMaxWidth(Double.MAX_VALUE);
+        dialog.setMaxHeight(Double.MAX_VALUE);
 
         // configuring image
         displayPicture.setImage(img);
-        DialogBox.setHgrow(displayPicture, Priority.NEVER);
         displayPicture.setPreserveRatio(false); // prevents cropping
         Circle circleView = new Circle(50, 50, 50);
         displayPicture.setClip(circleView); // puts image in circle

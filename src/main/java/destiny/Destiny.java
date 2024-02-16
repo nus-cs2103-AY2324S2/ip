@@ -41,7 +41,7 @@ public class Destiny {
      * @return Appropriate string response from Destiny.
      */
     public String getResponse(String input) {
-        if (input.equalsIgnoreCase("bye")) {
+        if (input.trim().equalsIgnoreCase("bye")) {
             return GOODBYE_MSG;
         }
 
@@ -49,6 +49,8 @@ public class Destiny {
         String userCmd = userMessageArr[0];
         String cmdDetails = userMessageArr[1];
         String result = "";
+
+        System.out.println(userCmd + " " + cmdDetails);
 
         // checks if command is valid
         try {
@@ -78,7 +80,7 @@ public class Destiny {
                 || userCmd.equalsIgnoreCase("unmark")) {
             try {
                 String possInteger = parser.getCmdDetails(userCmd, cmdDetails);
-                int taskIndex = Integer.valueOf(possInteger);
+                int taskIndex = Integer.parseInt(possInteger);
 
                 if (userCmd.equalsIgnoreCase("unmark")) {
                     result = markNotDone(taskIndex);
@@ -95,7 +97,7 @@ public class Destiny {
         } else if (userCmd.equalsIgnoreCase("delete")) {
             try {
                 String possInteger = parser.getCmdDetails(userCmd, cmdDetails);
-                int taskIndex = Integer.valueOf(possInteger);
+                int taskIndex = Integer.parseInt(possInteger);
                 result = tasks.delete(taskIndex);
             } catch (DukeException e) {
                 result = e.getMessage();

@@ -1,15 +1,13 @@
 package gui;
 
 import destiny.Destiny;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
@@ -44,12 +42,14 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.setSpacing(10.0);
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
         dialogContainer.setBackground(DIALOGUE_BG);
 
-        //Scroll down to the end every time dialogContainer's height changes.
-        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+        // scroll down to the end every time dialogContainer's height changes.
+        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
+        // welcome message
         dialogContainer.getChildren().addAll(
                 DialogBox.getDestinyDialog(Destiny.GREETING_MSG, destinyImage)
         );

@@ -28,7 +28,7 @@ public class Event extends Task {
         if (description.trim().length() == 0 || fromTime.length() == 0 || toTime.length() == 0) {
             String errorMessage = "Please enter the following:";
             if (description.trim().length() == 0) {
-                errorMessage += "\na description for this destiny.Deadline task";
+                errorMessage += "\na description for this Event task";
             }
             if (fromTime.length() == 0) {
                 errorMessage += "\na deadline after the '/from' command";
@@ -70,7 +70,7 @@ public class Event extends Task {
         if (description.trim().length() == 0 || fromTime.length() == 0 || toTime.length() == 0) {
             String errorMessage = "Please enter the following:";
             if (description.trim().length() == 0) {
-                errorMessage += "\na description for this destiny.Deadline task";
+                errorMessage += "\na description for this Event task";
             }
             if (fromTime.length() == 0) {
                 errorMessage += "\na deadline after the '/from' command";

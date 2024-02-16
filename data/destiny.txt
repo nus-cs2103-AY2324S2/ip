@@ -1,4 +1,5 @@
-T | 0 | abc
+T | 1 | abc
 D | 1 | efg | 01/02/2025 1234
 E | 0 | magic | 01/02/2025 1234 | 03/02/2025 1234
-T | 0 | commit the next changes
+T | 1 | commit the next changes
+E | 0 | bugfix | 16/02/2024 1855 | 17/03/2024 2359
