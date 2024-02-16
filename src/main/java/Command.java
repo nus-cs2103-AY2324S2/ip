@@ -1,10 +1,5 @@
 public enum Command {
     HELLO("hello") {
-        @Override
-        public void execute() {
-            System.out.println("Hello!");
-            System.out.println("What can I do for you?");
-        }
 
         @Override
         public void execute(TaskList tasks, String description) throws DukeException {
@@ -13,11 +8,6 @@ public enum Command {
         }
     },
     BYE("bye") {
-        @Override
-        public void execute() {
-
-            System.out.println("See you soon!");
-        }
 
         @Override
         public void execute(TaskList tasks, String description) throws DukeException {
@@ -25,10 +15,6 @@ public enum Command {
         }
     },
     MARK("mark") {
-        @Override
-        public void execute() {
-            return;
-        }
         @Override
         public void execute(TaskList tasks, String description) throws DukeException {
             String[] arr = description.split(" ", 2);
@@ -50,10 +36,6 @@ public enum Command {
     },
     UNMARK("unmark") {
         @Override
-        public void execute() {
-            return;
-        }
-        @Override
         public void execute(TaskList tasks, String description) throws DukeException {
             String[] arr = description.split(" ", 2);
             if (arr.length <= 1) {
@@ -73,10 +55,6 @@ public enum Command {
     },
     LIST("list") {
         @Override
-        public void execute() {
-            return;
-        }
-        @Override
         public void execute(TaskList tasks, String description) {
 
             System.out.println(tasks.toString());
@@ -85,10 +63,6 @@ public enum Command {
 
     },
     DELETE("delete") {
-        @Override
-        public void execute() {
-            return;
-        }
         @Override
         public void execute(TaskList tasks, String description) throws DukeException {
             String[] arr = description.split(" ", 2);
@@ -111,10 +85,6 @@ public enum Command {
     },
     EVENT("event") {
         @Override
-        public void execute() {
-            return;
-        }
-        @Override
         public void execute(TaskList tasks, String description) throws DukeException {
 
             Task task = Parser.parseFromInput(description);
@@ -127,10 +97,6 @@ public enum Command {
     },
     DEADLINE("deadline") {
         @Override
-        public void execute() {
-            return;
-        }
-        @Override
         public void execute(TaskList tasks, String description) throws DukeException {
 
             Task task = Parser.parseFromInput(description);
@@ -142,10 +108,6 @@ public enum Command {
 
     },
     TODO("todo") {
-        @Override
-        public void execute() {
-            return;
-        }
 
         @Override
         public void execute(TaskList tasks, String description) throws DukeException {
@@ -161,20 +123,12 @@ public enum Command {
     UNKNOWN("unknown") {
 
         @Override
-        public void execute() throws DukeException {
-            throw new DukeException("I don't know what that means");
-        }
-        @Override
         public void execute(TaskList tasks, String description) throws DukeException {
             throw new DukeException("I don't know what that means");
         }
 
     },
     CLEAR("clear") {
-        @Override
-        public void execute() throws DukeException {
-            return;
-        }
         @Override
         public void execute(TaskList tasks, String description) throws DukeException {
             tasks.clear();
@@ -190,7 +144,6 @@ public enum Command {
     public String getCommand() {
         return this.command;
     }
-    public abstract void execute() throws DukeException;
     public abstract void execute(TaskList tasks, String description) throws DukeException;
 
 

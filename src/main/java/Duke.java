@@ -19,8 +19,7 @@ public class Duke {
         this.storage.createFile();
         this.storage.load(tasks);
 
-        Command currentCommand = Command.HELLO;
-        currentCommand.execute();
+        ui.hello();
         
 
         boolean exit = false;

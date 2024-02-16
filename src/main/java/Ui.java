@@ -8,6 +8,11 @@ public class Ui {
         this.sc = new Scanner(System.in);
     }
 
+    public void hello() {
+        System.out.println("Hello!");
+        System.out.println("What can I do for you?");
+    }
+
     public Command getCommand(String str) {
         String cmdStr = getCommandString(str);
 
