@@ -22,6 +22,12 @@ public class Deadline extends Task {
         this.by = LocalDate.parse(by);
     }
 
+    /**
+     * Returns the deadline task as a string containing its task type, completion status,
+     * description and complete by date.
+     *
+     * @return Deadline task as a string.
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.generateByDateString() + ")";
