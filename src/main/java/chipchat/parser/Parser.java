@@ -62,6 +62,8 @@ public class Parser {
     }
 
     private static CommandType parseCommand(String command) throws InvalidArgumentException {
+        assert(!command.isEmpty());
+
         try {
             return CommandType.valueOf(command.toUpperCase());
         } catch (IllegalArgumentException exc) {
@@ -70,6 +72,8 @@ public class Parser {
     }
 
     private static int parseIndex(String index) throws InvalidArgumentException {
+        assert(!index.isEmpty());
+
         try {
             return Integer.parseInt(index);
         } catch (NumberFormatException exc) {
