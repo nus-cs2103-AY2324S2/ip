@@ -10,6 +10,7 @@ public class Deadline extends Task {
     Deadline(String name, String time) {
         super(name);
         this.time = LocalDate.parse(time);
+        assert this.time != null : "Time should not be null";
     }
 
     /**

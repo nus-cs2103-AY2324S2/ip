@@ -33,7 +33,7 @@ public class CommandParser {
         } else if (s.matches("find \\S.*")) {
             return Command.FIND;
         }
-
+        assert !s.equals("bye") : "The command should have been recognised.";
         if (s.startsWith("bye")) { // nonstandard command
             throw new NonstandardCommandException("Thou canst bid me farewell simply with:\nbye");
         } else if (s.startsWith("list")) {

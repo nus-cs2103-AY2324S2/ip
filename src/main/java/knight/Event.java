@@ -12,6 +12,8 @@ public class Event extends Task {
         super(name);
         this.startTime = LocalDate.parse(startTime);
         this.endTime = LocalDate.parse(endTime);
+        assert this.startTime != null : "Time should not be null";
+        assert this.endTime != null : "Time should not be null";
     }
 
     /**
