@@ -33,6 +33,7 @@ public class Storage {
      * @param filePath The file path for storing tasks.
      */
     public Storage(String filePath) {
+        assert filePath != null : "File path must not be null";
         this.filePath = Paths.get(filePath);
     }
     /**

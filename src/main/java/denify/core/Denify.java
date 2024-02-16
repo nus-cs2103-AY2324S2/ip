@@ -3,7 +3,6 @@ package denify.core;
 import denify.exception.DenifyException;
 import denify.parser.Parser;
 import denify.storage.Storage;
-import denify.task.Task;
 import denify.task.TaskList;
 import denify.ui.Ui;
 
@@ -17,84 +16,40 @@ public class Denify {
      */
     private static final String FILEPATH = "./data/denify.txt";
     /**
-     * Represents the storage component responsible for loading and saving tasks.
-     */
-    private final Storage storage;
-    /**
-     * Represents the list of tasks managed by Denify.
-     */
-    private TaskList tasks;
-    /**
      * Represents the user interface component for interacting with the user.
      */
     private final Ui ui;
+    private final CommandHandler commandHandler;
     /**
      * Constructs a `Denify` instance with the specified file path for storage.
      */
     public Denify() {
         this.ui = new Ui();
-        this.storage = new Storage(FILEPATH);
+        Storage storage = new Storage(FILEPATH);
+        TaskList tasks;
         try {
-            this.tasks = new TaskList(storage.loadTasks());
+            tasks = new TaskList(storage.loadTasks());
         } catch (DenifyException e) {
             ui.displayError(e.getMessage());
-            this.tasks = new TaskList();
+            tasks = new TaskList();
         }
+        this.commandHandler = new CommandHandler(tasks, ui, storage);
     }
     /**
-     * Enumeration representing valid commands for the Denify application.
-     */
-    public enum Command {
-        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, FIND
-    }
-    /**
-     * Main loop for processing user commands and executing corresponding actions.
+     * Processes the user input and returns the response.
+     *
+     * @param msg The user input message.
+     * @return The response to the user input.
      */
     public String getResponse(String msg) {
         StringBuilder response = new StringBuilder();
 
         Parser parser = new Parser(msg);
         try {
-            if (msg.toUpperCase().startsWith(Command.BYE.name()) && parser.parseBye()) {
-                response.append(ui.exit());
-            } else if (msg.toUpperCase().startsWith(Command.LIST.name()) && parser.parseList()) {
-                response.append(ui.showAllTasks(tasks.getTasks()));
-            } else if (msg.toUpperCase().startsWith(Command.FIND.name())) {
-                String description = parser.parseFind();
-                response.append(ui.showFoundTasks(tasks.findTasks(description)));
-            } else if (msg.toUpperCase().startsWith(Command.MARK.name())) {
-                int taskIndex = parser.parseMark();
-                Task t = tasks.markTask(taskIndex);
-                response.append(ui.showMarkTaskMessage(t));
-                tasks.saveToStorage(storage);
-            } else if (msg.toUpperCase().startsWith(Command.UNMARK.name())) {
-                int taskIndex = parser.parseUnmark();
-                Task t = tasks.unmarkTask(taskIndex);
-                response.append(ui.showUnmarkTaskMessage(t));
-                tasks.saveToStorage(storage);
-            } else if (msg.toUpperCase().startsWith(Command.DELETE.name())) {
-                int taskIndex = parser.parseDelete();
-                Task t = tasks.deleteTask(taskIndex);
-                response.append(ui.showDeleteTaskMessage(t, tasks.getTasks().size()));
-                tasks.saveToStorage(storage);
-            } else if (msg.toUpperCase().startsWith(Denify.Command.TODO.name())) {
-                Task t = parser.parseTodo();
-                tasks.addTask(t);
-                response.append(ui.showAddTaskMessage(t, tasks.getTasks().size()));
-                tasks.saveToStorage(storage);
-            } else if (msg.toUpperCase().startsWith(Command.DEADLINE.name())) {
-                Task t = parser.parseDeadline();
-                tasks.addTask(t);
-                response.append(ui.showAddTaskMessage(t, tasks.getTasks().size()));
-                tasks.saveToStorage(storage);
-            } else if (msg.toUpperCase().startsWith(Command.EVENT.name())) {
-                Task t = parser.parseEvent();
-                tasks.addTask(t);
-                response.append(ui.showAddTaskMessage(t, tasks.getTasks().size()));
-                tasks.saveToStorage(storage);
-            } else {
-                response.append("Unable to understand the command. Please enter a valid command.");
-            }
+            Command command = parser.parseCommand();
+            assert command != null : "Command must not be null";
+            response.append(commandHandler.execute(command, parser));
+
         } catch (DenifyException e) {
             response.append(e.getMessage());
         }
