@@ -14,13 +14,28 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Manages the loading and saving of tasks to a file.
+ * This class provides functionality to load tasks from a specified file upon startup and save tasks into the same file.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a new Storage object to handle data persistence.
+     * The file path for loading and saving tasks is set upon construction.
+     */
     public Storage() {
         this.filePath = "./data/tasks.txt";
     }
 
+    /**
+     * Loads tasks from the file specified by the filePath.
+     * Parses the task data from the file and creates a corresponding list of Task objects.
+     *
+     * @return An ArrayList of Task objects loaded from the file.
+     * @throws DukeException if the file cannot be found or the data format is incorrect.
+     */
     public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> listOfTasks = new ArrayList<>();
         try {
@@ -72,7 +87,13 @@ public class Storage {
     }
 
 
-
+    /**
+     * Saves the current list of tasks to the file specified by the filePath.
+     * Converts the list of Task objects into a string representation that can be saved to a file.
+     *
+     * @param listOfTasks The list of Task objects to be saved.
+     * @throws DukeException if there is an error saving the data to the file.
+     */
     public void saveToFile(ArrayList<Task> listOfTasks) throws DukeException {
         String toSave = "";
 

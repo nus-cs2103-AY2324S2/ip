@@ -10,11 +10,20 @@ import duke.tasklist.TaskList;
 import duke.exception.DukeException;
 import duke.parser.Parser;
 
+/**
+ * Represents the main class for the Duke application.
+ * This class initializes the application, loads existing tasks from storage, and processes user commands.
+ */
+
 public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a new Duke application instance. Initializes the UI, storage, and task list components.
+     * Tries to load any existing tasks from storage; if unsuccessful, starts with an empty task list.
+     */
     public Duke() {
         ui = new Ui();
         storage = new Storage();
@@ -26,6 +35,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Starts the Duke application. Enters a loop to read and execute commands until the user issues the 'bye' command.
+     */
     public void run() {
         ui.showHello();
         boolean isExit = false;
@@ -93,6 +105,10 @@ public class Duke {
         }
     }
 
+    /**
+     * The entry point of the application.
+     * @param args Command line arguments (unused).
+     */
     public static void main(String[] args) {
         new Duke().run();
     }
