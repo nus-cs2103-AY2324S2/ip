@@ -131,14 +131,14 @@ public class Parser {
      * Handles the "find" command by searching for tasks that contain a specified
      * keyword
      *
-     * @param userInputArr the array of user input tokens
+     * @param userInputArray the array of user input tokens
      * @throws BotException if the keyword is not provided
      */
-    private void handleFindCommand(String[] userInputArr) throws BotException {
-        if (userInputArr.length < 2) {
+    private void handleFindCommand(String[] userInputArray) throws BotException {
+        if (userInputArray.length < 2) {
             throw new BotException("Please enter a keyword to search for.");
         }
-        String keyword = userInputArr[1];
+        String keyword = userInputArray[1];
         List<Task> matchingTasks = taskList.findTasksByKeyword(keyword);
         Bot.printFindTaskMsg();
         for (int i = 0; i < matchingTasks.size(); i++) {
