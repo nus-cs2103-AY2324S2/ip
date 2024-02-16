@@ -26,7 +26,7 @@ public class ToDoTest {
     @Test
     public void getSaveString_isNotDone_success() {
         Task todo = new ToDo("read book");
-        String expected = "T | 0 | read book";
+        String expected = "T | 0 | read book |  ";
         assertEquals(expected, todo.getSaveString());
     }
 
@@ -34,7 +34,7 @@ public class ToDoTest {
     public void getSaveString_isDone_success() {
         Task todo = new ToDo("read book");
         todo.markAsDone();
-        String expected = "T | 1 | read book";
+        String expected = "T | 1 | read book |  ";
         assertEquals(expected, todo.getSaveString());
     }
 }

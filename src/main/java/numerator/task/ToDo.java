@@ -58,7 +58,7 @@ public class ToDo extends Task {
                 this.getStatusIcon(),
                 this.description,
                 super.getTagsString()
-        );
+        ).strip();
     }
 
 

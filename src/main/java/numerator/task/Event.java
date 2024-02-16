@@ -54,7 +54,7 @@ public class Event extends numerator.task.Task {
                 Task.parseLocalDateTimeToString(this.from),
                 Task.parseLocalDateTimeToString(this.to),
                 super.getTagsString()
-        );
+        ).strip();
     }
 
     /**

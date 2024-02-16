@@ -50,9 +50,7 @@ public class Deadline extends numerator.task.Task {
                 this.description,
                 Task.parseLocalDateTimeToString(this.by),
                 super.getTagsString()
-
-
-        );
+        ).strip();
     }
 
     /**

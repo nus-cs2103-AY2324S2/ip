@@ -65,11 +65,15 @@ public abstract class Task {
      * @return a string in the format of "yyyy/MM/dd HH:mm"
      * @throws DateTimeException if the date and time is not in the correct format
      */
-    static String parseLocalDateTimeToString(LocalDateTime localDateTime) throws DateTimeException {
+    protected static String parseLocalDateTimeToString(LocalDateTime localDateTime) throws DateTimeException {
         assert localDateTime != null;
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         return localDateTime.format(formatter);
+    }
+
+    protected boolean hasTags() {
+        return !tags.isEmpty();
     }
 
     public boolean containsKeyword(String keyword) {
