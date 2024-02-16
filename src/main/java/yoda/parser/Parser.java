@@ -5,11 +5,9 @@ import yoda.exceptions.UnknownCommandException;
 import yoda.exceptions.InvalidTaskException;
 import yoda.exceptions.InvalidDateTimeFormatException;
 import yoda.exceptions.TimeMissingException;
+import yoda.task.*;
 import yoda.yodaUI.YodaUI;
-import yoda.task.Deadline;
-import yoda.task.Event;
-import yoda.task.TaskList;
-import yoda.task.Todo;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import yoda.datetimeutil.DateTimeUtil;
@@ -68,6 +66,8 @@ public class Parser {
                 return addTaskWithDateTime(parts, Command.DEADLINE);
             case EVENT:
                 return addTaskWithDateTime(parts, Command.EVENT);
+            case UPDATE:
+
             default:
                 return Replies.UNKNOWN_COMMAND;
             }

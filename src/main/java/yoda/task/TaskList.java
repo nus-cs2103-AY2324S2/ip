@@ -1,4 +1,5 @@
 package yoda.task;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -57,7 +58,7 @@ public class TaskList {
     /**
      * Deletes a task from the list.
      * @param taskNumber The number of the task to be deleted.
-     * @throws Exception If the task number is invalid.
+     * @throws InvalidTaskException If the task number is invalid.
      */
     public String deleteTask(int taskNumber) throws InvalidTaskException {
         if (taskNumber <= 0 || taskNumber > TASKS.size()) {
@@ -66,6 +67,8 @@ public class TaskList {
         TASKS.remove(taskNumber - 1);
         return "Removed, this task has been:\nNow you have " + this.getSize() + " tasks in the list.";
     }
+
+//
 
     /**
      * Marks a task as done.

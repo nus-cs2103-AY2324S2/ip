@@ -13,7 +13,8 @@ enum Command {
     EVENT,   // Command to add a new 'Event' task
     UNKNOWN, // Represents an unrecognized command
     SAVE, // Command to save the current task list to disk
-    FIND; // Command to find tasks by searching for keywords
+    FIND, // Command to find tasks by searching for keywords
+    UPDATE; // Command to edit a task
 
 
     /**

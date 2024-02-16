@@ -26,6 +26,15 @@ public class Todo extends Task {
     }
 
     /**
+     * Sets the new description of the task.
+     * @param newDescription The new description for the task.
+     */
+    @Override
+    public void setDescription(String newDescription) {
+        super.setDescription(newDescription);
+    }
+
+    /**
      * Returns a string representation of the event, including its type,
      * @return
      */

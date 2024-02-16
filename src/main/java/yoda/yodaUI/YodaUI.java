@@ -2,16 +2,26 @@ package yoda.yodaUI;
 
 
 import yoda.exceptions.InvalidTaskException;
+import yoda.parser.UpdateState;
 import yoda.task.Task;
+import yoda.task.Deadline;
+import yoda.task.Event;
+import yoda.task.Todo;
 import yoda.task.TaskList;
+import yoda.constants.Replies;
 import yoda.storage.Storage;
 import java.io.IOException;
+import java.time.LocalDateTime;
+
+
 import yoda.constants.Replies;
 
 
 public class YodaUI {
     private final TaskList TASKLIST;
     private final Storage STORAGE;
+    private int updatingTaskNumber = -1; // Default to -1 to indicate no task is being updated
+    private UpdateState updateState = UpdateState.NONE; // Default state
 
     /**
      * Constructor to initialize the chat bot with a TaskList, and a Storage.
@@ -22,6 +32,7 @@ public class YodaUI {
         this.TASKLIST = taskList;
         this.STORAGE = storage;
     }
+
 
     /**
      * Marks a task as done.
@@ -115,6 +126,47 @@ public class YodaUI {
             return "Error saving tasks: " + e.getMessage();
         }
     }
+
+
+    public String startUpdateProcess(int taskNumber) {
+        Task task = null;
+        try {
+            task = TASKLIST.getTask(taskNumber);
+            setUpdatingTaskNumber(taskNumber);
+
+            if (task instanceof Todo) {
+                setUpdateState(UpdateState.AWAITING_NEW_DESCRIPTION);
+                return Replies.AWAITING_TODO_UPDATE;
+            } else if (task instanceof Deadline) {
+                setUpdateState(UpdateState.AWAITING_UPDATE_CHOICE);
+                return Replies.AWAITING_DEADLINE_UPDATE;
+            } else if (task instanceof Event) {
+                setUpdateState(UpdateState.AWAITING_UPDATE_CHOICE);
+                return Replies.AWAITING_EVENT_UPDATE;
+            }
+        } catch (InvalidTaskException e) {
+            return e.getMessage();
+        }
+        return Replies.UNKNOWN_COMMAND;
+    }
+
+
+    public void setUpdatingTaskNumber(int taskNumber) {
+        this.updatingTaskNumber = taskNumber;
+    }
+
+    public void setUpdateState(UpdateState state) {
+        this.updateState = state;
+    }
+
+    public int getUpdatingTaskNumber() {
+        return this.updatingTaskNumber;
+    }
+
+    public UpdateState getUpdateState() {
+        return this.updateState;
+    }
+
 
 
     /**

@@ -6,8 +6,8 @@ import java.time.format.DateTimeFormatter;
  * Represents an event task.
  */
 public class Event extends Task {
-    private final LocalDateTime FROM; // Event starting time
-    private final LocalDateTime TO; // Event ending time
+    private LocalDateTime from; // Event starting time
+    private LocalDateTime to; // Event ending time
 
     /**
      * Constructs an Event task with a description, start time, and end time.
@@ -18,8 +18,17 @@ public class Event extends Task {
      */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description); // Calls the constructor of the superclass Task
-        this.FROM = from;
-        this.TO = to;
+        this.from = from;
+        this.to = to;
+    }
+
+    /**
+     * Sets the new description of the task.
+     * @param newDescription The new description for the task.
+     */
+    @Override
+    public void setDescription(String newDescription) {
+        super.setDescription(newDescription);
     }
 
     /**
@@ -38,7 +47,15 @@ public class Event extends Task {
      * @return The start time of the event.
      */
     public LocalDateTime getFrom() {
-        return FROM;
+        return from;
+    }
+
+    /**
+     * Sets the new start time of the event.
+     * @param newFrom The new start time for the event.
+     */
+    public void setFrom(LocalDateTime newFrom) {
+        this.from = newFrom;
     }
 
     /**
@@ -57,8 +74,17 @@ public class Event extends Task {
      * @return The end time of the event.
      */
     public LocalDateTime getTo() {
-        return TO;
+        return to;
     }
+
+    /**
+     * Sets the new end time of the event.
+     * @param newTo The new end time for the event.
+     */
+    public void setTo(LocalDateTime newTo) {
+        this.to = newTo;
+    }
+
     /**
      * Retrieves the end time of the event as a string.
      *
@@ -88,6 +114,6 @@ public class Event extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
-        return "[" + getType() + "]" + super.toString() + " (from: " + FROM.format(formatter) + " to: " + TO.format(formatter) + ")";
+        return "[" + getType() + "]" + super.toString() + " (from: " + from.format(formatter) + " to: " + to.format(formatter) + ")";
     }
 }
