@@ -1,4 +1,4 @@
-package duke.task;
+package denify.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import duke.exception.DukeException;
-import duke.ui.Ui;
+import denify.exception.DenifyException;
+import denify.ui.Ui;
 
 /**
  * Unit tests for the TaskList class.
@@ -31,7 +31,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void deleteTask_validIndex_deletesTaskSuccessfully() throws DukeException {
+    public void deleteTask_validIndex_deletesTaskSuccessfully() throws DenifyException {
         TaskList taskList = new TaskList(new ArrayList<>());
         Task t1 = new Todo("Read Book");
         taskList.addTask(t1);
@@ -45,9 +45,9 @@ public class TaskListTest {
     }
 
     @Test
-    public void deleteTask_invalidIndex_throwsDukeException() {
+    public void deleteTask_invalidIndex_throwsDenifyException() {
         TaskList taskList = new TaskList(new ArrayList<>());
-        assertThrows(DukeException.class, () -> taskList.deleteTask(0));
+        assertThrows(DenifyException.class, () -> taskList.deleteTask(0));
     }
 
     @Test
@@ -59,7 +59,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void markTask_validIndex_marksAsDoneSuccessfully() throws DukeException {
+    public void markTask_validIndex_marksAsDoneSuccessfully() throws DenifyException {
         TaskList taskList = new TaskList(new ArrayList<>());
         Task t1 = new Todo("Read Book");
         taskList.addTask(t1);
@@ -71,13 +71,13 @@ public class TaskListTest {
     }
 
     @Test
-    public void markTask_invalidIndex_throwsDukeException() {
+    public void markTask_invalidIndex_throwsDenifyException() {
         TaskList taskList = new TaskList(new ArrayList<>());
-        assertThrows(DukeException.class, () -> taskList.markTask(0));
+        assertThrows(DenifyException.class, () -> taskList.markTask(0));
     }
 
     @Test
-    public void unmarkTask_validIndex_marksAsNotDoneSuccessfully() throws DukeException {
+    public void unmarkTask_validIndex_marksAsNotDoneSuccessfully() throws DenifyException {
         TaskList taskList = new TaskList(new ArrayList<>());
         Task t1 = new Todo("Read Book");
         taskList.addTask(t1);
@@ -89,9 +89,9 @@ public class TaskListTest {
     }
 
     @Test
-    public void unmarkTask_invalidIndex_throwsDukeException() {
+    public void unmarkTask_invalidIndex_throwsDenifyException() {
         TaskList taskList = new TaskList(new ArrayList<>());
-        assertThrows(DukeException.class, () -> taskList.unmarkTask(0));
+        assertThrows(DenifyException.class, () -> taskList.unmarkTask(0));
     }
 
 }

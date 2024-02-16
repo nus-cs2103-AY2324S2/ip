@@ -1,4 +1,4 @@
-package duke.storage;
+package denify.storage;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,14 +8,14 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import duke.exception.DukeException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
+import denify.exception.DenifyException;
+import denify.task.Deadline;
+import denify.task.Event;
+import denify.task.Task;
+import denify.task.Todo;
 
 /**
- * The `Storage` class manages the loading and saving of tasks from/to a file in Duke.
+ * The `Storage` class manages the loading and saving of tasks from/to a file in Denify.
  * It interacts with the file system to store and retrieve tasks.
  */
 public class Storage {
@@ -48,25 +48,25 @@ public class Storage {
     /**
      * Prepares the task file by creating directories and the file if they do not exist.
      *
-     * @throws DukeException If there is an issue preparing the file.
+     * @throws DenifyException If there is an issue preparing the file.
      */
-    private void prepareFile() throws DukeException {
+    private void prepareFile() throws DenifyException {
         try {
             if (!Files.exists(filePath)) {
                 Files.createDirectories(filePath.getParent());
                 Files.createFile(filePath);
             }
         } catch (IOException e) {
-            throw new DukeException("Unable to create task file in " + this.filePath);
+            throw new DenifyException("Unable to create task file in " + this.filePath);
         }
     }
     /**
      * Loads tasks from the task file.
      *
      * @return The list of tasks loaded from the task file.
-     * @throws DukeException If there is an issue loading tasks.
+     * @throws DenifyException If there is an issue loading tasks.
      */
-    public ArrayList<Task> loadTasks() throws DukeException {
+    public ArrayList<Task> loadTasks() throws DenifyException {
         prepareFile();
         ArrayList<Task> tasks = new ArrayList<>();
         try (Scanner myScannerObj = new Scanner(filePath)) {
@@ -76,14 +76,14 @@ public class Storage {
                 try {
                     Task t = this.load(line);
                     tasks.add(t);
-                } catch (DukeException e) {
+                } catch (DenifyException e) {
                     printWarning();
                     System.err.println(lineNumber + ": " + e.getMessage());
                 }
                 lineNumber++;
             }
         } catch (IOException e) {
-            throw new DukeException("Unable to load tasks from task file.");
+            throw new DenifyException("Unable to load tasks from task file.");
         }
         return tasks;
     }
@@ -91,9 +91,9 @@ public class Storage {
      * Saves tasks to the task file.
      *
      * @param tasks The list of tasks to be saved.
-     * @throws DukeException If there is an issue saving tasks.
+     * @throws DenifyException If there is an issue saving tasks.
      */
-    public void saveTasks(ArrayList<Task> tasks) throws DukeException {
+    public void saveTasks(ArrayList<Task> tasks) throws DenifyException {
         prepareFile();
         try {
             ArrayList<String> lines = new ArrayList<>();
@@ -102,7 +102,7 @@ public class Storage {
             }
             Files.write(filePath, lines, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE);
         } catch (IOException e) {
-            throw new DukeException("Unable to save tasks to task file.");
+            throw new DenifyException("Unable to save tasks to task file.");
         }
     }
     /**
@@ -110,12 +110,12 @@ public class Storage {
      *
      * @param line The string representation of the task.
      * @return The Task object created from the string representation.
-     * @throws DukeException If there is an issue loading the task.
+     * @throws DenifyException If there is an issue loading the task.
      */
-    public Task load(String line) throws DukeException {
+    public Task load(String line) throws DenifyException {
         String[] parts = line.split(" \\| ");
         if (parts.length < 3 || !parts[1].matches("[01]")) {
-            throw new DukeException("Invalid task format. Please check the task file.");
+            throw new DenifyException("Invalid task format. Please check the task file.");
         }
         String taskType = parts[0];
         boolean isDone = Integer.parseInt(parts[1]) == 1;
@@ -132,14 +132,14 @@ public class Storage {
         case "E":
             String[] time = parts[3].split(" - ");
             if (!(time.length == 2)) {
-                throw new DukeException("Invalid time format. "
+                throw new DenifyException("Invalid time format. "
                         + "Please use <datetime> - <datetime>");
             }
             Task tE = new Event(description, time[0], time[1]);
             tE.setDone(isDone);
             return tE;
         default:
-            throw new DukeException("Invalid task type " + taskType);
+            throw new DenifyException("Invalid task type " + taskType);
         }
     }
 }

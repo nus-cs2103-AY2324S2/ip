@@ -1,14 +1,14 @@
-package duke.task;
+package denify.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
-import duke.exception.DukeException;
+import denify.exception.DenifyException;
 
 /**
- * The `Event` class represents a task that spans a specific duration in Duke.
+ * The `Event` class represents a task that spans a specific duration in Denify.
  */
 public class Event extends Task {
     /**
@@ -33,9 +33,9 @@ public class Event extends Task {
      * @param description The description of the event.
      * @param from The start time of the event in yyyy-MM-dd HH:mm format.
      * @param to The end time of the event in yyyy-MM-dd HH:mm format.
-     * @throws DukeException If there is an issue parsing the time or the format is invalid.
+     * @throws DenifyException If there is an issue parsing the time or the format is invalid.
      */
-    public Event(String description, String from, String to) throws DukeException {
+    public Event(String description, String from, String to) throws DenifyException {
         super(description);
         try {
             LocalDateTime date1 = LocalDateTime.parse(from, input);
@@ -43,10 +43,10 @@ public class Event extends Task {
             this.from = date1.format(output);
             this.to = end1.format(output);
             if (!isBeforeDateTime(date1, end1)) {
-                throw new DukeException("Invalid date range. 'From' should be before 'To'.");
+                throw new DenifyException("Invalid date range. 'From' should be before 'To'.");
             }
         } catch (DateTimeParseException | StringIndexOutOfBoundsException e) {
-            throw new DukeException("Invalid time format. Please use yyyy-MM-dd HH:mm.");
+            throw new DenifyException("Invalid time format. Please use yyyy-MM-dd HH:mm.");
         }
     }
     /**

@@ -1,7 +1,7 @@
-package duke.task;
+package denify.task;
 
 /**
- * The `Task` class represents a generic task in Duke.
+ * The `Task` class represents a generic task in Denify.
  */
 public class Task {
     /**

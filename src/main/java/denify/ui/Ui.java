@@ -1,9 +1,9 @@
-package duke.ui;
+package denify.ui;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import duke.task.Task;
+import denify.task.Task;
 
 /**
  * The `Ui` class handles user interaction and provides formatted output.

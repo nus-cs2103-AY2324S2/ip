@@ -44,17 +44,18 @@ test {
 }
 
 application {
-    mainClass.set("duke.ui.Launcher")
+    mainClass.set("denify.ui.Launcher")
 }
 
 shadowJar {
-    archiveFileName = 'Duke-GUI.jar'
+    mainClassName = 'denify.ui.Launcher'
+    archiveFileName = 'denify-GUI.jar'
     archiveClassifier = null
-    dependsOn("distZip", "distTar")
 }
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }
 
 checkstyle {

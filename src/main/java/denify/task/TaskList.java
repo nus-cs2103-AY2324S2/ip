@@ -1,12 +1,12 @@
-package duke.task;
+package denify.task;
 
 import java.util.ArrayList;
 
-import duke.exception.DukeException;
-import duke.storage.Storage;
+import denify.exception.DenifyException;
+import denify.storage.Storage;
 
 /**
- * The `TaskList` class represents a list of tasks in Duke.
+ * The `TaskList` class represents a list of tasks in Denify.
  */
 public class TaskList {
     /**
@@ -31,9 +31,9 @@ public class TaskList {
      * Saves the tasks in the `TaskList` to the provided `Storage`.
      *
      * @param storage The `Storage` object to save tasks to.
-     * @throws DukeException If there is an issue saving tasks to storage.
+     * @throws DenifyException If there is an issue saving tasks to storage.
      */
-    public void saveToStorage(Storage storage) throws DukeException {
+    public void saveToStorage(Storage storage) throws DenifyException {
         storage.saveTasks(tasks);
     }
     /**
@@ -72,13 +72,13 @@ public class TaskList {
      *
      * @param taskIndex The index of the task to be deleted.
      * @return The deleted task.
-     * @throws DukeException If the specified task index is out of bounds.
+     * @throws DenifyException If the specified task index is out of bounds.
      */
-    public Task deleteTask(int taskIndex) throws DukeException {
+    public Task deleteTask(int taskIndex) throws DenifyException {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
             return tasks.remove(taskIndex);
         } else {
-            throw new DukeException("Task not found.");
+            throw new DenifyException("Task not found.");
         }
     }
     /**
@@ -86,15 +86,15 @@ public class TaskList {
      *
      * @param taskIndex The index of the task to be marked as done.
      * @return The task marked as done.
-     * @throws DukeException If the specified task index is out of bounds.
+     * @throws DenifyException If the specified task index is out of bounds.
      */
-    public Task markTask(int taskIndex) throws DukeException {
+    public Task markTask(int taskIndex) throws DenifyException {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
             Task task = tasks.get(taskIndex);
             task.setDone(true);
             return task;
         } else {
-            throw new DukeException("Task not found.");
+            throw new DenifyException("Task not found.");
         }
     }
     /**
@@ -102,15 +102,15 @@ public class TaskList {
      *
      * @param taskIndex The index of the task to be marked as not done.
      * @return The task marked as not done.
-     * @throws DukeException If the specified task index is out of bounds.
+     * @throws DenifyException If the specified task index is out of bounds.
      */
-    public Task unmarkTask(int taskIndex) throws DukeException {
+    public Task unmarkTask(int taskIndex) throws DenifyException {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
             Task task = tasks.get(taskIndex);
             task.setDone(false);
             return task;
         } else {
-            throw new DukeException("Task not found.");
+            throw new DenifyException("Task not found.");
         }
     }
 }

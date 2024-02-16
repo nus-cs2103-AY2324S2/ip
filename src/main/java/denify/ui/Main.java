@@ -1,8 +1,8 @@
-package duke.ui;
+package denify.ui;
 
 import java.io.IOException;
 
-import duke.core.Duke;
+import denify.core.Denify;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,11 +10,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Denify using FXML.
  */
 public class Main extends Application {
 
-    private final Duke duke = new Duke();
+    private final Denify denify = new Denify();
 
     @Override
     public void start(Stage stage) {
@@ -23,7 +23,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setDenify(denify);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

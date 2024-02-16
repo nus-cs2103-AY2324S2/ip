@@ -1,27 +1,27 @@
-package duke.core;
+package denify.core;
 
-import duke.exception.DukeException;
-import duke.parser.Parser;
-import duke.storage.Storage;
-import duke.task.Task;
-import duke.task.TaskList;
-import duke.ui.Ui;
+import denify.exception.DenifyException;
+import denify.parser.Parser;
+import denify.storage.Storage;
+import denify.task.Task;
+import denify.task.TaskList;
+import denify.ui.Ui;
 
 /**
- * The `Duke` class represents the main application that manages tasks.
+ * The `Denify` class represents the main application that manages tasks.
  * It handles user interactions, parses commands, and performs operations on tasks.
  */
-public class Duke {
+public class Denify {
     /**
      * The file path where tasks are stored.
      */
-    private static final String FILEPATH = "./data/duke.txt";
+    private static final String FILEPATH = "./data/denify.txt";
     /**
      * Represents the storage component responsible for loading and saving tasks.
      */
     private final Storage storage;
     /**
-     * Represents the list of tasks managed by Duke.
+     * Represents the list of tasks managed by Denify.
      */
     private TaskList tasks;
     /**
@@ -29,20 +29,20 @@ public class Duke {
      */
     private final Ui ui;
     /**
-     * Constructs a `Duke` instance with the specified file path for storage.
+     * Constructs a `Denify` instance with the specified file path for storage.
      */
-    public Duke() {
+    public Denify() {
         this.ui = new Ui();
         this.storage = new Storage(FILEPATH);
         try {
             this.tasks = new TaskList(storage.loadTasks());
-        } catch (DukeException e) {
+        } catch (DenifyException e) {
             ui.displayError(e.getMessage());
             this.tasks = new TaskList();
         }
     }
     /**
-     * Enumeration representing valid commands for the Duke application.
+     * Enumeration representing valid commands for the Denify application.
      */
     public enum Command {
         BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, FIND
@@ -77,7 +77,7 @@ public class Duke {
                 Task t = tasks.deleteTask(taskIndex);
                 response.append(ui.showDeleteTaskMessage(t, tasks.getTasks().size()));
                 tasks.saveToStorage(storage);
-            } else if (msg.toUpperCase().startsWith(Duke.Command.TODO.name())) {
+            } else if (msg.toUpperCase().startsWith(Denify.Command.TODO.name())) {
                 Task t = parser.parseTodo();
                 tasks.addTask(t);
                 response.append(ui.showAddTaskMessage(t, tasks.getTasks().size()));
@@ -95,24 +95,24 @@ public class Duke {
             } else {
                 response.append("Unable to understand the command. Please enter a valid command.");
             }
-        } catch (DukeException e) {
+        } catch (DenifyException e) {
             response.append(e.getMessage());
         }
         return response.toString();
     }
     /**
-     * Initializes the Duke application, greets the user, and starts command processing.
+     * Initializes the Denify application, greets the user, and starts command processing.
      */
     public void run() {
         String msg = ui.getInput();
         this.getResponse(msg);
     }
     /**
-     * Main method to launch the Duke application.
+     * Main method to launch the Denify application.
      *
      * @param args Command-line arguments (not used in this application).
      */
     public static void main(String[] args) {
-        new Duke().run();
+        new Denify().run();
     }
 }

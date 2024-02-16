@@ -1,14 +1,14 @@
-package duke.task;
+package denify.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
-import duke.exception.DukeException;
+import denify.exception.DenifyException;
 
 /**
- * The `Deadline` class represents a task with a specific deadline in Duke.
+ * The `Deadline` class represents a task with a specific deadline in Denify.
  */
 public class Deadline extends Task {
     /**
@@ -28,15 +28,15 @@ public class Deadline extends Task {
      *
      * @param description The description of the deadline.
      * @param by The deadline in yyyy-MM-dd HH:mm format.
-     * @throws DukeException If there is an issue parsing the deadline or the format is invalid.
+     * @throws DenifyException If there is an issue parsing the deadline or the format is invalid.
      */
-    public Deadline(String description, String by) throws DukeException {
+    public Deadline(String description, String by) throws DenifyException {
         super(description);
         try {
             LocalDateTime date = LocalDateTime.parse(by, input);
             this.by = date.format(output);
         } catch (DateTimeParseException e) {
-            throw new DukeException("Invalid time format. Please use yyyy-MM-dd HH:mm.");
+            throw new DenifyException("Invalid time format. Please use yyyy-MM-dd HH:mm.");
         }
     }
     /**

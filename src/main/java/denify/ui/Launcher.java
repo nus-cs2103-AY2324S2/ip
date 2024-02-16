@@ -1,4 +1,4 @@
-package duke.ui;
+package denify.ui;
 
 import javafx.application.Application;
 
