@@ -17,6 +17,7 @@ public abstract class Task implements Savable {
      * @param taskSymbol textual symbol that represents the type of Task
      */
     public Task(String description, String taskSymbol) {
+        assert !description.isEmpty();
         this.description = description;
         this.isDone = false;
         this.taskSymbol = taskSymbol;
@@ -30,6 +31,7 @@ public abstract class Task implements Savable {
      * @param isDone      boolean value that determines if the initialised Task is completed or not
      */
     public Task(String description, String taskSymbol, Boolean isDone) {
+        assert !description.isEmpty();
         this.description = description;
         this.isDone = isDone;
         this.taskSymbol = taskSymbol;
