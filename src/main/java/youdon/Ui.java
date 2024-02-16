@@ -24,9 +24,7 @@ public class Ui {
     }
 
     public String getByeMsg() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Bye. Hope to see you again soon!\n");
-        return sb.toString();
+        return "Bye. Hope to see you again soon!\n";
     }
 
     /**
@@ -39,11 +37,7 @@ public class Ui {
     }
 
     public String getYoudonErrorMsg(String message) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(DIVIDER_LINE).append("\n");
-        sb.append(message).append("\n");
-        sb.append(DIVIDER_LINE).append("\n");
-        return sb.toString();
+        return message;
     }
 
     /**
