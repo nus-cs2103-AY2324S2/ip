@@ -12,7 +12,9 @@ import java.util.Scanner;
  */
 public class Storage {
 
-    /** File to be loaded or saved */
+    /**
+     * File to be loaded or saved
+     */
     private File file;
 
     /**
@@ -62,71 +64,71 @@ public class Storage {
             String[] arr = tk.split("<>", 4);
 
             switch (arr[0]) {
-                case "T":
-                    try {
-                        if (Integer.valueOf(arr[1]) == 0) {
-                            //The task is not finished
-                            Task t = new ToDo(arr[2]);
-                            ls.add(t);
-                        } else if (Integer.valueOf(arr[1]) == 1) {
-                            //Task Finished
-                            Task t = new ToDo(arr[2]);
-                            t.mark();
-                            ls.add(t);
-                        } else {
-                            Ui.botUnknownFormat(i);
-                        }
-                    } catch (Exception e) {
+            case "T":
+                try {
+                    if (Integer.valueOf(arr[1]) == 0) {
+                        //The task is not finished
+                        Task t = new ToDo(arr[2]);
+                        ls.add(t);
+                    } else if (Integer.valueOf(arr[1]) == 1) {
+                        //Task Finished
+                        Task t = new ToDo(arr[2]);
+                        t.mark();
+                        ls.add(t);
+                    } else {
                         Ui.botUnknownFormat(i);
                     }
-                    break;
-                case "D":
-                    try {
-                        if (Integer.valueOf(arr[1]) == 0) {
-                            //The ddl is not finished
-                            Task t = new Deadline(arr[2], arr[3]);
-                            ls.add(t);
-                        } else if (Integer.valueOf(arr[1]) == 1) {
-                            //DDL Finished
-                            Task t = new Deadline(arr[2], arr[3]);
-                            t.mark();
-                            ls.add(t);
-                        } else {
-                            Ui.botUnknownFormat(i);
-                            System.out.println("brk pt 1");
-                        }
-                    } catch (Exception e) {
-                        Ui.botUnknownFormat(i);
-                    }
-                    break;
-                case "E":
-                    try {
-                        if (Integer.valueOf(arr[1]) == 0) {
-                            //The event is not finished
-                            String[] temp = arr[3].split("to", 2);
-                            String toTime = temp[1].trim();
-                            String timeOfTo = ("to " + toTime).trim();
-                            Task t = new Event(arr[2], temp[0], timeOfTo);
-                            ls.add(t);
-                        } else if (Integer.valueOf(arr[2]) == 1) {
-                            //Event Finished
-                            String[] temp = arr[3].split(" to ", 2);
-                            String toTime = temp[1].trim();
-                            String timeOfTo = ("to " + toTime).trim();
-                            Task t = new Event(arr[2], temp[0], timeOfTo);
-                            t.mark();
-                            ls.add(t);
-                        } else {
-                            Ui.botUnknownFormat(i);
-                        }
-                    } catch (Exception e) {
-                        Ui.botUnknownFormat(i);
-                    }
-                    break;
-                default:
-                    //Format unknown
+                } catch (Exception e) {
                     Ui.botUnknownFormat(i);
-                    break;
+                }
+                break;
+            case "D":
+                try {
+                    if (Integer.valueOf(arr[1]) == 0) {
+                        //The ddl is not finished
+                        Task t = new Deadline(arr[2], arr[3]);
+                        ls.add(t);
+                    } else if (Integer.valueOf(arr[1]) == 1) {
+                        //DDL Finished
+                        Task t = new Deadline(arr[2], arr[3]);
+                        t.mark();
+                        ls.add(t);
+                    } else {
+                        Ui.botUnknownFormat(i);
+                        System.out.println("brk pt 1");
+                    }
+                } catch (Exception e) {
+                    Ui.botUnknownFormat(i);
+                }
+                break;
+            case "E":
+                try {
+                    if (Integer.valueOf(arr[1]) == 0) {
+                        //The event is not finished
+                        String[] temp = arr[3].split("to", 2);
+                        String toTime = temp[1].trim();
+                        String timeOfTo = ("to " + toTime).trim();
+                        Task t = new Event(arr[2], temp[0], timeOfTo);
+                        ls.add(t);
+                    } else if (Integer.valueOf(arr[2]) == 1) {
+                        //Event Finished
+                        String[] temp = arr[3].split(" to ", 2);
+                        String toTime = temp[1].trim();
+                        String timeOfTo = ("to " + toTime).trim();
+                        Task t = new Event(arr[2], temp[0], timeOfTo);
+                        t.mark();
+                        ls.add(t);
+                    } else {
+                        Ui.botUnknownFormat(i);
+                    }
+                } catch (Exception e) {
+                    Ui.botUnknownFormat(i);
+                }
+                break;
+            default:
+                //Format unknown
+                Ui.botUnknownFormat(i);
+                break;
             }
         }
 
@@ -138,7 +140,7 @@ public class Storage {
      * Write to file in duke.txt and save it.
      *
      * @param file The file used.
-     * @param ls The taskList to be saved.
+     * @param ls   The taskList to be saved.
      * @throws IOException For input error.
      */
     public static void saveFile(File file, TaskList ls) throws IOException {
@@ -146,7 +148,7 @@ public class Storage {
         String separator = "<>";
         ArrayList<String> arr = new ArrayList<>();
 
-        if (ls.getSize() == 0 ) {
+        if (ls.getSize() == 0) {
             fw.write("");
         } else {
             for (int i = 0; i < ls.getSize(); i++) {
@@ -180,7 +182,7 @@ public class Storage {
                 }
             }
 
-            for (String str: arr) {
+            for (String str : arr) {
                 fw.write(str + System.lineSeparator());
             }
         }
