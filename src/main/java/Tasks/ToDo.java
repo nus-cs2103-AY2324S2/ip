@@ -1,6 +1,6 @@
 package Tasks;
 
-import Exceptions.DukeException;
+import Exceptions.KewgyException;
 
 /**
  * ToDo task, with description
@@ -12,9 +12,9 @@ public class ToDo extends Task {
      * Create ToDo task
      * 
      * @param description description of task
-     * @throws DukeException
+     * @throws KewgyException
      */
-    public ToDo(String description) throws DukeException {
+    public ToDo(String description) throws KewgyException {
         super(description);
     }
 
@@ -24,9 +24,9 @@ public class ToDo extends Task {
     }
 
     @Override
-    public void updateTime(String... times) throws DukeException {
+    public void updateTime(String... times) throws KewgyException {
         if (times.length != 0) {
-            throw new DukeException("Invalid times given for ToDo");
+            throw new KewgyException("Invalid times given for ToDo");
         }
     }
 }

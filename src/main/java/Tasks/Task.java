@@ -1,6 +1,6 @@
 package Tasks;
 
-import Exceptions.DukeException;
+import Exceptions.KewgyException;
 
 public class Task {
     protected String description;
@@ -27,9 +27,9 @@ public class Task {
         }
     }
 
-    public Task(String description) throws DukeException {
+    public Task(String description) throws KewgyException {
         if (description.isEmpty()) {
-            throw new DukeException("Description cannot be empty!");
+            throw new KewgyException("Description cannot be empty!");
         };
 
         this.description = description;
@@ -52,5 +52,5 @@ public class Task {
         this.description = description;
     }
 
-    public void updateTime(String... times) throws DukeException { }
+    public void updateTime(String... times) throws KewgyException { }
 }

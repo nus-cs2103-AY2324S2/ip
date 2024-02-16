@@ -3,7 +3,7 @@ package Tasks;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import Exceptions.DukeException;
+import Exceptions.KewgyException;
 
 /**
  * Event task, with description and time to start and finish task by
@@ -15,9 +15,9 @@ public class Event extends Task {
      * Creation of event task
      * 
      * @param description description with 2 dates included for parsing
-     * @throws DukeException
+     * @throws KewgyException
      */
-    public Event(String description) throws DukeException {
+    public Event(String description) throws KewgyException {
         super(description);
 
         parseEventDescription(description);
@@ -28,18 +28,18 @@ public class Event extends Task {
      * 
      * @param description the original description
      * @return formatted event description
-     * @throws DukeException if there's an issue with the description format
+     * @throws KewgyException if there's an issue with the description format
      */
-    private void parseEventDescription(String description) throws DukeException {
+    private void parseEventDescription(String description) throws KewgyException {
         if (!description.contains("/from") || !description.contains("/to")) {
-            throw new DukeException("Dates missing in description!");
+            throw new KewgyException("Dates missing in description!");
         }
 
         String[] descParsed = description.split("/from");
         String[] dateParsed = descParsed[1].split("/to");
 
         if (dateParsed.length <= 1 || dateParsed[0].isBlank() || dateParsed[1].isBlank()) {
-            throw new DukeException("Invalid dates!");
+            throw new KewgyException("Invalid dates!");
         }
 
         super.description = descParsed[0].trim();
@@ -47,9 +47,9 @@ public class Event extends Task {
     }
 
     @Override
-    public void updateTime(String... times) throws DukeException {
+    public void updateTime(String... times) throws KewgyException {
         if (times.length != 2) {
-            throw new DukeException("Invalid times given for Event");
+            throw new KewgyException("Invalid times given for Event");
         }
 
         try {

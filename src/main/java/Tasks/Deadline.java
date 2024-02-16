@@ -3,7 +3,7 @@ package Tasks;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import Exceptions.DukeException;
+import Exceptions.KewgyException;
 
 /**
  * Deadline task, with description and time to finish task by
@@ -15,21 +15,21 @@ public class Deadline extends Task {
      * Create deadline task
      * 
      * @param description description of task, with deadline included for parsing
-     * @throws DukeException
+     * @throws KewgyException
      */
-    public Deadline(String description) throws DukeException {
+    public Deadline(String description) throws KewgyException {
         super(description);
 
         String desc = super.description;
         
         if (!desc.contains("/by")) {
-            throw new DukeException("Date missing in description!");
+            throw new KewgyException("Date missing in description!");
         }
 
         String[] descParsed = desc.split("/by");
 
         if (descParsed.length == 1) {
-            throw new DukeException("Invalid date!");
+            throw new KewgyException("Invalid date!");
         }
 
         super.description = descParsed[0].trim();
@@ -37,9 +37,9 @@ public class Deadline extends Task {
     }
 
     @Override
-    public void updateTime(String... times) throws DukeException {
+    public void updateTime(String... times) throws KewgyException {
         if (times.length != 1) {
-            throw new DukeException("Invalid times given for Deadline");
+            throw new KewgyException("Invalid times given for Deadline");
         }
 
         try {

@@ -42,7 +42,7 @@ public class DialogBox extends HBox {
         return new DialogBox(l, iv);
     }
 
-    public static DialogBox getDukeDialog(Label l, ImageView iv) {
+    public static DialogBox getKewgyDialog(Label l, ImageView iv) {
         l.setPadding(new Insets(0, 10, 0, 10));
         l.setFont(Font.font("Georgia", FontWeight.BOLD, 12));
 

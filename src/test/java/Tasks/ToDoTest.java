@@ -1,25 +1,25 @@
 package Tasks;
 
-import Exceptions.DukeException;
+import Exceptions.KewgyException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ToDoTest {
 
     @Test
-    void testToDoCreationPass() throws DukeException {
+    void testToDoCreationPass() throws KewgyException {
         ToDo todo = new ToDo("Buy groceries");
         assertEquals("[T][ ] Buy groceries", todo.toString());
         assertFalse(todo.isDone);
     }
 
     @Test
-    void testToDoCreationFail() throws DukeException {
-        assertThrows(DukeException.class, () -> new ToDo(""));
+    void testToDoCreationFail() throws KewgyException {
+        assertThrows(KewgyException.class, () -> new ToDo(""));
     }
 
     @Test
-    void testMarkAsDone() throws DukeException {
+    void testMarkAsDone() throws KewgyException {
         ToDo todo = new ToDo("Buy groceries");
         todo.setDone(true);
         assertEquals("[T][X] Buy groceries", todo.toString());
@@ -27,7 +27,7 @@ class ToDoTest {
     }
 
     @Test
-    void testMarkAsUnDone() throws DukeException {
+    void testMarkAsUnDone() throws KewgyException {
         ToDo todo = new ToDo("Buy groceries");
         todo.setDone(true);
         todo.setDone(false);

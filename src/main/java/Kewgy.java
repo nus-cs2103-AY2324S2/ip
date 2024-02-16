@@ -1,6 +1,6 @@
 import java.util.List;
 
-import Exceptions.DukeException;
+import Exceptions.KewgyException;
 import Storage.Storage;
 import Tasks.Deadline;
 import Tasks.Event;
@@ -19,7 +19,7 @@ import javafx.stage.Stage;
  * 
  * @author Tang Yetong
  **/
-public class Duke extends Application {
+public class Kewgy extends Application {
 
     private Ui ui;
     private Storage storage;
@@ -39,24 +39,24 @@ public class Duke extends Application {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Kewgy's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     public void handleUserInput() {
         Label userText = new Label(ui.getUserInput().getText());
-        Label dukeText = getResponse(ui.userInput.getText());
-        ui.addConversation(userText, dukeText);
+        Label kewgyText = getResponse(ui.userInput.getText());
+        ui.addConversation(userText, kewgyText);
     }
 
     public Label getResponse(String userMsg) {
         String[] userMsgParsed = userMsg.split(" ", 2);
         Command nextCommand = parser.parseUserMsg(userMsgParsed);
 
-        Label dukeText = new Label();
+        Label kewgyText = new Label();
 
         switch (nextCommand) {
             case LIST:
-                dukeText = ui.printList(userTaskList);
+                kewgyText = ui.printList(userTaskList);
                 break;
             case MARK:
                 if (parser.checkValidMarkCommand(userMsgParsed, userTaskList)) {
@@ -65,7 +65,7 @@ public class Duke extends Application {
                     userTaskList.get(taskInt).setDone(true);
                     storage.updateTask(taskInt, true);
 
-                    dukeText = ui.markTask(userTaskList, taskInt);
+                    kewgyText = ui.markTask(userTaskList, taskInt);
                 }
                 break;
             case UNMARK:
@@ -75,7 +75,7 @@ public class Duke extends Application {
                     userTaskList.get(taskInt).setDone(false);
                     storage.updateTask(taskInt, false);
 
-                    dukeText = ui.markTask(userTaskList, taskInt);
+                    kewgyText = ui.markTask(userTaskList, taskInt);
                 }
                 break;
             case TODO:
@@ -84,9 +84,9 @@ public class Duke extends Application {
                     userTaskList.add(task);
                     storage.saveTask(userMsgParsed[1], TaskType.T);
 
-                    dukeText = ui.printAddTask(task, userTaskList.size());
-                } catch (DukeException e) {
-                    dukeText = ui.printError(e.getMessage());
+                    kewgyText = ui.printAddTask(task, userTaskList.size());
+                } catch (KewgyException e) {
+                    kewgyText = ui.printError(e.getMessage());
                 }
                 break;
             case DEADLINE:
@@ -95,9 +95,9 @@ public class Duke extends Application {
                     userTaskList.add(task);
                     storage.saveTask(userMsgParsed[1], TaskType.D);
 
-                    dukeText = ui.printAddTask(task, userTaskList.size());
-                } catch (DukeException e) {
-                    dukeText = ui.printError(e.getMessage());
+                    kewgyText = ui.printAddTask(task, userTaskList.size());
+                } catch (KewgyException e) {
+                    kewgyText = ui.printError(e.getMessage());
                 }
                 break;
             case EVENT:
@@ -106,9 +106,9 @@ public class Duke extends Application {
                     userTaskList.add(task);
                     storage.saveTask(userMsgParsed[1], TaskType.E);
 
-                    dukeText = ui.printAddTask(task, userTaskList.size());
-                } catch (DukeException e) {
-                    dukeText = ui.printError(e.getMessage());
+                    kewgyText = ui.printAddTask(task, userTaskList.size());
+                } catch (KewgyException e) {
+                    kewgyText = ui.printError(e.getMessage());
                 }
                 break;
             case DELETE:
@@ -118,14 +118,14 @@ public class Duke extends Application {
                     userTaskList.remove(taskInt);
                     storage.deleteTask(taskInt);
 
-                    dukeText = ui.printDeleteTask(userTaskList.get(taskInt), userTaskList.size());
+                    kewgyText = ui.printDeleteTask(userTaskList.get(taskInt), userTaskList.size());
                 }
                 break;
             case FIND:
-                dukeText = ui.printTaskKeyword(userTaskList, userMsgParsed[1]);
+                kewgyText = ui.printTaskKeyword(userTaskList, userMsgParsed[1]);
                 break;
             case BYE:
-                dukeText = ui.printGoodBye();
+                kewgyText = ui.printGoodBye();
                 break;
             case UPDATE_TIME:
                 String[] updateTimeParsed = userMsg.split(" ", 3);
@@ -134,19 +134,19 @@ public class Duke extends Application {
                     
                     try {
                         userTaskList.get(taskInt).updateTime(updateTimeParsed[2]);;
-                        dukeText = ui.printUpdateTime(userTaskList.get(taskInt));
-                    } catch (DukeException e) {
-                        dukeText = ui.printError(e.getMessage());
+                        kewgyText = ui.printUpdateTime(userTaskList.get(taskInt));
+                    } catch (KewgyException e) {
+                        kewgyText = ui.printError(e.getMessage());
                     }
                 } 
                 break;
             case UNKNOWN:
-                dukeText = ui.printError("Unknown Command!");;
+                kewgyText = ui.printError("Unknown Command!");;
                 break;
             default:
                 break;
         }
 
-        return dukeText;
+        return kewgyText;
     }
 }
