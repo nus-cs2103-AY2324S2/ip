@@ -88,6 +88,9 @@ public class Command {
                 ArrayList<Task> foundTasks = taskList.find(remainingWords);
                 response = ui.printFoundTasks(foundTasks);
                 break;
+            case HELP:
+                response = ui.sayHelp();
+                break;
             default:
                 throw new IllegalArgumentException("I'm sorry, but I don't know what that means :-(");
         }

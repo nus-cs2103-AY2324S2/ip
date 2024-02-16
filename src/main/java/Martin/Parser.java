@@ -38,6 +38,8 @@ public class Parser {
                 return ChatbotKeyword.BYE;
             case "find":
                 return ChatbotKeyword.FIND;
+            case "help":
+                return ChatbotKeyword.HELP;
             default:
                 throw new IllegalArgumentException("I'm sorry, but I don't know what that means :-(");
         }
