@@ -11,3 +11,6 @@ D,0,flight to china ,2024-02-10,
 D,0,2102 ER diagram ,2024-02-12,
 T,0,change,
 T,0,sleep very deep,#mustdo
+D,0,finalize ip ,2024-02-23,
+T,0,write user guide,
+E,0,weekend ,2024-02-17,2024-02-18,

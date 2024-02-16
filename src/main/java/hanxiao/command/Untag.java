@@ -39,6 +39,6 @@ public class Untag implements Command {
      */
     @Override
     public String reply() {
-        return String.format("Nice! I've tag this task:\n%s\n", tasks.getTask(operand));
+        return String.format("Nice! I've remove the tag:\n%s\n", tasks.getTask(operand));
     }
 }
