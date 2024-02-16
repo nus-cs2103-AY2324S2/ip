@@ -6,8 +6,3 @@ T | 0 | jj
 T | 0 | d
 T | 0 | fun
 T | 0 | next task
-T | 0 | ff
-T | 0 | e
-T | 0 | task2
-D | 0 | have fun | 2025-03-04
-T | 0 | rr

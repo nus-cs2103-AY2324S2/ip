@@ -254,57 +254,6 @@ public class Parser {
 
     }
 
-    /**
-     * Parses a line from a saved file and constructs a Task object.
-     *
-     * @param line The line from the file representing a task.
-     * @return The Task object constructed from the line.
-     * @throws IOException If an error occurs during the parsing of the line.
-     */
-    public static Task parseTaskFromLine(String line) throws IOException {
-        String[] parts = line.split(" \\| ");
-        if (parts.length < 3) {
-            throw new IOException("Invalid task format. Skipping line.");
-        }
-
-        String type = parts[0];
-        boolean isDone = Integer.parseInt(parts[1]) == 1;
-        String description = parts[2];
-
-        Task task;
-        switch (type) {
-        case "T":
-            task = new Todo(description);
-            break;
-        case "D":
-            if (parts.length < 4) {
-                throw new IOException("Invalid deadline format. Skipping line.");
-            }
-            String by = parts[3];
-            task = new Deadline(description, by);
-            break;
-        case "E":
-            if (parts.length < 4) {
-                throw new IOException("Invalid event format. Skipping line.");
-            }
-            String[] eventParts = parts[3].split(" from ");
-            if (eventParts.length < 2) {
-                throw new IOException("Invalid event format. Skipping line.");
-            }
-            String start = eventParts[0];
-            String end = eventParts[1];
-            task = new Event(description, start, end);
-            break;
-        default:
-            throw new IOException("Invalid task type in file. Skipping line.");
-        }
-
-        if (isDone) {
-            task.setStatus();
-        }
-
-        return task;
-    }
 
     /**
      * Parses the "find" command, searching for tasks containing a specified keyword.
