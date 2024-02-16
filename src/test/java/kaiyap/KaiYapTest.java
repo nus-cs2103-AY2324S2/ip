@@ -38,7 +38,7 @@ class KaiYapTest {
         assertTrue(kaiYap.getTaskList().contains(taskDescription),
                 "Task list should contain the added task before deletion.");
 
-        kaiYap.chatResponse("delete 1"); // Assuming chatResponse can handle deleting tasks.
+        kaiYap.chatResponse("delete 2"); // Assuming chatResponse can handle deleting tasks.
         assertFalse(kaiYap.getTaskList().contains(taskDescription), "Task list should not contain the deleted task.");
     }
 
