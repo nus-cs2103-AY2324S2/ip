@@ -43,7 +43,7 @@ public class CommandParser {
 
         if (input.equalsIgnoreCase(DELETE_ALL_COMMAND)) {
             taskManager.deleteAllTasks();
-            return "okay, noted. I've removed all tasks from the list.";
+            return "okay, noted. I've removed all tasks from the list.\n";
         }
 
         switch (userMessage[0].toLowerCase()) {
@@ -139,9 +139,9 @@ public class CommandParser {
      * @param input The input command causing the error.
      */
     private String printError(String input) {
-        return "Sorry " + username.toUpperCase() + ", the TASK NUMBER" +
-                "is missing after " + input.toLowerCase() + "." +
-                "\nCan you please specify a valid task number\n from the list?";
+        return "Sorry, " + " the task number " +
+                "is missing after " + input.toUpperCase() +
+                ". Can you please specify a valid task number from the list?";
     }
 }
 

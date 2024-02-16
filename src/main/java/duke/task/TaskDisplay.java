@@ -21,6 +21,8 @@ public class TaskDisplay {
         String command = tokens[0].toLowerCase();
 
         if (!command.equalsIgnoreCase("list") && tokens.length == 1) {
+            // Ensure that the command is valid and has additional arguments
+            assert false : "Invalid command or missing arguments";
             message.append(printErrorMessage(input));
             return message.toString();
         }
@@ -31,14 +33,17 @@ public class TaskDisplay {
                 message.append(printTaskList(taskList));
                 break;
             case "mark":
+                assert tokens.length >= 2 : "Invalid mark command syntax";
                 index = Integer.parseInt(tokens[1]) - 1;
                 message.append(printMarkTask(taskList, index));
                 break;
             case "unmark":
+                assert tokens.length >= 2 : "Invalid unmark command syntax";
                 index = Integer.parseInt(tokens[1]) - 1;
                 message.append(printUnmarkTask(taskList, index));
                 break;
             case "delete":
+                assert tokens.length >= 2 : "Invalid delete command syntax";
                 index = Integer.parseInt(tokens[1]) - 1;
                 message.append(printDeletedTask(taskList, index));
                 break;
@@ -136,12 +141,11 @@ public class TaskDisplay {
     private String printDeletedTask(List<Task> taskList, int index) {
         StringBuilder message = new StringBuilder();
         if (index < 0 || index >= taskList.size()) {
-            message.append("  Sorry, I believe the TASK NUMBER")
-                    .append(" you specified doesn't exist.\n");
+            message.append("Sorry, I believe the TASK NUMBER you specified doesn't exist.");
             return message.toString();
         }
         Task deletedTask = taskList.get(index);
-        message.append("  Noted. I've removed this task:\n")
+        message.append("Noted. I've removed this task:\n")
                 .append("     ").append(deletedTask.getTaskIcon())
                 .append(deletedTask.getStatusIcon()).append(deletedTask.getTaskDescription()).append("\n")
                 .append("  Now you have ").append(taskList.size() - 1)
@@ -180,8 +184,8 @@ public class TaskDisplay {
     public String printErrorMessage(String input) {
         StringBuilder message = new StringBuilder();
         message.append("Sorry, the description of ")
-                .append(input.toUpperCase()).append(" cannot be empty. Please add details, so that I can\n")
-                .append("assist you better!\n");
+                .append(input.toUpperCase())
+                .append(" cannot be empty. Please add details, so that I can assist you better!");
         return message.toString();
     }
 }
