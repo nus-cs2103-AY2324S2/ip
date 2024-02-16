@@ -4,13 +4,13 @@ package virtue;
 public class Command {
     /** The available types of commands in Virtue. */
     public enum CommandType {
-        BYE ("bye", false, false),
-        LIST ("list", false, false),
-        MARK ("mark", true, false),
-        UNMARK ("unmark", true, false),
-        TODO ("todo", false, true),
-        DEADLINE ("deadline", false, true),
-        EVENT ("event", false, true),
+        BYE("bye", false, false),
+        LIST("list", false, false),
+        MARK("mark", true, false),
+        UNMARK("unmark", true, false),
+        TODO("todo", false, true),
+        DEADLINE("deadline", false, true),
+        EVENT("event", false, true),
         DELETE("delete", true, false),
         FIND("find", false, true);
 

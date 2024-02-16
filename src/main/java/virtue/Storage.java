@@ -7,8 +7,8 @@ import java.util.Scanner;
 
 /** Contains the methods needed to load a task list from a file and save a task list to a file. */
 public class Storage {
-    private final File DIRECTORY = new File("data");
-    private final File FILE = new File("data/virtue.txt");
+    private final File directory = new File("data");
+    private final File file = new File("data/virtue.txt");
 
     /**
      * Loads the task list from the designated file.
@@ -19,20 +19,20 @@ public class Storage {
     public VirtueTaskList loadTaskList() throws VirtueDateTimeException {
         VirtueTaskList taskList = new VirtueTaskList();
 
-        if (!DIRECTORY.exists()) {
-            DIRECTORY.mkdir();
+        if (!directory.exists()) {
+            directory.mkdir();
         }
 
-        if (!FILE.exists()) {
+        if (!file.exists()) {
             try {
-                FILE.createNewFile();
+                file.createNewFile();
             } catch (IOException e) {
                 System.out.println("OOPS! An error occurred while creating the file: " + e.getMessage());
             }
         }
 
         try {
-            Scanner sc = new Scanner(FILE);
+            Scanner sc = new Scanner(file);
             while (sc.hasNext()) {
                 taskList.addFromFile(sc.nextLine());
             }
@@ -50,7 +50,7 @@ public class Storage {
      * @throws IOException If an I/O error occurs.
      */
     public void saveToFile(VirtueTaskList taskList) throws IOException {
-        FileWriter fileWriter = new FileWriter(FILE);
+        FileWriter fileWriter = new FileWriter(file);
         fileWriter.write(taskList.fileFormat());
         fileWriter.close();
     }

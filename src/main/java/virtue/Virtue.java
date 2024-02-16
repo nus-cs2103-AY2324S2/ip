@@ -1,8 +1,5 @@
 package virtue;
 
-import java.io.IOException;
-import java.util.Scanner;
-
 public class Virtue {
     /** The user interface that interacts with the user. */
     private Ui ui;

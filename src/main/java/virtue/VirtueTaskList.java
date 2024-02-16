@@ -188,7 +188,8 @@ public class VirtueTaskList {
             break;
         case EVENT:
             addEvent(command.description, command.from, command.to);
-        case FIND:
+            break;
+        default: // case FIND:
             printTasksWithWord(command.description);
         }
     }
@@ -216,7 +217,7 @@ public class VirtueTaskList {
             } catch (DateTimeParseException e) {
                 throw new VirtueDateTimeException("by", "deadline");
             }
-        case "E":
+        default: // case "E":
             VirtueDateTime fromDateTime;
             VirtueDateTime toDateTime;
 
@@ -244,8 +245,8 @@ public class VirtueTaskList {
     /**
      * Creates the string to be saved in a file.
      *
-     * @return The concatenation of all fileFormat strings of all tasks in the list,
-     * with each task separated by a line break.
+     * @return The concatenation of all fileFormat strings of all tasks in the list
+     *     with each task separated by a line break.
      */
     public String fileFormat() {
         String str = "";
