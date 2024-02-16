@@ -68,6 +68,11 @@ public class TaskList {
         assert !task.done;
         return task.getRep();
     }
+    public String togglePrio(int i) {
+        Task task = getTask(i - 1);
+        task.togglePrio();
+        return task.getRep();
+    }
     public void addTaskInit(Task t) {
         this.list.add(t);
     }
