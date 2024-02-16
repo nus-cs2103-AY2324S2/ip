@@ -1,8 +1,8 @@
 T | 1 | read book
-D | 0 | return book | 2024-01-24T12:00
+D | 1 | return book | 2024-01-24T12:00
 E | 1 | project meeting | 2024-06-21T05:00 | 2024-06-22T07:00
 D | 0 | hw2 | 2024-01-31T09:00
-D | 0 | return pen | 2024-01-04T05:00
+D | 1 | return pen | 2024-01-04T05:00
 E | 1 | movie | 2024-03-01T09:00 | 2024-03-01T11:00
 D | 0 | wash cloth | 2024-03-03T09:00
 D | 0 | hw | 2021-03-14T08:00

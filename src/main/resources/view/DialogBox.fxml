@@ -8,13 +8,13 @@
 
 <fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label fx:id="text" alignment="CENTER" prefHeight="350.0" prefWidth="500.0" style="-fx-background-color: #f7df87;" text="Label" textAlignment="CENTER" textFill="#96562e" wrapText="true">
+        <Label fx:id="text" alignment="CENTER" prefHeight="350.0" prefWidth="299.0" style="-fx-background-color: #f7df87; -fx-background-radius: 20; -fx-label-padding: left=&quot;5.0&quot; right=&quot;5.0&quot;;" text="Label" textAlignment="CENTER" textFill="#96562e" wrapText="true">
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font></Label>
         <Circle fx:id="cir" radius="42.0" />
     </children>
     <padding>
-        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
     </padding>
 </fx:root>

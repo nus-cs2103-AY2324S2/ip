@@ -44,7 +44,6 @@ public class DialogBox extends HBox {
         }
 
         text.setText(content);
-        cir.setStroke(Color.SEAGREEN);
         cir.setFill(new ImagePattern(image));
         cir.setEffect(new DropShadow(+25d, 0d, +2d, Color.WHITE));
     }
