@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import duke.command.MarkCommand;
-import duke.exception.DukeException;
 import duke.task.TaskList;
 import duke.task.ToDo;
 
