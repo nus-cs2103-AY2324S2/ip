@@ -20,6 +20,7 @@ public class List {
      * @param task The task to be added to taskList.
      * @param storage The storage that saves the changed tasks to save file.
      * @param ui The ui that confirms to the user about the action.
+     * @return String to display in the ui.
      * @throws IOException As the storage read/writes the save file.
      */
     public String addTask(Task task, Storage storage, Ui ui) throws IOException {
@@ -33,6 +34,7 @@ public class List {
      * @param taskNum The number such that the task with that index is deleted from taskList.
      * @param storage The storage that saves the changed tasks to save file.
      * @param ui The ui that confirms to the user about the action.
+     * @return String to display in the ui.
      * @throws IOException As the storage read/writes the save file.
      */
     public String deleteTask(int taskNum, Storage storage, Ui ui) throws IOException {
@@ -57,7 +59,7 @@ public class List {
      * @param taskNum The number such that the task with that index is marked in the taskList.
      * @param storage The storage that saves the changed tasks to save file.
      * @param ui      The ui that confirms to the user about the action.
-     * @return
+     * @return String to display in the ui.
      * @throws IOException As the storage read/writes the save file.
      */
     public String markTask(int taskNum, Storage storage, Ui ui) throws IOException {
@@ -71,6 +73,7 @@ public class List {
      * @param taskNum The number such that the task with that index is unmarked in the taskList.
      * @param storage The storage that saves the changed tasks to save file.
      * @param ui The ui that confirms to the user about the action.
+     * @return String to display in the ui.
      * @throws IOException As the storage read/writes the save file.
      */
     public String unmarkTask(int taskNum, Storage storage, Ui ui) throws IOException {
@@ -83,6 +86,7 @@ public class List {
      * Finds tasks that contain the keyword(s).
      * @param keywords The words that the tasks in the resulting list should contain.
      * @param ui The ui that displays the resulting list.
+     * @return String to display in the ui.
      */
     public String findTasks(String keywords, Ui ui) {
         List results = new List(new ArrayList<>());

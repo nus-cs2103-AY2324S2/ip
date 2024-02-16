@@ -47,7 +47,7 @@ test {
 }
 
 application {
-    mainClass.set("kitchensink.KitchenSink")
+    mainClass.set("kitchensink.Launcher")
 }
 
 shadowJar {

@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import kitchensink.exception.SaveFileCorruptedException;
 import org.junit.jupiter.api.Test;
 
 import kitchensink.List;
@@ -85,7 +86,7 @@ public class StorageTest {
     }
 
     @Test
-    public void testLoadTasks() throws IOException {
+    public void testLoadTasks() throws IOException, SaveFileCorruptedException {
         Storage storage = new Storage(path);
         storage.clearData();
         List taskList = new List(new ArrayList<>());

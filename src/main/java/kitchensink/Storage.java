@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import kitchensink.exception.SaveFileCorruptedException;
 import kitchensink.task.Deadline;
 import kitchensink.task.Event;
 import kitchensink.task.Task;
@@ -56,33 +57,57 @@ public class Storage {
      * @return Task ArrayList that is to be loaded to a taskList.
      * @throws IOException As it reads a file.
      */
-    public ArrayList<Task> loadTasks() throws IOException {
+    public ArrayList<Task> loadTasks() throws IOException, SaveFileCorruptedException {
+        assert new File(fileName).exists();
         ArrayList<Task> tasks = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new FileReader(fileName));
         String currLine;
         while ((currLine = reader.readLine()) != null) {
-            String taskType = currLine.split("]")[0].split("\\[")[1];
-            boolean isDone = Objects.equals(currLine.split("\\[")[2].split("]")[0], "X");
+            String taskType;
+            boolean isDone;
+            try {
+                taskType = currLine.split("]")[0].split("\\[")[1];
+                isDone = Objects.equals(currLine.split("\\[")[2].split("]")[0], "X");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new SaveFileCorruptedException();
+            }
+            String description;
             switch (taskType) {
             case "T":
-                String description = currLine.split("] ")[1];
+                try {
+                    description = currLine.split("] ")[1];
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new SaveFileCorruptedException();
+                }
                 tasks.add(new ToDo(description));
                 break;
             case "D":
-                description = currLine.split(" \\(by:")[0].split("] ")[1];
-                String dueDate = currLine.split("\\(by: ")[1].split("\\)")[0];
+                String dueDate;
+                try {
+                    description = currLine.split(" \\(by:")[0].split("] ")[1];
+                    dueDate = currLine.split("\\(by: ")[1].split("\\)")[0];
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new SaveFileCorruptedException();
+                }
                 tasks.add(new Deadline(description, LocalDateTime.parse(dueDate,
                         DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm"))));
                 break;
             case "E":
-                description = currLine.split(" \\(from:")[0].split("] ")[1];
-                String startDate = currLine.split("\\(from: ")[1].split(" to:")[0];
-                String endDate = currLine.split("to: ")[1].split("\\)")[0];
+                String startDate;
+                String endDate;
+                try {
+                    description = currLine.split(" \\(from:")[0].split("] ")[1];
+                    startDate = currLine.split("\\(from: ")[1].split(" to:")[0];
+                    endDate = currLine.split("to: ")[1].split("\\)")[0];
+                }  catch (ArrayIndexOutOfBoundsException e) {
+                    throw new SaveFileCorruptedException();
+                }
                 tasks.add(new Event(description, LocalDateTime.parse(startDate,
                         DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")),
                         LocalDateTime.parse(endDate, DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm"))));
                 break;
             default:
+                throw new SaveFileCorruptedException();
             }
             if (isDone) {
                 tasks.get(tasks.size() - 1).setToDone();

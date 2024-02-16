@@ -33,6 +33,7 @@ public class Ui {
      * Displays the number of tasks remaining and distinguishes between singular and plural form.
      * @param task The task that is being added.
      * @param taskListSize Number of tasks in taskList.
+     * @return String to display in the ui.
      */
     public String sayTaskAdded(Task task, int taskListSize) {
         String taskOrTasks = taskListSize == 1 ? " task " : " tasks ";
@@ -60,6 +61,7 @@ public class Ui {
      * Displays the number of tasks remaining and distinguishes between singular and plural form.
      * @param task The task that is being deleted.
      * @param taskListSize Number of tasks in taskList.
+     * @return String to display in the ui.
      */
     public String sayTaskDeleted(Task task, int taskListSize) {
         String taskOrTasks = taskListSize == 1 ? " task " : " tasks ";
