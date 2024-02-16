@@ -48,16 +48,17 @@ public class Parser {
     * @param cmdString The command string to be parsed.
     * @return An array of strings representing the parsed command. The first element of the
     *             returned array is the command type, and the rest are the command arguments.
-    * @throws DukeExceptio
+    * @throws DukeException
     */
-    static String[] parseCommand(String cmdString) throws DukeException {
+    static Command parseCommand(String cmdString) throws DukeException {
         String[] cmdSplit = cmdString.split(" ");
         assert cmdSplit.length >= 1 : " Empty command!";
         String command = cmdSplit[0];
         switch (command) {
         case "end":
+            return CommandFactory.createEnd();
         case "list":
-            return new String[] { command };
+            return CommandFactory.createList();
         case "mark":
         case "unmark":
         case "delete": {
@@ -69,7 +70,12 @@ public class Parser {
             if (!isNumber(idxString)) {
                 throw new DukeException(String.format(ferr1, command));
             }
-            return new String[] { command, idxString };
+            Integer idx = Integer.parseInt(idxString) - 1;
+            return command == "mark"
+                ? CommandFactory.createMark(idx)
+                : command == "unmark"
+                ? CommandFactory.createUnmark(idx)
+                : CommandFactory.createDelete(idx);
         }
         case "find":
         case "todo": {
@@ -82,7 +88,9 @@ public class Parser {
                 ));
             }
             String argument = cmdJoin(range(cmdSplit, 1, cmdSplit.length));
-            return new String[] { command, argument };
+            return command == "find"
+                ? CommandFactory.createFind(argument)
+                : CommandFactory.createTodo(argument);
         }
         case "deadline": {
             List<String> cmds = Arrays.asList(cmdSplit);
@@ -100,7 +108,7 @@ public class Parser {
             if (deadline.length() == 0) {
                 throw new DukeException(String.format(ferr2, "deadline"));
             }
-            return new String[] { command, taskStr, deadline };
+            return CommandFactory.createDeadline(taskStr, deadline);
         }
         case "event": {
             List<String> cmds = Arrays.asList(cmdSplit);
@@ -142,7 +150,7 @@ public class Parser {
                     String.format(ferr2, "to")
                 );
             }
-            return new String[] { command, taskStr, fromStr, toStr };
+            return CommandFactory.createEvent(taskStr, fromStr, toStr);
         }
         default:
             throw new DukeException(

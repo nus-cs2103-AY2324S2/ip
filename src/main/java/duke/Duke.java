@@ -58,10 +58,8 @@ public class Duke {
     */
     public String getReply(String userInput) {
         try {
-            String[] cmd = Parser.parseCommand(userInput);
-            String command = cmd[0];
-            String[] arguments = Parser.range(cmd, 1, cmd.length);
-            isContinue = ui.handleCommand(tasks, command, arguments);
+            Command cmd = Parser.parseCommand(userInput);
+            isContinue = ui.handleCommand(tasks, cmd);
             storage.save(tasks.getStoredTasks());
         } catch (DukeException e) {
             ui.flushBuffer();
