@@ -3,6 +3,7 @@ package remi.model.commands;
 import java.util.HashMap;
 import java.util.List;
 
+import javafx.application.Platform;
 import remi.io.Message;
 import remi.model.Deadline;
 import remi.model.Event;
@@ -78,7 +79,8 @@ public class CommandList {
 
     private void loadCommands() {
         commandLookup.put("exit", (args) -> {
-            chatbot.exitIoLoop();
+            Platform.exit();
+            System.exit(0);
             return new Message("Bye. Please finish some of your tasks.");
         });
         commandLookup.put("list", (args) -> {
