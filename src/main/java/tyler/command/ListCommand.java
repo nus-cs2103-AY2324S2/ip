@@ -17,7 +17,7 @@ public class ListCommand extends Command {
      * @param storage The storage that can load or save task.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.list(tasks);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.list(tasks);
     }
 }

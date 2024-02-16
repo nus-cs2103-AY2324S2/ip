@@ -14,8 +14,7 @@ import tyler.ui.Ui;
  * The main class of Tyler that run Tyler.
  */
 public class Tyler {
-    private static final String FILE_PATH = Paths.get(".", "data", "Tyler.txt").toString();
-    private Ui ui;
+    protected Ui ui;
     private Storage storage;
     private TaskList tasks;
 
@@ -36,26 +35,16 @@ public class Tyler {
     }
 
     /**
-     * Run Tyler.
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
      */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine(); // show the divider line ("_______")
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (TylerException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
-            }
+    protected String getResponse(String input) throws TylerException {
+        try {
+            Command currentCommand = Parser.parse(input);
+            return currentCommand.execute(tasks, ui, storage);
+        } catch (TylerException e) {
+            return e.getMessage();
         }
     }
-    public static void main(String[] args) {
-        new Tyler(FILE_PATH).run();
-    }
+
 }

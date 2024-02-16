@@ -24,7 +24,7 @@ public class UnmarkCommand extends Command {
      * @param storage The storage that can load or save task.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.getTask(this.index - 1).unmark();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return tasks.getTask(this.index - 1).unmark();
     }
 }

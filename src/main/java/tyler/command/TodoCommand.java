@@ -14,10 +14,10 @@ public class TodoCommand extends AddCommand {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Todo newTask = new Todo(this.taskName);
         tasks.addTask(newTask);
         int num = tasks.getNumOfTasks();
-        ui.showTaskAdded(newTask, num);
+        return ui.showTaskAdded(newTask, num);
     }
 }

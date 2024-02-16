@@ -35,10 +35,10 @@ public class DeadlineCommand extends AddCommand {
      * @param storage The storage that can load or save task.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Deadline newTask = new Deadline(this.taskName, this.end);
         tasks.addTask(newTask);
         int num = tasks.getNumOfTasks();
-        ui.showTaskAdded(newTask, num);
+        return ui.showTaskAdded(newTask, num);
     }
 }

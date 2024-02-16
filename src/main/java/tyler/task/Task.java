@@ -21,20 +21,20 @@ public class Task {
      * This method is used by execute method in all command class. Marked the task
      * to be done and show the line that task is marked.
      */
-    public void mark() {
+    public String mark() {
         this.isDone = true;
-        System.out.println("    Nice! I've marked this task as done:");
-        System.out.println("    " + this);
+        return "    Nice! I've marked this task as done:\n"
+                + "    " + this;
     }
 
     /**
      * This method is used by execute method in all command class. Unmarked the task
      * to be not done and show the line that task is unmarked.
      */
-    public void unmark() {
+    public String unmark() {
         this.isDone = false;
-        System.out.println("    OK, I've marked this task as not done yet:");
-        System.out.println("    " + this);
+        return "    OK, I've marked this task as not done yet:\n"
+                + "    " + this;
     }
 
     /**

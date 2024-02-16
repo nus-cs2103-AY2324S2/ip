@@ -15,25 +15,25 @@ public class Ui {
     /**
      * Prints welcome when initialize Tyler.
      */
-    public void showWelcome() {
-        System.out.println("    Hello from Tyler");
-        System.out.println("    What can I do for you?");
-        System.out.println("    list, todo, deadline, event, mark, unmark, bye");
-        System.out.println("    --------------------------------------------------");
+    public String showWelcome() {
+        return "    Hello from Tyler\n"
+                + "    What can I do for you?\n"
+                + "    list, todo, deadline, event, mark, unmark, bye\n"
+                + "    --------------------------------------------------";
     }
 
     /**
      * Prints bye when exit Tyler.
      */
-    public void showBye() {
-        System.out.println("    Bye. Hope to see you again");
+    public String showBye() {
+        return "    Bye. Hope to see you again";
     }
 
     /**
      * Prints loading error.
      */
-    public void showLoadingError() {
-        System.out.println("    Can't load file / file does not exist. I'll create a new one for you.");
+    public String showLoadingError() {
+        return "    Can't load file / file does not exist. I'll create a new one for you.";
     }
 
     /**
@@ -42,10 +42,10 @@ public class Ui {
      * @param task The specific task that have added.
      * @param num  The number of tasks after adding this task.
      */
-    public void showTaskAdded(Task task, int num) {
-        System.out.println("    Got it! I've added this task:");
-        System.out.println("      " + task);
-        System.out.println("    Now you have " + num + " tasks in the list");
+    public String showTaskAdded(Task task, int num) {
+        return "    Got it! I've added this task:\n"
+                + "      " + task + "\n"
+                + "    Now you have " + num + " tasks in the list";
     }
 
     /**
@@ -54,10 +54,10 @@ public class Ui {
      * @param task The specific task that needed to be deleted.
      * @param num  The number of tasks after deleting this task.
      */
-    public void showTaskDeleted(Task task, int num) {
-        System.out.println("    Noted! I've deleted this task:");
-        System.out.println("      " + task);
-        System.out.println("    Now you have " + num + " tasks in the list");
+    public String showTaskDeleted(Task task, int num) {
+        return "    Noted! I've deleted this task:\n"
+                + "      " + task + "\n"
+                + "    Now you have " + num + " tasks in the list";
     }
 
     /**
@@ -74,29 +74,31 @@ public class Ui {
      *
      * @param tasks The taskList class that hold the taskList
      */
-    public void list(TaskList tasks) {
+    public String list(TaskList tasks) {
         ArrayList<Task> taskList = tasks.getList();
+        String listOfTasks = "";
         for (int i = 1; i < taskList.size() + 1; i++) {
             if (taskList.get(i - 1) == null) {
                 break;
             }
             String task = taskList.get(i - 1).toString();
-            System.out.println("    " + i + ". " + task);
+            listOfTasks += "    " + i + ". " + task + "\n";
         }
+        return listOfTasks;
     }
 
     /**
      * Prints error message.
      * @param message The message to be printed.
      */
-    public void showError(String message) {
-        System.out.println(message);
+    public String showError(String message) {
+        return message;
     }
 
     /**
      * Prints dividing line.
      */
-    public void showLine() {
-        System.out.println("    --------------------------------------------------");
+    public String showLine() {
+        return "    --------------------------------------------------\n";
     }
 }

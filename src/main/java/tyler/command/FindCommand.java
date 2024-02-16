@@ -24,7 +24,7 @@ public class FindCommand extends Command {
      * @param storage The storage that can load or save task.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.find(this.keyword);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return tasks.find(this.keyword);
     }
 }

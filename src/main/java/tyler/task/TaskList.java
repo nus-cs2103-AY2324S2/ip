@@ -67,7 +67,7 @@ public class TaskList {
      *
      * @param keyword Keyword that the task may contain.
      */
-    public void find(String keyword) {
+    public String find(String keyword) {
         ArrayList<Task> matchedTasks = new ArrayList<>();
         for (Task task: taskList) {
             if (task.name.toLowerCase().contains(keyword.toLowerCase())) {
@@ -75,12 +75,13 @@ public class TaskList {
             }
         }
         if (matchedTasks.isEmpty()) {
-            System.out.println("    Sorry. No matching tasks found.");
+            return "    Sorry. No matching tasks found.";
         } else {
-            System.out.println("    Here are the matching tasks in your list:");
+            String result = "    Here are the matching tasks in your list:";
             for (int i = 0; i < matchedTasks.size(); i++) {
-                System.out.println("      " + (i + 1) + ". " + matchedTasks.get(i));
+                result += "\n" + "      " + (i + 1) + ". " + matchedTasks.get(i);
             }
+            return result;
         }
     }
 }

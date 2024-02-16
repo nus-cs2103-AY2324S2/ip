@@ -8,17 +8,6 @@ import tyler.ui.Ui;
  * Represent the Exit Command. This command can ensure to exit the Tyler.
  */
 public class ExitCommand extends Command {
-
-    /**
-     * Exit command is Exit.
-     *
-     * @return True
-     */
-    @Override
-    public boolean isExit() {
-        return true;
-    }
-
     /**
      * Execution of Exit Command store the taskList locally, so that Tyler is opened
      * next time, the taskList will appear again. At last, showing the line that
@@ -29,8 +18,8 @@ public class ExitCommand extends Command {
      * @param storage The storage that can load or save task.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         storage.saveTask(tasks);
-        ui.showBye();
+        return ui.showBye();
     }
 }
