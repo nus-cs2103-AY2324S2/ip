@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -64,17 +65,32 @@ public class Storage {
 
         switch (type) {
         case "T":
-            String todoTag = parts[3];
-            Todo todo = new Todo(description, todoTag);
+            String todoTag = parts[3].trim();
+
+            Todo todo;
+            if (todoTag.equals("null")) {
+                todo = new Todo(description);
+            } else {
+                todo = new Todo(description, todoTag);
+            }
+
             if (isDone) {
                 todo.markAsDone();
             }
+
             return todo;
         case "D":
-            String byString = parts[3];
+            String byString = parts[3].trim();
             LocalDate by = LocalDate.parse(byString);
             String deadlineTag = parts[4];
-            Deadline deadline = new Deadline(description, deadlineTag, by);
+
+            Deadline deadline;
+            if (deadlineTag.equals("null")) {
+                deadline = new Deadline(description, by);
+            } else {
+                deadline = new Deadline(description, deadlineTag, by);
+            }
+
             if (isDone) {
                 deadline.markAsDone();
             }
@@ -86,9 +102,15 @@ public class Storage {
             String fromTime = fromToParts[1];
             LocalDate toDate = LocalDate.parse(fromToParts[2]);
             String toTime = fromToParts[3];
-            String eventTag = parts[4];
+            String eventTag = parts[4].trim();
 
-            Event event = new Event(description, eventTag, fromDate, fromTime, toDate, toTime);
+            Event event;
+            if (eventTag.equals("null")) {
+                event = new Event(description, fromDate, fromTime, toDate, toTime);
+            } else {
+                event = new Event(description, eventTag, fromDate, fromTime, toDate, toTime);
+            }
+
             if (isDone) {
                 event.markAsDone();
             }
