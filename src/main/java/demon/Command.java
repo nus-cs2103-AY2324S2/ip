@@ -25,10 +25,12 @@ public class Command {
      * @param tasks an array containing all tasks.
      */
     public void list(TaskList tasks) {
-        this.storeString.append("List of things to do :\n");
+        String str = "List of things to do :\n";
+        this.storeString.append(str);
         for (int i = 1; i <= tasks.getTaskList().size(); i++) {
             Task item = tasks.getTaskList().get(i - 1);
-            this.storeString.append("\t").append(i).append(".").append(item.toString()).append("\n");
+            String strToAppend = "\t" + i + ". " + item.toString() + "\n";
+            this.storeString.append(strToAppend);
         }
     }
 
@@ -46,9 +48,11 @@ public class Command {
             Task item = tasks.getTaskList().get(num-1);
             if (item.getStatusIcon().equals("X")) {
                 item.markNotDone();
+                String markStr = "Sure Master, I've marked this task as not done : \n";
+                String itemStr = item + "\n";
                 storage.reWriteFile(num);
-                this.storeString.append("Sure Master, I've marked this task as not done : \n");
-                this.storeString.append(item).append("\n");
+                this.storeString.append(markStr);
+                this.storeString.append(itemStr);
             } else {
                 this.storeString.append("Oops! Task already NOT done!");
             }
@@ -63,15 +67,19 @@ public class Command {
      * @param num array index of the task list
      */
     public void mark(TaskList tasks, int num) {
+        assert tasks != null : "TaskList reference cannot be null";
+        assert tasks.getTaskList() != null : "getTaskList() returned null";
         if (num < 1 | num > tasks.getTaskList().size()) {
             throw new IndexOutOfBoundsException("Integer provided out of range!");
         } else {
             Task item = tasks.getTaskList().get(num-1);
             if (item.getStatusIcon().equals(" ")) {
                 item.markDone();
+                String markStr = "Sure Master, I've marked this task as done : \n";
+                String itemStr = item + "\n";
                 storage.reWriteFile(num);
-                this.storeString.append("Sure Master, I've marked this task as done : \n");
-                this.storeString.append(item).append("\n");
+                this.storeString.append(markStr);
+                this.storeString.append(itemStr);
             } else {
                 this.storeString.append("Oops! Task already done!");
             }
@@ -94,6 +102,33 @@ public class Command {
                    EmptyDescriptionException,
                    IOException,
                    DateTimeParseException {
+        String[] parts2 = getStrings(tasks, input);
+        String description = parts2[0].trim();
+        String by = parts2[1].trim();
+
+        // Automatically assume that if time is not given, then time is 0000hrs
+        by = reformatTime(by);
+        // Format the date, time, and create Deadline object, add to list
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        LocalDateTime dateTime = LocalDateTime.parse(by, formatter);
+        Deadline itemDeadline = new Deadline(description, dateTime);
+        tasks.getTaskList().add(itemDeadline);
+        String itemStatus = itemDeadline.getStatusIcon().equals("X") ? "1" : "0";
+        String stringToSave = "D | " + itemStatus
+                + " | " + description + " | " + by + "\n";
+
+        // May produce IOException
+        storage.writeToFile(stringToSave);
+        int taskListSize = tasks.getTaskList().size();
+        this.storeString.append(Ui.showTaskAdded());
+        this.storeString.append(itemDeadline).append("\n");
+        this.storeString.append(Ui.showNumberOfTasks(taskListSize));
+    }
+
+    private static String[] getStrings(TaskList tasks, String input) throws EmptyDescriptionException,
+            NoTimingException {
+        assert tasks != null : "TaskList reference cannot be null";
+        assert input != null && !input.isEmpty() : "Input string cannot be null or empty";
         String[] parts = input.split(" ",2);
         if (parts.length < 2) {
             throw new EmptyDescriptionException("Description is EMPTY!");
@@ -103,27 +138,7 @@ public class Command {
         if (parts2.length < 2) {
             throw new NoTimingException("WOI! Please include deadline!");
         }
-        String description = parts2[0].trim();
-        String by = parts2[1].trim();
-
-        // Automatically assume that if time is not given, then time is 0000hrs
-        int sizeOfBy = by.split(" ").length;
-        if (sizeOfBy < 2) {
-            by += " 0000";
-        }
-        // Format the date, time, and create Deadline object, add to list
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        LocalDateTime dateTime = LocalDateTime.parse(by, formatter);
-        Deadline itemDeadline = new Deadline(description, dateTime);
-        tasks.getTaskList().add(itemDeadline);
-        String stringToSave = "D | " + (itemDeadline.getStatusIcon().equals("X") ? "1" : "0")
-                + " | " + description + " | " + by + "\n";
-
-        // May produce IOException
-        storage.writeToFile(stringToSave);
-        this.storeString.append(Ui.showTaskAdded());
-        this.storeString.append(itemDeadline).append("\n");
-        this.storeString.append(Ui.showNumberOfTasks(tasks.getTaskList().size()));
+        return parts2;
     }
 
     /**
@@ -143,12 +158,14 @@ public class Command {
         String toDo = parts[1];
         Todo item_toDo = new Todo(toDo);
         tasks.getTaskList().add(item_toDo);
-        String stringToSave = "T | " + (item_toDo.getStatusIcon().equals("X") ? "1" : "0") + " | " + toDo +"\n";
+        String itemStatus = item_toDo.getStatusIcon().equals("X") ? "1" : "0";
+        String stringToSave = "T | " + itemStatus + " | " + toDo + "\n";
         // May produce IOException
         storage.writeToFile(stringToSave);
+        int taskListSize = tasks.getTaskList().size();
         this.storeString.append(Ui.showTaskAdded());
         this.storeString.append(item_toDo).append("\n");
-        this.storeString.append(Ui.showNumberOfTasks(tasks.getTaskList().size()));
+        this.storeString.append(Ui.showNumberOfTasks(taskListSize));
     }
 
     /**
@@ -181,15 +198,9 @@ public class Command {
         String from = details[0].trim();
         String to = details[1].trim();
 
-        // Automatically assume that if time is not given, then time is 0000hrs
-        int sizeOfFrom = from.split(" ").length;
-        if (sizeOfFrom < 2) {
-            from += " 0000";
-        }
-        int sizeOfTo = to.split(" ").length;
-        if (sizeOfTo < 2) {
-            to += " 0000";
-        }
+        // Reformat dateTime if from and to is missing time
+        from = reformatTime(from);
+        to = reformatTime(to);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         LocalDateTime dateTimeFrom = LocalDateTime.parse(from, formatter);
@@ -204,6 +215,21 @@ public class Command {
         this.storeString.append("Yes Master, I've added this task: \n");
         this.storeString.append(item_event).append("\n");
         this.storeString.append(Ui.showNumberOfTasks(tasks.getTaskList().size()));
+    }
+
+    /**
+     * Returns the formatted dateTime String given in the parameter.
+     * If given string does not include the time, we add 0000hrs by default to the date.
+     * @param dateTime A string consisting date and time.
+     * @return a String consisting of date and time.
+     */
+    private String reformatTime(String dateTime) {
+        String outPut = dateTime;
+        int dateTimeSize = dateTime.split(" ").length;
+        if (dateTimeSize < 2) {
+            outPut += " 0000";
+        }
+        return outPut;
     }
 
     /**
@@ -228,11 +254,14 @@ public class Command {
             throw new IndexOutOfBoundsException("Integer provided out of range!");
         }
 
-        this.storeString.append("Noted Master. I've removed this task: \n");
-        this.storeString.append(tasks.getTaskList().get(Integer.parseInt(parts[1]) - 1).toString()).append("\n");
+        String str = "Noted Master. I've removed this task: \n";
+        String itemRemoveStr = tasks.getTaskList().get(Integer.parseInt(parts[1]) - 1).toString() + "\n";
+        this.storeString.append(str);
+        this.storeString.append(itemRemoveStr);
         tasks.getTaskList().remove(Integer.parseInt(parts[1]) - 1);
         storage.removeFromFile(Integer.parseInt(parts[1]) - 1);
-        this.storeString.append(Ui.showNumberOfTasks(tasks.getTaskList().size()));
+        int taskListSize = tasks.getTaskList().size();
+        this.storeString.append(Ui.showNumberOfTasks(taskListSize));
     }
 
     /**
@@ -251,16 +280,18 @@ public class Command {
         }
 
         String keyword = parts[1].toLowerCase();
-        this.storeString.append("Here are your matching tasks in your list: \n");
+        String str = "Here are your matching tasks in your list: \n";
+        this.storeString.append(str);
+
         for (int i = 0; i < tasks.getSize(); i++) {
             Task task = tasks.getTask(i);
             String taskString = task.toString();
             if (taskString.toLowerCase().contains(keyword)) {
-                this.storeString.append((i + 1)).append(".").append(taskString).append("\n");
+                String matchedTask = i + 1 + ". " + taskString + "\n ";
+                this.storeString.append(matchedTask);
                 hasMatched = true;
             }
         }
-
         if (!hasMatched) {
             this.storeString.append("NONE!");
         }
