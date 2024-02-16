@@ -67,6 +67,7 @@ public class Ui {
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(500.0);
+        stage.getIcons().add(kewgyImg);
 
         mainLayout.setPrefSize(500.0, 600.0);
 
