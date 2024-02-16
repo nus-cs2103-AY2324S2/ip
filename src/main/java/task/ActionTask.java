@@ -128,4 +128,89 @@ public class ActionTask implements ParseExecutionable {
             return "Unrecognized command";
         }
     }
+  
+    /**
+     * Creates the String for the list command by listing all tasks in storage.
+     *
+     * @param taskStorage the current user session storage of task.
+     * @return the String created from doing this action, for the user to see.
+     */
+    private String listActions(TaskStorage taskStorage) {
+        if (taskStorage.size() > 0) {
+            return taskStorage.toString();
+        }
+        return Messages.MESSAGE_EMPTY_LIST;
+    }
+
+    /**
+     * Marks the task specified by the user.
+     *
+     * @param taskStorage the current user session storage of task.
+     * @return the String created from doing this action, for the user to see.
+     */
+    private String markActions(TaskStorage taskStorage) {
+        String printMessage = "Nicely done! I've marked this task as done: \n";
+        String resultMessage = taskStorage.markTask(this.taskId, true);
+        if (resultMessage.equals(Messages.MESSAGE_NO_SUCH_ELEMENTS)) {
+            return resultMessage;
+        }
+        printMessage += resultMessage;
+        return printMessage;
+    }
+
+    /**
+     * Unmarks the task specified by the user.
+     *
+     * @param taskStorage the current user session storage of task.
+     * @return the String created from doing this action, for the user to see.
+     */
+    private String unmarkActions(TaskStorage taskStorage) {
+        String printMessage = "Hey you! I've marked this task as not done, yet: \n";
+        String resultMessage = taskStorage.markTask(this.taskId, false);
+        if (resultMessage.equals(Messages.MESSAGE_NO_SUCH_ELEMENTS)) {
+            return resultMessage;
+        }
+        printMessage += resultMessage;
+        return printMessage;
+    }
+
+    /**
+     * Deletes the task specified by the user.
+     *
+     * @param taskStorage the current user session storage of task.
+     * @return the String created from doing this action, for the user to see.
+     */
+    private String deleteActions(TaskStorage taskStorage) {
+        String printMessage = "Alright-o, I have deleted the following task: \n";
+        String resultMessage = taskStorage.removeTask(this.taskId);
+        if (resultMessage.equals(Messages.MESSAGE_NO_SUCH_ELEMENTS)) {
+            return resultMessage;
+        }
+        printMessage += resultMessage;
+        return printMessage;
+    }
+
+    /**
+     * Closes the application for the user.
+     *
+     * @param taskStorage the current user session storage of task.
+     * @return the String created from doing this action, for the user to see.
+     */
+    private String byeActions(TaskStorage taskStorage) {
+        this.isExit = true;
+        return "Bye, hope to see you again soon!";
+    }
+
+    /**
+     * Searches for the task specified by the user in his session storage.
+     *
+     * @param taskStorage the current user session storage of task.
+     * @return the String created from doing this action, for the user to see.
+     */
+    private String findActions(TaskStorage taskStorage) {
+        if (taskStorage.size() > 0) {
+            return taskStorage.searchForTask(this.searchKeyword);
+        }
+        return Messages.MESSAGE_EMPTY_LIST;
+    }
 }
