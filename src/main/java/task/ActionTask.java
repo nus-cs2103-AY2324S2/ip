@@ -85,7 +85,6 @@ public class ActionTask implements ParseExecutionable {
     @Override
     public String execute(TaskStorage taskStorage) {
         assert taskStorage != null : "TaskStorage should not be not instantiated!";
-        String printMessage = "";
         switch (this.action) {
         case LIST:
             return this.listActions(taskStorage);
@@ -103,7 +102,7 @@ public class ActionTask implements ParseExecutionable {
             return "Unrecognized command";
         }
     }
-    
+
     /**
      * Creates the String for the list command by listing all tasks in storage.
      *
