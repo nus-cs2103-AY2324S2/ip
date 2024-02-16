@@ -18,7 +18,8 @@ public abstract class NarutoException extends Exception {
         INVALID_COMMAND,
         INVALID_INDEX,
         FILE_CORRUPTED,
-        INVALID_ACTION
+        INVALID_ACTION,
+        DUPLICATE_TASK
     }
 
     /**
@@ -124,5 +125,10 @@ public abstract class NarutoException extends Exception {
      */
     public static NarutoException createInvalidActionException() {
         return new InvalidActionException("I couldn't seem to understand that... Try again!");
+    }
+
+    public static NarutoException createDuplicateTaskException() {
+        return new DuplicateTaskException("You already added that task... Try adding " +
+            "something else!");
     }
 }

@@ -138,4 +138,13 @@ public class TaskList {
         }
         return sb.toString();
     }
+    /**
+     * Checks if the task list contains a specific task.
+     *
+     * @param t the task to check for.
+     * @return true if the task list contains the task, false otherwise.
+     */
+    public boolean contains(Task t) {
+        return tasks.contains(t);
+    }
 }
