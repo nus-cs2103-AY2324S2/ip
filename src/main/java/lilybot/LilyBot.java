@@ -38,6 +38,7 @@ public class LilyBot {
             } else if (command.startsWith("unmark")) {
                 try {
                     int taskNum = Parser.parseInt(command);
+                    assert taskNum > 0 : "Task number should be at least 1.";
                     return ui.MarkNotDone(taskNum, ls);
                 } catch (Exception exc) {
                     return ui.invalidInputNumber();
@@ -46,6 +47,7 @@ public class LilyBot {
             } else if (command.startsWith("mark")) {
                 try {
                     int taskNum = Parser.parseInt(command);
+                    assert taskNum > 0 : "Task number should be at least 1.";
                     return ui.MarkDone(taskNum, ls);
                 } catch (Exception exc) {
                     return ui.invalidInputNumber();
@@ -54,6 +56,7 @@ public class LilyBot {
             } else if (command.startsWith("delete")) {
                 try {
                     int taskNum = Parser.parseInt(command);
+                    assert taskNum > 0 : "Task number should be at least 1.";
                     return ui.taskRemoved(taskNum, ls);
                 } catch (Exception exc) {
                     return ui.invalidInputNumber();
