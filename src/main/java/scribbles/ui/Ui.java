@@ -39,6 +39,7 @@ public class Ui {
                 + " with duration formatted as dd/mm/yyyy HHmm\n"
                 + "- type \"delete [index]\" to remove a task at index from your list\n"
                 + "- type \"find [keyword]\" to find tasks with matching keyword\n"
+                + "- type \"sortBy [order]\" to sort task list according to specified order\n"
                 + "- type \"bye\" to exit Scribbles\n"
                 + "Please try again :)");
     }
@@ -203,6 +204,21 @@ public class Ui {
     public String printMissingKeywordMessage() {
         return ("Please include a keyword so Scribbles can search for the tasks you are looking for!\n" +
                 "i.e. find [keyword]");
+    }
+
+    public String printTasksSortedMessage() {
+        return ("Scribbles has sorted your tasks! :)\n"
+                + "type \"list\" to view your sorted task list.");
+    }
+
+    public String printOrderNotFoundMessage() {
+        return ("Sorry, unfortunately Scribbles only allows the following to be ordered:\n"
+                + "- date: orders task by their dates\n"
+                + "- description: orders tasks alphabetically\n"
+                + "- completed first: orders tasks by completed first\n"
+                + "- incompleted first: orders tasks by incompleted first\n"
+                + "- type: orders task by to-dos -> deadlines -> events\n"
+                + "Try \"sortBy [order]\" again! ");
     }
 
     /**

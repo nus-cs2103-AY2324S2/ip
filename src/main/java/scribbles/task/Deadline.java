@@ -21,6 +21,10 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public LocalDateTime getBy() {
+        return this.by;
+    }
+
     /**
      * Gets the deadline in LocalDateTime and changes it to String format.
      *
