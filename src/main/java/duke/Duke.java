@@ -20,7 +20,7 @@ import duke.ui.Messages;
 public class Duke {
     private static final Storage storage = new Storage();
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         System.out.printf(Messages.WELCOME);
 
         TaskList tasks;
@@ -36,18 +36,13 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         Command currentCommand = null;
 
-
         while (true) {
             try {
                 System.out.printf("\n-> ");
-
-
                 String userInput = sc.nextLine();
 
                 // Parse user input
-                Command command = Parser.parseInput(userInput
-                    );
-
+                Command command = Parser.parseInput(userInput);
 
                 // Execute the command
                 command.execute(tasks);
