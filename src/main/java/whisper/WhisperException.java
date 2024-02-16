@@ -20,7 +20,8 @@ public class WhisperException extends Exception {
 
     // Invalid Event format
     public static WhisperException invalidEvent() {
-        return new WhisperException("\nInvalid format. Please enter again (event [description] /from [start] /to [end]).\n");
+        return new WhisperException("\nInvalid format. Please enter again (event [description] /from [start] /to [end])"
+                 + ".\n");
     }
 
     // Invalid Todo format

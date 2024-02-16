@@ -114,8 +114,8 @@ public class Task {
 
     @Override
     public String toString() {
-        return "[" + category + "]" + getStatusIcon() + getDescription() +
-                category.getDetails(this);
+        return "[" + category + "]" + getStatusIcon() + getDescription()
+                + category.getDetails(this);
     }
 
     public enum TaskCategory {
@@ -128,8 +128,9 @@ public class Task {
         E {
             @Override
             public String getDetails(Task task) {
-                return " (from: " + task.getEventFromDateTime().format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) +
-                        " to: " + task.getEventToDateTime().format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
+                return " (from: " + task.getEventFromDateTime().format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))
+                        + " to: " + task.getEventToDateTime().format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))
+                        + ")";
             }
         },
         D {
