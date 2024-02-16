@@ -18,7 +18,7 @@ public class Main extends Application {
             Parent root = loader.load();
             MainWindow mainWindow = loader.getController();
             mainWindow.setNicky(nicky);
-            primaryStage.setTitle("Nicky v0.1.1");
+            primaryStage.setTitle("Nicky v0.2");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         } catch (Exception e) {
