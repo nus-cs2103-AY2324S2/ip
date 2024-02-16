@@ -5,9 +5,10 @@ import java.util.List;
 
 
 public class Storage {
-    private static final String path = "./storage.txt";
+    private final String path;
 
-    public Storage(){
+    public Storage(String path){
+        this.path = path;
         createFile();
     }
 
@@ -31,20 +32,22 @@ public class Storage {
     }
 
     public ArrayList<Task> loadList() {
-        ArrayList<Task> taskList = null;
-        try {
-            File file = new File(path);
-            FileInputStream f = new FileInputStream(file);
-            ObjectInputStream o = new ObjectInputStream(f);
+        ArrayList<Task> taskList = new ArrayList<>();
+        if (!isEmpty()){
+            try {
+                File file = new File(path);
+                FileInputStream f = new FileInputStream(file);
+                ObjectInputStream o = new ObjectInputStream(f);
 
-            taskList = (ArrayList<Task>) o.readObject();
+                taskList = (ArrayList<Task>) o.readObject();
 
-            o.close();
-            f.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            System.out.println("Class not found");
+                o.close();
+                f.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (ClassNotFoundException e) {
+                System.out.println("Class not found");
+            }
         }
         return taskList;
     }
