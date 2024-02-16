@@ -1,9 +1,3 @@
-import helperpackage.Deadline;
-import helperpackage.DukeException;
-import helperpackage.Event;
-import helperpackage.Task;
-import helperpackage.ToDo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -12,6 +6,12 @@ import java.util.LinkedList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.StringTokenizer;
+
+import common.DukeException;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.ToDo;
 
 public class Duke {
     public static void main(String[] args) {
@@ -48,8 +48,8 @@ public class Duke {
                 break;
             } catch (IOException e) {
                 System.out.println("IOException occured: " + e.getMessage());
-                
-                // creating directory 
+
+                // creating directory
                 File dir = new File("./data");
                 boolean isDirectoryCreated = dir.mkdir();
                 if (isDirectoryCreated) {
@@ -69,7 +69,7 @@ public class Duke {
             while (fileScanner.hasNext()) {
                 String[] tasks = fileScanner.nextLine().split(" \\| ");
                 String type = tasks[0];
-                boolean isDone =  Integer.parseInt(tasks[1]) == 1 ? true : false;
+                boolean isDone = Integer.parseInt(tasks[1]) == 1 ? true : false;
 
                 if (type.equals("T")) {
                     ToDo td = new ToDo(isDone, tasks[2]);
@@ -96,18 +96,16 @@ public class Duke {
                 }
             }
             fileScanner.close();
-            System.out.println(hasError 
-                    ? "________________________________________\n" 
+            System.out.println(hasError
+                    ? "________________________________________\n"
                     : "data.txt loaded without error.\n________________________________________\n");
 
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
 
-
         Scanner scanner = new Scanner(System.in);
-        String userInput = scanner.nextLine();
-
+        String userInput = scanner.nextLine().strip();
 
         // loop only exits if input is "bye"
         while (!userInput.toLowerCase().equals("bye")) {
@@ -123,50 +121,52 @@ public class Duke {
                 }
 
             } else {
+                // using String splitting as main parsing tool
+                // format <cmd> <task name> /by | /from <deadline> /to <endtime>
                 StringTokenizer st = new StringTokenizer(userInput);
-                String cmd = st.nextToken().toLowerCase();
+                String cmd = st.nextToken();
 
                 // Level-3: mark & unmark
                 if (cmd.equals("mark") || (cmd.equals("unmark"))) {
                     try {
-                        changeStatus(taskList, cmd, st);
+                        int indexOfTask = Integer.parseInt(st.nextToken());
+                        changeStatus(taskList, cmd, indexOfTask);
+
                     } catch (IndexOutOfBoundsException e) {
-                        System.out.println("Task not found. :(");
-    
+                        System.out.println("Invalid task number. :(");
+
                     } catch (NumberFormatException e) {
                         System.out.println("Input is not an integer. :(");
-    
+
                     } catch (NoSuchElementException e) {
                         System.out.println("Missing task number. :(");
                     }
-                    
-                // Level-4: ToDo, Deadline, Event
+
+                    // Level-4: ToDo, Deadline, Event
                 } else if (cmd.equals("todo") || cmd.equals("event") || cmd.equals("deadline")) {
                     try {
-                        addTask(taskList, cmd, userInput);
+                        addTask(taskList, cmd, st);
 
                     } catch (DukeException e) {
                         System.out.println(e.getMessage());
-
-                    } catch (StringIndexOutOfBoundsException e) {
-                        System.out.println("Invalid input. :(");
                     }
 
-                // Level-6: Delete
+                    // Level-6: Delete
                 } else if (cmd.equals("delete")) {
                     try {
-                        delete(taskList, cmd, st);
+                        int indexOfTask = Integer.parseInt(st.nextToken());
+                        delete(taskList, cmd, indexOfTask);
                     } catch (IndexOutOfBoundsException e) {
-                        System.out.println("Task not found. :(");
-    
+                        System.out.println("Invalid task number. :(");
+
                     } catch (NumberFormatException e) {
                         System.out.println("Input is not an integer. :(");
-    
+
                     } catch (NoSuchElementException e) {
                         System.out.println("Missing task number. :(");
                     }
 
-                // Level-5: Throw exception for other inputs
+                    // Level-5: Throw exception for other inputs
                 } else {
                     try {
                         throw new DukeException("OOPS!! Pls try again. :)");
@@ -178,7 +178,7 @@ public class Duke {
             System.out.println("________________________________________\n");
             userInput = scanner.nextLine();
         }
-        
+
         // writing to file
         try {
             FileWriter fw = new FileWriter(file, false);
@@ -188,7 +188,7 @@ public class Duke {
             }
             fw.close();
 
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
 
@@ -200,17 +200,15 @@ public class Duke {
     }
 
     // Level-3: mark & unmark
-    public static void changeStatus(LinkedList<Task> taskList, String cmd, 
-            StringTokenizer st) throws IndexOutOfBoundsException, 
+    public static void changeStatus(LinkedList<Task> taskList, String cmd,
+            int indexOfTask) throws IndexOutOfBoundsException,
             NumberFormatException, NoSuchElementException {
-        
-        int index = Integer.parseInt(st.nextToken());
-        Task t = taskList.get(index - 1);
 
+        Task t = taskList.get(indexOfTask - 1);
         if (cmd.equals("mark")) {
             t.markAsDone();
             System.out.println("Nice! I've marked this task as done:");
-        
+
         } else if (cmd.equals("unmark")) {
             t.unmark();
             System.out.println("OK, I've marked this task as not done yet:");
@@ -220,41 +218,95 @@ public class Duke {
     }
 
     // Level-4: ToDo, Deadline, Event
-    public static void addTask(LinkedList<Task> taskList, String cmd, 
-            String userInput) throws DukeException {
-
-        int firstSpaceIndex = userInput.indexOf(" ");
-        String description = userInput.substring(firstSpaceIndex + 1);
-        Task t = new Task(" ");
+    public static void addTask(LinkedList<Task> taskList, String cmd,
+            StringTokenizer st) throws DukeException {
 
         if (cmd.equals("todo")) {
-            description = description.strip();
-            if (description.equals("") || firstSpaceIndex == -1) {
-                throw new DukeException("Invalid todo input. :(");
+            String taskName = "";
+            while (st.hasMoreTokens()) {
+                taskName += st.nextToken() + " ";
+            }
+            if (taskName.equals("")) {
+                throw new DukeException("Missing task name. :(");
             } else {
-                t = new ToDo(description);
+                ToDo td = new ToDo(taskName.strip());
+                taskList.add(td);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + td.toString());
+                System.out.println("Now you have " + taskList.size() + " tasks in the list.");
             }
 
         } else if (cmd.equals("deadline")) {
-            t = new Deadline(description);
+            try {
+                String taskName = "";
+                String deadline = "";
+
+                while (st.hasMoreTokens()) {
+                    String temp = st.nextToken();
+                    if (temp.equals("/by")) {
+                        deadline = st.nextToken();
+                        break;
+                    } else {
+                        taskName += temp + " ";
+                    }
+                }
+
+                if (taskName.equals("") || deadline.equals("")) {
+                    throw new DukeException("Missing field(s) / incorrect input(s). :(\nCheck if you have used the keyword \"/by\"");
+                } else {
+                    Deadline d = new Deadline(taskName.strip(), deadline);
+                    taskList.add(d);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + d.toString());
+                    System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+                }
+
+            } catch (NoSuchElementException e) {
+                System.out.println("Missing deadline. :(");
+            }
 
         } else if (cmd.equals("event")) {
-            t = new Event(description);
+            try {
+                String taskName = "";
+                String startTime = "";
+                String endTime = "";
+
+                while (st.hasMoreTokens()) {
+                    String temp = st.nextToken();
+                    if (temp.equals("/from")) {
+                        startTime = st.nextToken();
+                        continue;
+                    } else if (temp.equals("/to")) {
+                        endTime = st.nextToken();
+                        break;
+                    } else {
+                        taskName += temp + " ";
+                    }
+                }
+
+                if (taskName.equals("") || startTime.equals("") || endTime.equals("")) {
+                    throw new DukeException("Missing field(s) / incorrect input(s). :(\nCheck if you have used the keyword \"/from\" and \"/to\"");
+                } else {
+                    Event e = new Event(taskName.strip(), startTime, endTime);
+                    taskList.add(e);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + e.toString());
+                    System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+                }
+                
+            } catch (NoSuchElementException e) {
+                System.out.println("Missing field(s) / incorrect input(s). :(\nCheck if you have used the keyword \"/from\" and \"/to\"");
+            }
         }
 
-        taskList.add(t);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + t.toString());
-        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 
     // Level-6: Delete
-    public static void delete (LinkedList<Task> taskList, String cmd, 
-            StringTokenizer st) throws IndexOutOfBoundsException,
+    public static void delete(LinkedList<Task> taskList, String cmd,
+            int indexOfTask) throws IndexOutOfBoundsException,
             NumberFormatException, NoSuchElementException {
 
-        int index = Integer.parseInt(st.nextToken());
-        Task t = taskList.remove(index - 1);
+        Task t = taskList.remove(indexOfTask - 1);
 
         System.out.println("Noted, I've removed this task:");
         System.out.println(" " + t.toString());

@@ -1,26 +1,26 @@
-package helperpackage;
+package task;
 
 /**
  * Creates an instance of Task.
  */
 public class Task {
-    /** Task description, also the user input */
-    protected String description;
+    /** Task taskName, also the user input */
+    protected String taskName;
     /** Status of the task, done or not done */
     protected boolean isDone;
 
     /**
      * Returns an instance of Task, a constructor.
      * 
-     * @param description User-defined task name.
+     * @param taskName User-defined task name.
      */
-    public Task(String description) {
-        this.description = description;
+    public Task(String taskName) {
+        this.taskName = taskName;
         this.isDone = false;
     }
 
-    public Task(boolean isDone, String description) {
-        this.description = description;
+    public Task(boolean isDone, String taskName) {
+        this.taskName = taskName;
         this.isDone = isDone;
     }
 
@@ -49,11 +49,11 @@ public class Task {
 
     @Override
     public String toString() {
-        return getStatusIcon() + description;
+        return getStatusIcon() + taskName;
     }
 
     public String toData() {
-        return (isDone ? "1" : "0") + " | " + description;
+        return (isDone ? "1" : "0") + " | " + taskName;
     }
 }
 
