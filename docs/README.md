@@ -8,7 +8,7 @@ use Command to navigate through the apps.
 
 ## Quick Start 
 1. Ensure that Java 11 is installed in your computer
-2. Download the latest `windbro.jar` from here
+2. Download the latest `windbro.jar` from [here](https://github.com/Windofbitter/ip/releases/tag/v0.2)
 3. Copy the file to the folder where you want to use as the _home folder_ for your WindBro
 4. Open a command line and use `cd` command to navigate to the home folder containing WindBro
 5. Run `java -jar windbro.jar` command to run the application
