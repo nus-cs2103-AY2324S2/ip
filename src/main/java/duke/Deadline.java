@@ -6,7 +6,7 @@ import java.time.temporal.ChronoUnit;
 
 /**
  * Deadline class represents a deadline type of task. A deadline object contains
- * a LocalDate field that stores the complete by date of the task
+ * a LocalDate field that stores the complete by date of the task.
  */
 public class Deadline extends Task {
     protected LocalDate by;
@@ -14,8 +14,8 @@ public class Deadline extends Task {
     /**
      * Constructor for creating a Deadline object.
      *
-     * @param description Description of the deadline task
-     * @param by Complete by date of the deadline task
+     * @param description Description of the deadline task.
+     * @param by Complete by date of the deadline task.
      */
     public Deadline(String description, String by) {
         super(description);
@@ -32,7 +32,7 @@ public class Deadline extends Task {
      * String is formatted for easy parsing when deadline task is reconstructed using contents
      * of the string.
      *
-     * @return String formatted for saving to file
+     * @return String formatted for saving to file.
      */
     @Override
     public String toTaskSaveString() {
