@@ -59,6 +59,7 @@ shadowJar {
     }
     archiveBaseName = "kaiyap"
     archiveClassifier = null
+    mainClassName = "kaiyap.Launcher"
     dependsOn("distZip", "distTar")
 }
 
