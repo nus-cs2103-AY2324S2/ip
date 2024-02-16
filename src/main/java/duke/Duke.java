@@ -73,6 +73,10 @@ public class Duke {
                         taskList.removeTask(deleteIndex);
                         ui.deleteTask(deletedTask, taskList);
                         break;
+                    case FIND:
+                        String stringToFind = input.substring(5);
+                        ui.findTask(taskList, stringToFind);
+                        break;
                     case UNKNOWN:
                         throw new DukeException("Unknown input");
                 }
@@ -100,6 +104,6 @@ public class Duke {
     }
 
     public enum CommandType {
-        TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, BYE, UNKNOWN
+        TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, BYE, UNKNOWN, FIND
     }
 }
