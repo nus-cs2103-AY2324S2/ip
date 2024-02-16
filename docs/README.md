@@ -18,12 +18,22 @@ Lulu Task Manager is a Java-based task management application. It allows users t
 ## Features
 
 - **Task Management:** Add, mark, unmark, and delete tasks.
+  - Example syntax:
+      - mark *5*
+      - delete *1 2 4*
 - **Task Types:** Support for different task types, including Todo, Deadline, and Event.
-- **Query Tasks:** Find tasks based on specific criteria like name or date.
+  - Example syntax:
+      - todo *todo_name*
+      - deadline *deadline_name* /by *2024-03-04*
+      - event *event_name* /from *2024-01-02* /to *2024-03-04*
+- **Query Tasks:** Find tasks based on name, query tasks based on timing
+  - Example syntax:
+      - find *query_string*
+      - query *task_type* *2022-03-04*
 
-- [x] Task 1
-- [ ] Task 2
-- [ ] Task 3
+- [T][x] Todo
+- [D][ ] Deadline (by: 2 January 2023)
+- [E][ ] Event (from: 4 March 2022 to: 6 May 2024)
 
 ## Installation
 
