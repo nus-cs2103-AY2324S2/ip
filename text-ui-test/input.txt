@@ -1,0 +1,39 @@
+list
+todo wakeup
+deadline eat breakfast /by 2024-03-03 6am
+deadline eat breakfast /by 2024-03-03 06:00
+event attend lectures /from 2024-03-03 08:00 /to 2024-03-03 10:00
+todo
+todo  ??
+deadline
+deadline <><><>
+event
+event   x /from y /to z
+event   x /from 2020-01-01 00:00 /to 2020-12-31 23:59
+$%^}\\&^%*^&*)()
+list
+
+mark 1
+mark 2
+list
+unmark 2
+unmark 2
+list
+mark 0
+mark 4
+unmark 0
+unmark 4
+mark
+mark   ??
+unmark
+unmark   ??
+
+delete 2
+list
+deadline eat lunch /by 2024-09-09 13:00
+delete 0
+delete 4
+delete
+delete   ??
+
+bye
