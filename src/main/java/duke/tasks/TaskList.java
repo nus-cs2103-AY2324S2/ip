@@ -78,6 +78,7 @@ public class TaskList implements Savable {
     public String saveString() {
         String ret = "";
         for (Task t : this.tasks) {
+            assert !t.saveString().isEmpty();
             ret = ret + t.saveString() + "\n";
         }
         return ret;
