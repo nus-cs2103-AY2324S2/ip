@@ -31,7 +31,7 @@ public class Storage {
     /**
      * Initialises an ArrayList of Task objects by either reading from a storage file or creating a
      * new ArrayList if the file does not exist.
-     * 
+     *
      * @return The method is returning an ArrayList of task. This contains tasks from previous
      *         application session if there's any.
      * @throws FileNotFoundException if the FILE_PATH does not exist.
@@ -48,7 +48,7 @@ public class Storage {
 
     /**
      * Reads tasks from a file and returns them as an ArrayList.
-     * 
+     *
      * @return The method is returning an ArrayList of Task objects.
      * @throws FileNotFoundException if the FILE_PATH does not exist.
      */
@@ -75,7 +75,7 @@ public class Storage {
     /**
      * Takes an array of strings as input and returns a `Task` object based on the command and data
      * provided in the input.
-     * 
+     *
      * @param input An array of strings representing the input data for a task. The first element of
      *              the array is the command, and the subsequent elements contain the necessary
      *              information for creating the task object.
@@ -85,55 +85,66 @@ public class Storage {
         String command = input[0];
         switch (command) {
         case "event":
-            // format: event~status~description~<date>~<date>
-            if (input.length < 5 || !(input[1].equals("0") || input[1].equals("1"))
-                    || !Utils.isValidDateTimeFormat(input[3], input[4])) {
-                // corrupted data
-                System.out.println("Error in loading an event task...");
-                return null;
-            }
-
-            Event event = new Event(input[2], Utils.parseDateTime(input[3]),
-                    Utils.parseDateTime(input[4]));
-            event.setStatus(input[1].equals("1") ? true : false);
-
-            return event;
+            return getEventFromFile(input);
         case "todo":
-            // format: todo~status~description
-            if (input.length < 3 || !(input[1].equals("0") || input[1].equals("1"))) {
-                // corrupted data
-                System.out.println("Error in loading a todo task...");
-                return null;
-
-            }
-
-            ToDo todo = new ToDo(input[2]);
-            todo.setStatus(input[1].equals("1") ? true : false);
-
-            return todo;
+            return getTodoFromFile(input);
         case "deadline":
-            // format: deadline~status~description~<date>
-            if (input.length < 4 || !(input[1].equals("0") || input[1].equals("1"))
-                    || !Utils.isValidDateTimeFormat(input[3])) {
-                // corrupted data
-                System.out.println("Error in loading a deadline task...");
-                return null;
-
-            }
-
-            Deadline deadline = new Deadline(input[2], Utils.parseDateTime(input[3]));
-            deadline.setStatus(input[1].equals("1") ? true : false);
-
-            return deadline;
+            return getDeadlineFromFile(input);
         default:
             System.out.println("Error in loading task: " + input[0]);
             return null;
         }
     }
 
+    private static boolean isValidFileLineInput(int numOfDelimiter, String[] input) {
+        return input.length > numOfDelimiter && (input[1].equals("0") || input[1].equals("1"));
+    }
+
+    private static ToDo getTodoFromFile(String[] input) {
+        // format: todo~status~description
+        if (!isValidFileLineInput(2, input)) {
+            // corrupted data
+            System.out.println("Error in loading a todo task...");
+            return null;
+        }
+
+        ToDo todo = new ToDo(input[2]);
+        todo.setStatus(input[1].equals("1"));
+        return todo;
+    }
+
+    private static Event getEventFromFile(String[] input) {
+        // format: event~status~description~<date>~<date>
+        if (!isValidFileLineInput(4, input) || !Utils.isValidDateTimeFormat(input[3], input[4])) {
+            // corrupted data
+            System.out.println("Error in loading an event task...");
+            return null;
+        }
+
+        Event event = new Event(input[2], Utils.parseDateTime(input[3]),
+                Utils.parseDateTime(input[4]));
+        event.setStatus(input[1].equals("1"));
+
+        return event;
+    }
+
+    private static Deadline getDeadlineFromFile(String[] input) {
+        // format: deadline~status~description~<date>
+        if (!isValidFileLineInput(3, input) || !Utils.isValidDateTimeFormat(input[3])) {
+            // corrupted data
+            System.out.println("Error in loading a deadline task...");
+            return null;
+        }
+
+        Deadline deadline = new Deadline(input[2], Utils.parseDateTime(input[3]));
+        deadline.setStatus(input[1].equals("1"));
+
+        return deadline;
+    }
+
     /**
      * Writes a list of tasks to a storage file.
-     * 
+     *
      * @param tasks An ArrayList of Task objects that need to be written to storage.
      */
     public static void writeToStorage(ArrayList<Task> tasks) throws IOException {
@@ -152,7 +163,7 @@ public class Storage {
 
     /**
      * Writes a task object to a file in storage.
-     * 
+     *
      * @param task The parameter `task` is of type `Task`, which is an object representing a task.
      */
     public static void writeToStorage(Task task) throws IOException {
