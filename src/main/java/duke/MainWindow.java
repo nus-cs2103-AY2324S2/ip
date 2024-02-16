@@ -2,11 +2,9 @@ package duke;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -25,8 +23,8 @@ public class MainWindow extends AnchorPane {
 
     private Duke duke;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/bot.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/human.png")); 
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/human.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/bot.png")); 
 
     @FXML
     public void initialize() {
@@ -46,13 +44,10 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = duke.getResponse(input);
-        Label userText = new Label(input);
-        Label dukeText = new Label(response);
-        ImageView userImage = new ImageView(this.userImage);
-        ImageView dukeImage = new ImageView(this.dukeImage);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, userImage),
-                DialogBox.getDukeDialog(dukeText, dukeImage));
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getDukeDialog(response, dukeImage)
+        );
         userInput.clear();
     }
 }
