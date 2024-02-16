@@ -16,7 +16,7 @@ public class DeleteCommand extends Command {
     /**
      * Constant string providing usage hint for the DeleteCommand.
      */
-    public static final String USAGE_HINT = "Usage: delete [task number]";
+    public static final String USAGE_HINT = "Usage: delete task_number";
     /**
      * ArrayList containing command arguments.
      */

@@ -17,7 +17,7 @@ public class FindCommand extends Command {
     /**
      * Constant string providing usage hint for the FindCommand.
      */
-    public static final String USAGE_HINT = "Usage: find [keyword]";
+    public static final String USAGE_HINT = "Usage: find keyword";
 
     /**
      * ArrayList containing command arguments.
