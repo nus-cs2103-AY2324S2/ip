@@ -48,6 +48,7 @@ public class Destiny {
         String[] userMessageArr = parser.getCommand(input);
         String userCmd = userMessageArr[0];
         String cmdDetails = userMessageArr[1];
+        String result = "";
 
         // checks if command is valid
         try {
@@ -57,6 +58,7 @@ public class Destiny {
                     + Arrays.asList(AcceptedCmds.values());
             return errorMsg;
         }
+
 
         if (userCmd.equalsIgnoreCase("list")) {
             return list();
@@ -71,70 +73,61 @@ public class Destiny {
             }
         }
 
-        Boolean isMarkorUnmark = userCmd.equalsIgnoreCase("mark")
-                || userCmd.equalsIgnoreCase("unmark");
-
-        if (isMarkorUnmark) {
+        // group of commands that edit the list of tasks
+        if (userCmd.equalsIgnoreCase("mark")
+                || userCmd.equalsIgnoreCase("unmark")) {
             try {
                 String possInteger = parser.getCmdDetails(userCmd, cmdDetails);
                 int taskIndex = Integer.valueOf(possInteger);
 
                 if (userCmd.equalsIgnoreCase("unmark")) {
-                    return markNotDone(taskIndex);
+                    result = markNotDone(taskIndex);
                 } else {
-                    return markDone(taskIndex);
+                    result = markDone(taskIndex);
                 }
             } catch (DukeException e) {
-                return e.getMessage();
+                result = e.getMessage();
             } catch (NumberFormatException e) {
-                return (tasks.size() != 0
+                result = (tasks.size() != 0
                         ? "Invalid input type\nEnter a number between 1 and " + tasks.size()
                         : "Invalid input type\nCan't mark or unmark either cause the list is empty");
             }
-        }
-
-        if (userCmd.equalsIgnoreCase("delete")) {
+        } else if (userCmd.equalsIgnoreCase("delete")) {
             try {
                 String possInteger = parser.getCmdDetails(userCmd, cmdDetails);
                 int taskIndex = Integer.valueOf(possInteger);
-                return tasks.delete(taskIndex);
+                result = tasks.delete(taskIndex);
             } catch (DukeException e) {
-                return e.getMessage();
+                result = e.getMessage();
             } catch (NumberFormatException e) {
-                return (tasks.size() != 0
+                result = (tasks.size() != 0
                         ? "Invalid input type\nEnter a number between 1 and " + tasks.size()
                         : "Invalid input type\nCan't mark or unmark either cause the list is empty");
             }
-        }
-
-        if (userCmd.equalsIgnoreCase("todo")) {
+        } else if (userCmd.equalsIgnoreCase("todo")) {
             try {
                 String possToDo = parser.getCmdDetails(userCmd, cmdDetails);
                 ToDo newToDo = new ToDo(possToDo);
-                return tasks.addTask(newToDo);
+                result = tasks.addTask(newToDo);
             } catch (DukeException e) {
-                return e.getMessage();
+                result = e.getMessage();
             }
-        }
-
-        if (userCmd.equalsIgnoreCase("deadline")) {
+        } else if (userCmd.equalsIgnoreCase("deadline")) {
             try {
                 String possDlDetails = parser.getCmdDetails(userCmd, cmdDetails);
                 String[] splitDetails = possDlDetails.toLowerCase().split("/by ", 2);
                 try {
                     Deadline newDL = new Deadline(splitDetails[0], splitDetails[1]);
-                    return tasks.addTask(newDL);
+                    result = tasks.addTask(newDL);
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    return "After entering the deadline task name,\n"
+                    result = "After entering the deadline task name,\n"
                             + "add '/by' followed by your desired deadline";
                 }
             } catch (DukeException e) {
-                return e.getMessage();
+                result = e.getMessage();
             }
 
-        }
-
-        if (userCmd.equalsIgnoreCase("event")) {
+        } else if (userCmd.equalsIgnoreCase("event")) {
             try {
                 String possEventDetails = parser.getCmdDetails(userCmd, cmdDetails);
                 String[] splitDetails = possEventDetails.split("/from ", 2);
@@ -143,22 +136,22 @@ public class Destiny {
                     secondSplitDetails = splitDetails[1].split("/to ", 2);
                     try {
                         Event newEvent = new Event(splitDetails[0], secondSplitDetails[0], secondSplitDetails[1]);
-                        return tasks.addTask(newEvent);
+                        result = tasks.addTask(newEvent);
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        return "After entering your desired start time,\n"
+                        result = "After entering your desired start time,\n"
                                 + "add '/to' followed by your desired end time";
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    return "After entering the event task name,\n"
+                    result = "After entering the event task name,\n"
                             + "add '/from' followed by your desired start time";
                 }
             } catch (DukeException e) {
-                return e.getMessage();
+                result = e.getMessage();
             }
         }
         storage.saveData(tasks);
 
-        return "";
+        return result;
     }
 
     /**
