@@ -101,6 +101,9 @@ public class Duke {
         case "delete":
             deleteTask(arguments);
             break;
+        case "find":
+            printIdentifiedTasks(arguments);
+            break;
         default:
             System.out.println("なに？！");
             break;
@@ -113,9 +116,12 @@ public class Duke {
         } catch (IOException e) {
             ui.printIoException();
         }
+<<<<<<< HEAD
 
         taskList.printTaskCount();
         ui.printDivider();
+=======
+>>>>>>> branch-Level-9
     }
 
     private static void exitProgram() {
@@ -128,6 +134,7 @@ public class Duke {
     private static void printTasks() {
         ui.printDivider();
         taskList.printTaskList();
+        taskList.printTaskCount();
         ui.printDivider();
     }
 
@@ -171,6 +178,8 @@ public class Duke {
             ui.printDivider();
             ui.printCreateTaskSuccess();
             System.out.println(newToDo.toString() + "\n");
+            taskList.printTaskCount();
+            ui.printDivider();
         } else {
             throw new DukeException("todo command requires a description for the task."
                     + "\n\nPlease leave a space after 'todo' and enter"
@@ -189,6 +198,8 @@ public class Duke {
                 ui.printDivider();
                 ui.printCreateTaskSuccess();
                 System.out.println(newDeadline.toString() + "\n");
+                taskList.printTaskCount();
+                ui.printDivider();
             }
         } catch (IndexOutOfBoundsException | DateTimeParseException e) {
             ui.printDivider();
@@ -210,6 +221,8 @@ public class Duke {
                 ui.printDivider();
                 ui.printCreateTaskSuccess();
                 System.out.println(newEvent.toString() + "\n");
+                taskList.printTaskCount();
+                ui.printDivider();
             }
         } catch (IndexOutOfBoundsException | DateTimeParseException e) {
             ui.printDivider();
@@ -229,11 +242,23 @@ public class Duke {
             ui.printDivider();
             ui.printDeleteTaskSuccess();
             System.out.println(toDelete.toString() + "\n");
+            taskList.printTaskCount();
             ui.printDivider();
         } catch (IndexOutOfBoundsException e) {
             ui.printDivider();
             System.out.println("Invalid task index provided.\nPlease provide a valid task index.\n");
             ui.printDivider();
         }
+    }
+
+    /**
+     * Prints all tasks that have been identified to have the keyword in their descriptions.
+     *
+     * @param keyword Keyword to look for in task descriptions.
+     */
+    private static void printIdentifiedTasks(String keyword) {
+        ui.printDivider();
+        taskList.printTasksWithKeyword(keyword);
+        ui.printDivider();
     }
 }

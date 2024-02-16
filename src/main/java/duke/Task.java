@@ -33,4 +33,13 @@ public class Task {
     public void setNotDone() {
         this.isDone = false;
     }
+
+    /**
+     * Returns a boolean that specifies whether the task description contains the keyword.
+     *
+     * @param keyword Keyword to check for in task description.
+     */
+    public boolean checkDescription(String keyword) {
+        return description.contains(keyword);
+    }
 }

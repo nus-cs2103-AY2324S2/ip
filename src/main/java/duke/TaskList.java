@@ -129,4 +129,32 @@ public class TaskList {
 
         return reconstructedTask;
     }
+
+    /**
+     * Prints out a list of tasks that have descriptions containing a particular keyword.
+     *
+     * @param keyword Keyword to look for in task descriptions.
+     */
+    public void printTasksWithKeyword(String keyword) {
+        ArrayList<Task> identifiedTasks = new ArrayList<>();
+
+        for (int i = 0; i < taskList.size(); i++) {
+            Task currTask = taskList.get(i);
+
+            if (currTask.checkDescription(keyword)) {
+                identifiedTasks.add(currTask);
+            }
+        }
+
+        if (identifiedTasks.isEmpty()) {
+            System.out.println("There were no tasks matching your keyword.\n");
+            return;
+        }
+
+        System.out.println("These tasks match the keyword you provided:\n");
+        for (int i = 0; i < identifiedTasks.size(); i++) {
+            System.out.println(identifiedTasks.get(i).toString());
+        }
+        System.out.println();
+    }
 }

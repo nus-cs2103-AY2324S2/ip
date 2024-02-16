@@ -22,7 +22,8 @@ public class Parser {
                 "todo",
                 "deadline",
                 "event",
-                "delete"));
+                "delete",
+                "find"));
     }
 
     /**
