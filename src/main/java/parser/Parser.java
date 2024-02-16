@@ -64,10 +64,14 @@ public class Parser {
                 try {
                     if (splitInput[1].equalsIgnoreCase("all")) {
                         response = existingTaskList.deleteAllTasks();
+                        assert existingTaskList.getNumTasks() == 0;
                     }
                     else {
                         int taskNum = Integer.parseInt(splitInput[1]);
+                        int numTasks = existingTaskList.getNumTasks();
                         response = existingTaskList.deleteTask(taskNum);
+                        int newNumTasks = numTasks - 1;
+                        assert existingTaskList.getNumTasks() == newNumTasks;
                     }
                 } catch (NumberFormatException e) {
                     System.out.println(e.getMessage());
