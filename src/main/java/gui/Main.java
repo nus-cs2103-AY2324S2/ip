@@ -30,6 +30,7 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setEzra(ezra);
             stage.setResizable(false);
+            stage.setTitle("Ezra");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
