@@ -60,7 +60,7 @@ public class DialogBox extends HBox {
     public static DialogBox getNollidDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
-        db.setBackGroundColor("#79e8b2");
+        db.setBackgroundColor("#79e8b2");
         return db;
     }
 
@@ -80,7 +80,7 @@ public class DialogBox extends HBox {
      *
      * @param colorHexCode The hexadecimal color code.
      */
-    private void setBackGroundColor(String colorHexCode) {
+    private void setBackgroundColor(String colorHexCode) {
         // Change background color to #79e8b2
         this.dialog.setStyle(this.dialog.getStyle().replaceFirst("-fx-background-color: #(?:[A-Fa-f0-9]{3}){1,2}\\b;",
                 "-fx-background-color: " + colorHexCode + ";"));
