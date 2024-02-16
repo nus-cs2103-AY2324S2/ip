@@ -16,7 +16,6 @@ public class Duke {
      * @throws IOException
      */
     public static void main(String[] args) throws DukeException, IOException {
-
         UI.showLogo();
         UI.showAvailCommands();
         TaskList storage = new TaskList();
