@@ -17,16 +17,17 @@ public class Event extends Task {
     private LocalDateTime fromDateTime;
     private LocalDateTime toDateTime;
 
+
     /**
      * Creates a Events object.
      * Will call the super constructor with the task name variable.
      *
-     * @param name The name of the task.
+     * @param c The name of the task.
      * @param from The start of the event.
      * @param to The end of the event.
      */
-    public Event(String name, String from, String to) {
-        super(name);
+    public Event(String c, String from, String to) {
+        super(c);
         this.from = from.split("from ")[1];
         this.to = to.split("to ")[1];
         this.fromDateTime = LocalDateTime.parse(from.split("from ")[1].trim(), DATE_FORMAT);
@@ -38,13 +39,13 @@ public class Event extends Task {
      * created object as been marked as complete or not.
      * Will call the super constructor with the task name variable.
      *
-     * @param name The name of the task.
+     * @param c The name of the task.
      * @param from The start of the event.
      * @param to The end of the event.
      * @param mark Indication of completed or not.
      */
-    public Event(String name, String from, String to, String mark) {
-        super(name);
+    public Event(String c, String from, String to, String mark) {
+        super(c);
         this.from = from.split("from ")[1];
         this.to = to.split("to ")[1];
         this.fromDateTime = LocalDateTime.parse(from.split("from ")[1].trim(), DATE_FORMAT);
