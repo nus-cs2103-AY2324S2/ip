@@ -6,8 +6,6 @@ package podz.commands;
 public class ByeCommand extends Command {
     /**
      * Executes the command to say goodbye to the user.
-     *
-     * @param ui the user interface for interaction
      */
     @Override
     public String execute() {

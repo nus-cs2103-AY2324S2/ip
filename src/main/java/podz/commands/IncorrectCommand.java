@@ -17,8 +17,6 @@ public class IncorrectCommand extends Command {
 
     /**
      * Executes the incorrect command to print the error message.
-     *
-     * @param ui the user interface that interacts with the user
      */
     @Override
     public String execute() {

@@ -19,8 +19,6 @@ public class TodoCommand extends Command {
 
     /**
      * Executes the todo command to add a todo task.
-     *
-     * @param ui the user interface that interacts with the user
      */
     @Override
     public String execute() {

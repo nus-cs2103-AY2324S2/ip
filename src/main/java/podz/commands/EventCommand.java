@@ -19,8 +19,6 @@ public class EventCommand extends Command {
 
     /**
      * Executes the event command to add an event task.
-     *
-     * @param ui the user interface that interacts with the user
      */
     @Override
     public String execute() {

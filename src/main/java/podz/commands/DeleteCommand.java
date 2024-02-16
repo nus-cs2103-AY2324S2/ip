@@ -21,7 +21,6 @@ public class DeleteCommand extends Command {
     /**
      * Executes the delete command to remove a task from the task manager.
      *
-     * @param ui the user interface that interacts with the user
      * @throws PodzException if the task index is invalid
      */
     @Override

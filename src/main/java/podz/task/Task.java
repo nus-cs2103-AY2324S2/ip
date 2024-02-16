@@ -4,10 +4,10 @@ package podz.task;
  * Represents a task in the task manager.
  */
 public class Task {
+    private static final String MARKED_STR = "X";
+    private static final String UNMARKED_STR = "";
     protected String description;
     protected boolean isDone;
-    static final String MARKED_STR = "X";
-    static final String UNMARKED_STR = "";
 
     /**
      * Constructs a Task object with the specified description.

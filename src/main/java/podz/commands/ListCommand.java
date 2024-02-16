@@ -7,8 +7,6 @@ public class ListCommand extends Command {
 
     /**
      * Executes the list command to display all tasks to the user.
-     *
-     * @param ui the user interface that interacts with the user
      */
     @Override
     public String execute() {

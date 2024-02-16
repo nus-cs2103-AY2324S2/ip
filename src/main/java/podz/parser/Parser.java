@@ -39,7 +39,7 @@ public class Parser {
         BYE,
         UNKNOWN;
 
-        private final static ArrayList<String> COMMAND_STRINGS = Arrays.stream(Commands.values())
+        private static final ArrayList<String> COMMAND_STRINGS = Arrays.stream(Commands.values())
                 .map(Enum::name)
                 .collect(Collectors.toCollection(ArrayList::new));
 

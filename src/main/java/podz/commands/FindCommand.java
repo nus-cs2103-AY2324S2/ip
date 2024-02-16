@@ -18,7 +18,6 @@ public class FindCommand extends Command {
     /**
      * Executes the find command to search for tasks with the keyword.
      *
-     * @param ui The user interface to interact with the user.
      */
     @Override
     public String execute() {

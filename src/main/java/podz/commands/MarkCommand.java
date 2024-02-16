@@ -20,7 +20,6 @@ public class MarkCommand extends Command {
     /**
      * Executes the mark command to mark a task as completed.
      *
-     * @param ui the user interface that interacts with the user
      * @throws PodzException if the task index is invalid
      */
     @Override

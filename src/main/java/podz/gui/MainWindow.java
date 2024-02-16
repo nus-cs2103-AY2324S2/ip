@@ -74,7 +74,7 @@ public class MainWindow extends AnchorPane {
         String response = podz.getResponse(input);
         setDialog(input, response);
         userInput.clear();
-        closeGUIIfExit();
+        closeGuiIfExit();
     }
 
     private void setDialog(String input, String response) {
@@ -84,7 +84,7 @@ public class MainWindow extends AnchorPane {
         );
     }
 
-    private void closeGUIIfExit() {
+    private void closeGuiIfExit() {
         if (this.podz.hasExit()) {
             PauseTransition delay = new PauseTransition(Duration.seconds(2));
             delay.setOnFinished(event -> Platform.exit());

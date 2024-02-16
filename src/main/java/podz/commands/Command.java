@@ -22,7 +22,6 @@ public abstract class Command {
     /**
      * Executes the command with the provided user interface.
      *
-     * @param ui the user interface for interaction
      * @throws PodzException if there is an issue executing the command
      */
     public abstract String execute() throws PodzException;

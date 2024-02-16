@@ -20,7 +20,6 @@ public class UnmarkCommand extends Command {
     /**
      * Executes the unmark command to unmark a task.
      *
-     * @param ui the user interface that interacts with the user
      * @throws PodzException if the task index is invalid
      */
     @Override

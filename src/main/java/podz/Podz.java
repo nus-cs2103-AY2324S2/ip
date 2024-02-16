@@ -16,13 +16,15 @@ public class Podz {
     private Parser parser;
     private boolean isExit;
 
+    /**
+     * Constructs a Podz object.
+     */
     public Podz() {
         storage = new Storage("./data/podz.txt");
         tasks = new TaskList(this.storage.loadTasks());
         parser = new Parser();
         this.isExit = false;
     }
-
 
     /**
      * Generates a response to user input.
@@ -61,11 +63,21 @@ public class Podz {
         return command;
     }
 
+    /**
+     * Returns a greeting message.
+     *
+     * @return a greeting message
+     */
     public String getGreeting() {
         return "Hello! I'm Podz.\n"
                 + "What can I do for you?";
     }
 
+    /**
+     * Checks if the application should exit.
+     *
+     * @return true if the application should exit, false otherwise
+     */
     public boolean hasExit() {
         return this.isExit;
     }
