@@ -35,6 +35,7 @@ public class Storage {
      * 
      * @param taskInt index of task
      * @param isDone whether task is done
+     * @throws DukeException 
      **/
     public void updateTask(int taskInt, Boolean isDone) {
         try {
@@ -45,6 +46,10 @@ public class Storage {
                 saveFile.createNewFile();
 
                 return;
+            }
+
+            if (!saveFile.canWrite()) {
+                throw new DukeException("Cannot write to save file!");
             }
 
             List<String> tasks = new ArrayList<>();
@@ -72,6 +77,8 @@ public class Storage {
         } catch (IOException e) {
             ui.printDukeText("An error occurred.");
             e.printStackTrace();
+        } catch (DukeException e) {
+            ui.printDukeText("DukeException occurred: " + e.toString());
         }
     }
 
@@ -79,6 +86,7 @@ public class Storage {
      * Delete task in save file
      * 
      * @param taskInt index of task
+     * @throws DukeException 
      **/
     public void deleteTask(int taskInt) {
         try {
@@ -89,6 +97,10 @@ public class Storage {
                 saveFile.createNewFile();
 
                 return;
+            }
+
+            if (!saveFile.canWrite()) {
+                throw new DukeException("Cannot write to save file!");
             }
 
             List<String> tasks = new ArrayList<>();
@@ -112,6 +124,8 @@ public class Storage {
         } catch (IOException e) {
             ui.printDukeText("An error occurred.");
             e.printStackTrace();
+        } catch (DukeException e) {
+            ui.printDukeText("DukeException occurred: " + e.toString());
         }
     }
 
@@ -120,6 +134,7 @@ public class Storage {
      * 
      * @param userMsg Task description
      * @param taskType Type of task
+     * @throws DukeException 
      **/
     public void saveTask(String userMsg, TaskType taskType) {
         try {
@@ -128,6 +143,10 @@ public class Storage {
             // Check if file exists, if not, create new file
             if (!saveFile.exists() || saveFile.isDirectory()) {
                 saveFile.createNewFile();
+            }
+
+            if (!saveFile.canWrite()) {
+                throw new DukeException("Cannot write to save file!");
             }
 
             FileWriter saveFileWriter = new FileWriter(saveFile, true);
@@ -152,6 +171,8 @@ public class Storage {
         } catch (IOException e) {
             ui.printDukeText("An error occurred.");
             e.printStackTrace();
+        } catch (DukeException e) {
+            ui.printDukeText("DukeException occurred: " + e.toString());
         }
     }
 
@@ -169,6 +190,10 @@ public class Storage {
                 saveFile.createNewFile();
 
                 return new ArrayList<>();
+            }
+
+            if (!saveFile.canRead()) {
+                throw new DukeException("Cannot read save file!");
             }
 
             Scanner fileReader = new Scanner(saveFile);
