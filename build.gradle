@@ -45,7 +45,7 @@ test {
 }
 
 application {
-    mainClass.set("core.Ragdoll")
+    mainClass.set("core.Launcher")
 }
 
 shadowJar {
