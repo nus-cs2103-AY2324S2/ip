@@ -268,6 +268,7 @@ public class TaskList {
                 output.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
             } else {
                 output.append(i + 1).append(". ").append(tasks.get(i));
+            }
         }
         return output.toString();
     }
