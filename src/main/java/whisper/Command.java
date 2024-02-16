@@ -21,6 +21,14 @@ public interface Command {
      * @return True if the command triggers an application exit, false otherwise.
      */
     boolean isExit();
+
+    /**
+     * Checks if the command matches a given keyword.
+     *
+     * @param keyword The keyword to check for a match.
+     * @return True if the command matches the keyword, false otherwise.
+     */
+    boolean isKeywordMatch(String keyword);
 }
 
 /**
@@ -53,6 +61,11 @@ class AddCommand implements Command {
 
     @Override
     public boolean isExit() {
+        return false;
+    }
+
+    @Override
+    public boolean isKeywordMatch(String keyword) {
         return false;
     }
 }
@@ -91,6 +104,11 @@ class DeleteCommand implements Command {
     public boolean isExit() {
         return false;
     }
+
+    @Override
+    public boolean isKeywordMatch(String keyword) {
+        return false;
+    }
 }
 
 /**
@@ -106,6 +124,11 @@ class ExitCommand implements Command {
     public boolean isExit() {
         return true;
     }
+
+    @Override
+    public boolean isKeywordMatch(String keyword) {
+        return false;
+    }
 }
 
 /**
@@ -119,6 +142,11 @@ class ListCommand implements Command {
 
     @Override
     public boolean isExit() {
+        return false;
+    }
+
+    @Override
+    public boolean isKeywordMatch(String keyword) {
         return false;
     }
 }
@@ -157,6 +185,11 @@ class MarkCommand implements Command {
     public boolean isExit() {
         return false;
     }
+
+    @Override
+    public boolean isKeywordMatch(String keyword) {
+        return false;
+    }
 }
 
 /**
@@ -192,5 +225,67 @@ class UnmarkCommand implements Command {
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public boolean isKeywordMatch(String keyword) {
+        return false;
+    }
+}
+
+/**
+ * The FindCommand class represents a command to search for tasks by a keyword.
+ */
+class FindCommand implements Command {
+    private String keyword;
+
+    /**
+     * Creates a new FindCommand with the specified keyword.
+     *
+     * @param keyword The keyword to search for.
+     */
+    public FindCommand(String keyword) {
+        this.keyword = keyword;
+    }
+
+    /**
+     * Executes the find command by searching for tasks containing the specified keyword.
+     *
+     * @param tasks   The list of tasks.
+     * @param ui      The user interface.
+     * @param storage The storage handler.
+     */
+    @Override
+    public void execute(ArrayList<Task> tasks, Ui ui, Storage storage) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                matchingTasks.add(task);
+            }
+        }
+        ui.printMatchingTasks(matchingTasks);
+    }
+
+    /**
+     * Checks if the find command represents an exit action.
+     *
+     * @return Always returns false as the find command does not exit the application.
+     */
+    @Override
+    public boolean isExit() {
+        return false;
+    }
+
+    /**
+     * Checks if the find command matches a given keyword.
+     *
+     * @param keyword The keyword to check for a match.
+     * @return True if the find command matches the keyword, false otherwise.
+     */
+    @Override
+    public boolean isKeywordMatch(String keyword) {
+        // check if the command matches the given keyword
+        return this.keyword.equalsIgnoreCase(keyword);
     }
 }
