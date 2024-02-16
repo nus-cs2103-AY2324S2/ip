@@ -66,6 +66,7 @@ public class Parser {
      */
     public static Command handleToDo(String command) {
         String taskDescription = command.substring("todo".length()).trim();
+        assert !taskDescription.isEmpty() : "Empty description will never reach here!";
         Task newToDo = new ToDo(taskDescription, false);
         return new AddCommand(newToDo);
     }
@@ -78,6 +79,7 @@ public class Parser {
      */
     public static Command handleDeadline(String command) {
         String taskDescriptionAndDeadline = command.substring("deadline".length()).trim();
+        assert !taskDescriptionAndDeadline.isEmpty() : "Empty description and deadline will never reach here";
         String[] parts = taskDescriptionAndDeadline.split("/by", 2);
         if (parts.length != 2) {
             throw new HarperInvalidDeadlineException();
@@ -108,6 +110,7 @@ public class Parser {
      */
     public static Command handleEvent(String command) {
         String taskDescriptionAndStartEnd = command.substring("event".length()).trim();
+        assert !taskDescriptionAndStartEnd.isEmpty() : "Empty description, start and end will never reach here";
         String[] parts = taskDescriptionAndStartEnd.split("/from", 2);
         if (parts.length != 2) {
             throw new HarperInvalidEventException();
@@ -146,6 +149,7 @@ public class Parser {
      */
     public static Command handleDelete(String command) {
         String[] commands = command.split(" ", 2);
+        assert commands.length == 2 : "commands's length must be 2";
         try {
             int taskIndex = Integer.parseInt(commands[1].trim()) - 1;
             return new DeleteCommand(taskIndex);
@@ -162,6 +166,7 @@ public class Parser {
      */
     public static Command handleMark(String command) {
         String[] commands = command.split(" ", 2);
+        assert commands.length == 2 : "commands's length must be 2";
         try {
             int taskIndex = Integer.parseInt(commands[1].trim()) - 1;
             boolean isMarked = commands[0].equals("mark");
@@ -179,6 +184,7 @@ public class Parser {
      */
     public static Command handleFind(String command) {
         String[] commands = command.split(" ", 2);
+        assert commands.length == 2 : "commands's length must be 2";
         return new FindCommand(commands[1].trim());
     }
 }

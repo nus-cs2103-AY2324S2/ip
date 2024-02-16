@@ -51,6 +51,7 @@ public class Storage {
      * @return An ArrayList contains the data from hard disk.
      */
     public ArrayList<Task> load() {
+        assert this.file != null : "data file is not created yet";
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             Scanner scanner = new Scanner(this.file);
@@ -63,10 +64,13 @@ public class Storage {
 
                 if (taskString[0].equals("T")) {
                     addToDo(tasks, description, isDone);
+                    assert taskString.length == 3 : "The format is wrong";
                 } else if (taskString[0].equals("D")) {
+                    assert taskString.length == 4 : "The format is wrong";
                     String by = taskString[3];
                     addDeadline(tasks, description, isDone, by);
                 } else if (taskString[0].equals("E")) {
+                    assert taskString.length == 4 : "The format is wrong";
                     String[] duration = taskString[3].split(" - ");
                     String start = duration[0];
                     String end = duration[1];
@@ -147,6 +151,7 @@ public class Storage {
      * @param taskList task.Task list to be stored.
      */
     public void save(TaskList taskList) {
+        assert taskList != null : "taskList should not be null even it contains nothing";
         try {
             FileWriter fw = new FileWriter(this.file);
             fw.write(taskList.listTasksIntoFile());

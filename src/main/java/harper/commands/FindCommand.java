@@ -18,6 +18,7 @@ public class FindCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
+        assert !this.keyword.isEmpty() : "Keyword must be non-empty";
         String taskListString = taskList.findTasks(this.keyword);
         return ui.printMatchingTasks(taskListString);
     }

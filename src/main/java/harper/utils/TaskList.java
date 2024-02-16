@@ -65,6 +65,7 @@ public class TaskList {
             Task taskRemoved = this.tasks.remove(taskIndex);
             return taskRemoved;
         } catch (IndexOutOfBoundsException e) {
+            assert taskIndex >= this.tasks.size() : "The index is not out of bound";
             throw new HarperInvalidIndexException();
         }
     }
@@ -85,6 +86,7 @@ public class TaskList {
             }
             return task;
         } catch (IndexOutOfBoundsException e) {
+            assert taskIndex >= this.tasks.size() : "The index is not out of bound";
             throw new HarperInvalidIndexException();
         }
     }

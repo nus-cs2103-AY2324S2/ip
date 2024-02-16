@@ -70,6 +70,7 @@ public class Ui {
      * @return Message of adding task.
      */
     public String printSuccessfulAdd(TaskList taskList, Task task) {
+        assert taskList.size() > 0 : "the task should be added into the taskList before printing this message";
         int taskListSize = taskList.size();
         return "\nGot it. I've added this task into your list:\n"
                 + task.toString() + "\n"
