@@ -27,6 +27,10 @@ public class Task {
             return input;
         }
     }
+
+    public String getLabel() {
+        return label;
+    }
     public Task(String label) {
         this.label = label;
         this.isDone = false;
