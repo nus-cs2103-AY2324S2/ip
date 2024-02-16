@@ -5,7 +5,7 @@ package youdon;
  * Provides methods to interact with the user through the console.
  */
 public class Ui {
-    private final String DIVIDER_LINE = "----------------------------------------------------------------";
+    private static final String DIVIDER_LINE = "----------------------------------------------------------------";
 
     /**
      * Constructs a new instance of the Ui class.
@@ -23,6 +23,12 @@ public class Ui {
         System.out.println(DIVIDER_LINE);
     }
 
+    public String getByeMsg() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Bye. Hope to see you again soon!\n");
+        return sb.toString();
+    }
+
     /**
      * Prints the goodbye message when the chatbot is exited.
      */
@@ -32,15 +38,12 @@ public class Ui {
         System.out.println(DIVIDER_LINE);
     }
 
-    /**
-     * Prints an error message to the console.
-     *
-     * @param message The error message to be printed.
-     */
-    public void printErrorMsg(String message) {
-        System.out.println(DIVIDER_LINE);
-        System.out.println("Oh no!" + message);
-        System.out.println(DIVIDER_LINE);
+    public String getYoudonErrorMsg(String message) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(DIVIDER_LINE).append("\n");
+        sb.append(message).append("\n");
+        sb.append(DIVIDER_LINE).append("\n");
+        return sb.toString();
     }
 
     /**
@@ -52,6 +55,15 @@ public class Ui {
         System.out.println(DIVIDER_LINE);
         System.out.println(message);
         System.out.println(DIVIDER_LINE);
+    }
+
+    public String getTaskList(TaskList tasks) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are your tasks:").append("\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append((i + 1)).append(". ").append(tasks.get(i).toString()).append("\n");
+        }
+        return sb.toString();
     }
 
     /**
@@ -68,6 +80,13 @@ public class Ui {
         System.out.println(DIVIDER_LINE);
     }
 
+    public String getMarkMsg(TaskList tasks, int taskNumber) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Nicely done! The task has been marked as done:").append("\n");
+        sb.append("  ").append(tasks.get(taskNumber - 1).toString()).append("\n");
+        return sb.toString();
+    }
+
     /**
      * Prints a message indicating that a task has been marked as done.
      *
@@ -79,6 +98,13 @@ public class Ui {
         System.out.println("Nicely done! The task has been marked as done:");
         System.out.println("  " + tasks.get(taskNumber - 1).toString());
         System.out.println(DIVIDER_LINE);
+    }
+
+    public String getUnmarkMsg(TaskList tasks, int taskNumber) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Okies! The task has been marked as undone:").append("\n");
+        sb.append("  ").append(tasks.get(taskNumber - 1).toString()).append("\n");
+        return sb.toString();
     }
 
     /**
@@ -94,6 +120,13 @@ public class Ui {
         System.out.println(DIVIDER_LINE);
     }
 
+    public String getDeleteMsg(TaskList tasks, int taskNumber) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Alright! The task has been deleted:").append("\n");
+        sb.append("  ").append(tasks.get(taskNumber - 1).toString()).append("\n");
+        return sb.toString();
+    }
+
     /**
      * Prints a message indicating that a task has been deleted.
      *
@@ -105,6 +138,14 @@ public class Ui {
         System.out.println("Alright! The task has been deleted:");
         System.out.println("  " + tasks.get(taskNumber - 1).toString());
         System.out.println(DIVIDER_LINE);
+    }
+
+    public String getTaskAddedMsg(TaskList tasks) {
+        int index = tasks.size() - 1;
+        StringBuilder sb = new StringBuilder();
+        sb.append("Alright! Task added:\n  ").append(tasks.get(index).toString()).append("\n");
+        sb.append("You now have ").append(tasks.size()).append(" task(s) in the list.").append("\n");
+        return sb.toString();
     }
 
     /**

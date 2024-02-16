@@ -31,6 +31,6 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return "[" + this.getTypeIcon() + "][" + this.getStatusIcon() + "] " + this.description;
+        return "[" + this.getTypeIcon() + "][" + this.getStatusIcon() + "] " + this.description.trim();
     }
 }

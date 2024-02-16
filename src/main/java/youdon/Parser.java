@@ -20,7 +20,7 @@ public class Parser {
      * Constructs a new instance of the Parser class with the specified UI, task list, and storage.
      *
      * @param ui      The user interface for displaying messages.
-     * @param tasks The list of tasks to perform actions on.
+     * @param tasks   The list of tasks to perform actions on.
      * @param storage The storage handler for saving and loading tasks.
      */
     public Parser(Ui ui, TaskList tasks, Storage storage) {

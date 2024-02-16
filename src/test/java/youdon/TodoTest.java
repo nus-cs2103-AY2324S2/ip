@@ -1,18 +1,18 @@
 package youdon;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 public class TodoTest {
     @Test
     // no save file, add first task
-    public void testValidTodo(){
+    public void testValidTodo() {
         // delete save file
         File fileToDelete = new File("./data/save.txt");
         fileToDelete.delete();

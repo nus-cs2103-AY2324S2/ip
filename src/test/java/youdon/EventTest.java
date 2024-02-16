@@ -1,24 +1,25 @@
 package youdon;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 public class EventTest {
     @Test
     // no save file, add first task
-    public void testValidEvent(){
+    public void testValidEvent() {
         // delete save file
         File fileToDelete = new File("./data/save.txt");
         fileToDelete.delete();
 
         // set input in input stream
-        ByteArrayInputStream inputStream = new ByteArrayInputStream("event project meeting /from 5/6/2020 1900 /to 7/7/2021 1900".getBytes());
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(
+                "event project meeting /from 5/6/2020 1900 /to 7/7/2021 1900".getBytes());
         System.setIn(inputStream);
 
         // capture output in output stream
