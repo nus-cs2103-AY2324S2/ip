@@ -33,6 +33,8 @@ public class Saopig extends Application {
         Scene scene = new Scene(ap);
         stage.setScene(scene);
         stage.setTitle("Saopig");
+        stage.getIcons().add(new javafx.scene.image.Image(
+                this.getClass().getResourceAsStream("/images/Saopig.jpg")));
         fxmlLoader.<MainWindow>getController().setSaopig(this);
         fxmlLoader.<MainWindow>getController().initialize();
         Button sendButton = fxmlLoader.<MainWindow>getController().getSendButton();
@@ -43,6 +45,7 @@ public class Saopig extends Application {
         userInput.setOnAction((event) -> {
             fxmlLoader.<MainWindow>getController().handleUserInput();
         });
+        stage.setResizable(true);
         stage.show();
     }
 
