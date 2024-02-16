@@ -24,7 +24,7 @@ AND it is **FREE** !
 - [ ] Reminders (Coming soon)
 
 If you are a Java programmer, you can use it to practice Java too. Here's the `main` method:
-```
+```ruby
 public static void main(String[] args) {
     new Tyler(FILE_PATH).run();
 }
