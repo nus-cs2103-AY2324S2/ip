@@ -5,7 +5,7 @@ package friendlytool.process;
  */
 public class FtException extends Exception {
     /**
-     * Prints out the message
+     * Constructs FtException
      *
      * @param message
      */

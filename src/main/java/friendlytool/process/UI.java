@@ -6,24 +6,36 @@ import friendlytool.task.Task;
  * UI for the program. Provides instructions to users.
  */
 public class UI {
+
+    private static StringBuilder sb = new StringBuilder();
+
+    /**
+     * @return Provides a cumulated response,
+     */
+    public static String getResponse() {
+        String response = sb.toString();
+        sb = new StringBuilder();
+        return response;
+    }
     /**
      * Prints a welcome message.
      */
-    public static void printInitMsg() {
-        System.out.println("    ____________________________________________________________\n"
-                + "    Hello! I'm FriendlyTool\n"
-                + "    What can I do for you?\n"
-                + "    ____________________________________________________________"
-        );
+    public static String getInitMsg() {
+        sb.append("    ____________________________________________________________\n")
+                .append("    Hello! I'm FriendlyTool\n")
+                .append("    What can I do for you?\n")
+                .append("    ____________________________________________________________");
+        return UI.getResponse();
     }
 
     /**
-     * Prints a bye message.
+     * Provides a bye message.
      */
-    public static void printByeMsg() {
-        System.out.println("    ____________________________________________________________\n"
-                + "    Bye. Hope to see you again soon!\n"
-                + "    ____________________________________________________________");
+    public static String getByeMsg() {
+        sb.append("    ____________________________________________________________\n")
+                .append("    Bye. Hope to see you again soon!\n")
+                .append("    ____________________________________________________________");
+        return UI.getResponse();
     }
 
     /**
@@ -32,37 +44,42 @@ public class UI {
      * @param task task updated.
      * @param size number of elements in the list.
      */
-    public static void printUpdateTaskMsg(Task task, int size) {
-        System.out.println("    ____________________________________________________________\n"
-                + "    Completed. I've added this task: \n    "
-                + task
-                + "\n    Now you have " + size + " tasks in the list.\n"
-                + "    ____________________________________________________________\n");
+    public static String getUpdateTaskMsg(Task task, int size) {
+        sb.append("    ____________________________________________________________\n")
+                .append("    Completed. I've added this task: \n    ")
+                .append(task)
+                .append("\n    Now you have " + size + " tasks in the list.\n")
+                .append("    ____________________________________________________________\n");
+        return UI.getResponse();
     }
 
     /**
-     * Prints that a task is marked as done.
+     * Provides a string that a task is marked as done.
      *
      * @param task task given.
+     * @return string that task is marked
      */
-    public static void printMarkMsg(Task task) {
-        System.out.println("    ____________________________________________________________\n"
-                + "    Nice! I've marked this task as done:\n"
-                + "      " + task.toString()
-                + "\n    ____________________________________________________________\n");
+    public static String getMarkMsg(Task task) {
+        sb.append("    ____________________________________________________________\n")
+                .append("    Nice! I've marked this task as done:\n")
+                .append("      " + task.toString())
+                .append("\n    ____________________________________________________________\n");
+        return UI.getResponse();
     }
 
 
     /**
-     * Prints that a task is unmarked.
+     * Provides a string that a task is unmarked.
      *
      * @param task task given.
+     * @return string that task is unmarked
      */
-    public static void printUnmarkMsg(Task task) {
-        System.out.println("    ____________________________________________________________\n"
-                + "    OK, I've marked this task as not done yet:\n"
-                + "      " + task.toString()
-                + "\n    ____________________________________________________________\n");
+    public static String getUnmarkMsg(Task task) {
+        sb.append("    ____________________________________________________________\n")
+                .append("    OK, I've marked this task as not done yet:\n")
+                .append("      " + task.toString())
+                .append("\n    ____________________________________________________________\n");
+        return UI.getResponse();
     }
 
     /**
@@ -71,12 +88,13 @@ public class UI {
      * @param task task deleted.
      * @param size number of elements in the list.
      */
-    public static void printDeleteMsg(String task, int size) {
-        System.out.println("    ____________________________________________________________\n"
-                + "    Great!, You have completed the task:\n"
-                + "      " + task
-                + "\n    Now you have " + size + " tasks in the list.\n"
-                + "    ____________________________________________________________\n");
+    public static String getDeleteMsg(String task, int size) {
+        sb.append("    ____________________________________________________________\n")
+                .append("    Great!, You have completed the task:\n")
+                .append("      " + task)
+                .append("\n    Now you have " + size + " tasks in the list.\n")
+                .append("    ____________________________________________________________\n");
+        return UI.getResponse();
     }
 
     /**
@@ -84,7 +102,7 @@ public class UI {
      *
      * @param isSuccessful save data creation is successful or not
      */
-    public static void printCreateSaveMsg(Boolean isSuccessful) {
+    public static void getCreateSaveMsg(Boolean isSuccessful) {
         System.out.println("    There was no save data.");
         System.out.println(isSuccessful ? "    New save data file created." : "    Failed to create a new save data");
     }
@@ -92,52 +110,63 @@ public class UI {
     /**
      * Prints that save data is loaded.
      */
-    public static void printLoadSaveMsg() {
+    public static void getLoadSaveMsg() {
         System.out.println("    Successfully loaded the save data. ");
     }
 
 
     /**
-     * Prints the whole list with index.
+     * Provides string of the whole list with index.
      *
      * @param list list to be printed.
+     * @return string of list
      */
-    public static void showList(TaskList list) {
-        System.out.println("    ____________________________________________________________\n"
-                + "    Here are the tasks in your list:");
+    public static String getListMsg(TaskList list) {
+        sb.append("    ____________________________________________________________\n")
+                .append("    Here are the tasks in your list:\n");
         for (int i = 1; i < list.size() + 1; i++) {
             Task task = list.get(i - 1);
-            if (task.isDone()) {
-                System.out.println("    " + i + "." + task);
-            } else {
-                System.out.println("    " + i + "." + task);
-            }
+            sb.append("    ").append(i).append(".").append(task).append("\n");
         }
-        System.out.println("    ____________________________________________________________\n");
+        sb.append("    ____________________________________________________________\n");
+        return UI.getResponse();
     }
 
     /**
-     * Prints that there are matching tasks.
+     * prepares string that there are matching tasks in the string builder.
      */
-    public static void printMatchingMsg() {
-        System.out.println("____________________________________________________________\n"
-                + "These are the matching tasks in your list:");
+    public static void prepareMatchingMsg() {
+        sb.append("____________________________________________________________\n")
+                .append("These are the matching tasks in your list:\n");
     }
 
     /**
-     * Prints out the found task.
+     * Prepares the found task in the string builder.
      *
      * @param i    current index
      * @param task task found
      */
-    public static void printFindTaskMsg(int i, Task task) {
-        System.out.println("    " + i + "." + task);
+    public static void prepareFindTaskMsg(int i, Task task) {
+        sb.append("    ").append(i).append(".").append(task).append("\n");
     }
 
     /**
      * Prints out a dotted line.
+     * @return dotted line
      */
-    public static void printLine() {
-        System.out.println("____________________________________________________________\n");
+    public static String getFound() {
+        sb.append("____________________________________________________________\n");
+        return UI.getResponse();
+    }
+
+    /**
+     * @param e
+     * @return error message
+     */
+    public static String getErrorMsg(FtException e) {
+        sb.append("____________________________________________________________\n")
+                .append(e.getMessage()).append("\n")
+                .append("____________________________________________________________\n");
+        return UI.getResponse();
     }
 }

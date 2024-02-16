@@ -1,7 +1,5 @@
 package friendlytool.process;
 
-import java.util.Scanner;
-
 import friendlytool.command.CommandTypes;
 import friendlytool.command.Parser;
 
@@ -13,38 +11,22 @@ public class Duke {
     private TaskList tasks;
 
     /**
-     * Constructs Duke
+     * Constructs FriendlyTool.
+     *
+     * @param isActive indicates whether program is active or not
      */
-    public Duke() {
-        this.isActive = true;
+    public Duke(Boolean isActive) {
+        this.isActive = isActive;
         this.tasks = new TaskList();
-    }
-
-    public static void main(String[] args) {
-        Duke ft = new Duke();
-        ft.init();
-    }
-
-    /**
-     * Starts and load saved tasks.
-     */
-    public void init() {
-        UI.printInitMsg();
         try {
             Storage.loadTask(tasks);
         } catch (FtException e) {
             System.out.println(e.getMessage());
         }
-        Scanner sc = new Scanner(System.in);
-        while (this.isActive) {
-            String input = sc.nextLine();
-            try {
-                findNextAction(input);
-            } catch (FtException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        UI.printByeMsg();
+    }
+
+    public Duke() {
+        this(true);
     }
 
     /**
@@ -53,7 +35,8 @@ public class Duke {
      * @param input user input.
      * @throws FtException
      */
-    private void findNextAction(String input) throws FtException {
+    private String findNextAction(String input) throws FtException {
+        String response = "";
         if (input.isEmpty()) {
             throw new FtException("Error: Please Type Command");
         }
@@ -62,42 +45,56 @@ public class Duke {
             switch (command) {
             case BYE:
                 this.isActive = false;
+                response = UI.getByeMsg();
                 break;
             case LIST:
-                UI.showList(tasks);
+                response = UI.getListMsg(tasks);
                 break;
             case MARK:
-                tasks.mark(input);
+                response = tasks.mark(input);
                 Storage.updateTask(tasks);
                 break;
             case UNMARK:
-                tasks.unmark(input);
+                response = tasks.unmark(input);
                 Storage.updateTask(tasks);
                 break;
             case TODO:
-                tasks.addTask(input, CommandTypes.TODO);
+                response = tasks.addTask(input, CommandTypes.TODO);
                 Storage.updateTask(tasks);
                 break;
             case DEADLINE:
-                tasks.addTask(input, CommandTypes.DEADLINE);
+                response = tasks.addTask(input, CommandTypes.DEADLINE);
                 Storage.updateTask(tasks);
                 break;
             case EVENT:
-                tasks.addTask(input, CommandTypes.EVENT);
+                response = tasks.addTask(input, CommandTypes.EVENT);
                 Storage.updateTask(tasks);
                 break;
             case DELETE:
-                tasks.deleteTask(input);
+                response = tasks.deleteTask(input);
                 Storage.updateTask(tasks);
                 break;
             case FIND:
-                TaskFinder.findTask(tasks, input);
+                response = TaskFinder.findTask(tasks, input);
                 break;
             default:
                 throw new FtException("Unknown Command: Please use a correct command");
             }
+            return response;
         } catch (IllegalArgumentException e) {
             throw new FtException("Unknown Command: Please use a correct command");
+        }
+    }
+
+    /**
+     * @param input user input
+     * @return response from the chatbot.
+     */
+    public String getResponse(String input) {
+        try {
+            return findNextAction(input);
+        } catch (FtException e) {
+            return UI.getErrorMsg(e);
         }
     }
 }
