@@ -18,7 +18,7 @@ public abstract class Command {
      * @param storage The {@code Storage} to save the modified state.
      * @throws DukeException If the command cannot be executed due to an error.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
 
     /**
      * Returns whether the command should exit the application.

@@ -36,14 +36,14 @@ public class UnmarkCommand extends Command {
      * @throws DukeException If the index is out of bounds.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (tasks.size() <= index) {
             throw new DukeException("There is nothing to be unmarked");
         } else {
             Task task = tasks.get(index);
             task.unmarkDone();
             storage.save(tasks);
-            ui.showUnmarked(task);
+            return ui.showUnmarked(task);
         }
     }
 
