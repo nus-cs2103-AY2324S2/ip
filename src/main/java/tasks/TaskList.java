@@ -160,7 +160,7 @@ public class TaskList {
         System.out.print(markedDoneText);
         System.out.print(taskText);
         System.out.print(dividerText);
-        String result = markedDoneText + "\n" + taskText;
+        String result = markedDoneText + taskText;
         return result;
     }
 
@@ -177,7 +177,7 @@ public class TaskList {
         System.out.print(markedUndoneText);
         System.out.print(taskText);
         System.out.print(dividerText);
-        String result = markedUndoneText + "\n" + taskText;
+        String result = markedUndoneText + taskText;
         return result;
     }
 
