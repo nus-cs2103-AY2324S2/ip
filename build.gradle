@@ -43,11 +43,12 @@ test {
 }
 
 application {
-    mainClass.set("Ken.Ken")
+    mainClass.set("ken.Ken")
 }
 
 shadowJar {
     archiveBaseName = "ken.jar"
+    archiveFileName = 'Ken.jar'
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

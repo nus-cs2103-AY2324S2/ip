@@ -38,14 +38,51 @@ public class Event extends Task {
     }
 
     /**
+     * Returns a string representation of the event from.
+     *
+     * @return A string representation of the event from.
+     */
+    public String getFrom() {
+        return " (from: " + this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+    }
+
+    /**
+     * Returns a string representation of the event to.
+     *
+     * @return A string representation of the event to.
+     */
+    public String getTo() {
+        return " to: " + this.to.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
+    }
+
+
+
+    /**
      * Returns a string representation of the event task.
      *
      * @return A string representation of the event task.
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) +
-                " to: " + this.to.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
+        return "[E]" + super.toString() + getFrom() + getTo();
+    }
+
+    /**
+     * Returns a string representation of the event from for file storage.
+     *
+     * @return A string representation of the event from for file storage.
+     */
+    public String toFileStringFrom() {
+        return this.from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+    }
+
+    /**
+     * Returns a string representation of the event to for file storage.
+     *
+     * @return A string representation of the event to for file storage.
+     */
+    public String toFileStringTo() {
+        return this.to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
     /**
@@ -55,8 +92,8 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        return "E" + super.toFileString() + " | " + this.from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) +
-                " | " + this.to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        return "E" + super.toFileString() + " | " + toFileStringFrom() +
+                " | " + toFileStringTo();
     }
 
 }

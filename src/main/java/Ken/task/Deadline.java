@@ -28,13 +28,33 @@ public class Deadline extends Task {
     }
 
     /**
+     * Returns a string representation of the deadline.
+     *
+     * @return A string representation of the deadline.
+     */
+
+    public String getBy() {
+        return " (by: " + this.by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
+    }
+
+    /**
      * Returns a string representation of the deadline task.
      *
      * @return A string representation of the deadline task.
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
+        return "[D]" + super.toString() + getBy();
+    }
+
+    /**
+     * Returns a string representation of the deadline for file storage.
+     *
+     * @return A string representation of the deadline for file storage.
+     */
+
+    public String toFileStringBy() {
+        return this.by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
     /**
@@ -44,7 +64,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        return "D" + super.toFileString() + " | " + this.by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        return "D" + super.toFileString() + " | " + toFileStringBy();
     }
 
 }
