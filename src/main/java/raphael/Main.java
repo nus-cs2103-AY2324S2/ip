@@ -13,7 +13,7 @@ import raphael.gui.MainWindow;
  */
 public class Main extends Application {
 
-    private final Raphael raphael = new Raphael("./data/tasks.txt");
+    private final Raphael raphael = new Raphael(Raphael.mode.NORMAL);
 
     @Override
     public void start(Stage stage) {

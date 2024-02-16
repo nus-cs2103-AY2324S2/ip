@@ -1,27 +1,43 @@
 package raphael.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
+import raphael.Raphael;
+import raphael.RaphaelTest;
+import raphael.storage.Storage;
+import raphael.task.Task;
+import raphael.task.TaskList;
+import raphael.ui.Ui;
+
 public class AddCommandTest {
     @Test
-    public void addCommandTest1() {
+    public void addCommandTest_doneTask_success() {
         try {
-            new AddCommand(new raphael.task.Task("stub", true)).execute(
-                    new raphael.task.TaskList(), new raphael.ui.Ui(),
-                    new raphael.storage.Storage("./data/tasks.txt")
-            );
+            Task toAdd = new Task("stub", true);
+            TaskList tasks = new TaskList();
+            Ui ui = new Ui();
+            Storage storage = new Storage(RaphaelTest.filePath);
+            new AddCommand(toAdd).execute(tasks, ui, storage);
+            String expectedOutput = String.format("Roger that! I have added the following task into your list:\n"
+                    + "\t%s\n%s", toAdd, tasks.getSize());
+            assertEquals(expectedOutput, ui.getOutput());
         } catch (raphael.exception.RaphaelException e) {
             fail();
         }
     }
     @Test
-    public void addCommandTest2() {
+    public void addCommandTest_undoneTask_success() {
         try {
-            new AddCommand(new raphael.task.Task("stub", false)).execute(
-                    new raphael.task.TaskList(), new raphael.ui.Ui(),
-                    new raphael.storage.Storage("./data/tasks.txt")
-            );
+            Task toAdd = new Task("stub", true);
+            TaskList tasks = new TaskList();
+            Ui ui = new Ui();
+            Storage storage = new Storage(RaphaelTest.filePath);
+            new AddCommand(toAdd).execute(tasks, ui, storage);
+            String expectedOutput = String.format("Roger that! I have added the following task into your list:\n"
+                    + "\t%s\n%s", toAdd, tasks.getSize());
+            assertEquals(expectedOutput, ui.getOutput());
         } catch (raphael.exception.RaphaelException e) {
             fail();
         }

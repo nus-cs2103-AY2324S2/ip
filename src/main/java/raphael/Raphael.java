@@ -25,14 +25,22 @@ public class Raphael {
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
+    public enum mode {
+        NORMAL("./data/tasks.txt"),
+        TEST("./data/test_tasks.txt");
+        private String filePath;
+        mode(String filePath) {
+            this.filePath = filePath;
+        }
+    };
 
     /**
      * The constructor of Raphael.
-     * @param filePath the file path of the task file to be read.
+     * @param raphaelMode the mode of Raphael to be initialized.
      */
-    public Raphael(String filePath) {
+    public Raphael(Raphael.mode raphaelMode) {
         this.ui = new Ui();
-        this.storage = new Storage(filePath);
+        this.storage = new Storage(raphaelMode.filePath);
         try {
             this.tasks = new TaskList(this.storage.load());
         } catch (RaphaelException e) {
@@ -48,7 +56,7 @@ public class Raphael {
     public Raphael() {
         this.tasks = new TaskList();
         this.ui = new Ui();
-        this.storage = new Storage("./data/tasks.txt");
+        this.storage = new Storage(mode.NORMAL.filePath);
     }
     /**
      * Get response from Raphael

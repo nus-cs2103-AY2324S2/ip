@@ -15,7 +15,7 @@ public class RaphaelException extends Exception {
         WRITE_IO_EXCEPTION("Failed to write to the task file!"),
         DUPLICATE_TASK_EXCEPTION("Duplicate task detected!");
         private final String errorMessage;
-        private Type(String errorMessage) {
+        Type(String errorMessage) {
             this.errorMessage = errorMessage;
         }
     }
