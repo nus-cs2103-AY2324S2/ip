@@ -14,9 +14,15 @@ import java.nio.file.Path;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.StandardCopyOption;
 
+/**
+ * {@code Storage} class is used to read and write data to the file.
+ */
 public class Storage {
     private static Path PATH_TO_TASKS_FILE = Paths.get("echo_bot_tasks.txt");
 
+    /**
+     * Deletes the file if it exists.
+     */
     public void deleteFile() {
         try {
             Files.delete(PATH_TO_TASKS_FILE);
@@ -25,7 +31,12 @@ public class Storage {
         }
     }
 
-    public List<String> loadFromFile() throws DukeException {
+    /**
+     * Loads a list of strings, representing the tasks, from the file.
+     *
+     * @return the list of strings
+     */
+    public List<String> loadFromFile() {
         try {
             return Files.readAllLines(PATH_TO_TASKS_FILE);
         } catch (FileNotFoundException e) {
@@ -37,6 +48,9 @@ public class Storage {
 
     /**
      * Saves the current list of tasks to the file.
+     *
+     * @param s the list of tasks in string format, after being serialized by
+     * {@link Task#serializeToCommand}
      */
     public void saveToFile(List<String> s) {
         // We write to a temporary file first, then rename it to the actual file.

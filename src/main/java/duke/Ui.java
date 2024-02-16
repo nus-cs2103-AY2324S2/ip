@@ -1,13 +1,14 @@
 package duke;
 
 import java.util.Scanner;
+import java.util.NoSuchElementException;
 
 public class Ui {
     static final String CHATBOT_NAME = "Echo";
     static final int CELL_WIDTH = 70;
 
     /**
-     * Function to print the banner.
+     * Prints the banner.
      */
     public void printBanner() {
         // Banner somewhat inspired from SageMath's banner.
@@ -21,9 +22,10 @@ public class Ui {
     }
 
     /**
-     * Function to ask user for a prompt.
+     * Asks the user for a prompt.
      *
-     * May raises NoSuchElementException if the user presses Ctrl-D.
+     * @throws NoSuchElementException if the user presses Ctrl-D.
+     * @return String of the user's input.
      */
     public String askForPrompt() {
         System.out.print(">>> ");
@@ -33,6 +35,16 @@ public class Ui {
             System.out.println(result);
         }
         return result;
+    }
+
+    /**
+     * Prints a file that indicates the storage file is corrupted.
+     *
+     * @param e The exception object.
+     */
+    public void printCorruptedFileMessage(DukeException e) {
+        System.err.println("Stored tasks file is corrupted: " + e.getMessage());
+        System.err.println("Deleted the file.");
     }
 
     Scanner sc = new Scanner(System.in);

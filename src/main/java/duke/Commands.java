@@ -171,6 +171,9 @@ class DeleteCommand extends CommandTakingTaskIndex {
     }
 }
 
+/**
+ * A helper class that registers commands with {@link Parser}.
+ */
 public class Commands {
     public static void registerCommands() {
         Parser.registerCommand("clear", s -> new ClearCommand());
