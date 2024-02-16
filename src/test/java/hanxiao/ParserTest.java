@@ -19,7 +19,7 @@ import hanxiao.task.Todo;
 public class ParserTest {
 
     @Test
-    void test_parse_throwDukeException() throws HanxiaoException {
+    void test_parse_throwHanxiaoException() throws HanxiaoException {
         TaskList tasks = new TaskList(new ArrayList<>());
         tasks.addTask(new Todo("todo task"));
         tasks.addTask(new Deadline("deadline task", LocalDate.parse("2024-11-21")));

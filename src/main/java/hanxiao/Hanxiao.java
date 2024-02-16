@@ -53,7 +53,7 @@ public class Hanxiao {
         }
     }
 
-    String getResponse(String input) {
+    protected String getResponse(String input) {
         try {
             String fullCommand = input;
             Command cmd = parser.parse(fullCommand);

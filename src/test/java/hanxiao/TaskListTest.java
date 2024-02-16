@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import hanxiao.exception.DuplicateTaskException;
 import org.junit.jupiter.api.Test;
 
 import hanxiao.task.Deadline;
@@ -65,5 +66,13 @@ public class TaskListTest {
         TaskList tl = new TaskList(input);
 
         assertEquals(input, tl.getTaskList());
+    }
+
+    @Test
+    void test_addTask_throwHanxiaoException() throws DuplicateTaskException {
+        TaskList tl = new TaskList(new ArrayList<>());
+        tl.addTask(new Deadline("deadline task", LocalDate.parse("2002-11-21")));
+
+        assertEquals(1, tl.getListLength());
     }
 }
