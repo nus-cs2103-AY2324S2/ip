@@ -1,8 +1,9 @@
 package duke.tasks;
 
+import java.time.format.DateTimeFormatter;
+
 import duke.ui.Ui;
 
-import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a task in the task list.
