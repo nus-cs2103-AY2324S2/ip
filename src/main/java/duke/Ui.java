@@ -27,7 +27,8 @@ public class Ui {
      *
      */
     public static String greet() {
-        return "Hello, I'm SnowBoy, at your service!\n" + "To see the list of commands available, type 'help' below!";
+        return "Brr, what a cold day it is today. I'm SnowBoy, at your service!\n"
+                + "To see the list of commands available, type 'help' below!";
     }
 
     /**
@@ -36,7 +37,7 @@ public class Ui {
      * and needs to create a new one.
      */
     public void showLoadingError() {
-        System.out.println(" No existing list detected. Creating new list...");
+        System.out.println(" Oh man.. no existing list detected. Creating new list...");
     }
 
     /**
@@ -44,7 +45,7 @@ public class Ui {
      * This message is shown when the user decides to exit the application.
      */
     public static String exit() {
-        return " Bye. Hope to see you again soon!";
+        return " Ahh, I'm melting away.. bye!";
     }
 
     /**

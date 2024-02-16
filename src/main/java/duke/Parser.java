@@ -38,7 +38,7 @@ public class Parser {
         case "help":
             return Ui.Command.HELP;
         default:
-            throw new DukeException(" Sorry, I don't understand that command :(");
+            throw new DukeException(" Sorry buddy, I don't understand that command :(");
         }
     }
 
@@ -51,7 +51,7 @@ public class Parser {
     public static String printLst(TaskList tl) {
         StringBuilder toPrint = new StringBuilder();
         if (tl.getLst().isEmpty()) {
-            toPrint.append(" Whoops! Your list is empty :(");
+            toPrint.append(" Whoopsies! Your list is empty :(");
         } else {
             toPrint.append(" Here are the tasks in your list:");
             for (int i = 0; i < tl.size(); i++) {
@@ -73,7 +73,7 @@ public class Parser {
      */
     public static String addTodo(TaskList tl, String cmd, String ... commandArr) throws DukeException {
         if (commandArr.length == 1) {
-            throw new DukeException(" Sorry, the description of a todo cannot be empty :(");
+            throw new DukeException(" Sorry buddy, the description of a todo cannot be empty :(");
         }
         int startIdxOfDesc = cmd.indexOf(" ") + 1;
         String todo = cmd.substring(startIdxOfDesc);
@@ -96,7 +96,7 @@ public class Parser {
      */
     public static String addDeadline(TaskList tl, String cmd, String ... commandArr) throws DukeException {
         if (commandArr.length == 1) {
-            throw new DukeException(" Sorry, the description and date of a deadline cannot be empty :(");
+            throw new DukeException(" Sorry buddy, the description and date of a deadline cannot be empty :(");
         }
         Task newDeadline = getDeadlineParams(cmd);
         tl.addTask(newDeadline);
@@ -110,13 +110,13 @@ public class Parser {
         int startIdxOfDesc = cmd.indexOf(" ") + 1;
         String[] deadlineArr = cmd.substring(startIdxOfDesc).split(" /by ");
         if (deadlineArr.length == 1) {
-            throw new DukeException(" Sorry, the date of a deadline cannot be empty :(\n%s");
+            throw new DukeException(" Sorry buddy, the date of a deadline cannot be empty :(\n%s");
         }
         LocalDate by;
         try {
             by = LocalDate.parse(deadlineArr[1]);
         } catch (DateTimeParseException dateTimeParseE) {
-            throw new DukeException(" Sorry, please input the date of a deadline in the format YYYY-MM-DD");
+            throw new DukeException(" Sorry buddy, please input the date of a deadline in the format YYYY-MM-DD");
         }
         return new Deadline(deadlineArr[0], by);
     }
@@ -132,12 +132,12 @@ public class Parser {
      */
     public static String addEvent(TaskList tl, String cmd, String ... commandArr) throws DukeException {
         if (commandArr.length == 1) {
-            throw new DukeException(" Sorry, the description and start and end dates of an event cannot be empty :(");
+            throw new DukeException(" Sorry buddy, the description and start and end dates of an event cannot be empty :(");
         }
         int startIdxOfDesc = cmd.indexOf(" ") + 1;
         String[] eventFromArr = cmd.substring(startIdxOfDesc).split(" /from ");
         if (eventFromArr.length == 1) {
-            throw new DukeException(" Sorry, the start and end dates of an event cannot be empty :(");
+            throw new DukeException(" Sorry buddy, the start and end dates of an event cannot be empty :(");
         }
         Task newEvent = getEventParams(eventFromArr);
         tl.addTask(newEvent);
@@ -150,7 +150,7 @@ public class Parser {
     private static Task getEventParams(String[] eventFromArr) throws DukeException {
         String[] eventToArr = eventFromArr[1].split(" /to ");
         if (eventToArr.length == 1) {
-            throw new DukeException(" Sorry, the end date of an event cannot be empty :(");
+            throw new DukeException(" Sorry buddy, the end date of an event cannot be empty :(");
         }
         LocalDate from;
         LocalDate to;
@@ -158,10 +158,10 @@ public class Parser {
             from = LocalDate.parse(eventToArr[0]);
             to = LocalDate.parse(eventToArr[1]);
         } catch (DateTimeParseException dateTimeParseE) {
-            throw new DukeException(" Sorry, please input the dates of an event in the format YYYY-MM-DD");
+            throw new DukeException(" Sorry buddy, please input the dates of an event in the format YYYY-MM-DD");
         }
         if (from.isAfter(to)) {
-            throw new DukeException(" Sorry, please input the start date of an event before/on the end date");
+            throw new DukeException(" Sorry buddy, please input the start date of an event before/on the end date");
         }
         return new Event(eventFromArr[0], from, to);
     }
@@ -175,7 +175,7 @@ public class Parser {
      */
     public static String findTask(TaskList tl, String cmd, String ... commandArr) throws DukeException {
         if (commandArr.length == 1) {
-            throw new DukeException(" Sorry, please input what you want me to find");
+            throw new DukeException(" Sorry buddy, please input what you want me to find");
         }
         String keyword = cmd.substring(5);
         ArrayList<Task> foundTasks = tl.find(keyword);
@@ -189,7 +189,7 @@ public class Parser {
         }
         if (count == 0) {
             toPrint = new StringBuilder();
-            toPrint.append("\n Whoops! No matching tasks found :(");
+            toPrint.append("\n Whoopsies! No matching tasks found :(");
         }
         return toPrint.toString();
     }
@@ -204,14 +204,14 @@ public class Parser {
      */
     public static String markTask(TaskList tl, String ... commandArr) throws DukeException {
         if (commandArr.length == 1) {
-            throw new DukeException(" Sorry, please input the list index for me to mark");
+            throw new DukeException(" Sorry buddy, please input the list index for me to mark");
         }
         if (!commandArr[1].matches("\\d+")) {
-            throw new DukeException(" Sorry, please input a valid list index for me to mark");
+            throw new DukeException(" Sorry buddy, please input a valid list index for me to mark");
         }
         int toMark = Integer.parseInt(commandArr[1]);
         if (toMark > tl.size()) {
-            throw new DukeException(" Sorry, please input a valid list index for me to mark");
+            throw new DukeException(" Sorry buddy, please input a valid list index for me to mark");
         }
         tl.get(toMark - 1).markAsDone();
         String toPrint = " Nice! I've marked this task as done:\n";
@@ -229,17 +229,17 @@ public class Parser {
      */
     public static String unmarkTask(TaskList tl, String ... commandArr) throws DukeException {
         if (commandArr.length == 1) {
-            throw new DukeException(" Sorry, please input the list index for me to unmark");
+            throw new DukeException(" Sorry buddy, please input the list index for me to unmark");
         }
         if (!commandArr[1].matches("\\d+")) {
-            throw new DukeException(" Sorry, please input a valid list index for me to unmark");
+            throw new DukeException(" Sorry buddy, please input a valid list index for me to unmark");
         }
         int toUnmark = Integer.parseInt(commandArr[1]);
         if (toUnmark > tl.size()) {
-            throw new DukeException(" Sorry, please input a valid list index for me to unmark");
+            throw new DukeException(" Sorry buddy, please input a valid list index for me to unmark");
         }
         tl.get(toUnmark - 1).markAsUndone();
-        String toPrint = " OK! I've marked this task as not done yet:\n";
+        String toPrint = " Okie dokie! I've marked this task as not done yet:\n";
         toPrint += "   " + tl.get(toUnmark - 1).toString();
         return toPrint;
     }
@@ -254,16 +254,16 @@ public class Parser {
      */
     public static String deleteTask(TaskList tl, String ... commandArr) throws DukeException {
         if (commandArr.length == 1) {
-            throw new DukeException(" Sorry, please input the list index for me to delete");
+            throw new DukeException(" Sorry buddy, please input the list index for me to delete");
         }
         if (!commandArr[1].matches("\\d+")) {
-            throw new DukeException(" Sorry, please input a valid list index for me to delete");
+            throw new DukeException(" Sorry buddy, please input a valid list index for me to delete");
         }
         int toDelete = Integer.parseInt(commandArr[1]);
         if (toDelete > tl.size()) {
-            throw new DukeException(" Sorry, please input a valid list index for me to delete");
+            throw new DukeException(" Sorry buddy, please input a valid list index for me to delete");
         }
-        String toPrint = " Noted. I've removed this task\n";
+        String toPrint = " Got it. I've removed this task\n";
         toPrint += "   " + tl.get(toDelete - 1).toString() + "\n";
         tl.deleteTask(toDelete - 1);
         toPrint += " Now you have " + tl.size() + " tasks in the list.";
