@@ -11,7 +11,7 @@ public class RochinBot {
     public RochinBot() {
         ui = new Ui();
         storage = new Storage(FILE_PATH);
-        tasks = new TaskList(storage.load());
+        tasks = new TaskList();
     }
 
     /**
@@ -30,8 +30,8 @@ public class RochinBot {
      *
      * @param args Command-line arguments (not used).
      */
-    public static void main(String[] args) {
-        new RochinOOP().run();
+    public static void main(String[] args) throws RochinException {
+        new RochinBot().run();
     }
 
     /**

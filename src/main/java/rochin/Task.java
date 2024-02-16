@@ -53,7 +53,7 @@ public class Task {
      * @param fileLine data from the file.
      * @return new task
      */
-    public RochinOOP.Task createTaskFromFileString(String fileLine) throws RochinOOP.RochinException {
+    public Task createTaskFromFileString(String fileLine) throws RochinException {
         String[] parts = fileLine.split("\\s*\\|\\s*");
         if (parts.length >= 3) {
             boolean isDone = Integer.parseInt(parts[1]) == 1;

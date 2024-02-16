@@ -23,7 +23,7 @@ public class EventTask extends Task {
      * @param descriptionWithDate description with date.
      * @return A new event task.
      */
-    public RochinOOP.EventTask createTask(String descriptionWithDate) throws RochinOOP.RochinException {
+    public EventTask createTask(String descriptionWithDate) throws RochinException {
         String[] parts = descriptionWithDate.split("/from");
         if (parts.length == 2) {
             String description = parts[0].trim();
@@ -34,7 +34,7 @@ public class EventTask extends Task {
                 return new EventTask(description, from, to);
             }
         }
-        throw new RochinOOP.RochinException("OOPS!!! Please provide a description, start time, and end time for an event task.");
+        throw new RochinException("OOPS!!! Please provide a description, start time, and end time for an event task.");
     }
 
     /**

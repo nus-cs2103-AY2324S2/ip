@@ -1,10 +1,12 @@
 package rochin;
 
+import rochinoop.RochinOOP;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList {
-    private final List<RochinOOP.Task> tasks;
+    private final List<Task> tasks;
 
     /**
      * Construct an empty TaskList.
@@ -13,7 +15,7 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
-    public TaskList(List<RochinOOP.Task> tasks) {
+    public TaskList(List<Task> tasks) {
         this.tasks = tasks;
     }
 
@@ -22,7 +24,7 @@ public class TaskList {
      *
      * @param newTask The task to be added.
      */
-    public void addTask(RochinOOP.Task newTask) {
+    public void addTask(Task newTask) {
         tasks.add(newTask);
     }
 
@@ -64,7 +66,7 @@ public class TaskList {
      *
      * @return A list containing all tasks.
      */
-    public List<RochinOOP.Task> getAllTasks() {
+    public List<Task> getAllTasks() {
         return new ArrayList<>(tasks);
     }
 

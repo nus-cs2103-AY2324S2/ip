@@ -62,7 +62,7 @@ public class Ui {
     /**
      * Display an invalid command error message.
      */
-    public void showInvalidCommandError() {
+    public static void showInvalidCommandError() {
         System.out.println("Invalid command. Please enter a valid command.");
     }
 
@@ -71,7 +71,7 @@ public class Ui {
      *
      * @param tasks The list of tasks to be displayed.
      */
-    public void showTaskList(List<RochinOOP.Task> tasks) {
+    public void showTaskList(List<Task> tasks) {
         System.out.println("____________________________________________________________");
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
@@ -85,7 +85,7 @@ public class Ui {
      *
      * @param tasks The updated list of tasks.
      */
-    public void showTaskAddedMessage(List<RochinOOP.Task> tasks) {
+    public void showTaskAddedMessage(List<Task> tasks) {
         System.out.println("____________________________________________________________");
         System.out.println("Got it. I've added this task:");
         System.out.println(tasks.get(tasks.size() - 1));
@@ -98,7 +98,7 @@ public class Ui {
      *
      * @param tasks The updated list of tasks.
      */
-    public void showTaskDeletedMessage(List<RochinOOP.Task> tasks) {
+    public void showTaskDeletedMessage(List<Task> tasks) {
         System.out.println("____________________________________________________________");
         System.out.println("Noted. I've removed this task:");
         System.out.println(tasks.get(tasks.size() - 1));
@@ -111,7 +111,7 @@ public class Ui {
      *
      * @param tasks The updated list of tasks.
      */
-    public void showTaskMarkedAsDoneMessage(List<RochinOOP.Task> tasks) {
+    public void showTaskMarkedAsDoneMessage(List<Task> tasks) {
         System.out.println("____________________________________________________________");
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(tasks.get(tasks.size() - 1));
@@ -123,7 +123,7 @@ public class Ui {
      *
      * @param tasks The updated list of tasks.
      */
-    public void showTaskUnmarkedAsDoneMessage(List<RochinOOP.Task> tasks) {
+    public void showTaskUnmarkedAsDoneMessage(List<Task> tasks) {
         System.out.println("____________________________________________________________");
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(tasks.get(tasks.size() - 1));

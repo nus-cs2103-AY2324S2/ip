@@ -1,6 +1,8 @@
 package rochin;
 
 import org.junit.jupiter.api.Test;
+import rochinoop.RochinOOP;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RochinOOPTest {

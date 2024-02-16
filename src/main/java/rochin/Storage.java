@@ -21,9 +21,9 @@ public class Storage {
      * Load tasks from the specified file.
      *
      * @return A list of strings representing the loaded tasks.
-     * @throws RochinOOP.RochinException If an error occurs while loading tasks from the file.
+     * @throws RochinException If an error occurs while loading tasks from the file.
      */
-    public List<String> load() throws RochinOOP.RochinException {
+    public List<String> load() throws RochinException {
         List<String> lines = new ArrayList<>();
         try {
             File file = new File(filePath);
@@ -35,7 +35,7 @@ public class Storage {
                 scanner.close();
             }
         } catch (FileNotFoundException e) {
-            throw new RochinOOP.RochinException("Error loading tasks from file.");
+            throw new RochinException("Error loading tasks from file.");
         }
         return lines;
     }
@@ -44,15 +44,15 @@ public class Storage {
      * Save tasks to the specified file.
      *
      * @param lines The list of strings representing tasks to be saved.
-     * @throws RochinOOP.RochinException If an error occurs while saving tasks to the file.
+     * @throws RochinException If an error occurs while saving tasks to the file.
      */
-    public void save(List<String> lines) throws RochinOOP.RochinException {
+    public void save(List<String> lines) throws RochinException {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
             for (String line : lines) {
                 writer.println(line);
             }
         } catch (IOException e) {
-            throw new RochinOOP.RochinException("Error saving tasks to file.");
+            throw new RochinException("Error saving tasks to file.");
         }
     }
 }

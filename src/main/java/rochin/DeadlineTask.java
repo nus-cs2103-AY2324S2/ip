@@ -14,14 +14,14 @@ public class DeadlineTask extends Task {
      * @param descriptionWithDate description with date.
      * @return A new deadline task.
      */
-    public RochinOOP.DeadlineTask createTask(String descriptionWithDate) throws RochinOOP.RochinException {
+    public DeadlineTask createTask(String descriptionWithDate) throws RochinException {
         String[] parts = descriptionWithDate.split("/by");
         if (parts.length == 2) {
             String description = parts[0].trim();
             String by = parts[1].trim();
             return new DeadlineTask(description, by);
         } else {
-            throw new RochinOOP.RochinException("OOPS!!! Please provide both a description and a deadline for a deadline task.");
+            throw new RochinException("OOPS!!! Please provide both a description and a deadline for a deadline task.");
         }
     }
 

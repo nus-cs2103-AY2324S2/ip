@@ -1,5 +1,7 @@
 package rochin;
 
+import rochinoop.RochinOOP;
+
 import java.util.List;
 
 public class CommandProcessor {
@@ -88,7 +90,7 @@ public class CommandProcessor {
             DeadlineTask ddlTask = new DeadlineTask(descriptionWithDate, "by");
             tasks.addTask(ddlTask.createTask(descriptionWithDate));
             ui.showTaskAddedMessage(tasks.getAllTasks());
-        } catch (RochinOOP.RochinException e) {
+        } catch (RochinException e) {
             ui.showError(e.getMessage());
         }
     }
@@ -105,7 +107,7 @@ public class CommandProcessor {
             EventTask eventTask = new EventTask(descriptionWithDate, "from", "to");
             tasks.addTask(eventTask.createTask(descriptionWithDate));
             ui.showTaskAddedMessage(tasks.getAllTasks());
-        } catch (RochinOOP.RochinException e) {
+        } catch (RochinException e) {
             ui.showError(e.getMessage());
         }
     }
