@@ -10,8 +10,11 @@ import duke.util.Storage;
  * The class representing a list command.
  * */
 public class ListCommand extends Command {
+    /* The chatbot default response to the user. */
+    public static final String RESPONSE = "Here are the tasks in your list:";
+
     public String execute(TaskList taskList, Ui ui, Storage storage) {
-        String response = "Here are the tasks in your list:";
+        String response = RESPONSE;
         for (int i = 0; i < taskList.size(); i++) {
             Task currentTask = taskList.get(i);
             response += "\n" + i + 1 + "." + currentTask;

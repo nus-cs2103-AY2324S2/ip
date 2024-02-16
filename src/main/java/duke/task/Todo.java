@@ -6,8 +6,11 @@ import java.util.Objects;
  * The class representing an Event task.
  * */
 public class Todo extends Task {
-    /* Type indicator for Todo task. */
-    String type = "[T]";
+    /* Type for Todo task. */
+    public static final String TYPE = "T";
+    /* Type indicator for Event task. */
+    public static final String TYPE_INDICATOR = "[T]";
+    /* Start date of the event. */
 
     public Todo(String description) {
         super(description);
@@ -15,17 +18,11 @@ public class Todo extends Task {
 
     @Override
     public String toString() {
-        return this.type + this.display + " " + this.description;
+        return TYPE_INDICATOR + getDisplay() + " " + getDescription();
     }
 
     @Override
     public String toDbString() {
-        String display;
-        if (Objects.equals(this.display, "[ ]")) {
-            display = "0";
-        } else {
-            display = "1";
-        }
-        return "T|" + display + "|" + this.description;
+        return TYPE + super.toDbString();
     }
 }

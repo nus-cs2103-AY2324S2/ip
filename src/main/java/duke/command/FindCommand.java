@@ -11,20 +11,20 @@ import duke.util.Ui;
  * */
 public class FindCommand extends Command {
     /* The separated list of constituent words in the user-entered command. */
-    String[] commandList;
+    private final String[] commandList;
+    /* The chatbot default response to the user. */
+    public static final String RESPONSE = "Here are the matching tasks in your list:";
 
     public FindCommand(String[] commandList) {
         this.commandList = commandList;
     }
 
     public String execute(TaskList taskList, Ui ui, Storage storage) throws FindInvalidException {
-        String response = "";
-
         if (this.commandList.length <= 1) {
             throw new FindInvalidException();
         }
 
-        response += "Here are the matching tasks in your list:";
+        String response = RESPONSE;
 
         for (int i = 0; i < taskList.size(); i++) {
             Task currentTask = taskList.get(i);

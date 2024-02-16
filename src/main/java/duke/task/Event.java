@@ -8,14 +8,14 @@ import java.util.Objects;
  * The class representing an Event task.
  * */
 public class Event extends Task {
+    /* Type for Event task. */
+    public static final String TYPE = "E";
     /* Type indicator for Event task. */
-    String type = "[E]";
-
+    public static final String TYPE_INDICATOR = "[E]";
     /* Start date of the event. */
-    LocalDate start;
-
+    private final LocalDate start;
     /* End date of the event. */
-    LocalDate end;
+    private final LocalDate end;
 
     public Event(String description, String start, String end) {
         super(description);
@@ -27,10 +27,10 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return this.type
-            + this.display
+        return TYPE_INDICATOR
+            + getDisplay()
             + " "
-            + this.description
+            + getDescription()
             + "(from: "
             + this.start.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
             + "to: "
@@ -40,12 +40,6 @@ public class Event extends Task {
 
     @Override
     public String toDbString() {
-        String display;
-        if (Objects.equals(this.display, "[ ]")) {
-            display = "0";
-        } else {
-            display = "1";
-        }
-        return "E|" + display + "|" + this.description + "|" + this.start + "|" + this.end;
+        return TYPE + super.toDbString() + this.start + "|" + this.end;
     }
 }

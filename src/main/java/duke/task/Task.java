@@ -1,22 +1,30 @@
 package duke.task;
 
+import java.util.Objects;
+
 /**
  * The class representing a generic task.
  * */
 public class Task {
+    /* Indicator for unmarked task. */
+    public static final String UNMARKED_INDICATOR = "[ ]";
+    /* Indicator for marked task. */
+    public static final String MARKED_INDICATOR = "[X]";
+    /* Indicator for unmarked task. */
+    public static final String DB_UNMARKED_INDICATOR = "0";
+    /* Indicator for marked task. */
+    public static final String DB_MARKED_INDICATOR = "1";
     /* Description of the current task. */
-    String description;
-
+    private final String description;
     /* Completion status of the current task. */
-    boolean isDone;
-
+    private boolean isDone;
     /* Mark reflecting completion status for the current task. */
-    String display;
+    private String display;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        this.display = "[ ]";
+        this.display = UNMARKED_INDICATOR;
     }
 
     /**
@@ -25,9 +33,9 @@ public class Task {
     public void changeDone() {
         this.isDone = !this.isDone;
         if (this.isDone) {
-            this.display = "[X]";
+            this.display = MARKED_INDICATOR;
         } else {
-            this.display = "[ ]";
+            this.display = UNMARKED_INDICATOR;
         }
     }
 
@@ -41,11 +49,26 @@ public class Task {
     }
 
     /**
+     * Getter method for task display.
+     *
+     * @return The task description.
+     * */
+    public String getDisplay() {
+        return display;
+    }
+
+    /**
      * Converts the task into the form to be stored in db.txt.
      *
      * @return The formatted string.
      * */
     public String toDbString() {
-        return "";
+        String display;
+        if (Objects.equals(getDisplay(), UNMARKED_INDICATOR)) {
+            display = DB_UNMARKED_INDICATOR;
+        } else {
+            display = DB_MARKED_INDICATOR;
+        }
+        return "|" + display + "|" + getDescription() + "|";
     }
 }

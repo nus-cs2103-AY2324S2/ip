@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class TaskList {
 
     /* ArrayList containing all the current tasks. */
-    ArrayList<Task> taskList;
+    private ArrayList<Task> taskList;
 
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
