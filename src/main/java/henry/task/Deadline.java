@@ -11,7 +11,7 @@ import henry.HenryException;
 public class Deadline extends Task {
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
-    private final LocalDateTime date;
+    private LocalDateTime date;
     /**
      * Creates a Deadline object.
      *
@@ -26,6 +26,18 @@ public class Deadline extends Task {
             throw new HenryException("No due date specified!");
         }
 
+        this.date = LocalDateTime.parse(date, INPUT_FORMATTER);
+    }
+
+    /**
+     * Sets the due datetime of the deadline.
+     * @param date The due date of the deadline.
+     * @throws HenryException If the due date is not specified.
+     */
+    public void setBy(String date) throws HenryException {
+        if (date.isBlank()) {
+            throw new HenryException("No due date specified!");
+        }
         this.date = LocalDateTime.parse(date, INPUT_FORMATTER);
     }
 

@@ -23,6 +23,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     /**
      * Gets the status icon of the task.
      *

@@ -12,8 +12,8 @@ public class Event extends Task {
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
-    private final LocalDateTime from;
-    private final LocalDateTime to;
+    private LocalDateTime from;
+    private LocalDateTime to;
 
     /**
      * Creates an Event object.
@@ -26,13 +26,35 @@ public class Event extends Task {
     public Event(String description, String from, String to) throws HenryException {
         super(description);
 
-        if (from.isEmpty() || from.equals(" ")) {
+        if (from.isBlank()) {
             throw new HenryException("Missing time !!!\n");
-        } else if (to.isEmpty() || to.equals(" ")) {
+        } else if (to.isBlank()) {
             throw new HenryException("Missing time!!!\n");
         }
 
         this.from = LocalDateTime.parse(from, INPUT_FORMATTER);
+        this.to = LocalDateTime.parse(to, INPUT_FORMATTER);
+    }
+
+    /**
+     * Sets the start datetime of the event.
+     * @param from The start time of the event.
+     * @throws HenryException If the start time is not specified.
+     */
+    public void setFrom(String from) throws HenryException {
+        if (from.isBlank()) {
+            throw new HenryException("Missing time !!!\n");
+        }
+        this.from = LocalDateTime.parse(from, INPUT_FORMATTER);
+    }
+
+    /**
+     * Sets the end datetime of the event.
+     */
+    public void setTo(String to) throws HenryException {
+        if (to.isBlank()) {
+            throw new HenryException("Missing time !!!\n");
+        }
         this.to = LocalDateTime.parse(to, INPUT_FORMATTER);
     }
 
