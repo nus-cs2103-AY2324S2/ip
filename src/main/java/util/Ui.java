@@ -68,6 +68,9 @@ public class Ui {
             } catch (NarutoException e) {
                 return new HandleError(e);
             }
+            if (taskList.contains(new ToDo(description))) {
+                return new HandleError(NarutoException.createDuplicateTaskException());
+            }
             return new Add(new ToDo(description), taskList);
         case "deadline":
         case "dl":
@@ -76,6 +79,9 @@ public class Ui {
             } catch (NarutoException e) {
                 return new HandleError(e);
             }
+            if (taskList.contains(new Deadline(tokens[0], DateTimeUtil.format(tokens[1])))) {
+                return new HandleError(NarutoException.createDuplicateTaskException());
+            }
             return new Add(new Deadline(tokens[0], DateTimeUtil.format(tokens[1])), taskList);
         case "event":
         case "e":
@@ -83,6 +89,10 @@ public class Ui {
                 tokens = Parser.parseEvent(restOfLine);
             } catch (NarutoException e) {
                 return new HandleError(e);
+            }
+            if (taskList.contains(new Event(tokens[0], DateTimeUtil.format(tokens[1]),
+                DateTimeUtil.format(tokens[2])))) {
+                return new HandleError(NarutoException.createDuplicateTaskException());
             }
             return new Add(new Event(tokens[0], DateTimeUtil.format(tokens[1]),
                 DateTimeUtil.format(tokens[2])), taskList);

@@ -18,7 +18,8 @@ public abstract class NarutoException extends Exception {
         INVALID_COMMAND,
         INVALID_INDEX,
         FILE_CORRUPTED,
-        INVALID_ACTION
+        INVALID_ACTION,
+        DUPLICATE_TASK
     }
 
     /**
@@ -94,7 +95,8 @@ public abstract class NarutoException extends Exception {
      * @return the NarutoException for an invalid command
      */
     public static NarutoException createInvalidCommandException() {
-        return new InvalidCommandException("Sorry, I didn't catch that. ヾ(_ _。）");
+        return new InvalidCommandException("Sorry, I didn't catch that... Try entering a valid "
+                + "command!");
     }
 
     /**
@@ -103,8 +105,7 @@ public abstract class NarutoException extends Exception {
      * @return the NarutoException for an invalid index
      */
     public static NarutoException createInvalidIndexException() {
-        return new InvalidIndexException("Sorry, I couldn't find the task you indicated... ｡･ﾟ"
-                + "ﾟ･(>д<)･ﾟﾟ･｡");
+        return new InvalidIndexException("Sorry, I couldn't find the task you indicated...");
     }
 
     /**
@@ -114,7 +115,7 @@ public abstract class NarutoException extends Exception {
      */
     public static NarutoException createFileCorruptedException() {
         return new FileCorruptedException("Oh no! Something seems to have happened to the "
-                + "tasklist... I'll reset the tasks! °՞(ᗒᗣᗕ)՞°");
+                + "tasklist... I'll reset the tasks!");
     }
 
     /**
@@ -124,5 +125,15 @@ public abstract class NarutoException extends Exception {
      */
     public static NarutoException createInvalidActionException() {
         return new InvalidActionException("I couldn't seem to understand that... Try again!");
+    }
+
+    /**
+     * Creates a new instance of NarutoException with a duplicate task error message.
+     *
+     * @return a NarutoException with a duplicate task error message
+     */
+    public static NarutoException createDuplicateTaskException() {
+        return new DuplicateTaskException("You already added that task... Try adding "
+                + "something else!");
     }
 }
