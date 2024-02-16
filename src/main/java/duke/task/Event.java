@@ -22,7 +22,8 @@ public class Event extends Task {
      * Constructs a new Event instance with the specified description, including the start and end datetime.
      *
      * @param description The event description in the format "event_description /from start_datetime /to end_datetime".
-     * @throws DukeException If the datetime format is invalid or the description format is incorrect.
+     * @throws DukeException If the datetime format is invalid or the description format is incorrect or if timeline
+     * is missing important details.
      */
     public Event(String description) throws DukeException {
         this.fullTaskDescription = description;

@@ -22,13 +22,13 @@ public class Duke {
 
     /**
      * Constructs a new Duke application instance. Initializes the UI, storage, and task list components.
-     * Tries to load any existing tasks from storage; if unsuccessful, starts with an empty task list.
+     * Tries to loadFromFile any existing tasks from storage; if unsuccessful, starts with an empty task list.
      */
     public Duke() {
         ui = new Ui();
         storage = new Storage();
         try {
-            tasks = new TaskList(storage.load());
+            tasks = new TaskList(storage.loadFromFile());
         } catch (DukeException e) {
             ui.showError(e.getMessage());
             tasks = new TaskList();
@@ -90,10 +90,10 @@ public class Duke {
                             storage.saveToFile(tasks.getTasks());
                         }
                     } else {
-                        throw new DukeException("____________________________________________________________\n" +
-                                " OOPS! Your Only Friend cannot take in an empty " + command +
-                                "\n Make sure " + command + "has a description!\n" +
-                                "____________________________________________________________\n");
+                        throw new DukeException("____________________________________________________________\n"
+                                + " OOPS! Your Only Friend cannot take in an empty "
+                                + command + "\n Make sure " + command + "has a description!\n"
+                                + "____________________________________________________________\n");
                     }
 
                 } else {
