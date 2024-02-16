@@ -26,7 +26,7 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws AlastorException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws AlastorException {
         if (index < 1 || index > tasks.size()) {
             throw new AlastorException("I'm afraid the task number you've entered is invalid, my dear.");
         }
@@ -36,8 +36,8 @@ public class MarkCommand extends Command {
         } else {
             task.unmark();
         }
-        ui.showMark(task, this.isMark);
         storage.saveRewrite(tasks);
+        return ui.showMark(task, this.isMark);
     }
 
     @Override

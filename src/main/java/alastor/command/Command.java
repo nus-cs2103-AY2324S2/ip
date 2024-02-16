@@ -18,7 +18,7 @@ public abstract class Command {
      * @param storage The storage.
      * @throws AlastorException If an error occurs during execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws AlastorException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws AlastorException;
 
     /**
      * Returns true if the command is an exit command.
