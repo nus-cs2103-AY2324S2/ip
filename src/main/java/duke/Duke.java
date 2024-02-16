@@ -9,12 +9,23 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.StringTokenizer;
 
+/**
+ * Duke class contains the main() method that initiates and runs the duke assistant program.
+ * Also contains private functions called by main() to execute commands.
+ */
 public class Duke {
     private static Parser parser;
     private static Storage storage;
     private static TaskList taskList;
     private static Ui ui;
 
+    /**
+     * Starts the execution of the duke assistant program.
+     * Initializes required objects and contains the main while loop that repeatedly prompts
+     * the user for input and executes commands based on the input.
+     *
+     * @param args Default parameter for main method.
+     */
     public static void main(String[] args) {
         initialSetup();
         ui.printLogo();
