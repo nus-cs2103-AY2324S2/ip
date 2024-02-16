@@ -88,7 +88,7 @@ public class Task implements FileFormattable, Comparable<Task> {
             return new Event(taskArr[2], taskArr[3],
                     taskArr[4], taskArr[1].equals("1"));
         default:
-            throw new RaphaelException("Error in loading the tasks!");
+            throw new RaphaelException(String.format("Unknown task: %s", task));
         }
     }
     private void checkIsDone(boolean expected) {
@@ -103,5 +103,16 @@ public class Task implements FileFormattable, Comparable<Task> {
     @Override
     public int compareTo(Task o) {
         return this.description.compareTo(o.description);
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof Task)) {
+            return false;
+        }
+        Task taskToCompare = (Task) o;
+        return this.description.equals(taskToCompare.description);
     }
 }

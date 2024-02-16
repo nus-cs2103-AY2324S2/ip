@@ -65,4 +65,17 @@ public class Event extends Task {
         return String.format("E |&| %s |&| %s |&| %s", super.toFileFormat(),
                 this.from.format(this.inputFormat), this.to.format(this.inputFormat));
     }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Event)) {
+            return false;
+        }
+        Event eventToCompare = (Event) o;
+        return this.from.equals(eventToCompare.from)
+                && this.to.equals(eventToCompare.to)
+                && super.equals(eventToCompare);
+    }
 }

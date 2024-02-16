@@ -36,6 +36,7 @@ public class Raphael {
         try {
             this.tasks = new TaskList(this.storage.load());
         } catch (RaphaelException e) {
+            System.out.println(e.getMessage());
             ui.showLoadingError();
             this.tasks = new TaskList();
         }
