@@ -24,6 +24,15 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
+    /**
+     * Constructs a deadline task with status isDone.
+     */
+    public Deadline(String description, LocalDateTime deadline, boolean isDone) {
+        super(description, TaskType.Deadline);
+        this.deadline = deadline;
+        this.isDone = isDone;
+    }
+
     @Override
     public String storageString() {
         // Format the task status, task information, and deadline into a single string

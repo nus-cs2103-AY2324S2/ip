@@ -13,6 +13,14 @@ public class ToDo extends Task {
         super(description, TaskType.ToDo);
     }
 
+    /**
+     * Constructs a ToDo task with status isDone.
+     */
+    public ToDo(String description, boolean isDone) {
+        super(description, TaskType.ToDo);
+        this.isDone = isDone;
+    }
+
     @Override
     public String storageString() {
         // Format the task status, task information, and deadline into a single string

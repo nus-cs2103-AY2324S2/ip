@@ -8,9 +8,9 @@ package duke.task;
  * undone).</p>
  */
 public abstract class Task {
-    private String description;
-    private boolean isDone;
-    private final TaskType type;
+    protected String description;
+    protected boolean isDone;
+    protected final TaskType type;
 
     /**
      * Constructs a task with the given description and type.

@@ -27,6 +27,17 @@ public class Event extends Task {
         this.to = to;
     }
 
+    /**
+     * Constructs an event task with status isDone.
+     */
+    public Event(String description, LocalDateTime from,
+        LocalDateTime to, boolean isDone) {
+        super(description, TaskType.Event);
+        this.from = from;
+        this.to = to;
+        this.isDone = isDone;
+    }
+
     @Override
     public String storageString() {
         // Format the task status, task information, from, and end into a single string
