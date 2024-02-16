@@ -14,7 +14,6 @@ import javafx.fxml.FXML;
 public class Hirwan {
 
 
-
     public Hirwan() {
     }
 
@@ -40,12 +39,7 @@ public class Hirwan {
     }
 
     public String parseInput(String text) {
-//        String logo = "I'm hirwan \n"
-//                + "_________________________________\n"
-//                + "what can I do for you? \n"
-//                + "_________________________________\n";
-//
-//        Ui.output("Hello! " + logo);
+
 
         String output = new String("");
         Tasklist tasks = new Tasklist(Storage.read());
@@ -57,77 +51,32 @@ public class Hirwan {
 
             if (input == 8) {
             } else if (input == 1) {
-                output = "";
-                for (String i : tasks.getList()) {
-                    output += i + "\n";
-                }
+                Listcommand listcommand = new Listcommand(tasks);
+                output = listcommand.getMessage();
             } else if (input == 2) {
-                try {
-                    Todo todo = new Todo(text, tasks);
-                    todo.updateData();
-                    output = todo.getMessage();
-                } catch (StringIndexOutOfBoundsException e) {
-                    output = output + "Error: Please enter a description for your todo command";
-                }
+                Todo todo = new Todo(text, tasks);
+                todo.updateData();
+                output = todo.getMessage();
             } else if (input == 3) {
-                try {
-                    Deadline deadline = new Deadline(text, tasks);
-                    deadline.updateData();;
-                    output = deadline.getMessage();
-                } catch (StringIndexOutOfBoundsException e) {
-                    output = output + "Error: Please enter a description or date for your deadline command";
-                }
+                Deadline deadline = new Deadline(text, tasks);
+                deadline.updateData();
+                output = deadline.getMessage();
             } else if (input == 4) {
-                try {
-                    Event event = new Event(text, tasks);
-                    event.updateData();
-                    output = event.getMessage();
-                } catch (StringIndexOutOfBoundsException e) {
-                    output = output + "Error: Please enter a description or date for your event to command";
-                }
+                Event event = new Event(text, tasks);
+                event.updateData();
+                output = event.getMessage();
             } else if (input == 5) {
-                try {
-                    String number = text.substring(5);
-                    int numberint = Integer.parseInt(number);
-                    String temp = tasks.get(numberint - 1).substring(9);
-                    String type = tasks.get(numberint - 1).substring(2, 5);
-
-                    tasks.set(numberint - 1, ". " + type + "[X] " + temp);
-                    output = "Nice! I've marked this task as done: \n" + "[X] " + temp;
-                    Storage.writeTask(tasks.getList());
-                } catch (IndexOutOfBoundsException e) {
-                    output = "Error: Please enter a valid index for marking!";
-                } catch (NumberFormatException e) {
-                    output = "Error: Please enter a numerical index to mark!";
-                }
+                Markcommand markcommand = new Markcommand(text, tasks);
+                markcommand.updateData();
+                output = markcommand.getMessage();
             } else if (input == 6) {
-                try {
-                    String number = text.substring(7);
-                    int numberInt = Integer.parseInt(number);
-                    String temp = tasks.get(numberInt - 1).substring(9);
-                    String type = tasks.get(numberInt - 1).substring(2, 5);
-
-                    tasks.set(numberInt - 1, ". " + type + "[ ] " + temp);
-                    output = "OK, I've marked this task as not done yet: \n" + "[ ] " + temp;
-                    Storage.writeTask(tasks.getList());
-                } catch (IndexOutOfBoundsException e) {
-                    output = output + "Error: Please enter a valid index for unmarking!";
-                } catch (NumberFormatException e) {
-                    output = output + "Error: Please enter a numerical index to unmark!";
-                }
+                Unmarkcommand unmarkcommand = new Unmarkcommand(text, tasks);
+                unmarkcommand.updateData();
+                output = unmarkcommand.getMessage();
             } else if (input == 7) {
-                try {
-                    int numberInt = Integer.parseInt(text.substring(7)) - 1;
-                    output = "Noted. I've removed this task:\n"
-                            + "  " + tasks.get(numberInt).substring(2) + "\n"
-                            + "Now you have " + (tasks.size() - 1) + " tasks in the list.";
-                    tasks.delete(numberInt);
-                    Storage.writeTask(tasks.getList());
-                } catch (IndexOutOfBoundsException e) {
-                    output = "Error: Please enter a valid index for deletion!";
-                } catch (NumberFormatException e) {
-                    output = "Error: Please enter a numerical index to delete!";
-                }
+                Deletecommand deletecommand = new Deletecommand(text, tasks);
+                output = deletecommand.getMessage();
+                deletecommand.updateData();
             } else if (input == 10) {
                 List<Integer> indexes = Hirwan.searchWord(text.substring(5), tasks.getList());
                 Hirwan.printSearchResults(indexes, tasks.getList());

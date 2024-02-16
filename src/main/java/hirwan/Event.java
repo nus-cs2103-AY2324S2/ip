@@ -12,6 +12,7 @@ public class Event extends Task {
     }
     @Override
     public String getMessage() {
+        try {
         String output = "";
 
         String delimiterstart = " /from";
@@ -34,6 +35,9 @@ public class Event extends Task {
                 + startDate.format(formatter) + " to: " + endDate.format(formatter) + ")";
         output = output + "\nNow you have " + tasks.size() + " tasks in the list.";
         return output;
+        } catch (StringIndexOutOfBoundsException e) {
+            return "Error: Please enter a description or date for your event to command";
+        }
     }
 
     @Override

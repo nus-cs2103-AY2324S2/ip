@@ -6,29 +6,35 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
     String input;
     Tasklist tasks;
+
     public Deadline(String input, Tasklist tasks) {
         this.input = input;
         this.tasks = tasks;
     }
+
     @Override
     public String getMessage() {
-        String output = "";
-        String delimiter = " /by";
-        int index = this.input.indexOf(delimiter);
+        try {
+            String output = "";
+            String delimiter = " /by";
+            int index = this.input.indexOf(delimiter);
 
-        assert index != -1;
+            assert index != -1;
 
-        String day = this.input.substring(index + 5);
-        String item = this.input.substring(9, index);
+            String day = this.input.substring(index + 5);
+            String item = this.input.substring(9, index);
 
-        LocalDateTime dayDate = Hirwan.translateDate(day);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d 'of' MMMM yyyy, ha");
+            LocalDateTime dayDate = Hirwan.translateDate(day);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d 'of' MMMM yyyy, ha");
 
 
-        output = "Got it. I've added this task:\n  " + "[D][ ] " + item + " (by: "
-                + dayDate.format(formatter) + ")";
-        output = output + "\nNow you have " + this.tasks.size() + " tasks in the list.";
-        return output;
+            output = "Got it. I've added this task:\n  " + "[D][ ] " + item + " (by: "
+                    + dayDate.format(formatter) + ")";
+            output = output + "\nNow you have " + this.tasks.size() + " tasks in the list.";
+            return output;
+        } catch (StringIndexOutOfBoundsException e) {
+            return "Error: Please enter a description or date for your deadline command";
+        }
     }
 
     @Override

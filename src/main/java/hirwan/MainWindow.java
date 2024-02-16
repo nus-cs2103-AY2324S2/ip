@@ -48,4 +48,21 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
     }
+
+    public void printGreeting() {
+        String msg = "I'm\n"
+                + "   //      //  //  //==\\\\  //             //    //||       //||   //\n"
+                + "  //____//  //  //    //  //             //    //  ||     // ||  //\n"
+                + " //----//  //  //=\\\\   //     //     //   //==||   //  || //\n"
+                + "//     //  //  //     \\\\ //==//==//  //       || //   ||//\n"
+                + "_________________________________\n"
+                + "what can I do for you? \n"
+                + "_________________________________\n";
+
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(msg, dukeImage));
+    }
 }
+    //    //  //  //==\\  //      //  //||    //||   //
+   //____//  //  //  //  //      //  // ||   // ||  //
+  //----//  //  //=\\   //  //  //  //==||  //  || //
+ //    //  //  //   \\ //==//==//  //   || //   ||//
