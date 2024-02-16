@@ -1,15 +1,15 @@
 package alpa.utils;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
-import java.util.Locale;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Utility class for parsing and formatting date and time values.
@@ -21,12 +21,12 @@ public class DateTimeUtils {
      * The patterns include variations with and without the year component, as well as patterns with month names.
      */
     private static final String[] DATE_PATTERNS = {
-        "d/M/yyyy", 
+        "d/M/yyyy",
         "d-M-yyyy",
-        "d/M/yy", 
+        "d/M/yy",
         "d-M-yy",
-        "dMMyyyy", 
-        "dMMyy", 
+        "dMMyyyy",
+        "dMMyy",
         "dd/MM/yyyy",
         "dd/MM/yy",
         "dd-MM-yyyy",
@@ -38,15 +38,16 @@ public class DateTimeUtils {
         "d/MMM/yy",
         "d/MMM",
         "MMM/d",
-        "d MMM yyyy", 
-        "MMM d yyyy", 
-        "d MMM", 
+        "d MMM yyyy",
+        "MMM d yyyy",
+        "d MMM",
         "MMM d",
     };
 
     /**
      * Array of date patterns without the year component.
-     * Used by the parseDeadlineDateTime method to parse date-only strings without a year component when time is not specified.
+     * Used by the parseDeadlineDateTime method to parse date-only strings
+     * without a year component when time is not specified.
      */
     private static final String[] DATE_WITHOUT_YEAR_PATTERNS = {
         "d/M",
@@ -62,11 +63,11 @@ public class DateTimeUtils {
      * as well as patterns with AM/PM indicators.
      */
     private static final String[] TIME_PATTERNS = {
-        "HHmm", 
-        "HH:mm", 
-        "h:mm a", 
-        "h:mma", 
-        "h a", 
+        "HHmm",
+        "HH:mm",
+        "h:mm a",
+        "h:mma",
+        "h a",
         "ha",
     };
 
@@ -110,13 +111,13 @@ public class DateTimeUtils {
 
     /**
      * Parses a string representation of date and time into a {@link LocalDateTime} object.
-     * 
+     *
      * @param dateTimeStr the string representation of date and time
      * @return the parsed {@link LocalDateTime} object
      * @throws DateTimeParseException if the input string is not in a valid date and time format
      */
     public static LocalDateTime parseDateTime(String dateTimeStr) throws DateTimeParseException {
-        // Preprocess the input string to normalize formatting 
+        // Preprocess the input string to normalize formatting
         String normalizedDateTimeStr = normalizeDateTimeString(dateTimeStr);
 
         for (DateTimeFormatter formatter : FORMATTERS) {
@@ -153,10 +154,10 @@ public class DateTimeUtils {
 
         return normalized;
     }
-    
+
     /**
      * Parses a string representation of a deadline into a {@link LocalDateTime} object.
-     * 
+     *
      * @param dateTimeStr the string representation of the date and time
      * @return the parsed {@link LocalDateTime} object
      * @throws DateTimeParseException if the input string is not in a valid date and time format
@@ -184,11 +185,11 @@ public class DateTimeUtils {
             // If none of the patterns match, re-throw the original exception
             throw new DateTimeParseException("Invalid date or time format", deadlineStr, 0);
         }
-    }  
+    }
 
     /**
      * Attempts to parse the end time of an event task, given the end time string and the start date.
-     * 
+     *
      * @param endStr the string representation of the end time
      * @param startDate the start date of the event
      * @return the parsed {@link LocalDateTime} object
@@ -196,10 +197,10 @@ public class DateTimeUtils {
     public static LocalDateTime tryParseEndDateTime(String endStr, LocalDate startDate) {
         for (String timePattern : TIME_PATTERNS) {
             try {
-            DateTimeFormatter timeFormatter = new DateTimeFormatterBuilder()
-                    .appendPattern(timePattern)
-                    .toFormatter(Locale.ENGLISH);
-            LocalTime endTime = LocalTime.parse(endStr, timeFormatter);
+                DateTimeFormatter timeFormatter = new DateTimeFormatterBuilder()
+                        .appendPattern(timePattern)
+                        .toFormatter(Locale.ENGLISH);
+                LocalTime endTime = LocalTime.parse(endStr, timeFormatter);
                 return LocalDateTime.of(startDate, endTime);
             } catch (DateTimeParseException ignored) {
             // Ignore and try the next time pattern

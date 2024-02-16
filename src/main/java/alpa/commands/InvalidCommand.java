@@ -1,8 +1,8 @@
 package alpa.commands;
 
-import alpa.utils.Storage;
 import alpa.tasks.TaskList;
 import alpa.ui.Ui;
+import alpa.utils.Storage;
 
 /**
  * Represents an invalid command.
@@ -33,7 +33,7 @@ public class InvalidCommand implements Command {
 
     /**
      * Checks if the command is an exit command.
-     * 
+     *
      * @return true if the command is an exit command, false otherwise.
      */
     @Override

@@ -1,11 +1,15 @@
 package alpa.main;
 
-import alpa.utils.*;
 import alpa.commands.*;
 import alpa.exceptions.*;
 import alpa.tasks.*;
 import alpa.ui.*;
+import alpa.utils.*;
 
+/**
+ * Represents the main class of the Alpa application.
+ * Alpa is a task management application that helps users keep track of their tasks.
+ */
 public class Alpa {
     private static final String FILE_PATH = "./data/tasks.txt";
     private Storage storage;
@@ -14,7 +18,6 @@ public class Alpa {
 
     /**
      * Represents the main class of the Alpa application.
-     * Alpa is a task management application that helps users keep track of their tasks.
      */
     public Alpa() {
         ui = new Ui();
@@ -48,14 +51,13 @@ public class Alpa {
             }
         }
     }
-        
+
     /**
      * The main entry point of the Alpa application.
-     * 
+     *
      * @param args The command line arguments passed to the application.
      */
     public static void main(String[] args) {
         new Alpa().runAlpa();
     }
 }
-

@@ -1,11 +1,12 @@
 package alpa.commands;
 
-import alpa.ui.Ui;
-import alpa.exceptions.AlpaException;
-import alpa.utils.Storage;
 import java.util.List;
+
+import alpa.exceptions.AlpaException;
 import alpa.tasks.Task;
 import alpa.tasks.TaskList;
+import alpa.ui.Ui;
+import alpa.utils.Storage;
 
 /**
  * Represents a command to find tasks based on a keyword.
@@ -33,7 +34,7 @@ public class FindCommand implements Command {
     @Override
     public void executeCommand(TaskList taskList, Ui ui, Storage storage) throws AlpaException {
         List<Task> foundTasks = taskList.findTasksByKeyword(keyword);
-        ui.showFoundTasks(foundTasks); 
+        ui.showFoundTasks(foundTasks);
     }
 
     /**
@@ -43,7 +44,6 @@ public class FindCommand implements Command {
      */
     @Override
     public boolean isExit() {
-        return false; 
+        return false;
     }
 }
-

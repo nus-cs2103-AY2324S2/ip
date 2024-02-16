@@ -1,16 +1,16 @@
 package alpa.commands;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import alpa.exceptions.AlpaException;
-import alpa.utils.DateTimeUtils;
-import alpa.utils.Storage;
 import alpa.tasks.Event;
 import alpa.tasks.TaskList;
 import alpa.ui.Ui;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
+import alpa.utils.DateTimeUtils;
+import alpa.utils.Storage;
 
 /**
  * Represents a command to add an event task.
@@ -44,7 +44,8 @@ public class EventCommand implements Command {
             Matcher fromMatcher = fromPattern.matcher(details);
             Matcher toMatcher = toPattern.matcher(details);
             if (!fromMatcher.find() || !toMatcher.find()) {
-                throw new AlpaException("\nInvalid event format, human! Please use '/from' and '/to' to specify the event time.");
+                throw new AlpaException("\nInvalid event format, human! Please use '/from' and '/to' "
+                        + "to specify the event time.");
             }
             int fromIndex = fromMatcher.start();
             int toIndex = toMatcher.start();
@@ -75,5 +76,3 @@ public class EventCommand implements Command {
         return false;
     }
 }
-
-

@@ -1,10 +1,10 @@
 package alpa.commands;
 
 import alpa.exceptions.AlpaException;
-import alpa.utils.Storage;
-import alpa.tasks.TaskList;
 import alpa.tasks.Task;
+import alpa.tasks.TaskList;
 import alpa.ui.Ui;
+import alpa.utils.Storage;
 
 /**
  * Represents a command to mark a task as done.
@@ -14,7 +14,7 @@ public class MarkCommand implements Command {
 
     /**
      * Constructs a MarkCommand object with the specified index.
-     * 
+     *
      * @param index The index of the task to be marked as done.
      */
     public MarkCommand(String index) {
@@ -24,7 +24,7 @@ public class MarkCommand implements Command {
     /**
      * Executes the mark command by marking the task as done, displaying the task as marked,
      * and saving the updated task list to storage.
-     * 
+     *
      * @param taskList The task list containing the tasks.
      * @param ui The user interface to interact with the user.
      * @param storage The storage to save the updated task list.
@@ -39,7 +39,7 @@ public class MarkCommand implements Command {
 
     /**
      * Checks if the command is an exit command.
-     * 
+     *
      * @return true if the command is an exit command, false otherwise.
      */
     @Override

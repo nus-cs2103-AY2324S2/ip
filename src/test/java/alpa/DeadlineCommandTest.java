@@ -1,17 +1,17 @@
 package alpa.commands;
 
-import alpa.tasks.Deadline;
-import alpa.tasks.TaskList;
-import alpa.ui.Ui;
-import alpa.utils.Storage;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+
+import alpa.tasks.Deadline;
+import alpa.tasks.TaskList;
+import alpa.ui.Ui;
+import alpa.utils.Storage;
 
 class DeadlineCommandTest {
 

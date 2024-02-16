@@ -1,14 +1,14 @@
 package alpa.commands;
 
-import alpa.exceptions.AlpaException;
-import alpa.utils.DateTimeUtils;
-import alpa.utils.Storage;
-import alpa.tasks.TaskList;
-import alpa.tasks.Deadline;
-import alpa.ui.Ui;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+
+import alpa.exceptions.AlpaException;
+import alpa.tasks.Deadline;
+import alpa.tasks.TaskList;
+import alpa.ui.Ui;
+import alpa.utils.DateTimeUtils;
+import alpa.utils.Storage;
 
 /**
  * Represents a command to add a deadline task.
@@ -18,7 +18,7 @@ public class DeadlineCommand implements Command {
 
     /**
      * Constructs a DeadlineCommand object with the specified details.
-     * 
+     *
      * @param details the details of the deadline task
      */
     public DeadlineCommand(String details) {
@@ -26,7 +26,8 @@ public class DeadlineCommand implements Command {
     }
 
     /**
-     * Executes the DeadlineCommand by parsing the details of the command and adding a new Deadline task to the task list.
+     * Executes the DeadlineCommand by parsing the details of the command and
+     * adding a new Deadline task to the task list.
      * If the details are not in the correct format or the date/time is invalid, an AlpaException is thrown.
      *
      * @param taskList the task list to add the new Deadline task to
