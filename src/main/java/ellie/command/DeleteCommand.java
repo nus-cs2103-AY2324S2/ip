@@ -25,6 +25,8 @@ public class DeleteCommand extends Command {
      * Deletes the task from the task list.
      *
      * @param tasklist The TaskList to be operated on by the command.
+     * @return A response message indicating the result of the operation.
+     * @inheritDoc
      */
     public String runAndReturnResponse(TaskList tasklist) {
         String response = tasklist.deleteTaskIndex(index);
