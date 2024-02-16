@@ -1,4 +1,3 @@
-
 package duke;
 
 import javafx.application.Platform;
@@ -11,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 /**
- * Controller for MainWindow. Provides the layout for the other controls.
+ * Controller for MainWindow. Provides the layout for the other controls and handles user interaction.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -24,41 +23,55 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Duke duke;
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Initializes the controller class. This method is automatically called
+     * after the fxml file has been loaded.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-    }
 
-    public void setDuke(Duke d) {
-        duke = d;
-        assert duke != null : "Duke instance should not be null after being set";
+        Ui ui = new Ui();
+        String welcomeMessage = ui.showWelcome();
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeMessage, dukeImage));
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Sets the Duke instance for the controller.
+     *
+     * @param d The Duke instance to be used.
+     */
+    public void setDuke(Duke d) {
+        duke = d;
+    }
+
+    /**
+     * Handles the action of the user pressing the send button or entering input.
+     * It creates dialog boxes for the user input and Duke's reply, then clears the input.
+     * It will also close the application if the user inputs "bye".
      */
     @FXML
     private void handleUserInput() {
-        assert duke != null : "Duke instance should not be null when handling user input";
-        String input = userInput.getText();
-        String response = duke.getResponse(input);
-
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage));
-
-        userInput.clear();
-        if (input.equalsIgnoreCase("bye")) {
-            closeMainWindow();
+        String input = userInput.getText().trim(); // Trim input to remove leading and trailing whitespaces
+        if (!input.isEmpty()) { // Check if the input is not empty
+            String response = duke.getResponse(input);
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getDukeDialog(response, dukeImage));
+            userInput.clear(); // Clear the input after processing
+            if (input.equalsIgnoreCase("bye")) {
+                closeMainWindow();
+            }
         }
     }
 
-
+    /**
+     * Closes the main window and exits the application.
+     */
     private void closeMainWindow() {
-        Platform.exit();
+        Platform.exit(); // Close the platform and exit the application
     }
 }

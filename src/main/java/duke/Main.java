@@ -9,27 +9,50 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Duke using FXML, setting up the primary stage and scene for the application.
  */
 public class Main extends Application {
 
-    //private Duke duke = new Duke();
-    private Duke duke = new Duke("./data/jamie.txt");
+    private Duke duke;
+
+    @Override
+    public void init() throws Exception {
+        super.init();
+        // Initialize your Duke object here to handle any initialization exceptions properly.
+        this.duke = new Duke("./data/jamie.txt");
+    }
 
     @Override
     public void start(Stage stage) {
         try {
+            // Ensure the FXML file path is correct.
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
-            assert Main.class.getResource("/view/MainWindow.fxml") != null : "FXML file should exist";
-            AnchorPane ap = fxmlLoader.load();
-            assert ap != null : "AnchorPane should not be null after loading FXML";
-            Scene scene = new Scene(ap);
+            if (Main.class.getResource("/view/MainWindow.fxml") == null) {
+                throw new IOException("Cannot find FXML file.");
+            }
+
+            // Load the root layout from the FXML.
+            AnchorPane rootLayout = fxmlLoader.load();
+            Scene scene = new Scene(rootLayout);
             stage.setScene(scene);
 
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            // Set the Duke instance in the controller.
+            MainWindow controller = fxmlLoader.getController();
+            if (controller == null) {
+                throw new IOException("Controller cannot be null.");
+            }
+            controller.setDuke(duke);
+
+            stage.setTitle("Duke");
             stage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
+            System.exit(1); // Exit the application due to FXML loading failure.
         }
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }

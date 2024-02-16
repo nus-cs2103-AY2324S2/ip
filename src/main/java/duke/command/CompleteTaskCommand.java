@@ -1,11 +1,10 @@
 package duke.command;
 
 import duke.JamieException;
-import duke.TaskList;
 import duke.Storage;
+import duke.TaskList;
 import duke.Ui;
 
-import java.io.IOException;
 /**
  * Represents a command to mark a task as complete.
  */
@@ -28,13 +27,20 @@ public class CompleteTaskCommand extends Command {
      * @param tasks   The task list.
      * @param ui      The user interface for displaying messages.
      * @param storage The storage for saving the task list.
-     * @return
-     * @throws IOException If there is an error while saving the task list.
+     * @return A message indicating the task has been marked as done.
+     * @throws JamieException If there is an error while executing the command.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws JamieException {
+        if (taskIndex <= 0 || taskIndex > tasks.getTasksSize()) {
+            throw new JamieException("The task index provided is out of bounds.");
+        }
         tasks.completeTask(this.taskIndex - 1);
-        storage.save(tasks);
+        try {
+            storage.save(tasks);
+        } catch (Exception e) { // Assuming storage.save now throws a checked exception that you want to catch.
+            throw new JamieException("Failed to save tasks: " + e.getMessage());
+        }
         return ui.showMarkAsDoneMessage(tasks.getTask(this.taskIndex - 1));
     }
 }

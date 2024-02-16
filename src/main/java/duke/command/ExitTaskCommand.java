@@ -1,7 +1,7 @@
 package duke.command;
 
-import duke.TaskList;
 import duke.Storage;
+import duke.TaskList;
 import duke.Ui;
 
 /**
@@ -17,17 +17,7 @@ public class ExitTaskCommand extends Command {
      * @return
      */
     public String execute(TaskList taskList, Ui ui, Storage storage) {
-        super.exit();
+        super.markAsExit();
         return ui.showExitMessage();
-    }
-
-    /**
-     * Checks if the command is an exit command.
-     *
-     * @return True to signal that it's time to exit the application.
-     */
-    @Override
-    public boolean isExit() {
-        return true;
     }
 }
