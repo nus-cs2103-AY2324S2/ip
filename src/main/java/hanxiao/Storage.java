@@ -30,60 +30,66 @@ public class Storage {
 
     private Task readTask(String taskLine) {
         String[] token = taskLine.split(",");
+
         if (token[0].equals("T")) {
-            if (token.length == 3) {
-                Todo temp = new Todo(token[2]);
-                checkAndSetDone(token, temp);
-                return temp;
-            }
-            String tagString = token[3];
-            ArrayList<String> tagList = new ArrayList<>();
-            String[] tagToken = tagString.split("#");
-            if (tagToken.length > 1) {
-                for (int i = 1; i < tagToken.length; i++) {
-                    tagList.add(tagToken[i]);
-                }
-            }
-            Todo temp = new Todo(token[2], tagList);
-            checkAndSetDone(token, temp);
-            return temp;
+            return handleTodo(token);
         } else if (token[0].equals("D")) {
-            if (token.length == 4) {
-                Deadline temp = new Deadline(token[2], LocalDate.parse(token[3]));
-                checkAndSetDone(token, temp);
-                return temp;
-            }
-            String tagString = token[4];
-            ArrayList<String> tagList = new ArrayList<>();
-            String[] tagToken = tagString.split("#");
-            if (tagToken.length > 1) {
-                for (int i = 1; i < tagToken.length; i++) {
-                    tagList.add(tagToken[i]);
-                }
-            }
-            Deadline temp = new Deadline(token[2], tagList, LocalDate.parse(token[3]));
-            checkAndSetDone(token, temp);
-            return temp;
+            return handleDeadline(token);
         } else if (token[0].equals("E")) {
-            if (token.length == 5) {
-                Event temp = new Event(token[2], LocalDate.parse(token[3]), LocalDate.parse(token[4]));
-                checkAndSetDone(token, temp);
-                return temp;
-            }
-            String tagString = token[5];
-            ArrayList<String> tagList = new ArrayList<>();
-            String[] tagToken = tagString.split("#");
-            if (tagToken.length > 1) {
-                for (int i = 1; i < tagToken.length; i++) {
-                    tagList.add(tagToken[i]);
-                }
-            }
-            Event temp = new Event(token[2], tagList, LocalDate.parse(token[3]), LocalDate.parse(token[4]));
-            checkAndSetDone(token, temp);
-            return temp;
+            return handleEvent(token);
         } else {
             return null;
         }
+    }
+
+    private Todo handleTodo(String[] token) {
+        if (token.length == 3) {
+            Todo temp = new Todo(token[2]);
+            checkAndSetDone(token, temp);
+            return temp;
+        }
+        String tagString = token[3];
+        ArrayList<String> tagList = getTags(tagString);
+        Todo temp = new Todo(token[2], tagList);
+        checkAndSetDone(token, temp);
+        return temp;
+    }
+
+    private Deadline handleDeadline(String[] token) {
+        if (token.length == 4) {
+            Deadline temp = new Deadline(token[2], LocalDate.parse(token[3]));
+            checkAndSetDone(token, temp);
+            return temp;
+        }
+        String tagString = token[4];
+        ArrayList<String> tagList = getTags(tagString);
+        Deadline temp = new Deadline(token[2], tagList, LocalDate.parse(token[3]));
+        checkAndSetDone(token, temp);
+        return temp;
+    }
+
+    private Event handleEvent(String[] token) {
+        if (token.length == 5) {
+            Event temp = new Event(token[2], LocalDate.parse(token[3]), LocalDate.parse(token[4]));
+            checkAndSetDone(token, temp);
+            return temp;
+        }
+        String tagString = token[5];
+        ArrayList<String> tagList = getTags(tagString);
+        Event temp = new Event(token[2], tagList, LocalDate.parse(token[3]), LocalDate.parse(token[4]));
+        checkAndSetDone(token, temp);
+        return temp;
+    }
+
+    private ArrayList<String> getTags(String tagString) {
+        ArrayList<String> tagList = new ArrayList<>();
+        String[] tagToken = tagString.split("#");
+        if (tagToken.length > 1) {
+            for (int i = 1; i < tagToken.length; i++) {
+                tagList.add(tagToken[i]);
+            }
+        }
+        return tagList;
     }
 
     private void checkAndSetDone(String[] token, Task temp) {
