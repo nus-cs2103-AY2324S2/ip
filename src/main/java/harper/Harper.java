@@ -26,6 +26,8 @@ public class Harper {
             ui.showError(e);
             this.taskList = new TaskList();
         }
+        assert this.ui != null;
+        assert this.storage != null;
     }
 
     /**

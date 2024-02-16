@@ -19,6 +19,7 @@ public class AddCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
+        assert this.task != null : "Empty task can never be added";
         taskList.addTask(this.task);
         storage.save(taskList);
         return ui.printSuccessfulAdd(taskList, this.task);
