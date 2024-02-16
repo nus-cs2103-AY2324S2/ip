@@ -54,6 +54,7 @@ public abstract class Task { // Adapted from Course Website
             if (descriptionNBy.length > 2) {
                 throw new CreateDeadlineException("Don't procrastinate with multiple deadlines !! :)");
             }
+            assert descriptionNBy.length == 2;
             return new Deadline(descriptionNBy[0].trim(),
                                 descriptionNBy[1].trim());
         case "event":
@@ -72,6 +73,7 @@ public abstract class Task { // Adapted from Course Website
                 throw new CreateEventException("um.. I'm not sure how I can track for you an event that has\n"
                         + "more than 1 start or end time! :)");
             }
+            assert descriptionNFromNTo.length == 3;
             return new Event(descriptionNFromNTo[0].trim(),
                              descriptionNFromNTo[1].trim(),
                              descriptionNFromNTo[2].trim());
