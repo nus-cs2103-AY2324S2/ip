@@ -47,6 +47,7 @@ public class DialogBox extends HBox {
 
     /**
      * Configures the dialog box with appropriate settings based on whether the dialog is for Nicky or the user.
+     *
      * @param isNicky A boolean flag indicating whether the dialog box is for Nicky (true) or the user (false).
      *               This affects the background color and alignment of the dialog box.
      */
@@ -68,6 +69,7 @@ public class DialogBox extends HBox {
 
     /**
      * Creates a dialog box for user input with specified text and image.
+     *
      * @param text The text to be displayed in the dialog box.
      * @param img The image associated with the dialog box (typically the user's avatar).
      * @return A DialogBox instance configured for displaying user input.
@@ -83,6 +85,7 @@ public class DialogBox extends HBox {
 
     /**
      * Creates a dialog box for Nicky's response with specified text and image.
+     *
      * @param text The text to be displayed in the dialog box.
      * @param img The image associated with the dialog box (typically Nicky's avatar).
      * @return A DialogBox instance configured for displaying Nicky's response.

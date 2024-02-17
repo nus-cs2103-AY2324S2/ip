@@ -59,6 +59,16 @@ public class AddCommand extends Command {
         return false;
     }
 
+    /**
+     * Adds a Todo task to the task list and saves the tasks to the file.
+     *
+     * @param tasks the list of tasks
+     * @param ui the user interface
+     * @param storage the storage for saving tasks to the file
+     * @param description the description of the Todo task
+     * @return the response message after adding the task
+     * @throws IOException if there is an issue saving the tasks to the file
+     */
     private String addTodoTask(TaskList tasks, Ui ui, Storage storage,
                                String description) throws IOException {
         tasks.add(new Todo(description));
@@ -67,6 +77,17 @@ public class AddCommand extends Command {
         return response;
     }
 
+    /**
+     * Adds a Deadline task to the task list and saves the tasks to the file.
+     *
+     * @param tasks the list of tasks
+     * @param ui the user interface
+     * @param storage the storage for saving tasks to the file
+     * @param description the description of the Deadline task
+     * @return the response message after adding the task
+     * @throws NickyException if there is an issue adding the task
+     * @throws IOException if there is an issue saving the tasks to the file
+     */
     private String addDeadlineTask(TaskList tasks, Ui ui, Storage storage,
                                    String description) throws NickyException, IOException {
         String[] deadlineParts = description.split(" /by ");
@@ -80,6 +101,17 @@ public class AddCommand extends Command {
         return response;
     }
 
+    /**
+     * Adds an Event task to the task list and saves the tasks to the file.
+     *
+     * @param tasks the list of tasks
+     * @param ui the user interface
+     * @param storage the storage for saving tasks to the file
+     * @param description the description of the Event task
+     * @return the response message after adding the task
+     * @throws NickyException if there is an issue adding the task
+     * @throws IOException if there is an issue saving the tasks to the file
+     */
     private String addEventTask(TaskList tasks, Ui ui, Storage storage,
                                 String description) throws NickyException, IOException {
         String[] eventParts = description.split(" /from ", 2);

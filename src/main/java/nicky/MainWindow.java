@@ -43,6 +43,7 @@ public class MainWindow {
 
     /**
      * Sets the Nicky instance for the window and displays the welcome message.
+     *
      * @param n Instance of Nicky to be used.
      */
     public void setNicky(Nicky n) {
@@ -79,6 +80,7 @@ public class MainWindow {
 
     /**
      * Closes the application after a specified delay.
+     *
      * @param millisDelay The delay in milliseconds before closing the application.
      */
     private void waitAndExit(long millisDelay) {

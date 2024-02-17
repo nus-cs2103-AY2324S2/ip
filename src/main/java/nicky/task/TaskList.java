@@ -52,8 +52,9 @@ public class TaskList {
     }
 
     /**
-     * Lists the tasks in the TaskList and prints them to the provided PrintWriter.
+     * Returns a string containing the list of tasks in the TaskList.
      *
+     * @return A string containing the list of tasks.
      */
     public String listTasks() {
         if (tasks.isEmpty()) {

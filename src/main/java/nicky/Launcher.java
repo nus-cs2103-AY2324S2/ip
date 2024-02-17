@@ -8,7 +8,8 @@ import javafx.application.Application;
  */
 public class Launcher {
     /**
-     * Main method to launch the Nicky application.
+     * Runs the Nicky application.
+     *
      * @param args Arguments passed to the application.
      */
     public static void main(String[] args) {
