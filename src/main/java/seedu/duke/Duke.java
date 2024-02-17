@@ -76,22 +76,22 @@ public class Duke {
 
     public static String gitResponse(String userInput) {
         String response = "";
+        // command dependent logic
         if (userInput.equals("bye")) {
             storage.saveList(tasks.getList());
             response = ui.closingMessage();
-            // command dependent logic
-//        } else-if (userInput.equals("list")) {
-//            ui.printList(tasks.getList());
-//            userInput = sc.nextLine();
-//        } else if (userInput.startsWith("mark")) {
-//            Parser.parseMark(userInput, tasks, ui);
-//            userInput = sc.nextLine();
-//        } else if (userInput.startsWith("unmark")) {
-//            Parser.parseUnmark(userInput, tasks, ui);
-//            userInput = sc.nextLine();
-//        } else if (userInput.startsWith("deadline")) {
-//            Parser.parseDeadline(userInput, tasks, ui);
-//            userInput = sc.nextLine();
+        } else if (userInput.equals("list")) {
+            Parser.parseTodo("todo hahhaha", tasks, ui);
+            Parser.parseMark("mark 1", tasks, ui);
+            Parser.parseUnmark("unmark 1", tasks, ui);
+            Parser.parseDeadline("deadline go to sleep /by 2024-03-03", tasks, ui);
+            response = ui.printList(tasks.getList());
+        } else if (userInput.startsWith("mark")) {
+            response = Parser.parseMark(userInput, tasks, ui);
+        } else if (userInput.startsWith("unmark")) {
+            response = Parser.parseUnmark(userInput, tasks, ui);
+        } else if (userInput.startsWith("deadline")) {
+            response = Parser.parseDeadline(userInput, tasks, ui);
         } else if (userInput.startsWith("todo")) {
             response = Parser.parseTodo(userInput, tasks, ui);
 //        } else if (userInput.startsWith("event")) {

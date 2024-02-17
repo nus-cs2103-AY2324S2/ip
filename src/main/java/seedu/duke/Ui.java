@@ -37,22 +37,16 @@ public class Ui {
      * Represents printed output when a <code>Task</code> is marked as done.
      * @param task Represents the <code>Task</code> object marked
      */
-    public void showTaskDone(Task task) {
-        printBreak();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task);
-        printBreak();
+    public String showTaskDone(Task task) {
+        return "Nice! I've marked this task as done:\n" + task;
     }
 
     /**
      * Represents printed output when a <code>Task</code> is marked as undone.
      * @param task Represents the <code>Task</code> object unmarked
      */
-    public void showTaskUndone(Task task) {
-        printBreak();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task);
-        printBreak();
+    public String showTaskUndone(Task task) {
+        return "OK, I've marked this task as not done yet:\n" + task;
     }
 
     /**
@@ -94,16 +88,11 @@ public class Ui {
      * description
      * @param list Represents the list to be printed to system output.
      */
-    public void printList(ArrayList<Task> list) {
-        printBreak();
-        System.out.println("Here are the tasks in your list:");
+    public String printList(ArrayList<Task> list) {
+        StringBuilder output = new StringBuilder("Here are the tasks in your list:");
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getStatus()) {
-                System.out.println(i + 1 + "." + list.get(i));
-            } else {
-                System.out.println(i + 1 + "." + list.get(i));
-            }
+            output.append("\n" + (i + 1) + "." + list.get(i).toString());
         }
-        printBreak();
+        return output.toString();
     }
 }

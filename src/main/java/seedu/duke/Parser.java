@@ -21,7 +21,8 @@ public class Parser {
      * @param tasks <code>TaskList</code> object containing list of tasks
      * @param ui <code>Ui</code> object for printing actions
      */
-    public static void parseMark(String input, TaskList tasks, Ui ui) {
+    public static String parseMark(String input, TaskList tasks, Ui ui) {
+        String output = "";
         String[] splitInput = input.split(" ");
         try {
             if (splitInput.length < 2) {
@@ -34,10 +35,11 @@ public class Parser {
                 throw new DukeException("Here's the format I require: mark [valid index]");
             }
             tasks.markTaskDone(Integer.parseInt(splitInput[1]) - 1);
-            ui.showTaskDone(tasks.getTask(Integer.parseInt(splitInput[1]) - 1));
+            output = ui.showTaskDone(tasks.getTask(Integer.parseInt(splitInput[1]) - 1));
         } catch (DukeException d) {
-            ui.printError(d);
+            output = ui.printError(d);
         }
+        return output;
     }
 
     /**
@@ -48,9 +50,9 @@ public class Parser {
      * @param tasks <code>TaskList</code> object containing list of tasks
      * @param ui <code>Ui</code> object for printing actions
      */
-    public static void parseUnmark(String input, TaskList tasks, Ui ui) {
+    public static String parseUnmark(String input, TaskList tasks, Ui ui) {
+        String output = "";
         String[] splitInput = input.split(" ");
-
         try {
             if (splitInput.length < 2) { // for invalid entry: "unmark"
                 throw new DukeException("Here's the format I require: unmark [valid index]");
@@ -61,10 +63,11 @@ public class Parser {
                 throw new DukeException("Here's the format I require: unmark [valid index]");
             }
             tasks.markTaskUndone(Integer.parseInt(splitInput[1]) - 1);
-            ui.showTaskUndone(tasks.getTask(Integer.parseInt(splitInput[1]) - 1));
+            output = ui.showTaskUndone(tasks.getTask(Integer.parseInt(splitInput[1]) - 1));
         } catch (DukeException d) {
-            ui.printError(d);
+            output = ui.printError(d);
         }
+        return output;
     }
 
     /**
@@ -75,7 +78,8 @@ public class Parser {
      * @param tasks <code>TaskList</code> object containing list of tasks
      * @param ui <code>Ui</code> object for printing actions
      */
-    public static void parseDeadline(String input, TaskList tasks, Ui ui) {
+    public static String parseDeadline(String input, TaskList tasks, Ui ui) {
+        String output = "";
         String[] splitInput = input.split(" /by ");
         try {
             if (splitInput.length < 2) {
@@ -86,10 +90,11 @@ public class Parser {
             LocalDate localDate = LocalDate.parse(dateline);
             Deadline deadline = new Deadline(splitAgain[1], localDate);
             tasks.addTask(deadline);
-            ui.showTaskAdded(deadline, tasks.getSize());
+            output = ui.showTaskAdded(deadline, tasks.getSize());
         } catch (DukeException d) {
-            ui.printError(d);
+            output = ui.printError(d);
         }
+        return output;
     }
 
     /**
