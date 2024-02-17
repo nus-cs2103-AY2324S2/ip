@@ -27,6 +27,10 @@ public class Todo extends Task {
         this.done = false;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     @Override
     public String toString() {
         if (this.done) {

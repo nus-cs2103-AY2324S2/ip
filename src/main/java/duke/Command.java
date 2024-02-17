@@ -140,6 +140,21 @@ public enum Command {
             Storage.clear();
             System.out.println("List cleared.");
         }
+    },
+    FIND("find") {
+        @Override
+        public void execute(TaskList tasks, String description) throws DukeException {
+            TaskList found = new TaskList();
+            String search = description.split(" ", 2)[1];
+            for (int i = 0; i < tasks.size(); i++) {
+                if (tasks.get(i).getName().contains(search)) {
+                    found.add(tasks.get(i));
+                } else {
+                    continue;
+                }
+            }
+            System.out.println(found.toString());
+        }
     };
 
     private final String command;

@@ -35,6 +35,9 @@ public class Deadline extends Task {
     public void unmark() {
         this.done = false;
     }
+    public String getName() {
+        return this.name;
+    }
 
     @Override
     public String toString() {
