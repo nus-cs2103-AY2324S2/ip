@@ -3,7 +3,7 @@
 ![Screenshot of Leto's GUI](Ui.png)
 
 **Leto** is a powerful and intuitive task management application designed to help you keep track of your daily tasks
-efficiently. Whether you're managing deadlines, events, or simple to-do items, Duke provides a streamlined and 
+efficiently. Whether you're managing deadlines, events, or simple to-do items, Leto provides a streamlined and 
 user-friendly interface to enhance your productivity. It also supports saving to a portable CSV format so you
 can import them into a spreadsheet tool like Excel or Google Drive.
 
@@ -132,7 +132,8 @@ In case of any corrupted entries, it will **wipe** the list.
 If **Leto** indicates the file is corrupted, it will start
 with an empty list.
 
-:warning: Do not quit or save the program. Open up the `Leto-Tasks.csv` as fast as possible and
+⛔ Do not quit or save the program. 
+Open up the `Leto-Tasks.csv` as fast as possible and
 copy it somewhere else. 
 Because of the human-readable nature of the file, you might be able to
 manually recover it.
