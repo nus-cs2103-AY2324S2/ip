@@ -57,7 +57,7 @@ jobs:
         with:
           body_path: ./RELEASE.md
           draft: false
-          prerelease: true
+          prerelease: false
           files: build/libs/fluffy.jar
           name: Release ${{ github.ref_name }}
           tag_name: ${{ github.ref }}
