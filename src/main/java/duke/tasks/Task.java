@@ -31,6 +31,10 @@ public class Task {
         return this.status;
     }
 
+    public HashSet<String> getTags() {
+        return this.tags;
+    }
+
     /**
      * Adds tag(s) to a task. Duplicate tags are ignored on addition.
      *
