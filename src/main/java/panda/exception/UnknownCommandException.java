@@ -1,4 +1,5 @@
 package panda.exception;
+
 public class UnknownCommandException extends PandaException {
     /**
      * Constructs a new UnknownCommandException with a default message.

@@ -1,4 +1,5 @@
 package panda.exception;
+
 public class EmptyEventException extends PandaException {
     /**
      * Constructs a new EmptyEventException with a default message.

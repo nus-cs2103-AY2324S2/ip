@@ -1,4 +1,5 @@
 package panda.task;
+
 public class Todo extends Task {
     /**
      * Constructs a new Todo with the given description.

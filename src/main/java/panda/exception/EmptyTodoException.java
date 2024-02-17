@@ -1,4 +1,5 @@
 package panda.exception;
+
 public class EmptyTodoException extends PandaException {
     /**
      * Constructs a new EmptyTodoException with a default message.

@@ -1,21 +1,13 @@
 package panda.command;
+
 import panda.component.*;
+
 import panda.exception.PandaException;
+
 public class PrintListCommand extends Command {
 
     public void execute(TaskList tlist) {
         return;
-    }
-
-    /**
-     * Shows current TaskList on Ui
-     * 
-     * @param tlist the current TaskList.
-     * @param ui the UI to show message.
-     * @param cacheFile the cache file. (unused)
-     */
-    public void execute(TaskList tlist, Ui ui, Storage cacheFile) {
-        ui.showList(tlist);
     }
 
     /**

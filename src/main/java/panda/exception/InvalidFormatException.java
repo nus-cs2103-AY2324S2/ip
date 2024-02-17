@@ -1,4 +1,5 @@
 package panda.exception;
+
 public class InvalidFormatException extends PandaException {
     /**
      * Constructs a new InvalidFormatException with a default message.

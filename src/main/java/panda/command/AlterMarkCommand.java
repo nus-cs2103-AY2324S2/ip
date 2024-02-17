@@ -1,7 +1,10 @@
 package panda.command;
+
+import panda.component.*;
+
 import panda.exception.PandaException;
 import panda.exception.OutOfBoundsException;
-import panda.component.*;
+
 public class AlterMarkCommand extends Command {
     private int idx;
     private boolean isMarked;
@@ -24,6 +27,7 @@ public class AlterMarkCommand extends Command {
      * @throws PandaException if an error occurs during execution.
      */
     public void execute(TaskList tlist) throws PandaException {
+        assert tlist != null;
         if(idx - 1 >= tlist.size()) {
             throw new OutOfBoundsException();
         }
@@ -33,29 +37,6 @@ public class AlterMarkCommand extends Command {
         else {
             tlist.unmark(idx);
         }
-    }
-
-    /**
-     * Executes the command on the given TaskList, updates the UI, and saves changes to the cache file.
-     * 
-     * @param tlist the TaskList on which the command is executed.
-     * @param ui the UI to update after execution.
-     * @param cacheFile the cache file to save changes to.
-     * @throws PandaException if an error occurs during execution.
-     */
-    public void execute(TaskList tlist, Ui ui, Storage cacheFile) throws PandaException {
-        if(idx - 1 >= tlist.size()) {
-            throw new OutOfBoundsException();
-        }
-        if(isMarked) {
-            tlist.mark(idx);
-        }
-        else {
-            tlist.unmark(idx);
-        }
-        cacheFile.save(tlist);
-        ui.showReply("Nice! I've marked this task as done:\n  " + tlist.getTaskString(idx));
-        return;
     }
 
     /**

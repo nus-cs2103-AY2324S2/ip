@@ -1,7 +1,10 @@
 package panda.command;
+
+import panda.component.*;
+
 import panda.exception.PandaException;
 import panda.exception.OutOfBoundsException;
-import panda.component.*;
+
 public class DeleteCommand extends Command {
     private int idx;
 
@@ -21,32 +24,11 @@ public class DeleteCommand extends Command {
      * @throws PandaException if an error occurs during deletion.
      */
     public void execute(TaskList tlist) throws PandaException{
-        if(idx >= tlist.size()) {
-            throw new OutOfBoundsException();
-        }
-        tlist.remove(idx);
-        return;
-    }
-
-    /**
-     * Deletes the task at the given index from the TaskList, updates the UI, and saves changes to the cache file.
-     * 
-     * @param tlist the TaskList from which the task is deleted.
-     * @param ui the UI to update after deletion.
-     * @param cacheFile the cache file to save changes to.
-     * @throws PandaException if an error occurs during deletion.
-     */
-    public void execute(TaskList tlist, Ui ui, Storage cacheFile) throws PandaException {
         assert tlist != null;
         if(idx >= tlist.size()) {
             throw new OutOfBoundsException();
         }
-        String tString = tlist.getTaskString(idx);
         tlist.remove(idx);
-        cacheFile.save(tlist);
-        ui.showReply("OK, I've deleted this task:" 
-            + "\n  " + tString 
-            + "\nNow you have " + tlist.size() + " tasks in the list.");
         return;
     }
 
@@ -59,6 +41,7 @@ public class DeleteCommand extends Command {
      * @throws PandaException if an error occurs during execution.
      */
     public String execute(TaskList tlist, Storage cacheFile) throws PandaException {
+        assert tlist != null;
         if(idx >= tlist.size()) {
             throw new OutOfBoundsException();
         }

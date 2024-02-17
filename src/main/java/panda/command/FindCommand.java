@@ -1,8 +1,7 @@
 package panda.command;
 
-import panda.component.Storage;
-import panda.component.TaskList;
-import panda.component.Ui;
+import panda.component.*;
+
 import panda.exception.PandaException;
 
 public class FindCommand extends Command {
@@ -24,18 +23,6 @@ public class FindCommand extends Command {
      */
     public void execute(TaskList tlist) {
         return;
-    }
-
-    /**
-     * Finds tasks in the TaskList that contain the find string, displays the resulting TaskList, and updates the UI.
-     * 
-     * @param tlist the TaskList on which the command is executed.
-     * @param ui the UI to update after execution.
-     * @param cacheFile the cache file to save changes to.
-     */
-    public void execute(TaskList tlist, Ui ui, Storage cacheFile) {
-        TaskList ftlist = tlist.find(fString);
-        ui.showList(ftlist);
     }
 
     /**

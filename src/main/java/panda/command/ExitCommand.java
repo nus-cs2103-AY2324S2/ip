@@ -1,21 +1,11 @@
 package panda.command;
+
 import panda.component.*;
+
 import panda.exception.PandaException;
+
 public class ExitCommand extends Command {
-
     public void execute(TaskList tlist) {
-        return;
-    }
-
-    /**
-     * Shows goodbye message on Ui
-     * 
-     * @param tlist the current TaskList. (unused)
-     * @param ui the UI to show message.
-     * @param cacheFile the cache file. (unused)
-     */
-    public void execute(TaskList tlist, Ui ui, Storage cacheFile) {
-        ui.showBye();
         return;
     }
 
