@@ -22,11 +22,11 @@ public class ParserTest {
         Task todoTask = parser.createTaskFromInput(Dino.TaskType.TODO, "Buy groceries");
         assertEquals(" T | 0 | Buy groceries", todoTask.toString());
 
-        Task deadlineTask = parser.createTaskFromInput(Dino.TaskType.DEADLINE, "Finish assignment /by 2022-02-28 1800");
+        Task deadlineTask = parser.createTaskFromInput(Dino.TaskType.DEADLINE, "Finish assignment /by 28-02-2022 1800");
         assertEquals(" D | 0 | Finish assignment | by: Feb 28 2022 18:00", deadlineTask.toString());
 
         Task eventTask = parser.createTaskFromInput(Dino.TaskType.EVENT,
-                "Birthday party /from 2022-03-01 1500 /to 2022-03-01 1800");
+                "Birthday party /from 01-03-2022 1500 /to 01-03-2022 1800");
         assertEquals(" E | 0 | Birthday party | from: Mar 01 2022 15:00 to: Mar 01 2022 18:00", eventTask.toString());
     }
 
@@ -45,7 +45,7 @@ public class ParserTest {
             System.setIn(System.in);
 
             assertEquals("Invalid input format for deadline. "
-                    + "Please use: deadline <deadline name> /by <time>", e.getMessage());
+                    + "Please use: deadline <deadline name> /by dd-mm-yyyy", e.getMessage());
         }
     }
 }

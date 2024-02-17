@@ -47,7 +47,8 @@ public class StorageTest {
         }
     }
 
-    private void createTestDataFile() throws IOException {
+    @Test
+    public void createTestDataFile() throws IOException {
         File file = new File(TEST_FILE_PATH);
         if (!file.exists()) {
             file.createNewFile();

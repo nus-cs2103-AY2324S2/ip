@@ -109,7 +109,7 @@ public class Parser {
             String[] deadlineParts = taskDetails.split("/by");
             if (deadlineParts.length != 2) {
                 throw new DinoException("Invalid input format for deadline. "
-                        + "Please use: deadline <deadline name> /by <time>");
+                        + "Please use: deadline <deadline name> /by dd-mm-yyyy");
             }
             String deadlineName = deadlineParts[0].trim();
             String deadlineTimeString = deadlineParts[1].trim();
@@ -127,7 +127,7 @@ public class Parser {
             String[] eventParts = taskDetails.split("/from|/to");
             if (eventParts.length != 3) {
                 throw new DinoException("Invalid input format for event. "
-                        + "Please use: event <event name> /from <time> /to <time>");
+                        + "Please use: event <event name> /from dd-mm-yyyy /to dd-mm-yyyy");
             }
             String eventName = eventParts[0].trim();
             String startTimeString = eventParts[1].trim();
@@ -158,8 +158,8 @@ public class Parser {
      */
     public static LocalDateTime parseStringToTime(String time) {
         assert time != null : "Time cannot be null";
-        DateTimeFormatter dateOnlyFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm", Locale.ENGLISH);
+        DateTimeFormatter dateOnlyFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.ENGLISH);
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm", Locale.ENGLISH);
 
         LocalDateTime deadlineTime;
         if (time.contains(" ")) {
@@ -189,7 +189,7 @@ public class Parser {
             deadlineTime = LocalDateTime.of(LocalDate.parse(time, dateOnlyFormatter), LocalTime.MIDNIGHT);
         }
 
-        DateTimeFormatter resultFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
+        DateTimeFormatter resultFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.ENGLISH);
         String formattedDate = deadlineTime.format(resultFormatter);
 
         if (deadlineTime.toLocalTime() != LocalTime.MIDNIGHT) {

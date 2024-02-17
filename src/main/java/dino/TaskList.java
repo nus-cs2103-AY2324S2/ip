@@ -48,12 +48,7 @@ public class TaskList {
 
             for (Task existingTask : taskList) {
                 if (existingTask instanceof Event || existingTask instanceof Deadline) {
-                    LocalDateTime existingStart = existingTask instanceof Event ? ((Event) existingTask).getStartTime()
-                            : ((Deadline) existingTask).getDateTime();
-                    LocalDateTime existingEnd = existingTask instanceof Event ? ((Event) existingTask).getEndTime()
-                            : ((Deadline) existingTask).getDateTime();
-
-                    boolean isOverlap = newStart.isBefore(existingEnd) && newEnd.isAfter(existingStart);
+                    boolean isOverlap = hasOverlap(existingTask, newStart, newEnd);
                     if (isOverlap) {
                         return true;
                     }
@@ -61,6 +56,17 @@ public class TaskList {
             }
         }
         return false;
+    }
+
+    private static boolean hasOverlap(Task existingTask, LocalDateTime newStart, LocalDateTime newEnd) {
+        LocalDateTime existingStart = existingTask instanceof Event
+                ? ((Event) existingTask).getStartTime()
+                : ((Deadline) existingTask).getDateTime();
+        LocalDateTime existingEnd = existingTask instanceof Event
+                ? ((Event) existingTask).getEndTime()
+                : ((Deadline) existingTask).getDateTime();
+
+        return newStart.isBefore(existingEnd) && newEnd.isAfter(existingStart);
     }
 
     /**
