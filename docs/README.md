@@ -1,6 +1,6 @@
 # Miss-A User Guide
 
-![image of miss-a](../src/main/resources/images/missa.png)
+![image of miss-a](https://github.com/linnn-7/ip/blob/master/src/main/resources/images/missa.png?raw=true)
 
 Miss-A stands out as **an desktop chatbot, specially crafted for seamless task management.** 
 It combines the efficiency of a Command Line Interface (CLI) 
