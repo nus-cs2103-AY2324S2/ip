@@ -243,11 +243,6 @@ public class Mamta extends Application  {
 
     }
 
-    /**
-     * Main method to run the Mamta application.
-     * @param args Command-line arguments.
-     * @throws FileNotFoundException If the specified file is not found.
-     */
     public static void main(String[] args) throws FileNotFoundException {
         Mamta.run("./data/mamtainput.txt", "./text-ui-test/input.txt");
     }
