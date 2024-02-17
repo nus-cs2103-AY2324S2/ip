@@ -1,4 +1,4 @@
-package duke.exceptions;
+package shuheng.exceptions;
 
 /**
  * This class represents the error thrown when an invalid input is detected.

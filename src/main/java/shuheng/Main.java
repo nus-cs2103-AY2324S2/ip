@@ -1,19 +1,19 @@
-package duke;
+package shuheng;
 
 import java.io.IOException;
 
-import duke.frontend.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import shuheng.frontend.MainWindow;
 
 /**
  * This class represents a bridge between duke and the javaFX GUI.
  */
 public class Main extends Application {
-    private Duke duke = new Duke();
+    private ShuHeng duke = new ShuHeng();
 
     @Override
     public void start(Stage stage) {

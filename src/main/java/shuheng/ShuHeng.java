@@ -1,10 +1,10 @@
-package duke;
+package shuheng;
 
 
 /**
  * This class represents a running instance of Duke, the task list!
  */
-public class Duke {
+public class ShuHeng {
 
     private Storage manager;
 
@@ -17,7 +17,7 @@ public class Duke {
     /**
      * Constructor for duke application.
      */
-    public Duke() {
+    public ShuHeng() {
         this.manager = new Storage("data");
         this.manager.createLog();
         this.parser = new Parser();

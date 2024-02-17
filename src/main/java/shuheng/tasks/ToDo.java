@@ -1,4 +1,4 @@
-package duke.tasks;
+package shuheng.tasks;
 
 /**
  * This class represents a task without a deadline.

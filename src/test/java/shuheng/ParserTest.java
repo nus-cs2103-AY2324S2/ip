@@ -1,12 +1,12 @@
-package duke;
+package shuheng;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import duke.exceptions.InvalidInputException;
-import duke.exceptions.InvalidParametersException;
+import shuheng.exceptions.InvalidInputException;
+import shuheng.exceptions.InvalidParametersException;
 
 class ParserTest {
 

@@ -1,11 +1,11 @@
-package duke;
+package shuheng;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import duke.tasks.PriorityLevel;
-import duke.tasks.ToDo;
+import shuheng.tasks.PriorityLevel;
+import shuheng.tasks.ToDo;
 
 public class TaskListTest {
     @Test
