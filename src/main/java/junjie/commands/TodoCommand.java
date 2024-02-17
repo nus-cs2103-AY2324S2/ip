@@ -17,20 +17,23 @@ public class TodoCommand extends Command {
     private static final String MESSAGE = "added this task for you liao:\n%s";
 
     private final String name;
+    private final String[] tags;
 
     /**
-     * Constructs a command to add a todo task with the given name.
+     * Constructs a command to add a todo task with the given name and tags.
      *
-     * @param name The name of the todo task.
+     * @param name The name of the task.
+     * @param tags The tags of the task.
      */
-    public TodoCommand(String name) {
+    public TodoCommand(String name, String[] tags) {
         this.name = name;
+        this.tags = tags;
     }
 
     @Override
     public String execute(TaskList tasks, Ui ui) {
         try {
-            Task task = new TodoTask(name);
+            Task task = new TodoTask(name, tags);
             tasks.add(task);
             return String.format(MESSAGE, task);
         } catch (InvalidArgumentException e) {

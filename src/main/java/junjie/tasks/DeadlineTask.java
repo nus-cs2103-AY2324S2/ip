@@ -16,17 +16,18 @@ public class DeadlineTask extends Task {
     private final LocalDate deadline;
 
     /**
-     * Constructs a deadline task with the given name, deadline, and done status.
+     * Constructs a deadline task with the given name, deadline, tags, and done status.
      *
-     * @param name     The name of the task.
+     * @param name The name of the deadline task.
      * @param deadline The deadline of the task.
-     * @param isDone   The done status of the task.
-     * @throws DateTimeException        If the date format is invalid.
+     * @param tags The tags of the task.
+     * @param isDone The done status of the task.
+     * @throws DateTimeException If the deadline is in an invalid format.
      * @throws InvalidArgumentException If the name or deadline is empty.
      */
-    public DeadlineTask(String name, String deadline, boolean isDone)
+    public DeadlineTask(String name, String deadline, String[] tags, boolean isDone)
             throws DateTimeException, InvalidArgumentException {
-        super(name, isDone);
+        super(name, tags, isDone);
 
         assert deadline != null : "Deadline cannot be null";
 
@@ -48,13 +49,14 @@ public class DeadlineTask extends Task {
     /**
      * Constructs a deadline task with the given name and deadline.
      *
-     * @param name     The name of the task.
+     * @param name The name of the deadline task.
      * @param deadline The deadline of the task.
-     * @throws DateTimeException        If the date format is invalid.
+     * @param tags The tags of the task.
+     * @throws DateTimeException If the deadline is in an invalid format.
      * @throws InvalidArgumentException If the name or deadline is empty.
      */
-    public DeadlineTask(String name, String deadline) throws DateTimeException, InvalidArgumentException {
-        this(name, deadline, false);
+    public DeadlineTask(String name, String deadline, String[] tags) throws DateTimeException, InvalidArgumentException {
+        this(name, deadline, tags, false);
     }
 
     @Override
@@ -70,6 +72,10 @@ public class DeadlineTask extends Task {
      */
     @Override
     public String toFileString() {
-        return String.format("D | %d | %s | %s", isDone() ? 1 : 0, getName(), deadline);
+        return String.format("D | %d | %s | %s | %s",
+                isDone() ? 1 : 0,
+                getName(),
+                deadline,
+                String.join(" ", getTags()));
     }
 }

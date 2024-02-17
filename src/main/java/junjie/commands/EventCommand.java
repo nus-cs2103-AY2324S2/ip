@@ -21,24 +21,27 @@ public class EventCommand extends Command {
     private final String name;
     private final String from;
     private final String to;
+    private final String[] tags;
 
     /**
-     * Constructs a command to add an event task with the given name, start time and end time.
+     * Constructs an event command with the specified name, from, to and tags.
      *
-     * @param name The name of the event.
-     * @param from The start time of the event.
-     * @param to The end time of the event.
+     * @param name The name of the task.
+     * @param from The start time of the task.
+     * @param to The end time of the task.
+     * @param tags The tags of the task.
      */
-    public EventCommand(String name, String from, String to) {
+    public EventCommand(String name, String from, String to, String[] tags) {
         this.name = name;
         this.from = from;
         this.to = to;
+        this.tags = tags;
     }
 
     @Override
     public String execute(TaskList tasks, Ui ui) {
         try {
-            Task task = new EventTask(name, from, to);
+            Task task = new EventTask(name, from, to, tags);
             tasks.add(task);
             return String.format(MESSAGE, task);
         } catch (DateTimeException | InvalidArgumentException e) {

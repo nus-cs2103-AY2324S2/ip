@@ -19,18 +19,19 @@ public class EventTask extends Task {
     private final LocalDate to;
 
     /**
-     * Constructs an event task with the given name, start date, end date, and completion status.
+     * Constructs an event task with the specified name, start date, end date, tags and completion status.
      *
-     * @param name   The name of the task.
-     * @param from   The start date of the task.
-     * @param to     The end date of the task.
+     * @param name The name of the task.
+     * @param from The start date of the task.
+     * @param to The end date of the task.
+     * @param tags The tags of the task.
      * @param isDone The completion status of the task.
-     * @throws DateTimeException        If the date format is invalid.
-     * @throws InvalidArgumentException If the name, start date, or end date is empty.
+     * @throws DateTimeException If the date format is invalid.
+     * @throws InvalidArgumentException If the name, start date or end date is empty.
      */
-    public EventTask(String name, String from, String to, boolean isDone)
+    public EventTask(String name, String from, String to, String[] tags, boolean isDone)
             throws DateTimeException, InvalidArgumentException {
-        super(name, isDone);
+        super(name, tags, isDone);
 
         assert from != null : "Start date cannot be null";
         assert to != null : "End date cannot be null";
@@ -55,16 +56,17 @@ public class EventTask extends Task {
     }
 
     /**
-     * Constructs an event task with the given name, start date, and end date.
+     * Constructs an event task with the specified name, start date, end date and tags.
      *
      * @param name The name of the task.
      * @param from The start date of the task.
-     * @param to   The end date of the task.
-     * @throws DateTimeException        If the date format is invalid.
-     * @throws InvalidArgumentException If the name, start date, or end date is empty.
+     * @param to The end date of the task.
+     * @param tags The tags of the task.
+     * @throws DateTimeException If the date format is invalid.
+     * @throws InvalidArgumentException If the name, start date or end date is empty.
      */
-    public EventTask(String name, String from, String to) throws DateTimeException, InvalidArgumentException {
-        this(name, from, to, false);
+    public EventTask(String name, String from, String to, String[] tags) throws DateTimeException, InvalidArgumentException {
+        this(name, from, to, tags, false);
     }
 
     @Override
@@ -81,6 +83,11 @@ public class EventTask extends Task {
      */
     @Override
     public String toFileString() {
-        return String.format("E | %d | %s | %s | %s", isDone() ? 1 : 0, getName(), from, to);
+        return String.format("E | %d | %s | %s | %s | %s",
+                isDone() ? 1 : 0,
+                getName(),
+                from,
+                to,
+                String.join(" ", getTags()));
     }
 }
