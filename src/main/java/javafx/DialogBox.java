@@ -68,7 +68,7 @@ public class DialogBox extends HBox {
 
         if (isError) {
             bg = new Background(new BackgroundFill(Color.LIGHTCORAL, CornerRadii.EMPTY, Insets.EMPTY));
-            dialog.setTextFill(Color.MAROON); // Set text color to white for better visibility
+            dialog.setTextFill(Color.RED); // Set text color to white for better visibility
         }
 
         if (isUser) {
