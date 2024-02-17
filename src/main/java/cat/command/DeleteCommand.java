@@ -15,7 +15,7 @@ public class DeleteCommand extends Command {
     private final ArrayList<Integer> indices;
 
     /**
-     * Construct a command that deletes a task at the given index.
+     * Constructs a command that deletes a task at the given index.
      */
     public DeleteCommand(ArrayList<Integer> indices) {
         this.indices = indices;

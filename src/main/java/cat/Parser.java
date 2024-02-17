@@ -56,7 +56,7 @@ public class Parser {
     }
 
     /**
-     * Parse one user command.
+     * Parses one user command.
      * The user command is parsed from a string into a subclass of {@link Command} which can be then executed.
      *
      * @throws InvalidCommandType when the given command (first word) is unknown

@@ -12,7 +12,7 @@ public class FindCommand extends Command {
     private final String query;
 
     /**
-     * Construct a task that filters the list of tasks that contain the string query.
+     * Constructs a task that filters the list of tasks that contain the string query.
      */
     public FindCommand(String query) {
         assert query != null : "Query must not be null";
