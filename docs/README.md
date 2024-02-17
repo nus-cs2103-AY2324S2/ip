@@ -36,7 +36,7 @@ Creates and adds an event with a start and end date and time.
 
 Outcome:
 ```
-[E][ ] submission
+[E][ ] Marathon
   FROM : 17 February 2024 1000 AM
   TO : 17 February 2024 0400 PM
 ```
@@ -52,7 +52,7 @@ Outcome:
 1.[T][ ] buy bread
 2.[D][ ] submission
     BY : 15 March 2024 1159 PM
-3.[E][ ] submission
+3.[E][ ] Marathon
     FROM : 17 February 2024 1000 AM
     TO : 17 February 2024 0400 PM
 ```
