@@ -34,13 +34,16 @@ public class DialogBox extends HBox {
         displayPicture.setFitHeight(100.0);
 
         // Set padding between ImageView and Label
-        HBox.setMargin(text, new Insets(0, 10, 0, 10));
+        HBox.setMargin(text, new Insets(5, 10, 0, 10));
 
         // Clip the ImageView into a circle
         Circle clip = new Circle(50);
         clip.centerXProperty().bind(displayPicture.fitWidthProperty().divide(2));
         clip.centerYProperty().bind(displayPicture.fitHeightProperty().divide(2));
         displayPicture.setClip(clip);
+
+        // Background color
+        this.setStyle("-fx-background-color: rgba(80, 80, 80, 0.3); -fx-background-radius: 10;");
 
         this.setAlignment(Pos.TOP_RIGHT);
         this.getChildren().addAll(text, displayPicture);
