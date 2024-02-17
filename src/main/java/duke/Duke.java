@@ -4,15 +4,16 @@ import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.stage.Stage; 
+import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+
 
 /**
  * The Duke class represents a task manager bot.
  */
 public class Duke extends Application {
-    private TaskList taskList;
+    protected TaskList taskList;
     private Storage storage;
     private Ui ui;
 

@@ -9,7 +9,6 @@ import java.util.List;
 public class Handler {
     private TaskList taskList;
     private Parser parser = new Parser();
-    private Ui ui = new Ui();
 
     /**
      * Constructs a new Handler object.
@@ -20,54 +19,58 @@ public class Handler {
         this.taskList = taskList;
     }
 
-    public void handle(String input) throws DukeException {
+    public String handle(String input) throws DukeException {
         String command = parser.parseCommand(input);
-        
+        String output = "";
+
         if (command.equals("list")) {
-            handleList();
+            output = handleList();
         } else if (command.equals("mark")) {
-            handleMark(input);
+            output = handleMark(input);
         } else if (command.equals("unmark")) {
-            handleUnmark(input);
+            output = handleUnmark(input);
         } else if (command.equals("delete")) {
-            handleDelete(input);
+            output = handleDelete(input);
         } else if (command.equals("find")) {
-            handleFind(input);
+            output = handleFind(input);
         } else {
-            handleAdd(input);
+            output = handleAdd(input);
         }
+
+        return output;
     }
 
-    private void handleList() {
-        taskList.displayTasks();
+    private String handleList() {
+        return taskList.displayTasks();
     }
 
-    private void handleMark(String input) throws DukeException {
+    private String handleMark(String input) throws DukeException {
         int index = parser.parseIndex(input);
-        taskList.markTaskAsDone(index);
+        return taskList.markTaskAsDone(index);
     }
 
-    private void handleUnmark(String input) throws DukeException {
+    private String handleUnmark(String input) throws DukeException {
         int index = parser.parseIndex(input);
-        taskList.unmarkTaskAsDone(index);
+        return taskList.unmarkTaskAsDone(index);
     }
 
-    private void handleAdd(String input) throws DukeException {
-        taskList.addTask(input);
+    private String handleAdd(String input) throws DukeException {
+        return taskList.addTask(input);
     }
 
-    private void handleDelete(String input) throws DukeException {
+    private String handleDelete(String input) throws DukeException {
         int index = parser.parseIndex(input);
-        taskList.deleteTask(index);
+        return taskList.deleteTask(index);
     }
 
-    private void handleFind(String input) {
+    private String handleFind(String input) {
         String keyword = parser.parseDescription(input);
         List<Task> keywordList = taskList.findTasksFromKeyword(keyword);
-        ui.printMessage("Here are the matching tasks in your list:\n");
+        String output = "";
+        output += "Here are the matching tasks in your list:\n";
         for (Task task : keywordList) {
-            ui.printMessage(task.toString());
+            output += task.toString() + "\n";
         }
-        ui.printMessage("\n");
+        return output;
     }
 }
