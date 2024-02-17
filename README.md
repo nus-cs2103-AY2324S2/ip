@@ -1,6 +1,8 @@
 # duck.Test project template
 
 This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+<img width="395" alt="Screenshot 2024-02-17 at 11 30 18 PM" src="https://github.com/Jayne1010/ip/assets/122381620/499ff4d9-66d6-4686-88c8-cd16e3c2c184">
+
 
 ## Setting up in Intellij
 
