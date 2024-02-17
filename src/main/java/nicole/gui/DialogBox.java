@@ -39,7 +39,7 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
-        displayPicture.setImage(img);
+//        displayPicture.setImage(img);
     }
 
     /**
@@ -48,16 +48,16 @@ public class DialogBox extends HBox {
     private void flip() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
-        getChildren().setAll(tmp);
-        setAlignment(Pos.TOP_LEFT);
+        this.getChildren().setAll(tmp);
+        this.setAlignment(Pos.TOP_LEFT);
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        return new DialogBox("You: \n" + text, img);
     }
 
     public static DialogBox getNicoleDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+        var db = new DialogBox("Nicole: \n" + text, img);
         db.flip();
         return db;
     }

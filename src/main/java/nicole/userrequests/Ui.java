@@ -31,7 +31,7 @@ public class Ui {
      * @return a greeting.
      */
     public static String greetUser() {
-        DateTimeFormatter digitalTime = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter digitalTime = DateTimeFormatter.ofPattern("dd/MM/yyyy | HH:mm:ss");
         DateTimeFormatter parseHour = DateTimeFormatter.ofPattern("HH");
         LocalDateTime now = LocalDateTime.now();
         String salutation = "Good ";
@@ -44,7 +44,8 @@ public class Ui {
             salutation += "evening! Let's wrap it up soon? :P";
         }
         return "Welcome to Nicole Mark II. New conversation at "
-                + digitalTime.format(now) + "\n"
-                + "\n" + " " + salutation;
+                + digitalTime.format(now)
+                + "\n\n"
+                + salutation;
     }
 }

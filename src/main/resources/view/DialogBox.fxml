@@ -3,22 +3,24 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" style="-fx-border-width: 2; -fx-border-color: black; -fx-background-color: #EF9B0D;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" style="-fx-background-color: #FEBF00;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label fx:id="dialog" text="Label">
+        <Label fx:id="dialog" graphicTextGap="5.0" minHeight="-Infinity" text="Label" wrapText="true">
          <font>
-            <Font name="System Bold" size="13.0" />
+            <Font name="Apple LiGothic Medium" size="18.0" />
          </font></Label>
-        <ImageView fx:id="displayPicture" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
-         <effect>
-            <DropShadow />
-         </effect></ImageView>
+<!--        <ImageView fx:id="displayPicture" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">-->
+<!--         <effect>-->
+<!--            <DropShadow />-->
+<!--         </effect></ImageView>-->
     </children>
     <padding>
         <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
     </padding>
+   <effect>
+      <DropShadow blurType="ONE_PASS_BOX" />
+   </effect>
 </fx:root>
