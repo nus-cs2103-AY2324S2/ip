@@ -91,6 +91,7 @@ public class Duke extends Application {
         //The container for the content of the chat to scroll.
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
+        dialogContainer.setSpacing(10); // Set spacing between DialogBoxes
         scrollPane.setContent(dialogContainer);
 
         userInput = new TextField();
