@@ -20,6 +20,10 @@ public class Main extends Application {
     private Duke duke = new Duke();
 
     public static String getResponse(String input, TaskList taskList, Parser parser) {
+        assert input != null : "Input should not be null";
+        assert taskList != null : "TaskList should not be null";
+        assert parser != null : "Parser should not be null";
+
         if ("bye".equalsIgnoreCase(input)) {
             Storage.saveTasks(taskList.getTaskList());
             return "Goodbye! Thank you for using RATZCHAT!";

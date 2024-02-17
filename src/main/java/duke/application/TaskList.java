@@ -19,6 +19,7 @@ public class TaskList {
      * Gets specific task.
      */
     public Task getTask(int i) {
+        assert i >= 0 && i < tasks.size() : "Index out of bounds";
         return tasks.get(i);
     }
 
@@ -48,11 +49,12 @@ public class TaskList {
     /**
      * Removes a task from the task list based on its index.
      *
-     * @param index The index of the task to be removed.
+     * @param i The index of the task to be removed.
      * @return The removed task.
      */
-    public Task removeTask(int index) {
-        return tasks.remove(index);
+    public Task removeTask(int i) {
+        assert i >= 0 && i < tasks.size() : "Index out of bounds";
+        return tasks.remove(i);
     }
 
     /**

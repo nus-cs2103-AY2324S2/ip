@@ -35,6 +35,7 @@ public class Ui {
      * @param message The error message to be displayed.
      */
     public static String showErrorMessage(String message) {
+        assert message != null : "Error message should not be null";
         return "Error: " + message + "\n";
     }
 
@@ -129,6 +130,7 @@ public class Ui {
      * @return String representation of the found tasks.
      */
     public static String showFindItemList(String keyword) {
+        assert keyword != null : "Keyword should not be null";
         return "Items containing '" + keyword + ":\n";
     }
 }
