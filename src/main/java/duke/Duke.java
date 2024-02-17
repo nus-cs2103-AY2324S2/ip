@@ -116,12 +116,6 @@ public class Duke {
         } catch (IOException e) {
             ui.printIoException();
         }
-<<<<<<< HEAD
-
-        taskList.printTaskCount();
-        ui.printDivider();
-=======
->>>>>>> branch-Level-9
     }
 
     private static void exitProgram() {
