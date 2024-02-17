@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("Thames.Launcher")
+    mainClass.set("thames.Launcher")
 }
 
 shadowJar {
