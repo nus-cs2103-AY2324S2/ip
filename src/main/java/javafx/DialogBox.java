@@ -19,6 +19,8 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
 
 /**
@@ -63,6 +65,12 @@ public class DialogBox extends HBox {
             dropShadow.setOffsetY(2.0);
             dialog.setEffect(dropShadow);
         }
+
+        if (isUser) {
+            applyCircularShape();
+        } else {
+            applyTriangularShape();
+        }
     }
 
     /**
@@ -83,5 +91,22 @@ public class DialogBox extends HBox {
         var db = new DialogBox(text, img, false);
         db.flip();
         return db;
+    }
+
+    private void applyCircularShape() {
+        //Reused from appleraincoat's ip
+        Circle clip = new Circle();
+        clip.setRadius(displayPicture.getFitWidth() / 2.3); // Radius should be half of the ImageView width
+        clip.setCenterX(displayPicture.getFitWidth() / 2); // Center X coordinate of the circle
+        clip.setCenterY(displayPicture.getFitHeight() / 2); // Center Y coordinate of the circle
+        displayPicture.setClip(clip);
+    }
+
+    private void applyTriangularShape() {
+        Polygon triangle = new Polygon();
+        triangle.getPoints().addAll(0.0, 0.0,
+                                    100.0, 0.0,
+                                    50.0, 86.6);
+        displayPicture.setClip(triangle);
     }
 }
