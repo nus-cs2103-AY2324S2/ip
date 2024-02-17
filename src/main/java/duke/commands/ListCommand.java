@@ -20,9 +20,6 @@ public class ListCommand extends Command {
         if (taskList.size() == 0) {
             return "Yay! You have no tasks!";
         } else {
-            System.out.println("Here are the tasks in your list:");
-            System.out.println(taskList);
-
             return "Here are the tasks in your list:\n" + taskList;
         }
     }

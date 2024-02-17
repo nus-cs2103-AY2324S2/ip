@@ -43,8 +43,6 @@ public class MarkCommand extends Command {
         } else {
             target.unmarkDone();
         }
-        System.out.printf("Nice! I've %sed this task as done:%n", this.command);
-        System.out.println("  " + target);
 
         return String.format("Nice! I've %sed this task as done:%n\n", command) + "  " + target;
     }

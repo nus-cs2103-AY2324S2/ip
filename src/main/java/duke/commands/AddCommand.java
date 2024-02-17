@@ -28,6 +28,7 @@ public class AddCommand extends Command {
      */
     public AddCommand(String taskType, String taskDescription) {
         super();
+        assert taskType.equals("todo") : "Task should be a todo";
         this.taskType = taskType;
         this.taskDescription = taskDescription;
     }
@@ -41,6 +42,7 @@ public class AddCommand extends Command {
      */
     public AddCommand(String taskType, String taskDescription, LocalDate deadline) {
         super();
+        assert taskType.equals("deadline") : "Task should be a deadline";
         this.taskType = taskType;
         this.taskDescription = taskDescription;
         this.deadline = deadline;
@@ -56,6 +58,7 @@ public class AddCommand extends Command {
      */
     public AddCommand(String taskType, String taskDescription, LocalDate eventStart, LocalDate eventEnd) {
         super();
+        assert taskType.equals("event") : "Task should be an event";
         this.taskType = taskType;
         this.taskDescription = taskDescription;
         this.eventStart = eventStart;
@@ -70,6 +73,15 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Storage storage) {
+        Task task = createTask();
+        taskList.add(task);
+
+        return "Got it. I've added this task:\n"
+                + "  " + task + "\n"
+                + String.format("Now you have %d tasks in the list.%n", taskList.size());
+    }
+
+    private Task createTask() {
         Task task = null;
         if (this.taskType.equals("todo")) {
             task = new Todo(this.taskDescription);
@@ -78,12 +90,6 @@ public class AddCommand extends Command {
         } else {
             task = new Event(this.taskDescription, this.eventStart, this.eventEnd);
         }
-        taskList.add(task);
-
-        String consoleText = "Got it. I've added this task:\n"
-                + "  " + task + "\n"
-                + String.format("Now you have %d tasks in the list.%n", taskList.size());
-
-        return consoleText;
+        return task;
     }
 }
