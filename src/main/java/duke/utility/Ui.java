@@ -27,6 +27,11 @@ public class Ui {
         System.setOut(this.ps);
     }
 
+    /**
+     * Changes System.out to output in GUI
+     *
+     * @return the string to output in GUI
+     */
     public String craftResponse() {
         System.out.flush();
         String response = baos.toString();
@@ -116,6 +121,9 @@ public class Ui {
      */
     public void listTasks(ArrayList<Task> list) {
         int count = 1;
+        if (list.isEmpty()) {
+            System.out.println("There are no task found.");
+        }
         for (Task t : list) {
             System.out.println(count + "." + t.toString());
             count++;

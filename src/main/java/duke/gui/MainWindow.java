@@ -1,15 +1,14 @@
 package duke.gui;
 
+import duke.Duke;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-import duke.Duke;
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -25,8 +24,8 @@ public class MainWindow extends AnchorPane {
 
     private Duke duke;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.jpeg"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/duke.jpeg"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.jpeg"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Duke.jpeg"));
 
     @FXML
     public void initialize() {
