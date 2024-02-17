@@ -56,7 +56,7 @@ public class Ui {
      */
     public String help() {
         return "1. todo [task] : Adds a new task to your to-do list.\n"
-                + "2. deadline [task] /by [when] : Adds a task with a deadline.\n"
+                + "2. deadline [task] /by [DD/MM/YYYY HHMM] : Adds a task with a deadline.\n"
                 + "3. event [task] /from [when] /to [when] : Adds an event with start and end times.\n"
                 + "4. mark [task number] : Mark a task as completed.\n"
                 + "5. unmark [task number] : Unmark a completed task.\n"
