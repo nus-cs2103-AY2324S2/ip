@@ -39,6 +39,8 @@ public class CommandParser {
             return new DeleteCommand(input);
         case "find":
             return new FindCommand(input);
+        case "sort":
+            return new SortCommand(input);
         default:
             throw new TaskException();
         }
