@@ -1,7 +1,7 @@
 package area;
 
 /**
- * Event is a child class of Task. It is to register tasks that can only be done 
+ * Event is a child class of Task. It is to register tasks that can only be done
  * within a specific timeframe.
  */
 public class Event extends Task {
@@ -12,7 +12,6 @@ public class Event extends Task {
 
     /**
      * create an Event object
-     * 
      * @param description
      * @param from
      * @param to
@@ -27,7 +26,6 @@ public class Event extends Task {
 
     /**
      * Return a String representation of Event details
-     * 
      * @return String
      */
     @Override

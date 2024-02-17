@@ -10,7 +10,8 @@ import java.util.List;
 import java.io.File;
 
 /**
- * Stores the commands by user in a text file. The commands are to be executed when the user starts a new session to preserve data from previous sessions.
+ * Stores the commands by user in a text file. The commands are to be executed
+ * when the user starts a new session to preserve data from previous sessions.
  */
 public class Storage {
 
@@ -28,9 +29,8 @@ public class Storage {
      * @param path
      * @param tasks
      */
-    public Storage(String path, TaskList tasks){
-        this.filePath = path;
-        file = new File(path);
+    public Storage(TaskList tasks) {
+        file = new File("./data/duke.txt");
         folder = new File("./data");
         this.tasks = tasks;
         this.instructions = new ArrayList<String>();
@@ -41,7 +41,7 @@ public class Storage {
      * 
      * @param instruction
      */
-    public void addInstruction(String instruction){
+    public void addInstruction(String instruction) {
         this.instructions.add(instruction);
     }
 
@@ -64,12 +64,12 @@ public class Storage {
      * 
      * @return ArrayList<String>
      */
-    public static ArrayList<String> getTasks(){
+    public static ArrayList<String> getTasks() {
         return taskList;
     }
 
     public void loadTasks() {
-        Path path = Paths.get(filePath);
+        Path path = Paths.get("./data/duke.txt");
         if (Files.exists(path)) {
             try {
                 List<String> lines = Files.readAllLines(path);
@@ -92,12 +92,10 @@ public class Storage {
         }
     }
 
-    public void saveTasks(){
+    public void saveTask(String instruction) {
         try {
-            FileWriter writer = new FileWriter(filePath, true);
-            for (String instruction : this.instructions) {
+            FileWriter writer = new FileWriter("./data/duke.txt", true);
                 writer.write(instruction + "\n");
-            }
             writer.close();
         } catch (IOException e) {
             System.out.println("Error saving tasks to file: " + e.getMessage());

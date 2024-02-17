@@ -1,4 +1,5 @@
 package area;
+
 /**
  * Checks for exception for each command.
  */
@@ -8,7 +9,6 @@ public class DukeException extends Exception {
 
     /**
      * creates a DukeException object to store error
-     * 
      * @param description
      */
     public DukeException(String description) {
@@ -17,7 +17,6 @@ public class DukeException extends Exception {
 
     /**
      * returns description of error
-     * 
      * @return description
      */
     @Override

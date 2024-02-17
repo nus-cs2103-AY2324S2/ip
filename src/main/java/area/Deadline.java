@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Deadline is a child class of Task. It is specifically for tasks that are 
+ * Deadline is a child class of Task. It is specifically for tasks that are
  * required to be completed in a certain amount of time.
  */
 public class Deadline extends Task {
@@ -13,7 +13,6 @@ public class Deadline extends Task {
 
     /**
      * Create Deadline object
-     * 
      * @param description
      * @param by
      */
@@ -25,7 +24,6 @@ public class Deadline extends Task {
 
     /**
      * returns a string that displays the deadline details.
-     * 
      * @return String
      */
     @Override
