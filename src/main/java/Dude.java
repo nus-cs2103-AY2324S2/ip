@@ -1,12 +1,7 @@
 import Commands.Command;
 import Commands.CommandParser;
-import Commands.DeleteCommand;
 import Exceptions.*;
-import Exceptions.TaskListFullException;
-import Tasks.Deadline;
-import Tasks.Event;
 import Tasks.TaskList;
-import Tasks.Todo;
 import Utils.CommandTypes;
 import Utils.Storage;
 import Utils.Ui;
@@ -15,68 +10,76 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class  Dude {
+    private final TaskList taskList;
+    private final Storage storage;
+    private final Ui ui;
 
-    private static TaskList taskList = null;
-    private static Storage storage = new Storage("data/tasklist.ser");
+    private boolean isRunning = true;
 
+    public Dude(String filePath){
+        this.storage = new Storage(filePath);
+        this.ui = new Ui();
+
+        TaskList temp = null;
+        try {
+            temp = this.storage.loadTasks();
+        } catch (Exception e) { //Thrown when file gets corrupted
+            ui.showMessage("An error occurred while loading the tasks. Deleting the storage and starting with an empty task list.");
+            this.storage.deleteStorage();
+            temp = new TaskList();
+        }
+
+        this.taskList = temp;
+    }
 
     public void run() {
 
-    }
-
-
-
-    public static void main(String[] args) {
-
-        Ui ui = new Ui();
-
-        try {
-            taskList = storage.loadTasks();
-        } catch (Exception e) { //Thrown when file gets corrupted
-            ui.showMessage("An error occurred while loading the tasks. Deleting the storage and starting with an empty task list.");
-            storage.deleteStorage();
-            taskList = new TaskList();
-        }
-
         ui.showWelcome();
-
-        // Initialise Scanner to reach command line input
         Scanner sc = new Scanner(System.in);
-        while(true){
+        while(this.isRunning){
 
-            String msg = "";
-            try {
-                msg = sc.nextLine();
-            }catch(NoSuchElementException e){
-                //this will not be handled.
-                break;
-            }
+            String input = extractInput(sc);
+            Command command = CommandParser.parse(input, taskList);
 
-            Command command = CommandParser.parseCommand(msg, taskList);
+            String response = executeCommand(command);
+            ui.showMessage(response);
 
-            try {
-                String response = command.execute();
-                ui.showMessage(response);
-            } catch (DudeException | IndexOutOfBoundsException e) {
-                ui.showMessage(e.getMessage());
-            }
-
-            boolean isListCommand = command.getCommandType() == CommandTypes.LIST;
-            boolean isByeCommand = command.getCommandType() == CommandTypes.BYE;
-
-            if (!(isListCommand || isByeCommand)) {
-                try {
-                    storage.saveTasks(taskList);
-                } catch (Exception e) {
-                    ui.showMessage("An error occurred while saving the tasks.");
-                }
-            }
+            saveToDisk();
 
             if (command.getCommandType() == CommandTypes.BYE) {
-                break;
+                this.isRunning = false;
             }
         }
-
     }
 
+    private static String extractInput(Scanner sc) {
+        String input = "";
+        try {
+            input = sc.nextLine();
+        }catch(NoSuchElementException e){
+            //this will not be handled. App will only exit at bye command.
+            input = "";
+        }
+        return input;
+    }
+
+    private static String executeCommand(Command command) {
+        try {
+            return command.execute();
+        } catch (DudeException | IndexOutOfBoundsException e) {
+            return e.getMessage();
+        }
+    }
+
+    private void saveToDisk() {
+        try {
+            this.storage.saveTasks(taskList);
+        } catch (Exception e) {
+            this.ui.showMessage("An error occurred while saving the tasks.");
+        }
+    }
+
+    public static void main(String[] args) {
+        new Dude("data/tasklist.ser").run();
+    }
 }

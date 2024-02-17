@@ -1,12 +1,10 @@
 package Commands;
 
-import Exceptions.DudeException;
 import Tasks.TaskList;
-import Utils.Storage;
 
 public class CommandParser {
 
-    public static Command parseCommand(String input, TaskList tasklist) {
+    public static Command parse(String input, TaskList tasklist) {
         String[] command = input.split(" ", 2);
         switch (command[0]) {
         case "bye":
