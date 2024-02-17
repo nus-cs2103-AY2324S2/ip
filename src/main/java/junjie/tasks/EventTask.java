@@ -31,6 +31,10 @@ public class EventTask extends Task {
     public EventTask(String name, String from, String to, boolean isDone)
             throws DateTimeException, InvalidArgumentException {
         super(name, isDone);
+
+        assert from != null : "Start date cannot be null";
+        assert to != null : "End date cannot be null";
+
         if (name.isEmpty()) {
             throw new InvalidArgumentException(INVALID_NAME);
         }

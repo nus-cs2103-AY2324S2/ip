@@ -27,6 +27,8 @@ public class Parser {
      * @return HashMap containing the command and its content
      */
     public static HashMap<String, String> splitInput(String input) {
+        assert input != null : "Input is null";
+
         HashMap<String, String> res = new HashMap<>();
         String argRegex = "(?<=/%s\\s)(.*?)(?=\\s/|$)";
 
@@ -71,6 +73,10 @@ public class Parser {
      * @return Command object
      */
     public static Command handleInput(String input, Ui ui, TaskList taskList) {
+        assert input != null : "Input is null";
+        assert ui != null : "Ui is null";
+        assert taskList != null : "TaskList is null";
+
         HashMap<String, String> inputs = splitInput(input);
 
         switch (inputs.get("command")) {
