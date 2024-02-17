@@ -87,7 +87,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from_time + " to: " + to_time + ")";
+        return "[E]" + super.toString() + " (from: " + formatDate(from_time) + " to: " + formatDate(to_time) + ")";
     }
 
     public LocalDateTime getFromTime() {
