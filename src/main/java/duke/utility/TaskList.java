@@ -91,4 +91,8 @@ public class TaskList {
         }
         return matchingList;
     }
+
+    public void clear() {
+        this.list = new ArrayList<Task>();
+    }
 }
