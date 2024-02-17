@@ -21,6 +21,8 @@ import javafx.stage.Stage;
  * @author KohGuanZeh
  */
 public class MainWindow extends Stage {
+    private static final Image USER_IMAGE = new Image(Duke.class.getResourceAsStream("/images/user.png"));
+    private static final Image DUKE_IMAGE = new Image(Duke.class.getResourceAsStream("/images/dukezeh.png"));
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -31,9 +33,6 @@ public class MainWindow extends Stage {
     private Button sendButton;
 
     private Duke duke;
-
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/duke.png"));
 
     /**
      * Initializes MainWindow components before showing.
@@ -58,8 +57,8 @@ public class MainWindow extends Stage {
      */
     public void onStartUp() {
         this.dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(this.duke.getLoadStatus(), this.dukeImage),
-                DialogBox.getDukeDialog(this.duke.getGreeting(), this.dukeImage));
+                DialogBox.getDukeDialog(this.duke.getLoadStatus(), MainWindow.DUKE_IMAGE),
+                DialogBox.getDukeDialog(this.duke.getGreeting(), MainWindow.DUKE_IMAGE));
     }
 
     /**
@@ -72,8 +71,8 @@ public class MainWindow extends Stage {
         String input = this.userInput.getText();
         String response = duke.getResponse(input);
         this.dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, this.userImage),
-                DialogBox.getDukeDialog(response, this.dukeImage)
+                DialogBox.getUserDialog(input, MainWindow.USER_IMAGE),
+                DialogBox.getDukeDialog(response, MainWindow.DUKE_IMAGE)
         );
         this.userInput.clear();
         if (response.equals(ByeCommand.BYE_MESSAGE)) {
