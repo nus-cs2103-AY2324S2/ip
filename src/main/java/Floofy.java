@@ -1,21 +1,21 @@
 import java.util.Scanner;
 import java.time.LocalDate;
 
-public class Duke {
+public class Floofy {
     private Storage storage;
     private Parser parser;
     private TaskList tasks;
     private Ui ui;
 
     private static final String FILE_PATH = "./data/duke.txt";
-    public Duke(String filePath) {
+    public Floofy(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         parser = new Parser();
         try {
             tasks = new TaskList();
             storage.loadTasks(tasks);
-        } catch (DukeException e) {
+        } catch (FloofyException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
@@ -80,14 +80,14 @@ public class Duke {
                     scanner.close();
                     break loop;
                 case "invalid":
-                    throw new DukeException("To add a task, please start with any of these commands: 'todo', 'deadline' or 'event'!");
+                    throw new FloofyException("To add a task, please start with any of these commands: 'todo', 'deadline' or 'event'!");
                 }
-            } catch (DukeException e) {
+            } catch (FloofyException e) {
                 System.out.println(e.getMessage());
             }
         }
     }
     public static void main(String[] args) {
-        new Duke(FILE_PATH).run();
+        new Floofy(FILE_PATH).run();
     }
 }

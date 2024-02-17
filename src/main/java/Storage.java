@@ -26,7 +26,7 @@ public class Storage {
         }
     }
 
-    public void loadTasks(TaskList list) throws DukeException{
+    public void loadTasks(TaskList list) throws FloofyException{
         try {
             File file = new File("./data/duke.txt");
             // create parent directory if it doesn't exist.
