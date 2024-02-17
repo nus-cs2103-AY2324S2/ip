@@ -1,9 +1,6 @@
 package duke.commands;
 
-import duke.exceptions.InvalidDateException;
-import duke.exceptions.InvalidIndexException;
-import duke.exceptions.InvalidTaskException;
-import duke.exceptions.StorageException;
+import duke.exceptions.*;
 import duke.mainUtils.Storage;
 import duke.mainUtils.Ui;
 import duke.tasks.TaskList;
@@ -45,6 +42,7 @@ public abstract class Command {
      * @throws InvalidDateException if the date is invalid.
      * @throws InvalidIndexException if the index is invalid.
      * @throws StorageException if there is an error accessing the storage.
+     * @throws TaskNotFoundException if the task is not found.
      */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws InvalidTaskException, InvalidDateException, InvalidIndexException, StorageException;
+    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws InvalidTaskException, InvalidDateException, InvalidIndexException, StorageException, TaskNotFoundException;
 }

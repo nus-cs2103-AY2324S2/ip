@@ -1,7 +1,10 @@
 package duke.tasks;
 
 import duke.exceptions.InvalidIndexException;
+import duke.exceptions.TaskNotFoundException;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The TaskList class represents a list of tasks.
@@ -61,7 +64,7 @@ public class TaskList extends ArrayList<Task> {
         } else {
             System.out.println("     Here are the tasks in your list:");
             for (int i = 0; i < size(); i++) {
-                System.out.println((i + 1) + ". " + getTask(i));
+                System.out.println("     " + (i + 1) + ". " + getTask(i));
             }
             getCurTotalTasks();
         }
@@ -95,6 +98,34 @@ public class TaskList extends ArrayList<Task> {
     public void getCurTotalTasks() {
         int numTask = this.size();
         System.out.println("     Total number of tasks: " + numTask);
+    }
+
+    /**
+     * Finds tasks in the task list based on a search term.
+     * <p>
+     * This method searches for tasks in the task list based on a search term and prints
+     * the matching tasks to the standard output.
+     * </p>
+     *
+     * @param searchTerm the search term to match tasks against.
+     * @throws TaskNotFoundException if no tasks match the search term.
+     * @throws InvalidIndexException if the index is invalid (out of bounds).
+     */
+    public void findTasks(String searchTerm) throws TaskNotFoundException, InvalidIndexException {
+        TaskList foundTasks = new TaskList();
+        for (Task task : this) {
+            if (task.getDescription().contains(searchTerm)) {
+                foundTasks.add(task);
+            }
+        }
+        if (searchTerm.isEmpty() || foundTasks.isEmpty()) {
+            throw new TaskNotFoundException();
+        } else {
+            System.out.println("     Here are the matching tasks in your list:");
+            for (int i = 0; i < foundTasks.size(); i++) {
+                System.out.println("     " + (i + 1) + ". " + foundTasks.getTask(i));
+            }
+        }
     }
 
 }

@@ -72,6 +72,11 @@ public final class Parser {
             case "HELP":
                 command = new Help();
                 break;
+
+            case "FIND":
+                command = new FindTasks();
+                break;
+
             case "BYE":
                 command = new ExitProgram();
                 break;
@@ -309,5 +314,15 @@ public final class Parser {
         } catch (DateTimeParseException e) {
             throw new InvalidDateException();
         }
+    }
+
+    public static String parseFindTask(String[] details) {
+        String searchTerm;
+        if (details.length > 1) {
+            searchTerm = String.join(" ", Arrays.copyOfRange(details, 1, details.length));
+        } else {
+            searchTerm = "";
+        }
+        return searchTerm;
     }
 }
