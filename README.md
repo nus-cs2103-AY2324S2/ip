@@ -70,3 +70,7 @@ You can use the following commands to reschedule tasks.
 Example 1: `reschedule <id> /by` to reschedule the deadline time of a deadline task  
 Example 2: `reschedule <id> /from <date>` to reschedule the starting time of an event task  
 Example 3: `reschedule <id> /to <date>` to reschedule the ending time of an event task
+
+## Help and Bye
+Whenever you want Jiayou to introduce all the functionalities to you, enter `help` to get the guide.  
+If you want to exit the application, say `bye` to Jiayou.
