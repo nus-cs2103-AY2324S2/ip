@@ -29,6 +29,7 @@ public class Ui extends Application {
 
     private final String lokiFilePath = "/images/Loki.png";
     private final String thorFilePath = "/images/Thor.png";
+    private final String appName = "Fluffy";
 
     private ScrollPane scrollPane;
     private VBox dialogContainer;
@@ -65,8 +66,14 @@ public class Ui extends Application {
 
     @Override
     public void start(Stage stage) {
-        //Step 1. Setting up required components
+        setupComponents();
+        formatWindow(stage);
+        addFunctionality();
+        showWelcome();
+        stage.show();
+    }
 
+    private void setupComponents() {
         //The container for the content of the chat to scroll.
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
@@ -79,50 +86,44 @@ public class Ui extends Application {
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
 
         scene = new Scene(mainLayout);
+    }
 
-        stage.setScene(scene);
-        stage.show();
-
-        //Step 2. Formatting the window to look as expected
-        stage.setTitle("Fluffy");
+    private void formatWindow(Stage stage) {
+        stage.setTitle(appName);
         stage.setResizable(true);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
 
+        AnchorPane mainLayout = (AnchorPane) scene.getRoot();
         mainLayout.prefWidthProperty().bind(scene.widthProperty());
         mainLayout.prefHeightProperty().bind(scene.heightProperty());
 
         scrollPane.prefWidthProperty().bind(mainLayout.widthProperty());
         scrollPane.prefHeightProperty().bind(mainLayout.heightProperty().subtract(35));
-
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
-        // You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
         userInput.prefWidthProperty().bind(mainLayout.widthProperty().subtract(55));
-
         sendButton.setPrefWidth(55.0);
 
         AnchorPane.setTopAnchor(scrollPane, 1.0);
-
         AnchorPane.setBottomAnchor(sendButton, 1.0);
         AnchorPane.setRightAnchor(sendButton, 1.0);
-
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
+        stage.setScene(scene);
+    }
+
+    private void addFunctionality() {
         //Step 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> handleUserInput());
 
         userInput.setOnAction((event) -> handleUserInput());
-
-        showWelcome();
     }
 
     /**
