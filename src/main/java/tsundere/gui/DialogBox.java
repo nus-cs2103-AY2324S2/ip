@@ -62,6 +62,7 @@ public class DialogBox extends HBox {
     public static DialogBox getTsundereDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.dialog.setStyle("-fx-background-color: #f2cc50; -fx-background-radius: 15; -fx-label-padding: 1;");
         return db;
     }
 }
