@@ -13,9 +13,10 @@ import duke.task.Task;
  * Stores task list into files and reads task list from files to load into Duke.
  */
 public class Storage {
-    private String filePath;
-    public Storage(String filePath) {
-        this.filePath = filePath;
+    private String archivePath = "data/archive.txt";
+    private String storePath;
+    public Storage(String storePath) {
+        this.storePath = storePath;
     }
 
     /**
@@ -25,22 +26,11 @@ public class Storage {
      * @throws IOException if there is a problem with the file.
      */
     public void storeTaskList(ArrayList<Task> list) throws IOException {
-        File taskList = new File(filePath);
-        if (!taskList.getParentFile().exists()) {
-            taskList.getParentFile().mkdirs();
-        }
-        if (!taskList.exists()) {
-            taskList.createNewFile();
-        }
+        File taskList = new File(this.storePath);
+        createFile(taskList);
         FileWriter fw = new FileWriter(taskList);
-        if (list.size() == 1) {
-            fw.write("There is 1 task in the list.\n");
-        } else {
-            fw.write("There are " + list.size() + " tasks in the list.\n");
-        }
-        for (Task t : list) {
-            fw.append(t.toString() + "\n");
-        }
+        writeNumOfTask(fw, list);
+        writeList(fw, list);
         fw.close();
     }
 
@@ -52,18 +42,58 @@ public class Storage {
      * @throws DukeException if the task list is of the wrong format.
      */
     public ArrayList<Task> load() throws IOException, DukeException {
-        File taskList = new File(filePath);
-        if (!taskList.getParentFile().exists()) {
-            taskList.getParentFile().mkdirs();
-        }
-        if (!taskList.exists()) {
-            taskList.createNewFile();
-        }
+        File taskList = new File(storePath);
+        createFile(taskList);
         Scanner sc = new Scanner(taskList);
+        ArrayList<Task> list = new ArrayList<>();
+        loadList(sc, list);
+        return list;
+    }
+
+    /**
+     * Archives the current TaskList into data/archive.
+     *
+     * @param list The current TaskList
+     * @throws IOException if there is a problem with the file.
+     */
+    public void archiveTaskList(TaskList list) throws IOException {
+        File archiveFile = new File(archivePath);
+        createFile(archiveFile);
+        FileWriter fw = new FileWriter(archiveFile);
+        writeNumOfTask(fw, list.getList());
+        writeList(fw, list.getList());
+        fw.close();
+    }
+
+    private void createFile(File file) throws IOException {
+        if (!file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+        }
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+    }
+
+    private void writeList(FileWriter fw, ArrayList<Task> list) throws IOException {
+        for (Task t : list) {
+            fw.append(t.toString() + "\n");
+        }
+    }
+
+    private void writeNumOfTask(FileWriter fw, ArrayList<Task> list) throws IOException {
+        if (list.size() == 1) {
+            fw.write("There is 1 task in the list.\n");
+        } else if (list.isEmpty()) {
+            fw.write("The list is empty.\n");
+        } else {
+            fw.write("There are " + list.size() + " tasks in the list.\n");
+        }
+    }
+
+    private void loadList(Scanner sc, ArrayList<Task> list) throws DukeException {
         if (sc.hasNextLine()) {
             sc.nextLine();
         }
-        ArrayList<Task> list = new ArrayList<>();
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
             if (line == "\n") {
@@ -72,6 +102,5 @@ public class Storage {
             Task t = Parser.parseFile(line);
             list.add(t);
         }
-        return list;
     }
 }

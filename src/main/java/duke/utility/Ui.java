@@ -115,6 +115,10 @@ public class Ui {
      * @param list the task list
      */
     public void listTasks(ArrayList<Task> list) {
+        if (list.isEmpty()) {
+            System.out.println("The list is empty.");
+            return;
+        }
         int count = 1;
         for (Task t : list) {
             System.out.println(count + "." + t.toString());
@@ -138,5 +142,9 @@ public class Ui {
      */
     public void showFind(String keyword) {
         System.out.println("Here are the tasks containing '" + keyword + "'.");
+    }
+
+    public void showArchive() {
+        System.out.println("Archiving current task list...");
     }
 }

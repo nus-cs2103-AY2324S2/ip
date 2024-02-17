@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import duke.command.AddCommand;
+import duke.command.ArchiveCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
@@ -66,7 +67,7 @@ public class Parser {
      * Parses a line of input to Duke.
      *
      * @param command the line of input
-     * @return Command.
+     * @return Command to execute
      * @throws DukeException if input is incorrect.
      */
     public static Command parse(String command) throws DukeException {
@@ -102,6 +103,8 @@ public class Parser {
                 throw new DukeException("Please find one keyword at a time");
             }
             return new FindCommand(s[1]);
+        case "archive":
+            return new ArchiveCommand();
         default:
             throw new DukeException("Unknown Command");
         }
