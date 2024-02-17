@@ -7,11 +7,13 @@ import Tasks.TaskList;
 import Utils.CommandTypes;
 
 public class MarkCommand extends Command {
+
+    public static final String COMMAND_FORMAT = "mark <id>";
     private final String input;
     private final TaskList taskList;
 
     public MarkCommand(String input, TaskList tasklist) {
-        super("mark <id>", "mark \\d+");
+        super(COMMAND_FORMAT, "mark \\d+");
         this.input = input.trim();
         this.taskList = tasklist;
     }
@@ -22,7 +24,7 @@ public class MarkCommand extends Command {
 
         //throw error if input does not match the format
         if (!inputMatches) {
-            throw new InvalidFormatException("Invalid format for mark command. Please use this format: " + this.getFormat());
+            throw new InvalidFormatException("mark", COMMAND_FORMAT);
         }
 
         int id = Integer.parseInt(this.input.split(" ")[1]);

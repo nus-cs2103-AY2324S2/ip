@@ -9,11 +9,11 @@ import Utils.CommandTypes;
 public class DeadlineCommand extends Command {
     private final String input;
     private final TaskList taskList;
-    public static final String FORMAT = "deadline <description> /by <date>";
-    public static final String REGEX = "deadline .* /by .*";
+
+    static final String COMMAND_FORMAT = "deadline <description> /by <date>";
 
     public DeadlineCommand(String input, TaskList tasklist) {
-        super(FORMAT, REGEX);
+        super(COMMAND_FORMAT, "deadline .* /by .*");
         this.input = input;
         this.taskList = tasklist;
     }
@@ -23,7 +23,7 @@ public class DeadlineCommand extends Command {
 
         //only catches basic format errors. date format errors are caught by Deadline.from()
         if (!doesInputMatch) {
-            throw new InvalidFormatException("Invalid format for deadline command. Please use this format: " + this.getFormat());
+            throw new InvalidFormatException("deadline", COMMAND_FORMAT);
         }
 
         Deadline deadline = Deadline.from(input); //throws different DukeExceptions

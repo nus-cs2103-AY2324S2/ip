@@ -5,6 +5,8 @@ import Utils.CommandTypes;
 
 public class HelpCommand extends Command {
 
+    private static final String COMMAND_FORMAT = "help <?command>";
+
     private final String[] supportedCommands = new String[]{
             "list: Lists all the tasks in the task list.",
             "todo: Adds a todo task to the task list.",

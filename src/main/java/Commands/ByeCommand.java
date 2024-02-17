@@ -4,8 +4,10 @@ import Utils.CommandTypes;
 
 public class ByeCommand extends Command {
 
+    static final String COMMAND_FORMAT = "bye";
+
     public ByeCommand() {
-        super("bye", "bye");
+        super(COMMAND_FORMAT, "bye");
     }
 
     public String execute() {

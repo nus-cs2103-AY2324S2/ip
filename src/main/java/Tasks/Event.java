@@ -1,4 +1,6 @@
 package Tasks;
+
+import Commands.EventCommand;
 import Exceptions.InvalidArgumentException;
 import Exceptions.InvalidDescriptionException;
 import Exceptions.InvalidFormatException;
@@ -25,13 +27,13 @@ public class Event extends Task {
         int from_occurences = utils.countOccurrences(arr, "/from");
 
         if (from_occurences == 0 || from_occurences > 1){
-            throw new InvalidFormatException("Invalid format. Follow this format: event <description> /from <from time> /to <to time>. Provide one and only one '/from'.");
+            throw new InvalidFormatException("Invalid format. Follow this format :" + EventCommand.COMMAND_FORMAT + ". Provide one and only one '/from'.");
         }
 
         int to_occurences = utils.countOccurrences(arr, "/to");
 
         if (to_occurences == 0 || to_occurences > 1){
-            throw new InvalidFormatException("Invalid format. Follow this format: event <description> /from <from time> /to <to time>. Provide one and only one '/to'.");
+            throw new InvalidFormatException("Invalid format. Follow this format: " + EventCommand.COMMAND_FORMAT + ". Provide one and only one '/to'.");
         }
 
         //they will not be -1 as I have already checked for their occurences

@@ -9,11 +9,13 @@ import Tasks.Todo;
 import Utils.CommandTypes;
 
 public class TodoCommand extends Command {
+
+    public static final String COMMAND_FORMAT = "todo <description>";
     private final String input;
     private final TaskList taskList;
 
     public TodoCommand(String input, TaskList tasklist) {
-        super("todo <description>", "todo .*");
+        super(COMMAND_FORMAT, "todo .*");
         this.input = input;
         this.taskList = tasklist;
     }
@@ -22,7 +24,7 @@ public class TodoCommand extends Command {
         boolean doesInputMatch = input.matches(this.getRegex());
 
         if (!doesInputMatch) {
-            throw new InvalidFormatException("Invalid format for todo command. Please use this format: " + this.getFormat());
+            throw new InvalidFormatException("todo", COMMAND_FORMAT);
         }
 
         Todo todo = Todo.from(input); //throws InvalidDescriptionException

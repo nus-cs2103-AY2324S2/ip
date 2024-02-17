@@ -108,7 +108,8 @@ public class TaskList {
 
     public Task getTask(int taskID) throws IndexOutOfBoundsException {
         if (taskID <= 0 || taskID > list.size()) {
-            throw new IndexOutOfBoundsException("Sorry, the provided id is invalid.");
+            throw new IndexOutOfBoundsException("Sorry, the provided id is invalid. " +
+                    "Use the list command to see the list of tasks.");
         }
         return list.get(taskID - 1);
     }

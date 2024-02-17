@@ -19,21 +19,14 @@ public class  Dude {
     private static TaskList taskList = null;
     private static Storage storage = new Storage("data/tasklist.ser");
 
-    static final String[] supported_commands = {"bye", "list", "mark", "unmark", "todo", "event", "deadline", "delete"};
+
+    public void run() {
+
+    }
+
+
 
     public static void main(String[] args) {
-
-//        String logo =   "888888ba                 dP          \n" +
-//                        "88    `8b                88          \n" +
-//                        "88     88 dP    dP .d888b88 .d8888b. \n" +
-//                        "88     88 88    88 88'  `88 88ooood8 \n" +
-//                        "88    .8P 88.  .88 88.  .88 88.  ... \n" +
-//                        "8888888P  `88888P' `88888P8 `88888P'";
-//
-//        System.out.println("--------------------------------------\n");
-//        System.out.println(logo + "\n");
-//        System.out.println("--------------------------------------");
-//        System.out.println("Dude v1.0 by Tahsin Hasem.\n");
 
         Ui ui = new Ui();
 
@@ -64,8 +57,19 @@ public class  Dude {
             try {
                 String response = command.execute();
                 ui.showMessage(response);
-            } catch (DudeException e) {
+            } catch (DudeException | IndexOutOfBoundsException e) {
                 ui.showMessage(e.getMessage());
+            }
+
+            boolean isListCommand = command.getCommandType() == CommandTypes.LIST;
+            boolean isByeCommand = command.getCommandType() == CommandTypes.BYE;
+
+            if (!(isListCommand || isByeCommand)) {
+                try {
+                    storage.saveTasks(taskList);
+                } catch (Exception e) {
+                    ui.showMessage("An error occurred while saving the tasks.");
+                }
             }
 
             if (command.getCommandType() == CommandTypes.BYE) {

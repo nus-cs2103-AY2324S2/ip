@@ -11,8 +11,10 @@ public class EventCommand extends Command {
     private final String input;
     private final TaskList taskList;
 
+    public static final String COMMAND_FORMAT = "event <description> /from <date> /to <date>";
+
     public EventCommand(String input, TaskList tasklist) {
-        super("event <description> /from <date> /to <date>", "event .* /from .* /to .*");
+        super(COMMAND_FORMAT, "event .* /from .* /to .*");
         this.input = input;
         this.taskList = tasklist;
     }
@@ -22,7 +24,7 @@ public class EventCommand extends Command {
 
         //only catches basic format errors. date format errors are caught by Deadline.from()
         if (!doesInputMatch) {
-            throw new InvalidFormatException("Invalid format for deadline command. Please use this format: " + this.getFormat());
+            throw new InvalidFormatException("event", COMMAND_FORMAT);
         }
 
         Event event = Event.from(input); //throws different DukeExceptions

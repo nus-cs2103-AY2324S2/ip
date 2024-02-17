@@ -10,8 +10,10 @@ public class DeleteCommand extends Command {
     private final String input;
     private final TaskList taskList;
 
+    private static final String COMMAND_FORMAT = "delete <id>";
+
     public DeleteCommand(String input, TaskList tasklist) {
-        super("delete <id>", "delete \\d+");
+        super(COMMAND_FORMAT, "delete \\d+");
         this.input = input.trim();
         this.taskList = tasklist;
     }
@@ -21,7 +23,7 @@ public class DeleteCommand extends Command {
 
         //throw error if input does not match the format
         if (!inputMatches) {
-            throw new InvalidFormatException("Invalid format for delete command. PLease use this format: " + this.getFormat());
+            throw new InvalidFormatException("delete", COMMAND_FORMAT);
         }
 
         int id = Integer.parseInt(this.input.split(" ")[1]);

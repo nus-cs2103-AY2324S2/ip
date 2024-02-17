@@ -5,6 +5,7 @@ import Utils.CommandTypes;
 
 public class ListCommand extends Command {
 
+    static final String COMMAND_FORMAT = "list";
     private final TaskList tasklist;
 
     public ListCommand(TaskList tasklist) {
