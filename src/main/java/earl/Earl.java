@@ -82,7 +82,7 @@ public class Earl {
         } catch (EarlException e) {
             ui.makeResponse(e.getMessage());
         } catch (ParserException e) {
-            ui.makeResponse("Input defies parsing:" + e.getMessage());
+            ui.makeResponse("Input defies parsing: " + e.getMessage());
         }
     }
 

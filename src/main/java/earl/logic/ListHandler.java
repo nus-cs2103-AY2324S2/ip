@@ -14,6 +14,11 @@ public final class ListHandler extends Handler {
 
     @Override
     public void handle(TaskList tasks, Ui ui) {
+        if (!args.isEmpty()) {
+            ui.makeResponse("No arguments should trail in the wake "
+                    + "of this command.");
+            return;
+        }
         if (tasks.isEmpty()) {
             ui.makeResponse("A void of contents prevails.");
             return;

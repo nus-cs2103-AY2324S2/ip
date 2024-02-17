@@ -20,7 +20,7 @@ public class InputParser implements Parser<Handler> {
         try {
             // all valid input is expected to be of the format
             // <command> [<arg1>, <arg2>, ...]
-            String[] data = input.split("\\s", 2);
+            String[] data = input.split("\\s+", 2);
             String command = data[0].toUpperCase();
             String args = (data.length > 1) ? data[1] : "";
             HandlerType handlerType = HandlerType.valueOf(command);
