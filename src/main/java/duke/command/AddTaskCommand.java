@@ -5,6 +5,9 @@ import duke.state.ProgramState;
 import duke.task.Task;
 import duke.task.TaskList;
 
+/**
+ * Represents a command to add a task.
+ */
 public abstract class AddTaskCommand extends Command implements Undoable {
     private Task task;
 
@@ -27,7 +30,7 @@ public abstract class AddTaskCommand extends Command implements Undoable {
      * subclasses.
      *
      * @param description
-     * @return
+     * @return The task created from the description.
      * @throws DukeException
      */
     protected abstract Task getTaskFromDescription(String description) throws DukeException;

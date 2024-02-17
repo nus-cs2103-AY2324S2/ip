@@ -4,6 +4,9 @@ import duke.DukeException;
 import duke.state.ProgramState;
 import duke.task.TaskList;
 
+/**
+ * Represents a command that can be undone and redone.
+ */
 public interface Undoable {
     /**
      * Undoes the command.
