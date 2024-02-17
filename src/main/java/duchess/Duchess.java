@@ -39,9 +39,9 @@ public class Duchess {
 
 
     /**
-     * Main method to start the Duchess program.
+     * Starts running the Duchess program.
      *
-     * @param args command-line arguments (not used)
+     * @param args The command-line arguments passed to the application.
      */
     public static void main(String[] args) {
         try {

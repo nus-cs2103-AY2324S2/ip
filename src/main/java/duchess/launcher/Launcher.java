@@ -9,7 +9,7 @@ import javafx.application.Application;
 public class Launcher {
 
     /**
-     * The main entry point for launching the Duchess application.
+     * Launches the Duchess application.
      *
      * @param args The command-line arguments passed to the application.
      */

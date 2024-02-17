@@ -27,7 +27,7 @@ public class Ui {
     }
 
     /**
-     * The opening greeting message when the program starts.
+     * Represents the opening greeting message displayed when the Duchess program starts.
      */
     public String openingGreeting() {
         String logo = "___  _     _ ____  _     _  ____ ____ ____ \n"

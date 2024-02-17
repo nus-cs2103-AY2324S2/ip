@@ -32,8 +32,6 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
 
-            //fxmlLoader.<MainWindow>getController().setDuchess(duchess);
-
             MainWindow mainWindow = fxmlLoader.getController();
             mainWindow.setDuchess(duchess);
 
