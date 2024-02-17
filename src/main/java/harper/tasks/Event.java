@@ -29,4 +29,22 @@ public class Event extends Task {
         return "E" + super.toString() + " | "
                 + this.start.format(dateTimeFormatter) + " - " + this.end.format(dateTimeFormatter);
     }
+
+    /**
+     * Updates start date time.
+     *
+     * @param start New start date time.
+     */
+    public void updateStart(LocalDateTime start) {
+        this.start = start;
+    }
+
+    /**
+     * Updates end date time.
+     *
+     * @param end New end date time.
+     */
+    public void updateEnd(LocalDateTime end) {
+        this.end = end;
+    }
 }

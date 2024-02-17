@@ -11,6 +11,7 @@ import harper.commands.ExitCommand;
 import harper.commands.FindCommand;
 import harper.commands.ListCommand;
 import harper.commands.MarkCommand;
+import harper.commands.UpdateCommand;
 import harper.exceptions.HarperInvalidCommandException;
 import harper.exceptions.HarperInvalidDateTimeException;
 import harper.exceptions.HarperInvalidDeadlineException;
@@ -53,8 +54,27 @@ public class Parser {
             return handleMark(command);
         } else if (command.startsWith("find ")) {
             return handleFind(command);
+        } else if (command.startsWith("update ")) {
+            return handleUpdate(command);
         } else {
             throw new HarperInvalidCommandException();
+        }
+    }
+
+    /**
+     * Parses the update command.
+     *
+     * @param command Update command entered by user.
+     * @return commands.UpdateCommand that updates a task.
+     */
+    public static Command handleUpdate(String command) {
+        String indexAndField = command.substring("update".length() + 1);
+        String[] indexAndFieldSeparated = indexAndField.split(" ", 2);
+        try {
+            int taskIndex = Integer.parseInt(indexAndFieldSeparated[0].trim()) - 1;
+            return new UpdateCommand(taskIndex, indexAndFieldSeparated[1].trim());
+        } catch (NumberFormatException e) {
+            throw new HarperInvalidIndexException();
         }
     }
 
