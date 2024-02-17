@@ -44,8 +44,8 @@ public class Delete implements Action {
         if (words.length > 1) {
             String[] indicesString = command.substring(DELETE_START_INDEX).trim().split(" ");
             if (indicesString.length > 0) {
-                int[] indices = parseIndices(indicesString);
-                checkForDuplicateIndices(indices);
+                int[] indices = Action.parseIndices(indicesString);
+                Action.checkForDuplicateIndices(indices);
                 return new Delete(indices, taskList);
             } else {
                 throw new NoIndexException();
@@ -55,23 +55,6 @@ public class Delete implements Action {
         }
     }
 
-    private static int[] parseIndices(String[] indicesString) {
-        int[] indices = new int[indicesString.length];
-        for (int i = 0; i < indicesString.length; i++) {
-            indices[i] = Integer.parseInt(indicesString[i]) - 1;
-        }
-        return indices;
-    }
-
-    private static void checkForDuplicateIndices(int[] indices) throws DuplicateIndexException {
-        Set<Integer> indexSet = new HashSet<>();
-        for (int index : indices) {
-            if (indexSet.contains(index)) {
-                throw new DuplicateIndexException();
-            }
-            indexSet.add(index);
-        }
-    }
 
 
     /**

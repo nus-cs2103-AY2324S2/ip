@@ -43,10 +43,8 @@ public class Mark implements Action {
         if (words.length > 1) {
             String[] indicesString = command.substring(MARK_START_INDEX).trim().split(" ");
             if (indicesString.length > 0) {
-                int[] indices = new int[indicesString.length];
-                for (int i = 0; i < indicesString.length; i++) {
-                    indices[i] = Integer.parseInt(indicesString[i]) - 1;
-                }
+                int[] indices = Action.parseIndices(indicesString);
+                Action.checkForDuplicateIndices(indices);
                 return new Mark(indices, taskList);
             } else {
                 throw new NoIndexException();
