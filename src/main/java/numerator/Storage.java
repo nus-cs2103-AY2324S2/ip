@@ -19,15 +19,15 @@ import numerator.task.ToDo;
 
 
 /**
- * Interacts with the local filesystem to load and save tasks
+ * Interacts with the local filesystem to load and save tasks.
  */
 public class Storage {
     private final Path filepath;
 
     /**
-     * Constructs a Storage object with the specified filepath
+     * Constructs a Storage object with the specified filepath.
      *
-     * @param filepath the path to the file to be loaded and saved
+     * @param filepath the path to the file to be loaded and saved.
      */
 
     public Storage(Path filepath) {
@@ -68,10 +68,10 @@ public class Storage {
     }
 
     /**
-     * Loads tasks from the file
+     * Loads tasks from the file.
      *
-     * @return a TaskList object containing the tasks loaded from the file
-     * @throws LoadingException if there is an error loading the file
+     * @return a TaskList object containing the tasks loaded from the file.
+     * @throws LoadingException if there is an error loading the file.
      */
     public TaskList loadFile() throws LoadingException {
         TaskList taskList = new TaskList();
@@ -112,10 +112,10 @@ public class Storage {
     }
 
     /**
-     * Saves the tasks to the file
+     * Saves the tasks to the file.
      *
-     * @param taskList the TaskList object containing the tasks to be saved
-     * @throws SavingException if there is an error saving the file
+     * @param taskList the TaskList object containing the tasks to be saved.
+     * @throws SavingException if there is an error saving the file.
      */
     public void saveFile(TaskList taskList) throws SavingException {
         try (BufferedWriter bw = Files.newBufferedWriter(this.filepath)) {

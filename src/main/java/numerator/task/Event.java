@@ -4,18 +4,18 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 
 /**
- * Represents an Event task
+ * Represents an Event task.
  */
 public class Event extends numerator.task.Task {
     private final LocalDateTime from;
     private final LocalDateTime to;
 
     /**
-     * Constructs an Event task with the specified description, from and to
+     * Constructs an Event task with the specified description, from and to.
      *
-     * @param description should contain information about the task
-     * @param from        should contain information about the start date
-     * @param to          should contain information about the end date
+     * @param description should contain information about the task.
+     * @param from        should contain information about the start date.
+     * @param to          should contain information about the end date.
      */
     public Event(String description, String from, String to) {
         super(description);
@@ -29,13 +29,13 @@ public class Event extends numerator.task.Task {
 
 
     /**
-     * Constructs an Event task with the specified description, from, to, tags and isDone
+     * Constructs an Event task with the specified description, from, to, tags and isDone.
      *
-     * @param description should contain information about the task
-     * @param from        should contain information about the start date
-     * @param to          should contain information about the end date
-     * @param tags        should contain information about the tags
-     * @param isDone      whether the task is done
+     * @param description should contain information about the task.
+     * @param from        should contain information about the start date.
+     * @param to          should contain information about the end date.
+     * @param tags        should contain information about the tags.
+     * @param isDone      whether the task is done.
      */
     public Event(String description, String from, String to, boolean isDone, Collection<String> tags) {
         super(description, isDone);
@@ -58,9 +58,9 @@ public class Event extends numerator.task.Task {
     }
 
     /**
-     * Returns a string with task details to be saved in the file
+     * Returns a string with task details to be saved in the file.
      *
-     * @return a string to be saved in the file
+     * @return a string to be saved in the file.
      */
     @Override
     public String getSaveString() {

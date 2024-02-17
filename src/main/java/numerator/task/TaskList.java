@@ -13,10 +13,10 @@ public class TaskList {
 
 
     /**
-     * Marks the task at the specified index as done
+     * Marks the task at the specified index as done.
      *
-     * @param idx the index of the task to be marked as done
-     * @throws IndexOutOfBoundsException if the index is out of range
+     * @param idx the index of the task to be marked as done.
+     * @throws IndexOutOfBoundsException if the index is out of range.
      */
     public void markAsDone(int idx) throws IndexOutOfBoundsException {
         Task t = this.taskList.get(idx);
@@ -25,10 +25,10 @@ public class TaskList {
     }
 
     /**
-     * Finds the tasks which contain the pattern in the description
+     * Finds the tasks which contain the pattern in the description.
      *
-     * @param pattern the pattern to search
-     * @return the String representation of the tasks
+     * @param pattern the pattern to search.
+     * @return the String representation of the tasks.
      */
     public String findTasks(String pattern) {
         TaskList matchedTasks = new TaskList();
@@ -44,9 +44,9 @@ public class TaskList {
     }
 
     /**
-     * Adds a task to the task list
+     * Adds a task to the task list.
      *
-     * @param t the task to be added
+     * @param t the task to be added.
      */
     public void addTask(Task t) {
         this.taskList.add(t);
@@ -54,10 +54,10 @@ public class TaskList {
 
 
     /**
-     * Marks the task at the specified index as not done
+     * Marks the task at the specified index as not done.
      *
-     * @param idx the index of the task to be marked as not done
-     * @throws IndexOutOfBoundsException if the index is out of range
+     * @param idx the index of the task to be marked as not done.
+     * @throws IndexOutOfBoundsException if the index is out of range.
      */
     public void markAsUndone(int idx) throws IndexOutOfBoundsException {
         Task t = this.taskList.get(idx);
@@ -67,11 +67,11 @@ public class TaskList {
 
 
     /**
-     * Removes the task at the specified index from the task list
+     * Removes the task at the specified index from the task list.
      *
-     * @param idx the index of the task to be removed
-     * @return the task that was removed
-     * @throws IndexOutOfBoundsException if the index is out of range
+     * @param idx the index of the task to be removed.
+     * @return the task that was removed.
+     * @throws IndexOutOfBoundsException if the index is out of range.
      */
     public Task removeTask(int idx) throws IndexOutOfBoundsException {
         Task t = this.taskList.get(idx);
@@ -83,10 +83,10 @@ public class TaskList {
     }
 
     /**
-     * Adds a new ToDo task to the task list
+     * Adds a new ToDo task to the task list.
      *
-     * @param taskDesc the description of the task
-     * @return the task that was added
+     * @param taskDesc the description of the task.
+     * @return the task that was added.
      */
     public Task addToDo(String taskDesc) {
         Task t = new ToDo(taskDesc);
@@ -95,12 +95,12 @@ public class TaskList {
     }
 
     /**
-     * Adds a new Event task to the task list
+     * Adds a new Event task to the task list.
      *
-     * @param taskDesc the description of the task
-     * @param from     the start date and time of the event in the format of "yyyy/MM/dd HH:mm" or "yyyy/MM/dd"
-     * @param to       the end date and time of the event in the format of "yyyy/MM/dd HH:mm" or "yyyy/MM/dd"
-     * @return the task that was added
+     * @param taskDesc the description of the task.
+     * @param from     the start date and time of the event in the format of "yyyy/MM/dd HH:mm" or "yyyy/MM/dd".
+     * @param to       the end date and time of the event in the format of "yyyy/MM/dd HH:mm" or "yyyy/MM/dd".
+     * @return the task that was added.
      */
     public Task addEvent(String taskDesc, String from, String to) {
         Task t = new Event(taskDesc, from, to);
@@ -109,11 +109,11 @@ public class TaskList {
     }
 
     /**
-     * Adds a new Deadline task to the task list
+     * Adds a new Deadline task to the task list.
      *
-     * @param taskDesc the description of the task
-     * @param by       the deadline of the task in the format of "yyyy/MM/dd HH:mm" or "yyyy/MM/dd"
-     * @return the task that was added
+     * @param taskDesc the description of the task.
+     * @param by       the deadline of the task in the format of "yyyy/MM/dd HH:mm" or "yyyy/MM/dd".
+     * @return the task that was added.
      */
     public Task addDeadline(String taskDesc, String by) {
         Task t = new Deadline(taskDesc, by);
@@ -123,9 +123,9 @@ public class TaskList {
 
 
     /**
-     * Prints the task at the specified index
+     * Prints the task at the specified index.
      *
-     * @param idx the index of the task to be printed
+     * @param idx the index of the task to be printed.
      */
     public String getTaskAtIndex(int idx) {
         return this.taskList.get(idx).toString() + "\n";
@@ -133,10 +133,10 @@ public class TaskList {
 
 
     /**
-     * Returns a String representing the task that was added
+     * Returns a String representing the task that was added.
      *
-     * @param task the task that was added
-     * @return the string representation of the task that was added
+     * @param task the task that was added.
+     * @return the string representation of the task that was added.
      */
     public String getAddTaskString(Task task) {
         return "Got it, I've added this task:\n"
@@ -145,10 +145,10 @@ public class TaskList {
     }
 
     /**
-     * Returns a String indicating that a task was removed
+     * Returns a String indicating that a task was removed.
      *
-     * @param task the task that was removed
-     * @return a string indicating that a task was removed
+     * @param task the task that was removed.
+     * @return a string indicating that a task was removed.
      */
     public String getDeleteTaskString(Task task) {
         return "Noted. I've removed this task:\n"
@@ -157,9 +157,9 @@ public class TaskList {
     }
 
     /**
-     * Returns a string of all the tasks in the task list
+     * Returns a string of all the tasks in the task list.
      *
-     * @return a string of all the tasks in the task list
+     * @return a string of all the tasks in the task list.
      */
     public String getSavedTasksString() {
         return String.join("\n", this.taskList
@@ -188,11 +188,11 @@ public class TaskList {
     }
 
     /**
-     * Tags a task
+     * Tags a task.
      *
-     * @param taskNum the task number
-     * @param tag     the tag to be added
-     * @throws NumeratorException if the task number does not exist
+     * @param taskNum the task number.
+     * @param tag     the tag to be added.
+     * @throws NumeratorException if the task number does not exist.
      */
     public void tagTask(int taskNum, String tag) throws NumeratorException {
         try {
@@ -203,10 +203,10 @@ public class TaskList {
     }
 
     /**
-     * Untags a task
+     * Untags a task.
      *
-     * @param taskNum the task number
-     * @param tag     the tag to be removed
+     * @param taskNum the task number.
+     * @param tag     the tag to be removed.
      */
     public void untagTask(int taskNum, String tag) {
         try {

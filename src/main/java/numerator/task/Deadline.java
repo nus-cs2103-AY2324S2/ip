@@ -5,17 +5,17 @@ import java.time.format.DateTimeParseException;
 import java.util.Collection;
 
 /**
- * Represents a Deadline task
+ * Represents a Deadline task.
  */
 public class Deadline extends numerator.task.Task {
     private final LocalDateTime by;
 
     /**
-     * Constructs a Deadline task with the specified description and by
+     * Constructs a Deadline task with the specified description and by.
      *
-     * @param description should contain information about the task
-     * @param by          should contain information about the deadline
-     * @throws DateTimeParseException if the date and time is not in the correct format
+     * @param description should contain information about the task.
+     * @param by          should contain information about the deadline.
+     * @throws DateTimeParseException if the date and time is not in the correct format.
      */
     public Deadline(String description, String by) throws DateTimeParseException {
         super(description);
@@ -26,12 +26,12 @@ public class Deadline extends numerator.task.Task {
     }
 
     /**
-     * Constructs a Deadline task with the specified description, by and tags
+     * Constructs a Deadline task with the specified description, by and tags.
      *
-     * @param description should contain information about the task
-     * @param by          should contain information about the deadline
-     * @param tags        should contain information about the tags
-     * @throws DateTimeParseException if the date and time is not in the correct format
+     * @param description should contain information about the task.
+     * @param by          should contain information about the deadline.
+     * @param tags        should contain information about the tags.
+     * @throws DateTimeParseException if the date and time is not in the correct format.
      */
     public Deadline(String description, String by, boolean isDone, Collection<String> tags)
             throws DateTimeParseException {
@@ -54,9 +54,9 @@ public class Deadline extends numerator.task.Task {
     }
 
     /**
-     * Returns a string with task details to be saved in the file
+     * Returns a string with task details to be saved in the file.
      *
-     * @return a string to be saved in the file
+     * @return a string to be saved in the file.
      */
     @Override
     public String getSaveString() {

@@ -13,7 +13,7 @@ import numerator.task.TaskList;
 
 
 /**
- * Parses the input from the user and performs the corresponding action
+ * Parses the input from the user and performs the corresponding action.
  */
 public class Parser {
 
@@ -35,13 +35,13 @@ public class Parser {
     }
 
     /**
-     * Parses the input and performs the corresponding action
+     * Parses the input and performs the corresponding action.
      *
-     * @param input    the input from the user
-     * @param taskList the list of tasks
-     * @param storage  the storage object
-     * @return the response to the user
-     * @throws NumeratorException if the input is not recognised
+     * @param input    the input from the user.
+     * @param taskList the list of tasks.
+     * @param storage  the storage object.
+     * @return the response to the user.
+     * @throws NumeratorException if the input is not recognised.
      */
     public static String parseArguments(String input, TaskList taskList, Storage storage) throws NumeratorException {
 
