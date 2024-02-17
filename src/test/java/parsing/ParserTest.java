@@ -67,7 +67,7 @@ public class ParserTest {
         assertEquals("todo eat", new ParserStub().parseStub("todo eat"));
         assertEquals("Help la, can just tell me what is the name of your task anot?",
                 new ParserStub().parseStub("todo   "));
-        assertEquals("You trying to test my patience ah?"
+        assertEquals("You trying to test my patience ah? "
                 + "Type \"get commands\" if u blur and dunno how to use me properly.",
                 new ParserStub().parseStub("todo"));
     }
