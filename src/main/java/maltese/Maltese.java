@@ -64,7 +64,7 @@ public class Maltese extends Application {
         while (!isExit) {
             String command = ui.getUserInput();
             try {
-                Action response = CommandParser.parseCommand(command, taskList);
+                Action response = CommandParser.parseCommand(command, taskList, storage);
                 storage.writeToFile(taskList);
                 isExit = response.isExit();
             } catch (MalteseException | IOException e) {
@@ -78,9 +78,8 @@ public class Maltese extends Application {
         boolean isExit = false;
         try {
             String command = input;
-            Action response = CommandParser.parseCommand(command, taskList);
+            Action response = CommandParser.parseCommand(command, taskList, storage);
             if (response != null) {
-                isExit = response.isExit();
                 storage.writeToFile(taskList);
                 return response.response();
             } else {

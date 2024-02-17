@@ -17,7 +17,7 @@ import maltese.task.ToDo;
 /**
  * Handles the reading and writing of tasks to and from a file.
  */
-class Storage {
+public class Storage {
     private File taskFile;
 
     /**
@@ -50,6 +50,27 @@ class Storage {
         }
 
         return tasks;
+    }
+
+    public TaskList loadFromFile(String filePath) throws FileNotFoundException {
+        TaskList tasks = new TaskList();
+        File currentFile = new File(filePath);
+        try (Scanner scanner = new Scanner(currentFile)) {
+            while (scanner.hasNext()) {
+                String taskLine = scanner.nextLine();
+                Task task = parseTask(taskLine);
+                tasks.addTask(task);
+            }
+        } catch (FileNotFoundException e) {
+            handleFileNotFound();
+            throw e;
+        }
+
+        return tasks;
+    }
+
+    public void changeFile(String filePath) {
+        this.taskFile = new File(filePath);
     }
 
     private Task parseTask(String taskLine) {
@@ -136,4 +157,20 @@ class Storage {
             ioException.printStackTrace();
         }
     }
+
+    public boolean fileExists(String filePath) {
+        File file = new File(filePath);
+        return file.exists();
+    }
+
+    public void createFile(String filePath) throws IOException {
+        File file = new File(filePath);
+        if (file.getParentFile() != null && !file.getParentFile().exists()) {
+            // Create parent directories if they don't exist
+            file.getParentFile().mkdirs();
+        }
+        // Create the file
+        file.createNewFile();
+    }
+
 }
