@@ -85,4 +85,8 @@ public class Deadline extends Task {
     public void removeTag() {
         this.tag = null;
     }
+
+    public Tag getTag() {
+        return this.tag;
+    }
 }

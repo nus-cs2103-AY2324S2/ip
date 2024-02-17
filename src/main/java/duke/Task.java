@@ -44,6 +44,10 @@ public class Task {
         isDone = false;
     }
 
+    public boolean isDone() {
+        return isDone;
+    }
+
     /**
      * Returns a string representation of the task,
      * including its type, completion status, and description.

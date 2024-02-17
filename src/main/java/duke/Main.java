@@ -22,7 +22,7 @@ public class Main extends Application {
      * @throws DukeException if there is an error initializing Duke with the specified file path.
      */
     public Main() throws DukeException {
-        duke = new Duke("/Users/dom/ip/data/duke.txt");
+        duke = new Duke("../duke.txt");
     }
 
     @Override
