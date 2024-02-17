@@ -1,6 +1,8 @@
 package reacher.command;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import reacher.*;
 import reacher.task.*;
 
@@ -19,7 +21,12 @@ public class AddCommand extends Command {
             break;
         case ("deadline"):
             ui.print("When is the deadline?");
-            LocalDate deadline = LocalDate.parse(ui.readString());
+            LocalDate deadline = null;
+            try {
+                deadline = LocalDate.parse(ui.readString());
+            } catch (DateTimeParseException e) {
+                throw new ReacherException("not ");
+            }
             t = new Deadline(name, deadline);
             tasks.addTask(t);
             ui.print("I've added " + t.toString());
