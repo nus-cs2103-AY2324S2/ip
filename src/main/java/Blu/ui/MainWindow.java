@@ -74,6 +74,7 @@ public class MainWindow extends AnchorPane {
             );
         } catch (BluException e) {
             dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userImage),
                 DialogBox.showErrorMessage(e.getMessage(), bluImage)
             );
         }
