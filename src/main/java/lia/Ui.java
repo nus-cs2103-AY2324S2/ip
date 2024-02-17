@@ -87,6 +87,6 @@ public class Ui {
      * Displays a message indicating that an invalid command has been entered.
      */
     public String showInvalidCommand() {
-        return "Invalid command.\nType help for a list of valid commands and their usages.";
+        return "Invalid command.\nType 'help' for a list of valid commands and their usages.";
     }
 }

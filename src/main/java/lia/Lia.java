@@ -28,8 +28,9 @@ public class Lia {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Retrieves response for user input.
+     *
+     * @param input The user's input.
      */
     public String getResponse(String input) {
         String response = parser.parseCommand(input);
