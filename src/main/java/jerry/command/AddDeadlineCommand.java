@@ -10,6 +10,7 @@ public class AddDeadlineCommand extends Command {
 
     public AddDeadlineCommand(Ui ui, TaskList tasks, String commandDetails) {
         super(ui, tasks);
+        assert tasks != null : "TaskList should not be null";
         this.commandDetails = commandDetails;
     }
 

@@ -5,6 +5,7 @@ import jerry.Ui;
 public class ByeCommand extends Command {
     public ByeCommand(Ui ui) {
         super(ui, null); // No tasks needed for ByeCommand
+
     }
 
     @Override

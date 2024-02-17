@@ -10,6 +10,7 @@ public class AddEventCommand extends Command {
 
     public AddEventCommand(Ui ui, TaskList tasks, String commandDetails) {
         super(ui, tasks);
+        assert tasks != null : "TaskList should not be null";
         this.commandDetails = commandDetails;
 
     }

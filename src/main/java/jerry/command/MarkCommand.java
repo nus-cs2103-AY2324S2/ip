@@ -8,6 +8,7 @@ public class MarkCommand extends Command {
 
     public MarkCommand(Ui ui, TaskList tasks, int taskIndex) {
         super(ui, tasks);
+        assert tasks != null : "TaskList should not be null";
         this.taskIndex = taskIndex;
     }
 

@@ -9,6 +9,7 @@ public class AddTodoCommand extends Command {
 
     public AddTodoCommand(Ui ui, TaskList tasks, String description) {
         super(ui, tasks);
+        assert tasks != null : "TaskList should not be null";
         this.description = description;
     }
 

@@ -11,6 +11,7 @@ public class FindCommand extends Command {
 
     public FindCommand(Ui ui, TaskList tasks, String keyword) {
         super(ui, tasks);
+        assert tasks != null : "TaskList should not be null";
         this.keyword = keyword;
     }
 
