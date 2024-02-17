@@ -16,13 +16,13 @@ public class UnmarkCommand extends Command {
      * @param storage Storage to store Tasklist content.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             Task t = taskList.get(index - 1);
-            t.unmark();
             setExit(false);
+            return t.unmark();
         } catch (DukeException e) {
-            ui.showMessage(e.getMessage());
+            return e.getMessage();
         }
     }
 }

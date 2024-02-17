@@ -16,8 +16,9 @@ public class ExitCommand extends Command {
      * @param storage Storage to store Tasklist content.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         storage.save(taskList);
         setExit(true);
+        return "";
     }
 }

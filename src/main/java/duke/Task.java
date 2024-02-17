@@ -33,19 +33,21 @@ public class Task {
     /**
      * Sets isDone to true.
      */
-    public void markAsDone() {
+    public String markAsDone() {
         this.isDone = true;
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + this.toString());
+        String result = "Nice! I've marked this task as done:\n" + "  " + this.toString();
+        System.out.println(result);
+        return result;
     }
 
     /**
      * Sets isDone to false.
      */
-    public void unmark() {
+    public String unmark() {
         this.isDone = false;
-        System.out.println("OK, I've marked this task as not done yet");
-        System.out.println("  " + this.toString());
+        String result = "OK, I've marked this task as not done yet\n" + "  " + this.toString();
+        System.out.println(result);
+        return result;
     }
 
     public String toString() {
