@@ -1,4 +1,3 @@
 T | 0 | sgsdg
 T | 0 | sgfsd
-T | 0 | sgsdg
-T | 0 | sgfdg
+T | 0 | sfsdg

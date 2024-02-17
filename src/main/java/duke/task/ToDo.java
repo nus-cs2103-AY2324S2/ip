@@ -18,8 +18,8 @@ public class ToDo extends Task {
      */
     public ToDo(String input) throws MissingInputFieldException {
         super(TaskType.TODO);
-        delimiter = DELIMITER;
-        command = COMMAND;
+        setDelimiter(DELIMITER);
+        setCommand(COMMAND);
         setUpTask(input);
     }
 
@@ -32,10 +32,10 @@ public class ToDo extends Task {
     public void setUpTask(String input) throws MissingInputFieldException {
         try {
             input = input.trim();
-            if (!input.contains(command)) {
+            if (!input.contains(getCommand())) {
                 throw new RuntimeException("not todo");
             }
-            String[] inputArray = Task.removeEmptyElements(input.split(delimiter));
+            String[] inputArray = Task.removeEmptyElements(input.split(getDelimiter()));
             description = inputArray[0].trim();
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new MissingInputFieldException(type);

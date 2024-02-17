@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 import duke.storage.Storage;
 import duke.task.Task;
+import duke.task.TaskIndexOutOfBoundsException;
 import duke.task.TaskList;
 import duke.ui.Ui;
 import duke.ui.gui.Main;
@@ -13,8 +14,9 @@ import duke.ui.gui.Main;
  * Represents parser component of Duke.
  */
 public class Parser {
+    public static final String DATETIME_FORMAT = "ddMMyy'T'HHmm";
     private static final DateTimeFormatter DATE_TIME_FORMATTER =
-            DateTimeFormatter.ofPattern("ddMMyy'T'HHmm");
+            DateTimeFormatter.ofPattern(DATETIME_FORMAT);
     private static Parser instance = null;
     private Ui ui = null;
     private TaskList taskList = null;
@@ -36,7 +38,6 @@ public class Parser {
         storage = Storage.getInstance();
     }
 
-    // need to refactor this method, it is too long
     /**
      * Return a string representing output from processing input string and carry out corresponding task.
      *
@@ -45,69 +46,89 @@ public class Parser {
      */
     public String processInputReturnString(String input) throws InputException {
         String[] words = input.split(" ");
-        // for multi-word commands
-        if (words[0].equals("mark") || words[0].equals("unmark")) {
-            if (isInteger(words[1])) {
-                boolean isDone = words[0].equals("mark");
-                int taskIndex = Integer.parseInt(words[1]);
-                return taskList.setTaskDoneWithIndex(taskIndex, isDone);
-            } else {
-                return "Action failed: task index input is not an integer";
+        String command = words[0];
+        try {
+            switch (command) {
+            case "mark":
+            case "unmark":
+                return toggleMarkedTask(words);
+            case "delete":
+                return deleteTask(words);
+            case "todo":
+            case "deadline":
+            case "event":
+                return createTask(input, words);
+            case "save":
+                return saveToMemory();
+            case "close":
+                return terminateSession();
+            case "list":
+                return listTasks();
+            case "find":
+                return getTasksFilteredWithKeyword(words);
+            default:
+                throw new CommandNotFoundException(input);
             }
+        } catch (CommandNotFoundException e) {
+            System.out.println(e.getMessage());
+            return null;
         }
+    }
 
-        if (words[0].equals("delete")) {
-            if (isInteger(words[1])) {
-                int taskIndex = Integer.parseInt(words[1]);
-                Task deletedTask = taskList.deleteTask(taskIndex);
-                return "Noted. I've removed this task:"
-                        + "\n"
-                        + "    "
-                        + deletedTask
-                        + "\n"
-                        + "Now you have " + taskList.getNumOfTasks() + " tasks in the list.";
-            } else {
-                return "Action failed: task index input is not an integer";
-            }
-            //return;
-        }
+    private String getTasksFilteredWithKeyword(String[] words) {
+        taskList.findTaskWithKeyword(words);
+        return ui.listFilteredTasksReturnString();
+    }
 
-        if (words[0].equals("todo")
-                || words[0].equals("deadline")
-                || words[0].equals("event")) {
+    private String listTasks() {
+        return ui.listTasksReturnString();
+    }
 
-            Task newTask = null;
-            newTask = Task.createTask(words[0], input);
-            taskList.addTask(newTask);
-            return "Got it. I've added this task:"
+    private static String terminateSession() {
+        Main.getStage().close();
+        return "close";
+    }
+
+    private String saveToMemory() {
+        storage.saveToMemory();
+        return "bye";
+    }
+
+    private String createTask(String input, String[] words) throws MissingInputFieldException {
+        Task newTask = null;
+        newTask = Task.createTask(words[0], input);
+        taskList.addTask(newTask);
+        return "Got it. I've added this task:"
+                + "\n"
+                + "    "
+                + newTask
+                + "\n"
+                + "Now you have " + taskList.getNumOfTasks() + " tasks in the list.";
+    }
+
+    private String deleteTask(String[] words) throws TaskIndexOutOfBoundsException {
+        if (isInteger(words[1])) {
+            int taskIndex = Integer.parseInt(words[1]);
+            Task deletedTask = taskList.deleteTask(taskIndex);
+            return "Noted. I've removed this task:"
                     + "\n"
                     + "    "
-                    + newTask
+                    + deletedTask
                     + "\n"
                     + "Now you have " + taskList.getNumOfTasks() + " tasks in the list.";
+        } else {
+            return "Action failed: task index input is not an integer";
         }
+    }
 
-        if (input.equals("bye")) {
-            //ui.EndSession();
-            storage.saveToMemory();
-            return "bye";
+    private String toggleMarkedTask(String[] words) throws TaskIndexOutOfBoundsException {
+        if (isInteger(words[1])) {
+            boolean isDone = words[0].equals("mark");
+            int taskIndex = Integer.parseInt(words[1]);
+            return taskList.setTaskDoneWithIndex(taskIndex, isDone);
+        } else {
+            return "Action failed: task index input is not an integer";
         }
-
-        if (input.equals("close")) {
-            Main.getStage().close();
-            return "close";
-        }
-
-        if (input.equals("list") || input.equals("print tasks")) {
-            return ui.listTasksReturnString();
-        }
-
-        if (words[0].equals("find")) {
-            taskList.findTaskWithKeyword(words);
-            return ui.listFilteredTasksReturnString();
-        }
-
-        throw new CommandNotFoundException(input);
     }
 
     /**

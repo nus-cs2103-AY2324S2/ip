@@ -6,14 +6,39 @@ import duke.parser.MissingInputFieldException;
  * Represents a task.
  */
 public abstract class Task {
-    private boolean isDone;
-    protected TaskType type;
-    public static String delimiter;
-    public static String command;
     protected static String dataStringSplitter = " \\| ";
     // temporary measure before storage related methods are migrated over to the storage class
     protected static String storageDataStringSplitter = " | ";
+    private static String delimiter;
+    private static String command;
+    protected TaskType type;
     protected String description;
+    private boolean isDone;
+
+
+    /**
+     * Returns a task of the specified type.
+     */
+    public Task(TaskType type) {
+        this.type = type;
+        isDone = false;
+    }
+
+    public static String getDelimiter() {
+        return delimiter;
+    }
+
+    public static void setDelimiter(String delimiter) {
+        Task.delimiter = delimiter;
+    }
+
+    public String getCommand() {
+        return command;
+    }
+
+    public void setCommand(String command) {
+        Task.command = command;
+    }
 
     /**
      * Represents three task types: ToDO, Deadline and Event.
@@ -43,7 +68,8 @@ public abstract class Task {
         return result;
     }
 
-    /*
+    // should avoid type string parameter
+    /**
      * Creates a task.
      *
      * @param type Type of the task to be created: "todo", "deadline" or "event".
@@ -60,11 +86,6 @@ public abstract class Task {
             return new Event(input);
         }
         return null;
-    }
-
-    public Task(TaskType type) {
-        this.type = type;
-        isDone = false;
     }
 
     public String getDescription() {
@@ -124,19 +145,24 @@ public abstract class Task {
     public static Task convertDataToTask(String dataRow) {
         String[] inputArray = removeEmptyElements(Task.removeEmptyElements(
                 dataRow.split(dataStringSplitter)));
-        if (!isTaskStringArray(inputArray)) throw new RuntimeException("Data Corrupted: No Matching duke.task.Task Type");
+        if (!isTaskStringArray(inputArray)) {
+            throw new RuntimeException("Data Corrupted: No Matching duke.task.Task Type");
+        }
         try {
             Task temp = null;
             if (inputArray[0].equals("T")) {
                 temp = createTask("todo", "todo " + inputArray[2]);
             } else if (inputArray[0].equals("E")) {
-                temp = createTask("event", "event " + inputArray[2] + " /from " + inputArray[3] + " /to" + inputArray[4]);
+                temp = createTask("event", "event " + inputArray[2] + " /from "
+                        + inputArray[3] + " /to" + inputArray[4]);
             } else if (inputArray[0].equals("D")) {
-                temp = createTask("deadline", "deadline "+ inputArray[2] + " /by " + inputArray[3]);
+                temp = createTask("deadline", "deadline " + inputArray[2] + " /by " + inputArray[3]);
             } else {
                 throw new RuntimeException("Data Corrupted: No Matching duke.task.Task Type");
             }
-            if (isTaskDataEntryDone(inputArray)) temp.isDone = true;
+            if (isTaskDataEntryDone(inputArray)) {
+                temp.isDone = true;
+            }
             return temp;
         } catch (MissingInputFieldException | ArrayIndexOutOfBoundsException e) {
             throw new RuntimeException("Data Corrupted: Missing Input Field");
@@ -148,9 +174,14 @@ public abstract class Task {
     }
 
     private static boolean isTaskStringArray(String[] inputArray) {
-        return inputArray[0].equals("T")
-                || inputArray[0].equals("E")
-                || inputArray[0].equals("D");
+        switch (inputArray[0]) {
+        case "T":
+        case "E":
+        case "D":
+            return true;
+        default:
+            return false;
+        }
     }
 
     private static boolean isTaskDataEntryDone(String[] inputArray) {

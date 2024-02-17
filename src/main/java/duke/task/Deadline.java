@@ -11,16 +11,21 @@ import duke.ui.Ui;
  * Represents a deadline.
  */
 public class Deadline extends Task {
-
     public static final String DELIMITER = "deadline|/by";
     public static final String COMMAND = "deadline";
     public static final String TYPE_STRING = "D";
-    private LocalDateTime by = null;
+    private LocalDateTime deadlineTiming = null;
 
+    /**
+     * Returns an instance of Deadline object created using user input.
+     *
+     * @param input User input to create Deadlien with.
+     * @throws MissingInputFieldException
+     */
     public Deadline(String input) throws MissingInputFieldException {
         super(TaskType.DEADLINE);
-        delimiter = DELIMITER;
-        command = COMMAND;
+        setDelimiter(DELIMITER);
+        setCommand(COMMAND);
         setUpTask(input);
     }
 
@@ -33,12 +38,12 @@ public class Deadline extends Task {
     public void setUpTask(String input) throws MissingInputFieldException {
         try {
             input = input.trim();
-            if (!input.contains(command)) {
+            if (!input.contains(getCommand())) {
                 throw new RuntimeException("not deadline");
             }
-            String[] inputArray = Task.removeEmptyElements(input.split(delimiter));
+            String[] inputArray = Task.removeEmptyElements(input.split(getDelimiter()));
             description = inputArray[0].trim();
-            by = Parser.parseDateAndTime(inputArray[1].trim());
+            deadlineTiming = Parser.parseDateAndTime(inputArray[1].trim());
         } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
             throw new MissingInputFieldException(type);
         }
@@ -47,12 +52,12 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[" + getType() + "]" + "[" + getIsDoneStatus() + "] "
-                + description + " " + "(by: " + Ui.printTime(by) + ")";
+                + description + " " + "(by: " + Ui.printTime(deadlineTiming) + ")";
     }
 
     @Override
     public String convertToDataRow() {
         return super.convertToDataRow() + 0 + storageDataStringSplitter
-                + Storage.convertDateTimeForStorage(by);
+                + Storage.convertDateTimeForStorage(deadlineTiming);
     }
 }
