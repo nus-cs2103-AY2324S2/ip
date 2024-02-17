@@ -32,10 +32,11 @@ public class FindCommand extends Command {
         int count = 0;
         for (int i = 0; i < list.size(); i++) {
             Task task = list.get(i);
-            if (task.contains(body)) {
-                response += i + 1 + ". " + task + "\n";
-                count++;
+            if (!task.contains(body)) {
+                continue;
             }
+            response += i + 1 + ". " + task + "\n";
+            count++;
         }
         if (count == 0) {
             response = "No matching tasks found.";
