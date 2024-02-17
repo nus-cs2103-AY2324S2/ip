@@ -27,6 +27,7 @@ public class AlterMarkCommand extends Command {
      * @throws PandaException if an error occurs during execution.
      */
     public void execute(TaskList tlist) throws PandaException {
+        assert tlist != null;
         if(idx - 1 >= tlist.size()) {
             throw new OutOfBoundsException();
         }

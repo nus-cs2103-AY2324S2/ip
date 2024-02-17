@@ -23,6 +23,7 @@ public class NewTaskCommand extends Command {
      * @param tlist the TaskList into which the task is inserted.
      */
     public void execute(TaskList tlist) {
+        assert tlist != null;
         tlist.insert(task);
     }
 
