@@ -26,7 +26,8 @@ public class ActionTask implements ParseExecutionable {
      * Represents the commands that user can input, and a UNRECOGNIZED as well.
      *
      * This allows the application to handle various commands, and any addition
-     * will be caught here as well.
+     * will be caught here as well. This ensures type safety in handling these
+     * various actions.
      */
     public static enum ActionType {
         LIST, DELETE, MARK, UNMARK, BYE, UNRECOGNIZED, FIND
