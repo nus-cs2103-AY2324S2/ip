@@ -99,33 +99,15 @@ public class Storage {
     }
 
     /**
-     * Updates the marking information stored in the file by rewriting a copy of the entire file to the
-     * same file path and writing the new line of information where the marking has changed.
+     * Updates the information stored in the file by rewriting a copy of the entire file to the
+     * same file path and writing the new line of information where the information has changed.
      *
      * @param num the line of information in the file that is to be updated, corresponds with
-     *            the index of the task in the task list whose marking is to be updated.
+     *            the index of the task in the task list whose information is to be updated.
      * @param textToReplace the new text to replace the old line of code, which contains
-     *                      the newly updated marking information. Taken from the Task objects toStore() function.
+     *                      the newly updated information. Taken from the Task objects toStore() function.
      * @throws IOException if an error occurs while writing to the file.
      */
-    public static void changeMarking(int num, String textToReplace) throws IOException {
-        Scanner s = new Scanner(f);
-        String newData = "";
-        int count = 0;
-        while (s.hasNextLine()) {
-            String temp = s.nextLine();
-            if (count != num) {
-                newData += temp + "\n";
-            } else {
-                newData += textToReplace;
-            }
-            count++;
-        }
-        FileWriter fw = new FileWriter(f);
-        fw.write(newData);
-        fw.close();
-    }
-
     public static void updateFile(int num, String textToReplace) throws IOException {
         Scanner s = new Scanner(f);
         String newData = "";
