@@ -16,10 +16,25 @@ than traditional GUI apps 🚀.
 ## Quick Start
 
 1. Ensure you have Java `11` or above installed in your Computer.
-2. Download the latest `fluffy.jar` from [here](https://github.com/drustanyjt/ip/releases)
+2. Download the latest `fluffy.jar` from the [releases page](https://github.com/drustanyjt/ip/releases)
 3. Copy the file to the folder you want to use as the home folder for Fluffy.
 4. Double-click the file to start the app. The GUI similar to the picture above should appear in a few seconds.
 5. Type away! A list of commands can be found below
+
+## Cheatsheet of commands
+
+| Action | Format | Examples |
+|--------|--------|---------|
+| Add deadline | `deadline *description* /by *date in yyyy-mm-dd*` | `deadline CS2103T iP /by 2023-03-17` |
+| Add event | `event *description* /from *start date in yyyy-mm-dd* /to *end date in yyyy-mm-dd*` | `event The Lion King Exhibition /from 2024-06-01 /to 2024-06-30` |
+| Add todo | `todo *description*` | `todo Buy groceries` |
+| List tasks | `list` | `list` |
+| Mark task as done | `mark *task number*` | `mark 3` |
+| Unmark task as done | `unmark *task number*` | `unmark 3` |
+| Delete task | `delete *task number*` | `delete 3` |
+| Find tasks | `find *keyword*` | `find Lion` |
+| View statistics | `stat` | `stat` |
+| Exit program | `bye` | `bye` |
 
 ## Adding deadlines
 
@@ -181,21 +196,6 @@ This will close the program.
 Fluffy data is saved in the hard disk automatically after every command.
 To locate the data, look for the `fluffy.txt` file in the `data` folder,
 which is created in the same directory as the program.
-
-## Cheatsheet of commands
-
-| Action | Format | Examples |
-|--------|--------|---------|
-| Add deadline | `deadline *description* /by *date in yyyy-mm-dd*` | `deadline CS2103T iP /by 2023-03-17` |
-| Add event | `event *description* /from *start date in yyyy-mm-dd* /to *end date in yyyy-mm-dd*` | `event The Lion King Exhibition /from 2024-06-01 /to 2024-06-30` |
-| Add todo | `todo *description*` | `todo Buy groceries` |
-| List tasks | `list` | `list` |
-| Mark task as done | `mark *task number*` | `mark 3` |
-| Unmark task as done | `unmark *task number*` | `unmark 3` |
-| Delete task | `delete *task number*` | `delete 3` |
-| Find tasks | `find *keyword*` | `find Lion` |
-| View statistics | `stat` | `stat` |
-| Exit program | `bye` | `bye` |
 
 [//]: # (Credits go here)
 ## Credits

@@ -1,6 +1,12 @@
-Refer to [the home page](https://github.com/drustanyjt/ip) for the full README.md.
+# Release Notes
 
-List of completed features:
+Refer to the [user guide](https://drustanyjt.github.io/ip/#quick-start)
+for instructions on set up and use.
+
+## Features
+
+Some progress on features:
+
 - [x] Add todos
 - [x] Add deadlines
 - [x] Add events
