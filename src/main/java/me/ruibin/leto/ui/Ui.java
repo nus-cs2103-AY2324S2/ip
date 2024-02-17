@@ -77,7 +77,7 @@ public class Ui {
             + "event    -  create a task of type event    \n"
             + "               usage: event <details> /from <start_time YYYY-MM-DD> /to <end_time YYYY-MM-DD>\n"
             + "save     -  save tasks to persistent storage\n"
-            + "find     -  find a task by keyword, searches within their entire CSV entry\n"
+            + "find     -  find a task by keyword, searches within their entire descriptionx\n"
             + "                usage: event <keyword>\n"
             + "                case sensitive\n"
             + "snooze   -  snooze as task deadline by specified days\n"
