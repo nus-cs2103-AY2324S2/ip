@@ -24,6 +24,7 @@ public class Parser {
      * @return An array containing the command and the remaining input.
      */
     public static String[] parseInput(String input) {
+        assert input != null : "Input cannot be null";
         return input.split(" ", 2);
     }
 
@@ -36,6 +37,7 @@ public class Parser {
      */
     public String handleCommand(String input, TaskList taskList) {
         String[] parsedInput = Parser.parseInput(input);
+        assert parsedInput.length >= 1 : "Parsed input should have at least one element";
 
         if ("list".equalsIgnoreCase(input)) {
             return Ui.showTaskList(taskList.getTaskList());

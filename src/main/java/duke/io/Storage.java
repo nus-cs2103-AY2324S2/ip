@@ -17,11 +17,14 @@ public class Storage {
      */
     public static void createFolder() {
         Path folder = Paths.get("./data/");
+        assert Files.notExists(folder) : "Data folder already exists";
+
         if (Files.notExists(folder)) {
             try {
                 Files.createDirectories(folder);
             } catch (IOException e) {
                 e.printStackTrace();
+                assert false : "Failed to create data folder";
             }
         }
     }
@@ -32,6 +35,8 @@ public class Storage {
      * @param tasks ArrayList of tasks to be saved.
      */
     public static void saveTasks(ArrayList<Task> tasks) {
+        assert tasks != null : "Tasks should not be null";
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILEPATH, true))) {
             for (Task task : tasks) {
                 writer.write(task.toString());
@@ -39,6 +44,7 @@ public class Storage {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            assert false : "Failed to save tasks to file";
         }
     }
 
