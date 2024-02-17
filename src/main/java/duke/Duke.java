@@ -10,6 +10,10 @@ import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Messages;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 /**
  * The main class representing the Duke chatbot application.
@@ -17,8 +21,11 @@ import duke.ui.Messages;
  * <p>The {@code Duke} class serves as the entry point for the Duke chatbot application.
  * It handles user input, parsing, command execution, and storage operations.</p>
  */
-public class Duke {
+public class Duke extends Application {
     private static final Storage storage = new Storage();
+
+    public Duke() {
+    }
 
     public static void main(String... args) {
         System.out.printf(Messages.WELCOME);
@@ -34,7 +41,6 @@ public class Duke {
         }
 
         Scanner sc = new Scanner(System.in);
-        Command currentCommand = null;
 
         while (true) {
             try {
@@ -61,5 +67,14 @@ public class Duke {
             }
         }
         sc.close();
+    }
+
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
     }
 }
