@@ -8,15 +8,21 @@ import duke.ui.Ui;
 /**
  * Command subclass for exiting chatbot
  */
-public class ExitCommand extends Command {
+public class UndoCommand extends Command {
+    private final Command commandToUndo;
+
+    public UndoCommand(Command commandToUndo) {
+        this.commandToUndo = commandToUndo;
+    }
+
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
-        return ui.exit();
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        return commandToUndo.undo(tasks, ui, storage);
     }
 
     @Override
     public String undo(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        return "Nothing to undo";
+        return "Cannot undo an undo";
     }
 
     @Override

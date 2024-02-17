@@ -14,7 +14,7 @@ public class MarkCommand extends Command {
     /** Index to mark or unmark */
     private final int updateIndex;
     /** Denotes whether to mark or unmark task */
-    private final boolean isComplete;
+    private boolean isComplete;
 
     /**
      * Constructor of MarkCommand
@@ -35,6 +35,17 @@ public class MarkCommand extends Command {
 
         } catch (Exception e) {
             throw new DukeException(e.getMessage());
+        }
+    }
+
+    @Override
+    public String undo(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        if (super.getIsUnDone()) {
+            return "Last command was already undone";
+        } else {
+            this.isComplete = !isComplete;
+            this.execute(tasks, ui, storage);
+            return "Undo-ed last mark / unmark";
         }
     }
 }

@@ -1,6 +1,7 @@
 package duke;
 
 import duke.commands.Command;
+import duke.commands.ExitCommand;
 import duke.data.exception.DukeException;
 import duke.parser.Parser;
 import duke.storage.Storage;
@@ -15,6 +16,7 @@ public class Duke {
     private final Storage storage;
     private final TaskList tasks;
     private final Ui ui;
+    private Command lastCommand;
 
     /**
      * Constructor
@@ -31,11 +33,13 @@ public class Duke {
         } finally {
             this.tasks = tempTasks;
         }
+        this.lastCommand = new ExitCommand(); // dummy
     }
 
     public String getResponse(String fullCommand) {
         try {
-            Command c = Parser.parse(fullCommand);
+            Command c = Parser.parse(fullCommand, lastCommand);
+            this.lastCommand = c;
             return c.execute(tasks, ui, storage);
         } catch (DukeException e) {
             return ui.showError(e.getMessage());

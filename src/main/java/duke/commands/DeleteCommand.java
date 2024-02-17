@@ -13,6 +13,7 @@ public class DeleteCommand extends Command {
 
     /** Index to perform delete on */
     private final int deleteIndex;
+    private Task toRemove;
 
     public DeleteCommand(int deleteIndex) {
         this.deleteIndex = deleteIndex;
@@ -21,11 +22,20 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         try {
-            Task toRemove = tasks.deleteTask(deleteIndex);
+            this.toRemove = tasks.deleteTask(deleteIndex);
             storage.saveTasks(tasks);
             return ui.deleteTask(toRemove, tasks.getNumTasks());
         } catch (Exception e) {
             throw new DukeException(e.getMessage());
+        }
+    }
+    @Override
+    public String undo(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        if (super.getIsUnDone()) {
+            return "Last command was already undone";
+        } else {
+            new AddCommand(toRemove).execute(tasks, ui, storage);
+            return "Undo-ed last delete";
         }
     }
 }
