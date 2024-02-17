@@ -34,9 +34,28 @@ public class Storage {
      * Initializes the File and Path objects for data storage.
      * @param filePath The path to the file for data storage.
      */
-    public Storage(String filePath) {
-        this.filePath = filePath;
-        this.file = new File(filePath);
+    public Storage(String filePath, String fileName) {
+        this.filePath = filePath + fileName;
+        File directory = new File(filePath);
+        if (!directory.exists()) {
+            if (directory.mkdirs()) {
+                UI.print("Directory created: " + filePath);
+            } else {
+                UI.print("Failed to create directory: " + filePath);
+            }
+        }
+        this.file = new File(this.filePath);
+        if (!file.exists()) {
+            try {
+                if (file.createNewFile()) {
+                    UI.print("File created: " + filePath + File.separator + fileName);
+                } else {
+                    UI.print("Failed to create file: " + filePath + File.separator + fileName);
+                }
+            } catch (IOException e) {
+                UI.print("Error creating file: " + e.getMessage());
+            }
+        }
         this.path = Path.of(this.filePath);
     }
 
