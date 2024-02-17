@@ -9,16 +9,16 @@ import reacher.task.Task;
 public class Storage {
     private final String path;
 
-    public Storage(String path){
+    public Storage(String path) {
         this.path = path;
         createFile();
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         File file = new File(path);
         return file.length() == 0;
     }
-    public void storeList(List<Task> taskList){
+    public void storeList(List<Task> taskList) {
         try {
             File file = new File(path);
             FileOutputStream f = new FileOutputStream(file);
@@ -35,7 +35,7 @@ public class Storage {
 
     public ArrayList<Task> loadList() {
         ArrayList<Task> taskList = new ArrayList<>();
-        if (!isEmpty()){
+        if (!isEmpty()) {
             try {
                 File file = new File(path);
                 FileInputStream f = new FileInputStream(file);

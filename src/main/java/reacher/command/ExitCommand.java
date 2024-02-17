@@ -4,7 +4,7 @@ import reacher.Storage;
 import reacher.TaskList;
 import reacher.Ui;
 
-public class ExitCommand extends Command{
+public class ExitCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage){
         ui.print("Bye!");

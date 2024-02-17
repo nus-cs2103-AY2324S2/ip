@@ -6,11 +6,13 @@ import reacher.task.*;
 
 public class AddCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ReacherException {
-        Task t;
         ui.print("What is the name of the task?");
         String name = ui.readString();
+
         ui.print("What type of task is this?(Deadline, Event, Todo)");
         String type = ui.readString().toLowerCase();
+
+        Task t;
         switch (type) {
         case ("todo"):
             t = new Todos(name);

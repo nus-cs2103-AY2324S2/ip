@@ -10,13 +10,13 @@ public class Ui {
     public Ui(){
         this.scanner = new Scanner(System.in);
     }
-    public void printWelcome(){
+    public void printWelcome() {
         System.out.println("Hello!\n" +
                 "I'm Reacher.\n" +
                 "Give me tasks.\n" +
                 "Functions are edit, list, add and bye");
     }
-    public void printList(ArrayList<Task> tasks){
+    public void printList(ArrayList<Task> tasks) {
         System.out.println("Tasks:");
         int c = 1;
         for (Task task : tasks) {
@@ -31,7 +31,7 @@ public class Ui {
         }
         return input;
     }
-    public int readInt(){
+    public int readInt() {
         int num = scanner.nextInt();
         scanner.nextLine();
         return num;
