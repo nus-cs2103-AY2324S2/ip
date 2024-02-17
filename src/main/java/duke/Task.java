@@ -2,6 +2,8 @@ package duke;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+
 /**
  * Represents a task in the task list.
  */
@@ -83,11 +85,14 @@ public class Task {
      * @return A Task object created from the file string.
      */
     public static Task fromFileString(String fileString) {
-        String[] elements = fileString.split("\\s*\\|\\s*");
-        Boolean done = Integer.parseInt(elements[1]) == 1;
+        String[] elements = fileString.trim().split("\\s*\\|\\s*");
+        Boolean done = elements.length > 1 && Integer.parseInt(elements[1]) == 1;
         //for each type of task
         switch(elements[0]) {
         case "T":
+            if (elements.length < 3) {
+                throw new IllegalArgumentException("Invalid task format for ToDo in file");
+            }
             ToDo todo = new ToDo((elements[2]));
             todo.isDone = done;
             return todo;
@@ -101,6 +106,9 @@ public class Task {
             }
             return dline;
         case "E":
+            if (elements.length < 5) {
+                throw new IllegalArgumentException("Invalid task format for ToDo in file");
+            }
             LocalDate fromDate = LocalDate.parse(elements[3], DateTimeFormatter.ofPattern("MMM dd yyyy"));
             LocalDate toDate = LocalDate.parse(elements[4], DateTimeFormatter.ofPattern("MMM dd yyyy"));
             Event event = new Event(elements[2], fromDate, toDate);

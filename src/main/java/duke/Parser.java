@@ -13,7 +13,7 @@ public class Parser {
      * The user input to be parsed and executed.
      */
     private String input;
-
+    private Ui ui;
     /**
      * Constructs a Parser object with the given user input.
      *
@@ -43,8 +43,8 @@ public class Parser {
             ui.printList(tasks, i);
             break;
         case "bye":
-            System.out.println("Bye. Hope to see you again soon!");
-            System.out.println(line);
+            ui.printMessage("Bye. Hope to see you again soon!");
+            ui.printMessage(line);
             break;
         case "mark":
             for (int k = 0; k < i; k++) {
@@ -56,8 +56,8 @@ public class Parser {
                     }
                 }
             }
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println("[X] " + elems[1]);
+            ui.printMessage("Nice! I've marked this task as done:");
+            ui.printMessage("[X] " + elems[1]);
             break;
 
         case "unmark":
@@ -70,17 +70,17 @@ public class Parser {
                     }
                 }
             }
-            System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println("[ ] " + elems[1] );
+            ui.printMessage("OK, I've marked this task as not done yet:");
+            ui.printMessage("[ ] " + elems[1] );
             break;
         case "todo":
             Task item = new ToDo(elems[1]);
-            System.out.println("Got it. I've added this task:");
-            System.out.println(item.toString());
+            ui.printMessage("Got it. I've added this task:");
+            ui.printMessage(item.toString());
             i++;
             tasks.addTask(item);
-            System.out.println("Now you have " + i + " task(s) in your list!");
-            System.out.println(line);
+            ui.printMessage("Now you have " + i + " task(s) in your list!");
+            ui.printMessage(line);
             break;
         case "deadline":
             String[] by = elems[1].split("/by ", 2);
@@ -92,15 +92,16 @@ public class Parser {
                             DateTimeFormatter.ofPattern(format));
                     break;
                 } catch (DateTimeParseException ignored) {
+                    ;
                 }
             }
             if (deadlineDate != null) {
                 Task dline = new Deadline(by[0], deadlineDate);
-                System.out.println("Got it. I've added this task:");
-                System.out.println(dline.toString());
+                ui.printMessage("Got it. I've added this task:");
+                ui.printMessage(dline.toString());
                 i++;
                 tasks.addTask(dline);
-                System.out.println("Now you have " + i + " task(s) in your list!");
+                ui.printMessage("Now you have " + i + " task(s) in your list!");
             } else {
                 System.out.println("Invalid date and time format -_-");
             }
@@ -117,37 +118,39 @@ public class Parser {
                     toDate = LocalDate.parse(fromto[2], DateTimeFormatter.ofPattern(format));
                     break;
                 } catch (DateTimeParseException ignored) {
+                    ;
                 }
             }
             if (toDate != null & fromDate != null) {
                 Task e = new Event(fromto[0], fromDate, toDate);
-                System.out.println("Got it. I've added this task:");
-                System.out.println(e.toString());
+                ui.printMessage("Got it. I've added this task:");
+                ui.printMessage(e.toString());
                 i++;
                 tasks.addTask(e);
-                System.out.println("Now you have " + i + " task(s) in your list!");
-                System.out.println(line);
+                ui.printMessage("Now you have " + i + " task(s) in your list!");
+                ui.printMessage(line);
+                //storage.saveToFile(i, tasks.getTasks());
 
             } else {
-                System.out.println("Invalid date and time format -_-");
+                ui.printMessage("Invalid date and time format -_-");
             }
             break;
         case "delete":
             int toDelete = Integer.valueOf(elems[1]) - 1;
             if (toDelete >= 0 && toDelete < i) {
                 tasks.deleteTask(toDelete);
-                System.out.println("Noted. I've removed this task:");
-                System.out.println(tasks.getTask(toDelete).toString());
+                ui.printMessage("Noted. I've removed this task:");
+                ui.printMessage(tasks.getTask(toDelete).toString());
                 i--;
-                System.out.println("Now you have " + i + " task(s) in the list.");
+                ui.printMessage("Now you have " + i + " task(s) in the list.");
             } else {
-                System.out.println("That is an invalid task to delete sir??");
+                ui.printMessage("That is an invalid task to delete sir??");
             }
-            System.out.println(line);
+            ui.printMessage(line);
             break;
         case "find":
             String key = elems[1].toLowerCase();
-            System.out.println("Here are the matching tasks in your list:");
+            ui.printMessage("Here are the matching tasks in your list:");
             int found = 0;
             for (int k = 0; k < i; k++) {
                 Task task = tasks.getTask(k);
@@ -158,14 +161,13 @@ public class Parser {
                 }
             }
             if (found == 0) {
-                System.out.println("No matching tasks found.");
+                ui.printMessage("No matching tasks found.");
             }
-            System.out.println(line);
+            ui.printMessage(line);
             break;
 
-
         default:
-            System.out.println("Sorry what??, I did not get that!");
+            ui.printMessage("Sorry what??, I did not get that!");
 
 
 

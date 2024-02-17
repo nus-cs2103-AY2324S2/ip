@@ -9,7 +9,9 @@ public class Storage {
     /**
      * The default file path for storing tasks.
      */
-    private String FILE_PATH = System.getProperty("user.dir") + "/src/main/java/data/duke.txt";
+    private String FILE_NAME = "src/main/java/data/duke.txt";
+    private String FILE_PATH = System.getProperty("user.dir") + File.separator + FILE_NAME;
+
     /**
      * The actual file path to be used for reading and writing tasks.
      */
@@ -35,7 +37,7 @@ public class Storage {
                 writer.println(task.toFileString());
             }
         } catch (IOException e) {
-            System.out.println("Could not save tasks to file" + e.getMessage());
+            System.out.println("Could not save tasks to file " + e.getMessage());
         }
     }
     /**
@@ -47,7 +49,7 @@ public class Storage {
     public ArrayList<Task> loadFromFile() {
         ArrayList<Task> tasks = new ArrayList<Task>();
         int index = 0;
-        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filepath))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 //adding the task from the file to be read
