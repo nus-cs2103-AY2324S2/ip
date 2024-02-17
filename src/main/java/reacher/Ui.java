@@ -16,11 +16,10 @@ public class Ui {
     public Ui(){
         this.scanner = new Scanner(System.in);
     }
-
     /**
      * Prints welcome message.
      */
-    public void printWelcome(){
+    public void printWelcome() {
         System.out.println("Hello!\n" +
                 "I'm Reacher.\n" +
                 "Give me tasks.\n" +
@@ -31,7 +30,7 @@ public class Ui {
      * Prints all tasks in tasks.
      * @param tasks List of tasks.
      */
-    public void printList(ArrayList<Task> tasks){
+    public void printList(ArrayList<Task> tasks) {
         System.out.println("Tasks:");
         int c = 1;
         for (Task task : tasks) {
@@ -57,7 +56,7 @@ public class Ui {
      * Takes in user input as an int.
      * @return user input.
      */
-    public int readInt(){
+    public int readInt() {
         int num = scanner.nextInt();
         scanner.nextLine();
         return num;

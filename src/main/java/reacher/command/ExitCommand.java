@@ -4,11 +4,10 @@ import reacher.Storage;
 import reacher.TaskList;
 import reacher.Ui;
 
-
 /**
  * Command that when executed ends the program.
  */
-public class ExitCommand extends Command{
+public class ExitCommand extends Command {
     /**
      * Executes command by printing message.
      * @param tasks List of tasks.

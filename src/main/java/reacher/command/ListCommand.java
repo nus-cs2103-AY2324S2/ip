@@ -7,7 +7,7 @@ import reacher.Ui;
 /**
  * Command that shows user all tasks in list.
  */
-public class ListCommand extends Command{
+public class ListCommand extends Command {
     /**
      * Execute command by printing the tasks in Tasks.
      * @param tasks List of tasks.

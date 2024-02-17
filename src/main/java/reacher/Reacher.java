@@ -8,8 +8,8 @@ public class Reacher {
     private final Ui ui;
 
     public Reacher(String filePath) {
-        this.ui = new Ui();
-        this.storage = new Storage(filePath);
+        ui = new Ui();
+        storage = new Storage(filePath);
         tasks = new TaskList(storage.loadList());
     }
     public static void main(String[] args) {
@@ -21,6 +21,7 @@ public class Reacher {
      */
     public void run() {
         ui.printWelcome();
+
         boolean isExit = false;
         while (!isExit) {
             try {
