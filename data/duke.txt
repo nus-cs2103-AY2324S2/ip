@@ -1,5 +1,4 @@
-E | 0 | meeting | 2023-02-03 1800 | 2023-03-03 1800
-T | 0 | borrow book
-T | 1 | a
-T | 0 | a
-D | 1 | d | 2023-05-23 1600
+T | 0 | borrow
+T | 0 | return book
+T | 0 | find book
+T | 0 | borrow

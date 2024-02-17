@@ -6,18 +6,23 @@ import duke.ui.Ui;
 /**
  * Represents a command to display helps.
  */
-public class HelpCommand extends Command{
+public class ErrorCommand extends Command{
+
+    private String errorMessage;
 
     /**
      * Constructs a new ExitCommand object.
      */
-    public HelpCommand() {
+    public ErrorCommand() {
 
+    }
+    public ErrorCommand(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 
     @Override
     public String execute(Ui ui, TaskList tasks) {
-        return "OOPS! This command doesn't exist. Retry! "
-                + "Acceptable commands are: todo, deadline, event, list, mark, unmark, save, delete, bye";
+        return this.errorMessage;
     }
 }
+

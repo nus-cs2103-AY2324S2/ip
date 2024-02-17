@@ -28,11 +28,13 @@ public class TaskList {
     /**
      * Displays all tasks in the task list.
      */
-    public void displayTasks() {
+    public String displayTasks() {
+        StringBuilder tasksStr = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             int j = i + 1;
-            System.out.println(j + "." + tasks.get(i).toString());
+            tasksStr.append(j).append(".").append(tasks.get(i).toString()).append("\n");
         }
+        return tasksStr.toString();
     }
 
     /**

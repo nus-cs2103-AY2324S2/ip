@@ -25,7 +25,7 @@ public class SaveCommand extends Command{
     }
 
     @Override
-    public boolean execute(Ui ui, TaskList tasks) {
+    public String execute(Ui ui, TaskList tasks) {
         Path path = Paths.get(RELATIVE_PATH);
         List<String> taskStrList = new ArrayList<String>();
         try {
@@ -39,10 +39,9 @@ public class SaveCommand extends Command{
             }
             String tasksStr = String.join("\n", taskStrList);
             Files.writeString(path, tasksStr);
-            System.out.println("It is successfully saved!");
+            return "It is successfully saved!";
         } catch (IOException e) {
-            System.err.println("There are some error in saving. Try again");
+            return "There are some error in saving. Try again";
         }
-        return true;
     }
 }

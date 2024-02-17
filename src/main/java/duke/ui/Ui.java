@@ -40,18 +40,16 @@ public class Ui {
     /**
      * Displays a line divider.
      */
-    public void showLine() {
-        out.println(DIVIDER);
+    public String showLine() {
+        return DIVIDER;
     }
 
     /**
      * Displays the welcome message.
      */
-    public void showWelcome() {
-        out.println("Hello from\n" + LOGO);
-        showLine();
-        out.println("Hello! I'm " + CHATBOT_NAME + "\nWhat can I do for you?");
-        showLine();
+    public String showWelcome() {
+        //return "Hello from"  ;
+        return "Hello! I'm " + CHATBOT_NAME + "\nWhat can I do for you?";
     }
 
     /**
@@ -67,10 +65,8 @@ public class Ui {
     /**
      * Displays the goodbye message.
      */
-    public void showGoodbye() {
-        showLine();
-        out.println("Bye. Hope to see you again soon!");
-        showLine();
+    public String showGoodbye() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**

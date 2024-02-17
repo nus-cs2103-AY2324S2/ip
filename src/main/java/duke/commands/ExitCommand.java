@@ -16,9 +16,8 @@ public class ExitCommand extends Command{
     }
 
     @Override
-    public boolean execute(Ui ui, TaskList tasks) {
-        ui.showGoodbye();
-        return true;
+    public String execute(Ui ui, TaskList tasks) {
+        return ui.showGoodbye();
     }
 
     @Override

@@ -6,6 +6,8 @@ import duke.storage.Storage;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
 
+
+
 import static duke.constants.Constant.RELATIVE_PATH;
 
 /**
@@ -17,15 +19,21 @@ public class Duke {
     private TaskList tasks;
     private Ui ui;
 
+    public Duke() {
+        this.ui = new Ui();
+        this.storage = new Storage();
+        this.tasks = new TaskList(storage.load());
+    }
+
     /**
      * Constructs a new Duke object with the specified file path.
      *
      * @param filePath The file path to load and store task data.
      */
     public Duke(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
-        tasks = new TaskList(storage.load());
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
+        this.tasks = new TaskList(storage.load());
     }
 
     /**
@@ -42,12 +50,28 @@ public class Duke {
         }
     }
 
+    public String showWelcome() {
+        return ui.showWelcome();
+    }
+
     /**
-     * The entry point of the Duke application.
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        String fullCommand = input;
+        Command c = Parser.parse(fullCommand);
+        return c.execute(ui, tasks);
+    }
+
+    /**
+     * Runs the entry point of the Duke application.
      *
      * @param args The command-line arguments.
      */
     public static void main(String[] args) {
         new Duke(RELATIVE_PATH).run();
     }
+
+
 }

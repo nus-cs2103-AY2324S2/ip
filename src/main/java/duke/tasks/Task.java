@@ -47,12 +47,9 @@ public class Task {
      *
      * @param ui The user interface object used to display messages.
      */
-    public void markDone(Ui ui) {
+    public String markDone(Ui ui) {
         isDone = true;
-        ui.showLine();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(this.toString());
-        ui.showLine();
+        return "Nice! I've marked this task as done:\n" + this.toString();
     }
 
     /**
@@ -60,12 +57,9 @@ public class Task {
      *
      * @param ui The user interface object used to display messages.
      */
-    public void unmark(Ui ui) {
+    public String unmark(Ui ui) {
         isDone = false;
-        ui.showLine();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(this.toString());
-        ui.showLine();
+        return "OK, I've marked this task as not done yet:\n" + this.toString();
     }
 
     /**
@@ -73,10 +67,9 @@ public class Task {
      *
      * @param size The total number of tasks in the list.
      */
-    public void displayTask(int size) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + this.toString());
-        System.out.println("Now you have " + size + " tasks in the list.");
+    public String displayTask(int size) {
+        return "Got it. I've added this task:\n" + this.toString()
+                + "\nNow you have " + size + " tasks in the list.";
     }
 
     /**

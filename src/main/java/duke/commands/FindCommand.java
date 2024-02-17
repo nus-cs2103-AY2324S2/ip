@@ -13,20 +13,16 @@ public class FindCommand extends Command{
     }
 
     @Override
-    public boolean execute(Ui ui, TaskList tasks) {
+    public String execute(Ui ui, TaskList tasks) {
         if (keyword.isBlank()) {
-            System.err.println("OOPS! You forget to provide the keyword to search.");
-            return false;
+            return "OOPS! You forget to provide the keyword to search.";
         }
         TaskList results = tasks.find(keyword);
         ui.showLine();
         if (results.size() != 0) {
-            System.out.println("Here are the matching tasks in your list:");
-            results.displayTasks();
+            return "Here are the matching tasks in your list:\n" + results.displayTasks();
         } else {
-            System.out.println("There is no matching tasks in your list.");
+            return "There is no matching tasks in your list.";
         }
-        ui.showLine();
-        return true;
     }
 }

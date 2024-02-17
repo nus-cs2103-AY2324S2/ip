@@ -16,11 +16,7 @@ public class ListCommand extends Command{
     }
 
     @Override
-    public boolean execute(Ui ui, TaskList tasks) {
-        ui.showLine();
-        System.out.println("Here are the tasks in your list:");
-        tasks.displayTasks();
-        ui.showLine();
-        return true;
+    public String execute(Ui ui, TaskList tasks) {
+        return "Here are the tasks in your list:\n" + tasks.displayTasks();
     }
 }

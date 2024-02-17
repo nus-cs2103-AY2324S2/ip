@@ -21,13 +21,10 @@ public class CreateTodoCommand extends Command{
     }
 
     @Override
-    public boolean execute(Ui ui, TaskList tasks) {
+    public String execute(Ui ui, TaskList tasks) {
         Task newTask = null;
         newTask = new ToDo(description);
         tasks.addTask(newTask);
-        ui.showLine();
-        newTask.displayTask(tasks.size());
-        ui.showLine();
-        return true;
+        return newTask.displayTask(tasks.size());
     }
 }

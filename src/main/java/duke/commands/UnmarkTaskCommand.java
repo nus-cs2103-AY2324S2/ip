@@ -19,13 +19,11 @@ public class UnmarkTaskCommand extends Command{
     }
 
     @Override
-    public boolean execute(Ui ui, TaskList tasks) {
+    public String execute(Ui ui, TaskList tasks) {
         if (index >= tasks.size() || index < 0) {
-            System.err.println("Please look carefully. This task is not inside the task list.");
-            return false;
+            return "Please look carefully. This task is not inside the task list.";
         }
-        tasks.get(index).unmark(ui);
-        return true;
+        return tasks.get(index).unmark(ui);
     }
 }
 

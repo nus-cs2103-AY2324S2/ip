@@ -19,8 +19,12 @@ public class Command {
      *
      * @return true if the command is executed successfully, false otherwise.
      */
-    public boolean execute() {
-        return true;
+    public String execute() {
+        return "";
+    }
+
+    public String execute(String str) {
+        return "";
     }
 
     /**
@@ -30,8 +34,8 @@ public class Command {
      * @param tasks The task list to perform operations on.
      * @return true if the command is executed successfully, false otherwise.
      */
-    public boolean execute(Ui ui, TaskList tasks) {
-        return true;
+    public String execute(Ui ui, TaskList tasks) {
+        return "";
     }
 
     /**

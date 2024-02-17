@@ -5,6 +5,7 @@ import duke.commands.CreateDeadlineCommand;
 import duke.commands.CreateEventCommand;
 import duke.commands.CreateTodoCommand;
 import duke.commands.DeleteCommand;
+import duke.commands.ErrorCommand;
 import duke.commands.ExitCommand;
 import duke.commands.FindCommand;
 import duke.commands.HelpCommand;
@@ -15,15 +16,15 @@ import duke.commands.UnmarkTaskCommand;
 import duke.exceptions.DukeException;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import static duke.constants.Constant.DATE_TIME_FORMATTER;
+
 
 /**
  * Parses user input and generates corresponding Command objects.
  */
 public class Parser {
-    public final static DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-
     /**
      * Parses the user input and returns the corresponding Command object.
      *
@@ -46,63 +47,59 @@ public class Parser {
             try {
                 return new MarkTaskCommand(prepareTask(commandArguments, "mark"));
             } catch (DukeException e) {
-                System.err.println(e.getMessage());
+                return new ErrorCommand(e.getMessage());
             } catch (NumberFormatException e) {
-                System.err.println("Unable to parse the input as an integer. Please put a number after "
-                        + commandWord + ".");
+                return new ErrorCommand("Unable to parse the input as an integer. "
+                        + "Please put a number after " + commandWord + ".");
             }
-            return new Command();
         case "unmark":
             try {
                 return new UnmarkTaskCommand(prepareTask(commandArguments, "unmark"));
             } catch (DukeException e) {
-                System.err.println(e.getMessage());
+                return new ErrorCommand(e.getMessage());
             } catch (NumberFormatException e) {
-                System.err.println("Unable to parse the input as an integer. Please put a number after "
-                        + commandWord + ".");
+                return new ErrorCommand("Unable to parse the input as an integer. "
+                        + "Please put a number after " + commandWord + ".");
             }
-            return new Command();
         case "todo":
             try {
                 return prepareCreateTodo(commandArguments);
             } catch (DukeException e) {
-                System.err.println(e.getMessage());
+                return new ErrorCommand(e.getMessage());
             }
-            return new Command();
         case "deadline":
             try {
                 return prepareCreateDeadline(commandArguments);
             } catch (DukeException e) {
-                System.err.println(e.getMessage());
+                return new ErrorCommand(e.getMessage());
             } catch (DateTimeParseException e) {
-                System.err.println("OPPS! The format for the inputted deadline is not accepted here. " +
-                        "Please follow this format: 'yyyy-MM-dd HHmm' when you are creating the task.");
+                return new ErrorCommand("OPPS! The format for the inputted deadline is not accepted here."
+                        + " Please follow this format: 'yyyy-MM-dd HHmm' when you are creating the task.");
             }
-            return new Command();
         case "event":
             try {
                 return prepareCreateEvent(commandArguments);
             } catch (DukeException e) {
-                System.err.println(e.getMessage());
+                return new ErrorCommand(e.getMessage());
             } catch (DateTimeParseException e) {
-                System.err.println("OPPS! The format for the inputted start and end time is not accepted here. " +
-                        "Please follow this format: 'yyyy-MM-dd HHmm' when you are creating the task.");
+                return new ErrorCommand("OPPS! The format for the inputted start and end time is not "
+                        + "accepted here. Please follow this format: 'yyyy-MM-dd HHmm' "
+                        + "when you are creating the task.");
             }
-            return new Command();
         case "delete":
             try {
                 return new DeleteCommand(prepareTask(commandArguments, "delete"));
             } catch (DukeException e) {
-                System.err.println(e.getMessage());
+                return new ErrorCommand(e.getMessage());
             } catch (NumberFormatException e) {
-                System.err.println("Unable to parse the input as an integer. "
+                return new ErrorCommand("Unable to parse the input as an integer. "
                         + "Please put a number after 'delete'.");
             }
-            return new Command();
         case "save":
             return new SaveCommand();
+        case "find":
+            return new FindCommand(commandArguments);
         default:
-            System.err.println("OOPS! This command doesn't exist. Retry!");
             return new HelpCommand();
         }
     }
@@ -198,7 +195,6 @@ public class Parser {
                         "Please follow this format: '<task_description> from <start_time> to <end_time>' " +
                         "in yyyy-mm-dd HHmm 24-hr format ");
             }
-            System.out.println("inside");
         } else if (instruction.length < 3 && instruction[1].startsWith("to")) {
             throw new DukeException("OOPS! You forget to write the starting time of this event.");
         }

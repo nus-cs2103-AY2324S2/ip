@@ -15,14 +15,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static duke.constants.Constant.DATE_TIME_FORMATTER;
-import static duke.constants.Constant.DATE_TIME_FORMATTER_FOR_PRINT;
+import static duke.constants.Constant.*;
 
 /**
  * Handles the loading and conversion of task data from a file.
  */
 public class Storage {
     private String filePath;
+
+    public Storage() {
+        this.filePath = RELATIVE_PATH;
+    }
 
     /**
      * Constructs a new Storage object with the given file path.
