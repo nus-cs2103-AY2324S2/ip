@@ -11,8 +11,8 @@ import nollid.exceptions.NollidException;
  */
 public abstract class Command {
     /**
-     * Abstract method to be implemented by subclasses.
      * Executes the command.
+     * To be implemented by subclasses.
      *
      * @param tasks   The TaskList containing tasks.
      * @param storage The Storage for data storage operations.
