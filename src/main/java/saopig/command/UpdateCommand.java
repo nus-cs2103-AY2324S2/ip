@@ -71,10 +71,12 @@ public class UpdateCommand extends Command {
                                 + "Please use the format: yyyy-MM-dd HH:mm");
                     }
                     if (task instanceof Deadline) {
-                        ((Deadline) task).changeDeadline(deadlineDateTime);
+                        Deadline deadline = (Deadline) task;
+                        deadline.changeDeadline(deadlineDateTime);
                         response.append("Change deadline to ").append(time);
                     } else if (task instanceof Event) {
-                        ((Event) task).changeEndTime(deadlineDateTime);
+                        Event event = (Event) task;
+                        event.changeEndTime(deadlineDateTime);
                     }
                 } else if (isChangeStart(splitCommand[i])) {
                     spliteInput(splitCommand, lengthOfCommand, i);
@@ -89,7 +91,8 @@ public class UpdateCommand extends Command {
                                 + "It seems like you may have given an invalid date time format.\n "
                                 + "Please use the format: yyyy-MM-dd HH:mm");
                     }
-                    ((Event) taskList.getTask(taskIndex)).changeStartTime(startDateTime);
+                    Event event = (Event) taskList.getTask(taskIndex);
+                    event.changeStartTime(startDateTime);
                     response.append("Change start time to ").append(time);
                 }
             }
