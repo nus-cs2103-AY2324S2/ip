@@ -38,9 +38,9 @@
   <module name="TreeWalker">
 
 
-      <!-- Javadoc method description must start with a capitalized word ending in 's'
-          Note that this has false positives for non-method Javadoc. -->
       <module name="Regexp">
+          <!-- Javadoc method description must start with a capitalized word ending in 's'
+          Note that this has false positives for non-method Javadoc. -->
           <property name="format" value="\/\*\*\s+?\* (\w+?(?&lt;!s)\b|[a-z])"/>
           <property name="message"
                     value="Javadoc method description must start with a capitalized word ending in 's'"/>
@@ -48,8 +48,8 @@
           <property name="illegalPattern" value="true"/>
       </module>
 
-      <!-- Multiline Javadoc must end with full stop-->
       <module name="Regexp">
+          <!-- Multiline Javadoc must end with full stop-->
           <property name="format" value="(?!.*\.)[\w ]+(\r\n|\n) +\*( @|/|(\r\n|\n))"/>
           <property name="message"
                     value="Multiline Javadoc must end with full stops"/>
