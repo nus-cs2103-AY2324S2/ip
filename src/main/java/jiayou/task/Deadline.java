@@ -39,4 +39,17 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: "
                 + this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof Deadline)) {
+            return false;
+        }
+        boolean isDescriptionSame = super.getDescription().equals(((Deadline) object).getDescription());
+        boolean isBySame = this.by.equals(((Deadline) object).by);
+        if (isDescriptionSame & isBySame) {
+            return true;
+        }
+        return false;
+    }
 }

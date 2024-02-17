@@ -26,4 +26,13 @@ public class ToDoTest {
         ToDo todo = new ToDo(description);
         assertEquals(description, todo.getDescription());
     }
+
+    @Test
+    public void testEquals() {
+        ToDo todo = new ToDo("Read a book");
+        ToDo todoSame = new ToDo("Read a book");
+        ToDo todoDiffDesc = new ToDo("Read a");
+        assertEquals(true, todo.equals(todoSame));
+        assertEquals(false, todo.equals(todoDiffDesc));
+    }
 }

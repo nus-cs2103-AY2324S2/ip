@@ -51,4 +51,18 @@ public class Event extends Task {
                 + this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
                 + " to: " + this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof Event)) {
+            return false;
+        }
+        boolean isDescriptionSame = super.getDescription().equals(((Event) object).getDescription());
+        boolean isFromSame = this.from.equals(((Event) object).from);
+        boolean isToSame = this.to.equals(((Event) object).to);
+        if (isDescriptionSame & isFromSame & isToSame) {
+            return true;
+        }
+        return false;
+    }
 }

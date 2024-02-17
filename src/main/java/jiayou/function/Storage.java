@@ -73,7 +73,7 @@ public class Storage {
      * @param string the string to be parsed.
      * @return a task instance corresponding to the text content.
      */
-    public Task parseFromFile(String string) {
+    public static Task parseFromFile(String string) {
         String[] parts = string.split(" \\| ", 3);
         String command = parts[0];
         String isDone = parts[1];
@@ -103,7 +103,7 @@ public class Storage {
      * @param input the string to be parsed.
      * @return a new Event object.
      */
-    private Event createEvent(String input) {
+    private static Event createEvent(String input) {
         String[] eventParts = input.split(" \\| ", 2);
         String description = eventParts[0];
         String datePart = eventParts[1];
@@ -119,7 +119,7 @@ public class Storage {
      * @param input the string to be parsed.
      * @return a new Deadline object.
      */
-    private Deadline createDeadline(String input) {
+    private static Deadline createDeadline(String input) {
         String[] deadlineParts = input.split(" \\| by");
         LocalDate by = LocalDate.parse(deadlineParts[1]);
         Deadline newDeadline = new Deadline(deadlineParts[0], by);

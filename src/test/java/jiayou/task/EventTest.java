@@ -33,4 +33,23 @@ public class EventTest {
         Event event = new Event("Complete homework", from, to);
         assertEquals(description, event.getDescription());
     }
+
+    @Test
+    public void testEquals() {
+        LocalDate from = LocalDate.parse("2010-01-01");
+        LocalDate to = LocalDate.parse("2020-01-01");
+        LocalDate anotherFrom = LocalDate.parse("2010-01-02");
+        LocalDate anotherTo = LocalDate.parse("2020-01-02");
+
+        Event event = new Event("Complete homework", from, to);
+        Event eventSame = new Event("Complete homework", from, to);
+        Event eventDiffDesc = new Event("Complete", from, to);
+        Event eventDiffFrom = new Event("Complete homework", anotherFrom, to);
+        Event eventDiffTo = new Event("Complete homework", from, anotherTo);
+
+        assertEquals(true, event.equals(eventSame));
+        assertEquals(false, event.equals(eventDiffDesc));
+        assertEquals(false, event.equals(eventDiffFrom));
+        assertEquals(false, event.equals(eventDiffTo));
+    }
 }
