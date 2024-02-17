@@ -59,6 +59,7 @@ public class Duke {
                 ui.showError(e.getMessage());
             }
         }
+        assert end == true;
     }
 
 
