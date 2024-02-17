@@ -17,9 +17,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 
 /**
- * An example of a custom control using FXML.
  * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
  * containing text from the speaker.
+ *
+ * An example of a custom control using FXML.
  */
 public class DialogBox extends HBox {
     @FXML
@@ -54,7 +55,7 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Getter for the DialogBox object for the user's input.
+     * Gets the DialogBox object for the user's input.
      *
      * @param text the user's input.
      * @param img the user's profile image.
@@ -65,7 +66,7 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Getter for the DialogBox object for the Chatbot's response.
+     * Gets the DialogBox object for the Chatbot's response.
      *
      * @param text the Chatbot's input.
      * @param img the Chatbot's profile image.

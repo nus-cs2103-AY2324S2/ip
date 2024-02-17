@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 /**
- * Controller for MainWindow. Provides the layout for the other controls.
+ * This is a controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -22,7 +22,6 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Duke duke;
-    //Main.class.getResource("/view/MainWindow.fxml")
     private Image userImage = new Image(Main.class.getResourceAsStream("/images/DaUser.jpg"));
     private Image dukeImage = new Image(Main.class.getResourceAsStream("/images/DaDuke.png"));
 

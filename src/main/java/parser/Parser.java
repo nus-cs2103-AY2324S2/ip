@@ -13,7 +13,7 @@ import task.ToDo;
 import util.Messages;
 
 /**
- * The parser class is responsible for interpreting and converting
+ * This parser class is responsible for interpreting and converting
  * user input into executionable actions in the main application.
  *
  * This class supports parsing descriptions that can either represent
@@ -57,6 +57,8 @@ public class Parser {
             return this.createDeleteAction(userInput);
         case ActionTask.FIND_TYPE:
             return this.createSearchAction(userInput);
+        case ActionTask.SORT_TYPE:
+            return this.sortAction(userInput);
         case ActionTask.BYE_TYPE:
             return new ActionTask(ActionType.BYE);
         default:
@@ -115,7 +117,7 @@ public class Parser {
     }
 
     /**
-     * Parses the user input into a search-type action
+     * Parses the user input into a search-type action.
      *
      * @param userInput user's input in the main application.
      * @return the ParseExecutionable that when excuted, returns the Tasks that match.
@@ -134,7 +136,7 @@ public class Parser {
     }
 
     /**
-     * Parses the user input into a mark action
+     * Parses the user input into a mark action.
      *
      * @param userInput user's input in the main application.
      * @return the ParseExecutionable that when excuted, marks the specified object.
@@ -150,7 +152,7 @@ public class Parser {
     }
 
     /**
-     * Parses the user input into a unmark action
+     * Parses the user input into a unmark action.
      *
      * @param userInput user's input in the main application.
      * @return the ParseExecutionable that when excuted, unmarks the specified object.
@@ -165,7 +167,7 @@ public class Parser {
     }
 
     /**
-     * Parses the user input into a delete action
+     * Parses the user input into a delete action.
      * @param userInput user's input in the main application.
      * @return the ParseExecutionable that when excuted, deletes the specified object.
      */
@@ -176,6 +178,31 @@ public class Parser {
         }
         int commandId = Integer.parseInt(inputSplit[1]);
         return new ActionTask(ActionType.DELETE, commandId);
+    }
+
+    /**
+     * Parses the user input into a sort action.
+     * @param userInput user's input in the main application.
+     * @return the ParseExecutionable that when excuted, deletes the specified object.
+     */
+    public ParseExecutionable sortAction(String userInput) {
+        String[] inputSplit = userInput.split(" ");
+        if (inputSplit.length > 2) {
+            return new IncorrectTask(Messages.MESSAGE_WRONG_PARAMETERS);
+        } else if (inputSplit.length == 1) {
+            return new ActionTask(ActionType.SORT);
+        } else {
+            switch (inputSplit[1]) {
+            case ToDo.TASK_TYPE:
+                return new ActionTask(ActionType.SORT_TODO);
+            case Deadline.TASK_TYPE:
+                return new ActionTask(ActionType.SORT_DEADLINE);
+            case Event.TASK_TYPE:
+                return new ActionTask(ActionType.SORT_EVENT);
+            default:
+                return new IncorrectTask(Messages.MESSAGE_WRONG_PARAMETERS);
+            }
+        }
     }
 
     /**

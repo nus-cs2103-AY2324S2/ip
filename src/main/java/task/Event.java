@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
  * This class is the representation of a Events task.
  * It extends from its parent class the Task class.
  */
-public class Event extends Task {
+public class Event extends Task implements Comparable<Event> {
     public static final String TASK_TYPE = "event";
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private String from;
@@ -91,5 +91,19 @@ public class Event extends Task {
         printMessage += "\n" + this + "\n";
         printMessage += "You now have " + taskStorage.size() + " tasks in the list.";
         return printMessage;
+    }
+
+    /**
+     * Overrides the compareTo function of Object, to compare the Event's
+     * fromDateTime followed by it's name if they have similar from dates.
+     *
+     * @param o The Event it is comparing to.
+     */
+    @Override
+    public int compareTo(Event o) {
+        if (this.fromDateTime.compareTo(o.fromDateTime) == 0) {
+            return super.getCommand().compareTo(o.getCommand());
+        }
+        return this.fromDateTime.compareTo(o.fromDateTime);
     }
 }

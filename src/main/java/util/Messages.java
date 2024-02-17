@@ -1,7 +1,7 @@
 package util;
 
 /**
- * The Message class provides a centralized repository of strings used throughout
+ * This Message class provides a centralized repository of strings used throughout
  * the application to display various forms of messages.
  */
 public class Messages {

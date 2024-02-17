@@ -15,6 +15,7 @@ public class ActionTask implements ParseExecutionable {
     public static final String MARK_TYPE = "mark";
     public static final String UNMARK_TYPE = "unmark";
     public static final String FIND_TYPE = "find";
+    public static final String SORT_TYPE = "sort";
     public static final String BYE_TYPE = "bye";
 
     private ActionType action;
@@ -30,7 +31,7 @@ public class ActionTask implements ParseExecutionable {
      * various actions.
      */
     public static enum ActionType {
-        LIST, DELETE, MARK, UNMARK, BYE, UNRECOGNIZED, FIND
+        LIST, DELETE, MARK, UNMARK, BYE, UNRECOGNIZED, FIND, SORT, SORT_TODO, SORT_DEADLINE, SORT_EVENT
     }
 
     /**
@@ -97,6 +98,14 @@ public class ActionTask implements ParseExecutionable {
             return this.deleteActions(taskStorage);
         case BYE:
             return this.byeActions(taskStorage);
+        case SORT:
+            return this.sortActions(taskStorage);
+        case SORT_TODO:
+            return this.sortToDoActions(taskStorage);
+        case SORT_DEADLINE:
+            return this.sortDeadlineActions(taskStorage);
+        case SORT_EVENT:
+            return this.sortEventActions(taskStorage);
         case FIND:
             return this.findActions(taskStorage);
         default:
@@ -162,6 +171,54 @@ public class ActionTask implements ParseExecutionable {
             return resultMessage;
         }
         printMessage += resultMessage;
+        return printMessage;
+    }
+
+    /**
+     * Sorts the session StorageList in the user session.
+     *
+     * @param taskStorage the current user session storage of task.
+     * @return the String created from doing this action, for the user to see.
+     */
+    private String sortActions(TaskStorage taskStorage) {
+        String printMessage = "Sorted the Tasks for you: \n";
+        printMessage += taskStorage.sortStorageList().toString();
+        return printMessage;
+    }
+
+    /**
+     * Sorts only the ToDo tasks in StorageList in the user session.
+     *
+     * @param taskStorage the current user session storage of task.
+     * @return the String created from doing this action, for the user to see.
+     */
+    private String sortToDoActions(TaskStorage taskStorage) {
+        String printMessage = "Sorted the Todos for you: \n";
+        printMessage += taskStorage.sortToDoStorageList().toString();
+        return printMessage;
+    }
+
+    /**
+     * Sorts only the Deadline tasks in StorageList in the user session.
+     *
+     * @param taskStorage the current user session storage of task.
+     * @return the String created from doing this action, for the user to see.
+     */
+    private String sortDeadlineActions(TaskStorage taskStorage) {
+        String printMessage = "Sorted the Deadlines for you: \n";
+        printMessage += taskStorage.sortDeadlineStorageList().toString();
+        return printMessage;
+    }
+
+    /**
+     * Sorts only the Event tasks in StorageList in the user session.
+     *
+     * @param taskStorage the current user session storage of task.
+     * @return the String created from doing this action, for the user to see.
+     */
+    private String sortEventActions(TaskStorage taskStorage) {
+        String printMessage = "Sorted the Events for you: \n";
+        printMessage += taskStorage.sortEventStorageList().toString();
         return printMessage;
     }
 
