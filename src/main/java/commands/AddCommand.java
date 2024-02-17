@@ -7,7 +7,7 @@ import tasks.Task;
 /**
  * Command for adding a new task to the TaskList
  */
-public class AddCommand implements Command{
+public class AddCommand implements Command {
     private Task task;
 
     public AddCommand(Task task) {

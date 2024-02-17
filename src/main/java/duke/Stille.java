@@ -1,6 +1,9 @@
 package duke;
 
+import exceptions.ArgumentException;
+import exceptions.CommandException;
 import exceptions.DukeException;
+import exceptions.StorageException;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -19,12 +22,11 @@ public class Stille extends Application {
     public Stille() {
         this.storage = new Storage();
         this.list = new TaskList();
-        this.ui = new UserInterface(list);
+        this.ui = new UserInterface(this.list, this.storage);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
         primaryStage.setScene(this.ui.getScene());
         primaryStage.setTitle("Stille");
         primaryStage.setResizable(false);
@@ -32,12 +34,12 @@ public class Stille extends Application {
         primaryStage.setMinWidth(400.0);
         primaryStage.show();
 
-
         try {
             list.loadFromSaveFormat(storage.load());
-        } catch (DukeException e) {
+        } catch (StorageException e) {
             ui.showError(e);
-            Platform.exit();
+        } catch (ArgumentException e) {
+            ui.showError(e);
         }
 
         ui.showOpeningMessage();
@@ -50,11 +52,10 @@ public class Stille extends Application {
     public void stop() {
         try {
             this.storage.save(this.list.toSaveFormat());
-        } catch (DukeException e) {
+        } catch (StorageException e) {
             ui.showError(e);
         } finally {
             ui.showClosingMessage();
         }
     }
-
 }

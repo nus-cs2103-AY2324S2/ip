@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import parser.Parser;
+import storage.Storage;
 import storage.TaskList;
 import tasks.Task;
 
@@ -23,11 +24,13 @@ public class UserInterface {
     private MainWindow mainWindow;
     private Scene scene;
     private TaskList list;
+    private Storage storage;
 
-    public UserInterface(TaskList list) {
+    public UserInterface(TaskList list, Storage storage) {
         this.list = list;
         this.mainWindow = new MainWindow(this);
         this.scene = new Scene(this.mainWindow);
+        this.storage = storage;
     }
 
     public Scene getScene() {
