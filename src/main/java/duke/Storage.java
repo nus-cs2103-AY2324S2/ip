@@ -27,6 +27,7 @@ public class Storage {
     public Storage(String path) {
         this.path = path;
         this.file = new File(path);
+        assert (file != null) : "file object should be initialised!";
 
         // set-up infrastructure
         try {
