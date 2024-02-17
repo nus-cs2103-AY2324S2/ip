@@ -18,8 +18,8 @@ public class CompleteCommand extends Command {
     /**
      * Constructs a command that changes the completion status of tasks.
      *
-     * @param indices    the indices of the tasks to change
-     * @param isComplete whether to change the tasks to completed leave it as pending
+     * @param indices    The indices of the tasks to change.
+     * @param isComplete Whether to change the tasks to completed leave it as pending.
      */
     public CompleteCommand(ArrayList<Integer> indices, boolean isComplete) {
         this.indices = indices;

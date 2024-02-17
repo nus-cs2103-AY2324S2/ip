@@ -13,7 +13,7 @@ public class Event extends Task {
     /**
      * Construct a task with a start and an end from parsed components.
      * The expected components are /from and /to.
-     * @throws InvalidComponents when the parsed components don't match the expected components
+     * @throws InvalidComponents When the parsed components don't match the expected components.
      */
     public Event(String description, Map<String, String> components) throws InvalidComponents {
         super(description);

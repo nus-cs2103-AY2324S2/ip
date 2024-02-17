@@ -12,7 +12,7 @@ public class Deadline extends Task {
     /**
      * Construct a task with a deadline from parsed components. The only expected component is /by.
      *
-     * @throws InvalidComponents when the parsed components don't match the expected components
+     * @throws InvalidComponents When the parsed components don't match the expected components.
      */
     public Deadline(String description, Map<String, String> components) throws InvalidComponents {
         super(description);

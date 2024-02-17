@@ -67,7 +67,7 @@ public class Ui {
     }
 
     /**
-     * Show the command the program understands
+     * Show the commands the program understands
      */
     private static String showCommands() {
         return "The allowed commands are as follows: \n"

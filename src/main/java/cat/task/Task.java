@@ -36,7 +36,7 @@ public abstract class Task implements Serializable {
     /**
      * The constructor of a task.
      *
-     * @param description the description of the task
+     * @param description The description of the task.
      */
     protected Task(String description) {
         assert description != null : "Description must not be null";
@@ -59,7 +59,7 @@ public abstract class Task implements Serializable {
     /**
      * Returns a description of the status of the Task
      *
-     * @return the status description
+     * @return The status description.
      */
     public final String status() {
         return status.description;
@@ -75,7 +75,7 @@ public abstract class Task implements Serializable {
     /**
      * A more verbose english explanation of the task.
      *
-     * @return description of the task
+     * @return The description of the task.
      */
     public String describe() {
         return description;
@@ -84,8 +84,8 @@ public abstract class Task implements Serializable {
     /**
      * Helper function to generate the expected set of {@link #validateComponentKeys}
      *
-     * @param keys the expected components
-     * @return the components as a set
+     * @param keys The expected components.
+     * @return The components as a set.
      */
     protected static Set<String> keys(String... keys) {
         return new HashSet<>(List.of(keys));
@@ -95,9 +95,9 @@ public abstract class Task implements Serializable {
      * Used to validate the components of a command.
      * It checks whether the components are the same and that it has the default component (DESCRIPTION).
      *
-     * @param expected the set of expected components
-     * @param actual   the set of actual components
-     * @throws InvalidComponents if expected != actual
+     * @param expected The set of expected components.
+     * @param actual   The set of actual components.
+     * @throws InvalidComponents If expected != actual.
      */
     protected static void validateComponentKeys(
             Set<String> expected, Set<String> actual) throws InvalidComponents {
@@ -109,9 +109,9 @@ public abstract class Task implements Serializable {
     /**
      * Parses the local date time of a task component. Right now the format is fixed to "dd/MM/yyyy HHmm"
      *
-     * @param input string with a date and time in the given format.
-     * @return the parsed LocalDateTime
-     * @throws DateTimeParseException if the string doesn't match the pattern.
+     * @param input A string with a date and time in the given format.
+     * @return The parsed LocalDateTime.
+     * @throws DateTimeParseException If the string doesn't match the pattern.
      */
     protected static LocalDateTime parseDateTime(String input) throws InvalidComponents {
         DateTimeFormatter f = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
@@ -141,8 +141,8 @@ public abstract class Task implements Serializable {
 
         /**
          * The invalid component when the time range is invalid.
-         * @param from Start time.
-         * @param to End time.
+         * @param from The start time.
+         * @param to The end time.
          */
         public InvalidComponents(LocalDateTime from, LocalDateTime to) {
             super("Date and time for /from (" + from.format(describeTimeFormat)

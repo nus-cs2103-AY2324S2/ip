@@ -10,8 +10,8 @@ import cat.ui.response.Response;
 public abstract class Command {
     /**
      * Executes the command. The parameters are used depending on the particular subclass.
-     * @param tasks list of tasks to execute on
-     * @param storage file storage interface
+     * @param tasks List of tasks to execute on.
+     * @param storage The file storage interface.
      */
     public abstract Response execute(TaskList tasks, Storage storage);
 }

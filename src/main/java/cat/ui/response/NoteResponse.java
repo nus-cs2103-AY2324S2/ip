@@ -5,9 +5,9 @@ package cat.ui.response;
  */
 public class NoteResponse extends Response {
     /**
-     * Constructs a note
-     * @param blurb The blurb for emoting the cat
-     * @param info The actual note information
+     * Constructs a note.
+     * @param blurb The blurb for emoting the cat.
+     * @param info The actual note information.
      */
     public NoteResponse(String blurb, String info) {
         super(blurb, info);

@@ -31,8 +31,8 @@ public class AddCommand extends Command {
     /**
      * Constructs a command that adds a task to the task list.
      *
-     * @param type       the type of the task
-     * @param components the components parsed from the user command
+     * @param type       The type of the task.
+     * @param components The components parsed from the user command.
      */
     public AddCommand(Type type, String description, HashMap<String, String> components) {
         assert description != null : "AddCommand description must not be null";

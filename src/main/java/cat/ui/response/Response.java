@@ -10,7 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
@@ -24,6 +23,7 @@ public abstract class Response extends VBox {
     @FXML
     private Label info;
 
+    // Colors taken from https://github.com/waymondo/apropospriate-theme
     protected static class Colors {
         public static final String BLACK = "424242";
         public static final String RED = "E57373";
@@ -46,8 +46,9 @@ public abstract class Response extends VBox {
 
     /**
      * Constructs a response.
+     *
      * @param blurb The blurb to emote the cat with.
-     * @param info The actual information.
+     * @param info  The actual information.
      */
     public Response(String blurb, String info) {
         try {
