@@ -427,6 +427,15 @@
       <property name="ignoreMethodNamesRegex" value="(set.*|get.*|main)"/>
     </module>
 
+    <module name="Regexp">
+      <property name="format"
+                value="\/\*\*(\s)+\*\s(\w)+(?&lt;!s)\b"/>
+      <property name="message"
+                value="Javadoc method description must start with a capitalized word ending in 's'"/>
+      <property name="ignoreComments" value="false"/>
+      <property name="illegalPattern" value="true"/>
+    </module>
+
     <!-- Checks that every public class, enumeration and interface has a header comment. -->
     <module name="MissingJavadocType"/>
 

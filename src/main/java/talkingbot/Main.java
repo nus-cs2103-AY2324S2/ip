@@ -3,6 +3,7 @@ package talkingbot;
 import java.io.IOException;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -16,9 +17,10 @@ import talkingbot.logic.TalkingBot;
 public class Main extends Application {
     private static final String PATH_TO_WINDOW_FXML = "/gui/Window.fxml";
     private TalkingBot talkingBot = new TalkingBot();
+    private Thread stopChecker;
 
     /**
-     * Loads the main window of the application and displays it.
+     * Loads     the main window of the application and displays it.
      *
      * @param stage Stage for the application.
      */
@@ -31,17 +33,25 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<Window>getController().setBot(this.talkingBot);
             stage.show();
+            this.stopChecker = new Thread(() -> {
+                while (true) {
+                    if (this.talkingBot.getIsRunning()) {
+                        continue;
+                    }
+                    try {
+                        this.stop();
+                        System.exit(0);
+                        this.stopChecker.stop();
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
+                    break;
+                }
+            });
+            this.stopChecker.start();
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Returns whether the bot is running.
-     * @return A boolean value.
-     */
-    public boolean getIsRunning() {
-        return this.talkingBot.getIsRunning();
     }
 
     /**

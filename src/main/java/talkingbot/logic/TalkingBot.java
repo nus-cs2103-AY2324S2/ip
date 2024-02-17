@@ -50,6 +50,8 @@ public class TalkingBot {
         Command curCommand = parser.parseCommand(text);
         if (curCommand.getCommandArr()[0].equals("bye")) {
             this.isRunning = false;
+            assert !this.isRunning : "isRunning must be false";
+            System.out.println(this.isRunning);
         }
         return curCommand.runCommand(this.tasks, this.saveFile, this.ui);
     }
