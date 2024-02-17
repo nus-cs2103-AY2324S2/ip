@@ -35,6 +35,8 @@ public class Parser {
      * @return True if the program should continue processing commands, false if the program should exit.
      */
     public String parseCommand() {
+        // Assumption: User input should not be empty
+        assert userInput != null : "User input must not be empty";
 
         // Split input into "command" and "parameters"
         String[] parts = userInput.split(" ", 2);

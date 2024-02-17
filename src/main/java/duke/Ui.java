@@ -43,8 +43,13 @@ public class Ui {
      *
      * @return The general error message for unexpected inputs.
      */
+<<<<<<< HEAD
     public String displayErrorMessage() {
         return "what? please check your input.";
+=======
+    public String errorMessage() {
+        return "what?";
+>>>>>>> branch-A-Assertions
     }
 
     /**
@@ -52,7 +57,7 @@ public class Ui {
      * @return The error message for an unrecognized command.
      */
     public String commandError() {
-        return "SORRY! but are you sure you enter the correct command? please check!";
+        return "wrong command! please check!";
     }
 
     /**
@@ -171,7 +176,7 @@ public class Ui {
      * @return A message indicating user enter a blank command.
      */
     public String blank() {
-        return "what?";
+        return "Input cannot be empty";
     }
 
     /**
