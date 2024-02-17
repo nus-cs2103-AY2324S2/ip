@@ -1,6 +1,6 @@
 package duke.ui;
 
-import duke.command.Command;
+import duke.command.CommandEnum;
 import duke.task.Task;
 import duke.task.TaskList;
 
@@ -157,7 +157,7 @@ public class Ui {
     public static void showErrorAndPrintCommands() {
         System.out.println( "-------------------------------- \n" +
                 "Oops, I'm not sure what you meant by that! Commands available:");
-        for (Command c: EnumSet.allOf(Command.class)) {
+        for (CommandEnum c: EnumSet.allOf(CommandEnum.class)) {
             System.out.println(c.COMMAND_SIGNATURE);
         }
 
