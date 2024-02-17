@@ -13,7 +13,7 @@ public class StoredTaskList extends TaskList {
     }
 
     @Override
-    public void addTask(Task t){
+    public void addTask(Task t) {
         super.addTask(t);
         Storage.store(this);
     }

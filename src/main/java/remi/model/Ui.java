@@ -19,6 +19,9 @@ public class Ui {
     private CommandList commandList;
     private Parser parser;
 
+    /**
+     * Basic constructor for the Ui class. Initializes the TaskList, CommandList, and Parser objects.
+     */
     public Ui() {
         isFinished = false;
         taskList = Storage.get();

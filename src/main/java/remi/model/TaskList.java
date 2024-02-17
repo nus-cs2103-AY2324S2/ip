@@ -3,6 +3,7 @@ package remi.model;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+
 import remi.utils.RemiError;
 
 /**
@@ -89,7 +90,7 @@ public class TaskList {
      * @param idx the 1-indexed value of the task to be removed
      * @throws RemiError when invalid idx is given
      */
-    public void removeTask(int idx) throws RemiError{
+    public void removeTask(int idx) throws RemiError {
         if (idx < 0 || taskList.size() <= idx) {
             throw new RemiError("Task is out of bounds and couldn't be removed.");
         }

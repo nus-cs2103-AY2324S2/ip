@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 import remi.model.Deadline;
 import remi.model.Event;
 import remi.model.StoredTaskList;
@@ -83,7 +84,7 @@ public class Storage {
      * Stores the string representation of the taskList in a designated file.
      */
     public static void store(StoredTaskList taskList) {
-        try (FileWriter out = new FileWriter(FILE_PATH)){
+        try (FileWriter out = new FileWriter(FILE_PATH)) {
             out.write(taskList.getParsableString());
             out.close();
         } catch (IOException err) {

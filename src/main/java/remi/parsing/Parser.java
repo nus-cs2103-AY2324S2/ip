@@ -8,8 +8,17 @@ import remi.utils.RemiError;
  * Parses strings and feeds them to the command line. Also allows you to directly run the parsed string.
  */
 public class Parser {
+    private CommandList commandList;
 
-    CommandList commandList;
+    /**
+     * Initializes the parser and loads all the commands.
+     *
+     * @param commandList CommandList object provided by the Chatbot
+     */
+    public Parser(CommandList commandList) {
+        this.commandList = commandList;
+    }
+
     private String[] getKeywordArgsSplit(Message input) {
         int idx = input.getMessage().indexOf(' ');
         String[] res = new String[2];
@@ -23,15 +32,6 @@ public class Parser {
             res[1] = input.getMessage().substring(idx + 1);
         }
         return res;
-    }
-
-    /**
-     * Initializes the parser and loads all the commands.
-     *
-     * @param commandList CommandList object provided by the Chatbot
-     */
-    public Parser(CommandList commandList) {
-        this.commandList = commandList;
     }
 
     /**

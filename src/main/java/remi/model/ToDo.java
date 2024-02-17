@@ -3,7 +3,7 @@ package remi.model;
 /**
  * Represents a Todo task, subclass of Task object.
  */
-public class ToDo extends Task{
+public class ToDo extends Task {
 
     /**
      * Simple constructor for a Todo task.

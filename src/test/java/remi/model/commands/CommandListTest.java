@@ -1,6 +1,7 @@
 package remi.model.commands;
 
 import org.junit.jupiter.api.Test;
+
 import remi.model.TaskList;
 import remi.model.Ui;
 import remi.utils.RemiError;
@@ -10,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CommandListTest {
     @Test
-    public void addTodo_NoError() {
+    public void runKeyword_addTodo_noError() {
         Ui dummyChatBot = new Ui();
         TaskList dummyTaskList = new TaskList();
         CommandList commandList = new CommandList(dummyTaskList, dummyChatBot);
@@ -19,7 +20,7 @@ public class CommandListTest {
     }
 
     @Test
-    public void nonsenseCommand_ShouldThrowError() {
+    public void runKeyword_nonsenseCommand_throwsError() {
         Ui dummyChatBot = new Ui();
         TaskList dummyTaskList = new TaskList();
         CommandList commandList = new CommandList(dummyTaskList, dummyChatBot);

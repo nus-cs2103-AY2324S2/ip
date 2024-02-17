@@ -13,6 +13,16 @@ public class Task {
     private boolean isDone;
 
     /**
+     * Constructor to create a task with a label. By default, is marked as not yet done.
+     *
+     * @param label the label of the task
+     */
+    public Task(String label) {
+        this.label = label;
+        this.isDone = false;
+    }
+
+    /**
      * Tries to parse a string as a date, if impossible returns the original string.
      * Parses from "yyyy-MM-dd" and returns "dd MMM yyyy".
      *
@@ -30,10 +40,6 @@ public class Task {
 
     public String getLabel() {
         return label;
-    }
-    public Task(String label) {
-        this.label = label;
-        this.isDone = false;
     }
 
     public void mark() {
