@@ -18,7 +18,8 @@ import javafx.scene.layout.HBox;
  * Class to log user input or chatbot response.
  * Consists of a Label to represent text information and ImageView to represent the speaker.
  *
- * @author KohGuanZeh
+ * @@author KohGuanZeh-reused
+ * Source: https://se-education.org/guides/tutorials/javaFxPart4.html
  */
 public class DialogBox extends HBox {
     @FXML

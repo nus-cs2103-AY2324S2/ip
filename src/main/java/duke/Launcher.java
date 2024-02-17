@@ -5,7 +5,8 @@ import javafx.application.Application;
 /**
  * Launcher class to be entry point of application.
  *
- * @author KohGuanZeh
+ * @@author KohGuanZeh-reused
+ * Source: https://se-education.org/guides/tutorials/javaFxPart1.html
  */
 public class Launcher {
     public static void main(String[] args) {

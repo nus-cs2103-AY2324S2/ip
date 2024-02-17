@@ -17,10 +17,10 @@ import javafx.stage.Stage;
 /**
  * Class that acts as controller for MainWindow.
  * Provides the layout for the other controls.
- *
- * @author KohGuanZeh
  */
 public class MainWindow extends Stage {
+    // @@author KohGuanZeh-reused
+    // Source: https://se-education.org/guides/tutorials/javaFxPart4.html
     private static final Image USER_IMAGE = new Image(Duke.class.getResourceAsStream("/images/user.png"));
     private static final Image DUKE_IMAGE = new Image(Duke.class.getResourceAsStream("/images/dukezeh.png"));
     @FXML
@@ -79,7 +79,7 @@ public class MainWindow extends Stage {
             waitAndExit(1000);
         }
     }
-
+    // @@author
     /**
      * Closes program after the bye command.
      * Sleeps for specified milliseconds before closing the stage.
