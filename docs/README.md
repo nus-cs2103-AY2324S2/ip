@@ -77,6 +77,7 @@ Edit the various attributes of a task.
     2. Event: `description` , `start` , `end`
     3. Deadline: `description` , `by` 
 - The respective attributes correspond to the commands that can be used.
+
 ### 5. Marking task 
 ---
 After completing a task, user can check it as done.
