@@ -1,5 +1,7 @@
 # Nicky User Guide
 
+![Ui](Ui.png)
+
 Welcome to Nicky, your personal task management assistant designed to help you keep track of your todos, deadlines, and events with ease. Nicky is intuitive and easy to use, allowing you to add, list, find, and mark tasks with simple commands.
 
 ## Listing Tasks
@@ -121,4 +123,21 @@ Nicky unmarks the specified task:
 ```
 OK, I've marked this task as not done yet:
 [T][ ] read a book
+```
+
+## Exiting the Application
+Nicky will save your tasks to a file and exit when you type `bye`.
+
+### Action
+Type `bye` to exit the application.
+
+### Example
+```
+bye
+```
+
+### Expected Outcome
+Nicky saves your tasks and exits:
+```
+Bye. Hope to see you again soon!
 ```
