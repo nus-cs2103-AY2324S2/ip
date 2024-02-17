@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
@@ -27,8 +28,13 @@ test {
     }
 }
 
+ext {
+    javaMainClass = 'duke.Duke'
+}
+
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClassName = 'duke.Duke'
+//    mainClass.set("seedu.duke.Duke")
 }
 
 shadowJar {
