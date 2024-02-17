@@ -49,14 +49,17 @@ public class Storage {
 
             switch (type) {
             case TODO:
+                assert type.equals(TaskType.TODO);
                 taskList.add(new Todo(taskDescription[2]));
                 break;
 
             case DEADLINE:
+                assert type.equals(TaskType.DEADLINE);
                 taskList.add(new Deadline(taskDescription[2], taskDescription[3]));
                 break;
 
             case EVENT:
+                assert type.equals(TaskType.EVENT);
                 taskList.add(new Event(taskDescription[2], taskDescription[3], taskDescription[4]));
                 break;
 
@@ -65,6 +68,7 @@ public class Storage {
             }
 
             if (isSavedTaskMarked(taskDescription[1])) {
+                assert taskDescription[1].equals("COMPLETED");
                 taskList.get(taskList.size() - 1).setDone(true);
             }
 
@@ -89,6 +93,7 @@ public class Storage {
             fileToWrite.getParentFile().mkdir();
             fileToWrite.createNewFile();
         }
+        assert fileToWrite.exists();
         BufferedWriter writer = new BufferedWriter(new FileWriter(storageFilepath, true));
         writer.append(newTask.fileString());
         writer.newLine();

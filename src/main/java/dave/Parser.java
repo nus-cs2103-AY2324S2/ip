@@ -48,22 +48,31 @@ public class Parser {
             if (commandStr != null) {
                 switch (commandStr) {
                     case LIST:
+                        assert commandStr.equals(CommandType.LIST);
                         return new ListTasksCommand();
                     case FIND:
+                        assert commandStr.equals(CommandType.FIND);
                         return parseFindTaskCommand(input);
                     case DELETE:
+                        assert commandStr.equals(CommandType.DELETE);
                         return parseDeleteTaskCommand(inputArr[1]);
                     case MARK:
+                        assert commandStr.equals(CommandType.MARK);
                         return parseToggleTaskDoneCommand(inputArr[1], true);
                     case UNMARK:
+                        assert commandStr.equals(CommandType.UNMARK);
                         return parseToggleTaskDoneCommand(inputArr[1], false);
                     case TODO:
+                        assert commandStr.equals(CommandType.TODO);
                         return parseAddTodoCommand(input);
                     case DEADLINE:
+                        assert commandStr.equals(CommandType.DEADLINE);
                         return parseAddDeadlineCommand(input);
                     case EVENT:
+                        assert commandStr.equals(CommandType.EVENT);
                         return parseAddEventCommand(input);
                     case BYE:
+                        assert commandStr.equals(CommandType.BYE);
                         return new ExitCommand();
 
                     default:
