@@ -2,6 +2,7 @@ package earl.tasks;
 
 import java.time.LocalDateTime;
 
+import earl.exceptions.TimeException;
 import earl.util.parsers.DateTimeParser;
 
 /**
@@ -19,11 +20,15 @@ public class Event extends Task {
      * @param from         the date and time of the start
      * @param to           the date and time of the end
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String to)
+            throws TimeException {
         super(description);
         taskType = TaskType.EVENT;
         this.from = DateTimeParser.parse(from);
         this.to = DateTimeParser.parse(to);
+        if (this.from.isAfter(this.to)) {
+            throw new TimeException();
+        }
     }
 
     @Override

@@ -1,9 +1,12 @@
 package earl.logic;
 
+import java.time.LocalDateTime;
+
 import earl.exceptions.EarlException;
 import earl.tasks.TaskType;
 import earl.util.TaskList;
 import earl.util.Ui;
+import earl.util.parsers.DateTimeParser;
 
 /**
  * Class responsible for the event command.
@@ -23,7 +26,8 @@ public class EventHandler extends TaskHandler {
             ui.makeResponse(response);
         } catch (EarlException e) {
             throw new EarlException(ui.appendNewline(e.getMessage())
-                    + ui.leftPad("deadline <task name> "
+                    + ui.leftPad(ui.appendNewline("Example use:"))
+                    + ui.leftPad("event <task name> "
                             + "/from <date time> /to <date time>"));
         }
     }

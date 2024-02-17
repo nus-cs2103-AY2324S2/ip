@@ -48,8 +48,8 @@ class TodoHandlerTest {
             handler.handle(new TaskListStub(), new UiStub());
             fail();
         } catch (EarlException e) {
-            String expected = "The description is devoid of detail. "
-                    + "Example use:" + NEWLINE
+            String expected = "The description is devoid of detail." + NEWLINE
+                    + PADDING + "Example use:" + NEWLINE
                     + PADDING + "todo <task name>";
             assertEquals(expected, e.getMessage());
         }

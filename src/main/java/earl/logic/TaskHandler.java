@@ -1,6 +1,7 @@
 package earl.logic;
 
 import earl.exceptions.EarlException;
+import earl.exceptions.TimeException;
 import earl.tasks.Task;
 import earl.tasks.TaskType;
 import earl.util.TaskList;
@@ -28,10 +29,13 @@ public abstract class TaskHandler extends Handler {
                     + tasks.getSize() + " endeavour(s).";
             return new String[]{first, second, third};
         } catch (IndexOutOfBoundsException e) {
-            throw new EarlException("An error befalls. Example use:");
+            throw new EarlException("An error befalls.");
+        } catch (TimeException e) {
+            throw new EarlException("An event must commence before "
+                    + "it concludes.");
         } catch (Exception e) {
             throw new EarlException("Incomprehensible employment of "
-                    + type.name().toLowerCase() + ". Example use:");
+                    + type.name().toLowerCase());
         }
     }
 }

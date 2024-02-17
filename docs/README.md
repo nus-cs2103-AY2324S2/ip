@@ -13,7 +13,7 @@ applications.
 1. Download the `.jar` file from [here](https://github.com/yisiox/ip/releases).
 2. Open a terminal in the directory which you saved the `.jar` file, then run
    1. `java -jar earl.jar` for GUI mode.
-   2. `java -jar earl.jar nogui` for TUI mode.
+   2. `java -jar earl.jar nogui` for CLI mode.
 
 ## Quick Reference
 
@@ -50,7 +50,7 @@ Format: `deadline <task name> /by <date time>`
 Example: `deadline project submission /by 01/01/2024 2359`
 
 *Notes*
-+ `<task name>` cannot be empty.
++ `<task name>` cannot be empty
 + `<date time>` must be of the format `dd/mm/yyyy hhmm`
 
 ### Adding Events: `event`
@@ -62,8 +62,9 @@ Format: `event <task name> /from <date time> /to <date time>`
 Example: `event exam /from 01/01/2024 1200 /to 01/01/2024 1400`
 
 *Notes*
-+ `<task name>` cannot be empty.
++ `<task name>` cannot be empty
 + `<date time>` must be of the format `dd/mm/yyyy hhmm`
++ The start cannot occur after the end
 
 ### Listing Tasks: `list`
 

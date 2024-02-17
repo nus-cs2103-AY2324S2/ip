@@ -8,54 +8,71 @@
     The ledger of tasks bears witness to 1 endeavour(s).
     ____________________________________________________________
     ____________________________________________________________
-    Incomprehensible employment of deadline. Example use:
-    deadline <task name> /by <date time>
+    A new DEADLINE [D][ ] homework (by: 01/01/1970 0000)
+    hath been appended to the roster of responsibilities.
+    The ledger of tasks bears witness to 2 endeavour(s).
     ____________________________________________________________
     ____________________________________________________________
-    Incomprehensible employment of event. Example use:
-    deadline <task name> /from <date time> /to <date time>
+    A new EVENT [E][ ] sea trials (from: 01/01/1970 0000 to: 01/01/1970 0001)
+    hath been appended to the roster of responsibilities.
+    The ledger of tasks bears witness to 3 endeavour(s).
     ____________________________________________________________
     ____________________________________________________________
     The ledger of tasks:
     1.[T][ ] wash dishes
+    2.[D][ ] homework (by: 01/01/1970 0000)
+    3.[E][ ] sea trials (from: 01/01/1970 0000 to: 01/01/1970 0001)
     ____________________________________________________________
     ____________________________________________________________
     Item(s) duly accomplished.
     1.[T][X] wash dishes
     ____________________________________________________________
     ____________________________________________________________
-    An error proclaims the absence of valid indices in range.
+    Item(s) duly accomplished.
+    2.[D][X] homework (by: 01/01/1970 0000)
     ____________________________________________________________
     ____________________________________________________________
-    An error proclaims the absence of valid indices in range.
+    Item(s) persist as undone.
+    2.[D][ ] homework (by: 01/01/1970 0000)
     ____________________________________________________________
     ____________________________________________________________
-    An error proclaims the absence of valid indices in range.
+    Item(s) persist as undone.
+    2.[D][ ] homework (by: 01/01/1970 0000) status unchanged.
     ____________________________________________________________
     ____________________________________________________________
     A new TODO [T][ ] a
     hath been appended to the roster of responsibilities.
-    The ledger of tasks bears witness to 2 endeavour(s).
+    The ledger of tasks bears witness to 4 endeavour(s).
     ____________________________________________________________
     ____________________________________________________________
     A new TODO [T][ ] b
     hath been appended to the roster of responsibilities.
-    The ledger of tasks bears witness to 3 endeavour(s).
+    The ledger of tasks bears witness to 5 endeavour(s).
     ____________________________________________________________
     ____________________________________________________________
     A new TODO [T][ ] c
     hath been appended to the roster of responsibilities.
-    The ledger of tasks bears witness to 4 endeavour(s).
+    The ledger of tasks bears witness to 6 endeavour(s).
+    ____________________________________________________________
+    ____________________________________________________________
+    1 task(s) of congruence have been uncovered.
+    3.[E][ ] sea trials (from: 01/01/1970 0000 to: 01/01/1970 0001)
     ____________________________________________________________
     ____________________________________________________________
     Item(s) heretofore have been expunged.
     1.[T][X] wash dishes
-    2.[T][ ] a
-    3.[T][ ] b
-    4.[T][ ] c
+    2.[D][ ] homework (by: 01/01/1970 0000)
+    3.[E][ ] sea trials (from: 01/01/1970 0000 to: 01/01/1970 0001)
+    5.[T][ ] b
+    6.[T][ ] c
     ____________________________________________________________
     ____________________________________________________________
-    A void of contents prevails.
+    The ledger of tasks:
+    1.[T][ ] a
+    ____________________________________________________________
+    ____________________________________________________________
+    Item(s) heretofore have been expunged.
+    1.[T][ ] a
     ____________________________________________________________
     ____________________________________________________________
     Farewell, dear interlocutor!

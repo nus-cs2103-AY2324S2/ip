@@ -41,7 +41,7 @@ public class Earl {
     }
 
     /**
-     * Executes main loop of the Earl class for TUI mode.
+     * Executes main loop of the Earl class for CLI mode.
      * <p>
      * Contains main program loop and displaying of greeting
      * and goodbye messages. Attempts to save to storage on exit.
@@ -56,7 +56,7 @@ public class Earl {
     }
 
     /**
-     * Returns a response to an interaction in GUI mode.
+     * Returns a response to an interaction in CLI mode.
      *
      * @param input  the user input text
      * @return       a {@code String} response

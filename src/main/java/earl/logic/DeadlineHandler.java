@@ -24,6 +24,7 @@ public class DeadlineHandler extends TaskHandler {
             ui.makeResponse(response);
         } catch (EarlException e) {
             throw new EarlException(ui.appendNewline(e.getMessage())
+                    + ui.leftPad(ui.appendNewline("Example use:"))
                     + ui.leftPad("deadline <task name> /by <date time>"));
         }
     }

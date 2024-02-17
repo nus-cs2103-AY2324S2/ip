@@ -1,5 +1,7 @@
 package earl.tasks;
 
+import earl.exceptions.TimeException;
+
 /**
  * Enum class for type of class.
  */
@@ -19,10 +21,10 @@ public enum TaskType {
     },
     EVENT {
         @Override
-        public Task createTask(String... args) {
+        public Task createTask(String... args) throws TimeException {
             return new Event(args[0], args[1], args[2]);
         }
     };
 
-    public abstract Task createTask(String... args);
+    public abstract Task createTask(String... args) throws TimeException;
 }
