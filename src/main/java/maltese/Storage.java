@@ -52,6 +52,23 @@ public class Storage {
         return tasks;
     }
 
+    public TaskList loadFromFile(String filePath) throws FileNotFoundException {
+        TaskList tasks = new TaskList();
+        File currentFile = new File(filePath);
+        try (Scanner scanner = new Scanner(currentFile)) {
+            while (scanner.hasNext()) {
+                String taskLine = scanner.nextLine();
+                Task task = parseTask(taskLine);
+                tasks.addTask(task);
+            }
+        } catch (FileNotFoundException e) {
+            handleFileNotFound();
+            throw e;
+        }
+
+        return tasks;
+    }
+
     public void changeFile(String filePath) {
         this.taskFile = new File(filePath);
     }

@@ -1,7 +1,9 @@
 package maltese.action;
 
 import maltese.Storage;
+import maltese.exception.InvalidFilePathException;
 import maltese.exception.MalteseException;
+import maltese.exception.NoFilePathException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -9,37 +11,46 @@ import java.io.IOException;
 public class ChangeFilePath implements Action {
     private String filePath;
     public TaskList tasks;
+    public boolean isGuide;
 
 
-    public ChangeFilePath(String filePath, Storage storage) throws IOException {
+    public ChangeFilePath(String filePath, Storage storage, boolean isGuide) throws IOException {
         this.filePath = filePath;
         if (!storage.fileExists(filePath)) {
             // If the file doesn't exist, create it
             storage.createFile(filePath);
         }
-        // Load tasks without overwriting the existing file contents
-        storage.changeFile(filePath);
-        this.tasks = storage.loadFromFile();
+        if (!isGuide) {
+            storage.changeFile(filePath);
+            this.tasks = storage.loadFromFile();
+        } else {
+            this.tasks = storage.loadFromFile(); // Load tasks from the default file path
+            storage.changeFile(filePath);
+        }
+        this.isGuide = isGuide;
     }
 
 
 
-//    public ChangeFilePath(String filePath, Storage storage) throws FileNotFoundException {
-//        this.filePath = filePath;
-//        storage.changeFile(filePath);
-//        this.tasks = storage.loadFromFile();// dont overwrite sample.txt
-//    }
 
     public static ChangeFilePath parse(String command, Storage storage) throws MalteseException, IOException {
         String[] words = command.split(" ");
+        if (words.length < 2) {
+            throw new NoFilePathException();
+        }
+        if (words.length > 2) {
+            throw new InvalidFilePathException();
+        }
         String filePath = words[1];
-        // HANDLE ERROR WHEN WORDS.LENGTH != 2
-        return new ChangeFilePath(filePath, storage);
+        return new ChangeFilePath(filePath, storage, false);
     }
 
 
     @Override
     public String response() {
+        if (isGuide) {
+            return "I loaded some sample data! Type 'list' to see the sample data";
+        }
         return "Changing file path to " + filePath + "\n";
     }
 

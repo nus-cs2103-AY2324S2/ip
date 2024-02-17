@@ -15,7 +15,7 @@ public class Guide implements Action {
     }
 
     public static ChangeFilePath parse(Storage storage) throws IOException {
-        return new ChangeFilePath("./data/sample.txt", storage);
+        return new ChangeFilePath("./data/sample.txt", storage, true);
     }
 
     /**
