@@ -48,7 +48,7 @@ public class DialogBox extends HBox {
         setPadding(new Insets(10));
 
         Circle clip = new Circle();
-        clip.setRadius(displayPicture.getFitWidth() / 2); // Radius should be half of the ImageView width
+        clip.setRadius(displayPicture.getFitWidth() / 2.3); // Radius should be half of the ImageView width
         clip.setCenterX(displayPicture.getFitWidth() / 2); // Center X coordinate of the circle
         clip.setCenterY(displayPicture.getFitHeight() / 2); // Center Y coordinate of the circle
         displayPicture.setClip(clip);
