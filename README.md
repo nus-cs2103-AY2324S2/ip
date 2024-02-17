@@ -19,65 +19,79 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 ### Add a new todo task
 > **code**
    ```
-      todo <description>
+    todo <description>
    ```
-            + " - todo <description>\n"
-            + "Add a new deadline task\n"
-            + " - deadline <description> /by <due date>\n"
-            + "Add a new event task\n"
-            + " - event <description> /from <start> /to <end>\n"
-            + "View all tasks\n"
-            + " - list\n"
-            + "Mark task(s) as done\n"
-            + " - mark <indice(s)>\n"
-            + "Unmark task(s) as undone\n"
-            + " - unmark <indice(s)>\n"
-            + "Delete task(s)\n"
-            + " - delete <indice(s)>\n"
-            + "Find task(s) containing the keyword\n"
-            + " - find <keyword>\n"
-            + "Exit the application\n"
-            + " - bye\n";
+> **example**
+   ```
+    todo drink coffee
+   ```
+### Add a new deadline task
+> **code**
+   ```
+    deadline <description> /by <due date>
+   ```
+> **example**
+   ```
+    deadline buy cake /by 2024-10-20
+   ```
+### Add a new event task
+> **code**
+   ```
+    event <description> /from <start date> /to <end date>
+   ```
+> **example**
+   ```
+    event attend career talk /from 2024-09-09 /to 2024-10-09
+   ```
+### View all tasks
+> **code**
+   ```
+    list
+   ```
+> **example**
+   ```
+    list
+   ```
+### Mark task(s) as done
+> **code**
+   ```
+    mark <indice(s)>
+   ```
+> **example**
+   ```
+    mark 2 3
+   ```
+### Unmark task(s) as undone
+> **code**
+   ```
+    unmark <indice(s)>
+   ```
+> **example**
+   ```
+    unmark 1
+   ```
+### Delete task(s)
+> **code**
+   ```
+    delete <indice(s)>
+   ```
+> **example**
+   ```
+    delete 2 4
+   ```
+### Find task(s) containing the keyword
+> **code**
+   ```
+    find <keyword>
+   ```
+> **example**
+   ```
+    find coffee
+   ```
+### Exit the application
+> **code**
+   ```
+    bye
+   ```
 
-## This is my bullet list
-* item x
-* item y
-* item z
-## This is my numbered list 
-1. item 1
-2. item 2
-3. item 3
-## This is my fenced code block
-
-```javascript
-function abc() {
-  console.log("The English Alphabet consists of 26 letters: A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z.");
-}
-```
-
-## This is my task list 
-- [ ] drink matcha latte :tea:
-- [ ] eat lemon cookies :lemon:
-- [ ] bake a bagel :bagel:
-
-## This is my blockquote
-> data engineer
-> machine learning engineer 
-> data architect
-
-## This is my hyperlink 
-This is my favourite site [DataCamp](https://www.datacamp.com/)
-
-## This is my inline code
-```
-function abc() {
-  console.log("The English Alphabet consists of 26 letters: A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z.");
-}
-```
-## This is my text formatting
-**This is bold text**
-_This text is italicized_
-~~This was mistaken text~~
-This is a <sup>superscript</sup> text
-This is a <sub>subscript</sub> text
 
