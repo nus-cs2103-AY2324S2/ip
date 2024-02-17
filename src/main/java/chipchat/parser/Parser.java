@@ -57,7 +57,8 @@ public class Parser {
         case EVENT:
             return parseTask(command, tokens);
         default:
-            return null;
+            // Should not reach default branch
+            throw new ArgumentException("Reached default branch of parseAction() due to unrecognized command type");
         }
     }
 
@@ -118,7 +119,8 @@ public class Parser {
         case UNMARK:
             return new Unmark(index);
         default:
-            return null;
+            // Should not reach default branch
+            throw new ArgumentException("Reached default branch of parseEditAction() due to unrecognized command type");
         }
     }
 
@@ -143,7 +145,7 @@ public class Parser {
             LocalDate dateTo = parseDate(args.get(2));
             return AddTask.addEvent(description, false, dateFrom, dateTo);
         default:
-            return null;
+            throw new ArgumentException("Reached default branch of parseTask() due to unrecognized command type");
         }
     }
 
