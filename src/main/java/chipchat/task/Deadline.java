@@ -1,6 +1,7 @@
 package chipchat.task;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import chipchat.action.CommandType;
 
@@ -17,8 +18,8 @@ public class Deadline extends Task {
      * @param isDone completion status of the task
      * @param dueBy due date of the task
      */
-    public Deadline(String description, boolean isDone, LocalDate dueBy) {
-        super(description, isDone);
+    public Deadline(String description, boolean isDone, LocalDate dueBy, List<String> tags) {
+        super(description, isDone, tags);
         this.dueBy = dueBy;
     }
 
@@ -29,7 +30,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), this.dueBy);
+        return String.format("[D]%s (by: %s) %s", super.toString(), this.dueBy, super.printTags());
     }
 
     /**
@@ -39,6 +40,7 @@ public class Deadline extends Task {
      */
     @Override
     public String dataString() {
-        return String.format("%s /isDone %s /dueBy %s", CommandType.DEADLINE, super.dataString(), this.dueBy);
+        return String.format("%s /isDone %s /dueBy %s /tag %s",
+                CommandType.DEADLINE, super.dataString(), this.dueBy, super.printTags());
     }
 }

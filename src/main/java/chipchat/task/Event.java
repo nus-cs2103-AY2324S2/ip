@@ -1,6 +1,7 @@
 package chipchat.task;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import chipchat.action.CommandType;
 
@@ -19,8 +20,8 @@ public class Event extends Task {
      * @param dateFrom starting date
      * @param dateTo ending date
      */
-    public Event(String description, boolean isDone, LocalDate dateFrom, LocalDate dateTo) {
-        super(description, isDone);
+    public Event(String description, boolean isDone, LocalDate dateFrom, LocalDate dateTo, List<String> tags) {
+        super(description, isDone, tags);
         this.dateFrom = dateFrom;
         this.dateTo = dateTo;
     }
@@ -32,7 +33,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), this.dateFrom, this.dateTo);
+        return String.format("[E]%s (from: %s to: %s) %s",
+                super.toString(), this.dateFrom, this.dateTo, super.printTags());
     }
 
     /**
@@ -42,7 +44,7 @@ public class Event extends Task {
      */
     @Override
     public String dataString() {
-        return String.format("%s /isDone %s /from %s /to %s",
-                CommandType.EVENT, super.dataString(), this.dateFrom, this.dateTo);
+        return String.format("%s /isDone %s /from %s /to %s /tag %s",
+                CommandType.EVENT, super.dataString(), this.dateFrom, this.dateTo, super.printTags());
     }
 }

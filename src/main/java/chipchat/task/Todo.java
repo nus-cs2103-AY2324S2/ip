@@ -1,5 +1,7 @@
 package chipchat.task;
 
+import java.util.List;
+
 import chipchat.action.CommandType;
 
 /**
@@ -13,8 +15,8 @@ public class Todo extends Task {
      * @param description name/description of the task
      * @param isDone completion status of the task
      */
-    public Todo(String description, boolean isDone) {
-        super(description, isDone);
+    public Todo(String description, boolean isDone, List<String> tags) {
+        super(description, isDone, tags);
     }
 
     /**
@@ -24,7 +26,7 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[T]%s", super.toString());
+        return String.format("[T]%s %s", super.toString(), super.printTags());
     }
 
     /**
@@ -34,6 +36,6 @@ public class Todo extends Task {
      */
     @Override
     public String dataString() {
-        return String.format("%s /isDone %s", CommandType.TODO, super.dataString());
+        return String.format("%s /isDone %s /tag %s", CommandType.TODO, super.dataString(), super.printTags());
     }
 }
