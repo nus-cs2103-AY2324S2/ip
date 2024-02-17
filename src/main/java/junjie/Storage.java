@@ -21,6 +21,7 @@ public class Storage {
             file = new File(FILE_PATH);
             file.getParentFile().mkdirs();
             file.createNewFile();
+            assert file.exists() : "File does not exist.";
         } catch (IOException e) {
             System.out.println(e);
         }

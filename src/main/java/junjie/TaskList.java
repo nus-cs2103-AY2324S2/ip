@@ -54,6 +54,7 @@ public class TaskList extends ArrayList<Task> {
 
     @Override
     public boolean add(Task task) {
+        assert task != null : "Task is null";
         super.add(task);
         Storage.write(this.toFileString());
         return false;

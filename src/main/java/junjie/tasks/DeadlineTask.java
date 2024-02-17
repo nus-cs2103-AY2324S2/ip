@@ -27,6 +27,9 @@ public class DeadlineTask extends Task {
     public DeadlineTask(String name, String deadline, boolean isDone)
             throws DateTimeException, InvalidArgumentException {
         super(name, isDone);
+
+        assert deadline != null : "Deadline cannot be null";
+
         if (name.isEmpty()) {
             throw new InvalidArgumentException(INVALID_NAME);
         }

@@ -55,6 +55,8 @@ public class Junjie {
      * @return The response from the chatbot.
      */
     public String getResponse(String input) {
+        assert input != null : "Input is null";
+
         Command command = Parser.handleInput(input, ui, taskList);
         if (command.isExit()) {
             isExit = true;

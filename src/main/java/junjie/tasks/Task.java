@@ -23,6 +23,8 @@ public abstract class Task {
      * @param isDone The completion status of the task (true if done, false if not done).
      */
     public Task(String name, boolean isDone) {
+        assert name != null : "Task name cannot be null";
+
         this.name = name;
         this.done = isDone;
     }

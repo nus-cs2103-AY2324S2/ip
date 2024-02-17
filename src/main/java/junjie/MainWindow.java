@@ -35,6 +35,8 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
+        assert scrollPane != null : "ScrollPane is null";
+        assert dialogContainer != null : "DialogContainer is null";
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
@@ -44,6 +46,7 @@ public class MainWindow extends AnchorPane {
      * @param junjie The Junjie instance to set.
      */
     public void setJunjie(Junjie junjie) {
+        assert junjie != null : "Junjie is null";
         this.junjie = junjie;
     }
 
@@ -53,6 +56,10 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        assert userInput != null : "UserInput is null";
+        assert dialogContainer != null : "DialogContainer is null";
+        assert junjie != null : "Junjie is null";
+
         String input = userInput.getText();
         String response = junjie.getResponse(input);
         dialogContainer.getChildren().addAll(
