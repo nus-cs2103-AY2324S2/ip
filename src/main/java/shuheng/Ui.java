@@ -1,15 +1,15 @@
-package duke;
+package shuheng;
 
 import java.util.Scanner;
 
-import duke.exceptions.HistoryIndexException;
-import duke.exceptions.InvalidInputException;
-import duke.exceptions.InvalidTaskException;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.PriorityLevel;
-import duke.tasks.Task;
-import duke.tasks.ToDo;
+import shuheng.exceptions.HistoryIndexException;
+import shuheng.exceptions.InvalidInputException;
+import shuheng.exceptions.InvalidTaskException;
+import shuheng.tasks.Deadline;
+import shuheng.tasks.Event;
+import shuheng.tasks.PriorityLevel;
+import shuheng.tasks.Task;
+import shuheng.tasks.ToDo;
 
 /**
  * This class represents the user-interface, that reads and write i/o to the user.
@@ -57,8 +57,8 @@ public class Ui {
     public static String sayHi() {
         String name = "shu heng";
         String nameDisplay = "_________________________\n"
-            + "Hello! I'm " + name + "\n"
-            + "What can I do for you?\n"
+            + "Hello! I'm " + name + ".\n"
+            + "\n I "
             + "_________________________\n";
         return nameDisplay;
     }

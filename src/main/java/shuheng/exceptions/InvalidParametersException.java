@@ -1,4 +1,4 @@
-package duke.exceptions;
+package shuheng.exceptions;
 
 /**
  * This class represents errors caused by invalid parameters.

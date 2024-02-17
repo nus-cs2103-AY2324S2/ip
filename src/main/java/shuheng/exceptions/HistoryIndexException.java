@@ -1,4 +1,4 @@
-package duke.exceptions;
+package shuheng.exceptions;
 
 /**
  * This class represents an error caused by accessing a invalid index in the task list.

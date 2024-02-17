@@ -1,8 +1,5 @@
-package duke.frontend;
+package shuheng.frontend;
 
-import duke.Duke;
-import duke.Ui;
-import duke.exceptions.InvalidTaskException;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -13,7 +10,9 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-
+import shuheng.ShuHeng;
+import shuheng.Ui;
+import shuheng.exceptions.InvalidTaskException;
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -29,7 +28,7 @@ public class MainWindow extends AnchorPane {
 
     private boolean isExit = false;
 
-    private Duke duke;
+    private ShuHeng duke;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
 
@@ -47,7 +46,7 @@ public class MainWindow extends AnchorPane {
         );
     }
 
-    public void setDuke(Duke d) {
+    public void setDuke(ShuHeng d) {
         duke = d;
     }
 

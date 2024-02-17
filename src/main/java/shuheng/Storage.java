@@ -1,4 +1,4 @@
-package duke;
+package shuheng;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -11,12 +11,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import duke.exceptions.CorruptedLogException;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.PriorityLevel;
-import duke.tasks.Task;
-import duke.tasks.ToDo;
+import shuheng.exceptions.CorruptedLogException;
+import shuheng.tasks.Deadline;
+import shuheng.tasks.Event;
+import shuheng.tasks.PriorityLevel;
+import shuheng.tasks.Task;
+import shuheng.tasks.ToDo;
 
 /**
  * This class represents a storage manager to handle logging and restoration of task list.

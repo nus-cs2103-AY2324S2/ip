@@ -1,12 +1,12 @@
-package duke;
+package shuheng;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import duke.exceptions.CorruptedLogException;
-import duke.tasks.Task;
+import shuheng.exceptions.CorruptedLogException;
+import shuheng.tasks.Task;
 
 /**
  * This class represents a list that holds the user's tasks.

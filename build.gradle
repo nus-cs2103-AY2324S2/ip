@@ -10,7 +10,7 @@ checkstyle {
 }
 
 application {
-    mainClass.set("duke.DukeLauncher")
+    mainClass.set("shuheng.ShuHengLauncher")
 }
 
 shadowJar {
