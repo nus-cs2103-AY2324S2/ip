@@ -1,9 +1,12 @@
 package duke;
 
+/**
+ * Represents a Task. Is the parent class of Deadline, Event, and Todo.
+ */
 public class Task {
-    String name;
+    private String name;
 
-    boolean done;
+    private boolean done;
 
     public Task(String name) {
         this.name = name;
@@ -15,10 +18,16 @@ public class Task {
         this.done = false;
     }
 
+    /**
+     * Sets this.done to be true.
+     */
     public void mark() {
         this.done = true;
     };
 
+    /**
+     * Sets this.done to be false.
+     */
     public void unmark() {
         this.done = false;
     };
@@ -33,6 +42,11 @@ public class Task {
         }
     }
 
+    /**
+     * Used to represent a Task as a string to be saved in data. If the task is marked as done,
+     * a "1" is appended to the front. Otherwise, "0".
+     * @return String that represents a task.
+     */
     public String getInput() {
         if (this.done) {
             return "1 ";

@@ -1,20 +1,32 @@
 package duke;
 
 import java.util.Scanner;
+
+/**
+ * A class to classify user input. 
+ */
 public class Ui {
 
-    Scanner sc;
-    Command currentCommand;
+    private Scanner sc;
+    private Command currentCommand;
 
     public Ui() {
         this.sc = new Scanner(System.in);
     }
 
+    /**
+     * Displays welcome message.
+     */
     public void hello() {
         System.out.println("Hello!");
         System.out.println("What can I do for you?");
     }
 
+    /**
+     * Get command from input string.
+     * @param str User input.
+     * @return Command corresponding to user input.
+     */
     public Command getCommand(String str) {
         String cmdStr = getCommandString(str);
 
@@ -68,6 +80,11 @@ public class Ui {
         return this.sc.nextLine();
     }
 
+    /**
+     * Gets the first word of the user input that should correspond to a command.
+     * @param input User input
+     * @return A string representing the command.
+     */
     public String getCommandString(String input) {
         String[] arr = input.split(" ", 2);
         String command = arr[0].toLowerCase();

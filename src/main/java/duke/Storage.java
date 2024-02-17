@@ -6,10 +6,14 @@ import java.io.IOException;
 import java.io.File;
 import java.io.BufferedReader;
 import java.io.FileReader;
+
+/**
+ * A class used to write and load data.
+ */
 public class Storage {
-    TaskList tasks;
-    Ui input;
-    Command command;
+    private TaskList tasks;
+    private Ui input;
+    private Command command;
     public Storage() {
         this.tasks = new TaskList();
         this.input = new Ui();
@@ -20,6 +24,10 @@ public class Storage {
         this.input = new Ui();
         this.command = Command.HELLO;
     }
+
+    /**
+     * Creates a file where data is saved.
+     */
     public void createFile() {
         String directoryPath = "data";
         String filePath = directoryPath + File.separator + "Duke.txt";
@@ -41,6 +49,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes data in tasks to file.
+     * @param tasks List of tasks given by user.
+     */
     public void write(TaskList tasks) {
         String filePath = "data/Duke.txt";
 
@@ -54,6 +66,9 @@ public class Storage {
 
     }
 
+    /**
+     * Deletes everything in file.
+     */
     public static void clear() {
         String filePath = "data/Duke.txt";
         try {
@@ -64,6 +79,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads data in file to tasks.
+     * @param tasks List to store tasks given in data.
+     */
     public void load(TaskList tasks) {
         String filePath = "data/Duke.txt";
 

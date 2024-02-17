@@ -6,15 +6,25 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 
+/**
+ * A class used to parse user input or data to recognizable commands.
+ */
 public class Parser {
 
 
-    static DateTimeFormatterBuilder dtfbuilder = new DateTimeFormatterBuilder()
+    private static DateTimeFormatterBuilder dtfbuilder = new DateTimeFormatterBuilder()
             .append(DateTimeFormatter.ofPattern("[ddMMyy HHmm]" + "[ddMM HHmmyyyy]" + "[ddMMyyyyHHmm]"));
-    static DateTimeFormatter dtf = dtfbuilder.toFormatter();
-    static int currentYear = Year.now().getValue();
-    static String defaultStartTime = "0000";
-    static String defaultEndTime = "2359";
+    private static DateTimeFormatter dtf = dtfbuilder.toFormatter();
+    private static int currentYear = Year.now().getValue();
+    private static String defaultStartTime = "0000";
+    private static String defaultEndTime = "2359";
+
+    /**
+     * Parses the input if it is a command to add a task.
+     * @param input Command to add a task, ie todo, event, deadline
+     * @return A Task instance corresponding to the command
+     * @throws DukeException If the command format is invalid.
+     */
     public static Task parseFromInput(String input) throws DukeException {
         Task task = null;
         String[] arr = input.split(" ", 2);
@@ -101,6 +111,12 @@ public class Parser {
         return task;
     }
 
+    /**
+     * Parses string stored in data file.
+     * @param input A line in the data file.
+     * @return A task corresponding to the line in the data file.
+     * @throws DukeException If the input is not recognized or corrupted.
+     */
     public static Task parseFromData(String input) throws DukeException {
         Task task = null;
         boolean done;

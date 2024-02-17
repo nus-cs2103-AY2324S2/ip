@@ -1,4 +1,8 @@
 package duke;
+
+/**
+ * Represents a Todo task.
+ */
 public class Todo extends Task {
     private String name;
     private boolean done;

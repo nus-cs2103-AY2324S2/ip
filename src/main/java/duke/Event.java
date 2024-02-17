@@ -3,6 +3,9 @@ package duke;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents an Event task.
+ */
 public class Event extends Task {
     private String name;
     private LocalDateTime from;
@@ -10,7 +13,7 @@ public class Event extends Task {
     private boolean done;
     private static String identifier = "[E]";
 
-    DateTimeFormatter dtfoutput = DateTimeFormatter.ofPattern("dd MMM yyyy HHmm");
+    private DateTimeFormatter dtfoutput = DateTimeFormatter.ofPattern("dd MMM yyyy HHmm");
 
     public Event(String name, LocalDateTime from, LocalDateTime to) {
         super(name);

@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * Represents commands. Eg. Command.DELETE refers to the DELETE command.
+ */
 public enum Command {
     HELLO("hello") {
 
@@ -146,6 +149,13 @@ public enum Command {
     public String getCommand() {
         return this.command;
     }
+
+    /**
+     *  Executes actions according to specific commands.
+     * @param tasks Current list of tasks
+     * @param description Input given by user
+     * @throws DukeException If input is invalid
+     */
     public abstract void execute(TaskList tasks, String description) throws DukeException;
 
 

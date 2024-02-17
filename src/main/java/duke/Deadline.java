@@ -2,13 +2,17 @@ package duke;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+/**
+ * Represents a Deadline task.
+ */
 public class Deadline extends Task {
     private String name;
     private LocalDateTime by;
     private boolean done;
     private static String identifier = "[D]";
 
-    DateTimeFormatter dtfoutput = DateTimeFormatter.ofPattern("dd MMM yyyy HHmm");
+    private DateTimeFormatter dtfoutput = DateTimeFormatter.ofPattern("dd MMM yyyy HHmm");
 
     public Deadline(String name, LocalDateTime by) {
         super(name);
@@ -35,9 +39,9 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         if (this.done) {
-            return "[X]" + identifier + " " + this.name + " (by " + dtfoutput.format(by) + ")";
+            return "[X]" + identifier + " " + this.name + "(by " + dtfoutput.format(by) + ")";
         } else {
-            return "[ ]" + identifier + " " + this.name + " (by " + dtfoutput.format(by) + ")";
+            return "[ ]" + identifier + " " + this.name + "(by " + dtfoutput.format(by) + ")";
         }
 
     }

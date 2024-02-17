@@ -1,6 +1,10 @@
 package duke;
 
 import java.util.ArrayList;
+
+/**
+ * A class representing a list of Tasks.
+ */
 public class TaskList {
     private ArrayList<Task> list;
 
@@ -39,6 +43,10 @@ public class TaskList {
         return str;
     }
 
+    /**
+     * Used to get the representation of a task to be stored in data.
+     * @return String representing a task to be stored in data.
+     */
     public String getInputs() {
         int n = this.list.size();
         String str = "";
