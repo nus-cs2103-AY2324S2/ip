@@ -48,8 +48,6 @@ public class Storage {
     public List<Task> load() throws DukeException, IOException {
         if (f.createNewFile()) { // check if save exist
             throw new DukeException();
-        } else {
-            System.out.println("Loading from save file.");
         }
 
         List<Task> taskList = new ArrayList<>();

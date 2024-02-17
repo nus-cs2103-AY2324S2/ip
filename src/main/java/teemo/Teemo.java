@@ -3,8 +3,6 @@ package teemo;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.List;
-import java.util.Scanner;
-
 /**
  * Instance of Duke class
  */
@@ -13,16 +11,6 @@ public class Teemo {
     private TaskList tasks;
     private Ui ui;
     private Parser parser = new Parser();
-    private List<String> stringList;
-
-    /**
-     * Constructor for Duke class.
-     * @param filePath Path to save file for tasks.
-     */
-    public Teemo(String filePath) {
-        load(filePath);
-    }
-
     /**
      * Default constructor for Duke class.
      * Used for GUI.
@@ -40,58 +28,9 @@ public class Teemo {
         try {
             tasks = new TaskList(storage.load());
         } catch (DukeException | IOException e) {
-            ui.showLoadingError();
             tasks = new TaskList();
         }
     }
-    /**
-     * Runs the chatbot
-     */
-    public void run() {
-        ui.greet();
-
-        String input;
-        Scanner scanner = new Scanner(System.in);
-        boolean isExit = false;
-        String errorMessage;
-
-        while (!isExit) {
-            try {
-                // Take user input
-                input = scanner.nextLine();
-                stringList = parser.parse(input);
-
-                Options choice = optionType(stringList.get(0));
-
-                ui.nextCommand(choice, tasks, stringList, storage);
-
-                if (choice.equals(optionType("bye"))) {
-                    isExit = true;
-                }
-
-            } catch (DukeException de) {
-                errorMessage = ui.padding("\t" + de + "\n");
-                System.out.println(errorMessage);
-            } catch (NumberFormatException nfe) {
-                errorMessage = ui.padding("\tInvalid number, please enter a valid number.\n");
-                System.out.println(errorMessage);
-            } catch (IndexOutOfBoundsException oobe) {
-                if (tasks.size() == 0) {
-                    errorMessage = ui.padding("\tNo tasks found. Please add a task first!\n");
-                } else {
-                    errorMessage = ui.padding("\tInvalid number, please enter a valid number between 1 and "
-                            + tasks.size() + ".\n");
-                }
-                System.out.println(errorMessage);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (DateTimeParseException dtpe) {
-                errorMessage = ui.padding("\tPlease enter a datetime format of yyyy-mm-dd.\n");
-                System.out.println(errorMessage);
-            }
-        }
-    }
-
     /**
      * Gets response for GUI inputs.
      * @param input user input.
@@ -99,12 +38,12 @@ public class Teemo {
      */
     protected String getResponse(String input) {
         try {
-            stringList = parser.parse(input);
+            List<String> stringList = parser.parse(input);
             Options choice = optionType(stringList.get(0));
             return "Swiftly! Reporting in, here is your command.\n"
                     + ui.nextCommand(choice, tasks, stringList, storage).replace("\t", "");
         } catch (DukeException de) {
-            return "That's gotta string! " + de.getMessage() + "\n";
+            return "That's gotta sting! " + de.getMessage() + "\n";
         } catch (NumberFormatException nfe) {
             return "Oh nyo! This isn't a number, please enter a valid one!\n";
         } catch (IndexOutOfBoundsException oobe) {
@@ -118,11 +57,6 @@ public class Teemo {
         } catch (DateTimeParseException dtpe) {
             return "Please use a datetime format of yyyy-mm-dd! Teemo can't understand other formats :(\n";
         }
-    }
-
-    public static void main(String[] args) {
-        new Teemo("./tasks.txt").run(); // for running in cli
-        //Application.launch(Main.class, args); // for running in gui
     }
     /**
      * Returns the Option input by user.
