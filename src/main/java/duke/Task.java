@@ -34,6 +34,15 @@ public abstract class Task {
     }
 
     /**
+     * Returns status number where 1 represents completed, 0 represents incomplete
+     *
+     * @return A numeric representation of the task's completion status
+     */
+    public int getStatusNumber() {
+        return this.statusNumber; // mark done task with X
+    }
+
+    /**
      * Returns the details of the task, including its status icon and description.
      *
      * @return A formatted string containing the task's status and description.

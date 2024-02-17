@@ -35,8 +35,10 @@ public class TaskList {
      * @param index The index of the task to be removed.
      */
     protected void deleteTask(int index) {
+        int previousTasks = storageFill;
         tasks.remove(index);
         TaskList.storageFill--; // Update task count
+        assert previousTasks == storageFill++ : "Task list size should decrease by 1";
     }
 
     /**
@@ -105,7 +107,9 @@ public class TaskList {
      * @param task The task to add to the list.
      */
     protected void addTask(Task task) {
+        int previousTasks = storageFill;
         tasks.add(task);
         storageFill++;
+        assert previousTasks == storageFill-- : "Task list size should increase by 1";
     }
 }

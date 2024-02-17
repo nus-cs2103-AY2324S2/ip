@@ -127,9 +127,11 @@ public class Ui {
             break;
         case MARK:
             output.append(this.taskList.getTask(taskIndex).markComplete());
+            assert this.taskList.getTask(taskIndex).getStatusNumber() == 1 : "Status number should be 1";
             break;
         case UNMARK:
             output.append(this.taskList.getTask(taskIndex).unmarkComplete());
+            assert this.taskList.getTask(taskIndex).getStatusNumber() == 0 : "Status number should be 0";
             break;
         case DELETE:
             Task deletedTask = this.taskList.getTask(taskIndex);
