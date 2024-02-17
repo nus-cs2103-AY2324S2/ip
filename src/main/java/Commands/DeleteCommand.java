@@ -1,9 +1,9 @@
 package Commands;
 
 import Exceptions.DudeException;
-import Exceptions.InvalidCommandIDException;
 import Exceptions.InvalidFormatException;
 import Tasks.TaskList;
+import Utils.CommandTypes;
 
 public class DeleteCommand extends Command {
     private final String input;
@@ -37,6 +37,10 @@ public class DeleteCommand extends Command {
         } catch (DudeException e) {
             throw new DudeException(e.getMessage());
         }
+    }
 
+    @Override
+    public CommandTypes getCommandType() {
+        return CommandTypes.DELETE;
     }
 }

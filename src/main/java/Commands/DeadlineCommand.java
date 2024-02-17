@@ -4,13 +4,16 @@ import Exceptions.DudeException;
 import Exceptions.InvalidFormatException;
 import Tasks.Deadline;
 import Tasks.TaskList;
+import Utils.CommandTypes;
 
 public class DeadlineCommand extends Command {
     private final String input;
     private final TaskList taskList;
+    public static final String FORMAT = "deadline <description> /by <date>";
+    public static final String REGEX = "deadline .* /by .*";
 
     public DeadlineCommand(String input, TaskList tasklist) {
-        super("deadline <description> /by <date>", "deadline .* /by .*");
+        super(FORMAT, REGEX);
         this.input = input;
         this.taskList = tasklist;
     }
@@ -29,4 +32,10 @@ public class DeadlineCommand extends Command {
                 + "\t  " + deadline.toString() + "\n"
                 + "\tNow you have " + this.taskList.getSize() + " tasks in the list.";
     }
+
+    @Override
+    public CommandTypes getCommandType() {
+        return CommandTypes.DEADLINE;
+    }
+
 }

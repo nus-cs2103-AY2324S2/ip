@@ -5,6 +5,7 @@ import Exceptions.InvalidFormatException;
 import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.TaskList;
+import Utils.CommandTypes;
 
 public class EventCommand extends Command {
     private final String input;
@@ -29,6 +30,11 @@ public class EventCommand extends Command {
         return "Got it. I've added this task:\n"
                 + "\t  " + event.toString() + "\n"
                 + "\tNow you have " + this.taskList.getSize() + " tasks in the list.";
+    }
+
+    @Override
+    public CommandTypes getCommandType() {
+        return CommandTypes.EVENT;
     }
 
 }

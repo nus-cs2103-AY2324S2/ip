@@ -1,3 +1,5 @@
+import Commands.Command;
+import Commands.CommandParser;
 import Commands.DeleteCommand;
 import Exceptions.*;
 import Exceptions.TaskListFullException;
@@ -7,6 +9,7 @@ import Tasks.TaskList;
 import Tasks.Todo;
 import Utils.CommandTypes;
 import Utils.Storage;
+import Utils.Ui;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -32,17 +35,17 @@ public class  Dude {
 //        System.out.println("--------------------------------------");
 //        System.out.println("Dude v1.0 by Tahsin Hasem.\n");
 
+        Ui ui = new Ui();
 
         try {
             taskList = storage.loadTasks();
-        }
-        catch (Exception e){
-            System.out.println(echo("An error occurred while loading the tasks. Deleting the storage and starting with an empty task list."));
+        } catch (Exception e) { //Thrown when file gets corrupted
+            ui.showMessage("An error occurred while loading the tasks. Deleting the storage and starting with an empty task list.");
             storage.deleteStorage();
             taskList = new TaskList();
         }
 
-        System.out.println(greet());
+        ui.showWelcome();
 
         // Initialise Scanner to reach command line input
         Scanner sc = new Scanner(System.in);
@@ -56,182 +59,19 @@ public class  Dude {
                 break;
             }
 
-            CommandTypes command = getCommand(msg);
+            Command command = CommandParser.parseCommand(msg, taskList);
 
-            switch (command) {
-            case BYE:
-                System.out.println(bye());
-                return;
-            case LIST:
-                System.out.println(list());
-                break;
-            case MARK:
-                System.out.println(mark_as_done(msg));
-                break;
-            case UNMARK:
-                System.out.println(mark_as_undone(msg));
-                break;
-            case TODO:
-                System.out.println(handle_todo_command(msg));
-                break;
-            case EVENT:
-                System.out.println(handle_event_command(msg));
-                break;
-            case DEADLINE:
-                System.out.println(handle_deadline_command(msg));
-                break;
-            case DELETE:
-                System.out.println(handle_delete_command(msg));
-                break;
-            case INVALID:
-                System.out.println(echo("I'm sorry, but I don't know what that means :-("));
+            try {
+                String response = command.execute();
+                ui.showMessage(response);
+            } catch (DudeException e) {
+                ui.showMessage(e.getMessage());
+            }
+
+            if (command.getCommandType() == CommandTypes.BYE) {
                 break;
             }
 
-            if (isCommandChangingState(command)) {
-                try {
-                    storage.saveTasks(taskList);
-                } catch (Exception e) {
-                    System.out.println(echo("An error occurred while saving the tasks."));
-                }
-            }
-
-        }
-
-    }
-
-    private static String greet(){
-        return "\t-----------------------------------\n" +
-                "\tHello! I'm Dude\n" +
-                "\tWhat can I do for you?\n" +
-                "\t-----------------------------------\n";
-    }
-
-    private static String list(){
-        return taskList.toString();
-    }
-
-    private static String bye(){
-        String bye_msg = "\t-----------------------------------";
-        bye_msg += "\n\tBye. Hope to see you again soon!";
-        bye_msg +=  "\n\t-----------------------------------";
-
-        return bye_msg;
-    }
-
-    private static String mark_as_done(String msg){
-        //TODO: Write logic for commands with multiple parameters. Eg: mark 1 2 3
-        //Try to retrieve the index
-        int index = 0;
-        try{
-            index = Integer.parseInt(msg.split(" ")[1]);
-        } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            return "\t-----------------------------------\n" +
-                    "\tPlease provide a valid task ID. Has to be an integer.\n" +
-                    "\t-----------------------------------";
-        }
-
-        //This will run only when the index is valid, as catch block will return the error message
-        try {
-            return taskList.mark_as_done(index);
-        } catch (IndexOutOfBoundsException e) {
-            return "\t-----------------------------------\n" +
-                    "\t" + e.getMessage() +"\n" +
-                    "\t-----------------------------------";
-        }
-    }
-
-    private static String mark_as_undone(String msg){
-        //TODO: Write logic for commands with multiple parameters. Eg: unmark 1 2 3
-        //Try to retrieve the index
-        int index = 0;
-        try{
-            index = Integer.parseInt(msg.split(" ")[1]);
-        } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            return "\t-----------------------------------\n" +
-                    "\tPlease provide a valid task ID. Has to be an integer.\n" +
-                    "\t-----------------------------------";
-        }
-
-        //This will run only when the index is valid, as catch block will return the error message
-        try {
-            return taskList.mark_as_undone(index);
-        } catch (IndexOutOfBoundsException e) {
-            return "\t-----------------------------------\n" +
-                    "\t" + e.getMessage() +"\n" +
-                    "\t-----------------------------------";
-        }
-    }
-
-    private static String echo(String msg){
-        return "\t-----------------------------------\n" +
-                "\t" + msg + "\n" +
-                "\t-----------------------------------";
-    }
-
-
-    private static String handle_todo_command(String msg){
-        try{
-            Todo task = Todo.from(msg);
-            return taskList.add_task(task);
-        }catch (InvalidDescriptionException | TaskListFullException e) {
-            return echo(e.getMessage());
-        }
-    }
-
-    private static String handle_event_command(String msg){
-        try{
-            Event task = Event.from(msg);
-            return taskList.add_task(task);
-        }catch (InvalidDescriptionException | InvalidFormatException | InvalidArgumentException | TaskListFullException e) {
-            return echo(e.getMessage());
-        }
-    }
-
-    private static String handle_deadline_command(String msg){
-        try{
-            Deadline task = Deadline.from(msg);
-            return taskList.add_task(task);
-        }catch (InvalidFormatException | InvalidArgumentException | InvalidDescriptionException | TaskListFullException e) {
-            return echo(e.getMessage());
-        }
-    }
-
-    private static String handle_delete_command(String msg){
-        try {
-            return new DeleteCommand(msg, taskList).execute();
-        } catch (DudeException e) {
-            return echo(e.getMessage());
-        }
-    }
-
-    private static boolean isCommandChangingState(CommandTypes command) {
-        return command == CommandTypes.TODO || command == CommandTypes.EVENT || command == CommandTypes.DEADLINE
-                || command == CommandTypes.DELETE || command == CommandTypes.MARK || command == CommandTypes.UNMARK;
-    }
-
-    private static CommandTypes getCommand(String msg) {
-        String cmd = msg.split(" ")[0];
-
-        switch(cmd) {
-            case "bye":
-                return CommandTypes.BYE;
-            case "list":
-                return CommandTypes.LIST;
-            case "mark":
-                return CommandTypes.MARK;
-            case "unmark":
-                return CommandTypes.UNMARK;
-            case "todo":
-                return CommandTypes.TODO;
-            case "event":
-                return CommandTypes.EVENT;
-            case "deadline":
-                return CommandTypes.DEADLINE;
-            case "delete":
-                return CommandTypes.DELETE;
-            default:
-                return CommandTypes.INVALID;
         }
 
     }

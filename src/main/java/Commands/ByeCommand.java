@@ -1,5 +1,7 @@
 package Commands;
 
+import Utils.CommandTypes;
+
 public class ByeCommand extends Command {
 
     public ByeCommand() {
@@ -8,5 +10,10 @@ public class ByeCommand extends Command {
 
     public String execute() {
         return "Bye. Hope to see you again soon!";
+    }
+
+    @Override
+    public CommandTypes getCommandType() {
+        return CommandTypes.BYE;
     }
 }

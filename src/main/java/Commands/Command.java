@@ -1,6 +1,7 @@
 package Commands;
 
 import Exceptions.DudeException;
+import Utils.CommandTypes;
 
 public abstract class Command {
 
@@ -22,4 +23,5 @@ public abstract class Command {
         return this.regex;
     }
 
+    public abstract CommandTypes getCommandType();
 }

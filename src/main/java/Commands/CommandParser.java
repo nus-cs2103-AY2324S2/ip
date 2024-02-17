@@ -6,7 +6,7 @@ import Utils.Storage;
 
 public class CommandParser {
 
-    public static Command parseCommand(String input, TaskList tasklist) throws DudeException {
+    public static Command parseCommand(String input, TaskList tasklist) {
         String[] command = input.split(" ", 2);
         switch (command[0]) {
         case "bye":

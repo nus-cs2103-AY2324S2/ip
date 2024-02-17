@@ -9,5 +9,6 @@ public enum CommandTypes {
     EVENT,
     MARK,
     UNMARK,
+    HELP,
     INVALID
 }

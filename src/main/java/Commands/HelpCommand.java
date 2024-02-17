@@ -1,6 +1,7 @@
 package Commands;
 
 import Exceptions.DudeException;
+import Utils.CommandTypes;
 
 public class HelpCommand extends Command {
 
@@ -95,4 +96,8 @@ public class HelpCommand extends Command {
         return "I'm sorry, I don't know what that command is. Please type 'help' to see the list of commands I support.";
     }
 
+    @Override
+    public CommandTypes getCommandType() {
+        return CommandTypes.HELP;
+    }
 }

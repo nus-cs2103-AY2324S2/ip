@@ -6,6 +6,7 @@ import Exceptions.InvalidFormatException;
 import Exceptions.TaskListFullException;
 import Tasks.TaskList;
 import Tasks.Todo;
+import Utils.CommandTypes;
 
 public class TodoCommand extends Command {
     private final String input;
@@ -29,5 +30,10 @@ public class TodoCommand extends Command {
         return "Got it. I've added this task:\n"
                 + "\t  " + todo.toString() + "\n"
                 + "\tNow you have " + this.taskList.getSize() + " tasks in the list.";
+    }
+
+    @Override
+    public CommandTypes getCommandType() {
+        return CommandTypes.TODO;
     }
 }

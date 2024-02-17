@@ -1,5 +1,7 @@
 package Commands;
 
+import Utils.CommandTypes;
+
 public class InvalidCommand extends Command {
 
     public InvalidCommand() {
@@ -10,4 +12,8 @@ public class InvalidCommand extends Command {
         return "Sorry I don't understand that command. Please try again.";
     }
 
+    @Override
+    public CommandTypes getCommandType() {
+        return CommandTypes.INVALID;
+    }
 }

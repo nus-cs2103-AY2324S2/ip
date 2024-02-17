@@ -1,9 +1,6 @@
 package Tasks;
 
 import Exceptions.DudeException;
-import Exceptions.InvalidCommandIDException;
-import Tasks.Task;
-
 import java.util.ArrayList;
 import Exceptions.TaskListFullException;
 
@@ -12,7 +9,7 @@ public class TaskList {
     private final ArrayList<Task> list;
 
     public TaskList(){
-        list = new ArrayList<>();
+        list = new ArrayList<Task>();
     }
 
     public static TaskList from(ArrayList<Task> tasks) {

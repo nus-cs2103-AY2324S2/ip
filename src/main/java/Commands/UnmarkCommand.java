@@ -3,6 +3,7 @@ package Commands;
 import Exceptions.DudeException;
 import Exceptions.InvalidFormatException;
 import Tasks.TaskList;
+import Utils.CommandTypes;
 
 public class UnmarkCommand extends Command {
     private final String input;
@@ -36,5 +37,10 @@ public class UnmarkCommand extends Command {
         } catch (DudeException e) {
             throw new DudeException(e.getMessage());
         }
+    }
+
+    @Override
+    public CommandTypes getCommandType() {
+        return CommandTypes.UNMARK;
     }
 }
