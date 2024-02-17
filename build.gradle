@@ -53,7 +53,8 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "naruto.jar"
+    archiveBaseName = "naruto"
+    archiveClassifier = ""
 }
 
 run {
