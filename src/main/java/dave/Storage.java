@@ -30,7 +30,7 @@ public class Storage {
      * @param filepath Output file to operate on for storing and updating tasks in.
      */
     public Storage(String filepath) {
-        this.storageFilepath = filepath;
+        storageFilepath = filepath;
     }
 
     /**
@@ -41,7 +41,7 @@ public class Storage {
      */
     public ArrayList<Task> load() throws IOException {
         ArrayList<Task> taskList = new ArrayList<Task>();
-        BufferedReader br = new BufferedReader(new FileReader(this.storageFilepath));
+        BufferedReader br = new BufferedReader(new FileReader(storageFilepath));
         String line = br.readLine();
         while (line != null) {
             String[] taskDescription = line.split(" \\| ");
@@ -84,12 +84,12 @@ public class Storage {
      * @throws IOException If output file is not found.
      */
     public void saveTask(Task newTask) throws IOException {
-        File fileToWrite = new File(this.storageFilepath);
+        File fileToWrite = new File(storageFilepath);
         if (!fileToWrite.exists()) {
             fileToWrite.getParentFile().mkdir();
             fileToWrite.createNewFile();
         }
-        BufferedWriter writer = new BufferedWriter(new FileWriter(this.storageFilepath, true));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(storageFilepath, true));
         writer.append(newTask.fileString());
         writer.newLine();
         writer.close();
@@ -102,7 +102,7 @@ public class Storage {
      * @param taskList Current task list to read from.
      */
     public void rewriteOutput(TaskList taskList) {
-        File fileToDelete = new File(this.storageFilepath);
+        File fileToDelete = new File(storageFilepath);
         try {
             fileToDelete.delete();
             for (int i = 0; i < taskList.getNumberOfTasks(); i++) {

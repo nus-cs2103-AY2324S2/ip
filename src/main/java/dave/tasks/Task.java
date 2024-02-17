@@ -11,21 +11,21 @@ public class Task {
      * 
      * @param desc Name or description of Task object.
      */
-    public Task(String desc) {
-        this.desc = desc;
-        this.isDone = false;
+    public Task(String descInput) {
+        desc = descInput;
+        isDone = false;
     }
 
     public String getStatusIcon() {
-        return (this.isDone ? "X" : " "); // mark X if task is completed
+        return (isDone ? "X" : " "); // mark X if task is completed
     }
 
     public String getTaskName() {
-        return this.desc;
+        return desc;
     }
 
-    public void setDone(boolean isDone) {
-        this.isDone = isDone;
+    public void setDone(boolean isDoneInput) {
+        isDone = isDoneInput;
     }
 
     /**
@@ -35,7 +35,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        return String.format("[%s] %s", this.getStatusIcon(), this.desc);
+        return String.format("[%s] %s", getStatusIcon(), desc);
     }
 
     /**
@@ -44,6 +44,6 @@ public class Task {
      * @return The output to be written in the output file.
      */
     public String fileString() {
-        return String.format("%s | %s", this.getStatusIcon().equals("X") ? "COMPLETED" : "INCOMPLETE", this.desc);
+        return String.format("%s | %s", getStatusIcon().equals("X") ? "COMPLETED" : "INCOMPLETE", desc);
     }
 }

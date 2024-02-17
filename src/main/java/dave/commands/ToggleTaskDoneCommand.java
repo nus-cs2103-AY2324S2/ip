@@ -18,9 +18,9 @@ public class ToggleTaskDoneCommand extends Command {
      * @param taskNumber Index of task to mark/unmark.
      * @param isDone Status of task to set to.
      */
-    public ToggleTaskDoneCommand(int taskNumber, boolean isDone) {
-        this.taskNumber = taskNumber;
-        this.isDone = isDone;
+    public ToggleTaskDoneCommand(int taskNumberInput, boolean isDoneInput) {
+        taskNumber = taskNumberInput;
+        isDone = isDoneInput;
     }
 
     /**
@@ -32,9 +32,9 @@ public class ToggleTaskDoneCommand extends Command {
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
-            taskList.getTask(taskNumber).setDone(this.isDone);
+            taskList.getTask(taskNumber).setDone(isDone);
             storage.rewriteOutput(taskList);
-            if (this.isDone) {
+            if (isDone) {
                 return ui.showTaskMarked(taskList.getTask(taskNumber));
             } else {
                 return ui.showTaskUnmarked(taskList.getTask(taskNumber));
