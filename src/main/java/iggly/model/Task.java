@@ -42,7 +42,7 @@ public abstract class Task implements Serializable {
     }
 
     /**
-     * Mark the task as not completed.
+     * Marks the task as not completed.
      */
     public void unmark() {
         this.isDone = false;
