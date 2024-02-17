@@ -54,7 +54,7 @@ public class Storage {
     }
 
     /**
-     * Write the content of the task list of the chatbot back to the linked text file.
+     * Writes the content of the task list of the chatbot back to the linked text file.
      */
     public void saveToFile() {
         try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {

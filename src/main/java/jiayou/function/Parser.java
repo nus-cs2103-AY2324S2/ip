@@ -245,8 +245,8 @@ public class Parser {
     private String handleReschedule(TaskList tasks, String input) {
         try {
             if (input.isEmpty()) {
-                throw new JiayouException("OOPS!!! I don't know which task to mark.\n"
-                        + "Please add the index after the keyword mark!");
+                throw new JiayouException("OOPS!!! I don't know which task to reschedule.\n"
+                        + "Please add the index after the keyword reschedule!");
             }
 
             String[] partsOfReschedule = input.split(" ", 3);
@@ -259,6 +259,8 @@ public class Parser {
             String dateType = partsOfReschedule[1];
             String newDate = partsOfReschedule[2];
             return tasks.reschedule(id, dateType, newDate);
+        } catch (DateTimeParseException e) {
+            return "OOPS!!! The date should be in the form of YYYY-MM-DD.";
         } catch (JiayouException e) {
             return e.getMessage();
         }
