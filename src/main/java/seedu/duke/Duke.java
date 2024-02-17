@@ -29,63 +29,26 @@ public class Duke {
     }
 
     /**
+     * Represents the opening message when Duke starts.
+     * @return opening message
+     */
+    public String welcomeMessage() {
+        return ui.openingMessage();
+    }
+
+    /**
      * Contains logic from greeting to farewell to user.
      * It will scan for input and parse only when given valid commands.
      * These commands will then fed back to the user within the UI.
      * eg. <code>list, mark, unmark, deadline, todo, event</code>
      */
-    public void run() {
-        ui.openingMessage();
-        Scanner sc = new Scanner(System.in);
-        String userInput = sc.nextLine();
-        while (!userInput.equals("bye")) {
-            // command dependent logic
-            if (userInput.equals("list")) {
-                ui.printList(tasks.getList());
-                userInput = sc.nextLine();
-            } else if (userInput.startsWith("mark")) {
-                Parser.parseMark(userInput, tasks, ui);
-                userInput = sc.nextLine();
-            } else if (userInput.startsWith("unmark")) {
-                Parser.parseUnmark(userInput, tasks, ui);
-                userInput = sc.nextLine();
-            } else if (userInput.startsWith("deadline")) {
-                Parser.parseDeadline(userInput, tasks, ui);
-                userInput = sc.nextLine();
-            } else if (userInput.startsWith("todo")) {
-                Parser.parseTodo(userInput, tasks, ui);
-                userInput = sc.nextLine();
-            } else if (userInput.startsWith("event")) {
-                Parser.parseEvent(userInput, tasks, ui);
-                userInput = sc.nextLine();
-            } else if (userInput.startsWith("delete")) {
-                Parser.parseDelete(userInput, tasks, ui);
-                userInput = sc.nextLine();
-            } else {
-                try {
-                    throw new DukeException("Sorry, I didn't understand that.");
-                } catch (DukeException d) {
-                    ui.printError(d);
-                    userInput = sc.nextLine();
-                }
-            }
-        }
-        storage.saveList(tasks.getList());
-        ui.closingMessage();
-    }
-
-    public static String gitResponse(String userInput) {
+    public static String getResponse(String userInput) {
         String response = "";
         // command dependent logic
         if (userInput.equals("bye")) {
             storage.saveList(tasks.getList());
             response = ui.closingMessage();
         } else if (userInput.equals("list")) {
-//            Parser.parseTodo("todo hahhaha", tasks, ui);
-//            Parser.parseMark("mark 1", tasks, ui);
-//            Parser.parseUnmark("unmark 1", tasks, ui);
-//            Parser.parseDeadline("deadline go to sleep /by 2024-03-03", tasks, ui);
-//            Parser.parseEvent("event orientation /from 2023-08-02 /to 2024-08-09", tasks, ui);
             response = ui.printList(tasks.getList());
         } else if (userInput.startsWith("mark")) {
             response = Parser.parseMark(userInput, tasks, ui);
@@ -106,23 +69,7 @@ public class Duke {
                 response = ui.printError(d);
             }
         }
+        storage.saveList(tasks.getList());
         return response;
-    }
-
-    public String getResponse(String input) {
-        return "hii";
-    }
-
-    /**
-     * Main method in Duke.
-     *
-     * @param args
-     * @throws IOException
-     */
-    public static void main(String[] args) throws IOException {
-        new Duke();
-        Scanner sc = new Scanner(System.in);
-        String userInput = sc.nextLine();
-        System.out.println(gitResponse(userInput));
     }
 }
