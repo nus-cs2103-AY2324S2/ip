@@ -1,5 +1,17 @@
 # Jiayou User Guide
 ![Ui](https://github.com/ljy0422/ip/assets/111126607/21431f1a-0356-4fe9-b89a-3b0b1a7331e0)
+Jiayou is a simple chatbot which can help you manage your daily tasks with cute personality. It's,  
+- text-based
+- easy to learn
+- ~~FAST~~ SUPER FAST to use
+
+All you need to do is,
+1. download it from [here](https://github.com/ljy0422/ip/releases/tag/A-Jar)
+2. double-click it
+3. add your tasks
+4. let it manage your tasks for you 😉
+
+The following is the features of Jiayou and how you can use them.
 
 ## Getting the Whole Task List
 You can ask Jiayou to display the whole task list so that you can clearly see how many tasks you have.
