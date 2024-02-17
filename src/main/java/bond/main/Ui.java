@@ -178,9 +178,6 @@ public class Ui {
      */
     public String showError(Exception e) {
         String message = e.getMessage();
-        StringBuilder builder = new StringBuilder();
-        builder.append(message);
-        builder.append(this.newLine());
         return message;
     }
 
@@ -189,9 +186,6 @@ public class Ui {
      */
     public String showGoodbye() {
         String message = "Bye. Hope to see you again soon!";
-        StringBuilder builder = new StringBuilder();
-        builder.append(message);
-        builder.append(this.newLine());
         return message;
     }
 
