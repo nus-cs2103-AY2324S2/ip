@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import commands.CommandsParser;
 import exceptions.RyanGoslingException;
+import main.MainResponseCategorized;
 import tasks.Task;
 
 /**
@@ -53,16 +54,18 @@ public class Ui {
      * @param userInput The user input to be processed.
      * @return The response string based on the executed task.
      */
-    public String performTaskFromSingleUserInput(String userInput) {
+    public MainResponseCategorized performTaskFromSingleUserInput(String userInput) {
         CommandsParser commandsParser = new CommandsParser(this.taskList, this.filePath, this.taskLoader);
         try {
-            return commandsParser.parseCommands(userInput);
+            String responseFromParsingofCommand = commandsParser.parseCommands(userInput);
+            return new MainResponseCategorized(false, responseFromParsingofCommand);
         } catch (DateTimeException e) {
-            return "Problem with date or time format!\n"
+            return new MainResponseCategorized(true, "Problem with date or time format!\n"
                     + "Date should be in YYYY-MM-DD\n"
-                    + "Time should be in 24 HR clock format";
+                    + "Time should be in 24 HR clock format");
+
         } catch (RyanGoslingException e) {
-            return e.getMessage();
+            return new MainResponseCategorized(true, e.getMessage());
         }
     }
 }

@@ -19,6 +19,8 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
 
 /**
@@ -32,7 +34,7 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
-    private DialogBox(String text, Image img, boolean isUser) {
+    private DialogBox(String text, Image img, boolean isUser, boolean isError) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -63,6 +65,17 @@ public class DialogBox extends HBox {
             dropShadow.setOffsetY(2.0);
             dialog.setEffect(dropShadow);
         }
+
+        if (isError) {
+            bg = new Background(new BackgroundFill(Color.LIGHTCORAL, CornerRadii.EMPTY, Insets.EMPTY));
+            dialog.setTextFill(Color.RED); // Set text color to white for better visibility
+        }
+
+        if (isUser) {
+            applyCircularShape();
+        } else {
+            applyTriangularShape();
+        }
     }
 
     /**
@@ -76,12 +89,29 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img, true);
+        return new DialogBox(text, img, true, false);
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
-        var db = new DialogBox(text, img, false);
+    public static DialogBox getDukeDialog(String text, Image img, boolean isMessageError) {
+        var db = new DialogBox(text, img, false, isMessageError);
         db.flip();
         return db;
+    }
+
+    private void applyCircularShape() {
+        //Reused from appleraincoat's ip
+        Circle clip = new Circle();
+        clip.setRadius(displayPicture.getFitWidth() / 2.3); // Radius should be half of the ImageView width
+        clip.setCenterX(displayPicture.getFitWidth() / 2); // Center X coordinate of the circle
+        clip.setCenterY(displayPicture.getFitHeight() / 2); // Center Y coordinate of the circle
+        displayPicture.setClip(clip);
+    }
+
+    private void applyTriangularShape() {
+        Polygon triangle = new Polygon();
+        triangle.getPoints().addAll(0.0, 0.0,
+                                    100.0, 0.0,
+                                    50.0, 86.6);
+        displayPicture.setClip(triangle);
     }
 }

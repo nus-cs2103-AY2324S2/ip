@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import main.MainResponseCategorized;
 import main.RyanGosling;
 import utilities.ResponseHandler;
 
@@ -38,7 +39,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(ResponseHandler.greeting("Ryan Gosling"),
-                                                                  ryanGoslingImage));
+                                                                  ryanGoslingImage, false));
     }
 
     public void setRyanGosling(RyanGosling ryanGosling) {
@@ -52,10 +53,13 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = ryanGosling.getResponse(input);
+        MainResponseCategorized ryanGoslingResponse = ryanGosling.getResponse(input);
+        String responseToShow = ryanGoslingResponse.getResponseReturnedFromMain();
+        boolean isResponseToShowAError = ryanGoslingResponse.isMessageAError();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, ryanGoslingImage));
+                DialogBox.getDukeDialog(ryanGoslingResponse.getResponseReturnedFromMain(),
+                                        ryanGoslingImage, isResponseToShowAError));
         userInput.clear();
     }
 }
