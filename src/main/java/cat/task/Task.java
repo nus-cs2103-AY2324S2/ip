@@ -138,6 +138,16 @@ public abstract class Task implements Serializable {
         public InvalidComponents(String date) {
             super("Value cannot be parsed to date and time: " + date);
         }
+
+        /**
+         * The invalid component when the time range is invalid.
+         * @param from Start time.
+         * @param to End time.
+         */
+        public InvalidComponents(LocalDateTime from, LocalDateTime to) {
+            super("Date and time for /from (" + from.format(describeTimeFormat)
+                    + ") is greater than /to (" + to.format(describeTimeFormat) + ")");
+        }
     }
 
     @Override

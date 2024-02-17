@@ -20,6 +20,10 @@ public class Event extends Task {
         validateComponentKeys(keys("/from", "/to"), components.keySet());
         from = parseDateTime(components.get("/from"));
         to = parseDateTime(components.get("/to"));
+
+        if (from.isAfter(to)) {
+            throw new InvalidComponents(from, to);
+        }
     }
 
     @Override
