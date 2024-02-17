@@ -2,12 +2,12 @@ public class Task {
     private String description;
     private Boolean isDone;
 
-    public Task(String name) {
+    public Task(String name, boolean isDone) {
         this.description = name;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
-    public Boolean isDone() {
+    public Boolean getDone() {
         return this.isDone;
     }
 
@@ -31,6 +31,6 @@ public class Task {
     }
 
     public String toFileString() {
-        return (this.isDone ? "1": "0") + " | " + this.description;
+        return (this.isDone ? "1" : "0") + " | " + this.description;
     }
 }

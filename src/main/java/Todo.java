@@ -1,6 +1,6 @@
 public class Todo extends Task{
-    public Todo(String description, Boolean isDone) {
-        super(description);
+    public Todo(String description, boolean isDone) {
+        super(description, isDone);
     }
 
     @Override
@@ -12,5 +12,4 @@ public class Todo extends Task{
     public String toFileString() {
         return "T| " + super.toFileString();
     }
-
 }
