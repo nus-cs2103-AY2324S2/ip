@@ -1,4 +1,4 @@
-# Maltese Project Template
+# Maltese Project Template 🐕
 
 This is a project template for a greenfield Java project. It's named after a cute puppy _Maltese_. Given below are instructions on how to use it.
 
@@ -16,7 +16,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 4. After that, locate the `src/main/java/Launcher.java` file, right-click it, and choose `Run Launcher.main()`
 
 ## This are the features available in Maltese
-### Add a new Todo task
+### Add a new Todo task 🛋️
 > **code**
    ```
     todo <description>
@@ -25,7 +25,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    ```
     todo drink coffee
    ```
-### Add a new Deadline task
+### Add a new Deadline task ⛓️
 > **code**
    ```
     deadline <description> /by <due date>
@@ -34,7 +34,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    ```
     deadline buy cake /by 2024-10-20
    ```
-### Add a new Event task
+### Add a new Event task 🌤️
 > **code**
    ```
     event <description> /from <start date> /to <end date>
@@ -43,12 +43,12 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    ```
     event attend career talk /from 2024-09-09 /to 2024-10-09
    ```
-### View all tasks
+### View all tasks 👀
 > **code**
    ```
     list
    ```
-### Mark task(s) as done
+### Mark task(s) as done 👍
 > **code**
    ```
     mark <indice(s)>
@@ -57,7 +57,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    ```
     mark 2 3
    ```
-### Unmark task(s) as undone
+### Unmark task(s) as undone 👎
 > **code**
    ```
     unmark <indice(s)>
@@ -66,7 +66,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    ```
     unmark 1
    ```
-### Delete task(s)
+### Delete task(s) 👋
 > **code**
    ```
     delete <indice(s)>
@@ -75,7 +75,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    ```
     delete 2 4
    ```
-### Find task(s) containing the keyword
+### Find task(s) containing the keyword 🕵️
 > **code**
    ```
     find <keyword>
@@ -84,7 +84,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    ```
     find coffee
    ```
-### Exit the application
+### Exit the application 
 > **code**
    ```
     bye
