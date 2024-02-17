@@ -5,7 +5,6 @@ import dave.TaskList;
 import dave.Ui;
 
 import dave.tasks.Task;
-import dave.exceptions.ChatbotException;
 import dave.exceptions.UnableToFindTaskException;
 
 public class DeleteTaskCommand extends Command {

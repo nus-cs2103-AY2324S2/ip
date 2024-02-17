@@ -17,6 +17,13 @@ public class Storage {
     /** The filepath to store tasks. */
     private String storageFilepath;
 
+    /** The type of tasks. */
+    private enum TaskType {
+        TODO,
+        DEADLINE,
+        EVENT
+    }
+
     /**
      * Creates new Storage object.
      * 
@@ -38,18 +45,18 @@ public class Storage {
         String line = br.readLine();
         while (line != null) {
             String[] taskDescription = line.split(" \\| ");
-            String taskType = taskDescription[0];
+            TaskType type = TaskType.valueOf(taskDescription[0].toUpperCase());
 
-            switch (taskType) {
-            case "TODO":
+            switch (type) {
+            case TODO:
                 taskList.add(new Todo(taskDescription[2]));
                 break;
 
-            case "DEADLINE":
+            case DEADLINE:
                 taskList.add(new Deadline(taskDescription[2], taskDescription[3]));
                 break;
 
-            case "EVENT":
+            case EVENT:
                 taskList.add(new Event(taskDescription[2], taskDescription[3], taskDescription[4]));
                 break;
 
@@ -57,7 +64,7 @@ public class Storage {
                 throw new IOException();
             }
 
-            if (taskDescription[1].equals("COMPLETED")) {
+            if (isSavedTaskMarked(taskDescription[1])) {
                 taskList.get(taskList.size() - 1).setDone(true);
             }
 
@@ -65,6 +72,10 @@ public class Storage {
         }
         br.close();
         return taskList;
+    }
+
+    public boolean isSavedTaskMarked(String completedInfo) {
+        return completedInfo.equals("COMPLETED");
     }
 
     /**

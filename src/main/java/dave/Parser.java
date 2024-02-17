@@ -10,7 +10,7 @@ import dave.commands.FindTaskCommand;
 import dave.commands.InvalidCommand;
 import dave.commands.ListTasksCommand;
 import dave.commands.ToggleTaskDoneCommand;
-
+import dave.common.Messages;
 import dave.exceptions.ChatbotException;
 import dave.exceptions.EmptyTaskException;
 import dave.exceptions.InvalidInputException;
@@ -47,76 +47,141 @@ public class Parser {
         } finally {
             if (commandStr != null) {
                 switch (commandStr) {
-                case LIST:
-                    return new ListTasksCommand();
-                case FIND:
-                    try {
-                        String keyword = input.substring(5);
-                        return new FindTaskCommand(keyword);
-                    } catch (Exception exc) {
-                        return new InvalidCommand(new EmptyTaskException("Dave cannot find a task without a keyword."
-                        + "\nPlease help Dave by entering your search as follows:\n" +
-                        "\nfind <keyword>"));
-                    }
-                case DELETE:
-                    int deleteNumber = Integer.parseInt(inputArr[1]) - 1;
-                    try {
-                        return new DeleteTaskCommand(deleteNumber);
-                    } catch (Exception exc) {
-                        return new InvalidCommand(new ChatbotException(exc.getMessage()));
-                    }
-                case MARK:
-                    int markNumber = Integer.parseInt(inputArr[1]) - 1;
-                    return new ToggleTaskDoneCommand(markNumber, true);
-                case UNMARK:
-                    int unmarkNumber = Integer.parseInt(inputArr[1]) - 1;
-                    return new ToggleTaskDoneCommand(unmarkNumber, false);
-                case TODO:
-                    try {
-                        String todoName = input.substring(5);
-                        return new AddTodoCommand(todoName);
-                    } catch (Exception exc) {
-                        return new InvalidCommand(
-                                new EmptyTaskException("Dave cannot record a TODO task without a name."
-                                        + "\nPlease help Dave by entering your TODO name as follows:\n"
-                                        + "\ntodo <name>"));
-                    }
-                case DEADLINE:
-                    try {
-                        int idxDeadline = input.indexOf("/by");
-                        String deadlineName = input.substring(9, idxDeadline - 1);
-                        String deadline = input.substring(idxDeadline + "/by ".length());
-                        return new AddDeadlineCommand(deadlineName, deadline);
-                    } catch (Exception exc) {
-                        return new InvalidCommand(
-                                new EmptyTaskException(
-                                        "Dave cannot record a DEADLINE task without a name/deadline."
-                                        + "\nPlease help Dave by entering your DEADLINE task as follows:\n"
-                                        + "\ndeadline <name> /by dd-mm-yyyy hhmm"));
-                    }
-                case EVENT:
-                    try {
-                        int idxFrom = input.indexOf("/from");
-                        int idxTo = input.indexOf("/to");
-                        String eventName = input.substring(6, idxFrom - 1);
-                        String from = input.substring(idxFrom + "/from ".length(), idxTo - 1);
-                        String to = input.substring(idxTo + "/to ".length());
-                        return new AddEventCommand(eventName, from, to);
-                    } catch (Exception exc) {
-                        return new InvalidCommand(
-                                new EmptyTaskException("Dave cannot record an EVENT task without a name/duration."
-                                        + "\nPlease help Dave by entering your EVENT task as follows:\n"
-                                        + "\nevent <name> /from dd-mm-yyy hhmm /to dd-mm-yyyy hhmm"));
-                    }
-                case BYE:
-                    return new ExitCommand();
+                    case LIST:
+                        return new ListTasksCommand();
+                    case FIND:
+                        return parseFindTaskCommand(input);
+                    case DELETE:
+                        return parseDeleteTaskCommand(inputArr[1]);
+                    case MARK:
+                        return parseToggleTaskDoneCommand(inputArr[1], true);
+                    case UNMARK:
+                        return parseToggleTaskDoneCommand(inputArr[1], false);
+                    case TODO:
+                        return parseAddTodoCommand(input);
+                    case DEADLINE:
+                        return parseAddDeadlineCommand(input);
+                    case EVENT:
+                        return parseAddEventCommand(input);
+                    case BYE:
+                        return new ExitCommand();
 
-                default:
-                    return new InvalidCommand(new InvalidInputException());
+                    default:
+                        return new InvalidCommand(new InvalidInputException());
                 }
             }
         }
         return new InvalidCommand(new InvalidInputException());
+    }
+
+    /**
+     * Parses a find task command.
+     * 
+     * @param command The command string.
+     * @return A find task command using the parsed keyword. If invalid keyword,
+     *         return an invalid command.
+     * @throws ChatbotException If invalid keyword is given.
+     */
+    public static Command parseFindTaskCommand(String command) throws ChatbotException {
+        try {
+            String keyword = command.substring(5);
+            return new FindTaskCommand(keyword);
+        } catch (Exception exc) {
+            return new InvalidCommand(new EmptyTaskException(Messages.INVALID_KEYWORD_MESSAGE));
+        }
+    }
+
+    /**
+     * Parses a delete task command.
+     * 
+     * @param taskNumber The task number as a String.
+     * @return A delete task command using the task number. If invalid task number,
+     *         return an invalid command.
+     * @throws ChatbotException If invalid task number is given.
+     */
+    public static Command parseDeleteTaskCommand(String taskNumber) throws ChatbotException {
+        int deleteNumber = Integer.parseInt(taskNumber) - 1;
+        try {
+            return new DeleteTaskCommand(deleteNumber);
+        } catch (Exception exc) {
+            return new InvalidCommand(new ChatbotException(exc.getMessage()));
+        }
+    }
+
+    /**
+     * Parses a toggle task done command.
+     * 
+     * @param taskNumber The task number as a String.
+     * @param isDone     The boolean to mark a task. If true, task is marked.
+     *                   Otherwise, task is unmarked.
+     * @return A toggle task done command using the task number. If invalid task
+     *         number, return an invalid command.
+     * @throws ChatbotException If invalid task number is given.
+     */
+    public static Command parseToggleTaskDoneCommand(String taskNumber, boolean isDone) throws ChatbotException {
+        int toggleNumber = Integer.parseInt(taskNumber) - 1;
+        try {
+            return new ToggleTaskDoneCommand(toggleNumber, isDone);
+        } catch (Exception exc) {
+            return new InvalidCommand(new ChatbotException(exc.getMessage()));
+        }
+    }
+
+    /**
+     * Parses an add todo command.
+     * 
+     * @param command The command string.
+     * @return An add todo command. If invalid task name, return an invalid command.
+     * @throws ChatbotException If invalid task name is given.
+     */
+    public static Command parseAddTodoCommand(String command) throws ChatbotException {
+        try {
+            String todoName = command.substring(5);
+            return new AddTodoCommand(todoName);
+        } catch (Exception exc) {
+            return new InvalidCommand(
+                    new EmptyTaskException(Messages.INVALID_TODO_NAME));
+        }
+    }
+
+    /**
+     * Parses an add deadline command.
+     * 
+     * @param command The command string.
+     * @return An add deadline command. If invalid task name or deadline, return an invalid command.
+     * @throws ChatbotException If invalid task name or deadline is given.
+     */
+    public static Command parseAddDeadlineCommand(String command) throws ChatbotException {
+        try {
+            int idxDeadline = command.indexOf("/by");
+            String deadlineName = command.substring(9, idxDeadline - 1);
+            String deadline = command.substring(idxDeadline + "/by ".length());
+            return new AddDeadlineCommand(deadlineName, deadline);
+        } catch (Exception exc) {
+            return new InvalidCommand(
+                    new EmptyTaskException(Messages.INVALID_DEADLINE_NAME_OR_DEADLINE));
+        }
+    }
+
+    /**
+     * Parses an add event command.
+     * 
+     * @param command The command string.
+     * @return An add event command. If invalid task name or event duration, return an invalid command.
+     * @throws ChatbotException If invalid task name or event duration is given.
+     */
+    public static Command parseAddEventCommand(String command) throws ChatbotException {
+        try {
+            int idxFrom = command.indexOf("/from");
+            int idxTo = command.indexOf("/to");
+            String eventName = command.substring(6, idxFrom - 1);
+            String from = command.substring(idxFrom + "/from ".length(), idxTo - 1);
+            String to = command.substring(idxTo + "/to ".length());
+            return new AddEventCommand(eventName, from, to);
+        } catch (Exception exc) {
+            return new InvalidCommand(
+                    new EmptyTaskException(Messages.INVALID_EVENT_NAME_OR_DURATION));
+        }
     }
 
 }
