@@ -16,9 +16,6 @@ public class Database {
 
     /**
      * Connect to the database.
-     *
-     * @throws SQLException
-     *             if a database error occurs
      */
     public void connect() throws SQLException {
         Config cfg = Config.getConfig();
@@ -37,9 +34,6 @@ public class Database {
 
     /**
      * Disconnect from the database.
-     *
-     * @throws SQLException
-     *             if a database error occurs
      */
     public void disconnect() throws SQLException {
         conn.close();

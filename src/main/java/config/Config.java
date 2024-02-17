@@ -29,7 +29,6 @@ public class Config {
 
         String appName = dotenv.get("APP_NAME");
         this.appName = Objects.requireNonNullElse(appName, DEFAULT_APP_NAME);
-
     }
 
 
