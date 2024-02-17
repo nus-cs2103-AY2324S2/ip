@@ -1,4 +1,4 @@
-package GandalfBot;
+package gandalf;
 
 public class ToDos extends Task {
     public ToDos(String nameOfTask) {

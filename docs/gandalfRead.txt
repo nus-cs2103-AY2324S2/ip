@@ -1,4 +1,1 @@
-1. [T][ ] read a book
-2. [T][ ] throw a book
-3. [T][X] eat a burger
-4. [T][ ] read a book
+1. [T][X] read a book

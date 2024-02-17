@@ -1,4 +1,4 @@
-package GandalfBot;
+package gandalf;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -76,27 +76,28 @@ public class Gandalf {
             }
             else if(parsedInput[0].toString().trim().equals("mark")) {
                 int taskNumber = Integer.parseInt(parsedInput[1].toString());
-                Task correspondingTask = tasks.getList().get(taskNumber - 1);
-                correspondingTask.markStatus(true);
                 ui.marked();
-                System.out.println(correspondingTask);
+                tasks.mark(taskNumber);
                 storage.store(tasks.getList());
             }
             else if(parsedInput[0].toString().trim().equals("unmark")) {
                 int taskNumber = Integer.parseInt(parsedInput[1].toString());
-                Task correspondingTask = tasks.getList().get(taskNumber - 1);
-                correspondingTask.markStatus(false);
                 ui.unmarked();
-                System.out.println(correspondingTask);
+                tasks.unmark(taskNumber);
                 storage.store(tasks.getList());
             } else if(parsedInput[0].toString().trim().equals("find")) {
                 String keyword = parsedInput[1].toString().trim();
                 find(keyword);
             }
             else {
-                tasks.add(parsedInput[0].toString().trim(), parsedInput[1].toString().trim(), parsedInput[2].toString().trim(), parsedInput[3].toString().trim());
-                storage.store(tasks.getList());
-                System.out.println("Total number of tasks so far: " + (tasks.getList().size()));
+                try {
+                    tasks.add(parsedInput[0].toString().trim(), parsedInput[1].toString().trim(), parsedInput[2].toString().trim(), parsedInput[3].toString().trim());
+                    storage.store(tasks.getList());
+                    System.out.println("Total number of tasks so far: " + (tasks.getList().size()));
+                }
+                catch(GandalfException e){
+                    System.out.println(e.getMessage());
+                }
             }
         }
     }

@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
 }
 
 repositories {
@@ -11,6 +12,10 @@ repositories {
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+}
+
+checkstyle{
+    toolVersion = '10.2'
 }
 
 test {
@@ -28,7 +33,7 @@ test {
 }
 
 application {
-    mainClass.set("GandalfBot.Gandalf")
+    mainClass.set("gandalf.Gandalf")
 }
 
 shadowJar {
