@@ -190,8 +190,10 @@ public class TaskList {
     private void findTasksByDate(LocalDate date, Ui ui) {
         int count = 0;
         for (Task task : tasks) {
-            if ((task instanceof Deadline && ((Deadline) task).getBy().isEqual(date))
-                    || (task instanceof Event && ((Event) task).getFrom().isEqual(date))) {
+            boolean isDeadlineOnDate = task instanceof Deadline && ((Deadline) task).getBy().isEqual(date);
+            boolean isEventOnDate = task instanceof Event && ((Event) task).getFrom().isEqual(date);
+
+            if (isDeadlineOnDate || isEventOnDate) {
                 if (count == 0) {
                     ui.showMessage(ui.getUser() + ", on "
                             + date.format(DateTimeFormatter.ofPattern("MMM d yyyy").withLocale(Locale.US))
