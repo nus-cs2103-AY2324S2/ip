@@ -48,6 +48,10 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    private void setTextToRed() {
+        dialog.getStyleClass().add("error-text");
+    }
+
     /**
      * Factory method to create a dialog box for the user's input.
      *
@@ -59,6 +63,14 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img);
     }
 
+
+    public static DialogBox showErrorMessage(String text, Image img) {
+        var dialogBox = new DialogBox(text, img);
+        dialogBox.setTextToRed();
+        dialogBox.flip();
+        return dialogBox;
+    }
+
     /**
      * Factory method to create a dialog box for Blu's reply.
      *
@@ -67,8 +79,8 @@ public class DialogBox extends HBox {
      * @return A DialogBox instance representing Blu's reply.
      */
     public static DialogBox getBluDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
-        db.flip();
-        return db;
+        var dialogBox = new DialogBox(text, img);
+        dialogBox.flip();
+        return dialogBox;
     }
 }

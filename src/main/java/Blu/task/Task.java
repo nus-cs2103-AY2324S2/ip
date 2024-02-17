@@ -36,7 +36,7 @@ public abstract class Task {
     }
 
     /**
-     * Unmark the task as not completed.
+     * Unmarks the task as not completed.
      */
     public void setUnmarked() {
         this.isMarked = false;

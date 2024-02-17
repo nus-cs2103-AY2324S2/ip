@@ -1,6 +1,7 @@
 package blu.ui;
 
 import blu.Blu;
+import blu.exception.BluException;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -65,11 +66,18 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = blu.getResponse(input);
-        dialogContainer.getChildren().addAll(
+        try {
+            String response = blu.getResponse(input);
+            dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getBluDialog(response, bluImage)
-        );
+            );
+        } catch (BluException e) {
+            dialogContainer.getChildren().addAll(
+                DialogBox.showErrorMessage(e.getMessage(), bluImage)
+            );
+        }
+        
         userInput.clear();
 
         if (blu.isExit()) {

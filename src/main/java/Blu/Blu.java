@@ -54,7 +54,7 @@ public class Blu extends Application {
         }
     }
 
-    private File getSelectedFile(Stage stage) {
+    private File getStorageFilePath(Stage stage) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Storage File");
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
@@ -71,12 +71,13 @@ public class Blu extends Application {
      */
     @Override
     public void start(Stage stage) {
-        File selectedFile = getSelectedFile(stage);
-        if (selectedFile == null) {
+        File storageFilePath = getStorageFilePath(stage);
+        if (storageFilePath == null) {
             initStorage(DEFAULT_STORAGE_PATH);
         } else {
-            initStorage(selectedFile.getAbsolutePath());
+            initStorage(storageFilePath.getAbsolutePath());
         }
+        stage.setTitle("Blu");
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Blu.class.getResource("/view/MainWindow.fxml"));
             AnchorPane anchorPane = fxmlLoader.load();
@@ -106,18 +107,13 @@ public class Blu extends Application {
      * @param userInput The string input by the user.
      * @return The response from executing the user command.
      */
-    public String getResponse(String userInput) {
-        try {
-            Command command = new InputParser().parseInput(userInput);
-            assert command != null : "Parsed command should not be null";
-            if (command instanceof ByeCommand) {
-                isExit = true;
-            }
-            return command.execute(taskList, storage, ui);
-        } catch (BluException e) {
-            BluLogger.warning(e.getMessage());
-            return ui.showErrorMessage(e.getMessage());
+    public String getResponse(String userInput) throws BluException {
+        Command command = new InputParser().parseInput(userInput);
+        assert command != null : "Parsed command should not be null";
+        if (command instanceof ByeCommand) {
+            isExit = true;
         }
+        return command.execute(taskList, storage, ui);
     }
 
     /**
