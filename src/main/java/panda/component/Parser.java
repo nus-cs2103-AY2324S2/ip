@@ -1,23 +1,10 @@
 package panda.component;
-import panda.command.AlterMarkCommand;
-import panda.command.Command;
-import panda.command.DeleteCommand;
-import panda.command.ExitCommand;
-import panda.command.NewTaskCommand;
-import panda.command.PrintListCommand;
-import panda.command.FindCommand;
-import panda.exception.EmptyDeadlineException;
-import panda.exception.EmptyEventException;
-import panda.exception.EmptyTodoException;
-import panda.exception.InvalidFormatException;
-import panda.exception.PandaException;
-import panda.exception.UnknownCommandException;
-import panda.task.Deadline;
-import panda.task.Event;
-import panda.task.Todo;
+
+import panda.command.*;
+import panda.exception.*;
+import panda.task.*;
 
 public class Parser {
-
     /**
      * Parses the user input into a Command.
      * 
@@ -26,66 +13,60 @@ public class Parser {
      * @throws PandaException if the user input does not correspond to a known command.
      */
     public static Command parse(String userInput) throws PandaException {
-        if(userInput.equals("bye")) {
-            return new ExitCommand();
-        }
-        if(userInput.equals(("list"))) {
-            return new PrintListCommand();
-        }
-        if(userInput.split(" ")[0].equals("mark")) {
-            int target;
-            try {
+        String commandWord = userInput.split(" ")[0].trim();
+        try {
+            if(commandWord.equals("bye")) {
+                return new ExitCommand();
+            }
+            if(commandWord.equals(("list"))) {
+                return new PrintListCommand();
+            }
+            if(commandWord.equals("mark")) {
+                int target;
                 target = Integer.parseInt(userInput.split(" ", 2)[1]);
+                return new AlterMarkCommand(target, true);
             }
-            catch (NumberFormatException e) {
-                throw new InvalidFormatException();
-            }
-            return new AlterMarkCommand(target, true);
-        }
-        if(userInput.split(" ")[0].equals("unmark")) {
-            int target;
-            try {
+            if(commandWord.equals("unmark")) {
+                int target;
                 target = Integer.parseInt(userInput.split(" ", 2)[1]);
+                return new AlterMarkCommand(target, false);
             }
-            catch (NumberFormatException e) {
-                throw new InvalidFormatException();
-            }
-            return new AlterMarkCommand(target, false);
-        }
-        if(userInput.split(" ")[0].equals("delete")) {
-            int target;
-            try {
+            if(commandWord.equals("delete")) {
+                int target;
                 target = Integer.parseInt(userInput.split(" ", 2)[1]);
+                return new DeleteCommand(target);
             }
-            catch (NumberFormatException e) {
-                throw new InvalidFormatException();
+            if(commandWord.equals("find")) {
+                String argString = userInput.trim().split(" ", 2)[1].trim();
+                return new FindCommand(argString);
             }
-            return new DeleteCommand(target);
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            throw new InvalidFormatException();
         }
-        if(userInput.split(" ")[0].equals("todo")) {
-            String[] splitted = userInput.trim().split(" ", 2);
-            if(splitted.length < 2) {
+        if(commandWord.equals("todo")) {
+            String[] parts = userInput.trim().split(" ", 2);
+            if(parts.length < 2) {
                 throw new EmptyTodoException();
             }
-            return new NewTaskCommand(new Todo(splitted[1].trim()));
+            return new NewTaskCommand(new Todo(parts[1].trim()));
         }
-        if(userInput.split(" ")[0].equals("deadline")) {
-            String[] splitted = userInput.trim().split(" ", 2);
-            if(splitted.length < 2) {
+        if(commandWord.equals("deadline")) {
+            String[] parts = userInput.trim().split(" ", 2);
+            if(parts.length < 2) {
                 throw new EmptyDeadlineException("desc");
             }
-            String[] args = splitted[1].split("/by");
+            String[] args = parts[1].split("/by");
             if(args.length < 2) {
                 throw new EmptyDeadlineException("date");
             }
             return new NewTaskCommand(new Deadline(args[0].trim(), args[1].trim()));
         }
-        if(userInput.split(" ")[0].equals("event")) {
-            String[] splitted = userInput.trim().split(" ", 2);
-            if(splitted.length < 2) {
+        if(commandWord.equals("event")) {
+            String[] parts = userInput.trim().split(" ", 2);
+            if(parts.length < 2) {
                 throw new EmptyEventException("desc");
             }
-            String[] args = splitted[1].split("/from");
+            String[] args = parts[1].split("/from");
             if(args.length < 2 || args[1].split("/to").length < 2) {
                 throw new EmptyEventException("date");
             }
@@ -93,13 +74,6 @@ public class Parser {
                 args[0].trim(), 
                 args[1].split("/to")[0].trim(), 
                 args[1].split("/to")[1].trim()));
-        }
-        if(userInput.split(" ")[0].equals("find")) {
-            String[] splitted = userInput.trim().split(" ", 2);
-            if(splitted.length < 2) {
-                throw new InvalidFormatException();
-            }
-            return new FindCommand(splitted[1].trim());
         }
         throw new UnknownCommandException();
     } 

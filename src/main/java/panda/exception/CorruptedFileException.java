@@ -1,4 +1,5 @@
 package panda.exception;
+
 public class CorruptedFileException extends PandaException {
     /**
      * Constructs a new CorruptedFileException with a default message.

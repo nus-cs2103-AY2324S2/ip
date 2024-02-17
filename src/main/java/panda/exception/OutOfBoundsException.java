@@ -1,4 +1,5 @@
 package panda.exception;
+
 public class OutOfBoundsException extends PandaException {
     /**
      * Constructs a new OutOfBoundsException with a default message.

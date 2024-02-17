@@ -9,30 +9,24 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import panda.command.Command;
-import panda.component.MainWindow;
-import panda.component.Parser;
-import panda.component.Storage;
-import panda.component.TaskList;
-import panda.component.Ui;
+import panda.component.*;
+
 import panda.exception.PandaException;
 
 public class Panda extends Application {
     private TaskList tlist;
     private static final String FILEPATH = "./src/main/list.txt";
     private Storage cacheFile;
-    private Ui ui;
 
     /**
      * Constructs a new Panda instance.
      * Initializes the user interface, storage file, and task list.
      */
     public Panda() {
-        ui = new Ui();
         cacheFile = new Storage(FILEPATH);
         try {
             tlist = new TaskList(cacheFile.load());
         } catch (PandaException e) {
-            ui.showLoadingError();
             tlist = new TaskList();
         }
     }

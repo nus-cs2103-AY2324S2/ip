@@ -1,4 +1,5 @@
 package panda.exception;
+
 public class EmptyDeadlineException extends PandaException {
     /**
      * Constructs a new EmptyDeadlineException with a default message.

@@ -54,28 +54,21 @@ public class Storage {
                 }
                 if(parts[0].equals("T")) {
                     clist.add(new NewTaskCommand(new Todo(parts[2])));
-                } else  {
-                    if(parts[0].equals("D")) {
-                        clist.add(new NewTaskCommand(new Deadline(parts[2], parts[3])));
-                    } else {
-                        if(parts[0].equals("E")) {
-                            clist.add(new NewTaskCommand(new Event(parts[2],  parts[3], parts[4])));
-                        }
-                        else {
-                            myReader.close();
-                            throw new CorruptedFileException();
-                        }
-                    }
+                } else if(parts[0].equals("D")) {
+                    clist.add(new NewTaskCommand(new Deadline(parts[2], parts[3])));
+                } else if(parts[0].equals("E")) {
+                    clist.add(new NewTaskCommand(new Event(parts[2],  parts[3], parts[4])));
+                } else {
+                    myReader.close();
+                    throw new CorruptedFileException();
                 }
                 if(parts[1].equals("1")) clist.add(new AlterMarkCommand(idx, true));
                 idx = idx + 1;
             }
             myReader.close();
         } catch (IOException e) {
-            // System.out.println("Something went wrong\n");
             throw new CorruptedFileException();
         }
-        // System.out.println("inserted " + clist.size() + " tasks");
         return clist;
     }
 

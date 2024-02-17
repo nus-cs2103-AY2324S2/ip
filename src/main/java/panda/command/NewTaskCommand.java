@@ -1,7 +1,10 @@
 package panda.command;
+
 import panda.component.*;
-import panda.exception.PandaException;
 import panda.task.Task;
+
+import panda.exception.PandaException;
+
 public class NewTaskCommand extends Command {
     private Task task;
 
@@ -21,21 +24,6 @@ public class NewTaskCommand extends Command {
      */
     public void execute(TaskList tlist) {
         tlist.insert(task);
-    }
-
-    /**
-     * Inserts the task into the given TaskList, updates the UI, and saves changes to the cache file.
-     * 
-     * @param tlist the TaskList into which the task is inserted.
-     * @param ui the UI to update after insertion.
-     * @param cacheFile the cache file to save changes to.
-     */
-    public void execute(TaskList tlist, Ui ui, Storage cacheFile) {
-        tlist.insert(task);
-        cacheFile.save(tlist);
-        ui.showReply("Got it. I've added this task:" 
-            + "\n " + tlist.getTaskString(tlist.size()) 
-            + "\nNow you have " + tlist.size() + " tasks in the list.");
     }
 
     /**

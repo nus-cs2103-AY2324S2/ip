@@ -1,9 +1,11 @@
 package panda.component;
+
 import java.util.ArrayList;
 
 import panda.command.Command;
-import panda.exception.PandaException;
 import panda.task.Task;
+
+import panda.exception.PandaException;
 
 public class TaskList {
     private ArrayList<Task> tlist;
