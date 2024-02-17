@@ -13,10 +13,10 @@ public class ToDoCommand extends Command {
 
     public Todo createToDoCommand() throws BotException {
         String[] parts = input.split(" ", 2);
-        if (parts.length < 2) {
-            throw new BotException("Todo command is invalid!");
-        }
+        assert parts.length >= 2 : "Input should contain at least two parts!";
+
         String description = parts[1].trim();
+        assert description != null : "Description should not be null!";
 
         if (description.isEmpty()) {
             throw new BotException("Todo description cannot be empty!");

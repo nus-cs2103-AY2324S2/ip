@@ -17,13 +17,8 @@ public class EventCommand extends Command {
     public Event createEventCommand() throws BotException {
         int split1 = input.indexOf("/from");
         int split2 = input.indexOf("/to");
-        if (split1 == -1 || split2 == -1) {
-            throw new BotException("Start and End time not found!");
-        }
-
-        if (split2 + 4 >= input.length()) {
-            throw new BotException("End time not found!");
-        }
+        assert split1 != -1 && split2 != -1 : "Start and End time not found!";
+        assert split2 + 4 < input.length() : "End time not found!";
 
         String description = input.substring(6, split1).trim();
 
