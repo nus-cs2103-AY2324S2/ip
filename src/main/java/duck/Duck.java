@@ -85,6 +85,28 @@ public class Duck extends Application {
 
         scene = new Scene(mainLayout);
 
+        setupPrimaryStage(primaryStage);
+
+        mainLayout.setPrefSize(400.0, 600.0);
+
+        setupScrollPane(scrollPane);
+
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+
+        setupAnchorPane(mainLayout);
+
+        setupWelcomeMessage();
+
+        handleSendButtonClick();
+
+    }
+
+    /**
+     * Sets up the primary stage with specified configurations.
+     *
+     * @param primaryStage The primary stage of the JavaFX application.
+     */
+    private void setupPrimaryStage(Stage primaryStage) {
         primaryStage.setScene(scene);
         primaryStage.show();
 
@@ -92,23 +114,34 @@ public class Duck extends Application {
         primaryStage.setResizable(false);
         primaryStage.setMinHeight(600.0);
         primaryStage.setMinWidth(400.0);
+        userInput.setPrefWidth(325.0);
 
-        mainLayout.setPrefSize(400.0, 600.0);
+        sendButton.setPrefWidth(55.0);
+    }
 
+    /**
+     * Sets up the scroll pane with specified configurations.
+     *
+     * @param pane The scroll pane to be configured.
+     */
+    private void setupScrollPane(ScrollPane pane) {
         scrollPane.setPrefSize(385, 535);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
+    }
 
-        //You will need to import `javafx.scene.layout.Region` for this.
-        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
+    /**
+     * Sets up the anchor pane with specified configurations.
+     *
+     * @param pane The anchor pane to be configured.
+     */
+    private void setupAnchorPane(AnchorPane pane) {
         userInput.setPrefWidth(325.0);
 
         sendButton.setPrefWidth(55.0);
-
         AnchorPane.setTopAnchor(scrollPane, 1.0);
 
         AnchorPane.setBottomAnchor(sendButton, 1.0);
@@ -116,12 +149,22 @@ public class Duck extends Application {
 
         AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
+    }
 
+    /**
+     * Displays a welcome message in the dialog container.
+     */
+    private void setupWelcomeMessage() {
         dialogContainer.getChildren().addAll(
                 getDialogLabel("Welcome to Duck Chatbot! How can I assist you today? " +
                         "Use help to see the list of commands available")
         );
+    }
 
+    /**
+     * Sets up event handling for the send button click.
+     */
+    private void handleSendButtonClick() {
         sendButton.setOnMouseClicked((event) -> {
             dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
             userInput.clear();
@@ -134,7 +177,6 @@ public class Duck extends Application {
 
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
 
-        //Part 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> {
             handleUserInput();
         });
@@ -142,7 +184,6 @@ public class Duck extends Application {
         userInput.setOnAction((event) -> {
             handleUserInput();
         });
-
     }
 
     /**
