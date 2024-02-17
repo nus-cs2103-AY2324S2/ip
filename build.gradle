@@ -52,9 +52,9 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "Duke"
+    archiveBaseName = "Miku"
     archiveClassifier = null
-    archiveVersion = "v1.0"
+    archiveVersion = "v1.1.0"
     dependsOn("distZip", "distTar")
 }
 

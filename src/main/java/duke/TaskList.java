@@ -41,7 +41,7 @@ public class TaskList {
      * @param task Task type.
      * @param args Arguments for the task.
      * @return Dialogue for Duke.
-     * @throws InvalidTaskException If arguments for the task are not in a specific format.
+     * @throws DukeException If arguments for the task are not in a specific format.
      */
     protected String addTask(Storage st, String task, String... args) throws DukeException {
         Task t = null;
@@ -117,7 +117,7 @@ public class TaskList {
      * @param st <code>Storage</code> for file update.
      * @param args Index for specified task.
      * @return Dialogue for Duke.
-     * @throws IndexOutOfBoundsException If <code>TaskList</code> index is out of bounds.
+     * @throws DukeException If <code>TaskList</code> index is out of bounds.
      */
     protected String mark(Storage st, String... args) throws DukeException {
         try {
@@ -137,7 +137,7 @@ public class TaskList {
      * @param st <code>Storage</code> for file update.
      * @param args Index for specified task.
      * @return Dialogue for Duke.
-     * @throws IndexOutOfBoundsException If <code>TaskList</code> index is out of bounds.
+     * @throws DukeException If <code>TaskList</code> index is out of bounds.
      */
     protected String unmark(Storage st, String... args) throws DukeException {
         try {
@@ -152,7 +152,7 @@ public class TaskList {
     }
 
     /**
-     * Allows one to find tasks in tasklist with specified keyword.
+     * Allows one to find tasks in TaskList with specified keyword.
      *
      * @param key keyword to filter <code>TaskList</code>.
      * @return Dialogue for Duke.

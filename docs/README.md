@@ -1,30 +1,55 @@
-# Duke User Guide
+# Miku User Guide
 
-// Update the title above to match the actual product name
+![Product Screenshot](Ui.png)
 
-// Product screenshot goes here
-
-// Product intro goes here
+# Features
 
 ## Adding deadlines
 
-// Describe the action and its outcome.
+Adding a task: `todo`, `deadline`, `event`
 
-// Give examples of usage
+Format: 
 
-Example: `keyword (optional arguments)`
+`todo <name>`: Saves a todo task.
 
-// A description of the expected outcome goes here
+`deadline <name> /by <due date>`: Saves a deadline.
 
-```
-expected output
-```
+`event <name> /from <start date> /to <end date>`: Saves an event.
 
-## Feature ABC
+## List tasks
 
-// Feature details
+List out all stored tasks.
+
+Format: `list`
 
 
-## Feature XYZ
+## Mark / Unmark task completion
 
-// Feature details
+Marks / unmarks status of task.
+
+Format:
+
+`mark <index>`: Marks task as completed.
+
+`unmark <index>`: Marks task as not completed.
+
+Example as demonstrated in the picture above.
+
+
+## Delete task
+
+// Delete task off the TaskList.
+
+Format:
+
+`delete <index>`: Delete task.
+
+Refer to [mark](#mark--unmark-task-completion) for its similar usage.
+
+## Find task
+
+Find tasks matching the specified keyword.
+
+Format:
+
+`find <keyword>`: Find tasks that matches with its name.
