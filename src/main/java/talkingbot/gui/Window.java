@@ -45,6 +45,9 @@ public class Window extends AnchorPane {
      */
     public void setBot(TalkingBot talkingBot) {
         this.talkingBot = talkingBot;
+        this.vBox.getChildren().addAll(
+                Message.getBotMessage(this.botImage, this.talkingBot.getWelcomeMsg(), BOT_NAME)
+        );
     }
 
     @FXML
@@ -52,8 +55,8 @@ public class Window extends AnchorPane {
         String text = this.textInput.getText();
         String botResponse = this.talkingBot.process(this.textInput.getText());
         this.vBox.getChildren().addAll(
-                Message.getUserMessage(this.userImage, text, this.USER_NAME),
-                Message.getBotMessage(this.botImage, botResponse, this.BOT_NAME)
+                Message.getUserMessage(this.userImage, text, USER_NAME),
+                Message.getBotMessage(this.botImage, botResponse, BOT_NAME)
         );
         this.textInput.clear();
     }

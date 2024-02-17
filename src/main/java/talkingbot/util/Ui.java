@@ -29,7 +29,7 @@ public class Ui {
     public Ui() {}
 
     /**
-     * Prints a loading error and the exception that caused it.
+     * Returns a loading error and the exception that caused it.
      *
      * @param e The exception causing the loading error.
      * @return The loading error string.
@@ -39,7 +39,7 @@ public class Ui {
     }
 
     /**
-     * Prints a message when a task is marked as done.
+     * Returns a message when a task is marked as done.
      *
      * @param modifiedTask Task that has been modified.
      * @return String indicating the task is set as done.
@@ -49,7 +49,7 @@ public class Ui {
     }
 
     /**
-     * Prints a message when a task is marked as undone.
+     * Returns a message when a task is marked as undone.
      *
      * @param modifiedTask Task that has been modified.
      * @return String indicating the task is set as undone.
@@ -59,21 +59,21 @@ public class Ui {
     }
 
     /**
-     * Prints a message when an invalid command is entered.
+     * Returns a message when an invalid command is entered.
      */
     public String getInvalidCmdMsg() {
         return String.format("%s\n", INVALID_CMD_MSG);
     }
 
     /**
-     * Prints a welcome message when the application starts.
+     * Returns a welcome message when the application starts.
      */
     public String getWelcomeMsg() {
-        return String.format("%s\n%s\n%s\n", H_LINE, WELCOME, H_LINE);
+        return String.format("%s\n", WELCOME);
     }
 
     /**
-     * Prints a generic error message and the exception that caused it.
+     * Returns a generic error message and the exception that caused it.
      *
      * @param e Exception to be printed.
      */
@@ -81,15 +81,9 @@ public class Ui {
         return String.format("\t%s\n", e);
     }
 
-    /**
-     * Prints a horizontal line.
-     */
-    public String getHLine() {
-        return String.format("%s\n", H_LINE);
-    }
 
     /**
-     * Prints a save that is ongoing and the file path of the save.
+     * Returns a save that is ongoing and the file path of the save.
      *
      * @param filePath File path of the save file.
      */
@@ -98,14 +92,14 @@ public class Ui {
     }
 
     /**
-     * Prints a message indicating that the saving has been done.
+     * Returns a message indicating that the saving has been done.
      */
     public String getSaveDoneMsg() {
         return String.format("%s\n", SAVE_DONE_MSG);
     }
 
     /**
-     * Prints a message when tasks are added.
+     * Returns a message when tasks are added.
      *
      * @param curTask Task that is added.
      * @param numTasks Current size of the task list.
@@ -116,7 +110,7 @@ public class Ui {
     }
 
     /**
-     * Prints a message when tasks are deleted.
+     * Returns a message when tasks are deleted.
      *
      * @param removedTask Task that is removed.
      * @param numTasks Current size of the task list.
@@ -128,7 +122,7 @@ public class Ui {
     }
 
     /**
-     * Prints a goodbye message.
+     * Returns a goodbye message.
      */
     public String getGoodbyeMsg() {
         return String.format("%s\n", GOODBYE);

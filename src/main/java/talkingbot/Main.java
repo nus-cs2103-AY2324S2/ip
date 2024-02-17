@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import talkingbot.gui.Message;
 import talkingbot.gui.Window;
 import talkingbot.logic.TalkingBot;
 

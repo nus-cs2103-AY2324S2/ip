@@ -57,6 +57,15 @@ public class TalkingBot {
     }
 
     /**
+     * Returns a welcome message.
+     *
+     * @return A welcome message as a String.
+     */
+    public String getWelcomeMsg() {
+        return this.ui.getWelcomeMsg();
+    }
+
+    /**
      * Returns whether the bot is running.
      * @return A boolean value.
      */
