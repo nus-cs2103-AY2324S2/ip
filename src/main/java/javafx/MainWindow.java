@@ -66,7 +66,7 @@ public class MainWindow extends AnchorPane {
         //From ChatGPT
         if (input.trim().equalsIgnoreCase("bye")) {
             Stage stage = (Stage) userInput.getScene().getWindow();
-            stage.close();  // Close the application window
+            stage.close(); // Close the application window
         }
     }
 }
