@@ -2,30 +2,11 @@ package duke.fileUtils;
 
 import duke.exceptions.StorageException;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.net.URL;
 
-/**
- * The FileUtil class provides utility methods for file-related operations.
- * It includes methods for displaying the content of a file to the console.
- * <p>
- * Note: The paths provided to the methods are assumed to be relative to the classpath.
- * </p>
- *
- * @author Justin Leng Chern Harn
- * @version 1.0
- * @see duke.exceptions.StorageException
- */
 public class FileUtil {
 
-    /**
-     * Displays the content of a file to the console.
-     *
-     * @param filePath the path to the file to display.
-     * @throws StorageException if there is an error accessing or reading the file.
-     */
     public static void displayFile(String filePath) throws StorageException {
         StringBuilder contentBuilder = new StringBuilder();
         try (InputStream inputStream = FileUtil.class.getClassLoader().getResourceAsStream(filePath);
@@ -40,5 +21,20 @@ public class FileUtil {
         }
 
         System.out.println(contentBuilder);
+    }
+
+
+    public static String getResourcePath(String filePath) throws IOException {
+        URL url = getResource(filePath);
+        if (url != null) {
+            return url.getPath();
+        } else {
+            throw new IOException("File not found: " + filePath);
+        }
+    }
+
+    private static URL getResource(String path) {
+        ClassLoader classLoader = FileUtil.class.getClassLoader();
+        return classLoader.getResource(path);
     }
 }
