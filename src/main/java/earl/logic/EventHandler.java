@@ -1,12 +1,9 @@
 package earl.logic;
 
-import java.time.LocalDateTime;
-
 import earl.exceptions.EarlException;
 import earl.tasks.TaskType;
 import earl.util.TaskList;
 import earl.util.Ui;
-import earl.util.parsers.DateTimeParser;
 
 /**
  * Class responsible for the event command.
