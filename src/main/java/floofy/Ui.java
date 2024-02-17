@@ -1,3 +1,7 @@
+package floofy;
+
+import floofy.task.Task;
+
 import java.util.Scanner;
 public class Ui {
     protected Scanner scanner;
@@ -13,7 +17,7 @@ public class Ui {
     }
     public void showWelcomeMsg() {
         System.out.println(line);
-        System.out.println("Hello! I'm Floofy!");
+        System.out.println("Hello! I'm floofy.Floofy!");
         System.out.println("What can I do for you?");
         System.out.println(line);
     }

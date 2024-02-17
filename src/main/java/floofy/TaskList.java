@@ -1,3 +1,7 @@
+package floofy;
+
+import floofy.task.Task;
+
 import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> tasks;
