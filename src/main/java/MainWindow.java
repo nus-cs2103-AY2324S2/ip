@@ -13,6 +13,11 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import ui.Ui;
 
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+
 public class MainWindow extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;
@@ -73,33 +78,13 @@ public class MainWindow extends AnchorPane {
         aboutPopup.showAndWait();
     }
 
-    public static String printHelpCommands(String command) {
-        return command + System.lineSeparator() + System.lineSeparator();
-    }
-
     @FXML
     private void handleHelp() {
-        Alert aboutPopup = new Alert(Alert.AlertType.INFORMATION);
-        aboutPopup.setTitle("Commands");
-        aboutPopup.setHeaderText("Tobias Bot");
-
-        String info = printHelpCommands("hello \n   I will reply accordingly")
-                + printHelpCommands("list \n   View your list of tasks")
-                + printHelpCommands("todo {name} \n   Creates a todo")
-                + printHelpCommands("deadline {name} /by {dd-mm-yyyy HHMM} \n   Creates a deadline with date & time")
-                + printHelpCommands("event {name} /from {dd-mm-yyyy HHMM} /to {dd-mm-yyyy HHMM} \n   Creates an event with date & time")
-                + printHelpCommands("delete {task number} \n   Deletes this task")
-                + printHelpCommands("mark {task number} \n   Marks this task as done")
-                + printHelpCommands("unmark {task number} \n   Un-marks this task as done")
-                + printHelpCommands("tag {task number} {your tag} \n   Adds a tag to the task")
-                + printHelpCommands("untag {task number} {tag number} \n   Removes that tag from the task")
-                + printHelpCommands("find {keyword} \n   Finds and returns tasks with those keywords")
-                + printHelpCommands("save \n   Saves your tasks to the local data")
-                + "bye \n   Saves and exits the app";
-
-        aboutPopup.setContentText(info);
-
-        aboutPopup.showAndWait();
+        try {
+            Desktop.getDesktop().browse(new URI("https://jawad280.github.io/ip/"));
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 
     public void initialize() {

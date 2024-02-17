@@ -367,8 +367,9 @@ public class Parser {
         } else if (command.equals("save")) {
             return saveParser();
         } else {
-            throw new TobiasException("I don't understand the words that are coming out of your mouth!!\n"
-                    + "Check the help menu to see what I am capable of...");
+            throw new TobiasException("I apologise my sire... " +
+                    "\nWhat you have entered is not something I yet understand :( " +
+                    "\nCheck the user guide in the help menu for more info about my powers....");
         }
     }
 }
