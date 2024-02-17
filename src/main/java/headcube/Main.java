@@ -31,6 +31,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setHeadCube(new HeadCube());
+            stage.setTitle("HeadCube");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,9 +1,9 @@
-# Duke User Guide
+# HeadCube User Guide
 
 // Update the title above to match the actual product name
 
 // Product screenshot goes here
-
+![alt text](Ui-1.png)
 // Product intro goes here
 
 ## Adding deadlines

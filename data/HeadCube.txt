@@ -1,4 +1,2 @@
-T | 1 | hi
-T | 1 | hi 
-D | 0 | hi | (by: Nov 11 2022)
-E | 0 | hi | (from: Nov 11 2022 04:03 to: Nov 11 2022 03:03)
+T | 0 | hi
+T | 0 | hi 

@@ -56,6 +56,7 @@ public class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
+    // This equals method was taken from chatgpt.
     @Override
     public boolean equals(Object object) {
         if (this == object) {

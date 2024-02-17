@@ -5,9 +5,9 @@ package headcube;
  * in the HeadCube application.
  */
 public class Parser {
-    private Ui ui;
-    private TaskList taskList;
-    private Storage storage;
+    private final Ui ui;
+    private final TaskList taskList;
+    private final Storage storage;
 
     /**
      * Constructor of a Parser object with references to the UI, TaskList, and Storage.
@@ -48,29 +48,8 @@ public class Parser {
             } else {
                 String[] string = input.split(" ", 2);
                 String event = string[0];
-                String description;
-                boolean isAdd = true;
-
-                if (event.equals("todo")) {
-                    if (split.length < 2 || split[1].isBlank()) {
-                        throw new HeadCubeException("Todo cannot be empty!!");
-                    }
-                    isAdd = taskList.add(new ToDos(split[1]));
-                } else if (event.equals("deadline")) {
-                    String[] parts = split[1].split(" /by ", 2);
-                    description = parts[0];
-                    String by = parts[1];
-                    isAdd = taskList.add(new Deadlines(description, by));
-                } else if (event.equals("event")) {
-                    String[] parts = split[1].split(" /from ", 2);
-                    description = parts[0];
-                    String[] times = parts[1].split(" /to ", 2);
-                    String start = times[0].trim();
-                    String end = times[1].trim();
-                    isAdd = taskList.add(new Events(description, start, end));
-                } else {
-                    throw new HeadCubeException("I do not understand what that means!!");
-                }
+                boolean isAdd;
+                isAdd = isAdd(event, split);
                 if (!isAdd) {
                     return ui.duplicateMessage();
                 }
@@ -86,6 +65,30 @@ public class Parser {
             return ui.error(e.getMessage());
         }
     }
+
+    private boolean isAdd(String event, String[] split) throws HeadCubeException {
+        String description;
+        boolean isAdd;
+        if (event.equals("todo")) {
+            if (split.length < 2 || split[1].isBlank()) {
+                throw new HeadCubeException("Todo cannot be empty!!");
+            }
+            isAdd = taskList.add(new ToDos(split[1]));
+        } else if (event.equals("deadline")) {
+            String[] parts = split[1].split(" /by ", 2);
+            description = parts[0];
+            String by = parts[1];
+            isAdd = taskList.add(new Deadlines(description, by));
+        } else if (event.equals("event")) {
+            String[] parts = split[1].split(" /from ", 2);
+            description = parts[0];
+            String[] times = parts[1].split(" /to ", 2);
+            String start = times[0].trim();
+            String end = times[1].trim();
+            isAdd = taskList.add(new Events(description, start, end));
+        } else {
+            throw new HeadCubeException("I do not understand what that means!!");
+        }
+        return isAdd;
+    }
 }
-
-

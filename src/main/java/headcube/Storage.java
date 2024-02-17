@@ -11,7 +11,9 @@ import java.util.Scanner;
  */
 public class Storage {
     private Ui ui;
+
     private static final String DIRECTORY_PATH = "./data";
+
     private static final String FILE_PATH = "./data/HeadCube.txt";
 
     /**
@@ -73,13 +75,6 @@ public class Storage {
             ui.error("No tasks to load" + e.getMessage());
         }
     }
-
-    /**
-     * Parses a line from the storage file into a Task object.
-     *
-     * @param input The line to be parsed.
-     * @return The parsed Task object, or null if the line is invalid.
-     */
     private static Task parse(String input) {
         String[] parts = input.split(" \\| ");
         if (parts.length < 3) {
@@ -89,6 +84,14 @@ public class Storage {
         boolean isDone = parts[1].trim().equals("1");
         String description = parts[2].trim();
         Task task = null;
+        task = checkEvents(event, task, description, parts);
+        if (isDone) {
+            task.done();
+        }
+        return task;
+    }
+    // The parsing of the string inputs was assisted through the use of chatgpt.
+    private static Task checkEvents(String event, Task task, String description, String[] parts) {
         if ("T".equals(event)) {
             task = new ToDos(description);
         } else if ("D".equals(event)) {
@@ -104,9 +107,6 @@ public class Storage {
                 String end = times.length > 1 ? times[1] : "";
                 task = new Events(description, start, end);
             }
-        }
-        if (isDone) {
-            task.done();
         }
         return task;
     }
