@@ -208,16 +208,19 @@ public class KaiYap {
                     "\tSorry, it seems like there is some missing input. Please try again! UwU :3"
             );
         }
-        int numericIndex = Integer.parseInt(index.substring(7).strip()) - 1;
-        if (numericIndex >= taskList.size()) {
-            throw new InvalidInputException("\tSorry, this task does not exist. Please try again! UwU :3");
-        } else if (!taskList.get(numericIndex).isTaskDone()) {
-            throw new AlreadyExistsException("\tThis task has already been marked as undone. Good luck!");
-        } else {
-            taskList.get(numericIndex).setTaskDone(false);
-
-            storage.saveData();
-            return ui.printTaskUnmarked(numericIndex);
+        try {
+            int numericIndex = Integer.parseInt(index.substring(7).strip()) - 1;
+            if (numericIndex >= taskList.size()) {
+                throw new InvalidInputException("\tSorry, this task does not exist. Please try again! UwU :3");
+            } else if (!taskList.get(numericIndex).isTaskDone()) {
+                throw new AlreadyExistsException("\tThis task has already been marked as undone. Good luck!");
+            } else {
+                taskList.get(numericIndex).setTaskDone(false);
+                storage.saveData();
+                return ui.printTaskUnmarked(numericIndex);
+            }
+        } catch (Exception e) {
+            throw new InvalidInputException("\tSorry, your input is invalid. Please try again! UwU :3");
         }
     }
 }
