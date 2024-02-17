@@ -4,8 +4,7 @@ import duke.fileUtils.*;
 
 public class Ui {
     private String[] userInput;
-    public Ui() {
-    }
+
     public final void displayStart() throws StorageException {
         displayLine();
         displayLogo();
