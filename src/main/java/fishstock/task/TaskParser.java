@@ -1,4 +1,4 @@
-package fishstock;
+package fishstock.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -7,35 +7,22 @@ import java.time.format.DateTimeParseException;
 /**
  * Encapsulates parsing methods.
  */
-class Parser {
-    protected static final DateTimeFormatter IN_DATE_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy H:m");
-    protected static final DateTimeFormatter OUT_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
-
-    /**
-     * Parses command type from input.
-     * @param commandStr The string command.
-     * @return The command type.
-     */
-    protected static Command parseCommandType(String commandStr) {
-        try {
-            return Command.valueOf(commandStr.toUpperCase());
-        } catch (java.lang.IllegalArgumentException e) {
-            return Command.INVALID;
-        }
-    }
+class TaskParser {
+    private static final DateTimeFormatter IN_DATE_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy H:m");
+    private static final DateTimeFormatter OUT_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
 
     /**
      * Parses date string into LocalDateTime object.
      * Has the format "[dd/mm/yyyy] [hh:mm]".
      * @param date The date string.
      * @return The LocalDateTime object.
-     * @throws FishStockException The exceptions while parsing the date.
+     * @throws TaskException The exceptions while parsing the date.
      */
-    protected static LocalDateTime parseDate(String date) throws FishStockException {
+    protected static LocalDateTime parseDate(String date) throws TaskException {
         try {
             return LocalDateTime.parse(date, IN_DATE_FORMAT);
         } catch (DateTimeParseException e) {
-            throw new FishStockException("OH NOSE! Dates should be of the format <dd/mm/yyyy hh:mm>");
+            throw new TaskException("OH NOSE! Dates should be of the format <dd/mm/yyyy hh:mm>");
         }
     }
 

@@ -7,6 +7,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import fishstock.task.Task;
+import fishstock.task.TaskException;
+import fishstock.task.TaskFactory;
+
 /**
  * Encapsulates a Storage object.
  * Handles all storing/loading of save files.
@@ -46,7 +50,7 @@ class Storage {
             new File(pathToDb).mkdir();
             throw new FishStockException("File not found... Starting new session...\n");
 
-        } catch (FishStockException e) {
+        } catch (TaskException e) {
             throw new FishStockException("File corrupted!... Starting new session...\n");
         }
     }

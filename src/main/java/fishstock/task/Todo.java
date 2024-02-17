@@ -1,4 +1,7 @@
-package fishstock;
+package fishstock.task;
+
+import fishstock.Command;
+import fishstock.UserInput;
 
 /**
  * Encapsulates Todo Task.
@@ -17,9 +20,9 @@ class Todo extends Task {
         this(description, false);
     }
 
-    private static void checkIsValid(String[] splitInput) throws FishStockException {
+    private static void checkIsValid(String[] splitInput) throws TaskException {
         if (splitInput[0].isEmpty()) {
-            throw new FishStockException("OH NOSE! The description of todo cannot be empty..");
+            throw new TaskException("OH NOSE! The description of todo cannot be empty..");
         }
     }
 
@@ -28,9 +31,9 @@ class Todo extends Task {
      * Has format "todo [description]".
      * @param input The input from user.
      * @return The generated Todo object.
-     * @throws FishStockException The exceptions while creating the Todo object.
+     * @throws TaskException The exceptions while creating the Todo object.
      */
-    protected static Todo of(UserInput input) throws FishStockException {
+    protected static Todo of(UserInput input) throws TaskException {
         assert input.getCommandType() == Command.TODO : "The input type is not Todo";
 
         String[] splitInput = input.splitByKeywords();
@@ -41,12 +44,12 @@ class Todo extends Task {
     }
 
     @Override
-    protected Task clone() {
+    public Task clone() {
         return new Todo(this.getDescription(), this.getIsDone());
     }
 
     @Override
-    protected String toSaveString() {
+    public String toSaveString() {
         return Command.TODO.getShortened() + "|" + getDescription() + "|" + toSaveIsDone() + System.lineSeparator();
     }
 

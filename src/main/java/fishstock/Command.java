@@ -27,9 +27,9 @@ public enum Command {
      * @return The Command of enum type.
      */
     public static Command findShortened(String shortened) {
-        for (Command keyword : Command.values()) {
-            if (shortened.equals(keyword.shortened)) {
-                return keyword;
+        for (Command command : Command.values()) {
+            if (shortened.equals(command.shortened)) {
+                return command;
             }
         }
         return Command.INVALID;

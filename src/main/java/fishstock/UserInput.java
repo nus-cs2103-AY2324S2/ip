@@ -3,7 +3,7 @@ package fishstock;
 /**
  * Encapsulates a user input.
  */
-class UserInput {
+public class UserInput {
     private final Command command;
     private final String details;
 
@@ -15,7 +15,7 @@ class UserInput {
         assert input != null : "User input should not be null";
 
         String[] splitInput = input.split(" ", 2);
-        command = Parser.parseCommandType(splitInput[0]);
+        command = parseCommandType(splitInput[0]);
 
         if (splitInput.length == 2) {
             details = splitInput[1];
@@ -25,10 +25,23 @@ class UserInput {
     }
 
     /**
+     * Parses command type from input.
+     * @param commandStr The string command.
+     * @return The command type.
+     */
+    private static Command parseCommandType(String commandStr) {
+        try {
+            return Command.valueOf(commandStr.toUpperCase());
+        } catch (java.lang.IllegalArgumentException e) {
+            return Command.INVALID;
+        }
+    }
+
+    /**
      * Gets command type from user input.
      * @return The command type.
      */
-    protected Command getCommandType() {
+    public Command getCommandType() {
         return command;
     }
 
@@ -38,7 +51,7 @@ class UserInput {
      * @param keywords The keyword(s) to delimit with.
      * @return The array with the split input.
      */
-    protected String[] splitByKeywords(String ... keywords) {
+    public String[] splitByKeywords(String ... keywords) {
         String currDetails = details;
         String[] result = new String[keywords.length + 1];
         int index = 0;
@@ -63,7 +76,7 @@ class UserInput {
      * @return The resulting index number.
      * @throws FishStockException The exceptions while calculating the index number.
      */
-    protected int getIndex() throws FishStockException {
+    public int getIndex() throws FishStockException {
         if (details.isEmpty()) {
             throw new FishStockException("OH NOSE! Task number cannot be empty..");
         }

@@ -28,10 +28,10 @@ class Logic {
      * @return The output from the command.
      */
     protected static String runCommand(TaskList list, UserInput input) {
-        Command keyword = input.getCommandType();
+        Command command = input.getCommandType();
 
         try {
-            switch (keyword) {
+            switch (command) {
             case BYE:
                 Platform.exit();
                 return ""; // Won't reach here

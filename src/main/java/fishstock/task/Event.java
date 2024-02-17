@@ -1,6 +1,9 @@
-package fishstock;
+package fishstock.task;
 
 import java.time.LocalDateTime;
+
+import fishstock.Command;
+import fishstock.UserInput;
 
 /**
  * Encapsulates an Event Task.
@@ -24,35 +27,35 @@ class Event extends Task {
         this.to = to;
     }
 
-    protected Event(String description, LocalDateTime from, LocalDateTime to) throws FishStockException {
+    protected Event(String description, LocalDateTime from, LocalDateTime to) throws TaskException {
         this(description, false, from, to);
     }
 
-    private static void checkIsValid(String[] splitInput) throws FishStockException {
+    private static void checkIsValid(String[] splitInput) throws TaskException {
         if (splitInput[0].isEmpty()) {
-            throw new FishStockException("OH NOSE! The description of event cannot be empty..");
+            throw new TaskException("OH NOSE! The description of event cannot be empty..");
         }
         if (splitInput[1] == null) {
-            throw new FishStockException("OH NOSE! \"" + FROM_KEYWORD + "\" not found..");
+            throw new TaskException("OH NOSE! \"" + FROM_KEYWORD + "\" not found..");
         }
         if (splitInput[0].contains(TO_KEYWORD)) {
-            throw new FishStockException("OH NOSE! The from-date must be put first..");
+            throw new TaskException("OH NOSE! The from-date must be put first..");
         }
         if (splitInput[2] == null) {
-            throw new FishStockException("OH NOSE! \"" + TO_KEYWORD + "\" not found..");
+            throw new TaskException("OH NOSE! \"" + TO_KEYWORD + "\" not found..");
         }
         if (splitInput[1].isEmpty()) {
-            throw new FishStockException("OH NOSE! The from-date cannot be empty..");
+            throw new TaskException("OH NOSE! The from-date cannot be empty..");
         }
         if (splitInput[2].isEmpty()) {
-            throw new FishStockException("OH NOSE! The to-date cannot be empty..");
+            throw new TaskException("OH NOSE! The to-date cannot be empty..");
         }
 
-        LocalDateTime from = Parser.parseDate(splitInput[1]);
-        LocalDateTime to = Parser.parseDate(splitInput[2]);
+        LocalDateTime from = TaskParser.parseDate(splitInput[1]);
+        LocalDateTime to = TaskParser.parseDate(splitInput[2]);
 
         if (from.isAfter(to) && !from.equals(to)) {
-            throw new FishStockException("OH NOSE! The from-date must be before the to-date..");
+            throw new TaskException("OH NOSE! The from-date must be before the to-date..");
         }
     }
 
@@ -61,34 +64,34 @@ class Event extends Task {
      * Has format "event [description] /from [date] /to [date]".
      * @param input The input from user.
      * @return The generated Event object.
-     * @throws FishStockException The exceptions while creating the Event object.
+     * @throws TaskException The exceptions while creating the Event object.
      */
-    protected static Event of(UserInput input) throws FishStockException {
+    protected static Event of(UserInput input) throws TaskException {
         assert input.getCommandType() == Command.EVENT : "The input type is not Event";
 
         String[] splitInput = input.splitByKeywords(FROM_KEYWORD, TO_KEYWORD);
         checkIsValid(splitInput);
 
         String description = splitInput[0];
-        LocalDateTime from = Parser.parseDate(splitInput[1]);
-        LocalDateTime to = Parser.parseDate(splitInput[2]);
+        LocalDateTime from = TaskParser.parseDate(splitInput[1]);
+        LocalDateTime to = TaskParser.parseDate(splitInput[2]);
         return new Event(description, from, to);
     }
 
     @Override
-    protected Task clone() {
+    public Task clone() {
         return new Event(this.getDescription(), this.getIsDone(), from, to);
     }
 
     @Override
-    protected String toSaveString() {
-        return Command.EVENT.getShortened() + "|" + getDescription() + "|" + Parser.inDate(from) + "|"
-                + Parser.inDate(to) + "|" + toSaveIsDone() + System.lineSeparator();
+    public String toSaveString() {
+        return Command.EVENT.getShortened() + "|" + getDescription() + "|" + TaskParser.inDate(from) + "|"
+                + TaskParser.inDate(to) + "|" + toSaveIsDone() + System.lineSeparator();
     }
 
     @Override
     public String toString() {
-        return "[" + Command.EVENT.getShortened() + "]" + super.toString() + " (from: " + Parser.outDate(from)
-                + " to: " + Parser.outDate(to) + ")";
+        return "[" + Command.EVENT.getShortened() + "]" + super.toString() + " (from: " + TaskParser.outDate(from)
+                + " to: " + TaskParser.outDate(to) + ")";
     }
 }

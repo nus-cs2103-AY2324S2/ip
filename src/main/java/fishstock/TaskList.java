@@ -3,6 +3,10 @@ package fishstock;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import fishstock.task.Task;
+import fishstock.task.TaskException;
+import fishstock.task.TaskFactory;
+
 /**
  * Encapsulates a TaskList object.
  * Handles all functions related to the array storing Tasks.
@@ -120,10 +124,15 @@ class TaskList {
      * @throws FishStockException The exceptions while adding the Task.
      */
     protected Task addTask(UserInput input) throws FishStockException {
-        Task task = TaskFactory.of(input);
-        saveState();
-        list.add(task);
-        return task;
+        try {
+            Task task = TaskFactory.of(input);
+            saveState();
+            list.add(task);
+            return task;
+
+        } catch (TaskException e) {
+            throw new FishStockException(e.getMessage());
+        }
     }
 
     /**

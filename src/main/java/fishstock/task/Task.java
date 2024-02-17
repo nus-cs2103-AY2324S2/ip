@@ -1,9 +1,9 @@
-package fishstock;
+package fishstock.task;
 
 /**
  * Encapsulates a Task object.
  */
-abstract class Task {
+public abstract class Task {
     private String description;
     private boolean isDone;
 
@@ -15,14 +15,14 @@ abstract class Task {
     /**
      * Mark Task as done.
      */
-    protected void markAsDone() {
+    public void markAsDone() {
         this.isDone = true;
     }
 
     /**
      * Mark Task as undone.
      */
-    protected void markAsUndone() {
+    public void markAsUndone() {
         this.isDone = false;
     }
 
@@ -30,7 +30,7 @@ abstract class Task {
      * Converts Task into String format for saving.
      * @return The String format.
      */
-    protected abstract String toSaveString();
+    public abstract String toSaveString();
 
     /**
      * Converts boolean to int.
@@ -41,10 +41,16 @@ abstract class Task {
         return isDone ? 1 : 0;
     }
 
-    protected String getDescription() {
+    /**
+     * Gets the Task description.
+     */
+    public String getDescription() {
         return description;
     }
 
+    /**
+     * Gets the done status of the Task.
+     */
     protected boolean getIsDone() {
         return isDone;
     }
@@ -53,7 +59,7 @@ abstract class Task {
      * Makes a clone of the Task.
      * @return The cloned Task.
      */
-    protected abstract Task clone();
+    public abstract Task clone();
 
     @Override
     public String toString() {
