@@ -14,30 +14,23 @@ public class Ui {
      * Represents printed output when a DukeException is thrown.
      * @param dukeException
      */
-    public void printError(DukeException dukeException) {
-        printBreak();
-        System.out.println(dukeException.getMessage());
-        printBreak();
+    public String printError(DukeException dukeException) {
+        return dukeException.getMessage();
     }
 
     /**
      * Represents printed output when Duke starts.
      */
-    public void openingMessage() {
-        printBreak();
-        System.out.println("Hello! I'm Klara");
-        System.out.println("What can I do for you?");
-        printBreak();
+    public String openingMessage() {
+        return "Hello! I'm Klara\nWhat can I do for you?";
     }
 
     /**
      * Represents printed output when Duke ends.
      */
-    public void closingMessage() {
+    public String closingMessage() {
         // Logging off upon "bye" command
-        printBreak();
-        System.out.println("Bye. Hope to see you again soon!");
-        printBreak();
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -67,12 +60,11 @@ public class Ui {
      * @param task Represents the <code>Task</code> object added
      * @param size Represents size of Task list to be printed
      */
-    public void showTaskAdded(Task task, int size) {
-        printBreak();
-        System.out.println("Got it. I've added this task:");
-        System.out.println(" " + task);
-        System.out.println("Now you have " + size + " tasks in the list.");
-        printBreak();
+    public String showTaskAdded(Task task, int size) {
+        StringBuilder sb = new StringBuilder("Got it. I've added this task:");
+        sb.append("\n" + " " + task);
+        sb.append("\nNow you have " + size + " tasks in the list.");
+        return sb.toString();
     }
 
     /**

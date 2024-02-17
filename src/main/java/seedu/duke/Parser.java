@@ -100,7 +100,8 @@ public class Parser {
      * @param tasks <code>TaskList</code> object containing list of tasks
      * @param ui <code>Ui</code> object for printing actions
      */
-    public static void parseTodo(String input, TaskList tasks, Ui ui) {
+    public static String parseTodo(String input, TaskList tasks, Ui ui) {
+        String output = "";
         String[] splitInput = input.split(" ", 2);
         try {
             if (splitInput.length < 2) {
@@ -109,10 +110,11 @@ public class Parser {
             String description = splitInput[1];
             Todo todo = new Todo(description);
             tasks.addTask(todo);
-            ui.showTaskAdded(todo, tasks.getSize());
+            output = ui.showTaskAdded(todo, tasks.getSize());
         } catch (DukeException d) {
-            ui.printError(d);
+            output = ui.printError(d);
         }
+        return output;
     }
 
     /**

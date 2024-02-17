@@ -1,5 +1,6 @@
 package seedu.duke;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -9,9 +10,9 @@ import java.util.Scanner;
 @SuppressWarnings("checkstyle:Regexp")
 public class Duke {
 
-    private Storage storage;
-    private TaskList tasks;
-    private Ui ui;
+    private static Storage storage;
+    private static TaskList tasks;
+    private static Ui ui;
 
     /**
      * Constructor for Duke.
@@ -73,39 +74,56 @@ public class Duke {
         ui.closingMessage();
     }
 
+    public static String gitResponse(String userInput) {
+        String response = "";
+        if (userInput.equals("bye")) {
+            storage.saveList(tasks.getList());
+            response = ui.closingMessage();
+            // command dependent logic
+//        } else-if (userInput.equals("list")) {
+//            ui.printList(tasks.getList());
+//            userInput = sc.nextLine();
+//        } else if (userInput.startsWith("mark")) {
+//            Parser.parseMark(userInput, tasks, ui);
+//            userInput = sc.nextLine();
+//        } else if (userInput.startsWith("unmark")) {
+//            Parser.parseUnmark(userInput, tasks, ui);
+//            userInput = sc.nextLine();
+//        } else if (userInput.startsWith("deadline")) {
+//            Parser.parseDeadline(userInput, tasks, ui);
+//            userInput = sc.nextLine();
+        } else if (userInput.startsWith("todo")) {
+            response = Parser.parseTodo(userInput, tasks, ui);
+//        } else if (userInput.startsWith("event")) {
+//            Parser.parseEvent(userInput, tasks, ui);
+//            userInput = sc.nextLine();
+//        } else if (userInput.startsWith("delete")) {
+//            Parser.parseDelete(userInput, tasks, ui);
+//            userInput = sc.nextLine();
+        } else {
+            try {
+                throw new DukeException("Sorry, I didn't understand that.");
+            } catch (DukeException d) {
+                response = ui.printError(d);
+            }
+        }
+        return response;
+    }
+
     public String getResponse(String input) {
         return "hii";
     }
 
-//    public static String gitResponse(String input) {
-//        String response = "";
-//        if (input.equals("bye")) {
-//            response = "Bye. Hope to see you again soon!";
-//        } else if (input.equals("list")) {
-//            response = "Here are the tasks in your list:\n" + TaskList.getList();
-//        } else if (input.startsWith("done")) {
-//            response = Parser.parseMark(input, TaskList.getList());
-//        } else if (input.startsWith("deadline")) {
-//            response = Parser.parseDeadline(input, TaskList.getList());
-//        } else if (input.startsWith("todo")) {
-//            response = Parser.parseTodo(input, TaskList.getList());
-//        } else if (input.startsWith("event")) {
-//            response = Parser.parseEvent(input, TaskList.getList());
-//        } else {
-//            response = "Sorry, I didn't understand that.";
-//        }
-//        return response;
-//    }
-
-    /*
     /**
      * Main method in Duke.
      *
      * @param args
      * @throws IOException
-
+     */
     public static void main(String[] args) throws IOException {
-        new Duke().run();
+        new Duke();
+        Scanner sc = new Scanner(System.in);
+        String userInput = sc.nextLine();
+        System.out.println(gitResponse(userInput));
     }
-    */
 }
