@@ -9,7 +9,7 @@ import bond.task.TaskList;
  * executed upon invoking the execute() method.
  *
  * @author Benny Loh
- * @version 0.1
+ * @version 0.2
  */
 public class ExitCommand extends Command {
 
@@ -31,8 +31,6 @@ public class ExitCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        String response = ui.showGoodbye();
-        ui.closeScanner();
-        return response;
+        return ui.showGoodbye();
     }
 }

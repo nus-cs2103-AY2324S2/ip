@@ -1,26 +1,22 @@
 package bond.main;
 
 import java.util.ListIterator;
-import java.util.Scanner;
 
 import bond.task.Task;
 import bond.task.TaskList;
 
 /**
- * The Ui class is used to handle the user interface of the Bond task management
- * program.
+ * The Ui class is used to handle the user response message of the Bond task management program.
  *
  * @author Benny Loh
- * @version 0.1
+ * @version 0.2
  */
 public class Ui {
 
-    private Scanner scanner;
     /**
      * Constructor for the Ui class.
      */
     public Ui() {
-        this.scanner = new Scanner(System.in);
     }
 
     public String newLine() {
@@ -42,21 +38,6 @@ public class Ui {
         StringBuilder builder = new StringBuilder();
         builder.append(message);
         return message;
-    }
-
-    /**
-     * Reads the user input.
-     *
-     * @return The user input.
-     */
-    public String readCommand() {
-        String userInput = "";
-
-        if (this.scanner.hasNextLine()) {
-            userInput = this.scanner.nextLine();
-        }
-
-        return userInput;
     }
 
     /**
@@ -187,9 +168,5 @@ public class Ui {
     public String showGoodbye() {
         String message = "Bye. Hope to see you again soon!";
         return message;
-    }
-
-    public void closeScanner() {
-        this.scanner.close();
     }
 }

@@ -5,7 +5,7 @@ package bond.main;
  * management program.
  *
  * @author Benny Loh
- * @version 0.1
+ * @version 0.2
  */
 public class BondException extends Exception {
 

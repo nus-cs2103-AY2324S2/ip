@@ -18,7 +18,7 @@ import bond.task.ToDoTask;
  * Command object.
  *
  * @author Benny Loh
- * @version 0.1
+ * @version 0.2
  */
 public class Storage {
 

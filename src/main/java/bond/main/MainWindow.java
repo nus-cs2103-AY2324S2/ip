@@ -10,6 +10,9 @@ import javafx.scene.layout.VBox;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
+ *
+ * @author Benny Loh
+ * @version 0.2
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -40,10 +43,14 @@ public class MainWindow extends AnchorPane {
     }
 
 
-    protected void welcomeUser() {
+    protected void tellUser(String message) {
         dialogContainer.getChildren().add(
-                DialogBox.getBondDialog("Hello! I'm Bond!\nWhat can I do for you?", bondImage)
+                DialogBox.getBondDialog(message, bondImage)
         );
+    }
+
+    protected void welcomeUser() {
+        this.tellUser(bond.ui.showWelcome());
     }
 
     /**

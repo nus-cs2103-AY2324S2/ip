@@ -4,7 +4,7 @@ package bond.command;
  * The AddCommand class is used to classify an add command in the Bond task.
  *
  * @author Benny Loh
- * @version 0.1
+ * @version 0.2
  */
 public abstract class AddCommand extends Command {
 

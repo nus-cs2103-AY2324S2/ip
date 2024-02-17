@@ -13,10 +13,13 @@ import javafx.stage.Stage;
 
 /**
  * A GUI for Bond using FXML.
+ *
+ * @author Benny Loh
+ * @version 0.2
  */
 public class Main extends Application {
 
-    private Bond bond = new Bond();
+    private Bond bond;
 
     @Override
     public void start(Stage stage) {
@@ -27,6 +30,15 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setTitle("Bond");
             stage.setResizable(false);
+
+            {
+                try {
+                    bond = new Bond();
+                } catch (BondException e) {
+                    fxmlLoader.<MainWindow>getController().tellUser(e.getMessage());
+                }
+            }
+
             fxmlLoader.<MainWindow>getController().setBond(bond);
             stage.show();
         } catch (IOException e) {
@@ -45,9 +57,7 @@ public class Main extends Application {
         int delayInSeconds = 2;
 
         // Task to be executed after the delay
-        Runnable delayedTask = () -> {
-            System.exit(0);
-        };
+        Runnable delayedTask = () -> System.exit(0);
 
         // Schedule the task with the desired delay
         scheduler.schedule(delayedTask, delayInSeconds, TimeUnit.SECONDS);

@@ -17,7 +17,7 @@ import bond.command.UnmarkCommand;
  * Command object.
  *
  * @author Benny Loh
- * @version 0.1
+ * @version 0.2
  */
 public abstract class Parser {
 

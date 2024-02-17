@@ -10,7 +10,7 @@ import bond.main.Parser;
  * Represents a deadline task in the Bond task management program.
  *
  * @author Benny Loh
- * @version 0.1
+ * @version 0.2
  */
 public class DeadlineTask extends Task {
 

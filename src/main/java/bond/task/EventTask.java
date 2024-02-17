@@ -9,7 +9,7 @@ import bond.main.BondException;
  * Represents an event task in the Bond task management program.
  *
  * @author Benny Loh
- * @version 0.1
+ * @version 0.2
  */
 public class EventTask extends Task {
 
