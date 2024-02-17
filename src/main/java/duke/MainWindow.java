@@ -2,6 +2,7 @@ package duke;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -47,5 +48,17 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
+    }
+
+    public void addDialog(String message, boolean isUser) {
+        Label messageLabel = new Label(message);
+        messageLabel.setWrapText(true);
+
+        dialogContainer.getChildren().add(messageLabel);
+    }
+
+    public void displayWelcomeMessage() {
+        String welcomeMessage = "Hello! I'm Duke\nWhat can I do for you?";
+        addDialog(welcomeMessage, false);
     }
 }

@@ -83,7 +83,9 @@ public class Duke extends Application {
             stage.setTitle("Duke");
             MainWindow controller = fxmlLoader.<MainWindow>getController();
             controller.setDuke(this);
+            controller.displayWelcomeMessage();
             stage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -130,6 +132,7 @@ public class Duke extends Application {
 
         AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
+
 
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
 
