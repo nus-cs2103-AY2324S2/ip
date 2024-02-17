@@ -1,2 +1,1 @@
-T|O|drink coffee
-D|O|potato potato|2026-09-01
+T|O|drink h20
