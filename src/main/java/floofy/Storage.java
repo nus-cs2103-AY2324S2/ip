@@ -3,7 +3,7 @@ package floofy;
 import floofy.task.Deadline;
 import floofy.task.Event;
 import floofy.task.Task;
-import floofy.task.ToDos;
+import floofy.task.ToDo;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -72,7 +72,7 @@ public class Storage {
 
         switch (parts[0]) {
         case "T":
-            task = new ToDos(parts[2]);
+            task = new ToDo(parts[2]);
             break;
         case "D":
             LocalDate deadlineBy = convertDate(parts[3]);
