@@ -23,6 +23,7 @@ public class Ui {
     private static final String MARK_MSG = "Nice! I have marked this task as done:";
     private static final String UNMARK_MSG = "OK, I've marked this task as not done yet:";
     private static final String GOODBYE_MESSAGE = "Bye. Hope to see you again soon!";
+    private static final String UPDATE_MSG = "Task was successfully updated:";
     private final Scanner scanner;
 
     /**
@@ -125,6 +126,17 @@ public class Ui {
      */
     public String getUnmarkMessage(Task task) {
         return String.format("%s\n%s", UNMARK_MSG, task.toString());
+    }
+
+    /**
+     * Returns message to be displayed when task is updated.
+     * @param oldTask Previous task.
+     * @param newTask Updated task.
+     */
+    public String getUpdateMessage(Task oldTask, Task newTask) {
+        return String.format("%s\nOld task: %s\n%s\nNew task: %s",
+                UPDATE_MSG, oldTask.toString(),
+                this.getHorizontalLine(), newTask.toString());
     }
 
     /**

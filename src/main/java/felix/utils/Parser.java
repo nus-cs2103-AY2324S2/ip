@@ -10,6 +10,7 @@ import felix.command.FindCommand;
 import felix.command.ListCommand;
 import felix.command.MarkCommand;
 import felix.command.UnmarkCommand;
+import felix.command.UpdateTaskCommand;
 import felix.exception.FelixException;
 import felix.task.Deadline;
 import felix.task.Event;
@@ -61,6 +62,16 @@ public class Parser {
                 return new FindCommand(words[1]);
             } catch (IndexOutOfBoundsException err) {
                 throw new FelixException("keyword cannot be empty");
+            }
+        case "update":
+            try {
+                String[] updateParams = words[1].split(" ", 2);
+                return new UpdateTaskCommand(Integer.parseInt(updateParams[0]) - 1,
+                        updateParams[1]);
+            } catch (NumberFormatException err) {
+                throw new FelixException("Enter a number after \"update\"");
+            } catch (IndexOutOfBoundsException e) {
+                throw new FelixException("Insufficient parameters provided");
             }
         default:
             throw new FelixException("Unrecognised command");

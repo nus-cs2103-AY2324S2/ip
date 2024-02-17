@@ -40,6 +40,13 @@ public class TaskList {
     }
 
     /**
+     * Replaces task at index i to given task
+     */
+    public void setTask(int i, Task task) {
+        this.tasks.set(i, task);
+    }
+
+    /**
      * Returns number of tasks in taskList.
      */
     public int getCount() {
