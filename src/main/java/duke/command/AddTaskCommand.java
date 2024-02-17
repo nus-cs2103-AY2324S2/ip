@@ -50,6 +50,7 @@ public abstract class AddTaskCommand extends Command implements Undoable {
         this.setTaskFromDescription();
         list.addTask(task);
         state.setNormal();
+        state.addCommandToHistory(this);
         return "Added: " + task + "\nYou now have " + list.size() + " tasks in the list.";
     }
 
