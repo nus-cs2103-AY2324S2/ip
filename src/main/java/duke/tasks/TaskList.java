@@ -3,8 +3,31 @@ package duke.tasks;
 import duke.exceptions.InvalidIndexException;
 import java.util.ArrayList;
 
+/**
+ * The TaskList class represents a list of tasks.
+ * It extends the ArrayList class to store tasks and provides methods for adding, retrieving, displaying, and deleting tasks.
+ * <p>
+ * The class includes methods to add tasks, retrieve tasks by index, display all tasks, and delete tasks by index.
+ * </p>
+ * <p>
+ * Tasks in the list are indexed starting from 1 for user-friendly display purposes.
+ * </p>
+ * <p>
+ * Note: This class extends ArrayList<Task> to inherit list operations and behavior.
+ * </p>
+ *
+ * @author Justin Leng Chern Harn
+ * @version 1.0
+ * @see duke.tasks.Task
+ * @see duke.exceptions.InvalidIndexException
+ */
 public class TaskList extends ArrayList<Task> {
 
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task the task to add.
+     */
     public void addTask(Task task) {
         add(task);
         System.out.println("     Got it. I've added this task:");
@@ -13,6 +36,13 @@ public class TaskList extends ArrayList<Task> {
         System.out.println("     Total number of duke.tasks: " + numTask);
     }
 
+    /**
+     * Retrieves a task from the task list by index.
+     *
+     * @param index the index of the task to retrieve.
+     * @return the task at the specified index.
+     * @throws InvalidIndexException if the index is invalid (out of bounds).
+     */
     public Task getTask(int index) throws InvalidIndexException {
         try {
             return this.get(index);
@@ -20,6 +50,12 @@ public class TaskList extends ArrayList<Task> {
             throw new InvalidIndexException();
         }
     }
+
+    /**
+     * Displays all tasks in the task list.
+     *
+     * @throws InvalidIndexException if there are no tasks in the list.
+     */
     public void displayTasks() throws InvalidIndexException {
         if (isEmpty()) {
             System.out.println("     No pending duke.tasks, congrats!");
@@ -32,6 +68,13 @@ public class TaskList extends ArrayList<Task> {
             System.out.println("     Total number of duke.tasks: " + numTask);
         }
     }
+
+    /**
+     * Deletes a task from the task list by index.
+     *
+     * @param index the index of the task to delete.
+     * @throws InvalidIndexException if the index is invalid (out of bounds).
+     */
     public void deleteTask(int index) throws InvalidIndexException {
         try {
             Task task = this.get(index);

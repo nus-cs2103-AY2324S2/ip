@@ -11,7 +11,32 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The Parser class is responsible for parsing user input strings and task data strings into appropriate objects.
+ * It provides methods to parse user commands, task data from save files, and task details into task objects.
+ * Additionally, it handles date and time parsing for deadline and event tasks.
+ *
+ * @author Justin Leng Chern Harn
+ * @version 1.0
+ * @see duke.commands.Command
+ * @see duke.exceptions.InvalidCommandException
+ * @see duke.exceptions.InvalidDateException
+ * @see duke.exceptions.InvalidTaskException
+ * @see duke.exceptions.StorageException
+ * @see duke.tasks.Task
+ * @see duke.tasks.ToDoTask
+ * @see duke.tasks.DeadlineTask
+ * @see duke.tasks.EventTask
+ */
 public final class Parser {
+
+    /**
+     * Parses user input into a Command object based on the command type.
+     *
+     * @param userInput the user input string split into an array of strings.
+     * @return a Command object corresponding to the user input command.
+     * @throws InvalidCommandException if the user input command is invalid.
+     */
     public static Command parseUserInput(String[] userInput) throws InvalidCommandException {
         String commandType = userInput[0].toUpperCase();
         Command command;
@@ -58,6 +83,14 @@ public final class Parser {
         return command;
     }
 
+    /**
+     * Parses task data from a save file into a Task object.
+     *
+     * @param taskStringData the task data string read from the save file.
+     * @return a Task object parsed from the task data string.
+     * @throws StorageException if there is an error parsing the task data.
+     * @throws InvalidDateException if the task data contains an invalid date.
+     */
     public static Task parseSaveFile(String taskStringData) throws StorageException, InvalidDateException {
         // Split taskStringData into array with sections {taskType, isDone, taskDescription, date etc.}
         String[] sectionedString = taskStringData.trim().split("\\|");
@@ -116,6 +149,13 @@ public final class Parser {
         return task;
     }
 
+    /**
+     * Parses user input details into a ToDoTask object.
+     *
+     * @param details an array of strings containing task details.
+     * @return a ToDoTask object parsed from the task details.
+     * @throws InvalidTaskException if the task details are invalid.
+     */
     public static ToDoTask parseTodoTask(String[] details) throws InvalidTaskException {
         String description;
         if (details.length > 0) {
@@ -127,6 +167,14 @@ public final class Parser {
         return new ToDoTask(description);
     }
 
+    /**
+     * Parses user input details into a DeadlineTask object.
+     *
+     * @param details an array of strings containing task details.
+     * @return a DeadlineTask object parsed from the task details.
+     * @throws InvalidTaskException if the task details are invalid.
+     * @throws InvalidDateException if the deadline date is invalid.
+     */
     public static DeadlineTask parseDeadlineTask(String[] details) throws InvalidTaskException, InvalidDateException {
         int byIndex = -1;
         for (int i = 0; i < details.length; i++) {
@@ -153,6 +201,14 @@ public final class Parser {
         return new DeadlineTask(description, deadline);
     }
 
+    /**
+     * Parses user input details into an EventTask object.
+     *
+     * @param details an array of strings containing task details.
+     * @return an EventTask object parsed from the task details.
+     * @throws InvalidTaskException if the task details are invalid.
+     * @throws InvalidDateException if the event dates are invalid.
+     */
     public static EventTask parseEventTask(String[] details) throws InvalidTaskException, InvalidDateException {
         int fromIndex = -1;
         int toIndex = -1;
@@ -183,6 +239,13 @@ public final class Parser {
         return new EventTask(description, startBy, endBy);
     }
 
+    /**
+     * Parses a date-time string into a LocalDate object.
+     *
+     * @param dateTimeString the date-time string to parse.
+     * @return a LocalDate object parsed from the date-time string.
+     * @throws InvalidDateException if the date-time string is invalid.
+     */
     public static LocalDate parseDateTime(String dateTimeString) throws InvalidDateException {
         try {
             return LocalDate.parse(dateTimeString, DateTimeFormatter.ISO_LOCAL_DATE);
