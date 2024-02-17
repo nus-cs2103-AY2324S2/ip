@@ -36,7 +36,7 @@ You can find other helpful pointers below for a few of Nicole's commands.
 
 ## Adding an item
 
-After adding an item in any of the following formats: 
+After adding an item in the following formats: 
 1. `todo [task]`
 2. `deadline [task] by YYYY-MM-DD`
 3. `event [description] from YYYY-MM-DD at HH:MM:SS to YYYY-MM-DD at HH:MM:SS`
@@ -101,11 +101,11 @@ peruse your current items first.
 `sort by date` will rearrange your list
 of items from earliest to latest as per their date(time) like so:
 
-![img_6.png](sortSS.png)
+![img.png](sortSS.png)
 
 Where`Events` are sorted per their  `from` datetime
 
-Note that since `todos` do not have a datetime, they are ordered
+**Note** that since `todos` do not have a datetime, they are ordered
 **last** by default.
 
 ## Finally...

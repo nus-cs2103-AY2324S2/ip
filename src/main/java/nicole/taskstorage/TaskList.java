@@ -180,18 +180,25 @@ public class TaskList {
      *
      * @return a success message.
      */
-    public String sortTasksByDate() {
+    public String sortTasksByDate() throws NicoleException {
         // This sorter doesn't meaningfully sort Todos, whose Date is by default the maximum possible date
         Comparator<Task> dateSorter = (task1, task2) -> {
             if (task1.getDate().isBefore(task2.getDate())) {
                 return -1;
             } else if (task1.getDate().isEqual(task2.getDate())) {
-                return 0;
+                if (task1.getFromDateTime().isBefore(task2.getFromDateTime())) {
+                    return -1;
+                } else if (task1.getFromDateTime().isAfter(task2.getFromDateTime())) {
+                    return 1;
+                } else {
+                    return 0;
+                }
             } else {
                 return 1;
             }
         };
         TASKS.sort(dateSorter);
+        storage.saveTasksToFile();
         return "Alriiiiighty sorted by date :6";
     }
 }
