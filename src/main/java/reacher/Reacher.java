@@ -2,6 +2,8 @@ package reacher;
 
 import reacher.command.Command;
 
+import java.time.format.DateTimeParseException;
+
 public class Reacher {
     private Storage storage;
     private TaskList tasks;
@@ -27,6 +29,8 @@ public class Reacher {
                 isExit = command.isExit();
             } catch (ReacherException e) {
                 ui.print(e.getMessage());
+            } catch (DateTimeParseException e) {
+                ui.print("Pls provide correct format: yyyy-mm-dd");
             }
         }
     }

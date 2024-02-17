@@ -22,11 +22,7 @@ public class AddCommand extends Command {
         case ("deadline"):
             ui.print("When is the deadline?");
             LocalDate deadline = null;
-            try {
-                deadline = LocalDate.parse(ui.readString());
-            } catch (DateTimeParseException e) {
-                throw new ReacherException("not ");
-            }
+            deadline = LocalDate.parse(ui.readString());
             t = new Deadline(name, deadline);
             tasks.addTask(t);
             ui.print("I've added " + t.toString());
