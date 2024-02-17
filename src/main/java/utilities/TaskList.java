@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import datesandtimes.DateTimeParser;
 import exceptions.RyanGoslingBadFormatException;
-import exceptions.RyanGoslingDateTimeException;
 import exceptions.RyanGoslingException;
 import tasks.Task;
 
@@ -83,11 +82,22 @@ public class TaskList {
      * @param indexOfTask The index of the task to be removed.
      * @return A formatted string containing the remove printout.
      */
-    public String removeIndex(int indexOfTask) {
-        assert !(indexOfTask >= listOfTasks.size() || indexOfTask < 0) : "Invalid index range!";
-        Task taskToBeRemoved = listOfTasks.get(indexOfTask);
-        this.listOfTasks.remove(indexOfTask);
-        return ResponseHandler.removePrinter(taskToBeRemoved, listOfTasks.size());
+    public String removeIndex(String[] indexOfTask) throws RyanGoslingException {
+        if (indexOfTask.length != 2) {
+            throw new RyanGoslingBadFormatException("Missing arguments, type delete <index>");
+        }
+        assert indexOfTask[0].equals("delete") : "Task should be delete here!";
+        try {
+            Task taskToBeRemoved = listOfTasks.get(Integer.parseInt(indexOfTask[1]));
+            this.listOfTasks.remove(indexOfTask);
+            return ResponseHandler.removePrinter(taskToBeRemoved, listOfTasks.size());
+        } catch (IndexOutOfBoundsException e) {
+            throw new RyanGoslingBadFormatException("Index should be a valid index that is in range of list!");
+        } catch (NumberFormatException e) {
+            throw new RyanGoslingBadFormatException("Index is not a number!");
+        } catch (Exception e) {
+            throw new RyanGoslingException(e.getMessage());
+        }
     }
 
     /**

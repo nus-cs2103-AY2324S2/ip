@@ -60,7 +60,8 @@ public class CommandsParser {
         } else if (commandSplit[0].equals(String.valueOf(CommandsEnum.event))) {
             return PatternParser.eventParser(taskInputByUser, taskListManager, taskLoader);
         } else if (commandSplit[0].equals(String.valueOf(CommandsEnum.delete))) {
-            String responseReturn = taskListManager.removeIndex(Integer.parseInt(commandSplit[1]) - 1);
+
+            String responseReturn = taskListManager.removeIndex(commandSplit);
             taskListManager.writeToFile(taskLoader);
             return responseReturn;
         } else if (commandSplit[0].equals(String.valueOf(CommandsEnum.find))) {
