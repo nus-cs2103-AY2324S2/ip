@@ -32,7 +32,6 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            // Step 4. show welcome message
             Ui ui = new Ui();
             ui.showWelcomeMessage();
 

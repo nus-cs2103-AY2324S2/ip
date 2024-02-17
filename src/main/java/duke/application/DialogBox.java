@@ -1,7 +1,6 @@
 package duke.application;
 
 import java.io.IOException;
-import java.security.cert.PolicyNode;
 import java.util.Collections;
 
 import duke.io.MainWindow;

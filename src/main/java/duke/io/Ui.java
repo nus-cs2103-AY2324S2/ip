@@ -4,7 +4,6 @@ import duke.task.Task;
 import duke.task.Todo;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Ui - Handles interactions with the user, including input and output.

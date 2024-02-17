@@ -36,10 +36,8 @@ public class Parser {
      */
     public String handleCommand(String input, TaskList taskList) {
         String[] parsedInput = Parser.parseInput(input);
-
         if ("list".equalsIgnoreCase(input)) {
             return Ui.showTaskList(taskList.getTaskList());
-
         } else if ("bye".equalsIgnoreCase(input)) {
             Storage.saveTasks(taskList.getTaskList());
             System.exit(0);
@@ -114,6 +112,11 @@ public class Parser {
      */
     private static String handleTodos(String input, TaskList taskList) {
         String description = input.substring(5).trim();
+
+        if (isDuplicateTask(description, taskList)) {
+            return Ui.showErrorMessage("Duplicate task found. Task not added, it's already there!");
+        }
+
         Todo todo = new Todo(description);
         taskList.addTask(todo);
         Storage.saveTasks(taskList.getTaskList());
@@ -132,6 +135,11 @@ public class Parser {
         if (splitParts.length > 1) {
             String description = splitParts[0].trim();
             String date = splitParts[1].trim();
+
+            if (isDuplicateTask(description, taskList)) {
+                return Ui.showErrorMessage("Duplicate task found. Task not added, it's already there!");
+            }
+
             if (isValidDate(date)) {
                 LocalDate d1 = LocalDate.parse(date, DateTimeFormatter.ofPattern("M/d/yyyy HHmm"));
                 Deadline deadline = new Deadline(description, d1);
@@ -144,8 +152,7 @@ public class Parser {
                 Storage.saveTasks(taskList.getTaskList());
                 return Ui.showDeadlineAdded(deadline, taskList.getTotalTasks());
             }
-        }
-        else {
+        } else {
             return Ui.showErrorMessage("Invalid input format for deadline. Please provide a valid date/time.");
         }
     }
@@ -164,6 +171,11 @@ public class Parser {
             String description = splitParts[0].trim();
             String fromDate = splitTo[0].trim();
             String toDate = splitTo[1].trim();
+
+            if (isDuplicateTask(description, taskList)) {
+                return Ui.showErrorMessage("Duplicate task found. Task not added, it's already there!");
+            }
+
             if (isValidDate(fromDate) && isValidDate(toDate)) {
                 LocalDate d1 = LocalDate.parse(fromDate);
                 LocalDate d2 = LocalDate.parse(toDate);
@@ -202,9 +214,32 @@ public class Parser {
         return Ui.showErrorMessage("Invalid input format for delete.");
     }
 
+    /**
+     * Checks if a task with the given description already exists in the task list.
+     *
+     * @param description The description of the task to check.
+     * @param taskList    The task list to check for duplicates.
+     * @return True if a duplicate task is found, false otherwise.
+     */
+    private static boolean isDuplicateTask(String description, TaskList taskList) {
+        for (Task task : taskList.getTaskList()) {
+            if (task.getDescription().equalsIgnoreCase(description)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Handles finding items based on a keyword.
+     *
+     * @param input    User input specifying the keyword for finding tasks.
+     * @param tasks The task list to search for tasks.
+     * @return A string result or message.
+     */
     public String findItems(String input, TaskList tasks) {
         Ui.showFindItemList(input);
-        boolean found = false;
+        boolean isFound = false;
         String[] splitParts = input.split("find", 2);
 
         if (splitParts.length > 1) {
@@ -214,15 +249,15 @@ public class Parser {
                 Task item = tasks.getTask(i);
                 if (item.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
                     System.out.println(item);
-                    found = true;
+                    isFound = true;
                 }
             }
         } else {
-            System.out.println("Please specify a search keyword.");
+            Ui.showErrorMessage("Please specify a search keyword.");
         }
 
-        if (!found) {
-            System.out.println("No tasks found containing: " + input);
+        if (!isFound) {
+            Ui.showErrorMessage("No tasks found containing: " + input);
         }
         return Ui.showErrorMessage("Invalid input format for find.");
     }

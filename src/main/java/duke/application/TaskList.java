@@ -36,8 +36,13 @@ public class TaskList {
      *
      * @param task The task to be added.
      */
-    public void addTask(Task task) {
-        tasks.add(task);
+    public boolean addTask(Task task) {
+        if (!tasks.contains(task)) {
+            tasks.add(task);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
