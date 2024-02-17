@@ -33,6 +33,7 @@ public abstract class Task {
      * @throws ArgumentException if the first element of the array is not a recognised Task type.
      */
     public static Task makeTask(String[] taskData) throws ArgumentException {
+        assert taskData.length == 3;
         String taskType = taskData[0];
         switch (taskType) {
         case "T":
@@ -58,6 +59,7 @@ public abstract class Task {
      * @throws ArgumentException if too little arguments are provided or taskType is not recognised.
      */
     public static Task makeTask(String taskType, String taskArgument) throws ArgumentException {
+        assert taskType != null;
         switch (taskType) {
         case "todo":
             if (taskArgument.length() == 0) {
