@@ -98,8 +98,8 @@ public class DialogBox extends HBox {
         return db;
     }
 
+    //Function reused from appleraincoat's ip
     private void applyCircularShape() {
-        //Reused from appleraincoat's ip
         Circle clip = new Circle();
         clip.setRadius(displayPicture.getFitWidth() / 2.3); // Radius should be half of the ImageView width
         clip.setCenterX(displayPicture.getFitWidth() / 2); // Center X coordinate of the circle

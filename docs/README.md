@@ -1,30 +1,84 @@
-# Duke User Guide
+# Ryan Gosling Bot User Guide 🚗
 
-// Update the title above to match the actual product name
+![Overview of RyanGosling bot](Ui.png)
 
-// Product screenshot goes here
+Whether you're on a quest for productivity or just trying to avoid doing the laundry, Ryan Gosling is at your service!.
+Type away your tasks, and let's turn your to-do list into a to-done list! 💪📋
 
-// Product intro goes here
+## Adding Todo
+
+![Overview of Todo feature](screenshots/Todo.png)
+
+User is able to type in a single line todo command and add a todo task.
+Format is ```todo <eventName>```
+
+Example: ```todo survive ```
+
+RyanGosling bot replies
+if the todo task is added successful with a summary of the task added and the size of the current to-do list!
+
 
 ## Adding deadlines
 
-// Describe the action and its outcome.
+![Overview of Deadline feature](screenshots/Deadline.png)
 
-// Give examples of usage
+User is able to type in a single line deadline command and add a deadline task.
+Format is ```deadline <eventName> /by <date in YYYY-MM-DD> <time in 24HR>```
 
-Example: `keyword (optional arguments)`
+Example: ```deadline finish iP /by 2024-02-23 2359 ```
 
-// A description of the expected outcome goes here
+RyanGosling bot replies
+if the deadline task is added successful with a summary of the task added and the size of the current to-do list!
 
-```
-expected output
-```
+## Adding Event
 
-## Feature ABC
+![Overview of Event feature](screenshots/Event.png)
 
-// Feature details
+User is able to type in a single line event command and add an event task.
+Format is ```event <eventName> /from <date_first in YYYY-MM-DD> <time_first in 24HR> /to <date_second in YYYY-MM-DD> <time_second in 24HR>```
+
+Example: ```event drive /from 2024-02-20 0900 /to 2024-04-07 2000```
+
+RyanGosling bot replies
+if the event task is added successful with a summary of the task added and the size of the current to-do list!
+
+## View the list of tasks
+
+![Overview of List feature](screenshots/List.png)
+
+User is able to view the list of tasks with single `list` command.
+Format is ```list```
+
+RyanGosling bot replies with the list of tasks.
+
+## Find a task in list of tasks
+
+![Overview of Event feature](screenshots/Find.png)
+
+User is able to type in a single line find command and view all tasks containing that query.
+Format is ```find <eventName>```
+
+Example: ```find drive```
+
+RyanGosling bot replies with a list of tasks containing that task string.
+
+## Delete a task
+
+![Overview of Event feature](screenshots/Delete.png)
+
+User is able to type in a single line delete command and delete a task with that index.
+Users must ensure the index is a valid number and within range of the list.
+
+Format is ```delete <index>```
+
+Example: ```delete 2```
+
+RyanGosling bot replies with a list of tasks containing that task string.
 
 
-## Feature XYZ
 
-// Feature details
+
+
+
+
+
