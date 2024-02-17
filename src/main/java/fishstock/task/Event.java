@@ -52,8 +52,8 @@ class Event extends Task {
             throw new TaskException("OH NOSE! The to-date cannot be empty..");
         }
 
-        LocalDateTime from = TaskParser.parseDate(splitInput[1]);
-        LocalDateTime to = TaskParser.parseDate(splitInput[2]);
+        LocalDateTime from = DateParser.parseDate(splitInput[1]);
+        LocalDateTime to = DateParser.parseDate(splitInput[2]);
 
         if (from.isAfter(to) && !from.equals(to)) {
             throw new TaskException("OH NOSE! The from-date must be before the to-date..");
@@ -75,8 +75,8 @@ class Event extends Task {
         checkIsValid(splitInput);
 
         String description = splitInput[0];
-        LocalDateTime from = TaskParser.parseDate(splitInput[1]);
-        LocalDateTime to = TaskParser.parseDate(splitInput[2]);
+        LocalDateTime from = DateParser.parseDate(splitInput[1]);
+        LocalDateTime to = DateParser.parseDate(splitInput[2]);
         return new Event(description, from, to);
     }
 
@@ -87,13 +87,13 @@ class Event extends Task {
 
     @Override
     public String toSaveFormat() {
-        return Command.EVENT.getShortened() + "|" + getDescription() + "|" + TaskParser.inDate(from) + "|"
-                + TaskParser.inDate(to) + "|" + markStatusToInt() + System.lineSeparator();
+        return Command.EVENT.getShortened() + "|" + getDescription() + "|" + DateParser.inDate(from) + "|"
+                + DateParser.inDate(to) + "|" + markStatusToInt() + System.lineSeparator();
     }
 
     @Override
     public String toString() {
-        return "[" + Command.EVENT.getShortened() + "]" + super.toString() + " (from: " + TaskParser.outDate(from)
-                + " to: " + TaskParser.outDate(to) + ")";
+        return "[" + Command.EVENT.getShortened() + "]" + super.toString() + " (from: " + DateParser.outDate(from)
+                + " to: " + DateParser.outDate(to) + ")";
     }
 }

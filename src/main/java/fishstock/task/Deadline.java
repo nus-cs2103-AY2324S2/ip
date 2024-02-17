@@ -55,7 +55,7 @@ class Deadline extends Task {
         checkIsValid(splitInput);
 
         String description = splitInput[0];
-        LocalDateTime by = TaskParser.parseDate(splitInput[1]);
+        LocalDateTime by = DateParser.parseDate(splitInput[1]);
         return new Deadline(description, by);
     }
 
@@ -66,12 +66,12 @@ class Deadline extends Task {
 
     @Override
     public String toSaveFormat() {
-        return Command.DEADLINE.getShortened() + "|" + getDescription() + "|" + TaskParser.inDate(by)
+        return Command.DEADLINE.getShortened() + "|" + getDescription() + "|" + DateParser.inDate(by)
                 + "|" + markStatusToInt() + System.lineSeparator();
     }
 
     @Override
     public String toString() {
-        return "[" + Command.DEADLINE.getShortened() + "]" + super.toString() + " (by: " + TaskParser.outDate(by) + ")";
+        return "[" + Command.DEADLINE.getShortened() + "]" + super.toString() + " (by: " + DateParser.outDate(by) + ")";
     }
 }

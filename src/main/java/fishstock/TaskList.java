@@ -136,7 +136,7 @@ class TaskList {
      */
     protected Task addTask(UserInput input) throws FishStockException {
         try {
-            Task task = TaskFactory.of(input);
+            Task task = TaskFactory.fromUserInput(input);
             saveState();
             list.add(task);
             return task;

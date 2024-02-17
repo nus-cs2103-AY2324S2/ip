@@ -23,44 +23,48 @@ class Logic {
     }
 
     /**
-     * Executes the command.
+     * Runs the command from the UserInput.
      *
      * @param list The list of Tasks to execute on.
      * @param input The user input.
      * @return The output from the command.
      */
-    protected static String runCommand(TaskList list, UserInput input) {
+    protected static String run(TaskList list, UserInput input) {
         Command command = input.getCommandType();
-
         try {
-            switch (command) {
-            case BYE:
-                Platform.exit();
-                return ""; // Won't reach here
-            case LIST:
-                return LIST_PREFIX + list.toString();
-            case MARK:
-                return MARK_PREFIX + list.markTask(input);
-            case UNMARK:
-                return UNMARK_PREFIX + list.unmarkTask(input);
-            case DELETE:
-                return DELETE_PREFIX + list.deleteTask(input) + getTaskCount(list);
-            case FIND:
-                return FIND_PREFIX + list.findTasks(input);
-            case UNDO:
-                list.restoreState();
-                return UNDO_PREFIX + list.toString();
-            case TODO:
-                // Fallthrough
-            case DEADLINE:
-                // Fallthrough
-            case EVENT:
-                return ADD_TASK_PREFIX + list.addTask(input) + getTaskCount(list);
-            default:
-                return UNKNOWN_COMMAND;
-            }
+            String result = runCommand(list, input, command);
+            return result;
         } catch (FishStockException e) {
             return e.getMessage();
+        }
+    }
+
+    private static String runCommand(TaskList list, UserInput input, Command command) throws FishStockException {
+        switch (command) {
+        case BYE:
+            Platform.exit();
+            return ""; // Won't reach here
+        case LIST:
+            return LIST_PREFIX + list;
+        case MARK:
+            return MARK_PREFIX + list.markTask(input);
+        case UNMARK:
+            return UNMARK_PREFIX + list.unmarkTask(input);
+        case DELETE:
+            return DELETE_PREFIX + list.deleteTask(input) + getTaskCount(list);
+        case FIND:
+            return FIND_PREFIX + list.findTasks(input);
+        case UNDO:
+            list.restoreState();
+            return UNDO_PREFIX + list;
+        case TODO:
+            // Fallthrough
+        case DEADLINE:
+            // Fallthrough
+        case EVENT:
+            return ADD_TASK_PREFIX + list.addTask(input) + getTaskCount(list);
+        default:
+            return UNKNOWN_COMMAND;
         }
     }
 }

@@ -12,12 +12,26 @@ public class TaskFactory {
     /**
      * Initializes a Task from a UserInput.
      */
-    public static Task of(UserInput input) throws TaskException {
+    public static Task fromUserInput(UserInput input) throws TaskException {
         Command command = input.getCommandType();
 
         assert Arrays.asList(Command.TODO, Command.DEADLINE, Command.EVENT)
                 .contains(command) : "Attempted to add an invalid Task";
 
+        return createTask(command, input);
+    }
+
+    /**
+     * Initializes a Task from storage format.
+     */
+    public static Task fromStorageString(String line) throws TaskException {
+        String[] arr = line.split("\\|");
+        Command command = Command.findShortened(arr[0]);
+        boolean isDone = getIsDone(arr[arr.length - 1]);
+        return createTask(arr, command, isDone);
+    }
+
+    private static Task createTask(Command command, UserInput input) throws TaskException {
         Task task = null;
         switch (command) {
         case TODO:
@@ -30,34 +44,26 @@ public class TaskFactory {
             task = Event.of(input);
             break;
         default:
-            // Not possible as checked beforehand.
+            // Not possible as asserted beforehand.
         }
         return task;
     }
 
-    /**
-     * Initializes a Task from storage format.
-     */
-    public static Task fromStorageString(String line) throws TaskException {
-        String[] arr = line.split("\\|");
-        Command command = Command.findShortened(arr[0]);
-        boolean isDone = getIsDone(arr[arr.length - 1]);
-
+    private static Task createTask(String[] arr, Command command, boolean isDone) throws TaskException {
         Task task;
         switch (command) {
         case TODO:
             task = new Todo(arr[1], isDone);
             break;
         case DEADLINE:
-            task = new Deadline(arr[1], isDone, TaskParser.parseDate(arr[2]));
+            task = new Deadline(arr[1], isDone, DateParser.parseDate(arr[2]));
             break;
         case EVENT:
-            task = new Event(arr[1], isDone, TaskParser.parseDate(arr[2]), TaskParser.parseDate(arr[3]));
+            task = new Event(arr[1], isDone, DateParser.parseDate(arr[2]), DateParser.parseDate(arr[3]));
             break;
         default:
             throw new TaskException("Wrong format..");
         }
-
         return task;
     }
 
