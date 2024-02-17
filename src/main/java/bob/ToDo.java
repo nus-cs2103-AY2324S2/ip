@@ -1,3 +1,5 @@
+package bob;
+
 /*
  * This class represents a ToDo that can be recorded in the tasklist.
  */

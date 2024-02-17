@@ -1,3 +1,5 @@
+package bob;
+
 /*
  * This class represents a task we want to record.
  */

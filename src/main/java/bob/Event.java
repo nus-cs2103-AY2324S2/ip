@@ -1,3 +1,5 @@
+package bob;
+
 /*
  * This class represents an event that can be recorded in the tasklist.
  */

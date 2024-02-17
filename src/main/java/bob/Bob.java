@@ -1,3 +1,5 @@
+package bob;
+
 import java.util.Scanner;
 
 public class Bob {

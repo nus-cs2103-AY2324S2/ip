@@ -1,3 +1,5 @@
+package bob;
+
 /*
  * A class that deals with the interactions with the user.
  */
