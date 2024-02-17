@@ -8,18 +8,25 @@ public class Help implements Action {
     /**
      * The content of the help message.
      */
-    public static final String HELP_CONTENT = "Here is the guide!\n"
-            + "Available commands:\n"
-            + "- todo <description>: Add a new todo task\n"
-            + "- deadline <description> /by <due date>: Add a new deadline task\n"
-            + "- event <description> /from <start date> /to <end date>: Add a new event task\n"
-            + "- list: View all tasks\n"
-            + "- mark <task indices>: Mark tasks as done\n"
-            + "- unmark <task indices>: Unmark tasks as undone\n"
-            + "- delete <task indices>: Delete tasks\n"
-            + "- find <keyword>: Find tasks containing the keyword\n"
-            + "- bye: Exit the application\n"
-            + "- help: Show this help message\n";
+    public static final String HELP_CONTENT = "Here are the available commands!\n"
+            + "Add a new todo task\n"
+            + " - todo <description>\n"
+            + "Add a new deadline task\n"
+            + " - deadline <description> /by <due date>\n"
+            + "Add a new event task\n"
+            + " - event <description> /from <start> /to <end>\n"
+            + "View all tasks\n"
+            + " - list\n"
+            + "Mark task(s) as done\n"
+            + " - mark <indice(s)>\n"
+            + "Unmark task(s) as undone\n"
+            + " - unmark <indice(s)>\n"
+            + "Delete task(s)\n"
+            + " - delete <indice(s)>\n"
+            + "Find task(s) containing the keyword\n"
+            + " - find <keyword>\n"
+            + "Exit the application\n"
+            + " - bye\n";
 
     /**
      * Constructs a Help action.
