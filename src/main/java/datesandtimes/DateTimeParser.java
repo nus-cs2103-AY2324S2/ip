@@ -5,6 +5,9 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import exceptions.RyanGoslingDateTimeException;
+import exceptions.RyanGoslingException;
+
 /**
  * A utility class for parsing and formatting dates and times.
  */
@@ -45,6 +48,18 @@ public class DateTimeParser {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HHmm");
         return LocalTime.parse(timeString, formatter);
     }
+
+    public static void validateEventTimeAndDates(LocalDate date1, LocalTime time1,
+                                                 LocalDate date2, LocalTime time2) throws RyanGoslingException {
+        if (date1.isAfter(date2)) {
+            throw new RyanGoslingDateTimeException("First date cannot be after second date!");
+        }
+        if (date1.isEqual(date2) && time1.isAfter(time2)) {
+            throw new RyanGoslingDateTimeException("First time cannot be after second time on the same date!");
+        }
+    }
+
+
 
     /**
      * Main method for testing the parseDate method.

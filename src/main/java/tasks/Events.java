@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import datesandtimes.DateTimeParser;
+import exceptions.RyanGoslingException;
 
 /**
  * Represents an event task with a start and end date and time, extending the base Task class.
@@ -23,12 +24,13 @@ public class Events extends Task {
      * @param dateTo   The end date of the event in the "yyyy-MM-dd" format.
      * @param timeTo   The end time of the event in the "HHmm" format.
      */
-    public Events(String taskName, String dateFrom, String timeFrom, String dateTo, String timeTo) {
+    public Events(String taskName, String dateFrom, String timeFrom, String dateTo, String timeTo) throws RyanGoslingException {
         super(taskName, "E");
         this.startDate = LocalDate.parse(dateFrom);
         this.endDate = LocalDate.parse(dateTo);
         this.startTime = DateTimeParser.parseTimeAsLocalTime(timeFrom);
         this.endTime = DateTimeParser.parseTimeAsLocalTime(timeTo);
+        DateTimeParser.validateEventTimeAndDates(startDate, startTime, endDate, endTime);
         setDate(new String[]{dateFrom, dateTo});
         setTime(new String[]{timeFrom, timeTo});
     }
@@ -44,7 +46,7 @@ public class Events extends Task {
      * @param timeTo     The end time of the event in the "HHmm" format.
      * @param isTaskDone The status of the task (0 for not done, 1 for done).
      */
-    public Events(String taskName, String dateFrom, String timeFrom, String dateTo, String timeTo, int isTaskDone) {
+    public Events(String taskName, String dateFrom, String timeFrom, String dateTo, String timeTo, int isTaskDone) throws RyanGoslingException {
         super(taskName, "E");
         assert (isTaskDone == 1 || isTaskDone == 0) : "Invalid isTaskDone feed!";
         changeStatus(isTaskDone);
@@ -52,6 +54,7 @@ public class Events extends Task {
         this.endDate = LocalDate.parse(dateTo);
         this.startTime = DateTimeParser.parseTimeAsLocalTime(timeFrom);
         this.endTime = DateTimeParser.parseTimeAsLocalTime(timeTo);
+        DateTimeParser.validateEventTimeAndDates(startDate, startTime, endDate, endTime);
         setDate(new String[]{dateFrom, dateTo});
         setTime(new String[]{timeFrom, timeTo});
     }
