@@ -77,7 +77,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.showErrorMessage(e.getMessage(), bluImage)
             );
         }
-        
+
         userInput.clear();
 
         if (blu.isExit()) {

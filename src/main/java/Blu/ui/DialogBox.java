@@ -64,6 +64,13 @@ public class DialogBox extends HBox {
     }
 
 
+    /**
+     * Creates and returns a dialog box specifically designed for displaying error messages.
+     *
+     * @param text The error message to be displayed
+     * @param img  The Blu's image.
+     * @return A DialogBox instance configured to display the error message
+    */
     public static DialogBox showErrorMessage(String text, Image img) {
         var dialogBox = new DialogBox(text, img);
         dialogBox.setTextToRed();
@@ -77,7 +84,7 @@ public class DialogBox extends HBox {
      * @param text The Blu's reply to be displayed.
      * @param img  The Blu's image.
      * @return A DialogBox instance representing Blu's reply.
-     */
+    */
     public static DialogBox getBluDialog(String text, Image img) {
         var dialogBox = new DialogBox(text, img);
         dialogBox.flip();
