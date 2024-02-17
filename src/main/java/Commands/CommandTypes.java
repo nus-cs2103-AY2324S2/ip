@@ -1,4 +1,4 @@
-package Utils;
+package Commands;
 
 public enum CommandTypes {
     BYE,

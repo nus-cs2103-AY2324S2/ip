@@ -2,7 +2,7 @@ package Commands;
 
 import Tasks.TaskList;
 
-public class CommandParser {
+public class Parser {
 
     public static Command parse(String input, TaskList tasklist) {
         String[] command = input.split(" ", 2);

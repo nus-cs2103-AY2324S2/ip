@@ -1,12 +1,9 @@
 package Commands;
 
 import Exceptions.DudeException;
-import Exceptions.InvalidDescriptionException;
 import Exceptions.InvalidFormatException;
-import Exceptions.TaskListFullException;
 import Tasks.TaskList;
 import Tasks.Todo;
-import Utils.CommandTypes;
 
 public class TodoCommand extends Command {
 

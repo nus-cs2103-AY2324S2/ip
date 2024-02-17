@@ -1,7 +1,5 @@
 package Commands;
 
-import Utils.CommandTypes;
-
 public class ByeCommand extends Command {
 
     static final String COMMAND_FORMAT = "bye";
