@@ -23,9 +23,6 @@ public class Ui {
     private static final String TASK_NUM_MSG_2 = "tasks in the list.";
     private static final String REMOVE_TASK_MSG = "\tRemoving task:";
 
-    private boolean continueIter = true;
-
-
     /**
      * Creates a new Ui instance.
      */
