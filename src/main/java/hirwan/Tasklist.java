@@ -41,4 +41,11 @@ public class Tasklist {
     public void deleteList() {
         tasks.removeAll(tasks);
     }
+
+    public Tasklist copyList() {
+        List<String> copiedlist = new ArrayList<>();
+        copiedlist.addAll(this.tasks);
+        Tasklist tasklist = new Tasklist(copiedlist);
+        return tasklist;
+    }
 }

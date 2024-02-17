@@ -21,6 +21,7 @@ class Parser {
     static final int COMMAND_DELETE = 7;
     static final int COMMAND_BYE = 8;
     static final int COMMAND_FIND = 10;
+    static final int COMMAND_UNDO = 11;
 
     /**
      * The Translate method that takes in the command to be translated into an int representing the action to be carried
@@ -49,6 +50,8 @@ class Parser {
             return COMMAND_BYE;
         } else if (text.startsWith("find ")) {
             return COMMAND_FIND;
+        } else if (text.startsWith("undo ")) {
+            return COMMAND_UNDO;
         } else {
             return 9;
         }
