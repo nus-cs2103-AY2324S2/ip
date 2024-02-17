@@ -10,7 +10,9 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 
 /**
  * An example of a custom control using FXML.
@@ -54,6 +56,18 @@ public class DialogBox extends HBox {
     public static DialogBox getUncleBobDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.setBackgroundColor("#9FE2BF");
         return db;
+    }
+
+    /**
+     * Sets the background color of the DialogBox.
+     *
+     * @param hexCode The hexadecimal color code.
+     */
+    private void setBackgroundColor(String hexCode) {
+        // Change background color to #79e8b2
+        this.dialog.setStyle(this.dialog.getStyle().replaceFirst("-fx-background-color: #(?:[A-Fa-f0-9]{3}){1,2}\\b;",
+                "-fx-background-color: " + hexCode + ";"));
     }
 }
