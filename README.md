@@ -170,7 +170,7 @@ Naruto's data is saved in the hard disk automatically after any command that cha
 
 Naruto's data is saved automatically as a `.txt` file `[JAR file location]/src/logs/tasks.txt`. Advanced users are welcome to update data directly by editing that data file.
 
-**Caution:** </br>
+**Caution:**
 If your changes to the data file makes its format invalid, Naruto will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause Naruto to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
