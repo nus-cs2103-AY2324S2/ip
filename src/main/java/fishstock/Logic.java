@@ -10,36 +10,11 @@ class Logic {
     private static final String FIND_PREFIX = "Here are the matching tasks in your list:\n";
     private static final String UNDO_PREFIX = "List has been restored to the previous state:\n";
     private static final String ADD_TASK_PREFIX = "This task has been added:\n  ";
-    private static final String UNKNOWN_COMMAND = "OH NOSE! Wakaranai... :(";
+    private static final String UNKNOWN_COMMAND_TEXT = "OH NOSE! Wakaranai... :(";
 
-    /**
-     * Gets the number of tasks in list.
-     *
-     * @param list The list of Tasks.
-     * @return A user-readable String format of task count.
-     */
-    private static String getTaskCount(TaskList list) {
-        return "\nNow you have " + list.getSize() + " task(s) in total.";
-    }
-
-    /**
-     * Runs the command from the UserInput.
-     *
-     * @param list The list of Tasks to execute on.
-     * @param input The user input.
-     * @return The output from the command.
-     */
-    protected static String run(TaskList list, UserInput input) {
+    private static String runCommand(TaskList list, UserInput input) throws FishStockException {
         Command command = input.getCommandType();
-        try {
-            String result = runCommand(list, input, command);
-            return result;
-        } catch (FishStockException e) {
-            return e.getMessage();
-        }
-    }
 
-    private static String runCommand(TaskList list, UserInput input, Command command) throws FishStockException {
         switch (command) {
         case BYE:
             Platform.exit();
@@ -64,7 +39,33 @@ class Logic {
         case EVENT:
             return ADD_TASK_PREFIX + list.addTask(input) + getTaskCount(list);
         default:
-            return UNKNOWN_COMMAND;
+            return UNKNOWN_COMMAND_TEXT;
         }
+    }
+
+    /**
+     * Runs the command from the UserInput.
+     *
+     * @param list The list of Tasks to execute on.
+     * @param input The user input.
+     * @return The output from the command.
+     */
+    protected static String run(TaskList list, UserInput input) {
+        try {
+            String result = runCommand(list, input);
+            return result;
+        } catch (FishStockException e) {
+            return e.getMessage();
+        }
+    }
+
+    /**
+     * Gets the number of tasks in list.
+     *
+     * @param list The list of Tasks.
+     * @return A user-readable String format of task count.
+     */
+    private static String getTaskCount(TaskList list) {
+        return "\nNow you have " + list.getSize() + " task(s) in total.";
     }
 }

@@ -40,11 +40,7 @@ class Storage {
     protected ArrayList<Task> load() throws FishStockException {
         try {
             ArrayList<Task> list = new ArrayList<>();
-            Scanner sc = new Scanner(db);
-            while (sc.hasNext()) {
-                Task task = TaskFactory.fromStorageString(sc.nextLine());
-                list.add(task);
-            }
+            addTasks(list);
             return list;
 
         } catch (FileNotFoundException e) {
@@ -54,6 +50,14 @@ class Storage {
 
         } catch (TaskException e) {
             throw new FishStockException("File corrupted!... Starting new session...\n");
+        }
+    }
+
+    private void addTasks(ArrayList<Task> list) throws FileNotFoundException, TaskException {
+        Scanner sc = new Scanner(db);
+        while (sc.hasNext()) {
+            Task task = TaskFactory.fromStorageString(sc.nextLine());
+            list.add(task);
         }
     }
 

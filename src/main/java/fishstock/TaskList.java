@@ -44,7 +44,6 @@ class TaskList {
         for (Task task : list) {
             savedList.add(task.clone());
         }
-
         history.add(savedList);
     }
 
@@ -95,15 +94,19 @@ class TaskList {
         try {
             Task task = list.get(idx);
             saveState();
-            if (command == Command.MARK) {
-                task.markAsDone();
-            } else if (command == Command.UNMARK) {
-                task.markAsUndone();
-            }
+            changeTaskMark(command, task);
             return task;
 
         } catch (IndexOutOfBoundsException e) {
             throw new FishStockException("OH NOSE! Task number must be in valid range..");
+        }
+    }
+
+    private void changeTaskMark(Command command, Task task) {
+        if (command == Command.MARK) {
+            task.markAsDone();
+        } else if (command == Command.UNMARK) {
+            task.markAsUndone();
         }
     }
 
@@ -160,7 +163,6 @@ class TaskList {
         }
 
         String match = splitInput[0];
-
         int count = 0;
         String result = "";
         for (Task task : list) {

@@ -16,6 +16,9 @@ public enum Command {
         this.shortened = shortened;
     }
 
+    /**
+     * Gets the short form of a Command.
+     */
     public String getShortened() {
         return shortened;
     }
