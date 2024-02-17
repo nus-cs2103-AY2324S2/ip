@@ -40,13 +40,28 @@ public class Parser {
         case "event":
             return eventCommand(parsedResult, input);
         default:
-            return unknownCommand();
+            unknownCommand();
         }
     }
 
+    /**
+     * Handles miscellaneous commands.
+     *
+     * @param toParse the ArrayList of strings to be returned
+     * @return the same ArrayList of strings provided as input
+     */
     private static ArrayList<String> miscCommand(ArrayList<String> toParse) {
         return toParse;
     }
+
+    /**
+     * Parses the input for the "find" command.
+     *
+     * @param toParse the ArrayList to which the parsed result will be added
+     * @param input   the input string
+     * @return an ArrayList containing the parsed command arguments
+     * @throws YpxmmException if an error occurs during parsing
+     */
     private static ArrayList<String> findCommand(ArrayList<String> toParse,
                                                  String input) throws YpxmmException {
         try {
@@ -58,6 +73,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the input for the "mark", "unmark", and "delete" commands.
+     *
+     * @param toParse    the ArrayList to which the parsed result will be added
+     * @param splitInput the input string split into an array
+     * @param command    the command string
+     * @return an ArrayList containing the parsed command arguments
+     * @throws YpxmmException if an error occurs during parsing
+     */
     private static ArrayList<String> markUnmarkDeleteCommand(ArrayList<String> toParse,
                                                              String[] splitInput,
                                                              String command) throws YpxmmException {
@@ -74,6 +98,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the input for the "todo" command.
+     *
+     * @param toParse the ArrayList to which the parsed result will be added
+     * @param input   the input string
+     * @return an ArrayList containing the parsed command arguments
+     * @throws YpxmmException if an error occurs during parsing
+     */
     private static ArrayList<String> todoCommand(ArrayList<String> toParse,
                                                  String input) throws YpxmmException {
         try {
@@ -89,6 +121,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the input for the "deadline" command.
+     *
+     * @param toParse the ArrayList to which the parsed result will be added
+     * @param input   the input string
+     * @return an ArrayList containing the parsed command arguments
+     * @throws YpxmmException if an error occurs during parsing
+     */
     private static ArrayList<String> deadlineCommand(ArrayList<String> toParse,
                                                      String input) throws YpxmmException {
         try {
@@ -106,6 +146,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the input for the "event" command.
+     *
+     * @param toParse the ArrayList to which the parsed result will be added
+     * @param input   the input string
+     * @return an ArrayList containing the parsed command arguments
+     * @throws YpxmmException if an error occurs during parsing
+     */
     private static ArrayList<String> eventCommand(ArrayList<String> toParse,
                                                      String input) throws YpxmmException {
         try {
@@ -123,7 +171,12 @@ public class Parser {
         }
     }
 
-    private static ArrayList<String> unknownCommand() throws YpxmmException {
+    /**
+     * Throws a YpxmmException for unknown commands.
+     * 
+     * @throws YpxmmException always thrown to indicate an unknown command
+     */
+    private static void unknownCommand() throws YpxmmException {
         throw new YpxmmException("Sorry bro, idk what that means. You try type in \"getcommands\" then see"
                 + " if got what u want.");
     }
