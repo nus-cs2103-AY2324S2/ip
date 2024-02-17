@@ -4,3 +4,4 @@ T|O|3993
 T|X|399
 T|X|3939
 T|X|203
+T|O|Maltese

@@ -51,11 +51,11 @@ test {
 }
 
 application {
-    mainClass.set("duke.Launcher")
+    mainClass.set("maltese.Launcher")
 }
 
 shadowJar {
-    archiveFileName = 'duke.jar'
+    archiveFileName = 'maltese.jar'
 }
 
 run{
