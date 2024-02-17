@@ -7,7 +7,7 @@ import utilities.ResponseHandler;
  */
 public class Task {
     private String taskName;
-    private boolean taskDone = false;
+    private boolean istaskDone = false;
     private String typeOfTask;
 
     // Represents the start and end dates of the task
@@ -68,8 +68,8 @@ public class Task {
      *
      * @return {@code true} if the task is marked as done, {@code false} otherwise.
      */
-    public boolean isTaskDone() {
-        return this.taskDone;
+    public boolean isIstaskDone() {
+        return this.istaskDone;
     }
 
     /**
@@ -78,9 +78,7 @@ public class Task {
      * @return The status icon ("X" if the task is done, " " (space) otherwise).
      */
     public String getStatusIcon() {
-        String currentStatusIcon = this.taskDone ? "X" : " ";
-        assert (currentStatusIcon.equals("X") || currentStatusIcon.equals(" ")) : "Invalid getStatusIcon!";
-        return currentStatusIcon;
+        return this.istaskDone ? "X" : " ";
     }
 
     public void setDate(String[] dates) {
@@ -122,7 +120,7 @@ public class Task {
     public String changeStatus(String action) {
         assert action.equals("mark") || action.equals("unmark") : "Action should be either "
                 + "mark or unmark!";
-        this.taskDone = action.equals("mark");
+        this.istaskDone = action.equals("mark");
         return ResponseHandler.markActionPrint(action, this);
     }
 
@@ -132,7 +130,7 @@ public class Task {
      * @param action The action code (1 to mark as done, 0 to mark as not done).
      */
     public void changeStatus(int action) {
-        this.taskDone = action == 1;
+        this.istaskDone = action == 1;
     }
 
     /**

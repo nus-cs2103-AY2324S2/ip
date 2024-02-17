@@ -139,7 +139,7 @@ public class TaskList {
     }
 
     /**
-     * Gets the type of a task in the list.
+     * Gets the type of task in the list.
      *
      * @param index The index of the task.
      * @return The type of the task.

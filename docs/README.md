@@ -5,7 +5,7 @@
 Whether you're on a quest for productivity or just trying to avoid doing the laundry, Ryan Gosling is at your service!.
 Type away your tasks, and let's turn your to-do list into a to-done list! 💪📋
 
-## Adding Todo
+## Adding Todo 📝
 
 ![Overview of Todo feature](screenshots/Todo.png)
 
@@ -18,7 +18,7 @@ RyanGosling bot replies
 if the todo task is added successful with a summary of the task added and the size of the current to-do list!
 
 
-## Adding deadlines
+## Adding Deadlines ⏰
 
 ![Overview of Deadline feature](screenshots/Deadline.png)
 
@@ -30,7 +30,7 @@ Example: ```deadline finish iP /by 2024-02-23 2359 ```
 RyanGosling bot replies
 if the deadline task is added successful with a summary of the task added and the size of the current to-do list!
 
-## Adding Event
+## Adding Event 🎉
 
 ![Overview of Event feature](screenshots/Event.png)
 
@@ -42,7 +42,7 @@ Example: ```event drive /from 2024-02-20 0900 /to 2024-04-07 2000```
 RyanGosling bot replies
 if the event task is added successful with a summary of the task added and the size of the current to-do list!
 
-## View the list of tasks
+## View the List of Tasks 📄
 
 ![Overview of List feature](screenshots/List.png)
 
@@ -51,7 +51,7 @@ Format is ```list```
 
 RyanGosling bot replies with the list of tasks.
 
-## Find a task in list of tasks
+## Find a Task in the List of Tasks 🔍
 
 ![Overview of Event feature](screenshots/Find.png)
 
@@ -62,7 +62,7 @@ Example: ```find drive```
 
 RyanGosling bot replies with a list of tasks containing that task string.
 
-## Delete a task
+## Delete a Task ❌
 
 ![Overview of Event feature](screenshots/Delete.png)
 
@@ -73,8 +73,9 @@ Format is ```delete <index>```
 
 Example: ```delete 2```
 
-RyanGosling bot replies with a list of tasks containing that task string.
+RyanGosling bot replies with the task that has been deleted and updates user with new list size!
 
+### Special shoutout to the teaching team and those who helped out in the forum or through other means!
 
 
 

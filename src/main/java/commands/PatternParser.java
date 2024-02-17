@@ -14,8 +14,9 @@ import utilities.Storage;
 import utilities.TaskList;
 
 /**
- * The PatternParser class provides static methods for parsing different types of task
+ * Provides static methods for parsing different types of task
  * commands using regular expressions.
+ * <p>
  * It includes methods for parsing "todo," "deadline," "event," and "find" commands, as well as a utility
  * method for adding tasks
  * to a list from a formatted string.
@@ -119,7 +120,7 @@ public class PatternParser {
     }
 
     /**
-     * Utility method to add a task to the list based on the formatted input line.
+     * Adds a task to the list based on the formatted input line.
      *
      * @param listOfTasks The list of tasks to which the task will be added.
      * @param inputLine   The formatted input line containing task details.
@@ -219,6 +220,12 @@ public class PatternParser {
         return (value == null) ? "NA" : value;
     }
 
+    /**
+     * Checks for additional spaces, trailing spaces, or empty input in the command.
+     *
+     * @param inputLine The input command to check.
+     * @throws RyanGoslingException If the input command has formatting issues.
+     */
     public static void inputSpacesChecker(String inputLine) throws RyanGoslingException {
         if (inputLine.startsWith(" ") || inputLine.endsWith(" ")) {
             throw new RyanGoslingBadFormatException("Invalid command, additional spaces at the beginning or end.");
