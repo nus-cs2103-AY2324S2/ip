@@ -64,13 +64,16 @@ public class Request {
             return "I'm your task/deadline/event manager! I'm down with these requests,\n"
                     + "1. todo [task]\n"
                     + "2. deadline [task] by YYYY-MM-DD\n"
-                    + "3. event [request] from YYYY-MM-DD at HH-MM-SS to YYY-MM-DD at HH-MM-SS\n"
+                    + "3. event [description] from YYYY-MM-DD at HH-MM-SS to YYY-MM-DD at HH-MM-SS\n"
                     + "4. list\n"
-                    + "5. priority\n"
-                    + "6. find [keyword]\n"
-                    + "7. update [tasknumber] [new task name]"
-                    + "8. bye\n"
-                    + "9. help";
+                    + "5. mark [tasknumber]\n"
+                    + "6. unmark [tasknumber]\n"
+                    + "7. delete [tasknumber]\n"
+                    + "8. sort by date\n"
+                    + "9. find [keyword]\n"
+                    + "10. update [tasknumber] [new task name]\n"
+                    + "11. bye\n"
+                    + "12. help";
         } else if (request.equals("sort by date")) {
             return taskList.sortTasksByDate();
         } else if (request.contains("find")) {
