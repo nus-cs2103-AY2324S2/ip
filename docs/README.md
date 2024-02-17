@@ -115,3 +115,9 @@ Typing `bye` exits the program and automatically saves the current session data 
 Q: Can I edit the data file directly or transfer it to another device? <br>
 A: Data storage is done by converting each task and their details to strings and parsing them when loading it for a new session. As such, invalid changes to the `data.txt` file could cause problems and it is not recommended to directly edit the file.
 To transfer data to another device, just copy the `data.txt` file to the `data` directory of the `tsundere.jar` file.
+
+## Acknowledgements for images
+
+- [Image 1](../src/main/resources/images/chitoge.png): [Source url](https://iconsanimes.tumblr.com/post/121779963864/chitoge-kirisaki-icons-like-if-you-save)
+- [Image 2](../src/main/resources/images/chitoge2.png): [Source url](https://www.pngegg.com/en/png-xgngy)
+- [Image 3](../src/main/resources/images/ok.png): LaVanessaL, [Source url](https://7tv.app/emotes/6268904f4f54759b7184fa72)
