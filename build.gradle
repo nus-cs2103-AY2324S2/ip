@@ -48,12 +48,13 @@ test {
 }
 
 application {
-    mainClass.set("slaybot.Slaybot")
+    mainClass.set("slaybot.Launcher")
 }
 
 shadowJar {
-    archiveFileName = 'slaybot.jar'
+    archiveFileName = "slaybot.jar"
 }
+
 run{
     standardInput = System.in
 }
