@@ -2,3 +2,4 @@ D | 1 | read NGT readings | 2024-01-31T14:00:00
 T | 1 | Read a book
 E | 0 | Project meeting | 2023-03-20T14:00:00 to 2023-03-20T16:00:00
 T | 0 | buy CNY goodies
+T | 0 | grocery shopping
