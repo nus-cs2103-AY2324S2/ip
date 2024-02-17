@@ -13,4 +13,8 @@ public class ExitCommand extends Command{
     public boolean isExit(){
         return true;
     }
+    @Override
+    public boolean equals(Object object){
+        return object instanceof ExitCommand;
+    }
 }

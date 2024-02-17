@@ -9,4 +9,8 @@ public class ListCommand extends Command{
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.printList(tasks.getTasks());
     }
+    @Override
+    public boolean equals(Object object){
+        return object instanceof ListCommand;
+    }
 }

@@ -1,27 +1,30 @@
 package reacher.command;
 
 import java.time.LocalDate;
-
 import reacher.*;
 import reacher.task.*;
 
 public class AddCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ReacherException {
+        Task t;
         ui.print("What is the name of the task?");
         String name = ui.readString();
         ui.print("What type of task is this?(Deadline, Event, Todo)");
-        String type = ui.readString();
-        if (type.equalsIgnoreCase("todo")) {
-            Todos t = new Todos(name);
+        String type = ui.readString().toLowerCase();
+        switch (type) {
+        case ("todo"):
+            t = new Todos(name);
             tasks.addTask(t);
             ui.print("I've added " + t.toString());
-        } else if (type.equalsIgnoreCase("deadline")) {
+            break;
+        case ("deadline"):
             ui.print("When is the deadline?");
             LocalDate deadline = LocalDate.parse(ui.readString());
-            Deadline t = new Deadline(name, deadline);
+            t = new Deadline(name, deadline);
             tasks.addTask(t);
             ui.print("I've added " + t.toString());
-        } else if (type.equalsIgnoreCase("event")) {
+            break;
+        case ("event"):
             ui.print("When is the start?");
             LocalDate start = LocalDate.parse(ui.readString());
             ui.print("When is the end?");
@@ -29,12 +32,17 @@ public class AddCommand extends Command {
             if (start.isAfter(end)) {
                 throw new ReacherException("End cannot be before start.");
             }
-            Events t = new Events(name, start, end);
+            t = new Events(name, start, end);
             tasks.addTask(t);
             ui.print("I've added " + t.toString());
-        } else {
+            break;
+        default:
             throw new ReacherException("That is not a type of task.");
         }
         storage.storeList(tasks.getTasks());
+    }
+    @Override
+    public boolean equals(Object object){
+        return object instanceof AddCommand;
     }
 }
