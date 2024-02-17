@@ -5,6 +5,9 @@ import Exceptions.InvalidDescriptionException;
 import Exceptions.InvalidFormatException;
 import Utils.utils;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 public class Deadline extends Task {
 
     public static Deadline from(String s) throws InvalidFormatException, InvalidDescriptionException, InvalidArgumentException {
@@ -40,14 +43,19 @@ public class Deadline extends Task {
         }
         by = by.trim();
         if (by.isEmpty()){
-            throw new InvalidArgumentException("The 'by' of a deadline cannot be empty. Follow this format: deadline <description> /by <deadline date>");
+            throw new InvalidArgumentException("The 'by' of a deadline cannot be empty. Follow this format: deadline <description> /by <deadline date time>");
         }
 
-        return new Deadline(description, by);
+        try{
+            LocalDateTime dt = parseDate(by);
+            return new Deadline(description, dt);
+        }catch (DateTimeParseException e){
+            throw new InvalidFormatException("Invalid date format after '/by'. Use d/M/yyyy or d/M/yyy H:m in 24-hour format");
+        }
     }
 
-    private final String deadline_date;
-    public Deadline(String description, String by) {
+    private final LocalDateTime deadline_date;
+    public Deadline(String description, LocalDateTime by) {
         super(description);
         this.deadline_date = by;
     }
@@ -64,10 +72,10 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + deadline_date + ")";
+        return "[D]" + super.toString() + " (by: " + formatDate(deadline_date) + ")";
     }
 
-    public String getBy() {
+    public LocalDateTime getBy() {
         return deadline_date;
     }
 }
