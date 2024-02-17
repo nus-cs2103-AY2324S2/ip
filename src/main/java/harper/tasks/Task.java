@@ -50,4 +50,13 @@ public class Task {
     public boolean matchKeyword(String keyword) {
         return this.description.contains(keyword);
     }
+
+    /**
+     * Updates the description of the task.
+     *
+     * @param description New description.
+     */
+    public void updateDescription(String description) {
+        this.description = description;
+    }
 }

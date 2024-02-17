@@ -1,15 +1,24 @@
 package harper.utils;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+import harper.exceptions.HarperInvalidDateTimeException;
 import harper.exceptions.HarperInvalidIndexException;
+import harper.exceptions.HarperInvalidUpdateException;
+import harper.tasks.Deadline;
+import harper.tasks.Event;
 import harper.tasks.Task;
+import harper.tasks.ToDo;
 
 /**
  * The TaskList class handles operations on the task list, such as add task, delete task
  * mark or unmark task and list task.
  */
 public class TaskList {
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy H:mm");
     private ArrayList<Task> tasks;
 
     public TaskList(ArrayList<Task> tasks) {
@@ -116,5 +125,106 @@ public class TaskList {
             }
         }
         return tasksString;
+    }
+
+    /**
+     * Updates task's field.
+     *
+     * @param taskIndex Index of the task in the list.
+     * @param field Field to be updated.
+     * @return Task that is being updated.
+     */
+    public Task updateTask(int taskIndex, String field) {
+        try {
+            Task task = this.tasks.get(taskIndex);
+            if (task instanceof ToDo) {
+                return handleUpdateTodo((ToDo) task, field);
+            } else if (task instanceof Deadline) {
+                return handleUpdateDeadline((Deadline) task, field);
+            } else if (task instanceof Event) {
+                return handleUpdateEvent((Event) task, field);
+            } else {
+                throw new HarperInvalidUpdateException();
+            }
+        } catch (IndexOutOfBoundsException e) {
+            throw new HarperInvalidIndexException();
+        }
+    }
+
+    /**
+     * Update todo task.
+     *
+     * @param task Todo task to be updated.
+     * @param field Field to be updated.
+     * @return Todo task that is being updated.
+     */
+    public Task handleUpdateTodo(Task task, String field) {
+        String[] description = field.split("/description", 2);
+        if (!(description.length == 2) || description[1].isEmpty()) {
+            throw new HarperInvalidUpdateException();
+        }
+        task.updateDescription(description[1].trim());
+        return task;
+    }
+
+    /**
+     * Updates deadline task.
+     *
+     * @param task Deadline task to be updated.
+     * @param field Field to be updated.
+     * @return Deadline task that is being updated.
+     */
+    public Task handleUpdateDeadline(Deadline task, String field) {
+        String[] description = field.split("/description", 2);
+        if (description.length == 2 && !description[1].isEmpty()) {
+            task.updateDescription(description[1].trim());
+            return task;
+        }
+
+        String[] by = field.split("/by", 2);
+        if (by.length == 2 && !by[1].isEmpty()) {
+            try {
+                LocalDateTime deadlineFormatted = LocalDateTime.parse(by[1].trim(), DATE_TIME_FORMATTER);
+                task.updateBy(deadlineFormatted);
+                return task;
+            } catch (DateTimeParseException e) {
+                throw new HarperInvalidDateTimeException();
+            }
+        }
+        throw new HarperInvalidUpdateException();
+    }
+
+    /**
+     * Updates event task.
+     *
+     * @param task Event task to be updated.
+     * @param field Field to be updated.
+     * @return Event task that is being updated.
+     */
+    public Task handleUpdateEvent(Event task, String field) {
+        String[] description = field.split("/description", 2);
+        if (description.length == 2 && !description[1].isEmpty()) {
+            task.updateDescription(description[1].trim());
+            return task;
+        }
+
+        String[] start = field.split("/from", 2);
+        try {
+            if (start.length == 2 && !start[1].isEmpty()) {
+                LocalDateTime deadlineFormatted = LocalDateTime.parse(start[1].trim(), DATE_TIME_FORMATTER);
+                task.updateStart(deadlineFormatted);
+                return task;
+            }
+
+            String[] end = field.split("/to", 2);
+            if (end.length == 2 && !end[1].isEmpty()) {
+                LocalDateTime deadlineFormatted = LocalDateTime.parse(end[1].trim(), DATE_TIME_FORMATTER);
+                task.updateEnd(deadlineFormatted);
+                return task;
+            }
+        } catch (DateTimeParseException e) {
+            throw new HarperInvalidDateTimeException();
+        }
+        throw new HarperInvalidUpdateException();
     }
 }

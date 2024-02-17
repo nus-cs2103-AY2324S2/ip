@@ -119,4 +119,15 @@ public class Ui {
                     + task.toString() + "\n";
         }
     }
+
+    /**
+     * Prints out message for successful update.
+     *
+     * @param task Task that is updated.
+     * @return Message of updating task.
+     */
+    public String printSuccessfulUpdate(Task task) {
+        return "\nNice! I've updated this task for you:\n"
+                + task.toString() + "\n";
+    }
 }

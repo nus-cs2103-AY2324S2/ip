@@ -25,4 +25,13 @@ public class Deadline extends Task {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d MMM yyyy HH:mm");
         return "D" + super.toString() + " | " + this.by.format(dateTimeFormatter);
     }
+
+    /**
+     * Updates deadline.
+     *
+     * @param by New deadline.
+     */
+    public void updateBy(LocalDateTime by) {
+        this.by = by;
+    }
 }
