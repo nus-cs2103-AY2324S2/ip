@@ -47,6 +47,7 @@ public class NewTaskCommand extends Command {
      * @throws PandaException if an error occurs during execution.
      */
     public String execute(TaskList tlist, Storage cacheFile) throws PandaException {
+        assert tlist != null;
         tlist.insert(task);
         cacheFile.save(tlist);
         return "Got it. I've added this task:" 
