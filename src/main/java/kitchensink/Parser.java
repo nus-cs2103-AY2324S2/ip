@@ -23,6 +23,7 @@ public class Parser {
      * @return Date in LocalDateTime type.
      */
     public LocalDateTime toLocalDateTime(String date) {
+        assert date != null;
         return LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 

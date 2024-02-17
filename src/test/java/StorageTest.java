@@ -19,6 +19,9 @@ import kitchensink.task.Deadline;
 import kitchensink.task.Event;
 import kitchensink.task.ToDo;
 
+/**
+ * Turn off assertions to test.
+ */
 public class StorageTest {
     private String path = "./testStorage/data.txt";
     private Ui ui = new Ui();

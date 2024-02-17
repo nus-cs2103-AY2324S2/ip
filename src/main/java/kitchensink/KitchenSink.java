@@ -23,6 +23,7 @@ public class KitchenSink /* extends Application */ {
      * Replace this stub with your completed method.
      */
     String getResponse(String input) throws IOException {
+        assert input != null;
         return parser.parse(input, taskList, ui, storage);
     }
 }

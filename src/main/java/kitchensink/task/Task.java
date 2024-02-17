@@ -14,6 +14,7 @@ public class Task {
      * @param description The description of the task itself.
      */
     public Task(String description) {
+        assert description != null;
         this.description = description;
         isDone = false;
     }
@@ -31,6 +32,7 @@ public class Task {
      * @param ui The ui that confirms to the user about the action.
      */
     public String mark(Ui ui) {
+        assert ui != null;
         isDone = true;
         return ui.sayTaskMarked(this);
     }
@@ -40,6 +42,7 @@ public class Task {
      * @param ui The ui that confirms to the user about the action.
      */
     public String unmark(Ui ui) {
+        assert ui != null;
         isDone = false;
         return ui.sayTaskUnmarked(this);
     }

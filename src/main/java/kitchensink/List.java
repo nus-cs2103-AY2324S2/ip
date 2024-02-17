@@ -12,6 +12,7 @@ public class List {
     private ArrayList<Task> tasks;
 
     public List(ArrayList<Task> tasks) {
+        assert tasks != null;
         this.tasks = tasks;
     }
 
@@ -24,6 +25,9 @@ public class List {
      * @throws IOException As the storage read/writes the save file.
      */
     public String addTask(Task task, Storage storage, Ui ui) throws IOException {
+        assert task != null;
+        assert storage != null;
+        assert ui != null;
         tasks.add(task);
         storage.saveTasks(this);
         return ui.sayTaskAdded(task, tasks.size());
@@ -38,6 +42,9 @@ public class List {
      * @throws IOException As the storage read/writes the save file.
      */
     public String deleteTask(int taskNum, Storage storage, Ui ui) throws IOException {
+        assert isValidTaskNum(taskNum);
+        assert storage != null;
+        assert ui != null;
         Task task = tasks.get(taskNum);
         tasks.remove(taskNum);
         storage.saveTasks(this);
@@ -63,6 +70,9 @@ public class List {
      * @throws IOException As the storage read/writes the save file.
      */
     public String markTask(int taskNum, Storage storage, Ui ui) throws IOException {
+        assert isValidTaskNum(taskNum);
+        assert storage != null;
+        assert ui != null;
         String result = tasks.get(taskNum).mark(ui);
         storage.saveTasks(this);
         return result;
@@ -77,6 +87,9 @@ public class List {
      * @throws IOException As the storage read/writes the save file.
      */
     public String unmarkTask(int taskNum, Storage storage, Ui ui) throws IOException {
+        assert isValidTaskNum(taskNum);
+        assert storage != null;
+        assert ui != null;
         String result = tasks.get(taskNum).unmark(ui);
         storage.saveTasks(this);
         return result;
@@ -89,6 +102,8 @@ public class List {
      * @return String to display in the ui.
      */
     public String findTasks(String keywords, Ui ui) {
+        assert keywords != null;
+        assert ui != null;
         List results = new List(new ArrayList<>());
         for (Task task : tasks) {
             if (task.hasKeywords(keywords)) {

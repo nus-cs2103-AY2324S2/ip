@@ -36,6 +36,7 @@ public class Ui {
      * @return String to display in the ui.
      */
     public String sayTaskAdded(Task task, int taskListSize) {
+        assert task != null;
         String taskOrTasks = taskListSize == 1 ? " task " : " tasks ";
         return (Ui.LINE
                 + "Got it. I've added this task:\n"
@@ -45,14 +46,17 @@ public class Ui {
     }
 
     public String displayTasks(List taskList) {
+        assert taskList != null;
         return Ui.LINE + "Here are the tasks in your list:\n" + taskList.toString() + "\n" + Ui.LINE;
     }
 
     public String sayTaskMarked(Task task) {
+        assert task != null;
         return (Ui.LINE + "Nice! I've marked this task as done:\n" + task.toString() + "\n" + Ui.LINE);
     }
 
     public String sayTaskUnmarked(Task task) {
+        assert task != null;
         return (Ui.LINE + "OK, I've marked this task as not done yet:\n" + task.toString() + "\n" + Ui.LINE);
     }
 
@@ -64,12 +68,14 @@ public class Ui {
      * @return String to display in the ui.
      */
     public String sayTaskDeleted(Task task, int taskListSize) {
+        assert task != null;
         String taskOrTasks = taskListSize == 1 ? " task " : " tasks ";
         return (Ui.LINE + "Noted. I've removed this task:\n" + task.toString()
                 + "\nNow you have " + taskListSize + taskOrTasks + "in the list.\n" + Ui.LINE);
     }
 
     public String displayResults(List results) {
+        assert results != null;
         return (LINE + "Here are the matching tasks in your list:\n"
                 + results.toString() + "\n" + LINE);
     }

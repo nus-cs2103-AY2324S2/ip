@@ -29,6 +29,7 @@ public class Storage {
      * @throws IOException As it may create a new file.
      */
     public Storage(String fileName) throws IOException {
+        assert fileName != null;
         this.fileName = fileName;
         File f = new File(fileName);
         if (!f.exists()) {
@@ -37,6 +38,7 @@ public class Storage {
             }
             f.createNewFile();
         }
+        assert f.exists();
     }
 
     /**
@@ -45,10 +47,14 @@ public class Storage {
      * @throws IOException As it writes to file.
      */
     public void saveTasks(List taskList) throws IOException {
+        assert taskList != null;
+        int startingLength = taskList.getListSize();
         String newFileContent = taskList.toString();
+        assert new File(fileName).exists();
         BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
         writer.write(newFileContent);
         writer.close();
+        assert taskList.getListSize() - startingLength == 1;
     }
 
     /**
@@ -123,6 +129,7 @@ public class Storage {
      * @throws IOException As it writes to a file.
      */
     public void clearData() throws IOException {
+        assert false; // disable this before running ListTest or StorageTest
         BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
         writer.write("");
     }
