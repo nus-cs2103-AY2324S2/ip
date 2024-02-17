@@ -4,7 +4,7 @@ import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.TaskList;
 import Tasks.Todo;
-import Utils.Command;
+import Utils.CommandTypes;
 import Utils.Storage;
 
 import java.util.NoSuchElementException;
@@ -55,7 +55,7 @@ public class  Dude {
                 break;
             }
 
-            Command command = getCommand(msg);
+            CommandTypes command = getCommand(msg);
 
             switch (command) {
             case BYE:
@@ -109,7 +109,6 @@ public class  Dude {
     private static String list(){
         return taskList.toString();
     }
-
 
     private static String bye(){
         String bye_msg = "\t-----------------------------------";
@@ -216,33 +215,33 @@ public class  Dude {
         }
     }
 
-    private static boolean isCommandChangingState(Command command){
-        return command == Command.TODO || command == Command.EVENT || command == Command.DEADLINE
-                || command == Command.DELETE || command == Command.MARK || command == Command.UNMARK;
+    private static boolean isCommandChangingState(CommandTypes command) {
+        return command == CommandTypes.TODO || command == CommandTypes.EVENT || command == CommandTypes.DEADLINE
+                || command == CommandTypes.DELETE || command == CommandTypes.MARK || command == CommandTypes.UNMARK;
     }
 
-    private static Command getCommand(String msg) {
+    private static CommandTypes getCommand(String msg) {
         String cmd = msg.split(" ")[0];
 
         switch(cmd) {
             case "bye":
-                return Command.BYE;
+                return CommandTypes.BYE;
             case "list":
-                return Command.LIST;
+                return CommandTypes.LIST;
             case "mark":
-                return Command.MARK;
+                return CommandTypes.MARK;
             case "unmark":
-                return Command.UNMARK;
+                return CommandTypes.UNMARK;
             case "todo":
-                return Command.TODO;
+                return CommandTypes.TODO;
             case "event":
-                return Command.EVENT;
+                return CommandTypes.EVENT;
             case "deadline":
-                return Command.DEADLINE;
+                return CommandTypes.DEADLINE;
             case "delete":
-                return Command.DELETE;
+                return CommandTypes.DELETE;
             default:
-                return Command.INVALID;
+                return CommandTypes.INVALID;
         }
 
     }

@@ -1,6 +1,6 @@
 package Utils;
 
-public enum Command {
+public enum CommandTypes {
     BYE,
     LIST,
     DELETE,
