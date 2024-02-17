@@ -14,10 +14,9 @@ public class Duke {
 
     }
     /**
-     * The main method of the Duke application.
-     * It initializes the task list, scanner, and displays a greeting to the user.
-     * The user can input commands through the command line until they type "bye" to exit.
-     * All tasks are saved to storage after each command.
+     * The main class serving as the entry point for the Duke application.
+     * It initializes the necessary components, interacts with the user through the command-line interface,
+     * and manages the parsing and storage of tasks.
      */
     public static void main(String[] args) {
         Launcher.main(args);
