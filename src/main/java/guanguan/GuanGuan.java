@@ -3,7 +3,7 @@ package guanguan;
 import java.util.Scanner;
 
 /**
- * Main class of GuanGuan chatbot.
+ * The main class for the GuanGuan application.
  */
 public class GuanGuan {
     private final Storage storage;
