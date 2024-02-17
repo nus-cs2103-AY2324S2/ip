@@ -16,9 +16,10 @@ public class TaskList {
     private Ui ui = null;
     private boolean isFiltered = false;
 
-    /**
-     * Returns number of tasks stored in taskList.
-     */
+    public boolean isFiltered() {
+        return isFiltered;
+    }
+
     public int getNumOfTasks() {
         return tasks.size();
     }
@@ -95,7 +96,6 @@ public class TaskList {
             return lastFilteredTasks.get(i - 1);
         }
     }
-
 
     /**
      * Search each keyword from keywords through the taskList.

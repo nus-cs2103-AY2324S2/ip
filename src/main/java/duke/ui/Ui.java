@@ -1,11 +1,10 @@
 package duke.ui;
 
-import duke.Duke;
-import duke.task.TaskList;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+
+import duke.task.TaskList;
 
 /**
  * Represents ui component of Duke.
@@ -27,15 +26,16 @@ public class Ui {
         ACTIVE_LISTENING,
     }
 
+    private static final DateTimeFormatter PRINT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    private static Scanner scanner = null;
+
     private static Ui instance = null;
     private static HorizontalLine horizontalLine = null;
-    private UiState currentState = null;
-    private static final DateTimeFormatter PRINT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("MMM dd YYYY HH:mm");
-    private static Scanner scanner = null;
+    private UiState currentState;
+
     private TaskList taskList = null;
 
     private Ui() {
-        // break the initialization into the initialization function of different classes
         horizontalLine = HorizontalLine.getInstance();
         currentState = UiState.ACTIVE_TALKING;
         scanner = new Scanner(System.in);
@@ -64,9 +64,9 @@ public class Ui {
      * @param output String intended to be printed.
      */
     public void speak(String output) {
-        ToggleConversationState();
+        toggleConversationState();
         System.out.println(output);
-        ToggleConversationState();
+        toggleConversationState();
     }
 
     /**
@@ -79,7 +79,7 @@ public class Ui {
     /**
      * Switch Ui state between ACTIVE_TALKING and ACTIVE_LISTENING.
      */
-    public void ToggleConversationState() {
+    public void toggleConversationState() {
 
         horizontalLine.printLine();
 
@@ -93,51 +93,12 @@ public class Ui {
             return;
         }
     }
-
     /**
-     * Starts listening to user input.
-     *
-     * @return User input as a string.
+     * Returns a string representing all existing tasks unfiltered.
      */
-    public String StartListening() {
-        // should be called from ACTIVE_TALKING STATE
-        if (currentState == UiState.ACTIVE_LISTENING) ToggleConversationState();
-        return scanner.nextLine();
-    }
-
-    /**
-     * Stops listening to user input.
-     */
-    public void EndListening() {
-        if (currentState == UiState.ACTIVE_TALKING) ToggleConversationState();
-    }
-
-    /**
-     * Ends Duke session.
-     */
-    public void EndSession() {
-        // should be called from ACTIVE_LISTENING STATE, exception handling?
-        ToggleConversationState();
-        System.out.println("Hope you find my service helpful.");
-        System.out.println("Till next time!");
-        Duke.getInstance().ToggleActiveState();
-    }
-    /*
-     public void EndSession() {
-        // should be called from ACTIVE_LISTENING STATE, exception handling?
-        ToggleConversationState();
-        System.out.println("Hope you find my service helpful.");
-        System.out.println("Till next time!");
-        duke.ToggleActiveState();
-    }
-     */
-
-    public static void printHorizontalLine() {
-        horizontalLine.printLine();
-    }
-
     public String listTasksReturnString() {
         taskList.unfilterTasks();
+        assert !TaskList.getInstance().isFiltered();
         String result = "";
         for (int i = 1; i <= taskList.getNumOfTasks(); i++) {
             result += (i + "." + taskList.getTask(i).toString()) + "\n";
@@ -146,32 +107,15 @@ public class Ui {
     }
 
     /**
-     * Lists all existing tasks.
+     * Returns a string representing all existing tasks after filtration.
      */
-    public void listTasks() {
-        taskList.unfilterTasks();
-        ToggleConversationState();
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 1; i <= taskList.getNumOfTasks(); i++) {
-            System.out.println(i + "." + taskList.getTask(i).toString());
-        }
-        ToggleConversationState();
-    }
-
     public String listFilteredTasksReturnString() {
+        assert TaskList.getInstance().isFiltered() : "TaskList is not filtered yet "
+                + "Ui::listFilteredTasksReturnString is called";
         String result = "";
         for (int i = 1; i <= taskList.getNumOfFilteredTasks(); i++) {
             result += (i + "." + taskList.getTask(i).toString()) + "\n";
         }
         return result;
-    }
-
-    public void listFilteredTasks() {
-        ToggleConversationState();
-        System.out.println("Here are tasks found:");
-        for (int i = 1; i <= taskList.getNumOfFilteredTasks(); i++) {
-            System.out.println(i + "." + taskList.getTask(i).toString());
-        }
-        ToggleConversationState();
     }
 }

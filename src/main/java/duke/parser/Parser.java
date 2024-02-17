@@ -3,10 +3,11 @@ package duke.parser;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import duke.ui.gui.Main;
 import duke.storage.Storage;
-import duke.task.*;
+import duke.task.Task;
+import duke.task.TaskList;
 import duke.ui.Ui;
+import duke.ui.gui.Main;
 
 /**
  * Represents parser component of Duke.
@@ -35,86 +36,15 @@ public class Parser {
         storage = Storage.getInstance();
     }
 
+    // need to refactor this method, it is too long
     /**
-     * Parses input string and carry out corresponding task.
+     * Return a string representing output from processing input string and carry out corresponding task.
      *
      * @param input  User input string.
      * @throws InputException If input is invalid.
      */
-    public void ProcessInput(String input) throws InputException {
-
+    public String processInputReturnString(String input) throws InputException {
         String[] words = input.split(" ");
-
-        // for multi-word commands
-        if (words[0].equals("mark") || words[0].equals("unmark")) {
-            if (isInteger(words[1])) {
-                boolean isDone = words[0].equals("mark");
-                int taskIndex = Integer.parseInt(words[1]);
-                ui.speak(taskList.setTaskDoneWithIndex(taskIndex, isDone));
-            } else {
-                ui.speak("Action failed: task index input is not an integer");
-            }
-            return;
-        }
-
-        if (words[0].equals("delete")) {
-            if (isInteger(words[1])) {
-                int taskIndex = Integer.parseInt(words[1]);
-                Task deletedTask = taskList.deleteTask(taskIndex);
-                ui.speak("Noted. I've removed this task:"
-                        + "\n"
-                        + "    "
-                        + deletedTask
-                        + "\n"
-                        + "Now you have " + taskList.getNumOfTasks() + " tasks in the list.");//input);
-                return;
-            } else {
-                ui.speak("Action failed: task index input is not an integer");
-            }
-            return;
-        }
-
-        if (words[0].equals("todo")
-                || words[0].equals("deadline")
-                || words[0].equals("event")) {
-
-            Task newTask = null;
-            newTask = Task.createTask(words[0], input);
-            taskList.addTask(newTask);
-            ui.speak("Got it. I've added this task:"
-                    + "\n"
-                    + "    "
-                    + newTask
-                    + "\n"
-                    + "Now you have " + taskList.getNumOfTasks() + " tasks in the list.");//input);
-            return;
-        }
-
-
-        if (input.equals("bye")) {
-            ui.EndSession();
-            storage.saveToMemory();
-            return;
-        }
-
-        if (input.equals("list") || input.equals("print tasks") ) {
-            ui.listTasks();
-            return;
-        }
-
-        if (words[0].equals("find")) {
-            taskList.findTaskWithKeyword(words);
-            ui.listFilteredTasks();
-            return;
-        }
-
-        throw new CommandNotFoundException(input);
-    }
-
-    public String ProcessInputReturnString(String input) throws InputException {
-
-        String[] words = input.split(" ");
-
         // for multi-word commands
         if (words[0].equals("mark") || words[0].equals("unmark")) {
             if (isInteger(words[1])) {
@@ -157,7 +87,6 @@ public class Parser {
                     + "Now you have " + taskList.getNumOfTasks() + " tasks in the list.";
         }
 
-
         if (input.equals("bye")) {
             //ui.EndSession();
             storage.saveToMemory();
@@ -169,7 +98,7 @@ public class Parser {
             return "close";
         }
 
-        if (input.equals("list") || input.equals("print tasks") ) {
+        if (input.equals("list") || input.equals("print tasks")) {
             return ui.listTasksReturnString();
         }
 
@@ -180,7 +109,6 @@ public class Parser {
 
         throw new CommandNotFoundException(input);
     }
-
 
     /**
      * Parses dateTime string to LocalDateTime with preset formatter.
