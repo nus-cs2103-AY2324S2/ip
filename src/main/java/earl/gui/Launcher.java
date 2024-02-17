@@ -1,7 +1,6 @@
 package earl.gui;
 
 import earl.Earl;
-
 import javafx.application.Application;
 
 /**
@@ -13,7 +12,7 @@ public class Launcher {
             Earl earl = new Earl("data/earl.txt");
             earl.run();
             return;
-        };
+        }
         Application.launch(Main.class, args);
     }
 }

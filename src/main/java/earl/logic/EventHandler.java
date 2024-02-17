@@ -1,7 +1,6 @@
 package earl.logic;
 
 import earl.exceptions.EarlException;
-import earl.tasks.Task;
 import earl.tasks.TaskType;
 import earl.util.TaskList;
 import earl.util.Ui;

@@ -5,49 +5,49 @@ package earl.logic;
  */
 public enum HandlerType {
 
-    list {
+    LIST {
         @Override
         public Handler createHandler(String args) {
             return new ListHandler(args);
         }
     },
-    todo {
+    TODO {
         @Override
         public Handler createHandler(String args) {
             return new TodoHandler(args);
         }
     },
-    deadline {
+    DEADLINE {
         @Override
         public Handler createHandler(String args) {
             return new DeadlineHandler(args);
         }
     },
-    event {
+    EVENT {
         @Override
         public Handler createHandler(String args) {
             return new EventHandler(args);
         }
     },
-    mark {
+    MARK {
         @Override
         public Handler createHandler(String args) {
             return new MarkHandler(args);
         }
     },
-    unmark {
+    UNMARK {
         @Override
         public Handler createHandler(String args) {
             return new UnmarkHandler(args);
         }
     },
-    delete {
+    DELETE {
         @Override
         public Handler createHandler(String args) {
             return new DeleteHandler(args);
         }
     },
-    find {
+    FIND {
         @Override
         public Handler createHandler(String args) {
             return new FindHandler(args);

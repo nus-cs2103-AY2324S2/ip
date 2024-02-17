@@ -27,7 +27,7 @@ class DeleteHandlerTest {
 
     @Test
     void handle_normalInput_success() throws Exception {
-        Handler handler = HandlerType.delete.createHandler("1");
+        Handler handler = HandlerType.DELETE.createHandler("1");
         handler.handle(new TaskListStub(), new UiStub());
         String newLine = System.lineSeparator();
         assertEquals("Item(s) heretofore have been expunged." + newLine
@@ -37,7 +37,7 @@ class DeleteHandlerTest {
     @Test
     void handle_nonIntegerInput_exceptionThrown() {
         try {
-            Handler handler = HandlerType.delete.createHandler("a");
+            Handler handler = HandlerType.DELETE.createHandler("a");
             handler.handle(new TaskListStub(), new UiStub());
             fail();
         } catch (Exception e) {

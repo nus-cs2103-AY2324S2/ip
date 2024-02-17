@@ -30,9 +30,9 @@ class TodoHandlerTest {
 
     @Test
     void handle_normalCommand_success() throws Exception {
-        Handler handler = HandlerType.todo.createHandler("test");
+        Handler handler = HandlerType.TODO.createHandler("test");
         handler.handle(new TaskListStub(), new UiStub());
-        String expected = "A new todo [T][ ] test"
+        String expected = "A new TODO [T][ ] test"
                 + NEWLINE
                 + "hath been appended to the roster of responsibilities."
                 + NEWLINE
@@ -44,7 +44,7 @@ class TodoHandlerTest {
     @Test
     void handle_emptyDescription_exceptionThrown() {
         try {
-            Handler handler = HandlerType.todo.createHandler("");
+            Handler handler = HandlerType.TODO.createHandler("");
             handler.handle(new TaskListStub(), new UiStub());
             fail();
         } catch (EarlException e) {

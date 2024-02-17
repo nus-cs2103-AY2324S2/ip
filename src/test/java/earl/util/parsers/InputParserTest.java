@@ -23,10 +23,10 @@ class InputParserTest {
     @Test
     void parse_invalidInput_exceptionThrown() {
         try {
-            InputParser.parse("TODO ip");
+            InputParser.parse("no ip");
             fail();
         } catch (ParserException e) {
-            assertEquals("TODO ip", e.getMessage());
+            assertEquals("no ip", e.getMessage());
         }
     }
 }

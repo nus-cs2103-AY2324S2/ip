@@ -88,8 +88,11 @@ public class Ui {
         return line + NEWLINE;
     }
 
+    /** Displays the initial greeting. */
     public void showGreeting() {
-        makeResponse(GREETING_MESSAGE);
+        // response is built in case of any preceding error messages
+        buildResponse(GREETING_MESSAGE);
+        completeResponse();
     }
 
     public void showGoodbye() {

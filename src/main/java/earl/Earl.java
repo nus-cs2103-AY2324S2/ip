@@ -29,7 +29,7 @@ public class Earl {
         storage = new Storage(filePath);
         tasks = new TaskList(storage.load(TaskStorageParser::parse));
         if (!storage.wasLoadSuccessful()) {
-            ui.makeResponse("Storage hath succumb to corruption... ",
+            ui.buildResponse("Storage hath succumb to corruption... ",
                     "initiating an unfortunate state of emptiness.");
         }
         ui.showGreeting();

@@ -27,7 +27,7 @@ class MarkHandlerTest {
 
     @Test
     void handle_normalCommand_success() throws Exception {
-        Handler handler = HandlerType.mark.createHandler("1");
+        Handler handler = HandlerType.MARK.createHandler("1");
         handler.handle(new TaskListStub(), new UiStub());
         String newLine = System.lineSeparator();
         assertEquals("Item(s) duly accomplished." + newLine
@@ -38,7 +38,7 @@ class MarkHandlerTest {
     @Test
     void handle_nonIntegerInput_exceptionThrown() {
         try {
-            Handler handler = HandlerType.mark.createHandler("a");
+            Handler handler = HandlerType.MARK.createHandler("a");
             handler.handle(new TaskListStub(), new UiStub());
             fail();
         } catch (Exception e) {

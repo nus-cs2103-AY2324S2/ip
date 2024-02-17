@@ -8,6 +8,13 @@ applications.
 
 ![](Ui.png)
 
+## Getting Started
+
+1. Download the `.jar` file from [here](https://github.com/yisiox/ip/releases).
+2. Open a terminal in the directory which you saved the `.jar` file, then run
+   1. `java -jar earl.jar` for GUI mode.
+   2. `java -jar earl.jar nogui` for TUI mode.
+
 ## Quick Reference
 
 | Command    | Arguments                                       |
