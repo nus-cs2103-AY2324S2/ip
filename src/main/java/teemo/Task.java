@@ -1,4 +1,4 @@
-package duke;
+package teemo;
 
 /**
  * Superclass for all tasks.

@@ -1,4 +1,4 @@
-package duke;
+package teemo;
 
 import java.io.IOException;
 
@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke();
+    private Teemo teemo = new Teemo();
 
     @Override
     public void start(Stage stage) {
@@ -24,7 +24,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setTitle("Teemo");
             stage.setResizable(true);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setDuke(teemo);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

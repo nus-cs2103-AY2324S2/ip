@@ -1,4 +1,4 @@
-package duke;
+package teemo;
 
 import javafx.application.Application;
 

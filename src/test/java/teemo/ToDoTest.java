@@ -1,4 +1,4 @@
-package duke; //same package as the class being tested
+package teemo; //same package as the class being tested
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
