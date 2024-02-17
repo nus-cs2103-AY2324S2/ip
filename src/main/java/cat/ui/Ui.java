@@ -77,7 +77,6 @@ public class Ui {
                 + "mark <index>\n"
                 + "unmark <index>\n"
                 + "delete <index>\n"
-                + "list\n"
-                + "bye";
+                + "list\n";
     }
 }
