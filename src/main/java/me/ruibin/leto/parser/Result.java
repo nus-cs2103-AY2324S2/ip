@@ -28,7 +28,7 @@ public class Result {
     }
 
     /**
-     * Method to append messages to current StringBuilder.
+     * Return current StringBuilder with appended messages.
      *
      * @param message new message to be appended.
      * @return Appended message builder.

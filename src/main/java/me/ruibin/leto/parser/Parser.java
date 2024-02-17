@@ -38,7 +38,7 @@ public class Parser {
     }
 
     /**
-     * Read user inputs and run the command.
+     * Returns results from reading and running user inputs.
      *
      * @param inputs String of the input
      * @return Result containing type, message and exception if any.

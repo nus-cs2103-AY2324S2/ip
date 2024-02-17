@@ -21,8 +21,7 @@ public class Leto {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Returns Result from parsing and reading user's input.
      */
     public Result getResponse(String inputs) {
         return Parser.readAndExecute(inputs);

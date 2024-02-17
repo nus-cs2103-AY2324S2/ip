@@ -2,31 +2,31 @@ package me.ruibin.leto.tasklist;
 
 /** Class representing a task being keep tracked of by Leto. */
 public class Task {
-    private boolean completed;
+    private boolean isCompleted;
     private String message;
 
     /**
      * Constructor for task allowing the specification on whether it is completed
      * and the description.
      *
-     * @param completed Whether the task is completed.
+     * @param isCompleted Whether the task is completed.
      * @param message Description of the task.
      */
-    public Task(Boolean completed, String message) {
-        this.completed = completed;
+    public Task(Boolean isCompleted, String message) {
+        this.isCompleted = isCompleted;
         this.message = message;
     }
 
     public boolean isCompleted() {
-        return completed;
+        return isCompleted;
     }
 
     public void markCompleted() {
-        this.completed = true;
+        this.isCompleted = true;
     }
 
     public void markUncompleted() {
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     @Override
