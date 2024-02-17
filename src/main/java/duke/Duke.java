@@ -2,20 +2,21 @@ package duke;
 
 import duke.command.Command;
 import duke.command.CommandParser;
+import duke.configuration.Info;
 import duke.state.ProgramState;
 import duke.storage.Storage;
 import duke.storage.StorageLoadException;
 import duke.storage.StorageSaveException;
 import duke.task.TaskList;
+import duke.ui.ErrorResponse;
+import duke.ui.Response;
 import duke.ui.UI;
 
 /**
  * Represents the main class of the bot.
  */
 public class Duke {
-    private static final String chatbotName = "Sylvia";
-
-    private static final String dataFilePath = "data/duke.txt";
+    private static final String DATA_FILE_PATH = Info.DATA_FILE_PATH;
 
     private Storage storage;
     private TaskList list;
@@ -27,12 +28,14 @@ public class Duke {
      * Constructs a new chatbot instance. The chatbot will load data from the
      * default data file. If the data file does not exist, a new data file will be
      * created.
+     *
+     * @param ui The user interface controller of the bot.
      */
-    public Duke() {
+    public Duke(UI ui) {
         this.parser = new CommandParser();
-        this.ui = new UI(chatbotName);
+        this.ui = ui;
         this.state = new ProgramState();
-        this.storage = new Storage(dataFilePath);
+        this.storage = new Storage(DATA_FILE_PATH);
         try {
             list = storage.load();
         } catch (StorageLoadException e) {
@@ -47,38 +50,28 @@ public class Duke {
      * @param commandString The command to run.
      * @return The response from the bot.
      */
-    private String runCommand(String commandString) {
+    public Response runCommand(String commandString) {
         Command command;
         try {
             command = Command.parse(commandString, parser);
             String response = command.execute(list, state);
-            return response;
+            if (state.isExit()) {
+                ui.exit();
+            }
+            return new Response(response);
         } catch (DukeException e) {
-            ui.showBotError(e);
+            return new ErrorResponse(e.getBotMessage());
         }
-        return null; // should not be shown
     }
 
     /**
-     * Runs the bot. When the bot exits, the data will be saved to the data file.
+     * Exits the bot. The data will be saved to the data file.
      */
-    public void run() {
-        ui.showWelcomeMessage();
-
-        while (state.isNormal()) {
-            String input = ui.readCommand();
-            ui.showResponse(runCommand(input));
-        }
-        // only write data to file when the bot is about to exit
+    public void exit() {
         try {
             storage.save(list);
         } catch (StorageSaveException e) {
             ui.showBotError(e);
         }
-    }
-
-    public static void main(String[] args) {
-        Duke chatbot = new Duke();
-        chatbot.run();
     }
 }

@@ -22,11 +22,13 @@ public class TaskListParser {
      */
     public static TaskList parse(File file) throws IOException, InvalidDataFormatException, DukeDateTimeParseException {
         TaskList list = new TaskList();
-        BufferedReader reader = new BufferedReader(new FileReader(file));
+        FileReader fr = new FileReader(file);
+        BufferedReader reader = new BufferedReader(fr);
         String line;
         while ((line = reader.readLine()) != null) {
             list.addTask(parseTask(line));
         }
+        fr.close();
         reader.close();
         return list;
     }
