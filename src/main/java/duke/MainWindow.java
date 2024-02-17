@@ -29,6 +29,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        displayWelcomeMessage();
     }
 
     public void setDuke(Duke d) {
@@ -61,5 +62,12 @@ public class MainWindow extends AnchorPane {
         }
 
         userInput.clear();
+    }
+
+    public void displayWelcomeMessage() {
+        Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/bot.png"));
+        DialogBox welcomeDialogBox = DialogBox.getDukeDialog("Welcome to the application!\nI am Bot! I can help you manage your tasks!", dukeImage);
+        dialogContainer.getChildren().addAll(welcomeDialogBox);
+        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 }

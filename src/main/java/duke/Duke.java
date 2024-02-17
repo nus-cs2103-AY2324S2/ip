@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 
-
 /**
  * The Duke class represents a task manager bot.
  */
@@ -73,6 +72,7 @@ public class Duke extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Bot");
             fxmlLoader.<MainWindow>getController().setDuke(this);
             stage.show();
         } catch (IOException e) {
