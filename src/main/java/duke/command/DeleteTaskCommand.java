@@ -10,6 +10,7 @@ import database.TaskOrm;
 public class DeleteTaskCommand extends Command {
     public static final String COMMAND_WORD = "delete";
     private final int taskID;
+    private final TaskOrm tm = new TaskOrm();
 
     public DeleteTaskCommand(int taskID) {
         this.taskID = taskID;
@@ -21,9 +22,8 @@ public class DeleteTaskCommand extends Command {
 
     @Override
     public String execute() {
-        TaskOrm tm = new TaskOrm();
         try {
-            task.Task task = tm.delete(taskID);
+            task.Task task = this.tm.delete(taskID);
             return "Noted. I've removed this task:\n"
                     + "  " + task + "\n"
                     + String.format("Now you have %d tasks in the list.\n", tm.count());

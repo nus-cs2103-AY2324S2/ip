@@ -9,16 +9,16 @@ import database.TaskOrm;
  */
 public class ListTaskCommand extends Command {
     public static final String COMMAND_WORD = "list";
+    private final TaskOrm tm = new TaskOrm();
 
     @Override
     public String execute() {
-        TaskOrm tm = new TaskOrm();
         try {
             if (tm.count() == 0) {
                 return "No tasks added yet!\n";
             }
             StringBuilder sb = new StringBuilder();
-            for (task.Task task : tm.list()) {
+            for (task.Task task : this.tm.list()) {
                 sb.append(String.format("%d. %s\n", task.getTaskID(), task));
             }
             return sb.toString();

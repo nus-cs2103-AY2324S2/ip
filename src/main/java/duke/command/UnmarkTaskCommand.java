@@ -10,6 +10,7 @@ import database.TaskOrm;
 public class UnmarkTaskCommand extends Command {
     public static final String COMMAND_WORD = "unmark";
     private final int taskID;
+    private final TaskOrm tm = new TaskOrm();
 
     public UnmarkTaskCommand(int taskID) {
         this.taskID = taskID;
@@ -21,10 +22,9 @@ public class UnmarkTaskCommand extends Command {
 
     @Override
     public String execute() {
-        TaskOrm tm = new TaskOrm();
         try {
             tm.unmark(taskID);
-            task.Task task = tm.get(taskID);
+            task.Task task = this.tm.get(taskID);
             return "Ok, I've marked this task as not done yet:\n" + "  " + task + "\n";
         } catch (SQLException e) {
             return e.getMessage();

@@ -18,6 +18,7 @@ public class AddTaskCommand extends Command {
     public static final String ADD_EVENT_COMMAND = "event";
     private final String command;
     private final String description;
+    private final TaskOrm tm = new TaskOrm();
 
     /**
      * Constructs an AddTaskCommand.
@@ -40,60 +41,19 @@ public class AddTaskCommand extends Command {
 
     @Override
     public String execute() {
-        TaskOrm tm = new TaskOrm();
+        Task task;
         try {
-            Task task;
             switch (this.command) {
             case ADD_TODO_COMMAND:
-                if (this.description == null || this.description.isEmpty()) {
-                    throw new BadTaskInputException(
-                            "Details of a todo cannot be empty.",
-                            "todo <description>",
-                            "todo read book",
-                            this.description);
-                }
-
-                task = tm.createTodo(this.description);
+                task = this.checkedCreateTodo();
                 break;
 
             case ADD_DEADLINE_COMMAND:
-                String[] deadlineDetails = this.description.split(" /by ");
-
-                if (deadlineDetails.length < 2) {
-                    throw new BadTaskInputException(
-                            "Details of a deadline must include a deadline.",
-                            "deadline <description> /by <deadline>",
-                            "deadline return book /by 2019-12-15",
-                            this.description);
-                }
-
-                LocalDate deadline = Parser.parseDate(deadlineDetails[1]);
-                task = tm.createDeadline(deadlineDetails[0], deadline);
+                task = this.checkedCreateDeadline();
                 break;
 
             case ADD_EVENT_COMMAND:
-                String[] eventDetails = this.description.split(" /from | /to ");
-
-                if (eventDetails.length < 3) {
-                    throw new BadTaskInputException(
-                            "Details of an event must include a start date and an end date.",
-                            "event <description> /from <start date> /to <end date>",
-                            "fun event /from 2019-12-1 /to 2019-12-15",
-                            this.description);
-                }
-
-                LocalDate startDate = Parser.parseDate(eventDetails[1]);
-                LocalDate endDate = Parser.parseDate(eventDetails[2]);
-
-                if (startDate.isAfter(endDate)) {
-                    throw new BadTaskInputException(
-                            "Start date cannot be after end date.",
-                            "event <description> /from <start date> /to <end date>",
-                            "fun event /from 2019-12-1 /to 2019-12-15",
-                            this.description);
-                }
-
-                task = tm.createEvent(eventDetails[0], startDate, endDate);
+                task = this.checkedCreateEvent();
                 break;
 
             default:
@@ -106,6 +66,58 @@ public class AddTaskCommand extends Command {
         } catch (SQLException | BadInputException e) {
             return e.getMessage();
         }
+    }
+
+    private Task checkedCreateTodo() throws SQLException, BadTaskInputException {
+        if (this.description == null || this.description.isEmpty()) {
+            throw new BadTaskInputException(
+                    "Details of a todo cannot be empty.",
+                    "todo <description>",
+                    "todo read book",
+                    this.description);
+        }
+
+        return this.tm.createTodo(this.description);
+    }
+
+    private Task checkedCreateDeadline() throws SQLException, BadTaskInputException {
+        String[] deadlineDetails = this.description.split(" /by ");
+
+        if (deadlineDetails.length < 2) {
+            throw new BadTaskInputException(
+                    "Details of a deadline must include a deadline.",
+                    "deadline <description> /by <deadline>",
+                    "deadline return book /by 2019-12-15",
+                    this.description);
+        }
+
+        LocalDate deadline = Parser.parseDate(deadlineDetails[1]);
+        return this.tm.createDeadline(deadlineDetails[0], deadline);
+    }
+
+    private Task checkedCreateEvent() throws SQLException, BadTaskInputException {
+        String[] eventDetails = this.description.split(" /from | /to ");
+
+        if (eventDetails.length < 3) {
+            throw new BadTaskInputException(
+                    "Details of an event must include a start date and an end date.",
+                    "event <description> /from <start date> /to <end date>",
+                    "fun event /from 2019-12-1 /to 2019-12-15",
+                    this.description);
+        }
+
+        LocalDate startDate = Parser.parseDate(eventDetails[1]);
+        LocalDate endDate = Parser.parseDate(eventDetails[2]);
+
+        if (startDate.isAfter(endDate)) {
+            throw new BadTaskInputException(
+                    "Start date cannot be after end date.",
+                    "event <description> /from <start date> /to <end date>",
+                    "fun event /from 2019-12-1 /to 2019-12-15",
+                    this.description);
+        }
+
+        return this.tm.createEvent(eventDetails[0], startDate, endDate);
     }
 
     @Override

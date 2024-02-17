@@ -12,6 +12,7 @@ public class FindTaskCommand extends Command {
     public static final String COMMAND_WORD = "find";
 
     private final String searchTerm;
+    private final TaskOrm tm = new TaskOrm();
 
     public FindTaskCommand(String searchTerm) {
         this.searchTerm = searchTerm;
@@ -23,9 +24,8 @@ public class FindTaskCommand extends Command {
 
     @Override
     public String execute() {
-        TaskOrm tm = new TaskOrm();
         try {
-            ArrayList<task.Task> tasks = tm.list(this.searchTerm);
+            ArrayList<task.Task> tasks = this.tm.list(this.searchTerm);
 
             if (tasks.isEmpty()) {
                 return "No tasks found!\n";

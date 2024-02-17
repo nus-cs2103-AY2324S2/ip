@@ -30,10 +30,22 @@ public class Config {
 
     }
 
+
+    /**
+     * Loads the configuration of the application.
+     *
+     * @throws RuntimeException
+     *             if necessary values are not set in .env file
+     */
     public static void loadConfig() throws RuntimeException {
         cfg = new Config();
     }
 
+    /**
+     * Gets the configuration of the application.
+     *
+     * @return The configuration of the application.
+     */
     public static Config getConfig() {
         return cfg;
     }
