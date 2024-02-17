@@ -1,7 +1,5 @@
 package fishstock;
 
-import java.util.Locale;
-
 /**
  * Encapsulates the keywords for running respective commands.
  */
