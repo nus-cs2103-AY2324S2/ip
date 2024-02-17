@@ -8,7 +8,6 @@ import cat.command.AddCommand;
 import cat.command.Command;
 import cat.command.CompleteCommand;
 import cat.command.DeleteCommand;
-import cat.command.ExitCommand;
 import cat.command.FindCommand;
 import cat.command.HelpCommand;
 import cat.command.ListCommand;
@@ -28,8 +27,7 @@ public class Parser {
         Delete,
         Find,
         List,
-        Help,
-        Bye;
+        Help;
 
         private static CommandType parse(String command) throws InvalidCommandType {
             switch (command) {
@@ -51,8 +49,6 @@ public class Parser {
                 return List;
             case "help":
                 return Help;
-            case "bye":
-                return Bye;
             default:
                 throw new InvalidCommandType(command);
             }
@@ -73,8 +69,6 @@ public class Parser {
         var type = CommandType.parse(scanner.next());
 
         switch (type) {
-        case Bye:
-            return new ExitCommand();
         case List:
             return new ListCommand();
         case Help:

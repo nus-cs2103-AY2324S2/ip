@@ -1,11 +1,11 @@
 package cat.ui;
 
 import cat.Cat;
+import cat.ui.response.Response;
+import cat.ui.response.WelcomeResponse;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 
 /**
@@ -18,17 +18,16 @@ public class MainWindow {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
 
     private Cat cat;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-
+    /**
+     * Initializes the main window state.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().add(new WelcomeResponse());
     }
 
     public void setDuke(Cat d) {
@@ -38,10 +37,10 @@ public class MainWindow {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = cat.getResponse(input);
+        Response response = cat.getResponse(input);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                new UserCommand(input),
+                response
         );
 
         userInput.clear();
