@@ -34,7 +34,7 @@ public class ParserTest {
     @Test
     public void parseCommands_toDoCommand_addsToDo() {
         String additionalInfo = "Read Book";
-        parser.parseCommands(Commands.todo, additionalInfo);
+        parser.parseCommands(Commands.TODO, additionalInfo);
         assertFalse(taskListStub.getTasks().isEmpty());
         assertTrue(taskListStub.getTasks().get(0) instanceof Todo);
     }
@@ -45,7 +45,7 @@ public class ParserTest {
      */
     @Test
     public void parseCommands_incorrectToDoCommand_doesNotAddTask() {
-        parser.parseCommands(Commands.todo, "");
+        parser.parseCommands(Commands.TODO, "");
         assertTrue(taskListStub.getTasks().isEmpty());
     }
 
@@ -56,7 +56,7 @@ public class ParserTest {
     @Test
     public void parseCommands_deadlineCommand_addsDeadline() {
         String additionalInfo = "CS2103 Assignment 1 /by 12/12/2023 1800";
-        parser.parseCommands(Commands.deadline, additionalInfo);
+        parser.parseCommands(Commands.DEADLINE, additionalInfo);
         assertFalse(taskListStub.getTasks().isEmpty());
         assertTrue(taskListStub.getTasks().get(0) instanceof Deadline);
     }
@@ -67,9 +67,9 @@ public class ParserTest {
      */
     @Test
     public void parseCommands_incorrectDeadlineCommand_doesNotAddTask() {
-        parser.parseCommands(Commands.deadline, "CS2103 Assignment 1");
-        parser.parseCommands(Commands.deadline, "CS2103 Assignment 1 /by");
-        parser.parseCommands(Commands.deadline, "CS2103 Assignment 1 /by 12/12/2023 6pm");
+        parser.parseCommands(Commands.DEADLINE, "CS2103 Assignment 1");
+        parser.parseCommands(Commands.DEADLINE, "CS2103 Assignment 1 /by");
+        parser.parseCommands(Commands.DEADLINE, "CS2103 Assignment 1 /by 12/12/2023 6pm");
         assertTrue(taskListStub.getTasks().isEmpty());
     }
 
@@ -80,7 +80,7 @@ public class ParserTest {
     @Test
     public void parseCommands_eventCommand_addsDeadline() {
         String additionalInfo = "CS2103 Assignment 2 /from 12/12/2023 1800 /to 13/12/2023 1700";
-        parser.parseCommands(Commands.event, additionalInfo);
+        parser.parseCommands(Commands.EVENT, additionalInfo);
         assertFalse(taskListStub.getTasks().isEmpty());
         assertTrue(taskListStub.getTasks().get(0) instanceof Event);
     }
@@ -91,12 +91,12 @@ public class ParserTest {
      */
     @Test
     public void parseCommands_incorrectEventCommand_doesNotAddTask() {
-        parser.parseCommands(Commands.event, "CS2103 Assignment 2");
-        parser.parseCommands(Commands.event, "CS2103 Assignment 2 /from 12/12/2023 1800 ");
-        parser.parseCommands(Commands.event, "CS2103 Assignment 2 /from 12/12/2023 1800 /to ");
-        parser.parseCommands(Commands.event,
+        parser.parseCommands(Commands.EVENT, "CS2103 Assignment 2");
+        parser.parseCommands(Commands.EVENT, "CS2103 Assignment 2 /from 12/12/2023 1800 ");
+        parser.parseCommands(Commands.EVENT, "CS2103 Assignment 2 /from 12/12/2023 1800 /to ");
+        parser.parseCommands(Commands.EVENT,
                 "CS2103 Assignment 2 /from 12/12/2023 1800 /to 11/12/2023 1900");
-        parser.parseCommands(Commands.event,
+        parser.parseCommands(Commands.EVENT,
                 "CS2103 Assignment 2 /from 12/12/2023 6pm /to 12/12/2023 7pm");
         assertTrue(taskListStub.getTasks().isEmpty());
     }
@@ -113,7 +113,7 @@ public class ParserTest {
         taskListStub.addTask(todo);
 
         // Since there is only one task, the ID of the task is 1
-        parser.parseCommands(Commands.delete, "1");
+        parser.parseCommands(Commands.DELETE, "1");
         assertTrue(taskListStub.getTasks().isEmpty());
     }
 
@@ -127,7 +127,7 @@ public class ParserTest {
         taskListStub.addTask(todo);
 
         // Since there is only one task, the ID of the task is 1
-        parser.parseCommands(Commands.mark, "1");
+        parser.parseCommands(Commands.MARK, "1");
         assertEquals("X", taskListStub.getTasks().get(0).getStatusIcon());
     }
 
@@ -141,7 +141,7 @@ public class ParserTest {
         taskListStub.addTask(todo);
 
         // Since there is only one task, the ID of the task is 1
-        parser.parseCommands(Commands.mark, "1");
+        parser.parseCommands(Commands.MARK, "1");
         assertEquals(" ", taskListStub.getTasks().get(0).getStatusIcon());
     }
 }

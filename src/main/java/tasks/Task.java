@@ -4,10 +4,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Task {
-    private static final DateTimeFormatter INPUT_FORMAT =
-            DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-    private static final DateTimeFormatter OUTPUT_FORMAT =
-            DateTimeFormatter.ofPattern("d/M/yyyy EEEE, ha");
+    private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy EEEE, ha");
     private String name;
     private boolean isDone;
     private String type;
@@ -23,7 +21,7 @@ public class Task {
         this.isDone = isDone;
     }
 
-    public void changeIsDone() {
+    public void toggleMarkStatus() {
         this.isDone ^= true;
     }
 
@@ -51,7 +49,7 @@ public class Task {
         return dateTime.format(OUTPUT_FORMAT);
     }
 
-    public String changeDateToString(LocalDateTime dateTime) {
+    public String convertDateToString(LocalDateTime dateTime) {
         return dateTime.format(INPUT_FORMAT);
     }
 

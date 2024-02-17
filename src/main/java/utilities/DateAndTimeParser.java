@@ -10,8 +10,7 @@ import exceptions.WilliamException;
  * Deals with formatting dates and times
  */
 public class DateAndTimeParser {
-    private static final DateTimeFormatter INPUT_FORMAT =
-            DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     /**
      * Checks whether the input matches the date and time format
@@ -22,8 +21,8 @@ public class DateAndTimeParser {
     public static void acceptDateAndTime(String input) throws WilliamException {
         try {
             LocalDateTime.parse(input, INPUT_FORMAT);
-            // Assertion to check that the input can be parsed successfully, shows that the format
-            // is matched
+            // Assertion to check that the input can be parsed successfully, shows that the
+            // format is matched
             assert true;
         } catch (DateTimeParseException e) {
             throw new WilliamException("The date and time format is invalid. Please try again!");
@@ -34,21 +33,21 @@ public class DateAndTimeParser {
      * Checks whether the '/from' date is before the '/to' date
      * 
      * @param fromDate The input date '/from'
-     * @param toDate The input date '/to'
+     * @param toDate   The input date '/to'
      * @throws WilliamException If the '/from' date is not before the '/to' date
      */
     public static void checkWhetherToAndFromValid(String fromDate, String toDate)
             throws WilliamException {
-        LocalDateTime fromDateModified = LocalDateTime.parse(fromDate, INPUT_FORMAT);
-        LocalDateTime toDateModified = LocalDateTime.parse(toDate, INPUT_FORMAT);
+        LocalDateTime fromDateFormatted = LocalDateTime.parse(fromDate, INPUT_FORMAT);
+        LocalDateTime toDateFormatted = LocalDateTime.parse(toDate, INPUT_FORMAT);
 
-        if (!fromDateModified.isBefore(toDateModified)) {
+        if (!fromDateFormatted.isBefore(toDateFormatted)) {
             throw new WilliamException(
                     "The '/from' date and time should be before '/to' date and time. Please try again!");
         }
 
-        // Assertion to check that fromDateModified is before toDateModified
-        assert fromDateModified.isBefore(toDateModified) : "From date is before to date.";
+        // Assertion to check that fromDateFormatted is before toDateFormatted
+        assert fromDateFormatted.isBefore(toDateFormatted) : "From date is before to date.";
     }
 
     /**
@@ -58,11 +57,11 @@ public class DateAndTimeParser {
      * @return Date in LocalDateTime
      */
     public static LocalDateTime convertStringToDate(String date) {
-        LocalDateTime modifiedDate = LocalDateTime.parse(date, INPUT_FORMAT);
+        LocalDateTime dateFormatted = LocalDateTime.parse(date, INPUT_FORMAT);
 
         // Assertion to check that the conversion result is not null
-        assert modifiedDate != null : "Date conversion results in not a null object.";
+        assert dateFormatted != null : "Date conversion results in not a null object.";
 
-        return modifiedDate;
+        return dateFormatted;
     }
 }

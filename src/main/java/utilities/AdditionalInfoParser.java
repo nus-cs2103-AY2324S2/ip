@@ -1,6 +1,7 @@
 package utilities;
 
 import java.util.ArrayList;
+
 import exceptions.WilliamException;
 
 /**
@@ -11,31 +12,30 @@ public class AdditionalInfoParser {
      * Returns the split input after getting the user input
      * 
      * @param input Input from the user
-     * @return string[] String[] consisting of two variables: [0] == command, [1] == additional
-     *         information
+     * @return string[] String[] consisting of two variables: [0] == command, [1] ==
+     *         additional information
      */
     public static String[] retrieveTexts(String input) {
-        String[] resultOfSplit = new String[2];
+        String[] splitResults = new String[2];
         int indexOfFirstSpace = input.indexOf(" ");
-        // Assertion to check the input is not null, as input is expected to be non-null
-        assert input != null : "Input should not be null";
 
         if (indexOfFirstSpace == -1) {
-            resultOfSplit[0] = input;
-            resultOfSplit[1] = null;
+            splitResults[0] = input;
+            splitResults[1] = null;
         } else {
-            resultOfSplit[0] = input.substring(0, indexOfFirstSpace);
-            resultOfSplit[1] = input.substring(indexOfFirstSpace + 1);
+            splitResults[0] = input.substring(0, indexOfFirstSpace);
+            splitResults[1] = input.substring(indexOfFirstSpace + 1);
         }
-        return resultOfSplit;
+        return splitResults;
     }
 
     /**
      * Splits the input regardless of '/by', '/to' or '/from'
      * 
-     * @param input Input that is the additional details
+     * @param input    Input that is the additional details
      * @param keywords The splitting conditions
-     * @return string[] An array of String that contains the name and dates in separated form
+     * @return string[] An array of String that contains the name and dates in
+     *         separated form
      * @throws WilliamException If the input does not contain the keywords
      */
     public static String[] splitInput(String input, String... keywords) throws WilliamException {
@@ -62,7 +62,6 @@ public class AdditionalInfoParser {
 
         return parts.toArray(new String[0]);
     }
-
 
     /**
      * Checks whether the additional detail is empty

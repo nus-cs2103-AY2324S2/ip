@@ -22,6 +22,6 @@ public class Todo extends Task {
 
     @Override
     public String[] getTimes() {
-        return new String[] {"NILL", "NILL"};
+        return new String[] { "NILL", "NILL" };
     }
 }
