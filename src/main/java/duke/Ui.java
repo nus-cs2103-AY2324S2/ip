@@ -52,7 +52,7 @@ public class Ui {
      * @return The error message for an unrecognized command.
      */
     public String commandError() {
-        return "wrong command! please check!";
+        return "please check ur input!";
     }
 
     /**

@@ -105,7 +105,7 @@ public class TaskList {
     /**
      * Finds tasks containing a specified keyword and prints them to the console.
      * @param parts An array containing the command and the keyword to search for.
-     * @return A string representing the list of tasks containing the keyword.
+     * @return      A string representing the list of tasks containing the keyword.
      */
     public String find(String[] parts) {
         StringBuilder result = new StringBuilder(ui.findListDetails()); // Start with the UI details
@@ -123,91 +123,91 @@ public class TaskList {
         return result.toString(); // Convert StringBuilder to String and return
     }
 
-
     /**
-     * Adds a new task to the task list based on the provided command and input.
-     * @param command The command indicating the type of task to add (e.g., "todo", "deadline", "event").
-     * @param restOfInputs The rest of the user input containing task details (e.g., task description, deadline).
-     * @return A string representing the information about the added task.
+     * Adds a task to the task list based on the given command and input.
+     *
+     * @param command       The command specifying the type of task to add.
+     * @param restOfInputs  The additional information needed to create the task.
+     * @return              A string representing the result of the operation.
      */
     public String add(String command, String restOfInputs) {
-
         try {
             if (command.equals("todo")) {
-                try {
-                    if (restOfInputs == null) {
-                        String errorMessage = ui.displayEmptyErrorMessage();
-                        throw new DukeException(errorMessage);
-
-                    } else {
-                        Todo newTodo = new Todo(restOfInputs);
-                        myList.add(newTodo);
-                        int size = myList.size();
-
-                        return ui.todoInfo(newTodo, size);
-                    }
-
-                } catch (DukeException e) {
-                    ui.errorEncounter(e);
-                }
-
+                return handleTodoCommand(restOfInputs);
             } else if (command.equals("deadline")) {
-
-                try {
-                    if (restOfInputs == null) {
-                        String errorMessage = ui.displayEmptyErrorMessage();
-                        throw new DukeException(errorMessage);
-
-                    } else {
-
-                        String[] item = restOfInputs.split("/by");
-                        String items = item[0];
-                        String time = item[1];
-
-                        Deadline newDeadline = new Deadline(items, time);
-                        myList.add(newDeadline);
-                        int size = myList.size();
-
-                        return ui.deadlineInfo(newDeadline, size);
-                    }
-
-                } catch (DukeException e) {
-                    ui.errorEncounter(e);
-                }
-
+                return handleDeadlineCommand(restOfInputs);
             } else if (command.equals("event")) {
-
-                try {
-                    if (restOfInputs == null) {
-                        String errorMessage = ui.displayEmptyErrorMessage();
-                        throw new DukeException(errorMessage);
-
-                    } else {
-
-                        String[] item = restOfInputs.split("/from");
-                        String items = item[0];
-                        String time = item[1];
-                        String[] period = time.split("/to");
-                        String from = period[0];
-                        String to = period[1];
-                        Event newEvent = new Event(items, from, to);
-                        myList.add(newEvent);
-                        int size = myList.size();
-
-                        return ui.eventInfo(newEvent, size);
-                    }
-
-                } catch (DukeException e) {
-                    ui.errorEncounter(e);
-                }
-
+                return handleEventCommand(restOfInputs);
             } else {
                 throw new DukeException(ui.displayErrorMessage());
             }
-
         } catch (DukeException e) {
             ui.errorEncounter(e);
         }
         return ui.blank();
+    }
+
+    /**
+     * Handles the 'todo' command by creating a new Todo task and adding it to the task list.
+     *
+     * @param restOfInputs      The description of the Todo task.
+     * @return                  A message indicating what todo task is added into the task and the number of tasks.
+     * @throws DukeException    If the description is empty or null.
+     */
+    private String handleTodoCommand(String restOfInputs) throws DukeException {
+        if (restOfInputs == null) {
+            throw new DukeException(ui.displayEmptyErrorMessage());
+        }
+
+        Todo newTodo = new Todo(restOfInputs);
+        myList.add(newTodo);
+        int size = myList.size();
+        return ui.todoInfo(newTodo, size);
+    }
+
+    /**
+     * Handles the 'deadline' command by creating a new Deadline task and adding it to the task list.
+     *
+     * @param restOfInputs      The description and deadline of the Deadline task.
+     * @return                  A message indicating what deadline task is added into the task and the number of task.
+     * @throws DukeException    If the description or deadline is empty or null.
+     */
+    private String handleDeadlineCommand(String restOfInputs) throws DukeException {
+        if (restOfInputs == null) {
+            throw new DukeException(ui.displayEmptyErrorMessage());
+        }
+
+        String[] item = restOfInputs.split("/by");
+        String items = item[0];
+        String time = item[1];
+
+        Deadline newDeadline = new Deadline(items, time);
+        myList.add(newDeadline);
+        int size = myList.size();
+        return ui.deadlineInfo(newDeadline, size);
+    }
+
+    /**
+     * Handles the 'event' command by creating a new Event task and adding it to the task list.
+     *
+     * @param restOfInputs      The description, start, and end time of the Event task.
+     * @return                  A message indicating what event task is added into the task and the number of task left.
+     * @throws DukeException    If the description, start time, or end time is empty or null.
+     */
+    private String handleEventCommand(String restOfInputs) throws DukeException {
+        if (restOfInputs == null) {
+            throw new DukeException(ui.displayEmptyErrorMessage());
+        }
+
+        String[] item = restOfInputs.split("/from");
+        String items = item[0];
+        String time = item[1];
+        String[] period = time.split("/to");
+        String from = period[0];
+        String to = period[1];
+        Event newEvent = new Event(items, from, to);
+        myList.add(newEvent);
+        int size = myList.size();
+        return ui.eventInfo(newEvent, size);
     }
 }
