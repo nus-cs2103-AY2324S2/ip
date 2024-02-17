@@ -22,12 +22,16 @@ public class TaskListView extends Ui {
      */
     @Override
     public String display() {
-        String list = "";
-        for (int i = 0; i < taskList.size(); i++) {
-            list += ("    " + (i + 1) + ". " + taskList.get(i).toString() + "\n");
+        if (taskList.size() == 0) {
+            return "There are no task in your task list. \uD83D\uDC27";
+        } else {
+            String list = "";
+            for (int i = 0; i < taskList.size(); i++) {
+                list += ("    " + (i + 1) + ". " + taskList.get(i).toString() + "\n");
+            }
+            return (
+                    "\uD83D\uDC27Here are the tasks in your task list:\n"
+                            + list);
         }
-        return (
-            "Here are the tasks in your task list:\n"
-            + list);
     }
 }

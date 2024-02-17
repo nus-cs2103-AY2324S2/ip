@@ -1,5 +1,6 @@
 package iggly.duke;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -15,6 +16,7 @@ import iggly.command.MarkTaskCommand;
 import iggly.command.UnmarkTaskCommand;
 import iggly.model.Deadline;
 import iggly.model.Event;
+import iggly.model.Schedule;
 import iggly.model.Task;
 import iggly.model.TaskList;
 import iggly.model.ToDo;
@@ -70,6 +72,10 @@ public class Parser {
             task = parseDeadline(splitTask);
             command = new AddTaskCommand(task, taskList);
             break;
+        case AddTaskCommand.SCHEDULE:
+            task = parseSchedule(splitTask);
+            command = new AddTaskCommand(task, taskList);
+            break;
         case DeleteTaskCommand.COMMAND_WORD:
             command = parseDelete(splitTask);
             break;
@@ -108,10 +114,12 @@ public class Parser {
         if (event.length != 2 || event[1].isEmpty()) {
             throw new DukeException("The description of an event cannot be empty.");
         }
+
         String[] splitEvent = event[1].split(" /from ", 2);
         if (splitEvent.length != 2) {
             throw new DukeException("Invalid input. Use: event event_title /from dd-mm-yyyy HHmm /to HHmm");
         }
+
         String[] splitDuration = splitEvent[1].split(" /to ", 2);
         if (splitDuration.length != 2) {
             throw new DukeException("Invalid input. Use: event event_title /from dd-mm-yyyy HHmm /to HHmm");
@@ -142,18 +150,56 @@ public class Parser {
         if (deadline.length != 2 || deadline[1].isEmpty()) {
             throw new DukeException("The description of a deadline cannot be empty.");
         }
+
         String[] splitDeadline = deadline[1].split(" /by ", 2);
         if (splitDeadline.length != 2) {
             throw new DukeException("Invalid input. Use: deadline deadline_title /by dd-mm-yyyy HHmm");
         }
+
         String title = splitDeadline[0];
         String time = splitDeadline[1];
+
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-M-yyyy HHmm");
             LocalDateTime dateTime = LocalDateTime.parse(time, formatter);
             return new Deadline(title, dateTime);
         } catch (DateTimeParseException e) {
             throw new DukeException("Use dd-mm-yyyy HHmm as the date format.");
+        }
+    }
+
+    /**
+     * Parses a schedule input.
+     *
+     * @return a {@code Schedule} based on user's input.
+     * @throws DukeException if user left the description empty or entered invalid format.
+     */
+    private static Schedule parseSchedule(String[] schedule) throws DukeException {
+        if (schedule.length != 2 || schedule[1].isEmpty()) {
+            throw new DukeException("The description of a schedule cannot be empty.");
+        }
+
+        String[] splitSchedule = schedule[1].split(" /from ", 2);
+        if (splitSchedule.length != 2) {
+            throw new DukeException("Invalid input. Use: schedule schedule_title /from dd-mm-yyyy /to dd-mm-yyyy");
+        }
+
+        String[] splitDuration = splitSchedule[1].split(" /to ", 2);
+        if (splitDuration.length != 2) {
+            throw new DukeException("Invalid input. Use: schedule schedule_title /from dd-mm-yyyy /to dd-mm-yyyy");
+        }
+
+        String title = splitSchedule[0];
+        String from = splitDuration[0];
+        String to = splitDuration[1];
+
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-M-yyyy");
+            LocalDate fromDate = LocalDate.parse(from, formatter);
+            LocalDate toDate = LocalDate.parse(to, formatter);
+            return new Schedule(title, fromDate, toDate);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Invalid date input. Use /from dd-mm-yyyy /to dd-mm-yyyy");
         }
     }
 

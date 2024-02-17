@@ -26,7 +26,7 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a string representation of the event task, including its type, title, and deadline details.
+     * Returns a string representation of the event task, including its type, title, and event details.
      *
      * @return A formatted string representing the event task.
      */

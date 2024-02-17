@@ -29,6 +29,6 @@ public class DeleteTaskView extends Ui {
         return (
             "   Noted. I've removed this task:\n"
             + "   " + this.task.toString() + "\n"
-            + "   Now you have " + this.size + " tasks in the list. \uD83D\uDC27\n");
+            + "   Now you have " + this.size + " tasks in the list. \uD83D\uDC27");
     }
 }

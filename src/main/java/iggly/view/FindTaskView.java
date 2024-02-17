@@ -22,12 +22,16 @@ public class FindTaskView extends Ui {
      */
     @Override
     public String display() {
-        String list = "";
-        for (int i = 0; i < taskList.size(); i++) {
-            list += ("    " + (i + 1) + ". " + taskList.get(i).toString() + "\n");
+        if (taskList.size() == 0) {
+            return "There are no matching task in your task list. \uD83D\uDC27";
+        } else {
+            String list = "";
+            for (int i = 0; i < taskList.size(); i++) {
+                list += ("    " + (i + 1) + ". " + taskList.get(i).toString() + "\n");
+            }
+            return (
+                    "\uD83D\uDC27Here are the matching tasks in your list:\n"
+                            + list);
         }
-        return (
-                "\uD83D\uDC27Here are the matching tasks in your list:\n"
-                + list);
     }
 }

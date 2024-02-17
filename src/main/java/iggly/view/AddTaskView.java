@@ -29,6 +29,6 @@ public class AddTaskView extends Ui {
         return (
             "   Got it! I've added this task:\n"
             + "   " + this.task.toString() + "\n"
-            + "   Now you have " + this.size + " tasks in the list. \uD83D\uDC27\n");
+            + "   Now you have " + this.size + " tasks in the list. \uD83D\uDC27");
     }
 }

@@ -11,6 +11,6 @@ public class ExitView extends Ui {
     @Override
     public String display() {
         return (
-            " Bye. Hope to see you again soon! \uD83D\uDC27\n");
+            " Bye. Hope to see you again soon! \uD83D\uDC27");
     }
 }
