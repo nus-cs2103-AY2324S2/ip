@@ -100,7 +100,6 @@ public class Parser {
         // Commands with arguments
         if (inputArgs.length < 2 || inputArgs[1].equals("")) {
             throw new EmptyTaskException("Please input a task name\n");
-
         }
 
         String commandArg = inputArgs[1];
@@ -176,6 +175,8 @@ public class Parser {
         if (resultCommand == null) {
             throw new InvalidCommandException("Sorry, please type a valid command\n");
         }
+        // Assert resultCommand is valid command
+        assert resultCommand instanceof Command : "Parser.parse should return a Command object";
 
         return resultCommand;
     }

@@ -26,8 +26,12 @@ public class Storage {
      * @param directoryPath The directory that the text file is in
      */
     public Storage(String filePath, String directoryPath) {
+        // Assert that file path and directory path are not null
+        assert filePath != null && directoryPath != null : "file path and directory path should not be null";
+
         this.filePath = filePath;
         file = new File(filePath);
+
         File dir = new File(directoryPath);
 
         if (!dir.exists()) {
@@ -75,7 +79,7 @@ public class Storage {
                 }
 
                 if (actionType == "none") {
-                    // Empty file or invalid
+                    // Empty file or invalid file
                     break;
                 } else if (actionType == "todo") {
                     try {
@@ -157,6 +161,9 @@ public class Storage {
         }
 
         try {
+            // Assert that a filePath exists
+            assert this.filePath != null : "File path cannot be null when saving taskList to disk";
+
             FileWriter fw = new FileWriter(this.filePath);
             fw.write(content);
             fw.close();
@@ -165,3 +172,4 @@ public class Storage {
         }
     }
 }
+
