@@ -125,4 +125,9 @@ public class Ui {
         String numOfTasksMessage = showNumTasks(tasks);
         return addTaskMessage + "\n" + numOfTasksMessage;
     }
+
+    public String showEditTaskMessage(Task task) {
+        return "Task updated: " + task;
+    }
+
 }

@@ -3,6 +3,7 @@ package duke.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import duke.JamieException;
 
 /**
@@ -11,8 +12,8 @@ import duke.JamieException;
 public class Event extends Task {
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-    private final LocalDateTime fromDateTime;
-    private final LocalDateTime toDateTime;
+    private LocalDateTime fromDateTime;
+    private LocalDateTime toDateTime;
 
     /**
      * Constructs an Event task with the specified description, start time, and end time.
@@ -74,6 +75,22 @@ public class Event extends Task {
      */
     public LocalDateTime getTo() {
         return this.toDateTime;
+    }
+
+    public void setFrom(String from) throws JamieException {
+        try {
+            this.fromDateTime = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+        } catch (DateTimeParseException e) {
+            throw new JamieException("Invalid date format for start time. Please use 'dd/MM/yyyy HHmm'.");
+        }
+    }
+
+    public void setTo(String to) throws JamieException {
+        try {
+            this.toDateTime = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+        } catch (DateTimeParseException e) {
+            throw new JamieException("Invalid date format for end time. Please use 'dd/MM/yyyy HHmm'.");
+        }
     }
 
     /**

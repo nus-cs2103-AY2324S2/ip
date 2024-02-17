@@ -3,6 +3,7 @@ package duke.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import duke.JamieException;
 
 /**
@@ -11,7 +12,7 @@ import duke.JamieException;
 public class Deadline extends Task {
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-    private final LocalDateTime byDateTime;
+    private LocalDateTime byDateTime;
 
     /**
      * Constructs a Deadline task with the specified description and deadline.
@@ -60,6 +61,14 @@ public class Deadline extends Task {
      */
     public LocalDateTime getBy() {
         return this.byDateTime; // Consistency in using 'this' for class fields
+    }
+
+    public void setBy(String by) throws JamieException {
+        try {
+            this.byDateTime = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+        } catch (DateTimeParseException e) {
+            throw new JamieException("Invalid date format for deadline. Please use 'dd/MM/yyyy HHmm'.");
+        }
     }
 
     /**

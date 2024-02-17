@@ -4,6 +4,7 @@ import duke.command.AddTaskCommand;
 import duke.command.Command;
 import duke.command.CompleteTaskCommand;
 import duke.command.DeleteTaskCommand;
+import duke.command.EditTaskCommand;
 import duke.command.ExitTaskCommand;
 import duke.command.FindTaskCommand;
 import duke.command.ListTasksCommand;
@@ -48,6 +49,8 @@ public class Parser {
             return parseAddEventCommand(commandArgs);
         case "find":
             return new FindTaskCommand(commandArgs);
+        case "edit":
+            return parseEditTaskCommand(commandArgs);
         default:
             throw new JamieException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
@@ -95,5 +98,17 @@ public class Parser {
         }
         String[] eventTiming = eventDetails[1].split(" /to ");
         return new AddTaskCommand(new Event(eventDetails[0], eventTiming[0], eventTiming[1]));
+    }
+
+    private static Command parseEditTaskCommand(String details) throws JamieException {
+        String[] editDetails = details.split(" ", 3);
+        if (editDetails.length < 3) {
+            throw new JamieException("OOPS!!! Invalid format for editing a task. "
+                    + "Please use: edit <index> <attribute> <new value>");
+        }
+        int index = Integer.parseInt(editDetails[0]);
+        String attribute = editDetails[1];
+        String newValue = editDetails[2];
+        return new EditTaskCommand(index, attribute, newValue);
     }
 }

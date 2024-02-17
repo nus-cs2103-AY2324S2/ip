@@ -5,7 +5,7 @@ package duke.task;
  * This class serves as a base for different types of tasks that can be created, tracked, and managed.
  */
 public abstract class Task {
-    private final String description;
+    private String description;
     private boolean isDone;
 
     /**
