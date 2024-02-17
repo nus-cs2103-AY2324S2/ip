@@ -1,78 +1,100 @@
 # Duke Zeh
 
-> I'm not writing it down to remember it _later_, I'm writing it down to remember it **now**. - [Field Notes](https://fieldnotesbrand.com/)
+Duke Zeh is a task management application based on [Project Duke](https://nus-cs2103-ay1920s1.github.io/website/se-book-adapted/projectDuke/index.html).
 
-Duke Zeh is a task management application based on [Project Duke](https://nus-cs2103-ay1920s1.github.io/website/se-book-adapted/projectDuke/index.html)🔥.
+![Screenshot of application](https://kohguanzeh.github.io/ip/Ui.png)
 
-## Command List
-- `todo <task-name>`: Adds a new `ToDo` item.
-- `deadline <task-name> \by <dd-MM-yyyy HH:mm>`: Adds a new `Deadline` task.
-- `event <task-name> \from <dd-MM-yyyy HH:mm> \to <dd-MM-yyyy HH:mm>`: Adds a new `Event` item.
--  `mark <task-number>`: Marks task at index `<task-number>` as done.
-- `unmark <task-number>`: Marks task at index `<task-number>` as not done.
-- `delete <task-number>`: Deletes task at index `<task-number>`.
-- `find <task-name>`: Finds task with matching keywords of `<task-name>`.
-- `bye`: Exits the program.
-
-## Levels Implemented
-- [x] Level-0: Renaming Bot
-- [x] Level-1: Greet, Echo, Exit
-- [x] Level-2: Add, List
-- [x] Level-3: Mark as Done
-- [x] Level-4: ToDos, Events, Deadlines
-- [x] Level-5: Handle Errors
-- [x] Level-6: Delete
-- [x] Level-7: Save
-- [x] Level-8: Dates and Times
-- [x] Level-9: Find
-- [x] Level-10: GUI
+# User Guide
 
 ## Running Duke Zeh
-1. Download the repository [here](https://github.com/KohGuanZeh/ip).
-2. Run `./gradlew clean build` from root folder.
-3. Locate `duke.jar` from `builds/lib`.
-4. Run `java -jar duke.jar`.
+1. Download the `dukezeh.jar` [here](https://github.com/KohGuanZeh/ip/releases/tag/A-Release).
+2. It is recommended to move `dukezeh.jar` to an isolated folder.
+3. Open the terminal and navigate to folder where `dukezeh.jar` is located.
+4. Run `java -jar dukezeh.jar`.
 
-## Old Code Snippet of Duke Zeh
-The following code was when Duke Zeh (formally known as Duke Ted) ran with CLI.
-```java
-public class Duke {
-    // File directory of stored data.
-    private static final String FILE_DIRECTORY = "data";
-    // File name of stored data.
-    private static final String FILE_NAME = "duke.txt";
+## Command List
 
-    public static void main(String[] args) {
-        Ui ui = new Ui();
-        TaskList taskList = new TaskList();
-        Storage storage = null;
-        try {
-            storage = new Storage(Duke.FILE_DIRECTORY, Duke.FILE_NAME);
-            taskList.loadTasks(storage.load(), ui);
-        } catch (IOException e) {
-            ui.showError("Error in creating or accessing data file. Exiting...");
-            return;
-        }
-
-        ui.showGreeting();
-
-        boolean isQuit = false;
-        while (!isQuit) {
-            try {
-                String input = ui.readline();
-                ui.showLine();
-                Command command = Parser.parseInput(input);
-                command.run(taskList, ui, storage);
-                isQuit = command.isExit();
-            } catch (CommandException e) {
-                ui.showError(e.getMessage());
-            } catch (IOException e) {
-                ui.showError("An error has occurred with the save file. Exiting...");
-                isQuit = true;
-            } finally {
-                ui.showLine();
-            }
-        }
-    }
-}
+### Add ToDo Task
+Adds a new task with no datetime attached.
+- Note that the `<task-name>` **cannot** be empty.
 ```
+todo <task-name>
+```
+
+### Add Deadline Task
+Adds a new task with a deadline attached.
+- `<task-name>` **cannot** be empty.
+- Datetime format **must** adhere to `dd-MM-yyyy HH:mm`.
+```
+deadline <task-name> \by <dd-MM-yyyy HH:mm>
+```
+
+### Add Event Task
+Adds a new task with a start datetime and end datetime.
+- `<task-name>` **cannot** be empty.
+- Datetime format **must** adhere to `dd-MM-yyyy HH:mm`.
+```
+event <task-name> \from <dd-MM-yyyy HH:mm> \to <dd-MM-yyyy HH:mm>
+```
+
+### List Tasks
+List out all tasks saved in the list.
+```
+list
+```
+
+### Mark Task
+Marks a task as done based on specified index.
+- `<task-number>` is based on the **displayed index** of task.
+```
+mark <task-number>
+```
+
+### Unmark Task
+Marks a task a not done based on specified index.
+- `<task-number>` is based on the **displayed index** of task.
+```
+unmark <task-number>
+```
+
+### Delete Task
+Deletes a given task based on specified index. Tasks after the deleted task will have its index shifted.
+- `<task-number>` is based on the **displayed index** of task.
+- Task deletion can cause displayed indexes to **change**. Recommended to call `list` after `delete` operation.
+```
+delete <task-number>
+```
+
+### Add Task Priority
+Assigns a priority to a task based on specified index and value.
+- `<task-number>` is based on the **displayed index** of task.
+- By default no priority (priority none) is attached to all added tasks.
+- `<priority-value>` **ONLY** accepts `high`, `low` or `none`.
+- priority value of `none` will remove the given priority to the task.
+```
+priority <task-number> <priority-value>
+```
+
+### Find Task
+Lists tasks whose `<task-name>` contains all characters of `<keyword>` in order.
+- `<keyword>` cannot be empty but can contain ` `.
+```
+find <keyword>
+```
+
+### Exiting Program
+Program can be exited through closing the window or running the `bye` command.
+```
+bye
+```
+
+# Acknowledgements
+Many thanks to the professors in charge of CS2103. Many of their resources provided have been referenced for learning.
+
+Peers participating in the [forum](https://github.com/nus-cs2103-AY2324S2/forum/issues) have also been helpful towards development of this project.
+
+Most of the JavaFX code setup has been reused based on their [tutorial guide](https://se-education.org/guides/tutorials/javaFxPart1.html).
+
+The code base also attempts to adhere to the following [Java style guide](https://se-education.org/guides/conventions/java/index.html#java-coding-standard-all).
+
+The [textbook](https://nus-cs2103-ay2324s2.github.io/website/se-book-adapted/index.html) also served as an important guide in this software development project.
