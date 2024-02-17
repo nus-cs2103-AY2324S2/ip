@@ -1,7 +1,6 @@
 package earl;
 
 import earl.exceptions.EarlException;
-import earl.exceptions.ParserException;
 import earl.exceptions.StorageException;
 import earl.logic.Handler;
 import earl.util.Storage;
@@ -15,6 +14,15 @@ import earl.util.parsers.TaskStorageParser;
  */
 public class Earl {
 
+    private static final String[] GREETING_MESSAGE = {
+        "Greetings, I, Earl, extend my esteemed salutations.",
+        "Pray, how may I be of service to you on this auspicious day?"
+    };
+    private static final String[] GOODBYE_MESSAGE = {
+        "Farewell, dear interlocutor!",
+        "Until our paths intertwine again, I bid you adieu."
+    };
+
     private final Storage storage;
     private final TaskList tasks;
     private final Ui ui;
@@ -25,14 +33,14 @@ public class Earl {
      * @param filePath  a path to the text file storing past data
      */
     public Earl(String filePath) {
-        ui = new Ui();
+        ui = new Ui(GREETING_MESSAGE);
         storage = new Storage(filePath);
         tasks = new TaskList(storage.load(TaskStorageParser::parse));
         if (!storage.wasLoadSuccessful()) {
             ui.buildResponse("Storage hath succumb to corruption... ",
                     "initiating an unfortunate state of emptiness.");
         }
-        ui.showGreeting();
+        ui.completeResponse();
     }
 
     /** Main function for TUI mode. */
@@ -81,15 +89,13 @@ public class Earl {
             handler.handle(tasks, ui);
         } catch (EarlException e) {
             ui.makeResponse(e.getMessage());
-        } catch (ParserException e) {
-            ui.makeResponse("Input defies parsing: " + e.getMessage());
         }
     }
 
     private void saveAndExit() {
         try {
             storage.save(tasks.getAsStorageStringStream());
-            ui.showGoodbye();
+            ui.makeResponse(GOODBYE_MESSAGE);
         } catch (StorageException e) {
             ui.makeResponse("Alas, a grievous misfortune occurred "
                     + "during the endeavour to save.");

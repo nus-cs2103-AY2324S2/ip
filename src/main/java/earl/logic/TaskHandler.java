@@ -21,13 +21,12 @@ public abstract class TaskHandler extends Handler {
         try {
             Task newTask = type.createTask(data);
             tasks.add(newTask);
-
-            String first = "A new " + type.name() + " " + newTask.toString();
-            String second = "hath been appended to the "
-                    + "roster of responsibilities.";
-            String third = "The ledger of tasks bears witness to "
-                    + tasks.getSize() + " endeavour(s).";
-            return new String[]{first, second, third};
+            return new String[]{
+                "A new " + type.name() + " " + newTask.toString(),
+                "hath been appended to the roster of responsibilities.",
+                "The ledger of tasks bears witness to "
+                        + tasks.getSize() + " endeavour(s)."
+            };
         } catch (IndexOutOfBoundsException e) {
             throw new EarlException("An error befalls.");
         } catch (TimeException e) {

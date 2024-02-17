@@ -1,14 +1,12 @@
 package earl.util.parsers;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-import earl.exceptions.ParserException;
 import earl.logic.Handler;
+import earl.logic.HelpHandler;
 import earl.logic.TodoHandler;
 
 class InputParserTest {
@@ -21,12 +19,8 @@ class InputParserTest {
     }
 
     @Test
-    void parse_invalidInput_exceptionThrown() {
-        try {
-            InputParser.parse("no ip");
-            fail();
-        } catch (ParserException e) {
-            assertEquals("no ip", e.getMessage());
-        }
+    void parse_invalidInput_returnHelpHandler() {
+        Handler handler = InputParser.parse("no ip");
+        assertInstanceOf(HelpHandler.class, handler);
     }
 }

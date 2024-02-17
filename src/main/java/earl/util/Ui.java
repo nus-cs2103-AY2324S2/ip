@@ -12,24 +12,17 @@ public class Ui {
     private static final String PADDING = " ".repeat(4);
     private static final String DIVIDER = "_".repeat(60);
     private static final String NEWLINE = System.lineSeparator();
-    private static final String GREETING_MESSAGE =
-            "Greetings, I, Earl, extend my esteemed salutations." + NEWLINE
-            + PADDING + "Pray, how may I be of service to you"
-                    + " on this auspicious day?";
-    private static final String GOODBYE_MESSAGE =
-            "Farewell, dear interlocutor!" + NEWLINE
-            + PADDING + "Until our paths intertwine again, I bid you adieu.";
 
     private final Scanner sc;
     private final List<String> delayedResponse;
+
     private String[] response; // the lines of the previous response
 
     /** Class constructor. */
-    public Ui() {
+    public Ui(String... initialMessage) {
         sc = new Scanner(System.in);
-        response = new String[1];
-        response[0] = GREETING_MESSAGE;
-        delayedResponse = new ArrayList<>();
+        response = initialMessage;
+        delayedResponse = new ArrayList<>(List.of(initialMessage));
     }
 
     private void setPrevResponse(String... arr) {
@@ -86,17 +79,6 @@ public class Ui {
 
     public String appendNewline(String line) {
         return line + NEWLINE;
-    }
-
-    /** Displays the initial greeting. */
-    public void showGreeting() {
-        // response is built in case of any preceding error messages
-        buildResponse(GREETING_MESSAGE);
-        completeResponse();
-    }
-
-    public void showGoodbye() {
-        makeResponse(GOODBYE_MESSAGE);
     }
 
     /**

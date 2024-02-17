@@ -52,6 +52,12 @@ public enum HandlerType {
         public Handler createHandler(String args) {
             return new FindHandler(args);
         }
+    },
+    HELP {
+        @Override
+        public Handler createHandler(String args) {
+            return new HelpHandler(args);
+        }
     };
 
     public abstract Handler createHandler(String args);
