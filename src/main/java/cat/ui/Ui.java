@@ -29,26 +29,6 @@ public class Ui {
     }
 
     /**
-     * Prints the mascot.
-     */
-    public void showCat() {
-        System.out.println(" |\\ /| ");
-        System.out.println("=(O O)=");
-        System.out.println(" /   \\ ");
-    }
-
-    /**
-     * Shows the greeting message.
-     */
-    public void showWelcome() {
-        showLine();
-        showCat();
-        System.out.println("The cat that lives in your walls pokes its head out.");
-        System.out.println("Its waiting for you to ask something.");
-        showLine();
-    }
-
-    /**
      * Shows the ending message.
      */
     public void showBye() {
