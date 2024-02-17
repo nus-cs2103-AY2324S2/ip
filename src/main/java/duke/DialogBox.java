@@ -75,8 +75,6 @@ public class DialogBox extends HBox {
         return db;
     }
 
-
-
     public static DialogBox getDukeDialog(Label l, ImageView iv) {
         var db = new DialogBox(l, iv);
         db.flip();

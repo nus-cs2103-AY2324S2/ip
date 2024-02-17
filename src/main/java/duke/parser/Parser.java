@@ -28,6 +28,7 @@ public class Parser {
      * @return ToDo, Event or Deadline Task stored in given line.
      */
     public static Task parseFromStorage(String taskStored) {
+        assert !taskStored.isEmpty() : "Task stored cannot be empty string";
         String[] taskLine = taskStored.split(";;;"); // eg. [task code, mark status, description & date if any]
         String taskCode = taskLine[0];
         boolean isMarked = taskLine[1].equals("1");
@@ -130,7 +131,6 @@ public class Parser {
         String eventFormTxt = "Sorry! Please use the given format for event tasks:\n"
                 + "\tevent (description) /from DD/MM/YYYY hhmm /to DD/MM/YYYY hhmm\n"
                 + "\teg. event assignment /from 30/01/2023 1200 /to 12/02/2023 2359\n";
-
         try {
             String[] fullCmdArr = fullCmd.split("/from ");
             if (fullCmdArr.length != 2) {
@@ -155,6 +155,7 @@ public class Parser {
     }
 
     private static AddCommand parseToDo(String fullCmd) throws DukeException {
+        assert !fullCmd.isEmpty() : "Command cannot be empty";
         if (fullCmd.length() < 5) { // "Todo ..."
             throw new DukeException("Description Blank");
         }
@@ -167,6 +168,8 @@ public class Parser {
     }
 
     private static DeleteCommand parseDelete(String fullCmd) throws DukeException {
+        assert !fullCmd.isEmpty() : "Command cannot be empty";
+
         String deleteFormTxt = "Did you mean to delete the task? Please do this:\n"
                 + "\tdelete (number)\n";
         try {
@@ -179,6 +182,7 @@ public class Parser {
 
     private static FindCommand parseFind(String fullCmd)
             throws DukeException {
+        assert !fullCmd.isEmpty() : "Command cannot be empty";
         String findFormTxt = "Please specify the keyword you wish to find!\n";
         try {
             String query = fullCmd.split(" ", 2)[1];
@@ -192,14 +196,15 @@ public class Parser {
     }
 
     private static LocalDateTime parseCmdDate(String dateTime) {
+        assert !dateTime.isEmpty() : "Date cannot be empty";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         return LocalDateTime.parse(dateTime, formatter);
     }
 
     private static LocalDateTime parseStorageDate(String date) {
+        assert !date.isEmpty() : "Date cannot be empty";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         return LocalDateTime.parse(date, formatter);
     }
-
 
 }
