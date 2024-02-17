@@ -1,4 +1,4 @@
-package dialogBox;
+package dialogbox;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

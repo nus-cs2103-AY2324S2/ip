@@ -1,6 +1,8 @@
 package duke;
 
 import java.util.ArrayList;
+
+import dialogbox.DialogBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.application.Application;
@@ -19,7 +21,6 @@ import task.TaskList;
 import ui.Ui;
 import storage.Storage;
 import parser.Parser;
-import dialogBox.DialogBox;
 
 /**
  * The main class for duke chat bot.
@@ -56,7 +57,7 @@ public class Duke extends Application {
 
     /**
      * Iteration 1:
-     * Creates a label with the specified text and adds it to the dialog container.
+     * Returns a label with the specified text and adds it to the dialog container.
      * 
      * @param text String containing text to add
      * @return a label with the specified text that has word wrap enabled.
@@ -71,7 +72,7 @@ public class Duke extends Application {
 
     /**
      * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing
+     * Returns two dialog boxes, one echoing user input and the other containing
      * Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
@@ -123,11 +124,8 @@ public class Duke extends Application {
         scrollPane.setPrefSize(385, 535);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
-
-        // You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
         userInput.setPrefWidth(325.0);

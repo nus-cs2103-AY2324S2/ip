@@ -63,41 +63,15 @@ public class Parser {
             String description = userInput.substring(firstSpaceIndex + 1);
             switch (firstWord) {
                 case "todo": {
-                    if (words.length == 1) {
-                        System.out.println("The description of a todo cannot be empty!");
-                    } else {
-                        Task t = new Todo(description);
-                        this.todoList.add(t);
-                        this.todoList.listOverviewAfterAdding(t, this.storage);
-                    }
+                    todoCase(words, description);
                     break;
                 }
                 case "deadline": {
-                    if (words.length == 1) {
-                        System.out.println("The description of a deadline cannot be empty!");
-                    } else {
-                        String[] parts = description.split("\\\\by");
-                        String ddl_description = parts.length > 0 ? parts[0].trim() : "";
-                        String ddl_time = parts.length > 1 ? parts[1].trim() : "";
-                        Task t = new Deadline(ddl_description, this.storage.readAsDate(ddl_time));
-                        this.todoList.add(t);
-                        this.todoList.listOverviewAfterAdding(t, this.storage);
-                    }
+                    deadlineCase(words, description);
                     break;
                 }
                 case "event": {
-                    if (words.length == 1) {
-                        System.out.println("The description of a todo cannot be empty!");
-                    } else {
-                        String[] parts = userInput.split("\\\\from|\\\\to");
-                        String event_description = parts.length > 0 ? parts[0].trim() : "";
-                        String event_from = parts.length > 1 ? parts[1].trim() : "";
-                        String event_to = parts.length > 2 ? parts[2].trim() : "";
-                        Task t = new Event(event_description, this.storage.readAsDate(event_from),
-                                this.storage.readAsDate(event_to));
-                        this.todoList.add(t);
-                        this.todoList.listOverviewAfterAdding(t, this.storage);
-                    }
+                    eventCase(userInput, words);
                     break;
                 }
                 default:
@@ -106,6 +80,44 @@ public class Parser {
             }
         } else {
             System.out.println("Sorry, I don't understand your command.");
+        }
+    }
+
+    private void eventCase(String userInput, String[] words) {
+        if (words.length == 1) {
+            System.out.println("The description of a todo cannot be empty!");
+        } else {
+            String[] parts = userInput.split("\\\\from|\\\\to");
+            String event_description = parts.length > 0 ? parts[0].trim() : "";
+            String event_from = parts.length > 1 ? parts[1].trim() : "";
+            String event_to = parts.length > 2 ? parts[2].trim() : "";
+            Task t = new Event(event_description, this.storage.readAsDate(event_from),
+                    this.storage.readAsDate(event_to));
+            this.todoList.add(t);
+            this.todoList.listOverviewAfterAdding(t, this.storage);
+        }
+    }
+
+    private void deadlineCase(String[] words, String description) {
+        if (words.length == 1) {
+            System.out.println("The description of a deadline cannot be empty!");
+        } else {
+            String[] parts = description.split("\\\\by");
+            String ddl_description = parts.length > 0 ? parts[0].trim() : "";
+            String ddl_time = parts.length > 1 ? parts[1].trim() : "";
+            Task t = new Deadline(ddl_description, this.storage.readAsDate(ddl_time));
+            this.todoList.add(t);
+            this.todoList.listOverviewAfterAdding(t, this.storage);
+        }
+    }
+
+    private void todoCase(String[] words, String description) {
+        if (words.length == 1) {
+            System.out.println("The description of a todo cannot be empty!");
+        } else {
+            Task t = new Todo(description);
+            this.todoList.add(t);
+            this.todoList.listOverviewAfterAdding(t, this.storage);
         }
     }
 

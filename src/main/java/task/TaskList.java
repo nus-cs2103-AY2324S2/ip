@@ -19,17 +19,20 @@ public class TaskList {
         this.todoList.add(t);
     }
 
+    private void printHelper(int length) {
+        for (int i = 0; i < length; i++) {
+            String pos = String.valueOf(i + 1);
+            System.out.println(pos + "." + this.todoList.get(i));
+        }
+    }
+
     public void printList() {
         int length = this.todoList.size();
         if (length == 0) {
             System.out.println("There is no task in your list.");
         } else {
             System.out.println("Here are the tasks in your list:");
-
-            for (int i = 0; i < length; i++) {
-                String pos = String.valueOf(i + 1);
-                System.out.println(pos + "." + this.todoList.get(i));
-            }
+            printHelper(length);
         }
     }
 
@@ -38,11 +41,19 @@ public class TaskList {
         if (length == 0) {
             System.out.println("There is no task in your list that contains the keyword '" + keyword + "'");
         } else {
-            for (int i = 0; i < length; i++) {
-                String pos = String.valueOf(i + 1);
-                System.out.println(pos + "." + result.todoList.get(i));
-            }
+            printHelper(length);
         }
+    }
+
+    private void updateHelper(Task t, Storage storage) {
+        System.out.println(t);
+        int length = this.todoList.size();
+        if (length == 1) {
+            System.out.println("Now you have " + length + " task in the list.");
+        } else {
+            System.out.println("Now you have " + length + " tasks in the list.");
+        }
+        storage.autoUpdate(this.todoList);
     }
 
     /**
@@ -54,14 +65,7 @@ public class TaskList {
 
     public void listOverviewAfterAdding(Task t, Storage storage) {
         System.out.println("Got it. I've added this task:");
-        System.out.println(t);
-        int length = this.todoList.size();
-        if (length == 1) {
-            System.out.println("Now you have " + length + " task in the list.");
-        } else {
-            System.out.println("Now you have " + length + " tasks in the list.");
-        }
-        storage.autoUpdate(this.todoList);
+        updateHelper(t, storage);
     }
 
     /**
@@ -96,14 +100,7 @@ public class TaskList {
         int number = Integer.parseInt(words[1]);
         Task t = this.todoList.remove(number - 1);
         System.out.println("Noted. I've removed this task:");
-        System.out.println(t);
-        int length = this.todoList.size();
-        if (length == 1) {
-            System.out.println("Now you have " + length + " task in the list.");
-        } else {
-            System.out.println("Now you have " + length + " tasks in the list.");
-        }
-        storage.autoUpdate(this.todoList);
+        updateHelper(t, storage);
     }
 
     public void findTask(String userInput, Storage storage) {
