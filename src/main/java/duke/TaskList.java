@@ -27,7 +27,11 @@ public class TaskList {
      * @return A string representing the information about the marked task.
      */
     public String markList(String[] parts) {
-        //System.out.println("");
+        // Assumption: Command parts should be provided
+        assert parts.length > 1 : "Command parts must be provided";
+        // Assumption: Task list should not be empty when marking tasks
+        assert !myList.isEmpty() : "Task list should not be empty";
+
         int index = Integer.parseInt(parts[1]) - 1;
         Ui ui = new Ui();
 
@@ -48,7 +52,11 @@ public class TaskList {
      * @return A string representing the information about the unmarked.
      */
     public String unmarkList(String[] parts) {
-        //System.out.println("");
+        // Assumption: Command parts should be provided
+        assert parts.length > 1 : "Command parts must be provided";
+        // Assumption: Task list should not be empty when marking tasks
+        assert !myList.isEmpty() : "Task list should not be empty";
+
         int index = Integer.parseInt(parts[1]) - 1;
         Ui ui = new Ui();
 
