@@ -79,6 +79,10 @@ public class TaskList implements Serializable {
                 .collect(Collectors.joining()).stripTrailing();
     }
 
+    public boolean isEmpty() {
+        return tasks.isEmpty();
+    }
+
     /**
      * An exception used to signal that a task from a given request doesn't exist.
      */

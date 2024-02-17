@@ -6,6 +6,7 @@ import cat.Storage;
 import cat.TaskList;
 import cat.task.Task;
 import cat.ui.Ui;
+import cat.ui.response.Response;
 
 /**
  * A command to change the completion status of a task.
@@ -26,9 +27,8 @@ public class CompleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public Response execute(TaskList tasks, Storage storage) {
         assert tasks != null : "The task list must not be null";
-        assert ui != null : "The ui must not be null";
         assert storage != null : "The storage must not be null";
 
         ArrayList<Integer> missingIndices = new ArrayList<>();
@@ -51,9 +51,9 @@ public class CompleteCommand extends Command {
         }
 
         if (!missingIndices.isEmpty()) {
-            builder.append("Could not find tasks with indices: ").append(missingIndices);
+            return Ui.showError(new Exception("Could not find tasks with indices: " + missingIndices));
         }
 
-        ui.showNote(builder.toString());
+        return Ui.showNote(builder.toString());
     }
 }

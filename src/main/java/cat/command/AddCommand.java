@@ -9,6 +9,7 @@ import cat.task.Event;
 import cat.task.Task;
 import cat.task.Todo;
 import cat.ui.Ui;
+import cat.ui.response.Response;
 
 /**
  * A command to add a task to the task list.
@@ -43,13 +44,13 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public Response execute(TaskList tasks, Storage storage) {
         try {
             Task task = createTask();
             tasks.addTask(task);
-            ui.showAddedTask(task);
+            return Ui.showAddedTask(task);
         } catch (Task.InvalidComponents e) {
-            ui.showError(e);
+            return Ui.showError(e);
         }
     }
 

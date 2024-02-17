@@ -1,9 +1,8 @@
 package cat.ui.response;
 
-public class WelcomeResponse extends Response {
-    public WelcomeResponse(String blurb, String output) {
-        super(welcomeBlurb(), output);
-        setOutputColor("ffffff");
+public class WelcomeResponse extends NoteResponse {
+    public WelcomeResponse() {
+        super(blurb(), info());
     }
 
     private static String catAscii() {
@@ -12,7 +11,12 @@ public class WelcomeResponse extends Response {
                 + " /   \\ \n";
     }
 
-    private static String welcomeBlurb() {
-        return catAscii() + "The cat that lives in your walls pokes its head out.";
+    private static String blurb() {
+        return catAscii()
+                + "The cat that lives in your walls pokes its head out.";
+    }
+
+    private static String info() {
+        return "It seems like it's waiting for a response";
     }
 }

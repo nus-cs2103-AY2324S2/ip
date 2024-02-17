@@ -3,6 +3,7 @@ package cat.command;
 import cat.Storage;
 import cat.TaskList;
 import cat.ui.Ui;
+import cat.ui.response.Response;
 
 /**
  * A command to find the tasks matching a certain query.
@@ -19,9 +20,8 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        assert ui != null : "The ui must not be null";
+    public Response execute(TaskList tasks, Storage storage) {
         TaskList matchingTasks = tasks.find(query);
-        ui.showNote("Found tasks:\n" + matchingTasks);
+        return Ui.showNote("Found tasks:\n" + matchingTasks);
     }
 }

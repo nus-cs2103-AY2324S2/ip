@@ -3,16 +3,18 @@ package cat.command;
 import cat.Storage;
 import cat.TaskList;
 import cat.ui.Ui;
+import cat.ui.response.Response;
 
 /**
  * A command to list all the tasks in the task list.
  */
 public class ListCommand extends Command {
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public Response execute(TaskList tasks, Storage storage) {
         assert tasks != null : "The task list must not be null";
-        assert ui != null : "The ui must not be null";
-
-        ui.showNote("Your tasks:\n" + tasks.toString());
+        if (tasks.isEmpty()) {
+            return Ui.showNote("You have no tasks added");
+        }
+        return Ui.showNote("Your tasks:\n" + tasks.toString());
     }
 }

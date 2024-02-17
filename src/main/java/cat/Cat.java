@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import cat.command.Command;
 import cat.ui.Ui;
+import cat.ui.response.Response;
 
 /**
  * The main class of the Duke program.
@@ -40,16 +41,15 @@ public class Cat {
         this(FILE_NAME);
     }
 
-    public String getResponse(String input) {
+    public Response getResponse(String input) {
         try {
             Command c = Parser.parse(input);
-            c.execute(tasks, ui, storage);
+            return c.execute(tasks, storage);
         } catch (Parser.InvalidCommandType e) {
-            ui.showCommandNotFound(e.getCommand());
+            return Ui.showCommandNotFound(e.getCommand());
         } catch (Parser.InvalidCommandData e) {
-            ui.showError(e);
+            return Ui.showError(e);
         }
-        return ui.flush();
     }
 
     /**

@@ -27,6 +27,27 @@ public abstract class Response extends VBox {
     @FXML
     private Pane outputPane;
 
+    protected static class Colors {
+        public static final String BLACK = "424242";
+        public static final String RED = "E57373";
+        public static final String GREEN = "C5E1A5";
+        public static final String YELLOW = "FFEE58";
+        public static final String BLUE = "64B5F6";
+        public static final String MAGENTA = "E1BEE7";
+        public static final String CYAN = "80DEEA";
+        public static final String WHITE = "9E9E9E";
+
+        public static final String BRIGHT_BLACK = "757575";
+        public static final String BRIGHT_RED = "EF9A9A";
+        public static final String BRIGHT_GREEN = "F4FF81";
+        public static final String BRIGHT_YELLOW = "FFF59D";
+        public static final String BRIGHT_BLUE = "42A5F5";
+        public static final String BRIGHT_MAGENTA = "9575CD";
+        public static final String BRIGHT_CYAN = "26C6DA";
+        public static final String BRIGHT_WHITE = "E0E0E0";
+    }
+
+
     public Response(String blurb, String output) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/Result.fxml"));
