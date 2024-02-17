@@ -31,6 +31,14 @@ public class Duke {
     private final Storage storage;
     private TaskList tasks;
 
+    Duke() throws IOException {
+        this(DukeConfig.Default());
+    }
+
+    public String getResponse(String input) {
+        return "Duke heard: " + input;
+    }
+
     Duke(DukeConfig config) throws IOException {
         ui = new TextUi();
         storage = new FileStorage(config.getFilePath());
@@ -61,6 +69,6 @@ public class Duke {
     }
 
     public static void main(String[] args) throws IOException {
-        new Duke(DukeConfig.Default()).run();
+        new Duke().run();
     }
 }
