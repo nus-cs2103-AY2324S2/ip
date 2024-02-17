@@ -91,4 +91,8 @@ public class Ui {
         return "OK, I've marked this task as not done yet:\n";
     }
 
+    public String showClearDoneTaskResponse() {
+        return "I've removed all the tasks that are done from the list.\n";
+    }
+
 }

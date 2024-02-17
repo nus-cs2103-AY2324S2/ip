@@ -1,4 +1,3 @@
-T | 0 | read
 D | 0 | homework  | 2024-01-02 1800
-T | 1 | sleep
-T | 0 | go home
+T | 0 | homework
+D | 0 | sleep  | 2024-01-01 1900

@@ -34,6 +34,10 @@ public class TaskList {
         return new TaskList(foundTasks);
     }
 
+    /**
+     * Returns the list of tasks in the required format to be saved in the file.
+     * @return The list of tasks.
+     */
     public String getTaskListString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < listStore.size(); i++) {
@@ -54,8 +58,18 @@ public class TaskList {
         return listStore.get(index - 1);
     }
 
+    /**
+     * Adds a task to the list of tasks.
+     * @param task The task to be added.
+     */
     public void addTask(Task task) {
         listStore.add(task);
     }
 
+    /**
+     * Removes the tasks that are done in the list of tasks.
+     */
+    public void clearDoneTasks() {
+        listStore.removeIf(task -> task.getIsDone());
+    }
 }
