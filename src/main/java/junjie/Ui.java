@@ -13,8 +13,10 @@ public class Ui {
      * @param str The string to be printed.
      */
     public void print(String str) {
-        System.out.println("-------------------------");
+        String separator = "-------------------------";
+
+        System.out.println(separator);
         System.out.println(str);
-        System.out.println("-------------------------");
+        System.out.println(separator);
     }
 }

@@ -26,29 +26,38 @@ public class TaskList extends ArrayList<Task> {
         String[] tasks = fileContents.split("\n");
         for (String task : tasks) {
             String[] taskDetails = task.split(" \\| ");
-            String taskType = taskDetails[0];
-            boolean isDone = taskDetails[1].equals("1");
-            String taskContent = taskDetails[2];
-            try {
-                switch (taskType) {
-                case "T":
-                    this.add(new TodoTask(taskContent, isDone));
-                    break;
-                case "D":
-                    String deadline = taskDetails[3];
-                    this.add(new DeadlineTask(taskContent, deadline, isDone));
-                    break;
-                case "E":
-                    String eventFrom = taskDetails[3];
-                    String eventTo = taskDetails[4];
-                    this.add(new EventTask(taskContent, eventFrom, eventTo, isDone));
-                    break;
-                default:
-                    throw new InvalidArgumentException("Invalid task type in file.");
-                }
-            } catch (DateTimeException | InvalidArgumentException e) {
-                System.out.println(e.getMessage());
+            createTaskFromDetails(taskDetails);
+        }
+    }
+
+    /**
+     * Constructs a task list with the given tasks.
+     *
+     * @param tasks The tasks to add to the task list.
+     */
+    private void createTaskFromDetails(String[] taskDetails) {
+        String taskType = taskDetails[0];
+        boolean isDone = taskDetails[1].equals("1");
+        String taskContent = taskDetails[2];
+        try {
+            switch (taskType) {
+            case "T":
+                this.add(new TodoTask(taskContent, isDone));
+                break;
+            case "D":
+                String deadline = taskDetails[3];
+                this.add(new DeadlineTask(taskContent, deadline, isDone));
+                break;
+            case "E":
+                String eventFrom = taskDetails[3];
+                String eventTo = taskDetails[4];
+                this.add(new EventTask(taskContent, eventFrom, eventTo, isDone));
+                break;
+            default:
+                throw new InvalidArgumentException("Invalid task type in file.");
             }
+        } catch (DateTimeException | InvalidArgumentException e) {
+            System.out.println(e.getMessage());
         }
     }
 
