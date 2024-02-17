@@ -1,8 +1,8 @@
-package duke.Tasks;
+package duke.tasks;
 
 
 import java.time.LocalDate;
-import duke.Parsers.DateTimeParser;
+import duke.parsers.DateTimeParser;
 
 /**
  * Type of task with a deadline

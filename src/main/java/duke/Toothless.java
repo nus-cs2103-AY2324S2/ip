@@ -1,21 +1,13 @@
 package duke;
 
-import duke.Parsers.FileParser;
-import duke.Tasks.Task;
-import duke.Tasks.TaskList;
-import duke.frontend.DialogBox;
-import javafx.application.Application;
+import duke.parsers.FileParser;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.util.Pair;
 
 import java.io.File;
@@ -41,6 +33,10 @@ public class Toothless {
     private String currentCommand;
     //private Image userImage = new Image(this.getClass().getResourceAsStream("/images/bunny.jpeg"));
     //private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/wisdom.jpeg"));
+
+    /**
+     * Method to instantiate the Toothless class. Toothless is instantiated when Launcher is run, which will run the main class and call this method.
+     */
     public Toothless() {
         this.ui = new Ui();
         this.currentCommand = "";
@@ -54,6 +50,8 @@ public class Toothless {
             System.err.println("Error creating the file: " + e.getMessage());
             e.printStackTrace();
         }
+
+
         FileParser fileParser = new FileParser(f);
         try {
             fileParser.parseFile(f);
@@ -64,6 +62,12 @@ public class Toothless {
         this.taskList = fileParser.getTaskList();
 
     }
+
+    /**
+     * Collects the user input and returns a string as response
+     * @param input Command that user inputs
+     * @return String response
+     */
     public String getResponse(String input) {
         this.currentCommand = input;
         Pair<TaskList, String> output = parser.parse(this.taskList, input);
@@ -72,6 +76,7 @@ public class Toothless {
     }
 
     public static void main(String[] args) {
+        ClassLoader.getSystemClassLoader().setDefaultAssertionStatus(true);
         new Toothless().run();
     }
 
@@ -82,6 +87,7 @@ public class Toothless {
         String message = "";
         ui.bye();
         Storage storage = new Storage(this.taskList);
+
         try {
             storage.store();
         } catch (IOException e) {
@@ -91,6 +97,10 @@ public class Toothless {
 
     }
 
+    /**
+     * Prints out task list
+     * @param tasksList task list to be printed out
+     */
     static void printTasks(ArrayList<Task> tasksList) {
         int taskCount = 1;
         for (Task t : tasksList) {
@@ -99,6 +109,9 @@ public class Toothless {
         }
     }
 
+    /**
+     * Prints out line for formatting purposes when not running GUI
+     */
     static void printLines() {
         System.out.println("____________________________________________________________");
     }

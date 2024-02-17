@@ -1,6 +1,8 @@
-package duke.Tasks;
+package duke.tasks;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Class that keeps track of a list of tasks.
@@ -11,6 +13,10 @@ public class TaskList {
 
     public TaskList() {
         this.tasksList = new ArrayList<Task>();
+    }
+
+    public TaskList(ArrayList<Task> tasksList) {
+        this.tasksList = tasksList;
     }
 
     /**
