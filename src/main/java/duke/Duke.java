@@ -75,6 +75,7 @@ public class Duke {
     public String getResponse(String input) {
         try {
             if (Parser.isExit(input)) {
+                this.storage.writeTasks(this.tasks);
                 javafx.application.Platform.exit();
             }
             Command cmd = Parser.parse(input, this.tasks);
