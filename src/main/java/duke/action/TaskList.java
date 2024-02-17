@@ -11,18 +11,18 @@ import duke.task.ToDo;
  * Represents a list of tasks in the Duke application.
  */
 
-public class TaskList extends ArrayList<Task> implements Iterable<Task> {
+public class TaskList extends ArrayList<Task> implements Action, Iterable<Task> {
 
     /**
      * The list containing tasks.
      */
-    private final ArrayList<Task> mylist;
+    private final ArrayList<Task> tasks;
 
     /**
      * Constructs an empty TaskList.
      */
     public TaskList() {
-        this.mylist = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
     /**
@@ -31,7 +31,7 @@ public class TaskList extends ArrayList<Task> implements Iterable<Task> {
      * @return The number of tasks in the list.
      */
     public int size() {
-        return mylist.size();
+        return tasks.size();
     }
 
     /**
@@ -41,8 +41,8 @@ public class TaskList extends ArrayList<Task> implements Iterable<Task> {
      * @return The task at the specified index or null if the index is invalid.
      */
     public Task get(int index) {
-        if (index >= 0 && index < mylist.size()) {
-            return mylist.get(index);
+        if (index >= 0 && index < tasks.size()) {
+            return tasks.get(index);
         }
         return null;
     }
@@ -54,10 +54,10 @@ public class TaskList extends ArrayList<Task> implements Iterable<Task> {
      * @return The deleted task or null if the index is invalid.
      */
     public Task deleteTask(int index) {
-        if (index >= 0 && index < mylist.size()) {
-            System.out.println("Noted. I've removed this task:\n" + mylist.get(index).toString()
-                    + "\nNow you have " + (mylist.size() - 1) + " tasks in the list.");
-            return mylist.remove(index);
+        if (index >= 0 && index < tasks.size()) {
+            System.out.println("Noted. I've removed this task:\n" + tasks.get(index).toString()
+                    + "\nNow you have " + (tasks.size() - 1) + " tasks in the list.");
+            return tasks.remove(index);
         } else {
             return null;
         }
@@ -69,7 +69,7 @@ public class TaskList extends ArrayList<Task> implements Iterable<Task> {
      * @param task The task to be added.
      */
     public void addTask(Task task) {
-        mylist.add(task);
+        tasks.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task);
         System.out.println("Now you have " + this.size() + " tasks in the list.");
@@ -82,7 +82,7 @@ public class TaskList extends ArrayList<Task> implements Iterable<Task> {
      */
     public void markTask(int index) {
         if (validateIndex(index)) {
-            Task taskToMark = mylist.get(index);
+            Task taskToMark = tasks.get(index);
             taskToMark.mark();
             System.out.println("Nice! I've marked this task as done:");
             System.out.println(taskToMark);
@@ -96,7 +96,7 @@ public class TaskList extends ArrayList<Task> implements Iterable<Task> {
      */
     public void unmarkTask(int index) {
         if (validateIndex(index)) {
-            Task taskToUnmark = mylist.get(index);
+            Task taskToUnmark = tasks.get(index);
             taskToUnmark.unmark();
             System.out.println("OK, I've marked this task as not done yet:" + taskToUnmark.toString());
             System.out.println(taskToUnmark);
@@ -109,8 +109,8 @@ public class TaskList extends ArrayList<Task> implements Iterable<Task> {
     public void displayTasks() {
         System.out.print("");
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < mylist.size(); i++) {
-            System.out.println("  " + (i + 1) + ". " + mylist.get(i));
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println("  " + (i + 1) + ". " + tasks.get(i));
         }
     }
 
@@ -121,7 +121,7 @@ public class TaskList extends ArrayList<Task> implements Iterable<Task> {
      * @return True if the index is valid, false otherwise.
      */
     public boolean validateIndex(int index) {
-        if (index >= 0 && index < mylist.size()) {
+        if (index >= 0 && index < tasks.size()) {
             return true;
         } else {
             //System.out.println("Invalid task index. Please provide a valid index.");
@@ -137,18 +137,11 @@ public class TaskList extends ArrayList<Task> implements Iterable<Task> {
     }
 
     /**
-     * Prints a welcome message.
-     */
-    public void hello() {
-        System.out.println(" Hello I'm NoisyChatter");
-        System.out.println(" What can I do for you?");
-    }
-    /**
      * Finds the matches.
      */
     public void matches(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
-        for (Task task : mylist) {
+        for (Task task : tasks) {
             if (task.getDescription().contains(keyword)) {
                 matchingTasks.add(task);
             }
@@ -171,11 +164,11 @@ public class TaskList extends ArrayList<Task> implements Iterable<Task> {
      */
     @Override
     public Iterator<Task> iterator() {
-        return mylist.iterator();
+        return tasks.iterator();
     }
 
     public boolean contains(Task task) {
-        for (Task t : mylist) {
+        for (Task t : tasks) {
             if (t.equals(task)) {
                 return true;
             }
@@ -192,8 +185,8 @@ public class TaskList extends ArrayList<Task> implements Iterable<Task> {
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Here are the tasks in your list:\n");
-        for (int i = 0; i < mylist.size(); i++) {
-            stringBuilder.append("  ").append(i + 1).append(". ").append(mylist.get(i)).append("\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            stringBuilder.append("  ").append(i + 1).append(". ").append(tasks.get(i)).append("\n");
         }
         return stringBuilder.toString();
     }

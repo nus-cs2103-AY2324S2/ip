@@ -11,7 +11,6 @@ import duke.action.Delete;
 import duke.action.Echo;
 import duke.action.Farewell;
 import duke.action.Mark;
-import duke.action.MyList;
 import duke.action.TaskList;
 import duke.action.Unmark;
 import duke.exception.EmptyDescriptionException;
@@ -37,7 +36,7 @@ public class CommandParserTest {
 
             // Test "list" command
             action = CommandParser.parseCommand("list", taskList);
-            assertTrue(action instanceof MyList);
+            assertTrue(action instanceof TaskList);
 
             // Test "mark" command
             action = CommandParser.parseCommand("mark 1", taskList);

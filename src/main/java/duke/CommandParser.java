@@ -9,7 +9,6 @@ import duke.action.Echo;
 import duke.action.Farewell;
 import duke.action.Mark;
 import duke.action.Match;
-import duke.action.MyList;
 import duke.action.TaskList;
 import duke.action.Unmark;
 import duke.exception.*;
@@ -53,7 +52,7 @@ public class CommandParser {
             case "list":
                 if (taskList != null) {
                     //taskList.displayTasks();
-                    return new MyList(taskList);
+                    return taskList;
                 } else {
                     return new Echo("Task list is not initialized.");
                 }
