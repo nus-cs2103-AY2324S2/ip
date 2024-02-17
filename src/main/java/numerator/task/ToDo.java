@@ -43,14 +43,7 @@ public class ToDo extends Task {
      *
      * @return a string to be saved in storage.
      */
-    @Override
-    public String getSaveString() {
-        return String.format("T | %d | %s | %s",
-                this.isDone ? 1 : 0,
-                this.description,
-                super.getTagsSaveString()
-        );
-    }
+
 
     @Override
     public String toString() {
@@ -59,6 +52,15 @@ public class ToDo extends Task {
                 this.description,
                 super.getTagsString()
         ).strip();
+    }
+
+    @Override
+    public String getSaveString() {
+        return String.format("T | %d | %s | %s",
+                this.isDone ? 1 : 0,
+                this.description,
+                super.getTagsSaveString()
+        );
     }
 
 

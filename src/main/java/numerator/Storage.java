@@ -41,22 +41,25 @@ public class Storage {
             String taskType = strings[0];
             boolean isDone = strings[1].equals("1");
             String taskDesc = strings[2];
+            String tagsString = strings[3];
             Task t;
 
             switch (taskType) {
             case "T":
-                t = new ToDo(taskDesc, isDone, tagStringToSet(strings[3]));
+                t = new ToDo(taskDesc, isDone, tagStringToSet(tagsString));
                 break;
             case "D":
-                t = new Deadline(taskDesc, strings[3], isDone, tagStringToSet(strings[5]));
+                String byString = strings[4];
+                t = new Deadline(taskDesc, byString, isDone, tagStringToSet(tagsString));
                 break;
             case "E":
-                t = new Event(taskDesc, strings[3], strings[4], isDone, tagStringToSet(strings[5]));
+                String fromString = strings[4];
+                String toString = strings[5];
+                t = new Event(taskDesc, fromString, toString, isDone, tagStringToSet(tagsString));
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + taskType);
             }
-
             taskList.addTask(t);
         };
     }
@@ -97,9 +100,6 @@ public class Storage {
                 // This assertion checks that the filepath does not conflict with existing files or directories
                 // in the path hierarchy
                 assert !Files.isRegularFile(this.filepath.getParent());
-
-                System.out.println("Creating new file" + this.filepath);
-                System.out.println("Parent file: " + this.filepath.getParent());
 
                 Files.createDirectories(this.filepath.getParent());
                 Files.createFile(this.filepath);

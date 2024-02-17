@@ -68,9 +68,9 @@ public class Event extends numerator.task.Task {
                 "E | %d | %s | %s | %s | %s",
                 this.isDone ? 1 : 0,
                 this.description,
+                super.getTagsSaveString(),
                 Task.parseLocalDateTimeToString(this.from),
-                Task.parseLocalDateTimeToString(this.to),
-                super.getTagsSaveString()
+                Task.parseLocalDateTimeToString(this.to)
         );
     }
 }

@@ -63,8 +63,8 @@ public class Deadline extends numerator.task.Task {
         return String.format("D | %d | %s | %s | %s",
                 this.isDone ? 1 : 0,
                 this.description,
-                Task.parseLocalDateTimeToString(this.by),
-                super.getTagsSaveString()
+                super.getTagsSaveString(),
+                Task.parseLocalDateTimeToString(this.by)
         );
     }
 }
