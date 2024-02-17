@@ -6,7 +6,7 @@ package tasks;
 public class Task {
 
     protected String name;
-    protected boolean completed;
+    protected boolean isCompleted;
 
     /**
      * Constructs a Task object with the specified name.
@@ -15,28 +15,28 @@ public class Task {
      */
     public Task(String name) {
         this.name = name;
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     /**
      * Marks the task as completed.
      */
     public void markTask() {
-        this.completed = true;
+        isCompleted = true;
     }
 
     /**
      * Sets the task as completed.
      */
     public void setCompleted() {
-        this.completed = true;
+        isCompleted = true;
     }
 
     /**
      * Unmarks the task as completed.
      */
     public void unmarkTask() {
-        this.completed = false;
+        isCompleted = false;
     }
 
     /**
@@ -45,7 +45,7 @@ public class Task {
      * @return "X" if completed, otherwise " "
      */
     public String getStatusIcon() {
-        return (completed ? "X" : " "); // mark done task with X
+        return (isCompleted ? "X" : " "); // mark done task with X
     }
 
     /**
@@ -63,7 +63,7 @@ public class Task {
      * @return a string containing the status and name of the task
      */
     public String toWrite() {
-        return (completed ? "1" : "0") + " | " + name;
+        return (isCompleted ? "1" : "0") + " | " + name;
     }
 
     /**
@@ -74,6 +74,6 @@ public class Task {
     @Override
     public String toString() {
         assert (getStatusIcon().equals("X") || getStatusIcon().equals(" ")) : "Invalid status icon!";
-        return "[" + this.getStatusIcon() + "] " + name;
+        return "[" + getStatusIcon() + "] " + name;
     }
 }

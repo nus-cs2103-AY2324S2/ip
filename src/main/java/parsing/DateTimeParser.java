@@ -28,7 +28,6 @@ public class DateTimeParser {
      * @return The parsed LocalDateTime object.
      */
     public LocalDateTime parseDateTime(String timeString) {
-        LocalDateTime parsedDateTime = LocalDateTime.parse(timeString, this.formatter);
-        return parsedDateTime;
+        return LocalDateTime.parse(timeString, formatter);
     }
 }
