@@ -8,11 +8,21 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+/**
+ * Represents a dialog box that displays text and an image.
+ * The dialog box can be flipped to change the alignment of the text and image.
+ */
 public class DialogBox extends HBox {
 
     private Label text;
     private ImageView displayPicture;
 
+    /**
+     * Constructs a new DialogBox with the specified text and image.
+     *
+     * @param text          The label containing the text to be displayed.
+     * @param displayPicture The image view containing the image to be displayed.
+     */
     public DialogBox(Label l, ImageView iv) {
         text = l;
         displayPicture = iv;
