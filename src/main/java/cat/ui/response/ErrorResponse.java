@@ -8,7 +8,7 @@ public class ErrorResponse extends Response {
      * Constructs a response for an error.
      */
     public ErrorResponse(Exception e) {
-        super("The cat tilts its head and hands you an error report", e.toString());
+        super("The cat tilts its head and hands you an error report", e.getMessage());
         setOutputColor(Colors.BRIGHT_RED);
     }
 
