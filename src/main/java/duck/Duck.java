@@ -44,12 +44,6 @@ public class Duck extends Application {
 
     }
 
-    /**
-     * The main entry point for the application.
-     * Launches the JavaFX application.
-     *
-     * @param args The command line arguments.
-     */
     public static void main(String[] args) {
         launch(args);
     }
@@ -152,11 +146,10 @@ public class Duck extends Application {
     }
 
     /**
-     * Iteration 1:
-     * Creates a label with the specified text and adds it to the dialog container.
+     * Creates and returns a JavaFX Label with the specified text for use in a dialog.
      *
-     * @param text String containing text to add
-     * @return a label with the specified text that has word wrap enabled.
+     * @param text The text to be displayed on the label.
+     * @return The JavaFX Label configured with the provided text and wrap text enabled.
      */
     private Label getDialogLabel(String text) {
         // You will need to import `javafx.scene.control.Label`.
