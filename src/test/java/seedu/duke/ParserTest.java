@@ -44,14 +44,14 @@ public class ParserTest {
         String[] expected = new String[2];
         expected[0] = "cs2109s ps2 ";
         expected[1] = "10-02-2024 2359";
-        assertArrayEquals(expected, Parser.parseDeadline("deadline cs2109s ps2 /by 10-02-2024 2359"));
+        assertArrayEquals(expected, Parser.parseDeadlineCommand("deadline cs2109s ps2 /by 10-02-2024 2359"));
     }
 
     @Test
     public void parseDeadline_emptyDesc() {
         try {
             String[] expected = new String[2];
-            assertEquals(expected, Parser.parseDeadline("deadline"));
+            assertEquals(expected, Parser.parseDeadlineCommand("deadline"));
             fail();
         } catch (DukeException e) {
             assertEquals("      ______________________________________________________________________________________\n      Oops! Please state the description of your task and the deadline."

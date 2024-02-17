@@ -126,6 +126,24 @@ public class Storage {
         fw.close();
     }
 
+    public static void updateFile(int num, String textToReplace) throws IOException {
+        Scanner s = new Scanner(f);
+        String newData = "";
+        int count = 0;
+        while (s.hasNextLine()) {
+            String temp = s.nextLine();
+            if (count != num) {
+                newData += temp + "\n";
+            } else {
+                newData += textToReplace;
+            }
+            count++;
+        }
+        FileWriter fw = new FileWriter(f);
+        fw.write(newData);
+        fw.close();
+    }
+
     public static String findFromFile(String input) throws FileNotFoundException, DukeException {
         Scanner s = new Scanner(f);
         String lowercaseInput = input.toLowerCase();

@@ -1,5 +1,8 @@
 package seedu.duke.task;
 
+import seedu.duke.DukeException;
+import seedu.duke.Parser;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -24,6 +27,17 @@ public class Deadline extends Task{
     @Override
     public String getTag() {
         return "D";
+    }
+
+    @Override
+    public void update(String attribute, String toUpdate) throws DukeException {
+        if (attribute.equalsIgnoreCase("desc")) {
+            description = toUpdate.trim();
+        } else if (attribute.equalsIgnoreCase("by")) {
+            deadline = Parser.parseDeadline(toUpdate.trim());
+        } else {
+            throw new DukeException("Oops. The task you want to update does not have a " + attribute + " attribute.");
+        }
     }
 
     /**

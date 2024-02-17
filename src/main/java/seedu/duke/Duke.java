@@ -55,7 +55,7 @@ public class Duke {
                 return taskList.addItem(new Task(Parser.parseTodo(input)), true);
             } else if (input.startsWith("deadline")) {
                 String task = Parser.parseDeadlineTask(input);
-                LocalDateTime deadline = Parser.parseDeadline(input);
+                LocalDateTime deadline = Parser.parseDeadlineCommand(input);
                 return taskList.addItem(new Deadline(task, deadline), true);
             } else if (input.startsWith("event")) {
                 String[] parts = Parser.parseEvent(input);
@@ -64,6 +64,10 @@ public class Duke {
                 return taskList.printList();
             } else if (input.startsWith("find")) {
                 return Storage.findFromFile(Parser.parseFind(input));
+            } else if (input.startsWith("update")) {
+                int taskNum = Parser.parseUpdateNum(input);
+                String[] parts = Parser.parseUpdate(input);
+                return taskList.update(taskNum, parts[0], parts[1]);
             } else if (input.equalsIgnoreCase("bye")){
                 return UI.bye();
             } else {

@@ -1,5 +1,8 @@
 package seedu.duke.task;
 
+import seedu.duke.Duke;
+import seedu.duke.DukeException;
+
 /**
  * <h1> Event </h1>
  * This Event class is a subclass of the Task class, holding all the attributes and methods
@@ -24,6 +27,19 @@ public class Event extends Task{
     @Override
     public String getTag() {
         return "E";
+    }
+
+    @Override
+    public void update(String attribute, String toUpdate) throws DukeException {
+        if (attribute.equalsIgnoreCase("desc")) {
+            description = toUpdate.trim();
+        } else if (attribute.equalsIgnoreCase("from")) {
+            from = toUpdate.trim();
+        } else if (attribute.equalsIgnoreCase("to")) {
+            to = toUpdate.trim();
+        } else {
+            throw new DukeException("Oops. The task you want to update does not have a " + attribute + " attribute.");
+        }
     }
 
     /**
