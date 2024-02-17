@@ -1,4 +1,4 @@
-package Thames;
+package thames;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

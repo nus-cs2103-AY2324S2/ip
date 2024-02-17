@@ -1,8 +1,8 @@
-package Thames.command;
+package thames.command;
 
-import Thames.Storage;
-import Thames.TaskList;
-import Thames.Ui;
+import thames.Storage;
+import thames.TaskList;
+import thames.Ui;
 
 /**
  * Subclass of Command that deals with finding tasks with given keyword.

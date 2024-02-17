@@ -1,11 +1,11 @@
-package Thames;
+package thames;
 
 import java.io.FileNotFoundException;
 
 
 
 
-import Thames.command.Command;
+import thames.command.Command;
 
 /**
  * Driver class for chat bot.
@@ -56,9 +56,6 @@ public class Thames {
     /**
      * Runs the chat bot.
      */
-//    public static void main(String[] args) {
-//        new Thames("data/tasks.txt").run();
-//    }
 
     public String getResponse(String input) {
         try {

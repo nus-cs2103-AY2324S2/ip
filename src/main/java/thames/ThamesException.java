@@ -1,4 +1,4 @@
-package Thames;
+package thames;
 
 /**
  * Exception class for Thames chat bot

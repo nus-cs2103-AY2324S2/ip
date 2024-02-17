@@ -1,4 +1,4 @@
-package Thames.task;
+package thames.task;
 
 /**
  * Class for tasks.

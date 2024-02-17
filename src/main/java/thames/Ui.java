@@ -1,7 +1,7 @@
-package Thames;
+package thames;
 
 import java.util.Scanner;
-import Thames.task.Task;
+import thames.task.Task;
 
 /** Class that deals with input from and output to user. */
 public class Ui {
@@ -92,7 +92,7 @@ public class Ui {
     }
 
     /**
-     * Output error message.
+     * Outputs error message.
      *
      * @param s Error message.
      */

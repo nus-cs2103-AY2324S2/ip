@@ -1,4 +1,4 @@
-package Thames;
+package thames;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,9 +6,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-import Thames.task.Deadline;
-import Thames.task.Event;
-import Thames.task.Task;
+import thames.task.Deadline;
+import thames.task.Event;
+import thames.task.Task;
 
 /**
  * Storage class to save and load task lists.

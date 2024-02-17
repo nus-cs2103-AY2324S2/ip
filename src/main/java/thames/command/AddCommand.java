@@ -1,12 +1,12 @@
-package Thames.command;
+package thames.command;
 
 import java.io.IOException;
 
-import Thames.task.Task;
-import Thames.Storage;
-import Thames.TaskList;
-import Thames.Ui;
-import Thames.ThamesException;
+import thames.task.Task;
+import thames.Storage;
+import thames.TaskList;
+import thames.Ui;
+import thames.ThamesException;
 
 /**
  * Subclass of Command that deals with adding tasks to task list.

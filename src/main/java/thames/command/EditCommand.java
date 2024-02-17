@@ -1,12 +1,12 @@
-package Thames.command;
+package thames.command;
 
 import java.io.IOException;
 
-import Thames.TaskList;
-import Thames.Ui;
-import Thames.Storage;
-import Thames.ThamesException;
-import Thames.task.Task;
+import thames.TaskList;
+import thames.Ui;
+import thames.Storage;
+import thames.ThamesException;
+import thames.task.Task;
 
 /**
  * Subclass of command that deals with editing tasks in task list.

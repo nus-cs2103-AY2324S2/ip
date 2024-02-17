@@ -1,11 +1,11 @@
-package Thames;
+package thames;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import Thames.task.Task;
-import Thames.task.ToDo;
-import Thames.task.Event;
-import Thames.task.Deadline;
+import thames.task.Task;
+import thames.task.ToDo;
+import thames.task.Event;
+import thames.task.Deadline;
 
 import java.util.ArrayList;
 import java.util.Scanner;

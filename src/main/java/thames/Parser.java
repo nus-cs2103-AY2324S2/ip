@@ -1,15 +1,15 @@
-package Thames;
+package thames;
 
-import Thames.command.AddCommand;
-import Thames.command.FindCommand;
-import Thames.command.DeleteCommand;
-import Thames.command.ExitCommand;
-import Thames.command.EditCommand;
-import Thames.command.Command;
-import Thames.command.ListCommand;
-import Thames.task.ToDo;
-import Thames.task.Deadline;
-import Thames.task.Event;
+import thames.command.AddCommand;
+import thames.command.FindCommand;
+import thames.command.DeleteCommand;
+import thames.command.ExitCommand;
+import thames.command.EditCommand;
+import thames.command.Command;
+import thames.command.ListCommand;
+import thames.task.ToDo;
+import thames.task.Deadline;
+import thames.task.Event;
 
 /**
  * Class that makes sense of the user input.
