@@ -10,7 +10,7 @@ public class ToDo implements Task {
     private String status;
 
     /**
-     * Creates a new ToDo Item instance with specified name and status.
+     * Creates a new To-Do Item instance with specified name and status.
      * @param name the name of the Item.
      * @param status the status of the Item, either done or not done.
      * @throws RickException when there is a problem with user input
@@ -24,7 +24,7 @@ public class ToDo implements Task {
     }
 
     /**
-     * Returns the string representation for the ToDo item that is understandable for the user.
+     * Returns the string representation for the To-Do task that is understandable for the user.
      * @return a user-friendly string representation for the item.
      */
     @Override

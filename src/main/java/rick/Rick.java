@@ -1,7 +1,5 @@
 package rick;
 
-import java.util.Scanner;
-
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -10,14 +8,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import rick.logic.Executer;
 import rick.logic.Parser;
 import rick.logic.RickException;
-import rick.logic.command.Command;
 import rick.ui.DialogBox;
 import rick.ui.Ui;
 import rick.util.Storage;
@@ -27,9 +24,7 @@ import rick.util.TaskList;
 /**
  * A Rick chatbot.
  */
-public class Rick extends Application {
-
-
+public class Rick {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -76,7 +71,7 @@ public class Rick extends Application {
     private void handleUserInput() {
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userInput.getText(), user),
-                DialogBox.getDukeDialog(getResponse(getResponse(userInput.getText())), duke)
+                DialogBox.getDukeDialog(getResponse(userInput.getText()), duke)
         );
         userInput.clear();
     }

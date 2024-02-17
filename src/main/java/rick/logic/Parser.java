@@ -1,6 +1,16 @@
 package rick.logic;
 
-import rick.logic.command.*;
+import rick.logic.command.ByeCommand;
+import rick.logic.command.Command;
+import rick.logic.command.DeadlineCommand;
+import rick.logic.command.DeleteCommand;
+import rick.logic.command.EventCommand;
+import rick.logic.command.FindCommand;
+import rick.logic.command.ListCommand;
+import rick.logic.command.MarkCommand;
+import rick.logic.command.TodoCommand;
+import rick.logic.command.UnmarkCommand;
+
 
 /**
  * A parser to parse user input.

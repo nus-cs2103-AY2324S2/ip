@@ -2,6 +2,9 @@ package rick.logic.command;
 
 import rick.logic.RickException;
 
+/**
+ * A command that asks to add an Event task.
+ */
 public class EventCommand implements Command {
     private static final String FROM_KEYWORD = " /from ";
     private static final String TO_KEYWORD = " /to ";

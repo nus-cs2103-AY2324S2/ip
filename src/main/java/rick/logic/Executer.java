@@ -1,6 +1,6 @@
 package rick.logic;
 
-import rick.logic.command.*;
+import rick.logic.command.Command;
 import rick.tasks.Task;
 import rick.util.Storage;
 import rick.util.TaskList;

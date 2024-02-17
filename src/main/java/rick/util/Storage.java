@@ -24,11 +24,6 @@ public class Storage {
     private ArrayList<Task> items = new ArrayList<>();
 
     /**
-     * Creates a new instance of Storage with designated filePath.
-     */
-    public Storage() {}
-
-    /**
      * Returns an ArrayList that contains the list of items stored in local data.
      */
     public ArrayList<Task> load() throws RickException {

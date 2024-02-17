@@ -3,9 +3,10 @@ package rick.logic.command;
 import java.time.LocalDateTime;
 
 import rick.logic.RickException;
-import rick.tasks.Deadline;
 
-
+/**
+ * A command that asks to add a Deadline task.
+ */
 public class DeadlineCommand implements Command {
     private static final String BY_KEYWORD = " /by ";
     private String name;
