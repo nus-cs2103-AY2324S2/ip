@@ -13,7 +13,7 @@ public abstract class Command {
      * @param ui User interface.
      * @param storage Storage to store task content.
      */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage);
+    public abstract String execute(TaskList taskList, Ui ui, Storage storage);
     public boolean isExit() {
         return isExit;
     }

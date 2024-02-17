@@ -70,12 +70,15 @@ public class TaskList {
     /**
      * Prints all tasks in the task list including task name, detail, and status.
      */
-    public void list() {
-        ui.showMessage("Here are the tasks in your list:");
+    public String list() {
+        String result = "Here are the tasks in your list:\n";
         for (int i = 0; i < taskList.size(); i++) {
             Task t = taskList.get(i);
-            System.out.printf("%d. %s\n", i + 1, t.toString());
+            int index = i + 1;
+            result = result + index + ". " + t.toString() + "\n";
         }
+        ui.showMessage(result);
+        return result;
     }
 
     /**

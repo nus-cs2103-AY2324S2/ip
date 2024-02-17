@@ -17,8 +17,12 @@ public class AddCommand extends Command {
      * @param storage Storage to save Tasklist content.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         taskList.add(this.t);
         setExit(false);
+        int numItems = taskList.size();
+        String sOrP = numItems == 1 ? "task" : "tasks";
+        return "Got it. I've added this task:\n" + t.toString()
+                + "\nNow you have " + numItems + " " + sOrP + " in the list.";
     }
 }

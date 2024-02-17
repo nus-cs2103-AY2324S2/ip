@@ -16,12 +16,17 @@ public class DeleteCommand extends Command {
      * @param ui User interface to display message.
      * @param storage Storage where task content is stored.
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
+            Task removedTask = taskList.get(index - 1);
             taskList.delete(this.index);
             setExit(false);
+            int numItems = taskList.size();
+            String sOrP = numItems == 1 ? "task" : "tasks";
+            return "Noted. I've removed this task:\n" + removedTask.toString()
+                    + "\nNow you have " + numItems + " " + sOrP + " in the list.";
         } catch (DukeException e) {
-            ui.showMessage(e.getMessage());
+            return e.getMessage();
         }
     }
 }

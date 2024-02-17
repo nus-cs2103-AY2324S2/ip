@@ -17,13 +17,13 @@ public class MarkCommand extends Command {
      * @param storage Storage to store TaskList content.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             Task t = taskList.get(index - 1);
-            t.markAsDone();
             setExit(false);
+            return t.markAsDone();
         } catch (DukeException e) {
-            ui.showMessage(e.getMessage());
+            return e.getMessage();
         }
     }
 }

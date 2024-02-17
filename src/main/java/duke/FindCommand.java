@@ -10,16 +10,17 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.showMessage("Here are the matching tasks in your list:");
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        String result = "Here are the matching tasks in your list:\n";
         try {
             TaskList filteredList = taskList.find(this.keyword);
             for (int i = 0; i < filteredList.size(); i++) {
                 int index = i + 1;
-                ui.showMessage(index + ". " + filteredList.get(0).toString());
+                result = result + index + ". " + filteredList.get(0).toString() + "\n";
             }
         } catch (DukeException e) {
-            ui.showMessage("");
+            result = "";
         }
+        return result;
     }
 }
