@@ -1,5 +1,6 @@
 package shuheng;
 
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 import shuheng.exceptions.HistoryIndexException;
@@ -134,7 +135,10 @@ public class Ui {
                 return "That's not a valid input! " + e.getMessage();
             }
             try {
-                event = new Event(data[0], parser.parseDate(data[1]), parser.parseDate(data[2]),
+                LocalDateTime startDate = parser.parseDate(data[1]);
+                LocalDateTime endDate = parser.parseDate(data[2]);
+                assert (startDate.compareTo(endDate) <= 0);
+                event = new Event(data[0], startDate, endDate,
                     priority);
                 output = history.addTask(event);
                 return output;
