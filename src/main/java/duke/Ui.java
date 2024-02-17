@@ -18,45 +18,36 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
-    /**
-     * Prints an indented line.
-     *
-     */
-    public void setIndentedLine() {
-        System.out.println(indentedLine);
-    }
 
     /**
      * Prints welcome message.
      *
      */
-    public void printWelcomeMessage() {
-        setIndentedLine();
-        System.out.println("  " + "Hey! I'm " + name + "\n" +
-                "  " + "Is there anything I can do for you?");
-        setIndentedLine();
+    public String printWelcomeMessage() {
+        return "  " + "Hey! I'm " + name + "\n" +
+                "  " + "Is there anything I can do for you?";
     }
 
     /**
      * Prints goodbye message.
      *
      */
-    public void printGoodByeMessage() {
-        setIndentedLine();
-        System.out.println("  " +
-                "Leaving so soon? Alright, have a great day ahead!");
-        setIndentedLine();
+    public String printGoodByeMessage() {
+        return "  " +
+                "Leaving so soon? Alright, have a great day ahead!";
     }
 
     /**
      * Prints loading error message.
      *
      */
-    public void loadErrorMessage() {
-        setIndentedLine();
-        System.out.println("  " +
+    public String loadErrorMessage() {
+        StringBuilder output = new StringBuilder();
+        output.append(indentedLine).append("\n");
+        output.append("  " +
                 "Error loading file... Creating new empty file");
-        setIndentedLine();
+        output.append(indentedLine);
+        return output.toString();
     }
 
     /**
@@ -64,12 +55,13 @@ public class Ui {
      *
      * @param task Task that was unmarked.
      */
-    public void unmarkMessage(Task task) {
-        setIndentedLine();
-        System.out.println("  " + "Ok, I've marked this task " +
-                "as not done yet:" + "\n" +
-                "  " + task.toString());
-        setIndentedLine();
+    public String unmarkMessage(Task task) {
+        StringBuilder output = new StringBuilder();
+        output.append(indentedLine).append("\n");
+        output.append("  " + "Ok, I've marked this task " + "as not done yet:" + "\n" + "  ")
+                .append(task.toString()).append("\n");
+        output.append(indentedLine);
+        return output.toString();
     }
 
     /**
@@ -77,12 +69,13 @@ public class Ui {
      *
      * @param task Task that was marked.
      */
-    public void markMessage(Task task) {
-        setIndentedLine();
-        System.out.println("  " + "Ok, I've marked this task " +
-                "as done:" + "\n" +
-                "  " + task.toString());
-        setIndentedLine();
+    public String markMessage(Task task) {
+        StringBuilder output = new StringBuilder();
+        output.append(indentedLine).append("\n");
+        output.append("  " + "Ok, I've marked this task " + "as done:" + "\n" + "  ")
+                .append(task.toString()).append("\n");
+        output.append(indentedLine);
+        return output.toString();
     }
 
     /**
@@ -90,12 +83,13 @@ public class Ui {
      *
      * @param task Task that was deleted.
      */
-    public void deleteMessage(Task task) {
-        setIndentedLine();
-        System.out.println("  " + "Noted. I've removed this task:" +
-                "\n" +
-                "  " + task.toString());
-        setIndentedLine();
+    public String deleteMessage(Task task) {
+        StringBuilder output = new StringBuilder();
+        output.append(indentedLine).append("\n");
+        output.append("  " + "Noted. I've removed this task:" + "\n" + "  ")
+                .append(task.toString()).append("\n");
+        output.append(indentedLine);
+        return output.toString();
     }
 
     /**
@@ -103,10 +97,14 @@ public class Ui {
      *
      * @param taskList List to be counted.
      */
-    public void listSizeMessage(TaskList taskList) {
-        System.out.println("  " +
-                "Now you have " + taskList.getSize() + " tasks in the list.");
-        setIndentedLine();
+    public String listSizeMessage(TaskList taskList) {
+        return "  " +
+                "Now you have " + taskList.getSize() + " tasks in the list.";
+    }
+
+    public String listTaskMessage(TaskList taskList) {
+        String listOfTasks = taskList.listTask();
+        return String.format("  Here are the tasks in your list: \n%s", listOfTasks);
     }
 
     public String readCommandLine() {

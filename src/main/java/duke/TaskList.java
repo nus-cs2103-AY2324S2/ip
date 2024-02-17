@@ -39,9 +39,10 @@ public class TaskList {
      * @param deleteId Id of task to be deleted.
      * @param ui Ui to generate deleteMessage.
      */
-    public void deleteTask(int deleteId, Ui ui) {
-        ui.deleteMessage(taskList.get(deleteId));
+    public String deleteTask(int deleteId, Ui ui) {
+        String temp = ui.deleteMessage(taskList.get(deleteId));
         taskList.remove(deleteId);
+        return temp;
     }
 
     /**
@@ -50,9 +51,9 @@ public class TaskList {
      * @param unmarkId Id of task to be unmarked.
      * @param ui Ui to generate unmarkMessage.
      */
-    public void unmarkTask(int unmarkId, Ui ui) {
+    public String unmarkTask(int unmarkId, Ui ui) {
         taskList.get(unmarkId).markNotDone();
-        ui.unmarkMessage(taskList.get(unmarkId));
+        return ui.unmarkMessage(taskList.get(unmarkId));
     }
 
     /**
@@ -61,9 +62,9 @@ public class TaskList {
      * @param markId Id of task to be marked.
      * @param ui Ui to generate markMessage.
      */
-    public void markTask(int markId, Ui ui) {
+    public String markTask(int markId, Ui ui) {
         taskList.get(markId).markDone();
-        ui.markMessage(taskList.get(markId));
+        return ui.markMessage(taskList.get(markId));
     }
 
     /**
@@ -87,22 +88,14 @@ public class TaskList {
     /**
      * Prints list of tasks.
      *
-     * @param ui Ui to generate indented messages.
      */
-    public void listTask(Ui ui) {
-        if (taskList.isEmpty()) {
-            ui.setIndentedLine();
-            System.out.println("  Sorry, Tasklist is empty.");
-            ui.setIndentedLine();
-        } else {
-            ui.setIndentedLine();
-            System.out.println("  " + "Here are the tasks in your list:");
-            for (int i = 0; i < taskList.size(); i++) {
-                Task currTask = taskList.get(i);
-                System.out.println("  " + (i + 1) + "." + currTask.toString());
-            }
-            ui.setIndentedLine();
+    public String listTask() {
+        StringBuilder output = new StringBuilder();
+        for (int i = 0; i < taskList.size(); i++) {
+            output.append("  ").append(i + 1).append(". ")
+                    .append(taskList.get(i).getDescription()).append("\n");
         }
+        return output.toString();
     }
 
     /**
@@ -125,21 +118,19 @@ public class TaskList {
      * Lists out the tasks that match the search.
      *
      * @param matchedTasks List that contains matched tasks.
-     * @param ui Ui to set indented line.
      */
-    public void listMatchedTasks(ArrayList<Task> matchedTasks, Ui ui) {
+    public String listMatchedTasks(ArrayList<Task> matchedTasks) {
+        StringBuilder output = new StringBuilder();
         if (matchedTasks.isEmpty()) {
-            ui.setIndentedLine();
-            System.out.println("  Sorry, there are no tasks that match your search...");
-            ui.setIndentedLine();
+            return "  Sorry, there are no tasks that match your search...";
         } else {
-            ui.setIndentedLine();
-            System.out.println("  " + "Here are the tasks that match your search:");
+            output.append("  " + "Here are the tasks that match your search:").append("\n");
             for(int i = 0; i < matchedTasks.size(); i++) {
                 Task currTask = matchedTasks.get(i);
-                System.out.println("  " + (i + 1) + "." + currTask.toString());
+                output.append("  ").append(i + 1).append(". ")
+                        .append(currTask.toString()).append("\n");
             }
-            ui.setIndentedLine();
+            return output.toString();
         }
     }
 }

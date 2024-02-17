@@ -55,14 +55,13 @@ public class Duke extends Application {
                 if (input.equalsIgnoreCase("bye")) {
                     break;
                 }
-                Parser.parseCommand(input, taskList, ui);
+                getResponse(input);
                 storage.saveTasksToFile(taskList.getTasks());
-            } catch (IOException | DukeException e) {
+            } catch (IOException e) {
                 System.out.println("Sorry, Error occurred! Shutting down...");
                 break;
             }
         }
-        ui.printGoodByeMessage();
     }
 
     public static void main(String[] args) {
@@ -166,9 +165,12 @@ public class Duke extends Application {
      *
      * @return Responds to given input.
      */
-    String getResponse(String input) {
-        assert !input.equals("") : "input should not be empty";
-        return "Okay I heard: " + input;
+    public String getResponse(String input) {
+        try {
+            return Parser.parseCommand(input, taskList, ui);
+        } catch (DukeException e) {
+            return "  " + e.getMessage();
+        }
     }
 
 }
