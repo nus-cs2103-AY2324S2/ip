@@ -1,27 +1,36 @@
 package maltese.action;
 
 import maltese.Storage;
-import maltese.action.TaskList;
 import maltese.exception.MalteseException;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class ChangeFilePath implements Action {
     private String filePath;
     public TaskList tasks;
 
 
-    public ChangeFilePath(String filePath, Storage storage) {
+    public ChangeFilePath(String filePath, Storage storage) throws IOException {
         this.filePath = filePath;
-        storage.changeFile(filePath);
-        try {
-            this.tasks = storage.loadFromFile();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+        if (!storage.fileExists(filePath)) {
+            // If the file doesn't exist, create it
+            storage.createFile(filePath);
         }
+        // Load tasks without overwriting the existing file contents
+        storage.changeFile(filePath);
+        this.tasks = storage.loadFromFile();
     }
 
-    public static ChangeFilePath parse(String command, Storage storage) throws MalteseException {
+
+
+//    public ChangeFilePath(String filePath, Storage storage) throws FileNotFoundException {
+//        this.filePath = filePath;
+//        storage.changeFile(filePath);
+//        this.tasks = storage.loadFromFile();// dont overwrite sample.txt
+//    }
+
+    public static ChangeFilePath parse(String command, Storage storage) throws MalteseException, IOException {
         String[] words = command.split(" ");
         String filePath = words[1];
         // HANDLE ERROR WHEN WORDS.LENGTH != 2

@@ -140,4 +140,20 @@ public class Storage {
             ioException.printStackTrace();
         }
     }
+
+    public boolean fileExists(String filePath) {
+        File file = new File(filePath);
+        return file.exists();
+    }
+
+    public void createFile(String filePath) throws IOException {
+        File file = new File(filePath);
+        if (file.getParentFile() != null && !file.getParentFile().exists()) {
+            // Create parent directories if they don't exist
+            file.getParentFile().mkdirs();
+        }
+        // Create the file
+        file.createNewFile();
+    }
+
 }

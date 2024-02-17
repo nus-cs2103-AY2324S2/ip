@@ -1,6 +1,10 @@
 package maltese.action;
 
 import maltese.Maltese;
+import maltese.Storage;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Guide implements Action {
     /**
@@ -8,12 +12,10 @@ public class Guide implements Action {
      * This action does not require any parameters.
      */
     public Guide() {
-        // No constructor logic needed as the help message is static.
     }
 
-    public static TaskList parse() {
-        new Maltese("./data/sample.txt").run(); // use the change data path method
-        return new TaskList();
+    public static ChangeFilePath parse(Storage storage) throws IOException {
+        return new ChangeFilePath("./data/sample.txt", storage);
     }
 
     /**

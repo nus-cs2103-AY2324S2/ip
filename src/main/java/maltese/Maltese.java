@@ -80,7 +80,6 @@ public class Maltese extends Application {
             String command = input;
             Action response = CommandParser.parseCommand(command, taskList, storage);
             if (response != null) {
-                isExit = response.isExit();
                 storage.writeToFile(taskList);
                 return response.response();
             } else {

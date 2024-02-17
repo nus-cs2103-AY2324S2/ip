@@ -8,6 +8,10 @@ import maltese.task.Deadline;
 import maltese.task.Event;
 import maltese.task.ToDo;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.FileSystemNotFoundException;
+
 /**
  * Parses user commands and performs corresponding actions in the maltese application.
  */
@@ -18,7 +22,7 @@ public class CommandParser {
     /**
      * Parses user commands and performs corresponding actions in the maltese application.
      */
-    public static Action parseCommand(String command, TaskList taskList, Storage storage) throws MalteseException {
+    public static Action parseCommand(String command, TaskList taskList, Storage storage) throws MalteseException, IOException {
         try {
             String[] words = command.split(" ");
 
@@ -33,7 +37,7 @@ public class CommandParser {
             case "help":
                 return Help.parse();
             case "guide":
-                return Guide.parse();
+                return Guide.parse(storage);
             case "change":
                 return ChangeFilePath.parse(command, storage);
             case "list":
