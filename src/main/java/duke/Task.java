@@ -34,6 +34,15 @@ public abstract class Task {
     }
 
     /**
+     * Returns status number where 1 represents completed, 0 represents incomplete
+     *
+     * @return A numeric representation of the task's completion status
+     */
+    public int getStatusNumber() {
+        return this.statusNumber; // mark done task with X
+    }
+
+    /**
      * Returns the details of the task, including its status icon and description.
      *
      * @return A formatted string containing the task's status and description.
@@ -61,9 +70,9 @@ public abstract class Task {
     /**
      * Marks the task as done and prints a confirmation message.
      */
-    public void markComplete() {
+    public String markComplete() {
         this.setComplete();
-        System.out.println("\tNice! I've marked this task as done:\n\t" + this.getDetails());
+        return "\tNice! I've marked this task as done:\n\t" + this.getDetails();
     }
 
     /**
@@ -76,9 +85,9 @@ public abstract class Task {
     /**
      * Marks the task as not done and prints a confirmation message.
      */
-    public void unmarkComplete() {
+    public String unmarkComplete() {
         this.setIncomplete();
-        System.out.println("\tOK, I've marked this task as not done yet:\n\t" + this.getDetails());
+        return "\tOK, I've marked this task as not done yet:\n\t" + this.getDetails();
     }
 
     /**

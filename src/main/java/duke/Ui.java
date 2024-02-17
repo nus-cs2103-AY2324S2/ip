@@ -9,8 +9,8 @@ import java.util.Scanner;
  */
 public class Ui {
     private static final String LINE = "\t____________________________________________________________\n";
-    private String hello = Ui.LINE + "\tHello! I'm %s\n" + "\tWhat can I do for you?\n" + Ui.LINE;
-    private String goodbye = "\tBye. Hope to see you again soon!\n" + Ui.LINE;
+    protected static String hello = String.format("\tHello! I'm %s\n", Duke.name) + "\tWhat can I do for you?\n";
+    private static String goodbye = "\tBye. Hope to see you again soon!\n";
 
     private Storage storage = null;
     private TaskList taskList = null;
@@ -20,10 +20,9 @@ public class Ui {
      * and output, displaying
      * greetings, errors, and other messages to the user.
      */
-    Ui(String name, Storage storage, TaskList taskList) {
+    Ui(Storage storage, TaskList taskList) {
         this.storage = storage;
         this.taskList = taskList;
-        this.hello = String.format(this.hello, name);
     }
 
     /**
@@ -31,20 +30,6 @@ public class Ui {
      */
     public void showLoadingError() {
         System.out.println("Error loading tasks!");
-    }
-
-    /**
-     * Displays the welcome message to the user.
-     */
-    public void showWelcome() {
-        System.out.println(this.hello);
-    }
-
-    /**
-     * Displays the goodbye message to the user.
-     */
-    public void showGoodbye() {
-        System.out.println(this.goodbye);
     }
 
     /**
@@ -62,7 +47,7 @@ public class Ui {
 
             Parser.ParsedCommand parsedCommand = Parser.parse(input);
             if (parsedCommand.getCommandType() == CommandType.INVALID) {
-                Ui.printInvalid();
+                Ui.getInvalidString();
                 continue;
             }
             int taskIndex = parsedCommand.getTaskNumber() - 1;
@@ -70,13 +55,11 @@ public class Ui {
             case INVALID:
                 break;
             case BYE:
-                // handle BYE
                 System.out.println(this.goodbye);
                 scanner.close();
                 this.storage.saveTasks();
                 return;
             case LIST:
-                // handle LIST
                 this.taskList.listTasks();
                 break;
             case MARK:
@@ -113,8 +96,8 @@ public class Ui {
     /**
      * Prints a message indicating the user has entered an invalid command.
      */
-    public static void printInvalid() {
-        System.out.println("\tOOPS!!! That is not a valid command!\n"
+    public static String getInvalidString() {
+        return "\tOOPS!!! That is not a valid command!\n"
                 + "\tTry the following: \n"
                 + "\tlist\n"
                 + "\tmark x\n"
@@ -123,6 +106,56 @@ public class Ui {
                 + "\tfind xxx\n"
                 + "\ttodo xxx\n"
                 + "\tdeadline xxx /by xxx\n"
-                + "\tevent xxx /from xxx /to xxx");
+                + "\tevent xxx /from xxx /to xxx";
     }
+
+    public String getResponse(String input) {
+        StringBuilder output = new StringBuilder();
+    
+        Parser.ParsedCommand parsedCommand = Parser.parse(input);
+        if (parsedCommand.getCommandType() == CommandType.INVALID) {
+            return Ui.getInvalidString();
+        }
+        int taskIndex = parsedCommand.getTaskNumber() - 1;
+        switch (parsedCommand.getCommandType()) {
+        case BYE:
+            output.append(Ui.goodbye).append("\n");
+            this.storage.saveTasks();
+            break;
+        case LIST:
+            output.append(this.taskList.listTasks());
+            break;
+        case MARK:
+            output.append(this.taskList.getTask(taskIndex).markComplete());
+            assert this.taskList.getTask(taskIndex).getStatusNumber() == 1 : "Status number should be 1";
+            break;
+        case UNMARK:
+            output.append(this.taskList.getTask(taskIndex).unmarkComplete());
+            assert this.taskList.getTask(taskIndex).getStatusNumber() == 0 : "Status number should be 0";
+            break;
+        case DELETE:
+            Task deletedTask = this.taskList.getTask(taskIndex);
+            this.taskList.deleteTask(taskIndex);
+            output.append("\tNoted. I've removed this task:\n\t").append(deletedTask).append("\n");
+            break;
+        case FIND:
+            output.append(this.taskList.findTasks(parsedCommand.getInput()));
+            break;
+        case EVENT:
+        case TODO:
+        case DEADLINE:
+            Task task = Parser.createTask(parsedCommand.getCommandType(), input);
+            if (task != null) {
+                this.taskList.addTask(task);
+                output.append("\tGot it. I've added this task:\n\t").append(task);
+                output.append("\tNow you have ").append(TaskList.storageFill).append(" tasks in the list.\n");
+            }
+            break;
+        default:
+            break;
+        }
+        
+        return output.toString();
+    }
+    
 }

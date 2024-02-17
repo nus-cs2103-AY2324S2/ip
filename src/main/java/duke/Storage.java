@@ -41,7 +41,6 @@ public class Storage {
      */
     protected void loadTasks() {
         File file = new File(Duke.DATA_FILE);
-
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();

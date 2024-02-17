@@ -35,8 +35,10 @@ public class TaskList {
      * @param index The index of the task to be removed.
      */
     protected void deleteTask(int index) {
+        int previousTasks = storageFill;
         tasks.remove(index);
         TaskList.storageFill--; // Update task count
+        assert previousTasks == storageFill++ : "Task list size should decrease by 1";
     }
 
     /**
@@ -62,12 +64,14 @@ public class TaskList {
      * Prints all tasks in the list to the console.
      * Each task is printed with its list index.
      */
-    public void listTasks() {
-        System.out.println("\tHere are the tasks in your list:");
+    public String listTasks() {
+        StringBuilder output = new StringBuilder();
+        output.append("\tHere are the tasks in your list:\n");
         for (int i = 0; i < TaskList.storageFill; i++) {
-            String formattedOutput = String.format("\t%d. %s", (i + 1), this.tasks.get(i));
-            System.out.println(formattedOutput);
+            String formattedOutput = String.format("\t%d. %s\n", (i + 1), this.tasks.get(i));
+            output.append(formattedOutput);
         }
+        return output.toString();
     }
 
     /**
@@ -77,22 +81,24 @@ public class TaskList {
      *
      * @param findString The string to search for within each task's description.
      */
-    public void findTasks(String findString) {
-        System.out.println("\tHere are the matching tasks in your list:");
-        boolean found = false;
+    public String findTasks(String findString) {
+        StringBuilder output = new StringBuilder();
+        output.append("\tHere are the matching tasks in your list:");
+        boolean isFound = false;
 
         for (int i = 0; i < TaskList.storageFill; i++) {
             Task currTask = this.tasks.get(i);
             if (currTask.getDetails().toLowerCase().contains(findString.toLowerCase())) {
                 String formattedOutput = String.format("\t%d. %s", (i + 1), currTask);
-                System.out.println(formattedOutput);
-                found = true;
+                output.append(formattedOutput);
+                isFound = true;
             }
         }
 
-        if (!found) {
-            System.out.println("\tNo tasks match your search criteria.");
+        if (!isFound) {
+            output.append("\tNo tasks match your search criteria.");
         }
+        return output.toString();
     }
 
     /**
@@ -101,7 +107,9 @@ public class TaskList {
      * @param task The task to add to the list.
      */
     protected void addTask(Task task) {
+        int previousTasks = storageFill;
         tasks.add(task);
         storageFill++;
+        assert previousTasks == storageFill-- : "Task list size should increase by 1";
     }
 }
