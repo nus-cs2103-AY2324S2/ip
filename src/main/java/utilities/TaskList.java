@@ -85,7 +85,7 @@ public class TaskList {
                         .append("\nNow you have ").append(this.tasks.size())
                         .append(" tasks in the list.\n");
             } catch (IndexOutOfBoundsException | NumberFormatException e) {
-                return "Invalid task ID. Please enter a valid number!\n";
+                return "The Task ID is invalid. Please enter a valid number!" + "\n";
             }
         }
         return sb.toString();
@@ -100,7 +100,7 @@ public class TaskList {
     public void markAndUnmark(String input) {
         int idOfItem = Integer.parseInt(input);
         int actualId = idOfItem - 1;
-        this.tasks.get(actualId).changeIsDone();
+        this.tasks.get(actualId).toggleMarkStatus();
         System.out.println(this.tasks.get(actualId).toString() + "\n");
     }
 
@@ -119,7 +119,7 @@ public class TaskList {
 
         if (tasks.isEmpty()) {
             throw new WilliamException(
-                    "No tasks match the provided input: " + input + ". Please try again!");
+                    "No tasks match the provided input: " + input + ". Please try again!" + "\n");
         }
 
         return "Here are the matching tasks in your list:\n" + String.join("\n", tasks) + "\n";

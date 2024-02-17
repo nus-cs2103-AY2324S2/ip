@@ -1,6 +1,6 @@
 package primary;
 
-import utilities.Ui;
+import ui.Ui;
 
 /**
  * Main class for this chatbot

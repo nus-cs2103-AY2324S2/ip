@@ -21,6 +21,8 @@ import tasks.Todo;
  */
 public class Storage {
     private String filePath;
+    private final String MATCHING_PATTERN =
+            "^\\s*(\\S+)\\s*\\|\\s*(\\S+)\\s*\\|\\s*(.+?)\\s*\\|\\s*(.+?)\\s*\\|\\s*(.+?)\\s*$";
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -28,24 +30,17 @@ public class Storage {
 
     /**
      * Loads tasks from the hard disk
-     * 
+     *
      * @return arraylist ArrayList of tasks
      * @throws WilliamException If the lists in the txt file is not in the expected format OR if the
-     *         pattern is wrong
+     *                          pattern is wrong
      */
     public List<Task> loadFromFile() throws FileNotFoundException, WilliamException {
 
-        File f = new File(this.filePath);
-        Scanner sc = new Scanner(f);
+        File file = new File(this.filePath);
+        Scanner sc = new Scanner(file);
         List<Task> tasks = new ArrayList<Task>();
-
-        // Pattern to match lines with five parts separated by pipes ('|')
-        // Each part can contain any characters, with whitespace handling Capture non-whitespace
-        // characters in the first two parts and at least one character in the last three parts
-
-        String matchingPattern =
-                "^\\s*(\\S+)\\s*\\|\\s*(\\S+)\\s*\\|\\s*(.+?)\\s*\\|\\s*(.+?)\\s*\\|\\s*(.+?)\\s*$";
-        Pattern pattern = Pattern.compile(matchingPattern);
+        Pattern pattern = Pattern.compile(MATCHING_PATTERN);
 
         while (sc.hasNext()) {
             Matcher matcher = pattern.matcher(sc.nextLine());
@@ -59,48 +54,57 @@ public class Storage {
             String firstPart = matcher.group(4);
             String secondPart = matcher.group(5);
 
-            switch (type) {
-            case "T":
-                tasks.add(new Todo(name, isDone));
-                break;
-            case "E":
-                tasks.add(new Event(name, DateAndTimeParser.convertStringToDate(firstPart),
-                        DateAndTimeParser.convertStringToDate(secondPart), isDone));
-                break;
-            case "D":
-                tasks.add(new Deadline(name, DateAndTimeParser.convertStringToDate(firstPart),
-                        isDone));
-                break;
-            default:
-                break;
-            }
+            addTaskToList(type, isDone, name, firstPart, secondPart, tasks);
         }
         sc.close();
         return tasks;
     }
 
     /**
+     * Add task into list of tasks
+     *
+     * @param type       Type of task
+     * @param isDone     Status of task
+     * @param name       Description of task
+     * @param firstPart  First part of the date (/by or /from)
+     * @param secondPart Second part of the date (/to)
+     * @param tasks      List of tasks
+     */
+    public void addTaskToList(String type, boolean isDone, String name, String firstPart,
+                              String secondPart, List<Task> tasks) {
+        switch (type) {
+        case "T":
+            tasks.add(new Todo(name, isDone));
+            break;
+        case "E":
+            tasks.add(new Event(name, DateAndTimeParser.convertStringToDate(firstPart),
+                DateAndTimeParser.convertStringToDate(secondPart), isDone));
+            break;
+        case "D":
+            tasks.add(new Deadline(name, DateAndTimeParser.convertStringToDate(firstPart),
+                isDone));
+            break;
+        default:
+            break;
+        }
+    }
+
+    /**
      * Saves tasks into hard disk
-     * 
+     *
      * @throws IOException if the arraylist cannot be written to the file
      */
     public void writeToFile(List<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(this.filePath);
         StringBuilder sb = new StringBuilder();
-        int actualSizeComparison = tasks.size() - 1;
+        int actualSize = tasks.size() - 1;
         try {
             for (int i = 0; i < tasks.size(); i++) {
                 Task task = tasks.get(i);
                 String name = task.getName();
-                boolean isDoneBFormat = task.getIsDone();
-                int isDone = 0;
-                if (isDoneBFormat == true) {
-                    isDone = 1;
-                } else {
-                    isDone = 0;
-                }
+                int isDone = task.getIsDone() ? 1 : 0;
                 String[] times = task.getTimes();
-                if (i != actualSizeComparison) {
+                if (i != actualSize) {
                     sb.append(task.getType()).append(" | ").append(isDone).append(" | ")
                             .append(name).append(" | ").append(times[0]).append(" | ")
                             .append(times[1]).append(System.lineSeparator());

@@ -1,14 +1,14 @@
 package utilities;
 
-import java.time.LocalDateTime;
-
-import exceptions.WilliamException;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.fail;
+import exceptions.WilliamException;
+
+import java.time.LocalDateTime;
 
 /**
  * Test class for the DateAndTimeParser in utilities package
