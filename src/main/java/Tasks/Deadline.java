@@ -50,7 +50,7 @@ public class Deadline extends Task {
             LocalDateTime dt = parseDate(by);
             return new Deadline(description, dt);
         }catch (DateTimeParseException e){
-            throw new InvalidFormatException("Invalid date format after '/by'. Use d/M/yyyy or d/M/yyy H:m.");
+            throw new InvalidFormatException("Invalid date format after '/by'. Use d/M/yyyy or d/M/yyy H:m in 24-hour format");
         }
     }
 
@@ -72,7 +72,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + deadline_date + ")";
+        return "[D]" + super.toString() + " (by: " + formatDate(deadline_date) + ")";
     }
 
     public LocalDateTime getBy() {
