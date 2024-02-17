@@ -2,6 +2,8 @@ package felix.task;
 
 import java.time.format.DateTimeFormatter;
 
+import felix.exception.FelixException;
+
 /**
  * Abstract class for tasks
  */
@@ -74,6 +76,8 @@ public abstract class Task {
         }
         return task;
     }
+
+    public abstract Task updateTask(String paramString) throws FelixException;
 
     @Override
     public String toString() {

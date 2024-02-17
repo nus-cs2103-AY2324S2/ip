@@ -13,6 +13,15 @@ public class ToDo extends Task {
     }
 
     /**
+     * Returns a new ToDo instance with updated description.
+     * @param paramString String containing new description.
+     */
+    @Override
+    public ToDo updateTask(String paramString) {
+        return new ToDo(paramString);
+    }
+
+    /**
      * Returns the String representation of the ToDo instance to be written to file.
      */
     @Override
