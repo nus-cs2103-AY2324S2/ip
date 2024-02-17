@@ -1,6 +1,6 @@
 # Duck User Guide
 
- ![Screenshot 2024-02-17 at 8.03.23 PM.png](..%2F..%2F..%2F..%2F..%2Fvar%2Ffolders%2Fpn%2Fty5svr_14f3cv044npgt4jpm0000gn%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_9pmaxX%2FScreenshot%202024-02-17%20at%208.03.23%E2%80%AFPM.png)
+<img width="400" alt="Screenshot 2024-02-17 at 11 31 45 PM" src="https://github.com/Jayne1010/ip/assets/122381620/9f907de4-5204-4cac-ac5d-3b1b866f2f65">
 
 Duck is a chat bot which allows you to keep track of your todo list!
 # duck.Test project template
