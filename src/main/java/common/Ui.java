@@ -5,6 +5,10 @@ import java.util.Scanner;
 public class Ui {
     private Scanner scanner = new Scanner(System.in);
 
+    public String readCommand() {
+        return scanner.nextLine().strip();
+    }
+
     public void showWelcome() {
         showLine();
         String welcomeMessage = "Hello! I'm NextGenerationJarvis.\n" +

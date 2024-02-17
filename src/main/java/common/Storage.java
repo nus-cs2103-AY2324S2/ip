@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 import task.Task;
+import task.TaskList;
 import task.Deadline;
 import task.Event;
 import task.ToDo;
@@ -109,11 +110,12 @@ public class Storage {
         return tasks;
     }
 
-    public void saveDataAndExit(LinkedList<Task> tasks) {
+    public void saveDataAndExit(TaskList tasks) {
         try {
             File file = new File(filepath);
             FileWriter fw = new FileWriter(file, false);
-            for (Task t : tasks) {
+            LinkedList<Task> taskList = tasks.getList();
+            for (Task t : taskList) {
                 fw.write(t.toData());
                 fw.write(System.lineSeparator());
             }

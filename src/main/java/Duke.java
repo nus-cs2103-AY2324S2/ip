@@ -1,10 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.LinkedList;
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 import java.util.StringTokenizer;
 
 import common.DukeException;
@@ -13,15 +7,19 @@ import common.Ui;
 import task.Deadline;
 import task.Event;
 import task.Task;
+import task.TaskList;
 import task.ToDo;
 
 public class Duke {
     private Storage storage;
+    private TaskList tasks;
     private Ui ui;
 
     public Duke(String filepath) {
         ui = new Ui();
         storage = new Storage(filepath);
+        tasks = new TaskList(storage.loadData());
+
     }
 
     public static void main(String[] args) {
@@ -29,10 +27,8 @@ public class Duke {
     }
     public void run() {
         ui.showWelcome();
-        LinkedList<Task> taskList = storage.loadData();
 
-        Scanner scanner = new Scanner(System.in);
-        String userInput = scanner.nextLine().strip();
+        String userInput = ui.readCommand();
 
         // loop only exits if input is "bye"
         while (!userInput.toLowerCase().equals("bye")) {
@@ -42,8 +38,8 @@ public class Duke {
             if (userInput.toLowerCase().equals("list")) {
                 System.out.println("Here are the tasks in your list:");
 
-                for (int i = 1; i <= taskList.size(); i++) {
-                    Task t = taskList.get(i - 1);
+                for (int i = 1; i <= tasks.size(); i++) {
+                    Task t = tasks.get(i);
                     System.out.println(i + ". " + t.toString());
                 }
 
@@ -57,7 +53,7 @@ public class Duke {
                 if (cmd.equals("mark") || (cmd.equals("unmark"))) {
                     try {
                         int indexOfTask = Integer.parseInt(st.nextToken());
-                        changeStatus(taskList, cmd, indexOfTask);
+                        changeStatus(tasks, cmd, indexOfTask);
 
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("Invalid task number. :(");
@@ -72,7 +68,7 @@ public class Duke {
                     // Level-4: ToDo, Deadline, Event
                 } else if (cmd.equals("todo") || cmd.equals("event") || cmd.equals("deadline")) {
                     try {
-                        addTask(taskList, cmd, st);
+                        addTask(tasks, cmd, st);
 
                     } catch (DukeException e) {
                         System.out.println(e.getMessage());
@@ -82,7 +78,7 @@ public class Duke {
                 } else if (cmd.equals("delete")) {
                     try {
                         int indexOfTask = Integer.parseInt(st.nextToken());
-                        delete(taskList, cmd, indexOfTask);
+                        delete(tasks, cmd, indexOfTask);
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("Invalid task number. :(");
 
@@ -103,20 +99,19 @@ public class Duke {
                 }
             }
             System.out.println("________________________________________\n");
-            userInput = scanner.nextLine();
+            userInput = ui.readCommand();
         }
 
-        storage.saveDataAndExit(taskList);
+        storage.saveDataAndExit(tasks);
 
-        scanner.close();
     }
 
     // Level-3: mark & unmark
-    public static void changeStatus(LinkedList<Task> taskList, String cmd,
+    public static void changeStatus(TaskList taskList, String cmd,
             int indexOfTask) throws IndexOutOfBoundsException,
             NumberFormatException, NoSuchElementException {
 
-        Task t = taskList.get(indexOfTask - 1);
+        Task t = taskList.get(indexOfTask);
         if (cmd.equals("mark")) {
             t.markAsDone();
             System.out.println("Nice! I've marked this task as done:");
@@ -130,7 +125,7 @@ public class Duke {
     }
 
     // Level-4: ToDo, Deadline, Event
-    public static void addTask(LinkedList<Task> taskList, String cmd,
+    public static void addTask(TaskList taskList, String cmd,
             StringTokenizer st) throws DukeException {
 
         if (cmd.equals("todo")) {
@@ -214,11 +209,11 @@ public class Duke {
     }
 
     // Level-6: Delete
-    public static void delete(LinkedList<Task> taskList, String cmd,
+    public static void delete(TaskList taskList, String cmd,
             int indexOfTask) throws IndexOutOfBoundsException,
             NumberFormatException, NoSuchElementException {
 
-        Task t = taskList.remove(indexOfTask - 1);
+        Task t = taskList.remove(indexOfTask);
 
         System.out.println("Noted, I've removed this task:");
         System.out.println(" " + t.toString());
