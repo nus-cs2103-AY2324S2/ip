@@ -3,9 +3,9 @@ package reacher;
 import reacher.command.Command;
 
 public class Reacher {
-    private Storage storage;
-    private TaskList tasks;
-    private Ui ui;
+    private final Storage storage;
+    private final TaskList tasks;
+    private final Ui ui;
 
     public Reacher(String filePath) {
         this.ui = new Ui();
@@ -15,6 +15,10 @@ public class Reacher {
     public static void main(String[] args) {
         new Reacher("./storage.txt").run();
     }
+
+    /**
+     * Prints welcome message and takes in user input, executes it until user exits.
+     */
     public void run() {
         ui.printWelcome();
         boolean isExit = false;

@@ -4,7 +4,17 @@ import java.time.LocalDate;
 import reacher.*;
 import reacher.task.*;
 
+/**
+ * Command that when executed, adds a task according to user to Task list and file storage.
+ */
 public class AddCommand extends Command {
+    /**
+     * Executes command by asking user for name and type of task and adding to tasks and update storage.
+     * @param tasks List of tasks.
+     * @param ui User interface.
+     * @param storage Local file storage.
+     * @throws ReacherException if user input is invalid type of task.
+     */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ReacherException {
         Task t;
         ui.print("What is the name of the task?");
@@ -41,6 +51,12 @@ public class AddCommand extends Command {
         }
         storage.storeList(tasks.getTasks());
     }
+
+    /**
+     * Checks if object is an instance of AddCommand class.
+     * @param object
+     * @return
+     */
     @Override
     public boolean equals(Object object){
         return object instanceof AddCommand;
