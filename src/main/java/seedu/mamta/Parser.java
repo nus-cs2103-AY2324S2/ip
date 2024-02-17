@@ -47,28 +47,28 @@ public class Parser {
             StringBuilder task = new StringBuilder();
             StringBuilder deadline = new StringBuilder();
             StringBuilder endTime = new StringBuilder();
-            boolean reachedBy = false;
-            boolean reachedTo = false;
+            boolean hasReachedBy = false;
+            boolean hasReachedTo = false;
             //string splitting logic for parsing tasks
             for (int i = 1; i < splitOutput.length; i++) {
-                if ((!reachedBy && !reachedTo) && (!splitOutput[i].equals("/by") && !splitOutput[i].equals("/from"))) {
+                if ((!hasReachedBy && !hasReachedTo) && (!splitOutput[i].equals("/by") && !splitOutput[i].equals("/from"))) {
                     if (splitOutput[i+1].equals("/by") || splitOutput[i+1].equals("/from")) {
                         task.append(splitOutput[i]);
                     } else {
                         task.append(splitOutput[i]).append(" ");
                     }
-                } else if (!reachedTo && (splitOutput[i].equals("/by") || splitOutput[i].equals("/from"))) {
-                    reachedBy = true;
-                } else if (reachedBy && (!splitOutput[i].equals("/to"))) {
+                } else if (!hasReachedTo && (splitOutput[i].equals("/by") || splitOutput[i].equals("/from"))) {
+                    hasReachedBy = true;
+                } else if (hasReachedBy && (!splitOutput[i].equals("/to"))) {
                     if (i+1 == splitOutput.length ||  (i+1 != splitOutput.length && splitOutput[i+1].equals("/to"))) {
                         deadline.append(splitOutput[i]);
                     } else {
                         deadline.append(splitOutput[i]).append(" ");
                     }
                 } else if (splitOutput[i].equals("/to")) {
-                    reachedTo = true;
-                    reachedBy = false;
-                } else if (reachedTo) {
+                    hasReachedTo = true;
+                    hasReachedBy = false;
+                } else if (hasReachedTo) {
                     endTime.append(i + 1 == splitOutput.length ? splitOutput[i] : splitOutput[i] + " ");
                 }
             }
