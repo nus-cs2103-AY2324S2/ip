@@ -181,40 +181,76 @@ class TaskListDecoder {
         String description = parts[2];
 
         switch (taskType) {
-        case "T":
-            Task newTodo = new Todo(description);
-            newTodo.setDone(isDone);
-            if (parts.length >= 4) {
-                newTodo.setTag(parts[3]);
-            }
-            return newTodo;
-        case "D":
-            String by = parts[3];
-            LocalDate byDateTime = LocalDate.parse(by.substring(3), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            Task newDeadline = new Deadline(description, byDateTime);
-            newDeadline.setDone(isDone);
-            if (parts.length >= 5) {
-                newDeadline.setTag(parts[4]);
-            }
-            return newDeadline;
-        case "E":
-            String dateTimeString = parts[3];
-            String[] dateTimeParts = dateTimeString.split(" to ");
-            String from = dateTimeParts[0];
-            String to = dateTimeParts[1];
-
-            LocalDate fromDateTime = LocalDate.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            LocalDate toDateTime = LocalDate.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
-            Task newEvent = new Event(description, fromDateTime, toDateTime);
-            newEvent.setDone(isDone);
-
-            if (parts.length >= 5) {
-                newEvent.setTag(parts[4]);
-            }
-            return newEvent;
-        default:
-            return null;
+            case "T":
+                return decodeTodoTask(description, isDone, parts);
+            case "D":
+                return decodeDeadlineTask(description, isDone, parts);
+            case "E":
+                return decodeEventTask(description, isDone, parts);
+            default:
+                return null;
         }
+    }
+
+    /**
+     * Decodes a Todo task from string representation.
+     *
+     * @param description The description of the task.
+     * @param isDone      Whether the task is marked as done.
+     * @param parts       The array of string parts from the input line.
+     * @return The decoded Todo task object.
+     */
+    private static Task decodeTodoTask(String description, boolean isDone, String[] parts) {
+        Task newTodo = new Todo(description);
+        newTodo.setDone(isDone);
+        if (parts.length >= 4) {
+            newTodo.setTag(parts[3]);
+        }
+        return newTodo;
+    }
+
+    /**
+     * Decodes a Deadline task from string representation.
+     *
+     * @param description The description of the task.
+     * @param isDone      Whether the task is marked as done.
+     * @param parts       The array of string parts from the input line.
+     * @return The decoded Deadline task object.
+     */
+    private static Task decodeDeadlineTask(String description, boolean isDone, String[] parts) {
+        String by = parts[3];
+        LocalDate byDateTime = LocalDate.parse(by.substring(3), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        Task newDeadline = new Deadline(description, byDateTime);
+        newDeadline.setDone(isDone);
+        if (parts.length >= 5) {
+            newDeadline.setTag(parts[4]);
+        }
+        return newDeadline;
+    }
+
+    /**
+     * Decodes an Event task from string representation.
+     *
+     * @param description The description of the task.
+     * @param isDone      Whether the task is marked as done.
+     * @param parts       The array of string parts from the input line.
+     * @return The decoded Event task object.
+     */
+    private static Task decodeEventTask(String description, boolean isDone, String[] parts) {
+        String dateTimeString = parts[3];
+        String[] dateTimeParts = dateTimeString.split(" to ");
+        String from = dateTimeParts[0];
+        String to = dateTimeParts[1];
+
+        LocalDate fromDateTime = LocalDate.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        LocalDate toDateTime = LocalDate.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+        Task newEvent = new Event(description, fromDateTime, toDateTime);
+        newEvent.setDone(isDone);
+
+        if (parts.length >= 5) {
+            newEvent.setTag(parts[4]);
+        }
+        return newEvent;
     }
 }
