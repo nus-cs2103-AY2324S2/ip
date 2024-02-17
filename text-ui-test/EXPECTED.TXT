@@ -1,7 +1,129 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+------------------------------------------
+Hello! I'm Bob!
+What can I do for you?
+------------------------------------------
+Got it. I've added this task:
+[T][ ] Read a book
+Now you have 1 tasks in the list.
+------------------------------------------
+Got it. I've added this task:
+[D][ ] Submit assignment (by: 2024-01-30)
+Now you have 2 tasks in the list.
+------------------------------------------
+Got it. I've added this task:
+[E][ ] Team meeting (from: 2024-01-25 10:00 to: 2024-01-25 12:00)
+Now you have 3 tasks in the list.
+------------------------------------------
+Here are the tasks in your list:
+1. [T][ ] Read a book
+2. [D][ ] Submit assignment (by: 2024-01-30)
+3. [E][ ] Team meeting (from: 2024-01-25 10:00 to: 2024-01-25 12:00)
+------------------------------------------
+Nice! I've marked this task as done:
+[T][X] Read a book
+------------------------------------------
+OK, I've marked this task as not done yet:
+[T][ ] Read a book
+------------------------------------------
+OOPS!!! The description of a todo cannot be empty buddy.
+------------------------------------------
+OOPS!!! The deadline date/time is missing buddy.
+------------------------------------------
+OOPS!!! The event time is missing or incomplete buddy.
+------------------------------------------
+OOPS!!! Task number is invalid buddy.
+------------------------------------------
+OOPS!!! Task number is invalid buddy.
+------------------------------------------
+OOPS!!! The task number is missing buddy.
+------------------------------------------
+OOPS!!! I'm sorry, but I don't know what that means buddy.
+------------------------------------------
+Got it. I've added this task:
+[T][ ] Complete Java project
+Now you have 4 tasks in the list.
+------------------------------------------
+Got it. I've added this task:
+[D][ ] File taxes (by: 2024-04-15)
+Now you have 5 tasks in the list.
+------------------------------------------
+Got it. I've added this task:
+[E][ ] Birthday Party (from: 2024-03-10 18:00 to: 2024-03-10 22:00)
+Now you have 6 tasks in the list.
+------------------------------------------
+Here are the tasks in your list:
+1. [T][ ] Read a book
+2. [D][ ] Submit assignment (by: 2024-01-30)
+3. [E][ ] Team meeting (from: 2024-01-25 10:00 to: 2024-01-25 12:00)
+4. [T][ ] Complete Java project
+5. [D][ ] File taxes (by: 2024-04-15)
+6. [E][ ] Birthday Party (from: 2024-03-10 18:00 to: 2024-03-10 22:00)
+------------------------------------------
+Nice! I've marked this task as done:
+[D][X] Submit assignment (by: 2024-01-30)
+------------------------------------------
+OK, I've marked this task as not done yet:
+[D][ ] Submit assignment (by: 2024-01-30)
+------------------------------------------
+Got it. I've added this task:
+[D][ ] Prepare presentation (by: 2024-03-05)
+Now you have 7 tasks in the list.
+------------------------------------------
+Got it. I've added this task:
+[E][ ] Workshop (from: 2024-02-20 09:00 to: 2024-02-20 12:00)
+Now you have 8 tasks in the list.
+------------------------------------------
+Got it. I've added this task:
+[T][ ] Clean the house
+Now you have 9 tasks in the list.
+------------------------------------------
+OK, I've deleted this task:
+[T][ ] Read a book
+------------------------------------------
+OK, I've deleted this task:
+[T][ ] Complete Java project
+------------------------------------------
+OOPS!!! Task number is invalid buddy.
+------------------------------------------
+OOPS!!! The task number is missing buddy.
+------------------------------------------
+Got it. I've added this task:
+[T][ ] Grocery Shopping
+Now you have 8 tasks in the list.
+------------------------------------------
+Got it. I've added this task:
+[T][ ] Call Mom
+Now you have 9 tasks in the list.
+------------------------------------------
+Got it. I've added this task:
+[D][ ] Renew Insurance (by: 2024-05-01)
+Now you have 10 tasks in the list.
+------------------------------------------
+Got it. I've added this task:
+[E][ ] Doctor's Appointment (from: 2024-04-20 15:00 to: 2024-04-20 16:00)
+Now you have 11 tasks in the list.
+------------------------------------------
+Here are the tasks in your list:
+1. [D][ ] Submit assignment (by: 2024-01-30)
+2. [E][ ] Team meeting (from: 2024-01-25 10:00 to: 2024-01-25 12:00)
+3. [D][ ] File taxes (by: 2024-04-15)
+4. [E][ ] Birthday Party (from: 2024-03-10 18:00 to: 2024-03-10 22:00)
+5. [D][ ] Prepare presentation (by: 2024-03-05)
+6. [E][ ] Workshop (from: 2024-02-20 09:00 to: 2024-02-20 12:00)
+7. [T][ ] Clean the house
+8. [T][ ] Grocery Shopping
+9. [T][ ] Call Mom
+10. [D][ ] Renew Insurance (by: 2024-05-01)
+11. [E][ ] Doctor's Appointment (from: 2024-04-20 15:00 to: 2024-04-20 16:00)
+------------------------------------------
+Nice! I've marked this task as done:
+[E][X] Birthday Party (from: 2024-03-10 18:00 to: 2024-03-10 22:00)
+------------------------------------------
+Nice! I've marked this task as done:
+[D][X] Prepare presentation (by: 2024-03-05)
+------------------------------------------
+OK, I've marked this task as not done yet:
+[E][ ] Birthday Party (from: 2024-03-10 18:00 to: 2024-03-10 22:00)
+------------------------------------------
+Bye. Hope to see you again soon!
+------------------------------------------
