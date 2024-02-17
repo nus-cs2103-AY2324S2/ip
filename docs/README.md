@@ -1,9 +1,9 @@
-# BobBot User Guide
+[# BobBot User Guide
 
 // Product screenshot goes here
-![DaExample.png](..%2Fsrc%2Fmain%2Fresources%2Fimages%2FDaExample.png)
+![DaExample.png](../src/main/resources/images/DaExample.png)
 
-Bob cooks, cleans and keeps your quintessential information for you. It's a chatbot that helps you keep track of your tasks, deadlines and events. It's a simple and easy to use chatbot that is perfect for anyone who wants to keep track of their tasks and deadlines.
+ob cooks, cleans and keeps your quintessential information for you. It's a chatbot that helps you keep track of your tasks, deadlines and events. It's a simple and easy to use chatbot that is perfect for anyone who wants to keep track of their tasks and deadlines.
 
 ## Adding deadlines
 
@@ -67,4 +67,4 @@ task.removeTag(urgentTag);
 
 Integration
 
-The tagging feature is designed to work seamlessly with the task management system of the application. It complements other features such as deadlines and events, providing a comprehensive solution for organizing and managing tasks.
+The tagging feature is designed to work seamlessly with the task management system of the application. It complements other features such as deadlines and events, providing a comprehensive solution for organizing and managing tasks.]()
