@@ -42,7 +42,7 @@ public class Duke extends Application {
     }
 
     /**
-     * The main method that runs the bot.
+     * Runs the bot.
      *
      * @param args Command line arguments.
      */
