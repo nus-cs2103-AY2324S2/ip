@@ -38,6 +38,22 @@ public class TaskList {
     }
 
     /**
+     * Adds a task to the TaskList and marks it as done if needed.
+     *
+     * @param task The task to be added.
+     * @param isDone Whether the task to be added is completed.
+     */
+    public void addTask(Task task, boolean isDone) {
+        if (this.taskList.contains(task)) {
+            throw new DukeException("this task already exists.");
+        }
+        if (isDone) {
+            task.markAsDone();
+        }
+        this.taskList.add(task);
+    }
+
+    /**
      * Removes a task at the specified index from the TaskList.
      *
      * @param idx The index of the task to be removed.
