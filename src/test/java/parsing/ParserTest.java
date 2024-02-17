@@ -109,7 +109,7 @@ public class ParserTest {
         assertEquals("Brother, key in delete <space> then a valid number",
                 new ParserStub().parseStub("delete"));
         assertEquals("You tell me now what task am I supposed to delete"
-                        + "if you don't provide me with a number?",
+                        + " if you don't provide me with a number?",
                 new ParserStub().parseStub("delete cc"));
     }
 

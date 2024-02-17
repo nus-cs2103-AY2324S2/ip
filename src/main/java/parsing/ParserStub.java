@@ -41,7 +41,7 @@ public class ParserStub {
                 return command + " " + info[1].trim();
             } catch (IndexOutOfBoundsException e) {
                 return "You trying to test my patience ah? Type \"get commands\" if u blur"
-                        + "and dunno how to use me properly.";
+                        + " and dunno how to use me properly.";
             }
         case "deadline":
             try {
