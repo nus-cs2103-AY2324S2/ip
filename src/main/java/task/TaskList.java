@@ -95,10 +95,11 @@ public class TaskList {
      * @param storage
      */
 
-    public void deleteTask(String userInput, Storage storage) {
+    public void deleteTask(String userInput, Storage storage, Storage archived) {
         String[] words = userInput.split("\\s+");
         int number = Integer.parseInt(words[1]);
         Task t = this.todoList.remove(number - 1);
+        archived.updateOneTask(t);
         System.out.println("Noted. I've removed this task:");
         updateHelper(t, storage);
     }

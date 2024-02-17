@@ -66,15 +66,39 @@ public class Storage {
         }
     }
 
+    public void updateOneTask(Task t) {
+        File file = new File(this.pathName);
+        file.getParentFile().mkdirs();
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            if (t instanceof Todo) {
+                writer.write("T | " + t.getIsDone() + " | " + t.getDescription());
+            } else if (t instanceof Deadline) {
+                Deadline d = (Deadline) t;
+                writer.write("D | " + d.getIsDone() + " | " + d.getDescription() + " | " + d.getBy());
+            } else if (t instanceof Event) {
+                Event e = (Event) t;
+                writer.write("E | " + e.getIsDone() + " | " + e.getDescription() + " | " + e.getFrom() + " | "
+                        + e.getTo());
+            }
+            writer.newLine();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public ArrayList<Task> getHistory() {
-        String fileName = "./data/duke.txt";
         ArrayList<Task> historyList = new ArrayList<>();
-        File file = new File(fileName);
+        File file = new File(this.pathName);
         if (!file.exists()) {
             return new ArrayList<Task>();
         }
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(this.pathName))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 Task t = createTaskFromLine(line);

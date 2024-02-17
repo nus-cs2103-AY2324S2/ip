@@ -16,10 +16,12 @@ import task.TaskList;
 public class Parser {
     protected TaskList todoList;
     protected Storage storage;
+    protected Storage archived;
 
-    public Parser(TaskList todoList, Storage storage) {
+    public Parser(TaskList todoList, Storage storage, Storage archived) {
         this.todoList = todoList;
         this.storage = storage;
+        this.archived = archived;
     }
 
     /**
@@ -36,10 +38,13 @@ public class Parser {
                 isExit = true;
             } else if (userInput.equals("list")) {
                 this.todoList.printList();
+            } else if (userInput.equals("archived")) {
+                TaskList archivedTasks = new TaskList(this.archived.getHistory());
+                archivedTasks.printList();
             } else if (isMarkTask(userInput)) {
                 this.todoList.changeMarkingOfTask(userInput, storage);
             } else if (isDeleteTask(userInput)) {
-                this.todoList.deleteTask(userInput, storage);
+                this.todoList.deleteTask(userInput, storage, archived);
             } else if (isFindTask(userInput)) {
                 this.todoList.findTask(userInput, storage);
             } else {

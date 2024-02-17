@@ -43,13 +43,14 @@ public class Duke extends Application {
     public static void main(String[] args) {
         Ui duke = new Ui("Zizhen");
         Storage storage = new Storage("./data/duke.txt");
+        Storage archived = new Storage("./data/archived.txt");
         duke.greeting();
 
         ArrayList<Task> temp = new ArrayList<>();
         temp = storage.getHistory();
         TaskList todoList = new TaskList(temp);
 
-        Parser parser = new Parser(todoList, storage);
+        Parser parser = new Parser(todoList, storage, archived);
         parser.parse();
 
         duke.exit();
@@ -63,7 +64,6 @@ public class Duke extends Application {
      * @return a label with the specified text that has word wrap enabled.
      */
     private Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
         Label textToAdd = new Label(text);
         textToAdd.setWrapText(true);
 
