@@ -46,5 +46,9 @@ public class Task implements Serializable {
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
+
+    public boolean isMatching(String keyword) {
+        return this.description.contains(keyword);
+    }
 }
 

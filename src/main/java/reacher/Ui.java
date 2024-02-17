@@ -23,7 +23,7 @@ public class Ui {
         System.out.println("Hello!\n" +
                 "I'm Reacher.\n" +
                 "Give me tasks.\n" +
-                "Functions are edit, list, add and bye");
+                "Functions are find, edit, list, add and bye");
     }
 
     /**
