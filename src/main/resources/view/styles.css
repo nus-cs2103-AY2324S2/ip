@@ -1,0 +1,37 @@
+/* styles.css */
+.root {
+    -fx-background-color: #2b2b2b; /* Dark background color */
+    -fx-text-fill: white; /* Text color */
+    -fx-font-family: 'Arial'; /* Change font family */
+    -fx-font-size: 8pt; /* Increase font size */
+}
+
+#userInput, #sendButton {
+    -fx-background-color: #333333; /* Dark button color */
+    -fx-text-fill: white; /* Text color for the input field and button */
+    -fx-font-family: 'Arial'; /* Change font family */
+    -fx-font-size: 8pt; /* Increase font size */
+}
+
+#scrollPane {
+    -fx-background: #1f1f1f; /* Dark background color for the scroll pane */
+}
+
+#dialogContainer {
+    -fx-background-color: #1f1f1f; /* Dark background color for the dialog container */
+    -fx-border-color: #333333; /* Border color */
+    -fx-border-width: 1px; /* Border width */
+}
+
+/* Optional: Add styling for scroll bar */
+.scroll-bar:horizontal, .scroll-bar:vertical {
+    -fx-background-color: #333333; /* Dark scroll bar background color */
+}
+
+.scroll-bar:horizontal .thumb, .scroll-bar:vertical .thumb {
+    -fx-background-color: #555555; /* Dark thumb color */
+}
+
+.anchor-pane {
+    -fx-background-color: #2b2b2b; /* Dark background color for the AnchorPane */
+}
