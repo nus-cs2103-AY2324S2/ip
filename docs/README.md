@@ -8,14 +8,14 @@ applications.
 
 ![](Ui.png)
 
-## Getting Started
+# Getting Started
 
 1. Download the `.jar` file from [here](https://github.com/yisiox/ip/releases).
 2. Open a terminal in the directory which you saved the `.jar` file, then run
    1. `java -jar earl.jar` for GUI mode.
    2. `java -jar earl.jar nogui` for CLI mode.
 
-## Quick Reference
+# Quick Reference
 
 | Command    | Arguments                                       |
 |------------|-------------------------------------------------|
@@ -27,11 +27,12 @@ applications.
 | `mark`     | `<indices> [<indices>, ...]`                    |
 | `unmark`   | `<indices> [<indices>, ...]`                    |
 | `delete`   | `<indices> [<indices>, ...]`                    |
+| `help`     | None                                            |
 | `bye`      | None                                            |
 
-## Features
+# Features
 
-### Adding ToDos: `todo`
+## Adding ToDos: `todo`
 Adds a todo to the list of tasks.
 
 Format: `todo <task name>`
@@ -41,7 +42,7 @@ Example: `todo homework`, `todo wash clothes`
 *Notes*
 + `<task name>` cannot be empty
 
-### Adding Deadlines: `deadline`
+## Adding Deadlines: `deadline`
 
 Adds a deadline to the list of tasks.
 
@@ -53,7 +54,7 @@ Example: `deadline project submission /by 01/01/2024 2359`
 + `<task name>` cannot be empty
 + `<date time>` must be of the format `dd/mm/yyyy hhmm`
 
-### Adding Events: `event`
+## Adding Events: `event`
 
 Adds an event to the list of tasks.
 
@@ -66,13 +67,13 @@ Example: `event exam /from 01/01/2024 1200 /to 01/01/2024 1400`
 + `<date time>` must be of the format `dd/mm/yyyy hhmm`
 + The start cannot occur after the end
 
-### Listing Tasks: `list`
+## Listing Tasks: `list`
 
 Displays all tasks currently tracked.
 
 Format: `list`
 
-### Finding Tasks: `find`
+## Finding Tasks: `find`
 
 Displays all tasks with details matching a pattern.
 
@@ -80,7 +81,7 @@ Format: `find <pattern>`
 
 Example: `find wash clothes`
 
-### Marking Tasks: `mark`
+## Marking Tasks: `mark`
 
 Marks a task as complete.
 
@@ -95,7 +96,7 @@ Example: `mark 1 3-5`
 + Indices outside the range of valid indices are ignored
 + There must be at least 1 valid index
 
-### Unmarking Tasks: `unmark`
+## Unmarking Tasks: `unmark`
 
 Marks a task as incomplete.
 
@@ -110,7 +111,7 @@ Example: `unmark 2-4 6 8-11`
 + Indices outside the range of valid indices are ignored
 + There must be at least 1 valid index
 
-### Deleting Tasks: `delete`
+## Deleting Tasks: `delete`
 
 Removes a task from the list.
 
@@ -124,7 +125,16 @@ Example: `delete 3 5 9-11`
 + Indices outside the range of valid indices are ignored
 + There must be at least 1 valid index
 
-### Closing the Application: `bye`
+## Show List of Commands: `help`
+
+Lists the valid commands.
+
+Format: `help`
+
+*Notes*
++ This is automatically executed on invalid inputs
+
+## Closing the Application: `bye`
 
 Saves the tasks and closes the application.
 
