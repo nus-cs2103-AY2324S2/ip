@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+
+<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="156.0" prefWidth="400.0" style="-fx-border-color: black;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+      <ScrollPane prefHeight="200.0" prefWidth="282.0">
+         <content>
+              <Label fx:id="dialog" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" prefHeight="576.0" prefWidth="579.0" style="-fx-label-padding: 2;" text="Label" textOverrun="WORD_ELLIPSIS" wrapText="true" />
+         </content>
+      </ScrollPane>
+      <Separator orientation="VERTICAL" prefHeight="37.0" prefWidth="4.0" />
+      <StackPane prefHeight="81.0" prefWidth="108.0" style="-fx-border-radius: 0.5; -fx-border-color: black;">
+         <children>
+              <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="108.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+         <HBox.margin>
+            <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+         </HBox.margin>
+      </StackPane>
+    </children>
+    <padding>
+        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+    </padding>
+</fx:root>
