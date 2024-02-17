@@ -1,0 +1,19 @@
+eat
+todo
+drive
+event
+fri 5pm 
+fri 8pm
+homework
+deadline
+11jan
+list
+edit
+3
+done
+list
+edit
+3
+undone
+list
+bye
