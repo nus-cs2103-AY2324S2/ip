@@ -133,7 +133,7 @@ public class Parser {
         String tag = m.group(2);
         taskList.untagTask(taskNum, tag);
         storage.saveFile(taskList);
-        return "OK, I've untagged " + tag + "from the task.\n" + taskList.getTaskAtIndex(taskNum);
+        return "OK, I've untagged " + tag + " from the task.\n" + taskList.getTaskAtIndex(taskNum);
     }
 
     private static String parseTag(String input, TaskList taskList, Storage storage)
@@ -147,7 +147,7 @@ public class Parser {
         String tag = m.group(2);
         taskList.tagTask(taskNum, tag);
         storage.saveFile(taskList);
-        return "OK, I've tagged this task with " + tag + ":\n" + taskList.getTaskAtIndex(taskNum);
+        return "OK, I've tagged this task with #" + tag + ":\n" + taskList.getTaskAtIndex(taskNum);
     }
 
 
@@ -240,7 +240,7 @@ public class Parser {
             int taskNum = Integer.parseInt(m.group(1)) - 1;
             taskList.markAsUndone(taskNum);
             storage.saveFile(taskList);
-            return "OK, I've marked this task as not done yet:" + taskList.getTaskAtIndex(taskNum);
+            return "OK, I've marked this task as not done yet:\n" + taskList.getTaskAtIndex(taskNum);
         } catch (IndexOutOfBoundsException e) {
             throw new TaskIndexOutOfBoundsException();
         }

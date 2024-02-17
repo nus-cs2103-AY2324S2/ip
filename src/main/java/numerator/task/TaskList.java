@@ -139,7 +139,7 @@ public class TaskList {
      * @return the string representation of the task that was added.
      */
     public String getAddTaskString(Task task) {
-        return "Got it, I've added this task:\n"
+        return "Added:\n"
                 + task.toString() + "\nNow you have "
                 + taskList.size() + " tasks in the list";
     }
