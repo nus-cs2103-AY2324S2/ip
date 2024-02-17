@@ -1,3 +1,5 @@
+import com.sun.tools.javac.Main
+
 plugins {
     id 'checkstyle'
     id 'java'
@@ -43,10 +45,11 @@ test {
 }
 
 application {
-    mainClass.set("bit.Bit")
+    mainClass.set("bit.Launcher")
 }
 
 shadowJar {
+    archiveFileName = 'bit.jar'
     archiveBaseName = "bit"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
