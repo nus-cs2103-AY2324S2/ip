@@ -1,12 +1,23 @@
 package duke.task;
 
 
+import duke.action.Echo;
+import duke.action.TaskList;
+import duke.exception.DukeException;
+import duke.exception.DuplicateTaskException;
+import duke.exception.EmptyDescriptionException;
+import duke.exception.WrongDateFormatException;
+
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
+
 
 /**
  * Represents a task with a deadline in the Duke application.
  */
 public class Deadline extends Task {
+    private static final int DEADLINE_START_INDEX = 9;
 
     /**
      * The deadline date of the task.
@@ -49,6 +60,32 @@ public class Deadline extends Task {
             return this.getDescription().equals(deadline.getDescription()) && this.getBy().equals(deadline.getBy());
         }
         return false;
+    }
+
+    public static Echo parse(String command, TaskList taskList) throws DukeException {
+        String[] words = command.split(" ");
+        if (words.length > 1) {
+            try {
+                String[] parts = command.split("/by", 2);
+                String description = parts[0].substring(9).trim();
+                if (description.isEmpty()) {
+                    throw new EmptyDescriptionException();
+                }
+                LocalDate by = LocalDate.parse(parts[1].trim());
+                Deadline deadline = new Deadline(description, by);
+                if (taskList.contains(deadline)) {
+                    throw new DuplicateTaskException();
+                } else {
+                    taskList.addTask(deadline);
+                    return new Echo("Got it. I've added this task:\n  " + deadline + "\nNow "
+                            + "you have " + taskList.size() + " tasks in the list.");
+                }
+            } catch (DateTimeParseException e) {
+                throw new WrongDateFormatException();
+            }
+        } else {
+            throw new EmptyDescriptionException();
+        }
     }
 
     /**

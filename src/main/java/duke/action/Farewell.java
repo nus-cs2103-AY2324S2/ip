@@ -17,6 +17,11 @@ public class Farewell implements Action {
         return " Bye. Hope to see you again soon!";
     }
 
+    public static Farewell parse(TaskList taskList) {
+        taskList.goodBye();
+        return new Farewell();
+    }
+
     /**
      * Checks if the action represents an exit command.
      *

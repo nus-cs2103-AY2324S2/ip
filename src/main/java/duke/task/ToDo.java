@@ -1,5 +1,11 @@
 package duke.task;
 
+import duke.action.Echo;
+import duke.action.TaskList;
+import duke.exception.DukeException;
+import duke.exception.DuplicateTaskException;
+import duke.exception.EmptyDescriptionException;
+
 /**
  * Represents a task of type ToDo in the Duke application.
  */
@@ -31,6 +37,26 @@ public class ToDo extends Task {
             return this.getDescription().equals(toDo.getDescription());
         }
         return false;
+    }
+
+    public static Echo parse(String command, TaskList taskList) throws DukeException {
+        String[] words = command.split(" ");
+        if (words.length > 1) {
+            String description = command.substring(5).trim();
+            if (description.isEmpty()) {
+                throw new EmptyDescriptionException();
+            }
+            ToDo todo = new ToDo(description);
+            if (taskList.contains(todo)) {
+                throw new DuplicateTaskException();
+            } else {
+                taskList.addTask(todo);
+                return new Echo("Got it. I've added this task:\n  " + todo + "\nNow you have "
+                        + taskList.size() + " tasks in the list.");
+            }
+        } else {
+            throw new EmptyDescriptionException();
+        }
     }
 
 

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import duke.task.Task;
-import duke.task.ToDo;
 
 
 /**
@@ -154,6 +153,15 @@ public class TaskList extends ArrayList<Task> implements Action, Iterable<Task> 
             for (int i = 0; i < matchingTasks.size(); i++) {
                 System.out.println("  " + (i + 1) + ". " + matchingTasks.get(i));
             }
+        }
+    }
+
+    public static Action parse(TaskList taskList) { // hmm might think of another way
+        if (taskList != null) {
+            //taskList.displayTasks();
+            return taskList;
+        } else {
+            return new Echo("Task list is not initialized.");
         }
     }
 

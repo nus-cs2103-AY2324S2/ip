@@ -1,11 +1,18 @@
 package duke.task;
 
+import duke.action.Echo;
+import duke.action.TaskList;
+import duke.exception.*;
+
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 /**
  * Represents a task with an event in the Duke application.
  */
 public class Event extends Task {
+    private static final int EVENT_START_INDEX = 6;
+    private static final int MAX_SPLIT = 2;
 
     /**
      * The starting date of the event.
@@ -65,6 +72,37 @@ public class Event extends Task {
                     && this.getFrom().equals(event.getFrom());
         }
         return false;
+    }
+
+    public static Echo parse(String command, TaskList taskList) throws DukeException {
+        String[] words = command.split(" ");
+        if (words.length > 1 && command.contains("/from") && command.contains("/to")) {
+            try {
+                String[] parts = command.split("/from", 2);
+                String description = parts[0].substring(EVENT_START_INDEX).trim();
+                if (description.isEmpty()) {
+                    throw new EmptyDescriptionException();
+                }
+                String[] eventDetails = parts[1].split("/to", 2);
+                LocalDate from = LocalDate.parse(eventDetails[0].trim());
+                LocalDate to = LocalDate.parse(eventDetails[1].trim());
+                if (to.isBefore(from)) {
+                    throw new WrongDateOrderingException();
+                }
+                Event event = new Event(description, from, to);
+                if (taskList.contains(event)) {
+                    throw new DuplicateTaskException();
+                } else {
+                    taskList.addTask(event);
+                    return new Echo("Got it. I've added this task:\n  " + event
+                            + "\nNow you have " + taskList.size() + " tasks in the list.");
+                }
+            } catch (DateTimeParseException e) {
+                throw new WrongDateFormatException();
+            }
+        } else {
+            throw new InvalidEventFormatException();
+        }
     }
 
     /**

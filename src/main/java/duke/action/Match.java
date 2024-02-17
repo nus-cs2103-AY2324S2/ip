@@ -2,6 +2,8 @@ package duke.action;
 
 import java.util.ArrayList;
 
+import duke.exception.DukeException;
+import duke.exception.NoWordException;
 import duke.task.Task;
 
 /**
@@ -20,6 +22,17 @@ public class Match implements Action {
     public Match(String keyword, TaskList taskList) {
         this.keyword = keyword.toLowerCase(); // Convert keyword to lowercase
         this.taskList = taskList;
+    }
+
+    public static Match parse(String command, TaskList taskList) throws DukeException {
+        String[] words = command.split(" ");
+        if (words.length > 1) {
+            String keyword = command.substring(5).trim();
+            taskList.matches(keyword);
+            return new Match(keyword, taskList);
+        } else {
+            throw new NoWordException();
+        }
     }
 
     /**
