@@ -17,6 +17,7 @@ public class Parser {
         LIST,
         FIND,
         UPDATE_TIME,
+        HELP,
         UNKNOWN
     }
 

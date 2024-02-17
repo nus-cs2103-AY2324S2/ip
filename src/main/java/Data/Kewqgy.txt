@@ -6,3 +6,4 @@ T false buy groceries
 T false testDeadline /by 123
 E false test /from 2024-02-20 /to 2024-02-22
 E false test /from 2024-02-24 /to 2024-02-22
+D false CS2103 HW /by 2024-02-23
