@@ -25,7 +25,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]"
-                + (this.completedTask ? "[X] " : "[ ] ")
+                + (this.isCompleted ? "[X] " : "[ ] ")
                 + this.listItem
                 + " (by: "
                 + this.dtf.format(this.deadline)

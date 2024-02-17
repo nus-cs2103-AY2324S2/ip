@@ -13,7 +13,7 @@ public class Todo extends Task {
     @Override
     public String toString() {
         return "[T]"
-                + (this.completedTask ? "[X] " : "[ ] ")
+                + (this.isCompleted ? "[X] " : "[ ] ")
                 + this.listItem;
     }
 }

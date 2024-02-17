@@ -11,7 +11,7 @@ public class Task {
     protected String listItem;
     protected String inputItem;
     protected String completed;
-    protected boolean completedTask;
+    protected boolean isCompleted;
     protected DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     /**
@@ -27,12 +27,12 @@ public class Task {
     }
 
     public boolean isTaskDone() {
-        return completedTask;
+        return isCompleted;
     }
 
     public void setTaskDone(boolean taskDone) {
-        this.completedTask = taskDone;
-        this.completed = !this.completedTask ? " incomplete" : " complete";
+        this.isCompleted = taskDone;
+        this.completed = !this.isCompleted ? " incomplete" : " complete";
     }
 
     public String getListItem() {

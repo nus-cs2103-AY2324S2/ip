@@ -28,7 +28,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]"
-                + (this.completedTask ? "[X] " : "[ ] ")
+                + (this.isCompleted ? "[X] " : "[ ] ")
                 + this.listItem
                 + " (from: "
                 + this.dtf.format(this.startTime)
