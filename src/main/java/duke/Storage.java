@@ -38,47 +38,49 @@ class Storage {
     public TaskList loadFromFile() throws FileNotFoundException {
         TaskList tasks = new TaskList();
 
-        try (Scanner sc = new Scanner(this.taskFile)) {
-            while (sc.hasNext()) {
-                String taskLine = sc.nextLine();
-                String[] token = taskLine.split("\\|");
-                String taskType = token[0];
-                String status = token[1];
-                String description = token[2];
-                switch (taskType) {
-                case "T":
-                    ToDo todoTask = new ToDo(description);
-                    if (status.equals("X")) {
-                        todoTask.mark();
-                    }
-                    tasks.addTask(todoTask);
-                    break;
-                case "D":
-                    Deadline deadlineTask = new Deadline(description,
-                            LocalDate.parse(token[3]));
-                    if (status.equals("X")) {
-                        deadlineTask.mark();
-                    }
-                    tasks.addTask(deadlineTask);
-                    break;
-                case "E":
-                    Event eventTask = new Event(description, LocalDate.parse(token[3]),
-                            LocalDate.parse(token[4]));
-                    if (status.equals("X")) {
-                        eventTask.mark();
-                    }
-                    tasks.addTask(eventTask);
-                    break;
-
-                default:
-                    throw new IllegalArgumentException("Unexpected task type: " + taskType);
-                }
+        try (Scanner scanner = new Scanner(taskFile)) {
+            while (scanner.hasNext()) {
+                String taskLine = scanner.nextLine();
+                Task task = parseTask(taskLine);
+                tasks.addTask(task);
             }
         } catch (FileNotFoundException e) {
             handleFileNotFound();
+            throw e;
         }
 
         return tasks;
+    }
+
+    private Task parseTask(String taskLine) {
+        String[] token = taskLine.split("\\|");
+        String taskType = token[0];
+        String status = token[1];
+        String description = token[2];
+        Task task;
+
+        switch (taskType) {
+        case "T":
+            task = new ToDo(description);
+            break;
+        case "D":
+            LocalDate deadlineBy = LocalDate.parse(token[3]);
+            task = new Deadline(description, deadlineBy);
+            break;
+        case "E":
+            LocalDate eventFrom = LocalDate.parse(token[3]);
+            LocalDate eventTo = LocalDate.parse(token[4]);
+            task = new Event(description, eventFrom, eventTo);
+            break;
+        default:
+            throw new IllegalArgumentException("Unexpected task type: " + taskType);
+        }
+
+        if (status.equals("X")) {
+            task.mark();
+        }
+
+        return task;
     }
 
     /**
