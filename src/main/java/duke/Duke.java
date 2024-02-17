@@ -11,6 +11,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.layout.Region;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+
 
 /**
  * The Duke class is the main entry point for the bot application itself
@@ -24,6 +28,9 @@ public class Duke extends Application {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
+
+    private final Image user = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
+    private final Image bot = new Image(this.getClass().getResourceAsStream("/images/skynet.png"));
 
     /**
      * The main method to start the bot.
@@ -42,8 +49,7 @@ public class Duke extends Application {
 
     @Override
     public void start(Stage stage) {
-        // Step 1. Setting up required components
-
+        // Required components
         // The container for the content of the chat to scroll.
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
@@ -60,9 +66,7 @@ public class Duke extends Application {
         stage.setScene(scene);
         stage.show();
 
-        // More code to be added here later
-
-        // Step 2. Formatting the window to look as expected
+        // Formatting the window to look as expected
         stage.setTitle("WannaBeSkynet");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
@@ -77,7 +81,6 @@ public class Duke extends Application {
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
 
-        // You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
         userInput.setPrefWidth(325.0);
@@ -92,8 +95,6 @@ public class Duke extends Application {
         AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
-        // More code to be added here later
-        // Step 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> {
             dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
             userInput.clear();
@@ -104,8 +105,17 @@ public class Duke extends Application {
             userInput.clear();
         });
 
-        // Scroll down to the end every time dialogContainer's height changes.
+        // Scroll down to the end every time dialogContainer's height changes
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+
+        // Functionality to handle user input.
+        sendButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
+
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+        });
     }
 
     /**
@@ -121,5 +131,24 @@ public class Duke extends Application {
         textToAdd.setWrapText(true);
 
         return textToAdd;
+    }
+
+    /**
+     * Iteration 2:
+     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * the dialog container. Clears the user input after processing.
+     */
+    private void handleUserInput() {
+        Label userText = new Label(userInput.getText());
+        Label botText = new Label(getResponse(userInput.getText()));
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userText, new ImageView(user)),
+                DialogBox.getDukeDialog(botText, new ImageView(bot))
+        );
+        userInput.clear();
+    }
+
+    private String getResponse(String input) {
+        return "You said: " + input;
     }
 }
