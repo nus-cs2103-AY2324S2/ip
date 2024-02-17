@@ -7,16 +7,28 @@ public class TaskList {
         tasks = new ArrayList<Task>();
     }
 
-    public void addTask(Task task) {
+    public TaskList(ArrayList<Task> taskList) {
+        this.tasks = taskList;
+    }
+
+    public void addToTaskList(Task task) {
         tasks.add(task);
     }
 
-    public void removeTask(int index) {
+    public void deleteTask(int index) {
         tasks.remove(index);
     }
 
     public Task getTask(int index) {
         return tasks.get(index);
+    }
+
+    public ArrayList<Task> getAllTasks() {
+        return this.tasks;
+    }
+
+    public int getTaskListLength() {
+        return tasks.size();
     }
 
 }
