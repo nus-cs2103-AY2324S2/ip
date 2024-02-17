@@ -45,9 +45,9 @@ public class Parser {
             throw new DukeException("Format Error, Event must be in format:"
                     + "Event /from YYYY-MM-DD HHmm /to YYYY-MM-DD HHmm");
         }
-
+        
+        assert s.length() > EVENT_LENGTH;
         String eventName = s.substring(EVENT_LENGTH, fromIndex - 1);
-
         try {
             String fromDate = s.substring(fromIndex + FROM_LENGTH, toIndex - 1);
             String toDate = s.substring(toIndex + TO_LENGTH);
@@ -64,9 +64,9 @@ public class Parser {
         if (byIndex == -1 || s.length() < DEADLINE_LENGTH) {
             throw new DukeException("Format Error, Deadline must be in format: Deadline /by YYYY-MM-DD HHmm");
         }
-
+      
+        assert s.length() > DEADLINE_LENGTH;
         String deadlineName = s.substring(DEADLINE_LENGTH - 1, byIndex - 1);
-
         try {
             String deadlineDate = s.substring(byIndex + BY_LENGTH);
             return new Deadline(deadlineName, deadlineDate);
@@ -79,6 +79,7 @@ public class Parser {
         if (s.length() < TODO_LENGTH) {
             throw new DukeException("Error, description of todo is missing");
         }
+        assert s.length() > 5;
         String name = s.substring(5);
         return new Todo(name);
     }
@@ -176,6 +177,7 @@ public class Parser {
             throw new DukeException("File is of wrong format.");
         }
 
+        assert t != null;
         if (s.charAt(MARK_POS) == 'X') {
             t.setDone(true);
         } else if (s.charAt(MARK_POS) == ' ') {
