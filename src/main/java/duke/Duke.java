@@ -1,17 +1,18 @@
 package duke;
 
+import java.io.FileNotFoundException;
+
 import duke.parser.InputException;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
-import java.io.FileNotFoundException;
-
 /**
  * Represents task tracking bot.
  */
 public class Duke {
+    private static Duke instance = null;
     private Ui ui = null;
     private Parser parser = null;
     private TaskList taskList = null;
@@ -21,7 +22,6 @@ public class Duke {
         ACTIVE,
         INACTIVE
     }
-    private static Duke instance = null;
     private LivState currentState = null;
 
     /**
@@ -30,12 +30,15 @@ public class Duke {
      */
     public String getResponse(String input) {
         try {
-            return parser.ProcessInputReturnString(input);
+            return parser.processInputReturnString(input);
         } catch (InputException e) {
             return e.getMessage();
         }
     }
 
+    /**
+     * Initialize UI, parser, tasklist and storage components of Duke
+     */
     public void initDukeLogic() {
         currentState = LivState.INACTIVE;
 
@@ -63,66 +66,15 @@ public class Duke {
         }
     }
 
-    /**
-     * Starts Duke.
-     * Initialises ui, parser, taskList and storage.
-     * Loads taskList saved locally if any.
-     * Creates a Data directory to host the data file if local taskList not found.
-     * Starts listening to user input.
-     */
-    /*
-    private void Start() {
-        // initialize duke.ui.Ui
-        ui = Ui.getInstance();
-        ui.initUi();
-
-        // initialize parser
-        parser = Parser.getInstance();
-        parser.initParser();
-
-        // initialize taskList
-        taskList = TaskList.getInstance();
-        taskList.initTaskList();
-
-        // initialize storage
-        storage = Storage.getInstance();
-        storage.initStorage();
-
-        try {
-            storage.loadFromMemory();
-        } catch (FileNotFoundException e) {
-            System.out.println("No previous task file found");
-            storage.createDataFile();
-        }
-
-
-        instance.ToggleActiveState();
-
-        while (isActive()) {
-            // should start the cycle talking
-            String userInput = ui.StartListening();
-            try {
-                parser.ProcessInput(userInput);
-            } catch (InputException e) {
-                ui.speak(e.getMessage());
-            }
-        }
-    }
-     */
     public boolean isActive() {
         return currentState == LivState.ACTIVE;
     }
 
-    /*
-    public static void main(String[] args) {
-        getInstance().instanceStart();
-    }
-     */
 
     /**
      * Toggles active state of Duke.
      */
-    public void ToggleActiveState() {
+    public void toggleActiveState() {
         if (currentState != LivState.INACTIVE) {
             currentState = LivState.INACTIVE;
             return;

@@ -112,7 +112,7 @@ public abstract class Task {
      * @return String representing the data in storage format.
      */
     public String convertToDataRow() {
-        return printType() + storageDataStringSplitter + boolToInt(isDone) + storageDataStringSplitter + description;
+        return getType() + storageDataStringSplitter + boolToInt(isDone) + storageDataStringSplitter + description;
     }
 
     /**
@@ -148,9 +148,9 @@ public abstract class Task {
     }
 
     private static boolean isTaskStringArray(String[] inputArray) {
-        return inputArray[0].equals("T") ||
-                inputArray[0].equals("E") ||
-                inputArray[0].equals("D");
+        return inputArray[0].equals("T")
+                || inputArray[0].equals("E")
+                || inputArray[0].equals("D");
     }
 
     private static boolean isTaskDataEntryDone(String[] inputArray) {
@@ -166,7 +166,7 @@ public abstract class Task {
      *
      * @return String representing task type.
      */
-    public abstract String printType();
+    public abstract String getType();
 
     /**
      * Sets up task with string input.

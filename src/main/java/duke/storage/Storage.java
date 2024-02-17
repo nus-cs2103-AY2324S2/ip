@@ -15,6 +15,7 @@ import duke.task.TaskList;
  * Represents storage component of Duke.
  */
 public class Storage {
+    public static final String DATA_FILE_DIRECTORY_PATH = "./Data";
     private static final String DATA_FILE_PATH = "Data/savedTasks.txt";
     private static Storage instance = null;
     private TaskList taskList = null;
@@ -61,7 +62,9 @@ public class Storage {
             String dataToWrite = "";
             for (int i = 1; i <= taskList.getNumOfTasks(); i++) {
                 dataToWrite += taskList.getTask(i).convertToDataRow();
-                if (i < taskList.getNumOfTasks()) dataToWrite += System.lineSeparator();
+                if (i < taskList.getNumOfTasks()) {
+                    dataToWrite += System.lineSeparator();
+                }
             }
             writeToFile(DATA_FILE_PATH, dataToWrite);
         } catch (IOException e) {
@@ -74,7 +77,7 @@ public class Storage {
      */
     public void createDataFile() {
         // Specify the path for the new directory
-        String directoryPath = "./Data";
+        String directoryPath = DATA_FILE_DIRECTORY_PATH;
 
         // Create a File object representing the directory
         File directory = new File(directoryPath);

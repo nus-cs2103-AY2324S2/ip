@@ -12,25 +12,30 @@ import duke.ui.Ui;
  */
 public class Deadline extends Task {
 
+    public static final String DELIMITER = "deadline|/by";
+    public static final String COMMAND = "deadline";
+    public static final String TYPE_STRING = "D";
     private LocalDateTime by = null;
 
     public Deadline(String input) throws MissingInputFieldException {
         super(TaskType.DEADLINE);
-        delimiter = "deadline|/by";
-        command = "deadline";
+        delimiter = DELIMITER;
+        command = COMMAND;
         setUpTask(input);
     }
 
     @Override
-    public String printType() {
-        return "D";
+    public String getType() {
+        return TYPE_STRING;
     }
 
     @Override
     public void setUpTask(String input) throws MissingInputFieldException {
         try {
             input = input.trim();
-            if (!input.contains(command)) throw new RuntimeException("not deadline");
+            if (!input.contains(command)) {
+                throw new RuntimeException("not deadline");
+            }
             String[] inputArray = Task.removeEmptyElements(input.split(delimiter));
             description = inputArray[0].trim();
             by = Parser.parseDateAndTime(inputArray[1].trim());
@@ -41,13 +46,13 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[" + printType() + "]" + "[" + getIsDoneStatus() + "] "
+        return "[" + getType() + "]" + "[" + getIsDoneStatus() + "] "
                 + description + " " + "(by: " + Ui.printTime(by) + ")";
     }
 
     @Override
     public String convertToDataRow() {
-        return super.convertToDataRow() + 0 + storageDataStringSplitter +
-                Storage.convertDateTimeForStorage(by);
+        return super.convertToDataRow() + 0 + storageDataStringSplitter
+                + Storage.convertDateTimeForStorage(by);
     }
 }
