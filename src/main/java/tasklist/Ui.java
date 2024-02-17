@@ -107,6 +107,8 @@ public class Ui {
             + "event [task] /from [date] /to [date] - add an EVENT to your list\n"
             + "delete [input number] - delete a task from task list\n"
             + "list - list out the current tasks you have\n"
+            + "find {input} - find tasks based on search input\n"
+            + "viewschedule - view the current tasks you currently have in a calendar format\n"
             + "bye - exit the program\n"
             + "(NOTE: deadline should be in dd-mm-yyyy hhmm format)");
     }

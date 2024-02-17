@@ -3,6 +3,8 @@ package tasklist;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import tasklist.tasks.Deadline;
+import tasklist.tasks.Event;
 import tasklist.tasks.Task;
 
 /**
@@ -13,6 +15,8 @@ import tasklist.tasks.Task;
 public class TaskList implements Serializable {
     /** arraylist to store tasks */
     private ArrayList<Task> theTaskList;
+    private ArrayList<Deadline> deadlines;
+    private ArrayList<Event> events;
 
     /**
      * Initalize the TaskList.
@@ -21,6 +25,18 @@ public class TaskList implements Serializable {
      */
     public TaskList(ArrayList<Task> thelist) {
         this.theTaskList = thelist;
+        ArrayList<Deadline> deadlines = new ArrayList<>();
+        ArrayList<Event> events = new ArrayList<>();
+        for (int i = 0; i < thelist.size(); i++) {
+            Task listItem = thelist.get(i);
+            if (listItem instanceof Deadline) {
+                deadlines.add((Deadline) listItem);
+            } else if (listItem instanceof Event) {
+                events.add((Event) listItem);
+            }
+        } 
+        this.deadlines = deadlines;
+        this.events = events;
     }
 
     /**
@@ -30,6 +46,11 @@ public class TaskList implements Serializable {
      */
     public void addTask(Task task) {
         theTaskList.add(task);
+        if (task instanceof Deadline) {
+            deadlines.add((Deadline) task);
+        } else if (task instanceof Event) {
+            events.add((Event) task);
+        }
     }
 
     /**
@@ -40,6 +61,11 @@ public class TaskList implements Serializable {
     public Task deleteTask(int taskNo) {
         try {
             Task removedTask = theTaskList.remove(taskNo - 1);
+            if (removedTask instanceof Deadline) {
+                deadlines.remove(removedTask);
+            } else if (removedTask instanceof Event) {
+                events.remove(removedTask);
+            }
             return removedTask;
         } catch (IndexOutOfBoundsException e) {
             throw new IndexOutOfBoundsException(
@@ -113,5 +139,14 @@ public class TaskList implements Serializable {
         }
         return matchedTasks;
     }
+
+    public ArrayList<Deadline> getDeadlines() {
+        return this.deadlines;
+    }
+
+    public ArrayList<Event> getEvents() {
+        return this.events;
+    }
+
 
 }

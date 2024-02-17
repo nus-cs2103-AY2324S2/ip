@@ -1,4 +1,4 @@
-package tasklist;
+package tasklist.gui;
 import javafx.application.Application;
 
 /**

@@ -50,9 +50,20 @@ public class Event extends Task {
             this.toDateLdt = toDateLdt;
             this.toDateString = toDateString.trim();
 
+            System.out.println(fromDateString);
+            System.out.println(fromDateLdt);
+
         } catch (DateTimeException dte) {
             throw new DateTimeParseException("Date format is incorrect, please try again", item, 0, dte);
         }
+    }
+
+    public LocalDateTime getFromDate() {
+        return this.fromDateLdt;
+    }
+
+    public LocalDateTime getToDate() {
+        return this.toDateLdt;
     }
 
     @Override

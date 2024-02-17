@@ -9,6 +9,7 @@ import tasklist.commands.HelpCommand;
 import tasklist.commands.InvalidCommand;
 import tasklist.commands.ListCommand;
 import tasklist.commands.MarkCommand;
+import tasklist.commands.ViewScheduleCommand;
 
 /**
  * Handles all the parsing operations for input commands and text.
@@ -27,7 +28,9 @@ public class Parser {
         BYE,
         HELPG,
         ADD,
-        UNKNOWN, FIND
+        UNKNOWN, 
+        FIND,
+        VIEWSCHEDULE
     }
 
     private static Commands getCommand(String commandString) {
@@ -75,7 +78,7 @@ public class Parser {
                 } catch (NumberFormatException e) {
                     return new InvalidCommand("Error: Input is not a valid numeric value.");
                 }
-
+                
             case ADD:
                 return new AddCommand(inputList[1], 0);
 
@@ -102,6 +105,9 @@ public class Parser {
 
             case HELPG:
                 return new HelpCommand();
+
+            case VIEWSCHEDULE:
+                return new ViewScheduleCommand();
 
             default:
                 return new InvalidCommand("Invalid command: " + userInput + "\nPlease try again.");

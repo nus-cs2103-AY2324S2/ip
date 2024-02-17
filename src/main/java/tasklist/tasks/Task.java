@@ -20,8 +20,8 @@ public class Task implements Serializable {
     }
 
     // retrieve task status
-    public String getStatusIcon() {
-        return (isDone ? "X" : " ");
+    public boolean getStatus() {
+        return isDone;
     }
 
     // mark the item as completed.
@@ -45,6 +45,6 @@ public class Task implements Serializable {
     }
 
     public String toString() {
-        return "[" + getStatusIcon() + "] " + item;
+        return "[" + (isDone ? "X" : " ") + "] " + item;
     }
 }
