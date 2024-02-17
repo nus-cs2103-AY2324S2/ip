@@ -12,6 +12,7 @@ public class Mark implements Action {
 
     private int[] indices;
     private TaskList tasks;
+    private static final int MARK_START_INDEX = 5;
 
     public Mark(int index, TaskList tasks) throws WrongIndexException {
         this(new int[]{index}, tasks);
@@ -40,7 +41,7 @@ public class Mark implements Action {
     public static Mark parse(String command, TaskList taskList) throws DukeException {
         String[] words = command.split(" ");
         if (words.length > 1) {
-            String[] indicesString = command.substring(5).trim().split(" ");
+            String[] indicesString = command.substring(MARK_START_INDEX).trim().split(" ");
             if (indicesString.length > 0) {
                 int[] indices = new int[indicesString.length];
                 for (int i = 0; i < indicesString.length; i++) {

@@ -12,6 +12,8 @@ import duke.task.Task;
 public class Unmark implements Action {
     private int[] indices;
     private TaskList tasks;
+
+    private static final int UNMARK_START_INDEX = 7;
     /**
      * Constructs a Unmark action with the specified index and task list.
      *
@@ -46,7 +48,7 @@ public class Unmark implements Action {
     public static Unmark parse(String command, TaskList taskList) throws DukeException {
         String[] words = command.split(" ");
         if (words.length > 1) {
-            String[] indicesString = command.substring(7).trim().split(" "); // Remove
+            String[] indicesString = command.substring(UNMARK_START_INDEX).trim().split(" "); // Remove
             // "mark" and split by spaces
             if (indicesString.length > 0) {
                 int[] indices = new int[indicesString.length];

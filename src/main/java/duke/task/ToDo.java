@@ -11,6 +11,7 @@ import duke.exception.EmptyDescriptionException;
  */
 
 public class ToDo extends Task {
+    private static final int TODO_START_INDEX = 5;
 
     /**
      * Constructs a ToDo task with the specified description.
@@ -42,7 +43,7 @@ public class ToDo extends Task {
     public static Echo parse(String command, TaskList taskList) throws DukeException {
         String[] words = command.split(" ");
         if (words.length > 1) {
-            String description = command.substring(5).trim();
+            String description = command.substring(TODO_START_INDEX).trim();
             if (description.isEmpty()) {
                 throw new EmptyDescriptionException();
             }

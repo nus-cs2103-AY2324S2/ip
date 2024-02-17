@@ -18,6 +18,7 @@ import java.time.format.DateTimeParseException;
  */
 public class Deadline extends Task {
     private static final int DEADLINE_START_INDEX = 9;
+    private static final int NUMBER_OF_SPLITS = 2;
 
     /**
      * The deadline date of the task.
@@ -66,8 +67,8 @@ public class Deadline extends Task {
         String[] words = command.split(" ");
         if (words.length > 1) {
             try {
-                String[] parts = command.split("/by", 2);
-                String description = parts[0].substring(9).trim();
+                String[] parts = command.split("/by", NUMBER_OF_SPLITS);
+                String description = parts[0].substring(DEADLINE_START_INDEX).trim();
                 if (description.isEmpty()) {
                     throw new EmptyDescriptionException();
                 }

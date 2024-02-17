@@ -13,6 +13,7 @@ import duke.task.Task;
 public class Match implements Action {
     private TaskList taskList;
     private String keyword;
+    private static final int MATCH_START_INDEX = 5;
 
     /**
      * Constructs a Match object with the specified TaskList.
@@ -27,7 +28,7 @@ public class Match implements Action {
     public static Match parse(String command, TaskList taskList) throws DukeException {
         String[] words = command.split(" ");
         if (words.length > 1) {
-            String keyword = command.substring(5).trim();
+            String keyword = command.substring(MATCH_START_INDEX).trim();
             taskList.matches(keyword);
             return new Match(keyword, taskList);
         } else {

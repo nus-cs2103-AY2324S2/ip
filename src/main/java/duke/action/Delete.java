@@ -17,6 +17,7 @@ public class Delete implements Action {
     private int[] indices;
     private List<Task> deletedTasks;
     private TaskList tasks;
+    private static final int DELETE_START_INDEX = 7;
 
     /**
      * Constructs a Delete action with the specified indices and task list.
@@ -42,8 +43,7 @@ public class Delete implements Action {
     public static Delete parse(String command, TaskList taskList) throws DukeException {
         String[] words = command.split(" ");
         if (words.length > 1) {
-            String[] indicesString = command.substring(7).trim().split(" "); // Remove
-            // "mark" and split by spaces
+            String[] indicesString = command.substring(DELETE_START_INDEX).trim().split(" ");
             if (indicesString.length > 0) {
                 int[] indices = new int[indicesString.length];
                 for (int i = 0; i < indicesString.length; i++) {

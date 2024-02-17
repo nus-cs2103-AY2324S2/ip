@@ -12,7 +12,7 @@ import java.time.format.DateTimeParseException;
  */
 public class Event extends Task {
     private static final int EVENT_START_INDEX = 6;
-    private static final int MAX_SPLIT = 2;
+    private static final int NUMBER_OF_SPLITS = 2;
 
     /**
      * The starting date of the event.
@@ -78,12 +78,12 @@ public class Event extends Task {
         String[] words = command.split(" ");
         if (words.length > 1 && command.contains("/from") && command.contains("/to")) {
             try {
-                String[] parts = command.split("/from", 2);
+                String[] parts = command.split("/from", NUMBER_OF_SPLITS);
                 String description = parts[0].substring(EVENT_START_INDEX).trim();
                 if (description.isEmpty()) {
                     throw new EmptyDescriptionException();
                 }
-                String[] eventDetails = parts[1].split("/to", 2);
+                String[] eventDetails = parts[1].split("/to", NUMBER_OF_SPLITS);
                 LocalDate from = LocalDate.parse(eventDetails[0].trim());
                 LocalDate to = LocalDate.parse(eventDetails[1].trim());
                 if (to.isBefore(from)) {
