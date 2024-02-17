@@ -4,6 +4,13 @@
 
 Ezra is a desktop app for managing your tasks, optimized for use via a Command Line Interface (CLI) while having a chatbot-like Graphical User Interface (GUI). If you can type fast, Ezra can get help you record and update your tasks more efficiently than traditional GUI apps.
 
+## Quick Start
+
+1. Ensure you have Java 11 or above installed in your Computer.
+2. Download the latest ezra.jar from [here](https://github.com/Tanzhiheng26/ip/releases)
+3. Copy the file to the folder you want to use as the _home folder_ for Ezra.
+4. Double-click on the jar file to launch the application. A GUI similar to the screenshot above should appear in a few seconds
+
 ## Features
 
 ### Adding a **ToDo** task: `todo`
