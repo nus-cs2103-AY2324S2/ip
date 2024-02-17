@@ -164,4 +164,13 @@ public class TaskList {
         }
         return foundTasks;
     }
+
+    /**
+     * Returns the size of the task list.
+     *
+     * @return The size of the task list.
+     */
+    public int getSize() {
+        return tasks.size();
+    }
 }

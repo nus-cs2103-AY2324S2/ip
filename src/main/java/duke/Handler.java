@@ -20,6 +20,7 @@ public class Handler {
     }
 
     public String handle(String input) throws DukeException {
+        assert input != null : "Input is null";
         String command = parser.parseCommand(input);
         String output = "";
 
@@ -46,16 +47,20 @@ public class Handler {
 
     private String handleMark(String input) throws DukeException {
         int index = parser.parseIndex(input);
+        assert index >= 0 && index < taskList.getSize() : "Invalid task index";
         return taskList.markTaskAsDone(index);
     }
 
     private String handleUnmark(String input) throws DukeException {
         int index = parser.parseIndex(input);
+        assert index >= 0 && index < taskList.getSize() : "Invalid task index";
         return taskList.unmarkTaskAsDone(index);
     }
 
     private String handleAdd(String input) throws DukeException {
-        return taskList.addTask(input);
+        String result = taskList.addTask(input);
+        assert result != null : "Task was not added successfully";
+        return result;
     }
 
     private String handleDelete(String input) throws DukeException {
