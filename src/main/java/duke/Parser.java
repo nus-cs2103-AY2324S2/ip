@@ -32,7 +32,7 @@ public class Parser {
     /**
      * Parses and executes the user command based on the provided input.
      *
-     * @return True if the program should continue processing commands, false if the program should exit.
+     * @return The corresponding string based on the command.
      */
     public String parseCommand() {
         // Assumption: User input should not be empty
@@ -44,7 +44,6 @@ public class Parser {
         String restOfInputs = parts.length > 1 ? parts[1] : "";
         TaskList taskList = new TaskList(myList);
 
-
         if (command.equals("list")) {
             return taskList.list();
 
@@ -53,8 +52,11 @@ public class Parser {
         } else if (command.equals("find")) {
             return taskList.find(parts);
 
+        } else if (command.equals("help-me")) {
+            return taskList.help();
+
         } else if (parts.length == 1) {
-            return ui.commandError();
+            return ui.displayErrorMessage();
 
         } else if (command.equals("unmark")) {
             return taskList.unmarkList(parts);

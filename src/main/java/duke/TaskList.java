@@ -111,7 +111,7 @@ public class TaskList {
         StringBuilder result = new StringBuilder(ui.findListDetails()); // Start with the UI details
 
         String keyword = parts[1];
-
+        result.append(ui.separationLine());
         for (Task task : myList) {
             if (task.getDescription().contains(keyword)) {
                 result.append((myList.indexOf(task) + 1))
@@ -121,6 +121,11 @@ public class TaskList {
         result.append(ui.separationLine()); // Append the separation line
 
         return result.toString(); // Convert StringBuilder to String and return
+    }
+
+
+    public String help() {
+        return ui.help();
     }
 
     /**

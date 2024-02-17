@@ -15,7 +15,8 @@ public class Ui {
     public String message() {
         // Displaying Duke logo and initial message
         String logo = " KASSIM ";
-        return "YOO I AM " + logo + "\nWhat can I do for you?";
+        return "WELCOME MY FRIEND! I AM " + logo + "\n\n"
+                + "Type 'help-me' to see a list of available commands\n";
     }
 
     /**
@@ -47,13 +48,22 @@ public class Ui {
         return "what? please check your input.";
     }
 
+
     /**
-     * Displays an error message for an unrecognized command.
-     * @return The error message for an unrecognized command.
+     * Returns a help message detailing the available commands and their usage.
+     *
+     * @return A string containing the help message.
      */
-    public String commandError() {
-        return "please check ur input!";
+    public String help() {
+        return "1. todo [task] : Adds a new task to your to-do list.\n"
+                + "2. deadline [task] /by [when] : Adds a task with a deadline.\n"
+                + "3. event [task] /from [when] /to [when] : Adds an event with start and end times.\n"
+                + "4. mark [task number] : Mark a task as completed.\n"
+                + "5. unmark [task number] : Unmark a completed task.\n"
+                + "6. delete [task number] : Deletes a task from the list.\n"
+                + "7. list : Displays all tasks in your to-do list.\n";
     }
+
 
     /**
      * Displays information that a task has been marked as done
@@ -96,7 +106,7 @@ public class Ui {
      * @return A message indicating the list of tasks user are finding.
      */
     public String findListDetails() {
-        return "Here are the matching tasks in your list: ";
+        return "Here are the matching tasks in your list: \n";
     }
 
 
