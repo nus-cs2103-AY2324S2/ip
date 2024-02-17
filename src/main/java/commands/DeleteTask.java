@@ -3,7 +3,6 @@ package commands;
 import exception.InvalidIndexException;
 import objects.Task;
 import objects.TaskList;
-import view.EncaseLines;
 
 /**
  * The DeleteTask class represents a command to delete a task from the TaskList.
@@ -32,7 +31,7 @@ public class DeleteTask implements Command {
      * Executes the DeleteTask command by removing the task at the specified index from the TaskList,
      * and displaying a confirmation message.
      *
-     * @return
+     * @return String
      * @throws InvalidIndexException If the provided index is invalid (out of bounds).
      */
     @Override
@@ -44,9 +43,9 @@ public class DeleteTask implements Command {
         Task t = tasks.get(this.index);
 
         tasks.remove(this.index);
-        String o = String.format("Noted. I've removed this task:\n %s\nNow you have %d tasks in the list.",
+        String output = String.format("Noted. I've removed this task:\n %s\nNow you have %d tasks in the list.",
                 t.toString(), tasks.size());
-//        EncaseLines.display(o);
-        return o;
+
+        return output;
     }
 }

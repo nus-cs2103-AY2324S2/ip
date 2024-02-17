@@ -32,7 +32,7 @@ public class CreateTodo implements Command {
      * Executes the CreateTodo command by creating a new todo task, adding it to the TaskList,
      * and displaying a confirmation message.
      *
-     * @return
+     * @return String
      * @throws InvalidCommandException If there is an issue with the todo task information provided.
      */
     @Override

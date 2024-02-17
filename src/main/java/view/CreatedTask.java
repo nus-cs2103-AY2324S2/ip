@@ -16,9 +16,8 @@ public class CreatedTask {
      * @return
      */
     public static String display(TaskList tasks, Task task) {
-        String o = String.format("Got it. I've added this task:\n  %s\nNow you have %d tasks in the list.",
+        String output = String.format("Got it. I've added this task:\n  %s\nNow you have %d tasks in the list.",
                 task, tasks.size());
-//        EncaseLines.display(o);
-        return o;
+        return output;
     }
 }

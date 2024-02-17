@@ -8,13 +8,25 @@ import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
+/**
+ * Represents a custom dialog box used in a chat application.
+ * It extends JavaFX's HBox class to create a horizontal layout.
+ */
 public class DialogBox extends HBox {
+
     @FXML
     private Text dialog;
 
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Constructs a new DialogBox with the specified text, image, and user type.
+     *
+     * @param text    the text content of the dialog box.
+     * @param img     the image to be displayed in the dialog box.
+     * @param isUser  a boolean indicating whether the dialog box represents a user or not.
+     */
     private DialogBox(String text, Image img, boolean isUser) {
         try {
             String fxmlPath = isUser ? "/view/UserDialogBox.fxml" : "/view/DukeDialogBox.fxml";
@@ -35,10 +47,24 @@ public class DialogBox extends HBox {
         displayPicture.setClip(clip);
     }
 
+    /**
+     * Creates and returns a new DialogBox representing a user's dialog.
+     *
+     * @param text   the text content of the dialog box.
+     * @param image  the image to be displayed in the dialog box.
+     * @return a DialogBox representing a user's dialog.
+     */
     public static DialogBox getUserDialog(String text, Image image) {
         return new DialogBox(text, image, true);
     }
 
+    /**
+     * Creates and returns a new DialogBox representing Duke's dialog.
+     *
+     * @param text   the text content of the dialog box.
+     * @param image  the image to be displayed in the dialog box.
+     * @return a DialogBox representing Duke's dialog.
+     */
     public static DialogBox getDukeDialog(String text, Image image) {
         return new DialogBox(text, image, false);
     }

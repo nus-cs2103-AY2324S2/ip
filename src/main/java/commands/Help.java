@@ -1,7 +1,5 @@
 package commands;
 
-import view.EncaseLines;
-
 /**
  * The Help class represents a command to display help information.
  * It implements the Command interface and specifies the execution behavior for displaying help content.

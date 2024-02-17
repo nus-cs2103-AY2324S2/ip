@@ -38,7 +38,7 @@ public class CreateEvent implements Command {
      * Executes the CreateEvent command by creating a new event task, adding it to the TaskList,
      * and displaying a confirmation message.
      *
-     * @return
+     * @return String
      * @throws InvalidEventException If there is an issue with the event information provided.
      */
     @Override

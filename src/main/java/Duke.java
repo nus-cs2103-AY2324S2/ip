@@ -1,13 +1,8 @@
-import java.util.Objects;
-import java.util.Scanner;
-
 import commands.Command;
-import exception.*;
+import exception.DukeException;
 import main.Parser;
 import main.Storage;
 import objects.TaskList;
-import view.Exit;
-import view.Greeting;
 
 /**
  * The Duke class serves as the main entry point for the Duke application.
@@ -26,32 +21,6 @@ public class Duke {
      */
     public static void main(String[] args) {
         Launcher.main(args);
-    }
-
-    public void run() {
-        TaskList tasks = Storage.load();
-        Scanner scanner = new Scanner(System.in);
-
-        Greeting.display();
-
-        while (true) {
-            String input = scanner.nextLine();
-
-            if (input.equals("bye")) {
-                break;
-            }
-
-            Command c = Parser.parse(input, tasks);
-            try {
-                c.execute();
-
-            } catch (DukeException e) {
-                System.out.println(e.getMessage());
-            }
-            Storage.save(tasks);
-        }
-
-        Exit.display();
     }
 
     /**

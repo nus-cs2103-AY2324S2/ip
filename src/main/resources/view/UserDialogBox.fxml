@@ -14,8 +14,8 @@
     <HBox prefWidth="484.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
         <!-- Apply padding to the HBox -->
         <style>
-            -fx-background-color: #29738e;
-            -fx-background-radius: 10px;
+            -fx-background-color: #5f96aa;
+            -fx-background-radius: 50px;
             -fx-spacing: 10px;
             -fx-padding: 10px;
         </style>

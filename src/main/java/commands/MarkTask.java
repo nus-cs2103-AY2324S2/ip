@@ -4,7 +4,6 @@ import exception.InvalidCommandException;
 import exception.InvalidIndexException;
 import objects.Task;
 import objects.TaskList;
-import view.EncaseLines;
 
 /**
  * The MarkTask class represents a command to mark a task as done in the TaskList.
@@ -33,7 +32,7 @@ public class MarkTask implements Command {
      * Executes the MarkTask command by marking the task at the specified index as done in the TaskList,
      * and displaying a confirmation message.
      *
-     * @return
+     * @return String
      * @throws InvalidIndexException   If the provided index is invalid (out of bounds).
      * @throws InvalidCommandException If the command is invalid (e.g., index is -1).
      */
@@ -48,9 +47,8 @@ public class MarkTask implements Command {
         tasks.markTask(this.index);
         Task t = tasks.get(this.index);
 
-        String o = String.format("Nice! I've marked this task as done:\n   %s", t.toString());
+        String output = String.format("Nice! I've marked this task as done:\n   %s", t.toString());
 
-//        EncaseLines.display(o);
-        return o;
+        return output;
     }
 }
