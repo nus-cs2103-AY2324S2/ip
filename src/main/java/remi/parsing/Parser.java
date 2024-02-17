@@ -48,4 +48,52 @@ public class Parser {
 
         return commandList.runKeyword(keyword, args);
     }
+
+    /**
+     * Gets a label from the args of any of the task commands i.e. todo, deadline, event.
+     *
+     * @param input the args to the command
+     * @return the label of the task
+     * @throws RemiError if there is no description for the task
+     */
+    public static String getLabel(String input) throws RemiError {
+        int idx = input.indexOf("/");
+        if (idx == -1) {
+            idx = input.length();
+        } else {
+            idx--;
+        }
+
+        if (idx <= 0) {
+            throw new RemiError("You didn't put a description for the task.");
+        }
+        return input.substring(0, idx);
+    }
+
+    /**
+     * Finds the option of the form ".../option...".
+     * Example: "going home /by: friday", should return the string "friday"
+     *
+     * @param option the option to be found, include the "/" at the start
+     * @param input the input line to be scanned
+     * @return the string value of the specific option
+     */
+    public static String findOption(String option, String input) throws RemiError {
+        assert !option.isEmpty();
+
+        int idx = input.indexOf(option);
+
+        if (idx == -1) {
+            throw new RemiError("I couldn't find a " + option + ", please specify it by adding a " + option);
+        } else {
+            int endIdx = input.indexOf("/", idx + 1);
+            if (endIdx == -1) {
+                endIdx = input.length();
+            } else {
+                // decrement to get the space before the /
+                endIdx = endIdx - 1;
+            }
+            return input.substring(idx + option.length() + 1, endIdx);
+        }
+    }
 }

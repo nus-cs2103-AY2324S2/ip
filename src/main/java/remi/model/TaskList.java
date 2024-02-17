@@ -2,8 +2,6 @@ package remi.model;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
-
 import remi.utils.RemiError;
 
 /**
@@ -63,7 +61,7 @@ public class TaskList {
      * @param queryString the string to be queried in all the task labels
      * @return the list of tasks
      */
-    public List<Task> getTask(String queryString) {
+    public ArrayList<Task> getTask(String queryString) {
         ArrayList<Task> res = new ArrayList<>();
         for (Task t: taskList) {
             if (t.checkQuery(queryString)) {
@@ -91,7 +89,7 @@ public class TaskList {
      * @throws RemiError when invalid idx is given
      */
     public void removeTask(int idx) throws RemiError {
-        if (idx < 0 || taskList.size() <= idx) {
+        if (idx <= 0 || taskList.size() < idx) {
             throw new RemiError("Task is out of bounds and couldn't be removed.");
         }
         taskList.remove(idx - 1);
