@@ -131,7 +131,8 @@ public class Parser {
      * @param tasks <code>TaskList</code> object containing list of tasks
      * @param ui <code>Ui</code> object for printing actions
      */
-    public static void parseEvent(String input, TaskList tasks, Ui ui) {
+    public static String parseEvent(String input, TaskList tasks, Ui ui) {
+        String output = "";
         String[] splitInput = input.split(" /from ");
         try {
             if (splitInput.length < 2) {
@@ -143,10 +144,11 @@ public class Parser {
             LocalDate to = LocalDate.parse(splitInput[1].split(" /to ")[1]);
             Event event = new Event(description, from, to);
             tasks.addTask(event);
-            ui.showTaskAdded(event, tasks.getSize());
+            output = ui.showTaskAdded(event, tasks.getSize());
         } catch (DukeException d) {
-            ui.printError(d);
+            output = ui.printError(d);
         }
+        return output;
     }
 
     /**
@@ -157,7 +159,8 @@ public class Parser {
      * @param tasks <code>TaskList</code> object containing list of tasks
      * @param ui <code>Ui</code> object for printing actions
      */
-    public static void parseDelete(String input, TaskList tasks, Ui ui) {
+    public static String parseDelete(String input, TaskList tasks, Ui ui) {
+        String output = "";
         String[] splitInput = input.split(" ");
         try {
             if (splitInput.length < 2) {
@@ -166,10 +169,10 @@ public class Parser {
             int number = Integer.parseInt(splitInput[1]);
             Task task = tasks.getTask(number - 1);
             tasks.deleteTask(number - 1);
-            ui.showTaskDeleted(task, tasks.getSize());
+            output = ui.showTaskDeleted(task, tasks.getSize());
         } catch (DukeException d) {
-            ui.printError(d);
-
+            output = ui.printError(d);
         }
+        return output;
     }
 }

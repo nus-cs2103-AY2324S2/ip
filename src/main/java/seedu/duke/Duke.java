@@ -81,10 +81,11 @@ public class Duke {
             storage.saveList(tasks.getList());
             response = ui.closingMessage();
         } else if (userInput.equals("list")) {
-            Parser.parseTodo("todo hahhaha", tasks, ui);
-            Parser.parseMark("mark 1", tasks, ui);
-            Parser.parseUnmark("unmark 1", tasks, ui);
-            Parser.parseDeadline("deadline go to sleep /by 2024-03-03", tasks, ui);
+//            Parser.parseTodo("todo hahhaha", tasks, ui);
+//            Parser.parseMark("mark 1", tasks, ui);
+//            Parser.parseUnmark("unmark 1", tasks, ui);
+//            Parser.parseDeadline("deadline go to sleep /by 2024-03-03", tasks, ui);
+//            Parser.parseEvent("event orientation /from 2023-08-02 /to 2024-08-09", tasks, ui);
             response = ui.printList(tasks.getList());
         } else if (userInput.startsWith("mark")) {
             response = Parser.parseMark(userInput, tasks, ui);
@@ -94,12 +95,10 @@ public class Duke {
             response = Parser.parseDeadline(userInput, tasks, ui);
         } else if (userInput.startsWith("todo")) {
             response = Parser.parseTodo(userInput, tasks, ui);
-//        } else if (userInput.startsWith("event")) {
-//            Parser.parseEvent(userInput, tasks, ui);
-//            userInput = sc.nextLine();
-//        } else if (userInput.startsWith("delete")) {
-//            Parser.parseDelete(userInput, tasks, ui);
-//            userInput = sc.nextLine();
+        } else if (userInput.startsWith("event")) {
+            response = Parser.parseEvent(userInput, tasks, ui);
+        } else if (userInput.startsWith("delete")) {
+            response = Parser.parseDelete(userInput, tasks, ui);
         } else {
             try {
                 throw new DukeException("Sorry, I didn't understand that.");

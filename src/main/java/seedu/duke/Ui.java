@@ -66,12 +66,8 @@ public class Ui {
      * @param task Represents the <code>Task</code> object deleted
      * @param size Represents size of Task list to be printed
      */
-    public void showTaskDeleted(Task task, int size) {
-        printBreak();
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(" " + task);
-        System.out.println("Now you have " + size + " tasks in the list.");
-        printBreak();
+    public String showTaskDeleted(Task task, int size) {
+        return "Noted. I've removed this task:\n" + task + "\nNow you have " + size + " tasks in the list.";
     }
 
     /**
