@@ -10,7 +10,7 @@ import cat.ui.response.Response;
  */
 public class HelpCommand extends Command {
     @Override
-    public Response execute(TaskList tasks, Storage storage) {
+    public Response execute(TaskList tasks) {
         return Ui.showHelp();
     }
 }

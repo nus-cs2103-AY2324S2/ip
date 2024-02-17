@@ -13,5 +13,5 @@ public abstract class Command {
      * @param tasks List of tasks to execute on.
      * @param storage The file storage interface.
      */
-    public abstract Response execute(TaskList tasks, Storage storage);
+    public abstract Response execute(TaskList tasks);
 }

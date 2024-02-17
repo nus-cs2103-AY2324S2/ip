@@ -10,11 +10,11 @@ import cat.ui.response.Response;
  */
 public class ListCommand extends Command {
     @Override
-    public Response execute(TaskList tasks, Storage storage) {
+    public Response execute(TaskList tasks) {
         assert tasks != null : "The task list must not be null";
         if (tasks.isEmpty()) {
             return Ui.showNote("You have no tasks added");
         }
-        return Ui.showNote("Your tasks:\n" + tasks.toString());
+        return Ui.showNote("Your tasks:\n" + tasks);
     }
 }

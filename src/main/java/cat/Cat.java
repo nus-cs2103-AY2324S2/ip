@@ -44,7 +44,7 @@ public class Cat {
     public Response getResponse(String input) {
         try {
             Command c = Parser.parse(input);
-            return c.execute(tasks, storage);
+            return c.execute(tasks);
         } catch (Parser.InvalidCommandType e) {
             return Ui.showCommandNotFound(e.getCommand());
         } catch (Parser.InvalidCommandData e) {

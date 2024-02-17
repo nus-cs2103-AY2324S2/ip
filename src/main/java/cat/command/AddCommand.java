@@ -44,7 +44,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public Response execute(TaskList tasks, Storage storage) {
+    public Response execute(TaskList tasks) {
         try {
             Task task = createTask();
             tasks.addTask(task);

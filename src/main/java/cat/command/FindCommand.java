@@ -20,7 +20,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public Response execute(TaskList tasks, Storage storage) {
+    public Response execute(TaskList tasks) {
         TaskList matchingTasks = tasks.find(query);
         return Ui.showNote("Found tasks:\n" + matchingTasks);
     }

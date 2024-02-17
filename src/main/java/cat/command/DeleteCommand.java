@@ -22,7 +22,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public Response execute(TaskList tasks, Storage storage) {
+    public Response execute(TaskList tasks) {
         assert tasks != null : "The task list must not be null";
 
         ArrayList<Integer> missingIndices = new ArrayList<>();
