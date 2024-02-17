@@ -200,6 +200,8 @@ public class Parser {
                     x.getStart(), x.getEnd());
         } else {
             RecurTask x = (RecurTask) t;
+            System.out.println(String.format("R,%s,%s,%s,%s", t.getStatus(), t.getDescription(),
+                    x.getRecurType(), x.getNextRefresh()));
             return String.format("R,%s,%s,%s,%s", t.getStatus(), t.getDescription(),
                     x.getRecurType(), x.getNextRefresh());
         }

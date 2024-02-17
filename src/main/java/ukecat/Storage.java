@@ -61,7 +61,6 @@ public class Storage {
                 Parser.parseRecurTask(getInput());
                 System.out.println(Storage.getNextRefresh());
                 t = new RecurTask(getDesc(), getRecurType(), getNextRefresh());
-                System.out.println(t);
                 tasks.add(t);
                 break;
             default:
