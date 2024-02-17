@@ -20,7 +20,6 @@ import java.time.format.DateTimeFormatter;
  */
 public class Parser {
     public static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-    // public static final Pattern COMMAND_FORMAT = Pattern.compile("?<command_word>\s" );
 
     /**
      * Processes a string input to decide which command to execute
