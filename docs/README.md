@@ -1,6 +1,6 @@
 # Nicole [Mark 2] User Guide
 
-![img_1.png](Ui.png)
+<img src="Ui.png" width="350">
 
 Nicole is your smart task, deadline
 and event manager! Give her commands using the formats
