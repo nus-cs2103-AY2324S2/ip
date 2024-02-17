@@ -8,7 +8,7 @@ import javafx.application.Application;
 public class Launcher {
 
     /**
-     * The main method of Launcher.
+     * Launches the GUI for irwyn chatbot.
      *
      * @param args The command line arguments.
      */
