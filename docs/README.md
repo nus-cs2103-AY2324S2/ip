@@ -6,7 +6,7 @@ Are you feeling overwhelmed with your work? Too lazy to write down your schedule
 Do it in quick, fast and efficiently with YLEXI! 
 
 ## Quick Start 
-1. Ensure taht you have Java 11 or above installed in your Computer. 
+1. Ensure that you have Java 11 or above installed in your Computer. 
 2. Download the latest ylexi.jar from here. 
 3. Copy the file to the folder you want to use as the home folder for YLEXI. 
 4. Open a command terminal, 'cd' into your folder that you put the jar file in.
