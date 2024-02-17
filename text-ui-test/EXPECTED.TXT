@@ -3,16 +3,17 @@
     Pray, how may I be of service to you on this auspicious day?
     ____________________________________________________________
     ____________________________________________________________
-    A new todo, by virtue of your decree,
+    A new todo [T][ ] wash dishes, by virtue of your decree,
     hath been appended to the roster of responsibilities.
-        [T][ ] wash dishes
-    The ledger of tasks bears witness to 1 endeavours.
+    The ledger of tasks bears witness to 1 endeavour(s).
     ____________________________________________________________
     ____________________________________________________________
-    Command hath faltered: obscure employment of delete.
+    Command hath faltered: obscure employment of deadline. Example use:
+    deadline <task name> /by <date time>
     ____________________________________________________________
     ____________________________________________________________
-    Command hath faltered: obscure employment of event.
+    Command hath faltered: obscure employment of event. Example use:
+    deadline <task name> /from <date time> /to <date time>
     ____________________________________________________________
     ____________________________________________________________
     The ledger of tasks:
@@ -32,22 +33,19 @@
     An error proclaims the absence of valid indices in range.
     ____________________________________________________________
     ____________________________________________________________
-    A new todo, by virtue of your decree,
+    A new todo [T][ ] a, by virtue of your decree,
     hath been appended to the roster of responsibilities.
-        [T][ ] a
-    The ledger of tasks bears witness to 2 endeavours.
+    The ledger of tasks bears witness to 2 endeavour(s).
     ____________________________________________________________
     ____________________________________________________________
-    A new todo, by virtue of your decree,
+    A new todo [T][ ] b, by virtue of your decree,
     hath been appended to the roster of responsibilities.
-        [T][ ] b
-    The ledger of tasks bears witness to 3 endeavours.
+    The ledger of tasks bears witness to 3 endeavour(s).
     ____________________________________________________________
     ____________________________________________________________
-    A new todo, by virtue of your decree,
+    A new todo [T][ ] c, by virtue of your decree,
     hath been appended to the roster of responsibilities.
-        [T][ ] c
-    The ledger of tasks bears witness to 4 endeavours.
+    The ledger of tasks bears witness to 4 endeavour(s).
     ____________________________________________________________
     ____________________________________________________________
     Item(s) heretofore have been expunged.

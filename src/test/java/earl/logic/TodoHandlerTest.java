@@ -20,6 +20,8 @@ class TodoHandlerTest {
 
     private static final ByteArrayOutputStream testingOut =
             new ByteArrayOutputStream();
+    private static final String NEWLINE = System.lineSeparator();
+    private static final String PADDING = " ".repeat(4);
 
     @BeforeEach
     void setUp() {
@@ -30,14 +32,12 @@ class TodoHandlerTest {
     void handle_normalCommand_success() throws Exception {
         Handler handler = HandlerType.todo.createHandler("test");
         handler.handle(new TaskListStub(), new UiStub());
-        String newLine = System.lineSeparator();
-        String padding = " ".repeat(4);
-        String expected = "A new todo, by virtue of your decree," + newLine
+        String expected = "A new todo [T][ ] test"
+                + NEWLINE
                 + "hath been appended to the roster of responsibilities."
-                + newLine
-                + padding + "TaskStub, " + newLine
+                + NEWLINE
                 + "The ledger of tasks bears witness to 10 endeavour(s)."
-                + newLine;
+                + NEWLINE;
         assertEquals(expected, testingOut.toString());
     }
 
@@ -48,8 +48,10 @@ class TodoHandlerTest {
             handler.handle(new TaskListStub(), new UiStub());
             fail();
         } catch (EarlException e) {
-            assertEquals("The description is devoid of detail.",
-                    e.getMessage());
+            String expected = "The description is devoid of detail. "
+                    + "Example use:" + NEWLINE
+                    + PADDING + "todo <task name>";
+            assertEquals(expected, e.getMessage());
         }
     }
 

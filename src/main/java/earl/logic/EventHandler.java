@@ -9,7 +9,7 @@ import earl.util.Ui;
 /**
  * Class responsible for the event command.
  */
-public class EventHandler extends Handler {
+public class EventHandler extends TaskHandler {
 
     /** Class constructor. */
     public EventHandler(String args) {
@@ -20,22 +20,12 @@ public class EventHandler extends Handler {
     public void handle(TaskList tasks, Ui ui) throws EarlException {
         try {
             String[] data = args.split("\\s+/(from|to)\\s+");
-            Task added = tasks.add(TaskType.EVENT.createTask(data));
-            ui.buildResponse("A new event, by virtue of your decree, ");
-            ui.buildResponse(
-                    "hath been appended to the roster of responsibilities.");
-            ui.buildResponse(ui.leftPad(added.toString()));
-            ui.buildResponse("The ledger of tasks bears witness to "
-                    + tasks.getSize() + " endeavours.");
-            ui.completeResponse();
-        } catch (IndexOutOfBoundsException e) {
-            throw new EarlException(
-                    ui.appendNewline("An error befalls. Example use:")
-                            + ui.leftPad("event <name>"
-                                    + " /from <start> /to <end>"));
-        } catch (Exception e) {
-            throw new EarlException("Command hath faltered: "
-                    + "obscure employment of event.");
+            String[] response = addTask(tasks, TaskType.EVENT, data);
+            ui.makeResponse(response);
+        } catch (EarlException e) {
+            throw new EarlException(ui.appendNewline(e.getMessage())
+                    + ui.leftPad("deadline <task name> "
+                            + "/from <date time> /to <date time>"));
         }
     }
 }
