@@ -10,6 +10,8 @@ import duke.tasklist.TaskList;
 import duke.exception.DukeException;
 import duke.parser.Parser;
 
+import java.util.ArrayList;
+
 /**
  * Represents the main class for the Duke application.
  * This class initializes the application, loads existing tasks from storage, and processes user commands.
@@ -96,6 +98,14 @@ public class Duke {
                                 + "____________________________________________________________\n");
                     }
 
+                } else if (command.equals("find")) {
+                    if (fullCommand.length < 2) {
+                        throw new DukeException("OOPS! Please make sure you enter a keyword");
+                    }
+
+                    String keyword = fullCommand[1];
+                    TaskList foundTasks = tasks.findTasks(keyword);
+                    ui.showMatchingList(foundTasks);
                 } else {
                     throw new DukeException(" OOPS! Turns out Your Only Friend does not know what that is :(\n");
                 }

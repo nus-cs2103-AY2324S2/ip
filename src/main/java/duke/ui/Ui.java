@@ -67,7 +67,8 @@ public class Ui {
         for (int i = 1; i <= tasks.getSize(); i++) {
             System.out.println(" " + i + "." + tasks.getTasks().get(i - 1).toString());
         }
-        System.out.println("____________________________________________________________\n");}
+        System.out.println("____________________________________________________________\n");
+    }
 
     /**
      * Displays a specific task to the user along with a custom message.
@@ -93,6 +94,15 @@ public class Ui {
         System.out.println(msg + "\n");
         System.out.println(task.toString());
         System.out.println(" Now you have " + tasks.getSize() + (tasks.getSize() <= 1 ? " task in the list." : " tasks in the list.\n"));
+        System.out.println("____________________________________________________________\n");
+    }
+
+    public void showMatchingList(TaskList tasks) {
+        System.out.println("____________________________________________________________\n");
+        System.out.println(" Here are the matching tasks in your list:\n");
+        for (int i = 1; i <= tasks.getSize(); i++) {
+            System.out.println(" " + i + "." + tasks.getTasks().get(i - 1).toString());
+        }
         System.out.println("____________________________________________________________\n");
     }
 }
