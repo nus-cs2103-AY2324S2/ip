@@ -1,83 +1,128 @@
 package duke;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
 
-/*
- * The Duke class represents a simple task management program.
- * Users can add, mark as done, unmark, list, delete and exit tasks.
- * Supports three types of tasks: Todo, Deadline, and Event.
- * Provides a command-line interface for user interaction.
- *
- *  <p>
- * The program initializes a user interface, a task list, and a storage mechanism.
- * Users interact with the program through the command line, providing input to perform various tasks.
- * The program handles tasks such as adding, marking as done, unmarking, listing, deleting, and exiting tasks.
- * Task data is stored and loaded using the Storage class.
- * <p>
- *
- * <p>
- * The main method creates an instance of the Duke class, initializing it with the specified storage file path.
- * The program then enters a loop, continuously reading user input, parsing commands, and updating the task list.
- * The loop continues until the user chooses to exit the program.
- * <p>
- *
- * @author Kailin Teo
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+
+
+
+/**
+ * Represents the main class for the Duke program, a task management application.
  */
-
-public class Duke {
-
+public class Duke extends Application {
     private Storage storage;
-    private TaskList tasks;
+    private ArrayList<Task> tasks;
     private Ui ui;
 
+    private ScrollPane scrollPane;
+    private VBox dialogContainer;
+    private TextField userInput;
+    private Button sendButton;
+    private Scene scene;
+
     /**
-     * Constructs a Duke instance with the specified storage file path.
-     *
-     * @param filePath The file path for storing and loading tasks.
+     * Initializes Duke with storage and other components.
      */
-    public Duke(Storage filePath) {
+    public Duke() {
+        storage = new Storage("./data/duke.txt");
+        tasks = Storage.loadTasks();
+        if (tasks == null) {
+            tasks = new ArrayList<>();
+        }
         ui = new Ui();
-        ui.message();
 
-        // Create an ArrayList to store tasks
-        //ArrayList<Task> myList = new ArrayList<>();
-        ArrayList<Task> myList = Storage.loadTasks();
+    }
 
-        if (myList == null) {
-            myList = new ArrayList<>();
-        }
+    public static void main(String[] args) {
+        launch(args);
+    }
 
-        // Initialize Scanner for user input
-        Scanner sc = new Scanner(System.in);
-        ui.blank();
-        boolean result = true;
+    @Override
+    public void start(Stage stage) {
+        //Step 1. Setting up required components
 
-        while (result) {
-            // Read user input
-            String userInput = sc.nextLine();
+        //The container for the content of the chat to scroll.
+        scrollPane = new ScrollPane();
+        dialogContainer = new VBox();
+        scrollPane.setContent(dialogContainer);
 
-            Parser parser = new Parser(userInput, myList);
-            result = parser.parseCommand();
+        userInput = new TextField();
+        sendButton = new Button("Send");
 
-            Storage.saveTasks(myList);
+        AnchorPane mainLayout = new AnchorPane();
+        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
 
-            if (!result) {
-                ui.finalMessage();
-            }
-        }
-        ui.blank();
+        scene = new Scene(mainLayout);
+
+        stage.setScene(scene);
+        stage.show();
+
+
+        //Step 2. Formatting the window to look as expected
+        stage.setTitle("Duke");
+        stage.setResizable(false);
+        stage.setMinHeight(600.0);
+        stage.setMinWidth(400.0);
+
+        mainLayout.setPrefSize(400.0, 600.0);
+
+        scrollPane.setPrefSize(385, 535);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+
+        scrollPane.setVvalue(1.0);
+        scrollPane.setFitToWidth(true);
+
+        //You will need to import `javafx.scene.layout.Region` for this.
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+
+        userInput.setPrefWidth(325.0);
+
+        sendButton.setPrefWidth(55.0);
+
+        AnchorPane.setTopAnchor(scrollPane, 1.0);
+
+        AnchorPane.setBottomAnchor(sendButton, 1.0);
+        AnchorPane.setRightAnchor(sendButton, 1.0);
+
+        AnchorPane.setLeftAnchor(userInput, 1.0);
+        AnchorPane.setBottomAnchor(userInput, 1.0);
+
+
+        //Scroll down to the end every time dialogContainer's height changes.
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
     }
 
     /**
-     * The main method to start the Duke program.
-     *
-     * @param args Command-line arguments
+     * Displays the welcome message when Duke starts.
      */
-    public static void main(String[] args) {
-        Storage storage = new Storage("./data/duke.txt");
-        
-        new Duke(storage);
+    public String displayWelcomeMessage() {
+        return ui.message();
+    }
+
+    /**
+     * Processes user input and returns a boolean indicating whether to continue accepting input.
+     *
+     *
+     * @return true to continue accepting input, false otherwise.
+     */
+    public String getResponse(String input) {
+        Parser parser = new Parser(input, tasks);
+        String result = parser.parseCommand();
+        Storage.saveTasks(tasks);
+
+        if (input.equals("bye")) {
+            return ui.finalMessage();
+        }
+        return result;
     }
 }

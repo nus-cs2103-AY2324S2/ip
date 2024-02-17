@@ -9,10 +9,11 @@ import java.util.ArrayList;
 
 
 public class Parser {
-    
+
     private String userInput;
     private ArrayList<Task> myList;
     private Ui ui;
+
 
     /**
      * Constructs a Parser with the specified user input and task list.
@@ -33,69 +34,38 @@ public class Parser {
      *
      * @return True if the program should continue processing commands, false if the program should exit.
      */
-    public boolean parseCommand() {
+    public String parseCommand() {
 
         // Split input into "command" and "parameters"
         String[] parts = userInput.split(" ", 2);
         String command = parts[0];
         String restOfInputs = parts.length > 1 ? parts[1] : "";
+        TaskList taskList = new TaskList(myList);
 
 
         if (command.equals("list")) {
-            /*
-             * Displays the list of tasks in the MyList
-             */
-            TaskList taskList = new TaskList(myList);
-            taskList.list();
-            return true;
+            return taskList.list();
 
         } else if (command.equals("bye")) {
-            /*
-             * Save the new task in MyList before exiting the Duke Program
-             */
-            return false;
+
+        } else if (command.equals("find")) {
+            return taskList.find(parts);
 
         } else if (parts.length == 1) {
-
-            ui.commandError();
-            return true;
+            return ui.commandError();
 
         } else if (command.equals("unmark")) {
-
-            TaskList taskList = new TaskList(myList);
-            taskList.unmarkList(parts);
-            return true;
+            return taskList.unmarkList(parts);
 
         } else if (command.equals("mark")) {
-            /*
-            * Marks a specified task as done
-            *
-            * @param task number the index of the task to be marked as done
-            * @throws IndexOutOfBoundsException if the task number is out of bounds
-            */
-            TaskList taskList = new TaskList(myList);
-            taskList.markList(parts);
-            return true;
+            return taskList.markList(parts);
 
-        } else if (command.equals("delete")){
-            /*
-            * Deletes a specified task from the list
-            * 
-            * @param task number the index of the task to be deleted
-            * @throws IndexOutOfBoundsException if the task number is out of bounds
-            */
-            TaskList taskList = new TaskList(myList);
-            taskList.remove(parts);
-            return true;
+        } else if (command.equals("delete")) {
+            return taskList.remove(parts);
 
         } else {
-
-            TaskList taskList = new TaskList(myList);
-            taskList.add(command, restOfInputs);
-            return true;
-            
+            return taskList.add(command, restOfInputs);
         }
+        return ui.blank();
     }
- }
-
- 
+}

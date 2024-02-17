@@ -1,28 +1,26 @@
 package duke;
 
-import org.junit.jupiter.api.Test;
-
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
+
+
 
 public class DeadlineTest {
 
     @Test
     public void validDateTimeInput() {
         Deadline deadline = new Deadline("Finish project", "15/02/2024 2359");
-        assertEquals(LocalDateTime.of(2024, 2, 15, 23, 59), deadline.by);
-        assertNull(deadline.dayOfWeek);
+        assert(LocalDateTime.of(2024, 2, 15, 23, 59).equals(deadline.by));
+        assert(deadline.dayOfWeek) == null;
 
     }
     @Test
     public void validDayOfWeekInput() {
         Deadline deadline = new Deadline("Submit report", "Monday");
-        assertNull(deadline.by);
-        assertEquals(DayOfWeek.MONDAY, deadline.dayOfWeek);
+        assert(deadline.by) == null;
+        assert(DayOfWeek.MONDAY.equals(deadline.dayOfWeek));
     }
 
     @Test
@@ -34,14 +32,14 @@ public class DeadlineTest {
     public void toString_withDateTime() {
         Deadline deadline = new Deadline("Finish assignment", "24/01/2025 1400");
         String expected = "[D][ ] Finish assignment (by: 24 Jan 2025 2:00 PM)";
-        assertEquals(expected, deadline.toString());
+        assert(expected.equals(deadline.toString()));
     }
 
     @Test
     public void toString_withDayOfWeek() {
         Deadline deadline = new Deadline("Meeting", "Wednesday");
         String expected = "[D][ ] Meeting (by: WEDNESDAY)";
-        assertEquals(expected, deadline.toString());
+        assert(expected.equals(deadline.toString()));
 
     }
 

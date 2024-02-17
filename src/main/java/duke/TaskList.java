@@ -1,7 +1,6 @@
 package duke;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Represents a list of tasks with various operations such as marking, unmarking, listing, removing and adding tasks.
@@ -9,7 +8,7 @@ import java.util.Arrays;
  */
 
 public class TaskList {
-
+    private Ui ui = new Ui();
     private ArrayList<Task> myList;
 
     /**
@@ -25,19 +24,19 @@ public class TaskList {
      * Marks a specified task in the list as done.
      *
      * @param parts An array containing the command and task number.
+     * @return A string representing the information about the marked task.
      */
-    public void markList(String[] parts) {
+    public String markList(String[] parts) {
         //System.out.println("");
         int index = Integer.parseInt(parts[1]) - 1;
-        Ui ui = new Ui();
 
         if (index >= 0 && index < myList.size()) {
             Task task = myList.get(index);
             task.markAsDone();
-            ui.markInfo(task);
+            return ui.markInfo(task);
 
         } else {
-            ui.invalidNum();
+            return ui.invalidNum();
         }
     }
 
@@ -45,72 +44,91 @@ public class TaskList {
      * Marks a specified task in the list as not done.
      *
      * @param parts An array containing the command and task number.
+     * @return A string representing the information about the unmarked.
      */
-    public void unmarkList(String[] parts) {
+    public String unmarkList(String[] parts) {
         //System.out.println("");
         int index = Integer.parseInt(parts[1]) - 1;
-        Ui ui = new Ui();
 
         if (index >= 0 && index < myList.size()) {
             Task task = myList.get(index);
             task.markAsNotDone();
-            ui.unmarkInfo(task);
+            return ui.unmarkInfo(task);
 
         } else {
-            ui.invalidNum();
+            return ui.invalidNum();
         }
 
     }
 
     /**
      * Lists all tasks in the current list.
+     * @return A string representing the list of tasks.
      */
-    public void list() {
-        Ui ui = new Ui();
-        ui.listDetails();
-
+    public String list() {
+        StringBuilder result = new StringBuilder(ui.listDetails()); // Start with the UI details
+        result.append(ui.separationLine());
         for (Task task : myList) {
-            System.out.println((myList.indexOf(task) + 1) + "." + task);
+            // Append each item from the loop to the result string
+            result.append((myList.indexOf(task) + 1)).append(".").append(task).append("\n");
         }
-        ui.separationLine();
+        result.append(ui.separationLine()); // Append the separation line
+
+        return result.toString(); // Convert StringBuilder to String and return
     }
 
     /**
      * Removes a specified task from the list.
      *
      * @param parts An array containing the command and the task number.
+     * @return A string representing the information about the removed task.
      */
-    public void remove(String[] parts) {
-        int removed_item = Integer.parseInt(parts[1]) - 1;
-        Ui ui = new Ui();
-
-        
-        if (removed_item >= 0 && removed_item < myList.size()) {
-            Task item = myList.get(removed_item);
-            ui.removeTop(item);
-            myList.remove(removed_item);
-            ui.removeBottom(myList.size());
-    
+    public String remove(String[] parts) {
+        int removed = Integer.parseInt(parts[1]) - 1;
+        if (removed >= 0 && removed < myList.size()) {
+            Task item = myList.get(removed);
+            myList.remove(removed);
+            return ui.removeTop(item) + ui.removeBottom(myList.size());
         } else {
-            ui.invalidNum();    
+            return ui.invalidNum();
         }
-        
     }
 
     /**
-     * Adds a new task to the list based on the provided command and input.
-     * @param command The type of task to be added.
-     * @param restOfInputs The additional details for the task.
+     * Finds tasks containing a specified keyword and prints them to the console.
+     * @param parts An array containing the command and the keyword to search for.
+     * @return A string representing the list of tasks containing the keyword.
      */
-    public void add(String command, String restOfInputs) {
-        Ui ui = new Ui();
+    public String find(String[] parts) {
+        StringBuilder result = new StringBuilder(ui.findListDetails()); // Start with the UI details
+
+        String keyword = parts[1];
+
+        for (Task task : myList) {
+            if (task.getDescription().contains(keyword)) {
+                result.append((myList.indexOf(task) + 1))
+                        .append(".").append(task).append("\n"); // Append each item from the loop to the result string
+            }
+        }
+        result.append(ui.separationLine()); // Append the separation line
+
+        return result.toString(); // Convert StringBuilder to String and return
+    }
+
+
+    /**
+     * Adds a new task to the task list based on the provided command and input.
+     * @param command The command indicating the type of task to add (e.g., "todo", "deadline", "event").
+     * @param restOfInputs The rest of the user input containing task details (e.g., task description, deadline).
+     * @return A string representing the information about the added task.
+     */
+    public String add(String command, String restOfInputs) {
 
         try {
             if (command.equals("todo")) {
-
                 try {
                     if (restOfInputs == null) {
-                        String errorMessage = ui.emptyErrorMessage();
+                        String errorMessage = ui.displayEmptyErrorMessage();
                         throw new DukeException(errorMessage);
 
                     } else {
@@ -118,7 +136,7 @@ public class TaskList {
                         myList.add(newTodo);
                         int size = myList.size();
 
-                        ui.todoInfo(newTodo, size);
+                        return ui.todoInfo(newTodo, size);
                     }
 
                 } catch (DukeException e) {
@@ -129,23 +147,23 @@ public class TaskList {
 
                 try {
                     if (restOfInputs == null) {
-                        String errorMessage = ui.emptyErrorMessage();
+                        String errorMessage = ui.displayEmptyErrorMessage();
                         throw new DukeException(errorMessage);
 
                     } else {
 
-                        String[] item_time = restOfInputs.split("/by");
-                        String items = item_time[0];
-                        String time = item_time[1];
+                        String[] item = restOfInputs.split("/by");
+                        String items = item[0];
+                        String time = item[1];
 
                         Deadline newDeadline = new Deadline(items, time);
                         myList.add(newDeadline);
                         int size = myList.size();
 
-                        ui.deadlineInfo(newDeadline, size);
+                        return ui.deadlineInfo(newDeadline, size);
                     }
 
-                } catch(DukeException e) {
+                } catch (DukeException e) {
                     ui.errorEncounter(e);
                 }
 
@@ -153,37 +171,35 @@ public class TaskList {
 
                 try {
                     if (restOfInputs == null) {
-                        String errorMessage = ui.emptyErrorMessage();
+                        String errorMessage = ui.displayEmptyErrorMessage();
                         throw new DukeException(errorMessage);
 
                     } else {
 
-                        String[] item_time = restOfInputs.split("/from");
-                        String items = item_time[0];
-                        String time = item_time[1];
-            
-                        String[] from_to = time.split("/to");
-                        String from = from_to[0];
-                        String to = from_to[1];
-            
+                        String[] item = restOfInputs.split("/from");
+                        String items = item[0];
+                        String time = item[1];
+                        String[] period = time.split("/to");
+                        String from = period[0];
+                        String to = period[1];
                         Event newEvent = new Event(items, from, to);
                         myList.add(newEvent);
                         int size = myList.size();
 
-                        ui.eventInfo(newEvent, size);
+                        return ui.eventInfo(newEvent, size);
                     }
 
-                } catch(DukeException e) {
+                } catch (DukeException e) {
                     ui.errorEncounter(e);
                 }
 
             } else {
-                throw new DukeException(ui.errorMessage());
+                throw new DukeException(ui.displayErrorMessage());
             }
 
         } catch (DukeException e) {
             ui.errorEncounter(e);
         }
+        return ui.blank();
     }
- }
- 
+}

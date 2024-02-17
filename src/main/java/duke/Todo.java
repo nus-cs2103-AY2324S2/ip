@@ -28,5 +28,4 @@ public class Todo extends Task implements Serializable {
     public String toString() {
         return "[T]" + super.toString();
     }
-
 }
