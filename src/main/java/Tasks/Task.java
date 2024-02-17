@@ -54,6 +54,6 @@ public class Task implements Serializable {
         }
 
         protected static String formatDate(LocalDateTime date) {
-            return date.format(DateTimeFormatter.ofPattern("d MMM yyyy h:mma"));
+            return date.format(DateTimeFormatter.ofPattern("MMM d, yyyy @ h:mma"));
         }
 }
