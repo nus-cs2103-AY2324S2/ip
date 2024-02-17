@@ -1,6 +1,6 @@
 # Ezra User Guide
 
-![Ezra screenshot](https://github.com/Tanzhiheng26/ip/assets/61652399/5fda605d-8356-4d2f-85a2-c4b0e021ddc7)
+![Ezra screenshot](Ui.png)
 
 Ezra is a desktop app for managing your tasks, optimized for use via a Command Line Interface (CLI) while having a chatbot-like Graphical User Interface (GUI). If you can type fast, Ezra can get help you record and update your tasks more efficiently than traditional GUI apps.
 
