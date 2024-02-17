@@ -1,6 +1,7 @@
 package duke.commands;
 
 import duke.tasks.Task;
+import duke.ui.Ui;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -33,6 +34,7 @@ public class AddTagCommand extends Command {
             throw new CommandException("Task not found!");
         }
 
-        tasks.get(index).addTags(input);
+        tasks.get(index).addTags(tagDetails);
+        super.commandResponse = Ui.printOutput("I have added the tags:", tasks.get(index).toString());
     }
 }

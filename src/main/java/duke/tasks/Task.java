@@ -1,6 +1,5 @@
 package duke.tasks;
 
-import java.util.Arrays;
 import java.util.HashSet;
 
 /**
@@ -17,6 +16,7 @@ public class Task {
 
     public Task(String description) {
         this.description = description;
+        this.tags = new HashSet<>();
     }
 
     public void setStatus(boolean status) {
@@ -37,7 +37,9 @@ public class Task {
      * @param tagDetails the array which contains the #tags of the task.
      */
     public void addTags(String[] tagDetails) {
-        this.tags.addAll(Arrays.asList(tagDetails).subList(1, tagDetails.length));
+        for (String tag : tagDetails) {
+            this.tags.add(tag);
+        }
     }
 
     /**
@@ -73,6 +75,13 @@ public class Task {
             checkBox = "[X]";
         }
 
-        return checkBox + " " + description;
+        StringBuilder sb = new StringBuilder();
+        sb.append(checkBox).append(" ").append(description);
+
+        for (String tag : tags) {
+            sb.append(" ").append(tag);
+        }
+
+        return sb.toString();
     }
 }
