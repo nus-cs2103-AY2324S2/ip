@@ -18,6 +18,15 @@ public class Ui {
     }
 
     /**
+     * Shows an error encountered by the program to the user.
+     * This version makes the response from a string when the response is not necessarily from an exception call.
+     */
+    public static Response showError(String e) {
+        assert e != null : "The exception string must not be null";
+        return new ErrorResponse(e);
+    }
+
+    /**
      * Shows a note to the user.
      */
     public static Response showNote(String str) {

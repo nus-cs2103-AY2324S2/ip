@@ -40,7 +40,7 @@ public class DeleteCommand extends Command {
         );
 
         if (!missingIndices.isEmpty()) {
-            return Ui.showError(new Exception("Could not find tasks with indices: " + missingIndices));
+            return Ui.showError("Could not find tasks with indices: " + missingIndices);
         }
 
         if (builder.length() != 0) {
