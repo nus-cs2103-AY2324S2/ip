@@ -31,6 +31,10 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws ThamesException {
         try {
+            assert storage != null: "Task list cannot be null!";
+            assert tasks != null: "Ui cannot be null!";
+            assert ui != null: "Storage cannot be null!";
+
             Task deletedTask = tasks.remove(index);
             storage.save(tasks);
             return ui.delete(deletedTask, tasks.size());

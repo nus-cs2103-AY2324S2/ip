@@ -24,6 +24,10 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        assert storage != null: "Task list cannot be null!";
+        assert tasks != null: "Ui cannot be null!";
+        assert ui != null: "Storage cannot be null!";
+
         TaskList tasksFound = new TaskList();
         for (int i = 0; i < tasks.size(); i++) {
             String taskName = tasks.get(i).getName().toLowerCase();

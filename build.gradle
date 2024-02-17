@@ -52,6 +52,9 @@ shadowJar {
     dependsOn("distZip", "distTar")
 }
 
+
 run{
+    enableAssertions = true
     standardInput = System.in
+
 }
