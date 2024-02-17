@@ -11,6 +11,7 @@ public class Parser {
     private static final String BY_CMD = "/by";
     private static final String FROM_CMD = "/from";
     private static final String TO_CMD = "/to";
+    private static final String DURATION_CMD = "/duration";
 
     private static String cmdJoin(String[] xs) {
         return String.join(" ", xs);
@@ -151,6 +152,24 @@ public class Parser {
                 );
             }
             return CommandFactory.createEvent(taskStr, fromStr, toStr);
+        }
+        case "duration": {
+            List<String> cmds = Arrays.asList(cmdSplit);
+            String ferr1 = "duration command: expected `%s` argument.";
+            String ferr2 = "duration command: %s description cannot be empty.";
+            if (!cmds.contains(DURATION_CMD)) {
+                throw new DukeException(String.format(ferr1, DURATION_CMD));
+            }
+            int byIdx = cmds.indexOf(DURATION_CMD);
+            String taskStr = cmdJoin(range(cmdSplit, 1, byIdx));
+            String duration = cmdJoin(range(cmdSplit, byIdx + 1, cmds.size()));
+            if (taskStr.length() == 0) {
+                throw new DukeException(String.format(ferr2, "task"));
+            }
+            if (duration.length() == 0) {
+                throw new DukeException(String.format(ferr2, "duration"));
+            }
+            return CommandFactory.createFixedDuration(taskStr, duration);
         }
         default:
             throw new DukeException(

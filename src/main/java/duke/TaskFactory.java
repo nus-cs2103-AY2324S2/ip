@@ -1,11 +1,14 @@
 package duke;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 enum TaskID {
     TODO_ID("T"),
     EVENT_ID("E"),
-    DEADLINE_ID("D");
+    DEADLINE_ID("D"),
+    FIXEDDURATION_ID("F");
 
     private String id;
 
@@ -89,6 +92,31 @@ class Event extends Task {
     }
 }
 
+class FixedDuration extends Task {
+    private Duration timeNeeded;
+
+    FixedDuration(String task, String timeNeeded, boolean done) {
+        super(task, done, TaskID.FIXEDDURATION_ID);
+        this.timeNeeded = Duration.between(LocalTime.MIN, LocalTime.parse(timeNeeded));
+    }
+
+    public String serialise() {
+        return String.format(
+        "%s%s",
+        super.serialise(),
+        LocalTime.MIN.plus(timeNeeded).format(LOCALTIME_FORMAT)
+        );
+    }
+
+    public String taskStr() {
+        return String.format(
+            "%s (duration: %s)",
+            task,
+            LocalTime.MIN.plus(timeNeeded).format(LOCALTIME_FORMAT)
+        );
+    }
+}
+
 /**
  * Represents a task list
  */
@@ -115,6 +143,14 @@ public class TaskFactory {
         return new Deadline(task, deadline, done);
     }
 
+    public static Task createFixedDuration(
+        String task,
+        String timeNeeded,
+        boolean done
+    ) {
+        return new FixedDuration(task, timeNeeded, done);
+    }
+
     /**
      * Deserealise string into Task
      */
@@ -136,6 +172,8 @@ public class TaskFactory {
                 auxData[1],
                 isDone
             );
+        case "F":
+            return TaskFactory.createFixedDuration(taskDesc, auxData[0], isDone);
         default:
             return TaskFactory.createDeadline(taskDesc, auxData[0], isDone);
         }
