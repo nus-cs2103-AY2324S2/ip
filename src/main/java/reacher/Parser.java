@@ -2,17 +2,21 @@ package reacher;
 
 import reacher.command.*;
 
+import java.util.Locale;
+
 public class Parser {
     public static Command parse(String input) throws ReacherException {
-        if (input.equalsIgnoreCase("bye")) {
+        input = input.toLowerCase();
+        switch (input) {
+        case ("bye"):
             return new ExitCommand();
-        } else if (input.equalsIgnoreCase("list")) {
+        case ("list"):
             return new ListCommand();
-        } else if (input.equalsIgnoreCase("edit")) {
+        case ("edit"):
             return new EditCommand();
-        } else if (input.equalsIgnoreCase("add")){
+        case ("add"):
             return new AddCommand();
-        } else {
+        default:
             throw new ReacherException("Not a valid command!");
         }
     }
