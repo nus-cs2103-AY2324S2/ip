@@ -1,6 +1,6 @@
 # Using AI
 
-When starting on duke in week 2,
+When starting on fluffy in week 2,
 I wanted to try to learn how to effectively use
 GitHub CoPilot to help me write code.
 

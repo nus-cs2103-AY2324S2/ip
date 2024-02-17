@@ -58,7 +58,7 @@ jobs:
           body_path: ./RELEASE.md
           draft: false
           prerelease: true
-          files: build/libs/duke.jar
+          files: build/libs/fluffy.jar
           name: Release ${{ github.ref_name }}
           tag_name: ${{ github.ref }}
           fail_on_unmatched_files: true
