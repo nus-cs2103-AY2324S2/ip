@@ -11,7 +11,7 @@ import cat.ui.response.Response;
  * The main class of the Duke program.
  */
 public class Cat {
-    private static final String FILE_NAME = "duke.state";
+    private static final String FILE_NAME = "cat.state";
 
     private TaskList tasks;
     private final Storage storage;

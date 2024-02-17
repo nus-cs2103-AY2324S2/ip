@@ -23,6 +23,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("The Cat that Lives in your Walls");
             fxmlLoader.<MainWindow>getController().setDuke(cat);
             stage.show();
         } catch (IOException e) {
