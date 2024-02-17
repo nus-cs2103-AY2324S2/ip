@@ -1,3 +1,5 @@
+package floofy;
+
 public class Parser {
     // parsing of command (mark, delete etc) DONE HERE!!
     public Parser() {

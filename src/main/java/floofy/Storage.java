@@ -1,3 +1,10 @@
+package floofy;
+
+import floofy.task.Deadline;
+import floofy.task.Event;
+import floofy.task.Task;
+import floofy.task.ToDos;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

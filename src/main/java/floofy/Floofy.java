@@ -1,3 +1,10 @@
+package floofy;
+
+import floofy.task.Deadline;
+import floofy.task.Event;
+import floofy.task.Task;
+import floofy.task.ToDos;
+
 import java.util.Scanner;
 import java.time.LocalDate;
 
