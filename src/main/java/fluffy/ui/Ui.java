@@ -50,6 +50,7 @@ public class Ui extends Application {
 
     /**
      * Constructor for Ui.
+     *
      * @param commandHandler The command handler to handle the user input.
      */
     public Ui(Consumer<String> commandHandler) {
@@ -64,6 +65,11 @@ public class Ui extends Application {
         return new Image(resourceAsStream);
     }
 
+    /**
+     * Starts the user interface.
+     *
+     * @inheritDoc
+     */
     @Override
     public void start(Stage stage) {
         setupComponents();
@@ -74,7 +80,6 @@ public class Ui extends Application {
     }
 
     private void setupComponents() {
-        //The container for the content of the chat to scroll.
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);

@@ -52,6 +52,7 @@ public class TaskList {
 
     /**
      * Retrieves a task from the list of tasks.
+     *
      * @param index The index of the task to be retrieved.
      * @return The task to be retrieved.
      * @throws FluffyException If the index is out of bounds.
@@ -65,6 +66,7 @@ public class TaskList {
 
     /**
      * Filters the tasks in the task list based on a lambda expression.
+     *
      * @return A new TaskList object containing the filtered tasks.
      */
     public TaskList filterTasks(Predicate<Task> predicate) {
@@ -79,6 +81,7 @@ public class TaskList {
 
     /**
      * Retrieves the size of the list of tasks.
+     *
      * @return The size of the list of tasks.
      */
     public int getSize() {
@@ -87,6 +90,7 @@ public class TaskList {
 
     /**
      * Retrieves the list of tasks.
+     *
      * @return The list of tasks.
      */
     public List<Task> getTasks() {
@@ -95,6 +99,7 @@ public class TaskList {
 
     /**
      * Retrieves the breakdown of tasks by type.
+     *
      * @return The breakdown of tasks by type.
      */
     public HashMap<String, Integer> getTaskBreakdown() {

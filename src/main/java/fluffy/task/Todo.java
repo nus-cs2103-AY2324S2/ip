@@ -7,6 +7,7 @@ public class Todo extends Task {
 
     /**
      * Constructor for Todo.
+     *
      * @param description The description of the todo.
      */
     public Todo(String description) {
@@ -15,6 +16,7 @@ public class Todo extends Task {
 
     /**
      * Constructor for Todo.
+     *
      * @param description The description of the todo.
      * @param isDone Whether the todo is done.
      */
@@ -30,6 +32,7 @@ public class Todo extends Task {
 
     /**
      * Returns the todo in the format to be displayed to the user.
+     *
      * @return The todo in the format to be displayed to the user.
      */
     @Override
@@ -39,6 +42,7 @@ public class Todo extends Task {
 
     /**
      * Returns the todo in the format to be saved to the file.
+     *
      * @return The todo in the format to be saved to the file.
      */
     @Override
@@ -47,7 +51,8 @@ public class Todo extends Task {
     }
 
     /**
-     * Factory method to create a todo from a file string.
+     * Creates a todo from a file string.
+     *
      * @param fileString The file string to be converted to a todo.
      * @return The todo from the file string.
      */

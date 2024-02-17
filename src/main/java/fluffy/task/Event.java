@@ -14,6 +14,7 @@ public class Event extends Task {
 
     /**
      * Constructor for Event.
+     *
      * @param description The description of the event.
      * @param from The start date of the event.
      * @param to The end date of the event.
@@ -31,6 +32,7 @@ public class Event extends Task {
 
     /**
      * Constructor for Event.
+     *
      * @param description The description of the event.
      * @param from The start date of the event.
      * @param to The end date of the event.
@@ -43,6 +45,7 @@ public class Event extends Task {
 
     /**
      * Constructor for Event.
+     *
      * @param description The description of the event.
      * @param from The start date of the event.
      * @param to The end date of the event.
@@ -61,6 +64,7 @@ public class Event extends Task {
 
     /**
      * Returns the event in the format to be displayed to the user.
+     *
      * @return The event in the format to be displayed to the user.
      */
     @Override
@@ -71,6 +75,7 @@ public class Event extends Task {
 
     /**
      * Returns the event in the format to be saved in the file.
+     *
      * @return The event in the format to be saved in the file.
      */
     @Override
@@ -79,7 +84,8 @@ public class Event extends Task {
     }
 
     /**
-     * Factory method to create an event from a file string.
+     * Creates an event from a file string.
+     *
      * @param fileString The file string to be converted to an event.
      * @return The event from the file string.
      */

@@ -10,6 +10,7 @@ public class Deadline extends Task {
     protected LocalDate by;
     /**
      * Constructor for Deadline.
+     *
      * @param description The description of the deadline.
      * @param by The date of the deadline.
      */
@@ -20,6 +21,7 @@ public class Deadline extends Task {
 
     /**
      * Constructor for Deadline.
+     *
      * @param description The description of the deadline.
      * @param by The date of the deadline.
      * @param isDone Whether the deadline is done.
@@ -36,6 +38,7 @@ public class Deadline extends Task {
 
     /**
      * Returns the deadline in the format to be displayed to the user.
+     *
      * @return The deadline in the format to be displayed to the user.
      */
     @Override
@@ -45,6 +48,7 @@ public class Deadline extends Task {
 
     /**
      * Returns the deadline in the format to be saved in the file.
+     *
      * @return The deadline in the format to be saved in the file.
      */
     @Override
@@ -53,7 +57,8 @@ public class Deadline extends Task {
     }
 
     /**
-     * Factory method to create a Deadline object from a file string.
+     * Creates a Deadline object from a file string.
+     *
      * @param fileString The file string to be converted.
      * @return The Deadline object from the file string.
      */

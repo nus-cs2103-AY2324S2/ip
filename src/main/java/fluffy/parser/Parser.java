@@ -32,6 +32,7 @@ public class Parser {
 
     /**
      * Parses the user input and returns the corresponding command.
+     *
      * @param fullCommand The full user input.
      * @return The corresponding command.
      * @throws FluffyException If the user input is invalid.
@@ -65,14 +66,14 @@ public class Parser {
         }
     }
 
-    static Command parseTodoCommand(String[] commandParts) throws FluffyException {
+    private static Command parseTodoCommand(String[] commandParts) throws FluffyException {
         if (commandParts.length == 1) {
             throw new FluffyException("The description of a todo cannot be empty.");
         }
         return new TodoCommand(commandParts[1]);
     }
 
-    static Command parseDeadlineCommand(String[] commandParts) throws FluffyException {
+    private static Command parseDeadlineCommand(String[] commandParts) throws FluffyException {
         if (commandParts.length == 1) {
             throw new FluffyException("The description of a deadline cannot be empty.");
         }
@@ -89,7 +90,7 @@ public class Parser {
         return new DeadlineCommand(deadlineParts[0], by);
     }
 
-    static Command parseEventCommand(String[] commandParts) throws FluffyException {
+    private static Command parseEventCommand(String[] commandParts) throws FluffyException {
         if (commandParts.length == 1) {
             throw new FluffyException("The description of an event cannot be empty.");
         }
@@ -114,7 +115,7 @@ public class Parser {
         return new EventCommand(eventParts[0], from, to);
     }
 
-    static Command parseMarkCommand(String[] commandParts) throws FluffyException {
+    private static Command parseMarkCommand(String[] commandParts) throws FluffyException {
         if (commandParts.length == 1) {
             throw new FluffyException("The index of a mark cannot be empty.");
         }
@@ -128,7 +129,7 @@ public class Parser {
         return new MarkCommand(indexToMark);
     }
 
-    static Command parseUnmarkCommand(String[] commandParts) throws FluffyException {
+    private static Command parseUnmarkCommand(String[] commandParts) throws FluffyException {
         if (commandParts.length == 1) {
             throw new FluffyException("The index of an unmark cannot be empty.");
         }
@@ -141,7 +142,7 @@ public class Parser {
         return new UnmarkCommand(indexToUnmark);
     }
 
-    static Command parseDeleteCommand(String[] commandParts) throws FluffyException {
+    private static Command parseDeleteCommand(String[] commandParts) throws FluffyException {
         if (commandParts.length == 1) {
             throw new FluffyException("The index of a delete cannot be empty.");
         }

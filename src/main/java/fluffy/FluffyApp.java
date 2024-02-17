@@ -34,7 +34,8 @@ public class FluffyApp extends Application {
     }
 
     /**
-     * A function for dealing with user input.
+     * Handles user input.
+     *
      * @param input the input from a user.
      */
     public void handler(String input) {

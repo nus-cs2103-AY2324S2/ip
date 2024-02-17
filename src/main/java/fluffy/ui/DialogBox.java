@@ -18,6 +18,7 @@ public class DialogBox extends HBox {
 
     /**
      * Creates a DialogBox for displaying.
+     *
      * @param l The name of the person speaking.
      * @param iv Their user image.
      */

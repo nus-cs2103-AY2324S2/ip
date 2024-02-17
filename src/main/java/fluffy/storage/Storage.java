@@ -23,6 +23,7 @@ public class Storage {
 
     /**
      * Constructor for Storage.
+     *
      * @param filePath The file path of the storage.
      */
     public Storage(String filePath) {
@@ -31,6 +32,7 @@ public class Storage {
 
     /**
      * Saves data to the hard disk.
+     *
      * @param tasks The list of tasks to be saved.
      * @throws FluffyException If an error occurs during the saving of the tasks.
      */
@@ -48,6 +50,7 @@ public class Storage {
 
     /**
      * Loads data from the hard disk.
+     *
      * @return The list of tasks loaded from the hard disk.
      * @throws FluffyException If an error occurs during the loading of the tasks.
      */

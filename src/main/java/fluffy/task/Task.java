@@ -11,6 +11,7 @@ public abstract class Task {
     protected String description;
     /**
      * Constructor for Task.
+     *
      * @param description The description of the task.
      */
     public Task(String description) {
@@ -20,6 +21,7 @@ public abstract class Task {
 
     /**
      * Constructor for Task.
+     *
      * @param description The description of the task.
      * @param isDone Whether the task is done.
      */
@@ -44,17 +46,16 @@ public abstract class Task {
      * Marks the task as not done.
      */
     public void markAsNotDone() {
-        // Mark task as done
         this.isDone = false;
     }
 
     public String getDescription() {
-        // Return task description
         return this.description;
     }
 
     /**
      * Returns the task in the format to be displayed to the user.
+     *
      * @return The task in the format to be displayed to the user.
      */
     @Override
@@ -65,6 +66,7 @@ public abstract class Task {
 
     /**
      * Returns the task in the format to be saved to the file.
+     *
      * @return The task in the format to be saved to the file.
      */
     public abstract String toFileString();
@@ -73,18 +75,10 @@ public abstract class Task {
 
     /**
      * Returns whether the task is done.
+     *
      * @return Whether the task is done.
      */
     public boolean isDone() {
         return this.isDone;
-    }
-
-    /**
-     * Returns whether the task is of the same type as the given task.
-     * @param task The task to compare with.
-     * @return Whether the task is of the same type as the given task.
-     */
-    public boolean isSameTaskType(Task task) {
-        return this.getType().equals(task.getType());
     }
 }
