@@ -5,19 +5,33 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.layout.StackPane?>
 
-
-<fx:root style=" -fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;" alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<!-- Referenced and adapted dialog from @rehad-a-->
+<fx:root style="" alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label fx:id="dialog" text="Label" wrapText="true" />
+        <Label fx:id="dialog" minHeight="-Infinity" lineSpacing="1.0" style="-fx-background-color: #50f283; -fx-background-radius: 15; -fx-label-padding: 1;" text="Label" wrapText="true">
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+            <HBox.margin>
+                <Insets />
+            </HBox.margin>
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Label>
         <StackPane>
-            <ImageView style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0); " fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true">
                 <clip>
                     <Circle radius="50" centerX="50" centerY="50"/>
                 </clip>
             </ImageView>
             <Circle radius="50" centerX="50" centerY="50" stroke="black" fill="transparent"/>
+            <HBox.margin>
+                <Insets right="10.0" left="10.0"/>
+            </HBox.margin>
         </StackPane>
     </children>
     <padding>
