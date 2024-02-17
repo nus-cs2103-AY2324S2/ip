@@ -83,10 +83,10 @@ public class Hirwan {
             } else if (input == 10) {
                 List<Integer> indexes = Hirwan.searchWord(text.substring(5), tasks.getList());
                 Hirwan.printSearchResults(indexes, tasks.getList());
-            } else if (input == 11) {
-                Undocommand undocommand = new Undocommand(tasks, previousTasks);
-                undocommand.undo();
-                undocommand.getMessage();
+//            } else if (input == 11) {
+//                Undocommand undocommand = new Undocommand(tasks, previousTasks);
+//                undocommand.undo();
+//                undocommand.getMessage();
             } else if (input == 9) {
                 output = "Error: I am sorry but I do not recognise this command";
             } else {
