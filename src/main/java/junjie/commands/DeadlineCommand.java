@@ -20,22 +20,25 @@ public class DeadlineCommand extends Command {
 
     private final String name;
     private final String deadline;
+    private final String[] tags;
 
     /**
-     * Constructs a command to add a deadline task with the given name and deadline.
+     * Constructs a deadline command with the specified name, deadline and tags.
      *
-     * @param name The name of the deadline task.
+     * @param name The name of the task.
      * @param deadline The deadline of the task.
+     * @param tags The tags of the task.
      */
-    public DeadlineCommand(String name, String deadline) {
+    public DeadlineCommand(String name, String deadline, String[] tags) {
         this.name = name;
         this.deadline = deadline;
+        this.tags = tags;
     }
 
     @Override
     public String execute(TaskList tasks, Ui ui) {
         try {
-            Task task = new DeadlineTask(name, deadline);
+            Task task = new DeadlineTask(name, deadline, tags);
             tasks.add(task);
             return String.format(MESSAGE, task);
         } catch (InvalidArgumentException | DateTimeException e) {

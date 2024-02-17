@@ -30,28 +30,27 @@ public class TaskList extends ArrayList<Task> {
         }
     }
 
-    /**
-     * Constructs a task list with the given tasks.
-     *
-     * @param tasks The tasks to add to the task list.
-     */
+
     private void createTaskFromDetails(String[] taskDetails) {
-        String taskType = taskDetails[0];
-        boolean isDone = taskDetails[1].equals("1");
-        String taskContent = taskDetails[2];
+        assert taskDetails.length == 4 : "Task details should have 4 parts";
         try {
+            String taskType = taskDetails[0];
+            boolean isDone = taskDetails[1].equals("1");
+            String taskContent = taskDetails[2];
+            String[] tags = Parser.splitTags(taskDetails[3]);
+
             switch (taskType) {
             case "T":
-                this.add(new TodoTask(taskContent, isDone));
+                this.add(new TodoTask(taskContent, tags, isDone));
                 break;
             case "D":
                 String deadline = taskDetails[3];
-                this.add(new DeadlineTask(taskContent, deadline, isDone));
+                this.add(new DeadlineTask(taskContent, deadline, tags, isDone));
                 break;
             case "E":
                 String eventFrom = taskDetails[3];
                 String eventTo = taskDetails[4];
-                this.add(new EventTask(taskContent, eventFrom, eventTo, isDone));
+                this.add(new EventTask(taskContent, eventFrom, eventTo, tags, isDone));
                 break;
             default:
                 throw new InvalidArgumentException("Invalid task type in file.");

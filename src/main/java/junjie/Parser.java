@@ -45,10 +45,12 @@ public class Parser {
         Pattern byPattern = Pattern.compile(String.format(argRegex, "by"));
         Pattern fromPattern = Pattern.compile(String.format(argRegex, "from"));
         Pattern toPattern = Pattern.compile(String.format(argRegex, "to"));
+        Pattern tagPattern = Pattern.compile(String.format(argRegex, "tag"));
 
         Matcher byMatcher = byPattern.matcher(input);
         Matcher fromMatcher = fromPattern.matcher(input);
         Matcher toMatcher = toPattern.matcher(input);
+        Matcher tagMatcher = tagPattern.matcher(input);
 
         if (byMatcher.find()) {
             res.put("by", byMatcher.group());
@@ -62,7 +64,20 @@ public class Parser {
             res.put("to", toMatcher.group());
         }
 
+        if (tagMatcher.find()) {
+            res.put("tag", tagMatcher.group());
+        }
+
         return res;
+    }
+
+    /**
+     * Splits tags into an array of strings.
+     * @param input user input
+     * @return array of strings containing tags
+     */
+    public static String[] splitTags(String input) {
+        return input.split(" ");
     }
 
     /**
@@ -91,11 +106,11 @@ public class Parser {
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommand(inputs.get("content"));
         case TodoCommand.COMMAND_WORD:
-            return new TodoCommand(inputs.get("content"));
+            return new TodoCommand(inputs.get("content"), splitTags(inputs.get("tag")));
         case DeadlineCommand.COMMAND_WORD:
-            return new DeadlineCommand(inputs.get("content"), inputs.get("by"));
+            return new DeadlineCommand(inputs.get("content"), inputs.get("by"), splitTags(inputs.get("tag")));
         case EventCommand.COMMAND_WORD:
-            return new EventCommand(inputs.get("content"), inputs.get("from"), inputs.get("to"));
+            return new EventCommand(inputs.get("content"), inputs.get("from"), inputs.get("to"), splitTags(inputs.get("tag")));
         case FindCommand.COMMAND_WORD:
             return new FindCommand(inputs.get("content"));
         default:

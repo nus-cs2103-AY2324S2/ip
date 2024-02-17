@@ -5,27 +5,32 @@ package junjie.tasks;
  */
 public abstract class Task {
     private final String name;
+    private final String[] tags;
     private boolean done = false;
 
     /**
-     * Constructs a task with the given name.
+     * Constructs a task with the given name and tags.
      *
      * @param name The name of the task.
+     * @param tags The tags of the task.
      */
-    public Task(String name) {
+    public Task(String name, String[] tags) {
         this.name = name;
+        this.tags = tags;
     }
 
     /**
-     * Constructs a task with the given name and completion status.
+     * Constructs a task with the given name, tags, and done status.
      *
      * @param name The name of the task.
-     * @param isDone The completion status of the task (true if done, false if not done).
+     * @param tags The tags of the task.
+     * @param isDone The done status of the task.
      */
-    public Task(String name, boolean isDone) {
+    public Task(String name, String[] tags, boolean isDone) {
         assert name != null : "Task name cannot be null";
 
         this.name = name;
+        this.tags = tags;
         this.done = isDone;
     }
 
@@ -48,6 +53,15 @@ public abstract class Task {
     }
 
     /**
+     * Returns the tags of the task.
+     *
+     * @return The tags of the task.
+     */
+    public String[] getTags() {
+        return tags;
+    }
+
+    /**
      * Returns a string representation of the task to be displayed to the user.
      *
      * @return A string representation of the task to be displayed to the user.
@@ -58,7 +72,10 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return String.format("[%s] %s", done ? "X" : " ", name);
+        return String.format("[%s] %s %s",
+                done ? "X" : " ",
+                name,
+                tags.length == 0 ? "" : String.format(" (%s)", String.join(", ", tags)));
     }
 
     /**
