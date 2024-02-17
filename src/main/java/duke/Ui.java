@@ -47,10 +47,6 @@ public class Ui {
         return "what? please check your input.";
     }
 
-    public String errorMessage() {
-        return "what?";
-    }
-
     /**
      * Displays an error message for an unrecognized command.
      * @return The error message for an unrecognized command.
