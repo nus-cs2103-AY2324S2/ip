@@ -7,9 +7,13 @@ import thames.command.ExitCommand;
 import thames.command.EditCommand;
 import thames.command.Command;
 import thames.command.ListCommand;
+import thames.command.ScheduleCommand;
 import thames.task.ToDo;
 import thames.task.Deadline;
 import thames.task.Event;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 /**
  * Class that makes sense of the user input.
@@ -84,8 +88,18 @@ public class Parser {
                 throw new ThamesException("Please input the keyword for me to find!");
             }
             return new FindCommand(split[1].trim());
+        case "schedule":
+            try {
+                LocalDate scheduleDate = LocalDate.parse(split[1]);
+                return new ScheduleCommand(scheduleDate);
+            } catch (DateTimeParseException e) {
+                throw new ThamesException("Please input the date in the correct format!");
+            } catch (IndexOutOfBoundsException e) {
+                throw new ThamesException("Please input the date of the schedule!");
+            }
 
         }
+
         throw new ThamesException("Sorry, I do not understand what that means.");
     }
 }
