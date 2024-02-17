@@ -39,7 +39,7 @@ public class Event extends Task {
         String[] whiteSpaceSeparatedDate = name.split(" ");
 
         StringBuilder eventDescription = new StringBuilder();
-        for (int i = 0; i < whiteSpaceSeparatedDate.length - 4; i++) {
+        for (int i = 0; i < whiteSpaceSeparatedDate.length - 8; i++) {
             eventDescription.append(whiteSpaceSeparatedDate[i]).append(" ");
         }
         super.updateName(eventDescription.toString());
@@ -102,14 +102,18 @@ public class Event extends Task {
     public String toString() {
         return "[E]"
                 + super.toString()
-                + " from "
+                + "from "
                 + deadlineFromDateTimeLocalDate.toLocalDate()
                 + " at "
-                + deadlineFromDateTimeLocalDate.toLocalTime()
+                + formatTime(deadlineFromDateTimeLocalDate.toLocalTime().toString())
                 + " to "
                 + deadlineToDateTimeLocalDate.toLocalDate()
                 + " at "
-                + deadlineToDateTimeLocalDate.toLocalTime();
+                + formatTime(deadlineToDateTimeLocalDate.toLocalTime().toString());
+    }
+
+    private String formatTime(String fromDateTime) {
+        return fromDateTime.length() == 5 ? fromDateTime + ":00" : fromDateTime;
     }
 
     @Override

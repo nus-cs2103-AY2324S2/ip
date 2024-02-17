@@ -1,6 +1,5 @@
-package task;
+package nicole.task;
 
-import nicole.task.Event;
 import nicole.nicoleexceptions.NicoleException;
 
 import org.junit.jupiter.api.Test;
@@ -40,7 +39,7 @@ public class EventTest {
             fail();
         } catch (NicoleException e) {
             assertEquals(
-                    "ERROR. Are you sure your date and time are in the proper [YYYY-MM-DD], "
+                    "ERROR. Are you sure your date and time are in the proper [YYYY-MM-DD] and "
                               + "[HH-MM-SS] format...?",
                     e.toString());
         }
@@ -60,8 +59,8 @@ public class EventTest {
     @Test
     void eventCreation_perfectConditions_toStringCorrect() {
         try {
-            Event testEvent = new Event("meeting with kay from 2024-01-29 at 18:00:00 to 2024-01-30 at 21:00:00");
-            assertEquals("[E][I] meeting with kay from 2024-01-29 at 18:00:00 to 2024-01-30 at 21:00:00",
+            Event testEvent = new Event("meeting with kay from 2024-12-30 at 18:00:00 to 2024-12-30 at 21:00:00");
+            assertEquals("[E][I] meeting with kay from 2024-12-30 at 18:00:00 to 2024-12-30 at 21:00:00",
                          testEvent.toString());
         } catch (NicoleException e) {
             fail();

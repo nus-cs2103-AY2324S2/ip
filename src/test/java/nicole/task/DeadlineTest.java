@@ -1,6 +1,5 @@
-package task;
+package nicole.task;
 
-import nicole.task.Deadline;
 import nicole.nicoleexceptions.NicoleException;
 
 import org.junit.jupiter.api.Test;

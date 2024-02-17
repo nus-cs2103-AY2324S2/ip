@@ -1,4 +1,4 @@
-package task;
+package nicole.task;
 
 import nicole.task.Todo;
 import nicole.nicoleexceptions.NicoleException;

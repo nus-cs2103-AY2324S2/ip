@@ -13,13 +13,14 @@ import nicole.task.Task;
 
 public class TaskList {
     protected static final List<Task> TASKS = new ArrayList<>();
-    private static final Storage STORAGE = new Storage();
+    private final Storage storage;
 
     /**
      * Initialises a TaskList and creates Storage for tasks.
      *
      */
     public TaskList() {
+        this.storage = new Storage();
     }
 
     private void checkValidTaskNumber(int taskNumber) throws NicoleException {
@@ -37,7 +38,7 @@ public class TaskList {
     public String unmarkTask(int taskNumber) throws NicoleException {
         checkValidTaskNumber(taskNumber);
         String unmarkedMessage = TASKS.get(taskNumber - 1).markUndone();
-        STORAGE.saveTasksToFile();
+        storage.saveTasksToFile();
         return unmarkedMessage;
     }
 
@@ -50,7 +51,7 @@ public class TaskList {
     public String markTask(int taskNumber) throws NicoleException {
         checkValidTaskNumber(taskNumber);
         String markedMessage = TASKS.get(taskNumber - 1).markDone();
-        STORAGE.saveTasksToFile();
+        storage.saveTasksToFile();
         return markedMessage;
     }
 
@@ -63,7 +64,7 @@ public class TaskList {
     public String deleteTask(int taskNumber) throws NicoleException {
         checkValidTaskNumber(taskNumber);
         TASKS.remove(taskNumber - 1);
-        STORAGE.saveTasksToFile();
+        storage.saveTasksToFile();
         return "Phew...deleted  :>";
     }
 
@@ -121,7 +122,7 @@ public class TaskList {
     public String updateTask(String newTaskName, int taskNumber) throws NicoleException {
         checkValidTaskNumber(taskNumber);
         TASKS.get(taskNumber - 1).updateName(newTaskName);
-        STORAGE.saveTasksToFile();
+        storage.saveTasksToFile();
         return "Okie I updated the name";
     }
 
@@ -135,7 +136,7 @@ public class TaskList {
 
     private void checkClashingTasks(Task newTask) throws NicoleException {
         long numClashingTasks = TASKS.stream().filter(task -> {
-            // The datetime clashes only apply to Events since items can logically have the same deadline
+            // The datetime clashes only apply to Events since Deadlines can be the same
             return task instanceof Event
                     // Case when two event intervals are exactly the same
                     && (newTask.getFromDateTime().isEqual(task.getFromDateTime())
@@ -151,7 +152,7 @@ public class TaskList {
                         && newTask.getToDateTime().isAfter(task.getToDateTime()));
         }).count();
         if (numClashingTasks > 0) {
-            throw new NicoleException("Careful! You already have " + numClashingTasks + " items at the same time.");
+            throw new NicoleException("Careful! You already have an event at the same time");
         }
     }
 
