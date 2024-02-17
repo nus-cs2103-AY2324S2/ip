@@ -226,7 +226,7 @@ public class TaskList {
     }
 
     /**
-     * Process todo task. 
+     * Process todo task.
      *
      * @param instr The string with the task information.
      * @param thisStorage Task List manager.
@@ -240,7 +240,7 @@ public class TaskList {
             thisStorage.saveTaskList(this.instrList);
             String res = "Got it. I've added this task: \n "
                 + taskTodo.toString();
-            return res;   
+            return res;
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException("OOPS!!! The description of a todo cannot be empty. \nTry again!");
         }

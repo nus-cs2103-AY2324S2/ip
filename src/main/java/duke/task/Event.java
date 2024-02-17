@@ -65,8 +65,7 @@ public class Event extends Task {
     /**
      * Update the start parameter of this class.
      *
-     * @param newStart
-     *
+     * @param newStart The new value for start date.
      * @return A string representation of the work done.
      */
     public String updateStart(String newStart) {
@@ -78,8 +77,7 @@ public class Event extends Task {
     /**
      * Update the end parameter of this class.
      *
-     * @param newEnd
-     *
+     * @param newEnd The new value for enddate.
      * @return A string representation of the work done.
      */
     public String updateEnd(String newEnd) {

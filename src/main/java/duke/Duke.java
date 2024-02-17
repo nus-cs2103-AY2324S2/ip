@@ -60,15 +60,17 @@ public class Duke {
     /**
      * Calls the constructor and is the entry point of the program.
      *
-     * @param args Input by the user
+     * @param args Input by the user.
      */
     public static void main(String[] args) {
         new Duke("src/main/data/caching.txt").run();
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Calls the parser class to retrieve response based on command.
+     *
+     * @param input Instructions by the user.
+     * @return A string representing the response.
      */
     public String getResponse(String input) {
         assert this.parser != null : "Parser class must be instantiated first.";

@@ -90,11 +90,11 @@ public class Storage {
         return tskList;
     }
 
-
     /**
-     * Construct task objects from the String format in local file.
+     * Deconstruct the line from cache file to new Task.
      *
-     * @param fileStr String line in the local file.
+     * @param fileStr The line from the cache file.
+     * @return A task representing the work to do.
      */
     public Task deconstruct(String fileStr) {
         String[] arr = fileStr.split("\\|");
