@@ -6,7 +6,7 @@ package task;
  * This class is the representation of a Todo task.
  * It extends from its parent class the Task class.
  */
-public class ToDo extends Task {
+public class ToDo extends Task implements Comparable<ToDo> {
     public static final String TASK_TYPE = "todo";
 
     /**
@@ -69,5 +69,16 @@ public class ToDo extends Task {
         printMessage += "\n" + this + "\n";
         printMessage += "You now have " + taskStorage.size() + " tasks in the list.";
         return printMessage;
+    }
+
+    /**
+     * Overrides the compareTo function of Object, to compare the Todo's
+     * name.
+     *
+     * @param o The Todo it is comparing to.
+     */
+    @Override
+    public int compareTo(ToDo o) {
+        return super.getCommand().compareTo(o.getCommand());
     }
 }

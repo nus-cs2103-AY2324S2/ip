@@ -1,1 +1,3 @@
-ToDo|1|homework
+ToDo|0|add money to wallet
+ToDo|0|homework
+ToDo|0|put money in bank

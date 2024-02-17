@@ -51,7 +51,7 @@ public abstract class Task implements ParseExecutionable {
     }
 
     /**
-     * To get the class's completed status.
+     * Gets the class's completed status.
      */
     public String getCompleted() {
         if (this.completed) {
@@ -61,7 +61,7 @@ public abstract class Task implements ParseExecutionable {
     }
 
     /**
-     * To get the class's coommand String.
+     * Gets the class's coommand String.
      */
     public String getCommand() {
         return this.command;

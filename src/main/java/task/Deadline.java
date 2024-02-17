@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
  * This class is the representation of a Deadline task.
  * It extends from its parent class the Task class.
  */
-public class Deadline extends Task {
+public class Deadline extends Task implements Comparable<Deadline> {
     public static final String TASK_TYPE = "deadline";
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private LocalDateTime endDateTime;
@@ -79,5 +79,19 @@ public class Deadline extends Task {
         printMessage += "\n" + this + "\n";
         printMessage += "You now have " + taskStorage.size() + " tasks in the list.";
         return printMessage;
+    }
+
+    /**
+     * Overrides the compareTo function of Object, to compare the Deadline's
+     * endDate followed by it's name if they have similar deadlines.
+     *
+     * @param o The Deadline it is comparing to.
+     */
+    @Override
+    public int compareTo(Deadline o) {
+        if (this.endDateTime.compareTo(o.endDateTime) == 0) {
+            return super.getCommand().compareTo(o.getCommand());
+        }
+        return this.endDateTime.compareTo(o.endDateTime);
     }
 }

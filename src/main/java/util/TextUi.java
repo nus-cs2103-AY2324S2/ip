@@ -3,7 +3,7 @@ package util;
 import java.util.Scanner;
 
 /**
- * The TextUi class provides an abstraction of the printing of messages.
+ * This TextUi class provides an abstraction of the printing of messages.
  * Handles printing of the replies for the main application,
  * allow us to have a centralized location to format these messages.
  */
@@ -27,8 +27,8 @@ public class TextUi {
     }
 
     /**
-     * Print's the messages to the user.
-     * Format's the message slightly by adding an end-line
+     * Prints the messages to the user.
+     * Formats the message slightly by adding an end-line
      * String after printing the message.
      *
      * @param messages The message to be printed.

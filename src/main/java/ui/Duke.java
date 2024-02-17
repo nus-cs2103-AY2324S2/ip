@@ -10,7 +10,7 @@ import util.DataWriter;
 import util.TextUi;
 
 /**
- * The main user interface for the "ChatBot", promptly named BobBot.
+ * This is a main user interface for the "ChatBot", promptly named BobBot.
  *
  * This class is a front to manage user input, displaying the corresponding output,
  * and managed the conditional statements for the prompting.
@@ -30,11 +30,11 @@ public class Duke {
         TaskStorage taskStorage = dataReader.readDataFile(textUi);
         ParseExecutionable actionable = parse.parseInput(input);
         String botResponse = actionable.execute(taskStorage);
+        DataWriter dataWriter = new DataWriter();
+        dataWriter.saveData(taskStorage);
         if (actionable instanceof ActionTask) {
             ActionTask actionTask = (ActionTask) actionable;
             if (actionTask.isItExitAction()) {
-                DataWriter dataWriter = new DataWriter();
-                dataWriter.saveData(taskStorage);
                 Platform.exit();
                 return botResponse;
             }

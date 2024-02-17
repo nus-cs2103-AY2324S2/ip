@@ -6,6 +6,7 @@
 <!--
     This configuration file enforces rules for the coding standard at
     https://se-education.org/guides/conventions/java/intermediate.html
+    Modified from se-edu by @rertyy
 -->
 
 <module name="Checker">
@@ -25,6 +26,13 @@
     <property name="message" value='TODO is preferred to FIXME."' />
   </module>
 
+    <module name="RegexpSingleline">
+        <!-- Singleline Javadoc must start with capital letters. -->
+        <property name="format" value="\/\*\* [a-z ]"/>
+        <property name="message"
+                  value="Javadoc must start with capital letters"/>
+    </module>
+
   <module name="SuppressionFilter">
     <property name="file" value="${config_loc}/suppressions.xml"/>
   </module>
@@ -37,7 +45,28 @@
   <!-- All Java AST specific tests live under TreeWalker module. -->
   <module name="TreeWalker">
 
-    <!-- Required to allow exceptions in code style -->
+
+      <module name="Regexp">
+          <!-- Multiline Javadoc method description must start with a capitalized word ending in 's'
+          Note that this has false positives for non-method Javadoc. -->
+          <property name="format" value="\/\*\*\s+?\* (\w+?(?&lt;!s)\b|[a-z])"/>
+          <property name="message"
+                    value="Javadoc method description must start with a capitalized word ending in 's'"/>
+          <property name="ignoreComments" value="false"/>
+          <property name="illegalPattern" value="true"/>
+      </module>
+
+      <module name="Regexp">
+          <!-- Multiline Javadoc must end with full stop-->
+          <property name="format" value="(?!.*\.)[\w ]+(\r\n|\n) +\*( @|/|(\r\n|\n))"/>
+          <property name="message"
+                    value="Multiline Javadoc must end with full stops"/>
+          <property name="ignoreComments" value="false"/>
+          <property name="illegalPattern" value="true"/>
+      </module>
+
+
+      <!-- Required to allow exceptions in code style -->
     <module name="SuppressionCommentFilter">
       <property name="offCommentFormat" value="CHECKSTYLE.OFF\: ([\w\|]+)"/>
       <property name="onCommentFormat" value="CHECKSTYLE.ON\: ([\w\|]+)"/>

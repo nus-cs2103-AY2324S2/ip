@@ -1,6 +1,7 @@
 package task;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import util.Messages;
 
@@ -118,10 +119,94 @@ public class TaskStorage {
     }
 
     /**
-     * To get the ArrayList stored for printing purposes.
+     * Gets the ArrayList stored for printing purposes.
      */
     public ArrayList<Task> getStorage() {
         return this.storageList;
+    }
+
+    /**
+     * Sorts all Tasks in the storagelist based on their
+     * name and deadline.
+     * It will return in this order:
+     * 1. Deadline.
+     * 2. Events.
+     * 3. Todo.
+     *
+     * Returns the sorted list.
+     */
+    public ArrayList<Task> sortStorageList() {
+        ArrayList<ToDo> toDoList = new ArrayList<>();
+        ArrayList<Deadline> deadlineList = new ArrayList<>();
+        ArrayList<Event> eventList = new ArrayList<>();
+        for (Task task : this.storageList) {
+            if (task instanceof ToDo) {
+                toDoList.add((ToDo) task);
+            } else if (task instanceof Deadline) {
+                deadlineList.add((Deadline) task);
+            } else if (task instanceof Event) {
+                eventList.add((Event) task);
+            }
+        }
+        Collections.sort(toDoList);
+        Collections.sort(deadlineList);
+        Collections.sort(eventList);
+        this.storageList = new ArrayList<>();
+        this.storageList.addAll(deadlineList);
+        this.storageList.addAll(eventList);
+        this.storageList.addAll(toDoList);
+        return this.storageList;
+    }
+
+    /**
+     * Sorts all Todos in the storagelist based on their name.
+     * Returns the sorted list.
+     */
+    public ArrayList<Task> sortToDoStorageList() {
+        ArrayList<ToDo> toDoList = new ArrayList<>();
+        for (Task task : this.storageList) {
+            if (task instanceof ToDo) {
+                toDoList.add((ToDo) task);
+            }
+        }
+        Collections.sort(toDoList);
+        ArrayList<Task> sortedList = new ArrayList<>();
+        sortedList.addAll(toDoList);
+        return sortedList;
+    }
+
+    /**
+     * Sorts all Deadlines in the storagelist based on their name and due date.
+     * Returns the sorted list.
+     */
+    public ArrayList<Task> sortDeadlineStorageList() {
+        ArrayList<Deadline> deadlineList = new ArrayList<>();
+        for (Task task : this.storageList) {
+            if (task instanceof Deadline) {
+                deadlineList.add((Deadline) task);
+            }
+        }
+        Collections.sort(deadlineList);
+        ArrayList<Task> sortedList = new ArrayList<>();
+        sortedList.addAll(deadlineList);
+        return sortedList;
+    }
+
+    /**
+     * Sorts all Event in the storagelist based on their name and from date.
+     * Returns the sorted list.
+     */
+    public ArrayList<Task> sortEventStorageList() {
+        ArrayList<Event> eventList = new ArrayList<>();
+        for (Task task : this.storageList) {
+            if (task instanceof Event) {
+                eventList.add((Event) task);
+            }
+        }
+        Collections.sort(eventList);
+        ArrayList<Task> sortedList = new ArrayList<>();
+        sortedList.addAll(eventList);
+        return sortedList;
     }
 
     /**

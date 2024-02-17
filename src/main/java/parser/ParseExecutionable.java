@@ -3,7 +3,7 @@ package parser;
 import task.TaskStorage;
 
 /**
- * The ParseExecutionable interface is to handle the outcomes of parsing operations within the application.
+ * Acts as a ParseExecutionable interface is to handle the outcomes of parsing operations within the application.
  * Objects implementing of this interface encapsulate different types of actions into the TaskStorage,
  * such as creating tasks, executing changes, or indicating TaskErrors.
  */

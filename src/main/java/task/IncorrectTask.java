@@ -21,7 +21,7 @@ public class IncorrectTask implements ParseExecutionable {
     }
 
     /**
-     * To execute the necessary action by printing out the error message.
+     * Executes the necessary action by printing out the error message.
      * @param taskStorage The storage space where the action will take place.
      */
     @Override
