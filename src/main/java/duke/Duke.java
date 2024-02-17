@@ -18,7 +18,7 @@ public class Duke {
     // File directory of stored data.
     private static final String FILE_DIRECTORY = "data";
     // File name of stored data.
-    private static final String FILE_NAME = "duke.txt";
+    private static final String FILE_NAME = "tasks.txt";
 
     private Storage storage;
     private TaskList taskList;
