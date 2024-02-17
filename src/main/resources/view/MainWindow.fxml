@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -27,7 +28,7 @@
           <Menu mnemonicParsing="false" text="Help">
             <items>
               <MenuItem fx:id="about" mnemonicParsing="false" onAction="#handleAbout" text="About" />
-              <MenuItem fx:id="help" mnemonicParsing="false" onAction="#handleHelp" text="User Guide"/>
+              <MenuItem fx:id="help" mnemonicParsing="false" onAction="#handleHelp" text="User Guide" />
             </items>
           </Menu>
         </menus>
@@ -49,5 +50,6 @@
             </Button>
          </children>
       </AnchorPane>
+      <Label text="TOBIAS" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="226.0" AnchorPane.topAnchor="5.0" />
     </children>
 </AnchorPane>
