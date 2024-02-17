@@ -90,7 +90,7 @@ public class Ui {
      */
     public String showAddedTaskMessage(Task task, int taskCount) {
         String message = "Got it. I've added this task:\n   " + task + "\nNow you have " + taskCount
-                + " tasks in the list.";
+                + " tasks in your yapping list.";
         System.out.println(message);
         return message;
     }
@@ -102,7 +102,7 @@ public class Ui {
      */
     public String showRemovedTaskMessage(Task task, int taskCount) {
         String message = "Noted. I've removed this task:\n   " + task + "\nNow you have " + taskCount
-                + " tasks in the list.";
+                + " tasks in your yapping list.";
         System.out.println(message);
         return message;
     }
