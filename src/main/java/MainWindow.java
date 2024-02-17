@@ -67,9 +67,12 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void sayHello() {
+        String greeting = "Hello, I'm Ypxmm.\nNeed me do what for you?\nType in \"getcommands\" if you don't know"
+                + " how to boss me around yet.";
+        greeting = greeting.trim();
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog("Hello, I'm Ypxmm.\nNeed me do what for you?", dukeImage)
+                DialogBox.getDukeDialog(greeting, dukeImage)
         );
     }
 
