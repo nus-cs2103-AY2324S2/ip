@@ -1,5 +1,7 @@
 package seedu.duke.task;
 
+import seedu.duke.DukeException;
+
 /**
  * <h1> Task </h1>
  * This Task class is a superclass of the Deadlines and Events classes. This class represents the individual Task objects
@@ -53,6 +55,14 @@ public class Task {
 
     public String getTag() {
         return "T";
+    }
+
+    public void update(String attribute, String toUpdate) throws DukeException {
+        if (attribute.equalsIgnoreCase("desc")) {
+            description = toUpdate.trim();
+        } else {
+            throw new DukeException("Oops. The task you want to update does not have a " + attribute + " attribute.");
+        }
     }
 
     public String printTaskDesc(int num){

@@ -30,7 +30,7 @@ public class Parser {
         if (items.length == 1) {
             throw new DukeException("Oops! Please state the task number.");
         } else {
-            return Integer.parseInt(input.split(" ")[1]);
+            return Integer.parseInt(items[1].trim());
         }
     }
 
@@ -80,7 +80,7 @@ public class Parser {
      * only the required information, the description and deadline.
      * @throws DukeException
      */
-    public static LocalDateTime parseDeadline(String input) throws DukeException{
+    public static LocalDateTime parseDeadlineCommand(String input) throws DukeException{
         assert !input.isEmpty() : "unable to parse empty input";
         String[] items = input.split(" ", 2);
         if (items.length == 1) {
@@ -90,6 +90,16 @@ public class Parser {
             String[] parts = input.split("/by ");
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
             LocalDateTime deadline = LocalDateTime.parse(parts[1], formatter);
+            return deadline;
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Oops, please state your deadline in the format: dd-MM-yyyy HHmm");
+        }
+    }
+
+    public static LocalDateTime parseDeadline(String input) throws DukeException{
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+            LocalDateTime deadline = LocalDateTime.parse(input.trim(), formatter);
             return deadline;
         } catch (DateTimeParseException e) {
             throw new DukeException("Oops, please state your deadline in the format: dd-MM-yyyy HHmm");
@@ -139,6 +149,19 @@ public class Parser {
             throw new DukeException("Oops, please state the description of the task you want to find.");
         }
         return items[1];
+    }
+
+    public static int parseUpdateNum(String input) throws DukeException {
+        assert !input.isEmpty() : "unable to parse empty input";
+        String[] items = input.split("/", 2);
+        return parseNum(items[0]);
+    }
+
+    public static String[] parseUpdate(String input) throws DukeException {
+        assert !input.isEmpty() : "unable to parse empty input";
+        String[] items = input.split("/", 2);
+        String[] parts = items[1].split(" ", 2);
+        return parts;
     }
 
 }

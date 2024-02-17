@@ -66,6 +66,14 @@ public class TaskList {
         return result;
     }
 
+    public String update(int num, String attribute, String toUpdate) throws DukeException, IOException {
+        Task taskToUpdate = tasks.get(num - 1);
+        taskToUpdate.update(attribute, toUpdate);
+        String result = "Got it. I've updated the task to this:\n" + taskToUpdate.printFullDesc();
+        Storage.updateFile(num - 1, taskToUpdate.toStore());
+        return result;
+    }
+
     /**
      * Calls the mark function of the Task object and also calls the function in
      * Storage to update the information stored in the file.
