@@ -34,7 +34,7 @@ public class Parser {
             } // End try
 
         } // End command while loop
-        System.out.println("  <<Duke Leto>>\n  > I bid you farewell");
+        System.out.println("  <<Duke Leto>>\n  > Here I am, Here I remain");
     }
 
     /**

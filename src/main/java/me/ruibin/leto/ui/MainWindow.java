@@ -1,5 +1,6 @@
 package me.ruibin.leto.ui;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -30,7 +31,7 @@ public class MainWindow extends AnchorPane {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/paul.png"));
 
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/duke_leto.png"));
+    private Image letoImage = new Image(this.getClass().getResourceAsStream("/images/duke_leto.png"));
 
 
     /**
@@ -41,12 +42,12 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         scrollPane.hvalueProperty().bind(dialogContainer.widthProperty());
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(Ui.letoLogo(), dukeImage),
-                DialogBox.getDukeDialog(TaskList.initFromCsvFile().getMessage(), dukeImage)
+                DialogBox.getLetoDialog(Ui.letoLogo(), letoImage),
+                DialogBox.getLetoDialog(TaskList.initFromCsvFile().getMessage(), letoImage)
         );
     }
 
-    public void setDuke(Leto d) {
+    public void setLeto(Leto d) {
         leto = d;
     }
 
@@ -61,11 +62,24 @@ public class MainWindow extends AnchorPane {
         String response = result.getMessage();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getLetoDialog(response, letoImage)
         );
         userInput.clear();
         if (result.getType().equals(ResultTypes.EXIT)) {
+            Platform.runLater(this::waitThenExit);
+            userInput.setDisable(true);
+            userInput.setText("Program is exiting");
+            sendButton.setDisable(true);
+        }
+    }
+
+    private void waitThenExit() {
+        try {
+            Thread.sleep(2000);
             System.exit(0);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            // application is exiting already
         }
     }
 }

@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import me.ruibin.leto.ui.MainWindow;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Leto using FXML.
  */
 public class Main extends Application {
 
@@ -23,7 +23,8 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(leto);
+            stage.setTitle("Duke Leto");
+            fxmlLoader.<MainWindow>getController().setLeto(leto);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
