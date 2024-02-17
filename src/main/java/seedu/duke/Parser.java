@@ -20,6 +20,7 @@ public class Parser {
      * @param input String written by user eg. <code>mark 2</code>
      * @param tasks <code>TaskList</code> object containing list of tasks
      * @param ui <code>Ui</code> object for printing actions
+     * @return String output
      */
     public static String parseMark(String input, TaskList tasks, Ui ui) {
         String output = "";
@@ -33,11 +34,16 @@ public class Parser {
             if (index >= tasks.getSize()) {
                 // for invalid entry "mark [out of bounds]"
                 throw new DukeException("Here's the format I require: mark [valid index]");
+            } else if (index < 0) {
+                // for invalid entry "mark [negative]"
+                throw new DukeException("We don't have negative tasks!");
             }
             tasks.markTaskDone(Integer.parseInt(splitInput[1]) - 1);
             output = ui.showTaskDone(tasks.getTask(Integer.parseInt(splitInput[1]) - 1));
         } catch (DukeException d) {
             output = ui.printError(d);
+        } catch (NumberFormatException n) {
+            output = ui.printError(new DukeException("Here's the format I require: mark [valid index]"));
         }
         return output;
     }
@@ -49,6 +55,7 @@ public class Parser {
      * @param input String written by user eg. <code>unmark 2</code>
      * @param tasks <code>TaskList</code> object containing list of tasks
      * @param ui <code>Ui</code> object for printing actions
+     * @return String output
      */
     public static String parseUnmark(String input, TaskList tasks, Ui ui) {
         String output = "";
@@ -61,11 +68,16 @@ public class Parser {
             int index = Integer.parseInt(splitInput[1]) - 1;
             if (index >= tasks.getSize()) {
                 throw new DukeException("Here's the format I require: unmark [valid index]");
+            } else if (index < 0) {
+                // for invalid entry "mark [negative]"
+                throw new DukeException("We don't have negative tasks!");
             }
             tasks.markTaskUndone(Integer.parseInt(splitInput[1]) - 1);
             output = ui.showTaskUndone(tasks.getTask(Integer.parseInt(splitInput[1]) - 1));
         } catch (DukeException d) {
             output = ui.printError(d);
+        } catch (NumberFormatException n) {
+            output = ui.printError(new DukeException("Here's the format I require: unmark [valid index]"));
         }
         return output;
     }
@@ -77,6 +89,7 @@ public class Parser {
      * @param input String written by user eg. <code>deadline /by 2023-02-4</code>
      * @param tasks <code>TaskList</code> object containing list of tasks
      * @param ui <code>Ui</code> object for printing actions
+     * @return String output
      */
     public static String parseDeadline(String input, TaskList tasks, Ui ui) {
         String output = "";
@@ -104,6 +117,7 @@ public class Parser {
      * @param input String written by user eg. <code>todo read book</code>
      * @param tasks <code>TaskList</code> object containing list of tasks
      * @param ui <code>Ui</code> object for printing actions
+     * @return String output
      */
     public static String parseTodo(String input, TaskList tasks, Ui ui) {
         String output = "";
@@ -130,6 +144,7 @@ public class Parser {
      *              eg. <code>event orientation /from 2023-08-02 /to 2024-08-09</code>
      * @param tasks <code>TaskList</code> object containing list of tasks
      * @param ui <code>Ui</code> object for printing actions
+     * @return String output
      */
     public static String parseEvent(String input, TaskList tasks, Ui ui) {
         String output = "";
@@ -158,6 +173,7 @@ public class Parser {
      * @param input String written by user eg. <code>delete 2</code>
      * @param tasks <code>TaskList</code> object containing list of tasks
      * @param ui <code>Ui</code> object for printing actions
+     * @return String output
      */
     public static String parseDelete(String input, TaskList tasks, Ui ui) {
         String output = "";
@@ -167,11 +183,18 @@ public class Parser {
                 throw new DukeException("Which task number do you want to delete?");
             }
             int number = Integer.parseInt(splitInput[1]);
+            if (number > tasks.getSize()) {
+                throw new DukeException("You don't have that many tasks!");
+            } else if (number < 1) {
+                throw new DukeException("We don't have negative tasks!");
+            }
             Task task = tasks.getTask(number - 1);
             tasks.deleteTask(number - 1);
             output = ui.showTaskDeleted(task, tasks.getSize());
         } catch (DukeException d) {
             output = ui.printError(d);
+        } catch (NumberFormatException n) {
+            output = ui.printError(new DukeException("Is that a valid task number?"));
         }
         return output;
     }
