@@ -124,14 +124,14 @@ public class Duke extends Application {
         //Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
 
-        //Part 3. Add functionality to handle user input.
-        sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
-
-        userInput.setOnAction((event) -> {
-            handleUserInput();
-        });
+//        //Part 3. Add functionality to handle user input.
+//        sendButton.setOnMouseClicked((event) -> {
+//            handleUserInput();
+//        });
+//
+//        userInput.setOnAction((event) -> {
+//            handleUserInput();
+//        });
     }
 
     /**
@@ -153,23 +153,23 @@ public class Duke extends Application {
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
-    private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
-        dialogContainer.getChildren().addAll(
-                new DialogBox(userText, new ImageView(user)),
-                new DialogBox(dukeText, new ImageView(duke))
-        );
-        userInput.clear();
-    }
-
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
-    private String getResponse(String input) {
+//    private void handleUserInput() {
+//        Label userText = new Label(userInput.getText());
+//        Label dukeText = new Label(getResponse(userInput.getText()));
+//        dialogContainer.getChildren().addAll(
+//                new DialogBox(userText, new ImageView(user)),
+//                new DialogBox(dukeText, new ImageView(duke))
+//        );
+//        userInput.clear();
+//    }
+//
+//    /**
+//     * You should have your own function to generate a response to user input.
+//     * Replace this stub with your completed method.
+//     */
+//    private String getResponse(String input) {
 //        String fullCommand = ui.readCommand();
-//        Parser.parse(fullCommand, ui);
-         return "Duke heard: " + input;
-    }
+////        Parser.parse(fullCommand, ui);
+//         return "Duke heard: " + fullCommand;
+//    }
 }
