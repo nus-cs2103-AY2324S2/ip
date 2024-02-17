@@ -85,6 +85,13 @@ public class TaskList extends ArrayList<Task> {
         }
     }
 
+    /**
+     * Prints the total number of tasks currently stored in the task list.
+     * <p>
+     * This method calculates the total number of tasks in the task list and prints
+     * the result to the standard output.
+     * </p>
+     */
     public void getCurTotalTasks() {
         int numTask = this.size();
         System.out.println("     Total number of tasks: " + numTask);

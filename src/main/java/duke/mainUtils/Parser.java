@@ -11,7 +11,31 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The Parser class is responsible for parsing user input strings and task data strings into appropriate objects.
+ * It provides methods to parse user commands, task data from save files, and task details into task objects.
+ * Additionally, it handles date and time parsing for deadline and event tasks.
+ *
+ * @author Justin Leng Chern Harn
+ * @version 1.0
+ * @see duke.commands.Command
+ * @see duke.exceptions.InvalidCommandException
+ * @see duke.exceptions.InvalidDateException
+ * @see duke.exceptions.InvalidTaskException
+ * @see duke.exceptions.StorageException
+ * @see duke.tasks.Task
+ * @see duke.tasks.ToDoTask
+ * @see duke.tasks.DeadlineTask
+ * @see duke.tasks.EventTask
+ */
 public final class Parser {
+    /**
+     * Parses user input into a Command object based on the command type.
+     *
+     * @param userInput the user input string split into an array of strings.
+     * @return a Command object corresponding to the user input command.
+     * @throws InvalidCommandException if the user input command is invalid.
+     */
     public static Command parseUserInput(String[] userInput) throws InvalidCommandException {
         String commandType = userInput[0].toUpperCase();
         Command command;
@@ -58,6 +82,14 @@ public final class Parser {
         return command;
     }
 
+    /**
+     * Parses task data from a save file into a Task object.
+     *
+     * @param taskStringData the task data string read from the save file.
+     * @return a Task object parsed from the task data string.
+     * @throws StorageException if there is an error parsing the task data.
+     * @throws InvalidDateException if the task data contains an invalid date.
+     */
     public static Task parseSaveFile(String taskStringData) throws StorageException, InvalidDateException {
         String[] sections = taskStringData.trim().split("\\|");
 
@@ -85,6 +117,17 @@ public final class Parser {
         }
     }
 
+    /**
+     * Parses a saved to-do task in text file with the given information.
+     * <p>
+     * This method creates a new to-do task based on the provided description. If the task
+     * is marked as done (i.e., {@code isDone} is {@code true}), it sets the task as done.
+     * </p>
+     *
+     * @param isDone      {@code true} if the task is marked as done, {@code false} otherwise.
+     * @param description The description of the to-do task.
+     * @return The parsed to-do task.
+     */
     private static Task parseSavedToDoTask(boolean isDone, String description) {
         Task task = new ToDoTask(description);
         if (isDone) {
@@ -93,6 +136,25 @@ public final class Parser {
         return task;
     }
 
+    /**
+     * Parses a saved deadline task with the given information.
+     * <p>
+     * This method extracts the deadline information from the provided {@code deadlineSection},
+     * creates a new deadline task with the specified description and deadline, and marks it
+     * as done if {@code isDone} is {@code true}.
+     * </p>
+     * <p>
+     * The deadline information is expected to be in the format "(by: deadline)", where
+     * "deadline" represents the date and time of the task's deadline.
+     * </p>
+     *
+     * @param isDone           {@code true} if the task is marked as done, {@code false} otherwise.
+     * @param description      The description of the deadline task.
+     * @param deadlineSection  The section of the saved task containing the deadline information.
+     * @return The parsed deadline task.
+     * @throws InvalidDateException If the deadline date and time cannot be parsed.
+     * @throws StorageException     If the deadline section does not contain valid deadline information.
+     */
     private static Task parseSavedDeadlineTask(boolean isDone, String description, String deadlineSection) throws InvalidDateException, StorageException {
         Pattern pattern = Pattern.compile("\\(by: (.*?)\\)");
         Matcher matcher = pattern.matcher(deadlineSection);
@@ -108,6 +170,26 @@ public final class Parser {
         }
     }
 
+    /**
+     * Parses a saved event task with the given information.
+     * <p>
+     * This method extracts the start and end date/time information from the provided {@code eventSection},
+     * creates a new event task with the specified description, start date/time, and end date/time,
+     * and marks it as done if {@code isDone} is {@code true}.
+     * </p>
+     * <p>
+     * The event information is expected to be in the format "(from: startBy to: endBy)", where
+     * "startBy" represents the start date and time of the event, and "endBy" represents the end date
+     * and time of the event.
+     * </p>
+     *
+     * @param isDone        {@code true} if the task is marked as done, {@code false} otherwise.
+     * @param description   The description of the event task.
+     * @param eventSection  The section of the saved task containing the event information.
+     * @return The parsed event task.
+     * @throws InvalidDateException If the start or end date/time cannot be parsed.
+     * @throws StorageException    If the event section does not contain valid event information.
+     */
     private static Task parseSavedEventTask(boolean isDone, String description, String eventSection) throws InvalidDateException, StorageException {
         Pattern pattern = Pattern.compile("\\(from: (.*?) to: (.*?)\\)");
         Matcher matcher = pattern.matcher(eventSection);
@@ -124,6 +206,13 @@ public final class Parser {
         }
     }
 
+    /**
+     * Parses user input details into a ToDoTask object.
+     *
+     * @param details an array of strings containing task details.
+     * @return a ToDoTask object parsed from the task details.
+     * @throws InvalidTaskException if the task details are invalid.
+     */
     public static ToDoTask parseTodoTask(String[] details) throws InvalidTaskException {
         String description;
         if (details.length > 0) {
@@ -135,6 +224,14 @@ public final class Parser {
         return new ToDoTask(description);
     }
 
+    /**
+     * Parses user input details into a DeadlineTask object.
+     *
+     * @param details an array of strings containing task details.
+     * @return a DeadlineTask object parsed from the task details.
+     * @throws InvalidTaskException if the task details are invalid.
+     * @throws InvalidDateException if the deadline date is invalid.
+     */
     public static DeadlineTask parseDeadlineTask(String[] details) throws InvalidTaskException, InvalidDateException {
         int byIndex = -1;
         for (int i = 0; i < details.length; i++) {
@@ -161,6 +258,14 @@ public final class Parser {
         return new DeadlineTask(description, deadline);
     }
 
+    /**
+     * Parses user input details into an EventTask object.
+     *
+     * @param details an array of strings containing task details.
+     * @return an EventTask object parsed from the task details.
+     * @throws InvalidTaskException if the task details are invalid.
+     * @throws InvalidDateException if the event dates are invalid.
+     */
     public static EventTask parseEventTask(String[] details) throws InvalidTaskException, InvalidDateException {
         int fromIndex = -1;
         int toIndex = -1;
@@ -191,6 +296,13 @@ public final class Parser {
         return new EventTask(description, startBy, endBy);
     }
 
+    /**
+     * Parses a date-time string into a LocalDate object.
+     *
+     * @param dateTimeString the date-time string to parse.
+     * @return a LocalDate object parsed from the date-time string.
+     * @throws InvalidDateException if the date-time string is invalid.
+     */
     public static LocalDate parseDateTime(String dateTimeString) throws InvalidDateException {
         try {
             return LocalDate.parse(dateTimeString, DateTimeFormatter.ISO_LOCAL_DATE);
