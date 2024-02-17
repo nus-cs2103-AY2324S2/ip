@@ -107,8 +107,6 @@ public class Storage {
             System.out.println(err.toString());
         }
 
-        boolean corruptedFile = false;
-
         try (BufferedReader in = new BufferedReader(new FileReader(f))) {
             Stream<String> allLines = in.lines();
             Stream<ArrayList<String>> splitParams = allLines.map((line) ->
