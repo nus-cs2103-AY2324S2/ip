@@ -1,4 +1,4 @@
-package duke;
+package teemo;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
@@ -49,8 +49,12 @@ public class Ui {
             return exit();
         case list:
             output = taskList.list();
-            System.out.println(padding(output));
-            return output;
+            if (output != "") {
+                System.out.println(padding(output));
+                return output;
+            } else {
+                return "You have no tasks for now! Good job!";
+            }
         case delete:
             int no = Integer.parseInt(trail.get(0));
             output = taskList.delete(no);
@@ -76,7 +80,7 @@ public class Ui {
             return output;
         case deadline:
             if (trail.get(0).equals("")) {
-                throw new DukeException("Description for todo cannot be empty!");
+                throw new DukeException("Description for deadline cannot be empty!");
             }
             try {
                 LocalDate d1 = LocalDate.parse(trail.get(1));
@@ -92,7 +96,7 @@ public class Ui {
             }
         case event:
             if (trail.get(0).equals("")) {
-                throw new DukeException("Description for todo cannot be empty!");
+                throw new DukeException("Description for event cannot be empty!");
             }
             try {
                 LocalDate d2 = LocalDate.parse(trail.get(1));
@@ -165,7 +169,7 @@ public class Ui {
             }
             return "Task updated!";
         case error:
-            throw new DukeException("Command not found! Please try again.");
+            throw new DukeException("This isn't a valid command! Try [help] instead?");
         default:
             return "";
         }

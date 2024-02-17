@@ -1,4 +1,4 @@
-package duke;
+package teemo;
 
 /**
  * To Do task

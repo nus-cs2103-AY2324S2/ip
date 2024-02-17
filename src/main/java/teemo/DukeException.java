@@ -1,4 +1,4 @@
-package duke;
+package teemo;
 /**
  * Custom Exception for Duke.
  */

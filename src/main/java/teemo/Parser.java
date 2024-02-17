@@ -1,4 +1,4 @@
-package duke;
+package teemo;
 import java.util.ArrayList;
 import java.util.List;
 

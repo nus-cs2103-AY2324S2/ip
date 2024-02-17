@@ -1,4 +1,4 @@
-package duke;
+package teemo;
 
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
@@ -8,7 +8,7 @@ import java.util.Scanner;
 /**
  * Instance of Duke class
  */
-public class Duke {
+public class Teemo {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -19,7 +19,7 @@ public class Duke {
      * Constructor for Duke class.
      * @param filePath Path to save file for tasks.
      */
-    public Duke(String filePath) {
+    public Teemo(String filePath) {
         load(filePath);
     }
 
@@ -27,7 +27,7 @@ public class Duke {
      * Default constructor for Duke class.
      * Used for GUI.
      */
-    public Duke() {
+    public Teemo() {
         String filePath = "./tasks.txt";
         load(filePath);
     }
@@ -101,26 +101,27 @@ public class Duke {
         try {
             stringList = parser.parse(input);
             Options choice = optionType(stringList.get(0));
-            return ui.nextCommand(choice, tasks, stringList, storage).replace("\t", "");
+            return "Swiftly! Reporting in, here is your command.\n"
+                    + ui.nextCommand(choice, tasks, stringList, storage).replace("\t", "");
         } catch (DukeException de) {
-            return de + "\n";
+            return "That's gotta string! " + de.getMessage() + "\n";
         } catch (NumberFormatException nfe) {
-            return "Invalid number, please enter a valid number.\n";
+            return "Oh nyo! This isn't a number, please enter a valid one!\n";
         } catch (IndexOutOfBoundsException oobe) {
             if (tasks.size() == 0) {
-                return "No tasks found. Please add a task first!\n";
+                return "You have no tasks currently!\n";
             } else {
-                return "Invalid number, please enter a valid number between 1 and " + tasks.size() + ".\n";
+                return "Hmm, this number seems sus. Perhaps try a number between 1 and " + tasks.size() + "?\n";
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (DateTimeParseException dtpe) {
-            return "Please enter a datetime format of yyyy-mm-dd.\n";
+            return "Please use a datetime format of yyyy-mm-dd! Teemo can't understand other formats :(\n";
         }
     }
 
     public static void main(String[] args) {
-        new Duke("./tasks.txt").run(); // for running in cli
+        new Teemo("./tasks.txt").run(); // for running in cli
         //Application.launch(Main.class, args); // for running in gui
     }
     /**

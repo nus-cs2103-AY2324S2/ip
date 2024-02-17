@@ -1,4 +1,4 @@
-package duke;
+package teemo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

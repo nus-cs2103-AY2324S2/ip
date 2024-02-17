@@ -1,4 +1,4 @@
-package duke;
+package teemo;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

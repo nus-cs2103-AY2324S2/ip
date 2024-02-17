@@ -1,4 +1,4 @@
-package duke;
+package teemo;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
@@ -17,7 +17,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TextField userInput;
     @FXML
-    private Duke duke;
+    private Teemo teemo;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -29,8 +29,8 @@ public class MainWindow extends AnchorPane {
                 + "Captain Teemo on duty! What can I do for you?", dukeImage));
     }
 
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setDuke(Teemo d) {
+        teemo = d;
     }
 
     /**
@@ -40,7 +40,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = teemo.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage), // user input
                 DialogBox.getDukeDialog(response, dukeImage) // chatbot reply
