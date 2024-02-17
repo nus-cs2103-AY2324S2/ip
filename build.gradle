@@ -9,6 +9,14 @@ repositories {
     mavenCentral()
 }
 
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'main.java.Launcher'
+        )
+    }
+}
+
 dependencies {
     String javaFxVersion = '17.0.7'
 
@@ -44,11 +52,12 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "kewgy"
+    archiveFileName = 'kewgy.jar'
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

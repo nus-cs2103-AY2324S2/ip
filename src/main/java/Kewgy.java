@@ -11,6 +11,7 @@ import Ui.Parser;
 import Ui.Parser.Command;
 import Ui.Ui;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
@@ -126,6 +127,7 @@ public class Kewgy extends Application {
                 break;
             case BYE:
                 kewgyText = ui.printGoodBye();
+                Platform.exit();
                 break;
             case UPDATE_TIME:
                 String[] updateTimeParsed = userMsg.split(" ", 3);
