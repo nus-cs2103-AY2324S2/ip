@@ -1,5 +1,8 @@
 package cat.ui.response;
 
+/**
+ * A response given at the beginning to welcome the user.
+ */
 public class WelcomeResponse extends NoteResponse {
     public WelcomeResponse() {
         super(blurb(), info());

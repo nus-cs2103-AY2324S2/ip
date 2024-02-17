@@ -21,6 +21,9 @@ public class MainWindow {
 
     private Cat cat;
 
+    /**
+     * Initializes the main window state.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

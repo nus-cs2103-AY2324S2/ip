@@ -22,7 +22,7 @@ public abstract class Response extends VBox {
     private Label blurb;
 
     @FXML
-    private Label output;
+    private Label info;
 
     @FXML
     private Pane outputPane;
@@ -47,8 +47,12 @@ public abstract class Response extends VBox {
         public static final String BRIGHT_WHITE = "E0E0E0";
     }
 
-
-    public Response(String blurb, String output) {
+    /**
+     * Constructs a response.
+     * @param blurb The blurb to emote the cat with.
+     * @param info The actual information.
+     */
+    public Response(String blurb, String info) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/Result.fxml"));
             fxmlLoader.setController(this);
@@ -59,7 +63,7 @@ public abstract class Response extends VBox {
         }
 
         this.blurb.setText(blurb);
-        this.output.setText(output);
+        this.info.setText(info);
     }
 
     protected void setOutputColor(String colorHex) {
