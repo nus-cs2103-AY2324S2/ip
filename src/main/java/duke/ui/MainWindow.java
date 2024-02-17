@@ -82,10 +82,9 @@ public class MainWindow extends Stage {
     }
 
     /**
-     * For closing program by using the bye command.
+     * Closes program after the bye command.
      * Sleeps for specified milliseconds before closing the stage.
      * During this time, userInput and sendButton will be disabled.
-     * If InterruptException is thrown, window closes immediately after printing error.
      *
      * @param millisDelay Delay before closing in milliseconds.
      */
