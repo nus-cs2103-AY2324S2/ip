@@ -184,7 +184,7 @@ public class Parser {
     }
 
     /**
-     *  Returns mark/unmark/delete commands to execute.
+     * Returns mark/unmark/delete commands to execute.
      *
      * @param input User inputs containing index of task.
      * @param tasks Task List that stores all tasks.
@@ -213,7 +213,7 @@ public class Parser {
     }
 
     /**
-     * Change user input of date and time to java object LocalDateTime.
+     * Changes user input of date and time to java object LocalDateTime.
      *
      * @param userInput String representation of date and time in the form of "yyyy-MM-dd HH".
      * @return Java object LocalDateTime.

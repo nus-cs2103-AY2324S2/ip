@@ -21,7 +21,7 @@ public class MissA {
     private Parser parser = new Parser();
 
     /**
-     * Create a MissA object.
+     * Creates a MissA object.
      *
      * @param filePath Data file to be tracked.
      */

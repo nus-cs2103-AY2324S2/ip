@@ -12,7 +12,7 @@ public class AddCommand extends Command {
     private Task task;
 
     /**
-     * Create an add command.
+     * Creates an add command.
      *
      * @param task Task to be added.
      * @param tasks Task list to store tasks.
