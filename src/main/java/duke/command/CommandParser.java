@@ -37,6 +37,10 @@ public class CommandParser {
             return new DeleteCommand(body);
         case "find":
             return new FindCommand(body);
+        case "undo":
+            return new UndoCommand(body);
+        case "redo":
+            return new RedoCommand(body);
         default:
             throw new UnknownCommandException("Unknown command: " + name + " " + body,
                     "I'm sorry, but I don't know what that means :<");

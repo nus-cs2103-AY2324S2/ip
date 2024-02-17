@@ -18,6 +18,14 @@ public abstract class Command {
         return body;
     }
 
+    /**
+     * Parses the input and returns a command.
+     *
+     * @param input  The input to parse.
+     * @param parser The parser to use.
+     * @return The parsed command.
+     * @throws DukeException If the input is invalid.
+     */
     public static Command parse(String input, CommandParser parser) throws DukeException {
         return parser.parse(input);
     }

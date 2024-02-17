@@ -1,5 +1,7 @@
 package duke.state;
 
+import duke.command.Undoable;
+
 /**
  * Represents the state of the program. There are three possible states: normal,
  * exit, and error.
@@ -13,12 +15,14 @@ public class ProgramState {
     }
 
     private State state;
+    private CommandHistory history;
 
     /**
      * Constructs a new program state. The initial state is normal.
      */
     public ProgramState() {
         this.state = State.NORMAL;
+        this.history = new CommandHistory();
     }
 
     public void setState(State newState) {
@@ -39,5 +43,21 @@ public class ProgramState {
 
     public boolean isExit() {
         return state == State.EXIT;
+    }
+
+    public void addCommandToHistory(Undoable command) {
+        history.addCommandToHistory(command);
+    }
+
+    public boolean isUndoable() {
+        return history.isUndoable();
+    }
+
+    public boolean isRedoable() {
+        return history.isRedoable();
+    }
+
+    public CommandHistory getHistory() {
+        return history;
     }
 }
