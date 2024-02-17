@@ -1,8 +1,20 @@
 # Ezra User Guide
 
-// Product screenshot goes here
+![image](https://github.com/Tanzhiheng26/ip/assets/61652399/edf94e56-33c3-46d7-b6a0-788308a22074)
 
 Ezra is a desktop app for managing your tasks, optimized for use via a Command Line Interface (CLI) while having a chatbot-like Graphical User Interface (GUI). If you can type fast, Ezra can get help you record and update your tasks more efficiently than traditional GUI apps.
+
+- [Quick Start](https://tanzhiheng26.github.io/ip/#quick-start)
+- [Features](https://tanzhiheng26.github.io/ip/#features)
+  - [Adding a **ToDo** task: `todo`](https://tanzhiheng26.github.io/ip/#adding-a-todo-task-todo)
+  - [Adding a **Deadline** task: `deadline`](https://tanzhiheng26.github.io/ip/#adding-a-deadline-task-deadline)
+  - [Adding an **Event** task: `event`](https://tanzhiheng26.github.io/ip/#adding-an-event-task-event)
+  - [Listing all tasks: `list`](https://tanzhiheng26.github.io/ip/#listing-all-tasks-list)
+  - [Marking tasks as done: `mark`](https://tanzhiheng26.github.io/ip/#marking-tasks-as-done-mark)
+  - [Marking tasks as not done: `unmark`](https://tanzhiheng26.github.io/ip/#marking-tasks-as-not-done-unmark)
+  - [Deleting tasks: `delete`](https://tanzhiheng26.github.io/ip/#deleting-tasks-delete)
+  - [Finding tasks by keyword: `find`](https://tanzhiheng26.github.io/ip/#finding-tasks-by-keyword-find)
+  - [Undoing a command: `undo`](https://tanzhiheng26.github.io/ip/#undoing-a-command-undo)
 
 ## Quick Start
 
