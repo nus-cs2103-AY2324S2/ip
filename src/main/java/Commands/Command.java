@@ -1,5 +1,7 @@
 package Commands;
 
+import Exceptions.DudeException;
+
 public abstract class Command {
 
     private final String format;
@@ -10,7 +12,7 @@ public abstract class Command {
         this.regex = regex;
     }
 
-    public abstract String execute();
+    public abstract String execute() throws DudeException;
 
     public String getFormat() {
         return this.format;

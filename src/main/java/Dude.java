@@ -1,3 +1,4 @@
+import Commands.DeleteCommand;
 import Exceptions.*;
 import Exceptions.TaskListFullException;
 import Tasks.Deadline;
@@ -197,21 +198,10 @@ public class  Dude {
     }
 
     private static String handle_delete_command(String msg){
-        int index = 0;
-        try{
-            index = Integer.parseInt(msg.split(" ")[1]);
-        } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            return "\t-----------------------------------\n" +
-                    "\tPlease provide a valid task ID. Has to be an integer.\n" +
-                    "\t-----------------------------------";
-        }
-
         try {
-            return taskList.remove_task(index);
-        } catch (IndexOutOfBoundsException e) {
-            return "\t-----------------------------------\n" +
-                    "\t" + e.getMessage() +"\n" +
-                    "\t-----------------------------------";
+            return new DeleteCommand(msg, taskList).execute();
+        } catch (DudeException e) {
+            return echo(e.getMessage());
         }
     }
 

@@ -1,5 +1,7 @@
 package Tasks;
 
+import Exceptions.DudeException;
+import Exceptions.InvalidCommandIDException;
 import Tasks.Task;
 
 import java.util.ArrayList;
@@ -34,9 +36,9 @@ public class TaskList {
                 "\t-----------------------------------";
     }
 
-    public String remove_task(int index) throws IndexOutOfBoundsException {
+    public String remove_task(int index) throws DudeException {
         if (index > list.size() || index < 1) {
-            throw new IndexOutOfBoundsException("Sorry, the provided id is invalid.");
+            throw new DudeException("Sorry, the provided id is invalid.");
         }
         Task removed = list.remove(index - 1);
         return "\t-----------------------------------\n" +
@@ -46,9 +48,9 @@ public class TaskList {
                 "\t-----------------------------------";
     }
 
-    public String mark_as_done(int index) throws IndexOutOfBoundsException{
+    public String mark_as_done(int index) throws DudeException {
         if (index > list.size() || index < 1) {
-            throw new IndexOutOfBoundsException("Sorry, the provided id is invalid.");
+            throw new DudeException("Sorry, the provided id is invalid.");
         }
         list.get(index - 1).markAsDone();
         return "\t-----------------------------------\n" +
@@ -57,9 +59,9 @@ public class TaskList {
                 "\t-----------------------------------";
     }
 
-    public String mark_as_undone(int index) throws IndexOutOfBoundsException {
+    public String mark_as_undone(int index) throws DudeException {
         if (index > list.size() || index < 1) {
-            throw new IndexOutOfBoundsException("Sorry, the provided id is invalid.");
+            throw new DudeException("Sorry, the provided id is invalid.");
         }
         list.get(index - 1).markAsUndone();
         return "\t-----------------------------------\n" +
