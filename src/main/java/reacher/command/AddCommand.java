@@ -1,7 +1,6 @@
 package reacher.command;
 
 import java.time.LocalDate;
-
 import reacher.*;
 import reacher.task.*;
 
@@ -36,5 +35,9 @@ public class AddCommand extends Command {
             throw new ReacherException("That is not a type of task.");
         }
         storage.storeList(tasks.getTasks());
+    }
+    @Override
+    public boolean equals(Object object){
+        return object instanceof AddCommand;
     }
 }

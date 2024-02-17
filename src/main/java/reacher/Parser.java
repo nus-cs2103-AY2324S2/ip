@@ -4,9 +4,9 @@ import reacher.command.*;
 
 public class Parser {
     public static Command parse(String input) throws ReacherException {
-        if (input.equalsIgnoreCase("bye")) { //check for end request
+        if (input.equalsIgnoreCase("bye")) {
             return new ExitCommand();
-        } else if (input.equalsIgnoreCase("list")) {// check for list request
+        } else if (input.equalsIgnoreCase("list")) {
             return new ListCommand();
         } else if (input.equalsIgnoreCase("edit")) {
             return new EditCommand();

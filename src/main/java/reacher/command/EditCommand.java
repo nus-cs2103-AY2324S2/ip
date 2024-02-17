@@ -29,4 +29,8 @@ public class EditCommand extends Command{
         }
         storage.storeList(tasks.getTasks());
     }
+    @Override
+    public boolean equals(Object object){
+        return object instanceof EditCommand;
+    }
 }
