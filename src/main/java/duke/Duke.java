@@ -17,7 +17,9 @@ public class Duke{
     private static final String FILE_PATH = "data/duke.txt";
     private Ui ui;
     //List<Task> list;
-    TaskList tlist;
+    private TaskList tlist;
+
+    private Storage storage = new Storage();
 
     public String getResponse(String input) {
         return "Duke heard: " + input;
@@ -29,6 +31,7 @@ public class Duke{
     public Duke() {
         ui = new Ui();
         tlist = new TaskList();
+
     }
 
     public static void main(String[] args) throws DukeException {
@@ -43,28 +46,9 @@ public class Duke{
 
         Ui Ui = new Ui();
         Scanner scanner = new Scanner(System.in);
-        File f = new File(FILE_PATH);
+        storage.load(tlist);
 
-        try {
-            if (!f.exists()) {
 
-                if (f.createNewFile()) {
-                    System.out.println("File created");
-                } else {
-                    System.out.println("Unable to create file");
-                }
-            } else {
-                System.out.println("Loading data...");
-            }
-        } catch (IOException e) {
-            System.out.println("Error " + e.getMessage());
-        }
-
-        try {
-            tlist.retrieveData(f);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
         Ui.greet();
 
         while (scanner.hasNextLine()) {
@@ -85,7 +69,7 @@ public class Duke{
                 tlist.addTask(comd);
 
                 try {
-                    addData(FILE_PATH, new Todo(comd.substring(5)).toString() + System.lineSeparator());
+                    storage.addData(FILE_PATH, new Todo(comd.substring(5)).toString() + System.lineSeparator());
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
                 }
@@ -106,7 +90,7 @@ public class Duke{
                 Deadline d = new Deadline(task, deadlineDate);
 
                 try {
-                    addData(FILE_PATH, d.toString() + System.lineSeparator());
+                    storage.addData(FILE_PATH, d.toString() + System.lineSeparator());
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
                 }
@@ -123,7 +107,7 @@ public class Duke{
                 Event e = new Event(task, data[1].substring(5), data[2].substring(3));
 
                 try {
-                    addData(FILE_PATH, e.toString() + System.lineSeparator());
+                    storage.addData(FILE_PATH, e.toString() + System.lineSeparator());
                 } catch (IOException err) {
                     System.out.println(err.getMessage());
                 }
@@ -133,7 +117,7 @@ public class Duke{
                 tlist.markTask(comd);
 
                 try {
-                    write(FILE_PATH, tlist.getList());
+                    storage.write(FILE_PATH, tlist.getList());
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
                 }
@@ -144,7 +128,7 @@ public class Duke{
                 tlist.unmarkTask(comd);
 
                 try {
-                    write(FILE_PATH, tlist.getList());
+                    storage.write(FILE_PATH, tlist.getList());
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
                 }
@@ -154,7 +138,7 @@ public class Duke{
                 tlist.deleteTask(comd);
 
                 try {
-                    write(FILE_PATH, tlist.getList());
+                    storage.write(FILE_PATH, tlist.getList());
                 } catch (IOException err) {
                     System.out.println(err.getMessage());
                 }
@@ -171,35 +155,7 @@ public class Duke{
         System.out.print("Bye. Hope to see you again soon!");
     }
 
-    private static List<Task> retrieveData(File file) throws IOException {
-        List<Task> loadedList = new ArrayList<>();
 
-        try (Scanner fileScanner = new Scanner(file)) {
-            while(fileScanner.hasNextLine()) {
-                String taskData = fileScanner.nextLine();
-                loadedList.add(Task.parser(taskData));
-            }
-        }
 
-        if (loadedList.isEmpty()) {
-            loadedList = new ArrayList<>();
-        }
 
-        return loadedList;
-    }
-
-    private static void write(String filePath, List<Task> tasks) throws IOException {
-        FileWriter fw = new FileWriter(FILE_PATH);
-        for (Task t : tasks) {
-            fw.write(t.toString() + System.lineSeparator());
-
-        }
-        fw.close();
-    }
-
-    private static void addData(String filePath, String textToAppend) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true);
-        fw.write(textToAppend);
-        fw.close();
-    }
 }

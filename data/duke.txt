@@ -1,4 +1,3 @@
 [T][X] new
-[T][ ] new task
 [T][ ] random
 [T][ ] read a book
