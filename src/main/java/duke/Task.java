@@ -7,7 +7,6 @@ package duke;
 public class Task {
     private String description;
     private boolean isDone;
-    private Ui ui = new Ui();
 
     /**
      * Constructs a new Task object.
@@ -22,17 +21,17 @@ public class Task {
     /**
      * Marks the task as done and prints a message.
      */
-    public void markAsDone() {
+    public String markAsDone() {
         this.isDone = true;
-        ui.printMessage("Nice! I've marked this task as done: \n" + this.toString() + "\n");
+        return ("Nice! I've marked this task as done: \n" + this.toString() + "\n");
     }
 
     /**
      * Unmarks the task as done and prints a message.
      */
-    public void unmarkDone() {
+    public String unmarkDone() {
         this.isDone = false;
-        ui.printMessage("OK, I've marked this task as not done yet: \n" + this.toString() + "\n");
+       return ("OK, I've marked this task as not done yet: \n" + this.toString() + "\n");
     }
 
     @Override

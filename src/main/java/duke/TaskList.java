@@ -53,7 +53,7 @@ public class TaskList {
      * @param task The task to add.
      * @throws DukeException If an error occurs while updating the storage.
      */
-    public void addTask(String task) throws DukeException {
+    public String addTask(String task) throws DukeException {
         String command = parser.parseCommand(task);
         Task newTask = null;
         if (command.equals("todo")) {
@@ -74,20 +74,20 @@ public class TaskList {
         }
 
         tasks.add(newTask);
-        ui.printMessage("Got it. I've added this task: \n" + newTask.toString()
-                + "\nNow you have " + tasks.size() + " tasks in the list.\n");
-
         updateStorage();
+        return ("Got it. I've added this task: \n" + newTask.toString()
+                + "\nNow you have " + tasks.size() + " tasks in the list.\n");
     }
 
     /**
      * Displays all tasks in the list.
      */
-    public void displayTasks() {
+    public String displayTasks() {
+        String output = "Here are the tasks in your list:\n";
         for (int i = 0; i < tasks.size(); i++) {
-            ui.printMessage((i + 1) + ". " + tasks.get(i).toString());
+            output += (i + 1) + ". " + tasks.get(i).toString() + "\n";
         }
-        ui.printMessage("");
+        return output;
     }
 
     /**
@@ -96,10 +96,11 @@ public class TaskList {
      * @param index The index of the task to mark as done.
      * @throws DukeException If an error occurs while updating the storage.
      */
-    public void markTaskAsDone(int index) throws DukeException {
-        tasks.get(index - 1).markAsDone();
+    public String markTaskAsDone(int index) throws DukeException {
+        String output = tasks.get(index - 1).markAsDone();
         try {
             updateStorage();
+            return output;
         } catch (DukeException e) {
             throw new DukeException("Error updating storage\n");
         }
@@ -111,10 +112,11 @@ public class TaskList {
      * @param index The index of the task to unmark as done.
      * @throws DukeException If an error occurs while updating the storage.
      */
-    public void unmarkTaskAsDone(int index) throws DukeException {
-        tasks.get(index - 1).unmarkDone();
+    public String unmarkTaskAsDone(int index) throws DukeException {
+        String output = tasks.get(index - 1).unmarkDone();
         try {
             updateStorage();
+            return output;
         } catch (DukeException e) {
             throw new DukeException("Error updating storage\n");
         }
@@ -126,12 +128,13 @@ public class TaskList {
      * @param index The index of the task to delete.
      * @throws DukeException If an error occurs while updating the storage.
      */
-    public void deleteTask(int index) throws DukeException {
-        ui.printMessage("Noted. I've removed this task: \n" + tasks.get(index - 1).toString()
-                + "\nNow you have " + (tasks.size() - 1) + " tasks in the list.\n");
-        tasks.remove(index - 1);
+    public String deleteTask(int index) throws DukeException {
+        Task removed = tasks.remove(index - 1);
+        String output = ("Noted. I've removed this task: \n" + removed.toString()
+                + "\nNow you have " + tasks.size() + " tasks in the list.\n");
         try {
             updateStorage();
+            return output;
         } catch (DukeException e) {
             throw new DukeException("Error updating storage\n");
         }

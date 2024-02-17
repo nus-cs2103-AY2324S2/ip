@@ -1,10 +1,18 @@
 package duke;
 
+import java.io.IOException;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+
 /**
  * The Duke class represents a task manager bot.
  */
-public class Duke {
-    private TaskList taskList;
+public class Duke extends Application {
+    protected TaskList taskList;
     private Storage storage;
     private Ui ui;
 
@@ -17,6 +25,16 @@ public class Duke {
         this.ui = new Ui();
         try {
             this.storage = new Storage(filePath);
+            this.taskList = new TaskList(storage);
+        } catch (DukeException e) {
+            ui.printMessage(e.getMessage());
+        }
+    }
+
+    public Duke() {
+        this.ui = new Ui();
+        try {
+            this.storage = new Storage("./data/duke.txt");
             this.taskList = new TaskList(storage);
         } catch (DukeException e) {
             ui.printMessage(e.getMessage());
@@ -45,5 +63,28 @@ public class Duke {
         }
 
         bot.ui.showGoodbye();
+    }
+
+    @Override
+    public void start(Stage stage) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Duke.class.getResource("/view/MainWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            stage.setScene(scene);
+            stage.setTitle("Bot");
+            fxmlLoader.<MainWindow>getController().setDuke(this);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    protected String getResponse(String input) {
+        return "Duke heard: " + input;
     }
 }
