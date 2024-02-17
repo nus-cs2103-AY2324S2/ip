@@ -9,6 +9,8 @@ import io.github.cdimascio.dotenv.Dotenv;
  * Represents the configuration of the application.
  */
 public class Config {
+    private static final String DEFAULT_APP_NAME = "Duking Time";
+    private static final String DEFAULT_DB_CONNECTION_URL = "jdbc:sqlite:./storage/sqlite.db";
     private static Config cfg;
     public final String dbConnectionUrl;
     public final String appName;
@@ -20,13 +22,13 @@ public class Config {
      *             if necessary values are not set in .env file
      */
     public Config() throws RuntimeException {
-        Dotenv dotenv = Dotenv.load();
+        Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
 
-        this.dbConnectionUrl = dotenv.get("DB_CONNECTION_URL");
-        assert this.dbConnectionUrl != null : "DB_CONNECTION_URL is not set in .env file";
+        String connectionUrl = dotenv.get("DB_CONNECTION_URL");
+        this.dbConnectionUrl = Objects.requireNonNullElse(connectionUrl, DEFAULT_DB_CONNECTION_URL);
 
         String appName = dotenv.get("APP_NAME");
-        this.appName = Objects.requireNonNullElse(appName, "Duke");
+        this.appName = Objects.requireNonNullElse(appName, DEFAULT_APP_NAME);
 
     }
 
