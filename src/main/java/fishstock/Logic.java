@@ -13,7 +13,8 @@ class Logic {
     private static final String UNKNOWN_COMMAND = "OH NOSE! Wakaranai... :(";
 
     /**
-     * Gets number of tasks from list.
+     * Gets the number of tasks in list.
+     *
      * @param list The list of Tasks.
      * @return A user-readable String format of task count.
      */
@@ -23,6 +24,7 @@ class Logic {
 
     /**
      * Executes the command.
+     *
      * @param list The list of Tasks to execute on.
      * @param input The user input.
      * @return The output from the command.

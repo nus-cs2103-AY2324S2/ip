@@ -9,7 +9,8 @@ import fishstock.UserInput;
  */
 class Todo extends Task {
     /**
-     * Initialize Todo object manually.
+     * Initializes a Todo object.
+     *
      * @param description The task description.
      */
     protected Todo(String description, boolean isDone) {
@@ -27,8 +28,9 @@ class Todo extends Task {
     }
 
     /**
-     * Initialize Todo object from input.
+     * Initializes a Todo object from UserInput.
      * Has format "todo [description]".
+     *
      * @param input The input from user.
      * @return The generated Todo object.
      * @throws TaskException The exceptions while creating the Todo object.
@@ -49,8 +51,8 @@ class Todo extends Task {
     }
 
     @Override
-    public String toSaveString() {
-        return Command.TODO.getShortened() + "|" + getDescription() + "|" + toSaveIsDone() + System.lineSeparator();
+    public String toSaveFormat() {
+        return Command.TODO.getShortened() + "|" + getDescription() + "|" + markStatusToInt() + System.lineSeparator();
     }
 
     @Override

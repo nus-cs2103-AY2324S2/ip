@@ -13,14 +13,14 @@ public abstract class Task {
     }
 
     /**
-     * Mark Task as done.
+     * Marks Task as done.
      */
     public void markAsDone() {
         this.isDone = true;
     }
 
     /**
-     * Mark Task as undone.
+     * Marks Task as undone.
      */
     public void markAsUndone() {
         this.isDone = false;
@@ -28,16 +28,16 @@ public abstract class Task {
 
     /**
      * Converts Task into String format for saving.
-     * @return The String format.
      */
-    public abstract String toSaveString();
+    public abstract String toSaveFormat();
 
     /**
-     * Converts boolean to int.
+     * Converts boolean mark status to int.
      * Used for saving isDone of Task.
+     *
      * @return The converted int.
      */
-    protected int toSaveIsDone() {
+    protected int markStatusToInt() {
         return isDone ? 1 : 0;
     }
 
@@ -57,7 +57,6 @@ public abstract class Task {
 
     /**
      * Makes a clone of the Task.
-     * @return The cloned Task.
      */
     public abstract Task clone();
 

@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
+import fishstock.task.TaskFactory;
+
 public class TaskFactoryTest {
     @Test
     public void fromStorageString_validTask_success() throws Exception {
@@ -19,8 +21,6 @@ public class TaskFactoryTest {
 
     @Test
     public void fromStorageString_invalidTask_exceptionThrown() {
-        Storage storage = new Storage("./test");
-
         try {
             // Missing mark
             TaskFactory.fromStorageString("T|borrow book|");

@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Encapsulates parsing methods.
+ * Encapsulates parsing methods for Task classes.
  */
 class TaskParser {
     private static final DateTimeFormatter IN_DATE_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy H:m");
@@ -14,6 +14,7 @@ class TaskParser {
     /**
      * Parses date string into LocalDateTime object.
      * Has the format "[dd/mm/yyyy] [hh:mm]".
+     *
      * @param date The date string.
      * @return The LocalDateTime object.
      * @throws TaskException The exceptions while parsing the date.
@@ -28,6 +29,7 @@ class TaskParser {
 
     /**
      * Converts LocalDateTime object into String input format.
+     *
      * @param date The LocalDateTime object.
      * @return The String with input format.
      */
@@ -37,6 +39,7 @@ class TaskParser {
 
     /**
      * Converts LocalDateTime object into String output format.
+     *
      * @param date The LocalDateTime object.
      * @return The String with output format.
      */

@@ -17,6 +17,9 @@ public class Main extends Application {
     private FishStock fishstock = new FishStock();
     private Image fishStockImage = new Image(this.getClass().getResourceAsStream("/images/FishStock.png"));
 
+    /**
+     * Starts the GUI.
+     */
     @Override
     public void start(Stage stage) {
         try {
@@ -33,6 +36,9 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * Stops the GUI.
+     */
     @Override
     public void stop() {
         fishstock.exit();

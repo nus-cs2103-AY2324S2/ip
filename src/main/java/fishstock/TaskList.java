@@ -36,6 +36,9 @@ class TaskList {
         return result;
     }
 
+    /**
+     * Makes a copy of the current list state into history stack.
+     */
     private void saveState() {
         ArrayList<Task> savedList = new ArrayList<>();
         for (Task task : list) {
@@ -45,6 +48,9 @@ class TaskList {
         history.add(savedList);
     }
 
+    /**
+     * Restores the latest saved copy from the history stack into the list.
+     */
     protected void restoreState() throws FishStockException {
         if (history.isEmpty()) {
             throw new FishStockException("OH NOSE! No more history to undo..");
@@ -54,6 +60,7 @@ class TaskList {
 
     /**
      * Marks the Task.
+     *
      * @param input The input from user.
      * @return The marked Task.
      * @throws FishStockException The exceptions while changing the mark.
@@ -64,6 +71,7 @@ class TaskList {
 
     /**
      * Unmarks the Task.
+     *
      * @param input The input from user.
      * @return The unmarked Task.
      * @throws FishStockException The exceptions while changing the mark.
@@ -74,6 +82,7 @@ class TaskList {
 
     /**
      * Marks whether Task is done.
+     *
      * @param command The type of command.
      * @param input The input from user.
      * @return The marked/unmarked Task.
@@ -99,7 +108,8 @@ class TaskList {
     }
 
     /**
-     * Removes Task from array.
+     * Removes the Task from the list.
+     *
      * @param input The input from user.
      * @return The removed Task.
      * @throws FishStockException The exceptions while removing the Task.
@@ -118,7 +128,8 @@ class TaskList {
     }
 
     /**
-     * Adds Task into array.
+     * Adds a Task into the list.
+     *
      * @param input The input from user.
      * @return The added Task.
      * @throws FishStockException The exceptions while adding the Task.
@@ -136,7 +147,8 @@ class TaskList {
     }
 
     /**
-     * Finds Tasks that contain input in description.
+     * Finds Tasks that contain input in their description.
+     *
      * @param input The input to be matched with.
      * @return The Tasks that were found.
      * @throws FishStockException The exceptions while finding Tasks.

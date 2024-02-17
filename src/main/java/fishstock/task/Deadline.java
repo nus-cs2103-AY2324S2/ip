@@ -14,7 +14,8 @@ class Deadline extends Task {
     private LocalDateTime by;
 
     /**
-     * Initialize Deadline object manually.
+     * Initializes a Deadline object.
+     *
      * @param description The task description.
      * @param by The deadline date.
      */
@@ -40,8 +41,9 @@ class Deadline extends Task {
     }
 
     /**
-     * Initialize Deadline object from input.
+     * Initializes a Deadline object from UserInput.
      * Has format "deadline [description] /by [date]".
+     *
      * @param input The input from user.
      * @return The generated Deadline object.
      * @throws TaskException The exceptions while creating the Deadline object.
@@ -63,9 +65,9 @@ class Deadline extends Task {
     }
 
     @Override
-    public String toSaveString() {
+    public String toSaveFormat() {
         return Command.DEADLINE.getShortened() + "|" + getDescription() + "|" + TaskParser.inDate(by)
-                + "|" + toSaveIsDone() + System.lineSeparator();
+                + "|" + markStatusToInt() + System.lineSeparator();
     }
 
     @Override

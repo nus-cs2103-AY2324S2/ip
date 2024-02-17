@@ -36,7 +36,7 @@ public class TaskFactory {
     }
 
     /**
-     * Initializes a Task from stored format.
+     * Initializes a Task from storage format.
      */
     public static Task fromStorageString(String line) throws TaskException {
         String[] arr = line.split("\\|");

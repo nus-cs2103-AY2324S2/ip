@@ -26,8 +26,7 @@ public class FishStock {
     }
 
     /**
-     * The response to user input.
-     * @param inputStr The user input.
+     * Gets the response to user input.
      */
     public String getResponse(String inputStr) {
         UserInput input = new UserInput(inputStr);
@@ -36,7 +35,7 @@ public class FishStock {
     }
 
     /**
-     * Exits program while saving list.
+     * Exits program while saving the list.
      */
     public void exit() {
         try {
@@ -47,7 +46,8 @@ public class FishStock {
     }
 
     /**
-     * Entrypoint to FishStock.
+     * Launches FishStock.
+     *
      * @param args ignored
      */
     public static void main(String[] args) {

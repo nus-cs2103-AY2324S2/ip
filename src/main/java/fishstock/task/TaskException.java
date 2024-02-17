@@ -5,7 +5,8 @@ package fishstock.task;
  */
 public class TaskException extends Exception {
     /**
-     * Initialize a TaskException.
+     * Initializes a TaskException.
+     *
      * @param message The error message.
      */
     public TaskException(String message) {

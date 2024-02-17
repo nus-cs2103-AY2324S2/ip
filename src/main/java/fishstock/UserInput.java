@@ -9,6 +9,7 @@ public class UserInput {
 
     /**
      * Initializes a UserInput.
+     *
      * @param input The whole input from user (including command).
      */
     protected UserInput(String input) {
@@ -26,8 +27,6 @@ public class UserInput {
 
     /**
      * Parses command type from input.
-     * @param commandStr The string command.
-     * @return The command type.
      */
     private static Command parseCommandType(String commandStr) {
         try {
@@ -39,7 +38,6 @@ public class UserInput {
 
     /**
      * Gets command type from user input.
-     * @return The command type.
      */
     public Command getCommandType() {
         return command;
@@ -48,6 +46,7 @@ public class UserInput {
     /**
      * Splits the input into an array, delimited by the specified keywords,
      * and excluding the command keyword.
+     *
      * @param keywords The keyword(s) to delimit with.
      * @return The array with the split input.
      */
@@ -73,6 +72,7 @@ public class UserInput {
      * Gets index number from input.
      * Has the format "[command] [task_number]".
      * Subtracts 1 from task_number to obtain index number for array.
+     *
      * @return The resulting index number.
      * @throws FishStockException The exceptions while calculating the index number.
      */

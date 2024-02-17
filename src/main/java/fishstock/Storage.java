@@ -20,7 +20,8 @@ class Storage {
     private final String filePath;
 
     /**
-     * Initialize a Storage object.
+     * Initializes a Storage object.
+     *
      * @param filePath The path to the save file.
      */
     protected Storage(String filePath) {
@@ -31,7 +32,8 @@ class Storage {
     }
 
     /**
-     * Loads the entire save file into array.
+     * Loads the entire save file into an ArrayList.
+     *
      * @return The array with all Tasks.
      * @throws FishStockException The exceptions while loading all Tasks.
      */
@@ -56,13 +58,14 @@ class Storage {
     }
 
     /**
-     * Saves all Tasks in array into save file.
+     * Saves all Tasks in the TaskList into the save file.
+     *
      * @throws IOException The exceptions while saving all Tasks.
      */
     protected void close(TaskList list) throws IOException {
         FileWriter fw = new FileWriter(db);
         for (Task task : list.list) {
-            fw.write(task.toSaveString());
+            fw.write(task.toSaveFormat());
         }
         fw.close();
     }

@@ -47,10 +47,16 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Initializes a User DialogBox with the given text and image.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Initializes a FishStock DialogBox with the given text and image.
+     */
     public static DialogBox getFishStockDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
         db.flip();

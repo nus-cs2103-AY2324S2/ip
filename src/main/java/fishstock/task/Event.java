@@ -16,7 +16,8 @@ class Event extends Task {
     private LocalDateTime to;
 
     /**
-     * Initialize Event object manually.
+     * Initializes an Event object.
+     *
      * @param description The task description.
      * @param from The from date.
      * @param to The to date.
@@ -27,7 +28,7 @@ class Event extends Task {
         this.to = to;
     }
 
-    protected Event(String description, LocalDateTime from, LocalDateTime to) throws TaskException {
+    protected Event(String description, LocalDateTime from, LocalDateTime to) {
         this(description, false, from, to);
     }
 
@@ -60,8 +61,9 @@ class Event extends Task {
     }
 
     /**
-     * Initialize Event object from input.
+     * Initializes an Event object from UserInput.
      * Has format "event [description] /from [date] /to [date]".
+     *
      * @param input The input from user.
      * @return The generated Event object.
      * @throws TaskException The exceptions while creating the Event object.
@@ -84,9 +86,9 @@ class Event extends Task {
     }
 
     @Override
-    public String toSaveString() {
+    public String toSaveFormat() {
         return Command.EVENT.getShortened() + "|" + getDescription() + "|" + TaskParser.inDate(from) + "|"
-                + TaskParser.inDate(to) + "|" + toSaveIsDone() + System.lineSeparator();
+                + TaskParser.inDate(to) + "|" + markStatusToInt() + System.lineSeparator();
     }
 
     @Override
