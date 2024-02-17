@@ -21,6 +21,8 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) throws DukeException {
         super(description);
+        assert description != null : "Description is null";
+        assert by != null : "Deadline is null";
         try {
             this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
         } catch (DateTimeParseException e) {
@@ -44,6 +46,7 @@ public class Deadline extends Task {
      *         created.
      */
     public static Deadline fromString(String input) {
+        assert input != null : "Input is null";
         String[] split = parser.parseDeadlineFromStorage(input);
         try {
             Deadline deadline = new Deadline(split[2], split[3]);

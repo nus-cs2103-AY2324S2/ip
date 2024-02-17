@@ -12,6 +12,7 @@ public class Parser {
      * @return An array of two strings.
      */
     public String[] parse(String input) {
+        assert input != null : "Input is null";
         return input.split(" ", 2);
     }
 
@@ -22,6 +23,7 @@ public class Parser {
      * @return The command.
      */
     public String parseCommand(String input) {
+        assert input != null : "Input is null";
         return input.split(" ", 2)[0];
     }
 
@@ -32,7 +34,10 @@ public class Parser {
      * @return The index.
      */
     public int parseIndex(String input) {
-        return Integer.parseInt(input.split(" ")[1]);
+        assert input != null : "Input is null";
+        int index =  Integer.parseInt(input.split(" ")[1]);
+        assert index >= 0 : "Invalid index";
+        return index;
     }
 
     /**
@@ -42,6 +47,7 @@ public class Parser {
      * @return The description.
      */
     public String parseDescription(String input) {
+        assert input != null : "Input is null";
         return input.split(" ", 2)[1];
     }
 
