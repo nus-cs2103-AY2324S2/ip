@@ -68,7 +68,7 @@ public class TaskList {
     public String deleteTask(int i) {
         Task deleted = this.tasks.remove(i);
         String printOut =
-            "Finished with this? Good Job!" + "\n"
+            "Finished with this? About time." + "\n"
             + deleted.getFullStatus() + "\n"
             + "Now you have " + this.tasks.size() + " items in your list!\n";
         this.saveTaskList();
@@ -86,7 +86,7 @@ public class TaskList {
         String toPrint =
             "added: " + t.getFullStatus() + "\n"
             + "Now you have " + this.tasks.size()
-            + " items in your list!\n";
+            + " items in your list, you lazy bum.\n";
         this.saveTaskList();
         return toPrint;
     }

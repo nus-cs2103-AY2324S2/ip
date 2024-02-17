@@ -58,7 +58,7 @@ public class Ui {
         String name = "shu heng";
         String nameDisplay = "_________________________\n"
             + "Hello! I'm " + name + ".\n"
-            + "\n I "
+            + "What do you want.\n"
             + "_________________________\n";
         return nameDisplay;
     }
@@ -70,7 +70,7 @@ public class Ui {
      */
     public String sayBye() {
         String finalPrint = "_________________________\n"
-            + "Bye. Hope to see you again soon!\n"
+            + "Bye. Please don't come back.\n"
             + "_________________________\n";
         return finalPrint;
     }
