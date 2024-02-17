@@ -50,6 +50,10 @@ public class Task {
         return this.taskType;
     }
 
+    public boolean getIsDone() {
+        return this.isDone;
+    }
+
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.getDescription();

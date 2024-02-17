@@ -1,13 +1,6 @@
 package seedu.chatteroo.parser;
 
-import seedu.chatteroo.commands.AddCommand;
-import seedu.chatteroo.commands.Command;
-import seedu.chatteroo.commands.DeleteCommand;
-import seedu.chatteroo.commands.ExitCommand;
-import seedu.chatteroo.commands.FindCommand;
-import seedu.chatteroo.commands.MarkCommand;
-import seedu.chatteroo.commands.ListCommand;
-import seedu.chatteroo.commands.UnmarkCommand;
+import seedu.chatteroo.commands.*;
 
 import seedu.chatteroo.tasks.Task;
 import seedu.chatteroo.tasks.ToDo;
@@ -39,6 +32,8 @@ public class Parser {
         switch (command) {
         case "LIST":
             return new ListCommand();
+        case "DONE":
+            return new DoneCommand();
         case "MARK":
             int taskNum = Integer.parseInt(inputArr[1]);
             return new MarkCommand(taskNum);

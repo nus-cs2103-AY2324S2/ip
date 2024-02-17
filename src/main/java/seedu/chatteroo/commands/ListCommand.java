@@ -10,7 +10,7 @@ import seedu.chatteroo.storage.Storage;
 public class ListCommand extends Command {
 
     /**
-     * Constructor for the PrintCommand class.
+     * Constructor for the ListCommand class.
      */
     public ListCommand() {
         super();
