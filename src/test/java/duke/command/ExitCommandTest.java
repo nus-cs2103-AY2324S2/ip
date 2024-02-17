@@ -19,7 +19,7 @@ public class ExitCommandTest {
         String response = exitCommand.execute(taskList, programState);
 
         // Assert
-        assertEquals("Cya!", response);
+        assertEquals("Cya!!", response);
         assertEquals(true, programState.isExit());
     }
 }

@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.configuration.Info;
 import duke.state.ProgramState;
 import duke.task.TaskList;
 
@@ -19,7 +20,7 @@ public class ExitCommand extends Command {
      * @return The response to be displayed to the user.
      */
     public String execute(TaskList list, ProgramState state) {
-        String response = "Cya!";
+        String response = Info.EXIT_MESSAGE;
         state.setExit();
         return response;
     }

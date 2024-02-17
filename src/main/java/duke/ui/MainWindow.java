@@ -1,14 +1,17 @@
 package duke.ui;
 
-import javafx.scene.layout.AnchorPane;
 import duke.Duke;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * Represents the main window of the bot.
+ */
 public class MainWindow extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;
@@ -21,9 +24,12 @@ public class MainWindow extends AnchorPane {
 
     private Duke duke;
 
-    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/userimg.jpg"));
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/sylviaimg.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/image/userimg.jpg"));
+    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/image/sylviaimg.jpg"));
 
+    /**
+     * Initializes the main window.
+     */
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
@@ -45,6 +51,11 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
+    /**
+     * Shows the response from the bot.
+     *
+     * @param response The response from the bot.
+     */
     public void showResponse(Response response) {
         dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(response.toString(), dukeImage));
     }

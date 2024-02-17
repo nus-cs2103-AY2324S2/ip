@@ -28,7 +28,7 @@ public class Duke {
      * Constructs a new chatbot instance. The chatbot will load data from the
      * default data file. If the data file does not exist, a new data file will be
      * created.
-     * 
+     *
      * @param ui The user interface controller of the bot.
      */
     public Duke(UI ui) {

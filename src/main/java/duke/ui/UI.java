@@ -52,4 +52,8 @@ public class UI {
         }
         mainWindow.showResponse(response);
     }
+
+    public void showExitMessage() {
+        showResponse(new Response(Info.EXIT_MESSAGE));
+    }
 }

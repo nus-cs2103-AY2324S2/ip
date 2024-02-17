@@ -1,13 +1,6 @@
 package duke.ui;
 
-import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-
 import java.io.IOException;
-
 import java.util.Collections;
 
 import javafx.collections.FXCollections;
@@ -15,7 +8,16 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 
+/**
+ * Represents a dialog box consisting of an ImageView to represent the speaker's
+ * face and a label containing text from the speaker.
+ */
 public class DialogBox extends HBox {
     @FXML
     private Label dialog;
@@ -36,6 +38,13 @@ public class DialogBox extends HBox {
         displayPicture.setImage(img);
     }
 
+    /**
+     * Returns a dialog box representing the user's input.
+     *
+     * @param text The user's input.
+     * @param img  The user's image.
+     * @return The dialog box representing the user's input.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
@@ -51,6 +60,13 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Returns a dialog box representing the bot's response.
+     *
+     * @param text The bot's response.
+     * @param img  The bot's image.
+     * @return The dialog box representing the bot's response.
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
