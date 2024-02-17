@@ -58,6 +58,10 @@ public class TaskList {
         return this.list.size();
     }
 
+    public void clearList() {
+        this.list.clear();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

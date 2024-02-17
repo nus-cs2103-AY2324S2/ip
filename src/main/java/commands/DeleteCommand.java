@@ -22,7 +22,12 @@ public class DeleteCommand extends Command {
                     + " currently. Type \"tasks\" to view all your current "
                     + single;
         } catch (NumberFormatException err) {
-            return "Please enter a valid input";
+            if (this.fullCommand[1].equalsIgnoreCase("all")) {
+                tasks.clearList();
+            } else {
+                return "Please enter a valid input";
+            }
+            return "Clearing all current tasks in the list";
         }
     }
 }

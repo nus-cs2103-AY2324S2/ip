@@ -8,6 +8,12 @@ public class UnmarkCommand extends Command {
         super(fullCommand, tasks);
     }
 
+    public void unmarkAll(TaskList tasks) {
+        for (int i = 0; i < tasks.size(); i++) {
+            tasks.getTask(i).setUndone();
+        }
+    }
+
     @Override
     public String execute() {
         try {
@@ -23,7 +29,12 @@ public class UnmarkCommand extends Command {
                     + " currently. Type \"list\" to view all your current "
                     + single;
         } catch (NumberFormatException err) {
-            return "Please enter a valid input";
+            if (this.fullCommand[1].equalsIgnoreCase("all")) {
+                unmarkAll(this.tasks);
+            } else {
+                return "Please enter a valid input";
+            }
+            return "Set all current tasks as uncompleted";
         }
     }
 
