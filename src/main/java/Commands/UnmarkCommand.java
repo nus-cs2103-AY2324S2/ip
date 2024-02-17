@@ -2,6 +2,7 @@ package Commands;
 
 import Exceptions.DudeException;
 import Exceptions.InvalidFormatException;
+import Tasks.Task;
 import Tasks.TaskList;
 import Utils.CommandTypes;
 
@@ -24,14 +25,15 @@ public class UnmarkCommand extends Command {
             throw new InvalidFormatException("Invalid format for mark command. Please use this format: " + this.getFormat());
         }
 
-        int index = Integer.parseInt(this.input.split(" ")[1]);
+        int id = Integer.parseInt(this.input.split(" ")[1]);
 
         //re-throw exception if task does not exist
         try {
-            this.taskList.mark_as_undone(index);
+            Task task = taskList.getTask(id);
+            this.taskList.mark_as_undone(id);
 
             String msg = "Nice! I've unmarked this task as done:\n"
-                    + "\t  " + index + ". " + this.taskList.getTask(index - 1).toString();
+                    + "\t  " + id + ". " + task.toString();
 
             return msg;
         } catch (DudeException e) {

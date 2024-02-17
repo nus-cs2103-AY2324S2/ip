@@ -33,11 +33,11 @@ public class TaskList {
                 "\t-----------------------------------";
     }
 
-    public String remove_task(int index) throws DudeException {
-        if (index > list.size() || index < 1) {
+    public String remove_task(int taskID) throws DudeException {
+        if (taskID > list.size() || taskID < 1) {
             throw new DudeException("Sorry, the provided id is invalid.");
         }
-        Task removed = list.remove(index - 1);
+        Task removed = list.remove(taskID - 1);
         return "\t-----------------------------------\n" +
                 "\tNoted. I've removed this task:\n" +
                 "\t  " + removed.toString() + "\n" +
@@ -70,11 +70,15 @@ public class TaskList {
 
     @Override
     public String toString() {
-        String result = "\t-----------------------------------\n";
+        String result = "";
         for (int i = 0; i < list.size(); i++) {
-            result += "\t" + (i + 1) + ". " + list.get(i).toString() + "\n";
+            //if it is the last task, do not add a new line
+            if (i == list.size() - 1) {
+                result += (i + 1) + ". " + list.get(i).toString();
+                break;
+            }
+            result += (i + 1) + ". " + list.get(i).toString() + "\n";
         }
-        result += "\t-----------------------------------";
         return result;
     }
 
@@ -102,10 +106,10 @@ public class TaskList {
         return list.size();
     }
 
-    public Task getTask(int index) throws IndexOutOfBoundsException{
-        if (index < 0 || index >= list.size()) {
+    public Task getTask(int taskID) throws IndexOutOfBoundsException {
+        if (taskID <= 0 || taskID >= list.size()) {
             throw new IndexOutOfBoundsException("Sorry, the provided id is invalid.");
         }
-        return list.get(index);
+        return list.get(taskID - 1);
     }
 }

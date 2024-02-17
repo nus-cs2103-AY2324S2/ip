@@ -5,16 +5,20 @@ public class Ui {
 
     public void showWelcome() {
         String msg = "\t-----------------------------------\n" +
-                "\tHello! I'm Dude\n" +
-                "\tWhat can I do for you?\n" +
+                "\t\tHello! I'm Dude\n" +
+                "\t\tWhat can I do for you?\n" +
                 "\t-----------------------------------\n";
         System.out.println(msg);
     }
 
     public void showMessage(String msg) {
-        msg = "\t-----------------------------------\n" +
-                "\t" + msg + "\n" +
+
+        String temp = msg;
+
+        temp = temp.replaceAll("\n", "\n\t\t");
+        temp = "\t-----------------------------------\n" +
+                "\t\t" + temp + "\n" +
                 "\t-----------------------------------";
-        System.out.println(msg);
+        System.out.println(temp);
     }
 }

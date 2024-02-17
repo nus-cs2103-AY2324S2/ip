@@ -71,7 +71,6 @@ public class  Dude {
             if (command.getCommandType() == CommandTypes.BYE) {
                 break;
             }
-
         }
 
     }

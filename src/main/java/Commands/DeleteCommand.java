@@ -2,6 +2,7 @@ package Commands;
 
 import Exceptions.DudeException;
 import Exceptions.InvalidFormatException;
+import Tasks.Task;
 import Tasks.TaskList;
 import Utils.CommandTypes;
 
@@ -23,14 +24,16 @@ public class DeleteCommand extends Command {
             throw new InvalidFormatException("Invalid format for delete command. PLease use this format: " + this.getFormat());
         }
 
-        int index = Integer.parseInt(this.input.split(" ")[1]);
+        int id = Integer.parseInt(this.input.split(" ")[1]);
 
         //re-throw exception if task does not exist
         try {
-            this.taskList.remove_task(index);
+            Task task = this.taskList.getTask(id);
+
+            this.taskList.remove_task(id);
 
             String msg = "Noted. I've removed this task:\n"
-                    + "\t  " + index + ". " + this.taskList.getTask(index - 1).toString() + "\n"
+                    + "\t  " + id + ". " + task.toString() + "\n"
                     + "\tNow you have " + this.taskList.getSize() + " tasks in the list.";
 
             return msg;

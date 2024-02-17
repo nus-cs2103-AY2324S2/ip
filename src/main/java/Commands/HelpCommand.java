@@ -33,11 +33,11 @@ public class HelpCommand extends Command {
     }
 
     private String generateHelpMessage() {
-        String helpMessage = "Here are the commands I support:\n";
+        String helpMessage = "Here are the commands I support:";
         for (String command : supportedCommands) {
-            helpMessage += "\t" + command + "\n";
+            helpMessage += "\n\t" + command;
         }
-        helpMessage += "For more information on a specific command, type 'help <command>'";
+        helpMessage += "\nFor more information on a specific command, type 'help <command>'";
         return helpMessage;
     }
 
