@@ -24,7 +24,6 @@ public class Duke {
             this.storage = new Storage(DEFAULT_PATH);
             this.tasks = new TaskList(storage.loadTasks());
         } catch (DukeException e) {
-            System.out.println(e.getMessage());
             this.tasks = new TaskList();
         }
 
