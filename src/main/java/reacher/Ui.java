@@ -14,7 +14,7 @@ public class Ui {
         System.out.println("Hello!\n" +
                 "I'm Reacher.\n" +
                 "Give me tasks.\n" +
-                "Functions are edit, list, add and bye");
+                "Functions are find, edit, list, add and bye");
     }
     public void printList(ArrayList<Task> tasks){
         System.out.println("Tasks:");

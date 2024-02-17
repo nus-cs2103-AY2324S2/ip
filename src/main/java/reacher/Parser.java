@@ -8,6 +8,8 @@ public class Parser {
     public static Command parse(String input) throws ReacherException {
         input = input.toLowerCase();
         switch (input) {
+        case ("find"):
+            return new FindCommand();
         case ("bye"):
             return new ExitCommand();
         case ("list"):
