@@ -8,19 +8,21 @@ import task.TaskList;
 import task.Todo;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
  *  This UI class contains methods that print out chatbot messages in the console to the user.
  */
 public class Ui {
+    private final Parser parser;
     private final String LINE = "_____________________________________________________";
 
     /**
      * Constructor for a UI object.
      */
-    public Ui() { }
+    public Ui() {
+        this.parser = new Parser();
+    }
 
     /**
      * Prints the introduction of the chatbot when the user
@@ -154,13 +156,9 @@ public class Ui {
     public void printTodo(String userInput, TaskList tasks) throws InvalidTaskNameException {
         System.out.println(LINE);
 
-        if (userInput.length() < 6) {
-            // If user did not input task name.
-            throw new InvalidTaskNameException("Ooink oink! What's the name of your task?\n"
-                    + " >> todo ...\n");
-        }
+        String description = parser.parseTodo(userInput);
+        Todo task = new Todo(description);
 
-        Todo task = new Todo(userInput.substring(5));
         System.out.println(tasks.addTask(task) + LINE);
     }
 
@@ -173,19 +171,9 @@ public class Ui {
     public void printDeadline(String userInput, TaskList tasks) throws InvalidTaskNameException {
         System.out.println(LINE);
 
-        int len = userInput.length();
-        int idx = userInput.indexOf("/by");
-        boolean isWrongInput = len < 10 || idx < 0 || len < idx + 4;
-        if (isWrongInput) {
-            // If user did not input task description.
-            throw new InvalidTaskNameException("Ooink oink! Please describe your deadline >.<\n"
-                    + " >> deadline ... /by dd/MM/yyyy\n");
-        }
-
-        String name = userInput.substring(9, idx - 1);
-        String date = userInput.substring(idx + 4);
         try {
-            LocalDate deadline = LocalDate.parse(date, DateTimeFormatter.ofPattern("d/MM/yyyy"));
+            String name  = parser.parseDeadlineName(userInput);
+            LocalDate deadline = parser.parseDeadlineDate(userInput);
             Deadline task = new Deadline(name, deadline);
             System.out.println(tasks.addTask(task) + LINE);
         } catch (DateTimeParseException e) {
@@ -203,21 +191,8 @@ public class Ui {
     public void printEvent(String userInput, TaskList tasks) throws InvalidTaskNameException {
         System.out.println(LINE);
 
-        int len = userInput.length();
-        int fromIdx = userInput.indexOf("/from");
-        int toIdx = userInput.indexOf("/to");
-        boolean isWrongInput = len < 7 || fromIdx < 0 || toIdx < 0
-                || len < fromIdx + 6 || len < toIdx + 4;
-        if (isWrongInput) {
-            // If user did not input task description.
-            throw new InvalidTaskNameException("Ooink oink! Please describe your event >.<\n"
-                    + " >> event ... /from ... /to ...\n");
-        }
-
-        String name = userInput.substring(6, fromIdx - 1);
-        String from = userInput.substring(fromIdx + 6, toIdx - 1);
-        String to = userInput.substring(toIdx + 4);
-        Event task = new Event(name, from, to);
+        String[] description = parser.parseEvent(userInput);
+        Event task = new Event(description);
 
         System.out.println(tasks.addTask(task) + LINE);
     }

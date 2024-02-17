@@ -1,6 +1,5 @@
 package chrisPBacon;
 
-import chrisPBacon.Ui;
 import org.junit.jupiter.api.Test;
 import exceptions.InvalidTaskNameException;
 import task.TaskList;

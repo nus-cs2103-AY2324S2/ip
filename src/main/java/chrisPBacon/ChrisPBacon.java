@@ -2,7 +2,6 @@ package chrisPBacon;
 
 import task.TaskList;
 
-
 import java.io.FileNotFoundException;
 
 /**
@@ -11,6 +10,7 @@ import java.io.FileNotFoundException;
  */
 public class ChrisPBacon {
     private final Storage storage;
+    private final Ui ui;
     private TaskList tasks;
 
     /**
@@ -19,13 +19,13 @@ public class ChrisPBacon {
      * @param filePath of the saved task list
      */
     public ChrisPBacon(String filePath) {
-        Ui ui = new Ui();
+        ui = new Ui();
         storage = new Storage(filePath);
         try {
             this.tasks = new TaskList(storage.load());
         } catch (FileNotFoundException e) {
             ui.printError("Oink! File not found :(\n");
-            this.tasks = new TaskList();
+            tasks = new TaskList();
         }
     }
 
@@ -33,17 +33,14 @@ public class ChrisPBacon {
      * Runs the chatbot program.
      */
     public void run() {
-        Parser parser = new Parser(this.tasks);
-        parser.parse();
-        storage.save(this.tasks);
-    }
+        ui.printIntro();
 
-    /**
-     * Initialises and run chris p bacon program.
-     *
-     * @param args arguments
-     */
-    public static void main(String[] args) {
-        new ChrisPBacon("data/list.txt").run();
+        UserInput userInput = new UserInput();
+        while (!userInput.isInputBye()) {
+            userInput.processInput(ui, this.tasks);
+        }
+        // if user entered "bye", save list and exit chatbot.
+        ui.printBye();
+        storage.save(this.tasks);
     }
 }

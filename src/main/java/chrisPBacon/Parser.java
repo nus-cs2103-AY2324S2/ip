@@ -1,78 +1,85 @@
 package chrisPBacon;
 
-import exceptions.ChrisPBaconException;
 import exceptions.InvalidTaskNameException;
-import task.TaskList;
 
-import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  *  This class makes sense of the user's inputs.
  */
-public class Parser extends Ui {
-    private final TaskList tasks;
-
+public class Parser {
     /**
      * Constructor for Parser.
-     *
-     * @param taskList to be modified.
      */
-    public Parser(TaskList taskList) {
-        this.tasks = taskList;
+    public Parser() { }
+
+    /**
+     * Parses user input into todo task description.
+     *
+     * @return task description
+     */
+    public String parseTodo(String userInput) throws InvalidTaskNameException {
+        if (userInput.length() < 6) {
+            // If user did not input task name.
+            throw new InvalidTaskNameException("Ooink oink! What's the name of your task?\n"
+                    + " >> todo ...\n");
+        }
+        return userInput.substring(5);
     }
 
     /**
-     * Deals with making sense of the user command.
+     * Parses user input into task name for deadline tasks.
+     *
+     * @return task name
      */
-    public void parse() {
-        super.printIntro();
-        String userInput = "";
-        Scanner scan = new Scanner(System.in);
-
-        userInput = scan.nextLine();
-        while (!userInput.equals("bye")) {
-            try {
-                String firstWord = userInput.indexOf(' ') < 0
-                        ? userInput
-                        : userInput.substring(0, userInput.indexOf(' '));
-
-                switch (firstWord) {
-                case "help":
-                    super.printHelp();
-                    break;
-                case "list":
-                    super.printList(this.tasks);
-                    break;
-                case "mark":
-                    super.printMark(userInput, this.tasks);
-                    break;
-                case "unmark":
-                    super.printUnmark(userInput, this.tasks);
-                    break;
-                case "delete":
-                    super.printDelete(userInput, this.tasks);
-                    break;
-                case "todo":
-                    super.printTodo(userInput, this.tasks);
-                    break;
-                case "deadline":
-                    super.printDeadline(userInput, this.tasks);
-                    break;
-                case "event":
-                    super.printEvent(userInput, this.tasks);
-                    break;
-                default:
-                    // if user entered input that cannot be recognised.
-                    throw new ChrisPBaconException("Ooink oink! I'm sorry, I don't understand.\n"
-                            + "Type 'help' for command info!\n");
-                }
-            } catch (ChrisPBaconException | InvalidTaskNameException e) {
-                super.printError(e.getMessage());
-            }
-            userInput = scan.nextLine(); // Scan for next input.
+    public String parseDeadlineName(String userInput) throws InvalidTaskNameException {
+        int len = userInput.length();
+        int idx = userInput.indexOf("/by");
+        boolean isWrongInput = len < 10 || idx < 0 || len < idx + 4;
+        if (isWrongInput) {
+            // If user did not input correct task description.
+            throw new InvalidTaskNameException("Ooink oink! Please describe your deadline >.<\n"
+                    + " >> deadline ... /by dd/MM/yyyy\n");
         }
-        // if user entered "bye", close scanner, save list and exit chatbot.
-        scan.close();
-        super.printBye();
+
+        return userInput.substring(9, idx - 1);
+    }
+
+    /**
+     * Parses user input into a LocalDate for deadline tasks.
+     *
+     * @return task deadline
+     */
+    public LocalDate parseDeadlineDate(String userInput) throws DateTimeParseException {
+        int idx = userInput.indexOf("/by");
+        String date = userInput.substring(idx + 4);
+        return LocalDate.parse(date, DateTimeFormatter.ofPattern("d/MM/yyyy"));
+    }
+
+    /**
+     * Parses user input into task name for event tasks.
+     *
+     * @return task name
+     */
+    public String[] parseEvent(String userInput) throws InvalidTaskNameException {
+        // Name, event start, event end.
+        String[] description = new String[3];
+        int len = userInput.length();
+        int fromIdx = userInput.indexOf("/from");
+        int toIdx = userInput.indexOf("/to");
+        boolean isWrongInput = len < 7 || fromIdx < 0 || toIdx < 0
+                || len < fromIdx + 6 || len < toIdx + 4;
+        if (isWrongInput) {
+            // If user did not input task description.
+            throw new InvalidTaskNameException("Ooink oink! Please describe your event >.<\n"
+                    + " >> event ... /from ... /to ...\n");
+        }
+
+        description[0] = userInput.substring(6, fromIdx - 1);
+        description[1] = userInput.substring(fromIdx + 6, toIdx - 1);
+        description[2] = userInput.substring(toIdx + 4);
+        return description;
     }
 }

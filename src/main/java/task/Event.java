@@ -10,15 +10,13 @@ public class Event extends Task {
     /**
      * Constructor for an Event object.
      *
-     * @param name The task name.
-     * @param from The start of event.
-     * @param to The end of event.
+     * @param description Includes name, event start and event end.
      */
-    public Event(String name, String from, String to) {
+    public Event(String[] description) {
         super();
-        this.description[0] = name;
-        this.description[1] = from;
-        this.description[2] = to;
+        for (int i = 0; i < 3; i++) {
+            this.description[i] = description[i];
+        }
     }
 
     /**

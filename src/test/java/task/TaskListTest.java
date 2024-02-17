@@ -12,9 +12,12 @@ public class TaskListTest {
     public TaskList sampleTaskList() {
         ArrayList<Task> tasks = new ArrayList<>();
         tasks.add(new Todo("drink bbt"));
+
         LocalDate date = LocalDate.parse("15/02/2023", DateTimeFormatter.ofPattern("d/MM/yyyy"));
         tasks.add(new Deadline("make bbt",  date));
-        Task event = new Event("sell bbt", "tdy", "tmr");
+
+        String[] description = {"sell bbt", "tdy", "tmr"};
+        Task event = new Event(description);
         event.markDone();
         tasks.add(event);
 

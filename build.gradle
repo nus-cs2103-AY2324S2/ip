@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClassName = "chrisPBacon.ChrisPBacon"
+    mainClassName = "chrisPBacon.Main"
 }
 
 shadowJar {
