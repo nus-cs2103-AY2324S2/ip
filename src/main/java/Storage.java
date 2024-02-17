@@ -7,11 +7,11 @@ import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class FileManager {
+public class Storage {
     private final String filePath;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
-    public FileManager(String filePath) {
+    public Storage(String filePath) {
         this.filePath = filePath;
     }
 
@@ -32,7 +32,7 @@ public class FileManager {
     private String taskToFileFormat(Task task) {
         String type = task instanceof Todo ? "T" : task instanceof Deadline ? "D" : "E";
         String status = task.isDone() ? "1" : "0";
-        String details = task.getName();
+        String details = task.getDescription();
         String time = "";
         if (task instanceof Deadline) {
             LocalDateTime by = ((Deadline) task).getBy();

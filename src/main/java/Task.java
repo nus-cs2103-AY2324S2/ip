@@ -1,32 +1,36 @@
 public class Task {
-    private String name;
-    private Boolean status = false;
+    private String description;
+    private Boolean isDone;
 
-    public Task(String name, Boolean status) {
-        this.name = name;
-        this.status = false;
+    public Task(String name) {
+        this.description = name;
+        this.isDone = false;
     }
 
     public Boolean isDone() {
-        return this.status;
+        return this.isDone;
     }
 
-    public void finishTask() {
-        this.status = true;
+    public void markDone() {
+        this.isDone = true;
     }
 
-    public void redoTask() {
-        this.status = false;
+    public void markNotDone() {
+        this.isDone = false;
     }
 
-    public String getName() {
-        return this.name;
+    public String getDescription() {
+        return this.description;
     }
 
     @Override public String toString() {
-        if (this.status) {
-            return "[X] " + this.name;
+        if (this.isDone) {
+            return "[X] " + this.description;
         }
-        return "[ ] " + this.name;
+        return "[ ] " + this.description;
+    }
+
+    public String toFileString() {
+        return (this.isDone ? "1": "0") + " | " + this.description;
     }
 }
