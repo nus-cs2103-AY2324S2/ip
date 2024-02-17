@@ -1,0 +1,23 @@
+Add trivial commit to fulfill admin task
+Add trival commit for full commit message
+
+Find command is case-sensitive.
+
+A case-insensitive find is more user-friendly because users cannot be
+expected to remember the exact case of the keywords.
+
+Let's,
+* update the search algorithm to use case-insensitive matching
+* add a script to migrate stress tests to the new format
+
+make PR on code quality branch
+
+C-BetterSearch is already fulfilled as I used regular expression for the find part at beginning.
+
+C-help : 加个help command
+C-undo : 给list 加个stack<ArrayList<Task>>
+C-statistics : 给各个class加个static, 完成量, 未完成量
+C-massOPs : 给各个command 加变异模式
+It  seems like I write a wrong tag name
+already have personality
+Trival commit
