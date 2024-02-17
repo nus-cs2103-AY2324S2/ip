@@ -18,7 +18,9 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
+
 
 
 
@@ -41,6 +43,10 @@ public class DialogBox extends HBox {
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
+
+            displayPicture.setClip(new Circle(50, 50, 50));
+            displayPicture.setFitWidth(100);
+            displayPicture.setFitHeight(100);
 
         } catch (IOException e) {
             e.printStackTrace();
