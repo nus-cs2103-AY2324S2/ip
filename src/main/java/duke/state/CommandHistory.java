@@ -59,11 +59,11 @@ public class CommandHistory {
     }
 
     /**
-     * Undoes the last command that was executed.
+     * Returns the last command that was executed.
      *
      * @return The last command that was executed, or null if the history is empty.
      */
-    public Undoable undo() {
+    public Undoable getLatestCommand() {
         if (history.isEmpty()) {
             return null;
         }
@@ -74,11 +74,21 @@ public class CommandHistory {
     }
 
     /**
-     * Redoes the last command that was undone.
+     * Returns true if there are commands that can be redone, i.e. there are
+     * commands in the future.
+     *
+     * @return True if there are commands that can be redone, false otherwise.
+     */
+    public boolean isRedoable() {
+        return !future.isEmpty();
+    }
+
+    /**
+     * Returns the last command that was undone.
      *
      * @return The last command that was undone, or null if the future is empty.
      */
-    public Undoable redo() {
+    public Undoable getLastUndoneCommand() {
         if (future.isEmpty()) {
             return null;
         }
