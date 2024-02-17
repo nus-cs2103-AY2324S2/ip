@@ -73,7 +73,6 @@ public class Ui {
             return new HandleError(NarutoException.createInvalidCommandException());
         }
     }
-    
     private static Action parseMark(TaskList taskList, String restOfLine) {
         try {
             int idx = Parser.parseIdx(restOfLine, taskList);
@@ -82,7 +81,6 @@ public class Ui {
             return new HandleError(e);
         }
     }
-    
     private static Action parseUnmark(TaskList taskList, String restOfLine) {
         try {
             int idx = Parser.parseIdx(restOfLine, taskList);
@@ -91,7 +89,6 @@ public class Ui {
             return new HandleError(e);
         }
     }
-    
     private static Action parseTodo(TaskList taskList, String restOfLine) {
         try {
             String description = Parser.parseDescription(restOfLine);
@@ -103,7 +100,6 @@ public class Ui {
             return new HandleError(e);
         }
     }
-    
     private static Action parseDeadline(TaskList taskList, String restOfLine) {
         try {
             String[] tokens = Parser.parseDeadline(restOfLine);
@@ -115,7 +111,6 @@ public class Ui {
             return new HandleError(e);
         }
     }
-    
     private static Action parseEvent(TaskList taskList, String restOfLine) {
         try {
             String[] tokens = Parser.parseEvent(restOfLine);
@@ -129,7 +124,6 @@ public class Ui {
             return new HandleError(e);
         }
     }
-    
     private static Action parseDelete(TaskList taskList, String restOfLine) {
         try {
             int idx = Parser.parseIdx(restOfLine, taskList);
@@ -138,7 +132,6 @@ public class Ui {
             return new HandleError(e);
         }
     }
-    
     private static Action parseFind(String restOfLine) {
         try {
             String[] tokens = Parser.parseDescription(restOfLine).split(" ");
