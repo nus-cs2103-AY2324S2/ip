@@ -88,7 +88,7 @@ public class Maltese extends Application {
                 return "Error: Unexpected null response";
             }
         } catch (MalteseException | IOException e) {
-            return String.format("    %s\n", e.getMessage());
+            return String.format("%s\n", e.getMessage());
         }
     }
 

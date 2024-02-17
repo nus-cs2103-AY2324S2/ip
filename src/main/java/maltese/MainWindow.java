@@ -11,6 +11,8 @@ import javafx.scene.layout.VBox;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
+    private static final String USER_PIC_PATH = "/images/maltese1.png";
+    private static final String OWNER_PIC_PATH = "/images/maltese2.png";
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -22,8 +24,8 @@ public class MainWindow extends AnchorPane {
 
     private Maltese maltese;
 
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/maltese1.png"));
-    private Image owner = new Image(this.getClass().getResourceAsStream("/images/maltese2.png"));
+    private Image user = new Image(this.getClass().getResourceAsStream(USER_PIC_PATH));
+    private Image owner = new Image(this.getClass().getResourceAsStream(OWNER_PIC_PATH));
     /**
      * Initializes the controller after its root element has been completely processed.
      * This method is called automatically by JavaFX after the root element has been
@@ -34,8 +36,9 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
-        String message = "Hello I'm NoisyChatter! What can I do for you?";
-        Image image = new Image(getClass().getResourceAsStream("/images/maltese2.png"));
+        String message = "Hello I'm Maltese! What can I do for you?\n" + "Type 'help' to get a "
+            + "quick guide of all commands :)";
+        Image image = new Image(getClass().getResourceAsStream(OWNER_PIC_PATH));
         DialogBox dialogBox = DialogBox.getMalteseDialog(message, image);
         dialogContainer.getChildren().add(dialogBox);
     }

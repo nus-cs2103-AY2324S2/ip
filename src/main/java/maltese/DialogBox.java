@@ -19,6 +19,7 @@ import javafx.scene.layout.HBox;
  * containing text from the speaker.
  */
 public class DialogBox extends HBox {
+    private static final String DIALOGBOX_FXML_PATH = "/view/DialogBox.fxml";
     @FXML
     private Label dialog;
     @FXML
@@ -34,7 +35,7 @@ public class DialogBox extends HBox {
         assert text != null : "Text cannot be null";
         assert img != null : "Image cannot be null";
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource(DIALOGBOX_FXML_PATH));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();

@@ -13,13 +13,14 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    //private maltese maltese = new maltese();
-    private Maltese maltese = new Maltese("./data/tasks.txt");
+    private static final String FILE_PATH = "./data/tasks.txt";
+    private static final String MAINWINDOW_FXML_PATH = "/view/MainWindow.fxml";
+    private Maltese maltese = new Maltese(FILE_PATH);
 
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(MAINWINDOW_FXML_PATH));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
@@ -30,4 +31,3 @@ public class Main extends Application {
         }
     }
 }
-
