@@ -42,9 +42,8 @@ public class TaskList {
     }
 
     /** Returns the added task itself. */
-    public Task add(Task task) {
+    public void add(Task task) {
         tasks.add(task);
-        return task;
     }
 
     public Task delete(int idx) {

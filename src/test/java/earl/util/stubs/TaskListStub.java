@@ -19,8 +19,8 @@ public class TaskListStub extends TaskList {
     }
 
     @Override
-    public Task add(Task task) {
-        return new TaskStub();
+    public void add(Task task) {
+        return;
     }
 
     @Override
