@@ -36,7 +36,7 @@ public class Task implements Serializable {
             return "[" + this.getStatusIcon() + "] " + this.description;
         }
 
-        private static LocalDateTime parseDate(String string) throws DateTimeParseException {
+        protected static LocalDateTime parseDate(String string) throws DateTimeParseException {
             String dateTimePattern = "\\d{1,2}/\\d{1,2}/\\d{4} \\d{1,2}:\\d{2}";
             String datePattern = "\\d{1,2}/\\d{1,2}/\\d{4}";
 
@@ -53,7 +53,7 @@ public class Task implements Serializable {
             }
         }
 
-        private static String formatDate(LocalDateTime date) {
+        protected static String formatDate(LocalDateTime date) {
             return date.format(DateTimeFormatter.ofPattern("d MMM yyyy h:mma"));
         }
 }
