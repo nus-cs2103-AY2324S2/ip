@@ -1,7 +1,7 @@
 package task;
 
 /**
- * Represents a to-do task in the Duke application.
+ * Represents a to-do task in the Uncle Bob application.
  */
 public class Todo extends Task {
 

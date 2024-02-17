@@ -7,18 +7,18 @@ import storage.Storage;
 import task.TaskList;
 
 /**
- * javafx.Main class representing the Duke application.
+ * javafx.Main class representing the UncleBob application.
  */
-public class Duke {
+public class UncleBob {
     private Storage storage;
     private TaskList tasks;
 
     /**
-     * Constructs a Duke object with the specified file path.
+     * Constructs a UncleBob object with the specified file path.
      *
      * @param filePath the file path for loading and saving tasks
      */
-    public Duke(String filePath) {
+    public UncleBob(String filePath) {
         this.storage = new Storage(filePath);
         try {
             this.tasks = storage.loadFile();
