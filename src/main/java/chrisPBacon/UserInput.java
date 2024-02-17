@@ -50,6 +50,9 @@ public class UserInput {
             case "delete":
                 ui.printDelete(this.userInput, tasks);
                 break;
+            case "find":
+                ui.printFind(this.userInput, tasks);
+                break;
             case "todo":
                 ui.printTodo(this.userInput, tasks);
                 break;

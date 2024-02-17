@@ -1,10 +1,16 @@
 package chrisPBacon;
 
+import exceptions.ChrisPBaconException;
 import exceptions.InvalidTaskNameException;
+import task.Task;
+import task.TaskList;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *  This class makes sense of the user's inputs.
@@ -83,7 +89,16 @@ public class Parser {
         return description;
     }
 
-    public String parseFind(String userInput) {
-
+    public TaskList parseFind(String userInput, TaskList tasks) throws ChrisPBaconException {
+        int len = userInput.length();
+        if (len < 6) {
+            throw new ChrisPBaconException("Oink Oink! Please input what you want to find :)\n"
+                    + " >> find <task description>\n");
+        }
+        String keyword = userInput.substring(5);
+        List<Task> matchingTasks = tasks.getTaskList().stream()
+                .filter(task -> task.isMatchKeyword(keyword))
+                .collect(Collectors.toList());
+        return new TaskList(matchingTasks);
     }
 }

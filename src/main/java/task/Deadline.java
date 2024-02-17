@@ -37,6 +37,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public boolean isMatchKeyword(String keyword) {
+        return this.name.toLowerCase().contains(keyword.toLowerCase());
+    }
+
+    @Override
     public String toString() {
         return super.toString() + "[D] " + this.name
                 + " (by: " + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
