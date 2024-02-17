@@ -4,7 +4,6 @@ import exceptions.DukeException;
 import task.Task;
 import task.TaskList;
 import utilities.Storage;
-import ui.Ui;
 
 /**
  * Controls what to do when user marks task.
@@ -25,7 +24,6 @@ public class MarkCommand extends Command {
      * @param isMarked The variable that determines whether a given task is to be marked or unmarked.
      */
     public MarkCommand(String userInput, boolean isMarked) {
-        super(false);
         this.taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
         this.isMarked = isMarked;
     }
@@ -34,12 +32,11 @@ public class MarkCommand extends Command {
      * Executes the mark task process.
      * @param taskList The task list that the command is applied to.
      * @param storage The storage that the task list is stored in after the given task is marked.
-     * @param ui Provides corresponding user output based on whether the process is successful or not.
      * @return The response expected from the chatbot.
      * @throws DukeException The exception thrown when an invalid put is entered.
      */
     @Override
-    public String execute(TaskList taskList, Storage storage, Ui ui) throws DukeException {
+    public String execute(TaskList taskList, Storage storage) throws DukeException {
         try {
             Task taskToMark = taskList.markTask(this.taskIndex, this.isMarked);
             storage.save(taskList);

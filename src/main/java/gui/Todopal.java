@@ -1,3 +1,5 @@
+package gui;
+
 import command.Command;
 import exceptions.DukeException;
 import task.TaskList;
@@ -8,7 +10,7 @@ import utilities.Storage;
 /**
  * Duke class responsible for running the program.
  */
-public class Duke {
+public class Todopal {
     /** File name to where the data will be stored. */
     private static final String FILE_NAME = "duke.txt";
     /** Directory path to where the data will be stored. */
@@ -29,21 +31,21 @@ public class Duke {
     /**
      * Duke class constructor.
      */
-    public Duke() {
+    public Todopal() {
         this.ui = new Ui();
         this.storage = new Storage(FILE_NAME, DIRECTORY_NAME);
         this.taskList = new TaskList(storage.load());
     }
 
     /**
-     * Method that generates a response from the chatbot.
+     * Generates a response from the chatbot.
      * @param userInput The input the user keys in.
      * @return The message the chatbot replies.
      */
     public String getResponse(String userInput) {
         try {
             Command command = Parser.parse(userInput);
-            return command.execute(taskList, storage, ui);
+            return command.execute(taskList, storage);
         } catch (DukeException e) {
             return e.getMessage();
         }

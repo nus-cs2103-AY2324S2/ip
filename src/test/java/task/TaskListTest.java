@@ -10,12 +10,7 @@ import command.Command;
 import exceptions.DukeException;
 
 import utilities.Parser;
-import ui.Ui;
 import utilities.Storage;
-
-
-
-
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -34,10 +29,9 @@ public class TaskListTest {
     public void get_invalidTask_exceptionThrown() throws DukeException {
         try {
             Storage storage = new Storage("duke.txt", "./src/main/data");
-            Ui ui = new Ui();
             TaskList taskList = new TaskList();
             Command command = Parser.parse("mark -1");
-            command.execute(taskList, storage, ui);
+            command.execute(taskList, storage);
             fail();
         } catch (DukeException e) {
             assertEquals("Invalid input. Please provide a valid task index or check that the task exists.", e.getMessage());

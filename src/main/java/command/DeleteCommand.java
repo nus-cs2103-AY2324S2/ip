@@ -4,7 +4,6 @@ import exceptions.DukeException;
 import task.Task;
 import task.TaskList;
 import utilities.Storage;
-import ui.Ui;
 
 /**
  * Controls what happens when a task is deleted.
@@ -20,7 +19,6 @@ public class DeleteCommand extends Command {
      * @param userInput The input that the user types into the command line.
      */
     public DeleteCommand(String userInput) {
-        super(false);
         this.taskToDeleteIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
     }
 
@@ -28,12 +26,11 @@ public class DeleteCommand extends Command {
      * Executes the delete task process.
      * @param taskList The task list that the task is deleted from.
      * @param storage The storage that the task list is stored in after the task is deleted.
-     * @param ui Provides corresponding user output based on whether the process is successful or not.
      * @return The response expected from the chatbot.
      * @throws DukeException The exception thrown when the user input is invalid.
      */
     @Override
-    public String execute(TaskList taskList, Storage storage, Ui ui) throws DukeException {
+    public String execute(TaskList taskList, Storage storage) throws DukeException {
         try {
             Task removedTask = taskList.deleteTask(this.taskToDeleteIndex);
             storage.save(taskList);

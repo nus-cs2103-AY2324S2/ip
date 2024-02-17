@@ -17,11 +17,11 @@ public class Event extends Task {
     /**
      * The date time of the start of the event as a date time object.
      */
-    private DateTime start;
+    private DateTime startDate;
     /**
      * The date time of the end of the event as a date time object.
      */
-    private DateTime end;
+    private DateTime endDate;
 
     /**
      * Event class constructor.
@@ -33,8 +33,8 @@ public class Event extends Task {
         super(description);
         this.from = from;
         this.to = to;
-        this.start = new DateTime(from);
-        this.end = new DateTime(to);
+        this.startDate = new DateTime(from);
+        this.endDate = new DateTime(to);
     }
 
     /**
@@ -46,8 +46,8 @@ public class Event extends Task {
      */
     public Event(String description, boolean isDone, String from, String to) {
         super(description, isDone);
-        this.start = new DateTime(from);
-        this.end = new DateTime(to);
+        this.startDate = new DateTime(from);
+        this.endDate = new DateTime(to);
     }
 
     /**
@@ -57,8 +57,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString()
-                + " (from: " + this.start.formatDate() + "hrs to: "
-                + this.end.formatDate() + "hrs)";
+                + " (from: " + this.startDate.formatDate() + "hrs to: "
+                + this.endDate.formatDate() + "hrs)";
     }
 
     /**
@@ -77,7 +77,7 @@ public class Event extends Task {
     @Override
     public String descriptionToString() {
         return super.descriptionToString()
-                + " (from: " + this.start.formatDate() + "hrs to: "
-                + this.end.formatDate() + "hrs)";
+                + " (from: " + this.startDate.formatDate() + "hrs to: "
+                + this.endDate.formatDate() + "hrs)";
     }
 }

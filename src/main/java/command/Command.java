@@ -3,7 +3,6 @@ package command;
 import exceptions.DukeException;
 import task.TaskList;
 import utilities.Storage;
-import ui.Ui;
 
 /**
  * Controls what to do when user inputs something.
@@ -15,28 +14,11 @@ public abstract class Command {
     private boolean isExit;
 
     /**
-     * Command class constructor.
-     * @param isExit Variable to tell the program whether to exit or not.
-     */
-    public Command(boolean isExit) {
-        this.isExit = isExit;
-    }
-
-    /**
-     * Method to tell the program whether to exit or not.
-     * @return A boolean value.
-     */
-    public boolean isExit() {
-        return this.isExit;
-    }
-
-    /**
      * Executes the task process.
      * @param taskList The task list that the command is applied to.
      * @param storage The storage that the task list is stored in after the command is applied.
-     * @param ui Provides corresponding user output based on whether the process is successful or not.
      * @return The response expected from the chatbot.
      * @throws DukeException The exception thrown when the process is unsuccessful.
      */
-    public abstract String execute(TaskList taskList, Storage storage, Ui ui) throws DukeException;
+    public abstract String execute(TaskList taskList, Storage storage) throws DukeException;
 }

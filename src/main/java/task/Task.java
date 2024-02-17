@@ -33,7 +33,7 @@ public class Task {
     }
 
     /**
-     * A method to mark whether a task has been done or not.
+     * Marks whether a task has been done or not.
      * @param isDone isDone A variable that determines whether a task has been completed.
      */
     public void setDone(boolean isDone) {
