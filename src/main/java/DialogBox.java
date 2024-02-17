@@ -51,9 +51,21 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getUncleBobDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.setBackgroundColor("#9FE2BF");
         return db;
+    }
+
+    /**
+     * Sets the background color of the DialogBox.
+     *
+     * @param hexCode The hexadecimal color code.
+     */
+    private void setBackgroundColor(String hexCode) {
+        // Change background color to #79e8b2
+        this.dialog.setStyle(this.dialog.getStyle().replaceFirst("-fx-background-color: #(?:[A-Fa-f0-9]{3}){1,2}\\b;",
+                "-fx-background-color: " + hexCode + ";"));
     }
 }

@@ -3,7 +3,7 @@ package task;
 import java.time.LocalDate;
 
 /**
- * Represents a task in the Duke application.
+ * Represents a task in the UncleBob application.
  */
 public class Task {
     protected String symbol;

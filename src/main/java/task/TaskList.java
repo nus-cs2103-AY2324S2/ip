@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * * Represents a collection of tasks in the Duke application.
+ * * Represents a collection of tasks in the Uncle Bob application.
  */
 public class TaskList implements Iterable<Task> {
 
