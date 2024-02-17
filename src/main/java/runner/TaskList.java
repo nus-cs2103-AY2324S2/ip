@@ -55,4 +55,14 @@ public class TaskList {
         assert n >= 0: "Index Invalid";
         taskList.remove(n);
     }
+
+
+    /**
+     * Insert one Task to TaskList.
+     * @param tk Task to be inserted.
+     * @param n Position to the list.
+     */
+    public void insert(Task tk, int n) {
+        taskList.add(n, tk);
+    }
 }
