@@ -32,7 +32,7 @@ public class Teemo {
         load(filePath);
     }
     /**
-     * Method for loading required variables
+     * Loads the required variables
      */
     public void load(String filePath) {
         ui = new Ui();
@@ -45,7 +45,7 @@ public class Teemo {
         }
     }
     /**
-     * Method for running the chatbot
+     * Runs the chatbot
      */
     public void run() {
         ui.greet();
