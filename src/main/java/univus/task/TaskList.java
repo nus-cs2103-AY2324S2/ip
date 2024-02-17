@@ -81,11 +81,13 @@ public class TaskList {
     /**
      * Lists and prints all tasks in the task list with their respective indices.
      */
-    public void list() {
+    public String list() {
+        StringBuilder allList = new StringBuilder();
         int index = 1;
         for (Task msg : taskList) {
-            System.out.println(index + "." + msg.toString());
+            allList.append(index + "." + msg.toString()).append("\n");
             index++;
         }
+        return allList.toString();
     }
 }
