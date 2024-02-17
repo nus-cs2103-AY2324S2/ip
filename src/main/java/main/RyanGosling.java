@@ -18,7 +18,6 @@ public class RyanGosling {
      */
     public RyanGosling() {
         botDispatcher = new Ui();
-        assert botDispatcher != null : "Dispatcher object should not be null!";
         botDispatcher.oneTimeLoadAllTasks();
     }
 
@@ -28,7 +27,7 @@ public class RyanGosling {
      * @param userInput The user's input.
      * @return The response from the chatbot.
      */
-    public String getResponse(String userInput) {
+    public MainResponseCategorized getResponse(String userInput) {
         return botDispatcher.performTaskFromSingleUserInput(userInput);
     }
 }
