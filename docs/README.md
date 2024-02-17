@@ -101,7 +101,7 @@ peruse your current items first.
 `sort by date` will rearrange your list
 of items from earliest to latest as per their date(time) like so:
 
-![img.png](sortSS.png)
+![img.png](sortByDateSS.png)
 
 Where`Events` are sorted per their  `from` datetime
 
