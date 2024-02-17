@@ -17,7 +17,7 @@ import maltese.task.ToDo;
 /**
  * Handles the reading and writing of tasks to and from a file.
  */
-class Storage {
+public class Storage {
     private File taskFile;
 
     /**
@@ -50,6 +50,10 @@ class Storage {
         }
 
         return tasks;
+    }
+
+    public void changeFile(String filePath) {
+        this.taskFile = new File(filePath);
     }
 
     private Task parseTask(String taskLine) {

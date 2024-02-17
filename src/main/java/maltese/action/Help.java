@@ -25,6 +25,8 @@ public class Help implements Action {
             + " - delete <indice(s)>\n"
             + "Find task(s) containing the keyword\n"
             + " - find <keyword>\n"
+            + "Demonstration on how to use Maltese\n"
+            + " - guide\n"
             + "Exit the application\n"
             + " - bye\n";
 

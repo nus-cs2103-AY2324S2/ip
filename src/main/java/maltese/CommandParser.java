@@ -1,14 +1,7 @@
 package maltese;
 
 
-import maltese.action.Action;
-import maltese.action.Delete;
-import maltese.action.Farewell;
-import maltese.action.Help;
-import maltese.action.Mark;
-import maltese.action.Match;
-import maltese.action.TaskList;
-import maltese.action.Unmark;
+import maltese.action.*;
 import maltese.exception.MalteseException;
 import maltese.exception.UnknownCommandException;
 import maltese.task.Deadline;
@@ -21,10 +14,11 @@ import maltese.task.ToDo;
 
 public class CommandParser {
 
+
     /**
      * Parses user commands and performs corresponding actions in the maltese application.
      */
-    public static Action parseCommand(String command, TaskList taskList) throws MalteseException {
+    public static Action parseCommand(String command, TaskList taskList, Storage storage) throws MalteseException {
         try {
             String[] words = command.split(" ");
 
@@ -38,6 +32,10 @@ public class CommandParser {
                 return Farewell.parse(taskList);
             case "help":
                 return Help.parse();
+            case "guide":
+                return Guide.parse();
+            case "change":
+                return ChangeFilePath.parse(command, storage);
             case "list":
                 return TaskList.parse(taskList);
             case "mark":
@@ -52,7 +50,6 @@ public class CommandParser {
                 return Deadline.parse(command, taskList);
             case "event":
                 return Event.parse(command, taskList);
-
             default:
                 throw new UnknownCommandException();
             }
