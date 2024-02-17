@@ -34,6 +34,7 @@ public class FindCommand extends Command {
      * @throws PandaException if an error occurs during execution.
      */
     public String execute(TaskList tlist, Storage cacheFile) throws PandaException {
+        assert tlist != null;
         TaskList filteredTasks = tlist.find(fString);
         return filteredTasks.toString();
     }

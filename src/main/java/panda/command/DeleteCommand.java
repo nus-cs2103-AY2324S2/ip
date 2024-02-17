@@ -24,6 +24,7 @@ public class DeleteCommand extends Command {
      * @throws PandaException if an error occurs during deletion.
      */
     public void execute(TaskList tlist) throws PandaException{
+        assert tlist != null;
         if(idx >= tlist.size()) {
             throw new OutOfBoundsException();
         }
@@ -40,6 +41,7 @@ public class DeleteCommand extends Command {
      * @throws PandaException if an error occurs during execution.
      */
     public String execute(TaskList tlist, Storage cacheFile) throws PandaException {
+        assert tlist != null;
         if(idx >= tlist.size()) {
             throw new OutOfBoundsException();
         }
