@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList {
-    //private List<Task> tasks;
     private Storage storage;
     private Ui ui;
 
@@ -61,7 +60,6 @@ public class TaskList {
         assert task != null;
         System.out.println("______________________________________________________");
         System.out.println("Got it. I've added this task:");
-        //System.out.println(" " + task);
         ui.showTask(task.toString());
         l.add(task);
         storage.saveToFile(l);

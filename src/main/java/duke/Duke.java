@@ -59,13 +59,6 @@ public class Duke extends Application {
         assert parser != null : "Parser should not be null";
     }
 
-    /**
-     * The main method is the entry point to the Duke application.
-     * It starts the application and runs the main loop.
-     *
-     * @param args Unused.
-     * @throws IOException If an input or output exception occurred.
-     */
     public static void main(String[] args) throws IOException {
         ui.showWelcome();
         Duke lucifer = new Duke();
@@ -143,13 +136,6 @@ public class Duke extends Application {
         userInput.setOnAction((event) -> {
             handleUserInput();
         });
-    }
-
-    private Label getDialogLabel(String text) {
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-
-        return textToAdd;
     }
 
     private void handleUserInput() {
