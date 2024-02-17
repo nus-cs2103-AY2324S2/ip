@@ -24,7 +24,12 @@ public class MainWindow extends AnchorPane {
 
     private Image user = new Image(this.getClass().getResourceAsStream("/images/maltese1.png"));
     private Image duke2 = new Image(this.getClass().getResourceAsStream("/images/maltese2.png"));
-
+    /**
+     * Initializes the controller after its root element has been completely processed.
+     * This method is called automatically by JavaFX after the root element has been
+     * processed, and it's used to perform initialization tasks such as binding properties
+     * or setting initial values.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

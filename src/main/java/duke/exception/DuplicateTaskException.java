@@ -1,7 +1,7 @@
 package duke.exception;
 
 /**
- * Represents an exception thrown when a description is empty.
+ * Represents an exception thrown when user tries to add a task that already exist.
  */
 public class DuplicateTaskException extends DukeException {
 

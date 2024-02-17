@@ -23,7 +23,13 @@ public class DialogBox extends HBox {
     private Label dialog;
     @FXML
     private ImageView displayPicture;
-
+    /**
+     * Constructs a new DialogBox with the specified text and image.
+     *
+     * @param text The text to be displayed in the dialog box.
+     * @param img  The image to be displayed in the dialog box.
+     * @throws NullPointerException if either the text or image is null.
+     */
     public DialogBox(String text, Image img) {
         assert text != null : "Text cannot be null";
         assert img != null : "Image cannot be null";

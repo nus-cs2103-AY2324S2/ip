@@ -1,5 +1,7 @@
 package duke.task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 import duke.action.Echo;
 import duke.action.TaskList;
@@ -8,8 +10,6 @@ import duke.exception.DuplicateTaskException;
 import duke.exception.EmptyDescriptionException;
 import duke.exception.WrongDateFormatException;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 
 
@@ -62,7 +62,14 @@ public class Deadline extends Task {
         }
         return false;
     }
-
+    /**
+     * Parses the command for adding a deadline task.
+     *
+     * @param command  The command string containing the description and deadline of the task.
+     * @param taskList The TaskList containing tasks to which the deadline task will be added.
+     * @return An Echo action representing the response message after adding the deadline task.
+     * @throws DukeException If the command is invalid or if there are errors in parsing or adding the task.
+     */
     public static Echo parse(String command, TaskList taskList) throws DukeException {
         String[] words = command.split(" ");
         if (words.length > 1) {

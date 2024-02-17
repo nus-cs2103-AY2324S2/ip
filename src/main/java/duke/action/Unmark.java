@@ -10,10 +10,9 @@ import duke.task.Task;
  */
 
 public class Unmark implements Action {
+    private static final int UNMARK_START_INDEX = 7;
     private int[] indices;
     private TaskList tasks;
-
-    private static final int UNMARK_START_INDEX = 7;
     /**
      * Constructs a Unmark action with the specified index and task list.
      *
@@ -44,7 +43,14 @@ public class Unmark implements Action {
         }
         this.tasks = tasks;
     }
-
+    /**
+     * Parses the command for the "unmark" action.
+     *
+     * @param command  The command string containing the indices of tasks to unmark.
+     * @param taskList The TaskList containing tasks to be unmarked.
+     * @return An Action object representing the "unmark" action with specified indices.
+     * @throws DukeException If there are no indices provided or if there are duplicate indices.
+     */
     public static Unmark parse(String command, TaskList taskList) throws DukeException {
         String[] words = command.split(" ");
         if (words.length > 1) {
@@ -53,13 +59,9 @@ public class Unmark implements Action {
                 int[] indices = Action.parseIndices(indicesString);
                 Action.checkForDuplicateIndices(indices);
                 return new Unmark(indices, taskList);
-            } else {
-                throw new NoIndexException();
             }
-        } else {
-            throw new NoIndexException();
         }
-
+        throw new NoIndexException();
     }
 
     /**

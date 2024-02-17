@@ -1,9 +1,9 @@
 package duke.action;
 
-import duke.exception.DuplicateIndexException;
-
 import java.util.HashSet;
 import java.util.Set;
+
+import duke.exception.DuplicateIndexException;
 
 /**
  * An interface representing an action in the Duke application.
@@ -17,6 +17,12 @@ public interface Action {
      */
     String response();
 
+    /**
+     * Parses an array of strings representing indices into an array of integers.
+     *
+     * @param indicesString An array of strings representing indices.
+     * @return An array of integers parsed from the indices strings.
+     */
     static int[] parseIndices(String[] indicesString) {
         int[] indices = new int[indicesString.length];
         for (int i = 0; i < indicesString.length; i++) {
@@ -25,6 +31,12 @@ public interface Action {
         return indices;
     }
 
+    /**
+     * Checks for duplicate indices in the provided array.
+     *
+     * @param indices An array of integers representing indices.
+     * @throws DuplicateIndexException If duplicate indices are found.
+     */
     static void checkForDuplicateIndices(int[] indices) throws DuplicateIndexException {
         Set<Integer> indexSet = new HashSet<>();
         for (int index : indices) {

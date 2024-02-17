@@ -17,6 +17,13 @@ public class Farewell implements Action {
         return " Bye. Hope to see you again soon!";
     }
 
+    /**
+     * Parses the farewell command and creates a Farewell action.
+     *
+     * @param taskList The TaskList containing the tasks.
+     * @return A Farewell action.
+     */
+
     public static Farewell parse(TaskList taskList) {
         taskList.goodBye();
         return new Farewell();

@@ -9,10 +9,10 @@ import duke.task.Task;
  * Represents an action to mark a task as done in the task list.
  */
 public class Mark implements Action {
+    private static final int MARK_START_INDEX = 5;
 
     private int[] indices;
     private TaskList tasks;
-    private static final int MARK_START_INDEX = 5;
 
     public Mark(int index, TaskList tasks) throws WrongIndexException {
         this(new int[]{index}, tasks);
@@ -38,6 +38,15 @@ public class Mark implements Action {
         this.tasks = tasks;
     }
 
+    /**
+     * Parses the mark command and creates a Mark action.
+     *
+     * @param command  The mark command to be parsed.
+     * @param taskList The TaskList containing the tasks.
+     * @return A Mark action representing the tasks marked as done.
+     * @throws DukeException If there is an error parsing the command or marking the tasks.
+     */
+
     public static Mark parse(String command, TaskList taskList) throws DukeException {
         String[] words = command.split(" ");
         if (words.length > 1) {
@@ -46,12 +55,9 @@ public class Mark implements Action {
                 int[] indices = Action.parseIndices(indicesString);
                 Action.checkForDuplicateIndices(indices);
                 return new Mark(indices, taskList);
-            } else {
-                throw new NoIndexException();
             }
-        } else {
-            throw new NoIndexException();
         }
+        throw new NoIndexException();
     }
 
 

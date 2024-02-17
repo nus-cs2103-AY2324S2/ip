@@ -1,22 +1,23 @@
 package duke.action;
 
-import duke.exception.*;
-import duke.task.Task;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.HashSet;
-import java.util.Set;
+
+import duke.exception.DukeException;
+import duke.exception.NoIndexException;
+import duke.exception.WrongIndexException;
+import duke.task.Task;
+
 
 /**
  * Represents an action to delete tasks.
  */
 public class Delete implements Action {
+    private static final int DELETE_START_INDEX = 7;
     private int[] indices;
     private List<Task> deletedTasks;
     private TaskList tasks;
-    private static final int DELETE_START_INDEX = 7;
 
     /**
      * Constructs a Delete action with the specified indices and task list.
@@ -39,6 +40,15 @@ public class Delete implements Action {
         deleteTasks();
     }
 
+    /**
+     * Parses the delete command and creates a Delete action with the specified indices.
+     *
+     * @param command  The delete command to be parsed.
+     * @param taskList The TaskList containing the tasks.
+     * @return A Delete action with the specified indices.
+     * @throws DukeException If an error occurs during parsing, such as missing indices or duplicate indices.
+     */
+
     public static Delete parse(String command, TaskList taskList) throws DukeException {
         String[] words = command.split(" ");
         if (words.length > 1) {
@@ -47,12 +57,9 @@ public class Delete implements Action {
                 int[] indices = Action.parseIndices(indicesString);
                 Action.checkForDuplicateIndices(indices);
                 return new Delete(indices, taskList);
-            } else {
-                throw new NoIndexException();
             }
-        } else {
-            throw new MissingIndexException();
         }
+        throw new NoIndexException();
     }
 
 

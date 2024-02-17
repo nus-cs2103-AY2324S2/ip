@@ -6,15 +6,6 @@ import java.util.Scanner;
  * Represents the user interface for interacting with the Duke application.
  */
 public class Ui {
-
-    /**
-     * Displays a welcome message when the Duke application starts.
-     */
-    public void showWelcome() {
-        System.out.println("Hello I'm NoisyChatter");
-        System.out.println("What can I do for you?");
-    }
-
     /**
      * Prompts the user for input and retrieves the entered command.
      *

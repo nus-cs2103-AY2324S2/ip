@@ -11,9 +11,9 @@ import duke.task.Task;
  * Implements the Action interface.
  */
 public class Match implements Action {
+    private static final int MATCH_START_INDEX = 5;
     private TaskList taskList;
     private String keyword;
-    private static final int MATCH_START_INDEX = 5;
 
     /**
      * Constructs a Match object with the specified TaskList.
@@ -24,6 +24,15 @@ public class Match implements Action {
         this.keyword = keyword.toLowerCase(); // Convert keyword to lowercase
         this.taskList = taskList;
     }
+
+    /**
+     * Parses the command to find tasks matching a keyword and creates a Match action.
+     *
+     * @param command  The command to be parsed, containing the keyword.
+     * @param taskList The TaskList containing the tasks to search.
+     * @return A Match action representing the tasks matching the keyword.
+     * @throws DukeException If there is an error parsing the command or searching for tasks.
+     */
 
     public static Match parse(String command, TaskList taskList) throws DukeException {
         String[] words = command.split(" ");

@@ -1,2 +1,1 @@
-T|O|buy coffee
-T|O|purchase a bag
+T|X|purchase a bag

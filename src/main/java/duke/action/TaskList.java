@@ -155,7 +155,14 @@ public class TaskList extends ArrayList<Task> implements Action, Iterable<Task> 
             }
         }
     }
-
+    /**
+     * Parses the command for the "list" action.
+     *
+     * @param taskList The TaskList containing tasks to be displayed.
+     * @return An Action object representing the "list" action.
+     *         If the task list is initialized, returns the TaskList itself,
+     *         otherwise, returns an Echo action with an error message.
+     */
     public static Action parse(TaskList taskList) { // hmm might think of another way
         if (taskList != null) {
             //taskList.displayTasks();
@@ -175,6 +182,12 @@ public class TaskList extends ArrayList<Task> implements Action, Iterable<Task> 
         return tasks.iterator();
     }
 
+    /**
+     * Checks if the TaskList contains a specific task.
+     *
+     * @param task The task to be checked for existence in the TaskList.
+     * @return {@code true} if the TaskList contains the task, {@code false} otherwise.
+     */
     public boolean contains(Task task) {
         for (Task t : tasks) {
             if (t.equals(task)) {
@@ -198,16 +211,6 @@ public class TaskList extends ArrayList<Task> implements Action, Iterable<Task> 
         }
         return stringBuilder.toString();
     }
-
-    public boolean removeAll(int[] indices) {
-        ArrayList<Integer> indicesList = new ArrayList<>();
-        for (int index : indices) {
-            indicesList.add(index);
-            System.out.println(index);
-        }
-        return super.removeAll(indicesList);
-    }
-
 
 }
 

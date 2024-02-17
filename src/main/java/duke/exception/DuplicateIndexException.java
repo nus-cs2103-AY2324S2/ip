@@ -1,7 +1,7 @@
 package duke.exception;
 
 /**
- * Represents an exception thrown when a description is empty.
+ * Represents an exception thrown when user tries to do the same operation on the same indices.
  */
 public class DuplicateIndexException extends DukeException {
 
