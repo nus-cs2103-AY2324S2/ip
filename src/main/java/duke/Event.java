@@ -11,7 +11,7 @@ public class Event extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
     private boolean done;
-    private static String identifier = "[E]";
+    private static String IDENTIFIER = "[E]";
 
     private DateTimeFormatter dtfoutput = DateTimeFormatter.ofPattern("dd MMM yyyy HHmm");
 
@@ -42,9 +42,9 @@ public class Event extends Task {
     @Override
     public String toString() {
         if (this.done) {
-            return "[X]" + identifier + " " + this.name + " (from " + dtfoutput.format(from) + " to " + dtfoutput.format(to) + ")";
+            return "[X]" + IDENTIFIER + " " + this.name + " (from " + dtfoutput.format(from) + " to " + dtfoutput.format(to) + ")";
         } else {
-            return "[ ]" + identifier + " " + this.name + " (from " + dtfoutput.format(from) + " to " + dtfoutput.format(to) + ")";
+            return "[ ]" + IDENTIFIER + " " + this.name + " (from " + dtfoutput.format(from) + " to " + dtfoutput.format(to) + ")";
         }
     }
 

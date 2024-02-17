@@ -6,7 +6,7 @@ package duke;
 public class Todo extends Task {
     private String name;
     private boolean done;
-    private static String identifier = "[T]";
+    private final static String IDENTIFIER = "[T]";
     public Todo(String name) {
         super(name);
         this.name = name;
@@ -30,9 +30,9 @@ public class Todo extends Task {
     @Override
     public String toString() {
         if (this.done) {
-            return "[X]" + identifier + " " + this.name;
+            return "[X]" + IDENTIFIER + " " + this.name;
         } else {
-            return "[ ]" + identifier + " " + this.name;
+            return "[ ]" + IDENTIFIER + " " + this.name;
         }
     }
 

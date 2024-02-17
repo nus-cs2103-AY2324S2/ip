@@ -10,7 +10,7 @@ public class Deadline extends Task {
     private String name;
     private LocalDateTime by;
     private boolean done;
-    private static String identifier = "[D]";
+    private static String IDENTIFIER = "[D]";
 
     private DateTimeFormatter dtfoutput = DateTimeFormatter.ofPattern("dd MMM yyyy HHmm");
 
@@ -39,9 +39,9 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         if (this.done) {
-            return "[X]" + identifier + " " + this.name + "(by " + dtfoutput.format(by) + ")";
+            return "[X]" + IDENTIFIER + " " + this.name + "(by " + dtfoutput.format(by) + ")";
         } else {
-            return "[ ]" + identifier + " " + this.name + "(by " + dtfoutput.format(by) + ")";
+            return "[ ]" + IDENTIFIER + " " + this.name + "(by " + dtfoutput.format(by) + ")";
         }
 
     }

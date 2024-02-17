@@ -16,8 +16,8 @@ public class Parser {
             .append(DateTimeFormatter.ofPattern("[ddMMyy HHmm]" + "[ddMM HHmmyyyy]" + "[ddMMyyyyHHmm]"));
     private static DateTimeFormatter dtf = dtfbuilder.toFormatter();
     private static int currentYear = Year.now().getValue();
-    private static String defaultStartTime = "0000";
-    private static String defaultEndTime = "2359";
+    private final static String DEFAULT_START = "0000";
+    private final static String DEFAULT_END = "2359";
 
     /**
      * Parses the input if it is a command to add a task.
@@ -57,7 +57,7 @@ public class Parser {
                         task = new Deadline(name, by);
                     } catch (DateTimeParseException f) {
                         try {
-                            by = LocalDateTime.parse(byStr + currentYear + defaultEndTime, dtf);
+                            by = LocalDateTime.parse(byStr + currentYear + DEFAULT_END, dtf);
                             task = new Deadline(name, by);
                         } catch (DateTimeParseException g) {
                             throw new DukeException("Invalid time format. Please use ddMM, ddMMyy HHmm, or ddMM HHmm");
@@ -93,8 +93,8 @@ public class Parser {
                         task = new Event(name1, from, to);
                     } catch (DateTimeParseException f) {
                         try {
-                            from = LocalDateTime.parse(fromStr + currentYear + defaultStartTime, dtf);
-                            to = LocalDateTime.parse(toStr + currentYear + defaultEndTime, dtf);
+                            from = LocalDateTime.parse(fromStr + currentYear + DEFAULT_START, dtf);
+                            to = LocalDateTime.parse(toStr + currentYear + DEFAULT_END, dtf);
                             task = new Event(name1, from, to);
                         } catch (DateTimeParseException g) {
                             throw new DukeException("Invalid time format. Please use ddMM, ddMMyy HHmm, or ddMM HHmm");

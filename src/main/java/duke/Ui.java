@@ -3,7 +3,7 @@ package duke;
 import java.util.Scanner;
 
 /**
- * A class to classify user input. 
+ * A class to classify user input.
  */
 public class Ui {
 
