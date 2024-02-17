@@ -21,9 +21,7 @@ public class Duke{
 
     private Storage storage = new Storage();
 
-    public String getResponse(String input) {
-        return "Duke heard: " + input;
-    }
+
     /**
      * Constructs an instance of Duke
      */
@@ -31,17 +29,29 @@ public class Duke{
     public Duke() {
         ui = new Ui();
         tlist = new TaskList();
+        storage.load(tlist);
+        ui.greet();
 
     }
 
-    public static void main(String[] args) throws DukeException {
+    /*public static void main(String[] args) throws DukeException {
         new Duke().run();
+    }*/
+
+    public String getResponse(String input) {
+        try {
+            return UserHandler.chat(input, tlist, storage);
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
     }
 
     /**
      * Runs Chatbot
      * @throws DukeException
      */
+
+    /*
     private void run() throws DukeException{
 
         Ui Ui = new Ui();
@@ -153,7 +163,7 @@ public class Duke{
 
         }
         System.out.print("Bye. Hope to see you again soon!");
-    }
+    }*/
 
 
 

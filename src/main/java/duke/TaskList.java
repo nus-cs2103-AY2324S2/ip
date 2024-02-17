@@ -14,15 +14,20 @@ public class TaskList {
 
     List<Task> list = new ArrayList<>();
 
-    public void listTasks() {
+    public String listTasks() {
+        String ret = "";
         for (int i = 0; i < list.size(); i++) {
+            ret = ret + (i+1) + ". " + list.get(i) + "\n";
             System.out.println(i+1 + ". " + list.get(i));
         }
+
+        return ret;
     }
-    public void addTask(String comd) {
+    public String addTask(String comd) {
         if (comd.startsWith("todo ")) {
             Todo t = new Todo(comd.substring(5));
             list.add(t);
+            return "Got it. Added: " + t;
         }
         else if (comd.startsWith("deadline ")) {
             InputHandler handler = new InputHandler();
@@ -33,6 +38,7 @@ public class TaskList {
             String task = data[0].substring(9);
             Deadline d = new Deadline(task, deadlineDate);
             list.add(d);
+            return "Got it. Added: " + d;
         }
         else if (comd.startsWith("event ")) {
             String[] data = comd.split("/");
@@ -40,11 +46,15 @@ public class TaskList {
 
             Event e = new Event(task, data[1].substring(5), data[2].substring(3));
             list.add(e);
+            return "Got it. Added: " + e;
         }
 
+        //comment these out later
         System.out.println("Got it. I've added this task: ");
         System.out.println(list.get(list.size() - 1));
         System.out.println("Now you have " + list.size() + " tasks in the list.");
+
+        return "nothing";
     }
 
     public void retrieveData(File file) throws IOException {
@@ -65,7 +75,7 @@ public class TaskList {
         list = loadedList;
     }
 
-    public void markTask(String comd) {
+    public String markTask(String comd) {
 
         String[] res = comd.split(" ");
         String in = res[1];
@@ -74,18 +84,22 @@ public class TaskList {
         list.get(index - 1).mark();
         System.out.println("Nice! I've marked this task as done: ");
         System.out.println(list.get(index - 1).printWithStatus());
+
+        return "Nice! Marked task" + list.get(index - 1).printWithStatus();
     }
 
-    public void unmarkTask(String comd) {
+    public String unmarkTask(String comd) {
         String[] result = comd.split(" ");
         String in = result[1];
         int index = Integer.parseInt(in);
         list.get(index - 1).unmark();
         System.out.println("OK, I've marked this task as not done yet: ");
         System.out.println(list.get(index - 1).printWithStatus());
+
+        return "OK Unmarked task" + list.get(index - 1).printWithStatus();
     }
 
-    public void deleteTask(String comd) {
+    public String deleteTask(String comd) {
         String[] result = comd.split(" ");
         int in = Integer.parseInt(result[1]);
 
@@ -93,13 +107,16 @@ public class TaskList {
         System.out.println(list.get(in - 1).printWithStatus());
         list.remove(in - 1);
         System.out.println("Now you have " + list.size() + " tasks in the list.");
+
+        return "I've removed: " + list.get(in - 1) + "\n"
+                + "Now you have " + list.size() + " tasks in the list.";
     }
 
     public List<Task> getList() {
         return list;
     }
 
-    public void findTask(String comd) {
+    public String findTask(String comd) {
         String[] result = comd.split(" ");
         String keyword = result[1];
         int counter = 1;
@@ -111,5 +128,7 @@ public class TaskList {
             }
         }
         System.out.println("Here are the matching tasks in your list: ");
+
+        return "Here are the matching tasks in your list";
     }
 }

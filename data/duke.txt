@@ -1,3 +1,4 @@
 [T][X] new
-[T][ ] random
-[T][ ] read a book
+[T][X] random
+[T][X] read a book
+[T][ ] new
