@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import talkingbot.type.TaskType;
 
 /**
- * A class that represents the Deadline task.
+ * Class for the Deadline task.
  */
 public class Deadline extends Task {
     private static final String DEADLINE_SAVE_FILE_FORMAT = "D | %d | %s | %s";
@@ -13,7 +13,7 @@ public class Deadline extends Task {
     private final LocalDateTime endTime;
 
     /**
-     * A constructor for the Deadline class.
+     * Creates a new Deadline instance.
      *
      * @param description Description of the task.
      * @param isDone Marks whether the task has been done.

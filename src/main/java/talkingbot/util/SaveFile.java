@@ -21,7 +21,7 @@ public class SaveFile {
     private final String path;
 
     /**
-     * Constructor for the SaveFile class.
+     * Creates a new SaveFile instance.
      *
      * @param path Relative path to the save file.
      */

@@ -6,7 +6,7 @@ import talkingbot.exception.TalkingBotException;
 import talkingbot.type.TaskType;
 
 /**
- * An abstract class for tasks.
+ * Class (abstract) for tasks.
  */
 public abstract class Task {
     /** Formatting of datetime used during entry and saving */
@@ -29,7 +29,7 @@ public abstract class Task {
     private final TaskType taskType;
 
     /**
-     * Constructor for the Task class.
+     * Class constructor for Task.
      *
      * @param description Description of the task.
      * @param isDone Marks whether the task has been done.
@@ -42,8 +42,8 @@ public abstract class Task {
     }
 
     /**
-     * Factory method that generates the task object
-     * corresponding to the given type.
+     * Generates a Task object corresponding to the given
+     * description input.
      *
      * @param fullDescription Full description of the task.
      * @param type Type of the task.
@@ -139,7 +139,7 @@ public abstract class Task {
     }
 
     /**
-     * Abstract method to return the task's representation
+     * Returns the task's representation
      * in the save file.
      *
      * @return String that represents the task during saving.

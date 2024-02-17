@@ -5,12 +5,12 @@ import talkingbot.util.TaskList;
 import talkingbot.util.Ui;
 
 /**
- * A class that represents any invalid commands entered by the user.
+ * Class that represents any invalid commands entered by the user.
  */
 public class InvalidCommand extends Command {
 
     /**
-     * Constructor for the InvalidCommand class.
+     * Creates a new InvalidCommand instance.
      *
      * @param commandArr String array containing the command.
      */

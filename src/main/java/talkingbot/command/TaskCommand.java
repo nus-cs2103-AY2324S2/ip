@@ -7,14 +7,14 @@ import talkingbot.util.TaskList;
 import talkingbot.util.Ui;
 
 /**
- * A class that represents any command that creates tasks, i.e.,
+ * Class that represents any command that creates tasks, i.e.,
  * the "todo", "deadline", and "event" commands entered in by
  * the user.
  */
 public class TaskCommand extends Command {
 
     /**
-     * Constructor for the TaskCommand class.
+     * Creates a new TaskCommand instance.
      *
      * @param commandArr String array containing the command.
      */

@@ -14,7 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 /**
- * A class to display message bubbles.
+ * Class to display message bubbles.
  */
 public class Message extends HBox {
     private static final String MESSAGE_FXML_PATH = "/gui/Message.fxml";
@@ -26,7 +26,7 @@ public class Message extends HBox {
     private Label displayName;
 
     /**
-     * Constructor for the Message class.
+     * Creates a new Message instance.
      * @param displayPicture Display picture of the sender.
      * @param displayText Text to be displayed in the message.
      * @param displayName Display name of the sender.

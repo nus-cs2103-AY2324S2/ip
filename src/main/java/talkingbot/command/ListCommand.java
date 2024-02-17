@@ -5,12 +5,12 @@ import talkingbot.util.TaskList;
 import talkingbot.util.Ui;
 
 /**
- * A class that represents the "list" command entered by the user.
+ * Class that represents the "list" command entered by the user.
  */
 public class ListCommand extends Command {
 
     /**
-     * Constructor for the ListCommand class.
+     * Creates a new ListCommand instance.
      *
      * @param commandArr String array containing the command.
      */

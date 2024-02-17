@@ -6,12 +6,12 @@ import talkingbot.util.TaskList;
 import talkingbot.util.Ui;
 
 /**
- * A class that represents the "delete" command entered by the user.
+ * Class that represents the "delete" command entered by the user.
  */
 public class DeleteCommand extends Command {
 
     /**
-     * Constructor for the DeleteCommand class.
+     * Creates a new DeleteCommand instance.
      *
      * @param commandArr String array containing the command.
      */

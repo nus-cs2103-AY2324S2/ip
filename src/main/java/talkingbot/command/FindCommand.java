@@ -9,7 +9,7 @@ import talkingbot.util.Ui;
  */
 public class FindCommand extends Command {
     /**
-     * Constructor for the FindCommand class.
+     * Creates a new FindCommand instance.
      *
      * @param commandArr String array containing the command.
      */

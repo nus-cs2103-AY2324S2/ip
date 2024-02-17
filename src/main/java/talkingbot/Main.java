@@ -3,7 +3,6 @@ package talkingbot;
 import java.io.IOException;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -12,7 +11,7 @@ import talkingbot.gui.Window;
 import talkingbot.logic.TalkingBot;
 
 /**
- * Main class connecting the logic and the GUI of the application.
+ * Class connecting the logic and the GUI of the application.
  */
 public class Main extends Application {
     private static final String PATH_TO_WINDOW_FXML = "/gui/Window.fxml";
@@ -20,7 +19,7 @@ public class Main extends Application {
     private Thread stopChecker;
 
     /**
-     * Loads     the main window of the application and displays it.
+     * Loads the main window of the application and displays it.
      *
      * @param stage Stage for the application.
      */

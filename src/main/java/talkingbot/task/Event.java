@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import talkingbot.type.TaskType;
 
 /**
- * A class that represents the Event task.
+ * Class for the Event task.
  */
 public class Event extends Task {
     private static final String EVENT_SAVE_FILE_FORMAT = "E | %d | %s | %s | %s";
@@ -14,7 +14,7 @@ public class Event extends Task {
     private final LocalDateTime endTime;
 
     /**
-     * Constructor for the Event class.
+     * Creates a new Event instance.
      *
      * @param description Description of the task.
      * @param isDone Marks whether the task has been done.

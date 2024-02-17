@@ -16,7 +16,7 @@ import talkingbot.command.TaskCommand;
 public class Parser {
 
     /**
-     * Constructor for the Parser class.
+     * Creates a new Parser instance.
      */
     public Parser() {}
 

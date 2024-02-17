@@ -3,13 +3,14 @@ package talkingbot.task;
 import talkingbot.type.TaskType;
 
 /**
- * A class that represents the Todo task.
+ * Class for the Todo task.
  */
 public class Todo extends Task {
     private static final String TODO_SAVE_FILE_FORMAT = "T | %d | %s";
     private static final String TODO_DISPLAY_FORMAT = "[T] %s";
+
     /**
-     * Constructor for the Todo class.
+     * Creates a new Todo instance.
      *
      * @param description Description of the task.
      * @param isDone Marks whether the task has been done.

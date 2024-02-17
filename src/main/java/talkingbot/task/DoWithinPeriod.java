@@ -14,7 +14,7 @@ public class DoWithinPeriod extends Task {
     private final LocalDateTime endTime;
 
     /**
-     * A constructor for the DoWithinPeriod class.
+     * Creates a new DoWithinPeriod instance.
      *
      * @param description Description of the task.
      * @param isDone Marks whether the task has been done.

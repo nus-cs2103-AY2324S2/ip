@@ -14,14 +14,14 @@ public class TaskList {
     private final ArrayList<Task> tasks;
 
     /**
-     * Constructor for the TaskList class.
+     * Creates a new TaskList instance.
      */
     public TaskList() {
         this(new ArrayList<>());
     }
 
     /**
-     * Constructor for the TaskList class with a predefined list of tasks.
+     * Creates a new TaskList instance with a predefined list of tasks.
      *
      * @param tasks ArrayList of Tasks to be put initially.
      */

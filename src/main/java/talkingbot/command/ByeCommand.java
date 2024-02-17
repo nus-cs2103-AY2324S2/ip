@@ -6,12 +6,12 @@ import talkingbot.util.TaskList;
 import talkingbot.util.Ui;
 
 /**
- * A class that represents the "bye" command entered by the user.
+ * Class that represents the "bye" command entered by the user.
  */
 public class ByeCommand extends Command {
 
     /**
-     * Constructor for the ByeCommand class.
+     * Creates a new ByeCommand instance.
      *
      * @param commandArr String array containing the command.
      */

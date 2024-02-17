@@ -27,7 +27,7 @@ public class Ui {
 
 
     /**
-     * Constructor for the Ui class.
+     * Creates a new Ui instance.
      */
     public Ui() {}
 

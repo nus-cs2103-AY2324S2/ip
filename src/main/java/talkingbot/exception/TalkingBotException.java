@@ -7,7 +7,7 @@ package talkingbot.exception;
 public class TalkingBotException extends Exception {
 
     /**
-     * Constructor for the TalkingBotException class.
+     * Creates a new TalkingBotException instance.
      *
      * @param errorMessage String indicating the error message.
      */

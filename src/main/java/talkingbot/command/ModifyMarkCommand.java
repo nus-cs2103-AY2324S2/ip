@@ -6,13 +6,13 @@ import talkingbot.util.TaskList;
 import talkingbot.util.Ui;
 
 /**
- * A class that represents both the "mark" and "unmark" commands
+ * Class that represents both the "mark" and "unmark" commands
  * entered by the user.
  */
 public class ModifyMarkCommand extends Command {
 
     /**
-     * Constructor for the ModifyMarkCommand class.
+     * Creates a new ModifyCommand instance.
      *
      * @param commandArr String array containing the command.
      */

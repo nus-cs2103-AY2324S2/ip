@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 import talkingbot.logic.TalkingBot;
 
 /**
- * Window class for the GUI of the application.
+ * Class for the main window of the application.
  */
 public class Window extends AnchorPane {
 

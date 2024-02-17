@@ -3,11 +3,12 @@ package talkingbot;
 import javafx.application.Application;
 
 /**
- * Launcher class for the GUI.
+ * Class for the GUI launcher.
  */
 public class Launcher {
     /**
-     * Main method for the whole application.
+     * Launches the application.
+     *
      * @param args Arguments to be passed.
      */
     public static void main(String[] args) {

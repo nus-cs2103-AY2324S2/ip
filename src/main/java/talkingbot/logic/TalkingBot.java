@@ -18,7 +18,7 @@ public class TalkingBot {
     private boolean isRunning = true;
 
     /**
-     * Constructor for the TalkingBot class.
+     * Constructs a new TalkingBot object with a given fileName.
      *
      * @param fileName Path to text file saving the list of tasks.
      */
@@ -34,7 +34,7 @@ public class TalkingBot {
     }
 
     /**
-     * Zero-argument constructor for TalkingBot.
+     * Constructs a new TalkingBot instance.
      */
     public TalkingBot() {
         this(FILE_PATH);

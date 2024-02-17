@@ -5,13 +5,13 @@ import talkingbot.util.TaskList;
 import talkingbot.util.Ui;
 
 /**
- * An abstract class that represents any command, both valid and invalid.
+ * Class (abstract) that represents any command, both valid and invalid.
  */
 public abstract class Command {
     private final String[] commandArr;
 
     /**
-     * Constructor for the Command class.
+     * Creates a new  for the Command class.
      *
      * @param commandArr String array containing the command.
      */
@@ -29,7 +29,7 @@ public abstract class Command {
     }
 
     /**
-     * Abstract method used in subclasses to run a certain command.
+     * Runs command (in subclasses) and returns a resulting String.
      *
      * @param tasks List of tasks.
      * @param saveFile Abstraction for a file.

@@ -6,12 +6,12 @@ import talkingbot.util.TaskList;
 import talkingbot.util.Ui;
 
 /**
- * A class that represents the "save" command entered by the user.
+ * Class that represents the "save" command entered by the user.
  */
 public class SaveCommand extends Command {
 
     /**
-     * Constructor for the SaveCommand class.
+     * Creates a new SaveCommand instance.
      *
      * @param commandArr String array containing the command.
      */
