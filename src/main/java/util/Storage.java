@@ -39,42 +39,52 @@ public class Storage {
                 boolean success = newFile.createNewFile();
             }
             FileWriter fw = new FileWriter(FILE_PATH);
-
-            for (int i = 1; i <= taskList.getSize(); i++) {
-                Task currentTask = taskList.getTask(i);
-                String type = currentTask.getType();
-                int isDone = 0;
-                if (currentTask.isDone()) {
-                    isDone = 1;
-                }
-
-                switch (type) {
-                case "todo": {
-                    fw.write(type + "|" + isDone + "|" + currentTask.getDescription());
-                    break;
-                }
-                case "event": {
-                    Event currentEvent = (Event) currentTask;
-                    fw.write(type + "|" + isDone + "|" + currentEvent.getDescription() + "|"
-                            + currentEvent.getFrom() + "|" + currentEvent.getTo());
-                    break;
-                }
-                case "deadline": {
-                    Deadline currentDeadline = (Deadline) currentTask;
-                    fw.write(type + "|" + isDone + "|" + currentDeadline.getDescription() + "|"
-                            + currentDeadline.getBy());
-                    break;
-                }
-                default: {
-                    throw new IOException();
-                }
-                }
-                fw.write(System.lineSeparator());
-            }
-            fw.close();
+            saveAllTasks(fw, taskList);
         } catch (IOException io) {
             System.out.println("Error saving file to disk. Exiting...");
         }
+    }
+
+    /**
+     * Writes all tasks from the provided task list to the given FileWriter object.
+     *
+     * @param fw        The FileWriter object used to write task data to a file.
+     * @param taskList  The task list containing tasks to be saved.
+     * @throws IOException If an error occurs while writing the task data.
+     */
+    public void saveAllTasks(FileWriter fw, TaskList taskList) throws IOException {
+        for (int i = 1; i <= taskList.getSize(); i++) {
+            Task currentTask = taskList.getTask(i);
+            String type = currentTask.getType();
+            int isDone = 0;
+            if (currentTask.isDone()) {
+                isDone = 1;
+            }
+
+            switch (type) {
+            case "todo": {
+                fw.write(type + "|" + isDone + "|" + currentTask.getDescription());
+                break;
+            }
+            case "event": {
+                Event currentEvent = (Event) currentTask;
+                fw.write(type + "|" + isDone + "|" + currentEvent.getDescription() + "|"
+                        + currentEvent.getFrom() + "|" + currentEvent.getTo());
+                break;
+            }
+            case "deadline": {
+                Deadline currentDeadline = (Deadline) currentTask;
+                fw.write(type + "|" + isDone + "|" + currentDeadline.getDescription() + "|"
+                        + currentDeadline.getBy());
+                break;
+            }
+            default: {
+                throw new IOException();
+            }
+            }
+            fw.write(System.lineSeparator());
+        }
+        fw.close();
     }
 
     /**
@@ -94,53 +104,65 @@ public class Storage {
             }
             Scanner sc = new Scanner(newFile);
 
-            while (sc.hasNext()) {
-                String next = sc.nextLine();
-                String[] taskArr = next.split("\\|");
-                String type = taskArr[0];
-                String description = taskArr[2];
-
-                Task newTask = new Task();
-
-                switch (type) {
-                case "todo": {
-                    newTask = new ToDo(description);
-                    break;
-                }
-                case "deadline": {
-                    String by = taskArr[3];
-
-                    LocalDate byParsedDate = LocalDate.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
-                    newTask = new Deadline(description, byParsedDate);
-                    break;
-                }
-                case "event": {
-                    String from = taskArr[3];
-                    String to = taskArr[4];
-
-                    LocalDate fromDate = LocalDate.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                    LocalDate toDate = LocalDate.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
-                    newTask = new Event(description, fromDate, toDate);
-                    break;
-                }
-                default: {
-                    throw new IOException();
-                }
-                }
-
-                int numDone = Integer.parseInt(taskArr[1]);
-                if (numDone == 1) {
-                    newTask.markAsDone();
-                }
-                taskList.addTask(newTask, true);
-            }
-
-            sc.close();
+            taskList = loadAllTasks(sc, taskList);
         } catch (IOException io) {
             System.out.println("Error retrieving data from disk. Exiting...");
         }
+        return taskList;
+    }
+
+    /**
+     * Loads all tasks from the provided scanner object and adds them to the task list.
+     * Tasks are parsed from the scanner's input according to the specified format.
+     *
+     * @param sc        The scanner object used to read task data from a file.
+     * @param taskList  The task list object to which tasks will be added.
+     * @return The task list containing the loaded tasks.
+     * @throws IOException If an error occurs while reading the task data.
+     */
+    public TaskList loadAllTasks(Scanner sc, TaskList taskList) throws IOException {
+        while (sc.hasNext()) {
+            String next = sc.nextLine();
+            String[] taskArr = next.split("\\|");
+            String type = taskArr[0];
+            String description = taskArr[2];
+            Task newTask = new Task();
+
+            switch (type) {
+            case "todo": {
+                newTask = new ToDo(description);
+                break;
+            }
+            case "deadline": {
+                String by = taskArr[3];
+
+                LocalDate byParsedDate = LocalDate.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+                newTask = new Deadline(description, byParsedDate);
+                break;
+            }
+            case "event": {
+                String from = taskArr[3];
+                String to = taskArr[4];
+
+                LocalDate fromDate = LocalDate.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                LocalDate toDate = LocalDate.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+                newTask = new Event(description, fromDate, toDate);
+                break;
+            }
+            default: {
+                throw new IOException();
+            }
+            }
+
+            int numDone = Integer.parseInt(taskArr[1]);
+            if (numDone == 1) {
+                newTask.markAsDone();
+            }
+            taskList.addTask(newTask, true);
+        }
+        sc.close();
         return taskList;
     }
 }
