@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 /**
  * Represents a dialog box that displays text and an image.
@@ -34,6 +35,12 @@ public class DialogBox extends HBox {
 
         // Set padding between ImageView and Label
         HBox.setMargin(text, new Insets(0, 10, 0, 10));
+
+        // Clip the ImageView into a circle
+        Circle clip = new Circle(50);
+        clip.centerXProperty().bind(displayPicture.fitWidthProperty().divide(2));
+        clip.centerYProperty().bind(displayPicture.fitHeightProperty().divide(2));
+        displayPicture.setClip(clip);
 
         this.setAlignment(Pos.TOP_RIGHT);
         this.getChildren().addAll(text, displayPicture);
