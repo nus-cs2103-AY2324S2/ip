@@ -34,7 +34,7 @@ public class Task {
     public String mark(Ui ui) {
         assert ui != null;
         isDone = true;
-        return ui.sayTaskMarked(this);
+        return ui.displayTaskMarked(this);
     }
 
     /**
@@ -44,7 +44,7 @@ public class Task {
     public String unmark(Ui ui) {
         assert ui != null;
         isDone = false;
-        return ui.sayTaskUnmarked(this);
+        return ui.displayTaskUnmarked(this);
     }
 
     public boolean hasKeywords(String keywords) {

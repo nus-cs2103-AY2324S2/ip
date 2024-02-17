@@ -30,7 +30,7 @@ public class List {
         assert ui != null;
         tasks.add(task);
         storage.saveTasks(this);
-        return ui.sayTaskAdded(task, tasks.size());
+        return ui.displayTaskAdded(task, tasks.size());
     }
 
     /**
@@ -48,7 +48,7 @@ public class List {
         Task task = tasks.get(taskNum);
         tasks.remove(taskNum);
         storage.saveTasks(this);
-        return ui.sayTaskDeleted(task, tasks.size());
+        return ui.displayTaskDeleted(task, tasks.size());
     }
 
     /**

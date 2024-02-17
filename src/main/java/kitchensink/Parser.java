@@ -46,7 +46,7 @@ public class Parser {
             }
             assert input.equals("bye") || input.equals("Bye") || input.equals("bYe") || input.equals("byE")
                     || input.equals("BYe") || input.equals("ByE") || input.equals("bYE") || input.equals("BYE");
-            return ui.sayGoodBye();
+            return ui.displayGoodBye();
         case "list":
             if (!input.equalsIgnoreCase("list")) {
                 return new InvalidSyntaxException("list").toString();
