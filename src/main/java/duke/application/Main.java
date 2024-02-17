@@ -38,6 +38,7 @@ public class Main extends Application {
 
             TaskList taskList = new TaskList();
             Parser parser = new Parser();
+            Storage.loadFile(taskList.getTaskList());
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);

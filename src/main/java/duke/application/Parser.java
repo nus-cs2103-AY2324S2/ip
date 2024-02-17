@@ -189,7 +189,7 @@ public class Parser {
     private static String handleRemove(String input, TaskList taskList) {
         String[] splitParts = input.split(" ");
         if (splitParts.length < 2) {
-            System.out.println("Please specify which task number you want to remove!");
+            System.out.println("Please specify which task number you want to delete!");
         }
         try {
             int index = Integer.parseInt(splitParts[1]) - 1;
@@ -199,7 +199,7 @@ public class Parser {
         } catch (IndexOutOfBoundsException e) {
             Ui.showErrorMessage("Invalid task number. Please refer to your to-do list again.");
         }
-        return Ui.showErrorMessage("Invalid input format for remove.");
+        return Ui.showErrorMessage("Invalid input format for delete.");
     }
 
     public String findItems(String input, TaskList tasks) {

@@ -21,7 +21,7 @@ public class Duke {
         ui = new Ui();
         taskList = new TaskList();
         parser = new Parser();
-        Storage.createFolder();
+        //Storage.createFolder();
         Storage.loadFile(taskList.getTaskList());
         //mainWindow.showLoadedTasks();
     }

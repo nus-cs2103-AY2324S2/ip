@@ -36,11 +36,11 @@ public class Ui {
      * @param message The error message to be displayed.
      */
     public static String showErrorMessage(String message) {
-        return "Error: " + message + "':\n";
+        return "Error: " + message + "\n";
     }
 
     /**
-     * Displays the list of tasks.
+     * Displays the list of tasks    .
      *
      * @param tasks ArrayList of tasks to be displayed.
      * @return The user's input as a String.
