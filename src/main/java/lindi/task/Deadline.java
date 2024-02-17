@@ -22,7 +22,7 @@ public class Deadline extends Task {
             this.by = LocalDateTime.parse(by, Task.SAVE_LOAD_DATETIME_FORMAT);
         } catch (DateTimeParseException e) {
             throw new CreateDeadlineException(String.format("Deadline /by argument in the wrong format. Use "
-                    + "format '%s' instead. Not saving seconds and below :)", Task.SAVE_LOAD_DATETIME_FORMAT));
+                    + "format '%s' instead. Not saving seconds and below :)", Task.SAVE_LOAD_DT_FORMAT_STRING));
         }
     }
 
