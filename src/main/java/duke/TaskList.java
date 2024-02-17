@@ -31,7 +31,7 @@ public class TaskList {
      */
     public void addTask(Task task) {
         tasks.add(task);
-        storage.saveToFile(i, tasks); //index?
+        storage.saveToFile(tasks.size(), tasks); //index?
         i++;
     }
     /**

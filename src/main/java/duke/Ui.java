@@ -4,6 +4,7 @@ package duke;
  * Handles interactions with the user
  */
 public class Ui {
+    private String response;
     /**
      * Prints the list of tasks to the console.
      *
@@ -24,5 +25,21 @@ public class Ui {
      */
     public void printMessage(String msg) {
         System.out.println(msg);
+    }
+    /**
+     * Sets the response generated during the execution of user input.
+     *
+     * @param response The response to be set.
+     */
+    public void setResponse(String response) {
+        this.response = response;
+    }
+    /**
+     * Retrieves the response generated during the execution of user input.
+     *
+     * @return The stored response.
+     */
+    public String getResponse() {
+        return response;
     }
 }
