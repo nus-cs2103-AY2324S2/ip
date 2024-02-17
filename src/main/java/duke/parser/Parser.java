@@ -10,6 +10,7 @@ import duke.commands.ExitCommand;
 import duke.commands.FindCommand;
 import duke.commands.ListCommand;
 import duke.commands.MarkCommand;
+import duke.commands.UndoCommand;
 import duke.data.exception.DukeException;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -65,7 +66,7 @@ public class Parser {
      * @return Command object.
      * @throws DukeException  If unknown command was given.
      */
-    public static Command parse(String fullCmd) throws DukeException {
+    public static Command parse(String fullCmd, Command lastCommand) throws DukeException {
         String cmd = fullCmd.split(" ")[0]; // eg. [cmd, ..]
         switch (cmd) {
         case "bye":
@@ -86,6 +87,8 @@ public class Parser {
             return parseDelete(fullCmd);
         case "find":
             return parseFind(fullCmd);
+        case "undo":
+            return new UndoCommand(lastCommand);
         default:
             throw new DukeException("Sorry, what do you mean?\n");
         }

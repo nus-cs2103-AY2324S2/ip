@@ -25,4 +25,14 @@ public class AddCommand extends Command {
             throw new DukeException(e.getMessage());
         }
     }
+    @Override
+    public String undo(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        if (super.getIsUnDone()) {
+            return "Last command was already undone";
+        } else {
+            super.setUnDone();
+            new DeleteCommand(tasks.getNumTasks()).execute(tasks, ui, storage);
+            return "Undo-ed last add";
+        }
+    }
 }
