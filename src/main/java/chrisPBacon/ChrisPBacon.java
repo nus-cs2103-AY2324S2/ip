@@ -1,6 +1,6 @@
-package seedu.chrisPBacon;
+package chrisPBacon;
 
-import seedu.task.TaskList;
+import task.TaskList;
 
 
 import java.io.FileNotFoundException;
@@ -10,7 +10,7 @@ import java.io.FileNotFoundException;
  *  ChrisP Bacon is a chatbot that manages the user's list of tasks.
  */
 public class ChrisPBacon {
-    private final seedu.chrisPBacon.Storage storage;
+    private final Storage storage;
     private TaskList tasks;
 
     /**

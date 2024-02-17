@@ -1,4 +1,4 @@
-package seedu.exceptions;
+package exceptions;
 
 /**
  * Handles general exceptions such as invalid command words.

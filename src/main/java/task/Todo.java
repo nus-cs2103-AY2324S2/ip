@@ -1,4 +1,4 @@
-package seedu.task;
+package task;
 
 /**
  * Todos are tasks without any date/time attached to it.

@@ -1,4 +1,4 @@
-package seedu.exceptions;
+package exceptions;
 
 /**
  * Handles errors generated when added tasks.

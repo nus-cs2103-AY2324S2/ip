@@ -1,4 +1,4 @@
-package seedu.task;
+package task;
 
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +28,7 @@ public class TaskListTest {
         Task deletedTask = sampleList.getTask(0);
         sampleList.deleteTask(0);
         // Test if task 1 is indeed deleted.
-        assertFalse(sampleList.getTasks().contains(deletedTask));
+        assertFalse(sampleList.getTaskList().contains(deletedTask));
     }
 
     @Test
@@ -38,7 +38,7 @@ public class TaskListTest {
         Task taskToAdd = new Todo("buy milk");
         sampleList.addTask(taskToAdd);
         // Test if the todo task is indeed added to the list.
-        assertTrue(sampleList.getTasks().contains(taskToAdd));
+        assertTrue(sampleList.getTaskList().contains(taskToAdd));
     }
 
     @Test
