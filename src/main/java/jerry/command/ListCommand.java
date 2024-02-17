@@ -1,7 +1,7 @@
-package Jerry.command;
+package jerry.command;
 
-import Jerry.TaskList;
-import Jerry.Ui;
+import jerry.TaskList;
+import jerry.Ui;
 
 public class ListCommand extends Command {
     public ListCommand(Ui ui, TaskList tasks) {

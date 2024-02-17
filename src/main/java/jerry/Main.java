@@ -1,4 +1,4 @@
-package Jerry;
+package jerry;
 
 import java.io.IOException;
 
@@ -12,8 +12,7 @@ import javafx.stage.Stage;
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
-
-    private Jerry jerry = new Jerry();
+    private final Jerry jerry = new Jerry();
 
     @Override
     public void start(Stage stage) {

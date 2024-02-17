@@ -1,10 +1,11 @@
-package Jerry;
+package jerry;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 /**
- * Represents a collection of tasks in the chatbot application. Provides methods to manipulate tasks, such as adding, deleting, and listing tasks.
+ * Represents a collection of tasks in the chatbot application.
+ * Provides methods to manipulate tasks, such as adding, deleting, and listing tasks.
  */
 public class TaskList {
     private final ArrayList<Task> tasks;

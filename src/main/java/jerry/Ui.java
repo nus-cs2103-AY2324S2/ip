@@ -1,4 +1,4 @@
-package Jerry;
+package jerry;
 
 import java.util.ArrayList;
 import java.util.Scanner;

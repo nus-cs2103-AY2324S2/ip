@@ -1,14 +1,14 @@
-package Jerry;
+package jerry;
 
-import Jerry.command.*;
+import jerry.command.*;
 
 /**
  * The Parser class is responsible for interpreting user input into commands that the chatbot can execute.
  * It parses the input string and returns a Command object corresponding to the user's request.
  */
 public class Parser {
-    private Ui ui;
-    private TaskList taskList;
+    private final Ui ui;
+    private final TaskList taskList;
 
     /**
      * Constructs a Parser instance for interpreting user commands.
@@ -21,7 +21,8 @@ public class Parser {
 
     /**
      * Parses the given input string into a specific Command object.
-     * The method determines the type of command based on the input and constructs an instance of the corresponding command class.
+     * The method determines the type of command based on the input and
+     * constructs an instance of the corresponding command class.
      *
      * @param input The raw input string from the user.
      * @return A Command object representing the user's command.

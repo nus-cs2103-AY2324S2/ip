@@ -1,4 +1,4 @@
-package Jerry;
+package jerry;
 
 /**
  * Represents a to-do task in the chatbot application. A to-do task is a basic task with a description.

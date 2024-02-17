@@ -1,13 +1,12 @@
-package Jerry.command;
+package jerry.command;
 
-import Jerry.Task;
-import Jerry.TaskList;
-import Jerry.Ui;
+import jerry.TaskList;
+import jerry.Ui;
 
-public class DeleteCommand extends Command {
-    private int taskIndex;
+public class UnmarkCommand extends Command {
+    private final int taskIndex;
 
-    public DeleteCommand(Ui ui, TaskList tasks, int taskIndex) {
+    public UnmarkCommand(Ui ui, TaskList tasks, int taskIndex) {
         super(ui, tasks);
         assert tasks != null : "TaskList should not be null";
         this.taskIndex = taskIndex;
@@ -16,8 +15,8 @@ public class DeleteCommand extends Command {
     @Override
     public String execute() {
         try {
-            Task removedTask = tasks.deleteTask(taskIndex);
-            return ui.showDelete(tasks, removedTask);
+            tasks.unmark(taskIndex);
+            return ui.showUnmark(tasks, taskIndex);
         } catch (IndexOutOfBoundsException e) {
             return ui.showMessage("Task index is out of bounds.");
         } catch (Exception e) {

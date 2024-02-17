@@ -1,13 +1,13 @@
-package Jerry.command;
+package jerry.command;
 
-import Jerry.Task;
-import Jerry.TaskList;
-import Jerry.Ui;
+import jerry.Task;
+import jerry.TaskList;
+import jerry.Ui;
 
 import java.util.ArrayList;
 
 public class FindCommand extends Command {
-    private String keyword;
+    private final String keyword;
 
     public FindCommand(Ui ui, TaskList tasks, String keyword) {
         super(ui, tasks);

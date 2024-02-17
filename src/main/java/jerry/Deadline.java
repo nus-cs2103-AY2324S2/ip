@@ -1,11 +1,12 @@
-package Jerry;
+package jerry;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Represents a deadline task in the chatbot application. A deadline task is a task that needs to be done before a specific date/time.
+ * Represents a deadline task in the chatbot application.
+ * A deadline task is a task that needs to be done before a specific date/time.
  */
 public class Deadline extends Task {
     private LocalDate by;
