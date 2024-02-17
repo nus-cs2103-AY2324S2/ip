@@ -8,22 +8,28 @@ import java.util.ArrayList;
 
 public class Storage {
 
-    static String filepath = "data/";
-    static String filename = "tasklist.ser";
+    private final String filepath;
+    private final String filename;
+
+    public Storage(String fileLocation) {
+
+        this.filepath = extractFilePath(fileLocation);
+        this.filename = extractFileName(fileLocation);
+    }
 
     /**
      * Creates a storage file if it does not exist.
      * @throws IOException, SecurityException
      */
-    private static void createStorageIfNotExists() throws IOException, SecurityException{
-        File path = new File(filepath);
+    private void createStorageIfNotExists() throws IOException, SecurityException {
+        File path = new File(this.filepath);
 
         //create the directory if it does not exist
         if (!path.exists()) {
             boolean created = path.mkdirs();
         }
 
-        File file = new File(filepath + filename);
+        File file = new File(this.filepath + this.filename);
         boolean fileExists = file.exists();
 
         //save an empty task list to the file if it does not exist
@@ -37,8 +43,8 @@ public class Storage {
      * Deletes the storage file if it exists.
      * @throws SecurityException
      */
-    public static void deleteStorage() throws SecurityException{
-        File file = new File(filepath + filename);
+    public void deleteStorage() throws SecurityException {
+        File file = new File(this.filepath + this.filename);
 
         boolean fileExists = file.exists();
 
@@ -48,7 +54,7 @@ public class Storage {
     }
 
 
-    public static void saveTasks(TaskList taskList) throws IOException, SecurityException{
+    public void saveTasks(TaskList taskList) throws IOException, SecurityException {
         try{
             FileOutputStream fos = new FileOutputStream(filepath + filename);
             java.io.ObjectOutputStream oos = new java.io.ObjectOutputStream(fos);
@@ -67,7 +73,7 @@ public class Storage {
      * @throws IOException, ClassNotFoundException, SecurityException
      */
     @SuppressWarnings("unchecked") //safe as only ArrayList<Task> is written to the file
-    public static TaskList loadTasks() throws IOException, ClassNotFoundException, SecurityException {
+    public TaskList loadTasks() throws IOException, ClassNotFoundException, SecurityException {
         createStorageIfNotExists();
 
         ArrayList<Task> list = new ArrayList<>();
@@ -89,8 +95,25 @@ public class Storage {
 
     public static void main(String[] args) throws IOException, SecurityException, ClassNotFoundException {
 
-        TaskList ls2 = loadTasks();
+        Storage s = new Storage("data/tasks.ser");
+        TaskList ls2 = s.loadTasks();
         System.out.println(ls2);
 
+    }
+
+    private String extractFilePath(String fileLocation) {
+        String f = fileLocation.trim();
+        String[] parts = f.split("/");
+        String path = "";
+        for (int i = 0; i < parts.length - 1; i++) {
+            path += parts[i] + "/";
+        }
+        return path;
+    }
+
+    private String extractFileName(String fileLocation) {
+        String f = fileLocation.trim();
+        String[] parts = f.split("/");
+        return parts[parts.length - 1];
     }
 }

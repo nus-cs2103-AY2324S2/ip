@@ -13,6 +13,7 @@ import java.util.Scanner;
 public class  Dude {
 
     private static TaskList taskList = null;
+    private static Storage storage = new Storage("data/tasklist.ser");
 
     static final String[] supported_commands = {"bye", "list", "mark", "unmark", "todo", "event", "deadline", "delete"};
 
@@ -32,11 +33,11 @@ public class  Dude {
 
 
         try {
-            taskList = Storage.loadTasks();
+            taskList = storage.loadTasks();
         }
         catch (Exception e){
             System.out.println(echo("An error occurred while loading the tasks. Deleting the storage and starting with an empty task list."));
-            Storage.deleteStorage();
+            storage.deleteStorage();
             taskList = new TaskList();
         }
 
@@ -88,7 +89,7 @@ public class  Dude {
 
             if (isCommandChangingState(command)) {
                 try {
-                    Storage.saveTasks(taskList);
+                    storage.saveTasks(taskList);
                 } catch (Exception e) {
                     System.out.println(echo("An error occurred while saving the tasks."));
                 }
