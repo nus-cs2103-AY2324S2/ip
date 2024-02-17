@@ -68,6 +68,7 @@ public class Duke {
      * Exits the bot. The data will be saved to the data file.
      */
     public void exit() {
+        assert state.isExit() : "The bot should be in the exit state.";
         try {
             storage.save(list);
         } catch (StorageSaveException e) {
