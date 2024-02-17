@@ -60,6 +60,9 @@ public class TaskList {
      * @param index The specified index given by the user.
      */
     public String deleteTask(int index) {
+        assert index > 0 : "Index cannot be less than 1";
+        assert index < count : "Index cannot be more than valid tasks";
+
         Task removedTask = taskList.remove(index - 1);
         count--;
 
@@ -119,6 +122,8 @@ public class TaskList {
      * @param taskNo The task number to retrieve the task.
      */
     public String markDoneAtInd(int taskNo) {
+        assert taskNo > 0 : "Index cannot be less than 1";
+        assert taskNo < count : "Index cannot be more than valid tasks";
         Task currentTask = this.getTask(taskNo);
         currentTask.markAsDone();
         this.setTask(currentTask, taskNo);
@@ -132,6 +137,8 @@ public class TaskList {
      * @param taskNo The task number to retrieve the task.
      */
     public String markNotDoneAtInd(int taskNo) {
+        assert taskNo > 0 : "Index cannot be less than 1";
+        assert taskNo < count : "Index cannot be more than valid tasks";
         Task currentTask = this.getTask(taskNo);
         currentTask.markAsNotDone();
         this.setTask(currentTask, taskNo);
