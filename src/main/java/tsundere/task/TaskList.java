@@ -25,7 +25,7 @@ public class TaskList {
     public static String unmarkTask() throws GeneralException {
 
         if (TaskList.taskList.isEmpty()) {
-            throw new GeneralException("What you tryna unmark huh?");
+            throw new GeneralException("There's nothing to unmark here");
         }
         try {
             Task t = TaskList.taskList.get(Integer.parseInt(Parser.getName().substring(7, 8)) - 1);
@@ -33,7 +33,7 @@ public class TaskList {
                 return "You haven't even started this task dummy!";
             } else {
                 t.unMarkTask();
-                return t.toString();
+                return getListSize("unmarked", t);
             }
         } catch (NumberFormatException e) {
             throw new GeneralException("Can't you even remember the proper format for this?\n"
@@ -53,15 +53,15 @@ public class TaskList {
     public static String markTask() throws GeneralException {
 
         if (TaskList.taskList.isEmpty()) {
-            throw new GeneralException("What you tryna mark huh?");
+            throw new GeneralException("There's nothing to mark here!");
         }
         try {
             Task t = TaskList.taskList.get(Integer.parseInt(Parser.getName().substring(5, 6)) - 1);
             if (t.isDone) {
-                return "You already finished this!";
+                return "You already marked this!";
             } else {
                 t.markTaskAsDone();
-                return t.toString();
+                return getListSize("marked", t);
             }
         } catch (NumberFormatException e) {
             throw new GeneralException("Can't you even remember the proper format for this?\n"
@@ -81,7 +81,7 @@ public class TaskList {
     public static String deleteTask() throws GeneralException {
 
         if (TaskList.taskList.isEmpty()) {
-            throw new GeneralException("What you tryna delete huh?");
+            throw new GeneralException("There's nothing to delete here!");
         }
 
         try {
@@ -271,7 +271,7 @@ public class TaskList {
     }
 
     /**
-     * Prints number of Tasks in TaskList.
+     * Returns number of Tasks in TaskList.
      *
      * @return String containing number of Tasks left if any in the TaskList.
      */
@@ -279,7 +279,7 @@ public class TaskList {
         String response = "";
         int size = TaskList.taskList.size();
         response += "Noted...";
-        response += " " + t.toString() + " has been " + str + "\n";
+        response += " " + t.toString() + " has been " + str + ".\n";
 
         if (size > 0) {
             response += "Get to work! You still have " + size + " " + (size > 1 ? "tasks" : "task") + " left!";
@@ -288,5 +288,26 @@ public class TaskList {
         }
         return response;
 
+    }
+
+    /**
+     * Returns a list of all possible command.
+     *
+     * @return String containing all the command formats.
+     */
+    public static String listCommands() {
+        return "It's merely a coincidence I have the list of commands here...\n"
+                + "1. todo [task]\n"
+                + "2. event [task], from [ ], to [ ]\n"
+                + "3. deadline [task], by [yyyy-mm-dd]\n"
+                + "4. find [keyword]\n"
+                + "5. list\n"
+                + "6. mark [task no.]\n"
+                + "7. unmark [task no.]\n"
+                + "8. delete [task no.]\n"
+                + "9. tag [task no.] [tagname]\n"
+                + "10. untag [task no.] [tagname]\n"
+                + "11. help\n"
+                + "12. bye";
     }
 }

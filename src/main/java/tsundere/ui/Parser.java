@@ -44,8 +44,10 @@ public class Parser {
             return TaskList.untagTask();
         } else if (name.contains("tag")) {
             return TaskList.tagTask();
+        } else if (name.contains("help")) {
+            return TaskList.listCommands();
         } else {
-            return ("Don't talk to me!\nGive me proper instructions!");
+            return "Don't talk to me!\nGive me proper instructions!\n Hint: type \"help\"";
         }
 
     }
