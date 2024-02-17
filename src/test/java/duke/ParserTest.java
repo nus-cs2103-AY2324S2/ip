@@ -14,7 +14,8 @@ public class ParserTest {
             Parser.parse("what is this command");
             fail();
         } catch (InvalidCmdException ce) {
-            assertEquals("Unknown command, please try again.", ce.getMessage());
+            assertEquals("_____________!!!!_____________\n"
+                    + "Unknown command, please try again.", ce.getMessage());
         }
     }
 
@@ -24,7 +25,8 @@ public class ParserTest {
             Parser.parse("event project meeting /by Aug 6th /to Aug 7th");
             fail();
         } catch (InvalidCmdException ce) {
-            assertEquals("Missing parameter: /from", ce.getMessage());
+            assertEquals("_____________!!!!_____________\n"
+                    + "Missing parameter: /from", ce.getMessage());
         }
     }
 }

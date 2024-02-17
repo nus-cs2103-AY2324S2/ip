@@ -16,7 +16,8 @@ public class TaskListTest {
             tasks.addTask(null, "deadline", "testing title", "Oct 09 2024");
             fail();
         } catch (DukeException de) {
-            assertEquals(de.getMessage(), "Date not in format: yyyy-MM-dd, please try again.");
+            assertEquals(de.getMessage(), "_____________!!!!_____________\n"
+                    + "Date not in format: yyyy-MM-dd, please try again.");
         }
     }
 
@@ -26,7 +27,8 @@ public class TaskListTest {
             TaskList tasks = new TaskList();
             tasks.mark(null, "-1");
         } catch (DukeException de) {
-            assertEquals(de.getMessage(), "Index number cannot be out of bounds.");
+            assertEquals(de.getMessage(), "_____________!!!!_____________\n"
+                    + "Index number cannot be out of bounds.");
         }
     }
 }
