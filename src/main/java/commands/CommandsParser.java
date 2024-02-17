@@ -37,6 +37,7 @@ public class CommandsParser {
      * @throws RyanGoslingException If there is an issue with command parsing.
      */
     public String parseCommands(String taskInputByUser) throws RyanGoslingException {
+        PatternParser.inputSpacesChecker(taskInputByUser);
         String[] commandSplit = taskInputByUser.split(" ");
         switch (taskInputByUser) {
         case "bye":
@@ -49,16 +50,9 @@ public class CommandsParser {
         // Items are 0-indexed, unless otherwise stated.
         if (commandSplit[0].equals(String.valueOf(CommandsEnum.mark))
                 || commandSplit[0].equals(String.valueOf(CommandsEnum.unmark))) {
-            try {
-                String responseReturn = taskListManager.changeStatusOfItem(commandSplit[0],
-                                                                           Integer.parseInt(commandSplit[1]) - 1);
-                taskListManager.writeToFile(taskLoader);
-                return responseReturn;
-
-            } catch (Exception e) {
-                throw new RyanGoslingException("Wrong format! (un)mark <number>");
-            }
-
+            String responseReturn = taskListManager.changeStatusOfItem(commandSplit);
+            taskListManager.writeToFile(taskLoader);
+            return responseReturn;
         } else if (commandSplit[0].equals(String.valueOf(CommandsEnum.todo))) {
             return PatternParser.todoParser(taskInputByUser, taskListManager, taskLoader);
         } else if (commandSplit[0].equals(String.valueOf(CommandsEnum.deadline))) {

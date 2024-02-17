@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import datesandtimes.DateTimeParser;
+import exceptions.RyanGoslingBadFormatException;
+import exceptions.RyanGoslingDateTimeException;
+import exceptions.RyanGoslingException;
 import tasks.Task;
 
 /**
@@ -55,14 +58,23 @@ public class TaskList {
     /**
      * Changes the status (done or not done) of a task in the list.
      *
-     * @param taskAction The action to be performed (mark or unmark).
-     * @param indexOfTask  The index of the task in the list.
+     * @param commandSplit The list containing the supposed action and index.
      * @return A formatted string containing the status change printout.
      */
-    public String changeStatusOfItem(String taskAction, int indexOfTask) {
-        assert !(indexOfTask >= listOfTasks.size() || indexOfTask < 0) : "Invalid index range!";
-        assert taskAction.equals("mark") || taskAction.equals("unmark") : "Action should be either mark or unmark!";
-        return this.listOfTasks.get(indexOfTask).changeStatus(taskAction);
+    public String changeStatusOfItem(String[] commandSplit) throws RyanGoslingException {
+        //String[] commandSplit = taskInputByUser.split(" ");
+        if (commandSplit.length != 2) {
+            throw new RyanGoslingBadFormatException("Wrong format! (un)mark <number>");
+        }
+        try {
+            String taskAction = commandSplit[0];
+            assert taskAction.equals("mark") || taskAction.equals("unmark") : "Action should be either mark or unmark!";
+
+            int indexOfTask = Integer.parseInt(commandSplit[1]) - 1;
+            return this.listOfTasks.get(indexOfTask).changeStatus(taskAction);
+        } catch (IndexOutOfBoundsException e) {
+            throw new RyanGoslingBadFormatException("Index out of bounds! Not so cash money of you");
+        }
     }
 
     /**
