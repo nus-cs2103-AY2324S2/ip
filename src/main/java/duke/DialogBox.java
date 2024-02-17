@@ -44,6 +44,7 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+        this.setStyle("-fx-background-color: #ECCFE8FF;"); // Set background color here
     }
 
     /**
