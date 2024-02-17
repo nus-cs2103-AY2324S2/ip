@@ -23,7 +23,7 @@ public class MainWindow extends AnchorPane {
     private Maltese maltese;
 
     private Image user = new Image(this.getClass().getResourceAsStream("/images/maltese1.png"));
-    private Image maltese2 = new Image(this.getClass().getResourceAsStream("/images/maltese2.png"));
+    private Image owner = new Image(this.getClass().getResourceAsStream("/images/maltese2.png"));
     /**
      * Initializes the controller after its root element has been completely processed.
      * This method is called automatically by JavaFX after the root element has been
@@ -36,7 +36,7 @@ public class MainWindow extends AnchorPane {
 
         String message = "Hello I'm NoisyChatter! What can I do for you?";
         Image image = new Image(getClass().getResourceAsStream("/images/maltese2.png"));
-        DialogBox dialogBox = DialogBox.getmalteseDialog(message, image);
+        DialogBox dialogBox = DialogBox.getMalteseDialog(message, image);
         dialogContainer.getChildren().add(dialogBox);
     }
 
@@ -46,7 +46,8 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing maltese's reply and then appends them to
+     * Creates two dialog boxes, one echo user input and the other containing maltese's reply and
+     * then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -55,7 +56,7 @@ public class MainWindow extends AnchorPane {
         String response = maltese.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, user),
-                DialogBox.getmalteseDialog(response, maltese2)
+                DialogBox.getMalteseDialog(response, owner)
         );
         userInput.clear();
     }

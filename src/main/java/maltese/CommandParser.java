@@ -1,7 +1,14 @@
 package maltese;
 
 
-import maltese.action.*;
+import maltese.action.Action;
+import maltese.action.Delete;
+import maltese.action.Farewell;
+import maltese.action.Help;
+import maltese.action.Mark;
+import maltese.action.Match;
+import maltese.action.TaskList;
+import maltese.action.Unmark;
 import maltese.exception.MalteseException;
 import maltese.exception.UnknownCommandException;
 import maltese.task.Deadline;

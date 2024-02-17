@@ -34,10 +34,9 @@ public class Maltese extends Application {
     private Button sendButton;
     private Scene scene;
     private Image user = new Image(this.getClass().getResourceAsStream("/images/maltese1.png"));
-    private Image maltese = new Image(this.getClass().getResourceAsStream("/images/maltese2.png"));
+    private Image owner = new Image(this.getClass().getResourceAsStream("/images/maltese2.png"));
 
     public Maltese() {
-        // ...
     }
 
     /**
@@ -61,7 +60,6 @@ public class Maltese extends Application {
      * Runs the maltese application, prompting the user for commands and executing them until the exit command is given.
      */
     public void run() {
-        //ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
             String command = ui.getUserInput();
@@ -77,7 +75,6 @@ public class Maltese extends Application {
 
 
     String getResponse(String input) {
-        //ui.showWelcome();
         boolean isExit = false;
         try {
             String command = input;
@@ -99,7 +96,6 @@ public class Maltese extends Application {
 
     /**
      * The entry point for the maltese application.
-     *
      * @param args Command-line arguments (not used in this application).
      */
     public static void main(String[] args) {
@@ -142,7 +138,6 @@ public class Maltese extends Application {
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
 
-        //You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
         userInput.setPrefWidth(325.0);
@@ -158,7 +153,6 @@ public class Maltese extends Application {
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
         //Step 3. Add functionality to handle user input.
-        //Part 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> {
             handleUserInput();
         });
@@ -170,13 +164,11 @@ public class Maltese extends Application {
     }
 
     /**
-     * Iteration 1:
      * Creates a label with the specified text and adds it to the dialog container.
      * @param text String containing text to add
      * @return a label with the specified text that has word wrap enabled.
      */
     private Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
         Label textToAdd = new Label(text);
         textToAdd.setWrapText(true);
 
@@ -184,7 +176,6 @@ public class Maltese extends Application {
     }
 
     /**
-     * Iteration 2:
      * Creates two dialog boxes, one echoing user input and other containing maltese's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
@@ -193,7 +184,7 @@ public class Maltese extends Application {
         String malteseText = getResponse(userInput.getText());
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, user),
-                DialogBox.getmalteseDialog(malteseText, maltese)
+                DialogBox.getMalteseDialog(malteseText, owner)
         );
         userInput.clear();
     }

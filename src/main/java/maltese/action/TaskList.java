@@ -165,7 +165,6 @@ public class TaskList extends ArrayList<Task> implements Action, Iterable<Task> 
      */
     public static Action parse(TaskList taskList) { // hmm might think of another way
         if (taskList != null) {
-            //taskList.displayTasks();
             return taskList;
         } else {
             return new Echo("Task list is not initialized.");

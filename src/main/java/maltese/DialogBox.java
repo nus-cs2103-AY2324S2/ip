@@ -61,7 +61,7 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getmalteseDialog(String text, Image img) {
+    public static DialogBox getMalteseDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;

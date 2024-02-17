@@ -46,7 +46,7 @@ public class Delete implements Action {
      * @param command  The delete command to be parsed.
      * @param taskList The TaskList containing the tasks.
      * @return A Delete action with the specified indices.
-     * @throws MalteseException If an error occurs during parsing, such as missing indices or duplicate indices.
+     * @throws MalteseException If an error occurs during parsing.
      */
 
     public static Delete parse(String command, TaskList taskList) throws MalteseException {
