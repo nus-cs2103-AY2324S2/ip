@@ -161,6 +161,17 @@ public class Duke extends Application {
         );
         userInput.clear();
     }
+
+    /**
+     * Processes the given input using the application's logic and returns the response.
+     * This method encapsulates the error handling for the command processing, ensuring that
+     * any exceptions thrown during the command processing are caught and a user-friendly message
+     * is returned.
+     *
+     * @param input The user input to be processed.
+     * @return The response message after processing the input. If an exception occurs, returns an error message.
+     * @throws AssertionError if the input is null, indicating a contract violation as input should always be provided.
+     */
     public String getResponse(String input) {
         try {
             assert input != null : "Input should not be null";

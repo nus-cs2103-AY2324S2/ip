@@ -50,10 +50,29 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Creates a dialog box for user input.
+     * This method constructs a new DialogBox instance representing the user's input
+     * along with the user's avatar.
+     *
+     * @param text The text entered by the user.
+     * @param img The image representing the user's avatar.
+     * @return A DialogBox instance containing the user's text and image.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Creates a dialog box for Duke's response.
+     * This method constructs a new DialogBox instance representing Duke's reply
+     * along with Duke's avatar. The dialog box is flipped to distinguish Duke's responses
+     * from the user's input.
+     *
+     * @param text The text of Duke's response.
+     * @param img The image representing Duke's avatar.
+     * @return A DialogBox instance containing Duke's response and image, with the layout flipped.
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

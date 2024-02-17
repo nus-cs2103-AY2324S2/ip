@@ -33,6 +33,11 @@ public class MainWindow extends AnchorPane {
         displayWelcomeMessage();
     }
 
+    /**
+     * Sets the Duke instance for the MainWindow.
+     *
+     * @param d The Duke instance to be set.
+     */
     public void setDuke(Duke d) {
         duke = d;
     }
@@ -67,8 +72,9 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
-
-
+    /**
+     * Displays the welcome message from Duke when the application starts.
+     */
     public void displayWelcomeMessage() {
         String welcomeMessage = "Hello! I'm Lucifer\nWhat can I do for you?";
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeMessage, dukeImage));

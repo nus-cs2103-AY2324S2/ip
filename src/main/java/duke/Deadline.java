@@ -32,23 +32,6 @@ public class Deadline extends Task {
     }
 
     /**
-     * Parses a string representing a date and time into a LocalDateTime object.
-     *
-     * @param dateTimeStr The string to be parsed, expected to be in the format "d/M/yyyy HHmm".
-     * @return A LocalDateTime object representing the date and time, or else it will null if the string is not parsable.
-     * @throws DateTimeParseException if the text cannot be parsed.
-     */
-    public LocalDateTime parseDateTime(String dateTimeStr) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        try {
-            return LocalDateTime.parse(dateTimeStr, formatter);
-        } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format. Please use d/M/yyyy HHmm");
-            return null;
-        }
-    }
-
-    /**
      * Gets the end time of the deadline task.
      *
      * @return The end time of the deadline task.
