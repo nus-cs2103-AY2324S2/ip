@@ -51,7 +51,7 @@ public class Parser {
                     int tsk = Integer.parseInt(validDescription.split("/")[2]);
                     return tskLst.edit(descriptionCommand, descriptionDetails, tsk);
                 case("bye"):
-                System.exit(0);
+                    System.exit(0);
                 default:
                     throw new DukeException("OOPS!!! What is that?"
                         + "I'm sorry, but I don't recognise this command :-( \nTry another command!");

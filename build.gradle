@@ -48,8 +48,8 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
-    archiveFileName = "duke.jar"
+    archiveBaseName = "ylexi"
+    archiveFileName = "ylexi.jar"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
