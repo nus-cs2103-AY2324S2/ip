@@ -3,6 +3,7 @@ package irwyn.tasks;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 /**
@@ -135,5 +136,12 @@ public class TaskList {
      */
     public void unmark(int task) {
         storage.get(task).unmark();
+    }
+
+    /**
+     * Sorts the task list.
+     */
+    public void sort() {
+        Collections.sort(this.storage);
     }
 }

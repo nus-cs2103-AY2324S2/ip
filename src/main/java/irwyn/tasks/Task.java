@@ -7,7 +7,7 @@ package irwyn.tasks;
  * @author Irwyn Liong
  * @version Week-3
  */
-public class Task {
+public class Task implements Comparable<Task> {
     protected String description;
     protected boolean isDone;
 
@@ -94,4 +94,14 @@ public class Task {
                 + "Now you have " + numberList + " tasks in the list.\n";
     }
 
+    /**
+     * Method to compare this object with another object when sorting.
+     *
+     * @param otherTask The other task to compare to.
+     * @return Int to returned to indicate which string comes first lexicographically.
+     */
+    @Override
+    public int compareTo(Task otherTask) {
+        return this.toString().compareTo(otherTask.toString());
+    }
 }
