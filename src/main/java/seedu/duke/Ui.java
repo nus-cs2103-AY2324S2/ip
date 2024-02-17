@@ -92,19 +92,21 @@ public class Ui {
         return output.toString();
     }
 
-    public void searchThenPrintList(ArrayList<Task> list, String searchTerm) {
-        //add
-        printBreak();
-        System.out.println("Here are the matching tasks in your list:");
+    /**
+     * Represents printed output when <code>find</code> command is given
+     * Loop through the list to print out each <code>Task</code> and its
+     * description
+     * @param list Represents the list to be printed to system output.
+     * @param searchTerm Represents the search term to be used
+     * @return String to be printed
+     */
+    public String searchThenPrintList(ArrayList<Task> list, String searchTerm) {
+        StringBuilder output = new StringBuilder("Here are the matching tasks in your list:");
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).containsSearchTerm(searchTerm)) {
-                System.out.println(i + 1 + "." + list.get(i));
-                // won't be in order
-            }
-            else{
-                System.out.println("not found");
+                output.append("\n" + (i + 1) + "." + list.get(i).toString());
             }
         }
-        printBreak();
+        return output.toString();
     }
 }

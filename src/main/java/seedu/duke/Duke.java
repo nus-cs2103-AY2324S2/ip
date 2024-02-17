@@ -59,6 +59,8 @@ public class Duke {
             response = Parser.parseEvent(userInput, tasks, ui);
         } else if (userInput.startsWith("delete")) {
             response = Parser.parseDelete(userInput, tasks, ui);
+        } else if (userInput.startsWith("find")) {
+            response = Parser.parseFind(userInput, tasks, ui);
         } else {
             try {
                 throw new DukeException("Sorry, I didn't understand that.");

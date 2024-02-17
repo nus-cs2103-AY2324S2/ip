@@ -33,18 +33,13 @@ public class Task implements Serializable {
         isDone = false;
     }
 
-//    public boolean containsSearchTerm(String searchTerm) {
-//        //add
-//        return description.contains(searchTerm);
-//    }
-
-//    /**
-//     * Returns status <code>true/false</code> of <code>Task</code>.
-//     * @return Status of <code>Task</code> eg. <code>True/False</code>
-//     */
-//    public boolean getStatus() {
-//        return isDone;
-//    }
+    /**
+     * Returns description of <code>Task</code>.
+     * @return Description of <code>Task</code>
+     */
+    public boolean containsSearchTerm(String searchTerm) {
+        return description.contains(searchTerm);
+    }
 
     /**
      * Represents overridden toString method for printing <code>Task</code> details.
@@ -58,5 +53,4 @@ public class Task implements Serializable {
             return "[ ] " + description;
         }
     }
-
 }

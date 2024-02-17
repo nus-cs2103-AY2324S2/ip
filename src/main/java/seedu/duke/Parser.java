@@ -199,21 +199,27 @@ public class Parser {
         return output;
     }
 
-    public static void parseFind(String input, TaskList tasks, Ui ui) {
-        //add
-        String[] split = input.split(" ", 2);
-        String searchTerm = split[1];
-        System.out.println(searchTerm);
-        ui.searchThenPrintList(tasks.getList(), searchTerm);
-//        try {
-//            if (split.length < 2) {
-//                throw new DukeException("Here's the format I require: find [search term]");
-//            }
-//            String searchTerm = split[1];
-//            System.out.println(searchTerm);
-//            ui.searchThenPrintList(tasks.getList(), searchTerm);
-//        } catch (DukeException d){
-//            ui.printError(d);
-//        }
+    /**
+     * Parses input from user, specifically the <code>find</code> command,
+     * and interprets via the <code>TaskList</code> class to search for tasks.
+     * Prints out the actions taken back to user via the <code>Ui</code> class.
+     * @param input String written by user eg. <code>find book</code>
+     * @param tasks <code>TaskList</code> object containing list of tasks
+     * @param ui <code>Ui</code> object for printing actions
+     * @return String output
+     */
+    public static String parseFind(String input, TaskList tasks, Ui ui) {
+        String output = "";
+        String[] splitInput = input.split(" ");
+        try {
+            if (splitInput.length < 2) {
+                throw new DukeException("Here's the format I require: find [search term]");
+            }
+            String searchTerm = splitInput[1];
+            output = ui.searchThenPrintList(tasks.getList(), searchTerm);
+        } catch (DukeException d) {
+            output = ui.printError(d);
+        }
+        return output;
     }
 }
