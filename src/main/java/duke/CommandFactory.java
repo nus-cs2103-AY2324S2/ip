@@ -229,6 +229,34 @@ class CommandEvent implements Command {
     }
 }
 
+class CommandFixedDuration implements Command {
+
+    private static final String TASKS_SUMMARY_MESSAGE =
+        "Now you have %s tasks in the list.";
+    private static final String TODO_MESSAGE = "Got it. I've added this task:";
+    private String taskDesc;
+    private String duration;
+
+    public CommandFixedDuration(String taskDesc, String duration) {
+        this.taskDesc = taskDesc;
+        this.duration = duration;
+    }
+
+    public boolean execute(Consumer<String> reply, TaskList tasks) throws DukeException {
+        Task task = TaskFactory.createFixedDuration(taskDesc, duration, false);
+        tasks.addTask(task);
+        reply.accept(TODO_MESSAGE);
+        reply.accept(String.format("  %s", task));
+        reply.accept(String.format(TASKS_SUMMARY_MESSAGE, tasks.numberOfTask()));
+        return true;
+    }
+
+    public String toString() {
+        return String.format("%s:[%s | %s]",
+            this.getClass().getSimpleName(), taskDesc, duration);
+    }
+}
+
 /**
  * Creates objects that implements the Command interface
  */
@@ -268,5 +296,9 @@ public class CommandFactory {
 
     public static Command createEvent(String taskDesc, String fromTime, String toTime) {
         return new CommandEvent(taskDesc, fromTime, toTime);
+    }
+
+    public static Command createFixedDuration(String taskDesc, String duration) {
+        return new CommandFixedDuration(taskDesc, duration);
     }
 }

@@ -13,6 +13,9 @@ public abstract class Task {
     protected static final DateTimeFormatter DATETIME_PRINT_FORMAT = DateTimeFormatter.ofPattern(
         "MMM dd yyyy HH:mm"
     );
+    protected static final DateTimeFormatter LOCALTIME_FORMAT = DateTimeFormatter.ofPattern(
+        "HH:mm:ss"
+    );
     protected boolean done;
     protected TaskID id;
     protected String task;
