@@ -74,11 +74,8 @@ public class Storage {
             }
 
             saveFileBufferedWriter.close();
-        } catch (IOException e) {
-            ui.printKewgyText("An error occurred.");
-            e.printStackTrace();
-        } catch (KewgyException e) {
-            ui.printError(e.toString());
+        } catch (IOException | KewgyException e) {
+            ui.printError("An error occurred.\n" + e);
         }
     }
 
@@ -121,11 +118,8 @@ public class Storage {
             }
 
             saveFileBufferedWriter.close();
-        } catch (IOException e) {
-            ui.printKewgyText("An error occurred.");
-            e.printStackTrace();
-        } catch (KewgyException e) {
-            ui.printError(e.toString());
+        } catch (IOException | KewgyException e) {
+            ui.printError("An error occurred.\n" + e);
         }
     }
 
@@ -168,11 +162,8 @@ public class Storage {
             }
 
             saveFileBufferedWriter.close();
-        } catch (IOException e) {
-            ui.printKewgyText("An error occurred.");
-            e.printStackTrace();
-        } catch (KewgyException e) {
-            ui.printError(e.toString());
+        } catch (IOException | KewgyException e) {
+            ui.printError("An error occurred.\n" + e);
         }
     }
 
@@ -227,11 +218,8 @@ public class Storage {
             fileReader.close();
 
             return savedTasks;
-        } catch (IOException e) {
-            ui.printKewgyText("An error occurred.");
-            e.printStackTrace();
-        } catch (KewgyException e) {
-            ui.printError(e.toString());
+        } catch (IOException | KewgyException e) {
+            ui.printError("An error occurred.\n" + e);
         }
 
         return new ArrayList<>();
