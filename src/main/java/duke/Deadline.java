@@ -9,7 +9,6 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
     private String by; // Formatted due date string
-    private LocalDate dueDate; // The actual due date
 
     /**
      * Constructs a new Deadline task with the specified description, due date, and
@@ -21,7 +20,6 @@ public class Deadline extends Task {
      */
     Deadline(String description, LocalDate dueDate, String input) {
         super(description, input);
-        this.dueDate = dueDate;
         this.by = dueDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
@@ -40,18 +38,18 @@ public class Deadline extends Task {
      * Marks the Deadline task as done and prints a confirmation message.
      */
     @Override
-    public void markComplete() {
+    public String markComplete() {
         super.setComplete();
-        System.out.println("\tNice! I've marked this task as done:\n\t" + this.toString());
+        return "\tNice! I've marked this task as done:\n\t" + this.toString();
     }
 
     /**
      * Marks the Deadline task as not done and prints a confirmation message.
      */
     @Override
-    public void unmarkComplete() {
+    public String unmarkComplete() {
         super.setIncomplete();
-        System.out.println("\tOK, I've marked this task as not done yet:\n\t" + this.toString());
+        return "\tOK, I've marked this task as not done yet:\n\t" + this.toString();
     }
 
     /**

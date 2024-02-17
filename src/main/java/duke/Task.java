@@ -61,9 +61,9 @@ public abstract class Task {
     /**
      * Marks the task as done and prints a confirmation message.
      */
-    public void markComplete() {
+    public String markComplete() {
         this.setComplete();
-        System.out.println("\tNice! I've marked this task as done:\n\t" + this.getDetails());
+        return "\tNice! I've marked this task as done:\n\t" + this.getDetails();
     }
 
     /**
@@ -76,9 +76,9 @@ public abstract class Task {
     /**
      * Marks the task as not done and prints a confirmation message.
      */
-    public void unmarkComplete() {
+    public String unmarkComplete() {
         this.setIncomplete();
-        System.out.println("\tOK, I've marked this task as not done yet:\n\t" + this.getDetails());
+        return "\tOK, I've marked this task as not done yet:\n\t" + this.getDetails();
     }
 
     /**

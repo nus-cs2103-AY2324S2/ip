@@ -53,18 +53,18 @@ public class Event extends Task {
      * Marks the Event task as done and prints a confirmation message.
      */
     @Override
-    public void markComplete() {
+    public String markComplete() {
         super.setComplete();
-        System.out.println("\tNice! I've marked this task as done:\n\t" + this.toString());
+        return "\tNice! I've marked this task as done:\n\t" + this.toString();
     }
 
     /**
      * Marks the Event task as not done and prints a confirmation message.
      */
     @Override
-    public void unmarkComplete() {
+    public String unmarkComplete() {
         super.setIncomplete();
-        System.out.println("\tOK, I've marked this task as not done yet:\n\t" + this.toString());
+        return "\tOK, I've marked this task as not done yet:\n\t" + this.toString();
     }
 
     /**
