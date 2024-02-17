@@ -3,6 +3,7 @@ package commands;
 import exception.InvalidIndexException;
 import objects.Task;
 import objects.TaskList;
+import view.DeletedAllTasks;
 import view.DeletedTask;
 
 /**
@@ -12,7 +13,7 @@ import view.DeletedTask;
 public class DeleteTask implements Command {
 
     /** The TaskList from which the task will be deleted. */
-    private final TaskList tasks;
+    private TaskList tasks;
 
     /** The index of the task to be deleted. */
     private final int index;
@@ -37,13 +38,19 @@ public class DeleteTask implements Command {
      */
     @Override
     public String execute() throws InvalidIndexException {
-        if (this.index < 0 || this.index >= tasks.size()) {
+        if (this.index < -1 || this.index >= tasks.size()) {
             throw new InvalidIndexException();
         }
 
-        Task t = tasks.get(this.index);
-        tasks.remove(this.index);
+        if (index == -1) {
+            tasks.clear();
 
-        return DeletedTask.display(this.tasks, t);
+            return DeletedAllTasks.display();
+        } else {
+            Task t = tasks.get(this.index);
+            tasks.remove(this.index);
+
+            return DeletedTask.display(this.tasks, t);
+        }
     }
 }
