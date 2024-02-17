@@ -1,7 +1,7 @@
 package floofy.task;
 
-public class ToDos extends Task {
-    public ToDos(String description) {
+public class ToDo extends Task {
+    public ToDo(String description) {
         super(description);
     }
 

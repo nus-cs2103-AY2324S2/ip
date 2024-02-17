@@ -3,7 +3,7 @@ package floofy;
 import floofy.task.Deadline;
 import floofy.task.Event;
 import floofy.task.Task;
-import floofy.task.ToDos;
+import floofy.task.ToDo;
 
 import java.util.Scanner;
 import java.time.LocalDate;
@@ -50,7 +50,7 @@ public class Floofy {
                     continue;
                 case "todo":
                     String todoTask = input[1];
-                    ToDos newTodo = new ToDos(todoTask);
+                    ToDo newTodo = new ToDo(todoTask);
                     tasks.addTask(newTodo);
                     ui.showAddedTask(newTodo, tasks.size());
                     storage.saveTasks(tasks);
