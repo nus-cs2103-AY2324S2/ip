@@ -3,8 +3,6 @@ package teemo;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.List;
-
-import javafx.application.Application;
 /**
  * Instance of Duke class
  */
