@@ -9,6 +9,12 @@ public class MarkCommand extends Command {
         super(fullCommand, tasks);
     }
 
+    public void markAll(TaskList tasks) {
+        for (int i = 0; i < tasks.size(); i++) {
+            tasks.getTask(i).setDone();
+        }
+    }
+
     @Override
     public String execute() {
         try {
@@ -24,7 +30,10 @@ public class MarkCommand extends Command {
                     + " currently. Type \"list\" to view all your current "
                     + single;
         } catch (NumberFormatException err) {
-            return "Please enter a valid input";
+            if (this.fullCommand[1].equalsIgnoreCase("all")) {
+                markAll(this.tasks);
+            }
+            return "Set all current tasks as completed";
         }
     }
 }
