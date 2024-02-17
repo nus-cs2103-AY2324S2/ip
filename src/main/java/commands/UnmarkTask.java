@@ -4,6 +4,7 @@ import exception.InvalidCommandException;
 import exception.InvalidIndexException;
 import objects.Task;
 import objects.TaskList;
+import view.UnmarkedTask;
 
 /**
  * The UnmarkTask class represents a command to unmark a task as not done in the TaskList.
@@ -45,10 +46,8 @@ public class UnmarkTask implements Command {
         }
 
         tasks.unmarkTask(this.index);
-        Task t = tasks.get(this.index);
+        Task task = tasks.get(this.index);
 
-        String output = String.format("Nice! I've marked this task as not done yet:\n   %s", t.toString());
-
-        return output;
+        return UnmarkedTask.display(task);
     }
 }
