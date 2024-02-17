@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import main.MainResponseCategorized;
 import main.RyanGosling;
 import utilities.ResponseHandler;
@@ -61,5 +62,11 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(ryanGoslingResponse.getResponseReturnedFromMain(),
                                         ryanGoslingImage, isResponseToShowAError));
         userInput.clear();
+
+        if (input.trim().equalsIgnoreCase("bye")) {
+            // You may need to modify this part based on your application's structure
+            Stage stage = (Stage) userInput.getScene().getWindow();
+            stage.close();  // Close the application window
+        }
     }
 }
