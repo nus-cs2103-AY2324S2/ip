@@ -1,30 +1,36 @@
-# Duke User Guide
+# Ypxmm
+> If you fail to plan, you plan to fail.
 
-// Update the title above to match the actual product name
+Ypxmm is your go-to, true-blue Singaporean task manager bot. It is:
 
-// Product screenshot goes here
+- text-based
+- user-friendly
+- very fast to use
 
-// Product intro goes here
+## How to use
 
-## Adding deadlines
+1. Download it from [here](https://github.com/appleraincoat/ip/releases/tag/A-Jar)
+2. Open the folder with CLI
+3. Run java -jar Ypxmm.jar
+4. Add your tasks
 
-// Describe the action and its outcome.
+You may key in `getcommands` if you are unsure of how to use the bot.
 
-// Give examples of usage
+And you are done! :smile:
 
-Example: `keyword (optional arguments)`
+## Features:
+- [x] Add 3 types of tasks, Todos, Deadlines and Events
+- [X] List, Mark & Unmark and Delete tasks
+- [ ] Assign priorities to tasks (**Coming soon**)
+- [ ] Edit tasks (**Coming soon**)
 
-// A description of the expected outcome goes here
+## Additional Information
 
+This program is written in Java. The launcher class is listen below.
+```angular2html
+public class Launcher {
+    public static void main(String[] args) {
+        Application.launch(Main.class, args);
+    }
+}
 ```
-expected output
-```
-
-## Feature ABC
-
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
