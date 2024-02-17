@@ -1,24 +1,72 @@
-# Duke project template
+# Jiayou User Guide
+![Ui](https://github.com/ljy0422/ip/assets/111126607/21431f1a-0356-4fe9-b89a-3b0b1a7331e0)
+Jiayou is a simple chatbot which can help you manage your daily tasks with cute personality. It's,  
+- text-based
+- easy to learn
+- ~~FAST~~ SUPER FAST to use
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+All you need to do is,
+1. download it from [here](https://github.com/ljy0422/ip/releases/tag/A-Release)
+2. double-click it
+3. add your tasks
+4. let it manage your tasks for you 😉
 
-## Setting up in Intellij
+The following is the features of Jiayou and how you can use them.
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+## Getting the Whole Task List
+You can ask Jiayou to display the whole task list so that you can clearly see how many tasks you have.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+You can the following command to see the complete task list.  
+
+Example: `list` to see the complete list  
+
+## Adding Tasks -- Todos, Deadlines and Events
+You can add tasks to the task list, so that Jiayou can manage it for you!
+
+Tasks are divided into three types. 
+1. Todos are the simplest tasks with solely a decription
+2. Deadlines have a description and a deadline date
+3. Events have a description, a starting date and an ending date
+   
+You can use the following commands to add a task.
+
+Example 1: `todo <description>` to add a todo task  
+Example 2: `deadline <description> /by <date>` to add a deadline task  
+Example 3: `event <description> /from <date> /to <date>` to add an event task
+
+## Deleting tasks
+You can delete tasks to make your task list always clean and organized.
+
+You can use the following commands to delete tasks.
+
+Example 1: `delete <id>` to delete a task  
+Example 2: `delete <id><id><id>` to delete multiple tasks
+
+## Searching Tasks -- By Keywords or By Dates
+You can easily search for tasks which
+1. contain a certain keyword
+2. fall on a certain date
+
+You can use the following commands to search tasks.
+
+Example 1: `search_by_date <date>` to search tasks by date  
+Example 2: `search_by_date <keyword>` to search tasks by keyword  
+
+## Marking/Unmarking Tasks
+You can mark a task as done or reversely unmark it to leave it undone, so that you can clearly see your current progress in your task list.
+
+You can use the following commands to mark/unmark tasks.
+
+Example 1: `mark <id>` to mark a task  
+Example 2: `mark <id><id><id>` to mark multiple tasks  
+Example 3: `unmark <id>` to unmark a task  
+Example 4: `unmark <id><id><id>` to unmark multiple tasks  
+
+## Rescheduling Tasks
+You can reschedule the date of a deadline or event task, so that you can flexibly manage your tasks without the trouble of deleting the original task and adding it again with the new date.
+
+You can use the following commands to reschedule tasks.
+
+Example 1: `reschedule <id> /by` to reschedule the deadline time of a deadline task  
+Example 2: `reschedule <id> /from <date>` to reschedule the starting time of an event task  
+Example 3: `reschedule <id> /to <date>` to reschedule the ending time of an event task
