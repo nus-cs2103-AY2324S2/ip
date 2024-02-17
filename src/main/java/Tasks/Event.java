@@ -4,10 +4,13 @@ import Exceptions.InvalidDescriptionException;
 import Exceptions.InvalidFormatException;
 import Utils.utils;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 public class Event extends Task {
 
-    private final String from_time;
-    private final String to_time;
+    private final LocalDateTime from_time;
+    private final LocalDateTime to_time;
 
 
     public static Event from(String s) throws InvalidArgumentException, InvalidFormatException, InvalidDescriptionException {
@@ -67,10 +70,16 @@ public class Event extends Task {
             throw new InvalidArgumentException("The 'to_time' of an event cannot be empty.");
         }
 
-        return new Event(description, from_time, to_time);
+        try {
+            LocalDateTime from = parseDate(from_time);
+            LocalDateTime to = parseDate(to_time);
+            return new Event(description, from, to);
+        } catch (DateTimeParseException e) {
+            throw new InvalidFormatException("Invalid date format after '/from' or '/to'. Use d/M/yyyy or d/M/yyy H:m in 24-hour format");
+        }
     }
 
-    public Event(String description, String from_time, String to_time){
+    public Event(String description, LocalDateTime from_time, LocalDateTime to_time) {
         super(description);
         this.from_time = from_time;
         this.to_time = to_time;
@@ -81,11 +90,11 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + from_time + " to: " + to_time + ")";
     }
 
-    public String getFromTime() {
+    public LocalDateTime getFromTime() {
         return from_time;
     }
 
-    public String getToTime() {
+    public LocalDateTime getToTime() {
         return to_time;
     }
 }
