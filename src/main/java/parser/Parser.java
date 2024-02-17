@@ -13,6 +13,7 @@ import command.TagCommand;
 import command.TodoCommand;
 import command.UnmarkCommand;
 import command.UntagCommand;
+import command.SaveCommand;
 
 import exception.TobiasException;
 import task.TaskList;
@@ -38,12 +39,20 @@ public class Parser {
         }
     }
 
-    public static Command helloParser(String command) {
+    public static Command helloParser() {
         return new ReplyCommand("Howdy there partner !");
     }
 
-    public static Command listParser(String command) {
+    public static Command listParser() {
         return new ListCommand();
+    }
+
+    public static Command saveParser() {
+        return new SaveCommand();
+    }
+
+    public static Command byeParser() throws TobiasException {
+        return new ExitCommand();
     }
 
     public static Command todoParser(String command) throws TobiasException {
@@ -321,10 +330,6 @@ public class Parser {
         }
     }
 
-    public static Command byeParser(String command) throws TobiasException {
-        return new ExitCommand();
-    }
-
     /**
      * Takes in a command as a String and a TaskList.
      * Interprets that command and returns the relevant Command object.
@@ -336,9 +341,9 @@ public class Parser {
      * */
     public static Command parseCommands(String command, TaskList tasks) throws TobiasException {
         if (command.equals("hello")) {
-            return helloParser(command);
+            return helloParser();
         } else if(command.equals("list")) {
-            return listParser(command);
+            return listParser();
         } else if (command.startsWith("todo")) {
             return todoParser(command);
         } else if (command.startsWith("deadline")) {
@@ -354,11 +359,13 @@ public class Parser {
         } else if (command.startsWith("find")) {
             return findParser(command);
         } else if (command.equals("bye")) {
-            return byeParser(command);
+            return byeParser();
         } else if (command.startsWith("tag")) {
             return tagParser(command, tasks);
         } else if (command.startsWith("untag")) {
             return untagParser(command, tasks);
+        } else if (command.equals("save")) {
+            return saveParser();
         } else {
             throw new TobiasException("I don't understand the words that are coming out of your mouth!!\n"
                     + "Check the help menu to see what I am capable of...");

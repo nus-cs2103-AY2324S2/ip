@@ -57,7 +57,7 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
 
         if (input.trim().equals("bye")) {
-            PauseTransition pause = new PauseTransition(Duration.seconds(2));
+            PauseTransition pause = new PauseTransition(Duration.seconds(2.5));
             pause.setOnFinished(event -> Platform.exit());
             pause.play();
         }
@@ -78,47 +78,58 @@ public class MainWindow extends AnchorPane {
         Alert aboutPopup = new Alert(Alert.AlertType.INFORMATION);
         aboutPopup.setTitle("Commands");
         aboutPopup.setHeaderText("Tobias Bot");
-        String info = "You can ask me to do the following quests for you, mate:" +
-                "\n\n" +
-                "hello: I will aptly reply!" +
-                "\n\n" +
-                "list: I will print the list of tasks you have at the moment, sire..." +
-                "\n\n" +
-                "todo: I will create a todo:" +
-                "\n" +
-                "todo conquer the world" +
-                "\n\n" +
-                "deadline: I will create a deadline with, well... a deadline:" +
-                "\n" +
-                "deadline Issue a worldwide threat /by 15-02-2024 1600" +
-                "\n\n" +
-                "event: I will create an event with 'from' and 'to':" +
-                "\n" +
-                "event World Domination /from 11-02-2024 1000 /to 22-02-2030 2359" +
-                "\n\n" +
-                "mark: Suppose you finish a task, I can mark it if you give me the task index:" +
-                "\n" +
-                "mark 1" +
-                "\n\n" +
-                "unmark: Suppose you un-finished a task, I can unmark it if you give me the task index:" +
-                "\n" +
-                "unmark 1" +
-                "\n\n" +
-                "delete: If you want to ELIMINATE a task, give me the task index and watch it burn:" +
-                "\n" +
-                "delete 1" +
-                "\n\n" +
-                "find: Give me the task index and I will find it:" +
-                "\n" +
-                "find ham" +
-                "\n\n" +
-                "tag: You can add some unique tags to some tasks (you can use this command repeatedly for a task):" +
-                "\n" +
-                "tag 1 urgent" +
-                "\n\n" +
-                "untag: You can remove a tag of a task by providing the taskIndex followed by tagIndex:" +
-                "\n" +
-                "untag 1 2";
+
+        String hello = "hello \n   I will reply accordingly";
+        String list = "list \n   View your list of tasks";
+        String todo = "todo {name} \n   Creates a todo";
+        String deadline = "deadline {name} /by {dd-mm-yyyy HHMM} \n   Creates a deadline with date & time";
+        String event = "event {name} /from {dd-mm-yyyy HHMM} /to {dd-mm-yyyy HHMM} \n   Creates an event with date & time";
+        String delete = "delete {task number} \n   Deletes this task";
+        String mark = "mark {task number} \n   Marks this task as done";
+        String unmark = "unmark {task number} \n   Un-marks this task as done";
+        String tag = "tag {task number} {your tag} \n   Adds a tag to the task";
+        String untag = "untag {task number} {tag number} \n   Removes that tag from the task";
+        String find = "find {keyword} \n   Finds and returns tasks with those keywords";
+        String save = "save \n   Saves your tasks to the local data";
+        String bye = "bye \n   Saves and exits the app";
+
+        String info = hello
+                + System.lineSeparator()
+                + System.lineSeparator()
+                + list
+                + System.lineSeparator()
+                + System.lineSeparator()
+                + todo
+                + System.lineSeparator()
+                + System.lineSeparator()
+                + deadline
+                + System.lineSeparator()
+                + System.lineSeparator()
+                + event
+                + System.lineSeparator()
+                + System.lineSeparator()
+                + delete
+                + System.lineSeparator()
+                + System.lineSeparator()
+                + mark
+                + System.lineSeparator()
+                + System.lineSeparator()
+                + unmark
+                + System.lineSeparator()
+                + System.lineSeparator()
+                + tag
+                + System.lineSeparator()
+                + System.lineSeparator()
+                + untag
+                + System.lineSeparator()
+                + System.lineSeparator()
+                + find
+                + System.lineSeparator()
+                + System.lineSeparator()
+                + save
+                + System.lineSeparator()
+                + System.lineSeparator()
+                + bye;
 
         aboutPopup.setContentText(info);
 

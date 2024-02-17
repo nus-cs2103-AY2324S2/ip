@@ -1,13 +1,21 @@
 package command;
 
 import storage.Storage;
+import task.Task;
 import task.TaskList;
 import ui.Ui;
 
-public class ExitCommand extends Command {
+public class SaveCommand extends Command {
 
     /**
-     * Saves the current TaskList and closes program.
+     * Constructor for Save Command.
+     * */
+    public SaveCommand() {
+
+    }
+
+    /**
+     * Saves the current list to the local data file.
      *
      * @param tasks Current TaskList.
      * @param storage Current Storage.
@@ -15,11 +23,8 @@ public class ExitCommand extends Command {
      * */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        Command save = new SaveCommand();
-        String result = save.execute(tasks, ui, storage)
-                + System.lineSeparator()
-                + ui.goodbyePrinter();
-        return result;
+        storage.storeToLocal(tasks);
+        return "Your List has been saved !";
     }
 
     /**
@@ -29,6 +34,6 @@ public class ExitCommand extends Command {
      * */
     @Override
     public boolean isExit() {
-        return true;
+        return false;
     }
 }
