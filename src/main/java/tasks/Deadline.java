@@ -4,22 +4,32 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Task that has an ending date
+ * Represents a Task with an ending date.
  */
 public class Deadline extends Task {
 
     protected LocalDate dueBy;
 
+    /**
+     * Instantiates Deadline object with description and ending date. Defaults status to not done.
+     */
     public Deadline(String description, LocalDate by) {
         super(description);
         this.dueBy = by;
     }
 
+    /**
+     * Instantiates Deadline object with description, ending date and status.
+     */
     public Deadline(String description, LocalDate by, String status) {
         super(description, status);
         this.dueBy = by;
     }
 
+    /**
+     * {@inheritDoc}
+     * Prepends the task type and appends the ending date of this object.
+     */
     @Override
     public String toSaveFormat() {
         return "D " + super.toSaveFormat() + " /by " + dueBy;

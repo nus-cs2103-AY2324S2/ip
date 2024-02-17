@@ -1,9 +1,9 @@
 package exceptions;
 
 /**
- * Exceptions local this application, requires a message to be provided
+ * Represents Exceptions local to this application.
  */
-public class DukeException extends Exception{
+public class DukeException extends Exception {
 
     public DukeException() {
         super();

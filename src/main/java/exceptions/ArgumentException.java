@@ -1,9 +1,9 @@
 package exceptions;
 
 /**
- * Throw if the arguments to a command input by the user is invalid.
+ * Signals an error caused by invalid arguments input by the user.
  */
-public class ArgumentException extends DukeException{
+public class ArgumentException extends DukeException {
     public ArgumentException() {
         super();
     }

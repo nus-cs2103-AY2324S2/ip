@@ -1,30 +1,39 @@
 package duke;
 
 import exceptions.ArgumentException;
-import exceptions.CommandException;
-import exceptions.DukeException;
 import exceptions.StorageException;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.stage.Stage;
 import storage.Storage;
 import storage.TaskList;
 import ui.UserInterface;
 
 /**
- * Main driver class, initializes the required classes and starts the operation.
+ * Represents the whole application, contains methods for initialisation and termination of the program.
  */
 public class Stille extends Application {
     private final UserInterface ui;
     private final Storage storage;
     private final TaskList list;
 
+    /**
+     * Instantiates application.
+     */
     public Stille() {
         this.storage = new Storage();
         this.list = new TaskList();
         this.ui = new UserInterface(this.list, this.storage);
     }
 
+    /**
+     * {@inheritDoc}
+     * Additionally handles initialisation of TaskList from local storage.
+     *
+     * @param primaryStage the primary stage for this application, onto which
+     *                     the application scene can be set. Applications may create other stages, if needed,
+     *                     but they will not be primary stages.
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setScene(this.ui.getScene());
@@ -46,7 +55,8 @@ public class Stille extends Application {
     }
 
     /**
-     * At the end of operation, save the current tasklist, output closing message.
+     * {@inheritDoc}
+     * Additionally handles saving TaskList to local storage.
      */
     @Override
     public void stop() {

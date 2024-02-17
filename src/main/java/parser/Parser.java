@@ -4,8 +4,8 @@ import commands.AddCommand;
 import commands.Command;
 import commands.DeleteCommand;
 import commands.ExitCommand;
-import commands.ListCommand;
 import commands.FindCommand;
+import commands.ListCommand;
 import commands.MarkDoneCommand;
 import commands.MarkNotDoneCommand;
 import exceptions.ArgumentException;
@@ -13,16 +13,18 @@ import exceptions.CommandException;
 import tasks.Task;
 
 /**
- * Class containing methods relating to input string from user or data file
+ * Contains methods to parse Strings.
  */
 public class Parser {
 
     /**
-     * Parses input to corresponding Command
-     * @param input String to be read
-     * @return Command corresponding to input
-     * @throws CommandException if the first word in input does not match the list of command words
-     * @throws ArgumentException
+     * Returns a Command based on the user input.
+     * Throws if the user input is of an invalid format.
+     *
+     * @param input String to be read.
+     * @return Command corresponding to input.
+     * @throws CommandException if the first word in input does not match the list of command words.
+     * @throws ArgumentException if the arguments supplied are invalid.
      */
     public static Command parseInput(String input) throws CommandException, ArgumentException {
         String[] inputArgs = input.trim().split(" ", 2);
@@ -30,18 +32,26 @@ public class Parser {
         case "todo":
         case "deadline":
         case "event":
+            throwIfInsufficientArgs(inputArgs.length, 2, "Please put a description for the task");
             return new AddCommand(Task.makeTask(inputArgs[0].trim(), inputArgs[1].trim()));
         case "delete":
+            throwIfInsufficientArgs(inputArgs.length, 2, "Please provide an index to delete");
+            throwIfNotInteger(inputArgs[1]);
             return new DeleteCommand(Integer.parseInt(inputArgs[1].trim()));
         case "bye":
             return new ExitCommand();
         case "list":
             return new ListCommand();
         case "mark":
+            throwIfInsufficientArgs(inputArgs.length, 2, "Please provide an index to mark");
+            throwIfNotInteger(inputArgs[1]);
             return new MarkDoneCommand(Integer.parseInt(inputArgs[1].trim()));
         case "unmark":
+            throwIfInsufficientArgs(inputArgs.length, 2, "Please provide an index to unmark");
+            throwIfNotInteger(inputArgs[1]);
             return new MarkNotDoneCommand(Integer.parseInt(inputArgs[1].trim()));
         case "find":
+            throwIfInsufficientArgs(inputArgs.length, 2, "Please provide a word to find");
             return new FindCommand(inputArgs[1].trim());
         default:
             throw new CommandException("Please input a valid command");
@@ -49,10 +59,12 @@ public class Parser {
     }
 
     /**
-     * Parses a line in data file to a Task
-     * @param line String from a line in saved data format
-     * @return Generated Task
-     * @throws ArgumentException
+     * Returns a Task read from the line.
+     * To be used by the Storage class to read lines from saved file.
+     *
+     * @param line String from a line in saved data format.
+     * @return Generated Task.
+     * @throws ArgumentException if line cannot be converted to a task.
      */
     public static Task parseLine(String line) throws ArgumentException {
         String[] taskData = line.split(" ", 3);
@@ -61,33 +73,51 @@ public class Parser {
 
     /**
      * Parses a string into an array of String of size 2 with arguments for constructor of Deadline
-     * @param arg String containing the arguments for Deadline
-     * @return array of String of size 2
-     * @throws ArgumentException if less than 2 arguments are provided
+     *
+     * @param arg String containing the arguments for Deadline.
+     * @return array of String of size 2.
+     * @throws ArgumentException if less than 2 arguments are provided.
      */
     public static String[] parseDeadlineArgument(String arg) throws ArgumentException {
         String[] result = arg.split("\\/by", 2);
-        if (result.length < 2) {
-            throw new ArgumentException("Insufficient argument provided for deadline task");
-        }
+        throwIfInsufficientArgs(result.length, 2, "Insufficient argument provided for deadline task");
         return result;
     }
 
     /**
-     * Parses a string into an array of String of size 3 with arguments for constructor of Event
-     * @param arg String containing the arguments for Event
-     * @return array of String of size 3
-     * @throws ArgumentException if less than 3 arguments are provided
+     * Parses a string into an array of String of size 3 with arguments for constructor of Event.
+     * @param arg String containing the arguments for Event.
+     * @return array of String of size 3.
+     * @throws ArgumentException if less than 3 arguments are provided.
      */
     public static String[] parseEventArgument(String arg) throws ArgumentException {
         String[] result = arg.split("\\/from|\\/to", 3);
-        if (result.length < 3) {
-            throw new ArgumentException("Insufficient argument provided for event task");
-        }
+        throwIfInsufficientArgs(result.length, 3, "Insufficient argument provided for event task");
         return result;
     }
 
+    /**
+     * Returns true if the target String contains the matcher String.
+     *
+     * @param target String to be checked.
+     * @param matcher String to search for.
+     * @return true if target has substring equal to matcher, false otherwise.
+     */
     public static boolean matchStrings(String target, String matcher) {
-        return target.toLowerCase().contains(matcher.toLowerCase());
+        return target.toLowerCase().contains(matcher.trim().toLowerCase());
+    }
+
+    private static void throwIfInsufficientArgs(int actual, int required, String message) throws ArgumentException {
+        if (actual < required) {
+            throw new ArgumentException(message);
+        }
+    }
+
+    private static void throwIfNotInteger(String input) throws ArgumentException {
+        try {
+            Integer.parseInt(input.trim());
+        } catch (NumberFormatException e) {
+            throw new ArgumentException("Please input an integer");
+        }
     }
 }

@@ -3,9 +3,12 @@ package commands;
 import storage.TaskList;
 import ui.UserInterface;
 
+/**
+ *  Represents a Command to display all Tasks in the TaskList containing a given String.
+ */
 public class FindCommand implements Command {
 
-    String match;
+    private String match;
 
     public FindCommand(String match) {
         this.match = match;

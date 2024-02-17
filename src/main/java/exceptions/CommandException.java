@@ -1,9 +1,9 @@
 package exceptions;
 
 /**
- * Throw if an unrecognised command is input by the user
+ * Signals an error caused by unrecognised command words input by the user.
  */
-public class CommandException extends DukeException{
+public class CommandException extends DukeException {
     public CommandException() {
         super();
     }

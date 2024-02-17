@@ -1,11 +1,11 @@
 package commands;
 
 import storage.TaskList;
-import ui.UserInterface;
 import tasks.Task;
+import ui.UserInterface;
 
 /**
- * Command for adding a new task to the TaskList
+ * Represents a Command for adding a new task to the TaskList.
  */
 public class AddCommand implements Command {
     private Task task;
