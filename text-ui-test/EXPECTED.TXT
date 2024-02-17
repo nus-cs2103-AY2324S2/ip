@@ -1,7 +1,128 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+-------------------------------
+Got it. I've added this task:
+ [T][ ] read book
+Now you have 1 task in the list.
+-------------------------------
+-------------------------------
+Nice! I've marked this as done:
+ [T][X] read book
+-------------------------------
+-------------------------------
+Got it. I've added this task:
+ [D][ ] return book (by: June 6th)
+Now you have 2 tasks in the list.
+-------------------------------
+-------------------------------
+Got it. I've added this task:
+ [E][ ] project (from: Aug to: 4pm)
+Now you have 3 tasks in the list.
+-------------------------------
+-------------------------------
+Got it. I've added this task:
+ [T][ ] join sports club
+Now you have 4 tasks in the list.
+-------------------------------
+-------------------------------
+Nice! I've marked this as done:
+ [T][X] join sports club
+-------------------------------
+-------------------------------
+Got it. I've added this task:
+ [T][ ] borrow book
+Now you have 5 tasks in the list.
+-------------------------------
+-------------------------------
+Here are the tasks in your list:
+1.[T][X] read book
+2.[D][ ] return book (by: June 6th)
+3.[E][ ] project (from: Aug to: 4pm)
+4.[T][X] join sports club
+5.[T][ ] borrow book
+-------------------------------
+-------------------------------
+Got it. I've added this task:
+ [D][ ] return book (by: Sunday)
+Now you have 6 tasks in the list.
+-------------------------------
+-------------------------------
+Got it. I've added this task:
+ [E][ ] project (from: Mon to: 4pm)
+Now you have 7 tasks in the list.
+-------------------------------
+-------------------------------
+Ummm, You gotta enter some task TO DO
+-------------------------------
+-------------------------------
+Got it. I've added this task:
+ [T][ ] tmw
+Now you have 8 tasks in the list.
+-------------------------------
+-------------------------------
+Ummm, Deadline for what and by when? Please re-enter correctly
+-------------------------------
+-------------------------------
+Ummm, By when? You forgot to enter "/by"
+-------------------------------
+-------------------------------
+Ummm, You forgot to enter the task for which you have to complete it by
+-------------------------------
+-------------------------------
+Got it. I've added this task:
+ [D][ ] eat chocolates (by: tmw)
+Now you have 9 tasks in the list.
+-------------------------------
+-------------------------------
+You didn't enter the details or duration!
+-------------------------------
+-------------------------------
+You did not mention the duration! Please re-enter correctly!
+-------------------------------
+-------------------------------
+You did not mention till when! Please re-enter correctly!
+-------------------------------
+-------------------------------
+You did not mention from when! Please re-enter correctly!
+-------------------------------
+-------------------------------
+You didn't specify the event!
+-------------------------------
+-------------------------------
+Got it. I've added this task:
+ [E][ ] tmw (from: sun to: mon)
+Now you have 10 tasks in the list.
+-------------------------------
+-------------------------------
+Here are the tasks in your list:
+1.[T][X] read book
+2.[D][ ] return book (by: June 6th)
+3.[E][ ] project (from: Aug to: 4pm)
+4.[T][X] join sports club
+5.[T][ ] borrow book
+6.[D][ ] return book (by: Sunday)
+7.[E][ ] project (from: Mon to: 4pm)
+8.[T][ ] tmw
+9.[D][ ] eat chocolates (by: tmw)
+10.[E][ ] tmw (from: sun to: mon)
+-------------------------------
+-------------------------------
+Ummm, This task is already marked as done.
+-------------------------------
+-------------------------------
+Ummm, This task is already marked as not done.
+-------------------------------
+-------------------------------
+Here are the tasks in your list:
+1.[T][X] read book
+2.[D][ ] return book (by: June 6th)
+3.[E][ ] project (from: Aug to: 4pm)
+4.[T][X] join sports club
+5.[T][ ] borrow book
+6.[D][ ] return book (by: Sunday)
+7.[E][ ] project (from: Mon to: 4pm)
+8.[T][ ] tmw
+9.[D][ ] eat chocolates (by: tmw)
+10.[E][ ] tmw (from: sun to: mon)
+-------------------------------
+-------------------------------
+I don't know what you are saying :(
+-------------------------------
