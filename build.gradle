@@ -48,7 +48,7 @@ test {
 }
 
 application {
-    mainClass.set("numerator.Numerator")
+    mainClass.set("fx.Launcher")
 }
 
 shadowJar {
