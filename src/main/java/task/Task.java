@@ -9,11 +9,13 @@ public class Task {
     protected boolean isDone;
 
     public Task(String description) {
+        assert description != null;
         this.description = description;
         this.isDone = false;
     }
 
     public Task(String description, boolean isDone) {
+        assert description != null:
         this.description = description;
         this.isDone = isDone;
     }
