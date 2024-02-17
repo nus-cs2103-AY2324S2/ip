@@ -1,7 +1,6 @@
 package commands;
 
 import objects.TaskList;
-import view.EncaseLines;
 
 /**
  * Represents the 'Find' command, which searches for tasks containing a specific keyword.
@@ -45,12 +44,6 @@ public class Find implements Command {
         if (output.length() > 0) {
             output.setLength(output.length() - 1);
         }
-
-//        if (output.length() == 0) {
-//            EncaseLines.display("No tasks found");
-//        } else {
-//            EncaseLines.display("Here are the matching tasks in your list:\n" + output);
-//        }
 
         if (output.length() == 0) {
             return "No tasks found";

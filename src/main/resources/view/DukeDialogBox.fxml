@@ -15,7 +15,7 @@
         <!-- Apply background color and styling to the HBox -->
         <style>
             -fx-background-color: #90BAAD;
-            -fx-background-radius: 10px;
+            -fx-background-radius: 50px;
             -fx-spacing: 10px;
             -fx-padding: 10px;
         </style>

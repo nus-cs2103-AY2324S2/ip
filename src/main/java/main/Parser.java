@@ -15,7 +15,17 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import commands.*;
+import commands.Command;
+import commands.CommandError;
+import commands.CreateDeadline;
+import commands.CreateEvent;
+import commands.CreateTodo;
+import commands.DeleteTask;
+import commands.Find;
+import commands.Help;
+import commands.ListTasks;
+import commands.MarkTask;
+import commands.UnmarkTask;
 import exception.DukeException;
 import exception.InvalidCommandException;
 import exception.InvalidDateException;
@@ -24,7 +34,6 @@ import exception.InvalidEventException;
 import exception.InvalidIndexException;
 import exception.InvalidTodoException;
 import objects.TaskList;
-import view.EncaseLines;
 
 /**
  * The Parser class is responsible for interpreting user input and creating corresponding Command objects.
@@ -44,6 +53,7 @@ public class Parser {
         try {
             input = input.trim().toLowerCase();
             String commandType = getCommandType(input);
+            assert commandType != null : "Command type cannot be null";
 
             switch (commandType) {
             case LIST:
@@ -123,6 +133,7 @@ public class Parser {
      */
     public static String parseName(String input) throws InvalidTodoException, InvalidCommandException {
         String[] details = input.split(" ", 2);
+        assert details.length >= 2 : "Invalid command format";
 
         if (details.length < 2) {
             throw new InvalidCommandException();
@@ -141,6 +152,7 @@ public class Parser {
      */
     public static String[] parseDeadline(String input) throws InvalidDeadlineException, InvalidDateException {
         String[] parts = input.trim().split("\\s+");
+        assert parts.length >= 4 && input.contains("/by") : "Invalid deadline format";
 
         if (parts.length < 4 || !input.contains("/by")) {
             throw new InvalidDeadlineException();
@@ -163,6 +175,7 @@ public class Parser {
      */
     public static String[] parseEvent(String input) throws InvalidEventException, InvalidDateException {
         String[] parts = input.trim().split("\\s+");
+        assert parts.length >= 6 && input.contains("/from") && input.contains("/to") : "Invalid event format";
 
         if (parts.length < 6 || !input.contains("/from") || !input.contains("/to")) {
             throw new InvalidEventException();

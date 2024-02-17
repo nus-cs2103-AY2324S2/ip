@@ -1,7 +1,6 @@
 package commands;
 
 import objects.TaskList;
-import view.EncaseLines;
 
 /**
  * The ListTasks class represents a command to display the list of tasks from the TaskList.
@@ -43,8 +42,6 @@ public class ListTasks implements Command {
                     output.append("\n");
                 }
             }
-
-//            EncaseLines.display(output.toString());
         }
 
         return output.toString();

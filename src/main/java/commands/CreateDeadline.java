@@ -35,7 +35,7 @@ public class CreateDeadline implements Command {
      * Executes the CreateDeadline command by creating a new deadline task, adding it to the TaskList,
      * and displaying a confirmation message.
      *
-     * @return
+     * @return String
      * @throws InvalidDeadlineException If there is an issue with the deadline information provided.
      */
     @Override
