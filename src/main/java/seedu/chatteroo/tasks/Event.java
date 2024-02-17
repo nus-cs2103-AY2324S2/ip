@@ -19,7 +19,7 @@ public class Event extends Task {
      * @throws DateTimeException If the date and time is not in the correct format.
      */
     public Event(String description, String from, String to) {
-        super(description);
+        super(description, "E");
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         try {
             this.from = LocalDateTime.parse(from.trim(), dateFormat);

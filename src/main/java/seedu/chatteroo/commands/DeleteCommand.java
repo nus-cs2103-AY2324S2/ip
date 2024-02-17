@@ -20,11 +20,14 @@ public class DeleteCommand extends Command {
         this.taskNum = taskNum;
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task deletedTask = tasks.getTask(taskNum);
         tasks.deleteTask(taskNum);
         int listCount = tasks.getTaskListSize();
-        return ui.showDeleteTaskText(deletedTask, listCount);
+        return ui.showDeleteTaskResponse(deletedTask, listCount);
     }
 }

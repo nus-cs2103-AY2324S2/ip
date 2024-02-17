@@ -19,9 +19,12 @@ public class MarkCommand extends Command {
         this.taskNum = taskNum;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.markTaskAsDone(taskNum);
-        return ui.showMarkDoneTaskText() + tasks.getTask(taskNum).toString();
+        return ui.showMarkDoneTaskResponse() + tasks.getTask(taskNum).toString();
     }
 }

@@ -19,10 +19,13 @@ public class AddCommand extends Command {
         this.newTask = newTask;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public String execute(TaskList listStore, Ui ui, Storage storage) {
-        listStore.addTask(newTask);
-        int listCount = listStore.getTaskListSize();
-        return ui.showAddTaskText(newTask, listCount);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        tasks.addTask(newTask);
+        int listCount = tasks.getTaskListSize();
+        return ui.showAddTaskResponse(newTask, listCount);
     }
 }

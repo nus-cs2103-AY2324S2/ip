@@ -16,9 +16,12 @@ public class ExitCommand extends Command {
         super();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        return ui.showByeText();
+        return ui.showByeResponse();
     }
 
 

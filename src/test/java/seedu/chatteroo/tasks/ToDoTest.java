@@ -22,7 +22,7 @@ public class ToDoTest {
     public void testMarkAsNotDone() {
         ToDo todo = new ToDo("test");
         todo.markAsDone();
-        todo.markAsNotdone();
+        todo.markAsNotDone();
         assertEquals("[T][ ] test", todo.toString());
     }
 

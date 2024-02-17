@@ -30,7 +30,7 @@ public class Main extends Application {
             fxmlLoader.<MainWindow>getController().setChatteroo(chatteroo);
             stage.setTitle("Chatteroo");
             stage.show();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

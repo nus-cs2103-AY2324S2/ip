@@ -8,7 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import seedu.chatteroo.Chatteroo;
-import seedu.chatteroo.ui.Ui;
 
 import java.io.IOException;
 
@@ -34,7 +33,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
-        String welcomeText = Ui.showWelcomeText();
+        String welcomeText = Ui.showWelcomeResponse();
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(welcomeText, dukeImage)
         );
