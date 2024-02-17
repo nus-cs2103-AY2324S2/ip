@@ -48,8 +48,10 @@ public class Parser {
             if (commandStr != null) {
                 switch (commandStr) {
                 case LIST:
+                    assert commandStr.equals(CommandType.LIST);
                     return new ListTasksCommand();
                 case FIND:
+                    assert commandStr.equals(CommandType.FIND);
                     try {
                         String keyword = input.substring(5);
                         return new FindTaskCommand(keyword);
@@ -59,6 +61,7 @@ public class Parser {
                         "\nfind <keyword>"));
                     }
                 case DELETE:
+                    assert commandStr.equals(CommandType.DELETE);
                     int deleteNumber = Integer.parseInt(inputArr[1]) - 1;
                     try {
                         return new DeleteTaskCommand(deleteNumber);
@@ -66,12 +69,15 @@ public class Parser {
                         return new InvalidCommand(new ChatbotException(exc.getMessage()));
                     }
                 case MARK:
+                    assert commandStr.equals(CommandType.MARK);
                     int markNumber = Integer.parseInt(inputArr[1]) - 1;
                     return new ToggleTaskDoneCommand(markNumber, true);
                 case UNMARK:
+                    assert commandStr.equals(CommandType.UNMARK);
                     int unmarkNumber = Integer.parseInt(inputArr[1]) - 1;
                     return new ToggleTaskDoneCommand(unmarkNumber, false);
                 case TODO:
+                    assert commandStr.equals(CommandType.TODO);
                     try {
                         String todoName = input.substring(5);
                         return new AddTodoCommand(todoName);
@@ -82,6 +88,7 @@ public class Parser {
                                         + "\ntodo <name>"));
                     }
                 case DEADLINE:
+                    assert commandStr.equals(CommandType.DEADLINE);
                     try {
                         int idxDeadline = input.indexOf("/by");
                         String deadlineName = input.substring(9, idxDeadline - 1);
@@ -95,6 +102,7 @@ public class Parser {
                                         + "\ndeadline <name> /by dd-mm-yyyy hhmm"));
                     }
                 case EVENT:
+                    assert commandStr.equals(CommandType.EVENT);
                     try {
                         int idxFrom = input.indexOf("/from");
                         int idxTo = input.indexOf("/to");
@@ -109,6 +117,7 @@ public class Parser {
                                         + "\nevent <name> /from dd-mm-yyy hhmm /to dd-mm-yyyy hhmm"));
                     }
                 case BYE:
+                    assert commandStr.equals(CommandType.BYE);
                     return new ExitCommand();
 
                 default:

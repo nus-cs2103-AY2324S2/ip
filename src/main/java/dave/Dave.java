@@ -25,8 +25,10 @@ public class Dave {
         storage = new Storage(SAVE_FILE);
         try {
             taskList = new TaskList(storage.load());
+            assert taskList.getNumberOfTasks() != 0;
         } catch (IOException exc) {
             taskList = new TaskList();
+            assert taskList.getNumberOfTasks() == 0;
         }
     }
 
