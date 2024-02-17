@@ -1,15 +1,21 @@
 package seedu.duke;
 
-import java.io.IOException;
-import java.util.Scanner;
+/**
+ * Represents a task manager called <code>Duke</code>.
+ */
 
+@SuppressWarnings("checkstyle:Regexp")
 public class Duke {
 
-    private Storage storage;
-    private TaskList tasks;
-    private Ui ui;
+    private static Storage storage;
+    private static TaskList tasks;
+    private static Ui ui;
 
-    public Duke(String filePath) {
+    /**
+     * Constructor for Duke.
+     */
+    public Duke() {
+        String filePath = "data/duke.txt";
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -19,53 +25,48 @@ public class Duke {
         }
     }
 
-    public void run() {
-        ui.openingMessage();
-        Scanner sc = new Scanner(System.in);
-        String word = sc.nextLine();
-        while (!word.equals("bye")) {
-            // command dependent logic
-            if (word.equals("list")) {
-                ui.printList(tasks.getList());
-                word = sc.nextLine();
-            } else if (word.startsWith("mark")) {
-                Parser.parseMark(word, tasks, ui);
-                word = sc.nextLine();
-            } else if (word.startsWith("unmark")) {
-                Parser.parseUnmark(word, tasks, ui);
-                word = sc.nextLine();
-            } else if (word.startsWith("deadline")) {
-                Parser.parseDeadline(word, tasks, ui);
-                word = sc.nextLine();
-            } else if (word.startsWith("todo")) {
-                Parser.parseTodo(word, tasks, ui);
-                word = sc.nextLine();
-            } else if (word.startsWith("event")) {
-                Parser.parseEvent(word, tasks, ui);
-                word = sc.nextLine();
-            } else if (word.startsWith("find")) {
-                //add
-                Parser.parseFind(word, tasks, ui);
-                System.out.println("what");
-                word = sc.nextLine();
-            } else if (word.startsWith("delete")) {
-                Parser.parseDelete(word, tasks, ui);
-                word = sc.nextLine();
-            } else {
-                try {
-                    throw new DukeException("Sorry, I didn't understand that.");
-                } catch (DukeException d) {
-                    ui.printError(d);
-                    word = sc.nextLine();
-                }
+    /**
+     * Represents the opening message when Duke starts.
+     * @return opening message
+     */
+    public String welcomeMessage() {
+        return ui.openingMessage();
+    }
+
+    /**
+     * Contains logic from greeting to farewell to user.
+     * It will scan for input and parse only when given valid commands.
+     * These commands will then fed back to the user within the UI.
+     * eg. <code>list, mark, unmark, deadline, todo, event</code>
+     */
+    public static String getResponse(String userInput) {
+        String response = "";
+        // command dependent logic
+        if (userInput.equals("bye")) {
+            storage.saveList(tasks.getList());
+            response = ui.closingMessage();
+        } else if (userInput.equals("list")) {
+            response = ui.printList(tasks.getList());
+        } else if (userInput.startsWith("mark")) {
+            response = Parser.parseMark(userInput, tasks, ui);
+        } else if (userInput.startsWith("unmark")) {
+            response = Parser.parseUnmark(userInput, tasks, ui);
+        } else if (userInput.startsWith("deadline")) {
+            response = Parser.parseDeadline(userInput, tasks, ui);
+        } else if (userInput.startsWith("todo")) {
+            response = Parser.parseTodo(userInput, tasks, ui);
+        } else if (userInput.startsWith("event")) {
+            response = Parser.parseEvent(userInput, tasks, ui);
+        } else if (userInput.startsWith("delete")) {
+            response = Parser.parseDelete(userInput, tasks, ui);
+        } else {
+            try {
+                throw new DukeException("Sorry, I didn't understand that.");
+            } catch (DukeException d) {
+                response = ui.printError(d);
             }
         }
         storage.saveList(tasks.getList());
-        ui.closingMessage();
+        return response;
     }
-
-    public static void main(String[] args) throws IOException {
-        new Duke("data/tasks.txt").run();
-    }
-
 }
