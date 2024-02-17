@@ -82,4 +82,8 @@ public class Parser {
         description[2] = userInput.substring(toIdx + 4);
         return description;
     }
+
+    public String parseFind(String userInput) {
+
+    }
 }

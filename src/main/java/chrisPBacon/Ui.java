@@ -67,6 +67,7 @@ public class Ui {
                 + "'todo ...' - to add new task\n'deadline ... /by dd/MM/yyyy' - to add task with deadline\n"
                 + "'event ... /from ... /to ...' - to add an event\n"
                 + "'mark <task no.>' - to mark a task done\n'unmark <task no.>' - to unmark a task\n"
+                + "'find ...' - to find tasks with matching descriptions\n"
                 + "'delete <task no.>' - to delete a task\n'bye' - to exit the chatbot\n";
         System.out.println(LINE + "\n" + help + LINE);
     }
@@ -195,5 +196,9 @@ public class Ui {
         Event task = new Event(description);
 
         System.out.println(tasks.addTask(task) + LINE);
+    }
+
+    public void printFind(String userInput, TaskList tasks) throws InvalidTaskNameException{
+
     }
 }
