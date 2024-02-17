@@ -32,5 +32,9 @@ public class Constants {
 
     /** Command keyword to search for a task. */
     public static final String FIND = "find";
+
+    /** Command keyword to snooze a task. */
+    public static final String SNOOZE = "snooze";
+
 }
 

@@ -53,23 +53,25 @@ public class Storage {
     public static TaskList load() {
         if (!fileExists()) {
             EncaseLines.display("Data not found, creating new file...");
-
             return new TaskList();
         }
 
-        TaskList tasks = null;
-
         try (FileInputStream fileInput = new FileInputStream(FILE_PATH);
              ObjectInputStream objectInput = new ObjectInputStream(fileInput)) {
-            tasks = (TaskList) objectInput.readObject();
+            TaskList tasks = (TaskList) objectInput.readObject();
+            EncaseLines.display("Existing data found, loading...");
 
+            // Perform null check here
+            if (tasks == null) {
+                EncaseLines.display("Error loading data: loaded task list is null");
+                return new TaskList(); // or handle it according to your logic
+            }
+
+            return tasks;
         } catch (IOException | ClassNotFoundException e) {
-            EncaseLines.display("Error loading data");
-
+            EncaseLines.display("Error loading data: " + e.getMessage());
         }
 
-        EncaseLines.display("Existing data found, loading...");
-
-        return tasks;
+        return new TaskList(); // Return a new TaskList in case of failure
     }
 }

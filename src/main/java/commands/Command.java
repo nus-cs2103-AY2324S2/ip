@@ -1,9 +1,6 @@
 package commands;
 
-import exception.InvalidCommandException;
-import exception.InvalidDeadlineException;
-import exception.InvalidEventException;
-import exception.InvalidIndexException;
+import exception.*;
 
 /**
  * The Command interface defines the contract for executing different commands related to task management.
@@ -19,5 +16,5 @@ public interface Command {
      * @throws InvalidIndexException If there is an issue with an index-related command.
      */
     String execute() throws InvalidCommandException, InvalidDeadlineException, InvalidEventException,
-            InvalidIndexException;
+            InvalidIndexException, SnoozeException;
 }

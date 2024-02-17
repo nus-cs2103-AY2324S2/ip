@@ -5,7 +5,7 @@ import objects.Task;
 /**
  * The MarkedTask class provides a method to generate a message indicating that a task has been marked as done.
  */
-public class MarkedTask {
+public class MarkedTask extends UI {
 
     /**
      * Generates a message indicating that a task has been marked as done.

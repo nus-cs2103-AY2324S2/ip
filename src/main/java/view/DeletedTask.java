@@ -7,7 +7,7 @@ import objects.TaskList;
  * The DeletedTask class provides a method to generate a message confirming the deletion
  * of a task from the task list.
  */
-public class DeletedTask {
+public class DeletedTask extends UI {
 
     /**
      * Generates a message confirming the deletion of a task from the task list.

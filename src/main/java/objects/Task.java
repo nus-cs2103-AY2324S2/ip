@@ -52,4 +52,6 @@ public class Task implements Serializable {
     public void unmark() {
         this.isDone = false;
     }
+
+    public void snooze() {};
 }

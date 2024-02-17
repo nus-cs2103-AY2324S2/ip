@@ -6,14 +6,14 @@ import java.io.Serializable;
  * ToDos is a class representing a todo task.
  * It extends Task and implements the Serializable interface for object serialization.
  */
-public class ToDos extends Task implements Serializable {
+public class ToDo extends Task implements Serializable {
 
     /**
      * Constructs a new todo task with the given name.
      *
      * @param name The name of the todo task.
      */
-    public ToDos(String name) {
+    public ToDo(String name) {
         super(name);
     }
 

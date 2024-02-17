@@ -5,7 +5,7 @@ import static utils.InputUtil.convertToDateTime;
 import java.time.LocalDateTime;
 
 import exception.InvalidDeadlineException;
-import objects.Deadlines;
+import objects.Deadline;
 import objects.Task;
 import objects.TaskList;
 import view.CreatedTask;
@@ -43,7 +43,7 @@ public class CreateDeadline implements Command {
         String name = input[0];
         LocalDateTime by = convertToDateTime(input[1]);
 
-        Task t = new Deadlines(name, by);
+        Task t = new Deadline(name, by);
         tasks.add(t);
 
         return CreatedTask.display(this.tasks, t);

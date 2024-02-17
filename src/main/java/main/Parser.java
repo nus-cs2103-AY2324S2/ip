@@ -1,31 +1,13 @@
 package main;
 
-import static commands.Constants.DEADLINE;
-import static commands.Constants.DELETE;
-import static commands.Constants.EVENT;
-import static commands.Constants.FIND;
-import static commands.Constants.HELP;
-import static commands.Constants.LIST;
-import static commands.Constants.MARK;
-import static commands.Constants.TODO;
-import static commands.Constants.UNMARK;
+import static commands.Constants.*;
 import static utils.InputUtil.getCommandType;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import commands.Command;
-import commands.CommandError;
-import commands.CreateDeadline;
-import commands.CreateEvent;
-import commands.CreateTodo;
-import commands.DeleteTask;
-import commands.Find;
-import commands.Help;
-import commands.ListTasks;
-import commands.MarkTask;
-import commands.UnmarkTask;
+import commands.*;
 import exception.DukeException;
 import exception.InvalidCommandException;
 import exception.InvalidDateException;
@@ -91,6 +73,10 @@ public class Parser {
 
             case FIND:
                 command = new Find(tasks, parseName(input));
+                break;
+
+            case SNOOZE:
+                command = new Snooze(tasks, parseIndex(input));
                 break;
 
             default:

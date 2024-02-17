@@ -6,7 +6,7 @@ import objects.TaskList;
 /**
  * The CreatedTask class provides a method to display information about a newly created task.
  */
-public class CreatedTask {
+public class CreatedTask extends UI {
 
     /**
      * Displays information about a newly created task, including the task details and the total number of tasks.

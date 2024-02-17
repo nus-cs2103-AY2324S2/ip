@@ -3,7 +3,7 @@ package commands;
 import exception.InvalidCommandException;
 import objects.Task;
 import objects.TaskList;
-import objects.ToDos;
+import objects.ToDo;
 import view.CreatedTask;
 /**
  * The CreateTodo class represents a command to create and add a todo task to the TaskList.
@@ -37,7 +37,7 @@ public class CreateTodo implements Command {
      */
     @Override
     public String execute() throws InvalidCommandException {
-        Task t = new ToDos(input);
+        Task t = new ToDo(input);
         tasks.addTask(t);
 
         return CreatedTask.display(this.tasks, t);

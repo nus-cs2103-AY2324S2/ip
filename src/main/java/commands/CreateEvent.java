@@ -5,7 +5,7 @@ import static utils.InputUtil.convertToDateTime;
 import java.time.LocalDateTime;
 
 import exception.InvalidEventException;
-import objects.Events;
+import objects.Event;
 import objects.Task;
 import objects.TaskList;
 import view.CreatedTask;
@@ -47,7 +47,7 @@ public class CreateEvent implements Command {
         LocalDateTime from = convertToDateTime(input[1]);
         LocalDateTime to = convertToDateTime(input[2]);
 
-        Task t = new Events(name, from, to);
+        Task t = new Event(name, from, to);
         tasks.add(t);
 
         return CreatedTask.display(this.tasks, t);
