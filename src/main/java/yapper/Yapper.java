@@ -3,6 +3,7 @@ package yapper;
 import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -161,6 +162,14 @@ public class Yapper {
             responseBuilder.append(this.ui.showError(e.toString()));
         }
         return responseBuilder.toString();
+    }
+
+    private void validateDateTimeFormat(String dateTimeString) throws YapperException {
+        try {
+            LocalDateTime.parse(dateTimeString, DATE_TIME_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new YapperException("Invalid date/time format: " + dateTimeString);
+        }
     }
 
     private boolean isDuplicateTask(String description) {
