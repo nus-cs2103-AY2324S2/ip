@@ -1,13 +1,16 @@
 import java.util.Scanner;
-import java.util.ArrayList;
 public class Ui {
-    protected String botName;
     protected Scanner scanner;
-    private String line = "__________________________________________________";
+    private final String line = "__________________________________________________";
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
 
+    public void showLoadingError() {
+        System.out.println(line);
+        System.out.println("An error occurred while loading tasks from file.");
+        System.out.println(line);
+    }
     public void showWelcomeMsg() {
         System.out.println(line);
         System.out.println("Hello! I'm Floofy!");
@@ -45,10 +48,10 @@ public class Ui {
         System.out.println(line);
     }
 
-    public void showTaskList(ArrayList<Task> list) {
+    public void showTaskList(TaskList list) {
         System.out.println(line);
         for (int i = 0; i < list.size(); i++) {
-            String numberedOutput = String.format("%d. %s", i + 1, list.get(i).toString());
+            String numberedOutput = String.format("%d. %s", i + 1, list.getTask(i).toString());
             System.out.println(numberedOutput);
         }
         System.out.println(line);

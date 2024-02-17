@@ -7,9 +7,9 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getTask() {
-        return this.description;
-    }
+//    public String getTask() {
+//        return this.description;
+//    }
 
     public String getType() {
         return "";
