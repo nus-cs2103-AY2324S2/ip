@@ -1,7 +1,6 @@
 package sleepy.tasks;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
@@ -9,7 +8,7 @@ import java.time.format.DateTimeParseException;
  *
  * @author kjw142857
  */
-public class Event extends Task {
+public class EventTask extends Task {
     private String start;
     private String end;
 
@@ -17,14 +16,14 @@ public class Event extends Task {
     private LocalDate formattedToDate;
 
     /**
-     * Constructor for the Event class.
+     * Constructor for the EventTask class.
      *
      * @param description Description of the event details.
      * @param start When the event starts.
      * @param end When the event ends.
      */
 
-    public Event(String description, String start, String end) {
+    public EventTask(String description, String start, String end) {
         super(description);
         this.start = start;
         this.end = end;
@@ -48,9 +47,9 @@ public class Event extends Task {
     @Override
     public String getDescription() {
         String startDate = formattedFromDate == null
-                ? start : formattedFromDate.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
+                ? start : formattedFromDate.format(DATE_FORMAT);
         String endDate = formattedToDate == null
-                ? end : formattedToDate.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
+                ? end : formattedToDate.format(DATE_FORMAT);
         return "[E]" + super.getDescription() + " (from: " + startDate + " to: " + endDate + ")";
     }
 

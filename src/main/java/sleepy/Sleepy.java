@@ -11,18 +11,14 @@ import sleepy.tools.ResponseHandler;
  */
 public class Sleepy {
     public static final String WELCOME_TEXT = "Hello! I'm Sleepy \n Zzz...";
-    private TaskList taskList;
+    private TaskList taskList = new TaskList();
 
-    private boolean isInExitState;
+    private boolean isInExitState = false;
 
     /**
-     * Constructor for the Sleepy class.
+     * (Empty) constructor for the Sleepy class.
      */
     public Sleepy() {
-        String filePath = "./storage/HardDiskStorage.txt";
-        // Retrieve saved data
-        taskList = new TaskList(filePath);
-        isInExitState = false;
     }
 
     /**

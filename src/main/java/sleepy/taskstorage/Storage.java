@@ -22,11 +22,13 @@ public class Storage {
 
     /**
      * Constructor for the Storage class.
-     *
-     * @param filePath filePath of the file used for storage.
      */
-    public Storage(String filePath) {
+    public Storage() {
         try {
+            String appDirectory = System.getProperty("user.dir");
+            // For multiple-OS support, File.separator is used instead of "/".
+            String filePath = appDirectory + File.separator + "storage"
+                    + File.separator + "HardDiskStorage.txt";
             hardDiskFile = new File(filePath);
             if (!hardDiskFile.exists()) {
                 Files.createDirectories(hardDiskFile.toPath().getParent());
@@ -47,19 +49,19 @@ public class Storage {
      * @return Tasks read from the file.
      */
     public ArrayList<Pair<String, Boolean>> readFile() {
-        ArrayList<Pair<String, Boolean>> readTasks = new ArrayList<>();
+        ArrayList<Pair<String, Boolean>> tasksReadFromFile = new ArrayList<>();
         try {
             Scanner scanner = new Scanner(hardDiskFile);
             while (scanner.hasNextLine()) {
                 String taskDescription = scanner.nextLine();
                 Boolean isDone = Boolean.valueOf(scanner.nextLine());
                 Pair<String, Boolean> nextTask = new Pair<>(taskDescription, isDone);
-                readTasks.add(nextTask);
+                tasksReadFromFile.add(nextTask);
             }
         } catch (FileNotFoundException f) {
             ResponseHandler.appendLineToResponse("Sleepy encountered a bug and could not recover your data!");
         }
-        return readTasks;
+        return tasksReadFromFile;
     }
 
     /**
@@ -79,7 +81,8 @@ public class Storage {
             fileWriter.flush();
             fileWriter.close();
         } catch (IOException i) {
-            ResponseHandler.appendLineToResponse("Sleepy couldn't save your data! Please restart the application :(");
+            ResponseHandler.appendLineToResponse("Sleepy couldn't save your data!"
+                    + " Please restart the application :(");
         }
     }
 }

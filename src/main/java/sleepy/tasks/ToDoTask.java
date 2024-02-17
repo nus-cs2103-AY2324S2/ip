@@ -5,14 +5,14 @@ package sleepy.tasks;
  *
  * @author kjw142857
  */
-public class ToDo extends Task {
+public class ToDoTask extends Task {
 
     /**
-     * Constructor for the ToDo class.
+     * Constructor for the ToDoTask class.
      *
-     * @param description Description of the ToDo, excluding the task label.
+     * @param description Description of the ToDoTask, excluding the task label.
      */
-    public ToDo(String description) {
+    public ToDoTask(String description) {
         super(description);
     }
 

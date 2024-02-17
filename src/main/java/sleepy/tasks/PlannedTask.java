@@ -1,7 +1,6 @@
 package sleepy.tasks;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
@@ -9,17 +8,17 @@ import java.time.format.DateTimeParseException;
  *
  * @author kjw142857
  */
-public class Plan extends Task {
+public class PlannedTask extends Task {
     private String precedingEvent;
     private LocalDate formattedDate;
 
     /**
-     * Constructor for the Plan class.
+     * Constructor for the PlannedTask class.
      *
      * @param description Description of the plan details.
-     * @param precedingEvent Event that needs to take place before execution.
+     * @param precedingEvent EventTask that needs to take place before execution.
      */
-    public Plan(String description, String precedingEvent) {
+    public PlannedTask(String description, String precedingEvent) {
         super(description);
         this.precedingEvent = precedingEvent;
         try {
@@ -37,7 +36,7 @@ public class Plan extends Task {
     @Override
     public String getDescription() {
         String triggerDate = formattedDate == null
-                ? precedingEvent : formattedDate.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
+                ? precedingEvent : formattedDate.format(DATE_FORMAT);
         return "[A]" + super.getDescription() + " (after: " + triggerDate + ")";
     }
 

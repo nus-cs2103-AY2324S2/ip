@@ -85,7 +85,7 @@ public class Parser {
     /**
      * Parses the given task.
      *
-     * @param task Task of type ToDo, Deadline or Event to be parsed, as a string.
+     * @param task Task of type ToDoTask, DeadlineTask or EventTask to be parsed, as a string.
      * @param details Details of the task.
      * @return Parsed task, as an array of strings.
      * @throws IllegalArgumentException If the string is of an invalid format.
@@ -109,7 +109,7 @@ public class Parser {
     /**
      * Parses the given toDo.
      *
-     * @param toDoDetails Task of type ToDo, as a string.
+     * @param toDoDetails Task of type ToDoTask, as a string.
      * @return Parsed toDo, as an array of strings.
      * @throws IllegalArgumentException If the string is of an invalid format.
      */
@@ -120,7 +120,7 @@ public class Parser {
     /**
      * Parses the given deadline.
      *
-     * @param deadlineDetails Task of type Deadline, as a string.
+     * @param deadlineDetails Task of type DeadlineTask, as a string.
      * @return Parsed deadline, as an array of strings.
      * @throws IllegalArgumentException If the string is of an invalid format.
      */
@@ -139,14 +139,15 @@ public class Parser {
     /**
      * Parses the given plan.
      *
-     * @param planDetails Task of type Plan, as a string.
+     * @param planDetails Task of type PlannedTask, as a string.
      * @return Parsed plan, as an array of strings.
      * @throws IllegalArgumentException If the string is of an invalid format.
      */
     public static String[] parsePlan(String planDetails) throws IllegalArgumentException {
         String[] details = planDetails.split("(?i)/after ");
         if (details.length == 1) {
-            throw new IllegalArgumentException("Missing the task description or the '/after' field! Try again.");
+            throw new IllegalArgumentException("Missing the task description or the '/after' field!"
+                    + " Try again.");
         } else if (details.length >= 3) {
             throw new IllegalArgumentException("You can only have one '/after' field! Try again.");
         }
@@ -158,14 +159,15 @@ public class Parser {
     /**
      * Parses the given event.
      *
-     * @param eventDetails Task of type Event, as a string.
+     * @param eventDetails Task of type EventTask, as a string.
      * @return Parsed event, as an array of strings.
      * @throws IllegalArgumentException If the string is of an invalid format.
      */
     public static String[] parseEvent(String eventDetails) throws IllegalArgumentException {
         String[] firstSplit = eventDetails.split("(?i)/from ");
         if (firstSplit.length == 1) {
-            throw new IllegalArgumentException("Missing the task description or the '/from' field! Try again.");
+            throw new IllegalArgumentException("Missing the task description or the '/from' field!"
+                    + " Try again.");
         }
         if (firstSplit.length >= 3) {
             throw new IllegalArgumentException("You can only have one '/from' field! Try again.");

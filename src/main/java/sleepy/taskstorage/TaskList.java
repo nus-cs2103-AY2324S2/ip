@@ -3,7 +3,11 @@ package sleepy.taskstorage;
 import java.util.ArrayList;
 
 import javafx.util.Pair;
-import sleepy.tasks.*;
+import sleepy.tasks.DeadlineTask;
+import sleepy.tasks.EventTask;
+import sleepy.tasks.PlannedTask;
+import sleepy.tasks.Task;
+import sleepy.tasks.ToDoTask;
 import sleepy.tools.Parser;
 import sleepy.tools.ResponseHandler;
 
@@ -21,13 +25,11 @@ public class TaskList {
 
     /**
      * Constructor for the TaskList class. Initialises the list of tasks
-     * based on the saved data in the SleepyTaskList file.
-     *
-     * @param filePath The data path to the file linked to this TaskList.
+     * based on the saved data in the HardDiskStorage file.
      */
-    public TaskList(String filePath) {
+    public TaskList() {
         try {
-            storage = new Storage(filePath);
+            storage = new Storage();
             ArrayList<Pair<String, Boolean>> listOfTasks = storage.readFile();
             for (Pair<String, Boolean> task : listOfTasks) {
                 String taskDescription = task.getKey();
@@ -62,9 +64,7 @@ public class TaskList {
             // Fallthrough
         case "delete":
             int taskNumber = Integer.parseInt(parsedCommand[1]);
-            if (taskNumber < 1 || taskNumber > tasks.size()) {
-                throw new IllegalArgumentException("Invalid task number!");
-            }
+            checkValidTaskNumber(taskNumber);
             handleTask(command, taskNumber);
             break;
         case "find":
@@ -93,7 +93,7 @@ public class TaskList {
      * @param operation Operation type.
      * @param taskNumber Task number to be handled.
      */
-    public void handleTask(String operation, int taskNumber) throws IllegalArgumentException {
+    private void handleTask(String operation, int taskNumber) throws IllegalArgumentException {
         assert taskNumber >= 1 && taskNumber <= tasks.size() : "Invalid task number!";
         switch (operation) {
         case "mark":
@@ -117,7 +117,7 @@ public class TaskList {
      *
      * @param keywords Keyword(s) used for the search.
      */
-    public void findTask(String keywords) {
+    private void findTask(String keywords) {
         ResponseHandler.appendLineToResponse("Here are the matching tasks in your list:");
         int i = 1;
         for (Task task: tasks) {
@@ -131,24 +131,24 @@ public class TaskList {
     /**
      * Creates and adds a task to this list.
      *
-     * @param parsedTask Task to be added, in the form of a string.
-     * @throws IllegalArgumentException If the string does not contain a task type.
+     * @param parsedTaskDetails Details of the task to be added, in the form of an array of strings.
+     * @throws IllegalArgumentException If the first string in the array does not contain a task type.
      */
-    public void addTask(String[] parsedTask) throws IllegalArgumentException {
-        String taskType = parsedTask[0];
+    private void addTask(String[] parsedTaskDetails) throws IllegalArgumentException {
+        String taskType = parsedTaskDetails[0];
         Task createdTask = null;
         switch (taskType) {
         case "todo":
-            createdTask = new ToDo(parsedTask[1]);
+            createdTask = new ToDoTask(parsedTaskDetails[1]);
             break;
         case "deadline":
-            createdTask = new Deadline(parsedTask[1], parsedTask[2]);
+            createdTask = new DeadlineTask(parsedTaskDetails[1], parsedTaskDetails[2]);
             break;
         case "plan":
-            createdTask = new Plan(parsedTask[1], parsedTask[2]);
+            createdTask = new PlannedTask(parsedTaskDetails[1], parsedTaskDetails[2]);
             break;
         case "event":
-            createdTask = new Event(parsedTask[1], parsedTask[2], parsedTask[3]);
+            createdTask = new EventTask(parsedTaskDetails[1], parsedTaskDetails[2], parsedTaskDetails[3]);
             break;
         default:
             // Should never reach here - parser should have caught invalid task type
@@ -168,15 +168,13 @@ public class TaskList {
      * @param taskNumber Task number to be deleted.
      * @throws IllegalArgumentException If the task number is invalid.
      */
-    public void deleteTask(int taskNumber) throws IllegalArgumentException {
-        if (taskNumber <= 0 || taskNumber > tasks.size()) {
-            throw new IllegalArgumentException("Invalid task number!");
-        }
+    private void deleteTask(int taskNumber) throws IllegalArgumentException {
         Task removedTask = tasks.remove(taskNumber - 1);
         storage.saveTasks(tasks);
         ResponseHandler.appendLineToResponse("Noted. I've removed this task:");
         ResponseHandler.appendLineToResponse("  " + removedTask.getDescription());
-        ResponseHandler.appendLineToResponse(String.format("Now you have %d task(s) in the list.", tasks.size()));
+        ResponseHandler.appendLineToResponse(
+                String.format("Now you have %d task(s) in the list.", tasks.size()));
     }
 
     /**
@@ -184,7 +182,7 @@ public class TaskList {
      *
      * @param taskNumber Number (in this list) of the task to be marked.
      */
-    public void markTaskAsDone(int taskNumber) {
+    private void markTaskAsDone(int taskNumber) {
         Task targetTask = tasks.get(taskNumber - 1);
         targetTask.markAsDone();
         storage.saveTasks(tasks);
@@ -200,7 +198,7 @@ public class TaskList {
      *
      * @param taskNumber Number (in this list) of the task to be marked.
      */
-    public void markTaskAsUndone(int taskNumber) {
+    private void markTaskAsUndone(int taskNumber) {
         Task targetTask = tasks.get(taskNumber - 1);
         targetTask.markAsUndone();
         storage.saveTasks(tasks);
@@ -214,14 +212,26 @@ public class TaskList {
     /**
      * Prints out the list of tasks.
      */
-    public void printTasks() {
+    private void printTasks() {
         if (tasks.size() == 0) {
-            ResponseHandler.appendLineToResponse("Your task list is empty! Looks like you can go back to sleep.");
+            ResponseHandler.appendLineToResponse("Your task list is empty! "
+                    + "Looks like you can go back to sleep.");
             return;
         }
         for (int i = 1; i <= tasks.size(); i++) {
             Task nextTask = tasks.get(i - 1);
             ResponseHandler.appendLineToResponse(i + "." + nextTask.getDescription());
+        }
+    }
+
+    /**
+     * Checks if a task number is in the range of accessible task numbers.
+     * @param taskNumber The task number to be checked.
+     * @throws IllegalArgumentException If the task number is out of the valid range.
+     */
+    private void checkValidTaskNumber(int taskNumber) throws IllegalArgumentException {
+        if (taskNumber < 1 || taskNumber > tasks.size()) {
+            throw new IllegalArgumentException("Invalid task number!");
         }
     }
 }

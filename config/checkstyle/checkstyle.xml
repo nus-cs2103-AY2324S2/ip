@@ -31,7 +31,7 @@
 
   <module name="LineLength">
     <!-- Checks if a line is too long. -->
-    <property name="max" value="120"/>
+    <property name="max" value="110"/>
   </module>
 
   <!-- All Java AST specific tests live under TreeWalker module. -->

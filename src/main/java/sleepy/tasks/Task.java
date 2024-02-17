@@ -1,5 +1,7 @@
 package sleepy.tasks;
 
+import java.time.format.DateTimeFormatter;
+
 /**
  * This class is an abstract class for the tasks in the list.
  *
@@ -8,6 +10,8 @@ package sleepy.tasks;
 public abstract class Task {
     // Offset of the task description to exclude whether it is done, i.e. "[ ]" and "[X]".
     public static final int TASK_DESCRIPTION_OFFSET = 4;
+    // Format to convert dates to, which is the form d MMM yyyy (e.g. 1 Jan 2024).
+    public static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("d MMM yyyy");
     // Description of the task (without timings).
     private String description;
 
