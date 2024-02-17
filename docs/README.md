@@ -112,6 +112,18 @@ Ok, I've untagged this task:
 [T][ ] buy bread
 ```
 
+## Finding Tasks
+
+You can find tasks based on keyword searches.
+
+`find bread`
+
+Outcome:
+```
+Here are the matching tasks in your list:
+    1.[T][ ] buy bread
+```
+
 ## Saving
 
 This feature will save your current task list to your local data file.

@@ -73,63 +73,29 @@ public class MainWindow extends AnchorPane {
         aboutPopup.showAndWait();
     }
 
+    public static String printHelpCommands(String command) {
+        return command + System.lineSeparator() + System.lineSeparator();
+    }
+
     @FXML
     private void handleHelp() {
         Alert aboutPopup = new Alert(Alert.AlertType.INFORMATION);
         aboutPopup.setTitle("Commands");
         aboutPopup.setHeaderText("Tobias Bot");
 
-        String hello = "hello \n   I will reply accordingly";
-        String list = "list \n   View your list of tasks";
-        String todo = "todo {name} \n   Creates a todo";
-        String deadline = "deadline {name} /by {dd-mm-yyyy HHMM} \n   Creates a deadline with date & time";
-        String event = "event {name} /from {dd-mm-yyyy HHMM} /to {dd-mm-yyyy HHMM} \n   Creates an event with date & time";
-        String delete = "delete {task number} \n   Deletes this task";
-        String mark = "mark {task number} \n   Marks this task as done";
-        String unmark = "unmark {task number} \n   Un-marks this task as done";
-        String tag = "tag {task number} {your tag} \n   Adds a tag to the task";
-        String untag = "untag {task number} {tag number} \n   Removes that tag from the task";
-        String find = "find {keyword} \n   Finds and returns tasks with those keywords";
-        String save = "save \n   Saves your tasks to the local data";
-        String bye = "bye \n   Saves and exits the app";
-
-        String info = hello
-                + System.lineSeparator()
-                + System.lineSeparator()
-                + list
-                + System.lineSeparator()
-                + System.lineSeparator()
-                + todo
-                + System.lineSeparator()
-                + System.lineSeparator()
-                + deadline
-                + System.lineSeparator()
-                + System.lineSeparator()
-                + event
-                + System.lineSeparator()
-                + System.lineSeparator()
-                + delete
-                + System.lineSeparator()
-                + System.lineSeparator()
-                + mark
-                + System.lineSeparator()
-                + System.lineSeparator()
-                + unmark
-                + System.lineSeparator()
-                + System.lineSeparator()
-                + tag
-                + System.lineSeparator()
-                + System.lineSeparator()
-                + untag
-                + System.lineSeparator()
-                + System.lineSeparator()
-                + find
-                + System.lineSeparator()
-                + System.lineSeparator()
-                + save
-                + System.lineSeparator()
-                + System.lineSeparator()
-                + bye;
+        String info = printHelpCommands("hello \n   I will reply accordingly")
+                + printHelpCommands("list \n   View your list of tasks")
+                + printHelpCommands("todo {name} \n   Creates a todo")
+                + printHelpCommands("deadline {name} /by {dd-mm-yyyy HHMM} \n   Creates a deadline with date & time")
+                + printHelpCommands("event {name} /from {dd-mm-yyyy HHMM} /to {dd-mm-yyyy HHMM} \n   Creates an event with date & time")
+                + printHelpCommands("delete {task number} \n   Deletes this task")
+                + printHelpCommands("mark {task number} \n   Marks this task as done")
+                + printHelpCommands("unmark {task number} \n   Un-marks this task as done")
+                + printHelpCommands("tag {task number} {your tag} \n   Adds a tag to the task")
+                + printHelpCommands("untag {task number} {tag number} \n   Removes that tag from the task")
+                + printHelpCommands("find {keyword} \n   Finds and returns tasks with those keywords")
+                + printHelpCommands("save \n   Saves your tasks to the local data")
+                + "bye \n   Saves and exits the app";
 
         aboutPopup.setContentText(info);
 

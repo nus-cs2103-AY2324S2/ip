@@ -49,6 +49,104 @@ public class Storage {
         }
     }
 
+    public static void todoExtractor(String data, TaskList tasks) throws TobiasException {
+        boolean isDone = Integer.parseInt(data.substring(8,9)) == 1;
+
+        int desc = data.indexOf("|desc");
+
+
+        int tag = data.indexOf("|tag");
+
+        if (tag == -1) {
+            String description = data.substring(desc+5);
+            Task newTask = new ToDo(description, isDone);
+            tasks.addToList(newTask);
+        } else {
+            String description = data.substring(desc+5, tag);
+
+            String tagString = data.substring(tag+4);
+
+            String[]tags = tagString.split("_");
+
+            Task newTask = new ToDo(description, isDone);
+
+            for (String t : tags){
+                newTask.addTag(t);
+            }
+
+            tasks.addToList(newTask);
+        }
+    }
+
+    public static void deadlineExtractor(String data, TaskList tasks) throws TobiasException {
+        boolean isDone = Integer.parseInt(data.substring(8,9)) == 1;
+
+        int desc = data.indexOf("|desc");
+        int by = data.indexOf("|by");
+        int tag = data.indexOf("|tag");
+
+        if (tag == -1) {
+            String description = data.substring(desc+5, by);
+            String byDate = data.substring(by+3);
+            LocalDateTime dd = Parser.dateFromString(byDate);
+            Task newTask = new Deadline(description, isDone, dd);
+            tasks.addToList(newTask);
+        } else {
+            String description = data.substring(desc+5, by);
+            String byDate = data.substring(by+3, tag);
+            String tagString = data.substring(tag+4);
+            LocalDateTime dd = Parser.dateFromString(byDate);
+            String[]tags = tagString.split("_");
+
+            Task newTask = new Deadline(description, isDone, dd);
+
+            for (String t : tags){
+                newTask.addTag(t);
+            }
+
+            tasks.addToList(newTask);
+        }
+    }
+
+    public static void eventExtractor(String data, TaskList tasks) throws TobiasException {
+        boolean isDone = Integer.parseInt(data.substring(8,9)) == 1;
+
+        int desc = data.indexOf("|desc");
+        int from = data.indexOf("|from");
+        int to = data.indexOf("|to");
+        int tag = data.indexOf("|tag");
+
+        if (tag == -1) {
+            String description = data.substring(desc+5, from);
+            String fromDate = data.substring(from+5, to);
+            String toDate = data.substring(to+3);
+
+            LocalDateTime f = Parser.dateFromString(fromDate);
+            LocalDateTime t = Parser.dateFromString(toDate);
+
+            Task newTask = new Event(description, isDone, f, t);
+            tasks.addToList(newTask);
+        } else {
+            String description = data.substring(desc+5, from);
+            String fromDate = data.substring(from+5, to);
+            String toDate = data.substring(to+3, tag);
+
+            String tagString = data.substring(tag+4);
+            String[]tags = tagString.split("_");
+
+            LocalDateTime f = Parser.dateFromString(fromDate);
+            LocalDateTime t = Parser.dateFromString(toDate);
+
+            Task newTask = new Event(description, isDone, f, t);
+
+            for (String tt : tags){
+                newTask.addTag(tt);
+            }
+
+            tasks.addToList(newTask);
+        }
+    }
+
     /**
      * Reads data of commands from the local save file and adds them to the given TaskList.
      *
@@ -58,103 +156,11 @@ public class Storage {
      * */
     public static void localToList(String data, TaskList tasks) throws TobiasException {
         if (data.startsWith("T")) {
-            boolean isDone = Integer.parseInt(data.substring(8,9)) == 1;
-
-            int desc = data.indexOf("|desc");
-
-
-            int tag = data.indexOf("|tag");
-
-            if (tag == -1) {
-                String description = data.substring(desc+5);
-                Task newTask = new ToDo(description, isDone);
-                tasks.addToList(newTask);
-            } else {
-                String description = data.substring(desc+5, tag);
-
-                String tagString = data.substring(tag+4);
-
-                String[]tags = tagString.split("_");
-
-                Task newTask = new ToDo(description, isDone);
-
-                for (String t : tags){
-                    newTask.addTag(t);
-                }
-
-                tasks.addToList(newTask);
-            }
-
+            todoExtractor(data, tasks);
         } else if (data.startsWith("D")) {
-            boolean isDone = Integer.parseInt(data.substring(8,9)) == 1;
-
-            int desc = data.indexOf("|desc");
-            int by = data.indexOf("|by");
-            int tag = data.indexOf("|tag");
-
-            if (tag == -1) {
-                String description = data.substring(desc+5, by);
-                String byDate = data.substring(by+3);
-                LocalDateTime dd = Parser.dateFromString(byDate);
-                Task newTask = new Deadline(description, isDone, dd);
-                tasks.addToList(newTask);
-            } else {
-                String description = data.substring(desc+5, by);
-                String byDate = data.substring(by+3, tag);
-                String tagString = data.substring(tag+4);
-                LocalDateTime dd = Parser.dateFromString(byDate);
-                String[]tags = tagString.split("_");
-
-                Task newTask = new Deadline(description, isDone, dd);
-
-                for (String t : tags){
-                    newTask.addTag(t);
-                }
-
-                tasks.addToList(newTask);
-            }
-
-
-
+            deadlineExtractor(data, tasks);
         } else if (data.startsWith("E")) {
-            boolean isDone = Integer.parseInt(data.substring(8,9)) == 1;
-
-            int desc = data.indexOf("|desc");
-            int from = data.indexOf("|from");
-            int to = data.indexOf("|to");
-            int tag = data.indexOf("|tag");
-
-            if (tag == -1) {
-                String description = data.substring(desc+5, from);
-                String fromDate = data.substring(from+5, to);
-                String toDate = data.substring(to+3);
-
-                LocalDateTime f = Parser.dateFromString(fromDate);
-                LocalDateTime t = Parser.dateFromString(toDate);
-
-                Task newTask = new Event(description, isDone, f, t);
-                tasks.addToList(newTask);
-            } else {
-                String description = data.substring(desc+5, from);
-                String fromDate = data.substring(from+5, to);
-                String toDate = data.substring(to+3, tag);
-
-                String tagString = data.substring(tag+4);
-                String[]tags = tagString.split("_");
-
-                LocalDateTime f = Parser.dateFromString(fromDate);
-                LocalDateTime t = Parser.dateFromString(toDate);
-
-                Task newTask = new Event(description, isDone, f, t);
-
-                for (String tt : tags){
-                    newTask.addTag(tt);
-                }
-
-                tasks.addToList(newTask);
-            }
-
-
+            eventExtractor(data, tasks);
         } else {
             throw new TobiasException("OH NO, someone has ruined your save file :(");
         }
