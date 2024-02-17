@@ -26,6 +26,7 @@ public class Storage {
      * @return {@code ArrayList<Task>} containing the saved <code>TaskList</code>
      * @throws DukeException in the event of an Exception
      */
+    @SuppressWarnings("unchecked")
     public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> taskList = new ArrayList<>();
         // Load tasks from file
@@ -33,6 +34,7 @@ public class Storage {
         // https://stackoverflow.com/questions/16111496/java-how-can-i-write-my-arraylist-to-a-file
         // -and-read-load-that-file-to-the
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filepath))) {
+            // safe to cast because we know the object is an ArrayList<Task>
             taskList = (ArrayList<Task>) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             try {
@@ -50,7 +52,6 @@ public class Storage {
                 System.out.println("An error occurred.");
                 e.printStackTrace();
             }
-            System.out.println("Could not load tasks from file: " + e.getMessage());
         }
         return taskList;
     }

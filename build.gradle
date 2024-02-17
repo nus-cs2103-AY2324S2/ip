@@ -13,12 +13,15 @@ jar {
     }
 }
 
+mainClassName = 'seedu.duke.Launcher'
+
 checkstyle {
     toolVersion = '10.2'
 }
 
 repositories {
     mavenCentral()
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
 }
 
 dependencies {
@@ -56,16 +59,17 @@ test {
 }
 
 application {
-    mainClass.set("Launcher")
+    mainClass.set("seedu.duke.Launcher")
 }
 
 shadowJar {
     archiveBaseName = "duke"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
-    archiveFileName = 'ip.jar'
+    archiveFileName = 'Klara.jar'
 }
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }
