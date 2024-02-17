@@ -31,6 +31,10 @@ public class AddCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws ThamesException {
         try {
+            assert storage != null: "Task list cannot be null!";
+            assert tasks != null: "Ui cannot be null!";
+            assert ui != null: "Storage cannot be null!";
+
             tasks.add(task);
             storage.save(tasks);
             return ui.addTask(task, tasks.size());
