@@ -1,6 +1,6 @@
 package Utils;
 
-public enum Command {
+public enum CommandTypes {
     BYE,
     LIST,
     DELETE,
@@ -9,5 +9,6 @@ public enum Command {
     EVENT,
     MARK,
     UNMARK,
+    HELP,
     INVALID
 }

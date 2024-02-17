@@ -21,7 +21,7 @@ public class Deadline extends Task {
         int by_occurences = utils.countOccurrences(arr, "/by");
 
         if (by_occurences == 0 || by_occurences > 1){
-            throw new InvalidFormatException("Invalid format. Follow this format: deadline <description> /by <deadline date>. Provide one and only one '/by'.");
+            throw new InvalidFormatException("deadline", "format: deadline <description> /by <deadline date>. Provide one and only one '/by'.");
         }
 
         //they will not be -1 as I have already checked for their occurences

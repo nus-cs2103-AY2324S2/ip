@@ -1,7 +1,6 @@
 package Tasks;
 
-import Tasks.Task;
-
+import Exceptions.DudeException;
 import java.util.ArrayList;
 import Exceptions.TaskListFullException;
 
@@ -10,7 +9,7 @@ public class TaskList {
     private final ArrayList<Task> list;
 
     public TaskList(){
-        list = new ArrayList<>();
+        list = new ArrayList<Task>();
     }
 
     public static TaskList from(ArrayList<Task> tasks) {
@@ -34,11 +33,11 @@ public class TaskList {
                 "\t-----------------------------------";
     }
 
-    public String remove_task(int index) throws IndexOutOfBoundsException {
-        if (index > list.size() || index < 1) {
-            throw new IndexOutOfBoundsException("Sorry, the provided id is invalid.");
+    public String remove_task(int taskID) throws DudeException {
+        if (taskID > list.size() || taskID < 1) {
+            throw new DudeException("Sorry, the provided id is invalid.");
         }
-        Task removed = list.remove(index - 1);
+        Task removed = list.remove(taskID - 1);
         return "\t-----------------------------------\n" +
                 "\tNoted. I've removed this task:\n" +
                 "\t  " + removed.toString() + "\n" +
@@ -46,9 +45,9 @@ public class TaskList {
                 "\t-----------------------------------";
     }
 
-    public String mark_as_done(int index) throws IndexOutOfBoundsException{
+    public String mark_as_done(int index) throws DudeException {
         if (index > list.size() || index < 1) {
-            throw new IndexOutOfBoundsException("Sorry, the provided id is invalid.");
+            throw new DudeException("Sorry, the provided id is invalid.");
         }
         list.get(index - 1).markAsDone();
         return "\t-----------------------------------\n" +
@@ -57,9 +56,9 @@ public class TaskList {
                 "\t-----------------------------------";
     }
 
-    public String mark_as_undone(int index) throws IndexOutOfBoundsException {
+    public String mark_as_undone(int index) throws DudeException {
         if (index > list.size() || index < 1) {
-            throw new IndexOutOfBoundsException("Sorry, the provided id is invalid.");
+            throw new DudeException("Sorry, the provided id is invalid.");
         }
         list.get(index - 1).markAsUndone();
         return "\t-----------------------------------\n" +
@@ -71,11 +70,15 @@ public class TaskList {
 
     @Override
     public String toString() {
-        String result = "\t-----------------------------------\n";
+        String result = "";
         for (int i = 0; i < list.size(); i++) {
-            result += "\t" + (i + 1) + ". " + list.get(i).toString() + "\n";
+            //if it is the last task, do not add a new line
+            if (i == list.size() - 1) {
+                result += (i + 1) + ". " + list.get(i).toString();
+                break;
+            }
+            result += (i + 1) + ". " + list.get(i).toString() + "\n";
         }
-        result += "\t-----------------------------------";
         return result;
     }
 
@@ -103,10 +106,11 @@ public class TaskList {
         return list.size();
     }
 
-    public Task getTask(int index) throws IndexOutOfBoundsException{
-        if (index < 0 || index >= list.size()) {
-            throw new IndexOutOfBoundsException("Sorry, the provided id is invalid.");
+    public Task getTask(int taskID) throws IndexOutOfBoundsException {
+        if (taskID <= 0 || taskID > list.size()) {
+            throw new IndexOutOfBoundsException("Sorry, the provided id is invalid. " +
+                    "Use the list command to see the list of tasks.");
         }
-        return list.get(index);
+        return list.get(taskID - 1);
     }
 }
