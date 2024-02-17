@@ -34,11 +34,11 @@ public class Logic {
     public String getResponse(String input) {
         assert input != null : "There should be an input";
         try {
-            Command c = CommandParser.parse(input);
-            if (c.isExit()) {
+            Command inputCommand = CommandParser.parse(input);
+            if (inputCommand.isExit()) {
                 Platform.exit();
             }
-            String consoleText = c.execute(taskList, storage);
+            String consoleText = inputCommand.execute(taskList, storage);
             storage.update(taskList);
 
             return consoleText;

@@ -39,8 +39,8 @@ public class Storage {
             throw new DukeException("OOPS!!! File is not found.");
         }
         while (s.hasNext()) {
-            Task decoded = Decoder.decodeTask(s.nextLine());
-            taskList.add(decoded);
+            Task decodedTask = Decoder.decodeTask(s.nextLine());
+            taskList.add(decodedTask);
         }
         return taskList;
     }
@@ -55,13 +55,17 @@ public class Storage {
         assert taskList != null : "A task list should exist";
         try {
             FileWriter fw = new FileWriter(filepath);
-            for (int i = 0; i < taskList.size(); i++) {
-                String parsedTask = taskList.get(i).toFileString();
-                fw.write(parsedTask + "\n");
-            }
+            writeToStorage(taskList, fw);
             fw.close();
         } catch (IOException e) {
             throw new DukeException("OOPS!!! An error occurred with the save file. Try again");
+        }
+    }
+
+    private void writeToStorage(TaskList taskList, FileWriter fw) throws DukeException, IOException {
+        for (int i = 0; i < taskList.size(); i++) {
+            String parsedTask = taskList.get(i).toFileString();
+            fw.write(parsedTask + "\n");
         }
     }
 }

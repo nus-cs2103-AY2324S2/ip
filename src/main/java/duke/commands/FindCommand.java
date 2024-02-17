@@ -32,6 +32,16 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Storage storage) throws DukeException {
+        TaskList searchResults = getSearchResults(taskList);
+
+        if (searchResults.size() != 0) {
+            return searchResults.toString();
+        } else {
+            return "Sorry, there are no matching entries.";
+        }
+    }
+
+    private TaskList getSearchResults(TaskList taskList) throws DukeException {
         TaskList searchResults = new TaskList();
         for (int i = 0; i < taskList.size(); i++) {
             Task currTask = taskList.get(i);
@@ -39,11 +49,6 @@ public class FindCommand extends Command {
                 searchResults.add(currTask);
             }
         }
-
-        if (searchResults.size() != 0) {
-            return searchResults.toString();
-        } else {
-            return "Sorry, there are no matching entries.";
-        }
+        return searchResults;
     }
 }

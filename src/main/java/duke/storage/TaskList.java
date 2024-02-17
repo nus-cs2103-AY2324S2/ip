@@ -55,7 +55,8 @@ public class TaskList {
      * @throws DukeException If the index is invalid.
      */
     public Task get(int index) throws DukeException {
-        if (index < 0 || index > taskList.size() - 1) {
+        boolean isOutOfBounds = index < 0 || index > taskList.size() - 1;
+        if (isOutOfBounds) {
             throw new DukeException("OOPS!!! Invalid index provided.");
         }
         return this.taskList.get(index);
