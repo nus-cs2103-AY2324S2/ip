@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import chipchat.action.Action;
 import chipchat.action.AddTask;
@@ -100,6 +102,15 @@ public class Parser {
         return args;
     }
 
+    private static List<String> parseTags(String tagString) {
+        String[] tags = tagString.split("#");
+        return Arrays.asList(tags)
+                .stream()
+                .map(tag -> tag.trim())
+                .filter(tag -> tag.length() > 0)
+                .collect(Collectors.toList());
+    }
+
     private static Action parseFindAction(CommandType command, String[] tokens) {
         if (tokens.length < 2) {
             throw new MissingArgumentException(
@@ -140,14 +151,14 @@ public class Parser {
         String description = args.get(0);
         switch(command) {
         case TODO:
-            return AddTask.addTodo(description, false);
+            return AddTask.addTodo(description, false, parseTags(args.get(1)));
         case DEADLINE:
             LocalDate dueBy = parseDate(args.get(1));
-            return AddTask.addDeadline(description, false, dueBy);
+            return AddTask.addDeadline(description, false, dueBy, parseTags(args.get(2)));
         case EVENT:
             LocalDate dateFrom = parseDate(args.get(1));
             LocalDate dateTo = parseDate(args.get(2));
-            return AddTask.addEvent(description, false, dateFrom, dateTo);
+            return AddTask.addEvent(description, false, dateFrom, dateTo, parseTags(args.get(3)));
         default:
             throw new ArgumentException("Reached default branch of parseTask() due to unrecognized command type");
         }
@@ -168,14 +179,14 @@ public class Parser {
 
         switch (taskType) {
         case TODO:
-            return new Todo(description, isDone);
+            return new Todo(description, isDone, parseTags(args.get(2)));
         case DEADLINE:
             LocalDate dueBy = parseDate(args.get(2));
-            return new Deadline(description, isDone, dueBy);
+            return new Deadline(description, isDone, dueBy, parseTags(args.get(3)));
         case EVENT:
             LocalDate dateFrom = parseDate(args.get(2));
             LocalDate dateTo = parseDate(args.get(3));
-            return new Event(description, isDone, dateFrom, dateTo);
+            return new Event(description, isDone, dateFrom, dateTo, parseTags(args.get(4)));
         default:
             return null;
         }

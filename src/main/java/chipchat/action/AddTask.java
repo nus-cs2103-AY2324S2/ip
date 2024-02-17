@@ -1,6 +1,7 @@
 package chipchat.action;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import chipchat.exception.ChipchatException;
 import chipchat.storage.Storage;
@@ -31,8 +32,8 @@ public class AddTask extends Action {
      * @param isDone completion status of task
      * @return action class that will add a Todo task when executed
      */
-    public static Action addTodo(String description, boolean isDone) {
-        return new AddTask(new Todo(description, isDone), CommandType.TODO);
+    public static Action addTodo(String description, boolean isDone, List<String> tags) {
+        return new AddTask(new Todo(description, isDone, tags), CommandType.TODO);
     }
 
     /**
@@ -42,8 +43,8 @@ public class AddTask extends Action {
      * @param isDone completion status of task
      * @return action class that will add a deadline task when executed
      */
-    public static Action addDeadline(String description, boolean isDone, LocalDate dueBy) {
-        return new AddTask(new Deadline(description, isDone, dueBy), CommandType.DEADLINE);
+    public static Action addDeadline(String description, boolean isDone, LocalDate dueBy, List<String> tags) {
+        return new AddTask(new Deadline(description, isDone, dueBy, tags), CommandType.DEADLINE);
     }
 
     /**
@@ -53,8 +54,8 @@ public class AddTask extends Action {
      * @param isDone completion status of task
      * @return action class that will add an Event task when executed
      */
-    public static Action addEvent(String description, boolean isDone, LocalDate dateFrom, LocalDate dateTo) {
-        return new AddTask(new Event(description, isDone, dateFrom, dateTo), CommandType.EVENT);
+    public static Action addEvent(String description, boolean isDone, LocalDate dateFrom, LocalDate dateTo, List<String> tags) {
+        return new AddTask(new Event(description, isDone, dateFrom, dateTo, tags), CommandType.EVENT);
     }
 
     /**

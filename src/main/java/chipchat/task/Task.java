@@ -1,9 +1,13 @@
 package chipchat.task;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Represents a task that can be managed by this chatbot.
  */
 public abstract class Task {
+    private final List<String> tags;
     private final String description;
     private boolean isDone;
 
@@ -13,9 +17,10 @@ public abstract class Task {
      * @param description name/description of the task
      * @param isDone completion status of the task
      */
-    public Task(String description, boolean isDone) {
+    public Task(String description, boolean isDone, List<String> tags) {
         this.description = description;
         this.isDone = isDone;
+        this.tags = tags;
     }
 
     /**
@@ -40,6 +45,17 @@ public abstract class Task {
      */
     public boolean matchByString(String query) {
         return this.description.contains(query);
+    }
+
+    /**
+     * Prints all tags attached to this task as a string.
+     *
+     * @return all tags in one string, with # attached at the start of each tag
+     */
+    public String printTags() {
+        return this.tags.stream()
+                .map(tag -> "#" + tag)
+                .reduce("", (str, tag) -> str + tag);
     }
 
     /**
