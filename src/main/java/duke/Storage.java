@@ -23,6 +23,7 @@ public class Storage {
      * @throws DukeException If an error occurs while creating the file.
      */
     public Storage(String filePath) throws DukeException {
+        assert filePath != null : "File path is null";
         this.filePath = filePath;
         try {
             ui.printMessage("Reading file from " + filePath + "...\n");
@@ -38,6 +39,7 @@ public class Storage {
         if (!Files.exists(path)) {
             Files.createDirectories(path);
         }
+        assert Files.exists(path) : "Folder was not created successfully";
     }
 
     private void createFile() throws IOException {
@@ -45,6 +47,7 @@ public class Storage {
         if (!Files.exists(path)) {
             Files.createFile(path);
         }
+        assert Files.exists(path) : "File was not created successfully";
     }
 
     /**
@@ -59,7 +62,9 @@ public class Storage {
         if (Files.exists(path)) {
             List<String> lines = Files.readAllLines(path);
             for (String line : lines) {
-                tasks.add(Task.fromString(line));
+                Task task = Task.fromString(line);
+                assert task != null : "Task was not loaded successfully";
+                tasks.add(task);
             }
         }
         return tasks;
@@ -72,6 +77,7 @@ public class Storage {
      * @throws IOException If an error occurs while writing to the file.
      */
     public void save(List<Task> tasks) throws IOException {
+        assert tasks != null : "Tasks are null";
         List<String> lines = new ArrayList<>();
         for (Task task : tasks) {
             lines.add(task.toFileString());
@@ -81,5 +87,6 @@ public class Storage {
             Files.createDirectories(path.getParent());
         }
         Files.write(path, lines);
+        assert Files.readAllLines(path).equals(lines) : "Tasks were not saved successfully";
     }
 }
