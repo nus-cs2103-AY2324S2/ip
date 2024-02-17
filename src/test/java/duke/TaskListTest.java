@@ -8,13 +8,13 @@ public class TaskListTest {
 
     @Test
     public void test1() {
-        Task todo = TaskList.createTodo("task desc", false);
+        Task todo = TaskFactory.createTodo("task desc", false);
         assertEquals("[T][ ] task desc", todo.toString());
     }
 
     @Test
     public void test2() {
-        Task deadline = TaskList.createDeadline(
+        Task deadline = TaskFactory.createDeadline(
             "task desc",
             "2/12/2019 18:00",
             false
@@ -27,7 +27,7 @@ public class TaskListTest {
 
     @Test
     public void test3() {
-        Task event = TaskList.createEvent(
+        Task event = TaskFactory.createEvent(
             "task desc",
             "2/12/2019 18:00",
             "2/12/2019 19:00",

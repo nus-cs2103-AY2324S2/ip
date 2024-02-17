@@ -69,28 +69,7 @@ public class Storage {
             return Arrays
             .stream(tasksString)
             .filter(s -> s.length() > 0)
-            .map(s -> {
-                String[] xs = s.split("<1>");
-                String[] taskData = xs[0].split("<0>");
-                String[] auxData = xs.length == 1
-                ? new String[0]
-                : xs[1].split("<0>");
-                String taskDesc = taskData[1];
-                boolean isDone = taskData[2].equals("X");
-                switch (taskData[0]) {
-                case "T":
-                    return TaskList.createTodo(taskDesc, isDone);
-                case "E":
-                    return TaskList.createEvent(
-                        taskDesc,
-                        auxData[0],
-                        auxData[1],
-                        isDone
-                    );
-                default:
-                    return TaskList.createDeadline(taskDesc, auxData[0], isDone);
-                }
-            })
+            .map(s -> TaskFactory.deserealiseTask(s))
             .collect(Collectors.toCollection(ArrayList::new));
         } catch (IOException e) {
             throw new DukeException("Storage.load: " + e.getMessage());

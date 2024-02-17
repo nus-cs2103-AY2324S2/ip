@@ -132,7 +132,7 @@ class CommandTodo implements Command {
     }
 
     public boolean execute(Consumer<String> reply, TaskList tasks) throws DukeException {
-        Task task = TaskList.createTodo(taskDesc, false);
+        Task task = TaskFactory.createTodo(taskDesc, false);
         tasks.addTask(task);
         reply.accept(TODO_MESSAGE);
         reply.accept(String.format("  %s", task));
@@ -185,7 +185,7 @@ class CommandDeadline implements Command {
     }
 
     public boolean execute(Consumer<String> reply, TaskList tasks) throws DukeException {
-        Task task = TaskList.createDeadline(taskDesc, deadline, false);
+        Task task = TaskFactory.createDeadline(taskDesc, deadline, false);
         tasks.addTask(task);
         reply.accept(TODO_MESSAGE);
         reply.accept(String.format("  %s", task));
@@ -215,7 +215,7 @@ class CommandEvent implements Command {
     }
 
     public boolean execute(Consumer<String> reply, TaskList tasks) throws DukeException {
-        Task task = TaskList.createEvent(taskDesc, fromTime, toTime, false);
+        Task task = TaskFactory.createEvent(taskDesc, fromTime, toTime, false);
         tasks.addTask(task);
         reply.accept(TODO_MESSAGE);
         reply.accept(String.format("  %s", task));
