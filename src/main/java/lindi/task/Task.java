@@ -40,44 +40,56 @@ public abstract class Task { // Adapted from Course Website
         }
         String command = sTokens[0];
         String taskString = sTokens[1];
+
         switch (command) {
         case "todo":
-            return new ToDo(taskString);
+            return createToDo(taskString);
         case "deadline":
-            // Further split the remaining string based on /by
-            if (!taskString.contains("/by")) {
-                throw new CreateDeadlineException(
-                        "You can't expect me to track a deadline if you don't give me the.. deadline right? haha\n"
-                                + "please include '/by' followed by the deadline :)");
-            }
-            String[] descriptionNBy = taskString.split("/by");
-            if (descriptionNBy.length > 2) {
-                throw new CreateDeadlineException("Don't procrastinate with multiple deadlines !! :)");
-            }
-            return new Deadline(descriptionNBy[0].trim(),
-                                descriptionNBy[1].trim());
+            return createDeadline(taskString);
         case "event":
-            // Further split the remaining string based on /from and /to
-            if (!taskString.contains("/from") || !taskString.contains("/to")) {
-                throw new CreateEventException(
-                        "I'm not sure how you're going for an event without a start time or end time\n"
-                                + "please include '/from' and '/to' so I can keep track for you :)");
-            }
-            if (taskString.indexOf("/from") > taskString.indexOf("/to")) {
-                throw new CreateEventException("Sorry! /from must appear before /to :)");
-            }
-            String[] descriptionNFromNTo = taskString.split("/from |/to ");
-
-            if (descriptionNFromNTo.length > 3) {
-                throw new CreateEventException("um.. I'm not sure how I can track for you an event that has\n"
-                        + "more than 1 start or end time! :)");
-            }
-            return new Event(descriptionNFromNTo[0].trim(),
-                             descriptionNFromNTo[1].trim(),
-                             descriptionNFromNTo[2].trim());
+            return createEvent(taskString);
         default:
+            assert false : "Invalid command word";
             return null;
         }
+    }
+
+    private static ToDo createToDo(String taskString) {
+        return new ToDo(taskString);
+    }
+    private static Deadline createDeadline(String taskString) throws CreateDeadlineException {
+        if (!taskString.contains("/by")) {
+            throw new CreateDeadlineException(
+                    "You can't expect me to track a deadline if you don't give me the.. deadline right? haha\n"
+                            + "please include '/by' followed by the deadline :)");
+        }
+        String[] descriptionNBy = taskString.split("/by");
+        if (descriptionNBy.length > 2) {
+            throw new CreateDeadlineException("Don't procrastinate with multiple deadlines !! :)");
+        }
+        assert descriptionNBy.length == 2 : "descriptionNBy should have 2 elements: description, by.";
+        return new Deadline(descriptionNBy[0].trim(),
+                descriptionNBy[1].trim());
+    }
+
+    private static Event createEvent(String taskString) throws CreateEventException {
+        if (!taskString.contains("/from") || !taskString.contains("/to")) {
+            throw new CreateEventException(
+                    "I'm not sure how you're going for an event without a start time or end time\n"
+                            + "please include '/from' and '/to' so I can keep track for you :)");
+        }
+        if (taskString.indexOf("/from") > taskString.indexOf("/to")) {
+            throw new CreateEventException("Sorry! /from must appear before /to :)");
+        }
+        String[] descriptionNFromNTo = taskString.split("/from |/to ");
+        if (descriptionNFromNTo.length > 3) {
+            throw new CreateEventException("um.. I'm not sure how I can track for you an event that has\n"
+                    + "more than 1 start or end time! :)");
+        }
+        assert descriptionNFromNTo.length == 3 : "descriptionNFromNTo should have 3 elements: description, from, to.";
+        return new Event(descriptionNFromNTo[0].trim(),
+                descriptionNFromNTo[1].trim(),
+                descriptionNFromNTo[2].trim());
     }
 
     /**
@@ -119,9 +131,9 @@ public abstract class Task { // Adapted from Course Website
 
         // Create the new lindi.task using the user input string constructor
         if (taskType.equals("todo") && parsedTokens.length == 3) {
-            newTask = Task.create(commandString);
+            newTask = Task.createToDo(commandString);
         } else if (taskType.equals("deadline") && parsedTokens.length == 4) {
-            newTask = Task.create(commandString + String.format("/by %s", parsedTokens[3]));
+            newTask = Task.createDeadline(String.format("/by %s", parsedTokens[3]));
         } else if (taskType.equals("event") && parsedTokens.length == 5) {
             newTask = Task.create(commandString + String.format("/from %s /to %s", parsedTokens[3], parsedTokens[4]));
         } else {
