@@ -28,6 +28,8 @@ public class Parser {
      * @return ToDo, Event or Deadline Task stored in given line.
      */
     public static Task parseFromStorage(String taskStored) {
+        assert !taskStored.isEmpty() : "Task stored cannot be empty string";
+
         String[] taskLine = taskStored.split(";;;");
         String[] details = taskLine[2].split(":::");
         Task decodedTask = new ToDo(details[0]);
@@ -98,8 +100,7 @@ public class Parser {
             String[] fullCmdArr = fullCmd.split("/", 2);
             if (fullCmdArr.length != 2) {
                 throw new DukeException(deadlineFormTxt);
-            }
-            if (!fullCmdArr[1].substring(0, Math.min(3, fullCmdArr[1].length())).equals("by ")) {
+            } else if (!fullCmdArr[1].substring(0, Math.min(3, fullCmdArr[1].length())).equals("by ")) {
                 throw new DukeException(deadlineFormTxt);
             }
 
@@ -107,11 +108,9 @@ public class Parser {
             String dueDate = fullCmd.split("/", 2)[1].substring(3);
             if (name.trim().isEmpty()) {
                 throw new DukeException("Description Blank");
-            }
-            if (dueDate.trim().isEmpty()) {
+            } else if (dueDate.trim().isEmpty()) {
                 throw new DukeException(deadlineFormTxt);
             }
-
             Task newTask = new Deadline(name, parseCmdDate(dueDate));
             return new AddCommand(newTask);
         } catch (Exception e) {
@@ -123,7 +122,6 @@ public class Parser {
         String eventFormTxt = "Sorry! Please use the given format for event tasks:\n"
                 + "\tevent (description) /from DD/MM/YYYY hhmm /to DD/MM/YYYY hhmm\n"
                 + "\teg. event assignment /from 30/01/2023 1200 /to 12/02/2023 2359\n";
-
         try {
             String[] fullCmdArr = fullCmd.split("/from ");
             if (fullCmdArr.length != 2) {
@@ -149,6 +147,8 @@ public class Parser {
     }
 
     private static AddCommand parseToDo(String fullCmd) throws DukeException {
+        assert !fullCmd.isEmpty() : "Command cannot be empty";
+
         if (fullCmd.length() < 5) {
             throw new DukeException("Description Blank");
         }
@@ -161,6 +161,8 @@ public class Parser {
     }
 
     private static DeleteCommand parseDelete(String fullCmd) throws DukeException {
+        assert !fullCmd.isEmpty() : "Command cannot be empty";
+
         String deleteFormTxt = "Did you mean to delete the task? Please do this:\n"
                 + "\tdelete (number)\n";
         try {
@@ -176,6 +178,7 @@ public class Parser {
 
     private static FindCommand parseFind(String fullCmd)
             throws DukeException {
+        assert !fullCmd.isEmpty() : "Command cannot be empty";
         String findFormTxt = "Please specify the keyword you wish to find!\n";
         try {
             if (fullCmd.split(" ", 2)[1].trim().isEmpty()) {
@@ -188,14 +191,15 @@ public class Parser {
     }
 
     private static LocalDateTime parseCmdDate(String dateTime) {
+        assert !dateTime.isEmpty() : "Date cannot be empty";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         return LocalDateTime.parse(dateTime, formatter);
     }
 
     private static LocalDateTime parseStorageDate(String date) {
+        assert !date.isEmpty() : "Date cannot be empty";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         return LocalDateTime.parse(date, formatter);
     }
-
 
 }

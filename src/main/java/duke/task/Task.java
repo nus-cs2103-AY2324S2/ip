@@ -16,6 +16,7 @@ public abstract class Task {
     public Task(String name) {
         this.name = name;
         this.isDone = false;
+        assert !name.isEmpty() : "Name cannot be empty";
     }
 
     /**
