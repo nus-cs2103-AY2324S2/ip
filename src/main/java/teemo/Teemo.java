@@ -3,6 +3,8 @@ package teemo;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+
+import javafx.application.Application;
 /**
  * Instance of Duke class
  */
@@ -57,6 +59,8 @@ public class Teemo {
         } catch (DateTimeParseException dtpe) {
             return "Please use a datetime format of yyyy-mm-dd! Teemo can't understand other formats :(\n";
         }
+    }
+    public static void main(String[] args) {
     }
     /**
      * Returns the Option input by user.
