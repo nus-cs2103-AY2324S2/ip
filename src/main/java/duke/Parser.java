@@ -70,7 +70,7 @@ public class Parser {
                 LocalDate d = DateTimeParser.stringToDT(deadline);
                 String response = tasksList.add(new Deadline(name, d, false, "D"));
                 output += this.line;
-                output += (response);
+                output += ((response) + "\n");
                 output += this.line;
 
             } else if (input.toLowerCase().startsWith("event")) {
@@ -84,7 +84,7 @@ public class Parser {
                 LocalDate end = DateTimeParser.stringToDT(endTime);
                 String response = tasksList.add(new Event(name, start, end, false, "E"));
                 output += this.line;
-                output += (response);
+                output += ((response) + "\n");
                 output += this.line;
 
             } else if (input.toLowerCase().startsWith("unmark")) {
