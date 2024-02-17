@@ -9,7 +9,6 @@ import java.time.DateTimeException;
  */
 public class Deadline extends Task {
     protected LocalDateTime by;
-    protected String taskType = "D";
 
     /**
      * Constructor for the Deadline class.
@@ -18,13 +17,14 @@ public class Deadline extends Task {
      * @throws DateTimeException If the date and time is not in the correct format.
      */
     public Deadline(String description, String by) throws DateTimeException {
-        super(description);
+        super(description, "D");
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         try {
             this.by = LocalDateTime.parse(by.trim(), dateFormat);
         } catch (DateTimeException e) {
-            System.out.println("Please enter a valid date and time in the format yyyy-mm-dd HHmm!\n" +
-                    "For example, 2024-01-31 1800");        }
+            System.out.println("Please enter a valid date and time in the format yyyy-mm-dd HHmm!\n"
+                    + "For example, 2024-01-31 1800");
+        }
     }
     //Overridden toString method to print type of task, description and time
     @Override

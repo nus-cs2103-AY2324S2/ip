@@ -1,3 +1,4 @@
 T | 0 | read
-T | 0 | read a book
 D | 0 | homework  | 2024-01-02 1800
+T | 1 | sleep
+T | 0 | go home

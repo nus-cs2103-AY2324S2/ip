@@ -19,18 +19,13 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Executes the specified command by finding the tasks that contain the keyword.
-     *
-     * @param tasks   The list of tasks.
-     * @param ui      The user interface.
-     * @param storage The storage.
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         TaskList filteredTasks = tasks.findTasks(keyword);
         int listCount = filteredTasks.getTaskListSize();
-        String findTaskUi = ui.showFindTaskText(listCount);
+        String findTaskUi = ui.showFindTaskResponse(listCount);
         if (listCount == 0) {
             return findTaskUi;
         }

@@ -16,7 +16,7 @@ public class TaskList {
 
     //function to mark task as not done and print it
     public void markTaskAsNotDone(int taskNum) {
-        listStore.get(taskNum - 1).markAsNotdone();
+        listStore.get(taskNum - 1).markAsNotDone();
     }
 
     //function to delete task and move remaining tasks up in the list

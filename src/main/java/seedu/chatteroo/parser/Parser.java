@@ -6,9 +6,8 @@ import seedu.chatteroo.commands.DeleteCommand;
 import seedu.chatteroo.commands.ExitCommand;
 import seedu.chatteroo.commands.FindCommand;
 import seedu.chatteroo.commands.MarkCommand;
-import seedu.chatteroo.commands.PrintCommand;
+import seedu.chatteroo.commands.ListCommand;
 import seedu.chatteroo.commands.UnmarkCommand;
-
 
 import seedu.chatteroo.tasks.Task;
 import seedu.chatteroo.tasks.ToDo;
@@ -36,9 +35,10 @@ public class Parser {
 
         String[] inputArr = input.split(" ");
         String command = inputArr[0].toUpperCase();
+
         switch (command) {
         case "LIST":
-            return new PrintCommand();
+            return new ListCommand();
         case "MARK":
             int taskNum = Integer.parseInt(inputArr[1]);
             return new MarkCommand(taskNum);
@@ -88,5 +88,40 @@ public class Parser {
             throw new Exception("ChatterOOHNOO! I'm sorry, but Chatteroo don't know what that means :-(");
         }
     }
+
+    /**
+     * Parses the task from the file and returns the corresponding task.
+     * @param fileTask The task retrieved from the file.
+     * @return The corresponding task.
+     * @throws Exception If the task is invalid.
+     */
+    public static Task parseFileTasks(String fileTask) throws Exception {
+        String[] inputArr = fileTask.split(" \\| ");
+        String taskType = inputArr[0];
+        String taskStatus = inputArr[1];
+        String taskDescription = inputArr[2];
+        Task newTask = null;
+
+        if (taskType.equals("T")) {
+            newTask = new ToDo(taskDescription);
+        } else if (taskType.equals("D")) {
+            String by = inputArr[3];
+            newTask = new Deadline(taskDescription, by);
+        } else if (taskType.equals("E")) {
+            String from = inputArr[3];
+            String to = inputArr[4];
+            newTask = new Event(taskDescription, from, to);
+        } else {
+            throw new Exception("ChatterOOHNOO! Chatteroo couldn't retrieve your tasks :-(");
+        }
+
+        assert newTask != null : "Task should not be null";
+        if (taskStatus.equals("1")) {
+            newTask.markAsDone();
+        }
+        return newTask;
+    }
+
+
 
 }

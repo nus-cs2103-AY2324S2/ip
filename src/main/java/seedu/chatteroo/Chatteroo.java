@@ -21,7 +21,7 @@ public class Chatteroo {
      * Constructor for the Chatteroo class.
      * @throws IOException If an I/O error occurs.
      */
-    public Chatteroo() throws IOException {
+    public Chatteroo() throws Exception {
         ui = new Ui();
         storage = new Storage();
         tasks = new TaskList(storage.loadTasks());

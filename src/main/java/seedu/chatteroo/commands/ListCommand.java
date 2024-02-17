@@ -7,21 +7,24 @@ import seedu.chatteroo.storage.Storage;
 /**
  * Prints the list of tasks.
  */
-public class PrintCommand extends Command {
+public class ListCommand extends Command {
 
     /**
      * Constructor for the PrintCommand class.
      */
-    public PrintCommand() {
+    public ListCommand() {
         super();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         int listCount = tasks.getTaskListSize();
         if (listCount == 0) {
-            return ui.showListTaskText(listCount);
+            return ui.showListTaskResponse(listCount);
         }
-        return ui.showListTaskText(listCount) + tasks.getTaskListString();
+        return ui.showListTaskResponse(listCount) + tasks.getTaskListString();
     }
 }
