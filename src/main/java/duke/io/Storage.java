@@ -50,15 +50,12 @@ public class Storage {
     public static void loadFile(ArrayList<Task> tasks) {
         File file = new File(FILEPATH);
         if (!file.exists()) {
-            System.out.println("File does not exist: " + FILEPATH);
             return;
         }
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                System.out.println("Loaded line: " + line);
-
                 tasks.add(new Task(line));
             }
         } catch (IOException e) {
