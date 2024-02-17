@@ -8,8 +8,9 @@ import duke.task.TaskList;
 /**
  * Represents a command to delete a task.
  */
-public class DeleteCommand extends Command {
+public class DeleteCommand extends Command implements Undoable {
     private int index;
+    private Task task;
 
     /**
      * Creates a new delete command.
@@ -49,8 +50,22 @@ public class DeleteCommand extends Command {
                     "Sorry, but task number " + index + " does not exist. You only have " + list.size() + " tasks.");
         }
         Task task = list.deleteTask(index);
+        this.task = task;
         String response = ("Deleted: " + task + "\nYou now have " + list.size() + " tasks in the list.");
         state.setNormal();
+        state.addCommandToHistory(this);
         return response;
+    }
+
+    @Override
+    public String undo(TaskList list, ProgramState state) throws DukeException {
+        list.addTask(this.task);
+        state.setNormal();
+        return "Task re-added: " + task + "\nYou now have " + list.size() + " tasks in the list.";
+    }
+
+    @Override
+    public String redo(TaskList list, ProgramState state) throws DukeException {
+        return this.execute(list, state);
     }
 }
