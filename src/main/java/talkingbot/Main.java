@@ -3,6 +3,7 @@ package talkingbot;
 import java.io.IOException;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -15,6 +16,7 @@ import talkingbot.logic.TalkingBot;
  */
 public class Main extends Application {
     private static final String PATH_TO_WINDOW_FXML = "/gui/Window.fxml";
+    private static final int CHECK_INTERVAL = 100;
     private TalkingBot talkingBot = new TalkingBot();
     private Thread stopChecker;
 
@@ -35,11 +37,17 @@ public class Main extends Application {
             this.stopChecker = new Thread(() -> {
                 while (true) {
                     if (this.talkingBot.getIsRunning()) {
+                        try {
+                            Thread.sleep(CHECK_INTERVAL);
+                        } catch (Exception e) {
+                            System.out.println(e);
+                        }
                         continue;
                     }
                     try {
                         this.stop();
-                        System.exit(0);
+                        this.stopChecker.sleep(5 * CHECK_INTERVAL);
+                        Platform.exit();
                         this.stopChecker.stop();
                     } catch (Exception e) {
                         System.out.println(e);
