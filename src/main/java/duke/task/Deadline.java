@@ -1,11 +1,10 @@
 package duke.task;
 
-import duke.exception.DukeException;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import duke.exception.DukeException;
 
 /**
  * Represents a deadline task in the Duke application. A deadline task has a specific due date and time.

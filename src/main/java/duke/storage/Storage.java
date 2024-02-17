@@ -1,11 +1,5 @@
 package duke.storage;
 
-import duke.exception.DukeException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.ToDo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -13,9 +7,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import duke.exception.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
+
 /**
  * Manages the loading and saving of tasks to a file.
- * This class provides functionality to loadFromFile tasks from a specified file upon startup and save tasks into the same file.
+ * This class provides functionality to loadFromFile tasks from a specified file
+ * upon startup and save tasks into the same file.
  */
 public class Storage {
     private String filePath;
@@ -39,7 +40,7 @@ public class Storage {
         ArrayList<Task> listOfTasks = new ArrayList<>();
         try {
             File directory = new File("./data/");
-            if(!directory.exists()) {
+            if (!directory.exists()) {
                 directory.mkdirs();
             }
 

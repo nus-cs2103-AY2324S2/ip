@@ -1,13 +1,10 @@
 package duke.task;
 
-
-import duke.exception.DukeException;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Arrays;
+
+import duke.exception.DukeException;
 
 /**
  * Represents an event task with a start and end datetime.
@@ -22,8 +19,7 @@ public class Event extends Task {
      * Constructs a new Event instance with the specified description, including the start and end datetime.
      *
      * @param description The event description in the format "event_description /from start_datetime /to end_datetime".
-     * @throws DukeException If the datetime format is invalid or the description format is incorrect or if timeline
-     * is missing important details.
+     * @throws DukeException If the datetime format is invalid or the description format is incorrect/missing
      */
     public Event(String description) throws DukeException {
         this.fullTaskDescription = description;

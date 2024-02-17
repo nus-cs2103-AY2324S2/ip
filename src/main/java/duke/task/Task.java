@@ -3,16 +3,16 @@ package duke.task;
 /**
  * Represents an abstract task in the Duke application. This class is a base for various types of tasks.
  */
-abstract public class Task {
+public abstract class Task {
 
     protected String fullTaskDescription; //include timeline
     protected String description;
     protected boolean isDone;
 
-//    public Task(String description) {
-//        this.description = description;
-//        this.isDone = false;
-//    }
+    //    public Task(String description) {
+    //        this.description = description;
+    //        this.isDone = false;
+    //    }
 
     /**
      * Returns a string representation of the task's completion status.
@@ -42,7 +42,7 @@ abstract public class Task {
      * @return A string representation of the task showing its completion status.
      */
     @Override
-    public String toString(){
+    public String toString() {
         String str;
         str = "[" + this.getStatusIcon() + "] ";
         return str;

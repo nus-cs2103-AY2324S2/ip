@@ -1,16 +1,14 @@
 package duke;
 
+import duke.exception.DukeException;
+import duke.parser.Parser;
+import duke.storage.Storage;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
-import duke.ui.Ui;
-import duke.storage.Storage;
 import duke.tasklist.TaskList;
-import duke.exception.DukeException;
-import duke.parser.Parser;
-
-import java.util.ArrayList;
+import duke.ui.Ui;
 
 /**
  * Represents the main class for the Duke application.
@@ -55,7 +53,7 @@ public class Duke {
                 } else if (command.equals("list")) {
                     ui.showList(tasks);
                 } else if (command.equals("mark") || command.equals("unmark") || command.equals("todo")
-                        || command.equals("deadline") || command.equals("event") || command.equals("delete")){
+                        || command.equals("deadline") || command.equals("event") || command.equals("delete")) {
                     if (fullCommand.length > 1) {
                         if (command.equals("mark")) {
                             int indexToMark = Integer.parseInt(fullCommand[1]) - 1;

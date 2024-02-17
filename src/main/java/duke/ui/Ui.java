@@ -1,9 +1,10 @@
 package duke.ui;
 
+import java.util.Scanner;
+
 import duke.task.Task;
 import duke.tasklist.TaskList;
 
-import java.util.Scanner;
 /**
  * Handles the user interface of the Duke application. It is responsible for
  * all the interactions with the user, including taking input and showing
@@ -23,10 +24,10 @@ public class Ui {
      * Displays the welcome message to the user.
      */
     public void showHello() {
-        System.out.println("____________________________________________________________\n" +
-                " Hello! I'm Your Only Friend\n" +
-                " What can I do for you?\n" +
-                "____________________________________________________________\n");
+        System.out.println("____________________________________________________________\n"
+                + " Hello! I'm Your Only Friend\n"
+                + " What can I do for you?\n"
+                + "____________________________________________________________\n");
     }
 
     /**
@@ -44,9 +45,9 @@ public class Ui {
      */
     public void showError(String message) {
 
-        System.out.println("____________________________________________________________\n" +
-                message +
-                "____________________________________________________________\n");
+        System.out.println("____________________________________________________________\n"
+                + message
+                + "____________________________________________________________\n");
     }
 
     /**
@@ -93,10 +94,15 @@ public class Ui {
         System.out.println("____________________________________________________________\n");
         System.out.println(msg + "\n");
         System.out.println(task.toString());
-        System.out.println(" Now you have " + tasks.getSize() + (tasks.getSize() <= 1 ? " task in the list." : " tasks in the list.\n"));
+        System.out.println(" Now you have " + tasks.getSize()
+                + (tasks.getSize() <= 1 ? " task in the list." : " tasks in the list.\n"));
         System.out.println("____________________________________________________________\n");
     }
 
+    /**
+     * Displays list of tasks which includes the keyword for "finding tasks".
+     * @param tasks
+     */
     public void showMatchingList(TaskList tasks) {
         System.out.println("____________________________________________________________\n");
         System.out.println(" Here are the matching tasks in your list:\n");
