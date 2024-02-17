@@ -1,6 +1,7 @@
 package fishstock.ui;
 
 import fishstock.FishStock;
+import fishstock.Command;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -22,6 +23,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
+    private final String WELCOME_TEXT = "Hello, I'm FishStock.\nI might help if I feel like it.\n"
+            + "\nHere's a list of available commands: " + Command.toList();
     private FishStock fishstock;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
@@ -30,9 +33,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-
-        String welcomeText = "Hello, I'm FishStock.\nI might help if I feel like it.";
-        dialogContainer.getChildren().add(DialogBox.getFishStockDialog(welcomeText, fishStockImage));
+        dialogContainer.getChildren().add(DialogBox.getFishStockDialog(WELCOME_TEXT, fishStockImage));
     }
 
     protected void setFishStock(FishStock f) {

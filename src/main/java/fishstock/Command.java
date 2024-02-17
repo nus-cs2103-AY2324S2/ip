@@ -1,5 +1,7 @@
 package fishstock;
 
+import java.util.Locale;
+
 /**
  * Encapsulates the keywords for running respective commands.
  */
@@ -36,5 +38,17 @@ public enum Command {
             }
         }
         return Command.INVALID;
+    }
+
+    /**
+     * Gets the list of all Commands.
+     */
+    public static String toList() {
+        Command[] commands = Command.values();
+        String result = commands[1].toString().toLowerCase(); // Remove INVALID Command
+        for (int i = 2; i < commands.length; i++) {
+            result += ", " + commands[i].toString().toLowerCase();
+        }
+        return result;
     }
 }
