@@ -26,7 +26,8 @@ public class Event extends Task {
             this.to = LocalDateTime.parse(to, Task.SAVE_LOAD_DATETIME_FORMAT);
         } catch (DateTimeParseException e) {
             throw new CreateEventException(String.format("Event /from or /to argument in the wrong format. Use "
-                    + "format '%s' for each instead. Not saving seconds and below :)", Task.SAVE_LOAD_DATETIME_FORMAT));
+                    + "format '%s' for each instead. Not saving seconds and below :)",
+                    Task.SAVE_LOAD_DT_FORMAT_STRING));
         }
     }
 

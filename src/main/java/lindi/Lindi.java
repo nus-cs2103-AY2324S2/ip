@@ -1,7 +1,6 @@
 package lindi;
 
 import lindi.commands.Command;
-import lindi.gui.DialogBox;
 import lindi.parser.Parser;
 import lindi.storage.Storage;
 import lindi.storage.StorageLoadException;
