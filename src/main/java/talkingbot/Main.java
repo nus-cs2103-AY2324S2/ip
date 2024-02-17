@@ -8,7 +8,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import talkingbot.gui.Message;
 import talkingbot.gui.Window;
 import talkingbot.logic.TalkingBot;
 
@@ -35,6 +34,7 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<Window>getController().setBot(this.talkingBot);
             stage.show();
+            // Solution below adapted from https://github.com/GERARDJM018/ip/blob/master/src/main/java/duke/Main.java
             this.stopChecker = new Thread(() -> {
                 while (true) {
                     if (this.talkingBot.getIsRunning()) {
