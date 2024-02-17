@@ -1,18 +1,19 @@
 package task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class contains a list of the tasks added by the user.
  */
 public class TaskList {
-    private final ArrayList<Task> tasks;
+    private final List<Task> tasks;
 
     /**
      * Constructor for TaskList class with a new task list.
      */
     public TaskList() {
-        this.tasks = new ArrayList<>();
+        this.tasks = new ArrayList<Task>();
     }
 
     /**
@@ -20,11 +21,11 @@ public class TaskList {
      *
      * @param tasks An existing task list.
      */
-    public TaskList(ArrayList<Task> tasks) {
+    public TaskList(List<Task> tasks) {
         this.tasks = tasks;
     }
 
-    public ArrayList<Task> getTaskList() {
+    public List<Task> getTaskList() {
         return this.tasks;
     }
 

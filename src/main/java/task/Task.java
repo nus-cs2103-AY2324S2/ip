@@ -34,6 +34,16 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Checks if the task description contains the keyword.
+     *
+     * @param keyword To be checked in the task description.
+     * @return true if contains keyword.
+     */
+    public boolean isMatchKeyword(String keyword) {
+        return false;
+    }
+
     @Override
     public String toString() {
         return isDone ? "[x]" : "[ ]";

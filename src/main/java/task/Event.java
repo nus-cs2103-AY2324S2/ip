@@ -4,8 +4,10 @@ package task;
  * Events are tasks that start at a specific date/time and ends at a specific date/time.
  */
 public class Event extends Task {
-    // Task.Task description consist of name, start and end of task.
-    protected String[] description = new String[3];
+    protected String name;
+    protected String from;
+    protected String to;
+
 
     /**
      * Constructor for an Event object.
@@ -14,9 +16,9 @@ public class Event extends Task {
      */
     public Event(String[] description) {
         super();
-        for (int i = 0; i < 3; i++) {
-            this.description[i] = description[i];
-        }
+        this.name = description[0];
+        this.from = description[1];
+        this.to = description[2];
     }
 
     /**
@@ -30,14 +32,20 @@ public class Event extends Task {
         int fromIdx = description.indexOf("(from:");
         int toIdx = description.indexOf("to:");
         int len = description.length();
-        this.description[0] = description.substring(0, fromIdx - 1);
-        this.description[1] = description.substring(fromIdx + 7, toIdx - 1);
-        this.description[2] = description.substring(toIdx + 4, len - 1);
+
+        this.name = description.substring(0, fromIdx - 1);
+        this.from = description.substring(fromIdx + 7, toIdx - 1);
+        this.to = description.substring(toIdx + 4, len - 1);
+    }
+
+    @Override
+    public boolean isMatchKeyword(String keyword) {
+        return this.name.toLowerCase().contains(keyword.toLowerCase());
     }
 
     @Override
     public String toString() {
-        return super.toString() + "[E] " + this.description[0]
-                + " (from: " + this.description[1] + " to: " + this.description[2] + ")";
+        return super.toString() + "[E] " + this.name
+                + " (from: " + this.from + " to: " + this.to + ")";
     }
 }

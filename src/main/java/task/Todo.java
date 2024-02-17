@@ -28,6 +28,11 @@ public class Todo extends Task {
     }
 
     @Override
+    public boolean isMatchKeyword(String keyword) {
+        return this.name.toLowerCase().contains(keyword.toLowerCase());
+    }
+
+    @Override
     public String toString() {
         return super.toString() + "[T] " + this.name;
     }

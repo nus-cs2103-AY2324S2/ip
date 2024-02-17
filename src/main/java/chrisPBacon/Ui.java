@@ -1,5 +1,6 @@
 package chrisPBacon;
 
+import exceptions.ChrisPBaconException;
 import exceptions.InvalidTaskNameException;
 
 import task.Deadline;
@@ -99,6 +100,7 @@ public class Ui {
      *
      * @param userInput a string
      * @param tasks task list
+     * @throws InvalidTaskNameException Check for invalid input format.
      */
     public void printMark(String userInput, TaskList tasks) throws InvalidTaskNameException {
         System.out.println(LINE);
@@ -117,6 +119,7 @@ public class Ui {
      *
      * @param userInput a string
      * @param tasks task list
+     * @throws InvalidTaskNameException Check for invalid input format.
      */
     public void printUnmark(String userInput, TaskList tasks) throws InvalidTaskNameException {
         System.out.println(LINE);
@@ -135,6 +138,7 @@ public class Ui {
      *
      * @param userInput a string
      * @param tasks task list
+     * @throws InvalidTaskNameException Check for invalid input format.
      */
     public void printDelete(String userInput, TaskList tasks) throws InvalidTaskNameException {
         System.out.println(LINE);
@@ -153,6 +157,7 @@ public class Ui {
      *
      * @param userInput a string
      * @param tasks task list
+     * @throws InvalidTaskNameException Check for invalid input format.
      */
     public void printTodo(String userInput, TaskList tasks) throws InvalidTaskNameException {
         System.out.println(LINE);
@@ -168,6 +173,7 @@ public class Ui {
      *
      * @param userInput a string
      * @param tasks task list
+     * @throws InvalidTaskNameException Check for invalid input format.
      */
     public void printDeadline(String userInput, TaskList tasks) throws InvalidTaskNameException {
         System.out.println(LINE);
@@ -186,8 +192,9 @@ public class Ui {
     /**
      * Adds an event and prints the details of the new task.
      *
-     * @param userInput a string
-     * @param tasks task list
+     * @param userInput a string.
+     * @param tasks task list.
+     * @throws InvalidTaskNameException Check for invalid input format.
      */
     public void printEvent(String userInput, TaskList tasks) throws InvalidTaskNameException {
         System.out.println(LINE);
@@ -198,7 +205,28 @@ public class Ui {
         System.out.println(tasks.addTask(task) + LINE);
     }
 
-    public void printFind(String userInput, TaskList tasks) throws InvalidTaskNameException{
+    /**
+     * Finds tasks that matches the keyword by user and prints the list of matching tasks.
+     *
+     * @param userInput a string.
+     * @param tasks task list.
+     * @throws ChrisPBaconException Check for invalid input format.
+     */
+    public void printFind(String userInput, TaskList tasks) throws ChrisPBaconException {
+        System.out.println(LINE);
 
+        TaskList matchingTasks = parser.parseFind(userInput, tasks);
+        if (matchingTasks.isEmpty()) {
+            // If the list is empty.
+            System.out.println("Oink! There are no matching tasks!");
+        } else {
+            // If the list is not empty.
+            System.out.println("Oink! Here are the matching tasks in the list:");
+            for (int i = 1; i <= matchingTasks.getSize(); i++) {
+                System.out.println(i + ". " + matchingTasks.getTask(i - 1));
+            }
+        }
+
+        System.out.println(LINE);
     }
 }
