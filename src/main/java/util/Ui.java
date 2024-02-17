@@ -35,8 +35,6 @@ public class Ui {
         String[] tokens = s.split(" ", 2);
         String input = tokens[0];
         String restOfLine = tokens.length == 1 ? "" : tokens[1];
-        String description;
-        int idx;
         assert restOfLine != null;
         switch (input) {
         case "bye":
@@ -47,71 +45,25 @@ public class Ui {
             return new List(taskList);
         case "mark":
         case "mk":
-            try {
-                idx = Parser.parseIdx(restOfLine, taskList);
-            } catch (NarutoException e) {
-                return new HandleError(e);
-            }
-            return new Mark(taskList, idx);
+            return parseMark(taskList, restOfLine);
         case "unmark":
         case "um":
-            try {
-                idx = Parser.parseIdx(restOfLine, taskList);
-            } catch (NarutoException e) {
-                return new HandleError(e);
-            }
-            return new Unmark(taskList, idx);
+            return parseUnmark(taskList, restOfLine);
         case "todo":
         case "td":
-            try {
-                description = Parser.parseDescription(restOfLine);
-            } catch (NarutoException e) {
-                return new HandleError(e);
-            }
-            if (taskList.contains(new ToDo(description))) {
-                return new HandleError(NarutoException.createDuplicateTaskException());
-            }
-            return new Add(new ToDo(description), taskList);
+            return parseTodo(taskList, restOfLine);
         case "deadline":
         case "dl":
-            try {
-                tokens = Parser.parseDeadline(restOfLine);
-            } catch (NarutoException e) {
-                return new HandleError(e);
-            }
-            if (taskList.contains(new Deadline(tokens[0], DateTimeUtil.format(tokens[1])))) {
-                return new HandleError(NarutoException.createDuplicateTaskException());
-            }
-            return new Add(new Deadline(tokens[0], DateTimeUtil.format(tokens[1])), taskList);
+            return parseDeadline(taskList, restOfLine);
         case "event":
         case "e":
-            try {
-                tokens = Parser.parseEvent(restOfLine);
-            } catch (NarutoException e) {
-                return new HandleError(e);
-            }
-            if (taskList.contains(new Event(tokens[0], DateTimeUtil.format(tokens[1]),
-                DateTimeUtil.format(tokens[2])))) {
-                return new HandleError(NarutoException.createDuplicateTaskException());
-            }
-            return new Add(new Event(tokens[0], DateTimeUtil.format(tokens[1]),
-                DateTimeUtil.format(tokens[2])), taskList);
+            return parseEvent(taskList, restOfLine);
         case "delete":
         case "d":
-            try {
-                idx = Parser.parseIdx(restOfLine, taskList);
-            } catch (NarutoException e) {
-                return new HandleError(e);
-            }
-            return new Delete(taskList, idx);
+            return parseDelete(taskList, restOfLine);
         case "find":
         case "f":
-            try {
-                tokens = Parser.parseDescription(restOfLine).split(" ");
-            } catch (NarutoException e) {
-                return new HandleError(e);
-            }
-            return new Find(tokens);
+            return parseFind(restOfLine);
         case "sort":
         case "s":
             return new Sort(taskList);
@@ -119,6 +71,80 @@ public class Ui {
             return new Help();
         default:
             return new HandleError(NarutoException.createInvalidCommandException());
+        }
+    }
+    
+    private static Action parseMark(TaskList taskList, String restOfLine) {
+        try {
+            int idx = Parser.parseIdx(restOfLine, taskList);
+            return new Mark(taskList, idx);
+        } catch (NarutoException e) {
+            return new HandleError(e);
+        }
+    }
+    
+    private static Action parseUnmark(TaskList taskList, String restOfLine) {
+        try {
+            int idx = Parser.parseIdx(restOfLine, taskList);
+            return new Unmark(taskList, idx);
+        } catch (NarutoException e) {
+            return new HandleError(e);
+        }
+    }
+    
+    private static Action parseTodo(TaskList taskList, String restOfLine) {
+        try {
+            String description = Parser.parseDescription(restOfLine);
+            if (taskList.contains(new ToDo(description))) {
+                return new HandleError(NarutoException.createDuplicateTaskException());
+            }
+            return new Add(new ToDo(description), taskList);
+        } catch (NarutoException e) {
+            return new HandleError(e);
+        }
+    }
+    
+    private static Action parseDeadline(TaskList taskList, String restOfLine) {
+        try {
+            String[] tokens = Parser.parseDeadline(restOfLine);
+            if (taskList.contains(new Deadline(tokens[0], DateTimeUtil.format(tokens[1])))) {
+                return new HandleError(NarutoException.createDuplicateTaskException());
+            }
+            return new Add(new Deadline(tokens[0], DateTimeUtil.format(tokens[1])), taskList);
+        } catch (NarutoException e) {
+            return new HandleError(e);
+        }
+    }
+    
+    private static Action parseEvent(TaskList taskList, String restOfLine) {
+        try {
+            String[] tokens = Parser.parseEvent(restOfLine);
+            if (taskList.contains(new Event(tokens[0], DateTimeUtil.format(tokens[1]),
+                DateTimeUtil.format(tokens[2])))) {
+                return new HandleError(NarutoException.createDuplicateTaskException());
+            }
+            return new Add(new Event(tokens[0], DateTimeUtil.format(tokens[1]),
+                DateTimeUtil.format(tokens[2])), taskList);
+        } catch (NarutoException e) {
+            return new HandleError(e);
+        }
+    }
+    
+    private static Action parseDelete(TaskList taskList, String restOfLine) {
+        try {
+            int idx = Parser.parseIdx(restOfLine, taskList);
+            return new Delete(taskList, idx);
+        } catch (NarutoException e) {
+            return new HandleError(e);
+        }
+    }
+    
+    private static Action parseFind(String restOfLine) {
+        try {
+            String[] tokens = Parser.parseDescription(restOfLine).split(" ");
+            return new Find(tokens);
+        } catch (NarutoException e) {
+            return new HandleError(e);
         }
     }
 }
