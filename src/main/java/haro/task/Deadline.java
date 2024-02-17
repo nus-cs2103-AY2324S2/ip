@@ -71,7 +71,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        int marked = this.isDone ? 1 : 0;
+        int marked = (this.isDone) ? 1 : 0;
         return "D | " + marked + " | " + this.task + " | " + this.deadline;
     }
 }

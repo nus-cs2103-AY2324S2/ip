@@ -83,9 +83,9 @@ public class Storage {
                             throw new Exception("Invalid save list");
                         }
                         int markedInt = Integer.valueOf(storageArgs[1].trim());
-                        boolean marked = markedInt == 0 ? false : true;
-                        ToDo newTodo = new ToDo(storageArgs[2].trim(), marked);
-                        resultTasks.add(newTodo);
+                        boolean isMarked = (markedInt == 0) ? false : true;
+                        ToDo todoTask = new ToDo(storageArgs[2].trim(), isMarked);
+                        resultTasks.add(todoTask);
                         continue;
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
@@ -99,11 +99,11 @@ public class Storage {
                         }
 
                         int markedInt = Integer.valueOf(storageArgs[1].trim());
-                        boolean marked = markedInt == 0 ? false : true;
-                        String task = storageArgs[2].trim();
-                        String deadline = storageArgs[3].trim();
-                        Deadline newDeadline = new Deadline(task, deadline, marked);
-                        resultTasks.add(newDeadline);
+                        boolean isMarked = (markedInt == 0) ? false : true;
+                        String taskName = storageArgs[2].trim();
+                        String dueDate = storageArgs[3].trim();
+                        Deadline deadlineTask = new Deadline(taskName, dueDate, isMarked);
+                        resultTasks.add(deadlineTask);
                         continue;
 
                     } catch (Exception e) {
@@ -118,12 +118,13 @@ public class Storage {
                         }
 
                         int markedInt = Integer.valueOf(storageArgs[1].trim());
-                        boolean marked = markedInt == 0 ? false : true;
-                        String task = storageArgs[2].trim();
+                        boolean isMarked = (markedInt == 0) ? false : true;
+
+                        String taskName = storageArgs[2].trim();
                         String start = storageArgs[3].trim();
                         String end = storageArgs[4].trim();
-                        Event newEvent = new Event(task, start, end, marked);
-                        resultTasks.add(newEvent);
+                        Event eventTask = new Event(taskName, start, end, isMarked);
+                        resultTasks.add(eventTask);
                         continue;
 
                     } catch (Exception e) {
@@ -133,11 +134,9 @@ public class Storage {
                     }
                 }
             }
-
-        } catch (NoSuchElementException e) {
-            // Do nothing
         } catch (Exception e) {
-            // Do nothing
+            // File does not exist, we return empty taskList
+            return resultTasks;
         } finally {
             return resultTasks;
         }

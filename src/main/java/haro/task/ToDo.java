@@ -43,7 +43,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
-        int marked = this.isDone ? 1 : 0;
+        int marked = (this.isDone) ? 1 : 0;
         return "T | " + marked + " | " + this.task;
     }
 }
