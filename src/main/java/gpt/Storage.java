@@ -35,13 +35,16 @@ public class Storage {
             if (!dataFolder.exists()) {
                 dataFolder.mkdirs();
             }
+            assert dataFolder.exists() : "Data folder should exist";
             File dataFile = new File(filePath);
             if (!dataFile.exists()) {
                 dataFile.createNewFile();
             }
+            assert dataFile.exists() : "Data file should exist";
         } catch (IOException e) {
             System.out.println("Error creating data folder and file: " + e.getMessage());
         }
+
     }
 
     /**
@@ -97,6 +100,8 @@ public class Storage {
     public void saveTasks(TaskList taskList) {
         try (FileWriter fw = new FileWriter(this.filePath)) {
             for (Task task : taskList.getTasks()) {
+                assert task.getTaskType() != null : "Task type should not be null"; // Check that task type is not null
+                assert task.getName() != null : "Task name should not be null"; // Check that task name is not null
                 System.out.println(task);
                 fw.write(task.getTaskType().name() + " | " + task.getName() + " | " + (task.isDone() ? 1 : 0)
                         + " | " + task.getStartDateString() + " | " + task.getEndDateString() + "\n");
