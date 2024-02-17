@@ -30,7 +30,7 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setNumerator(numerator);
             stage.show();
-            stage.setTitle("Todo-list");
+            stage.setTitle("Numerator Todo-list");
         } catch (IOException e) {
             e.printStackTrace();
         }
