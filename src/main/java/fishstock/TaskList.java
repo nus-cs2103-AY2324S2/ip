@@ -3,8 +3,6 @@ package fishstock;
 import java.util.ArrayList;
 import java.util.Stack;
 
-import fishstock.Command.Keyword;
-
 /**
  * Encapsulates a TaskList object.
  * Handles all functions related to the array storing Tasks.
@@ -57,7 +55,7 @@ class TaskList {
      * @throws FishStockException The exceptions while changing the mark.
      */
     protected Task markTask(UserInput input) throws FishStockException {
-        return changeMark(Keyword.MARK, input);
+        return changeMark(Command.MARK, input);
     }
 
     /**
@@ -67,26 +65,26 @@ class TaskList {
      * @throws FishStockException The exceptions while changing the mark.
      */
     protected Task unmarkTask(UserInput input) throws FishStockException {
-        return changeMark(Keyword.UNMARK, input);
+        return changeMark(Command.UNMARK, input);
     }
 
     /**
      * Marks whether Task is done.
-     * @param keyword The type of command.
+     * @param command The type of command.
      * @param input The input from user.
      * @return The marked/unmarked Task.
      * @throws FishStockException The exceptions while changing the mark.
      */
-    private Task changeMark(Keyword keyword, UserInput input) throws FishStockException {
-        assert keyword == Keyword.MARK || keyword == Keyword.UNMARK : "Not a marking Command";
+    private Task changeMark(Command command, UserInput input) throws FishStockException {
+        assert command == Command.MARK || command == Command.UNMARK : "Not a marking Command";
 
         int idx = input.getIndex();
         try {
             Task task = list.get(idx);
             saveState();
-            if (keyword == Keyword.MARK) {
+            if (command == Command.MARK) {
                 task.markAsDone();
-            } else if (keyword == Keyword.UNMARK) {
+            } else if (command == Command.UNMARK) {
                 task.markAsUndone();
             }
             return task;

@@ -31,7 +31,7 @@ public class FishStock {
      */
     public String getResponse(String inputStr) {
         UserInput input = new UserInput(inputStr);
-        String response = Command.runCommand(list, input);
+        String response = Logic.runCommand(list, input);
         return response;
     }
 

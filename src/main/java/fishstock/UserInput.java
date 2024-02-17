@@ -1,12 +1,10 @@
 package fishstock;
 
-import fishstock.Command.Keyword;
-
 /**
  * Encapsulates a user input.
  */
 class UserInput {
-    private final Keyword keyword;
+    private final Command command;
     private final String details;
 
     /**
@@ -17,7 +15,7 @@ class UserInput {
         assert input != null : "User input should not be null";
 
         String[] splitInput = input.split(" ", 2);
-        keyword = Parser.parseCommandType(splitInput[0]);
+        command = Parser.parseCommandType(splitInput[0]);
 
         if (splitInput.length == 2) {
             details = splitInput[1];
@@ -30,8 +28,8 @@ class UserInput {
      * Gets command type from user input.
      * @return The command type.
      */
-    protected Keyword getCommandType() {
-        return keyword;
+    protected Command getCommandType() {
+        return command;
     }
 
     /**

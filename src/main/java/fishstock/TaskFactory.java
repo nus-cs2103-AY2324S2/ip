@@ -2,13 +2,11 @@ package fishstock;
 
 import java.util.Arrays;
 
-import fishstock.Command.Keyword;
-
 class TaskFactory {
     protected static Task of(UserInput input) throws FishStockException {
-        Keyword keyword = input.getCommandType();
+        Command keyword = input.getCommandType();
 
-        assert Arrays.asList(Keyword.TODO, Keyword.DEADLINE, Keyword.EVENT)
+        assert Arrays.asList(Command.TODO, Command.DEADLINE, Command.EVENT)
                 .contains(keyword) : "Attempted to add an invalid Task";
 
         Task task = null;
@@ -30,7 +28,7 @@ class TaskFactory {
 
     protected static Task fromStorageString(String line) throws FishStockException {
         String[] arr = line.split("\\|");
-        Keyword keyword = Keyword.findShortened(arr[0]);
+        Command keyword = Command.findShortened(arr[0]);
         boolean isDone = getIsDone(arr[arr.length - 1]);
 
         Task task;

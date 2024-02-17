@@ -1,7 +1,5 @@
 package fishstock;
 
-import fishstock.Command.Keyword;
-
 /**
  * Encapsulates Todo Task.
  * This Task only has a description.
@@ -33,7 +31,7 @@ class Todo extends Task {
      * @throws FishStockException The exceptions while creating the Todo object.
      */
     protected static Todo of(UserInput input) throws FishStockException {
-        assert input.getCommandType() == Command.Keyword.TODO : "The input type is not Todo";
+        assert input.getCommandType() == Command.TODO : "The input type is not Todo";
 
         String[] splitInput = input.splitByKeywords();
         checkIsValid(splitInput);
@@ -49,11 +47,11 @@ class Todo extends Task {
 
     @Override
     protected String toSaveString() {
-        return Keyword.TODO.getShortened() + "|" + getDescription() + "|" + toSaveIsDone() + System.lineSeparator();
+        return Command.TODO.getShortened() + "|" + getDescription() + "|" + toSaveIsDone() + System.lineSeparator();
     }
 
     @Override
     public String toString() {
-        return "[" + Keyword.TODO.getShortened() + "]" + super.toString();
+        return "[" + Command.TODO.getShortened() + "]" + super.toString();
     }
 }

@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import fishstock.Command.Keyword;
-
 /**
  * Encapsulates parsing methods.
  */
@@ -18,11 +16,11 @@ class Parser {
      * @param commandStr The string command.
      * @return The command type.
      */
-    protected static Keyword parseCommandType(String commandStr) {
+    protected static Command parseCommandType(String commandStr) {
         try {
-            return Keyword.valueOf(commandStr.toUpperCase());
+            return Command.valueOf(commandStr.toUpperCase());
         } catch (java.lang.IllegalArgumentException e) {
-            return Keyword.INVALID;
+            return Command.INVALID;
         }
     }
 

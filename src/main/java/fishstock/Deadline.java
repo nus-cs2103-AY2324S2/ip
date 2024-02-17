@@ -2,8 +2,6 @@ package fishstock;
 
 import java.time.LocalDateTime;
 
-import fishstock.Command.Keyword;
-
 /**
  * Encapsulates a Deadline Task.
  * This Task has a description and deadline date.
@@ -46,7 +44,7 @@ class Deadline extends Task {
      * @throws FishStockException The exceptions while creating the Deadline object.
      */
     protected static Deadline of(UserInput input) throws FishStockException {
-        assert input.getCommandType() == Command.Keyword.DEADLINE : "The input type is not Deadline";
+        assert input.getCommandType() == Command.DEADLINE : "The input type is not Deadline";
 
         String[] splitInput = input.splitByKeywords(BY_KEYWORD);
         checkIsValid(splitInput);
@@ -63,12 +61,12 @@ class Deadline extends Task {
 
     @Override
     protected String toSaveString() {
-        return Keyword.DEADLINE.getShortened() + "|" + getDescription() + "|" + Parser.inDate(by)
+        return Command.DEADLINE.getShortened() + "|" + getDescription() + "|" + Parser.inDate(by)
                 + "|" + toSaveIsDone() + System.lineSeparator();
     }
 
     @Override
     public String toString() {
-        return "[" + Keyword.DEADLINE.getShortened() + "]" + super.toString() + " (by: " + Parser.outDate(by) + ")";
+        return "[" + Command.DEADLINE.getShortened() + "]" + super.toString() + " (by: " + Parser.outDate(by) + ")";
     }
 }
