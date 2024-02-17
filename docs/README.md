@@ -2,9 +2,12 @@
 
 ![Screenshot of GuanGuan Bot.](Ui.png)
 
-## GuanGuan is designed for efficient task management to streamline your daily tasks and enhance productivity.
+GuanGuan is designed for efficient task management to streamline your daily tasks and enhance productivity.
 
 # Features:
+- Words in UPPER_CASE are the parameters to be supplied by the user.
+- Example, in `deadline DESCRIPTION /by DATE`, `DESCRIPTION` and `DATE` are parameters which can be used as `deadline complete CS2103T tutorial /by 2024-05-05`.
+- Parameters can be in any order.
 
 ## List tasks: `list`
 List all tasks in the task list.
