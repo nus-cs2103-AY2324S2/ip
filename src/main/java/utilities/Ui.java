@@ -19,12 +19,16 @@ public class Ui {
      * Displays available commands.
      */
     public String getCommands() {
-        return "Take note ah, enter all time based commands are in <dd-mm-yyyy HHmm> format:\n"
-                + "-todo <task> -> adds todo\n-deadline <task>/<by when> -> adds deadline\n"
-                + "-event <task>/<from when>/<to when> -> adds event\n-list -> lists out all tasks\n"
-                + "-mark <x> -> marks task x as done\n-unmark <x> -> unmarks task x as undone\n"
+        return "Take note ah, enter all time based commands are in <dd-mm-yyyy HHmm> format:\n\n"
+                + "-todo <task> -> adds todo\n(example: todo sleep)\n-deadline <task>/<by when> -> adds deadline\n"
+                + "(example: deadline homework / 01-01-2025 1830)\n"
+                + "-event <task>/<from when>/<to when> -> adds event\n"
+                + "(example: event dinner / 24-06-2024 1800 / 24-06-2024 2000)\n"
+                + "-list -> lists out all tasks\n"
+                + "-mark <x> -> marks task x as done\n(example: mark 3)\n-unmark <x> -> unmarks task x as undone\n"
                 + "-delete <x> -> deletes task x from the list\n"
                 + "-find <thing to search> -> searches for tasks with the input word or phrase\n"
+                + "(example: find sleep)"
                 + "-bye -> exits app";
     }
 
