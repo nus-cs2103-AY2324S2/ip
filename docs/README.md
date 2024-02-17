@@ -24,9 +24,9 @@ Example: `list` to see the complete list
 You can add tasks to the task list, so that Jiayou can manage it for you!
 
 Tasks are divided into three types. 
-1. Todos are the simplest tasks with solely a decription.
-2. Deadlines have a description and a deadline date.
-3. Events have a description, a starting date and an ending date.
+1. Todos are the simplest tasks with solely a decription
+2. Deadlines have a description and a deadline date
+3. Events have a description, a starting date and an ending date
    
 You can use the following commands to add a task.
 
@@ -44,8 +44,8 @@ Example 2: `delete <id><id><id>` to delete multiple tasks
 
 ## Searching Tasks -- By Keywords or By Dates
 You can easily search for tasks which
-1. contain a certain keyword.
-2. fall on a certain date.
+1. contain a certain keyword
+2. fall on a certain date
 
 You can use the following commands to search tasks.
 
