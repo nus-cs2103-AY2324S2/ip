@@ -12,7 +12,11 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 /**
  * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
@@ -51,7 +55,10 @@ public class DialogBox extends HBox {
      * Initializes a User DialogBox with the given text and image.
      */
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
+        db.dialog.setTextFill(Color.DARKGREEN);
+        db.dialog.setFont(new Font("Comic Sans MS", 14));
+        return db;
     }
 
     /**
@@ -60,6 +67,9 @@ public class DialogBox extends HBox {
     public static DialogBox getFishStockDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
         db.flip();
+        db.dialog.setTextFill(Color.SADDLEBROWN);
+        db.dialog.setFont(new Font("Verdana", 13));
+        db.setBackground(new Background(new BackgroundFill(Color.BLANCHEDALMOND, null, null)));
         return db;
     }
 }

@@ -3,7 +3,6 @@ package fishstock.ui;
 import fishstock.Command;
 import fishstock.FishStock;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -15,15 +14,13 @@ import javafx.scene.layout.VBox;
  */
 public class MainWindow extends AnchorPane {
     private static final String WELCOME_TEXT = "Hello, I'm FishStock.\nI might help if I feel like it.\n"
-            + "\nHere's a list of available commands: " + Command.toList();
+            + "\nHere's a list of available commands:\n\n" + Command.toList();
     @FXML
     private ScrollPane scrollPane;
     @FXML
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
 
     private FishStock fishstock;
 
