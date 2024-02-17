@@ -2,6 +2,9 @@ package reacher.task;
 
 import java.time.LocalDate;
 
+/**
+ * Task with start and end date.
+ */
 public class Events extends Task {
     protected LocalDate start;
     protected LocalDate end;

@@ -5,19 +5,31 @@ import java.util.ArrayList;
 import java.util.List;
 import reacher.task.Task;
 
-
+/**
+ * Represents file used to store data.
+ */
 public class Storage {
     private final String path;
 
+    /**
+     * Creates storage file with specified path.
+     */
     public Storage(String path){
         this.path = path;
         createFile();
     }
 
+    /**
+     * Returns true if file is empty.
+     */
     public boolean isEmpty(){
         File file = new File(path);
         return file.length() == 0;
     }
+
+    /**
+     * Stores {@code taskList} data into the storage file.
+     */
     public void storeList(List<Task> taskList){
         try {
             File file = new File(path);
@@ -33,6 +45,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the {@code TaskList} data from storage file and returns it.
+     */
     public ArrayList<Task> loadList() {
         ArrayList<Task> taskList = new ArrayList<>();
         if (!isEmpty()){
@@ -54,6 +69,7 @@ public class Storage {
         }
         return taskList;
     }
+
     private void createFile() {
         try {
             File file = new File(path);

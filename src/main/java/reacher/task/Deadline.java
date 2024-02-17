@@ -3,6 +3,9 @@ package reacher.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Tasl with end date.
+ */
 public class Deadline extends Task {
     protected LocalDate by;
 

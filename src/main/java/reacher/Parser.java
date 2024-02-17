@@ -2,9 +2,12 @@ package reacher;
 
 import reacher.command.*;
 
-import java.util.Locale;
 
 public class Parser {
+    /**
+     * Makes sense of user input and returns the command.
+     * @throws ReacherException If input is not a valid command.
+     */
     public static Command parse(String input) throws ReacherException {
         input = input.toLowerCase();
         switch (input) {
