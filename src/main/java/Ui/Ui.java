@@ -19,6 +19,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+/**
+ * UI class to handle JavaFX and output
+ * TODO: Abstract down class further
+ */
 public class Ui {
 
     final static String KEWGY_IMG = "/images/kewgy.png";
@@ -41,6 +45,10 @@ public class Ui {
         initScene(stage);
     }
 
+    /**
+     * Setting up JavaFX scene
+     * @param stage
+     */
     public void initScene(Stage stage) {
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
@@ -93,6 +101,9 @@ public class Ui {
         AnchorPane.setBottomAnchor(userInput, 1.0);
     }
     
+    /**
+     * Handling input / output of chatbot
+     */
     public void addConversation(Label userText, Label kewgyText) {
         dialogContainer.getChildren().addAll(
             DialogBox.getUserDialog(userText, new ImageView(userImg)),
@@ -113,6 +124,9 @@ public class Ui {
         return sendButton;
     }
 
+    /**
+     * Helper functions for chatbot
+     */
     public String[] getUserCommand() {
         return reader.nextLine().split(" ", 2);
     }

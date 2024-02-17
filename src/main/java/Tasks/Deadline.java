@@ -36,6 +36,13 @@ public class Deadline extends Task {
         updateTime(descParsed[1].trim().split(" "));
     }
 
+     /**
+     * Method to update time for tasks.
+     * 1 times given for deadline, which are processed here.
+     * 
+     * @param times 1 time expected here
+     * @throws KewgyException  if there's an issue with the time format
+     */
     @Override
     public void updateTime(String... times) throws KewgyException {
         if (times.length != 1) {

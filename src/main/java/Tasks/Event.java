@@ -46,6 +46,13 @@ public class Event extends Task {
         updateTime(dateParsed);
     }
 
+    /**
+     * Method to update time for tasks.
+     * 2 times given for events, which are processed here.
+     * 
+     * @param times 2 times expected here
+     * @throws KewgyException  if there's an issue with the time format
+     */
     @Override
     public void updateTime(String... times) throws KewgyException {
         if (times.length != 2) {

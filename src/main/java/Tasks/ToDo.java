@@ -23,6 +23,13 @@ public class ToDo extends Task {
         return "[" + TaskType.T + "][" + super.getStatusIcon() + "] " + super.description;
     }
 
+     /**
+     * Method to update time for tasks.
+     * 0 times given for todo.
+     * 
+     * @param times 0 times expected here
+     * @throws KewgyException if there's an issue with the time format
+     */
     @Override
     public void updateTime(String... times) throws KewgyException {
         if (times.length != 0) {

@@ -1,5 +1,8 @@
 package Exceptions;
 
+/**
+ * Custom Exception class, no practical uses as of yet
+ */
 public class KewgyException extends Exception {
     public KewgyException() {
     }

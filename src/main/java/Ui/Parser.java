@@ -4,6 +4,9 @@ import java.util.List;
 
 import Tasks.Task;
 
+/**
+ * Parser class to parse user commands
+ */
 public class Parser {
 
     public enum Command {
@@ -21,8 +24,16 @@ public class Parser {
         UNKNOWN
     }
 
+    /**
+     * Unused constructor
+     */
     public Parser() {}
 
+    /**
+     * Method to parse user input
+     * @param userMsg String array of split message
+     * @return Command user used, or UNKNOWN if we don't know
+     */
     public Command parseUserMsg(String[] userMsg) {
         assert userMsg != null && userMsg.length > 0 : "User message should not be null or empty";
 
@@ -52,6 +63,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Simple check to see if number of task given is correct
+     * @param userMsg user input
+     * @param userTaskList current task list
+     * @return true if number given is valid, else false
+     */
     public boolean checkValidMarkCommand(String[] userMsg, List<Task> userTaskList) {
         return userMsg.length > 1 &&
             userMsg[1].chars().allMatch(Character::isDigit) &&
