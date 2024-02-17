@@ -24,9 +24,6 @@ public abstract class Response extends VBox {
     @FXML
     private Label info;
 
-    @FXML
-    private Pane outputPane;
-
     protected static class Colors {
         public static final String BLACK = "424242";
         public static final String RED = "E57373";
@@ -67,7 +64,7 @@ public abstract class Response extends VBox {
     }
 
     protected void setOutputColor(String colorHex) {
-        this.outputPane.setBackground(new Background(
+        this.info.setBackground(new Background(
                 new BackgroundFill(Color.valueOf(colorHex), CornerRadii.EMPTY, Insets.EMPTY)));
     }
 }

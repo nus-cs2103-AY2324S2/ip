@@ -2,10 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 
 <fx:root minHeight="-Infinity" spacing="10.0" style="-fx-background-color: #757575;" type="VBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -14,15 +12,11 @@
             <Font name="Monospaced Regular" size="15.0" />
          </font>
       </Label>
-      <Pane fx:id="outputPane">
-         <children>
-            <Label fx:id="info" maxWidth="-Infinity" text="output" wrapText="true">
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </Label>
-         </children>
-      </Pane>
+      <Label fx:id="info" text="output" wrapText="true">
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </Label>
    </children>
    <opaqueInsets>
       <Insets />
