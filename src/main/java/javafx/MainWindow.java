@@ -63,8 +63,8 @@ public class MainWindow extends AnchorPane {
                                         ryanGoslingImage, isResponseToShowAError));
         userInput.clear();
 
+        //From ChatGPT
         if (input.trim().equalsIgnoreCase("bye")) {
-            // You may need to modify this part based on your application's structure
             Stage stage = (Stage) userInput.getScene().getWindow();
             stage.close();  // Close the application window
         }
