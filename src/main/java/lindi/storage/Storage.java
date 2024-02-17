@@ -34,11 +34,47 @@ public class Storage {
 
     /**
      * Saves the task list to the designated text file for storing data for the program.
-     * Creates one if it does not exist yet.
      *
      * @param tasks task list to save to file
      */
     public void saveToFile(TaskList tasks) {
+        String parsedTasks = getParsedTasksToSave(tasks);
+        try {
+            File dataFile = getSaveFile();
+
+            this.fileWriter = new FileWriter(dataFile);
+            this.fileWriter.write(parsedTasks);
+            this.fileWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Returns the file to save the task list to. Creates the directories and file if they do not exist yet.
+     *
+     * @return the file to save the task list to
+     * @throws IOException if file creation fails
+     */
+    private File getSaveFile() throws IOException {
+        // Creates the directories if they do not exist yet. No effect if it exists.
+        File dir = new File(dataDir);
+        dir.mkdirs();
+
+        // Creates the file if it does not exist yet. No effect if it exists.
+        File dataFile = new File(dir, dataFileName);
+        dataFile.createNewFile();
+
+        return dataFile;
+    }
+
+    /**
+     * Constructs the parsed string representation of the all the tasks in the task list to save to file
+     *
+     * @param tasks task list to save to file
+     * @return the parsed string representation of the tasks in the task list
+     */
+    private String getParsedTasksToSave(TaskList tasks) {
         StringBuilder sb = new StringBuilder();
         // Loops through taskList, appends them to string with the specified format
         tasks.getTasks().forEachRemaining(
@@ -47,23 +83,9 @@ public class Storage {
                     sb.append(parsedTask).append('\n');
                 }
         );
-        try {
-            // Creates the directories if they do not exist yet. No effect if it exists.
-            File dir = new File(dataDir);
-            dir.mkdirs();
-
-            // Creates the file if it does not exist yet. No effect if it exists.
-            File dataFile = new File(dir, dataFileName);
-            dataFile.createNewFile();
-
-            this.fileWriter = new FileWriter(dataFile);
-
-            this.fileWriter.write(sb.toString());
-            this.fileWriter.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        return sb.toString();
     }
+
     /**
      * Loads the taskList from the data file for this session
      *
@@ -73,12 +95,7 @@ public class Storage {
         try {
             this.fileScanner = new Scanner(new File(dataDir, dataFileName));
             TaskList tasksToReturn = new TaskList();
-            // Data file exist in folder, load it into our taskList
-            while (fileScanner.hasNextLine()) {
-                String parsedString = fileScanner.nextLine();
-                Task task = Task.createFromParsedString(parsedString);
-                tasksToReturn.add(task);
-            }
+            addTasksFromScanner(tasksToReturn);
             return tasksToReturn;
         } catch (CreateTaskException e) {
             throw new StorageLoadException("Error loading tasks from save file. Might be corrupted...\n"
@@ -86,6 +103,22 @@ public class Storage {
         } catch (FileNotFoundException e) {
             throw new StorageLoadException("Error loading tasks from save file. "
                     + "File not found at path specified...\n" + new File(dataDir, dataFileName));
+        }
+    }
+
+    /**
+     * Populates the task list with data file.
+     *
+     * @param taskList task list to add tasks to
+     * @throws CreateTaskException if parsing of task from file fails
+     */
+    private void addTasksFromScanner(TaskList taskList) throws CreateTaskException {
+        assert fileScanner != null : "File scanner should be created before calling this method";
+        while (fileScanner.hasNextLine()) {
+            String parsedString = fileScanner.nextLine();
+            Task task = Task.createFromParsedString(parsedString);
+            assert task != null : "Task created should not be null";
+            taskList.add(task);
         }
     }
 }
