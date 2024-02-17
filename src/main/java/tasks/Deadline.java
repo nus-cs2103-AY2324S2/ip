@@ -28,6 +28,6 @@ public class Deadline extends Task {
 
     @Override
     public String[] getTimes() {
-        return new String[] {super.changeDateToString(byDate), "NILL"};
+        return new String[] { super.convertDateToString(byDate), "NILL" };
     }
 }

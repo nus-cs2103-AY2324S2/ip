@@ -1,4 +1,4 @@
-package utilities;
+package ui;
 
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -6,6 +6,10 @@ import java.util.List;
 import commands.Commands;
 import exceptions.WilliamException;
 import tasks.Task;
+import utilities.AdditionalInfoParser;
+import utilities.Parser;
+import utilities.Storage;
+import utilities.TaskList;
 
 /**
  * Deals with interactions with the user
@@ -21,7 +25,7 @@ public class Ui {
 
     /**
      * Returns the enum command
-     * 
+     *
      * @param input Input that is a command in String format
      * @return output Output that is a command in Commands format
      * @throws WilliamException If the command does not exist in the Commands class
@@ -46,7 +50,7 @@ public class Ui {
         Commands command = null;
         String[] texts = AdditionalInfoParser.retrieveTexts(userInput);
         try {
-            command = retrieveCommand(texts[0]);
+            command = retrieveCommand(texts[0].toUpperCase());
         } catch (WilliamException e) {
             return e.getMessage() + "\n";
         }
@@ -54,7 +58,8 @@ public class Ui {
     }
 
     /**
-     * Loads tasks into the arraylist. If the file does not exist, initializes an empty list first.
+     * Loads tasks into the arraylist. If the file does not exist, initializes an
+     * empty list first.
      */
     public void loadTasks() {
         try {
@@ -70,6 +75,7 @@ public class Ui {
         }
 
         // Assertion to check that taskList has been initialized to a non-null value
-        assert this.taskList != null : "TaskList should not be null after attempting to load tasks or after being initialised with an empty list";
+        assert this.taskList != null : "TaskList should not be null after attempting to load tasks "
+                + "or after being initialised with an empty list";
     }
 }

@@ -1,7 +1,7 @@
-package javafx;
+package ui;
 
-import java.io.File;
 import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,17 +19,11 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         try {
-            // This one is the given Path, not working for me
-            // FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
-
-            // This one is an absolute path, working for me
-            FXMLLoader fxmlLoader = new FXMLLoader(
-                    new File("/Users/khoonsun/ip/src/main/resources/view/MainWindow.fxml").toURI()
-                            .toURL());
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             primaryStage.setScene(scene);
-            primaryStage.setTitle("William ChatBot");
+            primaryStage.setTitle("William aka Chopper ChatBot");
             fxmlLoader.<MainWindow>getController().setWilliam(william);
             primaryStage.show();
         } catch (IOException e) {

@@ -1,6 +1,5 @@
-package javafx;
+package ui;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 
@@ -16,8 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 /**
- * An example of a custom control using FXML. This control represents a dialog box consisting of an
- * ImageView to represent the speaker's face and a label containing text from the speaker.
+ * Provides the layout for dialog box between William chatbot and user
  */
 public class DialogBox extends HBox {
     @FXML
@@ -27,13 +25,7 @@ public class DialogBox extends HBox {
 
     private DialogBox(String text, Image img) {
         try {
-            // This one is the given Path, not working for me
-            // FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/DialogBox.fxml"));
-
-            // This one is an absolute path, working for me
-            FXMLLoader fxmlLoader = new FXMLLoader(
-                    new File("/Users/khoonsun/ip/src/main/resources/view/DialogBox.fxml").toURI()
-                            .toURL());
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
@@ -46,7 +38,8 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Flips the dialog box such that the ImageView is on the left and text on the right.
+     * Flips the dialog box such that the ImageView is on the left and text on the
+     * right.
      */
     private void flip() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());

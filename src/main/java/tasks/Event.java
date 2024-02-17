@@ -32,6 +32,6 @@ public class Event extends Task {
 
     @Override
     public String[] getTimes() {
-        return new String[] {super.changeDateToString(fromDate), super.changeDateToString(toDate)};
+        return new String[] { super.convertDateToString(fromDate), super.convertDateToString(toDate) };
     }
 }

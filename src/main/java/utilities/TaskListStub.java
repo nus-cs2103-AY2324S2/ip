@@ -37,7 +37,7 @@ public class TaskListStub extends TaskList {
         int actualId = idOfItem - 1;
         if (actualId >= 0 && actualId < tasks.size()) {
             Task task = tasks.get(actualId);
-            task.changeIsDone();
+            task.toggleMarkStatus();
         }
     }
 
