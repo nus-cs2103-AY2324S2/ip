@@ -1,8 +1,6 @@
 package Utils;
 
-import Exceptions.TaskListFullException;
 import Tasks.*;
-
 import java.io.*;
 import java.util.ArrayList;
 
@@ -56,7 +54,7 @@ public class Storage {
 
     public void saveTasks(TaskList taskList) throws IOException, SecurityException {
         try{
-            FileOutputStream fos = new FileOutputStream(filepath + filename);
+            FileOutputStream fos = new FileOutputStream(this.filepath + this.filename);
             java.io.ObjectOutputStream oos = new java.io.ObjectOutputStream(fos);
             oos.writeObject(taskList.getList());
             oos.close();
@@ -78,7 +76,7 @@ public class Storage {
 
         ArrayList<Task> list = new ArrayList<>();
         try {
-            FileInputStream fis = new FileInputStream(filepath + filename);
+            FileInputStream fis = new FileInputStream(this.filepath + this.filename);
             ObjectInputStream ois = new ObjectInputStream(fis);
 
             list = (ArrayList<Task>) ois.readObject();
@@ -91,14 +89,6 @@ public class Storage {
         } catch (ClassNotFoundException e) {
             throw new ClassNotFoundException("The class of the object to be loaded was not found.");
         }
-    }
-
-    public static void main(String[] args) throws IOException, SecurityException, ClassNotFoundException {
-
-        Storage s = new Storage("data/tasks.ser");
-        TaskList ls2 = s.loadTasks();
-        System.out.println(ls2);
-
     }
 
     private String extractFilePath(String fileLocation) {
