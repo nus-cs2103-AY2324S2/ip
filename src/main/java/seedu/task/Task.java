@@ -1,21 +1,20 @@
 package seedu.task;
 
 /**
- * A Task.Task object contains the status of the task.
+ * A Task object contains the status of the task.
  */
 public class Task {
-    // Whether the task is completed.
     protected boolean isDone = false;
 
     /**
-     * Constructor for initialising a Task.Task object.
+     * Constructor for initialising a Task object.
      */
     public Task() { }
 
     /**
      * Constructor for loading from file.
      *
-     * @param isDone isDone
+     * @param isDone Whether the task is completed.
      */
     public Task(boolean isDone) {
         this.isDone = isDone;
