@@ -8,6 +8,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.layout.Region;
 import javafx.scene.control.Label;
@@ -69,12 +70,16 @@ public class Duke extends Application {
         // Formatting the window to look as expected
         stage.setTitle("WannaBeSkynet");
         stage.setResizable(false);
-        stage.setMinHeight(600.0);
-        stage.setMinWidth(400.0);
+        stage.setMinWidth(500.0);  // Increased from 400.0
+        stage.setMinHeight(700.0); // Increased from 600.0
 
-        mainLayout.setPrefSize(400.0, 600.0);
+        mainLayout.setPrefSize(500.0, 700.0); // Increased from 400.0, 600.0
 
-        scrollPane.setPrefSize(385, 535);
+        scrollPane.setPrefSize(480, 635); // Increased from 385, 535
+        userInput.setPrefWidth(418.0); // Increased from 325.0
+        sendButton.setPrefWidth(65.0);  // Increased from 55.0
+        sendButton.setPrefHeight(37.0);
+
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
@@ -82,10 +87,6 @@ public class Duke extends Application {
         scrollPane.setFitToWidth(true);
 
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
-        userInput.setPrefWidth(325.0);
-
-        sendButton.setPrefWidth(55.0);
 
         AnchorPane.setTopAnchor(scrollPane, 1.0);
 
@@ -95,6 +96,16 @@ public class Duke extends Application {
         AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
+        // Add padding between each DialogBox
+        dialogContainer.setSpacing(10); // Adjust spacing as needed
+
+        // Add background color to each dialog box
+        dialogContainer.getChildren().forEach(dialogBox -> dialogBox.setStyle("-fx-background-color: #f0f0f0;"));
+
+        // Increase font size of the user input field
+        userInput.setFont(new Font(18)); // Set font size to 18 points
+
+        /* functions */
         sendButton.setOnMouseClicked((event) -> {
             dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
             userInput.clear();
