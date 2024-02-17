@@ -56,7 +56,7 @@ public class Parser {
 
 
             case TODO:
-                command = new CreateTodo(tasks, parseName(input));
+                command = new CreateTodo(tasks, parseToDo(input));
                 break;
 
             case DEADLINE:
@@ -123,6 +123,17 @@ public class Parser {
 
         if (details.length < 2) {
             throw new InvalidCommandException();
+        }
+
+        return details[1].trim();
+    }
+
+    public static String parseToDo(String input) throws InvalidTodoException{
+        String[] details = input.split(" ", 2);
+        assert details.length >= 2 : "Invalid todo format";
+
+        if (details.length < 2) {
+            throw new InvalidTodoException();
         }
 
         return details[1].trim();

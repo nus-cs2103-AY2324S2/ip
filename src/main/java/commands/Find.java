@@ -29,26 +29,24 @@ public class Find implements Command {
      */
     @Override
     public String execute() {
-        int i = 1;
         StringBuilder output = new StringBuilder();
+        int taskCount = 0;
 
         for (int j = 0; j < tasks.size(); j++) {
-            String s = tasks.get(j).toString();
+            String taskString = tasks.get(j).toString();
 
-            if (s.contains(" " + input)) {
-                output.append(String.format("%d. %s\n", i, s));
-                i++;
+            if (taskString.contains(input)) {
+                taskCount++;
+                output.append(String.format("%d. %s\n", taskCount, taskString));
             }
         }
 
-        if (output.length() > 0) {
-            output.setLength(output.length() - 1);
-        }
-
-        if (output.length() == 0) {
+        if (taskCount == 0) {
             return "No tasks found";
         } else {
+            output.setLength(output.length() - 1);
             return "Here are the matching tasks in your list:\n" + output;
         }
     }
+
 }

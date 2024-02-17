@@ -12,6 +12,6 @@ public class InvalidTodoException extends DukeException {
      * that the todo cannot be empty.
      */
     public InvalidTodoException() {
-        super("Todo cannot be empty!");
+        super("Input in the form:\ntodo Cook");
     }
 }
