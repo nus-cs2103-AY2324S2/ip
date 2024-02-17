@@ -9,6 +9,7 @@ public class Outputter {
 
     /**
      * Display message in a certain format.
+     *
      * @param msg message to be outputted, you do not need to end it with a newline.
      */
     public static void outputMessage(Message msg) {

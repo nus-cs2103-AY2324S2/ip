@@ -20,7 +20,7 @@ public class TaskList {
     }
 
     /**
-     * Simply add a task to the TaskList object.
+     * Simply add a task to the TaskList object. This does not create a copy.
      *
      * @param t task to be added
      */
@@ -30,6 +30,7 @@ public class TaskList {
 
     /**
      * Mark a task, does nothing if task is already marked.
+     *
      * @param idx the 1-indexed value of the task
      */
     public void markTask(int idx) {
@@ -38,6 +39,7 @@ public class TaskList {
 
     /**
      * Unmark a task, does nothing if task isn't marked yet.
+     *
      * @param idx the 1-indexed value of the task
      */
     public void unmarkTask(int idx) {
