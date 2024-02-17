@@ -6,6 +6,7 @@
 <!--
     This configuration file enforces rules for the coding standard at
     https://se-education.org/guides/conventions/java/intermediate.html
+    Modified from se-edu by @rertyy
 -->
 
 <module name="Checker">
@@ -25,6 +26,13 @@
     <property name="message" value='TODO is preferred to FIXME."' />
   </module>
 
+    <module name="RegexpSingleline">
+        <!-- Singleline Javadoc must start with capital letters. -->
+        <property name="format" value="\/\*\* [a-z ]"/>
+        <property name="message"
+                  value="Javadoc must start with capital letters"/>
+    </module>
+
   <module name="SuppressionFilter">
     <property name="file" value="${config_loc}/suppressions.xml"/>
   </module>
@@ -39,7 +47,7 @@
 
 
       <module name="Regexp">
-          <!-- Javadoc method description must start with a capitalized word ending in 's'
+          <!-- Multiline Javadoc method description must start with a capitalized word ending in 's'
           Note that this has false positives for non-method Javadoc. -->
           <property name="format" value="\/\*\*\s+?\* (\w+?(?&lt;!s)\b|[a-z])"/>
           <property name="message"
@@ -56,6 +64,7 @@
           <property name="ignoreComments" value="false"/>
           <property name="illegalPattern" value="true"/>
       </module>
+
 
       <!-- Required to allow exceptions in code style -->
     <module name="SuppressionCommentFilter">
