@@ -1,6 +1,5 @@
 package parsing;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import exceptions.YpxmmException;
@@ -40,7 +39,7 @@ public class Parser {
         case "event":
             return eventCommand(parsedResult, input);
         default:
-            unknownCommand();
+            return unknownCommand();
         }
     }
 
@@ -58,7 +57,7 @@ public class Parser {
      * Parses the input for the "find" command.
      *
      * @param toParse the ArrayList to which the parsed result will be added
-     * @param input   the input string
+     * @param input the input string
      * @return an ArrayList containing the parsed command arguments
      * @throws YpxmmException if an error occurs during parsing
      */
@@ -76,9 +75,9 @@ public class Parser {
     /**
      * Parses the input for the "mark", "unmark", and "delete" commands.
      *
-     * @param toParse    the ArrayList to which the parsed result will be added
+     * @param toParse the ArrayList to which the parsed result will be added
      * @param splitInput the input string split into an array
-     * @param command    the command string
+     * @param command the command string
      * @return an ArrayList containing the parsed command arguments
      * @throws YpxmmException if an error occurs during parsing
      */
@@ -102,7 +101,7 @@ public class Parser {
      * Parses the input for the "todo" command.
      *
      * @param toParse the ArrayList to which the parsed result will be added
-     * @param input   the input string
+     * @param input the input string
      * @return an ArrayList containing the parsed command arguments
      * @throws YpxmmException if an error occurs during parsing
      */
@@ -125,7 +124,7 @@ public class Parser {
      * Parses the input for the "deadline" command.
      *
      * @param toParse the ArrayList to which the parsed result will be added
-     * @param input   the input string
+     * @param input the input string
      * @return an ArrayList containing the parsed command arguments
      * @throws YpxmmException if an error occurs during parsing
      */
@@ -150,7 +149,7 @@ public class Parser {
      * Parses the input for the "event" command.
      *
      * @param toParse the ArrayList to which the parsed result will be added
-     * @param input   the input string
+     * @param input the input string
      * @return an ArrayList containing the parsed command arguments
      * @throws YpxmmException if an error occurs during parsing
      */
@@ -173,10 +172,12 @@ public class Parser {
 
     /**
      * Throws a YpxmmException for unknown commands.
-     * 
+     *
+     * @return The method does not actually return an ArrayList, but is declared as such
+     *      as the method that calls this returns ArrayList
      * @throws YpxmmException always thrown to indicate an unknown command
      */
-    private static void unknownCommand() throws YpxmmException {
+    private static ArrayList<String> unknownCommand() throws YpxmmException {
         throw new YpxmmException("Sorry bro, idk what that means. You try type in \"getcommands\" then see"
                 + " if got what u want.");
     }
