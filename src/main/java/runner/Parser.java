@@ -9,32 +9,35 @@ import java.time.format.DateTimeParseException;
  * Parser to parse the command process the necessary actions.
  */
 public class Parser {
-    private final Duke duke;
+    private final TaskList taskList;
+    private final Storage storage;
 
     /**
      * Constructor for Parser.
      * @param duke a Duke chat-bot to work on.
      */
     public Parser(Duke duke) {
-        this.duke = duke;
+        this.taskList = duke.taskList;
+        this.storage = duke.storage;
     }
 
     /**
+     * Specifically handle user command.
      * @param info The information given by the user.
+     * @returns A response to the user command.
      */
     public String handle(String info) {
-        if (info.equals("bye")) {
-            return terminate();
-        } else if (info.equals("list")) {
-            return Ui.showList(duke.taskList);
-        } else {
-            return read(info);
-        }
-    }
-
-    public String read(String info) {
         if (!info.contains(" ")) {
-            return "Not Smart to Understand -_-";
+            switch (info) {
+                case "hello":
+                    return Ui.start();
+                case "bye":
+                    return Ui.ending();
+                case "list":
+                    return Ui.showList(taskList, 1);
+                default:
+                    return "Not Smart to Understand -_-";
+            }
         }
         try {
             String[] segments = info.split(" ", 2);
@@ -46,11 +49,11 @@ public class Parser {
                 case "unmark":
                     return unmark(arg);
                 case "todo":
-                    return add_todo(info);
+                    return addTodo(info);
                 case "deadline":
-                    return add_deadline(arg);
+                    return addDeadline(arg);
                 case "event":
-                    return add_event(arg);
+                    return addEvent(arg);
                 case "find":
                     return find(arg);
                 case "delete":
@@ -64,36 +67,32 @@ public class Parser {
     }
 
     /**
-     * Terminate the Duke.
-     */
-    public String terminate() {
-        return Ui.ending();
-    }
-
-    /**
      * Actions when finding keywords.
      * @param key Keyword input.
+     * @returns All tasks containing the keyword in a list.
      */
     public String find(String key) {
         TaskList ans = new TaskList();
-        for(Task tk: duke.taskList.get_list()) {
-            if (tk.getMsg().contains(key)) {
+        for (Task tk : taskList.get_list()) {
+            if (tk.getMSG().contains(key)) {
                 ans.add(tk);
             }
         }
-        return Ui.findList(ans);
+        return Ui.showList(ans, 0);
     }
 
     /**
      * Actions when marking.
      * @param s String format of the Task index.
+     * @returns Mark message.
      */
     public String mark(String s) {
         try {
-            int n = Integer.parseInt(s) - 1;
-            duke.taskList.get_task(n).complete();
-            duke.store.saveList();
-            return Ui.markMSG(duke.taskList.get_task(n));
+            int index = Integer.parseInt(s) - 1;
+            assert index < taskList.size(): "Index Invalid";
+            taskList.getTask(index).complete();
+            storage.saveList();
+            return Ui.markMSG(taskList.getTask(index));
         } catch (IndexOutOfBoundsException e) {
             return "Index Out";
         }
@@ -102,13 +101,15 @@ public class Parser {
     /**
      * Actions when unmarking.
      * @param s String format of the Task index.
+     * @returns Unmark message.
      */
     public String unmark(String s) {
         try {
-            int num = Integer.parseInt(s) - 1;
-            duke.taskList.get_task(num).uncomplete();
-            duke.store.saveList();
-            return Ui.unmarkMSG(duke.taskList.get_task(num));
+            int index = Integer.parseInt(s) - 1;
+            assert index < taskList.size(): "Index Invalid";
+            taskList.getTask(index).uncomplete();
+            storage.saveList();
+            return Ui.unmarkMSG(taskList.getTask(index));
         } catch (IndexOutOfBoundsException e) {
             return "Index Out";
         }
@@ -117,14 +118,16 @@ public class Parser {
     /**
      * Actions when deleting.
      * @param s String format of the Task index.
+     * @returns Delete message.
      */
     public String delete(String s) {
         try {
             int index = Integer.parseInt(s) - 1;
-            Task temp = duke.taskList.get_task(index);
-            duke.taskList.remove(index);
-            duke.store.saveList();
-            return Ui.deleteMSG(temp, duke.taskList.size());
+            assert index < taskList.size() : "Index Invalid";
+            Task temp = taskList.getTask(index);
+            taskList.remove(index);
+            storage.saveList();
+            return Ui.deleteMSG(temp, taskList.size());
         } catch (IndexOutOfBoundsException a) {
             return "OOPS!!! You can not delete air~";
         } catch (NumberFormatException b) {
@@ -135,27 +138,29 @@ public class Parser {
     /**
      * Actions when adding a Todo.
      * @param info Description of a Todo.
+     * @returns Add message.
      */
-    public String add_todo(String info) {
+    public String addTodo(String info) {
         String action = info.split(" ", 2)[1];
         Task t = new Todo(action);
-        duke.taskList.add(t);
-        duke.store.saveList();
-        return Ui.addMSG(t, duke.taskList.size());
+        taskList.add(t);
+        storage.saveList();
+        return Ui.addMSG(t, taskList.size());
     }
 
     /**
      * Actions when adding a Deadline.
      * @param s Description of a Deadline.
+     * @returns Add message.
      */
-    public String add_deadline(String s) {
+    public String addDeadline(String s) {
         try {
             String msg = s.split("/by ", 2)[0];
             String by = s.split("/by ", 2)[1];
             Task d = new Deadline(msg, by);
-            duke.taskList.add(d);
-            duke.store.saveList();
-            return Ui.addMSG(d, duke.taskList.size());
+            taskList.add(d);
+            storage.saveList();
+            return Ui.addMSG(d, taskList.size());
         } catch (DateTimeParseException e) {
             return "Date Unacceptable (YYYY-MM-DD PLZ)";
         }
@@ -164,15 +169,16 @@ public class Parser {
     /**
      * Actions when adding an Event.
      * @param s Description of an Event.
+     * @returns Add message.
      */
-    public String add_event(String s) {
+    public String addEvent(String s) {
         String event = s.split("/from", 2)[0];
         String time = s.split("/from", 2)[1];
         String from = time.split("/to")[0];
         String to = time.split("/to")[1];
         Task e = new Event(event, from, to);
-        duke.taskList.add(e);
-        duke.store.saveList();
-        return Ui.addMSG(e, duke.taskList.size());
+        taskList.add(e);
+        storage.saveList();
+        return Ui.addMSG(e, taskList.size());
     }
 }
