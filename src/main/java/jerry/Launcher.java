@@ -1,4 +1,4 @@
-package Jerry;
+package jerry;
 
 import javafx.application.Application;
 

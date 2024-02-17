@@ -1,5 +1,5 @@
-package Jerry;
-import Jerry.command.*;
+package jerry;
+import jerry.command.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

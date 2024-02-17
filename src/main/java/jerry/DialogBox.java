@@ -1,4 +1,4 @@
-package Jerry;
+package jerry;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -41,25 +41,6 @@ public class DialogBox extends HBox {
         this.setPadding(new Insets(10, 10, 10, 10));
         HBox.setMargin(dialog, new Insets(0, 10, 0, 10));
     }
-
-//    public DialogBox(Label l, ImageView iv) {
-//        text = l;
-//        displayPicture = iv;
-//
-//        text.setWrapText(true);
-//        displayPicture.setFitWidth(100.0);
-//        displayPicture.setFitHeight(100.0);
-//
-//        // Create a circle clip
-//        Circle clip = new Circle(50, 50, 50); // Assuming a 100x100 ImageView, adjust as needed
-//        displayPicture.setClip(clip);
-//
-//        this.setAlignment(Pos.TOP_RIGHT);
-//        this.getChildren().addAll(text, displayPicture);
-//
-//        this.setPadding(new Insets(10, 10, 10, 10));
-//        HBox.setMargin(text, new Insets(0, 10, 0, 10));
-//    }
 
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.

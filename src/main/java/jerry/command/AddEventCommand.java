@@ -1,12 +1,12 @@
-package Jerry.command;
+package jerry.command;
 
-import Jerry.Event;
-import Jerry.TaskList;
-import Jerry.Ui;
+import jerry.Event;
+import jerry.TaskList;
+import jerry.Ui;
 
 public class AddEventCommand extends Command {
 
-    private String commandDetails;
+    private final String commandDetails;
 
     public AddEventCommand(Ui ui, TaskList tasks, String commandDetails) {
         super(ui, tasks);
@@ -18,7 +18,8 @@ public class AddEventCommand extends Command {
     public String execute() {
         try {
             if (!commandDetails.contains(" /from ") || !commandDetails.contains(" /to ")) {
-                throw new CommandFormatException("Wrong format, please include start and end time \nUsage: event <task description> /from <start time> /to <end time>");
+                throw new CommandFormatException("Wrong format, please include start and end time "
+                        + "\nUsage: event <task description> /from <start time> /to <end time>");
             }
             String[] eventParts = commandDetails.split(" /from ", 2);
             String[] fromTo = eventParts[1].split(" /to ", 2);

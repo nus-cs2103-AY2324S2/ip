@@ -1,4 +1,4 @@
-package Jerry;
+package jerry;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -22,8 +22,8 @@ public class MainWindow extends AnchorPane {
 
     private Jerry jerry;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.jpeg"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Jerry.jpeg"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.jpeg"));
+    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Jerry.jpeg"));
 
     @FXML
     public void initialize() {

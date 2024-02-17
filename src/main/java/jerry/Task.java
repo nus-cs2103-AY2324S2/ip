@@ -1,4 +1,4 @@
-package Jerry;
+package jerry;
 
 /**
  * Represents the abstract concept of a task in the chatbot application. This class serves as a base for

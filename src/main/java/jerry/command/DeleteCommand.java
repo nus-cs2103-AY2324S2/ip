@@ -1,11 +1,11 @@
-package Jerry.command;
+package jerry.command;
 
-import Jerry.Task;
-import Jerry.TaskList;
-import Jerry.Ui;
+import jerry.Task;
+import jerry.TaskList;
+import jerry.Ui;
 
 public class DeleteCommand extends Command {
-    private int taskIndex;
+    private final int taskIndex;
 
     public DeleteCommand(Ui ui, TaskList tasks, int taskIndex) {
         super(ui, tasks);

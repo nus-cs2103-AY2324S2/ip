@@ -1,10 +1,10 @@
-package Jerry.command;
+package jerry.command;
 
-import Jerry.TaskList;
-import Jerry.Ui;
+import jerry.TaskList;
+import jerry.Ui;
 
 public class MarkCommand extends Command {
-    private int taskIndex;
+    private final int taskIndex;
 
     public MarkCommand(Ui ui, TaskList tasks, int taskIndex) {
         super(ui, tasks);

@@ -1,11 +1,11 @@
-package Jerry.command;
+package jerry.command;
 
-import Jerry.TaskList;
-import Jerry.ToDo;
-import Jerry.Ui;
+import jerry.TaskList;
+import jerry.ToDo;
+import jerry.Ui;
 
 public class AddTodoCommand extends Command {
-    private String description;
+    private final String description;
 
     public AddTodoCommand(Ui ui, TaskList tasks, String description) {
         super(ui, tasks);

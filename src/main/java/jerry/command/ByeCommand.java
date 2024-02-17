@@ -1,6 +1,6 @@
-package Jerry.command;
+package jerry.command;
 
-import Jerry.Ui;
+import jerry.Ui;
 
 public class ByeCommand extends Command {
     public ByeCommand(Ui ui) {

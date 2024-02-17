@@ -1,11 +1,12 @@
-package Jerry;
+package jerry;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Represents an event task in the chatbot application. An event task is a task that occurs at a specific time or over a specific period.
+ * Represents an event task in the chatbot application.
+ * An event task is a task that occurs at a specific time or over a specific period.
  */
 public class Event extends Task {
     private LocalDateTime from;
@@ -44,7 +45,8 @@ public class Event extends Task {
     @Override
     public String toFileFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        return "E | " + (isDone ? 1 : 0) + " | " + description + " | " + from.format(formatter) + " | " + to.format(formatter);
+        return "E | " + (isDone ? 1 : 0) + " | " + description + " | "
+                + from.format(formatter) + " | " + to.format(formatter);
     }
 
     public boolean dateTimeIsNull() {

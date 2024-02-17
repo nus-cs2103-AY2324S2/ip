@@ -1,12 +1,12 @@
-package Jerry.command;
+package jerry.command;
 
-import Jerry.Deadline;
-import Jerry.TaskList;
-import Jerry.Ui;
+import jerry.Deadline;
+import jerry.TaskList;
+import jerry.Ui;
 
 public class AddDeadlineCommand extends Command {
 
-    private String commandDetails;
+    private final String commandDetails;
 
     public AddDeadlineCommand(Ui ui, TaskList tasks, String commandDetails) {
         super(ui, tasks);
@@ -17,7 +17,8 @@ public class AddDeadlineCommand extends Command {
     public String execute() {
         try {
             if (!commandDetails.contains(" /by ")) {
-                throw new CommandFormatException("Wrong format, please include deadline \nUsage: deadline <task description> /by <date/time>");
+                throw new CommandFormatException("Wrong format, please include deadline "
+                        + "\nUsage: deadline <task description> /by <date/time>");
             }
             String[] deadlineParts = commandDetails.split(" /by ", 2);
             String description = deadlineParts[0];
