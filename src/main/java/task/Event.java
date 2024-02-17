@@ -1,4 +1,4 @@
-package seedu.task;
+package task;
 
 /**
  * Events are tasks that start at a specific date/time and ends at a specific date/time.

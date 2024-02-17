@@ -1,9 +1,8 @@
-package seedu.chrisPBacon;
+package chrisPBacon;
 
-import seedu.exceptions.ChrisPBaconException;
-import seedu.exceptions.InvalidTaskNameException;
-import seedu.task.Task;
-import seedu.task.TaskList;
+import exceptions.ChrisPBaconException;
+import exceptions.InvalidTaskNameException;
+import task.TaskList;
 
 import java.util.Scanner;
 

@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClassName = "seedu.chrisPBacon.ChrisPBacon"
+    mainClassName = "chrisPBacon.ChrisPBacon"
 }
 
 shadowJar {

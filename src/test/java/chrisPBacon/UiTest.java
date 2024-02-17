@@ -1,8 +1,9 @@
-package seedu.chrisPBacon;
+package chrisPBacon;
 
+import chrisPBacon.Ui;
 import org.junit.jupiter.api.Test;
-import seedu.exceptions.InvalidTaskNameException;
-import seedu.task.*;
+import exceptions.InvalidTaskNameException;
+import task.TaskList;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -1,4 +1,4 @@
-package seedu.task;
+package task;
 
 /**
  * A Task object contains the status of the task.

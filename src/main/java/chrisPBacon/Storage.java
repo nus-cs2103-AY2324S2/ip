@@ -1,10 +1,10 @@
-package seedu.chrisPBacon;
+package chrisPBacon;
 
-import seedu.task.Deadline;
-import seedu.task.Event;
-import seedu.task.Task;
-import seedu.task.TaskList;
-import seedu.task.Todo;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.TaskList;
+import task.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
