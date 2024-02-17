@@ -69,7 +69,7 @@ _________________________________________________________________________
 ```
 
 
-## Listing tasks `list`
+## Listing tasks: `list`
 
 Shows a list of all tasks
 
@@ -77,7 +77,7 @@ Format: `list`
 
 For example: `list`
 
-## Finding tasks `find`
+## Finding tasks: `find`
 
 Find tasks that contain any of the given keywords.
 
@@ -96,7 +96,7 @@ For example: `find run`
 _________________________________________________________________________
 ```
 
-## Deleting tasks `delete`
+## Deleting tasks: `delete`
 
 Deletes the specified task from the task list.
 
@@ -114,7 +114,7 @@ For example: `delete 6`
 _________________________________________________________________________
 ```
 
-## Marking tasks `mark`
+## Marking tasks: `mark`
 
 Marks the specified task from the task list as completed.
 
@@ -131,7 +131,7 @@ For example: `mark 5`
 _________________________________________________________________________
 ```
 
-## Unmarking tasks `unmark`
+## Unmarking tasks: `unmark`
 
 Marks the specified task from the task list as not done.
 
@@ -148,7 +148,7 @@ For example: `unmark 5`
 _________________________________________________________________________
 ```
 
-## Exiting the program `exit`
+## Exiting the program: `exit`
 
 Exits the program.
 
