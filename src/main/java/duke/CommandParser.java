@@ -1,13 +1,7 @@
 package duke;
 
 
-import duke.action.Action;
-import duke.action.Delete;
-import duke.action.Farewell;
-import duke.action.Mark;
-import duke.action.Match;
-import duke.action.TaskList;
-import duke.action.Unmark;
+import duke.action.*;
 import duke.exception.DukeException;
 import duke.exception.UnknownCommandException;
 import duke.task.Deadline;
@@ -35,6 +29,8 @@ public class CommandParser {
                 return Match.parse(command, taskList);
             case "bye":
                 return Farewell.parse(taskList);
+            case "help":
+                return Help.parse();
             case "list":
                 return TaskList.parse(taskList);
             case "mark":
