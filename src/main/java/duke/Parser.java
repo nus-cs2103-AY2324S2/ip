@@ -19,7 +19,8 @@ public class Parser {
         LIST,
         MARK,
         UNMARK,
-        FIND
+        FIND,
+        REMINDER
     }
 
     /**
@@ -54,6 +55,8 @@ public class Parser {
                 return new CreateDeadlineCommand(ui, taskList, storage, input);
             case FIND:
                 return new FindCommand(ui, taskList, storage, input);
+            case REMINDER:
+                return new ReminderCommand(ui, taskList, storage);
             default:
                 return new ErrorCommand(ui, taskList, storage, "Please use the correct command Word!>.<");
             }

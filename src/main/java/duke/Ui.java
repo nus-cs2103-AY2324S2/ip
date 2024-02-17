@@ -211,5 +211,32 @@ public class Ui {
         return message;
     }
 
+    /**
+     * Prints reminder message to the user.
+     *
+     * @param taskList TaskList containing tasks.
+     * @return String Message containing upcoming deadline.
+     */
+    public String printReminder(TaskList taskList) {
+        String message = "____________________________________________________________\n"
+                + " Please be reminded that you have upcoming deadlines:\n";
+        System.out.println("____________________________________________________________\n"
+                + " Please be reminded that you have upcoming deadlines:\n");
+        int count = 0;
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.getTask(i).getTaskType() == 'D') {
+                String currentTask = String.format("%d.[%s][%s] %s\n",
+                        count + 1, taskList.getTask(i).getTaskType(),
+                        taskList.getTask(i).getStatusIcon(), taskList.getTask(i).toString());
+                System.out.println(currentTask);
+                message += currentTask;
+                count++;
+            }
+        }
+        message += "____________________________________________________________\n";
+        System.out.println("____________________________________________________________\n");
+        return message;
+    }
+
 }
 
