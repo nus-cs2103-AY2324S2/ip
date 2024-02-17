@@ -43,13 +43,12 @@ public class Ui {
      *
      * @return The general error message for unexpected inputs.
      */
-<<<<<<< HEAD
     public String displayErrorMessage() {
         return "what? please check your input.";
-=======
+    }
+
     public String errorMessage() {
         return "what?";
->>>>>>> branch-A-Assertions
     }
 
     /**
