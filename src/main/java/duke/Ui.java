@@ -67,6 +67,10 @@ public class Ui {
         case "clear":
             this.currentCommand = Command.CLEAR;
             break;
+        case "f":
+        case "find":
+            this.currentCommand = Command.FIND;
+            break;
         default:
             this.currentCommand = Command.UNKNOWN;
             break;
