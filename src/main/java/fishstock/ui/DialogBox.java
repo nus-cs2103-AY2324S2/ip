@@ -16,7 +16,6 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 
 /**
  * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
@@ -56,8 +55,8 @@ public class DialogBox extends HBox {
      */
     public static DialogBox getUserDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
-        db.dialog.setTextFill(Color.DARKGREEN);
-        db.dialog.setFont(new Font("Comic Sans MS", 14));
+        db.dialog.setTextFill(Color.MINTCREAM);
+        db.setBackground(new Background(new BackgroundFill(Color.CHOCOLATE, null, null)));
         return db;
     }
 
@@ -68,7 +67,6 @@ public class DialogBox extends HBox {
         DialogBox db = new DialogBox(text, img);
         db.flip();
         db.dialog.setTextFill(Color.SADDLEBROWN);
-        db.dialog.setFont(new Font("Verdana", 13));
         db.setBackground(new Background(new BackgroundFill(Color.BLANCHEDALMOND, null, null)));
         return db;
     }
