@@ -84,7 +84,7 @@ public class TaskList {
      */
     public String removeIndex(String[] commandSplit) throws RyanGoslingException {
         if (commandSplit.length != 2) {
-            throw new RyanGoslingBadFormatException("Missing arguments, type delete <index>");
+            throw new RyanGoslingBadFormatException("Invalid number arguments, type delete <index>");
         }
         assert commandSplit[0].equals("delete") : "Task should be delete here!";
         try {
