@@ -24,7 +24,7 @@ public class PatternParser {
     private static final Pattern todoPattern = Pattern.compile("todo (.*?)");
     private static final Pattern deadlinePattern = Pattern.compile("deadline (.*?) /by (.*?) (.*?)");
     private static final Pattern eventPattern = Pattern.compile("event (.*?) /from (.*?) (.*?) /to (.*?) (.*?)");
-    private static final Pattern findPattern = Pattern.compile("event (.*?) /from (.*?) (.*?) /to (.*?) (.*?)");
+    private static final Pattern findPattern = Pattern.compile("^find\\s+(.*?)$");
     private static final String fileInputPattern = "^\\s*(\\w+)\\s*\\|\\s*(\\d+)\\s*\\|\\s*(\\S+)\\s*\\|\\s*"
             + "(\\S+)\\s*"
             + "\\|\\s*(\\S+)\\s*\\|\\"
