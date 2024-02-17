@@ -21,11 +21,27 @@ public class Parser {
      */
     public Parser() {}
 
+    /**
+     * Parses the user input for the "bye" command and saves final task list.
+     *
+     * @param ui        The user interface object.
+     * @param storage   The storage object for saving data.
+     * @param taskList  The task list object.
+     * @return A string representing the response to the user.
+     */
     public String parseByeCommand(Ui ui, Storage storage, TaskList taskList) {
         storage.saveToFile(taskList);
         return ui.printBye();
     }
 
+    /**
+     * Parses the user input for the "list" command.
+     * Prints all current tasks.
+     *
+     * @param ui        The user interface object.
+     * @param taskList  The task list object.
+     * @return A string representing the response to the user.
+     */
     public String parseListCommand(Ui ui, TaskList taskList) {
         String toPrint = "";
         toPrint += ui.printLine();
@@ -34,6 +50,16 @@ public class Parser {
         return toPrint;
     }
 
+    /**
+     * Parses the user input for the "delete" command.
+     * Deletes the task specified by the user.
+     *
+     * @param ui          The user interface object.
+     * @param storage     The storage object for saving data.
+     * @param taskList    The task list object.
+     * @param commandArr  The array containing the command arguments.
+     * @return A string representing the response to the user.
+     */
     public String parseDeleteCommand(Ui ui, Storage storage, TaskList taskList, String[] commandArr) {
         String toPrint = "";
         toPrint += ui.printLine();
@@ -50,6 +76,15 @@ public class Parser {
         return toPrint;
     }
 
+    /**
+     * Parses the user input for the "find" command.
+     * Displays a list of all tasks containing the keyword provided.
+     *
+     * @param ui          The user interface object.
+     * @param taskList    The task list object.
+     * @param commandArr  The array containing the command arguments.
+     * @return A string representing the response to the user.
+     */
     public String parseFindCommand(Ui ui, TaskList taskList, String[] commandArr) {
         String toPrint = "";
         try {
@@ -64,6 +99,16 @@ public class Parser {
         return toPrint;
     }
 
+    /**
+     * Parses the user input for the "mark" command.
+     * Marks the specified task as done.
+     *
+     * @param ui          The user interface object.
+     * @param storage     The storage object for saving data.
+     * @param taskList    The task list object.
+     * @param commandArr  The array containing the command arguments.
+     * @return A string representing the response to the user.
+     */
     public String parseMarkCommand(Ui ui, Storage storage, TaskList taskList, String[] commandArr) {
         String toPrint = "";
 
@@ -82,6 +127,16 @@ public class Parser {
         return toPrint;
     }
 
+    /**
+     * Parses the user input for the "unmark" command.
+     * Unmarks the specified task.
+     *
+     * @param ui          The user interface object.
+     * @param storage     The storage object for saving data.
+     * @param taskList    The task list object.
+     * @param commandArr  The array containing the command arguments.
+     * @return A string representing the response to the user.
+     */
     public String parseUnmarkCommand(Ui ui, Storage storage, TaskList taskList, String[] commandArr) {
         String toPrint = "";
 
@@ -99,6 +154,15 @@ public class Parser {
         return toPrint;
     }
 
+    /**
+     * Parses the user input for the "deadline" command and performs necessary actions.
+     *
+     * @param ui           The user interface object.
+     * @param storage      The storage object for saving data.
+     * @param taskList     The task list object.
+     * @param fullCommand  The full user command.
+     * @return A string representing the response to the user.
+     */
     public String parseDeadlineCommand(Ui ui, Storage storage, TaskList taskList, String fullCommand) {
         String toPrint = "";
 
@@ -122,6 +186,15 @@ public class Parser {
         return toPrint;
     }
 
+    /**
+     * Parses the user input for the "event" command and performs necessary actions.
+     *
+     * @param ui           The user interface object.
+     * @param storage      The storage object for saving data.
+     * @param taskList     The task list object.
+     * @param fullCommand  The full user command.
+     * @return A string representing the response to the user.
+     */
     public String parseEventCommand(Ui ui, Storage storage, TaskList taskList, String fullCommand) {
         String toPrint = "";
 
@@ -146,6 +219,15 @@ public class Parser {
         return toPrint;
     }
 
+    /**
+     * Parses the user input for the "todo" command and performs necessary actions.
+     *
+     * @param ui           The user interface object.
+     * @param storage      The storage object for saving data.
+     * @param taskList     The task list object.
+     * @param fullCommand  The full user command.
+     * @return A string representing the response to the user.
+     */
     public String parseToDoCommand(Ui ui, Storage storage, TaskList taskList, String fullCommand) {
         String toPrint = "";
 
@@ -164,7 +246,7 @@ public class Parser {
     }
 
     /**
-     * Parses the user input for a deadline command.
+     * Parses a deadline string.
      *
      * @param deadlineCommand The user input for the deadline command.
      * @return An array containing the task description and deadline date.
@@ -180,7 +262,7 @@ public class Parser {
     }
 
     /**
-     * Parses the user input for an event command.
+     * Parses an event String.
      *
      * @param eventCommand The user input for the event command.
      * @return An array containing the task description, start date, and end date.
@@ -197,7 +279,7 @@ public class Parser {
     }
 
     /**
-     * Parses the user input for a to-do command.
+     * Parses a to-do String.
      *
      * @param toDoCommand The user input for the to-do command.
      * @return The task description.
