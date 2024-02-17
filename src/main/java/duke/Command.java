@@ -4,6 +4,9 @@ package duke;
  * Represents commands. Eg. Command.DELETE refers to the DELETE command.
  */
 public enum Command {
+    /**
+     * Hello command. Displays welcome message.
+     */
     HELLO("hello") {
 
         @Override
@@ -12,6 +15,9 @@ public enum Command {
             System.out.println("What can I do for you?");
         }
     },
+    /**
+     * Bye command. Displays Bye message.
+     */
     BYE("bye") {
 
         @Override
@@ -19,6 +25,9 @@ public enum Command {
             System.out.println("See you soon!");
         }
     },
+    /**
+     * Mark command. Marks a task as done.
+     */
     MARK("mark") {
         @Override
         public void execute(TaskList tasks, String description) throws DukeException {
@@ -39,6 +48,9 @@ public enum Command {
 
         }
     },
+    /**
+     * Unmark command. Marks a task as undone.
+     */
     UNMARK("unmark") {
         @Override
         public void execute(TaskList tasks, String description) throws DukeException {
@@ -58,6 +70,9 @@ public enum Command {
         }
 
     },
+    /**
+     * List command. Prints all tasks currently in list.
+     */
     LIST("list") {
         @Override
         public void execute(TaskList tasks, String description) {
@@ -67,6 +82,9 @@ public enum Command {
         }
 
     },
+    /**
+     * Delete command. Delete task from list.
+     */
     DELETE("delete") {
         @Override
         public void execute(TaskList tasks, String description) throws DukeException {
@@ -88,6 +106,9 @@ public enum Command {
         }
 
     },
+    /**
+     * Event command. Adds a Event Task to the list.
+     */
     EVENT("event") {
         @Override
         public void execute(TaskList tasks, String description) throws DukeException {
@@ -100,6 +121,9 @@ public enum Command {
         }
 
     },
+    /**
+     * Deadline command. Adds a Deadline Task to the list.
+     */
     DEADLINE("deadline") {
         @Override
         public void execute(TaskList tasks, String description) throws DukeException {
@@ -112,6 +136,9 @@ public enum Command {
         }
 
     },
+    /**
+     * Todo command. Adds a Todo task to the list.
+     */
     TODO("todo") {
 
         @Override
@@ -125,6 +152,9 @@ public enum Command {
         }
 
     },
+    /**
+     * Unknown command. Throws an exception if command supplied is not recognized.
+     */
     UNKNOWN("unknown") {
 
         @Override
@@ -133,6 +163,9 @@ public enum Command {
         }
 
     },
+    /**
+     * Clear command. Clears all tasks in list.
+     */
     CLEAR("clear") {
         @Override
         public void execute(TaskList tasks, String description) throws DukeException {
@@ -141,6 +174,9 @@ public enum Command {
             System.out.println("List cleared.");
         }
     },
+    /**
+     * Find command. Finds all tasks that match keyword.
+     */
     FIND("find") {
         @Override
         public void execute(TaskList tasks, String description) throws DukeException {
