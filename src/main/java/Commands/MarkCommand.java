@@ -4,7 +4,6 @@ import Exceptions.DudeException;
 import Exceptions.InvalidFormatException;
 import Tasks.Task;
 import Tasks.TaskList;
-import Utils.CommandTypes;
 
 public class MarkCommand extends Command {
 

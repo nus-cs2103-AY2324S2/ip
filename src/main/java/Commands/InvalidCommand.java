@@ -1,7 +1,5 @@
 package Commands;
 
-import Utils.CommandTypes;
-
 public class InvalidCommand extends Command {
 
     public InvalidCommand() {

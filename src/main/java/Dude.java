@@ -1,8 +1,8 @@
 import Commands.Command;
-import Commands.CommandParser;
+import Commands.Parser;
 import Exceptions.*;
 import Tasks.TaskList;
-import Utils.CommandTypes;
+import Commands.CommandTypes;
 import Utils.Storage;
 import Utils.Ui;
 
@@ -39,7 +39,7 @@ public class  Dude {
         while(this.isRunning){
 
             String input = extractInput(sc);
-            Command command = CommandParser.parse(input, taskList);
+            Command command = Parser.parse(input, taskList);
 
             String response = executeCommand(command);
             ui.showMessage(response);

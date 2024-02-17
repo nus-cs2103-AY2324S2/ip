@@ -2,10 +2,8 @@ package Commands;
 
 import Exceptions.DudeException;
 import Exceptions.InvalidFormatException;
-import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.TaskList;
-import Utils.CommandTypes;
 
 public class EventCommand extends Command {
     private final String input;

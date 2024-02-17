@@ -1,7 +1,6 @@
 package Commands;
 
 import Exceptions.DudeException;
-import Utils.CommandTypes;
 
 public abstract class Command {
 
