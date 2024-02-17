@@ -13,6 +13,7 @@ public class Ui {
     /**
      * Represents printed output when a DukeException is thrown.
      * @param dukeException
+     * @return String to be printed
      */
     public String printError(DukeException dukeException) {
         return dukeException.getMessage();
@@ -20,6 +21,7 @@ public class Ui {
 
     /**
      * Represents printed output when Duke starts.
+     * @return String to be printed
      */
     public String openingMessage() {
         return "Hello! I'm Klara\nWhat can I do for you?";
@@ -27,6 +29,7 @@ public class Ui {
 
     /**
      * Represents printed output when Duke ends.
+     * @return String to be printed
      */
     public String closingMessage() {
         // Logging off upon "bye" command
@@ -36,6 +39,7 @@ public class Ui {
     /**
      * Represents printed output when a <code>Task</code> is marked as done.
      * @param task Represents the <code>Task</code> object marked
+     * @return String to be printed
      */
     public String showTaskDone(Task task) {
         return "Nice! I've marked this task as done:\n" + task;
@@ -44,6 +48,7 @@ public class Ui {
     /**
      * Represents printed output when a <code>Task</code> is marked as undone.
      * @param task Represents the <code>Task</code> object unmarked
+     * @return String to be printed
      */
     public String showTaskUndone(Task task) {
         return "OK, I've marked this task as not done yet:\n" + task;
@@ -53,6 +58,7 @@ public class Ui {
      * Represents printed output when a <code>Task</code> is added.
      * @param task Represents the <code>Task</code> object added
      * @param size Represents size of Task list to be printed
+     * @return String to be printed
      */
     public String showTaskAdded(Task task, int size) {
         StringBuilder sb = new StringBuilder("Got it. I've added this task:");
@@ -65,17 +71,10 @@ public class Ui {
      * Represents printed output when a <code>Task</code> is deleted.
      * @param task Represents the <code>Task</code> object deleted
      * @param size Represents size of Task list to be printed
+     * @return String to be printed
      */
     public String showTaskDeleted(Task task, int size) {
         return "Noted. I've removed this task:\n" + task + "\nNow you have " + size + " tasks in the list.";
-    }
-
-    /**
-     * Default spacer to print to tidy output.
-     */
-    public void printBreak() {
-        String line = "____________________________________________________________";
-        System.out.println(line);
     }
 
     /**
@@ -83,6 +82,7 @@ public class Ui {
      * Loop through the list to print out each <code>Task</code> and its
      * description
      * @param list Represents the list to be printed to system output.
+     * @return String to be printed
      */
     public String printList(ArrayList<Task> list) {
         StringBuilder output = new StringBuilder("Here are the tasks in your list:");

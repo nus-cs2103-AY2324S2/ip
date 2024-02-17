@@ -1,8 +1,5 @@
 package seedu.duke;
 
-import java.io.IOException;
-import java.util.Scanner;
-
 /**
  * Represents a task manager called <code>Duke</code>.
  */

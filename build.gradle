@@ -5,6 +5,14 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'seedu.duke.Launcher'
+        )
+    }
+}
+
 checkstyle {
     toolVersion = '10.2'
 }
@@ -51,11 +59,11 @@ application {
     mainClass.set("Launcher")
 }
 
-
 shadowJar {
     archiveBaseName = "duke"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+    archiveFileName = 'ip.jar'
 }
 
 run{
