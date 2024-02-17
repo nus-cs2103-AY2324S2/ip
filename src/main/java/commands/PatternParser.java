@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import exceptions.RyanGoslingBadFormatException;
 import exceptions.RyanGoslingException;
 import tasks.Deadline;
 import tasks.Events;
@@ -216,6 +217,21 @@ public class PatternParser {
     // Helper method to handle "NA", with help from ChatGPT
     private static String handleNA(String value) {
         return (value == null) ? "NA" : value;
+    }
+
+    public static void inputSpacesChecker(String inputLine) throws RyanGoslingException {
+        if (inputLine.startsWith(" ") || inputLine.endsWith(" ")) {
+            throw new RyanGoslingBadFormatException("Invalid command, additional spaces at the beginning or end.");
+        }
+
+        if (inputLine.matches(".*\\s{2,}.*")) {
+            throw new RyanGoslingBadFormatException("Invalid command, multiple spaces between words.");
+        }
+
+        if (inputLine.isEmpty()) {
+            throw new RyanGoslingBadFormatException("You typed... nothing?");
+        }
+
     }
 
 
