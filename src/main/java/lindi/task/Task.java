@@ -106,41 +106,61 @@ public abstract class Task { // Adapted from Course Website
      */
     public static Task createFromParsedString(String parsedString) throws CreateTaskException {
         // Get trimmed tokens
-        String[] parsedTokens = parsedString.split("\\|");
-        for (int i = 0; i < parsedTokens.length; i++) {
-            parsedTokens[i] = parsedTokens[i].trim();
-        }
+        String[] parsedTokens = getTrimmedTokens(parsedString);
 
         // The check below considers todos having minimum of 3 tokens, and events having maximum of 5 tokens.
         if (parsedTokens.length < 3 || parsedTokens.length > 5) {
             throw new CreateTaskException("Token count not valid. File corrupted.");
         }
+        return createFromParsedTokens(parsedTokens);
+    }
 
+    /**
+     * Returns the tokens from parsed string with whitespaces trimmed.
+     *
+     * @param parsedString string from data file
+     * @return trimmed tokens from parsedString
+     */
+    private static String[] getTrimmedTokens(String parsedString) {
+        String[] parsedTokens = parsedString.split("\\|");
+        for (int i = 0; i < parsedTokens.length; i++) {
+            parsedTokens[i] = parsedTokens[i].trim();
+        }
+        return parsedTokens;
+    }
+
+    /**
+     * Returns a task created from the parsed tokens taken from the saved data file.
+     *
+     * @param parsedTokens tokens from parsedString
+     * @return a subclass of Task (ToDo, Event, Deadline)
+     * @throws CreateTaskException if save file corrupted or edited such that format is not what is expected
+     */
+    private static Task createFromParsedTokens(String[] parsedTokens) throws CreateTaskException {
+        assert parsedTokens.length >= 3 : "parsedTokens should have at least 3 elements";
+
+        String taskType = parsedTokens[0];
         boolean isTaskDone = parsedTokens[1].equals("y");
         String taskDescription = parsedTokens[2];
-        String taskType = parsedTokens[0].equals("T") ? "todo"
-                : parsedTokens[0].equals("D") ? "deadline"
-                : parsedTokens[0].equals("E") ? "event"
-                : "unknown";
-        if (taskType.equals("unknown")) {
+
+        // Check if taskType is valid, only T, D, E are valid
+        if (!"TDE".contains(taskType)) {
             throw new CreateTaskException("taskType invalid. File corrupted.");
         }
-
-        String commandString = String.format("%s %s", taskType, taskDescription);
         Task newTask;
-
-        // Create the new lindi.task using the user input string constructor
-        if (taskType.equals("todo") && parsedTokens.length == 3) {
-            newTask = Task.createToDo(commandString);
-        } else if (taskType.equals("deadline") && parsedTokens.length == 4) {
-            newTask = Task.createDeadline(String.format("/by %s", parsedTokens[3]));
-        } else if (taskType.equals("event") && parsedTokens.length == 5) {
-            newTask = Task.create(commandString + String.format("/from %s /to %s", parsedTokens[3], parsedTokens[4]));
+        if (taskType.equals("T") && parsedTokens.length == 3) {
+            newTask = Task.createToDo(taskDescription);
+        } else if (taskType.equals("D") && parsedTokens.length == 4) {
+            String deadlineToken = parsedTokens[3];
+            newTask = Task.createDeadline(taskDescription + String.format("/by %s", deadlineToken));
+        } else if (taskType.equals("E") && parsedTokens.length == 5) {
+            String fromToken = parsedTokens[3];
+            String toToken = parsedTokens[4];
+            newTask = Task.createEvent(taskDescription + String.format("/from %s /to %s", fromToken, toToken));
         } else {
             throw new CreateTaskException("Task type and token count not matched. File corrupted.");
         }
-
-        // Finally mark if lindi.task is done or not
+        // Finally mark if task is done or not
         if (isTaskDone) {
             assert newTask != null;
             newTask.markDone();
