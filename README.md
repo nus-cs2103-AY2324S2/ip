@@ -16,7 +16,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 4. After that, locate the `src/main/java/Launcher.java` file, right-click it, and choose `Run Launcher.main()`
 
 ## This are the features available in Maltese
-### Add a new todo task
+### Add a new Todo task
 > **code**
    ```
     todo <description>
@@ -25,7 +25,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    ```
     todo drink coffee
    ```
-### Add a new deadline task
+### Add a new Deadline task
 > **code**
    ```
     deadline <description> /by <due date>
@@ -34,7 +34,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    ```
     deadline buy cake /by 2024-10-20
    ```
-### Add a new event task
+### Add a new Event task
 > **code**
    ```
     event <description> /from <start date> /to <end date>
@@ -45,10 +45,6 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    ```
 ### View all tasks
 > **code**
-   ```
-    list
-   ```
-> **example**
    ```
     list
    ```
