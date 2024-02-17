@@ -20,7 +20,7 @@ public class AddDeadlineCommand extends Command {
      * @param deadline Deadline to finish the task by.
      */
     public AddDeadlineCommand(String taskName, String deadline) {
-        this.toAdd = new Deadline(taskName, deadline);
+        toAdd = new Deadline(taskName, deadline);
     }
 
     /**
@@ -31,13 +31,13 @@ public class AddDeadlineCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
-        taskList.addTask(this.toAdd);
+        taskList.addTask(toAdd);
         try {
-            storage.saveTask(this.toAdd);
+            storage.saveTask(toAdd);
         } catch (IOException exc) {
             return "Dave could not write the new task to the output file";
         }
-        return ui.showTaskAdded(this.toAdd, taskList);
+        return ui.showTaskAdded(toAdd, taskList);
     }
 
     /**

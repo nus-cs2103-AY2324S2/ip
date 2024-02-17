@@ -16,8 +16,8 @@ public class InvalidCommand extends Command {
      * 
      * @param exc Exception that occurred.
      */
-    public InvalidCommand(ChatbotException exc) {
-        this.exc = exc;
+    public InvalidCommand(ChatbotException cbExc) {
+        exc = cbExc;
     }
 
     /**

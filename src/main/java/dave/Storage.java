@@ -17,13 +17,20 @@ public class Storage {
     /** The filepath to store tasks. */
     private String storageFilepath;
 
+    /** The type of tasks. */
+    private enum TaskType {
+        TODO,
+        DEADLINE,
+        EVENT
+    }
+
     /**
      * Creates new Storage object.
      * 
      * @param filepath Output file to operate on for storing and updating tasks in.
      */
     public Storage(String filepath) {
-        this.storageFilepath = filepath;
+        storageFilepath = filepath;
     }
 
     /**
@@ -34,25 +41,25 @@ public class Storage {
      */
     public ArrayList<Task> load() throws IOException {
         ArrayList<Task> taskList = new ArrayList<Task>();
-        BufferedReader br = new BufferedReader(new FileReader(this.storageFilepath));
+        BufferedReader br = new BufferedReader(new FileReader(storageFilepath));
         String line = br.readLine();
         while (line != null) {
             String[] taskDescription = line.split(" \\| ");
-            String taskType = taskDescription[0];
+            TaskType type = TaskType.valueOf(taskDescription[0].toUpperCase());
 
-            switch (taskType) {
-            case "TODO":
-                assert taskType.equals("TODO");
+            switch (type) {
+            case TODO:
+                assert type.equals(TaskType.TODO);
                 taskList.add(new Todo(taskDescription[2]));
                 break;
 
-            case "DEADLINE":
-                assert taskType.equals("DEADLINE");
+            case DEADLINE:
+                assert type.equals(TaskType.DEADLINE);
                 taskList.add(new Deadline(taskDescription[2], taskDescription[3]));
                 break;
 
-            case "EVENT":
-                assert taskType.equals("EVENT");
+            case EVENT:
+                assert type.equals(TaskType.EVENT);
                 taskList.add(new Event(taskDescription[2], taskDescription[3], taskDescription[4]));
                 break;
 
@@ -60,7 +67,7 @@ public class Storage {
                 throw new IOException();
             }
 
-            if (taskDescription[1].equals("COMPLETED")) {
+            if (isSavedTaskMarked(taskDescription[1])) {
                 assert taskDescription[1].equals("COMPLETED");
                 taskList.get(taskList.size() - 1).setDone(true);
             }
@@ -71,19 +78,23 @@ public class Storage {
         return taskList;
     }
 
+    public boolean isSavedTaskMarked(String completedInfo) {
+        return completedInfo.equals("COMPLETED");
+    }
+
     /**
      * Saves the task to output file if user adds a task in the task list.
      * 
      * @throws IOException If output file is not found.
      */
     public void saveTask(Task newTask) throws IOException {
-        File fileToWrite = new File(this.storageFilepath);
+        File fileToWrite = new File(storageFilepath);
         if (!fileToWrite.exists()) {
             fileToWrite.getParentFile().mkdir();
             fileToWrite.createNewFile();
         }
         assert fileToWrite.exists();
-        BufferedWriter writer = new BufferedWriter(new FileWriter(this.storageFilepath, true));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(storageFilepath, true));
         writer.append(newTask.fileString());
         writer.newLine();
         writer.close();
@@ -96,7 +107,7 @@ public class Storage {
      * @param taskList Current task list to read from.
      */
     public void rewriteOutput(TaskList taskList) {
-        File fileToDelete = new File(this.storageFilepath);
+        File fileToDelete = new File(storageFilepath);
         try {
             fileToDelete.delete();
             for (int i = 0; i < taskList.getNumberOfTasks(); i++) {

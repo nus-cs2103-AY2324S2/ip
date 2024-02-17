@@ -21,7 +21,7 @@ public class AddEventCommand extends Command {
      * @param to Time when event ends.
      */
     public AddEventCommand(String taskName, String from, String to) {
-        this.toAdd = new Event(taskName, from, to);
+        toAdd = new Event(taskName, from, to);
     }
 
     /**
@@ -32,13 +32,13 @@ public class AddEventCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
-        taskList.addTask(this.toAdd);
+        taskList.addTask(toAdd);
         try {
-            storage.saveTask(this.toAdd);
+            storage.saveTask(toAdd);
         } catch (IOException exc) {
             return "Dave could not write the new task to the output file";
         }
-        return ui.showTaskAdded(this.toAdd, taskList);
+        return ui.showTaskAdded(toAdd, taskList);
     }
 
     /**

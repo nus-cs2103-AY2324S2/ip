@@ -5,7 +5,6 @@ import dave.TaskList;
 import dave.Ui;
 
 import dave.tasks.Task;
-import dave.exceptions.ChatbotException;
 import dave.exceptions.UnableToFindTaskException;
 
 public class DeleteTaskCommand extends Command {
@@ -18,8 +17,8 @@ public class DeleteTaskCommand extends Command {
      * 
      * @param taskNumber Index of task in task list.
      */
-    public DeleteTaskCommand(int taskNumber) {
-        this.taskNumber = taskNumber;
+    public DeleteTaskCommand(int taskNumberInput) {
+        taskNumber = taskNumberInput;
     }
 
     /**
@@ -31,8 +30,8 @@ public class DeleteTaskCommand extends Command {
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
-            Task toDelete = taskList.getTask(this.taskNumber);
-            taskList.deleteTask(this.taskNumber);
+            Task toDelete = taskList.getTask(taskNumber);
+            taskList.deleteTask(taskNumber);
             storage.rewriteOutput(taskList);
             return ui.showTaskDeleted(toDelete, taskList);    
         } catch (Exception exc) {

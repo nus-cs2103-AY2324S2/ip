@@ -47,7 +47,7 @@ public class Ui {
      * Creates new UI object.
      */
     public Ui() {
-        this.sc = new Scanner(System.in);
+        sc = new Scanner(System.in);
     }
 
     /**
@@ -104,7 +104,7 @@ public class Ui {
      * @return The user input to the chatbot program.
      */
     public String readCommand() {
-        return this.sc.nextLine();
+        return sc.nextLine();
     }
 
     /**

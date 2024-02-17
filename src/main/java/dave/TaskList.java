@@ -15,7 +15,7 @@ public class TaskList {
      * Creates an empty TaskList object.
      */
     public TaskList() {
-        this.taskList = new ArrayList<Task>();
+        taskList = new ArrayList<Task>();
     }
 
     /**
@@ -23,16 +23,16 @@ public class TaskList {
      * 
      * @param taskList Task list to initialize contents from.
      */
-    public TaskList(ArrayList<Task> taskList) {
-        this.taskList = taskList;
+    public TaskList(ArrayList<Task> taskListInput) {
+        taskList = taskListInput;
     }
 
     public int getNumberOfTasks() {
-        return this.taskList.size();
+        return taskList.size();
     }
 
     public Task getTask(int index) {
-        return this.taskList.get(index);
+        return taskList.get(index);
     }
 
     /**
@@ -41,7 +41,7 @@ public class TaskList {
      * @param taskNumber Index of task to delete.
      */
     public void deleteTask(int taskNumber) {
-        this.taskList.remove(taskNumber);
+        taskList.remove(taskNumber);
     }
 
     /**
@@ -50,7 +50,7 @@ public class TaskList {
      * @param newTask The new Todo task to be added.
      */
     public void addTask(Todo newTask) {
-        this.taskList.add(newTask);
+        taskList.add(newTask);
     }
 
     /**
@@ -59,7 +59,7 @@ public class TaskList {
      * @param newTask The new Deadline task to be added.
      */
     public void addTask(Deadline newTask) {
-        this.taskList.add(newTask);
+        taskList.add(newTask);
     }
 
     /**
@@ -68,6 +68,6 @@ public class TaskList {
      * @param newTask The new Event task to be added.
      */
     public void addTask(Event newTask) {
-        this.taskList.add(newTask);
+        taskList.add(newTask);
     }
 }

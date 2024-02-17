@@ -19,7 +19,7 @@ public class AddTodoCommand extends Command {
      * @param taskName Name or description of the task.
      */
     public AddTodoCommand(String taskName) {
-        this.toAdd = new Todo(taskName);
+        toAdd = new Todo(taskName);
     }
 
     /**
@@ -31,13 +31,13 @@ public class AddTodoCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
-        taskList.addTask(this.toAdd);
+        taskList.addTask(toAdd);
         try {
-            storage.saveTask(this.toAdd);
+            storage.saveTask(toAdd);
         } catch (IOException exc) {
             return "Dave could not write the new task to the output file";
         }
-        return ui.showTaskAdded(this.toAdd, taskList);
+        return ui.showTaskAdded(toAdd, taskList);
     }
 
     /**

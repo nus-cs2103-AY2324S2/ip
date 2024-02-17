@@ -15,7 +15,7 @@ public class FindTaskCommand extends Command {
      * @param keyword The keyword to use for searching.
      */
     public FindTaskCommand(String keyword) {
-        this.keyword = keyword.trim();
+        keyword = keyword.trim();
     }
 
     /**
@@ -30,7 +30,7 @@ public class FindTaskCommand extends Command {
         int noOfResults = 0;
         for (int i = 0; i < taskList.getNumberOfTasks(); i++) {
             Task currTask = taskList.getTask(i);
-            if (currTask.getTaskName().contains(this.keyword)) {
+            if (currTask.getTaskName().contains(keyword)) {
                 loadResult += String.format("\n%d. %s", noOfResults+1, taskList.getTask(i).toString());
                 noOfResults++;
             }
