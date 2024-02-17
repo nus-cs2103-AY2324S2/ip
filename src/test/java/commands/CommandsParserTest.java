@@ -16,7 +16,7 @@ import exceptions.RyanGoslingException;
 public class CommandsParserTest {
 
     /**
-     * Test for the "bye" command.
+     * Tests for the "bye" command.
      *
      * @throws RyanGoslingException if an error occurs during parsing
      */

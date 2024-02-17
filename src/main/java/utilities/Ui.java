@@ -18,7 +18,7 @@ public class Ui {
     /**
      * Scanner for user input.
      */
-    private Scanner sc = new Scanner(System.in);
+    private final Scanner sc = new Scanner(System.in);
 
     /**
      * Handles adding/removing to an array of tasks.
@@ -28,12 +28,12 @@ public class Ui {
     /**
      * File path for task data storage.
      */
-    private String filePath = "data/task_lists.txt";
+    private final String filePath = "data/task_lists.txt";
 
     /**
      * Handles the loading and saving of tasks to a text file.
      */
-    private Storage taskLoader = new Storage(filePath);
+    private final Storage taskLoader = new Storage(filePath);
 
     /**
      * Loads all tasks from the data file during initialization.

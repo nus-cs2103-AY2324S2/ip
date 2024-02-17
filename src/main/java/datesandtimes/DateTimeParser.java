@@ -9,7 +9,7 @@ import exceptions.RyanGoslingDateTimeException;
 import exceptions.RyanGoslingException;
 
 /**
- * A utility class for parsing and formatting dates and times.
+ * Parses and formats dates and times.
  */
 public class DateTimeParser {
 
@@ -49,6 +49,15 @@ public class DateTimeParser {
         return LocalTime.parse(timeString, formatter);
     }
 
+    /**
+     * Validates the ordering of event dates and times.
+     *
+     * @param date1 The first date.
+     * @param time1 The first time.
+     * @param date2 The second date.
+     * @param time2 The second time.
+     * @throws RyanGoslingException If the event dates or times are not in the correct order.
+     */
     public static void validateEventTimeAndDates(LocalDate date1, LocalTime time1,
                                                  LocalDate date2, LocalTime time2) throws RyanGoslingException {
         if (date1.isAfter(date2)) {
@@ -62,7 +71,7 @@ public class DateTimeParser {
 
 
     /**
-     * Main method for testing the parseDate method.
+     * Tests the parseDate method.
      *
      * @param args Command line arguments (not used).
      */

@@ -24,7 +24,8 @@ public class Events extends Task {
      * @param dateTo   The end date of the event in the "yyyy-MM-dd" format.
      * @param timeTo   The end time of the event in the "HHmm" format.
      */
-    public Events(String taskName, String dateFrom, String timeFrom, String dateTo, String timeTo) throws RyanGoslingException {
+    public Events(String taskName, String dateFrom,
+                  String timeFrom, String dateTo, String timeTo) throws RyanGoslingException {
         super(taskName, "E");
         this.startDate = LocalDate.parse(dateFrom);
         this.endDate = LocalDate.parse(dateTo);
@@ -46,7 +47,8 @@ public class Events extends Task {
      * @param timeTo     The end time of the event in the "HHmm" format.
      * @param isTaskDone The status of the task (0 for not done, 1 for done).
      */
-    public Events(String taskName, String dateFrom, String timeFrom, String dateTo, String timeTo, int isTaskDone) throws RyanGoslingException {
+    public Events(String taskName, String dateFrom,
+                  String timeFrom, String dateTo, String timeTo, int isTaskDone) throws RyanGoslingException {
         super(taskName, "E");
         assert (isTaskDone == 1 || isTaskDone == 0) : "Invalid isTaskDone feed!";
         changeStatus(isTaskDone);

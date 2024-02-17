@@ -6,15 +6,15 @@ import utilities.Storage;
 import utilities.TaskList;
 
 /**
- * Parser for processing user commands related to task management.
+ * Processes user commands related to task management.
  */
 public class CommandsParser {
 
     // Manages the encapsulated list of tasks
-    private TaskList taskListManager;
+    private final TaskList taskListManager;
     private String filePath;
     // Handles the loading and saving of tasks to a text file
-    private Storage taskLoader;
+    private final Storage taskLoader;
 
     /**
      * Constructor for CommandsParser.

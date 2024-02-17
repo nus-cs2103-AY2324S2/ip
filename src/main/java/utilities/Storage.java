@@ -33,7 +33,7 @@ public class Storage {
      */
     public ArrayList<Task> parseAndLoadTasks() throws FileNotFoundException, RyanGoslingException {
         File file = new File(filePath);
-        //We first check if file directory exists. We will create the folder for user instead.
+        //We first check if the file directory exists. We will create the folder for user instead.
         if (!file.exists()) {
             try {
                 Files.createDirectories(file.toPath().getParent());
@@ -65,7 +65,7 @@ public class Storage {
         for (int i = 0; i < taskList.size(); i += 1) {
             Task taskToAdd = taskList.get(i);
             toAdd.append(taskToAdd.getTaskType());
-            int taskDone = taskToAdd.isTaskDone() ? 1 : 0;
+            int taskDone = taskToAdd.isIstaskDone() ? 1 : 0;
             String[] possibleDates = taskToAdd.getDates();
             String[] possibleTimes = taskToAdd.getTimes();
             toAdd.append(" | ")

@@ -79,16 +79,17 @@ public class TaskList {
     /**
      * Removes a task from the list by its index.
      *
-     * @param indexOfTask The index of the task to be removed.
+     * @param commandSplit The index of the task to be removed.
      * @return A formatted string containing the remove printout.
      */
-    public String removeIndex(String[] indexOfTask) throws RyanGoslingException {
-        if (indexOfTask.length != 2) {
-            throw new RyanGoslingBadFormatException("Missing arguments, type delete <index>");
+    public String removeIndex(String[] commandSplit) throws RyanGoslingException {
+        if (commandSplit.length != 2) {
+            throw new RyanGoslingBadFormatException("Invalid number arguments, type delete <index>");
         }
-        assert indexOfTask[0].equals("delete") : "Task should be delete here!";
+        assert commandSplit[0].equals("delete") : "Task should be delete here!";
         try {
-            Task taskToBeRemoved = listOfTasks.get(Integer.parseInt(indexOfTask[1]));
+            int indexOfTask = Integer.parseInt(commandSplit[1]) - 1;
+            Task taskToBeRemoved = listOfTasks.get(indexOfTask);
             this.listOfTasks.remove(indexOfTask);
             return ResponseHandler.removePrinter(taskToBeRemoved, listOfTasks.size());
         } catch (IndexOutOfBoundsException e) {
@@ -139,7 +140,7 @@ public class TaskList {
     }
 
     /**
-     * Gets the type of a task in the list.
+     * Gets the type of task in the list.
      *
      * @param index The index of the task.
      * @return The type of the task.

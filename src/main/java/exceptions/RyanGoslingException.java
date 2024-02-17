@@ -1,7 +1,7 @@
 package exceptions;
 
 /**
- * Custom exception class for handling RyanGosling-related exceptions.
+ * Handles RyanGosling-related exceptions.
  */
 public class RyanGoslingException extends Exception {
     /**
