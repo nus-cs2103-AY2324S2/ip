@@ -8,6 +8,7 @@ public class UnmarkCommand extends Command {
 
     public UnmarkCommand(Ui ui, TaskList tasks, int taskIndex) {
         super(ui, tasks);
+        assert tasks != null : "TaskList should not be null";
         this.taskIndex = taskIndex;
     }
 

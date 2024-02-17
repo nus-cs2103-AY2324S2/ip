@@ -22,7 +22,7 @@ public class TaskList {
      * @param task The task to add.
      */
     public void addTask(Task task) {
-
+        assert task != null : "Task cannot be null";
         this.tasks.add(task);
     }
 
@@ -33,7 +33,10 @@ public class TaskList {
      * @return The deleted task.
      */
     public Task deleteTask(int index) {
-        return this.tasks.remove(index);
+        int initialSize = tasks.size();
+        Task result = this.tasks.remove(index);
+        assert tasks.size() == initialSize - 1 : "Task wasn't removed";
+        return result;
     }
 
     public int size() {
