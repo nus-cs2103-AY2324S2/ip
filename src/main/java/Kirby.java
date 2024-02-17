@@ -1,14 +1,41 @@
+import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+
 public class Kirby {
     public static void main(String[] args) {
+
         String message =
                 "____________________________________________________________\nHiiiiii \uD83D\uDE00! I'm Kirby Yayyyyy \uD83C\uDF8C!\nWhat can I do for you?\n____________________________________________________________\n";
 
         Scanner sc = new Scanner(System.in);
 
+
+
+        String home = System.getProperty("user.dir");
+        java.nio.file.Path path = java.nio.file.Paths.get(home,  "data", "kirby.txt");
+        File saveFile = path.toFile();
+
         ArrayList<Task> inputs = new ArrayList<>();
+
+        try {
+            saveFile.createNewFile();
+
+            FileInputStream fileInputStream = new FileInputStream(saveFile);
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            inputs = (ArrayList<Task>) objectInputStream.readObject();
+
+            objectInputStream.close();
+
+        }catch(IOException e){
+            System.out.println("Error: Input seems to not work");
+        }catch(SecurityException e){
+            System.out.println("Error: Don't have permissions to create Save File");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Error: Save File is corrupted");
+        }
+
 
         System.out.println(message);
 
@@ -18,6 +45,10 @@ public class Kirby {
 
             //list command
             if(var.equals("list")){
+
+                if(inputs.isEmpty()){
+                    System.out.println("You haven't added any tasks yet! I am waiting \uD83D\uDE0A");
+                }
 
                 for(int i = 0; i < inputs.size(); i++){
                     System.out.println(i + 1 + ". " + inputs.get(i));
@@ -79,9 +110,9 @@ public class Kirby {
 
                     String t = "";
 
-                    for(int i = 0; i < command.length; i++){
-                        if(!command[i].equals("todo")) {
-                            t += command[i] + " ";
+                    for (String s : command) {
+                        if (!s.equals("todo")) {
+                            t += s + " ";
                         }
                     }
 
@@ -239,5 +270,15 @@ public class Kirby {
 
         //bye command
         System.out.println("Noooo \uD83E\uDD7A You are leaving already \uD83D\uDE16? Hope to see you again soon!\n____________________________________________________________");
+
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(saveFile);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(inputs);
+            objectOutputStream.flush();
+            objectOutputStream.close();
+        } catch(IOException e){
+            System.out.println("Error: Could not write to save file");
+        }
     }
 }
