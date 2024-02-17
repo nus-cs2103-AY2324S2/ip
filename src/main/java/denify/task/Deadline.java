@@ -8,20 +8,11 @@ import java.util.Objects;
 import denify.exception.DenifyException;
 
 /**
- * The `Deadline` class represents a task with a specific deadline in Denify.
+ * Represents a task with a specific deadline in Denify.
  */
 public class Deadline extends Task {
-    /**
-     * The formatted string representation of the deadline.
-     */
     protected String by;
-    /**
-     * The input date-time formatter.
-     */
     protected DateTimeFormatter input = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    /**
-     * The output date-time formatter for display.
-     */
     protected DateTimeFormatter output = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
     /**
      * Constructs a `Deadline` with the given description and deadline.

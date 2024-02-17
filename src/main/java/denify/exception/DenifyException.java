@@ -1,8 +1,8 @@
 package denify.exception;
 
 /**
- * The `DenifyException` class represents an exception specific to the Denify application.
- * It extends the general `Exception` class to handle custom exceptions within Denify.
+ * Represents an exception specific to the Denify application, extending the general `Exception` class
+ * to handle custom exceptions within Denify.
  */
 public class DenifyException extends Exception {
     /**

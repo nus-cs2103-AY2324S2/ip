@@ -8,8 +8,8 @@ import denify.task.TaskList;
 import denify.ui.Ui;
 
 /**
- * The `CommandHandler` class is responsible for parsing and executing commands in the Denify application.
- * It encapsulates the logic for handling different types of commands.
+ * Responsible for parsing and executing commands in the Denify application,
+ * encapsulating the logic for handling different types of commands.
  */
 public class CommandHandler {
     private final TaskList tasks;

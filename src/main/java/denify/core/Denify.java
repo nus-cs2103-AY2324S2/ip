@@ -7,8 +7,8 @@ import denify.task.TaskList;
 import denify.ui.Ui;
 
 /**
- * The `Denify` class represents the main application that manages tasks.
- * It handles user interactions, parses commands, and performs operations on tasks.
+ * Represents the main application managing tasks, handling user interactions, parsing commands,
+ * and performing operations on tasks.
  */
 public class Denify {
     private static final String DATA_DIRECTORY = "./data/";
@@ -56,7 +56,7 @@ public class Denify {
         this.getResponse(msg);
     }
     /**
-     * Main method to launch the Denify application.
+     * Launches the Denify application.
      *
      * @param args Command-line arguments (not used in this application).
      */

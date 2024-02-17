@@ -3,7 +3,7 @@ package denify.task;
 import java.util.Objects;
 
 /**
- * The `Todo` class represents a basic task without a specific deadline or duration in Denify.
+ * Represents a basic task without a specific deadline or duration in Denify.
  */
 public class Todo extends Task {
     /**

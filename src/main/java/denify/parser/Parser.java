@@ -7,8 +7,8 @@ import denify.task.Event;
 import denify.task.Todo;
 
 /**
- * The `Parser` class handles the parsing of user commands in Denify.
- * It interprets commands and converts them into corresponding Denify actions.
+ * Handles the parsing of user commands in Denify, interpreting commands
+ * and converting them into corresponding Denify actions.
  */
 public class Parser {
     /**

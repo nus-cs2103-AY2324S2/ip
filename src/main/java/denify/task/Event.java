@@ -8,24 +8,12 @@ import java.util.Objects;
 import denify.exception.DenifyException;
 
 /**
- * The `Event` class represents a task that spans a specific duration in Denify.
+ * Represents a task that spans a specific duration in Denify.
  */
 public class Event extends Task {
-    /**
-     * The formatted string representation of the start time.
-     */
     protected String from;
-    /**
-     * The formatted string representation of the end time.
-     */
     protected String to;
-    /**
-     * The input date-time formatter.
-     */
     protected DateTimeFormatter input = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    /**
-     * The output date-time formatter for display.
-     */
     protected DateTimeFormatter output = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
     /**
      * Constructs an `Event` with the given description, start time, and end time.

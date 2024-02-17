@@ -6,19 +6,12 @@ import java.util.Scanner;
 import denify.task.Task;
 
 /**
- * The `Ui` class handles user interaction and provides formatted output.
- * It includes methods for greeting the user, formatting replies, displaying errors,
+ * Handles user interaction and provides formatted output in Denify,
+ * including methods for formatting replies, displaying errors,
  * and obtaining user input.
  */
 public class Ui {
-
-    /**
-     * Horizontal line used for formatting output.
-     */
     private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
-    /**
-     * Scanner object for reading user input.
-     */
     private final Scanner scanner;
     /**
      * Constructs an `Ui` object and initializes the Scanner for user input.

@@ -15,13 +15,10 @@ import denify.task.Task;
 import denify.task.Todo;
 
 /**
- * The `Storage` class manages the loading and saving of tasks from/to a file in Denify.
- * It interacts with the file system to store and retrieve tasks.
+ * Manages the loading and saving of tasks from/to a file in Denify,
+ * interacting with the file system to store and retrieve tasks.
  */
 public class Storage {
-    /**
-     * The file path for storing tasks.
-     */
     protected Path filePath;
     /**
      * Indicates whether the warning about potential overwriting has been printed.

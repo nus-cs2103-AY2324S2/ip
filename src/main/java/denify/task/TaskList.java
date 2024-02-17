@@ -6,12 +6,9 @@ import denify.exception.DenifyException;
 import denify.storage.Storage;
 
 /**
- * The `TaskList` class represents a list of tasks in Denify.
+ * Represents a list of tasks in Denify.
  */
 public class TaskList {
-    /**
-     * The `ArrayList` that stores the tasks.
-     */
     private final ArrayList<Task> tasks;
     /**
      * Constructs a `TaskList` with the given `ArrayList` of tasks.

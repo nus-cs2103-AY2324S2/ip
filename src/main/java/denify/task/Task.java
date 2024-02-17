@@ -1,16 +1,10 @@
 package denify.task;
 
 /**
- * The `Task` class represents a generic task in Denify.
+ * Represents a generic task in Denify.
  */
 public class Task {
-    /**
-     * The description of the task.
-     */
     protected String description;
-    /**
-     * A flag indicating whether the task is done or not.
-     */
     protected boolean isDone;
     /**
      * Constructs a `Task` with the given description.
