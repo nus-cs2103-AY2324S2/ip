@@ -138,8 +138,7 @@ public class Ui {
         return (
                 SEPARATOR
                         + "\tOK, I've marked this task as not done yet:\n"
-                        + "\t\t" + taskList.get(numericIndex).toString()
-                        + "\n"
+                        + "\t\t" + taskList.get(numericIndex).toString() + "\n"
                         + SEPARATOR
             );
     }
