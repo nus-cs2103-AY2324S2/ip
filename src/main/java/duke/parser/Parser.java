@@ -8,6 +8,9 @@ import duke.task.TaskList;
 import duke.task.ToDo;
 import duke.ui.Ui;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -17,6 +20,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class Parser {
     public static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    //public static final Pattern COMMAND_FORMAT = Pattern.compile("?<command_word>\s" );
 
     /**
      * Processes a string input to decide which command to execute
