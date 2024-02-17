@@ -22,7 +22,9 @@ public class Parser {
     }
 
     /**
+     * Specifically handle user command.
      * @param info The information given by the user.
+     * @returns A response to the user command.
      */
     public String handle(String info) {
         if (!info.contains(" ")) {
@@ -47,11 +49,11 @@ public class Parser {
                 case "unmark":
                     return unmark(arg);
                 case "todo":
-                    return add_todo(info);
+                    return addTodo(info);
                 case "deadline":
-                    return add_deadline(arg);
+                    return addDeadline(arg);
                 case "event":
-                    return add_event(arg);
+                    return addEvent(arg);
                 case "find":
                     return find(arg);
                 case "delete":
@@ -67,10 +69,11 @@ public class Parser {
     /**
      * Actions when finding keywords.
      * @param key Keyword input.
+     * @returns All tasks containing the keyword in a list.
      */
     public String find(String key) {
         TaskList ans = new TaskList();
-        for (Task tk : taskList.get_list()) {
+        for (Task tk : taskList.getList()) {
             if (tk.getMSG().contains(key)) {
                 ans.add(tk);
             }
@@ -81,14 +84,15 @@ public class Parser {
     /**
      * Actions when marking.
      * @param s String format of the Task index.
+     * @returns Mark message.
      */
     public String mark(String s) {
         try {
             int index = Integer.parseInt(s) - 1;
             assert index < taskList.size(): "Index Invalid";
-            taskList.get_task(index).complete();
+            taskList.getTask(index).complete();
             storage.saveList();
-            return Ui.markMSG(taskList.get_task(index));
+            return Ui.markMSG(taskList.getTask(index));
         } catch (IndexOutOfBoundsException e) {
             return "Index Out";
         }
@@ -97,14 +101,15 @@ public class Parser {
     /**
      * Actions when unmarking.
      * @param s String format of the Task index.
+     * @returns Unmark message.
      */
     public String unmark(String s) {
         try {
             int index = Integer.parseInt(s) - 1;
             assert index < taskList.size(): "Index Invalid";
-            taskList.get_task(index).uncomplete();
+            taskList.getTask(index).uncomplete();
             storage.saveList();
-            return Ui.unmarkMSG(taskList.get_task(index));
+            return Ui.unmarkMSG(taskList.getTask(index));
         } catch (IndexOutOfBoundsException e) {
             return "Index Out";
         }
@@ -113,12 +118,15 @@ public class Parser {
     /**
      * Actions when deleting.
      * @param s String format of the Task index.
+     * @returns Delete message.
      */
     public String delete(String s) {
         try {
             int index = Integer.parseInt(s) - 1;
             assert index < taskList.size() : "Index Invalid";
-            Task temp = taskList.get_task(index);
+
+            Task temp = taskList.getTask(index);
+
             taskList.remove(index);
             storage.saveList();
             return Ui.deleteMSG(temp, taskList.size());
@@ -132,8 +140,9 @@ public class Parser {
     /**
      * Actions when adding a Todo.
      * @param info Description of a Todo.
+     * @returns Add message.
      */
-    public String add_todo(String info) {
+    public String addTodo(String info) {
         String action = info.split(" ", 2)[1];
         Task t = new Todo(action);
         taskList.add(t);
@@ -144,8 +153,9 @@ public class Parser {
     /**
      * Actions when adding a Deadline.
      * @param s Description of a Deadline.
+     * @returns Add message.
      */
-    public String add_deadline(String s) {
+    public String addDeadline(String s) {
         try {
             String msg = s.split("/by ", 2)[0];
             String by = s.split("/by ", 2)[1];
@@ -161,8 +171,9 @@ public class Parser {
     /**
      * Actions when adding an Event.
      * @param s Description of an Event.
+     * @returns Add message.
      */
-    public String add_event(String s) {
+    public String addEvent(String s) {
         String event = s.split("/from", 2)[0];
         String time = s.split("/from", 2)[1];
         String from = time.split("/to")[0];

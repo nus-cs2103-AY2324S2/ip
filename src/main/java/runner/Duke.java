@@ -1,11 +1,12 @@
 package runner;
-import java.util.Scanner;
 
 /**
  * Class for Duke.
  */
 public class Duke {
+
     protected int exit;
+
     protected final Storage storage;
     protected final TaskList taskList;
 
@@ -13,7 +14,6 @@ public class Duke {
      * Constructor for a Duke object.
      */
     public Duke() {
-        this.exit = 0;
         this.taskList = new TaskList();
         this.storage = new Storage(taskList);
         storage.loadList();

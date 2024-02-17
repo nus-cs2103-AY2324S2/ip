@@ -18,6 +18,7 @@ public class Task {
 
     /**
      * Get the msg of a Task.
+     * @returns Message of the task.
      */
     public String getMSG() {
         return this.msg;
@@ -39,8 +40,9 @@ public class Task {
 
     /**
      * Store the information of the task into one line.
+     * @returns Specific information of the task.
      */
-    public String getInfo() {
+    public String storeInfo() {
         StringBuilder sb = new StringBuilder("");
         if (this instanceof Todo) {
             sb.append('T');

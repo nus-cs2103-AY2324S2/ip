@@ -40,18 +40,18 @@ public class Storage {
                 switch (type) {
                     case 'T':
                         Task todo = new Todo(info);
-                        check_add(status, todo);
+                        checkStatusAdd(status, todo);
                         break;
                     case 'D':
                         String[] date = info.split(" /by ",2);
                         Task deadline = new Deadline(date[0], date[1]);
-                        check_add(status, deadline);
+                        checkStatusAdd(status, deadline);
                         break;
                     case 'E':
                         String[] eventMsg = info.split(" /from ",2);
                         String[] time = eventMsg[1].split(" /to ",2);
                         Task event = new Event(eventMsg[0], time[0], time[1]);
-                        check_add(status, event);
+                        checkStatusAdd(status, event);
                         break;
                 }
             }
@@ -72,8 +72,8 @@ public class Storage {
     public void saveList() {
         try {
             FileWriter fw = new FileWriter("src/main/data/task_list.txt");
-            for (Task tk : taskList.get_list()) {
-                fw.write(tk.getInfo()+"\n");
+            for (Task tk : taskList.getList()) {
+                fw.write(tk.storeInfo()+"\n");
             }
             fw.close();
         } catch (IOException e) {
@@ -86,7 +86,7 @@ public class Storage {
      * @param status Description of a Task.
      * @param tk Task checked.
      */
-    public void check_add(char status, Task tk) {
+    public void checkStatusAdd(char status, Task tk) {
         if (status == '0') {
             tk.uncomplete();
         } else {
