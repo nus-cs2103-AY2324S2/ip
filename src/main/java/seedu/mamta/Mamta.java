@@ -233,7 +233,7 @@ public class Mamta extends Application  {
     }
 
     /**
-     * Runs the Mamta application bot. Handles input logic as well.
+     * Runs the Mamta application bot. Handles file input logic and save to file.
      * @param loadTasksFile The file path for loading tasks.
      * @param inputNewTasksFile The file path for inputting new tasks.
      */
