@@ -1,0 +1,3 @@
+T | 0 | read book
+D | 0 | return book (by: Oct 10 2024, 18:00) (by: Oct 10 2024, 18:00) (by: Oct 10 2024, 18:00) | 2024-10-10 18:00
+E | 0 | team project meeting (from: May 10 2024, 18:00 to: May 10 2024, 20:00) | 2024-05-10 18:00 | 2024-05-10 20:00

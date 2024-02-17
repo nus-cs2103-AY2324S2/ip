@@ -197,7 +197,7 @@ public class Duke extends Application {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-        return "SCZL heard: " + input;
+        return "NyanTasks heard: " + input;
     }
 
     /**
@@ -254,7 +254,7 @@ class Ui {
     }
 
     public String showWelcome() {
-        return "Hello! I'm SCZL\nWhat can I do for you?";
+        return "Hello! I'm NyanTasks\nWhat can I do for you?";
     }
 
     public String showGoodbye() {
@@ -525,22 +525,26 @@ class Parser {
     }
 
     private static Command parseAddEventCommand(String commandArgs) throws DukeException {
-        String[] parts = commandArgs.split("/at", 2);
-        if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
-            throw new DukeException("Invalid event command format.");
+        String[] parts = commandArgs.split("/from", 2);
+        if (parts.length < 2) {
+            throw new DukeException("Invalid event command format. Missing '/from'.");
         }
         String description = parts[0].trim();
-        String at = parts[1].trim();
-        String[] timeParts = at.split("-", 2);
-        if (timeParts.length < 2 || timeParts[0].trim().isEmpty() || timeParts[1].trim().isEmpty()) {
-            throw new DukeException("Invalid time format for event command.");
+
+        String[] timeParts = parts[1].trim().split("/to", 2);
+        if (timeParts.length < 2) {
+            throw new DukeException("Invalid event command format. Missing '/to'.");
         }
+        String from = timeParts[0].trim();
+        String to = timeParts[1].trim();
+
         try {
-            LocalDateTime startTime = LocalDateTime.parse(timeParts[0].trim(), dateTimeFormatter);
-            LocalDateTime endTime = LocalDateTime.parse(timeParts[1].trim(), dateTimeFormatter);
-            return new AddEventCommand(description, startTime, endTime);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
+            LocalDateTime startDateTime = LocalDateTime.parse(from, formatter);
+            LocalDateTime endDateTime = LocalDateTime.parse(to, formatter);
+            return new AddEventCommand(description, startDateTime, endDateTime);
         } catch (DateTimeParseException e) {
-            throw new DukeException("Invalid date format. Please use yyyy-MM-dd HHmm format.");
+            throw new DukeException("Invalid date and time format. Please use 'MMM dd yyyy, HH:mm' format.");
         }
     }
 }
