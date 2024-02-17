@@ -31,7 +31,7 @@ The expected output would be:
 ------------------------------------------
 Nice! I've marked this task as done!
 [D][X] return book (by: Feb 17 2024)
-------------------------------------------
+------------------------------------------ 
 
 
 ## Finding tasks
