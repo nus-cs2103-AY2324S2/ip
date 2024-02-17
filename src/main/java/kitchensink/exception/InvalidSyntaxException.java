@@ -1,5 +1,7 @@
 package kitchensink.exception;
 
+import java.util.Objects;
+
 /**
  * Thrown when the first word in the user input is valid, but the input is not in the correct format
  * (based on the first word).
@@ -13,6 +15,9 @@ public class InvalidSyntaxException extends Throwable {
      * @param command The first word in the user input.
      */
     public InvalidSyntaxException(String command) {
+        assert command.equals("bye") || command.equals("list") || command.equals("mark") || command.equals("unmark")
+                || command.equals("todo") || command.equals("deadline") || command.equals("event")
+                || command.equals("delete") || command.equals("find");
         this.command = command;
         switch (command) {
         case "bye":
@@ -42,7 +47,7 @@ public class InvalidSyntaxException extends Throwable {
         case "find":
             syntax = "find [keyword(s)]";
             break;
-        default:
+        default: // unreachable
         }
     }
 
