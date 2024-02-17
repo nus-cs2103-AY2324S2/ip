@@ -73,6 +73,30 @@ public class Duke {
         ui.closingMessage();
     }
 
+    public String getResponse(String input) {
+        return "hii";
+    }
+
+//    public static String gitResponse(String input) {
+//        String response = "";
+//        if (input.equals("bye")) {
+//            response = "Bye. Hope to see you again soon!";
+//        } else if (input.equals("list")) {
+//            response = "Here are the tasks in your list:\n" + TaskList.getList();
+//        } else if (input.startsWith("done")) {
+//            response = Parser.parseMark(input, TaskList.getList());
+//        } else if (input.startsWith("deadline")) {
+//            response = Parser.parseDeadline(input, TaskList.getList());
+//        } else if (input.startsWith("todo")) {
+//            response = Parser.parseTodo(input, TaskList.getList());
+//        } else if (input.startsWith("event")) {
+//            response = Parser.parseEvent(input, TaskList.getList());
+//        } else {
+//            response = "Sorry, I didn't understand that.";
+//        }
+//        return response;
+//    }
+
     /*
     /**
      * Main method in Duke.
