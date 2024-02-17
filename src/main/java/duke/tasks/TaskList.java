@@ -32,8 +32,7 @@ public class TaskList extends ArrayList<Task> {
         add(task);
         System.out.println("     Got it. I've added this task:");
         System.out.println("         " + task.toString());
-        int numTask = this.size();
-        System.out.println("     Total number of duke.tasks: " + numTask);
+        getCurTotalTasks();
     }
 
     /**
@@ -60,12 +59,11 @@ public class TaskList extends ArrayList<Task> {
         if (isEmpty()) {
             System.out.println("     No pending duke.tasks, congrats!");
         } else {
-            System.out.println("     Here are the duke.tasks in your list:");
-            int numTask = this.size();
+            System.out.println("     Here are the tasks in your list:");
             for (int i = 0; i < size(); i++) {
                 System.out.println((i + 1) + ". " + getTask(i));
             }
-            System.out.println("     Total number of duke.tasks: " + numTask);
+            getCurTotalTasks();
         }
     }
 
@@ -81,11 +79,15 @@ public class TaskList extends ArrayList<Task> {
             System.out.println("     OK! I've removed this task:");
             System.out.println("         " + task.toString());
             this.remove(index);
-            int numTask = this.size();
-            System.out.println("     Total number of duke.tasks: " + numTask);
+            getCurTotalTasks();
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidIndexException();
         }
+    }
+
+    public void getCurTotalTasks() {
+        int numTask = this.size();
+        System.out.println("     Total number of tasks: " + numTask);
     }
 
 }
