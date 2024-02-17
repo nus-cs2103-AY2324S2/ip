@@ -11,7 +11,7 @@ public class Ui {
      * Returns a greeting message.
      */
     public static String getGreetingMessage() {
-        return "Hello there! I'm Huyang\nWhat can I do for you?";
+        return "Hello there! I'm Huyang.\nWhat can I do for you?";
     }
 
     /**

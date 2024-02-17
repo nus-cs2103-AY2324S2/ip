@@ -49,7 +49,7 @@ public class ParserTest {
     @Test
     public void testParseCommand_UnknownCommand_ReturnsUnknownCommandType() {
         assertEquals(Parser.CommandType.UNKNOWN, new Parser().parseCommand("randomcommand"));
-        assertEquals(Parser.CommandType.UNKNOWN, new Parser().parseCommand("markiplier 1"));
+        assertEquals(Parser.CommandType.UNKNOWN, new Parser().parseCommand("something 1"));
         assertEquals(Parser.CommandType.UNKNOWN, new Parser().parseCommand("unmarker 2"));
     }
 }

@@ -2,6 +2,7 @@ package huyang;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Represents a deadline task with a specified deadline time.
@@ -25,7 +26,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Get the deadline time for the task.
+     * Gets the deadline time for the task.
      *
      * @return The deadline time as a LocalDateTime object.
      */
@@ -53,9 +54,6 @@ public class Deadline extends Task {
      */
     public static Deadline fromFileFormat(String fileFormat) throws TaskException {
         String[] parts = fileFormat.split(" \\| ");
-        if (parts.length < 3) {
-            throw TaskException.forInvalidTaskFormat("ToDo");
-        }
         LocalDateTime byTime = LocalDateTime.parse(parts[3], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         Deadline deadline = new Deadline(parts[2], byTime);
         if (parts[1].equals("1")) {

@@ -26,7 +26,7 @@ public class Event extends Task {
     }
 
     /**
-     * Get the start time of the event.
+     * Gets the start time of the event.
      *
      * @return The start time as a LocalDateTime object.
      */
@@ -35,7 +35,7 @@ public class Event extends Task {
     }
 
     /**
-     * Get the end time of the event.
+     * Gets the end time of the event.
      *
      * @return The end time as a LocalDateTime object.
      */
@@ -67,21 +67,17 @@ public class Event extends Task {
      * @throws TaskException if the file format is invalid.
      */
     public static Event fromFileFormat(String fileFormat) throws TaskException {
-        try {
-            String[] parts = fileFormat.split(" \\| ");
-            String description = parts[2];
-            String[] times = parts[3].split(" to "); // Split by " to "
+        String[] parts = fileFormat.split(" \\| ");
+        String description = parts[2];
+        String[] times = parts[3].split(" to "); // Split by " to "
 
-            LocalDateTime start = LocalDateTime.parse(times[0], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-            LocalDateTime end = LocalDateTime.parse(times[1], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-            Event event = new Event(description, start, end);
-            if (parts[1].equals("1")) {
-                event.setDone(true);
-            }
-            return event;
-        } catch (DateTimeParseException e) {
-            throw new TaskException("Invalid date format.");
+        LocalDateTime start = LocalDateTime.parse(times[0], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        LocalDateTime end = LocalDateTime.parse(times[1], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        Event event = new Event(description, start, end);
+        if (parts[1].equals("1")) {
+            event.setDone(true);
         }
+        return event;
     }
 
     /**

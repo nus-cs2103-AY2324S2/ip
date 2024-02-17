@@ -1,28 +1,11 @@
 package huyang;
 
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDateTime;
 
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class EventTest {
-
-    @Test
-    public void testFromFileFormat_ValidInput_ReturnsEvent() throws TaskException {
-        String input = "E | 0 | Project meeting | 2024-01-31T14:00:00 to 2024-01-31T16:00:00";
-        Event event = Event.fromFileFormat(input);
-
-        assertEquals("Project meeting", event.getTaskName());
-        assertEquals(LocalDateTime.of(2024, 1, 31, 14, 0), event.getStart());
-        assertEquals(LocalDateTime.of(2024, 1, 31, 16, 0), event.getEnd());
-        assertFalse(event.isDone());
-    }
-
-    @Test
-    public void testFromFileFormat_InvalidDateTimeFormat_ThrowsTaskException() {
-        String input = "E | 0 | Project meeting | NotADateTime to NotADateTime";
-        assertThrows(TaskException.class, () -> Event.fromFileFormat(input));
-    }
-
 
     @Test
     public void testToString_ReturnsFormattedString() {

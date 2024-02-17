@@ -25,7 +25,6 @@ public class Huyang {
     public Huyang() {
         this.ui = new Ui();
         this.parser = new Parser();
-        // this.storage = new Storage("./data/huyang_tasks.txt");
         this.storage = new Storage(System.getProperty("user.home")
                 + "/Downloads/CS2103T/ip/data/huyang_tasks.txt");
         try {
