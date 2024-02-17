@@ -1,15 +1,12 @@
 package duke.io;
 
 import duke.application.*;
-import duke.task.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
-import java.security.cert.PolicyNode;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -61,17 +58,5 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
     }
-
-//    public void showLoadedTasks() {
-//        dialogContainer.getChildren().clear();
-//
-//        Storage.loadFile(taskList.getTaskList());
-//
-//        for (Task task : taskList.getTaskList()) {
-//            DialogBox userDialog = DialogBox.getUserDialog(task.toString(), nervousUnicorn);
-//            DialogBox dukeDialog = DialogBox.getDukeDialog("Loaded task: " + task.toString(), happyUnicorn);
-//            dialogContainer.getChildren().addAll(userDialog, dukeDialog);
-//        }
-//    }
 
 }
