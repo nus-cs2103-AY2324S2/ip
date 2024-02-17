@@ -1,9 +1,9 @@
-package Thames;
+package thames;
 
-import Thames.command.AddCommand;
-import Thames.command.Command;
-import Thames.task.Event;
-import Thames.task.Deadline;
+import thames.command.AddCommand;
+import thames.command.Command;
+import thames.task.Event;
+import thames.task.Deadline;
 
 import org.junit.jupiter.api.Test;
 

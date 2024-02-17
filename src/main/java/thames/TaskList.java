@@ -1,12 +1,12 @@
-package Thames;
+package thames;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Thames.task.ToDo;
-import Thames.task.Deadline;
-import Thames.task.Event;
-import Thames.task.Task;
+import thames.task.ToDo;
+import thames.task.Deadline;
+import thames.task.Event;
+import thames.task.Task;
 
 /**
  * Array list of tasks.
@@ -67,7 +67,7 @@ public class TaskList {
     }
 
     /**
-     * Remove task from task list.
+     * Removes task from task list.
      *
      * @param index Index of task in the task list.
      * @return Task that was removed.

@@ -1,4 +1,4 @@
-package Thames;
+package thames;
 
 import java.io.IOException;
 import java.util.Collections;

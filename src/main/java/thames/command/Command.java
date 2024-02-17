@@ -1,10 +1,9 @@
-package Thames.command;
+package thames.command;
 
-import Thames.command.ExitCommand;
-import Thames.TaskList;
-import Thames.Ui;
-import Thames.Storage;
-import Thames.ThamesException;
+import thames.TaskList;
+import thames.Ui;
+import thames.Storage;
+import thames.ThamesException;
 
 /**
  * Abstract command class that is executable.
