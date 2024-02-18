@@ -2,7 +2,6 @@ package duke;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 
 /**
  * Represents a task in the task list.
@@ -38,7 +37,6 @@ public class Task {
         this.description = description;
         this.isDone = false;
         this.taskType = taskType;
-
     }
     /**
      * Returns an icon representing the status of the task (done or not done).
@@ -100,7 +98,6 @@ public class Task {
             Deadline dline = null;
             if (elements.length >= 4) {
                 LocalDate deadlineDate = LocalDate.parse(elements[3], DateTimeFormatter.ISO_DATE);
-
                 dline = new Deadline(elements[2], deadlineDate);
                 dline.isDone = done;
             }

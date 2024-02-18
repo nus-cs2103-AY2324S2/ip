@@ -2,6 +2,8 @@ package duke;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Manages the reading and writing of tasks to a file.
  */
@@ -10,6 +12,7 @@ public class Storage {
      * The default file path for storing tasks.
      */
     private String FILE_NAME = "src/main/java/data/duke.txt";
+    @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
     private String FILE_PATH = System.getProperty("user.dir") + File.separator + FILE_NAME;
 
     /**
@@ -27,13 +30,11 @@ public class Storage {
     /**
      * Saves the tasks to the specified file.
      *
-     * @param size  The number of tasks to save.
      * @param tasks The list of tasks to be saved.
      */
-    public void saveToFile(int size, ArrayList<Task> tasks) {
+    public void saveToFile(ArrayList<Task> tasks) {
         try (PrintWriter writer = new PrintWriter(FILE_PATH)) {
-            for (int i = 0; i < size; i++) {
-                Task task = tasks.get(i);
+            for (Task task : tasks) {
                 writer.println(task.toFileString());
             }
         } catch (IOException e) {
@@ -58,7 +59,7 @@ public class Storage {
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found! Creating new Data File...");
-            saveToFile(0, tasks);
+            //saveToFile(0, tasks);
         } catch (IOException e) {
             System.out.println("Error loading file" + e.getMessage());
         }
