@@ -173,6 +173,11 @@ public class Ui {
                 + "Now you have " + taskList.size() + " task(s) in the list.");
     }
 
+    /**
+     * Prints error message if start of event in input is later than the end of the event given.
+     *
+     * @return Error message.
+     */
     public String printEventStartAfterEnd() {
         return "Uh oh! Looks like your event started after it ended!\n"
                 + "Please double check that your dates and time again and re-enter your event!";

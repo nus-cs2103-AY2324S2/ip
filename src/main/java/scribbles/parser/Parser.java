@@ -165,6 +165,13 @@ public class Parser {
         return end;
     }
 
+    /**
+     * Checks if the start of the event of the input is after the end of the event of the input.
+     *
+     * @param start start date/time of the event
+     * @param end end date/time of the event
+     * @return true if start is after the end
+     */
     public boolean isInvalidStartAndEnd(LocalDateTime start, LocalDateTime end) {
         return start.isAfter(end);
     }
