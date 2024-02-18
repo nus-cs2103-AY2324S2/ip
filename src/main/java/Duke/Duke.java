@@ -41,7 +41,12 @@ public class Duke {
 
     public String getResponse(String userInput) {
         Command c = Parser.parse(userInput);
-        String response = c.execute(tasks, ui, storage);
+        String response = "";
+        try {
+            response = c.execute(tasks, ui, storage);
+        } catch (RuntimeException e) {
+            response = Ui.showException(e);
+        }
         return response;
     }
 

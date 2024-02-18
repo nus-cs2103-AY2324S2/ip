@@ -23,8 +23,12 @@ public class DeleteCommand extends Command {
      * @param storage to store the product of execution locally.
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws IndexOutOfBoundsException {
+        if (deleteIndex > taskList.accessNumberTask() || deleteIndex < 1) {
+            throw new IndexOutOfBoundsException("Please only input index shown in the list");
+        }
         String deletedTaskInfo = taskList.delete(deleteIndex);
+        assert taskList.accessNumberTask() >= 0 : "Number of tasks less than zero";
         String replyMessage = "Noted. I've removed this task:\n  "
                 + deletedTaskInfo + "\n "
                 + "Now you have "

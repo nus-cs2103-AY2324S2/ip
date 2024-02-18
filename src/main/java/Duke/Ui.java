@@ -27,17 +27,22 @@ public class Ui {
         return welcomeMessage;
     }
 
+    public static String showException(Exception e) {
+        String exceptionMessage = print_message(e.getMessage());
+        return e.getMessage();
+    }
+
     /**
      * Organize content to be displayed to users in a formatted way.
      *
-     * @param msg The message the program wants to show to the user.
+     * @param messageToShow The message the program wants to show to the user.
      */
-    public static String print_message(String msg) {
+    public static String print_message(String messageToShow) {
         System.out.println("\n ----------------------------------");
-        System.out.println(" " + msg);
+        System.out.println(" " + messageToShow);
         System.out.println("\n ----------------------------------");
         return "\n ----------------------------------"
-                + "\n " + msg
+                + "\n " + messageToShow
                 + "\n ----------------------------------";
     }
 
