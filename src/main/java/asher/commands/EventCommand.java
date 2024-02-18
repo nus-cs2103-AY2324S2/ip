@@ -1,19 +1,33 @@
-package asher.Commands;
+package asher.commands;
 
 import asher.BotException;
-import asher.Tasks.Event;
-import asher.Tasks.TaskList;
-import asher.Ui.Ui;
+import asher.tasks.Event;
+import asher.tasks.TaskList;
+import asher.ui.Ui;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+/**
+ * Represents a command to create an event task.
+ */
 public class EventCommand extends Command {
 
+    /**
+     * Constructs an Event Command object with the given input string.
+     *
+     * @param input The input string for the Event Command.
+     */
     public EventCommand(String input) {
         super(input);
     }
 
+    /**
+     * Parses the input string to create an Event object.
+     *
+     * @return The created Event object.
+     * @throws BotException BotException is thrown if there is invalid input found.
+     */
     public Event createEventCommand() throws BotException {
         int split1 = input.indexOf("/from");
         int split2 = input.indexOf("/to");
@@ -52,6 +66,14 @@ public class EventCommand extends Command {
         return new Event(description, startDate, startTime, endDate, endTime);
     }
 
+    /**
+     * Executes the Event Command.
+     *
+     * @param ui The UI object to interact with the user.
+     * @param taskList The list of tasks.
+     * @param storage The storage object for reading and writing tasks from a file.
+     * @return The string input for Event Command.
+     */
     @Override
     public String execute(Ui ui, TaskList taskList, Storage storage) {
         try {

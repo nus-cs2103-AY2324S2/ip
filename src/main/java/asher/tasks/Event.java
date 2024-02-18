@@ -1,4 +1,4 @@
-package asher.Tasks;
+package asher.tasks;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -15,6 +15,7 @@ public class Event extends Task {
 
     /**
      * Constructs an Event with the given start date and end date.
+     *
      * @param description The description of the event.
      * @param startDate The start date of the event.
      * @param startTime The start time of the event.
@@ -31,6 +32,7 @@ public class Event extends Task {
 
     /**
      * Retrieves the start date of the task.
+     *
      * @return The start date in LocalDate.
      */
     public LocalDate getStartDate() {
@@ -39,6 +41,7 @@ public class Event extends Task {
 
     /**
      * Retrieves the end date of the task.
+     *
      * @return The end date in LocalDate.
      */
     public LocalDate getEndDate() {
@@ -47,6 +50,7 @@ public class Event extends Task {
 
     /**
      * Retrieves the start date of the task.
+     *
      * @return The start date in LocalTime.
      */
     public LocalTime getStartTime() {
@@ -55,6 +59,7 @@ public class Event extends Task {
 
     /**
      * Retrieves the end date of the task.
+     *
      * @return The end date in LocalTime.
      */
     public LocalTime getEndTime() {

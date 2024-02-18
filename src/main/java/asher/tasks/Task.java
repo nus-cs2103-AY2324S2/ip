@@ -1,4 +1,4 @@
-package asher.Tasks;
+package asher.tasks;
 
 public class Task {
     protected String description;
@@ -8,6 +8,7 @@ public class Task {
 
     /**
      * Represents a task.
+     *
      * @param description The description of the task.
      */
     public Task(String description) {
@@ -18,6 +19,7 @@ public class Task {
 
     /**
      * Get the description of the task.
+     *
      * @return The description of the task.
      */
     public String getDescription() {
@@ -26,6 +28,7 @@ public class Task {
 
     /**
      * Retrieves the TaskId of the task.
+     *
      * @return The TaskId of the task.
      */
     public int getTaskId() {
@@ -34,6 +37,7 @@ public class Task {
 
     /**
      * Retrieves the ID of the task.
+     *
      * @return The ID of the task.
      */
     public int getId() {
@@ -42,6 +46,7 @@ public class Task {
 
     /**
      * Sets the ID of the task.
+     *
      * @param id The ID of the task that is to be set.
      */
     public void setId(int id) {
@@ -50,6 +55,7 @@ public class Task {
 
     /**
      * Retrieves the status of whether the task is marked.
+     *
      * @return "X" if the task is mark, " " if the task is unmark
      */
     public String getStatusIcon() {
@@ -57,14 +63,16 @@ public class Task {
     }
 
     /**
-     * Mark the task as done by setting isDone to be true.
+     * Mark the task as completed.
+     * Sets the 'isDone' flag to be true for marking the task.
      */
     public void markDone() {
         this.isDone = true;
     }
 
     /**
-     * Mark the task as undone by setting isDone to be false.
+     * Mark the task as not completed.
+     * Sets the 'isDone' flag to be false for marking the task as not done.
      */
     public void markUndone() {
         this.isDone = false;
