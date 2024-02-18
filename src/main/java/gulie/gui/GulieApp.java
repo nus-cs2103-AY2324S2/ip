@@ -17,6 +17,7 @@ import java.util.concurrent.CompletableFuture;
 
 /**
  * The application for Gulie's GUI.
+ * It starts Gulie on a separate thread after loading the UI.
  */
 public class GulieApp extends Application implements GulieInterface {
 
