@@ -45,4 +45,9 @@ public class Deadline extends Task {
     public boolean byIsNull() {
         return by == null;
     }
+
+    @Override
+    public boolean isScheduledForDate(LocalDate date) {
+        return by.equals(date);
+    }
 }

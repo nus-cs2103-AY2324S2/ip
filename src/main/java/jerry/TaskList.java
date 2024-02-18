@@ -1,5 +1,6 @@
 package jerry;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -69,6 +70,12 @@ public class TaskList {
     public ArrayList<Task> findTasks(String keyword) {
         return tasks.stream()
                 .filter(task -> task.getDescription().contains(keyword))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public ArrayList<Task> getTasksForDate(LocalDate date) {
+        return tasks.stream()
+                .filter(task -> task.isScheduledForDate(date))
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 

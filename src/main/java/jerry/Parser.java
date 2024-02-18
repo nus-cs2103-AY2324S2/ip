@@ -82,6 +82,14 @@ public class Parser {
                 } else {
                     return new FindCommand(ui, taskList, parts[1]);
                 }
+
+            case "view":
+                if (parts.length < 2) {
+                    return new ViewCommand(ui, taskList, "");
+                } else {
+                    return new ViewCommand(ui, taskList, parts[1]);
+                }
+
             default:
                 return new InvalidCommand(ui);
         }
