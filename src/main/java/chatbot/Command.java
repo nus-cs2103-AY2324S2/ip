@@ -11,28 +11,35 @@ import chatbot.exceptions.InvalidArgumentException;
  * Represents an enum of the valid user commands.
  */
 public enum Command {
-    EXIT("bye"),
-    LIST("list"),
-    MARK("mark"),
-    UNMARK("unmark"),
-    DELETE("delete"),
-    TODO("todo"),
-    DEADLINE("deadline"),
-    EVENT("event"),
-    FIND("find");
+    EXIT("bye", false),
+    LIST("list", false),
+    MARK("mark", true),
+    UNMARK("unmark", true),
+    DELETE("delete", true),
+    TODO("todo", true),
+    DEADLINE("deadline", true),
+    EVENT("event", true),
+    FIND("find", true);
 
     private final String rep;
+    private final boolean hasArgs;
     private String args = "";
     private final boolean isBreaking;
 
     /**
      * Constructor that initialises a user command.
      *
-     * @param cmd The string input representing the command.
+     * @param cmd     The string input representing the command.
+     * @param hasArgs Whether the command accepts additional arguments.
      */
-    Command(String cmd) {
+    Command(String cmd, boolean hasArgs) {
         this.rep = cmd.toLowerCase();
+        this.hasArgs = hasArgs;
         this.isBreaking = this.rep.equals("bye");
+    }
+
+    public boolean hasArgs() {
+        return this.hasArgs;
     }
 
     /**
@@ -40,6 +47,7 @@ public enum Command {
      * @param args The arguments.
      */
     public void withArgs(String args) {
+        assert this.hasArgs;
         this.args = args;
     }
 

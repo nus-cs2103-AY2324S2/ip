@@ -7,6 +7,7 @@ import java.time.temporal.ChronoField;
 import java.util.HashMap;
 import java.util.Map;
 
+import chatbot.exceptions.InvalidArgumentException;
 import chatbot.exceptions.InvalidCommandException;
 
 /**
@@ -28,14 +29,17 @@ public class Parser {
      * @return The command.
      * @throws InvalidCommandException If the string does not represent a valid command.
      */
-    public static Command toCommand(String rep) throws InvalidCommandException {
+    public static Command toCommand(String rep) throws InvalidCommandException, InvalidArgumentException {
         String[] split = rep.split("\\s+", 2);
         Command cmd = cmdStrMap.get(split[0]);
-        if (split.length > 1) {
+        if (split.length > 1 && cmd.hasArgs()) {
             cmd.withArgs(split[1]);
         }
         if (cmd == null) {
             throw new InvalidCommandException();
+        }
+        if (split.length > 1 && !cmd.hasArgs()) {
+            throw new InvalidArgumentException();
         }
         return cmd;
     }
