@@ -24,7 +24,7 @@ public class TaskList {
     public String showList() {
         String taskListString = "";
         for (int x = 0; x < tasks.size(); x++) {
-            taskListString += ((x + 1) + ". " + tasks.get(x));
+            taskListString += ("\n" + (x + 1) + ". " + tasks.get(x));
         }
         return taskListString;
     }

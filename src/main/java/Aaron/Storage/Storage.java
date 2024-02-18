@@ -46,6 +46,7 @@ public class Storage {
     }
 
     public static ArrayList<Task> loadFromFile(String filePath) throws FileNotFoundException {
+        createFiles(filePath);
         ArrayList<Task> loadTaskList = new ArrayList<Task>();
         File taskListFile = new File(filePath);
         Scanner fileScanner = new Scanner(taskListFile);
@@ -86,5 +87,19 @@ public class Storage {
         }
         fileScanner.close();
         return loadTaskList;
+    }
+
+    private static void createFiles(String filePath) {
+        File file = new File(filePath);
+
+        if (!file.exists()) {
+            try {
+                file.getParentFile().mkdirs();
+                FileWriter writer = new FileWriter(file);
+                writer.close();
+            } catch (IOException e) {
+                //Error creating files will be caught in loadFromFile function
+            }
+        }
     }
 }

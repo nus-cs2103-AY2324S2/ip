@@ -42,15 +42,14 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("aaron.ui.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
-    archiveClassifier = null
-    dependsOn("distZip", "distTar")
+    archiveFileName = 'aaron.jar'
 }
 
 run{
     standardInput = System.in
 }
+

@@ -33,7 +33,7 @@ public class AaronBot {
 
     /**
      * Method that gets the response that corresponds to a user input
-     * @param userInput
+     * @param userInput user input
      * @return
      */
     public String getResponse(String userInput) {

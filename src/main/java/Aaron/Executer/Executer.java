@@ -23,10 +23,11 @@ public class Executer {
 
     /**
      * Method to build command
+     * 
      * @param commandType command type
      * @param userCommand user command details
-     * @param taskList tasklist to be modified
-     * @param ui UI to handle user interaction
+     * @param taskList    tasklist to be modified
+     * @param ui          UI to handle user interaction
      * @return command built
      * @throws AaronBotException if error run into during command building
      */
