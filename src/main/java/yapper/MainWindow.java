@@ -1,5 +1,5 @@
 package yapper;
-
+import yapper.tasks.Task;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -8,6 +8,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
+import java.util.List;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -23,9 +25,15 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Yapper yapper;
+    private List<Task> tasks;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/fan.png"));
     private Image yapperImage = new Image(this.getClass().getResourceAsStream("/images/yapper.png"));
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+        initialize(); // Call initialize after setting the tasks
+    }
 
     /**
      * Initializes the MainWindow by ensuring that essential UI components are not null.
@@ -47,6 +55,12 @@ public class MainWindow extends AnchorPane {
 
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.setStyle("-fx-padding: 10;");
+
+        if (tasks != null) {
+            for (Task task : tasks) {
+                dialogContainer.getChildren().add(DialogBox.getYapperDialog(task.toString(), yapperImage));
+            }
+        }
     }
     /**
      * Displays a welcome message in the dialog container.
