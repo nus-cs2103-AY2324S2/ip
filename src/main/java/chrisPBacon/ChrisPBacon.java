@@ -20,10 +20,10 @@ public class ChrisPBacon {
      * Initialises new ui and storage objects, loads tasks into a new task list object.
      */
     public ChrisPBacon() {
-        ui = new Ui();
         storage = new Storage("data/list.txt");
+        ui = new Ui(this.storage);
         try {
-            this.tasks = new TaskList(storage.load());
+            this.tasks = new TaskList(this.storage.load());
         } catch (FileNotFoundException e) {
             ui.printError("Oink! File not found :(\n");
             tasks = new TaskList();
