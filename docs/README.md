@@ -52,6 +52,7 @@ Format: `deadline DEADLINE_TITLE /by DATETIME`
 - `DATETIME` must be supplied in the following format: `dd-mm-yyyy HH:MM`, e.g. `20-02-2024 09:00`.
 
 Example: `deadline submit report /by 20-02-2024 09:00`
+
 ### Adding an Event: `event`
 Adds a task start at a specific date/time and ends at a specific date/time to the task list.
 
@@ -72,6 +73,7 @@ Format: `mark INDEX`
 - The index refers to the index number shown in the displayed task list.
 - The index **must be a positive integer** e.g. 1, 2, 3, ...
 Example: `list` followed by `mark 1` marks the first task of the task list as completed.
+
 ### Unmarking a task as not completed: `unmark`
 Unmarks a specified task as not completed.
 
@@ -80,6 +82,7 @@ Format: `unmark INDEX`
 - The index refers to the index number shown in the displayed task list.
 - The index **must be a positive integer** e.g. 1, 2, 3, ...
 Example: `list` followed by `unmark 2` unmarks the second task of the task list as not completed.
+
 ### Deleting a task: `delete`
 Deletes a specified task in the task list.
 
