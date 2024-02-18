@@ -1,10 +1,10 @@
 package chrisPBacon;
 
+import java.util.Scanner;
+
 import exceptions.ChrisPBaconException;
 import exceptions.InvalidTaskNameException;
 import task.TaskList;
-
-import java.util.Scanner;
 
 /**
  * This class stores the user input and scans for the next input.

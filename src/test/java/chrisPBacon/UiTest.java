@@ -1,10 +1,12 @@
 package chrisPBacon;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
+
 import exceptions.InvalidTaskNameException;
 import task.TaskList;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class UiTest {
     @Test
@@ -25,7 +27,7 @@ public class UiTest {
     }
 
     @Test
-    public void printDeadline_invalidTaskNameExceptionThrown(){
+    public void printDeadline_invalidTaskNameExceptionThrown() {
         String errorMsg = "Ooink oink! Please describe your deadline >.<\n"
                 + " >> deadline ... /by dd/MM/yyyy\n";
         String userInput = "deadline read book /by";
@@ -42,7 +44,7 @@ public class UiTest {
     }
 
     @Test
-    public void printDeadline_dateTimeParseExceptionThrown(){
+    public void printDeadline_dateTimeParseExceptionThrown() {
         String errorMsg = "Ooink oink! Please describe your deadline >.<\n"
                 + " >> deadline ... /by dd/MM/yyyy\n";
         String userInput = "deadline read book /by 22-10-2024";
@@ -58,7 +60,7 @@ public class UiTest {
     }
 
     @Test
-    public void printEvent_invalidTaskNameExceptionThrown(){
+    public void printEvent_invalidTaskNameExceptionThrown() {
         String errorMsg = "Ooink oink! Please describe your event >.<\n"
                 + " >> event ... /from ... /to ...\n";
         String userInput = "event read book /from tdy /to";
