@@ -1,6 +1,6 @@
 # Gluti User Guide
 
-![img.png](img.png)
+![Ui.png](Ui.png)
 
 Introducing Gluti, your task tracking chat bot!
 
