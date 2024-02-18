@@ -106,7 +106,7 @@ public class Ui {
             outputText.getChildren().add(outputLine);
         }
 
-        Image kleeImage = new Image(getClass().getResourceAsStream("/images/Klee_drawing.jpg"));
+        Image kleeImage = new Image(getClass().getResourceAsStream("/images/Klee_showing_notes.jpg"));
         ImageView kleeView = new ImageView(kleeImage);
         kleeView.setX(0);
         kleeView.setY(0);
@@ -142,7 +142,7 @@ public class Ui {
             outputText.getChildren().add(outputLine);
         }
 
-        Image kleeImage = new Image(getClass().getResourceAsStream("/images/Klee_drawing.jpg"));
+        Image kleeImage = new Image(getClass().getResourceAsStream("/images/Klee_showing_notes.jpg"));
         ImageView kleeView = new ImageView(kleeImage);
         kleeView.setX(0);
         kleeView.setY(0);
