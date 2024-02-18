@@ -27,6 +27,7 @@ public class Storage {
 
         while (++currentAttempt <= MAX_ATTEMPT) {
             try {
+                Ui.showLine();
                 String counter = "Startup Attempt #" + currentAttempt + "/" + MAX_ATTEMPT + ":";
                 System.out.println(counter);
 
@@ -112,6 +113,7 @@ public class Storage {
 
     public void saveDataAndExit(TaskList tasks) {
         try {
+            System.out.println("Saving data ...");
             File file = new File(filepath);
             FileWriter fw = new FileWriter(file, false);
             LinkedList<Task> taskList = tasks.getList();
@@ -120,14 +122,10 @@ public class Storage {
                 fw.write(System.lineSeparator());
             }
             fw.close();
+            System.out.println("Data saved successfully. :)");
 
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Error while saving data: " + e.getMessage());
         }
-        
-        Ui.showLine();
-        String exitMessage = "Bye. Hope to see you again soon!";
-        System.out.println(exitMessage);
-        Ui.showLine();
     }
 }

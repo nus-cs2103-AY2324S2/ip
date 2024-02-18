@@ -1,7 +1,9 @@
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
+import command.Command;
 import common.DukeException;
+import common.Parser;
 import common.Storage;
 import common.Ui;
 import task.Deadline;
@@ -22,26 +24,49 @@ public class Duke {
 
     }
 
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String userInput = ui.readCommand();
+                Ui.showLine();
+                Command cmd = new Parser(userInput, tasks).parse();
+                cmd.execute();
+                isExit = cmd.isExit();
+
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Invalid task number. :(");
+    
+            } catch (NumberFormatException e) {
+                System.out.println("Input is not an integer. :(");
+    
+            } catch (NoSuchElementException e) {
+                System.out.println("Missing task number. :(");
+
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+
+            } finally {
+                Ui.showLine();
+            }
+        }
+        storage.saveDataAndExit(tasks);
+        Ui.showLine();
+    }
+
     public static void main(String[] args) {
         new Duke("./data/tasks.txt").run();
     }
-    public void run() {
-        ui.showWelcome();
 
-        String userInput = ui.readCommand();
-
+        /* 
         // loop only exits if input is "bye"
         while (!userInput.toLowerCase().equals("bye")) {
             System.out.println("________________________________________\n");
 
             // Level-2: if the input is "list"
-            if (userInput.toLowerCase().equals("list")) {
-                System.out.println("Here are the tasks in your list:");
-
-                for (int i = 1; i <= tasks.size(); i++) {
-                    Task t = tasks.get(i);
-                    System.out.println(i + ". " + t.toString());
-                }
+            if (userInput.toLowerCase().equals("list") || userInput.toLowerCase().equals("mark 1") || userInput.toLowerCase().equals("unmark 1")) {
+                new Parser(userInput, tasks).parseAndExecute();
 
             } else {
                 // using String splitting as main parsing tool
@@ -49,24 +74,8 @@ public class Duke {
                 StringTokenizer st = new StringTokenizer(userInput);
                 String cmd = st.nextToken();
 
-                // Level-3: mark & unmark
-                if (cmd.equals("mark") || (cmd.equals("unmark"))) {
-                    try {
-                        int indexOfTask = Integer.parseInt(st.nextToken());
-                        changeStatus(tasks, cmd, indexOfTask);
-
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("Invalid task number. :(");
-
-                    } catch (NumberFormatException e) {
-                        System.out.println("Input is not an integer. :(");
-
-                    } catch (NoSuchElementException e) {
-                        System.out.println("Missing task number. :(");
-                    }
-
                     // Level-4: ToDo, Deadline, Event
-                } else if (cmd.equals("todo") || cmd.equals("event") || cmd.equals("deadline")) {
+                if (cmd.equals("todo") || cmd.equals("event") || cmd.equals("deadline")) {
                     try {
                         addTask(tasks, cmd, st);
 
@@ -101,10 +110,7 @@ public class Duke {
             System.out.println("________________________________________\n");
             userInput = ui.readCommand();
         }
-
-        storage.saveDataAndExit(tasks);
-
-    }
+        */
 
     // Level-3: mark & unmark
     public static void changeStatus(TaskList taskList, String cmd,
