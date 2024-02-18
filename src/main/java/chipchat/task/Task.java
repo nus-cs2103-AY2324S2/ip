@@ -1,6 +1,5 @@
 package chipchat.task;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,7 +54,7 @@ public abstract class Task {
     public String printTags() {
         return this.tags.stream()
                 .map(tag -> "#" + tag)
-                .reduce("", (str, tag) -> str + tag);
+                .reduce("", (str, tag) -> str + " " + tag);
     }
 
     /**

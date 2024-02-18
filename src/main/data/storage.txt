@@ -1,1 +1,2 @@
-0. TODO /isDone false /description work /tag #home work#work
+0. DEADLINE /isDone false /description quiz /dueBy 2023-01-01 /tag  #important #home work
+1. EVENT /isDone false /description trip /from 2023-01-01 /to 2023-01-02 /tag  #important #plane trip

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,11 +24,17 @@ import chipchat.task.Deadline;
 import chipchat.task.Event;
 import chipchat.task.Task;
 import chipchat.task.Todo;
+import chipchat.ui.Ui;
 
 /**
  * Represents a utility class used to parse user inputs and data inputs given to the main Chipchat application.
  */
 public class Parser {
+    private enum ArgumentType {
+        DESCRIPTION, ISDONE, BY, FROM, TO, TAG;
+    }
+
+    private static EnumMap<ArgumentType, String> argsMap = new EnumMap<>(ArgumentType.class);
 
     /**
      * Returns an action parsed from the user input.
@@ -85,6 +92,16 @@ public class Parser {
         }
     }
 
+    private static ArgumentType parseArgumentType(String arg) throws InvalidArgumentException {
+        assert(!arg.isEmpty());
+
+        try {
+            return ArgumentType.valueOf(arg.toUpperCase());
+        } catch (IllegalArgumentException exc) {
+            throw new InvalidArgumentException("Error: Sorry. I don't know what that means");
+        }
+    }
+
     private static ArrayList<String> parseArguments(String[] tokens) {
         ArrayList<String> args = new ArrayList<>();
         StringBuilder currArg = new StringBuilder();
@@ -102,7 +119,32 @@ public class Parser {
         return args;
     }
 
+    private static void readArguments(String[] tokens) {
+        StringBuilder currArg = new StringBuilder();
+        ArgumentType argType = ArgumentType.DESCRIPTION;
+        for (String token : tokens) {
+            if (!token.startsWith("/")) {
+                currArg.append(token)
+                        .append(" ");
+            } else {
+                if (currArg.length() > 0) {
+                    argsMap.put(argType, currArg.toString().trim());
+                    currArg.setLength(0);
+                }
+                String[] args = token.trim().split("/");
+                String arg = args[1].substring(0);
+                argType = ArgumentType.valueOf(arg.toUpperCase());
+            }
+        }
+        // Add remaining currArg to args list
+        argsMap.put(argType, currArg.toString().trim());
+    }
+
     private static List<String> parseTags(String tagString) {
+        if (tagString == null) {
+            return List.of();
+        }
+
         String[] tags = tagString.split("#");
         return Arrays.asList(tags)
                 .stream()
@@ -147,18 +189,19 @@ public class Parser {
             tokens = Arrays.copyOfRange(tokens, 1, tokens.length);
         }
 
-        ArrayList<String> args = parseArguments(tokens);
-        String description = args.get(0);
+        readArguments(tokens);
+        String description = argsMap.get(ArgumentType.DESCRIPTION);
+        List<String> tags = parseTags(argsMap.get(ArgumentType.TAG));
         switch(command) {
         case TODO:
-            return AddTask.addTodo(description, false, parseTags(args.get(1)));
+            return AddTask.addTodo(description, false, tags);
         case DEADLINE:
-            LocalDate dueBy = parseDate(args.get(1));
-            return AddTask.addDeadline(description, false, dueBy, parseTags(args.get(2)));
+            LocalDate dueBy = parseDate(argsMap.get(ArgumentType.BY));
+            return AddTask.addDeadline(description, false, dueBy, tags);
         case EVENT:
-            LocalDate dateFrom = parseDate(args.get(1));
-            LocalDate dateTo = parseDate(args.get(2));
-            return AddTask.addEvent(description, false, dateFrom, dateTo, parseTags(args.get(3)));
+            LocalDate dateFrom = parseDate(argsMap.get(ArgumentType.FROM));
+            LocalDate dateTo = parseDate(argsMap.get(ArgumentType.TO));
+            return AddTask.addEvent(description, false, dateFrom, dateTo, tags);
         default:
             throw new ArgumentException("Reached default branch of parseTask() due to unrecognized command type");
         }

@@ -43,7 +43,7 @@ public class App {
     public void run(String userInput) {
         try {
             ui.showLine();
-            Action action = Parser.parseAction(userInput);
+            Action action = Parser.parseAction(userInput, ui);
             action.run(tasks, ui, storage);
         } catch (ChipchatException exc) {
             ui.showErrMsg(exc);
