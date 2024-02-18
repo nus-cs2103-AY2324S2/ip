@@ -1,6 +1,6 @@
 package dave.tasks;
 
-import dave.utils.DateTimeFormat;
+import dave.utils.DateTimeUtil;
 
 import java.time.LocalDateTime;
 
@@ -11,12 +11,17 @@ public class Deadline extends Task {
     /**
      * Creates new Deadline object.
      * 
-     * @param desc Name or description of Deadline object.
+     * @param desc     Name or description of Deadline object.
      * @param deadline Deadline of task.
      */
     public Deadline(String desc, String deadlineInput) {
         super(desc);
-        deadline = LocalDateTime.parse(deadlineInput, DateTimeFormat.FORMATTER_INPUT);
+        deadline = LocalDateTime.parse(deadlineInput, DateTimeUtil.FORMATTER_INPUT);
+    }
+
+    @Override
+    public LocalDateTime getDueDate() {
+        return deadline;
     }
 
     /**
@@ -26,7 +31,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[Deadline]%s (by: %s)", super.toString(), deadline.format(DateTimeFormat.FORMATTER_OUTPUT));
+        return String.format("[Deadline]%s (by: %s)", super.toString(),
+                deadline.format(DateTimeUtil.FORMATTER_OUTPUT));
     }
 
     /**
@@ -36,6 +42,7 @@ public class Deadline extends Task {
      */
     @Override
     public String fileString() {
-        return String.format("DEADLINE | %s | %s", super.fileString(), deadline.format(DateTimeFormat.FORMATTER_INPUT));
+        return String.format("DEADLINE | %s | %s", super.fileString(),
+                deadline.format(DateTimeUtil.FORMATTER_INPUT));
     }
 }

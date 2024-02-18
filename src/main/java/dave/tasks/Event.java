@@ -1,6 +1,6 @@
 package dave.tasks;
 
-import dave.utils.DateTimeFormat;
+import dave.utils.DateTimeUtil;
 
 import java.time.LocalDateTime;
 
@@ -19,9 +19,14 @@ public class Event extends Task {
      */
     public Event(String desc, String fromInput, String toInput) {
         super(desc);
-        from = LocalDateTime.parse(fromInput, DateTimeFormat.FORMATTER_INPUT);
-        to = LocalDateTime.parse(toInput, DateTimeFormat.FORMATTER_INPUT);
-    }    
+        from = LocalDateTime.parse(fromInput, DateTimeUtil.FORMATTER_INPUT);
+        to = LocalDateTime.parse(toInput, DateTimeUtil.FORMATTER_INPUT);
+    }
+
+    @Override
+    public LocalDateTime getDueDate() {
+        return from;
+    }
 
     /**
      * Formats the printing of the Event object when shown to user.
@@ -30,7 +35,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[Event]%s (from: %s to: %s)", super.toString(), from.format(DateTimeFormat.FORMATTER_OUTPUT), to.format(DateTimeFormat.FORMATTER_OUTPUT));
+        return String.format("[Event]%s (from: %s to: %s)", super.toString(),
+                from.format(DateTimeUtil.FORMATTER_OUTPUT), to.format(DateTimeUtil.FORMATTER_OUTPUT));
     }
 
     /**
@@ -40,7 +46,8 @@ public class Event extends Task {
      */
     @Override
     public String fileString() {
-        return String.format("EVENT | %s | %s | %s", super.fileString(), from.format(DateTimeFormat.FORMATTER_INPUT), to.format(DateTimeFormat.FORMATTER_INPUT));
+        return String.format("EVENT | %s | %s | %s", super.fileString(), from.format(DateTimeUtil.FORMATTER_INPUT),
+                to.format(DateTimeUtil.FORMATTER_INPUT));
     }
 
 }

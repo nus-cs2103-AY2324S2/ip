@@ -9,6 +9,7 @@ import dave.commands.ExitCommand;
 import dave.commands.FindTaskCommand;
 import dave.commands.InvalidCommand;
 import dave.commands.ListTasksCommand;
+import dave.commands.TaskRemindersCommand;
 import dave.commands.ToggleTaskDoneCommand;
 import dave.common.Messages;
 import dave.exceptions.ChatbotException;
@@ -19,6 +20,7 @@ public class Parser {
     private enum CommandType {
         LIST,
         FIND,
+        REMIND,
         DELETE,
         MARK,
         UNMARK,
@@ -47,36 +49,39 @@ public class Parser {
         } finally {
             if (commandStr != null) {
                 switch (commandStr) {
-                    case LIST:
-                        assert commandStr.equals(CommandType.LIST);
-                        return new ListTasksCommand();
-                    case FIND:
-                        assert commandStr.equals(CommandType.FIND);
-                        return parseFindTaskCommand(input);
-                    case DELETE:
-                        assert commandStr.equals(CommandType.DELETE);
-                        return parseDeleteTaskCommand(inputArr[1]);
-                    case MARK:
-                        assert commandStr.equals(CommandType.MARK);
-                        return parseToggleTaskDoneCommand(inputArr[1], true);
-                    case UNMARK:
-                        assert commandStr.equals(CommandType.UNMARK);
-                        return parseToggleTaskDoneCommand(inputArr[1], false);
-                    case TODO:
-                        assert commandStr.equals(CommandType.TODO);
-                        return parseAddTodoCommand(input);
-                    case DEADLINE:
-                        assert commandStr.equals(CommandType.DEADLINE);
-                        return parseAddDeadlineCommand(input);
-                    case EVENT:
-                        assert commandStr.equals(CommandType.EVENT);
-                        return parseAddEventCommand(input);
-                    case BYE:
-                        assert commandStr.equals(CommandType.BYE);
-                        return new ExitCommand();
+                case LIST:
+                    assert commandStr.equals(CommandType.LIST);
+                    return new ListTasksCommand();
+                case FIND:
+                    assert commandStr.equals(CommandType.FIND);
+                    return parseFindTaskCommand(input);
+                case REMIND:
+                    assert commandStr.equals(CommandType.REMIND);
+                    return new TaskRemindersCommand();
+                case DELETE:
+                    assert commandStr.equals(CommandType.DELETE);
+                    return parseDeleteTaskCommand(inputArr[1]);
+                case MARK:
+                    assert commandStr.equals(CommandType.MARK);
+                    return parseToggleTaskDoneCommand(inputArr[1], true);
+                case UNMARK:
+                    assert commandStr.equals(CommandType.UNMARK);
+                    return parseToggleTaskDoneCommand(inputArr[1], false);
+                case TODO:
+                    assert commandStr.equals(CommandType.TODO);
+                    return parseAddTodoCommand(input);
+                case DEADLINE:
+                    assert commandStr.equals(CommandType.DEADLINE);
+                    return parseAddDeadlineCommand(input);
+                case EVENT:
+                    assert commandStr.equals(CommandType.EVENT);
+                    return parseAddEventCommand(input);
+                case BYE:
+                    assert commandStr.equals(CommandType.BYE);
+                    return new ExitCommand();
 
-                    default:
-                        return new InvalidCommand(new InvalidInputException());
+                default:
+                    return new InvalidCommand(new InvalidInputException());
                 }
             }
         }
@@ -157,7 +162,8 @@ public class Parser {
      * Parses an add deadline command.
      * 
      * @param command The command string.
-     * @return An add deadline command. If invalid task name or deadline, return an invalid command.
+     * @return An add deadline command. If invalid task name or deadline, return an
+     *         invalid command.
      * @throws ChatbotException If invalid task name or deadline is given.
      */
     public static Command parseAddDeadlineCommand(String command) throws ChatbotException {
@@ -176,7 +182,8 @@ public class Parser {
      * Parses an add event command.
      * 
      * @param command The command string.
-     * @return An add event command. If invalid task name or event duration, return an invalid command.
+     * @return An add event command. If invalid task name or event duration, return
+     *         an invalid command.
      * @throws ChatbotException If invalid task name or event duration is given.
      */
     public static Command parseAddEventCommand(String command) throws ChatbotException {
