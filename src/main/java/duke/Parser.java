@@ -19,93 +19,143 @@ public class Parser {
      * @throws DukeException If command is invalid or incomplete.
      */
     public Command parse(String input) throws DukeException {
-        if (input.equals("bye")) {
+        String cleanedInput = input.replaceAll(" ", "");
+
+        if (cleanedInput.equals("bye")) {
             return new ExitCommand();
         }
-
-        if (input.replaceAll(" ", "").equals("list")) {
+        if (cleanedInput.equals("list")) {
             return new ListCommand();
         }
-
-        if (input.startsWith("find")) {
-            if (input.length() < 6) {
-                throw new DukeException("find what");
-            }
-            String keyword = input.split("find ")[1];
-            return new FindCommand(keyword);
+        if (cleanedInput.startsWith("find")) {
+            return parseFindCommand(input);
         }
-
-        if (input.startsWith("mark")) {
-            try {
-                String[] parts = input.split("mark ");
-                if (parts.length < 2) {
-                    throw new DukeException("Missing task number...");
-                }
-                int taskNumber = Integer.parseInt(parts[1]);
-                return new MarkCommand(taskNumber);
-            } catch (IndexOutOfBoundsException b) {
-                throw new DukeException("Invalid task number... count properly xx");
-            } catch (NumberFormatException n) {
-                throw new DukeException("number only...");
-            }
-        } else if (input.startsWith("unmark")) {
-            try {
-                String[] parts = input.split("unmark ");
-                if (parts.length < 2) {
-                    throw new DukeException("Missing task number...");
-                }
-                int taskNumber = Integer.parseInt(parts[1]);
-                return new UnmarkCommand(taskNumber);
-            } catch (IndexOutOfBoundsException b) {
-                throw new DukeException("Invalid task number... count properly xx");
-            } catch (NumberFormatException n) {
-                throw new DukeException("number only...");
-            }
+        if (cleanedInput.startsWith("mark")) {
+            return parseMarkCommand(cleanedInput);
         }
-
+        if (input.startsWith("unmark")) {
+            return parseUnmarkCommand(cleanedInput);
+        }
         if (input.startsWith("delete")) {
-            try {
-                String taskNumber = input.replaceAll("delete", "").replaceAll(" ", "");
-                if (taskNumber.length() < 1) {
-                    throw new DukeException("which task?");
-                }
-                int task = Integer.parseInt(taskNumber);
-                return new DeleteCommand(task);
-            } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("invalid task number... count properly xx");
-            } catch (NumberFormatException n) {
-                throw new DukeException("number only...");
+            return parseDeleteCommand(cleanedInput);
+        }
+        return parseAddCommand(input);
+    }
+
+    /**
+     * Parses the find command into a FindCommand object.
+     *
+     * @param input User input.
+     * @return FindCommand with the relevant keyword.
+     * @throws DukeException If the keyword to find is not specified.
+     */
+    private Command parseFindCommand(String input) throws DukeException {
+        if (input.length() < 6) {
+            throw new DukeException("find what");
+        }
+        String keyword = input.split("find ")[1];
+        return new FindCommand(keyword);
+    }
+
+    /**
+     * Parses the mark command into a MarkCommand object.
+     *
+     * @param input User input.
+     * @return MarkCommand with the index of task to be marked.
+     * @throws DukeException If the task number is missing or invalid.
+     */
+    private Command parseMarkCommand(String input) throws DukeException {
+        try {
+            String[] parts = input.split("mark");
+            if (parts.length < 2) {
+                throw new DukeException("Missing task number...");
             }
-        } else {
-            try {
-                Task taskAdded;
-                if (input.startsWith("todo")) {
-                    if (input.length() < 6) {
-                        throw new DukeException("do what?");
-                    }
-                    ToDo td = new ToDo(input.substring(5));
-                    taskAdded = td;
-                } else if (input.startsWith("deadline")) {
-                    if (input.length() < 12) {
-                        throw new DukeException("what's the task?");
-                    }
-                    String by = input.split("/by ", 2)[1];
-                    String description = input.split(" ", 2)[1].split(" /by")[0];
-                    Deadline d = new Deadline(description, by);
-                    taskAdded = d;
-                } else if (input.startsWith("event")) {
-                    String description = input.split(" ", 2)[1].split(" /from")[0];
-                    String start = input.split("/from ", 2)[1].split(" /to")[0];
-                    String end = input.split("/to ")[1];
-                    Event e = new Event(description, start, end);
-                    taskAdded = e;
-                } else {
-                    throw new DukeException("gong mat yeh");
-                }
-                return new AddCommand(taskAdded);
-            } catch (IndexOutOfBoundsException a) {
-                throw new DukeException("please follow input format...");
+            int taskNumber = Integer.parseInt(parts[1]);
+            return new MarkCommand(taskNumber);
+        } catch (IndexOutOfBoundsException b) {
+            throw new DukeException("Invalid task number... count properly xx");
+        } catch (NumberFormatException n) {
+            throw new DukeException("number only...");
+        }
+    }
+
+    /**
+     * Parses the unmark command into an UnmarkCommand object.
+     *
+     * @param input User input.
+     * @return UnmarkCommand with the index of task to be unmarked.
+     * @throws DukeException If the task number is missing or invalid.
+     */
+    private Command parseUnmarkCommand(String input) throws DukeException {
+        try {
+            String[] parts = input.split("unmark");
+            if (parts.length < 2) {
+                throw new DukeException("Missing task number...");
             }
+            int taskNumber = Integer.parseInt(parts[1]);
+            return new UnmarkCommand(taskNumber);
+        } catch (IndexOutOfBoundsException b) {
+            throw new DukeException("Invalid task number... count properly xx");
+        } catch (NumberFormatException n) {
+            throw new DukeException("number only...");
+        }
+    }
+
+    /**
+     * Parses the delete command into a DeleteCommand object.
+     *
+     * @param input User input.
+     * @return DeleteCommand with the index of task to be deleted.
+     * @throws DukeException If the task number is missing or invalid.
+     */
+    private Command parseDeleteCommand(String input) throws DukeException {
+        try {
+            String taskNumber = input.replaceAll("delete", "").replaceAll(" ", "");
+            if (taskNumber.length() < 1) {
+                throw new DukeException("which task?");
+            }
+            int task = Integer.parseInt(taskNumber);
+            return new DeleteCommand(task);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("invalid task number... count properly xx");
+        } catch (NumberFormatException n) {
+            throw new DukeException("number only...");
+        }
+    }
+
+    /**
+     * Parses the add command into an AddCommand object.
+     *
+     * @param input User input.
+     * @return AddCommand with the index of task to be added.
+     * @throws DukeException If the task details are missing or invalid, or if the command is not supported.
+     */
+    private Command parseAddCommand(String input) throws DukeException {
+        try {
+            Task taskAdded;
+            if (input.startsWith("todo")) {
+                if (input.length() < 6) {
+                    throw new DukeException("do what?");
+                }
+                taskAdded = new ToDo(input.substring(5));
+            } else if (input.startsWith("deadline")) {
+                if (input.length() < 12) {
+                    throw new DukeException("what's the task?");
+                }
+                String description = input.split("deadline ")[1].split(" /by")[0];
+                String by = input.split("/by ", 2)[1];
+                taskAdded = new Deadline(description, by);
+            } else if (input.startsWith("event")) {
+                String description = input.split("event ")[1].split(" /from")[0];
+                String start = input.split("/from ", 2)[1].split(" /to")[0];
+                String end = input.split("/to ")[1];
+                taskAdded = new Event(description, start, end);
+            } else {
+                throw new DukeException("gong mat yeh");
+            }
+            return new AddCommand(taskAdded);
+        } catch (IndexOutOfBoundsException a) {
+            throw new DukeException("please follow input format...");
         }
     }
 }
