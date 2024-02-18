@@ -9,7 +9,7 @@ import bmo.task.Deadlines;
 
 import java.time.LocalDateTime;
 
-public class DueCommand extends Command{
+public class DueCommand extends Command {
 
     private final String desc;
     private final LocalDateTime by;
