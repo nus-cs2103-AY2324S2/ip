@@ -58,7 +58,7 @@ Some examples:
 - Words in `monospace` are commands that you should type in the chatbot.
 - Words between `<` and `>` are placeholders for **required** arguments that you should replace with actual values. For example, `<task>` should be replaced with the actual task description.
 - Words between `[` and `]` are placeholders for **optional** arguments that you may include or omit. For example, `[command]` means that the command name is optional.
-- Aliases can be used to refer to the same command. For example, `list` | `ls` means that you can use either `list` or `ls` to list all tasks.
+- Aliases can be used to refer to the same command. For example, "Aliases: `list`, `ls`" means that you can use either `list` or `ls` to list all tasks.
 
 #### Command summary
 
@@ -83,7 +83,7 @@ List all tasks in the task list.
 
 **Usage**: `list`
 
-**Aliases**: `list` | `ls`
+**Aliases**: `list`, `ls`
 
 <br>
 
@@ -93,7 +93,7 @@ Add a simple to-do task to the task list.
 
 **Usage**: `todo <task>`
 
-**Aliases**: `todo` | `td`
+**Aliases**: `todo`, `td`
 
 Example: `todo Buy milk`
 
@@ -105,7 +105,7 @@ Add a task with a deadline (due) to the task list. The time should be in the for
 
 **Usage**: `deadline <task> /by <time>`
 
-**Aliases**: `deadline` | `dl`
+**Aliases**: `deadline`, `dl`
 
 Example: `deadline Finish report /by 2022-12-31 23:59`
 
@@ -117,7 +117,7 @@ Add a task with a specific time period to the task list. The time should be in t
 
 **Usage**: `event <task> /from <time> /to <time>`
 
-**Aliases**: `event` | `ev`
+**Aliases**: `event`, `ev`
 
 Example: `event Meeting /at 2022-12-01 14:00 /to 2022-12-01 16:00`
 
@@ -129,7 +129,7 @@ Mark a task as done.
 
 **Usage**: `mark <task_number>`
 
-**Aliases**: `mark` | `mk`
+**Aliases**: `mark`, `mk`
 
 Example: `mark 1`
 
@@ -141,7 +141,7 @@ Mark a task as not done.
 
 **Usage**: `unmark <task_number>`
 
-**Aliases**: `unmark` | `umk`
+**Aliases**: `unmark`, `umk`
 
 Example: `unmark 1`
 
@@ -153,7 +153,7 @@ Delete a task from the task list.
 
 **Usage**: `delete <task_number>`
 
-**Aliases**: `delete` | `d`
+**Aliases**: `delete`, `d`
 
 Example: `delete 1`
 
@@ -165,7 +165,7 @@ Find tasks that contain the specified keyword.
 
 **Usage**: `find <keyword>`
 
-**Aliases**: `find` | `f`
+**Aliases**: `find`, `f`
 
 Example: `find book`
 
@@ -177,7 +177,7 @@ Undo the last command.
 
 **Usage**: `undo`
 
-**Aliases**: `undo` | `ud`
+**Aliases**: `undo`, `ud`
 
 <br>
 
@@ -187,7 +187,7 @@ Redo the last undone command.
 
 **Usage**: `redo`
 
-**Aliases**: `redo` | `rd`
+**Aliases**: `redo`, `rd`
 
 <br>
 
@@ -197,7 +197,7 @@ Show manual on a certain command. If no command is in the input, show manual for
 
 **Usage**: `help [command]`
 
-**Aliases**: `help` | `h`
+**Aliases**: `help`, `h`
 
 Example: `help todo`, `help`
 
@@ -209,4 +209,4 @@ Exit the chatbot.
 
 **Usage**: `bye`
 
-**Aliases**: `bye` | `exit` | `ex`
+**Aliases**: `bye`, `exit`, `ex`
