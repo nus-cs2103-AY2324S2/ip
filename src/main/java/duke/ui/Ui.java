@@ -164,4 +164,25 @@ public class Ui {
     public String showLoadingError() {
         return ("Loading data from file error.\n");
     }
+
+    public String showArchiveSuccess(String fileName) {
+        return String.format("Archive file %s successfully", fileName);
+    }
+
+    public String showArchiveList(List<String> archiveList) {
+        if (archiveList.isEmpty()) {
+            return "There is no archive currently";
+        }
+        String outputString = ("Here are the current archives:\n");
+        int count = 1;
+        for (String archiveName: archiveList) {
+            outputString += String.format("%d. %s\n", count, archiveName.replace(".txt",""));
+            count++;
+        }
+        return outputString;
+    }
+
+    public String showLoadArchiveSuccess(String fileName) {
+        return String.format("Archive has been successfully loaded from %s", fileName);
+    }
 }

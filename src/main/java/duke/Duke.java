@@ -24,7 +24,7 @@ public class Duke {
         tasks = new TaskList();
         try {
             storage.loadTasksFromFileToTaskList(tasks);
-        } catch (ChatBotParameterException | IOException e) {
+        } catch (ChatBotParameterException e) {
             System.out.println(ui.showLoadingError());
         }
     }

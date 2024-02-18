@@ -11,6 +11,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Storage {
     private final String fileName;
@@ -40,11 +42,18 @@ public class Storage {
     public void saveTaskListToFile(TaskList tasks) {
         try {
             Files.createDirectories(Paths.get(DATA_FOLDER));
-            Files.writeString(this.getFileLocationPath(), this.createSaveDataFromTaskList(tasks),
-                    StandardOpenOption.CREATE);
+            Files.writeString(this.getFileLocationPath(), this.createSaveDataFromTaskList(tasks));
         } catch (IOException e) {
             System.out.println("Folder Does not Exists");
         }
+    }
+
+    public String saveTaskListToFile(String fileName, TaskList tasks) throws ChatBotParameterException, IOException {
+        String fullFileName = Parser.parseArchiveFileName(fileName);
+        Path path = Paths.get(DATA_FOLDER, fullFileName);
+        Files.createDirectories(Paths.get(DATA_FOLDER));
+        Files.writeString(path, this.createSaveDataFromTaskList(tasks));
+        return fullFileName;
     }
 
     /**
@@ -61,12 +70,33 @@ public class Storage {
      * @param taskList TaskList to for local data to be added in.
      */
 
-    public void loadTasksFromFileToTaskList(TaskList taskList) throws ChatBotParameterException, IOException {
-        Path filePath = this.getFileLocationPath();
-        if (!Files.exists(filePath)) {
-            return;
+    public void loadTasksFromFileToTaskList(TaskList taskList) throws ChatBotParameterException {
+        try {
+            Path filePath = this.getFileLocationPath();
+            if (!Files.exists(filePath)) {
+                // This is because new user do not have tasks.txt file, hence cannot load data
+                return;
+            }
+            loadTaskListToFilePath(taskList, filePath);
+        } catch (IOException e) {
+            // This is because new user do not have tasks.txt file, hence cannot load data
         }
+    }
 
+    public void loadTasksFromFileToTaskList(TaskList taskList, String fileName) throws ChatBotParameterException {
+        try {
+            Path filePath = Paths.get(DATA_FOLDER, fileName);
+            if (!Files.exists(filePath)) {
+                throw new ChatBotParameterException("Archive does not exist.\n" +
+                        "Use archive_list to show full archive list.");
+            }
+            loadTaskListToFilePath(taskList, filePath);
+        } catch (IOException e) {
+            throw new ChatBotParameterException("Error while loading archive, data possibly corrupted");
+        }
+    }
+
+    private void loadTaskListToFilePath(TaskList taskList, Path filePath) throws ChatBotParameterException, IOException {
         List<String> tasks = Files.readAllLines(filePath);
         for (String taskString : tasks) {
             String[] parameters = Parser.parseSavedTask(taskString);
@@ -82,5 +112,25 @@ public class Storage {
                 break;
             }
         }
+    }
+
+
+    public List<String> loadArchiveList() throws IOException {
+        Path pathToDataFolder = Paths.get(DATA_FOLDER);
+        if (!Files.exists(pathToDataFolder)) {
+            return List.<String>of();
+        }
+        //@@author baeldung
+        //Reused from https://www.baeldung.com/java-list-directory-files
+        // with minor modifications
+        try (Stream<Path> stream = Files.list(pathToDataFolder)) {
+            return stream
+                    .filter(file -> !Files.isDirectory(file))
+                    .map(Path::getFileName)
+                    .map(Path::toString)
+                    .filter(fileNameString -> !fileNameString.equals(this.fileName))
+                    .collect(Collectors.toList());
+        }
+        //@@author
     }
 }

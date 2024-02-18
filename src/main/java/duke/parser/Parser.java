@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
+    private static final String DEFAULT_SAVE_FILE_NAME = "tasks";
     /**
      * Convert a TaskString (i.e. String-formatted Task) from local saves.
      * into array of parameters to create a task.
@@ -63,6 +64,12 @@ public class Parser {
             return new DeleteCommand(keyword, parameters);
         case "find":
             return new FindCommand(keyword, parameters);
+        case "archive":
+            return new ArchiveCommand(keyword, parameters);
+        case "load":
+            return new LoadCommand(keyword, parameters);
+        case "archive_list":
+            return new ArchiveListCommand(keyword, parameters);
         default:
             throw new ChatBotCommandException("Invalid command.");
         }
@@ -157,5 +164,27 @@ public class Parser {
             throw new ChatBotParameterException("Invalid task number \n" +
                     "try: mark/unmark/delete <task_number>");
         }
+    }
+
+    public static String parseArchiveFileName(String parameters) throws ChatBotParameterException {
+        if (parameters.isEmpty()) {
+            throw new ChatBotParameterException("Missing archive file name \n" +
+                    "try: archive <file_name>");
+        }
+        if (parameters.equals(DEFAULT_SAVE_FILE_NAME))
+            throw new ChatBotParameterException(String.format("Invalid archive file name: %s \n",
+                    DEFAULT_SAVE_FILE_NAME));
+        return parameters + ".txt";
+    }
+
+    public static String parseArchiveFileLoad(String parameters) throws ChatBotParameterException {
+        if (parameters.isEmpty()) {
+            throw new ChatBotParameterException("Missing archive file name \n" +
+                    "try: load <file_name>");
+        }
+        if (parameters.equals(DEFAULT_SAVE_FILE_NAME))
+            throw new ChatBotParameterException(String.format("Invalid archive file name: %s \n",
+                    DEFAULT_SAVE_FILE_NAME));
+        return parameters + ".txt";
     }
 }
