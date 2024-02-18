@@ -19,10 +19,10 @@ public abstract class Task {
             + " nor only containing whitespaces.";
     private static final String DEADLINE_ERROR_MSG = "ERROR! deadline descriptions cannot be empty and must have a /by"
             + " property.";
-    private static final String EVENT_ERROR_MSG = "ERROR! event descriptions cannot be empty,"
+    private static final String EVENT_ERROR_MSG = "ERROR! event descriptions cannot be empty,\n"
             + " and must have"
             + " /from and /to properties.";
-    private static final String DO_WITHIN_PERIOD_ERROR_MSG = "ERROR! do_within_period descriptions"
+    private static final String DO_WITHIN_PERIOD_ERROR_MSG = "ERROR! do_within_period descriptions\n"
             + " cannot be empty and must have /between and /and properties";
     private static final String GENERIC_ERR_MSG = "ERROR! Unknown command format detected!";
     private static final String SAVE_FILE_PROCESSING_ERR_MSG = "ERROR! Invalid line processed!";
@@ -125,16 +125,16 @@ public abstract class Task {
         if (lineArr.length < 2) {
             throw new TalkingBotException(SAVE_FILE_PROCESSING_ERR_MSG);
         }
-        boolean mark = lineArr[1].equals("1") ? true : false;
         String taskType = lineArr[0];
+        boolean mark = lineArr[1].equals("1") ? true : false;
         if (taskType.equals("T")) {
             return new Todo(lineArr[2], mark);
         } else if (taskType.equals("D")) {
             return new Deadline(lineArr[2], mark, lineArr[3]);
         } else if (taskType.equals("E")) {
-            return new Event(taskType, mark, lineArr[3], lineArr[4]);
+            return new Event(lineArr[2], mark, lineArr[3], lineArr[4]);
         } else if (taskType.equals("W")) {
-            return new DoWithinPeriod(taskType, mark, lineArr[3], lineArr[4]);
+            return new DoWithinPeriod(lineArr[2], mark, lineArr[3], lineArr[4]);
         } else {
             throw new TalkingBotException(SAVE_FILE_PROCESSING_ERR_MSG);
         }

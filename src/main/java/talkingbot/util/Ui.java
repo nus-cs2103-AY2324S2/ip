@@ -78,7 +78,7 @@ public class Ui {
      * @param e Exception to be printed.
      */
     public String getGenericErrorMsg(TalkingBotException e) {
-        return String.format("\t%s\n", e);
+        return String.format("\t%s\n", e.getMessage());
     }
 
 
