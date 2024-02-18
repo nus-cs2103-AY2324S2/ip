@@ -1,5 +1,7 @@
 package jerry;
 
+import java.time.LocalDate;
+
 /**
  * Represents the abstract concept of a task in the chatbot application. This class serves as a base for
  * different types of tasks (e.g., ToDo, Deadline, Event) and provides common properties and methods that are shared
@@ -74,9 +76,15 @@ public abstract class Task {
      *
      * @return true if the task is done, false otherwise.
      */
-
     public boolean isDone() {
         return isDone;
     }
+
+    /**
+     * Checks if the task is scheduled for the specified date.
+     * @param date The date to check the task against.
+     * @return true if the task occurs on the specified date, false otherwise.
+     */
+    public abstract boolean isScheduledForDate(LocalDate date);
 }
 

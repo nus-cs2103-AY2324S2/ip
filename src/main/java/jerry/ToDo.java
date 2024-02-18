@@ -1,5 +1,7 @@
 package jerry;
 
+import java.time.LocalDate;
+
 /**
  * Represents a to-do task in the chatbot application. A to-do task is a basic task with a description.
  */
@@ -22,6 +24,11 @@ public class ToDo extends Task {
     @Override
     public String toFileFormat() {
         return "T | " + (isDone? 1 : 0) + " | " + description;
+    }
+
+    @Override
+    public boolean isScheduledForDate(LocalDate date) {
+        return false; // ToDos typically don't have a specific date.
     }
 }
 

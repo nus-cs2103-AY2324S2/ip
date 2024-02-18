@@ -1,5 +1,6 @@
 package jerry;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,7 +9,7 @@ import java.util.Scanner;
  * It abstracts the complexity of command-line input and output operations.
  */
 public class Ui {
-    private Scanner scanner;
+    private final Scanner scanner;
 
     /**
      * Constructs a new Ui instance for handling user input and output.
@@ -37,10 +38,6 @@ public class Ui {
         return ("Bye. Hope to see you again soon!");
     }
 
-    public void showError(String message) {
-        System.out.println("Error: " + message);
-    }
-
     public String showWrong() {
         return "Sorry, something went wrong";
     }
@@ -58,21 +55,19 @@ public class Ui {
      * Should be called before the application exits to release system resources.
      */
     public void closeScanner() {
-        if (scanner != null) {
-            scanner.close();
-        }
+        scanner.close();
     }
 
     public String showList(TaskList list) {
         ArrayList<Task> tasks = list.getTasks();
-        String result = "Here are the tasks in your list:";
+        StringBuilder result = new StringBuilder("Here are the tasks in your list:");
         for (int x = 0; x < tasks.size() ; x++) {
-            result += '\n' + ((x + 1) + "." + tasks.get(x));
+            result.append('\n').append((x + 1)).append(".").append(tasks.get(x));
         }
-        if (tasks.size() == 0) {
-            result += "\n You have no items in your list.";
+        if (tasks.isEmpty()) {
+            result.append("\n You have no items in your list.");
         }
-        return result;
+        return result.toString();
     }
 
     public String showMark(TaskList list, int taskIndex) {
@@ -101,10 +96,18 @@ public class Ui {
      * @param tasks The list of tasks that match the search criteria.
      */
     public String showTaskSearchResults(ArrayList<Task> tasks) {
-        String result = "Here are the matching tasks in your list:";
+        StringBuilder result = new StringBuilder("Here are the matching tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
-            result += '\n' + ((i + 1) + "." + tasks.get(i));
+            result.append('\n').append((i + 1)).append(".").append(tasks.get(i));
         }
-        return result;
+        return result.toString();
+    }
+
+    public String showTasksForDate(ArrayList<Task> tasks, LocalDate date) {
+        StringBuilder result = new StringBuilder("Tasks scheduled for " + date + ":\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            result.append((i + 1)).append(". ").append(tasks.get(i)).append('\n');
+        }
+        return result.toString();
     }
 }

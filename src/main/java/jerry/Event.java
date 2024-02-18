@@ -1,6 +1,8 @@
 package jerry;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -51,5 +53,10 @@ public class Event extends Task {
 
     public boolean dateTimeIsNull() {
         return from == null || to == null;
+    }
+
+    @Override
+    public boolean isScheduledForDate(LocalDate date) {
+        return (date.isEqual(ChronoLocalDate.from(from)) || date.isAfter(ChronoLocalDate.from(from))) && (date.isEqual(ChronoLocalDate.from(to)) || date.isBefore(ChronoLocalDate.from(to)));
     }
 }
