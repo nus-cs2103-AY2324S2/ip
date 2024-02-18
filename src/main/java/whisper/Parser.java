@@ -2,7 +2,6 @@ package whisper;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 
 /**
  * The Parser class handles the parsing of user input and converts it into executable commands for the Whisper application.
@@ -12,6 +11,7 @@ public class Parser {
      * Parses the user input and returns the corresponding Command object.
      *
      * @param input The user input string.
+     * @param ui    The user interface handler for input/output operations.
      * @return The Command object representing the parsed user input.
      * @throws WhisperException If there is an error parsing the input.
      */
@@ -39,7 +39,6 @@ public class Parser {
         case "find":
             return createFindCommand(parts, ui);
         default:
-            //throw new WhisperException("Invalid command. Please enter a valid command.");
             throw WhisperException.unknownCommand();
         }
     }
@@ -48,6 +47,7 @@ public class Parser {
      * Parses the user input for the 'todo' command and creates an AddCommand for adding a Todo task.
      *
      * @param parts The array of input parts.
+     * @param ui    The user interface handler for input/output operations.
      * @return The AddCommand for adding a Todo task.
      * @throws WhisperException If there is an error creating the Todo task.
      */
@@ -63,6 +63,7 @@ public class Parser {
      * Parses the user input for the 'event' command and creates an AddCommand for adding an Event task.
      *
      * @param parts The array of input parts.
+     * @param ui    The user interface handler for input/output operations.
      * @return The AddCommand for adding an Event task.
      * @throws WhisperException If there is an error creating the Event task.
      */
@@ -92,6 +93,7 @@ public class Parser {
      * Parses the user input for the 'deadline' command and creates an AddCommand for adding a Deadline task.
      *
      * @param parts The array of input parts.
+     * @param ui    The user interface handler for input/output operations.
      * @return The AddCommand for adding a Deadline task.
      * @throws WhisperException If there is an error creating the Deadline task.
      */
@@ -112,6 +114,14 @@ public class Parser {
         return new AddCommand(new Task(deadlineName, Task.TaskCategory.D, deadlineDateTime), ui);
     }
 
+    /**
+     * Parses the user input for the 'delete' command and creates a DeleteCommand for deleting a task.
+     *
+     * @param parts The array of input parts.
+     * @param ui    The user interface handler for input/output operations.
+     * @return The DeleteCommand for deleting a task.
+     * @throws WhisperException If there is an error creating the DeleteCommand.
+     */
     private static Command createDeleteCommand(String[] parts, Ui ui) throws WhisperException {
         if (parts.length < 2) {
             throw new WhisperException("Invalid delete command. Please specify the task number to delete.");
@@ -125,6 +135,7 @@ public class Parser {
      * Parses the user input for the 'mark' command and creates a MarkCommand for marking a task as done.
      *
      * @param parts The array of input parts.
+     * @param ui    The user interface handler for input/output operations.
      * @return The MarkCommand for marking a task as done.
      * @throws WhisperException If there is an error creating the MarkCommand.
      */
@@ -141,6 +152,7 @@ public class Parser {
      * Parses the user input for the 'unmark' command and creates an UnmarkCommand for marking a task as not done.
      *
      * @param parts The array of input parts.
+     * @param ui    The user interface handler for input/output operations.
      * @return The UnmarkCommand for marking a task as not done.
      * @throws WhisperException If there is an error creating the UnmarkCommand.
      */
@@ -168,6 +180,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Creates a FindCommand for searching tasks based on a keyword.
+     *
+     * @param parts The array of input parts.
+     * @param ui    The user interface handler for input/output operations.
+     * @return The FindCommand for searching tasks based on a keyword.
+     * @throws WhisperException If there is an error creating the FindCommand.
+     */
     public static Command createFindCommand(String[] parts, Ui ui) throws WhisperException {
         if (parts.length < 2) {
             throw new WhisperException("Keyword cannot be empty for find command. Try again.");
