@@ -1,46 +1,53 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Duke {
     public static void main(String[] args) {
         System.out.println("Hello! I'm Linus!\nWhat can I do for you?\n\n");
 
-        ArrayList<Task> tasks = FileManager.loadTasksFromFile(); // Load tasks from file
-        Scanner sc = new Scanner(System.in);
+        Ui ui = new Ui();
+        Storage storage = new Storage();
+        TaskList taskList = new TaskList();
+
+        ui.showMessage("Hello! I'm Linus!\nWhat can I do for you?\n\n");
+
+        ArrayList<Task> loadedTaskList = storage.loadTasksFromFile(); // Load list of tasks from file
+        taskList.addAll(loadedTaskList);
+        Scanner scanner = new Scanner(System.in);
 
         // while loop to repeat printing of multiple Scanner inputs
         // adapted with help of AI
         while (true) {
-            String input = sc.nextLine();
+            String input = ui.getUserInput(scanner);
 
             try {
                 // Check if the user wants to exit.
                 // When comparing strings for equality, you should use the equals() method, not the == operator.
                 if (input.equals("bye")) { // exit chat
-                    System.out.println("Bye. It's been a pleasure chatting with you!");
-                    FileManager.saveTasksToFile(tasks); // Save tasks to file before exiting
+                    ui.showMessage("Bye. It's been a pleasure chatting with you!");
+                    ArrayList<Task> currUpdatedTaskList = taskList.getAllTasks();
+                    storage.saveTasksToFile(currUpdatedTaskList); // Save tasks to file before exiting
                     break;
                 } else if (input.equals("list")) { // list tasks
-                    System.out.println("Here are the tasks in your list:");
+                    ui.showMessage("Here are the tasks in your list:");
 
-                    for (int i = 0; i < tasks.size(); i++) {
-                        Task currTask = tasks.get(i);
-                        System.out.println((i + 1) + ". " + currTask);
+                    for (int i = 0; i < taskList.getSize(); i++) {
+                        ui.showMessage(i + ". " + taskList.getTask(i));
                     }
                 } else if (input.startsWith("mark")) {
-                    Integer indexOfTask = Integer.parseInt(input.substring(5));
-                    Task currTask = tasks.get(indexOfTask);
+                    int indexOfTask = Integer.parseInt(input.substring(5));
+                    Task currTask = taskList.getTask(indexOfTask);
                     currTask.markAsDone();
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(currTask);
+                    ui.showMessage("Nice! I've marked this task as done:");
+                    ui.showMessage(currTask.toString());
                 } else if (input.startsWith("unmark")) {
-                    Integer indexOfTask = Integer.parseInt(input.substring(7));
-                    Task currTask = tasks.get(indexOfTask);
+                    int indexOfTask = Integer.parseInt(input.substring(7));
+                    Task currTask = taskList.getTask(indexOfTask);
                     currTask.markAsNotDone();
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println(currTask);
+                    ui.showMessage("OK, I've marked this task as not done yet:");
+                    ui.showMessage(currTask.toString());
                 } else if (input.startsWith("todo")) {
                     // Check if the input string is long enough
                     if (input.length() <= 5) {
@@ -58,9 +65,9 @@ public class Duke {
                     }
 
                     Task todo = new Todo(description, false);
-                    tasks.add(todo);
-                    System.out.println("Got it. I've added this task: \n" + todo);
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    taskList.addTask(todo);
+                    ui.showMessage("Got it. I've added this task: \n" + todo);
+                    ui.showMessage("Now you have " + taskList.getSize() + " tasks in the list.");
                 } else if (input.startsWith("deadline")) {
                     String[] substrings = input.split(" /by ");
 
@@ -81,11 +88,15 @@ public class Duke {
                                 "(e.g. deadline return book /by 2019-10-15)");
                     }
 
-                    LocalDate by = LocalDate.parse(substrings[1]);
-                    Task deadline = new Deadline(description, by, false);
-                    tasks.add(deadline);
-                    System.out.println("Got it. I've added this task: \n" + deadline);
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    try {
+                        LocalDate by = LocalDate.parse(substrings[1]);
+                        Task deadline = new Deadline(description, by, false);
+                        taskList.addTask(deadline);
+                        ui.showMessage("Got it. I've added this task: \n" + deadline);
+                        ui.showMessage("Now you have " + taskList.getSize() + " tasks in the list.");
+                    } catch (DateTimeParseException e) {
+                        throw new DukeException("Invalid date format. Please use the format yyyy-MM-dd (e.g. 2019-10-15)");
+                    }
                 } else if (input.startsWith("event")) {
                     if (!input.contains(" /from ") || !input.contains(" /to ")) {
                         throw new DukeException("Please state the event period by using " +
@@ -101,38 +112,39 @@ public class Duke {
                                 "(eg. event team meeting /from 2019-10-15 /to 2019-10-16)");
                     }
 
-                    LocalDate from = LocalDate.parse(substrings2[0]);
-                    LocalDate to = LocalDate.parse(substrings2[1]);
-
-                    Task event = new Event(description, from, to, false);
-                    tasks.add(event);
-                    System.out.println("Got it. I've added this task: \n" + event);
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    try {
+                        LocalDate from = LocalDate.parse(substrings2[0]);
+                        LocalDate to = LocalDate.parse(substrings2[1]);
+                        Task event = new Event(description, from, to, false);
+                        taskList.addTask(event);
+                        ui.showMessage("Got it. I've added this task: \n" + event);
+                        ui.showMessage("Now you have " + taskList.getSize() + " tasks in the list.");
+                    } catch (DateTimeParseException e) {
+                        throw new DukeException("Invalid date format. Please use the format yyyy-MM-dd (e.g. 2019-10-15)");
+                    }
                 } else if (input.startsWith("delete")) {
                     if (input.length() <= 7) {
                         throw new DukeException("Please state the index of the task you want to delete with correct spacing" +
                                 " (e.g. delete 3)");
                     }
 
-                    int indexOfTask = Integer.parseInt(input.substring(7).trim()) - 1;
+                    int indexOfTask = Integer.parseInt(input.substring(7).trim());
 
-                    if (indexOfTask < 0 || indexOfTask >= tasks.size()) {
+                    if (indexOfTask < 0 || indexOfTask >= taskList.getSize()) {
                         throw new DukeException("The task index is out of range.");
                     }
 
-                    tasks.remove(indexOfTask);
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    taskList.removeTask(indexOfTask);
+                    System.out.println("Now you have " + taskList.getSize() + " tasks in the list.");
                 } else {
                     throw new DukeException("Please give commands that start with any of the following:" +
                             " [todo, deadline, event, mark, unmark, list, bye, delete]");
                 }
             } catch (DukeException e) {
-                System.out.println(e.getMessage());
+                ui.showMessage(e.getMessage());
             }
-
         }
 
-        // Close the scanner
-        sc.close();
+        scanner.close();
     }
 }

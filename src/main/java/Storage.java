@@ -4,15 +4,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
-public class FileManager {
+public class Storage {
     // Referenced HusseinSafwan02's code and AI
     private static final String FILE_PATH = "./data/duke.txt";
     private static final String DIRECTORY_PATH = "./data";
 
-    public static ArrayList<Task> loadTasksFromFile() {
+    public ArrayList<Task> loadTasksFromFile() {
         ArrayList<Task> tasks = new ArrayList<>();
 
         try {
@@ -23,7 +21,7 @@ public class FileManager {
 
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
-                    Task task = parseTask(line);
+                    Task task = Parser.parseTask(line);
 
                     if (task != null) {
                         tasks.add(task);
@@ -39,32 +37,7 @@ public class FileManager {
         return tasks;
     }
 
-    private static Task parseTask(String line) {
-        String[] splitParts = line.split(" \\| ");
-        String taskType = splitParts[0];
-        boolean isDone = splitParts[1].equals("1");
-        String description = splitParts[2];
-        Task task = null;
-
-        switch (taskType) {
-        case "T":
-            task = new Todo(description, isDone);
-            break;
-        case "D":
-            LocalDate byDate = LocalDate.parse(splitParts[3]);
-            task = new Deadline(description, byDate, isDone);
-            break;
-        case "E": // Event format in File is E | (isDone) | (Name) | (From) | (To)
-            LocalDate fromDate = LocalDate.parse(splitParts[3]);
-            LocalDate toDate = LocalDate.parse(splitParts[4]);
-            task = new Event(description, fromDate, toDate, isDone);
-            break;
-        }
-
-        return task;
-    }
-
-    public static void saveTasksToFile(ArrayList<Task> tasks) {
+    public void saveTasksToFile(ArrayList<Task> tasks) {
         try {
             File directory = new File(DIRECTORY_PATH);
 
@@ -84,7 +57,7 @@ public class FileManager {
         }
     }
 
-    private static String taskToFileString(Task task) {
+    private String taskToFileString(Task task) {
         if (task instanceof Todo) {
             return "T | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription();
         } else if (task instanceof Deadline) {
