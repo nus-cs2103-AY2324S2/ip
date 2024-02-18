@@ -52,21 +52,21 @@ public class Duke {
         if (userInput.equals("bye")) {
             storage.saveTasks(tasks.getList());
             dukeResponse = ui.closingMessage();
-        } else if (userInput.equals("list")) {
+        } else if (userInput.equals("list") || userInput.startsWith("l")) {
             dukeResponse = ui.printList(tasks.getList());
-        } else if (userInput.startsWith("mark")) {
+        } else if (userInput.startsWith("mark") || userInput.startsWith("m")) {
             dukeResponse = Parser.parseMark(userInput, tasks, ui);
-        } else if (userInput.startsWith("unmark")) {
+        } else if (userInput.startsWith("unmark") || userInput.startsWith("u")) {
             dukeResponse = Parser.parseUnmark(userInput, tasks, ui);
-        } else if (userInput.startsWith("deadline")) {
+        } else if (userInput.startsWith("deadline") || userInput.startsWith("dead")) {
             dukeResponse = Parser.parseDeadline(userInput, tasks, ui);
-        } else if (userInput.startsWith("todo")) {
+        } else if (userInput.startsWith("todo") || userInput.startsWith("t")) {
             dukeResponse = Parser.parseTodo(userInput, tasks, ui);
-        } else if (userInput.startsWith("event")) {
+        } else if (userInput.startsWith("event") || userInput.startsWith("e")) {
             dukeResponse = Parser.parseEvent(userInput, tasks, ui);
-        } else if (userInput.startsWith("delete")) {
+        } else if (userInput.startsWith("delete") || userInput.startsWith("del")) {
             dukeResponse = Parser.parseDelete(userInput, tasks, ui);
-        } else if (userInput.startsWith("find")) {
+        } else if (userInput.startsWith("find") || userInput.startsWith("f")) {
             dukeResponse = Parser.parseFind(userInput, tasks, ui);
         } else {
             try {
