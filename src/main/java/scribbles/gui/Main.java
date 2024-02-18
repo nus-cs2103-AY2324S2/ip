@@ -15,7 +15,7 @@ import scribbles.Scribbles;
  */
 public class Main extends Application {
 
-    private Scribbles scribbles = new Scribbles("./data/taskData.txt");
+    private Scribbles scribbles = new Scribbles("./scribblesData/taskData.txt");
 
     @Override
     public void start(Stage stage) {
