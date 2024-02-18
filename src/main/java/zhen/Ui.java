@@ -1,4 +1,4 @@
-package Duke;
+package zhen;
 
 import java.util.Scanner;
 

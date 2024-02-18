@@ -1,8 +1,8 @@
-package Duke.command;
+package zhen.command;
 
-import Duke.Storage;
-import Duke.TaskList;
-import Duke.Ui;
+import zhen.Storage;
+import zhen.TaskList;
+import zhen.Ui;
 
 
 public class FindCommand extends Command {

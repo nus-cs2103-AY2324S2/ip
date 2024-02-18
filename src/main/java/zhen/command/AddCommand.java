@@ -1,6 +1,6 @@
-package Duke.command;
-import Duke.*;
-import Duke.task.*;
+package zhen.command;
+import zhen.*;
+import zhen.task.*;
 
 /**
  * Represent the command of adding a task to the task list

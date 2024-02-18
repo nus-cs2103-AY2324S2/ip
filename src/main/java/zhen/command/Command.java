@@ -1,5 +1,5 @@
-package Duke.command;
-import Duke.*;
+package zhen.command;
+import zhen.*;
 
 
 /**

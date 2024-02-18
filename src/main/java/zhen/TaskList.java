@@ -1,7 +1,7 @@
-package Duke;
+package zhen;
 import java.util.ArrayList;
 
-import Duke.task.*;
+import zhen.task.*;
 
 /**
  * A system to store a list of task with additional functionality

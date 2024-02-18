@@ -1,5 +1,5 @@
-package Duke.command;
-import Duke.*;
+package zhen.command;
+import zhen.*;
 
 public class MarkCommand extends Command {
     private final int markIndex;

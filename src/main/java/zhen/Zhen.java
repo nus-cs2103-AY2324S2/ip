@@ -1,11 +1,11 @@
-package Duke;
-import Duke.command.*;
+package zhen;
+import zhen.command.*;
 
 /**
  * The main class of the application. This class initialize the application,
  * receive commands from users, process commands, and provide user feedbacks
  */
-public class Duke {
+public class Zhen {
     private final Storage storage;
     private final TaskList tasks;
     private final Ui ui;
@@ -15,7 +15,7 @@ public class Duke {
      *
      * @param filePath the path the program restore previously stored tasks.
      */
-    public Duke(String filePath) {
+    public Zhen(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         tasks = new TaskList(storage.load());
@@ -56,6 +56,6 @@ public class Duke {
      * @param args parameter not in use.
      */
     public static void main(String[] args) {
-        new Duke("database.ser").run();
+        new Zhen("database.ser").run();
     }
 }

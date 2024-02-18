@@ -1,10 +1,10 @@
-package Duke;
+package zhen;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import Duke.command.*;
-import Duke.task.*;
+import zhen.command.*;
+import zhen.task.*;
 
 /**
  * The class used to parse the input from user to commands that
