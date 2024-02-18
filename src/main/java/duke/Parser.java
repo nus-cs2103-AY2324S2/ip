@@ -20,6 +20,7 @@ public class Parser {
      * @param input The user input to be parsed and executed.
      */
     public Parser(String input) {
+        assert input != null : "Input cannot be null";
         this.input = input;
     }
     /**
@@ -80,6 +81,8 @@ public class Parser {
 
 
     private void handleMark(TaskList tasks, String description, String action, String[] elems) {
+        assert tasks != null : "TaskList cannot be null";
+        assert elems != null && elems.length >= 2 : "Invalid arguments for marking task";
         for (int k = 0; k < tasks.size(); k++) {
             if (tasks.getTask(k) != null) {
                 Task t = tasks.getTask(k);
@@ -134,7 +137,6 @@ public class Parser {
             Task dline = new Deadline(by[0], deadlineDate);
             ui.printMessage("Got it. I've added this task:");
             ui.printMessage(dline.toString());
-            //i++;
             tasks.addTask(dline);
             ui.printMessage("Now you have " + tasks.size() + " task(s) in your list!");
         } else {
@@ -161,12 +163,9 @@ public class Parser {
             Task e = new Event(fromto[0], fromDate, toDate);
             ui.printMessage("Got it. I've added this task:");
             ui.printMessage(e.toString());
-            //i++;
             tasks.addTask(e);
             ui.printMessage("Now you have " + tasks.size() + " task(s) in your list!");
             ui.printMessage(line);
-            //storage.saveToFile(i, tasks.getTasks());
-
         } else {
             ui.printMessage("Invalid date and time format -_-");
         }

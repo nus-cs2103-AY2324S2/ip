@@ -2,7 +2,6 @@ package duke;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Manages the reading and writing of tasks to a file.
@@ -25,6 +24,7 @@ public class Storage {
      * @param filepath The file path to be used for reading and writing tasks.
      */
     public Storage(String filepath) {
+        assert filepath != null : "Filepath cannot be null";
         this.filepath = filepath;
     }
     /**
@@ -33,6 +33,7 @@ public class Storage {
      * @param tasks The list of tasks to be saved.
      */
     public void saveToFile(ArrayList<Task> tasks) {
+        assert tasks != null : "Tasks cannot be null";
         try (PrintWriter writer = new PrintWriter(FILE_PATH)) {
             for (Task task : tasks) {
                 writer.println(task.toFileString());
@@ -54,6 +55,7 @@ public class Storage {
             String line;
             while ((line = reader.readLine()) != null) {
                 //adding the task from the file to be read
+                assert tasks != null : "Tasks list cannot be null";
                 tasks.add(Task.fromFileString(line));
                 index++;
             }
