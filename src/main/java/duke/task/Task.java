@@ -179,6 +179,26 @@ public abstract class Task implements Comparable<Task> {
         return getTypeString().compareTo(task.getTypeString());
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Task other = (Task) o;
+        return compareToSameType(other) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((description == null) ? 0 : description.hashCode());
+        return result;
+    }
+
     /**
      * Prints type of the task.
      *

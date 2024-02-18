@@ -135,4 +135,20 @@ public class TaskList {
         return tasks.stream().filter(task -> task.description.contains(keyword))
                 .collect(Collectors.toList());
     }
+
+    /**
+     * @return TaskList with duplicated tasks removed.
+     */
+    public LinkedList<Task> removeDuplicatedTasks() {
+        tasks = new LinkedList<>(tasks.stream().distinct().collect(Collectors.toList()));
+        return tasks;
+    }
+
+    /**
+     * @return TaskList sorted based on taskType then deadline / timing
+     */
+    public LinkedList<Task> sortTasks() {
+        tasks = new LinkedList<>(tasks.stream().sorted().collect(Collectors.toList()));
+        return tasks;
+    }
 }

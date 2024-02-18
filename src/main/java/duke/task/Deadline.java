@@ -73,12 +73,12 @@ public class Deadline extends Task {
         assert(task.type == TaskType.DEADLINE) : "not a deadline";
         Deadline deadline = (Deadline) task;
 
-        if (!description.equals(deadline.description)) {
-            return description.compareTo(deadline.description);
-        }
-
         if (!deadlineTiming.equals(deadline.deadlineTiming)) {
             return deadlineTiming.compareTo(deadline.deadlineTiming);
+        }
+
+        if (!description.equals(deadline.description)) {
+            return description.compareTo(deadline.description);
         }
 
         return 0;

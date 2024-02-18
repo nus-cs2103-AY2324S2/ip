@@ -66,8 +66,10 @@ public class Parser {
                 return listTasks();
             case "find":
                 return getTasksFilteredWithKeyword(words);
-            case "compare":
-                return new Integer(taskList.getTask(1).compareTo(taskList.getTask(2))).toString();
+            case "distinct":
+                return removeDuplicatedTasks();
+            case "sort":
+                return sortTasks();
             default:
                 throw new CommandNotFoundException(input);
             }
@@ -75,6 +77,16 @@ public class Parser {
             System.out.println(e.getMessage());
             return e.getMessage();
         }
+    }
+
+    private String sortTasks() {
+        taskList.sortTasks();
+        return ui.listTasksReturnString();
+    }
+
+    private String removeDuplicatedTasks() {
+        taskList.removeDuplicatedTasks();
+        return ui.listTasksReturnString();
     }
 
     private String getTasksFilteredWithKeyword(String[] words) {
