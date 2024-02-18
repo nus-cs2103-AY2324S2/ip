@@ -1,9 +1,9 @@
-package asher.Ui;
+package asher.ui;
 
 import java.util.ArrayList;
 
-import asher.Tasks.TaskList;
-import asher.Tasks.Task;
+import asher.tasks.TaskList;
+import asher.tasks.Task;
 
 /**
  * Contains functions to handle the user interface of the bot.

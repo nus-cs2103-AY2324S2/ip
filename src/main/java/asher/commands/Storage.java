@@ -1,4 +1,4 @@
-package asher.Commands;
+package asher.commands;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -7,11 +7,11 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Scanner;
 
-import asher.Tasks.Deadline;
-import asher.Tasks.Event;
-import asher.Tasks.TaskList;
-import asher.Tasks.Todo;
-import asher.Tasks.Task;
+import asher.tasks.Deadline;
+import asher.tasks.Event;
+import asher.tasks.Task;
+import asher.tasks.TaskList;
+import asher.tasks.Todo;
 
 /**
  * The storage class handles storing tasks into a file in the hard disk before program exit and
@@ -24,10 +24,10 @@ public class Storage {
     /**
      * Retrieves the tasks from the file that is saved and give the user the list of tasks
      * that was previously stored.
+     *
      * @param filePath The file that the tasks are stored in.
      * @param tasks The List of tasks.
      */
-
     public void getFileContents(String filePath, TaskList tasks) {
         assert filePath != null && !filePath.isEmpty() : "File path should not be null or empty!";
         assert tasks != null : "TaskList should not be null";
@@ -104,6 +104,7 @@ public class Storage {
 
     /**
      * Writes the list of tasks into the file before program terminates.
+     *
      * @param tasks The List of tasks.
      */
     public void writeToFile(TaskList tasks) {

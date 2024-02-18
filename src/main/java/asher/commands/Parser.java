@@ -1,8 +1,8 @@
-package asher.Commands;
+package asher.commands;
 
 import asher.BotException;
-import asher.Tasks.TaskList;
-import asher.Ui.Ui;
+import asher.tasks.TaskList;
+import asher.ui.Ui;
 
 /**
  * The Parser class handles the parsing of user commands and return the corresponding actions for each command.
@@ -13,6 +13,7 @@ public class Parser {
 
     /**
      * Constructs a Parser object with the given Ui and the TaskList.
+     *
      * @param ui The Ui object to interact with user.
      * @param taskList The TaskList object to manage tasks.
      */
@@ -23,6 +24,7 @@ public class Parser {
 
     /**
      * Parses the user input command and executes the actions for a command.
+     *
      * @param input The user input command.
      * @throws BotException BotException is thrown if there is an invalid command.
      */

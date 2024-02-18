@@ -1,7 +1,8 @@
-package asher.Controller;
+package asher.controller;
 
 import asher.Asher;
-import asher.Ui.Ui;
+import asher.ui.Ui;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -30,6 +31,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image asherImage = new Image(this.getClass().getResourceAsStream("/images/DaAsher.png"));
 
+    /**
+     * Initializes the main window.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -39,10 +43,18 @@ public class MainWindow extends AnchorPane {
         dialogContainer.setPrefHeight(558.0);
     }
 
+    /**
+     * Sets the Asher object.
+     *
+     * @param a The Asher object.
+     */
     public void setAsher(Asher a) {
         asher = a;
     }
 
+    /**
+     * Handles user input.
+     */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();

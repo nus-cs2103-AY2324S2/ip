@@ -1,11 +1,11 @@
 package asher;
 
-import asher.Commands.Command;
-import asher.Commands.ExitCommand;
-import asher.Commands.Parser;
-import asher.Tasks.TaskList;
-import asher.Ui.Ui;
-import asher.Commands.Storage;
+import asher.commands.Command;
+import asher.commands.ExitCommand;
+import asher.commands.Parser;
+import asher.commands.Storage;
+import asher.tasks.TaskList;
+import asher.ui.Ui;
 
 /**
  * Represents the main Asher class to run the program.
@@ -17,29 +17,49 @@ public class Asher {
     private Storage storage;
     public boolean isExit = false;
 
+    /**
+     * Constructs an Asher object.
+     *
+     * @param ui The Ui object.
+     * @param taskList The List of tasks.
+     * @param storage The storage object.
+     */
     public Asher(Ui ui, TaskList taskList, Storage storage) {
         this.ui = ui;
         this.taskList = taskList;
         this.storage = storage;
     }
 
+    /**
+     * Retrieves the response to user input.
+     *
+     * @param input The user input.
+     * @return The response.
+     */
     public String getResponse(String input) {
         try {
             Command command = Parser.parseCommand(input);
             if (command instanceof ExitCommand) {
                 isExit = true;
-            }
-            return command.execute(ui, taskList, storage);
+            } return command.execute(ui, taskList, storage);
         } catch (BotException e) {
             return ui.showErrorMessage("Error: " + e.getMessage());
         }
     }
 
+    /**
+     * Runs the Asher program.
+     */
     public void run() {
         String dataFile = "./taskList.txt";
         storage.getFileContents(dataFile, taskList);
     }
 
+    /**
+     * Main method to start the Asher program.
+     *
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
         Ui ui = new Ui();
         TaskList taskList = new TaskList();

@@ -1,4 +1,4 @@
-package asher.Controller;
+package asher.controller;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -15,9 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 /**
- * An example of a custom control using FXML.
- * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
- * containing text from the speaker.
+ * Represents a dialog box to show the speaker image and a label containing text.
  */
 public class DialogBox extends HBox {
     @FXML
@@ -55,10 +53,24 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Create a dialog box representing the user's message.
+     *
+     * @param text The text by the user.
+     * @param img The image of the user.
+     * @return The dialog box with the image and the text of the user.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img, true);
     }
 
+    /**
+     * Create a dialog box representing the message of the bot.
+     *
+     * @param text The text by the bot.
+     * @param img The image of the user.
+     * @return The dialog box with the image and the text of the bot.
+     */
     public static DialogBox getAsherDialog(String text, Image img) {
         var db = new DialogBox(text, img, false);
         db.flip();

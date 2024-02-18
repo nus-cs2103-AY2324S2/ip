@@ -1,4 +1,4 @@
-package asher.Tasks;
+package asher.tasks;
 
 /**
  * Represents a type of task called ToDo.
@@ -6,6 +6,7 @@ package asher.Tasks;
 public class Todo extends Task {
     /**
      * Constructs a ToDo with the given description.
+     *
      * @param description The description of the todo.
      */
     public Todo(String description) {

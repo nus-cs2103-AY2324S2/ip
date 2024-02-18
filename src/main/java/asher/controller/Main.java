@@ -1,9 +1,9 @@
-package asher.Controller;
+package asher.controller;
 
 import asher.Asher;
-import asher.Commands.Storage;
-import asher.Tasks.TaskList;
-import asher.Ui.Ui;
+import asher.commands.Storage;
+import asher.tasks.TaskList;
+import asher.ui.Ui;
 
 import java.io.IOException;
 import javafx.application.Application;
@@ -13,9 +13,17 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * Represent the main class for the Asher GUI using FXML.
  */
 public class Main extends Application {
+    /**
+     * Start the Asher GUI.
+     *
+     * @param stage the primary stage for this application, onto which
+     * the application scene can be set.
+     * Applications may create other stages, if needed, but they will not be
+     * primary stages.
+     */
     @Override
     public void start(Stage stage) {
         try {

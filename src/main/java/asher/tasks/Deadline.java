@@ -1,4 +1,4 @@
-package asher.Tasks;
+package asher.tasks;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -13,6 +13,7 @@ public class Deadline extends Task {
 
     /**
      * Constructs a Deadline with the given description and the given due date.
+     *
      * @param description The description of the deadline.
      * @param dueDate The end date of the deadline.
      * @param dueTime The end time of the deadline.
@@ -25,6 +26,7 @@ public class Deadline extends Task {
 
     /**
      * Retrieves the due date of the task.
+     *
      * @return The due date in LocalDate object.
      */
     public LocalDate getDueDate() {
@@ -33,6 +35,7 @@ public class Deadline extends Task {
 
     /**
      * Retrieves the due time of the task.
+     *
      * @return The due time in LocalTime object.
      */
     public LocalTime getDueTime() {

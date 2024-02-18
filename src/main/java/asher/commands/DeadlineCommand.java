@@ -1,19 +1,33 @@
-package asher.Commands;
+package asher.commands;
 
 import asher.BotException;
-import asher.Tasks.Deadline;
-import asher.Tasks.TaskList;
-import asher.Ui.Ui;
+import asher.tasks.Deadline;
+import asher.tasks.TaskList;
+import asher.ui.Ui;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+/**
+ * Represents a command to create a deadline task.
+ */
 public class DeadlineCommand extends Command {
 
+    /**
+     * Constructs a Deadline Command object with the given input string.
+     *
+     * @param input The input string for the Deadline Command.
+     */
     public DeadlineCommand(String input) {
         super(input);
     }
 
+    /**
+     * Parses the input string to create a Deadline object.
+     *
+     * @return The created Deadline object.
+     * @throws BotException BotException is thrown if due date and description is invalid, or if the input format is wrong.
+     */
     public Deadline createDeadlineCommand() throws BotException {
         int split = input.indexOf("/by");
         assert split != -1 : "Due date not found!";
@@ -35,6 +49,14 @@ public class DeadlineCommand extends Command {
         return new Deadline(description, dueDate, dueTime);
     }
 
+    /**
+     * Executes the Deadline Command.
+     *
+     * @param ui The UI object to interact with the user.
+     * @param taskList The list of tasks.
+     * @param storage The storage object for reading and writing tasks from a file.
+     * @return The string input for Deadline Command.
+     */
     @Override
     public String execute(Ui ui, TaskList taskList, Storage storage) {
         try {

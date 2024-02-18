@@ -1,4 +1,4 @@
-package asher.Tasks;
+package asher.tasks;
 
 import java.util.ArrayList;
 
@@ -11,6 +11,7 @@ public class TaskList {
 
     /**
      * Retrieves the total number of tasks in the list.
+     *
      * @return The total number of tasks.
      */
     public int getSize() {
@@ -19,6 +20,7 @@ public class TaskList {
 
     /**
      * Retrieves the task at the specified index.
+     *
      * @param index The index of the task to retrieve.
      * @return The task at the specified index if valid, else return null.
      */
@@ -32,6 +34,7 @@ public class TaskList {
 
     /**
      * Retrieves the list of tasks.
+     *
      * @return The list of tasks.
      */
     public ArrayList<Task> getTasks() {
@@ -40,6 +43,7 @@ public class TaskList {
 
     /**
      * Retrieves the index of a task based on its ID.
+     *
      * @param taskId The ID of the task.
      * @return The index that the task is at.
      */
@@ -54,6 +58,7 @@ public class TaskList {
 
     /**
      * Retrieves the index of a task based on its ID extracted from the command.
+     *
      * @param task The command containing the taskId.
      * @return The index that the task is at.
      */
@@ -81,6 +86,7 @@ public class TaskList {
 
     /**
      * Add a task to the task list.
+     *
      * @param task The task that should be added into the list.
      */
     public void addTask(Task task) {
@@ -91,6 +97,7 @@ public class TaskList {
 
     /**
      * Deletes the task with the specified task ID from the task list.
+     *
      * @param taskId The ID of the task to be deleted.
      * @return The task that was removed, else return null if invalid task.
      */
@@ -103,6 +110,7 @@ public class TaskList {
 
     /**
      * Searches the keyword inside the list of task.
+     *
      * @param keyword The word to search for.
      * @return All the tasks that contains the keyword.
      */
