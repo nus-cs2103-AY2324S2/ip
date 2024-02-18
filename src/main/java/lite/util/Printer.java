@@ -11,9 +11,9 @@ public class Printer {
      * @param index Index of task to remove from
      */
     public static String printRemoveTask(TaskList tasks, int index) {
-        return "Noted. I've removed this lite.task:\n" +
+        return "Noted. I've removed this task:\n" +
                 tasks.get(index) + "\n" +
-                "Now you have " + (tasks.size() - 1) + " tasks in the tasks.";
+                "Now you have " + (tasks.size() - 1) + " tasks in the list.";
     }
 
 
@@ -23,8 +23,8 @@ public class Printer {
      * @param task Task to be added
      */
     public static String printTask(TaskList tasks, Task task) {
-        return "Got it. I've added this lite.task: \n" +
-                task + "\n" + "Now you have " + tasks.size() + " tasks in the tasks";
+        return "Got it. I've added this task: \n" +
+                task + "\n" + "Now you have " + tasks.size() + " tasks in the list";
     }
 
     /**

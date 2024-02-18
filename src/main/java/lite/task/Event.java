@@ -32,7 +32,7 @@ public class Event extends Task {
                 + from.getDayOfMonth() + " " + from.getYear() + " "
                 + from.getHour() + ":" + from.getMinute() + " to: " +
                 to.getMonth() + " " + to.getDayOfMonth() + " " + to.getYear() + " "
-                + to.getHour() + ":" + from.getMinute() + ")";
+                + to.getHour() + ":" + to.getMinute() + ")";
     }
     /**
      * {@inheritDoc}
