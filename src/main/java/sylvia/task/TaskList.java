@@ -63,7 +63,7 @@ public class TaskList {
         for (int i = 0; i < tasks.size(); i++) {
             sb.append(i + 1 + ". " + tasks.get(i) + "\n");
         }
-        return sb.toString();
+        return sb.toString().trim();
     }
 
     public void markTaskAsDone(int index) {
