@@ -34,35 +34,45 @@ public class Bob {
             if (input.equals("bye")) {
                 parser.parseExit(storage, tasks);
                 break;
-            } else if (input.equals("list")) {
-                parser.parseList(taskList);
-            } else if (input.equals("clear")) {
-                parser.parseClear(taskList);
-            } else if (input.trim().matches("mark|unmark|deadline|todo|event|delete")) {
-                ui.showIncompleteEntryMessage();
-            } else if (input.startsWith("mark ")) {
-                parser.parseMark(input, taskList);
-            } else if (input.startsWith("unmark ")) {
-                parser.parseUnmark(input, taskList);
-            } else if (input.startsWith("deadline ")) {
-                parser.parseDeadline(input, taskList);
-            } else if (input.startsWith("todo ")) {
-                parser.parseTodo(input, taskList);
-            } else if (input.startsWith("event ")) {
-                parser.parseEvent(input, taskList);
-            } else if (input.startsWith("delete ")) {
-                parser.parseDelete(input, taskList);
-<<<<<<< HEAD
-            } else {
-=======
             }
 
-            else if (input.startsWith("find ")) {
-                parser.parseFind(input, taskList);
+            else if (input.equals("list")) {
+                parser.parseList(taskList);
+            }
+
+            else if (input.equals("clear")) {
+                parser.parseClear(taskList);
+            }
+
+            else if (input.trim().matches("mark|unmark|deadline|todo|event|delete")) {
+                ui.showIncompleteEntryMessage();
+            }
+
+            else if (input.startsWith("mark ")) {
+                parser.parseMark(input, taskList);
+            }
+
+            else if (input.startsWith("unmark ")) {
+                parser.parseUnmark(input, taskList);
+            }
+
+            else if (input.startsWith("deadline ")) {
+                parser.parseDeadline(input, taskList);
+            }
+
+            else if (input.startsWith("todo ")) {
+                parser.parseTodo(input, taskList);
+            }
+
+            else if (input.startsWith("event ")) {
+                parser.parseEvent(input, taskList);
+            }
+
+            else if (input.startsWith("delete ")) {
+                parser.parseDelete(input, taskList);
             }
 
             else {
->>>>>>> branch-Level-9
                 ui.showUnknownCommandMessage();
             }
         }

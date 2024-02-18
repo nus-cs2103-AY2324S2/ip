@@ -59,6 +59,15 @@ public class TaskList implements Iterable<Task> {
     }
 
     /*
+     * This method checks if the list is empty.
+     *
+     * @return A boolean representing whether the task list is empty.
+     */
+    public boolean isEmpty() {
+        return tasks.isEmpty();
+    }
+
+    /*
      * An Iterator method that goes through each task in the list.
      */
     @Override

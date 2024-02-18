@@ -52,17 +52,7 @@ public class Bob {
                 parser.parseEvent(input, taskList);
             } else if (input.startsWith("delete ")) {
                 parser.parseDelete(input, taskList);
-<<<<<<< HEAD
             } else {
-=======
-            }
-
-            else if (input.startsWith("find ")) {
-                parser.parseFind(input, taskList);
-            }
-
-            else {
->>>>>>> branch-Level-9
                 ui.showUnknownCommandMessage();
             }
         }

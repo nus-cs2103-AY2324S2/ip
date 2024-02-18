@@ -121,4 +121,18 @@ public class Ui {
     public void showExitMessage() {
         System.out.println(" Bye. Hope to see you again soon!");
     }
+
+    /*
+     * A method to display a message that no tasks were found from 'find'.
+     */
+    public void showNoMatchingTasksMessage() {
+        System.out.println("No tasks were found containing the specified keyword.");
+    }
+
+    /*
+     * A method to display a message for the tasks found in the task list from 'find'.
+     */
+    public void showMatchingTasksInListMessage() {
+        System.out.println("Here are the matching tasks in your list:");
+    }
 }

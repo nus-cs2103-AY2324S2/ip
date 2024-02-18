@@ -1,1 +1,3 @@
 T | 0 | make dinner
+T | 0 | make supper
+T | 0 | dry laundry
