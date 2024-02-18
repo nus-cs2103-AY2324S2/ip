@@ -43,6 +43,8 @@ public class Parser {
             return tasks.deleteTask(details);
         case "find":
             return tasks.findTask(details);
+        case "schedule":
+            return tasks.viewSchedule(details);
         default:
             return tasks.createNewTask(instruction, details);
         }

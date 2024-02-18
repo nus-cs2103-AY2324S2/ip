@@ -1,5 +1,7 @@
 package jimmy.essentials;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
@@ -33,6 +35,15 @@ public class TaskList {
 
     public TaskList() {
         this.ui = new Ui();
+    }
+
+    /**
+     * Gets the task list.
+     *
+     * @return The task list.
+     */
+    public ArrayList<Task> getTaskList() {
+        return this.taskList;
     }
 
     /**
@@ -252,11 +263,49 @@ public class TaskList {
     }
 
     /**
-     * Gets the task list.
+     * Views the schedule for a specific date.
      *
-     * @return The task list.
+     * @param details The date to view the schedule for.
+     * @return The schedule for the date.
+     * @throws JimmyException If the date is empty.
      */
-    public ArrayList<Task> getTaskList() {
-        return this.taskList;
+    public String viewSchedule(String details) throws JimmyException {
+        if (details.length() == 0) {
+            throw new JimmyException("Please enter a date to view the schedule for.");
+        }
+
+        LocalDate dateOfInterest = LocalDate.parse(details,
+                DateTimeFormatter.ofPattern("d-MM-yyyy"));
+        StringBuilder sb = new StringBuilder();
+
+        if (dateOfInterest.isBefore(LocalDate.now())) {
+            throw new JimmyException("The date you are looking for is in the past.");
+        }
+
+        for (Task curr : taskList) {
+            if (curr instanceof Event) {
+                Event currEvent = (Event) curr;
+                if (doesEventCoincideWithDate(currEvent.getStart(), currEvent.getEnd(), dateOfInterest)) {
+                    sb.append(curr);
+                    sb.append(System.getProperty("line.separator"));
+                }
+            } else if (curr instanceof Deadline) {
+                Deadline currDeadline = (Deadline) curr;
+                if (currDeadline.getDeadline().isEqual(dateOfInterest)) {
+                    sb.append(curr);
+                    sb.append(System.getProperty("line.separator"));
+                }
+            } else {
+                continue; // skip todo tasks
+            }
+        }
+        return ui.showSchedule(sb.toString());
+    }
+
+    private boolean doesEventCoincideWithDate(LocalDate start, LocalDate end, LocalDate dateOfInterest) {
+        boolean dateEqualsStartOrEnd = start.isEqual(dateOfInterest) || end.isEqual(dateOfInterest);
+        boolean dateIsBetweenStartAndEnd = (start.isBefore(dateOfInterest) && end.isAfter(dateOfInterest));
+
+        return (dateEqualsStartOrEnd || dateIsBetweenStartAndEnd);
     }
 }
