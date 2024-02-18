@@ -11,7 +11,7 @@ import task.TaskList;
 public class UnmarkCommand extends Command {
 
     public static final String COMMAND_WORD = "unmark";
-    private static final String SUCCESS_MESSAGE = "Nice! Uncle marked this task as done:\n\t\t %s";
+    private static final String SUCCESS_MESSAGE = "Nice! Uncle unmarked this task:\n\t %s";
     private final String message;
 
     /**
