@@ -30,7 +30,7 @@ public class FindTaskView extends Ui {
                 list += ("    " + (i + 1) + ". " + taskList.get(i).toString() + "\n");
             }
             return (
-                    "\uD83D\uDC27Here are the matching tasks in your list:\n"
+                    "\uD83D\uDC27 Here are the matching tasks in your list:\n"
                             + list);
         }
     }

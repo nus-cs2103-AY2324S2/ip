@@ -30,7 +30,7 @@ public class TaskListView extends Ui {
                 list += ("    " + (i + 1) + ". " + taskList.get(i).toString() + "\n");
             }
             return (
-                    "\uD83D\uDC27Here are the tasks in your task list:\n"
+                    "\uD83D\uDC27 Here are the tasks in your task list:\n"
                             + list);
         }
     }
