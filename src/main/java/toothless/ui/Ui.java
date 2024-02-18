@@ -39,7 +39,7 @@ public class Ui {
      * @return String message of marked task.
      */
     public String getMarkedTaskMessage(Task markedTask) {
-        return "Ameowzing! I've marked this task as done:\n" + markedTask;
+        return "Ameowzing! I've marked this task as done:\n\t" + markedTask;
     }
 
     /**
@@ -49,7 +49,7 @@ public class Ui {
      * @return String message of unmarked task.
      */
     public String getUnmarkedTaskMessage(Task unmarkedTask) {
-        return "OK, I've marked this task as not done yet:\n" + unmarkedTask;
+        return "OK, I've marked this task as not done yet:\n\t" + unmarkedTask;
     }
 
     /**
@@ -59,7 +59,7 @@ public class Ui {
      * @return String message of Tagged task.
      */
     public String getTaggedTaskMessage(Task taggedTask) {
-        return "Ameowzing! I've tagged this task:\n" + taggedTask;
+        return "Ameowzing! I've tagged this task:\n\t" + taggedTask;
     }
 
     /**
@@ -69,7 +69,7 @@ public class Ui {
      * @return String message of untagged task.
      */
     public String getUntaggedTaskMessage(Task untaggedTask) {
-        return "OK, I've removed the tag for this task:\n" + untaggedTask;
+        return "OK, I've removed the tag for this task:\n\t" + untaggedTask;
     }
 
     /**
