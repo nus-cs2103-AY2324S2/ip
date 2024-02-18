@@ -1,6 +1,7 @@
 package utilities;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import tasks.Task;
 
@@ -45,6 +46,7 @@ public class Ui {
         if (tasks.isEmpty()) {
             return "No tasks yet la bro";
         } else {
+            Collections.sort(tasks);
             String ans = "";
             ans += "Ok wait ah, here are your tasks:\n";
             int count = 1;
