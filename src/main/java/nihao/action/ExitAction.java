@@ -7,7 +7,7 @@ import nihao.handler.PrintHandler;
 /**
  * Represents the exit action which is invoked by "bye" command.
  */
-public class ExitAction implements Action{
+public class ExitAction implements Action {
     /**
      * Prints the goodbye message.
      */

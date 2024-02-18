@@ -1,17 +1,18 @@
 package nihao.util;
 
-import nihao.action.task.DeadlineTask;
-import nihao.action.task.EventTask;
-import nihao.action.task.Task;
-import nihao.action.task.TodoTask;
+import java.io.IOException;
+import java.time.LocalDateTime;
+
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
-import nihao.handler.DateTimeHandler;
 
-import java.io.IOException;
-import java.time.LocalDateTime;
+import nihao.action.task.DeadlineTask;
+import nihao.action.task.EventTask;
+import nihao.action.task.Task;
+import nihao.action.task.TodoTask;
+import nihao.handler.DateTimeHandler;
 
 /**
  * Represents a custom TypeAdapter for serializing/deserializing JSON with Gson.
@@ -92,6 +93,8 @@ public class TaskTypeAdapter extends TypeAdapter<Task> {
             ret = new EventTask(taskName, from, to);
             ret.setIsCompleted(isCompleted);
             break;
+        default:
+            throw new IllegalStateException("Unexpected value: " + type);
         }
 
         jsonReader.endObject();

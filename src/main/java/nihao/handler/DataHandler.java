@@ -1,12 +1,5 @@
 package nihao.handler;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import nihao.action.task.Task;
-import nihao.exception.IndexOutOfBoundsException;
-import nihao.util.TaskTypeAdapter;
-
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,15 +8,24 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import nihao.action.task.Task;
+import nihao.exception.IndexOutOfBoundsException;
+import nihao.util.TaskTypeAdapter;
+
+
 
 /**
  * Manages all actions related to accessing runtime data and local data storage.
  */
 public class DataHandler {
+    protected static ArrayList<Task> tasks = new ArrayList<>();
     private static final String DIRECTORY_PATH = "data/";
     private static final String FILE_PATH = "data/PersistentData.json";
-    static ArrayList<Task> tasks = new ArrayList<>();
     private DataHandler() {};
 
     private static void readFromJson() throws IOException {
@@ -31,7 +33,8 @@ public class DataHandler {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeHierarchyAdapter(Task.class, new TaskTypeAdapter());
         Gson gson = gsonBuilder.create();
-        Type objectType = TypeToken.getParameterized(ArrayList.class, Task.class).getType(); // Type objectType = new TypeToken<ArrayList<Task>>() {}.getType();
+        // Alternative: Type objectType = new TypeToken<ArrayList<Task>>() {}.getType();
+        Type objectType = TypeToken.getParameterized(ArrayList.class, Task.class).getType();
         tasks = gson.fromJson(fileReader, objectType);
         fileReader.close();
     }
@@ -160,7 +163,7 @@ public class DataHandler {
      * @return The Task object.
      * @throws IndexOutOfBoundsException When the index provided is more than the length of tasks.
      */
-    public static Task getTask(int index) throws IndexOutOfBoundsException{
+    public static Task getTask(int index) throws IndexOutOfBoundsException {
         if (index > size() || index <= 0) {
             throw new IndexOutOfBoundsException(index, size());
         }

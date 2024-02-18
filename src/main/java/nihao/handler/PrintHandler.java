@@ -1,9 +1,9 @@
 package nihao.handler;
 
+import java.util.ArrayList;
+
 import nihao.action.task.Task;
 import nihao.enums.SavedString;
-
-import java.util.ArrayList;
 
 /**
  * Handles all printing requests.

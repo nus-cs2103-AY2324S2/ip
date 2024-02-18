@@ -1,12 +1,15 @@
 package nihao.action;
 
+import java.util.ArrayList;
+
 import nihao.action.task.Task;
 import nihao.handler.DataHandler;
 import nihao.handler.PrintHandler;
 
-import java.util.ArrayList;
-
-public class FindAction implements Action{
+/**
+ * Represents an Action that looks up the saved list of Tasks.
+ */
+public class FindAction implements Action {
     private String keyword;
     public FindAction(String keyword) {
         this.keyword = keyword;

@@ -1,14 +1,15 @@
 package nihao.action;
-import nihao.action.task.Task;
-import nihao.handler.PrintHandler;
-import nihao.handler.DataHandler;
 
 import java.util.ArrayList;
+
+import nihao.action.task.Task;
+import nihao.handler.DataHandler;
+import nihao.handler.PrintHandler;
 
 /**
  * Represents the list action.
  */
-public class ListAction implements Action{
+public class ListAction implements Action {
     /**
      * Prints the tasks list.
      */

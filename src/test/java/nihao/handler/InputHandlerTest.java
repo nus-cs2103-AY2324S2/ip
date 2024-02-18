@@ -1,6 +1,13 @@
 package nihao.handler;
 
-import nihao.action.Action;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import org.junit.jupiter.api.Test;
+
 import nihao.action.DeleteAction;
 import nihao.action.ExitAction;
 import nihao.action.ListAction;
@@ -10,13 +17,6 @@ import nihao.action.UnmarkAction;
 import nihao.action.task.DeadlineTask;
 import nihao.action.task.EventTask;
 import nihao.action.task.TodoTask;
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 class InputHandlerTest {
     @Test
@@ -43,10 +43,14 @@ class InputHandlerTest {
         LocalDateTime localDateTime = LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
 
         // "deadline" command
-        assertEquals(new TaskAction(new DeadlineTask("homework", localDateTime)), InputHandler.handleInput("deadline homework /by " + dateTime));
+        assertEquals(new TaskAction(
+                new DeadlineTask("homework", localDateTime)),
+                InputHandler.handleInput("deadline homework /by " + dateTime));
 
         // "event" command
-        assertEquals(new TaskAction(new EventTask("homework", localDateTime, localDateTime)), InputHandler.handleInput("event homework /from " + dateTime + " /to " + dateTime));
+        assertEquals(new TaskAction(
+                new EventTask("homework", localDateTime, localDateTime)),
+                InputHandler.handleInput("event homework /from " + dateTime + " /to " + dateTime));
     }
 
     @Test

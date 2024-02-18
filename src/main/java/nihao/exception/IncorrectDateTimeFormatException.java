@@ -3,7 +3,7 @@ package nihao.exception;
 /**
  * Represents an Exception thrown when the given String has a wrong format.
  */
-public class IncorrectDateTimeFormatException extends Exception{
+public class IncorrectDateTimeFormatException extends Exception {
     /**
      * Class constructor.
      */

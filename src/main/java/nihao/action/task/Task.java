@@ -1,19 +1,22 @@
 package nihao.action.task;
 
+/**
+ * Represents a general task.
+ */
 public class Task {
+    protected String taskName;
     private boolean isCompleted;
+    public Task(String taskName) {
+        this.taskName = taskName;
+    }
     public boolean getIsCompleted() {
         return isCompleted;
     }
     public void setIsCompleted(boolean isCompleted) {
         this.isCompleted = isCompleted;
     }
-    protected String taskName;
     public String getTaskName() {
         return taskName;
-    }
-    public Task(String taskName) {
-        this.taskName = taskName;
     }
     public void mark() {
         isCompleted = true;

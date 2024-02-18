@@ -1,29 +1,15 @@
 package nihao.action.task;
 
-import nihao.handler.DateTimeHandler;
-
 import java.time.LocalDateTime;
+
+import nihao.handler.DateTimeHandler;
 
 /**
  * Represents an event task.
  */
-public class EventTask extends Task{
+public class EventTask extends Task {
     private LocalDateTime from;
-
-    /**
-     * Returns the String representation of the from LocalDateTime object.
-     */
-    public String getFromString() {
-        return DateTimeHandler.formatOutput(from);
-    }
     private LocalDateTime to;
-
-    /**
-     * Returns the String representation of the to LocalDateTime object.
-     */
-    public String getToString() {
-        return DateTimeHandler.formatOutput(to);
-    }
 
     /**
      * Constructor that specifies the name of the event and both beginning and ending time of the event.
@@ -35,13 +21,27 @@ public class EventTask extends Task{
     }
 
     /**
+     * Returns the String representation of the from LocalDateTime object.
+     */
+    public String getFromString() {
+        return DateTimeHandler.formatOutput(from);
+    }
+
+    /**
+     * Returns the String representation of the to LocalDateTime object.
+     */
+    public String getToString() {
+        return DateTimeHandler.formatOutput(to);
+    }
+
+    /**
      * Returns the String representation of the task.
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() +
-                " (from: " + getFromString() +
-                " to: " + getToString() + ")";
+        return "[E]" + super.toString()
+                + " (from: " + getFromString()
+                + " to: " + getToString() + ")";
     }
 
     @Override
