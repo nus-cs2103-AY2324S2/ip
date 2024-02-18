@@ -1,4 +1,4 @@
-[![CI Status](https://github.com/aureliony/ip/workflows/Java%20CI/badge.svg)](hhttps://github.com/aureliony/ip/actions)
+[![CI Status](https://github.com/aureliony/ip/workflows/Java%20CI/badge.svg)](https://github.com/aureliony/ip/actions)
 
 # ConvoBot
 > "Don't be afraid to give up the good to go for the great." — John D. Rockefeller ([source](https://www.goodreads.com/quotes/257630-don-t-be-afraid-to-give-up-the-good-to-go))
