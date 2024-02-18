@@ -10,7 +10,7 @@ public class StringUtils {
         return input.split(" ")[0];
     }
     /**
-     * This function gets the value of a specified command string.
+     * Gets the value of a specified command string.
      *
      * @param input    The entire string
      * @param command  Command string to start search from. Search index is offset by the command's length
@@ -41,7 +41,7 @@ public class StringUtils {
     }
 
     /**
-     * Main purpose of this function is to help us find the index of a given string, and offset it by a given amount.
+     * Finds the index of a given string, and offset it by a given amount.
      *
      * @param input  The input to search
      * @param toFind The index of the string to find
@@ -57,7 +57,7 @@ public class StringUtils {
     }
 
     /**
-     * This function simply abstracts out the splitting logic of the data string.
+     * Abstracts out the splitting logic of the data string.
      *
      * @param data data to split by |
      * @return a array of the split up strings

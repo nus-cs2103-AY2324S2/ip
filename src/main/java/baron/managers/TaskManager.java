@@ -158,7 +158,7 @@ public class TaskManager {
     }
 
     /**
-     * Abstraction to get the task in the list.
+     * Gets the task in the list. Serves as an abstraction.
      * Useful for possible future if we want to change how we store our tasks in memory.
      *
      * @param i index of task to get
