@@ -14,7 +14,7 @@ public class StorageTest {
         expectedTasks.add(task);
 
         // Create a Storage object
-        Storage storage = new Storage("test_data.txt");
+        Storage storage = new Storage();
 
         // Save the sample task to file
         try {
@@ -52,7 +52,7 @@ public class StorageTest {
         tasks.add(task);
 
         // Create a Storage object
-        Storage storage = new Storage("test_data.txt");
+        Storage storage = new Storage();
 
         // Save tasks to file
         try {
