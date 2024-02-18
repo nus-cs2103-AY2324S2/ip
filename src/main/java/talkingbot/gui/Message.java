@@ -45,6 +45,10 @@ public class Message extends HBox {
         this.displayName.setText(displayName);
     }
 
+    /**
+     * Flips the positioning of the children in the Message.
+     * Used to create the bot's response.
+     */
     private void flip() {
         this.setAlignment(Pos.TOP_LEFT);
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());

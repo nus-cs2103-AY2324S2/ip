@@ -34,32 +34,40 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<Window>getController().setBot(this.talkingBot);
             stage.show();
-            // Solution below adapted from https://github.com/GERARDJM018/ip/blob/master/src/main/java/duke/Main.java
-            this.stopChecker = new Thread(() -> {
-                while (true) {
-                    if (this.talkingBot.getIsRunning()) {
-                        try {
-                            Thread.sleep(CHECK_INTERVAL);
-                        } catch (Exception e) {
-                            System.out.println(e);
-                        }
-                        continue;
-                    }
-                    try {
-                        this.stop();
-                        this.stopChecker.sleep(5 * CHECK_INTERVAL);
-                        Platform.exit();
-                        this.stopChecker.stop();
-                    } catch (Exception e) {
-                        System.out.println(e);
-                    }
-                    break;
-                }
-            });
-            this.stopChecker.start();
+            this.startChecker();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Starts a new Thread that checks whether the bot should
+     * still remain running.
+     */
+    // Solution below adapted from https://github.com/GERARDJM018/ip/blob/master/src/main/java/duke/Main.java
+    private void startChecker() {
+        this.stopChecker = new Thread(() -> {
+            while (true) {
+                if (this.talkingBot.getIsRunning()) {
+                    try {
+                        Thread.sleep(CHECK_INTERVAL);
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
+                    continue;
+                }
+                try {
+                    this.stop();
+                    this.stopChecker.sleep(5 * CHECK_INTERVAL);
+                    Platform.exit();
+                    this.stopChecker.stop();
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+                break;
+            }
+        });
+        this.stopChecker.start();
     }
 
     /**

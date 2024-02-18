@@ -20,6 +20,15 @@ public class Todo extends Task {
     }
 
     /**
+     * Creates a new Todo instance with isDone equal to false.
+     *
+     * @param description Description of the task.
+     */
+    public Todo(String description) {
+        this(description, false);
+    }
+
+    /**
      * Returns the String describing this task that will be saved into
      * the save file.
      *

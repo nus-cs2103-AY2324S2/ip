@@ -61,7 +61,7 @@ public abstract class Task {
             if (fullDescription.isEmpty()) {
                 throw new TalkingBotException(TODO_ERROR_MSG);
             }
-            return new Todo(fullDescription, false);
+            return new Todo(fullDescription);
         case "deadline":
             if (splitArr.length != 2) {
                 throw new TalkingBotException(DEADLINE_ERROR_MSG);

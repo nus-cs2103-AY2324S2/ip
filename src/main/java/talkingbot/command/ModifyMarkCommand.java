@@ -48,7 +48,7 @@ public class ModifyMarkCommand extends Command {
             msg = ui.getTaskSetUndoneMsg(modifiedTask);
         }
         tasks.setTask(markIdxInt - 1, modifiedTask);
-        assert tasks.getTask(markIdxInt - 1).equals(modifiedTask);
+        assert tasks.getTask(markIdxInt - 1).equals(modifiedTask) : "task at the index should be the modified task";
         return msg;
     }
 }
