@@ -13,9 +13,11 @@ public class Parser {
      * @param userInput The user input.
      * @return An array of strings containing the instruction and details.
      */
-    public String parseUserInput(String userInput, Ui ui, TaskList tasks)
+    public String parseUserInput(String userInput, Ui ui, Storage storage, TaskList tasks)
             throws IllegalArgumentException, JimmyException {
-        String[] inputArray = userInput.split(" ", 2);
+        assert userInput != null;
+        assert tasks != null;
+        String[] inputArray = userInput.trim().split(" ", 2);
         String instruction;
         String details = "";
         if (inputArray.length > 1) {
@@ -28,6 +30,7 @@ public class Parser {
 
         switch (instruction) {
         case "bye":
+            storage.writeToFile(tasks.getTaskList());
             return ui.exit();
         case "list":
             return tasks.displayTasks();

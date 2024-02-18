@@ -45,12 +45,13 @@ public class Ui {
      * @return The counter for the task list.
      */
     private String generateListCounter(int counter) {
+        assert counter >= 0;
         if (counter == 0) {
             return "You have no jimmy.tasks, create some now!";
         } else if (counter == 1) {
             return "Now you have 1 task in the list.";
         } else {
-            return "Now you have " + counter + " jimmy.tasks in the list.";
+            return "Now you have " + counter + " tasks in the list.";
         }
     }
 
@@ -73,6 +74,7 @@ public class Ui {
      * @return The list of tasks, in String format.
      */
     public String showAllTasks(ArrayList<Task> taskList) {
+        assert taskList != null;
         StringBuilder sb = new StringBuilder();
         sb.append("Here are the jimmy.tasks in your list:\n");
         for (int i = 0; i < taskList.size(); i++) {

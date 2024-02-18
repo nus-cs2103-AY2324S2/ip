@@ -1,7 +1,4 @@
-T | 1 | todo 1
-D | 1 | todo | 19-01-2025
 E | 0 | todo | 19-01-2025 | 20-01-2025
-T | 0 | todo1
-D | 0 | deadline | 19-01-2025
-D | 0 | Submit project | 11-09-2024
 T | 0 | todo
+T | 0 | todo2 
+T | 0 | todo5
