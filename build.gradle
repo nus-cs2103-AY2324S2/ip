@@ -43,7 +43,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "roebot.jar"
+    archiveBaseName = "roebot"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
