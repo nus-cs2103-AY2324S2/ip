@@ -27,7 +27,7 @@ public class Event extends Task {
     }
 
     /**
-     * Format Event for Ui to print.
+     * Formats Event for Ui to print.
      *
      * @return String representation of Event for printing.
      */
@@ -38,7 +38,7 @@ public class Event extends Task {
     }
 
     /**
-     * Format Event for storing in Storage.
+     * Formats Event for storing in Storage.
      *
      * @return String representation of Event to store.
      */

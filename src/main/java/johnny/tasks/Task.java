@@ -27,21 +27,21 @@ public class Task {
     }
 
     /**
-     * Mark Task as done.
+     * Marks Task as done.
      */
     public void mark() {
         isDone = true;
     }
 
     /**
-     * Unmark Task to not done.
+     * Unmarks Task to not done.
      */
     public void unmark() {
         isDone = false;
     }
 
     /**
-     * Format Task for Ui to print.
+     * Formats Task for Ui to print.
      *
      * @return String representation of Task for printing.
      */
@@ -52,7 +52,7 @@ public class Task {
     }
 
     /**
-     * Format Task for storing in Storage.
+     * Formats Task for storing in Storage.
      *
      * @return String representation of Task to store.
      */
@@ -62,7 +62,7 @@ public class Task {
     }
 
     /**
-     * Format DateTime in Tasks for storing in Storage.
+     * Formats DateTime in Tasks for storing in Storage.
      *
      * @param dateTime DateTime to be formatted.
      * @return String representation of formatted DateTime.
@@ -72,7 +72,7 @@ public class Task {
     }
 
     /**
-     * Format DateTime in Tasks for Ui to print.
+     * Formats DateTime in Tasks for Ui to print.
      *
      * @param dateTime DateTime to be formatted.
      * @return String representation of formatted DateTime.

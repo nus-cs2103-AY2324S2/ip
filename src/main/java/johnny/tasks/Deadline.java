@@ -23,7 +23,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Format Deadline for Ui to print.
+     * Formats Deadline for Ui to print.
      *
      * @return String representation of Deadline for printing.
      */
@@ -33,7 +33,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Format Deadline for storing in Storage.
+     * Formats Deadline for storing in Storage.
      *
      * @return String representation of Deadline to store.
      */

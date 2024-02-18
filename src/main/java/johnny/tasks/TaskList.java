@@ -129,7 +129,7 @@ public class TaskList {
     }
 
     /**
-     * Find all Tasks in TaskList whose names contains specified keyword.
+     * Finds all Tasks in TaskList whose names contains specified keyword.
      *
      * @param keyword String to be matched to Task name.
      * @return All Tasks that contains keyword.
@@ -145,7 +145,7 @@ public class TaskList {
     }
 
     /**
-     * Check if 2 TaskLists are equal by checking all Tasks in TaskList.
+     * Checks if 2 TaskLists are equal by checking all Tasks in TaskList.
      *
      * @param o Object to be compared with.
      * @return True if the TaskLists are equal else false.

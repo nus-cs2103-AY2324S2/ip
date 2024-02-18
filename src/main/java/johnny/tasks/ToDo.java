@@ -16,7 +16,7 @@ public class ToDo extends Task {
     }
 
     /**
-     * Format Todo for Ui to print.
+     * Formats Todo for Ui to print.
      *
      * @return String representation of Todo for printing.
      */
@@ -26,7 +26,7 @@ public class ToDo extends Task {
     }
 
     /**
-     * Format Todo for storing in Storage.
+     * Formats Todo for storing in Storage.
      *
      * @return String representation of Todo to store.
      */

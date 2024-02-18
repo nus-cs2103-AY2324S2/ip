@@ -48,7 +48,7 @@ public class AddDeadlineCommand extends Command {
     }
 
     /**
-     * Does not exit so chatbot can continue running.
+     * Returns False so chatbot can continue running.
      *
      * @return False so the loop keeps running.
      */

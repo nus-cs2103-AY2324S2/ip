@@ -7,7 +7,7 @@ import johnny.tasks.Task;
 import johnny.tasks.TaskList;
 
 /**
- * Handles all interactions with user.
+ * Handles all responses to user.
  */
 public class Ui {
 
@@ -108,7 +108,6 @@ public class Ui {
      * Prints the Tasks found that matches user query.
      *
      * @param foundTasks List of Tasks that matches user query.
-     * @throws JohnnyException Ignore as loop prevents error from being thrown.
      */
     public void showFoundTasks(List<Task> foundTasks) {
         if (foundTasks.size() == 0) {

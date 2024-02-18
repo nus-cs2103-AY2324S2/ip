@@ -11,7 +11,7 @@ import johnny.ui.Ui;
 public abstract class Command {
 
     /**
-     * Command classes execute their process.
+     * Executes the process of Commands.
      *
      * @param tasks TaskList of tasks.
      * @param ui Ui to print responses.

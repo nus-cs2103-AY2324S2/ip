@@ -60,6 +60,11 @@ public class Johnny {
         }
     }
 
+    /**
+     * Generates the welcome message in the Ui and outputs it.
+     *
+     * @return Welcome message.
+     */
     public String getWelcome() {
         ui.showWelcome();
         return ui.getOutput();
