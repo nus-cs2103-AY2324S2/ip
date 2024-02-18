@@ -1,13 +1,13 @@
-package someboty.Managers;
+package someboty.managers;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import someboty.Exceptions.InputException;
+import someboty.exceptions.InputException;
 
 /**
- * dateManager handles processing and formatting of date and time.
+ * DateManager handles processing and formatting of date and time.
  * This class does not need to be initialized to use its methods and so
  * does not have a constructor.
  */
@@ -28,8 +28,9 @@ public class DateManager {
 
     /**
      * Parses a given date into a LocalDateTime object.
-     * @param date Given string date and time
-     * @return a LocalDateTime object containing the given date.
+     * 
+     * @param date Given string date and time.
+     * @return A LocalDateTime object containing the given date.
      * @throws InputException Given date is not in an acceptable format.
      */
     public static LocalDateTime parseDate(String date) throws InputException {
@@ -54,6 +55,7 @@ public class DateManager {
 
     /**
      * Convert a date and time into a more reader-friendly format.
+     * 
      * @param date A LocalDateTime object to format.
      * @return String representation of the date and time.
      */
@@ -63,6 +65,7 @@ public class DateManager {
 
     /**
      * Lists out all accepted date and time formats.
+     * 
      * @return String representation of the list of accepted date and time formats.
      */
     public static String PrintDateFormats() {

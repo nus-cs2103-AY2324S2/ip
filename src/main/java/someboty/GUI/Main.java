@@ -1,4 +1,4 @@
-package someboty.GUI;
+package someboty.gui;
 
 import java.io.IOException;
 
@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import someboty.someBOTy;
+import someboty.SomeBoty;
 
 /**
  * A GUI for Duke using FXML.
@@ -16,7 +16,7 @@ import someboty.someBOTy;
 public class Main extends Application {
 
     private static final String FILE_PATH = System.getProperty("user.dir");
-    private someBOTy bot = new someBOTy(FILE_PATH);
+    private SomeBoty bot = new SomeBoty(FILE_PATH);
 
     @Override
     public void start(Stage stage) {

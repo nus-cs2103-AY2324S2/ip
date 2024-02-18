@@ -1,4 +1,4 @@
-package someboty.Exceptions;
+package someboty.exceptions;
 
 /**
  * A special case Exception that simply stops all pending actions that

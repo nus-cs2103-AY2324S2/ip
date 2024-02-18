@@ -1,11 +1,10 @@
-package someboty.Managers;
+package someboty.managers;
 
 import java.util.ArrayList;
 
-import someboty.Exceptions.InputException;
-import someboty.Exceptions.TerminateException;
-
-import someboty.Tasks.Task;
+import someboty.exceptions.InputException;
+import someboty.exceptions.TerminateException;
+import someboty.tasks.Task;
 
 /**
  * commandManager acts a command center to process and coordinate the different 

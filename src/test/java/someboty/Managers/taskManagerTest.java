@@ -2,7 +2,8 @@ package someboty.Managers;
 
 import org.junit.jupiter.api.Test;
 
-import someboty.Exceptions.InputException;
+import someboty.exceptions.InputException;
+import someboty.managers.FileManager;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

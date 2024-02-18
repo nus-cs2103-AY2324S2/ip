@@ -1,4 +1,4 @@
-package someboty.Exceptions;
+package someboty.exceptions;
 
 /**
  * Handles errors caused by user inputs.

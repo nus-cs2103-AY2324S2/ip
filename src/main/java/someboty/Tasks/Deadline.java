@@ -1,9 +1,9 @@
-package someboty.Tasks;
+package someboty.tasks;
 
 import java.time.LocalDateTime;
 
-import someboty.Exceptions.InputException;
-import someboty.Managers.DateManager;
+import someboty.exceptions.InputException;
+import someboty.managers.DateManager;
 
 /**
  * Handles a task of type "Deadline".

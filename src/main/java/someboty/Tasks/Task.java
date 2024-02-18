@@ -1,6 +1,6 @@
-package someboty.Tasks;
+package someboty.tasks;
 
-import someboty.Exceptions.InputException;
+import someboty.exceptions.InputException;
 
 /**
  * A abstract class to handle details of a task.

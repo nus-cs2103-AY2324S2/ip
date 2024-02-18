@@ -1,4 +1,4 @@
-package someboty.Managers;
+package someboty.managers;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -6,10 +6,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import someboty.Tasks.Deadline;
-import someboty.Tasks.Event;
-import someboty.Tasks.Task;
-import someboty.Tasks.ToDo;
+import someboty.tasks.Deadline;
+import someboty.tasks.Event;
+import someboty.tasks.Task;
+import someboty.tasks.ToDo;
 
 
 /**
@@ -29,7 +29,8 @@ public class FileManager {
     private String filePath;
 
     /**
-     * Constructor for fileManager
+     * Constructor for fileManager.
+     * 
      * @param filePath Path to find the "data/tasks.csv" file.
      */
     public FileManager(String filePath) {
@@ -38,6 +39,7 @@ public class FileManager {
 
     /**
      * Read saved tasks from the csv file and converts it into a list.
+     * 
      * @return A list of tasks.
      */
     public ArrayList<Task> fetchTasks() {
@@ -73,6 +75,7 @@ public class FileManager {
     /**
      * Takes in a list of task and overwrites it into the tasks.csv file.
      * Note: This method does not append to the file, but overwrites it instead.
+     * 
      * @param taskList A list of tasks to be saved into file.
      */
     public void storeTasks(ArrayList<Task> taskList) {
@@ -113,6 +116,7 @@ public class FileManager {
 
     /**
      * Parses a row in the csv file into a task.
+     * 
      * @param line A row in the csv file.
      * @return A task object created from the descriptions parsed.
      */

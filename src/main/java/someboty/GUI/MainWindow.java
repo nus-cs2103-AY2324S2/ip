@@ -1,6 +1,6 @@
-package someboty.GUI;
+package someboty.gui;
 
-import someboty.someBOTy;
+import someboty.SomeBoty;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -23,7 +23,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private someBOTy bot;
+    private SomeBoty bot;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/sensei.png"));
     private Image botImage = new Image(this.getClass().getResourceAsStream("/images/izuna.png"));
@@ -33,11 +33,11 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
         dialogContainer.getChildren().add(
-           DialogBox.getBotDialog(someBOTy.Greeting(), botImage)
+           DialogBox.getBotDialog(SomeBoty.Greeting(), botImage)
            );
     }
 
-    public void setBot(someBOTy bot) {
+    public void setBot(SomeBoty bot) {
         this.bot = bot;
     }
 
