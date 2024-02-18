@@ -150,8 +150,11 @@ public class Ui {
     }
 
 
-    public void showLine() {
-        out.println(DIVIDER);
+    public static void showErrorIncorrectNumFormat(String command) {
+        System.out.println("-------------------------------- \n" +
+            "Oops, I'm not sure which task you are referring to! " +
+            "Please indicate a task number (e.g. " + command + " 1) \n" +
+                "-------------------------------- \n");
     }
 
     public static void showErrorAndPrintCommands() {

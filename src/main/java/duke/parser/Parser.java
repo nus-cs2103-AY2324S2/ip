@@ -26,17 +26,14 @@ public class Parser {
      * @param input
      * @return isExit (i.e. to terminate program or not)
      */
-    public static boolean parse(String input, Ui ui) {
+    public static boolean parse(String input) {
         int cmdSplit = input.indexOf(" ");
         String command = input;
         String task = null;
         if (cmdSplit == -1) {
             if (command.equals(CommandEnum.MARK.COMMAND_NAME) | command.equals(CommandEnum.UNMARK.COMMAND_NAME) |
                     command.equals(CommandEnum.DELETE.COMMAND_NAME)) {
-                System.out.println("-------------------------------- \n" +
-                        "Oops, I'm not sure which task you are referring to! " +
-                        "Please indicate a task number (e.g. " + command + " 1) \n" +
-                        "-------------------------------- \n");
+                Ui.showErrorIncorrectNumFormat(command);
             } else if (command.equals(CommandEnum.TODO.COMMAND_NAME)) {
                 System.out.println("-------------------------------- \n" +
                         "Oops, wrong format! Please indicate task details (e.g. todo CS2103 Lab 1) \n" +

@@ -50,10 +50,11 @@ public class Duke extends Application {
         boolean isExit = false;
         while (!isExit) {
             String fullCommand = ui.readCommand();
-            isExit = Parser.parse(fullCommand, ui);
+            isExit = Parser.parse(fullCommand);
         }
-        ui.showExit();
+        Ui.showExit();
     }
+
 
     public static void main(String[] args) {
         new Duke().run();
