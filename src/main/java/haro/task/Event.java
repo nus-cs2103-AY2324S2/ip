@@ -89,7 +89,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        int marked = this.isDone ? 1 : 0;
+        int marked = (this.isDone) ? 1 : 0;
         return "E | " + marked + " | " + this.task + " | " + this.start + " | " + this.end;
     }
 }

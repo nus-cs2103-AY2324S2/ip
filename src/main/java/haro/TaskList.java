@@ -12,7 +12,6 @@ import haro.task.Task;
  */
 public class TaskList {
     private ArrayList<Task> tasks;
-    private String horizontalLine = "______________________________________________\n";
 
     /**
      * Constructs an empty TaskList.
@@ -42,9 +41,10 @@ public class TaskList {
         }
 
         for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
+            Task currTask = tasks.get(i);
             int index = i + 1;
-            taskString += index + ". " + task.printTask() + "\n";
+            String formattedTaskString = formatTaskString(index, currTask);
+            taskString += formattedTaskString;
         }
 
         return taskString;
@@ -135,7 +135,8 @@ public class TaskList {
             boolean isFound = currTask.isFound(searchString);
 
             if (isFound) {
-                resultString += index + ". " + currTask.printTask() + "\n";
+                String formattedTaskString = formatTaskString(index, currTask);
+                resultString += formattedTaskString;
                 index++;
             }
         }
@@ -159,5 +160,17 @@ public class TaskList {
      */
     public int getSize() {
         return tasks.size();
+    }
+
+    /**
+     * Formats tasks for adding into task list String representation.
+     *
+     * @param index Current index of task.
+     * @param task Task who will be formatted into String representation
+     * @return Formatted string representation of task
+     */
+    private String formatTaskString(int index, Task task) {
+        String result = index + ". " + task.printTask() + "\n";
+        return result;
     }
 }
