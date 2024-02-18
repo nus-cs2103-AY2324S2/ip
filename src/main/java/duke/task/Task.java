@@ -7,14 +7,13 @@ import duke.parser.MissingInputFieldException;
  */
 public abstract class Task {
     protected static String dataStringSplitter = " \\| ";
-    // temporary measure before storage related methods are migrated over to the storage class
     protected static String storageDataStringSplitter = " | ";
-    private static String delimiter;
-    private static String command;
     protected TaskType type;
     protected String description;
+    protected String command;
+    protected String delimiter;
+    protected String typeString;
     private boolean isDone;
-
 
     /**
      * Returns a task of the specified type.
@@ -24,30 +23,13 @@ public abstract class Task {
         isDone = false;
     }
 
-    public static String getDelimiter() {
-        return delimiter;
-    }
-
-    public static void setDelimiter(String delimiter) {
-        Task.delimiter = delimiter;
-    }
-
-    public String getCommand() {
-        return command;
-    }
-
-    public void setCommand(String command) {
-        Task.command = command;
-    }
-
     /**
      * Represents three task types: ToDO, Deadline and Event.
      */
     public enum TaskType {
         TODO,
         DEADLINE,
-        EVENT,
-        UNRECOGNIZED
+        EVENT
     }
 
     /**
@@ -78,11 +60,11 @@ public abstract class Task {
      * @throws MissingInputFieldException If number of input field does not match with requirement.
      */
     public static Task createTask(String type, String input) throws MissingInputFieldException {
-        if (type.equals("todo")) {
+        if (type.equals(ToDo.COMMAND)) {
             return new ToDo(input);
-        } else if (type.equals("deadline")) {
+        } else if (type.equals(Deadline.COMMAND)) {
             return new Deadline(input);
-        } else if (type.equals("event")) {
+        } else if (type.equals(Event.COMMAND)) {
             return new Event(input);
         }
         return null;
@@ -93,12 +75,11 @@ public abstract class Task {
     }
 
     public void setIsDone(boolean isDone) {
-        // obsolete toggles
         this.isDone = isDone;
     }
 
-    protected char getIsDoneStatus() {
-        return isDone ? 'X' : ' ';
+    protected String getIsDoneStatus() {
+        return isDone ? "X" : "   ";
     }
 
     /**
@@ -109,12 +90,12 @@ public abstract class Task {
             return "Nice! I've marked this task as done:"
                     + '\n'
                     + "    "
-                    + toString();
+                    + this;
         } else {
             return "OK, I've marked this task as not done yet:"
                     + '\n'
                     + "    "
-                    + toString();
+                    + this;
         }
     }
 
@@ -124,7 +105,7 @@ public abstract class Task {
      * @param input String to be parsed.
      */
     public String[] parseInput(String input) {
-        return input.split(delimiter);
+        return input.split(getDelimiter());
     }
 
     /**
@@ -133,7 +114,8 @@ public abstract class Task {
      * @return String representing the data in storage format.
      */
     public String convertToDataRow() {
-        return getType() + storageDataStringSplitter + boolToInt(isDone) + storageDataStringSplitter + description;
+        return getTypeString() + storageDataStringSplitter + boolToInt(isDone) + storageDataStringSplitter
+                + description;
     }
 
     /**
@@ -149,35 +131,33 @@ public abstract class Task {
             throw new RuntimeException("Data Corrupted: No Matching duke.task.Task Type");
         }
         try {
-            Task temp = null;
-            if (inputArray[0].equals("T")) {
-                temp = createTask("todo", "todo " + inputArray[2]);
-            } else if (inputArray[0].equals("E")) {
-                temp = createTask("event", "event " + inputArray[2] + " /from "
+            Task task;
+            String typeString = inputArray[0];
+            if (typeString.equals(ToDo.TYPE_STRING)) {
+                task = createTask(ToDo.COMMAND, ToDo.COMMAND + " " + inputArray[2]);
+            } else if (typeString.equals(Event.TYPE_STRING)) {
+                task = createTask(Event.COMMAND, Event.COMMAND + " " + inputArray[2] + " /from "
                         + inputArray[3] + " /to" + inputArray[4]);
-            } else if (inputArray[0].equals("D")) {
-                temp = createTask("deadline", "deadline " + inputArray[2] + " /by " + inputArray[3]);
+            } else if (typeString.equals(Deadline.TYPE_STRING)) {
+                task = createTask(Deadline.COMMAND, Deadline.COMMAND + " " + inputArray[2] + " /by "
+                        + inputArray[3]);
             } else {
                 throw new RuntimeException("Data Corrupted: No Matching duke.task.Task Type");
             }
             if (isTaskDataEntryDone(inputArray)) {
-                temp.isDone = true;
+                task.isDone = true;
             }
-            return temp;
+            return task;
         } catch (MissingInputFieldException | ArrayIndexOutOfBoundsException e) {
             throw new RuntimeException("Data Corrupted: Missing Input Field");
         }
     }
 
-    public boolean descriptionContainKeyword(String keyword) {
-        return description.contains(keyword);
-    }
-
     private static boolean isTaskStringArray(String[] inputArray) {
         switch (inputArray[0]) {
-        case "T":
-        case "E":
-        case "D":
+        case ToDo.TYPE_STRING:
+        case Event.TYPE_STRING:
+        case Deadline.TYPE_STRING:
             return true;
         default:
             return false;
@@ -197,7 +177,9 @@ public abstract class Task {
      *
      * @return String representing task type.
      */
-    public abstract String getType();
+    public abstract String getTypeString();
+    public abstract String getCommand();
+    public abstract String getDelimiter();
 
     /**
      * Sets up task with string input.

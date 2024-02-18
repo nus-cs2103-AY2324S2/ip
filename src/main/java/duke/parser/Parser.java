@@ -71,7 +71,7 @@ public class Parser {
             }
         } catch (CommandNotFoundException e) {
             System.out.println(e.getMessage());
-            return null;
+            return e.getMessage();
         }
     }
 

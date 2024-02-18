@@ -24,14 +24,7 @@ public class Deadline extends Task {
      */
     public Deadline(String input) throws MissingInputFieldException {
         super(TaskType.DEADLINE);
-        setDelimiter(DELIMITER);
-        setCommand(COMMAND);
         setUpTask(input);
-    }
-
-    @Override
-    public String getType() {
-        return TYPE_STRING;
     }
 
     @Override
@@ -51,7 +44,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[" + getType() + "]" + "[" + getIsDoneStatus() + "] "
+        return "[" + getTypeString() + "]" + "[" + getIsDoneStatus() + "] "
                 + description + " " + "(by: " + Ui.printTime(deadlineTiming) + ")";
     }
 
@@ -59,5 +52,20 @@ public class Deadline extends Task {
     public String convertToDataRow() {
         return super.convertToDataRow() + 0 + storageDataStringSplitter
                 + Storage.convertDateTimeForStorage(deadlineTiming);
+    }
+
+    @Override
+    public String getCommand() {
+        return COMMAND;
+    }
+
+    @Override
+    public String getDelimiter() {
+        return DELIMITER;
+    }
+
+    @Override
+    public String getTypeString() {
+        return TYPE_STRING;
     }
 }

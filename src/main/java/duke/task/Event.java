@@ -27,14 +27,7 @@ public class Event extends Task {
      */
     public Event(String input) throws MissingInputFieldException {
         super(TaskType.EVENT);
-        setDelimiter(DELIMITER);
-        setCommand(COMMAND);
         setUpTask(input);
-    }
-
-    @Override
-    public String getType() {
-        return TYPE_STRING;
     }
 
     @Override
@@ -42,7 +35,7 @@ public class Event extends Task {
         try {
             input = input.trim();
             if (!input.contains(getCommand())) {
-                throw new RuntimeException("not todo");
+                throw new RuntimeException("not event");
             }
             String[] inputArray = Task.removeEmptyElements(input.split(getDelimiter()));
             description = inputArray[0].trim();
@@ -55,7 +48,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[" + getType() + "]" + "["
+        return "[" + this.getTypeString() + "]" + "["
                 + getIsDoneStatus() + "] "
                 + description + " " + "(from: "
                 + Ui.printTime(eventStartTiming) + " to: " + Ui.printTime(eventEndTiming) + ")";
@@ -63,7 +56,23 @@ public class Event extends Task {
 
     @Override
     public String convertToDataRow() {
-        return super.convertToDataRow() + storageDataStringSplitter + Storage.convertDateTimeForStorage(eventStartTiming)
+        return super.convertToDataRow() + storageDataStringSplitter
+                + Storage.convertDateTimeForStorage(eventStartTiming)
                 + storageDataStringSplitter + Storage.convertDateTimeForStorage(eventEndTiming);
+    }
+
+    @Override
+    public String getCommand() {
+        return COMMAND;
+    }
+
+    @Override
+    public String getDelimiter() {
+        return DELIMITER;
+    }
+
+    @Override
+    public String getTypeString() {
+        return TYPE_STRING;
     }
 }
