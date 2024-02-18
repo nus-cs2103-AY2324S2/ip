@@ -1,4 +1,4 @@
-package someboty.GUI;
+package someboty.gui;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -41,6 +41,7 @@ public class DialogBox extends HBox {
 
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
+     * Copied from the given JavaFX tutorial.
      */
     private void flip() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
@@ -49,10 +50,24 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Create a Dialogue Box (consisting of a text and user's image) to display in the application.
+     * 
+     * @param text A String to be displayed in the box.
+     * @param img An image of the user to display beside the text.
+     * @return A DialogBox containing the text and image.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img, Color.rgb(225, 225, 225));
+        return new DialogBox(text, img, Color.rgb(230, 230, 230));
     }
 
+    /**
+     * Create a Dialogue Box (consisting of a text and BOT's image) to display in the application.
+     * 
+     * @param text A String to be displayed in the box.
+     * @param img An image of the BOT to display beside the text.
+     * @return A DialogBox containing the text and image.
+     */
     public static DialogBox getBotDialog(String text, Image img) {
         DialogBox box = new DialogBox(text, img, Color.ALICEBLUE);
         box.flip();

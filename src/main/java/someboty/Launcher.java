@@ -1,17 +1,17 @@
 package someboty;
 
 import javafx.application.Application;
-
-import someboty.GUI.Main;
+import someboty.gui.Main;
 
 /**
- * A launcher class to workaround classpath issues.
- * This is directly sourced from: https://se-education.org/guides/tutorials/javaFxPart1.html
+ * Entry-point to the application.
  */
 public class Launcher {
     public static void main(String[] args) {
         try {
+            // starts the application at given class.
             Application.launch(Main.class, args);
+
         } catch (Exception e) {
             e.printStackTrace();
         }

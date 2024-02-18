@@ -1,15 +1,12 @@
 package someboty;
 
-import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
-
-import someboty.Exceptions.TerminateException;
-import someboty.Managers.CommandManager;
-import someboty.Managers.FileManager;
-import someboty.Managers.TaskManager;
+import someboty.exceptions.TerminateException;
+import someboty.managers.CommandManager;
+import someboty.managers.FileManager;
+import someboty.managers.TaskManager;
 
 // main class for the project
-public class someBOTy {
+public class SomeBoty {
 
     private CommandManager commandCenter;
 
@@ -17,7 +14,7 @@ public class someBOTy {
      * Constructor for "someBOTy" class.
      * @param filePath  a file path to access task data.
      */ 
-    public someBOTy(String filePath) {
+    public SomeBoty(String filePath) {
         FileManager fileManager = new FileManager(filePath);
         TaskManager taskManager = new TaskManager(fileManager);
         commandCenter = new CommandManager(taskManager);

@@ -1,4 +1,4 @@
-package someboty.Tasks;
+package someboty.tasks;
 
 /**
  * Handles a task of type "ToDo".
