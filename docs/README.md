@@ -25,6 +25,7 @@ Mark | `mark <index>`
 Unmark | `unmark <index>`
 Undo | `undo`
 List | `list`
+Help | `help`
 Exit | `bye`
 
 > [!Note]
