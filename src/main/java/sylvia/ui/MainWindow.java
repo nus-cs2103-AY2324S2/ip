@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import sylvia.Sylvia;
@@ -26,12 +27,15 @@ public class MainWindow extends AnchorPane {
 
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/image/userimg.jpg"));
     private final Image sylviaImage = new Image(this.getClass().getResourceAsStream("/image/sylviaimg.jpg"));
+    private final Image sendIcon = new Image(this.getClass().getResourceAsStream("/icon/send.png"));
 
     /**
      * Initializes the main window.
      */
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        sendButton.getStylesheets().add(getClass().getResource("/css/MainWindow.css").toExternalForm());
+        sendButton.setGraphic(new ImageView(sendIcon));
     }
 
     public void setSylvia(Sylvia d) {
@@ -39,13 +43,22 @@ public class MainWindow extends AnchorPane {
     }
 
     private String getUserInput() {
-        dialogContainer.getChildren().addAll(DialogBox.getUserDialog(userInput.getText(), userImage));
-        return userInput.getText();
+        String input = userInput.getText();
+        // don't show empty input
+        if (input.isEmpty()) {
+            return "";
+        }
+        dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage));
+        return input;
     }
 
     @FXML
     private void handleUserInput() {
         String input = getUserInput();
+        // don't send empty input
+        if (input.isEmpty()) {
+            return;
+        }
         Response response = sylvia.runCommand(input);
         showResponse(response);
         userInput.clear();
