@@ -15,10 +15,10 @@ public class Untagging implements Command {
     /**
      * Constructor
      *
-     * @param operand index
-     * @param tagName tag name
-     * @param taskList task list
-     * @throws HanxiaoException throw wrong index exception
+     * @param operand index.
+     * @param tagName tag name.
+     * @param taskList task list.
+     * @throws HanxiaoException throw wrong index exception.
      */
     public Untagging(int operand, String tagName, TaskList taskList) throws HanxiaoException {
         if (operand >= taskList.getListLength() || operand < 0) {
@@ -35,7 +35,7 @@ public class Untagging implements Command {
     /**
      * Reply
      *
-     * @return reply
+     * @return reply.
      */
     @Override
     public String reply() {

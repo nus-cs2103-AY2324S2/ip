@@ -14,7 +14,7 @@ class Parser {
     /**
      * Constructor of a parse
      *
-     * @param tasks tasks
+     * @param tasks tasks.
      */
     public Parser(TaskList tasks, Storage storage) {
         this.tasks = tasks;
@@ -22,11 +22,11 @@ class Parser {
     }
 
     /**
-     * From input to determine which type of command to generate
+     * Determines which type of command to generate.
      *
-     * @param input scanner's result
-     * @return the generated command for execute
-     * @throws HanxiaoException wrong usage
+     * @param input Scanner's result.
+     * @return Command Generated command for execute.
+     * @throws HanxiaoException Wrong usage.
      */
     public Command parse(String input) throws HanxiaoException {
         String[] inputs = input.split(" ");

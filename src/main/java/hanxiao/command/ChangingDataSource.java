@@ -18,9 +18,9 @@ public class ChangingDataSource implements Command {
     /**
      * Constructor
      *
-     * @param filePath file path
-     * @param storage the current storage
-     * @param tasks current task list
+     * @param filePath file path.
+     * @param storage the current storage.
+     * @param tasks current task list.
      */
     public ChangingDataSource(String filePath, Storage storage, TaskList tasks) {
         this.filePath = filePath;
@@ -37,7 +37,7 @@ public class ChangingDataSource implements Command {
     /**
      * In case the new file path is incorrect
      *
-     * @param filePath file path
+     * @param filePath file path.
      */
     private void handleFileNotFound(String filePath) {
         String[] pathStep = filePath.split("/");
@@ -62,7 +62,7 @@ public class ChangingDataSource implements Command {
     /**
      * Reply
      *
-     * @return reply
+     * @return reply.
      */
     @Override
     public String reply() {

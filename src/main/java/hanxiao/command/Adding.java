@@ -36,8 +36,8 @@ public class Adding implements Command {
      * add task to task list.
      * Identify which type of task is it.
      *
-     * @param text the description of a task
-     * @throws HanxiaoException wrong inputs might happens
+     * @param text the description of a task.
+     * @throws HanxiaoException wrong inputs might happens.
      */
     public Adding(String text, TaskList taskList) throws HanxiaoException {
         if (text.startsWith("todo")) {

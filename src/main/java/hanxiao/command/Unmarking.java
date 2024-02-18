@@ -13,8 +13,8 @@ public class Unmarking implements Command {
     /**
      * Constructor change the status of task to unDone.
      *
-     * @param operand which task to mark from 0
-     * @throws WrongIndexException index invalid
+     * @param operand which task to mark from 0.
+     * @throws WrongIndexException index invalid.
      */
     public Unmarking(int operand, TaskList taskList) throws WrongIndexException {
         if (operand >= taskList.getListLength() || operand < 0) {

@@ -14,7 +14,7 @@ public class Deleting implements Command {
     /**
      * Constructor
      *
-     * @param operand the index count from 0;
+     * @param operand the index count from 0.
      */
     public Deleting(int operand, TaskList taskList) throws WrongIndexException {
         this.operand = operand;

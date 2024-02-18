@@ -63,7 +63,7 @@ public class TaskList {
     }
 
     /**
-     * Return the task
+     * Return the task.
      *
      * @param index Index of a task, star from 0.
      * @return The task requested.
@@ -74,7 +74,7 @@ public class TaskList {
     }
 
     /**
-     * Reset task list
+     * Reset task list.
      *
      * @param taskList
      */
@@ -83,18 +83,18 @@ public class TaskList {
     }
 
     /**
-     * Sort Task list
+     * Sort Task list.
      */
     public void sortTaskList() {
         taskArrayList.sort((x, y) -> x.compareTo(y));
     }
 
     /**
-     * Update task
-     * @param index index
-     * @param updateField updated field
-     * @param updateValue updated value
-     * @throws HanxiaoException might have wrong usage
+     * Update task.
+     * @param index index.
+     * @param updateField updated field.
+     * @param updateValue updated value.
+     * @throws HanxiaoException might have wrong usage.
      */
     public void updateTask(int index, String updateField, String updateValue) throws HanxiaoException {
         taskArrayList.get(index).updateTask(updateField, updateValue);

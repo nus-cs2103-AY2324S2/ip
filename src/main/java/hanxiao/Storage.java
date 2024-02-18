@@ -116,10 +116,10 @@ public class Storage {
     }
 
     /**
-     * Load the file into a list.
+     * Loads the file into a list.
      *
-     * @return An ArrayList of Tasks
-     * @throws FileNotFoundException if file not exist
+     * @return An ArrayList of Tasks.
+     * @throws FileNotFoundException if file not exist.
      */
     public ArrayList<Task> load() throws FileNotFoundException {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -132,7 +132,7 @@ public class Storage {
     }
 
     /**
-     * Write tasks to file.
+     * Writes tasks to file.
      *
      * @param tasks The task List we want to write into file.
      * @throws IOException If file not exist.

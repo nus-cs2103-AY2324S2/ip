@@ -14,11 +14,11 @@ public class Updating implements Command {
     /**
      * Constructor
      *
-     * @param operand index
-     * @param updateField update field
-     * @param updateValue update value
-     * @param taskList task list
-     * @throws HanxiaoException can raise wrong index exception
+     * @param operand index.
+     * @param updateField update field.
+     * @param updateValue update value.
+     * @param taskList task list.
+     * @throws HanxiaoException can raise wrong index exception.
      */
     public Updating(int operand, String updateField, String updateValue, TaskList taskList) throws HanxiaoException {
         if (operand >= taskList.getListLength() || operand < 0) {
@@ -32,7 +32,7 @@ public class Updating implements Command {
     /**
      * Reply
      *
-     * @return reply
+     * @return reply.
      */
     @Override
     public String reply() {

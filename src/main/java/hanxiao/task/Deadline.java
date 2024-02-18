@@ -30,8 +30,8 @@ public class Deadline extends Task {
      * Constructor
      *
      * @param descrip the dicription of the task.
-     * @param tags tags
-     * @param by by field
+     * @param tags tags.
+     * @param by by field.
      */
     public Deadline(String descrip, ArrayList<String> tags, LocalDate by) {
         super(descrip, tags);
@@ -41,7 +41,7 @@ public class Deadline extends Task {
     /**
      * Override the abstract class
      *
-     * @return T
+     * @return T.
      */
     @Override
     public String getTaskTypeIcon() {
@@ -51,7 +51,7 @@ public class Deadline extends Task {
     /**
      * Override the abstract class
      *
-     * @return deadline
+     * @return deadline.
      */
     @Override
     public String getTaskType() {
@@ -61,7 +61,7 @@ public class Deadline extends Task {
     /**
      * Override the toString method
      *
-     * @return String representation of the task
+     * @return String representation of the task.
      */
     @Override
     public String toString() {
@@ -72,7 +72,7 @@ public class Deadline extends Task {
     /**
      * return by
      *
-     * @return return by
+     * @return return by.
      */
     public String getBy() {
         return this.by.toString();
@@ -81,8 +81,8 @@ public class Deadline extends Task {
     /**
      * Whether we have to start doing it
      *
-     * @param current current time
-     * @return yes/no
+     * @param current current time.
+     * @return yes/no.
      */
     public boolean isTimeForStart(LocalDate current) {
         if (isDone) {
@@ -94,7 +94,7 @@ public class Deadline extends Task {
     /**
      * Getter for by.
      *
-     * @return by time
+     * @return by time.
      */
     public LocalDate getByTime() {
         return this.by;
@@ -103,8 +103,8 @@ public class Deadline extends Task {
     /**
      * Compare the task
      *
-     * @param obj a task
-     * @return whether to task are same
+     * @param obj a task.
+     * @return whether to task are same.
      */
     @Override
     public boolean equals(Object obj) {
@@ -120,8 +120,8 @@ public class Deadline extends Task {
     /**
      * Compare the task
      *
-     * @param otherTask the other task
-     * @return which task come first
+     * @param otherTask the other task.
+     * @return which task come first.
      */
     @Override
     public int compareTo(Task otherTask) {
@@ -139,9 +139,9 @@ public class Deadline extends Task {
     /**
      * Update a task
      *
-     * @param updateField the field to update
-     * @param updateInfo the value to update
-     * @throws WrongUsageException wrong format
+     * @param updateField the field to update.
+     * @param updateInfo the value to update.
+     * @throws WrongUsageException wrong format.
      */
     @Override
     public void updateTask(String updateField, String updateInfo) throws HanxiaoException {
@@ -162,8 +162,8 @@ public class Deadline extends Task {
     /**
      * Time parser
      *
-     * @param time time in sting
-     * @return time in string
+     * @param time time in sting.
+     * @return time in string.
      */
     private String changeWordToDate(String time) {
         LocalDate currentTime = LocalDate.now();
@@ -202,8 +202,8 @@ public class Deadline extends Task {
     /**
      * Check time format
      *
-     * @param time time in string
-     * @return whether it is in correct format
+     * @param time time in string.
+     * @return whether it is in correct format.
      */
     private boolean checkTimeForm(String time) {
         try {

@@ -12,7 +12,7 @@ public class Sorting implements Command {
     /**
      * Constructor
      *
-     * @param taskList task list
+     * @param taskList task list.
      */
     public Sorting(TaskList taskList) {
         taskList.sortTaskList();
@@ -22,7 +22,7 @@ public class Sorting implements Command {
     /**
      * Reply
      *
-     * @return reply
+     * @return reply.
      */
     @Override
     public String reply() {

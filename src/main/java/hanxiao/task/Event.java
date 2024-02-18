@@ -34,10 +34,10 @@ public class Event extends Task {
     /**
      * Constructor
      *
-     * @param descrip description
-     * @param tags tags
-     * @param from from
-     * @param to to
+     * @param descrip description.
+     * @param tags tags.
+     * @param from from.
+     * @param to to.
      */
     public Event(String descrip, ArrayList<String> tags, LocalDate from, LocalDate to) {
         super(descrip, tags);
@@ -49,7 +49,7 @@ public class Event extends Task {
     /**
      * Override the abstract class
      *
-     * @return T
+     * @return T.
      */
     @Override
     public String getTaskTypeIcon() {
@@ -59,7 +59,7 @@ public class Event extends Task {
     /**
      * Override the abstract class
      *
-     * @return event
+     * @return event.
      */
     @Override
     public String getTaskType() {
@@ -69,7 +69,7 @@ public class Event extends Task {
     /**
      * Override the toString method
      *
-     * @return String representation of the task
+     * @return String representation of the task.
      */
     @Override
     public String toString() {
@@ -83,7 +83,7 @@ public class Event extends Task {
     /**
      * return from
      *
-     * @return from
+     * @return from.
      */
     public String getFrom() {
         return this.from.toString();
@@ -92,7 +92,7 @@ public class Event extends Task {
     /**
      * return to
      *
-     * @return to
+     * @return to.
      */
     public String getTo() {
         return this.to.toString();
@@ -101,8 +101,8 @@ public class Event extends Task {
     /**
      * Whether we have to start doing it
      *
-     * @param current current time
-     * @return yes/no
+     * @param current current time.
+     * @return yes/no.
      */
     public boolean isTimeForStart(LocalDate current) {
         if (isDone) {
@@ -114,7 +114,7 @@ public class Event extends Task {
     /**
      * Getter for from.
      *
-     * @return from
+     * @return from.
      */
     public LocalDate getFromTime() {
         return this.from;
@@ -123,7 +123,7 @@ public class Event extends Task {
     /**
      * Getter for to
      *
-     * @return to
+     * @return to.
      */
     public LocalDate getToTime() {
         return this.to;
@@ -132,8 +132,8 @@ public class Event extends Task {
     /**
      * Compare the task
      *
-     * @param obj a task
-     * @return whether to task are same
+     * @param obj a task.
+     * @return whether to task are same.
      */
     @Override
     public boolean equals(Object obj) {
@@ -150,8 +150,8 @@ public class Event extends Task {
     /**
      * Compare the task
      *
-     * @param otherTask the other task
-     * @return which task come first
+     * @param otherTask the other task.
+     * @return which task come first.
      */
     @Override
     public int compareTo(Task otherTask) {
@@ -169,9 +169,9 @@ public class Event extends Task {
     /**
      * Update a task
      *
-     * @param updateField the field to update
-     * @param updateInfo the value to update
-     * @throws WrongUsageException wrong format
+     * @param updateField the field to update.
+     * @param updateInfo the value to update.
+     * @throws WrongUsageException wrong format.
      */
     @Override
     public void updateTask(String updateField, String updateInfo) throws HanxiaoException {
@@ -207,8 +207,8 @@ public class Event extends Task {
     /**
      * Time parser
      *
-     * @param time time in sting
-     * @return time in string
+     * @param time time in sting.
+     * @return time in string.
      */
     private String changeWordToDate(String time) {
         LocalDate currentTime = LocalDate.now();
@@ -247,8 +247,8 @@ public class Event extends Task {
     /**
      * Check time format
      *
-     * @param time time in string
-     * @return whether it is in correct format
+     * @param time time in string.
+     * @return whether it is in correct format.
      */
     private boolean checkTimeForm(String time) {
         try {

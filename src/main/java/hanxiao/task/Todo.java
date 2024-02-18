@@ -12,9 +12,9 @@ import hanxiao.exception.WrongUsageException;
 public class Todo extends Task {
 
     /**
-     * constructor
+     * Constructor
      *
-     * @param descrip the dicription of the task
+     * @param descrip the dicription of the task.
      */
     public Todo(String descrip) {
         super(descrip);
@@ -23,8 +23,8 @@ public class Todo extends Task {
     /**
      * Constructor
      *
-     * @param descrip description
-     * @param tags tags
+     * @param descrip description.
+     * @param tags tags.
      */
     public Todo(String descrip, ArrayList<String> tags) {
         super(descrip, tags);
@@ -33,7 +33,7 @@ public class Todo extends Task {
     /**
      * Override the abstract class
      *
-     * @return T
+     * @return T.
      */
     @Override
     public String getTaskTypeIcon() {
@@ -43,7 +43,7 @@ public class Todo extends Task {
     /**
      * Override the abstract class
      *
-     * @return todo
+     * @return todo.
      */
     @Override
     public String getTaskType() {
@@ -53,8 +53,8 @@ public class Todo extends Task {
     /**
      * Whether we have to start doing it
      *
-     * @param current current time
-     * @return yes/no
+     * @param current current time.
+     * @return yes/no.
      */
     @Override
     public boolean isTimeForStart(LocalDate current) {
@@ -64,8 +64,8 @@ public class Todo extends Task {
     /**
      * Compare the task
      *
-     * @param obj a task
-     * @return whether to task are same
+     * @param obj a task.
+     * @return whether to task are same.
      */
     @Override
     public boolean equals(Object obj) {
@@ -79,8 +79,8 @@ public class Todo extends Task {
     /**
      * Compare the task
      *
-     * @param otherTask the other task
-     * @return which task come first
+     * @param otherTask the other task.
+     * @return which task come first.
      */
     @Override
     public int compareTo(Task otherTask) {
@@ -93,9 +93,9 @@ public class Todo extends Task {
     /**
      * Update a task
      *
-     * @param updateField the field to update
-     * @param updateValue the value to update
-     * @throws WrongUsageException wrong format
+     * @param updateField the field to update.
+     * @param updateValue the value to update.
+     * @throws WrongUsageException wrong format.
      */
     @Override
     public void updateTask(String updateField, String updateValue) throws WrongUsageException {

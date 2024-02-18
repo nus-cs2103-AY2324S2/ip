@@ -14,8 +14,8 @@ public class Marking implements Command {
      * Constructor
      * change the status of task to finished.
      *
-     * @param operand which task to mark from 0
-     * @throws WrongIndexException invalid index
+     * @param operand which task to mark from 0.
+     * @throws WrongIndexException invalid index.
      */
     public Marking(int operand, TaskList taskList) throws WrongIndexException {
         if (operand >= taskList.getListLength() || operand < 0) {
