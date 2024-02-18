@@ -84,4 +84,11 @@ public class TaskList extends ArrayList<Task> {
         }
     }
 
+    public String toSaveData() {
+        StringBuilder taskContents = new StringBuilder();
+        for (Task task : this) {
+            taskContents.append(task.toSaveData());
+        }
+        return taskContents.toString();
+    }
 }

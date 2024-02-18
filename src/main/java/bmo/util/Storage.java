@@ -22,6 +22,11 @@ public class Storage {
         }
     }
 
+    // Getter method for dataFile
+    public File getDataFile() {
+        return dataFile;
+    }
+
     public String loadData() throws IOException{
         try {
             Scanner sc = new Scanner(dataFile);
@@ -40,16 +45,22 @@ public class Storage {
     }
 
     public void saveData(TaskList tasks) {
-        StringBuilder taskContents = new StringBuilder();
-        for (Task task : tasks) {
-            taskContents.append(task.toSaveData());
-        }
         try {
             FileWriter fileWriter = new FileWriter(FILE_PATH);
-            fileWriter.write(taskContents.toString());
+            fileWriter.write(tasks.toSaveData());
             fileWriter.close();
         } catch (IOException e) {
-            System.out.println(e);
+            System.out.println("Error: Unable to save data. " + e.getMessage());
+        }
+    }
+
+    public void saveData(TaskList tasks, String filePath) {
+        try {
+            FileWriter fileWriter = new FileWriter(filePath);
+            fileWriter.write(tasks.toSaveData());
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("Error: Unable to save data. " + e.getMessage());
         }
     }
 }
