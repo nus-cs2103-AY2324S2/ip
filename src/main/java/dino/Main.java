@@ -22,7 +22,6 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            stage.setFullScreen(true);
             stage.setTitle("Dino");
             fxmlLoader.<MainWindow>getController().setDino(dino);
             stage.show();
