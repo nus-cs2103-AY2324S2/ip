@@ -20,6 +20,8 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
         super(description);
+        assert description != null : "description cannot be null";
+        assert by != null : "by cannot be null";
         String time = by.substring(3);
         this.by = parseDateTime(time);
     }
@@ -31,12 +33,11 @@ public class Deadline extends Task {
      * @return The LocalDateTime object representing the due date and time.
      */
     private LocalDateTime parseDateTime(String by) {
-        // Try to parse in the desired format
+        assert by != null : "by cannot be null";
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
             return LocalDateTime.parse(by, formatter);
         } catch (DateTimeParseException e) {
-            // If parsing fails, try the alternative format
             DateTimeFormatter alternativeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
             return LocalDateTime.parse(by, alternativeFormatter);
         }
@@ -49,6 +50,8 @@ public class Deadline extends Task {
      * @return The formatted string representation of the LocalDateTime object.
      */
     private String formatDateTime(LocalDateTime dateTime) {
+        assert dateTime != null : "dateTime cannot be null";
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
         return dateTime.format(formatter);
     }

@@ -1,5 +1,5 @@
 [T][ ] play
 [T][ ] apple
 [E][ ] afafefe(from: efefto: fafaefw)
-[T][ ] ad
-[T][ ] ads
+[T][X] ad
+[T][X] ads

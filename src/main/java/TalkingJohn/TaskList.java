@@ -29,6 +29,7 @@ public class TaskList {
      * @return The integer value parsed from the input.
      */
     public int convertInt(String input) {
+        assert input != null : "user input cannot be null";
         return Integer.parseInt(input.split(" ", 2)[1]);
     }
 
@@ -38,90 +39,131 @@ public class TaskList {
      * @param input The user input.
      */
     public String action(String input) {
+        assert input != null : "user input cannot be null";
         if (Objects.equals(input, "list")) {
-            if (!taskArr.isEmpty()) {
-                StringBuilder sb = new StringBuilder();
-                sb.append("Here is the list of tasks!\n");
-                for (int i = 0; i < taskArr.size(); i++) {
-                    sb.append((i + 1) + ". " + taskArr.get(i) + "\n");
-                }
-                String result = sb.toString();
-                return result;
-            } else {
-                ui.emptyInput("list");
-            }
+            return handleListCommand();
         } else if (input.startsWith("delete") && input.length() > 6) {
-            try {
-                int i = convertInt(input);
-                Task deleted = taskArr.remove(i - 1);
-                return "Noted. I've removed this task:\n" + deleted + "\nNow you have " + taskArr.size() + " tasks in the list.";
-            } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                return "OOPS!!! Invalid delete expression.";
-            }
+            return handleDeleteCommand(input);
         } else if (input.startsWith("mark") && input.length() > 4) {
-            try {
-                int i = convertInt(input);
-                Task taskToMark = taskArr.get(i - 1);
-                taskToMark.mark();
-                return "Nice! I've marked this task as done:\n" + taskToMark;
-            } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                return "OOPS!!! Invalid mark expression.";
-            }
+            return handleMarkCommand(input);
         } else if (input.startsWith("unmark") && input.length() > 6) {
-            try {
-                int i = convertInt(input);
-                Task taskToUnmark = taskArr.get(i - 1);
-                taskToUnmark.unMark();
-               return "OK, I've marked this task as not done yet:\n" + taskToUnmark;
-            } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                return "OOPS!!! Invalid unmark expression.";
-            }
+            return handleUnmarkCommand(input);
         } else if (input.startsWith("todo") && input.length() > 4 && input.charAt(4) == ' ') {
-            String whatToDo = input.split(" ", 2)[1];
-            Todo toDo = new Todo(whatToDo);
-            taskArr.add(toDo);
-            return ui.printAddTask(toDo, taskArr.size());
+            return handleTodoCommand(input);
         } else if (input.startsWith("deadline") && input.length() > 8) {
-            try {
-                String[] parts = input.split(" ", 2);
-                String buffer = parts[1];
-                String[] secPart = buffer.split("/", 2);
-                Deadline deadline = new Deadline(secPart[0], secPart[1]);
-                taskArr.add(deadline);
-                return ui.printAddTask(deadline, taskArr.size());
-            } catch (ArrayIndexOutOfBoundsException e) {
-                return "OH NO! It seems like the format is wrong. Did you include at least 1 '/' in the description?";
-            }
+            return handleDeadlineCommand(input);
         } else if (input.startsWith("event") && input.length() > 5) {
-            try {
-                String[] parts = input.split(" ", 2);
-                String buffer = parts[1];
-                String[] secPart = buffer.split("/", 3);
-                Event event = new Event(secPart[0], secPart[1], secPart[2]);
-                taskArr.add(event);
-                return ui.printAddTask(event, taskArr.size());
-            } catch (ArrayIndexOutOfBoundsException e) {
-                return "OH NO! It seems like the format is wrong. Did you include at least 2 '/' in the description?";
-            }
+            return handleEventCommand(input);
         } else if (input.startsWith("find") && input.length() > 4) {
-            try {
-                String[] parts = input.split(" ", 2);
-                String toFind = parts[1];
-                int i = 1;
-                StringBuilder sb = new StringBuilder();
-
-                for (Task task : taskArr) {
-                    if (task.toString().contains(toFind)) {
-                        sb.append((i) + ". " + task + "\n");
-                        i++;
-                    }
-                }
-                return sb.toString();
-
-            } catch (ArrayIndexOutOfBoundsException e) {
-                return "OH NO! It seems like the format is wrong.";
-            }
+            return handleFindCommand(input);
+        } else {
+            return ui.invalidInput();
         }
-        return ui.invalidInput();
+    }
+
+    private String handleListCommand() {
+        if (!taskArr.isEmpty()) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("Here is the list of tasks!\n");
+            for (int i = 0; i < taskArr.size(); i++) {
+                sb.append((i + 1) + ". " + taskArr.get(i) + "\n");
+            }
+            return sb.toString();
+        } else {
+            return ui.emptyInput("list");
+        }
+    }
+
+    private String handleDeleteCommand(String input) {
+        assert input != null : "user input cannot be null";
+        try {
+            int i = convertInt(input);
+            Task deleted = taskArr.remove(i - 1);
+            int size = taskArr.size();
+            return ui.deleteSuccess(deleted, size);
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            return ui.invalidInput("delete");
+        }
+    }
+
+    private String handleMarkCommand(String input) {
+        assert input != null : "user input cannot be null";
+        try {
+            int i = convertInt(input);
+            Task taskToMark = taskArr.get(i - 1);
+            taskToMark.mark();
+            return ui.markTask(taskToMark);
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            return ui.invalidInput("mark");
+        }
+    }
+
+    private String handleUnmarkCommand(String input) {
+        assert input != null : "user input cannot be null";
+        try {
+            int i = convertInt(input);
+            Task taskToUnmark = taskArr.get(i - 1);
+            taskToUnmark.unMark();
+            return ui.unmarkTask(taskToUnmark);
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            return ui.invalidInput("unmark");
+        }
+    }
+
+    private String handleTodoCommand(String input) {
+        assert input != null : "user input cannot be null";
+        String whatToDo = input.split(" ", 2)[1];
+        Todo toDo = new Todo(whatToDo);
+        taskArr.add(toDo);
+        return ui.addTask(toDo, taskArr.size());
+    }
+
+    private String handleDeadlineCommand(String input) {
+        assert input != null : "user input cannot be null";
+        try {
+            String[] parts = input.split(" ", 2);
+            String buffer = parts[1];
+            String[] secPart = buffer.split("/", 2);
+            Deadline deadline = new Deadline(secPart[0], secPart[1]);
+            taskArr.add(deadline);
+            return ui.addTask(deadline, taskArr.size());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return ui.invalidFormat();
+        }
+    }
+
+    private String handleEventCommand(String input) {
+        assert input != null : "user input cannot be null";
+        try {
+            String[] parts = input.split(" ", 2);
+            String buffer = parts[1];
+            String[] secPart = buffer.split("/", 3);
+            Event event = new Event(secPart[0], secPart[1], secPart[2]);
+            taskArr.add(event);
+            return ui.addTask(event, taskArr.size());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return ui.invalidFormat();
+        }
+    }
+
+    private String handleFindCommand(String input) {
+        assert input != null : "user input cannot be null";
+        try {
+            String[] parts = input.split(" ", 2);
+            String toFind = parts[1];
+            int i = 1;
+            StringBuilder sb = new StringBuilder();
+
+            for (Task task : taskArr) {
+                if (task.toString().contains(toFind)) {
+                    sb.append((i) + ". " + task + "\n");
+                    i++;
+                }
+            }
+            return sb.toString();
+
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return ui.invalidFormat();
+        }
     }
 }
