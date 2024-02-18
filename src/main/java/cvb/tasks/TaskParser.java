@@ -8,6 +8,22 @@ import cvb.utils.DateTime;
  */
 public class TaskParser {
 
+    private static Task getTask(String[] parts) throws ConvoBotException {
+        boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+        switch (parts[0]) {
+        case "T":
+            return new ToDo(description, isDone);
+        case "D":
+            return new Deadline(description, isDone, DateTime.stringToDate(parts[3]));
+        case "E":
+            return new Event(description, isDone, DateTime.stringToDate(parts[3]),
+                                                  DateTime.stringToDate(parts[4]));
+        default:
+            throw new ConvoBotException("Invalid task identifier");
+        }
+    }
+
     /**
      * Parses a line of text and returns the corresponding {@code Task} object.
      *
@@ -26,27 +42,11 @@ public class TaskParser {
         if (parts.length < minPartsLength || parts.length > maxPartsLength) {
             throw invalidLineException;
         }
-        boolean isDone = parts[1].equals("1");
-        String description = parts[2];
-        Task task;
+
         try {
-            switch (parts[0]) {
-            case "T":
-                task = new ToDo(description, isDone);
-                break;
-            case "D":
-                task = new Deadline(description, isDone, DateTime.stringToDate(parts[3]));
-                break;
-            case "E":
-                task = new Event(description, isDone, DateTime.stringToDate(parts[3]),
-                                                      DateTime.stringToDate(parts[4]));
-                break;
-            default:
-                throw invalidLineException;
-            }
+            return getTask(parts);
         } catch (ConvoBotException e) {
             throw invalidLineException;
         }
-        return task;
     }
 }
