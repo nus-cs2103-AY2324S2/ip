@@ -5,8 +5,8 @@ import java.time.LocalDate;
 import cvb.utils.DateTime;
 
 /**
- * The {@code Deadline} class represents a task with a specific deadline.
- * It extends the {@code Task} class and includes functionality to handle deadlines.
+ * Represents a task with a specific deadline.
+ * Extends the {@code Task} class and includes functionality to handle deadlines.
  */
 public class Deadline extends Task {
 

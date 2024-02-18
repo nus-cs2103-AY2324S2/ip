@@ -11,7 +11,7 @@ import cvb.tasks.ToDo;
 import cvb.utils.DateTime;
 
 /**
- * The {@code CommandParser} class provides utility methods for parsing commands from user input.
+ * Provides utility methods for parsing commands from user input.
  */
 public class CommandParser {
 

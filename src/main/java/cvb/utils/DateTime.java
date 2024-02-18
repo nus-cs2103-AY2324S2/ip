@@ -7,8 +7,8 @@ import java.time.format.DateTimeParseException;
 import cvb.exceptions.ConvoBotException;
 
 /**
- * The {@code DateTime} class provides utility methods for handling date and time operations.
- * It includes methods for converting between {@code LocalDate} objects and formatted strings,
+ * Provides utility methods for handling date and time operations.
+ * Includes methods for converting between {@code LocalDate} objects and formatted strings,
  * as well as handling exceptions related to date parsing.
  */
 public class DateTime {

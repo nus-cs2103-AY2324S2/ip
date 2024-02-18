@@ -15,8 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 /**
- * A custom control using FXML.
- * This control represents a dialog box consisting of an ImageView to represent
+ * Represents a dialog box consisting of an ImageView to represent
  * the speaker's face and a label containing text from the speaker.
  */
 public class DialogBox extends HBox {

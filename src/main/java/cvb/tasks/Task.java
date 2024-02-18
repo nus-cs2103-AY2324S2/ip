@@ -1,8 +1,8 @@
 package cvb.tasks;
 
 /**
- * The {@code Task} class represents a generic task with a description and completion status.
- * It serves as the base class for more specialized task types.
+ * Represents a generic task with a description and completion status.
+ * Serves as the base class for more specialized task types.
  */
 public abstract class Task {
 

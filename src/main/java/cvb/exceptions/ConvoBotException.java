@@ -1,8 +1,8 @@
 package cvb.exceptions;
 
 /**
- * The {@code ConvoBotException} class represents an exception specific to the ConvoBot application.
- * It extends the standard {@code Exception} class and provides additional constructors for
+ * Represents an exception specific to the ConvoBot application.
+ * Extends the standard {@code Exception} class and provides additional constructors for
  * customized exception handling.
  */
 public class ConvoBotException extends Exception {

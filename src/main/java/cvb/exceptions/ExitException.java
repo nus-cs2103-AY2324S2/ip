@@ -1,7 +1,7 @@
 package cvb.exceptions;
 
 /**
- * A utility class that tells the application to exit.
+ * Represents an exception to tell the application to exit.
  */
 public class ExitException extends Exception {
 

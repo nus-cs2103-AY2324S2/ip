@@ -6,11 +6,8 @@ import cvb.exceptions.ConvoBotException;
 import cvb.tasks.Task;
 
 /**
- * The {@code TaskList} class represents a collection of tasks and
+ * Represents a collection of tasks and
  * provides methods for managing the task list.
- * It includes operations such as adding tasks, marking tasks as done
- * or not done, retrieving task details, deleting tasks, and obtaining
- * the size of the task list.
  */
 public class TaskList {
 

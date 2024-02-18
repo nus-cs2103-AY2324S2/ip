@@ -1,8 +1,8 @@
 package cvb.tasks;
 
 /**
- * The {@code ToDo} class represents a task without a specific deadline or time period.
- * It extends the {@code Task} class and provides functionality specific to to-do tasks.
+ * Represents a task without a specific deadline or time period.
+ * Extends the {@code Task} class and provides functionality specific to to-do tasks.
  */
 public class ToDo extends Task {
 

@@ -11,7 +11,7 @@ import cvb.utils.TaskList;
 import javafx.application.Application;
 
 /**
- * The main class representing the ConvoBot application.
+ * Represents the main class and entry point of ConvoBot.
  */
 public class ConvoBot {
 

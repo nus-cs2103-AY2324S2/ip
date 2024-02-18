@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import cvb.exceptions.ConvoBotException;
 
 /**
- * The {@code ResponseConstructor} class constructs ConvoBot's response.
- * It includes methods for formatting messages, tasks and errors.
+ * Constructs ConvoBot's response.
+ * Includes methods for formatting messages, tasks and errors.
  */
 public class ResponseConstructor {
 

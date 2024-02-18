@@ -12,8 +12,8 @@ import cvb.tasks.Task;
 import cvb.tasks.TaskParser;
 
 /**
- * The {@code Storage} class provides methods for reading and writing task data to a file.
- * It interacts with the file system to perform read and write operations on the task data file.
+ * Provides methods for reading and writing task data to a file.
+ * Interacts with the file system to perform read and write operations on the task data file.
  */
 public class Storage {
 

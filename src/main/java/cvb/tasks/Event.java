@@ -5,8 +5,8 @@ import java.time.LocalDate;
 import cvb.utils.DateTime;
 
 /**
- * The {@code Event} class represents a task that spans a specific time period.
- * It extends the {@code Task} class and includes functionality to handle events.
+ * Represents a task that spans a specific time period.
+ * Extends the {@code Task} class and includes functionality to handle events.
  */
 public class Event extends Task {
 

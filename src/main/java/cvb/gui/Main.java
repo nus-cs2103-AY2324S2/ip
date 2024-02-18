@@ -11,7 +11,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
- * The entry point for the ConvoBot GUI Application using FXML.
+ * Represents the main entry point for the GUI using FXML.
  */
 public class Main extends Application {
 
