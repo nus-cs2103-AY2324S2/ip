@@ -35,8 +35,6 @@ public class Ui {
      */
     public String showTasklistEmpty() {
         String message = "There are no tasks in the list.";
-        StringBuilder builder = new StringBuilder();
-        builder.append(message);
         return message;
     }
 
@@ -50,8 +48,6 @@ public class Ui {
         String message = String.format(
                 "Got it. I've added this task:\n      %s\nNow you have %d tasks in the list.",
                 newTask.toString(), taskList.numberOfTasks());
-        StringBuilder builder = new StringBuilder();
-        builder.append(message);
         return message;
     }
 
@@ -65,8 +61,6 @@ public class Ui {
         String message = String.format(
                 "Got it. I've removed this task:\n      %s\nNow you have %d tasks in the list.",
                 deletedTask.toString(), taskList.numberOfTasks());
-        StringBuilder builder = new StringBuilder();
-        builder.append(message);
         return message;
     }
 
@@ -74,14 +68,11 @@ public class Ui {
      * Shows the message when a task is marked as done.
      *
      * @param markedTask The task that is marked as done.
-     * @param taskList   The task list that the task is marked as done in.
      */
-    public String taskMarked(Task markedTask, TaskList taskList) {
+    public String taskMarked(Task markedTask) {
         String message = String.format(
                 "Nice! I've marked this task as done:\n      %s",
                 markedTask.toString());
-        StringBuilder builder = new StringBuilder();
-        builder.append(message);
         return message;
     }
 
@@ -89,26 +80,18 @@ public class Ui {
      * Shows the message when a task is marked as not done.
      *
      * @param unmarkedTask The task that is marked as not done.
-     * @param taskList     The task list that the task is marked as not done in.
      */
-    public String taskUnmarked(Task unmarkedTask, TaskList taskList) {
+    public String taskUnmarked(Task unmarkedTask) {
         String message = String.format(
                 "OK, I've marked this task as not done yet:\n      %s",
                 unmarkedTask.toString());
-        StringBuilder builder = new StringBuilder();
-        builder.append(message);
         return message;
     }
 
-    /**
-     * Shows all tasks found.
-     *
-     * @param taskList The task list containing all tasks found.
-     */
-    public String showFoundTasks(TaskList taskList) {
-        String message = String.format("Here are the matching tasks in your list:\n");
+
+    private String appendTasks(TaskList taskList, String headerMsg) {
         StringBuilder builder = new StringBuilder();
-        builder.append(message);
+        builder.append(headerMsg);
 
         ListIterator<Task> tasks = taskList.getTasks();
 
@@ -127,29 +110,23 @@ public class Ui {
     }
 
     /**
+     * Shows all tasks found.
+     *
+     * @param taskList The task list containing all tasks found.
+     */
+    public String showFoundTasks(TaskList taskList) {
+        String header = "Here are the matching tasks in your list:\n";
+        return appendTasks(taskList, header);
+    }
+
+    /**
      * Shows all tasks in the task list.
      *
      * @param taskList The task list to read from.
      */
     public String showList(TaskList taskList) {
-        String message = "Here are the tasks in your list:\n";
-        StringBuilder builder = new StringBuilder();
-        builder.append(message);
-
-        ListIterator<Task> tasks = taskList.getTasks();
-
-        while (tasks.hasNext()) {
-            String task = String.format("    %d. %s",
-                    tasks.nextIndex() + 1, tasks.next().toString());
-
-            if (tasks.hasNext()) {
-                task += this.newLine();
-            }
-
-            builder.append(task);
-        }
-
-        return builder.toString();
+        String header = "Here are the tasks in your list:\n";
+        return appendTasks(taskList, header);
     }
 
     /**
@@ -158,8 +135,7 @@ public class Ui {
      * @param e The exception to be shown.
      */
     public String showError(Exception e) {
-        String message = e.getMessage();
-        return message;
+        return e.getMessage();
     }
 
     /**

@@ -35,11 +35,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        welcomeUser();
     }
 
     public void setBond(Bond d) {
         bond = d;
+        welcomeUser();
     }
 
 
@@ -50,7 +50,7 @@ public class MainWindow extends AnchorPane {
     }
 
     protected void welcomeUser() {
-        this.tellUser(bond.ui.showWelcome());
+        tellUser(bond.ui.showWelcome());
     }
 
     /**
@@ -61,6 +61,9 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = bond.getResponse(input);
+
+        assert response != null : "Response should not be null.";
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getBondDialog(response, bondImage)
@@ -69,6 +72,7 @@ public class MainWindow extends AnchorPane {
 
         if (response == "Bye. Hope to see you again soon!") {
             Main.exitApplication();
+            assert false : "Application should have exited.";
         }
     }
 

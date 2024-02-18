@@ -42,7 +42,7 @@ public class MarkCommand extends Command {
         }
         Task markedTask = tasks.getTask(index);
         markedTask.markAsComplete();
-        String response = ui.taskMarked(markedTask, tasks);
+        String response = ui.taskMarked(markedTask);
         storage.overwritePreviousSave(tasks);
         return response;
     }

@@ -42,7 +42,7 @@ public class UnmarkCommand extends Command {
         }
         Task markedTask = tasks.getTask(index);
         markedTask.markAsIncomplete();
-        String response = ui.taskUnmarked(markedTask, tasks);
+        String response = ui.taskUnmarked(markedTask);
         storage.overwritePreviousSave(tasks);
         return response;
     }

@@ -30,31 +30,25 @@ public class DeadlineTask extends Task {
 
         String[] dateTime = deadline.split(" ");
 
+        // A timing is also required for the deadline task.
+        if (dateTime.length != 2) {
+            BondException.raiseException("deadline", "INVALID_DATETIME_FORMAT");
+        }
+
         try {
             this.dueDate = LocalDate.parse(dateTime[0]);
         } catch (java.time.format.DateTimeParseException e) {
             BondException.raiseException("deadline", "INVALID_DATE_FORMAT");
         }
 
-        if (dateTime.length != 2) {
-            BondException.raiseException("deadline", "INVALID_DATE_FORMAT");
+        if (!Parser.isValidTiming(dateTime[1])) {
+            BondException.raiseException("deadline", "INVALID_TIME_FORMAT");
         }
 
-        if (Parser.isNumber(dateTime[1])) {
-            int hours = Integer.valueOf(dateTime[1].substring(0, 2));
-            int minutes = Integer.valueOf(dateTime[1].substring(2));
-
-            if (hours == 0) {
-                this.timing = "12" + (minutes > 0 ? "." + minutes : "") + "am";
-            } else if (hours < 12) {
-                this.timing = String.valueOf(hours) + (minutes > 0 ? "." + minutes : "") + "am";
-            } else {
-                this.timing = String.valueOf(hours - 12) + (minutes > 0 ? "." + minutes : "") + "pm";
-            }
-        } else {
-            this.timing = dateTime[1];
-        }
+        this.timing = Parser.changeTimeFormat(dateTime[1]);
     }
+
+
 
     @Override
     public String toString() {

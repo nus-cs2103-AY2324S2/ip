@@ -35,6 +35,8 @@ public class Main extends Application {
                 try {
                     bond = new Bond();
                 } catch (BondException e) {
+                    assert bond != null : "Bond object should be instantiated with an empty TaskList.";
+
                     fxmlLoader.<MainWindow>getController().tellUser(e.getMessage());
                 }
             }
@@ -61,6 +63,8 @@ public class Main extends Application {
 
         // Schedule the task with the desired delay
         scheduler.schedule(delayedTask, delayInSeconds, TimeUnit.SECONDS);
+
+        assert false : "Application should have exited.";
     }
 }
 
