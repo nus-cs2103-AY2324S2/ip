@@ -1,0 +1,11 @@
+todo
+todo read book
+i want to add task
+deadline
+deadline /
+deadline cs2103 ip/thursday
+event
+event /
+event a/b/c
+deadline return book / tuesday
+bye
