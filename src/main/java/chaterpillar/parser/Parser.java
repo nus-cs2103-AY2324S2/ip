@@ -242,15 +242,14 @@ public class Parser {
     }
 
     private static String parseUpdateArgs(String[] tempInputArgs) throws ChaterpillarException {
-        // ToDO: update this to work with DD/MM/YYYY format (I'm still not exactly sure how yet)
-        String output = tempInputArgs[1].split("/")[0].trim();
+        String output = tempInputArgs[1].split(" /")[0].trim();
 
         if (output.isBlank()) {
             throw new ChaterpillarException("""
                     Invalid update command! You can use the following tags:
                     /name - to update the name of the task
                     /date - to update the date of the task
-                    /start - tp update the start date of the task
+                    /start - to update the start date of the task
                     /end - to update the end date of the task
                     
                     e.g. update 3 /name new name of task /date new date""");
