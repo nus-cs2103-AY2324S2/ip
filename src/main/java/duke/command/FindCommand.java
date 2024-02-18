@@ -25,8 +25,7 @@ public class FindCommand extends Command{
         }
         if (list.size() == 0) {
             return "\t\tThere are no matching tasks in your list";
-        }
-        else {
+        } else {
             StringBuilder s = new StringBuilder("\t\tThese are the matching tasks in your list");
             for (int i = 1; i < list.size() + 1; i++) {
                 Task t = list.get(i - 1);

@@ -32,7 +32,7 @@ public class Ui {
     }
 
     public String showAdded(Task task) {
-        String s = "\t\tAdded a new task to the list!/n + \t\t  " + task.toString();
+        String s = "\t\tAdded a new task to the list!\n\t\t  " + task.toString();
         return s;
     }
 
