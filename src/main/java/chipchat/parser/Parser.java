@@ -105,24 +105,7 @@ public class Parser {
             throw new InvalidArgumentException("Error: Sorry. I don't know what that means");
         }
     }
-
-    private static ArrayList<String> parseArguments(String[] tokens) {
-        ArrayList<String> args = new ArrayList<>();
-        StringBuilder currArg = new StringBuilder();
-        for (String token : tokens) {
-            if (!token.startsWith("/")) {
-                currArg.append(token)
-                        .append(" ");
-            } else if (currArg.length() > 0) {
-                args.add(currArg.toString().trim());
-                currArg.setLength(0);
-            }
-        }
-        // Add remaining currArg to args list
-        args.add(currArg.toString().trim());
-        return args;
-    }
-
+    
     private static void readArguments(String[] tokens) {
         StringBuilder currArg = new StringBuilder();
         ArgumentType argType = ArgumentType.DESCRIPTION;
