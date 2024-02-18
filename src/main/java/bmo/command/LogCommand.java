@@ -1,8 +1,8 @@
 package bmo.command;
 
+import bmo.ui.Ui;
 import bmo.util.Storage;
 import bmo.util.TaskList;
-import bmo.ui.Ui;
 
 /**
  * Represents a log command to be executed.

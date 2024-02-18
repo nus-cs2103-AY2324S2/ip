@@ -1,10 +1,10 @@
 package bmo.command;
 
+import bmo.task.Events;
+import bmo.task.Task;
+import bmo.ui.Ui;
 import bmo.util.Storage;
 import bmo.util.TaskList;
-import bmo.ui.Ui;
-import bmo.task.Task;
-import bmo.task.Events;
 
 import java.time.LocalDateTime;
 

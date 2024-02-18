@@ -1,7 +1,7 @@
 package bmo.ui;
 
-import bmo.util.TaskList;
 import bmo.task.Task;
+import bmo.util.TaskList;
 
 /**
  * Ui class handles the user interface of the chatbot.

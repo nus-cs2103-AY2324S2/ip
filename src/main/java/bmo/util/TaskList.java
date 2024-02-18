@@ -1,11 +1,11 @@
 package bmo.util;
 
-import java.util.ArrayList;
-
-import bmo.ui.Ui;
-import bmo.task.Task;
 import bmo.command.Command;
 import bmo.command.DoneCommand;
+import bmo.task.Task;
+import bmo.ui.Ui;
+
+import java.util.ArrayList;
 
 /**
  * TaskList class to store and manage the list of tasks.
@@ -15,6 +15,7 @@ public class TaskList extends ArrayList<Task> {
 
     /**
      * Constructor for TaskList.
+     *
      * @param ui Ui object to handle user interface.
      */
     public TaskList(Ui ui) {
@@ -24,8 +25,9 @@ public class TaskList extends ArrayList<Task> {
 
     /**
      * Constructor for TaskList.
+     *
      * @param content String containing the saved data.
-     * @param ui Ui object to handle user interface.
+     * @param ui      Ui object to handle user interface.
      * @param storage Storage object to handle file storage.
      */
     public TaskList(String content, Ui ui, Storage storage) {

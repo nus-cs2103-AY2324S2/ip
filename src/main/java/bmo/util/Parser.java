@@ -1,25 +1,13 @@
 package bmo.util;
 
+import bmo.command.*;
+import bmo.ui.Ui;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import bmo.ui.Ui;
-import bmo.command.Command;
-import bmo.command.DefaultCommand;
-import bmo.command.DueCommand;
-import bmo.command.EventCommand;
-import bmo.command.ExitCommand;
-import bmo.command.GreetCommand;
-import bmo.command.LogCommand;
-import bmo.command.RedoCommand;
-import bmo.command.DeleteCommand;
-import bmo.command.ToDoCommand;
-import bmo.command.GuideCommand;
-import bmo.command.DoneCommand;
-import bmo.command.FindCommand;
 
 /**
  * Parser class to handle parsing of user input.
@@ -28,6 +16,7 @@ public class Parser {
 
     /**
      * Formats the input string into a LocalDateTime object.
+     *
      * @param input String containing the date and time.
      * @return LocalDateTime object containing the date and time.
      */
@@ -42,8 +31,10 @@ public class Parser {
     }
 
     //to amend: break down into smaller methods
+
     /**
      * Parses the user input and returns the corresponding Command object.
+     *
      * @param input String containing the user input.
      * @return Command object corresponding to the user input.
      * @throws IOException if unable to parse the input.

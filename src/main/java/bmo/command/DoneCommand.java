@@ -1,9 +1,9 @@
 package bmo.command;
 
+import bmo.task.Task;
+import bmo.ui.Ui;
 import bmo.util.Storage;
 import bmo.util.TaskList;
-import bmo.ui.Ui;
-import bmo.task.Task;
 
 /**
  * Represents a done command to be executed.

@@ -1,14 +1,13 @@
 package bmo;
 
-import java.io.IOException;
-import java.lang.String;
-import java.util.Scanner;
-
+import bmo.command.Command;
+import bmo.ui.Ui;
+import bmo.util.Parser;
 import bmo.util.Storage;
 import bmo.util.TaskList;
-import bmo.util.Parser;
-import bmo.ui.Ui;
-import bmo.command.Command;
+
+import java.io.IOException;
+import java.util.Scanner;
 
 /* BMO is a personal assistant chatbot that helps to keep track of various tasks.
  * It is able to add, delete, mark as done, list and find tasks.
@@ -68,6 +67,7 @@ public class BMO {
 
     /**
      * Main method to run BMO.
+     *
      * @param args
      */
     public static void main(String[] args) {
