@@ -40,6 +40,7 @@ public class Snom extends Application {
         this.data = new TaskStorage();
         this.lst = TaskList.makeTaskList();
         this.parser = new Parser();
+
     }
 
 

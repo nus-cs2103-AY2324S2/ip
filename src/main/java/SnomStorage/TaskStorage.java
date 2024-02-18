@@ -1,48 +1,64 @@
 package SnomStorage;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
-import snomexceptions.InvalidCommandIndexException;
+import snomtask.Task;
 import snomtasklist.TaskList;
 
 public class TaskStorage {
 
-    /**
-     * Saves the tasks to a .txt file
-     */
-    public void saveTask(TaskList lst) {
+
+    public void readTasks(TaskList lst) {
         File f = new File("data/tasks.txt");
         try {
             f.createNewFile();
         } catch (IOException e) {
             f.getParentFile().mkdirs();
-            saveTask(lst);
-
+            readTasks(lst);
+            return;
         }
-        //System.out.println(f.getAbsolutePath());
+        loadTasks(lst, f);
+    }
+
+    public void loadTasks(TaskList lst, File tasks) {
+        try {
+            Scanner input = new Scanner(tasks);
+            while (input.hasNext()) {
+                Task t = Task.convertFromStringToTask(input.nextLine());
+                lst.addTask(t);
+            }
+        } catch (FileNotFoundException e) {
+            assert false : "File should have been created";
+        }
+
+    }
+
+    /**
+     * Saves the tasks to a .txt file
+     */
+    public void saveTasks(TaskList lst) {
+        File f = new File("data/tasks.txt");
+        assert f.exists() : "This file should have been created";
         updateFile("data/tasks.txt", lst);
     }
 
-    private static void writeToFile(String filePath, String textToAdd) throws IOException {
-
+    private static void writeToFile(String filePath, TaskList lst) throws IOException {
         FileWriter fw = new FileWriter(filePath);
-        fw.write(textToAdd);
+        fw.write(lst.getTasks());
         fw.close();
     }
 
     private void updateFile(String filename, TaskList lst) {
         try {
-            for (int i = 1; i <= lst.getTaskNum(); i++) {
-                writeToFile(filename, lst.getTaskAtIndex(i) + System.lineSeparator());
-                //System.out.println(lst.getTask(i));
-            }
+            writeToFile(filename, lst);
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
-        } catch (InvalidCommandIndexException e) {
-            System.out.println("this should not happen4");
-            System.out.println(e.getMessage());
         }
     }
+
+
 }
