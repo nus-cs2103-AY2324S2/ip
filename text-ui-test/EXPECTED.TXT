@@ -1,7 +1,126 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+--------------------------------------------------
+Hello! I'm Chaterpillar
+What can I do for you?
+--------------------------------------------------
+--------------------------------------------------
+Got it. I've added this task:
+[T][ ] read book
+Now you have 13 tasks in the list.
+--------------------------------------------------
+--------------------------------------------------
+Got it. I've added this task:
+[D][ ] return book (by: 6/Feb/2024)
+Now you have 14 tasks in the list.
+--------------------------------------------------
+--------------------------------------------------
+Got it. I've added this task:
+[D][ ] project meeting (from: 8/Feb/2024 02:00 PM to: 8/Feb/2024 04:00 PM)
+Now you have 15 tasks in the list.
+--------------------------------------------------
+--------------------------------------------------
+Got it. I've added this task:
+[T][ ] join sports club
+Now you have 16 tasks in the list.
+--------------------------------------------------
+--------------------------------------------------
+Got it. I've added this task:
+[T][ ] borrow book
+Now you have 17 tasks in the list.
+--------------------------------------------------
+--------------------------------------------------
+Nice! I've marked this task as done:
+[T][X] read book
+--------------------------------------------------
+--------------------------------------------------
+Nice! I've marked this task as done:
+[D][X] return book (by: 6/Feb/2024)
+--------------------------------------------------
+--------------------------------------------------
+Nice! I've marked this task as done:
+[T][X] join sports club
+--------------------------------------------------
+--------------------------------------------------
+Here are the tasks in your list:
+1. [T][X] read book
+2. [D][X] return book (by: 6/Feb/2024)
+3. [D][ ] project meeting (from: 8/Feb/2024 02:00 PM to: 8/Feb/2024 04:00 PM)
+4. [T][X] join sports club
+5. [D][ ] lunch plans (from: 6/Feb/2024 02:00 PM to: 6/Feb/2024 04:00 PM)
+6. [T][ ] read book
+7. [D][ ] return book (by: 6/Feb/2024)
+8. [D][ ] project meeting (from: 8/Feb/2024 02:00 PM to: 8/Feb/2024 04:00 PM)
+9. [T][ ] join sports club
+10. [T][ ] borrow book
+11. [D][ ] finish this (by: 6/Feb/2024)
+12. [D][ ] lunch plans (from: 6/Feb/2024 02:00 PM to: 6/Feb/2024 04:00 PM)
+13. [T][ ] read book
+14. [D][ ] return book (by: 6/Feb/2024)
+15. [D][ ] project meeting (from: 8/Feb/2024 02:00 PM to: 8/Feb/2024 04:00 PM)
+16. [T][ ] join sports club
+17. [T][ ] borrow book
+--------------------------------------------------
+--------------------------------------------------
+Got it. I've removed this task:
+[D][ ] lunch plans (from: 6/Feb/2024 02:00 PM to: 6/Feb/2024 04:00 PM)
+Now you have 16 tasks in the list.
+--------------------------------------------------
+--------------------------------------------------
+Here are the tasks in your list:
+1. [T][X] read book
+2. [D][X] return book (by: 6/Feb/2024)
+3. [D][ ] project meeting (from: 8/Feb/2024 02:00 PM to: 8/Feb/2024 04:00 PM)
+4. [T][X] join sports club
+5. [T][ ] read book
+6. [D][ ] return book (by: 6/Feb/2024)
+7. [D][ ] project meeting (from: 8/Feb/2024 02:00 PM to: 8/Feb/2024 04:00 PM)
+8. [T][ ] join sports club
+9. [T][ ] borrow book
+10. [D][ ] finish this (by: 6/Feb/2024)
+11. [D][ ] lunch plans (from: 6/Feb/2024 02:00 PM to: 6/Feb/2024 04:00 PM)
+12. [T][ ] read book
+13. [D][ ] return book (by: 6/Feb/2024)
+14. [D][ ] project meeting (from: 8/Feb/2024 02:00 PM to: 8/Feb/2024 04:00 PM)
+15. [T][ ] join sports club
+16. [T][ ] borrow book
+--------------------------------------------------
+--------------------------------------------------
+Got it. I've added this task:
+[D][ ] finish this (by: 6/Feb/2024)
+Now you have 17 tasks in the list.
+--------------------------------------------------
+--------------------------------------------------
+Got it. I've added this task:
+[D][ ] lunch plans (from: 6/Feb/2024 02:00 PM to: 6/Feb/2024 04:00 PM)
+Now you have 18 tasks in the list.
+--------------------------------------------------
+--------------------------------------------------
+Here are the tasks in your list:
+1. [T][X] read book
+2. [D][X] return book (by: 6/Feb/2024)
+3. [D][ ] project meeting (from: 8/Feb/2024 02:00 PM to: 8/Feb/2024 04:00 PM)
+4. [T][X] join sports club
+5. [T][ ] read book
+6. [D][ ] return book (by: 6/Feb/2024)
+7. [D][ ] project meeting (from: 8/Feb/2024 02:00 PM to: 8/Feb/2024 04:00 PM)
+8. [T][ ] join sports club
+9. [T][ ] borrow book
+10. [D][ ] finish this (by: 6/Feb/2024)
+11. [D][ ] lunch plans (from: 6/Feb/2024 02:00 PM to: 6/Feb/2024 04:00 PM)
+12. [T][ ] read book
+13. [D][ ] return book (by: 6/Feb/2024)
+14. [D][ ] project meeting (from: 8/Feb/2024 02:00 PM to: 8/Feb/2024 04:00 PM)
+15. [T][ ] join sports club
+16. [T][ ] borrow book
+17. [D][ ] finish this (by: 6/Feb/2024)
+18. [D][ ] lunch plans (from: 6/Feb/2024 02:00 PM to: 6/Feb/2024 04:00 PM)
+--------------------------------------------------
+--------------------------------------------------
+Here are the tasks for today:
+1. [D][ ] lunch plans (from: 6/Feb/2024 02:00 PM to: 6/Feb/2024 04:00 PM)
+2. [D][ ] return book (by: 6/Feb/2024)
+3. [D][ ] finish this (by: 6/Feb/2024)
+4. [D][ ] lunch plans (from: 6/Feb/2024 02:00 PM to: 6/Feb/2024 04:00 PM)
+--------------------------------------------------
+--------------------------------------------------
+Bye. Hope to see you again soon!
+--------------------------------------------------
