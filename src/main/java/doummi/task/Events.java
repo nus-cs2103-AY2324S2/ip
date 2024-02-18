@@ -1,4 +1,4 @@
-package duke.task;
+package doummi.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -18,8 +18,8 @@ public class Events extends Task {
      * @param from
      * @param to
      */
-    public Events(String description, String from, String to) {
-        super(description);
+    public Events(String description, String from, String to, String priority) {
+        super(description, priority);
         this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
         this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
     }
@@ -32,7 +32,7 @@ public class Events extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() +
-                " (from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
-                + " to: "+ to.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+                " (from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm"))
+                + " to: "+ to.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm")) + ")";
     }
 }

@@ -1,6 +1,6 @@
-package duke;
+package doummi;
 
-import duke.command.*;
+import doummi.command.*;
 
 /**
  * The class Parser deals with understanding and recording the user command.

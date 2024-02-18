@@ -1,7 +1,7 @@
-package duke;
+package doummi;
 
-import duke.command.Command;
-import duke.task.TaskList;
+import doummi.command.Command;
+import doummi.task.TaskList;
 
 import java.io.IOException;
 
@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * Class Duke that is the main class that helps to run the program
  */
-public class Duke {
+public class Doummi {
 
     private Storage storage;
     private TaskList tasks;
@@ -19,7 +19,7 @@ public class Duke {
 
 
 
-    public Duke() {
+    public Doummi() {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -66,7 +66,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke().run();
+        new Doummi().run();
     }
 
 }

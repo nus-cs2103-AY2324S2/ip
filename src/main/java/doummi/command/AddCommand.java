@@ -1,7 +1,7 @@
-package duke.command;
+package doummi.command;
 
-import duke.*;
-import duke.task.*;
+import doummi.*;
+import doummi.task.*;
 
 import java.util.ArrayList;
 
@@ -51,7 +51,14 @@ public class AddCommand extends Command {
         if (description.isEmpty()) {
             throw new ToDosException("What todos do you need to record?");
         }
-        Task new_task = new ToDos(description);
+        String descriptionPriority = description;
+        String [] divided = descriptionPriority.split("/priority", 2);
+        if (divided.length < 2) {
+            throw new ToDosException("Please insert the priority of the task - /priority High/Mid/low");
+        }
+        description = divided[0];
+        String priority = divided[1].trim();
+        Task new_task = new ToDos(description, priority);
         task.add(new_task);
         String length = "" + task.size();
         String Response = ACKNOWLEDGEMENT + "\t" + new_task.toString() + "\n" +
@@ -68,12 +75,18 @@ public class AddCommand extends Command {
             throw new DeadlineException("When do you have to get it done");
         }
         String D = divided[0];
-        String by = divided[1].trim();
+        String byPriority = divided[1].trim();
+        divided = byPriority.split("/priority", 2);
+        if (divided.length < 2) {
+            throw new DeadlineException("Please insert the priority of the task - /priority High/Mid/low");
+        }
+        String by = divided[0].trim();
+        String priority = divided[1].trim();
         boolean validateDate = by.matches("[0-9]{4}/[0-9]{2}/[0-9]{2}");
         if (!validateDate) {
             throw new DateException("Invalid format of the date");
         }
-        Task new_task =  new Deadline(D, by);
+        Task new_task =  new Deadline(D, by, priority);
         task.add(new_task);
         String length = "" + task.size();
         String Response = ACKNOWLEDGEMENT + "\t" + new_task.toString() + "\n" +
@@ -96,12 +109,20 @@ public class AddCommand extends Command {
             throw new EventException("There is no event timeline!");
         }
         String from = divided[0].trim();
-        String to = divided[1].trim();
-        boolean validateFromDate = from.matches("[0-9]{4}/[0-9]{2}/[0-9]{2} [0-9]{4}");
+        String toPriority = divided[1].trim();
+        divided = toPriority.split("/priority", 2);
+        if (divided.length < 2) {
+            throw new EventException("Please insert the priority of the task - /priority High/Mid/low");
+        }
+        String to = divided[0].trim();
+        String priority = divided[1].trim();
+        System.out.println(from);
+        System.out.println(to);
+        boolean validateFromDate = from.matches("[0-9]{4}/[0-9]{2}/[0-9]{2}\\[0-9]{4}");
         assert !validateFromDate : "format of the event start date is WRONG!";
-        boolean validateToDate = to.matches("[0-9]{4}/[0-9]{2}/[0-9]{2} [0-9]{4}");
+        boolean validateToDate = to.matches("[0-9]{4}/[0-9]{2}/[0-9]{2}\\[0-9]{4}");
         assert !validateToDate : "format of the event end date is WRONG!";
-        Task new_task = new Events(D, from, to);
+        Task new_task = new Events(D, from, to, priority);
         task.add(new_task);
         String length = "" + task.size();
         String Response = ACKNOWLEDGEMENT + "\t" + new_task.toString() + "\n" +

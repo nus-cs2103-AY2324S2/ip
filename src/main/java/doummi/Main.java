@@ -1,4 +1,4 @@
-package duke;
+package doummi;
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -12,7 +12,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke();
+    private Doummi duke = new Doummi();
 
     @Override
     public void start(Stage stage) {
@@ -22,7 +22,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("DOUMMI The Helper");
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setDoummi(duke);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

@@ -43,13 +43,13 @@ test {
 }
 
 application {
-    mainClass.set("duke.Launcher")
+    mainClass.set("doummi.Launcher")
 }
 
 
 shadowJar {
-    archiveBaseName = "duke"
-    archiveFileName = 'duke.jar'
+    archiveBaseName = "doummi"
+    archiveFileName = 'doummi.jar'
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

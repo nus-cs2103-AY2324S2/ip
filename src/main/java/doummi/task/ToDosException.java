@@ -1,4 +1,4 @@
-package duke.task;
+package doummi.task;
 
 /**
  * Custom ToDosException class which return error message when there is error in the Todos format

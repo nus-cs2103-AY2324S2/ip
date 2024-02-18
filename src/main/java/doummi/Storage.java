@@ -1,6 +1,6 @@
-package duke;
+package doummi;
 
-import duke.task.*;
+import doummi.task.*;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -64,8 +64,11 @@ public class Storage {
         } else {
             isDone = false;
         }
-        String D = divided[1];
-        Task new_task = new ToDos(D);
+        data = divided[1];
+        divided = data.split("/priority", 2);
+        String description = divided[0].trim();
+        String priority = divided[1].trim();
+        Task new_task = new ToDos(description, priority);
         if (isDone) {
             new_task.markAsDone();
         }
@@ -86,12 +89,15 @@ public class Storage {
         }
         data = divided[1];
         divided = data.split("\\|", 2);
-        String D = divided[0];
+        String D = divided[0].trim();
         data = divided[1];
         divided = data.split("\\|", 2);
         String from = divided[0].trim();
-        String to = divided[1].trim();
-        Task new_task = new Events(D, from, to);
+        String toPriority = divided[1].trim();
+        divided = toPriority.split("/priority", 2);
+        String to = divided[0].trim();
+        String priority = divided[1].trim();
+        Task new_task = new Events(D, from, to, priority);
         if (isDone) {
             new_task.markAsDone();
         }
@@ -114,8 +120,11 @@ public class Storage {
         System.out.println(data);
         divided = data.split("\\|", 2);
         String D = divided[0];
-        String by = divided[1].trim();
-        Task new_task = new Deadline(D, by);
+        String byPriority = divided[1].trim();
+        divided = byPriority.split("/priority", 2);
+        String by = divided[0].trim();
+        String priority = divided[1].trim();
+        Task new_task = new Deadline(D, by, priority);
         if (isDone) {
             new_task.markAsDone();
         }
@@ -159,7 +168,8 @@ public class Storage {
             isDone = "1";
         }
         to_add += "T" +" | " + isDone
-                + " | " + temp.describeTask() + "\n";
+                + " | " + temp.describeTask()
+                + "/priority " + temp.getPriority() + "\n";
         return to_add;
     }
 
@@ -173,6 +183,7 @@ public class Storage {
                 + " | " + temp.describeTask() + "|"
                 + t.from.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"))
                 + "|" + t.to.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"))
+                + "/priority " + t.getPriority()
                 + "\n";
         return to_add;
     }
@@ -186,6 +197,7 @@ public class Storage {
         to_add += "D" + " | " + isDone
                 + " | " + temp.describeTask() + "|"
                 + t.by.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"))
+                + "/priority " + t.getPriority()
                 + "\n";
         return to_add;
     }

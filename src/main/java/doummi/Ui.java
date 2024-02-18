@@ -1,6 +1,6 @@
-package duke;
+package doummi;
 
-import duke.task.Task;
+import doummi.task.Task;
 
 import java.io.InputStream;
 import java.io.PrintStream;

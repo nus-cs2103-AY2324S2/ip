@@ -1,10 +1,10 @@
-package duke;//same package as the class being tested
+package doummi;//same package as the class being tested
 
-import duke.command.Command;
-import duke.command.ListCommand;
+import doummi.command.Command;
+import doummi.command.ListCommand;
 import org.junit.jupiter.api.Test;
 
-import static duke.Parser.parse;
+import static doummi.Parser.parse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ParserTest {

@@ -1,4 +1,4 @@
-package duke.task;
+package doummi.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -15,8 +15,8 @@ public class Deadline extends Task {
      * @param description that describe what the task is about.
      * @param by that is deadline date in form of yyyy/MM/dd
      */
-    public Deadline(String description, String by) {
-        super(description);
+    public Deadline(String description, String by, String priority) {
+        super(description, priority);
         this.by = LocalDate.parse(by,DateTimeFormatter.ofPattern("yyyy/MM/dd"));
     }
 

@@ -1,6 +1,5 @@
-package duke.task;
+package doummi.task;
 
-import duke.task.Task;
 /**
  * This class is implementation of Task which contains description.
  */
@@ -10,8 +9,8 @@ public class ToDos extends Task {
      * Creates an instance of ToDos which contains description detail of the task.
      * @param description
      */
-    public ToDos(String description) {
-        super(description);
+    public ToDos(String description, String priority) {
+        super(description, priority);
     }
 
     /**

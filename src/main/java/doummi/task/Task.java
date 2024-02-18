@@ -1,4 +1,4 @@
-package duke.task;
+package doummi.task;
 
 /**
  * This class is Task that consist of different types such as ToDos, Deadline and Events
@@ -7,13 +7,16 @@ public class Task {
     protected String description;
     public boolean isDone;
 
+    public String priority;
+
     /**
      * Create instance of the Task which contains description and isDone
      * @param description
      */
-    public Task(String description) {
+    public Task(String description, String priority) {
         this.description = description;
         this.isDone = false;
+        this.priority = priority;
     }
 
     /**
@@ -49,6 +52,10 @@ public class Task {
      * @return
      */
 
+    public String getPriority() {
+        return priority;
+    }
+
     public boolean findingKeyword(String keyword) {
         if (description.contains(keyword)) {
             return true;
@@ -59,7 +66,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "[" + getStatusIcon() +"] " + this.description;
+        return "[" + getStatusIcon() +"] " + describeTask() + " Priority: " + getPriority();
     }
 
 }

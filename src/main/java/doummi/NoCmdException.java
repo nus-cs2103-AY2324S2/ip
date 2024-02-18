@@ -1,4 +1,4 @@
-package duke;
+package doummi;
 
 /**
  * Custom NoCmdException class which return error message when there is error in the command format

@@ -1,6 +1,4 @@
-package duke.task;
-
-import duke.task.Task;
+package doummi.task;
 
 import java.util.ArrayList;
 

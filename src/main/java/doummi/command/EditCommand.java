@@ -1,9 +1,9 @@
-package duke.command;
+package doummi.command;
 
-import duke.Storage;
-import duke.task.Task;
-import duke.task.TaskList;
-import duke.Ui;
+import doummi.Storage;
+import doummi.task.Task;
+import doummi.task.TaskList;
+import doummi.Ui;
 
 public class EditCommand extends Command {
     private String editType;

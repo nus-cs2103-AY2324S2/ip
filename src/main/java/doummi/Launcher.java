@@ -1,4 +1,4 @@
-package duke;
+package doummi;
 
 import javafx.application.Application;
 
