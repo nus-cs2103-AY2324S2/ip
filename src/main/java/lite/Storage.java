@@ -13,6 +13,7 @@ import lite.task.TaskList;
 import lite.util.FileParseInput;
 import lite.util.LiteException;
 public class Storage {
+    // Usage inspired from 0-yibai
     private static final String PATH = "./lite.txt";
 
     /**

@@ -28,6 +28,9 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * Terminates the program when user inputs "bye"
+     */
     public static void exit() {
         Platform.exit();
         System.exit(0);

@@ -46,16 +46,26 @@ public class Printer {
         return output;
     }
 
+    /**
+     * Prints out all the tasks that contains the input
+     * @param tasks List of tasks
+     */
     public static String printFound(TaskList tasks) {
         String output = "Here are the matching tasks in your list:\n";
         output += tasks.taskString();
         return output;
     }
 
+    /**
+     * Prints out a message if no tasks contains the input
+     */
     public static String printNotFound() {
         return "There are no tasks that correspond with your input";
     }
 
+    /**
+     * Prints out a message if the task is already in the list
+     */
     public static String printDuplicateFound() {
         return "This task is already in your Task List.";
     }

@@ -7,6 +7,13 @@ import lite.util.LiteException;
 
 public class Parser {
 
+    /**
+     * Executes a command based on the input given
+     * @param input Input given by user
+     * @param tasks List of tasks
+     * @param ui List of instructions available
+     * @return A corresponding task based on the input
+     */
     public static String parse(String input, TaskList tasks, Ui ui) {
         if (input.equals("list")) {
             return tasks.outputTasks();

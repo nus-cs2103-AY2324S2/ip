@@ -26,6 +26,11 @@ public class Chatbot {
         }
     }
 
+    /**
+     * Gets the response from the given input
+     * @param input Input given by user
+     * @return Response from the chatBot
+     */
     public String getResponse(String input) {
         Ui ui = new Ui(input);
         return ui.executeCommand(tasks);

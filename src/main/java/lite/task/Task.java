@@ -77,6 +77,11 @@ public class Task {
                 + "!" + this.description;
     }
 
+    /**
+     * Check if two tasks are equal based on their toString representation
+     * @param obj Task being compared to
+     * @return Equality of two tasks
+     */
     @Override
     public boolean equals (Object obj) {
         Task task = (Task) obj;

@@ -6,6 +6,8 @@ import lite.task.Task;
 import lite.task.Todo;
 
 public class FileParseInput {
+    //Usage inspired by 0-yibai
+
     /**
      * Returns a Task based on the input given
      * @param input Input string given

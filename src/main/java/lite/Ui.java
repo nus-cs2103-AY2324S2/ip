@@ -18,7 +18,7 @@ public class Ui {
     }
 
     /**
-     * Parse the input
+     * Returns a command based on the input
      * @param tasks List of tasks
      * @return True if it is a bye (terminating condition)
      */
