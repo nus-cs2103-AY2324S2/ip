@@ -1,11 +1,11 @@
 # Iggly User Guide
 
-<img src="../src/main/resources/images/Icon.png" alt="Icon" width="150">
+<img src="Icon.png" alt="Icon" width="150">
 
 > This is Iggly, your personal assistant chatbot! 🐧
 
 <img src="Ui.png" alt="Screenshot">
-Colour scheme: #CFDDD9, #B7CDC7, #F3EEC3, #FFC099
+<br/> Colour scheme: `#CFDDD9` `#B7CDC7` `#F3EEC3` `#FFC099`
 
 ## How to use Iggly?
 
