@@ -31,6 +31,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getRemiDialog(Ui.getInitialMessage().getMessage(), uiImage)
+        );
     }
 
     public void setUi(Ui ui) {
