@@ -11,6 +11,7 @@ import ui.Ui;
  * by the chatbot. When executed, this command lists out tasks containing keyword.
  */
 public class FindCommand extends Command {
+    private static final String COMMAND = " find ";
 
     /**
      * Executes the command to search for tasks containing the keyword entered by the user.
@@ -23,9 +24,8 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws LeluException {
-        if (message.trim().equals("find")) {
-            InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.FIND);
-        } else if (message.replaceFirst("find ", "").split(" ").length > 1) {
+        checkEmptyDescription(message, COMMAND, LeluException.ErrorType.FIND);
+        if (message.replaceFirst(COMMAND, "").split(" ").length > 1) {
             throw new InvalidFormatException("   Enter only ONE keyword to search for your task:\n" +
                     "   find <keyword>\n");
         }

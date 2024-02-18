@@ -38,10 +38,6 @@ public class InvalidFormatException extends InvalidInputException {
         case UNMARK:
             throw new InvalidFormatException("   To un-mark a task as done, enter\n" +
                     "   unmark <task number in list>\n");
-
-
-
-
         }
     }
 }

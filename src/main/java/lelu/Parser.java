@@ -14,7 +14,19 @@ import exceptions.InvalidInputException;
 import exceptions.LeluException;
 import ui.Ui;
 
+/**
+ *  Represents a Parser which handles user input.
+ */
 public class Parser {
+
+    /**
+     * Returns a Command object based on the type of command entered by the user
+     *
+     * @param message User input
+     * @param ui UI used
+     * @return A Command object
+     * @throws LeluException if user input is invalid
+     */
     public static Command parse(String message, Ui ui) throws LeluException {
         if (message.equals("bye")) {
             return new ByeCommand();
