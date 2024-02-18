@@ -1,8 +1,8 @@
 # Tobias User Guide
 
-![Ui screenshot](https://jawad280.github.io/ip/Ui.png)
-
 Meet Tobias, your trusty CLI companion, making task management a blast with his interactive chat-based interface, perfect for effortlessly handling to-dos, deadlines, and events with a sprinkle of fun and flair! Say goodbye to mundane organization and hello to a whole new level of productivity and enjoyment with Tobias by your side.
+
+![Ui screenshot](https://jawad280.github.io/ip/Ui.png)
 
 ## Adding Todos
 
@@ -36,7 +36,7 @@ Creates and adds an event with a start and end date and time.
 
 Outcome:
 ```
-[E][ ] submission
+[E][ ] Marathon
   FROM : 17 February 2024 1000 AM
   TO : 17 February 2024 0400 PM
 ```
@@ -52,7 +52,7 @@ Outcome:
 1.[T][ ] buy bread
 2.[D][ ] submission
     BY : 15 March 2024 1159 PM
-3.[E][ ] submission
+3.[E][ ] Marathon
     FROM : 17 February 2024 1000 AM
     TO : 17 February 2024 0400 PM
 ```
@@ -110,6 +110,18 @@ Outcome:
 ```
 Ok, I've untagged this task:
 [T][ ] buy bread
+```
+
+## Finding Tasks
+
+You can find tasks based on keyword searches.
+
+`find bread`
+
+Outcome:
+```
+Here are the matching tasks in your list:
+    1.[T][ ] buy bread
 ```
 
 ## Saving
