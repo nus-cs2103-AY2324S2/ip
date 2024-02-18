@@ -1,4 +1,4 @@
-package jimmy;
+package jimmy.gui;
 
 import java.io.IOException;
 
@@ -7,10 +7,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import jimmy.gui.MainWindow;
+import jimmy.Jimmy;
 
 /**
- * jimmy.Main class to run the bot.
+ * jimmy.gui.Main class to run the bot.
  */
 public class Main extends Application {
 
