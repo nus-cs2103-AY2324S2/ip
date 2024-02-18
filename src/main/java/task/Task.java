@@ -88,6 +88,11 @@ public class Task {
         return "[" + getStatusIcon() + "] " + description;
     }
 
+    /**
+     * Returns the priority string representation of the task.
+     * 
+     * @return The priority string representation of the task.
+     */
     public String getPriorityString() {
         if (priority == Priority.NONE) {
             return "";

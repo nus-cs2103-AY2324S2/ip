@@ -15,6 +15,7 @@ public class GeePeeTeeException extends Exception {
     /**
      * Constructs a new {@code GeePeeTeeException} instance with the specified
      * error message.
+     * 
      * @param message The error message to be associated with the exception.
      */
     public GeePeeTeeException(String message) {
@@ -23,6 +24,7 @@ public class GeePeeTeeException extends Exception {
 
     /**
      * Returns the error message associated with the exception.
+     * 
      * @return The error message associated with the exception.
      */
     public String getErrorMessage() {

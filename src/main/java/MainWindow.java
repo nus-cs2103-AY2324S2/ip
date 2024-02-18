@@ -40,7 +40,11 @@ public class MainWindow extends AnchorPane {
         scrollPane.setStyle("-fx-background: #010101;");
         dialogContainer.setStyle("-fx-background-color: #010101;");
         userInput.setStyle(
-                "-fx-background-color: #010101; -fx-text-fill: #ffffff; -fx-font-family: 'Monospaced'; -fx-font-size: 12pt");
+                "-fx-background-color: #010101; " +
+                "-fx-text-fill: #ffffff; " +
+                "-fx-font-family: 'Monospaced'; " +
+                "-fx-font-size: 12pt"
+        );
         dialogContainer.getChildren()
                 .add(DialogBox.getGeePeeTeeDialog("Hello! I'm GeePeeTee. How can I help you?", neutralImage));
     }

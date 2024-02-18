@@ -11,8 +11,9 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
+    private static final String applicationTitle = "GeePeeTee";
     private GeePeeTee geepeetee = new GeePeeTee("GeePeeTee.txt");
-
+    
     /**
      * Starts the application.
      * 
@@ -23,15 +24,19 @@ public class Main extends Application {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(Main.class.getResource("/view/MainWindow.fxml"));
+
             AnchorPane ap = fxmlLoader.load();
             AnchorPane.setLeftAnchor(ap, 0.0);
             AnchorPane.setRightAnchor(ap, 0.0);
             AnchorPane.setTopAnchor(ap, 0.0);
             AnchorPane.setBottomAnchor(ap, 0.0);
+
             assert ap != null : "FXMLLoader failed to load AnchorPane";
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle(applicationTitle);
             assert stage.getScene() != null : "Scene was not set correctly";
+
             MainWindow controller = fxmlLoader.<MainWindow>getController();
             assert controller != null : "FXMLLoader failed to load MainWindow controller";
             assert geepeetee != null : "GeePeeTee was not initialised correctly";
@@ -40,6 +45,7 @@ public class Main extends Application {
             if (errorMessage != null) {
                 fxmlLoader.<MainWindow>getController().handleInitializationError(errorMessage);
             }
+
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

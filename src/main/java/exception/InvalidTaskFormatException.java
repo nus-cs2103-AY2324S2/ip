@@ -16,6 +16,7 @@ public class InvalidTaskFormatException extends Exception {
      * Constructs a new {@code InvalidTaskFormatException} instance with the
      * specified
      * error message.
+     * 
      * @param message The error message to be associated with the exception.
      */
     public InvalidTaskFormatException(String message) {
@@ -24,6 +25,7 @@ public class InvalidTaskFormatException extends Exception {
 
     /**
      * Returns the error message associated with the exception.
+     * 
      * @return The error message associated with the exception.
      */
     public String getErrorMessage() {

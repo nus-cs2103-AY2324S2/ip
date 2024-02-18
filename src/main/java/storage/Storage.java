@@ -68,42 +68,110 @@ public class Storage {
     public ArrayList<Task> loadTaskList() throws FileNotFoundException, GeePeeTeeException, IOException {
         ArrayList<Task> result = new ArrayList<Task>();
         File f = new File(filePath);
-        Scanner s = new Scanner(f);
-        while (s.hasNext()) {
-            String line = s.nextLine();
-            String[] parts = line.split(" \\| ");
-            String type = parts[0];
-            boolean isDone = parts[1].equals("1");
-            String priorityInput = parts[2];
-            Priority priority = EnumConverter.convertStringToPriority(priorityInput);
-            String description = parts[3];
-            Task task;
-            switch (type) {
-                case "T":
-                    task = new ToDo(description);
-                    task.setPriority(priority);
-                    break;
-                case "D":
-                    LocalDate deadlineDate = LocalDate.parse(parts[4]);
-                    task = new Deadline(description, deadlineDate);
-                    task.setPriority(priority);
-                    break;
-                case "E":
-                    LocalDate startDate = LocalDate.parse(parts[4]);
-                    LocalDate endDate = LocalDate.parse(parts[5]);
-                    task = new Event(description, startDate, endDate);
-                    task.setPriority(priority);
-                    break;
-                default:
-                    throw new GeePeeTeeException("File contains invalid task type.");
+        try (Scanner s = new Scanner(f)) {
+            while (s.hasNext()) {
+                String line = s.nextLine();
+                Task task = parseTaskFromLine(line);
+                result.add(task);
             }
-            if (isDone) {
-                task.markAsDone();
-            }
-            result.add(task);
         }
-        s.close();
         return result;
+    }
+
+    /**
+     * Parses a task from a line in the task list file.
+     * 
+     * @param line The line in the task list file
+     * @return The task parsed from the line
+     * @throws GeePeeTeeException If the file contains an invalid task type.
+     */
+    private Task parseTaskFromLine(String line) throws GeePeeTeeException {
+        String[] parts = line.split(" \\| ");
+        validateParts(parts);
+
+        String type = parts[0];
+        boolean isDone = parts[1].equals("1");
+        Priority priority = EnumConverter.convertStringToPriority(parts[2]);
+        String description = parts[3];
+
+        Task task;
+        switch (type) {
+        case "T":
+            task = createToDoTask(description, priority);
+            break;
+        case "D":
+            LocalDate deadlineDate = LocalDate.parse(parts[4]);
+            task = createDeadlineTask(description, priority, deadlineDate);
+            break;
+        case "E":
+            LocalDate startDate = LocalDate.parse(parts[4]);
+            LocalDate endDate = LocalDate.parse(parts[5]);
+            task = createEventTask(description, priority, startDate, endDate);
+            break;
+        default:
+            throw new GeePeeTeeException("File contains invalid task type.");
+        }
+
+        if (isDone) {
+            task.markAsDone();
+        }
+        return task;
+    }
+
+    /**
+     * Validates the parts of a line in the task list file.
+     * 
+     * @param parts The parts of a line in the task list file
+     * @throws GeePeeTeeException If the number of parts in the line is invalid.
+     */
+    private void validateParts(String[] parts) throws GeePeeTeeException {
+        if (parts.length < 4 || parts.length > 6) {
+            throw new GeePeeTeeException("Invalid number of parts in task line.");
+        }
+    }
+
+    /**
+     * Creates a todo task with the specified description and priority.
+     * 
+     * @param description The description of the todo task
+     * @param priority    The priority of the todo task
+     * @return The todo task
+     */
+    private Task createToDoTask(String description, Priority priority) {
+        ToDo todo = new ToDo(description);
+        todo.setPriority(priority);
+        return todo;
+    }
+
+    /**
+     * Creates a deadline task with the specified description, priority and deadline
+     * date.
+     * 
+     * @param description  The description of the deadline task
+     * @param priority     The priority of the deadline task
+     * @param deadlineDate The deadline date of the deadline task
+     * @return The deadline task
+     */
+    private Task createDeadlineTask(String description, Priority priority, LocalDate deadlineDate) {
+        Deadline deadline = new Deadline(description, deadlineDate);
+        deadline.setPriority(priority);
+        return deadline;
+    }
+
+    /**
+     * Creates an event task with the specified description, priority, start date
+     * and end date.
+     * 
+     * @param description The description of the event task
+     * @param priority    The priority of the event task
+     * @param startDate   The start date of the event task
+     * @param endDate     The end date of the event task
+     * @return The event task
+     */
+    private Task createEventTask(String description, Priority priority, LocalDate startDate, LocalDate endDate) {
+        Event event = new Event(description, startDate, endDate);
+        event.setPriority(priority);
+        return event;
     }
 
     /**
