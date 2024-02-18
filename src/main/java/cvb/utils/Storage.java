@@ -28,6 +28,21 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    private ArrayList<Task> getTasks(BufferedReader reader) throws IOException {
+        ArrayList<Task> taskList = new ArrayList<>();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            Task task;
+            try {
+                task = TaskParser.parse(line);
+            } catch (IllegalArgumentException e) {
+                continue; // skip this line
+            }
+            taskList.add(task);
+        }
+        return taskList;
+    }
+
     /**
      * Reads task data from the specified file and returns an {@code ArrayList} of tasks.
      *
@@ -37,16 +52,7 @@ public class Storage {
         ArrayList<Task> taskList = new ArrayList<>();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                Task task;
-                try {
-                    task = TaskParser.parse(line);
-                } catch (IllegalArgumentException e) {
-                    continue; // skip this line
-                }
-                taskList.add(task);
-            }
+            taskList = getTasks(reader);
             reader.close();
         } catch (IOException e) {
             return taskList;
