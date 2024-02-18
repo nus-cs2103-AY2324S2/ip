@@ -15,6 +15,7 @@ public class GulieDialog extends Dialog {
      */
     public GulieDialog(String text) {
         super(text, new Image(IMAGE_PATH));
+        assert !text.equals("") : "Gulie should never print nothing";
         this.setAlignment(Pos.TOP_LEFT);
         this.getChildren().addAll(this.getImage(), this.getText());
     }
