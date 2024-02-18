@@ -7,17 +7,20 @@ import java.time.LocalDate;
 public class UserHandler {
 
     public static String chat(String input, TaskList taskList, Storage storage) throws DukeException {
+
+        assert input != null : "Empty message";
+
         if (input.matches("bye")) {
             return "Press the cross on your console";
 
 
         } else if (input.toLowerCase().matches("list")) {
-            // Print list
+
             return taskList.listTasks();
 
 
         } else if (input.toLowerCase().matches("\\bmark\\b.*")) {
-            // Mark task as done
+
             String r =  taskList.markTask(input);
 
             try {
@@ -43,7 +46,7 @@ public class UserHandler {
 
 
         } else if (input.toLowerCase().matches("\\bdeadline\\b.*")) {
-           
+
             if (input.length() <= 9) {
                 throw new DukeException("Empty Description");
             }
@@ -67,7 +70,7 @@ public class UserHandler {
 
 
         } else if (input.toLowerCase().matches("\\bevent\\b.*")) {
-            // Add event task to task list
+
             if (input.length() <= 6) {
                 throw new DukeException("Empty Description");
             }
@@ -102,7 +105,7 @@ public class UserHandler {
 
 
         } else if (input.toLowerCase().matches("\\bdelete\\b.*")) {
-            // Delete tasks in tasks list
+
             String r = taskList.deleteTask(input);
             try {
                 storage.write("data/duke.txt", taskList.getList());
@@ -115,12 +118,12 @@ public class UserHandler {
 
 
          else if (input.toLowerCase().matches("\\bfind\\b.*")) {
-            // Implement the find function through keyword
+
             return taskList.findTask(input);
 
 
         } else if (input.trim().isEmpty()) {
-            // If by mistake user presses return or space, nothing will happen
+
             return "";
         }
         return "Unable to process or understand command.";

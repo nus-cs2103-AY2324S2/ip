@@ -8,6 +8,7 @@ import java.time.LocalDate;
 public class InputHandler {
     public LocalDate formatDeadline(String[] data) throws ArrayIndexOutOfBoundsException{
 
+
         try {
             if (data[1].substring(3).length() == 1) {
                 data[1] = "0" + data[1].substring(3);

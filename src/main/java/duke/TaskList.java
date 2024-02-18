@@ -54,7 +54,7 @@ public class TaskList {
         System.out.println(list.get(list.size() - 1));
         System.out.println("Now you have " + list.size() + " tasks in the list.");
 
-        return "nothing";
+        return "";
     }
 
     public void retrieveData(File file) throws IOException {
