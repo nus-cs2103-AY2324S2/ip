@@ -24,15 +24,4 @@ public class ErrorHandler {
     public static void handleIOException() {
         System.out.println("An error occurred while accessing the file.");
     }
-
-    /**
-     * Handles errors resulting from invalid number formats in user input.
-     * Prints an error message indicating the invalid input that caused the error.
-     *
-     * @param input The user input that was expected to be in a valid number format
-     *              but was not.
-     */
-    public static void handleNumberFormatException(String input) {
-        System.out.println("Invalid number format: " + input);
-    }
 }
