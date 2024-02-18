@@ -8,6 +8,7 @@ import chaterpillar.ui.Ui;
 /**
  * Abstract class for specific <code>Command</code> objects,
  * such as ExitCommand or TaskCommand.
+ *
  * @author marclamp
  */
 public abstract class Command {
@@ -25,7 +26,7 @@ public abstract class Command {
             throws ChaterpillarException;
 
     /**
-     * Default method to check if the command has exited the application.
+     * Returns the exit status after the execution of a command.
      *
      * @return <code>boolean</code> which is default false.
      */
