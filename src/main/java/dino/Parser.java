@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.Locale;
 
@@ -116,12 +115,7 @@ public class Parser {
             if (deadlineName.isEmpty() || deadlineTimeString.isEmpty()) {
                 throw new DinoException("Deadline name and time cannot be empty.");
             }
-
-            try {
-                return new Deadline(deadlineName, parseStringToTime(deadlineTimeString));
-            } catch (DateTimeParseException e) {
-                throw new DinoException("Error parsing deadline date and time: " + e.getMessage());
-            }
+            return new Deadline(deadlineName, parseStringToTime(deadlineTimeString));
 
         case EVENT:
             String[] eventParts = taskDetails.split("/from|/to");
@@ -135,15 +129,9 @@ public class Parser {
             if (eventName.isEmpty() || startTimeString.isEmpty() || endTimeString.isEmpty()) {
                 throw new DinoException("Event name, start time, and end time cannot be empty.");
             }
-
-            try {
-                LocalDateTime startTime = parseStringToTime(startTimeString);
-                LocalDateTime endTime = parseStringToTime(endTimeString);
-                return new Event(eventName, startTime, endTime);
-            } catch (DateTimeParseException e) {
-                throw new DinoException("Error parsing event date and time: " + e.getMessage());
-            }
-
+            LocalDateTime startTime = parseStringToTime(startTimeString);
+            LocalDateTime endTime = parseStringToTime(endTimeString);
+            return new Event(eventName, startTime, endTime);
         default:
             throw new DinoException("Unknown task type: " + taskType);
         }

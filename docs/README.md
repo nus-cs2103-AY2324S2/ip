@@ -1,6 +1,6 @@
 # Dino User Guide
 
-![img.png](img.png)
+![Ui.png](Ui.png)
 
 Dino is a chatbot that allows you to use simple commands to keep your tasks organised.
 Make your day productive by using Dino today! 
@@ -28,6 +28,12 @@ Adds a deadline task to the tasklist.
 
 Usage: `deadline <description> /by dd-mm-yyyy`
 
+- Make sure that there are no scheduling conflicts with the time interval
+in the current tasklist. Else, Dino will reply:
+```angular2html
+Scheduling conflict: The new task conflicts with an existing task.
+```
+
 Example:
 `deadline assignment /by 01-04-2025`
 
@@ -35,6 +41,11 @@ Example:
 Adds a event task to the tasklist.
 
 Usage: `event <description> /from dd-mm-yyyy /to dd-mm-yyyy`
+- Make sure that there are no scheduling conflicts with the time interval
+  in the current tasklist. Else, Dino will reply:
+```angular2html
+Scheduling conflict: The new task conflicts with an existing task.
+```
 
 Example:
 `event holiday /from 01-04-2025 /to 09-04-2025`
