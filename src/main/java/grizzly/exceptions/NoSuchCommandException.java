@@ -13,7 +13,7 @@ public class NoSuchCommandException extends GrizzlyException {
      * @param command The invaild command.
      */
     public NoSuchCommandException(String command) {
-        super("\"" + command + "\" is not within my capabilities");
+        super("\"" + command + "\" is not within my capabilities, type 'help' to see what I can do.");
     }
 
 }

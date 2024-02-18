@@ -9,6 +9,7 @@ import grizzly.commands.DeleteRecordCommand;
 import grizzly.commands.ExitCommand;
 import grizzly.commands.FindCommand;
 import grizzly.commands.GenerateRecordCommand;
+import grizzly.commands.HelpCommand;
 import grizzly.commands.ListRecordsCommand;
 import grizzly.commands.ModifyTaskCommand;
 import grizzly.exceptions.MissingInformationException;
@@ -61,6 +62,8 @@ public class Parser {
         switch (action) {
         case "bye":
             return new ExitCommand();
+        case "help":
+            return new HelpCommand();
         case "list":
             return new ListRecordsCommand(paramsTable);
         case "find":
