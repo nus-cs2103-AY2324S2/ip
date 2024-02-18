@@ -49,13 +49,14 @@ public class FileManager {
                     + File.separator + "tasks.csv");
 
         try {
-            // Creates new directory if does not exist.
+            // Creates new directory if it does not exist.
             new File(filePath + File.separator + "data").mkdir(); 
             
             // Creates new file if it does not exist.
             infile.createNewFile(); 
 
             scanner = new Scanner(infile);
+            
         } catch (IOException e) { // not supposed to happen.
             e.printStackTrace();
             return null;
@@ -75,20 +76,21 @@ public class FileManager {
      * Note: This method does not append to the file, but overwrites it instead.
      * @param taskList A list of tasks to be saved into file.
      */
-    public void storeTasks(ArrayList<Task> taskList) {
+    public boolean storeTasks(ArrayList<Task> taskList) {
         FileWriter outfile;
-        try {
+
+        try { // create/open tasks.csv file.
             outfile = new FileWriter(this.filePath
                         + File.separator + "data"
                         + File.separator + "tasks.csv");
 
-        } catch (IOException e) { // honestly idk what to do about this exception
+        } catch (IOException e) { // for devs debugging
             System.out.println("Error. Unable to create fileWriter.");
             e.printStackTrace();
-            return;
+            return false;
         }
 
-        try {
+        try { // write all the tasks in the task list into the csv file.
             for (Task task: taskList) {
                 outfile.write(task.toCSV());
             }
@@ -98,16 +100,17 @@ public class FileManager {
             e.printStackTrace();
         }
 
-        System.out.println("Task list successfully saved to file.");
-        try {
+        try { // close the csv file after writing.
             outfile.flush();
             outfile.close();
             
         } catch (IOException e) { // for devs debugging
             System.out.println("Error. Unable to close file.");
             e.printStackTrace();
-            return;
+            return false;
         }
+
+        return true;
         
     }
 
@@ -119,6 +122,9 @@ public class FileManager {
     private static Task lineToTask(String line) {
         Task task = null;
         String[] details = line.split(",");
+
+        // every row in the file should follow 
+        assert details.length < 3 : "FileManager::lineToTask. A line in the file is broken.";
 
         String taskType = details[0];
         boolean isCompleted = details[1].equals("1");

@@ -215,7 +215,7 @@ public class CommandManager {
         }
 
         int index = 1;
-        String response = "Here are the matching tasks I could find I guess...";
+        String response = "Here are the matching tasks I could find:";
 
         for (Task task : taskList) {
             response += String.format("\n%d %s", index, task);
