@@ -24,6 +24,7 @@ public final class UnmarkHandler extends MassOperableHandler {
                         + "valid indices in range.");
                 return;
             }
+
             for (int idx : indices) {
                 boolean success = tasks.get(idx).markUndone();
                 String feedback = idx + 1 + "." + tasks.get(idx);
@@ -33,7 +34,8 @@ public final class UnmarkHandler extends MassOperableHandler {
                 addDisplayEntry(feedback);
             }
             addDisplayEntry("Item(s) persist as undone.");
-            ui.makeResponse(getDisplay());
+
+            ui.makeResponse(getDisplayEntriesReversed());
         } catch (ParserException e) {
             throw new EarlException(
                     "The indices' format is fraught with invalidity."

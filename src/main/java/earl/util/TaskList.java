@@ -40,8 +40,6 @@ public class TaskList {
     public Task get(int i) {
         return tasks.get(i);
     }
-
-    /** Returns the added task itself. */
     public void add(Task task) {
         tasks.add(task);
     }

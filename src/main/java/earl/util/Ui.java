@@ -29,7 +29,7 @@ public class Ui {
         response = arr;
     }
 
-    /** Displays a horizontal divider for TUI mode. */
+    /** Displays a horizontal divider for CLI mode. */
     private static void printDivider() {
         System.out.println(PADDING + DIVIDER);
     }
@@ -84,8 +84,7 @@ public class Ui {
     /**
      * Returns the previous response made for GUI interactions.
      *
-     * @return  the previous response appearing as it would on a
-     *          text based UI
+     * @return  the previous response appearing as it would on a CLI
      */
     public String getResponse() {
         int n = response.length;

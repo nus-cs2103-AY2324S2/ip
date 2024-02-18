@@ -26,6 +26,7 @@ public final class MarkHandler extends MassOperableHandler {
                         + "valid indices in range.");
                 return;
             }
+
             for (int idx : indices) {
                 boolean success = tasks.get(idx).markAsDone();
                 String feedback = idx + 1 + "." + tasks.get(idx);
@@ -35,7 +36,8 @@ public final class MarkHandler extends MassOperableHandler {
                 addDisplayEntry(feedback);
             }
             addDisplayEntry("Item(s) duly accomplished.");
-            ui.makeResponse(getDisplay());
+
+            ui.makeResponse(getDisplayEntriesReversed());
         } catch (ParserException e) {
             throw new EarlException(
                     "The indices' format is fraught with invalidity."

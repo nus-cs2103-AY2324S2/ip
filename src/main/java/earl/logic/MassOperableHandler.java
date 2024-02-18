@@ -39,7 +39,8 @@ public abstract class MassOperableHandler extends Handler {
         modifiedItems.add(entry);
     }
 
-    protected String[] getDisplay() {
+    // Returns the added display entries in reversed order
+    protected String[] getDisplayEntriesReversed() {
         Collections.reverse(modifiedItems);
         String[] result = modifiedItems.toArray(String[]::new);
         modifiedItems.clear();

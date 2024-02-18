@@ -24,11 +24,13 @@ public final class DeleteHandler extends MassOperableHandler {
                         + "valid indices in range.");
                 return;
             }
+
             for (int idx : indices) {
                 addDisplayEntry(idx + 1 + "." + tasks.delete(idx));
             }
             addDisplayEntry("Item(s) heretofore have been expunged.");
-            ui.makeResponse(getDisplay());
+
+            ui.makeResponse(getDisplayEntriesReversed());
         } catch (ParserException e) {
             throw new EarlException(
                     "The indices' format is fraught with invalidity."
