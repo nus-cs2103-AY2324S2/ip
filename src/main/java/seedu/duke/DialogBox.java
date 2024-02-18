@@ -58,8 +58,9 @@ public class DialogBox extends HBox {
     public static DialogBox getDukeDialog(String text, Image img) {
         assert text != null : "Duke Dialog Box Text should not be null";
         assert img != null : "User Dialog Box Image should not be null";
-        var db = new DialogBox(text, img);
-        db.flip();
-        return db;
+
+        var dialogBox = new DialogBox(text, img);
+        dialogBox.flip();
+        return dialogBox;
     }
 }

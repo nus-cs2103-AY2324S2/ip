@@ -1,6 +1,7 @@
 package seedu.duke;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 import seedu.duke.task.Deadline;
 import seedu.duke.task.Event;
@@ -32,7 +33,7 @@ public class Parser {
             }
             int index = Integer.parseInt(splitInput[1]) - 1;
             if (index >= tasks.getSize()) {
-                // for invalid entry "mark [out of bounds]"
+                // for invalid entry: "mark [out of bounds]"
                 throw new DukeException("Here's the format I require: mark [valid index]");
             } else if (index < 0) {
                 // for invalid entry "mark [negative]"
@@ -98,16 +99,18 @@ public class Parser {
         String[] splitInput = input.split(" /by ");
         try {
             if (splitInput.length < 2) {
-                throw new DukeException("Here's the format I require: deadline [name] /by [yyyy-mm-dd]");
+                throw new DukeException("Here's the format I require: deadline [description] /by [yyyy-mm-dd]");
             }
-            String[] splitAgain = splitInput[0].split(" ", 2);
+            String[] commandAndDescription = splitInput[0].split(" ", 2);
             String dateline = splitInput[1];
             LocalDate localDate = LocalDate.parse(dateline);
-            Deadline deadline = new Deadline(splitAgain[1], localDate);
+            Deadline deadline = new Deadline(commandAndDescription[1], localDate);
             tasks.addTask(deadline);
             output = ui.showTaskAdded(deadline, tasks.getSize());
         } catch (DukeException d) {
             output = ui.printError(d);
+        } catch (DateTimeParseException dateTimeParseException) {
+            output = ui.printError(new DukeException("Please enter a valid date in the format yyyy-mm-dd"));
         }
         assert !output.isEmpty() : "Output should not be empty";
         return output;
@@ -156,16 +159,18 @@ public class Parser {
         try {
             if (splitInput.length < 2) {
                 throw new DukeException("Here's the format I require: "
-                        + "event [name] /from [yyyy-mm-dd] /by [yyyy-mm-dd]");
+                        + "event [description] /from [yyyy-mm-dd] /by [yyyy-mm-dd]");
             }
             String description = splitInput[0].split(" ", 2)[1];
-            LocalDate from = LocalDate.parse(splitInput[1].split(" /to ")[0]);
-            LocalDate to = LocalDate.parse(splitInput[1].split(" /to ")[1]);
-            Event event = new Event(description, from, to);
+            LocalDate fromDate = LocalDate.parse(splitInput[1].split(" /to ")[0]);
+            LocalDate toDate = LocalDate.parse(splitInput[1].split(" /to ")[1]);
+            Event event = new Event(description, fromDate, toDate);
             tasks.addTask(event);
             output = ui.showTaskAdded(event, tasks.getSize());
         } catch (DukeException d) {
             output = ui.printError(d);
+        } catch (DateTimeParseException dateTimeParseException) {
+        output = ui.printError(new DukeException("Please enter a valid date in the format yyyy-mm-dd"));
         }
         assert !output.isEmpty() : "Output should not be empty";
         return output;
@@ -187,14 +192,14 @@ public class Parser {
             if (splitInput.length < 2) {
                 throw new DukeException("Which task number do you want to delete?");
             }
-            int number = Integer.parseInt(splitInput[1]);
-            if (number > tasks.getSize()) {
+            int numberToDelete = Integer.parseInt(splitInput[1]);
+            if (numberToDelete > tasks.getSize()) {
                 throw new DukeException("You don't have that many tasks!");
-            } else if (number < 1) {
+            } else if (numberToDelete < 1) {
                 throw new DukeException("We don't have negative tasks!");
             }
-            Task task = tasks.getTask(number - 1);
-            tasks.deleteTask(number - 1);
+            Task task = tasks.getTask(numberToDelete - 1);
+            tasks.deleteTask(numberToDelete - 1);
             output = ui.showTaskDeleted(task, tasks.getSize());
         } catch (DukeException d) {
             output = ui.printError(d);

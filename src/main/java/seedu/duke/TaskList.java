@@ -29,7 +29,7 @@ public class TaskList {
 
     /**
      * Returns the Task list. Get method.
-     * @return
+     * @return list of <code>Task</code>
      */
     public ArrayList<Task> getList() {
         return list;
