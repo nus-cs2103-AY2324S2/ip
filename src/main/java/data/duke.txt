@@ -1,2 +1,4 @@
 T |  0 | read book
-T |  0 | go to school
+T |  0 | read book
+D |  0 | go  | 2024-03-12
+D |  0 |  | 2024-05-23

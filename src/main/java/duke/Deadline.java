@@ -48,4 +48,8 @@ public class Deadline extends Task {
     public String toFileString() {
         return String.format("%s |  %d | %s | %s", getType(), isDone ? 1 : 0 , description, by);
     }
+    @Override
+    public LocalDate getDate() {
+        return by;
+    }
 }

@@ -2,6 +2,8 @@ package duke;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
+
 
 /**
  * Manages the reading and writing of tasks to a file.
@@ -34,6 +36,7 @@ public class Storage {
      */
     public void saveToFile(ArrayList<Task> tasks) {
         assert tasks != null : "Tasks cannot be null";
+        Collections.sort(tasks, new TaskPriorityComparator());
         try (PrintWriter writer = new PrintWriter(FILE_PATH)) {
             for (Task task : tasks) {
                 writer.println(task.toFileString());
@@ -47,7 +50,6 @@ public class Storage {
      *
      * @return The list of tasks loaded from the file.
      */
-
     public ArrayList<Task> loadFromFile() {
         ArrayList<Task> tasks = new ArrayList<Task>();
         int index = 0;

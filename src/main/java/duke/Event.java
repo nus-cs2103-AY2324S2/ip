@@ -1,6 +1,8 @@
 package duke;
 
 import java.time.LocalDate;
+import java.util.Date;
+
 /**
  * Represents a task that is an event in the task list.
  * Subclass of the Task class.
@@ -51,5 +53,9 @@ public class Event extends Task {
      */
     public String toFileString() {
         return String.format("%s |  %d | %s | %s | %s", getType(), isDone ? 1 : 0, description, from, to);
+    }
+    @Override
+    public LocalDate getDate() {
+        return from;
     }
 }

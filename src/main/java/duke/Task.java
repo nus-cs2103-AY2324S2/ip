@@ -2,6 +2,7 @@ package duke;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 /**
  * Represents a task in the task list.
@@ -85,7 +86,6 @@ public class Task {
     public static Task fromFileString(String fileString) {
         String[] elements = fileString.trim().split("\\s*\\|\\s*");
         Boolean done = elements.length > 1 && Integer.parseInt(elements[1]) == 1;
-        //for each type of task
         switch(elements[0]) {
         case "T":
             if (elements.length < 3) {
@@ -123,6 +123,9 @@ public class Task {
      */
     public String getType() {
         return " ";
+    }
+    public LocalDate getDate() {
+        return null;
     }
 }
 
