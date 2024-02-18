@@ -16,7 +16,7 @@ public class Ui {
     }
 
     /**
-     * Read users input.
+     * Reads users input.
      *
      * @return String of users input.
      */
@@ -43,6 +43,9 @@ public class Ui {
                 + "\n" + "Till next time!! Goodbye.";
     }
 
+    /**
+     * Prints error message.
+     */
     public void printError(String msg) {
         System.out.println(msg);
     }

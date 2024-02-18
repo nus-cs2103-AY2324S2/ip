@@ -1,6 +1,9 @@
 package duke.run;
 
+//import java.io.File;
 import java.io.File;
+//import java.nio.file.Files;
+//import java.nio.file.Paths;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,6 +14,7 @@ import duke.tasks.DeadlineTask;
 import duke.tasks.EventTask;
 import duke.tasks.Task;
 import duke.tasks.TodoTask;
+
 
 
 /**
@@ -42,7 +46,23 @@ public class Storage {
     public ArrayList<Task> loadList() throws BelleException {
         ArrayList<Task> currList = new ArrayList<>();
         try {
+
+            String home = System.getProperty("user.home");
+
+// inserts correct file path separator on *nix and Windows
+// works on *nix
+// works on Windows
+//            java.nio.file.Path path = java.nio.file.Paths.get(home, "my", "app", "dir")
+//            boolean directoryExists = java.nio.file.Files.exists(path);
+//
+//            if (!directoryExists) {
+//                Files.createFile(path);
+//            }
+//
+//            File f = new File(path);
+//            correct one below
             File f = new File(filepath);
+
             if (!f.exists()) {
                 return currList;
             }
@@ -56,6 +76,16 @@ public class Storage {
         }
     }
 
+    /**
+     * Add tasks from storage to list used by Belle.
+     *
+     * @param currList ArrayList being used in
+     *                 the current program.
+     * @param f File used to store all data.
+     * @param listscanner Scanner to scan data from f.
+     * @throws BelleException If tries to add a task
+     *      that is not an Event, Deadline or todotask.
+     */
     public void addToList(ArrayList<Task> currList, File f, Scanner listscanner) throws BelleException {
         while (listscanner.hasNext()) {
             String currLine = listscanner.nextLine();
@@ -98,6 +128,18 @@ public class Storage {
     }
 
 
+    /**
+     * Writes to file everytime the list is edited.
+     *
+     * @param currList List used to track tasks in
+     *                 current program.
+     * @param fw FileWriter used to write to file
+     *           used to store all task data.
+     * @throws BelleException If tries to add a task
+     *     that is not an Event, Deadline or todotask.
+     * @throws IOException If filewritwe has an error
+     *     when trying to write to the file.
+     */
     public void writeToList(ArrayList<Task> currList, FileWriter fw) throws IOException, BelleException {
         String currItem = "";
         String div = " , ";

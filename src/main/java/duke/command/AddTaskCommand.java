@@ -54,6 +54,12 @@ public class AddTaskCommand extends Command {
     }
 
 
+    /**
+     * Generates TodoTask based on message.
+     *
+     * @return TodoTask based on message.
+     * @throws BelleException If did not specify a title.
+     */
     public Task generateTodo() throws BelleException {
         try {
             int todoLength = 5;
@@ -64,6 +70,13 @@ public class AddTaskCommand extends Command {
         }
     }
 
+    /**
+     * Generates DeadlineTask based on message.
+     *
+     * @return DeadlineTask based on message.
+     * @throws BelleException If did not specify all
+     *     required information.
+     */
     public Task generateDeadline() throws BelleException {
         try {
             int deadlineLength = 9;
@@ -78,6 +91,14 @@ public class AddTaskCommand extends Command {
                     + "all the required information for deadline task.");
         }
     }
+
+    /**
+     * Generates EventTask based on message.
+     *
+     * @return EventTask based on message.
+     * @throws BelleException If did not specify all
+     *     required information.
+     */
     public Task generateEvent() throws BelleException {
         assert (type.equals("event")) : "task is of an invalid type";
         try {
@@ -95,6 +116,13 @@ public class AddTaskCommand extends Command {
         }
     }
 
+    /**
+     * Generates print statement when adding
+     * a particular task to the list.
+     *
+     * @param t Tasklist.
+     * @param curr Current task to add to list.
+     */
     public String generatePrintStatement(TaskList t, Task curr) {
         return "--------------------------" + "\n"
                 + "Got it. I've added this task:" + "\n" + curr.toString()

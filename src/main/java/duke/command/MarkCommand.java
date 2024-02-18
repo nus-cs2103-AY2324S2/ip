@@ -22,6 +22,14 @@ public class MarkCommand extends Command {
         this.index = index;
     }
 
+    /**
+     * Runs the command to mark a task as done.
+     *
+     * @param s Storage containing data of
+     *          previous program.
+     * @param t Tasklist of program.
+     * @param u Ui that handles user interactions.
+     */
     @Override
     public String execute(Storage s, TaskList t, Ui u) throws BelleException {
         try {
