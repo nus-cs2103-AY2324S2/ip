@@ -60,7 +60,7 @@ public class Storage {
      * Saves the modified TaskList into the application from the path provided.
      * @param list Contains the <code>TaskList</code> to be saved
      */
-    public void saveList(ArrayList<Task> list) {
+    public void saveTasks(ArrayList<Task> list) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filepath))) {
             oos.writeObject(list);
         } catch (IOException e) {

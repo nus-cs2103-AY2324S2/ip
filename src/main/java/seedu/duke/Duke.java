@@ -40,35 +40,35 @@ public class Duke {
      * eg. <code>list, mark, unmark, deadline, todo, event</code>
      */
     public static String getResponse(String userInput) {
-        String response = "";
+        String dukeResponse = "";
         // command dependent logic
         if (userInput.equals("bye")) {
-            storage.saveList(tasks.getList());
-            response = ui.closingMessage();
+            storage.saveTasks(tasks.getList());
+            dukeResponse = ui.closingMessage();
         } else if (userInput.equals("list")) {
-            response = ui.printList(tasks.getList());
+            dukeResponse = ui.printList(tasks.getList());
         } else if (userInput.startsWith("mark")) {
-            response = Parser.parseMark(userInput, tasks, ui);
+            dukeResponse = Parser.parseMark(userInput, tasks, ui);
         } else if (userInput.startsWith("unmark")) {
-            response = Parser.parseUnmark(userInput, tasks, ui);
+            dukeResponse = Parser.parseUnmark(userInput, tasks, ui);
         } else if (userInput.startsWith("deadline")) {
-            response = Parser.parseDeadline(userInput, tasks, ui);
+            dukeResponse = Parser.parseDeadline(userInput, tasks, ui);
         } else if (userInput.startsWith("todo")) {
-            response = Parser.parseTodo(userInput, tasks, ui);
+            dukeResponse = Parser.parseTodo(userInput, tasks, ui);
         } else if (userInput.startsWith("event")) {
-            response = Parser.parseEvent(userInput, tasks, ui);
+            dukeResponse = Parser.parseEvent(userInput, tasks, ui);
         } else if (userInput.startsWith("delete")) {
-            response = Parser.parseDelete(userInput, tasks, ui);
+            dukeResponse = Parser.parseDelete(userInput, tasks, ui);
         } else if (userInput.startsWith("find")) {
-            response = Parser.parseFind(userInput, tasks, ui);
+            dukeResponse = Parser.parseFind(userInput, tasks, ui);
         } else {
             try {
                 throw new DukeException("Sorry, I didn't understand that.");
             } catch (DukeException d) {
-                response = ui.printError(d);
+                dukeResponse = ui.printError(d);
             }
         }
-        storage.saveList(tasks.getList());
-        return response;
+        storage.saveTasks(tasks.getList());
+        return dukeResponse;
     }
 }
