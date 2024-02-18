@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Represents the user interface for the SecretaryW application.
  */
 public class Ui {
-    private static final String LINE = "-----------------------------------------------------------------\n";
+    private static final String LINE = "-----------------------------------------\n";
 
     /**
      * Displays a horizontal line.
@@ -51,7 +51,7 @@ public class Ui {
             String result =  LINE + "No tasks available\n" + LINE;
             return result;
         } else {
-            String result = "Here are the tasks in your list:\n";
+            String result = LINE + "Here are the tasks in your list:\n";
             for (int i = 0; i < taskList.size(); i++) {
                 result += (" " + (i + 1) + ". " + taskList.get(i) + "\n");
             }
@@ -92,7 +92,7 @@ public class Ui {
         if (matchingTasks.isEmpty()) {
             return LINE + "No matching tasks found.\n" + LINE;
         } else {
-            String result = "Here are the matching tasks in your list:\n";
+            String result = LINE + "Here are the matching tasks in your list:\n";
             for (int i = 0; i < matchingTasks.size(); i++) {
                 result += (" " + (i + 1) + ". " + matchingTasks.get(i)+ "\n");
             }

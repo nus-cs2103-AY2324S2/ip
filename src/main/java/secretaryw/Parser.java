@@ -19,7 +19,9 @@ public class Parser {
     /**
      * Constructs a new Parser object.
      */
-    public Parser() {
+    public Parser(Ui ui, TaskList taskList) {
+        this.ui = ui;
+        this.taskList = taskList;
         this.scanner = new Scanner(System.in);
     }
 
@@ -28,9 +30,6 @@ public class Parser {
      *
      * @return Array of strings representing the parsed command.
      */
-    public String[] getNextCommand() {
-        return scanner.nextLine().trim().split("\\s+", 2);
-    }
 
     // In Parser.java
 
@@ -38,44 +37,34 @@ public class Parser {
         try {
             switch (command[0]) {
                 case "bye":
-                    ui.showFarewell();
-                    storage.saveTasksToFile(taskList.getTasks());
                     closeScanner();
                     System.exit(0); // Terminate the program after saving tasks
                     break;
                 case "list":
-                    ui.showTasks(taskList.getTasks());
-                    break;
+                    return ui.showTasks(taskList.getTasks());
                 case "mark":
-                    markTaskAsDone(command[1]);
-                    break;
+                    return markTaskAsDone(command[1]);
                 case "unmark":
-                    markTaskAsUndone(command[1]);
-                    break;
+                    return markTaskAsUndone(command[1]);
                 case "delete":
-                    deleteTask(command[1]);
-                    break;
+                    return deleteTask(command[1]);
                 case "find":
                     String keyword = command[1];
                     ArrayList<Task> matchingTasks = taskList.findTasks(keyword);
-                    ui.showMatchingTasks(matchingTasks);
-                    break;
+                    return ui.showMatchingTasks(matchingTasks);
                 case "todo":
-                    addTodoTask(command[1]);
-                    break;
+                    return addTodoTask(command[1]);
                 case "deadline":
-                    addDeadlineTask(command[1]);
-                    break;
+                    return addDeadlineTask(command[1]);
                 case "event":
-                    addEventTask(command[1]);
-                    break;
+                    return addEventTask(command[1]);
                 default:
-                    throw new WException("I'm sorry, but I don't know what that means :-(");
+                    return ui.showMessage("I'm sorry, but I don't know what that means :-(");
             }
-        } catch (WException | IOException e) {
-            ui.showMessage("OOPS!!! " + e.getMessage());
+        } catch (WException e) {
+            return ui.showMessage("OOPS!!! " + e.getMessage());
         }
-        return null;
+        return "";
     }
 
 

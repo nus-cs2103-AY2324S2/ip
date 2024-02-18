@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("secretaryw.SecretaryW")
+    mainClass.set("secretaryw.Launcher")
 }
 
 shadowJar {

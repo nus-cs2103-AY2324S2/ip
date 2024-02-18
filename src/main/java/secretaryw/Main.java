@@ -1,5 +1,6 @@
 package secretaryw;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -13,7 +14,8 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private SecretaryW w = new SecretaryW();
+    private SecretaryW secretaryw = new SecretaryW();
+
 
     @Override
     public void start(Stage stage) {
@@ -22,7 +24,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setW(w);
+            fxmlLoader.<MainWindow>getController().setW(secretaryw);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

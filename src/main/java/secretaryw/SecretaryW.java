@@ -7,8 +7,6 @@ import java.util.ArrayList;
  * Main class for the SecretaryW application.
  */
 public class SecretaryW {
-    private static final String FILE_PATH = "./data/SecretaryW.txt";
-    private static final String line = "-----------------------------------------------------------------\n";
     private Parser parser;
     private Storage storage;
     private Ui ui;
@@ -18,22 +16,16 @@ public class SecretaryW {
      * Constructs a new SecretaryW object.
      */
     public SecretaryW() {
-        this.parser = new Parser();
-        this.storage = new Storage(FILE_PATH);
-        this.ui = new Ui();
-        try {
-            ArrayList<Task> tasks = storage.loadTasksFromFile();
-            this.taskList = new TaskList(tasks);
-        } catch (FileNotFoundException e) {
-            System.out.println("Error loading tasks from file: " + e.getMessage());
-            this.taskList = new TaskList();
-        }
+        storage = new Storage();
+        ui = new Ui();
+        ArrayList<Task> tasks = storage.loadTasksFromFile();
+        taskList = new TaskList(tasks);
+        parser = new Parser(ui, taskList);
     }
 
     public String getResponse(String input) {
         try{
-            String[] command = parser.getNextCommand();
-            String response = parser.handleCommand(command);
+            String response = parser.handleCommand(input.trim().split("\\s+", 2));
             storage.saveTasksToFile(taskList.getTasks());
             return response;
         } catch (Exception e) {

@@ -8,14 +8,13 @@ import java.util.Scanner;
  * This class handles the storage of tasks to and from a file.
  */
 public class Storage {
-    private String filePath;
+    private static final String FILE_PATH = "secretary.txt";
 
     /**
      * Constructor for Storage class.
-     * @param filePath The file path where tasks will be stored.
      */
-    public Storage(String filePath) {
-        this.filePath = filePath;
+    public Storage() {
+        File file = new File(Storage.FILE_PATH);
     }
 
     /**
@@ -23,9 +22,9 @@ public class Storage {
      * @return An ArrayList containing the loaded tasks.
      * @throws FileNotFoundException If the file specified by filePath does not exist.
      */
-    public ArrayList<Task> loadTasksFromFile() throws FileNotFoundException {
+    public ArrayList<Task> loadTasksFromFile() {
         ArrayList<Task> taskList = new ArrayList<>();
-        File file = new File(filePath);
+        File file = new File(FILE_PATH);
         if (file.exists()) {
             try (Scanner fileScanner = new Scanner(file)) {
                 while (fileScanner.hasNext()) {
@@ -35,6 +34,8 @@ public class Storage {
                         taskList.add(task);
                     }
                 }
+            } catch (FileNotFoundException e) {
+                System.out.println("Error reading tasks from file.");
             }
         }
         return taskList;
@@ -46,7 +47,7 @@ public class Storage {
      * @throws IOException If an I/O error occurs while writing to the file.
      */
     public void saveTasksToFile(ArrayList<Task> taskList) throws IOException {
-        try (FileWriter fileWriter = new FileWriter(filePath)) {
+        try (FileWriter fileWriter = new FileWriter(FILE_PATH)) {
             for (Task task : taskList) {
                 fileWriter.write(task.toFileString() + "\n");
             }

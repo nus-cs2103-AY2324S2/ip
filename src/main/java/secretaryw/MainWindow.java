@@ -22,12 +22,22 @@ public class MainWindow extends AnchorPane {
 
     private SecretaryW secretary;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.jpeg"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.jpeg"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getWDialog("SecretaryW at your service.\nWhat can I do for you?", dukeImage)
+        );
+        sendButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
+
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+        });
     }
 
     public void setW(SecretaryW w) {
@@ -44,7 +54,7 @@ public class MainWindow extends AnchorPane {
         String response = secretary.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getWDialog(response, dukeImage)
         );
         userInput.clear();
     }
