@@ -1,5 +1,9 @@
 package dave.tasks;
 
+import java.time.LocalDateTime;
+
+import dave.utils.DateTimeUtil;
+
 public class Task {
     /** Name or description of task. */
     protected String desc;
@@ -26,6 +30,36 @@ public class Task {
 
     public void setDone(boolean isDoneInput) {
         isDone = isDoneInput;
+    }
+
+    /**
+     * Checks if a task has a due date.
+     * Only applicable for deadline or event tasks.
+     * 
+     * @return True for deadline or event tasks, false otherwise.
+     */
+    public boolean isTaskWithDueDate() {
+        return true;
+    }
+
+    public LocalDateTime getDueDate() {
+        return null;
+    }
+
+    public boolean getIsDone() {
+        return isDone;
+    }
+
+    /**
+     * Checks if a given deadline or event task is due within a week.
+     * 
+     * @return True if deadline or event task is due within a week, false otherwise.
+     */
+    public boolean isTaskDueWithinAWeek() {
+        if (isTaskWithDueDate()) {
+            return DateTimeUtil.isWithinAWeekFromNow(getDueDate());
+        }
+        return false;
     }
 
     /**

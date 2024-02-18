@@ -12,6 +12,14 @@ public class Todo extends Task {
     }
 
     /**
+     * @{inheritDoc}
+     */
+    @Override
+    public boolean isTaskWithDueDate() {
+        return false;
+    }
+
+    /**
      * Formats the printing of the Todo object when shown to user.
      * 
      * @return Printing of the Todo object.
