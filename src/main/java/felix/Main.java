@@ -24,6 +24,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setResizable(true);
+            stage.setTitle("Felix");
             fxmlLoader.<MainWindow>getController().setFelix(felix);
             fxmlLoader.<MainWindow>getController().helloFelix();
             stage.show();
