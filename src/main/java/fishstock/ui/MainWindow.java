@@ -29,7 +29,6 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     private void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(DialogBox.getFishStockDialog(WELCOME_TEXT, fishStockImage));
     }
 
@@ -37,6 +36,12 @@ public class MainWindow extends AnchorPane {
         fishstock = f;
     }
 
+    private void moveScrollbarToBottom() {
+        // Manually set vertical scrollbar value. Fixes scrolling to bottom on window width size change issue.
+        scrollPane.applyCss();
+        scrollPane.layout();
+        scrollPane.setVvalue(1.0);
+    }
     /**
      * Creates two dialog boxes, one echoing user input and the other containing FishStock's reply
      * and then appends them to the dialog container. Clears the user input after processing.
@@ -50,5 +55,6 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getFishStockDialog(response, fishStockImage)
         );
         userInput.clear();
+        moveScrollbarToBottom();
     }
 }

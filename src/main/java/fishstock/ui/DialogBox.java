@@ -14,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
@@ -22,6 +23,11 @@ import javafx.scene.paint.Color;
  * containing text from the speaker.
  */
 public class DialogBox extends HBox {
+    private static final CornerRadii CORNER_RADII = new CornerRadii(10);
+    private static final Background USER_DIALOG_BACKGROUND = new Background(
+            new BackgroundFill(Color.CHOCOLATE, CORNER_RADII, null));
+    private static final Background FISHSTOCK_BACKGROUND = new Background(
+            new BackgroundFill(Color.BLANCHEDALMOND, CORNER_RADII, null));
     @FXML
     private Label dialog;
     @FXML
@@ -56,7 +62,7 @@ public class DialogBox extends HBox {
     public static DialogBox getUserDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
         db.dialog.setTextFill(Color.MINTCREAM);
-        db.setBackground(new Background(new BackgroundFill(Color.CHOCOLATE, null, null)));
+        db.setBackground(USER_DIALOG_BACKGROUND);
         return db;
     }
 
@@ -67,7 +73,7 @@ public class DialogBox extends HBox {
         DialogBox db = new DialogBox(text, img);
         db.flip();
         db.dialog.setTextFill(Color.SADDLEBROWN);
-        db.setBackground(new Background(new BackgroundFill(Color.BLANCHEDALMOND, null, null)));
+        db.setBackground(FISHSTOCK_BACKGROUND);
         return db;
     }
 }
