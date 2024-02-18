@@ -9,6 +9,7 @@ public class TaskNotFoundException extends Throwable {
     private List taskList;
 
     public TaskNotFoundException(List taskList) {
+        assert taskList != null;
         this.taskList = taskList;
     }
 
@@ -17,7 +18,6 @@ public class TaskNotFoundException extends Throwable {
         if (taskList.getListSize() == 0) {
             return "\nTask not found: list is empty. Please add a task first.";
         }
-        return "\nTask not found: Task number should be between 1 and " + taskList.getListSize()
-                + ".";
+        return "\nTask not found: Task number should be between 1 and " + taskList.getListSize() + ".";
     }
 }
