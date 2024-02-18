@@ -1,18 +1,15 @@
+package duke.tasks;
 
 import duke.tasks.TaskList;
 
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
 public class TaskListTest {
-    /*
-    public TaskList taskList;
-
-    public TaskListTest() {
-        this.taskList = new TaskList();
-    }
-    */
-
+    @Test
     public void dummyTest() {
         TaskList taskList = new TaskList();
         assertEquals(taskList.getTasksList(), new ArrayList<>());
