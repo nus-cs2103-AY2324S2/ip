@@ -18,7 +18,7 @@ There are 3 kinds of tasks you can create.
 
 3)Events - Tasks that have a start and end date/time
 
->Time format must be as follows:<span style="color:blue">DD-MM-YY HH:MM</span>
+>Time format must be as follows: <span style="color:blue">DD-MM-YYYY HH:MM</span>
 
 >Example: 3 Feb 2001 6pm should be 03-02-2001 18:00
 
