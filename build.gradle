@@ -40,11 +40,11 @@ test {
 }
 
 application {
-    mainClass.set("duke.Main")
+    mainClass.set("linus.Main")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "linus"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
