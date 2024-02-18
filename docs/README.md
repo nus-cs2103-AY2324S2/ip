@@ -1,30 +1,46 @@
-# Duke User Guide
+# Gluti User Guide
 
-// Update the title above to match the actual product name
+![img.png](img.png)
 
-// Product screenshot goes here
-
-// Product intro goes here
+Introducing Gluti, your task tracking chat bot!
 
 ## Adding deadlines
 
-// Describe the action and its outcome.
+Using the given commands, deadline can be added with the date that it is due!
 
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
+Usage: deadline (task name) /by (due date) <br/>
 ```
-expected output
+Example: deadline project meeting /by 23/12/2024
 ```
 
-## Feature ABC
+```
+[D][ ] project meeting (by: Dec 23 2024)
+```
 
-// Feature details
+## Marking tasks as done
 
+Using the given commands, tasks can be marked as done!
 
-## Feature XYZ
+Usage: mark (task number)
+```
+Example: mark 1
+```
 
-// Feature details
+```
+Nice! I've marked this task as done:
+[D][X] project meeting (by: Dec 23 2024)
+```
+
+## Deleting tasks!
+
+Using the given commands, tasks can be deleted!
+
+Usage: delete (task number)
+```
+Example: delete 1
+```
+
+```
+Noted. I've removed this task:
+[D][X] project meeting (by: Dec 23 2024)
+```
