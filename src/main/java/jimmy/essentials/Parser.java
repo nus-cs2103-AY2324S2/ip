@@ -18,6 +18,7 @@ public class Parser {
         String[] inputArray = userInput.split(" ", 2);
         String instruction;
         String details = "";
+
         if (inputArray.length > 1) {
             instruction = inputArray[0];
             details = inputArray[1];

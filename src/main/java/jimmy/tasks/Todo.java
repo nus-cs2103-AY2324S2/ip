@@ -8,7 +8,7 @@ import java.util.Objects;
 public class Todo extends Task {
 
     /**
-     * Constructor for jimmy.tasks.Todo class.
+     * Constructor for Todo class.
      *
      * @param taskName Name of the task.
      */

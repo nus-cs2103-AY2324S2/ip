@@ -50,7 +50,7 @@ public class Jimmy {
     }
 
     /**
-     * Run the bot.
+     * Runs the bot.
      */
     public String getResponse(String userInput) {
         try {

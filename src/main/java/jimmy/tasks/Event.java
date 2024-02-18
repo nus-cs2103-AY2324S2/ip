@@ -11,11 +11,14 @@ import java.util.Objects;
 public class Event extends Task {
     private final LocalDate start;
     private final LocalDate end;
+
+    // this date format displays the date purely in numbers
     private final DateTimeFormatter informalDateFormat = DateTimeFormatter.ofPattern("d-MM-yyyy");
+    // this date format displays the month in words
     private final DateTimeFormatter formalDateFormat = DateTimeFormatter.ofPattern("d MMM yyyy");
 
     /**
-     * Constructor for jimmy.tasks.Event class.
+     * Constructor for Event class.
      *
      * @param taskName Name of the task.
      * @param start    Start time of the event.
@@ -26,7 +29,8 @@ public class Event extends Task {
         super(taskName, isCompleted);
         this.start = parseStringtoLocalDate(start);
         this.end = parseStringtoLocalDate(end);
-        if (!checkValidDuration(this.start, this.end)) {
+
+        if (!hasValidDuration(this.start, this.end)) {
             throw new IllegalArgumentException();
         }
     }
@@ -38,10 +42,11 @@ public class Event extends Task {
      * @param end   End time of the event.
      * @return true if the start and end timing are valid, false otherwise.
      */
-    private boolean checkValidDuration(LocalDate start, LocalDate end) {
+    private boolean hasValidDuration(LocalDate start, LocalDate end) {
         boolean isStartBeforeEnd = start.isBefore(end);
         boolean isStartAfterNow = start.isAfter(LocalDate.now());
         boolean isEndAfterNow = end.isAfter(LocalDate.now());
+
         return isStartBeforeEnd && isStartAfterNow && isEndAfterNow;
     }
 

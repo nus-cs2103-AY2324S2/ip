@@ -28,15 +28,15 @@ public class Ui {
     }
 
     /**
-     * Display the number of tasks after the addition of a new task.
+     * Displays the number of tasks with the new task after its addition.
      *
      * @param newTask    The new task that was added.
      * @param tasksCount The number of tasks in the list.
      * @return The new task and the number of tasks in the list, in String format.
      */
-    public String showNewTask(String newTask, int tasksCount) {
+    public String showAddedClass(String newTask, int tasksCount) {
         return "Got it. I've added this task:" + "\n" + newTask + "\n"
-                + generateListCounter(tasksCount);
+                + generateListSizeString(tasksCount);
     }
 
     /**
@@ -44,18 +44,18 @@ public class Ui {
      *
      * @return The counter for the task list.
      */
-    private String generateListCounter(int counter) {
+    private String generateListSizeString(int counter) {
         if (counter == 0) {
             return "You have no jimmy.tasks, create some now!";
         } else if (counter == 1) {
             return "Now you have 1 task in the list.";
         } else {
-            return "Now you have " + counter + " jimmy.tasks in the list.";
+            return "Now you have " + counter + " tasks in the list.";
         }
     }
 
     /**
-     * Display the number of tasks left after the deletion of a task.
+     * Displays the number of tasks left after the deletion of a task.
      *
      * @param deletedTask The task that was deleted.
      * @param tasksCount  The number of tasks in the list.
@@ -63,11 +63,11 @@ public class Ui {
      */
     public String showDeletedTask(String deletedTask, int tasksCount) {
         return "Noted. I've removed this task:" + "\n" + deletedTask + "\n"
-                + "Now you have " + tasksCount + " tasks in the list.\n";
+                + generateListSizeString(tasksCount);
     }
 
     /**
-     * Display all stored tasks.
+     * Displays all stored tasks.
      *
      * @param taskList The list of tasks.
      * @return The list of tasks, in String format.
@@ -75,10 +75,12 @@ public class Ui {
     public String showAllTasks(ArrayList<Task> taskList) {
         StringBuilder sb = new StringBuilder();
         sb.append("Here are the jimmy.tasks in your list:\n");
+
         for (int i = 0; i < taskList.size(); i++) {
             sb.append(i + 1).append(".").append(taskList.get(i).toString());
             sb.append(System.getProperty("line.separator"));
         }
+
         return sb.toString();
     }
 

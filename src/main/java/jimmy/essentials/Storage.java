@@ -40,12 +40,12 @@ public class Storage {
         try {
             FileWriter fileWriter = new FileWriter(storagePath);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            System.out.println("Writing to file...");
+
             for (Task task : taskList) {
                 bufferedWriter.write(task.toFileString() + System.lineSeparator());
             }
+
             bufferedWriter.close();
-            System.out.println("Done with writing!");
         } catch (IOException e) {
             throw new JimmyException("IOException: Cannot write to file.");
         }
@@ -75,6 +75,7 @@ public class Storage {
                 taskList.add(savedTask);
 
             }
+
             bufferedReader.close();
         } catch (IOException e) {
             throw new JimmyException("IOException: Cannot load file.");

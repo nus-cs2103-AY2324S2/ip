@@ -42,6 +42,7 @@ public class TaskList {
      */
     public String createNewTask(String instruction, String details) throws JimmyException {
         Task newTask = null;
+
         try {
             switch (instruction) {
             case "todo":
@@ -72,7 +73,7 @@ public class TaskList {
         }
 
         taskList.add(newTask);
-        return ui.showNewTask(newTask.toString(), getListSize());
+        return ui.showAddedClass(newTask.toString(), getListSize());
     }
 
     /**
@@ -96,9 +97,11 @@ public class TaskList {
         String[] deadlineDetails = parser.parseDeadlineDetails(details);
         String deadlineName = deadlineDetails[0];
         String deadline = deadlineDetails[1];
+
         if (deadlineName.length() == 0 || deadline.length() == 0) {
             throw new JimmyException("Please check that you have entered a deadline name and a deadline.");
         }
+
         return new Deadline(deadlineName, deadline, false);
     }
 
@@ -114,9 +117,11 @@ public class TaskList {
         String eventName = eventDetails[0];
         String start = eventDetails[1];
         String end = eventDetails[2];
+
         if (eventName.length() == 0 || start.length() == 0 || end.length() == 0) {
             throw new JimmyException("Please check that you have entered a event name, a start time and an end time.");
         }
+
         return new Event(eventName, start, end, false);
     }
 
@@ -138,18 +143,20 @@ public class TaskList {
      */
     public String deleteTask(String taskIndex) throws JimmyException {
         int taskToDelete;
+
         try {
             taskToDelete = Integer.parseInt(taskIndex) - 1;
         } catch (NumberFormatException e) {
             throw new JimmyException("Please only enter an integer.");
         }
+
         if (taskToDelete < 0) {
             throw new JimmyException("Please only enter a positive integer to represent the task index.");
-
         } else if (taskToDelete >= getListSize()) {
             throw new JimmyException("The task you are looking for does not exist; "
                     + "you might have entered an index that is larger than the number of tasks.");
         }
+
         Task deletedTask = taskList.remove(taskToDelete);
         return ui.showDeletedTask(deletedTask.toString(), getListSize());
     }
@@ -172,17 +179,20 @@ public class TaskList {
      */
     public String markTask(String taskIndex) throws JimmyException {
         int completeTask;
+
         try {
             completeTask = Integer.parseInt(taskIndex) - 1;
         } catch (NumberFormatException e) {
             throw new JimmyException("Please only enter an integer.");
         }
+
         if (completeTask < 0) {
             throw new JimmyException("Please only enter a positive integer.");
 
         } else if (completeTask >= getListSize()) {
             throw new JimmyException("The task you are looking for does not exist.");
         }
+
         Task curr = taskList.get(completeTask);
         curr.markAsComplete();
         return ui.showMarkedTask(curr.toString());
