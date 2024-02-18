@@ -32,6 +32,7 @@ public class Deadline extends Task {
     @Override
     public String saveFormat() {
         int check = this.isCompleted ? 1 : 0;
+        assert check == 1 || check == 0 : "check should return 1 or 0";
         return String.format("D | %d | %s | %s\n", check, this.taskName,
                 this.deadline.format(formatter));
     }

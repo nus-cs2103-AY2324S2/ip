@@ -25,10 +25,11 @@ public class AddToDoCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws LeluException {
-        if (message.replaceAll(" ", "").equals("todo")) {
+        if (message.trim().equals("todo")) {
             InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.TODO);
         }
         String s = message.replaceFirst("todo ", "");
+        assert message.length() > "todo ".length() : "Input not handled properly";
         return tasks.addTask(new ToDo(s));
     }
 }

@@ -1,5 +1,6 @@
 package commands;
 
+import exceptions.InvalidFormatException;
 import exceptions.LeluException;
 import storage.Storage;
 import tasks.TaskList;
@@ -23,7 +24,17 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws LeluException {
-        int i = Integer.parseInt(message.split(" ")[1]) - 1;
+        String[] desc = message.split(" ");
+        if (desc.length != 2) {
+            InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.MARK);
+        }
+        int i = 0;
+        try {
+            i = Integer.parseInt(desc[1]) - 1;
+        } catch (NumberFormatException e) {
+            InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.MARK);
+        }
+        assert message.length() >= "mark #".length() : "Input not handled properly";
         return tasks.markTask(i);
     }
 
