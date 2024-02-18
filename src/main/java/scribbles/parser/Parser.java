@@ -165,6 +165,10 @@ public class Parser {
         return end;
     }
 
+    public boolean isInvalidStartAndEnd(LocalDateTime start, LocalDateTime end) {
+        return start.isAfter(end);
+    }
+
     /**
      * Gets the keyword that user wants to look for in tasks.
      *

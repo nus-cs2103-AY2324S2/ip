@@ -39,7 +39,8 @@ public class Ui {
                 + " with duration formatted as dd/mm/yyyy HHmm\n"
                 + "- type \"delete [index]\" to remove a task at index from your list\n"
                 + "- type \"find [keyword]\" to find tasks with matching keyword\n"
-                + "- type \"sortBy [order]\" to sort task list according to specified order\n"
+                + "- type \"sortBy [order]\" to sort task list according to specified order (e.g. description, type, "
+                + "completed first, incompleted first, date)\n"
                 + "- type \"bye\" to exit Scribbles\n"
                 + "Please try again :)");
     }
@@ -170,6 +171,11 @@ public class Ui {
     public String confirmTaskAddition(TaskList taskList) {
         return ("I've added this task to your list:\n" + taskList.get(taskList.size() - 1).toString() + "\n"
                 + "Now you have " + taskList.size() + " task(s) in the list.");
+    }
+
+    public String printEventStartAfterEnd() {
+        return "Uh oh! Looks like your event started after it ended!\n"
+                + "Please double check that your dates and time again and re-enter your event!";
     }
 
     /**

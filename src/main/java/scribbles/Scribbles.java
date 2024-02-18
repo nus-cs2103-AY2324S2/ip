@@ -131,6 +131,11 @@ public class Scribbles {
                     String description = parsedInput.getEventDescription();
                     LocalDateTime start = parsedInput.getStartDateTime();
                     LocalDateTime end = parsedInput.getEndDateTime();
+
+                    if (parsedInput.isInvalidStartAndEnd(start, end)) {
+                        return ui.printEventStartAfterEnd();
+                    }
+
                     taskList.addTask(new Event(description, false, start, end));
                     storage.saveFileData(taskList);
                     return ui.confirmTaskAddition(taskList);
