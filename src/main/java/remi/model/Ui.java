@@ -87,7 +87,7 @@ public class Ui {
         return isFinished;
     }
 
-    public Message getInitialMessage() {
+    public static Message getInitialMessage() {
         return INITIAL_MESSAGE;
     }
 }
