@@ -11,6 +11,7 @@ public class ListCommand extends Command {
      * @param ui to manage the interaction with users
      * @param storage to store the product of execution locally, not used in this program
      */
+    @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
         String replyMessage = taskList.toString();
         Ui.print_message(replyMessage);
@@ -21,6 +22,7 @@ public class ListCommand extends Command {
      *
      * @return false, because this is not an exit command
      */
+    @Override
     public boolean isExit() {
         return false;
     }

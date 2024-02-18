@@ -56,9 +56,11 @@ public class TaskList {
      * @return the string representation of the deleted task
      */
     public String delete(int index) {
+        assert index > 0 && index < taskCount : "Delete index out of bound.";
         String deletedTaskDescription = tasks.get(index - 1).toString();
         tasks.remove(index - 1);
         taskCount--;
+        assert taskCount >= 0 : "The number of tasks can't be negative.";
         return deletedTaskDescription;
     }
 
@@ -69,6 +71,7 @@ public class TaskList {
      * @return the string representation fo the marked task
      */
     public String mark(int index) {
+        assert index > 0 && index < taskCount : "Mark index out of bound.";
         tasks.get(index - 1).mark();
         return tasks.get(index - 1).toString();
     }
@@ -80,6 +83,7 @@ public class TaskList {
      * @return the string representation of the unmarked task
      */
     public String unmark(int index) {
+        assert index > 0 && index < taskCount : "Unmark index out of bound.";
         tasks.get(index - 1).unmark();
         return tasks.get(index - 1).toString();
     }

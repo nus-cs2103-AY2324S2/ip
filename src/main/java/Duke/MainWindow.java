@@ -8,6 +8,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
+import java.io.InputStream;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  * Part of the UI design is adopted from CS2103T JavaFX tutorial.
@@ -48,6 +51,8 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = duke.getResponse(input);
+        assert userImage != null : "Can't find user image";
+        assert dukeImage != null : "Can't find ZHEN image";
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)

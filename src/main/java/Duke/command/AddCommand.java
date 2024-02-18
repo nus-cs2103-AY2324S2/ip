@@ -27,6 +27,7 @@ public class AddCommand extends Command {
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
         taskList.insert(this.task);
+        assert taskList.accessNumberTask() >= 0 : "Number of tasks less than zero";
         String replyMessage = "Got it. I've added this task:\n  "
                 + task.toString() + "\n "
                 + "Now you have "
