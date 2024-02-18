@@ -1,3 +1,5 @@
+package bmo.task;
+
 public class Task {
     protected String task;
     protected Boolean isDone;

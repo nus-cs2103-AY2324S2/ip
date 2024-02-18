@@ -1,5 +1,9 @@
+package bmo.ui;
 
-public class UI {
+import bmo.util.TaskList;
+import bmo.task.Task;
+
+public class Ui {
 
     public void showLine() {
         System.out.println("----------------------------------------------------------------------------------");

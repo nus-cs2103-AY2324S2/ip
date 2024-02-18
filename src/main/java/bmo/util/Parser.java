@@ -1,12 +1,28 @@
+package bmo.util;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import bmo.ui.Ui;
+import bmo.command.Command;
+import bmo.command.DefaultCommand;
+import bmo.command.DueCommand;
+import bmo.command.EventCommand;
+import bmo.command.ExitCommand;
+import bmo.command.GreetCommand;
+import bmo.command.LogCommand;
+import bmo.command.RedoCommand;
+import bmo.command.DeleteCommand;
+import bmo.command.ToDoCommand;
+import bmo.command.GuideCommand;
+import bmo.command.DoneCommand;
+import bmo.command.FindCommand;
 
 public class Parser {
     public static LocalDateTime formatDateTime(String input) {
-        UI ui = new UI();
+        Ui ui = new Ui();
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
             return LocalDateTime.parse(input, formatter);
@@ -14,6 +30,8 @@ public class Parser {
             return null;
         }
     }
+
+    //to amend: break down into smaller methods
     public static Command parse(String input) throws IOException {
             String[] inputArr = input.split(" ");
             String keyword = inputArr[0];

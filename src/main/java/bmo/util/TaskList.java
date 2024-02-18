@@ -1,17 +1,22 @@
+package bmo.util;
+
 import java.util.ArrayList;
-import java.util.List;
+import bmo.ui.Ui;
+import bmo.task.Task;
+import bmo.command.Command;
+import bmo.command.DoneCommand;
 
 public class TaskList extends ArrayList<Task> {
-    private final List<Task> taskLog;
+    private ArrayList<Task> taskLog;
 
-    public TaskList(UI ui) {
-        taskLog = new ArrayList<>();
+    public TaskList(Ui ui) {
+        this.taskLog = new ArrayList<>();
         ui.printEmptyStorage();
     }
 
-    public TaskList(String content, UI ui, Storage storage) {
+    public TaskList(String content, Ui ui, Storage storage) {
         if (content.isBlank()) {
-            taskLog = new ArrayList<>();
+            this.taskLog = new ArrayList<>();
             ui.printEmptyStorage();
             return;
         }

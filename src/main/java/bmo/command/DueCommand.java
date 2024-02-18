@@ -1,3 +1,12 @@
+package bmo.command;
+
+import bmo.util.Storage;
+import bmo.util.TaskList;
+import bmo.ui.Ui;
+import bmo.task.Task;
+import bmo.task.Deadlines;
+
+
 import java.time.LocalDateTime;
 
 public class DueCommand extends Command{
@@ -10,7 +19,7 @@ public class DueCommand extends Command{
         this.by = by;
     }
 
-    public void execute(TaskList tasks, UI ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         Task newTask = new Deadlines(this.desc, this.by);
         tasks.add(newTask);
         ui.printAddTask(newTask, tasks.size());

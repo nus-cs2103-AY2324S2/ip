@@ -1,16 +1,23 @@
+package bmo;
+
 import java.io.IOException;
 import java.lang.String;
 import java.util.Scanner;
+import bmo.util.Storage;
+import bmo.util.TaskList;
+import bmo.util.Parser;
+import bmo.ui.Ui;
+import bmo.command.Command;
 
 public class BMO {
 
     private Storage storage;
     private TaskList tasks;
-    private UI ui;
+    private Ui ui;
     private boolean isExit = false;
 
     public BMO() {
-        ui = new UI();
+        ui = new Ui();
         storage = new Storage();
         try {
             tasks = new TaskList(storage.loadData(), ui, storage);

@@ -1,3 +1,11 @@
+package bmo.command;
+
+import bmo.util.Storage;
+import bmo.util.TaskList;
+import bmo.ui.Ui;
+import bmo.task.Task;
+import bmo.task.Events;
+
 import java.time.LocalDateTime;
 
 public class EventCommand extends Command {
@@ -12,7 +20,7 @@ public class EventCommand extends Command {
         this.end = end;
     }
 
-    public void execute(TaskList tasks, UI ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         Task newTask = new Events(this.desc, this.start, this.end);
         tasks.add(newTask);
         ui.printAddTask(newTask, tasks.size());

@@ -1,3 +1,9 @@
+package bmo.command;
+
+import bmo.util.Storage;
+import bmo.util.TaskList;
+import bmo.ui.Ui;
+
 public class DefaultCommand extends Command {
 
     private final int type;
@@ -5,7 +11,7 @@ public class DefaultCommand extends Command {
     public DefaultCommand(int type) {
         this.type = type;
     }
-    public void execute(TaskList tasks, UI ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (this.type == 0) {
             ui.printErrInvalidCommand();
             return;
