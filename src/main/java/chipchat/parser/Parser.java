@@ -196,8 +196,9 @@ public class Parser {
      *
      * @param line the data-format string retrieved from storage file
      * @return parsed action that has been initialized based on stored data
+     * @throws ArgumentException
      */
-    public static AddTask parseLoadedTask(String line) {
+    public static AddTask parseLoadedTask(String line) throws ArgumentException {
         String[] tokens = line.split(" ");
         CommandType taskType = parseCommand(tokens[1]);
         return parseTask(taskType, Arrays.copyOfRange(tokens, 1, tokens.length));
