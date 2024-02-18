@@ -18,7 +18,7 @@ import denify.ui.Ui;
 public class TaskListTest {
 
     @Test
-    public void addTask_validInput_addsTaskSuccessfully() {
+    public void addTask_validInput_addsTaskSuccessfully() throws DenifyException {
         TaskList taskList = new TaskList(new ArrayList<>());
         Task task = new Todo("Read Book");
         taskList.addTask(task);
