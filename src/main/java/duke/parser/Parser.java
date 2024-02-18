@@ -66,6 +66,8 @@ public class Parser {
                 return listTasks();
             case "find":
                 return getTasksFilteredWithKeyword(words);
+            case "compare":
+                return new Integer(taskList.getTask(1).compareTo(taskList.getTask(2))).toString();
             default:
                 throw new CommandNotFoundException(input);
             }

@@ -68,4 +68,19 @@ public class Deadline extends Task {
     public String getTypeString() {
         return TYPE_STRING;
     }
+
+    public int compareToSameType(Task task) {
+        assert(task.type == TaskType.DEADLINE) : "not a deadline";
+        Deadline deadline = (Deadline) task;
+
+        if (!description.equals(deadline.description)) {
+            return description.compareTo(deadline.description);
+        }
+
+        if (!deadlineTiming.equals(deadline.deadlineTiming)) {
+            return deadlineTiming.compareTo(deadline.deadlineTiming);
+        }
+
+        return 0;
+    }
 }

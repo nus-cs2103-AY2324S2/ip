@@ -5,14 +5,13 @@ import duke.parser.MissingInputFieldException;
 /**
  * Represents a task.
  */
-public abstract class Task {
+public abstract class Task implements Comparable<Task> {
     protected static String dataStringSplitter = " \\| ";
     protected static String storageDataStringSplitter = " | ";
     protected TaskType type;
     protected String description;
     protected String command;
     protected String delimiter;
-    protected String typeString;
     private boolean isDone;
 
     /**
@@ -172,6 +171,14 @@ public abstract class Task {
         return b ? 1 : 0;
     }
 
+    @Override
+    public int compareTo(Task task) {
+        if (type == task.type) {
+            return compareToSameType(task);
+        }
+        return getTypeString().compareTo(task.getTypeString());
+    }
+
     /**
      * Prints type of the task.
      *
@@ -180,6 +187,7 @@ public abstract class Task {
     public abstract String getTypeString();
     public abstract String getCommand();
     public abstract String getDelimiter();
+    public abstract int compareToSameType(Task task);
 
     /**
      * Sets up task with string input.
