@@ -12,10 +12,10 @@ import duke.commands.Command;
 import duke.commands.DeleteCommand;
 import duke.commands.ExitCommand;
 import duke.commands.FindCommand;
-import duke.exceptions.InvalidCommandException;
 import duke.commands.ListCommand;
 import duke.commands.MarkCommand;
 import duke.commands.UnmarkCommand;
+import duke.exceptions.InvalidCommandException;
 import duke.tasks.TaskList;
 
 /**
@@ -113,7 +113,8 @@ public class Parser {
         }
     }
 
-    private static AddEventCommand parseAddEvent(TaskList taskList, String[] typeAndRemaining) throws InvalidCommandException {
+    private static AddEventCommand parseAddEvent(TaskList taskList, String[] typeAndRemaining)
+            throws InvalidCommandException {
         try {
             String[] descAndRemaining = typeAndRemaining[1].split("/from", 2);
             String[] fromAndTo = descAndRemaining[1].split("/to", 2);
@@ -140,7 +141,8 @@ public class Parser {
         }
     }
 
-    private static AddDeadlineCommand parseAddDeadline(TaskList taskList, String[] typeAndRemaining) throws InvalidCommandException {
+    private static AddDeadlineCommand parseAddDeadline(TaskList taskList, String[] typeAndRemaining)
+            throws InvalidCommandException {
         try {
             String[] descAndBy = typeAndRemaining[1].split("/by", 2);
             String[] bydateAndBytime = descAndBy[1].strip().split(" ", 2);
@@ -155,7 +157,8 @@ public class Parser {
         }
     }
 
-    private static AddTodoCommand parseAddTodo(TaskList taskList, String[] typeAndRemaining) throws InvalidCommandException {
+    private static AddTodoCommand parseAddTodo(TaskList taskList, String[] typeAndRemaining)
+            throws InvalidCommandException {
         try {
             String todoDesc = typeAndRemaining[1].strip();
             return new AddTodoCommand(taskList, todoDesc);

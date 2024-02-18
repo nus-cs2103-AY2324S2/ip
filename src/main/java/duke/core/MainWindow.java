@@ -24,6 +24,9 @@ public class MainWindow extends AnchorPane {
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Initialises the MainWindow controller, which hosts the MeanDuke application
+     */
     @FXML
     public void initialize() {
         this.scrollPane.vvalueProperty().bind(this.dialogContainer.heightProperty());
@@ -47,6 +50,11 @@ public class MainWindow extends AnchorPane {
         this.userInput.clear();
     }
 
+    /**
+     * Tells this controller to display a message from MeanDuke
+     *
+     * @param message To be displayed
+     */
     public void showMessage(String message) {
         this.dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(message, this.dukeImage)
