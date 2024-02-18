@@ -10,19 +10,23 @@ import java.util.Objects;
  */
 public class Deadline extends Task {
     private final LocalDate deadline;
+
+    // this date format displays the date purely in numbers
     private final DateTimeFormatter informalDateFormat = DateTimeFormatter.ofPattern("d-MM-yyyy");
+    // this date format displays the month in words
     private final DateTimeFormatter formalDateFormat = DateTimeFormatter.ofPattern("d MMM yyyy");
 
     /**
      * Constructor for jimmy.tasks.Deadline class.
      *
      * @param taskName Name of the task.
-     * @param deadline jimmy.tasks.Deadline of the task.
+     * @param deadline Deadline of the task.
      */
     public Deadline(String taskName, String deadline, boolean isCompleted)
             throws DateTimeParseException, IllegalArgumentException {
         super(taskName, isCompleted);
         this.deadline = this.parseStringtoLocalDate(deadline);
+
         if (this.deadline.isBefore(LocalDate.now())) {
             throw new IllegalArgumentException();
         }

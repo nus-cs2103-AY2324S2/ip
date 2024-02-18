@@ -10,7 +10,7 @@ public abstract class Task implements Serializable {
     private boolean isCompleted;
 
     /**
-     * Constructor for jimmy.tasks.Task class.
+     * Constructor for Task class.
      *
      * @param taskName Name of the task.
      */
