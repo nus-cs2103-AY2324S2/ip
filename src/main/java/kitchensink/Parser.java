@@ -58,7 +58,8 @@ public class Parser {
             return parseTaskCommands(input, "delete", taskList, storage, ui);
         case "find":
             return parseUnaryCommands(input, "find", taskList, storage, ui);
-
+        case "help":
+            return parseGlobalCommands(input, "help", taskList, ui);
         default:
             assert !input.equals("bye") && !input.equals("list") && !input.equals("mark") && !input.equals("unmark")
                     && !input.equals("todo") && !input.equals("deadline") && !input.equals("event")
@@ -81,6 +82,8 @@ public class Parser {
         }
         switch (command) {
         case "bye":
+            // does not use taskList, but still abstracted in this method due to how similar the syntax of these
+            // commands are
             assert input.equals("bye") || input.equals("Bye") || input.equals("bYe") || input.equals("byE")
                     || input.equals("BYe") || input.equals("ByE") || input.equals("bYE") || input.equals("BYE");
             return ui.displayGoodBye();
@@ -90,6 +93,14 @@ public class Parser {
                     || input.equals("lISt") || input.equals("lIsT") || input.equals("liST") || input.equals("LISt")
                     || input.equals("LIsT") || input.equals("LiST") || input.equals("lIST") || input.equals("LIST");
             return ui.displayTasks(taskList);
+            case "help":
+                // does not use taskList, but still abstracted in this method due to how similar the syntax of these
+                // commands are
+                assert input.equals("help") || input.equals("Help") || input.equals("hElp") || input.equals("heLp")
+                        || input.equals("helP") || input.equals("HElp") || input.equals("HeLp") || input.equals("HelP")
+                        || input.equals("hELp") || input.equals("hElP") || input.equals("heLP") || input.equals("HELp")
+                        || input.equals("HElP") || input.equals("HeLP") || input.equals("hELP") || input.equals("HELP");
+                return ui.displayHelp();
         default:
             return new UnknownCommandException().toString();
         }
