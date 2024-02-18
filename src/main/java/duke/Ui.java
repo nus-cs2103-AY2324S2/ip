@@ -23,7 +23,7 @@ public class Ui {
      * @param s The task message to be displayed.
      */
     public String onTaskAddition(String s) {
-        return  s + "\n" ;
+        return s + "\n";
     }
 
     /**
@@ -33,8 +33,8 @@ public class Ui {
      * @param integer The number of tasks remaining.
      */
     public String onTaskDeletion(String s, int integer) {
-        String message = String.format("Noted. I've removed this task:\n" +
-                "%s\nNow you have %d tasks left.\n", s, integer);
+        String message = String.format("Noted. I've removed this task:\n"
+                + "%s\nNow you have %d tasks left.\n", s, integer);
 
         return message;
     }
@@ -80,8 +80,8 @@ public class Ui {
      * Displays a farewell message when the program ends.
      */
     public String onEnd() {
-        return "\n" + "Farewell! Can't wait to catch up with you again. Until next time, " +
-                "take care and stay awesome!\n";
+        return "\n" + "Farewell! Can't wait to catch up with you again. Until next time, "
+                + "take care and stay awesome!\n";
     }
 
 }

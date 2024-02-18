@@ -1,11 +1,29 @@
 package exceptions;
 
-public class OutOfIntexException extends DukeExceptions{
-    public String msg = "The index you indicated is out of range!";
-    public OutOfIntexException() {
+/**
+ * Custom exception class representing the scenario where we delete/ mark an index is out of range.
+ * Extends the DukeExceptions class.
+ */
+public class OutOfIndexException extends DukeExceptions {
+
+    /**
+     * The message to be displayed when O exception is thrown.
+     */
+    private String msg = "The index you indicated is out of range!";
+
+    /**
+     * Default constructor for the OutOfIndexException class.
+     */
+    public OutOfIndexException() {
         super();
     }
 
-    @Override
-    public String output() {return String.format("%s%s\n", super.output(), this.msg);}
+    /**
+     * Method to output the formatted exception message.
+     *
+     * @return Formatted string containing the parent output and the custom message.
+     */
+    public String output() {
+        return String.format("%s%s\n", super.output(), this.msg);
+    }
 }

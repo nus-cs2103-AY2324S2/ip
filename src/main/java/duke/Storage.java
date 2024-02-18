@@ -1,8 +1,9 @@
 package duke;
 
+import java.util.ArrayList;
+
 import exceptions.DukeExceptions;
 
-import java.util.ArrayList;
 
 /**
  * The Storage class represents a storage facility for tasks.
@@ -12,7 +13,7 @@ public class Storage {
     /**
      * The list to store tasks.
      */
-    public ArrayList<Task> storage;
+    private ArrayList<Task> storage;
 
     /**
      * Constructs a new Storage instance with an empty task list.
@@ -81,13 +82,15 @@ public class Storage {
     public String find(String s) {
         StringBuilder output = new StringBuilder();
         try {
-            for (int i=0; i<this.storage.size(); i++) {
+            for (int i = 0; i < this.storage.size(); i++) {
                 if (this.storage.get(i).description.contains(s)) {
                     output.append(String.format("%d. ", i + 1));
                     output.append(this.storage.get(i).toString()).append("\n");
                 }
             }
-            if (output.length() == 0) throw new DukeExceptions();
+            if (output.length() == 0) {
+                throw new DukeExceptions();
+            }
 
         } catch (DukeExceptions d) {
             System.out.println("Nothing was found");
@@ -102,7 +105,7 @@ public class Storage {
      */
     public String printList() {
         StringBuilder output = new StringBuilder();
-        for (int i=0; i<this.storage.size(); i++) {
+        for (int i = 0; i < this.storage.size(); i++) {
             output.append(String.format("%d. ", i + 1));
             output.append(this.storage.get(i).toString()).append("\n");
         }
@@ -116,8 +119,8 @@ public class Storage {
      * @return The formatted string representing the output.
      */
     public String addToListOutput(Task t) {
-        return "Got it. I've added this task:\n" +
-                String.format("  %s\nNow you have %d tasks in the list.", t.toString(), this.size());
+        return "Got it. I've added this task:\n"
+                + String.format("  %s\nNow you have %d tasks in the list.", t.toString(), this.size());
     }
 
 
