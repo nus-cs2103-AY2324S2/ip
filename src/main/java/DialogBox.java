@@ -45,7 +45,6 @@ public class DialogBox extends HBox {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
-        System.out.println(getChildren());
         Text t = (Text) getChildren().get(0);
         t.setTextAlignment(TextAlignment.LEFT);
         setAlignment(Pos.TOP_LEFT);

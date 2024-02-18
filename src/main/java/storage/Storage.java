@@ -64,11 +64,12 @@ public class Storage {
      */
     public TaskList loadFile() throws FileNotFoundException {
         File f = new File(path);
-        if (!f.isFile()) {
+        if (!f.exists()) {
             try {
+                f.getParentFile().mkdirs();
                 f.createNewFile();
             } catch (IOException e) {
-                System.out.println("An error occurred.");
+                System.out.println("Error creating directory: " + e.getMessage());
             }
         }
         TaskList taskList = new TaskList();

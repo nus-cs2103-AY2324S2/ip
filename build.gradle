@@ -43,11 +43,11 @@ test {
 }
 
 application {
-    mainClassName = "Duke"
+    mainClassName = "Main"
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "unclebob"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
