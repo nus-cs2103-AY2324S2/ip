@@ -1,14 +1,15 @@
 package duke.application;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.io.Storage;
-import duke.task.Task;
-import duke.task.Todo;
-import duke.io.Ui;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import duke.io.Storage;
+import duke.io.Ui;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
 
 /**
  * The Parser class is responsible for parsing user input and executing corresponding commands.

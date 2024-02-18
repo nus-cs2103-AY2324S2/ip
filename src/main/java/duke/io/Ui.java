@@ -16,8 +16,8 @@ public class Ui {
      * @return The welcome message as a String.
      */
     public static String showWelcomeMessage() {
-        return "Hello! I'm RATZCHAT\n" +
-                "How can I help you today?\n";
+        return "Hey there, welcome back to Ratzchat!\n" +
+                "What's on your mind today?\n";
     }
 
     /**
@@ -26,7 +26,7 @@ public class Ui {
      * @return The goodbye message as a String.
      */
     public static String showByeMessage() {
-        return "BYEBYE. Thank you for using RATZCHAT!\n";
+        return "Leaving ALREADY? BYEBYE :(. Remember, I'm just a message away. \n";
     }
 
     /**
@@ -36,7 +36,7 @@ public class Ui {
      */
     public static String showErrorMessage(String message) {
         assert message != null : "Error message should not be null";
-        return "Error: " + message + "\n";
+        return "Whoops! \uD83E\uDD16 " + message + "\n";
     }
 
     /**
@@ -47,7 +47,7 @@ public class Ui {
      */
     public static String showTaskList(ArrayList<Task> tasks) {
         StringBuilder taskListString = new StringBuilder();
-        taskListString.append("These are your to-dos: ");
+        taskListString.append("Here are your to-dos: ");
         for (int i = 0; i < tasks.size(); i++) {
             taskListString.append("\n").append((i + 1)).append(".").append(tasks.get(i));
         }
@@ -63,8 +63,8 @@ public class Ui {
      * @return A formatted message as a String.
      */
     public static String showTodoAdded(Todo todo, int totalTasks) {
-        String response = "Ok! I've added this todo: " + todo + "\n"
-                + "Now you have " + totalTasks + " tasks in your list."
+        String response = "Your to-do: " + todo + "is on the list! You're gonna nail it :)\n"
+                + "Just " + totalTasks + " tasks in your list now."
                 + "\n";
         return response;
     }
@@ -77,7 +77,7 @@ public class Ui {
      * @return A formatted message as a String.
      */
     public static String showDeadlineAdded(Deadline deadline, int totalTasks) {
-        return "Ok! I've added this deadline: " + deadline + "\n" +
+        return "New deadline alert: " + deadline + "!\n" +
                 "Now you have " + totalTasks + " tasks in your list.\n";
     }
 
@@ -88,7 +88,8 @@ public class Ui {
      * @return String representation of the marked task.
      */
     public static String showMarkedAsDone(Task task) {
-        return "I've marked this task as done:\n  " + task + "\n";
+        return "Boom! " + task + "is marked done.\n" +
+                "You're crushing it!! What's next?";
     }
 
     /**
@@ -98,7 +99,8 @@ public class Ui {
      * @return String representation of the unmarked task.
      */
     public static String showUnmarkedTask(Task task) {
-        return "I've unmarked this task! It is now not done yet:\n  " + task + "\n";
+        return "Not done yet? Time is ticking!! " +
+                "Try to finish this task soon: \n  " + task + " :(\n";
     }
 
     /**
@@ -109,7 +111,8 @@ public class Ui {
      * @return String representation of the added task.
      */
     public static String showTaskAdded(Task task, int totalTasks) {
-        return "Ok! I've added this task: " + task + "\nNow you have " + totalTasks + " tasks in your list.\n";
+        return "Ok! " + task + "is on the list!\n" +
+                "Now you have " + totalTasks + " tasks in your list.\n";
     }
 
     /**
@@ -120,7 +123,8 @@ public class Ui {
      * @return String representation of the removed task.
      */
     public static String showTaskRemoved(Task removedTask, int totalTasks) {
-        return "Ok! I have removed this task from your list:\n  " + removedTask + "\nNow you have " + totalTasks + " tasks in your list.\n";
+        return "Poof! This task has been removed from your list:\n  " + removedTask +
+                "\nNow you have " + totalTasks + " tasks in your list.\n";
     }
 
     /**
@@ -131,6 +135,7 @@ public class Ui {
      */
     public static String showFindItemList(String keyword) {
         assert keyword != null : "Keyword should not be null";
-        return "Items containing '" + keyword + ":\n";
+        return "Here are the tasks with " + keyword + " in them:\n" +
+                "You're going to nail this!";
     }
 }
