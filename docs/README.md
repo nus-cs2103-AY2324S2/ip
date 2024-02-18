@@ -4,6 +4,8 @@
 Introducing **Squid**! No, he's not seafood 🦑. Instead, he's a black cat! 🐈‍⬛
 He seems grumpy and too cool for you, but deep inside he's just a cuddly cat.
 > I'll handle your tasks for you... Just feed me after. - Squid
+
+
 ## Features
 
 > Keywords in square brackets [ ] are parameters that need to be in the following formats:
