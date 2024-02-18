@@ -53,7 +53,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "DevGPT"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
     mainClassName = "duke.Launcher"

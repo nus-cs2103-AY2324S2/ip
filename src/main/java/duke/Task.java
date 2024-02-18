@@ -66,11 +66,11 @@ public class Task {
      * Accepts a date in LocalDateTime format and returns the date time in given pattern.
      *
      * @param date date in LocalDateTime format
-     * @param dateTimePattern to format the date time
+     * @param dateTimePtn the pattern for date time formatter
      * @return date of the task in String format of given pattern
      */
-    public static String getLocalDateTimeOutput(LocalDateTime date, String dateTimePattern) throws DateTimeParseException {
-        return date.format(DateTimeFormatter.ofPattern(dateTimePattern));
+    public static String getLocalDateTimeOutput(LocalDateTime date, String dateTimePtn)throws DateTimeParseException {
+        return date.format(DateTimeFormatter.ofPattern(dateTimePtn));
     }
 
     /**

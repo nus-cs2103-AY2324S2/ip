@@ -109,7 +109,8 @@ public class Storage {
                 Deadline deadline = (Deadline) task;
                 fileWriter.write(
                     deadline.getTaskType() + " | " + (deadline.isDone ? "1" : "0") + " | "
-                        + deadline.getDescription() + " | " + Task.getLocalDateTimeOutput(deadline.getBy(), "d-M-yyyy HHmm") + "\n");
+                        + deadline.getDescription() + " | " + Task.getLocalDateTimeOutput(deadline.getBy(),
+                        "d-M-yyyy HHmm") + "\n");
             } else if (task instanceof Event) {
                 Event event = (Event) task;
                 fileWriter.write(

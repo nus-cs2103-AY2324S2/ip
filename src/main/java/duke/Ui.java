@@ -114,7 +114,8 @@ public class Ui {
             + "deadline <description> /by <dd-mm-yyyy> <HHmm> (time optional)\n\t"
             + "event <description> /from <dd-mm-yyyy> /to <dd-mm-yyyy>\n\t"
             + "list\n\t"
-            + "done <index>\n\t"
+            + "mark <index>\n\t"
+            + "unmark <index>\n\t"
             + "delete <index>\n\t"
             + "find <keyword>\n\t"
             + "bye");
