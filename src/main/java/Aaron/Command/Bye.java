@@ -13,8 +13,8 @@ public class Bye extends Command {
     }
 
     @Override
-    public void run(TaskList taskList, UI ui) {
-        ui.goodbyeMessage();
+    public String run(TaskList taskList, UI ui) {
+        return ui.goodbyeMessage();
     }
 
     @Override

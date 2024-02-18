@@ -16,21 +16,19 @@ public class DeleteTask extends Command {
     }
 
     @Override
-    public void run(TaskList taskList, UI ui) {
+    public String run(TaskList taskList, UI ui) {
         int index;
         try {
             index = IndexParser.getIndex(commandDetails);
         } catch (IndexFormatException e) {
-            ui.errorMessage(e);
-            return;
+            return ui.errorMessage(e);
         }
         try {
             taskList.deleteTask(index);
         } catch (TaskListOutOfBoundsException e) {
-            ui.errorMessage(e);
-            return;
+            return ui.errorMessage(e);
         }
-        System.out.println("Successfully deleted task " + index);
+        return ui.showTaskDeletedMsg(index);
     }
 
     @Override

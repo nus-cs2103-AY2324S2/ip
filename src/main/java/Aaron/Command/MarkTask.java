@@ -15,21 +15,19 @@ public class MarkTask extends Command {
     }
 
     @Override
-    public void run(TaskList taskList, UI ui) {
+    public String run(TaskList taskList, UI ui) {
         int index;
         try {
             index = IndexParser.getIndex(commandDetails);
         } catch (IndexFormatException e) {
-            ui.errorMessage(e);
-            return;
+            return ui.errorMessage(e);
         }
         try {
             taskList.mark(index);
         } catch (AaronBotException e) {
-            ui.errorMessage(e);
-            return;
+            return ui.errorMessage(e);
         }
-        ui.markMessage(index, taskList);
+        return ui.markMessage(index, taskList);
     }
 
     @Override

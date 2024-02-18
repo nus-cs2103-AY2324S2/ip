@@ -23,7 +23,7 @@ public abstract class Command {
      * @param taskList tasklist that will be modified/read from
      * @param ui       UI that handles user interaction
      */
-    public abstract void run(TaskList taskList, UI ui);
+    public abstract String run(TaskList taskList, UI ui);
 
     /**
      * Method that returns whether the command is a bye command

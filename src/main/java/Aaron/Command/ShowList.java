@@ -13,11 +13,11 @@ public class ShowList extends Command {
     }
 
     @Override
-    public void run(TaskList taskList, UI ui) {
+    public String run(TaskList taskList, UI ui) {
         if (taskList.getTasklistSize() > 0) {
-            taskList.showList(ui);
+            return taskList.showList();
         } else {
-            ui.emptyListMessage();
+            return ui.emptyListMessage();
         }
     }
 
