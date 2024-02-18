@@ -1,52 +1,56 @@
 package someboty;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 
 import someboty.Exceptions.TerminateException;
 import someboty.Managers.CommandManager;
 import someboty.Managers.FileManager;
-import someboty.Managers.ResponseManager;
-import someboty.Managers.taskManager;
+import someboty.Managers.TaskManager;
 
 // main class for the project
-public class someBOTy extends Application {
+public class someBOTy {
 
+    private CommandManager commandCenter;
+
+    /**
+     * Constructor for "someBOTy" class.
+     * @param filePath  a file path to access task data.
+     */ 
     public someBOTy(String filePath) {
-        // Initialize
         FileManager fileManager = new FileManager(filePath);
-        taskManager taskManager = new taskManager(fileManager);
-        CommandManager commandCenter = new CommandManager(taskManager);
-        ResponseManager responseManager = new ResponseManager(commandCenter);
+        TaskManager taskManager = new TaskManager(fileManager);
+        commandCenter = new CommandManager(taskManager);
+    }
 
-        ResponseManager.printGreeting();
+    public String getResponse(String input) {
+        String response;
 
-        while (true) {
-            try {
-                // read input once
-                responseManager.parseInput(); 
-
-            } catch (TerminateException e) {
-                // print farewell message and exit application.
-                ResponseManager.printExitMessage();
-                return;
-            }
+        try {
+            response = commandCenter.parse(input);
+        } catch (TerminateException e) {
+            response = ExitMessage();
         }
+
+        return response;
     }
 
-    public someBOTy() {
+    /**
+     * Prints out a greeting message from the bot to user.
+     */
+    public static String Greeting() {
+        String message = "おかえりなさい、主殿！ イズナはここに待ってたよ\n"
+                       + "何かお困りことはありませんか！";
+
+        return message;
+    }
+
+    /**
+     * Prints out a farewell message from the bot to user.
+     */
+    public static String ExitMessage() {
+        String message = "もう出ていくの？　じゃーいってらっしゃい、主殿！";
         
-    }
-
-    @Override
-    public void start(Stage stage) {
-
-    }
-
-    public static void main(String[] args) { 
-        String filePath = System.getProperty("user.dir");
-        new someBOTy(filePath);
+        return message;
     }
 }

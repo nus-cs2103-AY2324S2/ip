@@ -6,13 +6,13 @@ import someboty.Exceptions.InputException;
 import someboty.Tasks.Task;
 
 /**
- * taskManager is a class that handles actions related to tasks.
+ * TaskManager is a class that handles actions related to tasks.
  * This includes (but not yet limited to) changing completion status of a task,
  * adding new tasks, deleting existing tasks and finding tasks.
  * 
  * The task list will be passed to fileManager to save the list for future sessions.
  */
-public class taskManager {
+public class TaskManager {
 
     private ArrayList<Task> taskList;
     private FileManager files;
@@ -21,7 +21,7 @@ public class taskManager {
      * Constructor for taskManager.
      * @param files A fileManager object to fetch/save the task list.
      */
-    public taskManager(FileManager files) {
+    public TaskManager(FileManager files) {
         this.files = files;
         taskList = this.files.fetchTasks();
     }
@@ -119,7 +119,7 @@ public class taskManager {
      * @return A list of tasks with names that contain the substring.
      */
     protected ArrayList<Task> findTasks(String substring) {
-        ArrayList<Task> matchList = new ArrayList<>();
+        ArrayList<Task> matchedTasks = new ArrayList<>();
         String taskName;
 
         substring = substring.toLowerCase();
@@ -127,11 +127,11 @@ public class taskManager {
             taskName = task.toString().toLowerCase();
 
             if (taskName.contains(substring)) {
-                matchList.add(task);
+                matchedTasks.add(task);
             }
         }
 
-        return matchList;
+        return matchedTasks;
     }
 
     /**

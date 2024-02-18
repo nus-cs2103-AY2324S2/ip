@@ -13,7 +13,7 @@ import someboty.Exceptions.InputException;
  */
 public class DateManager {
 
-    private static final DateTimeFormatter OUT_FORMATT = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
+    private static final DateTimeFormatter OUT_FORMAT = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
 
     // accepted date formats
     private static final String[] DATE_FORMATS = {
@@ -58,7 +58,7 @@ public class DateManager {
      * @return String representation of the date and time.
      */
     public static String printDate(LocalDateTime date) {
-        return date.format(OUT_FORMATT);
+        return date.format(OUT_FORMAT);
     }
 
     /**

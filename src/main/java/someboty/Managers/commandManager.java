@@ -28,14 +28,14 @@ public class CommandManager {
         "todo"
     };
 
-    private taskManager manager;
+    private TaskManager taskManager;
 
     /**
      * Constructor for commandManager
      * @param taskList The taskManager to coordinate with.
      */
-    public CommandManager(taskManager taskList) {
-        this.manager = taskList;
+    public CommandManager(TaskManager taskList) {
+        this.taskManager = taskList;
     }
 
     /**
@@ -44,18 +44,18 @@ public class CommandManager {
      * @return Response output after executing the command.
      * @throws TerminateException Thrown only when command input is "bye", which closes the application.
      */
-    protected String parse(String input) throws TerminateException{
+    public String parse(String input) throws TerminateException{
         String command = input.split(" ")[0];
         
         try {
             switch (command) {
 
             case "bye":
-                manager.update();
-                throw new TerminateException("LMAO XD");
+                taskManager.update();
+                throw new TerminateException("");
             
             case "list":
-                return manager.printListTasks();
+                return taskManager.printListTasks();
 
             case "help":
                 return listCommands();
@@ -150,7 +150,7 @@ public class CommandManager {
                 );
         }
 
-        Task task = this.manager.setTaskStatus(index, isCompleted);
+        Task task = this.taskManager.setTaskStatus(index, isCompleted);
         return isCompleted
                 ? "Uppzz lah so hardworking!\n " + task
                 : "O...k... as you wish I guess...!\n " + task;
@@ -175,14 +175,14 @@ public class CommandManager {
                 );
         }
 
-        Task deletedTask = this.manager.deleteTask(index);
+        Task deletedTask = this.taskManager.deleteTask(index);
         return "Noted. I've removed this task:\n"
             + String.format("  %s\n", deletedTask)
-            + String.format("Now you have %d tasks in the list.", this.manager.getListSize());
+            + String.format("Now you have %d tasks in the list.", this.taskManager.getListSize());
     }
 
     private String clearTaskList() {
-        this.manager.clear();
+        this.taskManager.clear();
         return "Huh. Your list is magically gone!";
     }
 
@@ -193,11 +193,11 @@ public class CommandManager {
      * @return String response after adding the new task.
      */
     private String addTask(char type, String description) {
-        Task newTask = this.manager.addTask(type, description);
+        Task newTask = this.taskManager.addTask(type, description);
 
         return "Got it. I've added this task:\n"
             + String.format("  %s\n", newTask)
-            + String.format("Now you have %d tasks in the list.\n", this.manager.getListSize())
+            + String.format("Now you have %d tasks in the list.\n", this.taskManager.getListSize())
             +"(Type 'list' to see the full list of tasks)";
     }
 
@@ -208,7 +208,7 @@ public class CommandManager {
      * @return String response of the list of matched tasks.
      */
     private String findTasks(String description) {
-        ArrayList<Task> taskList = manager.findTasks(description);
+        ArrayList<Task> taskList = taskManager.findTasks(description);
 
         if (taskList.size() == 0) { // special case for when no matches found
             return "Huh. I couldn't find anything in this deep lonely abyss...";
