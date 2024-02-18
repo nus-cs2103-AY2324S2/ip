@@ -24,6 +24,7 @@ public class MarkCommand extends Command {
      * @param isMarked The variable that determines whether a given task is to be marked or unmarked.
      */
     public MarkCommand(String userInput, boolean isMarked) {
+        super(false);
         this.taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
         this.isMarked = isMarked;
     }

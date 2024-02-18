@@ -19,6 +19,7 @@ public class DeleteCommand extends Command {
      * @param userInput The input that the user types into the command line.
      */
     public DeleteCommand(String userInput) {
+        super(false);
         this.taskToDeleteIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
     }
 

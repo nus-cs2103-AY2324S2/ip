@@ -8,6 +8,12 @@ import utilities.Storage;
  */
 public class ListCommand extends Command {
     /**
+     * ListCommand class constructor.
+     */
+    public ListCommand() {
+        super(false);
+    }
+    /**
      * Executes the listing process of all tasks in the task list.
      * @param taskList The task list that the command is applied to.
      * @param storage The storage that the task list is stored in after the command is applied.

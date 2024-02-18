@@ -19,6 +19,7 @@ public class AddCommand extends Command {
      * @param newTask New task created and waiting to be added into the task list.
      */
     public AddCommand(Task newTask) {
+        super(false);
         this.taskToAdd = newTask;
     }
 

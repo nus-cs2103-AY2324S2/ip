@@ -2,6 +2,7 @@ package gui;
 
 import command.Command;
 import exceptions.DukeException;
+import javafx.application.Platform;
 import task.TaskList;
 import ui.Ui;
 import utilities.Parser;
@@ -12,7 +13,7 @@ import utilities.Storage;
  */
 public class Todopal {
     /** File name to where the data will be stored. */
-    private static final String FILE_NAME = "duke.txt";
+    private static final String FILE_NAME = "todopal.txt";
     /** Directory path to where the data will be stored. */
     private static final String DIRECTORY_NAME = "./src/main/data";
     /**
@@ -45,6 +46,9 @@ public class Todopal {
     public String getResponse(String userInput) {
         try {
             Command command = Parser.parse(userInput);
+            if (command.isExit()) {
+                Platform.exit();
+            }
             return command.execute(taskList, storage);
         } catch (DukeException e) {
             return e.getMessage();
