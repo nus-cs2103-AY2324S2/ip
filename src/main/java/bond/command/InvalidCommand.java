@@ -11,7 +11,7 @@ import bond.task.TaskList;
  * Upon executing the invalid command, the user interface will display an error message.
  *
  * @author Benny Loh
- * @version 0.1
+ * @version 0.2
  */
 public class InvalidCommand extends Command {
 

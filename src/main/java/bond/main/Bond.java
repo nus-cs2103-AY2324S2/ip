@@ -9,9 +9,9 @@ import bond.task.TaskList;
  * @author Benny Loh
  * @version 0.1
  */
-public final class Bond {
+public class Bond {
 
-    private Ui ui;
+    protected Ui ui;
 
     private Storage storage;
 
@@ -20,21 +20,20 @@ public final class Bond {
     /**
      * Constructor for the Bond class.
      */
-    public Bond() {
+    public Bond() throws BondException {
         this.ui = new Ui();
         this.storage = new Storage(System.getProperty("user.home") + "/data/Bond.txt");
 
         try {
             this.taskList = new TaskList(this.storage.load());
         } catch (BondException e) {
-            ui.showError(e);
             this.taskList = new TaskList(null);
+            BondException.raiseException("load", "LOAD_FAILURE");
         }
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Generates a response to user input.
      */
     protected String getResponse(String input) {
         try {

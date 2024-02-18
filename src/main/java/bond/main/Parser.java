@@ -1,5 +1,7 @@
 package bond.main;
 
+import java.util.HashMap;
+
 import bond.command.AddDeadlineCommand;
 import bond.command.AddEventCommand;
 import bond.command.AddToDoCommand;
@@ -17,9 +19,51 @@ import bond.command.UnmarkCommand;
  * Command object.
  *
  * @author Benny Loh
- * @version 0.1
+ * @version 0.2
  */
 public abstract class Parser {
+
+    private static final HashMap<String, String> MONTH_FORMATS = new HashMap<>() {
+        {
+            put("Jan", "01");
+            put("Feb", "02");
+            put("Mar", "03");
+            put("Apr", "04");
+            put("May", "05");
+            put("Jun", "06");
+            put("Jul", "07");
+            put("Aug", "08");
+            put("Sep", "09");
+            put("Oct", "10");
+            put("Nov", "11");
+            put("Dec", "12");
+        }
+    };
+
+    /**
+     * Changes the date format from "MMM dd yyyy" to "yyyy-MM-dd".
+     *
+     * @param month The month in the date.
+     * @param day   The day in the date.
+     * @param year  The year in the date.
+     * @return The date in the format "yyyy-MM-dd".
+     */
+    public static String changeDateFormat(String month, String day, String year) {
+        String newMonth = "";
+        String newDay;
+
+        if (MONTH_FORMATS.containsKey(month)) {
+            newMonth = MONTH_FORMATS.get(month);
+        }
+
+        if (day.length() == 1) {
+            newDay = "0" + day;
+        } else {
+            newDay = day;
+        }
+
+        return year + "-" + newMonth + "-" + newDay;
+    }
 
     /**
      * Checks if the user input is a valid command.
@@ -52,65 +96,81 @@ public abstract class Parser {
     }
 
     /**
-     * Changes the date format from "MMM dd yyyy" to "yyyy-MM-dd".
+     * Checks if the String representation of timing is in a valid format.
      *
-     * @param month The month in the date.
-     * @param day   The day in the date.
-     * @param year  The year in the date.
-     * @return The date in the format "yyyy-MM-dd".
+     * @param timing The timing to be checked.
+     * @return True if the timing is in a valid format, false otherwise.
      */
-    public static String changeDateFormat(String month, String day, String year) {
-        String newMonth = "";
-        String newDay = "";
+    public static boolean isValidTiming(String timing) {
 
-        switch (month) {
-        case "Jan":
-            newMonth = "01";
-            break;
-        case "Feb":
-            newMonth = "02";
-            break;
-        case "Mar":
-            newMonth = "03";
-            break;
-        case "Apr":
-            newMonth = "04";
-            break;
-        case "May":
-            newMonth = "05";
-            break;
-        case "Jun":
-            newMonth = "06";
-            break;
-        case "Jul":
-            newMonth = "07";
-            break;
-        case "Aug":
-            newMonth = "08";
-            break;
-        case "Sep":
-            newMonth = "09";
-            break;
-        case "Oct":
-            newMonth = "10";
-            break;
-        case "Nov":
-            newMonth = "11";
-            break;
-        case "Dec":
-            newMonth = "12";
-            break;
-        default:
-            break;
+        if (timing.length() < 3) {
+            return false;
         }
 
-        if (day.length() == 1) {
-            newDay = "0" + day;
+        boolean endsWithAmPm = timing.toLowerCase().endsWith("am")
+                || timing.toLowerCase().endsWith("pm");
+
+        if (Parser.isNumber(timing) && timing.length() == 4) {
+
+            int hours = Integer.parseInt(timing.substring(0, 2));
+            int minutes = Integer.parseInt(timing.substring(2));
+
+            boolean validHour = hours >= 0 && hours <= 23;
+            boolean validMinute = minutes >= 0 && minutes <= 59;
+
+            return validHour && validMinute;
+        } else if (endsWithAmPm) {
+
+            String time = timing.toLowerCase().replace("am", "");
+            time = time.toLowerCase().replace("pm", "");
+            String[] hoursAndMinutes = time.split("\\.");
+
+            if (hoursAndMinutes.length == 1 && Parser.isNumber(hoursAndMinutes[0])) {
+                int hours = Integer.parseInt(hoursAndMinutes[0]);
+                return hours >= 1 && hours <= 12;
+            } else if (hoursAndMinutes.length == 2) {
+
+                if (Parser.isNumber(hoursAndMinutes[0]) && Parser.isNumber(hoursAndMinutes[1])) {
+                    int hours = Integer.parseInt(hoursAndMinutes[0]);
+                    int minutes = Integer.parseInt(hoursAndMinutes[1]);
+                    boolean validHour = hours >= 1 && hours <= 12;
+                    boolean validMinute = minutes >= 0 && minutes <= 59;
+                    return validHour && validMinute;
+                }
+            }
+
+            return false;
+        }
+
+        return false;
+    }
+
+    /**
+     * Changes the timing format from "HHmm" to "HH.mm(am/pm)" if needed.
+     *
+     * @param time The timing to be changed.
+     * @return The timing in the format "HH.mm(am/pm)" if needed.
+     */
+    public static String changeTimeFormat(String time) {
+
+        String newTime;
+
+        if (Parser.isNumber(time)) {
+            int hours = Integer.parseInt(time.substring(0, 2));
+            int minutes = Integer.parseInt(time.substring(2));
+
+            if (hours == 0) {
+                newTime = "12" + (minutes > 0 ? "." + minutes : "") + "am";
+            } else if (hours < 12) {
+                newTime = hours + (minutes > 0 ? "." + minutes : "") + "am";
+            } else {
+                newTime = (hours - 12) + (minutes > 0 ? "." + minutes : "") + "pm";
+            }
         } else {
-            newDay = day;
+            newTime = time;
         }
 
-        return year + "-" + newMonth + "-" + newDay;
+        return newTime;
     }
 
     /**
@@ -132,6 +192,8 @@ public abstract class Parser {
             BondException.raiseException("", "INVALID_COMMAND_TYPE");
         }
 
+        assert components.length > 0 : "Command should not be empty";
+
         if (components[0].equalsIgnoreCase("todo")) {
 
             // No valid task name specified for a todo task
@@ -142,6 +204,8 @@ public abstract class Parser {
             for (int i = 1; i < components.length; i++) {
                 taskName += components[i] + " ";
             }
+
+            assert taskName.length() > 0 : "Task name should not be empty";
 
             taskName = taskName.trim();
 
@@ -162,11 +226,15 @@ public abstract class Parser {
                     for (int j = i + 1; j < components.length; j++) {
                         deadline += components[j] + " ";
                     }
+
                     break;
                 } else {
                     taskName += components[i] + " ";
                 }
             }
+
+            assert taskName.length() > 0 : "Task name should not be empty";
+            assert deadline.length() > 0 : "Deadline should not be empty";
 
             taskName = taskName.trim();
             deadline = deadline.trim();
@@ -213,6 +281,10 @@ public abstract class Parser {
                     break;
                 }
             }
+
+            assert taskName.length() > 0 : "Task name should not be empty";
+            assert start.length() > 0 : "Start date should not be empty";
+            assert end.length() > 0 : "End date should not be empty";
 
             taskName = taskName.trim();
             start = start.trim();
@@ -288,7 +360,5 @@ public abstract class Parser {
         } else {
             return new InvalidCommand();
         }
-
     }
-
 }

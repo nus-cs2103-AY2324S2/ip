@@ -10,6 +10,9 @@ import javafx.scene.layout.VBox;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
+ *
+ * @author Benny Loh
+ * @version 0.2
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -26,6 +29,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Anya.jpeg"));
     private Image bondImage = new Image(this.getClass().getResourceAsStream("/images/Bond.jpeg"));
 
+    /**
+     * Sets up the window initially when program opens up.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -33,6 +39,18 @@ public class MainWindow extends AnchorPane {
 
     public void setBond(Bond d) {
         bond = d;
+        welcomeUser();
+    }
+
+
+    protected void tellUser(String message) {
+        dialogContainer.getChildren().add(
+                DialogBox.getBondDialog(message, bondImage)
+        );
+    }
+
+    protected void welcomeUser() {
+        tellUser(bond.ui.showWelcome());
     }
 
     /**
@@ -43,11 +61,19 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = bond.getResponse(input);
+
+        assert response != null : "Response should not be null.";
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, bondImage)
+                DialogBox.getBondDialog(response, bondImage)
         );
         userInput.clear();
+
+        if (response == "Bye. Hope to see you again soon!") {
+            Main.exitApplication();
+            assert false : "Application should have exited.";
+        }
     }
 
 }

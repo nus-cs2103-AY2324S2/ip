@@ -4,12 +4,13 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import bond.main.BondException;
+import bond.main.Parser;
 
 /**
  * Represents an event task in the Bond task management program.
  *
  * @author Benny Loh
- * @version 0.1
+ * @version 0.2
  */
 public class EventTask extends Task {
 
@@ -31,20 +32,26 @@ public class EventTask extends Task {
     public EventTask(String name, String start, String end) throws BondException {
         super(name);
 
+        String[] startDateTime = start.split(" ");
+        String[] endDateTime = end.split(" ");
+
+        if (startDateTime.length != 2 || endDateTime.length != 2) {
+            BondException.raiseException("event", "INVALID_DATETIME_FORMAT");
+        }
+
         try {
-
-            String[] startDateTime = start.split(" ");
             this.startDate = LocalDate.parse(startDateTime[0]);
-            this.startTiming = startDateTime[1];
-
-            String[] endDateTime = end.split(" ");
             this.endDate = LocalDate.parse(endDateTime[0]);
-            this.endTiming = endDateTime[1];
-
         } catch (java.time.format.DateTimeParseException e) {
             BondException.raiseException("deadline", "INVALID_DATE_FORMAT");
         }
 
+        if (!Parser.isValidTiming(startDateTime[1]) || !Parser.isValidTiming(endDateTime[1])) {
+            BondException.raiseException("event", "INVALID_TIME_FORMAT");
+        }
+
+        this.startTiming = Parser.changeTimeFormat(startDateTime[1]);
+        this.endTiming = Parser.changeTimeFormat(endDateTime[1]);
     }
 
     @Override
