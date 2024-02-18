@@ -1,6 +1,7 @@
 package seedu.duke;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 import seedu.duke.task.Deadline;
 import seedu.duke.task.Event;
@@ -96,7 +97,7 @@ public class Parser {
         String[] splitInput = input.split(" /by ");
         try {
             if (splitInput.length < 2) {
-                throw new DukeException("Here's the format I require: deadline [name] /by [yyyy-mm-dd]");
+                throw new DukeException("Here's the format I require: deadline [description] /by [yyyy-mm-dd]");
             }
             String[] commandAndDescription = splitInput[0].split(" ", 2);
             String dateline = splitInput[1];
@@ -106,6 +107,8 @@ public class Parser {
             output = ui.showTaskAdded(deadline, tasks.getSize());
         } catch (DukeException d) {
             output = ui.printError(d);
+        } catch (DateTimeParseException dateTimeParseException) {
+            output = ui.printError(new DukeException("Please enter a valid date in the format yyyy-mm-dd"));
         }
         return output;
     }
@@ -162,6 +165,8 @@ public class Parser {
             output = ui.showTaskAdded(event, tasks.getSize());
         } catch (DukeException d) {
             output = ui.printError(d);
+        } catch (DateTimeParseException dateTimeParseException) {
+        output = ui.printError(new DukeException("Please enter a valid date in the format yyyy-mm-dd"));
         }
         return output;
     }
