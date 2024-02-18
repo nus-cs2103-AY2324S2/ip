@@ -1,9 +1,11 @@
+package linus;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-public class Duke {
+public class Linus {
     public static void main(String[] args) {
         System.out.println("Hello! I'm Linus!\nWhat can I do for you?\n\n");
 
@@ -51,7 +53,7 @@ public class Duke {
                 } else if (input.startsWith("todo")) {
                     // Check if the input string is long enough
                     if (input.length() <= 5) {
-                        throw new DukeException("Please specify the description of the todo task, " +
+                        throw new LinusException("Please specify the description of the todo task, " +
                                 "starting from one whitespace away from the keyword 'todo'" +
                                 " (e.g. todo borrow book)");
                     }
@@ -59,7 +61,7 @@ public class Duke {
                     String description = input.substring(5);
 
                     if (description.isEmpty()) {
-                        throw new DukeException("Please specify the description of the todo task, " +
+                        throw new LinusException("Please specify the description of the todo task, " +
                                 "starting from one whitespace away from the keyword 'todo'" +
                                 " (e.g. todo borrow book)");
                     }
@@ -72,19 +74,19 @@ public class Duke {
                     String[] substrings = input.split(" /by ");
 
                     if (substrings[0].length() <= 9) {
-                        throw new DukeException("Please specify the description of the deadline task " +
+                        throw new LinusException("Please specify the description of the deadline task " +
                                 "(e.g. deadline return book /by 2019-10-15)");
                     }
 
                     String description = substrings[0].substring(9);
 
                     if (description.isEmpty()) {
-                        throw new DukeException("Please specify the description of the deadline task " +
+                        throw new LinusException("Please specify the description of the deadline task " +
                                 "(e.g. deadline return book /by 2019-10-15)");
                     }
 
                     if (!input.contains(" /by ") || substrings[1].isEmpty()) {
-                        throw new DukeException("Please state the deadline period " +
+                        throw new LinusException("Please state the deadline period " +
                                 "(e.g. deadline return book /by 2019-10-15)");
                     }
 
@@ -95,11 +97,11 @@ public class Duke {
                         ui.showMessage("Got it. I've added this task: \n" + deadline);
                         ui.showMessage("Now you have " + taskList.getSize() + " tasks in the list.");
                     } catch (DateTimeParseException e) {
-                        throw new DukeException("Invalid date format. Please use the format yyyy-MM-dd (e.g. 2019-10-15)");
+                        throw new LinusException("Invalid date format. Please use the format yyyy-MM-dd (e.g. 2019-10-15)");
                     }
                 } else if (input.startsWith("event")) {
                     if (!input.contains(" /from ") || !input.contains(" /to ")) {
-                        throw new DukeException("Please state the event period by using " +
+                        throw new LinusException("Please state the event period by using " +
                                 " /from and /to with correct spacing (eg. event team meeting /from 2019-10-15 /to 2019-10-16)");
                     }
 
@@ -108,7 +110,7 @@ public class Duke {
                     String[] substrings2 = substrings[1].split(" /to ");
 
                     if (substrings2.length < 2 || description.isEmpty()) {
-                        throw new DukeException("Please specify the description of the deadline task " +
+                        throw new LinusException("Please specify the description of the deadline task " +
                                 "(eg. event team meeting /from 2019-10-15 /to 2019-10-16)");
                     }
 
@@ -120,27 +122,27 @@ public class Duke {
                         ui.showMessage("Got it. I've added this task: \n" + event);
                         ui.showMessage("Now you have " + taskList.getSize() + " tasks in the list.");
                     } catch (DateTimeParseException e) {
-                        throw new DukeException("Invalid date format. Please use the format yyyy-MM-dd (e.g. 2019-10-15)");
+                        throw new LinusException("Invalid date format. Please use the format yyyy-MM-dd (e.g. 2019-10-15)");
                     }
                 } else if (input.startsWith("delete")) {
                     if (input.length() <= 7) {
-                        throw new DukeException("Please state the index of the task you want to delete with correct spacing" +
+                        throw new LinusException("Please state the index of the task you want to delete with correct spacing" +
                                 " (e.g. delete 3)");
                     }
 
                     int indexOfTask = Integer.parseInt(input.substring(7).trim());
 
                     if (indexOfTask < 0 || indexOfTask >= taskList.getSize()) {
-                        throw new DukeException("The task index is out of range.");
+                        throw new LinusException("The task index is out of range.");
                     }
 
                     taskList.removeTask(indexOfTask);
                     System.out.println("Now you have " + taskList.getSize() + " tasks in the list.");
                 } else {
-                    throw new DukeException("Please give commands that start with any of the following:" +
+                    throw new LinusException("Please give commands that start with any of the following:" +
                             " [todo, deadline, event, mark, unmark, list, bye, delete]");
                 }
-            } catch (DukeException e) {
+            } catch (LinusException e) {
                 ui.showMessage(e.getMessage());
             }
         }

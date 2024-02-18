@@ -1,3 +1,5 @@
+package linus;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -7,7 +9,7 @@ import java.util.Scanner;
 
 public class Storage {
     // Referenced HusseinSafwan02's code and AI
-    private static final String FILE_PATH = "./data/duke.txt";
+    private static final String FILE_PATH = "./data/linus.txt";
     private static final String DIRECTORY_PATH = "./data";
 
     public ArrayList<Task> loadTasksFromFile() {
