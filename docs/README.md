@@ -135,7 +135,7 @@ Here are the matching tasks in your list:
 2. [D][ ] CS2103T assignment (by: 01 Apr 2024, 2359hrs)
 ```
 
-## Deleting a task: `delete`
+### Deleting a task: `delete`
 
 Deletes the specified task on the to-do list.
 
@@ -151,16 +151,16 @@ Noted. I've removed this task:
 Now you have 2 task(s) in the list
 ```
 
-## Exiting the program: `bye`
+### Exiting the program: `bye`
 
 Exits the program
 
 Format: `bye`
 
-## Saving the data
+### Saving the data
 
 TodoPal data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
-## Editing the data file
+### Editing the data file
 
 TodoPal data are saved automatically as a JSON file `[JAR file location]/data/todopal.txt`. Advanced users are welcome to update data directly by editing that data file.
