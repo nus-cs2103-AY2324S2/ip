@@ -24,17 +24,10 @@ public class Tes {
     /**
      * Initializes the chatbot.
      */
-    public void run() {
-        this.ui.greet();
 
-        this.parser.parse();
+
+    public String getResponse(String command) {
+        return this.parser.parse(command);
     }
 
-    public String getResponse(String hi) {
-        return "hi";
-    }
-    public static void main(String[] args) {
-        Tes chatbot = new Tes();
-        chatbot.run();
-    }
 }

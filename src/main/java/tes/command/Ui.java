@@ -10,7 +10,7 @@ import tes.taskmanager.TaskList;
  */
 public class Ui {
     /** Line seperator */
-    private static final String LINE = "    _______________________________________________________________";
+    private static final String LINE = "    _______________________________________________________________\n";
     private Scanner scanner; // Scanner for input
     private TaskList taskList; // tes.taskmanager.Task List to store tasks
     private Storage store;
@@ -24,23 +24,14 @@ public class Ui {
         this.taskList = new TaskList(this.store.loadFromFile());
     }
 
-    /**
-     * Prints a separator line.
-     */
-    public static void printLine() {
-        System.out.println(LINE);
-    }
+
 
     /**
      * Greets the user when initializing the chatbot.
      */
-    public void greet() {
-        printLine();
-        System.out.println(
-                "    Tes here.\n"
-                + "    huh? What you want from me?"
-        );
-        printLine();
+    public String greet() {
+        return "    Tes here.\n"
+                + "    huh? What you want from me?";
     }
 
     /**
@@ -55,12 +46,8 @@ public class Ui {
     /**
      * Says goodbye when closing the chatbot.
      */
-    public void close() {
-        printLine();
-        System.out.println(
-                "    Annoying brat (-.-)"
-        );
-        printLine();
+    public String close() {
+        return "    Annoying brat (-.-)";
     }
 
     /**
@@ -68,15 +55,13 @@ public class Ui {
      *
      * @param command tes.taskmanager.Task description of the new task.
      */
-    public void addToDo(String command) {
+    public String addToDo(String command) {
         this.taskList.storeToDo(command);
-        printLine();
-        System.out.println("    Got it. I've added this task:\n      "
+        return "    Got it. I've added this task:\n      "
                 + this.taskList.getTaskDescription(this.taskList.getSize() - 1)
                 + "\n    Now you have "
                 + this.taskList.getSize()
-                + " in the list.");
-        printLine();
+                + " in the list.";
     }
 
     /**
@@ -85,15 +70,13 @@ public class Ui {
      * @param command tes.taskmanager.Task description of the new task.
      * @param by tes.taskmanager.Deadline of the task.
      */
-    public void addDeadline(String command, String by) {
+    public String addDeadline(String command, String by) {
         this.taskList.storeDeadline(command, by);
-        printLine();
-        System.out.println("    Got it. I've added this task:\n      "
+        return "    Got it. I've added this task:\n      "
                 + this.taskList.getTaskDescription(this.taskList.getSize() - 1)
                 + "\n    Now you have "
                 + this.taskList.getSize()
-                + " in the list.");
-        printLine();
+                + " in the list.";
     }
 
     /**
@@ -102,28 +85,28 @@ public class Ui {
      * @param from Starting time of the task.
      * @param to Ending time of the task.
      */
-    public void addEvent(String command, String from, String to) {
+    public String addEvent(String command, String from, String to) {
         this.taskList.storeEvent(command, from, to);
-        printLine();
-        System.out.println("    Got it. I've added this task:\n      "
+        return "    Got it. I've added this task:\n      "
                 + this.taskList.getTaskDescription(this.taskList.getSize() - 1)
                 + "\n    Now you have "
                 + this.taskList.getSize()
-                + " in the list.");
-        printLine();
+                + " in the list.";
     }
 
     /**
      * Lists the tasks stored.
      */
-    public void listTask() {
-        printLine();
-        System.out.println("    Here are the tasks in your list:");
+    public String listTask() {
+        StringBuilder tasks = new StringBuilder("    Here are the tasks in your list:\n");
         for (int i = 1; i <= this.taskList.getSize(); i++) {
-            System.out.println("    " + i + "."
-                    + this.taskList.getTaskDescription(i - 1));
+            tasks.append("    ")
+                    .append(i)
+                    .append(".")
+                    .append(this.taskList.getTaskDescription(i - 1))
+                    .append("\n"); // Appends a new line character
         }
-        printLine();
+        return tasks.toString();
     }
 
     /**
@@ -131,11 +114,10 @@ public class Ui {
      *
      * @param index Index of the task to be marked.
      */
-    public void mark(int index) {
+    public String mark(int index) {
         this.taskList.mark(index);
-        System.out.println("    Nice! I've marked this task as done:\n      "
-                + this.taskList.getTaskDescription(index));
-        printLine();
+        return "    Nice! I've marked this task as done:\n      "
+                + this.taskList.getTaskDescription(index);
     }
 
     /**
@@ -143,12 +125,10 @@ public class Ui {
      *
      * @param index Index of the task to be unmarked.
      */
-    public void unmark(int index) {
+    public String unmark(int index) {
         this.taskList.unmark(index);
-        printLine();
-        System.out.println("    OK, I've marked this task as not done yet:\n      "
-                + this.taskList.getTaskDescription(index));
-        printLine();
+        return "    OK, I've marked this task as not done yet:\n      "
+                + this.taskList.getTaskDescription(index);
     }
 
     /**
@@ -156,15 +136,15 @@ public class Ui {
      *
      * @param index Index of the task to be unmarked.
      */
-    public void delete(int index) {
-        printLine();
-        System.out.println("    Noted. I've removed this task:\n      "
+    public String delete(int index) {
+        String deletedTask ="    Noted. I've removed this task:\n      "
                 + this.taskList.getTaskDescription(index - 1)
                 + "\n    Now you have "
                 + (this.taskList.getSize() - 1)
-                + " in the list.");
+                + " in the list.";
+
         this.taskList.delete(index - 1);
-        printLine();
+        return deletedTask;
     }
 
     /**
@@ -172,19 +152,19 @@ public class Ui {
      *
      * @param keyword Word used to find the task.
      */
-    public void find(String keyword) {
-        printLine();
-        System.out.println("    Here are the matching tasks in your list:");
+    public String find(String keyword) {
+        StringBuilder foundTasks = new StringBuilder("    Here are the matching tasks in your list:");
         int counter = 1;
         for (int i = 1; i <= this.taskList.getSize(); i++) {
-            String temp = this.taskList.getTaskDescription(i - 1);
-            if (temp.contains(keyword)) {
-                System.out.println("    " + counter + "."
-                        + temp);
+            String taskDescription = this.taskList.getTaskDescription(i - 1);
+            if (taskDescription.contains(keyword)) {
+                foundTasks.append(counter)
+                        .append(".")
+                        .append(taskDescription);
                 counter++;
             }
         }
-        printLine();
+        return foundTasks.toString();
     }
 
 }
