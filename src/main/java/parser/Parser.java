@@ -275,8 +275,10 @@ public class Parser {
             return CommandResponse.error(ui.getErrorMessage(e.getMessage() + ui.getCommandDescriptionMessage("tag")));
         } catch (InvalidTaskIndexException e) {
             return CommandResponse.error(ui.getErrorMessage(e.getMessage() + ui.getCommandDescriptionMessage("tag")));
+        } catch (IllegalArgumentException e) {
+            return CommandResponse.error(ui.getErrorMessage("Invalid priority. Please use 'high', 'medium' or 'low'."));
         } catch (GeePeeTeeException e) {
-            return CommandResponse.error(ui.getErrorMessage(e.getMessage() + ui.getCommandDescriptionMessage("tag")));
+            return CommandResponse.error(ui.getErrorMessage(e.getMessage()));
         }
     }
 

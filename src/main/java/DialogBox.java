@@ -30,6 +30,7 @@ public class DialogBox extends HBox {
     private static final double DEFAULT_MIN_WIDTH = 200;
     private static final double DEFAULT_MIN_HEIGHT = 200;
     private static final double CHAR_WIDTH = 7;
+    private static final double HEIGHT_MULTIPLIER = 1.5;
 
     @FXML
     private Label dialog;
@@ -56,7 +57,7 @@ public class DialogBox extends HBox {
         setPrefWidth(width);
 
         int numLines = (int) Math.ceil(textLength / width);
-        double height = numLines * CHAR_WIDTH * 1.5;
+        double height = numLines * CHAR_WIDTH * HEIGHT_MULTIPLIER;
         height = Math.max(height, DEFAULT_MIN_HEIGHT);
         setPrefHeight(height);
 

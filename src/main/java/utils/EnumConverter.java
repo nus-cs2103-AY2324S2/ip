@@ -16,8 +16,8 @@ public class EnumConverter {
      * @param priority The string representation of a priority.
      * @return The {@code Priority} enum.
      */
-    public static Priority convertStringToPriority(String priority) {
-        switch (priority) {
+    public static Priority convertStringToPriority(String priority) throws IllegalArgumentException {
+        switch (priority.toLowerCase()) {
         case "high":
             return Priority.HIGH;
         case "medium":
@@ -38,7 +38,7 @@ public class EnumConverter {
      * @param priority The {@code Priority} enum.
      * @return The string representation of the priority.
      */
-    public static String convertPriorityToFileString(Priority priority) {
+    public static String convertPriorityToFileString(Priority priority) throws IllegalArgumentException{
         switch (priority) {
         case HIGH:
             return "high";
@@ -59,7 +59,7 @@ public class EnumConverter {
      * @param priority The {@code Priority} enum.
      * @return The string representation of the priority.
      */
-    public static String convertPriorityToString(Priority priority) {
+    public static String convertPriorityToString(Priority priority) throws IllegalArgumentException{
         switch (priority) {
         case HIGH:
             return "High";
