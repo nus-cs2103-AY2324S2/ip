@@ -1,3 +1,4 @@
 D | 0 | mario kart | 15/02/2024 1900
 T | 0 | lecture watching
 E | 0 | cs2103t class | 15/02/2024 1700 | 15/02/2024 1800
+T | 1 | go kart

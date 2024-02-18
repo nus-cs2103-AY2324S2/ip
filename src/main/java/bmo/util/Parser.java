@@ -90,9 +90,18 @@ public class Parser {
 
                 output = new DefaultCommand(0);
                 break;
-            // case "find":
-            //    output = new FindCommand(inputArr[1]);
-            //    break;
+            case "find":
+                String findFormat = "^find\\s+(\\S+(\\s+\\w+)*)$";
+                Pattern findPattern = Pattern.compile(findFormat);
+                Matcher findMatcher = findPattern.matcher(input);
+
+                if (findMatcher.matches()) {
+                    String key = findMatcher.group(1);
+                    output = new FindCommand(key);
+                    break;
+                }
+                output = new DefaultCommand(1);
+                break;
             case "todo":
                 String toDoFormat = "^todo\\s+(\\S+(\\s+\\w+)*)$";
                 Pattern toDoPattern = Pattern.compile(toDoFormat);
