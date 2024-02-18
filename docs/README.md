@@ -9,7 +9,7 @@ Ypxmm is your go-to, true-blue Singaporean task manager bot. It is:
 - user-friendly
 - very fast to use
 
-![Representative screenshot of Ypxmm](Ui.png.png)
+![Representative screenshot of Ypxmm](Ui.png)
 
 ## Getting started
 
@@ -31,7 +31,7 @@ And you are done! Lets go! :smile:
 
 Run ```getcommands``` for the bot to return a list of the commands available and examples on how to use them.
 
-![Viewing Help](ugscreenshots/Getcommands.png.png)
+![Viewing Help](ugscreenshots/Getcommands.png)
 
 ### Adding a Todo task: ```todo```
 
@@ -39,27 +39,26 @@ Adding a Todo task to the list of tasks.
 
 Format: ```todo <name>```
 
-![Add todo screenshot](ugscreenshots/Todo.png.png)
+![Add todo screenshot](ugscreenshots/Todo.png)
 ### Adding a Deadline task: ```deadline```
 Adding a Deadline task to the list of tasks.
 
 Format: ```deadline <name> / <dd-MM-yyyy hhmm>```
 
-![Add deadline screenshot](ugscreenshots/Deadline.png.png)
+![Add deadline screenshot](ugscreenshots/Deadline.png)
 ### Adding an Event task: ```event```
 Adding an Event task to the list of tasks.
 The first date represents the start time of the event, and the second date represents the end time of the event.
 
 Format: ```event <name> / <dd-MM-yyyy hhmm> / <dd-MM-yyyy hhmm>```
 
-![Add event screenshot](ugscreenshots/Event.png.png)
+![Add event screenshot](ugscreenshots/Event.png)
 ### List out tasks: ```list```
 Lists out all tasks currently in the task list.
 
-![Add list screenshot](ugscreenshots/List.png.png)
+![Add list screenshot](ugscreenshots/List.png)
 ```angular2html
-:spiral_notepad: **Note:** The list always sorts tasks from
-highest priority to lowest priority.
+:spiral_notepad: **Note:** The list always sorts tasks from highest priority to lowest priority.
 ```
 ### Marking a task: ```mark```
 
@@ -68,10 +67,9 @@ Marks a task in the task list as done.
 Format: ```mark <x>```
 
 ```angular2html
-:bulb: **Tip:** List out the task list before marking to see 
-which ranking the task is. 
+:bulb: **Tip:** List out the task list before marking to see which ranking the task is. 
 ```
-![Add mark screenshot](ugscreenshots/Mark.png.png)
+![Add mark screenshot](ugscreenshots/Mark.png)
 ### Unmarking a task: ```unmark```
 
 Unmarks a task in the task list as undone.
@@ -79,37 +77,34 @@ Unmarks a task in the task list as undone.
 Format: ```unmark <x>```
 
 ```angular2html
-:bulb: **Tip:** List out the task list before unmarking to see 
-which ranking the task is. 
+:bulb: **Tip:** List out the task list before unmarking to see which ranking the task is. 
 ```
-![Add unmark screenshot](ugscreenshots/Unmark.png.png)
+![Add unmark screenshot](ugscreenshots/Unmark.png)
 ### Deleting a task: ```delete```
 Deletes a task in the task list.
 
 Format: ```delete <x>```
 
 ```angular2html
-:bulb: **Tip:** List out the task list before deleting to see 
-which ranking the task is. 
+:bulb: **Tip:** List out the task list before deleting to see which ranking the task is. 
 ```
-![Add delete screenshot](ugscreenshots/Delete.png.png)
+![Add delete screenshot](ugscreenshots/Delete.png)
 ### Finding a task: ```find```
 
 Finds a task in the list of tasks with a specified keyword/phrase.
 
 Format: ```find <name>```
 
-![Add find screenshot](ugscreenshots/Find.png.png)
+![Add find screenshot](ugscreenshots/Find.png)
 ### Prioritising a task: ```prioritise```
 Sets the priority of a task in the task list.
 
 Format: ```prioritise <x> high```
 
 ```angular2html
-:bulb: **Tip:** List out the task list before prioritising to see 
-which ranking the task is. 
+:bulb: **Tip:** List out the task list before prioritising to see which ranking the task is. 
 ```
-![Add prioritise screenshot](ugscreenshots/Prioritise.png.png)
+![Add prioritise screenshot](ugscreenshots/Prioritise.png)
 ```angular2html
 :spiral_notepad: **Things to take note of:**
 - There are 3 levels of priority: high, medium and low.
@@ -117,11 +112,11 @@ which ranking the task is.
 - Changing task priorities can only be done with this command.
 ```
 
-![Add prioritise result screenshot](ugscreenshots/PrioritiseResult.png.png)
+![Add prioritise result screenshot](ugscreenshots/PrioritiseResult.png)
 
 And this is the result! Note that the list will re-sort itself according to priority.
 ### Exiting the program: ```bye```
-![Add bye screenshot](ugscreenshots/Bye.png.png)
+![Add bye screenshot](ugscreenshots/Bye.png)
 
 I hope you enjoy using the bot!
 
@@ -130,7 +125,7 @@ I hope you enjoy using the bot!
 The following are some pieces of additional information to take note of.
 
 ### Bad commands
-![Add bad deadline screenshot](ugscreenshots/Bad Deadline.png.png)
+![Add bad deadline screenshot](ugscreenshots/Bad Deadline.png)
 
 When using a command wrongly, the bot will always try to advise on your mistake and how to correct it.
 
