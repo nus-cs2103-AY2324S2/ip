@@ -2,6 +2,7 @@ package commands;
 
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import exceptions.YpxmmException;
 import tasks.Deadline;
@@ -34,6 +35,13 @@ public enum Command {
          * @param parsed the parsed command arguments
          * @return a string representing the list of tasks
          */
+        @Override
+        public String execute(TaskList tasklist, Ui ui, Storage storage, ArrayList<String> parsed) {
+            return ui.printList(tasklist.getTasks()).trim();
+        }
+    },
+
+    LISTBYPRIORITY {
         @Override
         public String execute(TaskList tasklist, Ui ui, Storage storage, ArrayList<String> parsed) {
             return ui.printList(tasklist.getTasks()).trim();
@@ -88,8 +96,9 @@ public enum Command {
                 return ui.markMessage(task);
             } catch (IndexOutOfBoundsException e) {
                 throw new YpxmmException("Eh u seh isit? Now your list got "
-                        + (tasklist.getTasks().isEmpty() ? "no tasks to mark." : tasklist.getTasks().size()
-                        + " tasks, enter any number from 1 to " + tasklist.getTasks().size()));
+                        + (tasklist.getTasks().isEmpty() ? "no tasks to mark."
+                        : (tasklist.getTasks().size() == 1 ? "1 task," : " " + tasklist.getTasks().size() + " tasks,")
+                        + " enter any number from 1 to " + tasklist.getTasks().size()));
             } catch (YpxmmException y) {
                 return y.getMessage();
             }
@@ -121,8 +130,9 @@ public enum Command {
                 return ui.unmarkMessage(task);
             } catch (IndexOutOfBoundsException e) {
                 throw new YpxmmException("Eh u seh isit? Now your list got "
-                        + (tasklist.getTasks().isEmpty() ? "no tasks to unmark." : tasklist.getTasks().size()
-                        + " tasks, enter any number from 1 to " + tasklist.getTasks().size()));
+                        + (tasklist.getTasks().isEmpty() ? "no tasks to unmark."
+                        : (tasklist.getTasks().size() == 1 ? "1 task," : " " + tasklist.getTasks().size() + " tasks,")
+                        + " enter any number from 1 to " + tasklist.getTasks().size()));
             } catch (YpxmmException y) {
                 return y.getMessage();
             }
@@ -147,7 +157,8 @@ public enum Command {
             try {
                 Task task = new ToDo(parsed.get(1));
                 tasklist.addTask(parsed, task);
-                storage.appendToFile(task.toWrite());
+                Collections.sort(tasklist.getTasks());
+                storage.reWrite(tasklist);
                 return ui.addTaskMessage(task, tasklist);
             } catch (YpxmmException y) {
                 return y.getMessage();
@@ -173,7 +184,8 @@ public enum Command {
             try {
                 Task task = new Deadline(parsed.get(1).trim(), parsed.get(2).trim());
                 tasklist.addTask(parsed, task);
-                storage.appendToFile(task.toWrite());
+                Collections.sort(tasklist.getTasks());
+                storage.reWrite(tasklist);
                 return ui.addTaskMessage(task, tasklist);
             } catch (YpxmmException y) {
                 return y.getMessage();
@@ -201,7 +213,8 @@ public enum Command {
             try {
                 Task task = new Event(parsed.get(1).trim(), parsed.get(2).trim(), parsed.get(3).trim());
                 tasklist.addTask(parsed, task);
-                storage.appendToFile(task.toWrite());
+                Collections.sort(tasklist.getTasks());
+                storage.reWrite(tasklist);
                 return ui.addTaskMessage(task, tasklist);
             } catch (YpxmmException y) {
                 return y.getMessage();
@@ -255,8 +268,40 @@ public enum Command {
                 return ui.deleteTaskMessage(task, tasklist);
             } catch (IndexOutOfBoundsException e) {
                 throw new YpxmmException("Eh u seh isit? Now your list got "
-                        + (tasklist.getTasks().isEmpty() ? "no tasks to delete." : tasklist.getTasks().size()
-                        + " tasks, enter any number from 1 to " + tasklist.getTasks().size()));
+                        + (tasklist.getTasks().isEmpty() ? "no tasks to delete."
+                        : (tasklist.getTasks().size() == 1 ? "1 task," : " " + tasklist.getTasks().size() + " tasks,")
+                        + " enter any number from 1 to " + tasklist.getTasks().size()));
+            } catch (YpxmmException y) {
+                return y.getMessage();
+            }
+        }
+    },
+
+    PRIORITISE {
+        /**
+         * Executes the command to prioritise a task.
+         *
+         * @param tasklist the list of tasks
+         * @param ui the user interface
+         * @param storage the storage utility
+         * @param parsed the parsed command arguments
+         * @return a string representing the message that a task has been deleted
+         * @throws YpxmmException if an error occurs during execution
+         */
+        @Override
+        public String execute(TaskList tasklist, Ui ui, Storage storage,
+                              ArrayList<String> parsed) throws YpxmmException {
+            int index = Integer.parseInt(parsed.get(1));
+            try {
+                Task task = tasklist.getTasks().get(index - 1);
+                task.setPriority(parsed.get(2));
+                storage.reWrite(tasklist);
+                return ui.prioritiseTaskMessage(task, tasklist);
+            } catch (IndexOutOfBoundsException e) {
+                throw new YpxmmException("Eh u seh isit? Now your list got "
+                        + (tasklist.getTasks().isEmpty() ? "no tasks to prioritise."
+                        : (tasklist.getTasks().size() == 1 ? "1 task," : " " + tasklist.getTasks().size() + " tasks,")
+                        + " enter any number from 1 to " + tasklist.getTasks().size()));
             } catch (YpxmmException y) {
                 return y.getMessage();
             }

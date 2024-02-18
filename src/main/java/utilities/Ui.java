@@ -1,6 +1,8 @@
 package utilities;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.PriorityQueue;
 
 import tasks.Task;
 
@@ -74,6 +76,16 @@ public class Ui {
     public String deleteTaskMessage(Task task, TaskList tasklist) {
         return "Ok deleted liao:\n" + task.toString() + "\nNow your list got "
                 + (tasklist.getTasks().isEmpty() ? "no tasks." : tasklist.getTasks().size() + " tasks left.");
+    }
+
+    /**
+     * Displays a message after prioritising a task.
+     *
+     * @param task the deleted task
+     * @param tasklist the task list
+     */
+    public String prioritiseTaskMessage(Task task, TaskList tasklist) {
+        return "Ok prioritised liao:\n" + task.toString();
     }
 
     /**
