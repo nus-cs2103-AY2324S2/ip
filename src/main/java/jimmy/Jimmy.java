@@ -53,14 +53,11 @@ public class Jimmy {
      * Run the bot.
      */
     public String getResponse(String userInput) {
+        assert userInput != null;
         try {
-            try {
-                return parser.parseUserInput(userInput, ui, tasks);
-            } catch (IllegalArgumentException e) {
-                System.out.println("Error: Please only use the specified commands in the user guide.");
-            } finally {
-                storage.writeToFile(tasks.getTaskList());
-            }
+            return parser.parseUserInput(userInput, ui, storage, tasks);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: Please only use the specified commands in the user guide.");
         } catch (JimmyException e) {
             System.out.println(e.getMessage());
         }

@@ -28,6 +28,7 @@ public class Storage {
      * @param filePath The file path of the storage file.
      */
     public Storage(String filePath) {
+        assert !filePath.isEmpty();
         this.storagePath = filePath;
     }
 
@@ -37,6 +38,7 @@ public class Storage {
      * @throws JimmyException If the file cannot be written to.
      */
     public void writeToFile(ArrayList<Task> taskList) throws JimmyException {
+        assert taskList != null;
         try {
             FileWriter fileWriter = new FileWriter(storagePath);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
@@ -57,6 +59,7 @@ public class Storage {
      * @throws JimmyException If the file cannot be loaded.
      */
     public void loadFileContents(ArrayList<Task> taskList) throws JimmyException {
+        assert taskList != null;
         try {
             System.out.println("Loading file contents...");
             File file = new File(storagePath);
