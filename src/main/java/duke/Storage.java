@@ -29,11 +29,13 @@ public class Storage {
         if (!Files.exists(filePath)) {
             return contents;
         }
-
         // Read the contents of the file
         Scanner sc = new Scanner(filePath); // create a Scanner using the File as the source
         while (sc.hasNext()) {
             contents.add(sc.nextLine());
+        }
+        for (String c : contents) {
+            System.out.println(contents);
         }
         return contents;
     }

@@ -1,18 +1,23 @@
 package duke;
 
+import java.io.IOException;
+
 /**
  * Return appropriate Duke response for each user input.
  */
 public class CommandHandler {
+    private final String exitMessage = "Press the cross on your console";
+    private final String badCommandMessage = "I am unable to process and understand your command";
+    private final String waitingMessage = "I am here to help with your task list";
     /**
      * This method handles the logic for chatting with the user
      * @param taskList the task list that stores all the tasks created by the user
      */
-    public static String chat(String input, TaskList taskList) throws RiriException {
 
+    public String chat(String input, TaskList taskList) throws RiriException, IOException {
         if (input.matches("bye")) {
-            return "Press the cross on your console";
-        } else if (input.toLowerCase().matches("list")) {
+            return exitMessage;
+        } else if (input.toLowerCase().matches("\\blist\\b")) {
             // Print list
             return taskList.returnList();
         } else if (input.toLowerCase().matches("\\bmark\\b.*")) {
@@ -22,7 +27,7 @@ public class CommandHandler {
         } else if (input.toLowerCase().matches("\\bunmark\\b.*")) {
             // Mark the task as undone
             String[] words = input.split("\\s+");
-            return taskList.unmark(Integer.parseInt(words[1]));
+            return taskList.unmarked(Integer.parseInt(words[1]));
         } else if (input.toLowerCase().matches("\\bdeadline\\b.*")) {
             // Add deadline task to task list
             String[] words = input.split("/by");
@@ -38,7 +43,7 @@ public class CommandHandler {
         } else if (input.toLowerCase().matches("\\btodo\\b.*")) {
             // Add todo task to task list
             String[] words = input.split("todo");
-            if (words[1].equals("")) {
+            if (words[1].trim().equals("")) {
                 throw new RiriException("You are adding nothing to your list");
             }
             return taskList.addTask(new Todo(words[1].trim()));
@@ -52,8 +57,8 @@ public class CommandHandler {
             return taskList.searchTasks(keyword);
         } else if (input.trim().isEmpty()) {
             // If by mistake user presses return or space, nothing will happen
-            return "";
+            return waitingMessage;
         }
-        return "Unable to process or understand command.";
+        return badCommandMessage;
     }
 }

@@ -1,18 +1,20 @@
 package duke;
 
+import java.io.IOException;
 import java.util.ArrayList;
 /**
  * Class responsible for handling the logic of the task lists.
  */
 public class TaskList {
     private ArrayList<Task> taskList = new ArrayList<>();
+    private Storage storage = new Storage();
     /**
      * Create a task list based on the contents.
      * @param contents tasks to be added to task list
      */
-    public TaskList(ArrayList<String> contents) {
+    public TaskList(ArrayList<String> contents) throws IOException {
         for (String content : contents) {
-            addTask(parser(content));
+            loadTask(parser(content));
         }
     }
     /**
@@ -23,8 +25,9 @@ public class TaskList {
         if (taskList.size() == 0) {
             return "You have no items in your list.";
         }
-        for (int i = 1; i < taskList.size() + 1; i++) {
-            list += (i + ". " + taskList.get(i - 1).toString());
+        for (int i = 0; i < taskList.size(); i++) {
+            int j = i + 1;
+            list += j + ". " + taskList.get(i).toString() + "\n";
         }
         return list;
     }
@@ -32,8 +35,11 @@ public class TaskList {
      * Adds task to the task list.
      * @param task task to be added to task list
      */
-    public String addTask(Task task) {
+    public String addTask(Task task) throws IOException {
         taskList.add(task);
+        System.out.println("Writing to file");
+        storage.writeToFile(this.toString());
+        System.out.println("Written to file");
         return "Got it. Added: " + task.toString();
     }
 
@@ -54,16 +60,18 @@ public class TaskList {
     /**
      * Marking task at index i as undone. Displays list at the end of marking.
      */
-    public String unmark(int i) {
+    public String unmarked(int i) throws IOException {
         this.taskList.get(i - 1).markUndone();
+        storage.writeToFile(this.toString());
         return "Marked i-th task as un done";
     }
     /**
      * This function removes a task from the task list.
      * @param index remove index'th task
      */
-    public String delete(int index) {
+    public String delete(int index) throws IOException {
         this.taskList.remove(index - 1);
+        storage.writeToFile(this.toString());
         return "Deleted task no. " + index + "You have " + this.len() + " tasks left";
     }
     /**
@@ -107,8 +115,9 @@ public class TaskList {
     public String toString() {
         String s = "";
         for (int i = 1; i < taskList.size() + 1; i++) {
-            s += (taskList.get(i - 1).toString() + "\n");
+            s += taskList.get(i - 1).toString() + "\n";
         }
+        System.out.println("Tostring function" + s);
         return s;
     }
 }

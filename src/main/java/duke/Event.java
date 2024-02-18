@@ -9,7 +9,19 @@ public class Event extends Task {
     private LocalDate to;
 
     /**
-     * Creates events. String is parsed into LocalDate format.
+     * Constructs an Event object representing a task with a specified time frame.
+     *
+     * This constructor creates an Event object with the given task description and the time
+     * frame during which the event occurs. The 'from' and 'to' parameters are parsed into
+     * LocalDate format to accurately represent the start and end dates of the event.
+     *
+     * @param task The task description provided by the user.
+     * @param from The starting date and time of the event, provided in string format.
+     *             The date is parsed internally to ensure accurate representation.
+     *             The accepted date format is flexible, allowing natural language input.
+     * @param to   The ending date and time of the event, provided in string format.
+     *             The date is parsed internally to ensure accurate representation.
+     *             The accepted date format is flexible, allowing natural language input.
      */
     public Event(String task, String from, String to) {
         super(task);
@@ -22,9 +34,18 @@ public class Event extends Task {
                 + super.stringifyDate(from) + " to " + super.stringifyDate(to) + ")";
     }
     /**
-     * Static method to create an Event object from a formatted string
-     * @param inputString string to parse to an Event object
-     * @return Event object
+     * Parses a formatted string to create an Event object.
+     *
+     * This static method is designed to create an Event object from a string formatted
+     * in a specific way. The expected format is "[E][ ] task description (from: start_time to end_time)".
+     * The method extracts relevant information such as task description, event start time, event end time,
+     * and completion status to instantiate an Event object.
+     *
+     * @param inputString The formatted string to parse into an Event object.
+     *                    It should follow the pattern "[E][ ] task description (from: start_time to end_time)".
+     *
+     * @return An Event object representing the parsed task with its completion status and event time frame.
+     *
      */
     public static Event parseEventFromString(String inputString) {
         // Assuming the inputString is formatted as "[E][ ] task description (from: start_time to end_time)"

@@ -8,9 +8,18 @@ public class Todo extends Task {
     }
 
     /**
-     * Static method to create a Todo object from a formatted string
-     * @param inputString string to parse to Todo object
-     * @return Todo object
+     * Parses a formatted string to create a Todo object.
+     *
+     * This static method is designed to create a Todo object from a string formatted
+     * in a specific way. The expected format is "[T][ ] task description".
+     * The method extracts the task description and completion status from the input
+     * string to instantiate a Todo object.
+     *
+     * @param inputString The formatted string to parse into a Todo object.
+     *                    It should follow the pattern "[T][ ] task description".
+     *
+     * @return A Todo object representing the parsed task with its completion status.
+     *
      */
     public static Todo parseTodoFromString(String inputString) {
         // Assuming the inputString is formatted as "[T][ ] task description"
