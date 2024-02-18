@@ -54,8 +54,6 @@ public class Ui {
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
 
-        System.out.println(this.getClass().getResource("/").getPath());
-
         userImg = new Image(this.getClass().getResourceAsStream(USER_IMG));
         kewgyImg = new Image(this.getClass().getResourceAsStream(KEWGY_IMG));
 

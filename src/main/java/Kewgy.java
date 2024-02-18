@@ -2,6 +2,7 @@ import java.util.List;
 
 import exceptions.KewgyException;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import storage.Storage;
@@ -81,6 +82,7 @@ public class Kewgy extends Application {
                 break;
             case BYE:
                 kewgyText = getGoodbyeResponse();
+                Platform.exit();
                 break;
             case UPDATE_TIME:
                 kewgyText = getUpdateTimeResponse(userMsg);

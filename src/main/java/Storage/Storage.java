@@ -74,11 +74,8 @@ public class Storage {
             }
 
             saveFileBufferedWriter.close();
-        } catch (IOException e) {
-            ui.printKewgyText("An error occurred.");
-            e.printStackTrace();
-        } catch (KewgyException e) {
-            ui.printError(e.toString());
+        } catch (IOException | KewgyException e) {
+            ui.printError("An error occurred.\n" + e);
         }
     }
 
@@ -121,11 +118,8 @@ public class Storage {
             }
 
             saveFileBufferedWriter.close();
-        } catch (IOException e) {
-            ui.printKewgyText("An error occurred.");
-            e.printStackTrace();
-        } catch (KewgyException e) {
-            ui.printError(e.toString());
+        } catch (IOException | KewgyException e) {
+            ui.printError("An error occurred.\n" + e);
         }
     }
 
@@ -168,11 +162,8 @@ public class Storage {
             }
 
             saveFileBufferedWriter.close();
-        } catch (IOException e) {
-            ui.printKewgyText("An error occurred.");
-            e.printStackTrace();
-        } catch (KewgyException e) {
-            ui.printError(e.toString());
+        } catch (IOException | KewgyException e) {
+            ui.printError("An error occurred.\n" + e);
         }
     }
 
@@ -197,7 +188,7 @@ public class Storage {
             }
 
             Scanner fileReader = new Scanner(saveFile);
-            List<Task> savedtasks = new ArrayList<>();
+            List<Task> savedTasks = new ArrayList<>();
 
             while (fileReader.hasNextLine()) {
                 Task savedTask;
@@ -221,17 +212,14 @@ public class Storage {
                 }
 
                 savedTask.setDone(Boolean.parseBoolean(dataParsed[1]));
-                savedtasks.add(savedTask);
+                savedTasks.add(savedTask);
             }
 
             fileReader.close();
 
-            return savedtasks;
-        } catch (IOException e) {
-            ui.printKewgyText("An error occurred.");
-            e.printStackTrace();
-        } catch (KewgyException e) {
-            ui.printError(e.toString());
+            return savedTasks;
+        } catch (IOException | KewgyException e) {
+            ui.printError("An error occurred.\n" + e);
         }
 
         return new ArrayList<>();
