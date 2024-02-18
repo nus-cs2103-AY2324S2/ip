@@ -1,4 +1,4 @@
-~~# UncleBob User Guide
+# UncleBob User Guide
 ***
 ![Product screenshot](docs/Ui.png)
 Uncle Bob is a Java CLI application which enables a user to include tasks, enabling the user to mark tasks, set dates for deadlines and events and also remind the user of daily upcoming tasks.
