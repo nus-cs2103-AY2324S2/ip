@@ -18,7 +18,6 @@ public class Fredricksen {
     public Fredricksen() {
         this.ui = new Ui();
         this.store = new Storage("data/Fredricksen.txt");
-        ui.showWelcome();
         try {
             this.store.createFileInData();
             this.list = new TaskList(store.loadFile());

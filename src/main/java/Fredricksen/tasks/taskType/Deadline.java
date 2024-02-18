@@ -14,7 +14,6 @@ public class Deadline extends Task {
     public String formatByDtPattern(String fullCommand) {
         int byStartIndex = fullCommand.indexOf("/by");
         String date = fullCommand.substring(byStartIndex + 4);
-        // formatDates function in Task.java
         return this.formatDates(date);
     }
 
@@ -25,7 +24,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        // format string properly
         return super.toString() + getDescription(this.getTask())
                 + " (by: " + formatByDtPattern(this.getTask())
                 + ")";

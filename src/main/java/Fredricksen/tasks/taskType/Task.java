@@ -57,22 +57,24 @@ public class Task {
             try {
                 time = LocalDateTime.parse(date, format);
                 break;
-            } catch (DateTimeParseException err) {
+            } catch (DateTimeParseException err) {}
+
+            try {
                 dateWoTime = LocalDate.parse(date, format);
                 break;
-            } catch (Exception err) {
-                System.out.println(err.getMessage());
-            }
+            } catch (DateTimeParseException err) {}
         }
 
         if (time != null) {
             try {
                 result = time.format(DateTimeFormatter.ofPattern("MMM d yyyy, hh:mm a"));
             } catch (DateTimeException err) {}
-        } else {
+        } else if (dateWoTime != null) {
             try {
                 result = dateWoTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
             } catch (DateTimeException err) {}
+        } else {
+            result = "";
         }
         return result;
     }
