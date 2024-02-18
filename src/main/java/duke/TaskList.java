@@ -47,6 +47,16 @@ public class TaskList {
         System.out.println("Now you have " + count + " " + (count == 1 ? "task" : "tasks") + " in the list.");
     }
 
+    public TaskList findTasks(String query) {
+        TaskList foundTasks = new TaskList();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(query)) {
+                foundTasks.addTask(task);
+            }
+        }
+        return foundTasks;
+    }
+
     /**
      * Returns the description of the task at the specified index.
      *
