@@ -144,7 +144,7 @@ public class Ui {
      * @param command The command to be displayed
      */
     public String getCommandDescriptionMessage(String command) {
-        return "\n\n" + "Format> " + commandDescriptions.get(command);
+        return "\n\n" + "Format: " + commandDescriptions.get(command);
     }
 
     /**

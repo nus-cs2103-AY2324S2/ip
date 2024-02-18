@@ -24,6 +24,10 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
+            AnchorPane.setLeftAnchor(ap, 0.0);
+            AnchorPane.setRightAnchor(ap, 0.0);
+            AnchorPane.setTopAnchor(ap, 0.0);
+            AnchorPane.setBottomAnchor(ap, 0.0);
             assert ap != null : "FXMLLoader failed to load AnchorPane";
             Scene scene = new Scene(ap);
             stage.setScene(scene);

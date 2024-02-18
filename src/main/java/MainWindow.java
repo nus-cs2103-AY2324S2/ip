@@ -34,17 +34,15 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren()
-                .add(DialogBox.getGeePeeTeeDialog("Hello! I'm GeePeeTee. How can I help you?", neutralImage));
-        // ScrollPane styling
-        scrollPane.setStyle("-fx-background: #010101;");
-        // DialogContainer styling
-        dialogContainer.setStyle("-fx-background-color: #010101;");
+        scrollPane.setVvalue(0.0);
 
-        // UserInput styling
+        // Styling
+        scrollPane.setStyle("-fx-background: #010101;");
+        dialogContainer.setStyle("-fx-background-color: #010101;");
         userInput.setStyle(
                 "-fx-background-color: #010101; -fx-text-fill: #ffffff; -fx-font-family: 'Monospaced'; -fx-font-size: 12pt");
+        dialogContainer.getChildren()
+                .add(DialogBox.getGeePeeTeeDialog("Hello! I'm GeePeeTee. How can I help you?", neutralImage));
     }
 
     /**
@@ -82,6 +80,7 @@ public class MainWindow extends AnchorPane {
                             : DialogBox.getGeePeeTeeDialog(responseString, happyImage));
             userInput.clear();
         }
+        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
     /**

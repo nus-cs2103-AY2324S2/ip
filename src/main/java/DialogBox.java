@@ -36,6 +36,7 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
+        dialog.setWrapText(true);
         displayPicture.setImage(img);
         HBox.setMargin(dialog, new Insets(0, 10, 0, 10));
         dialog.setStyle("-fx-text-fill: #33FF00; -fx-font-family: 'Monospaced'; -fx-font-size: 12pt;");
