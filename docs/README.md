@@ -22,7 +22,7 @@ DevGPT:
 ```
 
 ## Add deadlines
-The deadlines feature allows you to add deadlines to the chatbot. It will remind you of the deadlines when it is due.  
+The deadlines feature allows you to add deadlines to the chatbot. A popup window will remind you of the deadlines when it is due.  
 Represented by a `[D]` in the chatbot and `[X]` to represent a completed task.
 
 Send a message in the following format:  
