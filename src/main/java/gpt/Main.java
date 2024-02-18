@@ -33,42 +33,40 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
+        initializeUiComponents();
+        AnchorPane mainLayout = configureLayout();
+        scene = new Scene(mainLayout);
+        configureStage(stage);
+        configureScrollPane();
+        configureDialogContainer();
+        displayWelcomeMessage();
+        setEventHandlers();
+
+    }
+
+    private void initializeUiComponents() {
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
-
         userInput = new TextField();
         sendButton = new Button("Send");
+        userInput.setPrefWidth(325.0);
+        sendButton.setPrefWidth(55.0);
+    }
 
-        AnchorPane mainLayout = new AnchorPane();
-        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-
-        scene = new Scene(mainLayout);
-
+    private void configureStage(Stage stage) {
         stage.setScene(scene);
         stage.show();
-
         stage.setTitle("Duke");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
+    }
 
+    private AnchorPane configureLayout() {
+        AnchorPane mainLayout = new AnchorPane();
+        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
         mainLayout.setPrefSize(400.0, 600.0);
-
-        scrollPane.setPrefSize(385, 535);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
-        scrollPane.setVvalue(1.0);
-        scrollPane.setFitToWidth(true);
-
-        //You will need to import `javafx.scene.layout.Region` for this.
-        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
-        userInput.setPrefWidth(325.0);
-
-        sendButton.setPrefWidth(55.0);
-
         AnchorPane.setTopAnchor(scrollPane, 1.0);
 
         AnchorPane.setBottomAnchor(sendButton, 1.0);
@@ -76,19 +74,25 @@ public class Main extends Application {
 
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
+        return mainLayout;
+    }
 
+    private void configureScrollPane() {
+        scrollPane.setPrefSize(385, 535);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrollPane.setVvalue(1.0);
+        scrollPane.setFitToWidth(true);
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+    }
+
+    private void configureDialogContainer() {
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+    }
 
-        displayWelcomeMessage();
-
-        sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
-
-        userInput.setOnAction((event) -> {
-            handleUserInput();
-        });
-
+    private void setEventHandlers() {
+        sendButton.setOnMouseClicked((event) -> handleUserInput());
+        userInput.setOnAction((event) -> handleUserInput());
     }
 
     /**

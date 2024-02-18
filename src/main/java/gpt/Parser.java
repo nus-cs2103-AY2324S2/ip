@@ -20,10 +20,7 @@ public class Parser {
         if (command.equals("bye")) {
             return ui.getByeMsg();
         } else if (command.equals("list")) {
-            for (int i = 1; i <= tl.getTasks().size(); i++) {
-                System.out.println(i + ". " + tl.getTasks().get(i - 1).toString());
-            }
-            return getListAsString(tl.getTasks());
+            return processListCommand(tl);
         } else if (command.startsWith("todo")) {
             return processTodoCommand(command, tl);
         } else if (command.startsWith("deadline")) {
@@ -33,26 +30,39 @@ public class Parser {
         } else if (command.startsWith("delete")) {
             return processDeleteCommand(command, tl);
         } else if (command.startsWith("unmark")) {
-            String[] splitInput = command.split("\\s+");
-            if (splitInput[0].equals("unmark") && Integer.valueOf(splitInput[1]) <= tl.size()) {
-                tl.unmarkTask(Integer.valueOf(splitInput[1]) - 1);
-            }
-            return "Task unmarked!";
+            return processUnmarkCommand(command, tl);
         } else if (command.startsWith("mark")) {
-            String[] splitInput = command.split("\\s+");
-            if (splitInput[0].equals("mark") && Integer.valueOf(splitInput[1]) <= tl.size()) {
-                tl.markTask(Integer.valueOf(splitInput[1]) - 1);
-            }
-            return "Task marked as done!";
+            return processMarkCommand(command, tl);
         } else if (command.startsWith("find")) {
             return processFindCommand(command, tl);
         } else if (command.equals("save")) {
-            System.out.println(tl.size());
-            storage.saveTasks(tl);
-            return "Tasks saved!";
+            return processSaveCommand(tl, storage);
         } else {
             throw new GptException("HEY YOU mESsEd UP!!! Your input don't make sense to me :-(");
         }
+    }
+
+    private static String processUnmarkCommand(String command, TaskList tl) {
+        String[] splitInput = command.split("\\s+");
+        if (splitInput[0].equals("unmark") && Integer.valueOf(splitInput[1]) <= tl.size()) {
+            tl.unmarkTask(Integer.valueOf(splitInput[1]) - 1);
+        }
+        return "Task unmarked!";
+    }
+
+    private static String processMarkCommand(String command, TaskList tl) {
+        String[] splitInput = command.split("\\s+");
+        if (splitInput[0].equals("mark") && Integer.valueOf(splitInput[1]) <= tl.size()) {
+            tl.markTask(Integer.valueOf(splitInput[1]) - 1);
+        }
+        return "Task marked as done!";
+    }
+
+    private static String processListCommand(TaskList tl) {
+        for (int i = 1; i <= tl.getTasks().size(); i++) {
+            System.out.println(i + ". " + tl.getTasks().get(i - 1).toString());
+        }
+        return getListAsString(tl.getTasks());
     }
 
     private static String processDeleteCommand(String command, TaskList tl) throws GptException {
@@ -87,6 +97,12 @@ public class Parser {
         return "Got it. I've added this task:" + "  " + todoTask.toString() + "\nNow you have "
                 + tl.size() + " tasks in the list.";
 
+    }
+
+    private static String processSaveCommand(TaskList tl, Storage storage) {
+        System.out.println(tl.size());
+        storage.saveTasks(tl);
+        return "Tasks saved!";
     }
 
     /**
