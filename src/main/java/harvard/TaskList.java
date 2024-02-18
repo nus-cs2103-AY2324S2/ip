@@ -118,6 +118,7 @@ public class TaskList {
     public TaskList find(String searchString) {
         TaskList filteredList = new TaskList();
         for (int i = 0; i < taskList.size(); i++) {
+            // C-BetterSearch implementation for partial matches
             if (taskList.get(i).getDescription().contains(searchString)) {
                 filteredList.add(taskList.get(i));
             }
