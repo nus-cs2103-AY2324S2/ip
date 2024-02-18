@@ -17,6 +17,8 @@ public class Main extends Application {
 
     private Dave dave = new Dave();
 
+    private static final String APP_NAME = "Dave";
+
     @Override
     public void start(Stage stage) {
         try {
@@ -24,6 +26,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle(APP_NAME);
             fxmlLoader.<MainWindow>getController().setDave(dave);
             fxmlLoader.<MainWindow>getController().showGreeting();
             stage.show();
