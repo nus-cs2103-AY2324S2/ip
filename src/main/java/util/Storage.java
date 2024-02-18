@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-import duke.TaskList;
+import felix.TaskList;
 import notes.Note;
 import notes.NoteList;
 import task.Deadline;
@@ -23,9 +23,9 @@ import task.ToDo;
  */
 public class Storage {
 
-    /** The file path where duke.Duke's task list is stored. */
-    private static final String FILE_PATH = "./data/duke.txt";
-    private static final String FILE_PATH_NOTE = "./data/duke_notes.txt";
+    /** The file path where felix.Duke's task list is stored. */
+    private static final String FILE_PATH = "./data/felix.txt";
+    private static final String FILE_PATH_NOTE = "./data/felix_notes.txt";
 
     /**
      * Saves the given task list to the file specified by the file path.

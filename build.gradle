@@ -48,11 +48,11 @@ test {
 }
 
 application {
-    mainClass.set("duke.Launcher")
+    mainClass.set("felix.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "felix"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

@@ -1,4 +1,4 @@
-package duke;
+package felix;
 
 import javafx.application.Application;
 

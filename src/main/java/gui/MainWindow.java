@@ -1,8 +1,7 @@
 package gui;
 
-import duke.Duke;
+import felix.Felix;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -24,18 +23,26 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Felix felix;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/gig.jpg"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/xqc.png"));
+    private Image felixImage = new Image(this.getClass().getResourceAsStream("/images/xqc.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        scrollPane.hvalueProperty().bind(dialogContainer.widthProperty());
     }
 
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setFelix(Felix d) {
+        felix = d;
+    }
+
+    public void helloFelix() {
+        Label greeting = new Label("Hello there! I'm Felix. Ready to help!");
+        dialogContainer.getChildren().add(
+                DialogBox.getFelixDialog(greeting, new ImageView(felixImage))
+        );
     }
 
     /**
@@ -45,10 +52,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(duke.getResponse(userInput.getText()));
+        Label dukeText = new Label(felix.getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(userImage)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(dukeImage))
+                DialogBox.getFelixDialog(dukeText, new ImageView(felixImage))
         );
         userInput.clear();
     }
