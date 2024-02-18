@@ -9,6 +9,4 @@
     <suppress checks="MissingJavadocMethodCheck" files=".*Test\.java"/>
     <suppress checks="JavadocType" files="chatbot[\\/]exceptions"/>
     <suppress checks="MissingJavadocMethodCheck" files="chatbot[\\/]exceptions"/>
-    <suppress checks="JavadocType" files="chatbot[\\/].*Duke.java"/>
-    <suppress checks="MissingJavadocMethodCheck" files="chatbot[\\/].*Duke.java"/>
 </suppressions>

@@ -12,7 +12,7 @@
           fx:controller="chatbot.controllers.MainWindow" hgap="4">
     <ScrollPane fx:id="scrollPane" vbarPolicy="ALWAYS" hbarPolicy="NEVER" hvalue="1.0" vvalue="1.0" fitToWidth="true"
                 GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2">
-        <VBox fx:id="dialogContainer" spacing="10.0" fillWidth="true">
+        <VBox fx:id="dialogContainer" spacing="10.0">
             <padding>
                 <Insets left="10.0" right="10.0"/>
             </padding>

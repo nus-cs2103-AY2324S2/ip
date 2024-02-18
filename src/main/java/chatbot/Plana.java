@@ -2,7 +2,7 @@ package chatbot;
 
 import java.io.IOException;
 
-import chatbot.exceptions.DukeException;
+import chatbot.exceptions.PlanaException;
 
 /**
  * Represents the main class responsible for running the chatbot 'Plana'. Critical components like UI, file IO are
@@ -32,7 +32,7 @@ public class Plana {
         try {
             Command cmd = Parser.toCommand(input);
             return cmd.execute(taskList);
-        } catch (DukeException e) {
+        } catch (PlanaException e) {
             return Response.displayError(e);
         }
     }

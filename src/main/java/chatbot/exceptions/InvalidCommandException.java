@@ -2,7 +2,7 @@ package chatbot.exceptions;
 
 import chatbot.Command;
 
-public class InvalidCommandException extends DukeException {
+public class InvalidCommandException extends PlanaException {
     private static final String ERRSTR;
 
     static {

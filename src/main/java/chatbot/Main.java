@@ -49,6 +49,7 @@ public class Main extends Application {
 
             Scene scene = new Scene(root);
             stage.setScene(scene);
+            stage.setTitle("Plana");
             fxmlLoader.<MainWindow>getController().setPlana(this.plana);
             stage.show();
         } catch (IOException e) {

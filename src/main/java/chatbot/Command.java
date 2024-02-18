@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import chatbot.exceptions.DukeException;
+import chatbot.exceptions.PlanaException;
 import chatbot.exceptions.InvalidArgumentException;
 
 /**
@@ -88,7 +88,7 @@ public enum Command {
             default:
             }
 
-        } catch (DukeException e) {
+        } catch (PlanaException e) {
             r = Response.displayError(e);
         }
         return r;
@@ -98,9 +98,9 @@ public enum Command {
      * Executes a command with arguments for the provided task list.
      *
      * @param tl The task list object to operate on.
-     * @throws DukeException If an error occurs with the execution.
+     * @throws PlanaException If an error occurs with the execution.
      */
-    private Response executeAdd(TaskList tl) throws DukeException {
+    private Response executeAdd(TaskList tl) throws PlanaException {
         Task t = null;
         Pattern pattern;
         Matcher matcher;
@@ -146,9 +146,9 @@ public enum Command {
      * Executes a command with only index for the provided task list.
      *
      * @param tl The task list object to operate on.
-     * @throws DukeException If an error occurs with the execution.
+     * @throws PlanaException If an error occurs with the execution.
      */
-    private Response executeIndexing(TaskList tl) throws DukeException {
+    private Response executeIndexing(TaskList tl) throws PlanaException {
         int i;
         try {
             i = Integer.parseInt(args);
