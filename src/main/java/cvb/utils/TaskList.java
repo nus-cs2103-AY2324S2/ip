@@ -1,9 +1,9 @@
-package utils;
+package cvb.utils;
 
 import java.util.ArrayList;
 
-import exceptions.ConvoBotException;
-import tasks.Task;
+import cvb.exceptions.ConvoBotException;
+import cvb.tasks.Task;
 
 /**
  * The {@code TaskList} class represents a collection of tasks and

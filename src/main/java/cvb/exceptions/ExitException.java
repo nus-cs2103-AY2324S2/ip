@@ -1,4 +1,4 @@
-package exceptions;
+package cvb.exceptions;
 
 /**
  * A utility class that tells the application to exit.

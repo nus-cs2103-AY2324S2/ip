@@ -1,4 +1,4 @@
-package tasks;
+package cvb.tasks;
 
 /**
  * The {@code ToDo} class represents a task without a specific deadline or time period.

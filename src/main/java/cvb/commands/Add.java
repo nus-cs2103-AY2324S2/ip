@@ -1,8 +1,8 @@
-package commands;
+package cvb.commands;
 
-import tasks.Task;
-import utils.ResponseConstructor;
-import utils.TaskList;
+import cvb.tasks.Task;
+import cvb.utils.ResponseConstructor;
+import cvb.utils.TaskList;
 
 /**
  * Represents a command to add a task to the task list.

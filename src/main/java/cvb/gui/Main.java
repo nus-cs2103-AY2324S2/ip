@@ -1,4 +1,4 @@
-package gui;
+package cvb.gui;
 
 import java.io.IOException;
 

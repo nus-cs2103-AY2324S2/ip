@@ -1,6 +1,7 @@
-package gui;
+package cvb.gui;
 
-import exceptions.ExitException;
+import cvb.ConvoBot;
+import cvb.exceptions.ExitException;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -47,6 +48,7 @@ public class MainWindow extends AnchorPane {
             response = convo.getResponse(input);
         } catch (ExitException e) {
             Platform.exit();
+            return;
         }
         assert !response.isEmpty();
         dialogContainer.getChildren().addAll(

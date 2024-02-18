@@ -1,11 +1,11 @@
-package commands;
+package cvb.commands;
 
 import java.util.ArrayList;
 
-import exceptions.ConvoBotException;
+import cvb.exceptions.ConvoBotException;
+import cvb.utils.ResponseConstructor;
+import cvb.utils.TaskList;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
-import utils.ResponseConstructor;
-import utils.TaskList;
 
 /**
  * Represents the Find command, which searches for tasks in a TaskList based on a given query.

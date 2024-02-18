@@ -1,8 +1,8 @@
-package commands;
+package cvb.commands;
 
-import exceptions.ConvoBotException;
-import utils.ResponseConstructor;
-import utils.TaskList;
+import cvb.exceptions.ConvoBotException;
+import cvb.utils.ResponseConstructor;
+import cvb.utils.TaskList;
 
 /**
  * Represents a command to unmark a completed task in the ConvoBot application.

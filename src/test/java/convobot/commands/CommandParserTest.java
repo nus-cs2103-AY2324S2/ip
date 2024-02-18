@@ -1,4 +1,4 @@
-package commands;
+package cvb.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -7,12 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import exceptions.ConvoBotException;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.TaskParser;
-import tasks.ToDo;
+import cvb.exceptions.ConvoBotException;
+import cvb.tasks.Deadline;
+import cvb.tasks.Event;
+import cvb.tasks.Task;
+import cvb.tasks.TaskParser;
+import cvb.tasks.ToDo;
 
 class ParserTest {
     @Test

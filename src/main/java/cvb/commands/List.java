@@ -1,7 +1,7 @@
-package commands;
+package cvb.commands;
 
-import utils.ResponseConstructor;
-import utils.TaskList;
+import cvb.utils.ResponseConstructor;
+import cvb.utils.TaskList;
 
 /**
  * Represents a command to display the list of tasks in the ConvoBot application.

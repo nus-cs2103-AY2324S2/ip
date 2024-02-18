@@ -1,4 +1,4 @@
-package exceptions;
+package cvb.exceptions;
 
 /**
  * The {@code ConvoBotException} class represents an exception specific to the ConvoBot application.

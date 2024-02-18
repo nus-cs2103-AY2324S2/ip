@@ -1,8 +1,8 @@
-package tasks;
+package cvb.tasks;
 
 import java.time.LocalDate;
 
-import utils.DateTime;
+import cvb.utils.DateTime;
 
 /**
  * The {@code Event} class represents a task that spans a specific time period.

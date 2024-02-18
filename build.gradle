@@ -28,7 +28,7 @@ dependencies {
 
 // Configure application-related settings
 application {
-    mainClass.set("gui.ConvoBot")
+    mainClass.set("cvb.ConvoBot")
 }
 
 // Configure settings for Shadow
@@ -45,7 +45,7 @@ run {
 }
 runShadow {
     standardInput = System.in
-    enableAssertions = true
+    enableAssertions = false
 }
 
 // Configure test task

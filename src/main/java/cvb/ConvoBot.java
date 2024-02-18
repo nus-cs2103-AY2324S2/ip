@@ -1,13 +1,14 @@
-package gui;
+package cvb;
 
-import commands.Command;
-import commands.CommandParser;
-import exceptions.ConvoBotException;
-import exceptions.ExitException;
+import cvb.commands.Command;
+import cvb.commands.CommandParser;
+import cvb.exceptions.ConvoBotException;
+import cvb.exceptions.ExitException;
+import cvb.gui.Main;
+import cvb.utils.ResponseConstructor;
+import cvb.utils.Storage;
+import cvb.utils.TaskList;
 import javafx.application.Application;
-import utils.ResponseConstructor;
-import utils.Storage;
-import utils.TaskList;
 
 /**
  * The main class representing the ConvoBot application.

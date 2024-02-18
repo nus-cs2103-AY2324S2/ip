@@ -1,4 +1,4 @@
-package utils;
+package cvb.utils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -10,9 +10,9 @@ import static org.mockito.Mockito.when;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import exceptions.ConvoBotException;
-import tasks.Task;
-import tasks.ToDo;
+import cvb.exceptions.ConvoBotException;
+import cvb.tasks.Task;
+import cvb.tasks.ToDo;
 
 class TaskListTest {
 

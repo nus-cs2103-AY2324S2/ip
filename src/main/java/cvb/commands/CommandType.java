@@ -1,4 +1,4 @@
-package commands;
+package cvb.commands;
 
 /**
  * Represents the types of commands available in the ConvoBot application.

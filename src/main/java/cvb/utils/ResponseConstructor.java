@@ -1,8 +1,8 @@
-package utils;
+package cvb.utils;
 
 import java.util.ArrayList;
 
-import exceptions.ConvoBotException;
+import cvb.exceptions.ConvoBotException;
 
 /**
  * The {@code ResponseConstructor} class constructs ConvoBot's response.

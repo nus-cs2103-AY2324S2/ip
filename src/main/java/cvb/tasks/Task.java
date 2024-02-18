@@ -1,4 +1,4 @@
-package tasks;
+package cvb.tasks;
 
 /**
  * The {@code Task} class represents a generic task with a description and completion status.
