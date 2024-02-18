@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class Main extends Application {
 
-    private Gluti gluti = new Gluti();
+    private final Gluti gluti = new Gluti();
     private Ui ui = new Ui();
 
     @Override

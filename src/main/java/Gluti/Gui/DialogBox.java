@@ -16,6 +16,7 @@ import javafx.scene.media.MediaPlayer;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Objects;
 
 public class DialogBox extends HBox {
     @FXML
@@ -24,8 +25,10 @@ public class DialogBox extends HBox {
     private ImageView displayPicture;
     @FXML
     private ToggleButton themeToggleButton;
-    static Media botSound = new Media(DialogBox.class.getResource("/data/botNotif.wav").toExternalForm());
+    static Media botSound = new Media(Objects.requireNonNull(DialogBox.class.getResource("/data/botNotif.wav")).toExternalForm());
     static MediaPlayer botMediaPlayer = new MediaPlayer(botSound);
+    private static final Image userImage = new Image(Objects.requireNonNull(DialogBox.class.getResourceAsStream("/data/user.png")));
+    private static final Image gluticon = new Image(Objects.requireNonNull(DialogBox.class.getResourceAsStream("/data/Gluticon.png")));
 
     private DialogBox(String text, Image img) {
         try {
@@ -52,18 +55,18 @@ public class DialogBox extends HBox {
     }
 
 
-    public static DialogBox getUserDialog(String text, Image img) {
-        DialogBox db = new DialogBox(text, img);
+    public static DialogBox getUserDialog(String text) {
+        DialogBox db = new DialogBox(text, userImage);
         db.setStyle("-fx-background-color: " + "#8bbcd9" + "; "
                 + "-fx-background-radius: 10;");
         return db;
     }
 
-    public static DialogBox getGlutiDialog(String text, Image img) {
+    public static DialogBox getGlutiDialog(String text) {
         botMediaPlayer.stop();
         botMediaPlayer.play();
         assert text != null : "Text should not be empty!";
-        var db = new DialogBox(text, img);
+        var db = new DialogBox(text, gluticon);
         db.setStyle("-fx-background-color: " + "#a3d4c5" + "; "
                 + "-fx-background-radius: 10;");
         db.flip();
