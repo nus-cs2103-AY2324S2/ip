@@ -25,6 +25,12 @@ import aaron.task.Todo;
  * @throws IOException
  */
 public class Storage {
+    /**
+     * Method to write a tasklist to the filepath specified
+     * @param filePath filepath
+     * @param taskListWrite task list to be written
+     * @throws IOException if error occurs during file writing
+     */
     public static void writeToFile(String filePath, TaskList taskListWrite) throws IOException {
         Path path = Paths.get(filePath);
         Files.createDirectories(path.getParent());
@@ -45,6 +51,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Method to load tasklist from text file
+     * @param filePath filepath of text file
+     * @return arraylist<task> of tasks
+     * @throws FileNotFoundException if file not found
+     */
     public static ArrayList<Task> loadFromFile(String filePath) throws FileNotFoundException {
         createFiles(filePath);
         ArrayList<Task> loadTaskList = new ArrayList<Task>();
@@ -56,30 +68,13 @@ public class Storage {
             boolean isDone = (task.charAt(4) == 'X');
             switch (taskType) {
             case ('T'):
-                String taskDescTodo = task.substring(9);
-                Todo todoTask = new Todo(taskDescTodo, isDone);
-                loadTaskList.add(todoTask);
+                loadTodo(task, isDone, loadTaskList);
                 break;
             case ('E'):
-                String taskDescEvent = task.substring(9);
-                String[] taskStartEnd = taskDescEvent.split(" \\| ", 3);
-                try {
-                    Event eventTask = new Event(taskStartEnd[0], taskStartEnd[1], taskStartEnd[2], isDone);
-                    loadTaskList.add(eventTask);
-                } catch (AaronBotException e) {
-                    System.out.println("Error reading a task: " + task);
-                }
+                loadEvent(task, isDone, loadTaskList);
                 break;
             case ('D'):
-                String taskDescDeadline = task.substring(9);
-                String taskDeadline[] = taskDescDeadline.split(" \\| ", 2);
-                try {
-                    System.out.println("task deadline \n" + taskDeadline[1]);
-                    Deadline deadlineTask = new Deadline(taskDeadline[0], taskDeadline[1], isDone);
-                    loadTaskList.add(deadlineTask);
-                } catch (AaronBotException e) {
-                    System.out.println("Error reading a task: " + task);
-                }
+                loadDeadline(task, isDone, loadTaskList);
                 break;
             default:
                 throw new FileNotFoundException("File not found?");
@@ -89,6 +84,57 @@ public class Storage {
         return loadTaskList;
     }
 
+    /**
+     * Helper method to load a todo task specifically
+     * @param task task string
+     * @param isDone done-ness
+     * @param taskList new tasklist to load task onto
+     */
+    private static void loadTodo(String task, boolean isDone, ArrayList<Task> taskList) {
+        String taskDescTodo = task.substring(9);
+        Todo todoTask = new Todo(taskDescTodo, isDone);
+        taskList.add(todoTask);
+    }
+
+    /**
+     * Helper method to load an event task specifically
+     * @param task task string
+     * @param isDone done-ness
+     * @param taskList new tasklist to load task onto
+     */
+    private static void loadEvent(String task, boolean isDone, ArrayList<Task> taskList) {
+        String taskDescEvent = task.substring(9);
+        String[] taskStartEnd = taskDescEvent.split(" \\| ", 3);
+        try {
+            Event eventTask = new Event(taskStartEnd[0], taskStartEnd[1], taskStartEnd[2], isDone);
+            taskList.add(eventTask);
+        } catch (AaronBotException e) {
+            System.out.println("Error reading a task: " + task);
+        }
+    }
+
+    /**
+     * Helper method to load a deadline task specifically
+     * @param task task string
+     * @param isDone done-ness
+     * @param taskList new tasklist to load task onto
+     */
+    private static void loadDeadline(String task, boolean isDone, ArrayList<Task> taskList) {
+        String taskDescDeadline = task.substring(9);
+        String taskDeadline[] = taskDescDeadline.split(" \\| ", 2);
+        try {
+            System.out.println("task deadline \n" + taskDeadline[1]);
+            Deadline deadlineTask = new Deadline(taskDeadline[0], taskDeadline[1], isDone);
+            taskList.add(deadlineTask);
+        } catch (AaronBotException e) {
+            System.out.println("Error reading a task: " + task);
+        }
+    }
+
+    /**
+     * Helper method to create folder and file for tasklist
+     * @param filePath filepath
+     */
     private static void createFiles(String filePath) {
         File file = new File(filePath);
 

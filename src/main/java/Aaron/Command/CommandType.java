@@ -4,7 +4,6 @@ import aaron.exception.NonsenseCommandException;
 
 public enum CommandType {
     ADDTASK("add"),
-    BYE("bye"),
     SHOW_LIST("show"),
     MARK("mark"),
     UNMARK("unmark"),

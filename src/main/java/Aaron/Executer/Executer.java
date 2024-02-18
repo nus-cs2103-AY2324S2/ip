@@ -3,7 +3,6 @@ package aaron.executer;
 import java.util.Map;
 
 import aaron.command.AddTask;
-import aaron.command.Bye;
 import aaron.command.Command;
 import aaron.command.CommandType;
 import aaron.command.DeleteTask;
@@ -36,7 +35,6 @@ public class Executer {
         try {
             Map<CommandType, Command> commandMap = Map.of(
                     CommandType.ADDTASK, new AddTask(userCommand, commandType),
-                    CommandType.BYE, new Bye(userCommand, commandType),
                     CommandType.MARK, new MarkTask(userCommand, commandType),
                     CommandType.UNMARK, new UnmarkTask(userCommand, commandType),
                     CommandType.DELETE, new DeleteTask(userCommand, commandType),

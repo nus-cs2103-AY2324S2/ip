@@ -30,10 +30,4 @@ public class UnmarkTask extends Command {
         }
         return ui.unmarkMessage(index, taskList);
     }
-
-    @Override
-    public boolean returnIsBye() {
-        return false;
-    }
-
 }

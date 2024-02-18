@@ -24,6 +24,10 @@ public abstract class Task {
         this.taskString = taskString;
     }
 
+    /**
+     * Marks task as done
+     * @throws DoubleMarkException if task already marked
+     */
     public void markDone() throws DoubleMarkException {
         boolean tmpDoneness = isDone;
         if (isDone) {

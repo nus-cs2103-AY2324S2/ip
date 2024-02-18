@@ -18,6 +18,13 @@ public enum TaskType {
         return type;
     }
 
+    /**
+     * Method to get task type from a string
+     * 
+     * @param taskType String
+     * @return task type that corresponds to string
+     * @throws InvalidTaskTypeException if unrecognized task type
+     */
     public static TaskType getTaskType(String taskType) throws InvalidTaskTypeException {
         for (TaskType task : TaskType.values()) {
             if (taskType.equalsIgnoreCase(task.name())) {

@@ -40,12 +40,7 @@ public class AddTask extends Command {
             return ui.errorMessage(e);
         }
     }
-
-    @Override
-    public boolean returnIsBye() {
-        return false;
-    }
-
+    
     /**
      * Method to check if an add command is of the correct format
      * @param userInputString

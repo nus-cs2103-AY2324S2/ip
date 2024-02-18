@@ -30,9 +30,4 @@ public class MarkTask extends Command {
         }
         return ui.markMessage(index, taskList);
     }
-
-    @Override
-    public boolean returnIsBye() {
-        return false;
-    }
 }

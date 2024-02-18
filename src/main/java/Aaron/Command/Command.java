@@ -25,12 +25,4 @@ public abstract class Command {
      */
     public abstract String run(TaskList taskList, UI ui);
 
-    /**
-     * Method that returns whether the command is a bye command
-     * 
-     * @return boolean val representing whether the command is a bye command
-     */
-
-    public abstract boolean returnIsBye();
-
 }
