@@ -15,7 +15,7 @@ import task.Todo;
  */
 public class Ui {
     private final Parser parser;
-    private final String line = "_____________________________________________________";
+    private final String line = "_________________________________________";
 
     /**
      * Constructor for a UI object.
