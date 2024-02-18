@@ -51,7 +51,7 @@ Take note that when typing the actual commands,
 you should omit any square braces ([ ]) pictured above. 
 
 You can find other helpful pointers below for a few of Nicole's commands.
-Pay closer attention to the points marked with 📝!
+Pay closer attention to the points marked with :writing_hand:!
 
 ## Adding an item
 
@@ -90,7 +90,7 @@ and then accordingly `delete 1` to see a confirmation:
 In this particular case since `borrow book` was the only
 item, no items remained after deleting it.
 
-📝 If you `mark` an item, its `I` status will change to `C` (meaning `Complete`). Vice versa for `unmark`.
+:writing_hand: If you `mark` an item, its `I` status will change to `C` (meaning `Complete`). Vice versa for `unmark`.
 
 ## Adding Deadlines and Events
 
@@ -99,7 +99,7 @@ Take note!
 and `from YYYY:MM:DD at HH:MM:SS to YYYY:MM:DD at HH:MM:SS`
 for events are strict! 
 
-Potential triggers for errors ❌
+Potential triggers for errors :warning:
 - For events specifically:
   - Adding events that overlap one another in any way
   - Specifying a `to...at` datetime for events that precedes the
@@ -111,7 +111,7 @@ Nicole will indicate to you very clearly if you made
 any of the above errors and also guide you 
 on how to rectify your command, so fret not!
 
-📝 Updating an event could also lead to 
+:writing_hand: Updating an event could also lead to 
 problems with clashing events. When in doubt, `list` to 
 peruse your current items first.
 
@@ -122,11 +122,11 @@ of items from earliest to latest as per their date(time) like so:
 
 ![sort.png](sortByDateSS.png)
 
-Where events are sorted per their  `from` datetime. If an event's 
+where events are sorted per their  `from` datetime. If an event's 
 `from` date matches the date of a deadline, the event will
-take precedence.
+take precedence (such as items 2 and 3 above).
 
-📝 Since `todos` do not have a datetime, they are ordered
+:writing_hand: Since `todos` do not have a datetime, they are ordered
 **last** by default.
 
 ## Finally...
