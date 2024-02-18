@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
@@ -80,6 +82,11 @@ public class Duke {
         return newString;
     }
 
+    public static LocalDateTime parseToLocalDate(String time) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        return LocalDateTime.parse(time,formatter);
+    }
+
     public static void main(String[] args) {
         System.out.println(printIntro());
         Scanner input = new Scanner(System.in);
@@ -133,17 +140,18 @@ public class Duke {
                     } else if (message.startsWith("deadline")) {
                         String task = getTask(message);
                         String[] parts = time.split("by");
-//                        tasks[counter] = new Deadline(task, parts[1]);
-                        tasks.add(new Deadline(task, false, parts[1]) );
+                        LocalDateTime by = parseToLocalDate(parts[1].trim());
+                        tasks.add(new Deadline(task, false, by) );
                         counter++;
                         System.out.println(added(tasks.get(counter - 1), counter));
                         file.saveTasks(tasks);
                     } else {
                         String task = getTask(message);
                         String[] parts = time.split("from");
-                        String[] dateParts = parts[1].split("/to");
-//                        tasks[counter] = new Event(task, dateParts[0], dateParts[1]);
-                        tasks.add(new Event(task, false, dateParts[0], dateParts[1]));
+                        String[] dateParts = parts[1].trim().split("/to");
+                        LocalDateTime from = parseToLocalDate(dateParts[0].trim());
+                        LocalDateTime to = parseToLocalDate(dateParts[1].trim());
+                        tasks.add(new Event(task, false, from, to));
                         counter++;
                         System.out.println(added(tasks.get(counter - 1), counter));
                         file.saveTasks(tasks);
@@ -160,4 +168,3 @@ public class Duke {
         }
     }
 }
-

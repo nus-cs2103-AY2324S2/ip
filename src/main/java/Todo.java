@@ -1,3 +1,5 @@
+import java.time.format.DateTimeFormatter;
+
 public class Todo extends Task{
 
     public Todo(String name, boolean isDone) {
@@ -8,4 +10,10 @@ public class Todo extends Task{
     public String toString(){
         return "[T] " + super.toString();
     }
+
+    @Override
+    public String toFileString() {
+        return "T" + " | " + getStatusNum() + " | " + this.name ;
+    }
+
 }

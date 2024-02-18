@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.FileWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,26 +14,31 @@ public class DataManager {
         this.path = path;
     }
 
-    private static String convertToFile(Task task) {
-        String symbol = " ";
-        String time = " ";
-        String status = " ";
-        if(task instanceof Todo) {
-            symbol = "T";
-        }else if(task instanceof Deadline) {
-            symbol = "D";
-            time = ((Deadline) task).getTime();
-        }else{
-            symbol = "E";
-            time = ((Event)task).getFrom() + " - " + ((Event)task).getTo();
-        }
-        if(task.getStatus()) {
-            status = "1";
-        }else{
-            status = "0";
-        }
-        return symbol + " | " + status + " | " + task.name + " | " + time;
+    public static LocalDateTime parseFromFileString(String time) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy HH:mm");
+        return LocalDateTime.parse(time,formatter);
     }
+
+//    private static String convertToFile(Task task) {
+//        String symbol = " ";
+//        String time = " ";
+//        String status = " ";
+//        if(task instanceof Todo) {
+//            symbol = "T";
+//        }else if(task instanceof Deadline) {
+//            symbol = "D";
+//            time = ((Deadline) task).getTime().format(DateTimeFormatter.ofPattern("MMM dd yyy HH:mm"));
+//        }else{
+//            symbol = "E";
+//            time = ((Event)task).getFrom().format(DateTimeFormatter.ofPattern("MMM dd yyy HH:mm")) + " - " + ((Event)task).getTo().format(DateTimeFormatter.ofPattern("MMM dd yyy HH:mm"));
+//        }
+//        if(task.getStatus()) {
+//            status = "1";
+//        }else{
+//            status = "0";
+//        }
+//        return symbol + " | " + status + " | " + task.name + " | " + time;
+//    }
 
     public static void saveTasks(ArrayList<Task> tasks) {
         try{
@@ -39,13 +46,14 @@ public class DataManager {
             dataFile.getParentFile().mkdirs();
             FileWriter writer = new FileWriter(dataFile, false);
             for (Task task : tasks) {
-                writer.write(convertToFile(task) + "\n");
+                writer.write(task.toFileString() + "\n");
             }
             writer.close();
         } catch (IOException e) {
-        System.out.println("Unable to save tasks.");
+            System.out.println("Unable to save tasks.");
         }
     }
+
 
     public ArrayList<Task> retrieveTasks () {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -68,28 +76,31 @@ public class DataManager {
         return tasks;
     }
 
+
     public static boolean getStatus(String num) {
         return num.equals("1");
     }
     public static Task getTask(String message) {
-        Task task = null;
         String parts[] = message.split(" \\| ");
-        String type = parts[0];
-        boolean status = getStatus(parts[1]);
-        String taskName = parts[2];
-        String time = parts[3];
+        if (parts.length < 3) return null;
+
+        String type = parts[0].trim();
+        boolean status = getStatus(parts[1].trim());
+        String taskName = parts[2].trim();
+        Task task = null;
 
         if(type.equals("T")) {
             task = new Todo(taskName, status);
         }else if(type.equals("D")) {
-            task = new Deadline(taskName, status, time);
+            String time = parts[3].trim();
+            task = new Deadline(taskName, status, parseFromFileString(time));
         }else {
+            String time = parts[3].trim();
             String timeParts[] = time.split(" - ");
             String from = timeParts[0];
             String to = timeParts[1];
-            task = new Event(taskName, status, from, to );
+            task = new Event(taskName, status, parseFromFileString(from), parseFromFileString(to) );
         }
         return task;
     }
-
 }

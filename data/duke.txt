@@ -1,4 +1,4 @@
-T | 0 | read book |  
-E | 0 | read |  mon  -  thurs
-D | 0 | homework |  tomorrow
-T | 0 | read book |  
+T | 0 | read
+T | 0 | read
+D | 0 | read | Dec-02-2023 18:00
+E | 1 | read | Dec-02-2023 18:00 - Dec-03-2023 18:00

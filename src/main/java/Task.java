@@ -24,6 +24,14 @@ public class Task {
         this.isDone = false;
     }
 
+    public String getStatusNum() {
+        if(this.isDone) {
+            return "1";
+        }else {
+            return "0";
+        }
+    }
+
 //    public String getTask() {
 //        return this.name;
 //    }
@@ -31,5 +39,10 @@ public class Task {
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.name ;
     }
+
+    public String toFileString() {
+        return " " + " | " + getStatusNum() + " | " + this.name ;
+    }
+
 
 }
