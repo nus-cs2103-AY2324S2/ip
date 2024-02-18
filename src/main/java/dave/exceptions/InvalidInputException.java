@@ -11,8 +11,9 @@ public class InvalidInputException extends ChatbotException {
         super("Dave does not know what to do."
                 + "\nPlease help Dave by only entering the available commands."
                 + "\n\nCommands available:\n"
-                + "todo <task>,\ndeadline <task> /by <dd-mm-yyyy hhmm>,"
-                + "\nevent <task> /from <dd-mm-yyyy hhmm> /to <dd-mm-yyyy hhmm>,"
-                + "\nmark <task number>,\ndelete <task number>,\nlist");
+                + "- todo <task>,\n- deadline <task> /by <dd/mm/yyyy hhmm>,"
+                + "\n- event <task> /from <dd/mm/yyyy hhmm> /to <dd/mm/yyyy hhmm>,"
+                + "\n- mark <task number>,\n- delete <task number>,\n- find <keyword>,\n- list,"
+                + "\n- remind");
     }
 }

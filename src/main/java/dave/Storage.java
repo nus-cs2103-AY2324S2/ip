@@ -45,7 +45,7 @@ public class Storage {
         String line = br.readLine();
         while (line != null) {
             String[] taskDescription = line.split(" \\| ");
-            TaskType type = TaskType.valueOf(taskDescription[0].toUpperCase());
+            TaskType type = TaskType.valueOf(taskDescription[0].toUpperCase()); // Solution inspired by https://www.tutorialspoint.com/java/lang/enum_valueof.htm
 
             switch (type) {
             case TODO:

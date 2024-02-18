@@ -17,11 +17,11 @@ public class TaskRemindersCommand extends Command {
             + "\nGood job for completing todo tasks and upcoming tasks early!";
 
     /** Beginning of todo or expired tasks due message. */
-    private static final String TODO_OR_EXPIRED_TASKS_DUE_MSG = "\n\nYou still have the following"
+    private static final String TODO_OR_EXPIRED_TASKS_DUE_MSG = "You still have the following"
             + " TODO/expired tasks not done yet:";
 
     /** Format of printing tasks as string. */
-    private static final String TASK_AS_STRING = "\n    %s";
+    private static final String TASK_AS_STRING = "\n    - %s";
 
     /**
      * {@inheritDoc}
@@ -52,7 +52,7 @@ public class TaskRemindersCommand extends Command {
             }
         }
         if (haveTasksDue) {
-            remindersMsg += tasksWithDueDateMsg;
+            remindersMsg += tasksWithDueDateMsg + "\n\n";
         }
         if (haveTodosOrExpiredTasks) {
             remindersMsg += todoOrExpiredTasksReminderMsg;

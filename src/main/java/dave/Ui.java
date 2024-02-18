@@ -15,7 +15,7 @@ public class Ui {
     static final String HORIZONTAL_LINE = "____________________________________________________________\n";
 
     /** Greeting message shown to user. */
-    public static final String GREETING = String.format("\n%s: Nice to meet you,"
+    public static final String GREETING = String.format("%s: Nice to meet you,"
             + " I'm the ever-helpful %s!\nHow may I be of service today?\n",
             NAME, NAME);
 

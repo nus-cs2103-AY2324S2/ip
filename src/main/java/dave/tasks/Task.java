@@ -21,6 +21,11 @@ public class Task {
     }
 
     public String getStatusIcon() {
+        /**
+         * Solution below inspired by
+         * https://nus-cs2103-ay2324s2.github.io/website/schedule/week2/project.html
+         * partial solution under Duke Level-3: Mark as Done
+         */
         return (isDone ? "X" : " "); // mark X if task is completed
     }
 

@@ -43,7 +43,7 @@ public class Parser {
         CommandType commandStr = null;
 
         try {
-            commandStr = CommandType.valueOf(inputArr[0].toUpperCase());
+            commandStr = CommandType.valueOf(inputArr[0].toUpperCase()); // Solution inspired by https://www.tutorialspoint.com/java/lang/enum_valueof.htm
         } catch (IllegalArgumentException exc) {
             return new InvalidCommand(new InvalidInputException());
         } finally {
