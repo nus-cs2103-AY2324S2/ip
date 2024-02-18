@@ -36,6 +36,24 @@ public class Event extends Task {
     }
 
     /**
+     * Returns the start time of the event.
+     *
+     * @return Start time of the event.
+     */
+    public LocalDate getStart() {
+        return this.start;
+    }
+
+    /**
+     * Returns the end time of the event.
+     *
+     * @return End time of the event.
+     */
+    public LocalDate getEnd() {
+        return this.end;
+    }
+
+    /**
      * Checks if the start and end timing given by the user are valid
      *
      * @param start Start time of the event.
@@ -48,28 +66,6 @@ public class Event extends Task {
         boolean isEndAfterNow = end.isAfter(LocalDate.now());
 
         return isStartBeforeEnd && isStartAfterNow && isEndAfterNow;
-    }
-
-    /**
-     * Converts date given by the user to LocalDate object.
-     *
-     * @param dateString Date given by the user.
-     * @return Date given by the user as LocalDate object.
-     */
-    private LocalDate parseStringtoLocalDate(String dateString) throws DateTimeParseException {
-        LocalDate date;
-        date = LocalDate.parse(dateString, informalDateFormat);
-        return date;
-    }
-
-    /**
-     * Converts LocalDate object to String.
-     *
-     * @param localDate LocalDate object.
-     * @return String representation of the LocalDate object.
-     */
-    private String parseLocalDatetoString(LocalDate localDate) {
-        return localDate.format(formalDateFormat);
     }
 
     /**

@@ -1,7 +1,6 @@
 package jimmy.tasks;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
@@ -10,11 +9,6 @@ import java.util.Objects;
  */
 public class Deadline extends Task {
     private final LocalDate deadline;
-
-    // this date format displays the date purely in numbers
-    private final DateTimeFormatter informalDateFormat = DateTimeFormatter.ofPattern("d-MM-yyyy");
-    // this date format displays the month in words
-    private final DateTimeFormatter formalDateFormat = DateTimeFormatter.ofPattern("d MMM yyyy");
 
     /**
      * Constructor for jimmy.tasks.Deadline class.
@@ -25,7 +19,7 @@ public class Deadline extends Task {
     public Deadline(String taskName, String deadline, boolean isCompleted)
             throws DateTimeParseException, IllegalArgumentException {
         super(taskName, isCompleted);
-        this.deadline = this.parseStringtoLocalDate(deadline);
+        this.deadline = parseStringtoLocalDate(deadline);
 
         if (this.deadline.isBefore(LocalDate.now())) {
             throw new IllegalArgumentException();
@@ -33,25 +27,12 @@ public class Deadline extends Task {
     }
 
     /**
-     * Converts date given by the user to LocalDate object.
+     * Returns the start time of the event.
      *
-     * @param dateString Date given by the user.
-     * @return Date given by the user as LocalDate object.
+     * @return Start time of the event.
      */
-    private LocalDate parseStringtoLocalDate(String dateString) throws DateTimeParseException {
-        LocalDate date;
-        date = LocalDate.parse(dateString, informalDateFormat);
-        return date;
-    }
-
-    /**
-     * Converts LocalDate object to String.
-     *
-     * @param localDate LocalDate object.
-     * @return String representation of the LocalDate object.
-     */
-    private String parseLocalDatetoString(LocalDate localDate) {
-        return localDate.format(formalDateFormat);
+    public LocalDate getDeadline() {
+        return this.deadline;
     }
 
     /**

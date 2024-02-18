@@ -114,4 +114,14 @@ public class Ui {
     public String showFoundTasks(String foundTasks) {
         return "Here are the matching jimmy.tasks in your list:" + "\n" + foundTasks;
     }
+
+    /**
+     * Displays the schedule.
+     *
+     * @param schedule The schedule to be displayed.
+     * @return The schedule, in String format.
+     */
+    public String showSchedule(String schedule) {
+        return "Here are the tasks on " + schedule + ":\n" + schedule;
+    }
 }
