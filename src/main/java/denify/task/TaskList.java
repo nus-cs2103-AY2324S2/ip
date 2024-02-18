@@ -62,8 +62,16 @@ public class TaskList {
      * Adds a task to the `TaskList`.
      *
      * @param task The task to be added.
+     * @throws DenifyException If the task is already in the list.
      */
-    public void addTask(Task task) {
+    public void addTask(Task task) throws DenifyException {
+        String newTaskDescription = task.getDescription().toLowerCase();
+        for (Task existingTask : tasks) {
+            String existingTaskDescription = existingTask.getDescription().toLowerCase();
+            if (existingTaskDescription.equals(newTaskDescription)) {
+                throw new DenifyException("Task already exists. Delete it to edit.");
+            }
+        }
         tasks.add(task);
     }
     /**
