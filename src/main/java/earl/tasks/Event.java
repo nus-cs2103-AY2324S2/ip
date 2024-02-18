@@ -26,7 +26,7 @@ public class Event extends Task {
         taskType = TaskType.EVENT;
         this.from = DateTimeParser.parse(from);
         this.to = DateTimeParser.parse(to);
-        if (this.from.isAfter(this.to)) {
+        if (this.from.isAfter(this.to) || this.from.isEqual(this.to)) {
             throw new TimeException();
         }
     }

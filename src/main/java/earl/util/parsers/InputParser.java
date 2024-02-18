@@ -18,7 +18,7 @@ public class InputParser implements Parser<Handler> {
         try {
             // all valid input is expected to be of the format
             // <command> [<arg1>, <arg2>, ...]
-            String[] data = input.split("\\s+", 2);
+            String[] data = input.trim().split("\\s+", 2);
             assert data.length > 0;
             String command = data[0].toUpperCase();
             if (command.isEmpty()) {
