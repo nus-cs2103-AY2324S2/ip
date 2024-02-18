@@ -10,12 +10,11 @@ import java.time.format.DateTimeParseException;
  */
 public abstract class Task implements Serializable {
     protected final String desc;
-    private boolean isCompleted;
-
     // this date format displays the date purely in numbers
     protected final DateTimeFormatter informalDateFormat = DateTimeFormatter.ofPattern("d-MM-yyyy");
     // this date format displays the month in words
     protected final DateTimeFormatter formalDateFormat = DateTimeFormatter.ofPattern("d MMM yyyy");
+    private boolean isCompleted;
 
     /**
      * Constructor for Task class.
