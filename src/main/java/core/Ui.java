@@ -132,6 +132,7 @@ public class Ui {
                 + "[task type] [task description]: Add a new task. Task types include TODO, DEADLINE, EVENT.\n"
                 + "FIND [yyyy-mm-dd] / FIND [key word]: Search for all relevant tasks.\n"
                 + "DATE / TIME: Show the current date and time.\n"
+                + "TAG: Tag the task specified.\n"
                 + "BYE: Exit the chatbot.");
     }
 

@@ -10,6 +10,7 @@ import enums.TaskType;
  */
 public class Task {
     protected String description;
+    protected String tag;
     protected boolean isDone;
     protected TaskType type;
     protected DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy").withLocale(Locale.US);
@@ -21,7 +22,26 @@ public class Task {
      */
     public Task(String description) {
         this.description = description;
+        this.tag = "#default";
         this.isDone = false;
+    }
+
+    /**
+     * Sets the tag for this object.
+     *
+     * @param tag the new tag to be set
+     */
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    /**
+     * Retrieves the tag associated with this object.
+     *
+     * @return the tag associated with this object
+     */
+    public String getTag() {
+        return tag;
     }
 
     /**
@@ -64,7 +84,8 @@ public class Task {
     public String toFileFormat() {
         return (this.type == TaskType.TODO ? "T" : this.type == TaskType.DEADLINE ? "D" : "E")
                 + " | " + (isDone ? "1" : "0")
-                + " | " + description;
+                + " | " + description
+                + " | " + tag;
     }
 
     /**
@@ -75,6 +96,6 @@ public class Task {
     @Override
     public String toString() {
         String status = isDone ? "[X]" : "[ ]";
-        return status + " " + description;
+        return status + " " + tag + " " + description;
     }
 }

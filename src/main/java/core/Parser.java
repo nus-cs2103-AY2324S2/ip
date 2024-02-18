@@ -8,6 +8,7 @@ import commands.FindCommand;
 import commands.ListCommand;
 import commands.MarkCommand;
 import commands.ShowTimeCommand;
+import commands.TagCommand;
 import commands.UnknownCommand;
 import commands.UnmarkCommand;
 import enums.Commands;
@@ -52,6 +53,8 @@ public class Parser {
                     // Fallthrough
                 case TIME:
                     return new ShowTimeCommand();
+                case TAG:
+                    return new TagCommand(input);
                 default:
                     return new UnknownCommand();
                 }
