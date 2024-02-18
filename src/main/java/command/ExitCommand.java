@@ -7,7 +7,12 @@ import utilities.Storage;
  * Controls what to do when user exits program.
  */
 public class ExitCommand extends Command {
-
+    /**
+     * ExitCommand class constructor.
+     */
+    public ExitCommand() {
+        super(true);
+    }
     /**
      * Executes the exit program process.
      * @param taskList The task list that the command is applied to.

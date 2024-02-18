@@ -18,6 +18,7 @@ public class FindCommand extends Command {
      * @param keyword The keyword that the user is filtering.
      */
     public FindCommand(String keyword) {
+        super(false);
         this.keyword = keyword;
     }
 
