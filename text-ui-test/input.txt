@@ -1,7 +1,9 @@
 clear
 todo
 abc
+find book
 todo borrow book
+find book
 deadline return book /by 2024-01-01T00:00:00
 event project meeting /from 2024-01-02T01:00:00 /to 2024-01-02T02:00:00
 list

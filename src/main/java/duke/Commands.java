@@ -171,6 +171,18 @@ class DeleteCommand extends CommandTakingTaskIndex {
     }
 }
 
+class FindCommand extends Command {
+    private String query;
+
+    public FindCommand(String query) {
+        this.query = query;
+    }
+
+    public void execute(TaskList tasks, boolean silent) {
+        tasks.findTasks(query).listTasks();
+    }
+}
+
 public class Commands {
     public static void registerCommands() {
         Parser.registerCommand("clear", s -> new ClearCommand());
@@ -182,5 +194,6 @@ public class Commands {
         Parser.registerCommand("mark", s -> new MarkDoneCommand(s));
         Parser.registerCommand("unmark", s -> new UnmarkDoneCommand(s));
         Parser.registerCommand("delete", s -> new DeleteCommand(s));
+        Parser.registerCommand("find", s -> new FindCommand(s));
     }
 }

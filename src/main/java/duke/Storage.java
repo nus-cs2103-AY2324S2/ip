@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.PrintWriter;
 import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -43,7 +44,11 @@ public class Storage {
         // This is to prevent the file from being corrupted if the program crashes.
         final Path PATH_TO_TMP_FILE = Paths.get(PATH_TO_TASKS_FILE.toString() + ".tmp");
         try {
-            Files.write(PATH_TO_TMP_FILE, s, StandardCharsets.UTF_8);
+            try (PrintWriter out = new PrintWriter(PATH_TO_TMP_FILE.toFile())) {
+                for (String line : s) {
+                    out.print(line);
+                }
+            }
             Files.move(PATH_TO_TMP_FILE, PATH_TO_TASKS_FILE, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             System.err.println("Error writing to file: " + e.getMessage());

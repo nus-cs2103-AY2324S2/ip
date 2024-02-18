@@ -8,10 +8,13 @@ Cleared all tasks!
 The description of a todo cannot be empty.
 >>> abc
 Unknown command: abc
+>>> find book
 >>> todo borrow book
 Got it. I've added this task:
 [T][ ] borrow book
 Now you have 1 task in the list.
+>>> find book
+1. [T][ ] borrow book
 >>> deadline return book /by 2024-01-01T00:00:00
 Got it. I've added this task:
 [D][ ] return book (by: Jan 01 2024 00:00:00)
