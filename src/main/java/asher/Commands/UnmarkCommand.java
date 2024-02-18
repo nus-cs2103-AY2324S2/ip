@@ -14,6 +14,8 @@ public class UnmarkCommand extends Command {
     public String execute(Ui ui, TaskList taskList, Storage storage) {
         try {
             int taskNumber = taskList.getTaskNumber(input);
+            assert taskNumber > 0 : "Task number should not be less than 1!";
+
             if (taskNumber != -1) {
                 taskList.getTasks().get(taskNumber).markUndone();
                 return ui.showUnmarkTaskMessage(taskList.getTasks().get(taskNumber));

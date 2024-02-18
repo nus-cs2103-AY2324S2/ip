@@ -27,8 +27,13 @@ public class Parser {
      * @throws BotException BotException is thrown if there is an invalid command.
      */
     public static Command parseCommand(String input) throws BotException {
+        assert input != null : "Input should not be null!";
+
         String[] word = input.split(" ");
+        assert word.length > 1 : "Input should contain at least two words!";
+
         String inputType = word[0];
+        assert inputType != null : "Input type should not be null!";
 
         switch (inputType) {
         case "bye":

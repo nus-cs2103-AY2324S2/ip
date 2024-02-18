@@ -16,12 +16,8 @@ public class DeadlineCommand extends Command {
 
     public Deadline createDeadlineCommand() throws BotException {
         int split = input.indexOf("/by");
-        if (split == -1) {
-            throw new BotException("Due date not found!");
-        }
-        if (split + 4 >= input.length()) {
-            throw new BotException("No such deadline!");
-        }
+        assert split != -1 : "Due date not found!";
+        assert split + 4 < input.length() : "No such deadline!";
 
         String[] parts = input.substring(9).split("/by", 2);
         String description = parts[0].trim();
@@ -47,6 +43,7 @@ public class DeadlineCommand extends Command {
             String addTaskMessage = ui.showAddTaskMessage(deadline);
             int totalTask = taskList.getSize();
             String numberOfTaskMessage = ui.showNumberOfTaskInListMessage(totalTask);
+
             return addTaskMessage + "\n" + numberOfTaskMessage;
         } catch (BotException e) {
             return ui.showErrorMessage("Error: " + e.getMessage());
