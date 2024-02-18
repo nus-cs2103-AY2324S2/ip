@@ -10,11 +10,6 @@ import org.junit.jupiter.api.Test;
 import linus.exceptions.LinusCeption;
 import linus.exceptions.IncorrectFormatException;
 import linus.exceptions.NumberOutOfBoundsException;
-import linus.tasks.Deadline;
-import linus.tasks.Event;
-import linus.tasks.Task;
-import linus.tasks.TaskList;
-import linus.tasks.ToDo;
 
 public class TaskListTest {
 

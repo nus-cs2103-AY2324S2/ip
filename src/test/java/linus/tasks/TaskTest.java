@@ -3,9 +3,6 @@ package linus.tasks;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
-import linus.tasks.Deadline;
-import linus.tasks.Task;
-
 public class TaskTest {
     
     @Test
