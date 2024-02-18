@@ -1,5 +1,6 @@
 package wei;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import commands.Command;
@@ -27,8 +28,10 @@ public class Wei {
         try {
             storage = new Storage("./data/history.txt");
             tasks = storage.read();
+        } catch ( FileNotFoundException e) {
+            System.out.println("error reading tasks file");
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.println("error creating tasks file");
         }
     }
 
@@ -53,7 +56,7 @@ public class Wei {
             Command userCommand = parser.parse(input);
             reply = userCommand.execute(tasks, ui, storage);
         } catch (WeiException e) {
-            reply = ui.showError(e.getMessage());
+            reply = e.getMessage();
         }
         return reply;
     }
