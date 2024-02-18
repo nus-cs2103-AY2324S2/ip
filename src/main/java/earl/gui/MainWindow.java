@@ -30,6 +30,7 @@ public class MainWindow extends AnchorPane {
     private Image earlImage = new Image(
             this.getClass().getResourceAsStream("/images/Coronet.png"));
 
+    /** Configures the ability scroll correctly. */
     @FXML
     public void initialize() {
         dialogContainer.heightProperty().addListener((observable) ->
