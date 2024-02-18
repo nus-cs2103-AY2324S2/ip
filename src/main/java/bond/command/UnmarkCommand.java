@@ -7,7 +7,7 @@ import bond.task.Task;
 import bond.task.TaskList;
 
 /**
- * The UnmarkCommand class is used to encapsulate a unmark task
+ * The UnmarkCommand class is used to encapsulate an unmark task
  * command, which is executed upon invoking the execute() method.
  *
  * @author Benny Loh
@@ -40,10 +40,12 @@ public class UnmarkCommand extends Command {
         if (this.index >= tasks.numberOfTasks()) {
             BondException.raiseException("delete", "INVALID_INDEX");
         }
+
         Task markedTask = tasks.getTask(index);
         markedTask.markAsIncomplete();
         String response = ui.taskUnmarked(markedTask);
         storage.overwritePreviousSave(tasks);
+
         return response;
     }
 

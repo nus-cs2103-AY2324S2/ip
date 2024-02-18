@@ -40,10 +40,7 @@ public class AddDeadlineCommand extends AddCommand {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws BondException {
         Task newTask = new DeadlineTask(super.getTaskName(), this.deadline);
-        tasks.addTask(newTask);
-        String response = ui.taskAdded(newTask, tasks);
-        storage.storeTask(newTask);
-        return response;
+        return super.addAndStore(tasks, ui, storage, newTask);
     }
 
 }

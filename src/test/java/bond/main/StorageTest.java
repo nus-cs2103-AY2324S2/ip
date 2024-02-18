@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import bond.task.DeadlineTask;
 import bond.task.EventTask;
 import bond.task.Task;
-import bond.task.ToDoTask;
+import bond.task.TodoTask;
 
 /**
  * Tests for the Parser class.
@@ -26,10 +26,13 @@ public class StorageTest {
         Storage storage = new Storage(System.getProperty("user.home") + "/data/Bond.txt");
 
         try {
-            storage.parseAndAddTask(taskFromFile, tasks);
+            storage.readAndAddTask(taskFromFile, tasks);
             assert false;
         } catch (BondException e) {
             assertEquals("Give the DATE(s) in the CORRECT FORMAT!!!", e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            assert false;
         }
     }
 
@@ -40,10 +43,13 @@ public class StorageTest {
         Storage storage = new Storage(System.getProperty("user.home") + "/data/Bond.txt");
 
         try {
-            storage.parseAndAddTask(taskFromFile, tasks);
+            storage.readAndAddTask(taskFromFile, tasks);
             assert false;
         } catch (BondException e) {
             assertEquals("Give the DATE(s) in the CORRECT FORMAT!!!", e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            assert false;
         }
     }
 
@@ -54,10 +60,13 @@ public class StorageTest {
         Storage storage = new Storage(System.getProperty("user.home") + "/data/Bond.txt");
 
         try {
-            storage.parseAndAddTask(taskFromFile, tasks);
+            storage.readAndAddTask(taskFromFile, tasks);
             assert false;
         } catch (BondException e) {
             assertEquals("I COULD NOT LOAD your tasks!!!", e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            assert false;
         }
     }
 
@@ -68,8 +77,8 @@ public class StorageTest {
         Storage storage = new Storage(System.getProperty("user.home") + "/data/Bond.txt");
 
         try {
-            storage.parseAndAddTask(taskFromFile, tasks);
-            ToDoTask task = (ToDoTask) tasks.get(0);
+            storage.readAndAddTask(taskFromFile, tasks);
+            TodoTask task = (TodoTask) tasks.get(0);
             assertEquals(task.toString(), taskFromFile);
         } catch (Exception e) {
             e.printStackTrace();
@@ -84,7 +93,7 @@ public class StorageTest {
         Storage storage = new Storage(System.getProperty("user.home") + "/data/Bond.txt");
 
         try {
-            storage.parseAndAddTask(taskFromFile, tasks);
+            storage.readAndAddTask(taskFromFile, tasks);
             DeadlineTask task = (DeadlineTask) tasks.get(0);
             assertEquals(task.toString(), taskFromFile);
         } catch (Exception e) {
@@ -100,7 +109,7 @@ public class StorageTest {
         Storage storage = new Storage(System.getProperty("user.home") + "/data/Bond.txt");
 
         try {
-            storage.parseAndAddTask(taskFromFile, tasks);
+            storage.readAndAddTask(taskFromFile, tasks);
             EventTask task = (EventTask) tasks.get(0);
             assertEquals(task.toString(), taskFromFile);
         } catch (Exception e) {

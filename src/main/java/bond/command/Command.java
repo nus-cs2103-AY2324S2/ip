@@ -31,7 +31,6 @@ public abstract class Command {
     };
 
     private final String commandType;
-    private boolean isExit;
 
     /**
      * Constructor for the Command class.
@@ -40,12 +39,11 @@ public abstract class Command {
      */
     public Command(String commandType) {
         this.commandType = commandType;
-        this.isExit = false;
     }
 
     /**
      * Executes the command.
-     * Actual behaviour of the command is implemented in the sub-classes.
+     * Actual behaviour of the command is implemented in the subclasses.
      * Any changes to the task list will be reflected in the storage.
      *
      * @param tasks   The list of tasks.
@@ -58,13 +56,4 @@ public abstract class Command {
     public String getCommandType() {
         return this.commandType;
     }
-
-    public boolean isExit() {
-        return this.isExit;
-    }
-
-    public void setExit() {
-        this.isExit = true;
-    }
-
 }

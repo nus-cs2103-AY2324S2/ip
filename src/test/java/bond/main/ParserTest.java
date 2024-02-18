@@ -23,6 +23,9 @@ public class ParserTest {
             assert false;
         } catch (BondException e) {
             assertEquals("WHAT do you MEAN???????????", e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            assert false;
         }
     }
 
@@ -35,6 +38,9 @@ public class ParserTest {
             assert false;
         } catch (BondException e) {
             assertEquals("Are you for REAL??? No info for a todo", e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            assert false;
         }
     }
 
@@ -47,6 +53,9 @@ public class ParserTest {
             assert false;
         } catch (BondException e) {
             assertEquals("Are you for REAL??? No info for a deadline", e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            assert false;
         }
     }
 
@@ -59,6 +68,9 @@ public class ParserTest {
             assert false;
         } catch (BondException e) {
             assertEquals("Are you for REAL??? No info for a event", e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            assert false;
         }
     }
 
@@ -71,6 +83,9 @@ public class ParserTest {
             assert false;
         } catch (BondException e) {
             assertEquals("I see, you are SO EXTRA and saying list needs MORE!!!", e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            assert false;
         }
     }
 
@@ -83,6 +98,9 @@ public class ParserTest {
             assert false;
         } catch (BondException e) {
             assertEquals("WHY did you not give me an INDEX to mark a task!!!", e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            assert false;
         }
     }
 
@@ -95,6 +113,9 @@ public class ParserTest {
             assert false;
         } catch (BondException e) {
             assertEquals("WHY did you not give me a PROPER INDEX to mark a task!!!", e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            assert false;
         }
     }
 
@@ -107,6 +128,9 @@ public class ParserTest {
             assert false;
         } catch (BondException e) {
             assertEquals("WHY did you not give me an INDEX to unmark a task!!!", e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            assert false;
         }
     }
 
@@ -119,6 +143,9 @@ public class ParserTest {
             assert false;
         } catch (BondException e) {
             assertEquals("WHY did you not give me a PROPER INDEX to unmark a task!!!", e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            assert false;
         }
     }
 
@@ -131,6 +158,9 @@ public class ParserTest {
             assert false;
         } catch (BondException e) {
             assertEquals("I see, you are SO EXTRA and saying bye needs MORE!!!", e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            assert false;
         }
     }
 
@@ -143,6 +173,9 @@ public class ParserTest {
             assert false;
         } catch (BondException e) {
             assertEquals("WHY did you not give me an INDEX to delete a task!!!", e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            assert false;
         }
     }
 
@@ -155,6 +188,9 @@ public class ParserTest {
             assert false;
         } catch (BondException e) {
             assertEquals("WHY did you not give me a PROPER INDEX to delete a task!!!", e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            assert false;
         }
     }
 

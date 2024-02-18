@@ -11,7 +11,7 @@ import bond.task.DeadlineTask;
 import bond.task.EventTask;
 import bond.task.Task;
 import bond.task.TaskList;
-import bond.task.ToDoTask;
+import bond.task.TodoTask;
 
 /**
  * The Parser class is used to parse user input and create the appropriate
@@ -34,6 +34,64 @@ public class Storage {
     }
 
     /**
+     * Parses the name of a TodoTask and creates it.
+     *
+     * @param taskName The name of the task.
+     * @return The TodoTask created.
+     */
+    private TodoTask readTodo(String taskName) {
+        return new TodoTask(taskName);
+    }
+
+    /**
+     * Parses the date and time of a DeadlineTask and creates it.
+     *
+     * @param taskName The name of the task.
+     * @param taskDeadline  The date and time for deadline of task.
+     * @return The DeadlineTask created.
+     */
+    private DeadlineTask readDeadline(String taskName, String taskDeadline) throws BondException {
+        int spaceIndex = taskDeadline.indexOf(" ");
+        int closeIndex = taskDeadline.indexOf(")");
+        String deadline = taskDeadline.substring(spaceIndex + 1, closeIndex);
+        String[] components = deadline.split(" ");
+        deadline = Parser.changeDateFormat(components[0], components[1], components[2]) + " " + components[3];
+
+        return new DeadlineTask(taskName, deadline);
+    }
+
+    /**
+     * Parses the date and time of an EventTask and creates it.
+     *
+     * @param taskName The name of the task.
+     * @param period  The date and time of the start and end of task.
+     * @return The EventTask created.
+     */
+    private EventTask readEventPeriod(String taskName, String period) throws BondException {
+
+        String eventPeriod = period;
+        String start;
+        String end;
+
+        int closeIndex = eventPeriod.indexOf(")");
+        eventPeriod = eventPeriod.substring(0, closeIndex);
+        String[] components = eventPeriod.split(" to: ");
+
+        start = components[0].replace("from: ", "");
+        end = components[1];
+
+        String[] startComponents = start.split(" ");
+        start = Parser.changeDateFormat(startComponents[0], startComponents[1], startComponents[2])
+                + " " + startComponents[3];
+
+        String[] endComponents = end.split(" ");
+        end = Parser.changeDateFormat(endComponents[0], endComponents[1], endComponents[2])
+                + " " + endComponents[3];
+
+        return new EventTask(taskName, start, end);
+    }
+
+    /**
      * Parses the task and adds it to the task list.
      * We assume that the task is in the correct format.
      *
@@ -42,7 +100,7 @@ public class Storage {
      * @throws BondException If the task cannot be parsed and added to the task
      *                       list.
      */
-    public void parseAndAddTask(String task, ArrayList<Task> tasks) throws BondException {
+    public void readAndAddTask(String task, ArrayList<Task> tasks) throws BondException {
         String remainder = task.substring(4);
         String taskName;
         boolean isMarked = false;
@@ -66,53 +124,16 @@ public class Storage {
 
         // Add task to taskList
         if (task.startsWith("[T]")) {
-            newTask = new ToDoTask(taskName);
+
+            newTask = readTodo(taskName);
 
         } else if (task.startsWith("[D]")) {
-            int spaceIndex = remainder.indexOf(" ");
-            int closeIndex = remainder.indexOf(")");
-            String deadline = remainder.substring(spaceIndex + 1, closeIndex);
-            String[] components = deadline.split(" ");
-            deadline = Parser.changeDateFormat(components[0], components[1], components[2]) + " " + components[3];
 
-            newTask = new DeadlineTask(taskName, deadline);
+            newTask = readDeadline(taskName, remainder);
 
         } else if (task.startsWith("[E]")) {
-            String start = "";
-            String end = "";
-            int closeIndex = remainder.indexOf(")");
-            remainder = remainder.substring(0, closeIndex);
-            String[] components = remainder.split(" ");
 
-            for (int i = 0; i < components.length; i++) {
-
-                if (components[i].equals("from:")) {
-
-                    for (int j = i + 1; j < components.length; j++) {
-                        if (components[j].equals("to:")) {
-                            break;
-                        }
-                        start += components[j] + " ";
-                    }
-
-                } else if (components[i].equals("to:")) {
-
-                    for (int k = i + 1; k < components.length; k++) {
-                        end += components[k] + " ";
-                    }
-
-                }
-
-            }
-
-            String[] startComponents = start.split(" ");
-            start = Parser.changeDateFormat(startComponents[0], startComponents[1], startComponents[2])
-                    + " " + startComponents[3];
-            String[] endComponents = end.split(" ");
-            end = Parser.changeDateFormat(endComponents[0], endComponents[1], endComponents[2])
-                    + " " + endComponents[3];
-
-            newTask = new EventTask(taskName, start, end);
+            newTask = readEventPeriod(taskName, remainder);
 
         } else {
             newTask = null;
@@ -134,9 +155,11 @@ public class Storage {
      */
     protected ArrayList<Task> load() throws BondException {
 
-        try {
+        File f;
+        Scanner sc;
+        ArrayList<Task> loadedTasks = new ArrayList<>();
 
-            ArrayList<Task> loadedTasks = new ArrayList<>();
+        try {
 
             // Check for directory / file existence
             String home = System.getProperty("user.home");
@@ -157,22 +180,22 @@ public class Storage {
             assert java.nio.file.Files.exists(directoryPath) : "Directory should exist";
             assert java.nio.file.Files.exists(filePath) : "File should exist";
 
-            File f = new File(pathToFile); // create a File for the given file path
-            Scanner s = new Scanner(f); // create a Scanner using the File as the source
-
-            while (s.hasNextLine()) {
-                String currTask = s.nextLine();
-                parseAndAddTask(currTask, loadedTasks);
-            }
-
-            s.close();
-
-            return loadedTasks;
+            f = new File(pathToFile); // create a File for the given file path
+            sc = new Scanner(f); // create a Scanner using the File as the source
 
         } catch (IOException e) {
             BondException.raiseException("load", "LOAD_FAILURE");
             return null;
         }
+
+        while (sc.hasNextLine()) {
+            String currTask = sc.nextLine();
+            readAndAddTask(currTask, loadedTasks);
+        }
+
+        sc.close();
+
+        return loadedTasks;
     }
 
     /**
