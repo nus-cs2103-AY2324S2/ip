@@ -30,7 +30,7 @@ public class AdditionalInfoParser {
     }
 
     /**
-     * Splits the input regardless of '/by', '/to' or '/from'
+     * Splits the input regardless of '/by', '/to', '/id', '/priority', '/from'
      * 
      * @param input    Input that is the additional details
      * @param keywords The splitting conditions

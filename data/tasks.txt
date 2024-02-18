@@ -1,4 +1,4 @@
-T | 1 | homework | NILL | NILL
-T | 0 | Read Book | NILL | NILL
-D | 1 | CS2103 Assignment 1 | 12/12/2023 1800 | NILL
-E | 0 | cny celebration | 17/2/2024 0900 | 17/2/2024 1800
+T | 0 | homework | NILL | NILL | HIGH
+E | 0 | cs2103 assignment 2 | 18/2/2024 1800 | 25/2/2024 2359 | MEDIUM
+D | 0 | ma1522 | 25/2/2024 2359 | NILL | HIGH
+T | 0 | sleep | NILL | NILL | LOW

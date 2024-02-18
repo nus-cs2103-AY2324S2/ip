@@ -6,8 +6,8 @@ public class Todo extends Task {
         super(name);
     }
 
-    public Todo(String name, boolean isDone) {
-        super(name, isDone);
+    public Todo(String name, boolean isDone, String priority) {
+        super(name, isDone, priority);
     }
 
     @Override

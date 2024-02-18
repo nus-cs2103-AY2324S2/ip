@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import commands.Commands;
+import enums.Commands;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Todo;
@@ -123,7 +123,7 @@ public class ParserTest {
      */
     @Test
     public void parseCommands_markCommand_markTaskAsDone() {
-        Todo todo = new Todo("Test Task Added To File", false);
+        Todo todo = new Todo("Test Task Added To File", false, "HIGH");
         taskListStub.addTask(todo);
 
         // Since there is only one task, the ID of the task is 1
@@ -137,7 +137,7 @@ public class ParserTest {
      */
     @Test
     public void parseCommands_markCommand_markTaskAsNotDone() {
-        Todo todo = new Todo("Test Task Added To File", true);
+        Todo todo = new Todo("Test Task Added To File", true, "HIGH");
         taskListStub.addTask(todo);
 
         // Since there is only one task, the ID of the task is 1

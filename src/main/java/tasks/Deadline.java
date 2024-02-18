@@ -11,8 +11,8 @@ public class Deadline extends Task {
         this.byDate = byDate;
     }
 
-    public Deadline(String name, LocalDateTime byDate, boolean isDone) {
-        super(name, isDone);
+    public Deadline(String name, LocalDateTime byDate, boolean isDone, String priority) {
+        super(name, isDone, priority);
         this.byDate = byDate;
     }
 
