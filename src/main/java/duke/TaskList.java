@@ -26,7 +26,7 @@ public class TaskList {
         reply += "We have completed this task!\n";
         currentTask.mark();
         reply += currentTask.getTaskType() + currentTask.getStatus()
-                + " " + currentTask.getTask() +"\n";
+                + " " + currentTask.getTask() + "\n";
 
         return reply;
     }
