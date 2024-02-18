@@ -18,6 +18,7 @@ public class Ui {
     private StoredTaskList taskList;
     private CommandList commandList;
     private Parser parser;
+    private final static Message INITIAL_MESSAGE = new Message("Hello! I'm Remi\n" + "What can I do for you?");
 
     /**
      * Basic constructor for the Ui class. Initializes the TaskList, CommandList, and Parser objects.
@@ -48,7 +49,7 @@ public class Ui {
      * Does the first step in initializing the IO loop.
      */
     public void initialize() {
-        Outputter.outputMessage(new Message("Hello! I'm Remi\n" + "What can I do for you?"));
+        Outputter.outputMessage(INITIAL_MESSAGE);
     }
 
     /**
@@ -84,5 +85,9 @@ public class Ui {
 
     public boolean getIsFinished() {
         return isFinished;
+    }
+
+    public Message getInitialMessage() {
+        return INITIAL_MESSAGE;
     }
 }
