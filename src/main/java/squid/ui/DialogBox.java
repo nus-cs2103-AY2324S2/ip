@@ -54,7 +54,7 @@ public class DialogBox extends HBox {
      * @param iv Image of duke.
      * @return Duke's DialogBox object.
      */
-    public static DialogBox getDukeDialog(Label l, ImageView iv) {
+    public static DialogBox getSquidDialog(Label l, ImageView iv) {
         var db = new DialogBox(l, iv);
         db.flip();
         return db;

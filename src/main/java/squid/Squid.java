@@ -50,8 +50,8 @@ public class Squid extends Application {
     private Scene scene;
     private Image user = new Image(
             Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png")));
-    private Image duke = new Image(
-            Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaDuke.png")));
+    private Image squid = new Image(
+            Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaSquid.png")));
 
     public Squid() {
         new Tasks();
@@ -345,7 +345,7 @@ public class Squid extends Application {
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(new Label(hello()), new ImageView(duke)));
+        dialogContainer.getChildren().add(DialogBox.getSquidDialog(new Label(hello()), new ImageView(squid)));
         AtomicBoolean isLoop = new AtomicBoolean(true);
 
         //Step 3. Add functionality to handle user input.
@@ -408,7 +408,7 @@ public class Squid extends Application {
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
+                DialogBox.getSquidDialog(dukeText, new ImageView(squid))
         );
         userInput.clear();
         return response.getIsLoop();

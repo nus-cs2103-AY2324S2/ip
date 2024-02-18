@@ -36,8 +36,8 @@ public class MainWindow extends AnchorPane {
 
     private Image imageUser = new Image(
             Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png")));
-    private Image imageDuke = new Image(
-            Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaDuke.png")));
+    private Image imageSquid = new Image(
+            Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaSquid.png")));
 
     /**
      * Initialize the GUI.
@@ -46,11 +46,11 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(new Label(Squid.hello()), new ImageView(imageDuke))
+                DialogBox.getSquidDialog(new Label(Squid.hello()), new ImageView(imageSquid))
         );
     }
 
-    public void setDuke(Squid d) {
+    public void setSquid(Squid d) {
         squid = d;
     }
 
@@ -66,7 +66,7 @@ public class MainWindow extends AnchorPane {
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(imageUser)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(imageDuke))
+                DialogBox.getSquidDialog(dukeText, new ImageView(imageSquid))
         );
         userInput.clear();
         boolean isLoop = response.getIsLoop();
