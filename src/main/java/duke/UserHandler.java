@@ -30,7 +30,7 @@ public class UserHandler {
 
 
         } else if (input.toLowerCase().matches("\\bunmark\\b.*")) {
-            // Mark the task as undone
+
 
             String r =  taskList.unmarkTask(input);
             try {
@@ -43,7 +43,7 @@ public class UserHandler {
 
 
         } else if (input.toLowerCase().matches("\\bdeadline\\b.*")) {
-            // Add deadline task to task list
+           
             if (input.length() <= 9) {
                 throw new DukeException("Empty Description");
             }
