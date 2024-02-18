@@ -15,6 +15,7 @@ public class CommandHandler {
      */
 
     public String chat(String input, TaskList taskList) throws RiriException, IOException {
+
         if (input.matches("bye")) {
             return exitMessage;
         } else if (input.toLowerCase().matches("\\blist\\b")) {

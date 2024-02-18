@@ -54,6 +54,7 @@ public class TaskList {
      * Marking task at index i as done. Displays list at the end of marking.
      */
     public String mark(int i) {
+        assert(i > 0);
         this.taskList.get(i - 1).markDone();
         return "Marked i-th task as done";
     }
@@ -61,6 +62,7 @@ public class TaskList {
      * Marking task at index i as undone. Displays list at the end of marking.
      */
     public String unmarked(int i) throws IOException {
+        assert(i > 0);
         this.taskList.get(i - 1).markUndone();
         storage.writeToFile(this.toString());
         return "Marked i-th task as un done";
@@ -70,6 +72,7 @@ public class TaskList {
      * @param index remove index'th task
      */
     public String delete(int index) throws IOException {
+        assert(index > 0);
         this.taskList.remove(index - 1);
         storage.writeToFile(this.toString());
         return "Deleted task no. " + index + "You have " + this.len() + " tasks left";
