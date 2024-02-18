@@ -4,16 +4,6 @@ package BotChat;
  * Represents the User Interface (UI) for the botChat application.
  */
 public class Ui {
-
-    /**
-     * Displays the goodbye message when the user exits the botChat application.
-     */
-    public void showGoodbyeMessage() {
-        System.out.println("____________________________________________________________\n"
-                + " Bye. Hope to see you again soon!\n"
-                + "____________________________________________________________\n");
-    }
-
     /**
      * Displays an error message to the user.
      *
