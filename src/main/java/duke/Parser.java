@@ -6,9 +6,12 @@ public class Parser {
     private static HashMap<String, CommandBuilder> registeredCommands = new HashMap<>();
 
     /**
-     * This method registers a command with the parser.
+     * Registers a command with the parser.
      * It must be called exactly once at program start, which is done by
-     * Commands.registerCommands().
+     * {@link Commands#registerCommands}.
+     *
+     * @param commandName the name of the command
+     * @param commandBuilder the {@link CommandBuilder} object
      */
     public static void registerCommand(String commandName, CommandBuilder commandBuilder) {
         registeredCommands.put(commandName, commandBuilder);
@@ -17,6 +20,13 @@ public class Parser {
     public Parser() {
     }
 
+    /**
+     * Parses a command.
+     *
+     * @param command The command to parse.
+     * @throws InvalidCommandException if the command is invalid.
+     * @return the parsed command.
+     */
     public Command parse(String command) throws InvalidCommandException {
         command = command.trim();
         String[] parts = command.split(" ", 2);

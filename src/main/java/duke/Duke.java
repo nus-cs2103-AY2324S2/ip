@@ -15,9 +15,8 @@ public class Duke {
         try {
             tasks.loadFromSavedData(storage.loadFromFile(), parser);
         } catch (DukeException e) {
-            System.err.println("Stored tasks file is corrupted: " + e.getMessage());
             storage.deleteFile();
-            System.err.println("Deleted the file.");
+            ui.printCorruptedFileMessage(e);
         }
         ui.printBanner();
         while (true) {

@@ -2,9 +2,9 @@ package duke;
 
 /**
  * Represents a command.
- * Subclasses of this class must register itself with Parser.
- * They must have either a constructor with no parameters
- * or a constructor with a single String parameter.
+ * <p>
+ * Subclasses of this class must register itself with {@link Parser}
+ * in {@link Commands#registerCommands}.
  */
 public abstract class Command {
     public abstract void execute(TaskList tasks, boolean silent) throws DukeException;

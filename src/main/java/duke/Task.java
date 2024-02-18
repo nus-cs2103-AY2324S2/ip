@@ -21,6 +21,10 @@ abstract public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns the string representation of the task.
+     */
+    @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
@@ -33,6 +37,9 @@ abstract public class Task {
      * such that if there was originally taskIndex tasks in the list,
      * then after executing the string representation,
      * there will be taskIndex + 1 tasks in the list.
+     *
+     * @param taskIndex the 0-indexed index of this task
+     * @return the serialized string
      */
     public abstract String serializeToCommand(int taskIndex);
 
