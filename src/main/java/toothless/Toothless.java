@@ -43,7 +43,7 @@ public class Toothless {
     }
 
     /**
-     * Get response to user input.
+     * Gets response to user input.
      *
      * @param input User input from GUI.
      * @return String of Toothless' response.

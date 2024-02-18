@@ -172,7 +172,7 @@ public class TaskList {
             tasks.add(newTask);
             return newTask;
         } catch (DateTimeParseException e) {
-            throw new ToothlessException("Sorry, /by field datetime should use the following format: "
+            throw new ToothlessException("Sorry, /by field datetime should be in the following format: "
                     + "yyyy-mm-dd hh:mm");
         }
     }
@@ -200,7 +200,7 @@ public class TaskList {
             tasks.add(newTask);
             return newTask;
         } catch (DateTimeParseException e) {
-            throw new ToothlessException("Sorry, /from and /to field datetime should use the following format: "
+            throw new ToothlessException("Sorry, /from and /to field datetime should be in the following format: "
                     + "yyyy-mm-dd hh:mm");
         }
 

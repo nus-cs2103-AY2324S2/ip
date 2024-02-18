@@ -21,7 +21,7 @@ public class TaskListTest {
             tasks.addEventToList("event", "2024-13-02 25:30", "10pm");
             fail();
         } catch (Exception e) {
-            assertEquals("Sorry, /from and /to field datetime should use the following format: "
+            assertEquals("Sorry, /from and /to field datetime should be in the following format: "
                     + "yyyy-mm-dd hh:mm", e.getMessage());
         }
     }

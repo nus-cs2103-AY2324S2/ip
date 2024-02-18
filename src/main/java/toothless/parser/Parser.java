@@ -12,7 +12,7 @@ import toothless.ui.Ui;
  */
 public class Parser {
     /**
-     * The main method that parses user input.
+     * Parses user input.
      *
      * @param tasks TaskList that is operated on when user command is executed.
      * @param ui Ui class used to print messages.
@@ -64,7 +64,7 @@ public class Parser {
         // check format
         if (!indexInput.matches("(mark|unmark|delete)\\s\\d+")) {
             throw new ToothlessException(
-                    String.format("Sorry, purr-lease use the format: %s listIndex", command));
+                    String.format("Sorry, purr-lease use the format: %s <listIndex>", command));
         }
         // split input and get integer
         String[] listInputSplit = indexInput.strip().split("\\s+");
@@ -100,7 +100,7 @@ public class Parser {
      */
     public String parseFindInput(TaskList tasks, Ui ui, String findInput) throws ToothlessException {
         if (!findInput.matches("find\\s[^/]+")) {
-            throw new ToothlessException("Apurrlogies, please use the format: find keyword");
+            throw new ToothlessException("Apurrlogies, please use the format: find <keyword>");
         }
         String keyword = findInput.replace("find", "").strip();
         if (keyword.isBlank()) {
@@ -125,7 +125,7 @@ public class Parser {
     public String parseTagInput(TaskList tasks, Ui ui, String tagInput, String command) throws ToothlessException {
         if (!tagInput.matches("(tag|untag)\\s\\d+\\s[^/]+")) {
             throw new ToothlessException(
-                    String.format("Sorry, purr-lease use the format: %s taskListIndex tagLabel", command));
+                    String.format("Sorry, purr-lease use the format: %s <taskListIndex> <tagLabel>", command));
         }
         String[] tagInputSplit = tagInput.strip().split("\\s+");
         int listIndex = Integer.parseInt(tagInputSplit[1]);
@@ -157,7 +157,7 @@ public class Parser {
      */
     public String parseToDoInput(TaskList tasks, Ui ui, String toDoInput) throws ToothlessException {
         if (!toDoInput.matches("todo\\s[^/]+")) {
-            throw new ToothlessException("Apurrlogies, please use the format: todo description");
+            throw new ToothlessException("Apurrlogies, please use the format: todo <description>");
         }
         String taskDescription = toDoInput.replace("todo", "").strip();
         if (taskDescription.isBlank()) {
@@ -179,7 +179,7 @@ public class Parser {
     public String parseDeadlineInput(TaskList tasks, Ui ui, String deadlineInput) throws ToothlessException {
         if (!deadlineInput.matches("deadline\\s[^/]+\\s/by\\s\\d{4}-\\d{2}-\\d{2}\\s\\d{2}:\\d{2}")) {
             throw new ToothlessException("Sorry, purr-lease use the format: "
-                    + "deadline [description] /by [yyyy-mm-dd hh:mm].");
+                    + "deadline <description> /by <yyyy-mm-dd hh:mm>.");
         }
         String[] deadlineAttributes = deadlineInput.replace("deadline", "")
                 .strip().split("\\s*/by\\s*");
@@ -203,7 +203,7 @@ public class Parser {
         if (!eventInput.matches("event\\s[^/]+\\s/from\\s\\d{4}-\\d{2}-\\d{2}\\s\\d{2}:\\d{2}\\s"
                 + "/to\\s\\d{4}-\\d{2}-\\d{2}\\s\\d{2}:\\d{2}")) {
             throw new ToothlessException("Sorry, purr-lease use the format: "
-                    + "event description /from yyyy-mm-dd hh:mm /to yyyy-mm-dd hh:mm");
+                    + "event <description> /from <yyyy-mm-dd hh:mm> /to <yyyy-mm-dd hh:mm>");
         }
         String[] eventAttributes = eventInput.replace("event", "")
                 .strip().split("\\s*/from\\s*|\\s*/to\\s*");

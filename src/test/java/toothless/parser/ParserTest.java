@@ -28,7 +28,7 @@ public class ParserTest {
             fail();
         } catch (Exception e) {
             assertEquals("Sorry, purr-lease use the format: "
-                    + "event description /from yyyy-mm-dd hh:mm /to yyyy-mm-dd hh:mm", e.getMessage());
+                    + "event <description> /from <yyyy-mm-dd hh:mm> /to <yyyy-mm-dd hh:mm>", e.getMessage());
         }
     }
 
@@ -55,7 +55,7 @@ public class ParserTest {
             fail();
         } catch (Exception e) {
             assertEquals("Sorry, purr-lease use the format: "
-                    + "event description /from yyyy-mm-dd hh:mm /to yyyy-mm-dd hh:mm", e.getMessage());
+                    + "event <description> /from <yyyy-mm-dd hh:mm> /to <yyyy-mm-dd hh:mm>", e.getMessage());
         }
     }
 
@@ -69,7 +69,7 @@ public class ParserTest {
             fail();
         } catch (Exception e) {
             assertEquals("Sorry, purr-lease use the format: "
-                    + "event description /from yyyy-mm-dd hh:mm /to yyyy-mm-dd hh:mm", e.getMessage());
+                    + "event <description> /from <yyyy-mm-dd hh:mm> /to <yyyy-mm-dd hh:mm>", e.getMessage());
         }
     }
 
@@ -84,7 +84,7 @@ public class ParserTest {
             fail();
         } catch (Exception e) {
             assertEquals("Sorry, purr-lease use the format: "
-                    + "event description /from yyyy-mm-dd hh:mm /to yyyy-mm-dd hh:mm", e.getMessage());
+                    + "event <description> /from <yyyy-mm-dd hh:mm> /to <yyyy-mm-dd hh:mm>", e.getMessage());
         }
     }
 
@@ -99,7 +99,7 @@ public class ParserTest {
             fail();
         } catch (Exception e) {
             assertEquals("Sorry, purr-lease use the format: "
-                    + "event description /from yyyy-mm-dd hh:mm /to yyyy-mm-dd hh:mm", e.getMessage());
+                    + "event <description> /from <yyyy-mm-dd hh:mm> /to <yyyy-mm-dd hh:mm>", e.getMessage());
         }
     }
 
@@ -113,7 +113,7 @@ public class ParserTest {
                             + " /to 2024-02-90 30:30"));
             fail();
         } catch (Exception e) {
-            assertEquals("Sorry, /from and /to field datetime should use the following format: "
+            assertEquals("Sorry, /from and /to field datetime should be in the following format: "
                     + "yyyy-mm-dd hh:mm", e.getMessage());
         }
     }
