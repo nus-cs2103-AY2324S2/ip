@@ -17,7 +17,20 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 
+/**
+ * Represents a dialog box to display a message.
+ * <p>
+ * This class is used to represent a dialog box to display a message. It
+ * provides
+ * methods to create a dialog box for the user and for GeePeeTee.
+ * </p>
+ */
 public class DialogBox extends HBox {
+
+    private static final double DEFAULT_MIN_WIDTH = 200;
+    private static final double DEFAULT_MIN_HEIGHT = 200;
+    private static final double CHAR_WIDTH = 7;
+
     @FXML
     private Label dialog;
     @FXML
@@ -34,6 +47,18 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        setMinWidth(DEFAULT_MIN_WIDTH);
+        setMinHeight(DEFAULT_MIN_HEIGHT);
+
+        double textLength = text.length() * CHAR_WIDTH;
+        double width = Math.max(textLength, DEFAULT_MIN_WIDTH);
+        setPrefWidth(width);
+
+        int numLines = (int) Math.ceil(textLength / width);
+        double height = numLines * CHAR_WIDTH * 1.5;
+        height = Math.max(height, DEFAULT_MIN_HEIGHT);
+        setPrefHeight(height);
 
         dialog.setText(text);
         dialog.setWrapText(true);
@@ -53,10 +78,24 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Returns a dialog box for the user with the specified text and image.
+     * 
+     * @param text The text to be displayed in the dialog box.
+     * @param img  The image to be displayed in the dialog box.
+     * @return A dialog box for the user with the specified text and image.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Returns a dialog box for GeePeeTee with the specified text and image.
+     * 
+     * @param text The text to be displayed in the dialog box.
+     * @param img  The image to be displayed in the dialog box.
+     * @return A dialog box for GeePeeTee with the specified text and image.
+     */
     public static DialogBox getGeePeeTeeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.displayTextWithTypingAnimation(text);
@@ -64,6 +103,11 @@ public class DialogBox extends HBox {
         return db;
     }
 
+    /**
+     * Displays the specified text with a typing animation.
+     * 
+     * @param text The text to be displayed with a typing animation.
+     */
     public void displayTextWithTypingAnimation(String text) {
         StringBuilder displayText = new StringBuilder();
         Timeline timeline = new Timeline();

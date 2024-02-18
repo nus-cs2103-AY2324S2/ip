@@ -105,6 +105,8 @@ public class TaskList {
 
     /**
      * Finds tasks that match the keyword
+     * 
+     * @param keyword The keyword to be matched
      */
     public ArrayList<Task> findTasks(String keyword) {
         return this.tasksList.stream()
