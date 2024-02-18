@@ -10,11 +10,11 @@ import javafx.stage.Stage;
 import tes.gui.MainWindow;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Tes using FXML.
  */
 public class Main extends Application {
 
-    private Tes duke = new Tes();
+    private Tes tes = new Tes();
 
     @Override
     public void start(Stage stage) {
@@ -23,7 +23,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setTes(tes);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

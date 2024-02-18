@@ -35,12 +35,20 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Displays greeting when initializing the chatbot.
+     */
     public void displayGreet() {
         String greet = tes.greet();
         dialogContainer.getChildren().add(DialogBox.getTesDialog(greet, tesImage));
     }
 
-    public void setDuke(Tes t) {
+    /**
+     * Sets up the chatbot.
+     * Greets the user too when initializing the chatbot.
+     * @param t
+     */
+    public void setTes(Tes t) {
         tes = t;
         displayGreet();
     }
