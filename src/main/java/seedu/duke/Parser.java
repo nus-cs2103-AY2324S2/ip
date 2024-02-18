@@ -46,6 +46,7 @@ public class Parser {
         } catch (NumberFormatException n) {
             output = ui.printError(new DukeException("Here's the format I require: mark [valid index]"));
         }
+        assert !output.isEmpty() : "Output should not be empty";
         return output;
     }
 
@@ -80,6 +81,7 @@ public class Parser {
         } catch (NumberFormatException n) {
             output = ui.printError(new DukeException("Here's the format I require: unmark [valid index]"));
         }
+        assert !output.isEmpty() : "Output should not be empty";
         return output;
     }
 
@@ -110,6 +112,7 @@ public class Parser {
         } catch (DateTimeParseException dateTimeParseException) {
             output = ui.printError(new DukeException("Please enter a valid date in the format yyyy-mm-dd"));
         }
+        assert !output.isEmpty() : "Output should not be empty";
         return output;
     }
 
@@ -136,6 +139,7 @@ public class Parser {
         } catch (DukeException d) {
             output = ui.printError(d);
         }
+        assert !output.isEmpty() : "Output should not be empty";
         return output;
     }
 
@@ -168,6 +172,7 @@ public class Parser {
         } catch (DateTimeParseException dateTimeParseException) {
         output = ui.printError(new DukeException("Please enter a valid date in the format yyyy-mm-dd"));
         }
+        assert !output.isEmpty() : "Output should not be empty";
         return output;
     }
 
@@ -201,6 +206,7 @@ public class Parser {
         } catch (NumberFormatException n) {
             output = ui.printError(new DukeException("Is that a valid task number?"));
         }
+        assert !output.isEmpty() : "Output should not be empty";
         return output;
     }
 
@@ -225,6 +231,7 @@ public class Parser {
         } catch (DukeException d) {
             output = ui.printError(d);
         }
+        assert !output.isEmpty() : "Output should not be empty";
         return output;
     }
 }

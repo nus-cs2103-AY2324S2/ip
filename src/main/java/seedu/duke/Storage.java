@@ -18,6 +18,7 @@ public class Storage {
     private String filepath;
 
     public Storage(String filepath) {
+        assert filepath != null : "Filepath should not be null";
         this.filepath = filepath;
     }
 
@@ -53,6 +54,7 @@ public class Storage {
                 e.printStackTrace();
             }
         }
+        assert taskList != null : "TaskList should not be null";
         return taskList;
     }
 
@@ -61,6 +63,7 @@ public class Storage {
      * @param list Contains the <code>TaskList</code> to be saved
      */
     public void saveTasks(ArrayList<Task> list) {
+        assert list != null : "TaskList should not be null";
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filepath))) {
             oos.writeObject(list);
         } catch (IOException e) {

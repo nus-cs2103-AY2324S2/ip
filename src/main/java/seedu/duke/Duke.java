@@ -1,10 +1,10 @@
 package seedu.duke;
 
+import java.util.Objects;
+
 /**
  * Represents a task manager called <code>Duke</code>.
  */
-
-@SuppressWarnings("checkstyle:Regexp")
 public class Duke {
 
     private static Storage storage;
@@ -30,6 +30,7 @@ public class Duke {
      * @return opening message
      */
     public String welcomeMessage() {
+        assert ui != null : "Ui should not be null";
         return ui.openingMessage();
     }
 
@@ -41,6 +42,12 @@ public class Duke {
      */
     public static String getResponse(String userInput) {
         String dukeResponse = "";
+
+        assert ui != null : "Ui should not be null";
+        assert tasks != null : "TaskList should not be null";
+        assert storage != null : "Storage should not be null";
+        assert userInput != null : "User input should not be null";
+
         // command dependent logic
         if (userInput.equals("bye")) {
             storage.saveTasks(tasks.getList());
@@ -69,6 +76,7 @@ public class Duke {
             }
         }
         storage.saveTasks(tasks.getList());
+        assert !dukeResponse.isEmpty(): "Response should not be empty";
         return dukeResponse;
     }
 }

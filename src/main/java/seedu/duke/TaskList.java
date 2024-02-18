@@ -41,6 +41,7 @@ public class TaskList {
      * @return Task
      */
     public Task getTask(int index) {
+        assert index >= 0 : "Index should be greater than or equal to 0";
         return list.get(index);
     }
 
@@ -50,6 +51,7 @@ public class TaskList {
      *              to be marked as done.
      */
     public void markTaskDone(int index) {
+        assert index >= 0 : "Index should be greater than or equal to 0";
         list.get(index).markAsDone();
     }
 
@@ -59,6 +61,7 @@ public class TaskList {
      *              to be marked as undone.
      */
     public void markTaskUndone(int index) {
+        assert index >= 0 : "Index should be greater than or equal to 0";
         list.get(index).markAsUndone();
     }
 
@@ -68,6 +71,7 @@ public class TaskList {
      *             added
      */
     public void addTask(Task task) {
+        assert task != null : "Task should not be null";
         list.add(task);
     }
 
@@ -76,6 +80,7 @@ public class TaskList {
      * @param index Represents the task index to be deleted
      */
     public void deleteTask(int index) {
+        assert index >= 0 : "Index should be greater than or equal to 0";
         list.remove(index);
     }
 
