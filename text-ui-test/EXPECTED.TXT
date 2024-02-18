@@ -1,7 +1,44 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Hello, I'm Ypxmm.
+Need me do what for you?
+No tasks yet la bro
+Eh u seh isit? Now your list got no tasks to mark.
+You tell me now what task am I supposed to mark if you don't provide me with a number?
+Eh u seh isit? Now your list got no tasks to unmark.
+You tell me now what task am I supposed to unmark if you don't provide me with a number?
+You trying to test my patience ah? Type "get commands" if u blur and dunno how to use me properly.
+Ok I help you add this one liao:
+[T][ ] eat
+Now your list got 1 task.
+You trying to test my patience ah? Check that u got key in the deadline lehhh
+Type "get commands" if u blur and dunno how to use me properly.
+Ok I help you add this one liao:
+[D][ ] homework  (by: 5pm)
+Now your list got 2 tasks.
+Eh brother last warning ah. Check that u got key in the start and end time
+Type "get commands" if u blur and dunno how to use me properly.
+Ok I help you add this one liao:
+[E][ ] dinner  (from: 5pm  to: 6pm)
+Now your list got 3 tasks.
+Ok wait ah, here are your tasks:
+1. [T][ ] eat
+2. [D][ ] homework  (by: 5pm)
+3. [E][ ] dinner  (from: 5pm  to: 6pm)
+Upz la, mark for you already!
+[T][X] eat
+Eh u seh isit? Now your list got 3 tasks, enter any number from 1 to 3
+You tell me now what task am I supposed to delete if you don't provide me with a number?
+Ok deleted liao:
+[D][ ] homework  (by: 5pm)
+Now your list got 2 tasks left.
+Ok wait ah, here are your tasks:
+1. [T][X] eat
+2. [E][ ] dinner  (from: 5pm  to: 6pm)
+Sorry bro, idk what that means. You try type in "getcommands" then see if got what u want.
+todo <task> - adds todo
+deadline <task>/<by when> - adds deadline
+event <task>/<from when>/<to when> - adds event
+list - lists out all tasks
+mark <x> - marks task x as done
+unmark <x> - unmarks task x as undone
+bye - exit
+Oh you need zao alr? Okok see you next time!

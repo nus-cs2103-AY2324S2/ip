@@ -1,24 +1,36 @@
-# Duke project template
+# Ypxmm
+> If you fail to plan, you plan to fail.
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Ypxmm is your go-to, true-blue Singaporean task manager bot. It is:
 
-## Setting up in Intellij
+- text-based
+- user-friendly
+- very fast to use
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+## How to use
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+1. Download it from [here](https://github.com/appleraincoat/ip/releases/tag/A-Jar)
+2. Open the folder with CLI
+3. Run java -jar Ypxmm.jar
+4. Add your tasks
+
+You may key in `getcommands` if you are unsure of how to use the bot.
+
+And you are done! :smile:
+
+## Features:
+- [x] Add 3 types of tasks, Todos, Deadlines and Events
+- [X] List, Mark & Unmark and Delete tasks
+- [ ] Assign priorities to tasks (**Coming soon**)
+- [ ] Edit tasks (**Coming soon**)
+
+## Additional Information
+
+This program is written in Java. The launcher class is listen below.
+```angular2html
+public class Launcher {
+    public static void main(String[] args) {
+        Application.launch(Main.class, args);
+    }
+}
+```
