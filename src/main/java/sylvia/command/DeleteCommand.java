@@ -9,6 +9,8 @@ import sylvia.task.TaskList;
  * Represents a command to delete a task.
  */
 public class DeleteCommand extends Command implements Undoable {
+    public static final String MANUAL = "Usage: delete <task number>\n" + "Deletes a task from the task list.\n"
+            + "The task number must be specified as an integer.\n" + "Example: delete 3\n" + "Aliases: d, del";
     private int index;
     private Task task;
 

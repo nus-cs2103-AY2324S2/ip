@@ -8,6 +8,10 @@ import sylvia.task.TaskList;
  * Represents a command to find tasks by keyword.
  */
 public class FindCommand extends Command {
+    public static final String MANUAL = "Usage: find <keyword>\n"
+            + "Finds tasks in the task list that contain the keyword.\n" + "The keyword cannot be empty.\n"
+            + "Example: find book\n" + "Aliases: f";
+
     public FindCommand(String body) {
         super(body);
     }

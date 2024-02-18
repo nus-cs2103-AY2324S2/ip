@@ -8,6 +8,8 @@ import sylvia.task.TaskList;
  * Represents a command to mark a task as done.
  */
 public class MarkCommand extends Command {
+    public static final String MANUAL = "Usage: mark <index>\n" + "Marks a task as done in the task list.\n"
+            + "The index must be a positive integer.\n" + "Example: mark 3\n" + "Aliases: mk";
     private int index;
 
     /**

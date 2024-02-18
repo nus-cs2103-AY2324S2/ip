@@ -7,6 +7,8 @@ import sylvia.task.TaskList;
  * Represents a command to list all tasks.
  */
 public class ListCommand extends Command {
+    public static final String MANUAL = "Usage: list\n" + "Lists all tasks in the task list.\n" + "Aliases: ls";
+
     public ListCommand() {
         super("");
     }

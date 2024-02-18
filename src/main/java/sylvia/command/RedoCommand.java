@@ -8,6 +8,9 @@ import sylvia.task.TaskList;
  * Represents a command to redo the most recent command that was undone.
  */
 public class RedoCommand extends Command {
+    public static final String MANUAL = "Usage: redo\n" + "Redoes the most recent command that was undone.\n"
+            + "Aliases: rd";
+
     /**
      * Creates a new redo command.
      *
