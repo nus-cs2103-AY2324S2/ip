@@ -8,7 +8,7 @@ import java.util.ListIterator;
  * management program.
  *
  * @author Benny Loh
- * @version 0.1
+ * @version 0.2
  */
 public class TaskList {
 

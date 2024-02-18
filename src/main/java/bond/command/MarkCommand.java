@@ -11,7 +11,7 @@ import bond.task.TaskList;
  * executed upon invoking the execute() method.
  *
  * @author Benny Loh
- * @version 0.1
+ * @version 0.2
  */
 public class MarkCommand extends Command {
 
@@ -42,7 +42,7 @@ public class MarkCommand extends Command {
         }
         Task markedTask = tasks.getTask(index);
         markedTask.markAsComplete();
-        String response = ui.taskMarked(markedTask, tasks);
+        String response = ui.taskMarked(markedTask);
         storage.overwritePreviousSave(tasks);
         return response;
     }

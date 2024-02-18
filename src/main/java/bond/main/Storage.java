@@ -18,7 +18,7 @@ import bond.task.ToDoTask;
  * Command object.
  *
  * @author Benny Loh
- * @version 0.1
+ * @version 0.2
  */
 public class Storage {
 
@@ -35,6 +35,7 @@ public class Storage {
 
     /**
      * Parses the task and adds it to the task list.
+     * We assume that the task is in the correct format.
      *
      * @param task  The task to be parsed and added to the task list.
      * @param tasks The task list to add the parsed task to.
@@ -131,7 +132,7 @@ public class Storage {
      * @return The tasks loaded from the file as an ArrayList.
      * @throws BondException If the tasks cannot be loaded from the file.
      */
-    public ArrayList<Task> load() throws BondException {
+    protected ArrayList<Task> load() throws BondException {
 
         try {
 
@@ -152,6 +153,9 @@ public class Storage {
             if (!fileExists) {
                 java.nio.file.Files.createFile(filePath);
             }
+
+            assert java.nio.file.Files.exists(directoryPath) : "Directory should exist";
+            assert java.nio.file.Files.exists(filePath) : "File should exist";
 
             File f = new File(pathToFile); // create a File for the given file path
             Scanner s = new Scanner(f); // create a Scanner using the File as the source

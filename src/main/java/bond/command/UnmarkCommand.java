@@ -11,7 +11,7 @@ import bond.task.TaskList;
  * command, which is executed upon invoking the execute() method.
  *
  * @author Benny Loh
- * @version 0.1
+ * @version 0.2
  */
 public class UnmarkCommand extends Command {
 
@@ -42,7 +42,7 @@ public class UnmarkCommand extends Command {
         }
         Task markedTask = tasks.getTask(index);
         markedTask.markAsIncomplete();
-        String response = ui.taskUnmarked(markedTask, tasks);
+        String response = ui.taskUnmarked(markedTask);
         storage.overwritePreviousSave(tasks);
         return response;
     }
