@@ -60,5 +60,6 @@ public class Event extends Task {
 
         tasks.add(". " + "[E][ ] " + item + " (from: " + startDate.format(formatter) + " to: "
                 + endDate.format(formatter) + ")");
+        Storage.writeTask(this.tasks.getList());
     }
 }
