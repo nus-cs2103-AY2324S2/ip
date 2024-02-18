@@ -105,6 +105,7 @@ public class GulieApp extends Application implements GulieInterface {
         if (input == null) {
             return;
         }
+        assert isRunning : "App should be running";
         String inp = inputBox.getText();
         inputBox.clear();
         container.getChildren().add(new UserDialog(inp));
@@ -113,6 +114,7 @@ public class GulieApp extends Application implements GulieInterface {
 
     @Override
     public String getString() {
+        assert isRunning : "App should be running";
         input = new CompletableFuture<>();
         String inp = input.join();
         input = null;

@@ -11,7 +11,7 @@ import java.time.format.DateTimeParseException;
  */
 public abstract class Task {
     private String name;
-    private Boolean mark;
+    private Boolean isMarked;
 
     /**
      * A constructor for Task.
@@ -28,11 +28,11 @@ public abstract class Task {
      */
     public Task(String name, boolean mark) {
         this.name = name;
-        this.mark = mark;
+        this.isMarked = mark;
     }
 
-    public void setMark(boolean mark) {
-        this.mark = mark;
+    public void setIsMarked(boolean isMarked) {
+        this.isMarked = isMarked;
     }
 
     /**
@@ -40,7 +40,7 @@ public abstract class Task {
      * @return
      */
     public String toSaveString() {
-        return String.format("%s\t%s", mark ? "1" : "0", name);
+        return String.format("%s\t%s", isMarked ? "1" : "0", name);
     }
 
     /**
@@ -91,7 +91,7 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return String.format("[%s] %s", mark ? "X" : " ", name);
+        return String.format("[%s] %s", isMarked ? "X" : " ", name);
     }
 
     /**

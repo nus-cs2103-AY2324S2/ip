@@ -40,7 +40,7 @@ public class GulieTasklist extends ArrayList<Task> {
         if (i >= size() || i < 0)
             throw new GulieException("Invalid index: " + i);
         Task task = get(i);
-        task.setMark(true);
+        task.setIsMarked(true);
     }
 
     /**
@@ -52,7 +52,7 @@ public class GulieTasklist extends ArrayList<Task> {
         if (i >= size() || i < 0)
             throw new GulieException("Invalid index: " + i);
         Task task = get(i);
-        task.setMark(false);
+        task.setIsMarked(false);
     }
 
     public GulieTasklist find(String keyword) {
