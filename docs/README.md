@@ -9,7 +9,6 @@ Aerial Chatbot is a desktop app for keeping track of your daily tasks. It is opt
 
 ## Adding Tasks
 
-// Describe the action and its outcome.
 There are 3 kinds of tasks you can create.
 
 1)ToDo - Tasks can be done anytime, not time sensitive
@@ -34,6 +33,7 @@ todo bake cookies
 
 ### Deadline Command Format: 
 deadline <span style="color:orange">[TASK DESCRIPTION]</span> <span style="color:green">/[TIME]</span>
+
 Example: Create a deadline to pack cookies by 3 Feb 2001 12pm
 ```
 deadline pack cookies /03-02-2001 12:00
@@ -110,7 +110,7 @@ find bake cookies
 find birthday
 ```
 
-**Warning**
+>[!WARNING]
 >Users should never edit the data.txt file directly as it can corrupt the data.
 
 >If data has been corrupted, users can delete the data.txt file to reset.
