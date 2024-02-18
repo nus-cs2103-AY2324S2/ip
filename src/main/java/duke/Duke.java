@@ -57,6 +57,7 @@ public class Duke {
             Command command = Parser.parseCommand(input);
             return command.execute(storage, ui, tasks);
         } catch (ChatBotParameterException | ChatBotCommandException e) {
+            // Customised exception which specific errors handler from the bot
             return ui.showError(e.getMessage());
         }
     }
