@@ -25,6 +25,7 @@ public class TaskManager {
     public TaskManager(FileManager files) {
         this.files = files;
         taskList = this.files.fetchTasks();
+        assert (taskList != null) : "Unable to create/open 'tasks.csv' file.";
     }
 
     /**
@@ -111,6 +112,8 @@ public class TaskManager {
      */
     protected Task addTask(char type, String description) {
         Task newTask = Task.createTask(type, description);
+        assert (newTask != null) : "Failed to create a new task.";
+
         this.taskList.add(newTask);
         return newTask;
     }
@@ -142,7 +145,8 @@ public class TaskManager {
      * Passes the current task list into fileManager to save to csv file.
      */
     protected void update() {
-        this.files.storeTasks(this.taskList);
+        assert this.files.storeTasks(this.taskList) 
+            : "Unable to store the tasks into the 'tasks.csv' file.";
     }
     
     
