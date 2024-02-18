@@ -6,14 +6,14 @@ package bond.task;
  * @author Benny Loh
  * @version 0.2
  */
-public class ToDoTask extends Task {
+public class TodoTask extends Task {
 
     /**
-     * Constructor for the ToDoTask class.
+     * Constructor for the TodoTask class.
      *
      * @param name The name of the to-do task.
      */
-    public ToDoTask(String name) {
+    public TodoTask(String name) {
         super(name);
     }
 

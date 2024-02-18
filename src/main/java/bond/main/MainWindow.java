@@ -70,7 +70,7 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
 
-        if (response == "Bye. Hope to see you again soon!") {
+        if (response.equals("Bye. Hope to see you again soon!")) {
             Main.exitApplication();
             assert false : "Application should have exited.";
         }
