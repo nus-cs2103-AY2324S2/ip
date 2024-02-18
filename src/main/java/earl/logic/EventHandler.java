@@ -25,7 +25,7 @@ public class EventHandler extends TaskHandler {
             throw new EarlException(ui.appendNewline(e.getMessage())
                     + ui.leftPad(ui.appendNewline("Example use:"))
                     + ui.leftPad("event <task name> "
-                            + "/from <date time> /to <date time>"));
+                            + "/from <dd/mm/yyyy hhmm> /to <dd/mm/yyyy hhmm>"));
         }
     }
 }

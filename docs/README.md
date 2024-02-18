@@ -10,8 +10,10 @@ applications.
 
 # Getting Started
 
-1. Download the `.jar` file from [here](https://github.com/yisiox/ip/releases).
-2. Open a terminal in the directory which you saved the `.jar` file, then run
+1. Make sure you have **Java 11** installed on your computer. Note that it does
+**not** work on newer versions of Java.
+2. Download the `.jar` file from [here](https://github.com/yisiox/ip/releases).
+3. Open a terminal in the directory which you saved the `.jar` file, then run
    1. `java -jar earl.jar` for GUI mode.
    2. `java -jar earl.jar nogui` for CLI mode.
 
@@ -21,8 +23,8 @@ applications.
 |------------|-------------------------------------------------|
 | `list`     | None                                            |
 | `todo`     | `<task name>`                                   |
-| `deadline` | `<task name> /by <date time>`                   |
-| `event`    | `<task name> /from <date time> /by <date time>` |
+| `deadline` | `<task name> /by <dd/mm/yyyy hhmm>`                   |
+| `event`    | `<task name> /from <dd/mm/yyyy hhmm> /by <dd/mm/yyyy hhmm>` |
 | `find`     | `<pattern>`                                     |
 | `mark`     | `<indices> [<indices>, ...]`                    |
 | `unmark`   | `<indices> [<indices>, ...]`                    |
@@ -46,25 +48,25 @@ Example: `todo homework`, `todo wash clothes`
 
 Adds a deadline to the list of tasks.
 
-Format: `deadline <task name> /by <date time>`
+Format: `deadline <task name> /by <dd/mm/yyyy hhmm>`
 
 Example: `deadline project submission /by 01/01/2024 2359`
 
 *Notes*
 + `<task name>` cannot be empty
-+ `<date time>` must be of the format `dd/mm/yyyy hhmm`
++ date time information must be of the format `dd/mm/yyyy hhmm`
 
 ## Adding Events: `event`
 
 Adds an event to the list of tasks.
 
-Format: `event <task name> /from <date time> /to <date time>`
+Format: `event <task name> /from <dd/mm/yyyy hhmm> /to <dd/mm/yyyy hhmm>`
 
 Example: `event exam /from 01/01/2024 1200 /to 01/01/2024 1400`
 
 *Notes*
 + `<task name>` cannot be empty
-+ `<date time>` must be of the format `dd/mm/yyyy hhmm`
++ date time information must be of the format `dd/mm/yyyy hhmm`
 + The start cannot occur after the end
 
 ## Listing Tasks: `list`
@@ -142,3 +144,21 @@ Format: `bye`
 
 *Notes*
 + This is equivalent to pressing the cross on the GUI
+
+# Saving Data
+
+The application automatically saves the list of tasks to `./data/earl.txt`
+in the same directory it is executed from. Note that moving the `.jar` file
+will require the saved file to be moved as well for the list to persist between
+sessions. The saved file may be edited directly to change any existing entry.
+
+> Warning: if a saved entry is malformed as a result of a wrongful edit, the
+> application may drop the saved data entirely. Make sure to create a backup
+> before attempting any edits.
+
+# Known Issues
+
++ The GUI window cannot be resized due to current limitations in adapting the 
+display to changes in window size
++ There are some differences in text formatting between the CLI and GUI; this
+is purely an aesthetic issue, the functionality is unaffected
