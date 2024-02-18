@@ -1,4 +1,4 @@
-package chrisPBacon;
+package util;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -15,7 +15,7 @@ import task.Todo;
  */
 public class Ui {
     private final Parser parser;
-    private final String line = "_____________________________________________________";
+    private final String line = "_________________________________________";
 
     /**
      * Constructor for a UI object.
@@ -27,8 +27,10 @@ public class Ui {
     /**
      * Prints the introduction of the chatbot when the user
      * first enters the chatbot.
+     *
+     * @return Greetings to user.
      */
-    public void printIntro() {
+    public String printIntro() {
         String introduction = "Oink Oink!\nI'm Chris P Bacon but you can call me ChrisP! Oink!\n"
                 + "What can I do for you today? :D\n"
                 + "~Type 'help' for more command info~\n";
@@ -40,58 +42,56 @@ public class Ui {
                 + "|     |---| |---   |   `-_  |  |     \n"
                 + "|     |   | | \\    |  |   | |  |     \n"
                 + " ---- -   - -  -  ---  ---   --      \n";
-        System.out.println(logo + line + "\n" + introduction + line);
-    }
-
-    /**
-     * Prints bye when the user exits the chatbot.
-     */
-    public void printBye() {
-        System.out.println(line + "\n" + "Oink! Okie byee... See you soon! :)\n" + line);
+        return logo + line + "\n" + introduction + line;
     }
 
     /**
      * Prints the error message.
      *
      * @param msg error message
+     * @return Error message to be printed.
      */
-    public void printError(String msg) {
-        System.out.println(line + "\n" + msg + line);
+    public String printError(String msg) {
+        return line + "\n" + msg + line;
     }
 
     /**
      * Prints the list of commands available.
+     *
+     * @return The whole help list as a String.
      */
-    public void printHelp() {
+    public String printHelp() {
         String help = "Oink! Here are the Command Words:\n'list' - displays the list of task\n"
                 + "'todo ...' - to add new task\n'deadline ... /by dd/MM/yyyy' - to add task with deadline\n"
                 + "'event ... /from ... /to ...' - to add an event\n"
                 + "'mark <task no.>' - to mark a task done\n'unmark <task no.>' - to unmark a task\n"
                 + "'find ...' - to find tasks with matching descriptions\n"
                 + "'delete <task no.>' - to delete a task\n'bye' - to exit the chatbot\n";
-        System.out.println(line + "\n" + help + line);
+        return line + "\n" + help + line;
     }
 
     /**
      * Iterates through the list and prints the tasks.
      *
      * @param tasks task list
+     * @return The whole list as a String.
      */
-    public void printList(TaskList tasks) {
-        System.out.println(line);
+    public String printList(TaskList tasks) {
+        StringBuilder listString = new StringBuilder(line + "\n");
 
         if (tasks.isEmpty()) {
             // If the list is empty.
-            System.out.println("Oink! There are no tasks! Yeehaww");
+            listString.append("Oink! There are no tasks! Yeehaww\n");
         } else {
             // If the list is not empty.
-            System.out.println("Oink! Here are the tasks:");
+            listString.append("Oink! Here are the tasks:\n");
             for (int i = 1; i <= tasks.getSize(); i++) {
-                System.out.println(i + ". " + tasks.getTask(i - 1));
+                listString.append(i).append(". ")
+                        .append(tasks.getTask(i - 1)).append("\n");
             }
         }
-
-        System.out.println(line);
+        listString.append(line);
+        return listString.toString();
     }
 
     /**
@@ -99,10 +99,11 @@ public class Ui {
      *
      * @param userInput a string
      * @param tasks task list
+     * @return String representation of the marked task.
      * @throws InvalidTaskNameException Check for invalid input format.
      */
-    public void printMark(String userInput, TaskList tasks) throws InvalidTaskNameException {
-        System.out.println(line);
+    public String printMark(String userInput, TaskList tasks) throws InvalidTaskNameException {
+        StringBuilder markedTask = new StringBuilder(line + "\n");
 
         if (userInput.length() < 6) {
             throw new InvalidTaskNameException("Ooink oink! Please follow the format >.<\n"
@@ -110,7 +111,8 @@ public class Ui {
         }
 
         int idx = userInput.charAt(5) - '0' - 1;
-        System.out.println(tasks.markTask(idx) + line);
+        markedTask.append(tasks.markTask(idx)).append("\n").append(line);
+        return markedTask.toString();
     }
 
     /**
@@ -118,10 +120,11 @@ public class Ui {
      *
      * @param userInput a string
      * @param tasks task list
+     * @return String representation of the unmarked task.
      * @throws InvalidTaskNameException Check for invalid input format.
      */
-    public void printUnmark(String userInput, TaskList tasks) throws InvalidTaskNameException {
-        System.out.println(line);
+    public String printUnmark(String userInput, TaskList tasks) throws InvalidTaskNameException {
+        StringBuilder unmarkedTask = new StringBuilder(line + "\n");
 
         if (userInput.length() < 8) {
             throw new InvalidTaskNameException("Ooink oink! Please follow the format >.<\n"
@@ -129,7 +132,8 @@ public class Ui {
         }
 
         int idx = userInput.charAt(7) - '0' - 1;
-        System.out.println(tasks.unmarkTask(idx) + line);
+        unmarkedTask.append(tasks.unmarkTask(idx)).append("\n").append(line);
+        return unmarkedTask.toString();
     }
 
     /**
@@ -137,10 +141,11 @@ public class Ui {
      *
      * @param userInput a string
      * @param tasks task list
+     * @return String representation of the deleted task.
      * @throws InvalidTaskNameException Check for invalid input format.
      */
-    public void printDelete(String userInput, TaskList tasks) throws InvalidTaskNameException {
-        System.out.println(line);
+    public String printDelete(String userInput, TaskList tasks) throws InvalidTaskNameException {
+        StringBuilder deletedTask = new StringBuilder(line + "\n");
 
         if (userInput.length() < 8) {
             throw new InvalidTaskNameException("Ooink oink! Please follow the format >.<\n"
@@ -148,23 +153,26 @@ public class Ui {
         }
 
         int idx = userInput.charAt(7) - '0' - 1;
-        System.out.println(tasks.deleteTask(idx) + line);
+        deletedTask.append(tasks.deleteTask(idx)).append("\n").append(line);
+        return deletedTask.toString();
     }
 
     /**
-     * Adds a todo task and prints the details of the new task.
+     * Adds a todoTask and prints the details of the new task.
      *
      * @param userInput a string
      * @param tasks task list
+     * @return String representation of the todoTask.
      * @throws InvalidTaskNameException Check for invalid input format.
      */
-    public void printTodo(String userInput, TaskList tasks) throws InvalidTaskNameException {
-        System.out.println(line);
+    public String printTodo(String userInput, TaskList tasks) throws InvalidTaskNameException {
+        StringBuilder todoTask = new StringBuilder(line + "\n");
 
         String description = parser.parseTodo(userInput);
         Todo task = new Todo(description);
 
-        System.out.println(tasks.addTask(task) + line);
+        todoTask.append(tasks.addTask(task)).append("\n").append(line);
+        return todoTask.toString();
     }
 
     /**
@@ -172,20 +180,22 @@ public class Ui {
      *
      * @param userInput a string
      * @param tasks task list
+     * @return String representation of the deadlineTask.
      * @throws InvalidTaskNameException Check for invalid input format.
      */
-    public void printDeadline(String userInput, TaskList tasks) throws InvalidTaskNameException {
-        System.out.println(line);
+    public String printDeadline(String userInput, TaskList tasks) throws InvalidTaskNameException {
+        StringBuilder deadlineTask = new StringBuilder(line + "\n");
 
         try {
             String name = parser.parseDeadlineName(userInput);
             LocalDate deadline = parser.parseDeadlineDate(userInput);
             Deadline task = new Deadline(name, deadline);
-            System.out.println(tasks.addTask(task) + line);
+            deadlineTask.append(tasks.addTask(task)).append("\n").append(line);
         } catch (DateTimeParseException e) {
-            System.out.println("Oink! Invalid date format! Please follow:\n"
+            deadlineTask.append("Oink! Invalid date format! Please follow:\n"
                     + ">> dd/MM/yyyy\n" + line);
         }
+        return deadlineTask.toString();
     }
 
     /**
@@ -193,15 +203,17 @@ public class Ui {
      *
      * @param userInput a string.
      * @param tasks task list.
+     * @return String representation of the eventTask.
      * @throws InvalidTaskNameException Check for invalid input format.
      */
-    public void printEvent(String userInput, TaskList tasks) throws InvalidTaskNameException {
-        System.out.println(line);
+    public String printEvent(String userInput, TaskList tasks) throws InvalidTaskNameException {
+        StringBuilder eventTask = new StringBuilder(line + "\n");
 
         String[] description = parser.parseEvent(userInput);
         Event task = new Event(description);
 
-        System.out.println(tasks.addTask(task) + line);
+        eventTask.append(tasks.addTask(task)).append("\n").append(line);
+        return eventTask.toString();
     }
 
     /**
@@ -209,23 +221,25 @@ public class Ui {
      *
      * @param userInput a string.
      * @param tasks task list.
+     * @return String representation of FindTask.
      * @throws ChrisPBaconException Check for invalid input format.
      */
-    public void printFind(String userInput, TaskList tasks) throws ChrisPBaconException {
-        System.out.println(line);
+    public String printFind(String userInput, TaskList tasks) throws ChrisPBaconException {
+        StringBuilder findTask = new StringBuilder(line + "\n");
 
         TaskList matchingTasks = parser.parseFind(userInput, tasks);
         if (matchingTasks.isEmpty()) {
             // If the list is empty.
-            System.out.println("Oink! There are no matching tasks!");
+            findTask.append("Oink! There are no matching tasks!\n");
         } else {
             // If the list is not empty.
-            System.out.println("Oink! Here are the matching tasks in the list:");
+            findTask.append("Oink! Here are the matching tasks in the list:\n");
             for (int i = 1; i <= matchingTasks.getSize(); i++) {
-                System.out.println(i + ". " + matchingTasks.getTask(i - 1));
+                findTask.append(i).append(". ")
+                        .append(matchingTasks.getTask(i - 1)).append("\n");
             }
         }
-
-        System.out.println(line);
+        findTask.append(line);
+        return findTask.toString();
     }
 }

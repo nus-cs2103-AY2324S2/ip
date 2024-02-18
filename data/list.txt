@@ -1,3 +1,3 @@
 [x][T] hh
 [ ][D] bbt (by: Nov 10 2021)
-[x][E] buy bbt (from: tdy to: tmr)
+[ ][T] drink bbt

@@ -3,6 +3,9 @@ package chrisPBacon;
 import java.io.FileNotFoundException;
 
 import task.TaskList;
+import util.Storage;
+import util.Ui;
+import util.UserInput;
 
 /**
  *  This class contains the main method for the chatbot, ChrisP Bacon.
@@ -15,12 +18,10 @@ public class ChrisPBacon {
 
     /**
      * Initialises new ui and storage objects, loads tasks into a new task list object.
-     *
-     * @param filePath of the saved task list
      */
-    public ChrisPBacon(String filePath) {
+    public ChrisPBacon() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage("data/list.txt");
         try {
             this.tasks = new TaskList(storage.load());
         } catch (FileNotFoundException e) {
@@ -29,18 +30,12 @@ public class ChrisPBacon {
         }
     }
 
-    /**
-     * Runs the chatbot program.
-     */
-    public void run() {
-        ui.printIntro();
+    public String getGreeting() {
+        return ui.printIntro();
+    }
 
-        UserInput userInput = new UserInput();
-        while (!userInput.isInputBye()) {
-            userInput.processInput(ui, this.tasks);
-        }
-        // if user entered "bye", save list and exit chatbot.
-        ui.printBye();
-        storage.save(this.tasks);
+    public String getResponse(String input) {
+        UserInput userInput = new UserInput(input);
+        return userInput.processInput(ui, this.tasks);
     }
 }
