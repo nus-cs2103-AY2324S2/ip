@@ -1,5 +1,7 @@
 package whisper;
+
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * The Command interface represents an executable command in the Whisper application.
@@ -268,13 +270,11 @@ class FindCommand implements Command {
      */
     @Override
     public void execute(ArrayList<Task> tasks, Ui ui, Storage storage) {
-        ArrayList<Task> matchingTasks = new ArrayList<>();
+        // Use Streams to filter tasks based on the keyword
+        ArrayList<Task> matchingTasks = tasks.stream()
+                .filter(task -> task.getDescription().toLowerCase().contains(keyword.toLowerCase()))
+                .collect(Collectors.toCollection(ArrayList::new));
 
-        for (Task task : tasks) {
-            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
-                matchingTasks.add(task);
-            }
-        }
         ui.printMatchingTasks(matchingTasks);
     }
 
