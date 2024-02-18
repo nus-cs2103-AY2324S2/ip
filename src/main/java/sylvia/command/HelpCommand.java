@@ -4,23 +4,19 @@ import sylvia.SylviaException;
 import sylvia.state.ProgramState;
 import sylvia.task.TaskList;
 
+/**
+ * Represents a help command.
+ */
 public class HelpCommand extends Command {
-    private static final String MANUAL = "Usage: help <command>\n"
-            + "Displays the manual for the specified command, or the list of commands if no command is specified.\n"
+    private static final String MANUAL = "Usage: help <command>\n\n"
+            + "Displays the manual for the specified command, or the list of commands if no command is specified.\n\n"
             + "Aliases: h";
 
     /** Supported commands */
-    private static final String[] COMMANDS = { "list", "mark", "unmark", "exit", "todo", "deadline", "event", "delete",
-            "find", "undo", "redo", "help" };
+    private static final String[] COMMANDS = new String[] { "list", "mark", "unmark", "exit", "todo", "deadline",
+        "event", "delete", "find", "undo", "redo", "help" };
 
-    /**
-     * Gets the manual for the help command.
-     *
-     * @return The manual for the help command.
-     */
-    public static String getManual() {
-        return MANUAL;
-    }
+    private static final String LINE = "----------------------------------------\n";
 
     /**
      * Creates a new help command.
@@ -29,6 +25,15 @@ public class HelpCommand extends Command {
      */
     public HelpCommand(String body) {
         super(body);
+    }
+
+    /**
+     * Gets the manual for the help command.
+     *
+     * @return The manual for the help command.
+     */
+    public static String getManual() {
+        return MANUAL;
     }
 
     private String getManualString(String command) {
@@ -83,7 +88,7 @@ public class HelpCommand extends Command {
             StringBuilder sb = new StringBuilder();
             sb.append("Here are the list of commands that you can use:\n");
             for (String command : COMMANDS) {
-                sb.append(command + "\n" + getManualString(command) + "\n\n");
+                sb.append(LINE + command + "\n" + LINE + getManualString(command) + "\n" + LINE + "\n\n");
             }
             response = sb.toString();
         }
@@ -92,6 +97,6 @@ public class HelpCommand extends Command {
                     "I'm sorry, I can't find the manual for that command :<");
         }
         state.setNormal();
-        return response;
+        return response.trim();
     }
 }

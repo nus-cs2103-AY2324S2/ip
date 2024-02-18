@@ -8,8 +8,12 @@ import sylvia.task.Todo;
  * Represents a command to add a simple todo.
  */
 public class TodoCommand extends AddTaskCommand {
-    public static final String MANUAL = "Usage: todo <description>\n" + "Adds a simple todo to the task list.\n"
-            + "The description cannot be empty.\n" + "Example: todo read book\n" + "Aliases: td";
+    public static final String MANUAL = "Usage: todo <description>\n\n" + "Adds a simple todo to the task list.\n"
+            + "The description cannot be empty.\n\n" + "Example: todo read book\n\n" + "Aliases: td";
+
+    public TodoCommand(String body) {
+        super(body);
+    }
 
     /**
      * Gets the manual for the todo command.
@@ -18,10 +22,6 @@ public class TodoCommand extends AddTaskCommand {
      */
     public static String getManual() {
         return MANUAL;
-    }
-
-    public TodoCommand(String body) {
-        super(body);
     }
 
     @Override

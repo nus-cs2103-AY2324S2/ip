@@ -9,19 +9,10 @@ import sylvia.task.TaskList;
  * Represents a command to delete a task.
  */
 public class DeleteCommand extends Command implements Undoable {
-    public static final String MANUAL = "Usage: delete <task number>\n" + "Deletes a task from the task list.\n"
-            + "The task number must be specified as an integer.\n" + "Example: delete 3\n" + "Aliases: d, del";
+    public static final String MANUAL = "Usage: delete <task number>\n\n" + "Deletes a task from the task list.\n"
+            + "The task number must be specified as an integer.\n\n" + "Example: delete 3\n\n" + "Aliases: d, del";
     private int index;
     private Task task;
-
-    /**
-     * Gets the manual for the delete command.
-     *
-     * @return The manual for the delete command.
-     */
-    public static String getManual() {
-        return MANUAL;
-    }
 
     /**
      * Creates a new delete command.
@@ -41,6 +32,15 @@ public class DeleteCommand extends Command implements Undoable {
             throw new InvalidTaskIndexException("The index of a task must be an integer.",
                     "Sorry, but I don't understand what you mean by task number \"" + body + "\".");
         }
+    }
+
+    /**
+     * Gets the manual for the delete command.
+     *
+     * @return The manual for the delete command.
+     */
+    public static String getManual() {
+        return MANUAL;
     }
 
     /**
