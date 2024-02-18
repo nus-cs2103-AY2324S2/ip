@@ -4,14 +4,26 @@ package duke;
 import java.io.IOException;
 import java.time.LocalDate;
 
+/**
+ * This class connects the chat logic with the GUI
+ */
+
 public class UserHandler {
 
+    /**
+     * This method processes the user commands
+     * @param input User command
+     * @param taskList The class that handles task actions
+     * @param storage The class that handles file updating
+     * @return The messaage the user sees
+     * @throws DukeException
+     */
     public static String chat(String input, TaskList taskList, Storage storage) throws DukeException {
 
         assert input != null : "Empty message";
 
         if (input.matches("bye")) {
-            return "Press the cross on your console";
+            return "That's it, it's ova";
 
 
         } else if (input.toLowerCase().matches("list")) {
