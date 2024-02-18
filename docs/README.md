@@ -21,7 +21,7 @@ Welcome to TodoPal! TodoPal is a **desktop app for managing tasks** optimized fo
 > TodoPal does not accept **duplicate tasks**!
 
 
-### Adding a Todo: `todo`
+### Adding a Todo task: `todo`
 
 Adds a todo to the to-do list.
 
@@ -38,7 +38,7 @@ Now you have 1 task(s) in the list
 ```
 
 
-### Adding a deadline: `deadline`
+### Adding a Deadline task: `deadline`
 
 Adds a deadline to the to-do list.
 
@@ -54,7 +54,7 @@ Got it. I've added this task:
 Now you have 2 task(s) in the list
 ```
 
-### Adding an event: `event`
+### Adding an Event task: `event`
 
 Adds an event to the to-do list.
 
