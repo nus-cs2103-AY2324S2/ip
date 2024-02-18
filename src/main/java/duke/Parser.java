@@ -42,8 +42,7 @@ public class Parser {
     }
 
     /**
-     * Simple validator to ensure the user doesn't pass in
-     * bad content.
+     * Validates user input.
      *
      * @param line      User input.
      * @param startFrom Which character to start checking from.
@@ -53,14 +52,14 @@ public class Parser {
         assert line != null;
         String msg = line.substring(startFrom);
         if (msg.equals(" ") || msg.isEmpty()) {
-            throw new ChatException("The description of a todo cannot be empty.");
+            throw new ChatException("The description of a task cannot be empty.");
         }
         msg = msg.stripLeading();
         return msg;
     }
 
     /**
-     * Parse a date in the format day/Month/Year HoursMinutes
+     * Returns a parsed date in the format day/Month/Year HoursMinutes
      *
      * @param date Raw input to pass.
      * @return A LocalDateTime object of the parse input.
@@ -76,7 +75,8 @@ public class Parser {
     }
 
     /**
-     * Parse input from the user, returning the corresponding Command to execute.
+     * Returns the corresponding Command to execute after parsing input
+     * from the user.
      *
      * @param line Raw input from user.
      * @return Command to execute.

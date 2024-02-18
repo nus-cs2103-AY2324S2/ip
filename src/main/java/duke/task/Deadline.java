@@ -25,8 +25,8 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        String isDone = this.done ? "X" : " ";
-        return String.format("[D][%s] %s (by: %s)", isDone, this.event, this.dateFormat(this.dueBy));
+        String done = this.isDone ? "X" : " ";
+        return String.format("[D][%s] %s (by: %s)", done, this.event, this.dateFormat(this.dueBy));
     }
 
     @Override

@@ -11,24 +11,24 @@ import java.util.Comparator;
  */
 public abstract class Task implements Serializable, Comparator<Task> {
     protected String event;
-    protected boolean done;
+    protected boolean isDone;
 
     public Task() {
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
      * Mark a task as done.
      */
     public void mark() {
-        this.done = true;
+        this.isDone = true;
     }
 
     /**
      * Mark as task as not done.
      */
     public void unmark() {
-        this.done = false;
+        this.isDone = false;
     }
 
     public abstract String toString();
