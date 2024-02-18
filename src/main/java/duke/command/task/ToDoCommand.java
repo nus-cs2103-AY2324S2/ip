@@ -18,6 +18,7 @@ public class ToDoCommand extends TaskCommand {
     public ToDoCommand(String task) {
         this.t = new ToDo(task, false);
     }
+
     @Override
     public CommandResult execute() {
         storage.addTask(t);

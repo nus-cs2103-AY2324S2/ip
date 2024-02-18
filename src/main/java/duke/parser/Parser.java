@@ -139,12 +139,15 @@ public class Parser {
             case DeadlineCommand.COMMAND:
                 return parseDeadlineCommand(args);
 
+            case EventCommand.COMMAND:
+                return parseEventCommand(args);
 
             default:
                 return new InvalidCommand(Command.INVALID_COMMAND);
         }
 
     }
+
 
     public Command parseToDoCommand(String args) {
         String task = args.trim();
@@ -157,29 +160,47 @@ public class Parser {
 
     public Command parseDeadlineCommand(String args) {
         final Matcher matcher = DeadlineCommand.ARG_FORMAT.matcher(args.trim());
-        System.out.println(DeadlineCommand.ARG_FORMAT);
 
         if (!matcher.matches()) {
-            System.out.println("i do not match");
             return new InvalidCommand(DeadlineCommand.INVALID_COMMAND);
         }
 
         try {
             final String task = matcher.group("task");
-            System.out.println(task + " and " + matcher.group("by"));
             final LocalDateTime by = LocalDateTime.parse(matcher.group("by"), dateTimeFormatter);
 
             if (task.isEmpty()) {
-                System.out.println("task is empty");
                 return new InvalidCommand(DeadlineCommand.INVALID_COMMAND);
             }
-            System.out.println("no errors!");
             return new DeadlineCommand(task, by);
+        } catch (DateTimeException e) {
+            return new InvalidCommand(TaskCommand.COMMAND_INVALID_DATETIME);
+        }
+    }
+
+    private Command parseEventCommand(String args) {
+        final Matcher matcher = EventCommand.ARG_FORMAT.matcher(args.trim());
+
+        if (!matcher.matches()) {
+            System.out.println("i do not match");
+            return new InvalidCommand(EventCommand.INVALID_COMMAND);
+        }
+
+        try {
+            final String task = matcher.group("task");
+            final LocalDateTime from = LocalDateTime.parse(matcher.group("from"), dateTimeFormatter);
+            final LocalDateTime to = LocalDateTime.parse(matcher.group("to"), dateTimeFormatter);
+
+            if (task.isEmpty()) {
+                return new InvalidCommand(EventCommand.INVALID_COMMAND);
+            }
+            return new EventCommand(task, from, to);
         } catch (DateTimeException e) {
             System.out.println("wrong datetime format");
             return new InvalidCommand(TaskCommand.COMMAND_INVALID_DATETIME);
         }
     }
+
 
 
 }
