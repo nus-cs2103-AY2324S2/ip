@@ -36,7 +36,8 @@ public class Yapper {
         TODO("todo"),
         DEADLINE("deadline"),
         EVENT("event"),
-        FIND("find");
+        FIND("find"),
+        HELP("help");
 
         private static final Map<String, Command> COMMAND_MAP = new HashMap<>();
         private final String name;

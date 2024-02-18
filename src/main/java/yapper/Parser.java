@@ -46,12 +46,15 @@ public class Parser {
         boolean isInvalidCommand = cmd == null;
         if (isInvalidCommand) {
             throw (new YapperException("What is blud yappin'? Here's the legit commands:\n"
-                    + "list, todo, deadline, event, mark, unmark, delete, find, bye"));
+                    + "help, list, todo, deadline, event, mark, unmark, delete, find, bye"));
         }
 
         boolean hasNoArguments = cmdArg.length != 2;
         // Commands create a Command class in the future
         switch (cmd) {
+        case HELP:
+            response = Ui.helpMessage();
+            break;
         case BYE:
             try {
                 assert(fm != null);
@@ -139,7 +142,7 @@ public class Parser {
             break;
         default: // Shouldn't reach here, invalid commands should be null
             throw (new YapperException("What is blud yappin'? Here's the legit commands:\n"
-                    + "list, todo, deadline, event, mark, unmark, delete, find, bye\n"));
+                    + "help, list, todo, deadline, event, mark, unmark, delete, find, bye\n"));
         }
         return response;
     }

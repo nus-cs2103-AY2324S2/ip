@@ -56,6 +56,22 @@ public class Ui {
         return "Peace out, fam! Stay lit and keep those good vibes rollin'!\n";
     }
 
+    public static String helpMessage() {
+        return "Here are the list of commands and their formats:\n"
+                + "help, list, todo, deadline, event, mark, unmark, \ndelete, find, bye\n" + INDENT
+                + "list - lists all tasks\n" + INDENT
+                + "todo - add a task to be done (todo <description>)\n" + INDENT
+                + "deadline - add a task that has a deadline (deadline <description> /by <yyyy-mm-dd>)\n" + INDENT
+                + "event - add an event with a start and end date\n"
+                + "(event <description> /from <yyyy-mm-dd> /to <yyyy-mm-dd>)\n" + INDENT
+                + "mark - mark your task/event as done (mark <index number>)\n" + INDENT
+                + "unmark - mark your task/event as not done (unmark <index number>)\n" + INDENT
+                + "delete - delete your task/event from your list (delete <index number>)\n" + INDENT
+                + "find - search for a task in your list by its description (find <description>)\n" + INDENT
+                + "bye - saves your changes to your list\n" + INDENT
+                + "help - brings up the available commands\n";
+    }
+
     public static String listMessage() {
         return "I gotchu bruv. Here's your list:\n";
     }
