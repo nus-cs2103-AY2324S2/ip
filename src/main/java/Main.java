@@ -18,6 +18,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
+    private static final String CHATBOT_NAME = "Refinement";
     private Duke duke = new Duke();
 
     @Override
@@ -27,6 +28,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle(CHATBOT_NAME);
             fxmlLoader.<MainWindow>getController().setDuke(duke);
             stage.show();
         } catch (IOException e) {
