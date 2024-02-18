@@ -1,9 +1,15 @@
 #  Chatbot Pro User Guide
+***
 
-![alt text](Ui.png)
+#### Chatbot Pro is a desktop app for keeping track of your tasks, optimized for use via a Command Line Interface (CLI).
 
-Chatbot Pro frees your mind of having to remember things you need to do.
+Use it to free your mind of having to remember things you need to do!
 
+![Preview of Chatbot Pro](Ui.png)
+
+
+# Feature List 
+***
 ## Adding Tasks
 
 There are 3 types of tasks you can add: Todo, Deadline and Event.
@@ -39,7 +45,7 @@ Gotcha. I've added this task:
  [E][ ] project meeting (from: Jan 01 2020, 00:00 to: Jan 02 2020, 00:00)
 Now you have 3 task(s) in the list.
 ```
-
+***
 ## Updating Status of Completion
 
 To mark a task as _done_, type `mark` followed by the __task number__ (e.g, `mark 2`).
@@ -57,7 +63,7 @@ _Expected output:_
 Aw OK, I've marked this task as not done yet:
  [D][ ] return book (by: Dec 02 2019, 18:00)
 ```
-
+***
 ## Viewing Task List
 
 To view all tasks saved, type `list`.
@@ -69,7 +75,7 @@ Here are the tasks in your list:
 2. [D][ ] return book (by: Dec 02 2019, 18:00)
 3. [E][ ] project meeting (from: Jan 01 2020, 00:00 to: Jan 02 2020, 00:00)
 ```
-
+***
 ## Deleting Tasks
 
 To delete a task from the task list, type `delete` followed by the __task number__ (e.g, `delete 2`).
@@ -80,7 +86,7 @@ Sure, I've removed this task:
  [D][ ] return book (by: Dec 02 2019, 18:00)
 Now you have 2 tasks in the list.
 ```
-
+***
 ## Sorting Tasks
 
 To sort the tasklist (i.e., keep Todo tasks at the front and sort Event and Deadline tasks by date chronologically thereafter), 
