@@ -51,7 +51,7 @@ shadowJar {
     archiveBaseName = "duke"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
-    archiveFileName = 'BotChatFinall.jar'
+    archiveFileName = 'BotChatFVer.jar'
 }
 
 checkstyle {
