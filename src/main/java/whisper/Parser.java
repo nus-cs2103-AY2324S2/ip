@@ -15,7 +15,7 @@ public class Parser {
      * @return The Command object representing the parsed user input.
      * @throws WhisperException If there is an error parsing the input.
      */
-    public static Command parse(String input) throws WhisperException {
+    public static Command parse(String input, Ui ui) throws WhisperException {
         String[] parts = input.trim().split("\\s+", 2);
         String command = parts[0].toLowerCase();
 
@@ -25,19 +25,19 @@ public class Parser {
         case "list":
             return new ListCommand();
         case "todo":
-            return createTodoCommand(parts);
+            return createTodoCommand(parts, ui);
         case "event":
-            return createEventCommand(parts);
+            return createEventCommand(parts, ui);
         case "deadline":
-            return createDeadlineCommand(parts);
+            return createDeadlineCommand(parts, ui);
         case "delete":
-            return createDeleteCommand(parts);
+            return createDeleteCommand(parts, ui);
         case "mark":
-            return createMarkCommand(parts);
+            return createMarkCommand(parts, ui);
         case "unmark":
-            return createUnmarkCommand(parts);
+            return createUnmarkCommand(parts, ui);
         case "find":
-            return createFindCommand(parts);
+            return createFindCommand(parts, ui);
         default:
             //throw new WhisperException("Invalid command. Please enter a valid command.");
             throw WhisperException.unknownCommand();
@@ -51,12 +51,12 @@ public class Parser {
      * @return The AddCommand for adding a Todo task.
      * @throws WhisperException If there is an error creating the Todo task.
      */
-    private static Command createTodoCommand(String[] parts) throws WhisperException {
+    private static Command createTodoCommand(String[] parts, Ui ui) throws WhisperException {
         if (parts.length < 2) {
             throw new WhisperException("Todo description cannot be empty.");
         }
         Task taskToAdd = new Task(parts[1], Task.TaskCategory.T);
-        return new AddCommand(taskToAdd);
+        return new AddCommand(taskToAdd, ui);
     }
 
     /**
@@ -66,7 +66,7 @@ public class Parser {
      * @return The AddCommand for adding an Event task.
      * @throws WhisperException If there is an error creating the Event task.
      */
-    private static Command createEventCommand(String[] parts) throws WhisperException {
+    private static Command createEventCommand(String[] parts, Ui ui) throws WhisperException {
         if (parts.length < 2) {
             throw new WhisperException("Event description cannot be empty.");
         }
@@ -85,7 +85,7 @@ public class Parser {
         LocalDateTime fromDateTime = parseDateTime(timeParts[0].trim());
         LocalDateTime toDateTime = parseDateTime(timeParts[1].trim());
 
-        return new AddCommand(new Task(eventName, Task.TaskCategory.E, fromDateTime, toDateTime));
+        return new AddCommand(new Task(eventName, Task.TaskCategory.E, fromDateTime, toDateTime), ui);
     }
 
     /**
@@ -95,7 +95,7 @@ public class Parser {
      * @return The AddCommand for adding a Deadline task.
      * @throws WhisperException If there is an error creating the Deadline task.
      */
-    private static Command createDeadlineCommand(String[] parts) throws WhisperException {
+    private static Command createDeadlineCommand(String[] parts, Ui ui) throws WhisperException {
         if (parts.length < 2) {
             throw new WhisperException("Deadline description cannot be empty.");
         }
@@ -109,16 +109,16 @@ public class Parser {
         String deadlineName = deadlineDetails[0].trim();
         LocalDateTime deadlineDateTime = parseDateTime(deadlineDetails[1].trim());
 
-        return new AddCommand(new Task(deadlineName, Task.TaskCategory.D, deadlineDateTime));
+        return new AddCommand(new Task(deadlineName, Task.TaskCategory.D, deadlineDateTime), ui);
     }
 
-    private static Command createDeleteCommand(String[] parts) throws WhisperException {
+    private static Command createDeleteCommand(String[] parts, Ui ui) throws WhisperException {
         if (parts.length < 2) {
             throw new WhisperException("Invalid delete command. Please specify the task number to delete.");
         }
 
         int index = parseTaskIndex(parts[1]);
-        return new DeleteCommand(index);
+        return new DeleteCommand(index, ui);
     }
 
     /**
@@ -128,13 +128,13 @@ public class Parser {
      * @return The MarkCommand for marking a task as done.
      * @throws WhisperException If there is an error creating the MarkCommand.
      */
-    private static Command createMarkCommand(String[] parts) throws WhisperException {
+    private static Command createMarkCommand(String[] parts, Ui ui) throws WhisperException {
         if (parts.length < 2) {
             throw new WhisperException("Invalid mark command. Please specify the task number to mark as done.");
         }
 
         int index = parseTaskIndex(parts[1]);
-        return new MarkCommand(index);
+        return new MarkCommand(index, ui);
     }
 
     /**
@@ -144,13 +144,13 @@ public class Parser {
      * @return The UnmarkCommand for marking a task as not done.
      * @throws WhisperException If there is an error creating the UnmarkCommand.
      */
-    private static Command createUnmarkCommand(String[] parts) throws WhisperException {
+    private static Command createUnmarkCommand(String[] parts, Ui ui) throws WhisperException {
         if (parts.length < 2) {
             throw new WhisperException("Invalid unmark command. Please specify the task number to mark as not done.");
         }
 
         int index = parseTaskIndex(parts[1]);
-        return new UnmarkCommand(index);
+        return new UnmarkCommand(index, ui);
     }
 
     /**
@@ -168,11 +168,11 @@ public class Parser {
         }
     }
 
-    public static Command createFindCommand(String[] parts) throws WhisperException {
+    public static Command createFindCommand(String[] parts, Ui ui) throws WhisperException {
         if (parts.length < 2) {
             throw new WhisperException("Keyword cannot be empty for find command. Try again.");
         }
-        return new FindCommand(parts[1].trim());
+        return new FindCommand(parts[1].trim(), ui);
     }
 
     /**

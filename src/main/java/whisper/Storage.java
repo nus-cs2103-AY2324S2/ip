@@ -3,6 +3,7 @@ package whisper;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDateTime;
@@ -13,7 +14,7 @@ import java.time.format.DateTimeParseException;
  * The Storage class manages the loading and saving of tasks to and from a file for the Whisper application.
  */
 public class Storage {
-    private String FILE_PATH;
+    private final String FILE_PATH;
 
     /**
      * Constructs a Storage object with the specified file path.

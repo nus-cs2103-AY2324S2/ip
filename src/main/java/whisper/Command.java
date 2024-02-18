@@ -36,14 +36,16 @@ public interface Command {
  */
 class AddCommand implements Command {
     private Task taskToAdd;
+    private Ui ui;
 
     /**
      * Constructs an AddCommand with the specified task to add.
      *
      * @param taskToAdd The task to be added.
      */
-    public AddCommand(Task taskToAdd) {
+    public AddCommand(Task taskToAdd, Ui ui) {
         this.taskToAdd = taskToAdd;
+        this.ui = ui;
     }
 
     @Override
@@ -55,7 +57,8 @@ class AddCommand implements Command {
             storage.saveFile(tasks);
             ui.printTaskAdded(taskToAdd, tasks.size());
         } catch (WhisperException e) {
-            e.printStackTrace();
+            ui.printError(e.getMessage());
+//            e.printStackTrace();
         }
     }
 
@@ -75,14 +78,16 @@ class AddCommand implements Command {
  */
 class DeleteCommand implements Command {
     private int taskIndex;
+    private Ui ui;
 
     /**
      * Constructs a DeleteCommand with the specified task index to delete.
      *
      * @param taskIndex The index of the task to be deleted.
      */
-    public DeleteCommand(int taskIndex) {
+    public DeleteCommand(int taskIndex, Ui ui) {
         this.taskIndex = taskIndex;
+        this.ui = ui;
     }
 
     @Override
@@ -156,14 +161,16 @@ class ListCommand implements Command {
  */
 class MarkCommand implements Command {
     private int taskIndex;
+    private Ui ui;
 
     /**
      * Constructs a MarkCommand with the specified task index to mark as done.
      *
      * @param taskIndex The index of the task to be marked as done.
      */
-    public MarkCommand(int taskIndex) {
+    public MarkCommand(int taskIndex, Ui ui) {
         this.taskIndex = taskIndex;
+        this.ui = ui;
     }
 
     @Override
@@ -197,14 +204,16 @@ class MarkCommand implements Command {
  */
 class UnmarkCommand implements Command {
     private int taskIndex;
+    private Ui ui;
 
     /**
      * Constructs an UnmarkCommand with the specified task index to mark as not done.
      *
      * @param taskIndex The index of the task to be marked as not done.
      */
-    public UnmarkCommand(int taskIndex) {
+    public UnmarkCommand(int taskIndex, Ui ui) {
         this.taskIndex = taskIndex;
+        this.ui = ui;
     }
 
     @Override
@@ -238,14 +247,16 @@ class UnmarkCommand implements Command {
  */
 class FindCommand implements Command {
     private String keyword;
+    private Ui ui;
 
     /**
      * Creates a new FindCommand with the specified keyword.
      *
      * @param keyword The keyword to search for.
      */
-    public FindCommand(String keyword) {
+    public FindCommand(String keyword, Ui ui) {
         this.keyword = keyword;
+        this.ui = ui;
     }
 
     /**
