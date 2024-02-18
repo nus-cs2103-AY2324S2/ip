@@ -30,14 +30,17 @@ public class Duke {
     public Duke() {
         this.ui = new Ui();
         storage = new Storage();
-        this.tasklist = new TaskList();
+        try {
+            this.tasklist = new TaskList(this.storage.loadData());
+        } catch (Exception e) {
+            System.out.println("Something wrong has happened while loading the data!");
+        }
     }
 
     /**
      * Running the main part of the code to start the Chatbot Cinnamo
      */
     public void run() throws Exception {
-        this.tasklist = new TaskList(this.storage.loadData());
         Scanner sc = new Scanner(System.in);
         this.ui.greetUser();
         boolean isTerminated = false;

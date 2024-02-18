@@ -226,7 +226,7 @@ class TaskList {
             this.tasks.get(index).markTask();
             this.writeInto();
             assert this.tasks.get(index).getMarked() == true : "the marking status must be true";
-            return String.format("Nice! I've marked this task as done:%n   %s",
+            return String.format("Nice! I've marked this task for you:%n   %s",
                     this.tasks.get(index).toString());
 
         } catch (IndexOutOfBoundsException exception) {
@@ -248,7 +248,7 @@ class TaskList {
             this.tasks.get(index).unmarkTask();
             this.writeInto();
             assert this.tasks.get(index).getMarked() == false : "the marking status must be false";
-            return String.format("Ok! I've marked this task as not done yet:%n      %s",
+            return String.format("Ok! I've unmarked this task for you:%n      %s",
                     this.tasks.get(index).toString());
 
         } catch (IndexOutOfBoundsException exception) {
