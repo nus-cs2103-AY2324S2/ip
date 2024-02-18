@@ -1,4 +1,4 @@
-package duke;
+package aegis;
 
 /**
  * ToDo class represents a todo type of task. A todo object does not contain

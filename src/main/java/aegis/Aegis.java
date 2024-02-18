@@ -1,4 +1,4 @@
-package duke;
+package aegis;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -10,17 +10,17 @@ import java.util.HashSet;
 import java.util.StringTokenizer;
 
 /**
- * Duke class contains the main() method that initiates and runs the duke assistant program.
+ * Aegis class contains the main() method that initiates and runs the Aegis assistant program.
  * Also contains private functions called by main() to execute commands.
  */
-public class Duke {
+public class Aegis {
     private static Parser parser;
     private static Storage storage;
     private static TaskList taskList;
     private static Ui ui;
 
     /**
-     * Starts the execution of the duke assistant program.
+     * Starts the execution of the Aegis assistant program.
      * Initializes required objects and contains the main while loop that repeatedly prompts
      * the user for input and executes commands based on the input.
      *
@@ -30,7 +30,6 @@ public class Duke {
         initialSetup();
 
         ui.printLogo();
-        ui.printDivider();
         ui.printGreeting();
         ui.printDivider();
 
@@ -40,10 +39,10 @@ public class Duke {
                 if (parser.checkValidCommand(input)) {
                     executeCommand(input);
                 } else {
-                    throw new DukeException("I do not recognize that command.\n"
+                    throw new AegisException("I do not recognize that command.\n"
                             + "Please enter a valid command.\n");
                 }
-            } catch (DukeException e) {
+            } catch (AegisException e) {
                 ui.printDivider();
                 System.out.println(e.getMessage());
                 ui.printDivider();
@@ -54,7 +53,7 @@ public class Duke {
     private static void initialSetup() {
         parser = new Parser();
         storage = new Storage("./src/main/data",
-                "./src/main/data/duke.txt");
+                "./src/main/data/aegis.txt");
         taskList = new TaskList();
         ui = new Ui();
 
@@ -72,7 +71,7 @@ public class Duke {
 
     }
 
-    private static void executeCommand(String input) throws DukeException {
+    private static void executeCommand(String input) throws AegisException {
         String identifier = parser.parseCommand(input);
         String arguments = parser.parseArguments(input);
 
@@ -164,7 +163,7 @@ public class Duke {
         }
     }
 
-    private static void createToDoTask(String arguments) throws DukeException {
+    private static void createToDoTask(String arguments) throws AegisException {
         if (!arguments.isEmpty()) {
             ToDo newToDo = new ToDo(arguments);
             taskList.addTask(newToDo);
@@ -175,7 +174,7 @@ public class Duke {
             taskList.printTaskCount();
             ui.printDivider();
         } else {
-            throw new DukeException("todo command requires a description for the task."
+            throw new AegisException("todo command requires a description for the task."
                     + "\n\nPlease leave a space after 'todo' and enter"
                     + " the task description.");
         }

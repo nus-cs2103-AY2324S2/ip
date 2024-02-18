@@ -28,12 +28,12 @@ test {
 }
 
 application {
-    mainClassName = "duke.Duke"
-    mainClass.set("duke.Duke")
+    mainClassName = "aegis.Aegis"
+    mainClass.set("aegis.Aegis")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "aegis"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

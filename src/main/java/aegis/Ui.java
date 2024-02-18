@@ -1,4 +1,4 @@
-package duke;
+package aegis;
 
 import java.util.Scanner;
 
@@ -13,19 +13,20 @@ public class Ui {
     public Ui() {}
 
     /**
-     * Prints the logo of the duke assistance program.
+     * Prints the logo of the Aegis assistance program.
      */
     public void printLogo() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println(logo);
+        String logo = "   _____                 __        \n" +
+                "  /  _  \\   ____   ____ |__| ______\n" +
+                " /  /_\\  \\_/ __ \\ / ___\\|  |/  ___/\n" +
+                "/    |    \\  ___// /_/  |  |\\___ \\ \n" +
+                "\\____|____/\\___  \\___  /|__/______/\n" +
+                "                \\_____/             ";
+        System.out.println(logo + "\n");
     }
 
     /**
-     * Prints duke assistant greeting message.
+     * Prints Aegis assistant greeting message.
      */
     public void printGreeting() {
         System.out.println("Greetings! I am Aegis.\n"
@@ -33,7 +34,7 @@ public class Ui {
     }
 
     /**
-     * Prints duke assistance farewell message.
+     * Prints Aegis assistance farewell message.
      */
     public void printFarewell() {
         System.out.println("Goodbye! Have a pleasant day!\n");

@@ -1,4 +1,4 @@
-package duke;
+package aegis;
 
 import java.io.File;
 import java.io.FileWriter;

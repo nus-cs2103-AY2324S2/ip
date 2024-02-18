@@ -1,4 +1,4 @@
-package duke;
+package aegis;
 
 import org.junit.jupiter.api.Test;
 
