@@ -2,8 +2,6 @@ package duke.gui;
 
 import duke.Duke;
 import javafx.animation.PauseTransition;
-import javafx.animation.SequentialTransition;
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -13,8 +11,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -59,6 +55,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         if (input.equals("bye")) {
+            // Pause for 6s before close the programme
             PauseTransition pause = new PauseTransition(Duration.millis(6000));
             pause.setOnFinished(f -> Platform.exit());
             pause.play();

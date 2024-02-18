@@ -30,12 +30,14 @@ public class Parser {
             throw new ChatBotCommandException("Empty command.");
         }
 
-        //Split command String into
+        // Split command String into
         // keyword (i.e. first word) and
         // parameters (the rest of command after whitespace)
         String[] commandArr = command.split("\\s+", 2);
+
         assert commandArr.length == 0 || commandArr.length == 1 || commandArr.length == 2:
                 "Making sure the array length is limited";
+
         String keyword = commandArr[0];
         String parameters;
         try {
@@ -43,6 +45,7 @@ public class Parser {
         } catch (ArrayIndexOutOfBoundsException e) {
             parameters = "";
         }
+
         switch (keyword) {
         case "todo":
         case "deadline":
@@ -125,6 +128,7 @@ public class Parser {
      * @throws ChatBotParameterException String is in wrong format.
      */
     public static LocalDateTime parseDateTime(String dateTime) throws ChatBotParameterException {
+        // This try-catch is necessary to try match from both ISO8601 or "d/M/yyyy Hmm"
         try {
             return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("d/M/yyyy Hmm"));
         } catch (DateTimeParseException e) {

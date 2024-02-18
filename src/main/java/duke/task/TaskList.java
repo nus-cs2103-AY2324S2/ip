@@ -68,6 +68,7 @@ public class TaskList implements Iterable<Task> {
      * @throws ChatBotParameterException when String by is in wrong format.
      */
     public Task addDeadline(String description, String by, boolean isDone) throws ChatBotParameterException {
+        // Parse String into LocalDateTime of specific formats
         LocalDateTime byDateTime = Parser.parseDateTime(by);
         Deadline deadline = new Deadline(description, byDateTime, isDone);
         this.addTask(deadline);
@@ -128,20 +129,30 @@ public class TaskList implements Iterable<Task> {
      * @throws ChatBotParameterException when task number out of bound or attempting to mark a Done Task.
      */
     public Task markTaskAsDone(String parameters) throws ChatBotParameterException {
+
+        Task taskToBeMarked = getTask(parameters);
+
+        if (taskToBeMarked.isDone()) {
+            throw new ChatBotParameterException("This task is already marked done!");
+        }
+
+        taskToBeMarked.markDone();
+        return taskToBeMarked;
+    }
+
+    private Task getTask(String parameters) throws ChatBotParameterException {
         int taskNumber = Parser.parseInteger(parameters);
+
         Task taskToBeMarked;
         try {
             taskToBeMarked = this.tasks.get(taskNumber - 1);
         } catch (IndexOutOfBoundsException e) {
             throw new ChatBotParameterException("The task does not exists in the task list.");
         }
-        assert taskToBeMarked != null: "Null value must have been thrown in exception";
-        if (taskToBeMarked.isDone()) {
-            throw new ChatBotParameterException("This task is already marked done!");
-        }
-        taskToBeMarked.markDone();
+
         return taskToBeMarked;
     }
+
     /**
      * Mark a task inside TaskList to be Undone
      * @param parameters String that contain task number to be unmarked.
@@ -149,17 +160,13 @@ public class TaskList implements Iterable<Task> {
      * @throws ChatBotParameterException when task number out of bound or attempting to mark an Undone Task.
      */
     public Task markTaskAsUndone(String parameters) throws ChatBotParameterException {
-        int taskNumber = Parser.parseInteger(parameters);
-        Task taskToBeMarked;
-        try {
-            taskToBeMarked = this.tasks.get(taskNumber - 1);
-        } catch (IndexOutOfBoundsException e) {
-            throw new ChatBotParameterException("The task does not exists in the task list.");
-        }
-        assert taskToBeMarked != null: "Null value must have been thrown in exception";
+
+        Task taskToBeMarked = getTask(parameters);
+
         if (!taskToBeMarked.isDone()) {
             throw new ChatBotParameterException("This task is already marked undone!");
         }
+
         taskToBeMarked.markUndone();
         return taskToBeMarked;
     }
@@ -172,6 +179,7 @@ public class TaskList implements Iterable<Task> {
      */
     public Task deleteTask(String parameters) throws ChatBotParameterException {
         int taskNumber = Parser.parseInteger(parameters);
+
         Task taskToBeDeleted;
         try {
             taskToBeDeleted = this.tasks.remove(taskNumber - 1);
@@ -179,6 +187,7 @@ public class TaskList implements Iterable<Task> {
             throw new ChatBotParameterException("The task does not exists in the task list.");
         }
         assert taskToBeDeleted != null: "Null value must have been thrown in exception";
+
         return taskToBeDeleted;
     }
 
@@ -193,7 +202,10 @@ public class TaskList implements Iterable<Task> {
         if (keyword.isEmpty() || keyword.trim().isEmpty()) {
             throw new ChatBotParameterException("Find Keyword cannot be all whitespaces or empty");
         }
+
         assert keyword.isEmpty() && keyword.contains(" "): "Keyword must have been trimmed";
+
+        // Filter using Stream, and match String that only has the exact substring given
         return this.tasks.stream().filter(task -> task.hasKeyword(keyword)).collect(Collectors.toList());
     }
 }
