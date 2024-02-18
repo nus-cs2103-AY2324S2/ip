@@ -1,5 +1,8 @@
 package chrisPBacon;
 
+/**
+ * Main class to execute the chatbot program.
+ */
 public class Main {
     /**
      * Initialises and run chris p bacon program.

@@ -1,17 +1,17 @@
 package chrisPBacon;
 
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.TaskList;
-import task.Todo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.TaskList;
+import task.Todo;
 
 /**
  * The storage class deals with loading tasks from the file and saving tasks in the file
@@ -49,15 +49,17 @@ public class Storage {
                 boolean isDone = str.charAt(1) == 'x';
                 String task = str.substring(7);
                 switch (type) {
-                    case 'T':
-                        taskList.add(new Todo(task, isDone));
-                        break;
-                    case 'D':
-                        taskList.add(new Deadline(task, isDone));
-                        break;
-                    case 'E':
-                        taskList.add(new Event(task, isDone));
-                        break;
+                case 'T':
+                    taskList.add(new Todo(task, isDone));
+                    break;
+                case 'D':
+                    taskList.add(new Deadline(task, isDone));
+                    break;
+                case 'E':
+                    taskList.add(new Event(task, isDone));
+                    break;
+                default:
+                    break;
                 }
             }
         } catch (FileNotFoundException e) {

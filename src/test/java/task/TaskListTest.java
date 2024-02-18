@@ -1,12 +1,14 @@
 package task;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 public class TaskListTest {
     public TaskList sampleTaskList() {
@@ -14,7 +16,7 @@ public class TaskListTest {
         tasks.add(new Todo("drink bbt"));
 
         LocalDate date = LocalDate.parse("15/02/2023", DateTimeFormatter.ofPattern("d/MM/yyyy"));
-        tasks.add(new Deadline("make bbt",  date));
+        tasks.add(new Deadline("make bbt", date));
 
         String[] description = {"sell bbt", "tdy", "tmr"};
         Task event = new Event(description);

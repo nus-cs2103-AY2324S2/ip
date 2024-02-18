@@ -1,8 +1,8 @@
 package chrisPBacon;
 
-import task.TaskList;
-
 import java.io.FileNotFoundException;
+
+import task.TaskList;
 
 /**
  *  This class contains the main method for the chatbot, ChrisP Bacon.

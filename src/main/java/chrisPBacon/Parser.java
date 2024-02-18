@@ -1,16 +1,15 @@
 package chrisPBacon;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import exceptions.ChrisPBaconException;
 import exceptions.InvalidTaskNameException;
 import task.Task;
 import task.TaskList;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  *  This class makes sense of the user's inputs.
@@ -24,7 +23,9 @@ public class Parser {
     /**
      * Parses user input into todo task description.
      *
-     * @return task description
+     * @param userInput A string.
+     * @return Task description.
+     * @throws InvalidTaskNameException Check for invalid input.
      */
     public String parseTodo(String userInput) throws InvalidTaskNameException {
         if (userInput.length() < 6) {
@@ -38,7 +39,9 @@ public class Parser {
     /**
      * Parses user input into task name for deadline tasks.
      *
-     * @return task name
+     * @param userInput A string.
+     * @return Task name.
+     * @throws InvalidTaskNameException Check for invalid input.
      */
     public String parseDeadlineName(String userInput) throws InvalidTaskNameException {
         int len = userInput.length();
@@ -56,7 +59,9 @@ public class Parser {
     /**
      * Parses user input into a LocalDate for deadline tasks.
      *
-     * @return task deadline
+     * @param userInput A string.
+     * @return Task deadline.
+     * @throws DateTimeParseException Check for invalid date format input.
      */
     public LocalDate parseDeadlineDate(String userInput) throws DateTimeParseException {
         int idx = userInput.indexOf("/by");
@@ -67,7 +72,9 @@ public class Parser {
     /**
      * Parses user input into task name for event tasks.
      *
-     * @return task name
+     * @param userInput A string.
+     * @return Task name.
+     * @throws InvalidTaskNameException Check for invalid input.
      */
     public String[] parseEvent(String userInput) throws InvalidTaskNameException {
         // Name, event start, event end.
@@ -89,6 +96,14 @@ public class Parser {
         return description;
     }
 
+    /**
+     * Parses user input and find matching tasks.
+     *
+     * @param userInput A string.
+     * @param tasks Task list.
+     * @return A new task list containing matched tasks.
+     * @throws ChrisPBaconException Check for invalid input.
+     */
     public TaskList parseFind(String userInput, TaskList tasks) throws ChrisPBaconException {
         int len = userInput.length();
         if (len < 6) {
