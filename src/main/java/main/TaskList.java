@@ -4,6 +4,7 @@ import Objects.Deadline;
 import Objects.Event;
 import Objects.Task;
 import Objects.Todo;
+import javafx.util.Pair;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -39,24 +40,20 @@ public class TaskList {
         }
     }
 
-    public void printList() {
-        Ui.showLine();
-        System.out.println("Current Tasks JIAYOUS");
+    public String printList() {
+        String str = "Current Tasks JIAYOUS\n";
         for (int i = 0; i < list.size(); i++) {
-            System.out.printf("%d. %s\n", i+1, list.get(i).toString());
+            str += String.format("%d. %s\n", i+1, list.get(i).toString());
         }
-        Ui.showLine();
-<<<<<<< HEAD
-=======
+        return str;
     }
 
-    public void printList(ArrayList<Task> taskArrayList){
-        Ui.showLine();
-        System.out.println("Here's what you're looking for :)");
-        for (int i = 0; i < taskArrayList.size(); i++){
-            System.out.printf("%d. %s\n",i+1,taskArrayList.get(i).toString());
+    public String printList(ArrayList<Task> taskArrayList){
+        String str = "Here's what you're looking for :)";
+        for (int i = 0; i < taskArrayList.size(); i++) {
+            str += String.format("%d. %s\n", i+1, taskArrayList.get(i).toString());
         }
-        Ui.showLine();
+        return str;
     }
 
     public ArrayList<Task> findList(String str){
@@ -67,34 +64,29 @@ public class TaskList {
             }
         }
         return temp;
->>>>>>> master
     }
 
     public ArrayList<Task> getList() {
         return list;
     }
 
-    public void mark(int index) {
+    public Pair<Boolean, String> mark(int index) {
         try {
             Task curr = list.get(index);
             curr.markMark();
-            Ui.showLine();
-            System.out.println("\nCongrats on completing the task!\n" + curr.toString() + "\n");
-            Ui.showLine();
+            return new Pair<Boolean,String>(true,"Congrats on completing the task!\n" + curr.toString() + "\n");
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Index out of bounds :(");
+            return new Pair<Boolean,String>(true,"Index out of bounds :(");
         }
     }
 
-    public void unmark(int index) {
+    public Pair<Boolean, String> unmark(int index) {
         try {
             Task curr = list.get(index);
             curr.unmarkMark();
-            Ui.showLine();
-            System.out.println("\nUnmarked the task, :(\n" + curr.toString() + "\n");
-            Ui.showLine();
+            return new Pair<>(true,"\nUnmarked the task, :(\n" + curr.toString() + "\n");
         } catch (IndexOutOfBoundsException e){
-            System.out.println("Index out of bounds :(");
+            return new Pair<>(false,"Index out of bounds :(");
         }
     }
 
@@ -102,16 +94,18 @@ public class TaskList {
         return "You have " + list.size() + " tasks in the list";
     }
 
-    public void remove(int index) {
+    public Pair<Boolean, String> remove(int index) {
         try {
             Task curr = list.get(index);
             list.remove(index);
-            Ui.showLine();
-            System.out.println("byebye task! \n" + curr.toString() + "\n" + noOfTask() + "\n");
-            Ui.showLine();
+            return new Pair<>(true,"byebye task! \n" + curr.toString() + "\n" + noOfTask() + "\n");
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Index out of bounds :(");
+            return new Pair<>(false,"Index out of bounds :(");
         }
+    }
+
+    public void addTask(Task task){
+        list.add(task);
     }
 
 }
