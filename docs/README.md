@@ -1,14 +1,14 @@
 # Aerial ChatBot User Guide
 
-// Update the title above to match the actual product name
-
-// Product screenshot goes here
 ![Screenshot of the Gui](https://reganchoy.github.io/ip/Ui.png)
-// Product intro goes here
+
+
+
+
 Aerial Chatbot is a desktop app for keeping track of your daily tasks. It is optimized with the use of a Command Line Interface (CLI)
 
-> [!NOTE]
-> Words in <span style="color:orange">[UPPER_CASE]</span> are parameters.
+>[!NOTE]
+>Words in <span style="color:orange">[UPPER_CASE]</span> are parameters.
 
 ## Adding Tasks
 
@@ -40,57 +40,58 @@ deadline pack cookies /03-02-2001 12:00
 ### Event Command Format: 
 event <span style="color:orange">[TASK DESCRIPTION]</span> <span style="color:green">/[START TIME]</span> <span style="color:cyan">/[END TIME]</span>
 Example: Create a birthday party event from 3 Feb 2001 2pm to 3 Feb 2001 6pm.
-'''
+```
 event birthday party /03-02-2001 14:00 /03-02-2001 18:00
-'''
+```
 
 ## Features
 
 ### List Task
 This command lists all the tasks that you have.
-'''
+```
 list
-'''
+```
 
 ### Mark Task
 This command marks task as completed.
-'''
+```
 mark <span style="color:orange">[TASK INDEX]</span>
-'''
+```
 
 ### Unmark Task
 This command unmarks task as uncompleted.
-'''
+```
 unmark <span style="color:orange">[TASK INDEX]</span>
-'''
+```
 
 ### Delete Task
 This command deletes task from the task list.
-'''
+```
 delete <span style="color:orange">[TASK INDEX]</span>
-'''
+```
 
 ### Clear Tasks
 This command removes all tasks permanently.
-'''
+```
 clear
-'''
+```
 
 ### Postpone
 This command enables you to change the date/time of deadlines and events.
-'''
+```
 postpone <span style="color:orange">[TASK NAME]</span> <span style="color:green">/[TIME FORMAT]</span>
-'''
-> [!IMPORTANT]
-> Postponing an event will require a start and end <span style="color:green">/[TIME FORMAT]</span>
+```
+
+>[!IMPORTANT]
+>Postponing an event will require a start and end <span style="color:green">/[TIME FORMAT]</span>
 
 ### Find Task
 This command enables you to find all tasks that contain the keyword.
-'''
+```
 find <span style="color:orange">[KEYWORD]</span>
-'''
+```
 
 
-> [!CAUTION]
-> Users should never edit the data.txt file directly as it can corrupt the data.
-> If data has been corrupted, users can delete the data.txt file to reset.
+>[!CAUTION]
+>Users should never edit the data.txt file directly as it can corrupt the data.
+>If data has been corrupted, users can delete the data.txt file to reset.
