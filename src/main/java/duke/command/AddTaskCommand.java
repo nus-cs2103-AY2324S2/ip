@@ -53,10 +53,6 @@ public class AddTaskCommand extends Command {
         return generatePrintStatement(t, curr);
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 
     public Task generateTodo() throws BelleException {
         try {

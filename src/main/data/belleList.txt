@@ -1,6 +1,7 @@
-T , false , abc
 D , false , submit essay ,  4pm
 D , false , submit essay , Oct 15 2019
 E , false , project meeting , Mon 2pm , 4pm
 E , false , project meeting , Feb 13 2003 , Feb 14 2003
 T , false , pet cat
+T , false , dog
+D , false , pet dog , 4pm

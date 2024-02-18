@@ -41,8 +41,4 @@ public class MarkCommand extends Command {
         }
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

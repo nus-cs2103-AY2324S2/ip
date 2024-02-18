@@ -28,8 +28,4 @@ public class ListCommand extends Command {
         return printStatement;
 
     }
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

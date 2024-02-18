@@ -21,11 +21,4 @@ public abstract class Command {
      */
     public abstract String execute(Storage s, TaskList t, Ui u) throws BelleException;
 
-    /**
-     * Returns true if the program should exit
-     * after this belle.belle.command and false otherwise.
-     *
-     * @return Boolean value to exit program.
-     */
-    public abstract boolean isExit();
 }

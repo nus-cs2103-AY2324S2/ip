@@ -39,9 +39,4 @@ public class UnmarkCommand extends Command {
             throw new BelleException("This is not a valid number in my task list :(");
         }
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

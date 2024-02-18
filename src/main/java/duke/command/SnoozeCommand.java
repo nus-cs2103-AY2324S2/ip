@@ -51,8 +51,4 @@ public class SnoozeCommand extends Command {
         }
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

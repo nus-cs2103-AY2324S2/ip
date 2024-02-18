@@ -49,11 +49,7 @@ public class Belle {
      */
     public String getResponse(String input) {
         try {
-            if (isExit) {
-                System.exit(0);
-            }
             Command com = parser.parse(input);
-            isExit = com.isExit();
             return com.execute(storage, tasks, ui);
         } catch (BelleException e) {
             return e.getMessage();
