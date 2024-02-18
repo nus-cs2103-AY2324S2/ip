@@ -1,6 +1,6 @@
 # Dave User Guide
 
-![Screenshot of chatbot Dave in action, showcasing its greeting, "list" and "remind" functions.](Ui.png);
+![Screenshot of chatbot Dave in action, showcasing its greeting, "list" and "remind" functions.](Ui.png)
 
 ## `Dave`: Your Companion For Recording Tasks :dependabot:
 
@@ -81,7 +81,7 @@ Dave added the task:
 You now have 1 task(s).
 ```
 
-### Mark/unmark tasks
+## Mark/unmark tasks
 
 Marks or unmarks a single task.
 
@@ -106,7 +106,7 @@ Alright, Dave believes you'll get this done eventually:
   [To-do][ ] read book
 ```
 
-### Delete tasks
+## Delete tasks
 
 Deletes a single task.
 
@@ -126,14 +126,14 @@ Dave removed the task:
 You now have 1 task(s).
 ```
 
-### Save your task list.
+## Save your task list
 
 Saves the task list whenever it is modified.
 This is an automatic action by Dave and is not a command.
 
 Saved tasks will appear in the "data" folder that Dave.jar is located in, under "data/tasks.txt".
 
-### Search for tasks
+## Search for tasks
 
 Searches for task names that contain the keyword given.
 
@@ -151,7 +151,7 @@ Dave has found the following matching tasks:
 You now have 1 task(s).
 ```
 
-### Show task list
+## Show task list
 
 Lists all tasks.
 
@@ -166,7 +166,7 @@ Here are the tasks in your list:
 1.  [To-do][ ] read book
 ```
 
-### Show reminders for upcoming tasks due in a week
+## Show reminders for upcoming tasks due in a week
 
 Shows deadline or event tasks that are due in a week but not yet done.
 It also shows to-do tasks and expired tasks if they are not yet done.
