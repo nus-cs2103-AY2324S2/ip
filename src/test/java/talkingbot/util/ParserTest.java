@@ -1,8 +1,8 @@
 package talkingbot.util;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 import talkingbot.command.ListCommand;
 
@@ -16,8 +16,10 @@ public class ParserTest {
      */
     @Test
     public void parseListCommandTest() {
-        assertEquals(new ListCommand(new String[]{"list"})
-                        .runCommand(new TaskList(), new SaveFile("data/file.txt"), new Ui()), new Parser().parseCommand("list")
+        assertEquals(
+                new ListCommand(new String[]{"list"})
+                        .runCommand(new TaskList(), new SaveFile("data/file.txt"), new Ui()),
+                new Parser().parseCommand("list")
                         .runCommand(new TaskList(), new SaveFile("data/file.txt"), new Ui()));
     }
 }
