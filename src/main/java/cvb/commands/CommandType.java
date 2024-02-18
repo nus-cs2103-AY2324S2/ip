@@ -157,5 +157,12 @@ public enum CommandType {
         }
     }
 
-    public abstract Command getCommand(ArrayList<String> args) throws ConvoBotException;
+    /**
+     * Parses user input args and returns the corresponding {@code Command} object.
+     *
+     * @param args the user input ArrayList to be parsed
+     * @return the corresponding {@code Command} object
+     * @throws ConvoBotException if the input is invalid or cannot be parsed
+     */
+    abstract Command getCommand(ArrayList<String> args) throws ConvoBotException;
 }
