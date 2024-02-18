@@ -34,6 +34,15 @@ public class TaskList {
     }
 
     /**
+     * Returns the last Task in the ArrayList taskList.
+     *
+     * @return Task at the last index.
+     */
+    public Task getLast() {
+        return taskList.get(taskList.size() - 1);
+    }
+
+    /**
      * Sets the Task "done" status to true.
      *
      * @param index Index of the task to be set to "done".
