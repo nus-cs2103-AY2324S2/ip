@@ -71,6 +71,7 @@ public class Duke {
      * @throws Exception If command is not valid.
      */
     public String addingTask(String command, String description) throws Exception {
+        assert description != null : "Description should not be empty";
         Parser parser = new Parser();
         switch (command) {
         case "todo":
@@ -106,6 +107,7 @@ public class Duke {
      * @return The UI output for each task.
      */
     public String getResponse(String input) {
+        assert input != null : "Input should not be null";
         Parser parser = new Parser();
         String command = parser.parseCommand(input);
         return allocateTask(command, input);
