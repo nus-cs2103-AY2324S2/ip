@@ -18,7 +18,10 @@ public class Storage {
 
     private String filePath;
 
-    public Storage(String filePath) {
+    private Ui ui;
+
+    public Storage(Ui ui, String filePath) {
+        this.ui = ui;
         this.filePath = filePath;
     }
 
@@ -27,13 +30,15 @@ public class Storage {
      * @param taskList TaskList contains all the tasks
      * @param ui Ui to print to system
      */
-    public void loadData(TaskList taskList, Ui ui) {
+    public void loadData(TaskList taskList) {
         try {
-            File file = this.retrieveFile(ui);
-            ArrayList<String> dataStrings = this.dataToText(file);
+            File file = this.retrieveFile();
+            ArrayList<String> dataStrings = dataToText(file);
             taskList.loadList(dataStrings);
         } catch (DukeCeption e) {
-            ui.print(e.getMessage());
+            ui.add(e.getMessage());
+            ui.createNewFileForUser();
+            taskList.reset();
         }
 
     }
@@ -56,6 +61,8 @@ public class Storage {
             return dataStrings;
             } catch (FileNotFoundException e) {
                 throw new DukeCeption("File is not found!");
+            } catch (Exception e) {
+                throw e;
             }
         }
 
@@ -64,8 +71,8 @@ public class Storage {
      * @param taskList Task List of tasks
      * @param ui Ui to print to system
      */
-    public void saveData(TaskList taskList, Ui ui) {
-        File file = this.retrieveFile(ui);
+    public void saveData(TaskList taskList) {
+        File file = retrieveFile();
         ArrayList<String> dataToTexts = taskList.saveFormat();
         try {
             FileWriter writer = new FileWriter(file, false);
@@ -74,7 +81,7 @@ public class Storage {
             }
             writer.close();
         } catch (IOException e) {
-            ui.print(e.getMessage());
+            ui.add(e.getMessage());
         }
     }
 
@@ -83,23 +90,25 @@ public class Storage {
      * @param ui Ui to print to system
      * @return File that was retrieved
      */
-    public File retrieveFile(Ui ui) {
+    public File retrieveFile() {
         File file = new File(filePath);
         File parentDir = file.getParentFile();
 
         if (!parentDir.exists()) {
             parentDir.mkdirs();
-            ui.print("Created data folder as none was found");
+            ui.makeNewDirectoryForUser();
         }
 
         assert parentDir.exists();
         
         try {
             if (file.createNewFile()) {
-                ui.print("Created linus.txt to read files from");
+                ui.createNewFileForUser();
+            } else {
+                ui.fileFoundForUser();
             }
         } catch (IOException e) {
-            ui.print("Could not create file :/");
+            ui.add(e.getMessage());
         }
         return file;
     }

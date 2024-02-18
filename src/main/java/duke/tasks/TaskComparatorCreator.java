@@ -5,6 +5,10 @@ import java.util.Comparator;
 
 public class TaskComparatorCreator {
     
+    /**
+     * Sort by alphabetical description order
+     * @return Comparator<Task> sorts by alphabetical description
+     */
     public static Comparator<Task> getDescriptionComparator() {
         return new Comparator<Task>() {
 
@@ -18,6 +22,10 @@ public class TaskComparatorCreator {
         };
     }
 
+    /**
+     * Sort by different task type
+     * @return Comparator<Task> sorts by task type
+     */
     public static Comparator<Task> getTaskComparator() {
         return new Comparator<Task>() {
 
@@ -30,6 +38,10 @@ public class TaskComparatorCreator {
         };
     }
 
+    /**
+     * Sort by marked and unmarked
+     * @return Comparator<Task> sorts by mark status
+     */
     public static Comparator<Task> getMarkComparator() {
         return new Comparator<Task>() {
 

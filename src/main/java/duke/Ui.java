@@ -23,72 +23,56 @@ public class Ui {
     }
 
     /**
-     * Prints everything in the list
-     */
-    public void print() {
-        System.out.println(this.toString());
-    }
-
-    /**
-     * Adds the String to tbe printed
-     * @param print String to be added then printed immediately to the system
-     */
-    public void print(String print) {
-        this.add(print);
-        this.print();
-    }
-
-    /**
      * 
      * @param taskType String of the task types
      * @param taskInStringFormat Task in String
      * @param sizeOfTaskList int of current size of TaskList
      */
     public void addNewTask(String taskType, String taskInStringFormat, int sizeOfTaskList) {
-        this.add(String.format("Okay! added this %s:", taskType));
-        this.add(taskInStringFormat);
-        this.add(String.format("Now you have %d tasks in the list.", sizeOfTaskList));
+        add(String.format("Okay! added this %s:", taskType));
+        add(taskInStringFormat);
+        add(String.format("Now you have %d tasks in the list.", sizeOfTaskList));
     }
 
     /**
-     * prints when task is deleted
+     * Prints when task is deleted
      * @param taskInStringFormat Task in String
      */
     public void deleteTask(String taskInStringFormat) {
-        this.add("Okay! this task is now removed:");
-        this.add(taskInStringFormat);
+        add("Okay! this task is now removed:");
+        add(taskInStringFormat);
     }
 
     /**
-     * prints when task is unmarked
+     * Prints when task is unmarked
      * @param taskInStringFormat Task in String
      */
     public void markTaskAsNotDone(String taskInStringFormat) {
-        this.add("Alright! this task is now unmarked:");
-        this.add(taskInStringFormat);
+        add("Alright! this task is now unmarked:");
+        add(taskInStringFormat);
     }
 
     /**
-     * prints when task is marked as done
+     * Prints when task is marked as done
      * @param taskInStringFormat Task in String
      */
     public void markTaskAsDone(String taskInStringFormat) {
-        this.add("Great! I will makr this as done:");
-        this.add(taskInStringFormat);
+        add("Great! I will makr this as done:");
+        add(taskInStringFormat);
     }
 
     /**
-     * prints when user command = find
+     * Prints when user command = find
      */
     public void beginTofindMatchingTasks() {
-        this.add("These tasks matches your search:");
+        add("These tasks matches your search:");
     }
 
     /**
      * Prints when user command = list
      */
     public void beginToPrintTaskList() {
-        this.add("Here are the tasks in your list:");
+        add("Here are the tasks in your list:");
     }
 
     /**
@@ -97,15 +81,36 @@ public class Ui {
      * @param index the index of task relative to the TaskList
      */
     public void printTaskInListWithIndex(String taskInStringFormat, int index) {
-        this.add(String.format("%d. %s", index, taskInStringFormat));
+        add(String.format("%d. %s", index, taskInStringFormat));
     }
 
     /**
-     * prints when user command = sort (method)
+     * Prints when user command = sort (method)
      * @param sortBy String of sorted method
      */
     public void printSortedMessage(String sortBy) {
-        this.add(String.format("List has been sorted by %s", sortBy));
+        add(String.format("List has been sorted by %s", sortBy));
+    }
+
+    /**
+     * Prints when user file is corrupted
+     */
+    public void createNewFileForUser() {
+        add("Creating new file for you instead");
+    }
+
+    /**
+     * Prints when file is found
+     */
+    public void fileFoundForUser() {
+        add("Found the file... loading");
+    }
+
+    /**
+     * Prints when a new directory is made 
+     */
+    public void makeNewDirectoryForUser() {
+        add("Created data folder as none was found");
     }
 
     /**
@@ -113,15 +118,15 @@ public class Ui {
      * @param name String name of chatbot
      */
     public void greeting(String name) {
-        this.add(String.format("Hello I'm %s", name));
-        this.add("What Can I do for you?");
+        add(String.format("Hello I'm %s", name));
+        add("What Can I do for you?");
     }
 
     /**
      * Says goodbye to the user
      */
     public void goodbye() {
-        this.add("Goodbye. See you later!");
+        add("Goodbye. See you later!");
     }
 
     /**

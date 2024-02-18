@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
  */
 public abstract class Task {
     protected String description;
-    protected Boolean isDone;
+    protected Boolean isMarked;
 
     /**
      * Constructor for Task
@@ -16,7 +16,7 @@ public abstract class Task {
      */
     public Task(String description) {
         this.description = description;
-        this.isDone = false;
+        this.isMarked = false;
     }
 
     /**
@@ -26,11 +26,11 @@ public abstract class Task {
      */
     public Task(String description, boolean isDone) {
         this.description = description;
-        this.isDone = isDone;
+        this.isMarked = isDone;
     }
 
     /**
-     * get the description of the task
+     * Get the description of the task
      * @return String of task description
      */
     public String getDescription() {
@@ -47,21 +47,21 @@ public abstract class Task {
     }
 
     /**
-     * gets status of class whether it is marked or not
+     * Gets status of class whether it is marked or not
      * @return String X or ' '
      */
     public String getStatusIcon() {
-        return (this.isDone ? "X" : " ");
+        return (isMarked ? "X" : " ");
     }
 
     /**
-     * get the type of task
+     * Get the type of task
      * @return String of the type of task
      */
     public abstract String getTaskType();
 
     /**
-     * get Date of task to use for sorting
+     * Get Date of task to use for sorting
      * @return LocalDateTime of task
      */
     public abstract LocalDateTime getDate();
@@ -70,14 +70,14 @@ public abstract class Task {
      * Mark task as done
      */
     public void markAsDone() {
-        isDone = true;
+        isMarked = true;
     }
 
     /**
      * Unmark a task
      */
     public void markAsNotDone() {
-        isDone = false;
+        isMarked = false;
     }
 
     /**
@@ -85,7 +85,7 @@ public abstract class Task {
      * @return String Task save format
      */
     public String saveFormat() {
-        String isDoneSave = (isDone ? "1" : "0");
+        String isDoneSave = (isMarked ? "1" : "0");
         return String.format("%s;;%s",
                 isDoneSave, description);
     }
@@ -96,8 +96,7 @@ public abstract class Task {
     @Override
     public String toString() {
         return String.format("[%s] %s",
-            this.getStatusIcon(),
-            description);
+                this.getStatusIcon(), description);
     }
 
 }

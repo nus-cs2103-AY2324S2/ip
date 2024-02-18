@@ -25,22 +25,18 @@ public class MainWindow extends AnchorPane {
 
     private Duke duke;
 
-    private Ui ui = new Ui();
-
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Bad_Luck_Brian.png"));
+    private Image linusImage = new Image(this.getClass().getResourceAsStream("/images/linus_image.png"));
 
     @FXML
     public void initialize() {
-        ui.greeting("Linus");
+        duke = new Duke();
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(ui.toString(), dukeImage)
+                DialogBox.getDukeDialog(duke.loadData(), linusImage),
+                DialogBox.getDukeDialog(duke.greeting(), linusImage)
+  
         );
-    }
-
-    public void setDuke(Duke d) {
-        duke = d;
     }
 
     /**
@@ -54,7 +50,7 @@ public class MainWindow extends AnchorPane {
         String response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, linusImage)
         );
         userInput.clear();
     }

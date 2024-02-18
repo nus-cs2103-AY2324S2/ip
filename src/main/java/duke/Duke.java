@@ -24,8 +24,8 @@ public class Duke {
      */
     public Duke() {
         this.taskList = new TaskList();
-        this.storage = new Storage(FILE_PATH);
         this.ui = new Ui();
+        this.storage = new Storage(ui, FILE_PATH);
         this.parser = new Parser(taskList, ui, storage);
     }
 
@@ -51,15 +51,16 @@ public class Duke {
     /**
      * Loads the TaskList tasks data from file
      */
-    public void loadData() {
-        storage.loadData(taskList, ui);
+    public String loadData() {
+        storage.loadData(taskList);
+        return ui.toString();
     }
 
     /**
      * Saves TaskList tasks into file
      */
     public void saveData() {
-        storage.saveData(taskList, ui);
+        storage.saveData(taskList);
     }
 
 }

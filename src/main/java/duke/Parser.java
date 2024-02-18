@@ -36,16 +36,16 @@ public class Parser {
         this.taskList = taskList;
         this.ui = ui;
         this.storage = storage;
-        storage.loadData(taskList, ui);
     }
 
     /**
-     * splits the user command and description
+     * Splits the user command and description
      */
     public void readUserInput(String userInput) {
-        System.out.println(userInput);
         String[] userInputSplit = userInput.split(" ", 2);
         ArrayList<String> userInputList = new ArrayList<>(Arrays.asList(userInputSplit));
+
+        //This makes sure that the inputs can always be read
         userInputList.add("");
 
         assert userInputList.size() >= 2: "There should be a user input here";
@@ -65,7 +65,7 @@ public class Parser {
             Command command;
             switch (userCommand) {
                 case "BYE":
-                    storage.saveData(taskList, ui);
+                    storage.saveData(taskList);
                     command = new CommandBye(taskList, ui);
                     break;
                 case "LIST":
