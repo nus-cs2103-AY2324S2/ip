@@ -1,24 +1,100 @@
-# UncleBob project template
+~~# UncleBob User Guide
+***
+![Product screenshot](docs/Ui.png)
+Uncle Bob is a Java CLI application which enables a user to include tasks, enabling the user to mark tasks, set dates for deadlines and events and also remind the user of daily upcoming tasks.
+***
+## Adding Todos: `todo`
+Adds a todo to the task list.
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Format: `todo DESCRIPTION`
 
-## Setting up in Intellij
+Example: `todo assignment 1`
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+![Todo](docs/Todo.png)
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/UncleBob.java` file, right-click it, and choose `Run UncleBob.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Adding Deadlines: `deadline`
+Adds a deadline to the task list, specifying a date the task should be completed by.
+
+Format: `deadline DESCRIPTION /by DATE`
+
+Example: `deadline quiz 2 /by 2024-02-19`
+
+![Deadline](docs/Deadline.png)
+
+## Adding Events: `event`
+Adds an event to the task list. Specifying the start and end date.
+
+Format: `event DESCRIPTION /from DATE /to DATE`
+
+Example: `event Inter-Hall Games /from 2024-02-19 /to 2024-03-21`
+
+![Event](docs/Event.png)
+
+## Listing All Tasks: `list`
+Lists all tasks.
+
+Format: `list`
+
+![List](docs/List.png)
+
+## Marking Completed Tasks: `mark`
+Marks a task as done.
+
+Format: `mark INDEX`
+
+Example: `mark 1`
+
+![Mark](docs/Mark.png)
+
+## Unmarking Completed Tasks: `mark`
+Unmark a task.
+
+Format: `unmark INDEX`
+
+Example: `unmark 1`
+
+![Unmark](docs/Unmark.png)
+
+## Deleting Tasks: `delete`
+Delete a task.
+
+Format: `delete INDEX`
+
+Example: `delete 1`
+
+![Delete](docs/Delete.png)
+
+## Finding Tasks: `find`
+Find all tasks containing the specified keyword.
+
+Format: `find KEYWORD`
+
+Example: `find Games`
+
+![Find](docs/Find.png)
+
+## Getting Reminders: `remind`
+Reminds the user of all tasks occurring on the day.
+
+Format: `remind`
+
+![Remind](docs/Remind.png)
+
+## Saving the data
+UncleBob data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+
+## Editing the data file
+UncleBob data is saved automatically as a txt file `[JAR file location]/data/unclebob.txt`. Advanced users are welcome to update data directly by editing that data file.
+
+## Command Summary
+|       Action       | Format                                  |
+|:------------------:|-----------------------------------------|
+|    **Add Todo**    | `todo DESCRIPTION`                      |
+|  **Add Deadline**  | `deadline DESCRIPTION /by DATE`         |
+|   **Add Event**    | `event DESCRIPTION /from DATE /to DATE` |
+|   **List Tasks**   | `list`                                  |
+|   **Mark Task**    | `mark INDEX`                            |
+|  **Unmark Task**   | `unmark INDEX`                          |
+|  **Delete Task**   | `delete INDEX`                          |
+|   **Find Task**    | `find KEYWORD`                          |
+| **Get Reminders**  | `remind`                                |
