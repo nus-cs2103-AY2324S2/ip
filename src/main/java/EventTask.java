@@ -1,8 +1,11 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class EventTask extends Task {
 
-    private String start, end;
+    private LocalDateTime start, end;
 
-    public EventTask(String name, String start, String end) {
+    public EventTask(String name, LocalDateTime start, LocalDateTime end) {
         super(name);
         this.start = start;
         this.end = end;
@@ -19,7 +22,7 @@ public class EventTask extends Task {
             temp = "[X] ";
         }
 
-        return taskString + temp + this.getName() + "(from: " + this.start + "to: " + this.end + ")";
+        return taskString + temp + this.getName() + "(from: " + this.start.format(DateTimeFormatter.ofPattern("d MMMM yyyy h:mm a")) + " to: " + this.end.format(DateTimeFormatter.ofPattern("d MMMM yyyy h:mm a")) + ")";
     }
 
 }

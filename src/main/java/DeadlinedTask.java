@@ -1,8 +1,12 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class DeadlinedTask extends Task {
 
-    private String deadline;
+    private LocalDateTime deadline;
 
-    public DeadlinedTask(String name, String deadline) {
+    public DeadlinedTask(String name, LocalDateTime deadline) {
         super(name);
         this.deadline = deadline;
     }
@@ -18,6 +22,6 @@ public class DeadlinedTask extends Task {
             temp = "[X] ";
         }
 
-        return taskString + temp + this.getName() + "(by: " + this.deadline + ")";
+        return taskString + temp + this.getName() + "(by: " + this.deadline.format(DateTimeFormatter.ofPattern("d MMMM yyyy h:mm a")) + ")";
     }
 }

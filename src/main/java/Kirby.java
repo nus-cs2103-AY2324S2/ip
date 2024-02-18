@@ -1,6 +1,8 @@
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
 
 
 public class Kirby {
@@ -155,20 +157,15 @@ public class Kirby {
                         throw new MissingArgumentException("Missing Argument");
                     }
 
-                    String[] command = var.split("/")[1].split(" ");
+                    String[] commandDescription = var.split("/")[1].split(" ");
 
                     String[] task = var.split("/")[0].split(" ");
 
 
-                    String deadline = "";
+                    String deadline = var.split("/by")[1].trim();
                     String t = "";
 
-
-                    for(int i = 0; i < command.length; i++){
-                        if(!command[i].equals("by")) {
-                            deadline += command[i] + " ";
-                        }
-                    }
+                    
 
                     for(int i = 0; i < task.length; i++){
                         if(!task[i].equals("deadline")) {
@@ -176,9 +173,10 @@ public class Kirby {
                         }
                     }
 
-                    inputs.add(new DeadlinedTask(t, deadline));
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                    inputs.add(new DeadlinedTask(t, LocalDateTime.parse(deadline, formatter)));
                     System.out.println("____________________________________________________________");
-                    System.out.println("Okiiiie! I will remember: " + t + "by " + deadline);
+                    System.out.println("Okiiiie! I will remember: " + t + "by " + LocalDateTime.parse(deadline, formatter));
                     System.out.println("Now you have " + inputs.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________\n");
 
@@ -193,42 +191,27 @@ public class Kirby {
                         throw new MissingArgumentException("Missing Argument");
                     }
 
-
+                    //done
                     String[] task = var.split("/")[0].split(" ");
 
-                    String[] from = var.split("/")[1].split(" ");
+                    String from = var.split("/from")[1].split("/to")[0].trim();
 
-                    String[] to = var.split("/")[2].split(" ");
+                    String to = var.split("/to")[1].trim();
 
                     String tsk = "";
 
-                    String frm = "";
-
-                    String t = "";
-
-
-                    for(int i = 0; i < task.length; i++){
-                        if(!task[i].equals("event")) {
-                            tsk += task[i] + " ";
+                    for (String s : task) {
+                        if (!s.equals("event")) {
+                            tsk += s + " ";
                         }
                     }
 
 
-                    for(int i = 0; i < from.length; i++){
-                        if(!from[i].equals("from")) {
-                            frm += from[i] + " ";
-                        }
-                    }
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
-                    for(int i = 0; i < to.length; i++){
-                        if(!to[i].equals("to")) {
-                            t+= to[i] + " ";
-                        }
-                    }
-
-                    inputs.add(new EventTask(tsk, frm, t));
+                    inputs.add(new EventTask(tsk, LocalDateTime.parse(from, formatter), LocalDateTime.parse(to, formatter)));
                     System.out.println("____________________________________________________________");
-                    System.out.println("Okiiiie! I will remember: " + tsk + " (from: " + frm + "to: " + t + ")" );
+                    System.out.println("Okiiiie! I will remember: " + tsk + " (from: " + LocalDateTime.parse(from, formatter) + " to: " + LocalDateTime.parse(to, formatter) + ")" );
                     System.out.println("Now you have " + inputs.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________\n");
 
