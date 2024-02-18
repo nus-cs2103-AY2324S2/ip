@@ -1,5 +1,4 @@
 package whisper;
-//import java.util.*;
 
 /**
  * The WhisperException class represents custom exceptions specific to the Whisper application.
