@@ -55,6 +55,10 @@ public class GulieTextUi {
     }
 
     public void list(GulieTasklist tasklist) {
+        if (tasklist.size()  == 0) {
+            gulieInterface.print("The list is currently empty.");
+            return;
+        }
         String lines = "";
         for (int i = 0; i < tasklist.size(); i++) {
             lines += '\n' + String.format(" %d. %s", i + 1, tasklist.get(i).toString(DATE_TIME_FORMATTER));

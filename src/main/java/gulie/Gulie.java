@@ -1,7 +1,7 @@
 package gulie;
 
-import java.io.PrintStream;
-import java.util.Scanner;
+import gulie.gui.GulieApp;
+import javafx.application.Application;
 
 /**
  * A simple task manager.
@@ -44,32 +44,33 @@ public class Gulie {
     }
 
     public static void main(String[] args) {
-        final Scanner in = new Scanner(System.in);
-        final PrintStream out = System.out;
-        new Gulie(new GulieInterface() {
-            final String LINE = "____________________________________________________________";
-            @Override
-            public String getString() {
-                return in.nextLine();
-            }
-
-            @Override
-            public void print(String str) {
-                out.println(LINE);
-                out.println(str);
-                out.println(LINE);
-            }
-
-            @Override
-            public void close() {
-                in.close();
-                out.close();
-            }
-
-            @Override
-            public boolean isOpen() {
-                return in.hasNextLine();
-            }
-        }).run();
+        Application.launch(GulieApp.class, args);
+//        final Scanner in = new Scanner(System.in);
+//        final PrintStream out = System.out;
+//        new Gulie(new GulieInterface() {
+//            final String LINE = "____________________________________________________________";
+//            @Override
+//            public String getString() {
+//                return in.nextLine();
+//            }
+//
+//            @Override
+//            public void print(String str) {
+//                out.println(LINE);
+//                out.println(str);
+//                out.println(LINE);
+//            }
+//
+//            @Override
+//            public void close() {
+//                in.close();
+//                out.close();
+//            }
+//
+//            @Override
+//            public boolean isOpen() {
+//                return in.hasNextLine();
+//            }
+//        }).run();
     }
 }
