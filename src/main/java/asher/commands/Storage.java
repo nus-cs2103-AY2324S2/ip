@@ -29,6 +29,9 @@ public class Storage {
      * @param tasks The List of tasks.
      */
     public void getFileContents(String filePath, TaskList tasks) {
+        assert filePath != null && !filePath.isEmpty() : "File path should not be null or empty!";
+        assert tasks != null : "TaskList should not be null";
+
         try {
             File file = new File(filePath);
             if (!file.exists()) {

@@ -35,7 +35,6 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
-        dialog.setStyle("-fx-background-color: #ceddf6; " + "-fx-background-radius: 12; " + "-fx-padding: 18; ");
 
         if (isUser) {
             dialog.setTranslateX(-7.0);
