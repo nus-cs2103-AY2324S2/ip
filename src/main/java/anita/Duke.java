@@ -74,14 +74,17 @@ public class Duke {
         assert description != null : "Description should not be empty";
         Parser parser = new Parser();
         switch (command) {
+        case "t":
         case "todo":
             String[] parsedTodo = parser.todoParser(description);
             database.writeFile(description);
             return taskList.addTask(new Todo(parsedTodo[0]));
+        case "d":
         case "deadline":
             String[] parsedDeadline = parser.deadlineParser(description);
             database.writeFile(description);
             return taskList.addTask(new Deadline(parsedDeadline[0], parsedDeadline[1]));
+        case "e":
         case "event":
             String[] parsedEvent = parser.eventParser(description);
             database.writeFile(description);
