@@ -1,6 +1,6 @@
-package Tasks;
+package tasks;
 
-import Exceptions.KewgyException;
+import exceptions.KewgyException;
 
 public class Task {
     protected String description;

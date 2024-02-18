@@ -1,9 +1,9 @@
-package Tasks;
+package tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import Exceptions.KewgyException;
+import exceptions.KewgyException;
 
 /**
  * Event task, with description and time to start and finish task by
@@ -12,7 +12,7 @@ import Exceptions.KewgyException;
  **/
 public class Event extends Task {
     /**
-     * Creation of event task
+     * Constructor for Events
      * 
      * @param description description with 2 dates included for parsing
      * @throws KewgyException

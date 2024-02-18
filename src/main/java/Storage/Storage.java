@@ -1,4 +1,4 @@
-package Storage;
+package storage;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -8,13 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import Exceptions.KewgyException;
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.Task.TaskType;
-import Ui.Ui;
-import Tasks.ToDo;
+import exceptions.KewgyException;
+import tasks.Deadline;
+import ui.Ui;
+import tasks.Event;
+import tasks.Task;
+import tasks.ToDo;
+import tasks.Task.TaskType;
 
 /**
  * Storage class to handle File IO actions
@@ -69,8 +69,8 @@ public class Storage {
             FileWriter saveFileWriter = new FileWriter(saveFile, false);
             BufferedWriter saveFileBufferedWriter = new BufferedWriter(saveFileWriter);
 
-            for (String taskString : tasks) {
-                saveFileBufferedWriter.write(taskString + "\n");
+            for (String taskstring : tasks) {
+                saveFileBufferedWriter.write(taskstring + "\n");
             }
 
             saveFileBufferedWriter.close();
@@ -116,8 +116,8 @@ public class Storage {
             FileWriter saveFileWriter = new FileWriter(saveFile, false);
             BufferedWriter saveFileBufferedWriter = new BufferedWriter(saveFileWriter);
 
-            for (String taskString : tasks) {
-                saveFileBufferedWriter.write(taskString + "\n");
+            for (String taskstring : tasks) {
+                saveFileBufferedWriter.write(taskstring + "\n");
             }
 
             saveFileBufferedWriter.close();
@@ -197,7 +197,7 @@ public class Storage {
             }
 
             Scanner fileReader = new Scanner(saveFile);
-            List<Task> savedTasks = new ArrayList<>();
+            List<Task> savedtasks = new ArrayList<>();
 
             while (fileReader.hasNextLine()) {
                 Task savedTask;
@@ -221,12 +221,12 @@ public class Storage {
                 }
 
                 savedTask.setDone(Boolean.parseBoolean(dataParsed[1]));
-                savedTasks.add(savedTask);
+                savedtasks.add(savedTask);
             }
 
             fileReader.close();
 
-            return savedTasks;
+            return savedtasks;
         } catch (IOException e) {
             ui.printKewgyText("An error occurred.");
             e.printStackTrace();

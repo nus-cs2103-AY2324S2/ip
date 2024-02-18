@@ -1,4 +1,4 @@
-package Ui;
+package ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -10,8 +10,9 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import Exceptions.KewgyException;
-import Tasks.Task;
+import exceptions.KewgyException;
+import tasks.Task;
+import ui.Parser;
 
 public class ParserTest {
 

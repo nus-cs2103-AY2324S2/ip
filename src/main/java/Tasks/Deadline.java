@@ -1,9 +1,9 @@
-package Tasks;
+package tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import Exceptions.KewgyException;
+import exceptions.KewgyException;
 
 /**
  * Deadline task, with description and time to finish task by
@@ -12,7 +12,7 @@ import Exceptions.KewgyException;
  **/
 public class Deadline extends Task {
     /**
-     * Create deadline task
+     * Constructor for Deadlines
      * 
      * @param description description of task, with deadline included for parsing
      * @throws KewgyException

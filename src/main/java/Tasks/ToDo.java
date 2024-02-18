@@ -1,6 +1,6 @@
-package Tasks;
+package tasks;
 
-import Exceptions.KewgyException;
+import exceptions.KewgyException;
 
 /**
  * ToDo task, with description
@@ -9,7 +9,7 @@ import Exceptions.KewgyException;
  **/
 public class ToDo extends Task {
     /**
-     * Create ToDo task
+     * Constructor for ToDos
      * 
      * @param description description of task
      * @throws KewgyException

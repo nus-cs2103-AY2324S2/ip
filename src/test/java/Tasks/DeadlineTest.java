@@ -1,7 +1,10 @@
-package Tasks;
+package tasks;
 
-import Exceptions.KewgyException;
 import org.junit.jupiter.api.Test;
+
+import exceptions.KewgyException;
+import tasks.Deadline;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class DeadlineTest {

@@ -1,8 +1,8 @@
-package Ui;
+package ui;
 
 import java.util.List;
 
-import Tasks.Task;
+import tasks.Task;
 
 /**
  * Parser class to parse user commands
