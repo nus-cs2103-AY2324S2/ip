@@ -5,14 +5,29 @@ import bmo.util.TaskList;
 import bmo.ui.Ui;
 import bmo.task.Task;
 
+/**
+ * Represents a done command to be executed.
+ */
 public class DoneCommand extends Command {
 
     private final String index;
 
+    /**
+     * Constructor for a done command.
+     *
+     * @param index The index of the task to be marked as done.
+     */
     public DoneCommand(String index) {
         this.index = index;
     }
 
+    /**
+     * Executes the done command.
+     *
+     * @param tasks   The list of tasks.
+     * @param ui      The user interface.
+     * @param storage The storage.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (this.index.isBlank() || !this.index.matches("\\d+")) {

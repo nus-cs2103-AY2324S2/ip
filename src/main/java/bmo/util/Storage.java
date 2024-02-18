@@ -6,11 +6,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Storage class to handle data storage.
+ */
 public class Storage {
 
     private static final String FILE_PATH = "data/task_data.txt";
     private static File dataFile;
 
+    /**
+     * Constructor for Storage using FILE_PATH.
+     */
     public Storage() {
         try {
             dataFile = new File(FILE_PATH);
@@ -21,6 +27,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Constructor for Storage with provided file.
+     * @param file File object to store data.
+     */
     public Storage(File file) {
         try {
             dataFile = file;
@@ -36,6 +46,11 @@ public class Storage {
         return dataFile;
     }
 
+    /**
+     * Loads data from the file.
+     * @return String containing the data.
+     * @throws IOException if unable to load data.
+     */
     public String loadData() throws IOException{
         try {
             Scanner sc = new Scanner(dataFile);
@@ -53,6 +68,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves data to the file.
+     * @param tasks TaskList object to save.
+     */
     public void saveData(TaskList tasks) {
         try {
             FileWriter fileWriter = new FileWriter(FILE_PATH);
@@ -63,6 +82,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves data to file with specified file path.
+     * @param tasks TaskList object to save.
+     * @param filePath String containing the file path.
+     */
     public void saveData(TaskList tasks, String filePath) {
         try {
             FileWriter fileWriter = new FileWriter(filePath);

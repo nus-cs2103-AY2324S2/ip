@@ -6,14 +6,27 @@ import bmo.task.Task;
 import bmo.command.Command;
 import bmo.command.DoneCommand;
 
+/**
+ * TaskList class to store and manage the list of tasks.
+ */
 public class TaskList extends ArrayList<Task> {
     private ArrayList<Task> taskLog;
 
+    /**
+     * Constructor for TaskList.
+     * @param ui Ui object to handle user interface.
+     */
     public TaskList(Ui ui) {
         this.taskLog = new ArrayList<>();
         ui.printEmptyStorage();
     }
 
+    /**
+     * Constructor for TaskList.
+     * @param content String containing the saved data.
+     * @param ui Ui object to handle user interface.
+     * @param storage Storage object to handle file storage.
+     */
     public TaskList(String content, Ui ui, Storage storage) {
         if (content.isBlank()) {
             this.taskLog = new ArrayList<>();
@@ -84,6 +97,9 @@ public class TaskList extends ArrayList<Task> {
         }
     }
 
+    /**
+     * Converts tasks in TaskList into a string to be saved as text data.
+     */
     public String toSaveData() {
         StringBuilder taskContents = new StringBuilder();
         for (Task task : this) {

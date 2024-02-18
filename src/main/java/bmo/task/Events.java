@@ -3,11 +3,21 @@ package bmo.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task that is an event.
+ */
 public class Events extends Task{
 
     protected LocalDateTime start;
     protected LocalDateTime end;
 
+    /**
+     * Constructor for the Events class.
+     *
+     * @param task The task to be done.
+     * @param start The start time of the event.
+     * @param end The end time of the event.
+     */
     public Events(String task, LocalDateTime start, LocalDateTime end) {
         super(task);
         this.start = start;
@@ -22,6 +32,11 @@ public class Events extends Task{
         return this.end.format(DateTimeFormatter.ofPattern("d' 'MMMM' 'yyyy', 'h:mma"));
     }
 
+    /**
+     * Returns the formatted string representation of the task to be saved in the file.
+     *
+     * @return String representation of the task to be saved in the file.
+     */
     @Override
     public String toSaveData() {
         String done = super.getStatus() ? "1" : "0";

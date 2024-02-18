@@ -3,6 +3,10 @@ package bmo.ui;
 import bmo.util.TaskList;
 import bmo.task.Task;
 
+/**
+ * Ui class handles the user interface of the chatbot.
+ * It contains methods to print messages to the user.
+ */
 public class Ui {
 
     public void showLine() {

@@ -9,6 +9,10 @@ import bmo.util.Parser;
 import bmo.ui.Ui;
 import bmo.command.Command;
 
+/* BMO is a personal assistant chatbot that helps to keep track of various tasks.
+ * It is able to add, delete, mark as done, list and find tasks.
+ * It is also able to save and load tasks from a file.
+ */
 public class BMO {
 
     private final Storage storage;
@@ -16,6 +20,9 @@ public class BMO {
     private final Ui ui;
     private boolean isExit = false;
 
+    /**
+     * Constructor for BMO.
+     */
     public BMO() {
         ui = new Ui();
         storage = new Storage();
@@ -27,6 +34,9 @@ public class BMO {
         }
     }
 
+    /**
+     * Runs the BMO chatbot.
+     */
     public void run() {
         ui.printTutorial();
 
@@ -55,6 +65,10 @@ public class BMO {
         return this.tasks;
     }
 
+    /**
+     * Main method to run BMO.
+     * @param args
+     */
     public static void main(String[] args) {
         new BMO().run();
     }

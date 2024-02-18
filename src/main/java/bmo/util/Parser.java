@@ -20,7 +20,16 @@ import bmo.command.GuideCommand;
 import bmo.command.DoneCommand;
 import bmo.command.FindCommand;
 
+/**
+ * Parser class to handle parsing of user input.
+ */
 public class Parser {
+
+    /**
+     * Formats the input string into a LocalDateTime object.
+     * @param input String containing the date and time.
+     * @return LocalDateTime object containing the date and time.
+     */
     public static LocalDateTime formatDateTime(String input) {
         Ui ui = new Ui();
         try {
@@ -32,6 +41,12 @@ public class Parser {
     }
 
     //to amend: break down into smaller methods
+    /**
+     * Parses the user input and returns the corresponding Command object.
+     * @param input String containing the user input.
+     * @return Command object corresponding to the user input.
+     * @throws IOException if unable to parse the input.
+     */
     public static Command parse(String input) throws IOException {
             String[] inputArr = input.split(" ");
             String keyword = inputArr[0];
