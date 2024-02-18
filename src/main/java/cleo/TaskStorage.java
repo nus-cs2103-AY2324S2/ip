@@ -3,9 +3,22 @@ package cleo;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * Provides functionality for saving and loading task data to and from a file.
+ * This class acts as a persistent storage mechanism for tasks.
+ */
 public class TaskStorage {
+    /**
+     * The default file path for storing task data.
+     */
     private static final String FILE_PATH = "../data/duke.txt";
 
+    /**
+     * Saves an ArrayList of tasks to a file. Ensures necessary directories exist and handles potential exceptions.
+     *
+     * @param tasks The ArrayList of Task objects to be saved
+     * @throws DukeException if there is an error during the save operation
+     */
     public static void saveTasks(ArrayList<Task> tasks) throws DukeException {
         try {
             File file = new File(FILE_PATH);
@@ -27,6 +40,13 @@ public class TaskStorage {
             throw new DukeException("An error occurred while saving tasks: " + e.getMessage());
         }
     }
+
+    /**
+     * Loads tasks from a file. Handles cases where the file doesn't exist  or if an issue occurs during reading.
+     *
+     * @return An ArrayList containing the loaded tasks (empty if no file or corruption occurs)
+     * @throws DukeException if there's an error during the loading process
+     */
 
     public static ArrayList<Task> loadTasks() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();

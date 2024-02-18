@@ -59,6 +59,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a "mark" command from its string representation.
+     *
+     * @param parts An array of strings representing the command with potentially the task index in parts[1]
+     * @return A new {@code MarkCommand} object if the command is valid
+     * @throws DukeException if the command format is invalid or the task index is not a number
+     */
     private static Command parseMarkCommand(String[] parts) throws DukeException {
         // Implementation for parsing mark command
         // Ensure parts[1] is a valid task index and return new MarkCommand(index)
@@ -78,6 +85,14 @@ public class Parser {
         }
     }
 
+
+    /**
+     * Parses an "unmark" command from its string representation.
+     *
+     * @param parts An array of strings representing the command with potentially the task index in parts[1]
+     * @return A new {@code UnmarkCommand} object if the command is valid
+     * @throws DukeException if the command format is invalid or the task index is not a number
+     */
     private static Command parseUnmarkCommand(String[] parts) throws DukeException {
         // Similar to parseMarkCommand
         assert parts != null: "parts should not be null";
@@ -96,6 +111,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a "delete" command from its string representation.
+     *
+     * @param parts An array of strings representing the command with potentially the task index in parts[1]
+     * @return A new {@code DeleteCommand} object if the command is valid
+     * @throws DukeException if the command format is invalid, the command is empty, or the task index is not a number
+     */
     private static Command parseDeleteCommand(String[] parts) throws DukeException {
         // Ensure parts[1] is a valid task index and return new DeleteCommand(index)
         try {
@@ -115,17 +137,20 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a "deadline" command from its string representation. Extracts the task description and
+     * deadline information to create a Deadline object.
+     *
+     * @param parts The string containing the deadline command, potentially split into parts
+     * @return A new {@code AddCommand} object encapsulating a {@code Deadline} task
+     * @throws DukeException if the command format is invalid or the task creation fails
+     */
     private static Command parseDeadlineCommand(String parts) throws DukeException {
-        // Split parts[1] to extract description and date, and return new AddCommand(new Deadline(...))
-        assert parts != null: "parts should not be null";
-        String[] parts2 = parts.split(" /by ");
-        Task task = null;
-        if (parts2.length != 2 || parts2[0].length() <= 9) { // Check for correct format and description length
-            throw new DukeException("Invalid deadline format. Please use the following format:\n"
-                    + "     deadline <description> /by <time>");
-        }
-        String description = parts2[0].substring(9); // Assuming "deadline " is 9 characters long
-        String by = parts2[1];
+        assert parts != null : "parts should not be null";
+        String[] parts2 = splitInput(parts, " /by ", "deadline");
+        String description = getDescription(parts2[0], "deadline");
+        String by = parts2[1].trim();
+        Task task;
         try {
             task = new Deadline(description, by);
             assert task != null : "Deadline task should not be null";
@@ -138,23 +163,27 @@ public class Parser {
         return new AddCommand(task);
     }
 
+    /**
+     * Parses an "event" command from its string representation. Extracts the task description,
+     * start, and end date/time information to create an Event object.
+     *
+     * @param parts The string containing the event command, potentially split into parts
+     * @return A new {@code AddCommand} object encapsulating an {@code Event} task
+     * @throws DukeException if the command format is invalid or the task creation fails
+     */
     private static Command parseEventCommand(String parts) throws DukeException {
         // Split parts[1] to extract description and date/time, and
         assert parts != null: "parts should not be null";
-        String[] parts2 = parts.split(" /from ");
-        Task task = null;
-        if (parts2.length != 2) {
-            throw new DukeException("Invalid deadline format. Please use the following format:\n"
-                    + "      event <description> /from <start time> /to <end time>");
-        }
-        String[] partsWithTo = parts2[1].split(" /to ");
-        if (partsWithTo.length != 2) {
-            throw new DukeException("Invalid event format. Please use the following format:\n"
-                    + "     event <description> /from <start time> /to <end time>");
-        }
-        String eventDescription = parts2[0].substring(6);
+        String[] parts2 = splitInput(parts, " /from ", "event");
+        String description = getDescription(parts2[0], "event");
+
+        String[] timeParts = splitInput(parts2[1], " /to ", "event");
+        String from = timeParts[0].trim();
+        String to = timeParts[1].trim();
+        Task task;
         try {
-            task = new Event(eventDescription, partsWithTo[0], partsWithTo[1]);
+            task = new Event(description, from, to);
+            assert task != null : "Event task should not be null";
         } catch (DukeException e) {
             throw new DukeException(e.getMessage());
         }
@@ -164,6 +193,14 @@ public class Parser {
         return new AddCommand(task);
     }
 
+    /**
+     * Parses a "tasks" command, specifically for listing tasks on a given date.
+     *
+     * @param tasks The {@code TaskList} object to manage tasks
+     * @param parts The string containing the tasks command, potentially split into parts
+     * @return A new {@code ListTasksOnDateCommand} if the command format is valid
+     * @throws DukeException if the command format is invalid
+     */
     private static Command parseTasksCommand(TaskList tasks, String[] parts) throws DukeException {
         assert parts != null: "parts should not be null";
         if (parts.length == 3 && parts[1].toLowerCase().equals("on")) {
@@ -173,5 +210,43 @@ public class Parser {
             throw new DukeException("     Invalid command. Please use the following format:\n"
                         + "     tasks on dd-MM-YYYY");
         }
+    }
+
+    /**
+     * Splits the input string based on a delimiter and ensures the format is correct for the command.
+     *
+     * @param input The raw input string.
+     * @param delimiter The delimiter to split the string.
+     * @param command The type of command (for error messages).
+     * @return An array of split parts.
+     * @throws DukeException If the input format is invalid.
+     */
+    private static String[] splitInput(String input, String delimiter, String command) throws DukeException {
+        String[] parts = input.split(delimiter);
+        CommandType commandType = CommandType.fromString(command);
+        if (parts.length != 2 || parts[0].trim().length() <= command.length()) {
+            switch(commandType) {
+                case DEADLINE:
+                    throw new DukeException("Invalid deadline format. Please use the following format:\n"
+                        + "     deadline <description> /by <time>");
+                case EVENT:
+                    throw new DukeException("Invalid event format. Please use the following format:\n     event <description> /from <start time> /to <end time>");
+                    // Add more cases as needed
+                default:
+                    throw new DukeException("Parsing error: Unrecognized command type");
+            }
+        }
+        return parts;
+    }
+
+    /**
+     * Extracts the description from the input part after removing the command type.
+     *
+     * @param part The part of the input containing the description.
+     * @param command The type of command (to remove from the beginning).
+     * @return The description extracted from the input part.
+     */
+    private static String getDescription(String part, String command) {
+        return part.trim().substring(command.length()).trim();
     }
 }
