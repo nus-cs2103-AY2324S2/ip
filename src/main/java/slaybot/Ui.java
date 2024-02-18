@@ -58,7 +58,6 @@ public class Ui {
                     return BYE_TEXT;
 
                 case LIST:
-
                     return "Here are the tasks in your list:\n" + tasks.iterate();
 
                 case TODO:
@@ -91,7 +90,6 @@ public class Ui {
                         event = this.parser.parseEvent(splitWords);
                     } catch (InvalidEventException e) {
                         System.out.println(DIVIDER + "\n" + e.getMessage() + "\nPlease try again" + "\n" + DIVIDER);
-                        //continue;
                     }
                     tasks.addTask(event);
 

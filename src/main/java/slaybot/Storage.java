@@ -13,7 +13,7 @@ import entity.Task;
  * The Storage class deals with loading tasks from the file and saving tasks in the file
  */
 public class Storage {
-    private static final String PATH = "./data/duke.txt";
+    private static final String PATH = "./slaybot.txt";
 
     /**
      * Constructor for Storage class

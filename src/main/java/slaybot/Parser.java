@@ -88,7 +88,6 @@ public class Parser {
                 todoTitle += " ";
             }
         }
-
         return new ToDo(todoTitle);
     }
 
