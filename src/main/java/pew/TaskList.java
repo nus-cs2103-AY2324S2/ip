@@ -23,6 +23,12 @@ public class TaskList {
         return taskArr;
     }
 
+    /**
+     * finds all tasks that contain the keyword
+     *
+     * @param keyword the keyword to search for
+     * @return an ArrayList of tasks that contain the keyword
+     */
     public ArrayList<Task> findTasks(String keyword) {
         ArrayList<Task> tasks = new ArrayList<>();
         for (Task task : taskArr) {
