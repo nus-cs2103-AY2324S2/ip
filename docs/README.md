@@ -7,8 +7,8 @@
 // Product intro goes here
 Aerial Chatbot is a desktop app for keeping track of your daily tasks. It is optimized with the use of a Command Line Interface (CLI)
 
-## Command Format:
-Words in [UPPER_CASE] are parameters.
+> [!NOTE]
+> Words in <span style="color:orange">[UPPER_CASE]</span> are parameters.
 
 ## Adding Tasks
 
@@ -19,52 +19,78 @@ There are 3 kinds of tasks you can create.
 3)Events - Tasks that have a start and end date/time
 
 Time format must be as follows:
+<span style="color:blue">
 DD-MM-YY HH:MM
+</span>
+Example: 3 Feb 2001 6pm should be 03-02-2001 18:00
 
-Todo Command Format: todo [TASK DESCRIPTION]
-Example: Create a todo
+### Todo Command Format: 
+todo <span style="color:orange">[TASK DESCRIPTION]</span>Example: Create a todo for baking cookies
+'''
 todo Bake Cookies
+'''
 
-Deadline Command Format: deadline [TASK DESCRIPTION] /[TIME]
+### Deadline Command Format: 
+deadline <span style="color:orange">[TASK DESCRIPTION]</span> <span style="color:green">/[TIME]</span>
 Example: Create a deadline to pack cookies by 3 Feb 2001 12pm
+'''
 deadline pack cookies /03-02-2001 12:00
+'''
 
-Event Command Format: event [TASK DESCRIPTION] /[START TIME] /[END TIME]
+### Event Command Format: 
+event <span style="color:orange">[TASK DESCRIPTION]</span> <span style="color:green">/[START TIME]</span> <span style="color:cyan">/[END TIME]</span>
 Example: Create a birthday party event from 3 Feb 2001 2pm to 3 Feb 2001 6pm.
+'''
 event birthday party /03-02-2001 14:00 /03-02-2001 18:00
-
-// A description of the expected outcome goes here
-
-```
-expected output
-```
+'''
 
 ## Features
 
 ### List Task
 This command lists all the tasks that you have.
-Format: list
+'''
+list
+'''
 
 ### Mark Task
 This command marks task as completed.
-Format: mark [TASK INDEX]
+'''
+mark <span style="color:orange">[TASK INDEX]</span>
+'''
 
 ### Unmark Task
 This command unmarks task as uncompleted.
-Format: unmark [TASK INDEX]
+'''
+unmark <span style="color:orange">[TASK INDEX]</span>
+'''
 
 ### Delete Task
 This command deletes task from the task list.
-Format: delete [TASK INDEX]
+'''
+delete <span style="color:orange">[TASK INDEX]</span>
+'''
 
 ### Clear Tasks
 This command removes all tasks permanently.
-Format: clear
+'''
+clear
+'''
 
 ### Postpone
 This command enables you to change the date/time of deadlines and events.
-Format: postpone [TASK NAME] /[TIME FORMAT]
+'''
+postpone <span style="color:orange">[TASK NAME]</span> <span style="color:green">/[TIME FORMAT]</span>
+'''
+> [!IMPORTANT]
+> Postponing an event will require a start and end <span style="color:green">/[TIME FORMAT]</span>
 
 ### Find Task
 This command enables you to find all tasks that contain the keyword.
-Format: find [KEYWORD]
+'''
+find <span style="color:orange">[KEYWORD]</span>
+'''
+
+
+> [!CAUTION]
+> Users should never edit the data.txt file directly as it can corrupt the data.
+> If data has been corrupted, users can delete the data.txt file to reset.
