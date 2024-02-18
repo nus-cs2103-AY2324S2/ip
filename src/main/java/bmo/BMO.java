@@ -11,9 +11,9 @@ import bmo.command.Command;
 
 public class BMO {
 
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
     private boolean isExit = false;
 
     public BMO() {
@@ -28,7 +28,6 @@ public class BMO {
     }
 
     public void run() {
-        ui.greet();
         ui.printTutorial();
 
         Scanner sc = new Scanner(System.in);
@@ -42,6 +41,18 @@ public class BMO {
                 ui.printErrInvalidCommand();
             }
         } while (!isExit);
+    }
+
+    public Storage getStorage() {
+        return this.storage;
+    }
+
+    public Ui getUi() {
+        return this.ui;
+    }
+
+    public TaskList getTasks() {
+        return this.tasks;
     }
 
     public static void main(String[] args) {
