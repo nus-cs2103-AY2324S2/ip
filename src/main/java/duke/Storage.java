@@ -26,7 +26,6 @@ public class Storage {
         File f = new File(filePath);
         try {
             f.getParentFile().mkdirs();
-            boolean isDirCreated = f.createNewFile();
             boolean isFileCreated = f.createNewFile();
             if (!isFileCreated) {
                 Scanner fileScanner = new Scanner(f);
