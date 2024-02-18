@@ -180,6 +180,7 @@ public class Task {
      * @return The LocalDateTime object parsed from the date and time string.
      */
     private LocalDateTime parseDateTime(String dateTimeString) {
+        assert dateTimeString != null : "DateTime string should not be null";
         try {
             return LocalDateTime.parse(dateTimeString, DATE_TIME_FORMAT);
         } catch (Exception e) {

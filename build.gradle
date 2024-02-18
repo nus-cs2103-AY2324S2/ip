@@ -47,7 +47,7 @@ checkstyle {
 }
 
 application {
-    mainClass.set("seedu.gpt.GPT")
+    mainClass.set("seedu.gpt.Main")
 }
 
 shadowJar {

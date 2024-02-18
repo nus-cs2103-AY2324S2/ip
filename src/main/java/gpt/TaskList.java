@@ -97,6 +97,7 @@ public class TaskList {
      * @return A TaskList containing tasks that contain the keyword.
      */
     public TaskList findTasks(String keyword) {
+        assert keyword != null : "Keyword should not be null"; // Check that the keyword is not null
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task.getName().contains(keyword)) {
