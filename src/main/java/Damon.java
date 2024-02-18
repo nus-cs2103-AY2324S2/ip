@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -16,6 +19,8 @@ public class Damon {
                 + "| |_| |\n"
                 + "|____/ \n";
         System.out.println("Hello from\n" + logo);
+
+        createFile();
 
         //Solution below adapted from https://stackoverflow.com/a/16252290
         Scanner scanner = new Scanner(System.in);
@@ -40,6 +45,8 @@ public class Damon {
                 storeInput(inputString);
             }
         }
+
+        saveFile();
     }
 
     static void stop() {
@@ -62,33 +69,44 @@ public class Damon {
     static void storeInput(String inputString) {
         Task newTask;
         if (inputString.startsWith("todo")) {
-            String description = inputString.substring(5);
-            ToDo newToDo = new ToDo(description);
-            storage.add(newToDo);
-            newTask = newToDo;
-
+            newTask = storeToDoTask(inputString);
         } else if (inputString.startsWith("deadline")) {
-            String[] splittedString = inputString.substring(9).split(" /by ");
-            String description = splittedString[0];
-            String by = splittedString[1];
-            Deadline newDeadline = new Deadline(description, by);
-            storage.add(newDeadline);
-            newTask = newDeadline;
+            newTask = storeDeadlineTask(inputString);
         } else {
-            String[] firstSplittedString = inputString.substring(6).split(" /from ");
-            String description = firstSplittedString[0];
-            String[] secondSplittedString = firstSplittedString[1].split(" /to ");
-            String startTime = secondSplittedString[0];
-            String endTime = secondSplittedString[1];
-            Event newEvent = new Event(description, startTime, endTime);
-            storage.add(newEvent);
-            newTask = newEvent;
+            newTask = storeEventTask(inputString);
         }
         System.out.println("____________________________________________________________\n"
                 + "Got it. I've added this task:\n"
-                + newTask.toString() + "\n"
+                + newTask + "\n"
                 + "Now you have " + storage.size() + " tasks in the list.\n"
                 + "____________________________________________________________\n");
+    }
+
+    static Task storeToDoTask(String inputString) {
+        String description = inputString.substring(5);
+        ToDo newToDo = new ToDo(description);
+        storage.add(newToDo);
+        return newToDo;
+    }
+
+    static Task storeDeadlineTask(String inputString) {
+        String[] splittedString = inputString.substring(9).split(" /by ");
+        String description = splittedString[0];
+        String by = splittedString[1];
+        Deadline newDeadline = new Deadline(description, by);
+        storage.add(newDeadline);
+        return newDeadline;
+    }
+
+    static Task storeEventTask(String inputString) {
+        String[] firstSplittedString = inputString.substring(6).split(" /from ");
+        String description = firstSplittedString[0];
+        String[] secondSplittedString = firstSplittedString[1].split(" /to ");
+        String startTime = secondSplittedString[0];
+        String endTime = secondSplittedString[1];
+        Event newEvent = new Event(description, startTime, endTime);
+        storage.add(newEvent);
+        return newEvent;
     }
 
     static void echo(String inputString) {
@@ -120,5 +138,32 @@ public class Damon {
                 + "Now you have " + (storage.size() - 1) + " tasks in the list.\n"
                 + "____________________________________________________________\n");
         storage.remove(index);
+    }
+
+    //Solution below inspired by https://www.w3schools.com/java/java_files_create.asp
+    static void createFile() {
+        try {
+            File storageFile = new File("..\\damon.txt");
+            if (storageFile.createNewFile()) {
+                System.out.println("File: " + storageFile + " is created");
+            } else {
+                System.out.println("File: " + storageFile + " is already here");
+            }
+        } catch (IOException e) {
+            System.out.println("Some IOException happens");
+        }
+    }
+
+    //Solution below inspired by https://www.w3schools.com/java/java_files_create.asp
+    static void saveFile() {
+        try {
+            FileWriter writer = new FileWriter("..\\damon.txt", false);
+            for (Task task : storage) {
+                writer.write(task.toString() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Some IOException happens");
+        }
     }
 }
