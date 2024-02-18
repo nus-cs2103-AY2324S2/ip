@@ -76,7 +76,7 @@ public class Event extends Task {
         if (endDate != null) {
             endString = endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         } else {
-            endString = this.start;
+            endString = this.end;
         }
         return "[E]" + super.printTask() + " (from: " + startString + " to: " + endString + ")";
     }
@@ -91,5 +91,25 @@ public class Event extends Task {
     public String toString() {
         int marked = (this.isDone) ? 1 : 0;
         return "E | " + marked + " | " + this.task + " | " + this.start + " | " + this.end;
+    }
+
+    public void setFromDate(String fromDate) {
+        this.start = fromDate;
+
+        try {
+            startDate = LocalDate.parse(start);
+        } catch (DateTimeParseException e) {
+            startDate = null;
+        }
+    }
+
+    public void setToDate(String toDate) {
+        this.end = toDate;
+
+        try {
+            endDate = LocalDate.parse(end);
+        } catch (DateTimeParseException e) {
+            endDate = null;
+        }
     }
 }
