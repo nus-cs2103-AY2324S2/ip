@@ -13,10 +13,9 @@ public class ListAction implements Action{
      * Prints the tasks list.
      */
     @Override
-    public void execute() {
+    public String execute() {
         ArrayList<Task> data = DataHandler.getData();
-        PrintHandler.print("Here is your list of tasks:");
-        PrintHandler.printNumberedDivider(data);
+        return PrintHandler.print("Here is your list of tasks:") + PrintHandler.printNumberedDivider(data);
     }
 
     @Override

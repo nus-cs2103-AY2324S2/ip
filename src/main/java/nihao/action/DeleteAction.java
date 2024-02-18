@@ -31,18 +31,20 @@ public class DeleteAction implements Action{
      * @throws IndexOutOfBoundsException When the index provided is more than the length of tasks.
      */
     @Override
-    public void execute() throws IndexOutOfBoundsException {
+    public String execute() throws IndexOutOfBoundsException {
+        String message;
         if (isAll) {
             DataHandler.deleteAll();
-            PrintHandler.printWithDivider("Deleted everything for you. It was tiring :<");
+            message = "Deleted everything for you. It was tiring :<";
         } else {
             Task task = DataHandler.getTask(index);
             DataHandler.deleteTask(index);
             int noOfTasks = DataHandler.size();
-            PrintHandler.printWithDivider("Fine. I've removed this task:\n"
+            message = "Fine. I've removed this task:\n"
                     + "   " + task + "\n"
-                    + "Now you have " + noOfTasks + " tasks.");
+                    + "Now you have " + noOfTasks + " tasks.";
         }
+        return PrintHandler.printWithDivider(message);
     }
 
     @Override

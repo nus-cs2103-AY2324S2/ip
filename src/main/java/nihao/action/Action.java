@@ -9,5 +9,5 @@ public interface Action {
      *
      * @throws Exception
      */
-    public void execute() throws Exception;
+    public String execute() throws Exception;
 }

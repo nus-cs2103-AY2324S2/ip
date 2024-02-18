@@ -12,9 +12,9 @@ public class ExitAction implements Action{
      * Prints the goodbye message.
      */
     @Override
-    public void execute() {
-        PrintHandler.printWithDivider(SavedString.GOODBYE.getContent());
+    public String execute() {
         DataHandler.save();
+        return PrintHandler.printWithDivider(SavedString.GOODBYE.getContent());
     }
 
     /**

@@ -17,8 +17,9 @@ public final class PrintHandler {
      *
      * @param msg Message to be printed.
      */
-    public static void print(String msg) {
+    public static String print(String msg) {
         System.out.println(msg);
+        return msg + "\n";
     }
 
     /**
@@ -26,9 +27,8 @@ public final class PrintHandler {
      *
      * @param msg Message to be printed.
      */
-    public static void printWithDivider(String msg) {
-        print(msg);
-        print(DIVIDER);
+    public static String printWithDivider(String msg) {
+        return print(msg) + print(DIVIDER);
     }
 
     /**
@@ -36,12 +36,14 @@ public final class PrintHandler {
      *
      * @param tasks ArrayList of Tasks that is to be printed.
      */
-    public static void printNumberedDivider(ArrayList<Task> tasks) {
+    public static String printNumberedDivider(ArrayList<Task> tasks) {
+        StringBuilder msg = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             int index = i + 1;
-            print(index + ". " + tasks.get(i));
+            msg.append(print(index + ". " + tasks.get(i)));
         }
-        print(DIVIDER);
+        msg.append(print(DIVIDER));
+        return msg.toString();
     }
 
     /**
@@ -49,15 +51,14 @@ public final class PrintHandler {
      *
      * @param e Exception to be printed
      */
-    public static void printException(Exception e) {
-        printWithDivider(e.getMessage());
+    public static String printException(Exception e) {
+        return printWithDivider(e.getMessage());
     }
 
     /**
      * Prints the app logo and the greeting line.
      */
-    public static void printInit() {
-        printWithDivider(SavedString.LOGO.getContent());
-        printWithDivider(SavedString.GREETINGS.getContent());
+    public static String printInit() {
+        return printWithDivider(SavedString.LOGO.getContent()) + printWithDivider(SavedString.GREETINGS.getContent());
     }
 }
