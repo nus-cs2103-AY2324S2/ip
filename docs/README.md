@@ -95,15 +95,17 @@ item, no items remained after deleting it.
 ## Adding Deadlines and Events
 
 Take note!
-- The specified formats of `by YYYY:MM:DD` for dedlines 
+- The specified formats of `by YYYY:MM:DD` for deadlines 
 and `from YYYY:MM:DD at HH:MM:SS to YYYY:MM:DD at HH:MM:SS`
 for events are strict! 
 
 Potential triggers for errors ❌
-- Adding events that overlap one another in any way
-- Specifying date(time)s that precede the current date(time)
-- Specifying a `to...at` datetime for events that precedes the 
-`from...at` datetime
+- For events specifically:
+  - Adding events that overlap one another in any way
+  - Specifying a `to...at` datetime for events that precedes the
+    `from...at` datetime (for example, `event meeting from 2010-01-01...`)
+- For both events and deadlines: 
+  - Specifying date(time)s that precede the current date(time)
 
 Nicole will indicate to you very clearly if you made 
 any of the above errors and also guide you 
