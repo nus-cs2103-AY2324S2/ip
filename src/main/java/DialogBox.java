@@ -21,13 +21,13 @@ public class DialogBox extends HBox {
         displayPicture = iv;
 
         text.setWrapText(true);
+        text.setMinHeight(Label.USE_PREF_SIZE);
         displayPicture.setFitWidth(100.0);
         displayPicture.setFitHeight(100.0);
 
         this.setAlignment(Pos.TOP_RIGHT);
         this.getChildren().addAll(text, displayPicture);
     }
-
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */
@@ -47,5 +47,4 @@ public class DialogBox extends HBox {
         db.flip();
         return db;
     }
-
 }
