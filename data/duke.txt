@@ -1,3 +1,3 @@
-T | 0 | meet tristen
-D | 1 | return book   | 2019-12-02T18:00
-E | 1 | project meeting | 2020-01-01T00:00 - 2020-01-02T00:00
+T | 0 | project proposal
+D | 1 | return book      | 2019-12-02T18:00
+E | 0 | project meeting | 2020-01-01T00:00 - 2020-01-02T00:00
