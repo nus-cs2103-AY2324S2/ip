@@ -155,25 +155,23 @@ public class TaskList {
      */
     public boolean checkForDuplicateTask(Task task) {
         return this.tasks.stream().anyMatch(t -> {
-            // Check if the task is a Deadline and compare by name and deadline time
             if (task instanceof Deadline && t instanceof Deadline) {
+                // Check if the task is a Deadline and compare by name and deadline time
                 Deadline deadlineTask = (Deadline) task;
                 Deadline existingDeadline = (Deadline) t;
                 return existingDeadline.getName().equalsIgnoreCase(deadlineTask.getName()) &&
                         existingDeadline.getBy().isEqual(deadlineTask.getBy());
             }
-
-            // Check if the task is an Event and compare by name, start time, or end time
             else if (task instanceof Event && t instanceof Event) {
+                // Check if the task is an Event and compare by name, start time, or end time
                 Event eventTask = (Event) task;
                 Event existingEvent = (Event) t;
                 return existingEvent.getName().equalsIgnoreCase(eventTask.getName()) &&
                         (existingEvent.getStart().isEqual(eventTask.getStart()) ||
                                 existingEvent.getEnd().isEqual(eventTask.getEnd()));
             }
-
-            // For other tasks, compare by name only
             else {
+                // For other tasks, compare by name only
                 return t.getName().equalsIgnoreCase(task.getName());
             }
         });

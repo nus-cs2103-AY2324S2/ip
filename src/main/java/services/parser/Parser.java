@@ -210,13 +210,7 @@ public class Parser {
                 DateTimeFormatter.ofPattern("d/M/yyyy HH:mm"),
                 DateTimeFormatter.ofPattern("M/d/yyyy h:mm a"),
                 DateTimeFormatter.ofPattern("yyyy-M-d HHmm"),
-                DateTimeFormatter.ofPattern("d MMM yyyy h:mma"),
-                DateTimeFormatter.ofPattern("MMM d, yyyy HH:mm"),
-                DateTimeFormatter.ofPattern("yyyyMMdd h:mm a"),
-                DateTimeFormatter.ofPattern("d-M-yyyy HH:mm"),
-                DateTimeFormatter.ofPattern("yyyy/M/d h:mma"),
-                DateTimeFormatter.ofPattern("d MMMM yyyy HHmm"),
-                DateTimeFormatter.ofPattern("yyyy-M-d h:mm a")
+                DateTimeFormatter.ofPattern("d MMM yyyy h:mma")
         );
 
         List<DateTimeFormatter> dateFormatters = Arrays.asList(
@@ -225,11 +219,7 @@ public class Parser {
                 DateTimeFormatter.ofPattern("yyyy/M/d"),
                 DateTimeFormatter.ofPattern("d-M-yyyy"),
                 DateTimeFormatter.ofPattern("M-d-yyyy"),
-                DateTimeFormatter.ofPattern("yyyy-M-d"),
-                DateTimeFormatter.ofPattern("d MMM yyyy"),
-                DateTimeFormatter.ofPattern("MMM d, yyyy"),
-                DateTimeFormatter.ofPattern("d MMMM yyyy"),
-                DateTimeFormatter.ofPattern("yyyyMMdd")
+                DateTimeFormatter.ofPattern("yyyy-M-d")
         );
 
         for (DateTimeFormatter formatter : dateTimeFormatters) {
