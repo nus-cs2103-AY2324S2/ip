@@ -9,6 +9,7 @@
 .label {
     -fx-font-family: 'Fira Code Bold';
     -fx-font-size: 12;
+    -fx-padding: 0px 16px 0px 16px;
 }
 
 .user-dialog-box {
@@ -26,4 +27,5 @@
 .earl-dialog-box .label {
     -fx-font-family: 'Victor Mono Bold Oblique';
     -fx-font-size: 12;
+    -fx-padding: 0px 10px 0px 10px;
 }

@@ -37,12 +37,12 @@ public final class UnmarkHandler extends MassOperableHandler {
 
             ui.makeResponse(getDisplayEntriesReversed());
         } catch (ParserException e) {
-            throw new EarlException(
-                    "The indices' format is fraught with invalidity."
-                            + " Example format: 1 4-7 9-10");
+            throw new EarlException(ui.appendNewline(
+                    "The indices' format is fraught with invalidity.")
+                    + ui.leftPad("Example format: 1 4-7 9-10"));
         } catch (Exception e) {
             throw new EarlException("Command hath faltered: "
-                            + "obscure employment of unmark.");
+                    + "obscure employment of unmark.");
         }
     }
 }

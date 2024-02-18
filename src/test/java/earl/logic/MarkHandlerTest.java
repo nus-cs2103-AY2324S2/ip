@@ -18,6 +18,8 @@ class MarkHandlerTest {
     private static final PrintStream originalOut = System.out;
     private static final ByteArrayOutputStream testingOut =
             new ByteArrayOutputStream();
+    private static final String NEWLINE = System.lineSeparator();
+    private static final String PADDING = " ".repeat(4);
 
     @BeforeEach
     void setUp() {
@@ -42,7 +44,8 @@ class MarkHandlerTest {
             fail();
         } catch (Exception e) {
             assertEquals("The indices' format is fraught with invalidity."
-                    + " Example format: 1 4-7 9-10", e.getMessage());
+                    + NEWLINE
+                    + PADDING + "Example format: 1 4-7 9-10", e.getMessage());
         }
     }
 

@@ -91,9 +91,9 @@ public class Ui {
         assert n > 0;
         StringBuilder res = new StringBuilder();
         for (int i = 0; i < n - 1; ++i) {
-            res.append(PADDING).append(response[i]).append(NEWLINE);
+            res.append(response[i]).append(NEWLINE);
         }
-        res.append(PADDING).append(response[n - 1]); // last line has no newline
+        res.append(response[n - 1]); // last line has no newline
         return res.toString();
     }
 }

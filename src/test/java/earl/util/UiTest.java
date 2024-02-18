@@ -29,8 +29,7 @@ class UiTest {
     void getResponse_singleLine_success() {
         Ui ui = new Ui();
         ui.makeResponse("A");
-        String expected = PADDING + "A";
-        assertEquals(expected, ui.getResponse());
+        assertEquals("A", ui.getResponse());
     }
 
     @Test

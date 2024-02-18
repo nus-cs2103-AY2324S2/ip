@@ -76,7 +76,7 @@ public class MainWindow extends AnchorPane {
      */
     private void displayDialog(String input, String response) {
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input + " ".repeat(4), userImage),
+                DialogBox.getUserDialog(input, userImage),
                 DialogBox.getEarlDialog(response, earlImage));
         userInput.clear();
     }
