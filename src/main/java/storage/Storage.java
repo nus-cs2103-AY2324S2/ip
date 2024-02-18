@@ -1,5 +1,6 @@
 package storage;
 
+import exceptions.WeiException;
 import taskList.TaskList;
 import tasks.Deadline;
 import tasks.Event;
@@ -40,7 +41,7 @@ public class Storage {
      * @return A TaskList containing the tasks.
      * @throws FileNotFoundException If file does not exist.
      */
-    public TaskList read() throws FileNotFoundException {
+    public TaskList read() throws FileNotFoundException, WeiException {
         TaskList tasks = new TaskList();
         Scanner s = new Scanner(file); // create a Scanner using the File as the source
 
@@ -53,8 +54,10 @@ public class Storage {
                 curr = new ToDo(split[2], isComplete);
             } else if (split[0].equals("D")) {
                 curr = new Deadline(split[2], split[3], isComplete);
-            } else {
+            } else if (split[0].equals("E")) {
                 curr = new Event(split[2], split[3], split[4], isComplete);
+            } else {
+                throw new WeiException("file corrupted");
             }
             tasks.add(curr);
         }

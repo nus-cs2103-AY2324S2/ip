@@ -27,7 +27,7 @@ public class Wei {
         try {
             storage = new Storage("./data/history.txt");
             tasks = storage.read();
-        } catch (IOException e) {
+        } catch (IOException | WeiException e) {
             System.out.println(e.getMessage());
         }
     }
