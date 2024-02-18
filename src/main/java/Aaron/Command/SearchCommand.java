@@ -13,9 +13,4 @@ public class SearchCommand extends Command {
     public String run(TaskList taskList, UI ui) {
         return taskList.showKeywordTasklist(commandDetails, ui);
     }
-
-    @Override
-    public boolean returnIsBye() {
-        return false;
-    }
 }

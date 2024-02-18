@@ -30,9 +30,4 @@ public class DeleteTask extends Command {
         }
         return ui.showTaskDeletedMsg(index);
     }
-
-    @Override
-    public boolean returnIsBye() {
-        return false;
-    }
 }

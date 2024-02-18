@@ -20,10 +20,4 @@ public class ShowList extends Command {
             return ui.emptyListMessage();
         }
     }
-
-    @Override
-    public boolean returnIsBye() {
-        return false;
-    }
-
 }
