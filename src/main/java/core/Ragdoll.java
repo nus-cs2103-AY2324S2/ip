@@ -62,9 +62,13 @@ public class Ragdoll extends Application {
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
+        assert scrollPane != null : "ScrollPane must not be null";
+        assert dialogContainer != null : "dialogContainer must not be null";
 
         userInput = new TextField();
         sendButton = new Button("Send");
+        assert userInput != null : "userInput must not be null";
+        assert sendButton != null : "sendButton must not be null";
 
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
@@ -141,8 +145,15 @@ public class Ragdoll extends Application {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Processes the given input by parsing it into a command and executing it.
+     * It captures the execution's output by redirecting the System.out output
+     * to a custom PrintStream, which allows the method to capture the output
+     * generated during the command's execution. After execution, the original
+     * System.out PrintStream is restored, and the captured output is returned.
+     * The custom PrintStream is then cleared to prepare for the next input processing.
+     *
+     * @param input The user input string to be processed.
+     * @return A string representing the response from executing the parsed command.
      */
     public String getResponse(String input) {
         Command c = Parser.parse(input);
