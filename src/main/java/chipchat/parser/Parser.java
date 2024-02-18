@@ -24,7 +24,6 @@ import chipchat.task.Deadline;
 import chipchat.task.Event;
 import chipchat.task.Task;
 import chipchat.task.Todo;
-import chipchat.ui.Ui;
 
 /**
  * Represents a utility class used to parse user inputs and data inputs given to the main Chipchat application.
