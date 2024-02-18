@@ -35,10 +35,8 @@ public class Storage {
         try {
             // Create directory
             Path secondDir = Paths.get(workingDirectory + "/" + path);
-            //System.out.println("Attempting to create: " + dir_);
             Files.createDirectories(secondDir);
             this.path = workingDirectory + "/" + path + "/log.txt";
-            //System.out.println("Creating file at: " + this.path);
         } catch (IOException e) {
             System.out.println("Problem setting up file manager: " + e.getMessage());
         }
@@ -126,7 +124,6 @@ public class Storage {
     private Task parseEntry(String logEntry) {
         String[] entry = logEntry.split(",");
         boolean completeStatus = entry[1].equals("T");
-        //System.out.println("Entry " + entry[1] + ": " + completeStatus);
         String desc = entry[2];
         PriorityLevel priority = generatePriority(entry[3]);
         switch (entry[0]) {
