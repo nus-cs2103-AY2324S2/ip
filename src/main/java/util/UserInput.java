@@ -1,7 +1,5 @@
 package util;
 
-import java.util.Scanner;
-
 import exceptions.ChrisPBaconException;
 import exceptions.InvalidTaskNameException;
 import task.TaskList;
@@ -11,79 +9,54 @@ import task.TaskList;
  * If input is "bye", the scanner will be closed.
  */
 public class UserInput {
-    private final Scanner scan;
-    private String userInput;
+    private final String userInput;
 
     /**
      * Constructor for UserInput.
      */
-    public UserInput() {
-        this.scan = new Scanner(System.in);
-        this.userInput = scan.nextLine();
+    public UserInput(String input) {
+        this.userInput = input;
     }
 
     /**
-     * Processes the userInput and scans for the next input.
+     * Processes the userInput and returns ChrisP's response.
      *
      * @param ui Ui management.
      * @param tasks The task list.
+     * @return ChrisP's response to userInput.
      */
-    public void processInput(Ui ui, TaskList tasks) {
+    public String processInput(Ui ui, TaskList tasks) {
         try {
-            String firstWord = this.userInput.indexOf(' ') < 0
-                    ? this.userInput
-                    : this.userInput.substring(0, userInput.indexOf(' '));
+            String firstWord = userInput.indexOf(' ') < 0
+                    ? userInput
+                    : userInput.substring(0, userInput.indexOf(' '));
 
             switch (firstWord) {
             case "help":
-                ui.printHelp();
-                break;
+                return ui.printHelp();
             case "list":
-                ui.printList(tasks);
-                break;
+                return ui.printList(tasks);
             case "mark":
-                ui.printMark(this.userInput, tasks);
-                break;
+                return ui.printMark(userInput, tasks);
             case "unmark":
-                ui.printUnmark(this.userInput, tasks);
-                break;
+                return ui.printUnmark(userInput, tasks);
             case "delete":
-                ui.printDelete(this.userInput, tasks);
-                break;
+                return ui.printDelete(userInput, tasks);
             case "find":
-                ui.printFind(this.userInput, tasks);
-                break;
+                return ui.printFind(userInput, tasks);
             case "todo":
-                ui.printTodo(this.userInput, tasks);
-                break;
+                return ui.printTodo(userInput, tasks);
             case "deadline":
-                ui.printDeadline(this.userInput, tasks);
-                break;
+                return ui.printDeadline(userInput, tasks);
             case "event":
-                ui.printEvent(this.userInput, tasks);
-                break;
+                return ui.printEvent(userInput, tasks);
             default:
                 // if user entered input that cannot be recognised.
                 throw new ChrisPBaconException("Ooink oink! I'm sorry, I don't understand.\n"
                         + "Type 'help' for command info!\n");
             }
         } catch (ChrisPBaconException | InvalidTaskNameException e) {
-            ui.printError(e.getMessage());
+            return e.getMessage();
         }
-        userInput = scan.nextLine(); // Scan for next input.
-    }
-
-    /**
-     * Checks if user input is "bye".
-     *
-     * @return true if input is bye and close the scanner.
-     */
-    public boolean isInputBye() {
-        boolean isBye = userInput.equals("bye");
-        if (isBye) {
-            // Close scanner if input == bye.
-            this.scan.close();
-        }
-        return isBye;
     }
 }
