@@ -25,25 +25,6 @@ public class Parser {
                 Storage.writeToFile(taskList);
             } catch (IOException e) {
                 throw new RuntimeException(e);
-
-    /**
-     * takes in input using a scanner and identifies which actions to choose
-     *
-     * @param taskList list of present tasks
-     */
-
-    public static void input(TaskList taskList) {
-        Scanner sc = new Scanner(System.in);
-        boolean isChanged = false;
-        while (true) {
-            if(isChanged) {
-                try {
-                    Storage.writeToFile(taskList);
-                    isChanged = false;
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
->>>>>>> origin
             }
         }
         return pair.getValue();
