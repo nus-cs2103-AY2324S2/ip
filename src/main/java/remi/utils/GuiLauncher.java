@@ -14,12 +14,14 @@ import remi.model.Ui;
  * A GUI for Duke using FXML.
  */
 public class GuiLauncher extends Application {
-
     private Ui ui = new Ui();
+    private static final String TITLE = "Remi";
 
     @Override
     public void start(Stage stage) {
         try {
+            stage.setTitle(TITLE);
+
             FXMLLoader fxmlLoader = new FXMLLoader(GuiLauncher.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
