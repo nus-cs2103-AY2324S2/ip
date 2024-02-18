@@ -80,8 +80,8 @@ public class AddCommand extends Command {
         try {
             int firstIndex = input.indexOf("/");
             int secondIndex = input.lastIndexOf("/");
-            String start = input.substring(firstIndex + 6, secondIndex);
-            String end = input.substring(secondIndex + 4);
+            String start = input.substring(firstIndex + 7, secondIndex - 1);
+            String end = input.substring(secondIndex + 5);
             String task = input.substring(6, firstIndex - 1);
             Event event = new Event(task, start, end);
             return tasks.add(event);

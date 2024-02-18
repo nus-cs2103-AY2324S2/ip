@@ -48,16 +48,24 @@ public class Storage {
             Task curr;
             String temp = s.nextLine();
             String[] split = temp.split(" \\| ");
+
+            String type = split[0];
             boolean isComplete = split[1].equals("X");
-            switch (split[0]) {
+            String description = split[2];
+            String reminderDate = split[3];
+
+            switch (type) {
             case "T":
-                curr = new ToDo(split[2], isComplete);
+                curr = new ToDo(description, reminderDate, isComplete);
                 break;
             case "D":
-                curr = new Deadline(split[2], split[3], isComplete);
+                String deadline = split[4];
+                curr = new Deadline(description, reminderDate, deadline, isComplete);
                 break;
             case "E":
-                curr = new Event(split[2], split[3], split[4], isComplete);
+                String startDate = split[4];
+                String endDate = split[5];
+                curr = new Event(description, reminderDate, startDate, endDate, isComplete);
                 break;
             default:
                 throw new WeiException("file corrupted");
@@ -77,8 +85,8 @@ public class Storage {
     public void save(TaskList tasks) throws IOException {
         FileWriter fileWriter = new FileWriter(filePath);
         for (int i = 0; i < tasks.getSize(); i++) {
-            Task temp = tasks.getTask(i);
-            fileWriter.write(temp.toString() + "\n");
+            Task task = tasks.getTask(i);
+            fileWriter.write(task.toString() + "\n");
         }
         fileWriter.close();
     }

@@ -1,11 +1,15 @@
 package tasks;
 
+import java.time.LocalDate;
+
 /**
  * Represents something that needs to be done by the user.
  */
 public class Task {
     private final String DESCRIPTION;
     private boolean isComplete;
+
+    private LocalDate dateOfReminder = null;
 
     /**
      * Creates a task object.
@@ -23,9 +27,12 @@ public class Task {
      * @param description Indicates what the task is about.
      * @param isComplete Indicates whether the task has been completed or not.
      */
-    public Task(String description, boolean isComplete) {
+    public Task(String description, String dateOfReminder, boolean isComplete) {
         this.DESCRIPTION = description;
         this.isComplete = isComplete;
+        if (!dateOfReminder.equals("null")) {
+            this.dateOfReminder = LocalDate.parse(dateOfReminder);
+        }
     }
 
     /**
@@ -60,7 +67,7 @@ public class Task {
         if (this.isComplete) {
             done = "X";
         }
-        return done + " | " + this.DESCRIPTION;
+        return done + " | " + this.DESCRIPTION + " | " + this.dateOfReminder;
     }
 
     /**
@@ -71,5 +78,16 @@ public class Task {
      */
     public boolean search(String keyword) {
         return this.DESCRIPTION.contains(keyword);
+    }
+
+    public void setReminder(String date) {
+        this.dateOfReminder = LocalDate.parse(date);
+    }
+
+    public boolean checkIfRemind() {
+        if (dateOfReminder == null) {
+            return false;
+        }
+        return dateOfReminder.isEqual(LocalDate.now());
     }
 }

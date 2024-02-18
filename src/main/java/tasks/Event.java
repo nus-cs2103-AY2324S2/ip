@@ -31,8 +31,8 @@ public class Event extends Task {
      * @param end The ending date.
      * @param isComplete Indicates whether the task has been completed or not.
      */
-    public Event(String task, String start, String end, boolean isComplete) {
-        super(task, isComplete);
+    public Event(String task, String dateOfReminder, String start, String end, boolean isComplete) {
+        super(task, dateOfReminder, isComplete);
         this.start = LocalDate.parse(start);
         this.end = LocalDate.parse(end);
     }
@@ -44,7 +44,7 @@ public class Event extends Task {
     public String stringify() {
         String formattedStartDate = this.start.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         String formattedEndDate = this.start.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        return "[E]" + super.stringify() + "(from: " + formattedStartDate + "to: " + formattedEndDate + ")";
+        return "[E]" + super.stringify() + "(from: " + formattedStartDate + " to: " + formattedEndDate + ")";
     }
 
     /**

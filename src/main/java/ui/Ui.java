@@ -83,4 +83,13 @@ public class Ui {
     public String showSearchResult(String result) {
         return "Here are the matching tasks in your list:\n" + result;
     }
+
+    public String showSetReminderStatus() {
+        return "reminder added successfully";
+    }
+
+    public String showReminder(String tasks) {
+        String show = "Remember to do these tasks:\n";
+        return show + tasks;
+    }
 }

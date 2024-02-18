@@ -28,7 +28,7 @@ public class Wei {
         try {
             storage = new Storage("./data/history.txt");
             tasks = storage.read();
-        } catch ( FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.out.println("error reading tasks file");
         } catch (IOException e) {
             System.out.println("error creating tasks file");
@@ -44,6 +44,11 @@ public class Wei {
      */
     public String greet() {
         return ui.greet();
+    }
+
+    public String remind() {
+        String remindList = tasks.getRemindList();
+        return ui.showReminder(remindList);
     }
 
     /**

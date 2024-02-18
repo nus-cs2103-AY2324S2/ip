@@ -19,8 +19,8 @@ public class ToDo extends Task {
      * @param task Indicates what the task is about.
      * @param isComplete Indicates whether the task has been completed or not.
      */
-    public ToDo(String task, boolean isComplete) {
-        super(task, isComplete);
+    public ToDo(String task, String dateOfReminder, boolean isComplete) {
+        super(task, dateOfReminder, isComplete);
     }
 
     /**
