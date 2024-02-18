@@ -22,7 +22,7 @@ public class MainWindow extends AnchorPane {
     private Snom snom;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/trainer.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/snom.png"));
+    private Image snomImage = new Image(this.getClass().getResourceAsStream("/images/snom.png"));
 
     @FXML
     public void initialize() {
@@ -40,11 +40,14 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = this.snom.getResponse(input);
+        String response = this.snom.runCommand(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getSnomDialog(this.snom.runCommand(input), dukeImage)
+                DialogBox.getSnomDialog(response, snomImage)
         );
+        if (response.equals("bye")) {
+            System.exit(0);
+        }
         userInput.clear();
     }
 

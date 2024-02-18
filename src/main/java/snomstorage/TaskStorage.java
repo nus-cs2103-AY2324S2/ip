@@ -1,4 +1,4 @@
-package SnomStorage;
+package snomstorage;
 
 import java.io.File;
 import java.io.FileNotFoundException;

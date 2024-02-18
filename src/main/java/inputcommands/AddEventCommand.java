@@ -16,7 +16,7 @@ import snomtasklist.TaskList;
 
 /**
  * The AddEventCommand implements the command of adding
- * a task of type Event to the Tasklist.
+ * a task of type Event to the TaskList.
  */
 class AddEventCommand extends Command {
 
@@ -53,7 +53,7 @@ class AddEventCommand extends Command {
         try {
             //the format is as such: deadline name/end date
             String detail = this.desc.toLowerCase().split("event ", 2)[1];
-            String startDate = detail.split("/", 3)[1].trim(); //removes the whitspace from start and end of date
+            String startDate = detail.split("/", 3)[1].trim(); //removes the whitespace from start and end of date
             String endDate = detail.split("/", 3)[2].trim();
             LocalDate start = LocalDate.parse(startDate);
             LocalDate end = LocalDate.parse(endDate);
@@ -68,7 +68,6 @@ class AddEventCommand extends Command {
             }
             return name + "/" + start.toString() + "/" + end.toString();
 
-            //you can consider changing commands to return tasks instead;
 
         } catch (ArrayIndexOutOfBoundsException e) {
 

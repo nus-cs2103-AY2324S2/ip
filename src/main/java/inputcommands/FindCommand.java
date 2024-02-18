@@ -7,7 +7,7 @@ import snomtasklist.TaskList;
 
 class FindCommand extends Command {
 
-    private FindCommand(String desc) {
+    protected FindCommand(String desc) {
         super(desc);
     }
 

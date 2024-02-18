@@ -1,10 +1,9 @@
 package snomparser;
 
 
-import SnomStorage.TaskStorage;
 import inputcommands.Command;
-import snomexceptions.InvalidCommandDuplicateTaskException;
-import snomexceptions.InvalidCommandException;
+import snomexceptions.*;
+import snomstorage.TaskStorage;
 import snomtask.Deadline;
 import snomtask.Event;
 import snomtask.Todo;
@@ -24,8 +23,8 @@ public class Parser {
      * Processes the command, and returns a String output
      *            depending on the user's command.
      * @param command is the command the user enters.
-     * @param lst is the tasklist storing
-     *            the tasks enterd by the user.
+     * @param lst is the TaskList storing
+     *            the tasks entered by the user.
      * @param storage is the file management system
      *                for tasks entered by the user.
      * @return a String value for the resulting output
@@ -119,28 +118,31 @@ public class Parser {
 
     }
 
-    private String doTaskInTaskList(TaskList lst, int pos) {
+    private String doTaskInTaskList(TaskList lst, int pos) throws InvalidCommandException {
         try {
             return lst.markTaskAtIndex(pos);
-        } catch (InvalidCommandException e) {
-            System.out.println(e.getMessage());
-            return "this should not happen1";
+        } catch (InvalidCommandTaskDoneException e) {
+            throw e;
+        } catch (InvalidCommandIndexException e) {
+            throw e;
         }
     }
 
-    private String undoTaskInTaskList(TaskList lst, int pos) {
+    private String undoTaskInTaskList(TaskList lst, int pos) throws InvalidCommandException {
         try {
             return lst.unmarkTaskAtIndex(pos);
-        } catch (InvalidCommandException e) {
-            return "Invalid Task";
+        } catch (InvalidCommandTaskNotDoneException e) {
+            throw e;
+        } catch (InvalidCommandIndexException e) {
+            throw e;
         }
     }
 
-    private String deleteTaskFromTaskList(TaskList lst, int pos) {
+    private String deleteTaskFromTaskList(TaskList lst, int pos) throws InvalidCommandIndexException {
         try {
             return lst.deleteTaskAtIndex(pos);
         } catch (InvalidCommandException e) {
-            return "Invalid Task";
+            throw e;
         }
     }
 

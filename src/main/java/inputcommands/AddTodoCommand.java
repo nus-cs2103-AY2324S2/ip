@@ -6,7 +6,7 @@ import snomtasklist.TaskList;
 
 /**
  * The AddTodoCommand implements the command of adding
- * a task of type Todo to the Tasklist.
+ * a task of type Todo to the TaskList.
  */
 class AddTodoCommand extends Command {
 

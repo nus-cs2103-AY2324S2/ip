@@ -8,7 +8,7 @@ import snomtasklist.TaskList;
 
 /**
  * The DeleteTaskCommand implements the command of deleting
- * a task in the tasklist.
+ * a task in the TaskList.
  *
  */
 class DeleteTaskCommand extends Command {
@@ -45,8 +45,10 @@ class DeleteTaskCommand extends Command {
             lst.getTaskAtIndex(index);
             return Integer.toString(index);
         } catch (InvalidCommandIndexException e) {
-            throw new InvalidCommandIndexException();
+            throw e;
         } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InvalidCommandIndexException();
+        } catch (NumberFormatException e) {
             throw new InvalidCommandIndexException();
         }
 
