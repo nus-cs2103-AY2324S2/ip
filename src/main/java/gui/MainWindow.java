@@ -35,8 +35,14 @@ public class MainWindow extends AnchorPane {
      */
     public void setWei(Wei wei) {
         this.wei = wei;
-        String response = wei.greet();
-        dialogContainer.getChildren().add(DialogBox.getWeiDialog(response, weiImage));
+        startingDialog();
+    }
+
+    public void startingDialog() {
+        String greeting = wei.greet();
+        String reminder = wei.remind();
+        dialogContainer.getChildren().add(DialogBox.getWeiDialog(greeting, weiImage));
+        dialogContainer.getChildren().add(DialogBox.getWeiDialog(reminder, weiImage));
     }
 
     /**

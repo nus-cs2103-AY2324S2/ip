@@ -1,5 +1,6 @@
 package taskList;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import exceptions.WeiException;
@@ -125,6 +126,26 @@ public class TaskList {
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             if (task.search(keyword)) {
+                String text = task.stringify();
+                String nextTask = order + ". " + text + "\n";
+                result += nextTask;
+                order++;
+            }
+        }
+        return result;
+    }
+
+    public void setReminder(int order, String date) {
+        Task task = tasks.get(order);
+        task.setReminder(date);
+    }
+
+    public String getRemindList() {
+        String result = "";
+        int order = 1;
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.checkIfRemind()) {
                 String text = task.stringify();
                 String nextTask = order + ". " + text + "\n";
                 result += nextTask;

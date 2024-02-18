@@ -28,8 +28,8 @@ public class Deadline extends Task {
      * @param isComplete Indicates whether the task has been completed or not.
      */
 
-    public Deadline(String task, String date, boolean isComplete) {
-        super(task, isComplete);
+    public Deadline(String task, String dateOfReminder, String date, boolean isComplete) {
+        super(task, dateOfReminder, isComplete);
         this.date = LocalDate.parse(date);
     }
 
