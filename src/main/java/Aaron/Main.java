@@ -8,7 +8,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
+/**
+ * Represents main class that sets up the application
+ */
 public class Main extends Application {
 
     private AaronBot aaronBot = new AaronBot();

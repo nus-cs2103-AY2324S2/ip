@@ -3,15 +3,14 @@ package aaron;
 import java.io.FileNotFoundException;
 
 import aaron.command.Command;
-import aaron.exception.ParsingException;
 import aaron.parser.Parser;
 import aaron.storage.Storage;
 import aaron.task.TaskList;
 import aaron.ui.UI;
 
 /**
- * Represents the main AaronBot class, executes the user-bot interaction task
- * adding/deleting/marking
+ * Represents the main AaronBot object
+ * 
  */
 public class AaronBot {
     public static final String TASKLIST_FILEPATH = "data/TaskList.txt";
@@ -32,6 +31,11 @@ public class AaronBot {
         ui.greet();
     }
 
+    /**
+     * Method that gets the response that corresponds to a user input
+     * @param userInput
+     * @return
+     */
     public String getResponse(String userInput) {
         try {
             Command cmd = Parser.parse(userInput, taskList, ui);

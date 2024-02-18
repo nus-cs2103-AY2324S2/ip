@@ -36,6 +36,9 @@ public class MainWindow extends AnchorPane {
         start();
     }
 
+    /**
+     * Creates the initial dialogue when starting a chat with AaronBot
+     */
     @FXML
     public void start() {
         String intro = aaron.startChat();
