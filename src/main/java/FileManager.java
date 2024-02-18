@@ -4,6 +4,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class FileManager {
     // Referenced HusseinSafwan02's code and AI
@@ -49,10 +51,13 @@ public class FileManager {
             task = new Todo(description, isDone);
             break;
         case "D":
-            task = new Deadline(description, splitParts[3], isDone);
+            LocalDate byDate = LocalDate.parse(splitParts[3]);
+            task = new Deadline(description, byDate, isDone);
             break;
         case "E": // Event format in File is E | (isDone) | (Name) | (From) | (To)
-            task = new Event(description, splitParts[3], splitParts[4], isDone);
+            LocalDate fromDate = LocalDate.parse(splitParts[3]);
+            LocalDate toDate = LocalDate.parse(splitParts[4]);
+            task = new Event(description, fromDate, toDate, isDone);
             break;
         }
 
