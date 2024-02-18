@@ -1,10 +1,12 @@
 package utilities;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import enums.Priorities;
 import exceptions.WilliamException;
 import tasks.Task;
 
@@ -30,7 +32,7 @@ public class TaskList {
 
     /**
      * Getter method for task
-     * 
+     *
      * @return arraylist Arraylist of tasks
      */
     public List<Task> getTasks() {
@@ -39,12 +41,12 @@ public class TaskList {
 
     /**
      * Returns a string representation of all the tasks in the list
-     * 
+     *
      * @return A string listing all tasks or stating that the list is empty
      */
     public String printList() {
         if (this.tasks.isEmpty()) {
-            return "Your list is empty. Please add some tasks to the list first!\n";
+            return "Your list is empty. Please add some tasks to the list first!" + "\n";
         } else {
             List<String> tasks = IntStream.range(0, this.tasks.size())
                     .mapToObj(i -> (i + 1) + ". " + this.tasks.get(i).toString())
@@ -53,10 +55,41 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns a string representation of all the tasks in the list, sorted by priority
+     *
+     * @return A string listing all tasks sorted by priority or stating that the list is empty
+     */
+    public String printListSortedByPriority() {
+        if (this.tasks.isEmpty()) {
+            return "Your list is empty. Please add some tasks to the list first!" + "\n";
+        } else {
+            List<String> sortedTasks = this.tasks.stream()
+                    .sorted(Comparator.comparing(
+                            task -> {
+                                try {
+                                    return Priorities.valueOf(task.getPriority().toUpperCase());
+                                } catch (IllegalArgumentException e) {
+                                    return Priorities.NONE;
+                                }
+                            },
+                            Comparator.comparingInt(Priorities::ordinal).reversed()
+                    ))
+                    .map(Task::toString)
+                    .collect(Collectors.toList());
+
+            List<String> tasks = IntStream.range(0, sortedTasks.size())
+                    .mapToObj(i -> (i + 1) + ". " + sortedTasks.get(i))
+                    .collect(Collectors.toList());
+
+            return "Here are the tasks in your list, sorted by priority:\n"
+                    + String.join("\n", tasks) + "\n";
+        }
+    }
 
     /**
      * Adds task into the list of tasks
-     * 
+     *
      * @param task Input that is the task (could be todo, deadline or event)
      */
     public void addTask(Task task) {
@@ -68,7 +101,7 @@ public class TaskList {
 
     /**
      * Deletes the specified task from the list and returns a message of the task being deleted
-     * 
+     *
      * @param input The ID of the task to delete
      * @return String that says whether the task has been deleted
      */
@@ -94,7 +127,7 @@ public class TaskList {
 
     /**
      * Unmarks/marks the task based on the ID
-     * 
+     *
      * @param input The ID of the task
      */
     public void markAndUnmark(String input) {
@@ -106,7 +139,7 @@ public class TaskList {
 
     /**
      * Finds tasks based on whether their description contains the input
-     * 
+     *
      * @param input Input from the user to find the task
      * @return A message with the matching tasks or a message that says no task is found
      * @throws WilliamException If no tasks match the provided input
@@ -123,5 +156,31 @@ public class TaskList {
         }
 
         return "Here are the matching tasks in your list:\n" + String.join("\n", tasks) + "\n";
+    }
+
+    /**
+     * Prioritise task based on their user's priority level
+     *
+     * @param id            ID of the task
+     * @param priorityLevel Priority level of the task
+     * @return String indicating that the task has been prioritised
+     * @throws WilliamException If the provided input does not match
+     */
+    public String prioritiseTask(String id, String priorityLevel) throws WilliamException {
+        Priorities priority;
+        int actualId = Integer.parseInt(id) - 1;
+
+        if (actualId < 0 || actualId >= tasks.size()) {
+            throw new WilliamException("Task ID does not exist. Please try again!");
+        }
+
+        try {
+            priority = Priorities.valueOf(priorityLevel.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new WilliamException("Invalid priority level. Please try again!");
+        }
+
+        tasks.get(actualId).setPriority(priority.name());
+        return "Task with ID " + id + " has been prioritised to " + priority + " priority.";
     }
 }

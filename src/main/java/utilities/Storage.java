@@ -22,7 +22,7 @@ import tasks.Todo;
 public class Storage {
     private String filePath;
     private final String MATCHING_PATTERN =
-            "^\\s*(\\S+)\\s*\\|\\s*(\\S+)\\s*\\|\\s*(.+?)\\s*\\|\\s*(.+?)\\s*\\|\\s*(.+?)\\s*$";
+            "^\\s*(\\S+)\\s*\\|\\s*(\\S+)\\s*\\|\\s*(.+?)\\s*\\|\\s*(.+?)\\s*\\|\\s*(.+?)\\s*\\|\\s*(.+?)\\s*$";
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -53,8 +53,9 @@ public class Storage {
             String name = matcher.group(3);
             String firstPart = matcher.group(4);
             String secondPart = matcher.group(5);
+            String priority = matcher.group(6);
 
-            addTaskToList(type, isDone, name, firstPart, secondPart, tasks);
+            addTaskToList(type, isDone, name, firstPart, secondPart, priority, tasks);
         }
         sc.close();
         return tasks;
@@ -68,21 +69,22 @@ public class Storage {
      * @param name       Description of task
      * @param firstPart  First part of the date (/by or /from)
      * @param secondPart Second part of the date (/to)
+     * @param priority   Priority of the task
      * @param tasks      List of tasks
      */
     public void addTaskToList(String type, boolean isDone, String name, String firstPart,
-                              String secondPart, List<Task> tasks) {
+                              String secondPart, String priority, List<Task> tasks) {
         switch (type) {
         case "T":
-            tasks.add(new Todo(name, isDone));
+            tasks.add(new Todo(name, isDone, priority));
             break;
         case "E":
             tasks.add(new Event(name, DateAndTimeParser.convertStringToDate(firstPart),
-                DateAndTimeParser.convertStringToDate(secondPart), isDone));
+                   DateAndTimeParser.convertStringToDate(secondPart), isDone, priority));
             break;
         case "D":
             tasks.add(new Deadline(name, DateAndTimeParser.convertStringToDate(firstPart),
-                isDone));
+                   isDone, priority));
             break;
         default:
             break;
@@ -102,16 +104,17 @@ public class Storage {
             for (int i = 0; i < tasks.size(); i++) {
                 Task task = tasks.get(i);
                 String name = task.getName();
+                String priority = task.getPriority();
                 int isDone = task.getIsDone() ? 1 : 0;
                 String[] times = task.getTimes();
                 if (i != actualSize) {
                     sb.append(task.getType()).append(" | ").append(isDone).append(" | ")
                             .append(name).append(" | ").append(times[0]).append(" | ")
-                            .append(times[1]).append(System.lineSeparator());
+                            .append(times[1]).append(" | ").append(priority).append(System.lineSeparator());
                 } else {
                     sb.append(task.getType()).append(" | ").append(isDone).append(" | ")
                             .append(name).append(" | ").append(times[0]).append(" | ")
-                            .append(times[1]);
+                            .append(times[1]).append(" | ").append(priority);
                 }
             }
             fw.write(sb.toString());

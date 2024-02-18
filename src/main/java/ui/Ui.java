@@ -3,7 +3,7 @@ package ui;
 import java.io.FileNotFoundException;
 import java.util.List;
 
-import commands.Commands;
+import enums.Commands;
 import exceptions.WilliamException;
 import tasks.Task;
 import utilities.AdditionalInfoParser;

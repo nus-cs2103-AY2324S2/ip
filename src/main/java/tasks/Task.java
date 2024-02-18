@@ -7,18 +7,21 @@ public class Task {
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy EEEE, ha");
     private String name;
-    private boolean isDone;
     private String type;
+    private boolean isDone;
+    private String priority;
     private String[] times;
 
     public Task(String name) {
         this.name = name;
         this.isDone = false;
+        this.priority = "NONE";
     }
 
-    public Task(String name, boolean isDone) {
+    public Task(String name, boolean isDone, String priority) {
         this.name = name;
         this.isDone = isDone;
+        this.priority = priority;
     }
 
     public void toggleMarkStatus() {
@@ -45,6 +48,14 @@ public class Task {
         return this.name;
     }
 
+    public String getPriority() {
+        return this.priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
+
     public String outputDateAsString(LocalDateTime dateTime) {
         return dateTime.format(OUTPUT_FORMAT);
     }
@@ -55,6 +66,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.name;
+        return "[" + this.getStatusIcon() + "][Priority: " + this.priority + "] " + this.name;
     }
 }

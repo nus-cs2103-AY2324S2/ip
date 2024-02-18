@@ -2,7 +2,7 @@ package utilities;
 
 import java.io.IOException;
 
-import commands.Commands;
+import enums.Commands;
 import exceptions.WilliamException;
 import tasks.Deadline;
 import tasks.Event;
@@ -52,6 +52,9 @@ public class Parser {
             case LIST:
                 response = taskList.printList();
                 break;
+            case SORT:
+                response = taskList.printListSortedByPriority();
+                break;
             case DELETE:
                 response = taskList.deleteFromList(additionalInformation);
                 break;
@@ -63,6 +66,9 @@ public class Parser {
                 break;
             case FIND:
                 response = handleFind(additionalInformation);
+                break;
+            case PRIORITY:
+                response = handlePriority(additionalInformation);
                 break;
             case BYE:
                 response = handleBye();
@@ -168,5 +174,17 @@ public class Parser {
     private String handleBye() throws IOException {
         this.storage.writeToFile(this.taskList.getTasks());
         return "Bye. Hope to see you again soon!";
+    }
+
+    /**
+     * Handles prioritising task
+     *
+     * @param additionalInformation Information of the task to be prioritised
+     * @return String that says that whether the task has been prioritised
+     */
+    private String handlePriority(String additionalInformation) throws WilliamException {
+        String[] priorityDetails =
+                AdditionalInfoParser.splitInput(additionalInformation, "/id ", "/priority ");
+        return this.taskList.prioritiseTask(priorityDetails[1], priorityDetails[2]);
     }
 }
