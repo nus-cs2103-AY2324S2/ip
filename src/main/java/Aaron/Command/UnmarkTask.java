@@ -12,6 +12,7 @@ import aaron.ui.UI;
 public class UnmarkTask extends Command {
     public UnmarkTask(String userInput, CommandType commandType) throws AaronBotException {
         super(userInput, commandType);
+        assert commandType == CommandType.UNMARK: "Command type should be unmark";
     }
 
     @Override

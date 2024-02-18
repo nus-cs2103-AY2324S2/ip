@@ -13,6 +13,7 @@ import aaron.ui.UI;
 public class DeleteTask extends Command {
     public DeleteTask(String userInput, CommandType commandType) throws AaronBotException {
         super(userInput, commandType);
+        assert commandType == CommandType.DELETE: "Command type should be DELETE";
     }
 
     @Override

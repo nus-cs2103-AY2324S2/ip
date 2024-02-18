@@ -10,6 +10,7 @@ import aaron.ui.UI;
 public class ShowList extends Command {
     public ShowList(String userInput, CommandType commandType) throws AaronBotException {
         super(userInput, commandType);
+        assert commandType == CommandType.SHOW_LIST: "Command type should be show list";
     }
 
     @Override

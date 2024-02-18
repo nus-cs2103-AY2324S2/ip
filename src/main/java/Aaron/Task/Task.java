@@ -25,19 +25,22 @@ public abstract class Task {
     }
 
     public void markDone() throws DoubleMarkException {
+        boolean tmpDoneness = isDone;
         if (isDone) {
             throw new DoubleMarkException("Task is already marked \n " + this.toString());
         } else {
             isDone = true;
+            assert isDone != tmpDoneness : "after marking, isDone should be changed";
         }
     }
 
-    public boolean unmarkDone() throws DoubleMarkException {
+    public void unmarkDone() throws DoubleMarkException {
+        boolean tmpDoneness = isDone;
         if (!isDone) {
             throw new DoubleMarkException("Task is already unmarked \n " + this.toString());
         } else {
             isDone = false;
-            return true;
+            assert isDone != tmpDoneness : "after unmarking, isDone should be changed";
         }
     }
 

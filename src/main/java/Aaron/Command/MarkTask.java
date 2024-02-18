@@ -12,6 +12,7 @@ import aaron.ui.UI;
 public class MarkTask extends Command {
     public MarkTask(String userInput, CommandType commandType) throws AaronBotException {
         super(userInput, commandType);
+        assert commandType == CommandType.MARK: "Command type should be MARK";
     }
 
     @Override

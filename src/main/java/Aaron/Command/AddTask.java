@@ -15,6 +15,7 @@ import aaron.ui.UI;
 public class AddTask extends Command {
     public AddTask(String userInput, CommandType commandType) throws AaronBotException {
         super(userInput, commandType);
+        assert commandType == CommandType.ADDTASK: "Tasktype should be ADDTASK";
     }
 
     @Override

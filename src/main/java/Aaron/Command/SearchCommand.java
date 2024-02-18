@@ -7,6 +7,7 @@ import aaron.ui.UI;
 public class SearchCommand extends Command {
     public SearchCommand(String userInput, CommandType commandType) throws AaronBotException {
         super(userInput, commandType);
+        assert commandType == CommandType.SEARCH: "Command Type should be SEARCH";
     }
 
     @Override
