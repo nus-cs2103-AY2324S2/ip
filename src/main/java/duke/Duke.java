@@ -44,6 +44,7 @@ public class Duke {
      * @param filePath Filepath to storage file.
      */
     public Duke(String filePath) {
+        assert filePath != null && !filePath.isEmpty() : "File path must not be null or empty!";
         ui = new Ui();
         storage = new Storage(filePath);
         parser = new Parser();
