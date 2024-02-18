@@ -50,13 +50,17 @@ public class Storage {
             String temp = s.nextLine();
             String[] split = temp.split(" \\| ");
             boolean isComplete = split[1].equals("X");
-            if (split[0].equals("T")) {
+            switch (split[0]) {
+            case "T":
                 curr = new ToDo(split[2], isComplete);
-            } else if (split[0].equals("D")) {
+                break;
+            case "D":
                 curr = new Deadline(split[2], split[3], isComplete);
-            } else if (split[0].equals("E")) {
+                break;
+            case "E":
                 curr = new Event(split[2], split[3], split[4], isComplete);
-            } else {
+                break;
+            default:
                 throw new WeiException("file corrupted");
             }
             tasks.add(curr);

@@ -47,7 +47,8 @@ public class TaskList {
             int order = i + 1;
             Task task = tasks.get(i);
             String text = task.stringify();
-            wholeList += order + ". " + text + "\n";
+            String nextTask = order + ". " + text + "\n";
+            wholeList += nextTask;
         }
         return wholeList;
     }
@@ -112,7 +113,8 @@ public class TaskList {
             Task task = tasks.get(i);
             if (task.search(keyword)) {
                 String text = task.stringify();
-                result += order + ". " + text + "\n";
+                String nextTask = order + ". " + text + "\n";
+                result += nextTask;
                 order++;
             }
         }
