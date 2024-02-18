@@ -122,17 +122,17 @@ public class Parser {
         StringBuilder currArg = new StringBuilder();
         ArgumentType argType = ArgumentType.DESCRIPTION;
         for (String token : tokens) {
-            if (!token.startsWith("/")) {
-                currArg.append(token)
-                        .append(" ");
-            } else {
+            if (token.startsWith("/")) {
                 if (currArg.length() > 0) {
                     argsMap.put(argType, currArg.toString().trim());
                     currArg.setLength(0);
                 }
                 String[] args = token.trim().split("/");
-                String arg = args[1].substring(0);
-                argType = ArgumentType.valueOf(arg.toUpperCase());
+                String arg = args[1].substring(0).toUpperCase();
+                argType = ArgumentType.valueOf(arg);
+            } else {
+                currArg.append(token)
+                        .append(" ");
             }
         }
         // Add remaining currArg to args list
