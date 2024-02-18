@@ -23,7 +23,7 @@ public class Ui {
      */
     public void greet() {
         breakLine();
-        System.out.println("Hello! I'm teletubby" + "\nWhat can I do for you?");
+        System.out.println("Hello! I'm teletubbi" + "\nWhat can I do for you?");
         breakLine();
     }
 

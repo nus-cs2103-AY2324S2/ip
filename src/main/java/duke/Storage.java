@@ -10,7 +10,6 @@ import java.util.Scanner;
  */
 public class Storage {
     private String filePath;
-    private Ui ui = new Ui();
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -25,7 +24,7 @@ public class Storage {
     public String load() throws DukeException {
         File f = new File(filePath);
         try {
-            f.getParentFile().mkdirs();
+            boolean isDirCreated = f.getParentFile().mkdirs();
             boolean isFileCreated = f.createNewFile();
             if (!isFileCreated) {
                 Scanner fileScanner = new Scanner(f);
@@ -47,7 +46,7 @@ public class Storage {
      *
      * @param taskList Task content to save.
      */
-    public void save(TaskList taskList) {
+    public void save(TaskList taskList) throws DukeException {
         try {
             FileWriter fw = new FileWriter("./data/duke.txt");
             for (int i = 0; i < taskList.size(); i++) {
@@ -68,7 +67,7 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("Error updating file: " + e.getMessage());
         } catch (DukeException a) {
-            ui.showMessage(a.getMessage());
+            throw a;
         }
     }
 
