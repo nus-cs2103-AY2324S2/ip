@@ -36,17 +36,6 @@ public class Ui {
      * @param taskList The list of tasks to display.
      */
     public String showTasks(ArrayList<Task> taskList) {
-//        System.out.println(LINE);
-//        if (taskList.isEmpty()) {
-//            System.out.println("No tasks available");
-//            System.out.println(LINE);
-//        } else {
-//            System.out.println("Here are the tasks in your list:");
-//            for (int i = 0; i < taskList.size(); i++) {
-//                System.out.println(" " + (i + 1) + ". " + taskList.get(i));
-//            }
-//            System.out.println(LINE);
-//        }
         if (taskList.isEmpty()) {
             String result =  LINE + "No tasks available\n" + LINE;
             return result;
@@ -88,7 +77,6 @@ public class Ui {
     }
 
     public String showMatchingTasks(ArrayList<Task> matchingTasks) {
-        System.out.println(LINE);
         if (matchingTasks.isEmpty()) {
             return LINE + "No matching tasks found.\n" + LINE;
         } else {

@@ -3,9 +3,11 @@ package secretaryw;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.io.*;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Parses user input for the SecretaryW application.
@@ -26,19 +28,22 @@ public class Parser {
     }
 
     /**
-     * Retrieves the next command entered by the user.
+     * Handles the command entered by the user.
      *
-     * @return Array of strings representing the parsed command.
+     * @return String Representing the parsed command.
      */
-
-    // In Parser.java
-
     public String handleCommand(String[] command) {
-        try {
-            switch (command[0]) {
+        if (checkCommand(command)) {
+            return ui.showMessage("Invalid Command");
+        }
+        if (!Objects.equals(command[0], "bye") && !Objects.equals(command[0], "list") && command.length == 1) {
+            return ui.showMessage("Index or Description cannot be empty");
+        }
+
+        switch (command[0]) {
                 case "bye":
                     closeScanner();
-                    System.exit(0); // Terminate the program after saving tasks
+                    System.exit(0);
                     break;
                 case "list":
                     return ui.showTasks(taskList.getTasks());
@@ -61,9 +66,7 @@ public class Parser {
                 default:
                     return ui.showMessage("I'm sorry, but I don't know what that means :-(");
             }
-        } catch (WException e) {
-            return ui.showMessage("OOPS!!! " + e.getMessage());
-        }
+
         return "";
     }
 
@@ -72,9 +75,8 @@ public class Parser {
      * Marks a task as done based on the specified index.
      *
      * @param argument The index of the task to mark as done.
-     * @throws WException If the index is out of bounds.
      */
-    private String markTaskAsDone(String argument) throws WException {
+    private String markTaskAsDone(String argument) {
         int index = Integer.parseInt(argument.trim()) - 1;
         checkIndexBounds(index);
         taskList.getTasks().get(index).markAsDone();
@@ -87,11 +89,12 @@ public class Parser {
      * Deletes a task based on the specified index.
      *
      * @param argument The index of the task to delete.
-     * @throws WException If the index is out of bounds.
      */
-    private String markTaskAsUndone(String argument) throws WException {
+    private String markTaskAsUndone(String argument) {
         int index = Integer.parseInt(argument.trim()) - 1;
-        checkIndexBounds(index);
+        if (checkIndexBounds(index)) {
+            return ui.showMessage("Index out of bounds");
+        }
         taskList.getTasks().get(index).markAsUndone();
         return ui.showMessage("OK, I've marked this task as not done yet:\n  " +
                 taskList.getTasks().get(index).getStatusIcon() + " " +
@@ -102,11 +105,12 @@ public class Parser {
      * Deletes a task based on the specified index.
      *
      * @param argument The index of the task to delete.
-     * @throws WException If the index is out of bounds.
      */
-    private String deleteTask(String argument) throws WException {
+    private String deleteTask(String argument) {
         int index = Integer.parseInt(argument.trim()) - 1;
-        checkIndexBounds(index);
+        if (checkIndexBounds(index)) {
+            return ui.showMessage("Index out of bounds");
+        }
         Task removedTask = taskList.getTasks().remove(index);
         return ui.showMessage("Noted. I've removed this task:\n  " + removedTask);
     }
@@ -115,12 +119,8 @@ public class Parser {
      * Adds a to do task with the specified description.
      *
      * @param argument The description of the to do task.
-     * @throws WException If the description is empty.
      */
-    private String addTodoTask(String argument) throws WException {
-        if (argument.isEmpty()) {
-            throw new WException("The description of a todo cannot be empty");
-        }
+    private String addTodoTask(String argument) {
         taskList.addTask(new Task(TaskType.TODO, argument));
         return ui.showTaskAdded(taskList.getTasks().get(taskList.size() - 1), taskList.size());
     }
@@ -129,16 +129,17 @@ public class Parser {
      * Adds a deadline task with the specified description and deadline.
      *
      * @param argument The description and deadline of the deadline task.
-     * @throws WException If the format of the deadline is incorrect.
      */
-    private String addDeadlineTask(String argument) throws WException {
+    private String addDeadlineTask(String argument) {
         String[] parts = argument.split("/by");
         if (parts.length != 2) {
-            throw new WException("Wrong format. Please retype");
+            return "Wrong format. Please retype according to /help";
         }
         String description = parts[0].trim();
         String by = parts[1].trim();
-        checkDeadline(by);
+        if (checkDeadline(by)) {
+            return ui.showMessage("Wrong date format. Please use dd/mm/yyyy");
+        }
         taskList.addTask(new Task(TaskType.DEADLINE, description, by));
         return ui.showTaskAdded(taskList.getTasks().get(taskList.size() - 1), taskList.size());
     }
@@ -147,21 +148,22 @@ public class Parser {
      * Adds an event task with the specified description and time period.
      *
      * @param argument The description and time period of the event task.
-     * @throws WException If the format of the time period is incorrect.
      */
-    private String addEventTask(String argument) throws WException {
+    private String addEventTask(String argument) {
         String[] parts = argument.split("/from");
         if (parts.length != 2) {
-            throw new WException("Wrong format. Please retype");
+            return ui.showMessage("Wrong format. Please retype according to /help");
         }
         String description = parts[0].trim();
         String[] time = parts[1].split("/to");
         if (time.length != 2) {
-            throw new WException("Wrong format. Please retype");
+            return ui.showMessage("Wrong format. Please retype according to /help");
         }
         String from = time[0].trim();
         String to = time[1].trim();
-        checkEvent(from, to);
+        if (checkEvent(from, to)) {
+            ui.showMessage("Wrong format. Please use dd/mm/yyyy");
+        }
         taskList.addTask(new Task(TaskType.EVENT, description, from, to));
         return ui.showTaskAdded(taskList.getTasks().get(taskList.size() - 1), taskList.size());
     }
@@ -170,26 +172,27 @@ public class Parser {
      * Checks if the specified index is within the bounds of the task list.
      *
      * @param index The index to check.
-     * @throws WException If the index is out of bounds.
      */
-    private void checkIndexBounds(int index) throws WException {
+    private Boolean checkIndexBounds(int index) {
         if (index < 0 || index >= taskList.size()) {
-            throw new WException("Index is out of bounds!");
+            return true;
         }
+        return false;
     }
 
     /**
      * Checks if the specified deadline string has the correct date format.
      *
      * @param by The deadline string to check.
-     * @throws WException If the date format is incorrect.
      */
-    private void checkDeadline(String by) throws WException {
+    private boolean checkDeadline(String by) {
         try {
             LocalDate.parse(by, DateTimeFormatter.ofPattern("d/M/yyyy"));
         } catch (DateTimeParseException e) {
-            throw new WException("Wrong date format. Please use dd/mm/yyyy");
+            return false;
+            //return "Wrong date format. Please use dd/mm/yyyy";
         }
+        return true;
     }
 
     /**
@@ -197,28 +200,26 @@ public class Parser {
      *
      * @param from The start date string of the event.
      * @param to   The end date string of the event.
-     * @throws WException If the date format is incorrect.
      */
-    private void checkEvent(String from, String to) throws WException {
+    private boolean checkEvent(String from, String to) {
         try {
             LocalDate.parse(from, DateTimeFormatter.ofPattern("d/M/yyyy"));
             LocalDate.parse(to, DateTimeFormatter.ofPattern("d/M/yyyy"));
         } catch (DateTimeParseException e) {
-            throw new WException("Wrong date format. Please use dd/mm/yyyy");
+            return false;
+            //return "Wrong date format. Please use dd/mm/yyyy";
         }
+        return true;
     }
 
-    /**
-     * Custom exception class used in the SecretaryW application to represent errors specific to the application's functionality.
-     */
-    static class WException extends Exception {
-        public WException(String msg) {
-            super(msg);
+    private boolean checkCommand(String[] command) {
+        List<String> commands = Arrays.asList("bye", "list", "todo", "deadline", "event", "find", "mark", "unmark", "delete");
+        if (commands.contains(command[0])) {
+            return false;
+        } else {
+            return true;
         }
     }
-    /**
-     * Closes the scanner.
-     */
     public void closeScanner() {
         scanner.close();
     }
