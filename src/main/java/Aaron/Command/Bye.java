@@ -10,6 +10,7 @@ import aaron.ui.UI;
 public class Bye extends Command {
     public Bye(String userInput, CommandType commandType) throws AaronBotException {
         super(userInput, commandType);
+        assert commandType == CommandType.BYE: "Command type should be BYE";
     }
 
     @Override
