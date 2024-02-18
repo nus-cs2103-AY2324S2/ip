@@ -14,19 +14,20 @@ than traditional GUI apps.
 <p>&nbsp;</p>
 
 ## Command Summary
-| Action              | Syntax                                                |
-|---------------------|-------------------------------------------------------|
-| Add: ***Todo***     | `todo <description>`                                  |
-| Add: ***Deadline*** | `deadline <description> /by <datetime>`               |
-| Add: ***Event***    | `event <description> /from <datetime> /to <datetime>` |
-| Delete              | `delete <index>`                                      |
-| Find                | `find <keyword>`                                      |
-| Mark                | `mark <index>`                                        |
-| Unmark              | `unmark <index>`                                      |
-| Undo                | `undo`                                                |
-| List                | `list`                                                |
-| Help                | `help`                                                |
-| Exit                | `bye`                                                 |
+
+| Action | Syntax |
+| -- | -- |
+| Add: ***Todo*** | `todo <description>` |
+| Add: ***Deadline*** | `deadline <description> /by <datetime>` |
+| Add: ***Event*** | `event <description> /from <datetime> /to <datetime>` |
+| Delete | `delete <index>` |
+| Find | `find <keyword>` |
+| Mark | `mark <index>` |
+| Unmark | `unmark <index>` |
+| Undo | `undo` |
+| List | `list` |
+| Help | `help` |
+| Exit | `bye` |
 
 > `datetime` is of format `<dd/mm/yyyy hh:mm>`
 > 
