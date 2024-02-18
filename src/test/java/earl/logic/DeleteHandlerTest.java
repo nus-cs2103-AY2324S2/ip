@@ -48,6 +48,7 @@ class DeleteHandlerTest {
 
     @AfterEach
     void tearDown() {
+        testingOut.reset();
         System.setOut(originalOut);
     }
 }

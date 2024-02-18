@@ -17,7 +17,6 @@ import earl.util.stubs.UiStub;
 class TodoHandlerTest {
 
     private static final PrintStream originalOut = System.out;
-
     private static final ByteArrayOutputStream testingOut =
             new ByteArrayOutputStream();
     private static final String NEWLINE = System.lineSeparator();
@@ -57,6 +56,7 @@ class TodoHandlerTest {
 
     @AfterEach
     void tearDown() {
+        testingOut.reset();
         System.setOut(originalOut);
     }
 }

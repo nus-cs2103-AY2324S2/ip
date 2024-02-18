@@ -1,5 +1,7 @@
 package earl.util.stubs;
 
+import java.util.stream.Stream;
+
 import earl.tasks.Task;
 import earl.util.TaskList;
 
@@ -20,11 +22,15 @@ public class TaskListStub extends TaskList {
 
     @Override
     public void add(Task task) {
-        return;
     }
 
     @Override
     public Task delete(int idx) {
         return new TaskStub();
+    }
+
+    @Override
+    public Stream<String> getAsIndexedStream() {
+        return Stream.of("1. [T][ ] stub");
     }
 }

@@ -1,7 +1,6 @@
 package earl.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -13,11 +12,12 @@ import org.junit.jupiter.api.Test;
 import earl.util.stubs.TaskListStub;
 import earl.util.stubs.UiStub;
 
-class MarkHandlerTest {
+class FindHandlerTest {
 
     private static final PrintStream originalOut = System.out;
     private static final ByteArrayOutputStream testingOut =
             new ByteArrayOutputStream();
+    private static final String NEWLINE = System.lineSeparator();
 
     @BeforeEach
     void setUp() {
@@ -25,25 +25,21 @@ class MarkHandlerTest {
     }
 
     @Test
-    void handle_normalCommand_success() throws Exception {
-        Handler handler = HandlerType.MARK.createHandler("1");
+    void handle_noMatches_printNoMatchMessage() throws Exception {
+        Handler handler = HandlerType.FIND.createHandler("test");
         handler.handle(new TaskListStub(), new UiStub());
-        String newLine = System.lineSeparator();
-        assertEquals("Item(s) duly accomplished." + newLine
-                + "1.TaskStub, " + newLine,
+        assertEquals("No matches have been discerned." + NEWLINE,
                 testingOut.toString());
     }
 
     @Test
-    void handle_nonIntegerInput_exceptionThrown() {
-        try {
-            Handler handler = HandlerType.MARK.createHandler("a");
-            handler.handle(new TaskListStub(), new UiStub());
-            fail();
-        } catch (Exception e) {
-            assertEquals("The indices' format is fraught with invalidity."
-                    + " Example format: 1 4-7 9-10", e.getMessage());
-        }
+    void handle_match_printMatches() throws Exception {
+        Handler handler = HandlerType.FIND.createHandler("stub");
+        handler.handle(new TaskListStub(), new UiStub());
+        String expected = "1 task(s) of congruence have been uncovered."
+                + NEWLINE
+                + "1. [T][ ] stub" + NEWLINE;
+        assertEquals(expected, testingOut.toString());
     }
 
     @AfterEach
