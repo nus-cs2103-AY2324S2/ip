@@ -5,10 +5,10 @@ import duke.command.CommandResult;
 import duke.task.Task;
 
 public class DeleteCommand extends Command {
-    public static final String COMMAND_WORD = "mark";
+    public static final String COMMAND = "delete";
     private Task t;
 
-    private static final String MESSAGE_SUCCESS = "-------------------------------- \n" +
+    private static final String COMMAND_SUCCESS = "-------------------------------- \n" +
             "Okay, I will delete this task: \n" +
             "%s \n" +
             "You now have %d in the list. \n" +
@@ -19,7 +19,7 @@ public class DeleteCommand extends Command {
     }
 
     public CommandResult execute() {
-        return new CommandResult(String.format(MESSAGE_SUCCESS, t.toString(), -1));
+        return new CommandResult(String.format(COMMAND_SUCCESS, t.toString(), -1));
     }
 
 }

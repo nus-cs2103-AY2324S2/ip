@@ -113,7 +113,7 @@ public class Ui {
         System.out.println("-------------------------------- \n" +
                 "Oops, task " + (taskNo + 1) + " does not exist. Please try again! \n" +
                 "Here is your list for reference: \n");
-        TaskList.printTaskList();
+        System.out.println(TaskList.getTaskListInString());
         System.out.println("-------------------------------- \n");
     }
 

@@ -12,6 +12,6 @@ public class DeadlineCommand extends TaskCommand {
     }
     @Override
     public CommandResult execute() {
-        return new CommandResult(String.format(MESSAGE_SUCCESS, t.toString(), 100));
+        return new CommandResult(String.format(COMMAND_SUCCESS, t.toString(), 100));
     }
 }

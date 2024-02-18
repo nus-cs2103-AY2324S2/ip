@@ -26,7 +26,7 @@ public class TaskList extends ArrayList<Task> {
     public static void addTask(Task t) {
         tasks.add(t);
         Ui.printTaskAdded(t, tasks);
-        Storage.updateFile(tasks);
+        //Storage.updateFile(tasks);
     }
 
     public static void removeTask(int taskNo) {
@@ -69,7 +69,30 @@ public class TaskList extends ArrayList<Task> {
         return matchingTasks;
     }
 
-    public static void printTaskList() {
-        Ui.printTasks(tasks);
+    public static String getTaskListInString() {
+        String taskList = "";
+        // Ui.printTasks(tasks);
+        if (tasks == null || tasks.isEmpty()) {
+            taskList += "----You have no tasks yet.----";
+        }
+        else {
+            for (int i = 0; i < tasks.size(); i++) {
+                Task iTask = tasks.get(i);
+                taskList += (i + 1) + ". " + iTask.toString();
+            }
+        }
+        return taskList;
     }
+
+    public ArrayList<String> getTasksInStoreList() {
+        ArrayList<String> taskContent = new ArrayList<>();
+        for (Task t : tasks) {
+            taskContent.add(t.toStore());
+        }
+        return taskContent;
+    }
+    public int getNoOfTasks() {
+        return tasks.size();
+    }
+
 }

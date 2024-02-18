@@ -7,4 +7,9 @@ public class CommandResult {
     public CommandResult(String output) {
         this.output = output;
     }
+
+    @Override
+    public String toString() {
+        return output;
+    }
 }

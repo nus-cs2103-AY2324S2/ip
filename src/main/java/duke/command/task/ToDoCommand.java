@@ -1,6 +1,7 @@
 package duke.command.task;
 
 import duke.command.CommandResult;
+import duke.task.TaskList;
 import duke.task.ToDo;
 
 public class ToDoCommand extends TaskCommand {
@@ -14,11 +15,12 @@ public class ToDoCommand extends TaskCommand {
 //            "Now you have %d task(s) in the list. \n" +
 //            "-------------------------------- \n";
 
-    public ToDoCommand(ToDo t) {
-        this.t = t;
+    public ToDoCommand(String task) {
+        this.t = new ToDo(task, false);
     }
     @Override
     public CommandResult execute() {
-        return new CommandResult(String.format(MESSAGE_SUCCESS, t.toString(), 100));
+        storage.addTask(t);
+        return new CommandResult(String.format(COMMAND_SUCCESS, t.toString(), storage.getNumOfTasks()));
     }
 }

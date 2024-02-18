@@ -1,5 +1,7 @@
 package duke;
 
+import duke.command.Command;
+import duke.command.CommandResult;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.task.TaskList;
@@ -37,12 +39,12 @@ public class Duke extends Application {
     public Duke() {
         ui = new Ui();
         storage = new Storage();
-        try {
+//        try {
             tasks = new TaskList(Storage.retrieveList());
-        } catch (IOException e) {
-            ui.showLoadingError();
-            tasks = new TaskList();
-        }
+//        } catch (IOException e) {
+//            ui.showLoadingError();
+//            tasks = new TaskList();
+//        }
     }
 
     public void run() {
@@ -55,9 +57,24 @@ public class Duke extends Application {
         Ui.showExit();
     }
 
+    public void run_new() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            String userInput = ui.readCommand();
+            Command fullCommand = new Parser().parseCommand(userInput);
+            CommandResult output = executeCommand(fullCommand);
+        }
+        Ui.showExit();
+    }
+
+    public CommandResult executeCommand(Command command) {
+        command.configureStorageFile(storage);
+        return command.execute();
+    }
 
     public static void main(String[] args) {
-        new Duke().run();
+        new Duke().run_new();
     }
 
     @Override
@@ -168,7 +185,9 @@ public class Duke extends Application {
      * Replace this stub with your completed method.
      */
     private String getResponse(String input) {
-        return "Duke heard: " + input;
+        Command command = new Parser().parseCommand(input);
+        CommandResult commandResult = executeCommand(command);
+        return commandResult.toString();
     }
 
 }

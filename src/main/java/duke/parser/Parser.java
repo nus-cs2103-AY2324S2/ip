@@ -1,6 +1,9 @@
 package duke.parser;
 
+import duke.command.Command;
 import duke.command.CommandEnum;
+import duke.command.InvalidCommand;
+import duke.command.task.ToDoCommand;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -17,9 +20,12 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * A Parser class that deals with making sense of the user command
+ * @author se-edu
+ * Adapted from https://github.com/se-edu/addressbook-level2
  */
 public class Parser {
     public static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    public static final Pattern COMMAND_FORMAT = Pattern.compile("(?<command>\\S+)(?<args>.*)");
 
     /**
      * Processes a string input to decide which command to execute
@@ -39,8 +45,8 @@ public class Parser {
                         "Oops, wrong format! Please indicate task details (e.g. todo CS2103 Lab 1) \n" +
                         "-------------------------------- \n");
             } else if (command.equals(CommandEnum.LIST.COMMAND_NAME)) {
-                TaskList.printTaskList();
-            } else if (command.equals(CommandEnum.TERMINATE.COMMAND_NAME)) {
+                System.out.println(TaskList.getTaskListInString());
+            } else if (command.equals(CommandEnum.BYE.COMMAND_NAME)) {
                 return true;
             } else {
                 Ui.showErrorAndPrintCommands();
@@ -112,4 +118,35 @@ public class Parser {
         }
         return false;
     }
+
+    public Command parseCommand(String input) {
+        final Matcher matcher = COMMAND_FORMAT.matcher(input.trim());
+
+        if (!matcher.matches()) {
+            return new InvalidCommand(Command.INVALID_COMMAND);
+        }
+
+        String command = matcher.group("command");
+        String args = matcher.group("args");
+
+        switch (command) {
+            case ToDoCommand.COMMAND:
+                return parseToDoCommand(args);
+
+            default:
+                return new InvalidCommand(Command.INVALID_COMMAND);
+        }
+
+    }
+
+    public Command parseToDoCommand(String args) {
+        String task = args.trim();
+        if (task.isEmpty()) {
+            return new InvalidCommand(ToDoCommand.INVALID_COMMAND);
+        }
+
+        return new ToDoCommand(task);
+    }
+
+
 }
