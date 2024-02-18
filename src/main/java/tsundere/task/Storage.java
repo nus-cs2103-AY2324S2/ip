@@ -15,7 +15,7 @@ import tsundere.exception.GeneralException;
  */
 public class Storage {
 
-    private static final String FILEPATH = "./data/data.txt";
+    private static final String FILEPATH = "./data/tsunderedata.txt";
 
     /**
      * Initializes Storage.
