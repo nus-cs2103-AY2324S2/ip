@@ -1,4 +1,3 @@
-import SnomStorage.TaskStorage;
 import inputcommands.Command;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -6,13 +5,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import snomexceptions.InvalidCommandException;
-
-
 import snomparser.Parser;
+import snomstorage.TaskStorage;
 import snomtasklist.TaskList;
 import snomui.Ui;
 
@@ -79,22 +76,22 @@ public class Snom extends Application {
     @Override
     public void start(Stage stage) {
 
-        this.scrollPane = new ScrollPane();
-        this.dialogContainer = new VBox();
-        scrollPane.setContent(dialogContainer);
-
-        this.userInput = new TextField();
-        this.sendButton = new Button("Send");
-
-        AnchorPane mainLayout = new AnchorPane();
-        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-
-        Scene scene = new Scene(mainLayout);
-
-        stage.setScene(scene);
-        stage.show();
-
-        stage.setTitle("Snom");
+//        this.scrollPane = new ScrollPane();
+//        this.dialogContainer = new VBox();
+//        scrollPane.setContent(dialogContainer);
+//
+//        this.userInput = new TextField();
+//        this.sendButton = new Button("Send");
+//
+//        AnchorPane mainLayout = new AnchorPane();
+//        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+//
+//        Scene scene = new Scene(mainLayout);
+//
+//        stage.setScene(scene);
+//        stage.show();
+//
+//        stage.setTitle("Snom");
 //        stage.setResizable(false);
 //        stage.setMinHeight(600.0);
 //        stage.setMinWidth(400.0);

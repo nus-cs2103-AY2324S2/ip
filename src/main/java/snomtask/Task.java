@@ -1,5 +1,8 @@
 package snomtask;
 
+import snomexceptions.InvalidCommandTaskDoneException;
+import snomexceptions.InvalidCommandTaskNotDoneException;
+
 /**
  * Task implments all the task that a user
  * can enter.
@@ -8,16 +11,16 @@ public abstract class Task {
 
     private String name;
 
-    private boolean done;
+    private boolean isDone;
 
     public Task(String name) {
         this.name = name;
-        this.done = false;
+        this.isDone = false;
     }
 
     @Override
     public String toString() {
-        if (done) {
+        if (isDone) {
             return "[X]" + this.name;
         } else {
             return "[ ]" + this.name;
@@ -28,30 +31,23 @@ public abstract class Task {
     /**
      * Changes the status of a task from not done to done
      */
-    public void doTask() {
-        if (!done) {
-            this.done = true;
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println(this.toString());
+    public void doTask() throws InvalidCommandTaskDoneException {
+        if (!isDone) {
+            this.isDone = true;
         } else {
-            System.out.println("This task is already done");
+            throw new InvalidCommandTaskDoneException();
         }
-
     }
 
     /**
      * Changes the satus of a task from done to not done
      */
-    public void undoTask() {
-        if (done) {
-            this.done = false;
-            System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println(this.toString());
+    public void undoTask() throws InvalidCommandTaskNotDoneException {
+        if (isDone) {
+            this.isDone = false;
         } else {
-            System.out.println("This task has not been done");
-
+            throw new InvalidCommandTaskNotDoneException();
         }
-
     }
 
     /**

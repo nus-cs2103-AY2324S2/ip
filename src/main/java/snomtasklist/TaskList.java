@@ -2,7 +2,10 @@ package snomtasklist;
 
 import java.util.ArrayList;
 
+import snomexceptions.InvalidCommandException;
 import snomexceptions.InvalidCommandIndexException;
+import snomexceptions.InvalidCommandTaskDoneException;
+import snomexceptions.InvalidCommandTaskNotDoneException;
 import snomtask.Task;
 
 public class TaskList {
@@ -50,19 +53,16 @@ public class TaskList {
      *         of range of the tasklist.
      * @return a String representing whether the task is successfully added.
      */
-    public String markTaskAtIndex(int pos) throws InvalidCommandIndexException {
-
-
-        if (counter < pos || pos <= 0) {
-            throw new InvalidCommandIndexException();
-        } else {
-            pos -= 1;
-
-            this.taskList.get(pos).doTask();
-            return "Succesfully marked task";
-
+    public String markTaskAtIndex(int pos) throws InvalidCommandException {
+        try {
+            Task t = getTaskAtIndex(pos);
+            t.doTask();
+            return "Successfully marked task";
+        } catch (InvalidCommandIndexException e) {
+            throw e;
+        } catch (InvalidCommandTaskDoneException e) {
+            throw e;
         }
-
     }
 
 
@@ -75,15 +75,15 @@ public class TaskList {
      * @return a string representing if the task is successfully unmarked.
      */
 
-    public String unmarkTaskAtIndex(int pos) throws InvalidCommandIndexException {
-
-
-        if (counter < pos || pos <= 0) {
-            throw new InvalidCommandIndexException();
-        } else {
-            pos -= 1;
-            this.taskList.get(pos).undoTask();
-            return "Succesfully unmarked task";
+    public String unmarkTaskAtIndex(int pos) throws InvalidCommandException {
+        try {
+            Task t = getTaskAtIndex(pos);
+            t.undoTask();
+            return "Successfully unmarked task";
+        } catch (InvalidCommandIndexException e) {
+            throw e;
+        } catch (InvalidCommandTaskNotDoneException e) {
+            throw e;
         }
     }
 
@@ -107,7 +107,7 @@ public class TaskList {
             pos -= 1;
             this.counter -= 1;
             this.taskList.remove(pos);
-            return "Succesfully removed task";
+            return "Successfully removed task";
 
         }
 
