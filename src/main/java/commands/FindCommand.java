@@ -32,6 +32,6 @@ public class FindCommand extends Command {
         if (matchedTasks.isEmpty()) {
             return NO_TASK_FOUND_MESSAGE;
         }
-        return String.format(TASK_FOUND_MESSAGE, tasks.numTasks()) + "\n" + matchedTasks;
+        return String.format(TASK_FOUND_MESSAGE, matchedTasks.numTasks()) + "\n" + matchedTasks;
     }
 }

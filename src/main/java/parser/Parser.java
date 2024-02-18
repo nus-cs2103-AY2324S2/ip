@@ -8,6 +8,7 @@ import commands.DeleteCommand;
 import commands.EventCommand;
 import commands.ExitCommand;
 import commands.FindCommand;
+import commands.HelpCommand;
 import commands.ListCommand;
 import commands.MarkCommand;
 import commands.RemindCommand;
@@ -22,8 +23,8 @@ import commands.UnmarkCommand;
  */
 public abstract class Parser {
     /**
-     * The parser takes in the user input and splits it into command and message.
-     * It uses a switch statement to determine the specific command type to create.
+     * Takes in the user input and splits it into command and message.
+     * Uses a switch statement to determine the specific command type to create.
      *
      * @param userInput User input string.
      * @return Returns the relevant Command based on the user input.
@@ -54,7 +55,7 @@ public abstract class Parser {
         case RemindCommand.COMMAND_WORD:
             return new RemindCommand();
         default:
-            return new ExitCommand();
+            return new HelpCommand();
         }
     }
 }

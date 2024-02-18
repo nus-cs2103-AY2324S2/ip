@@ -42,10 +42,12 @@ public class Storage {
             if (task instanceof Todo) {
                 textToAppend = task.getSymbol() + "/" + task.getStatus() + "/"
                         + task.getDescription() + "\n";
-            } else if (task instanceof Deadline) {
+            }
+            if (task instanceof Deadline) {
                 textToAppend = task.getSymbol() + "/" + task.getStatus() + "/" + task.getDescription()
                         + "/" + task.getBy() + "\n";
-            } else if (task instanceof Event) {
+            }
+            if (task instanceof Event) {
                 textToAppend = task.getSymbol() + "/" + task.getStatus()
                         + "/" + task.getDescription() + "/" + task.getStart() + "/" + task.getEnd() + "\n";
             }

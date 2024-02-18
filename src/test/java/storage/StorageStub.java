@@ -9,8 +9,8 @@ import task.TaskList;
  */
 public class StorageStub extends Storage {
 
-    private boolean simulateIoException;
-    private boolean appendToFileCalled;
+    private boolean isIoExceptionCalled;
+    private boolean isAppendToFileCalled;
     private TaskList taskListToLoad;
 
     /**
@@ -32,13 +32,13 @@ public class StorageStub extends Storage {
     public StorageStub(TaskList taskListToLoad, boolean simulateIoException) {
         super("stubFilePath");
         this.taskListToLoad = taskListToLoad;
-        this.simulateIoException = simulateIoException;
+        this.isIoExceptionCalled = simulateIoException;
     }
 
     @Override
     public void appendToFile(TaskList tasks) throws IOException {
-        this.appendToFileCalled = true;
-        if (simulateIoException) {
+        this.isAppendToFileCalled = true;
+        if (isIoExceptionCalled) {
             throw new IOException("Simulated IOException");
         }
         // For simplicity, do nothing in the stub implementation
@@ -50,6 +50,6 @@ public class StorageStub extends Storage {
     }
 
     public boolean wasAppendToFileCalled() {
-        return appendToFileCalled;
+        return isAppendToFileCalled;
     }
 }

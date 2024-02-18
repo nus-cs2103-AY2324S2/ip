@@ -48,27 +48,24 @@ public class EventCommand extends Command {
         String[] args = message.split("/from");
         if (args.length == 1 || args.length > 2) {
             throw new EventFormatException();
-        } else {
-            String desc = args[0].trim();
-            String[] duration = args[1].split("/to");
-            if (duration.length == 1 || duration.length > 2) {
-                throw new EventFormatException();
-            } else {
-                String start = duration[0].trim();
-                String end = duration[1].trim();
+        }
+        String desc = args[0].trim();
+        String[] duration = args[1].split("/to");
+        if (duration.length == 1 || duration.length > 2) {
+            throw new EventFormatException();
+        }
+        String start = duration[0].trim();
+        String end = duration[1].trim();
 
-                try {
-                    Task event = new Event(desc, LocalDate.parse(start), LocalDate.parse(end));
-                    tasks.addTasks(event);
-                    storage.appendToFile(tasks);
-                    return String.format(SUCCESS_MESSAGE, event, tasks.numTasks());
-                } catch (IOException e) {
-                    return e.getMessage();
-                } catch (DateTimeParseException e) {
-                    throw new EventFormatException();
-                }
-
-            }
+        try {
+            Task event = new Event(desc, LocalDate.parse(start), LocalDate.parse(end));
+            tasks.addTasks(event);
+            storage.appendToFile(tasks);
+            return String.format(SUCCESS_MESSAGE, event, tasks.numTasks());
+        } catch (IOException e) {
+            return e.getMessage();
+        } catch (DateTimeParseException e) {
+            throw new EventFormatException();
         }
     }
 }
