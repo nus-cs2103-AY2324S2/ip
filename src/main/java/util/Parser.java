@@ -64,6 +64,7 @@ public class Parser {
      * @throws DateTimeParseException Check for invalid date format input.
      */
     public LocalDate parseDeadlineDate(String userInput) throws DateTimeParseException {
+        assert userInput.length() > 9 : "User input must not be blank.";
         int idx = userInput.indexOf("/by");
         String date = userInput.substring(idx + 4);
         return LocalDate.parse(date, DateTimeFormatter.ofPattern("d/MM/yyyy"));

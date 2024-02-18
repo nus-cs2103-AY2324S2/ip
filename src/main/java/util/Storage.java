@@ -45,6 +45,7 @@ public class Storage {
             // Update the task list with tasks.
             while (s.hasNext()) {
                 String str = s.nextLine();
+                assert !str.isEmpty() : "str should not be empty";
                 char type = str.charAt(4);
                 boolean isDone = str.charAt(1) == 'x';
                 String task = str.substring(7);

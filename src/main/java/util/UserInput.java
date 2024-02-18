@@ -27,11 +27,11 @@ public class UserInput {
      */
     public String processInput(Ui ui, TaskList tasks) {
         try {
-            String firstWord = userInput.indexOf(' ') < 0
+            String command = userInput.indexOf(' ') < 0
                     ? userInput
                     : userInput.substring(0, userInput.indexOf(' '));
 
-            switch (firstWord) {
+            switch (command) {
             case "help":
                 return ui.printHelp();
             case "list":

@@ -166,13 +166,14 @@ public class Ui {
      * @throws InvalidTaskNameException Check for invalid input format.
      */
     public String printTodo(String userInput, TaskList tasks) throws InvalidTaskNameException {
-        StringBuilder todoTask = new StringBuilder(line + "\n");
+        StringBuilder printTask = new StringBuilder(line + "\n");
 
         String description = parser.parseTodo(userInput);
         Todo task = new Todo(description);
 
-        todoTask.append(tasks.addTask(task)).append("\n").append(line);
-        return todoTask.toString();
+        printTask.append(tasks.addTask(task)).append("\n").append(line);
+        assert tasks.getTaskList().contains(task) : "Task should be in the list.";
+        return printTask.toString();
     }
 
     /**
@@ -184,18 +185,19 @@ public class Ui {
      * @throws InvalidTaskNameException Check for invalid input format.
      */
     public String printDeadline(String userInput, TaskList tasks) throws InvalidTaskNameException {
-        StringBuilder deadlineTask = new StringBuilder(line + "\n");
+        StringBuilder printTask = new StringBuilder(line + "\n");
 
         try {
             String name = parser.parseDeadlineName(userInput);
             LocalDate deadline = parser.parseDeadlineDate(userInput);
             Deadline task = new Deadline(name, deadline);
-            deadlineTask.append(tasks.addTask(task)).append("\n").append(line);
+            printTask.append(tasks.addTask(task)).append("\n").append(line);
+            assert tasks.getTaskList().contains(task) : "Task should be in the list.";
         } catch (DateTimeParseException e) {
-            deadlineTask.append("Oink! Invalid date format! Please follow:\n"
+            printTask.append("Oink! Invalid date format! Please follow:\n"
                     + ">> dd/MM/yyyy\n" + line);
         }
-        return deadlineTask.toString();
+        return printTask.toString();
     }
 
     /**
@@ -207,13 +209,14 @@ public class Ui {
      * @throws InvalidTaskNameException Check for invalid input format.
      */
     public String printEvent(String userInput, TaskList tasks) throws InvalidTaskNameException {
-        StringBuilder eventTask = new StringBuilder(line + "\n");
+        StringBuilder printTask = new StringBuilder(line + "\n");
 
         String[] description = parser.parseEvent(userInput);
         Event task = new Event(description);
 
-        eventTask.append(tasks.addTask(task)).append("\n").append(line);
-        return eventTask.toString();
+        printTask.append(tasks.addTask(task)).append("\n").append(line);
+        assert tasks.getTaskList().contains(task) : "Task should be in the list.";
+        return printTask.toString();
     }
 
     /**
@@ -225,21 +228,21 @@ public class Ui {
      * @throws ChrisPBaconException Check for invalid input format.
      */
     public String printFind(String userInput, TaskList tasks) throws ChrisPBaconException {
-        StringBuilder findTask = new StringBuilder(line + "\n");
+        StringBuilder printTasks = new StringBuilder(line + "\n");
 
         TaskList matchingTasks = parser.parseFind(userInput, tasks);
         if (matchingTasks.isEmpty()) {
             // If the list is empty.
-            findTask.append("Oink! There are no matching tasks!\n");
+            printTasks.append("Oink! There are no matching tasks!\n");
         } else {
             // If the list is not empty.
-            findTask.append("Oink! Here are the matching tasks in the list:\n");
+            printTasks.append("Oink! Here are the matching tasks in the list:\n");
             for (int i = 1; i <= matchingTasks.getSize(); i++) {
-                findTask.append(i).append(". ")
+                printTasks.append(i).append(". ")
                         .append(matchingTasks.getTask(i - 1)).append("\n");
             }
         }
-        findTask.append(line);
-        return findTask.toString();
+        printTasks.append(line);
+        return printTasks.toString();
     }
 }
