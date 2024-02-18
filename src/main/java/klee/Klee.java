@@ -30,11 +30,9 @@ public class Klee extends Application {
 
     @Override
     public void start(Stage stage) {
-        //Step 1. Setting up required components
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
-
         userInput = new TextField();
         sendButton = new Button("Send");
 
@@ -46,7 +44,6 @@ public class Klee extends Application {
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
 
-        //Step 2. Formatting the window to look as expected
         stage.setTitle("Klee");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
@@ -57,15 +54,11 @@ public class Klee extends Application {
         scrollPane.setPrefSize(585, 535);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
 
-        //You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
         userInput.setPrefWidth(525.0);
-
         sendButton.setPrefWidth(55.0);
 
         sendButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -89,16 +82,12 @@ public class Klee extends Application {
         });
 
         AnchorPane.setTopAnchor(scrollPane, 1.0);
-
         AnchorPane.setBottomAnchor(sendButton, 1.0);
         AnchorPane.setRightAnchor(sendButton, 1.0);
-
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
-        //More code to be added here later
         scene = new Scene(mainLayout);
-
         stage.setScene(scene);
         stage.show();
 

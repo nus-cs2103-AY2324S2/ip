@@ -23,7 +23,7 @@ public class Parser {
     public Parser() {}
 
     /**
-     * Function to handle the input case 'mark'
+     * Handle the input case 'mark'
      *
      * @param inputComponents
      * @return The Command Mark if the input is valid
@@ -49,7 +49,7 @@ public class Parser {
     }
 
     /**
-     * Function to handle the input case 'unmark'
+     * Handle the input case 'unmark'
      *
      * @param inputComponents
      * @return The Command Unmark if the input is valid
@@ -76,7 +76,7 @@ public class Parser {
     }
 
     /**
-     * Function to handle the input case 'todo'
+     * Handle the input case 'todo'
      *
      * @param input full input by user
      * @return The Command ToDo if the input is valid
@@ -92,7 +92,7 @@ public class Parser {
     }
 
     /**
-     * Function to handle the input case 'deadline'
+     * Handle the input case 'deadline'
      *
      * @param input full input by user
      * @return The Command Deadline if the input is valid
@@ -110,7 +110,7 @@ public class Parser {
     }
 
     /**
-     * Function to handle the input case 'event'
+     * Handle the input case 'event'
      *
      * @param input full input by user
      * @return The Command Event if the input is valid
@@ -130,7 +130,7 @@ public class Parser {
     }
 
     /**
-     * Function to handle the input case 'find'
+     * Handle the input case 'find'
      *
      * @param input full input by user
      * @return The Command Find if the input is valid
@@ -146,7 +146,7 @@ public class Parser {
     }
 
     /**
-     * Function to handle the input case 'delete'
+     * Handle the input case 'delete'
      *
      * @param inputComponents the input split by blank space
      * @return The Command Delete if the input is valid
@@ -173,6 +173,42 @@ public class Parser {
     }
 
     /**
+     * Parse the String date into [year, month, day].
+     * If the syntax of date cannot be understood throw KleeException.
+     *
+     * @param dateComponent
+     * @return int[] representing [year, month, day].
+     * @throws KleeException
+     */
+    public static int[] parseDate(String dateComponent) throws KleeException {
+        int year = 0;
+        int month = 0;
+        int day = 0;
+        String[] dateComponents = dateComponent.split("-");
+        if (dateComponents.length == 3) {
+            year = Integer.parseInt(dateComponents[0]);
+            month = Integer.parseInt(dateComponents[1]);
+            day = Integer.parseInt(dateComponents[2]);
+        } else if (dateComponents.length == 1) {
+            dateComponents = dateComponent.split("/");
+            if (dateComponents.length == 3) {
+                year = Integer.parseInt(dateComponents[2]);
+                month = Integer.parseInt(dateComponents[1]);
+                day = Integer.parseInt(dateComponents[0]);
+            } else {
+                throw new KleeException("Dates should only be written like 27/1/2024 or 2024-1-27");
+            }
+        } else {
+            throw new KleeException("Dates should only be written like 27/1/2024 or 2024-1-27");
+        }
+        int[] returnVariable = new int[3];
+        returnVariable[0] = year;
+        returnVariable[1] = month;
+        returnVariable[2] = day;
+        return returnVariable;
+    }
+
+    /**
      * Parse the String dateTime into a LocalDateTime instance.
      * If the syntax of dateTime cannot be understood throw KleeException.
      *
@@ -182,9 +218,6 @@ public class Parser {
      */
     public static LocalDateTime parseDateTime(String dateTime) throws KleeException {
         String[] dateTimeComponents = dateTime.split(" ");
-        int year = 0;
-        int month = 0;
-        int day = 0;
         int hour = 0;
         int minute = 0;
         boolean hasTime = false;
@@ -198,31 +231,14 @@ public class Parser {
             hasTime = true;
         }
 
-        // Test which syntax of date was used
-        String[] dateComponents = dateTimeComponents[0].split("-");
-        if (dateComponents.length == 3) {
-            year = Integer.parseInt(dateComponents[0]);
-            month = Integer.parseInt(dateComponents[1]);
-            day = Integer.parseInt(dateComponents[2]);
-        } else if (dateComponents.length == 1) {
-            dateComponents = dateTimeComponents[0].split("/");
-            if (dateComponents.length == 3) {
-                year = Integer.parseInt(dateComponents[2]);
-                month = Integer.parseInt(dateComponents[1]);
-                day = Integer.parseInt(dateComponents[0]);
-            } else {
-                throw new KleeException("Dates should only be written like 27/1/2024 or 2024-1-27");
-            }
-        } else {
-            throw new KleeException("Dates should only be written like 27/1/2024 or 2024-1-27");
-        }
+        int[] dateComponents = parseDate(dateTimeComponents[0]);
 
-        LocalDateTime returnVariable = LocalDateTime.of(year, month, day, hour, minute);
+        LocalDateTime returnVariable = LocalDateTime.of(dateComponents[0], dateComponents[1], dateComponents[2], hour, minute);
         return returnVariable;
     }
 
     /**
-     * Given input String try to derive which command it is and return an instance of Command.
+     * Return an instance of Command given input String.
      * If input is in the wrong syntax throw KleeException.
      *
      * @param input
