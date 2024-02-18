@@ -25,6 +25,7 @@ public class Parser {
         case "bye":
         case "list":
         case "getcommands":
+        case "listbypriority":
             return miscCommand(parsedResult);
         case "find":
             return findCommand(parsedResult, input);
@@ -38,6 +39,8 @@ public class Parser {
             return deadlineCommand(parsedResult, input);
         case "event":
             return eventCommand(parsedResult, input);
+        case "prioritise":
+            return prioritiseCommand(parsedResult, splitInput, command);
         default:
             return unknownCommand();
         }
@@ -91,6 +94,33 @@ public class Parser {
             return toParse;
         } catch (IndexOutOfBoundsException e) {
             throw new YpxmmException("Brother, key in " + command + " <space> then a valid number");
+        } catch (NumberFormatException n) {
+            throw new YpxmmException("You tell me now what task am I supposed to "
+                    + command + " if you don't provide me with a number?");
+        }
+    }
+
+    /**
+     * Parses the input for the "prioritise" command.
+     *
+     * @param toParse the ArrayList to which the parsed result will be added
+     * @param splitInput the input string split into an array
+     * @param command the command string
+     * @return an ArrayList containing the parsed command arguments
+     * @throws YpxmmException if an error occurs during parsing
+     */
+    private static ArrayList<String> prioritiseCommand(ArrayList<String> toParse,
+                                                             String[] splitInput,
+                                                             String command) throws YpxmmException {
+        try {
+            //way to check if splitInput[1] is an integer. throws exception if it is not
+            int index = Integer.parseInt(splitInput[1]);
+            toParse.add(splitInput[1]);
+            toParse.add(splitInput[2]);
+            return toParse;
+        } catch (IndexOutOfBoundsException e) {
+            throw new YpxmmException("Brother, key in " + command + " <space>, a valid number <space>"
+                    + " then your priority level (high, medium or low).");
         } catch (NumberFormatException n) {
             throw new YpxmmException("You tell me now what task am I supposed to "
                     + command + " if you don't provide me with a number?");

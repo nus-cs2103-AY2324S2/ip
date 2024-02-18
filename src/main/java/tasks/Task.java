@@ -1,12 +1,16 @@
 package tasks;
 
+import exceptions.YpxmmException;
+
 /**
  * Represents a generic task.
  */
-public class Task {
+public class Task implements Comparable<Task> {
 
     protected String name;
     protected boolean isCompleted;
+    protected Priority priority;
+    protected int priorityLevel;
 
     /**
      * Constructs a Task object with the specified name.
@@ -16,6 +20,8 @@ public class Task {
     public Task(String name) {
         this.name = name;
         this.isCompleted = false;
+        this.priority = Priority.MEDIUM;
+        this.priorityLevel = 2;
     }
 
     /**
@@ -48,6 +54,22 @@ public class Task {
         return (isCompleted ? "X" : " "); // mark done task with X
     }
 
+    public void setPriority(String newPriority) throws YpxmmException {
+        newPriority = newPriority.toUpperCase();
+        if (newPriority.equals("LOW")) {
+            priority = Priority.LOW;
+            this.priorityLevel = 1;
+        } else if (newPriority.equals("MEDIUM")) {
+            priority = Priority.MEDIUM;
+            this.priorityLevel = 2;
+        } else if (newPriority.equals("HIGH")) {
+            priority = Priority.HIGH;
+            this.priorityLevel = 3;
+        } else {
+            throw new YpxmmException("Priority only have low, medium or high la, can choose properly?");
+        }
+    }
+
     /**
      * Returns the name of the task.
      *
@@ -63,7 +85,7 @@ public class Task {
      * @return a string containing the status and name of the task
      */
     public String toWrite() {
-        return (isCompleted ? "1" : "0") + " | " + name;
+        return (isCompleted ? "1" : "0") + " | " + priority.priorityToString() + " | " + name;
     }
 
     /**
@@ -74,6 +96,11 @@ public class Task {
     @Override
     public String toString() {
         assert (getStatusIcon().equals("X") || getStatusIcon().equals(" ")) : "Invalid status icon!";
-        return "[" + getStatusIcon() + "] " + name;
+        return "[" + getStatusIcon() + "]" + "[" + priority.priorityToString() + "] " + name;
+    }
+
+    @Override
+    public int compareTo(Task other) {
+        return other.priorityLevel - priorityLevel;
     }
 }

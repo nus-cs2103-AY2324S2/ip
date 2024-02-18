@@ -2,6 +2,8 @@ package utilities;
 
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.PriorityQueue;
 
 import exceptions.YpxmmException;
 import tasks.Task;
@@ -42,6 +44,7 @@ public class TaskList {
                             + "dd-mm-yyyy HHmm (24-08-2024 1800)");
                 }
             }
+            Collections.sort(tasks);
         } catch (DateTimeParseException e) {
             throw new YpxmmException("Brother, follow format can or not? Enter dates in"
                     + "dd-mm-yyyy HHmm (24-08-2024 1800)");
@@ -67,6 +70,7 @@ public class TaskList {
         try {
             try {
                 tasks.remove(index - 1);
+                Collections.sort(tasks);
             } catch (IndexOutOfBoundsException e) {
                 throw new YpxmmException("Eh u seh isit? Now your list got "
                         + (tasks.isEmpty() ? "no tasks to delete." : tasks.size()

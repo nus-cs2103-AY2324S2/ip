@@ -30,23 +30,6 @@ public class Storage {
     }
 
     /**
-     * Appends text to the storage file.
-     *
-     * @param textToAppend the text to append to the file
-     * @throws YpxmmException if an I/O error occurs
-     */
-    public void appendToFile(String textToAppend) throws YpxmmException {
-        try {
-            File file = new File(filePath);
-            FileWriter fw = new FileWriter(file, true); // create a FileWriter in append mode
-            fw.write(textToAppend + "\n");
-            fw.close();
-        } catch (IOException e) {
-            throw new YpxmmException("IOException");
-        }
-    }
-
-    /**
      * Rewrites the entire storage file based on the given task list.
      *
      * @param tasklist the task list to rewrite the file with
@@ -84,23 +67,26 @@ public class Storage {
             while (s.hasNext()) {
                 String[] line = s.nextLine().split(" \\| ");
                 if (line[0].equals("T")) {
-                    Task task = new ToDo(line[2]);
+                    Task task = new ToDo(line[3]);
                     if (line[1].equals("1")) {
                         task.setCompleted();
                     }
+                    task.setPriority(line[2]);
                     tasks.add(task);
                 } else if (line[0].equals("D")) {
-                    Task task = new Deadline(line[2], line[3]);
+                    Task task = new Deadline(line[3], line[4]);
                     if (line[1].equals("1")) {
                         task.setCompleted();
                     }
+                    task.setPriority(line[2]);
                     tasks.add(task);
                 } else if (line[0].equals("E")) {
-                    String[] timing = line[3].split(" to ");
-                    Task task = new Event(line[2], timing[0], timing[1]);
+                    String[] timing = line[4].split(" to ");
+                    Task task = new Event(line[3], timing[0], timing[1]);
                     if (line[1].equals("1")) {
                         task.setCompleted();
                     }
+                    task.setPriority(line[2]);
                     tasks.add(task);
                 } else {
                     //should not reach here
