@@ -55,7 +55,7 @@ public class TaskList implements Iterable<Task> {
      */
     public Task addToDo(String parameters) throws ChatBotParameterException {
         String[] parametersArr = Parser.parseToDo(parameters);
-        assert parameters.length() == 1: "params length for todo must always be 1";
+        assert parametersArr.length == 1: "params length for todo must always be 1";
         return this.addToDo(parametersArr[0], false);
     }
 
@@ -83,7 +83,7 @@ public class TaskList implements Iterable<Task> {
      */
     public Task addDeadline(String parameters) throws ChatBotParameterException {
         String[] parametersArr = Parser.parseDeadline(parameters);
-        assert parameters.length() == 2: "params length for deadline must always be 2";
+        assert parametersArr.length == 2: "params length for deadline must always be 2";
         return this.addDeadline(parametersArr[0], parametersArr[1], false);
 
     }
@@ -96,7 +96,7 @@ public class TaskList implements Iterable<Task> {
      */
     public Task addEvent(String parameters) throws ChatBotParameterException {
         String[] parametersArr = Parser.parseEvent(parameters);
-        assert parameters.length() == 3: "params length for event must always be 3";
+        assert parametersArr.length == 3: "params length for event must always be 3";
         return this.addEvent(parametersArr[0], parametersArr[1], parametersArr[2], false);
     }
 
@@ -207,5 +207,13 @@ public class TaskList implements Iterable<Task> {
 
         // Filter using Stream, and match String that only has the exact substring given
         return this.tasks.stream().filter(task -> task.hasKeyword(keyword)).collect(Collectors.toList());
+    }
+
+    public void clearTaskList() {
+        this.tasks.clear();
+    }
+
+    public void updateTaskList(TaskList anotherTaskList) {
+        this.tasks = anotherTaskList.tasks;
     }
 }
