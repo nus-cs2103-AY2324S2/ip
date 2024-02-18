@@ -1,8 +1,9 @@
 package taskList;
 
-import tasks.Task;
-
 import java.util.ArrayList;
+
+import exceptions.WeiException;
+import tasks.Task;
 
 /**
  * Represents a collection of tasks.
@@ -11,7 +12,7 @@ public class TaskList {
     private ArrayList<Task> tasks;
 
     /**
-     * Creates a empty TaskList.
+     * Creates an empty TaskList.
      */
     public TaskList() {
         tasks = new ArrayList<>();
@@ -69,8 +70,12 @@ public class TaskList {
      *
      * @param order order of the task in the TaskList.
      * @return text version of the task.
+     * @throws WeiException if order of task is incorrect.
      */
-    public String mark(int order) {
+    public String mark(int order) throws WeiException {
+        if (order >= tasks.size()) {
+            throw new WeiException("task doesn't exist");
+        }
         Task task = tasks.get(order);
         task.setStatus(true);
         return task.stringify();
@@ -81,8 +86,12 @@ public class TaskList {
      *
      * @param order order of the task in the TaskList.
      * @return text version of the task.
+     * @throws WeiException if order of task is incorrect.
      */
-    public String unmark(int order) {
+    public String unmark(int order) throws WeiException {
+        if (order >= tasks.size()) {
+            throw new WeiException("task doesn't exist");
+        }
         Task task = tasks.get(order);
         task.setStatus(false);
         return task.stringify();
@@ -93,8 +102,12 @@ public class TaskList {
      *
      * @param order order of the task in the TaskList.
      * @return text version of the task.
+     * @throws WeiException if order of task is incorrect.
      */
-    public String delete(int order) {
+    public String delete(int order) throws WeiException {
+        if (order >= tasks.size()) {
+            throw new WeiException("task doesn't exist");
+        }
         Task task = tasks.get(order);
         tasks.remove(order - 1);
         return task.stringify();

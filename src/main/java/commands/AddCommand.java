@@ -39,6 +39,8 @@ public class AddCommand extends Command {
             taskAdded = addDeadline(tasks, input);
         } else if (input.startsWith("event")) {
             taskAdded = addEvent(tasks, input);
+        } else {
+            assert false : "not add task command";
         }
         int size = tasks.getSize();
         return ui.showAddMessage(taskAdded) + ui.showNumberOfRemainingTasks(size);

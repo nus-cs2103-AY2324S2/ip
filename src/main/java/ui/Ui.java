@@ -75,18 +75,10 @@ public class Ui {
     }
 
     /**
-     * Prints out the error message being raised.
-     *
-     * @param errorMessage Message of exception raised.
-     */
-    public String showError(String errorMessage) {
-        return errorMessage;
-    }
-
-    /**
-     * Show the result that matches the searched keyword.
+     * Shows the result that matches the searched keyword.
      *
      * @param result Tasks in the result.
+     * @return description plus the result.
      */
     public String showSearchResult(String result) {
         return "Here are the matching tasks in your list:\n" + result;
