@@ -11,6 +11,11 @@ import sylvia.task.TaskList;
 public abstract class AddTaskCommand extends Command implements Undoable {
     private Task task;
 
+    /**
+     * Constructs a new add task command.
+     *
+     * @param body The body of the command.
+     */
     public AddTaskCommand(String body) {
         super(body);
     }

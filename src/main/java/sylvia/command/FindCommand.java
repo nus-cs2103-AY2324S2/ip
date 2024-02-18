@@ -12,6 +12,15 @@ public class FindCommand extends Command {
             + "Finds tasks in the task list that contain the keyword.\n" + "The keyword cannot be empty.\n"
             + "Example: find book\n" + "Aliases: f";
 
+    /**
+     * Gets the manual for the find command.
+     *
+     * @return The manual for the find command.
+     */
+    public static String getManual() {
+        return MANUAL;
+    }
+
     public FindCommand(String body) {
         super(body);
     }

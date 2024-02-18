@@ -17,6 +17,15 @@ public class EventCommand extends AddTaskCommand {
     private String endTime;
 
     /**
+     * Gets the manual for the event command.
+     *
+     * @return The manual for the event command.
+     */
+    public static String getManual() {
+        return MANUAL;
+    }
+
+    /**
      * Constructs a new event command.
      *
      * @param body The body of the command.

@@ -55,6 +55,9 @@ public class CommandParser {
         case "rd":
         case "redo":
             return new RedoCommand(body);
+        case "h":
+        case "help":
+            return new HelpCommand(body);
         default:
             throw new UnknownCommandException("Unknown command: " + name + " " + body,
                     "I'm sorry, but I don't know what that means :<");

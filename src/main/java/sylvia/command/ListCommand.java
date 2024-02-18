@@ -9,6 +9,18 @@ import sylvia.task.TaskList;
 public class ListCommand extends Command {
     public static final String MANUAL = "Usage: list\n" + "Lists all tasks in the task list.\n" + "Aliases: ls";
 
+    /**
+     * Gets the manual for the list command.
+     *
+     * @return The manual for the list command.
+     */
+    public static String getManual() {
+        return MANUAL;
+    }
+
+    /**
+     * Constructs a new list command.
+     */
     public ListCommand() {
         super("");
     }

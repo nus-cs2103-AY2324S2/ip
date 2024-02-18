@@ -15,6 +15,15 @@ public class DeleteCommand extends Command implements Undoable {
     private Task task;
 
     /**
+     * Gets the manual for the delete command.
+     *
+     * @return The manual for the delete command.
+     */
+    public static String getManual() {
+        return MANUAL;
+    }
+
+    /**
      * Creates a new delete command.
      *
      * @param body The body of the command.

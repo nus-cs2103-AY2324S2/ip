@@ -13,6 +13,15 @@ public class MarkCommand extends Command {
     private int index;
 
     /**
+     * Gets the manual for the mark command.
+     *
+     * @return The manual for the mark command.
+     */
+    public static String getManual() {
+        return MANUAL;
+    }
+
+    /**
      * Creates a new mark command.
      *
      * @param body The body of the command.

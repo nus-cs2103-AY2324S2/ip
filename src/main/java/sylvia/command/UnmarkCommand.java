@@ -13,6 +13,15 @@ public class UnmarkCommand extends Command {
     private int index;
 
     /**
+     * Gets the manual for the unmark command.
+     *
+     * @return The manual for the unmark command.
+     */
+    public static String getManual() {
+        return MANUAL;
+    }
+
+    /**
      * Creates a new command to mark a task as not done.
      *
      * @param body The body of the command.

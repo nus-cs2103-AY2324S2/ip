@@ -12,6 +12,15 @@ public class RedoCommand extends Command {
             + "Aliases: rd";
 
     /**
+     * Gets the manual for the redo command.
+     *
+     * @return The manual for the redo command.
+     */
+    public static String getManual() {
+        return MANUAL;
+    }
+
+    /**
      * Creates a new redo command.
      *
      * @param body The body of the command.

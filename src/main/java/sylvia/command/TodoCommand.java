@@ -11,6 +11,15 @@ public class TodoCommand extends AddTaskCommand {
     public static final String MANUAL = "Usage: todo <description>\n" + "Adds a simple todo to the task list.\n"
             + "The description cannot be empty.\n" + "Example: todo read book\n" + "Aliases: td";
 
+    /**
+     * Gets the manual for the todo command.
+     *
+     * @return The manual for the todo command.
+     */
+    public static String getManual() {
+        return MANUAL;
+    }
+
     public TodoCommand(String body) {
         super(body);
     }

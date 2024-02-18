@@ -13,6 +13,15 @@ public class UndoCommand extends Command {
             + "Undoes the most recent command that modified the task list.\n" + "Aliases: ud";
 
     /**
+     * Gets the manual for the undo command.
+     *
+     * @return The manual for the undo command.
+     */
+    public static String getManual() {
+        return MANUAL;
+    }
+
+    /**
      * Creates a new undo command.
      *
      * @param body The body of the command.
