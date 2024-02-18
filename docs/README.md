@@ -14,8 +14,10 @@ Simply follow these steps:
 1. Download the `Nicole.jar` file from [here](https://github.com/yashpola/ip/releases/tag/Level-10)
 2. Navigate to your computer's `downloads` folder and
    - Create a folder to put the `jar` file in
-   - Double-click the `jar` file to launch Nicole
+   - Double-click the `jar` file to launch Nicole. A window like the one shown below should open
    - Fire away!
+
+![initialWindow.png](initialWindowSS.png)
 
 Take note that when using Nicole, a `tasks.txt` file will
 appear in the folder you created. This file will simply 
@@ -27,12 +29,13 @@ To know what basic commands Nicole can help you with,
 simply type-in `help` and you should see 
 something like this:
 
-![img_5.png](helpSS.png)
+![help.png](helpSS.png)
 
 Take note that when typing the actual commands, 
 you should omit any square braces ([ ]) pictured above. 
 
 You can find other helpful pointers below for a few of Nicole's commands.
+Pay closer attention to the points marked with 📝!
 
 ## Adding an item
 
@@ -62,22 +65,20 @@ tasknumbers.
 For example, if you wish to delete a `todo`, you
 could `list`:
 
-![img_3.png](listSS.png)
+![list.png](listSS.png)
 
 and then accordingly `delete 1` to see a confirmation:
 
-![img_4.png](deleteSS.png)
+![delete.png](deleteSS.png)
 
 In this particular case since `borrow book` was the only
 item, no items remained after deleting it.
 
-For `mark`, the `I` status of the item 
-will change to `C` (meaning `Complete`), 
-and vice versa for `unmark`.
+📝 If you `mark` an item, its `I` status will change to `C` (meaning `Complete`). Vice versa for `unmark`.
 
 ## Adding Deadlines and Events
 
-Basic notes 💡
+Take note!
 - The specified formats of `by YYYY:MM:DD` for dedlines 
 and `from YYYY:MM:DD at HH:MM:SS to YYYY:MM:DD at HH:MM:SS`
 for events are strict! 
@@ -92,7 +93,7 @@ Nicole will indicate to you very clearly if you made
 any of the above errors and also guide you 
 on how to rectify your command, so fret not!
 
-**Note** that updating an event could also lead to 
+📝 Updating an event could also lead to 
 problems with clashing events. When in doubt, `list` to 
 peruse your current items first.
 
@@ -101,14 +102,16 @@ peruse your current items first.
 `sort by date` will rearrange your list
 of items from earliest to latest as per their date(time) like so:
 
-![img.png](sortByDateSS.png)
+![sort.png](sortByDateSS.png)
 
-Where`Events` are sorted per their  `from` datetime
+Where events are sorted per their  `from` datetime. If an event's 
+`from` date matches the date of a deadline, the event will
+take precedence.
 
-**Note** that since `todos` do not have a datetime, they are ordered
+📝 Since `todos` do not have a datetime, they are ordered
 **last** by default.
 
 ## Finally...
-Above all remember to ***have fun*** with Nicole!
+Remember to ***have fun*** with Nicole!
 She will help you as much as possible in error and save your
 item history for ease of repeated use. 
