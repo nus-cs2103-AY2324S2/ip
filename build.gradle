@@ -45,7 +45,7 @@ test {
 
 application {
     mainClass.set("scribbles.Scribbles")
-    mainClassName = 'scribble.Scribbles'
+    mainClassName = 'scribbles.Launcher'
 }
 
 shadowJar {
