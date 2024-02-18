@@ -5,7 +5,7 @@ package fishstock;
  */
 public enum Command {
     INVALID, TODO("T"), DEADLINE("D"), EVENT("E"),
-    DELETE, FIND, MARK, UNMARK, UNDO, LIST, BYE;
+    DELETE, FIND, MARK, UNMARK, UNDO, LIST, HELP, BYE;
 
     private String shortened;
 

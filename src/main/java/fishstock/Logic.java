@@ -9,6 +9,7 @@ class Logic {
     private static final String DELETE_PREFIX = "This task has been removed:\n  ";
     private static final String FIND_PREFIX = "Here are the matching tasks in your list:\n";
     private static final String UNDO_PREFIX = "List has been restored to the previous state:\n";
+    private static final String HELP_PREFIX = "Here's a list of available commands:\n\n";
     private static final String ADD_TASK_PREFIX = "This task has been added:\n  ";
     private static final String UNKNOWN_COMMAND_TEXT = "OH NOSE! Wakaranai... :(";
 
@@ -32,6 +33,8 @@ class Logic {
         case UNDO:
             list.restoreState();
             return UNDO_PREFIX + list;
+        case HELP:
+            return HELP_PREFIX + Command.toList();
         case TODO:
             // Fallthrough
         case DEADLINE:
