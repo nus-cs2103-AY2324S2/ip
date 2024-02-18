@@ -141,7 +141,6 @@ public class Storage {
      * @throws FileNotFoundException If file does not exist
      */
     public void saveFileData(TaskList taskList) throws FileNotFoundException {
-        File f = new File(this.filePath);
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
             for (int i = 0; i < taskList.size(); i++) {
