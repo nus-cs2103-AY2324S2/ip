@@ -47,7 +47,6 @@ public class Main extends Application {
 
     @Override
     public void stop() {
-        ui.showExitMessage();
         sylvia.exit();
     }
 }
