@@ -19,6 +19,7 @@ public enum Command {
     TODO("todo", true),
     DEADLINE("deadline", true),
     EVENT("event", true),
+    FIXED("fixed", true),
     FIND("find", true);
 
     private final String rep;
@@ -73,6 +74,7 @@ public enum Command {
             case TODO:
             case DEADLINE:
             case EVENT:
+            case FIXED:
                 r = executeAdd(tl);
                 break;
             case MARK:
@@ -114,6 +116,15 @@ public enum Command {
                 throw new InvalidArgumentException();
             }
             t = new DeadlineTask(matcher.group(1).strip(), matcher.group(2).strip());
+            break;
+        case FIXED:
+            pattern = Pattern.compile("(.+?)\\s+/for\\s+(.+)");
+            matcher = pattern.matcher(args);
+
+            if (!matcher.find()) {
+                throw new InvalidArgumentException();
+            }
+            t = new FixedTask(matcher.group(1).strip(), matcher.group(2).strip());
             break;
         case EVENT:
             pattern = Pattern.compile("(.+?)\\s+/from\\s+(.+?)\\s+/to\\s+(.+)");
