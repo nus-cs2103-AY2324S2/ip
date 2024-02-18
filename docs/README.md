@@ -15,7 +15,7 @@ than traditional GUI apps.
 
 ## Command Summary
 | Action              | Syntax                                                |
-| ------------------- | ----------------------------------------------------- |
+|---------------------|-------------------------------------------------------|
 | Add: ***Todo***     | `todo <description>`                                  |
 | Add: ***Deadline*** | `deadline <description> /by <datetime>`               |
 | Add: ***Event***    | `event <description> /from <datetime> /to <datetime>` |
