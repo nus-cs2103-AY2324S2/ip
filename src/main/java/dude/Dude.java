@@ -1,24 +1,25 @@
 package dude;
 
-import dude.Commands.Command;
-import dude.Commands.Parser;
-import dude.Exceptions.*;
-import dude.Tasks.TaskList;
-import dude.Commands.CommandTypes;
-import dude.Utils.Storage;
-import dude.Utils.Ui;
-
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class  Dude {
+import dude.Commands.Command;
+import dude.Commands.CommandTypes;
+import dude.Commands.Parser;
+import dude.Exceptions.DudeException;
+import dude.Tasks.TaskList;
+import dude.Utils.Storage;
+import dude.Utils.Ui;
+
+
+public class Dude {
     private final TaskList taskList;
     private final Storage storage;
     private final Ui ui;
 
     private boolean isRunning = true;
 
-    public Dude(String filePath){
+    public Dude(String filePath) {
         this.storage = new Storage(filePath);
         this.ui = new Ui();
 
@@ -38,8 +39,7 @@ public class  Dude {
 
         ui.showWelcome();
         Scanner sc = new Scanner(System.in);
-        while(this.isRunning){
-
+        while (this.isRunning) {
             String input = extractInput(sc);
             Command command = Parser.parse(input, taskList);
 
@@ -58,7 +58,7 @@ public class  Dude {
         String input = "";
         try {
             input = sc.nextLine();
-        }catch(NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             //this will not be handled. App will only exit at bye command.
             input = "";
         }
