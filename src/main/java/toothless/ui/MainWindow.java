@@ -33,7 +33,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().add(DialogBox.getToothlessDialog(
+        dialogContainer.getChildren().add(ToothlessDialogBox.getDialog(
                 " /\\_/\\\n"
                         + "( o.o )\n"
                         + "> ^ <\n"
@@ -52,7 +52,7 @@ public class MainWindow extends AnchorPane {
         String initializeErrorMessage = toothless.initialize();
         if (!initializeErrorMessage.isBlank()) {
             dialogContainer.getChildren().add(
-                    DialogBox.getToothlessDialog(initializeErrorMessage, toothlessImage)
+                    ToothlessDialogBox.getDialog(initializeErrorMessage, toothlessImage)
             );
         }
     }
@@ -66,8 +66,8 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = toothless.getResponse(input);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getToothlessDialog(response, toothlessImage)
+                UserDialogBox.getDialog(input, userImage),
+                ToothlessDialogBox.getDialog(response, toothlessImage)
         );
         userInput.clear();
     }
