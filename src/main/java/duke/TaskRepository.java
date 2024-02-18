@@ -91,8 +91,7 @@ public class TaskRepository {
      * The task number is removed before writing to the file as it is not needed
      *
      * @param taskList The TaskList containing the tasks to be saved to the file
-     * 
-     * @return void
+     *
      */
     public void saveTasksToFile(TaskList taskList) {
         // TODO: Maybe try using buffered writer
