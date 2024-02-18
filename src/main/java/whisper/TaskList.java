@@ -40,7 +40,6 @@ public class TaskList {
      */
     public void deleteTask(int index) throws WhisperException {
         checkIndex(index);
-        //taskList.remove(index);
         Task removedTask = taskList.remove(index);
         System.out.println("Task deleted: " + removedTask.getDescription());
     }
