@@ -1,30 +1,56 @@
-# Duke User Guide
+# Squid
 
-// Update the title above to match the actual product name
+## Overview
+Introducing **Squid**! No, he's not seafood 🦑. Instead, he's a black cat! 🐈‍⬛
+He seems grumpy and too cool for you, but deep inside he's just a cuddly cat.
+> I'll handle your tasks for you... Just feed me after. - Squid
+## Features
 
-// Product screenshot goes here
+> Keywords in square brackets [ ] are parameters that need to be in the following formats:
 
-// Product intro goes here
+`[message]`: A message of your choice!
 
-## Adding deadlines
+`[task]`: A task name of your choice!
 
-// Describe the action and its outcome.
+`[date]`: A date. One possible format could be `hh:mm:ss, DD-MM-YYYY`.
 
-// Give examples of usage
+`[keyword]`: A keyword that you might want to look for.
 
-Example: `keyword (optional arguments)`
+`[index]`: A valid numbering of a task.
 
-// A description of the expected outcome goes here
+### Help
+Gets the full list of commands.
 
-```
-expected output
-```
+Usage: `help`
+### Echo
+Gets Squid to repeat after you.
 
-## Feature ABC
+Usage: `echo [message]`
+### Todo
+Adds a task without a deadline or timeframe.
 
-// Feature details
+Usage: `todo [task]`
+### Deadline
+Adds a task with a deadline.
 
+Usage: `deadline [task] /by [date]`
+### Event
+Adds a task with a from and to date.
 
-## Feature XYZ
+Usage: `event [task] /from [date] /to [date]`
+### Find
+Find tasks with matching keywords.
 
-// Feature details
+Usage: `find [keyword]`
+### Delete
+Deletes a task at the specified index.
+
+Usage: `delete [index]`
+### Mark
+Marks a task as complete.
+
+Usage: `mark [task]`
+### Unmark
+Marks a task as incomplete.
+
+Usage: `unmark [task]`
