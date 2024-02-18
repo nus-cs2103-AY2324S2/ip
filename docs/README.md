@@ -166,7 +166,7 @@ Sample Output:
 
 ```
 Here... here you go!
-2. [T][ ] wholesome date
+1. [T][ ] wholesome date
 ```
 
 # Quitting
