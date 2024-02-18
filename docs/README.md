@@ -46,7 +46,6 @@ Interact with Sylvia by typing in the chat box and press Enter to send it.
 Some examples:
 
 - To add a task, type in the chat `todo Groceries` and hit 'Enter'. This will add a task with description "Groceries" to your task list.
-
 - To view all task, send `list` to the chatbot.
 - Delete the first task of the task list by typing `delete 1`.
 - Undo the most recent command by using `undo` command.
@@ -95,7 +94,7 @@ Add a simple to-do task to the task list.
 
 **Aliases**: `todo`, `td`
 
-Example: `todo Buy milk`
+**Example**: `todo Buy milk`
 
 <br>
 
@@ -107,7 +106,7 @@ Add a task with a deadline (due) to the task list. The time should be in the for
 
 **Aliases**: `deadline`, `dl`
 
-Example: `deadline Finish report /by 2022-12-31 23:59`
+**Example**: `deadline Finish report /by 2022-12-31 23:59`
 
 <br>
 
@@ -119,7 +118,7 @@ Add a task with a specific time period to the task list. The time should be in t
 
 **Aliases**: `event`, `ev`
 
-Example: `event Meeting /at 2022-12-01 14:00 /to 2022-12-01 16:00`
+**Example**: `event Meeting /at 2022-12-01 14:00 /to 2022-12-01 16:00`
 
 <br>
 
@@ -131,7 +130,7 @@ Mark a task as done.
 
 **Aliases**: `mark`, `mk`
 
-Example: `mark 1`
+**Example**: `mark 1`
 
 <br>
 
@@ -143,7 +142,7 @@ Mark a task as not done.
 
 **Aliases**: `unmark`, `umk`
 
-Example: `unmark 1`
+**Example**: `unmark 1`
 
 <br>
 
@@ -155,7 +154,7 @@ Delete a task from the task list.
 
 **Aliases**: `delete`, `d`
 
-Example: `delete 1`
+**Example**: `delete 1`
 
 <br>
 
@@ -167,7 +166,7 @@ Find tasks that contain the specified keyword.
 
 **Aliases**: `find`, `f`
 
-Example: `find book`
+**Example**: `find book`
 
 <br>
 
@@ -199,7 +198,7 @@ Show manual on a certain command. If no command is in the input, show manual for
 
 **Aliases**: `help`, `h`
 
-Example: `help todo`, `help`
+**Example**: `help todo`, `help`
 
 <br>
 
