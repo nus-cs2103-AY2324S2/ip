@@ -40,7 +40,7 @@ class Deadline extends Task {
     /*
      * A method that checks if two deadlines are equal.
      *
-     * @parameter o The object to compare.
+     * @param o The object to compare.
      * @return A boolean representing whether the objects are equal.
      */
     @Override

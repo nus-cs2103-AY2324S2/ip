@@ -62,7 +62,7 @@ class Task {
     /*
      * A method to compare the contents of two task objects.
      *
-     * @parameter o The object to compare to.
+     * @param o The object to compare to.
      * @return A boolean representing whether the objects are equal.
      */
     @Override

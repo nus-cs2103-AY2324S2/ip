@@ -49,7 +49,7 @@ class Event extends Task {
     /*
      * A method to check if two objects are equal.
      *
-     * @parameter o The object to compare to.
+     * @param o The object to compare to.
      * @return A boolean representing whether the two objects are equal.
      */
     @Override

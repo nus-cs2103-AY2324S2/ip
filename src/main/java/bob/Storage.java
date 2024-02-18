@@ -20,8 +20,7 @@ public class Storage {
     /*
      * A method to load tasks from the specified file path.
      *
-     * @parameter filePath A string of the file path.
-     * @return An ArrayList of tasks parsed from the save file.
+     * @return A TaskList parsed from the save file.
      */
     public TaskList loadFile() {
         TaskList taskList = new TaskList();
@@ -90,8 +89,7 @@ public class Storage {
     /*
      * A method to save the current tasks.
      *
-     * @parameter taskList An ArrayList of the current tasks.
-     * @parameter filePath A string representing the file path we want to save to.
+     * @param taskList An ArrayList of the current tasks.
      */
     public void saveFile(TaskList taskList) {
         try {

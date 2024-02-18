@@ -69,7 +69,7 @@ public class TaskList implements Iterable<Task> {
     /*
      * A method to check if the contents of the task lists are equal.
      *
-     * @parameter o The object that you want to compare.
+     * @param o The object that you want to compare.
      * @return A boolean representing whether the two objects are equal.
      */
     @Override
