@@ -190,3 +190,22 @@ Ok bro, I've marked this task as not done yet:
 
 ```
 
+
+### `delete` - Deleting a Task
+
+Unmarks the task in the tasklist and returns the task that has been unmarked
+
+Example of usage: 
+
+`umark 1`
+
+Expected outcome:
+
+Current taskist with new task.
+
+```
+Ok bro, I've marked this task as not done yet:
+ [T] [ ] read book
+
+```
+

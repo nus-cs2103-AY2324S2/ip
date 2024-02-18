@@ -10,11 +10,11 @@ repositories {
 }
 
 application {
-    mainClass.set('yapper.Yapper')
+    mainClass.set('yapper.Main')
 }
 
 shadowJar {
-    archiveFileName = 'yapper2.jar'
+    archiveFileName = 'yapper.jar'
 }
 
 dependencies {
