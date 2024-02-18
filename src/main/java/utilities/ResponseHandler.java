@@ -16,7 +16,8 @@ public class ResponseHandler {
      */
     public static String greeting(String chatBotName) {
         return "I might be " + chatBotName
-                + "\nWhat can I do for you?";
+                + "\nWhat can I do for you?"
+                + "\nYou can start by trying help and typing the command to see the format!";
     }
 
     /**
