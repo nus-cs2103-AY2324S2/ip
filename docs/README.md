@@ -2,7 +2,7 @@
 
 ### Your personal chatbot assistant! 
 
-![img.png](UI.png)
+![img.png](Ui.png)
 
 // Product intro goes here
 
