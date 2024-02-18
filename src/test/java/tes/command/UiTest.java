@@ -33,14 +33,10 @@ public class UiTest {
     @Test
     public void testGreet() {
         Ui ui = new Ui();
+        String printedOutput = ui.greet();
+        String expected = "    Tes here.\n"
+                + "    huh? What you want from me?\n";
 
-        ui.greet();
-
-        String printedOutput = outputStreamCaptor.toString().replaceAll("\\r\\n", "\n");
-
-        String line = "    _______________________________________________________________\n";
-        String expected = line + "    Tes here.\n"
-                + "    huh? What you want from me?\n" + line;
         assertEquals(expected, printedOutput);
     }
 }

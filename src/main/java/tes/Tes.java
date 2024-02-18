@@ -21,15 +21,26 @@ public class Tes {
     }
 
     /**
-     * Initializes the chatbot.
+     * Gets response according to the command given.
+     *
+     * @param command Command given by the user.
      */
-    public void run() {
-        this.ui.greet();
+    public String getResponse(String command) {
+        return this.parser.parse(command);
+    }
 
-        this.parser.parse();
+    /**
+     * Greets the user when initializing the chatbot.
+     */
+    public String greet() {
+        return this.ui.greet();
     }
-    public static void main(String[] args) {
-        Tes chatbot = new Tes();
-        chatbot.run();
+
+    /**
+     * Closes the chatbot and stop running the program.
+     */
+    public String exit() {
+        return this.ui.close();
     }
+
 }
