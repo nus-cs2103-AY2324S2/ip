@@ -61,6 +61,7 @@ public class Ui {
      * @return String to be printed
      */
     public String showTaskAdded(Task task, int size) {
+        assert size >= 0 : "Size of list cannot be negative";
         StringBuilder sb = new StringBuilder("Got it. I've added this task:");
         sb.append("\n" + " " + task);
         sb.append("\nNow you have " + size + " tasks in the list.");
@@ -74,6 +75,7 @@ public class Ui {
      * @return String to be printed
      */
     public String showTaskDeleted(Task task, int size) {
+        assert size >= 0 : "Size of list cannot be negative";
         return "Noted. I've removed this task:\n" + task + "\nNow you have " + size + " tasks in the list.";
     }
 
@@ -101,6 +103,7 @@ public class Ui {
      * @return String to be printed
      */
     public String searchThenPrintList(ArrayList<Task> list, String searchTerm) {
+        assert searchTerm != null : "Search term cannot be null";
         StringBuilder output = new StringBuilder("Here are the matching tasks in your list:");
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).containsSearchTerm(searchTerm)) {

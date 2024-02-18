@@ -38,6 +38,7 @@ public class Task implements Serializable {
      * @return Description of <code>Task</code>
      */
     public boolean containsSearchTerm(String searchTerm) {
+        assert searchTerm != null : "Search term should not be null";
         return description.contains(searchTerm);
     }
 
