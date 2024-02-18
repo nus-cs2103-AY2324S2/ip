@@ -11,7 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
+
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -30,6 +30,7 @@ public class MainWindow extends AnchorPane {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Jivox.png"));
+    private Image backGround = new Image(this.getClass().getResourceAsStream("/images/Jivox.png"));
 
     /**
      * Initialize the MainWindow for the GUI of the Application
@@ -37,8 +38,6 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        sendButton.setFont(Font.font("Helvetica"));
-        userInput.setFont(Font.font("Helvetica"));
         String greeting = "Welcome! I'm Jivox.\nWhat can I do for you?";
         dialogContainer.getChildren().add(
                 DialogBox.getDukeDialog(greeting, dukeImage)
