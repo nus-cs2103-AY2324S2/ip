@@ -4,9 +4,7 @@ Jimmy is a chatbot named after my favourite host Jimmy Fallon.
 Jimmy is a desktop app for managing your notes and tasks via entering commands (case-sensitive).
 This user guide will teach about Jimmy's features and how to use Jimmy.
 
-```
-Credits for the markdown sample goes to: https://github.com/Cikguseven/ip
-```
+#### Credits for the markdown sample goes to: https://github.com/Cikguseven/ip
 
 ## Features
 
@@ -21,7 +19,7 @@ deadline [task] /by dd-MM-yyyy
 
 Add an Event task to the item list by using the following command:
 ```
-event [task] /from yyyy-MM-dd HHmm /to dd-MM-yyyy
+event [task] /from dd-MM-yyyy /to dd-MM-yyyy
 ```
 
 ### ✅ Add a Todo
@@ -44,6 +42,14 @@ List all items stored by Jimmy by using the following command:
 ```
 list
 ```
+
+### 🔔 View schedules
+
+View your schedule for any day by using the following command:
+```
+schedule dd-MM-yyyy
+```
+
 
 ### 🔍 Find items
 
