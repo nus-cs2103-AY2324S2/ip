@@ -4,10 +4,11 @@ import bmo.util.Storage;
 import bmo.util.TaskList;
 import bmo.ui.Ui;
 
+
 /**
  * Represents a guide command to be executed.
  */
-public class GuideCommand extends Command{
+public class GuideCommand extends Command {
 
     /**
      * Executes the guide command.
@@ -16,6 +17,7 @@ public class GuideCommand extends Command{
      * @param ui      The user interface.
      * @param storage The storage.
      */
+
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.printTutorial();

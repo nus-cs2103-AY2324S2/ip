@@ -29,6 +29,7 @@ public class Storage {
 
     /**
      * Constructor for Storage with provided file.
+     *
      * @param file File object to store data.
      */
     public Storage(File file) {
@@ -48,10 +49,11 @@ public class Storage {
 
     /**
      * Loads data from the file.
+     *
      * @return String containing the data.
      * @throws IOException if unable to load data.
      */
-    public String loadData() throws IOException{
+    public String loadData() throws IOException {
         try {
             Scanner sc = new Scanner(dataFile);
             StringBuilder output = new StringBuilder();
@@ -70,6 +72,7 @@ public class Storage {
 
     /**
      * Saves data to the file.
+     *
      * @param tasks TaskList object to save.
      */
     public void saveData(TaskList tasks) {
@@ -84,7 +87,8 @@ public class Storage {
 
     /**
      * Saves data to file with specified file path.
-     * @param tasks TaskList object to save.
+     *
+     * @param tasks    TaskList object to save.
      * @param filePath String containing the file path.
      */
     public void saveData(TaskList tasks, String filePath) {

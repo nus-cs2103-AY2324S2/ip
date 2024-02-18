@@ -7,7 +7,7 @@ import bmo.ui.Ui;
 /**
  * Represents a delete command to be executed.
  */
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
 
     private final String index;
 

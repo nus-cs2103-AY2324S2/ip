@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 /**
  * Represents a due command to be executed.
  */
-public class DueCommand extends Command{
+public class DueCommand extends Command {
 
     private final String desc;
     private final LocalDateTime by;

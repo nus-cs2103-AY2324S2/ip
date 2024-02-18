@@ -6,16 +6,17 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents a task that is a deadline.
  */
-public class Deadlines extends Task{
+public class Deadlines extends Task {
 
     protected LocalDateTime deadline;
 
     /**
      * Constructor for the Deadlines class.
      *
-     * @param task The task to be done.
+     * @param task     The task to be done.
      * @param deadline The deadline of the task.
      */
+
     public Deadlines(String task, LocalDateTime deadline) {
         super(task);
         this.deadline = deadline;

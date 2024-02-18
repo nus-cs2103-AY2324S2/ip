@@ -1,15 +1,15 @@
 package bmo.command;
 
-import bmo.util.Storage;
-import bmo.util.TaskList;
-import bmo.ui.Ui;
 import bmo.task.Task;
 import bmo.task.ToDo;
+import bmo.ui.Ui;
+import bmo.util.Storage;
+import bmo.util.TaskList;
 
 /**
  * Represents a to-do command to be executed.
  */
-public class ToDoCommand extends Command{
+public class ToDoCommand extends Command {
 
     private final String desc;
 

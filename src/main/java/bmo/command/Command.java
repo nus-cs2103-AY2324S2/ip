@@ -9,22 +9,24 @@ import bmo.ui.Ui;
  */
 public abstract class Command {
 
-     private final boolean isExit;
+    private final boolean isExit;
 
-     public Command() {
-          this.isExit = false;
-     }
+    public Command() {
+        this.isExit = false;
+    }
 
-     /**
-      * Executes the command.
-      *
-      * @param tasks   The list of tasks.
-      * @param ui      The user interface.
-      * @param storage The storage.
-      */
-     public abstract void execute(TaskList tasks, Ui ui, Storage storage);
+    /**
+     * Executes the command.
+     *
+     * @param tasks   The list of tasks.
+     * @param ui      The user interface.
+     * @param storage The storage.
+     */
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage);
 
-     public boolean isExit() {
-          return this.isExit;
-     };
+    public boolean isExit() {
+        return this.isExit;
+    }
+
+    ;
 }

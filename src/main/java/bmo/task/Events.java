@@ -3,10 +3,11 @@ package bmo.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+
 /**
  * Represents a task that is an event.
  */
-public class Events extends Task{
+public class Events extends Task {
 
     protected LocalDateTime start;
     protected LocalDateTime end;
@@ -14,9 +15,9 @@ public class Events extends Task{
     /**
      * Constructor for the Events class.
      *
-     * @param task The task to be done.
+     * @param task  The task to be done.
      * @param start The start time of the event.
-     * @param end The end time of the event.
+     * @param end   The end time of the event.
      */
     public Events(String task, LocalDateTime start, LocalDateTime end) {
         super(task);
@@ -44,7 +45,7 @@ public class Events extends Task{
         String endStr = this.end.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
 
         return "E | " + done + " | " + super.toString() + " | "
-                + startStr + " | " + endStr +"\n";
+                + startStr + " | " + endStr + "\n";
     }
 
     @Override
