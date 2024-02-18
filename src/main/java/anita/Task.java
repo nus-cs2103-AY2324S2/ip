@@ -13,6 +13,7 @@ public abstract class Task {
      * @param description The raw user input.
      */
     public Task(String description) {
+        assert description != null : "Description should not be null";
         this.description = description;
         this.isDone = false;
     }

@@ -28,7 +28,8 @@ public class TaskList {
      * @param index Index of the item to be retrieved.
      * @return Task to be retrieved.
      */
-    private Task get(int index) {
+    public Task get(int index) {
+        assert index > 0 : "Index should be positive and non-zero";
         return taskList.get(index - 1);
     }
 
