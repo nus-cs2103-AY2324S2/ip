@@ -14,8 +14,8 @@ import task.Todo;
 public class TodoCommand extends Command {
 
     public static final String COMMAND_WORD = "todo";
-    private static final String SUCCESS_MESSAGE = "Got it. Uncle added this todo:\n\t\t %s"
-            + "\n\t Now you have %s task(s) in the list.";
+    private static final String SUCCESS_MESSAGE = "Got it. Uncle added this todo:\n\t %s"
+            + "\n Now you have %s task(s) in the list.";
 
     private final String message;
 

@@ -16,8 +16,8 @@ import task.TaskList;
 public class DeadlineCommand extends Command {
 
     public static final String COMMAND_WORD = "deadline";
-    private static final String SUCCESS_MESSAGE = "Got it. Uncle added this deadline:\n\t\t %s "
-            + "\n\t Now you have %s task(s) in the list.";
+    private static final String SUCCESS_MESSAGE = "Got it. Uncle added this deadline:\n\t %s "
+            + "\n Now you have %s task(s) in the list.";
     private final String message;
 
     /**

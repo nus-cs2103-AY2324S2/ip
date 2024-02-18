@@ -11,8 +11,6 @@ import task.TaskList;
 public class RemindCommand extends Command {
     public static final String COMMAND_WORD = "remind";
     private static final String SUCCESS_MESSAGE = "Congrats, you have no upcoming tasks! Uncle is proud of you!";
-    private static final String LIST_MESSAGE = "You have %s upcoming tasks in your list!";
-
     /**
      * Executes the RemindCommand, listing out all the tasks in the task list.
      * @param tasks   The TaskList representing the collection of tasks.
