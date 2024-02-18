@@ -51,6 +51,11 @@ class AddCommand implements Command {
     @Override
     public void execute(ArrayList<Task> tasks, Ui ui, Storage storage) {
         try {
+            assert tasks != null : "Tasks list should not be null";
+            assert ui != null : "UI should not be null";
+            assert storage != null : "Storage should not be null";
+            assert taskToAdd != null : "Task to add should not be null";
+
             // Add the task directly to the original tasks list
             tasks.add(taskToAdd);
             // Save the updated tasks list to the file
@@ -122,6 +127,7 @@ class ExitCommand implements Command {
     @Override
     public void execute(ArrayList<Task> tasks, Ui ui, Storage storage) {
         ui.printExitMessage();
+        System.exit(0);
     }
 
     @Override

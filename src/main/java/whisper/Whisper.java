@@ -35,6 +35,9 @@ public class Whisper {
     public Whisper() {
         ui = new Ui();
         storage = new Storage(FILE_PATH);
+
+        assert storage != null : "Storage should not be null after initialization";
+
         try {
             tasks = new TaskList(storage.load());
         } catch (WhisperException e) {

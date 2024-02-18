@@ -56,6 +56,9 @@ public class Parser {
             throw new WhisperException("Todo description cannot be empty.");
         }
         Task taskToAdd = new Task(parts[1], Task.TaskCategory.T);
+
+        assert taskToAdd != null : "Task to add should not be null";
+
         return new AddCommand(taskToAdd, ui);
     }
 
@@ -85,6 +88,8 @@ public class Parser {
         }
         LocalDateTime fromDateTime = parseDateTime(timeParts[0].trim());
         LocalDateTime toDateTime = parseDateTime(timeParts[1].trim());
+
+        assert fromDateTime != null && toDateTime != null : "Event date and time should not be null";
 
         return new AddCommand(new Task(eventName, Task.TaskCategory.E, fromDateTime, toDateTime), ui);
     }
