@@ -72,6 +72,10 @@ public class Bob {
                 parser.parseDelete(input, taskList);
             }
 
+            else if (input.startsWith("find ")) {
+                parser.parseFind(input, taskList);
+            }
+
             else {
                 ui.showUnknownCommandMessage();
             }

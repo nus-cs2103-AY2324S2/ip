@@ -137,4 +137,31 @@ public class Parser {
 
         ui.showDeleteMessage(task, taskList.size());
     }
+
+    /*
+     * A method to parse the user command 'find'.
+     */
+    public void parseFind(String input, TaskList taskList) {
+        String keyword = input.substring(5).trim();
+
+        TaskList matchingTasks = new TaskList();
+
+        for (Task task : taskList) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.addTask(task);
+            }
+        }
+
+        if (matchingTasks.isEmpty()) {
+            ui.showNoMatchingTasksMessage();
+        } else {
+            int size = matchingTasks.size();
+
+            ui.showMatchingTasksInListMessage();
+
+            for (int count = 0; count < size; count++) {
+                System.out.println(" " + (count + 1) + "." + matchingTasks.getTask(count));
+            }
+        }
+    }
 }
