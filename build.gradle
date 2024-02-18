@@ -54,10 +54,10 @@ application {
 mainClassName = 'Launcher'
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "refinement"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
-    archiveFileName = 'duke.jar'
+    archiveFileName = 'refinement.jar'
 }
 
 run{
