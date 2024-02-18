@@ -1,7 +1,5 @@
 package kitchensink;
 
-import java.util.Scanner;
-
 import kitchensink.task.Task;
 
 /**
@@ -10,22 +8,17 @@ import kitchensink.task.Task;
 public class Ui {
     public static final String LINE = "________________________________________________________\n";
 
-//    /**
-//     * Processes the user's input into a String.
-//     * @return User's input in String type.
-//     */
-//    public String readInput() {
-//        Scanner sc = new Scanner(System.in);
-//        String input = sc.nextLine();
-//        return input;
-//    }
-
     public String displayWelcome() {
-        return (LINE + "Hello! I'm KitchenSink!\n" + "What can I do for you?\n" + LINE);
+        return LINE
+                + "Hello! I'm KitchenSink!\n"
+                + "What can I do for you?\n"
+                + LINE;
     }
 
     public String displayGoodBye() {
-        return LINE + "Bye. Hope to see you again soon!\n" + LINE;
+        return LINE
+                + "Bye. Hope to see you again soon!\n"
+                + LINE;
     }
 
     /**
@@ -38,26 +31,35 @@ public class Ui {
     public String displayTaskAdded(Task task, int taskListSize) {
         assert task != null;
         String taskOrTasks = taskListSize == 1 ? " task " : " tasks ";
-        return (Ui.LINE
+        return LINE
                 + "Got it. I've added this task:\n"
                 + task.toString()
                 + "\nNow you have " + taskListSize + taskOrTasks + "in the list.\n"
-                + Ui.LINE);
+                + LINE;
     }
 
     public String displayTasks(List taskList) {
         assert taskList != null;
-        return Ui.LINE + "Here are the tasks in your list:\n" + taskList.toString() + "\n" + Ui.LINE;
+        return LINE
+                + "Here are the tasks in your list:\n"
+                + taskList.toString()
+                + "\n" + LINE;
     }
 
     public String displayTaskMarked(Task task) {
         assert task != null;
-        return (Ui.LINE + "Nice! I've marked this task as done:\n" + task.toString() + "\n" + Ui.LINE);
+        return LINE
+                + "Nice! I've marked this task as done:\n"
+                + task.toString() + "\n"
+                + LINE;
     }
 
     public String displayTaskUnmarked(Task task) {
         assert task != null;
-        return (Ui.LINE + "OK, I've marked this task as not done yet:\n" + task.toString() + "\n" + Ui.LINE);
+        return LINE
+                + "OK, I've marked this task as not done yet:\n"
+                + task.toString() + "\n"
+                + LINE;
     }
 
     /**
@@ -70,13 +72,18 @@ public class Ui {
     public String displayTaskDeleted(Task task, int taskListSize) {
         assert task != null;
         String taskOrTasks = taskListSize == 1 ? " task " : " tasks ";
-        return (Ui.LINE + "Noted. I've removed this task:\n" + task.toString()
-                + "\nNow you have " + taskListSize + taskOrTasks + "in the list.\n" + Ui.LINE);
+        return LINE
+                + "Noted. I've removed this task:\n"
+                + task.toString()
+                + "\nNow you have " + taskListSize + taskOrTasks + "in the list.\n"
+                + LINE;
     }
 
     public String displayResults(List results) {
         assert results != null;
-        return (LINE + "Here are the matching tasks in your list:\n"
-                + results.toString() + "\n" + LINE);
+        return LINE
+                + "Here are the matching tasks in your list:\n"
+                + results.toString() + "\n"
+                + LINE;
     }
 }

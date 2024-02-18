@@ -4,3 +4,4 @@
 4.[T][ ] sleep
 5.[T][ ] eat
 6.[T][ ] eat
+7.[T][ ] eat
