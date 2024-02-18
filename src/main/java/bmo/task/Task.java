@@ -1,11 +1,11 @@
 package bmo.task;
 
 public class Task {
-    protected String task;
+    protected String description;
     protected Boolean isDone;
 
-    public Task(String task) {
-        this.task = task;
+    public Task(String description) {
+        this.description = description;
         this.isDone = false;
     }
 
@@ -28,6 +28,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return this.task;
+        return this.description;
     }
 }
