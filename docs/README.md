@@ -1,5 +1,4 @@
 #  Chatbot Pro User Guide
-***
 
 #### Chatbot Pro is a desktop app for keeping track of your tasks, optimized for use via a Command Line Interface (CLI).
 
@@ -9,7 +8,7 @@ Use it to free your mind of having to remember things you need to do!
 
 
 # Feature List 
-***
+
 ## Adding Tasks
 
 There are 3 types of tasks you can add: Todo, Deadline and Event.
