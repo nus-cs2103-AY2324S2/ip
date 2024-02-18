@@ -1,4 +1,4 @@
-package chrisPBacon;
+package util;
 
 import java.util.Scanner;
 

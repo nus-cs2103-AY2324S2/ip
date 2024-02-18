@@ -10,6 +10,6 @@ public class Main {
      * @param args arguments
      */
     public static void main(String[] args) {
-        new ChrisPBacon("data/list.txt").run();
+        new ChrisPBacon().run();
     }
 }

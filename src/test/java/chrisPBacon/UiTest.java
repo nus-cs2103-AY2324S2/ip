@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import exceptions.InvalidTaskNameException;
 import task.TaskList;
+import util.Ui;
 
 public class UiTest {
     @Test
