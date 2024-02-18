@@ -8,7 +8,7 @@ import java.util.Scanner;
  * Represents the UI of the app.
  */
 public class Ui {
-    private static final String WELCOME_MSG = "Hello! I'm Chipchat \nWhat can I do for you?";
+    private static final String WELCOME_MSG = "Hello! I'm ChipChat \nWhat can I do for you?";
     private static final String EXIT_MSG = "Good bye! Hope to see you again soon!";
     private final StringBuilder outputBuffer;
 

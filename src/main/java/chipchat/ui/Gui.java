@@ -23,6 +23,7 @@ public class Gui extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("ChipChat");
             fxmlLoader.<MainWindow>getController().setApp(app);
             fxmlLoader.<MainWindow>getController().showInitialGreeting();
             stage.show();
