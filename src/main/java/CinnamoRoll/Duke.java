@@ -1,5 +1,8 @@
 package CinnamoRoll;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 // Firstly, overall string formatting for toString methods in methods in TaskList and child classes of Task class
@@ -38,7 +41,7 @@ public class Duke {
     }
 
     /**
-     * Running the main part of the code to start the Chatbot Cinnamo
+     * Runs the main part of the code to start the Chatbot Cinnamo
      */
     public void run() throws Exception {
         Scanner sc = new Scanner(System.in);
@@ -52,9 +55,7 @@ public class Duke {
     }
 
     /**
-     * Copy-pasted from the getResponse method from tasklist class which returns the output
-     * from executing the commands from user inputs
-     *
+     * Returns the output from executing the commands from user inputs
      * @param input
      * @return
      */

@@ -14,7 +14,7 @@ checkstyleMain {
 }
 
 checkstyleTest {
-    source ='src/test/java/Cinnamo'
+    source ='src/test/java/CinnamoRoll'
 }
 
 repositories {

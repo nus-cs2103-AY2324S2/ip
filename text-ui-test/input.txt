@@ -1,7 +1,7 @@
-deadline CS4269 Assignment 2 /by Sunday
+deadline CS4269 Assignment 2 /by 2024-02-12 08:00
 todo MA5211 Assignment 1
 list
-event CS2101 Presentation Meeting /from Jan 25th 7:30pm /to 9pm
+event CS2101 Presentation Meeting /from 2024-02-12 12:00 /to 2024-02-12 14:00
 mark 3
 mark 1
 list

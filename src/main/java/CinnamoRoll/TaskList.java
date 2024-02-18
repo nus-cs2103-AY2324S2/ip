@@ -147,7 +147,7 @@ class TaskList {
      * @return A string representation of the tasks in the format "1. [Task1] \n 2. [Task2] \n ..."
      */
     public String listTask() {
-        if (this.tasks.isEmpty()){
+        if (this.tasks.isEmpty()) {
             return "There are no tasks in the list now! Let Cinnamo know which tasks"
                     + " to store for you >.<";
         }

@@ -152,7 +152,7 @@ Ok! I've unmarked this task for you:
    [D][] MA5211 Assignment 2 (by: Feb 26 2024 12:00)
 ```
 
-### 7. find
+### 8. find
 
 Syntax to find task in the list by string input from the user:
 

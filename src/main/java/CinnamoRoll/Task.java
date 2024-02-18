@@ -32,9 +32,6 @@ abstract class Task {
      */
     abstract String getStatusIcon();
 
-    /**
-     * Retrieve boolean variable isMarked for the child classes
-     */
     protected boolean getMarked() {
         return this.isMarked;
     }
