@@ -2,6 +2,7 @@ package squid.tasks;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -122,7 +123,8 @@ public class Tasks {
      * @param regex the input to match similar tasks with.
      */
     public static String find(String regex) {
-        List<Task> filtered = arr.stream().filter(x -> x.getTaskName().matches(".*" + regex + ".*")).toList();
+        List<Task> filtered = new ArrayList<Task>(
+                (Collection) arr.stream().filter(x -> x.getTaskName().matches(".*" + regex + ".*")));
         return list(filtered);
     }
 

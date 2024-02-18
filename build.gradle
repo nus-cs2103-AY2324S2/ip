@@ -53,7 +53,7 @@ application {
 
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "squid"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
     archiveFileName = 'Squid.jar'
