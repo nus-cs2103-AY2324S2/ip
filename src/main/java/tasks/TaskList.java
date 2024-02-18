@@ -280,4 +280,37 @@ public class TaskList {
             ui.showFormatError("unmark [task index]");
         }
     }
+
+    /**
+     * Assigns a tag to a specific task identified by its index.
+     *
+     * @param input   the user input containing task index and tag information
+     * @param ui      the user interface for displaying messages
+     * @param storage the storage component for saving the updated task list
+     */
+    public void tag(String input, Ui ui, Storage storage) {
+        try {
+            String[] parts = input.split(" ", 3);
+            if (parts.length < 3) {
+                ui.showFormatError("tag [task index] #[tag]");
+                return;
+            }
+
+            int idx = Integer.parseInt(parts[1]) - 1;
+            String tag = parts[2];
+
+            if (idx < 0 || idx >= tasks.size() || tasks.get(idx) == null) {
+                ui.showNoTaskIndex(idx);
+            } else {
+                assert tasks.get(idx) != null : "Task to tag must not be null";
+
+                tasks.get(idx).setTag(tag);
+                storage.save(tasks); // Save the updated list of tasks with the tag
+                ui.showMessage("Ok, " + ui.getUser() + "! I've tagged this task as: "
+                        + tag + "\n" + tasks.get(idx));
+            }
+        } catch (NumberFormatException e) {
+            ui.showFormatError("tag [task index] #[tag]");
+        }
+    }
 }

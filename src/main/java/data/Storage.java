@@ -99,10 +99,10 @@ public class Storage {
                         task = new ToDo(parts[2]);
                         break;
                     case "D":
-                        task = new Deadline(parts[2], LocalDate.parse(parts[3]));
+                        task = new Deadline(parts[2], LocalDate.parse(parts[4]));
                         break;
                     case "E":
-                        task = new Event(parts[2], LocalDate.parse(parts[3]), LocalDate.parse(parts[4]));
+                        task = new Event(parts[2], LocalDate.parse(parts[4]), LocalDate.parse(parts[5]));
                         break;
                     default:
                         ui.showLoadingError("corrupted");
@@ -112,6 +112,7 @@ public class Storage {
                         if (parts[1].equals("1")) {
                             task.mark();
                         }
+                        task.setTag(parts[3]);
                         loadedTasks.add(task);
                     }
                 } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
