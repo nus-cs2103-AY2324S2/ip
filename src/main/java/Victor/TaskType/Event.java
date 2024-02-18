@@ -86,6 +86,7 @@ public class Event extends Task {
      */
     @Override
     public String saveInput() {
-        return "E | " + isDone + " | " + description + " | " + tempFrom.format(tempFormatter) + " | " + tempTo.format(tempFormatter);
+        return "E | " + isDone + " | " + description + " | "
+                + tempFrom.format(tempFormatter) + " | " + tempTo.format(tempFormatter);
     }
 }

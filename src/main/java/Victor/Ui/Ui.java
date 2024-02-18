@@ -28,7 +28,7 @@ public class Ui {
     public Ui() {
         this.intro = " Hello! I'm VICTOR\n"
                 + " What can I do for you?\n";
-        this.ending =  " Bye. Hope to see you again soon!\n";
+        this.ending = "Bye. Hope to see you again soon!\n";
     }
 
     /**
@@ -49,7 +49,9 @@ public class Ui {
      * @return the ending string
      *
      */
-    public String showEnding() { return this.ending; }
+    public String showEnding() {
+        return this.ending;
+    }
 
     /**
      * The readCommand method is used to scan the user input and return it

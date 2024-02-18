@@ -40,7 +40,8 @@ public class Parser {
     /**
      * Storage class that is used to load and store data into data file
      */
-    private static final Storage storage = new Storage("data/victor.txt");;
+    private static final Storage storage =
+            new Storage("data/victor.txt");;
 
     /**
      * Ui class that is used to display certain information for this class.
@@ -66,7 +67,9 @@ public class Parser {
      * The parse method is used to decode the commandLine String and perform
      * the actions that is indicated in the commandLine.
      *
+     *
      * @param commandLine The commandLine that is to be decoded to determine what task to perform.
+     * @return A string of the information of the command
      * @throws IndexOutOfBoundsException Normally used if the command line tries to access an item
      *                                   position outside the range of the ArrayList.
      * @throws NumberFormatException     Used for when the commandLine action requires a number,
@@ -75,7 +78,6 @@ public class Parser {
      *                                   to be converted from String to a LocalDate,
      *                                   indicating that it is in the wrong format.
      *
-     * @return A string of the information of the command
      *
      */
     public String parse(String commandLine) throws IOException {
@@ -90,7 +92,7 @@ public class Parser {
                 currentTask.markAsDone();
                 returnString = "Nice! I've marked this task as done:\n" + currentTask;
             } catch (IndexOutOfBoundsException e) {
-                returnString =  "Check how many items are in the list again.\n "
+                returnString = "Check how many items are in the list again. \n"
                         + "The number you gave is too high\n"
                         + "Can't mark an item not in the list"
                         + "The format to mark a task is: mark (task list number)";
@@ -105,7 +107,7 @@ public class Parser {
                 int position = Integer.parseInt(inputList[1]);
                 Task currentTask = currentTasks.getPosValue(position - 1);
                 currentTask.unmarkAsDone();
-                returnString =  "OK, I've marked this task as not done yet:\n" + currentTask;
+                returnString = "OK, I've marked this task as not done yet:\n" + currentTask;
             } catch (IndexOutOfBoundsException e) {
                 returnString = "Check how many items are in the list again.\n"
                         + "The number you gave is too high.\n"
@@ -203,7 +205,7 @@ public class Parser {
         }
         case "find" -> {
             try {
-                returnString =  currentTasks.findTask(inputList[1]);
+                returnString = currentTasks.findTask(inputList[1]);
             } catch (ArrayIndexOutOfBoundsException e) {
                 returnString = "Sorry, you didn't add anything after the keyword find.\n"
                         + "I'm gonna need you to indicate what you want to search for "

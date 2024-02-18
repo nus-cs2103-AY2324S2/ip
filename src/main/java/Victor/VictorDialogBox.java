@@ -49,7 +49,7 @@ public class VictorDialogBox extends HBox {
 
     public static VictorDialogBox getVictorDialog(String text, Image img) {
         var db = new VictorDialogBox(text, img);
-        db.setBackground(new Background(new BackgroundFill(Color.CYAN,null,null)));
+        db.setBackground(new Background(new BackgroundFill(Color.CYAN, null, null)));
         db.flip();
         return db;
     }
