@@ -3,7 +3,7 @@
 }
 
 @font-face {
-    src: url('../fonts/VictorMono-SemiBoldItalic.ttf');
+    src: url('../fonts/VictorMono-Oblique.ttf');
 }
 
 .label {
@@ -24,6 +24,6 @@
 }
 
 .earl-dialog-box .label {
-    -fx-font-family: 'Victor Mono SemiBold';
+    -fx-font-family: 'Victor Mono Oblique';
     -fx-font-size: 12;
 }
