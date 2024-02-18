@@ -9,10 +9,26 @@ look forward to easier days ahead :D
 
 ## Setting up
 
-Simply follow these steps: 
+Skip to the basic guide if you need a little more help :hearts:
 
-1. Download the `Nicole.jar` file from [here](https://github.com/yashpola/ip/releases/tag/Level-10)
-2. Navigate to your computer's `downloads` folder and
+### Intermediate Guide
+1. Ensure the version you are currently running is `Java 11` and switch if necessary.
+   - Switching for [Windows](https://stackoverflow.com/questions/26993101/switching-between-different-jdk-versions-in-windows)
+   - Switching for [Mac](https://stackoverflow.com/questions/21964709/how-to-set-or-change-the-default-java-jdk-version-on-macos)
+2. Follow from Step 2 of the Basic Guide!
+   - :speaker: MacOS users, you may need to download a specific version of `Java` if you encounter issues
+     launching Nicole. Simply follow from Step 1 of the Basic Guide in this scenario.
+
+
+### Basic Guide
+
+1. Download `Java 11`
+   - For [Windows](https://arc.net/l/quote/xrxbvatl)
+   - For MacOS (navigate to the "About This Mac" menu to find out which chip your mac has installed): 
+     - [M1](https://arc.net/l/quote/rqjezudg)
+     - [Intel](https://arc.net/l/quote/luolepqe)
+   2. Once you've downloaded `Java`, download the `Nicole.jar` file from [here](https://github.com/yashpola/ip/releases/tag/Level-10)
+2. Navigate to your `downloads` directory and
    - Create a folder to put the `jar` file in
    - Double-click the `jar` file to launch Nicole. A window like the one shown below should open
    - Fire away!
