@@ -10,9 +10,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scribbles.gui.MainWindow">
     <children>
-        <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="400.0" promptText="type 'help' for user guide." AnchorPane.bottomAnchor="1.0">
+        <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="400.0" promptText="type 'help' or input commands." AnchorPane.bottomAnchor="1.0">
          <font>
-            <Font name="Andale Mono" size="11.0" />
+            <Font name="Tahoma" size="13.0" />
          </font></TextField>
         <Button fx:id="sendButton" contentDisplay="CENTER" layoutX="400.0" layoutY="658.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF;" text="➤">
          <font>

@@ -10,20 +10,34 @@
 <fx:root alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <HBox>
-            <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="displayPicture" fitHeight="88.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true" />
             <VBox>
               <Label fx:id="nameLabel" text="Scribbles" textFill="#d15d32" wrapText="true">
                <font>
-                  <Font name="Gill Sans Bold" size="14.0" />
+                  <Font name="Tahoma Bold" size="13.0" />
                </font>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
             </Label>
-                <Label fx:id="dialog" minHeight="-Infinity" text="Label" wrapText="true">
-               <font>
-                  <Font name="Andale Mono" size="11.0" />
-               </font>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets></Label>
+            <HBox style="-fx-background-color: #ffffff; -fx-border-color: #ffe1b7; -fx-background-radius: 10px; -fx-border-radius: 10px;">
+               <children>
+                      <Label fx:id="dialog" lineSpacing="0.5" minHeight="-Infinity" text="Dialog" wrapText="true">
+                     <font>
+                        <Font name="Tahoma" size="12.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+               </padding>
+            </HBox>
+            <padding>
+               <Insets left="10.0" />
+            </padding>
             </VBox>
         </HBox>
     </children>
