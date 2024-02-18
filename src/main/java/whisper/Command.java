@@ -58,7 +58,6 @@ class AddCommand implements Command {
             ui.printTaskAdded(taskToAdd, tasks.size());
         } catch (WhisperException e) {
             ui.printError(e.getMessage());
-//            e.printStackTrace();
         }
     }
 
@@ -210,6 +209,7 @@ class UnmarkCommand implements Command {
      * Constructs an UnmarkCommand with the specified task index to mark as not done.
      *
      * @param taskIndex The index of the task to be marked as not done.
+     *
      */
     public UnmarkCommand(int taskIndex, Ui ui) {
         this.taskIndex = taskIndex;
