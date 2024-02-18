@@ -59,7 +59,11 @@ public class SaveFile {
             TaskList tasks = new TaskList();
             while (fileScanner.hasNextLine()) {
                 String curLine = fileScanner.nextLine();
-                tasks.addTask(Task.generateTaskFromFile(curLine));
+                try {
+                    tasks.addTask(Task.generateTaskFromFile(curLine));
+                } catch (TalkingBotException e) {
+                    e.printStackTrace();
+                }
             }
             return tasks;
         } catch (FileNotFoundException e) {

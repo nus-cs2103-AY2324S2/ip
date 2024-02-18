@@ -25,6 +25,8 @@ public abstract class Task {
     private static final String DO_WITHIN_PERIOD_ERROR_MSG = "ERROR! do_within_period descriptions"
             + " cannot be empty and must have /between and /and properties";
     private static final String GENERIC_ERR_MSG = "ERROR! Unknown command format detected!";
+    private static final String SAVE_FILE_PROCESSING_ERR_MSG = "ERROR! Invalid line processed!";
+    private static final String INVALID_TYPE_ERR_MSG = "ERROR! Invalid type detected.";
     private final String description;
     private boolean isDone;
     private final TaskType taskType;
@@ -54,19 +56,20 @@ public abstract class Task {
     public static Task generateTask(String fullDescription, String type)
             throws TalkingBotException {
         String[] splitArr = getSplitArr(fullDescription, type);
-        if (type.equals("todo")) {
+        switch (type) {
+        case "todo":
             if (fullDescription.isEmpty()) {
                 throw new TalkingBotException(TODO_ERROR_MSG);
             }
             return new Todo(fullDescription, false);
-        } else if (type.equals("deadline")) {
+        case "deadline":
             if (splitArr.length != 2) {
                 throw new TalkingBotException(DEADLINE_ERROR_MSG);
             }
             String deadlineDescription = splitArr[0];
             String deadlineEndTime = splitArr[1];
             return new Deadline(deadlineDescription, deadlineEndTime);
-        } else if (type.equals("event")) {
+        case "event":
             if (splitArr.length != 3) {
                 throw new TalkingBotException(EVENT_ERROR_MSG);
             }
@@ -74,7 +77,7 @@ public abstract class Task {
             String eventBeginTime = splitArr[1];
             String eventEndTime = splitArr[2];
             return new Event(eventDescription, eventBeginTime, eventEndTime);
-        } else {
+        case "do_within_period":
             if (splitArr.length != 3) {
                 throw new TalkingBotException(DO_WITHIN_PERIOD_ERROR_MSG);
             }
@@ -83,6 +86,8 @@ public abstract class Task {
             String doWithinPeriodEndTime = splitArr[2];
             return new DoWithinPeriod(doWithinPeriodDescription,
                     doWithinPeriodBeginTime, doWithinPeriodEndTime);
+        default:
+            throw new TalkingBotException(INVALID_TYPE_ERR_MSG);
         }
     }
 
@@ -115,17 +120,23 @@ public abstract class Task {
      * @param line The current line being processed.
      * @return A task: either a Todo, Deadline, or Event.
      */
-    public static Task generateTaskFromFile(String line) {
+    public static Task generateTaskFromFile(String line) throws TalkingBotException {
         String[] lineArr = line.split(" \\| ");
+        if (lineArr.length < 2) {
+            throw new TalkingBotException(SAVE_FILE_PROCESSING_ERR_MSG);
+        }
         boolean mark = lineArr[1].equals("1") ? true : false;
-        if (lineArr[0].equals("T")) {
+        String taskType = lineArr[0];
+        if (taskType.equals("T")) {
             return new Todo(lineArr[2], mark);
-        } else if (lineArr[0].equals("D")) {
+        } else if (taskType.equals("D")) {
             return new Deadline(lineArr[2], mark, lineArr[3]);
-        } else if (lineArr[0].equals("E")) {
-            return new Event(lineArr[2], mark, lineArr[3], lineArr[4]);
+        } else if (taskType.equals("E")) {
+            return new Event(taskType, mark, lineArr[3], lineArr[4]);
+        } else if (taskType.equals("W")) {
+            return new DoWithinPeriod(taskType, mark, lineArr[3], lineArr[4]);
         } else {
-            return new DoWithinPeriod(lineArr[2], mark, lineArr[3], lineArr[4]);
+            throw new TalkingBotException(SAVE_FILE_PROCESSING_ERR_MSG);
         }
     }
 
