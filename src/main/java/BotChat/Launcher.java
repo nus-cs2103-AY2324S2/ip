@@ -3,11 +3,11 @@ package BotChat;
 import javafx.application.Application;
 
 /**
- * A launcher class to workaround classpath issues.
+ * A launcher class to start the chat application.
  */
 public class Launcher {
     /**
-     * The main method to launch the application.
+     * Launches the chat application.
      *
      * @param args The command-line arguments.
      */
