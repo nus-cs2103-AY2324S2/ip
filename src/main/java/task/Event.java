@@ -31,6 +31,24 @@ public class Event extends Task {
     }
 
     /**
+     * Returns the start date of the event task.
+     * 
+     * @return The start date of the event task.
+     */
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    /**
+     * Returns the end date of the event task.
+     * 
+     * @return The end date of the event task.
+     */
+    public LocalDate getDeadlineDate() {
+        return deadlineDate;
+    }
+
+    /**
      * Returs the string representation of the event task.
      * 
      * @return The string representation of the event task.
