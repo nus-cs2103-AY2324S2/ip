@@ -57,8 +57,9 @@ public class TaskList {
         Task deletedTask = this.getTask(idx);
         String message = "Oink! Yosh I have removed this task:\n"
                 + " >> " + deletedTask + "\nOink's task count: " + taskCount + "\n";
+
         this.tasks.remove(idx);
-        assert this.tasks.contains(deletedTask)
+        assert !this.tasks.contains(deletedTask)
                 : "TaskList should no longer contain this task.";
         return message;
     }
@@ -73,6 +74,7 @@ public class TaskList {
         this.tasks.add(task);
         assert this.tasks.contains(task)
                 : "TaskList should contain this task.";
+
         return "Oink! Nice I have added this task:\n"
                 + " >> " + task + "\nOink's task count: " + this.getSize() + "\n";
     }

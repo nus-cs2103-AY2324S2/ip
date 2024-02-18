@@ -15,13 +15,15 @@ import task.Todo;
  */
 public class Ui {
     private final Parser parser;
+    private final Storage storage;
     private final String line = "_________________________________________";
 
     /**
      * Constructor for a UI object.
      */
-    public Ui() {
+    public Ui(Storage store) {
         this.parser = new Parser();
+        this.storage = store;
     }
 
     /**
@@ -112,6 +114,9 @@ public class Ui {
 
         int idx = userInput.charAt(5) - '0' - 1;
         markedTask.append(tasks.markTask(idx)).append("\n").append(line);
+
+        // Update storage.
+        this.storage.save(tasks);
         return markedTask.toString();
     }
 
@@ -133,6 +138,9 @@ public class Ui {
 
         int idx = userInput.charAt(7) - '0' - 1;
         unmarkedTask.append(tasks.unmarkTask(idx)).append("\n").append(line);
+
+        // Update storage.
+        this.storage.save(tasks);
         return unmarkedTask.toString();
     }
 
@@ -154,6 +162,9 @@ public class Ui {
 
         int idx = userInput.charAt(7) - '0' - 1;
         deletedTask.append(tasks.deleteTask(idx)).append("\n").append(line);
+
+        // Update storage.
+        this.storage.save(tasks);
         return deletedTask.toString();
     }
 
@@ -173,6 +184,9 @@ public class Ui {
 
         printTask.append(tasks.addTask(task)).append("\n").append(line);
         assert tasks.getTaskList().contains(task) : "Task should be in the list.";
+
+        // Update storage.
+        this.storage.save(tasks);
         return printTask.toString();
     }
 
@@ -193,6 +207,9 @@ public class Ui {
             Deadline task = new Deadline(name, deadline);
             printTask.append(tasks.addTask(task)).append("\n").append(line);
             assert tasks.getTaskList().contains(task) : "Task should be in the list.";
+
+            // Update storage.
+            this.storage.save(tasks);
         } catch (DateTimeParseException e) {
             printTask.append("Oink! Invalid date format! Please follow:\n"
                     + ">> dd/MM/yyyy\n" + line);
@@ -216,6 +233,9 @@ public class Ui {
 
         printTask.append(tasks.addTask(task)).append("\n").append(line);
         assert tasks.getTaskList().contains(task) : "Task should be in the list.";
+
+        // Update storage.
+        this.storage.save(tasks);
         return printTask.toString();
     }
 
