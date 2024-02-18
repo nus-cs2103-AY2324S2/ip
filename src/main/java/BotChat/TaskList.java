@@ -256,6 +256,13 @@ public class TaskList {
         return response.toString();
     }
 
+    /**
+     * Gets the index of a task based on user input.
+     *
+     * @param input The user input containing the task index.
+     * @return The index of the task in the task list.
+     * @throws BotChatException If the input is not a valid task index.
+     */
     private int getTaskIndex(String input) throws BotChatException {
         try {
             int taskIndex = Integer.parseInt(input) - 1;
