@@ -1,5 +1,6 @@
 package commands;
 
+import com.sun.scenario.effect.impl.prism.PrRenderInfo;
 import exceptions.InvalidFormatException;
 import exceptions.LeluException;
 import storage.Storage;
@@ -12,7 +13,7 @@ import ui.Ui;
  * specified task to indicate that it has been completed.
  */
 public class MarkCommand extends Command {
-
+    private static final String COMMAND = "mark ";
     /**
      * Executes the command to mark a task in the list of recorded tasks as done.
      *
@@ -24,16 +25,8 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws LeluException {
-        String[] desc = message.split(" ");
-        if (desc.length != 2) {
-            InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.MARK);
-        }
-        int i = 0;
-        try {
-            i = Integer.parseInt(desc[1]) - 1;
-        } catch (NumberFormatException e) {
-            InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.MARK);
-        }
+        checkEmptyDescription(message, COMMAND, LeluException.ErrorType.MARK);
+        int i = getTaskListNumber(message.split(" ")[1]);
         assert message.length() >= "mark #".length() : "Input not handled properly";
         return tasks.markTask(i);
     }

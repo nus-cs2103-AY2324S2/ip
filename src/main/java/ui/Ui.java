@@ -1,5 +1,7 @@
 package ui;
 
+import tasks.Deadline;
+
 public class Ui {
 
     public String showInstructions() {
@@ -7,7 +9,7 @@ public class Ui {
                 + "------------------------\n"
                 + "[to record your task(s)/ events]\n"
                 + "- todo <task>\n"
-                + "- deadline <task> /by <date>\n"
+                + "- deadline <task> /by " + Deadline.DATE_FORMAT + "\n"
                 + "- event <event> /from <date and time> /to <date and time>\n\n"
                 + "[to view your task(s)]\n"
                 + "- list\n\n"
@@ -32,7 +34,7 @@ public class Ui {
 
     public String dateFormatInstructions() {
         return String.format("    Your date should be in this format:\n    "
-                + "<YYYY-MM-DD HH:mm> e.g. 2024-02-03 15:25\n\n");
+                + Deadline.DATE_FORMAT + " e.g. 2024-02-03 15:25\n\n");
     }
 
 

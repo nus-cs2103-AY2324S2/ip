@@ -12,7 +12,7 @@ import ui.Ui;
  * specified task to indicate that it has not been completed.
  */
 public class UnmarkCommand extends Command {
-
+    private static final String COMMAND = "unmark ";
     /**
      * Executes the command to mark a task in the list of recorded tasks as not done.
      *
@@ -24,17 +24,9 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws LeluException {
-        String[] desc = message.split(" ");
-        if (desc.length != 2) {
-            InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.UNMARK);
-        }
-        int i = 0;
-        try {
-            i = Integer.parseInt(desc[1]) - 1;
-        } catch (NumberFormatException e) {
-            InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.UNMARK);
-        }
-        assert message.length() >= "unmark #".length() : "Input not handled properly";
+        checkEmptyDescription(message, COMMAND, LeluException.ErrorType.UNMARK);
+        int i = getTaskListNumber(message.split(" ")[1]);
+        assert message.length() >= (COMMAND + "#").length() : "Input not handled properly";
         return tasks.unmarkTask(i);
     }
 }

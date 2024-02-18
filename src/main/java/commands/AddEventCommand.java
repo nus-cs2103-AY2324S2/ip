@@ -2,6 +2,7 @@ package commands;
 
 import exceptions.InvalidFormatException;
 import exceptions.LeluException;
+import tasks.Deadline;
 import tasks.Event;
 import storage.Storage;
 import tasks.TaskList;
@@ -14,7 +15,9 @@ import ui.Ui;
  * start and end timings of the event.
  */
 public class AddEventCommand extends Command {
-
+    private static final String FROM = "/from ";
+    private static final String TO = "/to ";
+    private static final String COMMAND = "event ";
     /**
      * Executes the command to add an event to the list of recorded tasks.
      *
@@ -26,18 +29,24 @@ public class AddEventCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws LeluException {
-        if (message.trim().equals("event")) {
+        checkEmptyDescription(message, COMMAND, LeluException.ErrorType.EVENT);
+        Event t = checkFormat(message);
+        assert message.length() >= (COMMAND + FROM + TO).length() : "Input not handled properly";
+        return tasks.addTask(t);
+    }
+
+    private Event checkFormat(String message) throws LeluException {
+        String[] t = message.replaceFirst(COMMAND, "").split(FROM);
+        String details = t[0].trim();
+        if (t.length < 2 || details.length() == 0) {
             InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.EVENT);
         }
-        String[] t = message.replaceFirst("event ", "").split("/from ");
-        if (t.length < 2) {
+        String[] frTo = t[1].split(TO);
+        String from = frTo[0].trim();
+        String to = frTo[1].trim();
+        if (frTo.length < 2 || from.length() == 0 || to.length() == 0) {
             InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.EVENT);
         }
-        String[] frTo = t[1].split("/to ");
-        if (frTo.length < 2) {
-            InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.EVENT);
-        }
-        assert message.length() >= "event /from /to".length() : "Input not handled properly";
-        return tasks.addTask(new Event(t[0], frTo[0], frTo[1]));
+        return new Event(details, from, to);
     }
 }

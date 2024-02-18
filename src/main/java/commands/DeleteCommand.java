@@ -12,7 +12,7 @@ import ui.Ui;
  * task list based on its index.
  */
 public class DeleteCommand extends Command {
-
+    private static final String COMMAND = " delete ";
     /**
      * Executes the command to remove a task from the list of recorded tasks.
      *
@@ -24,11 +24,9 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws LeluException {
-        if (message.trim().equals("delete")) {
-            InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.DELETE);
-        }
-        int i = Integer.parseInt(message.split(" ")[1]) - 1;
-        assert message.length() >= "delete #".length() : "Input not handled properly";
+        checkEmptyDescription(message, COMMAND, LeluException.ErrorType.DELETE);
+        int i = getTaskListNumber(message.split(" ")[1]);
+        assert message.length() >= (COMMAND + "#").length() : "Input not handled properly";
         return tasks.removeTask(i);
     }
 }

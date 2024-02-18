@@ -3,7 +3,6 @@ package commands;
 import exceptions.InvalidFormatException;
 import exceptions.LeluException;
 import tasks.Deadline;
-import tasks.Task;
 import storage.Storage;
 import tasks.TaskList;
 import ui.Ui;
@@ -15,6 +14,8 @@ import ui.Ui;
  * due date and time.
  */
  public class AddDeadlineCommand extends Command {
+     private static final String BY = "/by ";
+     private static final String COMMAND = "deadline ";
 
     /**
      * Executes the command to add a deadline to the list of recorded tasks.
@@ -27,15 +28,18 @@ import ui.Ui;
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws LeluException {
-        if (message.trim().equals("deadline")) {
-            InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.DEADLINE);
-        }
-        String[] s = message.replaceFirst("deadline ", "").split("/by ");
-        if (s.length < 2) {
-            InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.DEADLINE);
-        }
-        Task t = new Deadline(s[0].replaceAll("\\s+$", ""), s[1]);
-        assert message.length() >= "deadline /by yyyy-MM-dd HH:mm".length() : "Input not handled properly";
+        checkEmptyDescription(message, COMMAND, LeluException.ErrorType.DEADLINE);
+        Deadline t = checkFormat(message);
+        assert message.length() >= (COMMAND + BY + Deadline.DATE_FORMAT).length() : "Input not handled properly";
         return tasks.addTask(t);
+    }
+
+    private Deadline checkFormat(String message) throws LeluException {
+        String[] s = message.replaceFirst(COMMAND, "").split(BY);
+        String details = s[0].trim();
+        if (s.length < 2 || details.length() == 0) {
+            InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.DEADLINE);
+        }
+        return new Deadline(details, s[1]);
     }
 }

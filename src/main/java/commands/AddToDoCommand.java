@@ -14,6 +14,8 @@ import ui.Ui;
  */
 public class AddToDoCommand extends Command {
 
+    private static final String COMMAND = "todo ";
+
     /**
      * Executes the command to add a task to the list of recorded tasks.
      *
@@ -25,11 +27,9 @@ public class AddToDoCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws LeluException {
-        if (message.trim().equals("todo")) {
-            InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.TODO);
-        }
-        String s = message.replaceFirst("todo ", "");
-        assert message.length() > "todo ".length() : "Input not handled properly";
+        checkEmptyDescription(message, COMMAND, LeluException.ErrorType.TODO);
+        String s = message.replaceFirst(COMMAND, "");
+        assert message.length() > COMMAND.length() : "Input not handled properly";
         return tasks.addTask(new ToDo(s));
     }
 }

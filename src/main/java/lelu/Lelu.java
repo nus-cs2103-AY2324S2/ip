@@ -25,6 +25,9 @@ public class Lelu {
 
     /**
      * Returns a response to the user's input
+     *
+     * @param input User's input
+     * @return Response based on user's input
      */
     public String getResponse(String input) {
         try {
