@@ -59,4 +59,10 @@ public class ToDo extends Task {
     public String getTypeString() {
         return TYPE_STRING;
     }
+
+    public int compareToSameType(Task task) {
+        assert(task.type == TaskType.TODO) : "not an todo";
+        ToDo todo = (ToDo) task;
+        return description.compareTo(todo.description);
+    }
 }

@@ -75,4 +75,22 @@ public class Event extends Task {
     public String getTypeString() {
         return TYPE_STRING;
     }
+
+    public int compareToSameType(Task task) {
+        assert(task.type == TaskType.EVENT) : "not an event";
+        Event event = (Event) task;
+        if (!eventStartTiming.equals(event.eventStartTiming)) {
+            return eventStartTiming.compareTo(event.eventStartTiming);
+        }
+
+        if (!eventEndTiming.equals(event.eventEndTiming)) {
+            return eventEndTiming.compareTo(event.eventEndTiming);
+        }
+
+        if (!description.equals(event.description)) {
+            return description.compareTo(event.description);
+        }
+
+        return 0;
+    }
 }

@@ -18,6 +18,7 @@ public class Parser {
     private static final DateTimeFormatter DATE_TIME_FORMATTER =
             DateTimeFormatter.ofPattern(DATETIME_FORMAT);
     private static Parser instance = null;
+    private static String[] lastCommands;
     private Ui ui = null;
     private TaskList taskList = null;
     private Storage storage = null;
@@ -47,7 +48,14 @@ public class Parser {
     public String processInputReturnString(String input) throws InputException {
         String[] words = input.split(" ");
         String command = words[0];
+
         try {
+            boolean isUndo = command.equals("undo");
+            boolean isList = command.equals("list");
+
+            if (!isUndo && !isList) {
+                lastCommands = words;
+            }
             switch (command) {
             case "mark":
             case "unmark":
@@ -66,6 +74,12 @@ public class Parser {
                 return listTasks();
             case "find":
                 return getTasksFilteredWithKeyword(words);
+            case "distinct":
+                return removeDuplicatedTasks();
+            case "sort":
+                return sortTasks();
+            case "undo":
+                return undo();
             default:
                 throw new CommandNotFoundException(input);
             }
@@ -73,6 +87,25 @@ public class Parser {
             System.out.println(e.getMessage());
             return e.getMessage();
         }
+    }
+
+    private String undo() throws TaskIndexOutOfBoundsException {
+        if (lastCommands[0].equals("mark") || lastCommands[0].equals("unmark")) {
+            undoToggleMarkedTask(lastCommands);
+        } else {
+            taskList.undo();
+        }
+        return "Action Undone";
+    }
+
+    private String sortTasks() {
+        taskList.sortTasks();
+        return ui.listTasksReturnString();
+    }
+
+    private String removeDuplicatedTasks() {
+        taskList.removeDuplicatedTasks();
+        return ui.listTasksReturnString();
     }
 
     private String getTasksFilteredWithKeyword(String[] words) {
@@ -126,6 +159,16 @@ public class Parser {
             boolean isDone = words[0].equals("mark");
             int taskIndex = Integer.parseInt(words[1]);
             return taskList.setTaskDoneWithIndex(taskIndex, isDone);
+        } else {
+            return "Action failed: task index input is not an integer";
+        }
+    }
+
+    private String undoToggleMarkedTask(String[] words) throws TaskIndexOutOfBoundsException {
+        if (isInteger(words[1])) {
+            boolean isDone = words[0].equals("mark");
+            int taskIndex = Integer.parseInt(words[1]);
+            return taskList.setTaskDoneWithIndex(taskIndex, !isDone);
         } else {
             return "Action failed: task index input is not an integer";
         }

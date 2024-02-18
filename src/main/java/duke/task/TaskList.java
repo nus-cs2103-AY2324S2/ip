@@ -12,6 +12,7 @@ import duke.ui.Ui;
 public class TaskList {
     private static LinkedList<Task> tasks = null;
     private static LinkedList<Task> lastFilteredTasks = null;
+    private static LinkedList<Task> listBeforeLastAction = null;
     private static TaskList instance = null;
     private Ui ui = null;
     private boolean isFiltered = false;
@@ -49,6 +50,7 @@ public class TaskList {
      * @param task Task to be added.
      */
     public void addTask(Task task) {
+        backupOriginalList();
         tasks.add(task);
     }
 
@@ -63,6 +65,7 @@ public class TaskList {
     public String setTaskDoneWithIndex(int index, boolean isDone)
             throws TaskIndexOutOfBoundsException {
         try {
+            backupOriginalList();
             getTask(index).setIsDone(isDone);
             return getTask(index).getUpdateIsDoneMessage();
         } catch (NullPointerException | IndexOutOfBoundsException e) {
@@ -79,7 +82,7 @@ public class TaskList {
      */
     public Task deleteTask(int index) throws TaskIndexOutOfBoundsException {
         try {
-            //duke.task.Task deletedTask =
+            backupOriginalList();
             Task task = getTask(index);
             tasks.remove(task);
             return task;
@@ -107,6 +110,7 @@ public class TaskList {
      * @param keywords keywords to search through the taskList with
      */
     public void findTaskWithKeyword(String[] keywords) {
+        backupOriginalList();
         filterListWithKeyword(tasks, keywords);
     }
 
@@ -134,5 +138,31 @@ public class TaskList {
     private List<Task> filterTasksWithOneKeyword(List<Task> tasks, String keyword) {
         return tasks.stream().filter(task -> task.description.contains(keyword))
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * @return TaskList with duplicated tasks removed.
+     */
+    public LinkedList<Task> removeDuplicatedTasks() {
+        backupOriginalList();
+        tasks = new LinkedList<>(tasks.stream().distinct().collect(Collectors.toList()));
+        return tasks;
+    }
+
+    /**
+     * @return TaskList sorted based on taskType then deadline / timing
+     */
+    public LinkedList<Task> sortTasks() {
+        backupOriginalList();
+        tasks = new LinkedList<>(tasks.stream().sorted().collect(Collectors.toList()));
+        return tasks;
+    }
+
+    public void undo() {
+        tasks = listBeforeLastAction;
+    }
+
+    private void backupOriginalList() {
+        listBeforeLastAction = new LinkedList<>(tasks);
     }
 }
