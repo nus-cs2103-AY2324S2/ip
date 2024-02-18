@@ -1,7 +1,139 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+
+---------------------------------------------
+
+Squid: HMm human. What do you want again?
+
+---------------------------------------------
+
+
+---------------------------------------------
+
+Squid: Added todo
+[T][ ]: addtask
+
+---------------------------------------------
+
+
+---------------------------------------------
+
+Squid: Added todo
+[T][ ]: test spacebar
+
+---------------------------------------------
+
+
+---------------------------------------------
+
+Squid: Added todo
+[T][ ]: todo1
+
+---------------------------------------------
+
+
+---------------------------------------------
+
+Squid: Added event
+[E][ ]: ev (from: today to tomorrow)
+
+---------------------------------------------
+
+
+---------------------------------------------
+
+Squid: Added event
+[E][ ]: test space (from: today 3pm to tomorrow 4pm)
+
+---------------------------------------------
+
+
+---------------------------------------------
+
+Squid: Added deadline
+[D][ ]: dl (by: tmr)
+
+---------------------------------------------
+
+
+---------------------------------------------
+
+Squid: Added deadline
+[D][ ]: test space (by: tomorrow 4pm)
+
+---------------------------------------------
+
+
+---------------------------------------------
+
+Squid: Added todo
+[T][ ]: echo echotest
+
+---------------------------------------------
+
+
+---------------------------------------------
+
+Squid: Here are your tasks. Sucks to be you, my only 2 tasks are eating and sleeping.
+1: [T][ ]: addtask
+2: [T][ ]: test spacebar
+3: [T][ ]: todo1
+4: [E][ ]: ev (from: today to tomorrow)
+5: [E][ ]: test space (from: today 3pm to tomorrow 4pm)
+6: [D][ ]: dl (by: tmr)
+7: [D][ ]: test space (by: tomorrow 4pm)
+8: [T][ ]: echo echotest
+
+---------------------------------------------
+
+
+---------------------------------------------
+
+Squid: That was slow, but at least you completed: 
+ [E][X]: ev (from: today to tomorrow)
+
+---------------------------------------------
+
+
+---------------------------------------------
+
+Squid: Here are your tasks. Sucks to be you, my only 2 tasks are eating and sleeping.
+1: [T][ ]: addtask
+2: [T][ ]: test spacebar
+3: [T][ ]: todo1
+4: [E][X]: ev (from: today to tomorrow)
+5: [E][ ]: test space (from: today 3pm to tomorrow 4pm)
+6: [D][ ]: dl (by: tmr)
+7: [D][ ]: test space (by: tomorrow 4pm)
+8: [T][ ]: echo echotest
+
+---------------------------------------------
+
+
+---------------------------------------------
+
+Squid: Can't make up your mind? 
+ [E][ ]: ev (from: today to tomorrow)
+
+---------------------------------------------
+
+
+---------------------------------------------
+
+Squid: Here are your tasks. Sucks to be you, my only 2 tasks are eating and sleeping.
+1: [T][ ]: addtask
+2: [T][ ]: test spacebar
+3: [T][ ]: todo1
+4: [E][ ]: ev (from: today to tomorrow)
+5: [E][ ]: test space (from: today 3pm to tomorrow 4pm)
+6: [D][ ]: dl (by: tmr)
+7: [D][ ]: test space (by: tomorrow 4pm)
+8: [T][ ]: echo echotest
+
+---------------------------------------------
+
+
+---------------------------------------------
+
+Squid: You're done. Time for my food.
+
+---------------------------------------------
 
