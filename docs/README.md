@@ -3,7 +3,7 @@
 ## Setup 
 1. Ensure you have **Java 11** installed in your Computer.
 2. Move to the *folder* where you put the `jar` file.
-3. Use `java -jar .\hanxiao.jar` to pen the jar file.
+3. Use `java -jar hanxiao.jar` to pen the jar file.
 
 ## Changing data source
 
