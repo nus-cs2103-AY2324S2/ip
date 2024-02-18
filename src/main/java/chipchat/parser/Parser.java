@@ -20,10 +20,6 @@ import chipchat.action.Unmark;
 import chipchat.exception.ArgumentException;
 import chipchat.exception.InvalidArgumentException;
 import chipchat.exception.MissingArgumentException;
-import chipchat.task.Deadline;
-import chipchat.task.Event;
-import chipchat.task.Task;
-import chipchat.task.Todo;
 
 /**
  * Represents a utility class used to parse user inputs and data inputs given to the main Chipchat application.
@@ -105,7 +101,7 @@ public class Parser {
             throw new InvalidArgumentException("Error: Sorry. I don't know what that means");
         }
     }
-    
+
     private static void readArguments(String[] tokens) {
         StringBuilder currArg = new StringBuilder();
         ArgumentType argType = ArgumentType.DESCRIPTION;
@@ -117,7 +113,7 @@ public class Parser {
                 }
                 String[] args = token.trim().split("/");
                 String arg = args[1].substring(0).toUpperCase();
-                argType = ArgumentType.valueOf(arg);
+                argType = parseArgumentType(arg);
             } else {
                 currArg.append(token)
                         .append(" ");
