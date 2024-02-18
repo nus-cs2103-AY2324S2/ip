@@ -56,5 +56,10 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
     }
+
+    public void displayWelcomeMessage() {
+        String welcomeMessage = solaire.processInput("greet");
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeMessage, dukeImage));
+    }
 }
 
