@@ -31,7 +31,7 @@ public class Ui {
      */
     public String greet() {
         return "    Tes here.\n"
-                + "    huh? What you want from me?";
+                + "    Huh? What you want from me?";
     }
 
     /**
@@ -102,7 +102,7 @@ public class Ui {
         for (int i = 1; i <= this.taskList.getSize(); i++) {
             tasks.append("    ")
                     .append(i)
-                    .append(".")
+                    .append(". ")
                     .append(this.taskList.getTaskDescription(i - 1))
                     .append("\n"); // Appends a new line character
         }
@@ -159,8 +159,9 @@ public class Ui {
             String taskDescription = this.taskList.getTaskDescription(i - 1);
             if (taskDescription.contains(keyword)) {
                 foundTasks.append(counter)
-                        .append(".")
-                        .append(taskDescription);
+                        .append(". ")
+                        .append(taskDescription)
+                        .append("\n");
                 counter++;
             }
         }

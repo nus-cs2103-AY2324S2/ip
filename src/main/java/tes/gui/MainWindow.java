@@ -1,5 +1,7 @@
 package tes.gui;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import tes.Tes;
 
 /**
@@ -25,15 +28,21 @@ public class MainWindow extends AnchorPane {
     private Tes tes;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/tes.jpg"));
+    private Image tesImage = new Image(this.getClass().getResourceAsStream("/images/tes.jpg"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    public void displayGreet() {
+        String greet = tes.greet();
+        dialogContainer.getChildren().add(DialogBox.getTesDialog(greet, tesImage));
+    }
+
     public void setDuke(Tes t) {
         tes = t;
+        displayGreet();
     }
 
     /**
@@ -43,11 +52,26 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = tes.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
-        );
+        if ("bye".equals(input.trim().toLowerCase())) {
+            String closingLine = tes.exit();
+            dialogContainer.getChildren().add(DialogBox.getTesDialog(closingLine, tesImage));
+
+            // Creates a pause transition for 1 second
+            PauseTransition pause = new PauseTransition(Duration.seconds(1));
+            pause.setOnFinished(event -> {
+                // Closes the application after the pause
+                Platform.exit();
+                System.exit(0);
+            });
+            pause.play(); // Starts the pause
+        } else {
+            // Handles other input as normal
+            String response = tes.getResponse(input);
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getTesDialog(response, tesImage)
+            );
+        }
         userInput.clear();
     }
 }

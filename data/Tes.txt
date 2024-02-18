@@ -3,7 +3,7 @@ T | X | sadasdas
 T |   | salsa
 T |   | get book
 T | X | laundry
-E |   | dance | from: Dec 12 2022 12:00 PM to: Dec 12 2022 06:00 PM
+E | X | dance | from: Dec 12 2022 12:00 PM to: Dec 12 2022 06:00 PM
 T |   | mmmm
 T |   | ed
 T |   | asdasd

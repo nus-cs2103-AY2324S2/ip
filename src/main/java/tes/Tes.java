@@ -30,4 +30,12 @@ public class Tes {
         return this.parser.parse(command);
     }
 
+    public String greet() {
+        return this.ui.greet();
+    }
+
+    public String exit() {
+        return this.ui.close();
+    }
+
 }
