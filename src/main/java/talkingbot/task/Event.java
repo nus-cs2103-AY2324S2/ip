@@ -27,6 +27,17 @@ public class Event extends Task {
         this.endTime = LocalDateTime.parse(endTime, DATE_TIME_ENTRY_FORMAT);
     }
 
+    /**
+     * Creates a new Event instance with isDone equal to false.
+     *
+     * @param description Description of the task.
+     * @param startTime Event starting time.
+     * @param endTime Event ending time.
+     */
+    public Event(String description, String startTime, String endTime) {
+        this(description, false, startTime, endTime);
+    }
+
 
     /**
      * Returns the starting time of the Event.

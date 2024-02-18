@@ -25,6 +25,16 @@ public class Deadline extends Task {
     }
 
     /**
+     * Creates a new Deadline instance with isDone equal to false.
+     *
+     * @param description Description of the task.
+     * @param endTime Marks the ending time of the deadline.
+     */
+    public Deadline(String description, String endTime) {
+        this(description, false, endTime);
+    }
+
+    /**
      * Returns the ending time of the Deadline.
      *
      * @return Deadline ending time.

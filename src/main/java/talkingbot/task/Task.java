@@ -24,6 +24,7 @@ public abstract class Task {
             + " /from and /to properties.";
     private static final String DO_WITHIN_PERIOD_ERROR_MSG = "ERROR! do_within_period descriptions"
             + " cannot be empty and must have /between and /and properties";
+    private static final String GENERIC_ERR_MSG = "ERROR! Unknown command format detected!";
     private final String description;
     private boolean isDone;
     private final TaskType taskType;
@@ -52,32 +53,59 @@ public abstract class Task {
      */
     public static Task generateTask(String fullDescription, String type)
             throws TalkingBotException {
+        String[] splitArr = getSplitArr(fullDescription, type);
         if (type.equals("todo")) {
             if (fullDescription.isEmpty()) {
                 throw new TalkingBotException(TODO_ERROR_MSG);
             }
             return new Todo(fullDescription, false);
         } else if (type.equals("deadline")) {
-            String[] splitArr = fullDescription.split(" /by ");
-            try {
-                return new Deadline(splitArr[0], false, splitArr[1]);
-            } catch (IndexOutOfBoundsException err) {
+            if (splitArr.length != 2) {
                 throw new TalkingBotException(DEADLINE_ERROR_MSG);
             }
+            String deadlineDescription = splitArr[0];
+            String deadlineEndTime = splitArr[1];
+            return new Deadline(deadlineDescription, deadlineEndTime);
         } else if (type.equals("event")) {
-            String[] splitArr = fullDescription.split("( /from )|( /to )");
-            try {
-                return new Event(splitArr[0], false, splitArr[1], splitArr[2]);
-            } catch (IndexOutOfBoundsException err) {
+            if (splitArr.length != 3) {
                 throw new TalkingBotException(EVENT_ERROR_MSG);
             }
+            String eventDescription = splitArr[0];
+            String eventBeginTime = splitArr[1];
+            String eventEndTime = splitArr[2];
+            return new Event(eventDescription, eventBeginTime, eventEndTime);
         } else {
-            String[] splitArr = fullDescription.split("( /between )|( /and )");
-            try {
-                return new DoWithinPeriod(splitArr[0], false, splitArr[1], splitArr[2]);
-            } catch (IndexOutOfBoundsException err) {
+            if (splitArr.length != 3) {
                 throw new TalkingBotException(DO_WITHIN_PERIOD_ERROR_MSG);
             }
+            String doWithinPeriodDescription = splitArr[0];
+            String doWithinPeriodBeginTime = splitArr[1];
+            String doWithinPeriodEndTime = splitArr[2];
+            return new DoWithinPeriod(doWithinPeriodDescription,
+                    doWithinPeriodBeginTime, doWithinPeriodEndTime);
+        }
+    }
+
+    /**
+     * Generates the String array needed to create each of the task types.
+     *
+     * @param fullDescription Line to be processed.
+     * @param type Type of task.
+     * @return A String[] containing information on the task.
+     * @throws TalkingBotException If an invalid type is entered.
+     */
+    private static String[] getSplitArr(String fullDescription, String type) throws TalkingBotException {
+        switch (type) {
+        case "todo":
+            return new String[]{fullDescription};
+        case "deadline":
+            return fullDescription.split(" /by ");
+        case "event":
+            return fullDescription.split("( /from )|( /to )");
+        case "do_within_period":
+            return fullDescription.split("( /between )|( /and )");
+        default:
+            throw new TalkingBotException(GENERIC_ERR_MSG);
         }
     }
 

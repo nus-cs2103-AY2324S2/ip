@@ -27,6 +27,17 @@ public class DoWithinPeriod extends Task {
         this.endTime = LocalDateTime.parse(endTime, DATE_TIME_ENTRY_FORMAT);
     }
 
+    /**
+     * Creates a new DoWithinPeriod instance with isDone equal to false.
+     *
+     * @param description Description of the task.
+     * @param beginTime Marks the beginning time of the task.
+     * @param endTime Marks the ending time of the task.
+     */
+    public DoWithinPeriod(String description, String beginTime, String endTime) {
+        this(description, false, beginTime, endTime);
+    }
+
     private LocalDateTime getBeginTime() {
         return this.beginTime;
     }
