@@ -1,5 +1,6 @@
 package scribbles.gui;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,6 +9,10 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import scribbles.Scribbles;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -51,10 +56,23 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = scribbles.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBoxYou.getUserDialog(input, userImage),
-                DialogBoxScribbles.getScribblesDialog(response, scribblesImage)
-        );
+
+        if (input.equalsIgnoreCase("bye")) {
+            dialogContainer.getChildren().addAll(
+                    DialogBoxYou.getUserDialog(input, userImage),
+                    DialogBoxScribbles.getScribblesDialog(response, scribblesImage)
+            );
+            ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+            executor.schedule(() -> {
+                Platform.exit();
+                System.exit(0);
+            }, 2, TimeUnit.SECONDS);
+        } else {
+            dialogContainer.getChildren().addAll(
+                    DialogBoxYou.getUserDialog(input, userImage),
+                    DialogBoxScribbles.getScribblesDialog(response, scribblesImage)
+            );
+        }
         userInput.clear();
     }
 }
