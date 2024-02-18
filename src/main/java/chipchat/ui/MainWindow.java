@@ -24,11 +24,16 @@ public class MainWindow extends AnchorPane {
     private App app;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image appImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+    }
+
+    @FXML
+    public void showInitialGreeting() {
+        dialogContainer.getChildren().add(DialogBox.getAppDialog(app.getGreetings(), appImage));
     }
 
     public void setApp(App app) {
@@ -45,7 +50,7 @@ public class MainWindow extends AnchorPane {
         String response = this.app.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getAppDialog(response, dukeImage)
+                DialogBox.getAppDialog(response, appImage)
         );
         userInput.clear();
     }

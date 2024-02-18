@@ -32,6 +32,13 @@ public class App {
         this.tasks = tmp;
     }
 
+    public String getGreetings() {
+        ui.showLine();
+        ui.showWelcome();
+        ui.showLine();
+        return ui.getOutput();
+    }
+
     public String getResponse(String userInput) {
         run(userInput);
         return ui.getOutput();
@@ -43,7 +50,7 @@ public class App {
     public void run(String userInput) {
         try {
             ui.showLine();
-            Action action = Parser.parseAction(userInput, ui);
+            Action action = Parser.parseAction(userInput);
             action.run(tasks, ui, storage);
         } catch (ChipchatException exc) {
             ui.showErrMsg(exc);
