@@ -143,7 +143,7 @@ public class Storage {
             description = currLine.split(" \\(from:")[0].split("] ")[1];
             startDate = currLine.split("\\(from: ")[1].split(" to:")[0];
             endDate = currLine.split("to: ")[1].split("\\)")[0];
-        }  catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             throw new SaveFileCorruptedException();
         }
         tasks.add(new Event(description, LocalDateTime.parse(startDate,

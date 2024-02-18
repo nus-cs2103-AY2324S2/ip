@@ -2,7 +2,7 @@ package kitchensink;
 
 import java.io.IOException;
 
-import kitchensink.exception.*;
+import kitchensink.exception.SaveFileCorruptedException;
 
 /**
  * The entry point of the app.

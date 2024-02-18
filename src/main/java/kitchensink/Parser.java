@@ -147,14 +147,15 @@ public class Parser {
             return new InvalidSyntaxException("todo").toString();
         }
         switch (command) {
-            case "todo":
-                return taskList.addTask(new ToDo(input.substring(5)), storage, ui);
-            case "find":
-                // does not use storage, but still abstracted in this method due to how similar the syntax of these
-                // 2 commands are
-                return taskList.findTasks(input.substring(5), ui);
+        case "todo":
+            return taskList.addTask(new ToDo(input.substring(5)), storage, ui);
+        case "find":
+            // does not use storage, but still abstracted in this method due to how similar the syntax of these
+            // 2 commands are
+            return taskList.findTasks(input.substring(5), ui);
+        default:
+            return new UnknownCommandException().toString();
         }
-        return taskList.addTask(new ToDo(input.substring(5)), storage, ui);
     }
 
     private String parseDeadlineCommand(String input, List taskList, Storage storage, Ui ui) throws IOException {
