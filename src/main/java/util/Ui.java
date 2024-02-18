@@ -49,21 +49,21 @@ public class Ui {
      * Prints a message for marking tasks as done.
      */
     public String printMark() {
-        return("Great job agent 47. Marking this task as DONE: \n");
+        return ("Great job agent 47. Marking this task as DONE: \n");
     }
 
     /**
      * Prints a message for marking tasks as not done.
      */
     public String printUnmark() {
-        return("Alright, marking this task as NOT DONE :( : \n");
+        return ("Alright, marking this task as NOT DONE :( : \n");
     }
 
     /**
      * Prints an error message for unknown commands.
      */
     public String printUnknown() {
-        return("Sorry, unknown command given. Please try again. \n");
+        return ("Sorry, unknown command given. Please try again. \n");
     }
 
     /**
@@ -80,7 +80,7 @@ public class Ui {
         } else if (e instanceof DateTimeParseException) {
             errorMsg += ("WOOPS! Enter the correct date format: YYYY-MM-DD \n");
         }
-        return  errorMsg;
+        return errorMsg;
     }
 
     /**

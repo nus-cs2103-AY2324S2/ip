@@ -47,7 +47,7 @@ public class TaskList {
         if (!loadTask) {
             String printMessage = "Cool! Adding new task: \n";
             printMessage += newTask.toString();
-            printMessage += "Now you have " + count + " tasks in your list.";
+            printMessage += "\n Now you have " + count + " tasks in your list. \n";
 
             return printMessage;
         }
@@ -128,7 +128,7 @@ public class TaskList {
         currentTask.markAsDone();
         this.setTask(currentTask, taskNo);
 
-        return(currentTask.toString());
+        return (currentTask.toString());
     }
 
     /**
@@ -143,7 +143,7 @@ public class TaskList {
         currentTask.markAsNotDone();
         this.setTask(currentTask, taskNo);
 
-        return(currentTask.toString());
+        return (currentTask.toString());
     }
 
     /**

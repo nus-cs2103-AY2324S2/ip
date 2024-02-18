@@ -1,15 +1,16 @@
 package util;
 
-import duke.TaskList;
-import task.Deadline;
-import task.Event;
-import task.ToDo;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
+import duke.TaskList;
+import notes.Note;
+import notes.NoteList;
+import task.Deadline;
+import task.Event;
+import task.ToDo;
 /**
  * The util.Parser class is responsible for parsing various user inputs related to tasks and dates.
  *
@@ -299,4 +300,73 @@ public class Parser {
     public LocalDate parseDate(String date) throws DateTimeParseException {
         return LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
+
+    // For notes!
+
+
+    /**
+     * Parses the "note" command to create a new note.
+     *
+     * @param ui          The UI object for displaying messages.
+     * @param storage     The Storage object for saving notes.
+     * @param noteList    The NoteList object containing all notes.
+     * @param commandArr  The array containing the command and its arguments.
+     * @param fullCommand The full command string.
+     * @return A string representing the result of parsing the note command.
+     */
+    public String parseNoteCommand(Ui ui, Storage storage, NoteList noteList, String[] commandArr, String fullCommand) {
+        String toPrint = "";
+
+        String noteOnly = fullCommand.replace("note", "").trim();
+
+        toPrint += ui.printLine();
+        if (noteOnly.isEmpty()) {
+            toPrint += "Note Description cannot be empty!";
+            return toPrint;
+        }
+
+        Note note = new Note(noteOnly);
+        toPrint += noteList.addNote(note, false);
+        storage.saveNote(noteList);
+        toPrint += ui.printLine();
+
+        return toPrint;
+    }
+
+    /**
+     * Parses the "remove" command to delete a note.
+     *
+     * @param ui        The UI object for displaying messages.
+     * @param storage   The Storage object for saving notes.
+     * @param noteList  The NoteList object containing all notes.
+     * @param commandArr The array containing the command and its arguments.
+     * @return A string representing the result of parsing the remove command.
+     */
+    public String parseRemoveCommand(Ui ui, Storage storage, NoteList noteList, String[] commandArr) {
+        String toPrint = "";
+        toPrint += ui.printLine();
+
+        try {
+            int noteNo = Integer.parseInt(commandArr[1]);
+            toPrint += noteList.deleteNote(noteNo);
+        } catch (NumberFormatException | NullPointerException | IndexOutOfBoundsException e) {
+            toPrint += ui.printOperationError(e);
+        }
+        storage.saveNote(noteList);
+        toPrint += ui.printLine();
+
+        return toPrint;
+    }
+
+
+    public String parseNotesCommand(Ui ui, Storage storage, NoteList noteList, String[] commandArr) {
+        String toPrint = "";
+        toPrint += ui.printLine();
+        toPrint += noteList.printAllNotes();
+        toPrint += ui.printLine();
+        return toPrint;
+    }
+
+
+
 }

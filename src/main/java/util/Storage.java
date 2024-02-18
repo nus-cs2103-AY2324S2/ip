@@ -10,6 +10,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 import duke.TaskList;
+import notes.Note;
+import notes.NoteList;
 import task.Deadline;
 import task.Event;
 import task.Task;
@@ -23,6 +25,7 @@ public class Storage {
 
     /** The file path where duke.Duke's task list is stored. */
     private static final String FILE_PATH = "./data/duke.txt";
+    private static final String FILE_PATH_NOTE = "./data/duke_notes.txt";
 
     /**
      * Saves the given task list to the file specified by the file path.
@@ -165,4 +168,90 @@ public class Storage {
         sc.close();
         return taskList;
     }
+
+    // For notes
+
+    /**
+     * Saves the given note list to the file specified by the file path.
+     * Creates the necessary directories and file if they don't exist.
+     *
+     * @param noteList The note list to be saved.
+     */
+    public void saveNote(NoteList noteList) {
+        try {
+            // These will do nothing if files already exists.
+            Files.createDirectories(Paths.get("./data"));
+            File newFile = new File(FILE_PATH_NOTE);
+            if (!newFile.exists()) {
+                boolean success = newFile.createNewFile();
+            }
+            FileWriter fw = new FileWriter(FILE_PATH_NOTE);
+            saveAllNotes(fw, noteList);
+        } catch (IOException io) {
+            System.out.println("Error saving file to disk. Exiting...");
+        }
+    }
+
+    /**
+     * Writes all notes from the provided note list to the given FileWriter object.
+     *
+     * @param fw        The FileWriter object used to write note data to a file.
+     * @param noteList  The note list containing note to be saved.
+     * @throws IOException If an error occurs while writing the task data.
+     */
+    public void saveAllNotes(FileWriter fw, NoteList noteList) throws IOException {
+        for (int i = 1; i <= noteList.getSize(); i++) {
+            Note currentNote = noteList.getNote(i);
+            fw.write(currentNote.getDescription());
+            fw.write(System.lineSeparator());
+        }
+        fw.close();
+    }
+
+    /**
+     * Loads the note list from the file specified by the file path.
+     * Creates the necessary directories and file if they don't exist.
+     *
+     * @return The note list loaded from the file.
+     */
+    public NoteList loadNotes() {
+        NoteList noteList = new NoteList();
+        try {
+            // These will do nothing if files already exists.
+            Files.createDirectories(Paths.get("./data"));
+            File newFile = new File(FILE_PATH_NOTE);
+            if (!newFile.exists()) {
+                boolean success = newFile.createNewFile();
+            }
+            Scanner sc = new Scanner(newFile);
+
+            noteList = loadAllNotes(sc, noteList);
+        } catch (IOException io) {
+            System.out.println("Error retrieving data from disk. Exiting...");
+        }
+        return noteList;
+    }
+
+
+    /**
+     * Loads all note from the provided scanner object and adds them to the note list.
+     * Tasks are parsed from the scanner's input according to the specified format.
+     *
+     * @param sc        The scanner object used to read note data from a file.
+     * @param noteList  The note list object to which notes will be added.
+     * @return The note list containing the loaded notes.
+     * @throws IOException If an error occurs while reading the note data.
+     */
+    public NoteList loadAllNotes(Scanner sc, NoteList noteList) throws IOException {
+        while (sc.hasNext()) {
+            String next = sc.nextLine();
+            Note newNote = new Note(next);
+            noteList.addNote(newNote, true);
+        }
+        sc.close();
+        return noteList;
+    }
+
 }
+
+

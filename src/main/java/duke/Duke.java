@@ -1,22 +1,9 @@
 package duke;
 
-import java.time.format.DateTimeParseException;
-import java.util.Scanner;
-import java.io.IOException;
-
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import task.Deadline;
-import task.Event;
-import task.ToDo;
+import notes.NoteList;
 import util.Parser;
 import util.Storage;
 import util.Ui;
-
-
 
 /**
  * Main class for the duke.Duke chatbot application.
@@ -32,12 +19,14 @@ public class Duke {
     private TaskList taskList;
     private Ui ui;
     private Parser parser;
+    private NoteList noteList;
 
     public Duke() {
         ui = new Ui();
         storage = new Storage();
         parser = new Parser();
         taskList = storage.loadFile();
+        noteList = storage.loadNotes();
     }
 
     public String runDuke(String userInput) {
@@ -83,6 +72,18 @@ public class Duke {
         }
         case "todo": {
             toPrint += parser.parseToDoCommand(ui, storage, taskList, fullCommand);
+            break;
+        }
+        case "note": {
+            toPrint += parser.parseNoteCommand(ui, storage, noteList, commandArr, fullCommand);
+            break;
+        }
+        case "remove": {
+            toPrint += parser.parseRemoveCommand(ui, storage, noteList, commandArr);
+            break;
+        }
+        case "notes": {
+            toPrint += parser.parseNotesCommand(ui, storage, noteList, commandArr);
             break;
         }
         default: {
