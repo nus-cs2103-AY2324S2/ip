@@ -39,12 +39,17 @@ public class Storage {
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
             String line;
             while ((line = reader.readLine()) != null) {
-                Task task = TaskParser.parse(line);
+                Task task;
+                try {
+                    task = TaskParser.parse(line);
+                } catch (IllegalArgumentException e) {
+                    continue; // skip this line
+                }
                 taskList.add(task);
             }
             reader.close();
         } catch (IOException e) {
-            // ignored as taskList will be returned empty
+            return taskList;
         }
         return taskList;
     }

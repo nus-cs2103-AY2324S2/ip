@@ -21,6 +21,7 @@ public class TaskParser {
         final IllegalArgumentException invalidLineException =
                 new IllegalArgumentException("Invalid line format: " + line);
 
+        line = line.trim(); // remove leading and trailing spaces
         String[] parts = line.split(" \\| ");
         if (parts.length < minPartsLength || parts.length > maxPartsLength) {
             throw invalidLineException;

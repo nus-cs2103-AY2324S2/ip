@@ -37,6 +37,7 @@ public class CommandParser {
      * @throws ConvoBotException if the input is invalid or cannot be parsed
      */
     public static Command parse(String userInput) throws ConvoBotException {
+        userInput = userInput.trim(); // remove leading and trailing spaces
         ArrayList<String> inputList = new ArrayList<>(Arrays.asList(userInput.split(" ")));
         if (inputList.isEmpty()) {
             throw new ConvoBotException("Invalid input. Input must not be empty.");
