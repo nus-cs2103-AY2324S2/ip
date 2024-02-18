@@ -32,6 +32,8 @@ public class Wei {
             System.out.println("error reading tasks file");
         } catch (IOException e) {
             System.out.println("error creating tasks file");
+        } catch (WeiException e) {
+            System.out.println(e.getMessage());
         }
     }
 

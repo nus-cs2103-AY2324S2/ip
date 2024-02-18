@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+import exceptions.WeiException;
 import taskList.TaskList;
 import tasks.Deadline;
 import tasks.Event;
@@ -39,7 +40,7 @@ public class Storage {
      * @return A TaskList containing the tasks.
      * @throws FileNotFoundException If file does not exist.
      */
-    public TaskList read() throws FileNotFoundException {
+    public TaskList read() throws FileNotFoundException, WeiException {
         TaskList tasks = new TaskList();
         Scanner s = new Scanner(file); // create a Scanner using the File as the source
 
@@ -48,12 +49,18 @@ public class Storage {
             String temp = s.nextLine();
             String[] split = temp.split(" \\| ");
             boolean isComplete = split[1].equals("X");
-            if (split[0].equals("T")) {
+            switch (split[0]) {
+            case "T":
                 curr = new ToDo(split[2], isComplete);
-            } else if (split[0].equals("D")) {
+                break;
+            case "D":
                 curr = new Deadline(split[2], split[3], isComplete);
-            } else {
+                break;
+            case "E":
                 curr = new Event(split[2], split[3], split[4], isComplete);
+                break;
+            default:
+                throw new WeiException("file corrupted");
             }
             tasks.add(curr);
         }
