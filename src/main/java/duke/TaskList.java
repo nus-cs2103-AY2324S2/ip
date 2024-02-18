@@ -12,7 +12,7 @@ public class TaskList {
     /**
      * The current number of tasks in the list.
      */
-    private int i = 0;
+    private int taskCount = 0;
 
     /**
      * Constructs a TaskList object with the specified file path.
@@ -31,8 +31,7 @@ public class TaskList {
      */
     public void addTask(Task task) {
         tasks.add(task);
-        storage.saveToFile(tasks.size(), tasks); //index?
-        i++;
+        storage.saveToFile(tasks);
     }
     /**
      * Deletes a task from the task list at the specified index and saves the updated list to the file.
@@ -40,10 +39,10 @@ public class TaskList {
      * @param index The index of the task to be deleted.
      */
     public void deleteTask(int index) {
-        if (i > 0 && i < tasks.size()) {
+        if (index >= 0 && index < tasks.size()) {
             tasks.remove(index);
-            storage.saveToFile(i, tasks);
-            i--;
+            taskCount--;
+            storage.saveToFile(tasks);
         }
     }
     /**
@@ -76,6 +75,7 @@ public class TaskList {
     public void setTask(int index, Task elem) {
         tasks.set(index, elem);
     }
-
-
+    public int size() {
+        return tasks.size();
+    }
 }

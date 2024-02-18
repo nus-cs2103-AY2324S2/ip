@@ -13,10 +13,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 
@@ -26,10 +26,8 @@ import javafx.stage.Stage;
  * Duke handles user input, manages tasks, and interacts with the user through a command-line interface.
  */
 public class Duke extends Application {
-    public Duke() {
-    }
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/User.png"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/Leo.png"));
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/User.png"));
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -57,6 +55,8 @@ public class Duke extends Application {
      * The user interface for interacting with the user.
      */
     private Ui ui;
+    public Duke() {
+    }
 
     /**
      * Constructs a Duke object with the specified file path.
@@ -203,7 +203,6 @@ public class Duke extends Application {
             return "Bye. Hope to see you again soon!";
         }
         Parser parser = new Parser(input);
-        parser.execute(tasks, ui);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(outputStream);
         PrintStream originalOut = System.out;
