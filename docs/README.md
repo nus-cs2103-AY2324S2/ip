@@ -4,8 +4,8 @@
 HeadCube helps you keep tracks of the things you need to do! 
 ## List your tasklist
 By using the command list, Headcube will display what you need to do!
-![alt text](image.png)
 
+![alt text](image.png)
 ## Adding tasks, deadlines and events
 1. To add a task, just key in todo [task]
 2. To add a deadline, key in deadline [task] /by YYYY-MM-DD
