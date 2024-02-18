@@ -5,13 +5,15 @@
 Toothless is a chatbot that remembers your tasks with its singular braincell.
 > Made of **100% void** 🐈‍⬛
 
-Link to the Github Respository (here)[https://github.com/getsquared/ip/].
+Link to the Github Respository [here](https://github.com/getsquared/ip/).
 
 ## Features
 
 ### List tasks: `list`
 List all current tasks in the task list.
+
 Format: `list`
+
 Expected outcome:
 ```
 Here are the tasks in your list:
@@ -25,8 +27,11 @@ Here are the tasks in your list:
 
 ### Add todo: `todo`
 Add a task to do with a description.
+
 Format: `todo <description>`
+
 Example: `todo wash dishes`
+
 Expected outcome:
 ```
 Got it. I've added this task:
@@ -37,8 +42,11 @@ Nya-ow you have 4 tasks in the list.
 
 ### Add deadline: `deadline` 
 Add a deadline with a description and due date.
+
 Format: `deadline <description> /by <yyyy-mm-dd> <hh:mm>`
+
 Example: `deadline math tutorial /by 2024-02-05 23:59`
+
 Expected outcome:
 ```
 Got it. I've added this task:
@@ -49,8 +57,11 @@ Nya-ow you have 5 tasks in the list.
 
 ### Add event: `event`
 Add an event with a description, and start and end date.
+
 Format: `event <description> /from <yyyy-mm-dd> <hh:mm> /to <yyyy-mm-dd> <hh:mm>`
+
 Example: `event camp /from 2024-02-07 10:00 /to 2024-02-09 18:00`
+
 Expected outcome:
 ```
 Got it. I've added this task:
@@ -61,8 +72,11 @@ Nya-ow you have 6 tasks in the list.
 
 ### Delete task: `delete`
 Delete task from the list.
+
 Format: `delete <taskIndex>`
+
 Example: `delete 4`
+
 Expected outcome:
 ```
 Noted. I've remeowved this task:
@@ -73,8 +87,11 @@ Nya-ow you have 5 tasks in the list.
 
 ### Mark task as done: `mark` 
 Mark task as done.
+
 Format: `mark <taskIndex>`
+
 Example: `mark 1`
+
 Expected outcome:
 ```
 Ameowzing! I've marked this task as done:
@@ -84,8 +101,11 @@ Ameowzing! I've marked this task as done:
 
 ### Mark task as not done: `unmark` 
 Mark task as not done.
+
 Format: `unmark <taskIndex>`
+
 Example: `unmark 1`
+
 Expected outcome:
 ```
 OK, I've marked this task as not done yet:
@@ -95,8 +115,11 @@ OK, I've marked this task as not done yet:
 
 ### Find task: `find` 
 Find task by keyword.
+
 Format: `find <keyword>`
+
 Example: `find book`
+
 Expected outcome:
 ```
 Here are the meow-tching tasks in your list:
@@ -106,8 +129,11 @@ Here are the meow-tching tasks in your list:
 
 ### Tag task: `tag`
 Tag task with tag word.
+
 Format: `tag <taskIndex> <tagWord>`
+
 Example: `tag 4 hw`
+
 Expected outcome:
 ```
 Ameowzing! I've tagged this task:
@@ -117,14 +143,24 @@ Ameowzing! I've tagged this task:
 
 ### Untag task: `untag`
 Remove tag word on task.
+
 Format: `untag <taskIndex> <tagWord>`
+
 Example: `untag 4 hw`
+
 Expected outcome:
 ```
 OK, I've removed the tag for this task:
     [D][ ] math tutorial (by: Feb 5 2024, 23:59)
     Tags: NIL
 ```
+
+### Saving data
+All task data is automatically saved after any command. There is no need to save manually. The data can be found in a
+text file `[JAR file location]/data/tasklist.txt`.
+> [!CAUTION]
+> Do not manually change the data file unnecessarily. If any data in the file has an invalid format, Toothless will 
+> discard all the data and start a new blank task list.
 
 ## Command Summary
 * `list`
