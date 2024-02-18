@@ -15,14 +15,14 @@ public class ProgramState {
     }
 
     private State state;
-    private CommandHistory history;
+    private UndoableCommandHistory history;
 
     /**
      * Constructs a new program state. The initial state is normal.
      */
     public ProgramState() {
         this.state = State.NORMAL;
-        this.history = new CommandHistory();
+        this.history = new UndoableCommandHistory();
     }
 
     public void setState(State newState) {
@@ -57,7 +57,7 @@ public class ProgramState {
         return history.isRedoable();
     }
 
-    public CommandHistory getHistory() {
+    public UndoableCommandHistory getHistory() {
         return history;
     }
 }
