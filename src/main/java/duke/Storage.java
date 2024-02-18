@@ -20,7 +20,7 @@ public class Storage {
     }
 
     /**
-     * Method is responsible for loading the contents in the txt for the Duke program to use.
+     * Loads the contents in the txt for the Duke program to use.
      * Returns the TaskList for commands to interact with the tasks inside.
      * @return TaskList
      * @throws IOException
@@ -68,7 +68,7 @@ public class Storage {
     }
 
     /**
-     * Method is responsible for saving the updated TaskList after the user has finished inputting commands.
+     * Saves the updated TaskList after the user has finished inputting commands.
      * The data.txt will be updated upon the termination of Duke program.
      * @param tasklist
      */

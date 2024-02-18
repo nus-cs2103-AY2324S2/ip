@@ -18,7 +18,7 @@ public class Parser {
     }
 
     /**
-     * Method is responsible for interpreting commands send by the user and handling invalid commands.
+     * Interprets commands send by the user and handles invalid commands.
      * @param commandInput
      * @param duke
      * @param taskListInput
