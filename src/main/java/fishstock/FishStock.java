@@ -20,7 +20,7 @@ public class FishStock {
         try {
             list = new TaskList(storage.load());
         } catch (FishStockException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             list = new TaskList();
         }
     }
