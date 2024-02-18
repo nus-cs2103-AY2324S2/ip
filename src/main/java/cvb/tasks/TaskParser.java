@@ -4,7 +4,7 @@ import cvb.exceptions.ConvoBotException;
 import cvb.utils.DateTime;
 
 /**
- * Provides utility methods for parsing tasks from the user input.
+ * Provides utility methods for parsing tasks from the storage.
  */
 public class TaskParser {
 
