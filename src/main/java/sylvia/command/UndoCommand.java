@@ -9,6 +9,9 @@ import sylvia.task.TaskList;
  * list.
  */
 public class UndoCommand extends Command {
+    public static final String MANUAL = "Usage: undo\n\n"
+            + "Undoes the most recent command that modified the task list.\n\n" + "Aliases: ud";
+
     /**
      * Creates a new undo command.
      *
@@ -16,6 +19,15 @@ public class UndoCommand extends Command {
      */
     public UndoCommand(String body) {
         super(body);
+    }
+
+    /**
+     * Gets the manual for the undo command.
+     *
+     * @return The manual for the undo command.
+     */
+    public static String getManual() {
+        return MANUAL;
     }
 
     /**

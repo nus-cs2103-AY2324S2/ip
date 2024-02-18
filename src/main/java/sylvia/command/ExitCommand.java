@@ -8,8 +8,22 @@ import sylvia.task.TaskList;
  * Represents a command to exit the program.
  */
 public class ExitCommand extends Command {
+    public static final String MANUAL = "Usage: exit\n\n" + "Exits the application.\n\n" + "Aliases: ex, bye";
+
+    /**
+     * Constructs a new exit command.
+     */
     public ExitCommand() {
         super("");
+    }
+
+    /**
+     * Gets the manual for the exit command.
+     *
+     * @return The manual for the exit command.
+     */
+    public static String getManual() {
+        return MANUAL;
     }
 
     /**

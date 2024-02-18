@@ -8,6 +8,8 @@ import sylvia.task.TaskList;
  * Represents a command to mark a task as done.
  */
 public class MarkCommand extends Command {
+    public static final String MANUAL = "Usage: mark <index>\n\n" + "Marks a task as done in the task list.\n"
+            + "The index must be a positive integer.\n\n" + "Example: mark 3\n\n" + "Aliases: mk";
     private int index;
 
     /**
@@ -24,6 +26,15 @@ public class MarkCommand extends Command {
             throw new InvalidTaskIndexException("The index of a task must be an integer.",
                     "Sorry, but I don't know which task you want to mark as done.");
         }
+    }
+
+    /**
+     * Gets the manual for the mark command.
+     *
+     * @return The manual for the mark command.
+     */
+    public static String getManual() {
+        return MANUAL;
     }
 
     /**

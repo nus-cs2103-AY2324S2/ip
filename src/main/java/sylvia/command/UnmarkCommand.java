@@ -8,6 +8,8 @@ import sylvia.task.TaskList;
  * Represents a command to mark a task as not done.
  */
 public class UnmarkCommand extends Command {
+    public static final String MANUAL = "Usage: unmark <index>\n\n"
+            + "Marks the task at the specified index as not done.\n\n" + "Aliases: um";
     private int index;
 
     /**
@@ -24,6 +26,15 @@ public class UnmarkCommand extends Command {
             throw new InvalidTaskIndexException("The index of a task must be an integer.",
                     "Sorry, but I don't know which task you want to mark as undone.");
         }
+    }
+
+    /**
+     * Gets the manual for the unmark command.
+     *
+     * @return The manual for the unmark command.
+     */
+    public static String getManual() {
+        return MANUAL;
     }
 
     /**

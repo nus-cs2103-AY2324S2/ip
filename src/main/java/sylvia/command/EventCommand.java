@@ -8,6 +8,10 @@ import sylvia.task.Task;
  * Represents a command to add a task with a starting time and an ending time.
  */
 public class EventCommand extends AddTaskCommand {
+    public static final String MANUAL = "Usage: event <description> /from <start time> /to <end time>\n\n"
+            + "Adds a task with a starting time and an ending time to the task list.\n"
+            + "The start time and end time must be specified in the format: yyyy-mm-dd hh:mm\n\n"
+            + "Example: event project meeting /from 2024-02-18 18:00 /to 2024-02-18 20:00\n\n" + "Aliases: ev";
     private String taskDescription;
     private String startTime;
     private String endTime;
@@ -23,6 +27,15 @@ public class EventCommand extends AddTaskCommand {
         this.taskDescription = parts[0].trim();
         this.startTime = parts.length > 1 ? parts[1].trim() : "";
         this.endTime = parts.length > 2 ? parts[2].trim() : "";
+    }
+
+    /**
+     * Gets the manual for the event command.
+     *
+     * @return The manual for the event command.
+     */
+    public static String getManual() {
+        return MANUAL;
     }
 
     @Override
