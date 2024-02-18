@@ -1,8 +1,8 @@
 # Tobias User Guide
 
-![Ui screenshot](https://jawad280.github.io/ip/Ui.png)
-
 Meet Tobias, your trusty CLI companion, making task management a blast with his interactive chat-based interface, perfect for effortlessly handling to-dos, deadlines, and events with a sprinkle of fun and flair! Say goodbye to mundane organization and hello to a whole new level of productivity and enjoyment with Tobias by your side.
+
+![Ui screenshot](https://jawad280.github.io/ip/Ui.png)
 
 ## Adding Todos
 
