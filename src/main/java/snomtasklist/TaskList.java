@@ -142,7 +142,7 @@ public class TaskList {
      * @return a string representing if the task is
      *         successfully added to the tasklist.
      */
-    public String displayTaskList() {
+    public String getTasks() {
         StringBuilder lst = new StringBuilder();
         for (int i = 0; i<counter; i++) {
             lst.append(this.taskList.get(i) + "\n");
@@ -158,7 +158,7 @@ public class TaskList {
      * @param cmd is the command containing the word that
      *            the user wishes to search for in the tasklist.
      */
-    public String printMatchingTasks(String cmd) {
+    public String getMatchingTasks(String cmd) {
         ArrayList<Task> foundTasks = new ArrayList<>();
         for (int i = 0; i<counter; i++) {
             if (this.taskList.get(i).isMatch(cmd)) {
@@ -179,5 +179,9 @@ public class TaskList {
 
     public boolean checkDuplicateTask(Task t) {
         return this.taskList.stream().anyMatch(x -> x.equals(t));
+    }
+
+    public boolean isEmpty() {
+        return this.counter == 0;
     }
 }

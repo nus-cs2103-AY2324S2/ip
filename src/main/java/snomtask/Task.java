@@ -26,7 +26,7 @@ public abstract class Task {
     }
 
     /**
-     * Changes the satus of a task from not done to done
+     * Changes the status of a task from not done to done
      */
     public void doTask() {
         if (!done) {
@@ -72,6 +72,38 @@ public abstract class Task {
         } else {
             return false;
         }
+    }
+
+    public static Task convertFromStringToTask(String desc) {
+        String taskType = desc.substring(1,2);
+        Task t;
+        String name;
+        String processedName;
+        switch(taskType) {
+        case "T":
+            t = new Todo(desc.substring(6));
+            break;
+        case "D":
+            name = desc.split("by:")[0].trim();
+            processedName = name.substring(6);
+            String deadline = desc.split("by:")[1];
+            t = new Deadline(processedName, deadline);
+            break;
+        case "E":
+            name = desc.split("from")[0].trim();
+            processedName = name.substring(6);
+            String dates = desc.split("from")[1].trim();
+            System.out.println(dates);
+            String start = dates.split("to")[0].trim();
+            String end = dates.split("to")[1].trim();
+            t = new Event(processedName, start, end);
+
+            //t = new Todo("");
+            break;
+        default:
+            t = new Todo("");
+        }
+        return t;
     }
 
 

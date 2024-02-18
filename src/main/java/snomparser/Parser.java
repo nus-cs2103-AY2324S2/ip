@@ -33,8 +33,9 @@ public class Parser {
      */
 
     public String processCommand(Command command, TaskList lst, TaskStorage storage) {
-
-
+        if (lst.isEmpty()) {
+            storage.readTasks(lst);
+        }
         try {
             String cmd = command.execute(lst);
             assert cmd != null : "Command cannot be null";
@@ -73,7 +74,7 @@ public class Parser {
 
 
             }
-            storage.saveTask(lst);
+            storage.saveTasks(lst);
             return result;
 
         } catch (InvalidCommandException e) {
@@ -144,11 +145,11 @@ public class Parser {
     }
 
     private String listTaskInTaskList(TaskList lst) {
-        return lst.displayTaskList();
+        return lst.getTasks();
     }
 
     private String findTaskInTaskList(TaskList lst, String cmd) {
-        return lst.printMatchingTasks(cmd);
+        return lst.getMatchingTasks(cmd);
     }
 
 

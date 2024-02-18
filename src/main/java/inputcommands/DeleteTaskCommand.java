@@ -41,9 +41,9 @@ class DeleteTaskCommand extends Command {
     @Override
     public String execute(TaskList lst) throws InvalidCommandIndexException {
         try {
-            int pos = Integer.parseInt(this.desc.split(" ")[1]);
-            lst.getTaskAtIndex(pos);
-            return "delete " + pos;
+            int index = Integer.parseInt(this.desc.split(" ")[1]);
+            lst.getTaskAtIndex(index);
+            return Integer.toString(index);
         } catch (InvalidCommandIndexException e) {
             throw new InvalidCommandIndexException();
         } catch (ArrayIndexOutOfBoundsException e) {
