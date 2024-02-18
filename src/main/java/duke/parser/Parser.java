@@ -63,6 +63,10 @@ public class Parser {
             return new DeleteCommand(keyword, parameters);
         case "find":
             return new FindCommand(keyword, parameters);
+        case "archive":
+            return new ArchiveCommand(keyword, parameters);
+        case "load":
+            return new LoadCommand(keyword, parameters);
         default:
             throw new ChatBotCommandException("Invalid command.");
         }
@@ -157,5 +161,21 @@ public class Parser {
             throw new ChatBotParameterException("Invalid task number \n" +
                     "try: mark/unmark/delete <task_number>");
         }
+    }
+
+    public static String parseArchiveFileName(String parameters) throws ChatBotParameterException {
+        if (parameters.isEmpty()) {
+            throw new ChatBotParameterException("Missing archive file name \n" +
+                    "try: archive <file_name>");
+        }
+        return parameters;
+    }
+
+    public static String parseArchiveFileLoad(String parameters) throws ChatBotParameterException {
+        if (parameters.isEmpty()) {
+            throw new ChatBotParameterException("Missing archive file name \n" +
+                    "try: load <file_name>");
+        }
+        return parameters;
     }
 }
