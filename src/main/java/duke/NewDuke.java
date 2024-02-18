@@ -75,6 +75,5 @@ public class NewDuke {
         } finally {
             saver.saveData(storage);
         }
-
     }
 }
