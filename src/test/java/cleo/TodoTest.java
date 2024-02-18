@@ -1,5 +1,5 @@
 
-package duke;  //same package as the class being tested
+package cleo;  //same package as the class being tested
 
 import org.junit.jupiter.api.Test;
 

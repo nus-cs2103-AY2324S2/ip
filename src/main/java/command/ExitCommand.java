@@ -1,7 +1,7 @@
 package command;
 
-import duke.TaskList;
-import duke.UI;
+import cleo.TaskList;
+import cleo.UI;
 
 public class ExitCommand extends Command {
     @Override

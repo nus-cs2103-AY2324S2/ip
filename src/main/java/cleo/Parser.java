@@ -1,4 +1,4 @@
-package duke;
+package cleo;
 import command.Command;
 import command.AddCommand;
 import command.DeleteCommand;

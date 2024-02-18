@@ -1,4 +1,4 @@
-package duke;
+package cleo;
 
 public enum CommandType {
     TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, LIST, BYE, FIND, TASKS, UNKNOWN;

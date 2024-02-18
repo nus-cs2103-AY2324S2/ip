@@ -1,4 +1,4 @@
-package duke;
+package cleo;
 
 public class Todo extends Task {
     Todo(String description) {

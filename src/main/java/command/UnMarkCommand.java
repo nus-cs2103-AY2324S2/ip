@@ -1,9 +1,9 @@
 package command;
 
-import duke.DukeException;
-import duke.TaskList;
-import duke.UI;
-import duke.Task;
+import cleo.DukeException;
+import cleo.TaskList;
+import cleo.UI;
+import cleo.Task;
 
 public class UnMarkCommand extends Command {
     private int taskIndex;

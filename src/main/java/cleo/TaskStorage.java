@@ -1,4 +1,4 @@
-package duke;
+package cleo;
 
 import java.io.*;
 import java.util.ArrayList;

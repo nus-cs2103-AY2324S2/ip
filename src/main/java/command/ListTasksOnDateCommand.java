@@ -1,9 +1,9 @@
 package command;
 
-import duke.DukeException;
-import duke.Task;
-import duke.TaskList;
-import duke.UI;
+import cleo.DukeException;
+import cleo.Task;
+import cleo.TaskList;
+import cleo.UI;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

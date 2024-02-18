@@ -1,8 +1,8 @@
 package command;
-import duke.Task;
-import duke.TaskList;
-import duke.UI;
-import duke.DukeException;
+import cleo.Task;
+import cleo.TaskList;
+import cleo.UI;
+import cleo.DukeException;
 public class AddCommand extends Command {
     private Task taskToAdd;
     private static final int MAX_TASKS = 100;

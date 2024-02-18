@@ -1,4 +1,4 @@
-package duke;
+package cleo;
 
 import javafx.application.Application;
 

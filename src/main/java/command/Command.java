@@ -1,7 +1,7 @@
 package command;
-import duke.DukeException;
-import duke.TaskList;
-import duke.UI;
+import cleo.DukeException;
+import cleo.TaskList;
+import cleo.UI;
 
 public abstract class Command {
     /**

@@ -1,4 +1,4 @@
-package duke;
+package cleo;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

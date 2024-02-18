@@ -1,8 +1,8 @@
 package command;
 
-import duke.TaskList;
-import duke.UI;
-import duke.Task;
+import cleo.TaskList;
+import cleo.UI;
+import cleo.Task;
 
 import java.util.ArrayList;
 
