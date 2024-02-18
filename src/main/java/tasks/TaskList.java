@@ -50,7 +50,7 @@ public class TaskList {
         }
 
         TaskType taskType;
-        Task task = null;
+        Task task;
 
         try {
             taskType = TaskType.valueOf(parts[0].toUpperCase());
@@ -102,14 +102,14 @@ public class TaskList {
             return;
         }
 
-        if (task != null) {
-            tasks.add(task);
-            storage.save(tasks);
-            ui.showMessage(ui.getUser() + ", I've added this task:\n  " + task);
+        assert tasks != null : "tasks list must not be null";
 
-            int taskCount = tasks.size();
-            ui.showTaskCount(taskCount);
-        }
+        tasks.add(task);
+        storage.save(tasks);
+        ui.showMessage(ui.getUser() + ", I've added this task:\n  " + task);
+
+        int taskCount = tasks.size();
+        ui.showTaskCount(taskCount);
     }
 
     /**
@@ -127,6 +127,8 @@ public class TaskList {
             if (idx < 0 || idx >= taskCount) {
                 ui.showMessage("No task numbered " + (idx + 1) + ", " + ui.getUser() + "!");
             } else {
+                assert tasks.get(idx) != null : "Task to delete must not be null";
+
                 Task removed = tasks.remove(idx);
                 taskCount--;
                 storage.save(tasks);
@@ -242,6 +244,8 @@ public class TaskList {
             if (idx < 0 || idx >= tasks.size() || tasks.get(idx) == null) {
                 ui.showNoTaskIndex(idx);
             } else {
+                assert tasks.get(idx) != null : "Task to mark must not be null";
+
                 tasks.get(idx).mark();
                 storage.save(tasks);
                 ui.showMessage(ui.getUser() + "! I've marked this task as done:\n" + tasks.get(idx));
@@ -264,6 +268,8 @@ public class TaskList {
             if (idx < 0 || idx >= tasks.size() || tasks.get(idx) == null) {
                 ui.showNoTaskIndex(idx);
             } else {
+                assert tasks.get(idx) != null : "Task to unmark must not be null";
+
                 tasks.get(idx).unmark();
                 storage.save(tasks);
                 ui.showMessage("Ok, " + ui.getUser() + "! I've undone this task:\n" + tasks.get(idx));
