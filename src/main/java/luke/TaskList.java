@@ -20,6 +20,7 @@ public class TaskList {
      * Adds task to tasklist.
      *
      * @param task The task to be added.
+     * @return Success message or error.
      */
     public String addTask(Task task) {
         String returnMessage = "";
@@ -34,6 +35,8 @@ public class TaskList {
      * Marks a task at index in the tasklist as done.
      *
      * @param index Index of task to be marked as done.
+     * @return The completed task (now marked as done).
+     * @throws TasklistException
      */
     public String markTask(int index) throws TasklistException {
         String errorMessage;
@@ -55,21 +58,23 @@ public class TaskList {
      * Prints them out, as well as their position in the list (index + 1), if any are found.
      *
      * @param keyword The keyword to search for a task.
+     * @return The tasks found.
+     * @throws TasklistException
      */
     public String findTask(String keyword) throws TasklistException {
         String returnMessage = "Here... here you go!!!\n";
         String errorMessage = returnMessage;
         int num = 1;
-        boolean found = false;
+        boolean isFound = false;
         for (Task task : tasks) {
             String taskName = task.getName();
             if (taskName.contains(keyword)) {
-                found = true;
+                isFound = true;
                 returnMessage += num + ". " + task.getFullStatus() + "\n";
             }
             num += 1;
         }
-        if (!found) {
+        if (!isFound) {
             errorMessage += "[Nothing was found, however.]\n";
             throw new TasklistException(errorMessage);
         }
@@ -78,6 +83,9 @@ public class TaskList {
 
     /**
      * Prints a list of all current tasks and their statuses.
+     *
+     * @return A list of all tasks.
+     * @throws TasklistException
      */
     public String listTasks() throws TasklistException {
         String returnMessage = "";
@@ -102,6 +110,8 @@ public class TaskList {
      * Deletes a task at index in the tasklist.
      *
      * @param index Index of task to be deleted.
+     * @return Delete or error message.
+     * @throws TasklistException
      */
     public String deleteTask(int index) throws TasklistException {
         String returnMessage;
@@ -120,6 +130,11 @@ public class TaskList {
         return returnMessage;
     }
 
+    /**
+     * Reminds the user of tasks they have yet to complete.
+     *
+     * @return The list of tasks a user has yet to complete.
+     */
     public String remind() {
         String returnMessage = "Get to it!\n";
         int num = 1;

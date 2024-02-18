@@ -3,8 +3,6 @@ package luke;
 public class UI {
     //This class is in charge of any messages to be seen by the user.
 
-
-
     //Logo created using https://patorjk.com/software/taag/#p=display&f=Varsity&t=Luke
     private static final String LOGO = "  _____             __             \n"
             + " |_   _|           [  |  _         \n"
@@ -53,6 +51,5 @@ public class UI {
         return "/// What on earth are you saying! ///\n"
                 + "[Command not found]\n";
     }
-
-
+    
 }

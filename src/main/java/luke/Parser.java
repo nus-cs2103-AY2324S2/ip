@@ -1,4 +1,4 @@
-package luke;//Returns a list of Strings neatly parsed as arguments.
+package luke;
 import java.io.File;
 import java.util.ArrayList;
 
