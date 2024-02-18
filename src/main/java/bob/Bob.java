@@ -3,7 +3,6 @@ package bob;
 import java.util.Scanner;
 
 public class Bob {
-    private static final String FILE_PATH = "./data/tasks.txt";
     private final Storage storage;
     private final TaskList tasks;
     private final Ui ui;
@@ -14,7 +13,7 @@ public class Bob {
      */
     public Bob(String filePath) {
         this.ui = new Ui();
-        this.storage = new Storage(FILE_PATH);
+        this.storage = new Storage(filePath);
         this.tasks = storage.loadFile();
         this.parser = new Parser(ui);
     }
@@ -63,6 +62,6 @@ public class Bob {
     }
 
     public static void main(String[] args) {
-        new Bob(FILE_PATH).run();
+        new Bob("./data/tasks.txt").run();
     }
 }
