@@ -34,8 +34,6 @@ public enum Command {
     Command(String cmd, boolean hasArgs) {
         this.rep = cmd.toLowerCase();
         this.hasArgs = hasArgs;
-        this.isBreaking = this.rep.equals("bye");
-
     }
 
     public boolean hasArgs() {
