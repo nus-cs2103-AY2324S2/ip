@@ -20,5 +20,9 @@ data.txt
 <<<<<<< HEAD
 src/test/META-INF/
 =======
+<<<<<<< HEAD
 src/test/META-INF/
+=======
+src/test/META-INF/
+>>>>>>> master
 >>>>>>> master

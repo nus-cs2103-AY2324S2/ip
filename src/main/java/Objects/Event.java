@@ -3,6 +3,10 @@ package Objects;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Event class which inherits from tasks
+ * which contains startDate and endDate
+ */
 public class Event extends Task {
     LocalDate startDate;
     LocalDate endDate;

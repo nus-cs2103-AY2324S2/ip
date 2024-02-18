@@ -1,5 +1,8 @@
 package Objects;
 
+/**
+ * Task class which has basic functionalities and fields of a task
+ */
 public class Task {
     private String name;
     private boolean isMarked = false;

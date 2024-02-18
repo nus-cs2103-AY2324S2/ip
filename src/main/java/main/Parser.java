@@ -9,9 +9,13 @@ import javafx.util.Pair;
 import java.io.IOException;
 import java.time.LocalDate;
 
+/**
+ * A parse class which makes sense of the input of user
+ */
 public class Parser {
     private TaskList taskList;
 
+<<<<<<< HEAD
     public Parser(TaskList taskList){
         this.taskList = taskList;
     }
@@ -22,6 +26,29 @@ public class Parser {
                 Storage.writeToFile(taskList);
             } catch (IOException e) {
                 throw new RuntimeException(e);
+=======
+<<<<<<< HEAD
+    /**
+     * takes in input using a scanner and identifies which actions to choose
+     *
+     * @param taskList list of present tasks
+     */
+
+    public static void input(TaskList taskList){
+=======
+    public static void input(TaskList taskList) {
+>>>>>>> master
+        Scanner sc = new Scanner(System.in);
+        boolean isChanged = false;
+        while (true) {
+            if(isChanged) {
+                try {
+                    Storage.writeToFile(taskList);
+                    isChanged = false;
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+>>>>>>> origin
             }
         }
         return pair.getValue();
