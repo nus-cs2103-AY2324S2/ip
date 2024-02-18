@@ -65,16 +65,16 @@ public class TaskList {
         String returnMessage = "Here... here you go!!!\n";
         String errorMessage = returnMessage;
         int num = 1;
-        boolean found = false;
+        boolean isFound = false;
         for (Task task : tasks) {
             String taskName = task.getName();
             if (taskName.contains(keyword)) {
-                found = true;
+                isFound = true;
                 returnMessage += num + ". " + task.getFullStatus() + "\n";
             }
             num += 1;
         }
-        if (!found) {
+        if (!isFound) {
             errorMessage += "[Nothing was found, however.]\n";
             throw new TasklistException(errorMessage);
         }

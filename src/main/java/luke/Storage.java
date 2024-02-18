@@ -72,7 +72,6 @@ public class Storage implements Serializable {
             ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(historyFile));
             storage = (Storage) inputStream.readObject();
         } catch (IOException e) {
-            //System.out.println("No save data found, creating new save.");
             storage = new Storage();
         } catch (ClassNotFoundException e) {
             //should (by right) never happen!
