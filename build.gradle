@@ -47,14 +47,18 @@ test {
     }
 }
 
+mainClassName = "baron.Launcher"
+
 application {
     mainClass.set("baron.Launcher")
 }
 
 shadowJar {
+    String version = "0.2"
+
     archiveBaseName = "baron"
+    archiveVersion = version
     archiveClassifier = null
-    dependsOn("distZip", "distTar")
 }
 
 run{
