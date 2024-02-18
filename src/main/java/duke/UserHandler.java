@@ -19,6 +19,9 @@ public class UserHandler {
      * @throws DukeException
      */
     public static String chat(String input, TaskList taskList, Storage storage) throws DukeException {
+
+        assert input != null : "Empty message";
+
         if (input.matches("bye")) {
             return "That's it, it's ova";
 
@@ -29,7 +32,7 @@ public class UserHandler {
 
 
         } else if (input.toLowerCase().matches("\\bmark\\b.*")) {
-            
+
             String r =  taskList.markTask(input);
 
             try {
@@ -55,7 +58,7 @@ public class UserHandler {
 
 
         } else if (input.toLowerCase().matches("\\bdeadline\\b.*")) {
-           
+
             if (input.length() <= 9) {
                 throw new DukeException("Empty Description");
             }
@@ -79,6 +82,7 @@ public class UserHandler {
 
 
         } else if (input.toLowerCase().matches("\\bevent\\b.*")) {
+
             if (input.length() <= 6) {
                 throw new DukeException("Empty Description");
             }
@@ -113,7 +117,7 @@ public class UserHandler {
 
 
         } else if (input.toLowerCase().matches("\\bdelete\\b.*")) {
-            // Delete tasks in tasks list
+
             String r = taskList.deleteTask(input);
             try {
                 storage.write("data/duke.txt", taskList.getList());
@@ -126,7 +130,7 @@ public class UserHandler {
 
 
          else if (input.toLowerCase().matches("\\bfind\\b.*")) {
-            // Implement the find function through keyword
+
             return taskList.findTask(input);
 
 
