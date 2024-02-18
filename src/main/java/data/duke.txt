@@ -1,2 +1,1 @@
-T | 0 | me
-T | 0 | you
+E | 0 | dinner w da boys | 2024-02-18 18:00 | 2024-02-19 | funn'

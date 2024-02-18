@@ -8,16 +8,25 @@ import java.time.format.DateTimeParseException;
 public abstract class Task {
     protected String description;
     protected boolean isDone;
+    protected String tag;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
+    public Task(String description, String tag) {
+        this.description = description;
+        this.isDone = false;
+        this.tag = tag;
+    }
+
     public LocalDateTime parseDateTime(String input) {
         DateTimeFormatter[] formattersWithTime = new DateTimeFormatter[] {
                 DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"),
                 DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"),
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"),
+                DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"),
         };
 
         DateTimeFormatter[] formattersWithoutTime = new DateTimeFormatter[] {
@@ -61,7 +70,7 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
+        return "[" + this.getStatusIcon() + "] " + this.description + " " + (this.tag == null ? "" : "#" + this.tag);
     }
 
     public abstract String fileSavingString();

@@ -7,6 +7,9 @@ public class Todo extends Task {
         super(description);
     }
 
+    public Todo(String description, String tag) {
+        super(description, tag);
+    }
     /**
      * {inheritDoc}
      *
@@ -22,6 +25,6 @@ public class Todo extends Task {
      * @return String representation of the todo that is savable.
      */
     public String fileSavingString() {
-        return "T | " + Integer.toString(super.isDone ? 1 : 0) + " | " + super.description;
+        return "T | " + Integer.toString(super.isDone ? 1 : 0) + " | " + super.description + " | " + super.tag;
     }
 }

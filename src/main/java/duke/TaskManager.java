@@ -53,12 +53,24 @@ public class TaskManager {
         String getDesc[] = arr[1].split(" /from ");
         String desc = getDesc[0];
         String getDates[] = getDesc[1].split(" /to ");
+        String getDateAndTag[] = getDates[1].split(" /tag ");
         String from = getDates[0];
-        String to = getDates[1];
+        String to = getDateAndTag[0];
 
-        //creating of event
-        Event event = new Event(desc, from, to);
-        todos.add(event);
+        String tag;
+        Event event;
+        try {
+            if (getDateAndTag.length > 1) {
+                tag = getDateAndTag[1];
+                event = new Event(desc, from, to, tag);
+                todos.add(event);
+            } else {
+                event = new Event(desc, from, to);
+                todos.add(event);
+            }
+        } catch (Exception e) {
+            return e.getMessage();
+        }
 
         if (isVerbose) {
             System.out.println(event.toString());
@@ -78,10 +90,17 @@ public class TaskManager {
         }
         String arguments[] = arr[1].split(" /by ");
         String description = arguments[0];
-        String by = arguments[1];
+        String byAndTag[] = arguments[1].split(" /tag ");
+        String by = byAndTag[0];
+        String tag = byAndTag[1];
+
         Deadline deadline;
         try {
-            deadline = new Deadline(description, by);
+            if (byAndTag.length > 1) {
+                deadline = new Deadline(description, by, tag);
+            } else {
+                deadline = new Deadline(description, by);
+            }
         } catch (Exception e) {
             return e.getMessage();
         }
@@ -100,7 +119,14 @@ public class TaskManager {
         if (isVerbose) {
             System.out.println("Got it. Added this task:");
         }
-        Todo todo = new Todo(arr[1]);
+        String arguments[] = arr[1].split(" /tag ");
+        System.out.println("arguments:" + Arrays.toString(arguments));
+        Todo todo;
+        if (arguments.length > 1) { // if there are tags
+            todo = new Todo(arguments[0], arguments[1]);
+        } else {
+            todo = new Todo(arguments[0]);
+        }
         todos.add(todo);
         if (isVerbose) {
             System.out.println(todo.toString());
