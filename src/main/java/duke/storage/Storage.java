@@ -47,6 +47,15 @@ public class Storage {
         }
     }
 
+    public String saveTaskListToFile(String fileName, TaskList tasks) throws ChatBotParameterException, IOException {
+        String fullFileName = Parser.parseArchiveFileName(fileName);
+        Path path = Paths.get(DATA_FOLDER, fullFileName);
+        Files.createDirectories(Paths.get(DATA_FOLDER));
+        Files.writeString(path, this.createSaveDataFromTaskList(tasks),
+                StandardOpenOption.CREATE);
+        return fullFileName;
+    }
+
     /**
      * Get Location of the SaveFile.
      * @return Path Location of the SaveFile.
@@ -83,4 +92,6 @@ public class Storage {
             }
         }
     }
+
+
 }

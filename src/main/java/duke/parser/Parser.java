@@ -168,7 +168,7 @@ public class Parser {
             throw new ChatBotParameterException("Missing archive file name \n" +
                     "try: archive <file_name>");
         }
-        return parameters;
+        return parameters + ".txt";
     }
 
     public static String parseArchiveFileLoad(String parameters) throws ChatBotParameterException {
@@ -176,6 +176,6 @@ public class Parser {
             throw new ChatBotParameterException("Missing archive file name \n" +
                     "try: load <file_name>");
         }
-        return parameters;
+        return parameters + ".txt";
     }
 }

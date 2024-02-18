@@ -164,4 +164,8 @@ public class Ui {
     public String showLoadingError() {
         return ("Loading data from file error.\n");
     }
+
+    public String showArchiveSuccess(String fileName) {
+        return String.format("Archive file %s successfully", fileName);
+    }
 }
