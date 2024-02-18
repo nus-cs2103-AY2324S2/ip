@@ -11,8 +11,8 @@ import chaterpillar.exceptions.ChaterpillarException;
  * a String representing the end date and/or time of the event.
  */
 public class EventTask extends Task {
-    private final DateTime dateTimeFrom;
-    private final DateTime dateTimeTo;
+    private DateTime dateTimeFrom;
+    private DateTime dateTimeTo;
     /**
      * Constructor with event start and end
      * date and/or time specified
@@ -44,6 +44,20 @@ public class EventTask extends Task {
         this.dateTimeFrom = new DateTime(dateTimeFrom);
         this.dateTimeTo = new DateTime(dateTimeTo);
         this.setHasDate();
+    }
+
+    @Override
+    public void updateStartDate(String updatedStartDate) throws ChaterpillarException {
+        if (!updatedStartDate.isBlank()) {
+            this.dateTimeFrom = new DateTime(updatedStartDate);
+        }
+    }
+
+    @Override
+    public void updateEndDate(String updatedEndDate) throws ChaterpillarException {
+        if (!updatedEndDate.isBlank()) {
+            this.dateTimeTo = new DateTime(updatedEndDate);
+        }
     }
 
     /**

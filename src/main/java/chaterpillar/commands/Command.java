@@ -15,12 +15,12 @@ public abstract class Command {
      * Executes the command (determined in the specific <code>Command</code>
      * classes).
      *
-     * @param task the list of tasks.
+     * @param tasks the list of tasks.
      * @param ui object that handles the UI of this application.
      * @param storage object that is used for storage.
      * @throws ChaterpillarException custom <code>Exception</code> for this application.
      */
-    public abstract String execute(TaskList task, Ui ui, Storage storage)
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage)
             throws ChaterpillarException;
 
     /**
