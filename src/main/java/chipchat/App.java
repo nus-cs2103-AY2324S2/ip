@@ -7,6 +7,8 @@ import chipchat.storage.Storage;
 import chipchat.task.TaskList;
 import chipchat.ui.Ui;
 
+import java.util.List;
+
 /**
  * Encapsulates the main program application.
  */
@@ -22,14 +24,13 @@ public class App {
         this.ui = new Ui();
         this.storage = new Storage();
 
-        TaskList tmp;
-        try {
-            tmp = new TaskList(storage.load());
-        } catch (ChipchatException x) {
-            ui.showLoadingError();
-            tmp = new TaskList();
+        TaskList tasks = new TaskList();
+        List<Action> actions = storage.load();
+        for (Action addTask : actions) {
+            addTask.run(tasks, ui, null);
         }
-        this.tasks = tmp;
+        ui.clearBuffer();
+        this.tasks = tasks;
     }
 
     public String getGreetings() {

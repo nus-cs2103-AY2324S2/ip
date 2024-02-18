@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import chipchat.action.Action;
 import chipchat.parser.Parser;
 import chipchat.task.Task;
 import chipchat.task.TaskList;
@@ -71,19 +72,19 @@ public class Storage {
      *
      * @return an array list of tasks that has been initialized with loaded data
      */
-    public ArrayList<Task> load() {
+    public ArrayList<Action> load() {
         if (Files.notExists(this.filePath)) {
             return new ArrayList<>();
         }
 
         try (BufferedReader reader = Files.newBufferedReader(this.filePath, StandardCharsets.UTF_8)) {
-            ArrayList<Task> tasks = new ArrayList<>();
+            ArrayList<Action> actions = new ArrayList<>();
             String line = null;
             while ((line = reader.readLine()) != null) {
-                Task task = Parser.parseLoadedTask(line);
-                tasks.add(task);
+                Action addTask = Parser.parseLoadedTask(line);
+                actions.add(addTask);
             }
-            return tasks;
+            return actions;
         } catch (IOException x) {
             System.err.format("IOException: %s\n", x);
             return null;

@@ -35,6 +35,11 @@ public class Parser {
 
     private static EnumMap<ArgumentType, String> argsMap = new EnumMap<>(ArgumentType.class);
 
+    // Initialize argsMap such that is_done attribute is false by default
+    static {
+        argsMap.put(ArgumentType.ISDONE, "false");
+    }
+
     /**
      * Returns an action parsed from the user input.
      *
@@ -180,7 +185,7 @@ public class Parser {
         }
     }
 
-    private static Action parseTask(CommandType command, String[] tokens) {
+    private static AddTask parseTask(CommandType command, String[] tokens) {
         if (tokens.length < 2) {
             throw new MissingArgumentException(
                     "Error: Missing description\nPlease enter the description of the task to add");
@@ -190,18 +195,19 @@ public class Parser {
         readArguments(tokens);
 
         String description = argsMap.get(ArgumentType.DESCRIPTION);
+        boolean isDone = argsMap.get(ArgumentType.ISDONE).equals("true");
         List<String> tags = parseTags(argsMap.get(ArgumentType.TAG));
 
         switch(command) {
         case TODO:
-            return AddTask.addTodo(description, false, tags);
+            return AddTask.addTodo(description, isDone, tags);
         case DEADLINE:
             LocalDate dueBy = parseDate(argsMap.get(ArgumentType.BY));
-            return AddTask.addDeadline(description, false, dueBy, tags);
+            return AddTask.addDeadline(description, isDone, dueBy, tags);
         case EVENT:
             LocalDate dateFrom = parseDate(argsMap.get(ArgumentType.FROM));
             LocalDate dateTo = parseDate(argsMap.get(ArgumentType.TO));
-            return AddTask.addEvent(description, false, dateFrom, dateTo, tags);
+            return AddTask.addEvent(description, isDone, dateFrom, dateTo, tags);
         default:
             throw new ArgumentException("Reached default branch of parseTask() due to unrecognized command type");
         }
@@ -213,28 +219,10 @@ public class Parser {
      * @param line the data-format string retrieved from storage file
      * @return parsed action that has been initialized based on stored data
      */
-    public static Task parseLoadedTask(String line) {
+    public static AddTask parseLoadedTask(String line) {
         String[] tokens = line.split(" ");
         CommandType taskType = parseCommand(tokens[1]);
-        readArguments(Arrays.copyOfRange(tokens, 2, tokens.length));
-
-        String description = argsMap.get(ArgumentType.DESCRIPTION);
-        boolean isDone = argsMap.get(ArgumentType.ISDONE).equals("true");
-        List<String> tags = parseTags(argsMap.get(ArgumentType.TAG));
-
-        switch (taskType) {
-        case TODO:
-            return new Todo(description, isDone, tags);
-        case DEADLINE:
-            LocalDate dueBy = parseDate(argsMap.get(ArgumentType.BY));
-            return new Deadline(description, isDone, dueBy, tags);
-        case EVENT:
-            LocalDate dateFrom = parseDate(argsMap.get(ArgumentType.FROM));
-            LocalDate dateTo = parseDate(argsMap.get(ArgumentType.TO));
-            return new Event(description, isDone, dateFrom, dateTo, tags);
-        default:
-            return null;
-        }
+        return parseTask(taskType, Arrays.copyOfRange(tokens, 1, tokens.length));
     }
 
     /**

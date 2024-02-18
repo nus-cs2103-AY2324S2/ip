@@ -75,6 +75,6 @@ public abstract class Task {
      */
     public String dataString() {
         return String.format("%s /description %s /tag %s",
-                this.isDone, this.description, this.tags);
+                this.isDone, this.description, this.printTags());
     }
 }

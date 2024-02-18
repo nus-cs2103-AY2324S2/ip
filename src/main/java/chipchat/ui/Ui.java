@@ -22,8 +22,13 @@ public class Ui {
         return output;
     }
 
+
     private void appendWithNewLine(String str) {
         this.outputBuffer.append(str).append("\n");
+    }
+
+    public void clearBuffer() {
+        this.outputBuffer.setLength(0);
     }
 
     public void showWelcome() {

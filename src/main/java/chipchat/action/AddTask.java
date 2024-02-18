@@ -32,7 +32,7 @@ public class AddTask extends Action {
      * @param isDone completion status of task
      * @return action class that will add a Todo task when executed
      */
-    public static Action addTodo(String description, boolean isDone, List<String> tags) {
+    public static AddTask addTodo(String description, boolean isDone, List<String> tags) {
         return new AddTask(new Todo(description, isDone, tags), CommandType.TODO);
     }
 
@@ -43,7 +43,7 @@ public class AddTask extends Action {
      * @param isDone completion status of task
      * @return action class that will add a deadline task when executed
      */
-    public static Action addDeadline(String description, boolean isDone, LocalDate dueBy, List<String> tags) {
+    public static AddTask addDeadline(String description, boolean isDone, LocalDate dueBy, List<String> tags) {
         return new AddTask(new Deadline(description, isDone, dueBy, tags), CommandType.DEADLINE);
     }
 
@@ -54,7 +54,7 @@ public class AddTask extends Action {
      * @param isDone completion status of task
      * @return action class that will add an Event task when executed
      */
-    public static Action addEvent(String description, boolean isDone, LocalDate dateFrom, LocalDate dateTo, List<String> tags) {
+    public static AddTask addEvent(String description, boolean isDone, LocalDate dateFrom, LocalDate dateTo, List<String> tags) {
         return new AddTask(new Event(description, isDone, dateFrom, dateTo, tags), CommandType.EVENT);
     }
 
@@ -71,7 +71,9 @@ public class AddTask extends Action {
             tasks.add(task);
             ui.showMsg(SUCCESS_MSG);
             ui.showMsg(this.task.toString());
-            storage.save(tasks);
+            if (storage != null) {
+                storage.save(tasks);
+            }
         } catch (ChipchatException exc) {
             ui.showErrMsg(exc);
         }
