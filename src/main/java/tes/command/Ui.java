@@ -26,15 +26,15 @@ public class Ui {
      * Greets the user when initializing the chatbot.
      */
     public String greet() {
-        return "    Tes here.\n"
-                + "    Huh? What you want from me?";
+        return "Tes here.\n"
+                + "Huh? What you want from me?";
     }
 
     /**
      * Says goodbye when closing the chatbot.
      */
     public String close() {
-        return "    Annoying brat (-.-)";
+        return "Annoying brat (-.-)";
     }
 
     /**
@@ -44,11 +44,12 @@ public class Ui {
      */
     public String addToDo(String command) {
         this.taskList.storeToDo(command);
-        return "    Got it. I've added this task:\n      "
+        return "Got it. I've added this task:\n"
                 + this.taskList.getTaskDescription(this.taskList.getSize() - 1)
-                + "\n    Now you have "
+                + "\nNow you have "
                 + this.taskList.getSize()
-                + " in the list.";
+                + " in the list.\n"
+                + "Hope this won't rot like other tasks in your list!";
     }
 
     /**
@@ -59,11 +60,12 @@ public class Ui {
      */
     public String addDeadline(String command, String by) {
         this.taskList.storeDeadline(command, by);
-        return "    Got it. I've added this task:\n      "
+        return "Got it. I've added this task:\n"
                 + this.taskList.getTaskDescription(this.taskList.getSize() - 1)
-                + "\n    Now you have "
+                + "\nNow you have "
                 + this.taskList.getSize()
-                + " in the list.";
+                + " in the list.\n"
+                + "Uhh, whatever! Not like your lazy ass gon do this by the deadline anyway (-_-)";
     }
 
     /**
@@ -74,21 +76,21 @@ public class Ui {
      */
     public String addEvent(String command, String from, String to) {
         this.taskList.storeEvent(command, from, to);
-        return "    Got it. I've added this task:\n      "
+        return "Got it. I've added this task:\n"
                 + this.taskList.getTaskDescription(this.taskList.getSize() - 1)
-                + "\n    Now you have "
+                + "\nNow you have "
                 + this.taskList.getSize()
-                + " in the list.";
+                + " in the list.\n"
+                + "Funny eh! I thought you just sleep all the time";
     }
 
     /**
      * Lists the tasks stored.
      */
     public String listTask() {
-        StringBuilder tasks = new StringBuilder("    Here are the tasks in your list:\n");
+        StringBuilder tasks = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 1; i <= this.taskList.getSize(); i++) {
-            tasks.append("    ")
-                    .append(i)
+            tasks.append(i)
                     .append(". ")
                     .append(this.taskList.getTaskDescription(i - 1))
                     .append("\n"); // Appends a new line character
@@ -103,8 +105,9 @@ public class Ui {
      */
     public String mark(int index) {
         this.taskList.mark(index);
-        return "    Nice! I've marked this task as done:\n      "
-                + this.taskList.getTaskDescription(index);
+        return "Nice! I've marked this task as done:\n"
+                + this.taskList.getTaskDescription(index)
+                + "\nUnbelievable for someone like you 0o0";
     }
 
     /**
@@ -114,8 +117,9 @@ public class Ui {
      */
     public String unmark(int index) {
         this.taskList.unmark(index);
-        return "    OK, I've marked this task as not done yet:\n      "
-                + this.taskList.getTaskDescription(index);
+        return "OK, I've marked this task as not done yet:\n"
+                + this.taskList.getTaskDescription(index)
+                + "\nAs expected...";
     }
 
     /**
@@ -124,9 +128,9 @@ public class Ui {
      * @param index Index of the task to be unmarked.
      */
     public String delete(int index) {
-        String deletedTask ="    Noted. I've removed this task:\n      "
+        String deletedTask ="Noted. I've removed this task:\n"
                 + this.taskList.getTaskDescription(index - 1)
-                + "\n    Now you have "
+                + "\nNow you have "
                 + (this.taskList.getSize() - 1)
                 + " in the list.";
 
@@ -140,7 +144,7 @@ public class Ui {
      * @param keyword Word used to find the task.
      */
     public String find(String keyword) {
-        StringBuilder foundTasks = new StringBuilder("    Here are the matching tasks in your list:\n");
+        StringBuilder foundTasks = new StringBuilder("Here are the matching tasks in your list:\n");
         int counter = 1;
         for (int i = 1; i <= this.taskList.getSize(); i++) {
             String taskDescription = this.taskList.getTaskDescription(i - 1);
