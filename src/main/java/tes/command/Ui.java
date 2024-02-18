@@ -9,9 +9,6 @@ import tes.taskmanager.TaskList;
  * Represents a class to deal with input and output of the chatbot system.
  */
 public class Ui {
-    /** Line seperator */
-    private static final String LINE = "    _______________________________________________________________\n";
-    private Scanner scanner; // Scanner for input
     private TaskList taskList; // tes.taskmanager.Task List to store tasks
     private Storage store;
 
@@ -19,7 +16,6 @@ public class Ui {
      * Constructs a User Interface to deal with input and output.
      */
     public Ui() {
-        this.scanner = new Scanner(System.in);
         this.store = new Storage();
         this.taskList = new TaskList(this.store.loadFromFile());
     }
@@ -32,15 +28,6 @@ public class Ui {
     public String greet() {
         return "    Tes here.\n"
                 + "    Huh? What you want from me?";
-    }
-
-    /**
-     * Scans the next input.
-     *
-     * @return New input.
-     */
-    public String nextCommand() {
-        return scanner.nextLine();
     }
 
     /**
@@ -153,7 +140,7 @@ public class Ui {
      * @param keyword Word used to find the task.
      */
     public String find(String keyword) {
-        StringBuilder foundTasks = new StringBuilder("    Here are the matching tasks in your list:");
+        StringBuilder foundTasks = new StringBuilder("    Here are the matching tasks in your list:\n");
         int counter = 1;
         for (int i = 1; i <= this.taskList.getSize(); i++) {
             String taskDescription = this.taskList.getTaskDescription(i - 1);
