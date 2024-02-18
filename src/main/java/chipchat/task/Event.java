@@ -44,7 +44,7 @@ public class Event extends Task {
      */
     @Override
     public String dataString() {
-        return String.format("%s /isDone %s /from %s /to %s /tag %s",
-                CommandType.EVENT, super.dataString(), this.dateFrom, this.dateTo, super.printTags());
+        return String.format("%s /isDone %s /from %s /to %s",
+                CommandType.EVENT, super.dataString(), this.dateFrom, this.dateTo);
     }
 }

@@ -40,7 +40,6 @@ public class Deadline extends Task {
      */
     @Override
     public String dataString() {
-        return String.format("%s /isDone %s /dueBy %s /tag %s",
-                CommandType.DEADLINE, super.dataString(), this.dueBy, super.printTags());
+        return String.format("%s /isDone %s /by %s", CommandType.DEADLINE, super.dataString(), this.dueBy);
     }
 }

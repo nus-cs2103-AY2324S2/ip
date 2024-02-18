@@ -74,6 +74,7 @@ public abstract class Task {
      * @return a string representation of the task in a parsable format
      */
     public String dataString() {
-        return String.format("%s /description %s", this.isDone, this.description);
+        return String.format("%s /description %s /tag %s",
+                this.isDone, this.description, this.tags);
     }
 }

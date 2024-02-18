@@ -187,10 +187,11 @@ public class Parser {
         } else {
             tokens = Arrays.copyOfRange(tokens, 1, tokens.length);
         }
-
         readArguments(tokens);
+
         String description = argsMap.get(ArgumentType.DESCRIPTION);
         List<String> tags = parseTags(argsMap.get(ArgumentType.TAG));
+
         switch(command) {
         case TODO:
             return AddTask.addTodo(description, false, tags);
@@ -215,20 +216,22 @@ public class Parser {
     public static Task parseLoadedTask(String line) {
         String[] tokens = line.split(" ");
         CommandType taskType = parseCommand(tokens[1]);
-        ArrayList<String> args = parseArguments(Arrays.copyOfRange(tokens, 2, tokens.length));
-        boolean isDone = args.get(0).equals("true");
-        String description = args.get(1);
+        readArguments(Arrays.copyOfRange(tokens, 2, tokens.length));
+
+        String description = argsMap.get(ArgumentType.DESCRIPTION);
+        boolean isDone = argsMap.get(ArgumentType.ISDONE).equals("true");
+        List<String> tags = parseTags(argsMap.get(ArgumentType.TAG));
 
         switch (taskType) {
         case TODO:
-            return new Todo(description, isDone, parseTags(args.get(2)));
+            return new Todo(description, isDone, tags);
         case DEADLINE:
-            LocalDate dueBy = parseDate(args.get(2));
-            return new Deadline(description, isDone, dueBy, parseTags(args.get(3)));
+            LocalDate dueBy = parseDate(argsMap.get(ArgumentType.BY));
+            return new Deadline(description, isDone, dueBy, tags);
         case EVENT:
-            LocalDate dateFrom = parseDate(args.get(2));
-            LocalDate dateTo = parseDate(args.get(3));
-            return new Event(description, isDone, dateFrom, dateTo, parseTags(args.get(4)));
+            LocalDate dateFrom = parseDate(argsMap.get(ArgumentType.FROM));
+            LocalDate dateTo = parseDate(argsMap.get(ArgumentType.TO));
+            return new Event(description, isDone, dateFrom, dateTo, tags);
         default:
             return null;
         }

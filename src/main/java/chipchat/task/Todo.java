@@ -36,6 +36,6 @@ public class Todo extends Task {
      */
     @Override
     public String dataString() {
-        return String.format("%s /isDone %s /tag %s", CommandType.TODO, super.dataString(), super.printTags());
+        return String.format("%s /isDone %s", CommandType.TODO, super.dataString());
     }
 }
