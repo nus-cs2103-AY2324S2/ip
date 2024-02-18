@@ -25,7 +25,6 @@ public class Parser {
         case "bye":
         case "list":
         case "getcommands":
-        case "listbypriority":
             return miscCommand(parsedResult);
         case "find":
             return findCommand(parsedResult, input);

@@ -21,7 +21,8 @@ public class Ui {
      * Displays available commands.
      */
     public String getCommands() {
-        return "Take note ah, enter all time based commands are in <dd-mm-yyyy HHmm> format:\n\n"
+        return "Take note ah, enter all time based commands are in <dd-mm-yyyy HHmm> format.\nPriority levels only"
+                + " got high, medium or low.\n\n"
                 + "* todo <task> --> adds todo\n(example: todo sleep)\n"
                 + "* deadline <task>/<by when> --> adds deadline\n(example: deadline homework / 01-01-2025 1830)\n"
                 + "* event <task>/<from when>/<to when> --> adds event\n"
@@ -32,6 +33,8 @@ public class Ui {
                 + "* delete <x> --> deletes task x from the list\n"
                 + "* find <thing to search> --> searches for tasks with the input word or phrase\n"
                 + "(example: find sleep)\n"
+                + "* prioritise <x> <priority level> --> attaches priority level to a task\n"
+                + "(example: prioritise 2 high)\n"
                 + "* bye --> exits app";
     }
 

@@ -41,13 +41,6 @@ public enum Command {
         }
     },
 
-    LISTBYPRIORITY {
-        @Override
-        public String execute(TaskList tasklist, Ui ui, Storage storage, ArrayList<String> parsed) {
-            return ui.printList(tasklist.getTasks()).trim();
-        }
-    },
-
     /**
      * Command to find tasks with a certain keyword or keywords.
      */
