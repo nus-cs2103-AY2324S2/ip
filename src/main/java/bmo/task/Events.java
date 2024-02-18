@@ -3,7 +3,7 @@ package bmo.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Events extends Task{
+public class Events extends Task {
 
     protected LocalDateTime start;
     protected LocalDateTime end;
@@ -29,7 +29,7 @@ public class Events extends Task{
         String endStr = this.end.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
 
         return "E | " + done + " | " + super.toString() + " | "
-                + startStr + " | " + endStr +"\n";
+                + startStr + " | " + endStr + "\n";
     }
 
     @Override

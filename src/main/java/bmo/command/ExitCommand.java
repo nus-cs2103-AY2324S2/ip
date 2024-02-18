@@ -4,7 +4,7 @@ import bmo.util.Storage;
 import bmo.util.TaskList;
 import bmo.ui.Ui;
 
-public class ExitCommand extends Command{
+public class ExitCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.salute();

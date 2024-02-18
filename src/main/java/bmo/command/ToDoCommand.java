@@ -1,16 +1,15 @@
 package bmo.command;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import bmo.util.Storage;
 import bmo.util.TaskList;
 import bmo.ui.Ui;
 import bmo.task.Task;
 import bmo.task.ToDo;
 
-public class ToDoCommand extends Command{
+public class ToDoCommand extends Command {
 
     private final String desc;
+
     public ToDoCommand(String desc) {
         this.desc = desc;
     }

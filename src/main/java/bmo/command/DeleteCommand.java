@@ -4,7 +4,7 @@ import bmo.util.Storage;
 import bmo.util.TaskList;
 import bmo.ui.Ui;
 
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
 
     private final String index;
 

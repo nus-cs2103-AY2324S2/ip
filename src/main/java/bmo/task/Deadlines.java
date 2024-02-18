@@ -3,9 +3,10 @@ package bmo.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Deadlines extends Task{
+public class Deadlines extends Task {
 
     protected LocalDateTime deadline;
+
     public Deadlines(String task, LocalDateTime deadline) {
         super(task);
         this.deadline = deadline;

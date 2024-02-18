@@ -11,6 +11,7 @@ public class DefaultCommand extends Command {
     public DefaultCommand(int type) {
         this.type = type;
     }
+
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (this.type == 0) {
             ui.printErrInvalidCommand();

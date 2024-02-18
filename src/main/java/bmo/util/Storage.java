@@ -36,7 +36,7 @@ public class Storage {
         return dataFile;
     }
 
-    public String loadData() throws IOException{
+    public String loadData() throws IOException {
         try {
             Scanner sc = new Scanner(dataFile);
             StringBuilder output = new StringBuilder();
