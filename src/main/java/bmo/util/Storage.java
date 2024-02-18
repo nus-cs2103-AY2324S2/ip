@@ -8,12 +8,22 @@ import java.util.Scanner;
 
 public class Storage {
 
-    private static final String FILE_PATH = "../../../../../data/task_data.txt";
+    private static final String FILE_PATH = "data/task_data.txt";
     private static File dataFile;
 
     public Storage() {
         try {
             dataFile = new File(FILE_PATH);
+            dataFile.getParentFile().mkdirs();
+            dataFile.createNewFile();
+        } catch (IOException e) {
+            System.out.println("Error: Unable to load data. " + e.getMessage());
+        }
+    }
+
+    public Storage(File file) {
+        try {
+            dataFile = file;
             dataFile.getParentFile().mkdirs();
             dataFile.createNewFile();
         } catch (IOException e) {

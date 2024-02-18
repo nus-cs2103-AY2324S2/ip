@@ -45,6 +45,7 @@ public class Ui {
         if (taskLog.isEmpty()) {
             System.out.println("wow! your log is actually empty");
             System.out.println("let's play mario kart right now!! ᕦ(ò_óˇ)ᕤ");
+            showLine();
             return;
         }
         for (int i = 0; i < taskLog.size(); i++) {

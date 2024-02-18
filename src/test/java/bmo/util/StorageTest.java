@@ -23,6 +23,7 @@ class StorageTest {
     void testLoadData() throws IOException {
         // Create a temporary file
         File tempFile = tempDir.resolve("task_data.txt").toFile();
+        tempFile.createNewFile();
 
         // Write some data to the temporary file
         FileWriter fileWriter = new FileWriter(tempFile);
@@ -31,7 +32,7 @@ class StorageTest {
         fileWriter.close();
 
         // Mock the Storage class to use the temporary file
-        Storage storage = Mockito.spy(new Storage());
+        Storage storage = Mockito.spy(new Storage(tempFile));
         Mockito.doReturn(tempFile).when(storage).getDataFile();
 
         // Test the loadData method
