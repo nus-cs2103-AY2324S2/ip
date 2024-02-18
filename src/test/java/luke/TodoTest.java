@@ -8,7 +8,6 @@ public class TodoTest {
 
     //https://se-education.org/se-book/cppToJava/junit/basic/index.html for test naming ideas
 
-
     @Test
     public void testFullStatus() {
         Todo stuff = new Todo("stuff");
