@@ -19,48 +19,49 @@ import java.util.Scanner;
  */
 public class Duke {
     private static final String NAME = "Fatnom";
+    private static final String FILE_PATH = "data/tasks.txt";
+
     private static Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private Parser parser;
 
-    /**
-     * Constructs a new Duke object.
-     *
-     * @param filepath The file path of the storage file containing task data.
-     * @throws DukeException For initialisation errors while loading data from storage.
-     */
-    public Duke(String filepath) throws DukeException {
+    public Duke() throws DukeException {
         ui = new Ui();
-        storage = new Storage(filepath);
+        storage = new Storage(FILE_PATH);
         try {
             tasks = new TaskList(storage.loadData());
         } catch (DukeException e) {
             Ui.printErrorMessage(e.getMessage());
             tasks = new TaskList();
         }
+        parser = new Parser(tasks, ui);
     }
 
-    /**
-     * Runs the Fatnom application.
-     * Initialises the necessary components, displays a welcome message,
-     * loads data from storage (if any), and continuously reads and
-     * processes user input until the user exits the application.
-     */
+    public Parser getParser() {
+        return parser;
+    }
+
+    public TaskList getTasklist() {
+        return tasks;
+    }
+
+    public Ui getUi() {
+        return ui;
+    }
+
     public void run() {
         Scanner sc = new Scanner(System.in);
         Ui.printWelcomeMessage(NAME);
-        Parser parser = new Parser(tasks, ui);
         boolean isExit = false;
         while (!isExit) {
             try {
                 String input = sc.nextLine();
-                isExit = parser.parseUserInput(input);
+                parser.parseUserInput(input);
             } catch (DukeException e) {
                 Ui.printErrorMessage(e.getMessage());
             } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
-                String exceptionMessage = Ui.createLine() + "\n"
-                        + "invalid date time format! please use YYYY-MM-DD HH:MM format!" + "\n"
-                        + Ui.createLine();
+                String exceptionMessage = "invalid date time format! please use YYYY-MM-DD HH:MM format!";
                 Ui.printErrorMessage(exceptionMessage);
             }
         }
@@ -74,6 +75,6 @@ public class Duke {
      * @throws DukeException For initialisation errors.
      */
     public static void main(String[] args) throws DukeException {
-        new Duke("data/tasks.txt").run();
+        new Duke().run();
     }
 }

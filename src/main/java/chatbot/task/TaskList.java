@@ -59,22 +59,18 @@ public class TaskList {
      * @param taskNum The index of the task to be marked.
      * @throws DukeException For an invalid task index.
      */
-    public void markTask(int taskNum) throws DukeException {
+    public String markTask(int taskNum) throws DukeException {
         if (taskNum == 0) {
-            String exceptionMessage = Ui.createLine() + "\n"
-                    + "task 0? how can i mark a task that doesn't exist?!\n"
-                    + Ui.createLine();
+            String exceptionMessage = "task 0? how can i mark a task that doesn't exist?!";
             throw new DukeException(exceptionMessage);
         } else if (taskNum > tasks.size()) {
-            String exceptionMessage = Ui.createLine() + "\n"
-                    + "hahaha! you only have " + tasks.size() + " tasks in your task list!!\n"
-                    + "there's no task " + taskNum + "!\n"
-                    + Ui.createLine();
+            String exceptionMessage = "hahaha! you only have " + tasks.size() + " tasks in your task list!!\n"
+                    + "there's no task " + taskNum + "!";
             throw new DukeException(exceptionMessage);
         }
         tasks.get(taskNum - 1).complete();
         Storage.saveData(tasks);
-        Ui.printMarkedTask(this, taskNum);
+        return Ui.printMarkedTask(this, taskNum);
     }
 
     /**
@@ -83,22 +79,18 @@ public class TaskList {
      * @param taskNum The index of the task to be unmarked.
      * @throws DukeException For an invalid task index.
      */
-    public void unmarkTask(int taskNum) throws DukeException {
+    public String unmarkTask(int taskNum) throws DukeException {
         if (taskNum == 0) {
-            String exceptionMessage = Ui.createLine() + "\n"
-                    + "task 0? how can i unmark a task that doesn't exist?!\n"
-                    + Ui.createLine();
+            String exceptionMessage = "task 0? how can i unmark a task that doesn't exist?!";
             throw new DukeException(exceptionMessage);
         } else if (taskNum > tasks.size()) {
-            String exceptionMessage = Ui.createLine() + "\n"
-                    + "hahaha! you only have " + tasks.size() + " tasks in your task list!!\n"
-                    + "there's no task " + taskNum + "!\n"
-                    + Ui.createLine();
+            String exceptionMessage = "hahaha! you only have " + tasks.size() + " tasks in your task list!!\n"
+                    + "there's no task " + taskNum + "!";
             throw new DukeException(exceptionMessage);
         }
         tasks.get(taskNum - 1).unmark();
         Storage.saveData(tasks);
-        Ui.printUnmarkedTask(this, taskNum);
+        return Ui.printUnmarkedTask(this, taskNum);
     }
 
     /**
@@ -107,17 +99,13 @@ public class TaskList {
      * @param taskNum The index of the task to be deleted.
      * @throws DukeException For an invalid task index.
      */
-    public void deleteTask(int taskNum) throws DukeException {
+    public String deleteTask(int taskNum) throws DukeException {
         if (taskNum == 0) {
-            String exceptionMessage = Ui.createLine() + "\n"
-                    + "error: there's no such thing as task 0!\n"
-                    + Ui.createLine();
+            String exceptionMessage = "error: there's no such thing as task 0!";
             throw new DukeException(exceptionMessage);
         } else if (taskNum > tasks.size()) {
-            String exceptionMessage = Ui.createLine() + "\n"
-                    + "error! you only have " + tasks.size() + " tasks in your task list!!\n"
-                    + "there's no task " + taskNum + "!\n"
-                    + Ui.createLine();
+            String exceptionMessage = "error! you only have " + tasks.size() + " tasks in your task list!!\n"
+                    + "there's no task " + taskNum + "!";
             throw new DukeException(exceptionMessage);
         }
         Task deletedTask = tasks.get(taskNum - 1);
@@ -125,7 +113,7 @@ public class TaskList {
         tasks.remove(taskNum - 1);
         int remainingNumOfTasks = tasks.size();
         Storage.saveData(tasks);
-        Ui.printDeletedTask(deletedTaskMessage, remainingNumOfTasks);
+        return Ui.printDeletedTask(deletedTaskMessage, remainingNumOfTasks);
     }
 
     /**
@@ -133,12 +121,12 @@ public class TaskList {
      *
      * @param name The task description of the ToDo task.
      */
-    public void addTodoTask(String name) {
+    public String addTodoTask(String name) {
         ToDo addedTask = new ToDo(name);
         tasks.add(addedTask);
         int totalNumOfTasks = tasks.size();
-        Ui.printAddedTask(addedTask.printTask(), totalNumOfTasks);
         Storage.saveData(tasks);
+        return Ui.printAddedTask(addedTask.printTask(), totalNumOfTasks);
     }
 
     /**
@@ -147,12 +135,12 @@ public class TaskList {
      * @param name The task description of the Deadline task.
      * @param deadline The LocalDateTime object containing the deadline of the task.
      */
-    public void addDeadlineTask(String name, LocalDateTime deadline) {
+    public String addDeadlineTask(String name, LocalDateTime deadline) {
         Deadline addedTask = new Deadline(name, deadline);
         tasks.add(addedTask);
         int totalNumOfTasks = tasks.size();
-        Ui.printAddedTask(addedTask.printTask(), totalNumOfTasks);
         Storage.saveData(tasks);
+        return Ui.printAddedTask(addedTask.printTask(), totalNumOfTasks);
     }
 
     /**
@@ -162,12 +150,12 @@ public class TaskList {
      * @param start The LocalDateTime object containing the start date of the task.
      * @param end The LocalDateTime object containing the end date of the task.
      */
-    public void addEventTask(String name, LocalDateTime start, LocalDateTime end) {
+    public String addEventTask(String name, LocalDateTime start, LocalDateTime end) {
         Event addedTask = new Event(name, start, end);
         tasks.add(addedTask);
         int totalNumOfTasks = tasks.size();
-        Ui.printAddedTask(addedTask.printTask(), totalNumOfTasks);
         Storage.saveData(tasks);
+        return Ui.printAddedTask(addedTask.printTask(), totalNumOfTasks);
     }
 
     /**
@@ -175,7 +163,7 @@ public class TaskList {
      *
      * @param keyword The keyword to be searched for.
      */
-    public void findTask(String keyword) {
+    public String findTask(String keyword) {
         ArrayList<Task> tasksWithKeyword = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).hasKeyword(keyword)) {
@@ -183,6 +171,6 @@ public class TaskList {
             }
         }
         TaskList filteredTasklist = new TaskList(tasksWithKeyword);
-        Ui.printFindTask(filteredTasklist, keyword);
+        return Ui.printFindTask(filteredTasklist, keyword);
     }
 }

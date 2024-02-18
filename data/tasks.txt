@@ -1,6 +1,7 @@
-T | 1 | have dinner
-E | 0 | fatnoms bday | Mar 01 2024 6:00pm | Mar 01 2024 9:00pm
-D | 1 | buy fatnoms present | Feb 27 2024 7:33pm
-T | 0 | fish
-E | 0 | convention | Jun 30 2024 6:45pm | Jul 02 2024 5:55pm
+T | 0 | have dinner
+E | 1 | fatnoms bday | Mar 01 2024 6:00pm | Mar 01 2024 9:00pm
+D | 0 | buy fatnoms present | Feb 27 2024 7:33pm
+E | 1 | convention | Jun 30 2024 6:45pm | Jul 02 2024 5:55pm
 D | 1 | study for finals | Apr 27 2024 4:00pm
+E | 0 | attend lecture | Apr 09 2024 4:45pm | Apr 09 2024 6:25pm
+T | 1 | attend class
