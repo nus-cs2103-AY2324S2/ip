@@ -56,7 +56,7 @@ public class Response {
     }
 
     /**
-     * Display a notification after user adds a task.
+     * Displays a notification after user adds a task.
      *
      * @param tl The task list.
      * @param t  The added task.

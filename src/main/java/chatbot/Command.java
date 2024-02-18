@@ -23,7 +23,6 @@ public enum Command {
 
     private final String rep;
     private String args = "";
-    private final boolean isBreaking;
 
     /**
      * Constructor that initialises a user command.
@@ -32,7 +31,6 @@ public enum Command {
      */
     Command(String cmd) {
         this.rep = cmd.toLowerCase();
-        this.isBreaking = this.rep.equals("bye");
     }
 
     /**

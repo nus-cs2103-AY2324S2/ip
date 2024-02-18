@@ -12,7 +12,7 @@ public class Task implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private final String description;
-    private boolean done;
+    private boolean isDone;
 
     /**
      * Constructor for the task.
@@ -21,12 +21,12 @@ public class Task implements Serializable {
      */
     public Task(String desc) {
         this.description = desc;
-        this.done = false;
+        this.isDone = false;
     }
 
     @Override
     public String toString() {
-        return (done ? "[X] " : "[ ] ") + description;
+        return (isDone ? "[X] " : "[ ] ") + description;
     }
 
     public boolean contains(String s) {
@@ -39,10 +39,10 @@ public class Task implements Serializable {
      * @throws AlreadyMarkedException If the task is already marked as done.
      */
     public void mark() throws AlreadyMarkedException {
-        if (this.done) {
+        if (this.isDone) {
             throw new AlreadyMarkedException();
         }
-        this.done = true;
+        this.isDone = true;
     }
 
     /**
@@ -51,9 +51,9 @@ public class Task implements Serializable {
      * @throws AlreadyUnmarkedException If the task is not marked as done.
      */
     public void unmark() throws AlreadyUnmarkedException {
-        if (!this.done) {
+        if (!this.isDone) {
             throw new AlreadyUnmarkedException();
         }
-        this.done = false;
+        this.isDone = false;
     }
 }
