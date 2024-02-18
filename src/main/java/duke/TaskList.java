@@ -25,8 +25,8 @@ public class TaskList {
         String reply = "";
         reply += "We have completed this task!\n";
         currentTask.mark();
-        reply += currentTask.getTaskType() + " " + currentTask.getStatus()
-                + " " + currentTask.getTask();
+        reply += currentTask.getTaskType() + currentTask.getStatus()
+                + " " + currentTask.getTask() +"\n";
 
         return reply;
     }
@@ -40,7 +40,7 @@ public class TaskList {
         String reply = "";
 
         reply += "Task has been deleted!\n";
-        reply += currentTask.getTaskType() + " " + currentTask.getStatus()
+        reply += currentTask.getTaskType() + currentTask.getStatus()
                 + " " + currentTask.getTask() + "\n";
 
         taskList.remove(index);
@@ -56,7 +56,7 @@ public class TaskList {
         String reply = "";
         reply += "Oops, task unmarked!\n";
         currentTask.unmark();
-        reply += currentTask.getTaskType() + " " + currentTask.getStatus()
+        reply += currentTask.getTaskType() + currentTask.getStatus()
                 + " " + currentTask.getTask() + "\n";
 
         return reply;

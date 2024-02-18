@@ -128,7 +128,7 @@ public class Parser {
             String taskdesc = inputSplit[1];
             return taskList.addTask("todo", taskdesc);
         } catch (ArrayIndexOutOfBoundsException e) {
-            return "Please input a Task Description.";
+            return "Please input a Task Description.\n";
         } catch (DateTimeParseException e) {
             return "Invalid DateTime Format. Please input as follows:\n"
                     + "dd-mm-yyyy hh:mm";
@@ -142,10 +142,10 @@ public class Parser {
             assert taskdesc.contains("/") : "input should contain /";
             return taskList.addTask("deadline", taskdesc);
         } catch (ArrayIndexOutOfBoundsException e) {
-            return "Please input a date or time with a / in front.\n";
+            return "Please input a date with a / in front.\n";
         } catch (DateTimeParseException e) {
             return "Invalid DateTime Format. Please input as follows:\n"
-                    + "dd-mm-yyyy hh:mm";
+                    + "dd-mm-yyyy hh:mm\n";
         }
     }
 
@@ -156,11 +156,10 @@ public class Parser {
             assert taskdesc.contains("/") : "input should contain /";
             return taskList.addTask("event", taskdesc);
         } catch (ArrayIndexOutOfBoundsException e) {
-            return "Please input a start and end time "
-                    + "or date with a / in front of both periods.\n";
+            return "Please input a start and end date with a / in front.\n";
         } catch (DateTimeParseException e) {
             return "Invalid DateTime Format. Please input as follows:\n"
-                    + "dd-mm-yyyy hh:mm";
+                    + "dd-mm-yyyy hh:mm\n";
         }
     }
 
