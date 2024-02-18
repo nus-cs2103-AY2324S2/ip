@@ -1,8 +1,11 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.util.Scanner;
 import java.util.ArrayList;
+
+import java.time.LocalDate;
 
 public class Damon {
     private static ArrayList<Task> storage;
@@ -93,7 +96,7 @@ public class Damon {
         String[] splittedString = inputString.substring(9).split(" /by ");
         String description = splittedString[0];
         String by = splittedString[1];
-        Deadline newDeadline = new Deadline(description, by);
+        Deadline newDeadline = new Deadline(description, LocalDate.parse(by));
         storage.add(newDeadline);
         return newDeadline;
     }
