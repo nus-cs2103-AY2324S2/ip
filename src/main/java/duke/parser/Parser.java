@@ -3,6 +3,9 @@ package duke.parser;
 import duke.command.Command;
 import duke.command.CommandEnum;
 import duke.command.InvalidCommand;
+import duke.command.task.DeadlineCommand;
+import duke.command.task.EventCommand;
+import duke.command.task.TaskCommand;
 import duke.command.task.ToDoCommand;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -133,6 +136,10 @@ public class Parser {
             case ToDoCommand.COMMAND:
                 return parseToDoCommand(args);
 
+            case DeadlineCommand.COMMAND:
+                return parseDeadlineCommand(args);
+
+
             default:
                 return new InvalidCommand(Command.INVALID_COMMAND);
         }
@@ -146,6 +153,32 @@ public class Parser {
         }
 
         return new ToDoCommand(task);
+    }
+
+    public Command parseDeadlineCommand(String args) {
+        final Matcher matcher = DeadlineCommand.ARG_FORMAT.matcher(args.trim());
+        System.out.println(DeadlineCommand.ARG_FORMAT);
+
+        if (!matcher.matches()) {
+            System.out.println("i do not match");
+            return new InvalidCommand(DeadlineCommand.INVALID_COMMAND);
+        }
+
+        try {
+            final String task = matcher.group("task");
+            System.out.println(task + " and " + matcher.group("by"));
+            final LocalDateTime by = LocalDateTime.parse(matcher.group("by"), dateTimeFormatter);
+
+            if (task.isEmpty()) {
+                System.out.println("task is empty");
+                return new InvalidCommand(DeadlineCommand.INVALID_COMMAND);
+            }
+            System.out.println("no errors!");
+            return new DeadlineCommand(task, by);
+        } catch (DateTimeException e) {
+            System.out.println("wrong datetime format");
+            return new InvalidCommand(TaskCommand.COMMAND_INVALID_DATETIME);
+        }
     }
 
 

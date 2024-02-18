@@ -72,7 +72,7 @@ public class Storage {
                                 break;
                         }
                     } catch (DateTimeException e) {
-                        //System.out.println("LOG: Dates of tasks corrupted.");
+                        // System.out.println("LOG: Dates of tasks corrupted.");
                         Ui.showLoadingError();
                         return new TaskList();
                     }
