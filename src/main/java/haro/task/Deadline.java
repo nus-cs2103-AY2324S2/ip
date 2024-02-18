@@ -74,4 +74,14 @@ public class Deadline extends Task {
         int marked = (this.isDone) ? 1 : 0;
         return "D | " + marked + " | " + this.task + " | " + this.deadline;
     }
+
+    public void setDueDate(String updatedDueDate) {
+        this.deadline = updatedDueDate;
+
+        try {
+            deadlineDate = LocalDate.parse(deadline);
+        } catch (DateTimeParseException e) {
+            deadlineDate = null;
+        }
+    }
 }

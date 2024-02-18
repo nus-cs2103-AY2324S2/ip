@@ -129,4 +129,10 @@ public class Ui {
             return "Here are the matching tasks in your list:\n" + taskString;
         }
     }
+
+    public String printEditTask(Task task, int index) {
+        int taskNumber = index + 1;
+        return "Got it I've edited this task:\n"
+                + taskNumber + ". " + task.printTask();
+    }
 }

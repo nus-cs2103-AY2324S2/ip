@@ -3,6 +3,8 @@ package haro;
 import java.util.ArrayList;
 
 import haro.exception.InvalidArgsException;
+import haro.task.Deadline;
+import haro.task.Event;
 import haro.task.Task;
 
 
@@ -142,6 +144,47 @@ public class TaskList {
         }
 
         return resultString;
+    }
+
+    public Task editTask(int taskIndex, String portionToEdit, String updatedPortion) throws InvalidArgsException {
+        Task currTask = tasks.get(taskIndex);
+
+        if (portionToEdit.equals("/task")) {
+            currTask.setTask(updatedPortion);
+            return currTask;
+        }
+
+        if (portionToEdit.equals("/by")) {
+            if (!(currTask instanceof Deadline)) {
+                throw new InvalidArgsException("Please use edit /by only for deadline tasks");
+            }
+
+            // Safe to type cast because of instanceof check
+            Deadline currDeadline = (Deadline) currTask;
+            currDeadline.setDueDate(updatedPortion);
+            return currDeadline;
+        } else if (portionToEdit.equals("/from")) {
+            if (!(currTask instanceof Event)) {
+                throw new InvalidArgsException("Please use edit /from only for event tasks");
+            }
+
+            // Safe to type cast because of instanceof check
+            Event currEvent = (Event) currTask;
+            currEvent.setFromDate(updatedPortion);
+            return currEvent;
+        } else if (portionToEdit.equals("/to")) {
+            if (!(currTask instanceof Event)) {
+                throw new InvalidArgsException("Please use edit /to only for event tasks");
+            }
+
+            // Safe to type cast because of instanceof check
+            Event currEvent = (Event) currTask;
+            currEvent.setToDate(updatedPortion);
+            return currEvent;
+        }
+
+        throw new InvalidArgsException("Please give a valid sub command for edit using /task, /by, /from or /to"
+                + " to edit chosen portions " + portionToEdit);
     }
 
     /**

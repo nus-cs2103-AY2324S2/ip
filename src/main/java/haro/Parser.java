@@ -1,13 +1,6 @@
 package haro;
 
-import haro.command.AddCommand;
-import haro.command.ByeCommand;
-import haro.command.Command;
-import haro.command.DeleteCommand;
-import haro.command.FindCommand;
-import haro.command.ListCommand;
-import haro.command.MarkCommand;
-import haro.command.UnmarkCommand;
+import haro.command.*;
 import haro.exception.EmptyCommandException;
 import haro.exception.EmptyTaskException;
 import haro.exception.InvalidArgsException;
@@ -35,6 +28,7 @@ public class Parser {
         EVENT,
         DELETE,
         FIND,
+        EDIT,
 
     }
 
@@ -77,6 +71,9 @@ public class Parser {
             break;
         case "find":
             instruction = Instruction.FIND;
+            break;
+        case "edit":
+            instruction = Instruction.EDIT;
             break;
         default:
             instruction = Instruction.NONE;
@@ -170,6 +167,35 @@ public class Parser {
 
             FindCommand findCommand = new FindCommand(commandArg);
             resultCommand = findCommand;
+        } else if (instruction == Instruction.EDIT) {
+            String[] editArgs = commandArg.split("\\s", 2);
+
+            if (editArgs.length < 2) {
+                throw new InvalidArgsException("Please use edit command in the following format:\n"
+                        + "edit {taskNumber} {portion to edit} {updated value}");
+            }
+
+            String taskNumber = editArgs[0].trim();
+            String editInstruction = editArgs[1].trim();
+            if (!isNumeric(taskNumber)) {
+                throw new InvalidArgsException("Please input a number for the task you want to edit!\n");
+            }
+
+            int taskIndex = Integer.parseInt(taskNumber) - 1;
+            String[] editCommandArgs = editInstruction.split("\\s", 2);
+            String portionToEdit = editCommandArgs[0].trim();
+            String updatedPortion = editCommandArgs[1].trim();
+
+            if(portionToEdit.equals("")) {
+                throw new InvalidArgsException("Please use /task, /by, /from or /to to indicate which portion to edit");
+            }
+
+            if (updatedPortion.equals("")) {
+                throw new InvalidArgsException("Please specify what the updated portion should be!");
+            }
+
+            EditCommand editCommand = new EditCommand(taskIndex, portionToEdit, updatedPortion);
+            resultCommand = editCommand;
         }
 
         if (resultCommand == null) {

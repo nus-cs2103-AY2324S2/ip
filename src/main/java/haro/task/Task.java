@@ -63,4 +63,8 @@ public abstract class Task {
         return this.task.contains(searchString);
     }
 
+    public void setTask(String updatedTask) {
+        this.task = updatedTask;
+    }
+
 }
