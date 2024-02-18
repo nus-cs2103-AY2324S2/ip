@@ -1,3 +1,8 @@
+/**
+ * This is an Event Task.
+ * It is a task that contains a start and an end date.
+ */
+
 package task;
 
 import java.time.LocalDateTime;
@@ -29,6 +34,14 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Parses the date given by the user from a string format to
+     * a LocalDateTime format.
+     *
+     * @param date the date provided by the user
+     * @return the LocalDateTime format of the date provided
+     * @throws InvalidDateException if the date provided cannot be interpreted by this method
+     */
     public LocalDateTime parseDate(String date) throws InvalidDateException {
         String[] brokenStart = date.split("[\\s/-]+");
 

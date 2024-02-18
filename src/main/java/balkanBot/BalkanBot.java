@@ -1,3 +1,9 @@
+/**
+ * This is the main method for the Balkan Bot Chat Bot.
+ * The Balkan Bot is able to make and store various tasks such as ToDos, Deadlines and Events.
+ * It is also able to Mark or Unmark them as complete.
+ */
+
 package balkanBot;
 
 import storage.Storage;
@@ -12,6 +18,11 @@ public class BalkanBot {
     private TaskList tasks;
     private final Ui ui;
 
+    /**
+     * Initialises Balkan Bot
+     *
+     * @param filePath The file path of a text file containing previously stored tasks
+     */
     public BalkanBot(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -23,6 +34,9 @@ public class BalkanBot {
         }
     }
 
+    /**
+     * Runs the bot
+     */
     public void run() {
         ui.printWelcome();
         boolean isExit = false;

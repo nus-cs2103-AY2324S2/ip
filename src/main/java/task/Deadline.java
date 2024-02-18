@@ -1,3 +1,8 @@
+/**
+ * This is a Deadline Task.
+ * It is a task that contains a deadline.
+ */
+
 package task;
 
 import java.time.LocalDateTime;
@@ -21,6 +26,13 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Parses the date given by the user from a string format to
+     * a LocalDateTime format.
+     *
+     * @param date the date provided by the user
+     * @throws InvalidDateException if the date provided cannot be interpreted by this method
+     */
     public void parseDate(String date) throws InvalidDateException {
         String[] brokenDate = date.split("[\\s/-]+");
         try {

@@ -1,3 +1,10 @@
+/**
+ * This is a static parser method for Balkan Bot.
+ * The command of the user is interpreted by the parser,
+ * following which the task list is altered
+ * and the ui prints out the corresponding output text.
+ */
+
 package parser;
 
 import task.*;
@@ -8,6 +15,16 @@ import java.util.Arrays;
 public class Parser {
     protected static int current = 0;
 
+    /**
+     * Parses the command inputted by the user.
+     *
+     * @param input Input of the user
+     * @param taskList TaskList that contains all the current tasks
+     * @param ui UI that generates text responses for the user
+     * @return A boolean that indicates whether to terminate the program
+     *         true: continue running program
+     *         false: terminate the program and store the task list into the text file
+     */
     public static boolean parse(String input, TaskList taskList, Ui ui) {
         Task[] tasks = taskList.getTaskList();
 
@@ -165,6 +182,11 @@ public class Parser {
         return false;
     }
 
+    /**
+     * Changes the value of current which indicates the current index of the task list.
+     *
+     * @param current current index of the task list
+     */
     public static void updateCurrent(int current) {
         Parser.current = current;
     }

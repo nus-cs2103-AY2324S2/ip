@@ -1,3 +1,8 @@
+/**
+ * This is a "ToDo" task.
+ * It is the most basic version of a task, simply having a description.
+ */
+
 package task;
 
 public class ToDo extends Task{

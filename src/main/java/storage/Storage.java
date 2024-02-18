@@ -1,3 +1,9 @@
+/**
+ * This is the main method for the Balkan Bot Chat Bot.
+ * The Balkan Bot is able to make and store various tasks such as ToDos, Deadlines and Events.
+ * It is also able to Mark or Unmark them as complete.
+ */
+
 package storage;
 
 import balkanBot.BalkanBotException;
@@ -18,6 +24,11 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves the current tasks in the task list into a text file.
+     *
+     * @param tasks The task list containing all the tasks
+     */
     public void save(TaskList tasks) {
         StringBuilder textOutput = new StringBuilder();
         for (Task task : tasks.getTaskList()) {
@@ -37,6 +48,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Used in the Load method.
+     * Marks a task if it has been completed already.
+     *
+     * @param task task being checked
+     * @param completed boolean indicating whether task has been completed
+     */
     public static void markCheck(Task task, boolean completed) {
         if (completed) {
             task.mark();
@@ -51,6 +69,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the input from text file as a task list.
+     *
+     * @throws BalkanBotException if the file cannot be found or cannot be read
+     */
     public Task[] load() throws BalkanBotException {
         Task[] tasks = new Task[100];
         String[] textInput = new String[100];
