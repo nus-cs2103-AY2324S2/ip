@@ -61,38 +61,41 @@ public class Ui {
                     return "Here are the tasks in your list:\n" + tasks.iterate();
 
                 case TODO:
-                    ToDo todo = null;
+                    ToDo todo;
+
                     try {
                         todo = this.parser.parseTodo(splitWords);
                     } catch (InvalidTodoException e) {
-                        System.out.println(DIVIDER + "\n" + e.getMessage() + "\nPlease try again" + "\n" + DIVIDER);
+                        return DIVIDER + "\n" + e.getMessage() + "\nPlease try again" + "\n" + DIVIDER;
                     }
-                    tasks.addTask(todo);
 
+                    tasks.addTask(todo);
                     Storage.saveTasks(tasks);
                     return "Todo Task Added: " + todo.toString() + "\n" + "You have " + tasks.getSize() + " tasks";
 
                 case DEADLINE:
-                    Deadline deadline = null;
+                    Deadline deadline;
+
                     try {
                         deadline = this.parser.parseDeadline(splitWords);
                     } catch (InvalidDeadlineException e) {
-                        System.out.println(DIVIDER + "\n" + e.getMessage() + "\nPlease try again" + "\n" + DIVIDER);
+                        return DIVIDER + "\n" + e.getMessage() + "\nPlease try again" + "\n" + DIVIDER;
                     }
-                    tasks.addTask(deadline);
 
+                    tasks.addTask(deadline);
                     Storage.saveTasks(tasks);
                     return "Deadline Task Added: " + deadline.toString() + "\nYou have " + tasks.getSize() + " tasks";
 
                 case EVENT:
-                    Event event = null;
+                    Event event;
+
                     try {
                         event = this.parser.parseEvent(splitWords);
                     } catch (InvalidEventException e) {
-                        System.out.println(DIVIDER + "\n" + e.getMessage() + "\nPlease try again" + "\n" + DIVIDER);
+                        return DIVIDER + "\n" + e.getMessage() + "\nPlease try again" + "\n" + DIVIDER;
                     }
-                    tasks.addTask(event);
 
+                    tasks.addTask(event);
                     Storage.saveTasks(tasks);
                     return "Event Task Added: " + event.toString() + "\nYou have " + tasks.getSize() + " tasks";
 
@@ -109,31 +112,11 @@ public class Ui {
                     return "OK, I've marked this task as not done yet:\n" + t1.toString();
 
                 case DELETE:
-                    String deleteText = "";
-                    try {
-                        int indexToDelete = Integer.parseInt(splitWords[1]);
-                        tasks.removeTask(indexToDelete - 1);
-                        deleteText = "\n Successful deletion \n You now have "
-                                + tasks.getSize() + " tasks\n";
-                        Storage.saveTasks(tasks);
-                    } catch (IndexOutOfBoundsException e) {
-                        deleteText = "Please input a valid index";
-                    }
-                    return deleteText;
+                    int indexToDelete = Integer.parseInt(splitWords[1]) - 1;
+
+                    return tasks.removeTask(indexToDelete);
                 case FIND:
-                    String findText = "";
-                    try {
-                        List<Task> matchingTasks = tasks.findTasks(splitWords[1]);
-                        findText += "Here are the matching tasks in your list\n";
-                        for (int i = 0; i < matchingTasks.size(); i++) {
-                            System.out.println(i + 1 + ". " + matchingTasks.get(i).toString());
-                            findText += i + 1 + ". " + matchingTasks.get(i).toString() + "\n";
-                        }
-                        System.out.println(DIVIDER);
-                    } catch (NullPointerException e) {
-                        findText = "No Results Found";
-                    }
-                    return findText;
+                    return tasks.findTasks(splitWords[1]);
                 case SORT:
                     tasks.sortTask();
                     return "Tasks have been sorted.";

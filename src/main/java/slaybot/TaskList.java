@@ -27,8 +27,17 @@ public class TaskList {
         return this.tasks.size();
     }
 
-    public void removeTask(int index) {
-        this.tasks.remove(index);
+    public String removeTask(int index) {
+
+        try {
+            this.tasks.remove(index);
+            String deleteText = "\n Successful deletion \n You now have "
+                    + tasks.size() + " tasks";
+            Storage.saveTasks(this);
+            return deleteText;
+        } catch (IndexOutOfBoundsException e) {
+            return "Please input a valid index";
+        }
     }
 
     /**
@@ -58,12 +67,21 @@ public class TaskList {
      * @param searchValue The search value to match against task descriptions.
      * @return A list of tasks matching the search criteria.
      */
-    public List<Task> findTasks(String searchValue) {
-        List<Task> result = new ArrayList<>();
+    public String findTasks(String searchValue) {
+        List<Task> list = new ArrayList<>();
+        String result = "";
 
         for (Task t : this.tasks) {
             if (t.toString().contains(searchValue)) {
-                result.add(t);
+                list.add(t);
+            }
+        }
+
+        if (list.isEmpty()) {
+            return "No Results Found";
+        } else {
+            for (int i = 0; i < list.size(); i++) {
+                result += i + 1 + ". " + list.get(i).toString() + "\n";
             }
         }
 
