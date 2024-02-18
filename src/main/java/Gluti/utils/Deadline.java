@@ -1,7 +1,9 @@
 package Gluti.utils;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 
 /**
  * The Deadline subclass that is a child of Task class
@@ -20,6 +22,7 @@ public class Deadline extends Task {
         super(description);
         this.by_date = by_date;
         validDate(by_date);
+        adjustByDate(by_date);
     }
 
     @Override
@@ -44,4 +47,34 @@ public class Deadline extends Task {
             //System.out.println("Error: Invalid date format");
         }
         }
+
+    private void adjustByDate(String inputDayOfWeek) {
+        DayOfWeek[] daysOfWeek = {
+                DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY,
+                DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY,
+                DayOfWeek.SUNDAY
+        };
+
+        String abbreviatedInputDay = inputDayOfWeek.substring(0, 4).toLowerCase();
+        for (DayOfWeek dayOfWeek : daysOfWeek) {
+
+            String abbreviatedDayOfWeek = dayOfWeek.toString().substring(0, 3).toLowerCase();
+            if (abbreviatedInputDay.contains(abbreviatedDayOfWeek)) {
+                LocalDate currentDate = LocalDate.now();
+                DayOfWeek currentDayOfWeek = currentDate.getDayOfWeek();
+                DayOfWeek targetDayOfWeek = dayOfWeek;
+
+                // Calculate the difference in days to the next occurrence of the target day of the week
+                int daysToAdd = (dayOfWeek.getValue() - currentDayOfWeek.getValue() + 7) % 7;
+                if (currentDayOfWeek == targetDayOfWeek) {
+                    daysToAdd += 7;
+                }
+                // Set the by_date to the next occurrence of the target day of the week
+                LocalDate nextDate = currentDate.plusDays(daysToAdd);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+                this.by_date = nextDate.format(formatter);
+                return;
+            }
+        }
+    }
 }
