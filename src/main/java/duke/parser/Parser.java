@@ -59,6 +59,7 @@ public class Parser {
     public String parse(String input) {
         ArrayList<Task> inventory = storage.load();
         try {
+            assert inventory.size() < 0 : "Task List should not have a negative number of tasks";
             if (input.toLowerCase().equalsIgnoreCase("list")) {
                 if (!input.trim().equals("list")) {
                     throw new DukeException("OOPS!!! This is an invalid call of list command.");
