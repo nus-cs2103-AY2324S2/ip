@@ -32,6 +32,7 @@ public class AddTaskProcessor extends Processor {
      */
     public void processCommand(String userInput) throws IOException {
         String[] componentsSplitBySpace = userInput.split(" ", 2);
+        assert componentsSplitBySpace.length > 0 : "User input should have at least one word";
         int previousSize = taskList.size();
 
         if (componentsSplitBySpace.length == 0) {
@@ -109,7 +110,7 @@ public class AddTaskProcessor extends Processor {
         // Case for adding an event task
         case "event":
 
-            if (componentsSplitByTime.length < 3) {
+            if (componentsSplitByTime.length < 3) { 
                 System.out.println(chatbotUi.dividerWrapper(
                         "Wrong syntax! Must be `event <task> //from <start date> //to <end date>`"));
                 return;
