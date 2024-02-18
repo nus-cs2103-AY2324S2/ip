@@ -36,7 +36,7 @@ Skip to the basic guide if you need a little more help :hearts:
 ![initialWindow.png](initialWindowSS.png)
 
 Take note that when using Nicole, a `tasks.txt` file will
-appear in the folder you created. This file will simply 
+appear in your computer. This file will simply 
 be used to save your items between sessions.
 
 ## Getting started

@@ -34,7 +34,6 @@ public class Storage {
     }
 
     public void loadTasksFromFile(File file) throws NicoleException {
-//        File tasksFile = new File("tasks.txt");
         try {
             int numTasksInFile = 0;
             BufferedReader numTasksReader = new BufferedReader(new FileReader(file));
