@@ -13,7 +13,7 @@ public class HelpCommand extends Command {
             + "Aliases: h";
 
     /** Supported commands */
-    private static final String[] COMMANDS = new String[] { "list", "mark", "unmark", "exit", "todo", "deadline",
+    private static final String[] COMMANDS = new String[] { "list", "mark", "unmark", "bye", "todo", "deadline",
         "event", "delete", "find", "undo", "redo", "help" };
 
     private static final String LINE = "----------------------------------------\n";
