@@ -27,7 +27,7 @@ import ui.Ui;
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws LeluException {
-        if (message.replaceAll(" ", "").equals("deadline")) {
+        if (message.trim().equals("deadline")) {
             InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.DEADLINE);
         }
         String[] s = message.replaceFirst("deadline ", "").split("/by ");
@@ -35,6 +35,7 @@ import ui.Ui;
             InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.DEADLINE);
         }
         Task t = new Deadline(s[0].replaceAll("\\s+$", ""), s[1]);
+        assert message.length() >= "deadline /by yyyy-MM-dd HH:mm".length() : "Input not handled properly";
         return tasks.addTask(t);
     }
 }

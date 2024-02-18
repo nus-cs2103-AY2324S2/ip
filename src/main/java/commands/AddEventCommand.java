@@ -26,7 +26,7 @@ public class AddEventCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws LeluException {
-        if (message.replaceAll(" ", "").equals("event")) {
+        if (message.trim().equals("event")) {
             InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.EVENT);
         }
         String[] t = message.replaceFirst("event ", "").split("/from ");
@@ -37,6 +37,7 @@ public class AddEventCommand extends Command {
         if (frTo.length < 2) {
             InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.EVENT);
         }
+        assert message.length() >= "event /from /to".length() : "Input not handled properly";
         return tasks.addTask(new Event(t[0], frTo[0], frTo[1]));
     }
 }

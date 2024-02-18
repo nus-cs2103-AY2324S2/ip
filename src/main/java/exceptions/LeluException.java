@@ -11,6 +11,9 @@ public class LeluException extends Exception {
         TODO,
         EVENT,
         DEADLINE,
+        MARK,
+        UNMARK,
+        DELETE,
         FIND
     }
     public LeluException(String message) {
