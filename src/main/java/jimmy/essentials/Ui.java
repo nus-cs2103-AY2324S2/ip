@@ -45,6 +45,7 @@ public class Ui {
      * @return The counter for the task list.
      */
     private String generateListSizeString(int counter) {
+        assert counter >= 0;
         if (counter == 0) {
             return "You have no jimmy.tasks, create some now!";
         } else if (counter == 1) {
@@ -85,7 +86,7 @@ public class Ui {
     }
 
     /**
-     * Display the marked task.
+     * Displays the marked task.
      *
      * @param task The task that was marked.
      * @return The marked task, in String format.
@@ -95,7 +96,7 @@ public class Ui {
     }
 
     /**
-     * Display the unmarked task.
+     * Displays the unmarked task.
      *
      * @param task The task that was unmarked.
      * @return The unmarked task, in String format.
@@ -105,7 +106,7 @@ public class Ui {
     }
 
     /**
-     * Display the found tasks.
+     * Displays the found tasks.
      *
      * @param foundTasks The tasks that were found.
      * @return The found tasks, in String format.

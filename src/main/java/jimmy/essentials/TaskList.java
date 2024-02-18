@@ -15,7 +15,7 @@ import jimmy.tasks.Todo;
 public class TaskList {
     private final ArrayList<Task> taskList = new ArrayList<>();
     private final Parser parser = new Parser();
-    private Ui ui;
+    private final Ui ui;
 
     /**
      * Constructor for jimmy.essentials.TaskList class.
@@ -25,6 +25,8 @@ public class TaskList {
      * @throws JimmyException If the file contents cannot be loaded.
      */
     public TaskList(Storage storage, Ui ui) throws JimmyException {
+        assert storage != null;
+        assert ui != null;
         this.ui = ui;
         storage.loadFileContents(taskList);
     }
@@ -41,6 +43,8 @@ public class TaskList {
      * @throws JimmyException If the task type is invalid or the details are invalid.
      */
     public String createNewTask(String instruction, String details) throws JimmyException {
+        assert !instruction.isEmpty();
+        assert !details.isEmpty();
         Task newTask = null;
 
         try {
@@ -142,6 +146,7 @@ public class TaskList {
      * @throws JimmyException If the task index is invalid.
      */
     public String deleteTask(String taskIndex) throws JimmyException {
+        assert !taskIndex.isEmpty();
         int taskToDelete;
 
         try {
@@ -178,6 +183,7 @@ public class TaskList {
      * @throws JimmyException If the task index is invalid.
      */
     public String markTask(String taskIndex) throws JimmyException {
+        assert !taskIndex.isEmpty();
         int completeTask;
 
         try {
@@ -206,6 +212,7 @@ public class TaskList {
      * @throws JimmyException If the task index is invalid.
      */
     public String unmarkTask(String taskIndex) throws JimmyException {
+        assert !taskIndex.isEmpty();
         int taskToUnmark;
         try {
             taskToUnmark = Integer.parseInt(taskIndex) - 1;
