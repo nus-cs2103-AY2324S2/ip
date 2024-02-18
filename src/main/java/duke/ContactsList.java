@@ -56,7 +56,7 @@ public class ContactsList {
     // add a isPinned method in Contact to track number of pinned chats
 
     public String contactls() throws FileNotFoundException {
-        String str = "Contact list: \n" + storage.getFileContent() + "\n"
+        String str = "Contact list: \n" + storage.getContactsContent(contactList) + "\n"
                         + "Recently Added: \n";
         for (int i = 0; i < contactList.size(); i++) {
             str += i+1 + ". " + contactList.get(i).contacting() + "\n";

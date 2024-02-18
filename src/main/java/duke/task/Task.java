@@ -7,7 +7,7 @@ import java.io.IOException;
  * Represents the Task specified by users.
  */
 
-public class Task {
+public abstract class Task {
     private String task;
     private boolean isDone;
 
@@ -23,42 +23,10 @@ public class Task {
     }
 
     /**
-     * Marks the task number as done and returns String representation of this command.
-     *
-     * @param number Task number to be marked as done.
-     * @return String representation of marking task as done.
-     */
-    public String mark(int number) {
-        return "    " + this.getCat() + this.marked() + " "
-                + this.getTask();
-    }
-
-    /**
-     * Returns String representation of the status of current task.
-     *
-     * @return String representation this task.
-     */
-    public String delete() {
-        return "     " + this.getCat() + this.marked() + " "
-                + this.getTask();
-    }
-
-    /**
      * Unmarks current task by changing the status of isDone to false.
      */
     public void setNotDone() {
         isDone = false;
-    }
-
-    /**
-     * Unmarks the task number and returns String representation of this command.
-     *
-     * @param number Task number to be unmarked.
-     * @return String representation of unmarking task.
-     */
-    public String unmark(int number) {
-        return "    " + this.getCat() + marked() + " "
-                        + this.getTask();
     }
 
     /**

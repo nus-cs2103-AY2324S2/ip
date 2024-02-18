@@ -1,8 +1,12 @@
 package duke;
 
+import duke.contacts.Contacts;
+import duke.task.Task;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -20,12 +24,34 @@ public class Storage {
      *
      * @throws FileNotFoundException When data file doesn't exist.
      */
-    public String getFileContent() throws FileNotFoundException {
+    public String getTasksContent(ArrayList<Task> tasklist) throws FileNotFoundException {
         String str = "";
         try {
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 str += "    " + s.nextLine() + "\n";
+            }
+
+            for (int i = 0; i < tasklist.size();i++) {
+                str += "    " + tasklist.get(i).add() + "\n";
+            }
+        } catch (FileNotFoundException e) {
+            return "file not found! try again xx";
+        }
+
+        return str;
+    }
+
+    public String getContactsContent(ArrayList<Contacts> contactList) throws FileNotFoundException {
+        String str = "";
+        try {
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                str += "    " + s.nextLine() + "\n";
+            }
+
+            for (int i = 0; i < contactList.size();i++) {
+                str += "    " + contactList.get(i).contacting() + "\n";
             }
         } catch (FileNotFoundException e) {
             return "file not found! try again xx";

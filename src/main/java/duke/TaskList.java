@@ -1,6 +1,8 @@
 package duke;
 
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import java.util.ArrayList;
@@ -17,8 +19,9 @@ import duke.task.Todo;
  */
 
 public class TaskList {
-    private ArrayList<Task> tasklist = new ArrayList<Task>();
+    private ArrayList<Task> tasklist = new ArrayList<Task>(); //tasklist needs to copy everything from file at the start
     private Storage s;
+    private StringBuffer stringBufferOfData = new StringBuffer();
 
     static final String FILE_NOT_FOUND = "file not found! try again xx";
     static final String INVALID_TASK_RESPONSE = "ENTER INSTRUCTION";
@@ -26,6 +29,10 @@ public class TaskList {
     static final String INVALID_TASK_UNMARK = "No such task to unmark.";
     static final String INVALID_TASK_DELETE = "No such task to delete.";
     static final String TASK_NOT_FOUND = "sowwie babez no matching tasks!";
+    static final String CLEAR_LIST = "YAY BB! your list is cleared :)";
+    static final String TASKLIST_FILE = "data/EUEU.txt";
+
+
 
 
     public TaskList(Storage s) {
@@ -37,9 +44,13 @@ public class TaskList {
      *
      * @throws IOException When File f cannot be found.
      */
+    public void write(Task task) throws IOException {
+        assert tasklist != null : "TaskList should not be null";
+        task.writeToFile(s.getFile());
+    }
+
     public void write() throws IOException {
         assert tasklist != null : "TaskList should not be null";
-
         for (int i = 0; i < tasklist.size(); i++) {
             tasklist.get(i).writeToFile(s.getFile());
         }
@@ -63,7 +74,8 @@ public class TaskList {
 
         String str = "";
         try {
-            str = "All tasks: \n" +  s.getFileContent() + "\n" + "Current tasks: \n" + getCurrentList();
+            str = "All tasks: \n" +  s.getTasksContent(tasklist) + "\n"
+                    + "Current tasks: \n" + getCurrentList();
         } catch (FileNotFoundException e) {
             str = FILE_NOT_FOUND;
         }
@@ -81,9 +93,7 @@ public class TaskList {
         String str = "";
         for (int i = 0; i < tasklist.size(); i++) {
             int j = i + 1;
-            str += "    " + j + ". " + tasklist.get(i).getCat()
-                    + tasklist.get(i).marked() + " "
-                    + tasklist.get(i).getTask() + tasklist.get(i).getDetails() + "\n";
+            str += "    " + j + ". " + tasklist.get(i).add() + "\n";
         }
         return str;
     }
@@ -95,7 +105,7 @@ public class TaskList {
      * @return String representation of adding todo task to tasklist.
      * @throws StringIndexOutOfBoundsException When user does not specify task and leaves blank (e.g. todo).
      */
-    public String addTask(Todo task) throws StringIndexOutOfBoundsException {
+    public String addTask(Todo task) throws StringIndexOutOfBoundsException, IOException {
         assert tasklist != null : "TaskList should not be null";
 
         String str = "";
@@ -107,6 +117,7 @@ public class TaskList {
         } catch (StringIndexOutOfBoundsException e) {
             str = INVALID_TASK_RESPONSE;
         }
+
         return str;
     }
 
@@ -117,7 +128,7 @@ public class TaskList {
      * @return String representation of adding deadline task to tasklist.
      * @throws StringIndexOutOfBoundsException When user does not specify task and leaves blank (e.g. deadline).
      */
-    public String addTask(Deadline task) throws StringIndexOutOfBoundsException {
+    public String addTask(Deadline task) throws StringIndexOutOfBoundsException, IOException {
         assert tasklist != null : "TaskList should not be null";
 
         String str = "";
@@ -129,6 +140,7 @@ public class TaskList {
         } catch (StringIndexOutOfBoundsException e) {
             str = INVALID_TASK_RESPONSE;
         }
+
         return str;
     }
 
@@ -140,7 +152,7 @@ public class TaskList {
      * @throws StringIndexOutOfBoundsException When user does not specify task and leaves blank (e.g. event).
      */
 
-    public String addTask(Event task) throws StringIndexOutOfBoundsException {
+    public String addTask(Event task) throws StringIndexOutOfBoundsException, IOException {
         assert tasklist != null : "TaskList should not be null";
 
         String str = "";
@@ -151,6 +163,7 @@ public class TaskList {
         } catch (StringIndexOutOfBoundsException e) {
             str = INVALID_TASK_RESPONSE;
         }
+
         return str;
     }
 
@@ -167,9 +180,10 @@ public class TaskList {
         String str = "";
         try {
             Task task = tasklist.get(number);
-            task.setDone();
+            Task edit = tasklist.get(number);
+            edit.setDone();
             str = "Nice! I've marked this task as done: \n" +
-                    task.mark(number);
+                    task.add();
         } catch (IndexOutOfBoundsException e) {
             str = INVALID_TASK_MARK;
         }
@@ -183,7 +197,7 @@ public class TaskList {
      * @return String representation of unmarking task in tasklist.
      * @throws IndexOutOfBoundsException When user inputs task number that does not exist in the list.
      */
-    public String unmark(int number) throws IndexOutOfBoundsException {
+    public String unmark(int number) throws IndexOutOfBoundsException, IOException {
         assert tasklist != null : "TaskList should not be null";
 
         String str = "";
@@ -191,7 +205,7 @@ public class TaskList {
             Task task = tasklist.get(number);
             task.setNotDone();
             str = "Ok, I've marked this task as not done yet: \n" +
-                    task.unmark(number);
+                    task.add();
         } catch (IndexOutOfBoundsException e) {
             str = INVALID_TASK_UNMARK;
         }
@@ -212,7 +226,7 @@ public class TaskList {
         try {
             Task task = tasklist.get(number);
             tasklist.remove(number);
-            str = "Noted. I've removed this task: \n" + task.delete() + "\n" +
+            str = "Noted. I've removed this task: \n" + task.add() + "\n" +
             "Now you have " + tasklist.size() + " tasks in the current list.";
         } catch (IndexOutOfBoundsException e) {
             str = INVALID_TASK_DELETE;
@@ -253,6 +267,13 @@ public class TaskList {
             ret = INVALID_TASK_RESPONSE;
         }
         return ret;
+    }
+
+    public String clearList() throws IOException {
+        FileWriter fw = new FileWriter(TASKLIST_FILE, false);
+        fw.close();
+        return CLEAR_LIST;
+
     }
 }
 

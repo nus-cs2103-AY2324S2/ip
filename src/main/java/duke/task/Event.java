@@ -46,7 +46,7 @@ public class Event extends Task {
      */
     @Override
     public String add() {
-            return "    " + this.getCat() + this.marked() + " "
+            return this.getCat() + this.marked() + " "
                     + this.getTask() + this.getEvent();
     }
 
@@ -60,11 +60,18 @@ public class Event extends Task {
     public void writeToFile(File filePath) throws IOException {
         try {
             FileWriter fw = new FileWriter(filePath.getPath(), true);
-            fw.write (this.getCat() + this.marked() + " "
-                    + this.getTask() + this.getEvent() + "\n");
+            fw.write (this.add() + "\n");
             fw.close();
         } catch (IOException e) {
             System.out.println("file not found! try again xx");
         }
     }
+
+//    @Override
+//    public void replace(StringBuffer sb, String edit) {
+//        String s = this.add() + "\n";
+//        int startIndex = sb.indexOf(s);
+//        int endIndex = startIndex + s.length();
+//        sb.replace(startIndex, endIndex, edit + "\n");
+//    }
 }

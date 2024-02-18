@@ -1,8 +1,11 @@
 package duke.task;
 
+import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
+import java.io.InputStreamReader;
+import java.io.FileReader;
 /**
  * Represents an Todo task that inherits from Task
  */
@@ -18,7 +21,7 @@ public class Todo extends Task {
      */
     @Override
     public String add() {
-        return "    " + this.getCat() + this.marked() + " " + this.getTask();
+        return this.getCat() + this.marked() + " " + this.getTask();
     }
 
     /**
@@ -29,13 +32,15 @@ public class Todo extends Task {
      */
     @Override
     public void writeToFile(File filePath) throws IOException {
-      try {
-          FileWriter fw = new FileWriter(filePath.getPath(), true);
-          fw.write(this.getCat() + this.marked() + " " + this.getTask() + "\n");
-          fw.close();
-      } catch (IOException e) {
-          System.out.println("file not found! try again bb");
-      }
+        try {
+            FileWriter fw = new FileWriter(filePath.getPath(), true);
+            fw.write(this.getCat() + this.marked() + " " + this.getTask() + "\n");
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("file not found! try again bb");
+        }
     }
+
+
 
 }

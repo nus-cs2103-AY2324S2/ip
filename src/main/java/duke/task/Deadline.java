@@ -43,7 +43,7 @@ public class Deadline extends Task{
      */
     @Override
     public String add() {
-            return "    " + this.getCat()+ this.marked() + " "
+            return this.getCat()+ this.marked() + " "
                     + this.getTask()
                     + this.getDeadline();
 
@@ -59,11 +59,11 @@ public class Deadline extends Task{
     public void writeToFile(File filePath) throws IOException {
         try {
             FileWriter fw = new FileWriter(filePath.getPath(), true);
-            fw.write(this.getCat() + this.marked() + " "
-                    + this.getTask() + this.getDeadline() + "\n");
+            fw.write(this.add() + "\n");
             fw.close();
         } catch (IOException e) {
             System.out.println("file not found! try again xx");
         }
     }
+
 }

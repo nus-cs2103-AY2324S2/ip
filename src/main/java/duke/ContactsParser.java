@@ -1,7 +1,6 @@
 package duke;
 
 import duke.contacts.Contacts;
-import duke.contacts.Family;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,6 +11,8 @@ import java.io.IOException;
  * to a command for ContactsList to execute.
  */
 
+//ADD STATIC FINAL FOR MAGIC STRINGS
+    // ADD JAVADOCS
 public class ContactsParser {
 
     private ContactsList contactsList;

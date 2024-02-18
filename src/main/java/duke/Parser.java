@@ -25,7 +25,6 @@ private ContactsList contactsList;
                                             + "What are you doing today??";
     static final String EXIT_MESSAGE = "byeee love uu ttyl ok!";
     static final String TASKLIST_FILE = "data/EUEU.txt";
-    static final String CLEAR_LIST = "YAY BB! your list is cleared :)";
     static final String NON_COMMAND_RESPONSE = "Baby, what are you saying? " +
                                                 "Tell me what your TODOs, DEADLINEs and EVENTs are!";
     static final String INVALID_TASK_RESPONSE = "ENTER TASK";
@@ -56,12 +55,11 @@ private ContactsList contactsList;
         if (command.equals("list")) {
             res = tasklist.list();
         } else if (command.equals("hey") || command.equals("hi")) {
-            res = WELCOME_MESSAGE;
+            res = tasklist.list() + "\n";
+            res += WELCOME_MESSAGE;
         } else if (command.equals("clear list")) {
-            res = CLEAR_LIST;
-            FileWriter fw = new FileWriter(TASKLIST_FILE, false);
-            fw.close();
             tasklist.clearCurrentTasks();
+            res = tasklist.clearList();
         } else if (command.equals("bye")) {
             res = EXIT_MESSAGE;
             tasklist.write();
