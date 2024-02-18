@@ -57,18 +57,18 @@ Format: ```event <name> / <dd-MM-yyyy hhmm> / <dd-MM-yyyy hhmm>```
 Lists out all tasks currently in the task list.
 
 ![Add list screenshot](ugscreenshots/List.png)
-```angular2html
-:spiral_notepad: **Note:** The list always sorts tasks from highest priority to lowest priority.
-```
+
+> :spiral_notepad: **Note:** The list always sorts tasks from highest priority to lowest priority.
+
 ### Marking a task: ```mark```
 
 Marks a task in the task list as done.
 
 Format: ```mark <x>```
 
-```angular2html
-:bulb: **Tip:** List out the task list before marking to see which ranking the task is. 
-```
+
+> :bulb: **Tip:** List out the task list before marking to see which ranking the task is. 
+
 ![Add mark screenshot](ugscreenshots/Mark.png)
 ### Unmarking a task: ```unmark```
 
@@ -76,18 +76,18 @@ Unmarks a task in the task list as undone.
 
 Format: ```unmark <x>```
 
-```angular2html
-:bulb: **Tip:** List out the task list before unmarking to see which ranking the task is. 
-```
+
+> :bulb: **Tip:** List out the task list before unmarking to see which ranking the task is. 
+
 ![Add unmark screenshot](ugscreenshots/Unmark.png)
 ### Deleting a task: ```delete```
 Deletes a task in the task list.
 
 Format: ```delete <x>```
 
-```angular2html
-:bulb: **Tip:** List out the task list before deleting to see which ranking the task is. 
-```
+
+> :bulb: **Tip:** List out the task list before deleting to see which ranking the task is. 
+
 ![Add delete screenshot](ugscreenshots/Delete.png)
 ### Finding a task: ```find```
 
@@ -101,16 +101,16 @@ Sets the priority of a task in the task list.
 
 Format: ```prioritise <x> high```
 
-```angular2html
-:bulb: **Tip:** List out the task list before prioritising to see which ranking the task is. 
-```
+
+> :bulb: **Tip:** List out the task list before prioritising to see which ranking the task is. 
+
 ![Add prioritise screenshot](ugscreenshots/Prioritise.png)
-```angular2html
-:spiral_notepad: **Things to take note of:**
-- There are 3 levels of priority: high, medium and low.
-- Tasks are assigned "medium" priority by default.
-- Changing task priorities can only be done with this command.
-```
+
+> :spiral_notepad: **Things to take note of:**
+> - There are 3 levels of priority: high, medium and low.
+> - Tasks are assigned "medium" priority by default.
+> - Changing task priorities can only be done with this command.
+
 
 ![Add prioritise result screenshot](ugscreenshots/PrioritiseResult.png)
 
