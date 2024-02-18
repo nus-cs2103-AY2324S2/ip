@@ -32,7 +32,8 @@ public class Printer {
      * @param task Task being unmarked
      */
     public static String printUnmark(Task task) {
-        return task.unmark();
+        String output = "This task has been unmarked!\n" + task.unmark();
+        return output;
     }
 
 
@@ -41,7 +42,8 @@ public class Printer {
      * @param task Task being marked
      */
     public static String printMark(Task task) {
-        return task.mark();
+        String output = "This task has been marked as done!\n" + task.mark();
+        return output;
     }
 
     public static String printFound(TaskList tasks) {

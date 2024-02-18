@@ -14,7 +14,7 @@ public class LiteException extends Exception{
     public static String invalidInput() {
         return "Invalid input .\n" +
                 "Please begin your input with either one of these keywords: \n" +
-                "todo, list, deadline, event, mark, unmark, delete";
+                "todo, list, deadline, event, mark, unmark, delete, bye";
 
     }
 

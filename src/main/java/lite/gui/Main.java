@@ -2,6 +2,7 @@ package lite.gui;
 import java.io.IOException;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -11,7 +12,6 @@ import javafx.stage.Stage;
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
-
     private Lite lite = new Lite();
 
     @Override
@@ -26,5 +26,10 @@ public class Main extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void exit() {
+        Platform.exit();
+        System.exit(0);
     }
 }
