@@ -1,7 +1,6 @@
 package duke;
 
 import java.util.ArrayList;
-import java.util.stream.Stream;
 
 /**
  * Represents a list that keeps track of tasks.
