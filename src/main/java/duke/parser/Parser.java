@@ -34,6 +34,8 @@ public class Parser {
         // keyword (i.e. first word) and
         // parameters (the rest of command after whitespace)
         String[] commandArr = command.split("\\s+", 2);
+        assert commandArr.length == 0 || commandArr.length == 1 || commandArr.length == 2:
+                "Making sure the array length is limited";
         String keyword = commandArr[0];
         String parameters;
         try {
