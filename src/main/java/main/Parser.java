@@ -15,7 +15,6 @@ import java.time.LocalDate;
 public class Parser {
     private TaskList taskList;
 
-<<<<<<< HEAD
     public Parser(TaskList taskList){
         this.taskList = taskList;
     }
@@ -26,18 +25,14 @@ public class Parser {
                 Storage.writeToFile(taskList);
             } catch (IOException e) {
                 throw new RuntimeException(e);
-=======
-<<<<<<< HEAD
+
     /**
      * takes in input using a scanner and identifies which actions to choose
      *
      * @param taskList list of present tasks
      */
 
-    public static void input(TaskList taskList){
-=======
     public static void input(TaskList taskList) {
->>>>>>> master
         Scanner sc = new Scanner(System.in);
         boolean isChanged = false;
         while (true) {
