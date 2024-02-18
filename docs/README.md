@@ -1,7 +1,7 @@
 # Lucifer
 
 
-// Product screenshot goes here
+![img.png](Ui.png)
 
 Lucifer is a task management tool that helps you keep track of your tasks and deadlines. It is a command line application that allows you to add, delete, mark, unmark tasks as done. It also allows you to add deadlines, ToDo and events to your tasks.
 
@@ -67,6 +67,14 @@ Finding tasks from the list of tasks.
 Format: `find <keyword>`
 
 Example: `find CS2103T`
+
+## Accessing Help Page: ```help```
+
+Access the help page and get all the information regarding the commands and features of Lucifer.
+
+Format: `help`
+
+Example: `help`
 
 ## Exiting the application: ```bye```
 

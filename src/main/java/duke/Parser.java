@@ -66,7 +66,7 @@ public class Parser {
                 + "list - Displays all tasks in your list.\n"
                 + "todo <description> - Adds a ToDo task to your list.\n"
                 + "deadline <description> /by <datetime> - Adds a Deadline task. Datetime format: " + DATETIME_FORMAT + ".\n"
-                + "event <description> /at <date range> - Adds an Event task. Date range format: " + DATE_FORMAT + " to " + DATE_FORMAT + ".\n"
+                + "event <description> /from <date range> /to <date range> in YYYY-MM-DD format- Adds an Event task. Date range format: " + DATE_FORMAT + " to " + DATE_FORMAT + ".\n"
                 + "mark <task number> - Marks a task as done.\n"
                 + "unmark <task number> - Marks a task as not done.\n"
                 + "delete <task number> - Deletes a task from the list.\n"
