@@ -13,7 +13,7 @@ public class Bond {
 
     protected Ui ui;
 
-    private Storage storage;
+    private final Storage storage;
 
     private TaskList taskList;
 
@@ -38,8 +38,7 @@ public class Bond {
     protected String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
-            String response = c.execute(this.taskList, this.ui, this.storage);
-            return response;
+            return c.execute(this.taskList, this.ui, this.storage);
         } catch (BondException e) {
             return e.getMessage();
         }

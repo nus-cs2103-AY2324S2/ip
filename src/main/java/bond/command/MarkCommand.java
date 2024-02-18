@@ -40,10 +40,12 @@ public class MarkCommand extends Command {
         if (this.index >= tasks.numberOfTasks()) {
             BondException.raiseException("delete", "INVALID_INDEX");
         }
+
         Task markedTask = tasks.getTask(index);
         markedTask.markAsComplete();
         String response = ui.taskMarked(markedTask);
         storage.overwritePreviousSave(tasks);
+
         return response;
     }
 

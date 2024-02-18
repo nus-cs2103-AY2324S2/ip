@@ -33,12 +33,7 @@ public class InvalidCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws BondException {
-        try {
-            BondException.raiseException("", "INVALID_COMMAND");
-            return "";
-        } catch (BondException e) {
-            String response = ui.showError(e);
-            return response;
-        }
+        BondException.raiseException("", "INVALID_COMMAND");
+        return "";
     }
 }

@@ -33,9 +33,8 @@ public class Ui {
     /**
      * Shows the taskList is empty message.
      */
-    public String showTasklistEmpty() {
-        String message = "There are no tasks in the list.";
-        return message;
+    public String showTaskListEmpty() {
+        return "There are no tasks in the list.";
     }
 
     /**
@@ -45,10 +44,9 @@ public class Ui {
      * @param taskList The task list that the task is added to.
      */
     public String taskAdded(Task newTask, TaskList taskList) {
-        String message = String.format(
+        return String.format(
                 "Got it. I've added this task:\n      %s\nNow you have %d tasks in the list.",
                 newTask.toString(), taskList.numberOfTasks());
-        return message;
     }
 
     /**
@@ -58,10 +56,9 @@ public class Ui {
      * @param taskList    The task list that the task is deleted from.
      */
     public String taskDeleted(Task deletedTask, TaskList taskList) {
-        String message = String.format(
+        return String.format(
                 "Got it. I've removed this task:\n      %s\nNow you have %d tasks in the list.",
                 deletedTask.toString(), taskList.numberOfTasks());
-        return message;
     }
 
     /**
@@ -70,10 +67,9 @@ public class Ui {
      * @param markedTask The task that is marked as done.
      */
     public String taskMarked(Task markedTask) {
-        String message = String.format(
+        return String.format(
                 "Nice! I've marked this task as done:\n      %s",
                 markedTask.toString());
-        return message;
     }
 
     /**
@@ -82,10 +78,9 @@ public class Ui {
      * @param unmarkedTask The task that is marked as not done.
      */
     public String taskUnmarked(Task unmarkedTask) {
-        String message = String.format(
+        return String.format(
                 "OK, I've marked this task as not done yet:\n      %s",
                 unmarkedTask.toString());
-        return message;
     }
 
 
@@ -130,19 +125,9 @@ public class Ui {
     }
 
     /**
-     * Shows the formatted error message of an exception.
-     *
-     * @param e The exception to be shown.
-     */
-    public String showError(Exception e) {
-        return e.getMessage();
-    }
-
-    /**
      * Shows the goodbye message when the user exits the program.
      */
     public String showGoodbye() {
-        String message = "Bye. Hope to see you again soon!";
-        return message;
+        return "Bye. Hope to see you again soon!";
     }
 }

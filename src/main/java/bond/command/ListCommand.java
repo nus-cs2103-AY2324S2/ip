@@ -32,7 +32,7 @@ public class ListCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws BondException {
-        return tasks.noTasks() ? ui.showTasklistEmpty() : ui.showList(tasks);
+        return tasks.noTasks() ? ui.showTaskListEmpty() : ui.showList(tasks);
     }
 
 }

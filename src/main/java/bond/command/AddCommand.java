@@ -1,5 +1,11 @@
 package bond.command;
 
+import bond.main.BondException;
+import bond.main.Storage;
+import bond.main.Ui;
+import bond.task.Task;
+import bond.task.TaskList;
+
 /**
  * The AddCommand class is used to classify an add command in the Bond task.
  *
@@ -23,5 +29,22 @@ public abstract class AddCommand extends Command {
 
     public String getTaskName() {
         return this.taskName;
+    }
+
+    /**
+     * Executes the add task command.
+     *
+     * @param tasks   The list of tasks.
+     * @param ui      The responses to user input.
+     * @param storage The storage object.
+     * @return The response message representing a successful execution of command.
+     * @throws BondException If an error occurs during the execution of the command.
+     */
+    public String addAndStore(TaskList tasks, Ui ui, Storage storage, Task task)
+            throws BondException {
+        tasks.addTask(task);
+        String response = ui.taskAdded(task, tasks);
+        storage.storeTask(task);
+        return response;
     }
 }
