@@ -14,8 +14,8 @@ public class FindTaskCommand extends Command {
      * 
      * @param keyword The keyword to use for searching.
      */
-    public FindTaskCommand(String keyword) {
-        keyword = keyword.trim();
+    public FindTaskCommand(String keywordToFind) {
+        keyword = keywordToFind.trim();
     }
 
     /**

@@ -30,11 +30,11 @@ public class Ui {
     public static final String LOAD_ERROR = "Dave did not find any existing tasks to load.\n";
 
     /** Message to show upon adding a task. */
-    public static final String TASK_ADDED = "Dave added the task:\n%s\n"
+    public static final String TASK_ADDED = "Dave added the task:\n  %s\n"
             + "You now have %d task(s).\n";
 
     /** Message to show upon task deletion. */
-    public static final String TASK_DELETED = "Dave removed the task:\n%s\n"
+    public static final String TASK_DELETED = "Dave removed the task:\n  %s\n"
             + "You now have %d task(s).\n";
 
     /** Message to show upon marking a task. */
