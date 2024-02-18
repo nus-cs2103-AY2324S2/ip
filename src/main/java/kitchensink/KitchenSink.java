@@ -19,8 +19,10 @@ public class KitchenSink /* extends Application */ {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Responds to the user input.
+     * @param input The user input.
+     * @return String to be displayed to the user.
+     * @throws IOException As it writes to a save file in Storage class.
      */
     String getResponse(String input) throws IOException {
         assert input != null;

@@ -8,10 +8,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import kitchensink.exception.InvalidDateTimeException;
-import kitchensink.exception.InvalidSyntaxException;
-import kitchensink.exception.TaskNotFoundException;
-import kitchensink.exception.UnknownCommandException;
 
 import java.io.IOException;
 
@@ -47,8 +43,7 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() throws TaskNotFoundException, UnknownCommandException, InvalidSyntaxException,
-            IOException, InvalidDateTimeException {
+    private void handleUserInput() throws IOException {
         String input = userInput.getText();
         String response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(

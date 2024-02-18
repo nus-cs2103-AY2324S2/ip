@@ -37,7 +37,7 @@ public class Event extends Task {
                 ? "0" + startDate.getHour()
                 : String.valueOf(startDate.getHour());
         String eMonth = String.valueOf(endDate.getMonth());
-        String eShortForm = eMonth.charAt(0) + eMonth.substring(1, 3).toLowerCase();
+        String eMonthInShortForm = eMonth.charAt(0) + eMonth.substring(1, 3).toLowerCase();
         String eDay = endDate.getDayOfMonth() < 10
                 ? "0" + endDate.getDayOfMonth()
                 : String.valueOf(endDate.getDayOfMonth());
@@ -49,7 +49,7 @@ public class Event extends Task {
                 : String.valueOf(endDate.getHour());
         return "[E]" + super.toString() + " (from: " + day + " " + monthInShortForm
                 + " " + startDate.getYear() + " " + hour + ":" + minute + " to: "
-                + eDay + " " + eShortForm + " " + endDate.getYear() + " " + eHour + ":"
+                + eDay + " " + eMonthInShortForm + " " + endDate.getYear() + " " + eHour + ":"
                 + eMinute + ")";
     }
 }

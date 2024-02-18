@@ -1,7 +1,5 @@
 package kitchensink.exception;
 
-import java.util.Objects;
-
 /**
  * Thrown when the first word in the user input is valid, but the input is not in the correct format
  * (based on the first word).
