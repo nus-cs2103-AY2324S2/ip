@@ -10,6 +10,9 @@ import javafx.stage.Stage;
 
 import dave.Dave;
 
+// @@author iynixil-reused
+//     from https://se-education.org/guides/tutorials/javaFx.html
+//     (all parts of the tutorial) with minor modifications
 /**
  * A GUI for Dave using FXML.
  */
