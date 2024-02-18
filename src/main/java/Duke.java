@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Duke {
     public static void main(String[] args) {
@@ -64,22 +66,22 @@ public class Duke {
 
                     if (substrings[0].length() <= 9) {
                         throw new DukeException("Please specify the description of the deadline task " +
-                                "(e.g. deadline return book /by Sunday)");
+                                "(e.g. deadline return book /by 2019-10-15)");
                     }
 
                     String description = substrings[0].substring(9);
 
                     if (description.isEmpty()) {
                         throw new DukeException("Please specify the description of the deadline task " +
-                                "(e.g. deadline return book /by Sunday)");
+                                "(e.g. deadline return book /by 2019-10-15)");
                     }
 
                     if (!input.contains(" /by ") || substrings[1].isEmpty()) {
                         throw new DukeException("Please state the deadline period " +
-                                "(e.g. deadline return book /by Sunday)");
+                                "(e.g. deadline return book /by 2019-10-15)");
                     }
 
-                    String by = substrings[1];
+                    LocalDate by = LocalDate.parse(substrings[1]);
                     Task deadline = new Deadline(description, by, false);
                     tasks.add(deadline);
                     System.out.println("Got it. I've added this task: \n" + deadline);
@@ -87,7 +89,7 @@ public class Duke {
                 } else if (input.startsWith("event")) {
                     if (!input.contains(" /from ") || !input.contains(" /to ")) {
                         throw new DukeException("Please state the event period by using " +
-                                " /from and /to with correct spacing (eg. event team meeting /from Mon 2pm /to 4pm)");
+                                " /from and /to with correct spacing (eg. event team meeting /from 2019-10-15 /to 2019-10-16)");
                     }
 
                     String[] substrings = input.split(" /from ");
@@ -96,11 +98,12 @@ public class Duke {
 
                     if (substrings2.length < 2 || description.isEmpty()) {
                         throw new DukeException("Please specify the description of the deadline task " +
-                                "(eg. event team meeting /from Mon 2pm /to 4pm)");
+                                "(eg. event team meeting /from 2019-10-15 /to 2019-10-16)");
                     }
 
-                    String from = substrings2[0];
-                    String to = substrings2[1];
+                    LocalDate from = LocalDate.parse(substrings2[0]);
+                    LocalDate to = LocalDate.parse(substrings2[1]);
+
                     Task event = new Event(description, from, to, false);
                     tasks.add(event);
                     System.out.println("Got it. I've added this task: \n" + event);
