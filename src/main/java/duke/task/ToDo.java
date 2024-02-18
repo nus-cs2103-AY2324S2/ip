@@ -18,24 +18,17 @@ public class ToDo extends Task {
      */
     public ToDo(String input) throws MissingInputFieldException {
         super(TaskType.TODO);
-        delimiter = DELIMITER;
-        command = COMMAND;
         setUpTask(input);
-    }
-
-    @Override
-    public String getType() {
-        return TYPE_STRING;
     }
 
     @Override
     public void setUpTask(String input) throws MissingInputFieldException {
         try {
             input = input.trim();
-            if (!input.contains(command)) {
+            if (!input.contains(getCommand())) {
                 throw new RuntimeException("not todo");
             }
-            String[] inputArray = Task.removeEmptyElements(input.split(delimiter));
+            String[] inputArray = Task.removeEmptyElements(input.split(getDelimiter()));
             description = inputArray[0].trim();
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new MissingInputFieldException(type);
@@ -44,11 +37,26 @@ public class ToDo extends Task {
 
     @Override
     public String toString() {
-        return "[" + getType() + "]" + "[" + getIsDoneStatus() + "] " + getDescription();
+        return "[" + this.getTypeString() + "]" + "[" + getIsDoneStatus() + "] " + getDescription();
     }
 
     @Override
     public String convertToDataRow() {
         return super.convertToDataRow();
+    }
+
+    @Override
+    public String getCommand() {
+        return COMMAND;
+    }
+
+    @Override
+    public String getDelimiter() {
+        return DELIMITER;
+    }
+
+    @Override
+    public String getTypeString() {
+        return TYPE_STRING;
     }
 }

@@ -18,12 +18,6 @@ public class Duke {
     private TaskList taskList = null;
     private Storage storage = null;
 
-    private enum LivState {
-        ACTIVE,
-        INACTIVE
-    }
-    private LivState currentState = null;
-
     /**
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
@@ -40,8 +34,6 @@ public class Duke {
      * Initialize UI, parser, tasklist and storage components of Duke
      */
     public void initDukeLogic() {
-        currentState = LivState.INACTIVE;
-
         // initialize duke.ui.Ui
         ui = Ui.getInstance();
         ui.initUi();
@@ -63,26 +55,6 @@ public class Duke {
         } catch (FileNotFoundException e) {
             System.out.println("No previous task file found");
             storage.createDataFile();
-        }
-    }
-
-    public boolean isActive() {
-        return currentState == LivState.ACTIVE;
-    }
-
-
-    /**
-     * Toggles active state of Duke.
-     */
-    public void toggleActiveState() {
-        if (currentState != LivState.INACTIVE) {
-            currentState = LivState.INACTIVE;
-            return;
-        }
-
-        if (currentState == LivState.INACTIVE) {
-            currentState = LivState.ACTIVE;
-            return;
         }
     }
 

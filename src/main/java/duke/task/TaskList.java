@@ -110,7 +110,7 @@ public class TaskList {
         filterListWithKeyword(tasks, keywords);
     }
 
-    public void unfilterTasks() {
+    public void setFilteredFalse() {
         isFiltered = false;
     }
 
