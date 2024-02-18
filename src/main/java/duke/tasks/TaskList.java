@@ -5,6 +5,7 @@ import java.util.Comparator;
 
 import duke.exceptions.DukeCeption;
 import duke.exceptions.IncorrectFormatException;
+import duke.exceptions.LoadDataCorruptedException;
 import duke.exceptions.NumberOutOfBoundsException;
 
 /**
@@ -43,6 +44,13 @@ public class TaskList {
      */
     public void addNewTask(Task task) {
         list.add(task);
+    }
+
+    /**
+     * Clears the list, called when file is corrupted
+     */
+    public void reset() {
+        list.clear();
     }
 
     /**
@@ -91,7 +99,7 @@ public class TaskList {
     public void loadList(ArrayList<String> dataStrings) throws DukeCeption {
         try {
             for (String line : dataStrings) {
-                this.textToTask(line);
+                textToTask(line);
             }
         } catch (DukeCeption e) {
             throw e;
@@ -131,7 +139,9 @@ public class TaskList {
             list.add(task);
         } catch (DukeCeption e) {
             throw e;
-        }
+        } catch (Exception e) {
+            throw new LoadDataCorruptedException("File is corrupted");
+        } 
         
     }
 
