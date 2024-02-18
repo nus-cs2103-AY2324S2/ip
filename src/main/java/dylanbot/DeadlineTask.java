@@ -30,7 +30,7 @@ public class DeadlineTask extends Task {
         String res = "";
         try {
             res = "[" + this.getType() + "] "
-                    + (this.isCompleted() ? "[X]" : "[ ]")
+                    + (this.checkCompleted() ? "[X]" : "[ ]")
                     + " " + this.getDesc()
                     + " (by: " + deadline.format(printFormat) + ")";
         } catch (NullPointerException e) {

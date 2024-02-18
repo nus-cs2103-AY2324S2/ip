@@ -35,7 +35,7 @@ class EventTask extends Task {
     @Override
     public String toString() {
         return "[" + this.getType() + "] "
-                + (this.isCompleted() ? "[X]" : "[ ]")
+                + (this.checkCompleted() ? "[X]" : "[ ]")
                 + " " + this.getDesc()
                 + " (from: " + from.format(printFormat) + " to: " + to.format(printFormat) + ")";
     }

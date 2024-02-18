@@ -7,7 +7,7 @@ public class Task {
 
     private String type;
     private String desc;
-    private boolean completed;
+    private boolean isCompleted;
 
     /**
      * Creates a new Task with the given type and description
@@ -18,7 +18,7 @@ public class Task {
     public Task(String type, String desc) {
         this.type = type;
         this.desc = desc;
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     public String getType() {
@@ -29,28 +29,28 @@ public class Task {
         return this.desc;
     }
 
-    public boolean isCompleted() {
-        return this.completed;
+    public boolean checkCompleted() {
+        return this.isCompleted;
     }
 
     /**
      * Marks the task as completed
      */
     public void mark() {
-        this.completed = true;
+        this.isCompleted = true;
     }
 
     /**
      * Marks the task as not completed
      */
     public void unmark() {
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     @Override
     public String toString() {
         return "[" + type + "] "
-                + (completed ? "[X]" : "[ ]")
+                + (isCompleted ? "[X]" : "[ ]")
                 + " " + desc;
     }
 }
