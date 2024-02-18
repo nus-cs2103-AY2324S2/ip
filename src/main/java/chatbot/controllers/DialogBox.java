@@ -15,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
@@ -46,7 +47,6 @@ public class DialogBox extends HBox {
 
         messageText.setText(text);
         displayPicture.setFill(new ImagePattern(img));
-        HBox.setHgrow(messageBg, Priority.ALWAYS);
     }
 
     public static DialogBox getUserDialog(String text, Image img) {

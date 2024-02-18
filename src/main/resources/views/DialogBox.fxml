@@ -21,6 +21,6 @@
             </padding>
             <Label fx:id="messageText" text="Label" wrapText="true"/>
         </HBox>
-        <Rectangle fx:id="displayPicture" height="80.0" width="80.0" pickOnBounds="true" arcHeight="80" arcWidth="80"/>
+        <Rectangle fx:id="displayPicture" height="40.0" width="40.0" pickOnBounds="true" arcHeight="80" arcWidth="80"/>
     </HBox>
 </fx:root>
