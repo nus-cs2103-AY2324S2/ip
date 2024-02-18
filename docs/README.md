@@ -8,6 +8,11 @@ and more!
 
 `/// Please give me a try... ///`
 
+# Requirements
+
+Java 11 is required to run this program. 
+Find it [here](https://www.openlogic.com/openjdk-downloads?field_java_parent_version_target_id=406&field_operating_system_target_id=All&field_architecture_target_id=All&field_java_package_target_id=All)!
+
 # Adding Tasks
 
 Tasks are the core of this manager. You can add 3 types of tasks: 
