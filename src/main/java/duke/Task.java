@@ -35,6 +35,7 @@ public class Task {
      */
     public String markAsDone() {
         this.isDone = true;
+        assert this.getStatusIcon() == "X" : "Status Icon should be X";
         String result = "Nice! I've marked this task as done:\n" + "  " + this.toString();
         System.out.println(result);
         return result;
@@ -45,6 +46,7 @@ public class Task {
      */
     public String unmark() {
         this.isDone = false;
+        assert this.getStatusIcon() == " " : "Status Icon should be blank";
         String result = "OK, I've marked this task as not done yet\n" + "  " + this.toString();
         System.out.println(result);
         return result;
