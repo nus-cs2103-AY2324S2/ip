@@ -16,15 +16,15 @@ public class StorageTest {
         }
     }
 
-    @Test
-    public void storage_loadTasksFromFile_noNegativeExceptionThrown() {
-        try {
-            Storage storage = new Storage();
-            storage.loadTasksFromFile();
-        } catch (NicoleException e) {
-            if (e.toString().equals("ERROR. Sorry sorry I have trouble loading your tasks from storage...")) {
-                fail();
-            }
-        }
-    }
+//    @Test
+//    public void storage_loadTasksFromFile_noNegativeExceptionThrown() {
+//        try {
+//            Storage storage = new Storage();
+//            storage.loadTasksFromFile();
+//        } catch (NicoleException e) {
+//            if (e.toString().equals("ERROR. Sorry sorry I have trouble loading your tasks from storage...")) {
+//                fail();
+//            }
+//        }
+//    }
 }

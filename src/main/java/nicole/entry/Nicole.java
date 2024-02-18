@@ -1,6 +1,7 @@
 package nicole.entry;
 
 import java.io.File;
+import java.io.IOException;
 
 import javafx.application.Application;
 
@@ -12,11 +13,14 @@ public class Nicole {
 
     public static void main(String[] args) {
         try {
-            new File("tasks.txt");
-            new Storage().loadTasksFromFile();
+            File tasksFile = new File("tasks.txt");
+            tasksFile.createNewFile();
+            new Storage().loadTasksFromFile(tasksFile);
             Application.launch(Main.class, args);
         } catch (NicoleException e) {
             System.out.println(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

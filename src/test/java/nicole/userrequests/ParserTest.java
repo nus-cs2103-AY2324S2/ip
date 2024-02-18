@@ -27,7 +27,7 @@ public class ParserTest {
     @Test
     public void parser_deadlineCommandGiven_deadlineSuccessfullyCreated() {
         try {
-            Task todo = Parser.parseRequest("deadline return book by 2024-02-17");
+            Task todo = Parser.parseRequest("deadline return book by 2024-12-31");
             if (!(todo instanceof Deadline)) {
                 fail();
             }

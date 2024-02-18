@@ -27,8 +27,8 @@ Skip to the basic guide if you need a little more help :hearts:
    - For MacOS (navigate to the "About This Mac" menu to find out which chip your mac has installed): 
      - [M1](https://arc.net/l/quote/rqjezudg)
      - [Intel](https://arc.net/l/quote/luolepqe)
-   2. Once you've downloaded `Java`, download the `Nicole.jar` file from [here](https://github.com/yashpola/ip/releases/tag/Level-10)
-2. Navigate to your `downloads` directory and
+2. Once you've downloaded `Java`, download the `Nicole.jar` file from [here](https://github.com/yashpola/ip/releases/tag/Level-10)
+3. Navigate to your `downloads` directory and
    - Create a folder to put the `jar` file in
    - Double-click the `jar` file to launch Nicole. A window like the one shown below should open
    - Fire away!
