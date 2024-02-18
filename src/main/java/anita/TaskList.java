@@ -28,7 +28,7 @@ public class TaskList {
      * @param index Index of the item to be retrieved.
      * @return Task to be retrieved.
      */
-    public Task get(int index) {
+    private Task get(int index) {
         return taskList.get(index - 1);
     }
 
