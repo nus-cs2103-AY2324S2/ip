@@ -37,12 +37,14 @@ command POSITIONAL_PARAMETER /NAMED_PARAMETER NAMED_PARAMETER_VALUE
 - Words in `UPPER_CASE` are the parameters to be supplied by the user.
 - `command` is case-insensitive.
 - Named parameters are **case-sensitive** and must be followed in the order specified for each `command`.
+
 ### Adding a ToDo: `todo`
 Adds a task without any date/time attached to the task list.
 
 Format: `todo TODO_TITLE`
 
 Example: `todo Read Book`
+
 ### Adding a Deadline: `deadline`
 Adds a task that need to be done before a specific date/time to the task list.
 
@@ -57,9 +59,11 @@ Format: `event EVENT_TITLE /from FROM_DATETIME /to TO_DATETIME`
 - `FROM_DATETIME`and `TO_DATETIME` must be supplied in the following format: `dd-mm-yyyy HH:MM`, e.g. `20-02-2024 09:00`.
 
 Example: `event project meeting /from 20-02-2024 10:00 /to 20-02-2024 12:00`
+
 ### Listing all tasks: `list`
 Shows all tasks added to the task list
 Format: `list`
+
 ### Marking a task as completed: `mark`
 Marks a specified task as completed.
 
@@ -85,6 +89,7 @@ Format: `delete INDEX`
 - The index **must be a positive integer** e.g. 1, 2, 3, ...
 
 Example: `list` followed by `delete 3` deletes the second task of the task list.
+
 ### Finding tasks by titles: `find`
 Finds tasks that whose titles contain the given substring.
 
@@ -94,10 +99,12 @@ Format: `find SUBSTRING`
 - All tasks containing the substring will be displayed.
     - The index **cannot be used** for other operations such as delete and mark, user should use `list` to get the index of the task
 Example: `find CS2103` returns all tasks that contain `CS2103` in their associated title.
+
 ### Exiting the program: `bye`
 Exits the program.
 
 Format: `bye`
+
 ## Task Storage Format
 Tasks are saved automatically as CSV file, specified by the user at the start of the program. By default, Blu will create `[JAR file location]/data/data.csv` if not file is chosen.
 ### CSV format
