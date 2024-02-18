@@ -22,7 +22,7 @@ public class TaskListTest {
 
         assertEquals(testTask.getType(), tl.getTask(1).getType());
         assertEquals(testTask.getDesc(), tl.getTask(1).getDesc());
-        assertEquals(testTask.isCompleted(), tl.getTask(1).isCompleted());
+        assertEquals(testTask.checkCompleted(), tl.getTask(1).checkCompleted());
     }
 
     /**
@@ -32,8 +32,8 @@ public class TaskListTest {
     public void markTask_success() {
         TaskList tl = new TaskList(new ArrayList<>(), new Ui());
         tl.createTodo("testing");
-        assertFalse(tl.getTask(1).isCompleted());
+        assertFalse(tl.getTask(1).checkCompleted());
         tl.mark(1);
-        assertTrue(tl.getTask(1).isCompleted());
+        assertTrue(tl.getTask(1).checkCompleted());
     }
 }

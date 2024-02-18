@@ -79,7 +79,7 @@ public class Storage {
         FileWriter writer = new FileWriter(filePath);
         for (Task t : tasks) {
             String data = "";
-            data += t.getType() + " | " + t.isCompleted() + " | " + t.getDesc();
+            data += t.getType() + " | " + t.checkCompleted() + " | " + t.getDesc();
             if (t.getType().equals("D")) {
                 data += " | " + ((DeadlineTask) t).getDeadline();
             } else if (t.getType().equals("E")) {
