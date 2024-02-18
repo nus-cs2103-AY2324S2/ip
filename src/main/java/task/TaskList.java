@@ -110,7 +110,7 @@ public class TaskList {
      */
     public String listToString() {
         if (taskList.isEmpty()) {
-            return "Your task list is empty.";
+            return "Your task list is empty.\n";
         } else {
             String s = "Here are the tasks in your list\n";
             for (int i = 0; i < this.taskList.size(); i++) {
