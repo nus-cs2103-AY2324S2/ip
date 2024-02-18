@@ -56,7 +56,6 @@ public class Parser {
         ArrayList<Task> inventory = storage.load();
         try {
             assert inventory.size() < 0 : "Task List should not have a negative number of tasks";
-
             if (input.toLowerCase().equalsIgnoreCase("list")) {
                 return handleListCommand(input);
             } else if (input.toLowerCase().startsWith("mark")) {
