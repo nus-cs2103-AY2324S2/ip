@@ -1,6 +1,6 @@
 # FishStock User Guide
 
-<img src="/docs/Ui.png" width="400">
+<img src="Ui.png" width="400">
 
 FishStock is a **desktop app for tracking tasks, optimized for use via a Command Line Interface (CLI)** while still having
 the benefits of a Graphical User Interface (GUI). If you can type fast, FishStock can get your task management done faster
@@ -14,21 +14,20 @@ than traditional GUI apps.
 <p>&nbsp;</p>
 
 ## Command Summary
-Action | Syntax
--- | --
-Add: ***Todo*** | `todo <description>`
-Add: ***Deadline*** | `deadline <description> /by <datetime>`
-Add: ***Event*** | `event <description> /from <datetime> /to <datetime>`
-Delete | `delete <index>`
-Find | `find <keyword>`
-Mark | `mark <index>`
-Unmark | `unmark <index>`
-Undo | `undo`
-List | `list`
-Help | `help`
-Exit | `bye`
+| Action              | Syntax                                                |
+| ------------------- | ----------------------------------------------------- |
+| Add: ***Todo***     | `todo <description>`                                  |
+| Add: ***Deadline*** | `deadline <description> /by <datetime>`               |
+| Add: ***Event***    | `event <description> /from <datetime> /to <datetime>` |
+| Delete              | `delete <index>`                                      |
+| Find                | `find <keyword>`                                      |
+| Mark                | `mark <index>`                                        |
+| Unmark              | `unmark <index>`                                      |
+| Undo                | `undo`                                                |
+| List                | `list`                                                |
+| Help                | `help`                                                |
+| Exit                | `bye`                                                 |
 
-> [!Note]
 > `datetime` is of format `<dd/mm/yyyy hh:mm>`
 > 
 > `index` is based on the `list` order
