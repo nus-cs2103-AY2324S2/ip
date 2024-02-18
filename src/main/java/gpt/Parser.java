@@ -37,9 +37,15 @@ public class Parser {
             return processFindCommand(command, tl);
         } else if (command.equals("save")) {
             return processSaveCommand(tl, storage);
-        } else {
+        } else if (command.equals("stats")) {
+            return processStatsCommand(tl);
+        }else {
             throw new GptException("HEY YOU mESsEd UP!!! Your input don't make sense to me :-(");
         }
+    }
+
+    private static String processStatsCommand(TaskList tl) {
+        return "You have " + tl.getCompletedTasksInPastWeek() + " tasks completed in the last week.";
     }
 
     private static String processUnmarkCommand(String command, TaskList tl) {

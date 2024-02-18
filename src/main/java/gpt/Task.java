@@ -20,6 +20,8 @@ public class Task {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
+    private LocalDateTime completedDate;
+
     /**
      * Constructor for creating a Task instance of taskType T.
      *
@@ -65,11 +67,16 @@ public class Task {
         this.endDate = parseDateTime(endDate);
     }
 
+    public LocalDateTime getCompletedDate() {
+        return completedDate;
+    }
+
     /**
      * Marks the task as done.
      */
     public void mark() {
         this.isDone = true;
+        this.completedDate = LocalDateTime.now();
     }
 
     /**
@@ -77,6 +84,7 @@ public class Task {
      */
     public void unmark() {
         this.isDone = false;
+        this.completedDate = null;
     }
 
     /**

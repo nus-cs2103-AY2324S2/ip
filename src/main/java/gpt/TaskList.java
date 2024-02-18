@@ -1,6 +1,7 @@
 package gpt;
 
 import java.util.ArrayList;
+import java.time.LocalDateTime;
 
 /**
  * Represents a list of tasks.
@@ -106,4 +107,42 @@ public class TaskList {
         }
         return new TaskList(matchingTasks);
     }
+
+    /**
+     * Get the number of tasks completed in the past week.
+     *
+     * @return The number of tasks completed in the past week.
+     */
+    public int getCompletedTasksInPastWeek() {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime oneWeekAgo = now.minusWeeks(1);
+
+        ArrayList<Task> completedTasks = getCompletedTasks();
+        int completedTasksInPastWeek = 0;
+
+        for (Task task : completedTasks) {
+            LocalDateTime completionDate = task.getCompletedDate();
+            if (completionDate != null && completionDate.isAfter(oneWeekAgo) && completionDate.isBefore(now)) {
+                completedTasksInPastWeek++;
+            }
+        }
+
+        return completedTasksInPastWeek;
+    }
+
+    /**
+     * Get the list of completed tasks.
+     *
+     * @return List of completed tasks.
+     */
+    private ArrayList<Task> getCompletedTasks() {
+        ArrayList<Task> completedTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.isDone()) {
+                completedTasks.add(task);
+            }
+        }
+        return completedTasks;
+    }
 }
+
