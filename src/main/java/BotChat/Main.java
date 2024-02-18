@@ -15,6 +15,11 @@ public class Main extends Application {
 
     private BotChat botChat = new BotChat();
 
+    /**
+     * Starts the BotChat GUI application.
+     *
+     * @param stage The primary stage for the application.
+     */
     @Override
     public void start(Stage stage) {
         try {
