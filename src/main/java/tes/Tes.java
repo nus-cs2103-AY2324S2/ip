@@ -20,6 +20,7 @@ public class Tes {
         this.parser = new Parser(ui);
     }
 
+
     /**
      * Initializes the chatbot.
      */
@@ -27,6 +28,10 @@ public class Tes {
         this.ui.greet();
 
         this.parser.parse();
+    }
+
+    public String getResponse(String hi) {
+        return "hi";
     }
     public static void main(String[] args) {
         Tes chatbot = new Tes();
