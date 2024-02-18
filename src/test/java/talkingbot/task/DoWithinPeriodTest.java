@@ -13,7 +13,7 @@ public class DoWithinPeriodTest {
      */
     @Test
     public void doWithinPeriodGetSaveFileStringTest() {
-        assertEquals("W | 0 | do readings | 2024-01-30 1930 | 2024-01-31 2030",
+        assertEquals("W | 0 | do readings | 2024-01-30 1930 | 2024-01-30 2030",
                 new DoWithinPeriod("do readings", false, "2024-01-30 1930", "2024-01-30 2030").getSaveFileString());
     }
 
