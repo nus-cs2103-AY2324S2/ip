@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 class Storage {
-    private final String path = "src/main/java/Cinnamo.txt";
+    private final String path = "./task/Cinnamo.txt";
     private final DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /**

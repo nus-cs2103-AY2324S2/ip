@@ -7,7 +7,7 @@ import java.util.Hashtable;
 import java.util.Set;
 class TaskList {
     private final ArrayList<Task> tasks;
-    private final String path = "src/main/java/Cinnamo.txt";
+    private final String path = "./task/Cinnamo.txt";
     private final Parser parser = new Parser();
 
     TaskList() {
@@ -161,10 +161,15 @@ class TaskList {
         return output;
     }
 
+    /**
+     * Returns a string of the list for the entire list of the tasks
+     * so that it can be stored into the database with a correct format
+     * to load data in future
+     */
     public String storeTask() {
         String output = "";
         for (int i = 0; i < this.tasks.size(); i++) {
-            output += String.valueOf(i + 1) + "." + this.tasks.get(i).toString();
+            output += this.tasks.get(i).storeInFile();
             if (i < this.tasks.size() - 1) {
                 output += "\n";
             }

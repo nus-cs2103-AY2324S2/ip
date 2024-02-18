@@ -36,4 +36,18 @@ class Deadlines extends Task {
     public String toString() {
         return String.format("%s (by: %s)", super.toString(), this.deadline.format(format));
     }
+
+    /**
+     * Returns a string of the task so that it can be stored into the
+     * database with a correct format to load data in future
+     */
+    public String storeInFile() {
+        if (this.isMarked) {
+            return "D | X | " + this.taskname + " /by "
+                    + this.deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        } else {
+            return "D |   | " + this.taskname + " /by "
+                    + this.deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        }
+    }
 }

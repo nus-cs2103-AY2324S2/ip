@@ -40,4 +40,20 @@ class Events extends Task {
         return String.format("%s (from: %s to: %s)", super.toString(),
                 this.from.format(format), this.to.format(format));
     }
+
+    /**
+     * Returns a string of the task so that it can be stored into the
+     * database with a correct format to load data in future
+     */
+    public String storeInFile() {
+        if (this.isMarked) {
+            return "E | X | " + this.taskname + " /from "
+                    + this.from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + " /to "
+                    + this.to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        } else {
+            return "E |   | " + this.taskname + " /from "
+                    + this.from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + " /to "
+                    + this.to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        }
+    }
 }

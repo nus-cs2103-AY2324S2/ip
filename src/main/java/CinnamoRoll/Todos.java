@@ -22,4 +22,16 @@ class Todos extends Task {
         return String.format("Got it. I've added this task:%n   "
                 + "%s%nNow you have %d tasks in the list", super.toString(), length);
     }
+
+    /**
+     * Returns a string of the task so that it can be stored into the
+     * database with a correct format to load data in future
+     */
+    public String storeInFile() {
+        if (this.isMarked) {
+            return "T | X | " + this.taskname;
+        } else {
+            return "T |   | " + this.taskname;
+        }
+    }
 }

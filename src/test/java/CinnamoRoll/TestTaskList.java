@@ -1,7 +1,8 @@
 package CinnamoRoll;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 class TestTaskList {
     @Test
@@ -17,8 +18,8 @@ class TestTaskList {
         TaskList task = new TaskList();
         task.respondUser("todo what to do");
         assertEquals("[T][ ] what to do", task.getUser(0).toString(),
-                "Checking whether the event is added properly into the list " +
-                        "with correct class of the object");
+                "Checking whether the event is added properly into the list "
+                        + "with correct class of the object");
     }
     @Test
     void testDelete() throws Exception {
@@ -29,7 +30,7 @@ class TestTaskList {
         task.respondUser("delete 2");
         task.respondUser("mark 2");
         assertEquals("[T][X] cs2103t ip", task.getUser(1).toString(),
-                "Test should return the third event of the list before " +
-                        "deletion if done properly");
+                "Test should return the third event of the list before "
+                        + "deletion if done properly");
     }
 }

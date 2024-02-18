@@ -2,7 +2,7 @@ package CinnamoRoll;
 
 abstract class Task {
     protected final String taskname;
-    private boolean isMarked;
+    protected boolean isMarked;
 
     Task(String str) {
         this.taskname = str;
@@ -40,6 +40,12 @@ abstract class Task {
      * Prints the description and timing for the task with the status
      */
     abstract String addTask(int i);
+
+    /**
+     * Returns a string of the task so that it can be stored into the
+     * database with a correct format to load data in future
+     */
+    abstract String storeInFile();
 
     /**
      * Checks whether task's taskname contains the given string for find method
