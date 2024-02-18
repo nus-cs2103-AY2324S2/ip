@@ -1,9 +1,12 @@
 package exceptions;
 
-import exceptions.DukeExceptions;
-
+/**
+ * Custom exception class representing the scenario where an unknown input is provided.
+ * Extends the DukeExceptions class.
+ */
 public class UnknownInputException extends DukeExceptions {
-    final String msg = "WHAT DO YOU MEANNNNN";
+
+    private String msg = "WHAT DO YOU MEANNNNN";
 
     public UnknownInputException() {
         super();

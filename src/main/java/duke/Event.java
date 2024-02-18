@@ -13,12 +13,12 @@ public class Event extends Task {
     /**
      * The start time of the event.
      */
-    public LocalDateTime from;
+    private LocalDateTime from;
 
     /**
      * The end time of the event.
      */
-    public LocalDateTime to;
+    private LocalDateTime to;
 
     /**
      * Constructs an Event object with the given description, start time, and end time.
@@ -31,6 +31,24 @@ public class Event extends Task {
         super(description);
         this.from = from;
         this.to = to;
+    }
+
+    /**
+     * Retrieves the end time of the event.
+     *
+     * @return The end time of the event.
+     */
+    LocalDateTime getTo() {
+        return to;
+    }
+
+    /**
+     * Retrieves the start time of the event.
+     *
+     * @return The start time of the event.
+     */
+    LocalDateTime getFrom() {
+        return from;
     }
 
     @Override

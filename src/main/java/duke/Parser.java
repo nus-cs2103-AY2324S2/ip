@@ -7,8 +7,8 @@ import java.util.Scanner;
  */
 public class Parser {
     private Scanner sc;
-    public Ui ui;
-    public Storage storage;
+    private Ui ui;
+    private Storage storage;
 
     /**
      * Constructs a new Parser instance.
@@ -30,6 +30,9 @@ public class Parser {
      * @return The action keyword extracted from the input string.
      */
     public String parseAction(String input) {
-        return input.split(" ")[0];
+
+        String[] actionArray = input.split(" ");
+        assert actionArray.length > 0 : "input cannot be empty!";
+        return actionArray[0];
     }
 }

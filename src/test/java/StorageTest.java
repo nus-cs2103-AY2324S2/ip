@@ -1,8 +1,9 @@
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import duke.ToDo;
 import duke.Storage;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StorageTest {
     @Test
@@ -12,9 +13,9 @@ public class StorageTest {
 
         storage.add(t);
         String output = storage.addToListOutput(t);
-        assertEquals(output, "Got it. I've added this task:\n" +
-                "  [T][ ] Read book\n" +
-                "Now you have 1 tasks in the list.");
+        assertEquals(output, "Got it. I've added this task:\n"
+                + "  [T][ ] Read book\n"
+                + "Now you have 1 tasks in the list.");
     }
 
 

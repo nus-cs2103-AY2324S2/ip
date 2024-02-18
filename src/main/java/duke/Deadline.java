@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
 
     /** The deadline of the task. */
-    public LocalDateTime deadline;
+    private LocalDateTime deadline;
 
     /**
      * Constructs a Deadlines object with the specified description and deadline.
@@ -22,6 +22,10 @@ public class Deadline extends Task {
     public Deadline(String description, LocalDateTime deadline) {
         super(description);
         this.deadline = deadline;
+    }
+
+    LocalDateTime getDeadline() {
+        return this.deadline;
     }
 
     @Override
