@@ -2,11 +2,9 @@ package tasks;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import Fredricksen.tasks.TaskList;
 import org.junit.jupiter.api.Test;
-import tasks.taskType.Task;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import Fredricksen.tasks.taskType.Task;
 
 public class TaskTest {
 
