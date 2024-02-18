@@ -73,12 +73,30 @@ public class TaskList {
         return found;
     }
 
-    public String markTask(int index) {
-        return list.get(index).toggle();
+    public String markTask(String indexes) {
+        // Split the input string by whitespace
+        String[] numbersAsString = indexes.split("\\s+");
+        String message = "";
+
+        // Parse each substring into an integer
+        int[] numbers = new int[numbersAsString.length];
+        for (int i = 0; i < numbersAsString.length; i++) {
+            message += list.get(Integer.parseInt(numbersAsString[i]) - 1).toggle();
+        }
+    return message;
     }
 
-    public String unmarkTask(int index) {
-        return list.get(index).toggle();
+    public String unmarkTask(String indexes) {
+        // Split the input string by whitespace
+        String[] numbersAsString = indexes.split("\\s+");
+        String message = "";
+
+        // Parse each substring into an integer
+        int[] numbers = new int[numbersAsString.length];
+        for (int i = 0; i < numbersAsString.length; i++) {
+            message += list.get(Integer.parseInt(numbersAsString[i]) - 1).toggle();
+        }
+        return message;
     }
 
     /**

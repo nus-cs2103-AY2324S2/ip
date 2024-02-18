@@ -35,9 +35,9 @@ public class Parser {
 
         switch(command) {
             case "mark":
-                return list.markTask(Integer.parseInt(inputParts[1]) - 1);
+                return list.markTask(details);
             case "unmark":
-                return list.unmarkTask(Integer.parseInt(inputParts[1]) - 1);
+                return list.unmarkTask(details);
             case "list":
                 return list.showList();
             case "todo":
