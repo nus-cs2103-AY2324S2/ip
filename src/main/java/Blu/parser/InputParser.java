@@ -96,7 +96,7 @@ public class InputParser {
             return dateTime;
         } catch (DateTimeParseException e) {
             throw new IllegalCommandException("Invalid DateTime format.\n"
-                    + "Please use dd-MM-yyyy format.");
+                    + "Please use dd-MM-yyyy HH:MM format.");
         }
     }
 
