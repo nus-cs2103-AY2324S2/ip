@@ -28,6 +28,7 @@ public class DeleteCommand extends Command {
      * @param tasks <code>TaskList</code> object for the list of tasks.
      * @param ui <code>Ui</code> object that handles the UI of this application.
      * @param storage <code>Storage</code> object that is used for storage.
+     * @return reply from the ChatBot.
      * @throws ChaterpillarException if no number detected, or number
      *     specified does not exist in the <code>TaskList</code>.
      */

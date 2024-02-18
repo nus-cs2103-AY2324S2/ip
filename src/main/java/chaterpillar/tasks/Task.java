@@ -67,24 +67,47 @@ public class Task {
         return this.hasDate;
     }
 
+    /**
+     * Updates the name of the <code>Task</code>
+     *
+     * @param updatedName the new name
+     */
     public void updateName(String updatedName) {
         if (!updatedName.isBlank()) {
             this.taskName = updatedName;
         }
     }
 
+    /**
+     * Updates the date of the <code>Task</code>
+     *
+     * @param updatedDate the new date
+     * @throws ChaterpillarException if the task does not have a date to be updated
+     */
     public void updateDate(String updatedDate) throws ChaterpillarException {
         if (!updatedDate.isBlank()) {
             throw new ChaterpillarException("This task type does not contain a date.");
         }
     }
 
+    /**
+     * Updates the start date of the <code>Task</code>
+     *
+     * @param updatedStartDate the new start date
+     * @throws ChaterpillarException if the task does not have a date to be updated
+     */
     public void updateStartDate(String updatedStartDate) throws ChaterpillarException {
         if (!updatedStartDate.isBlank()) {
             throw new ChaterpillarException("This task type does not contain a start or end date.");
         }
     }
 
+    /**
+     * Updates the end date of the <code>Task</code>
+     *
+     * @param updatedEndDate the new end date
+     * @throws ChaterpillarException if the task does not have a date to be updated
+     */
     public void updateEndDate(String updatedEndDate) throws ChaterpillarException {
         if (!updatedEndDate.isBlank()) {
             throw new ChaterpillarException("This task type does not contain a start or end date.");

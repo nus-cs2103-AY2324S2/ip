@@ -30,6 +30,7 @@ public class HelpCommand extends Command {
      * @param tasks the list of tasks.
      * @param ui object that handles the UI of this application.
      * @param storage object that is used for storage.
+     * @return help message from the ChatBot.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         ui.echo(HELP_MESSAGE);

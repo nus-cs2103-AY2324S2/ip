@@ -28,6 +28,7 @@ public class ListCommand extends Command {
      * @param tasks the list of tasks.
      * @param ui object that handles the UI of this application.
      * @param storage object that is used for storage.
+     * @return reply from the ChatBot.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         StringBuilder output = new StringBuilder("Here are the tasks in your list: \n");

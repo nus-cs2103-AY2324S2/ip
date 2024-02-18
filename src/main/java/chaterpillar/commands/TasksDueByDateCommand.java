@@ -38,8 +38,9 @@ public class TasksDueByDateCommand extends Command {
      * @param tasks the list of tasks.
      * @param ui object that handles the UI of this application.
      * @param storage object that is used for storage.
+     * @return reply from the ChatBot.
      */
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws ChaterpillarException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         TaskList tasksNew = tasks.getTasksOnDate(this.date);
         String output = String.format("For %s,\n", this.date);
 

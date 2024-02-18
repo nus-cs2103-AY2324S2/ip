@@ -18,6 +18,7 @@ public class UnrecognisedCommand extends Command {
      * @param tasks the list of tasks.
      * @param ui object that handles the UI of this application.
      * @param storage object that is used for storage.
+     * @return unrecognised input message from the ChatBot.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         ui.echo(UNRECOGNISED_MESSAGE);

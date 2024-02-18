@@ -24,9 +24,11 @@ public class FindCommand extends Command {
     /**
      * Finds all tasks in the list that contains the matching word/phrase
      *
-     * @param tasks the list of tasks
-     * @param ui UI for this application
-     * @param storage storage for this application
+     * @param tasks the list of tasks.
+     * @param ui UI for this application.
+     * @param storage storage for this application.
+     * @return reply from the ChatBot.
+     * @throws ChaterpillarException if empty search keyword.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws ChaterpillarException {

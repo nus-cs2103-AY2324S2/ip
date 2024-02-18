@@ -1,7 +1,6 @@
 package chaterpillar.parser;
 
 import java.time.format.DateTimeParseException;
-import java.util.Arrays;
 
 import chaterpillar.commands.Command;
 import chaterpillar.commands.DeleteCommand;
@@ -12,9 +11,9 @@ import chaterpillar.commands.ListAllCommand;
 import chaterpillar.commands.MarkCommand;
 import chaterpillar.commands.TaskCommand;
 import chaterpillar.commands.TasksTodayCommand;
-import chaterpillar.commands.UpdateCommand;
 import chaterpillar.commands.UnmarkCommand;
 import chaterpillar.commands.UnrecognisedCommand;
+import chaterpillar.commands.UpdateCommand;
 import chaterpillar.exceptions.ChaterpillarException;
 import chaterpillar.tasks.DeadlineTask;
 import chaterpillar.tasks.EventTask;
@@ -67,7 +66,7 @@ public class Parser {
      *
      * @param input command to be parsed
      * @return <code>Command</code> objects corresponding to
-     * the instructions of the parsed line.
+     *     the instructions of the parsed line.
      * @throws ChaterpillarException if there are any commands typed
      *     wrongly or if there are missing components in the command.
      */
@@ -251,7 +250,7 @@ public class Parser {
                     /date - to update the date of the task
                     /start - to update the start date of the task
                     /end - to update the end date of the task
-                    
+                    \n
                     e.g. update 3 /name new name of task /date new date""");
         }
         return output;
