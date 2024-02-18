@@ -20,41 +20,62 @@ public class Parser {
      * @return A {@link ParsedCommand} object representing the parsed command.
      */
     public static ParsedCommand parse(String input) {
-        if (input.replaceAll("\\s", "").equals("")) {
-            System.out.println("\tTask should not be empty!");
-            return new ParsedCommand(CommandType.INVALID, -1);
+        if (input.trim().isEmpty()) {
+            return new ParsedCommand(CommandType.INVALID, "");
         }
-
+    
         String[] parts = input.split(" ", 2);
         CommandType commandType = CommandType.fromString(parts[0]);
-        if (commandType == CommandType.LIST || commandType == CommandType.BYE) {
-            return new ParsedCommand(commandType, -1);
-        }
-        if (parts.length < 2 || commandType == CommandType.INVALID) {
-            return new ParsedCommand(CommandType.INVALID, -1); // Indicate invalid task number
-        }
-        if (commandType == CommandType.MARK || commandType == CommandType.UNMARK || commandType == CommandType.DELETE) {
-            try {
-                int taskNumber = Integer.parseInt(parts[1]);
-                if (taskNumber > TaskList.storageFill || taskNumber <= 0) {
-                    System.out.println("Task does not exist!");
-                    return new ParsedCommand(CommandType.INVALID, -1); // Indicate invalid task number
-                }
-                return new ParsedCommand(commandType, taskNumber); // success
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid task number!");
-                return new ParsedCommand(CommandType.INVALID, -1); // Indicate invalid task number
-            }
-        } else if (commandType == CommandType.FIND) {
-            if (parts[1].replaceAll("\\s", "").equals("")) {
-                System.out.println("\tTask name should not be empty!");
-                return new ParsedCommand(CommandType.INVALID, -1);
-            }
-            return new ParsedCommand(CommandType.FIND, parts[1]); // parts[1] is the search target
-        } else {
-            return new ParsedCommand(commandType, input); // success
+    
+        switch (commandType) {
+        case LIST:
+        case BYE:
+            return handleSimpleCommand(commandType);
+        case MARK:
+        case UNMARK:
+        case DELETE:
+            return handleTaskModificationCommand(parts, commandType);
+        case FIND:
+            return handleFindCommand(parts);
+        default:
+            // TODO, DEADLINE, EVENT, INVALID
+            return handleOtherCommands(parts, input, commandType);
         }
     }
+    
+    private static ParsedCommand handleSimpleCommand(CommandType commandType) {
+        return new ParsedCommand(commandType, "");
+    }
+    
+    private static ParsedCommand handleTaskModificationCommand(String[] parts, CommandType commandType) {
+        if (parts.length < 2) {
+            return new ParsedCommand(CommandType.INVALID, "");
+        }
+        try {
+            int taskNumber = Integer.parseInt(parts[1]);
+            if (taskNumber > TaskList.storageFill || taskNumber <= 0) {
+                return new ParsedCommand(CommandType.INVALID_NUM, "");
+            }
+            return new ParsedCommand(commandType, taskNumber);
+        } catch (NumberFormatException e) {
+            return new ParsedCommand(CommandType.INVALID_FORMAT, "");
+        }
+    }
+    
+    private static ParsedCommand handleFindCommand(String[] parts) {
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            return new ParsedCommand(CommandType.INVALID, "");
+        }
+        return new ParsedCommand(CommandType.FIND, parts[1]);
+    }
+    
+    private static ParsedCommand handleOtherCommands(String[] parts, String input, CommandType commandType) {
+        if (parts.length < 2) {
+            return new ParsedCommand(CommandType.INVALID, "");
+        }
+        return new ParsedCommand(commandType, input);
+    }
+    
 
     /**
      * Represents a parsed command, encapsulating the command type, input string,
@@ -66,7 +87,7 @@ public class Parser {
         private final CommandType commandType; // The type of command parsed from the input.
         private final String input; // The input string containing task details, if applicable.
         private final int taskNumber; // The task number associated with the command, if applicable.
-
+        
         /**
          * Constructor for commands that include task details but no task number.
          * This constructor is typically used for commands that create or modify tasks
@@ -133,7 +154,7 @@ public class Parser {
 
     /**
      * Creates a {@link Task} object based on the given command type and input.
-     * This method supports creation of Todo, Deadline, and Event tasks.
+     * This method supports creation of Invalid, Todo, Deadline, and Event tasks.
      *
      * @param command The command type indicating which kind of task to create.
      * @param input   The user input string containing task details.
@@ -141,60 +162,73 @@ public class Parser {
      */
     public static Task createTask(CommandType command, String input) {
         String[] parts = input.split(" ", 2);
-        Task newTask = null;
         switch (command) {
-        case TODO:
-            if (parts[1].replaceAll("\\s", "").equals("")) {
-                System.out.println("\tTask should not be empty!");
-            } else {
-                newTask = new Todo(parts[1], input);
-            }
-            break;
-        case DEADLINE:
-            String[] deadlineParts = parts[1].split(" /by ", 2);
-            if (deadlineParts.length < 2) {
-                System.out.println("\tSpecify /by xxx!");
-            } else if (deadlineParts[0].replaceAll("\\s", "").equals("")) {
-                System.out.println("\tTask should not be empty!");
-            } else if (deadlineParts[1].replaceAll("\\s", "").equals("")) {
-                System.out.println("\tDue date should not be empty!");
-            } else {
-                LocalDate dueDate = parseDate(deadlineParts[1]);
-                if (dueDate != null) {
-                    newTask = new Deadline(deadlineParts[0], dueDate, input);
-                }
-            }
-            break;
-        case EVENT:
-            String[] eventParts = parts[1].split(" /from ", 2);
-            if (eventParts[0].replaceAll("\\s", "").equals("")) {
-                System.out.println("\tTask should not be empty!");
-            } else if (eventParts.length < 2) {
-                // not enough parts for an event
-                System.out.println("\tSpecify /from xxx and /to xxx!");
-            } else {
-                String[] timeParts = eventParts[1].split(" /to ", 2);
-                if (timeParts[0].replaceAll("\\s", "").equals("")) {
-                    System.out.println("\tStart time should not be empty!");
-                } else if (timeParts.length < 2) {
-                    System.out.println("\tSpecify xxx /to xxx!");
-                } else if (timeParts[1].replaceAll("\\s", "").equals("")) {
-                    System.out.println("\tEnd time should not be empty!");
-                } else {
-                    // Construct the event string
-                    String eventTime = timeParts[0] + " to: " + timeParts[1];
-                    LocalDate start = parseDate(timeParts[0]);
-                    LocalDate end = parseDate(timeParts[1]);
-                    if (start != null && end != null) {
-                        newTask = new Event(eventParts[0], eventTime, input, start, end);
-                    }
-                }
-            }
-            break;
-        default:
-            break;
+            case TODO:
+                return createTodoTask(parts, input);
+            case DEADLINE:
+                return createDeadlineTask(parts, input);
+            case EVENT:
+                return createEventTask(parts, input);
+            default:
+                return new InvalidTask("Invalid command.");
         }
-        return newTask;
+    }
+
+    private static Task createTodoTask(String[] parts, String input) {
+        if (parts[1].trim().isEmpty()) {
+            return new InvalidTask("Task description cannot be empty!");
+        }
+        return new Todo(parts[1], input);
+    }
+
+    private static Task createDeadlineTask(String[] parts, String input) {
+        String[] deadlineParts = parts[1].split(" /by ", 2);
+        if (deadlineParts[0].replaceAll("\\s", "").equals("")) {
+            return new InvalidTask("Task description cannot be empty!");
+        } else if (deadlineParts.length < 2) {
+            return new InvalidTask("Specify xxx /by yyyy-MM-dd!");
+        } else if (deadlineParts[1].replaceAll("\\s", "").equals("")) {
+            return new InvalidTask("Due date should not be empty!");
+        } else {
+            LocalDate dueDate = parseDate(deadlineParts[1]);
+            if (dueDate == null) {
+                return new InvalidTask("Invalid date format. Please use yyyy-MM-dd.");
+            }
+            return new Deadline(deadlineParts[0], dueDate, input);
+        }
+    }
+
+    private static Task createEventTask(String[] parts, String input) {
+        String[] eventParts = parts[1].split(" /from ", 2);
+        if (eventParts[0].trim().isEmpty()) {
+            return new InvalidTask("Task description cannot be empty.");
+        } else if (eventParts.length < 2) {
+            // not enough parts for an event
+            return new InvalidTask("Specify /from yyyy-MM-dd and /to yyyy-MM-dd!");
+        } else {
+            String[] timeParts = eventParts[1].split(" /to ", 2);
+            if (timeParts[0].replaceAll("\\s", "").equals("")) {
+                return new InvalidTask("Start time should not be empty!");
+            } else if (timeParts.length < 2) {
+                return new InvalidTask("Specify yyyy-MM-dd /to yyyy-MM-dd!");
+            } else if (timeParts[1].replaceAll("\\s", "").equals("")) {
+                return new InvalidTask("End time should not be empty!");
+            } else {
+                // Construct the event string
+                LocalDate start = parseDate(timeParts[0]);
+                LocalDate end = parseDate(timeParts[1]);
+                String eventTime = formatEventTime(start, end);
+                if (start == null || end == null) {
+                    return new InvalidTask("Unable to parse the date. Please use the format: yyyy-MM-dd");
+                }
+                return new Event(eventParts[0], eventTime, input, start, end);
+            }
+        }
+    }
+
+    private static String formatEventTime(LocalDate start, LocalDate end) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        return start.format(formatter) + " to: " + end.format(formatter);
     }
 
     /**
@@ -210,7 +244,6 @@ public class Parser {
             // Parse the date string into a LocalDate object
             return LocalDate.parse(dateStr, formatter);
         } catch (DateTimeParseException e) {
-            System.out.println("\tUnable to parse the date. Please use the format: yyyy-MM-dd");
             return null;
         }
     }

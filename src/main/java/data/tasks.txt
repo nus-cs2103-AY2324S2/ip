@@ -1,4 +1,5 @@
-Deadline | 1 | deadline Task 4 /by 2024-01-31
+Deadline | 0 | deadline Task 4 /by 2024-01-31
 Todo | 0 | todo Go school
 Deadline | 0 | deadline Task 4 /by 2024-01-31
 Event | 0 | event project meeting /from 2024-01-31 /to 2024-02-01
+Event | 0 | event asd /from 2022-02-22 /to 2022-02-23

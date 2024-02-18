@@ -83,13 +83,13 @@ public class TaskList {
      */
     public String findTasks(String findString) {
         StringBuilder output = new StringBuilder();
-        output.append("\tHere are the matching tasks in your list:");
+        output.append("\tHere are the matching tasks in your list:\n");
         boolean isFound = false;
 
         for (int i = 0; i < TaskList.storageFill; i++) {
             Task currTask = this.tasks.get(i);
             if (currTask.getDetails().toLowerCase().contains(findString.toLowerCase())) {
-                String formattedOutput = String.format("\t%d. %s", (i + 1), currTask);
+                String formattedOutput = String.format("\t%d. %s\n", (i + 1), currTask);
                 output.append(formattedOutput);
                 isFound = true;
             }
