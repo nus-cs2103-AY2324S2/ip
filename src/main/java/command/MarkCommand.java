@@ -1,14 +1,14 @@
-package Command;
+package command;
 
 import duke.DukeException;
 import duke.TaskList;
 import duke.UI;
 import duke.Task;
 
-public class UnMarkCommand extends Command {
+public class MarkCommand extends Command {
     private int taskIndex;
 
-    public UnMarkCommand(int taskIndex) {
+    public MarkCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
 
@@ -19,7 +19,7 @@ public class UnMarkCommand extends Command {
         }
 
         Task task = tasks.get(taskIndex);
-        task.markAsNotDone();
-        return ui.showTaskMarkedAsNotDone(task);
+        task.markAsDone();
+        return ui.showTaskMarkedAsDone(task);
     }
 }

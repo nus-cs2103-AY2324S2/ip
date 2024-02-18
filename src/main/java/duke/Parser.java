@@ -1,15 +1,13 @@
 package duke;
-import Command.Command;
-import Command.AddCommand;
-import Command.DeleteCommand;
-import Command.ListCommand;
-import Command.ExitCommand;
-import Command.ListTasksOnDateCommand;
-import Command.MarkCommand;
-import Command.UnMarkCommand;
-import Command.FindCommand;
-import duke.DukeException;
-import duke.UI;
+import command.Command;
+import command.AddCommand;
+import command.DeleteCommand;
+import command.ListCommand;
+import command.ExitCommand;
+import command.ListTasksOnDateCommand;
+import command.MarkCommand;
+import command.UnMarkCommand;
+import command.FindCommand;
 
 /**
  * The Parser class is responsible for interpreting user input and translating it into commands.

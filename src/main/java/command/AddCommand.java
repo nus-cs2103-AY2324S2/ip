@@ -1,4 +1,4 @@
-package Command;
+package command;
 import duke.Task;
 import duke.TaskList;
 import duke.UI;

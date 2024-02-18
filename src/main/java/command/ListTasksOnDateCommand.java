@@ -1,4 +1,4 @@
-package Command;
+package command;
 
 import duke.DukeException;
 import duke.Task;

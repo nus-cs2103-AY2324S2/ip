@@ -1,23 +1,25 @@
-package Command;
+package command;
 
 import duke.DukeException;
 import duke.TaskList;
 import duke.UI;
 import duke.Task;
 
-public class DeleteCommand extends Command {
+public class UnMarkCommand extends Command {
     private int taskIndex;
 
-    public DeleteCommand(int taskIndex) {
+    public UnMarkCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
 
     @Override
     public String execute(TaskList tasks, UI ui) throws DukeException {
         if (taskIndex < 0 || taskIndex >= tasks.size()) {
-            throw new DukeException("Task number out of bounds.");
+            throw new DukeException("Invalid task number. Index out of bounds.");
         }
-        Task removedTask = tasks.removeTask(taskIndex);
-        return ui.showTaskRemoved(removedTask, tasks.size());
+
+        Task task = tasks.get(taskIndex);
+        task.markAsNotDone();
+        return ui.showTaskMarkedAsNotDone(task);
     }
 }
