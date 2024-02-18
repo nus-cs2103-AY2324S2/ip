@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import chatbot.exceptions.PlanaException;
 import chatbot.exceptions.InvalidArgumentException;
+import chatbot.exceptions.PlanaException;
 
 /**
  * Represents an enum of the valid user commands.
