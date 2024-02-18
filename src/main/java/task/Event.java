@@ -20,7 +20,7 @@ public class Event extends Task {
             throw new DukeException("Start time not in the correct format.\n"
                     + "Correct format: dd/MM/yyyy-HHmm\n"
                     + "Received: " + startTime + "\n"
-                    + taskName + " not added to the list.");
+                    + "\"" + taskName + "\" not added to the list.");
         }
 
         try {
@@ -29,7 +29,7 @@ public class Event extends Task {
             throw new DukeException("End time not in the correct format.\n"
                     + "Correct format: dd/MM/yyyy HHmm\n"
                     + "Received: " + endTime + "\n"
-                    + taskName + " not added to the list.");
+                    + "\"" + taskName + "\" not added to the list.");
         }
     }
 
@@ -43,7 +43,7 @@ public class Event extends Task {
             throw new DukeException("Date and Time not in the correct format.\n"
                     + "Correct format: MMM dd yyyy, HH:mm\n"
                     + "Received: " + taskName + " | " + time + "\n"
-                    + taskName + " removed from the list.");
+                    + "\"" + taskName + "\" removed from the list.");
         }
     }
 

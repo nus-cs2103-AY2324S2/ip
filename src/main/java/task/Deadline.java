@@ -19,7 +19,7 @@ public class Deadline extends Task {
             throw new DukeException("Date and Time not in the correct format.\n"
                     + "Correct format: dd/MM/yyyy-HHmm\n"
                     + "Received: " + deadline + "\n"
-                    + taskName + " not added to the list.");
+                    + "\"" + taskName + "\" not added to the list.");
         }
     }
 
@@ -31,7 +31,7 @@ public class Deadline extends Task {
             throw new DukeException("Date and Time not in the correct format.\n"
                     + "Correct format: MMM dd yyyy, HH:mm\n"
                     + "Received: " + taskName + " | " + deadline + "\n"
-                    + taskName + " removed from the list.");
+                    + "\"" + taskName + "\" removed from the list.");
         }
     }
 
