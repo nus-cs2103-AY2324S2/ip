@@ -21,30 +21,24 @@ public class GulieParser {
      * @throws GulieException
      */
     public Command parse(String input, boolean silent) throws GulieException {
-        if (input.indexOf("\t") != -1) {
+        if (input.contains("\t")) {
             throw new GulieException("Invalid input. The use of tabs are not allowed.");
         }
         switch (input.split(" ")[0]) {
         case "list": {
-            return new Command() {
-                @Override
-                public void run(GulieTextUi ui, GulieStorage storage, GulieTasklist tasklist) throws GulieException {
-                    if (!silent) {
-                        ui.list(tasklist);
-                    }
+            return (ui, storage, tasklist) -> {
+                if (!silent) {
+                    ui.list(tasklist);
                 }
             };
         }
         case "mark": {
             try {
                 final int index = Integer.parseInt(getArgument(input, "mark", "index")) - 1;
-                return new Command() {
-                    @Override
-                    public void run(GulieTextUi ui, GulieStorage storage, GulieTasklist tasklist) throws GulieException {
-                        tasklist.mark(index);
-                        if (!silent) {
-                            ui.mark(tasklist.get(index));
-                        }
+                return (ui, storage, tasklist) -> {
+                    tasklist.mark(index);
+                    if (!silent) {
+                        ui.mark(tasklist.get(index));
                     }
                 };
             } catch (NumberFormatException e) {
@@ -54,13 +48,10 @@ public class GulieParser {
         case "unmark": {
             try {
                 final int index = Integer.parseInt(getArgument(input, "unmark", "index")) - 1;
-                return new Command() {
-                    @Override
-                    public void run(GulieTextUi ui, GulieStorage storage, GulieTasklist tasklist) throws GulieException {
-                        tasklist.unmark(index);
-                        if (!silent) {
-                            ui.unmark(tasklist.get(index));
-                        }
+                return (ui, storage, tasklist) -> {
+                    tasklist.unmark(index);
+                    if (!silent) {
+                        ui.unmark(tasklist.get(index));
                     }
                 };
             } catch (NumberFormatException e) {
@@ -69,14 +60,11 @@ public class GulieParser {
         }
         case "todo": {
             final String name = getArgument(input, "todo", "name");
-            return new Command() {
-                @Override
-                public void run(GulieTextUi ui, GulieStorage storage, GulieTasklist tasklist) throws GulieException {
-                    Todo todo = new Todo(name);
-                    tasklist.add(todo);
-                    if (!silent) {
-                        ui.store(todo, tasklist.size());
-                    }
+            return (ui, storage, tasklist) -> {
+                Todo todo = new Todo(name);
+                tasklist.add(todo);
+                if (!silent) {
+                    ui.store(todo, tasklist.size());
                 }
             };
         }
@@ -84,14 +72,11 @@ public class GulieParser {
             try {
                 final String name = getArgument(input, "deadline", "name");
                 final LocalDateTime by = LocalDateTime.parse(getArgument(input, "/by"));
-                return new Command() {
-                    @Override
-                    public void run(GulieTextUi ui, GulieStorage storage, GulieTasklist tasklist) throws GulieException {
-                        Deadline deadline = new Deadline(name, by);
-                        tasklist.add(deadline);
-                        if (!silent) {
-                            ui.store(deadline, tasklist.size());
-                        }
+                return (ui, storage, tasklist) -> {
+                    Deadline deadline = new Deadline(name, by);
+                    tasklist.add(deadline);
+                    if (!silent) {
+                        ui.store(deadline, tasklist.size());
                     }
                 };
             } catch (DateTimeParseException e) {
@@ -103,14 +88,11 @@ public class GulieParser {
                 final String name = getArgument(input, "event", "name");
                 final LocalDateTime from = LocalDateTime.parse(getArgument(input, "/from"));
                 final LocalDateTime to = LocalDateTime.parse(getArgument(input, "/to"));
-                return new Command() {
-                    @Override
-                    public void run(GulieTextUi ui, GulieStorage storage, GulieTasklist tasklist) throws GulieException {
-                        Event event = new Event(name, from, to);
-                        tasklist.add(event);
-                        if (!silent) {
-                            ui.store(event, tasklist.size());
-                        }
+                return (ui, storage, tasklist) -> {
+                    Event event = new Event(name, from, to);
+                    tasklist.add(event);
+                    if (!silent) {
+                        ui.store(event, tasklist.size());
                     }
                 };
             } catch (DateTimeParseException e) {
@@ -120,13 +102,10 @@ public class GulieParser {
         case "delete": {
             try {
                 final int index = Integer.parseInt(getArgument(input, "delete", "index")) - 1;
-                return new Command() {
-                    @Override
-                    public void run(GulieTextUi ui, GulieStorage storage, GulieTasklist tasklist) throws GulieException {
-                        Task task = tasklist.delete(index);
-                        if (!silent) {
-                            ui.delete(task, tasklist.size());
-                        }
+                return (ui, storage, tasklist) -> {
+                    Task task = tasklist.delete(index);
+                    if (!silent) {
+                        ui.delete(task, tasklist.size());
                     }
                 };
             } catch (NumberFormatException e) {
@@ -135,11 +114,8 @@ public class GulieParser {
         }
         case "find": {
             final String keyword = getArgument(input, "find", "keyword");
-            return new Command() {
-                @Override
-                public void run(GulieTextUi ui, GulieStorage storage, GulieTasklist tasklist) throws GulieException {
-                    ui.find(tasklist.find(keyword));
-                }
+            return (ui, storage, tasklist) -> {
+                ui.find(tasklist.find(keyword));
             };
         }
         default:

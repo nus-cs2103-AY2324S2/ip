@@ -3,7 +3,7 @@ package gulie;
 /**
  * A command that can be run.
  */
-public abstract class Command {
+public abstract interface Command {
     /**
      * Runs the command.
      * @param ui

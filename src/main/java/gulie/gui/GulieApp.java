@@ -34,8 +34,9 @@ public class GulieApp extends Application implements GulieInterface {
 
     @Override
     public void start(Stage stage) {
+        // UI adapted from https://se-education.org/guides/tutorials/javaFx.html
         initComponents();
-        styleComponents();
+        styleComponents(stage);
 
         enterButton.setOnMouseClicked((event) -> {
             handleUserInput();
@@ -79,7 +80,7 @@ public class GulieApp extends Application implements GulieInterface {
         scene = new Scene(layout);
     }
 
-    private void styleComponents() {
+    private void styleComponents(Stage stage) {
         stage.setTitle("Duke");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
