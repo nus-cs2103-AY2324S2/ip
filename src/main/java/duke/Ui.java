@@ -1,6 +1,5 @@
 package duke;
 
-import java.util.Scanner;
 /**
  *  This class handles the logic and ui for the chatbot.
  */
