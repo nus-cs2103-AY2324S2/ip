@@ -27,25 +27,59 @@ public class GulieApp extends Application implements GulieInterface {
     private TextField inputBox;
     private Button enterButton;
     private Scene scene;
+    private AnchorPane layout;
+    private ScrollPane scrollPane;
     private CompletableFuture<String> input;
     private Gulie gulie;
 
     @Override
     public void start(Stage stage) {
+        initComponents();
+        styleComponents();
+
+        enterButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
+        inputBox.setOnAction((event) -> {
+            handleUserInput();
+        });
+
+        container.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+
+        try {
+            Thread.sleep(1000);
+        }
+        catch (InterruptedException e){
+
+        }
+        gulie = new Gulie(this);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                gulie.run();
+            }
+        }).start();
+
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    private void initComponents() {
         isRunning = true;
 
-        ScrollPane scrollPane = new ScrollPane();
+        scrollPane = new ScrollPane();
         container = new VBox();
         scrollPane.setContent(container);
 
         inputBox = new TextField();
         enterButton = new Button("Enter");
 
-        AnchorPane layout = new AnchorPane();
+        layout = new AnchorPane();
         layout.getChildren().addAll(scrollPane, inputBox, enterButton);
         scene = new Scene(layout);
+    }
 
-
+    private void styleComponents() {
         stage.setTitle("Duke");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
@@ -73,32 +107,6 @@ public class GulieApp extends Application implements GulieInterface {
 
         AnchorPane.setLeftAnchor(inputBox , 1.0);
         AnchorPane.setBottomAnchor(inputBox, 1.0);
-
-        enterButton.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
-        inputBox.setOnAction((event) -> {
-            handleUserInput();
-        });
-
-        container.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-
-        try {
-            Thread.sleep(1000);
-        }
-        catch (InterruptedException e){
-
-        }
-        gulie = new Gulie(this);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                gulie.run();
-            }
-        }).start();
-
-        stage.setScene(scene);
-        stage.show();
     }
 
     private void handleUserInput() {

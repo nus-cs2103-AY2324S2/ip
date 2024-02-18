@@ -47,6 +47,7 @@ application {
 }
 
 shadowJar {
+    archiveFileName = "Gulie.jar"
     archiveBaseName = "gulie"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
@@ -55,3 +56,5 @@ shadowJar {
 run{
     standardInput = System.in
 }
+
+mainClassName = 'gulie.Gulie'
