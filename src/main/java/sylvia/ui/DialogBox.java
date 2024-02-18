@@ -54,7 +54,7 @@ public class DialogBox extends HBox {
         HBox.setMargin(dialogContainer, new Insets(0, 10, 0, 10));
 
         // when text overflows, wrap it to the next line
-        if (dialog.getLayoutBounds().getWidth() > 275) {
+        if (dialog.getLayoutBounds().getWidth() > 300) {
             dialog.setWrappingWidth(275);
         }
     }

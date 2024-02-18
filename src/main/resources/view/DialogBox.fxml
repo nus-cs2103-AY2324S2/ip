@@ -11,7 +11,7 @@
   <children>
       <VBox fx:id="dialogContainer">
          <children>
-          <Text fx:id="dialog" text="Text" textAlignment="JUSTIFY">
+          <Text fx:id="dialog" text="Text">
                <font>
                   <Font size="14.0" />
                </font></Text>
