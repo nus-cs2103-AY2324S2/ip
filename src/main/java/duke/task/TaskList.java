@@ -55,6 +55,7 @@ public class TaskList implements Iterable<Task> {
      */
     public Task addToDo(String parameters) throws ChatBotParameterException {
         String[] parametersArr = Parser.parseToDo(parameters);
+        assert parameters.length() == 1: "params length for todo must always be 1";
         return this.addToDo(parametersArr[0], false);
     }
 
@@ -82,6 +83,7 @@ public class TaskList implements Iterable<Task> {
      */
     public Task addDeadline(String parameters) throws ChatBotParameterException {
         String[] parametersArr = Parser.parseDeadline(parameters);
+        assert parameters.length() == 2: "params length for deadline must always be 2";
         return this.addDeadline(parametersArr[0], parametersArr[1], false);
 
     }
@@ -94,6 +96,7 @@ public class TaskList implements Iterable<Task> {
      */
     public Task addEvent(String parameters) throws ChatBotParameterException {
         String[] parametersArr = Parser.parseEvent(parameters);
+        assert parameters.length() == 3: "params length for event must always be 3";
         return this.addEvent(parametersArr[0], parametersArr[1], parametersArr[2], false);
     }
 
@@ -146,6 +149,7 @@ public class TaskList implements Iterable<Task> {
         } catch (IndexOutOfBoundsException e) {
             throw new ChatBotParameterException("The task does not exists in the task list.");
         }
+
         return taskToBeMarked;
     }
 
@@ -156,6 +160,7 @@ public class TaskList implements Iterable<Task> {
      * @throws ChatBotParameterException when task number out of bound or attempting to mark an Undone Task.
      */
     public Task markTaskAsUndone(String parameters) throws ChatBotParameterException {
+
         Task taskToBeMarked = getTask(parameters);
 
         if (!taskToBeMarked.isDone()) {
@@ -181,6 +186,7 @@ public class TaskList implements Iterable<Task> {
         } catch (IndexOutOfBoundsException e) {
             throw new ChatBotParameterException("The task does not exists in the task list.");
         }
+        assert taskToBeDeleted != null: "Null value must have been thrown in exception";
 
         return taskToBeDeleted;
     }
@@ -196,6 +202,9 @@ public class TaskList implements Iterable<Task> {
         if (keyword.isEmpty() || keyword.trim().isEmpty()) {
             throw new ChatBotParameterException("Find Keyword cannot be all whitespaces or empty");
         }
+
+        assert keyword.isEmpty() && keyword.contains(" "): "Keyword must have been trimmed";
+
         // Filter using Stream, and match String that only has the exact substring given
         return this.tasks.stream().filter(task -> task.hasKeyword(keyword)).collect(Collectors.toList());
     }
