@@ -1,5 +1,7 @@
 package bob;
 
+import java.util.Objects;
+
 /*
  * This class represents an event that can be recorded in the tasklist.
  */
@@ -42,5 +44,31 @@ class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+    }
+
+    /*
+     * A method to check if two objects are equal.
+     *
+     * @parameter o The object to compare to.
+     * @return A boolean representing whether the two objects are equal.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        if (!super.equals(o)) {
+            return false;
+        }
+
+        Event event = (Event) o;
+
+        return Objects.equals(from, event.from) &&
+                Objects.equals(to, event.to);
     }
 }

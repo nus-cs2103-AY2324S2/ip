@@ -2,6 +2,7 @@ package bob;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 /*
  * This class represents a deadline that can be added to the tasklist.
@@ -34,5 +35,30 @@ class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
+    }
+
+    /*
+     * A method that checks if two deadlines are equal.
+     *
+     * @parameter o The object to compare.
+     * @return A boolean representing whether the objects are equal.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        if (!super.equals(o)) {
+            return false;
+        }
+
+        Deadline deadline = (Deadline) o;
+
+        return Objects.equals(by, deadline.by);
     }
 }

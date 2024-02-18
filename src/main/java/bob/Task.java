@@ -1,5 +1,7 @@
 package bob;
 
+import java.util.Objects;
+
 /*
  * This class represents a task we want to record.
  */
@@ -55,5 +57,26 @@ class Task {
     @Override
     public String toString() {
         return "[" + (isDone ? "X" : " ") + "] " + description;
+    }
+
+    /*
+     * A method to compare the contents of two task objects.
+     *
+     * @parameter o The object to compare to.
+     * @return A boolean representing whether the objects are equal.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Task task = (Task) o;
+
+        return isDone == task.isDone && Objects.equals(description, task.description);
     }
 }

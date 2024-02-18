@@ -17,6 +17,13 @@ public class TaskList implements Iterable<Task> {
     }
 
     /*
+     * A constructor that creates a new task list out of the given array list.
+     */
+    public TaskList(ArrayList<Task> arrayList) {
+        this.tasks = arrayList;
+    }
+
+    /*
      * This method returns the size of the TaskList.
      */
     public int size() {
@@ -57,5 +64,36 @@ public class TaskList implements Iterable<Task> {
     @Override
     public Iterator<Task> iterator() {
         return tasks.iterator();
+    }
+
+    /*
+     * A method to check if the contents of the task lists are equal.
+     *
+     * @parameter o The object that you want to compare.
+     * @return A boolean representing whether the two objects are equal.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof TaskList)) {
+            return false;
+        }
+
+        TaskList other = (TaskList) o;
+
+        if (this.size() != other.size()) {
+            return false;
+        }
+
+        for (int i = 0; i < this.size(); i++) {
+            if (!this.getTask(i).equals(other.getTask(i))) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
