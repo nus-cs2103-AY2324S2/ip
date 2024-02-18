@@ -15,21 +15,19 @@ public class UnmarkTask extends Command {
     }
 
     @Override
-    public void run(TaskList taskList, UI ui) {
+    public String run(TaskList taskList, UI ui) {
         int index;
         try {
             index = IndexParser.getIndex(commandDetails);
         } catch (IndexFormatException e) {
-            ui.errorMessage(e);
-            return;
+            return ui.errorMessage(e);
         }
         try {
             taskList.unmark(index);
         } catch (AaronBotException e) {
-            ui.errorMessage(e);
-            return;
+            return ui.errorMessage(e);
         }
-        ui.unmarkMessage(index, taskList);
+        return ui.unmarkMessage(index, taskList);
     }
 
     @Override

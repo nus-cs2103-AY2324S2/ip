@@ -10,8 +10,8 @@ public class SearchCommand extends Command {
     }
 
     @Override
-    public void run(TaskList taskList, UI ui) {
-        taskList.showKeywordTasklist(commandDetails, ui);
+    public String run(TaskList taskList, UI ui) {
+        return taskList.showKeywordTasklist(commandDetails, ui);
     }
 
     @Override

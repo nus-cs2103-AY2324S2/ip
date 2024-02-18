@@ -21,10 +21,12 @@ public class TaskList {
         tasks = taskList;
     }
 
-    public void showList(UI ui) {
+    public String showList() {
+        String taskListString = "";
         for (int x = 0; x < tasks.size(); x++) {
-            ui.showMessage((x + 1) + ". " + tasks.get(x));
+            taskListString += ((x + 1) + ". " + tasks.get(x));
         }
+        return taskListString;
     }
 
     public void addToList(TaskType taskType, String newTask) throws TaskErrorException {
@@ -122,14 +124,14 @@ public class TaskList {
      * @param userInput user input
      * @param ui        UI to handle user interaction
      */
-    public void showKeywordTasklist(String userInput, UI ui) {
+    public String showKeywordTasklist(String userInput, UI ui) {
         TaskList tempTaskList = new TaskList();
         for (Task task : tasks) {
             if (task.searchWord(userInput)) {
                 tempTaskList.tasks.add(task);
             }
         }
-        tempTaskList.showList(ui);
+        return tempTaskList.showList();
     }
 
 }

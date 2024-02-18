@@ -18,28 +18,25 @@ public class AddTask extends Command {
     }
 
     @Override
-    public void run(TaskList taskList, UI ui) {
+    public String run(TaskList taskList, UI ui) {
         TaskType taskType;
         String taskDetails;
         try {
             taskPresenceCheck(commandDetails);
         } catch (TaskNoNameException e) {
-            ui.errorMessage(e);
-            return;
+            return ui.errorMessage(e);
         }
         try {
             taskType = TaskDetailParser.getTaskType(commandDetails);
             taskDetails = TaskDetailParser.getTaskDetails(commandDetails);
         } catch (InvalidTaskTypeException e) {
-            ui.errorMessage(e);
-            return;
+            return ui.errorMessage(e);
         }
         try {
             taskList.addToList(taskType, taskDetails);
-            ui.taskAddedMessage(taskList);
+            return ui.taskAddedMessage(taskList);
         } catch (TaskErrorException e) {
-            ui.errorMessage(e);
-            return;
+            return ui.errorMessage(e);
         }
     }
 

@@ -1,6 +1,8 @@
 package aaron.parser;
 
+import aaron.command.Command;
 import aaron.command.CommandType;
+import aaron.exception.AaronBotException;
 import aaron.exception.InvalidCommandFormatException;
 import aaron.exception.NonsenseCommandException;
 import aaron.exception.ParsingException;
@@ -18,7 +20,7 @@ public class Parser {
      * @return boolean value representing whether the command was a bye command (end execution cycle)
      * @throws ParsingException if there is an error parsing the user input
      */
-    public static boolean parse(String userInput, TaskList taskList, UI ui) throws ParsingException{
+    public static Command parse(String userInput, TaskList taskList, UI ui) throws ParsingException{
         CommandType commandType;
         String[] TokenizedUserInputs;
         try {
@@ -33,7 +35,12 @@ public class Parser {
         } catch (NonsenseCommandException e) {
             throw new ParsingException("Invalid command type: " + userInput);
         }
-        return Executer.execute(commandType, userInput, taskList, ui);
+        try {
+            return Executer.buildCommand(commandType, userInput, taskList, ui);
+
+        } catch (AaronBotException e) {
+            throw new ParsingException("Could not build command");
+        }
     }
 
     /**
