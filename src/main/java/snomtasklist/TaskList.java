@@ -27,12 +27,12 @@ public class TaskList {
     }
 
     /**
-     * Gets the tasklist at the specified index within the tasklist.
+     * Gets the TaskList at the specified index within the TaskList.
      * If the index is invalid, an exception is thrown.
      * @param pos is the index of the task.
      * @return the task at the specified index.
      * @throws InvalidCommandIndexException if the index is out
-     *         of range of the tasklist.
+     *         of range of the TaskList.
      */
     public Task getTaskAtIndex(int pos) throws InvalidCommandIndexException {
 
@@ -46,11 +46,11 @@ public class TaskList {
     }
 
     /**
-     * Marks the task at the specified index within the tasklist as done.
+     * Marks the task at the specified index within the TaskList as done.
      * If the index is invalid, an exception is thrown.
      * @param pos is the index of the task.
      * @throws InvalidCommandIndexException if the index is out
-     *         of range of the tasklist.
+     *         of range of the TaskList.
      * @return a String representing whether the task is successfully added.
      */
     public String markTaskAtIndex(int pos) throws InvalidCommandException {
@@ -67,11 +67,11 @@ public class TaskList {
 
 
     /**
-     * Unmarks the task at the specified index within the tasklist as undone.
+     * Unmarks the task at the specified index within the TaskList as undone.
      * If the index is invalid, an exception is thrown.
      * @param pos is the index of the task.
      * @throws InvalidCommandIndexException if the index is out
-     *         of range of the tasklist.
+     *         of range of the TaskList.
      * @return a string representing if the task is successfully unmarked.
      */
 
@@ -91,11 +91,11 @@ public class TaskList {
 
 
     /**
-     * deletes the task at the specified index within the tasklist.
+     * deletes the task at the specified index within the TaskList.
      * If the index is invalid, an exception is thrown.
      * @param pos is the index of the task.
      * @throws InvalidCommandIndexException if the index is out
-     *         of range of the tasklist.
+     *         of range of the TaskList.
      * @return a string representing if the task is successfully deleted.
      */
     public String deleteTaskAtIndex(int pos) throws InvalidCommandIndexException {
@@ -115,22 +115,22 @@ public class TaskList {
 
 
     /**
-     * Adds a new task to the tasklist.
+     * Adds a new task to the TaskList.
      * @return a string representing if the task is
-     *           successfully added to the tasklist.
+     *           successfully added to the TaskList.
      */
     public String addTask(Task t) {
         this.counter += 1;
-        assert t != null : "Invald task added";
+        assert t != null : "Invalid task added";
         this.taskList.add(t);
-        return "Succesfully added task";
+        return "Successfully added task";
 
     }
 
     /**
-     * Gets the number of tasks in the tasklist.
+     * Gets the number of tasks in the TaskList.
      * @return an integer representing the number
-     *         of the tasks within the tasklist.
+     *         of the tasks within the TaskList.
      */
     public int getTaskNum() {
         return this.counter;
@@ -138,9 +138,9 @@ public class TaskList {
 
 
     /**
-     * Prints out all the tasks in the tasklist.
+     * Prints out all the tasks in the TaskList.
      * @return a string representing if the task is
-     *         successfully added to the tasklist.
+     *         successfully added to the TaskList.
      */
     public String getTasks() {
         StringBuilder lst = new StringBuilder();
@@ -154,9 +154,9 @@ public class TaskList {
 
     /**
      * Prints out the tasks matching the description within
-     *         the tasklist.
+     *         the TaskList.
      * @param cmd is the command containing the word that
-     *            the user wishes to search for in the tasklist.
+     *            the user wishes to search for in the TaskList.
      */
     public String getMatchingTasks(String cmd) {
         ArrayList<Task> foundTasks = new ArrayList<>();

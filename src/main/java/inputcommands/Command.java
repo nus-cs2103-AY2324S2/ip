@@ -18,7 +18,7 @@ public abstract class Command {
 
     /**
      * Tells the parser what type of command the current instance is.
-     * @return a enum type representing the type of command.
+     * @return an enum type representing the type of command.
      */
     public abstract CmdType getType();
 
@@ -65,6 +65,9 @@ public abstract class Command {
             break;
         case "event":
             cmd = new AddEventCommand(description);
+            break;
+        case "find":
+            cmd = new FindCommand(description);
             break;
         default:
             throw new InvalidCommandException();

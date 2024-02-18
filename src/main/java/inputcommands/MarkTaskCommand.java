@@ -9,7 +9,7 @@ import snomtasklist.TaskList;
 
 /**
  * The MarkTaskCommand implements the command of marking
- * a task in the tasklist as done.
+ * a task in the TaskList as done.
  *
  */
 class MarkTaskCommand extends Command {
@@ -37,7 +37,7 @@ class MarkTaskCommand extends Command {
      *
      * @param lst is the instance of Storage.TaskList.TaskList containing all the tasks.
      * @return a string representing a valid command.
-     * @throws InvalidCommandException if the index is not valid for the tasklist.
+     * @throws InvalidCommandException if the index is not valid for the TaskList.
      */
     @Override
     public String execute(TaskList lst) throws InvalidCommandIndexException {
@@ -48,6 +48,8 @@ class MarkTaskCommand extends Command {
         } catch (InvalidCommandIndexException e) {
             throw new InvalidCommandIndexException();
         } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InvalidCommandIndexException();
+        } catch (NumberFormatException e) {
             throw new InvalidCommandIndexException();
         }
 

@@ -23,8 +23,8 @@ public class Parser {
      * Processes the command, and returns a String output
      *            depending on the user's command.
      * @param command is the command the user enters.
-     * @param lst is the tasklist storing
-     *            the tasks enterd by the user.
+     * @param lst is the TaskList storing
+     *            the tasks entered by the user.
      * @param storage is the file management system
      *                for tasks entered by the user.
      * @return a String value for the resulting output

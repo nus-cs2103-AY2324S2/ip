@@ -15,7 +15,7 @@ import snomtasklist.TaskList;
 
 /**
  * The AddDeadlineCommand implements the command of
- * adding a task of type Deadline into tasklist.
+ * adding a task of type Deadline into TaskList.
  */
 class AddDeadlineCommand extends Command {
 
@@ -27,8 +27,8 @@ class AddDeadlineCommand extends Command {
 
     /**
      * {@inheritDoc}
-     * In this subclass, the command will return enum
-     * of type DEADLINE
+     *         In this subclass, the command will return enum
+     *         of type DEADLINE
      *
      * @return the enum of type DEADLINE
      */
@@ -39,8 +39,8 @@ class AddDeadlineCommand extends Command {
 
     /**
      * {@inheritDoc}
-     * In this subclass, we implement date checks and task description checks
-     * to ensure that the command is valid.
+     *         In this subclass, we implement date checks and task description checks
+     *        to ensure that the command is valid.
      *
      * @param lst is the instance of Storage.TaskList.TaskList containing all the tasks.
      * @return a string representing a valid command.
@@ -57,7 +57,7 @@ class AddDeadlineCommand extends Command {
             if (name.isEmpty()) {
                 throw new InvalidCommandTaskDescException();
             }
-            String deadline = detail.split("/", 2)[1].trim(); //removes the whitspace from start and end of date
+            String deadline = detail.split("/", 2)[1].trim(); //removes the whitespace from start and end of date
             if (deadline.isEmpty()) {
                 throw new InvalidCommandTaskDescException();
             }
@@ -67,7 +67,6 @@ class AddDeadlineCommand extends Command {
 
             return name + "/" + date.toString();
 
-            //you can consider changing commands to return tasks instead;
 
         } catch (ArrayIndexOutOfBoundsException e) {
 
