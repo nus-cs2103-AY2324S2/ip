@@ -128,9 +128,9 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Uh oh! looks like the data in your file is corrupted and cannot be read! "
-                    + "Please verify data in the file to proceed. Proceeding without verification may cause "
-                    + "current data to disappear. \n");
+            System.out.println("Uh oh! looks like the data in your file is corrupted and cannot be read!\n"
+                    + "Please verify data in the file to proceed. Proceeding without verification may cause\n"
+                    + "current data to disappear.\n");
         }
     }
 
