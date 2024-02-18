@@ -5,11 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
-import bmo.task.Task;
 
 public class Storage {
 
-    private static final String FILE_PATH = "./data/task_data.txt";
+    private static final String FILE_PATH = "../../../../../data/task_data.txt";
     private static File dataFile;
 
     public Storage() {
