@@ -68,6 +68,8 @@ public class Parser {
                 return QUIT_STRING;
             case LIST:
                 return taskList.listTasks();
+            case REMIND:
+                return taskList.remind();
             case DELETE:
                 return handleDeleteCommand(input);
             case MARK:
