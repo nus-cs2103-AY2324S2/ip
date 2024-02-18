@@ -4,8 +4,8 @@ package fishstock;
  * Encapsulates the keywords for running respective commands.
  */
 public enum Command {
-    INVALID, BYE, LIST, MARK, UNMARK, DELETE, FIND, UNDO,
-    TODO("T"), DEADLINE("D"), EVENT("E");
+    INVALID, TODO("T"), DEADLINE("D"), EVENT("E"),
+    DELETE, FIND, MARK, UNMARK, UNDO, LIST, BYE;
 
     private String shortened;
 
