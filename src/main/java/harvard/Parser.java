@@ -38,6 +38,7 @@ public class Parser {
      * @throws HarvardException If an error occurs during parsing or task manipulation.
      */
     public String parse(String commandLine) throws HarvardException {
+        assert commandLine instanceof String : "the command should be a string";
         String command = commandLine.split(" ")[0];
 
         if (!command.equals("list") && !command.equals("todo")

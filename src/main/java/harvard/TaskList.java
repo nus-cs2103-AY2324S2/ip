@@ -69,6 +69,8 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task getTask(int index) {
+        assert index >= 0 : "index should be more than -1";
+        assert index < this.taskList.size() : "index should be less than size of task list - 1";
         return this.taskList.get(index);
     }
 
@@ -78,6 +80,7 @@ public class TaskList {
      * @param index The index of the task to be deleted.
      */
     public void delete(int index) {
+        assert index >= 0 : "index should be more than -1";
         taskList.remove(index);
     }
 
@@ -96,6 +99,8 @@ public class TaskList {
      * @param index The index of the task to be marked as done.
      */
     public void mark(int index) {
+        assert index >= 0 : "index should be more than -1";
+        assert index < this.taskList.size() : "index should be less than size of task list - 1";
         this.taskList.get(index).mark();
     }
 
@@ -105,6 +110,8 @@ public class TaskList {
      * @param index The index of the task to be marked as not done.
      */
     public void unmark(int index) {
+        assert index >= 0 : "index should be more than -1";
+        assert index < this.taskList.size() : "index should be less than size of task list - 1";
         this.taskList.get(index).unmark();
     }
 
