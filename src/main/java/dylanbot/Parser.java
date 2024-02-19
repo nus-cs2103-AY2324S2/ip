@@ -19,7 +19,7 @@ public class Parser {
     }
 
     /**
-     * Processes the provided user input and takes the appropriate follow-up actions
+     * Parses the provided user input and processes the command accordingly
      *
      * @param command Provided user input
      * @throws DylanBotException If input provided is of an invalid format
@@ -29,7 +29,7 @@ public class Parser {
         try {
             switch (command) {
                 case "list":
-                    return processListCommand(command);
+                    return processListCommand();
                 case "find":
                     return processFindCommand(command);
                 case "mark":
@@ -52,13 +52,26 @@ public class Parser {
         }
     }
 
-    public String processListCommand(String command) throws DylanBotException {
+    /**
+     * Processes the List Command
+     *
+     * @return Complete list of tasks
+     * @throws DylanBotException If command is invalid
+     */
+    public String processListCommand() throws DylanBotException {
         if (tl.isEmpty()) {
             throw new DylanBotException("No tasks to list right now! Add something first la");
         }
         return ui.displayTasks(tl.getTasks());
     }
 
+    /**
+     * Processes the find command
+     *
+     * @param command The command containing the search term
+     * @return List of tasks containing the search term
+     * @throws DylanBotException If command is invalid
+     */
     public String processFindCommand(String command) throws DylanBotException {
         if (command.split(" ").length < 2) {
             throw new DylanBotException("HEY no search term provided");
@@ -67,6 +80,14 @@ public class Parser {
         return tl.findTerm(term);
     }
 
+    /**
+     * Processes either the mark or unmark commands
+     *
+     * @param command The command to mark or unmark a task
+     * @param toMark Whether to mark or unmark
+     * @return The marked/unmarked task
+     * @throws DylanBotException If command is invalid
+     */
     public String processMarkCommand(String command, boolean toMark) throws DylanBotException {
         if (command.split(" ").length < 2) {
             throw new DylanBotException("HEY no index specified for item to mark");
@@ -78,6 +99,13 @@ public class Parser {
         return toMark ? tl.mark(idx) : tl.unmark(idx);
     }
 
+    /**
+     * Processes the command to create a TodoTask
+     *
+     * @param command The command containing the Task description
+     * @return The created TodoTask
+     * @throws DylanBotException If command is invalid
+     */
     public String processTodoCommand(String command) throws DylanBotException {
         String desc = command.substring(5);
         if (desc.isEmpty()) {
@@ -86,6 +114,13 @@ public class Parser {
         return tl.createTodo(desc);
     }
 
+    /**
+     * Processes the command to create a DeadlineTask
+     *
+     * @param command The command containing the Task description
+     * @return The created DeadlineTask
+     * @throws DylanBotException If command is invalid
+     */
     public String processDeadlineCommand(String command) throws DylanBotException {
         String[] inputArr = command.split("/by");
         String desc = inputArr[0].substring(9).trim();
@@ -99,6 +134,13 @@ public class Parser {
         return tl.createDeadline(desc, deadlineStr);
     }
 
+    /**
+     * Processes the command to create a EventTask
+     *
+     * @param command The command containing the Task description
+     * @return The created EventTask
+     * @throws DylanBotException If command is invalid
+     */
     public String processEventCommand(String command) throws DylanBotException {
         String[] inputArr = command.split("/from|/to");
         String desc = inputArr[0].substring(6).trim();
@@ -116,6 +158,13 @@ public class Parser {
         return tl.createEvent(desc, fromStr, toStr);
     }
 
+    /**
+     * Processes the command to delete a Task
+     *
+     * @param command The command containing the Task to delete
+     * @return The deleted Task
+     * @throws DylanBotException If command is invalid
+     */
     public String processDeleteCommand(String command) throws DylanBotException {
         String[] inputArr = command.split(" ");
         int idx = Integer.parseInt(inputArr[1]);
