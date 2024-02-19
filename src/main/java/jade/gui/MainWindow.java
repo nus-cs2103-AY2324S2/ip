@@ -10,6 +10,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
@@ -39,7 +41,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().addAll(JadeDialogBox.getJadeDialog(Ui.LAUNCH_MESSAGE, jadeImage));
+        dialogContainer.getChildren().addAll(JadeDialogBox.getDialog(Ui.LAUNCH_MESSAGE, jadeImage));
     }
 
     public void setJade(Jade j) {
@@ -54,10 +56,9 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = jade.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                JadeDialogBox.getUserDialog(input, userImage),
-                JadeDialogBox.getJadeDialog(response, jadeImage)
-        );
+        var ud =  UserDialogBox.getDialog(input, userImage);
+        var jd = JadeDialogBox.getDialog(response, jadeImage);
+        dialogContainer.getChildren().addAll(ud, jd);
         actOnExit();
         userInput.clear();
     }

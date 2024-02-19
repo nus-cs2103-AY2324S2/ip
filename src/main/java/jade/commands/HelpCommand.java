@@ -31,7 +31,7 @@ public class HelpCommand extends Command {
             + "   - Adds a new recurring task with a description, date frame, time frame, and frequency.\n"
             + "   - The TaskFreq enumeration has values 'Daily', 'Weekly', 'Monthly.\n"
             + "   - Example: recur discussion /dfrom 2024-01-01 /dto 2024-02-01 "
-            + "/tfrom 02:00 pm /tto 04:00 pm /freq Weekly\n"
+            + "/tfrom 02:00 pm /tto 04:00 pm /freq Weekly\n\n"
             + "7. delete {index}\n"
             + "   - Deletes the task with the specified index from the list.\n"
             + "   - Example: delete 3\n\n"
