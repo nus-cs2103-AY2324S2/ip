@@ -14,7 +14,7 @@ import cvb.exceptions.ConvoBotException;
 public class DateTime {
 
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    private static final DateTimeFormatter DISPLAY_FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy");
+    private static final DateTimeFormatter DISPLAY_FORMATTER = DateTimeFormatter.ofPattern("d MMM yyyy");
 
     /**
      * Converts a {@code LocalDate} object to a formatted string suitable for display.
